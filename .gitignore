@@ -1,0 +1,50 @@
+# ---- 依赖 ----
+node_modules/
+
+# ---- 构建产物 ----
+dist/
+dist-ssr/
+build/
+output/
+.turbo/
+coverage/
+
+# ---- 测试产物 ----
+test-results/
+test-results.json
+playwright-report/
+lighthouseci_report/
+lhci_reports/
+
+# ---- 日志与临时文件 ----
+*.log
+pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+main.dev.err
+
+# ---- 本地环境变量（保留已跟踪的 .env.development / .env.production 等） ----
+.env.local
+.env.*.local
+
+# ---- 编辑器 / IDE ----
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# ---- 操作系统 ----
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ---- 缓存 ----
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+.cache/
+
+# ---- WorkBuddy 本地助手记录（不纳入版本库） ----
+.workbuddy/memory/
