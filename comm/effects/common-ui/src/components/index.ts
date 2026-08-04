@@ -12,6 +12,7 @@ export * from './count-to';
 export * from './ellipsis-text';
 export * from './empty-state';
 export * from './error-boundary';
+export * from './error-feedback';
 export * from './error-state';
 export * from './icon-picker';
 export * from './json-viewer';

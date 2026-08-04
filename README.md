@@ -13,24 +13,7 @@
   <img alt="License" src="https://img.shields.io/badge/License-MIT-green" />
 </p>
 
-<p><em>English introduction below · 以下为中文文档</em></p>
-
 </div>
-
----
-
-**REMI Frontend** is the front-end monorepo of the REMI Project Management
-Information System (PMIS). It is built on a self-developed ESM-native
-micro-frontend runtime (**micro-kernel**) with Vue 3 + Element Plus +
-TypeScript, and organizes each backend micro-service into an independent
-front-end micro-app, enabling **independent development, testing, and
-deployment** for every module.
-
-- **Runtime**: Self-developed ESM-native micro-frontend kernel (not qiankun / wujie), designed for same-team, same-build-chain homogeneous sub-apps.
-- **Scale**: 1 host app (`main-web`) + 8 business sub-apps.
-- **Engineering**: pnpm 10 + Turborepo monorepo, Vite 6, strict lint / type-check / unit / E2E / a11y / perf budgets in one `pnpm check` pipeline.
-
----
 
 # REMI 前端微应用 Monorepo
 
