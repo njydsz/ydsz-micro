@@ -49,7 +49,7 @@ async function viteLicensePlugin(
   * Description: ${description}
   * Date Created: ${date}
   * Homepage: ${homepage}
-  * Contact: remi-pmis-team@remi.com
+  * Contact: remi-team@remi.com
 */
               `.trim();
 

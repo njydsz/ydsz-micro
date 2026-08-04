@@ -40,5 +40,6 @@
   },
   "devDependencies": {
     "unplugin-element-plus": "catalog:"
-  }
+  },
+  "license": "MIT"
 }

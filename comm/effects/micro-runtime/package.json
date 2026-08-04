@@ -33,5 +33,6 @@
     "@remi/constants": "workspace:*",
     "@remi/stores": "workspace:*",
     "vue": "catalog:"
-  }
+  },
+  "license": "MIT"
 }

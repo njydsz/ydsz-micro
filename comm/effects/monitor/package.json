@@ -14,5 +14,6 @@
     "@remi/preferences": "workspace:*",
     "@remi/request": "workspace:*",
     "vue": "catalog:"
-  }
+  },
+  "license": "MIT"
 }

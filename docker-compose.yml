@@ -23,7 +23,7 @@ services:
 
   # ==================== Backend Gateway (9000) ====================
   gateway:
-    image: remi-pmis/gateway:latest
+    image: remi/gateway:latest
     container_name: remi-gateway
     ports:
       - "9000:9000"
@@ -36,7 +36,7 @@ services:
 
   # ==================== System Service (9001) ====================
   system:
-    image: remi-pmis/system:latest
+    image: remi/system:latest
     container_name: remi-system
     ports:
       - "9001:9001"
@@ -49,7 +49,7 @@ services:
 
   # ==================== Userinfo Service (9002) ====================
   userinfo:
-    image: remi-pmis/userinfo:latest
+    image: remi/userinfo:latest
     container_name: remi-userinfo
     ports:
       - "9002:9002"
@@ -62,7 +62,7 @@ services:
 
   # ==================== Nextwiki Service (9003) ====================
   nextwiki:
-    image: remi-pmis/nextwiki:latest
+    image: remi/nextwiki:latest
     container_name: remi-nextwiki
     ports:
       - "9003:9003"
@@ -75,7 +75,7 @@ services:
 
   # ==================== Message Service (9004) ====================
   message:
-    image: remi-pmis/message:latest
+    image: remi/message:latest
     container_name: remi-message
     ports:
       - "9004:9004"
@@ -88,7 +88,7 @@ services:
 
   # ==================== Workflow Service (9005) ====================
   workflow:
-    image: remi-pmis/workflow:latest
+    image: remi/workflow:latest
     container_name: remi-workflow
     ports:
       - "9005:9005"
@@ -101,7 +101,7 @@ services:
 
   # ==================== Cronjob Service (9006) ====================
   cronjob:
-    image: remi-pmis/cronjob:latest
+    image: remi/cronjob:latest
     container_name: remi-cronjob
     ports:
       - "9006:9006"
@@ -114,7 +114,7 @@ services:
 
   # ==================== LiteRule Service (9007) ====================
   literule:
-    image: remi-pmis/literule:latest
+    image: remi/literule:latest
     container_name: remi-literule
     ports:
       - "9007:9007"
@@ -127,7 +127,7 @@ services:
 
   # ==================== Agent Service (9008) ====================
   agent:
-    image: remi-pmis/agent:latest
+    image: remi/agent:latest
     container_name: remi-agent
     ports:
       - "9008:9008"
@@ -140,7 +140,7 @@ services:
 
   # ==================== Project Service (9009) ====================
   project:
-    image: remi-pmis/project:latest
+    image: remi/project:latest
     container_name: remi-project
     ports:
       - "9009:9009"

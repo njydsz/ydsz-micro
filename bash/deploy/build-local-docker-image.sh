@@ -6,7 +6,7 @@ set -e
 # Default tag: latest
 
 TAG=${1:-latest}
-IMAGE_NAME="remi-pmis/frontend"
+IMAGE_NAME="remi/frontend"
 CONTEXT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
 echo "============================================"

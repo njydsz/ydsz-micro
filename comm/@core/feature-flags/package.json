@@ -13,5 +13,6 @@
   "dependencies": {
     "@remi-core/shared": "workspace:*",
     "vue": "catalog:"
-  }
+  },
+  "license": "MIT"
 }

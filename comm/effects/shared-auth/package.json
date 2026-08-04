@@ -25,5 +25,6 @@
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
-  }
+  },
+  "license": "MIT"
 }

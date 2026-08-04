@@ -17,5 +17,6 @@
     "@remi-core/shared": "workspace:*",
     "@remi/micro-runtime": "workspace:*",
     "vue": "catalog:"
-  }
+  },
+  "license": "MIT"
 }
