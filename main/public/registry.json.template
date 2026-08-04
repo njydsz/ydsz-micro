@@ -25,18 +25,6 @@
       "devPort": 5602,
       "entry": "/remi-system-web/",
       "skeletonType": "form"
-    },
-    {
-      "name": "project-web",
-      "packageName": "@remi/project-web",
-      "activeRule": "/remi-proj",
-      "redirect": "/remi-proj/opportunities",
-      "title": "项目管理",
-      "icon": "lucide:folder-kanban",
-      "order": 102,
-      "devPort": 5603,
-      "entry": "/remi-project-web/",
-      "skeletonType": "dashboard"
     }
   ]
 }

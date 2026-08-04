@@ -108,7 +108,7 @@ function recordSubAppTabClosed(appName: string, path: string): boolean {
 
 /**
  * 根据路径前缀提取子应用名。
- * @example getAppFromPath('/remi-proj/execution/list') → 'project-web'
+ * @example getAppFromPath('/remi-proj/execution/list') → 'workflow-web'
  */
 export { getAppFromPath };
 

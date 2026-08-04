@@ -28,7 +28,6 @@
       "@remi/plugins/*": ["comm/effects/plugins/src/*"],
       "@remi/preferences": ["comm/preferences/src/index.ts"],
       "@remi/preferences/*": ["comm/preferences/src/*"],
-      "@remi/project-web/*": ["apps/project-web/src/*"],
       "@remi/request": ["comm/effects/request/src/index.ts"],
       "@remi/request/*": ["comm/effects/request/src/*"],
       "@remi/shared-auth": ["comm/effects/shared-auth/src/index.ts"],

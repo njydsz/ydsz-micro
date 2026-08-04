@@ -30,7 +30,7 @@ export type SandboxType = 'snapshot' | 'proxy' | 'iframe';
 
 /** 子应用注册配置（对齐现有 main/src/qiankun/index.ts microApps） */
 export interface MicroAppConfig {
-  /** 应用唯一标识（如 'project-web'） */
+  /** 应用唯一标识（如 'workflow-web'） */
   name: string;
   /** 入口 URL — prod 为子路径，dev 为 localhost 端口 */
   entry: string;
@@ -188,9 +188,9 @@ export interface RegistryAdapter {
 
 /** 子应用注册表条目（字段复用 MicroAppEntry，作为运行时契约导出） */
 export interface MicroAppEntry {
-  /** 子应用唯一标识（如 'project-web'） */
+  /** 子应用唯一标识（如 'workflow-web'） */
   name: string;
-  /** Monorepo 内包名（如 @remi/project-web） */
+  /** Monorepo 内包名（如 @remi/workflow-web） */
   packageName: string;
   /** 路由前缀（如 '/remi-proj'），也作为 activeRule */
   activeRule: string;

@@ -2,7 +2,7 @@
  * ESM Manifest 加载器
  *
  * 约定：子应用由统一 vite-config 构建，输出 manifest.json：
- *   { "name": "project-web", "entry": "...", "css": [...], "version": "..." }
+ *   { "name": "workflow-web", "entry": "...", "css": [...], "version": "..." }
  *
  * 加载流程：
  *   build 模式：fetch manifest → 注入 CSS → dynamic import ESM entry → 断言生命周期。

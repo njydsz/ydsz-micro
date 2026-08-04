@@ -199,7 +199,7 @@ function finishRuntimeSetup() {
   // 6. 启动：micro-kernel 内建 prefetch 预热高频应用
   const prefetchApps = import.meta.env.VITE_PREFETCH_APPS
     ? import.meta.env.VITE_PREFETCH_APPS.split(',').map((s) => s.trim())
-    : ['userinfo-web', 'project-web'];
+    : ['userinfo-web'];
 
   microRuntime.start({
     prefetch: (app) => prefetchApps.includes(app.name),

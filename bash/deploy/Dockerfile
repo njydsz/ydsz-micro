@@ -45,7 +45,6 @@ COPY --from=builder /app/main/dist /usr/share/nginx/html/main
 # Copy all sub-apps
 COPY --from=builder /app/apps/userinfo-web/dist /usr/share/nginx/html/remi-userinfo-web
 COPY --from=builder /app/apps/system-web/dist /usr/share/nginx/html/remi-system-web
-COPY --from=builder /app/apps/project-web/dist /usr/share/nginx/html/remi-project-web
 COPY --from=builder /app/apps/message-web/dist /usr/share/nginx/html/remi-message-web
 COPY --from=builder /app/apps/cronjob-web/dist /usr/share/nginx/html/remi-cronjob-web
 COPY --from=builder /app/apps/workflow-web/dist /usr/share/nginx/html/remi-workflow-web

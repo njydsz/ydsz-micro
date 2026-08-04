@@ -10,7 +10,7 @@
  * 缓存命名：v4:subapp-{appName}-{version} —— 版本切换时自动清理旧缓存
  *
  * 使用方式：在子应用 vite.config.ts 中：
- *   plugins: [swPlugin({ appName: 'project-web' })]
+ *   plugins: [swPlugin({ appName: 'workflow-web' })]
  *
  * @path conf/vite-config/src/plugin-sw.ts
  * @since 4.0.0

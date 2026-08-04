@@ -6,7 +6,7 @@
  *
  * 使用方式:
  *   pnpm gen:api              # 生成全部 SDK
- *   pnpm gen:api project      # 仅生成 project-web 的 SDK
+ *   pnpm gen:api workflow     # 仅生成 workflow-web 的 SDK
  *   pnpm gen:api --check      # CI 模式：仅检查（有漂移则失败）
  *
  * CI 集成（已在 pnpm gen:api --check 中处理）:
@@ -40,7 +40,6 @@ const ROOT = join(__dirname, '..');
 const SERVICE_MAP = {
   userinfo: { spec: 'http://localhost:9002/v3/api-docs', output: 'apps/userinfo-web/src/api/sdk' },
   system:   { spec: 'http://localhost:9001/v3/api-docs', output: 'apps/system-web/src/api/sdk' },
-  project:  { spec: 'http://localhost:9009/v3/api-docs', output: 'apps/project-web/src/api/sdk' },
   message:  { spec: 'http://localhost:9004/v3/api-docs', output: 'apps/message-web/src/api/sdk' },
   cronjob:  { spec: 'http://localhost:9006/v3/api-docs', output: 'apps/cronjob-web/src/api/sdk' },
   workflow: { spec: 'http://localhost:9005/v3/api-docs', output: 'apps/workflow-web/src/api/sdk' },

@@ -15,7 +15,7 @@
 import type { AcceptedPlugin, Rule, AtRule, ChildNode } from 'postcss';
 
 export interface MicroCssScopeOptions {
-  /** 子应用名称（如 'project-web'），作为 data-micro-app 属性值 */
+  /** 子应用名称（如 'workflow-web'），作为 data-micro-app 属性值 */
   appName: string;
 }
 
@@ -23,7 +23,7 @@ export interface MicroCssScopeOptions {
  * 创建子应用 CSS 作用域 PostCSS 插件。
  *
  * 原理：遍历 AST 中的所有规则，为每个选择器前追加属性选择器。
- * 示例：`.btn { color: red; }` → `[data-micro-app="project-web"] .btn { color: red; }`
+ * 示例：`.btn { color: red; }` → `[data-micro-app="workflow-web"] .btn { color: red; }`
  *
  * @param options - 插件选项（应用名）
  * @returns PostCSS 插件实例

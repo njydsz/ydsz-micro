@@ -9,7 +9,7 @@
  *
  * 用法：
  *   const cm = getCanaryManager();
- *   const version = cm.resolveVersion('project-web', userId);
+ *   const version = cm.resolveVersion('workflow-web', userId);
  *   // → { version: 'v4.0.0', tag: 'canary', percentage: 10, entry: '...' }
  *
  * @path comm/effects/micro-kernel/src/canary-manager.ts

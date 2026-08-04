@@ -380,7 +380,7 @@ Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint �
 - [ ] 接入 CI/CD 流水线（当前 Lefthook / Playwright / Lighthouse 已就绪，CI 触发分支待落地）
 - [ ] 补齐 Changesets 发布配置（`@changesets/cli` 已引入，`.changeset/` 目录待初始化）
 - [ ] 补全 ADR-001 / ADR-002 决策记录
-- [ ] 移除 `project-web` 相关残留引用（package.json 脚本 / 部署配置 / e2e 用例）
+- [x] 移除 `project-web` 相关残留引用（package.json 脚本 / 部署配置 / e2e 用例）
 
 ## 开源许可
 

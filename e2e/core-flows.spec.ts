@@ -82,13 +82,6 @@ test.describe('核心链路：页面导航', () => {
     await expect(page).toHaveURL(/login|auth/, { timeout: 10000 });
   });
 
-  test('应能导航到项目管理页面', async ({ page }) => {
-    const menuLink = page.locator('a:has-text("项目"), a:has-text("工程"), [data-test="menu-project"]').first();
-    await expect(menuLink).toBeVisible({ timeout: 15000 });
-    await menuLink.click();
-    await expect(page).toHaveURL(/project/, { timeout: 10000 });
-  });
-
   test('应能导航到消息中心', async ({ page }) => {
     const menuLink = page.locator('a:has-text("消息"), a:has-text("通知"), [data-test="menu-message"]').first();
     await expect(menuLink).toBeVisible({ timeout: 15000 });

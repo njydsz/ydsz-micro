@@ -35,7 +35,6 @@ const APP_LIMITS = {
   main: 900,
   'userinfo-web': 500,
   'system-web': 500,
-  'project-web': 700,
   'message-web': 400,
   'cronjob-web': 400,
   'workflow-web': 500,

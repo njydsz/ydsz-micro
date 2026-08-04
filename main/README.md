@@ -107,7 +107,7 @@ pnpm build:main
 | 模块文件 | 路径前缀 | 说明 |
 |---|---|---|
 | `dashboard.ts` | `/dashboard` | 数据分析、工作台 |
-| `subapps.ts` | `/remi-user` `/remi-sys` `/remi-proj` 等 | 9 个子应用 catch-all 激活路由 |
+| `subapps.ts` | `/remi-user` `/remi-sys` 等 | 8 个子应用 catch-all 激活路由 |
 | `demos.ts` | `/demos` | 演示页面 |
 
 子应用激活规则（路径前缀匹配 → 挂载对应子应用）：
@@ -116,7 +116,6 @@ pnpm build:main
 |---|---|---|
 | `/remi-user/*` | userinfo-web | /remi-user/users |
 | `/remi-sys/*` | system-web | /remi-sys/configs |
-| `/remi-proj/*` | project-web | /remi-proj/opportunities |
 | `/remi-msg/*` | message-web | /remi-msg/messages |
 | `/remi-cron/*` | cronjob-web | /remi-cron/jobs |
 | `/remi-flow/*` | workflow-web | /remi-flow/templates |

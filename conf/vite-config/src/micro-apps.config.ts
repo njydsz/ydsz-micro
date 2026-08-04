@@ -31,9 +31,9 @@ export type MicroAppSkeletonType =
 
 /** 单个微应用的完整注册信息 */
 export interface MicroAppEntry {
-  /** 子应用唯一标识（如 'project-web'），与 pnpm workspace 包名后缀一致 */
+  /** 子应用唯一标识（如 'workflow-web'），与 pnpm workspace 包名后缀一致 */
   name: string;
-  /** Monorepo 内包名（如 @remi/project-web） */
+  /** Monorepo 内包名（如 @remi/workflow-web） */
   packageName: string;
   /** 路由前缀（如 '/remi-proj'），也作为 qiankun activeRule */
   activeRule: string;
@@ -98,17 +98,6 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
     order: 101,
     devPort: 5602,
     skeletonType: 'form',
-  },
-  {
-    name: 'project-web',
-    packageName: '@remi/project-web',
-    activeRule: '/remi-proj',
-    redirect: '/remi-proj/opportunities',
-    title: '项目管理',
-    icon: 'lucide:folder-kanban',
-    order: 102,
-    devPort: 5603,
-    skeletonType: 'dashboard',
   },
   {
     name: 'message-web',

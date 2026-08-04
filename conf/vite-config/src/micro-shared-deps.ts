@@ -17,7 +17,7 @@
  * 子应用通过 package.json `remi.shareStrategy` 字段选择策略：
  * ```json
  * {
- *   "name": "@remi/project-web",
+ *   "name": "@remi/workflow-web",
  *   "remi": { "shareStrategy": "core-ui" }
  * }
  * ```

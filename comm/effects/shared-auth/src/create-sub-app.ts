@@ -30,7 +30,7 @@ import type { StandardMicroProps } from '@remi/micro-runtime/standard-props';
 
 /** 子应用启动配置 */
 export interface SubAppConfig {
-  /** 应用唯一标识（如 'project-web'，与微应用注册名一致） */
+  /** 应用唯一标识（如 'workflow-web'，与微应用注册名一致） */
   appName: string;
   /** 路由 basename（如 '/remi-proj'） */
   basename: string;

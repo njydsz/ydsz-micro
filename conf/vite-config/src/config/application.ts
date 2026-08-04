@@ -171,7 +171,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
  *   与 micro-kernel 的容器属性约定联动，实现构建期样式隔离
  *
  * @param injectGlobalScss - 是否注入全局 SCSS，默认 true
- * @param appName - 子应用名（如 'project-web'），build 模式下用于 CSS 作用域
+ * @param appName - 子应用名（如 'workflow-web'），build 模式下用于 CSS 作用域
  * @returns Vite CSS 配置对象
  */
 function createCssOptions(injectGlobalScss = true, appName?: string): CSSOptions {

@@ -8,7 +8,7 @@
  *    export default defineApplicationConfig(() => ({
  *      application: {
  *        // 在现有 options 中加一条
- *        manifest: { name: 'project-web', version: '2.3.1' }
+ *        manifest: { name: 'workflow-web', version: '2.3.1' }
  *      }
  *    }));
  *

@@ -45,8 +45,8 @@ let collectTimer: ReturnType<typeof setTimeout> | null = null;
  *
  * @example
  * onMounted(() => {
- *   registerSearchProvider('project-web', () => [
- *     { id: 'proj-list', title: '项目列表', appName: 'project-web', path: '/remi-proj/opportunities' },
+ *   registerSearchProvider('workflow-web', () => [
+ *     { id: 'proj-list', title: '项目列表', appName: 'workflow-web', path: '/remi-proj/opportunities' },
  *   ]);
  * });
  */
@@ -109,7 +109,7 @@ export function useGlobalSearch() {
  *
  * @example
  * import { useSearchProvider } from '@remi/micro-runtime/search';
- * useSearchProvider('project-web', [
+ * useSearchProvider('workflow-web', [
  *   { id: 'list', title: '项目列表', path: '/proj/list' },
  *   { id: 'new',  title: '新建项目',  path: '/proj/new' },
  * ]);
