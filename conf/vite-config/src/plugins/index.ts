@@ -250,7 +250,7 @@ async function loadApplicationPlugins(
           },
           ...pwaOptions,
           manifest: {
-            name: 'REMI PMIS',
+            name: 'REMI',
             short_name: 'REMI',
             description: 'REMI 项目管理系统',
             display: 'standalone',

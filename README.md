@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>REMI PMIS Frontend</h1>
+  <h1>REMI Frontend</h1>
   <p>REMI 项目管理信息系统 — 前端微应用架构</p>
 </div>
 

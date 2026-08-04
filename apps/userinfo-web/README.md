@@ -1,6 +1,6 @@
 # userinfo-web 用户中心
 
-> REMI PMIS 用户中心子应用，提供用户、角色、菜单、部门、公司、岗位与语言管理（对应后端：remi-userinfo，路由前缀：/remi-user）
+> REMI 用户中心子应用，提供用户、角色、菜单、部门、公司、岗位与语言管理（对应后端：remi-userinfo，路由前缀：/remi-user）
 
 ## 应用定位
 

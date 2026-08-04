@@ -1,6 +1,6 @@
 # nextwiki-web 网盘知识库
 
-> REMI PMIS 网盘知识库子应用，提供文件管理、分享管理、标签管理、配额管理与评论管理（对应后端：remi-nextwiki，路由前缀：/remi-wiki）
+> REMI 网盘知识库子应用，提供文件管理、分享管理、标签管理、配额管理与评论管理（对应后端：remi-nextwiki，路由前缀：/remi-wiki）
 
 ## 应用定位
 

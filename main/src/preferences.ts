@@ -8,7 +8,7 @@
 import { defineOverridesPreferences } from '@remi/preferences';
 
 /**
- * PMIS 主应用偏好设置
+ * 主应用偏好设置
  * 只需要覆盖项目中的一部分配置，不需要的配置不用覆盖，会自动使用默认配置
  * !!! 更改配置后请清空缓存，否则可能不生效
  */

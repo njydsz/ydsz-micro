@@ -1,6 +1,6 @@
 # cronjob-web 定时任务
 
-> REMI PMIS 定时任务子应用，提供任务管理、任务分组、DAG 管理、执行日志、告警管理与连接器配置（对应后端：remi-cronjob，路由前缀：/remi-cron）
+> REMI 定时任务子应用，提供任务管理、任务分组、DAG 管理、执行日志、告警管理与连接器配置（对应后端：remi-cronjob，路由前缀：/remi-cron）
 
 ## 应用定位
 

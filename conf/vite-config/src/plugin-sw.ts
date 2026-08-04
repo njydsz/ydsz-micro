@@ -110,7 +110,7 @@ export function swPlugin(options: SWPluginOptions): Plugin[] {
       },
       // manifest（子应用自己的 Web App Manifest，不影响主应用）
       manifest: {
-        name: `REMI PMIS - ${appName}`,
+        name: `REMI - ${appName}`,
         short_name: appName,
         start_url: '.',
         scope: scope ?? '/',

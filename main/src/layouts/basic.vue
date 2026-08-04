@@ -115,7 +115,7 @@ onUnmounted(() => {
       <UserDropdown
         :avatar
         :text="userStore.userInfo?.realName"
-        description="remi-pmis-team@remi.com"
+        description="remi-team@remi.com"
         tag-text="Pro"
         @logout="handleLogout"
       />

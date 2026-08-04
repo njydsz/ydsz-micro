@@ -1,6 +1,6 @@
 # literule-web 规则引擎
 
-> REMI PMIS 规则引擎子应用，提供规则管理、DSL 管理、变量管理、CEP 复杂事件、断点调试与审计日志（对应后端：remi-literule，路由前缀：/remi-rule）
+> REMI 规则引擎子应用，提供规则管理、DSL 管理、变量管理、CEP 复杂事件、断点调试与审计日志（对应后端：remi-literule，路由前缀：/remi-rule）
 
 ## 应用定位
 

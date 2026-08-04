@@ -24,7 +24,7 @@ export default defineConfig(async () => {
           globPatterns: ['**/*.{html,js,css}'],
         },
         manifest: {
-          name: 'REMI PMIS',
+          name: 'REMI',
           short_name: 'REMI',
           description: 'REMI 项目管理系统',
           theme_color: '#409eff',

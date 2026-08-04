@@ -2,7 +2,7 @@
   "name": "@remi/main-web",
   "version": "1.0.0",
   "homepage": "https://remi.com",
-  "bugs": "https://github.com/remi/remi-pmis/issues",
+  "bugs": "https://github.com/remi/remi/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/remi/vue-remi-admin.git",
@@ -10,8 +10,8 @@
   },
   "license": "MIT",
   "author": {
-    "name": "REMI PMIS Team",
-    "email": "remi-pmis-team@remi.com",
+    "name": "REMI Team",
+    "email": "remi-team@remi.com",
     "url": "https://github.com/remi"
   },
   "type": "module",

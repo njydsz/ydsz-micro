@@ -6,13 +6,13 @@
     "monorepo",
     "turbo",
     "remi",
-    "remi pmis",
+    "remi",
     "vue",
     "vue3",
     "element-plus",
     "micro-frontend"
   ],
-  "description": "REMI PMIS 前端微应用 Monorepo — 基于 micro-kernel + Vue 3 + Element Plus",
+  "description": "REMI 前端微应用 Monorepo — 基于 micro-kernel + Vue 3 + Element Plus",
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",

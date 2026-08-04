@@ -1,6 +1,6 @@
 # system-web 系统管理
 
-> REMI PMIS 系统管理子应用，提供系统配置、字典管理、变量管理与应用注册（对应后端：remi-system，路由前缀：/remi-sys）
+> REMI 系统管理子应用，提供系统配置、字典管理、变量管理与应用注册（对应后端：remi-system，路由前缀：/remi-sys）
 
 ## 应用定位
 

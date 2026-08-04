@@ -1,6 +1,6 @@
 # workflow-web 工作流引擎
 
-> REMI PMIS 工作流引擎子应用，提供流程模板、流程实例、审批任务、委托授权与快捷意见管理（对应后端：remi-workflow，路由前缀：/remi-flow）
+> REMI 工作流引擎子应用，提供流程模板、流程实例、审批任务、委托授权与快捷意见管理（对应后端：remi-workflow，路由前缀：/remi-flow）
 
 ## 应用定位
 

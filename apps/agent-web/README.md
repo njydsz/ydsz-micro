@@ -1,6 +1,6 @@
 # agent-web AI 助手
 
-> REMI PMIS AI 助手子应用，提供 Agent 管理、审批配置、DAG 编排、流程定义与 RAG 知识库管理（对应后端：remi-agent，路由前缀：/remi-ai）
+> REMI AI 助手子应用，提供 Agent 管理、审批配置、DAG 编排、流程定义与 RAG 知识库管理（对应后端：remi-agent，路由前缀：/remi-ai）
 
 ## 应用定位
 
