@@ -7,6 +7,7 @@
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
+    "dev:standalone": "cross-env VITE_STANDALONE=true vite --mode development --port 5701 --open /",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },

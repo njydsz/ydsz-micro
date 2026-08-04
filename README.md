@@ -1,8 +1,9 @@
-<div align="center">
-
-<h1>REMI Frontend</h1>
-
-<p>REMI 瑞米快速开发平台 — 前端微应用架构 · Vue 3 · TypeScript · Micro-frontend</p>
+<p align="center">
+  <h1 align="center">Remi Micro</h1>
+  <p align="center">
+    基于 Vue 3 · TypeScript · Micro-kernel 的企业级微应用开发平台
+  </p>
+</p>
 
 <p>
   <img alt="Vue 3" src="https://img.shields.io/badge/Vue-3-42b883" />
@@ -13,7 +14,7 @@
   <img alt="License" src="https://img.shields.io/badge/License-MIT-green" />
 </p>
 
-</div>
+---
 
 # REMI 前端微应用 Monorepo
 
