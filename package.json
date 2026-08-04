@@ -32,6 +32,8 @@
     "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm run check:contract && pnpm run test:contract && pnpm check:cspell",
     "check:circular": "vsh check-circular --fail",
     "check:contract": "node ./bash/gen-api.mjs --check",
+    "check:i18n": "node ./bash/check-i18n-coverage.mjs",
+    "check:i18n:verbose": "node ./bash/check-i18n-coverage.mjs --verbose",
     "check:cspell": "cspell lint **/*.ts **/README.md --no-progress",
     "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",

@@ -5,7 +5,7 @@
   </p>
 </p>
 
-<p>
+<p align="center">
   <img alt="Vue 3" src="https://img.shields.io/badge/Vue-3-42b883" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.x-3178c6" />
   <img alt="Vite" src="https://img.shields.io/badge/Vite-6-646cff" />
