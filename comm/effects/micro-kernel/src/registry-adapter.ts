@@ -12,13 +12,13 @@
  * }
  *
  * @path comm/effects/micro-kernel/src/registry-adapter.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.7.0
  */
 
-import type { MicroAppEntry } from '@ydsz/vite-config';
-import { MICRO_APPS, getProdEntry } from '@ydsz/vite-config';
-import { createLogger } from '@ydsz-core/shared/utils';
+import type { MicroAppEntry } from '@remi/vite-config';
+import { MICRO_APPS, getProdEntry } from '@remi/vite-config';
+import { createLogger } from '@remi-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');
@@ -27,7 +27,7 @@ const logger = createLogger('MicroKernel');
 const REGISTRY_FETCH_TIMEOUT = 5_000;
 
 /** 注册表版本缓存 key */
-const REGISTRY_CACHE_KEY = 'ydsz_micro_apps_registry';
+const REGISTRY_CACHE_KEY = 'remi_micro_apps_registry';
 
 /** 注册表缓存有效期（ms），默认 10 分钟 */
 const REGISTRY_CACHE_TTL = 10 * 60 * 1_000;

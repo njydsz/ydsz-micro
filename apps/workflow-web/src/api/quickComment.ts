@@ -4,7 +4,7 @@
  * <p>支持预设常用审批意见，按分类管理。
  * <p>供「工作流 → 审批面板」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

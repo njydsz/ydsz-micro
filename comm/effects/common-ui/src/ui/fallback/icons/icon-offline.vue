@@ -2,7 +2,7 @@
  * icon-offline Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\fallback\icons\icon-offline.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <template>

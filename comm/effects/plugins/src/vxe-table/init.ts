@@ -2,16 +2,16 @@
  * init 模块
  *
  * @path comm\effects\plugins\src\vxe-table\init.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { SetupVxeTable } from './types';
 
 import { defineComponent, watch } from 'vue';
 
-import { usePreferences } from '@ydsz/preferences';
+import { usePreferences } from '@remi/preferences';
 
-import { useYDSZForm } from '@ydsz-core/form-ui';
+import { useREMIForm } from '@remi-core/form-ui';
 
 import {
   VxeButton,
@@ -61,12 +61,12 @@ let isInit = false;
  * 延迟绑定的表格表单 API（模块加载后由 init 赋值）。
  *
  * @remarks
- * 由于 `useYDSZForm` 依赖运行时注册的 vxe-table 组件，此处先声明可变的
+ * 由于 `useREMIForm` 依赖运行时注册的 vxe-table 组件，此处先声明可变的
  * 导出占位，待 {@link initVxeTable} 完成组件注册后再赋值为真正的实现，
  * 供业务侧统一从本模块导入，避免时序问题。
  */
 // eslint-disable-next-line import/no-mutable-exports
-export let useTableForm: typeof useYDSZForm;
+export let useTableForm: typeof useREMIForm;
 
 // 部分组件，如果没注册，vxe-table 会报错，这里实际没用组件，只是为了不报错，同时可以减少打包体积
 const createVirtualComponent = (name = '') => {
@@ -145,11 +145,11 @@ export function initVxeTable() {
  *
  * @param setupOptions - 应用层注入的适配参数，见 {@link SetupVxeTable}
  */
-export function setupYDSZVxeTable(setupOptions: SetupVxeTable) {
-  const { configVxeTable, useYDSZForm } = setupOptions;
+export function setupREMIVxeTable(setupOptions: SetupVxeTable) {
+  const { configVxeTable, useREMIForm } = setupOptions;
 
   initVxeTable();
-  useTableForm = useYDSZForm;
+  useTableForm = useREMIForm;
 
   const { isDark, locale } = usePreferences();
 

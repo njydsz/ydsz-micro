@@ -2,16 +2,16 @@
  * qrcode-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\qrcode-login.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { REMIButton } from '@remi-core/shadcn-ui';
 
 import { useQRCode } from '@vueuse/integrations/useQRCode';
 
@@ -59,7 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const router = useRouter();
 
-const text = ref('https://ydsz.vvbin.cn');
+const text = ref('https://remi.vvbin.cn');
 
 const qrcode = useQRCode(text, {
   errorCorrectionLevel: 'H',
@@ -95,8 +95,8 @@ function goToLogin() {
       </p>
     </div>
 
-    <YDSZButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
+    <REMIButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
       {{ $t('common.back') }}
-    </YDSZButton>
+    </REMIButton>
   </div>
 </template>

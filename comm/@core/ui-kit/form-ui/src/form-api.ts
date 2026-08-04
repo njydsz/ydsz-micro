@@ -2,7 +2,7 @@
  * form-api 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-api.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
@@ -12,15 +12,15 @@ import type {
   ValidationOptions,
 } from 'vee-validate';
 
-import type { Recordable } from '@ydsz-core/typings';
+import type { Recordable } from '@remi-core/typings';
 
 import type { Ref } from 'vue';
 
-import type { FormActions, FormSchema, YDSZFormProps } from './types';
+import type { FormActions, FormSchema, REMIFormProps } from './types';
 
 import { toRaw } from 'vue';
 
-import { Store } from '@ydsz-core/shared/store';
+import { Store } from '@remi-core/shared/store';
 import {
   bindMethods,
   createMerge,
@@ -30,12 +30,12 @@ import {
   isObject,
   mergeWithArrayOverride,
   StateHandler,
-} from '@ydsz-core/shared/utils';
+} from '@remi-core/shared/utils';
 
 import { FormScrollHelper } from './form-scroll-helper';
 import { FormValueTransformer } from './form-value-transformer';
 
-function getDefaultState(): YDSZFormProps {
+function getDefaultState(): REMIFormProps {
   return {
     actionWrapperClass: '',
     collapsed: false,
@@ -95,7 +95,7 @@ function getDefaultState(): YDSZFormProps {
  *
  * @example
  * ```ts
- * const [Form, formApi] = useYDSZForm({ schema });
+ * const [Form, formApi] = useREMIForm({ schema });
  * const values = await formApi.getValues();
  * await formApi.validateAndSubmitForm();
  * ```
@@ -105,35 +105,35 @@ function getDefaultState(): YDSZFormProps {
  * 表单 API 实例。
  *
  * @remarks
- * 由 {@link useYDSZForm} 创建并随表单实例返回，提供命令式操作表单的能力：
+ * 由 {@link useREMIForm} 创建并随表单实例返回，提供命令式操作表单的能力：
  * 获取/设置表单值、触发校验、提交、合并多表单等。
- * 所有方法均为异步 Promise 风格，校验失败不抛异常（详见 useYDSZForm 文档第 5 点）。
+ * 所有方法均为异步 Promise 风格，校验失败不抛异常（详见 useREMIForm 文档第 5 点）。
  */
 export class FormApi {
   public form = {} as FormActions;
   isMounted = false;
 
-  public state: null | YDSZFormProps = null;
+  public state: null | REMIFormProps = null;
   stateHandler: StateHandler;
 
-  public store: Store<YDSZFormProps>;
+  public store: Store<REMIFormProps>;
 
   private componentRefMap: Map<string, unknown> = new Map();
 
   private latestSubmissionValues: null | Recordable<any> = null;
 
-  private prevState: null | YDSZFormProps = null;
+  private prevState: null | REMIFormProps = null;
 
   private scrollHelper: FormScrollHelper;
 
   private valueTransformer: FormValueTransformer;
 
-  constructor(options: YDSZFormProps = {}) {
+  constructor(options: REMIFormProps = {}) {
     const { ...storeState } = options;
 
     const defaultState = getDefaultState();
 
-    this.store = new Store<YDSZFormProps>(
+    this.store = new Store<REMIFormProps>(
       {
         ...defaultState,
         ...storeState,
@@ -294,8 +294,8 @@ export class FormApi {
 
   setState(
     stateOrFn:
-      | ((prev: YDSZFormProps) => Partial<YDSZFormProps>)
-      | Partial<YDSZFormProps>,
+      | ((prev: REMIFormProps) => Partial<REMIFormProps>)
+      | Partial<REMIFormProps>,
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState((prev) => {
@@ -439,7 +439,7 @@ export class FormApi {
       await this.stateHandler.waitForCondition();
     }
     if (!this.form?.meta) {
-      throw new Error('<YDSZForm /> is not mounted');
+      throw new Error('<REMIForm /> is not mounted');
     }
     return this.form;
   }

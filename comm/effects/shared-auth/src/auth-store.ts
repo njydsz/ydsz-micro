@@ -8,14 +8,14 @@
  * - 仍读取 userInfo 和 accessCodes（非敏感数据，正常通过响应体返回）
  * - 登出时调用 logoutApi 让后端清除 Cookie，前端仅清理本地 UI 状态
  */
-import type { Recordable, UserInfo } from '@ydsz/types';
+import type { Recordable, UserInfo } from '@remi/types';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { LOGIN_PATH } from '@ydsz/constants';
-import { preferences } from '@ydsz/preferences';
-import { resetAllStores, useAccessStore, useTokenStore, useUserStore } from '@ydsz/stores';
+import { LOGIN_PATH } from '@remi/constants';
+import { preferences } from '@remi/preferences';
+import { resetAllStores, useAccessStore, useTokenStore, useUserStore } from '@remi/stores';
 
 import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';
@@ -36,7 +36,7 @@ const isHttpOnlyCookieMode: boolean =
  *
  * 子应用使用方式：
  * ```ts
- * import { createSharedAuthStore } from '@ydsz/shared-auth';
+ * import { createSharedAuthStore } from '@remi/shared-auth';
  * export const useAuthStore = createSharedAuthStore();
  * ```
  *

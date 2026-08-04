@@ -2,21 +2,21 @@
  * 流程实例（列表页）
  *
  * @path apps\workflow-web\src\views\instance\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 流程实例（列表页）
- * <p>流程实例（{@code ydsz_flow_instance}）的列表页。
+ * <p>流程实例（{@code remi_flow_instance}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteInstanceApi, getInstancePageApi, type InstanceApi } from '#/api/instance';
 import InstanceForm from './instance-form.vue';
 defineOptions({ name: 'InstanceManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<InstanceApi.InstanceVO> = {
       { field: 'status', title: 'status', itemRender: { name: 'Input', props: { placeholder: 'status' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [InstanceFormModal, instanceFormApi] = useVbenModal({ connectedComponent: InstanceForm });
 function handleAdd() { instanceFormApi.open(); }
 function handleEdit(row: InstanceApi.InstanceVO) { instanceFormApi.setData({ record: row }); instanceFormApi.open(); }

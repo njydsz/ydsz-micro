@@ -10,7 +10,7 @@
   },
   "framework": "vite",
   "aliases": {
-    "components": "@ydsz-core/shadcn-ui/components",
-    "utils": "@ydsz-core/shared/utils"
+    "components": "@remi-core/shadcn-ui/components",
+    "utils": "@remi-core/shared/utils"
   }
 }

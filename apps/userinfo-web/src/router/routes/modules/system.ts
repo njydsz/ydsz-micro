@@ -2,7 +2,7 @@
  * 系统管理路由模块 — 定义组织架构相关路由（部门、岗位、公司、菜单、角色、用户、国际化）
  *
  * @path apps\userinfo-web\src\router\routes\modules\system.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';

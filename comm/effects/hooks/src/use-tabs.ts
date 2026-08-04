@@ -2,7 +2,7 @@
  * use-tabs 组合式函数
  *
  * @path comm\effects\hooks\src\use-tabs.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { ComputedRef } from 'vue';
@@ -10,7 +10,7 @@ import type { RouteLocationNormalized } from 'vue-router';
 
 import { useRoute, useRouter } from 'vue-router';
 
-import { useTabbarStore } from '@ydsz/stores';
+import { useTabbarStore } from '@remi/stores';
 
 /**
  * 封装标签栏（Tabbar）的常用操作，供页面与右键菜单调用。

@@ -2,21 +2,21 @@
  * 销售商机（列表页）
  *
  * @path apps\project-web\src\views\opportunity\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 销售商机（列表页）
- * <p>销售商机（{@code ydsz_project_opportunity}）的列表页。
+ * <p>销售商机（{@code remi_project_opportunity}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteOpportunityApi, getOpportunityPageApi, type OpportunityApi } from '#/api/opportunity';
 import OpportunityForm from './opportunity-form.vue';
 defineOptions({ name: 'OpportunityManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<OpportunityApi.OpportunityVO> = {
       { field: 'opportunityName', title: 'opportunityName', itemRender: { name: 'Input', props: { placeholder: 'opportunityName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [OpportunityFormModal, opportunityFormApi] = useVbenModal({ connectedComponent: OpportunityForm });
 function handleAdd() { opportunityFormApi.open(); }
 function handleEdit(row: OpportunityApi.OpportunityVO) { opportunityFormApi.setData({ record: row }); opportunityFormApi.open(); }

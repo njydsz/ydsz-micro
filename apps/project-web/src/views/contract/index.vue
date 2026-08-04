@@ -2,21 +2,21 @@
  * 项目合同（列表页）
  *
  * @path apps\project-web\src\views\contract\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目合同（列表页）
- * <p>项目合同（{@code ydsz_project_contract}）的列表页。
+ * <p>项目合同（{@code remi_project_contract}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteContractApi, getContractPageApi, type ContractApi } from '#/api/contract';
 import ContractForm from './contract-form.vue';
 defineOptions({ name: 'ContractManagement' });
@@ -48,7 +48,7 @@ const gridOptions: VxeGridProps<ContractApi.ContractVO> = {
       { field: 'contractCode', title: 'contractCode', itemRender: { name: 'Input', props: { placeholder: 'contractCode' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [ContractFormModal, contractFormApi] = useVbenModal({ connectedComponent: ContractForm });
 function handleAdd() { contractFormApi.open(); }
 function handleEdit(row: ContractApi.ContractVO) { contractFormApi.setData({ record: row }); contractFormApi.open(); }

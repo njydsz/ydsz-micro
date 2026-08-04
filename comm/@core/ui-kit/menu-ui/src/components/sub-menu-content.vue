@@ -2,7 +2,7 @@
  * sub-menu-content 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\sub-menu-content.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,9 +10,9 @@ import type { MenuItemProps } from '../types';
 
 import { computed } from 'vue';
 
-import { useNamespace } from '@ydsz-core/composables';
-import { ChevronDown, ChevronRight } from '@ydsz-core/icons';
-import { YDSZIcon } from '@ydsz-core/shadcn-ui';
+import { useNamespace } from '@remi-core/composables';
+import { ChevronDown, ChevronRight } from '@remi-core/icons';
+import { REMIIcon } from '@remi-core/shadcn-ui';
 
 import { useMenuContext } from '../hooks';
 
@@ -89,7 +89,7 @@ const iconArrowStyle = computed(() => {
   >
     <slot></slot>
 
-    <YDSZIcon
+    <REMIIcon
       v-if="!isMenuMore"
       :class="nsMenu.e('icon')"
       :icon="icon"

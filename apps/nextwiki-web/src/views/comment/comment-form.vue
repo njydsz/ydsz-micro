@@ -2,7 +2,7 @@
  * 文件评论（表单组件）
  *
  * @path apps\nextwiki-web\src\views\comment\comment-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 文件评论（表单组件）
  * <p>评论的创建表单，支持 Markdown、@ 提及。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CommentApi } from '#/api/comment';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createCommentApi, updateCommentApi } from '#/api/comment';

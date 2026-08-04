@@ -1,8 +1,8 @@
 /**
- * 统一导出 — @ydsz/micro-kernel
+ * 统一导出 — @remi/micro-kernel
  *
  * @path comm/effects/micro-kernel/src/index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -94,4 +94,4 @@ export { enableMicroDevTools, toggleMicroDevTools, destroyMicroDevTools } from '
 export { getCanaryManager, resetCanaryManager } from './canary-manager';
 export type { CanaryVersion, CanaryGlobalConfig, CanaryTag } from './canary-manager';
 // v4.0 P1-1 (公开): semver 兼容校验工具 —— 子应用 bootstrap 阶段版本断言
-export { satisfiesVersion, parseVersion, compareVersion } from '@ydsz/micro-runtime/semver';
+export { satisfiesVersion, parseVersion, compareVersion } from '@remi/micro-runtime/semver';

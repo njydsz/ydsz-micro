@@ -6,7 +6,7 @@
  * isWindowsOs / isNumber / getFirstNonNullOrUndefined 等纯函数判断工具，
  * 内部复用 @vue/shared 的 isFunction / isObject / isString，均无副作用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 // eslint-disable-next-line vue/prefer-import-from-vue

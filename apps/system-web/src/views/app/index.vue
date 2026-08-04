@@ -2,24 +2,24 @@
  * 应用管理页面 — 应用注册的分页列表、搜索、新增、编辑、删除
  *
  * @path apps\system-web\src\views\app\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 应用（列表页）
- * <p>应用（{@code ydsz_app}）的列表页，管理多应用隔离。
+ * <p>应用（{@code remi_app}）的列表页，管理多应用隔离。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useVbenModal } from '@remi/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteAppApi,
   getAppPageApi,
@@ -76,7 +76,7 @@ const gridOptions: VxeGridProps<AppApi.AppVO> = {
   },
 };
 
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 
 const [AppFormModal, appFormApi] = useVbenModal({ connectedComponent: AppForm });
 

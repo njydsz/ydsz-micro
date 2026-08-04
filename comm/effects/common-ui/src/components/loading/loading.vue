@@ -2,12 +2,12 @@
  * loading 通用组件
  *
  * @path comm\effects\common-ui\src\components\loading\loading.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { YDSZLoading } from '@ydsz-core/shadcn-ui';
-import { cn } from '@ydsz-core/shared/utils';
+import { REMILoading } from '@remi-core/shadcn-ui';
+import { cn } from '@remi-core/shared/utils';
 
 interface LoadingProps {
   class?: string;
@@ -33,7 +33,7 @@ const props = defineProps<LoadingProps>();
 <template>
   <div :class="cn('relative min-h-20', props.class)">
     <slot></slot>
-    <YDSZLoading
+    <REMILoading
       :min-loading-time="props.minLoadingTime"
       :spinning="props.spinning"
       :text="props.text"
@@ -41,6 +41,6 @@ const props = defineProps<LoadingProps>();
       <template v-if="$slots.icon" #icon>
         <slot name="icon"></slot>
       </template>
-    </YDSZLoading>
+    </REMILoading>
   </div>
 </template>

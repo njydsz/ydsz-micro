@@ -2,15 +2,15 @@
  * menu Vue 组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\menu.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@ydsz-core/typings';
+import type { MenuRecordRaw } from '@remi-core/typings';
 
 import type { MenuProps } from './types';
 
-import { useForwardProps } from '@ydsz-core/composables';
+import { useForwardProps } from '@remi-core/composables';
 
 import { Menu } from './components';
 import SubMenu from './sub-menu.vue';

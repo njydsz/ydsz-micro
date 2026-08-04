@@ -2,7 +2,7 @@
  * definition-form 表单页面组件
  *
  * @path apps\agent-web\src\views\definition\definition-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * Agent 工具定义（表单组件）
  * <p>工具的元数据编辑表单，包含工具名称/描述/参数 Schema/调用方式。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { DefinitionApi } from '#/api/definition';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createDefinitionApi, updateDefinitionApi } from '#/api/definition';

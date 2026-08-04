@@ -2,18 +2,18 @@
  * 部门管理页面 — 展示部门树结构，支持新增/编辑/删除部门
  *
  * @path apps\userinfo-web\src\views\system\dept\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 部门（列表页）
- * <p>部门（{@code ydsz_dept}）的列表页。
+ * <p>部门（{@code remi_dept}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useVbenModal } from '@remi/common-ui';
 
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag, ElTreeSelect, ElInputNumber, ElRadioGroup, ElRadio } from 'element-plus';
 import { h, onMounted, ref } from 'vue';

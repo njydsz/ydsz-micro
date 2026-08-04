@@ -2,7 +2,7 @@
  * about Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\about\about.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -11,12 +11,12 @@ import type { AboutProps, DescriptionItem } from './about';
 import { h } from 'vue';
 
 import {
-  YDSZ_DOC_URL,
-  YDSZ_GITHUB_URL,
-  YDSZ_PREVIEW_URL,
-} from '@ydsz/constants';
+  REMI_DOC_URL,
+  REMI_GITHUB_URL,
+  REMI_PREVIEW_URL,
+} from '@remi/constants';
 
-import { YDSZRenderContent } from '@ydsz-core/shadcn-ui';
+import { REMIRenderContent } from '@remi-core/shadcn-ui';
 
 import { Page } from '../../components';
 
@@ -29,12 +29,12 @@ defineOptions({
 withDefaults(defineProps<Props>(), {
   description:
     '是一个现代化开箱即用的中后台解决方案，采用最新的技术栈，包括 Vue 3.0、Vite、TailwindCSS 和 TypeScript 等前沿技术，代码规范严谨，提供丰富的配置选项，旨在为中大型项目的开发提供现成的开箱即用解决方案及丰富的示例，同时，它也是学习和深入前端技术的一个极佳示例。',
-  name: 'YDSZ Admin',
+  name: 'REMI Admin',
   title: '关于项目',
 });
 
 declare global {
-  const __YDSZ_ADMIN_METADATA__: {
+  const __REMI_ADMIN_METADATA__: {
     authorEmail: string;
     authorName: string;
     authorUrl: string;
@@ -52,7 +52,7 @@ declare global {
 const renderLink = (href: string, text: string) =>
   h(
     'a',
-    { href, target: '_blank', class: 'ydsz-link' },
+    { href, target: '_blank', class: 'remi-link' },
     { default: () => text },
   );
 
@@ -67,9 +67,9 @@ const {
   license,
   version,
   // vite inject-metadata 插件注入的全局变量
-} = __YDSZ_ADMIN_METADATA__ || {};
+} = __REMI_ADMIN_METADATA__ || {};
 
-const ydszDescriptionItems: DescriptionItem[] = [
+const remiDescriptionItems: DescriptionItem[] = [
   {
     content: version,
     title: '版本号',
@@ -87,15 +87,15 @@ const ydszDescriptionItems: DescriptionItem[] = [
     title: '主页',
   },
   {
-    content: renderLink(YDSZ_DOC_URL, '点击查看'),
+    content: renderLink(REMI_DOC_URL, '点击查看'),
     title: '文档地址',
   },
   {
-    content: renderLink(YDSZ_PREVIEW_URL, '点击查看'),
+    content: renderLink(REMI_PREVIEW_URL, '点击查看'),
     title: '预览地址',
   },
   {
-    content: renderLink(YDSZ_GITHUB_URL, '点击查看'),
+    content: renderLink(REMI_GITHUB_URL, '点击查看'),
     title: 'Github',
   },
   {
@@ -122,7 +122,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
   <Page :title="title">
     <template #description>
       <p class="text-foreground mt-3 text-sm leading-6">
-        <a :href="YDSZ_GITHUB_URL" class="ydsz-link" target="_blank">
+        <a :href="REMI_GITHUB_URL" class="remi-link" target="_blank">
           {{ name }}
         </a>
         {{ description }}
@@ -134,13 +134,13 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <template v-for="item in ydszDescriptionItems" :key="item.title">
+          <template v-for="item in remiDescriptionItems" :key="item.title">
             <div class="border-border border-t px-4 py-6 sm:col-span-1 sm:px-0">
               <dt class="text-foreground text-sm font-medium leading-6">
                 {{ item.title }}
               </dt>
               <dd class="text-foreground mt-1 text-sm leading-6 sm:mt-2">
-                <YDSZRenderContent :content="item.content" />
+                <REMIRenderContent :content="item.content" />
               </dd>
             </div>
           </template>
@@ -160,7 +160,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
                 {{ item.title }}
               </dt>
               <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
-                <YDSZRenderContent :content="item.content" />
+                <REMIRenderContent :content="item.content" />
               </dd>
             </div>
           </template>
@@ -179,7 +179,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
                 {{ item.title }}
               </dt>
               <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
-                <YDSZRenderContent :content="item.content" />
+                <REMIRenderContent :content="item.content" />
               </dd>
             </div>
           </template>

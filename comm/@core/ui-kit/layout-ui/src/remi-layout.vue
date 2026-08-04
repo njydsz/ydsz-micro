@@ -2,13 +2,13 @@
  * remi-layout Vue 组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\remi-layout.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import type { YDSZLayoutProps } from './ydsz-layout';
+import type { REMILayoutProps } from './remi-layout';
 
 import { computed, ref, watch } from 'vue';
 
@@ -16,10 +16,10 @@ import {
   SCROLL_FIXED_CLASS,
   useLayoutFooterStyle,
   useLayoutHeaderStyle,
-} from '@ydsz-core/composables';
-import { Menu } from '@ydsz-core/icons';
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
+} from '@remi-core/composables';
+import { Menu } from '@remi-core/icons';
+import { REMIIconButton } from '@remi-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@remi-core/shared/constants';
 
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
 
@@ -32,10 +32,10 @@ import {
 } from './components';
 import { useLayout } from './hooks/use-layout';
 
-interface Props extends YDSZLayoutProps {}
+interface Props extends REMILayoutProps {}
 
 defineOptions({
-  name: 'YDSZLayout',
+  name: 'REMILayout',
 });
 
 const props = withDefaults(defineProps<Props>(), {
@@ -541,13 +541,13 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
           </template>
 
           <template #toggle-button>
-            <YDSZIconButton
+            <REMIIconButton
               v-if="showHeaderToggleButton"
               class="my-0 mr-1 rounded-md"
               @click="handleHeaderToggle"
             >
               <Menu class="size-4" />
-            </YDSZIconButton>
+            </REMIIconButton>
           </template>
           <slot name="header"></slot>
         </LayoutHeader>

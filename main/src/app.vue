@@ -2,7 +2,7 @@
  * 应用根组件
  *
  * @path main\src\app.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <!--
@@ -18,10 +18,10 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-import { useElementPlusDesignTokens } from '@ydsz/hooks';
+import { useElementPlusDesignTokens } from '@remi/hooks';
 
 import { ElConfigProvider } from 'element-plus';
-import { preferences } from '@ydsz/preferences';
+import { preferences } from '@remi/preferences';
 
 import GlobalSearch from '#/components/global-search.vue';
 import NetworkAlert from '#/components/network-alert.vue';

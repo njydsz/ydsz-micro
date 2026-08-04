@@ -2,18 +2,18 @@
  * header 布局组件
  *
  * @path comm\effects\layouts\src\basic\header\header.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed, useSlots } from 'vue';
 
-import { useRefresh } from '@ydsz/hooks';
-import { RotateCw } from '@ydsz/icons';
-import { preferences, usePreferences } from '@ydsz/preferences';
-import { useAccessStore } from '@ydsz/stores';
+import { useRefresh } from '@remi/hooks';
+import { RotateCw } from '@remi/icons';
+import { preferences, usePreferences } from '@remi/preferences';
+import { useAccessStore } from '@remi/stores';
 
-import { YDSZFullScreen, YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { REMIFullScreen, REMIIconButton } from '@remi-core/shadcn-ui';
 
 import {
   GlobalSearch,
@@ -126,9 +126,9 @@ function clearPreferencesAndLogout() {
   >
     <slot :name="slot.name">
       <template v-if="slot.name === 'refresh'">
-        <YDSZIconButton class="my-0 mr-1 rounded-md" @click="refresh">
+        <REMIIconButton class="my-0 mr-1 rounded-md" @click="refresh">
           <RotateCw class="size-4" />
-        </YDSZIconButton>
+        </REMIIconButton>
       </template>
     </slot>
   </template>
@@ -171,7 +171,7 @@ function clearPreferencesAndLogout() {
           <LanguageToggle class="mr-1" />
         </template>
         <template v-else-if="slot.name === 'fullscreen'">
-          <YDSZFullScreen class="mr-1" />
+          <REMIFullScreen class="mr-1" />
         </template>
       </slot>
     </template>

@@ -11,7 +11,7 @@
  * </ErrorBoundary>
  * ```
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -19,7 +19,7 @@ import type { ErrorInfo } from 'vue';
 
 import { computed, onErrorCaptured, ref } from 'vue';
 
-import { reportError } from '@ydsz/monitor';
+import { reportError } from '@remi/monitor';
 
 import { ElButton, ElResult } from 'element-plus';
 

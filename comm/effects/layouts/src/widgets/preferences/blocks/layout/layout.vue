@@ -2,20 +2,20 @@
  * layout 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\layout.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { Component } from 'vue';
 
-import type { LayoutType } from '@ydsz/types';
+import type { LayoutType } from '@remi/types';
 
 import { computed } from 'vue';
 
-import { CircleHelp } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { CircleHelp } from '@remi/icons';
+import { $t } from '@remi/locales';
 
-import { YDSZTooltip } from '@ydsz-core/shadcn-ui';
+import { REMITooltip } from '@remi-core/shadcn-ui';
 
 import {
   FullContent,
@@ -106,12 +106,12 @@ function activeClass(theme: string): string[] {
           class="text-muted-foreground flex-center hover:text-foreground mt-2 text-center text-xs"
         >
           {{ theme.name }}
-          <YDSZTooltip v-if="theme.tip" side="bottom">
+          <REMITooltip v-if="theme.tip" side="bottom">
             <template #trigger>
               <CircleHelp class="ml-1 size-3 cursor-help" />
             </template>
             {{ theme.tip }}
-          </YDSZTooltip>
+          </REMITooltip>
         </div>
       </div>
     </template>

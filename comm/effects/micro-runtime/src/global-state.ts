@@ -10,7 +10,7 @@
  * - 敏感数据应使用 SecureLS 或 Pinia persist 的加密存储
  *
  * @path comm/effects/micro-runtime/src/global-state.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 

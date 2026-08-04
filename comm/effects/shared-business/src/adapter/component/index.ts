@@ -1,23 +1,23 @@
 /**
  * 通用组件共同的使用的基础组件（公共包）
  *
- * 原先放在各子应用 adapter/form 内部，现提取到 @ydsz/shared-business 统一复用。
- * 可用于 ydsz-form、ydsz-modal、ydsz-drawer 等组件使用。
+ * 原先放在各子应用 adapter/form 内部，现提取到 @remi/shared-business 统一复用。
+ * 可用于 remi-form、remi-modal、remi-drawer 等组件使用。
  *
  * @path comm\effects\shared-business\src\adapter\component\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
  */
 
 import type { Component } from 'vue';
 
-import type { BaseFormComponentType } from '@ydsz/common-ui';
-import type { Recordable } from '@ydsz/types';
+import type { BaseFormComponentType } from '@remi/common-ui';
+import type { Recordable } from '@remi/types';
 
 import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
 
-import { ApiComponent, globalShareState, IconPicker } from '@ydsz/common-ui';
-import { $t } from '@ydsz/locales';
+import { ApiComponent, globalShareState, IconPicker } from '@remi/common-ui';
+import { $t } from '@remi/locales';
 
 import { ElNotification } from 'element-plus';
 
@@ -201,7 +201,7 @@ export type ComponentType =
  * 初始化组件适配器：将表单/表格所需的 Element Plus 组件注册到全局共享状态。
  *
  * @remarks
- * 需在应用启动时调用一次，使 ydsz-form、ydsz-modal、ydsz-drawer 能解析 {@link ComponentType}。
+ * 需在应用启动时调用一次，使 remi-form、remi-modal、remi-drawer 能解析 {@link ComponentType}。
  * 组件均以 `defineAsyncComponent` 按需引入，避免 Element Plus 全量进首屏包。
  * TimePicker / DatePicker 在区间模式下会把 `name`、`id` 拆成 `[start, end]` 两项，
  * 这是 Element Plus 区间控件的要求，否则表单校验无法定位到具体输入框。

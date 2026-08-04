@@ -2,28 +2,28 @@
  * tabs 通用组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\tabs\tabs.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { TabDefinition } from '@ydsz-core/typings';
+import type { TabDefinition } from '@remi-core/typings';
 
 import type { TabConfig, TabsProps } from '../../types';
 
 import { computed } from 'vue';
 
-import { Pin, X } from '@ydsz-core/icons';
-import { YDSZContextMenu, YDSZIcon } from '@ydsz-core/shadcn-ui';
+import { Pin, X } from '@remi-core/icons';
+import { REMIContextMenu, REMIIcon } from '@remi-core/shadcn-ui';
 
 interface Props extends TabsProps {}
 
 defineOptions({
-  name: 'YDSZTabs',
+  name: 'REMITabs',
 
   inheritAttrs: false,
 });
 const props = withDefaults(defineProps<Props>(), {
-  contentClass: 'ydsz-tabs-content',
+  contentClass: 'remi-tabs-content',
   contextMenus: () => [],
   tabs: () => [],
 });
@@ -108,7 +108,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
         @click="active = tab.key"
         @mousedown="onMouseDown($event, tab)"
       >
-        <YDSZContextMenu
+        <REMIContextMenu
           :handler-data="tab"
           :menus="contextMenus"
           :modal="false"
@@ -136,7 +136,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
             <div
               class="text-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
             >
-              <YDSZIcon
+              <REMIIcon
                 v-if="showIcon"
                 :icon="tab.icon"
                 class="mr-2 flex size-4 items-center overflow-hidden"
@@ -148,7 +148,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
               </span>
             </div>
           </div>
-        </YDSZContextMenu>
+        </REMIContextMenu>
       </div>
     </TransitionGroup>
   </div>

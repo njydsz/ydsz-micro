@@ -2,18 +2,18 @@
  * 岗位管理页面 — 展示岗位列表，支持新增/编辑/删除岗位
  *
  * @path apps\userinfo-web\src\views\system\post\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 岗位（列表页）
- * <p>岗位（{@code ydsz_post}）的列表页。
+ * <p>岗位（{@code remi_post}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useVbenModal } from '@remi/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag, ElInput, ElInputNumber } from 'element-plus';
 import { onMounted, ref } from 'vue';

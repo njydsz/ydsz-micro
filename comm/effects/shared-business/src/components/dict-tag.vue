@@ -2,7 +2,7 @@
  * dict-tag 通用组件
  *
  * @path comm\effects\shared-business\src\components\dict-tag.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -13,7 +13,7 @@ import { computed, onMounted, watch } from 'vue';
 
 import { ElTag } from 'element-plus';
 
-import { useDictStore } from '@ydsz/stores';
+import { useDictStore } from '@remi/stores';
 
 interface Props {
   /** 字典类型编码 */

@@ -5,12 +5,12 @@
  * 因 kernel 使用模块级状态，每个用例后调用 _stop() 重置。
  *
  * @path comm/effects/micro-kernel/__tests__/kernel.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.1.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { MicroAppConfig } from '@ydsz/micro-runtime';
+import type { MicroAppConfig } from '@remi/micro-runtime';
 
 // Mock loader：可控延迟 + 缓存标记
 const loadAppMock = vi.fn();

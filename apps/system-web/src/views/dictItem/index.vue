@@ -2,24 +2,24 @@
  * 字典项管理页面 — 字典项的分页列表、搜索、新增、编辑、删除
  *
  * @path apps\system-web\src\views\dictItem\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 字典项（列表页）
- * <p>字典项（{@code ydsz_dict_item}）的列表页。
+ * <p>字典项（{@code remi_dict_item}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useVbenModal } from '@remi/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteDictitemApi,
   getDictitemPageApi,
@@ -78,7 +78,7 @@ const gridOptions: VxeGridProps<DictitemApi.DictitemVO> = {
   },
 };
 
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 
 const [DictitemFormModal, dictItemFormApi] = useVbenModal({ connectedComponent: DictitemForm });
 

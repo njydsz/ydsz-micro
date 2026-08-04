@@ -2,20 +2,20 @@
  * color-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\color-toggle.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { BuiltinThemeType } from '@ydsz/types';
+import type { BuiltinThemeType } from '@remi/types';
 
-import { Palette } from '@ydsz/icons';
+import { Palette } from '@remi/icons';
 import {
   COLOR_PRESETS,
   preferences,
   updatePreferences,
-} from '@ydsz/preferences';
+} from '@remi/preferences';
 
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { REMIIconButton } from '@remi-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationColorToggle',
@@ -37,7 +37,7 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
       class="flex w-0 overflow-hidden transition-all duration-500 ease-out group-hover:w-60"
     >
       <template v-for="preset in COLOR_PRESETS" :key="preset.color">
-        <YDSZIconButton
+        <REMIIconButton
           class="flex-center flex-shrink-0"
           @click="handleUpdate(preset.color, preset.type)"
         >
@@ -60,12 +60,12 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
               />
             </svg>
           </div>
-        </YDSZIconButton>
+        </REMIIconButton>
       </template>
     </div>
 
-    <YDSZIconButton>
+    <REMIIconButton>
       <Palette class="text-primary size-4" />
-    </YDSZIconButton>
+    </REMIIconButton>
   </div>
 </template>

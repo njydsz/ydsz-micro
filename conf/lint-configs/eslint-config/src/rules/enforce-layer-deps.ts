@@ -4,19 +4,19 @@
  * 禁止跨层导入，强制依赖方向：base → composables → ui-kit → effects → main
  *
  * @path conf\lint-configs\eslint-config\src\rules\enforce-layer-deps.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Linter } from 'eslint';
 
 /** 分层标识 → 路径前缀模式 */
 const LAYER_PATTERNS = {
-  base: '@ydsz-core/{design,icons,shared,typings}',
-  composables: '@ydsz-core/composables',
-  featureFlags: '@ydsz-core/feature-flags',
-  preferences: '@ydsz-core/preferences',
-  uiKit: '@ydsz-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
-  effects: '@ydsz/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}',
+  base: '@remi-core/{design,icons,shared,typings}',
+  composables: '@remi-core/composables',
+  featureFlags: '@remi-core/feature-flags',
+  preferences: '@remi-core/preferences',
+  uiKit: '@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
+  effects: '@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}',
   main: '#/',
 } as const;
 
@@ -49,11 +49,11 @@ export function enforceLayerDepsConfig(): Linter.Config {
               target: { patterns: ['comm/@core/base/**/*.{ts,tsx,vue}'] },
               from: {
                 patterns: [
-                  '@ydsz-core/composables',
-                  '@ydsz-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
-                  '@ydsz-core/feature-flags',
-                  '@ydsz-core/preferences',
-                  '@ydsz/*',
+                  '@remi-core/composables',
+                  '@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
+                  '@remi-core/feature-flags',
+                  '@remi-core/preferences',
+                  '@remi/*',
                   '#/*',
                 ],
               },
@@ -65,10 +65,10 @@ export function enforceLayerDepsConfig(): Linter.Config {
               target: { patterns: ['comm/@core/composables/**/*.{ts,tsx,vue}'] },
               from: {
                 patterns: [
-                  '@ydsz-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
-                  '@ydsz-core/feature-flags',
-                  '@ydsz-core/preferences',
-                  '@ydsz/*',
+                  '@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
+                  '@remi-core/feature-flags',
+                  '@remi-core/preferences',
+                  '@remi/*',
                   '#/*',
                 ],
               },
@@ -80,9 +80,9 @@ export function enforceLayerDepsConfig(): Linter.Config {
               target: { patterns: ['comm/@core/ui-kit/**/*.{ts,tsx,vue}'] },
               from: {
                 patterns: [
-                  '@ydsz/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}',
-                  '@ydsz-core/feature-flags',
-                  '@ydsz-core/preferences',
+                  '@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}',
+                  '@remi-core/feature-flags',
+                  '@remi-core/preferences',
                   '#/*',
                 ],
               },

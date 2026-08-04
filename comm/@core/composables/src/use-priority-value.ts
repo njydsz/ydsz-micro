@@ -2,7 +2,7 @@
  * use-priority-value 组合式函数
  *
  * @path comm\@core\composables\src\use-priority-value.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { ComputedRef, Ref } from 'vue';
@@ -12,7 +12,7 @@ import { computed, getCurrentInstance, unref, useAttrs, useSlots } from 'vue';
 import {
   getFirstNonNullOrUndefined,
   kebabToCamelCase,
-} from '@ydsz-core/shared/utils';
+} from '@remi-core/shared/utils';
 
 /**
  * 依次从插槽、attrs、props、state 中获取值

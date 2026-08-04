@@ -2,7 +2,7 @@
  * index 模块
  *
  * @path comm\effects\common-ui\src\components\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export * from './api-component';
@@ -23,26 +23,26 @@ export * from './resize';
 export * from './safe-html';
 export * from './tippy';
 export * from './watermark';
-export * from '@ydsz-core/form-ui';
-export * from '@ydsz-core/popup-ui';
+export * from '@remi-core/form-ui';
+export * from '@remi-core/popup-ui';
 
 // 给文档用
 export {
-  YDSZAvatar,
-  YDSZButton,
-  YDSZButtonGroup,
-  YDSZCheckbox,
-  YDSZCheckButtonGroup,
-  YDSZCountToAnimator,
-  YDSZFullScreen,
-  YDSZInputPassword,
-  YDSZLoading,
-  YDSZLogo,
-  YDSZPinInput,
-  YDSZSelect,
-  YDSZSpinner,
-  YDSZTree,
-} from '@ydsz-core/shadcn-ui';
+  REMIAvatar,
+  REMIButton,
+  REMIButtonGroup,
+  REMICheckbox,
+  REMICheckButtonGroup,
+  REMICountToAnimator,
+  REMIFullScreen,
+  REMIInputPassword,
+  REMILoading,
+  REMILogo,
+  REMIPinInput,
+  REMISelect,
+  REMISpinner,
+  REMITree,
+} from '@remi-core/shadcn-ui';
 
-export type { FlattenedItem } from '@ydsz-core/shadcn-ui';
-export { globalShareState } from '@ydsz-core/shared/global-state';
+export type { FlattenedItem } from '@remi-core/shadcn-ui';
+export { globalShareState } from '@remi-core/shared/global-state';

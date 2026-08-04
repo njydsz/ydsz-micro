@@ -2,7 +2,7 @@
  * types 模块
  *
  * @path comm\effects\common-ui\src\components\col-page\types.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { PageProps } from '../page/types';

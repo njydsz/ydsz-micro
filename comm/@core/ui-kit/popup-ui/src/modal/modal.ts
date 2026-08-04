@@ -2,12 +2,12 @@
  * modal 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\modal.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Component, Ref } from 'vue';
 
-import type { MaybePromise } from '@ydsz-core/typings';
+import type { MaybePromise } from '@remi-core/typings';
 
 import type { ModalApi } from './modal-api';
 

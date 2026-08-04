@@ -2,21 +2,21 @@
  * 项目风险（列表页）
  *
  * @path apps\project-web\src\views\risk\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目风险（列表页）
- * <p>项目风险（{@code ydsz_project_risk}）的列表页。
+ * <p>项目风险（{@code remi_project_risk}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteRiskApi, getRiskPageApi, type RiskApi } from '#/api/risk';
 import RiskForm from './risk-form.vue';
 defineOptions({ name: 'RiskManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<RiskApi.RiskVO> = {
       { field: 'riskName', title: 'riskName', itemRender: { name: 'Input', props: { placeholder: 'riskName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [RiskFormModal, riskFormApi] = useVbenModal({ connectedComponent: RiskForm });
 function handleAdd() { riskFormApi.open(); }
 function handleEdit(row: RiskApi.RiskVO) { riskFormApi.setData({ record: row }); riskFormApi.open(); }

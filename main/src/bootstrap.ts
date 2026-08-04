@@ -1,35 +1,35 @@
 /**
  * 应用引导程序，初始化全局插件和配置
  *
- * v3.0: 基于 @ydsz/micro-kernel 自研 ESM 原生微前端运行时，
- *       通过 @ydsz/micro-runtime 接口层完成内核注册与子应用生命周期管理。
+ * v3.0: 基于 @remi/micro-kernel 自研 ESM 原生微前端运行时，
+ *       通过 @remi/micro-runtime 接口层完成内核注册与子应用生命周期管理。
  *
  * @path main/src/bootstrap.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { createApp, watchEffect } from 'vue';
 
-import { registerAccessDirective } from '@ydsz/access';
-import { registerLoadingDirective } from '@ydsz/common-ui/es/loading';
-import { registerSafeHtmlDirective } from '@ydsz/common-ui/es/safe-html';
-import { registerWatermarkDirective } from '@ydsz/common-ui/es/watermark';
-import { initLogger } from '@ydsz-core/shared/utils';
-import { preferences } from '@ydsz/preferences';
-import { initStores, useUserStore } from '@ydsz/stores';
-import { startProgress, stopProgress } from '@ydsz/utils';
-import '@ydsz/styles';
-import '@ydsz/styles/ele';
+import { registerAccessDirective } from '@remi/access';
+import { registerLoadingDirective } from '@remi/common-ui/es/loading';
+import { registerSafeHtmlDirective } from '@remi/common-ui/es/safe-html';
+import { registerWatermarkDirective } from '@remi/common-ui/es/watermark';
+import { initLogger } from '@remi-core/shared/utils';
+import { preferences } from '@remi/preferences';
+import { initStores, useUserStore } from '@remi/stores';
+import { startProgress, stopProgress } from '@remi/utils';
+import '@remi/styles';
+import '@remi/styles/ele';
 
 import { ElLoading } from 'element-plus';
 import { useTitle } from '@vueuse/core';
 
 import { $t, setupI18n } from '#/locales';
 
-import { setupMonitor } from '@ydsz/monitor';
+import { setupMonitor } from '@remi/monitor';
 
 import { initComponentAdapter } from './adapter/component';
-import { initSetupYDSZForm } from './adapter/form';
+import { initSetupREMIForm } from './adapter/form';
 import App from './app.vue';
 import {
   featureFlagsOptions,
@@ -51,19 +51,19 @@ import {
   getPreloadManager,
   getVersionManager,
   setErrorFallbackMessages,
-} from '@ydsz/micro-kernel';
-import { createRuntime, registerKernel, type MicroAppEntry } from '@ydsz/micro-runtime';
-import { createLogger } from '@ydsz-core/shared/utils';
-import { MICRO_APPS, PATH_TO_APP_MAP, getProdEntry } from '@ydsz/vite-config';
-import { resolveRegistry, resolveAppEntry } from '@ydsz/micro-kernel';
-import { enableMicroDevTools } from '@ydsz/micro-kernel';
+} from '@remi/micro-kernel';
+import { createRuntime, registerKernel, type MicroAppEntry } from '@remi/micro-runtime';
+import { createLogger } from '@remi-core/shared/utils';
+import { MICRO_APPS, PATH_TO_APP_MAP, getProdEntry } from '@remi/vite-config';
+import { resolveRegistry, resolveAppEntry } from '@remi/micro-kernel';
+import { enableMicroDevTools } from '@remi/micro-kernel';
 import { enableDevToolsBridge } from './monitoring/devtools-bridge';
-import { getCanaryManager } from '@ydsz/micro-kernel';
+import { getCanaryManager } from '@remi/micro-kernel';
 
 /** 单个 micro-runtime 实例（整个主应用生命周期唯一，供其他模块获取） */
 export let microRuntime: ReturnType<typeof createRuntime> | null = null;
 
-/** bootstrap 内部统一日志器（自动带 [ydsz][Bootstrap] 前缀） */
+/** bootstrap 内部统一日志器（自动带 [remi][Bootstrap] 前缀） */
 const logger = createLogger('Bootstrap');
 /** 微运行时日志器 */
 const runtimeLogger = createLogger('MicroRuntime');
@@ -286,16 +286,16 @@ function registerRoutePreloadStrategy(): void {
  */
 async function bootstrap(namespace: string) {
   // E6: 初始化日志系统（生产默认 INFO，开发默认 DEBUG）
-  // localStorage 'ydsz:debug' 可运行期覆盖调试过滤
+  // localStorage 'remi:debug' 可运行期覆盖调试过滤
   initLogger({ isDev: import.meta.env.DEV });
 
   await initComponentAdapter();
-  await initSetupYDSZForm();
+  await initSetupREMIForm();
 
   // 功能开关：在 Pinia 之前注册定义，保证默认值尽早生效；
   // init 不阻塞（远程加载在内部异步进行，失败降级到默认值）
   registerApplicationFlags();
-  const { initFeatureFlags } = await import('@ydsz-core/feature-flags');
+  const { initFeatureFlags } = await import('@remi-core/feature-flags');
   await initFeatureFlags(featureFlagsOptions());
 
   const app = createApp(App);
@@ -303,7 +303,7 @@ async function bootstrap(namespace: string) {
   app.directive('loading', ElLoading.directive);
 
   registerLoadingDirective(app, {
-    loading: false, // YDSZ提供的v-loading指令和Element Plus提供的v-loading指令二选一即可，此处false表示不注册YDSZ提供的v-loading指令
+    loading: false, // REMI提供的v-loading指令和Element Plus提供的v-loading指令二选一即可，此处false表示不注册REMI提供的v-loading指令
     spinning: 'spinning',
   });
 
@@ -321,12 +321,12 @@ async function bootstrap(namespace: string) {
   // v-watermark — 敏感页面水印指令
   registerWatermarkDirective(app);
 
-  const { initTippy } = await import('@ydsz/common-ui/es/tippy');
+  const { initTippy } = await import('@remi/common-ui/es/tippy');
   initTippy(app);
 
   app.use(router);
 
-  const { MotionPlugin } = await import('@ydsz/plugins/motion');
+  const { MotionPlugin } = await import('@remi/plugins/motion');
   app.use(MotionPlugin);
 
   watchEffect(() => {

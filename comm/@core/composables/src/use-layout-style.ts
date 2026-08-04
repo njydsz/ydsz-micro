@@ -2,12 +2,12 @@
  * use-layout-style 组合式函数
  *
  * @path comm\@core\composables\src\use-layout-style.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CSSProperties } from 'vue';
 
-import type { VisibleDomRect } from '@ydsz-core/shared/utils';
+import type { VisibleDomRect } from '@remi-core/shared/utils';
 
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
@@ -16,8 +16,8 @@ import {
   CSS_VARIABLE_LAYOUT_CONTENT_WIDTH,
   CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT,
   CSS_VARIABLE_LAYOUT_HEADER_HEIGHT,
-} from '@ydsz-core/shared/constants';
-import { getElementVisibleRect } from '@ydsz-core/shared/utils';
+} from '@remi-core/shared/constants';
+import { getElementVisibleRect } from '@remi-core/shared/utils';
 
 import { useCssVar, useDebounceFn } from '@vueuse/core';
 

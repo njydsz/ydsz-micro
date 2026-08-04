@@ -2,7 +2,7 @@
  * hover-card 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\hover-card\hover-card.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -12,7 +12,7 @@ import type {
   HoverCardRootProps,
 } from 'radix-vue';
 
-import type { ClassType } from '@ydsz-core/typings';
+import type { ClassType } from '@remi-core/typings';
 
 import { computed } from 'vue';
 

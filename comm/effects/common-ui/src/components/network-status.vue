@@ -13,7 +13,7 @@
  * <NetworkStatus message="网络连接失败" show-retry @retry="reconnect" />
  * ```
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

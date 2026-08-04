@@ -1,7 +1,7 @@
 /**
  * 用户账号 API 模块（前端）
  *
- * <p>封装用户账号（{@code ydsz_user_account}）的 CRUD 接口调用，对应后端
+ * <p>封装用户账号（{@code remi_user_account}）的 CRUD 接口调用，对应后端
  * {@code /api/v1/user/*} 端点。供「用户管理 → 用户列表/详情/编辑」使用。
  *
  * <p><b>核心接口：</b>
@@ -16,7 +16,7 @@
  *   <li>{@link assignRolesApi} — 分配角色</li>
  * </ul>
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

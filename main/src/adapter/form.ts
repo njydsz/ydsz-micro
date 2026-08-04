@@ -2,26 +2,26 @@
  * form 适配器模块
  *
  * @path main\src\adapter\form.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
-  YDSZFormSchema as FormSchema,
-  YDSZFormProps,
-} from '@ydsz/common-ui';
+  REMIFormSchema as FormSchema,
+  REMIFormProps,
+} from '@remi/common-ui';
 
 import type { ComponentType } from './component';
 
-import { setupYDSZForm, useYDSZForm as useForm, z } from '@ydsz/common-ui';
-import { $t } from '@ydsz/locales';
+import { setupREMIForm, useREMIForm as useForm, z } from '@remi/common-ui';
+import { $t } from '@remi/locales';
 
 /**
- * 初始化 ydsz-form 表单适配器。
+ * 初始化 remi-form 表单适配器。
  *
  * 注册组件类型映射与内置校验规则（required / selectRequired），需在应用启动时调用一次。
  */
-async function initSetupYDSZForm() {
-  setupYDSZForm<ComponentType>({
+async function initSetupREMIForm() {
+  setupREMIForm<ComponentType>({
     config: {
       modelPropNameMap: {
         Upload: 'fileList',
@@ -46,10 +46,10 @@ async function initSetupYDSZForm() {
 }
 
 /** 封装后的表单组合式函数，已绑定业务组件类型 {@link ComponentType}。 */
-const useYDSZForm = useForm<ComponentType>;
+const useREMIForm = useForm<ComponentType>;
 
-export { initSetupYDSZForm, useYDSZForm, z };
+export { initSetupREMIForm, useREMIForm, z };
 
 /** 表单 Schema 类型，泛型参数已绑定业务组件类型 {@link ComponentType}。 */
-export type YDSZFormSchema = FormSchema<ComponentType>;
-export type { YDSZFormProps };
+export type REMIFormSchema = FormSchema<ComponentType>;
+export type { REMIFormProps };

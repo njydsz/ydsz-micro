@@ -28,8 +28,8 @@ const isHttpOnlyCookieMode: boolean =
  * @param appName 子应用名称，用于日志标识（如 'message-web'、'nextwiki-web'）
  */
 export async function setupSharedAuth(appName: string): Promise<void> {
-  const { preferences } = await import('@ydsz/preferences');
-  const { resetAllStores, useAccessStore, useTokenStore } = await import('@ydsz/stores');
+  const { preferences } = await import('@remi/preferences');
+  const { resetAllStores, useAccessStore, useTokenStore } = await import('@remi/stores');
 
   initSharedRequest(
     // doReAuthenticate: token 失效时退出登录

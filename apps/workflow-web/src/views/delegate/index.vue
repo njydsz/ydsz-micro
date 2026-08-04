@@ -2,21 +2,21 @@
  * 流程委托（列表页）
  *
  * @path apps\workflow-web\src\views\delegate\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 流程委托（列表页）
- * <p>流程委托（{@code ydsz_flow_delegate}）的列表页。
+ * <p>流程委托（{@code remi_flow_delegate}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteDelegateApi, getDelegatePageApi, type DelegateApi } from '#/api/delegate';
 import DelegateForm from './delegate-form.vue';
 defineOptions({ name: 'DelegateManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<DelegateApi.DelegateVO> = {
       { field: 'assignee', title: 'assignee', itemRender: { name: 'Input', props: { placeholder: 'assignee' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [DelegateFormModal, delegateFormApi] = useVbenModal({ connectedComponent: DelegateForm });
 function handleAdd() { delegateFormApi.open(); }
 function handleEdit(row: DelegateApi.DelegateVO) { delegateFormApi.setData({ record: row }); delegateFormApi.open(); }

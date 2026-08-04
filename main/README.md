@@ -1,20 +1,20 @@
 # main-web 主应用
 
-> YDSZ PMIS 微前端宿主应用，承载认证、布局、全局状态与子应用路由分发（对应后端：ydsz-gateway，路由前缀：/）
+> REMI PMIS 微前端宿主应用，承载认证、布局、全局状态与子应用路由分发（对应后端：remi-gateway，路由前缀：/）
 
 ## 应用定位
 
 | 属性 | 值 |
 |---|---|
 | **类型** | 微前端主应用（micro-kernel micro-frontend host） |
-| **包名** | @ydsz/main-web |
-| **对应后端服务** | ydsz-gateway |
+| **包名** | @remi/main-web |
+| **对应后端服务** | remi-gateway |
 | **前端端口** | 5600 |
 | **后端端口** | 9000 |
 | **路由前缀** | / |
 | **版本** | 1.0.0 |
 
-主应用是整个 YDSZ PMIS 前端的入口与宿主，负责登录认证、全局布局、菜单分发、子应用注册与激活、全局状态通信（micro-kernel globalState）以及路由守卫。9 个业务子应用通过路径前缀匹配挂载到 `#subapp-container` 容器中。
+主应用是整个 REMI PMIS 前端的入口与宿主，负责登录认证、全局布局、菜单分发、子应用注册与激活、全局状态通信（micro-kernel globalState）以及路由守卫。9 个业务子应用通过路径前缀匹配挂载到 `#subapp-container` 容器中。
 
 ## 目录结构
 
@@ -49,13 +49,13 @@ main/
 
 | 依赖包 | 作用 |
 |---|---|
-| `@ydsz/request` | HTTP 请求客户端（Axios 封装），承载认证拦截 |
-| `@ydsz/access` | 权限码与路由访问控制 |
-| `@ydsz/layouts` | 布局组件（basic + auth） |
-| `@ydsz/common-ui` | 通用 UI 组件 |
-| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@ydsz/stores` | 全局状态管理 |
-| `@ydsz/locales` | 国际化基础包 |
+| `@remi/request` | HTTP 请求客户端（Axios 封装），承载认证拦截 |
+| `@remi/access` | 权限码与路由访问控制 |
+| `@remi/layouts` | 布局组件（basic + auth） |
+| `@remi/common-ui` | 通用 UI 组件 |
+| `@remi/monitor` | 前端监控（错误捕获 + Web Vitals） |
+| `@remi/stores` | 全局状态管理 |
+| `@remi/locales` | 国际化基础包 |
 | `element-plus` | UI 组件库 |
 | `pinia` | 状态管理 |
 
@@ -76,7 +76,7 @@ main/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（ydsz-frontend/）执行
+# 在 monorepo 根目录（remi-frontend/）执行
 pnpm dev:main          # 仅启动主应用（端口 5600）
 
 # 启动主应用 + 所有子应用
@@ -107,22 +107,22 @@ pnpm build:main
 | 模块文件 | 路径前缀 | 说明 |
 |---|---|---|
 | `dashboard.ts` | `/dashboard` | 数据分析、工作台 |
-| `subapps.ts` | `/ydsz-user` `/ydsz-sys` `/ydsz-proj` 等 | 9 个子应用 catch-all 激活路由 |
+| `subapps.ts` | `/remi-user` `/remi-sys` `/remi-proj` 等 | 9 个子应用 catch-all 激活路由 |
 | `demos.ts` | `/demos` | 演示页面 |
 
 子应用激活规则（路径前缀匹配 → 挂载对应子应用）：
 
 | 路径前缀 | 子应用 | 默认重定向 |
 |---|---|---|
-| `/ydsz-user/*` | userinfo-web | /ydsz-user/users |
-| `/ydsz-sys/*` | system-web | /ydsz-sys/configs |
-| `/ydsz-proj/*` | project-web | /ydsz-proj/opportunities |
-| `/ydsz-msg/*` | message-web | /ydsz-msg/messages |
-| `/ydsz-cron/*` | cronjob-web | /ydsz-cron/jobs |
-| `/ydsz-flow/*` | workflow-web | /ydsz-flow/templates |
-| `/ydsz-wiki/*` | nextwiki-web | /ydsz-wiki/files |
-| `/ydsz-rule/*` | literule-web | /ydsz-rule/rules |
-| `/ydsz-ai/*` | agent-web | /ydsz-ai/chat |
+| `/remi-user/*` | userinfo-web | /remi-user/users |
+| `/remi-sys/*` | system-web | /remi-sys/configs |
+| `/remi-proj/*` | project-web | /remi-proj/opportunities |
+| `/remi-msg/*` | message-web | /remi-msg/messages |
+| `/remi-cron/*` | cronjob-web | /remi-cron/jobs |
+| `/remi-flow/*` | workflow-web | /remi-flow/templates |
+| `/remi-wiki/*` | nextwiki-web | /remi-wiki/files |
+| `/remi-rule/*` | literule-web | /remi-rule/rules |
+| `/remi-ai/*` | agent-web | /remi-ai/chat |
 
 ## 关键页面与组件
 
@@ -137,7 +137,7 @@ pnpm build:main
 
 ## API 调用
 
-主应用核心 API 集中在 `src/api/core/`，使用 `@ydsz/request` 的 `requestClient`：
+主应用核心 API 集中在 `src/api/core/`，使用 `@remi/request` 的 `requestClient`：
 
 ```typescript
 // 登录（src/api/core/auth.ts）
@@ -165,10 +165,10 @@ export async function getAccessCodesApi() {
 ## 注意事项
 
 1. **子应用激活依赖路径前缀**：新增子应用时需同步在注册表 MICRO_APPS 和 `src/router/routes/modules/subapps.ts`（catch-all 路由）两处注册，二者 `activeRule` 必须一致。
-2. **认证状态共享**：登录后 `accessToken` / `userInfo` 通过 `@ydsz/shared-auth` 的 `requestClient` 拦截器与 micro-kernel `globalState` 同步给所有子应用，子应用无需重复登录。
+2. **认证状态共享**：登录后 `accessToken` / `userInfo` 通过 `@remi/shared-auth` 的 `requestClient` 拦截器与 micro-kernel `globalState` 同步给所有子应用，子应用无需重复登录。
 3. **API 代理统一走 Gateway**：开发环境所有 `/api/*` 请求由 Vite proxy 转发到 `http://localhost:9000`（Gateway），不要直接指向子应用后端端口。
 4. **路由守卫顺序**：`src/router/guard.ts` 中先校验登录态再校验权限码，子应用 catch-all 路由使用 `hideInMenu` 避免菜单重复渲染。
-5. **生产环境子应用地址**：注册表 MICRO_APPS 中 `prodUrls` 使用相对路径（如 `/ydsz-userinfo-web/`），部署时需保证 Nginx 反向代理到各子应用静态资源目录。
+5. **生产环境子应用地址**：注册表 MICRO_APPS 中 `prodUrls` 使用相对路径（如 `/remi-userinfo-web/`），部署时需保证 Nginx 反向代理到各子应用静态资源目录。
 
 ## 变更记录
 

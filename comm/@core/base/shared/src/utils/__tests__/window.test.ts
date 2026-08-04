@@ -2,7 +2,7 @@
  * window.test 工具函数模块
  *
  * @path comm\@core\base\shared\src\utils\__tests__\window.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

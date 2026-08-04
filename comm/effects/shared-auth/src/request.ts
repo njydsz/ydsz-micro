@@ -8,17 +8,17 @@
  * - 不再注入 `Authorization` 请求头（凭据由 Cookie 提供，前端无法读取）
  * - refreshToken 逻辑由后端 Cookie 续期接管，前端不再主动刷新
  */
-import type { RequestClientOptions } from '@ydsz/request';
+import type { RequestClientOptions } from '@remi/request';
 
-import { useAppConfig } from '@ydsz/hooks';
-import { preferences } from '@ydsz/preferences';
+import { useAppConfig } from '@remi/hooks';
+import { preferences } from '@remi/preferences';
 import {
   authenticateResponseInterceptor,
   defaultResponseInterceptor,
   errorMessageResponseInterceptor,
   RequestClient,
-} from '@ydsz/request';
-import { useAccessStore, useTokenStore } from '@ydsz/stores';
+} from '@remi/request';
+import { useAccessStore, useTokenStore } from '@remi/stores';
 
 import { ElMessage } from 'element-plus';
 

@@ -2,7 +2,7 @@
  * alert Vue 组件
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\alert.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -12,7 +12,7 @@ import type { AlertProps } from './alert';
 
 import { computed, h, nextTick, ref } from 'vue';
 
-import { useSimpleLocale } from '@ydsz-core/composables';
+import { useSimpleLocale } from '@remi-core/composables';
 import {
   CircleAlert,
   CircleCheckBig,
@@ -20,7 +20,7 @@ import {
   CircleX,
   Info,
   X,
-} from '@ydsz-core/icons';
+} from '@remi-core/icons';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,12 +28,12 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
-  YDSZButton,
-  YDSZLoading,
-  YDSZRenderContent,
-} from '@ydsz-core/shadcn-ui';
-import { globalShareState } from '@ydsz-core/shared/global-state';
-import { cn } from '@ydsz-core/shared/utils';
+  REMIButton,
+  REMILoading,
+  REMIRenderContent,
+} from '@remi-core/shadcn-ui';
+import { globalShareState } from '@remi-core/shared/global-state';
+import { cn } from '@remi-core/shared/utils';
 
 import { provideAlertContext } from './alert';
 
@@ -168,7 +168,7 @@ async function handleOpenChange(val: boolean) {
             <component :is="getIconRender" class="mr-2" />
             <span class="flex-auto">{{ $t(title) }}</span>
             <AlertDialogCancel v-if="showCancel" as-child>
-              <YDSZButton
+              <REMIButton
                 variant="ghost"
                 size="icon"
                 class="rounded-full"
@@ -176,24 +176,24 @@ async function handleOpenChange(val: boolean) {
                 @click="handleCancel"
               >
                 <X class="text-muted-foreground size-4" />
-              </YDSZButton>
+              </REMIButton>
             </AlertDialogCancel>
           </div>
         </AlertDialogTitle>
         <AlertDialogDescription>
           <div class="m-4 min-h-[30px]">
-            <YDSZRenderContent :content="content" render-br />
+            <REMIRenderContent :content="content" render-br />
           </div>
-          <YDSZLoading v-if="loading && contentMasking" :spinning="loading" />
+          <REMILoading v-if="loading && contentMasking" :spinning="loading" />
         </AlertDialogDescription>
         <div
           class="flex items-center justify-end gap-x-2"
           :class="`justify-${buttonAlign}`"
         >
-          <YDSZRenderContent :content="footer" />
+          <REMIRenderContent :content="footer" />
           <AlertDialogCancel v-if="showCancel" as-child>
             <component
-              :is="components.DefaultButton || YDSZButton"
+              :is="components.DefaultButton || REMIButton"
               :disabled="loading"
               variant="ghost"
               @click="handleCancel"
@@ -203,7 +203,7 @@ async function handleOpenChange(val: boolean) {
           </AlertDialogCancel>
           <AlertDialogAction as-child>
             <component
-              :is="components.PrimaryButton || YDSZButton"
+              :is="components.PrimaryButton || REMIButton"
               :loading="loading"
               @click="handleConfirm"
             >

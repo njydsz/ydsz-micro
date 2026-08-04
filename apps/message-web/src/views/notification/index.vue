@@ -2,7 +2,7 @@
  * 站内通知列表页组件
  *
  * @path apps\message-web\src\views\notification\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 站内通知（列表页）
  * <p>站内消息收件箱的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteNotificationApi, getNotificationPageApi, type NotificationApi } from '#/api/notification';
 import NotificationForm from './notification-form.vue';
 defineOptions({ name: 'NotificationManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<NotificationApi.NotificationVO> = {
       { field: 'type', title: 'type', itemRender: { name: 'Input', props: { placeholder: 'type' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [NotificationFormModal, notificationFormApi] = useVbenModal({ connectedComponent: NotificationForm });
 function handleAdd() { notificationFormApi.open(); }
 function handleEdit(row: NotificationApi.NotificationVO) { notificationFormApi.setData({ record: row }); notificationFormApi.open(); }

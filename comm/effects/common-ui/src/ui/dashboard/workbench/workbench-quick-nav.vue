@@ -2,7 +2,7 @@
  * workbench-quick-nav Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-quick-nav.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -13,8 +13,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  YDSZIcon,
-} from '@ydsz-core/shadcn-ui';
+  REMIIcon,
+} from '@remi-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchQuickNavItem[];
@@ -50,7 +50,7 @@ defineEmits(['click']);
           class="flex-col-center border-border group w-1/3 cursor-pointer border-r border-t py-8 hover:shadow-xl"
           @click="$emit('click', item)"
         >
-          <YDSZIcon
+          <REMIIcon
             :color="item.color"
             :icon="item.icon"
             class="size-7 transition-all duration-300 group-hover:scale-125"

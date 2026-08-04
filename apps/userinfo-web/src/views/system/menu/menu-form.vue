@@ -2,7 +2,7 @@
  * 菜单表单组件 — 支持新增/编辑菜单信息（菜单名称、路径、图标、权限标识）
  *
  * @path apps\userinfo-web\src\views\system\menu\menu-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 菜单（表单组件）
  * <p>菜单的创建/编辑表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { MenuApi } from '#/api/menu';
 
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio, ElTreeSelect, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

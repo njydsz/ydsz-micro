@@ -2,7 +2,7 @@
  * generate-menus 工具函数模块
  *
  * @path comm\utils\src\helpers\generate-menus.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Router, RouteRecordRaw } from 'vue-router';
@@ -11,9 +11,9 @@ import type {
   ExRouteRecordRaw,
   MenuRecordRaw,
   RouteMeta,
-} from '@ydsz-core/typings';
+} from '@remi-core/typings';
 
-import { filterTree, mapTree } from '@ydsz-core/shared/utils';
+import { filterTree, mapTree } from '@remi-core/shared/utils';
 
 /**
  * 根据 routes 生成菜单列表

@@ -2,18 +2,18 @@
  * tabbar 布局组件
  *
  * @path comm\effects\layouts\src\basic\tabbar\tabbar.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { useContentMaximize, useTabs } from '@ydsz/hooks';
-import { preferences } from '@ydsz/preferences';
-import { useTabbarStore } from '@ydsz/stores';
+import { useContentMaximize, useTabs } from '@remi/hooks';
+import { preferences } from '@remi/preferences';
+import { useTabbarStore } from '@remi/stores';
 
-import { TabsToolMore, TabsToolScreen, TabsView } from '@ydsz-core/tabs-ui';
+import { TabsToolMore, TabsToolScreen, TabsView } from '@remi-core/tabs-ui';
 
 import { useTabbar } from './use-tabbar';
 

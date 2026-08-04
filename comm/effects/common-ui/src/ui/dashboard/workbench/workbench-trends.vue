@@ -2,7 +2,7 @@
  * workbench-trends Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-trends.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -13,8 +13,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  YDSZIcon,
-} from '@ydsz-core/shadcn-ui';
+  REMIIcon,
+} from '@remi-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchTrendItem[];
@@ -43,7 +43,7 @@ withDefaults(defineProps<Props>(), {
           class="flex justify-between gap-x-6 py-5"
         >
           <div class="flex min-w-0 items-center gap-x-4">
-            <YDSZIcon
+            <REMIIcon
               :icon="item.avatar"
               alt=""
               class="size-10 flex-none rounded-full"

@@ -2,7 +2,7 @@
  * 项目回款（表单组件）
  *
  * @path apps\project-web\src\views\revenue\revenue-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 项目回款（表单组件）
  * <p>回款记录的录入表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RevenueApi } from '#/api/revenue';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createRevenueApi, updateRevenueApi } from '#/api/revenue';

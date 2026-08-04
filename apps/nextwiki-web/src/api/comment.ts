@@ -4,7 +4,7 @@
  * <p>支持楼中楼回复、@提及、Markdown 格式、表情点赞。
  * <p>供「知识库 → 文档评论」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

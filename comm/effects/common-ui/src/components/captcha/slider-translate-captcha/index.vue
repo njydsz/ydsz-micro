@@ -2,7 +2,7 @@
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-translate-captcha\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -23,7 +23,7 @@ import {
   watch,
 } from 'vue';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
 import SliderCaptcha from '../slider-captcha/index.vue';
 

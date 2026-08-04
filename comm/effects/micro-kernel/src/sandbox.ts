@@ -17,7 +17,7 @@
  * 本沙箱处置规则兜底的漏网之鱼。
  *
  * @path comm/effects/micro-kernel/src/sandbox.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 

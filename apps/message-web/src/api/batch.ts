@@ -4,7 +4,7 @@
  * <p>支持大批量收件人列表（10w+）、分片、限流、失败重试。
  * <p>供「消息中心 → 批量推送」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

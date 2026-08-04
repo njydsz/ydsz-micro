@@ -4,7 +4,7 @@
  * <p>支持告警通道（邮件/短信/企微/钉钉）、告警抑制、告警风暴收敛。
  * <p>供「任务调度 → 告警配置」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

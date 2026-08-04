@@ -2,7 +2,7 @@
  * cache-adapter 模块 — 请求级 SWR 缓存（stale-while-revalidate）
  *
  * @path comm\effects\request\src\cache-adapter.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
  *
  * @remarks

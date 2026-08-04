@@ -2,17 +2,17 @@
  * checkbox-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\checkbox-item.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectOption } from '@ydsz/types';
+import type { SelectOption } from '@remi/types';
 
 import { useSlots } from 'vue';
 
-import { CircleHelp } from '@ydsz/icons';
+import { CircleHelp } from '@remi/icons';
 
-import { YDSZCheckButtonGroup, YDSZTooltip } from '@ydsz-core/shadcn-ui';
+import { REMICheckButtonGroup, REMITooltip } from '@remi-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceCheckboxItem',
@@ -51,14 +51,14 @@ const slots = useSlots();
     <span class="flex items-center text-sm">
       <slot></slot>
 
-      <YDSZTooltip v-if="slots.tip" side="bottom">
+      <REMITooltip v-if="slots.tip" side="bottom">
         <template #trigger>
           <CircleHelp class="ml-1 size-3 cursor-help" />
         </template>
         <slot name="tip"></slot>
-      </YDSZTooltip>
+      </REMITooltip>
     </span>
-    <YDSZCheckButtonGroup
+    <REMICheckButtonGroup
       v-model="inputValue"
       class="h-8 w-[165px]"
       :options="items"

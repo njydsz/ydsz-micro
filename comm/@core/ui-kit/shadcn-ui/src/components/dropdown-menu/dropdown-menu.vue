@@ -2,13 +2,13 @@
  * dropdown-menu 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\dropdown-menu\dropdown-menu.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type {
   DropdownMenuProps,
-  YDSZDropdownMenuItem as IDropdownMenuItem,
+  REMIDropdownMenuItem as IDropdownMenuItem,
 } from './interface';
 
 import {

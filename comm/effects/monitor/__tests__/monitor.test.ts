@@ -1,5 +1,5 @@
 /**
- * @ydsz/monitor 单元测试
+ * @remi/monitor 单元测试
  */
 import { describe, expect, it, vi } from 'vitest';
 
@@ -9,7 +9,7 @@ vi.stubGlobal('navigator', {
   userAgent: 'test-agent',
 });
 
-describe('@ydsz/monitor error-monitor', () => {
+describe('@remi/monitor error-monitor', () => {
   it('should export setupErrorMonitoring function', async () => {
     const { setupErrorMonitoring } = await import('../src/error-monitor');
     expect(typeof setupErrorMonitoring).toBe('function');
@@ -28,7 +28,7 @@ describe('@ydsz/monitor error-monitor', () => {
   });
 });
 
-describe('@ydsz/monitor web-vitals', () => {
+describe('@remi/monitor web-vitals', () => {
   it('should export setupWebVitals function', async () => {
     const { setupWebVitals } = await import('../src/web-vitals');
     expect(typeof setupWebVitals).toBe('function');
@@ -47,7 +47,7 @@ describe('@ydsz/monitor web-vitals', () => {
   });
 });
 
-describe('@ydsz/monitor setup', () => {
+describe('@remi/monitor setup', () => {
   it('should export setupMonitor function', async () => {
     const { setupMonitor } = await import('../src/setup');
     expect(typeof setupMonitor).toBe('function');

@@ -14,7 +14,7 @@
  *   pnpm gen:registry --output dist-cdn/registry.json
  *
  * @path bash/gen-registry.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 3.7.0
  */
 
@@ -45,11 +45,11 @@ for (let i = 0; i < args.length; i++) {
 // 注意：此脚本需在 pnpm / Node 22+ 环境下执行（支持原生 TypeScript import）
 let MICRO_APPS;
 try {
-  const mod = await import('@ydsz/vite-config');
+  const mod = await import('@remi/vite-config');
   MICRO_APPS = mod.MICRO_APPS;
 } catch {
   // 回退：从源文件裸读（编译前场景）
-  console.warn('[GenRegistry] @ydsz/vite-config 不可导入，尝试裸读源文件...');
+  console.warn('[GenRegistry] @remi/vite-config 不可导入，尝试裸读源文件...');
   const configPath = path.join(root, 'conf', 'vite-config', 'src', 'micro-apps.config.ts');
   const src = fs.readFileSync(configPath, 'utf8');
   const match = src.match(/export const MICRO_APPS[^\n]+=\s*\[([\s\S]*?)\];/);
@@ -80,7 +80,7 @@ const registry = {
     title: app.title,
     icon: app.icon,
     order: app.order,
-    prodPath: app.prodPath ?? `/ydsz-${app.name}/`,
+    prodPath: app.prodPath ?? `/remi-${app.name}/`,
     skeletonType: app.skeletonType ?? 'default',
     sandbox: app.sandbox ?? 'snapshot',
   })),

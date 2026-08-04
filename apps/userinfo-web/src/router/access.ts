@@ -4,16 +4,16 @@
  * <p>提供 {@code generateAccess} 异步方法，从后端拉取菜单、构建路由、注册到 router。
  * <p>支持前端静态路由 + 后端动态路由混合模式。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
-} from '@ydsz/types';
+} from '@remi/types';
 
-import { generateAccessible } from '@ydsz/access';
-import { preferences } from '@ydsz/preferences';
+import { generateAccessible } from '@remi/access';
+import { preferences } from '@remi/preferences';
 
 import { ElMessage } from 'element-plus';
 

@@ -2,7 +2,7 @@
  * 文件评论（列表页）
  *
  * @path apps\nextwiki-web\src\views\comment\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 文件评论（列表页）
  * <p>文件评论的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteCommentApi, getCommentPageApi, type CommentApi } from '#/api/comment';
 import CommentForm from './comment-form.vue';
 defineOptions({ name: 'CommentManagement' });
@@ -43,7 +43,7 @@ const gridOptions: VxeGridProps<CommentApi.CommentVO> = {
       { field: 'fileId', title: 'fileId', itemRender: { name: 'Input', props: { placeholder: 'fileId' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [CommentFormModal, commentFormApi] = useVbenModal({ connectedComponent: CommentForm });
 function handleAdd() { commentFormApi.open(); }
 function handleEdit(row: CommentApi.CommentVO) { commentFormApi.setData({ record: row }); commentFormApi.open(); }

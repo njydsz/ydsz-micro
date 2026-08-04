@@ -8,8 +8,8 @@ module.exports = {
       numberOfRuns: 3,
       url: [
         'http://localhost:4173/',
-        'http://localhost:4173/ydsz-proj/',
-        'http://localhost:4173/ydsz-user/',
+        'http://localhost:4173/remi-proj/',
+        'http://localhost:4173/remi-user/',
       ],
       settings: {
         // 模拟移动设备

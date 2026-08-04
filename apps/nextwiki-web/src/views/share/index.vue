@@ -2,7 +2,7 @@
  * 文件分享（列表页）
  *
  * @path apps\nextwiki-web\src\views\share\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 文件分享（列表页）
  * <p>文件分享链接的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteShareApi, getSharePageApi, type ShareApi } from '#/api/share';
 import ShareForm from './share-form.vue';
 defineOptions({ name: 'ShareManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<ShareApi.ShareVO> = {
       // 无搜索项
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [ShareFormModal, shareFormApi] = useVbenModal({ connectedComponent: ShareForm });
 function handleAdd() { shareFormApi.open(); }
 function handleEdit(row: ShareApi.ShareVO) { shareFormApi.setData({ record: row }); shareFormApi.open(); }

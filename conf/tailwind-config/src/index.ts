@@ -2,7 +2,7 @@
  * index 配置模块
  *
  * @path conf\tailwind-config\src\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Config } from 'tailwindcss';
@@ -23,7 +23,7 @@ const { packages } = getPackagesSync(process.cwd());
 const tailwindPackages: string[] = [];
 
 packages.forEach((pkg) => {
-  // apps目录下和 @ydsz-core/tailwind-ui 包需要使用到 tailwindcss ui
+  // apps目录下和 @remi-core/tailwind-ui 包需要使用到 tailwindcss ui
   // if (fs.existsSync(path.join(pkg.dir, 'tailwind.config.mjs'))) {
   tailwindPackages.push(pkg.dir);
   // }

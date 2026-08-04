@@ -72,7 +72,7 @@ export const a11yConfig: Linter.Config = {
  * import AxeBuilder from '@axe-core/playwright';
  *
  * test('项目列表页无严重无障碍违规', async ({ page }) => {
- *   await page.goto('/ydsz-proj/opportunities');
+ *   await page.goto('/remi-proj/opportunities');
  *   const results = await new AxeBuilder({ page })
  *     .withTags(['wcag2a', 'wcag2aa'])
  *     .analyze();

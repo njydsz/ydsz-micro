@@ -2,7 +2,7 @@
  * 复杂事件处理规则管理列表页面
  *
  * @path apps\literule-web\src\views\cep\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 规则 CEP（列表页）
  * <p>复杂事件处理规则的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteCepApi, getCepPageApi, type CepApi } from '#/api/cep';
 import CepForm from './cep-form.vue';
 defineOptions({ name: 'CepManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<CepApi.CepVO> = {
       { field: 'cepName', title: 'cepName', itemRender: { name: 'Input', props: { placeholder: 'cepName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [CepFormModal, cepFormApi] = useVbenModal({ connectedComponent: CepForm });
 function handleAdd() { cepFormApi.open(); }
 function handleEdit(row: CepApi.CepVO) { cepFormApi.setData({ record: row }); cepFormApi.open(); }

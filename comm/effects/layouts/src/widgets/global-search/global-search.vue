@@ -2,11 +2,11 @@
  * global-search 布局组件
  *
  * @path comm\effects\layouts\src\widgets\global-search\global-search.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@ydsz/types';
+import type { MenuRecordRaw } from '@remi/types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
@@ -16,11 +16,11 @@ import {
   CornerDownLeft,
   MdiKeyboardEsc,
   Search,
-} from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
-import { isWindowsOs } from '@ydsz/utils';
+} from '@remi/icons';
+import { $t } from '@remi/locales';
+import { isWindowsOs } from '@remi/utils';
 
-import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { useREMIModal } from '@remi-core/popup-ui';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 
@@ -41,7 +41,7 @@ const props = withDefaults(
 const keyword = ref('');
 const searchInputRef = ref<HTMLInputElement>();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useREMIModal({
   onCancel() {
     modalApi.close();
   },

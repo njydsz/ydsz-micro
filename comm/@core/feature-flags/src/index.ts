@@ -7,7 +7,7 @@
  *   3. 组件中 useFeatureFlag('new-dashboard') 读取响应式状态
  *
  * @path comm/@core/feature-flags/src/index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { FeatureFlagDef, FeatureFlagsOptions } from './types';

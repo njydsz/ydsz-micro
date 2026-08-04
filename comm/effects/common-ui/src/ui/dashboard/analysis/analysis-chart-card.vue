@@ -2,11 +2,11 @@
  * analysis-chart-card Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\analysis-chart-card.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { Card, CardContent, CardHeader, CardTitle } from '@remi-core/shadcn-ui';
 
 interface Props {
   title: string;

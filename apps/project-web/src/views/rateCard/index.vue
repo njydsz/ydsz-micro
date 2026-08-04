@@ -2,21 +2,21 @@
  * 项目计费卡（列表页）
  *
  * @path apps\project-web\src\views\rateCard\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目计费卡（列表页）
- * <p>计费卡（{@code ydsz_project_rate_card}）的列表页。
+ * <p>计费卡（{@code remi_project_rate_card}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteRateCardApi, getRateCardPageApi, type RateCardApi } from '#/api/rateCard';
 import RateCardForm from './rateCard-form.vue';
 defineOptions({ name: 'RateCardManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<RateCardApi.RateCardVO> = {
       { field: 'rateName', title: 'rateName', itemRender: { name: 'Input', props: { placeholder: 'rateName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [RateCardFormModal, rateCardFormApi] = useVbenModal({ connectedComponent: RateCardForm });
 function handleAdd() { rateCardFormApi.open(); }
 function handleEdit(row: RateCardApi.RateCardVO) { rateCardFormApi.setData({ record: row }); rateCardFormApi.open(); }

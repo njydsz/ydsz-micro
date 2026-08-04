@@ -2,7 +2,7 @@
  * EVM 挣值管理（列表页）
  *
  * @path apps\project-web\src\views\evm\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * EVM 挣值管理（列表页）
  * <p>EVM 挣值分析的列表页，展示 PV/EV/AC/CPI/SPI 等指标。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteEvmApi, getEvmPageApi, type EvmApi } from '#/api/evm';
 import EvmForm from './evm-form.vue';
 defineOptions({ name: 'EvmManagement' });
@@ -48,7 +48,7 @@ const gridOptions: VxeGridProps<EvmApi.EvmVO> = {
       // 无搜索项
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [EvmFormModal, evmFormApi] = useVbenModal({ connectedComponent: EvmForm });
 function handleAdd() { evmFormApi.open(); }
 function handleEdit(row: EvmApi.EvmVO) { evmFormApi.setData({ record: row }); evmFormApi.open(); }

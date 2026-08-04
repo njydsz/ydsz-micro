@@ -2,7 +2,7 @@
  * dependencies 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\dependencies.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
@@ -13,7 +13,7 @@ import type {
 
 import { computed, ref, watch } from 'vue';
 
-import { isBoolean, isFunction } from '@ydsz-core/shared/utils';
+import { isBoolean, isFunction } from '@remi-core/shared/utils';
 
 import { useFormValues } from 'vee-validate';
 
@@ -43,7 +43,7 @@ import { injectRenderFormProps } from './context';
  * @param getDependencies - 返回当前联动配置的 getter；写成函数而非直接传值，
  *                          是为了让 schema 动态替换时 watch 能重新求值
  * @returns 六个响应式状态，供字段渲染组件直接绑定
- * @throws 当脱离 `<YDSZForm>` 上下文调用（拿不到 vee-validate 表单值）时抛出 Error
+ * @throws 当脱离 `<REMIForm>` 上下文调用（拿不到 vee-validate 表单值）时抛出 Error
  */
 export default function useDependencies(
   getDependencies: () => FormItemDependencies | undefined,
@@ -56,7 +56,7 @@ export default function useDependencies(
   const formApi = formRenderProps.form!;
 
   if (!values) {
-    throw new Error('useDependencies should be used within <YDSZForm>');
+    throw new Error('useDependencies should be used within <REMIForm>');
   }
 
   const isIf = ref(true);

@@ -2,26 +2,26 @@
  * register 页面组件
  *
  * @path main\src\views\_core\authentication\register.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { YDSZFormSchema } from '@ydsz/common-ui';
-import type { Recordable } from '@ydsz/types';
+import type { REMIFormSchema } from '@remi/common-ui';
+import type { Recordable } from '@remi/types';
 
 import { computed, h, ref } from 'vue';
 
-import { AuthenticationRegister, z } from '@ydsz/common-ui';
-import { $t } from '@ydsz/locales';
+import { AuthenticationRegister, z } from '@remi/common-ui';
+import { $t } from '@remi/locales';
 
 defineOptions({ name: 'Register' });
 
 const loading = ref(false);
 
-const formSchema = computed((): YDSZFormSchema[] => {
+const formSchema = computed((): REMIFormSchema[] => {
   return [
     {
-      component: 'YDSZInput',
+      component: 'REMIInput',
       componentProps: {
         placeholder: $t('authentication.usernameTip'),
       },
@@ -30,7 +30,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
     },
     {
-      component: 'YDSZInputPassword',
+      component: 'REMIInputPassword',
       componentProps: {
         passwordStrength: true,
         placeholder: $t('authentication.password'),
@@ -45,7 +45,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
     },
     {
-      component: 'YDSZInputPassword',
+      component: 'REMIInputPassword',
       componentProps: {
         placeholder: $t('authentication.confirmPassword'),
       },
@@ -65,7 +65,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       label: $t('authentication.confirmPassword'),
     },
     {
-      component: 'YDSZCheckbox',
+      component: 'REMICheckbox',
       fieldName: 'agreePolicy',
       renderComponentContent: () => ({
         default: () =>
@@ -74,7 +74,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
             h(
               'a',
               {
-                class: 'ydsz-link ml-1 ',
+                class: 'remi-link ml-1 ',
                 href: '',
               },
               `${$t('authentication.privacyPolicy')} & ${$t('authentication.terms')}`,

@@ -2,15 +2,15 @@
  * full-screen 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\full-screen\full-screen.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Maximize, Minimize } from '@ydsz-core/icons';
+import { Maximize, Minimize } from '@remi-core/icons';
 
 import { useFullscreen } from '@vueuse/core';
 
-import { YDSZIconButton } from '../button';
+import { REMIIconButton } from '../button';
 
 defineOptions({ name: 'FullScreen' });
 
@@ -28,12 +28,12 @@ isFullscreen.value = !!(
 );
 </script>
 <template>
-  <YDSZIconButton
+  <REMIIconButton
     :aria-label="isFullscreen ? '退出全屏' : '进入全屏'"
     :aria-pressed="isFullscreen"
     @click="toggle"
   >
     <Minimize v-if="isFullscreen" class="text-foreground size-4" aria-hidden="true" />
     <Maximize v-else class="text-foreground size-4" aria-hidden="true" />
-  </YDSZIconButton>
+  </REMIIconButton>
 </template>

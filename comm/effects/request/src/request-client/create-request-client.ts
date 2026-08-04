@@ -2,7 +2,7 @@
  * create-request-client 模块
  *
  * @path comm\effects\request\src\request-client\create-request-client.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RequestClient, RequestClientOptions } from './request-client';

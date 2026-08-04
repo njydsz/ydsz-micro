@@ -2,7 +2,7 @@
  * footer 布局组件
  *
  * @path comm\effects\layouts\src\basic\footer\footer.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>

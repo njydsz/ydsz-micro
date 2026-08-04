@@ -5,12 +5,12 @@
  * micro-kernel 通过 fetch manifest.json 获取入口信息，免去 HTML entry 解析。
  *
  * 路径处理：使用 Vite 配置的 base 前缀拼接，确保在子路径部署
- * （如 /ydsz-project-web/）下 entry/css 路径正确，不再硬编码 `/` 根路径。
+ * （如 /remi-project-web/）下 entry/css 路径正确，不再硬编码 `/` 根路径。
  *
  * 在共享 vite-config 中作为可选插件引入。
  *
  * @path comm/effects/micro-kernel/src/vite-plugin-manifest.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -53,12 +53,12 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
   let base = '/';
 
   return {
-    name: 'ydsz:micro-manifest',
+    name: 'remi:micro-manifest',
 
     // 仅在 build 阶段启用
     apply: 'build',
 
-    /** 捕获 Vite 解析后的 base 配置（如 /ydsz-project-web/），供路径拼接使用 */
+    /** 捕获 Vite 解析后的 base 配置（如 /remi-project-web/），供路径拼接使用 */
     configResolved(config) {
       base = config.base;
     },

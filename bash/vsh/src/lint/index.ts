@@ -2,12 +2,12 @@
  * index 模块
  *
  * @path bash\vsh\src\lint\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CAC } from 'cac';
 
-import { execaCommand } from '@ydsz/node-utils';
+import { execaCommand } from '@remi/node-utils';
 
 interface LintCommandOptions {
   /**

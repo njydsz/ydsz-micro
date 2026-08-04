@@ -2,7 +2,7 @@
  * env 工具函数模块
  *
  * @path conf\vite-config\src\utils\env.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { ApplicationPluginOptions } from '../typing';
@@ -10,7 +10,7 @@ import type { ApplicationPluginOptions } from '../typing';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { fs } from '@ydsz/node-utils';
+import { fs } from '@remi/node-utils';
 
 import dotenv from 'dotenv';
 
@@ -116,7 +116,7 @@ async function loadAndConvertEnv(
     .filter((item) => item === 'brotli' || item === 'gzip');
 
   return {
-    appTitle: getString(VITE_APP_TITLE, 'YDSZ Admin'),
+    appTitle: getString(VITE_APP_TITLE, 'REMI Admin'),
     archiver: getBoolean(VITE_ARCHIVER),
     base: getString(VITE_BASE, '/'),
     compress: compressTypes.length > 0,

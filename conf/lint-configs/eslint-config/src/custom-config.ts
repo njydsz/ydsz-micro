@@ -2,7 +2,7 @@
  * custom-config 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\custom-config.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Linter } from 'eslint';
@@ -20,7 +20,7 @@ const restrictedImportIgnores = [
  * 项目自定义的 ESLint 规则集合。
  *
  * 按目录（apps / @core / comm 等）施加差异化的导入限制与规则开关，
- * 例如禁止 @core 反向依赖 @ydsz、统一子包边界；restrictedImportIgnores 中的
+ * 例如禁止 @core 反向依赖 @remi、统一子包边界；restrictedImportIgnores 中的
  * 构建配置文件则不受这些限制约束。
  */
 const customConfig: Linter.Config[] = [
@@ -88,7 +88,7 @@ const customConfig: Linter.Config[] = [
     },
   },
   {
-    // @core内部组件，不能引入@ydsz/* 里面的包
+    // @core内部组件，不能引入@remi/* 里面的包
     files: ['comm/@core/**/**'],
     ignores: restrictedImportIgnores,
     rules: {
@@ -97,9 +97,9 @@ const customConfig: Linter.Config[] = [
         {
           patterns: [
             {
-              group: ['@ydsz/*'],
+              group: ['@remi/*'],
               message:
-                'The @core package cannot import the @ydsz package, please use the @core package itself',
+                'The @core package cannot import the @remi package, please use the @core package itself',
             },
           ],
         },
@@ -107,7 +107,7 @@ const customConfig: Linter.Config[] = [
     },
   },
   {
-    // @core/shared内部组件，不能引入@ydsz/* 或者 @ydsz-core/* 里面的包
+    // @core/shared内部组件，不能引入@remi/* 或者 @remi-core/* 里面的包
     files: ['comm/@core/base/**/**'],
     ignores: restrictedImportIgnores,
     rules: {
@@ -116,9 +116,9 @@ const customConfig: Linter.Config[] = [
         {
           patterns: [
             {
-              group: ['@ydsz/*', '@ydsz-core/*'],
+              group: ['@remi/*', '@remi-core/*'],
               message:
-                'The @ydsz-core/shared package cannot import the @ydsz package, please use the @core/shared package itself',
+                'The @remi-core/shared package cannot import the @remi package, please use the @core/shared package itself',
             },
           ],
         },
@@ -127,7 +127,7 @@ const customConfig: Linter.Config[] = [
   },
 
   {
-    // 不能引入@ydsz/*里面的包
+    // 不能引入@remi/*里面的包
     files: [
       'comm/types/**/**',
       'comm/utils/**/**',
@@ -145,9 +145,9 @@ const customConfig: Linter.Config[] = [
         {
           patterns: [
             {
-              group: ['@ydsz/*'],
+              group: ['@remi/*'],
               message:
-                'The @ydsz package cannot be imported, please use the @core package itself',
+                'The @remi package cannot be imported, please use the @core package itself',
             },
           ],
         },
@@ -191,7 +191,7 @@ const customConfig: Linter.Config[] = [
         {
           paths: [
             {
-              name: '@ydsz-core/ui-kit/shadcn-ui',
+              name: '@remi-core/ui-kit/shadcn-ui',
               message: '[架构] 新页面禁止引入 shadcn-ui。统一使用 Element Plus 组件，存量代码随迭代逐步替换。',
             },
             {
@@ -222,14 +222,14 @@ const customConfig: Linter.Config[] = [
     files: ['**/router/**'],
     ignores: restrictedImportIgnores,
     plugins: {
-      ydsz: {
+      remi: {
         rules: {
           'enforce-route-lazy-import': enforceRouteLazyImportRule,
         },
       },
     },
     rules: {
-      'ydsz/enforce-route-lazy-import': 'error',
+      'remi/enforce-route-lazy-import': 'error',
     },
   },
 ];

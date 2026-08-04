@@ -2,7 +2,7 @@
  * application 配置模块
  *
  * @path conf\vite-config\src\config\application.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CSSOptions, UserConfig } from 'vite';
@@ -12,7 +12,7 @@ import type { DefineApplicationOptions } from '../typing';
 import path, { relative } from 'node:path';
 import { readFileSync } from 'node:fs';
 
-import { findMonorepoRoot } from '@ydsz/node-utils';
+import { findMonorepoRoot } from '@remi/node-utils';
 
 import { NodePackageImporter } from 'sass';
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
@@ -81,7 +81,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       mode,
       print: !isBuild,
       printInfoMap: {
-        'YDSZ Admin Docs': 'https://docs.njydsz.com.cn',
+        'REMI Admin Docs': 'https://docs.remi.com.cn',
       },
       // v3.3: PWA 离线缓存默认启用，提升二次访问速度
       // 已配置合理的缓存策略：API 使用 NetworkFirst，静态资源使用 CacheFirst
@@ -99,7 +99,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
     // === micro-kernel manifest 插件：自动注入，子应用无需手工引入 ===
     if (isBuild && subAppName) {
       try {
-        const { viteManifestPlugin } = await import('@ydsz/micro-kernel');
+        const { viteManifestPlugin } = await import('@remi/micro-kernel');
         plugins.push(viteManifestPlugin({ name: subAppName }));
         console.info(`[ViteConfig] Manifest plugin injected for ${subAppName}`);
       } catch {
@@ -166,7 +166,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
 /**
  * 构造 SCSS 预处理器选项，并按需注入 micro-kernel CSS 作用域插件。
  *
- * - 仅对 apps 下的包注入 `@ydsz/styles/global` SCSS 全局样式
+ * - 仅对 apps 下的包注入 `@remi/styles/global` SCSS 全局样式
  * - build 模式下，对子应用注入 PostCSS prefix 插件（[data-micro-app="xxx"]），
  *   与 micro-kernel 的容器属性约定联动，实现构建期样式隔离
  *
@@ -184,7 +184,7 @@ function createCssOptions(injectGlobalScss = true, appName?: string): CSSOptions
             additionalData: (content: string, filepath: string) => {
               const relativePath = relative(root, filepath);
               if (relativePath.startsWith(`apps${path.sep}`)) {
-                return `@use "@ydsz/styles/global" as *;\n${content}`;
+                return `@use "@remi/styles/global" as *;\n${content}`;
               }
               return content;
             },
@@ -275,10 +275,10 @@ function readSubAppName(): string | undefined {
     );
     const pkg = JSON.parse(pkgContent);
     const name: string = pkg.name || '';
-    if (name.startsWith('@ydsz/') && name.endsWith('-web')) {
-      return name.replace('@ydsz/', '');
+    if (name.startsWith('@remi/') && name.endsWith('-web')) {
+      return name.replace('@remi/', '');
     }
-    if (name === '@ydsz/main-web') return 'main-web';
+    if (name === '@remi/main-web') return 'main-web';
   } catch {
     // package.json 不存在时静默
   }
@@ -289,7 +289,7 @@ function readSubAppName(): string | undefined {
  * 读取子应用 package.json 中声明的 importmap 共享策略（v4.0 P1-1）。
  *
  * 取值优先级：
- * 1. package.json 中 `ydsz.shareStrategy` 字段
+ * 1. package.json 中 `remi.shareStrategy` 字段
  * 2. 默认 'all'（全量外置，保持向后兼容）
  *
  * 无效值会警告并回退到 'all'。
@@ -301,7 +301,7 @@ function readSubAppShareStrategy(): ShareStrategy {
       'utf-8',
     );
     const pkg = JSON.parse(pkgContent);
-    const strategy = pkg?.ydsz?.shareStrategy;
+    const strategy = pkg?.remi?.shareStrategy;
     if (isValidStrategy(strategy)) {
       return strategy;
     }

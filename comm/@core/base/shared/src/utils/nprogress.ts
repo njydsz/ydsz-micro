@@ -2,7 +2,7 @@
  * nprogress 工具函数模块
  *
  * @path comm\@core\base\shared\src\utils\nprogress.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type NProgress from 'nprogress';

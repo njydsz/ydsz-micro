@@ -8,7 +8,7 @@
  * - 字符串与对象两种绑定值规范化
  *
  * @path comm/effects/common-ui/src/components/watermark/__tests__/directive.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { App, DirectiveBinding } from 'vue';

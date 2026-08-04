@@ -13,7 +13,7 @@
   /* 2. page -> background（主动推送） */
   window.addEventListener('message', function (e) {
     if (e.source !== window || !e.data) return;
-    if (e.data.channel !== '__YDSZ_MICRO_KERNEL__CHANNEL') return;
+    if (e.data.channel !== '__REMI_MICRO_KERNEL__CHANNEL') return;
     if (e.data.source !== 'page') return;
     chrome.runtime.sendMessage({
       target: 'background',
@@ -23,7 +23,7 @@
     }).catch(function () {});
   });
 
-  window.addEventListener('__YDSZ_MICRO_KERNEL__:out', function (e) {
+  window.addEventListener('__REMI_MICRO_KERNEL__:out', function (e) {
     var d = e.detail;
     if (!d) return;
     chrome.runtime.sendMessage({ target: 'background', type: d.type, payload: d.payload }).catch(function () {});
@@ -33,7 +33,7 @@
   chrome.runtime.onMessage.addListener(function (msg, _sender, sendResponse) {
     if (msg.target !== 'content-script') return;
     window.postMessage({
-      channel: '__YDSZ_MICRO_KERNEL__CHANNEL',
+      channel: '__REMI_MICRO_KERNEL__CHANNEL',
       source: 'extension',
       type: msg.type,
       payload: msg.payload,

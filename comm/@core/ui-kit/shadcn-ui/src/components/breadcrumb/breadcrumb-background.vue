@@ -2,13 +2,13 @@
  * breadcrumb-background 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\breadcrumb-background.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { BreadcrumbProps } from './types';
 
-import { YDSZIcon } from '../icon';
+import { REMIIcon } from '../icon';
 
 interface Props extends BreadcrumbProps {}
 
@@ -37,7 +37,7 @@ function handleClick(index: number, path?: string) {
             @click.stop="handleClick(index, item.path)"
           >
             <span class="flex-center z-10 h-full">
-              <YDSZIcon
+              <REMIIcon
                 v-if="showIcon"
                 :icon="item.icon"
                 class="mr-1 size-4 flex-shrink-0"

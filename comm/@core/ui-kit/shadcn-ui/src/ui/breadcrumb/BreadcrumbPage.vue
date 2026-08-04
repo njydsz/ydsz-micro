@@ -2,11 +2,11 @@
  * BreadcrumbPage Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\BreadcrumbPage.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
 const props = defineProps<{
   class?: any;

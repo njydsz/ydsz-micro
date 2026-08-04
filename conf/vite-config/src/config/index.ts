@@ -2,7 +2,7 @@
  * index 配置模块
  *
  * @path conf\vite-config\src\config\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { DefineConfig } from '../typing';

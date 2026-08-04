@@ -2,7 +2,7 @@
  * monorepo 配置模块
  *
  * @path conf\node-utils\src\monorepo.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { dirname } from 'node:path';

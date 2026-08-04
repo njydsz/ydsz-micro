@@ -2,7 +2,7 @@
  * project 路由模块
  *
  * @path apps\project-web\src\router\routes\modules\project.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';

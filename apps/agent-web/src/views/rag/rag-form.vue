@@ -2,7 +2,7 @@
  * rag-form 表单页面组件
  *
  * @path apps\agent-web\src\views\rag\rag-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * Agent RAG 知识库（表单组件）
  * <p>RAG 知识库的创建/编辑表单，支持文档上传、Embedding 模型选择。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RagApi } from '#/api/rag';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createRagApi, updateRagApi } from '#/api/rag';

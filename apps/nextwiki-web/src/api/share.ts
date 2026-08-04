@@ -4,7 +4,7 @@
  * <p>支持公开分享、密码保护、有效期、访问次数限制。
  * <p>供「知识库 → 分享管理」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

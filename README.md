@@ -1,6 +1,6 @@
 <div align="center">
-  <h1>YDSZ PMIS Frontend</h1>
-  <p>YDSZ 项目管理信息系统 — 前端微应用架构</p>
+  <h1>REMI PMIS Frontend</h1>
+  <p>REMI 项目管理信息系统 — 前端微应用架构</p>
 </div>
 
 基于自研 micro-kernel 微前端运行时，采用 Vue 3 + Element Plus + TypeScript 技术栈，每个后端微服务对应一个独立的前端微应用，实现「独立开发」、「独立测试」、「独立部署」。
@@ -56,21 +56,21 @@
 
 | 应用 | 前端端口 | 后端端口 | 后端服务 | 路由前缀 | 职责 |
 | --- | --- | --- | --- | --- | --- |
-| **main-web** | 5600 | 9000 | ydsz-gateway | / | 微前端宿主，认证/布局/全局状态/路由分发 |
-| **userinfo-web** | 5601 | 9002 | ydsz-userinfo | /ydsz-user | 用户/部门/角色/菜单/岗位/OAuth2 |
-| **system-web** | 5602 | 9001 | ydsz-system | /ydsz-sys | 系统配置/字典/变量/应用注册 |
-| **project-web** | 5603 | 9009 | ydsz-project | /ydsz-proj | 商机/合同/预算/执行/EVM/成本/利润 |
-| **message-web** | 5604 | 9004 | ydsz-message | /ydsz-msg | 消息/模板/通知/路由/灰度/追踪 |
-| **cronjob-web** | 5605 | 9006 | ydsz-cronjob | /ydsz-cron | 任务/DAG/日志/告警/拓扑 |
-| **workflow-web** | 5606 | 9005 | ydsz-workflow | /ydsz-flow | 流程模板/设计器/实例/待办/SLA |
-| **nextwiki-web** | 5607 | 9003 | ydsz-nextwiki | /ydsz-wiki | 文件/预览/搜索/分享/锁定 |
-| **literule-web** | 5608 | 9007 | ydsz-literule | /ydsz-rule | 规则/DSL/变量/CEP/断点 |
-| **agent-web** | 5610 | 9008 | ydsz-agent | /ydsz-ai | 对话/Agent/RAG/DAG/审批 |
+| **main-web** | 5600 | 9000 | remi-gateway | / | 微前端宿主，认证/布局/全局状态/路由分发 |
+| **userinfo-web** | 5601 | 9002 | remi-userinfo | /remi-user | 用户/部门/角色/菜单/岗位/OAuth2 |
+| **system-web** | 5602 | 9001 | remi-system | /remi-sys | 系统配置/字典/变量/应用注册 |
+| **project-web** | 5603 | 9009 | remi-project | /remi-proj | 商机/合同/预算/执行/EVM/成本/利润 |
+| **message-web** | 5604 | 9004 | remi-message | /remi-msg | 消息/模板/通知/路由/灰度/追踪 |
+| **cronjob-web** | 5605 | 9006 | remi-cronjob | /remi-cron | 任务/DAG/日志/告警/拓扑 |
+| **workflow-web** | 5606 | 9005 | remi-workflow | /remi-flow | 流程模板/设计器/实例/待办/SLA |
+| **nextwiki-web** | 5607 | 9003 | remi-nextwiki | /remi-wiki | 文件/预览/搜索/分享/锁定 |
+| **literule-web** | 5608 | 9007 | remi-literule | /remi-rule | 规则/DSL/变量/CEP/断点 |
+| **agent-web** | 5610 | 9008 | remi-agent | /remi-ai | 对话/Agent/RAG/DAG/审批 |
 
 ## 目录结构
 
 ```
-ydsz-frontend/
+remi-frontend/
 ├── main/                              # 主应用（微前端宿主）
 │   ├── src/
 │   │   ├── 注册表 MICRO_APPS                  # micro-kernel 子应用注册配置
@@ -84,15 +84,15 @@ ydsz-frontend/
 │   │   └── preferences.ts            # 偏好覆盖
 │   └── ...
 ├── apps/                              # 9 个业务子应用
-│   ├── userinfo-web/                # 用户中心 → ydsz-userinfo:9002
-│   ├── system-web/                  # 系统管理 → ydsz-system:9001
-│   ├── project-web/                 # 项目管理 → ydsz-project:9009
-│   ├── message-web/                 # 消息中心 → ydsz-message:9004
-│   ├── cronjob-web/                 # 定时任务 → ydsz-cronjob:9006
-│   ├── workflow-web/                # 工作流引擎 → ydsz-workflow:9005
-│   ├── nextwiki-web/                # 网盘知识库 → ydsz-nextwiki:9003
-│   ├── literule-web/                # 规则引擎 → ydsz-literule:9007
-│   ├── agent-web/                   # AI 助手 → ydsz-agent:9008
+│   ├── userinfo-web/                # 用户中心 → remi-userinfo:9002
+│   ├── system-web/                  # 系统管理 → remi-system:9001
+│   ├── project-web/                 # 项目管理 → remi-project:9009
+│   ├── message-web/                 # 消息中心 → remi-message:9004
+│   ├── cronjob-web/                 # 定时任务 → remi-cronjob:9006
+│   ├── workflow-web/                # 工作流引擎 → remi-workflow:9005
+│   ├── nextwiki-web/                # 网盘知识库 → remi-nextwiki:9003
+│   ├── literule-web/                # 规则引擎 → remi-literule:9007
+│   ├── agent-web/                   # AI 助手 → remi-agent:9008
 ├── comm/                              # 公共共享包
 │   ├── @core/                        # 核心 SDK（base/composables/preferences/ui-kit）
 │   ├── effects/                      # 副作用（access/common-ui/hooks/layouts/plugins/request/shared-auth/monitor）
@@ -177,15 +177,15 @@ pnpm test:e2e                # E2E 测试
 
 | 路径前缀 | 子应用 |
 | --- | --- |
-| `/ydsz-user/*` | userinfo-web |
-| `/ydsz-sys/*` | system-web |
-| `/ydsz-proj/*` | project-web |
-| `/ydsz-msg/*` | message-web |
-| `/ydsz-cron/*` | cronjob-web |
-| `/ydsz-flow/*` | workflow-web |
-| `/ydsz-wiki/*` | nextwiki-web |
-| `/ydsz-rule/*` | literule-web |
-| `/ydsz-ai/*` | agent-web |
+| `/remi-user/*` | userinfo-web |
+| `/remi-sys/*` | system-web |
+| `/remi-proj/*` | project-web |
+| `/remi-msg/*` | message-web |
+| `/remi-cron/*` | cronjob-web |
+| `/remi-flow/*` | workflow-web |
+| `/remi-wiki/*` | nextwiki-web |
+| `/remi-rule/*` | literule-web |
+| `/remi-ai/*` | agent-web |
 
 ## API 代理
 
@@ -210,8 +210,8 @@ server: {
 | 特性 | 说明 |
 |------|------|
 | **微前端架构** | micro-kernel ESM 直引隔离 + 按需预加载（hover 触发）+ 全局状态通信（globalState） |
-| **公共认证包** | `@ydsz/shared-auth` 统一 RequestClient + Auth API + Auth Store，消除 9 份重复代码 |
-| **前端监控** | `@ydsz/monitor` 错误捕获（Vue/window/Promise/资源）+ Web Vitals（LCP/FID/CLS/INP/FCP/TTFB） |
+| **公共认证包** | `@remi/shared-auth` 统一 RequestClient + Auth API + Auth Store，消除 9 份重复代码 |
+| **前端监控** | `@remi/monitor` 错误捕获（Vue/window/Promise/资源）+ Web Vitals（LCP/FID/CLS/INP/FCP/TTFB） |
 | **主题切换** | auto/light/dark 暗黑模式 + Element Plus 主题适配 + 系统偏好跟随 |
 | **API 对齐** | 全部 API 路径 `/api/v1/*` + successCode="A00000" + LoginVO 类型 + refreshToken 自动刷新 |
 | **构建优化** | Vite manualChunks 分割（vue-vendor/element-vendor/vxe-vendor）+ chunk hash 缓存 |

@@ -2,7 +2,7 @@
  * useCaptchaPoints 组合式函数
  *
  * @path comm\effects\common-ui\src\components\captcha\hooks\useCaptchaPoints.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CaptchaPoint } from '../types';

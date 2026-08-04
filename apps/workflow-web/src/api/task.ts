@@ -1,7 +1,7 @@
 /**
  * 流程任务 API 模块（前端）
  *
- * <p>封装流程任务（{@code ydsz_flow_run_task}）的查询接口调用，对应后端
+ * <p>封装流程任务（{@code remi_flow_run_task}）的查询接口调用，对应后端
  * {@code /api/v1/workflow/engine/*} 端点。供「工作流 → 我的待办 / 已办」使用。
  *
  * <p><b>核心接口：</b>
@@ -14,7 +14,7 @@
  *   <li>{@link transferTaskApi} — 转办任务</li>
  * </ul>
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

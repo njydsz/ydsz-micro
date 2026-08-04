@@ -2,7 +2,7 @@
  * 规则断点调试管理列表页面
  *
  * @path apps\literule-web\src\views\breakpoint\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 规则断点（列表页）
  * <p>规则断点调试的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteBreakpointApi, getBreakpointPageApi, type BreakpointApi } from '#/api/breakpoint';
 import BreakpointForm from './breakpoint-form.vue';
 defineOptions({ name: 'BreakpointManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<BreakpointApi.BreakpointVO> = {
       { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [BreakpointFormModal, breakpointFormApi] = useVbenModal({ connectedComponent: BreakpointForm });
 function handleAdd() { breakpointFormApi.open(); }
 function handleEdit(row: BreakpointApi.BreakpointVO) { breakpointFormApi.setData({ record: row }); breakpointFormApi.open(); }

@@ -2,12 +2,12 @@
  * types 模块
  *
  * @path comm\effects\common-ui\src\components\captcha\types.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CSSProperties } from 'vue';
 
-import type { ClassType } from '@ydsz/types';
+import type { ClassType } from '@remi/types';
 
 /**
  * 点选验证码的单次点击原始数据。

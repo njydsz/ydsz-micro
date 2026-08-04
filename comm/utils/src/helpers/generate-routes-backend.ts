@@ -2,7 +2,7 @@
  * generate-routes-backend 工具函数模块
  *
  * @path comm\utils\src\helpers\generate-routes-backend.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';
@@ -11,9 +11,9 @@ import type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
   RouteRecordStringComponent,
-} from '@ydsz-core/typings';
+} from '@remi-core/typings';
 
-import { mapTree } from '@ydsz-core/shared/utils';
+import { mapTree } from '@remi-core/shared/utils';
 
 /**
  * 动态生成路由 - 后端方式
@@ -87,7 +87,7 @@ function normalizeViewPath(path: string): string {
     ? normalizedPath
     : `/${normalizedPath}`;
 
-  // 这里耦合了ydsz-admin的目录结构
+  // 这里耦合了remi-admin的目录结构
   return viewPath.replace(/^\/views/, '');
 }
 export { generateRoutesByBackend };

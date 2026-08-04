@@ -2,7 +2,7 @@
  * error-state 通用组件 — 统一错误状态展示
  *
  * @path comm\effects\shared-business\src\components\error-state.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

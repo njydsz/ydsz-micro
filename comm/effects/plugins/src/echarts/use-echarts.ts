@@ -2,20 +2,20 @@
  * use-echarts 模块
  *
  * @path comm\effects\plugins\src\echarts\use-echarts.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { EChartsOption } from 'echarts';
 
 import type { Ref } from 'vue';
 
-import type { Nullable } from '@ydsz/types';
+import type { Nullable } from '@remi/types';
 
 import type EchartsUI from './echarts-ui.vue';
 
 import { computed, nextTick, watch } from 'vue';
 
-import { usePreferences } from '@ydsz/preferences';
+import { usePreferences } from '@remi/preferences';
 
 import {
   tryOnUnmounted,

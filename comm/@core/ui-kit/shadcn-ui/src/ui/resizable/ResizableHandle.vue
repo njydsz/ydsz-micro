@@ -2,7 +2,7 @@
  * ResizableHandle Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\resizable\ResizableHandle.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -15,8 +15,8 @@ import type { HTMLAttributes } from 'vue';
 
 import { computed } from 'vue';
 
-import { GripVertical } from '@ydsz-core/icons';
-import { cn } from '@ydsz-core/shared/utils';
+import { GripVertical } from '@remi-core/icons';
+import { cn } from '@remi-core/shared/utils';
 
 import { SplitterResizeHandle, useForwardPropsEmits } from 'radix-vue';
 

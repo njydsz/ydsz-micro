@@ -2,12 +2,12 @@
  * use-refresh 组合式函数
  *
  * @path comm\effects\hooks\src\use-refresh.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { useRouter } from 'vue-router';
 
-import { useTabbarStore } from '@ydsz/stores';
+import { useTabbarStore } from '@remi/stores';
 
 /**
  * 提供刷新当前标签页内容的能力。

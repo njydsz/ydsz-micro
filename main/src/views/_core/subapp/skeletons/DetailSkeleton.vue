@@ -4,7 +4,7 @@
  适用于详情页面的加载骨架屏，包含标签 - 值对的结构。
 
  @path main/src/views/_core/subapp/skeletons/DetailSkeleton.vue
- @author ydsz-team
+ @author remi-team
  @since 1.0.0
 -->
 <template>

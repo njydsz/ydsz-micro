@@ -16,7 +16,7 @@
  *   node bash/sync-shared-deps.mjs apps/agent-web  # 指定目标应用目录
  *
  * @path bash/sync-shared-deps.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 3.1.0
  */
 import fs from 'node:fs';

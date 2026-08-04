@@ -8,7 +8,7 @@
  *   - globalStateHandle 未注入时的降级
  *
  * @path comm/effects/micro-runtime/__tests__/use-global-state.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.2.0
  */
 import { describe, expect, it, vi } from 'vitest';

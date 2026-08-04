@@ -2,7 +2,7 @@
  * extra-app-config 配置模块
  *
  * @path conf\vite-config\src\plugins\extra-app-config.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { PluginOption } from 'vite';
@@ -11,7 +11,7 @@ import {
   colors,
   generatorContentHash,
   readPackageJSON,
-} from '@ydsz/node-utils';
+} from '@remi/node-utils';
 
 import { loadEnv } from '../utils/env';
 
@@ -26,7 +26,7 @@ interface PluginOptions {
 /** 抽离出的全局配置文件名，注入到 HTML 后由运行时加载 */
 const GLOBAL_CONFIG_FILE_NAME = '_app.config.js';
 /** 挂载到 window 上的应用配置全局变量名，值经 freeze 防止被篡改 */
-const YDSZ_ADMIN_PRO_APP_CONF = '_YDSZ_ADMIN_PRO_APP_CONF_';
+const REMI_ADMIN_PRO_APP_CONF = '_REMI_ADMIN_PRO_APP_CONF_';
 
 /**
  * 将应用配置从打包产物中抽离为独立文件，并在 HTML 中按需注入。
@@ -96,12 +96,12 @@ async function viteExtraAppConfigPlugin({
  */
 async function getConfigSource() {
   const config = await loadEnv();
-  const windowVariable = `window.${YDSZ_ADMIN_PRO_APP_CONF}`;
+  const windowVariable = `window.${REMI_ADMIN_PRO_APP_CONF}`;
   // 确保变量不会被修改
   let source = `${windowVariable}=${JSON.stringify(config)};`;
   source += `
     Object.freeze(${windowVariable});
-    Object.defineProperty(window, "${YDSZ_ADMIN_PRO_APP_CONF}", {
+    Object.defineProperty(window, "${REMI_ADMIN_PRO_APP_CONF}", {
       configurable: false,
       writable: false,
     });

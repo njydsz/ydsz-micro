@@ -2,7 +2,7 @@
  * not-found 页面组件
  *
  * @path apps\agent-web\src\views\fallback\not-found.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,7 +10,7 @@
  * 404 兜底页
  * <p>Vue Router 中未匹配到任何路由时显示的 404 兜底页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { useRouter } from 'vue-router';

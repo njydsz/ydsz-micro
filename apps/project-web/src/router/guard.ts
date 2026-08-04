@@ -4,7 +4,7 @@
  * 子应用无需重复实现 commonGuard / authGuard / permissionGuard / initRoutes，
  * 直接传入本应用的 accessRoutes 即可。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 2.0.0
  */
 import type { Router } from 'vue-router';
@@ -12,7 +12,7 @@ import type { Router } from 'vue-router';
 import {
   createSubAppRouterGuard,
   initRoutes as sharedInitRoutes,
-} from '@ydsz/shared-auth/guards';
+} from '@remi/shared-auth/guards';
 
 import { accessRoutes } from '#/router/routes';
 

@@ -2,18 +2,18 @@
  * dingding-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\dingding-login.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 
-import { RiDingding } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { RiDingding } from '@remi/icons';
+import { $t } from '@remi/locales';
 
-import { alert, useYDSZModal } from '@ydsz-core/popup-ui';
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
-import { loadScript } from '@ydsz-core/shared/utils';
+import { alert, useREMIModal } from '@remi-core/popup-ui';
+import { REMIIconButton } from '@remi-core/shadcn-ui';
+import { loadScript } from '@remi-core/shared/utils';
 
 interface Props {
   clientId: string;
@@ -28,7 +28,7 @@ const props = defineProps<Props>();
 
 const route = useRoute();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useREMIModal({
   header: false,
   footer: false,
   fullscreenButton: false,
@@ -98,13 +98,13 @@ const handleLogin = () => {
 
 <template>
   <div>
-    <YDSZIconButton
+    <REMIIconButton
       @click="handleLogin"
       :tooltip="$t('authentication.dingdingLogin')"
       tooltip-side="top"
     >
       <RiDingding />
-    </YDSZIconButton>
+    </REMIIconButton>
     <Modal>
       <div id="dingding_qrcode_login_element"></div>
     </Modal>

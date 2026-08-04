@@ -3,7 +3,7 @@
 
   用于列表无数据、搜索结果为空等场景，提供统一的插画/图标与描述文案。
 
-  @author ydsz-team
+  @author remi-team
   @since 1.0.0
 -->
 <script setup lang="ts">

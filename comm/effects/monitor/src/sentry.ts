@@ -14,7 +14,7 @@
  *
  * 使用方式：
  * ```ts
- * import { initSentry } from '@ydsz/monitor/sentry';
+ * import { initSentry } from '@remi/monitor/sentry';
  *
  * // 在 bootstrap 中调用
  * if (import.meta.env.VITE_SENTRY_DSN) {
@@ -28,7 +28,7 @@
  * ```
  *
  * @path comm/effects/monitor/src/sentry.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 4.0.0
  */
 
@@ -73,7 +73,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
   } catch {
     console.warn(
       '[Monitor] @sentry/vue not installed; Sentry forwarding disabled. ' +
-      'To enable: pnpm add @sentry/vue --filter @ydsz/monitor'
+      'To enable: pnpm add @sentry/vue --filter @remi/monitor'
     );
     return false;
   }

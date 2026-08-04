@@ -10,8 +10,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@ydsz/shared-business": ["./src/index.ts"],
-      "@ydsz/shared-business/*": ["./src/*"]
+      "@remi/shared-business": ["./src/index.ts"],
+      "@remi/shared-business/*": ["./src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.vue"],

@@ -2,7 +2,7 @@
  * 快捷回复（列表页）
  *
  * @path apps\workflow-web\src\views\quickComment\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 快捷回复（列表页）
  * <p>审批快捷回复模板的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickCommentApi, getQuickCommentPageApi, type QuickCommentApi } from '#/api/quickComment';
 import QuickCommentForm from './quickComment-form.vue';
 defineOptions({ name: 'QuickCommentManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<QuickCommentApi.QuickCommentVO> = {
       { field: 'content', title: 'content', itemRender: { name: 'Input', props: { placeholder: 'content' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [QuickCommentFormModal, quickCommentFormApi] = useVbenModal({ connectedComponent: QuickCommentForm });
 function handleAdd() { quickCommentFormApi.open(); }
 function handleEdit(row: QuickCommentApi.QuickCommentVO) { quickCommentFormApi.setData({ record: row }); quickCommentFormApi.open(); }

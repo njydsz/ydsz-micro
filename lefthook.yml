@@ -31,8 +31,8 @@ pre-commit:
       run: pnpm prettier --cache --write --parser json {staged_files}
     # 后端公共模块 README 文档一致性检查（幽灵类检测）
     docs-sync:
-      glob: "ydsz-backend/ydsz-common/**/README.md"
-      run: python scripts/docs-sync-check.py --repo-root ydsz-backend {staged_files}
+      glob: "remi-backend/remi-common/**/README.md"
+      run: python scripts/docs-sync-check.py --repo-root remi-backend {staged_files}
     # 工作区代码检查
     code-workspace:
       run: pnpm vsh code-workspace --auto-commit

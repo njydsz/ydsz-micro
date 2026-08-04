@@ -2,7 +2,7 @@
  * login-expired-modal Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\login-expired-modal.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,10 +10,10 @@ import type { AuthenticationProps } from './types';
 
 import { computed, watch } from 'vue';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
-import { useYDSZModal } from '@ydsz-core/popup-ui';
-import { YDSZAvatar, Slot } from '@ydsz-core/shadcn-ui';
+import { useREMIModal } from '@remi-core/popup-ui';
+import { REMIAvatar, Slot } from '@remi-core/shadcn-ui';
 
 interface Props extends AuthenticationProps {
   avatar?: string;
@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const open = defineModel<boolean>('open');
 
-const [Modal, modalApi] = useYDSZModal();
+const [Modal, modalApi] = useREMIModal();
 
 watch(
   () => open.value,
@@ -87,7 +87,7 @@ function calcZIndex() {
       :z-index="getZIndex"
       class="border-none px-10 py-6 text-center shadow-xl sm:w-[600px] sm:rounded-2xl md:h-[unset]"
     >
-      <YDSZAvatar :src="avatar" class="mx-auto mb-6 size-20" />
+      <REMIAvatar :src="avatar" class="mx-auto mb-6 size-20" />
       <Slot
         :show-forget-password="false"
         :show-register="false"

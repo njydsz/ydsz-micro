@@ -2,7 +2,7 @@
  * drawer Vue 组件
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\drawer.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -22,13 +22,13 @@ import {
   useIsMobile,
   usePriorityValues,
   useSimpleLocale,
-} from '@ydsz-core/composables';
-import { X } from '@ydsz-core/icons';
+} from '@remi-core/composables';
+import { X } from '@remi-core/icons';
 import {
-  YDSZButton,
-  YDSZHelpTooltip,
-  YDSZIconButton,
-  YDSZLoading,
+  REMIButton,
+  REMIHelpTooltip,
+  REMIIconButton,
+  REMILoading,
   Separator,
   Sheet,
   SheetClose,
@@ -38,10 +38,10 @@ import {
   SheetHeader,
   SheetTitle,
   VisuallyHidden,
-} from '@ydsz-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
-import { globalShareState } from '@ydsz-core/shared/global-state';
-import { cn } from '@ydsz-core/shared/utils';
+} from '@remi-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@remi-core/shared/constants';
+import { globalShareState } from '@remi-core/shared/global-state';
+import { cn } from '@remi-core/shared/utils';
 
 interface Props extends DrawerProps {
   drawerApi?: ExtendedDrawerApi;
@@ -233,9 +233,9 @@ const getForceMount = computed(() => {
             class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
             <slot name="close-icon">
-              <YDSZIconButton>
+              <REMIIconButton>
                 <X class="size-4" />
-              </YDSZIconButton>
+              </REMIIconButton>
             </slot>
           </SheetClose>
           <Separator
@@ -248,9 +248,9 @@ const getForceMount = computed(() => {
             <slot name="title">
               {{ title }}
 
-              <YDSZHelpTooltip v-if="titleTooltip" trigger-class="pb-1">
+              <REMIHelpTooltip v-if="titleTooltip" trigger-class="pb-1">
                 {{ titleTooltip }}
-              </YDSZHelpTooltip>
+              </REMIHelpTooltip>
             </slot>
           </SheetTitle>
           <SheetDescription v-if="description" class="mt-1 text-xs">
@@ -274,9 +274,9 @@ const getForceMount = computed(() => {
             class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
             <slot name="close-icon">
-              <YDSZIconButton>
+              <REMIIconButton>
                 <X class="size-4" />
-              </YDSZIconButton>
+              </REMIIconButton>
             </slot>
           </SheetClose>
         </div>
@@ -297,7 +297,7 @@ const getForceMount = computed(() => {
       >
         <slot></slot>
       </div>
-      <YDSZLoading v-if="showLoading || submitting" spinning />
+      <REMILoading v-if="showLoading || submitting" spinning />
       <SheetFooter
         v-if="showFooter"
         :class="
@@ -310,7 +310,7 @@ const getForceMount = computed(() => {
         <slot name="prepend-footer"></slot>
         <slot name="footer">
           <component
-            :is="components.DefaultButton || YDSZButton"
+            :is="components.DefaultButton || REMIButton"
             v-if="showCancelButton"
             variant="ghost"
             :disabled="submitting"
@@ -322,7 +322,7 @@ const getForceMount = computed(() => {
           </component>
           <slot name="center-footer"></slot>
           <component
-            :is="components.PrimaryButton || YDSZButton"
+            :is="components.PrimaryButton || REMIButton"
             v-if="showConfirmButton"
             :loading="confirmLoading || submitting"
             @click="() => drawerApi?.onConfirm()"

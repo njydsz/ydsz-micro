@@ -2,7 +2,7 @@
  * layout-sidebar 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-sidebar.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
-import { YDSZScrollbar } from '@ydsz-core/shadcn-ui';
+import { REMIScrollbar } from '@remi-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
 
@@ -308,9 +308,9 @@ function handleMouseleave() {
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
     </div>
-    <YDSZScrollbar :style="contentStyle" shadow shadow-border>
+    <REMIScrollbar :style="contentStyle" shadow shadow-border>
       <slot></slot>
-    </YDSZScrollbar>
+    </REMIScrollbar>
 
     <div :style="collapseStyle"></div>
     <SidebarCollapseButton
@@ -339,13 +339,13 @@ function handleMouseleave() {
     <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
       <slot name="extra-title"></slot>
     </div>
-    <YDSZScrollbar
+    <REMIScrollbar
       :style="extraContentStyle"
       class="border-border py-2"
       shadow
       shadow-border
     >
       <slot name="extra"></slot>
-    </YDSZScrollbar>
+    </REMIScrollbar>
   </div>
 </template>

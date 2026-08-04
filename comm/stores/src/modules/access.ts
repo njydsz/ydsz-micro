@@ -5,12 +5,12 @@
  * 本 store 仅负责权限码、菜单、路由的存取。
  *
  * @path comm\stores\src\modules\access.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import type { MenuRecordRaw } from '@ydsz-core/typings';
+import type { MenuRecordRaw } from '@remi-core/typings';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 

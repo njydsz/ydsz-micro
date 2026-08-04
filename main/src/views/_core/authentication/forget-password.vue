@@ -2,26 +2,26 @@
  * forget-password 页面组件
  *
  * @path main\src\views\_core\authentication\forget-password.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { YDSZFormSchema } from '@ydsz/common-ui';
-import type { Recordable } from '@ydsz/types';
+import type { REMIFormSchema } from '@remi/common-ui';
+import type { Recordable } from '@remi/types';
 
 import { computed, ref } from 'vue';
 
-import { AuthenticationForgetPassword, z } from '@ydsz/common-ui';
-import { $t } from '@ydsz/locales';
+import { AuthenticationForgetPassword, z } from '@remi/common-ui';
+import { $t } from '@remi/locales';
 
 defineOptions({ name: 'ForgetPassword' });
 
 const loading = ref(false);
 
-const formSchema = computed((): YDSZFormSchema[] => {
+const formSchema = computed((): REMIFormSchema[] => {
   return [
     {
-      component: 'YDSZInput',
+      component: 'REMIInput',
       componentProps: {
         placeholder: 'example@example.com',
       },

@@ -2,14 +2,14 @@
  * 国际化配置入口
  *
  * @path main\src\locales\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Language } from 'element-plus/es/locale';
 
 import type { App } from 'vue';
 
-import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
+import type { LocaleSetupOptions, SupportedLanguagesType } from '@remi/locales';
 
 import { ref } from 'vue';
 
@@ -18,8 +18,8 @@ import {
   loadLocalesMapFromDir,
   preloadLocaleOnIdle,
   setupI18n as coreSetup,
-} from '@ydsz/locales';
-import { preferences } from '@ydsz/preferences';
+} from '@remi/locales';
+import { preferences } from '@remi/preferences';
 
 import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';

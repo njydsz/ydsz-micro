@@ -2,7 +2,7 @@
  * create-icon 模块
  *
  * @path comm\@core\base\icons\src\create-icon.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { defineComponent, h } from 'vue';

@@ -2,7 +2,7 @@
  * path 配置模块
  *
  * @path conf\node-utils\src\path.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { posix } from 'node:path';

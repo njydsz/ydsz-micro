@@ -11,7 +11,7 @@
  *   node ./bash/gen-nginx-conf.mjs --check   # 仅校验，不写入（CI 用）
  *
  * @path bash/gen-nginx-conf.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 
@@ -87,7 +87,7 @@ function parseMicroApps() {
  * 获取子应用生产部署路径（与 micro-apps.config.ts 的 getProdEntry 逻辑一致）。
  */
 function getProdPath(app) {
-  return app.prodPath ?? `/ydsz-${app.name}/`;
+  return app.prodPath ?? `/remi-${app.name}/`;
 }
 
 /**

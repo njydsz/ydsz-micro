@@ -3,7 +3,7 @@
 
   用于 API 请求失败、网络异常等场景，提供友好提示 + 重试入口。
 
-  @author ydsz-team
+  @author remi-team
   @since 1.0.0
 -->
 <script setup lang="ts">

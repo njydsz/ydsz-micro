@@ -11,7 +11,7 @@
  * 同时提供轻量 pub-sub 监听器，供路由守卫、指令等非组件场景使用。
  *
  * @path comm/@core/feature-flags/src/feature-flags.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
@@ -23,7 +23,7 @@ import type {
 
 import { reactive, readonly } from 'vue';
 
-import { StorageManager } from '@ydsz-core/shared/cache';
+import { StorageManager } from '@remi-core/shared/cache';
 
 /** localStorage 子键（挂在 namespace 之下） */
 const STORAGE_KEY = 'feature-flags';

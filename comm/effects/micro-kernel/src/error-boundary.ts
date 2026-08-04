@@ -8,12 +8,12 @@
  * 防止 config.name / config.entry / config.activeRule 含恶意字符导致 XSS。
  *
  * @path comm/effects/micro-kernel/src/error-boundary.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
-import type { MicroAppConfig } from '@ydsz/micro-runtime';
-import { createLogger } from '@ydsz-core/shared/utils';
+import type { MicroAppConfig } from '@remi/micro-runtime';
+import { createLogger } from '@remi-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');

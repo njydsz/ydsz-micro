@@ -1,12 +1,12 @@
 {
-  "name": "@ydsz/tsconfig",
+  "name": "@remi/tsconfig",
   "version": "5.5.9",
   "private": true,
-  "homepage": "https://github.com/njydsz/vue-ydsz-admin",
-  "bugs": "https://github.com/njydsz/vue-ydsz-admin/issues",
+  "homepage": "https://github.com/remi/vue-remi-admin",
+  "bugs": "https://github.com/remi/vue-remi-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/njydsz/vue-ydsz-admin.git",
+    "url": "git+https://github.com/remi/vue-remi-admin.git",
     "directory": "conf/tsconfig"
   },
   "license": "MIT",
@@ -19,7 +19,7 @@
     "web.json"
   ],
   "dependencies": {
-    "@ydsz/types": "workspace:*",
+    "@remi/types": "workspace:*",
     "vite": "catalog:"
   }
 }

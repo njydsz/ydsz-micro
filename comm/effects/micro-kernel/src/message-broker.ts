@@ -7,11 +7,11 @@
  * - 可选 await 对方响应 Promise（基于随机 correlationId 关联）
  *
  * @path comm/effects/micro-kernel/src/message-broker.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.7.0
  */
 
-import { createLogger } from '@ydsz-core/shared/utils';
+import { createLogger } from '@remi-core/shared/utils';
 
 const logger = createLogger('MicroKernel');
 

@@ -4,7 +4,7 @@
  * <p>记录规则的发布、版本变更、A/B 分流、灰度发布、回滚等关键事件。
  * <p>供「规则引擎 → 审计中心」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

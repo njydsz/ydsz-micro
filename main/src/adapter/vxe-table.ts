@@ -2,21 +2,21 @@
  * vxe-table 适配器模块
  *
  * @path main\src\adapter\vxe-table.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
+import type { VxeTableGridOptions } from '@remi/plugins/vxe-table';
 
 import { h } from 'vue';
 
-import { useAccess } from '@ydsz/access';
-import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
+import { useAccess } from '@remi/access';
+import { setupREMIVxeTable, useREMIVxeGrid } from '@remi/plugins/vxe-table';
 
 import { ElButton, ElImage } from 'element-plus';
 
-import { useYDSZForm } from './form';
+import { useREMIForm } from './form';
 
-setupYDSZVxeTable({
+setupREMIVxeTable({
   configVxeTable: (vxeUI) => {
     vxeUI.setConfig({
       grid: {
@@ -91,9 +91,9 @@ setupYDSZVxeTable({
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add
   },
-  useYDSZForm,
+  useREMIForm,
 });
 
-export { useYDSZVxeGrid };
+export { useREMIVxeGrid };
 
-export type * from '@ydsz/plugins/vxe-table';
+export type * from '@remi/plugins/vxe-table';

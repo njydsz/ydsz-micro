@@ -2,10 +2,10 @@
  * use-content-maximize 组合式函数
  *
  * @path comm\effects\hooks\src\use-content-maximize.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { updatePreferences, usePreferences } from '@ydsz/preferences';
+import { updatePreferences, usePreferences } from '@remi/preferences';
 /**
  * 主体区域最大化
  */

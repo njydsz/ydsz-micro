@@ -4,7 +4,7 @@
  * <p>支持按渠道订阅/退订、免打扰时段、消息类型过滤。
  * <p>供「个人中心 → 通知设置」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

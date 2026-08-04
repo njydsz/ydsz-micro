@@ -2,7 +2,7 @@
  * index 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-export { default as YDSZBackTop } from './back-top.vue';
+export { default as REMIBackTop } from './back-top.vue';

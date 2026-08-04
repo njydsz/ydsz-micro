@@ -4,7 +4,7 @@
  * <p>支持 JSON/YAML 格式的规则脚本上传、解析、校验、转换。
  * <p>供「规则引擎 → DSL 编辑器」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

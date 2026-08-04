@@ -2,7 +2,7 @@
  * postcss.config 配置模块
  *
  * @path conf\tailwind-config\src\postcss.config.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import config from '.';

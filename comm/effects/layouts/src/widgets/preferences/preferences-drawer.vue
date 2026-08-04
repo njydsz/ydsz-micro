@@ -2,11 +2,11 @@
  * preferences-drawer 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences-drawer.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SupportedLanguagesType } from '@ydsz/locales';
+import type { SupportedLanguagesType } from '@remi/locales';
 import type {
   BreadcrumbStyleType,
   BuiltinThemeType,
@@ -17,28 +17,28 @@ import type {
   NavigationStyleType,
   PreferencesButtonPositionType,
   ThemeModeType,
-} from '@ydsz/types';
+} from '@remi/types';
 
-import type { SegmentedItem } from '@ydsz-core/shadcn-ui';
+import type { SegmentedItem } from '@remi-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { Copy, RotateCw } from '@ydsz/icons';
-import { $t, loadLocaleMessages } from '@ydsz/locales';
+import { Copy, RotateCw } from '@remi/icons';
+import { $t, loadLocaleMessages } from '@remi/locales';
 import {
   clearPreferencesCache,
   preferences,
   resetPreferences,
   usePreferences,
-} from '@ydsz/preferences';
+} from '@remi/preferences';
 
-import { useYDSZDrawer } from '@ydsz-core/popup-ui';
+import { useREMIDrawer } from '@remi-core/popup-ui';
 import {
-  YDSZButton,
-  YDSZIconButton,
-  YDSZSegmented,
-} from '@ydsz-core/shadcn-ui';
-import { globalShareState } from '@ydsz-core/shared/global-state';
+  REMIButton,
+  REMIIconButton,
+  REMISegmented,
+} from '@remi-core/shadcn-ui';
+import { globalShareState } from '@remi-core/shared/global-state';
 
 import { useClipboard } from '@vueuse/core';
 
@@ -184,7 +184,7 @@ const {
 } = usePreferences();
 const { copy } = useClipboard({ legacy: true });
 
-const [Drawer] = useYDSZDrawer();
+const [Drawer] = useREMIDrawer();
 
 const activeTab = ref('appearance');
 
@@ -251,7 +251,7 @@ async function handleReset() {
     >
       <template #extra>
         <div class="flex items-center">
-          <YDSZIconButton
+          <REMIIconButton
             :disabled="!diffPreference"
             :tooltip="$t('preferences.resetTip')"
             class="relative"
@@ -261,12 +261,12 @@ async function handleReset() {
               class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
             ></span>
             <RotateCw class="size-4" @click="handleReset" />
-          </YDSZIconButton>
+          </REMIIconButton>
         </div>
       </template>
 
       <div class="p-1">
-        <YDSZSegmented v-model="activeTab" :tabs="tabs">
+        <REMISegmented v-model="activeTab" :tabs="tabs">
           <template #general>
             <Block :title="$t('preferences.general')">
               <General
@@ -427,11 +427,11 @@ async function handleReset() {
               />
             </Block>
           </template>
-        </YDSZSegmented>
+        </REMISegmented>
       </div>
 
       <template #footer>
-        <YDSZButton
+        <REMIButton
           :disabled="!diffPreference"
           class="mx-4 w-full"
           size="sm"
@@ -440,8 +440,8 @@ async function handleReset() {
         >
           <Copy class="mr-2 size-3" />
           {{ $t('preferences.copyPreferences') }}
-        </YDSZButton>
-        <YDSZButton
+        </REMIButton>
+        <REMIButton
           :disabled="!diffPreference"
           class="mr-4 w-full"
           size="sm"
@@ -449,7 +449,7 @@ async function handleReset() {
           @click="handleClearCache"
         >
           {{ $t('preferences.clearAndLogout') }}
-        </YDSZButton>
+        </REMIButton>
       </template>
     </Drawer>
   </div>

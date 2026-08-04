@@ -2,7 +2,7 @@
  * remi-layout 模块
  *
  * @path comm\@core\ui-kit\layout-ui\src\remi-layout.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
@@ -10,9 +10,9 @@ import type {
   LayoutHeaderModeType,
   LayoutType,
   ThemeModeType,
-} from '@ydsz-core/typings';
+} from '@remi-core/typings';
 
-interface YDSZLayoutProps {
+interface REMILayoutProps {
   /**
    * 内容区域定宽
    * @default 'wide'
@@ -179,4 +179,4 @@ interface YDSZLayoutProps {
    */
   zIndex?: number;
 }
-export type { YDSZLayoutProps };
+export type { REMILayoutProps };

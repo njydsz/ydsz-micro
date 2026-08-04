@@ -8,7 +8,7 @@
  * - keepAlive 激活 → container.appendChild(cachedEl) 直接复用，零重新渲染
  *
  * @path comm/effects/micro-kernel/src/scheduler.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -18,7 +18,7 @@ import type {
   MountProps,
   SandboxType,
   UnmountResult,
-} from '@ydsz/micro-runtime';
+} from '@remi/micro-runtime';
 import { loadApp, removeStylesheets } from './loader';
 import type { LoadOptions, LoadResult, Manifest } from './loader';
 import { enterSandbox, exitSandbox } from './sandbox';
@@ -27,7 +27,7 @@ import { createProxySandbox } from './proxy-sandbox';
 import type { ProxySandboxInstance } from './proxy-sandbox';
 import { createIframeSandbox } from './iframe-sandbox';
 import type { IframeSandboxInstance } from './iframe-sandbox';
-import { createLogger } from '@ydsz-core/shared/utils';
+import { createLogger } from '@remi-core/shared/utils';
 
 /** 模块级日志器（生命周期事件默认 debug 级别，避免生产噪音） */
 const logger = createLogger('MicroKernel');
@@ -53,7 +53,7 @@ export type AppStatus = 'NOT_LOADED' | 'LOADING' | 'LOADED' | 'MOUNTED' | 'UNMOU
  *
  * @since 3.6.0 从 micro-runtime 导入，不再在本文件定义
  */
-export type { SandboxType } from '@ydsz/micro-runtime';
+export type { SandboxType } from '@remi/micro-runtime';
 
 /** 单个子应用在调度器中的运行时实例，含配置、生命周期导出、状态与保活缓存 */
 export interface AppInstance {

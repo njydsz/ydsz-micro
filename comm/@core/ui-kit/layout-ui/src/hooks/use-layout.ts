@@ -2,12 +2,12 @@
  * use-layout 组合式函数
  *
  * @path comm\@core\ui-kit\layout-ui\src\hooks\use-layout.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { LayoutType } from '@ydsz-core/typings';
+import type { LayoutType } from '@remi-core/typings';
 
-import type { YDSZLayoutProps } from '../ydsz-layout';
+import type { REMILayoutProps } from '../remi-layout';
 
 import { computed } from 'vue';
 
@@ -31,7 +31,7 @@ import { computed } from 'vue';
  * @param props - 布局组件的 props，需包含 `layout` 与 `isMobile`
  * @returns `currentLayout` 为生效中的布局模式，其余为各模式的布尔判定
  */
-export function useLayout(props: YDSZLayoutProps) {
+export function useLayout(props: REMILayoutProps) {
   const currentLayout = computed(() =>
     props.isMobile ? 'sidebar-nav' : (props.layout as LayoutType),
   );

@@ -2,7 +2,7 @@
  * use-modal 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\use-modal.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { ExtendedModalApi, ModalApiOptions, ModalProps } from './modal';
@@ -17,12 +17,12 @@ import {
   ref,
 } from 'vue';
 
-import { useStore } from '@ydsz-core/shared/store';
+import { useStore } from '@remi-core/shared/store';
 
 import { ModalApi } from './modal-api';
-import YDSZModal from './modal.vue';
+import REMIModal from './modal.vue';
 
-const USER_MODAL_INJECT_KEY = Symbol('YDSZ_MODAL_INJECT');
+const USER_MODAL_INJECT_KEY = Symbol('REMI_MODAL_INJECT');
 
 const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
 
@@ -34,7 +34,7 @@ const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
  *
  * 副作用与约束：
  * - 通过 `Object.assign` **原地修改模块级单例**，多次调用为累加覆盖，不会清空已有键；
- * - 优先级最低，会被 `useYDSZModal(options)` 中的同名项覆盖；
+ * - 优先级最低，会被 `useREMIModal(options)` 中的同名项覆盖；
  * - **仅影响之后创建的弹窗**，已存在的实例不受影响。
  *
  * @param props - 要合并进全局默认值的弹窗配置
@@ -47,7 +47,7 @@ export function setDefaultModalProps(props: Partial<ModalProps>) {
  * 创建一对「弹窗组件 + 命令式 API」，支持内联使用与独立组件两种模式。
  *
  * @remarks
- * 结构与 `useYDSZDrawer` 完全对称，依据是否传入 `connectedComponent` 分为两条分支：
+ * 结构与 `useREMIDrawer` 完全对称，依据是否传入 `connectedComponent` 分为两条分支：
  *
  * **模式一：内联（不传 `connectedComponent`）**
  * 直接创建 ModalApi 与渲染组件，弹窗内容写在当前组件插槽内。
@@ -71,11 +71,11 @@ export function setDefaultModalProps(props: Partial<ModalProps>) {
  *
  * @example
  * ```ts
- * const [Modal, modalApi] = useYDSZModal({ connectedComponent: EditModal });
+ * const [Modal, modalApi] = useREMIModal({ connectedComponent: EditModal });
  * modalApi.setData({ id }).open();
  * ```
  */
-export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
+export function useREMIModal<TParentModalProps extends ModalProps = ModalProps>(
   options: ModalApiOptions = {},
 ) {
   // Modal一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
@@ -117,7 +117,7 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
       },
       // eslint-disable-next-line vue/one-component-per-file
       {
-        name: 'YDSZParentModal',
+        name: 'REMIParentModal',
         inheritAttrs: false,
       },
     );
@@ -158,7 +158,7 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
     (props: ModalProps, { attrs, slots }) => {
       return () =>
         h(
-          YDSZModal,
+          REMIModal,
           {
             ...props,
             ...attrs,
@@ -169,7 +169,7 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
     },
     // eslint-disable-next-line vue/one-component-per-file
     {
-      name: 'YDSZModal',
+      name: 'REMIModal',
       inheritAttrs: false,
     },
   );
@@ -196,7 +196,7 @@ async function checkProps(api: ExtendedModalApi, attrs: Record<string, any>) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Modal的props，会造成复杂度提升，如果你需要修改Modal的props，请使用 useModal 或者api
       console.warn(
-        `[YDSZ Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useYDSZModal or api.`,
+        `[REMI Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useREMIModal or api.`,
       );
     }
   }

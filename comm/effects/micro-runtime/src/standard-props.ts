@@ -14,7 +14,7 @@
  * - 子应用侧：调用 useMicroProps() 获取类型化 props 访问器
  *
  * @path comm/effects/micro-runtime/src/standard-props.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 4.0.0
  */
 

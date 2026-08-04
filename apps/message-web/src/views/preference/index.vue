@@ -2,7 +2,7 @@
  * 消息偏好设置列表页组件
  *
  * @path apps\message-web\src\views\preference\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 消息偏好（列表页）
  * <p>用户消息偏好设置的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deletePreferenceApi, getPreferencePageApi, type PreferenceApi } from '#/api/preference';
 import PreferenceForm from './preference-form.vue';
 defineOptions({ name: 'PreferenceManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<PreferenceApi.PreferenceVO> = {
       { field: 'userId', title: 'userId', itemRender: { name: 'Input', props: { placeholder: 'userId' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [PreferenceFormModal, preferenceFormApi] = useVbenModal({ connectedComponent: PreferenceForm });
 function handleAdd() { preferenceFormApi.open(); }
 function handleEdit(row: PreferenceApi.PreferenceVO) { preferenceFormApi.setData({ record: row }); preferenceFormApi.open(); }

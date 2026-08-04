@@ -2,7 +2,7 @@
  * iframe-router-view 布局组件
  *
  * @path comm\effects\layouts\src\iframe\iframe-router-view.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -11,10 +11,10 @@ import type { RouteLocationNormalized } from 'vue-router';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { preferences } from '@ydsz/preferences';
-import { useTabbarStore } from '@ydsz/stores';
+import { preferences } from '@remi/preferences';
+import { useTabbarStore } from '@remi/stores';
 
-import { YDSZSpinner } from '@ydsz-core/shadcn-ui';
+import { REMISpinner } from '@remi-core/shadcn-ui';
 
 defineOptions({ name: 'IFrameRouterView' });
 
@@ -81,7 +81,7 @@ function showSpinning(index: number) {
         v-show="routeShow(item)"
         class="relative size-full"
       >
-        <YDSZSpinner :spinning="showSpinning(index)" />
+        <REMISpinner :spinning="showSpinning(index)" />
         <iframe
           :src="item.meta.iframeSrc as string"
           class="size-full"

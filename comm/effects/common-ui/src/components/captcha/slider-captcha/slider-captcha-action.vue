@@ -2,7 +2,7 @@
  * slider-captcha-action 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-captcha\slider-captcha-action.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,9 +10,9 @@ import type { CSSProperties } from 'vue';
 
 import { computed, ref, useTemplateRef } from 'vue';
 
-import { Check, ChevronsRight } from '@ydsz/icons';
+import { Check, ChevronsRight } from '@remi/icons';
 
-import { Slot } from '@ydsz-core/shadcn-ui';
+import { Slot } from '@remi-core/shadcn-ui';
 
 const props = defineProps<{
   actionStyle: CSSProperties;

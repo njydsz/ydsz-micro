@@ -4,7 +4,7 @@
  适用于表单页面的加载骨架屏，包含表单项和提交按钮。
 
  @path main/src/views/_core/subapp/skeletons/FormSkeleton.vue
- @author ydsz-team
+ @author remi-team
  @since 1.0.0
 -->
 <template>

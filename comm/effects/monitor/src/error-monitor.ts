@@ -125,7 +125,7 @@ const FLUSH_INTERVAL = 10_000;
 const MAX_PER_TYPE = 5;
 
 /** 离线缓存键名 */
-const OFFLINE_CACHE_KEY = 'ydsz_monitor_offline_queue';
+const OFFLINE_CACHE_KEY = 'remi_monitor_offline_queue';
 
 /** 离线缓存最大条数 */
 const MAX_OFFLINE_CACHE = 100;

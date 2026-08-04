@@ -2,7 +2,7 @@
  * 规则断点调试编辑表单组件
  *
  * @path apps\literule-web\src\views\breakpoint\breakpoint-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 规则断点（调试器组件）
  * <p>规则断点调试器组件，支持单步执行、变量查看、表达式求值。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { BreakpointApi } from '#/api/breakpoint';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createBreakpointApi, updateBreakpointApi } from '#/api/breakpoint';

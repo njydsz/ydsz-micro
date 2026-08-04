@@ -2,19 +2,19 @@
  * remi-use-form Vue 组件
  *
  * @path comm\@core\ui-kit\form-ui\src\remi-use-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { Recordable } from '@ydsz-core/typings';
+import type { Recordable } from '@remi-core/typings';
 
-import type { ExtendedFormApi, YDSZFormProps } from './types';
+import type { ExtendedFormApi, REMIFormProps } from './types';
 
 // import { toRaw, watch } from 'vue';
 import { nextTick, onMounted, watch } from 'vue';
 
-import { useForwardPriorityValues } from '@ydsz-core/composables';
-import { cloneDeep, get, isEqual, set } from '@ydsz-core/shared/utils';
+import { useForwardPriorityValues } from '@remi-core/composables';
+import { cloneDeep, get, isEqual, set } from '@remi-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -31,7 +31,7 @@ import {
   useFormInitial,
 } from './use-form-context';
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
-interface Props extends YDSZFormProps {
+interface Props extends REMIFormProps {
   formApi: ExtendedFormApi;
 }
 

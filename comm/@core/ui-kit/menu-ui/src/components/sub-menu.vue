@@ -2,18 +2,18 @@
  * sub-menu 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\sub-menu.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { HoverCardContentProps } from '@ydsz-core/shadcn-ui';
+import type { HoverCardContentProps } from '@remi-core/shadcn-ui';
 
 import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
-import { useNamespace } from '@ydsz-core/composables';
-import { YDSZHoverCard } from '@ydsz-core/shadcn-ui';
+import { useNamespace } from '@remi-core/composables';
+import { REMIHoverCard } from '@remi-core/shadcn-ui';
 
 import {
   createSubMenuContext,
@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
     @mouseleave="() => handleMouseleave()"
   >
     <template v-if="rootMenu.isMenuPopup">
-      <YDSZHoverCard
+      <REMIHoverCard
         :content-class="[
           rootMenu.theme,
           nsMenu.e('popup-container'),
@@ -250,7 +250,7 @@ onBeforeUnmount(() => {
             <slot></slot>
           </ul>
         </div>
-      </YDSZHoverCard>
+      </REMIHoverCard>
     </template>
 
     <template v-else>

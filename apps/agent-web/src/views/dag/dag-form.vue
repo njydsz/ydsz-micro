@@ -2,7 +2,7 @@
  * dag-form 表单页面组件
  *
  * @path apps\agent-web\src\views\dag\dag-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * Agent DAG 编排（表单组件）
  * <p>DAG 编排的可视化编辑器表单，支持拖拽节点、配置连线。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { DagApi } from '#/api/dag';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createDagApi, updateDagApi } from '#/api/dag';

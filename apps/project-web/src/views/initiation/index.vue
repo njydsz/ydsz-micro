@@ -2,21 +2,21 @@
  * 项目立项（列表页）
  *
  * @path apps\project-web\src\views\initiation\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目立项（列表页）
- * <p>项目立项（{@code ydsz_project_initiation}）的列表/分页查询页。
+ * <p>项目立项（{@code remi_project_initiation}）的列表/分页查询页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteInitiationApi, getInitiationPageApi, type InitiationApi } from '#/api/initiation';
 import InitiationForm from './initiation-form.vue';
 defineOptions({ name: 'InitiationManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<InitiationApi.InitiationVO> = {
       { field: 'projectCode', title: 'projectCode', itemRender: { name: 'Input', props: { placeholder: 'projectCode' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [InitiationFormModal, initiationFormApi] = useVbenModal({ connectedComponent: InitiationForm });
 function handleAdd() { initiationFormApi.open(); }
 function handleEdit(row: InitiationApi.InitiationVO) { initiationFormApi.setData({ record: row }); initiationFormApi.open(); }

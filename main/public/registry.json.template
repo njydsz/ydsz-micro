@@ -4,38 +4,38 @@
   "apps": [
     {
       "name": "userinfo-web",
-      "packageName": "@ydsz/userinfo-web",
-      "activeRule": "/ydsz-user",
-      "redirect": "/ydsz-user/users",
+      "packageName": "@remi/userinfo-web",
+      "activeRule": "/remi-user",
+      "redirect": "/remi-user/users",
       "title": "用户中心",
       "icon": "lucide:users",
       "order": 100,
       "devPort": 5601,
-      "entry": "/ydsz-userinfo-web/",
+      "entry": "/remi-userinfo-web/",
       "skeletonType": "list"
     },
     {
       "name": "system-web",
-      "packageName": "@ydsz/system-web",
-      "activeRule": "/ydsz-sys",
-      "redirect": "/ydsz-sys/configs",
+      "packageName": "@remi/system-web",
+      "activeRule": "/remi-sys",
+      "redirect": "/remi-sys/configs",
       "title": "系统管理",
       "icon": "lucide:settings",
       "order": 101,
       "devPort": 5602,
-      "entry": "/ydsz-system-web/",
+      "entry": "/remi-system-web/",
       "skeletonType": "form"
     },
     {
       "name": "project-web",
-      "packageName": "@ydsz/project-web",
-      "activeRule": "/ydsz-proj",
-      "redirect": "/ydsz-proj/opportunities",
+      "packageName": "@remi/project-web",
+      "activeRule": "/remi-proj",
+      "redirect": "/remi-proj/opportunities",
       "title": "项目管理",
       "icon": "lucide:folder-kanban",
       "order": 102,
       "devPort": 5603,
-      "entry": "/ydsz-project-web/",
+      "entry": "/remi-project-web/",
       "skeletonType": "dashboard"
     }
   ]

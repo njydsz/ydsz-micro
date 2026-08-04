@@ -2,25 +2,25 @@
  * theme-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-toggle.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { ThemeModeType } from '@ydsz/types';
+import type { ThemeModeType } from '@remi/types';
 
-import { MoonStar, Sun, SunMoon } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { MoonStar, Sun, SunMoon } from '@remi/icons';
+import { $t } from '@remi/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@ydsz/preferences';
+} from '@remi/preferences';
 
 import {
-  YDSZTooltip,
+  REMITooltip,
   ToggleGroup,
   ToggleGroupItem,
-} from '@ydsz-core/shadcn-ui';
+} from '@remi-core/shadcn-ui';
 
 import ThemeButton from './theme-button.vue';
 
@@ -60,7 +60,7 @@ const PRESETS = [
 </script>
 <template>
   <div>
-    <YDSZTooltip :disabled="!shouldOnHover" side="bottom">
+    <REMITooltip :disabled="!shouldOnHover" side="bottom">
       <template #trigger>
         <ThemeButton
           :model-value="isDark"
@@ -85,6 +85,6 @@ const PRESETS = [
           <component :is="item.icon" class="size-5" />
         </ToggleGroupItem>
       </ToggleGroup>
-    </YDSZTooltip>
+    </REMITooltip>
   </div>
 </template>

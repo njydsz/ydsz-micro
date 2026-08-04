@@ -2,15 +2,15 @@
  * analysis-charts-tabs Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\analysis-charts-tabs.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TabOption } from '@ydsz/types';
+import type { TabOption } from '@remi/types';
 
 import { computed } from 'vue';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@remi-core/shadcn-ui';
 
 interface Props {
   tabs?: TabOption[];

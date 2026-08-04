@@ -2,11 +2,11 @@
  * workbench-header Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-header.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { YDSZAvatar } from '@ydsz-core/shadcn-ui';
+import { REMIAvatar } from '@remi-core/shadcn-ui';
 
 interface Props {
   avatar?: string;
@@ -22,7 +22,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 <template>
   <div class="card-box p-4 py-6 lg:flex">
-    <YDSZAvatar :src="avatar" class="size-20" />
+    <REMIAvatar :src="avatar" class="size-20" />
     <div
       v-if="$slots.title || $slots.description"
       class="flex flex-col justify-center md:ml-6 md:mt-0"

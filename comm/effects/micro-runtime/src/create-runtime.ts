@@ -8,7 +8,7 @@
  * 即可替换现有 registerMicroApps/start 体系，此后切换内核只需改一个字面量。
  *
  * @path comm/effects/micro-runtime/src/create-runtime.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 

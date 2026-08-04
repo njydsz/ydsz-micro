@@ -10,7 +10,7 @@
  * - 仅 isLockScreen / lockScreenPassword 等非敏感 UI 状态继续持久化
  *
  * @path comm\stores\src\modules\auth.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 2.0.0
  */
 import { acceptHMRUpdate, defineStore } from 'pinia';

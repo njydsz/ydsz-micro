@@ -2,23 +2,23 @@
  * preferences 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { Settings } from '@ydsz/icons';
-import { $t, loadLocaleMessages } from '@ydsz/locales';
-import { preferences, updatePreferences } from '@ydsz/preferences';
-import { capitalizeFirstLetter } from '@ydsz/utils';
+import { Settings } from '@remi/icons';
+import { $t, loadLocaleMessages } from '@remi/locales';
+import { preferences, updatePreferences } from '@remi/preferences';
+import { capitalizeFirstLetter } from '@remi/utils';
 
-import { useYDSZDrawer } from '@ydsz-core/popup-ui';
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { useREMIDrawer } from '@remi-core/popup-ui';
+import { REMIButton } from '@remi-core/shadcn-ui';
 
 import PreferencesDrawer from './preferences-drawer.vue';
 
-const [Drawer, drawerApi] = useYDSZDrawer({
+const [Drawer, drawerApi] = useREMIDrawer({
   connectedComponent: PreferencesDrawer,
 });
 
@@ -67,12 +67,12 @@ const listen = computed(() => {
 
     <div @click="() => drawerApi.open()">
       <slot>
-        <YDSZButton
+        <REMIButton
           :title="$t('preferences.title')"
           class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
         >
           <Settings class="size-5" />
-        </YDSZButton>
+        </REMIButton>
       </slot>
     </div>
   </div>

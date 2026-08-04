@@ -9,7 +9,7 @@
  * 模板：<div v-safe-html="htmlContent"></div>
  *
  * @path comm/effects/common-ui/src/components/safe-html/index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 

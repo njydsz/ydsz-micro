@@ -2,13 +2,13 @@
  * uploader 模块
  *
  * @path comm\effects\request\src\request-client\modules\uploader.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RequestClient } from '../request-client';
 import type { RequestClientConfig } from '../types';
 
-import { isUndefined } from '@ydsz/utils';
+import { isUndefined } from '@remi/utils';
 
 class FileUploader {
   private client: RequestClient;

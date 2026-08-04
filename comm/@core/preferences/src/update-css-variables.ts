@@ -2,13 +2,13 @@
  * 应用偏好配置
  *
  * @path comm\@core\preferences\src\update-css-variables.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Preferences } from './types';
 
-import { generatorColorVariables } from '@ydsz-core/shared/color';
-import { updateCSSVariables as executeUpdateCSSVariables } from '@ydsz-core/shared/utils';
+import { generatorColorVariables } from '@remi-core/shared/color';
+import { updateCSSVariables as executeUpdateCSSVariables } from '@remi-core/shared/utils';
 
 import { BUILT_IN_THEME_PRESETS } from './constants';
 

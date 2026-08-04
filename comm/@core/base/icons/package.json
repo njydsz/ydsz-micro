@@ -1,12 +1,12 @@
 {
-  "name": "@ydsz-core/icons",
+  "name": "@remi-core/icons",
   "version": "5.5.9",
-  "homepage": "https://github.com/njydsz/vue-ydsz-admin",
-  "bugs": "https://github.com/njydsz/vue-ydsz-admin/issues",
+  "homepage": "https://github.com/remi/vue-remi-admin",
+  "bugs": "https://github.com/remi/vue-remi-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/njydsz/vue-ydsz-admin.git",
-    "directory": "comm/@ydsz-core/base/icons"
+    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "directory": "comm/@remi-core/base/icons"
   },
   "license": "MIT",
   "type": "module",

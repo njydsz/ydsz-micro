@@ -2,11 +2,11 @@
  * logo 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\logo\logo.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YDSZAvatar } from '../avatar';
+import { REMIAvatar } from '../avatar';
 
 interface Props {
   /**
@@ -40,7 +40,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'YDSZLogo',
+  name: 'REMILogo',
 });
 
 withDefaults(defineProps<Props>(), {
@@ -61,7 +61,7 @@ withDefaults(defineProps<Props>(), {
       :aria-label="text"
       class="flex h-full items-center gap-2 overflow-hidden px-3 text-lg leading-normal transition-all duration-500"
     >
-      <YDSZAvatar
+      <REMIAvatar
         v-if="src"
         :alt="text"
         :src="src"

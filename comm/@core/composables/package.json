@@ -1,11 +1,11 @@
 {
-  "name": "@ydsz-core/composables",
+  "name": "@remi-core/composables",
   "version": "5.5.9",
-  "homepage": "https://github.com/njydsz/vue-ydsz-admin",
-  "bugs": "https://github.com/njydsz/vue-ydsz-admin/issues",
+  "homepage": "https://github.com/remi/vue-remi-admin",
+  "bugs": "https://github.com/remi/vue-remi-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/njydsz/vue-ydsz-admin.git",
+    "url": "git+https://github.com/remi/vue-remi-admin.git",
     "directory": "comm/@core/composables"
   },
   "license": "MIT",
@@ -35,7 +35,7 @@
     }
   },
   "dependencies": {
-    "@ydsz-core/shared": "workspace:*",
+    "@remi-core/shared": "workspace:*",
     "@vueuse/core": "catalog:",
     "radix-vue": "catalog:",
     "sortablejs": "catalog:",

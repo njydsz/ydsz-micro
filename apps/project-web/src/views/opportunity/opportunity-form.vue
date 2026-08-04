@@ -2,7 +2,7 @@
  * 销售商机（表单组件）
  *
  * @path apps\project-web\src\views\opportunity\opportunity-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 销售商机（表单组件）
  * <p>商机的创建/编辑表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { OpportunityApi } from '#/api/opportunity';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createOpportunityApi, updateOpportunityApi } from '#/api/opportunity';

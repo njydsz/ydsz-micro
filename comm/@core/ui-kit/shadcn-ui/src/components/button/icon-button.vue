@@ -2,21 +2,21 @@
  * icon-button 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\icon-button.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { ButtonVariants } from '../../ui';
-import type { YDSZButtonProps } from './button';
+import type { REMIButtonProps } from './button';
 
 import { computed, useSlots } from 'vue';
 
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
-import { YDSZTooltip } from '../tooltip';
-import YDSZButton from './button.vue';
+import { REMITooltip } from '../tooltip';
+import REMIButton from './button.vue';
 
-interface Props extends YDSZButtonProps {
+interface Props extends REMIButtonProps {
   class?: any;
   disabled?: boolean;
   onClick?: () => void;
@@ -40,7 +40,7 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
 </script>
 
 <template>
-  <YDSZButton
+  <REMIButton
     v-if="!showTooltip"
     :class="cn('rounded-full', props.class)"
     :disabled="disabled"
@@ -49,15 +49,15 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
     @click="onClick"
   >
     <slot></slot>
-  </YDSZButton>
+  </REMIButton>
 
-  <YDSZTooltip
+  <REMITooltip
     v-else
     :delay-duration="tooltipDelayDuration"
     :side="tooltipSide"
   >
     <template #trigger>
-      <YDSZButton
+      <REMIButton
         :class="cn('rounded-full', props.class)"
         :disabled="disabled"
         :variant="variant"
@@ -65,11 +65,11 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
         @click="onClick"
       >
         <slot></slot>
-      </YDSZButton>
+      </REMIButton>
     </template>
     <slot v-if="slots.tooltip" name="tooltip"> </slot>
     <template v-else>
       {{ tooltip }}
     </template>
-  </YDSZTooltip>
+  </REMITooltip>
 </template>

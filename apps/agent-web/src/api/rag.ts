@@ -4,7 +4,7 @@
  * <p>支持文档切片、向量化存储、相似度检索、Top-K 召回。
  * <p>供「Agent 知识库」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

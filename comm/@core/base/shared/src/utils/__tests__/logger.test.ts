@@ -8,7 +8,7 @@
  *   - 动态级别调整
  *
  * @path comm/@core/base/shared/src/utils/__tests__/logger.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -104,8 +104,8 @@ describe('logger', () => {
   });
 
   describe('模块过滤', () => {
-    it('localStorage ydsz:debug 设置后仅匹配模块输出 debug', () => {
-      localStorage.setItem('ydsz:debug', 'MicroKernel:*');
+    it('localStorage remi:debug 设置后仅匹配模块输出 debug', () => {
+      localStorage.setItem('remi:debug', 'MicroKernel:*');
       initLogger({ isDev: true });
 
       const kernelLogger = createLogger('MicroKernel');
@@ -124,7 +124,7 @@ describe('logger', () => {
     });
 
     it('排除模式 -MicroKernel:* 跳过指定模块', () => {
-      localStorage.setItem('ydsz:debug', '*,-MicroKernel:*');
+      localStorage.setItem('remi:debug', '*,-MicroKernel:*');
       initLogger({ isDev: true });
 
       const kernelLogger = createLogger('MicroKernel');
@@ -147,7 +147,7 @@ describe('logger', () => {
     });
 
     it('warn/error 不受模块过滤影响', () => {
-      localStorage.setItem('ydsz:debug', 'OnlyThis:*');
+      localStorage.setItem('remi:debug', 'OnlyThis:*');
       initLogger({ isDev: true });
 
       const logger = createLogger('ExcludedModule');
@@ -200,7 +200,7 @@ describe('logger', () => {
       logger.info('hello');
 
       expect(info).toHaveBeenCalledWith(
-        expect.stringContaining('[ydsz][MyModule]'),
+        expect.stringContaining('[remi][MyModule]'),
         'hello',
       );
     });

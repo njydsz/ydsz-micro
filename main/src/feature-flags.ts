@@ -5,16 +5,16 @@
  * 新增开关只需在 APPLICATION_FLAGS 中追加定义，无需修改 bootstrap。
  *
  * @path main/src/feature-flags.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
   FeatureFlagDef,
   FeatureFlagValue,
   FeatureFlagsOptions,
-} from '@ydsz-core/feature-flags';
+} from '@remi-core/feature-flags';
 
-import { defineFeatureFlags } from '@ydsz-core/feature-flags';
+import { defineFeatureFlags } from '@remi-core/feature-flags';
 
 import { requestClient } from '#/api/request';
 
@@ -91,7 +91,7 @@ async function remoteFeatureFlagsLoader(): Promise<
  */
 export function featureFlagsOptions(): FeatureFlagsOptions {
   return {
-    namespace: 'ydsz',
+    namespace: 'remi',
     env: import.meta.env,
     remoteLoader: remoteFeatureFlagsLoader,
     enableLocalOverrideInProd: false,

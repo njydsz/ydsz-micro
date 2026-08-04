@@ -23,7 +23,7 @@
  * ```
  *
  * @path comm/effects/micro-runtime/src/use-micro-props.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 4.0.0
  */
 

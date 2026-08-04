@@ -7,7 +7,7 @@
  * 注入子应用 mountProps 的 `_globalState.useNamespace(scope)` 即返回隔离 API。
  *
  * @path comm/effects/micro-runtime/src/namespaced-state.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.7.0
  */
 

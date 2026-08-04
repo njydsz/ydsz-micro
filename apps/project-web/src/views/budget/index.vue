@@ -2,21 +2,21 @@
  * 项目预算（列表页）
  *
  * @path apps\project-web\src\views\budget\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目预算（列表页）
- * <p>项目预算（{@code ydsz_project_budget}）的列表页。
+ * <p>项目预算（{@code remi_project_budget}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteBudgetApi, getBudgetPageApi, type BudgetApi } from '#/api/budget';
 import BudgetForm from './budget-form.vue';
 defineOptions({ name: 'BudgetManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<BudgetApi.BudgetVO> = {
       { field: 'budgetItemName', title: 'budgetItemName', itemRender: { name: 'Input', props: { placeholder: 'budgetItemName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [BudgetFormModal, budgetFormApi] = useVbenModal({ connectedComponent: BudgetForm });
 function handleAdd() { budgetFormApi.open(); }
 function handleEdit(row: BudgetApi.BudgetVO) { budgetFormApi.setData({ record: row }); budgetFormApi.open(); }

@@ -2,13 +2,13 @@
  * popup-api 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\popup-api.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { MaybePromise } from '@ydsz-core/typings';
+import type { MaybePromise } from '@remi-core/typings';
 
-import { Store } from '@ydsz-core/shared/store';
-import { bindMethods, isFunction } from '@ydsz-core/shared/utils';
+import { Store } from '@remi-core/shared/store';
+import { bindMethods, isFunction } from '@remi-core/shared/utils';
 
 /**
  * 弹窗通用回调接口

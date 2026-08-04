@@ -1,5 +1,5 @@
 /**
- * @ydsz/shared-auth — 微前端子应用公共认证/请求/API 模块
+ * @remi/shared-auth — 微前端子应用公共认证/请求/API 模块
  *
  * 消除 9 个子应用中重复的 request.ts / auth.ts / user.ts / menu.ts / store/auth.ts 代码。
  * 子应用只需 re-export 或直接引用本包即可获得与后端对齐的：

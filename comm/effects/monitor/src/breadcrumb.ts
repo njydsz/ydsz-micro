@@ -5,7 +5,7 @@
  * 在错误上报时附带，便于复现错误发生路径。对标 Sentry breadcrumb。
  *
  * @path comm/effects/monitor/src/breadcrumb.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

@@ -10,7 +10,7 @@
  * 新增子应用时仅需在此数组追加一条记录。
  *
  * @path conf/vite-config/src/micro-apps.config.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -33,11 +33,11 @@ export type MicroAppSkeletonType =
 export interface MicroAppEntry {
   /** 子应用唯一标识（如 'project-web'），与 pnpm workspace 包名后缀一致 */
   name: string;
-  /** Monorepo 内包名（如 @ydsz/project-web） */
+  /** Monorepo 内包名（如 @remi/project-web） */
   packageName: string;
-  /** 路由前缀（如 '/ydsz-proj'），也作为 qiankun activeRule */
+  /** 路由前缀（如 '/remi-proj'），也作为 qiankun activeRule */
   activeRule: string;
-  /** 菜单默认重定向路径（如 '/ydsz-proj/opportunities'） */
+  /** 菜单默认重定向路径（如 '/remi-proj/opportunities'） */
   redirect: string;
   /** 菜单标题 */
   title: string;
@@ -79,9 +79,9 @@ export interface MicroAppEntry {
 export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'userinfo-web',
-    packageName: '@ydsz/userinfo-web',
-    activeRule: '/ydsz-user',
-    redirect: '/ydsz-user/users',
+    packageName: '@remi/userinfo-web',
+    activeRule: '/remi-user',
+    redirect: '/remi-user/users',
     title: '用户中心',
     icon: 'lucide:users',
     order: 100,
@@ -90,9 +90,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'system-web',
-    packageName: '@ydsz/system-web',
-    activeRule: '/ydsz-sys',
-    redirect: '/ydsz-sys/configs',
+    packageName: '@remi/system-web',
+    activeRule: '/remi-sys',
+    redirect: '/remi-sys/configs',
     title: '系统管理',
     icon: 'lucide:settings',
     order: 101,
@@ -101,9 +101,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'project-web',
-    packageName: '@ydsz/project-web',
-    activeRule: '/ydsz-proj',
-    redirect: '/ydsz-proj/opportunities',
+    packageName: '@remi/project-web',
+    activeRule: '/remi-proj',
+    redirect: '/remi-proj/opportunities',
     title: '项目管理',
     icon: 'lucide:folder-kanban',
     order: 102,
@@ -112,9 +112,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'message-web',
-    packageName: '@ydsz/message-web',
-    activeRule: '/ydsz-msg',
-    redirect: '/ydsz-msg/messages',
+    packageName: '@remi/message-web',
+    activeRule: '/remi-msg',
+    redirect: '/remi-msg/messages',
     title: '消息中心',
     icon: 'lucide:message-square',
     order: 103,
@@ -123,9 +123,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'cronjob-web',
-    packageName: '@ydsz/cronjob-web',
-    activeRule: '/ydsz-cron',
-    redirect: '/ydsz-cron/jobs',
+    packageName: '@remi/cronjob-web',
+    activeRule: '/remi-cron',
+    redirect: '/remi-cron/jobs',
     title: '定时任务',
     icon: 'lucide:clock',
     order: 104,
@@ -134,9 +134,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'workflow-web',
-    packageName: '@ydsz/workflow-web',
-    activeRule: '/ydsz-flow',
-    redirect: '/ydsz-flow/templates',
+    packageName: '@remi/workflow-web',
+    activeRule: '/remi-flow',
+    redirect: '/remi-flow/templates',
     title: '工作流引擎',
     icon: 'lucide:workflow',
     order: 105,
@@ -145,9 +145,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'nextwiki-web',
-    packageName: '@ydsz/nextwiki-web',
-    activeRule: '/ydsz-wiki',
-    redirect: '/ydsz-wiki/files',
+    packageName: '@remi/nextwiki-web',
+    activeRule: '/remi-wiki',
+    redirect: '/remi-wiki/files',
     title: '网盘知识库',
     icon: 'lucide:folder-open',
     order: 106,
@@ -156,9 +156,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'literule-web',
-    packageName: '@ydsz/literule-web',
-    activeRule: '/ydsz-rule',
-    redirect: '/ydsz-rule/rules',
+    packageName: '@remi/literule-web',
+    activeRule: '/remi-rule',
+    redirect: '/remi-rule/rules',
     title: '规则引擎',
     icon: 'lucide:git-branch',
     order: 107,
@@ -167,9 +167,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
   {
     name: 'agent-web',
-    packageName: '@ydsz/agent-web',
-    activeRule: '/ydsz-ai',
-    redirect: '/ydsz-ai/chat',
+    packageName: '@remi/agent-web',
+    activeRule: '/remi-ai',
+    redirect: '/remi-ai/chat',
     title: 'AI 助手',
     icon: 'lucide:bot',
     order: 108,
@@ -179,16 +179,16 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
 ];
 
 /**
- * 获取子应用生产环境部署子路径（如 '/ydsz-userinfo-web/'）。
+ * 获取子应用生产环境部署子路径（如 '/remi-userinfo-web/'）。
  *
- * 优先使用注册表中显式声明的 `prodPath`，未声明时回退到 `/ydsz-${name}/`。
+ * 优先使用注册表中显式声明的 `prodPath`，未声明时回退到 `/remi-${name}/`。
  * 基座 bootstrap、nginx.conf 生成、Docker 部署均应消费此函数，确保三端一致。
  *
  * @param app 子应用注册信息
  * @since 1.0.0
  */
 export function getProdEntry(app: MicroAppEntry): string {
-  return app.prodPath ?? `/ydsz-${app.name}/`;
+  return app.prodPath ?? `/remi-${app.name}/`;
 }
 
 /** 路由前缀 → 子应用名 映射（供 use-tabbar-micro-sync 等场景快速查找） */

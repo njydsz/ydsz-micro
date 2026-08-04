@@ -2,7 +2,7 @@
  * 流程委托（表单组件）
  *
  * @path apps\workflow-web\src\views\delegate\delegate-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 流程委托（表单组件）
  * <p>委托规则的创建/编辑表单，临时委托审批权限。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { DelegateApi } from '#/api/delegate';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createDelegateApi, updateDelegateApi } from '#/api/delegate';

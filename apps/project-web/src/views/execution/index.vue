@@ -2,21 +2,21 @@
  * 项目执行跟踪（列表页）
  *
  * @path apps\project-web\src\views\execution\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目执行（列表页）
- * <p>项目执行（{@code ydsz_project_execution}）的列表页。
+ * <p>项目执行（{@code remi_project_execution}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteExecutionApi, getExecutionPageApi, type ExecutionApi } from '#/api/execution';
 import ExecutionForm from './execution-form.vue';
 defineOptions({ name: 'ExecutionManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<ExecutionApi.ExecutionVO> = {
       { field: 'taskName', title: 'taskName', itemRender: { name: 'Input', props: { placeholder: 'taskName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [ExecutionFormModal, executionFormApi] = useVbenModal({ connectedComponent: ExecutionForm });
 function handleAdd() { executionFormApi.open(); }
 function handleEdit(row: ExecutionApi.ExecutionVO) { executionFormApi.setData({ record: row }); executionFormApi.open(); }

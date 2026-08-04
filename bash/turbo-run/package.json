@@ -1,5 +1,5 @@
 {
-  "name": "@ydsz/turbo-run",
+  "name": "@remi/turbo-run",
   "version": "5.5.9",
   "private": true,
   "license": "MIT",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@clack/prompts": "catalog:",
-    "@ydsz/node-utils": "workspace:*",
+    "@remi/node-utils": "workspace:*",
     "cac": "catalog:"
   }
 }

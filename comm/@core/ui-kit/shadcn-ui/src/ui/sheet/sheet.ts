@@ -2,7 +2,7 @@
  * sheet 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\sheet.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { VariantProps } from 'class-variance-authority';

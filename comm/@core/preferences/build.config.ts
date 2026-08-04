@@ -2,7 +2,7 @@
  * 应用偏好配置
  *
  * @path comm\@core\preferences\build.config.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { defineBuildConfig } from 'unbuild';

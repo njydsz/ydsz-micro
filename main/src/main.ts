@@ -2,11 +2,11 @@
  * 应用入口文件，创建并挂载 Vue 实例
  *
  * @path main\src\main.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { initPreferences } from '@ydsz/preferences';
-import { unmountGlobalLoading } from '@ydsz/utils';
+import { initPreferences } from '@remi/preferences';
+import { unmountGlobalLoading } from '@remi/utils';
 
 import { overridesPreferences } from './preferences';
 import { registerServiceWorker } from './service-worker';

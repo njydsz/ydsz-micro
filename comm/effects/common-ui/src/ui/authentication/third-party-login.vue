@@ -2,15 +2,15 @@
  * third-party-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\third-party-login.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { useAppConfig } from '@ydsz/hooks';
-import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { useAppConfig } from '@remi/hooks';
+import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@remi/icons';
+import { $t } from '@remi/locales';
 
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { REMIIconButton } from '@remi-core/shadcn-ui';
 
 import DingdingLogin from './dingding-login.vue';
 
@@ -34,34 +34,34 @@ const {
     </div>
 
     <div class="mt-4 flex flex-wrap justify-center">
-      <YDSZIconButton
+      <REMIIconButton
         :tooltip="$t('authentication.wechatLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiWechat />
-      </YDSZIconButton>
-      <YDSZIconButton
+      </REMIIconButton>
+      <REMIIconButton
         :tooltip="$t('authentication.qqLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiQqchat />
-      </YDSZIconButton>
-      <YDSZIconButton
+      </REMIIconButton>
+      <REMIIconButton
         :tooltip="$t('authentication.githubLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiGithub />
-      </YDSZIconButton>
-      <YDSZIconButton
+      </REMIIconButton>
+      <REMIIconButton
         :tooltip="$t('authentication.googleLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiGoogle />
-      </YDSZIconButton>
+      </REMIIconButton>
       <DingdingLogin
         v-if="dingdingAuthConfig"
         :corp-id="dingdingAuthConfig.corpId"

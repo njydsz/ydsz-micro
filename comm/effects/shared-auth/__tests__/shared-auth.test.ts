@@ -1,16 +1,16 @@
 /**
- * @ydsz/shared-auth 单元测试
+ * @remi/shared-auth 单元测试
  */
 import { describe, expect, it, vi } from 'vitest';
 
 // Mock dependencies before importing
-vi.mock('@ydsz/hooks', () => ({
+vi.mock('@remi/hooks', () => ({
   useAppConfig: () => ({
     apiURL: 'http://localhost:9000',
   }),
 }));
 
-vi.mock('@ydsz/preferences', () => ({
+vi.mock('@remi/preferences', () => ({
   preferences: {
     app: {
       locale: 'zh-CN',
@@ -21,7 +21,7 @@ vi.mock('@ydsz/preferences', () => ({
   },
 }));
 
-vi.mock('@ydsz/stores', () => ({
+vi.mock('@remi/stores', () => ({
   useAccessStore: () => ({
     accessToken: 'test-token',
     isAccessChecked: false,
@@ -37,7 +37,7 @@ vi.mock('@ydsz/stores', () => ({
   resetAllStores: vi.fn(),
 }));
 
-vi.mock('@ydsz/locales', () => ({
+vi.mock('@remi/locales', () => ({
   $t: (key: string) => key,
   loadLocalesMapFromDir: (
     _pattern: RegExp,
@@ -68,7 +68,7 @@ vi.mock('vue-router', () => ({
   }),
 }));
 
-describe('@ydsz/shared-auth types', () => {
+describe('@remi/shared-auth types', () => {
   it('should export AuthApi namespace with correct interfaces', async () => {
     const { AuthApi } = await import('../src/types');
 
@@ -98,7 +98,7 @@ describe('@ydsz/shared-auth types', () => {
   });
 });
 
-describe('@ydsz/shared-auth request setup', () => {
+describe('@remi/shared-auth request setup', () => {
   it('should throw when requestClient accessed before initSharedRequest', async () => {
     // The Proxy should throw when not initialized
     const { requestClient } = await import('../src/request-setup');
@@ -114,7 +114,7 @@ describe('@ydsz/shared-auth request setup', () => {
   });
 });
 
-describe('@ydsz/shared-auth auth-api endpoints', () => {
+describe('@remi/shared-auth auth-api endpoints', () => {
   it('should export loginApi function', async () => {
     const { loginApi } = await import('../src/auth-api');
     expect(typeof loginApi).toBe('function');
@@ -136,14 +136,14 @@ describe('@ydsz/shared-auth auth-api endpoints', () => {
   });
 });
 
-describe('@ydsz/shared-auth user-api endpoints', () => {
+describe('@remi/shared-auth user-api endpoints', () => {
   it('should export getUserInfoApi function', async () => {
     const { getUserInfoApi } = await import('../src/user-api');
     expect(typeof getUserInfoApi).toBe('function');
   });
 });
 
-describe('@ydsz/shared-auth menu-api endpoints', () => {
+describe('@remi/shared-auth menu-api endpoints', () => {
   it('should export getAllMenusApi function', async () => {
     const { getAllMenusApi } = await import('../src/menu-api');
     expect(typeof getAllMenusApi).toBe('function');
@@ -155,14 +155,14 @@ describe('@ydsz/shared-auth menu-api endpoints', () => {
   });
 });
 
-describe('@ydsz/shared-auth auth-store', () => {
+describe('@remi/shared-auth auth-store', () => {
   it('should export createSharedAuthStore function', async () => {
     const { createSharedAuthStore } = await import('../src/auth-store');
     expect(typeof createSharedAuthStore).toBe('function');
   });
 });
 
-describe('@ydsz/shared-auth createSubAppI18n', () => {
+describe('@remi/shared-auth createSubAppI18n', () => {
   it('should return $t, elementLocale, setupI18n', async () => {
     const { createSubAppI18n } = await import('../src/i18n-setup');
 

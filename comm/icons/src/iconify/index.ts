@@ -2,12 +2,12 @@
  * index 模块
  *
  * @path comm\icons\src\iconify\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { createIconifyIcon } from '@ydsz-core/icons';
+import { createIconifyIcon } from '@remi-core/icons';
 
-export * from '@ydsz-core/icons';
+export * from '@remi-core/icons';
 
 /** 键盘 Esc 键图标（mdi:keyboard-esc） */
 export const MdiKeyboardEsc = createIconifyIcon('mdi:keyboard-esc');

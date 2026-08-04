@@ -10,7 +10,7 @@
  *          改用 onScopeDispose 在组件/effect scope 销毁时统一清理。
  *
  * @path comm/effects/micro-runtime/src/composable/use-global-state.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 

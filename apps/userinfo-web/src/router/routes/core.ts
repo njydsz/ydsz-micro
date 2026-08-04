@@ -2,12 +2,12 @@
  * 核心路由配置（根路由 + 404 兜底）
  *
  * @path apps\userinfo-web\src\router\routes\core.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import { preferences } from '@ydsz/preferences';
+import { preferences } from '@remi/preferences';
 
 const BasicLayout = () => import('#/layouts/basic.vue');
 

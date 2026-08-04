@@ -1,9 +1,9 @@
 /**
- * YDSZ 核心链路 E2E 测试 — 登录 → 首页 → 子应用导航
+ * REMI 核心链路 E2E 测试 — 登录 → 首页 → 子应用导航
  *
  * v3.0: 硬断言（移除 if-isVisible 静默跳过），测试账号走环境变量。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { test, expect } from '@playwright/test';

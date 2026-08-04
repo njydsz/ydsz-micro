@@ -2,25 +2,25 @@
  * api 模块
  *
  * @path comm\effects\plugins\src\vxe-table\api.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { VxeGridInstance } from 'vxe-table';
 
-import type { ExtendedFormApi } from '@ydsz-core/form-ui';
+import type { ExtendedFormApi } from '@remi-core/form-ui';
 
 import type { VxeGridProps } from './types';
 
 import { toRaw } from 'vue';
 
-import { Store } from '@ydsz-core/shared/store';
+import { Store } from '@remi-core/shared/store';
 import {
   bindMethods,
   isBoolean,
   isFunction,
   mergeWithArrayOverride,
   StateHandler,
-} from '@ydsz-core/shared/utils';
+} from '@remi-core/shared/utils';
 
 function getDefaultState(): VxeGridProps {
   return {
@@ -53,7 +53,7 @@ function getDefaultState(): VxeGridProps {
  *
  * @example
  * ```ts
- * const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+ * const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
  * await gridApi.query({ keyword: 'foo' });
  * gridApi.setLoading(true);
  * ```

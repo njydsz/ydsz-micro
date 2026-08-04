@@ -2,7 +2,7 @@
  * 项目立项（表单组件）
  *
  * @path apps\project-web\src\views\initiation\initiation-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 项目立项（表单组件）
  * <p>项目立项的创建/审批表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { InitiationApi } from '#/api/initiation';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createInitiationApi, updateInitiationApi } from '#/api/initiation';

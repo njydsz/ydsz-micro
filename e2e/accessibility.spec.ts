@@ -7,7 +7,7 @@
  * v3.2: 扩展 a11y 覆盖子应用业务页面，对标腾讯 CDC/阿里 A11y 规范要求核心业务页 100% 覆盖
  * v4.0 P1-3: 全覆盖所有 9 个子应用 + 主应用核心页；CI 门禁：严重违规数 (critical/serious) = 0
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 3.1.0
  */
 import AxeBuilder from '@axe-core/playwright';
@@ -78,15 +78,15 @@ test.describe('无障碍：核心页面', () => {
 
 // v4.0 P1-3: 所有子应用核心页 a11y 全覆盖
 const SUB_APP_PAGES = [
-  { name: '用户管理', path: '/#/ydsz-user/users' },
-  { name: '系统设置', path: '/#/ydsz-sys/configs' },
-  { name: '项目管理', path: '/#/ydsz-project/projects' },
-  { name: '工作流', path: '/#/ydsz-workflow/flow-list' },
-  { name: '定时任务', path: '/#/ydsz-cronjob/jobs' },
-  { name: '规则引擎', path: '/#/ydsz-literule/rules' },
-  { name: '知识库', path: '/#/ydsz-nextwiki/wiki' },
-  { name: '消息中心', path: '/#/ydsz-message/notifications' },
-  { name: '代理管理', path: '/#/ydsz-agent/agents' },
+  { name: '用户管理', path: '/#/remi-user/users' },
+  { name: '系统设置', path: '/#/remi-sys/configs' },
+  { name: '项目管理', path: '/#/remi-project/projects' },
+  { name: '工作流', path: '/#/remi-workflow/flow-list' },
+  { name: '定时任务', path: '/#/remi-cronjob/jobs' },
+  { name: '规则引擎', path: '/#/remi-literule/rules' },
+  { name: '知识库', path: '/#/remi-nextwiki/wiki' },
+  { name: '消息中心', path: '/#/remi-message/notifications' },
+  { name: '代理管理', path: '/#/remi-agent/agents' },
 ] as const;
 
 test.describe('无障碍：子应用核心页面全覆盖', () => {

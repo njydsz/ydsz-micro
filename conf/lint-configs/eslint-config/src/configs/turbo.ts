@@ -2,7 +2,7 @@
  * turbo 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\configs\turbo.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Linter } from 'eslint';

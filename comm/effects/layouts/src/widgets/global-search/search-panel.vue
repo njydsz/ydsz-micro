@@ -2,21 +2,21 @@
  * search-panel 布局组件
  *
  * @path comm\effects\layouts\src\widgets\global-search\search-panel.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@ydsz/types';
+import type { MenuRecordRaw } from '@remi/types';
 
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { SearchX, X } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
-import { mapTree, traverseTreeValues, uniqueByField } from '@ydsz/utils';
+import { SearchX, X } from '@remi/icons';
+import { $t } from '@remi/locales';
+import { mapTree, traverseTreeValues, uniqueByField } from '@remi/utils';
 
-import { YDSZIcon, YDSZScrollbar } from '@ydsz-core/shadcn-ui';
-import { isHttpUrl } from '@ydsz-core/shared/utils';
+import { REMIIcon, REMIScrollbar } from '@remi-core/shadcn-ui';
+import { isHttpUrl } from '@remi-core/shared/utils';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
 
@@ -229,7 +229,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <YDSZScrollbar>
+  <REMIScrollbar>
     <div class="!flex h-full justify-center px-2 sm:max-h-[450px]">
       <!-- 无搜索结果 -->
       <div
@@ -275,7 +275,7 @@ onMounted(() => {
           @click="handleEnter"
           @mouseenter="handleMouseenter"
         >
-          <YDSZIcon
+          <REMIIcon
             :icon="item.icon"
             class="mr-2 size-5 flex-shrink-0"
             fallback
@@ -291,5 +291,5 @@ onMounted(() => {
         </li>
       </ul>
     </div>
-  </YDSZScrollbar>
+  </REMIScrollbar>
 </template>

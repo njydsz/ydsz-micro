@@ -2,7 +2,7 @@
  * button 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\button.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { cva } from 'class-variance-authority';

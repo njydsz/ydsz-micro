@@ -2,7 +2,7 @@
  * store 模块
  *
  * @path comm\@core\base\shared\src\store.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export * from '@tanstack/vue-store';

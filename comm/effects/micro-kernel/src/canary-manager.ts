@@ -16,8 +16,8 @@
  * @since 4.0.0
  */
 
-import { createLogger } from '@ydsz-core/shared/utils';
-import { satisfiesVersion } from '@ydsz/micro-runtime/semver';
+import { createLogger } from '@remi-core/shared/utils';
+import { satisfiesVersion } from '@remi/micro-runtime/semver';
 
 const logger = createLogger('Canary');
 

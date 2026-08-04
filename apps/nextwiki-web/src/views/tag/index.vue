@@ -2,7 +2,7 @@
  * 文件标签（列表页）
  *
  * @path apps\nextwiki-web\src\views\tag\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 文件标签（列表页）
  * <p>文件标签的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteTagApi, getTagPageApi, type TagApi } from '#/api/tag';
 import TagForm from './tag-form.vue';
 defineOptions({ name: 'TagManagement' });
@@ -43,7 +43,7 @@ const gridOptions: VxeGridProps<TagApi.TagVO> = {
       { field: 'tagName', title: 'tagName', itemRender: { name: 'Input', props: { placeholder: 'tagName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [TagFormModal, tagFormApi] = useVbenModal({ connectedComponent: TagForm });
 function handleAdd() { tagFormApi.open(); }
 function handleEdit(row: TagApi.TagVO) { tagFormApi.setData({ record: row }); tagFormApi.open(); }

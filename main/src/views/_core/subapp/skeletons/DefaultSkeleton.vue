@@ -4,7 +4,7 @@
  * 通用的页面加载骨架屏，包含标题和段落结构。
  *
  * @path main/src/views/_core/subapp/skeletons/DefaultSkeleton.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <template>

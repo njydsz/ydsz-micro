@@ -8,13 +8,13 @@
  * - 版本比较和兼容性检查
  *
  * @path comm/effects/micro-kernel/src/version-manager.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 
 import type { Manifest } from './loader';
 import { clearManifestCache } from './loader';
-import { createLogger } from '@ydsz-core/shared/utils';
+import { createLogger } from '@remi-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('VersionManager');

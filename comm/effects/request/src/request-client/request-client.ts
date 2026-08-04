@@ -2,14 +2,14 @@
  * request-client 模块
  *
  * @path comm\effects\request\src\request-client\request-client.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { AxiosInstance, AxiosResponse } from 'axios';
 
 import type { RequestClientConfig, RequestClientOptions } from './types';
 
-import { bindMethods, isString, merge } from '@ydsz/utils';
+import { bindMethods, isString, merge } from '@remi/utils';
 
 import axios from 'axios';
 import qs from 'qs';

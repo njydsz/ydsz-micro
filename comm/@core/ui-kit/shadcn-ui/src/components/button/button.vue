@@ -2,22 +2,22 @@
  * button 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YDSZButtonProps } from './button';
+import type { REMIButtonProps } from './button';
 
 import { computed } from 'vue';
 
-import { LoaderCircle } from '@ydsz-core/icons';
-import { cn } from '@ydsz-core/shared/utils';
+import { LoaderCircle } from '@remi-core/icons';
+import { cn } from '@remi-core/shared/utils';
 
 import { Primitive } from 'radix-vue';
 
 import { buttonVariants } from '../../ui';
 
-interface Props extends YDSZButtonProps {}
+interface Props extends REMIButtonProps {}
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'button',

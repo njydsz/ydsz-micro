@@ -2,10 +2,10 @@
  * menu API 接口定义
  *
  * @path main\src\api\core\menu.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { RouteRecordStringComponent } from '@ydsz/types';
+import type { RouteRecordStringComponent } from '@remi/types';
 
 import { requestClient } from '#/api/request';
 

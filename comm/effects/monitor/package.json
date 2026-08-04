@@ -1,5 +1,5 @@
 {
-  "name": "@ydsz/monitor",
+  "name": "@remi/monitor",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -10,9 +10,9 @@
     }
   },
   "dependencies": {
-    "@ydsz/hooks": "workspace:*",
-    "@ydsz/preferences": "workspace:*",
-    "@ydsz/request": "workspace:*",
+    "@remi/hooks": "workspace:*",
+    "@remi/preferences": "workspace:*",
+    "@remi/request": "workspace:*",
     "vue": "catalog:"
   }
 }

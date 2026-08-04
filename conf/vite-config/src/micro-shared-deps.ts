@@ -14,16 +14,16 @@
  * - `core-ui`：框架 + UI 库（Element Plus / VXE-Table）—— 标准策略，适合有完整 UI 交互的子应用
  * - `all`：框架 + UI + 工具库（Echarts / Dayjs 等）—— 当前默认，适合图表密集的子应用
  *
- * 子应用通过 package.json `ydsz.shareStrategy` 字段选择策略：
+ * 子应用通过 package.json `remi.shareStrategy` 字段选择策略：
  * ```json
  * {
- *   "name": "@ydsz/project-web",
- *   "ydsz": { "shareStrategy": "core-ui" }
+ *   "name": "@remi/project-web",
+ *   "remi": { "shareStrategy": "core-ui" }
  * }
  * ```
  *
  * @path conf/vite-config/src/micro-shared-deps.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -103,4 +103,4 @@ export function isValidStrategy(strategy: string): strategy is ShareStrategy {
 }
 
 /** package.json 中声明共享策略的字段路径 */
-export const SHARE_STRATEGY_FIELD = 'ydsz.shareStrategy';
+export const SHARE_STRATEGY_FIELD = 'remi.shareStrategy';

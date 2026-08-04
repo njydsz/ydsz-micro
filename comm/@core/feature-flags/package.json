@@ -1,5 +1,5 @@
 {
-  "name": "@ydsz-core/feature-flags",
+  "name": "@remi-core/feature-flags",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     }
   },
   "dependencies": {
-    "@ydsz-core/shared": "workspace:*",
+    "@remi-core/shared": "workspace:*",
     "vue": "catalog:"
   }
 }

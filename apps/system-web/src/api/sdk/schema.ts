@@ -2,7 +2,7 @@
  * System Web OpenAPI Schema 类型定义
  *
  * @path apps/system-web/src/api/sdk/schema.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
  *
  * @remarks

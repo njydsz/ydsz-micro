@@ -2,14 +2,14 @@
  * alert 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\alert.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Component, VNode, VNodeArrayChildren } from 'vue';
 
-import type { Recordable } from '@ydsz-core/typings';
+import type { Recordable } from '@remi-core/typings';
 
-import { createContext } from '@ydsz-core/shadcn-ui';
+import { createContext } from '@remi-core/shadcn-ui';
 
 /**
  * 弹窗内置图标的语义类型。
@@ -37,7 +37,7 @@ export type BeforeCloseScope = {
  * 通用提示弹窗的配置项。
  *
  * @remarks
- * 是 `ydszAlert` / `ydszConfirm` 共用的参数结构，二者差异仅在于默认是否显示取消按钮。
+ * 是 `remiAlert` / `remiConfirm` 共用的参数结构，二者差异仅在于默认是否显示取消按钮。
  * 除 `content` 外均为可选，未指定项使用组件默认值或全局默认配置。
  */
 export type AlertProps = {
@@ -114,7 +114,7 @@ export type AlertContext = {
 };
 
 export const [injectAlertContext, provideAlertContext] =
-  createContext<AlertContext>('YDSZAlertContext');
+  createContext<AlertContext>('REMIAlertContext');
 
 /**
  * 获取Alert上下文

@@ -2,7 +2,7 @@
  * menu-item 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu-item.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@ import type { MenuItemProps, MenuItemRegistered } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
-import { useNamespace } from '@ydsz-core/composables';
-import { YDSZIcon, YDSZTooltip } from '@ydsz-core/shadcn-ui';
+import { useNamespace } from '@remi-core/composables';
+import { REMIIcon, REMITooltip } from '@remi-core/shadcn-ui';
 
 import { MenuBadge } from '../components';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
-import { getPreloadManager } from '@ydsz/micro-kernel';
+import { getPreloadManager } from '@remi/micro-kernel';
 
 interface Props extends MenuItemProps {}
 
@@ -133,14 +133,14 @@ onBeforeUnmount(() => {
     @click.stop="handleClick"
     @mouseenter="handleMouseEnter"
   >
-    <YDSZTooltip
+    <REMITooltip
       v-if="showTooltip"
       :content-class="[rootMenu.theme]"
       side="right"
     >
       <template #trigger>
         <div :class="[nsMenu.be('tooltip', 'trigger')]">
-          <YDSZIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
+          <REMIIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
           <slot></slot>
           <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
             <slot name="title"></slot>
@@ -148,14 +148,14 @@ onBeforeUnmount(() => {
         </div>
       </template>
       <slot name="title"></slot>
-    </YDSZTooltip>
+    </REMITooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
       <MenuBadge
         v-if="rootMenu.props.mode !== 'horizontal'"
         class="right-2"
         v-bind="props"
       />
-      <YDSZIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
+      <REMIIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
       <slot></slot>
       <slot name="title"></slot>
     </div>

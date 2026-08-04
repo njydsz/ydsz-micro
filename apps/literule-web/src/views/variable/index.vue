@@ -2,21 +2,21 @@
  * 系统变量管理列表页面
  *
  * @path apps\literule-web\src\views\variable\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 系统变量（列表页）
- * <p>系统变量（{@code ydsz_system_variable}）的列表页。
+ * <p>系统变量（{@code remi_system_variable}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteVariableApi, getVariablePageApi, type VariableApi } from '#/api/variable';
 import VariableForm from './variable-form.vue';
 defineOptions({ name: 'VariableManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<VariableApi.VariableVO> = {
       { field: 'variableName', title: 'variableName', itemRender: { name: 'Input', props: { placeholder: 'variableName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [VariableFormModal, variableFormApi] = useVbenModal({ connectedComponent: VariableForm });
 function handleAdd() { variableFormApi.open(); }
 function handleEdit(row: VariableApi.VariableVO) { variableFormApi.setData({ record: row }); variableFormApi.open(); }

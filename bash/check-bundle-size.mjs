@@ -2,7 +2,7 @@
  * bundle-size 体积监控脚本
  *
  * @path bash/check-bundle-size.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
  *
  * @remarks

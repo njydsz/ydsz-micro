@@ -2,7 +2,7 @@
  * PaginationPrev Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\PaginationPrev.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { PaginationPrevProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
 import { ChevronLeft } from 'lucide-vue-next';
 import { PaginationPrev } from 'radix-vue';

@@ -2,12 +2,12 @@
  * spinner 通用组件
  *
  * @path comm\effects\common-ui\src\components\loading\spinner.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { YDSZSpinner } from '@ydsz-core/shadcn-ui';
-import { cn } from '@ydsz-core/shared/utils';
+import { REMISpinner } from '@remi-core/shadcn-ui';
+import { cn } from '@remi-core/shared/utils';
 
 interface SpinnerProps {
   class?: string;
@@ -27,7 +27,7 @@ const props = defineProps<SpinnerProps>();
 <template>
   <div :class="cn('relative min-h-20', props.class)">
     <slot></slot>
-    <YDSZSpinner
+    <REMISpinner
       :min-loading-time="props.minLoadingTime"
       :spinning="props.spinning"
     />

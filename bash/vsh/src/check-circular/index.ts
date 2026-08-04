@@ -2,14 +2,14 @@
  * index 模块
  *
  * @path bash\vsh\src\check-circular\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CAC } from 'cac';
 
 import { extname } from 'node:path';
 
-import { getStagedFiles } from '@ydsz/node-utils';
+import { getStagedFiles } from '@remi/node-utils';
 
 import { circularDepsDetect } from 'circular-dependency-scanner';
 

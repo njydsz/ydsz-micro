@@ -2,21 +2,21 @@
  * use-remi-form 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\use-remi-form.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
   BaseFormComponentType,
   ExtendedFormApi,
-  YDSZFormProps,
+  REMIFormProps,
 } from './types';
 
 import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 
-import { useStore } from '@ydsz-core/shared/store';
+import { useStore } from '@remi-core/shared/store';
 
 import { FormApi } from './form-api';
-import YDSZUseForm from './ydsz-use-form.vue';
+import REMIUseForm from './remi-use-form.vue';
 
 /**
  * 创建一对「表单组件 + 命令式 API」，是业务使用 form-ui 的推荐入口。
@@ -37,19 +37,19 @@ import YDSZUseForm from './ydsz-use-form.vue';
  *   不会落到根 DOM 元素上；
  * - 每次调用都会新建一个独立的 FormApi 实例，**不要**在渲染函数或循环中调用。
  *
- * @param options - 表单配置，包含 schema、布局、提交回调等，详见 {@link YDSZFormProps}
+ * @param options - 表单配置，包含 schema、布局、提交回调等，详见 {@link REMIFormProps}
  * @returns 长度为 2 的只读元组：`[Form, formApi]`——`Form` 用于模板渲染，
  *          `formApi` 为扩展后的命令式句柄（含 `useStore` 订阅能力）
  *
  * @example
  * ```ts
- * const [Form, formApi] = useYDSZForm({ schema, handleSubmit });
+ * const [Form, formApi] = useREMIForm({ schema, handleSubmit });
  * await formApi.validate();
  * ```
  */
-export function useYDSZForm<
+export function useREMIForm<
   T extends BaseFormComponentType = BaseFormComponentType,
->(options: YDSZFormProps<T>) {
+>(options: REMIFormProps<T>) {
   const IS_REACTIVE = isReactive(options);
   const api = new FormApi(options);
   const extendedApi: ExtendedFormApi = api as never;
@@ -58,16 +58,16 @@ export function useYDSZForm<
   };
 
   const Form = defineComponent(
-    (props: YDSZFormProps, { attrs, slots }) => {
+    (props: REMIFormProps, { attrs, slots }) => {
       onBeforeUnmount(() => {
         api.unmount();
       });
       api.setState({ ...props, ...attrs });
       return () =>
-        h(YDSZUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
+        h(REMIUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },
     {
-      name: 'YDSZUseForm',
+      name: 'REMIUseForm',
       inheritAttrs: false,
     },
   );

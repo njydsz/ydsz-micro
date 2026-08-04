@@ -2,7 +2,7 @@
  * audit-log-table 通用组件 — 操作审计日志表格
  *
  * @path comm\effects\shared-business\src\components\audit-log-table.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

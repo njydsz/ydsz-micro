@@ -2,13 +2,13 @@
  * navigation 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\navigation.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectOption } from '@ydsz/types';
+import type { SelectOption } from '@remi/types';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
 import SwitchItem from '../switch-item.vue';
 import ToggleItem from '../toggle-item.vue';

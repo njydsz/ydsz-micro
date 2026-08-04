@@ -4,7 +4,7 @@
  适用于仪表盘页面的加载骨架屏，包含统计卡片和图表区域。
 
  @path main/src/views/_core/subapp/skeletons/DashboardSkeleton.vue
- @author ydsz-team
+ @author remi-team
  @since 1.0.0
 -->
 <template>

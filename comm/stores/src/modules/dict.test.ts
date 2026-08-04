@@ -2,7 +2,7 @@
  * dict store 单元测试
  *
  * @path comm\stores\src\modules\dict.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';

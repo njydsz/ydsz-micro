@@ -2,7 +2,7 @@
  * 死信队列列表页组件
  *
  * @path apps\message-web\src\views\deadLetter\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 死信队列（列表页）
  * <p>死信队列的查询页，管理发送失败的消息。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteDeadLetterApi, getDeadLetterPageApi, type DeadLetterApi } from '#/api/deadLetter';
 import DeadLetterForm from './deadLetter-form.vue';
 defineOptions({ name: 'DeadLetterManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<DeadLetterApi.DeadLetterVO> = {
       { field: 'messageId', title: 'messageId', itemRender: { name: 'Input', props: { placeholder: 'messageId' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [DeadLetterFormModal, deadLetterFormApi] = useVbenModal({ connectedComponent: DeadLetterForm });
 function handleAdd() { deadLetterFormApi.open(); }
 function handleEdit(row: DeadLetterApi.DeadLetterVO) { deadLetterFormApi.setData({ record: row }); deadLetterFormApi.open(); }

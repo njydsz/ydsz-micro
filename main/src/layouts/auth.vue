@@ -2,11 +2,11 @@
  * auth 布局组件
  *
  * @path main\src\layouts\auth.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { AuthPageLayout } from '@ydsz/layouts';
+import { AuthPageLayout } from '@remi/layouts';
 
 import { $t } from '#/locales';
 </script>

@@ -37,7 +37,7 @@
  * - micro-app（webcomponent + iframe scope，本项目仅取 iframe window 隔离）
  *
  * @path comm/effects/micro-kernel/src/iframe-sandbox.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

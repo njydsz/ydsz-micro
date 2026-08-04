@@ -2,7 +2,7 @@
  * i18n 国际化语言包
  *
  * @path comm\locales\src\i18n.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { App } from 'vue';
@@ -21,7 +21,7 @@ import type {
 import { unref } from 'vue';
 import { createI18n } from 'vue-i18n';
 
-import { useSimpleLocale } from '@ydsz-core/composables';
+import { useSimpleLocale } from '@remi-core/composables';
 
 const i18n = createI18n({
   globalInjection: true,

@@ -1,11 +1,11 @@
 {
-  "name": "@ydsz/styles",
+  "name": "@remi/styles",
   "version": "1.0.0",
-  "homepage": "https://github.com/njydsz/ydsz-pmis",
-  "bugs": "https://github.com/njydsz/ydsz-pmis/issues",
+  "homepage": "https://github.com/remi/remi-pmis",
+  "bugs": "https://github.com/remi/remi-pmis/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/njydsz/ydsz-pmis.git",
+    "url": "git+https://github.com/remi/remi-pmis.git",
     "directory": "comm/styles"
   },
   "license": "MIT",
@@ -23,6 +23,6 @@
     }
   },
   "dependencies": {
-    "@ydsz-core/design": "workspace:*"
+    "@remi-core/design": "workspace:*"
   }
 }

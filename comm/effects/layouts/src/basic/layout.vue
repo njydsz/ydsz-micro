@@ -2,30 +2,30 @@
  * layout 布局组件
  *
  * @path comm\effects\layouts\src\basic\layout.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { SetupContext } from 'vue';
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
-import type { MenuRecordRaw } from '@ydsz/types';
+import type { MenuRecordRaw } from '@remi/types';
 
 import { computed, onMounted, useSlots, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { useRefresh } from '@ydsz/hooks';
-import { $t, i18n } from '@ydsz/locales';
+import { useRefresh } from '@remi/hooks';
+import { $t, i18n } from '@remi/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@ydsz/preferences';
-import { useAccessStore } from '@ydsz/stores';
-import { cloneDeep, mapTree } from '@ydsz/utils';
+} from '@remi/preferences';
+import { useAccessStore } from '@remi/stores';
+import { cloneDeep, mapTree } from '@remi/utils';
 
-import { YDSZAdminLayout } from '@ydsz-core/layout-ui';
-import { YDSZLogo } from '@ydsz-core/shadcn-ui';
+import { REMIAdminLayout } from '@remi-core/layout-ui';
+import { REMILogo } from '@remi-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';
@@ -203,7 +203,7 @@ const headerSlots = computed(() => {
 </script>
 
 <template>
-  <YDSZAdminLayout
+  <REMIAdminLayout
     v-model:sidebar-extra-visible="sidebarExtraVisible"
     :content-compact="preferences.app.contentCompact"
     :content-compact-width="preferences.app.contentCompactWidth"
@@ -258,7 +258,7 @@ const headerSlots = computed(() => {
   >
     <!-- logo -->
     <template #logo>
-      <YDSZLogo
+      <REMILogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
         :class="logoClass"
@@ -271,7 +271,7 @@ const headerSlots = computed(() => {
         <template v-if="$slots['logo-text']" #text>
           <slot name="logo-text"></slot>
         </template>
-      </YDSZLogo>
+      </REMILogo>
     </template>
     <!-- 头部区域 -->
     <template #header>
@@ -349,7 +349,7 @@ const headerSlots = computed(() => {
       />
     </template>
     <template #side-extra-title>
-      <YDSZLogo
+      <REMILogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
         :text="preferences.app.name"
@@ -358,7 +358,7 @@ const headerSlots = computed(() => {
         <template v-if="$slots['logo-text']" #text>
           <slot name="logo-text"></slot>
         </template>
-      </YDSZLogo>
+      </REMILogo>
     </template>
 
     <template #tabbar>
@@ -405,7 +405,7 @@ const headerSlots = computed(() => {
           @clear-preferences-and-logout="clearPreferencesAndLogout"
         />
       </template>
-      <!-- <YDSZBackTop /> -->
+      <!-- <REMIBackTop /> -->
     </template>
-  </YDSZAdminLayout>
+  </REMIAdminLayout>
 </template>

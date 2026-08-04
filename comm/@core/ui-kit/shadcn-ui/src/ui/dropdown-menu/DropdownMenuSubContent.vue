@@ -2,7 +2,7 @@
  * DropdownMenuSubContent Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\DropdownMenuSubContent.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -13,7 +13,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
 import { DropdownMenuSubContent, useForwardPropsEmits } from 'radix-vue';
 

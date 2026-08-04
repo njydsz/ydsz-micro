@@ -2,7 +2,7 @@
  * 规则 DSL 脚本管理列表页面
  *
  * @path apps\literule-web\src\views\dsl\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 规则 DSL（列表页）
  * <p>规则 DSL 脚本的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteDslApi, getDslPageApi, type DslApi } from '#/api/dsl';
 import DslForm from './dsl-form.vue';
 defineOptions({ name: 'DslManagement' });
@@ -43,7 +43,7 @@ const gridOptions: VxeGridProps<DslApi.DslVO> = {
       { field: 'dslName', title: 'dslName', itemRender: { name: 'Input', props: { placeholder: 'dslName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [DslFormModal, dslFormApi] = useVbenModal({ connectedComponent: DslForm });
 function handleAdd() { dslFormApi.open(); }
 function handleEdit(row: DslApi.DslVO) { dslFormApi.setData({ record: row }); dslFormApi.open(); }

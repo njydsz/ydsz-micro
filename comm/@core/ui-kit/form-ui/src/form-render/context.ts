@@ -2,14 +2,14 @@
  * context 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\context.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { FormRenderProps } from '../types';
 
 import { computed } from 'vue';
 
-import { createContext } from '@ydsz-core/shadcn-ui';
+import { createContext } from '@remi-core/shadcn-ui';
 
 export const [injectRenderFormProps, provideFormRenderProps] =
   createContext<FormRenderProps>('FormRenderProps');
@@ -23,7 +23,7 @@ export const [injectRenderFormProps, provideFormRenderProps] =
  * 返回的三项均为 computed，会随上层 `provideFormRenderProps` 提供的值自动更新；
  * `isVertical` 是对 `layout` 的语义化派生，避免各处重复写 `layout === 'vertical'` 的字符串比较。
  *
- * 约束：必须在 `<YDSZForm>` 的组件子树内、且在 setup 阶段调用；
+ * 约束：必须在 `<REMIForm>` 的组件子树内、且在 setup 阶段调用；
  * 脱离该上下文调用时注入会失败，返回值上的属性访问将抛错。
  *
  * @returns `componentMap` 控件名到组件的映射；`componentBindEventMap` 控件的 v-model prop 名映射；

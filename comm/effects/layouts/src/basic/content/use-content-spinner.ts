@@ -2,13 +2,13 @@
  * use-content-spinner 模块
  *
  * @path comm\effects\layouts\src\basic\content\use-content-spinner.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { preferences } from '@ydsz/preferences';
+import { preferences } from '@remi/preferences';
 
 function useContentSpinner() {
   const spinning = ref(false);

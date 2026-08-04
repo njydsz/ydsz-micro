@@ -2,7 +2,7 @@
  * 国际化语言包管理页面 — 展示语言条目列表，支持新增/编辑/删除翻译
  *
  * @path apps\userinfo-web\src\views\system\language\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,16 +10,16 @@
  * 国际化（列表页）
  * <p>国际化语言包的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useVbenModal } from '@remi/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteLanguageApi,
   getLanguagePageApi,
@@ -99,7 +99,7 @@ const gridOptions: VxeGridProps<LanguageApi.LanguageVO> = {
   },
 };
 
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 
 const [LanguageFormModal, languageFormApi] = useVbenModal({ connectedComponent: LanguageForm });
 

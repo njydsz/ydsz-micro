@@ -2,7 +2,7 @@
  * index 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\widgets\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export { default as TabsToolMore } from './tool-more.vue';

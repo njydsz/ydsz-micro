@@ -4,7 +4,7 @@
  * 一条命令从模板生成新的微应用，自动完成：
  *   - package.json（含 workspace 引用与 scripts，对齐现行子应用依赖）
  *   - vite.config.mts（ElementPlus + 端口配置）
- *   - tsconfig.json（继承 @ydsz/tsconfig）
+ *   - tsconfig.json（继承 @remi/tsconfig）
  *   - src/main.ts / app.vue（标准生命周期导出，createSubApp 工厂模式）
  *   - src/preferences.ts / adapter / store / router / locales 骨架
  *   - .env / .env.development / .env.production / .env.analyze
@@ -15,10 +15,10 @@
  * 使用方式：node bash/gen-app.mjs <app-name> <title> <route-prefix> [port]
  *
  * @example
- *   pnpm gen:app report-web 数据报表 /ydsz-report 5611
+ *   pnpm gen:app report-web 数据报表 /remi-report 5611
  *
  * @path bash/gen-app.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -35,12 +35,12 @@ const [name, title, routePrefix, portStr] = process.argv.slice(2);
 
 if (!name || !title || !routePrefix) {
   console.error('用法: pnpm gen:app <app-name> <title> <route-prefix> [port]');
-  console.error('示例: pnpm gen:app report-web 数据报表 /ydsz-report 5611');
+  console.error('示例: pnpm gen:app report-web 数据报表 /remi-report 5611');
   process.exit(1);
 }
 
 const port = Number.parseInt(portStr || '5611', 10);
-const packageName = `@ydsz/${name}`;
+const packageName = `@remi/${name}`;
 const namespace = name.replace(/-web$/, '').replace(/-/g, '-');
 const appTitleEn = title;
 
@@ -71,23 +71,23 @@ const pkgJson = {
     preview: 'vite preview',
   },
   dependencies: {
-    '@ydsz/access': 'workspace:*',
-    '@ydsz/common-ui': 'workspace:*',
-    '@ydsz/constants': 'workspace:*',
-    '@ydsz/hooks': 'workspace:*',
-    '@ydsz/icons': 'workspace:*',
-    '@ydsz/layouts': 'workspace:*',
-    '@ydsz/locales': 'workspace:*',
-    '@ydsz/monitor': 'workspace:*',
-    '@ydsz/plugins': 'workspace:*',
-    '@ydsz/preferences': 'workspace:*',
-    '@ydsz/request': 'workspace:*',
-    '@ydsz/shared-auth': 'workspace:*',
-    '@ydsz/shared-business': 'workspace:*',
-    '@ydsz/stores': 'workspace:*',
-    '@ydsz/styles': 'workspace:*',
-    '@ydsz/types': 'workspace:*',
-    '@ydsz/utils': 'workspace:*',
+    '@remi/access': 'workspace:*',
+    '@remi/common-ui': 'workspace:*',
+    '@remi/constants': 'workspace:*',
+    '@remi/hooks': 'workspace:*',
+    '@remi/icons': 'workspace:*',
+    '@remi/layouts': 'workspace:*',
+    '@remi/locales': 'workspace:*',
+    '@remi/monitor': 'workspace:*',
+    '@remi/plugins': 'workspace:*',
+    '@remi/preferences': 'workspace:*',
+    '@remi/request': 'workspace:*',
+    '@remi/shared-auth': 'workspace:*',
+    '@remi/shared-business': 'workspace:*',
+    '@remi/stores': 'workspace:*',
+    '@remi/styles': 'workspace:*',
+    '@remi/types': 'workspace:*',
+    '@remi/utils': 'workspace:*',
     '@vueuse/core': 'catalog:',
     dayjs: 'catalog:',
     'element-plus': 'catalog:',
@@ -96,9 +96,9 @@ const pkgJson = {
     'vue-router': 'catalog:',
   },
   devDependencies: {
-    '@ydsz/tsconfig': 'workspace:*',
-    '@ydsz/vite-config': 'workspace:*',
-    '@ydsz/tailwind-config': 'workspace:*',
+    '@remi/tsconfig': 'workspace:*',
+    '@remi/vite-config': 'workspace:*',
+    '@remi/tailwind-config': 'workspace:*',
     typescript: 'catalog:',
     vite: 'catalog:',
     'unplugin-element-plus': 'catalog:',
@@ -112,7 +112,7 @@ fs.writeFileSync(
 
 // ==================== vite.config.mts ====================
 
-const viteConfig = `import { defineConfig } from '@ydsz/vite-config';
+const viteConfig = `import { defineConfig } from '@remi/vite-config';
 import ElementPlus from 'unplugin-element-plus/vite';
 
 export default defineConfig(async () => {
@@ -146,7 +146,7 @@ fs.writeFileSync(path.join(appDir, 'vite.config.mts'), viteConfig);
 
 const tsconfig = {
   $schema: 'https://json.schemastore.org/tsconfig',
-  extends: '@ydsz/tsconfig/web-app.json',
+  extends: '@remi/tsconfig/web-app.json',
   compilerOptions: {
     composite: true,
     baseUrl: '.',
@@ -184,9 +184,9 @@ fs.writeFileSync(path.join(appDir, 'index.html'), indexHtml);
 // ==================== .env ====================
 
 const envBase = `VITE_APP_TITLE=${title}
-VITE_APP_NAMESPACE=ydsz-${namespace}
+VITE_APP_NAMESPACE=remi-${namespace}
 VITE_APP_VERSION=1.0.0
-VITE_APP_STORE_SECURE_KEY=ydsz-pmis-2026-secure-key
+VITE_APP_STORE_SECURE_KEY=remi-pmis-2026-secure-key
 `;
 
 const envDev = `VITE_PORT=${port}
@@ -219,23 +219,23 @@ fs.writeFileSync(path.join(appDir, '.env.analyze'), envAnalyze);
 
 fs.writeFileSync(
   path.join(appDir, 'postcss.config.mjs'),
-  `export { default } from '@ydsz/tailwind-config/postcss';\n`,
+  `export { default } from '@remi/tailwind-config/postcss';\n`,
 );
 
 fs.writeFileSync(
   path.join(appDir, 'tailwind.config.mjs'),
-  `export { default } from '@ydsz/tailwind-config';\n`,
+  `export { default } from '@remi/tailwind-config';\n`,
 );
 
 // ==================== src/main.ts ====================
 
-const mainTs = `import { createSubApp } from '@ydsz/shared-auth';
+const mainTs = `import { createSubApp } from '@remi/shared-auth';
 
-import '@ydsz/styles';
-import '@ydsz/styles/ele';
+import '@remi/styles';
+import '@remi/styles/ele';
 
 import { initComponentAdapter } from './adapter/component';
-import { initSetupYDSZForm } from './adapter/form';
+import { initSetupREMIForm } from './adapter/form';
 import RootApp from './app.vue';
 import { setupI18n } from './locales';
 import { overridesPreferences } from './preferences';
@@ -261,7 +261,7 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
   guard: createRouterGuard,
   async onSetup(app) {
     await initComponentAdapter();
-    await initSetupYDSZForm();
+    await initSetupREMIForm();
     await setupI18n(app);
   },
 });
@@ -272,7 +272,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'main.ts'), mainTs);
 // ==================== src/app.vue ====================
 
 const appVue = `<script lang="ts" setup>
-import { useElementPlusDesignTokens } from '@ydsz/hooks';
+import { useElementPlusDesignTokens } from '@remi/hooks';
 import { ElConfigProvider } from 'element-plus';
 
 import { elementLocale } from '#/locales';
@@ -293,7 +293,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'app.vue'), appVue);
 
 // ==================== src/preferences.ts ====================
 
-const preferencesTs = `import { defineOverridesPreferences } from '@ydsz/preferences';
+const preferencesTs = `import { defineOverridesPreferences } from '@remi/preferences';
 
 /**
  * ${title} 子应用偏好覆盖。
@@ -323,7 +323,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'preferences.ts'), preferencesTs);
 
 // ==================== src/adapter/component/index.ts ====================
 
-const adapterComponentTs = `import { registerElementPlusComponents } from '@ydsz/shared-auth';
+const adapterComponentTs = `import { registerElementPlusComponents } from '@remi/shared-auth';
 
 import type { ComponentType } from './component-type';
 
@@ -345,7 +345,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'adapter', 'component', 'index.ts'), a
 
 // ==================== src/adapter/form.ts ====================
 
-const adapterFormTs = `import { createSetupYDSZForm } from '@ydsz/shared-auth';
+const adapterFormTs = `import { createSetupREMIForm } from '@remi/shared-auth';
 
 import type { ComponentType } from './component';
 
@@ -355,10 +355,10 @@ import type { ComponentType } from './component';
  * @path apps/${name}/src/adapter/form.ts
  * @since 1.0.0
  */
-export const { useYDSZForm, z, YDSZFormSchema } = createSetupYDSZForm<ComponentType>();
+export const { useREMIForm, z, REMIFormSchema } = createSetupREMIForm<ComponentType>();
 
-export async function initSetupYDSZForm(): Promise<void> {
-  // 组件类型映射与校验规则已在 createSetupYDSZForm 中完成
+export async function initSetupREMIForm(): Promise<void> {
+  // 组件类型映射与校验规则已在 createSetupREMIForm 中完成
 }
 `;
 
@@ -370,7 +370,7 @@ const apiRequestTs = `export {
   baseRequestClient,
   initSharedRequest,
   requestClient,
-} from '@ydsz/shared-auth';
+} from '@remi/shared-auth';
 `;
 
 fs.writeFileSync(path.join(appDir, 'src', 'api', 'request.ts'), apiRequestTs);
@@ -385,14 +385,14 @@ fs.writeFileSync(path.join(appDir, 'src', 'api', 'index.ts'), apiIndexTs);
 
 // ==================== src/api/core/index.ts ====================
 
-const apiCoreTs = `export * from '@ydsz/shared-auth/auth-api';
+const apiCoreTs = `export * from '@remi/shared-auth/auth-api';
 `;
 
 fs.writeFileSync(path.join(appDir, 'src', 'api', 'core', 'index.ts'), apiCoreTs);
 
 // ==================== src/store/auth.ts ====================
 
-const storeAuthTs = `export { createSharedAuthStore } from '@ydsz/shared-auth';
+const storeAuthTs = `export { createSharedAuthStore } from '@remi/shared-auth';
 
 export const useAuthStore = createSharedAuthStore();
 `;
@@ -410,7 +410,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'store', 'index.ts'), storeIndexTs);
 
 const routerGuardTs = `import type { Router } from 'vue-router';
 
-import { createSubAppRouterGuard, initRoutes as sharedInitRoutes } from '@ydsz/shared-auth/guards';
+import { createSubAppRouterGuard, initRoutes as sharedInitRoutes } from '@remi/shared-auth/guards';
 
 import { accessRoutes } from '#/router/routes';
 
@@ -454,7 +454,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'router', 'index.ts'), routerIndexTs);
 
 const routesIndexTs = `import type { RouteRecordRaw } from 'vue-router';
 
-import { mergeRouteModules } from '@ydsz/utils';
+import { mergeRouteModules } from '@remi/utils';
 
 import { coreRoutes, fallbackNotFoundRoute } from './core';
 
@@ -499,13 +499,13 @@ fs.writeFileSync(path.join(appDir, 'src', 'router', 'routes', 'core.ts'), routes
 // ==================== src/locales/index.ts ====================
 
 const localesIndexTs = `/**
- * 国际化配置入口 — 通过 @ydsz/shared-auth 的 createSubAppI18n 工厂装配。
+ * 国际化配置入口 — 通过 @remi/shared-auth 的 createSubAppI18n 工厂装配。
  *
  * @path apps/${name}/src/locales/index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { createSubAppI18n } from '@ydsz/shared-auth';
+import { createSubAppI18n } from '@remi/shared-auth';
 
 const modules = import.meta.glob('./langs/**/*.json');
 

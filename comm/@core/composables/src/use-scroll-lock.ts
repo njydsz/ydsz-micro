@@ -2,10 +2,10 @@
  * use-scroll-lock 组合式函数
  *
  * @path comm\@core\composables\src\use-scroll-lock.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { getScrollbarWidth, needsScrollbar } from '@ydsz-core/shared/utils';
+import { getScrollbarWidth, needsScrollbar } from '@remi-core/shared/utils';
 
 import {
   useScrollLock as _useScrollLock,

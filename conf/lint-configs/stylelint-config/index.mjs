@@ -4,7 +4,7 @@
  * @remarks
  * 基于标准 Stylelint 规则集，约束 CSS/SCSS 的书写规范，配合 Prettier 协同工作。
  * 
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export default {

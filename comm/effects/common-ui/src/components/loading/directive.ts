@@ -2,15 +2,15 @@
  * directive 模块
  *
  * @path comm\effects\common-ui\src\components\loading\directive.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { h, render } from 'vue';
 
-import { YDSZLoading, YDSZSpinner } from '@ydsz-core/shadcn-ui';
-import { isString } from '@ydsz-core/shared/utils';
+import { REMILoading, REMISpinner } from '@remi-core/shadcn-ui';
+import { isString } from '@remi-core/shared/utils';
 
 const LOADING_INSTANCE_KEY = Symbol('loading');
 const SPINNER_INSTANCE_KEY = Symbol('spinner');
@@ -19,7 +19,7 @@ const CLASS_NAME_RELATIVE = 'spinner-parent--relative';
 
 const loadingDirective: Directive = {
   mounted(el, binding) {
-    const instance = h(YDSZLoading, getOptions(binding));
+    const instance = h(REMILoading, getOptions(binding));
     render(instance, el);
 
     el.classList.add(CLASS_NAME_RELATIVE);
@@ -62,7 +62,7 @@ function getOptions(binding: DirectiveBinding) {
 
 const spinningDirective: Directive = {
   mounted(el, binding) {
-    const instance = h(YDSZSpinner, getOptions(binding));
+    const instance = h(REMISpinner, getOptions(binding));
     render(instance, el);
 
     el.classList.add(CLASS_NAME_RELATIVE);

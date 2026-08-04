@@ -10,19 +10,19 @@
  *     本标签页同步更新 tokenStore，避免各自独立刷新导致 refreshToken 竞态。
  *
  * @path main/src/hooks/use-cross-tab-sync.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { getCurrentScope, onScopeDispose } from 'vue';
 
-import { useCrossTabEvent } from '@ydsz/hooks';
+import { useCrossTabEvent } from '@remi/hooks';
 import {
   type TokenRefreshedPayload,
   CROSS_TAB_CHANNEL,
   CROSS_TAB_EVENTS,
   notifyCrossTab,
-} from '@ydsz/shared-auth';
-import { useTokenStore } from '@ydsz/stores';
+} from '@remi/shared-auth';
+import { useTokenStore } from '@remi/stores';
 
 import { useAuthStore } from '#/store/auth';
 

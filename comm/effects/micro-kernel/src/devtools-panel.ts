@@ -8,12 +8,12 @@
  * - 手动操作按钮（强制卸载/重载/降级/刷新注册表）
  *
  * @path comm/effects/micro-kernel/src/devtools-panel.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.7.0
  */
 
 import { getAllInstances } from './scheduler';
-import { getLogger } from '@ydsz-core/shared/utils';
+import { getLogger } from '@remi-core/shared/utils';
 import { refreshRegistry, resolveAppEntry } from './registry-adapter';
 import type { AppStatus } from './scheduler';
 
@@ -218,7 +218,7 @@ function registerKeyHandler(): void {
  *
  * @example
  * // main/src/bootstrap.ts
- * import { enableMicroDevTools } from '@ydsz/micro-kernel';
+ * import { enableMicroDevTools } from '@remi/micro-kernel';
  * if (import.meta.env.DEV) enableMicroDevTools();
  */
 export function enableMicroDevTools(): void {

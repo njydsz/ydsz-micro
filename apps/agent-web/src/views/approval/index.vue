@@ -2,7 +2,7 @@
  * apps 列表/管理页面组件
  *
  * @path apps\agent-web\src\views\approval\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -11,13 +11,13 @@
  * <p>Agent 工具调用的人工审批列表页，展示待我审批的工单。
  * <p>支持通过、驳回、转办等操作。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteApprovalApi, getApprovalPageApi, type ApprovalApi } from '#/api/approval';
 import ApprovalForm from './approval-form.vue';
 defineOptions({ name: 'ApprovalManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<ApprovalApi.ApprovalVO> = {
       { field: 'approvalStatus', title: 'approvalStatus', itemRender: { name: 'Input', props: { placeholder: 'approvalStatus' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [ApprovalFormModal, approvalFormApi] = useVbenModal({ connectedComponent: ApprovalForm });
 function handleAdd() { approvalFormApi.open(); }
 function handleEdit(row: ApprovalApi.ApprovalVO) { approvalFormApi.setData({ record: row }); approvalFormApi.open(); }

@@ -7,19 +7,19 @@
  *
  * 子应用只需：
  * ```ts
- * import { createRouterGuard, initRoutes } from '@ydsz/shared-auth/guards';
+ * import { createRouterGuard, initRoutes } from '@remi/shared-auth/guards';
  * ```
  *
  * @path comm\effects\shared-auth\src\guards.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 2.0.0
  */
 import type { RouteRecordRaw, Router } from 'vue-router';
 
-import { LOGIN_PATH } from '@ydsz/constants';
-import { preferences } from '@ydsz/preferences';
-import { useAccessStore } from '@ydsz/stores';
-import { startProgress, stopProgress } from '@ydsz/utils';
+import { LOGIN_PATH } from '@remi/constants';
+import { preferences } from '@remi/preferences';
+import { useAccessStore } from '@remi/stores';
+import { startProgress, stopProgress } from '@remi/utils';
 
 /** 默认白名单路径 */
 const DEFAULT_WHITE_LIST: readonly string[] = ['/auth', LOGIN_PATH];

@@ -9,7 +9,7 @@
  *   node bash/upload-sourcemaps.mjs --dist=apps/agent-web/dist --release=v1.0.0
  *
  * @path bash/upload-sourcemaps.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 3.1.0
  */
 import fs from 'node:fs';

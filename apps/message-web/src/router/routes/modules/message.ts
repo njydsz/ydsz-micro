@@ -2,7 +2,7 @@
  * message 路由模块
  *
  * @path apps\message-web\src\router\routes\modules\message.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';

@@ -2,10 +2,10 @@
  * preferences 模块
  *
  * @path main\src\preferences.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { defineOverridesPreferences } from '@ydsz/preferences';
+import { defineOverridesPreferences } from '@remi/preferences';
 
 /**
  * PMIS 主应用偏好设置

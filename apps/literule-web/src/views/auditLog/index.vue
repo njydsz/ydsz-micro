@@ -2,7 +2,7 @@
  * 规则审计日志查询列表页面
  *
  * @path apps\literule-web\src\views\auditLog\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 规则审计日志（列表页）
  * <p>规则审计日志的查询页，记录发布/版本/A/B 分流/灰度/回滚等关键事件。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteAuditLogApi, getAuditLogPageApi, type AuditLogApi } from '#/api/auditLog';
 import AuditLogForm from './auditLog-form.vue';
 defineOptions({ name: 'AuditLogManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<AuditLogApi.AuditLogVO> = {
       { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [AuditLogFormModal, auditLogFormApi] = useVbenModal({ connectedComponent: AuditLogForm });
 function handleAdd() { auditLogFormApi.open(); }
 function handleEdit(row: AuditLogApi.AuditLogVO) { auditLogFormApi.setData({ record: row }); auditLogFormApi.open(); }

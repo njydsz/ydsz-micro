@@ -2,7 +2,7 @@
  * 流程实例（表单组件）
  *
  * @path apps\workflow-web\src\views\instance\instance-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 流程实例（详情组件）
  * <p>流程实例的详情展示，包含流程图、流转历史。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { InstanceApi } from '#/api/instance';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createInstanceApi, updateInstanceApi } from '#/api/instance';

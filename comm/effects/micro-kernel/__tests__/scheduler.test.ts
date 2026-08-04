@@ -2,7 +2,7 @@
  * scheduler 模块单元测试
  *
  * @path comm/effects/micro-kernel/__tests__/scheduler.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -16,7 +16,7 @@ import {
   setKeepAlive,
 } from '../src/scheduler';
 
-import type { MicroAppConfig } from '@ydsz/micro-runtime';
+import type { MicroAppConfig } from '@remi/micro-runtime';
 
 // Mock dynamic import
 vi.mock('../src/loader', () => ({

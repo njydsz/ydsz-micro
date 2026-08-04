@@ -18,8 +18,8 @@
  * @since 4.0.0
  */
 
-import { createLogger } from '@ydsz-core/shared/utils';
-import type { MicroAppConfig } from '@ydsz/micro-runtime';
+import { createLogger } from '@remi-core/shared/utils';
+import type { MicroAppConfig } from '@remi/micro-runtime';
 
 const logger = createLogger('DevToolsBridge');
 
@@ -61,7 +61,7 @@ function sendToExtension(type: DiagType, payload: any): void {
     const sender = (window as any).__sendToExtension;
     if (typeof sender === 'function') { sender(type, payload); return; }
     window.postMessage({
-      channel: '__YDSZ_MICRO_KERNEL__CHANNEL',
+      channel: '__REMI_MICRO_KERNEL__CHANNEL',
       source: 'page',
       type,
       payload,
@@ -162,7 +162,7 @@ export function enableDevToolsBridge(opts: DevToolsBridgeOptions): void {
   // 监听 Extension 通过 content-script 转发来的命令
   window.addEventListener('message', (e) => {
     if (e.source !== window || !e.data) return;
-    if (e.data.channel !== '__YDSZ_MICRO_KERNEL__CHANNEL') return;
+    if (e.data.channel !== '__REMI_MICRO_KERNEL__CHANNEL') return;
     if (e.data.source !== 'extension') return;
     handleExtensionCommand(e.data, opts);
   });

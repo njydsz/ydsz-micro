@@ -2,7 +2,7 @@
  * demos 路由模块
  *
  * @path main\src\router\routes\modules\demos.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';

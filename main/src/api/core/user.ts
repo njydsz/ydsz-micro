@@ -2,10 +2,10 @@
  * user API 接口定义
  *
  * @path main\src\api\core\user.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { UserInfo } from '@ydsz/types';
+import type { UserInfo } from '@remi/types';
 
 import { requestClient } from '#/api/request';
 

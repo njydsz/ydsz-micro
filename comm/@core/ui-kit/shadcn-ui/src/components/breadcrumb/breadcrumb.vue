@@ -2,13 +2,13 @@
  * breadcrumb 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\breadcrumb.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { BreadcrumbProps } from './types';
 
-import { ChevronDown } from '@ydsz-core/icons';
+import { ChevronDown } from '@remi-core/icons';
 
 import {
   Breadcrumb,
@@ -22,7 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../ui';
-import { YDSZIcon } from '../icon';
+import { REMIIcon } from '../icon';
 
 interface Props extends BreadcrumbProps {}
 
@@ -52,7 +52,7 @@ function handleClick(path?: string) {
             <div v-if="item.items?.length ?? 0 > 0">
               <DropdownMenu>
                 <DropdownMenuTrigger class="flex items-center gap-1" aria-haspopup="menu">
-                  <YDSZIcon v-if="showIcon" :icon="item.icon" class="size-5" aria-hidden="true" />
+                  <REMIIcon v-if="showIcon" :icon="item.icon" class="size-5" aria-hidden="true" />
                   {{ item.title }}
                   <ChevronDown class="size-4" aria-hidden="true" />
                 </DropdownMenuTrigger>
@@ -75,7 +75,7 @@ function handleClick(path?: string) {
               @click.stop="handleClick(item.path)"
             >
               <div class="flex-center">
-                <YDSZIcon
+                <REMIIcon
                   v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"
@@ -87,7 +87,7 @@ function handleClick(path?: string) {
             </BreadcrumbLink>
             <BreadcrumbPage v-else :aria-current="index === breadcrumbs.length - 1 ? 'page' : undefined">
               <div class="flex-center">
-                <YDSZIcon
+                <REMIIcon
                   v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"

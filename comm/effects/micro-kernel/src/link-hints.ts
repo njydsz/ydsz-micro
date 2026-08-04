@@ -12,7 +12,7 @@
  * 以便需要时一键清理。
  *
  * @path comm/effects/micro-kernel/src/link-hints.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.5.0
  */
 

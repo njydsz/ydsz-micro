@@ -2,21 +2,21 @@
  * 项目回款（列表页）
  *
  * @path apps\project-web\src\views\revenue\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目回款（列表页）
- * <p>项目回款（{@code ydsz_project_revenue}）的列表页。
+ * <p>项目回款（{@code remi_project_revenue}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteRevenueApi, getRevenuePageApi, type RevenueApi } from '#/api/revenue';
 import RevenueForm from './revenue-form.vue';
 defineOptions({ name: 'RevenueManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<RevenueApi.RevenueVO> = {
       { field: 'revenueType', title: 'revenueType', itemRender: { name: 'Input', props: { placeholder: 'revenueType' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [RevenueFormModal, revenueFormApi] = useVbenModal({ connectedComponent: RevenueForm });
 function handleAdd() { revenueFormApi.open(); }
 function handleEdit(row: RevenueApi.RevenueVO) { revenueFormApi.setData({ record: row }); revenueFormApi.open(); }

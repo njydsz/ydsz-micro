@@ -2,7 +2,7 @@
  * input 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\pin-input\input.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -11,7 +11,7 @@ import type { PinInputProps } from './types';
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
-import { YDSZButton } from '../button';
+import { REMIButton } from '../button';
 
 defineOptions({
   inheritAttrs: false,
@@ -114,7 +114,7 @@ const id = useId();
           :aria-label="`第 ${index + 1} 位验证码`"
         />
       </PinInputGroup>
-      <YDSZButton
+      <REMIButton
         :disabled="disabled"
         :loading="btnLoading"
         class="flex-grow"
@@ -124,7 +124,7 @@ const id = useId();
         @click="handleSend"
       >
         {{ btnText }}
-      </YDSZButton>
+      </REMIButton>
     </div>
   </PinInput>
 </template>

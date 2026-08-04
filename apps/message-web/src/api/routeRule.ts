@@ -4,7 +4,7 @@
  * <p>支持按租户/部门/用户/优先级动态路由到不同渠道。
  * <p>供「消息中心 → 路由配置」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

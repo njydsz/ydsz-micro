@@ -2,7 +2,7 @@
  * types 模块
  *
  * @path comm\effects\plugins\src\vxe-table\types.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
@@ -14,11 +14,11 @@ import type {
 
 import type { Ref } from 'vue';
 
-import type { ClassType, DeepPartial } from '@ydsz/types';
+import type { ClassType, DeepPartial } from '@remi/types';
 
-import type { BaseFormComponentType, YDSZFormProps } from '@ydsz-core/form-ui';
+import type { BaseFormComponentType, REMIFormProps } from '@remi-core/form-ui';
 
-import { useYDSZForm } from '@ydsz-core/form-ui';
+import { useREMIForm } from '@remi-core/form-ui';
 
 /**
  * 表格分页信息，用于在自定义 `proxyConfig.ajax.query` 中接收分页参数。
@@ -63,7 +63,7 @@ export interface SeparatorOptions {
 }
 
 /**
- * `YDSZVxeGrid`（搜索表单 + 表格 的组合组件）的配置项。
+ * `REMIVxeGrid`（搜索表单 + 表格 的组合组件）的配置项。
  *
  * @remarks
  * 该类型同时承担两个角色：组件 Props 与 {@link VxeGridApi} 的状态结构，
@@ -106,7 +106,7 @@ export interface VxeGridProps<
   /**
    * 表单配置
    */
-  formOptions?: YDSZFormProps<D>;
+  formOptions?: REMIFormProps<D>;
   /**
    * 显示搜索表单
    * @default true
@@ -129,5 +129,5 @@ export interface SetupVxeTable {
   /** 全局配置回调，在 vxe-table 完成安装后执行，可在此注册格式化器、图标、默认配置等 */
   configVxeTable: (ui: VxeUIExport) => void;
   /** 应用层选定的表单实现，供表格内置搜索表单使用 */
-  useYDSZForm: typeof useYDSZForm;
+  useREMIForm: typeof useREMIForm;
 }

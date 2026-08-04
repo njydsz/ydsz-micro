@@ -2,7 +2,7 @@
  * 系统配置表单组件 — 支持新增/编辑系统参数，热更新无需重启
  *
  * @path apps\system-web\src\views\config\config-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 系统配置（表单组件）
  * <p>系统参数的编辑表单，支持热更新。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { ConfigApi } from '#/api/config';
 
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

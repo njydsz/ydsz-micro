@@ -2,7 +2,7 @@
  * button 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { AsTag } from 'radix-vue';
@@ -19,7 +19,7 @@ import type { ButtonVariants, ButtonVariantSize } from '../../ui';
  * 注意 `loading` 与 `disabled` 是两个独立开关：置为 loading 并**不会自动禁用点击**，
  * 需要防重复提交时应同时设置二者。
  */
-export interface YDSZButtonProps {
+export interface REMIButtonProps {
   /**
    * The element or component this component should render as. Can be overwrite by `asChild`
    * @defaultValue "div"
@@ -62,11 +62,11 @@ export type ValueType = boolean | number | string;
  *
  * @remarks
  * 相比原生 Radio/Checkbox，按钮组在筛选栏等场景下点击热区更大、视觉更紧凑。
- * 仅从 {@link YDSZButtonProps} 继承 `disabled`（作用于整组），
+ * 仅从 {@link REMIButtonProps} 继承 `disabled`（作用于整组），
  * 其余按钮样式通过 `btnClass` 统一定制。
  */
-export interface YDSZButtonGroupProps extends Pick<
-  YDSZButtonProps,
+export interface REMIButtonGroupProps extends Pick<
+  REMIButtonProps,
   'disabled'
 > {
   /** 单选模式下允许清除选中 */

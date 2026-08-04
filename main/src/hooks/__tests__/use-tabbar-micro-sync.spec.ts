@@ -4,23 +4,23 @@
  * 避开 microRuntime 依赖，聚焦 per-app 会话状态机的纯逻辑。
  *
  * @path main/src/hooks/__tests__/use-tabbar-micro-sync.spec.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.7.0
  */
 
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 
 // 必须在 mock afterEach / microRuntime 之前先 mock 依赖
-vi.mock('@ydsz/stores', () => ({
+vi.mock('@remi/stores', () => ({
   onTabClosed: vi.fn(),
   useTabbarStore: vi.fn(),
 }));
 
-vi.mock('@ydsz/vite-config', () => ({
+vi.mock('@remi/vite-config', () => ({
   PATH_TO_APP_MAP: {
-    '/ydsz-user': 'userinfo-web',
-    '/ydsz-sys': 'system-web',
-    '/ydsz-proj': 'project-web',
+    '/remi-user': 'userinfo-web',
+    '/remi-sys': 'system-web',
+    '/remi-proj': 'project-web',
   },
 }));
 
@@ -51,7 +51,7 @@ describe('多 Tab 子应用同步 — per-app session', () => {
     // 实现清理方式：直接调用完所有关闭即可，但此处依赖 public API snapshot 验证
     vi.clearAllMocks();
     // 通过关闭 Tab 使 session 清空
-    const allApps = ['/ydsz-user/a', '/ydsz-user/b', '/ydsz-sys/a', '/ydsz-proj/a', '/ydsz-proj/b'];
+    const allApps = ['/remi-user/a', '/remi-user/b', '/remi-sys/a', '/remi-proj/a', '/remi-proj/b'];
     // 每次会话关闭全部
     for (const p of allApps) {
       // re-import 模块 — 实际上 sessions 是模块级变量，无法跨 test reset
@@ -60,37 +60,37 @@ describe('多 Tab 子应用同步 — per-app session', () => {
   });
 
   it('recordSubAppTabOpened 首次打开 Tab 必须记录到 session', () => {
-    recordSubAppTabOpened('/ydsz-proj/opportunities', 'project-web');
+    recordSubAppTabOpened('/remi-proj/opportunities', 'project-web');
     const session = extractSession('project-web');
     expect(session, 'project-web session 应存在').toBeDefined();
-    expect(session!.openPaths).toContain('/ydsz-proj/opportunities');
-    expect(session!.lastActivePath).toBe('/ydsz-proj/opportunities');
+    expect(session!.openPaths).toContain('/remi-proj/opportunities');
+    expect(session!.lastActivePath).toBe('/remi-proj/opportunities');
   });
 
   it('同一子应用多次打开不同 Tab 需要累积到 openPaths', () => {
-    recordSubAppTabOpened('/ydsz-proj/opportunities', 'project-web');
-    recordSubAppTabOpened('/ydsz-proj/execution/list', 'project-web');
+    recordSubAppTabOpened('/remi-proj/opportunities', 'project-web');
+    recordSubAppTabOpened('/remi-proj/execution/list', 'project-web');
 
     const session = extractSession('project-web');
     expect(session!.openPaths).toHaveLength(2);
-    expect(session!.openPaths).toContain('/ydsz-proj/opportunities');
-    expect(session!.openPaths).toContain('/ydsz-proj/execution/list');
+    expect(session!.openPaths).toContain('/remi-proj/opportunities');
+    expect(session!.openPaths).toContain('/remi-proj/execution/list');
     // 最后更新的是 execution/list
-    expect(session!.lastActivePath).toBe('/ydsz-proj/execution/list');
+    expect(session!.lastActivePath).toBe('/remi-proj/execution/list');
   });
 
   it('不同子应用的 session 互相隔离', () => {
-    recordSubAppTabOpened('/ydsz-user/users', 'userinfo-web');
-    recordSubAppTabOpened('/ydsz-proj/opportunities', 'project-web');
+    recordSubAppTabOpened('/remi-user/users', 'userinfo-web');
+    recordSubAppTabOpened('/remi-proj/opportunities', 'project-web');
 
     const userSession = extractSession('userinfo-web');
     const projSession = extractSession('project-web');
 
-    expect(userSession!.openPaths).toEqual(['/ydsz-user/users']);
-    expect(projSession!.openPaths).toEqual(['/ydsz-proj/opportunities']);
+    expect(userSession!.openPaths).toEqual(['/remi-user/users']);
+    expect(projSession!.openPaths).toEqual(['/remi-proj/opportunities']);
     // 两个 session lastActivePath 各自独立
-    expect(userSession!.lastActivePath).toBe('/ydsz-user/users');
-    expect(projSession!.lastActivePath).toBe('/ydsz-proj/opportunities');
+    expect(userSession!.lastActivePath).toBe('/remi-user/users');
+    expect(projSession!.lastActivePath).toBe('/remi-proj/opportunities');
   });
 
   it('getSubAppLastActivePath 无 session 时返回 null', () => {
@@ -106,8 +106,8 @@ describe('多 Tab 子应用同步 — per-app session', () => {
   });
 
   it('getAppFromPath 正确识别 registered 子应用前缀', () => {
-    expect(getAppFromPath('/ydsz-users')).toBe('userinfo-web');
-    expect(getAppFromPath('/ydsz-sys/configs')).toBe('system-web');
-    expect(getAppFromPath('/ydsz-proj/execution/list')).toBe('project-web');
+    expect(getAppFromPath('/remi-users')).toBe('userinfo-web');
+    expect(getAppFromPath('/remi-sys/configs')).toBe('system-web');
+    expect(getAppFromPath('/remi-proj/execution/list')).toBe('project-web');
   });
 });

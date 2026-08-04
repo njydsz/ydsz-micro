@@ -2,7 +2,7 @@
  * async-state 通用容器组件
  *
  * @path comm\effects\shared-business\src\components\async-state.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

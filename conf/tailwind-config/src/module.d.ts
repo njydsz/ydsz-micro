@@ -2,7 +2,7 @@
  * module.d 配置模块
  *
  * @path conf\tailwind-config\src\module.d.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 declare module '@tailwindcss/nesting' {

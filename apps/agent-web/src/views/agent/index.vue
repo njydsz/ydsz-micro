@@ -2,7 +2,7 @@
  * apps 列表/管理页面组件
  *
  * @path apps\agent-web\src\views\agent\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -12,13 +12,13 @@
  * <p>使用 VxeGrid 表格展示 Agent 名称、类型、模型提供商/名称、状态、创建时间。
  * <p>通过 {@code useVbenModal} 弹出表单抽屉完成创建/编辑。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteAgentApi, getAgentPageApi, type AgentApi } from '#/api/agent';
 import AgentForm from './agent-form.vue';
 defineOptions({ name: 'AgentManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<AgentApi.AgentVO> = {
       { field: 'agentName', title: 'agentName', itemRender: { name: 'Input', props: { placeholder: 'agentName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [AgentFormModal, agentFormApi] = useVbenModal({ connectedComponent: AgentForm });
 function handleAdd() { agentFormApi.open(); }
 function handleEdit(row: AgentApi.AgentVO) { agentFormApi.setData({ record: row }); agentFormApi.open(); }

@@ -6,7 +6,7 @@
  * @remarks
  * 提供子应用/组件脚手架生成能力，加速微前端应用初始化。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

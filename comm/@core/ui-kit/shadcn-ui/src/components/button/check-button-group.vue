@@ -2,26 +2,26 @@
  * check-button-group 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\check-button-group.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { Arrayable } from '@vueuse/core';
 
-import type { YDSZButtonGroupProps, ValueType } from './button';
+import type { REMIButtonGroupProps, ValueType } from './button';
 
 import { computed, ref, watch } from 'vue';
 
-import { Circle, CircleCheckBig, LoaderCircle } from '@ydsz-core/icons';
-import { cn, isFunction } from '@ydsz-core/shared/utils';
+import { Circle, CircleCheckBig, LoaderCircle } from '@remi-core/icons';
+import { cn, isFunction } from '@remi-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 
-import { YDSZRenderContent } from '../render-content';
-import YDSZButtonGroup from './button-group.vue';
+import { REMIRenderContent } from '../render-content';
+import REMIButtonGroup from './button-group.vue';
 import Button from './button.vue';
 
-const props = withDefaults(defineProps<YDSZButtonGroupProps>(), {
+const props = withDefaults(defineProps<REMIButtonGroupProps>(), {
   gap: 0,
   multiple: false,
   showIcon: true,
@@ -112,10 +112,10 @@ async function onBtnClick(value: ValueType) {
 }
 </script>
 <template>
-  <YDSZButtonGroup
+  <REMIButtonGroup
     :size="props.size"
     :gap="props.gap"
-    class="ydsz-check-button-group"
+    class="remi-check-button-group"
   >
     <Button
       v-for="(btn, index) in props.options"
@@ -146,13 +146,13 @@ async function onBtnClick(value: ValueType) {
         </slot>
       </div>
       <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
-        <YDSZRenderContent :content="btn.label" />
+        <REMIRenderContent :content="btn.label" />
       </slot>
     </Button>
-  </YDSZButtonGroup>
+  </REMIButtonGroup>
 </template>
 <style lang="scss" scoped>
-.ydsz-check-button-group {
+.remi-check-button-group {
   display: flex;
   flex-wrap: wrap;
 

@@ -2,15 +2,15 @@
  * check-updates 布局组件
  *
  * @path comm\effects\layouts\src\widgets\check-updates\check-updates.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
-import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { useREMIModal } from '@remi-core/popup-ui';
 
 interface Props {
   // 轮询时间，分钟
@@ -31,7 +31,7 @@ const currentVersionTag = ref('');
 const lastVersionTag = ref('');
 const timer = ref<ReturnType<typeof setInterval>>();
 
-const [UpdateNoticeModal, modalApi] = useYDSZModal({
+const [UpdateNoticeModal, modalApi] = useREMIModal({
   closable: false,
   closeOnPressEscape: false,
   closeOnClickModal: false,

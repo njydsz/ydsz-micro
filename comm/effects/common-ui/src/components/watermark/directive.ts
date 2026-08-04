@@ -16,14 +16,14 @@
  * ```
  *
  * @path comm/effects/common-ui/src/components/watermark/directive.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { WatermarkOptions } from 'watermark-js-plus';
 
 import type { App, Directive, DirectiveBinding } from 'vue';
 
-const WATERMARK_INSTANCE_KEY = Symbol('ydsz-watermark');
+const WATERMARK_INSTANCE_KEY = Symbol('remi-watermark');
 
 /** 指令绑定的值：字符串（仅内容）或完整水印选项 */
 type WatermarkBinding = Partial<WatermarkOptions> | string;

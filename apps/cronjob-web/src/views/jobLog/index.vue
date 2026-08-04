@@ -2,7 +2,7 @@
  * 任务执行日志（列表页）
  *
  * @path apps\cronjob-web\src\views\jobLog\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 任务执行日志（列表页）
  * <p>任务执行日志的查询页，记录每次调度的开始/结束时间、状态、返回值、异常堆栈。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteJobLogApi, getJobLogPageApi, type JobLogApi } from '#/api/jobLog';
 import JobLogForm from './jobLog-form.vue';
 defineOptions({ name: 'JobLogManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<JobLogApi.JobLogVO> = {
       { field: 'jobName', title: 'jobName', itemRender: { name: 'Input', props: { placeholder: 'jobName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [JobLogFormModal, jobLogFormApi] = useVbenModal({ connectedComponent: JobLogForm });
 function handleAdd() { jobLogFormApi.open(); }
 function handleEdit(row: JobLogApi.JobLogVO) { jobLogFormApi.setData({ record: row }); jobLogFormApi.open(); }

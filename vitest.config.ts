@@ -5,7 +5,7 @@
  * 排除 e2e 目录的端到端测试文件。
  *
  * @path vitest.config.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import Vue from '@vitejs/plugin-vue';

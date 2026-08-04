@@ -10,14 +10,14 @@
  *       骨架屏类型优先取自子应用 manifest.routes，回退到 route.meta.skeletonType。
  *
  * @path main\src\views\_core\subapp\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MicroAppConfig } from '@ydsz/micro-runtime';
+import type { MicroAppConfig } from '@remi/micro-runtime';
 import type { Component } from 'vue';
 
-import { getAppInstance } from '@ydsz/micro-kernel';
+import { getAppInstance } from '@remi/micro-kernel';
 
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';

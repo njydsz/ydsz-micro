@@ -4,7 +4,7 @@
  * @remarks
  * 递归删除各包 dist/target 等构建输出目录，保持工作区干净。
  * 
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { promises as fs } from 'node:fs';

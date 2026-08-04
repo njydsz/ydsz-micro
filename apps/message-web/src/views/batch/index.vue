@@ -2,7 +2,7 @@
  * 消息批量发送列表页组件
  *
  * @path apps\message-web\src\views\batch\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 消息批量发送（列表页）
  * <p>批量发送任务的列表页，支持大批量收件人列表（10w+）、分片、限流。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteBatchApi, getBatchPageApi, type BatchApi } from '#/api/batch';
 import BatchForm from './batch-form.vue';
 defineOptions({ name: 'BatchManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<BatchApi.BatchVO> = {
       { field: 'batchName', title: 'batchName', itemRender: { name: 'Input', props: { placeholder: 'batchName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [BatchFormModal, batchFormApi] = useVbenModal({ connectedComponent: BatchForm });
 function handleAdd() { batchFormApi.open(); }
 function handleEdit(row: BatchApi.BatchVO) { batchFormApi.setData({ record: row }); batchFormApi.open(); }

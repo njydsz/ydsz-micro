@@ -1,5 +1,5 @@
 {
-  "name": "@ydsz/micro-runtime",
+  "name": "@remi/micro-runtime",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -30,8 +30,8 @@
     }
   },
   "dependencies": {
-    "@ydsz/constants": "workspace:*",
-    "@ydsz/stores": "workspace:*",
+    "@remi/constants": "workspace:*",
+    "@remi/stores": "workspace:*",
     "vue": "catalog:"
   }
 }

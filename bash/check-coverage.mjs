@@ -5,7 +5,7 @@
  * 运行单元测试并检查覆盖率阈值，生成覆盖率报告
  *
  * @path bash/check-coverage.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

@@ -2,7 +2,7 @@
  * 文件标签（表单组件）
  *
  * @path apps\nextwiki-web\src\views\tag\tag-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 文件标签（表单组件）
  * <p>标签的创建/编辑表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { TagApi } from '#/api/tag';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createTagApi, updateTagApi } from '#/api/tag';

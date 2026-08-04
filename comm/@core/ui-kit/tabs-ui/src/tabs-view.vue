@@ -2,15 +2,15 @@
  * tabs-view Vue 组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\tabs-view.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { TabsEmits, TabsProps } from './types';
 
-import { useForwardPropsEmits } from '@ydsz-core/composables';
-import { ChevronLeft, ChevronRight } from '@ydsz-core/icons';
-import { YDSZScrollbar } from '@ydsz-core/shadcn-ui';
+import { useForwardPropsEmits } from '@remi-core/composables';
+import { ChevronLeft, ChevronRight } from '@remi-core/icons';
+import { REMIScrollbar } from '@remi-core/shadcn-ui';
 
 import { Tabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';
@@ -23,7 +23,7 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  contentClass: 'ydsz-tabs-content',
+  contentClass: 'remi-tabs-content',
   draggable: true,
   styleType: 'chrome',
   wheelable: true,
@@ -75,7 +75,7 @@ useTabsDrag(props, emit);
       }"
       class="size-full flex-1 overflow-hidden"
     >
-      <YDSZScrollbar
+      <REMIScrollbar
         ref="scrollbarRef"
         :shadow-bottom="false"
         :shadow-top="false"
@@ -94,7 +94,7 @@ useTabsDrag(props, emit);
         />
 
         <Tabs v-else v-bind="{ ...forward, ...$attrs, ...$props }" />
-      </YDSZScrollbar>
+      </REMIScrollbar>
     </div>
 
     <!-- 右侧滚动按钮 -->

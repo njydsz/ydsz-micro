@@ -2,15 +2,15 @@
  * number-field-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\number-field-item.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectOption } from '@ydsz/types';
+import type { SelectOption } from '@remi/types';
 
 import { useSlots } from 'vue';
 
-import { CircleHelp } from '@ydsz/icons';
+import { CircleHelp } from '@remi/icons';
 
 import {
   NumberField,
@@ -18,8 +18,8 @@ import {
   NumberFieldDecrement,
   NumberFieldIncrement,
   NumberFieldInput,
-  YDSZTooltip,
-} from '@ydsz-core/shadcn-ui';
+  REMITooltip,
+} from '@remi-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',
@@ -56,7 +56,7 @@ const slots = useSlots();
     <span class="flex items-center text-sm">
       <slot></slot>
 
-      <YDSZTooltip v-if="slots.tip || tip" side="bottom">
+      <REMITooltip v-if="slots.tip || tip" side="bottom">
         <template #trigger>
           <CircleHelp class="ml-1 size-3 cursor-help" />
         </template>
@@ -67,7 +67,7 @@ const slots = useSlots();
             </p>
           </template>
         </slot>
-      </YDSZTooltip>
+      </REMITooltip>
     </span>
 
     <NumberField v-model="inputValue" v-bind="$attrs" class="w-[165px]">

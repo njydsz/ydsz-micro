@@ -1,9 +1,9 @@
 /**
  * 字典项 API 模块（前端）
  *
- * 封装字典项（{@code ydsz_dict_item}）CRUD 接口，对应后端 {@code /api/v1/dict/item/*} 端点。
+ * 封装字典项（{@code remi_dict_item}）CRUD 接口，对应后端 {@code /api/v1/dict/item/*} 端点。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

@@ -2,21 +2,21 @@
  * 项目发票（列表页）
  *
  * @path apps\project-web\src\views\invoice\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目发票（列表页）
- * <p>项目发票（{@code ydsz_project_invoice}）的列表页。
+ * <p>项目发票（{@code remi_project_invoice}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteInvoiceApi, getInvoicePageApi, type InvoiceApi } from '#/api/invoice';
 import InvoiceForm from './invoice-form.vue';
 defineOptions({ name: 'InvoiceManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<InvoiceApi.InvoiceVO> = {
       { field: 'invoiceCode', title: 'invoiceCode', itemRender: { name: 'Input', props: { placeholder: 'invoiceCode' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [InvoiceFormModal, invoiceFormApi] = useVbenModal({ connectedComponent: InvoiceForm });
 function handleAdd() { invoiceFormApi.open(); }
 function handleEdit(row: InvoiceApi.InvoiceVO) { invoiceFormApi.setData({ record: row }); invoiceFormApi.open(); }

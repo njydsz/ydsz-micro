@@ -2,10 +2,10 @@
  * normal-menu 模块
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\normal-menu\normal-menu.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { MenuRecordRaw } from '@ydsz-core/typings';
+import type { MenuRecordRaw } from '@remi-core/typings';
 
 interface NormalMenuProps {
   /**

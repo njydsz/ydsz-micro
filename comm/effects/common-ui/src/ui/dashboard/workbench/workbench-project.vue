@@ -2,7 +2,7 @@
  * workbench-project Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-project.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -13,8 +13,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  YDSZIcon,
-} from '@ydsz-core/shadcn-ui';
+  REMIIcon,
+} from '@remi-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchProjectItem[];
@@ -50,7 +50,7 @@ defineEmits(['click']);
           class="border-border group w-full cursor-pointer border-r border-t p-4 transition-all hover:shadow-xl md:w-1/2 lg:w-1/3"
         >
           <div class="flex items-center">
-            <YDSZIcon
+            <REMIIcon
               :color="item.color"
               :icon="item.icon"
               class="size-8 transition-all duration-300 group-hover:scale-110"

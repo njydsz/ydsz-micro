@@ -4,7 +4,7 @@
  * <p>注册路由守卫、动态路由、滚动行为等。
  * <p>供 {@code main.ts} 注入到 Vue App 使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import {
@@ -13,7 +13,7 @@ import {
   createWebHistory,
 } from 'vue-router';
 
-import { resetStaticRoutes } from '@ydsz/utils';
+import { resetStaticRoutes } from '@remi/utils';
 
 import { createRouterGuard, initRoutes } from './guard';
 import { routes } from './routes';

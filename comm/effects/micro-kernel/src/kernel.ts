@@ -13,7 +13,7 @@
  *   createRuntime({ kernel: 'micro-kernel' });
  *
  * @path comm/effects/micro-kernel/src/kernel.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -26,7 +26,7 @@ import type {
   MicroRuntime,
   RawGlobalStateAPI,
   StartOptions,
-} from '@ydsz/micro-runtime';
+} from '@remi/micro-runtime';
 import { clearRegistryCache, resolveAppEntry, resolveRegistry } from './registry-adapter';
 
 import {
@@ -55,11 +55,11 @@ import { clearManifestCache, loadApp } from './loader';
 import { getVersionManager } from './version-manager';
 import { getPreloadManager, recordRouteTransition } from './preload-strategy';
 import { preloadManifest } from './link-hints';
-import { createLogger } from '@ydsz-core/shared/utils';
+import { createLogger } from '@remi-core/shared/utils';
 import { applyPrefetchBoost, removeSpeculationRules } from './speculation-rules';
-import type { MicroAppEntry } from '@ydsz/micro-runtime';
-import { createNamespacedGlobalStateWrapper } from '@ydsz/micro-runtime/namespaced-state';
-import { buildStandardMountProps } from '@ydsz/micro-runtime/standard-props';
+import type { MicroAppEntry } from '@remi/micro-runtime';
+import { createNamespacedGlobalStateWrapper } from '@remi/micro-runtime/namespaced-state';
+import { buildStandardMountProps } from '@remi/micro-runtime/standard-props';
 import {
   clearPendingRequests,
   registerAppMessageHandler,
@@ -549,7 +549,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         entries = await registry.fetcher();
       } else if (registry.adapter === 'static') {
         // 静态配置：动态导入 MICRO_APPS，避免 kernel 模块每次加载都携带完整注册表
-        const { MICRO_APPS } = await import('@ydsz/vite-config');
+        const { MICRO_APPS } = await import('@remi/vite-config');
         entries = MICRO_APPS as MicroAppEntry[];
       } else {
         // 'remote' / 'auto'：使用 registry-adapter 拉取（含缓存回退）
@@ -598,7 +598,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       if (options?.prefetchStrategy !== 'never') {
         const appEntries: MicroAppEntry[] = apps.map((a) => ({
           name: a.name,
-          packageName: `@ydsz/${a.name}`,
+          packageName: `@remi/${a.name}`,
           activeRule: typeof a.activeRule === 'string' ? a.activeRule : `/${a.name}`,
           redirect: typeof a.activeRule === 'string' ? `${a.activeRule}/` : `/${a.name}/`,
           title: a.name,

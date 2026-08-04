@@ -4,7 +4,7 @@
  * <p>支持事件流模式匹配、滑动时间窗、事件序列检测。
  * <p>供「规则引擎 → CEP 规则」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

@@ -2,11 +2,11 @@
  * coming-soon 页面组件
  *
  * @path main\src\views\_core\fallback\coming-soon.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Fallback } from '@ydsz/common-ui';
+import { Fallback } from '@remi/common-ui';
 </script>
 
 <template>

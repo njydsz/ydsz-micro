@@ -2,7 +2,7 @@
  * 任务 DAG（表单组件）
  *
  * @path apps\cronjob-web\src\views\jobDag\jobDag-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 任务 DAG（表单组件）
  * <p>任务 DAG 的可视化编辑表单，支持节点拖拽、连线配置。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { JobDagApi } from '#/api/jobDag';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createJobDagApi, updateJobDagApi } from '#/api/jobDag';

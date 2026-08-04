@@ -5,7 +5,7 @@
  * 主应用与子应用业务代码仅依赖此接口。
  *
  * @path comm/effects/micro-runtime/src/types.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -42,8 +42,8 @@ export interface MicroAppConfig {
   container: string | HTMLElement;
   /**
    * 激活规则，支持三种模式：
-   * - string: 路由前缀匹配（如 '/ydsz-proj'）
-   * - RegExp: 正则表达式匹配（如 /^\/ydsz-proj\/.*\/detail$/）
+   * - string: 路由前缀匹配（如 '/remi-proj'）
+   * - RegExp: 正则表达式匹配（如 /^\/remi-proj\/.*\/detail$/）
    * - function: 自定义匹配函数（如 (path) => path.includes('/special')）
    */
   activeRule: ActiveRule;
@@ -190,9 +190,9 @@ export interface RegistryAdapter {
 export interface MicroAppEntry {
   /** 子应用唯一标识（如 'project-web'） */
   name: string;
-  /** Monorepo 内包名（如 @ydsz/project-web） */
+  /** Monorepo 内包名（如 @remi/project-web） */
   packageName: string;
-  /** 路由前缀（如 '/ydsz-proj'），也作为 activeRule */
+  /** 路由前缀（如 '/remi-proj'），也作为 activeRule */
   activeRule: string;
   /** 菜单默认重定向路径 */
   redirect: string;

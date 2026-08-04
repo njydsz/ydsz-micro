@@ -2,7 +2,7 @@
  * virtual-select 通用组件 — 大数据量下拉选择器
  *
  * @path comm\effects\shared-business\src\components\virtual-select.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

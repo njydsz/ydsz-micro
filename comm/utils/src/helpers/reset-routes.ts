@@ -2,12 +2,12 @@
  * reset-routes 工具函数模块
  *
  * @path comm\utils\src\helpers\reset-routes.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Router, RouteRecordName, RouteRecordRaw } from 'vue-router';
 
-import { traverseTreeValues } from '@ydsz-core/shared/utils';
+import { traverseTreeValues } from '@remi-core/shared/utils';
 
 /**
  * @zh_CN 重置所有路由，如有指定白名单除外

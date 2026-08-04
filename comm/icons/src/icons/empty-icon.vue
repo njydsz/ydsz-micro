@@ -2,7 +2,7 @@
  * empty-icon Vue 组件
  *
  * @path comm\icons\src\icons\empty-icon.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <template>

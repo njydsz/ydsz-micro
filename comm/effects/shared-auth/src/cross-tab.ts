@@ -5,16 +5,16 @@
  *   当任一标签页刷新 token 成功后，广播 TOKEN_REFRESHED 事件，
  *   其它标签页收到后更新本地 tokenStore，避免各自独立刷新导致 refreshToken 竞态。
  *
- * 底层使用 BroadcastChannel（via @ydsz/hooks），同源标签页自动收发。
+ * 底层使用 BroadcastChannel（via @remi/hooks），同源标签页自动收发。
  *
  * @path comm/effects/shared-auth/src/cross-tab.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.5.0
  */
-import { broadcastCrossTabEvent } from '@ydsz/hooks';
+import { broadcastCrossTabEvent } from '@remi/hooks';
 
 /** 主应用统一使用的跨标签页通道名 */
-export const CROSS_TAB_CHANNEL = 'ydsz-pmis';
+export const CROSS_TAB_CHANNEL = 'remi-pmis';
 
 /** 跨标签页事件类型注册表（避免散写字符串 key） */
 export const CROSS_TAB_EVENTS = {
@@ -42,7 +42,7 @@ export interface TokenRefreshedPayload {
  * 广播跨标签页事件。
  *
  * 供主应用与子应用共享的广播入口，确保通道名一致。
- * 内部直接调用 @ydsz/hooks 的 broadcastCrossTabEvent。
+ * 内部直接调用 @remi/hooks 的 broadcastCrossTabEvent。
  *
  * @param eventType - 事件类型（建议使用 CROSS_TAB_EVENTS 常量）
  * @param payload - 事件负载

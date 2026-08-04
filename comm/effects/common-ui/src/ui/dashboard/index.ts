@@ -2,7 +2,7 @@
  * index 模块
  *
  * @path comm\effects\common-ui\src\ui\dashboard\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export * from './analysis';

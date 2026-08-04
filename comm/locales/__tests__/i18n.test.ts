@@ -7,16 +7,16 @@
  * - 空闲预加载（requestIdleCallback / setTimeout 回退）
  *
  * @path comm/locales/__tests__/i18n.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { NamespacedLocalesMap, SupportedLanguagesType } from '../src/typing';
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock @ydsz-core/composables 以隔离 @ydsz-core/shared 的预存在导入问题，
+// Mock @remi-core/composables 以隔离 @remi-core/shared 的预存在导入问题，
 // 仅暴露 i18n.ts 实际使用的 setSimpleLocale。
-vi.mock('@ydsz-core/composables', () => ({
+vi.mock('@remi-core/composables', () => ({
   useSimpleLocale: () => ({
     currentLocale: { value: 'zh-CN' },
     setSimpleLocale: () => {},

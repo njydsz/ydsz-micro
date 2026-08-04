@@ -2,7 +2,7 @@
  * cache-adapter 单元测试
  *
  * @path comm\effects\request\src\cache-adapter.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

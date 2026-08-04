@@ -25,7 +25,7 @@
  * - 本项目因 ESM 路线不使用 with 执行，仅保留 fakeWindow 数据隔离
  *
  * @path comm/effects/micro-kernel/src/proxy-sandbox.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.2.0
  */
 

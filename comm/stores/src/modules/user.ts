@@ -2,10 +2,10 @@
  * user Pinia 状态管理
  *
  * @path comm\stores\src\modules\user.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { BasicUserInfo } from '@ydsz-core/typings';
+import type { BasicUserInfo } from '@remi-core/typings';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 

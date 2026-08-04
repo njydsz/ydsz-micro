@@ -2,7 +2,7 @@
  * use-menu-context 组合式函数
  *
  * @path comm\@core\ui-kit\menu-ui\src\hooks\use-menu-context.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { MenuProvider, SubMenuProvider } from '../types';

@@ -4,7 +4,7 @@
  * 负责注册和管理 Service Worker，实现离线缓存和性能优化
  *
  * @path main/src/service-worker.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

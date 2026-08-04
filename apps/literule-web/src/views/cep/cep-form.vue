@@ -2,7 +2,7 @@
  * 复杂事件处理规则编辑表单组件
  *
  * @path apps\literule-web\src\views\cep\cep-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 规则 CEP（表单组件）
  * <p>复杂事件处理规则的编辑表单，支持事件模式、时间窗配置。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CepApi } from '#/api/cep';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createCepApi, updateCepApi } from '#/api/cep';

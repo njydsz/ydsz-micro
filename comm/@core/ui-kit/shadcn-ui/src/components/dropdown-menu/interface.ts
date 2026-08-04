@@ -2,12 +2,12 @@
  * interface 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\dropdown-menu\interface.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Component } from 'vue';
 
-interface YDSZDropdownMenuItem {
+interface REMIDropdownMenuItem {
   disabled?: boolean;
   /**
    * @zh_CN 点击事件处理
@@ -33,7 +33,7 @@ interface YDSZDropdownMenuItem {
 }
 
 interface DropdownMenuProps {
-  menus: YDSZDropdownMenuItem[];
+  menus: REMIDropdownMenuItem[];
 }
 
-export type { DropdownMenuProps, YDSZDropdownMenuItem };
+export type { DropdownMenuProps, REMIDropdownMenuItem };

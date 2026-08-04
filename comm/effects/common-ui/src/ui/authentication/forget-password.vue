@@ -2,24 +2,24 @@
  * forget-password Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\forget-password.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YDSZFormSchema } from '@ydsz-core/form-ui';
+import type { REMIFormSchema } from '@remi-core/form-ui';
 
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
-import { useYDSZForm } from '@ydsz-core/form-ui';
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { useREMIForm } from '@remi-core/form-ui';
+import { REMIButton } from '@remi-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 
 interface Props {
-  formSchema: YDSZFormSchema[];
+  formSchema: REMIFormSchema[];
   /**
    * @zh_CN 是否处于加载处理状态
    */
@@ -58,7 +58,7 @@ const emit = defineEmits<{
   submit: [Record<string, any>];
 }>();
 
-const [Form, formApi] = useYDSZForm(
+const [Form, formApi] = useREMIForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -103,7 +103,7 @@ defineExpose({
     <Form />
 
     <div>
-      <YDSZButton
+      <REMIButton
         :class="{
           'cursor-wait': loading,
         }"
@@ -114,10 +114,10 @@ defineExpose({
         <slot name="submitButtonText">
           {{ submitButtonText || $t('authentication.sendResetLink') }}
         </slot>
-      </YDSZButton>
-      <YDSZButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
+      </REMIButton>
+      <REMIButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
         {{ $t('common.back') }}
-      </YDSZButton>
+      </REMIButton>
     </div>
   </div>
 </template>

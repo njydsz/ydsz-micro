@@ -2,13 +2,13 @@
  * main 基座应用的 Vite 构建配置。
  *
  * @remarks
- * 基于 {@code @ydsz/vite-config} 共享配置扩展：启用 CORS 供微前端子应用跨域访问、
+ * 基于 {@code @remi/vite-config} 共享配置扩展：启用 CORS 供微前端子应用跨域访问、
  * 按需引入 Element Plus 组件。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { defineConfig } from '@ydsz/vite-config';
+import { defineConfig } from '@remi/vite-config';
 
 import ElementPlus from 'unplugin-element-plus/vite';
 
@@ -24,9 +24,9 @@ export default defineConfig(async () => {
           globPatterns: ['**/*.{html,js,css}'],
         },
         manifest: {
-          name: 'YDSZ PMIS',
-          short_name: 'YDSZ',
-          description: 'YDSZ 项目管理系统',
+          name: 'REMI PMIS',
+          short_name: 'REMI',
+          description: 'REMI 项目管理系统',
           theme_color: '#409eff',
           background_color: '#ffffff',
         },

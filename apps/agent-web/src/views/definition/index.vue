@@ -2,7 +2,7 @@
  * apps 列表/管理页面组件
  *
  * @path apps\agent-web\src\views\definition\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * Agent 工具定义（列表页）
  * <p>Agent 工具（Tool）注册的列表页，管理可被 Agent 调用的工具。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteDefinitionApi, getDefinitionPageApi, type DefinitionApi } from '#/api/definition';
 import DefinitionForm from './definition-form.vue';
 defineOptions({ name: 'DefinitionManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<DefinitionApi.DefinitionVO> = {
       { field: 'defName', title: 'defName', itemRender: { name: 'Input', props: { placeholder: 'defName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [DefinitionFormModal, definitionFormApi] = useVbenModal({ connectedComponent: DefinitionForm });
 function handleAdd() { definitionFormApi.open(); }
 function handleEdit(row: DefinitionApi.DefinitionVO) { definitionFormApi.setData({ record: row }); definitionFormApi.open(); }

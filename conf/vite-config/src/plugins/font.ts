@@ -5,7 +5,7 @@
  * 仅保留实际使用的字符，大幅减少字体文件体积。
  *
  * @path conf/vite-config/src/plugins/font.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

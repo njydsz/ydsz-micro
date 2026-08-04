@@ -14,11 +14,11 @@
  * });
  * ```
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 
-import { createOpenApiClient } from '@ydsz/shared-auth';
+import { createOpenApiClient } from '@remi/shared-auth';
 import type { paths } from './sdk/schema';
 
 /**

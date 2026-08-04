@@ -2,14 +2,14 @@
  * use-tabs-view-scroll 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\use-tabs-view-scroll.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { YDSZScrollbar } from '@ydsz-core/shadcn-ui';
+import { REMIScrollbar } from '@remi-core/shadcn-ui';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -40,7 +40,7 @@ export function useTabsViewScroll(props: TabsProps) {
   let resizeObserver: null | ResizeObserver = null;
   let mutationObserver: MutationObserver | null = null;
   let tabItemCount = 0;
-  const scrollbarRef = ref<InstanceType<typeof YDSZScrollbar> | null>(null);
+  const scrollbarRef = ref<InstanceType<typeof REMIScrollbar> | null>(null);
   const scrollViewportEl = ref<DomElement>(null);
   const showScrollButton = ref(false);
   const scrollIsAtLeft = ref(true);

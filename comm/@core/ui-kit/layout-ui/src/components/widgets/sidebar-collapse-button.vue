@@ -2,11 +2,11 @@
  * sidebar-collapse-button 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\widgets\sidebar-collapse-button.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { ChevronsLeft, ChevronsRight } from '@ydsz-core/icons';
+import { ChevronsLeft, ChevronsRight } from '@remi-core/icons';
 
 const collapsed = defineModel<boolean>('collapsed');
 

@@ -4,7 +4,7 @@
  * 定义 Web Vitals 指标阈值和告警规则
  *
  * @path bash/performance-alerts.config.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

@@ -2,15 +2,15 @@
  * remi-form Vue 组件
  *
  * @path comm\@core\ui-kit\form-ui\src\remi-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YDSZFormProps } from './types';
+import type { REMIFormProps } from './types';
 
 import { ref, watchEffect } from 'vue';
 
-import { useForwardPropsEmits } from '@ydsz-core/composables';
+import { useForwardPropsEmits } from '@remi-core/composables';
 
 import FormActions from './components/form-actions.vue';
 import {
@@ -22,7 +22,7 @@ import { Form } from './form-render';
 import { provideFormProps, useFormInitial } from './use-form-context';
 
 // 通过 extends 会导致热更新卡死
-interface Props extends YDSZFormProps {}
+interface Props extends REMIFormProps {}
 const props = withDefaults(defineProps<Props>(), {
   actionWrapperClass: '',
   collapsed: false,

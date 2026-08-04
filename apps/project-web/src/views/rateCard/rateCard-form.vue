@@ -2,7 +2,7 @@
  * 项目计费卡（表单组件）
  *
  * @path apps\project-web\src\views\rateCard\rateCard-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 项目计费卡（表单组件）
  * <p>计费标准的编辑表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { RateCardApi } from '#/api/rateCard';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createRateCardApi, updateRateCardApi } from '#/api/rateCard';

@@ -2,7 +2,7 @@
  * 任务告警（表单组件）
  *
  * @path apps\cronjob-web\src\views\alert\alert-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 任务告警（表单组件）
  * <p>告警规则的编辑表单，支持邮件/短信/企微/钉钉多渠道。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { AlertApi } from '#/api/alert';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createAlertApi, updateAlertApi } from '#/api/alert';

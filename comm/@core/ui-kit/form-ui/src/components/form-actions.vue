@@ -2,15 +2,15 @@
  * form-actions 通用组件
  *
  * @path comm\@core\ui-kit\form-ui\src\components\form-actions.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { computed, toRaw, unref, watch } from 'vue';
 
-import { useSimpleLocale } from '@ydsz-core/composables';
-import { YDSZExpandableArrow } from '@ydsz-core/shadcn-ui';
-import { cn, isFunction, triggerWindowResize } from '@ydsz-core/shared/utils';
+import { useSimpleLocale } from '@remi-core/composables';
+import { REMIExpandableArrow } from '@remi-core/shadcn-ui';
+import { cn, isFunction, triggerWindowResize } from '@remi-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';
 import { injectFormProps } from '../use-form-context';
@@ -181,13 +181,13 @@ defineExpose({
     <!-- 展开按钮前 -->
     <slot name="expand-before"></slot>
 
-    <YDSZExpandableArrow
+    <REMIExpandableArrow
       class="ml-[-0.3em]"
       v-if="rootProps.showCollapseButton"
       v-model:model-value="collapsed"
     >
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
-    </YDSZExpandableArrow>
+    </REMIExpandableArrow>
 
     <!-- 展开按钮后 -->
     <slot name="expand-after"></slot>

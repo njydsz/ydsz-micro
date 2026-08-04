@@ -2,7 +2,7 @@
  * keyboard-help 通用组件 — 快捷键帮助面板
  *
  * @path comm\effects\shared-business\src\components\keyboard-help.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

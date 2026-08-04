@@ -2,17 +2,17 @@
  * login 页面组件
  *
  * @path main\src\views\_core\authentication\login.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { YDSZFormSchema } from '@ydsz/common-ui';
-import type { BasicOption } from '@ydsz/types';
+import type { REMIFormSchema } from '@remi/common-ui';
+import type { BasicOption } from '@remi/types';
 
 import { computed, markRaw } from 'vue';
 
-import { AuthenticationLogin, SliderCaptcha, z } from '@ydsz/common-ui';
-import { $t } from '@ydsz/locales';
+import { AuthenticationLogin, SliderCaptcha, z } from '@remi/common-ui';
+import { $t } from '@remi/locales';
 
 import { useAuthStore } from '#/store';
 
@@ -23,7 +23,7 @@ const authStore = useAuthStore();
 const MOCK_TENANT_OPTIONS: BasicOption[] = [
   {
     label: '瑞米软件',
-    value: 'ydsz',
+    value: 'remi',
   },
   {
     label: '测试租户 A',
@@ -35,10 +35,10 @@ const MOCK_TENANT_OPTIONS: BasicOption[] = [
   },
 ];
 
-const formSchema = computed((): YDSZFormSchema[] => {
+const formSchema = computed((): REMIFormSchema[] => {
   return [
     {
-      component: 'YDSZSelect',
+      component: 'REMISelect',
       componentProps: {
         options: MOCK_TENANT_OPTIONS,
         placeholder: '请选择租户',
@@ -49,10 +49,10 @@ const formSchema = computed((): YDSZFormSchema[] => {
         .string()
         .min(1, { message: '请选择租户' })
         .optional()
-        .default('ydsz'),
+        .default('remi'),
     },
     {
-      component: 'YDSZInput',
+      component: 'REMIInput',
       componentProps: {
         placeholder: '请输入账号',
       },
@@ -61,7 +61,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       rules: z.string().min(1, { message: '请输入账号' }),
     },
     {
-      component: 'YDSZInputPassword',
+      component: 'REMIInputPassword',
       componentProps: {
         placeholder: '请输入密码',
       },

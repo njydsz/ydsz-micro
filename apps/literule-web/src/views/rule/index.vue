@@ -2,7 +2,7 @@
  * 规则定义管理列表页面
  *
  * @path apps\literule-web\src\views\rule\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 规则定义（列表页）
  * <p>规则定义的列表页，支持决策表/决策树/评分卡/脚本多种规则类型。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteRuleApi, getRulePageApi, type RuleApi } from '#/api/rule';
 import RuleForm from './rule-form.vue';
 defineOptions({ name: 'RuleManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<RuleApi.RuleVO> = {
       { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [RuleFormModal, ruleFormApi] = useVbenModal({ connectedComponent: RuleForm });
 function handleAdd() { ruleFormApi.open(); }
 function handleEdit(row: RuleApi.RuleVO) { ruleFormApi.setData({ record: row }); ruleFormApi.open(); }

@@ -1,6 +1,6 @@
 /* MV3 bridge: micro-kernel page -> extension */
 ;(function (g) {
-  var NS = '__YDSZ_MICRO_KERNEL__';
+  var NS = '__REMI_MICRO_KERNEL__';
   var CH = NS + '_CHANNEL';
   g.__sendToExtension = function (type, payload) {
     var msg = { channel: CH, source: 'page', type: type, payload: payload, _t: Date.now() };

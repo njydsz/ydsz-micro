@@ -2,21 +2,21 @@
  * 项目付款（列表页）
  *
  * @path apps\project-web\src\views\payment\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 项目付款（列表页）
- * <p>项目付款（{@code ydsz_project_payment}）的列表页。
+ * <p>项目付款（{@code remi_project_payment}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deletePaymentApi, getPaymentPageApi, type PaymentApi } from '#/api/payment';
 import PaymentForm from './payment-form.vue';
 defineOptions({ name: 'PaymentManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<PaymentApi.PaymentVO> = {
       // 无搜索项
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [PaymentFormModal, paymentFormApi] = useVbenModal({ connectedComponent: PaymentForm });
 function handleAdd() { paymentFormApi.open(); }
 function handleEdit(row: PaymentApi.PaymentVO) { paymentFormApi.setData({ record: row }); paymentFormApi.open(); }

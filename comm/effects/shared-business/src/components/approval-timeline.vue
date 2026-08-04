@@ -2,7 +2,7 @@
  * approval-timeline 通用组件 — 审批历史时间轴
  *
  * @path comm\effects\shared-business\src\components\approval-timeline.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

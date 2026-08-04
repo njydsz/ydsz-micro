@@ -2,7 +2,7 @@
  * 功能开关管理器测试
  *
  * @path comm/@core/feature-flags/__tests__/feature-flags.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -54,7 +54,7 @@ describe('feature-flags', () => {
   describe('本地覆盖（dev 环境）', () => {
     it('setEnabled 在 dev 环境应生效并覆盖默认值', async () => {
       mgr.register([{ name: 'flag-a', defaultValue: false }]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi' });
       expect(mgr.isEnabled('flag-a')).toBe(false);
 
       mgr.setEnabled('flag-a', true);
@@ -63,7 +63,7 @@ describe('feature-flags', () => {
 
     it('resetFlag 应回退到默认值', async () => {
       mgr.register([{ name: 'flag-b', defaultValue: true }]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi' });
       mgr.setEnabled('flag-b', false);
       expect(mgr.isEnabled('flag-b')).toBe(false);
 
@@ -72,7 +72,7 @@ describe('feature-flags', () => {
     });
 
     it('未注册开关调用 setEnabled 应被拒绝并警告', async () => {
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi' });
       const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
       mgr.setEnabled('unknown', true);
       expect(warn).toHaveBeenCalledWith(
@@ -84,7 +84,7 @@ describe('feature-flags', () => {
       mgr.register([
         { name: 'billing-gated', defaultValue: false, allowLocalOverride: false },
       ]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi' });
       const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
       mgr.setEnabled('billing-gated', true);
       expect(warn).toHaveBeenCalledWith(
@@ -97,7 +97,7 @@ describe('feature-flags', () => {
   describe('生产环境本地覆盖控制', () => {
     it('生产环境且 enableLocalOverrideInProd=false 时 setEnabled 应被拒绝', async () => {
       mgr.register([{ name: 'prod-flag', defaultValue: false }]);
-      await mgr.init({ env: PROD_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: PROD_ENV, namespace: 'remi' });
 
       const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
       mgr.setEnabled('prod-flag', true);
@@ -111,7 +111,7 @@ describe('feature-flags', () => {
       mgr.register([{ name: 'prod-override', defaultValue: false }]);
       await mgr.init({
         env: PROD_ENV,
-        namespace: 'ydsz',
+        namespace: 'remi',
         enableLocalOverrideInProd: true,
       });
 
@@ -133,7 +133,7 @@ describe('feature-flags', () => {
           VITE_FEATURE_NEW_DASHBOARD: 'true',
           VITE_FEATURE_LEGACY_EXPORT: 'false',
         },
-        namespace: 'ydsz',
+        namespace: 'remi',
       });
       expect(mgr.isEnabled('new-dashboard')).toBe(true);
       expect(mgr.isEnabled('legacy-export')).toBe(false);
@@ -144,7 +144,7 @@ describe('feature-flags', () => {
       mgr.register([{ name: 'ai-assistant', defaultValue: false }]);
       await mgr.init({
         env: { ...DEV_ENV, VITE_FEATURE_AI_ASSISTANT: 'true' },
-        namespace: 'ydsz',
+        namespace: 'remi',
       });
       expect(mgr.isEnabled('ai-assistant')).toBe(true);
     });
@@ -153,7 +153,7 @@ describe('feature-flags', () => {
       mgr.register([{ name: 'bool-on', defaultValue: false }]);
       await mgr.init({
         env: { ...DEV_ENV, VITE_FEATURE_BOOL_ON: true },
-        namespace: 'ydsz',
+        namespace: 'remi',
       });
       expect(mgr.isEnabled('bool-on')).toBe(true);
     });
@@ -170,7 +170,7 @@ describe('feature-flags', () => {
         { name: 'remote-off', defaultValue: true },
         { name: 'no-remote', defaultValue: true },
       ]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz', remoteLoader });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi', remoteLoader });
       await mgr.loadRemote();
 
       expect(mgr.isEnabled('remote-on')).toBe(true);
@@ -181,7 +181,7 @@ describe('feature-flags', () => {
     it('本地覆盖优先级高于远程', async () => {
       const remoteLoader = vi.fn().mockResolvedValue({ overridable: true });
       mgr.register([{ name: 'overridable', defaultValue: false }]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz', remoteLoader });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi', remoteLoader });
       await mgr.loadRemote();
 
       // 远程设为 true，本地覆盖设为 false → 最终 false
@@ -193,7 +193,7 @@ describe('feature-flags', () => {
       const remoteLoader = vi.fn().mockRejectedValue(new Error('network'));
       const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
       mgr.register([{ name: 'stable', defaultValue: true }]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz', remoteLoader });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi', remoteLoader });
       await mgr.loadRemote();
 
       expect(warn).toHaveBeenCalledWith(
@@ -206,7 +206,7 @@ describe('feature-flags', () => {
 
   describe('localStorage 持久化', () => {
     it('init 应恢复 localStorage 中已注册且允许本地覆盖的开关', async () => {
-      const ns = 'ydsz-persist';
+      const ns = 'remi-persist';
       const key = `${ns}-feature-flags`;
       localStorage.setItem(
         key,
@@ -226,7 +226,7 @@ describe('feature-flags', () => {
     });
 
     it('setEnabled 应持久化到 localStorage', async () => {
-      const ns = 'ydsz-write';
+      const ns = 'remi-write';
       mgr.register([{ name: 'w', defaultValue: false }]);
       await mgr.init({ env: DEV_ENV, namespace: ns });
       mgr.setEnabled('w', true);
@@ -241,7 +241,7 @@ describe('feature-flags', () => {
   describe('onChange 监听器', () => {
     it('setEnabled 触发监听器并传入新值', async () => {
       mgr.register([{ name: 'listened', defaultValue: false }]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi' });
       const listener = vi.fn();
       mgr.onChange(listener);
 
@@ -251,7 +251,7 @@ describe('feature-flags', () => {
 
     it('取消订阅后不再触发', async () => {
       mgr.register([{ name: 'off', defaultValue: false }]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi' });
       const listener = vi.fn();
       const unsubscribe = mgr.onChange(listener);
 
@@ -267,7 +267,7 @@ describe('feature-flags', () => {
       const { featureFlagsManager } = await import('../src/feature-flags');
       featureFlagsManager.reset();
       featureFlagsManager.register([{ name: 'reactive', defaultValue: false }]);
-      await featureFlagsManager.init({ env: DEV_ENV, namespace: 'ydsz-composable' });
+      await featureFlagsManager.init({ env: DEV_ENV, namespace: 'remi-composable' });
 
       const scope = effectScope();
       let value = false;
@@ -291,7 +291,7 @@ describe('feature-flags', () => {
   describe('reset', () => {
     it('清空所有注册、覆盖与监听器', async () => {
       mgr.register([{ name: 'to-clear', defaultValue: true }]);
-      await mgr.init({ env: DEV_ENV, namespace: 'ydsz' });
+      await mgr.init({ env: DEV_ENV, namespace: 'remi' });
       const listener = vi.fn();
       mgr.onChange(listener);
 

@@ -2,13 +2,13 @@
  * Badge Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\badge\Badge.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { BadgeVariants } from './badge';
 
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
 import { badgeVariants } from './badge';
 

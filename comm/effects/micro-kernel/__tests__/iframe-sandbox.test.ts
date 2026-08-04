@@ -2,7 +2,7 @@
  * iframe-sandbox RPC 协议单元测试
  *
  * @path comm/effects/micro-kernel/__tests__/iframe-sandbox.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.6.1
  *
  * @remarks

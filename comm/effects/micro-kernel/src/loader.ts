@@ -9,13 +9,13 @@
  *   dev 模式（M4 修复）：跳过 manifest，直接 dynamic import 子应用 dev server 入口。
  *
  * @path comm/effects/micro-kernel/src/loader.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
-import type { LifecycleExports, MicroAppConfig } from '@ydsz/micro-runtime';
-import { createLogger } from '@ydsz-core/shared/utils';
-import { retryOperation, calculateRetryDelay } from '@ydsz-core/shared/utils/retry';
+import type { LifecycleExports, MicroAppConfig } from '@remi/micro-runtime';
+import { createLogger } from '@remi-core/shared/utils';
+import { retryOperation, calculateRetryDelay } from '@remi-core/shared/utils/retry';
 import { injectModulePreload, preloadAppAssets } from './link-hints';
 
 /** 模块级日志器（重试等运维信息走 debug，避免生产噪音） */

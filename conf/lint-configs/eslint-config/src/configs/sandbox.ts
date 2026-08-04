@@ -5,7 +5,7 @@
  * <p>配合 micro-kernel 快照沙箱使用，确保子应用隔离安全。
  *
  * @path conf/lint-configs/eslint-config/src/configs/sandbox.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 
@@ -20,7 +20,7 @@ import type { Linter } from 'eslint';
 export async function sandbox(): Promise<Linter.Config[]> {
   return [
     {
-      name: 'ydsz/sandbox/isolation',
+      name: 'remi/sandbox/isolation',
       files: ['apps/**/*.ts', 'apps/**/*.tsx', 'apps/**/*.vue'],
       rules: {
         // 禁止直接修改 window 对象

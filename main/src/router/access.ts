@@ -2,16 +2,16 @@
  * access 路由模块
  *
  * @path main\src\router\access.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
-} from '@ydsz/types';
+} from '@remi/types';
 
-import { generateAccessible } from '@ydsz/access';
-import { preferences } from '@ydsz/preferences';
+import { generateAccessible } from '@remi/access';
+import { preferences } from '@remi/preferences';
 
 import { ElMessage } from 'element-plus';
 

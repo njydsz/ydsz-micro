@@ -2,7 +2,7 @@
  * approval-form 表单页面组件
  *
  * @path apps\agent-web\src\views\approval\approval-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * Agent 审批（表单组件）
  * <p>审批单的查看/审批表单，展示工具调用详情、参数、风险等级。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { ApprovalApi } from '#/api/approval';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createApprovalApi, updateApprovalApi } from '#/api/approval';

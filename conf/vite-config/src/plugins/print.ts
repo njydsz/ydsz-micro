@@ -2,14 +2,14 @@
  * print 配置模块
  *
  * @path conf\vite-config\src\plugins\print.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { PluginOption } from 'vite';
 
 import type { PrintPluginOptions } from '../typing';
 
-import { colors } from '@ydsz/node-utils';
+import { colors } from '@remi/node-utils';
 
 /**
  * 在开发服务器启动时打印自定义信息（如文档地址）的 Vite 插件。

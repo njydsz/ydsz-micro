@@ -2,7 +2,7 @@
  * ellipsis-text 通用组件
  *
  * @path comm\effects\common-ui\src\components\ellipsis-text\ellipsis-text.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -17,7 +17,7 @@ import {
   watchEffect,
 } from 'vue';
 
-import { YDSZTooltip } from '@ydsz-core/shadcn-ui';
+import { REMITooltip } from '@remi-core/shadcn-ui';
 
 import { useElementSize } from '@vueuse/core';
 
@@ -191,7 +191,7 @@ function handleExpand() {
 </script>
 <template>
   <div>
-    <YDSZTooltip
+    <REMITooltip
       :content-style="{
         ...tooltipOverlayStyle,
         maxWidth: `${defaultTooltipMaxWidth}px`,
@@ -227,7 +227,7 @@ function handleExpand() {
           <slot></slot>
         </div>
       </template>
-    </YDSZTooltip>
+    </REMITooltip>
   </div>
 </template>
 

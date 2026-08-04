@@ -2,7 +2,7 @@
  * node 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\configs\node.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Linter } from 'eslint';
@@ -33,11 +33,11 @@ export async function node(): Promise<Linter.Config[]> {
           {
             allowModules: [
               'unbuild',
-              '@ydsz/vite-config',
+              '@remi/vite-config',
               'vitest',
               'vite',
               '@vue/test-utils',
-              '@ydsz/tailwind-config',
+              '@remi/tailwind-config',
               '@playwright/test',
             ],
           },

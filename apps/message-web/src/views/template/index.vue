@@ -2,21 +2,21 @@
  * 消息模板列表页组件
  *
  * @path apps\message-web\src\views\template\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 消息模板（列表页）
- * <p>消息模板（{@code ydsz_message_template}）的列表页。
+ * <p>消息模板（{@code remi_message_template}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteTemplateApi, getTemplatePageApi, type TemplateApi } from '#/api/template';
 import TemplateForm from './template-form.vue';
 defineOptions({ name: 'TemplateManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<TemplateApi.TemplateVO> = {
       { field: 'templateCode', title: 'templateCode', itemRender: { name: 'Input', props: { placeholder: 'templateCode' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [TemplateFormModal, templateFormApi] = useVbenModal({ connectedComponent: TemplateForm });
 function handleAdd() { templateFormApi.open(); }
 function handleEdit(row: TemplateApi.TemplateVO) { templateFormApi.setData({ record: row }); templateFormApi.open(); }

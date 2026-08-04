@@ -2,7 +2,7 @@
  * slider-captcha-bar 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-captcha\slider-captcha-bar.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

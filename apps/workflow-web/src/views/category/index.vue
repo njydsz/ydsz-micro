@@ -2,21 +2,21 @@
  * 流程分类（列表页）
  *
  * @path apps\workflow-web\src\views\category\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 流程分类（列表页）
- * <p>流程分类（{@code ydsz_flow_category}）的列表页。
+ * <p>流程分类（{@code remi_flow_category}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteCategoryApi, getCategoryPageApi, type CategoryApi } from '#/api/category';
 import CategoryForm from './category-form.vue';
 defineOptions({ name: 'CategoryManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<CategoryApi.CategoryVO> = {
       { field: 'categoryName', title: 'categoryName', itemRender: { name: 'Input', props: { placeholder: 'categoryName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [CategoryFormModal, categoryFormApi] = useVbenModal({ connectedComponent: CategoryForm });
 function handleAdd() { categoryFormApi.open(); }
 function handleEdit(row: CategoryApi.CategoryVO) { categoryFormApi.setData({ record: row }); categoryFormApi.open(); }

@@ -2,7 +2,7 @@
  * SheetContent Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\SheetContent.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -12,7 +12,7 @@ import type { SheetVariants } from './sheet';
 
 import { computed, ref } from 'vue';
 
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
 import { DialogContent, DialogPortal, useForwardPropsEmits } from 'radix-vue';
 

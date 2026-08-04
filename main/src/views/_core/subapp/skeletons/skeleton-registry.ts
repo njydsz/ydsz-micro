@@ -4,7 +4,7 @@
  * 管理页面级骨架屏组件的注册和获取，支持按类型动态加载骨架屏。
  *
  * @path main/src/views/_core/subapp/skeletons/skeleton-registry.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { defineAsyncComponent, type Component } from 'vue';

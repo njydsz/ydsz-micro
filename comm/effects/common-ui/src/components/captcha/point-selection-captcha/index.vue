@@ -2,16 +2,16 @@
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\point-selection-captcha\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 
-import { RotateCw } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { RotateCw } from '@remi/icons';
+import { $t } from '@remi/locales';
 
-import { YDSZButton, YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { REMIButton, REMIIconButton } from '@remi-core/shadcn-ui';
 
 import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
 import CaptchaCard from './point-selection-captcha-card.vue';
@@ -133,14 +133,14 @@ function handleConfirm() {
     </template>
 
     <template #extra>
-      <YDSZIconButton
+      <REMIIconButton
         :aria-label="$t('ui.captcha.refreshAriaLabel')"
         class="ml-1"
         @click="handleRefresh"
       >
         <RotateCw class="size-5" />
-      </YDSZIconButton>
-      <YDSZButton
+      </REMIIconButton>
+      <REMIButton
         v-if="showConfirm"
         :aria-label="$t('ui.captcha.confirmAriaLabel')"
         class="ml-2"
@@ -148,7 +148,7 @@ function handleConfirm() {
         @click="handleConfirm"
       >
         {{ $t('ui.captcha.confirm') }}
-      </YDSZButton>
+      </REMIButton>
     </template>
 
     <div

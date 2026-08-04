@@ -2,7 +2,7 @@
  * vue-router.d 模块
  *
  * @path comm\@core\base\typings\src\vue-router.d.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Component } from 'vue';

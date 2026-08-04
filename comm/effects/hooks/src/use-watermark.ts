@@ -2,7 +2,7 @@
  * use-watermark 组合式函数
  *
  * @path comm\effects\hooks\src\use-watermark.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Watermark, WatermarkOptions } from 'watermark-js-plus';

@@ -2,7 +2,7 @@
  * uploader.test 模块
  *
  * @path comm\effects\request\src\request-client\modules\uploader.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';

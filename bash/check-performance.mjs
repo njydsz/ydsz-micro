@@ -6,7 +6,7 @@
  * 运行 Lighthouse CI 并检查性能预算，超标时发送告警
  *
  * @path bash/check-performance.mjs
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

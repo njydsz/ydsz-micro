@@ -1,24 +1,24 @@
 /**
  * form 适配器模块（公共包）
  *
- * 由各子应用 @ydsz/shared-business 统一复用，消除 9 份重复代码。
+ * 由各子应用 @remi/shared-business 统一复用，消除 9 份重复代码。
  *
  * @path comm\effects\shared-business\src\adapter\form.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
  */
 import type {
-  YDSZFormSchema as FormSchema,
-  YDSZFormProps,
-} from '@ydsz/common-ui';
+  REMIFormSchema as FormSchema,
+  REMIFormProps,
+} from '@remi/common-ui';
 
 import type { ComponentType } from './component';
 
-import { setupYDSZForm, useYDSZForm as useForm, z } from '@ydsz/common-ui';
-import { $t } from '@ydsz/locales';
+import { setupREMIForm, useREMIForm as useForm, z } from '@remi/common-ui';
+import { $t } from '@remi/locales';
 
 /**
- * 初始化 ydsz-form 适配器：绑定组件类型并注册全局表单校验规则。
+ * 初始化 remi-form 适配器：绑定组件类型并注册全局表单校验规则。
  *
  * @remarks
  * 需在应用启动时调用一次且早于任何表单渲染，否则表单拿不到组件映射与校验规则。
@@ -26,8 +26,8 @@ import { $t } from '@ydsz/locales';
  * CheckboxGroup 用 `model-value`），缺失会导致这两类组件双向绑定失效。
  * 校验文案统一走 {@link $t}，保证语言切换时错误提示同步刷新。
  */
-async function initSetupYDSZForm() {
-  setupYDSZForm<ComponentType>({
+async function initSetupREMIForm() {
+  setupREMIForm<ComponentType>({
     config: {
       modelPropNameMap: {
         Upload: 'fileList',
@@ -51,11 +51,11 @@ async function initSetupYDSZForm() {
   });
 }
 
-/** 绑定 ComponentType 的 useYDSZForm 组合式函数，供表单页面统一引入。 */
-const useYDSZForm = useForm<ComponentType>;
+/** 绑定 ComponentType 的 useREMIForm 组合式函数，供表单页面统一引入。 */
+const useREMIForm = useForm<ComponentType>;
 
-export { initSetupYDSZForm, useYDSZForm, z };
+export { initSetupREMIForm, useREMIForm, z };
 
 /** 基于公共组件类型约束的表单 Schema 类型别名。 */
-export type YDSZFormSchema = FormSchema<ComponentType>;
-export type { YDSZFormProps };
+export type REMIFormSchema = FormSchema<ComponentType>;
+export type { REMIFormProps };

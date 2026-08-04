@@ -10,12 +10,12 @@
  * - frequency 预加载：基于使用频率智能预加载
  *
  * @path comm/effects/micro-kernel/src/preload-strategy.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 
-import type { MicroAppConfig } from '@ydsz/micro-runtime';
-import { createLogger } from '@ydsz-core/shared/utils';
+import type { MicroAppConfig } from '@remi/micro-runtime';
+import { createLogger } from '@remi-core/shared/utils';
 import { getRoutePredictor, type Prediction } from './route-predictor';
 
 /** 模块级日志器 */
@@ -141,7 +141,7 @@ export class PreloadManager {
   private visibilityListener: (() => void) | null = null;
   private usageStats: Map<string, AppUsageStats> = new Map();
   private permissionChecker: PermissionChecker | null = null;
-  private storageKey = 'ydsz_app_usage_stats';
+  private storageKey = 'remi_app_usage_stats';
 
   constructor() {
     this.loadUsageStats();

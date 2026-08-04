@@ -46,7 +46,7 @@ let collectTimer: ReturnType<typeof setTimeout> | null = null;
  * @example
  * onMounted(() => {
  *   registerSearchProvider('project-web', () => [
- *     { id: 'proj-list', title: '项目列表', appName: 'project-web', path: '/ydsz-proj/opportunities' },
+ *     { id: 'proj-list', title: '项目列表', appName: 'project-web', path: '/remi-proj/opportunities' },
  *   ]);
  * });
  */
@@ -108,7 +108,7 @@ export function useGlobalSearch() {
  * 子应用快捷注册搜索项的工具函数。
  *
  * @example
- * import { useSearchProvider } from '@ydsz/micro-runtime/search';
+ * import { useSearchProvider } from '@remi/micro-runtime/search';
  * useSearchProvider('project-web', [
  *   { id: 'list', title: '项目列表', path: '/proj/list' },
  *   { id: 'new',  title: '新建项目',  path: '/proj/new' },

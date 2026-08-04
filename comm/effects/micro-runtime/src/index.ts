@@ -1,8 +1,8 @@
 /**
- * 统一导出 — @ydsz/micro-runtime
+ * 统一导出 — @remi/micro-runtime
  *
  * @path comm/effects/micro-runtime/src/index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 export * from './create-runtime';

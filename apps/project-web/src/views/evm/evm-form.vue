@@ -2,7 +2,7 @@
  * EVM 挣值管理（表单组件）
  *
  * @path apps\project-web\src\views\evm\evm-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * EVM 挣值管理（详情组件）
  * <p>EVM 指标的详情展示，支持趋势图、健康度评分。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { EvmApi } from '#/api/evm';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createEvmApi, updateEvmApi } from '#/api/evm';

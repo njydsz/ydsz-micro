@@ -1,9 +1,9 @@
 /**
  * 系统配置 API 模块（前端）
  *
- * 封装系统参数（{@code ydsz_config}）CRUD 接口，对应后端 {@code /api/v1/config/*} 端点。
+ * 封装系统参数（{@code remi_config}）CRUD 接口，对应后端 {@code /api/v1/config/*} 端点。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

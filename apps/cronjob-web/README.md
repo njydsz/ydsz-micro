@@ -1,17 +1,17 @@
 # cronjob-web 定时任务
 
-> YDSZ PMIS 定时任务子应用，提供任务管理、任务分组、DAG 管理、执行日志、告警管理与连接器配置（对应后端：ydsz-cronjob，路由前缀：/ydsz-cron）
+> REMI PMIS 定时任务子应用，提供任务管理、任务分组、DAG 管理、执行日志、告警管理与连接器配置（对应后端：remi-cronjob，路由前缀：/remi-cron）
 
 ## 应用定位
 
 | 属性 | 值 |
 |---|---|
 | **类型** | 微前端子应用 |
-| **包名** | @ydsz/cronjob-web |
-| **对应后端服务** | ydsz-cronjob |
+| **包名** | @remi/cronjob-web |
+| **对应后端服务** | remi-cronjob |
 | **前端端口** | 5605 |
 | **后端端口** | 9006 |
-| **路由前缀** | /ydsz-cron |
+| **路由前缀** | /remi-cron |
 | **版本** | 1.0.0 |
 
 cronjob-web 是分布式任务调度的前端载体，承接定时任务管理、任务分组、DAG 有向无环图编排、执行日志查询、告警规则配置与连接器（数据源/执行器）管理，为全平台提供统一的任务调度与监控能力。
@@ -23,7 +23,7 @@ cronjob-web/
 ├── src/
 │   ├── adapter/                  # Element Plus / VXE Table 适配器
 │   ├── api/                      # 业务 API
-│   │   └── core/                 # 认证/菜单/用户 API（复用 @ydsz/shared-auth）
+│   │   └── core/                 # 认证/菜单/用户 API（复用 @remi/shared-auth）
 │   ├── layouts/                  # 子应用基础布局
 │   ├── locales/                  # 国际化（zh-CN/en-US）
 │   ├── router/                   # 路由守卫 + 模块化路由（cronjob.ts）
@@ -51,14 +51,14 @@ cronjob-web/
 
 | 依赖包 | 作用 |
 |---|---|
-| `@ydsz/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
-| `@ydsz/shared-business` | 业务公共组件与工具 |
-| `@ydsz/request` | HTTP 请求客户端（Axios 封装） |
-| `@ydsz/access` | 权限码与路由访问控制 |
-| `@ydsz/layouts` | 布局组件（basic） |
-| `@ydsz/common-ui` | 通用 UI 组件 |
-| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@ydsz/locales` | 国际化基础包 |
+| `@remi/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
+| `@remi/shared-business` | 业务公共组件与工具 |
+| `@remi/request` | HTTP 请求客户端（Axios 封装） |
+| `@remi/access` | 权限码与路由访问控制 |
+| `@remi/layouts` | 布局组件（basic） |
+| `@remi/common-ui` | 通用 UI 组件 |
+| `@remi/monitor` | 前端监控（错误捕获 + Web Vitals） |
+| `@remi/locales` | 国际化基础包 |
 | `element-plus` | UI 组件库 |
 | `pinia` | 状态管理 |
 
@@ -76,7 +76,7 @@ cronjob-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（ydsz-frontend/）执行
+# 在 monorepo 根目录（remi-frontend/）执行
 pnpm dev:cronjob       # 启动定时任务子应用（端口 5605）
 
 # 启动主应用 + 所有子应用（含 cronjob-web）
@@ -86,7 +86,7 @@ pnpm dev
 pnpm build:cronjob
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-cron` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/remi-cron` 激活本应用。
 
 ## 环境变量
 
@@ -102,7 +102,7 @@ pnpm build:cronjob
 
 ## 路由配置
 
-主应用通过 `/ydsz-cron` 前缀激活本应用，内部路由表（`src/router/routes/modules/cronjob.ts`）分为五组：
+主应用通过 `/remi-cron` 前缀激活本应用，内部路由表（`src/router/routes/modules/cronjob.ts`）分为五组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|
@@ -122,13 +122,13 @@ pnpm build:cronjob
 | `src/views/jobLog/index.vue` | 执行日志，查询历史执行结果与输出 |
 | `src/views/alert/index.vue` | 告警规则，配置失败通知通道 |
 | `src/views/connector/index.vue` | 连接器配置，管理数据源与执行器 |
-| `src/layouts/basic.vue` | 子应用基础布局，复用 `@ydsz/layouts` |
+| `src/layouts/basic.vue` | 子应用基础布局，复用 `@remi/layouts` |
 
 每个业务模块均包含 `index.vue`（列表页）与 `*-form.vue`（表单页）两个核心页面。
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/cronjob/*` 端点：
+API 模块位于 `src/api/`，使用 `@remi/request` 的 `requestClient`，对应后端 `/api/v1/cronjob/*` 端点：
 
 ```typescript
 // 任务管理（src/api/job.ts）
@@ -146,7 +146,7 @@ export function createJobApi(data: JobApi.JobDTO) {
 }
 ```
 
-其他 API 模块：`jobGroup.ts`（任务分组）、`jobDag.ts`（DAG 管理）、`jobLog.ts`（执行日志）、`alert.ts`（告警管理）、`connector.ts`（连接器）。认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
+其他 API 模块：`jobGroup.ts`（任务分组）、`jobDag.ts`（DAG 管理）、`jobLog.ts`（执行日志）、`alert.ts`（告警管理）、`connector.ts`（连接器）。认证与菜单 API 复用 `src/api/core/`（`@remi/shared-auth`）。
 
 ## 注意事项
 
@@ -154,7 +154,7 @@ export function createJobApi(data: JobApi.JobDTO) {
 2. **DAG 环路检测**：DAG 编排需在前端做环路检测，避免配置出循环依赖导致任务无法执行。
 3. **任务启停**：任务状态切换（NORMAL/PAUSE）需二次确认，避免误停关键任务，启停操作即时生效。
 4. **日志容量**：执行日志数据量较大，列表页需强制分页与时间范围筛选，避免一次性拉取全量日志。
-5. **认证复用**：本应用依赖 `@ydsz/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@ydsz/shared-auth` 统一管理。
+5. **认证复用**：本应用依赖 `@remi/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@remi/shared-auth` 统一管理。
 
 ## 变更记录
 

@@ -2,14 +2,14 @@
  * notification Pinia 状态管理
  *
  * @path main\src\store\notification.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { NotificationApi } from '#/api/core/notification';
 
 import { ref, type Ref } from 'vue';
 
-import { useAccessStore } from '@ydsz/stores';
+import { useAccessStore } from '@remi/stores';
 
 import { ElNotification } from 'element-plus';
 

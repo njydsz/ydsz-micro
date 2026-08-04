@@ -2,21 +2,21 @@
  * notification 布局组件
  *
  * @path comm\effects\layouts\src\widgets\notification\notification.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { NotificationItem } from './types';
 
-import { Bell, MailCheck } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { Bell, MailCheck } from '@remi/icons';
+import { $t } from '@remi/locales';
 
 import {
-  YDSZButton,
-  YDSZIconButton,
-  YDSZPopover,
-  YDSZScrollbar,
-} from '@ydsz-core/shadcn-ui';
+  REMIButton,
+  REMIIconButton,
+  REMIPopover,
+  REMIScrollbar,
+} from '@remi-core/shadcn-ui';
 
 import { useToggle } from '@vueuse/core';
 
@@ -69,34 +69,34 @@ function handleClick(item: NotificationItem) {
 }
 </script>
 <template>
-  <YDSZPopover
+  <REMIPopover
     v-model:open="open"
     content-class="relative right-2 w-[360px] p-0"
   >
     <template #trigger>
       <div class="flex-center mr-2 h-full" @click.stop="toggle()">
-        <YDSZIconButton class="bell-button text-foreground relative">
+        <REMIIconButton class="bell-button text-foreground relative">
           <span
             v-if="dot"
             class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
           ></span>
           <Bell class="size-4" />
-        </YDSZIconButton>
+        </REMIIconButton>
       </div>
     </template>
 
     <div class="relative">
       <div class="flex items-center justify-between p-4 py-3">
         <div class="text-foreground">{{ $t('ui.widgets.notifications') }}</div>
-        <YDSZIconButton
+        <REMIIconButton
           :disabled="notifications.length <= 0"
           :tooltip="$t('ui.widgets.markAllAsRead')"
           @click="handleMakeAll"
         >
           <MailCheck class="size-4" />
-        </YDSZIconButton>
+        </REMIIconButton>
       </div>
-      <YDSZScrollbar v-if="notifications.length > 0">
+      <REMIScrollbar v-if="notifications.length > 0">
         <ul class="!flex max-h-[360px] w-full flex-col">
           <template v-for="item in notifications" :key="item.title">
             <li
@@ -129,7 +129,7 @@ function handleClick(item: NotificationItem) {
             </li>
           </template>
         </ul>
-      </YDSZScrollbar>
+      </REMIScrollbar>
 
       <template v-else>
         <div class="flex-center text-muted-foreground min-h-[150px] w-full">
@@ -140,20 +140,20 @@ function handleClick(item: NotificationItem) {
       <div
         class="border-border flex items-center justify-between border-t px-4 py-3"
       >
-        <YDSZButton
+        <REMIButton
           :disabled="notifications.length <= 0"
           size="sm"
           variant="ghost"
           @click="handleClear"
         >
           {{ $t('ui.widgets.clearNotifications') }}
-        </YDSZButton>
-        <YDSZButton size="sm" @click="handleViewAll">
+        </REMIButton>
+        <REMIButton size="sm" @click="handleViewAll">
           {{ $t('ui.widgets.viewAll') }}
-        </YDSZButton>
+        </REMIButton>
       </div>
     </div>
-  </YDSZPopover>
+  </REMIPopover>
 </template>
 
 <style scoped>

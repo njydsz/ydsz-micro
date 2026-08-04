@@ -2,7 +2,7 @@
  * downloader.test 模块
  *
  * @path comm\effects\request\src\request-client\modules\downloader.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { AxiosRequestConfig } from 'axios';

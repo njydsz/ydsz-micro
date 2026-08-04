@@ -2,7 +2,7 @@
  * 应用偏好配置
  *
  * @path comm\@core\preferences\__tests__\config.test.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { describe, expect, it } from 'vitest';

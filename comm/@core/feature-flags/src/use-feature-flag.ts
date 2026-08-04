@@ -2,7 +2,7 @@
  * 功能开关 Vue 组合式 API
  *
  * @path comm/@core/feature-flags/src/use-feature-flag.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { computed } from 'vue';

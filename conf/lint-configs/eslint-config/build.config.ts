@@ -2,7 +2,7 @@
  * build.config 配置模块
  *
  * @path conf\lint-configs\eslint-config\build.config.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { defineBuildConfig } from 'unbuild';

@@ -2,7 +2,7 @@
  * auth API 接口定义
  *
  * @path main\src\api\core\auth.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { baseRequestClient, requestClient } from '#/api/request';

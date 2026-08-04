@@ -11,12 +11,12 @@
  * 无需各自重复安装。
  *
  * @path main/src/hooks/use-session-expiry-warning.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { getCurrentScope, onScopeDispose, watch } from 'vue';
 
-import { useTokenStore } from '@ydsz/stores';
+import { useTokenStore } from '@remi/stores';
 
 import { ElMessageBox, ElMessage } from 'element-plus';
 

@@ -1,12 +1,12 @@
 {
-  "name": "@ydsz/vite-config",
+  "name": "@remi/vite-config",
   "version": "5.5.9",
   "private": true,
-  "homepage": "https://github.com/njydsz/vue-ydsz-admin",
-  "bugs": "https://github.com/njydsz/vue-ydsz-admin/issues",
+  "homepage": "https://github.com/remi/vue-remi-admin",
+  "bugs": "https://github.com/remi/vue-remi-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/njydsz/vue-ydsz-admin.git",
+    "url": "git+https://github.com/remi/vue-remi-admin.git",
     "directory": "conf/vite-config"
   },
   "license": "MIT",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@pnpm/workspace.read-manifest": "catalog:",
-    "@ydsz/node-utils": "workspace:*",
+    "@remi/node-utils": "workspace:*",
     "@types/archiver": "catalog:",
     "@types/html-minifier-terser": "catalog:",
     "@vitejs/plugin-vue": "catalog:",

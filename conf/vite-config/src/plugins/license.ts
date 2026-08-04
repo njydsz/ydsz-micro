@@ -2,7 +2,7 @@
  * license 配置模块
  *
  * @path conf\vite-config\src\plugins\license.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type {
@@ -14,7 +14,7 @@ import type { PluginOption } from 'vite';
 
 import { EOL } from 'node:os';
 
-import { dateUtil, readPackageJSON } from '@ydsz/node-utils';
+import { dateUtil, readPackageJSON } from '@remi/node-utils';
 
 /**
  * 在构建产物的入口 chunk 顶部注入版权头信息。
@@ -41,15 +41,15 @@ async function viteLicensePlugin(
       handler: (_options: NormalizedOutputOptions, bundle: OutputBundle) => {
         const date = dateUtil().format('YYYY-MM-DD ');
         const copyrightText = `/*!
-  * YDSZ Admin
+  * REMI Admin
   * Version: ${version}
-  * Author: ydsz
-  * Copyright (C) 2024 YDSZ
+  * Author: remi
+  * Copyright (C) 2024 REMI
   * License: MIT License
   * Description: ${description}
   * Date Created: ${date}
   * Homepage: ${homepage}
-  * Contact: ydsz-pmis-team@njydsz.com
+  * Contact: remi-pmis-team@remi.com
 */
               `.trim();
 

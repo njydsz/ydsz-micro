@@ -2,25 +2,25 @@
  * 角色管理页面 — 展示角色列表，支持新增/编辑/删除角色及权限分配
  *
  * @path apps\userinfo-web\src\views\system\role\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 角色（列表页）
- * <p>角色（{@code ydsz_role}）的列表页。
+ * <p>角色（{@code remi_role}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useVbenModal } from '@remi/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, ElTransfer } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteRoleApi,
   getRolePageApi,
@@ -124,7 +124,7 @@ const gridOptions: VxeGridProps<RoleApi.RoleVO> = {
   },
 };
 
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 
 // ========== Form ==========
 const [RoleFormModal, roleFormApi] = useVbenModal({ connectedComponent: RoleForm });

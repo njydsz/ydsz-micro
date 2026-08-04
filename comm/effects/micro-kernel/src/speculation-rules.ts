@@ -9,13 +9,13 @@
  * - requestIdleCallback：在浏览器空闲时触发，可结合频率数据动态决策
  *
  * @path comm/effects/micro-kernel/src/speculation-rules.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.7.0
  */
 
-import type { MicroAppEntry } from '@ydsz/micro-runtime';
+import type { MicroAppEntry } from '@remi/micro-runtime';
 import type { PrefetchStrategy } from './preload-strategy';
-import { createLogger } from '@ydsz-core/shared/utils';
+import { createLogger } from '@remi-core/shared/utils';
 
 const logger = createLogger('MicroKernel');
 
@@ -57,7 +57,7 @@ export function buildSpeculationRules(apps: MicroAppEntry[], maxRules = 5): stri
     prefetch: [
       {
         source: 'list',
-        urls: candidates.map((a) => a.entry || `/ydsz-${a.name}/`),
+        urls: candidates.map((a) => a.entry || `/remi-${a.name}/`),
         where: {
           // 匹配当前域名下的所有子应用路径
           'href_matches': candidates.map((a) => `${a.activeRule}/*`),

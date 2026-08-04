@@ -2,16 +2,16 @@
  * theme 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\theme\theme.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { Component } from 'vue';
 
-import type { ThemeModeType } from '@ydsz/types';
+import type { ThemeModeType } from '@remi/types';
 
-import { MoonStar, Sun, SunMoon } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { MoonStar, Sun, SunMoon } from '@remi/icons';
+import { $t } from '@remi/locales';
 
 import SwitchItem from '../switch-item.vue';
 

@@ -2,7 +2,7 @@
  * app-tour 通用组件 — 用户操作引导（onboarding tour）
  *
  * @path comm\effects\shared-business\src\components\app-tour.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

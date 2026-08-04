@@ -1,12 +1,12 @@
 {
-  "name": "@ydsz/eslint-config",
+  "name": "@remi/eslint-config",
   "version": "5.0.0",
   "private": true,
-  "homepage": "https://github.com/njydsz/vue-ydsz-admin",
-  "bugs": "https://github.com/njydsz/vue-ydsz-admin/issues",
+  "homepage": "https://github.com/remi/vue-remi-admin",
+  "bugs": "https://github.com/remi/vue-remi-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/njydsz/vue-ydsz-admin.git",
+    "url": "git+https://github.com/remi/vue-remi-admin.git",
     "directory": "conf/lint-configs/eslint-config"
   },
   "license": "MIT",

@@ -2,7 +2,7 @@
  * 功能开关类型定义
  *
  * @path comm/@core/feature-flags/src/types.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

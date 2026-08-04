@@ -2,7 +2,7 @@
  * useFormField 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\useFormField.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { inject } from 'vue';

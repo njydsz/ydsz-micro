@@ -2,22 +2,22 @@
  * 定时任务（列表页）
  *
  * @path apps\cronjob-web\src\views\job\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 定时任务（列表页）
- * <p>定时任务（{@code ydsz_job}）的列表/分页查询页，支持 Cron 表达式配置、启停、手动触发。
+ * <p>定时任务（{@code remi_job}）的列表/分页查询页，支持 Cron 表达式配置、启停、手动触发。
  * <p>使用 VxeGrid 表格展示任务名称、Cron、负责人、最近执行时间、下次执行时间。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteJobApi, getJobPageApi, type JobApi } from '#/api/job';
 import JobForm from './job-form.vue';
 defineOptions({ name: 'JobManagement' });
@@ -48,7 +48,7 @@ const gridOptions: VxeGridProps<JobApi.JobVO> = {
       { field: 'jobGroup', title: 'jobGroup', itemRender: { name: 'Input', props: { placeholder: 'jobGroup' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [JobFormModal, jobFormApi] = useVbenModal({ connectedComponent: JobForm });
 function handleAdd() { jobFormApi.open(); }
 function handleEdit(row: JobApi.JobVO) { jobFormApi.setData({ record: row }); jobFormApi.open(); }

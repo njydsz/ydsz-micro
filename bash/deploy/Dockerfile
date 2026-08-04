@@ -43,15 +43,15 @@ RUN echo "types { application/javascript js mjs; }" > /etc/nginx/conf.d/mjs.conf
 COPY --from=builder /app/main/dist /usr/share/nginx/html/main
 
 # Copy all sub-apps
-COPY --from=builder /app/apps/userinfo-web/dist /usr/share/nginx/html/ydsz-userinfo-web
-COPY --from=builder /app/apps/system-web/dist /usr/share/nginx/html/ydsz-system-web
-COPY --from=builder /app/apps/project-web/dist /usr/share/nginx/html/ydsz-project-web
-COPY --from=builder /app/apps/message-web/dist /usr/share/nginx/html/ydsz-message-web
-COPY --from=builder /app/apps/cronjob-web/dist /usr/share/nginx/html/ydsz-cronjob-web
-COPY --from=builder /app/apps/workflow-web/dist /usr/share/nginx/html/ydsz-workflow-web
-COPY --from=builder /app/apps/nextwiki-web/dist /usr/share/nginx/html/ydsz-nextwiki-web
-COPY --from=builder /app/apps/literule-web/dist /usr/share/nginx/html/ydsz-literule-web
-COPY --from=builder /app/apps/agent-web/dist /usr/share/nginx/html/ydsz-agent-web
+COPY --from=builder /app/apps/userinfo-web/dist /usr/share/nginx/html/remi-userinfo-web
+COPY --from=builder /app/apps/system-web/dist /usr/share/nginx/html/remi-system-web
+COPY --from=builder /app/apps/project-web/dist /usr/share/nginx/html/remi-project-web
+COPY --from=builder /app/apps/message-web/dist /usr/share/nginx/html/remi-message-web
+COPY --from=builder /app/apps/cronjob-web/dist /usr/share/nginx/html/remi-cronjob-web
+COPY --from=builder /app/apps/workflow-web/dist /usr/share/nginx/html/remi-workflow-web
+COPY --from=builder /app/apps/nextwiki-web/dist /usr/share/nginx/html/remi-nextwiki-web
+COPY --from=builder /app/apps/literule-web/dist /usr/share/nginx/html/remi-literule-web
+COPY --from=builder /app/apps/agent-web/dist /usr/share/nginx/html/remi-agent-web
 
 # Copy nginx configuration
 COPY bash/deploy/nginx.conf /etc/nginx/nginx.conf

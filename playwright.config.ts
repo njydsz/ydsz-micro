@@ -4,18 +4,18 @@
  * @remarks
  * 定义浏览器项目、基准 URL 与测试目录，用于微前端应用端到端测试。
  * 
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * YDSZ 前端 E2E 测试配置
+ * REMI 前端 E2E 测试配置
  *
  * P1-2: 前端 E2E 测试接入 CI
  * 覆盖核心链路: 登录 → 首页 → 子应用导航
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export default defineConfig({

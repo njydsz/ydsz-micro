@@ -14,7 +14,7 @@
  * - `component: import('./Foo.vue')`（缺少箭头函数包裹）
  *
  * @path conf/lint-configs/eslint-config/src/rules/enforce-route-lazy-import.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

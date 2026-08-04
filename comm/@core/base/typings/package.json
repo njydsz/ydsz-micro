@@ -1,12 +1,12 @@
 {
-  "name": "@ydsz-core/typings",
+  "name": "@remi-core/typings",
   "version": "5.5.9",
-  "homepage": "https://github.com/njydsz/vue-ydsz-admin",
-  "bugs": "https://github.com/njydsz/vue-ydsz-admin/issues",
+  "homepage": "https://github.com/remi/vue-remi-admin",
+  "bugs": "https://github.com/remi/vue-remi-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/njydsz/vue-ydsz-admin.git",
-    "directory": "comm/@ydsz-core/base/typings"
+    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "directory": "comm/@remi-core/base/typings"
   },
   "license": "MIT",
   "type": "module",

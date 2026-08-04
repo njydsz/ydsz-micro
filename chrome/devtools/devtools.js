@@ -4,7 +4,7 @@ chrome.devtools.panels.create(
   '',
   'devtools/panel.html',
   function (panel) {
-    console.log('[YDSZ] Micro Kernel panel created');
+    console.log('[REMI] Micro Kernel panel created');
 
     // 监听 Extension -> DevTools 的消息
     chrome.runtime.onMessage.addListener(function (msg) {

@@ -2,7 +2,7 @@
  * 死信队列详情组件
  *
  * @path apps\message-web\src\views\deadLetter\deadLetter-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 死信队列（详情组件）
  * <p>死信消息的详情展示，支持重投/丢弃操作。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { DeadLetterApi } from '#/api/deadLetter';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createDeadLetterApi, updateDeadLetterApi } from '#/api/deadLetter';

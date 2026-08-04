@@ -2,7 +2,7 @@
  * index 模块
  *
  * @path bash\vsh\src\code-workspace\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CAC } from 'cac';
@@ -18,7 +18,7 @@ import {
   outputJSON,
   prettierFormat,
   toPosixPath,
-} from '@ydsz/node-utils';
+} from '@remi/node-utils';
 
 // 添加包信息类型定义
 interface PackageInfo {
@@ -29,7 +29,7 @@ interface PackageInfo {
   };
 }
 
-const CODE_WORKSPACE_FILE = join('ydsz-admin.code-workspace');
+const CODE_WORKSPACE_FILE = join('remi-admin.code-workspace');
 
 interface CodeWorkspaceCommandOptions {
   autoCommit?: boolean;

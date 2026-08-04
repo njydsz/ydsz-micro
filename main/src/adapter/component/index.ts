@@ -1,17 +1,17 @@
 /**
  * 通用组件共同的使用的基础组件，原先放在 adapter/form 内部，限制了使用范围，这里提取出来，方便其他地方使用
- * 可用于 ydsz-form、ydsz-modal、ydsz-drawer 等组件使用,
+ * 可用于 remi-form、remi-modal、remi-drawer 等组件使用,
  */
 
 import type { Component } from 'vue';
 
-import type { BaseFormComponentType } from '@ydsz/common-ui';
-import type { Recordable } from '@ydsz/types';
+import type { BaseFormComponentType } from '@remi/common-ui';
+import type { Recordable } from '@remi/types';
 
 import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
 
-import { ApiComponent, globalShareState, IconPicker } from '@ydsz/common-ui';
-import { $t } from '@ydsz/locales';
+import { ApiComponent, globalShareState, IconPicker } from '@remi/common-ui';
+import { $t } from '@remi/locales';
 
 import { ElNotification } from 'element-plus';
 

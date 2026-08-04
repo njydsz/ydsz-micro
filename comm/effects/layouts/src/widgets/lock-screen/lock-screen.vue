@@ -2,19 +2,19 @@
  * lock-screen 布局组件
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\lock-screen.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 
-import { LockKeyhole } from '@ydsz/icons';
-import { $t, useI18n } from '@ydsz/locales';
-import { storeToRefs, useTokenStore } from '@ydsz/stores';
+import { LockKeyhole } from '@remi/icons';
+import { $t, useI18n } from '@remi/locales';
+import { storeToRefs, useTokenStore } from '@remi/stores';
 
-import { useScrollLock } from '@ydsz-core/composables';
-import { useYDSZForm, z } from '@ydsz-core/form-ui';
-import { YDSZAvatar, YDSZButton } from '@ydsz-core/shadcn-ui';
+import { useScrollLock } from '@remi-core/composables';
+import { useREMIForm, z } from '@remi-core/form-ui';
+import { REMIAvatar, REMIButton } from '@remi-core/shadcn-ui';
 
 import { useDateFormat, useNow } from '@vueuse/core';
 
@@ -44,7 +44,7 @@ const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 const showUnlockForm = ref(false);
 const { lockScreenPassword } = storeToRefs(tokenStore);
 
-const [Form, { form, validate }] = useYDSZForm(
+const [Form, { form, validate }] = useREMIForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -52,7 +52,7 @@ const [Form, { form, validate }] = useYDSZForm(
     },
     schema: computed(() => [
       {
-        component: 'YDSZInputPassword' as const,
+        component: 'REMIInputPassword' as const,
         componentProps: {
           placeholder: $t('ui.widgets.lockScreen.placeholder'),
         },
@@ -129,27 +129,27 @@ useScrollLock();
         @keydown.enter.prevent="handleSubmit"
       >
         <div class="flex-col-center mb-10 w-[90%] max-w-[300px] px-4">
-          <YDSZAvatar :src="avatar" class="enter-x mb-6 size-20" />
+          <REMIAvatar :src="avatar" class="enter-x mb-6 size-20" />
           <div class="enter-x mb-2 w-full items-center">
             <Form />
           </div>
-          <YDSZButton class="enter-x w-full" @click="handleSubmit">
+          <REMIButton class="enter-x w-full" @click="handleSubmit">
             {{ $t('ui.widgets.lockScreen.entry') }}
-          </YDSZButton>
-          <YDSZButton
+          </REMIButton>
+          <REMIButton
             class="enter-x my-2 w-full"
             variant="ghost"
             @click="$emit('toLogin')"
           >
             {{ $t('ui.widgets.lockScreen.backToLogin') }}
-          </YDSZButton>
-          <YDSZButton
+          </REMIButton>
+          <REMIButton
             class="enter-x mr-2 w-full"
             variant="ghost"
             @click="toggleUnlockForm"
           >
             {{ $t('common.back') }}
-          </YDSZButton>
+          </REMIButton>
         </div>
       </div>
     </transition>

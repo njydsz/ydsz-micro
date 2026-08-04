@@ -2,21 +2,21 @@
  * tree Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\tree\tree.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { Arrayable } from '@vueuse/core';
 import type { FlattenedItem } from 'radix-vue';
 
-import type { ClassType, Recordable } from '@ydsz-core/typings';
+import type { ClassType, Recordable } from '@remi-core/typings';
 
 import type { TreeProps } from './types';
 
 import { onMounted, ref, watchEffect } from 'vue';
 
-import { ChevronRight, IconifyIcon } from '@ydsz-core/icons';
-import { cn, get } from '@ydsz-core/shared/utils';
+import { ChevronRight, IconifyIcon } from '@remi-core/icons';
+import { cn, get } from '@remi-core/shared/utils';
 
 import { TreeItem, TreeRoot } from 'radix-vue';
 

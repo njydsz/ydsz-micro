@@ -6,7 +6,7 @@
  *
  * 更新基线：pnpm exec playwright test --update-snapshots
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 3.1.0
  */
 import { test, expect } from '@playwright/test';

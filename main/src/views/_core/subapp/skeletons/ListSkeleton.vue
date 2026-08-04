@@ -4,7 +4,7 @@
  适用于列表页面的加载骨架屏，包含搜索栏和表格结构。
 
  @path main/src/views/_core/subapp/skeletons/ListSkeleton.vue
- @author ydsz-team
+ @author remi-team
  @since 1.0.0
 -->
 <template>

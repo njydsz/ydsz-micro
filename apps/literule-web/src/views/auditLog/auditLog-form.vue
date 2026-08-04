@@ -2,7 +2,7 @@
  * 规则审计日志详情查看组件
  *
  * @path apps\literule-web\src\views\auditLog\auditLog-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 规则审计日志（详情组件）
  * <p>规则审计日志的详情展示。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { AuditLogApi } from '#/api/auditLog';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createAuditLogApi, updateAuditLogApi } from '#/api/auditLog';

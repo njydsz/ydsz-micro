@@ -2,13 +2,13 @@
  * copyright 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\copyright.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
 import InputItem from '../input-item.vue';
 import SwitchItem from '../switch-item.vue';

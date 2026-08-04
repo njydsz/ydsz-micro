@@ -2,7 +2,7 @@
  * accessible 模块
  *
  * @path comm\effects\access\src\accessible.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Component, DefineComponent } from 'vue';
@@ -11,7 +11,7 @@ import type {
   AccessModeType,
   GenerateMenuAndRoutesOptions,
   RouteRecordRaw,
-} from '@ydsz/types';
+} from '@remi/types';
 
 import { defineComponent, h } from 'vue';
 
@@ -23,7 +23,7 @@ import {
   isFunction,
   isString,
   mapTree,
-} from '@ydsz/utils';
+} from '@remi/utils';
 
 async function generateAccessible(
   mode: AccessModeType,

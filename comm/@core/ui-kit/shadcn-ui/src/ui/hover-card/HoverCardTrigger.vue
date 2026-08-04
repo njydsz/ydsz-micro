@@ -2,7 +2,7 @@
  * HoverCardTrigger Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\HoverCardTrigger.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

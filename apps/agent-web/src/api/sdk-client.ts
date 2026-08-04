@@ -1,4 +1,4 @@
-import { createOpenApiClient } from '@ydsz/shared-auth';
+import { createOpenApiClient } from '@remi/shared-auth';
 import type { paths } from './sdk/schema';
 
 /**

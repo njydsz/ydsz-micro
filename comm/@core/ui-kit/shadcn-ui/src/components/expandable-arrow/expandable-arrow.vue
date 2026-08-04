@@ -2,12 +2,12 @@
  * expandable-arrow 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\expandable-arrow\expandable-arrow.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { ChevronDown } from '@ydsz-core/icons';
-import { cn } from '@ydsz-core/shared/utils';
+import { ChevronDown } from '@remi-core/icons';
+import { cn } from '@remi-core/shared/utils';
 
 const props = defineProps<{
   class?: string;
@@ -19,7 +19,7 @@ const collapsed = defineModel({ default: false });
 
 <template>
   <div
-    :class="cn('ydsz-link inline-flex cursor-pointer items-center', props.class)"
+    :class="cn('remi-link inline-flex cursor-pointer items-center', props.class)"
     role="button"
     tabindex="0"
     :aria-expanded="!collapsed"

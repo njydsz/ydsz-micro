@@ -2,13 +2,13 @@
  * theme-button 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-button.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
 
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { REMIButton } from '@remi-core/shadcn-ui';
 
 interface Props {
   /**
@@ -88,7 +88,7 @@ function toggleTheme(event: MouseEvent) {
 </script>
 
 <template>
-  <YDSZButton
+  <REMIButton
     :aria-label="theme"
     :class="[`is-${theme}`]"
     aria-live="polite"
@@ -125,7 +125,7 @@ function toggleTheme(event: MouseEvent) {
         <line x1="18.36" x2="19.78" y1="5.64" y2="4.22" />
       </g>
     </svg>
-  </YDSZButton>
+  </REMIButton>
 </template>
 
 <style scoped>

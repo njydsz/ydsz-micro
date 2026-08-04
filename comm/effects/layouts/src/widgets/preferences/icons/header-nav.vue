@@ -2,7 +2,7 @@
  * header-nav 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\icons\header-nav.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <template>

@@ -2,7 +2,7 @@
  * use-menu-scroll 组合式函数
  *
  * @path comm\@core\ui-kit\menu-ui\src\hooks\use-menu-scroll.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Ref } from 'vue';

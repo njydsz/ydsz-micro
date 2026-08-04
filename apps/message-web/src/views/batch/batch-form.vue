@@ -2,7 +2,7 @@
  * 消息批量发送表单组件
  *
  * @path apps\message-web\src\views\batch\batch-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 消息批量发送（表单组件）
  * <p>批量发送的创建表单，支持收件人 CSV 上传、发送策略。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { BatchApi } from '#/api/batch';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createBatchApi, updateBatchApi } from '#/api/batch';

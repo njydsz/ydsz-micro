@@ -2,13 +2,13 @@
  * count-to-animator 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\count-to-animator\count-to-animator.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed, onMounted, ref, unref, watch, watchEffect } from 'vue';
 
-import { isNumber } from '@ydsz-core/shared/utils';
+import { isNumber } from '@remi-core/shared/utils';
 
 import { TransitionPresets, useTransition } from '@vueuse/core';
 

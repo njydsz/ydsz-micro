@@ -2,7 +2,7 @@
  * use-vxe-grid Vue 组件
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -17,7 +17,7 @@ import type {
 
 import type { SetupContext } from 'vue';
 
-import type { YDSZFormProps } from '@ydsz-core/form-ui';
+import type { REMIFormProps } from '@remi-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
@@ -32,19 +32,19 @@ import {
   watch,
 } from 'vue';
 
-import { usePriorityValues } from '@ydsz/hooks';
-import { EmptyIcon } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
-import { usePreferences } from '@ydsz/preferences';
+import { usePriorityValues } from '@remi/hooks';
+import { EmptyIcon } from '@remi/icons';
+import { $t } from '@remi/locales';
+import { usePreferences } from '@remi/preferences';
 import {
   cloneDeep,
   cn,
   isBoolean,
   isEqual,
   mergeWithArrayOverride,
-} from '@ydsz/utils';
+} from '@remi/utils';
 
-import { YDSZHelpTooltip, YDSZLoading } from '@ydsz-core/shadcn-ui';
+import { REMIHelpTooltip, REMILoading } from '@remi-core/shadcn-ui';
 
 import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid, VxeUI } from 'vxe-table';
@@ -313,17 +313,17 @@ async function init() {
     // props.api.reload(formApi.form?.values ?? {});
   }
 
-  // form 由 ydsz-form代替，所以不适配formConfig，这里给出警告
+  // form 由 remi-form代替，所以不适配formConfig，这里给出警告
   const formConfig = gridOptions.value?.formConfig;
   // 处理某个页面加载多个Table时，第2个之后的Table初始化报出警告
   // 因为第一次初始化之后会把defaultGridOptions和gridOptions合并后缓存进State
   if (formConfig && formConfig.enabled) {
     console.warn(
-      '[YDSZ Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
+      '[REMI Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
     );
   }
   props.api?.setState?.({ gridOptions: defaultGridOptions });
-  // form 由 ydsz-form 代替，所以需要保证query相关事件可以拿到参数
+  // form 由 remi-form 代替，所以需要保证query相关事件可以拿到参数
   extendProxyOptions(props.api, defaultGridOptions, () =>
     formApi.getLatestSubmissionValues(),
   );
@@ -334,7 +334,7 @@ watch(
   formOptions,
   () => {
     formApi.setState((prev) => {
-      const finalFormOptions: YDSZFormProps = mergeWithArrayOverride(
+      const finalFormOptions: REMIFormProps = mergeWithArrayOverride(
         {},
         formOptions.value,
         prev,
@@ -386,9 +386,9 @@ onUnmounted(() => {
         <slot v-if="showTableTitle" name="table-title">
           <div class="mr-1 pl-1 text-[1rem]">
             {{ tableTitle }}
-            <YDSZHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
+            <REMIHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
               {{ tableTitleHelp }}
-            </YDSZHelpTooltip>
+            </REMIHelpTooltip>
           </div>
         </slot>
         <slot name="toolbar-actions" v-bind="slotProps"> </slot>
@@ -471,7 +471,7 @@ onUnmounted(() => {
       <!-- loading -->
       <template #loading>
         <slot name="loading">
-          <YDSZLoading :spinning="true" />
+          <REMILoading :spinning="true" />
         </slot>
       </template>
       <!-- 统一控状态 -->

@@ -2,19 +2,19 @@
  * lock-screen-modal 布局组件
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\lock-screen-modal.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { Recordable } from '@ydsz/types';
+import type { Recordable } from '@remi/types';
 
 import { computed, reactive } from 'vue';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
-import { useYDSZForm, z } from '@ydsz-core/form-ui';
-import { useYDSZModal } from '@ydsz-core/popup-ui';
-import { YDSZAvatar, YDSZButton } from '@ydsz-core/shadcn-ui';
+import { useREMIForm, z } from '@remi-core/form-ui';
+import { useREMIModal } from '@remi-core/popup-ui';
+import { REMIAvatar, REMIButton } from '@remi-core/shadcn-ui';
 
 interface Props {
   avatar?: string;
@@ -34,7 +34,7 @@ const emit = defineEmits<{
   submit: [Recordable<any>];
 }>();
 
-const [Form, { resetForm, validate, getValues }] = useYDSZForm(
+const [Form, { resetForm, validate, getValues }] = useREMIForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -42,7 +42,7 @@ const [Form, { resetForm, validate, getValues }] = useYDSZForm(
     },
     schema: computed(() => [
       {
-        component: 'YDSZInputPassword' as const,
+        component: 'REMIInputPassword' as const,
         componentProps: {
           placeholder: $t('ui.widgets.lockScreen.placeholder'),
         },
@@ -58,7 +58,7 @@ const [Form, { resetForm, validate, getValues }] = useYDSZForm(
   }),
 );
 
-const [Modal] = useYDSZModal({
+const [Modal] = useREMIModal({
   onConfirm() {
     handleSubmit();
   },
@@ -90,7 +90,7 @@ async function handleSubmit() {
     >
       <div class="w-full">
         <div class="ml-2 flex w-full flex-col items-center">
-          <YDSZAvatar
+          <REMIAvatar
             :src="avatar"
             class="size-20"
             dot-class="bottom-0 right-1 border-2 size-4 bg-green-500"
@@ -100,9 +100,9 @@ async function handleSubmit() {
           </div>
         </div>
         <Form />
-        <YDSZButton class="mt-1 w-full" @click="handleSubmit">
+        <REMIButton class="mt-1 w-full" @click="handleSubmit">
           {{ $t('ui.widgets.lockScreen.screenButton') }}
-        </YDSZButton>
+        </REMIButton>
       </div>
     </div>
   </Modal>

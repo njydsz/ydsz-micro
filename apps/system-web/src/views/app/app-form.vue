@@ -2,7 +2,7 @@
  * 应用表单组件 — 支持新增/编辑应用注册信息
  *
  * @path apps\system-web\src\views\app\app-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 应用（表单组件）
  * <p>应用的创建/编辑表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { AppApi } from '#/api/app';
 
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

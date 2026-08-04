@@ -2,7 +2,7 @@
  * fallback Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\fallback\fallback.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -11,10 +11,10 @@ import type { FallbackProps } from './fallback';
 import { computed, defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { ArrowLeft, RotateCw } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
+import { ArrowLeft, RotateCw } from '@remi/icons';
+import { $t } from '@remi/locales';
 
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { REMIButton } from '@remi-core/shadcn-ui';
 
 interface Props extends FallbackProps {}
 
@@ -183,7 +183,7 @@ function refresh() {
         {{ descText }}
       </p>
       <slot v-if="$slots.action" name="action"></slot>
-      <YDSZButton
+      <REMIButton
         v-else-if="showBack"
         size="lg"
         @click="back"
@@ -191,8 +191,8 @@ function refresh() {
       >
         <ArrowLeft class="mr-2 size-4" aria-hidden="true" />
         {{ $t('common.backToHome') }}
-      </YDSZButton>
-      <YDSZButton
+      </REMIButton>
+      <REMIButton
         v-else-if="showRefresh"
         size="lg"
         @click="refresh"
@@ -200,7 +200,7 @@ function refresh() {
       >
         <RotateCw class="mr-2 size-4" aria-hidden="true" />
         {{ $t('common.refresh') }}
-      </YDSZButton>
+      </REMIButton>
     </div>
   </div>
 </template>

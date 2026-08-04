@@ -2,15 +2,15 @@
  * sidebar 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\sidebar.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { LayoutType } from '@ydsz/types';
+import type { LayoutType } from '@remi/types';
 
 import { onMounted } from 'vue';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
 import CheckboxItem from '../checkbox-item.vue';
 import NumberFieldItem from '../number-field-item.vue';

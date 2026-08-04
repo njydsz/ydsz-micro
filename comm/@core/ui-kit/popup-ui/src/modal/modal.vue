@@ -2,7 +2,7 @@
  * modal Vue 组件
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\modal.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -23,8 +23,8 @@ import {
   useIsMobile,
   usePriorityValues,
   useSimpleLocale,
-} from '@ydsz-core/composables';
-import { Expand, Shrink } from '@ydsz-core/icons';
+} from '@remi-core/composables';
+import { Expand, Shrink } from '@remi-core/icons';
 import {
   Dialog,
   DialogContent,
@@ -32,15 +32,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  YDSZButton,
-  YDSZHelpTooltip,
-  YDSZIconButton,
-  YDSZLoading,
+  REMIButton,
+  REMIHelpTooltip,
+  REMIIconButton,
+  REMILoading,
   VisuallyHidden,
-} from '@ydsz-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
-import { globalShareState } from '@ydsz-core/shared/global-state';
-import { cn } from '@ydsz-core/shared/utils';
+} from '@remi-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@remi-core/shared/constants';
+import { globalShareState } from '@remi-core/shared/global-state';
+import { cn } from '@remi-core/shared/utils';
 
 import { useModalDraggable } from './use-modal-draggable';
 
@@ -283,9 +283,9 @@ function handleClosed() {
             {{ title }}
 
             <slot v-if="titleTooltip" name="titleTooltip">
-              <YDSZHelpTooltip trigger-class="pb-1">
+              <REMIHelpTooltip trigger-class="pb-1">
                 {{ titleTooltip }}
-              </YDSZHelpTooltip>
+              </REMIHelpTooltip>
             </slot>
           </slot>
         </DialogTitle>
@@ -309,15 +309,15 @@ function handleClosed() {
       >
         <slot></slot>
       </div>
-      <YDSZLoading v-if="showLoading || submitting" spinning />
-      <YDSZIconButton
+      <REMILoading v-if="showLoading || submitting" spinning />
+      <REMIIconButton
         v-if="fullscreenButton"
         class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-3 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
         @click="handleFullscreen"
       >
         <Shrink v-if="fullscreen" class="size-3.5" />
         <Expand v-else class="size-3.5" />
-      </YDSZIconButton>
+      </REMIIconButton>
 
       <DialogFooter
         v-if="showFooter"
@@ -335,7 +335,7 @@ function handleClosed() {
         <slot name="prepend-footer"></slot>
         <slot name="footer">
           <component
-            :is="components.DefaultButton || YDSZButton"
+            :is="components.DefaultButton || REMIButton"
             v-if="showCancelButton"
             variant="ghost"
             :disabled="submitting"
@@ -347,7 +347,7 @@ function handleClosed() {
           </component>
           <slot name="center-footer"></slot>
           <component
-            :is="components.PrimaryButton || YDSZButton"
+            :is="components.PrimaryButton || REMIButton"
             v-if="showConfirmButton"
             :disabled="confirmDisabled"
             :loading="confirmLoading || submitting"

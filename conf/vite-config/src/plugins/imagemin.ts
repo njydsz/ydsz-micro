@@ -5,7 +5,7 @@
  * 支持 PNG、JPEG、GIF、SVG、WebP 等格式。
  *
  * @path conf/vite-config/src/plugins/imagemin.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 

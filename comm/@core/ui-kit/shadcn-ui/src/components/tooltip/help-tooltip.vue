@@ -2,11 +2,11 @@
  * help-tooltip 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\tooltip\help-tooltip.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
 import { CircleHelp } from 'lucide-vue-next';
 

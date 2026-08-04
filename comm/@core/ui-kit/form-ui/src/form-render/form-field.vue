@@ -2,7 +2,7 @@
  * form-field Vue 组件
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\form-field.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -12,17 +12,17 @@ import type { FormSchema, MaybeComponentProps } from '../types';
 
 import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
-import { CircleAlert } from '@ydsz-core/icons';
+import { CircleAlert } from '@remi-core/icons';
 import {
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormMessage,
-  YDSZRenderContent,
-  YDSZTooltip,
-} from '@ydsz-core/shadcn-ui';
-import { cn, isFunction, isObject, isString } from '@ydsz-core/shared/utils';
+  REMIRenderContent,
+  REMITooltip,
+} from '@remi-core/shadcn-ui';
+import { cn, isFunction, isObject, isString } from '@remi-core/shared/utils';
 
 import { toTypedSchema } from '@vee-validate/zod';
 import { useFieldError, useFormValues } from 'vee-validate';
@@ -327,7 +327,7 @@ onUnmounted(() => {
         :style="labelStyle"
       >
         <template v-if="label">
-          <YDSZRenderContent :content="label" />
+          <REMIRenderContent :content="label" />
         </template>
       </FormLabel>
       <div class="flex-auto overflow-hidden p-[1px]">
@@ -356,14 +356,14 @@ onUnmounted(() => {
                   :key="name"
                   #[name]="renderSlotProps"
                 >
-                  <YDSZRenderContent
+                  <REMIRenderContent
                     :content="customContentRender[name]"
                     v-bind="{ ...renderSlotProps, formContext: slotProps }"
                   />
                 </template>
                 <!-- <slot></slot> -->
               </component>
-              <YDSZTooltip
+              <REMITooltip
                 v-if="compact && isInValid"
                 :delay-duration="300"
                 side="left"
@@ -380,15 +380,15 @@ onUnmounted(() => {
                   </slot>
                 </template>
                 <FormMessage />
-              </YDSZTooltip>
+              </REMITooltip>
             </slot>
           </FormControl>
           <!-- 自定义后缀 -->
           <div v-if="suffix" class="ml-1">
-            <YDSZRenderContent :content="suffix" />
+            <REMIRenderContent :content="suffix" />
           </div>
           <FormDescription v-if="description" class="ml-1">
-            <YDSZRenderContent :content="description" />
+            <REMIRenderContent :content="description" />
           </FormDescription>
         </div>
 

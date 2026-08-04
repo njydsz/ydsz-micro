@@ -1,17 +1,17 @@
 # project-web 项目管理
 
-> YDSZ PMIS 项目管理子应用，覆盖商机、立项、合同、执行、EVM、财务、人力全链路（对应后端：ydsz-project，路由前缀：/ydsz-proj）
+> REMI PMIS 项目管理子应用，覆盖商机、立项、合同、执行、EVM、财务、人力全链路（对应后端：remi-project，路由前缀：/remi-proj）
 
 ## 应用定位
 
 | 属性 | 值 |
 |---|---|
 | **类型** | 微前端子应用 |
-| **包名** | @ydsz/project-web |
-| **对应后端服务** | ydsz-project |
+| **包名** | @remi/project-web |
+| **对应后端服务** | remi-project |
 | **前端端口** | 5603 |
 | **后端端口** | 9009 |
-| **路由前缀** | /ydsz-proj |
+| **路由前缀** | /remi-proj |
 | **版本** | 1.0.0 |
 
 project-web 是项目管理业务的前端载体，承接从销售商机到项目交付的完整生命周期管理，包括商机漏斗、立项审批、合同签订、WBS 执行、挣值分析（EVM）、预算/费用/收入/发票/回款财务闭环，以及费率卡人力成本核算。
@@ -23,7 +23,7 @@ project-web/
 ├── src/
 │   ├── adapter/                  # Element Plus / VXE Table 适配器
 │   ├── api/                      # 业务 API
-│   │   └── core/                 # 认证/菜单/用户 API（复用 @ydsz/shared-auth）
+│   │   └── core/                 # 认证/菜单/用户 API（复用 @remi/shared-auth）
 │   ├── layouts/                  # 子应用基础布局
 │   ├── locales/                  # 国际化（zh-CN/en-US）
 │   ├── router/                   # 路由守卫 + 模块化路由（project.ts）
@@ -56,14 +56,14 @@ project-web/
 
 | 依赖包 | 作用 |
 |---|---|
-| `@ydsz/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
-| `@ydsz/shared-business` | 业务公共组件与工具 |
-| `@ydsz/request` | HTTP 请求客户端（Axios 封装） |
-| `@ydsz/access` | 权限码与路由访问控制 |
-| `@ydsz/layouts` | 布局组件（basic） |
-| `@ydsz/common-ui` | 通用 UI 组件 |
-| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@ydsz/locales` | 国际化基础包 |
+| `@remi/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
+| `@remi/shared-business` | 业务公共组件与工具 |
+| `@remi/request` | HTTP 请求客户端（Axios 封装） |
+| `@remi/access` | 权限码与路由访问控制 |
+| `@remi/layouts` | 布局组件（basic） |
+| `@remi/common-ui` | 通用 UI 组件 |
+| `@remi/monitor` | 前端监控（错误捕获 + Web Vitals） |
+| `@remi/locales` | 国际化基础包 |
 | `element-plus` | UI 组件库 |
 | `pinia` | 状态管理 |
 
@@ -87,7 +87,7 @@ project-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（ydsz-frontend/）执行
+# 在 monorepo 根目录（remi-frontend/）执行
 pnpm dev:project       # 启动项目管理子应用（端口 5603）
 
 # 启动主应用 + 所有子应用（含 project-web）
@@ -97,7 +97,7 @@ pnpm dev
 pnpm build:project
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-proj` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/remi-proj` 激活本应用。
 
 ## 环境变量
 
@@ -113,7 +113,7 @@ pnpm build:project
 
 ## 路由配置
 
-主应用通过 `/ydsz-proj` 前缀激活本应用，内部路由表（`src/router/routes/modules/project.ts`）：
+主应用通过 `/remi-proj` 前缀激活本应用，内部路由表（`src/router/routes/modules/project.ts`）：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|
@@ -138,13 +138,13 @@ pnpm build:project
 | `src/views/evm/index.vue` | 挣值测量分析，PV/EV/AC 趋势图与 SPI/CPI 指标 |
 | `src/views/execution/index.vue` | WBS 任务树形展示与进度跟踪 |
 | `src/views/finance/budget/index.vue`（`views/budget/`） | 预算编制与执行对比 |
-| `src/layouts/basic.vue` | 子应用基础布局，复用 `@ydsz/layouts` |
+| `src/layouts/basic.vue` | 子应用基础布局，复用 `@remi/layouts` |
 
 每个业务模块均包含 `index.vue`（列表页）与 `*-form.vue`（表单页，新增/编辑）两个核心页面。
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/project/*` 端点：
+API 模块位于 `src/api/`，使用 `@remi/request` 的 `requestClient`，对应后端 `/api/v1/project/*` 端点：
 
 ```typescript
 // 商机管理（src/api/opportunity.ts）
@@ -162,7 +162,7 @@ export function createOpportunityApi(data: OpportunityApi.OpportunityDTO) {
 }
 ```
 
-其他 API 模块：`initiation.ts`（立项）、`contract.ts`（合同）、`execution.ts`（执行）、`evm.ts`（挣值）、`budget.ts`（预算）、`expense.ts`（费用）、`revenue.ts`（收入）、`invoice.ts`（发票）、`payment.ts`（回款）、`risk.ts`（风险）、`rateCard.ts`（费率卡）。认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
+其他 API 模块：`initiation.ts`（立项）、`contract.ts`（合同）、`execution.ts`（执行）、`evm.ts`（挣值）、`budget.ts`（预算）、`expense.ts`（费用）、`revenue.ts`（收入）、`invoice.ts`（发票）、`payment.ts`（回款）、`risk.ts`（风险）、`rateCard.ts`（费率卡）。认证与菜单 API 复用 `src/api/core/`（`@remi/shared-auth`）。
 
 ## 注意事项
 
@@ -170,7 +170,7 @@ export function createOpportunityApi(data: OpportunityApi.OpportunityDTO) {
 2. **财务模块归组**：预算/费用/收入/发票/回款同属「财务管理」路由组（`/finance/*`），但 API 文件各自独立，新增财务类目时需同步路由与 API 两处。
 3. **EVM 数据依赖**：挣值分析依赖 WBS 任务进度与预算数据，需先完成执行与预算录入，否则 SPI/CPI 指标无意义。
 4. **表单页复用**：各模块 `*-form.vue` 同时承载新增与编辑，通过路由 query 参数 `id` 区分模式，无 `id` 为新增，有 `id` 为编辑回填。
-5. **认证复用**：本应用依赖 `@ydsz/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@ydsz/shared-auth` 统一管理。
+5. **认证复用**：本应用依赖 `@remi/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@remi/shared-auth` 统一管理。
 
 ## 变更记录
 

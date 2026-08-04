@@ -2,18 +2,18 @@
  * 菜单管理页面 — 展示菜单树结构，支持新增/编辑/删除菜单项
  *
  * @path apps\userinfo-web\src\views\system\menu\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 菜单（列表页）
- * <p>菜单（{@code ydsz_menu}）的列表页。
+ * <p>菜单（{@code remi_menu}）的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useVbenModal } from '@remi/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag, ElInput } from 'element-plus';
 import { h, onMounted, ref } from 'vue';

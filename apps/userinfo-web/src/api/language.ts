@@ -3,7 +3,7 @@
  *
  * 封装国际化语言包接口，对应后端 {@code /api/v1/language/*} 端点。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

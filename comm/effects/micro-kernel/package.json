@@ -1,5 +1,5 @@
 {
-  "name": "@ydsz/micro-kernel",
+  "name": "@remi/micro-kernel",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -14,8 +14,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@ydsz-core/shared": "workspace:*",
-    "@ydsz/micro-runtime": "workspace:*",
+    "@remi-core/shared": "workspace:*",
+    "@remi/micro-runtime": "workspace:*",
     "vue": "catalog:"
   }
 }

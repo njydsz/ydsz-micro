@@ -2,11 +2,11 @@
  * 应用根组件
  *
  * @path apps\nextwiki-web\src\app.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { useElementPlusDesignTokens } from '@ydsz/hooks';
+import { useElementPlusDesignTokens } from '@remi/hooks';
 
 import { ElConfigProvider } from 'element-plus';
 

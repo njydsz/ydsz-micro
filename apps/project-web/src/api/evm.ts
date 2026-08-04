@@ -4,7 +4,7 @@
  * <p>提供 PV/EV/AC/CPI/SPI 等挣值分析指标，支持项目健康度评分。
  * <p>供「项目管理 → EVM 分析」使用。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

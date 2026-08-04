@@ -541,31 +541,31 @@ importers:
       '@vue/test-utils':
         specifier: 'catalog:'
         version: 2.4.11(@vue/compiler-dom@3.5.40)(@vue/server-renderer@3.5.40)(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/commitlint-config':
+      '@remi/commitlint-config':
         specifier: workspace:*
         version: link:conf/lint-configs/commitlint-config
-      '@ydsz/eslint-config':
+      '@remi/eslint-config':
         specifier: workspace:*
         version: link:conf/lint-configs/eslint-config
-      '@ydsz/prettier-config':
+      '@remi/prettier-config':
         specifier: workspace:*
         version: link:conf/lint-configs/prettier-config
-      '@ydsz/stylelint-config':
+      '@remi/stylelint-config':
         specifier: workspace:*
         version: link:conf/lint-configs/stylelint-config
-      '@ydsz/tailwind-config':
+      '@remi/tailwind-config':
         specifier: workspace:*
         version: link:conf/tailwind-config
-      '@ydsz/tsconfig':
+      '@remi/tsconfig':
         specifier: workspace:*
         version: link:conf/tsconfig
-      '@ydsz/turbo-run':
+      '@remi/turbo-run':
         specifier: workspace:*
         version: link:bash/turbo-run
-      '@ydsz/vite-config':
+      '@remi/vite-config':
         specifier: workspace:*
         version: link:conf/vite-config
-      '@ydsz/vsh':
+      '@remi/vsh':
         specifier: workspace:*
         version: link:bash/vsh
       autoprefixer:
@@ -628,55 +628,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -704,55 +704,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -780,55 +780,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -856,55 +856,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -932,55 +932,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -1008,55 +1008,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -1084,55 +1084,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -1160,55 +1160,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -1236,55 +1236,55 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../comm/locales
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../../comm/effects/request
-      '@ydsz/shared-auth':
+      '@remi/shared-auth':
         specifier: workspace:*
         version: link:../../comm/effects/shared-auth
-      '@ydsz/shared-business':
+      '@remi/shared-business':
         specifier: workspace:*
         version: link:../../comm/effects/shared-business
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../comm/utils
       dayjs:
@@ -1312,7 +1312,7 @@ importers:
       '@clack/prompts':
         specifier: 'catalog:'
         version: 0.10.1
-      '@ydsz/node-utils':
+      '@remi/node-utils':
         specifier: workspace:*
         version: link:../../conf/node-utils
       cac:
@@ -1321,7 +1321,7 @@ importers:
 
   bash/vsh:
     dependencies:
-      '@ydsz/node-utils':
+      '@remi/node-utils':
         specifier: workspace:*
         version: link:../../conf/node-utils
       cac:
@@ -1423,7 +1423,7 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../base/shared
       radix-vue:
@@ -1442,7 +1442,7 @@ importers:
 
   comm/@core/feature-flags:
     dependencies:
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../base/shared
       vue:
@@ -1454,10 +1454,10 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../base/typings
       vue:
@@ -1472,19 +1472,19 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../composables
-      '@ydsz-core/icons':
+      '@remi-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
       vee-validate:
@@ -1505,19 +1505,19 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../composables
-      '@ydsz-core/icons':
+      '@remi-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
       vue:
@@ -1529,19 +1529,19 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../composables
-      '@ydsz-core/icons':
+      '@remi-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
       vue:
@@ -1553,19 +1553,19 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../composables
-      '@ydsz-core/icons':
+      '@remi-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
       vue:
@@ -1577,16 +1577,16 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../composables
-      '@ydsz-core/icons':
+      '@remi-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
       class-variance-authority:
@@ -1610,16 +1610,16 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../composables
-      '@ydsz-core/icons':
+      '@remi-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../shadcn-ui
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
       vue:
@@ -1628,22 +1628,22 @@ importers:
 
   comm/constants:
     dependencies:
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
 
   comm/effects/access:
     dependencies:
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../preferences
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../stores
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../utils
       vue:
@@ -1658,34 +1658,34 @@ importers:
       '@vueuse/integrations':
         specifier: 'catalog:'
         version: 13.9.0(async-validator@4.2.5)(axios@1.19.0)(change-case@5.4.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.7)(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/form-ui':
+      '@remi-core/form-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/form-ui
-      '@ydsz-core/popup-ui':
+      '@remi-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
-      '@ydsz-core/preferences':
+      '@remi-core/preferences':
         specifier: workspace:*
         version: link:../../@core/preferences
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../icons
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../locales
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../types
       json-bigint:
@@ -1722,19 +1722,19 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../@core/composables
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../preferences
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../stores
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../utils
       vue:
@@ -1752,52 +1752,52 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../../@core/composables
-      '@ydsz-core/form-ui':
+      '@remi-core/form-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/form-ui
-      '@ydsz-core/layout-ui':
+      '@remi-core/layout-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/layout-ui
-      '@ydsz-core/menu-ui':
+      '@remi-core/menu-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/menu-ui
-      '@ydsz-core/popup-ui':
+      '@remi-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
-      '@ydsz-core/tabs-ui':
+      '@remi-core/tabs-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/tabs-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../icons
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../locales
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../preferences
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../stores
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../utils
       vue:
@@ -1809,10 +1809,10 @@ importers:
 
   comm/effects/micro-kernel:
     dependencies:
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
-      '@ydsz/micro-runtime':
+      '@remi/micro-runtime':
         specifier: workspace:*
         version: link:../micro-runtime
       vue:
@@ -1821,10 +1821,10 @@ importers:
 
   comm/effects/micro-runtime:
     dependencies:
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../constants
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../stores
       vue:
@@ -1833,13 +1833,13 @@ importers:
 
   comm/effects/monitor:
     dependencies:
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../request
       vue:
@@ -1854,31 +1854,31 @@ importers:
       '@vueuse/motion':
         specifier: 'catalog:'
         version: 3.0.3(magicast@0.5.4)(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/form-ui':
+      '@remi-core/form-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/form-ui
-      '@ydsz-core/shadcn-ui':
+      '@remi-core/shadcn-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/shadcn-ui
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../../icons
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../locales
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../preferences
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../utils
       echarts:
@@ -1896,10 +1896,10 @@ importers:
 
   comm/effects/request:
     dependencies:
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../locales
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../utils
       axios:
@@ -1918,28 +1918,28 @@ importers:
 
   comm/effects/shared-auth:
     dependencies:
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../../constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../locales
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../../preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../request
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../stores
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../../utils
       dayjs:
@@ -1966,19 +1966,19 @@ importers:
       '@tanstack/vue-virtual':
         specifier: 'catalog:'
         version: 3.13.35(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../common-ui
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../../locales
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../plugins
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../../stores
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../types
       element-plus:
@@ -1997,7 +1997,7 @@ importers:
 
   comm/icons:
     dependencies:
-      '@ydsz-core/icons':
+      '@remi-core/icons':
         specifier: workspace:*
         version: link:../@core/base/icons
 
@@ -2006,7 +2006,7 @@ importers:
       '@intlify/core-base':
         specifier: 'catalog:'
         version: 11.4.8
-      '@ydsz-core/composables':
+      '@remi-core/composables':
         specifier: workspace:*
         version: link:../@core/composables
       vue:
@@ -2018,22 +2018,22 @@ importers:
 
   comm/preferences:
     dependencies:
-      '@ydsz-core/preferences':
+      '@remi-core/preferences':
         specifier: workspace:*
         version: link:../@core/preferences
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
 
   comm/stores:
     dependencies:
-      '@ydsz-core/preferences':
+      '@remi-core/preferences':
         specifier: workspace:*
         version: link:../@core/preferences
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
       pinia:
@@ -2054,13 +2054,13 @@ importers:
 
   comm/styles:
     dependencies:
-      '@ydsz-core/design':
+      '@remi-core/design':
         specifier: workspace:*
         version: link:../@core/base/design
 
   comm/types:
     dependencies:
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
       vue:
@@ -2072,10 +2072,10 @@ importers:
 
   comm/utils:
     dependencies:
-      '@ydsz-core/shared':
+      '@remi-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
-      '@ydsz-core/typings':
+      '@remi-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
       vue-router:
@@ -2090,7 +2090,7 @@ importers:
       '@commitlint/config-conventional':
         specifier: 'catalog:'
         version: 19.8.1
-      '@ydsz/node-utils':
+      '@remi/node-utils':
         specifier: workspace:*
         version: link:../../node-utils
       commitlint-plugin-function-rules:
@@ -2321,7 +2321,7 @@ importers:
 
   conf/tsconfig:
     dependencies:
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../../comm/types
       vite:
@@ -2376,7 +2376,7 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: 'catalog:'
         version: 4.2.0(vite@6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))
-      '@ydsz/node-utils':
+      '@remi/node-utils':
         specifier: workspace:*
         version: link:../node-utils
       dayjs:
@@ -2421,58 +2421,58 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/feature-flags':
+      '@remi-core/feature-flags':
         specifier: workspace:*
         version: link:../comm/@core/feature-flags
-      '@ydsz/access':
+      '@remi/access':
         specifier: workspace:*
         version: link:../comm/effects/access
-      '@ydsz/common-ui':
+      '@remi/common-ui':
         specifier: workspace:*
         version: link:../comm/effects/common-ui
-      '@ydsz/constants':
+      '@remi/constants':
         specifier: workspace:*
         version: link:../comm/constants
-      '@ydsz/hooks':
+      '@remi/hooks':
         specifier: workspace:*
         version: link:../comm/effects/hooks
-      '@ydsz/icons':
+      '@remi/icons':
         specifier: workspace:*
         version: link:../comm/icons
-      '@ydsz/layouts':
+      '@remi/layouts':
         specifier: workspace:*
         version: link:../comm/effects/layouts
-      '@ydsz/locales':
+      '@remi/locales':
         specifier: workspace:*
         version: link:../comm/locales
-      '@ydsz/micro-kernel':
+      '@remi/micro-kernel':
         specifier: workspace:*
         version: link:../comm/effects/micro-kernel
-      '@ydsz/micro-runtime':
+      '@remi/micro-runtime':
         specifier: workspace:*
         version: link:../comm/effects/micro-runtime
-      '@ydsz/monitor':
+      '@remi/monitor':
         specifier: workspace:*
         version: link:../comm/effects/monitor
-      '@ydsz/plugins':
+      '@remi/plugins':
         specifier: workspace:*
         version: link:../comm/effects/plugins
-      '@ydsz/preferences':
+      '@remi/preferences':
         specifier: workspace:*
         version: link:../comm/preferences
-      '@ydsz/request':
+      '@remi/request':
         specifier: workspace:*
         version: link:../comm/effects/request
-      '@ydsz/stores':
+      '@remi/stores':
         specifier: workspace:*
         version: link:../comm/stores
-      '@ydsz/styles':
+      '@remi/styles':
         specifier: workspace:*
         version: link:../comm/styles
-      '@ydsz/types':
+      '@remi/types':
         specifier: workspace:*
         version: link:../comm/types
-      '@ydsz/utils':
+      '@remi/utils':
         specifier: workspace:*
         version: link:../comm/utils
       dayjs:

@@ -2,7 +2,7 @@
  * context-menu 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\context-menu\context-menu.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -12,7 +12,7 @@ import type {
   ContextMenuRootProps,
 } from 'radix-vue';
 
-import type { ClassType } from '@ydsz-core/typings';
+import type { ClassType } from '@remi-core/typings';
 
 import type { IContextMenuItem } from './interface';
 

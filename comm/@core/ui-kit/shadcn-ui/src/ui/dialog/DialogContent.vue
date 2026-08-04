@@ -2,17 +2,17 @@
  * DialogContent Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogContent.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
 
-import type { ClassType } from '@ydsz-core/typings';
+import type { ClassType } from '@remi-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { cn } from '@ydsz-core/shared/utils';
+import { cn } from '@remi-core/shared/utils';
 
 import { X } from 'lucide-vue-next';
 import {

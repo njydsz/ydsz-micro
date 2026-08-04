@@ -2,7 +2,7 @@
  * workbench-todo Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-todo.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -13,8 +13,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  YDSZCheckbox,
-} from '@ydsz-core/shadcn-ui';
+  REMICheckbox,
+} from '@remi-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchTodoItem[];
@@ -46,7 +46,7 @@ withDefaults(defineProps<Props>(), {
           class="flex cursor-pointer justify-between gap-x-6 py-5"
         >
           <div class="flex min-w-0 items-center gap-x-4">
-            <YDSZCheckbox v-model:checked="item.completed" name="completed" />
+            <REMICheckbox v-model:checked="item.completed" name="completed" />
             <div class="min-w-0 flex-auto">
               <p class="text-foreground text-sm font-semibold leading-6">
                 {{ item.title }}

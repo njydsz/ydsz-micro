@@ -2,20 +2,20 @@
  * breadcrumb 布局组件
  *
  * @path comm\effects\layouts\src\widgets\breadcrumb.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { BreadcrumbStyleType } from '@ydsz/types';
+import type { BreadcrumbStyleType } from '@remi/types';
 
-import type { IBreadcrumb } from '@ydsz-core/shadcn-ui';
+import type { IBreadcrumb } from '@remi-core/shadcn-ui';
 
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { $t } from '@ydsz/locales';
+import { $t } from '@remi/locales';
 
-import { YDSZBreadcrumbView } from '@ydsz-core/shadcn-ui';
+import { REMIBreadcrumbView } from '@remi-core/shadcn-ui';
 
 interface Props {
   hideWhenOnlyOne?: boolean;
@@ -71,7 +71,7 @@ function handleSelect(path: string) {
 }
 </script>
 <template>
-  <YDSZBreadcrumbView
+  <REMIBreadcrumbView
     :breadcrumbs="breadcrumbs"
     :show-icon="showIcon"
     :style-type="type"

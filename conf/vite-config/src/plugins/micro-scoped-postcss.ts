@@ -8,7 +8,7 @@
  * 仅处理构建产物（Vite build），开发模式下 Vite dev server 自带 HMR 作用域隔离。
  *
  * @path conf/vite-config/src/plugins/micro-scoped-postcss.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 3.0.0
  */
 
@@ -32,7 +32,7 @@ export function microScopedPostcssPlugin(options: MicroCssScopeOptions): Accepte
   const prefix = `[data-micro-app="${options.appName}"]`;
 
   return {
-    postcssPlugin: 'ydsz:micro-scoped-postcss',
+    postcssPlugin: 'remi:micro-scoped-postcss',
 
     /** 处理普通规则（.class、#id、tag 等） */
     Rule(rule: Rule) {

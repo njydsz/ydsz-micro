@@ -2,18 +2,18 @@
  * index 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-export { setupYDSZForm } from './config';
+export { setupREMIForm } from './config';
 
 export type {
   BaseFormComponentType,
   ExtendedFormApi,
-  YDSZFormProps,
-  FormSchema as YDSZFormSchema,
+  REMIFormProps,
+  FormSchema as REMIFormSchema,
 } from './types';
 
-export * from './use-ydsz-form';
-// export { default as YDSZForm } from './ydsz-form.vue';
+export * from './use-remi-form';
+// export { default as REMIForm } from './remi-form.vue';
 export * as z from 'zod';

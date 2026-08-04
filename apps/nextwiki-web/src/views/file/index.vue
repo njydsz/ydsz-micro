@@ -2,7 +2,7 @@
  * 文件节点（列表页）
  *
  * @path apps\nextwiki-web\src\views\file\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 文件节点（列表页）
  * <p>文件节点的浏览页，支持目录/文件/快捷方式三种类型。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteFileApi, getFilePageApi, type FileApi } from '#/api/file';
 import FileForm from './file-form.vue';
 defineOptions({ name: 'FileManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<FileApi.FileVO> = {
       { field: 'fileName', title: 'fileName', itemRender: { name: 'Input', props: { placeholder: 'fileName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [FileFormModal, fileFormApi] = useVbenModal({ connectedComponent: FileForm });
 function handleAdd() { fileFormApi.open(); }
 function handleEdit(row: FileApi.FileVO) { fileFormApi.setData({ record: row }); fileFormApi.open(); }

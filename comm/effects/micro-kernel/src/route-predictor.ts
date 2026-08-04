@@ -15,16 +15,16 @@
  * - bootstrap.ts 在 router.afterEach 中调用 getRoutePredictor().predict(currentApp)
  *
  * @path comm/effects/micro-kernel/src/route-predictor.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 4.0.0
  */
 
-import { createLogger } from '@ydsz-core/shared/utils';
+import { createLogger } from '@remi-core/shared/utils';
 
 const logger = createLogger('RoutePredictor');
 
 /** localStorage key */
-const STORAGE_KEY = 'ydsz_route_predictions';
+const STORAGE_KEY = 'remi_route_predictions';
 
 /** 最大保留的转移记录时间窗口（7 天） */
 const MAX_RETENTION_MS = 7 * 24 * 60 * 60 * 1000;

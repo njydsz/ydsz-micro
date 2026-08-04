@@ -2,7 +2,7 @@
  * menu-badge-dot 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu-badge-dot.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

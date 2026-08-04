@@ -2,7 +2,7 @@
  * search API 接口定义
  *
  * @path main\src\api\core\search.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

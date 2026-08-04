@@ -10,7 +10,7 @@
  * - 仅校验 JS/CSS 产物，忽略 sourcemap 与图片等二进制资源
  *
  * @path conf/vite-config/src/plugins/bundle-budget.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { Plugin } from 'rollup';
@@ -61,7 +61,7 @@ export function bundleBudgetPlugin(options: BundleBudgetOptions = {}): Plugin {
   let hasViolation = false;
 
   return {
-    name: 'ydsz:bundle-budget',
+    name: 'remi:bundle-budget',
     generateBundle(_opts, bundle) {
       for (const [fileName, chunk] of Object.entries(bundle)) {
         // 跳过 sourcemap

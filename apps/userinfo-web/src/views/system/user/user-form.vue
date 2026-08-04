@@ -2,7 +2,7 @@
  * 用户账号表单组件 — 支持新增/编辑用户信息（账号、姓名、部门、手机号）
  *
  * @path apps\userinfo-web\src\views\system\user\user-form.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,14 +10,14 @@
  * 用户（表单组件）
  * <p>用户的创建/编辑表单。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { UserApi } from '#/api/user';
 import type { CompanyApi } from '#/api/company';
 import type { PostApi } from '#/api/post';
 
-import { useVbenModal } from '@ydsz/common-ui';
+import { useVbenModal } from '@remi/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElSelect, ElOption, ElTreeSelect, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref, watch } from 'vue';
 

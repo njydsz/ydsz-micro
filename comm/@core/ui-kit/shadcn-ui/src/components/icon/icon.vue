@@ -2,7 +2,7 @@
  * icon 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\icon\icon.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,13 +10,13 @@ import type { Component } from 'vue';
 
 import { computed } from 'vue';
 
-import { IconDefault, IconifyIcon } from '@ydsz-core/icons';
+import { IconDefault, IconifyIcon } from '@remi-core/icons';
 import {
   isFunction,
   isHttpUrl,
   isObject,
   isString,
-} from '@ydsz-core/shared/utils';
+} from '@remi-core/shared/utils';
 
 const props = defineProps<{
   // 没有是否显示默认图标

@@ -2,20 +2,20 @@
  * use-vxe-grid 模块
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { VxeGridSlots, VxeGridSlotTypes } from 'vxe-table';
 
 import type { SlotsType } from 'vue';
 
-import type { BaseFormComponentType } from '@ydsz-core/form-ui';
+import type { BaseFormComponentType } from '@remi-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
 import { defineComponent, h, onBeforeUnmount } from 'vue';
 
-import { useStore } from '@ydsz-core/shared/store';
+import { useStore } from '@remi-core/shared/store';
 
 import { VxeGridApi } from './api';
 import VxeGrid from './use-vxe-grid.vue';
@@ -50,13 +50,13 @@ type FilteredSlots<T> = {
  *
  * @example
  * ```ts
- * const [Grid, gridApi] = useYDSZVxeGrid({
+ * const [Grid, gridApi] = useREMIVxeGrid({
  *   formOptions,
  *   gridOptions: { columns, proxyConfig: { ajax: { query: fetchList } } },
  * });
  * ```
  */
-export function useYDSZVxeGrid<
+export function useREMIVxeGrid<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
 >(options: VxeGridProps<T, D>) {
@@ -76,7 +76,7 @@ export function useYDSZVxeGrid<
       return () => h(VxeGrid, { ...props, ...attrs, api: extendedApi }, slots);
     },
     {
-      name: 'YDSZVxeGrid',
+      name: 'REMIVxeGrid',
       inheritAttrs: false,
       slots: Object as SlotsType<
         {
@@ -105,9 +105,9 @@ export function useYDSZVxeGrid<
 }
 
 /**
- * {@link useYDSZVxeGrid} 的函数类型别名。
+ * {@link useREMIVxeGrid} 的函数类型别名。
  *
  * @remarks
  * 供应用层在依赖注入或适配层声明中引用该 Hook 的签名，避免直接依赖实现。
  */
-export type UseYDSZVxeGrid = typeof useYDSZVxeGrid;
+export type UseREMIVxeGrid = typeof useREMIVxeGrid;

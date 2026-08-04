@@ -2,21 +2,21 @@
  * form-value-transformer 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-value-transformer.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import { formatDate, isDate, isDayjsObject, isFunction } from '@ydsz-core/shared/utils';
+import { formatDate, isDate, isDayjsObject, isFunction } from '@remi-core/shared/utils';
 
-import type { YDSZFormProps } from './types';
+import type { REMIFormProps } from './types';
 
 /**
  * 表单值转换器
  * @description 负责表单值的格式转换，包括范围时间值处理、数组与字符串互转等
  */
 export class FormValueTransformer {
-  private getState: () => null | YDSZFormProps;
+  private getState: () => null | REMIFormProps;
 
-  constructor(getState: () => null | YDSZFormProps) {
+  constructor(getState: () => null | REMIFormProps) {
     this.getState = getState;
   }
 

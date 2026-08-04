@@ -2,7 +2,7 @@
  * index 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export type {
@@ -14,8 +14,8 @@ export type {
 export { useAlertContext } from './alert';
 export { default as Alert } from './alert.vue';
 export {
-  ydszAlert as alert,
+  remiAlert as alert,
   clearAllAlerts,
-  ydszConfirm as confirm,
-  ydszPrompt as prompt,
+  remiConfirm as confirm,
+  remiPrompt as prompt,
 } from './AlertBuilder';

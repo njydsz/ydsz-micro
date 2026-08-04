@@ -2,7 +2,7 @@
  * content-compact 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\icons\content-compact.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <template>

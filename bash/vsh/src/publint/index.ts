@@ -2,7 +2,7 @@
  * index 模块
  *
  * @path bash\vsh\src\publint\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { CAC } from 'cac';
@@ -20,7 +20,7 @@ import {
   outputJSON,
   readJSON,
   UNICODE,
-} from '@ydsz/node-utils';
+} from '@remi/node-utils';
 
 import { publint } from 'publint';
 import { formatMessage } from 'publint/utils';

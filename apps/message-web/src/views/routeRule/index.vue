@@ -2,7 +2,7 @@
  * 消息路由规则列表页组件
  *
  * @path apps\message-web\src\views\routeRule\index.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 消息路由（列表页）
  * <p>消息路由规则的列表页。
  *
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import { Page, useVbenModal } from '@remi/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteRouteRuleApi, getRouteRulePageApi, type RouteRuleApi } from '#/api/routeRule';
 import RouteRuleForm from './routeRule-form.vue';
 defineOptions({ name: 'RouteRuleManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<RouteRuleApi.RouteRuleVO> = {
       { field: 'ruleName', title: 'ruleName', itemRender: { name: 'Input', props: { placeholder: 'ruleName' } } },
   ] },
 };
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
 const [RouteRuleFormModal, routeRuleFormApi] = useVbenModal({ connectedComponent: RouteRuleForm });
 function handleAdd() { routeRuleFormApi.open(); }
 function handleEdit(row: RouteRuleApi.RouteRuleVO) { routeRuleFormApi.setData({ record: row }); routeRuleFormApi.open(); }

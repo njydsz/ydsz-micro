@@ -2,7 +2,7 @@
  * 应用偏好配置
  *
  * @path comm\effects\layouts\src\widgets\preferences\index.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 export { default as PreferencesButton } from './preferences-button.vue';

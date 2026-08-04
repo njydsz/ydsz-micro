@@ -2,29 +2,29 @@
  * use-form-context 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\use-form-context.ts
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
  */
 import type { ZodRawShape } from 'zod';
 
 import type { ComputedRef } from 'vue';
 
-import type { ExtendedFormApi, FormActions, YDSZFormProps } from './types';
+import type { ExtendedFormApi, FormActions, REMIFormProps } from './types';
 
 import { computed, unref, useSlots } from 'vue';
 
-import { createContext } from '@ydsz-core/shadcn-ui';
-import { isString, mergeWithArrayOverride, set } from '@ydsz-core/shared/utils';
+import { createContext } from '@remi-core/shadcn-ui';
+import { isString, mergeWithArrayOverride, set } from '@remi-core/shared/utils';
 
 import { useForm } from 'vee-validate';
 import { object, ZodIntersection, ZodNumber, ZodObject, ZodString } from 'zod';
 import { getDefaultsForSchema } from 'zod-defaults';
 
-type ExtendFormProps = YDSZFormProps & { formApi: ExtendedFormApi };
+type ExtendFormProps = REMIFormProps & { formApi: ExtendedFormApi };
 
 export const [injectFormProps, provideFormProps] =
   createContext<[ComputedRef<ExtendFormProps> | ExtendFormProps, FormActions]>(
-    'YDSZFormProps',
+    'REMIFormProps',
   );
 
 export const [injectComponentRefMap, provideComponentRefMap] =
@@ -57,7 +57,7 @@ export const [injectComponentRefMap, provideComponentRefMap] =
  *          （已剔除 `default`，因为默认插槽由表单组件自身消费）
  */
 export function useFormInitial(
-  props: ComputedRef<YDSZFormProps> | YDSZFormProps,
+  props: ComputedRef<REMIFormProps> | REMIFormProps,
 ) {
   const slots = useSlots();
   const initialValues = generateInitialValues();

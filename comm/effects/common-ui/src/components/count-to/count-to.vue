@@ -2,7 +2,7 @@
  * count-to 通用组件
  *
  * @path comm\effects\common-ui\src\components\count-to\count-to.vue
- * @author ydsz-team
+ * @author remi-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,7 +10,7 @@ import type { CountToProps } from './types';
 
 import { computed, onMounted, ref, watch } from 'vue';
 
-import { isString } from '@ydsz-core/shared/utils';
+import { isString } from '@remi-core/shared/utils';
 
 import { TransitionPresets, useTransition } from '@vueuse/core';
 

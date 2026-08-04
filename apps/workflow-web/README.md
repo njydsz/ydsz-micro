@@ -1,20 +1,20 @@
 # workflow-web 工作流引擎
 
-> YDSZ PMIS 工作流引擎子应用，提供流程模板、流程实例、审批任务、委托授权与快捷意见管理（对应后端：ydsz-workflow，路由前缀：/ydsz-flow）
+> REMI PMIS 工作流引擎子应用，提供流程模板、流程实例、审批任务、委托授权与快捷意见管理（对应后端：remi-workflow，路由前缀：/remi-flow）
 
 ## 应用定位
 
 | 属性 | 值 |
 |---|---|
 | **类型** | 微前端子应用 |
-| **包名** | @ydsz/workflow-web |
-| **对应后端服务** | ydsz-workflow |
+| **包名** | @remi/workflow-web |
+| **对应后端服务** | remi-workflow |
 | **前端端口** | 5606 |
 | **后端端口** | 9005 |
-| **路由前缀** | /ydsz-flow |
+| **路由前缀** | /remi-flow |
 | **版本** | 1.0.0 |
 
-workflow-web 是自研工作流引擎 v2（基于 `ydsz_flow_*` 表与 BPMN 2.0）的前端载体，面向 PC Web 端提供流程模板设计、流程实例监控、待办任务处理、审批委派授权与常用审批意见管理。所有 UI 仅适配 PC 浏览器，不适配移动端。
+workflow-web 是自研工作流引擎 v2（基于 `remi_flow_*` 表与 BPMN 2.0）的前端载体，面向 PC Web 端提供流程模板设计、流程实例监控、待办任务处理、审批委派授权与常用审批意见管理。所有 UI 仅适配 PC 浏览器，不适配移动端。
 
 ## 目录结构
 
@@ -23,7 +23,7 @@ workflow-web/
 ├── src/
 │   ├── adapter/                  # Element Plus / VXE Table 适配器
 │   ├── api/                      # 业务 API
-│   │   └── core/                 # 认证/菜单/用户 API（复用 @ydsz/shared-auth）
+│   │   └── core/                 # 认证/菜单/用户 API（复用 @remi/shared-auth）
 │   ├── layouts/                  # 子应用基础布局
 │   ├── locales/                  # 国际化（zh-CN/en-US）
 │   ├── router/                   # 路由守卫 + 模块化路由（workflow.ts）
@@ -51,14 +51,14 @@ workflow-web/
 
 | 依赖包 | 作用 |
 |---|---|
-| `@ydsz/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
-| `@ydsz/shared-business` | 业务公共组件与工具 |
-| `@ydsz/request` | HTTP 请求客户端（Axios 封装） |
-| `@ydsz/access` | 权限码与路由访问控制 |
-| `@ydsz/layouts` | 布局组件（basic） |
-| `@ydsz/common-ui` | 通用 UI 组件 |
-| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@ydsz/locales` | 国际化基础包 |
+| `@remi/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
+| `@remi/shared-business` | 业务公共组件与工具 |
+| `@remi/request` | HTTP 请求客户端（Axios 封装） |
+| `@remi/access` | 权限码与路由访问控制 |
+| `@remi/layouts` | 布局组件（basic） |
+| `@remi/common-ui` | 通用 UI 组件 |
+| `@remi/monitor` | 前端监控（错误捕获 + Web Vitals） |
+| `@remi/locales` | 国际化基础包 |
 | `element-plus` | UI 组件库 |
 | `pinia` | 状态管理 |
 
@@ -76,7 +76,7 @@ workflow-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（ydsz-frontend/）执行
+# 在 monorepo 根目录（remi-frontend/）执行
 pnpm dev:workflow      # 启动工作流子应用（端口 5606）
 
 # 启动主应用 + 所有子应用（含 workflow-web）
@@ -86,7 +86,7 @@ pnpm dev
 pnpm build:workflow
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-flow` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/remi-flow` 激活本应用。
 
 ## 环境变量
 
@@ -102,7 +102,7 @@ pnpm build:workflow
 
 ## 路由配置
 
-主应用通过 `/ydsz-flow` 前缀激活本应用，内部路由表（`src/router/routes/modules/workflow.ts`）分为三组：
+主应用通过 `/remi-flow` 前缀激活本应用，内部路由表（`src/router/routes/modules/workflow.ts`）分为三组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|
@@ -122,13 +122,13 @@ pnpm build:workflow
 | `src/views/instance/index.vue` | 流程实例监控，查看运行状态与历史轨迹 |
 | `src/views/task/index.vue` | 待办任务列表，支持审批通过/驳回/转办 |
 | `src/views/delegate/index.vue` | 委派授权配置，设置代理人与时效 |
-| `src/layouts/basic.vue` | 子应用基础布局，复用 `@ydsz/layouts` |
+| `src/layouts/basic.vue` | 子应用基础布局，复用 `@remi/layouts` |
 
 每个业务模块均包含 `index.vue`（列表页）与 `*-form.vue`（表单页）两个核心页面。
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/workflow/*` 端点：
+API 模块位于 `src/api/`，使用 `@remi/request` 的 `requestClient`，对应后端 `/api/v1/workflow/*` 端点：
 
 ```typescript
 // 流程模板（src/api/template.ts）
@@ -146,15 +146,15 @@ export function createTemplateApi(data: TemplateApi.TemplateDTO) {
 }
 ```
 
-其他 API 模块：`category.ts`（流程分类）、`instance.ts`（流程实例）、`task.ts`（审批任务）、`delegate.ts`（委派授权）、`quickComment.ts`（快捷评语）。认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
+其他 API 模块：`category.ts`（流程分类）、`instance.ts`（流程实例）、`task.ts`（审批任务）、`delegate.ts`（委派授权）、`quickComment.ts`（快捷评语）。认证与菜单 API 复用 `src/api/core/`（`@remi/shared-auth`）。
 
 ## 注意事项
 
-1. **PC-only 约束（强制）**：`ydsz-workflow` 模块**永远不适配移动端 App 或独立 H5 应用**。流程设计器（bpmn-js）、审批中心、流程模板、流程实例监控等所有 UI 仅面向 PC Web 端（Vue 3.5 + Element Plus）。详见 `.trae/rules/workflow-pc-only.md`。禁止在本应用中新增 `Mobile`/`H5`/`App` 字样的 Controller、`/mobile/`/`/h5/` 路径前缀、移动端专属 VO/DTO 或移动端 UA 识别逻辑。如需移动端审批能力，须通过独立的轻审批 H5 或对接企业微信/钉钉/飞书 IM 通道实现，**绝不允许**把工作流代码直接运行在移动端容器。
+1. **PC-only 约束（强制）**：`remi-workflow` 模块**永远不适配移动端 App 或独立 H5 应用**。流程设计器（bpmn-js）、审批中心、流程模板、流程实例监控等所有 UI 仅面向 PC Web 端（Vue 3.5 + Element Plus）。详见 `.trae/rules/workflow-pc-only.md`。禁止在本应用中新增 `Mobile`/`H5`/`App` 字样的 Controller、`/mobile/`/`/h5/` 路径前缀、移动端专属 VO/DTO 或移动端 UA 识别逻辑。如需移动端审批能力，须通过独立的轻审批 H5 或对接企业微信/钉钉/飞书 IM 通道实现，**绝不允许**把工作流代码直接运行在移动端容器。
 2. **第三方审批同步例外**：通过 webhook 与钉钉/飞书/企微服务端通信的审批状态同步（`FlowThirdPartySyncService`）属于服务端到服务端通信，不涉及移动端 UI，不在 PC-only 禁止范围内。
 3. **模板版本管理**：流程模板支持多版本与灰度发布，列表页按 `templateCode` 聚合，编辑时需注意版本号递增，避免覆盖已上线版本。
 4. **委派授权时效**：委派配置需设置起止时间，过期自动失效，代理人仅能在授权范围内处理任务。
-5. **认证复用**：本应用依赖 `@ydsz/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@ydsz/shared-auth` 统一管理。
+5. **认证复用**：本应用依赖 `@remi/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@remi/shared-auth` 统一管理。
 
 ## 变更记录
 
