@@ -95,7 +95,7 @@ describe('Registry Response Schema Contract', () => {
     const valid = {
       version: '2026-08-04T12:00:00Z',
       apps: [
-        { name: 'project-web', activeRule: '/remi-proj' },
+        { name: 'workflow-web', activeRule: '/remi-flow' },
         { name: 'system-web', activeRule: '/remi-sys' },
       ],
     } as unknown;
@@ -117,13 +117,13 @@ describe('Registry Response Schema Contract', () => {
 
   it('getProdEntry 未指定 prodPath 时回退到 /remi-{name}/', async () => {
     const { getProdEntry } = await import('@remi/vite-config');
-    const entry = getProdEntry({ name: 'project-web' } as any);
-    expect(entry).toBe('/remi-project-web/');
+    const entry = getProdEntry({ name: 'workflow-web' } as any);
+    expect(entry).toBe('/remi-workflow-web/');
   });
 
   it('getProdEntry 指定 prodPath 时使用 prodPath', async () => {
     const { getProdEntry } = await import('@remi/vite-config');
-    const entry = getProdEntry({ name: 'project-web', prodPath: '/custom-proj/' } as any);
+    const entry = getProdEntry({ name: 'workflow-web', prodPath: '/custom-proj/' } as any);
     expect(entry).toBe('/custom-proj/');
   });
 });

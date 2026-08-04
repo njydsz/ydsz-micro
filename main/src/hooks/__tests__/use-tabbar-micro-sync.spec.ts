@@ -20,7 +20,7 @@ vi.mock('@remi/vite-config', () => ({
   PATH_TO_APP_MAP: {
     '/remi-user': 'userinfo-web',
     '/remi-sys': 'system-web',
-    '/remi-proj': 'project-web',
+    '/remi-flow': 'workflow-web',
   },
 }));
 
@@ -51,7 +51,7 @@ describe('多 Tab 子应用同步 — per-app session', () => {
     // 实现清理方式：直接调用完所有关闭即可，但此处依赖 public API snapshot 验证
     vi.clearAllMocks();
     // 通过关闭 Tab 使 session 清空
-    const allApps = ['/remi-user/a', '/remi-user/b', '/remi-sys/a', '/remi-proj/a', '/remi-proj/b'];
+    const allApps = ['/remi-user/a', '/remi-user/b', '/remi-sys/a', '/remi-flow/a', '/remi-flow/b'];
     // 每次会话关闭全部
     for (const p of allApps) {
       // re-import 模块 — 实际上 sessions 是模块级变量，无法跨 test reset
@@ -60,37 +60,37 @@ describe('多 Tab 子应用同步 — per-app session', () => {
   });
 
   it('recordSubAppTabOpened 首次打开 Tab 必须记录到 session', () => {
-    recordSubAppTabOpened('/remi-proj/opportunities', 'project-web');
-    const session = extractSession('project-web');
-    expect(session, 'project-web session 应存在').toBeDefined();
-    expect(session!.openPaths).toContain('/remi-proj/opportunities');
-    expect(session!.lastActivePath).toBe('/remi-proj/opportunities');
+    recordSubAppTabOpened('/remi-flow/opportunities', 'workflow-web');
+    const session = extractSession('workflow-web');
+    expect(session, 'workflow-web session 应存在').toBeDefined();
+    expect(session!.openPaths).toContain('/remi-flow/opportunities');
+    expect(session!.lastActivePath).toBe('/remi-flow/opportunities');
   });
 
   it('同一子应用多次打开不同 Tab 需要累积到 openPaths', () => {
-    recordSubAppTabOpened('/remi-proj/opportunities', 'project-web');
-    recordSubAppTabOpened('/remi-proj/execution/list', 'project-web');
+    recordSubAppTabOpened('/remi-flow/opportunities', 'workflow-web');
+    recordSubAppTabOpened('/remi-flow/execution/list', 'workflow-web');
 
-    const session = extractSession('project-web');
+    const session = extractSession('workflow-web');
     expect(session!.openPaths).toHaveLength(2);
-    expect(session!.openPaths).toContain('/remi-proj/opportunities');
-    expect(session!.openPaths).toContain('/remi-proj/execution/list');
+    expect(session!.openPaths).toContain('/remi-flow/opportunities');
+    expect(session!.openPaths).toContain('/remi-flow/execution/list');
     // 最后更新的是 execution/list
-    expect(session!.lastActivePath).toBe('/remi-proj/execution/list');
+    expect(session!.lastActivePath).toBe('/remi-flow/execution/list');
   });
 
   it('不同子应用的 session 互相隔离', () => {
     recordSubAppTabOpened('/remi-user/users', 'userinfo-web');
-    recordSubAppTabOpened('/remi-proj/opportunities', 'project-web');
+    recordSubAppTabOpened('/remi-flow/opportunities', 'workflow-web');
 
     const userSession = extractSession('userinfo-web');
-    const projSession = extractSession('project-web');
+    const workflowSession = extractSession('workflow-web');
 
     expect(userSession!.openPaths).toEqual(['/remi-user/users']);
-    expect(projSession!.openPaths).toEqual(['/remi-proj/opportunities']);
+    expect(workflowSession!.openPaths).toEqual(['/remi-flow/opportunities']);
     // 两个 session lastActivePath 各自独立
     expect(userSession!.lastActivePath).toBe('/remi-user/users');
-    expect(projSession!.lastActivePath).toBe('/remi-proj/opportunities');
+    expect(workflowSession!.lastActivePath).toBe('/remi-flow/opportunities');
   });
 
   it('getSubAppLastActivePath 无 session 时返回 null', () => {
@@ -108,6 +108,6 @@ describe('多 Tab 子应用同步 — per-app session', () => {
   it('getAppFromPath 正确识别 registered 子应用前缀', () => {
     expect(getAppFromPath('/remi-users')).toBe('userinfo-web');
     expect(getAppFromPath('/remi-sys/configs')).toBe('system-web');
-    expect(getAppFromPath('/remi-proj/execution/list')).toBe('project-web');
+    expect(getAppFromPath('/remi-flow/execution/list')).toBe('workflow-web');
   });
 });

@@ -67,9 +67,9 @@ describe('version-manager', () => {
   describe('updateVersion / getVersion', () => {
     it('更新版本后可读取', () => {
       const vm = getVersionManager();
-      const manifest = createManifest('project-web', '1.2.0');
-      vm.updateVersion('project-web', manifest);
-      expect(vm.getVersion('project-web')).toBe('1.2.0');
+      const manifest = createManifest('workflow-web', '1.2.0');
+      vm.updateVersion('workflow-web', manifest);
+      expect(vm.getVersion('workflow-web')).toBe('1.2.0');
     });
 
     it('未记录的应用返回 null', () => {
