@@ -313,8 +313,14 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
    */
   async function switchToApp(config: MicroAppConfig, options?: StartOptions): Promise<void> {
     const token = ++switchToken;
+    const fromApp = activeAppName;
 
     if (activeAppName === config.name) return;
+
+    // === ADR-006: kernel:route 标记 ===
+    if (fromApp) {
+      performance.mark(`kernel:route:${fromApp}→${config.name}:start`);
+    }
 
     // 卸载当前
     if (activeAppName) {
@@ -404,6 +410,15 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       // v4.0 P1-2: 记录路由跳转供预测引擎学习
       if (prevAppName) {
         recordRouteTransition(prevAppName, config.name);
+      }
+      // ADR-006: kernel:route 结束标记
+      if (fromApp) {
+        performance.mark(`kernel:route:${fromApp}→${config.name}:end`);
+        performance.measure(
+          `kernel:route:${fromApp}→${config.name}`,
+          `kernel:route:${fromApp}→${config.name}:start`,
+          `kernel:route:${fromApp}→${config.name}:end`,
+        );
       }
       await runHooks('afterMount', config);
 

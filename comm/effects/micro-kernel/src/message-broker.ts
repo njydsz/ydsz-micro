@@ -95,6 +95,8 @@ export function sendMessage(to: string, action: string, payload?: unknown): stri
     payload,
     correlationId,
   };
+  // === ADR-006: kernel:message 标记 ===
+  performance.mark(`kernel:message:${to}:${action}`);
   window.dispatchEvent(new CustomEvent(MESSAGE_EVENT, { detail: message }));
   return correlationId;
 }
