@@ -45,3 +45,27 @@ export {
   getSentryConfig,
 } from './sentry';
 export type { SentryConfig } from './sentry';
+
+// v4.0: 运行时性能追踪（火焰图、时间线、内存趋势）
+export {
+  isTracking,
+  setTrackingEnabled,
+  getFlameData,
+  getTimeline,
+  getMemoryTrend,
+  getStats,
+  clearTimeline,
+  trackAppLoadStart,
+  trackAppLoadEnd,
+  trackAppMountStart,
+  trackAppMountEnd,
+  trackAppUnmountStart,
+  trackAppUnmountEnd,
+  trackKeepAliveActivate,
+  trackKeepAliveDeactivate,
+  trackPreload,
+  trackMessage,
+  trackStateChange,
+  trackRouteChange,
+} from './performance-tracker';
+export type { FlameNode, TimelineEntry, MemorySample } from './performance-tracker';
