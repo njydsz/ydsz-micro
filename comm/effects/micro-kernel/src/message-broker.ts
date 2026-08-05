@@ -158,7 +158,9 @@ export function sendRequest<T = unknown, R = unknown>(
       timer,
     });
 
-    const message: MicroMessage<T> = {
+    // P1-4: 所有消息携带统一协议标记
+    const message: BrokerMessage<T> = {
+      [BROKER_MARK]: true,
       from: 'main',
       to,
       action,
@@ -180,8 +182,9 @@ export function startMessageListener(
   onRequest?: (message: MicroMessage) => void,
 ): () => void {
   const handler = (event: Event) => {
-    const message = (event as CustomEvent<MicroMessage>).detail;
-    if (!message || typeof message !== 'object') return;
+    const message = (event as CustomEvent<BrokerMessage>).detail;
+    // P1-4: 仅处理携带统一协议标记的消息，过滤外部 CustomEvent
+    if (!message || typeof message !== 'object' || !isBrokerMessage(message)) return;
 
     // 响应消息：关联 pendingRequests
     if (message.isResponse && message.correlationId) {

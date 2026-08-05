@@ -15,6 +15,12 @@
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue';
 
 import type { SearchItem } from '@/hooks/use-global-search';
+import {
+  useSearchProviderStatus,
+  SEARCH_PROVIDER_READY_EVENT,
+  SEARCH_PROVIDER_COUNT_EVENT,
+} from '@/hooks/use-global-search';
+import type { SearchProviderReadyDetail } from '@/hooks/use-global-search';
 import { getPreloadManager } from '@remi/micro-kernel/preload-strategy';
 
 // ==================== 类型定义 ====================
@@ -61,6 +67,9 @@ const commands = ref<Map<string, CommandItem[]>>(new Map());
 const recentItems = ref<RecentItem[]>([]);
 const RECENT_STORAGE_KEY = 'remi_command_palette_recent';
 const MAX_RECENT = 20;
+
+// P2-2: 搜索提供者就绪状态
+const { providerCount: searchProviderCount, appNames: searchProviderNames } = useSearchProviderStatus();
 
 // ==================== Computed ====================
 
@@ -116,6 +125,13 @@ const results = computed(() => {
 const placeholder = computed(() => {
   if (mode.value === 'command') return '输入命令... (⌘⇧P)';
   return '搜索菜单、功能、操作... (⌘K)';
+});
+
+/** P2-2: 搜索提供者状态栏文案 */
+const searchProviderStatus = computed(() => {
+  const count = searchProviderCount.value;
+  if (count === 0) return '暂无搜索数据源';
+  return `已加载 ${count} 个数据源${searchProviderNames.value.length > 0 ? ` · ${searchProviderNames.value.slice(0, 3).join(', ')}${count > 3 ? '…' : ''}` : ''}`;
 });
 
 // ==================== Methods ====================
@@ -409,6 +425,16 @@ defineExpose({
           <span class="cp-footer-hint">
             ⌘K 搜索 · ⌘⇧P 命令 · ↵ 确认 · Esc 关闭
           </span>
+          <!-- P2-2: 搜索提供者就绪状态 -->
+          <span
+            v-if="mode === 'search'"
+            class="cp-footer-provider-status"
+            :class="{ 'is-ready': searchProviderCount > 0 }"
+            :title="`已注册搜索数据源: ${searchProviderNames.join(', ')}`"
+          >
+            <span class="cp-footer-dot" />
+            {{ searchProviderStatus }}
+          </span>
         </div>
       </div>
     </div>
@@ -549,6 +575,10 @@ defineExpose({
 
 /* ============ Footer ============ */
 .cp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 6px 16px;
   border-top: 1px solid var(--el-border-color-extra-light);
   background: var(--el-fill-color-extra-light);
@@ -556,6 +586,28 @@ defineExpose({
 .cp-footer-hint {
   font-size: 10px;
   color: var(--el-text-color-placeholder);
+}
+/* P2-2: 搜索提供者状态指示 */
+.cp-footer-provider-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--el-text-color-placeholder);
+  white-space: nowrap;
+}
+.cp-footer-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--el-color-warning);
+  flex-shrink: 0;
+}
+.cp-footer-provider-status.is-ready .cp-footer-dot {
+  background: var(--el-color-success);
+}
+.cp-footer-provider-status.is-ready {
+  color: var(--el-text-color-regular);
 }
 
 /* ============ Transitions ============ */

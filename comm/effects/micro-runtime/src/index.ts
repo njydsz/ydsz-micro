@@ -44,3 +44,7 @@ export {
 
 // v3.7: 直接导出 MicroAppEntry 避免外部从 conf/vite-config 反向依赖
 export type { MicroAppEntry } from './types';
+
+// v4.0 P2-1: 子应用双模式入口工厂（微前端模式导出 + 独立运行自启动）
+export { defineSubApp, isMicroFrontendEnvironment } from './define-sub-app';
+export type { SubAppLifecycle, DefineSubAppOptions } from './define-sub-app';

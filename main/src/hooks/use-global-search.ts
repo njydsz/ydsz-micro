@@ -4,10 +4,16 @@
  * 为全局搜索面板提供搜索数据源注册、收集、搜索接口。
  * 子应用可通过 registerSearchProvider 注册自己的搜索项。
  *
+ * v4.0 P2-2: 搜索提供者就绪事件广播
+ *   - registerSearchProvider 注册时广播 `remi:search-provider-ready` 事件
+ *   - removeSearchProvider 移除时广播 `remi:search-provider-removed` 事件
+ *   - 搜索面板可监听事件更新状态栏（"已加载 N 个数据源"）
+ *   - 与 command-palette 的 `remi:register-commands` 事件对齐
+ *
  * @since 4.0.0
  */
 
-import { ref, computed, readonly } from 'vue';
+import { ref, computed, readonly, onUnmounted } from 'vue';
 
 /** 搜索项 */
 export interface SearchItem {
@@ -34,31 +40,100 @@ const cachedItems = ref<SearchItem[]>([]);
 /** 收集间隔（子应用注册/菜单变化时刷新） */
 let collectTimer: ReturnType<typeof setTimeout> | null = null;
 
+// ==================== P2-2: 提供者就绪事件广播 ====================
+
+/** 提供者就绪事件名 */
+export const SEARCH_PROVIDER_READY_EVENT = 'remi:search-provider-ready';
+/** 提供者移除事件名 */
+export const SEARCH_PROVIDER_REMOVED_EVENT = 'remi:search-provider-removed';
+/** 提供者计数变更事件名 */
+export const SEARCH_PROVIDER_COUNT_EVENT = 'remi:search-provider-count';
+
+/** 提供者就绪事件详情 */
+export interface SearchProviderReadyDetail {
+  appName: string;
+  appLabel?: string;
+  itemCount: number;
+  totalProviders: number;
+}
+
+/** 提供者计数事件详情 */
+export interface SearchProviderCountDetail {
+  totalProviders: number;
+  appNames: string[];
+}
+
+/**
+ * 广播搜索提供者计数变更。
+ *
+ * 在提供者注册/移除后调用，通过 window.dispatchEvent 广播，
+ * 使搜索面板、监控等外部消费者能感知数据源数量变化。
+ */
+function broadcastProviderCount(): void {
+  if (typeof window === 'undefined') return;
+  const detail: SearchProviderCountDetail = {
+    totalProviders: providers.size,
+    appNames: [...providers.keys()],
+  };
+  window.dispatchEvent(new CustomEvent(SEARCH_PROVIDER_COUNT_EVENT, { detail }));
+}
+
 /**
  * 注册搜索数据提供者。
  *
  * 子应用应在 mount 时调用，传入返回搜索项数组的函数。
  *
+ * v4.0 P2-2: 注册成功后广播 `remi:search-provider-ready` 事件，
+ * 搜索面板可监听此事件更新"已加载数据源"状态指示。
+ *
  * @param appName   子应用名
  * @param provider  搜索项生产函数
+ * @param appLabel  应用显示名（可选，用于事件广播）
  * @returns 取消注册函数
  *
  * @example
  * onMounted(() => {
  *   registerSearchProvider('workflow-web', () => [
  *     { id: 'proj-list', title: '项目列表', appName: 'workflow-web', path: '/remi-proj/opportunities' },
- *   ]);
+ *   ], '项目管理系统');
  * });
  */
 export function registerSearchProvider(
   appName: string,
   provider: SearchProvider,
+  appLabel?: string,
 ): () => void {
   providers.set(appName, provider);
   scheduleCollect();
+
+  // P2-2: 广播提供者就绪事件（采集完成后再发，确保 itemCount 准确）
+  if (typeof window !== 'undefined') {
+    // 使用 queueMicrotask 等当前 collect 调度完成后广播
+    queueMicrotask(() => {
+      const itemCount = (providers.get(appName)?.() ?? []).length;
+      const detail: SearchProviderReadyDetail = {
+        appName,
+        appLabel,
+        itemCount,
+        totalProviders: providers.size,
+      };
+      window.dispatchEvent(new CustomEvent(SEARCH_PROVIDER_READY_EVENT, { detail }));
+      broadcastProviderCount();
+    });
+  }
+
   return () => {
     providers.delete(appName);
     scheduleCollect();
+    // P2-2: 广播提供者移除事件
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent(SEARCH_PROVIDER_REMOVED_EVENT, {
+          detail: { appName, totalProviders: providers.size },
+        }),
+      );
+      broadcastProviderCount();
+    }
   };
 }
 
@@ -129,6 +204,48 @@ export function useSearchProvider(appName: string, items: (() => SearchItem[]) |
 }
 
 /**
+ * 跟踪搜索提供者就绪状态的 composable（P2-2）
+ *
+ * 返回已注册的提供者数量、应用名列表，以及最新就绪事件。
+ * 搜索面板可使用此 composable 在底部状态栏显示 "已加载 N 个数据源"。
+ *
+ * @example
+ * // search-panel.vue
+ * const { providerCount, appNames, lastReadyEvent } = useSearchProviderStatus();
+ */
+export function useSearchProviderStatus() {
+  const providerCount = ref(0);
+  const appNames = ref<string[]>([]);
+  const lastReadyEvent = ref<SearchProviderReadyDetail | null>(null);
+
+  function onReady(e: Event) {
+    const detail = (e as CustomEvent<SearchProviderReadyDetail>).detail;
+    lastReadyEvent.value = detail;
+  }
+  function onCount(e: Event) {
+    const detail = (e as CustomEvent<SearchProviderCountDetail>).detail;
+    providerCount.value = detail.totalProviders;
+    appNames.value = detail.appNames;
+  }
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener(SEARCH_PROVIDER_READY_EVENT, onReady);
+    window.addEventListener(SEARCH_PROVIDER_COUNT_EVENT, onCount);
+
+    // 同步当前快照
+    providerCount.value = providers.size;
+    appNames.value = [...providers.keys()];
+
+    onUnmounted(() => {
+      window.removeEventListener(SEARCH_PROVIDER_READY_EVENT, onReady);
+      window.removeEventListener(SEARCH_PROVIDER_COUNT_EVENT, onCount);
+    });
+  }
+
+  return { providerCount: readonly(providerCount), appNames: readonly(appNames), lastReadyEvent: readonly(lastReadyEvent) };
+}
+
+/**
  * 动态注册搜索项（子应用运行时调用，例如菜单变化后更新搜索源）。
  */
 export function addSearchItems(appName: string, items: SearchItem[]): void {
@@ -139,6 +256,11 @@ export function addSearchItems(appName: string, items: SearchItem[]): void {
     providers.set(appName, () => items);
   }
   scheduleCollect();
+
+  // P2-2: 广播计数变更
+  if (typeof window !== 'undefined') {
+    queueMicrotask(() => broadcastProviderCount());
+  }
 }
 
 export { cachedItems };

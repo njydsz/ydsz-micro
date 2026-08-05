@@ -225,6 +225,12 @@ export function getNextAutoRetryDelay(appName: string): number {
  * P0-E1: 所有动态值（config.name / config.entry / config.activeRule）经 escapeHtml
  *        转义后注入，防止 XSS。元素 id 使用 sanitizeId 净化后的应用名。
  *
+ * v4.0 P2-3: 键盘可访问性增强
+ *   - 渲染后自动聚焦「重试」按钮
+ *   - 容器设置 role="alert" aria-live="assertive"，屏幕阅读器可感知
+ *   - Escape 键返回首页
+ *   - 按钮设置可见 focus 样式（outline）
+ *
  * @param config - 子应用配置
  * @param container - 容器（HTMLElement 或 null）
  * @param onRetry - 微前端级重试回调（清除降级标记 → 重新激活），不传则直接整页跳转
@@ -271,11 +277,13 @@ export function renderErrorFallback(
   const subAppUrlBtnId = `micro-kernel-suburl-${safeId}`;
 
   el.innerHTML =
-    '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;' +
+    // P2-3: role="alert" + aria-live 让屏幕阅读器感知错误；tabindex="-1" 让容器可编程聚焦
+    '<div role="alert" aria-live="assertive" tabindex="-1" ' +
+    'style="display:flex;flex-direction:column;align-items:center;justify-content:center;' +
     'height:100%;padding:40px;font-family:var(--font-sans, system-ui, -apple-system, sans-serif);' +
-    'background:var(--el-bg-color, #fff);color:var(--el-text-color-primary, #303133)">' +
-    // 错误图标
-    '<div style="width:80px;height:80px;margin-bottom:24px;border-radius:50%;' +
+    'background:var(--el-bg-color, #fff);color:var(--el-text-color-primary, #303133);outline:none">' +
+    // 错误图标（aria-hidden 不朗读装饰性图标）
+    '<div aria-hidden="true" style="width:80px;height:80px;margin-bottom:24px;border-radius:50%;' +
     'background:var(--el-color-danger-light-9, #fef0f0);' +
     'display:flex;align-items:center;justify-content:center">' +
     '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--el-color-danger, #f56c6c)" stroke-width="2">' +
@@ -300,17 +308,24 @@ export function renderErrorFallback(
     // 操作按钮组
     '<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">' +
     (canRetry
+      // P2-3: 添加 focus-visible outline 样式
       ? '<button id="' + retryBtnId + '" ' +
         'style="padding:10px 24px;background:var(--el-color-primary, #409eff);' +
         'color:#fff;border:none;border-radius:6px;cursor:pointer;' +
-        'font-size:14px;font-weight:500;transition:all 0.2s">' +
+        'font-size:14px;font-weight:500;transition:all 0.2s;' +
+        'outline:2px solid transparent;outline-offset:2px;' +
+        'focus-visible:outline-color:var(--el-color-primary-dark-2, #337ecc)" ' +
+        'aria-label="' + escRetry + ' ' + escName + '">' +
         escRetry +
         '</button>'
       : '') +
     '<button id="' + homeBtnId + '" ' +
     'style="padding:10px 24px;background:var(--el-fill-color, #f5f7fa);' +
     'color:var(--el-text-color-regular, #606266);border:1px solid var(--el-border-color, #dcdfe6);' +
-    'border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;transition:all 0.2s">' +
+    'border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;transition:all 0.2s;' +
+    'outline:2px solid transparent;outline-offset:2px;' +
+    'focus-visible:outline-color:var(--el-color-primary, #409eff)" ' +
+    'aria-label="' + escGoHome + '">' +
     escGoHome +
     '</button>' +
     // v3.7.0: 第三级降级按钮 — retry 耗尽后展示，允许用户跳转子应用独立地址
@@ -318,7 +333,10 @@ export function renderErrorFallback(
       ? '<button id="' + subAppUrlBtnId + '" ' +
         'style="padding:10px 24px;background:transparent;' +
         'color:var(--el-color-info, #909399);border:1px dashed var(--el-border-color, #dcdfe6);' +
-        'border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;transition:all 0.2s">' +
+        'border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;transition:all 0.2s;' +
+        'outline:2px solid transparent;outline-offset:2px;' +
+        'focus-visible:outline-color:var(--el-color-primary, #409eff)" ' +
+        'aria-label="' + escGoToSubAppUrl + ' — ' + escName + '">' +
         escGoToSubAppUrl +
         '</button>'
       : '') +
@@ -339,6 +357,14 @@ export function renderErrorFallback(
     '</div></details>' +
     '</div>';
 
+  // P2-3: 自动聚焦第一个可交互元素
+  // 优先聚焦「重试」按钮，否则「返回首页」
+  // 屏幕阅读器会朗读 role="alert" 的容器内容，键盘用户可直接 Enter 激活
+  const firstFocusable = document.getElementById(retryBtnId) || document.getElementById(homeBtnId);
+  if (firstFocusable) {
+    firstFocusable.focus();
+  }
+
   // 重试按钮事件
   document.getElementById(retryBtnId)?.addEventListener('click', () => {
     if (!onRetry) return;
@@ -348,9 +374,9 @@ export function renderErrorFallback(
     // 微前端级重试：清除降级标记 → 重新激活
     degradedApps.delete(config.name);
     el.innerHTML =
-      '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;' +
+      '<div role="status" aria-live="polite" style="display:flex;flex-direction:column;align-items:center;justify-content:center;' +
       'height:100%;font-family:var(--font-sans, sans-serif)">' +
-      '<div style="width:40px;height:40px;border:3px solid var(--el-border-color-lighter, #ebeef5);' +
+      '<div aria-hidden="true" style="width:40px;height:40px;border:3px solid var(--el-border-color-lighter, #ebeef5);' +
       'border-top-color:var(--el-color-primary, #409eff);border-radius:50%;' +
       'animation:spin 0.8s linear infinite"></div>' +
       '<p style="margin:16px 0 0;font-size:14px;color:var(--el-text-color-secondary, #909399)">' +
@@ -371,12 +397,16 @@ export function renderErrorFallback(
   });
 
   // v3.7.0: 三级降级第三级按钮 — 跳转子应用独立部署地址（full 模式 = 超过 micro 重试上限）
-  // 子应用独立地址可直接访问该子应用的静态资源（不经过基座沙箱/路由）
-  // 仅在"剩余重试次数不足"时展示，作为兜底方案
-  const subAppUrlBtnId = `micro-kernel-suburl-${safeId}`;
   document.getElementById(subAppUrlBtnId)?.addEventListener('click', () => {
-    // 子应用独立地址：使用 entry URL（去除末尾 /）
     const subUrl = config.entry.replace(/\/$/, '');
     window.location.href = subUrl || '/';
   });
+
+  // P2-3: Escape 键返回首页（避免用户键盘被困在错误容器中）
+  const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      window.location.href = '/';
+    }
+  };
+  el.addEventListener('keydown', onKeydown);
 }
