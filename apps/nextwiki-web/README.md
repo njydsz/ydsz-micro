@@ -74,7 +74,7 @@ nextwiki-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（remi-frontend/）执行
+# 在 monorepo 根目录（remi-micro/）执行
 pnpm dev:nextwiki      # 启动网盘知识库子应用（端口 5607）
 
 # 启动主应用 + 所有子应用（含 nextwiki-web）

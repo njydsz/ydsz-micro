@@ -74,7 +74,7 @@ agent-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（remi-frontend/）执行
+# 在 monorepo 根目录（remi-micro/）执行
 pnpm dev:agent        # 启动 AI 助手子应用（端口 5610）
 
 # 启动主应用 + 所有子应用（含 agent-web）

@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   # ==================== Frontend (Nginx) ====================
-  remi-frontend:
+  remi-micro:
     build:
       context: .
       dockerfile: bash/deploy/Dockerfile
-    container_name: remi-frontend
+    container_name: remi-micro
     ports:
       - "5600:8080"
     depends_on:

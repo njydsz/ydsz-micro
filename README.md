@@ -134,7 +134,7 @@ ESM loader → 生命周期 → 沙箱 → keep-alive → 错误降级 → 路�
 ## 目录结构
 
 ```
-remi-frontend/
+remi-micro/
 ├── main/                              # 主应用（微前端宿主 @remi/main-web）
 │   ├── src/
 │   │   ├── 注册表 MICRO_APPS                  # micro-kernel 子应用注册配置
