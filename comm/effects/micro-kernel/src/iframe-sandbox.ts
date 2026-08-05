@@ -295,61 +295,91 @@ function injectBridgeScript(iframeWin: Window): void {
  * 将主应用的基础样式（CSS 变量、reset 等）注入 iframe document，
  * 并在 iframe 内创建一个挂载容器元素供子应用渲染。
  *
+ * P2-1: 支持 `devUrl` 参数 — 在 dev 模式下加载子应用 dev server 入口，
+ * 使子应用在独立 realm 完整运行（独立 dev server + HMR），方便调试。
+ *
  * @param appName - 子应用名称（用于调试与 iframe title 属性）
  * @param parentEl - 父容器元素，iframe 将挂载到此元素内
+ * @param devUrl - 【可选】开发模式下子应用 dev server 的完整 URL（如 //localhost:5601/）
+ *   传入时 iframe 将加载此地址而非 about:blank，子应用在 iframe 内独立运行
  * @returns iframe 沙箱实例
  */
 export function createIframeSandbox(
   appName: string,
   parentEl: HTMLElement,
+  devUrl?: string,
 ): IframeSandboxInstance {
   const iframe = document.createElement('iframe');
   iframe.setAttribute('aria-label', `sub-app-${appName}`);
   iframe.setAttribute('data-micro-sandbox', 'iframe');
   iframe.setAttribute('style', IFRAME_STYLE);
-  // 使用 about:blank 避免额外网络请求，文档立即可用
-  iframe.setAttribute('src', 'about:blank');
+
+  // P2-1: dev 模式下加载子应用 dev server，实现独立 realm 完整运行
+  const isDevUrl = devUrl && import.meta.env.DEV;
+  if (isDevUrl) {
+    iframe.setAttribute('src', devUrl);
+    iframe.setAttribute('data-iframe-mode', 'standalone-dev');
+  } else {
+    // 使用 about:blank 避免额外网络请求，文档立即可用
+    iframe.setAttribute('src', 'about:blank');
+    iframe.setAttribute('data-iframe-mode', 'esm-hosted');
+  }
 
   parentEl.appendChild(iframe);
 
   // 同步等待 iframe document 就绪（about:blank 在同源下立即可用）
   const contentWindow = iframe.contentWindow;
-  const contentDocument = iframe.contentDocument;
+  // P2-1: dev 模式下 iframe 跨 realm，contentDocument 无法同步访问，需要异步等待
+  const contentDocument = isDevUrl ? null : iframe.contentDocument;
 
-  if (!contentWindow || !contentDocument) {
+  // P2-1: devUrl 模式下 contentDocument 为 null（跨 realm 异步加载），仅校验 contentWindow
+  if (!contentWindow) {
     // 极端情况下 iframe 未就绪，移除并回退
     iframe.remove();
     throw new Error(`[IframeSandbox:${appName}] Failed to access iframe contentWindow`);
   }
 
-  // 写入基础 HTML 结构，确保有 body 可用
-  contentDocument.open();
-  contentDocument.write(
-    '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body></body></html>',
-  );
-  contentDocument.close();
+  // P2-1: dev 模式下 iframe 已加载子应用完整 SPA，无需注入桥接脚本和创建容器
+  let container: HTMLElement | null = null;
 
-  // 复制主应用的基础样式表到 iframe（CSS 变量、设计令牌等）
-  // 仅复制 <style> 和 <link> 中带 data-shared-style 标记的，避免全量复制
-  try {
-    const sharedStyles = document.querySelectorAll(
-      'style[data-shared-style], link[data-shared-style]',
+  if (!isDevUrl) {
+    // === ESM hosted 模式：about:blank + 主 realm 执行 ESM ===
+
+    if (!contentDocument) {
+      iframe.remove();
+      throw new Error(`[IframeSandbox:${appName}] Failed to access iframe contentDocument`);
+    }
+
+    // 写入基础 HTML 结构，确保有 body 可用
+    contentDocument.open();
+    contentDocument.write(
+      '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body></body></html>',
     );
-    sharedStyles.forEach((node) => {
-      contentDocument.head.appendChild(node.cloneNode(true));
-    });
-  } catch {
-    // 样式复制失败不阻断沙箱创建
+    contentDocument.close();
+
+    // 复制主应用的基础样式表到 iframe（CSS 变量、设计令牌等）
+    // 仅复制 <style> 和 <link> 中带 data-shared-style 标记的，避免全量复制
+    try {
+      const sharedStyles = document.querySelectorAll(
+        'style[data-shared-style], link[data-shared-style]',
+      );
+      sharedStyles.forEach((node) => {
+        contentDocument.head.appendChild(node.cloneNode(true));
+      });
+    } catch {
+      // 样式复制失败不阻断沙箱创建
+    }
+
+    // 在 iframe body 内创建挂载容器
+    container = contentDocument.createElement('div');
+    container.setAttribute('id', 'subapp-container');
+    container.setAttribute('data-micro-app', appName);
+    contentDocument.body.appendChild(container);
+
+    // v3.6.0: 注入 postMessage 桥接脚本，建立跨 realm 通信通道
+    injectBridgeScript(contentWindow);
   }
-
-  // 在 iframe body 内创建挂载容器
-  const container = contentDocument.createElement('div');
-  container.setAttribute('id', 'subapp-container');
-  container.setAttribute('data-micro-app', appName);
-  contentDocument.body.appendChild(container);
-
-  // v3.6.0: 注入 postMessage 桥接脚本，建立跨 realm 通信通道
-  injectBridgeScript(contentWindow);
+  // 注：dev 模式下 postMessage 桥接由子应用自行监听 message 事件处理
 
   // v3.6.0: 主侧消息处理器集合（子 → 主）
   const childMessageHandlers = new Set<(payload: unknown) => void>();
@@ -466,12 +496,15 @@ export function createIframeSandbox(
       }
       pendingRpcs.clear();
 
-      // 清空 iframe 内容并移除
-      try {
-        contentDocument.write('');
-        contentDocument.close();
-      } catch {
-        // 忽略清理异常
+      // P2-1: dev 模式下 contentDocument 不可访问，跳过清理
+      if (!isDevUrl) {
+        // 清空 iframe 内容并移除
+        try {
+          contentDocument?.write('');
+          contentDocument?.close();
+        } catch {
+          // 忽略清理异常
+        }
       }
       iframe.remove();
 

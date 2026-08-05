@@ -417,7 +417,8 @@ export async function activateApp(
     logger.debug(`${config.name} entered proxy sandbox`);
   } else if (instance.sandboxType === 'iframe') {
     // iframe 沙箱：在主容器内创建 iframe，子应用挂载到 iframe document
-    instance.iframeSandbox = createIframeSandbox(config.name, container);
+    // P2-1: 开发模式下如果有 devUrl，则让子应用在 iframe 内独立运行
+    instance.iframeSandbox = createIframeSandbox(config.name, container, config.devUrl);
     instance.iframeSandbox.activate();
     // 将 mountProps 的容器指向 iframe 内的挂载容器
     if (instance.iframeSandbox.container) {

@@ -58,6 +58,16 @@ export interface MicroAppConfig {
    * @since 3.6.0
    */
   sandbox?: SandboxType;
+  /**
+   * P2-1: 开发模式下 iframe 沙箱子应用的独立运行 URL。
+   *
+   * 仅当 sandbox='iframe' 且 import.meta.env.DEV 时生效。
+   * 传入时 iframe 将加载此地址（如 `//localhost:5601/`），子应用在 iframe 内
+   * 完整独立运行（独立 dev server + HMR），便于调试隔离场景。
+   *
+   * @since 4.0.1
+   */
+  devUrl?: string;
 }
 
 /** 子应用挂载参数（与 qiankun mountProps 对齐语义） */
@@ -167,6 +177,20 @@ export interface StartOptions {
    * @since 3.7.0
    */
   registryFetcher?: () => Promise<MicroAppEntry[]>;
+  /**
+   * P1-3: 路由激活阶段守卫。
+   *
+   * 仅作用于路由激活阶段（主应用路由跳转触发子应用 mount），
+   * 在 `permissionChecker`（仅预加载阶段）之外提供更细粒度的权限控制。
+   *
+   * 返回 `true` 允许激活; `false` 阻止激活（停留在当前应用）。
+   *
+   * 典型用途: 已登录用户在 A 应用编辑表单时跳转 B 应用，
+   * 通过 onRouteActivate 阻止并弹框提示保存。
+   *
+   * @since 4.0.1
+   */
+  onRouteActivate?: (appName: string) => boolean;
 }
 
 /**
