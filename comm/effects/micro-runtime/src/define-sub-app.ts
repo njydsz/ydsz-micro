@@ -141,6 +141,9 @@ export function defineSubApp(options: DefineSubAppOptions): SubAppLifecycle {
     standaloneContainer = '#app',
   } = options;
 
+  // 独立模式下当前运行的 Vue 应用实例（供 P1-8 HMR 重挂载复用）
+  let currentStandaloneApp: VueApp | null = null;
+
   // lifecycle hooks（微前端模式导出）
   const lifecycle: SubAppLifecycle = {
     async mount(_props) {
@@ -153,18 +156,36 @@ export function defineSubApp(options: DefineSubAppOptions): SubAppLifecycle {
   };
 
   // 独立模式自启动：不在微前端环境 + autoBootstrap=true
+  async function bootstrapStandalone(): Promise<void> {
+    if (typeof createStandaloneApp !== 'function') return;
+    try {
+      const app = await createStandaloneApp(appName);
+      currentStandaloneApp = app;
+      app.mount(standaloneContainer);
+      console.info(`[${appName}] Standalone mode bootstrapped`);
+    } catch (err) {
+      console.error(`[${appName}] Standalone bootstrap failed:`, err);
+    }
+  }
+
   if (autoBootstrap && !isMicroFrontendEnvironment(appName) && typeof createStandaloneApp === 'function') {
     // 微任务中自启动，确保模块加载完毕
-    queueMicrotask(() => {
-      void (async () => {
-        try {
-          const app = await createStandaloneApp(appName);
-          app.mount(standaloneContainer);
-          console.info(`[${appName}] Standalone mode bootstrapped`);
-        } catch (err) {
-          console.error(`[${appName}] Standalone bootstrap failed:`, err);
-        }
-      })();
+    queueMicrotask(() => void bootstrapStandalone());
+  }
+
+  // ==================== v4.0 P1-8: 子应用运行时热替换（HMR） ====================
+  // 仅 DEV 生效：生产构建中 import.meta.hot 被 Vite 剥离，此分支永不进入，零运行时开销。
+  const viteHot = (
+    import.meta as unknown as {
+      hot?: { accept: (cb: () => void | Promise<void>) => void };
+    }
+  ).hot;
+  if (viteHot) {
+    viteHot.accept(async () => {
+      currentStandaloneApp?.unmount();
+      currentStandaloneApp = null;
+      // bootstrapStandalone 内部 import 的模块已被 Vite 失效刷新，重挂载即拿到新版本
+      await bootstrapStandalone();
     });
   }
 

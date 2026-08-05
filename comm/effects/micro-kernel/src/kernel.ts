@@ -43,14 +43,17 @@ import {
 import {
   activateApp,
   createAppInstance,
+  configureKeepAlive as configureKeepAliveAction,
   deactivateApp,
   getAllInstances,
   getAppInstance,
+  getKeepAliveConfig,
+  isKeepAliveEnabled,
   resetScheduler,
   setKeepAlive,
   setupVisibilityAutoRelease,
 } from './scheduler';
-import type { GlobalStateBridge } from './scheduler';
+import type { GlobalStateBridge, KeepAliveConfig } from './scheduler';
 import { clearManifestCache, loadApp } from './loader';
 import { getVersionManager, resetVersionManager } from './version-manager';
 import { getPreloadManager, recordRouteTransition, resetPreloadManager } from './preload-strategy';
@@ -748,6 +751,31 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
     setKeepAlive(name, keep) {
       setKeepAlive(name, keep);
+    },
+
+    // === v4.0 P3-2: KeepAlive 统一配置 ===
+
+    /**
+     * 统一配置 KeepAlive 策略（v4.0 P3-2）。
+     *
+     * @example
+     * ```ts
+     * window.__MICRO_KERNEL__.configureKeepAlive({ max: 8, ttl: 10 * 60 * 1000 });
+     * window.__MICRO_KERNEL__.configureKeepAlive({ enabled: false });
+     * ```
+     */
+    configureKeepAlive(cfg: KeepAliveConfig) {
+      configureKeepAliveAction(cfg);
+    },
+
+    /** 获取当前 KeepAlive 配置快照 */
+    getKeepAliveConfig() {
+      return getKeepAliveConfig();
+    },
+
+    /** KeepAlive 当前是否启用 */
+    isKeepAliveEnabled() {
+      return isKeepAliveEnabled();
     },
 
     navigateTo(path) {

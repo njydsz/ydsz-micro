@@ -68,6 +68,9 @@ interface StandardMountProps extends Partial<StandardMicroProps> {
 
 let app: null | VueApp = null;
 
+/** 最近一次 mount 使用的 props（供 P1-8 HMR 重挂载复用） */
+let lastMountProps: StandardMountProps | undefined;
+
 /** 清理函数注册表 — 子应用 unmount 时自动调用 */
 const cleanupCallbacks = new Set<() => void | Promise<void>>();
 
@@ -206,12 +209,13 @@ async function coreMount(
  *       unmount 时自动执行所有注册的清理回调，防止内存泄漏。
  */
 export function defineSubApp(config: SubAppConfig) {
-  return {
+  const lifecycle = {
     async bootstrap() {},
     async mount(props: StandardMountProps) {
       // v4.0 P1-2: 兼容新旧两种 props 结构
       // 新结构：props 中包含 globalState / messageBus / context（由 buildStandardMountProps 构造）
       // 旧结构：props 中包含 _globalState / _messageBus（向后兼容别名）
+      lastMountProps = props;
       await coreMount(config, props);
     },
     async unmount() {
@@ -244,6 +248,33 @@ export function defineSubApp(config: SubAppConfig) {
       }
     },
   };
+
+  // ==================== v4.0 P1-8: 子应用运行时热替换（HMR） ====================
+  // 仅 DEV 生效：生产构建中 import.meta.hot 被 Vite 剥离，此分支永不进入，零运行时开销。
+  // 子应用任意模块（组件 / store / 路由 / 工具）改动时，Vite 已失效刷新对应模块，
+  // 此处自接受热更新并执行「卸载当前实例 → 基于新模块重挂载」，避免整页刷新。
+  const viteHot = (
+    import.meta as unknown as {
+      hot?: { accept: (cb: () => void | Promise<void>) => void };
+    }
+  ).hot;
+  if (viteHot) {
+    viteHot.accept(async () => {
+      try {
+        app?.unmount();
+        app = null;
+        // coreMount 内部 import 的模块已被 Vite 失效刷新，重挂载即拿到新版本
+        await coreMount(config, lastMountProps);
+        if (!import.meta.env.PROD) {
+          console.info(`[${config.appName}] HMR remount done`);
+        }
+      } catch (err) {
+        console.error(`[${config.appName}] HMR remount failed:`, err);
+      }
+    });
+  }
+
+  return lifecycle;
 }
 
 /**

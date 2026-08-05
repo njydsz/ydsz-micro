@@ -112,16 +112,104 @@ let keepAliveTTL = 30 * 60 * 1_000;
 /** 保活缓存创建时间戳序列（严格递增，用作 keepAliveSince 取值） */
 let keepAliveTimestamp = 1;
 
+// ==================== P3-2: KeepAlive 统一配置 ====================
+
 /**
- * 设置保活实例数上限。
+ * KeepAlive 策略配置（P3-2: KeepAlive 策略简化与统一配置）。
  *
- * 频繁切换 9 个子应用时，keep-alive 会持续累积 DOM + Vue 实例 + Pinia store + ECharts 实例，
- * 可能导致内存涨到 500MB+。设置上限后，超限的保活实例按 LRU 策略完整卸载释放内存。
+ * 通过单一对象管理全部保活相关参数，取代此前分散的 setter：
+ * - `setMaxKeepAliveApps(n)` → `configureKeepAlive({ max: n })`
+ * - `setKeepAliveTTL(ms)` → `configureKeepAlive({ ttl: ms })`
+ * - `setKeepAliveEnabled(b)` → `configureKeepAlive({ enabled: b })`
+ *
+ * @since 4.0.0
+ */
+export interface KeepAliveConfig {
+  /**
+   * 是否启用保活。
+   *
+   * - `true`（默认）：LRU 保活，超出上限时淘汰
+   * - `false`：禁用保活，每次切换都完整卸载/加载子应用
+   */
+  enabled?: boolean;
+  /** 最大保活实例数（超出触发 LRU 淘汰）。默认 5，设为 0 禁用 LRU */
+  max?: number;
+  /**
+   * 保活 TTL（毫秒）。
+   *
+   * 超出 TTL 的保活实例可能被淘汰。默认 30 分钟，0 禁用 TTL 保护。
+   */
+  ttl?: number;
+}
+
+/** 当前 keep-alive 是否启用（v4.0 P3-2 新增统一配置项） */
+let keepAliveEnabled = true;
+
+/**
+ * 统一配置 KeepAlive 策略（v4.0 P3-2）。
+ *
+ * 单一入口取代此前分散的 setMaxKeepAliveApps / setKeepAliveTTL。
+ * 传入部分字段时，未传字段保持当前值。
+ *
+ * @param config - KeepAlive 策略配置
+ *
+ * @example
+ * ```ts
+ * import { configureKeepAlive } from '@remi/micro-kernel';
+ *
+ * // 调整上限与 TTL
+ * configureKeepAlive({ max: 8, ttl: 10 * 60 * 1000 });
+ *
+ * // 完全禁用保活
+ * configureKeepAlive({ enabled: false });
+ *
+ * // 查询当前配置
+ * const cfg = getKeepAliveConfig();
+ * console.log(cfg); // { enabled: true, max: 5, ttl: 1800000 }
+ * ```
+ */
+export function configureKeepAlive(config: KeepAliveConfig): void {
+  if (typeof config.enabled === 'boolean') {
+    keepAliveEnabled = config.enabled;
+  }
+  if (typeof config.max === 'number') {
+    maxKeepAliveApps = Math.max(0, config.max);
+  }
+  if (typeof config.ttl === 'number') {
+    keepAliveTTL = Math.max(0, config.ttl);
+  }
+}
+
+/**
+ * 获取当前 KeepAlive 配置快照（v4.0 P3-2）。
+ *
+ * @returns 当前生效的 enabled / max / ttl 配置
+ */
+export function getKeepAliveConfig(): Required<KeepAliveConfig> {
+  return {
+    enabled: keepAliveEnabled,
+    max: maxKeepAliveApps,
+    ttl: keepAliveTTL,
+  };
+}
+
+/**
+ * v3.7.0: 判断 keepAlive 当前是否启用。
+ */
+export function isKeepAliveEnabled(): boolean {
+  return keepAliveEnabled;
+}
+
+// ==================== KeepAlive 配置设置器（P3-2: 委托给统一 configureKeepAlive） ====================
+
+/**
+ * 设置保活实例数上限（v3.x 兼容 API）。
  *
  * @param max - 最大保活实例数（设为 0 禁用 LRU 淘汰）
+ * @deprecated 自 v4.0 起使用 `configureKeepAlive({ max })` 替代
  */
 export function setMaxKeepAliveApps(max: number): void {
-  maxKeepAliveApps = max;
+  configureKeepAlive({ max });
 }
 
 const appInstances = new Map<string, AppInstance>();
@@ -262,8 +350,8 @@ export async function activateApp(
 
   if (instance.status === 'MOUNTED') return;
 
-  // keepAlive 复用
-  if (instance.keepAlive && instance.cachedRoot && instance.cachedParent) {
+  // keepAlive 复用（需同时满足全局启用 + 实例级启用 + 缓存存在）
+  if (keepAliveEnabled && instance.keepAlive && instance.cachedRoot && instance.cachedParent) {
     // === ADR-006: kernel:activate 标记（keep-alive 恢复路径）===
     performance.mark(`kernel:activate:${config.name}:start`);
     container.appendChild(instance.cachedRoot);
@@ -428,7 +516,7 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
     return { name: config.name, success: true };
   }
 
-  if (instance.keepAlive) {
+  if (keepAliveEnabled && instance.keepAlive) {
     const container = resolveContainer(config.container);
     if (container) {
       // === ADR-006: kernel:deactivate 标记 ===
@@ -560,17 +648,19 @@ export function setPinnedApp(name: string, pin: boolean): void {
 }
 
 /**
- * v3.7.0: 设置保活 TTL（全局）。
+ * 设置保活 TTL（全局）（v3.x 兼容 API）。
  *
  * @param ttlMs - TTL（毫秒），0 表示禁用 TTL 保护
+ * @deprecated 自 v4.0 起使用 `configureKeepAlive({ ttl })` 替代
  * @since 3.7.0
  */
 export function setKeepAliveTTL(ttlMs: number): void {
-  keepAliveTTL = Math.max(0, ttlMs);
+  configureKeepAlive({ ttl: ttlMs });
 }
 
 /**
  * v3.7.0: 获取当前保活 TTL（毫秒）。
+ * @deprecated 自 v4.0 起使用 `getKeepAliveConfig().ttl` 替代
  */
 export function getKeepAliveTTL(): number {
   return keepAliveTTL;

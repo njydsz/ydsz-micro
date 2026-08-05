@@ -43,6 +43,9 @@ export type {
 export { getRoutePredictor, resetRoutePredictor } from './route-predictor';
 export type { Prediction } from './route-predictor';
 export {
+  configureKeepAlive,
+  getKeepAliveConfig,
+  isKeepAliveEnabled,
   evictAllKeepAliveOnMemoryPressure,
   getAllInstances,
   getAppInstance,
@@ -54,6 +57,7 @@ export {
   setPinnedApp,
   setupVisibilityAutoRelease,
 } from './scheduler';
+export type { KeepAliveConfig } from './scheduler';
 // v3.6.0: 公开 GlobalStateBridge 类型，供外部扩展沙箱时使用
 export type { GlobalStateBridge } from './scheduler';
 // P0-P2: 公开 DeactivateResult 类型，供调用方感知 LRU 淘汰
@@ -73,6 +77,14 @@ export type { IframeSandboxInstance } from './iframe-sandbox';
 export type { SandboxType } from './scheduler';
 export type { VersionUpdateResult, VersionManagerOptions } from './version-manager';
 export type { ErrorFallbackMessages } from './error-boundary';
+// v4.0 P3-1: 沙箱策略统一接口（snapshot / proxy / iframe 三模式抽象）
+export {
+  createSandboxStrategy,
+  SnapshotSandboxStrategy,
+  ProxySandboxStrategy,
+  IframeSandboxStrategy,
+} from './sandbox-strategy';
+export type { SandboxStrategy } from './sandbox-strategy';
 // v3.3: 公开 Manifest 类型供主应用容器读取 routes 配置（骨架屏细化）
 export type { LoadOptions, LoadResult, Manifest, ManifestRoute } from './loader';
 // v3.7.0: 远程注册表适配器 — 支持运行时拉取子应用配置

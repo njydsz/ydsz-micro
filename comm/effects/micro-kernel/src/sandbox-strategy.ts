@@ -8,7 +8,7 @@
  * **设计原则**：
  * - 接口只抽象三种沙箱共有的生命周期行为（mount/unmount/activate/cleanup）
  * - 各沙箱特有能力（如 iframe 的 postMessage 桥、proxy 的 fakeWindow）
- *   ——保留在各自实例中，需要时通过 `as` 断言访问
+ *   —— 保留在各自适配器中，需要时通过类型断言访问
  * - 创建逻辑保留在各自的 create 函数中（sandbox.ts / proxy-sandbox.ts / iframe-sandbox.ts）
  *
  * **落地收益**：
@@ -22,18 +22,21 @@
  * @since 4.0.0
  */
 
+import { enterSandbox, exitSandbox } from './sandbox';
 import type { SandboxInstance } from './sandbox';
+import { createProxySandbox } from './proxy-sandbox';
 import type { ProxySandboxInstance } from './proxy-sandbox';
+import { createIframeSandbox } from './iframe-sandbox';
 import type { IframeSandboxInstance } from './iframe-sandbox';
 
 /**
  * 沙箱公共生命周期操作。
  *
  * 三种沙箱模式必须实现的契约：
- * - mount: 进入沙箱（快照恢复、fakeWindow 切换、iframe 激活等）
- * - unmount: 退出沙箱（清理副作用、还原 window、detach 等）
- * - activate: keep-alive 恢复时的轻量激活（非 mount）
- * - cleanup: 完全释放资源（一般仅用于应用被卸载销毁）
+ * - mount: 进入沙箱（快照恢复、iframe 激活等）
+ * - unmount: 退出沙箱（清理副作用、还原 window 等）
+ * - activate: keep-alive 恢复时的轻量激活（DOM 节点重新挂载时）
+ * - cleanup: 完全释放资源（应用被卸载销毁时）
  */
 export interface SandboxStrategy {
   /** 沙箱类型标识 */
@@ -53,33 +56,20 @@ export interface SandboxStrategy {
 /**
  * 快照沙箱适配器。
  *
- * 将 sandbox.ts 的 enterSandbox/exitSandbox 内部过程封装为 SandboxStrategy。
- *
- * 注意：快照沙箱的 mount/unmount 实际上是创建和销毁 SandboxInstance，
- * 所以此适配器在 mount 时 enter、unmount 时 exit。
+ * 将 sandbox.ts 的 enterSandbox/exitSandbox 封装为 SandboxStrategy。
+ * mount 时 enter，unmount 时 exit。
  */
 export class SnapshotSandboxStrategy implements SandboxStrategy {
   readonly type = 'snapshot' as const;
 
   private sandbox: SandboxInstance | null = null;
-  private readonly onSnapshotTaken?: (sandbox: SandboxInstance) => void;
-
-  constructor(onSnapshotTaken?: (sandbox: SandboxInstance) => void) {
-    this.onSnapshotTaken = onSnapshotTaken;
-  }
 
   mount(): void {
-    // 延迟导入避免循环依赖
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { enterSandbox } = require('./sandbox') as typeof import('./sandbox');
     this.sandbox = enterSandbox();
-    this.onSnapshotTaken?.(this.sandbox);
   }
 
   unmount(): void {
     if (!this.sandbox) return;
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { exitSandbox } = require('./sandbox') as typeof import('./sandbox');
     exitSandbox(this.sandbox);
     this.sandbox = null;
   }
@@ -92,16 +82,11 @@ export class SnapshotSandboxStrategy implements SandboxStrategy {
   cleanup(): void {
     this.unmount();
   }
-}
 
-/**
- * 快照沙箱的 SandboxInstance（对外暴露给需要直接访问 snapshot 数据的场景）。
- *
- * 当 scheduler 需要读取 windowSnapshot 做自定义清理时，
- * 可使用 `strategy.unwrap()` 获取内部实例。
- */
-export interface SnapshotSandboxAccess {
-  getSandboxInstance(): SandboxInstance | null;
+  /** 获取内部 SandboxInstance（供需要直接访问 snapshot 的场景） */
+  getSandboxInstance(): SandboxInstance | null {
+    return this.sandbox;
+  }
 }
 
 /**
@@ -206,28 +191,22 @@ export class IframeSandboxStrategy implements SandboxStrategy {
  * @param type - 沙箱类型
  * @param appName - 应用名（传递给底层 create 函数）
  * @param parentEl - 父容器（iframe 沙箱需要）
- * @param onSnapshotTaken - 快照沙箱快照完成后的回调
  * @returns 统一的 SandboxStrategy 实例
  */
 export function createSandboxStrategy(
   type: 'snapshot' | 'proxy' | 'iframe',
   appName: string,
   parentEl: HTMLElement,
-  onSnapshotTaken?: (sandbox: SandboxInstance) => void,
 ): SandboxStrategy {
-  if (type === 'snapshot') {
-    return new SnapshotSandboxStrategy(onSnapshotTaken);
+  switch (type) {
+    case 'snapshot':
+      return new SnapshotSandboxStrategy();
+    case 'proxy':
+      return new ProxySandboxStrategy(createProxySandbox(appName));
+    case 'iframe':
+      return new IframeSandboxStrategy(createIframeSandbox(appName, parentEl));
+    default:
+      // 回退到快照沙箱
+      return new SnapshotSandboxStrategy();
   }
-
-  if (type === 'proxy') {
-    // 动态导入避免循环依赖
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { createProxySandbox } = require('./proxy-sandbox') as typeof import('./proxy-sandbox');
-    return new ProxySandboxStrategy(createProxySandbox(appName));
-  }
-
-  // iframe
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { createIframeSandbox } = require('./iframe-sandbox') as typeof import('./iframe-sandbox');
-  return new IframeSandboxStrategy(createIframeSandbox(appName, parentEl));
 }
