@@ -440,18 +440,22 @@ export function createIframeSandbox(
         return;
       }
       try {
+        // 使用 thenable 判定替代 (as Promise) 断言，兼容任意 thenable 返回值
         const result = handler(...payload.args);
-        if (result && typeof (result as Promise<unknown>).then === 'function') {
-          (result as Promise<unknown>)
-            .then((value) => respond(true, value))
-            .catch((err) =>
-              respond(false, undefined, String(err?.message || err)),
-            );
+        if (result && typeof (result as { then?: unknown }).then === 'function') {
+          Promise.resolve(result).then(
+            (value) => respond(true, value),
+            (err) => respond(false, undefined, String(err?.message || err)),
+          );
         } else {
           respond(true, result);
         }
       } catch (error) {
-        respond(false, undefined, String((error as Error)?.message || error));
+        respond(
+          false,
+          undefined,
+          String(error instanceof Error ? error.message : error),
+        );
       }
     }
   };
@@ -549,8 +553,10 @@ export function createIframeSandbox(
       contentWindow.postMessage(message, '*');
       // 超时保护：30s 未响应视为失败
       setTimeout(() => {
-        if (pendingRpcs.delete(callId)) {
-          reject(new Error(`[IframeSandbox:${appName}] RPC timeout: ${method}`));
+        const pending = pendingRpcs.get(callId);
+        if (pending) {
+          pendingRpcs.delete(callId);
+          pending.reject(new Error(`[IframeSandbox:${appName}] RPC timeout: ${method}`));
         }
       }, 30_000);
       return promise;

@@ -15,7 +15,7 @@
 
 import type { LifecycleExports, MicroAppConfig } from '@remi/micro-runtime';
 import { createLogger } from '@remi-core/shared/utils';
-import { retryOperation, calculateRetryDelay } from '@remi-core/shared/utils/retry';
+import { retryOperation } from './retry';
 import { injectModulePreload, preloadAppAssets } from './link-hints';
 import { KernelError, KernelErrorCode } from './error-boundary';
 

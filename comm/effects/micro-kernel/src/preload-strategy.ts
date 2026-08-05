@@ -212,6 +212,17 @@ export class PreloadManager {
   }
 
   /**
+   * P2-7: 获取所有应用使用统计（供 DevTools 面板可视化）。
+   *
+   * @returns 按访问频率降序排列的应用统计数组
+   * @since 4.1.0
+   */
+  getAllUsageStats(): AppUsageStats[] {
+    return Array.from(this.usageStats.values())
+      .sort((a, b) => b.visitCount - a.visitCount);
+  }
+
+  /**
    * 检查应用是否有权限预加载
    *
    * @param appName - 应用名称
@@ -481,6 +492,24 @@ export function getPreloadManager(): PreloadManager {
 export function resetPreloadManager(): void {
   preloadManagerInstance?.destroy();
   preloadManagerInstance = null;
+}
+
+/**
+ * P0-A1: 创建 preload-strategy 生命周期管理器。
+ *
+ * 销毁预加载策略单例（含 MutationObserver / visibility 监听器），
+ * 纳入 ManagerRegistry 统一释放。
+ *
+ * @since 4.1.0
+ */
+export function createPreloadManager(): import('./manager-registry').DisposableManager {
+  return {
+    name: 'preload-strategy',
+    dispose(): void {
+      preloadManagerInstance?.destroy();
+      preloadManagerInstance = null;
+    },
+  };
 }
 
 /**

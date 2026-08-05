@@ -41,46 +41,46 @@ describe('MicroAppEntry Schema Contract', () => {
 
   it('每个 MicroAppEntry 必填字段存在且类型正确', () => {
     for (const app of MICRO_APPS) {
-      expect(typeof app.name, `name 必须是 string for ${app.name}`).toBe('string');
-      expect(app.name, 'name 不能为空').not.toBe('');
-      expect(typeof app.packageName, `packageName 必须是 string for ${app.name}`).toBe('string');
-      expect(typeof app.activeRule, `activeRule 必须是 string for ${app.name}`).toBe('string');
-      expect(typeof app.redirect, `redirect 必须是 string for ${app.name}`).toBe('string');
-      expect(typeof app.title, `title 必须是 string for ${app.name}`).toBe('string');
-      expect(typeof app.icon, `icon 必须是 string for ${app.name}`).toBe('string');
-      expect(typeof app.order, `order 必须是 number for ${app.name}`).toBe('number');
-      expect(typeof app.devPort, `devPort 必须是 number for ${app.name}`).toBe('number');
+      expect(typeof app.name).toBe('string');
+      expect(app.name).not.toBe('');
+      expect(typeof app.packageName).toBe('string');
+      expect(typeof app.activeRule).toBe('string');
+      expect(typeof app.redirect).toBe('string');
+      expect(typeof app.title).toBe('string');
+      expect(typeof app.icon).toBe('string');
+      expect(typeof app.order).toBe('number');
+      expect(typeof app.devPort).toBe('number');
     }
   });
 
   it('所有 MicroAppEntry.name 唯一', () => {
     const names = MICRO_APPS.map((a) => a.name);
     const unique = new Set(names);
-    expect(unique.size, `name 出现重复: ${names.join(', ')}').toBe(names.length);
+    expect(unique.size).toBe(names.length);
   });
 
   it('所有 MicroAppEntry.activeRule 唯一（activeRule 是路由锚点）', () => {
     const rules = MICRO_APPS.map((a) => a.activeRule);
     const unique = new Set(rules);
-    expect(unique.size, `activeRule 出现重复: ${rules.join(', ')}`).toBe(rules.length);
+    expect(unique.size).toBe(rules.length);
   });
 
   it('所有 MicroAppEntry.devPort 唯一（本地开发端口冲突会引发 dev 故障）', () => {
     const ports = MICRO_APPS.map((a) => a.devPort);
     const unique = new Set(ports);
-    expect(unique.size, `devPort 出现重复: ${ports.join(', ')}`).toBe(ports.length);
+    expect(unique.size).toBe(ports.length);
   });
 
   it('packageName 必须是合法的 npm scope 包名 (@remi/...-web)', () => {
     const re = /^@remi\/[a-z][a-z0-9-]*-web$/;
     for (const app of MICRO_APPS) {
-      expect(re.test(app.packageName), `packageName "${app.packageName}" 不符合 @remi/<name>-web 约定`).toBe(true);
+      expect(re.test(app.packageName)).toBe(true);
     }
   });
 
   it('order 排序与 MICRO_APPS 声明顺序一致（菜单展示顺序依赖）', () => {
     for (let i = 1; i < MICRO_APPS.length; i++) {
-      expect(MICRO_APPS[i]!.order, `order 顺序错位: ${MICRO_APPS[i]?.name}(${MICRO_APPS[i]?.order}) 应在 ${MICRO_APPS[i - 1]?.name}(${MICRO_APPS[i - 1]?.order}) 之后`).toBeGreaterThan(MICRO_APPS[i - 1]!.order);
+      expect(MICRO_APPS[i]!.order).toBeGreaterThan(MICRO_APPS[i - 1]!.order);
     }
   });
 });
@@ -339,7 +339,7 @@ describe('Sandbox Type Contract', () => {
     const valid = new Set(['snapshot', 'proxy', 'iframe', undefined]);
 
     for (const app of MICRO_APPS) {
-      expect(valid.has(app.sandbox), `sandbox "${(app as any).sandbox}" 非法 (${app.name})`).toBe(true);
+      expect(valid.has(app.sandbox)).toBe(true);
     }
   });
 });
@@ -353,13 +353,13 @@ describe('Path-to-App Map Consistency', () => {
     const { MICRO_APPS, PATH_TO_APP_MAP } = await import('@remi/vite-config');
 
     for (const app of MICRO_APPS) {
-      expect(PATH_TO_APP_MAP[app.activeRule], `PATH_TO_APP_MAP 缺少 activeRule "${app.activeRule}"`).toBe(app.name);
+      expect(PATH_TO_APP_MAP[app.activeRule]).toBe(app.name);
     }
 
     // 反向：PATH_TO_APP_MAP 的所有值都在 MICRO_APPS 中
     const appNames = new Set(MICRO_APPS.map((a) => a.name));
     for (const [rule, name] of Object.entries(PATH_TO_APP_MAP)) {
-      expect(appNames.has(name), `PATH_TO_APP_MAP["${rule}"]=${name} 不在 MICRO_APPS 中`).toBe(true);
+      expect(appNames.has(name)).toBe(true);
     }
   });
 
@@ -367,8 +367,8 @@ describe('Path-to-App Map Consistency', () => {
     const { MICRO_APPS, APP_BY_NAME } = await import('@remi/vite-config');
 
     for (const app of MICRO_APPS) {
-      expect(APP_BY_NAME[app.name], `APP_BY_NAME 缺少 ${app.name}`).toBeDefined();
-      expect(APP_BY_NAME[app.name]!.name, `${app.name} 反查不一致`).toBe(app.name);
+      expect(APP_BY_NAME[app.name]).toBeDefined();
+      expect(APP_BY_NAME[app.name]!.name).toBe(app.name);
     }
 
     expect(Object.keys(APP_BY_NAME)).toHaveLength(MICRO_APPS.length);

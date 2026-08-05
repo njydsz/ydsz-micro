@@ -268,6 +268,23 @@ export function setRetryCount(appName: string, count: number): void {
 }
 
 /**
+ * P0-A1: 创建 error-boundary 生命周期管理器。
+ *
+ * 清空降级集合 + 重试计数器。
+ *
+ * @since 4.1.0
+ */
+export function createErrorBoundaryManager(): import('./manager-registry').DisposableManager {
+  return {
+    name: 'error-boundary',
+    dispose(): void {
+      degradedApps.clear();
+      retryCounters.clear();
+    },
+  };
+}
+
+/**
  * 获取自动重试退避延迟（ms）。
  *
  * 第 n 次退避：baseDelay * 2^n + jitter，用于 CDN 偶发故障恢复。

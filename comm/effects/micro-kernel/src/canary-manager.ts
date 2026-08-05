@@ -17,9 +17,22 @@
  */
 
 import { createLogger } from '@remi-core/shared/utils';
-import { satisfiesVersion } from '@remi/micro-runtime/semver';
+import { satisfiesVersion } from '@remi-core/shared/semver';
 
 const logger = createLogger('Canary');
+
+/**
+ * 灰度分流模式（P3-2 新增）。
+ *
+ * - `advanced`（默认）：完整分流 — 白名单 + forceTag + 按 userId FNV-1a 哈希百分比命中。
+ *   适用于多 canary 版本并行、按用户百分比精细放量的复杂场景。
+ * - `simple`：轻量分流 — 仅支持 forceTag / 全局开关，不做按用户哈希的百分比命中。
+ *   适用于"一键切 canary / 快速回滚"或灰度配置只有单一 canary 版本的场景，
+ *   显著降低决策成本并避免哈希不确定性。
+ *
+ * @since 4.1.0
+ */
+export type CanaryMode = 'simple' | 'advanced';
 
 /** 灰度标签 */
 export type CanaryTag = 'stable' | 'canary' | 'beta' | 'alpha';
@@ -55,6 +68,13 @@ export interface CanaryAppConfig {
 export interface CanaryGlobalConfig {
   /** 全局开关 */
   enabled: boolean;
+  /**
+   * 分流模式（P3-2）。
+   *
+   * - `advanced`（默认）：完整 FNV-1a 哈希百分比分流
+   * - `simple`：轻量 forceTag 分流，不做按用户哈希命中
+   */
+  mode?: CanaryMode;
   /** 灰度用户白名单（命中即走 canary） */
   whitelistUserIds: string[];
   /** 灰度命中后强制指定 tag */
@@ -126,7 +146,7 @@ class CanaryManager {
     try {
       const cached = localStorage.getItem(localKey);
       if (cached) {
-        this.config = { ...DEFAULT_CONFIG, ...JSON.parse.cached) };
+        this.config = { ...DEFAULT_CONFIG, ...JSON.parse(cached) as Partial<CanaryGlobalConfig> };
         logger.info('Canary config loaded from localStorage cache');
       }
     } catch { /* noop */ }
@@ -197,13 +217,39 @@ class CanaryManager {
   }
 
   /**
+   * 当前分流模式（P3-2）。
+   *
+   * 从 config.mode 读取，未配置时回退到 advanced（保持向后兼容）。
+   */
+  getMode(): CanaryMode {
+    return this.config.mode ?? 'advanced';
+  }
+
+  /**
+   * 运行时切换分流模式（P3-2）。
+   *
+   * 允许在 simple / advanced 之间切换，无需重新 init。
+   *
+   * @param mode - 目标模式
+   */
+  setMode(mode: CanaryMode): void {
+    this.config = { ...this.config, mode };
+    logger.info(`Canary mode set to "${mode}"`);
+  }
+
+  /**
    * 核心分流决策。
    *
-   * 决策流程：
+   * **advanced 模式**（默认）决策流程：
    * 1. 灰度关闭 → 直接返回 stable
    * 2. 用户在白名单 → 强制命中 canary（或 forceTag 指定版本）
-   * 3. 按 userId 哈希 < canary.percentage → 命中 canary
+   * 3. 按 userId FNV-1a 哈希 < canary.percentage → 命中 canary
    * 4. 否则 → stable
+   *
+   * **simple 模式**决策流程（P3-2）：
+   * 1. 灰度关闭 → 直接返回 stable
+   * 2. 存在 forceTag → 强制返回指定 tag 版本
+   * 3. 否则 → stable（不做按用户哈希命中）
    *
    * @param appName - 子应用名
    * @param user - 用户上下文
@@ -218,7 +264,21 @@ class CanaryManager {
 
     const allVersions = [appConfig.stable, ...appConfig.canaries.filter((c) => !c.disabled)];
     const whitelisted = !!user?.userId && this.config.whitelistUserIds.includes(user.userId);
+    const mode = this.getMode();
 
+    // ===== simple 模式：轻量 forceTag 分流（forceTag 对全体用户全局生效） =====
+    if (mode === 'simple') {
+      if (this.config.forceTag) {
+        const forced = allVersions.find((v) => v.tag === this.config.forceTag);
+        if (forced) {
+          return { appName, resolved: forced, tag: forced.tag, whitelisted };
+        }
+      }
+      // simple 模式无 forceTag → 直接回退 stable
+      return { appName, resolved: appConfig.stable, tag: 'stable', whitelisted };
+    }
+
+    // ===== advanced 模式：白名单 + forceTag + 百分比哈希 =====
     // 白名单命中 → 强制返回指定 tag
     if (whitelisted && this.config.forceTag) {
       const forced = allVersions.find((v) => v.tag === this.config.forceTag);
@@ -294,4 +354,21 @@ export function getCanaryManager(): CanaryManager {
 export function resetCanaryManager(): void {
   instance?.resetAutoRefresh();
   instance = null;
+}
+
+/**
+ * P0-A1: 创建 canary-manager 生命周期管理器。
+ *
+ * 停止 canary 定时刷新 + 清理分流缓存。
+ *
+ * @since 4.1.0
+ */
+export function createCanaryManager(): import('./manager-registry').DisposableManager {
+  return {
+    name: 'canary-manager',
+    dispose(): void {
+      instance?.resetAutoRefresh();
+      instance = null;
+    },
+  };
 }

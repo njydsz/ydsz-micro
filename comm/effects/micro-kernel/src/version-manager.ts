@@ -362,3 +362,20 @@ export function resetVersionManager(): void {
   versionManagerInstance?.destroy();
   versionManagerInstance = null;
 }
+
+/**
+ * P0-A1: 创建 version-manager 生命周期管理器。
+ *
+ * 停止 checkInterval 定时器 + 清空版本缓存/entries。
+ *
+ * @since 4.1.0
+ */
+export function createVersionManager(): import('./manager-registry').DisposableManager {
+  return {
+    name: 'version-manager',
+    dispose(): void {
+      versionManagerInstance?.destroy();
+      versionManagerInstance = null;
+    },
+  };
+}

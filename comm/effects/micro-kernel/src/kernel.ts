@@ -18,27 +18,21 @@
  */
 
 import type {
-  ErrorLifecycleHook,
-  LifecycleHook,
-  LifecycleHookName,
   MicroAppConfig,
   MicroAppEntry,
   MicroRuntime,
   MountProps,
-  RawGlobalStateAPI,
   StartOptions,
 } from '@remi/micro-runtime';
 import { clearRegistryCache, resolveAppEntry, resolveRegistry } from './registry-adapter';
 
 import {
-  clearDegraded,
   decideDegradationLevel,
   getRetryCount,
   getNextAutoRetryDelay,
   isDegraded,
   markDegraded,
   renderErrorFallback,
-  resetRetryCount,
   setRetryCount,
 } from './error-boundary';
 import {
@@ -50,25 +44,19 @@ import {
   getAppInstance,
   getKeepAliveConfig,
   isKeepAliveEnabled,
-  resetScheduler,
   setKeepAlive,
   setupVisibilityAutoRelease,
   updateAppProps,
 } from './scheduler';
 import type { GlobalStateBridge, KeepAliveConfig } from './scheduler';
 import { clearManifestCache, loadApp } from './loader';
-import { getVersionManager, resetVersionManager } from './version-manager';
-import { getPreloadManager, recordRouteTransition, resetPreloadManager } from './preload-strategy';
-import { getRoutePredictor, resetRoutePredictor } from './route-predictor';
-import { getCanaryManager } from './canary-manager';
+import { getPreloadManager, recordRouteTransition } from './preload-strategy';
 import { preloadManifest } from './link-hints';
 import { createLogger } from '@remi-core/shared/utils';
-import { applyPrefetchBoost, removeSpeculationRules } from './speculation-rules';
-import type { MicroAppEntry } from '@remi/micro-runtime';
+import { applyPrefetchBoost } from './speculation-rules';
 import { createNamespacedGlobalStateWrapper } from '@remi/micro-runtime/namespaced-state';
 import { buildStandardMountProps } from '@remi/micro-runtime/standard-props';
 import {
-  clearPendingRequests,
   registerAppMessageHandler,
   sendMessage,
   sendRequest,
@@ -76,8 +64,21 @@ import {
 } from './message-broker';
 import { createManagerRegistry } from './manager-registry';
 import type { ManagerRegistry } from './manager-registry';
-import { createSchedulerManager } from './scheduler';
-import { mark, measure, clearKernelMarks } from './performance-utils';
+import {
+  createSchedulerManager,
+  createVersionManager,
+  createPreloadManager,
+  createCanaryManager,
+  createRoutePredictorManager,
+  createMessageBrokerManager,
+  createPerformanceManager,
+  createSpeculationRulesManager,
+  createErrorBoundaryManager,
+  createDevToolsManager,
+} from './kernel-managers';
+import { mark, measure } from './performance-utils';
+import { createGlobalStateAPI } from './global-state';
+import { createLifecycleHookRegistry } from './lifecycle-hooks';
 import {
   ROUTE_CHANGE_EVENT,
   resolveContainer,
@@ -125,78 +126,16 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
   // ==================== 全局通信 (globalState) ====================
 
-  /** 全局状态存储 */
-  let _globalState: Record<string, unknown> = {};
-  const _globalStateListeners = new Set<(state: Record<string, unknown>, prev: Record<string, unknown>) => void>();
-
   /**
-   * micro-kernel 内置的 RawGlobalStateAPI 实现。
+   * micro-kernel 内置的 RawGlobalStateAPI 实现（从 global-state.ts 提取）。
    * 不依赖 qiankun initGlobalState，纯内存 pub-sub。
    * 注入子应用 mountProps 后，子应用可通过 {@link createGlobalStateHandle} 消费。
    */
-  const globalStateAPI: RawGlobalStateAPI = {
-    onGlobalStateChange(listener, fireImmediately) {
-      _globalStateListeners.add(listener);
-      if (fireImmediately) {
-        try { listener({ ..._globalState }, {}); } catch { /* 静默 */ }
-      }
-      // 返回取消订阅函数，防止内存泄漏
-      return () => {
-        _globalStateListeners.delete(listener);
-      };
-    },
-    setGlobalState(patch) {
-      // === ADR-006: kernel:state 标记 ===
-      const stateKeys = Object.keys(patch).join(',');
-      mark(`kernel:state:${stateKeys}`);
-      const prev = { ..._globalState };
-      Object.assign(_globalState, patch);
-      // P1-5: 增量广播 — 仅将变化的 key/value 传给监听器
-      for (const listener of _globalStateListeners) {
-        try { listener(patch, prev); } catch { /* 静默 */ }
-      }
-    },
-    getGlobalState() {
-      return { ..._globalState };
-    },
-  };
+  const globalStateAPI = createGlobalStateAPI();
 
   // ==================== 生命周期钩子 ====================
 
-  const lifecycleHooks = new Map<string, Array<LifecycleHook | ErrorLifecycleHook>>();
-
-  function addLifecycleHook(
-    hookName: LifecycleHookName,
-    hook: ErrorLifecycleHook | LifecycleHook,
-  ): () => void {
-    if (!lifecycleHooks.has(hookName)) {
-      lifecycleHooks.set(hookName, []);
-    }
-    lifecycleHooks.get(hookName)!.push(hook);
-
-    return () => {
-      const list = lifecycleHooks.get(hookName);
-      if (!list) return;
-      const idx = list.indexOf(hook);
-      if (idx >= 0) list.splice(idx, 1);
-    };
-  }
-
-  async function runHooks(hookName: LifecycleHookName, app: MicroAppConfig): Promise<void> {
-    for (const hook of lifecycleHooks.get(hookName) || []) {
-      await (hook as LifecycleHook)(app);
-    }
-  }
-
-  async function runErrorHooks(app: MicroAppConfig, error: unknown): Promise<void> {
-    for (const hook of lifecycleHooks.get('error') || []) {
-      try {
-        await (hook as ErrorLifecycleHook)(app, error);
-      } catch {
-        /* 错误钩子内部的错误不应影响后续钩子 */
-      }
-    }
-  }
+  const lifecycleHooks = createLifecycleHookRegistry();
 
   // ==================== 路由同步 + 应用切换 ====================
 
@@ -261,7 +200,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     // 派发 before-load 事件，触发骨架屏显示
     window.dispatchEvent(new CustomEvent('micro-kernel:before-load', { detail: { appName: config.name } }));
 
-    await runHooks('beforeLoad', config);
+    await lifecycleHooks.run('beforeLoad', config);
     if (token !== switchToken) return;
 
     const container = resolveContainer(config.container);
@@ -284,7 +223,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         // v3.3: 细化生命周期 — 加载完成后触发 afterLoad 钩子与事件
         onLoaded: (inst) => {
           if (token !== switchToken) return;
-          void runHooks('afterLoad', inst.config);
+          void lifecycleHooks.run('afterLoad', inst.config);
           window.dispatchEvent(
             new CustomEvent('micro-kernel:after-load', { detail: { appName: inst.config.name } }),
           );
@@ -292,7 +231,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         // v3.3: 细化生命周期 — mount 之前触发 beforeMount 钩子与事件
         onBeforeMount: (inst) => {
           if (token !== switchToken) return;
-          void runHooks('beforeMount', inst.config);
+          void lifecycleHooks.run('beforeMount', inst.config);
           window.dispatchEvent(
             new CustomEvent('micro-kernel:before-mount', { detail: { appName: inst.config.name } }),
           );
@@ -318,7 +257,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
           `kernel:route:${fromApp}→${config.name}:end`,
         );
       }
-      await runHooks('afterMount', config);
+      await lifecycleHooks.run('afterMount', config);
 
       // 派发 after-mount 事件，触发骨架屏隐藏
       window.dispatchEvent(new CustomEvent('micro-kernel:after-mount', { detail: { appName: config.name } }));
@@ -356,7 +295,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       window.dispatchEvent(new CustomEvent('micro-kernel:error', { detail: { appName: config.name, error: String(err) } }));
 
       // 触发 error 生命周期钩子（供 SubAppContainer 等订阅方使用）
-      await runErrorHooks(config, err);
+      await lifecycleHooks.runError(config, err);
 
       if (activeAppName === config.name) {
         activeAppName = null;
@@ -627,7 +566,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         return { name, success: false, reason: 'App not registered' };
       }
 
-      await runHooks('afterUnmount', instance.config);
+      await lifecycleHooks.run('afterUnmount', instance.config);
 
       const result = await deactivateApp(instance);
       if (activeAppName === name) activeAppName = null;
@@ -669,6 +608,46 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       }
     },
 
+    /**
+     * P2-1: 批量更新所有已挂载子应用的 props。
+     *
+     * 适用于"一键切换"场景：
+     * - 主题切换：{ theme: 'dark' }
+     * - 租户切换：{ tenantId: 'new-tenant' }
+     * - 语言切换：{ locale: 'en-US' }
+     *
+     * 每个已挂载子应用的 update 生命周期被调用；未挂载应用静默跳过。
+     * 若子应用未定义 update 方法则静默忽略（兼容旧子应用）。
+     *
+     * @param newProps - 新挂载 props（浅合并到现有 props）
+     * @returns 各应用更新结果 Map<appName, success>
+     *
+     * @example
+     * ```ts
+     * // 主题切换
+     * await kernel.updateAllApps({ theme: 'dark' });
+     * // → { 'workflow-web': true, 'system-web': true }
+     * ```
+     *
+     * @since 4.1.0
+     */
+    async updateAllApps(newProps: Record<string, unknown>): Promise<Record<string, boolean>> {
+      const results: Record<string, boolean> = {};
+      const instances = getAllInstances();
+      for (const instance of instances) {
+        if (instance.status !== 'MOUNTED') continue;
+        results[instance.config.name] = false;
+        try {
+          instance.config.props = { ...instance.config.props, ...newProps };
+          await updateAppProps(instance, instance.config.props as MountProps);
+          results[instance.config.name] = true;
+        } catch (err) {
+          logger.error(`updateAllApps: failed to update "${instance.config.name}":`, err);
+        }
+      }
+      return results;
+    },
+
     setKeepAlive(name, keep) {
       setKeepAlive(name, keep);
     },
@@ -703,7 +682,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       // pushState 补丁会自动派发 ROUTE_CHANGE_EVENT，不再需要手动 dispatch popstate
     },
 
-    addLifecycleHook,
+    addLifecycleHook: lifecycleHooks.add,
 
     getActiveAppName() {
       return activeAppName;
@@ -765,65 +744,31 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
           await deactivateApp(instance);
         }
       }
-      // v3.1: 清理重试计数器（需在 resetScheduler 清空 appInstances 之前）
-      for (const inst of getAllInstances()) {
-        resetRetryCount(inst.config.name);
-      }
 
       // === P0-A2: 重置闭包级状态 ===
       activeAppName = null;
       switchToken = 0;
-      _globalState = {};
-      _globalStateListeners.clear();
+      globalStateAPI.reset();
       lifecycleHooks.clear();
       apps = [];
       started = false;
 
-      // === P0-A1: 通过 ManagerRegistry 统一释放管理器 ===
+      // === P0-A1 (v4.1): 注册全部 10 个管理器到 ManagerRegistry 后统一释放 ===
       registry.register(createSchedulerManager());
+      registry.register(createVersionManager());
+      registry.register(createPreloadManager());
+      registry.register(createCanaryManager());
+      registry.register(createRoutePredictorManager());
+      registry.register(createMessageBrokerManager());
+      registry.register(createPerformanceManager());
+      registry.register(createSpeculationRulesManager());
+      registry.register(createErrorBoundaryManager());
+      registry.register(createDevToolsManager());
+
       await registry.disposeAll();
 
-      // P0-A2: 重置 scheduler / loader 模块级状态，避免上一轮实例残留
-      resetScheduler();
+      // 清理 loader 模块级缓存（非单例管理器，独立清理）
       clearManifestCache();
-      // v3.7.0: 清理已注入的 Speculation Rules
-      removeSpeculationRules();
-      // v3.7.0: 清理消息通信 pending 请求
-      clearPendingRequests();
-
-      // === P0-1: 全模块级管理器状态清理（消除 HMR 状态串扰） ===
-
-      // 版本管理器：清理版本信息 + 停止自动检查定时器
-      try {
-        resetVersionManager();
-      } catch { /* 清理失败不影响其他管理器 */ }
-
-      // 预加载管理器：清理所有策略 / hover 监听器 / 缓存
-      try {
-        resetPreloadManager();
-      } catch { /* 静默 */ }
-
-      // P2-4: HMR 前主动 flush RoutePredictor 到 localStorage，保留用户导航数据
-      try {
-        getRoutePredictor().save(true);
-      } catch { /* 静默 */ }
-
-      // 路由预测器：清理转移矩阵与持久化缓存
-      try {
-        resetRoutePredictor();
-      } catch { /* 静默 */ }
-
-      // 灰度管理器：停止远端配置自动刷新定时器
-      try {
-        getCanaryManager().resetAutoRefresh();
-      } catch { /* 静默 */ }
-
-      clearDegraded();
-
-      // P0-2: 清理 performance 标记缓冲区
-      try {
-        clearKernelMarks?.();
-      } catch { /* 静默 */ }
 
       logger.info('Stopped');
     },

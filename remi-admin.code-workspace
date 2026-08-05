@@ -1,0 +1,208 @@
+{
+  "folders": [
+    {
+      "name": "@remi/agent-web",
+      "path": "apps/agent-web",
+    },
+    {
+      "name": "@remi/cronjob-web",
+      "path": "apps/cronjob-web",
+    },
+    {
+      "name": "@remi/literule-web",
+      "path": "apps/literule-web",
+    },
+    {
+      "name": "@remi/message-web",
+      "path": "apps/message-web",
+    },
+    {
+      "name": "@remi/nextwiki-web",
+      "path": "apps/nextwiki-web",
+    },
+    {
+      "name": "@remi/system-web",
+      "path": "apps/system-web",
+    },
+    {
+      "name": "@remi/userinfo-web",
+      "path": "apps/userinfo-web",
+    },
+    {
+      "name": "@remi/workflow-web",
+      "path": "apps/workflow-web",
+    },
+    {
+      "name": "@remi/turbo-run",
+      "path": "bash/turbo-run",
+    },
+    {
+      "name": "@remi/vsh",
+      "path": "bash/vsh",
+    },
+    {
+      "name": "@remi-core/design",
+      "path": "comm/@core/base/design",
+    },
+    {
+      "name": "@remi-core/icons",
+      "path": "comm/@core/base/icons",
+    },
+    {
+      "name": "@remi-core/shared",
+      "path": "comm/@core/base/shared",
+    },
+    {
+      "name": "@remi-core/typings",
+      "path": "comm/@core/base/typings",
+    },
+    {
+      "name": "@remi-core/composables",
+      "path": "comm/@core/composables",
+    },
+    {
+      "name": "@remi-core/feature-flags",
+      "path": "comm/@core/feature-flags",
+    },
+    {
+      "name": "@remi-core/preferences",
+      "path": "comm/@core/preferences",
+    },
+    {
+      "name": "@remi-core/form-ui",
+      "path": "comm/@core/ui-kit/form-ui",
+    },
+    {
+      "name": "@remi-core/layout-ui",
+      "path": "comm/@core/ui-kit/layout-ui",
+    },
+    {
+      "name": "@remi-core/menu-ui",
+      "path": "comm/@core/ui-kit/menu-ui",
+    },
+    {
+      "name": "@remi-core/popup-ui",
+      "path": "comm/@core/ui-kit/popup-ui",
+    },
+    {
+      "name": "@remi-core/shadcn-ui",
+      "path": "comm/@core/ui-kit/shadcn-ui",
+    },
+    {
+      "name": "@remi-core/tabs-ui",
+      "path": "comm/@core/ui-kit/tabs-ui",
+    },
+    {
+      "name": "@remi/constants",
+      "path": "comm/constants",
+    },
+    {
+      "name": "@remi/access",
+      "path": "comm/effects/access",
+    },
+    {
+      "name": "@remi/common-ui",
+      "path": "comm/effects/common-ui",
+    },
+    {
+      "name": "@remi/hooks",
+      "path": "comm/effects/hooks",
+    },
+    {
+      "name": "@remi/layouts",
+      "path": "comm/effects/layouts",
+    },
+    {
+      "name": "@remi/micro-kernel",
+      "path": "comm/effects/micro-kernel",
+    },
+    {
+      "name": "@remi/micro-runtime",
+      "path": "comm/effects/micro-runtime",
+    },
+    {
+      "name": "@remi/monitor",
+      "path": "comm/effects/monitor",
+    },
+    {
+      "name": "@remi/plugins",
+      "path": "comm/effects/plugins",
+    },
+    {
+      "name": "@remi/request",
+      "path": "comm/effects/request",
+    },
+    {
+      "name": "@remi/shared-auth",
+      "path": "comm/effects/shared-auth",
+    },
+    {
+      "name": "@remi/shared-business",
+      "path": "comm/effects/shared-business",
+    },
+    {
+      "name": "@remi/icons",
+      "path": "comm/icons",
+    },
+    {
+      "name": "@remi/locales",
+      "path": "comm/locales",
+    },
+    {
+      "name": "@remi/preferences",
+      "path": "comm/preferences",
+    },
+    {
+      "name": "@remi/stores",
+      "path": "comm/stores",
+    },
+    {
+      "name": "@remi/styles",
+      "path": "comm/styles",
+    },
+    {
+      "name": "@remi/types",
+      "path": "comm/types",
+    },
+    {
+      "name": "@remi/utils",
+      "path": "comm/utils",
+    },
+    {
+      "name": "@remi/commitlint-config",
+      "path": "conf/lint-configs/commitlint-config",
+    },
+    {
+      "name": "@remi/eslint-config",
+      "path": "conf/lint-configs/eslint-config",
+    },
+    {
+      "name": "@remi/prettier-config",
+      "path": "conf/lint-configs/prettier-config",
+    },
+    {
+      "name": "@remi/stylelint-config",
+      "path": "conf/lint-configs/stylelint-config",
+    },
+    {
+      "name": "@remi/node-utils",
+      "path": "conf/node-utils",
+    },
+    {
+      "name": "@remi/tailwind-config",
+      "path": "conf/tailwind-config",
+    },
+    {
+      "name": "@remi/tsconfig",
+      "path": "conf/tsconfig",
+    },
+    {
+      "name": "@remi/vite-config",
+      "path": "conf/vite-config",
+    },
+    {
+      "name": "@remi/main-web",
+      "path": "main",
+    },
+  ],
+}

@@ -258,3 +258,20 @@ export function clearPendingRequests(): void {
   pendingRequests.clear();
   handlers.clear();
 }
+
+/**
+ * P0-A1: 创建 message-broker 生命周期管理器。
+ *
+ * 清理所有 pending 请求与注册的 handlers，
+ * 纳入 ManagerRegistry 统一释放。
+ *
+ * @since 4.1.0
+ */
+export function createMessageBrokerManager(): import('../manager-registry').DisposableManager {
+  return {
+    name: 'message-broker',
+    dispose(): void {
+      clearPendingRequests();
+    },
+  };
+}

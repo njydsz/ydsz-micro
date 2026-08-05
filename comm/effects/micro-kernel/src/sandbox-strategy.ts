@@ -28,6 +28,7 @@ import { createProxySandbox } from './proxy-sandbox';
 import type { ProxySandboxInstance } from './proxy-sandbox';
 import { createIframeSandbox } from './iframe-sandbox';
 import type { IframeSandboxInstance } from './iframe-sandbox';
+import type { GlobalStateBridge } from './scheduler';
 
 /**
  * 沙箱公共生命周期操作。
@@ -125,9 +126,13 @@ export class ProxySandboxStrategy implements SandboxStrategy {
  * iframe 沙箱适配器。
  *
  * 直接包装 IframeSandboxInstance 的生命周期方法。
+ * 额外提供 globalState 跨 realm 桥接能力。
  */
 export class IframeSandboxStrategy implements SandboxStrategy {
   readonly type = 'iframe' as const;
+
+  /** globalState 桥接的取消订阅函数 */
+  private bridgeCleanupFn: (() => void) | null = null;
 
   constructor(private readonly iframeSandbox: IframeSandboxInstance) {}
 
@@ -144,6 +149,8 @@ export class IframeSandboxStrategy implements SandboxStrategy {
   }
 
   cleanup(): void {
+    // 先清理 globalState 桥接订阅
+    this.removeGlobalStateBridge();
     this.iframeSandbox.cleanup();
   }
 
@@ -178,8 +185,57 @@ export class IframeSandboxStrategy implements SandboxStrategy {
   }
 
   /** 注册主应用 API 供子应用调用 */
-  registerMainApi(handlers: Record<string, (...args: any[]) => unknown>): () => void {
+  registerMainApi(handlers: Record<string, (...args: unknown[]) => unknown>): () => void {
     return this.iframeSandbox.registerMainApi(handlers);
+  }
+
+  /**
+   * 建立 globalState 跨 realm 桥接。
+   *
+   * 在 iframe 沙箱激活后调用，建立双向同步：
+   * - 初始同步：把当前 globalState 快照发送给子应用
+   * - 子 → 主：监听子应用回传的 setGlobalState 调用
+   * - 主 → 子：订阅 globalState 变化，同步给子应用
+   *
+   * @param bridge - globalState 桥接接口
+   * @param mountPropsProxy - 注入 mountProps 的代理 _globalState 对象
+   * @returns 取消桥接函数（cleanup 时自动调用）
+   */
+  attachGlobalStateBridge(
+    bridge: GlobalStateBridge,
+    mountPropsProxy: {
+      getGlobalState: () => Record<string, unknown>;
+      setGlobalState: (patch: Record<string, unknown>) => void;
+      onGlobalStateChange: (listener: (state: Record<string, unknown>) => void, fireImmediately?: boolean) => () => void;
+    },
+  ): () => void {
+    // 1. 初始同步：把当前 globalState 快照发送给子应用
+    this.iframeSandbox.postToChild(bridge.getGlobalState());
+    // 2. 子 → 主：监听子应用回传的 setGlobalState 调用
+    const unsubChild = this.iframeSandbox.onChildMessage((patch) => {
+      if (patch && typeof patch === 'object') {
+        bridge.setGlobalState(patch as Record<string, unknown>);
+      }
+    });
+    // 3. 主 → 子：订阅 globalState 变化，同步给子应用
+    const unsubMain = bridge.onGlobalStateChange((state) => {
+      this.iframeSandbox?.postToChild(state);
+    });
+
+    const cleanup = () => {
+      unsubChild();
+      unsubMain();
+    };
+    this.bridgeCleanupFn = cleanup;
+    return cleanup;
+  }
+
+  /** 移除 globalState 桥接（cleanup 内部调用） */
+  removeGlobalStateBridge(): void {
+    if (this.bridgeCleanupFn) {
+      this.bridgeCleanupFn();
+      this.bridgeCleanupFn = null;
+    }
   }
 }
 
@@ -197,6 +253,7 @@ export function createSandboxStrategy(
   type: 'snapshot' | 'proxy' | 'iframe',
   appName: string,
   parentEl: HTMLElement,
+  devUrl?: string,
 ): SandboxStrategy {
   switch (type) {
     case 'snapshot':
@@ -204,7 +261,7 @@ export function createSandboxStrategy(
     case 'proxy':
       return new ProxySandboxStrategy(createProxySandbox(appName));
     case 'iframe':
-      return new IframeSandboxStrategy(createIframeSandbox(appName, parentEl));
+      return new IframeSandboxStrategy(createIframeSandbox(appName, parentEl, devUrl));
     default:
       // 回退到快照沙箱
       return new SnapshotSandboxStrategy();

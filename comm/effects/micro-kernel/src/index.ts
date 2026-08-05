@@ -104,6 +104,24 @@ export type { MicroMessage, MessageHandler } from './message-broker';
 export { enableMicroDevTools, toggleMicroDevTools, destroyMicroDevTools } from './devtools-panel';
 // v4.0 P2-2: 灰度版本分流管理器
 export { getCanaryManager, resetCanaryManager } from './canary-manager';
-export type { CanaryVersion, CanaryGlobalConfig, CanaryTag } from './canary-manager';
+export type { CanaryMode, CanaryVersion, CanaryGlobalConfig, CanaryTag } from './canary-manager';
+// v4.1 P3-1: 预加载 hover 视觉反馈（配合 kernel.prefetchApp 使用）
+export { attachHoverPreloadFeedback, attachHoverPreloadFeedbackAll } from './hover-feedback';
+export type { PrefetchFeedbackState } from './hover-feedback';
+// v4.1 P0-A1: 管理器注册表 + 统一生命周期工厂
+export { createManagerRegistry } from './manager-registry';
+export type { DisposableManager } from './manager-registry';
+export {
+  createCanaryManager,
+  createDevToolsManager,
+  createErrorBoundaryManager,
+  createMessageBrokerManager,
+  createPerformanceManager,
+  createPreloadManager,
+  createRoutePredictorManager,
+  createSchedulerManager,
+  createSpeculationRulesManager,
+  createVersionManager,
+} from './kernel-managers';
 // v4.0 P1-1 (公开): semver 兼容校验工具 —— 子应用 bootstrap 阶段版本断言
-export { satisfiesVersion, parseVersion, compareVersion } from '@remi/micro-runtime/semver';
+export { satisfiesVersion, parseVersion, compareVersion } from '@remi-core/shared/semver';

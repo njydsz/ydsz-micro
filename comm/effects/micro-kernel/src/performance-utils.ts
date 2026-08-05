@@ -182,3 +182,21 @@ export function stopCleanupTimer(): void {
     cleanupTimer = null;
   }
 }
+
+/**
+ * P0-A1: 创建 performance-utils 生命周期管理器。
+ *
+ * 将 cleanupTimer 与 mark 缓冲区纳入 ManagerRegistry 统一释放，
+ * 避免 _stop() 遗漏定时器清理导致 HMR 场景下的内存泄漏。
+ *
+ * @since 4.1.0
+ */
+export function createPerformanceManager(): import('./manager-registry').DisposableManager {
+  return {
+    name: 'performance-utils',
+    dispose(): void {
+      stopCleanupTimer();
+      clearKernelMarks();
+    },
+  };
+}

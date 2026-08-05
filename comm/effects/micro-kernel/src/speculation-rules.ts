@@ -137,6 +137,22 @@ export function removeSpeculationRules(): void {
 }
 
 /**
+ * P0-A1: 创建 speculation-rules 生命周期管理器。
+ *
+ * 移除已注入的 speculation rules <script> 元素。
+ *
+ * @since 4.1.0
+ */
+export function createSpeculationRulesManager(): import('./manager-registry').DisposableManager {
+  return {
+    name: 'speculation-rules',
+    dispose(): void {
+      removeSpeculationRules();
+    },
+  };
+}
+
+/**
  * 联合预加载策略执行器。
  *
  * 当 prefetchStrategy 为 'eager' 或 Speculation Rules 可用时：

@@ -48,6 +48,11 @@
       "types": "./src/global-state.ts",
       "development": "./src/global-state.ts",
       "default": "./dist/global-state.mjs"
+    },
+    "./semver": {
+      "types": "./src/semver.ts",
+      "development": "./src/semver.ts",
+      "default": "./dist/semver.mjs"
     }
   },
   "publishConfig": {
@@ -75,6 +80,10 @@
       "./global-state": {
         "types": "./dist/global-state.d.ts",
         "default": "./dist/global-state.mjs"
+      },
+      "./semver": {
+        "types": "./dist/semver.d.ts",
+        "default": "./dist/semver.mjs"
       }
     }
   },

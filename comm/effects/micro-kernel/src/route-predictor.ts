@@ -426,3 +426,24 @@ export function resetRoutePredictor(): void {
   instance?.clear();
   instance = null;
 }
+
+/**
+ * P0-A1: 创建 route-predictor 生命周期管理器。
+ *
+ * dispose() 时先持久化转移矩阵到 localStorage（保留用户导航模式数据），
+ * 再清理内存中的实例。
+ *
+ * @since 4.1.0
+ */
+export function createRoutePredictorManager(): import('./manager-registry').DisposableManager {
+  return {
+    name: 'route-predictor',
+    dispose(): void {
+      try {
+        instance?.save(true);
+      } catch { /* 持久化失败不影响清理 */ }
+      instance?.clear();
+      instance = null;
+    },
+  };
+}

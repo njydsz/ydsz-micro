@@ -1,11 +1,16 @@
 /**
- * 生命周期调度器 + 保活控制 + 轻量沙箱集成
+ * 生命周期调度器 + 保活控制 + 沙箱策略集成
  *
  * 每个子应用一个 AppInstance 实例：
  * - 加载 → parsed LifecycleExports + metadata
- * - activate → enterSandbox → mount
- * - deactivate → unmount → exitSandbox（keepAlive 时只 detach，沙箱不退出）
+ * - activate → strategy.mount() → mount
+ * - deactivate → unmount → strategy.unmount()（keepAlive 时只 detach，沙箱不退出）
  * - keepAlive 激活 → container.appendChild(cachedEl) 直接复用，零重新渲染
+ *
+ * P0-A2 (v4.1): AppInstance 使用单一 `strategy: SandboxStrategy` 字段，
+ * 消除此前按 sandboxType 分支的 if-else（activateApp / deactivateApp /
+ * evictSingleInstance / evictAllKeepAliveOnMemoryPressure 四处），
+ * 符合 OCP — 新增沙箱类型只需实现 SandboxStrategy 接口。
  *
  * @path comm/effects/micro-kernel/src/scheduler.ts
  * @author remi-team
@@ -21,15 +26,16 @@ import type {
 } from '@remi/micro-runtime';
 import { loadApp, removeStylesheets } from './loader';
 import type { LoadOptions, LoadResult, Manifest } from './loader';
-import { enterSandbox, exitSandbox } from './sandbox';
-import type { SandboxInstance } from './sandbox';
-import { createProxySandbox } from './proxy-sandbox';
-import type { ProxySandboxInstance } from './proxy-sandbox';
-import { createIframeSandbox } from './iframe-sandbox';
-import type { IframeSandboxInstance } from './iframe-sandbox';
+import {
+  createSandboxStrategy,
+  IframeSandboxStrategy,
+  ProxySandboxStrategy,
+} from './sandbox-strategy';
+import type { SandboxStrategy } from './sandbox-strategy';
 import { createLogger } from '@remi-core/shared/utils';
 import { mark, measure } from './performance-utils';
 import type { DisposableManager } from './manager-registry';
+import { KernelError, KernelErrorCode } from './error-boundary';
 
 /** 模块级日志器（生命周期事件默认 debug 级别，避免生产噪音） */
 const logger = createLogger('MicroKernel');
@@ -67,18 +73,13 @@ export interface AppInstance {
   cachedRoot: null | HTMLElement;
   /** keepAlive 时原始父节点（切回时 appendChild 回此处） */
   cachedParent: null | Node;
-  /** 快照沙箱实例（mount 时创建，unmount 时销毁；keepAlive 时保留） */
-  sandbox: null | SandboxInstance;
-  /** Proxy 沙箱实例（当 sandboxType 为 'proxy' 时使用） */
-  proxySandbox: null | ProxySandboxInstance;
-  /** iframe 沙箱实例（当 sandboxType 为 'iframe' 时使用） */
-  iframeSandbox: null | IframeSandboxInstance;
   /**
-   * iframe 沙箱 globalState 桥接的取消订阅函数（v3.6.0）。
+   * 统一沙箱策略实例（v4.1 P0-A2 新增）。
    *
-   * 在 activateApp 创建 iframe 沙箱后建立桥接订阅，unmount 时调用以避免内存泄漏。
+   * 进入沙箱时创建对应 SandboxStrategy，退出/cleanup 时调用其生命周期方法。
+   * 使用单一字段替代此前的 sandbox / proxySandbox / iframeSandbox / iframeGlobalStateUnsub。
    */
-  iframeGlobalStateUnsub: null | (() => void);
+  strategy: SandboxStrategy | null;
   /** 沙箱类型：snapshot（默认）| proxy | iframe */
   sandboxType: SandboxType;
   /** 最近一次加载的性能指标（为监控提供数据） */
@@ -106,7 +107,7 @@ let maxKeepAliveApps = 5;
  * v3.7.0: 保活 TTL（毫秒）。
  *
  * 保活实例在缓存中保留时间未超过 TTL 时不会因为 LRU 策略被淘汰
- *（除非触发内存压力或手动强制卸载）。默认 30 分钟。设置为 0 表示禁用 TTL 保护，
+ * （除非触发内存压力或手动强制卸载）。默认 30 分钟。设置为 0 表示禁用 TTL 保护，
  * 回退到既有 LRU-only 策略。
  */
 let keepAliveTTL = 30 * 60 * 1_000;
@@ -225,10 +226,8 @@ export function createAppInstance(config: MicroAppConfig): AppInstance {
     keepAlive: false,
     cachedRoot: null,
     cachedParent: null,
-    sandbox: null,
-    proxySandbox: null,
-    iframeSandbox: null,
-    iframeGlobalStateUnsub: null,
+    // v4.1 P0-A2: 使用统一策略字段替代 sandbox/proxySandbox/iframeSandbox
+    strategy: null,
     // v3.6.0: 从 MicroAppConfig.sandbox 读取沙箱类型，未配置时默认 'snapshot'
     sandboxType: config.sandbox ?? 'snapshot',
     loadMetrics: null,
@@ -330,6 +329,8 @@ function getDynamicMemoryThreshold(defaultMB = 500): number {
  * 激活子应用：加载 → 挂载。
  * 若 keepAlive 且已有缓存 DOM，直接放回容器。
  *
+ * v4.1 P0-A2: 使用 strategy.mount() 替代 if-else 分支进入沙箱。
+ *
  * @param instance - 子应用实例
  * @param container - 挂载容器
  * @param loadOpts - 加载选项（超时、重试）
@@ -360,6 +361,8 @@ export async function activateApp(
     instance.cachedParent = null;
     instance.status = 'MOUNTED';
     instance.lastActivatedAt = Date.now();
+    // v4.1 P0-A2: keep-alive 恢复时也调用沙箱策略的 activate
+    instance.strategy?.activate();
     // 调用 activate 生命周期钩子
     if (instance.exports?.activate) {
       try {
@@ -407,66 +410,56 @@ export async function activateApp(
   // 设置容器属性，与 PostCSS 构建期 CSS scoping 联动
   container.setAttribute('data-micro-app', config.name);
 
-  // 根据沙箱类型进入对应的沙箱环境
-  if (instance.sandboxType === 'proxy') {
-    // Proxy 沙箱：创建并激活
-    instance.proxySandbox = createProxySandbox(config.name);
-    instance.proxySandbox.activate();
-    // v3.6.0: 注入 fakeWindow 到 mountProps，子应用可通过 mountProps.fakeWindow 读写隔离数据
-    mountProps.fakeWindow = instance.proxySandbox.fakeWindow;
-    logger.debug(`${config.name} entered proxy sandbox`);
-  } else if (instance.sandboxType === 'iframe') {
-    // iframe 沙箱：在主容器内创建 iframe，子应用挂载到 iframe document
-    // P2-1: 开发模式下如果有 devUrl，则让子应用在 iframe 内独立运行
-    instance.iframeSandbox = createIframeSandbox(config.name, container, config.devUrl);
-    instance.iframeSandbox.activate();
+  // === v4.1 P0-A2: 使用统一策略进入沙箱（消除 if-else）===
+  instance.strategy = createSandboxStrategy(
+    instance.sandboxType,
+    config.name,
+    container,
+    config.devUrl,
+  );
+  instance.strategy.mount();
+
+  // 注入沙箱特有能力到 mountProps
+  if (instance.strategy instanceof ProxySandboxStrategy) {
+    mountProps.fakeWindow = instance.strategy.fakeWindow;
+    logger.debug(`${config.name} entered proxy sandbox (via strategy)`);
+  } else if (instance.strategy instanceof IframeSandboxStrategy) {
     // 将 mountProps 的容器指向 iframe 内的挂载容器
-    if (instance.iframeSandbox.container) {
-      mountProps.container = instance.iframeSandbox.container;
+    if (instance.strategy.container) {
+      mountProps.container = instance.strategy.container;
     }
-    // v3.6.0: 注入 iframeWindow 到 mountProps，子应用可访问 iframe contentWindow
-    if (instance.iframeSandbox.contentWindow) {
-      mountProps.iframeWindow = instance.iframeSandbox.contentWindow;
+    // 注入 iframeWindow 到 mountProps
+    if (instance.strategy.contentWindow) {
+      mountProps.iframeWindow = instance.strategy.contentWindow;
     }
     // v3.6.0: 建立 globalState 跨 realm 桥接
     if (globalStateBridge) {
-      // 1. 初始同步：把当前 globalState 快照发送给子应用
-      instance.iframeSandbox.postToChild(globalStateBridge.getGlobalState());
-      // 2. 子 → 主：监听子应用回传的 setGlobalState 调用
-      const unsubChild = instance.iframeSandbox.onChildMessage((patch) => {
-        if (patch && typeof patch === 'object') {
-          globalStateBridge.setGlobalState(patch as Record<string, unknown>);
-        }
-      });
-      // 3. 主 → 子：订阅 globalState 变化，同步给子应用
-      const unsubMain = globalStateBridge.onGlobalStateChange((state) => {
-        instance.iframeSandbox?.postToChild(state);
-      });
-      // 4. 注入代理 _globalState 到 mountProps（子应用通过此代理读写，
-      //    代理内部走 postMessage，避免跨 realm 引用问题）
-      mountProps._globalState = {
+      // 注入代理 _globalState 到 mountProps（子应用通过此代理读写，
+      // 代理内部走 postMessage，避免跨 realm 引用问题）
+      const proxyGlobalState = {
         getGlobalState: () => globalStateBridge.getGlobalState(),
         setGlobalState: (patch: Record<string, unknown>) => {
           globalStateBridge.setGlobalState(patch);
           // 同时同步给子应用（setGlobalState 已会触发 onGlobalStateChange 广播，
           // 但为保证子应用即时收到，显式 postToChild 一次）
-          instance.iframeSandbox?.postToChild(globalStateBridge.getGlobalState());
+          (instance.strategy as IframeSandboxStrategy)?.postToChild(
+            globalStateBridge.getGlobalState(),
+          );
         },
         onGlobalStateChange: (listener: (state: Record<string, unknown>) => void, fireImmediately?: boolean) => {
           return globalStateBridge.onGlobalStateChange(listener, fireImmediately);
         },
       };
-      // 保存取消订阅函数，unmount 时清理（避免内存泄漏）
-      instance.iframeGlobalStateUnsub = () => {
-        unsubChild();
-        unsubMain();
-      };
+      mountProps._globalState = proxyGlobalState;
+      // 建立双向桥接（内部管理 unsubscribe）
+      (instance.strategy as IframeSandboxStrategy).attachGlobalStateBridge(
+        globalStateBridge,
+        proxyGlobalState,
+      );
     }
-    logger.debug(`${config.name} entered iframe sandbox`);
+    logger.debug(`${config.name} entered iframe sandbox (via strategy)`);
   } else {
-    // 快照沙箱（默认）：进入快照沙箱
-    instance.sandbox = enterSandbox();
-    logger.debug(`${config.name} entered snapshot sandbox`);
+    logger.debug(`${config.name} entered snapshot sandbox (via strategy)`);
   }
 
   // v3.3: 通知外部"挂载之前"阶段（沙箱已进入，mount 即将调用）
@@ -488,29 +481,25 @@ export async function activateApp(
     );
     logger.debug(`${config.name} mounted`);
   } catch (err) {
-    // 挂载失败：退出对应的沙箱
-    if (instance.sandboxType === 'proxy' && instance.proxySandbox) {
-      instance.proxySandbox.cleanup();
-      instance.proxySandbox = null;
-    } else if (instance.sandboxType === 'iframe' && instance.iframeSandbox) {
-      // v3.6.0: 清理 globalState 桥接订阅
-      instance.iframeGlobalStateUnsub?.();
-      instance.iframeGlobalStateUnsub = null;
-      instance.iframeSandbox.cleanup();
-      instance.iframeSandbox = null;
-    } else if (instance.sandbox) {
-      exitSandbox(instance.sandbox);
-      instance.sandbox = null;
-    }
+    // 挂载失败：通过策略清理沙箱
+    instance.strategy?.cleanup();
+    instance.strategy = null;
     instance.status = 'LOADED';
     instance.error = String(err);
-    throw err;
+    // P1-8: 包装为 KernelError 后抛出
+    throw new KernelError(
+      KernelErrorCode.MOUNT_ERROR,
+      `[MicroKernel] ${config.name} mount failed: ${String(err)}`,
+      err,
+    );
   }
 }
 
 /**
  * 停用子应用。
  * keepAlive 时摘除 DOM（不销毁组件树状态），否则完整卸载。
+ *
+ * v4.1 P0-A2: 使用 strategy.unmount()/cleanup() 替代 if-else 分支。
  */
 export async function deactivateApp(instance: AppInstance): Promise<DeactivateResult> {
   const { config } = instance;
@@ -532,6 +521,8 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
       instance.status = 'UNMOUNTED';
       // v3.7.0: 记录保活缓存创建时间（用于 TTL 过期检测）
       instance.keepAliveSince = keepAliveTimestamp++;
+      // v3.7.0: 调用策略的 unmount（keepAlive 时不完全清理沙箱）
+      instance.strategy?.unmount();
       // 调用 deactivate 生命周期钩子
       if (instance.exports?.deactivate) {
         try {
@@ -564,29 +555,9 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
       basename: config.activeRule,
     });
 
-    // 根据沙箱类型退出对应的沙箱环境
-    if (instance.sandboxType === 'proxy') {
-      // Proxy 沙箱：清理并释放
-      if (instance.proxySandbox) {
-        instance.proxySandbox.cleanup();
-        instance.proxySandbox = null;
-      }
-    } else if (instance.sandboxType === 'iframe') {
-      // v3.6.0: 清理 globalState 桥接订阅
-      instance.iframeGlobalStateUnsub?.();
-      instance.iframeGlobalStateUnsub = null;
-      // iframe 沙箱：清理 iframe 并释放
-      if (instance.iframeSandbox) {
-        instance.iframeSandbox.cleanup();
-        instance.iframeSandbox = null;
-      }
-    } else {
-      // 快照沙箱：退出并恢复 window
-      if (instance.sandbox) {
-        exitSandbox(instance.sandbox);
-        instance.sandbox = null;
-      }
-    }
+    // v4.1 P0-A2: 通过策略清理沙箱（单一调用，无需 if-else）
+    instance.strategy?.cleanup();
+    instance.strategy = null;
 
     // 移除容器级 CSS scoping 属性（data-micro-app）
     const containerEl = resolveContainer(config.container);
@@ -608,28 +579,16 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
     logger.debug(`${config.name} unmounted`);
     return { name: config.name, success: true };
   } catch (err) {
-    // unmount 失败仍尝试退出沙箱
-    if (instance.sandboxType === 'proxy') {
-      if (instance.proxySandbox) {
-        instance.proxySandbox.cleanup();
-        instance.proxySandbox = null;
-      }
-    } else if (instance.sandboxType === 'iframe') {
-      // v3.6.0: 清理 globalState 桥接订阅
-      instance.iframeGlobalStateUnsub?.();
-      instance.iframeGlobalStateUnsub = null;
-      if (instance.iframeSandbox) {
-        instance.iframeSandbox.cleanup();
-        instance.iframeSandbox = null;
-      }
-    } else {
-      if (instance.sandbox) {
-        exitSandbox(instance.sandbox);
-        instance.sandbox = null;
-      }
-    }
+    // unmount 失败仍尝试通过策略清理沙箱
+    instance.strategy?.cleanup();
+    instance.strategy = null;
     instance.error = String(err);
-    return { name: config.name, success: false, reason: String(err) };
+    // P1-8: 包装为 KernelError 后抛出
+    throw new KernelError(
+      KernelErrorCode.UNMOUNT_ERROR,
+      `[MicroKernel] ${config.name} unmount failed: ${String(err)}`,
+      err,
+    );
   }
 }
 
@@ -781,6 +740,7 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
  * 完整卸载单个保活实例（共享逻辑）。
  *
  * P1-2: DOM 清理兜底 — unmount 失败时仍清理容器 DOM，防止残留。
+ * v4.1 P0-A2: 使用 strategy.cleanup() 替代 if-else 分支清理沙箱。
  */
 async function evictSingleInstance(instance: AppInstance): Promise<void> {
   instance.keepAlive = false;
@@ -810,19 +770,9 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
     }
   }
 
-  // 清理沙箱
-  if (instance.sandboxType === 'proxy' && instance.proxySandbox) {
-    instance.proxySandbox.cleanup();
-    instance.proxySandbox = null;
-  } else if (instance.sandboxType === 'iframe' && instance.iframeSandbox) {
-    instance.iframeGlobalStateUnsub?.();
-    instance.iframeGlobalStateUnsub = null;
-    instance.iframeSandbox.cleanup();
-    instance.iframeSandbox = null;
-  } else if (instance.sandbox) {
-    exitSandbox(instance.sandbox);
-    instance.sandbox = null;
-  }
+  // v4.1 P0-A2: 通过策略清理沙箱（单一调用，无需 if-else）
+  instance.strategy?.cleanup();
+  instance.strategy = null;
 
   removeStylesheets(instance.config.name);
   instance.cachedRoot = null;
@@ -841,6 +791,8 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
  * - 使用动态内存阈值（基于 performance.memory.jsHeapSizeLimit 的 80%），
  *   适配不同设备内存容量，而非固定的 500MB
  * - 淘汰前派发 before-evict 事件，允许监听者保留关键应用
+ *
+ * v4.1 P0-A2: 使用 strategy.cleanup() 替代 if-else 分支清理沙箱。
  *
  * 由外部（如 monitor 模块的定时巡检、visibilitychange）调用。
  *
@@ -876,21 +828,9 @@ export async function evictAllKeepAliveOnMemoryPressure(thresholdMB?: number): P
       } catch {
         // 静默
       }
-      if (instance.sandbox) {
-        exitSandbox(instance.sandbox);
-        instance.sandbox = null;
-      }
-      if (instance.proxySandbox) {
-        instance.proxySandbox.cleanup();
-        instance.proxySandbox = null;
-      }
-      // v3.6.0: 清理 iframe 沙箱及其 globalState 桥接订阅
-      if (instance.iframeSandbox) {
-        instance.iframeGlobalStateUnsub?.();
-        instance.iframeGlobalStateUnsub = null;
-        instance.iframeSandbox.cleanup();
-        instance.iframeSandbox = null;
-      }
+      // v4.1 P0-A2: 通过策略清理沙箱（单一调用，无需 if-else）
+      instance.strategy?.cleanup();
+      instance.strategy = null;
       removeStylesheets(instance.config.name);
       instance.cachedRoot = null;
       instance.cachedParent = null;
@@ -966,4 +906,16 @@ export function createSchedulerManager(): DisposableManager {
       keepAliveTimestamp = 1;
     },
   };
+}
+
+/**
+ * 重置保活 Enabled 标志（供测试用）。
+ *
+ * 由于 keepAliveEnabled 未通过 configureKeepAlive 暴露 reset 语义，
+ * 需要此辅助函数进行测试环境重置。
+ *
+ * @since 4.1
+ */
+export function resetKeepAliveEnabled(): void {
+  keepAliveEnabled = true;
 }
