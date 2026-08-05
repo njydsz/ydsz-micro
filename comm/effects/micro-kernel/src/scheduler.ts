@@ -686,9 +686,12 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
 
 /**
  * 完整卸载单个保活实例（共享逻辑）。
+ *
+ * P1-2: DOM 清理兜底 — unmount 失败时仍清理容器 DOM，防止残留。
  */
 async function evictSingleInstance(instance: AppInstance): Promise<void> {
   instance.keepAlive = false;
+  let unmountSuccess = true;
   try {
     if (instance.exports) {
       await instance.exports.unmount({
@@ -697,7 +700,21 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
       });
     }
   } catch (err) {
+    unmountSuccess = false;
     logger.error(`Evict unmount failed for "${instance.config.name}":`, err);
+  }
+
+  // === P1-2: DOM 清理兜底 — unmount 失败或被跳过时清空容器残留 DOM ===
+  if (!unmountSuccess && instance.cachedParent) {
+    const container = instance.cachedParent as HTMLElement;
+    try {
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
+      logger.debug(`DOM cleanup fallback: cleared residual DOM for "${instance.config.name}"`);
+    } catch {
+      // DOM 操作失败不影响后续清理
+    }
   }
 
   // 清理沙箱

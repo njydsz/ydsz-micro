@@ -8,7 +8,8 @@
  * 2. 构建一阶转移矩阵（sparse Map 存储）
  * 3. 给定当前应用，按转移概率降序返回 topN 预测结果
  * 4. 持久化到 localStorage，跨会话保留模式
- * 5. 指数衰减：近期导航权重更高，适应行为变化
+ * 5. 指数衰减：近期导航权重更高，适应行为变化（v4.0 P1-1 落地）
+ * 6. P1-1: 持久化节流（5s 批量 flush）+ 条目上限（500 条）
  *
  * 触发时机：
  * - kernel 的 switchToApp 成功时记录一次 transition
@@ -28,6 +29,34 @@ const STORAGE_KEY = 'remi_route_predictions';
 
 /** 最大保留的转移记录时间窗口（7 天） */
 const MAX_RETENTION_MS = 7 * 24 * 60 * 60 * 1000;
+
+/**
+ * P1-1: 持久化节流间隔（毫秒）。
+ *
+ * 路由跳转可能高频触发（如快速切换 Tab），每次写入 localStorage 性能开销大。
+ * 延迟 5s 批量写入，期间多次 recordTransition 仅更新内存状态，
+ * 最后一次 flush 时序列化整个转移矩阵。
+ */
+const PERSIST_THROTTLE_MS = 5_000;
+
+/**
+ * P1-1: 最大转移条目数（from→to 对）。
+ *
+ * 超过上限时淘汰总计数最低的转移对，防止 Map 无限膨胀导致：
+ * 1. 内存占用持续增长
+ * 2. localStorage 序列化/反序列化耗时增加
+ * 3. 过时行为模式权重过高
+ */
+const MAX_TRANSITION_ENTRIES = 500;
+
+/**
+ * P1-1: 指数衰减半衰期（毫秒）。
+ *
+ * 记录在 persist 时按 (1/2)^(age/halflife) 衰减计数，
+ * 使近期导航模式权重高于历史模式，适应用户行为变化。
+ * 默认 3 天：3 天前的记录权重降为 50%，6 天前 25%，以此类推。
+ */
+const DECAY_HALFLIFE_MS = 3 * 24 * 60 * 60 * 1000;
 
 /** 转移记录 */
 interface TransitionRecord {
@@ -70,6 +99,12 @@ export class RoutePredictor {
   private totals: Map<string, number> = new Map();
   /** 去重集合：记录已处理的 (from,to) 对，用于增量合并 */
   private seenKeys: Set<string> = new Set();
+  /** P1-1: 持久化节流定时器 */
+  private persistTimer: ReturnType<typeof setTimeout> | null = null;
+  /** P1-1: 待持久化标记（有未写入的变更时 true） */
+  private dirty = false;
+  /** P1-1: 上次持久化的时间戳（用于指数衰减估算） */
+  private lastPersistTime: number | null = null;
 
   constructor() {
     this.load();
@@ -104,8 +139,25 @@ export class RoutePredictor {
       this.seenKeys.add(key);
     }
 
-    // 定期持久化（节流：每次记录都写可能性能差；这里简单每次都写，转移通常不太频繁）
-    this.save();
+    // P1-1: 节流持久化 — 标记 dirty 并设置延迟写入定时器
+    this.dirty = true;
+    this.schedulePersist();
+  }
+
+  /**
+   * P1-1: 调度持久化（节流）。
+   *
+   * 每次调用重置定时器，确保高频路由跳转仅触发一次写入。
+   */
+  private schedulePersist(): void {
+    if (this.persistTimer !== null) return;
+    this.persistTimer = setTimeout(() => {
+      this.persistTimer = null;
+      if (this.dirty) {
+        this.save();
+        this.dirty = false;
+      }
+    }, PERSIST_THROTTLE_MS);
   }
 
   /**
@@ -162,6 +214,12 @@ export class RoutePredictor {
     this.transitions.clear();
     this.totals.clear();
     this.seenKeys.clear();
+    this.dirty = false;
+    // P1-1: 清理节流定时器
+    if (this.persistTimer !== null) {
+      clearTimeout(this.persistTimer);
+      this.persistTimer = null;
+    }
     try {
       localStorage.removeItem(STORAGE_KEY);
     } catch {
@@ -196,23 +254,53 @@ export class RoutePredictor {
 
   // ==================== 持久化 ====================
 
-  /** 保存到 localStorage */
+  /**
+   * P1-1: 保存到 localStorage（含指数衰减 + 条目上限淘汰）。
+   *
+   * 节流后的批量写入，包含：
+   * 1. 指数衰减：按记录年龄衰减计数（半衰期 3 天）
+   * 2. 条目上限：超 MAX_TRANSITION_ENTRIES 时淘汰总计数最低的转移对
+   */
   private save(): void {
     try {
-      const transitions: TransitionRecord[] = [];
+      const now = Date.now();
+      const allPairs: Array<{ from: string; to: string; count: number; timestamp: number }> = [];
+
+      // 1. 收集所有转移对并应用指数衰减
       for (const [from, toMap] of this.transitions) {
         for (const [to, count] of toMap) {
-          transitions.push({ from, to, count, timestamp: Date.now() });
+          // 指数衰减：(1/2)^(age/halflife)
+          const age = now - (this.lastPersistTime ?? now);
+          const decayFactor = Math.pow(0.5, age / DECAY_HALFLIFE_MS);
+          const decayedCount = count * decayFactor;
+          if (decayedCount > 0.01) {
+            allPairs.push({ from, to, count: decayedCount, timestamp: now });
+          }
         }
       }
 
+      // 2. 按衰减后计数降序排序，截断到上限
+      if (allPairs.length > MAX_TRANSITION_ENTRIES) {
+        allPairs.sort((a, b) => b.count - a.count);
+        const evicted = allPairs.length - MAX_TRANSITION_ENTRIES;
+        allPairs.length = MAX_TRANSITION_ENTRIES;
+        logger.debug(`RoutePredictor: evicted ${evicted} low-count pairs (limit=${MAX_TRANSITION_ENTRIES})`);
+      }
+
+      // 3. 构建持久化格式（衰减后计数四舍五入为整数）
       const data: PersistedData = {
         version: 1,
-        transitions,
-        lastUpdated: Date.now(),
+        transitions: allPairs.map((p) => ({
+          from: p.from,
+          to: p.to,
+          count: Math.max(1, Math.round(p.count)),
+          timestamp: p.timestamp,
+        })),
+        lastUpdated: now,
       };
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      this.lastPersistTime = now;
     } catch {
       // 存储失败静默（隐私模式/localStorage满等）
     }
@@ -251,6 +339,7 @@ export class RoutePredictor {
         this.seenKeys.add(`${record.from}→${record.to}`);
       }
 
+      this.lastPersistTime = data.lastUpdated;
       logger.debug(`Loaded ${data.transitions.length} historical transitions`);
     } catch {
       // 加载失败静默

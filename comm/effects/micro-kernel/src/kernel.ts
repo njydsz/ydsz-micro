@@ -165,6 +165,44 @@ function scheduleIdle(cb: IdleCallback): void {
 }
 
 /**
+ * P1-3: 并发控制执行器（p-limit 风格的轻量实现）。
+ *
+ * 限制同时执行的异步任务数，避免全部并发导致：
+ * - 浏览器同源连接数限制（通常 6/域名）
+ * - 与活跃应用的 API 请求抢占带宽
+ * - TCP 拥塞窗口过小导致的队头阻塞
+ *
+ * 任务按数组顺序启动，但任一完成即补充下一个，保持"并发度恒定为 limit"。
+ *
+ * @param items - 待处理数组
+ * @param limit - 最大并发数（默认 3）
+ * @param fn - 异步处理函数
+ */
+async function runWithConcurrency<T>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<unknown>,
+): Promise<void> {
+  if (items.length === 0) return;
+  const concurrency = Math.max(1, limit);
+  let index = 0;
+
+  async function worker(): Promise<void> {
+    while (index < items.length) {
+      const item = items[index++];
+      await fn(item);
+    }
+  }
+
+  // 启动 concurrency 个 worker
+  const workers: Promise<void>[] = [];
+  for (let i = 0; i < Math.min(concurrency, items.length); i++) {
+    workers.push(worker());
+  }
+  await Promise.all(workers);
+}
+
+/**
  * P2: 网络条件感知 — 判断是否应跳过预加载。
  *
  * 依据 Network Information API（navigator.connection）：
@@ -253,6 +291,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       };
     },
     setGlobalState(patch) {
+      // === ADR-006: kernel:state 标记 ===
+      const stateKeys = Object.keys(patch).join(',');
+      performance.mark(`kernel:state:${stateKeys}`);
       const prev = { ..._globalState };
       Object.assign(_globalState, patch);
       const snapshot = { ..._globalState };
@@ -642,11 +683,12 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
           scheduleIdle(() => {
             // 二次校验：可能在 idle 等待期间网络已变差
             if (shouldSkipPrefetchDueToNetwork()) return;
-            for (const app of toPrefetch) {
-              void loadApp(app).catch(() => {
+            // === P1-3: 并发控制预加载 — 限制同时加载数，避免抢占主请求带宽 ===
+            void runWithConcurrency(toPrefetch, 3, (app) =>
+              loadApp(app).catch(() => {
                 // 预加载失败不阻塞，静默跳过
-              });
-            }
+              }),
+            );
           });
         }
       }

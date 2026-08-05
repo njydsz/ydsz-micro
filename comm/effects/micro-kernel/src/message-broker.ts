@@ -47,6 +47,20 @@ const REQUEST_TIMEOUT = 10_000;
 /** 点对点通信事件名 */
 const MESSAGE_EVENT = 'micro-kernel:message';
 
+/**
+ * P1-4: 统一协议标记。
+ *
+ * 与 iframe 沙箱的 `__MICRO_KERNEL_BRIDGE__` 对齐风格，
+ * 所有 message-broker 派发的 CustomEvent detail 均携带此标记，
+ * 便于 DevTools / 第三方代码统一识别微内核的通信事件。
+ */
+const BROKER_MARK = '__MICRO_BROKER__';
+
+/** P1-4: 统一消息结构（含协议标记） */
+interface BrokerMessage<T = unknown> extends MicroMessage<T> {
+  [BROKER_MARK]: true;
+}
+
 /** 消息处理器注册表（接收方应用名 → handler） */
 const handlers = new Map<string, MessageHandler>();
 
@@ -79,6 +93,19 @@ export function registerAppMessageHandler<T = unknown, R = unknown>(
 }
 
 /**
+ * P1-4: 判断是否为 broker 统一协议消息。
+ *
+ * 用于第三方代码或 DevTools 识别微内核派发的通信事件。
+ */
+export function isBrokerMessage(data: unknown): data is BrokerMessage {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    (data as Record<string, unknown>)[BROKER_MARK] === true
+  );
+}
+
+/**
  * 发送消息到指定子应用。
  *
  * @param to - 目标应用名
@@ -88,7 +115,9 @@ export function registerAppMessageHandler<T = unknown, R = unknown>(
  */
 export function sendMessage(to: string, action: string, payload?: unknown): string {
   const correlationId = generateCorrelationId();
-  const message: MicroMessage = {
+  // P1-4: 所有消息携带统一协议标记
+  const message: BrokerMessage = {
+    [BROKER_MARK]: true,
     from: 'main',
     to,
     action,
