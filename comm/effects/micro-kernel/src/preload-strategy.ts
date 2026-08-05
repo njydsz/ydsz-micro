@@ -142,6 +142,13 @@ export class PreloadManager {
   private usageStats: Map<string, AppUsageStats> = new Map();
   private permissionChecker: PermissionChecker | null = null;
   private storageKey = 'remi_app_usage_stats';
+  /** P1-2: 预加载命中率统计 */
+  private stats = {
+    preloadCount: 0,
+    consumedCount: 0,
+    wastedCount: 0,
+    preloadRecords: [] as Array<{ appName: string; timestamp: number; consumed: boolean }>,
+  };
 
   constructor() {
     this.loadUsageStats();
@@ -255,6 +262,14 @@ export class PreloadManager {
       return;
     }
 
+    // P1-2: 记录预加载触发
+    this.stats.preloadCount++;
+    this.stats.preloadRecords.push({ appName, timestamp: Date.now(), consumed: false });
+    // 限制 records 长度防止内存膨胀
+    if (this.stats.preloadRecords.length > 200) {
+      this.stats.preloadRecords.splice(0, 50);
+    }
+
     try {
       this.preloadCache.add(appName);
       await strategy.onPreload(appName);
@@ -262,7 +277,60 @@ export class PreloadManager {
     } catch (error) {
       logger.warn(`Failed to preload ${appName}:`, error);
       this.preloadCache.delete(appName);
+      // 回滚对应的 record
+      const rec = this.stats.preloadRecords.find((r) => r.appName === appName && !r.consumed);
+      if (rec) rec.consumed = false;
     }
+  }
+
+  /**
+   * P1-2: 标记预加载缓存被实际消费。
+   *
+   * 当用户实际导航到已预加载的应用时由外部调用（kernel.switchToApp）。
+   *
+   * @param appName - 应用名称
+   * @since 4.0.1
+   */
+  recordPreloadConsumed(appName: string): void {
+    if (this.preloadCache.has(appName)) {
+      this.stats.consumedCount++;
+      const rec = this.stats.preloadRecords.find((r) => r.appName === appName && !r.consumed);
+      if (rec) rec.consumed = true;
+    }
+  }
+
+  /**
+   * P1-2: 获取预加载统计信息 + 策略快照。
+   *
+   * @since 4.0.1
+   */
+  debugInfo(): {
+    preloadCount: number;
+    consumedCount: number;
+    wastedCount: number;
+    hitRate: number;
+    preloadCache: string[];
+    strategiesCount: number;
+    usageStatsCount: number;
+  } {
+    // 计算未消费的预加载缓存数（视为潜在浪费）
+    let wasted = 0;
+    for (const rec of this.stats.preloadRecords) {
+      if (!rec.consumed && Date.now() - rec.timestamp > 60_000) wasted++;
+    }
+    this.stats.wastedCount = wasted;
+    const hitRate = this.stats.preloadCount > 0
+      ? Math.round((this.stats.consumedCount / this.stats.preloadCount) * 100)
+      : 0;
+    return {
+      preloadCount: this.stats.preloadCount,
+      consumedCount: this.stats.consumedCount,
+      wastedCount: wasted,
+      hitRate,
+      preloadCache: Array.from(this.preloadCache),
+      strategiesCount: this.strategies.size,
+      usageStatsCount: this.usageStats.size,
+    };
   }
 
   /**
@@ -386,6 +454,11 @@ export class PreloadManager {
     this.preloadCache.clear();
     this.usageStats.clear();
     this.permissionChecker = null;
+    // P1-2: 清除统计
+    this.stats.preloadCount = 0;
+    this.stats.consumedCount = 0;
+    this.stats.wastedCount = 0;
+    this.stats.preloadRecords = [];
   }
 }
 

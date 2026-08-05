@@ -163,16 +163,31 @@ export class RoutePredictor {
   /**
    * 预测给定应用的下一步 topN 目标。
    *
+   * P1-4: 当该应用无历史转移数据时，回退到全局高频 topN。
+   *
    * @param currentApp - 当前应用名
    * @param topN - 返回前 N 个预测结果，默认 3
+   * @param fallbackTopN - 冷启动 fallback 时返回的全局高频数，默认 topN（传 0 禁用 fallback）
    * @returns 按概率降序的预测结果数组
    */
-  predict(currentApp: string, topN = 3): Prediction[] {
+  predict(currentApp: string, topN = 3, fallbackTopN?: number): Prediction[] {
     const toMap = this.transitions.get(currentApp);
-    if (!toMap || toMap.size === 0) return [];
+    if (!toMap || toMap.size === 0) {
+      // P1-4: 冷启动 fallback — 返回全局最高频应用
+      const fbN = fallbackTopN === undefined ? topN : (fallbackTopN > 0 ? fallbackTopN : 0);
+      if (fbN > 0) {
+        return this.getGlobalTopApps(fbN, currentApp);
+      }
+      return [];
+    }
 
     const total = this.totals.get(currentApp) || 0;
-    if (total === 0) return [];
+    if (total === 0) {
+      // totals 为 0 但有 transitions 的异常情况，也走 fallback
+      const fbN = fallbackTopN === undefined ? topN : (fallbackTopN > 0 ? fallbackTopN : 0);
+      if (fbN > 0) return this.getGlobalTopApps(fbN, currentApp);
+      return [];
+    }
 
     const predictions: Prediction[] = [];
 
@@ -185,6 +200,47 @@ export class RoutePredictor {
     }
 
     // 按概率降序排序，取 topN
+    return predictions
+      .sort((a, b) => b.probability - a.probability)
+      .slice(0, topN);
+  }
+
+  /**
+   * P1-4: 获取全局访问频次最高的应用（排除当前应用）。
+   *
+   * 作为冷启动 phase 的 fallback 预测，新用户在无历史导航数据时
+   * 按整体访问频率预加载热门应用，而非空预加载。
+   *
+   * @param topN - 返回前 N 个
+   * @param excludeApp - 排除的应用名（当前应用）
+   * @since 4.0.1
+   */
+  getGlobalTopApps(topN: number, excludeApp?: string): Prediction[] {
+    // 统计所有应用的被访问总次数（作为 to 的目标计数之和）
+    const inboundCounts = new Map<string, number>();
+    for (const [, toMap] of this.transitions) {
+      for (const [to, count] of toMap) {
+        inboundCounts.set(to, (inboundCounts.get(to) || 0) + count);
+      }
+    }
+
+    const predictions: Prediction[] = [];
+    let totalVisits = 0;
+    for (const count of inboundCounts.values()) {
+      totalVisits += count;
+    }
+
+    if (totalVisits === 0) return [];
+
+    for (const [appName, count] of inboundCounts) {
+      if (appName === excludeApp) continue;
+      predictions.push({
+        appName,
+        probability: count / totalVisits,
+        sampleSize: count,
+      });
+    }
+
     return predictions
       .sort((a, b) => b.probability - a.probability)
       .slice(0, topN);
@@ -260,8 +316,11 @@ export class RoutePredictor {
    * 节流后的批量写入，包含：
    * 1. 指数衰减：按记录年龄衰减计数（半衰期 3 天）
    * 2. 条目上限：超 MAX_TRANSITION_ENTRIES 时淘汰总计数最低的转移对
+   *
+   * @param force - 是否跳过 dirty 检查强制写入（HMR _stop 使用）
    */
-  private save(): void {
+  save(force = false): void {
+    if (!force && !this.dirty) return;
     try {
       const now = Date.now();
       const allPairs: Array<{ from: string; to: string; count: number; timestamp: number }> = [];

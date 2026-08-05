@@ -72,6 +72,10 @@ import {
   sendRequest,
   startMessageListener,
 } from './message-broker';
+import { createManagerRegistry } from './manager-registry';
+import type { ManagerRegistry } from './manager-registry';
+import { createSchedulerManager } from './scheduler';
+import { mark, measure, clearKernelMarks } from './performance-utils';
 
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');
@@ -263,6 +267,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   const versionManager = getVersionManager();
   const preloadManager = getPreloadManager();
 
+  // === P0-A1: 管理器注册表（统一 dispose） ===
+  const registry: ManagerRegistry = createManagerRegistry();
+
   // ==================== P0-A2: 闭包级状态 ====================
 
   /** 当前活跃应用名 */
@@ -296,12 +303,12 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     setGlobalState(patch) {
       // === ADR-006: kernel:state 标记 ===
       const stateKeys = Object.keys(patch).join(',');
-      performance.mark(`kernel:state:${stateKeys}`);
+      mark(`kernel:state:${stateKeys}`);
       const prev = { ..._globalState };
       Object.assign(_globalState, patch);
-      const snapshot = { ..._globalState };
+      // P1-5: 增量广播 — 仅将变化的 key/value 传给监听器
       for (const listener of _globalStateListeners) {
-        try { listener(snapshot, prev); } catch { /* 静默 */ }
+        try { listener(patch, prev); } catch { /* 静默 */ }
       }
     },
     getGlobalState() {
@@ -363,7 +370,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
     // === ADR-006: kernel:route 标记 ===
     if (fromApp) {
-      performance.mark(`kernel:route:${fromApp}→${config.name}:start`);
+      mark(`kernel:route:${fromApp}→${config.name}:start`);
     }
 
     // 卸载当前
@@ -451,14 +458,16 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       activeAppName = config.name;
       // v3.4: 记录应用访问频率，供 frequency 预加载策略使用
       preloadManager.recordAppVisit(config.name);
+      // P1-2: 标记预加载被消费（如果该应用之前被预加载过）
+      preloadManager.recordPreloadConsumed(config.name);
       // v4.0 P1-2: 记录路由跳转供预测引擎学习
       if (prevAppName) {
         recordRouteTransition(prevAppName, config.name);
       }
       // ADR-006: kernel:route 结束标记
       if (fromApp) {
-        performance.mark(`kernel:route:${fromApp}→${config.name}:end`);
-        performance.measure(
+        mark(`kernel:route:${fromApp}→${config.name}:end`);
+        measure(
           `kernel:route:${fromApp}→${config.name}`,
           `kernel:route:${fromApp}→${config.name}:start`,
           `kernel:route:${fromApp}→${config.name}:end`,
@@ -520,24 +529,55 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   ): () => void {
     const historyPatchCleanup = patchHistory();
 
+    // === P2-2: activeRule 索引 — string 类型构建 Map + 排序，/function/RegExp 走 slow-path ===
+    // string activeRule 按长度降序排列：/app/detail 优先于 /app
+    const stringRules: Array<{ rule: string; app: MicroAppConfig }> = [];
+    const nonStringRules: MicroAppConfig[] = [];
+    for (const app of routerApps) {
+      if (typeof app.activeRule === 'string') {
+        stringRules.push({ rule: app.activeRule, app });
+      } else {
+        nonStringRules.push(app);
+      }
+    }
+    // 长度降序：更具体的路径优先匹配
+    stringRules.sort((a, b) => b.rule.length - a.rule.length);
+
+    function findMatchingApp(path: string): MicroAppConfig | null {
+      // 1. string 索引：按长度降序首次命中即返回（O(k)，k = string 数 ≤ N）
+      for (const { rule, app } of stringRules) {
+        if (path.startsWith(rule)) return app;
+      }
+      // 2. slow-path：仅遍历 RegExp/function 类型
+      for (const app of nonStringRules) {
+        if (matchActiveRule(path, app.activeRule)) return app;
+      }
+      return null;
+    }
+
     function handleRouteChange(): void {
       const path = window.location.pathname;
 
-      for (const app of routerApps) {
-        if (matchActiveRule(path, app.activeRule)) {
-          if (isDegraded(app.name)) {
-            // 降级应用走整页跳转
-            if (activeAppName !== app.name) {
-              // P0-2: 降级跳转需要有效的 URL，字符串类型直接使用，其他类型使用 entry
-              const fallbackUrl = typeof app.activeRule === 'string' ? app.activeRule : app.entry;
-              window.location.href = fallbackUrl;
-            }
-            return;
+      const app = findMatchingApp(path);
+      if (app) {
+        if (isDegraded(app.name)) {
+          // 降级应用走整页跳转
+          if (activeAppName !== app.name) {
+            // P0-2: 降级跳转需要有效的 URL，字符串类型直接使用，其他类型使用 entry
+            const fallbackUrl = typeof app.activeRule === 'string' ? app.activeRule : app.entry;
+            window.location.href = fallbackUrl;
           }
-
-          void switchToApp(app, options);
           return;
         }
+
+        // P1-3: 路由激活阶段权限守卫
+        if (options?.onRouteActivate && !options.onRouteActivate(app.name)) {
+          logger.warn(`Route activation blocked by guard for "${app.name}"`);
+          return;
+        }
+
+        void switchToApp(app, options);
+        return;
       }
 
       // === S2 修复：路径不匹配任何子应用时，卸载当前活跃应用 ===
@@ -850,7 +890,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         resetRetryCount(inst.config.name);
       }
 
-      // P0-A2: 重置闭包级状态
+      // === P0-A2: 重置闭包级状态 ===
       activeAppName = null;
       switchToken = 0;
       _globalState = {};
@@ -858,6 +898,10 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       lifecycleHooks.clear();
       apps = [];
       started = false;
+
+      // === P0-A1: 通过 ManagerRegistry 统一释放管理器 ===
+      registry.register(createSchedulerManager());
+      await registry.disposeAll();
 
       // P0-A2: 重置 scheduler / loader 模块级状态，避免上一轮实例残留
       resetScheduler();
@@ -879,6 +923,11 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         resetPreloadManager();
       } catch { /* 静默 */ }
 
+      // P2-4: HMR 前主动 flush RoutePredictor 到 localStorage，保留用户导航数据
+      try {
+        getRoutePredictor().save(true);
+      } catch { /* 静默 */ }
+
       // 路由预测器：清理转移矩阵与持久化缓存
       try {
         resetRoutePredictor();
@@ -890,6 +939,12 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       } catch { /* 静默 */ }
 
       clearDegraded();
+
+      // P0-2: 清理 performance 标记缓冲区
+      try {
+        clearKernelMarks?.();
+      } catch { /* 静默 */ }
+
       logger.info('Stopped');
     },
 

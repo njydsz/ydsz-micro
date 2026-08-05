@@ -16,6 +16,7 @@ import { getAllInstances } from './scheduler';
 import { getLogger } from '@remi-core/shared/utils';
 import { refreshRegistry, resolveAppEntry } from './registry-adapter';
 import type { AppStatus } from './scheduler';
+import { getPerfStats, clearKernelMarks } from './performance-utils';
 
 const logger = getLogger('MicroKernel');
 
@@ -64,6 +65,17 @@ function renderPanel(): string {
   const activeApp = instances.find((i) => i.status === 'MOUNTED');
   const keepAliveCount = instances.filter((i) => i.keepAlive && i.status === 'UNMOUNTED' && i.cachedRoot).length;
 
+  // P1-7: 获取性能测量数据
+  const perfStats = getPerfStats();
+  // 仅保留有意义的 measure（duration > 0）
+  const topMeasures = perfStats.measures
+    .filter((m) => m.duration > 0)
+    .slice(0, 8)
+    .map((m) => `<div style="display:flex;justify-content:space-between;padding:2px 0">
+        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px">${m.name.replace('kernel:', '')}</span>
+        <span style="color:#303133;font-variant-numeric:tabular-nums">${m.duration}ms</span>
+      </div>`).join('');
+
   return `
     <div id="${PANEL_ID}-content" style="font-family:monospace;font-size:12px;color:#303133">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -101,9 +113,19 @@ function renderPanel(): string {
           </div>
         `).join('')}
       </div>
+      <!-- P1-7: 性能指标区块 -->
+      <div style="margin-bottom:8px">
+        <div style="margin-bottom:4px;color:#606266">
+          ⚡ 性能 (kernel:*, ${perfStats.measureCount} measures, buffer ${perfStats.markCount})
+        </div>
+        <div style="padding:6px;background:#f5f7fa;border-radius:4px;max-height:160px;overflow-y:auto">
+          ${topMeasures || '<span style="color:#c0c4cc">暂无数据</span>'}
+        </div>
+      </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button id="${PANEL_ID}-refresh-registry" style="padding:4px 10px;font-size:11px;cursor:pointer;background:#f0f9eb;border:1px solid #c2e7b0;border-radius:3px;color:#67c23a">刷新注册表</button>
         <button id="${PANEL_ID}-clear-cache" style="padding:4px 10px;font-size:11px;cursor:pointer;background:#fdf6ec;border:1px solid #f5dab1;border-radius:3px;color:#e6a23c">清缓存</button>
+        <button id="${PANEL_ID}-perf-clear" style="padding:4px 10px;font-size:11px;cursor:pointer;background:#f4f4f5;border:1px solid #d3d4d6;border-radius:3px;color:#909399">清 perf</button>
         <button id="${PANEL_ID}-close" style="padding:4px 10px;font-size:11px;cursor:pointer;background:#f4f4f5;border:1px solid #d3d4d6;border-radius:3px;color:#909399">收起</button>
       </div>
     </div>
@@ -145,6 +167,10 @@ function bindPanelEvents(el: HTMLDivElement): void {
   });
   el.querySelector(`#${PANEL_ID}-clear-cache`)?.addEventListener('click', () => {
     window.dispatchEvent(new CustomEvent('micro-kernel:devtools:clear-cache'));
+  });
+  el.querySelector(`#${PANEL_ID}-perf-clear`)?.addEventListener('click', () => {
+    clearKernelMarks();
+    refreshPanel(el);
   });
   el.querySelector(`#${PANEL_ID}-close`)?.addEventListener('click', () => {
     toggleDevTools(false);

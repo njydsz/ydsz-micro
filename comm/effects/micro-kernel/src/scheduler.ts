@@ -28,6 +28,8 @@ import type { ProxySandboxInstance } from './proxy-sandbox';
 import { createIframeSandbox } from './iframe-sandbox';
 import type { IframeSandboxInstance } from './iframe-sandbox';
 import { createLogger } from '@remi-core/shared/utils';
+import { mark, measure } from './performance-utils';
+import type { DisposableManager } from './manager-registry';
 
 /** 模块级日志器（生命周期事件默认 debug 级别，避免生产噪音） */
 const logger = createLogger('MicroKernel');
@@ -353,7 +355,7 @@ export async function activateApp(
   // keepAlive 复用（需同时满足全局启用 + 实例级启用 + 缓存存在）
   if (keepAliveEnabled && instance.keepAlive && instance.cachedRoot && instance.cachedParent) {
     // === ADR-006: kernel:activate 标记（keep-alive 恢复路径）===
-    performance.mark(`kernel:activate:${config.name}:start`);
+    mark(`kernel:activate:${config.name}:start`);
     container.appendChild(instance.cachedRoot);
     instance.cachedParent = null;
     instance.status = 'MOUNTED';
@@ -366,8 +368,8 @@ export async function activateApp(
         logger.error(`${config.name} activate hook failed:`, err);
       }
     }
-    performance.mark(`kernel:activate:${config.name}:end`);
-    performance.measure(
+    mark(`kernel:activate:${config.name}:end`);
+    measure(
       `kernel:activate:${config.name}`,
       `kernel:activate:${config.name}:start`,
       `kernel:activate:${config.name}:end`,
@@ -470,15 +472,15 @@ export async function activateApp(
   callbacks.onBeforeMount?.(instance, container);
 
   // === ADR-006: kernel:mount 标记 ===
-  performance.mark(`kernel:mount:${config.name}:start`);
+  mark(`kernel:mount:${config.name}:start`);
   try {
     await instance.exports.mount(mountProps);
     instance.status = 'MOUNTED';
     instance.error = null;
     instance.lastActivatedAt = Date.now();
     // ADR-006: kernel:mount 结束标记
-    performance.mark(`kernel:mount:${config.name}:end`);
-    performance.measure(
+    mark(`kernel:mount:${config.name}:end`);
+    measure(
       `kernel:mount:${config.name}`,
       `kernel:mount:${config.name}:start`,
       `kernel:mount:${config.name}:end`,
@@ -520,7 +522,7 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
     const container = resolveContainer(config.container);
     if (container) {
       // === ADR-006: kernel:deactivate 标记 ===
-      performance.mark(`kernel:deactivate:${config.name}:start`);
+      mark(`kernel:deactivate:${config.name}:start`);
       instance.cachedRoot = container.firstElementChild as HTMLElement;
       instance.cachedParent = container;
       if (instance.cachedRoot) {
@@ -537,8 +539,8 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
           logger.error(`${config.name} deactivate hook failed:`, err);
         }
       }
-      performance.mark(`kernel:deactivate:${config.name}:end`);
-      performance.measure(
+      mark(`kernel:deactivate:${config.name}:end`);
+      measure(
         `kernel:deactivate:${config.name}`,
         `kernel:deactivate:${config.name}:start`,
         `kernel:deactivate:${config.name}:end`,
@@ -554,7 +556,7 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
 
   // 完整卸载
   // === ADR-006: kernel:unmount 标记 ===
-  performance.mark(`kernel:unmount:${config.name}:start`);
+  mark(`kernel:unmount:${config.name}:start`);
   try {
     await instance.exports!.unmount({
       container: resolveContainer(config.container) || document.createElement('div'),
@@ -596,8 +598,8 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
     instance.status = 'NOT_LOADED';
     instance.error = null;
     // ADR-006: kernel:unmount 结束标记
-    performance.mark(`kernel:unmount:${config.name}:end`);
-    performance.measure(
+    mark(`kernel:unmount:${config.name}:end`);
+    measure(
       `kernel:unmount:${config.name}`,
       `kernel:unmount:${config.name}:start`,
       `kernel:unmount:${config.name}:end`,
@@ -919,5 +921,48 @@ export function setupVisibilityAutoRelease(): () => void {
   document.addEventListener('visibilitychange', handler);
   return () => {
     document.removeEventListener('visibilitychange', handler);
+  };
+}
+
+/**
+ * P1-1: 更新子应用 props（调用子应用 update 生命周期）
+ *
+ * 当主应用向子应用注入新 props（如切换租户、主题、locale）时，
+ * 通过此函数通知已挂载的子应用更新，避免完整卸载-重新挂载的昂贵代价。
+ *
+ * 若子应用未定义 `update` 方法则静默忽略（兼容旧子应用）。
+ *
+ * @param instance - 子应用实例
+ * @param newProps - 新挂载 props
+ * @since 4.0.1
+ */
+export async function updateAppProps(instance: AppInstance, newProps: MountProps): Promise<void> {
+  if (instance.status !== 'MOUNTED') return;
+  if (!instance.exports?.update) return;
+
+  try {
+    await instance.exports.update(newProps);
+    logger.debug(`${instance.config.name} updated via update lifecycle`);
+  } catch (err) {
+    logger.error(`${instance.config.name} update lifecycle failed:`, err);
+    instance.error = String(err);
+  }
+}
+
+/**
+ * P0-A1: 为 ManagerRegistry 提供的 DisposableManager 包装。
+ *
+ * @since 4.0.1
+ */
+export function createSchedulerManager(): DisposableManager {
+  return {
+    name: 'scheduler',
+    dispose(): void {
+      appInstances.clear();
+      maxKeepAliveApps = 5;
+      keepAliveTTL = 30 * 60 * 1_000;
+      keepAliveEnabled = true;
+      keepAliveTimestamp = 1;
+    },
   };
 }

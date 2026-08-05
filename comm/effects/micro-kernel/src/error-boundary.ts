@@ -19,6 +19,99 @@ import { createLogger } from '@remi-core/shared/utils';
 const logger = createLogger('MicroKernel');
 
 /**
+ * P1-8: 内核错误码枚举。
+ *
+ * 标准化的错误分类，供监控系统（Sentry / 内部 Logan）按 code 聚合报警。
+ *
+ * @since 4.0.1
+ */
+export enum KernelErrorCode {
+  /** manifest.json 拉取失败（HTTP 404 / 500 等） */
+  LOAD_MANIFEST_FETCH = 'LOAD_MANIFEST_FETCH',
+  /** manifest.json 内容非法（JSON 解析失败 / 缺少 entry 字段） */
+  LOAD_MANIFEST_INVALID = 'LOAD_MANIFEST_INVALID',
+  /** ESM 入口模块 dynamic import 失败 */
+  LOAD_ESM_IMPORT = 'LOAD_ESM_IMPORT',
+  /** 加载超时 */
+  LOAD_TIMEOUT = 'LOAD_TIMEOUT',
+  /** 子应用未导出必要的 mount/unmount 方法 */
+  LIFECYCLE_MISSING = 'LIFECYCLE_MISSING',
+  /** mount 调用抛错 */
+  MOUNT_ERROR = 'MOUNT_ERROR',
+  /** unmount 调用抛错 */
+  UNMOUNT_ERROR = 'UNMOUNT_ERROR',
+  /** 沙箱创建或进入失败 */
+  SANDBOX_ERROR = 'SANDBOX_ERROR',
+}
+
+/**
+ * P1-8: 携带 errorCode 的内核错误类。
+ *
+ * 所有内核内部抛出的错误统一使用本类，监控系统可读取 code 字段聚合。
+ *
+ * @since 4.0.1
+ */
+export class KernelError extends Error {
+  readonly code: KernelErrorCode;
+  readonly cause?: unknown;
+
+  constructor(code: KernelErrorCode, message: string, cause?: unknown) {
+    super(message);
+    this.name = 'KernelError';
+    this.code = code;
+    this.cause = cause;
+  }
+}
+
+/**
+ * P0-3: 从 localStorage 中读取用户语言偏好，作为 i18n 后备。
+ *
+ * bootstrap.ts 在 watchEffect 中调用 setErrorFallbackMessages 初始化全局消息，
+ * 但当 error boundary 在 preferences 初始化之前触发错误时（如首屏子应用加载失败），
+ * globalMessages 默认为中文。通过读取 localStorage 可提前对齐用户偏好。
+ *
+ * @returns 'zh-CN' | 'en-US'
+ *
+ * @since 4.0.1
+ */
+function getLocaleFromStorage(): string {
+  try {
+    // 与 main/src/preferences 中 localStorage key 约定对齐
+    const stored = localStorage.getItem('remi:preferences');
+    if (stored) {
+      const prefs = JSON.parse(stored);
+      if (prefs?.app?.locale) return prefs.app.locale;
+    }
+    // 兜底到 navigator.language
+    if (typeof navigator !== 'undefined' && navigator.language) {
+      return navigator.language;
+    }
+  } catch {
+    // 静默
+  }
+  return 'zh-CN';
+}
+
+/**
+ * P0-3: 获取当前生效的语言标识。
+ *
+ * 全局消息已设置时优先匹配其语言，否则回退到 localStorage。
+ *
+ * @since 4.0.1
+ */
+function resolveEffectiveLocale(): string {
+  // 检测全局消息当前语言：捷克塞到 globalMessages 中取 title 对比中文默认值
+  const isChinese = globalMessages.title === zhCNMessages.title;
+  if (isChinese) {
+    // 全局消息为中文默认；检查用户是否偏好英文
+    const storageLocale = getLocaleFromStorage();
+    return storageLocale.startsWith('en') ? 'en-US' : 'zh-CN';
+  }
+  // 全局消息已被覆盖为非中文，按当前消息语言定
+  return globalMessages.title === enUSMessages.title ? 'en-US' : 'zh-CN';
+}
+
+/**
  * P0-E1: 转义 HTML 特殊字符，防止 XSS。
  *
  * 将 &, <, >, ", ' 转义为对应的 HTML 实体，
@@ -247,7 +340,8 @@ export function renderErrorFallback(
 
   const retryCount = retryCounters.get(config.name) ?? 0;
   const canRetry = onRetry && retryCount < MAX_MICRO_RETRIES;
-  const msg = messages ?? globalMessages;
+  // P0-3: 未显式提供消息时，根据当前全局配置自动选择（已包含 localStorage 后备）
+  const msg = messages ?? (resolveEffectiveLocale().startsWith('en') ? enUSMessages : zhCNMessages);
 
   // P0-E1: 转义所有动态值，防止 XSS
   const escName = escapeHtml(config.name);

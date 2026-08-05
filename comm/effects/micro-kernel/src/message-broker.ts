@@ -12,6 +12,7 @@
  */
 
 import { createLogger } from '@remi-core/shared/utils';
+import { mark } from './performance-utils';
 
 const logger = createLogger('MicroKernel');
 
@@ -125,7 +126,7 @@ export function sendMessage(to: string, action: string, payload?: unknown): stri
     correlationId,
   };
   // === ADR-006: kernel:message 标记 ===
-  performance.mark(`kernel:message:${to}:${action}`);
+  mark(`kernel:message:${to}:${action}`);
   window.dispatchEvent(new CustomEvent(MESSAGE_EVENT, { detail: message }));
   return correlationId;
 }

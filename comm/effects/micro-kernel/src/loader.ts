@@ -17,6 +17,7 @@ import type { LifecycleExports, MicroAppConfig } from '@remi/micro-runtime';
 import { createLogger } from '@remi-core/shared/utils';
 import { retryOperation, calculateRetryDelay } from '@remi-core/shared/utils/retry';
 import { injectModulePreload, preloadAppAssets } from './link-hints';
+import { KernelError, KernelErrorCode } from './error-boundary';
 
 /** 模块级日志器（重试等运维信息走 debug，避免生产噪音） */
 const logger = createLogger('MicroKernel');
@@ -76,6 +77,31 @@ export interface LoadResult {
 
 const manifestCache = new Map<string, Manifest>();
 
+/** P2-3: manifestCache 最大条目数。超过时淘汰最旧条目（LRU）。 */
+const MAX_MANIFEST_CACHE_SIZE = 50;
+
+/**
+ * P2-3: 设置 manifestCache 条目（带 LRU 淘汰）。
+ *
+ * Map 在 V8 中保留插入顺序，通过 delete + set 可将条目标记为最新。
+ *
+ * @since 4.0.1
+ */
+function setManifestCacheEntry(key: string, manifest: Manifest): void {
+  // 已存在时先 delete，重新 set 会移到末尾（最新）
+  if (manifestCache.has(key)) {
+    manifestCache.delete(key);
+  }
+  manifestCache.set(key, manifest);
+
+  // LRU 淘汰：超出上限时从头部（最旧）开始删
+  while (manifestCache.size > MAX_MANIFEST_CACHE_SIZE) {
+    const oldestKey = manifestCache.keys().next().value;
+    if (oldestKey === undefined) break;
+    manifestCache.delete(oldestKey);
+  }
+}
+
 /** 获取是否为开发模式 */
 const isDev = typeof import.meta !== 'undefined' && (import.meta as { env?: Record<string, unknown> }).env?.DEV === true;
 
@@ -93,15 +119,37 @@ export async function fetchManifest(
     return manifestCache.get(manifestUrl)!;
   }
 
-  const response = await fetch(manifestUrl, { signal });
+  let response: Response;
+  try {
+    response = await fetch(manifestUrl, { signal });
+  } catch (err) {
+    throw new KernelError(
+      KernelErrorCode.LOAD_MANIFEST_FETCH,
+      `[MicroKernel] Network error fetching manifest from ${manifestUrl}: ${String(err)}`,
+      err,
+    );
+  }
+
   if (!response.ok) {
-    throw new Error(
+    throw new KernelError(
+      KernelErrorCode.LOAD_MANIFEST_FETCH,
       `[MicroKernel] Failed to fetch manifest from ${manifestUrl}: ${response.status}`,
     );
   }
 
-  const manifest: Manifest = await response.json();
-  manifestCache.set(manifestUrl, manifest);
+  let manifest: Manifest;
+  try {
+    manifest = await response.json();
+  } catch (err) {
+    throw new KernelError(
+      KernelErrorCode.LOAD_MANIFEST_INVALID,
+      `[MicroKernel] Invalid JSON in manifest from ${manifestUrl}`,
+      err,
+    );
+  }
+
+  // P2-3: LRU 淘汰写入
+  setManifestCacheEntry(manifestUrl, manifest);
   return manifest;
 }
 
@@ -186,6 +234,13 @@ async function importWithRetry(
       try {
         const mod = await import(/* @vite-ignore */ url);
         return mod;
+      } catch (err) {
+        // P1-8: 包装为 KernelErrorCode.LOAD_ESM_IMPORT
+        throw new KernelError(
+          KernelErrorCode.LOAD_ESM_IMPORT,
+          `[MicroKernel] Failed to import ESM entry: ${url} — ${String(err)}`,
+          err,
+        );
       } finally {
         clearTimeout(timeoutId);
         opts.extSignal?.removeEventListener('abort', onExtAbort);
@@ -262,12 +317,14 @@ export function clearManifestCache(): void {
 /** 断言模块导出 mount 方法（必需）和 unmount（必需） */
 function assertLifecycle(module: Record<string, unknown>, appName: string): void {
   if (typeof module.mount !== 'function') {
-    throw new Error(
+    throw new KernelError(
+      KernelErrorCode.LIFECYCLE_MISSING,
       `[MicroKernel] App "${appName}" must export "mount" function. Found: ${Object.keys(module).join(', ')}`,
     );
   }
   if (typeof module.unmount !== 'function') {
-    throw new Error(
+    throw new KernelError(
+      KernelErrorCode.LIFECYCLE_MISSING,
       `[MicroKernel] App "${appName}" must export "unmount" function. Found: ${Object.keys(module).join(', ')}`,
     );
   }
