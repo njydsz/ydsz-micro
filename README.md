@@ -36,6 +36,7 @@
 - [浏览器支持](#浏览器支持)
 - [Git 规范](#git-规范)
 - [文档与决策记录](#文档与决策记录)
+- [竞品对标](#竞品对标)
 - [Roadmap](#roadmap)
 - [开源许可](#开源许可)
 
@@ -358,6 +359,20 @@ Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint �
 
 - [docs/v4.0-优化设施说明.md](docs/v4.0-优化设施说明.md) — 微应用框架优化设施说明（v4.0）
 - [docs/decisions/](docs/decisions/) — 架构决策记录（ADR），如 [ADR-003: SSR / Pre-rendering 方案评估](docs/decisions/adr-003-ssr-pre-rendering.md)
+
+## 竞品对标
+
+REMI 微前端中后台底座的对标竞品均为 Gitee 上的 Java/Spring 系中后台框架，可作为产品定位、能力补齐与差异化分析的参考：
+
+| 竞品 | 定位 | Gitee 地址 |
+| ---- | ---- | ---------- |
+| **RuoYi** | 基于 Spring Boot 的轻量级权限管理 / 快速开发框架 | https://gitee.com/y_project/RuoYi |
+| **pig** | 基于 Spring Cloud、OAuth2 的 RBAC 企业级快速开发平台（微服务 / 单体双模） | https://gitee.com/log4j/pig |
+| **maku-boot** | 企业级低代码平台（前后端分离，信创适配） | https://gitee.com/makunet/maku-boot |
+| **SpringBlade** | 商业级微服务 SaaS（Vue/React 双前端） | https://gitee.com/smallc/SpringBlade |
+| **JeecgBoot** | 企业级 AI 低代码平台（低代码 + 零代码双模式） | https://gitee.com/jeecg/JeecgBoot |
+
+**差异化要点**：上述竞品普遍为「后端全家桶 + 单体/微服务」形态，REMI 的核心差异在 **Vue 3 微前端架构**（`micro-kernel` + 8 个独立部署子应用）、**agent-web AI Agent 原生**、**可观测性**（火焰图 / 时间线 / 内存趋势，ADR-006）与 **可访问性**（屏幕阅读器测试，ADR-005）；**信创适配**（国密、达梦 / 人大金仓等国产库）为对标中普遍具备、REMI 尚待补齐的能力。
 
 ## Roadmap
 
