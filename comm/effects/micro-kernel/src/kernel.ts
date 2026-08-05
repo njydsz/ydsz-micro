@@ -52,8 +52,10 @@ import {
 } from './scheduler';
 import type { GlobalStateBridge } from './scheduler';
 import { clearManifestCache, loadApp } from './loader';
-import { getVersionManager } from './version-manager';
-import { getPreloadManager, recordRouteTransition } from './preload-strategy';
+import { getVersionManager, resetVersionManager } from './version-manager';
+import { getPreloadManager, recordRouteTransition, resetPreloadManager } from './preload-strategy';
+import { getRoutePredictor, resetRoutePredictor } from './route-predictor';
+import { getCanaryManager } from './canary-manager';
 import { preloadManifest } from './link-hints';
 import { createLogger } from '@remi-core/shared/utils';
 import { applyPrefetchBoost, removeSpeculationRules } from './speculation-rules';
@@ -779,6 +781,28 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       removeSpeculationRules();
       // v3.7.0: 清理消息通信 pending 请求
       clearPendingRequests();
+
+      // === P0-1: 全模块级管理器状态清理（消除 HMR 状态串扰） ===
+
+      // 版本管理器：清理版本信息 + 停止自动检查定时器
+      try {
+        resetVersionManager();
+      } catch { /* 清理失败不影响其他管理器 */ }
+
+      // 预加载管理器：清理所有策略 / hover 监听器 / 缓存
+      try {
+        resetPreloadManager();
+      } catch { /* 静默 */ }
+
+      // 路由预测器：清理转移矩阵与持久化缓存
+      try {
+        resetRoutePredictor();
+      } catch { /* 静默 */ }
+
+      // 灰度管理器：停止远端配置自动刷新定时器
+      try {
+        getCanaryManager().resetAutoRefresh();
+      } catch { /* 静默 */ }
 
       clearDegraded();
       logger.info('Stopped');

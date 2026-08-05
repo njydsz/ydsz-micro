@@ -264,6 +264,8 @@ export async function activateApp(
 
   // keepAlive 复用
   if (instance.keepAlive && instance.cachedRoot && instance.cachedParent) {
+    // === ADR-006: kernel:activate 标记（keep-alive 恢复路径）===
+    performance.mark(`kernel:activate:${config.name}:start`);
     container.appendChild(instance.cachedRoot);
     instance.cachedParent = null;
     instance.status = 'MOUNTED';
@@ -276,6 +278,12 @@ export async function activateApp(
         logger.error(`${config.name} activate hook failed:`, err);
       }
     }
+    performance.mark(`kernel:activate:${config.name}:end`);
+    performance.measure(
+      `kernel:activate:${config.name}`,
+      `kernel:activate:${config.name}:start`,
+      `kernel:activate:${config.name}:end`,
+    );
     logger.debug(`${config.name} reattached (keepAlive)`);
     return;
   }
@@ -373,11 +381,20 @@ export async function activateApp(
   // v3.3: 通知外部"挂载之前"阶段（沙箱已进入，mount 即将调用）
   callbacks.onBeforeMount?.(instance, container);
 
+  // === ADR-006: kernel:mount 标记 ===
+  performance.mark(`kernel:mount:${config.name}:start`);
   try {
     await instance.exports.mount(mountProps);
     instance.status = 'MOUNTED';
     instance.error = null;
     instance.lastActivatedAt = Date.now();
+    // ADR-006: kernel:mount 结束标记
+    performance.mark(`kernel:mount:${config.name}:end`);
+    performance.measure(
+      `kernel:mount:${config.name}`,
+      `kernel:mount:${config.name}:start`,
+      `kernel:mount:${config.name}:end`,
+    );
     logger.debug(`${config.name} mounted`);
   } catch (err) {
     // 挂载失败：退出对应的沙箱
@@ -414,6 +431,8 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
   if (instance.keepAlive) {
     const container = resolveContainer(config.container);
     if (container) {
+      // === ADR-006: kernel:deactivate 标记 ===
+      performance.mark(`kernel:deactivate:${config.name}:start`);
       instance.cachedRoot = container.firstElementChild as HTMLElement;
       instance.cachedParent = container;
       if (instance.cachedRoot) {
@@ -430,6 +449,12 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
           logger.error(`${config.name} deactivate hook failed:`, err);
         }
       }
+      performance.mark(`kernel:deactivate:${config.name}:end`);
+      performance.measure(
+        `kernel:deactivate:${config.name}`,
+        `kernel:deactivate:${config.name}:start`,
+        `kernel:deactivate:${config.name}:end`,
+      );
       logger.debug(`${config.name} detached (keepAlive)`);
 
       // P0-P2: LRU 淘汰：保活实例数超限时卸载最久未访问的子应用
@@ -440,6 +465,8 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
   }
 
   // 完整卸载
+  // === ADR-006: kernel:unmount 标记 ===
+  performance.mark(`kernel:unmount:${config.name}:start`);
   try {
     await instance.exports!.unmount({
       container: resolveContainer(config.container) || document.createElement('div'),
@@ -480,6 +507,13 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
     instance.exports = null;
     instance.status = 'NOT_LOADED';
     instance.error = null;
+    // ADR-006: kernel:unmount 结束标记
+    performance.mark(`kernel:unmount:${config.name}:end`);
+    performance.measure(
+      `kernel:unmount:${config.name}`,
+      `kernel:unmount:${config.name}:start`,
+      `kernel:unmount:${config.name}:end`,
+    );
     logger.debug(`${config.name} unmounted`);
     return { name: config.name, success: true };
   } catch (err) {

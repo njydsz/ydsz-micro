@@ -112,6 +112,8 @@ class CanaryManager {
   private config: CanaryGlobalConfig = DEFAULT_CONFIG;
   private cacheTimestamp = 0;
   private fetchPromise: Promise<void> | null = null;
+  /** P0-1: 远端配置自动刷新定时器 ID，供 resetAutoRefresh 清理 */
+  private refreshTimerId: ReturnType<typeof setInterval> | null = null;
 
   /**
    * 初始化灰度管理器（拉取远端配置或注入本地配置）。
@@ -170,11 +172,28 @@ class CanaryManager {
   }
 
   /**
-   * 启动自动刷新（按 cacheTtl 间隔）
+   * 启动自动刷新（按 cacheTtl 间隔）。
+   *
+   * P0-1: 先清理已有定时器避免重复启动导致多定时器并发。
    */
   startAutoRefresh(): void {
+    // 先清理已有定时器，防止重复调用产生多个并发定时器
+    this.resetAutoRefresh();
     const ttl = this.config.cacheTtl ?? 60_000;
-    setInterval(() => void this.refreshFromRemote(), ttl);
+    this.refreshTimerId = setInterval(() => void this.refreshFromRemote(), ttl);
+  }
+
+  /**
+   * P0-1: 停止远端配置自动刷新定时器。
+   *
+   * 供 kernel._stop() 在 HMR / 测试场景调用，
+   * 防止旧内核的定时器在新内核创建后继续运行造成状态串扰。
+   */
+  resetAutoRefresh(): void {
+    if (this.refreshTimerId !== null) {
+      clearInterval(this.refreshTimerId);
+      this.refreshTimerId = null;
+    }
   }
 
   /**
@@ -270,7 +289,9 @@ export function getCanaryManager(): CanaryManager {
 
 /**
  * 重置单例（测试用）。
+ * P0-1: 清定时器后再置 null，避免定时器回调访问已销毁实例。
  */
 export function resetCanaryManager(): void {
+  instance?.resetAutoRefresh();
   instance = null;
 }
