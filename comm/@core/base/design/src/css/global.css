@@ -6,46 +6,87 @@
   *,
   ::after,
   ::before {
-    @apply border-border;
-
+    @apply border-border border-solid border-0;
     box-sizing: border-box;
-    border-style: solid;
-    border-width: 0;
   }
 
   html {
-    @apply text-foreground bg-background font-sans text-[100%];
+    @apply bg-background text-foreground font-sans text-base;
 
     font-variation-settings: normal;
-    line-height: 1.15;
+    line-height: 1.5;
     text-size-adjust: 100%;
     font-synthesis-weight: none;
     scroll-behavior: smooth;
     text-rendering: optimizelegibility;
     -webkit-tap-highlight-color: transparent;
-
-    /* -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   #app,
   body,
   html {
     @apply size-full;
-
-    /* scrollbar-gutter: stable; */
   }
 
   body {
     min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-    /* pointer-events: auto !important; */
+  /* ============================================================
+   * 滚动条系统 - 多尺寸变体
+   * ============================================================ */
 
-    /* overflow: overlay; */
+  /* 只有非mac下才进行调整，mac下使用默认滚动条 */
+  html:not([data-platform="macOs"]) {
+    *::-webkit-scrollbar {
+      @apply size-2;
+    }
 
-    /* -webkit-font-smoothing: antialiased; */
+    *::-webkit-scrollbar-thumb {
+      @apply bg-border rounded-sm border-none;
+      transition: background-color var(--duration-default) var(--ease-out);
+    }
 
-    /* -moz-osx-font-smoothing: grayscale; */
+    *::-webkit-scrollbar-thumb:hover {
+      @apply bg-border-strong;
+    }
+
+    *::-webkit-scrollbar-track {
+      @apply rounded-sm border-none bg-transparent shadow-none;
+    }
+
+    *::-webkit-scrollbar-button {
+      @apply hidden;
+    }
+
+    /* Firefox */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--border)) transparent;
+    }
+  }
+
+  /* 隐藏滚动条工具类 */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 细滚动条 */
+  .scrollbar-thin::-webkit-scrollbar {
+    @apply size-1;
+  }
+
+  /* 宽滚动条 */
+  .scrollbar-thick::-webkit-scrollbar {
+    @apply size-3;
   }
 
   a,
@@ -82,34 +123,28 @@
     @apply opacity-100;
   }
 
-  /* input:-webkit-autofill {
-    @apply border-none;
-
-    box-shadow: 0 0 0 1000px transparent inset;
-  } */
-
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
     @apply m-0 appearance-none;
   }
 
-  /* 只有非mac下才进行调整，mac下使用默认滚动条 */
-  html:not([data-platform='macOs']) {
-    ::-webkit-scrollbar {
-      @apply h-[10px] w-[10px];
-    }
+  /* 焦点可见样式 */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
 
-    ::-webkit-scrollbar-thumb {
-      @apply bg-border rounded-sm border-none;
-    }
-
-    ::-webkit-scrollbar-track {
-      @apply rounded-sm border-none bg-transparent shadow-none;
-    }
-
-    ::-webkit-scrollbar-button {
-      @apply hidden;
-    }
+  /* 平滑过渡 - 对颜色和变换 */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
   }
 }
 
@@ -122,16 +157,20 @@
     @apply flex flex-col items-center justify-center;
   }
 
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
   .outline-box {
-    @apply outline-border relative cursor-pointer rounded-md p-1 outline outline-1;
+    @apply outline-border relative cursor-pointer rounded-lg p-1 outline outline-1 transition-all duration-200;
   }
 
   .outline-box::after {
-    @apply absolute left-1/2 top-1/2 z-20 h-0 w-[1px] rounded-sm opacity-0 outline outline-2 outline-transparent transition-all duration-300 content-[""];
+    @apply absolute left-1/2 top-1/2 z-20 size-0 rounded-sm opacity-0 outline outline-2 outline-transparent transition-all duration-300 content-[""];
   }
 
   .outline-box.outline-box-active {
-    @apply outline-primary outline outline-2;
+    @apply outline-primary outline-2;
   }
 
   .outline-box.outline-box-active::after {
@@ -139,7 +178,7 @@
   }
 
   .outline-box:not(.outline-box-active):hover::after {
-    @apply outline-primary left-0 top-0 h-full w-full p-1 opacity-100;
+    @apply outline-primary left-0 top-0 size-full opacity-100;
   }
 
   .remi-link {
@@ -148,6 +187,113 @@
 
   .card-box {
     @apply bg-card text-card-foreground border-border rounded-xl border;
+  }
+
+  /* ============================================================
+   * 微交互动画类
+   * ============================================================ */
+  .animate-in {
+    animation: fade-in var(--duration-default) var(--ease-out) forwards;
+  }
+
+  .animate-out {
+    animation: fade-out var(--duration-fast) var(--ease-in) forwards;
+  }
+
+  .animate-collapse-in {
+    overflow: hidden;
+    max-height: 0;
+    animation: slide-up var(--duration-slow) var(--ease-spring) forwards;
+  }
+
+  /* 玻璃质感效果 */
+  .glass {
+    @apply backdrop-blur-md;
+    background: hsl(var(--bg-surface-2) / 0.8);
+    border: 1px solid hsl(var(--border-subtle) / 0.6);
+  }
+
+  /* 悬浮卡片效果 */
+  .hover-card {
+    @apply transition-all duration-200;
+    box-shadow: var(--shadow-raised-100);
+  }
+
+  .hover-card:hover {
+    box-shadow: var(--shadow-raised-200);
+    transform: translateY(-1px);
+  }
+
+  /* 微妙渐变背景 */
+  .gradient-subtle {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--bg-canvas)) 0%,
+      hsl(var(--bg-surface-1)) 100%
+    );
+  }
+
+  /* 骨架屏占位 */
+  .skeleton {
+    @apply relative overflow-hidden bg-muted rounded-md;
+  }
+
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--bg-surface-2) / 0.4),
+      transparent
+    );
+    animation: shimmer 2s linear infinite;
+  }
+}
+
+@layer utilities {
+  /* 文字截断 */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 视觉隐藏但保留可访问性 */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* 平滑过渡别名 */
+  .transition-smooth {
+    transition: all var(--duration-default) var(--ease-out);
+  }
+
+  .transition-spring {
+    transition: all var(--duration-slow) var(--ease-spring);
   }
 }
 

@@ -595,6 +595,9 @@ importers:
       playwright:
         specifier: 'catalog:'
         version: 1.62.1
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.6
       rimraf:
         specifier: 'catalog:'
         version: 6.1.3
@@ -2348,6 +2351,9 @@ importers:
       '@remi-core/feature-flags':
         specifier: workspace:*
         version: link:../comm/@core/feature-flags
+      '@remi-core/shared':
+        specifier: workspace:*
+        version: link:../comm/@core/base/shared
       '@remi/access':
         specifier: workspace:*
         version: link:../comm/effects/access
@@ -2387,6 +2393,12 @@ importers:
       '@remi/request':
         specifier: workspace:*
         version: link:../comm/effects/request
+      '@remi/shared-auth':
+        specifier: workspace:*
+        version: link:../comm/effects/shared-auth
+      '@remi/shared-business':
+        specifier: workspace:*
+        version: link:../comm/effects/shared-business
       '@remi/stores':
         specifier: workspace:*
         version: link:../comm/stores

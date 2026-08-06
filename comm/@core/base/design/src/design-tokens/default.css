@@ -1,116 +1,322 @@
 :root {
   /** 弹出层的基础层级 **/
   --popup-z-index: 2000;
+
+  /* ============================================================
+   * 字体系统
+   * ============================================================ */
   --font-family:
-    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue',
-    arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+    "Inter Variable", "Inter", -apple-system, blinkmacsystemfont, "Segoe UI",
+    roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-code:
+    "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, "SF Mono",
+    Consolas, "Liberation Mono", monospace;
 
-  /* Default background color of <body />...etc */
-  --background: 0 0% 100%;
+  /* ============================================================
+   * 中性色阶 (Neutral Palette) - 用于背景、文本、边框
+   * ============================================================ */
+  --neutral-50: 0 0% 98%;
+  --neutral-100: 240 5% 96%;
+  --neutral-200: 240 6% 90%;
+  --neutral-300: 240 5% 84%;
+  --neutral-400: 240 4% 64%;
+  --neutral-500: 240 4% 46%;
+  --neutral-600: 240% 5% 34%;
+  --neutral-700: 240 5% 26%;
+  --neutral-800: 240 4% 16%;
+  --neutral-900: 240 6% 10%;
+  --neutral-950: 240 10% 4%;
 
-  /* 主体区域背景色 */
-  --background-deep: 216 20.11% 95.47%;
-  --foreground: 210 6% 21%;
+  /* ============================================================
+   * 品牌色阶 (Brand Palette - Teal/Indigo)
+   * ============================================================ */
+  --brand-50: 180 65% 95%;
+  --brand-100: 180 60% 90%;
+  --brand-200: 181 55% 80%;
+  --brand-300: 181 50% 65%;
+  --brand-400: 181 60% 45%;
+  --brand-500: 181 84% 32%;
+  --brand-600: 181 84% 28%;
+  --brand-700: 181 84% 24%;
 
-  /* Background color for <Card /> */
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
+  /* ============================================================
+   * 语义色 (Semantic Colors)
+   * ============================================================ */
+  --success-50: 145 60% 95%;
+  --success-100: 145 55% 88%;
+  --success-500: 144 57% 58%;
+  --success-600: 144 57% 48%;
 
-  /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
+  --warning-50: 42 100% 95%;
+  --warning-100: 42 100% 85%;
+  --warning-500: 42 84% 61%;
+  --warning-600: 42 84% 51%;
 
-  /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
+  --destructive-50: 0 85% 95%;
+  --destructive-100: 0 80% 88%;
+  --destructive-500: 359 100% 65%;
+  --destructive-600: 359 100% 58%;
 
-  /* --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%; */
+  /* ============================================================
+   * 背景层级 (Background Layer System)
+   * ============================================================ */
+  --bg-canvas: var(--neutral-50); /* 最底层画布 */
+  --bg-surface-1: var(--neutral-50); /* 主内容区第一层 */
+  --bg-surface-2: 0 0% 100%; /* 卡片/弹窗 */
+  --bg-surface-3: var(--neutral-100); /* 嵌套卡片/次级背景 */
+  --bg-overlay: 0 0% 0% / 45%; /* 遮罩 */
 
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
+  /* 旧变量兼容（保持向后兼容） */
+  --background: var(--bg-surface-1);
+  --background-deep: var(--bg-canvas);
 
-  /* 主题颜色 */
+  /* Card */
+  --card: var(--bg-surface-2);
+  --card-foreground: var(--neutral-900);
 
-  --primary: 181 84% 32%;
+  /* Popover */
+  --popover: var(--bg-surface-2);
+  --popover-foreground: var(--neutral-900);
+
+  /* ============================================================
+   * 文本颜色 (Text Colors)
+   * ============================================================ */
+  --txt-primary: var(--neutral-900); /* 主文本 */
+  --txt-secondary: var(--neutral-600); /* 次要文本 */
+  --txt-tertiary: var(--neutral-500); /* 辅助文本 */
+  --txt-disabled: var(--neutral-400); /* 禁用文本 */
+  --txt-inverse: 0 0% 100%; /* 反色文本 */
+
+  /* 旧变量兼容 */
+  --foreground: var(--txt-primary);
+
+  /* ============================================================
+   * 边框与输入 (Borders & Inputs)
+   * ============================================================ */
+  --border-default: var(--neutral-200); /* 默认边框 */
+  --border-strong: var(--neutral-300); /* 强调边框 */
+  --border-subtle: var(--neutral-100); /* 弱化边框 */
+
+  /* 旧变量兼容 */
+  --border: var(--border-default);
+  --input: var(--neutral-200);
+  --input-placeholder: var(--neutral-400);
+  --input-background: var(--bg-surface-2);
+
+  /* ============================================================
+   * 主色状态 (Primary States)
+   * ============================================================ */
+  --primary: var(--brand-500);
+  --primary-hover: var(--brand-600);
+  --primary-active: var(--brand-700);
   --primary-foreground: 0 0% 98%;
+  --primary-subtle: var(--brand-50);
+  --primary-subtle-foreground: var(--brand-700);
 
-  /* Used for destructive actions such as <Button variant="destructive"> */
+  /* Legacy color palette vars (for createColorsPalette function) */
+  --primary-50: var(--brand-50);
+  --primary-100: var(--brand-100);
+  --primary-200: var(--brand-200);
+  --primary-300: var(--brand-300);
+  --primary-400: var(--brand-400);
+  --primary-500: var(--brand-500);
+  --primary-600: var(--brand-600);
+  --primary-700: var(--brand-700);
 
-  --destructive: 359.33 100% 65.1%;
+  /* ============================================================
+   * 次色 (Secondary)
+   * ============================================================ */
+  --secondary: var(--neutral-100);
+  --secondary-foreground: var(--neutral-900);
+  --secondary-desc: var(--neutral-500);
+
+  /* ============================================================
+   * 强调色 (Accent)
+   * ============================================================ */
+  --accent: var(--neutral-100);
+  --accent-hover: var(--neutral-200);
+  --accent-dark: var(--neutral-200);
+  --accent-darker: var(--neutral-300);
+  --accent-lighter: var(--neutral-50);
+  --accent-foreground: var(--neutral-900);
+
+  /* ============================================================
+   * Muted
+   * ============================================================ */
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-500);
+
+  /* ============================================================
+   * 状态色 (Status Colors)
+   * ============================================================ */
+  --destructive: var(--destructive-500);
   --destructive-foreground: 0 0% 98%;
-
-  /* Used for success actions such as <message> */
-
-  --info: 240 5% 96%;
-  --info-foreground: 220 4% 58%;
-
-  /* Used for success actions such as <message> */
-
-  --success: 144 57% 58%;
+  --success: var(--success-500);
   --success-foreground: 0 0% 98%;
-
-  /* Used for warning actions such as <message> */
-
-  --warning: 42 84% 61%;
+  --warning: var(--warning-500);
   --warning-foreground: 0 0% 98%;
 
-  /* Secondary colors for <Button /> */
+  /* Legacy palette vars */
+  --destructive-50: var(--destructive-50);
+  --destructive-100: var(--destructive-100);
+  --destructive-500: var(--destructive-500);
+  --destructive-600: var(--destructive-600);
+  --success-50: var(--success-50);
+  --success-100: var(--success-100);
+  --success-500: var(--success-500);
+  --success-600: var(--success-600);
+  --warning-50: var(--warning-50);
+  --warning-100: var(--warning-100);
+  --warning-500: var(--warning-500);
+  --warning-600: var(--warning-600);
 
-  --secondary: 240 5% 96%;
-  --secondary-foreground: 240 6% 10%;
+  --info: var(--neutral-100);
+  --info-foreground: var(--neutral-500);
 
-  /* Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc */
-  --accent: 240 5% 96%;
-  --accent-dark: 216 14% 93%;
-  --accent-darker: 216 11% 91%;
-  --accent-lighter: 240 0% 98%;
-  --accent-hover: 200deg 10% 90%;
-  --accent-foreground: 240 6% 10%;
+  /* ============================================================
+   * Focus Ring
+   * ============================================================ */
+  --ring: var(--brand-500);
 
-  /* Darker color */
-  --heavy: 192deg 9.43% 89.61%;
+  /* ============================================================
+   * Heavy
+   * ============================================================ */
+  --heavy: var(--neutral-300);
   --heavy-foreground: var(--accent-foreground);
 
-  /* Default border color */
-  --border: 240 5.9% 90%;
+  /* ============================================================
+   * Border Radius Tokens
+   * ============================================================ */
+  --radius-none: 0;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+  --radius: var(--radius-md);
 
-  /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
-  --input: 240deg 5.88% 90%;
-  --input-placeholder: 217 10.6% 65%;
-  --input-background: 0 0% 100%;
+  /* ============================================================
+   * Border Width Tokens
+   * ============================================================ */
+  --border-width-sm: 1px;
+  --border-width-md: 1.5px;
+  --border-width-lg: 2px;
+  --border-width-xl: 3px;
 
-  /* Used for focus ring */
-  --ring: 222.2 84% 4.9%;
+  /* ============================================================
+   * Shadow Tokens (基于层级高度设计)
+   * ============================================================ */
+  --shadow-color: 240 5% 26%;
+  --shadow-raised-100: 0 1px 2px oklch(0.2 0.02 260 / 0.06);
+  --shadow-raised-200:
+    0 1px 2px oklch(0.2 0.02 260 / 0.06), 0 2px 8px oklch(0.2 0.02 260 / 0.08);
+  --shadow-raised-300:
+    0 2px 4px oklch(0.2 0.02 260 / 0.05), 0 8px 16px oklch(0.2 0.02 260 / 0.08);
+  --shadow-overlay-100:
+    0 4px 12px oklch(0.2 0.02 260 / 0.1), 0 2px 6px oklch(0.2 0.02 260 / 0.06);
+  --shadow-overlay-200:
+    0 8px 24px oklch(0.2 0.02 260 / 0.12), 0 4px 12px oklch(0.2 0.02 260 / 0.08);
+  --shadow-direction-left: -4px 0 16px oklch(0.2 0.02 260 / 0.08);
+  --shadow-direction-right: 4px 0 16px oklch(0.2 0.02 260 / 0.08);
 
-  /* Border radius for card, input and buttons */
-  --radius: 0.5rem;
+  /* Legacy shadow */
+  --shadow-float: var(--shadow-overlay-100);
 
-  /* ============= custom ============= */
+  /* ============================================================
+   * Spacing Tokens
+   * ============================================================ */
+  --padding-page: 1.25rem;
+  --padding-card: 1rem;
+  --height-header: 3.5rem;
+  --width-sidebar: 16rem;
+  --width-sidebar-collapsed: 3rem;
 
-  /* 遮罩颜色 */
-  --overlay: 0 0% 0% / 45%;
-  --overlay-content: 0 0% 95% / 45%;
+  /* ============================================================
+   * Typography Tokens
+   * ============================================================ */
+  --text-9: 0.5625rem;
+  --text-10: 0.625rem;
+  --text-11: 0.6875rem;
+  --text-12: 0.75rem;
+  --text-13: 0.8125rem;
+  --text-14: 0.875rem;
+  --text-15: 0.9375rem;
+  --text-16: 1rem;
+  --text-17: 1.0625rem;
+  --text-18: 1.125rem;
+  --text-20: 1.25rem;
+  --text-22: 1.375rem;
+  --text-24: 1.5rem;
+  --text-26: 1.625rem;
+  --text-28: 1.75rem;
+  --text-30: 1.875rem;
+  --text-32: 2rem;
+  --text-36: 2.25rem;
+  --text-40: 2.5rem;
+
+  --text-line-height-tight: 1.25;
+  --text-line-height-default: 1.5;
+  --text-line-height-relaxed: 1.714;
+
+  --tracking-tight: -0.02em;
+  --tracking-default: 0;
+  --tracking-wide: 0.02em;
+
+  /* Heading font sizes (h1-h6) */
+  --h1-size: var(--text-32);
+  --h2-size: var(--text-24);
+  --h3-size: var(--text-20);
+  --h4-size: var(--text-17);
+  --h5-size: var(--text-15);
+  --h6-size: var(--text-14);
 
   /* 基本文字大小 */
   --font-size-base: 16px;
 
-  /* =============component & UI============= */
+  /* ============================================================
+   * Animation Tokens
+   * ============================================================ */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* menu */
+  --duration-fast: 150ms;
+  --duration-default: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  /* ============================================================
+   * Overlay
+   * ============================================================ */
+  --overlay: 0 0% 0% / 45%;
+  --overlay-content: var(--neutral-950 / 45%);
+
+  /* ============================================================
+   * Component-specific
+   * ============================================================ */
+
+  /* Sidebar */
   --sidebar: 0 0% 100%;
-  --sidebar-deep: 0 0% 100%;
+  --sidebar-deep: var(--neutral-50);
   --menu: var(--sidebar);
 
-  /* header */
+  /* Header */
   --header: 0 0% 100%;
-  --header-foreground: 210 6% 21%;
+  --header-foreground: var(--neutral-800);
 
   accent-color: var(--primary);
   color-scheme: light;
 }
 
-[data-theme='violet'] {
-  /* --background: 0 0% 100%; */
+/* ============================================================
+ * Theme Variants (from original file, preserved)
+ * ============================================================ */
+
+[data-theme="violet"] {
   --foreground: 224 71.4% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 224 71.4% 4.1%;
@@ -130,8 +336,7 @@
   --ring: 262.1 83.3% 57.8%;
 }
 
-[data-theme='pink'] {
-  /* --background: 0 0% 100%; */
+[data-theme="pink"] {
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -151,8 +356,7 @@
   --ring: 346.8 77.2% 49.8%;
 }
 
-[data-theme='rose'] {
-  /* --background: 0 0% 100%; */
+[data-theme="rose"] {
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -172,8 +376,7 @@
   --ring: 346.8 77.2% 49.8%;
 }
 
-[data-theme='sky-blue'] {
-  /* --background: 0 0% 100%; */
+[data-theme="sky-blue"] {
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -193,8 +396,7 @@
   --ring: 221.2 83.2% 53.3%;
 }
 
-[data-theme='deep-blue'] {
-  /* --background: 0 0% 100%; */
+[data-theme="deep-blue"] {
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -214,8 +416,7 @@
   --ring: 221.2 83.2% 53.3%;
 }
 
-[data-theme='green'] {
-  /* --background: 0 0% 100%; */
+[data-theme="green"] {
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -235,8 +436,7 @@
   --ring: 142.1 76.2% 36.3%;
 }
 
-[data-theme='deep-green'] {
-  /* --background: 0 0% 100%; */
+[data-theme="deep-green"] {
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -256,8 +456,7 @@
   --ring: 142.1 76.2% 36.3%;
 }
 
-[data-theme='orange'] {
-  /* --background: 0 0% 100%; */
+[data-theme="orange"] {
   --foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 20 14.3% 4.1%;
@@ -277,8 +476,7 @@
   --ring: 24.6 95% 53.1%;
 }
 
-[data-theme='yellow'] {
-  /* --background: 0 0% 100%; */
+[data-theme="yellow"] {
   --foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 20 14.3% 4.1%;
@@ -298,8 +496,7 @@
   --ring: 20 14.3% 4.1%;
 }
 
-[data-theme='zinc'] {
-  /* --background: 0 0% 100%; */
+[data-theme="zinc"] {
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -319,8 +516,7 @@
   --ring: 240 5.9% 10%;
 }
 
-[data-theme='neutral'] {
-  /* --background: 0 0% 100%; */
+[data-theme="neutral"] {
   --foreground: 0 0% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 0 0% 3.9%;
@@ -340,8 +536,7 @@
   --ring: 0 0% 3.9%;
 }
 
-[data-theme='slate'] {
-  /* --background: 0 0% 100%; */
+[data-theme="slate"] {
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -361,8 +556,7 @@
   --ring: 222.2 84% 4.9%;
 }
 
-[data-theme='gray'] {
-  /* --background: 0 0% 100%; */
+[data-theme="gray"] {
   --foreground: 224 71.4% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 224 71.4% 4.1%;

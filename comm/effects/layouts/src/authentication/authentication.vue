@@ -1,19 +1,19 @@
 <!--
- * authentication 布局组件
+ * authentication 布局组件 - 现代化登录布局
  *
  * @path comm\effects\layouts\src\authentication\authentication.vue
  * @author remi-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ToolbarType } from './types';
+import type { ToolbarType } from "./types";
 
-import { preferences, usePreferences } from '@remi/preferences';
+import { preferences, usePreferences } from "@remi/preferences";
 
-import { Copyright } from '../basic/copyright';
-import AuthenticationFormView from './form.vue';
-import SloganIcon from './icons/slogan.vue';
-import Toolbar from './toolbar.vue';
+import { Copyright } from "../basic/copyright";
+import AuthenticationFormView from "./form.vue";
+import SloganIcon from "./icons/slogan.vue";
+import Toolbar from "./toolbar.vue";
 
 interface Props {
   appName?: string;
@@ -28,14 +28,14 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  appName: '',
+  appName: "",
   copyright: true,
-  logo: '',
-  pageDescription: '',
-  pageTitle: '',
-  sloganImage: '',
+  logo: "",
+  pageDescription: "",
+  pageTitle: "",
+  sloganImage: "",
   toolbar: true,
-  toolbarList: () => ['color', 'language', 'layout', 'theme'],
+  toolbarList: () => ["color", "language", "layout", "theme"],
   clickLogo: () => {},
 });
 
@@ -46,17 +46,18 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
 <template>
   <div
     :class="[isDark ? 'dark' : '']"
-    class="flex min-h-full flex-1 select-none overflow-x-hidden"
+    class="gradient-subtle flex min-h-screen flex-1 select-none overflow-x-hidden"
   >
     <template v-if="toolbar">
       <slot name="toolbar">
         <Toolbar :toolbar-list="toolbarList" />
       </slot>
     </template>
+
     <!-- 左侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelLeft"
-      class="min-h-full w-2/5 flex-1"
+      class="min-h-screen w-2/5 flex-1"
       transition-name="slide-left"
     >
       <template v-if="copyright" #copyright>
@@ -77,23 +78,37 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
         @click="clickLogo"
       >
         <div
-          class="text-foreground lg:text-foreground ml-4 mt-4 flex flex-1 items-center sm:left-6 sm:top-6"
+          class="text-text-primary lg:text-text-primary ml-6 mt-6 flex flex-1 items-center sm:left-8 sm:top-8"
         >
-          <img v-if="logo" :alt="appName" :src="logo" class="mr-2" width="42" />
-          <p v-if="appName" class="m-0 text-xl font-medium">
+          <img v-if="logo" :alt="appName" :src="logo" class="size-10" />
+          <p
+            v-if="appName"
+            class="ml-3 m-0 text-xl font-semibold tracking-tight"
+          >
             {{ appName }}
           </p>
         </div>
       </div>
     </slot>
 
-    <!-- 系统介绍 -->
+    <!-- 系统介绍 - 现代化渐变背景 -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div
-        class="bg-background-deep absolute inset-0 h-full w-full dark:bg-[#070709]"
+        class="absolute inset-0 size-full"
+        :class="isDark ? 'login-background-dark' : 'login-background'"
       >
-        <div class="login-background absolute left-0 top-0 size-full"></div>
-        <div class="flex-col-center -enter-x mr-20 h-full">
+        <!-- 装饰图形 -->
+        <div
+          class="login-decoration-1 absolute left-[10%] top-[20%] size-32 rounded-full bg-primary/10 blur-3xl"
+        ></div>
+        <div
+          class="login-decoration-2 absolute right-[15%] top-[60%] size-40 rounded-full bg-primary/5 blur-3xl"
+        ></div>
+        <div
+          class="login-decoration-3 absolute bottom-[20%] left-[30%] size-24 rounded-full bg-brand-300/20 blur-2xl"
+        ></div>
+
+        <div class="flex-col-center -enter-x mr-24 h-full">
           <template v-if="sloganImage">
             <img
               :alt="appName"
@@ -102,10 +117,12 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
             />
           </template>
           <SloganIcon v-else :alt="appName" class="animate-float h-64 w-2/5" />
-          <div class="text-1xl text-foreground mt-6 font-sans lg:text-2xl">
+          <div
+            class="mt-8 text-2xl font-semibold tracking-tight text-text-primary"
+          >
             {{ pageTitle }}
           </div>
-          <div class="dark:text-muted-foreground mt-2">
+          <div class="mt-3 text-base text-text-secondary">
             {{ pageDescription }}
           </div>
         </div>
@@ -114,9 +131,16 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
 
     <!-- 中心认证面板 -->
     <div v-if="authPanelCenter" class="flex-center relative w-full">
-      <div class="login-background absolute left-0 top-0 size-full"></div>
+      <div class="absolute inset-0 size-full gradient-subtle">
+        <div
+          class="login-decoration-1 absolute left-[10%] top-[20%] size-32 rounded-full bg-primary/8 blur-3xl"
+        ></div>
+        <div
+          class="login-decoration-2 absolute right-[15%] top-[60%] size-40 rounded-full bg-primary/4 blur-3xl"
+        ></div>
+      </div>
       <AuthenticationFormView
-        class="md:bg-background shadow-primary/5 shadow-float w-full rounded-3xl pb-20 md:w-2/3 lg:w-1/2 xl:w-[36%]"
+        class="glass w-full max-w-md rounded-2xl p-8 shadow-overlay"
       >
         <template v-if="copyright" #copyright>
           <slot name="copyright">
@@ -132,7 +156,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     <!-- 右侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelRight"
-      class="min-h-full w-[34%] flex-1"
+      class="min-h-screen w-[34%] flex-1"
     >
       <template v-if="copyright" #copyright>
         <slot name="copyright">
@@ -149,23 +173,32 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
 <style scoped>
 .login-background {
   background: linear-gradient(
-    154deg,
-    #07070915 30%,
-    hsl(var(--primary) / 30%) 48%,
-    #07070915 64%
+    135deg,
+    hsl(var(--bg-canvas)) 0%,
+    hsl(var(--brand-50)) 50%,
+    hsl(var(--bg-canvas)) 100%
   );
-  filter: blur(100px);
 }
 
-.dark {
-  .login-background {
-    background: linear-gradient(
-      154deg,
-      #07070915 30%,
-      hsl(var(--primary) / 20%) 48%,
-      #07070915 64%
-    );
-    filter: blur(100px);
-  }
+.login-background-dark {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--bg-canvas)) 0%,
+    hsl(var(--brand-50)) 50%,
+    hsl(var(--bg-canvas)) 100%
+  );
+}
+
+.login-decoration-1 {
+  animation: float 8s ease-in-out infinite;
+}
+
+.login-decoration-2 {
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.login-decoration-3 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
 }
 </style>

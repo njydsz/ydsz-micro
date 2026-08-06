@@ -1,10 +1,17 @@
-/* Make clicks pass-through */
+/* NProgress - 现代化路由加载进度条 */
+
 #nprogress {
   @apply pointer-events-none;
 }
 
 #nprogress .bar {
-  @apply bg-primary fixed left-0 top-0 z-[1031] h-[2px] w-full;
+  @apply fixed left-0 top-0 z-[1031] h-[2px] w-full;
+
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--brand-400, var(--primary))) 100%
+  );
 }
 
 /* Fancy blur effect */
@@ -18,17 +25,7 @@
   transform: rotate(3deg) translate(0, -4px);
 }
 
-/* Remove these to get rid of the spinner */
-#nprogress .spinner {
-  @apply fixed right-4 top-4 z-[1031] block;
-}
-
-#nprogress .spinner-icon {
-  @apply border-t-primary border-l-primary size-4 rounded-full border-[2px] border-solid border-transparent;
-
-  animation: nprogress-spinner 400ms linear infinite;
-}
-
+/* Parent for spinner positioning */
 .nprogress-custom-parent {
   @apply relative overflow-hidden;
 }
@@ -36,24 +33,4 @@
 .nprogress-custom-parent #nprogress .spinner,
 .nprogress-custom-parent #nprogress .bar {
   @apply absolute;
-}
-
-@keyframes nprogress-spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes nprogress-spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
 }

@@ -1,115 +1,220 @@
 .dark,
-.dark[data-theme='custom'],
-.dark[data-theme='default'] {
-  /* Default background color of <body />...etc */
-  --background: 222.34deg 10.43% 12.27%;
+.dark[data-theme="custom"],
+.dark[data-theme="default"] {
+  /* ============================================================
+   * 中性色阶 (Dark Mode Neutral)
+   * ============================================================ */
+  --neutral-50: 240 4% 16%;
+  --neutral-100: 240 4% 20%;
+  --neutral-200: 240 4% 26%;
+  --neutral-300: 240 5% 34%;
+  --neutral-400: 240 4% 46%;
+  --neutral-500: 240 4% 64%;
+  --neutral-600: 240 5% 74%;
+  --neutral-700: 240 5% 80%;
+  --neutral-800: 240 5% 88%;
+  --neutral-900: 240 5% 95%;
+  --neutral-950: 240 4% 98%;
 
-  /* 主体区域背景色 */
-  --background-deep: 220deg 13.06% 9%;
-  --foreground: 0 0% 95%;
+  /* ============================================================
+   * 品牌色阶 (Dark Mode Brand)
+   * ============================================================ */
+  --brand-50: 180 20% 16%;
+  --brand-100: 180 25% 24%;
+  --brand-200: 180 30% 35%;
+  --brand-300: 181 40% 50%;
+  --brand-400: 181 50% 55%;
+  --brand-500: 181 84% 68%;
+  --brand-600: 181 84% 72%;
+  --brand-700: 181 84% 80%;
 
-  /* Background color for <Card /> */
-  --card: 222.34deg 10.43% 12.27%;
+  /* ============================================================
+   * 语义色 (Dark Mode Semantic)
+   * ============================================================ */
+  --success-50: 145 25% 18%;
+  --success-100: 145 30% 28%;
+  --success-500: 144 57% 55%;
+  --success-600: 144 57% 62%;
 
-  /* --card: 222.2 84% 4.9%; */
-  --card-foreground: 210 40% 98%;
+  --warning-50: 42 40% 20%;
+  --warning-100: 42 45% 30%;
+  --warning-500: 42 84% 62%;
+  --warning-600: 42 84% 68%;
 
-  /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */
+  --destructive-50: 359 35% 20%;
+  --destructive-100: 359 40% 30%;
+  --destructive-500: 359 80% 62%;
+  --destructive-600: 359 80% 68%;
 
-  /* --popover: 222.82deg 8.43% 12.27%; */
+  /* ============================================================
+   * 背景层级 (Dark Mode Backgrounds)
+   * ============================================================ */
+  --bg-canvas: 222 10% 8%;
+  --bg-surface-1: 222 10% 12%;
+  --bg-surface-2: 222 10% 16%;
+  --bg-surface-3: 222 10% 20%;
+  --bg-overlay: 0 0 0% 0% / 60%;
 
-  /* 弹出层的背景色与主题区域背景色太过接近  */
-  --popover: 0 0% 14.2%;
-  --popover-foreground: 210 40% 98%;
+  /* 旧变量兼容 */
+  --background: var(--bg-surface-1);
+  --background-deep: var(--bg-canvas);
 
-  /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
+  /* Card */
+  --card: var(--bg-surface-2);
+  --card-foreground: var(--neutral-900);
 
-  /* --muted: 220deg 6.82% 17.25%; */
+  /* Popover */
+  --popover: var(--bg-surface-2);
+  --popover-foreground: var(--neutral-900);
 
-  /* --muted-foreground: 215 20.2% 65.1%; */
+  /* ============================================================
+   * 文本颜色 (Dark Mode Text)
+   * ============================================================ */
+  --txt-primary: var(--neutral-900);
+  --txt-secondary: var(--neutral-600);
+  --txt-tertiary: var(--neutral-500);
+  --txt-disabled: var(--neutral-400);
+  --txt-inverse: 222 10% 8%;
 
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
+  /* 旧变量兼容 */
+  --foreground: var(--txt-primary);
 
-  /* 主题颜色 */
+  /* ============================================================
+   * 边框与输入 (Dark Mode Borders)
+   * ============================================================ */
+  --border-default: var(--neutral-200);
+  --border-strong: var(--neutral-300);
+  --border-subtle: var(--neutral-100);
 
-  /* --primary: 245 82% 67%; */
-  --primary-foreground: 0 0% 98%;
-
-  /* Used for destructive actions such as <Button variant="destructive"> */
-
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 0 0% 98%;
-
-  /* Used for success actions such as <message> */
-
-  --info: 180 1.54% 12.75%;
-  --info-foreground: 220 4% 58%;
-
-  /* Used for success actions such as <message> */
-
-  --success: 144 57% 58%;
-  --success-foreground: 0 0% 98%;
-
-  /* Used for warning actions such as <message> */
-
-  --warning: 42 84% 61%;
-  --warning-foreground: 0 0% 98%;
-
-  /* 颜色次要 */
-  --secondary: 240 5% 17%;
-  --secondary-foreground: 0 0% 98%;
-
-  /* Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc */
-  --accent: 216 5% 19%;
-  --accent-dark: 240 0% 22%;
-  --accent-darker: 240 0% 26%;
-  --accent-lighter: 216 5% 12%;
-  --accent-hover: 216 5% 24%;
-  --accent-foreground: 0 0% 98%;
-
-  /* Darker color */
-  --heavy: 216 5% 24%;
-  --heavy-foreground: var(--accent-foreground);
-
-  /* Default border color */
-  --border: 240 3.7% 22%;
-
-  /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
+  /* 旧变量兼容 */
+  --border: var(--border-default);
   --input: 0deg 0% 100% / 10%;
-  --input-placeholder: 218deg 11% 65%;
+  --input-placeholder: var(--neutral-400);
   --input-background: 0deg 0% 100% / 5%;
 
-  /* Used for focus ring */
-  --ring: 222.2 84% 4.9%;
+  /* ============================================================
+   * 主色状态 (Dark Mode Primary)
+   * ============================================================ */
+  --primary: var(--brand-500);
+  --primary-hover: var(--brand-600);
+  --primary-active: var(--brand-700);
+  --primary-foreground: 222 10% 8%;
+  --primary-subtle: var(--brand-50);
+  --primary-subtle-foreground: var(--brand-700);
 
-  /* 基本圆角大小 */
-  --radius: 0.5rem;
+  /* Legacy palette vars */
+  --primary-50: var(--brand-50);
+  --primary-100: var(--brand-100);
+  --primary-200: var(--brand-200);
+  --primary-300: var(--brand-300);
+  --primary-400: var(--brand-400);
+  --primary-500: var(--brand-500);
+  --primary-600: var(--brand-600);
+  --primary-700: var(--brand-700);
 
-  /* ============= Custom ============= */
+  /* ============================================================
+   * 次色 (Dark Mode Secondary)
+   * ============================================================ */
+  --secondary: var(--neutral-100);
+  --secondary-foreground: var(--neutral-900);
+  --secondary-desc: var(--neutral-500);
 
-  /* 遮罩颜色 */
-  --overlay: 0deg 0% 0% / 40%;
-  --overlay-content: 0deg 0% 0% / 40%;
+  /* ============================================================
+   * 强调色 (Dark Mode Accent)
+   * ============================================================ */
+  --accent: var(--neutral-100);
+  --accent-hover: var(--neutral-200);
+  --accent-dark: var(--neutral-200);
+  --accent-darker: var(--neutral-300);
+  --accent-lighter: var(--neutral-50);
+  --accent-foreground: var(--neutral-900);
 
-  /* 基本文字大小 */
-  --font-size-base: 16px;
+  /* ============================================================
+   * Muted (Dark Mode)
+   * ============================================================ */
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-500);
 
-  /* =============component & UI============= */
+  /* ============================================================
+   * 状态色 (Dark Mode Status)
+   * ============================================================ */
+  --destructive: var(--destructive-500);
+  --destructive-foreground: var(--neutral-950);
+  --success: var(--success-500);
+  --success-foreground: var(--neutral-950);
+  --warning: var(--warning-500);
+  --warning-foreground: 222 10% 8%;
 
-  --sidebar: 222.34deg 10.43% 12.27%;
-  --sidebar-deep: 220deg 13.06% 9%;
+  /* Legacy palette vars */
+  --destructive-50: var(--destructive-50);
+  --destructive-100: var(--destructive-100);
+  --destructive-500: var(--destructive-500);
+  --destructive-600: var(--destructive-600);
+  --success-50: var(--success-50);
+  --success-100: var(--success-100);
+  --success-500: var(--success-500);
+  --success-600: var(--success-600);
+  --warning-50: var(--warning-50);
+  --warning-100: var(--warning-100);
+  --warning-500: var(--warning-500);
+  --warning-600: var(--warning-600);
+
+  --info: var(--neutral-100);
+  --info-foreground: var(--neutral-500);
+
+  /* ============================================================
+   * Focus Ring (Dark Mode)
+   * ============================================================ */
+  --ring: var(--brand-400);
+
+  /* Heavy */
+  --heavy: var(--neutral-200);
+  --heavy-foreground: var(--accent-foreground);
+
+  /* ============================================================
+   * Shadow Tokens (Dark Mode - 使用更深的阴影)
+   * ============================================================ */
+  --shadow-color: 0 0% 0%;
+  --shadow-raised-100: 0 1px 2px oklch(0 0 0 / 0.2);
+  --shadow-raised-200:
+    0 1px 2px oklch(0 0 0 / 0.2), 0 2px 8px oklch(0 0 0 / 0.25);
+  --shadow-raised-300:
+    0 2px 4px oklch(0 0 0 / 0.2), 0 8px 16px oklch(0 0 0 / 0.3);
+  --shadow-overlay-100:
+    0 4px 12px oklch(0 0 0 / 0.35), 0 2px 6px oklch(0 0 0 / 0.25);
+  --shadow-overlay-200:
+    0 8px 24px oklch(0 0 0 / 0.4), 0 4px 12px oklch(0 0 0 / 0.3);
+  --shadow-direction-left: -4px 0 16px oklch(0 0 0 / 0.3);
+  --shadow-direction-right: 4px 0 16px oklch(0 0 0 / 0.3);
+
+  /* Legacy shadow */
+  --shadow-float: var(--shadow-overlay-100);
+
+  /* ============================================================
+   * Overlay
+   * ============================================================ */
+  --overlay: 0deg 0% 0% / 60%;
+  --overlay-content: 0deg 0% 0% / 50%;
+
+  /* ============================================================
+   * Component-specific (Dark Mode)
+   * ============================================================ */
+  --sidebar: var(--bg-surface-2);
+  --sidebar-deep: var(--bg-canvas);
   --menu: var(--sidebar);
 
-  /* header */
-  --header: 222.34deg 10.43% 12.27%;
-  --header-foreground: 210 20% 98%;
+  --header: var(--bg-surface-2);
+  --header-foreground: var(--neutral-800);
 
   color-scheme: dark;
 }
 
-.dark[data-theme='violet'],
-[data-theme='violet'] .dark {
+/* ============================================================
+ * Theme Variants Dark (preserved from original)
+ * ============================================================ */
+
+.dark[data-theme="violet"],
+[data-theme="violet"] .dark {
   --background: 224 71.4% 4.1%;
   --background-deep: var(--background);
   --foreground: 210 20% 98%;
@@ -135,8 +240,8 @@
   --header-foreground: 210 20% 98%;
 }
 
-.dark[data-theme='pink'],
-[data-theme='pink'] .dark {
+.dark[data-theme="pink"],
+[data-theme="pink"] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
@@ -162,8 +267,8 @@
   --header-foreground: 0 0% 95%;
 }
 
-.dark[data-theme='rose'],
-[data-theme='rose'] .dark {
+.dark[data-theme="rose"],
+[data-theme="rose"] .dark {
   --background: 0 0% 3.9%;
   --background-deep: var(--background);
   --foreground: 0 0% 98%;
@@ -189,8 +294,8 @@
   --header-foreground: 0 0% 98%;
 }
 
-.dark[data-theme='sky-blue'],
-[data-theme='sky-blue'] .dark {
+.dark[data-theme="sky-blue"],
+[data-theme="sky-blue"] .dark {
   --background: 222.2 84% 4.9%;
   --background-deep: var(--background);
   --foreground: 210 40% 98%;
@@ -216,8 +321,8 @@
   --header-foreground: 210 40% 98%;
 }
 
-.dark[data-theme='deep-blue'],
-[data-theme='deep-blue'] .dark {
+.dark[data-theme="deep-blue"],
+[data-theme="deep-blue"] .dark {
   --background: 222.2 84% 4.9%;
   --background-deep: var(--background);
   --foreground: 210 40% 98%;
@@ -243,8 +348,8 @@
   --header-foreground: 210 40% 98%;
 }
 
-.dark[data-theme='green'],
-[data-theme='green'] .dark {
+.dark[data-theme="green"],
+[data-theme="green"] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
@@ -270,8 +375,8 @@
   --header-foreground: 0 0% 95%;
 }
 
-.dark[data-theme='deep-green'],
-[data-theme='deep-green'] .dark {
+.dark[data-theme="deep-green"],
+[data-theme="deep-green"] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
@@ -297,8 +402,8 @@
   --header-foreground: 60 9.1% 97.8%;
 }
 
-.dark[data-theme='orange'],
-[data-theme='orange'] .dark {
+.dark[data-theme="orange"],
+[data-theme="orange"] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 60 9.1% 97.8%;
@@ -324,8 +429,8 @@
   --header-foreground: 60 9.1% 97.8%;
 }
 
-.dark[data-theme='yellow'],
-[data-theme='yellow'] .dark {
+.dark[data-theme="yellow"],
+[data-theme="yellow"] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 60 9.1% 97.8%;
@@ -350,8 +455,8 @@
   --header: 20 14.3% 4.1%;
 }
 
-.dark[data-theme='zinc'],
-[data-theme='zinc'] .dark {
+.dark[data-theme="zinc"],
+[data-theme="zinc"] .dark {
   --background: 240 10% 3.9%;
   --background-deep: var(--background);
   --foreground: 0 0% 98%;
@@ -377,8 +482,8 @@
   --header-foreground: 0 0% 98%;
 }
 
-.dark[data-theme='neutral'],
-[data-theme='neutral'] .dark {
+.dark[data-theme="neutral"],
+[data-theme="neutral"] .dark {
   --background: 0 0% 3.9%;
   --background-deep: var(--background);
   --foreground: 0 0% 98%;
@@ -404,8 +509,8 @@
   --header-foreground: 0 0% 98%;
 }
 
-.dark[data-theme='slate'],
-[data-theme='slate'] .dark {
+.dark[data-theme="slate"],
+[data-theme="slate"] .dark {
   --background: 222.2 84% 4.9%;
   --background-deep: var(--background);
   --foreground: 210 40% 98%;
@@ -431,8 +536,8 @@
   --header-foreground: 210 40% 98%;
 }
 
-.dark[data-theme='gray'],
-[data-theme='gray'] .dark {
+.dark[data-theme="gray"],
+[data-theme="gray"] .dark {
   --background: 224 71.4% 4.1%;
   --background-deep: var(--background);
   --foreground: 210 20% 98%;

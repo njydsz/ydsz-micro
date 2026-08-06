@@ -31,6 +31,7 @@
   "dependencies": {
     "@vueuse/core": "catalog:",
     "@remi-core/feature-flags": "workspace:*",
+    "@remi-core/shared": "workspace:*",
     "@remi/access": "workspace:*",
     "@remi/common-ui": "workspace:*",
     "@remi/constants": "workspace:*",
@@ -44,6 +45,8 @@
     "@remi/plugins": "workspace:*",
     "@remi/preferences": "workspace:*",
     "@remi/request": "workspace:*",
+    "@remi/shared-auth": "workspace:*",
+    "@remi/shared-business": "workspace:*",
     "@remi/stores": "workspace:*",
     "@remi/styles": "workspace:*",
     "@remi/types": "workspace:*",

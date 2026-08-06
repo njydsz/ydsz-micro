@@ -29,6 +29,10 @@
     "./es/watermark": {
       "types": "./src/components/watermark/index.ts",
       "default": "./src/components/watermark/index.ts"
+    },
+    "./es/safe-html": {
+      "types": "./src/components/safe-html/index.ts",
+      "default": "./src/components/safe-html/index.ts"
     }
   },
   "dependencies": {

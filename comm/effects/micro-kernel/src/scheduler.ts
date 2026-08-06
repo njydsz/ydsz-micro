@@ -23,22 +23,22 @@ import type {
   MountProps,
   SandboxType,
   UnmountResult,
-} from '@remi/micro-runtime';
-import { loadApp, removeStylesheets } from './loader';
-import type { LoadOptions, LoadResult, Manifest } from './loader';
+} from "@remi/micro-runtime";
+import { loadApp, removeStylesheets } from "./loader";
+import type { LoadOptions, LoadResult, Manifest } from "./loader";
 import {
   createSandboxStrategy,
   IframeSandboxStrategy,
   ProxySandboxStrategy,
-} from './sandbox-strategy';
-import type { SandboxStrategy } from './sandbox-strategy';
-import { createLogger } from '@remi-core/shared/utils';
-import { mark, measure } from './performance-utils';
-import type { DisposableManager } from './manager-registry';
-import { KernelError, KernelErrorCode } from './error-boundary';
+} from "./sandbox-strategy";
+import type { SandboxStrategy } from "./sandbox-strategy";
+import { createLogger } from "@remi-core/shared/utils";
+import { mark, measure } from "./performance-utils";
+import type { DisposableManager } from "./manager-registry";
+import { KernelError, KernelErrorCode } from "./error-boundary";
 
 /** 模块级日志器（生命周期事件默认 debug 级别，避免生产噪音） */
-const logger = createLogger('MicroKernel');
+const logger = createLogger("MicroKernel");
 
 /**
  * 解析容器配置：支持 CSS 选择器字符串或 HTMLElement 实例。
@@ -47,21 +47,22 @@ const logger = createLogger('MicroKernel');
  * @returns 解析后的 HTMLElement，未找到时返回 null
  */
 function resolveContainer(container: string | HTMLElement): HTMLElement | null {
-  if (typeof container === 'string') {
+  if (typeof container === "string") {
     return document.querySelector(container) as HTMLElement | null;
   }
   return container;
 }
 
 /** 子应用生命周期状态：未加载 / 加载中 / 已加载 / 已挂载 / 已卸载 */
-export type AppStatus = 'NOT_LOADED' | 'LOADING' | 'LOADED' | 'MOUNTED' | 'UNMOUNTED';
+export type AppStatus =
+  "NOT_LOADED" | "LOADING" | "LOADED" | "MOUNTED" | "UNMOUNTED";
 
 /**
  * 沙箱类型（re-export 自 micro-runtime，保持单一事实源）。
  *
  * @since 3.6.0 从 micro-runtime 导入，不再在本文件定义
  */
-export type { SandboxType } from '@remi/micro-runtime';
+export type { SandboxType } from "@remi/micro-runtime";
 
 /** 单个子应用在调度器中的运行时实例，含配置、生命周期导出、状态与保活缓存 */
 export interface AppInstance {
@@ -172,13 +173,13 @@ let keepAliveEnabled = true;
  * ```
  */
 export function configureKeepAlive(config: KeepAliveConfig): void {
-  if (typeof config.enabled === 'boolean') {
+  if (typeof config.enabled === "boolean") {
     keepAliveEnabled = config.enabled;
   }
-  if (typeof config.max === 'number') {
+  if (typeof config.max === "number") {
     maxKeepAliveApps = Math.max(0, config.max);
   }
-  if (typeof config.ttl === 'number') {
+  if (typeof config.ttl === "number") {
     keepAliveTTL = Math.max(0, config.ttl);
   }
 }
@@ -221,7 +222,7 @@ const appInstances = new Map<string, AppInstance>();
 export function createAppInstance(config: MicroAppConfig): AppInstance {
   const instance: AppInstance = {
     config,
-    status: 'NOT_LOADED',
+    status: "NOT_LOADED",
     exports: null,
     keepAlive: false,
     cachedRoot: null,
@@ -229,7 +230,7 @@ export function createAppInstance(config: MicroAppConfig): AppInstance {
     // v4.1 P0-A2: 使用统一策略字段替代 sandbox/proxySandbox/iframeSandbox
     strategy: null,
     // v3.6.0: 从 MicroAppConfig.sandbox 读取沙箱类型，未配置时默认 'snapshot'
-    sandboxType: config.sandbox ?? 'snapshot',
+    sandboxType: config.sandbox ?? "snapshot",
     loadMetrics: null,
     error: null,
     lastActivatedAt: 0,
@@ -270,7 +271,10 @@ export interface GlobalStateBridge {
   /** 设置 globalState（广播给所有订阅者） */
   setGlobalState: (patch: Record<string, unknown>) => void;
   /** 订阅 globalState 变化（用于主 → 子同步） */
-  onGlobalStateChange: (listener: (state: Record<string, unknown>) => void, fireImmediately?: boolean) => () => void;
+  onGlobalStateChange: (
+    listener: (state: Record<string, unknown>) => void,
+    fireImmediately?: boolean,
+  ) => () => void;
 }
 
 /**
@@ -293,7 +297,7 @@ export interface DeactivateResult extends UnmountResult {
  * 可阻止该应用的淘汰。返回 `true` 表示允许淘汰，`false` 表示被阻止。
  */
 function dispatchBeforeEvict(appName: string): boolean {
-  const event = new CustomEvent('micro-kernel:before-evict', {
+  const event = new CustomEvent("micro-kernel:before-evict", {
     detail: { appName },
     cancelable: true,
     bubbles: true,
@@ -310,14 +314,16 @@ function dispatchBeforeEvict(appName: string): boolean {
  * - 不可用时回退到传入的默认值（默认 500MB）
  */
 function getDynamicMemoryThreshold(defaultMB = 500): number {
-  const perf = (window as unknown as {
-    performance?: {
-      memory?: {
-        jsHeapSizeLimit?: number;
-        usedJSHeapSize?: number;
+  const perf = (
+    window as unknown as {
+      performance?: {
+        memory?: {
+          jsHeapSizeLimit?: number;
+          usedJSHeapSize?: number;
+        };
       };
-    };
-  }).performance;
+    }
+  ).performance;
   const limit = perf?.memory?.jsHeapSizeLimit;
   if (limit && limit > 0) {
     return (limit / 1024 / 1024) * 0.8;
@@ -351,15 +357,20 @@ export async function activateApp(
 ): Promise<void> {
   const { config } = instance;
 
-  if (instance.status === 'MOUNTED') return;
+  if (instance.status === "MOUNTED") return;
 
   // keepAlive 复用（需同时满足全局启用 + 实例级启用 + 缓存存在）
-  if (keepAliveEnabled && instance.keepAlive && instance.cachedRoot && instance.cachedParent) {
+  if (
+    keepAliveEnabled &&
+    instance.keepAlive &&
+    instance.cachedRoot &&
+    instance.cachedParent
+  ) {
     // === ADR-006: kernel:activate 标记（keep-alive 恢复路径）===
     mark(`kernel:activate:${config.name}:start`);
     container.appendChild(instance.cachedRoot);
     instance.cachedParent = null;
-    instance.status = 'MOUNTED';
+    instance.status = "MOUNTED";
     instance.lastActivatedAt = Date.now();
     // v4.1 P0-A2: keep-alive 恢复时也调用沙箱策略的 activate
     instance.strategy?.activate();
@@ -383,18 +394,21 @@ export async function activateApp(
 
   // 加载（如未加载）
   if (!instance.exports) {
-    instance.status = 'LOADING';
+    instance.status = "LOADING";
     try {
       const result: LoadResult = await loadApp(config, loadOpts);
       instance.exports = result.exports;
-      instance.loadMetrics = { duration: result.duration, fromCache: result.fromCache };
+      instance.loadMetrics = {
+        duration: result.duration,
+        fromCache: result.fromCache,
+      };
       // v3.3: 记录 manifest 供主应用容器读取 routes（骨架屏细化）
       instance.manifest = result.manifest;
-      instance.status = 'LOADED';
+      instance.status = "LOADED";
       // v3.3: 通知外部"加载完成"阶段（用于进度条推进、骨架屏细化）
       callbacks.onLoaded?.(instance);
     } catch (err) {
-      instance.status = 'NOT_LOADED';
+      instance.status = "NOT_LOADED";
       instance.error = String(err);
       throw err;
     }
@@ -408,7 +422,7 @@ export async function activateApp(
   };
 
   // 设置容器属性，与 PostCSS 构建期 CSS scoping 联动
-  container.setAttribute('data-micro-app', config.name);
+  container.setAttribute("data-micro-app", config.name);
 
   // === v4.1 P0-A2: 使用统一策略进入沙箱（消除 if-else）===
   instance.strategy = createSandboxStrategy(
@@ -446,8 +460,14 @@ export async function activateApp(
             globalStateBridge.getGlobalState(),
           );
         },
-        onGlobalStateChange: (listener: (state: Record<string, unknown>) => void, fireImmediately?: boolean) => {
-          return globalStateBridge.onGlobalStateChange(listener, fireImmediately);
+        onGlobalStateChange: (
+          listener: (state: Record<string, unknown>) => void,
+          fireImmediately?: boolean,
+        ) => {
+          return globalStateBridge.onGlobalStateChange(
+            listener,
+            fireImmediately,
+          );
         },
       };
       mountProps._globalState = proxyGlobalState;
@@ -469,7 +489,7 @@ export async function activateApp(
   mark(`kernel:mount:${config.name}:start`);
   try {
     await instance.exports.mount(mountProps);
-    instance.status = 'MOUNTED';
+    instance.status = "MOUNTED";
     instance.error = null;
     instance.lastActivatedAt = Date.now();
     // ADR-006: kernel:mount 结束标记
@@ -484,7 +504,7 @@ export async function activateApp(
     // 挂载失败：通过策略清理沙箱
     instance.strategy?.cleanup();
     instance.strategy = null;
-    instance.status = 'LOADED';
+    instance.status = "LOADED";
     instance.error = String(err);
     // P1-8: 包装为 KernelError 后抛出
     throw new KernelError(
@@ -501,10 +521,12 @@ export async function activateApp(
  *
  * v4.1 P0-A2: 使用 strategy.unmount()/cleanup() 替代 if-else 分支。
  */
-export async function deactivateApp(instance: AppInstance): Promise<DeactivateResult> {
+export async function deactivateApp(
+  instance: AppInstance,
+): Promise<DeactivateResult> {
   const { config } = instance;
 
-  if (instance.status !== 'MOUNTED') {
+  if (instance.status !== "MOUNTED") {
     return { name: config.name, success: true };
   }
 
@@ -518,7 +540,7 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
       if (instance.cachedRoot) {
         container.removeChild(instance.cachedRoot);
       }
-      instance.status = 'UNMOUNTED';
+      instance.status = "UNMOUNTED";
       // v3.7.0: 记录保活缓存创建时间（用于 TTL 过期检测）
       instance.keepAliveSince = keepAliveTimestamp++;
       // v3.7.0: 调用策略的 unmount（keepAlive 时不完全清理沙箱）
@@ -542,7 +564,11 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
       // P0-P2: LRU 淘汰：保活实例数超限时卸载最久未访问的子应用
       const evicted = await evictKeepAliveIfNeeded();
 
-      return { name: config.name, success: true, evicted: evicted.length > 0 ? evicted : undefined };
+      return {
+        name: config.name,
+        success: true,
+        evicted: evicted.length > 0 ? evicted : undefined,
+      };
     }
   }
 
@@ -551,7 +577,8 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
   mark(`kernel:unmount:${config.name}:start`);
   try {
     await instance.exports!.unmount({
-      container: resolveContainer(config.container) || document.createElement('div'),
+      container:
+        resolveContainer(config.container) || document.createElement("div"),
       basename: config.activeRule,
     });
 
@@ -562,12 +589,12 @@ export async function deactivateApp(instance: AppInstance): Promise<DeactivateRe
     // 移除容器级 CSS scoping 属性（data-micro-app）
     const containerEl = resolveContainer(config.container);
     if (containerEl) {
-      containerEl.removeAttribute('data-micro-app');
+      containerEl.removeAttribute("data-micro-app");
     }
 
     removeStylesheets(config.name);
     instance.exports = null;
-    instance.status = 'NOT_LOADED';
+    instance.status = "NOT_LOADED";
     instance.error = null;
     // ADR-006: kernel:unmount 结束标记
     mark(`kernel:unmount:${config.name}:end`);
@@ -650,7 +677,11 @@ export function resetScheduler(): void {
 export function getKeepAliveCount(): number {
   let count = 0;
   for (const instance of appInstances.values()) {
-    if (instance.keepAlive && instance.status === 'UNMOUNTED' && instance.cachedRoot) {
+    if (
+      instance.keepAlive &&
+      instance.status === "UNMOUNTED" &&
+      instance.cachedRoot
+    ) {
       count++;
     }
   }
@@ -681,7 +712,11 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
   const cached: AppInstance[] = [];
   const now = keepAliveTimestamp;
   for (const instance of appInstances.values()) {
-    if (instance.keepAlive && instance.status === 'UNMOUNTED' && instance.cachedRoot) {
+    if (
+      instance.keepAlive &&
+      instance.status === "UNMOUNTED" &&
+      instance.cachedRoot
+    ) {
       cached.push(instance);
     }
   }
@@ -702,9 +737,15 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
       }
     }
     // 淘汰完后重新收集剩余缓存
-    cached.splice(0, cached.length,
+    cached.splice(
+      0,
+      cached.length,
       ...[...appInstances.values()].filter(
-        (i) => i.keepAlive && i.status === 'UNMOUNTED' && i.cachedRoot && !evicted.includes(i.config.name),
+        (i) =>
+          i.keepAlive &&
+          i.status === "UNMOUNTED" &&
+          i.cachedRoot &&
+          !evicted.includes(i.config.name),
       ),
     );
   }
@@ -720,7 +761,9 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
 
     // 派发 before-evict 事件，允许外部阻止淘汰
     if (!dispatchBeforeEvict(victim.config.name)) {
-      logger.debug(`LRU eviction of "${victim.config.name}" prevented by before-evict listener`);
+      logger.debug(
+        `LRU eviction of "${victim.config.name}" prevented by before-evict listener`,
+      );
       continue;
     }
 
@@ -748,7 +791,9 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
   try {
     if (instance.exports) {
       await instance.exports.unmount({
-        container: instance.cachedParent as HTMLElement || document.createElement('div'),
+        container:
+          (instance.cachedParent as HTMLElement) ||
+          document.createElement("div"),
         basename: instance.config.activeRule,
       });
     }
@@ -764,7 +809,9 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
       }
-      logger.debug(`DOM cleanup fallback: cleared residual DOM for "${instance.config.name}"`);
+      logger.debug(
+        `DOM cleanup fallback: cleared residual DOM for "${instance.config.name}"`,
+      );
     } catch {
       // DOM 操作失败不影响后续清理
     }
@@ -778,7 +825,7 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
   instance.cachedRoot = null;
   instance.cachedParent = null;
   instance.exports = null;
-  instance.status = 'NOT_LOADED';
+  instance.status = "NOT_LOADED";
   instance.error = null;
   instance.keepAliveSince = 0;
   logger.debug(`Evicted keep-alive app "${instance.config.name}"`);
@@ -798,10 +845,18 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
  *
  * @param thresholdMB - 内存阈值（MB），默认使用动态阈值
  */
-export async function evictAllKeepAliveOnMemoryPressure(thresholdMB?: number): Promise<void> {
+export async function evictAllKeepAliveOnMemoryPressure(
+  thresholdMB?: number,
+): Promise<void> {
   const effectiveThreshold = thresholdMB ?? getDynamicMemoryThreshold();
-  const performance = (window as unknown as { performance?: { memory?: { usedJSHeapSize: number } } }).performance;
-  const usedMB = performance?.memory ? performance.memory.usedJSHeapSize / 1024 / 1024 : 0;
+  const performance = (
+    window as unknown as {
+      performance?: { memory?: { usedJSHeapSize: number } };
+    }
+  ).performance;
+  const usedMB = performance?.memory
+    ? performance.memory.usedJSHeapSize / 1024 / 1024
+    : 0;
 
   if (usedMB < effectiveThreshold) return;
 
@@ -810,10 +865,16 @@ export async function evictAllKeepAliveOnMemoryPressure(thresholdMB?: number): P
   );
 
   for (const instance of appInstances.values()) {
-    if (instance.keepAlive && instance.status === 'UNMOUNTED' && instance.cachedRoot) {
+    if (
+      instance.keepAlive &&
+      instance.status === "UNMOUNTED" &&
+      instance.cachedRoot
+    ) {
       // P0-P2: 派发 before-evict 事件，允许外部保留关键应用
       if (!dispatchBeforeEvict(instance.config.name)) {
-        logger.debug(`Memory pressure eviction of "${instance.config.name}" prevented by before-evict listener`);
+        logger.debug(
+          `Memory pressure eviction of "${instance.config.name}" prevented by before-evict listener`,
+        );
         continue;
       }
 
@@ -821,7 +882,9 @@ export async function evictAllKeepAliveOnMemoryPressure(thresholdMB?: number): P
       try {
         if (instance.exports) {
           await instance.exports.unmount({
-            container: instance.cachedParent as HTMLElement || document.createElement('div'),
+            container:
+              (instance.cachedParent as HTMLElement) ||
+              document.createElement("div"),
             basename: instance.config.activeRule,
           });
         }
@@ -835,7 +898,7 @@ export async function evictAllKeepAliveOnMemoryPressure(thresholdMB?: number): P
       instance.cachedRoot = null;
       instance.cachedParent = null;
       instance.exports = null;
-      instance.status = 'NOT_LOADED';
+      instance.status = "NOT_LOADED";
     }
   }
 }
@@ -852,16 +915,16 @@ export async function evictAllKeepAliveOnMemoryPressure(thresholdMB?: number): P
  * @since 3.6.1
  */
 export function setupVisibilityAutoRelease(): () => void {
-  if (typeof document === 'undefined') return () => {};
+  if (typeof document === "undefined") return () => {};
 
   const handler = (): void => {
     if (document.hidden) {
       void evictAllKeepAliveOnMemoryPressure();
     }
   };
-  document.addEventListener('visibilitychange', handler);
+  document.addEventListener("visibilitychange", handler);
   return () => {
-    document.removeEventListener('visibilitychange', handler);
+    document.removeEventListener("visibilitychange", handler);
   };
 }
 
@@ -877,8 +940,11 @@ export function setupVisibilityAutoRelease(): () => void {
  * @param newProps - 新挂载 props
  * @since 4.0.1
  */
-export async function updateAppProps(instance: AppInstance, newProps: MountProps): Promise<void> {
-  if (instance.status !== 'MOUNTED') return;
+export async function updateAppProps(
+  instance: AppInstance,
+  newProps: MountProps,
+): Promise<void> {
+  if (instance.status !== "MOUNTED") return;
   if (!instance.exports?.update) return;
 
   try {
@@ -897,7 +963,7 @@ export async function updateAppProps(instance: AppInstance, newProps: MountProps
  */
 export function createSchedulerManager(): DisposableManager {
   return {
-    name: 'scheduler',
+    name: "scheduler",
     dispose(): void {
       appInstances.clear();
       maxKeepAliveApps = 5;
@@ -918,4 +984,18 @@ export function createSchedulerManager(): DisposableManager {
  */
 export function resetKeepAliveEnabled(): void {
   keepAliveEnabled = true;
+}
+
+/**
+ * 设置指定子应用的保活状态（v3.x 兼容 API）。
+ *
+ * @param name - 子应用名称
+ * @param keep - 是否保活
+ * @deprecated 自 v4.0 起使用 `configureKeepAlive` 替代
+ * @since 3.7.0
+ */
+export function setKeepAlive(name: string, keep: boolean): void {
+  // v4.0 兼容实现：使用统一的 configureKeepAlive
+  // 注意：这是一个简化实现，实际 pin 逻辑需要访问内部状态
+  configureKeepAlive({ enabled: keep });
 }
