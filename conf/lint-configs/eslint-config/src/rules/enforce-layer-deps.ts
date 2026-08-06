@@ -7,17 +7,18 @@
  * @author remi-team
  * @since 1.0.0
  */
-import type { Linter } from 'eslint';
+import type { Linter } from "eslint";
 
 /** 分层标识 → 路径前缀模式 */
 const LAYER_PATTERNS = {
-  base: '@remi-core/{design,icons,shared,typings}',
-  composables: '@remi-core/composables',
-  featureFlags: '@remi-core/feature-flags',
-  preferences: '@remi-core/preferences',
-  uiKit: '@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
-  effects: '@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}',
-  main: '#/',
+  base: "@remi-core/{design,icons,shared,typings}",
+  composables: "@remi-core/composables",
+  featureFlags: "@remi-core/feature-flags",
+  preferences: "@remi-core/preferences",
+  uiKit: "@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}",
+  effects:
+    "@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}",
+  main: "#/",
 } as const;
 
 /**
@@ -34,69 +35,59 @@ const LAYER_PATTERNS = {
 export function enforceLayerDepsConfig(): Linter.Config {
   return {
     files: [
-      'comm/@core/base/**/*.{ts,tsx,vue}',
-      'comm/@core/composables/**/*.{ts,tsx,vue}',
-      'comm/@core/ui-kit/**/*.{ts,tsx,vue}',
-      'comm/effects/**/*.{ts,tsx,vue}',
+      "comm/@core/base/**/*.{ts,tsx,vue}",
+      "comm/@core/composables/**/*.{ts,tsx,vue}",
+      "comm/@core/ui-kit/**/*.{ts,tsx,vue}",
+      "comm/effects/**/*.{ts,tsx,vue}",
     ],
     rules: {
-      'import/no-restricted-paths': [
-        'error',
+      "import/no-restricted-paths": [
+        "error",
         {
           zones: [
             // 1. base 层禁止导入上层
             {
-              target: { patterns: ['comm/@core/base/**/*.{ts,tsx,vue}'] },
-              from: {
-                patterns: [
-                  '@remi-core/composables',
-                  '@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
-                  '@remi-core/feature-flags',
-                  '@remi-core/preferences',
-                  '@remi/*',
-                  '#/*',
-                ],
-              },
+              target: ["comm/@core/base/**/*.{ts,tsx,vue}"],
+              from: [
+                "@remi-core/composables/**",
+                "@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}/**",
+                "@remi-core/feature-flags/**",
+                "@remi-core/preferences/**",
+                "@remi/*",
+                "#/*",
+              ],
               message:
-                '[layer-deps] base 层禁止依赖上层模块（composables/ui-kit/effects/main）',
+                "[layer-deps] base 层禁止依赖上层模块（composables/ui-kit/effects/main）",
             },
             // 2. composables 禁止导入 ui-kit/effects/main
             {
-              target: { patterns: ['comm/@core/composables/**/*.{ts,tsx,vue}'] },
-              from: {
-                patterns: [
-                  '@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}',
-                  '@remi-core/feature-flags',
-                  '@remi-core/preferences',
-                  '@remi/*',
-                  '#/*',
-                ],
-              },
+              target: ["comm/@core/composables/**/*.{ts,tsx,vue}"],
+              from: [
+                "@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}/**",
+                "@remi-core/feature-flags/**",
+                "@remi-core/preferences/**",
+                "@remi/*",
+                "#/*",
+              ],
               message:
-                '[layer-deps] composables 层禁止依赖 ui-kit/effects/main',
+                "[layer-deps] composables 层禁止依赖 ui-kit/effects/main",
             },
             // 3. ui-kit 禁止导入 effects/main
             {
-              target: { patterns: ['comm/@core/ui-kit/**/*.{ts,tsx,vue}'] },
-              from: {
-                patterns: [
-                  '@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}',
-                  '@remi-core/feature-flags',
-                  '@remi-core/preferences',
-                  '#/*',
-                ],
-              },
-              message:
-                '[layer-deps] ui-kit 层禁止依赖 effects/main',
+              target: ["comm/@core/ui-kit/**/*.{ts,tsx,vue}"],
+              from: [
+                "@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}",
+                "@remi-core/feature-flags/**",
+                "@remi-core/preferences/**",
+                "#/*",
+              ],
+              message: "[layer-deps] ui-kit 层禁止依赖 effects/main",
             },
             // 4. effects 禁止导入 main
             {
-              target: { patterns: ['comm/effects/**/*.{ts,tsx,vue}'] },
-              from: {
-                patterns: ['#/*'],
-              },
-              message:
-                '[layer-deps] effects 层禁止依赖 main（主应用业务代码）',
+              target: ["comm/effects/**/*.{ts,tsx,vue}"],
+              from: ["#/*"],
+              message: "[layer-deps] effects 层禁止依赖 main（主应用业务代码）",
             },
           ],
         },

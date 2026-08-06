@@ -8,20 +8,26 @@
  * - 仍读取 userInfo 和 accessCodes（非敏感数据，正常通过响应体返回）
  * - 登出时调用 logoutApi 让后端清除 Cookie，前端仅清理本地 UI 状态
  */
-import type { Recordable, UserInfo } from '@remi/types';
+import type { Recordable, UserInfo } from "@remi/types";
 
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-import { LOGIN_PATH } from '@remi/constants';
-import { preferences } from '@remi/preferences';
-import { resetAllStores, useAccessStore, useTokenStore, useUserStore } from '@remi/stores';
+import { LOGIN_PATH } from "@remi/constants";
+import { preferences } from "@remi/preferences";
+import {
+  resetAllStores,
+  useAccessStore,
+  useTokenStore,
+  useUserStore,
+} from "@remi/stores";
 
-import { ElNotification } from 'element-plus';
-import { defineStore } from 'pinia';
+import { ElNotification } from "element-plus";
+import { defineStore } from "pinia";
 
-import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from './auth-api';
-import { $t } from './i18n-setup';
+import { getAccessCodesApi, loginApi, logoutApi } from "./auth-api";
+import { $t } from "./i18n-setup";
+import { getUserInfoApi } from "./user-api";
 
 /**
  * P0-F2: 认证令牌存储模式（构建期常量，与 request.ts 保持一致）。
@@ -29,7 +35,7 @@ import { $t } from './i18n-setup';
  * @see comm/effects/shared-auth/src/request.ts 中的 isHttpOnlyCookieMode
  */
 const isHttpOnlyCookieMode: boolean =
-  import.meta.env.VITE_APP_AUTH_TOKEN_STORAGE === 'httpOnlyCookie';
+  import.meta.env.VITE_APP_AUTH_TOKEN_STORAGE === "httpOnlyCookie";
 
 /**
  * 创建共享 Auth Store
@@ -49,11 +55,13 @@ const isHttpOnlyCookieMode: boolean =
  *
  * @param options - 可选回调，允许宿主在登录/登出等关键节点注入自定义逻辑
  */
-export function createSharedAuthStore(options: {
-  /** 登出时回调（在 resetAllStores 之后、路由跳转之前触发） */
-  onLogout?: (redirect: boolean) => void;
-} = {}) {
-  return defineStore('auth', () => {
+export function createSharedAuthStore(
+  options: {
+    /** 登出时回调（在 resetAllStores 之后、路由跳转之前触发） */
+    onLogout?: (redirect: boolean) => void;
+  } = {},
+) {
+  return defineStore("auth", () => {
     const accessStore = useAccessStore();
     const tokenStore = useTokenStore();
     const userStore = useUserStore();
@@ -87,8 +95,13 @@ export function createSharedAuthStore(options: {
               tokenStore.setRefreshToken(refreshToken);
             }
             // 记录绝对过期时间戳，供会话超时预警使用（expiresIn 单位：秒）
-            if (typeof loginResult.expiresIn === 'number' && loginResult.expiresIn > 0) {
-              tokenStore.setExpiresAt(Date.now() + loginResult.expiresIn * 1000);
+            if (
+              typeof loginResult.expiresIn === "number" &&
+              loginResult.expiresIn > 0
+            ) {
+              tokenStore.setExpiresAt(
+                Date.now() + loginResult.expiresIn * 1000,
+              );
             }
           }
 
@@ -118,8 +131,8 @@ export function createSharedAuthStore(options: {
 
           if (userInfo?.realName) {
             ElNotification.success({
-              title: $t('authentication.loginSuccess'),
-              message: `${$t('authentication.loginSuccessDesc')}: ${userInfo.realName}`,
+              title: $t("authentication.loginSuccess"),
+              message: `${$t("authentication.loginSuccessDesc")}: ${userInfo.realName}`,
               duration: 3000,
             });
           }

@@ -5,13 +5,12 @@
  * @author remi-team
  * @since 1.0.0
  */
-import type { Linter } from 'eslint';
+import type { Linter } from "eslint";
 
 import {
   command,
   comments,
   disableds,
-  i18n,
   ignores,
   importPluginConfig,
   javascript,
@@ -21,23 +20,19 @@ import {
   perfectionist,
   prettier,
   regexp,
-  sandbox,
   scopedCss,
   test,
   turbo,
   typescript,
   unicorn,
   vue,
-} from './configs';
-import { customConfig } from './custom-config';
+} from "./configs";
+import { customConfig } from "./custom-config";
 
 type FlatConfig = Linter.Config;
 
 type FlatConfigPromise =
-  | FlatConfig
-  | FlatConfig[]
-  | Promise<FlatConfig>
-  | Promise<FlatConfig[]>;
+  FlatConfig | FlatConfig[] | Promise<FlatConfig> | Promise<FlatConfig[]>;
 
 /**
  * 组装完整的 ESLint flat 配置。
@@ -68,7 +63,6 @@ async function defineConfig(config: FlatConfig[] = []) {
     command(),
     turbo(),
     scopedCss(),
-    i18n(),
     ...customConfig,
     ...config,
   ];

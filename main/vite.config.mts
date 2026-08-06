@@ -9,6 +9,7 @@
  * @since 1.0.0
  */
 import { defineConfig } from '@remi/vite-config';
+import { fileURLToPath, URL } from 'node:url';
 
 import ElementPlus from 'unplugin-element-plus/vite';
 
@@ -33,6 +34,11 @@ export default defineConfig(async () => {
       },
     },
     vite: {
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+        },
+      },
       server: {
         port: 5600,
         // 允许跨域，微前端子应用需要

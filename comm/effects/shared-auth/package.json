@@ -14,6 +14,7 @@
     }
   },
   "dependencies": {
+    "@remi/access": "workspace:*",
     "@remi/constants": "workspace:*",
     "@remi/hooks": "workspace:*",
     "@remi/locales": "workspace:*",

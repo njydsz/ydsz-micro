@@ -45,6 +45,7 @@
     "@remi/hooks": "workspace:*",
     "@remi/icons": "workspace:*",
     "@remi/locales": "workspace:*",
+    "@remi/monitor": "workspace:*",
     "@remi/types": "workspace:*",
     "@vueuse/core": "catalog:",
     "@vueuse/integrations": "catalog:",

@@ -32,7 +32,7 @@
  * @since 4.0.0
  */
 
-import type { ErrorReport } from './error-monitor';
+import type { ErrorReport } from "./error-monitor";
 
 /** Sentry 初始化选项 */
 export interface SentryConfig {
@@ -55,7 +55,7 @@ let sentryModule: any = null;
 /** 是否已完成初始化 */
 let initialized = false;
 /** 当前配置 */
-let currentConfig: SentryConfig | null = null;
+let currentConfig: null | SentryConfig = null;
 
 /**
  * 初始化 Sentry SDK
@@ -69,11 +69,11 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
 
   try {
     // 动态导入，避免 @sentry/vue 成为运行时必要依赖
-    sentryModule = await import('@sentry/vue');
+    sentryModule = await import(/* @vite-ignore */ "@sentry/vue");
   } catch {
     console.warn(
-      '[Monitor] @sentry/vue not installed; Sentry forwarding disabled. ' +
-      'To enable: pnpm add @sentry/vue --filter @remi/monitor'
+      "[Monitor] @sentry/vue not installed; Sentry forwarding disabled. " +
+        "To enable: pnpm add @sentry/vue --filter @remi/monitor",
     );
     return false;
   }
@@ -86,9 +86,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
     environment: config.environment,
     integrations: [
       vueIntegration(),
-      config.tracesSampleRate
-        ? browserTracingIntegration()
-        : null,
+      config.tracesSampleRate ? browserTracingIntegration() : null,
     ].filter(Boolean),
     sampleRate: config.sampleRate ?? 1,
     tracesSampleRate: config.tracesSampleRate ?? 0,
@@ -103,7 +101,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
   });
 
   initialized = true;
-  console.info('[Monitor] Sentry adapter initialized', {
+  console.warn("[Monitor] Sentry adapter initialized", {
     release: config.release,
     environment: config.environment,
   });
@@ -123,16 +121,16 @@ export function captureError(report: ErrorReport): void {
   const { captureException, configureScope } = sentryModule;
 
   // 将错误映射为 Sentry 级别
-  const level = report.type === 'resource' ? 'warning' : 'error';
+  const level = report.type === "resource" ? "warning" : "error";
 
   configureScope((scope: any) => {
     // 设置标签便于 Sentry dashboard 过滤
-    scope.setTag('error.type', report.type);
-    scope.setTag('error.sessionId', report.sessionId || 'unknown');
-    scope.setTag('error.traceId', report.traceId || 'unknown');
+    scope.setTag("error.type", report.type);
+    scope.setTag("error.sessionId", report.sessionId || "unknown");
+    scope.setTag("error.traceId", report.traceId || "unknown");
 
     // 设置上下文
-    scope.setContext('error_report', {
+    scope.setContext("error_report", {
       type: report.type,
       filename: report.filename,
       lineno: report.lineno,
@@ -143,7 +141,7 @@ export function captureError(report: ErrorReport): void {
 
     // 面包屑
     if (report.breadcrumbs?.length) {
-      scope.setContext('breadcrumbs', {
+      scope.setContext("breadcrumbs", {
         trail: report.breadcrumbs.slice(-10).map((b) => ({
           category: b.category,
           message: b.message,
@@ -171,7 +169,10 @@ export function captureError(report: ErrorReport): void {
 /**
  * 手动上报一条消息到 Sentry
  */
-export function captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info'): void {
+export function captureMessage(
+  message: string,
+  level: "error" | "info" | "warning" = "info",
+): void {
   if (!initialized || !sentryModule) return;
   const { captureMessage: sentryCaptureMessage } = sentryModule;
   sentryCaptureMessage(message, level);
@@ -180,7 +181,9 @@ export function captureMessage(message: string, level: 'info' | 'warning' | 'err
 /**
  * 设置 Sentry 用户上下文
  */
-export function sentrySetUser(user: { id: string; username?: string; email?: string } | null): void {
+export function sentrySetUser(
+  user: null | { email?: string; id: string; username?: string },
+): void {
   if (!initialized || !sentryModule) return;
   const { configureScope } = sentryModule;
   configureScope((scope: any) => {
@@ -198,6 +201,6 @@ export function isSentryInitialized(): boolean {
 /**
  * 获取当前 Sentry 配置
  */
-export function getSentryConfig(): SentryConfig | null {
+export function getSentryConfig(): null | SentryConfig {
   return currentConfig;
 }

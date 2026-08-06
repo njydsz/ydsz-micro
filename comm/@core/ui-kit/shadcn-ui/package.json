@@ -30,6 +30,14 @@
       "development": "./src/index.ts",
       "default": "./src/index.ts",
       "//default": "./dist/index.mjs"
+    },
+    "./ui/dialog": {
+      "types": "./src/ui/dialog/index.ts",
+      "default": "./src/ui/dialog/index.ts"
+    },
+    "./ui/textarea": {
+      "types": "./src/ui/textarea/index.ts",
+      "default": "./src/ui/textarea/index.ts"
     }
   },
   "publishConfig": {
