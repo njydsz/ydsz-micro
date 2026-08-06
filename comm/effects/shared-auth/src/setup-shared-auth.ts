@@ -12,7 +12,8 @@
  *        doReAuthenticate 不再清空本地 token（前端无 token 可清）。
  */
 import { CROSS_TAB_EVENTS, notifyCrossTab } from './cross-tab';
-import { initSharedRequest, refreshTokenApi } from './request-setup';
+import { refreshTokenApi } from './auth-api';
+import { initSharedRequest } from './request-setup';
 
 /**
  * P0-F2: 认证令牌存储模式（构建期常量，与 request.ts 保持一致）。

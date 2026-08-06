@@ -25,8 +25,8 @@ import {
 import { ElNotification } from "element-plus";
 import { defineStore } from "pinia";
 
+import { $t } from "@remi/locales";
 import { getAccessCodesApi, loginApi, logoutApi } from "./auth-api";
-import { $t } from "./i18n-setup";
 import { getUserInfoApi } from "./user-api";
 
 /**

@@ -110,7 +110,8 @@ async function submitFeedback(): Promise<void> {
   submitStatus.value = "submitting";
 
   try {
-    const sentry = await import(/* @vite-ignore */ "@sentry/vue");
+    const sentrySpecifier = "@sentry/vue";
+    const sentry = await import(/* @vite-ignore */ sentrySpecifier);
 
     // 构造 Sentry 用户反馈
     const userFeedback = {

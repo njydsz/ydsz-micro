@@ -68,8 +68,9 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
   currentConfig = config;
 
   try {
-    // 动态导入，避免 @sentry/vue 成为运行时必要依赖
-    sentryModule = await import(/* @vite-ignore */ "@sentry/vue");
+    // 动态导入，使用变量绕过 Vite 静态分析（软依赖，未安装时不报错）
+    const sentrySpecifier = "@sentry/vue";
+    sentryModule = await import(/* @vite-ignore */ sentrySpecifier);
   } catch {
     console.warn(
       "[Monitor] @sentry/vue not installed; Sentry forwarding disabled. " +

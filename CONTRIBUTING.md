@@ -86,10 +86,10 @@ git checkout -b feat/support-xxx
 
    ```bash
    pnpm check          # lint + 类型 + 循环依赖 + 契约 + 拼写
-   pnpm test:unit      # 单元测试（本地会由 lefthook pre-push 自动执行）
+   pnpm test:unit      # 单元测试
    ```
 
-   > Lefthook 会在 `pre-commit` / `pre-push` 自动执行格式化、Lint、单测、类型检查与依赖审计，本地被拦截的改动请先修复再提交。
+   > ~~注：lefthook 相关的 pre-commit / pre-push hooks 已全局移除，代码提交不再自动触发检查。请手动执行上述命令确保代码质量。~~
 
 4. **发起 MR**，描述中说明：变更动机、改动范围、测试方式、是否破坏兼容（Breaking Change）。
 5. **响应评审**：MR 至少需要 1 位维护者 approve；评审意见请逐条回复或处理。
