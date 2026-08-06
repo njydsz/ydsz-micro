@@ -7,6 +7,10 @@
     ".": {
       "types": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./sentry": {
+      "types": "./src/sentry.ts",
+      "default": "./src/sentry.ts"
     }
   },
   "dependencies": {
