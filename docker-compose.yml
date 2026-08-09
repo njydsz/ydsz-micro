@@ -35,11 +35,10 @@ services:
     restart: unless-stopped
 
   # ==================== System Service (9001) ====================
+  # 仅内部网络访问（通过 gateway 对外），不暴露主机端口
   system:
     image: YDSZ/system:latest
     container_name: YDSZ-system
-    ports:
-      - "9001:9001"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
@@ -51,8 +50,6 @@ services:
   userinfo:
     image: YDSZ/userinfo:latest
     container_name: YDSZ-userinfo
-    ports:
-      - "9002:9002"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
@@ -64,8 +61,6 @@ services:
   nextwiki:
     image: YDSZ/nextwiki:latest
     container_name: YDSZ-nextwiki
-    ports:
-      - "9003:9003"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
@@ -77,8 +72,6 @@ services:
   message:
     image: YDSZ/message:latest
     container_name: YDSZ-message
-    ports:
-      - "9004:9004"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
@@ -90,8 +83,6 @@ services:
   workflow:
     image: YDSZ/workflow:latest
     container_name: YDSZ-workflow
-    ports:
-      - "9005:9005"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
@@ -103,8 +94,6 @@ services:
   cronjob:
     image: YDSZ/cronjob:latest
     container_name: YDSZ-cronjob
-    ports:
-      - "9006:9006"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
@@ -116,8 +105,6 @@ services:
   literule:
     image: YDSZ/literule:latest
     container_name: YDSZ-literule
-    ports:
-      - "9007:9007"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
@@ -129,8 +116,6 @@ services:
   agent:
     image: YDSZ/agent:latest
     container_name: YDSZ-agent
-    ports:
-      - "9008:9008"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m

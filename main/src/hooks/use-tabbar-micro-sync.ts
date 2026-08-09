@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 多 Tab 子应用同步增强
  *
  * v3.7.0 (P3-1): 从"关闭任意 Tab 即卸载子应用"升级为"按子应用会话追踪"：
@@ -16,9 +16,10 @@
  * @since 3.0.0
  */
 
-import { onTabClosed, useTabbarStore } from '@ydsz/stores';
-import { PATH_TO_APP_MAP } from '@ydsz/vite-config';
-import { microRuntime } from '../bootstrap';
+import { onTabClosed } from "@ydsz/stores";
+import { PATH_TO_APP_MAP } from "@ydsz/vite-config";
+
+import { microRuntime } from "../bootstrap";
 
 /** 路由前缀 → 子应用名 映射（由注册表单源 PATH_TO_APP_MAP 驱动） */
 const PATH_TO_APP = PATH_TO_APP_MAP;
@@ -40,10 +41,10 @@ function getAppFromPath(path: string): null | string {
  * 用于决定何时可以安全卸载子应用、何时需要 keep-alive pin。
  */
 interface SubAppSession {
+  /** 该子应用最后激活的路径（用于路由恢复） */
+  lastActivePath: null | string;
   /** 当前打开的 Tab 路径集合（fullPath 去重） */
   openPaths: Set<string>;
-  /** 该子应用最后激活的路径（用于路由恢复） */
-  lastActivePath: string | null;
 }
 
 /** 子应用名 → 会话状态（内存 Map，不持久化；刷新后重建） */
@@ -76,13 +77,8 @@ export function recordSubAppTabOpened(path: string, appName: string): void {
   // 首次打开该子应用的 Tab → 保活 + pin
   if (isNewTab && microRuntime) {
     microRuntime.setKeepAlive(appName, true);
-    // micro-kernel 原生 pin API（如可用）；忽略兼容
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (microRuntime as any).setPinnedApp?.(appName, true);
-    } catch {
-      /* qiankun 等适配端无 pin 能力时忽略 */
-    }
+    // v4.2.1 N8: setPinnedApp 已纳入 MicroRuntime 接口（此前 as any 调用永不生效）
+    microRuntime.setPinnedApp?.(appName, true);
   }
 }
 
@@ -140,12 +136,7 @@ export function useTabbarMicroSync(): void {
     }
 
     // 最后一 Tab 关闭 → 取消 pin + 取消保活 + 卸载
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (microRuntime as any).setPinnedApp?.(appName, false);
-    } catch {
-      /* 兼容 */
-    }
+    microRuntime.setPinnedApp?.(appName, false);
     microRuntime.setKeepAlive(appName, false);
 
     void microRuntime.unmountApp(appName).then((result) => {
@@ -166,8 +157,8 @@ export function useTabbarMicroSync(): void {
  */
 export function getSubAppSessionSnapshot(): Array<{
   appName: string;
+  lastActivePath: null | string;
   openPaths: string[];
-  lastActivePath: string | null;
 }> {
   return [...sessions.entries()].map(([appName, session]) => ({
     appName,

@@ -42,7 +42,6 @@
     "@YDSZ-core/shadcn-ui": "workspace:*",
     "@YDSZ-core/shared": "workspace:*",
     "@YDSZ-core/typings": "workspace:*",
-    "@ydsz/micro-kernel": "workspace:*",
     "@vueuse/core": "catalog:",
     "vue": "catalog:"
   }

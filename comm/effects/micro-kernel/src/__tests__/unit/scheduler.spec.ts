@@ -87,6 +87,15 @@ vi.mock("../../sandbox-strategy", () => ({
   },
 }));
 
+// ==================== P0-N1: 全局测试隔离 ====================
+// 每个测试前绑定全新默认调度器上下文，确保实例集互不串扰。
+// （vi.resetModules 只隔离模块加载，不隔离同一模块实例内的 context 绑定）
+beforeEach(async () => {
+  const { bindSchedulerContext, createSchedulerContext } =
+    await import("../../scheduler");
+  bindSchedulerContext(createSchedulerContext());
+});
+
 describe("scheduler KeepAlive 配置", () => {
   beforeEach(async () => {
     // 每个测试前重置模块状态
@@ -272,8 +281,12 @@ describe("scheduler pin/unpin 应用", () => {
 
 describe("scheduler KeepAlive 统计", () => {
   it("getKeepAliveCount 返回当前保活数", async () => {
-    const { getKeepAliveCount, setKeepAlive, createAppInstance } =
-      await import("../../scheduler");
+    const {
+      getKeepAliveCount,
+      setKeepAlive,
+      createAppInstance,
+      getAppInstance,
+    } = await import("../../scheduler");
 
     const initialCount = getKeepAliveCount();
 
@@ -284,6 +297,13 @@ describe("scheduler KeepAlive 统计", () => {
       activeRule: "/ka1",
     });
     setKeepAlive("ka-test-1", true);
+
+    // 模拟一次 keepAlive 摘除后的缓存状态（status=UNMOUNTED + cachedRoot）
+    const instance = getAppInstance("ka-test-1");
+    if (instance) {
+      instance.status = "UNMOUNTED";
+      instance.cachedRoot = document.createElement("div");
+    }
 
     expect(getKeepAliveCount()).toBe(initialCount + 1);
   });
@@ -297,5 +317,127 @@ describe("scheduler KeepAlive 统计", () => {
     configureKeepAlive({ ttl: 5 * 60 * 1000 });
 
     expect(getKeepAliveTTL()).toBe(5 * 60 * 1000);
+  });
+});
+
+describe("p0-N1: SchedulerContext 闭包隔离", () => {
+  // 动态导入的模块函数，用宽松类型声明避免测试文件耦合具体签名
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let bindCtx: (ctx: any) => any;
+  let createCtx: () => unknown;
+
+  beforeEach(async () => {
+    const mod = await import("../../scheduler");
+    bindCtx = mod.bindSchedulerContext;
+    createCtx = mod.createSchedulerContext;
+    // 每个测试前绑定全新默认上下文，避免测试间串扰
+    bindCtx(createCtx() as Parameters<typeof bindCtx>[0]);
+  });
+
+  it("createSchedulerContext 创建全新上下文（默认值）", async () => {
+    const { getKeepAliveConfig } = await import("../../scheduler");
+
+    const ctx = createCtx() as any;
+    expect(ctx.appInstances.size).toBe(0);
+    expect(ctx.maxKeepAliveApps).toBe(5);
+    expect(ctx.keepAliveTTL).toBe(30 * 60 * 1000);
+    expect(ctx.keepAliveEnabled).toBe(true);
+    expect(getKeepAliveConfig().max).toBe(5);
+  });
+
+  it("bindSchedulerContext 后模块级函数操作新上下文", async () => {
+    const {
+      createAppInstance,
+      getAllInstances,
+      configureKeepAlive,
+      getKeepAliveConfig,
+    } = await import("../../scheduler");
+
+    const ctxA = createCtx() as any;
+    const ctxB = createCtx() as any;
+    (bindCtx as any)(ctxA);
+
+    createAppInstance({
+      name: "iso-a",
+      entry: "/a/",
+      container: "#c",
+      activeRule: "/a",
+    });
+    configureKeepAlive({ max: 3 });
+
+    // 切到 B：看不到 A 的实例，配置独立
+    (bindCtx as any)(ctxB);
+    expect(getAllInstances()).toHaveLength(0);
+    expect(getKeepAliveConfig().max).toBe(5);
+
+    // 切回 A：实例仍在
+    (bindCtx as any)(ctxA);
+    expect(getAllInstances()).toHaveLength(1);
+    expect(getAllInstances()[0]?.config.name).toBe("iso-a");
+    expect(getKeepAliveConfig().max).toBe(3);
+  });
+
+  it("bindSchedulerContext 返回上一个上下文", async () => {
+    const ctxA = createCtx() as any;
+    const prev = (bindCtx as any)(ctxA);
+    expect(prev).toBeDefined();
+    // 恢复
+    (bindCtx as any)(prev);
+  });
+});
+
+describe("p0-N2: AbortSignal 中止支持", () => {
+  it("activateApp 收到已中止 signal 时抛 AbortError", async () => {
+    const { activateApp, createAppInstance } = await import("../../scheduler");
+    const { loadApp } = await import("../../loader");
+
+    const instance = createAppInstance({
+      name: "abort-app",
+      entry: "/abort/",
+      container: "#c",
+      activeRule: "/abort",
+    });
+    (loadApp as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      exports: {
+        mount: vi.fn().mockResolvedValue(undefined),
+        unmount: vi.fn(),
+      },
+      manifest: null,
+      duration: 10,
+      fromCache: false,
+    });
+
+    const controller = new AbortController();
+    controller.abort();
+
+    await expect(
+      activateApp(
+        instance,
+        document.createElement("div"),
+        {},
+        {},
+        undefined,
+        controller.signal,
+      ),
+    ).rejects.toMatchObject({ name: "AbortError" });
+  });
+
+  it("deactivateApp 收到已中止 signal 时直接返回 success", async () => {
+    const { deactivateApp, createAppInstance } =
+      await import("../../scheduler");
+
+    const instance = createAppInstance({
+      name: "deact-abort",
+      entry: "/da/",
+      container: "#c",
+      activeRule: "/da",
+    });
+    instance.status = "MOUNTED";
+
+    const controller = new AbortController();
+    controller.abort();
+
+    const result = await deactivateApp(instance, controller.signal);
+    expect(result.success).toBe(true);
   });
 });

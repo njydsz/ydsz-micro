@@ -122,6 +122,7 @@ catalog:
   medium-zoom: ^1.1.0
   nitropack: ^2.11.13
   nprogress: ^0.2.0
+  openapi-fetch: ^0.17.0
   ora: ^8.2.0
   pinia: ^3.0.3
   pinia-plugin-persistedstate: ^4.4.1

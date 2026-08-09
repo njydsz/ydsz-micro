@@ -15,7 +15,7 @@ import { YDSZIcon, YDSZTooltip } from '@YDSZ-core/shadcn-ui';
 
 import { MenuBadge } from '../components';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
-import { getPreloadManager } from '@ydsz/micro-kernel';
+import { getPreloadAdapter } from '../preload-adapter';
 
 interface Props extends MenuItemProps {}
 
@@ -84,13 +84,18 @@ function handleClick() {
  * P1-3.2: 基于菜单 hover/权限动态调整 prefetch
  * - 权限检查：无权限则跳过预加载
  * - 频率统计：记录访问频率用于智能预加载
+ * v5.6: 通过 preload-adapter 注入点获取能力（依赖反转），
+ *       未注入时静默跳过，保持 UI 组件可独立运行。
  */
 function handleMouseEnter() {
   if (props.disabled || !props.path) {
     return;
   }
 
-  const preloadManager = getPreloadManager();
+  const preloadAdapter = getPreloadAdapter();
+  if (!preloadAdapter) {
+    return;
+  }
   const menuPath = props.path;
 
   // 查找匹配的子应用（根据路径前缀）
@@ -99,12 +104,12 @@ function handleMouseEnter() {
     const appName = pathSegments[0];
 
     // 权限检查：无权限则跳过
-    if (!preloadManager.hasPermission(appName)) {
+    if (!preloadAdapter.hasPermission(appName)) {
       return;
     }
 
     // 触发预加载（异步，不阻塞）
-    preloadManager.triggerPreload(appName).catch(() => {
+    preloadAdapter.triggerPreload(appName).catch(() => {
       // 预加载失败不影响用户体验，静默处理
     });
   }

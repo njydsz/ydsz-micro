@@ -29,6 +29,7 @@ import {
   KernelError,
   KernelErrorCode,
   markDegraded,
+  resetRetryCount,
   resolveEffectiveLocale,
   sanitizeId,
   setErrorFallbackMessages,
@@ -67,15 +68,15 @@ describe("错误边界降级决策", () => {
   const TEST_APP = "test-subapp";
 
   beforeEach(() => {
-    // 每个测试前清理状态
+    // 每个测试前清理状态，避免测试间状态污染
     clearDegraded();
-    // 通过 setRetryCount 重置重试计数（resetRetryCount 需通过 clearDegraded 间接清理）
-    // 注意：retryCounters 未导出 clear 方法，需要通过 markDegraded + clearDegraded 重置
+    resetRetryCount(TEST_APP);
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
     clearDegraded();
+    resetRetryCount(TEST_APP);
     // 恢复默认消息
     setErrorFallbackMessages({
       title: "应用加载失败",
@@ -153,29 +154,38 @@ describe("错误边界降级决策", () => {
 
   describe("getNextAutoRetryDelay() 指数退避", () => {
     it("基础延迟应 >= 500ms", () => {
+      // 确保 retryCount = 0
+      resetRetryCount(TEST_APP);
       const delay = getNextAutoRetryDelay(TEST_APP);
+      // base(500) * 2^0 = 500ms + jitter(0~200)
       expect(delay).toBeGreaterThanOrEqual(500);
+      expect(delay).toBeLessThan(800);
     });
 
     it("延迟应随重试次数指数增长", () => {
-      setRetryCount(TEST_APP, 0);
+      // 确保 retryCount = 0
+      resetRetryCount(TEST_APP);
       const delay0 = getNextAutoRetryDelay(TEST_APP);
 
       setRetryCount(TEST_APP, 1);
       const delay1 = getNextAutoRetryDelay(TEST_APP);
 
-      // delay1 应约为 delay0 的 2 倍（加上 jitter 容差）
+      // delay1 应约为 delay0 的 2 倍
       expect(delay1).toBeGreaterThan(delay0);
-      // 期望：base * 2^1 = 1000ms+，base * 2^0 = 500ms+
+      // delay0: base(500) * 2^0 = 500ms + jitter
+      expect(delay0).toBeGreaterThanOrEqual(500);
+      expect(delay0).toBeLessThan(800);
+      // delay1: base(500) * 2^1 = 1000ms + jitter
       expect(delay1).toBeGreaterThanOrEqual(1000);
+      expect(delay1).toBeLessThan(1300);
     });
 
     it("高重试次数下延迟应按指数增长", () => {
       setRetryCount(TEST_APP, 5);
       const delay = getNextAutoRetryDelay(TEST_APP);
       // base(500) * 2^5 = 16000ms + jitter(0~200)
-      expect(delay).toBeGreaterThanOrEqual(16000);
-      expect(delay).toBeLessThan(17000);
+      expect(delay).toBeGreaterThanOrEqual(16_000);
+      expect(delay).toBeLessThan(17_000);
     });
   });
 
@@ -389,7 +399,6 @@ describe("i18n 语言解析", () => {
         writable: true,
         configurable: true,
       });
-      // 设置 storage getter 重新读取 navigator
       // getLocaleFromStorage 调用时 localStorage 为空才回退 navigator
       expect(getLocaleFromStorage()).toBe("en-US");
     });
@@ -469,8 +478,7 @@ describe("错误降级消息配置", () => {
         reloading: "加载中...",
       };
       setErrorFallbackMessages(customMsg);
-      // 通过 renderErrorFallback 内部使用 globalMessages 验证
-      // 但由于 renderErrorFallback 需要 DOM 环境，这里只验证不抛错
+      // 验证不抛错即可（完整验证需要 DOM 环境）
       expect(true).toBe(true);
     });
   });

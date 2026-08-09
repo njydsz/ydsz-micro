@@ -14,6 +14,23 @@ export type {
   CanaryTag,
   CanaryVersion,
 } from "./canary-manager";
+// v4.2 P2-1/P2-2: 主子应用国际化与主题运行时同步 composable
+export {
+  initThemeForSubApp,
+  onLocaleChange,
+  onThemeChange,
+  registerLocaleProvider,
+  registerThemeProvider,
+  useLocaleSync,
+  useThemeSync,
+} from './composables';
+export type {
+  ThemeMode,
+  UseLocaleSyncOptions,
+  UseLocaleSyncReturn,
+  UseThemeSyncOptions,
+  UseThemeSyncReturn,
+} from './composables';
 // v3.7.0: DevTools 管理面板（开发态可视化工具）
 export {
   destroyMicroDevTools,
@@ -138,7 +155,9 @@ export {
 } from "./sandbox-strategy";
 export type { SandboxStrategy } from "./sandbox-strategy";
 export {
+  bindSchedulerContext,
   configureKeepAlive,
+  createSchedulerContext,
   evictAllKeepAliveOnMemoryPressure,
   getAllInstances,
   getAppInstance,
@@ -153,6 +172,7 @@ export {
   setupVisibilityAutoRelease,
 } from "./scheduler";
 export type { KeepAliveConfig } from "./scheduler";
+export type { SchedulerContext } from "./scheduler";
 // v3.6.0: 公开 GlobalStateBridge 类型，供外部扩展沙箱时使用
 export type { GlobalStateBridge } from "./scheduler";
 // P0-P2: 公开 DeactivateResult 类型，供调用方感知 LRU 淘汰

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 微应用运行时类型定义
  *
  * 接口层不绑定任何内核实现（qiankun / wujie / 自研 micro-kernel），
@@ -10,10 +10,15 @@
  */
 
 /** 子应用激活规则类型 */
-export type ActiveRule = string | RegExp | ((path: string) => boolean);
+export type ActiveRule = ((path: string) => boolean) | RegExp | string;
 
 /** 全局状态句柄 — 从 global-state 统一导出，避免使用方直接依赖 internal 模块 */
-export type { GlobalStateHandle, GlobalStateListener, RawGlobalStateAPI, VersionedState } from './global-state';
+export type {
+  GlobalStateHandle,
+  GlobalStateListener,
+  RawGlobalStateAPI,
+  VersionedState,
+} from "./global-state";
 
 /**
  * 沙箱类型。
@@ -26,7 +31,7 @@ export type { GlobalStateHandle, GlobalStateListener, RawGlobalStateAPI, Version
  *
  * @since 3.6.0
  */
-export type SandboxType = 'snapshot' | 'proxy' | 'iframe';
+export type SandboxType = "iframe" | "proxy" | "snapshot";
 
 /** 子应用注册配置（对齐现有 main/src/qiankun/index.ts microApps） */
 export interface MicroAppConfig {
@@ -39,7 +44,7 @@ export interface MicroAppConfig {
    * - string: CSS 选择器（如 '#subapp-container'）
    * - HTMLElement: 直接传入 DOM 元素（适用于动态创建容器的场景）
    */
-  container: string | HTMLElement;
+  container: HTMLElement | string;
   /**
    * 激活规则，支持三种模式：
    * - string: 路由前缀匹配（如 '/YDSZ-proj'）
@@ -112,7 +117,10 @@ export interface LifecycleExports {
 export type LifecycleHook = (app: MicroAppConfig) => Promise<void> | void;
 
 /** 内核错误钩子（接收错误对象） */
-export type ErrorLifecycleHook = (app: MicroAppConfig, error: unknown) => Promise<void> | void;
+export type ErrorLifecycleHook = (
+  app: MicroAppConfig,
+  error: unknown,
+) => Promise<void> | void;
 
 /**
  * 内核支持的生命周期钩子名。
@@ -129,12 +137,12 @@ export type ErrorLifecycleHook = (app: MicroAppConfig, error: unknown) => Promis
  * 避免仅有 beforeLoad/afterMount 两个粗粒度节点导致进度跳变。
  */
 export type LifecycleHookName =
-  | 'afterLoad'
-  | 'afterMount'
-  | 'afterUnmount'
-  | 'beforeLoad'
-  | 'beforeMount'
-  | 'error';
+  | "afterLoad"
+  | "afterMount"
+  | "afterUnmount"
+  | "beforeLoad"
+  | "beforeMount"
+  | "error";
 
 /** 权限检查函数类型 */
 export type PermissionChecker = (codes: string[]) => boolean;
@@ -147,7 +155,7 @@ export interface StartOptions {
     styleIsolation?: boolean;
   };
   /** 预加载策略：false 不预加载 / true 全部预加载 / 函数按应用名返回 true */
-  prefetch?: boolean | ((app: MicroAppConfig) => boolean);
+  prefetch?: ((app: MicroAppConfig) => boolean) | boolean;
   /** 权限检查器，用于预加载时过滤无权限的应用 */
   permissionChecker?: PermissionChecker;
   /**
@@ -156,7 +164,7 @@ export interface StartOptions {
    * 默认 'static'：从 micro-apps.config.ts 静态 MICRO_APPS 数组读取。
    * 'remote' / 'auto'：优先拉取远程 registry.json，失败回退到静态。
    */
-  registry?: 'static' | 'remote' | 'auto';
+  registry?: "auto" | "remote" | "static";
   /**
    * 预加载策略模式（v3.7.0 新增）。
    *
@@ -168,7 +176,7 @@ export interface StartOptions {
    *
    * @since 3.7.0
    */
-  prefetchStrategy?: 'eager' | 'lazy' | 'never';
+  prefetchStrategy?: "eager" | "lazy" | "never";
   /**
    * 自定义注册表获取函数（覆盖默认 resolveRegistry）。
    *
@@ -191,6 +199,17 @@ export interface StartOptions {
    * @since 4.0.1
    */
   onRouteActivate?: (appName: string) => boolean;
+  /**
+   * 是否启用内核内置的路由预测预加载（v4.2.1 N9）。
+   *
+   * 基于马尔可夫链转移概率，在浏览器空闲时预测并预加载用户最可能访问的
+   * 下一子应用。默认 true（启用）。
+   *
+   * 设为 false 可关闭（如内部系统导航模式随机、命中率低时）。
+   *
+   * @since 4.2.1
+   */
+  routePreload?: boolean;
 }
 
 /**
@@ -231,9 +250,9 @@ export interface MicroAppEntry {
   /** 生产环境部署子路径 */
   prodPath?: string;
   /** 子应用默认骨架屏类型 */
-  skeletonType?: 'dashboard' | 'default' | 'detail' | 'form' | 'list';
+  skeletonType?: "dashboard" | "default" | "detail" | "form" | "list";
   /** 沙箱类型 */
-  sandbox?: 'snapshot' | 'proxy' | 'iframe';
+  sandbox?: "iframe" | "proxy" | "snapshot";
   /**
    * 显式入口 URL（v3.7.0 新增）。
    *
@@ -272,7 +291,7 @@ export interface MicroRuntime {
    * @returns 注册完成后的应用配置数组
    */
   registerAppsAsync(registry: {
-    adapter: 'static' | 'remote' | 'auto';
+    adapter: "auto" | "remote" | "static";
     fetcher?: () => Promise<MicroAppEntry[]>;
   }): Promise<MicroAppConfig[]>;
 
@@ -324,4 +343,140 @@ export interface MicroRuntime {
 
   /** 获取当前激活的应用名 */
   getActiveAppName(): null | string;
+
+  /**
+   * 运行时更新已挂载子应用的 props（触发子应用 update 生命周期）。
+   *
+   * 用于主题 / 租户 / locale 等跨应用状态的一键同步，
+   * 避免完整卸载-重新挂载的昂贵代价。
+   *
+   * @param name - 子应用名
+   * @param newProps - 新 props（浅合并）
+   * @returns 更新是否成功（未注册 / 未挂载 / 无 update 方法返回 false）
+   * @since 4.2.1
+   */
+  updateApp(name: string, newProps: Record<string, unknown>): Promise<boolean>;
+
+  /**
+   * 批量更新所有已挂载子应用的 props。
+   *
+   * @param newProps - 新 props（浅合并到每个已挂载应用）
+   * @returns 各应用更新结果 Map<appName, success>
+   * @since 4.2.1
+   */
+  updateAllApps(
+    newProps: Record<string, unknown>,
+  ): Promise<Record<string, boolean>>;
+
+  /**
+   * 获取全部已注册的子应用实例（DevTools / 巡检用）。
+   *
+   * @returns 子应用实例数组
+   * @since 4.2.1
+   */
+  getAllInstances(): ReadonlyArray<{
+    config: MicroAppConfig;
+    keepAlive: boolean;
+    status: string;
+  }>;
+
+  /**
+   * 按名称获取子应用实例。
+   *
+   * @param name - 子应用名
+   * @returns 实例或 undefined
+   * @since 4.2.1
+   */
+  getAppInstance(name: string):
+    | undefined
+    | {
+        config: MicroAppConfig;
+        keepAlive: boolean;
+        status: string;
+      };
+
+  /**
+   * 向指定子应用发送消息（fire-and-forget）。
+   *
+   * @param appName - 目标子应用名
+   * @param action - 业务 action
+   * @param payload - 业务数据
+   * @returns 消息 id（用于调试跟踪）
+   * @since 4.2.1
+   */
+  sendToApp(appName: string, action: string, payload?: unknown): string;
+
+  /**
+   * 向指定子应用发送请求并 await 响应。
+   *
+   * @param appName - 目标子应用名
+   * @param action - 业务 action
+   * @param payload - 业务数据
+   * @param timeout - 超时（ms），默认 10000
+   * @returns 子应用响应数据
+   * @since 4.2.1
+   */
+  sendRequestToApp<T = unknown, R = unknown>(
+    appName: string,
+    action: string,
+    payload?: T,
+    timeout?: number,
+  ): Promise<R>;
+
+  /**
+   * 注册全局消息监听器（供主应用代码接收来自子应用的消息）。
+   *
+   * @param handler - 收到消息时回调
+   * @returns 取消监听函数
+   * @since 4.2.1
+   */
+  onAppMessage(
+    handler: (message: {
+      action: string;
+      correlationId: string;
+      from: string;
+      payload: unknown;
+    }) => void,
+  ): () => void;
+
+  /**
+   * 运行时追加单个子应用注册（懒注册）。
+   *
+   * 用于插件市场 / 动态安装的场景，无需一次性注册全部应用。
+   *
+   * @param app - 子应用配置
+   * @since 4.2.1
+   */
+  addApp?(app: MicroAppConfig): void;
+
+  /**
+   * 启用或禁用全局 KeepAlive。
+   *
+   * @param enabled - 是否启用保活缓存
+   * @since 4.2.1
+   */
+  setKeepAliveEnabled?(enabled: boolean): void;
+
+  /**
+   * 设置指定子应用的"固定"（pin）状态。
+   *
+   * 固定后的保活实例在 LRU 淘汰时不会被移除（常用应用常驻）。
+   *
+   * @param name - 子应用名
+   * @param pin - 是否固定
+   * @since 4.2.1
+   */
+  setPinnedApp?(name: string, pin: boolean): void;
+
+  /**
+   * 统一配置 KeepAlive 策略。
+   *
+   * @param cfg - KeepAlive 配置（max / ttl / enabled）
+   * @since 4.2.1
+   */
+  configureKeepAlive?(cfg: {
+    enabled?: boolean;
+    max?: number;
+    ttl?: number;
+  }): void;
 }

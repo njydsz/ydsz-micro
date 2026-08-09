@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * basic 布局组件
  *
  * @path main\src\layouts\basic.vue
@@ -6,30 +6,33 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { NotificationItem } from '@ydsz/layouts';
+import type { NotificationItem } from "@ydsz/layouts";
 
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import { computed, onMounted, onUnmounted, watch } from "vue";
 
-import { AuthenticationLoginExpiredModal, NetworkStatus } from '@ydsz/common-ui';
-import { useWatermark } from '@ydsz/hooks';
+import {
+  AuthenticationLoginExpiredModal,
+  NetworkStatus,
+} from "@ydsz/common-ui";
+import { useWatermark } from "@ydsz/hooks";
 import {
   BasicLayout,
   LockScreen,
   Notification,
   UserDropdown,
-} from '@ydsz/layouts';
-import { preferences } from '@ydsz/preferences';
-import { useAccessStore, useUserStore } from '@ydsz/stores';
+} from "@ydsz/layouts";
+import { preferences } from "@ydsz/preferences";
+import { useAccessStore, useUserStore } from "@ydsz/stores";
 
-import { useAuthStore } from '#/store';
-import { notificationStore } from '#/store/notification';
-import LoginForm from '#/views/_core/authentication/login.vue';
-
-import { useTabbarMicroSync } from '#/hooks/use-tabbar-micro-sync';
+import { useTabbarMicroSync } from "#/hooks/use-tabbar-micro-sync";
+import { useAuthStore } from "#/store";
+import { useNotificationStore } from "#/store/notification";
+import LoginForm from "#/views/_core/authentication/login.vue";
 
 const userStore = useUserStore();
 const authStore = useAuthStore();
 const accessStore = useAccessStore();
+const notificationStore = useNotificationStore();
 const { destroyWatermark, updateWatermark } = useWatermark();
 
 const avatar = computed(() => {
@@ -38,8 +41,8 @@ const avatar = computed(() => {
 
 // 将后端通知格式转为 UI 组件需要的格式
 const notifications = computed<NotificationItem[]>(() =>
-  notificationStore.notifications.value.map((n) => ({
-    avatar: n.avatar || 'https://avatar.vercel.sh/1',
+  notificationStore.notifications.map((n) => ({
+    avatar: n.avatar || "https://avatar.vercel.sh/1",
     date: n.createdAt,
     isRead: n.isRead,
     message: n.message,
@@ -47,7 +50,7 @@ const notifications = computed<NotificationItem[]>(() =>
   })),
 );
 
-const showDot = computed(() => notificationStore.unreadCount.value > 0);
+const showDot = computed(() => notificationStore.unreadCount > 0);
 
 async function handleLogout() {
   notificationStore.disconnect();
@@ -55,7 +58,7 @@ async function handleLogout() {
 }
 
 function handleNoticeClear() {
-  notificationStore.notifications.value = [];
+  notificationStore.notifications = [];
 }
 
 async function handleMakeAll() {

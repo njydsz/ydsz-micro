@@ -47,5 +47,8 @@ Desktop.ini
 *.tsbuildinfo
 .cache/
 
+# ---- IDE / 工具临时文件 ----
+.git-commit-msg.tmp
+
 # ---- WorkBuddy 本地助手记录（不纳入版本库） ----
 .workbuddy/memory/

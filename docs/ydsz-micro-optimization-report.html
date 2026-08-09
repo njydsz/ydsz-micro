@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YDSZ-Micro 全面优化建议报告</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1a1a2e;
+    --text-secondary: #555;
+    --border: #e0e0e0;
+    --card-bg: #f8f9fa;
+    --p0: #d32f2f;
+    --p0-bg: #ffebee;
+    --p1: #f57c00;
+    --p1-bg: #fff3e0;
+    --p2: #1976d2;
+    --p2-bg: #e3f2fd;
+    --good: #2e7d32;
+    --good-bg: #e8f5e9;
+    --accent: #6c5ce7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--accent);
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    font-size: 0.95rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin-top: 48px;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  p { margin-bottom: 12px; color: var(--text-secondary); }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .card.p0 { border-left: 4px solid var(--p0); }
+  .card.p1 { border-left: 4px solid var(--p1); }
+  .card.p2 { border-left: 4px solid var(--p2); }
+  .card.good { border-left: 4px solid var(--good); }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .badge.p0 { background: var(--p0-bg); color: var(--p0); }
+  .badge.p1 { background: var(--p1-bg); color: var(--p1); }
+  .badge.p2 { background: var(--p2-bg); color: var(--p2); }
+  .badge.good { background: var(--good-bg); color: var(--good); }
+  .badge.info { background: #e8eaf6; color: #283593; }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .metric {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+  }
+  .metric .value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .metric .label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .metric .sub {
+    font-size: 0.75rem;
+    color: #999;
+  }
+  .metric.warn .value { color: var(--p1); }
+  .metric.danger .value { color: var(--p0); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+  }
+  th {
+    background: var(--card-bg);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  td { color: var(--text-secondary); }
+
+  ul, ol { padding-left: 24px; margin-bottom: 12px; }
+  li { margin-bottom: 4px; color: var(--text-secondary); }
+
+  code {
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+    font-size: 0.85rem;
+  }
+
+  pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    border-radius: 8px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 12px 0;
+  }
+
+  .section-summary {
+    background: linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 100%);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .section-summary strong { color: #283593; }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>YDSZ-Micro 全面优化建议报告</h1>
+<p class="subtitle">
+  对标行业主流竞品（qiankun / wujie / micro-app / Module Federation）与互联网大厂研发规范<br>
+  审计范围：main + apps（8个子应用）+ comm（32个共享包）｜基准日期：2026-08-09
+</p>
+
+<!-- ====== EXECUTIVE SUMMARY ====== -->
+<div class="metric-grid">
+  <div class="metric">
+    <div class="value">2</div>
+    <div class="label">P0 严重问题</div>
+    <div class="sub">需立即修复，影响编译/稳定性</div>
+  </div>
+  <div class="metric warn">
+    <div class="value">8</div>
+    <div class="label">P1 重要问题</div>
+    <div class="sub">需近期修复，影响架构/安全</div>
+  </div>
+  <div class="metric">
+    <div class="value">12</div>
+    <div class="label">P2 优化建议</div>
+    <div class="sub">可规划修复，提升质量/性能</div>
+  </div>
+  <div class="metric danger">
+    <div class="value">7.6%</div>
+    <div class="label">整体测试覆盖率</div>
+    <div class="sub">vs 行业标准 70%+，严重不足</div>
+  </div>
+</div>
+
+<div class="section-summary">
+  <strong>核心结论：</strong>该项目拥有业界少见的自研 ESM 原生微前端内核（三层沙箱、金丝雀分流、马尔可夫链预加载），架构设计水平远超主流 qiankun/wujie 方案。但存在两个系统性短板：<strong>(1) 测试覆盖率极低（7.6%），12个核心包零测试</strong>，已达生产事故风险级别；<strong>(2) 大量 boilerplate 代码（10+文件/子应用×8=80+文件）纯为转发层</strong>，且在8个子应用中机械重复。短期应聚焦修复编译阻断问题与测试欠债，中期应消除重复并统一状态管理架构。
+</div>
+
+<!-- ====== 一、架构优化 ====== -->
+<h2>一、架构优化</h2>
+
+<h3>1.1 bootstrap.ts 单体函数拆分（P0）</h3>
+<div class="card p0">
+  <div class="card-header"><span class="badge p0">P0 架构</span><strong>main/src/bootstrap.ts 406行单一函数，违反单一职责原则</strong></div>
+  <p><strong>现状：</strong>一个函数内耦合了日志初始化、组件适配器、功能开关、Vue应用创建、5个全局指令注册、i18n、Pinia Store、路由守卫、动效、监控、灰度、微前端运行时（~150行独立逻辑）、路由预加载、DevTools Bridge、会话超时、跨标签同步共18项职责。</p>
+  <p><strong>对标：</strong>大厂微前端主应用普遍采用插件化 bootstrap（如字节跳动 Garfish 的 plugin system、阿里 qiankun 的生命周期钩子），每个插件独立可测试。</p>
+  <p><strong>建议方案：</strong></p>
+  <pre>// 拆分为独立 setup 模块，bootstrap.ts 仅保留编排逻辑
+import { setupLogger } from './setup/logger';
+import { setupPlugins } from './setup/plugins';
+import { setupMicroRuntime } from './setup/micro-runtime';
+import { setupMonitoring } from './setup/monitoring';
+import { setupRouterGuards } from './setup/router-guards';
+
+async function bootstrap() {
+  setupLogger();
+  await setupPlugins(app);       // 组件适配器、指令、i18n、动效、Pinia
+  await setupRouterGuards(app);   // 路由守卫注册
+  await setupMicroRuntime(app);   // 微前端运行时、预加载策略
+  setupMonitoring(app);           // Sentry、Web Vitals、DevTools
+  app.mount('#app');
+}</pre>
+</div>
+
+<h3>1.2 notificationStore 非 Pinia 实现（P0）</h3>
+<div class="card p0">
+  <div class="card-header"><span class="badge p0">P0 架构</span><strong>store/notification.ts 使用 class-based singleton，与 Pinia 架构不一致</strong></div>
+  <p><strong>现状：</strong>238行的 notificationStore 使用手动 ref()/reactive() 管理状态，非 Pinia defineStore。无法享受 Pinia DevTools 调试、$reset()、$subscribe 等内置能力。</p>
+  <p><strong>对标：</strong>Vue 3 官方推荐 Pinia 为唯一状态管理方案（2026 年 Pinia 已是 Vue 生态的事实标准），Vuex 已进入维护模式。</p>
+  <p><strong>建议方案：</strong></p>
+  <pre>// 重构为 Pinia Setup Store 风格
+export const useNotificationStore = defineStore('notification', () => {
+  const notifications = ref&lt;NotificationItem[]&gt;([]);
+  const unreadCount = ref(0);
+  const wsConnected = ref(false);
+
+  function connectWs(token: string) { /* WebSocket 逻辑 */ }
+  function handleWsMessage(msg: any) { /* 消息路由 */ }
+
+  return { notifications, unreadCount, wsConnected, connectWs, /* ... */ };
+});</pre>
+</div>
+
+<h3>1.3 子应用 boilerplate 消除（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 架构</span><strong>8个子应用 × 10+个纯转发文件 = 80+个重复文件</strong></div>
+  <p><strong>现状：</strong>每个子应用都存在以下纯 re-export 或完全相同内容的文件：</p>
+  <table>
+    <tr><th>文件</th><th>重复次数</th><th>实际内容</th></tr>
+    <tr><td>adapter/component/index.ts</td><td>8</td><td>纯 re-export @ydsz/shared-business</td></tr>
+    <tr><td>adapter/form.ts</td><td>8</td><td>纯 re-export @ydsz/shared-business</td></tr>
+    <tr><td>adapter/vxe-table.ts</td><td>8</td><td>纯 re-export @ydsz/shared-business</td></tr>
+    <tr><td>api/request.ts</td><td>8</td><td>纯 re-export @ydsz/shared-auth</td></tr>
+    <tr><td>api/core/*.ts</td><td>8×4</td><td>纯 re-export @ydsz/shared-auth</td></tr>
+    <tr><td>store/auth.ts</td><td>8</td><td>3行代码 + re-export</td></tr>
+    <tr><td>router/routes/core.ts</td><td>8</td><td>完全相同</td></tr>
+    <tr><td>router/access.ts</td><td>8</td><td>完全相同</td></tr>
+    <tr><td>layouts/basic.vue</td><td>8</td><td>水印逻辑完全相同</td></tr>
+    <tr><td>layouts/index.ts</td><td>8</td><td>完全相同</td></tr>
+    <tr><td>locales/index.ts</td><td>8</td><td>完全相同</td></tr>
+    <tr><td>fallback/not-found.vue</td><td>8</td><td>完全相同</td></tr>
+  </table>
+  <p><strong>建议：</strong>将 router/core.ts、router/access.ts、locales/index.ts、fallback/ 提取到 @ydsz/shared-auth 或新建 @ydsz/shared-app-template。adapter 目录可直接删除，改为应用直接从 @ydsz/shared-business 导入。</p>
+</div>
+
+<h3>1.4 @YDSZ-core/menu-ui 反向依赖（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 架构</span><strong>底层 UI 组件包依赖高层微前端内核包，违反依赖方向</strong></div>
+  <p><strong>现状：</strong>@YDSZ-core/menu-ui（UI 组件层）→ @ydsz/micro-kernel（业务效果层），这是反向依赖。底层包不应感知上层业务包的存在。</p>
+  <p><strong>对标：</strong>依赖反转原则（DIP）：高层模块不应依赖低层模块，两者都应依赖抽象。</p>
+  <p><strong>建议：</strong>在 @YDSZ-core/typings 中定义 MenuIntegration 接口，menu-ui 依赖接口而非具体实现，micro-kernel 实现该接口并在主应用中注入。</p>
+</div>
+
+<h3>1.5 共享依赖版本管理（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 架构</span><strong>pnpm catalog 与实际 package.json 版本不一致</strong></div>
+  <p><strong>现状：</strong></p>
+  <ul>
+    <li>catalog 中 element-plus 版本为 <code>^2.10.2</code>，shared-business 硬编码 <code>^2.7.0</code></li>
+    <li>shared-auth 中 openapi-fetch 版本 <code>^0.17.0</code> 未使用 catalog</li>
+    <li>多个包未通过 catalog 统一管理版本，存在版本漂移风险</li>
+  </ul>
+  <p><strong>建议：</strong>所有内部包统一使用 <code>"element-plus": "catalog:"</code> 引用，通过 Renovate/Dependabot 自动化版本管理。</p>
+</div>
+
+<h3>1.6 standalone 开发模式推广（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 架构</span><strong>仅 userinfo-web 支持独立开发，其余7个子应用必须依赖主应用</strong></div>
+  <p><strong>现状：</strong>userinfo-web 通过 standalone-main.ts + Mock 层实现了完整的独立开发能力，但其他7个子应用缺失此能力。这导致开发时必须启动主应用，降低了开发效率。</p>
+  <p><strong>对标：</strong>Module Federation 生态中，每个 remote 应用天然支持独立开发；qiankun/wujie 社区最佳实践也推荐子应用独立可运行。</p>
+  <p><strong>建议：</strong>将 standalone 模式模板化到 @ydsz/shared-auth（如 createStandaloneApp），各子应用只需提供 Mock 处理器即可独立运行。</p>
+</div>
+
+<!-- ====== 二、功能增强 ====== -->
+<h2>二、功能增强</h2>
+
+<h3>2.1 补全测试体系（P0）</h3>
+<div class="card p0">
+  <div class="card-header"><span class="badge p0">P0 功能</span><strong>整体测试覆盖率仅 7.6%，12个核心包零测试</strong></div>
+  <p><strong>现状：</strong></p>
+  <div class="metric-grid">
+    <div class="metric danger"><div class="value">0</div><div class="label">shadcn-ui</div><div class="sub">252个文件零测试</div></div>
+    <div class="metric danger"><div class="value">0</div><div class="label">layouts</div><div class="sub">93个文件零测试</div></div>
+    <div class="metric danger"><div class="value">0</div><div class="label">plugins</div><div class="sub">13个文件零测试</div></div>
+    <div class="metric danger"><div class="value">1</div><div class="label">common-ui</div><div class="sub">89个文件仅1个测试</div></div>
+  </div>
+  <p><strong>对标：</strong>互联网大厂前端团队普遍要求单元测试覆盖率 ≥ 70%（百度、阿里、字节均将覆盖率纳入 CI 门禁），核心组件需 ≥ 80%。当前 7.6% 的覆盖率意味着任何改动都可能引入未被检测的回归 Bug。</p>
+  <p><strong>分阶段建议：</strong></p>
+  <table>
+    <tr><th>阶段</th><th>目标覆盖率</th><th>优先级</th><th>内容</th></tr>
+    <tr><td>Q1</td><td>40%</td><td>shared-auth、shared-business、stores、request</td><td>核心业务包组件测试</td></tr>
+    <tr><td>Q2</td><td>60%</td><td>shadcn-ui 关键组件、layouts、micro-kernel</td><td>UI 组件渲染测试</td></tr>
+    <tr><td>Q3</td><td>80%</td><td>全量 comm 包、子应用核心视图</td><td>E2E 测试 + 子应用集成测试</td></tr>
+  </table>
+</div>
+
+<h3>2.2 修复 sdk-client.ts 编译阻断（P0）</h3>
+<div class="card p0">
+  <div class="card-header"><span class="badge p0">P0 功能</span><strong>7个子应用的 sdk-client.ts 引用不存在的 ./sdk/schema.ts</strong></div>
+  <p><strong>现状：</strong>agent-web、cronjob-web、literule-web、message-web、nextwiki-web、userinfo-web、workflow-web 的 <code>src/api/sdk-client.ts</code> 第2行均 <code>import type { paths } from './sdk/schema'</code>，但该文件不存在。只有 system-web 有完整实现。</p>
+  <p><strong>建议：</strong>选择方案 A（推荐）或 B：</p>
+  <ul>
+    <li><strong>方案 A：</strong>删除所有非 system-web 的 sdk-client.ts，这些应用未使用 OpenAPI 类型安全客户端</li>
+    <li><strong>方案 B：</strong>运行 <code>pnpm gen:api &lt;app-name&gt;</code> 为每个应用生成 schema，然后修复客户端</li>
+  </ul>
+</div>
+
+<h3>2.3 Dashboard 视图接入真实 API（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 功能</span><strong>dashboard/analytics 和 workspace 全部使用硬编码静态数据</strong></div>
+  <p><strong>现状：</strong><code>views/dashboard/analytics/index.vue</code> 中 overviewItems 为硬编码数组（用户量 120,000 等），<code>views/dashboard/workspace/index.vue</code> 中 projectItems/quickNavItems/todoItems 全部硬编码，问候语固定为"早安"。</p>
+  <p><strong>建议：</strong>在 api/core 下创建 dashboard.ts，接入后端统计接口，替换所有 Mock 数据。优先级：workspace 快捷入口 > analytics 图表数据 > 问候语动态化。</p>
+</div>
+
+<h3>2.4 子应用独立部署 & E2E 测试（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 功能</span><strong>仅 API URL 冒烟测试，无组件测试/E2E 测试/集成测试</strong></div>
+  <p><strong>现状：</strong>每个子应用仅一个 <code>__tests__/api-smoke.test.ts</code>，只验证 API URL 路径是否正确。vitest.workspace.ts 仅引用单一 vitest.config.ts，工作区功能未利用。</p>
+  <p><strong>对标：</strong>大厂微前端项目标配 Playwright/Cypress E2E 测试覆盖核心用户旅程（登录→导航→CRUD→登出）。</p>
+  <p><strong>建议：</strong></p>
+  <pre>// vitest.workspace.ts 利用 workspace 功能隔离各包测试
+export default [
+  'comm/@core/*/vitest.config.ts',
+  'comm/effects/*/vitest.config.ts',
+  'apps/*-web/vitest.config.ts',
+];</pre>
+</div>
+
+<h3>2.5 英文国际化补全（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 功能</span><strong>en-US locale 文件可能存在不完整翻译</strong></div>
+  <p><strong>建议：</strong>添加 CI 检查脚本，对比 zh-CN 和 en-US 的 JSON key 数量，确保一致。可使用 i18n-ally VS Code 插件辅助翻译。</p>
+</div>
+
+<!-- ====== 三、性能提升 ====== -->
+<h2>三、性能提升</h2>
+
+<h3>3.1 shareStrategy 策略普及（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 性能</span><strong>8个子应用中仅2个配置了 shareStrategy，其余6个使用默认 all</strong></div>
+  <p><strong>现状分析：</strong></p>
+  <table>
+    <tr><th>应用</th><th>shareStrategy</th><th>外置依赖</th><th>首次加载预估</th></tr>
+    <tr><td>main</td><td>all</td><td>全量（Vue/Pinia/VueRouter/ElementPlus/ECharts/Dayjs）</td><td>~</td></tr>
+    <tr><td>agent-web</td><td>all（默认）</td><td>全量</td><td>较大</td></tr>
+    <tr><td>message-web</td><td>all（默认）</td><td>全量</td><td>较大</td></tr>
+    <tr><td>system-web</td><td>all（默认）</td><td>全量</td><td>较小（配置类页面）</td></tr>
+    <tr><td>userinfo-web</td><td>all（默认）</td><td>全量</td><td>较大</td></tr>
+    <tr><td>nextwiki-web</td><td>all（默认）</td><td>全量</td><td>中等</td></tr>
+    <tr><td>cronjob-web</td><td>core-ui</td><td>框架 + ElementPlus/VXE-Table</td><td>优化中</td></tr>
+    <tr><td>literule-web</td><td>core</td><td>仅 Vue/Pinia/VueRouter</td><td>最激进优化</td></tr>
+    <tr><td>workflow-web</td><td>all（默认）</td><td>全量</td><td>较大</td></tr>
+  </table>
+  <p><strong>建议：</strong>分析各应用实际依赖，配置合适的 shareStrategy。agent-web、message-web 如不使用 ECharts 可设为 core-ui；system-web（纯配置页）可激进设为 core。</p>
+</div>
+
+<h3>3.2 虚拟列表 & 大列表优化（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 性能</span><strong>CRUD 列表页使用 h() 函数渲染操作列，大量数据时影响性能</strong></div>
+  <p><strong>现状：</strong>agent-web 等子应用的列表页中，gridOptions 通过 <code>h()</code> 函数渲染操作按钮列。当列表数据超过 500 条时，每个操作列的 VNode 创建会产生可感知的延迟。</p>
+  <p><strong>对标：</strong>Vue 3 最佳实践推荐使用虚拟滚动（@tanstack/vue-virtual）处理长列表，配合 VXE-Table 的虚拟滚动模式。</p>
+  <p><strong>建议：</strong>在 useCrudTable composable 中集成 VXE-Table 的虚拟滚动配置，默认启用 scroll-y 虚拟渲染。操作列改用 slots 模式（编译时优化）替代 h() 函数。</p>
+</div>
+
+<h3>3.3 WebSocket Token 安全（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 性能/安全</span><strong>WebSocket URL 中 Token 明文传递</strong></div>
+  <p><strong>现状：</strong><code>const wsUrl = `${protocol}//${host}/ws/notification?token=${token}`</code>，Token 通过 query string 明文传递，可能被中间代理/日志记录。</p>
+  <p><strong>建议：</strong>WebSocket 连接建立后，通过首帧握手消息传递 Token（参考 Socket.IO auth 机制），或使用 HttpOnly Cookie 自动携带。</p>
+</div>
+
+<h3>3.4 懒加载深度优化（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 性能</span><strong>部分重型依赖未做懒加载拆分</strong></div>
+  <p><strong>建议：</strong></p>
+  <ul>
+    <li>ECharts 改为 <code>defineAsyncComponent</code> 按图表类型懒加载（项目中已有但未在所有使用场景铺开）</li>
+    <li>VXE-Table 的非核心功能（导出/导入/打印）单独拆 chunk</li>
+    <li>monaco-editor（如 workflow-web 的 BPMN 编辑器）独立异步加载，不在首屏打包</li>
+  </ul>
+</div>
+
+<!-- ====== 四、体验改善 ====== -->
+<h2>四、体验改善</h2>
+
+<h3>3.1 command-palette.vue 事件注销 Bug（P0）</h3>
+<div class="card p0">
+  <div class="card-header"><span class="badge p0">P0 体验</span><strong>removeEventListener 传入新空函数引用，无法移除原监听器</strong></div>
+  <p><strong>现状：</strong></p>
+  <pre>// command-palette.vue — 错误代码
+onUnmounted(() => {
+  window.removeEventListener('YDSZ:register-commands', () => {});  // 新函数引用！
+  window.removeEventListener('YDSZ:unregister-commands', () => {}); // 无法移除
+});</pre>
+  <p><strong>影响：</strong>每次进入/离开 Command Palette 页面都会累积事件监听器，可能导致内存泄漏。</p>
+  <p><strong>修复：</strong></p>
+  <pre>// 正确做法：保存回调引用
+const handleRegister = (e: CustomEvent) => { /* ... */ };
+onMounted(() => window.addEventListener('YDSZ:register-commands', handleRegister));
+onUnmounted(() => window.removeEventListener('YDSZ:register-commands', handleRegister));</pre>
+</div>
+
+<h3>3.2 死代码清理（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 体验</span><strong>多处未使用的 import 和 void 标记的死代码</strong></div>
+  <ul>
+    <li><strong>global-search.vue：</strong>定义了 <code>function handler(e)</code> 用于 cmd+k 快捷键，又通过 <code>void handler</code> 标记为未使用，整段死代码</li>
+    <li><strong>command-palette.vue：</strong>未使用的 <code>import { getPreloadManager }</code></li>
+    <li><strong>basic.vue：</strong>未使用的 <code>import type { NotificationItem }</code></li>
+  </ul>
+  <p><strong>建议：</strong>配置 ESLint 规则 <code>no-unused-vars</code> 为 error 级别，CI 中阻断。</p>
+</div>
+
+<h3>3.3 SubAppContainer 组件拆分（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 体验</span><strong>subapp/index.vue 498行，职责过重</strong></div>
+  <p><strong>现状：</strong>单个组件包含：生命周期管理、7阶段状态映射、骨架屏解析、无障碍公告、焦点管理、错误遮罩、进度条等所有逻辑。</p>
+  <p><strong>建议：</strong>提取 composable：</p>
+  <pre>// 拆分为可独立测试的 composable
+import { useSubAppLifecycle } from './composables/use-lifecycle';
+import { useSkeletonResolver } from './composables/use-skeleton';
+import { useA11yAnnouncements } from './composables/use-a11y';
+import { useSubAppFocus } from './composables/use-focus';</pre>
+</div>
+
+<h3>3.4 microRuntime 导出不可变（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 体验</span><strong>microRuntime 使用 let 导出，外部可意外修改</strong></div>
+  <p><strong>现状：</strong><code>export let microRuntime: ReturnType&lt;typeof createRuntime&gt; | null = null;</code></p>
+  <p><strong>建议：</strong>改为 const + getter 模式或使用 readonly ref：</p>
+  <pre>let _microRuntime: ReturnType&lt;typeof createRuntime&gt; | null = null;
+export const getMicroRuntime = () => _microRuntime;
+// 或提供只读代理</pre>
+</div>
+
+<h3>3.5 无障碍与 i18n 覆盖（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 体验</span><strong>组件无障碍标签不完整，部分文案硬编码</strong></div>
+  <p><strong>建议：</strong>为所有交互组件添加 aria-label（按钮、链接、表单控件），确保 screen reader 可用。硬编码的中文文案迁移到 i18n 文件。</p>
+</div>
+
+<!-- ====== 五、过度设计简化 ====== -->
+<h2>五、过度设计简化</h2>
+
+<h3>5.1 薄包装层合并（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 简化</span><strong>@YDSZ-core/* 与 @ydsz/* 双层命名空间中存在薄包装层</strong></div>
+  <table>
+    <tr><th>包装包</th><th>文件数</th><th>实际内容</th><th>建议</th></tr>
+    <tr><td>@ydsz/preferences</td><td>1 TS</td><td>仅 defineOverridesPreferences 函数 + re-export</td><td>合并到 @YDSZ-core/preferences 或 @ydsz/stores</td></tr>
+    <tr><td>@ydsz/constants</td><td>2 TS</td><td>re-export @YDSZ-core/shared + 1个自有文件</td><td>合并，减少包数量</td></tr>
+    <tr><td>@ydsz/icons</td><td>5 TS</td><td>薄封装 @YDSZ-core/icons + SVG 组件</td><td>评估是否可合并</td></tr>
+  </table>
+  <p><strong>总体建议：</strong>在不破坏架构清晰度的前提下，将薄包装层（核心逻辑不超过 50 行的包）合并，将 32 个 comm 包精简到 ~25 个。</p>
+</div>
+
+<h3>5.2 TypeScript 路径映射简化（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 简化</span><strong>tsconfig.paths.json 手动维护 48 个路径映射</strong></div>
+  <p><strong>现状：</strong>手动维护 48 个路径映射，存在大小写不一致（@YDSZ-core vs @ydsz），部分映射指向 src/index.ts（dev 直出）而非 dist/（生产）。</p>
+  <p><strong>建议：</strong>使用 Turborepo 的自动路径解析 + pnpm workspace 协议，减少手动路径映射。或使用 unplugin-auto-import 自动处理内部包引用。</p>
+</div>
+
+<h3>5.3 docker-compose 端口收敛（P1）</h3>
+<div class="card p1">
+  <div class="card-header"><span class="badge p1">P1 简化/安全</span><strong>docker-compose 暴露 9 个 Java 微服务端口到主机</strong></div>
+  <p><strong>现状：</strong>所有后端服务（9000-9008）端口均映射到主机网络，存在安全隐患。生产环境应仅暴露 Gateway（9000），其他服务通过内部 Docker 网络通信。</p>
+  <p><strong>建议：</strong></p>
+  <pre># 仅暴露 gateway 端口，其余服务移除 ports 映射
+services:
+  gateway:
+    ports:
+      - "9000:9000"
+  auth-service:
+    # ports 移除，通过内部网络访问
+    networks:
+      - ydsz-net</pre>
+</div>
+
+<h3>5.4 useSearchProvider 的 setTimeout 注册（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 简化</span><strong>use-global-search.ts 中 100ms setTimeout 依赖时序假设</strong></div>
+  <p><strong>现状：</strong><code>setTimeout(() => registerSearchProvider(appName, provider), 100)</code> 依赖子应用在 100ms 内挂载完成。</p>
+  <p><strong>建议：</strong>改为事件驱动——子应用 mount 完成时触发 <code>YDSZ:search-provider-ready</code> 事件，主应用监听后注册。</p>
+</div>
+
+<h3>5.5 废弃构建配置清理（P2）</h3>
+<div class="card p2">
+  <div class="card-header"><span class="badge p2">P2 简化</span><strong>部分包的 build 脚本被注释，混用 vite build 与 unbuild</strong></div>
+  <ul>
+    <li>@YDSZ-core/preferences 的 build 脚本被注释（<code>"#build": "pnpm unbuild"</code>）</li>
+    <li>@YDSZ-core/design 使用 vite build，其他包使用 unbuild，构建工具不统一</li>
+  </ul>
+  <p><strong>建议：</strong>统一所有 comm 包的构建工具为 unbuild（更适合纯 JS/TS 库），或明确各包的构建策略。</p>
+</div>
+
+<!-- ====== 六、行业对标总结 ====== -->
+<h2>六、行业对标总结</h2>
+
+<div class="metric-grid">
+  <div class="metric"><div class="value">9/10</div><div class="label">微前端架构</div><div class="sub">自研 ESM 内核超越 qiankun/wujie</div></div>
+  <div class="metric"><div class="value">8/10</div><div class="label">工具链工程化</div><div class="sub">Turbo+Lefthook+pnpm catalog</div></div>
+  <div class="metric"><div class="value">7/10</div><div class="label">代码一致性</div><div class="sub">8子应用高度统一，boilerplate过多</div></div>
+  <div class="metric danger"><div class="value">2/10</div><div class="label">测试体系</div><div class="sub">7.6%覆盖率，行业标准70%+</div></div>
+</div>
+
+<h3>竞争优劣势分析</h3>
+<table>
+  <tr><th>维度</th><th>YDSZ-Micro 现状</th><th>qiankun</th><th>wujie</th><th>Module Federation</th></tr>
+  <tr><td>沙箱隔离</td><td>三层（Snapshot/Proxy/IFrame）✓</td><td>Proxy 一层</td><td>IFrame 物理隔离</td><td>无沙箱</td></tr>
+  <tr><td>预加载策略</td><td>马尔可夫链路由预测 ✓</td><td>基础 prefetch</td><td>预执行</td><td>按需联邦</td></tr>
+  <tr><td>金丝雀/灰度</td><td>内置 ✓</td><td>需自建</td><td>需自建</td><td>需自建</td></tr>
+  <tr><td>DevTools</td><td>Bridge + Extension ✓</td><td>无</td><td>无</td><td>Webpack DevTools</td></tr>
+  <tr><td>接入成本</td><td>中等（ESM 原生）</td><td>低</td><td>低</td><td>高</td></tr>
+  <tr><td>测试覆盖</td><td>7.6% ✗</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+  <tr><td>社区生态</td><td>自研闭环</td><td>丰富</td><td>成长中</td><td>Rspack 生态</td></tr>
+</table>
+
+<!-- ====== 七、实施路线图 ====== -->
+<h2>七、建议实施路线图</h2>
+
+<div class="section-summary">
+  <strong>推荐执行顺序：</strong>先止血（修复编译阻断 + 内存泄漏 Bug + 安全暴露）→ 再补欠债（补充测试 + 消除重复）→ 后做增量（性能优化 + 功能增强）。
+</div>
+
+<table>
+  <tr><th>优先级</th><th>项目</th><th>预计工时</th><th>影响范围</th></tr>
+  <tr><td style="color:var(--p0);font-weight:700">P0-1</td><td>修复7个子应用 sdk-client.ts 编译阻断</td><td>0.5d</td><td>apps/*-web 构建</td></tr>
+  <tr><td style="color:var(--p0);font-weight:700">P0-2</td><td>修复 command-palette.vue 事件注销 Bug</td><td>1h</td><td>主应用内存泄漏</td></tr>
+  <tr><td style="color:var(--p0);font-weight:700">P0-3</td><td>拆分 bootstrap.ts 为独立 setup 模块</td><td>2d</td><td>main 可维护性</td></tr>
+  <tr><td style="color:var(--p0);font-weight:700">P0-4</td><td>notificationStore 迁移到 Pinia</td><td>1d</td><td>状态管理一致性</td></tr>
+  <tr><td style="color:var(--p0);font-weight:700">P0-5</td><td>启动测试补全计划（Q1: 40%覆盖率）</td><td>持续</td><td>全项目质量</td></tr>
+  <tr><td style="color:var(--p1);font-weight:700">P1-1</td><td>消除子应用 boilerplate（router/core.ts 等）</td><td>3d</td><td>8个子应用维护成本</td></tr>
+  <tr><td style="color:var(--p1);font-weight:700">P1-2</td><td>解耦 menu-ui → micro-kernel 反向依赖</td><td>1d</td><td>comm 包依赖方向</td></tr>
+  <tr><td style="color:var(--p1);font-weight:700">P1-3</td><td>统一 catalog 版本管理 + docker-compose 端口收敛</td><td>0.5d</td><td>依赖/安全</td></tr>
+  <tr><td style="color:var(--p1);font-weight:700">P1-4</td><td>Dashboard 接入真实 API</td><td>2d</td><td>主应用功能完整性</td></tr>
+  <tr><td style="color:var(--p1);font-weight:700">P1-5</td><td>合并薄包装层（@ydsz/preferences → @YDSZ-core）</td><td>0.5d</td><td>comm 包精简</td></tr>
+  <tr><td style="color:var(--p1);font-weight:700">P1-6</td><td>SubAppContainer 拆分 composable</td><td>1d</td><td>组件可维护性</td></tr>
+  <tr><td style="color:var(--p2);font-weight:700">P2-1</td><td>standalone 模式推广到全部子应用</td><td>3d</td><td>开发体验</td></tr>
+  <tr><td style="color:var(--p2);font-weight:700">P2-2</td><td>shareStrategy 按需配置 + 虚拟列表集成</td><td>2d</td><td>性能/包体积</td></tr>
+  <tr><td style="color:var(--p2);font-weight:700">P2-3</td><td>en-US i18n 补全 + ESLint no-unused-vars 强制</td><td>1d</td><td>国际化/代码质量</td></tr>
+  <tr><td style="color:var(--p2);font-weight:700">P2-4</td><td>E2E 测试框架搭建 + 核心用户旅程覆盖</td><td>3d</td><td>回归保护</td></tr>
+</table>
+
+<hr style="margin: 40px 0; border: none; border-top: 1px solid var(--border);">
+
+<div class="section-summary">
+  <strong>总评：</strong>YDSZ-Micro 在微前端架构设计上已达到国内一流水平，自研 ESM 原生微前端内核（三层沙箱 + 金丝雀 + 马尔可夫链预加载）在<strong>架构创新性上超越了 qiankun/wujie 等社区方案</strong>。monorepo 工具链（Turbo + pnpm catalog + Lefthook）配置成熟，Nginx/Docker 部署方案达到企业级标准。当前核心差距不在架构能力，而在<strong>工程质量（测试覆盖率 7.6% vs 行业 70%+）和代码精益度（80+ 个重复转发文件）</strong>。建议按上述路线图分 3 个阶段推进：先止血、再补欠债、后做增量。
+</div>
+
+<div class="legend" style="justify-content: flex-end;">
+  <span class="badge p0">P0 立即修复</span>
+  <span class="badge p1">P1 近期修复</span>
+  <span class="badge p2">P2 规划修复</span>
+</div>
+
+</body>
+</html>

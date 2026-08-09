@@ -76,7 +76,11 @@ import {
   startMessageListener,
 } from "./message-broker";
 import { mark, measure } from "./performance-utils";
-import { getPreloadManager, recordRouteTransition } from "./preload-strategy";
+import {
+  createRoutePreloadStrategy,
+  getPreloadManager,
+  recordRouteTransition,
+} from "./preload-strategy";
 import {
   clearRegistryCache,
   resolveAppEntry,
@@ -84,17 +88,22 @@ import {
 } from "./registry-adapter";
 import {
   activateApp,
+  bindSchedulerContext,
   configureKeepAlive as configureKeepAliveAction,
   createAppInstance,
+  createSchedulerContext,
   deactivateApp,
   getAllInstances,
   getAppInstance,
   getKeepAliveConfig,
   isKeepAliveEnabled,
+  setKeepAlive as setKeepAliveAction,
+  setPinnedApp,
   setupVisibilityAutoRelease,
   updateAppProps,
 } from "./scheduler";
 import { applyPrefetchBoost } from "./speculation-rules";
+import { getVersionManager } from "./version-manager";
 
 /** 模块级日志器 */
 const logger = createLogger("MicroKernel");
@@ -123,6 +132,12 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   // === P0-A1: 管理器注册表（统一 dispose） ===
   const registry: ManagerRegistry = createManagerRegistry();
 
+  // === P0-N1 (v4.2.1): 绑定内核专属调度器上下文 ===
+  // 每个 createKernel 实例持有独立 appInstances / keepAlive 配置，
+  // 消除多 Kernel 实例（测试并行 / SSR / 嵌套微前端）状态串扰。
+  const schedulerContext = createSchedulerContext();
+  bindSchedulerContext(schedulerContext);
+
   // ==================== P0-A2: 闭包级状态 ====================
 
   /** 当前活跃应用名 */
@@ -130,6 +145,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
   /** 切换令牌：递增代次，防止快速连续切换时异步竞态 */
   let switchToken = 0;
+
+  /** v4.2.1 P0-N2: 切换中止控制器 — 快速连续切换时中止旧 deactivate/activate */
+  let switchAbortController: AbortController | null = null;
 
   // ==================== 全局通信 (globalState) ====================
 
@@ -152,11 +170,21 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
    * 每次拨动 switchToken，异步操作前后校验令牌是否一致。
    * 若不一致说明已有更晚的切换请求发起，当前操作结果直接丢弃，
    * 避免"后到的 deactivateApp 把刚激活的应用卸载"这类竞态。
+   *
+   * v4.2.1 P0-N2: 引入 AbortController — 快速连续切换时
+   * 中止旧的 deactivate/activate 异步链路，避免不必要的
+   * unmount/cleanup 开销与"旧切换插花"时序问题。
    */
   async function switchToApp(
     config: MicroAppConfig,
     options?: StartOptions,
   ): Promise<void> {
+    // 中止上一轮切换的未完成异步操作（deactivate / load / mount）
+    switchAbortController?.abort();
+    const controller = new AbortController();
+    switchAbortController = controller;
+    const signal = controller.signal;
+
     const token = ++switchToken;
     const fromApp = activeAppName;
 
@@ -171,8 +199,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     if (activeAppName) {
       const prev = getAppInstance(activeAppName);
       if (prev) {
-        await deactivateApp(prev);
+        await deactivateApp(prev, signal);
         if (token !== switchToken) return;
+        if (signal.aborted) return;
       }
     }
 
@@ -260,7 +289,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         {
           // v3.3: 细化生命周期 — 加载完成后触发 afterLoad 钩子与事件
           onLoaded: (inst) => {
-            if (token !== switchToken) return;
+            if (token !== switchToken || signal.aborted) return;
             void lifecycleHooks.run("afterLoad", inst.config);
             window.dispatchEvent(
               new CustomEvent("micro-kernel:after-load", {
@@ -270,7 +299,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
           },
           // v3.3: 细化生命周期 — mount 之前触发 beforeMount 钩子与事件
           onBeforeMount: (inst) => {
-            if (token !== switchToken) return;
+            if (token !== switchToken || signal.aborted) return;
             void lifecycleHooks.run("beforeMount", inst.config);
             window.dispatchEvent(
               new CustomEvent("micro-kernel:before-mount", {
@@ -280,8 +309,10 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
           },
         },
         globalStateBridge,
+        signal,
       );
       if (token !== switchToken) return;
+      if (signal.aborted) return;
       const prevAppName = activeAppName;
       activeAppName = config.name;
       // v3.4: 记录应用访问频率，供 frequency 预加载策略使用
@@ -310,6 +341,15 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         }),
       );
     } catch (error) {
+      // v4.2.1 P0-N2: 切换被更新的请求中止 → 静默退出，不触发降级
+      if (
+        (error instanceof DOMException && error.name === "AbortError") ||
+        (error instanceof Error && error.name === "AbortError")
+      ) {
+        logger.debug(`Switch to ${config.name} aborted by newer request`);
+        return;
+      }
+
       logger.error(`Failed to activate ${config.name}:`, error);
 
       // === v3.7.0: 三级降级决策 ===
@@ -470,7 +510,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   }
 
   const kernelApi = {
-    registerApps(newApps) {
+    registerApps(newApps: MicroAppConfig[]) {
       registerAppsInternal(newApps);
     },
 
@@ -511,7 +551,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       return configs;
     },
 
-    start(options) {
+    start(options?: StartOptions) {
       if (started) {
         logger.warn("Already started");
         return;
@@ -565,8 +605,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       // === S1 修复：预加载只拉取 ESM 模块与样式，不执行 mount ===
       // loadApp 完成的资源会进入浏览器 HTTP / ESM 缓存，
       // 二次激活时仅差 mount 耗时，且不会篡改 activeAppName
-      if (typeof options?.prefetch === "function") {
-        const toPrefetch = apps.filter(options.prefetch);
+      const prefetchFilter = options?.prefetch;
+      if (typeof prefetchFilter === "function") {
+        const toPrefetch = apps.filter((app) => prefetchFilter(app));
         // P2: 网络条件感知 — 慢速网络（2g/3g）或省流量模式下跳过预加载
         if (shouldSkipPrefetchDueToNetwork()) {
           logger.debug("Prefetch skipped due to slow network or saveData");
@@ -601,11 +642,49 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         });
       }
 
+      // === v4.2.1 N9: 内核内置路由预测预加载 ===
+      // 基于马尔可夫链转移概率，在浏览器空闲时预测并预加载下一目标。
+      // 此前该逻辑在 bootstrap 侧注册，但因其调用了不存在的 getApps()/prefetch()
+      // 导致策略从未真正生效（隐藏 bug）。现下沉到内核 start() 内部，
+      // 通过 StartOptions.routePreload 控制开关（默认启用）。
+      if (options?.routePreload !== false) {
+        try {
+          preloadManager.registerStrategy(
+            "__route_prediction__",
+            createRoutePreloadStrategy(
+              apps,
+              undefined,
+              (appName: string) => {
+                const config = apps.find((a) => a.name === appName);
+                if (config) {
+                  void loadApp(config).catch(() => {
+                    // 预测预加载失败不阻塞
+                  });
+                }
+              },
+              { minProbability: 0.15, maxPreloads: 2 },
+            ),
+          );
+          // 浏览器空闲时触发一次预测预加载
+          scheduleIdle(() => {
+            if (shouldSkipPrefetchDueToNetwork()) return;
+            void preloadManager.triggerPreload("__route_prediction__");
+          });
+          logger.debug(
+            "Route prediction preload strategy registered (kernel-builtin)",
+          );
+        } catch (error) {
+          logger.warn(
+            `Route prediction strategy registration skipped: ${String(error)}`,
+          );
+        }
+      }
+
       logger.info(`Started with ${apps.length} apps`);
       window.dispatchEvent(new CustomEvent("micro-kernel:started"));
     },
 
-    async prefetchApp(name) {
+    async prefetchApp(name: string) {
       // 手动预加载：用于 hover 预热等场景。
       // 不检查网络条件（用户主动悬停意味着即将访问，值得拉取）。
       const config = apps.find((a) => a.name === name);
@@ -624,7 +703,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       }
     },
 
-    async unmountApp(name) {
+    async unmountApp(name: string) {
       const instance = getAppInstance(name);
       if (!instance) {
         return { name, success: false, reason: "App not registered" };
@@ -732,6 +811,33 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       configureKeepAliveAction({ enabled });
     },
 
+    /**
+     * 设置指定子应用的保活状态（v4.2.1 补齐接口实现）。
+     *
+     * 兼容 MicroRuntime 接口契约；实例级保活由 scheduler.setKeepAlive 精确控制。
+     *
+     * @param name - 子应用名
+     * @param keep - 是否启用保活
+     * @since 4.2.1
+     */
+    setKeepAlive(name: string, keep: boolean) {
+      setKeepAliveAction(name, keep);
+    },
+
+    /**
+     * 设置指定子应用的"固定"（pin）状态（v4.2.1 公开）。
+     *
+     * 固定后的保活实例在 LRU 淘汰时不会被移除，适用于常用应用常驻
+     * 或用户显式 pin 住的标签页。
+     *
+     * @param name - 子应用名
+     * @param pin - 是否固定
+     * @since 4.2.1
+     */
+    setPinnedApp(name: string, pin: boolean) {
+      setPinnedApp(name, pin);
+    },
+
     // === v4.0 P3-2: KeepAlive 统一配置 ===
 
     /**
@@ -757,7 +863,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       return isKeepAliveEnabled();
     },
 
-    navigateTo(path) {
+    navigateTo(path: string) {
       window.history.pushState(null, "", path);
       // pushState 补丁会自动派发 ROUTE_CHANGE_EVENT，不再需要手动 dispatch popstate
     },
@@ -831,6 +937,10 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       visibilityCleanup?.();
       visibilityCleanup = null;
 
+      // v4.2.1 P0-N2: 中止未完成的切换异步链路
+      switchAbortController?.abort();
+      switchAbortController = null;
+
       for (const instance of getAllInstances()) {
         if (instance.status === "MOUNTED") {
           await deactivateApp(instance);
@@ -863,6 +973,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       // 清理 loader 模块级缓存（非单例管理器，独立清理）
       clearManifestCache();
 
+      // v4.2.1 P0-N1: 恢复全新调度器上下文（释放本内核持有的实例集）
+      bindSchedulerContext(createSchedulerContext());
+
       logger.info("Stopped");
     },
 
@@ -884,21 +997,22 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     healthCheck() {
       const all = getAllInstances();
       let ka = 0;
-      for (const [, i] of all) if (i.keepAlive && i.status === "MOUNTED") ka++;
+      // v4.2.1 修复: getAllInstances() 返回数组，此前按 Map 解构导致 keepAliveCount 恒为 0
+      for (const i of all) if (i.keepAlive && i.status === "MOUNTED") ka++;
       return {
-        kernelVersion: "4.2.0",
+        kernelVersion: "4.2.1",
         kernelName: "micro-kernel",
         capabilities: {
           sandbox: ["snapshot", "proxy", "iframe"] as const,
           prefetch: true,
           keepAlive: true,
-          hmr: !!import.meta.env.DEV,
+          hmr: !!import.meta.env?.DEV,
           healthCheckAsync: true as const, // v4.2: 支持异步深度检查
         },
         metrics: {
-          activeApps: all.size,
+          activeApps: all.length,
           keepAliveCount: ka,
-          registeredApps: (this as any).getRegisteredApps?.().length ?? 0,
+          registeredApps: this.getRegisteredApps?.().length ?? 0,
         },
       };
     },
@@ -925,10 +1039,11 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       // 延迟导入避免循环依赖（health-check 依赖 scheduler 类型）
       const { runHealthCheck } = await import("./health-check");
       const allInstances = getAllInstances();
-      const apps = [...allInstances.values()].map((i) => ({
+      // v4.2.1 修复: getAllInstances() 返回数组，移除错误的 .values() 调用
+      const apps = allInstances.map((i) => ({
         config: { name: i.config.name, entry: i.config.entry },
         status: i.status,
-        loadMetrics: i.loadMetrics,
+        loadMetrics: i.loadMetrics ?? undefined,
       }));
       return runHealthCheck(apps, options);
     },

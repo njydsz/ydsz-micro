@@ -29,7 +29,7 @@
     "@ydsz/utils": "workspace:*",
     "dayjs": "catalog:",
     "element-plus": "catalog:",
-    "openapi-fetch": "^0.17.0",
+    "openapi-fetch": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"

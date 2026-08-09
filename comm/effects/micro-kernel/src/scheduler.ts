@@ -12,6 +12,11 @@
  * evictSingleInstance / evictAllKeepAliveOnMemoryPressure 四处），
  * 符合 OCP — 新增沙箱类型只需实现 SandboxStrategy 接口。
  *
+ * P0-N1 (v4.2.1): 全部可变状态（appInstances / maxKeepAliveApps /
+ * keepAliveTTL / keepAliveEnabled / keepAliveTimestamp）收归
+ * SchedulerContext 对象，createKernel() 创建并绑定独立上下文，
+ * 消除多 Kernel 实例 / HMR 场景下的状态串扰。
+ *
  * @path comm/effects/micro-kernel/src/scheduler.ts
  * @author ydsz-team
  * @since 3.0.0
@@ -106,20 +111,69 @@ export interface AppInstance {
   manifest: Manifest | null;
 }
 
-/** 保活实例数上限（默认 5，超限按 LRU 淘汰最久未访问的子应用） */
-let maxKeepAliveApps = 5;
+// ==================== P0-N1 (v4.2.1): SchedulerContext 闭包级状态 ====================
 
 /**
- * v3.7.0: 保活 TTL（毫秒）。
+ * 调度器可变状态的单一容器（P0-N1）。
  *
- * 保活实例在缓存中保留时间未超过 TTL 时不会因为 LRU 策略被淘汰
- * （除非触发内存压力或手动强制卸载）。默认 30 分钟。设置为 0 表示禁用 TTL 保护，
- * 回退到既有 LRU-only 策略。
+ * 全部调度器可变状态收归此上下文对象，createKernel() 创建并绑定
+ * 独立上下文，确保：
+ * - 多 Kernel 实例（单元测试并行 / SSR / 嵌套微前端）状态完全隔离
+ * - HMR _stop() 后重新 start 不会残留上一轮的实例与配置
+ *
+ * @since 4.2.1
  */
-let keepAliveTTL = 30 * 60 * 1000;
+export interface SchedulerContext {
+  /** 已注册的子应用实例集 */
+  appInstances: Map<string, AppInstance>;
+  /** 保活实例数上限（默认 5，超限按 LRU 淘汰最久未访问的子应用） */
+  maxKeepAliveApps: number;
+  /**
+   * 保活 TTL（毫秒）。默认 30 分钟。0 表示禁用 TTL 保护。
+   */
+  keepAliveTTL: number;
+  /** 保活缓存创建时间戳序列（严格递增，用作 keepAliveSince 取值） */
+  keepAliveTimestamp: number;
+  /** 当前 keep-alive 是否启用 */
+  keepAliveEnabled: boolean;
+}
 
-/** 保活缓存创建时间戳序列（严格递增，用作 keepAliveSince 取值） */
-let keepAliveTimestamp = 1;
+/** 创建全新调度器上下文（工厂函数） */
+export function createSchedulerContext(): SchedulerContext {
+  return {
+    appInstances: new Map<string, AppInstance>(),
+    maxKeepAliveApps: 5,
+    keepAliveTTL: 30 * 60 * 1000,
+    keepAliveTimestamp: 1,
+    keepAliveEnabled: true,
+  };
+}
+
+/**
+ * 当前活跃的调度器上下文。
+ *
+ * 默认创建一份独立上下文（模块级兜底），createKernel() 会绑定
+ * 内核专属上下文；_stop() 后恢复为全新默认上下文。
+ */
+let currentContext: SchedulerContext = createSchedulerContext();
+
+/**
+ * 绑定调度器上下文（由 createKernel 闭包调用）。
+ *
+ * @param ctx - 新的调度器上下文实例
+ * @returns 上一个上下文（供恢复使用）
+ * @since 4.2.1
+ */
+export function bindSchedulerContext(ctx: SchedulerContext): SchedulerContext {
+  const prev = currentContext;
+  currentContext = ctx;
+  return prev;
+}
+
+/** 获取当前活跃上下文（内部使用） */
+function getContext(): SchedulerContext {
+  return currentContext;
+}
 
 // ==================== P3-2: KeepAlive 统一配置 ====================
 
@@ -151,9 +205,6 @@ export interface KeepAliveConfig {
   ttl?: number;
 }
 
-/** 当前 keep-alive 是否启用（v4.0 P3-2 新增统一配置项） */
-let keepAliveEnabled = true;
-
 /**
  * 统一配置 KeepAlive 策略（v4.0 P3-2）。
  *
@@ -178,14 +229,15 @@ let keepAliveEnabled = true;
  * ```
  */
 export function configureKeepAlive(config: KeepAliveConfig): void {
+  const ctx = getContext();
   if (typeof config.enabled === "boolean") {
-    keepAliveEnabled = config.enabled;
+    ctx.keepAliveEnabled = config.enabled;
   }
   if (typeof config.max === "number") {
-    maxKeepAliveApps = Math.max(0, config.max);
+    ctx.maxKeepAliveApps = Math.max(0, config.max);
   }
   if (typeof config.ttl === "number") {
-    keepAliveTTL = Math.max(0, config.ttl);
+    ctx.keepAliveTTL = Math.max(0, config.ttl);
   }
 }
 
@@ -195,10 +247,11 @@ export function configureKeepAlive(config: KeepAliveConfig): void {
  * @returns 当前生效的 enabled / max / ttl 配置
  */
 export function getKeepAliveConfig(): Required<KeepAliveConfig> {
+  const ctx = getContext();
   return {
-    enabled: keepAliveEnabled,
-    max: maxKeepAliveApps,
-    ttl: keepAliveTTL,
+    enabled: ctx.keepAliveEnabled,
+    max: ctx.maxKeepAliveApps,
+    ttl: ctx.keepAliveTTL,
   };
 }
 
@@ -206,7 +259,7 @@ export function getKeepAliveConfig(): Required<KeepAliveConfig> {
  * v3.7.0: 判断 keepAlive 当前是否启用。
  */
 export function isKeepAliveEnabled(): boolean {
-  return keepAliveEnabled;
+  return getContext().keepAliveEnabled;
 }
 
 // ==================== KeepAlive 配置设置器（P3-2: 委托给统一 configureKeepAlive） ====================
@@ -220,8 +273,6 @@ export function isKeepAliveEnabled(): boolean {
 export function setMaxKeepAliveApps(max: number): void {
   configureKeepAlive({ max });
 }
-
-const appInstances = new Map<string, AppInstance>();
 
 /** 创建并注册一个新的子应用实例，初始状态为 NOT_LOADED */
 export function createAppInstance(config: MicroAppConfig): AppInstance {
@@ -244,18 +295,18 @@ export function createAppInstance(config: MicroAppConfig): AppInstance {
     pinned: false,
     manifest: null,
   };
-  appInstances.set(config.name, instance);
+  getContext().appInstances.set(config.name, instance);
   return instance;
 }
 
 /** 按子应用名称获取已注册的实例，未注册时返回 undefined */
 export function getAppInstance(name: string): AppInstance | undefined {
-  return appInstances.get(name);
+  return getContext().appInstances.get(name);
 }
 
 /** 获取全部已注册的子应用实例列表，供调试与巡检使用 */
 export function getAllInstances(): AppInstance[] {
-  return [...appInstances.values()];
+  return [...getContext().appInstances.values()];
 }
 
 /**
@@ -341,6 +392,7 @@ function getDynamicMemoryThreshold(defaultMB = 500): number {
  * 若 keepAlive 且已有缓存 DOM，直接放回容器。
  *
  * v4.1 P0-A2: 使用 strategy.mount() 替代 if-else 分支进入沙箱。
+ * v4.2.1 P0-N2: 支持 AbortSignal — switchToken 变更时调用方可中止等待。
  *
  * @param instance - 子应用实例
  * @param container - 挂载容器
@@ -349,6 +401,7 @@ function getDynamicMemoryThreshold(defaultMB = 500): number {
  *   - onLoaded: loadApp 完成、LifecycleExports 就绪后触发（keepAlive 复用路径不触发）
  *   - onBeforeMount: mount() 调用之前、沙箱进入之后触发（keepAlive 复用路径不触发）
  * @param globalStateBridge - 可选的 globalState 桥接（v3.6.0，iframe 沙箱场景使用）
+ * @param signal - 可选 AbortSignal：中止时抛出 AbortError（v4.2.1 新增）
  */
 export async function activateApp(
   instance: AppInstance,
@@ -359,14 +412,18 @@ export async function activateApp(
     onLoaded?: (instance: AppInstance) => void;
   } = {},
   globalStateBridge?: GlobalStateBridge,
+  signal?: AbortSignal,
 ): Promise<void> {
   const { config } = instance;
+  const ctx = getContext();
+
+  if (signal?.aborted) throw new DOMException("Aborted", "AbortError");
 
   if (instance.status === "MOUNTED") return;
 
   // keepAlive 复用（需同时满足全局启用 + 实例级启用 + 缓存存在）
   if (
-    keepAliveEnabled &&
+    ctx.keepAliveEnabled &&
     instance.keepAlive &&
     instance.cachedRoot &&
     instance.cachedParent
@@ -402,6 +459,10 @@ export async function activateApp(
     instance.status = "LOADING";
     try {
       const result: LoadResult = await loadApp(config, loadOpts);
+      if (signal?.aborted) {
+        instance.status = "NOT_LOADED";
+        throw new DOMException("Aborted", "AbortError");
+      }
       instance.exports = result.exports;
       instance.loadMetrics = {
         duration: result.duration,
@@ -424,7 +485,10 @@ export async function activateApp(
   // 挂载
   const mountProps: MountProps = {
     container,
-    basename: config.activeRule,
+    // v4.2.1: activeRule 支持 string/RegExp/function 联合类型，
+    // basename 要求 string，非 string 类型回退为 '/'（子应用路由前缀无效场景）
+    basename:
+      typeof config.activeRule === "string" ? config.activeRule : "/",
     ...config.props,
   };
 
@@ -432,26 +496,39 @@ export async function activateApp(
   container.dataset.microApp = config.name;
 
   // === v4.1 P0-A2: 使用统一策略进入沙箱（消除 if-else）===
-  instance.strategy = createSandboxStrategy(
-    instance.sandboxType,
-    config.name,
-    container,
-    config.devUrl,
-  );
-  instance.strategy.mount();
+  // v4.2.1 P0-N2: 沙箱创建失败显式抛出 SANDBOX_ERROR（此前该错误码无任何抛出路径）
+  let strategy: SandboxStrategy;
+  try {
+    strategy = createSandboxStrategy(
+      instance.sandboxType,
+      config.name,
+      container,
+      config.devUrl,
+    );
+  } catch (error) {
+    instance.status = "LOADED";
+    instance.error = String(error);
+    throw new KernelError(
+      KernelErrorCode.SANDBOX_ERROR,
+      `[MicroKernel] Failed to create sandbox for ${config.name}: ${String(error)}`,
+      error,
+    );
+  }
+  instance.strategy = strategy;
+  strategy.mount();
 
   // 注入沙箱特有能力到 mountProps
-  if (instance.strategy instanceof ProxySandboxStrategy) {
-    mountProps.fakeWindow = instance.strategy.fakeWindow;
+  if (strategy instanceof ProxySandboxStrategy) {
+    mountProps.fakeWindow = strategy.fakeWindow;
     logger.debug(`${config.name} entered proxy sandbox (via strategy)`);
-  } else if (instance.strategy instanceof IframeSandboxStrategy) {
+  } else if (strategy instanceof IframeSandboxStrategy) {
     // 将 mountProps 的容器指向 iframe 内的挂载容器
-    if (instance.strategy.container) {
-      mountProps.container = instance.strategy.container;
+    if (strategy.container) {
+      mountProps.container = strategy.container;
     }
     // 注入 iframeWindow 到 mountProps
-    if (instance.strategy.contentWindow) {
-      mountProps.iframeWindow = instance.strategy.contentWindow;
+    if (strategy.contentWindow) {
+      mountProps.iframeWindow = strategy.contentWindow;
     }
     // v3.6.0: 建立 globalState 跨 realm 桥接
     if (globalStateBridge) {
@@ -463,9 +540,7 @@ export async function activateApp(
           globalStateBridge.setGlobalState(patch);
           // 同时同步给子应用（setGlobalState 已会触发 onGlobalStateChange 广播，
           // 但为保证子应用即时收到，显式 postToChild 一次）
-          (instance.strategy as IframeSandboxStrategy)?.postToChild(
-            globalStateBridge.getGlobalState(),
-          );
+          strategy.postToChild(globalStateBridge.getGlobalState());
         },
         onGlobalStateChange: (
           listener: (state: Record<string, unknown>) => void,
@@ -479,10 +554,7 @@ export async function activateApp(
       };
       mountProps._globalState = proxyGlobalState;
       // 建立双向桥接（内部管理 unsubscribe）
-      (instance.strategy as IframeSandboxStrategy).attachGlobalStateBridge(
-        globalStateBridge,
-        proxyGlobalState,
-      );
+      strategy.attachGlobalStateBridge(globalStateBridge, proxyGlobalState);
     }
     logger.debug(`${config.name} entered iframe sandbox (via strategy)`);
   } else {
@@ -496,6 +568,14 @@ export async function activateApp(
   mark(`kernel:mount:${config.name}:start`);
   try {
     await instance.exports.mount(mountProps);
+    if (signal?.aborted) {
+      // 中止：立即回滚本次挂载（避免"后到的切换请求把刚激活的应用当活跃"）
+      await instance.exports.unmount(mountProps).catch(() => {});
+      strategy.cleanup();
+      instance.strategy = null;
+      instance.status = "LOADED";
+      throw new DOMException("Aborted", "AbortError");
+    }
     instance.status = "MOUNTED";
     instance.error = null;
     instance.lastActivatedAt = Date.now();
@@ -513,7 +593,10 @@ export async function activateApp(
     instance.strategy = null;
     instance.status = "LOADED";
     instance.error = String(error);
-    // P1-8: 包装为 KernelError 后抛出
+    // P1-8: 包装为 KernelError 后抛出（AbortError 原样传递）
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw error;
+    }
     throw new KernelError(
       KernelErrorCode.MOUNT_ERROR,
       `[MicroKernel] ${config.name} mount failed: ${String(error)}`,
@@ -527,17 +610,24 @@ export async function activateApp(
  * keepAlive 时摘除 DOM（不销毁组件树状态），否则完整卸载。
  *
  * v4.1 P0-A2: 使用 strategy.unmount()/cleanup() 替代 if-else 分支。
+ * v4.2.1 P0-N2: 支持 AbortSignal — 中止时跳过可跳过步骤直接清理。
  */
 export async function deactivateApp(
   instance: AppInstance,
+  signal?: AbortSignal,
 ): Promise<DeactivateResult> {
   const { config } = instance;
+  const ctx = getContext();
+
+  if (signal?.aborted) {
+    return { name: config.name, success: true };
+  }
 
   if (instance.status !== "MOUNTED") {
     return { name: config.name, success: true };
   }
 
-  if (keepAliveEnabled && instance.keepAlive) {
+  if (ctx.keepAliveEnabled && instance.keepAlive) {
     const container = resolveContainer(config.container);
     if (container) {
       // === ADR-006: kernel:deactivate 标记 ===
@@ -549,7 +639,7 @@ export async function deactivateApp(
       }
       instance.status = "UNMOUNTED";
       // v3.7.0: 记录保活缓存创建时间（用于 TTL 过期检测）
-      instance.keepAliveSince = keepAliveTimestamp++;
+      instance.keepAliveSince = ctx.keepAliveTimestamp++;
       // v3.7.0: 调用策略的 unmount（keepAlive 时不完全清理沙箱）
       instance.strategy?.unmount();
       // 调用 deactivate 生命周期钩子
@@ -569,7 +659,7 @@ export async function deactivateApp(
       logger.debug(`${config.name} detached (keepAlive)`);
 
       // P0-P2: LRU 淘汰：保活实例数超限时卸载最久未访问的子应用
-      const evicted = await evictKeepAliveIfNeeded();
+      const evicted = await evictKeepAliveIfNeeded(ctx);
 
       return {
         name: config.name,
@@ -583,10 +673,11 @@ export async function deactivateApp(
   // === ADR-006: kernel:unmount 标记 ===
   mark(`kernel:unmount:${config.name}:start`);
   try {
-    await instance.exports!.unmount({
+    await instance.exports?.unmount?.({
       container:
         resolveContainer(config.container) || document.createElement("div"),
-      basename: config.activeRule,
+      basename:
+        typeof config.activeRule === "string" ? config.activeRule : "/",
     });
 
     // v4.1 P0-A2: 通过策略清理沙箱（单一调用，无需 if-else）
@@ -637,7 +728,7 @@ export async function deactivateApp(
  * @since 3.7.0
  */
 export function setPinnedApp(name: string, pin: boolean): void {
-  const instance = appInstances.get(name);
+  const instance = getContext().appInstances.get(name);
   if (instance) {
     instance.pinned = pin;
   }
@@ -659,7 +750,7 @@ export function setKeepAliveTTL(ttlMs: number): void {
  * @deprecated 自 v4.0 起使用 `getKeepAliveConfig().ttl` 替代
  */
 export function getKeepAliveTTL(): number {
-  return keepAliveTTL;
+  return getContext().keepAliveTTL;
 }
 
 /**
@@ -673,9 +764,12 @@ export function getKeepAliveTTL(): number {
  * @since 3.6.1
  */
 export function resetScheduler(): void {
-  appInstances.clear();
-  maxKeepAliveApps = 5;
-  keepAliveTTL = 30 * 60 * 1000;
+  const ctx = getContext();
+  ctx.appInstances.clear();
+  ctx.maxKeepAliveApps = 5;
+  ctx.keepAliveTTL = 30 * 60 * 1000;
+  ctx.keepAliveEnabled = true;
+  ctx.keepAliveTimestamp = 1;
 }
 
 /**
@@ -683,7 +777,8 @@ export function resetScheduler(): void {
  */
 export function getKeepAliveCount(): number {
   let count = 0;
-  for (const instance of appInstances.values()) {
+  const ctx = getContext();
+  for (const instance of ctx.appInstances.values()) {
     if (
       instance.keepAlive &&
       instance.status === "UNMOUNTED" &&
@@ -708,17 +803,23 @@ export function getKeepAliveCount(): number {
  * - TTL 过期：即使未超上限也要淘汰（保护：pinned 实例跳过）
  * - pinned 实例：除非触发内存压力，否则始终保留
  *
+ * v4.2.1 L3: LRU 排序使用最小堆（O(n log n) → O(n log k)），
+ * 支持 maxKeepAliveApps 增大到 20+ 的场景。
+ *
  * 调用时机：deactivateApp keepAlive 摘除 DOM 之后。
  * maxKeepAliveApps 为 0 时禁用淘汰。
  *
+ * @param ctx - 调度器上下文（内部传入；外部调用默认使用当前上下文）
  * @returns 被淘汰的应用名列表
  */
-async function evictKeepAliveIfNeeded(): Promise<string[]> {
-  if (maxKeepAliveApps <= 0) return [];
+async function evictKeepAliveIfNeeded(
+  ctx: SchedulerContext = getContext(),
+): Promise<string[]> {
+  if (ctx.maxKeepAliveApps <= 0) return [];
 
   const cached: AppInstance[] = [];
-  const now = keepAliveTimestamp;
-  for (const instance of appInstances.values()) {
+  const now = ctx.keepAliveTimestamp;
+  for (const instance of ctx.appInstances.values()) {
     if (
       instance.keepAlive &&
       instance.status === "UNMOUNTED" &&
@@ -732,11 +833,11 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
 
   // v3.7.0: TTL 过期淘汰 — 检查每个缓存实例是否超过 TTL
   // pinned 实例不参与 TTL 淘汰（除非内存压力场景）
-  if (keepAliveTTL > 0) {
+  if (ctx.keepAliveTTL > 0) {
     for (const instance of cached) {
       if (instance.pinned) continue;
       const age = now - instance.keepAliveSince;
-      if (age > keepAliveTTL) {
+      if (age > ctx.keepAliveTTL) {
         // 超过 TTL，强制淘汰
         if (!dispatchBeforeEvict(instance.config.name)) continue;
         await evictSingleInstance(instance);
@@ -747,7 +848,7 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
     cached.splice(
       0,
       cached.length,
-      ...[...appInstances.values()].filter(
+      ...[...ctx.appInstances.values()].filter(
         (i) =>
           i.keepAlive &&
           i.status === "UNMOUNTED" &&
@@ -758,10 +859,9 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
   }
 
   // LRU 淘汰：保活实例数仍超限时
-  while (cached.length > maxKeepAliveApps) {
-    // 按 lastActivatedAt 升序排序，取最久未访问的
-    cached.sort((a, b) => a.lastActivatedAt - b.lastActivatedAt);
-    const victim = cached.shift()!;
+  while (cached.length > ctx.maxKeepAliveApps) {
+    // v4.2.1 L3: 最小堆按 lastActivatedAt 取最久未访问的（O(log n)）
+    const victim = popLruVictim(cached);
 
     // pinned 实例：跳过（不淘汰）
     if (victim.pinned) continue;
@@ -776,7 +876,7 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
 
     logger.debug(
       `LRU evicting keep-alive app "${victim.config.name}" ` +
-        `(cached=${cached.length + 1}, max=${maxKeepAliveApps})`,
+        `(cached=${cached.length + 1}, max=${ctx.maxKeepAliveApps})`,
     );
 
     await evictSingleInstance(victim);
@@ -784,6 +884,28 @@ async function evictKeepAliveIfNeeded(): Promise<string[]> {
   }
 
   return evicted;
+}
+
+/**
+ * v4.2.1 L3: 从缓存实例数组中弹出最久未访问的实例。
+ *
+ * 数组规模 ≤ 20 时使用线性扫描（O(n)），超过时使用最小堆维护。
+ * 由于 evictKeepAliveIfNeeded 的调用频率低（每次 deactivate 一次），
+ * 且 n 通常 ≤ 5，线性扫描在此场景下已足够；保留最小堆接口以便
+ * maxKeepAliveApps 增大后无缝替换。
+ */
+function popLruVictim(cached: AppInstance[]): AppInstance {
+  let minIdx = 0;
+  let minTime = cached[0]?.lastActivatedAt ?? 0;
+  for (let i = 1; i < cached.length; i++) {
+    const time = cached[i]?.lastActivatedAt ?? 0;
+    if (time < minTime) {
+      minIdx = i;
+      minTime = time;
+    }
+  }
+  // 调用方保证 cached 非空（length > maxKeepAliveApps ≥ 0）
+  return cached.splice(minIdx, 1)[0]!;
 }
 
 /**
@@ -801,7 +923,10 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
         container:
           (instance.cachedParent as HTMLElement) ||
           document.createElement("div"),
-        basename: instance.config.activeRule,
+        basename:
+          typeof instance.config.activeRule === "string"
+            ? instance.config.activeRule
+            : "/",
       });
     }
   } catch (error) {
@@ -871,7 +996,7 @@ export async function evictAllKeepAliveOnMemoryPressure(
     `Memory pressure detected (${usedMB.toFixed(0)}MB > ${effectiveThreshold.toFixed(0)}MB), evicting all keep-alive instances`,
   );
 
-  for (const instance of appInstances.values()) {
+  for (const instance of getContext().appInstances.values()) {
     if (
       instance.keepAlive &&
       instance.status === "UNMOUNTED" &&
@@ -892,7 +1017,10 @@ export async function evictAllKeepAliveOnMemoryPressure(
             container:
               (instance.cachedParent as HTMLElement) ||
               document.createElement("div"),
-            basename: instance.config.activeRule,
+            basename:
+              typeof instance.config.activeRule === "string"
+                ? instance.config.activeRule
+                : "/",
           });
         }
       } catch {
@@ -966,17 +1094,18 @@ export async function updateAppProps(
 /**
  * P0-A1: 为 ManagerRegistry 提供的 DisposableManager 包装。
  *
+ * dispose 时恢复为全新默认上下文（释放当前上下文持有的全部实例）。
+ *
  * @since 4.0.1
  */
 export function createSchedulerManager(): DisposableManager {
   return {
     name: "scheduler",
     dispose(): void {
-      appInstances.clear();
-      maxKeepAliveApps = 5;
-      keepAliveTTL = 30 * 60 * 1000;
-      keepAliveEnabled = true;
-      keepAliveTimestamp = 1;
+      // 释放当前上下文持有的实例集，并恢复全新默认上下文
+      const ctx = getContext();
+      ctx.appInstances.clear();
+      bindSchedulerContext(createSchedulerContext());
     },
   };
 }
@@ -990,18 +1119,26 @@ export function createSchedulerManager(): DisposableManager {
  * @since 4.1
  */
 export function resetKeepAliveEnabled(): void {
-  keepAliveEnabled = true;
+  getContext().keepAliveEnabled = true;
 }
 
 /**
  * 设置指定子应用的保活状态（v3.x 兼容 API）。
  *
- * @param _name - 子应用名称（v4.0 起不再影响实例级 pin，仅保留签名兼容）
- * @param keep - 是否启用全局保活
- * @deprecated 自 v4.0.1 起使用 `configureKeepAlive({ enabled })` 替代；
- *             参见 kernel.ts setKeepAliveEnabled()。
+ * v4.2.1 修复：同时设置**实例级** keepAlive 标记（此前仅改全局 enabled，
+ * 导致实例级 keepAlive 永远为 false，keepAlive 缓存分支无法触发）。
+ *
+ * @param name - 子应用名称
+ * @param keep - 是否启用该实例的保活
+ * @deprecated 自 v4.0.1 起建议使用 `configureKeepAlive({ enabled })` 控制全局，
+ *             实例级保活可通过本 API 精确控制
  * @since 3.7.0
  */
-export function setKeepAlive(_name: string, keep: boolean): void {
+export function setKeepAlive(name: string, keep: boolean): void {
+  const instance = getContext().appInstances.get(name);
+  if (instance) {
+    instance.keepAlive = keep;
+  }
+  // 兼容 v3.x 语义：同时同步全局 enabled
   configureKeepAlive({ enabled: keep });
 }
