@@ -200,24 +200,27 @@ describe('useThemeSync() consumer 模式', () => {
 
   it('provider 已注册时，consumer 应自动同步 provider theme', () => {
     // 主应用注册 provider
-    registerThemeProvider(() => 'dark');
+    const unregisterProvider = registerThemeProvider(() => 'dark');
 
     // 子应用创建 useThemeSync
     const { theme, effectiveTheme } = useThemeSync({ initialTheme: 'auto' });
     expect(theme.value).toBe('dark');
     expect(effectiveTheme.value).toBe('dark');
+
+    // 清理 provider 注册
+    unregisterProvider();
   });
 
   it('主应用 setTheme 时 consumer 应跟随变化', async () => {
-    // 主应用 useThemeSync（注册 provider）
-    const { setTheme: mainSetTheme } = useThemeSync({ initialTheme: 'light' });
+    // 主应用 useThemeSync（注册 provider，初始 light）
+    const main = useThemeSync({ initialTheme: 'light' });
 
     // 子应用 useThemeSync
     const { theme: childTheme } = useThemeSync({ initialTheme: 'auto' });
     expect(childTheme.value).toBe('light');
 
     // 主应用修改 theme
-    mainSetTheme('dark');
+    main.setTheme('dark');
 
     await vi.waitFor(() => {
       expect(childTheme.value).toBe('dark');

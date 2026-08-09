@@ -9,6 +9,8 @@
 import type { AnalysisOverviewItem } from '@ydsz/common-ui';
 import type { TabOption } from '@ydsz/types';
 
+import { onMounted } from 'vue';
+
 import {
   AnalysisChartCard,
   AnalysisChartsTabs,
@@ -21,13 +23,16 @@ import {
   SvgDownloadIcon,
 } from '@ydsz/icons';
 
+import { useOverviewStats } from '#/hooks/use-dashboard-data';
+
 import AnalyticsTrends from './analytics-trends.vue';
 import AnalyticsVisitsData from './analytics-visits-data.vue';
 import AnalyticsVisitsSales from './analytics-visits-sales.vue';
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
 import AnalyticsVisits from './analytics-visits.vue';
 
-const overviewItems: AnalysisOverviewItem[] = [
+// 本地默认数据（后端统计接口就绪前兜底展示，接口可用后自动切换为真实数据）
+const DEFAULT_OVERVIEW: AnalysisOverviewItem[] = [
   {
     icon: SvgCardIcon,
     title: '用户量',
@@ -58,6 +63,10 @@ const overviewItems: AnalysisOverviewItem[] = [
   },
 ];
 
+const { items: overviewItems, load: loadOverview } = useOverviewStats(
+  DEFAULT_OVERVIEW,
+);
+
 const chartTabs: TabOption[] = [
   {
     label: '流量趋势',
@@ -68,6 +77,11 @@ const chartTabs: TabOption[] = [
     value: 'visits',
   },
 ];
+
+onMounted(() => {
+  // API 优先：后端就绪时自动替换为真实统计数据
+  void loadOverview();
+});
 </script>
 
 <template>

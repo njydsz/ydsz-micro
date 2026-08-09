@@ -13,7 +13,7 @@ import type {
   WorkbenchTrendItem,
 } from '@ydsz/common-ui';
 
-import { ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import {
@@ -28,14 +28,14 @@ import { preferences } from '@ydsz/preferences';
 import { useUserStore } from '@ydsz/stores';
 import { openWindow } from '@ydsz/utils';
 
+import { useWorkspaceData } from '#/hooks/use-dashboard-data';
+
 import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
 const userStore = useUserStore();
 
-// 这是一个示例数据，实际项目中需要根据实际情况进行调整
-// url 也可以是内部路由，在 navTo 方法中识别处理，进行内部跳转
-// 例如：url: /dashboard/workspace
-const projectItems: WorkbenchProjectItem[] = [
+// 本地默认数据（后端工作台接口就绪前兜底展示，接口可用后自动切换为真实数据）
+const DEFAULT_PROJECTS: WorkbenchProjectItem[] = [
   {
     color: '',
     content: '不要等待机会，而要创造机会。',
@@ -93,7 +93,7 @@ const projectItems: WorkbenchProjectItem[] = [
 ];
 
 // 同样，这里的 url 也可以使用以 http 开头的外部链接
-const quickNavItems: WorkbenchQuickNavItem[] = [
+const DEFAULT_QUICK_NAVS: WorkbenchQuickNavItem[] = [
   {
     color: '#1fdaca',
     icon: 'ion:home-outline',
@@ -132,7 +132,7 @@ const quickNavItems: WorkbenchQuickNavItem[] = [
   },
 ];
 
-const todoItems = ref<WorkbenchTodoItem[]>([
+const DEFAULT_TODOS: WorkbenchTodoItem[] = [
   {
     completed: false,
     content: `审查最近提交到Git仓库的前端代码，确保代码质量和规范。`,
@@ -163,8 +163,9 @@ const todoItems = ref<WorkbenchTodoItem[]>([
     date: '2024-07-30 11:00:00',
     title: '修复UI显示问题',
   },
-]);
-const trendItems: WorkbenchTrendItem[] = [
+];
+
+const DEFAULT_TRENDS: WorkbenchTrendItem[] = [
   {
     avatar: 'svg:avatar-1',
     content: `在 <a>开源组</a> 创建了项目 <a>Vue</a>`,
@@ -221,6 +222,29 @@ const trendItems: WorkbenchTrendItem[] = [
   },
 ];
 
+const { data: workbenchData, load: loadWorkbench } = useWorkspaceData({
+  projects: DEFAULT_PROJECTS,
+  quickNavs: DEFAULT_QUICK_NAVS,
+  todos: DEFAULT_TODOS,
+  trends: DEFAULT_TRENDS,
+});
+
+const projectItems = computed(() => workbenchData.value.projects);
+const quickNavItems = computed(() => workbenchData.value.quickNavs);
+const todoItems = computed(() => workbenchData.value.todos);
+const trendItems = computed(() => workbenchData.value.trends);
+
+/** 时段化问候语（后端可覆盖，缺省按本地时间动态生成） */
+const greeting = computed(() => {
+  if (workbenchData.value.greeting) return workbenchData.value.greeting;
+  const hour = new Date().getHours();
+  if (hour < 6) return '夜深了';
+  if (hour < 12) return '早安';
+  if (hour < 14) return '中午好';
+  if (hour < 18) return '下午好';
+  return '晚上好';
+});
+
 const router = useRouter();
 
 // 这是一个示例方法，实际项目中需要根据实际情况进行调整
@@ -238,6 +262,11 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
     console.warn(`Unknown URL for navigation item: ${nav.title} -> ${nav.url}`);
   }
 }
+
+onMounted(() => {
+  // API 优先：后端就绪时自动替换为真实工作台数据
+  void loadWorkbench();
+});
 </script>
 
 <template>
@@ -246,7 +275,7 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
       :avatar="userStore.userInfo?.avatar || preferences.app.defaultAvatar"
     >
       <template #title>
-        早安, {{ userStore.userInfo?.realName }}, 开始您一天的工作吧！
+        {{ greeting }}, {{ userStore.userInfo?.realName }}, 开始您一天的工作吧！
       </template>
       <template #description> 今日晴，20℃ - 32℃！ </template>
     </WorkbenchHeader>
