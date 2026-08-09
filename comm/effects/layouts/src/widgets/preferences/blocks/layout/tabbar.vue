@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * tabbar 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\tabbar.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectOption } from '@remi/types';
+import type { SelectOption } from '@ydsz/types';
 
 import { computed } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
 import NumberFieldItem from '../number-field-item.vue';
 import SelectItem from '../select-item.vue';

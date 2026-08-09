@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * excel-export-button 通用组件
  *
  * @path comm\effects\shared-business\src\components\excel-export-button.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

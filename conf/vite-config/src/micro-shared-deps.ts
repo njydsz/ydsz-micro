@@ -1,4 +1,4 @@
-/**
+﻿/**
  * micro-kernel 共享依赖清单（importmap 外置）。
  *
  * ESM 原生微前端运行时要求 Vue / Pinia / Vue Router 等核心框架在主子应用间
@@ -14,16 +14,16 @@
  * - `core-ui`：框架 + UI 库（Element Plus / VXE-Table）—— 标准策略，适合有完整 UI 交互的子应用
  * - `all`：框架 + UI + 工具库（Echarts / Dayjs 等）—— 当前默认，适合图表密集的子应用
  *
- * 子应用通过 package.json `remi.shareStrategy` 字段选择策略：
+ * 子应用通过 package.json `YDSZ.shareStrategy` 字段选择策略：
  * ```json
  * {
- *   "name": "@remi/workflow-web",
- *   "remi": { "shareStrategy": "core-ui" }
+ *   "name": "@ydsz/workflow-web",
+ *   "YDSZ": { "shareStrategy": "core-ui" }
  * }
  * ```
  *
  * @path conf/vite-config/src/micro-shared-deps.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
@@ -103,4 +103,4 @@ export function isValidStrategy(strategy: string): strategy is ShareStrategy {
 }
 
 /** package.json 中声明共享策略的字段路径 */
-export const SHARE_STRATEGY_FIELD = 'remi.shareStrategy';
+export const SHARE_STRATEGY_FIELD = 'YDSZ.shareStrategy';

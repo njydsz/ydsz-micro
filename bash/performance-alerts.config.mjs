@@ -1,10 +1,10 @@
-/**
+﻿/**
  * 性能预算告警配置
  *
  * 定义 Web Vitals 指标阈值和告警规则
  *
  * @path bash/performance-alerts.config.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

@@ -1,18 +1,18 @@
-/**
+﻿/**
  * use-mixed-menu 模块
  *
  * @path comm\effects\layouts\src\basic\menu\use-mixed-menu.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { MenuRecordRaw } from '@remi/types';
+import type { MenuRecordRaw } from '@ydsz/types';
 
 import { computed, onBeforeMount, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { preferences, usePreferences } from '@remi/preferences';
-import { useAccessStore } from '@remi/stores';
-import { findRootMenuByPath } from '@remi/utils';
+import { preferences, usePreferences } from '@ydsz/preferences';
+import { useAccessStore } from '@ydsz/stores';
+import { findRootMenuByPath } from '@ydsz/utils';
 
 import { useNavigation } from './use-navigation';
 

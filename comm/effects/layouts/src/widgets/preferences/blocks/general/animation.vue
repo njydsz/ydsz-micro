@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * animation 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\general\animation.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
 import SwitchItem from '../switch-item.vue';
 

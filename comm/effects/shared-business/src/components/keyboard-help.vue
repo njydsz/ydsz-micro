@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * keyboard-help 通用组件 — 快捷键帮助面板
  *
  * @path comm\effects\shared-business\src\components\keyboard-help.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

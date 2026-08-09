@@ -1,8 +1,8 @@
-/**
+﻿/**
  * options 配置模块
  *
  * @path conf\vite-config\src\options.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
@@ -21,16 +21,16 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 const getDefaultPwaOptions = (name: string): Partial<PwaPluginOptions> => ({
   manifest: {
     description:
-      'REMI Admin is a modern admin dashboard template based on Vue 3. ',
+      'YDSZ Admin is a modern admin dashboard template based on Vue 3. ',
     icons: [
       {
         sizes: '192x192',
-        src: 'https://unpkg.com/@remi/static-source@0.1.7/source/pwa-icon-192.png',
+        src: 'https://unpkg.com/@ydsz/static-source@0.1.7/source/pwa-icon-192.png',
         type: 'image/png',
       },
       {
         sizes: '512x512',
-        src: 'https://unpkg.com/@remi/static-source@0.1.7/source/pwa-icon-512.png',
+        src: 'https://unpkg.com/@ydsz/static-source@0.1.7/source/pwa-icon-512.png',
         type: 'image/png',
       },
     ],

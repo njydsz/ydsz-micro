@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * preferences-drawer 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences-drawer.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SupportedLanguagesType } from '@remi/locales';
+import type { SupportedLanguagesType } from '@ydsz/locales';
 import type {
   BreadcrumbStyleType,
   BuiltinThemeType,
@@ -17,28 +17,28 @@ import type {
   NavigationStyleType,
   PreferencesButtonPositionType,
   ThemeModeType,
-} from '@remi/types';
+} from '@ydsz/types';
 
-import type { SegmentedItem } from '@remi-core/shadcn-ui';
+import type { SegmentedItem } from '@YDSZ-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
-import { Copy, RotateCw } from '@remi/icons';
-import { $t, loadLocaleMessages } from '@remi/locales';
+import { Copy, RotateCw } from '@ydsz/icons';
+import { $t, loadLocaleMessages } from '@ydsz/locales';
 import {
   clearPreferencesCache,
   preferences,
   resetPreferences,
   usePreferences,
-} from '@remi/preferences';
+} from '@ydsz/preferences';
 
-import { useREMIDrawer } from '@remi-core/popup-ui';
+import { useREMIDrawer } from '@YDSZ-core/popup-ui';
 import {
   REMIButton,
   REMIIconButton,
   REMISegmented,
-} from '@remi-core/shadcn-ui';
-import { globalShareState } from '@remi-core/shared/global-state';
+} from '@YDSZ-core/shadcn-ui';
+import { globalShareState } from '@YDSZ-core/shared/global-state';
 
 import { useClipboard } from '@vueuse/core';
 

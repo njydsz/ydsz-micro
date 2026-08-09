@@ -1,8 +1,8 @@
-{
+﻿{
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Web Application",
   "extends": "./web.json",
   "compilerOptions": {
-    "types": ["vite/client", "@remi/types/global"]
+    "types": ["vite/client", "@ydsz/types/global"]
   }
 }

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 网络状态监控组件 — 检测网络异常并展示友好提示
  *
  * 功能：
@@ -13,7 +13,7 @@
  * <NetworkStatus message="网络连接失败" show-retry @retry="reconnect" />
  * ```
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

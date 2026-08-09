@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * form-actions 通用组件
  *
  * @path comm\@core\ui-kit\form-ui\src\components\form-actions.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { computed, toRaw, unref, watch } from 'vue';
 
-import { useSimpleLocale } from '@remi-core/composables';
-import { REMIExpandableArrow } from '@remi-core/shadcn-ui';
-import { cn, isFunction, triggerWindowResize } from '@remi-core/shared/utils';
+import { useSimpleLocale } from '@YDSZ-core/composables';
+import { REMIExpandableArrow } from '@YDSZ-core/shadcn-ui';
+import { cn, isFunction, triggerWindowResize } from '@YDSZ-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';
 import { injectFormProps } from '../use-form-context';

@@ -1,6 +1,6 @@
-# @remi/vsh
+﻿# @ydsz/vsh
 
-一个 Shell 脚本工具集合，用于 Vue REMI Admin 项目的开发和管理。
+一个 Shell 脚本工具集合，用于 Vue YDSZ Admin 项目的开发和管理。
 
 ## 功能特性
 
@@ -14,13 +14,13 @@
 
 ```bash
 # 使用 pnpm 安装
-pnpm add -D @remi/vsh
+pnpm add -D @ydsz/vsh
 
 # 或者使用 npm
-npm install -D @remi/vsh
+npm install -D @ydsz/vsh
 
 # 或者使用 yarn
-yarn add -D @remi/vsh
+yarn add -D @ydsz/vsh
 ```
 
 ## 使用方法
@@ -29,7 +29,7 @@ yarn add -D @remi/vsh
 
 ```bash
 # 全局安装
-pnpm add -g @remi/vsh
+pnpm add -g @ydsz/vsh
 
 # 使用 vsh 命令
 vsh [command]

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * spine-text 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\spine-text\spine-text.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -23,12 +23,12 @@ const style = computed(() => {
 });
 </script>
 <template>
-  <div :style="style" class="remi-spine-text !bg-clip-text text-transparent">
+  <div :style="style" class="YDSZ-spine-text !bg-clip-text text-transparent">
     <slot></slot>
   </div>
 </template>
 <style>
-.remi-spine-text {
+.YDSZ-spine-text {
   background:
     radial-gradient(circle at center, rgb(255 255 255 / 80%), #f000) -200% 50% /
       200% 100% no-repeat,
@@ -37,7 +37,7 @@ const style = computed(() => {
   /* animation: shine 3s linear infinite; */
 }
 
-.dark .remi-spine-text {
+.dark .YDSZ-spine-text {
   background:
     radial-gradient(circle at center, rgb(24 24 26 / 80%), transparent) -200%
       50% / 200% 100% no-repeat,

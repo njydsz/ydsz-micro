@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 用户账号管理页面 — 展示用户列表，支持新增/编辑/删除用户及角色分配
  *
  * @path apps\userinfo-web\src\views\system\user\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 用户（列表页）
  * <p>用户（{@code remi_user}）的列表/分页查询页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@remi/common-ui';
-import { getVxePopupContainer } from '@remi/utils';
+import { Page, useVbenModal } from '@ydsz/common-ui';
+import { getVxePopupContainer } from '@ydsz/utils';
 
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElSelect, ElOption, ElTag } from 'element-plus';
 import { computed, h, onMounted, reactive, ref } from 'vue';

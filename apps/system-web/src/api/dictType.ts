@@ -1,9 +1,9 @@
-/**
+﻿/**
  * 字典类型 API 模块（前端）
  *
  * 封装字典类型（{@code remi_dict_type}）CRUD 接口，对应后端 {@code /api/v1/dict/type/*} 端点。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

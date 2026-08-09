@@ -1,7 +1,7 @@
-/**
+﻿/**
  * 后端统一响应类型 — 与 BaseResponse 对齐
  *
- * 后端类：com.remi.common.core.response.BaseResponse
+ * 后端类：com.YDSZ.common.core.response.BaseResponse
  */
 
 /** 统一 API 返回结果 */

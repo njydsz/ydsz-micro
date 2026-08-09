@@ -1,8 +1,8 @@
-/**
+﻿/**
  * perfectionist 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\configs\perfectionist.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Linter } from 'eslint';
@@ -12,7 +12,7 @@ import { interopDefault } from '../util';
 /**
  * 启用 perfectionist 插件，对导入/导出/对象等做自然序排序。
  *
- * 通过自定义分组将 @remi / @remi-core / vue 相关依赖排在前，统一仓库导入风格。
+ * 通过自定义分组将 @YDSZ / @YDSZ-core / vue 相关依赖排在前，统一仓库导入风格。
  *
  * @returns ESLint flat 配置数组
  */
@@ -38,13 +38,13 @@ export async function perfectionist(): Promise<Linter.Config[]> {
           {
             customGroups: {
               type: {
-                'remi-core-type': ['^@remi-core/.+'],
-                'remi-type': ['^@remi/.+'],
+                'YDSZ-core-type': ['^@YDSZ-core/.+'],
+                'YDSZ-type': ['^@ydsz/.+'],
                 'vue-type': ['^vue$', '^vue-.+', '^@vue/.+'],
               },
               value: {
-                remi: ['^@remi/.+'],
-                'remi-core': ['^@remi-core/.+'],
+                YDSZ: ['^@ydsz/.+'],
+                'YDSZ-core': ['^@YDSZ-core/.+'],
                 vue: ['^vue$', '^vue-.+', '^@vue/.+'],
               },
             },
@@ -52,14 +52,14 @@ export async function perfectionist(): Promise<Linter.Config[]> {
             groups: [
               ['external-type', 'builtin-type', 'type'],
               'vue-type',
-              'remi-type',
-              'remi-core-type',
+              'YDSZ-type',
+              'YDSZ-core-type',
               ['parent-type', 'sibling-type', 'index-type'],
               ['internal-type'],
               'builtin',
               'vue',
-              'remi',
-              'remi-core',
+              'YDSZ',
+              'YDSZ-core',
               'external',
               'internal',
               ['parent', 'sibling', 'index'],

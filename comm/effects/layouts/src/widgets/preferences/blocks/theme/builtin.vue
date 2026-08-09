@@ -1,20 +1,20 @@
-<!--
+﻿<!--
  * builtin 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\theme\builtin.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { BuiltinThemePreset } from '@remi/preferences';
-import type { BuiltinThemeType } from '@remi/types';
+import type { BuiltinThemePreset } from '@ydsz/preferences';
+import type { BuiltinThemeType } from '@ydsz/types';
 
 import { computed, ref, watch } from 'vue';
 
-import { UserRoundPen } from '@remi/icons';
-import { $t } from '@remi/locales';
-import { BUILT_IN_THEME_PRESETS } from '@remi/preferences';
-import { convertToHsl, TinyColor } from '@remi/utils';
+import { UserRoundPen } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
+import { BUILT_IN_THEME_PRESETS } from '@ydsz/preferences';
+import { convertToHsl, TinyColor } from '@ydsz/utils';
 
 import { useThrottleFn } from '@vueuse/core';
 

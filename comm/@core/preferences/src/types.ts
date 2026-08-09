@@ -1,8 +1,8 @@
-/**
+﻿/**
  * 应用偏好配置
  *
  * @path comm\@core\preferences\src\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
@@ -21,7 +21,7 @@ import type {
   PreferencesButtonPositionType,
   TabsStyleType,
   ThemeModeType,
-} from '@remi-core/typings';
+} from '@YDSZ-core/typings';
 
 type SupportedLanguagesType = 'en-US' | 'zh-CN';
 

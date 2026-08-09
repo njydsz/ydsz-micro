@@ -1,11 +1,11 @@
-/**
+﻿/**
  * 应用偏好配置
  *
  * @path comm\@core\preferences\src\constants.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { BuiltinThemeType } from '@remi-core/typings';
+import type { BuiltinThemeType } from '@YDSZ-core/typings';
 
 interface BuiltinThemePreset {
   color: string;

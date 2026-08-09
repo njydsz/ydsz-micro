@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * copyright 布局组件
  *
  * @path comm\effects\layouts\src\basic\copyright\copyright.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -19,7 +19,7 @@ defineOptions({
 });
 
 withDefaults(defineProps<Props>(), {
-  companyName: 'REMI Admin',
+  companyName: 'YDSZ Admin',
   companySiteLink: '',
   date: '2024',
   icp: '',

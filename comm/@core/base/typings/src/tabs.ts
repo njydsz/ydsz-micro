@@ -1,8 +1,8 @@
-/**
+﻿/**
  * tabs 模块
  *
  * @path comm\@core\base\typings\src\tabs.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteLocationNormalized } from 'vue-router';

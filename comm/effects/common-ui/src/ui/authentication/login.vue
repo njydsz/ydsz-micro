@@ -1,24 +1,24 @@
-<!--
+﻿<!--
  * login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\login.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { Recordable } from '@remi/types';
+import type { Recordable } from '@ydsz/types';
 
-import type { REMIFormSchema } from '@remi-core/form-ui';
+import type { REMIFormSchema } from '@YDSZ-core/form-ui';
 
 import type { AuthenticationProps } from './types';
 
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
-import { useREMIForm } from '@remi-core/form-ui';
-import { REMIButton, REMICheckbox } from '@remi-core/shadcn-ui';
+import { useREMIForm } from '@YDSZ-core/form-ui';
+import { REMIButton, REMICheckbox } from '@YDSZ-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 import ThirdPartyLogin from './third-party-login.vue';
@@ -133,7 +133,7 @@ defineExpose({
 
       <span
         v-if="showForgetPassword"
-        class="remi-link text-sm font-normal"
+        class="YDSZ-link text-sm font-normal"
         @click="handleGo(forgetPasswordPath)"
       >
         {{ $t('authentication.forgetPassword') }}
@@ -182,7 +182,7 @@ defineExpose({
       <div v-if="showRegister" class="mt-3 text-center text-sm">
         {{ $t('authentication.accountTip') }}
         <span
-          class="remi-link text-sm font-normal"
+          class="YDSZ-link text-sm font-normal"
           @click="handleGo(registerPath)"
         >
           {{ $t('authentication.createAccount') }}

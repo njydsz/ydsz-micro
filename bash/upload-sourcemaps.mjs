@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sourcemap 上传脚本。
  *
  * 构建后运行，将 dist/ 下的 .map 文件上传到后端监控服务做 stack trace 符号化，
@@ -9,7 +9,7 @@
  *   node bash/upload-sourcemaps.mjs --dist=apps/agent-web/dist --release=v1.0.0
  *
  * @path bash/upload-sourcemaps.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 3.1.0
  */
 import fs from 'node:fs';

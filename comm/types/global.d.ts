@@ -1,11 +1,11 @@
-/**
+﻿/**
  * global.d 类型定义模块
  *
  * @path comm\types\global.d.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { RouteMeta as IRouteMeta } from '@remi-core/typings';
+import type { RouteMeta as IRouteMeta } from '@YDSZ-core/typings';
 
 import 'vue-router';
 

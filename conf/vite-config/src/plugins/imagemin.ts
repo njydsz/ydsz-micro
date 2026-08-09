@@ -1,11 +1,11 @@
-/**
+﻿/**
  * 图片压缩插件配置
  *
  * 使用 vite-plugin-imagemin 在构建时自动压缩图片资源。
  * 支持 PNG、JPEG、GIF、SVG、WebP 等格式。
  *
  * @path conf/vite-config/src/plugins/imagemin.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

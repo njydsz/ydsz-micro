@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * ToggleGroup Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle-group\ToggleGroup.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -13,7 +13,7 @@ import type { toggleVariants } from '../toggle';
 
 import { computed, provide } from 'vue';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { ToggleGroupRoot, useForwardPropsEmits } from 'radix-vue';
 

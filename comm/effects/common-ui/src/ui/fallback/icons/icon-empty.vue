@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 空状态图标组件
  *
  * @path comm\effects\common-ui\src\ui\fallback\icons\icon-empty.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

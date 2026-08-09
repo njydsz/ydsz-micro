@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-keyboard-shortcut 组合式函数 — 键盘快捷键体系
  *
  * @path comm\effects\shared-business\src\composables\use-keyboard-shortcut.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

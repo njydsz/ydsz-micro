@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * use-vxe-grid Vue 组件
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -17,7 +17,7 @@ import type {
 
 import type { SetupContext } from 'vue';
 
-import type { REMIFormProps } from '@remi-core/form-ui';
+import type { REMIFormProps } from '@YDSZ-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
@@ -32,19 +32,19 @@ import {
   watch,
 } from 'vue';
 
-import { usePriorityValues } from '@remi/hooks';
-import { EmptyIcon } from '@remi/icons';
-import { $t } from '@remi/locales';
-import { usePreferences } from '@remi/preferences';
+import { usePriorityValues } from '@ydsz/hooks';
+import { EmptyIcon } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
+import { usePreferences } from '@ydsz/preferences';
 import {
   cloneDeep,
   cn,
   isBoolean,
   isEqual,
   mergeWithArrayOverride,
-} from '@remi/utils';
+} from '@ydsz/utils';
 
-import { REMIHelpTooltip, REMILoading } from '@remi-core/shadcn-ui';
+import { REMIHelpTooltip, REMILoading } from '@YDSZ-core/shadcn-ui';
 
 import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid, VxeUI } from 'vxe-table';
@@ -313,17 +313,17 @@ async function init() {
     // props.api.reload(formApi.form?.values ?? {});
   }
 
-  // form 由 remi-form代替，所以不适配formConfig，这里给出警告
+  // form 由 YDSZ-form代替，所以不适配formConfig，这里给出警告
   const formConfig = gridOptions.value?.formConfig;
   // 处理某个页面加载多个Table时，第2个之后的Table初始化报出警告
   // 因为第一次初始化之后会把defaultGridOptions和gridOptions合并后缓存进State
   if (formConfig && formConfig.enabled) {
     console.warn(
-      '[REMI Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
+      '[YDSZ Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
     );
   }
   props.api?.setState?.({ gridOptions: defaultGridOptions });
-  // form 由 remi-form 代替，所以需要保证query相关事件可以拿到参数
+  // form 由 YDSZ-form 代替，所以需要保证query相关事件可以拿到参数
   extendProxyOptions(props.api, defaultGridOptions, () =>
     formApi.getLatestSubmissionValues(),
   );

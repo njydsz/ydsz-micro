@@ -1,8 +1,8 @@
-/**
+﻿/**
  * update-css-variables.test 工具函数模块
  *
  * @path comm\@core\base\shared\src\utils\__tests__\update-css-variables.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { expect, it } from 'vitest';

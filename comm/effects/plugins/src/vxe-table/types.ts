@@ -1,8 +1,8 @@
-/**
+﻿/**
  * types 模块
  *
  * @path comm\effects\plugins\src\vxe-table\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
@@ -14,11 +14,11 @@ import type {
 
 import type { Ref } from 'vue';
 
-import type { ClassType, DeepPartial } from '@remi/types';
+import type { ClassType, DeepPartial } from '@ydsz/types';
 
-import type { BaseFormComponentType, REMIFormProps } from '@remi-core/form-ui';
+import type { BaseFormComponentType, REMIFormProps } from '@YDSZ-core/form-ui';
 
-import { useREMIForm } from '@remi-core/form-ui';
+import { useREMIForm } from '@YDSZ-core/form-ui';
 
 /**
  * 表格分页信息，用于在自定义 `proxyConfig.ajax.query` 中接收分页参数。

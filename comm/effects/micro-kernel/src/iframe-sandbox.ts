@@ -1,4 +1,4 @@
-/**
+﻿/**
  * iframe 沙箱 — 基于 iframe contentWindow 的强隔离兜底方案
  *
  * **设计定位**：
@@ -37,7 +37,7 @@
  * - micro-app（webcomponent + iframe scope，本项目仅取 iframe window 隔离）
  *
  * @path comm/effects/micro-kernel/src/iframe-sandbox.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

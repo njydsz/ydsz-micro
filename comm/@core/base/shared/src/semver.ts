@@ -1,8 +1,8 @@
-/**
+﻿/**
  * 轻量语义化版本比较工具（零依赖）。
  * 支持范围语法：`>=1.2.0`、`^1.2.0`、`~1.2.0`、`1.2.0 - 2.0.0`、`*`
  *
- * 从 @remi/micro-runtime/semver 下沉到 @remi-core/shared，消除 micro-runtime
+ * 从 @ydsz/micro-runtime/semver 下沉到 @YDSZ-core/shared，消除 micro-runtime
  * 对非业务模块的依赖。
  *
  * @path comm/@core/base/shared/src/semver.ts

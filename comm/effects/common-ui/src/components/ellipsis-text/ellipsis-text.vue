@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * ellipsis-text 通用组件
  *
  * @path comm\effects\common-ui\src\components\ellipsis-text\ellipsis-text.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -17,7 +17,7 @@ import {
   watchEffect,
 } from 'vue';
 
-import { REMITooltip } from '@remi-core/shadcn-ui';
+import { REMITooltip } from '@YDSZ-core/shadcn-ui';
 
 import { useElementSize } from '@vueuse/core';
 

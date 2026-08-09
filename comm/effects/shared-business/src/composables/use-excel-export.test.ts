@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-excel-export 单元测试
  *
  * @path comm\effects\shared-business\src\composables\use-excel-export.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';

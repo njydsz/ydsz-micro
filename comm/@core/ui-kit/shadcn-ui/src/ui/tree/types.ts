@@ -1,14 +1,14 @@
-/**
+﻿/**
  * types 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\tree\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Arrayable } from '@vueuse/core';
 import type { FlattenedItem } from 'radix-vue';
 
-import type { Recordable } from '@remi-core/typings';
+import type { Recordable } from '@YDSZ-core/typings';
 
 /**
  * 树形选择组件的 props。

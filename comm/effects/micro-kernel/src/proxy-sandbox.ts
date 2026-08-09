@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Proxy 沙箱 — 基于 fakeWindow 的数据隔离层
  *
  * **ESM 边界声明（重要）**：
@@ -25,7 +25,7 @@
  * - 本项目因 ESM 路线不使用 with 执行，仅保留 fakeWindow 数据隔离
  *
  * @path comm/effects/micro-kernel/src/proxy-sandbox.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.2.0
  */
 

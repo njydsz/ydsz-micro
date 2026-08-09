@@ -1,14 +1,14 @@
-/**
+﻿/**
  * use-app-config 组合式函数
  *
  * @path comm\effects\hooks\src\use-app-config.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
   ApplicationConfig,
   REMIAdminProAppConfigRaw,
-} from '@remi/types/global';
+} from '@ydsz/types/global';
 
 /**
  * 由 vite-inject-app-config 注入的全局配置

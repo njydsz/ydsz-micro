@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 会话超时预警 — 到期前 5 分钟提示续期
  *
  * 监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出
@@ -11,12 +11,12 @@
  * 无需各自重复安装。
  *
  * @path main/src/hooks/use-session-expiry-warning.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { getCurrentScope, onScopeDispose, watch } from 'vue';
 
-import { useTokenStore } from '@remi/stores';
+import { useTokenStore } from '@ydsz/stores';
 
 import { ElMessageBox, ElMessage } from 'element-plus';
 

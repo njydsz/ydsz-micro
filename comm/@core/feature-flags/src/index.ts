@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 功能开关系统入口
  *
  * 使用方式：
@@ -7,7 +7,7 @@
  *   3. 组件中 useFeatureFlag('new-dashboard') 读取响应式状态
  *
  * @path comm/@core/feature-flags/src/index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { FeatureFlagDef, FeatureFlagsOptions } from './types';

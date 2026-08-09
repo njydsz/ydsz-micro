@@ -1,8 +1,8 @@
-/**
+﻿/**
  * dict Pinia 状态管理 — 全局数据字典缓存
  *
  * @path comm\stores\src\modules\dict.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  *
  * @remarks
@@ -13,7 +13,7 @@
  * - 多应用共享：所有子应用共用同一份缓存，避免重复请求
  *
  * 加载器通过 {@link setDictLoader} 注入（由应用层提供 requestClient 实现），
- * 保持本包不依赖 @remi/request，遵守包边界约束。
+ * 保持本包不依赖 @ydsz/request，遵守包边界约束。
  */
 import { acceptHMRUpdate, defineStore } from 'pinia';
 

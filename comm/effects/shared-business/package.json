@@ -1,7 +1,7 @@
-{
-  "name": "@remi/shared-business",
+﻿{
+  "name": "@ydsz/shared-business",
   "version": "1.0.0",
-  "description": "REMI shared business components — cross-micro-app reusable business UI components",
+  "description": "YDSZ shared business components — cross-micro-app reusable business UI components",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "@tanstack/vue-virtual": "catalog:",
-    "@remi/common-ui": "workspace:*",
-    "@remi/locales": "workspace:*",
-    "@remi/plugins": "workspace:*",
-    "@remi/stores": "workspace:*",
-    "@remi/types": "workspace:*",
+    "@ydsz/common-ui": "workspace:*",
+    "@ydsz/locales": "workspace:*",
+    "@ydsz/plugins": "workspace:*",
+    "@ydsz/stores": "workspace:*",
+    "@ydsz/types": "workspace:*",
     "element-plus": "^2.7.0",
     "vue": "^3.4.0",
     "xlsx": "catalog:"

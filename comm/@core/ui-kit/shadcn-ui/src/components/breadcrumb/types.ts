@@ -1,13 +1,13 @@
-/**
+﻿/**
  * types 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Component } from 'vue';
 
-import type { BreadcrumbStyleType } from '@remi-core/typings';
+import type { BreadcrumbStyleType } from '@YDSZ-core/typings';
 
 /**
  * 面包屑中的单个节点，支持通过 `items` 递归嵌套形成下拉分支。

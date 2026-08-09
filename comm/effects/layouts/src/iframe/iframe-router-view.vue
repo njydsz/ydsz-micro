@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * iframe-router-view 布局组件
  *
  * @path comm\effects\layouts\src\iframe\iframe-router-view.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -11,10 +11,10 @@ import type { RouteLocationNormalized } from 'vue-router';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { preferences } from '@remi/preferences';
-import { useTabbarStore } from '@remi/stores';
+import { preferences } from '@ydsz/preferences';
+import { useTabbarStore } from '@ydsz/stores';
 
-import { REMISpinner } from '@remi-core/shadcn-ui';
+import { REMISpinner } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({ name: 'IFrameRouterView' });
 

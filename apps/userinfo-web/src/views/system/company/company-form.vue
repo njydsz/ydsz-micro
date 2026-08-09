@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 公司表单组件 — 支持新增/编辑公司信息（公司名称、统一社会信用代码、法人）
  *
  * @path apps\userinfo-web\src\views\system\company\company-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 公司（表单组件）
  * <p>公司的创建/编辑表单。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { CompanyApi } from '#/api/company';
 
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

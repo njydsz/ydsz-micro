@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 多 Tab 子应用同步增强
  *
  * v3.7.0 (P3-1): 从"关闭任意 Tab 即卸载子应用"升级为"按子应用会话追踪"：
@@ -12,12 +12,12 @@
  * - 计数器 > 0 时 setKeepAlive(true) 并 pin；计数器 === 0 时 unpin 并 unmount
  *
  * @path main/src/hooks/use-tabbar-micro-sync.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
-import { onTabClosed, useTabbarStore } from '@remi/stores';
-import { PATH_TO_APP_MAP } from '@remi/vite-config';
+import { onTabClosed, useTabbarStore } from '@ydsz/stores';
+import { PATH_TO_APP_MAP } from '@ydsz/vite-config';
 import { microRuntime } from '../bootstrap';
 
 /** 路由前缀 → 子应用名 映射（由注册表单源 PATH_TO_APP_MAP 驱动） */
@@ -108,7 +108,7 @@ function recordSubAppTabClosed(appName: string, path: string): boolean {
 
 /**
  * 根据路径前缀提取子应用名。
- * @example getAppFromPath('/remi-proj/execution/list') → 'workflow-web'
+ * @example getAppFromPath('/YDSZ-proj/execution/list') → 'workflow-web'
  */
 export { getAppFromPath };
 

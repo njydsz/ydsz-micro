@@ -1,11 +1,11 @@
-/**
+﻿/**
  * 字体子集化插件配置
  *
  * 使用 vite-plugin-font 在构建时自动提取字体子集。
  * 仅保留实际使用的字符，大幅减少字体文件体积。
  *
  * @path conf/vite-config/src/plugins/font.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

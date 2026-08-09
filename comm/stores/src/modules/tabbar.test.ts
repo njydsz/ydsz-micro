@@ -1,8 +1,8 @@
-/**
+﻿/**
  * tabbar.test Pinia 状态管理
  *
  * @path comm\stores\src\modules\tabbar.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { createRouter, createWebHistory } from 'vue-router';

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 消息详情组件
  *
  * @path apps\message-web\src\views\message\message-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 消息（详情组件）
  * <p>消息详情的展示组件，包含发送渠道、收件人、主题、内容、回执状态。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { MessageApi } from '#/api/message';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createMessageApi, updateMessageApi } from '#/api/message';

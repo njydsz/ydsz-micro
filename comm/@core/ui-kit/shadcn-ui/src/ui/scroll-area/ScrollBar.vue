@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * ScrollBar Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\scroll-area\ScrollBar.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { ScrollAreaScrollbarProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { ScrollAreaScrollbar, ScrollAreaThumb } from 'radix-vue';
 

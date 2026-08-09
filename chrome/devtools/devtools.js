@@ -1,10 +1,10 @@
-/* DevTools 入口 —— 在 Chrome DevTools 中创建名为 "Micro Kernel" 的自定义面板 */
+﻿/* DevTools 入口 —— 在 Chrome DevTools 中创建名为 "Micro Kernel" 的自定义面板 */
 chrome.devtools.panels.create(
   'Micro Kernel',
   '',
   'devtools/panel.html',
   function (panel) {
-    console.log('[REMI] Micro Kernel panel created');
+    console.log('[YDSZ] Micro Kernel panel created');
 
     // 监听 Extension -> DevTools 的消息
     chrome.runtime.onMessage.addListener(function (msg) {

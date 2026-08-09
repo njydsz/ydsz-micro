@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DevTools Bridge —— 将 micro-kernel 生命周期事件桥接到 Chrome Extension
  *
  * 架构：
@@ -18,8 +18,8 @@
  * @since 4.0.0
  */
 
-import { createLogger } from '@remi-core/shared/utils';
-import type { MicroAppConfig } from '@remi/micro-runtime';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
 
 const logger = createLogger('DevToolsBridge');
 

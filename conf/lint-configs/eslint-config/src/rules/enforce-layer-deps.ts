@@ -1,23 +1,23 @@
-/**
+﻿/**
  * 组件库分层约束规则（ESLint no-restricted-paths）
  *
  * 禁止跨层导入，强制依赖方向：base → composables → ui-kit → effects → main
  *
  * @path conf\lint-configs\eslint-config\src\rules\enforce-layer-deps.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Linter } from "eslint";
 
 /** 分层标识 → 路径前缀模式 */
 const LAYER_PATTERNS = {
-  base: "@remi-core/{design,icons,shared,typings}",
-  composables: "@remi-core/composables",
-  featureFlags: "@remi-core/feature-flags",
-  preferences: "@remi-core/preferences",
-  uiKit: "@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}",
+  base: "@YDSZ-core/{design,icons,shared,typings}",
+  composables: "@YDSZ-core/composables",
+  featureFlags: "@YDSZ-core/feature-flags",
+  preferences: "@YDSZ-core/preferences",
+  uiKit: "@YDSZ-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}",
   effects:
-    "@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}",
+    "@ydsz/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}",
   main: "#/",
 } as const;
 
@@ -49,11 +49,11 @@ export function enforceLayerDepsConfig(): Linter.Config {
             {
               target: ["comm/@core/base/**/*.{ts,tsx,vue}"],
               from: [
-                "@remi-core/composables/**",
-                "@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}/**",
-                "@remi-core/feature-flags/**",
-                "@remi-core/preferences/**",
-                "@remi/*",
+                "@YDSZ-core/composables/**",
+                "@YDSZ-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}/**",
+                "@YDSZ-core/feature-flags/**",
+                "@YDSZ-core/preferences/**",
+                "@ydsz/*",
                 "#/*",
               ],
               message:
@@ -63,10 +63,10 @@ export function enforceLayerDepsConfig(): Linter.Config {
             {
               target: ["comm/@core/composables/**/*.{ts,tsx,vue}"],
               from: [
-                "@remi-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}/**",
-                "@remi-core/feature-flags/**",
-                "@remi-core/preferences/**",
-                "@remi/*",
+                "@YDSZ-core/{form-ui,layout-ui,menu-ui,popup-ui,shadcn-ui,tabs-ui}/**",
+                "@YDSZ-core/feature-flags/**",
+                "@YDSZ-core/preferences/**",
+                "@ydsz/*",
                 "#/*",
               ],
               message:
@@ -76,9 +76,9 @@ export function enforceLayerDepsConfig(): Linter.Config {
             {
               target: ["comm/@core/ui-kit/**/*.{ts,tsx,vue}"],
               from: [
-                "@remi/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}",
-                "@remi-core/feature-flags/**",
-                "@remi-core/preferences/**",
+                "@ydsz/{access,common-ui,hooks,layouts,locales,micro-kernel,micro-runtime,monitor,plugins,request,stores,styles,types,utils,constants,icons}",
+                "@YDSZ-core/feature-flags/**",
+                "@YDSZ-core/preferences/**",
                 "#/*",
               ],
               message: "[layer-deps] ui-kit 层禁止依赖 effects/main",

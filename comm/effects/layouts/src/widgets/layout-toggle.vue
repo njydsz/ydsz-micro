@@ -1,26 +1,26 @@
-<!--
+﻿<!--
  * layout-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\layout-toggle.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AuthPageLayoutType } from '@remi/types';
+import type { AuthPageLayoutType } from '@ydsz/types';
 
-import type { REMIDropdownMenuItem } from '@remi-core/shadcn-ui';
+import type { REMIDropdownMenuItem } from '@YDSZ-core/shadcn-ui';
 
 import { computed } from 'vue';
 
-import { InspectionPanel, PanelLeft, PanelRight } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { InspectionPanel, PanelLeft, PanelRight } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@remi/preferences';
+} from '@ydsz/preferences';
 
-import { REMIDropdownRadioMenu, REMIIconButton } from '@remi-core/shadcn-ui';
+import { REMIDropdownRadioMenu, REMIIconButton } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationLayoutToggle',

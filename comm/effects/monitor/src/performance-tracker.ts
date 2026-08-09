@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 运行时性能追踪器 — 采集子应用加载/挂载/通信的 Performance API 标记
  *
  * 设计目标：
@@ -12,12 +12,12 @@
  * 3. `getMemoryTrend()` → 内存趋势（配合 performance.memory）
  *
  * @path comm/effects/monitor/src/performance-tracker.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 
 /** 性能标记名称前缀 */
-const MARK_PREFIX = 'remi:';
+const MARK_PREFIX = 'YDSZ:';
 
 /** 是否启用追踪（通过 URL 参数 ?debug_perf=1 或 localStorage 开关） */
 let trackingEnabled = false;
@@ -322,7 +322,7 @@ export function trackRouteChange(to: string, appName: string): void {
 // ==================== 火焰图数据生成 ====================
 
 /**
- * 获取火焰图数据（从 Performance API 中提取 remi: 标记）
+ * 获取火焰图数据（从 Performance API 中提取 YDSZ: 标记）
  */
 export function getFlameData(): FlameNode[] {
   if (!checkEnabled()) return [];

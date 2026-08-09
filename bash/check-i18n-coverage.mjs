@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * 国际化 (i18n) 覆盖率检测工具
  *
@@ -15,7 +15,7 @@
  *   pnpm check:i18n --verbose   # 详细输出
  *
  * @path bash/check-i18n-coverage.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 

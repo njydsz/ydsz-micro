@@ -1,8 +1,8 @@
-/**
+﻿/**
  * dependencies 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\dependencies.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
@@ -13,7 +13,7 @@ import type {
 
 import { computed, ref, watch } from 'vue';
 
-import { isBoolean, isFunction } from '@remi-core/shared/utils';
+import { isBoolean, isFunction } from '@YDSZ-core/shared/utils';
 
 import { useFormValues } from 'vee-validate';
 

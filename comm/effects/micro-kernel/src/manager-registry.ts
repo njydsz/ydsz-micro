@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 微内核管理器注册表
  *
  * P0-A1: 将分散在各模块的可变状态（scheduler 实例集 / keepalive 参数 /
@@ -14,7 +14,7 @@
  *    （最小化 API 改动，向后兼容）
  *
  * @path comm/effects/micro-kernel/src/manager-registry.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.1
  */
 

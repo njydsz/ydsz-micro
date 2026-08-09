@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-hover-toggle 组合式函数
  *
  * @path comm\effects\hooks\src\use-hover-toggle.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Arrayable, MaybeElementRef } from '@vueuse/core';
@@ -11,7 +11,7 @@ import type { Ref } from 'vue';
 
 import { computed, effectScope, onUnmounted, ref, unref, watch } from 'vue';
 
-import { isFunction } from '@remi/utils';
+import { isFunction } from '@ydsz/utils';
 
 import { useElementHover } from '@vueuse/core';
 

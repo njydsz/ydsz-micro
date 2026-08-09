@@ -1,11 +1,11 @@
-/**
+﻿/**
  * use-namespace 组合式函数
  *
  * @path comm\@core\composables\src\use-namespace.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import { DEFAULT_NAMESPACE } from '@remi-core/shared/constants';
+import { DEFAULT_NAMESPACE } from '@YDSZ-core/shared/constants';
 
 /**
  * @see copy https://github.com/element-plus/element-plus/blob/dev/comm/hooks/use-namespace/index.ts

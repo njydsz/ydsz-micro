@@ -1,18 +1,18 @@
-<!--
+﻿<!--
  * login 页面组件
  *
  * @path main\src\views\_core\authentication\login.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { REMIFormSchema } from '@remi/common-ui';
-import type { BasicOption } from '@remi/types';
+import type { REMIFormSchema } from '@ydsz/common-ui';
+import type { BasicOption } from '@ydsz/types';
 
 import { computed, markRaw } from 'vue';
 
-import { AuthenticationLogin, SliderCaptcha, z } from '@remi/common-ui';
-import { $t } from '@remi/locales';
+import { AuthenticationLogin, SliderCaptcha, z } from '@ydsz/common-ui';
+import { $t } from '@ydsz/locales';
 
 import { useAuthStore } from '#/store';
 
@@ -23,7 +23,7 @@ const authStore = useAuthStore();
 const MOCK_TENANT_OPTIONS: BasicOption[] = [
   {
     label: '瑞米软件',
-    value: 'remi',
+    value: 'YDSZ',
   },
   {
     label: '测试租户 A',
@@ -49,7 +49,7 @@ const formSchema = computed((): REMIFormSchema[] => {
         .string()
         .min(1, { message: '请选择租户' })
         .optional()
-        .default('remi'),
+        .default('YDSZ'),
     },
     {
       component: 'REMIInput',

@@ -1,11 +1,11 @@
-{
-  "name": "@remi/locales",
+﻿{
+  "name": "@ydsz/locales",
   "version": "5.5.9",
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
     "directory": "comm/locales"
   },
   "license": "MIT",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@intlify/core-base": "catalog:",
-    "@remi-core/composables": "workspace:*",
+    "@YDSZ-core/composables": "workspace:*",
     "vue": "catalog:",
     "vue-i18n": "catalog:"
   }

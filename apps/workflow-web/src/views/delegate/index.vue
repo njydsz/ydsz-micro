@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 流程委托（列表页）
  *
  * @path apps\workflow-web\src\views\delegate\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 流程委托（列表页）
  * <p>流程委托（{@code remi_flow_delegate}）的列表页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteDelegateApi, getDelegatePageApi, type DelegateApi } from '#/api/delegate';

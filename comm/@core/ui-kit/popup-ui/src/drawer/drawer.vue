@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * drawer Vue 组件
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\drawer.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -22,8 +22,8 @@ import {
   useIsMobile,
   usePriorityValues,
   useSimpleLocale,
-} from '@remi-core/composables';
-import { X } from '@remi-core/icons';
+} from '@YDSZ-core/composables';
+import { X } from '@YDSZ-core/icons';
 import {
   REMIButton,
   REMIHelpTooltip,
@@ -38,10 +38,10 @@ import {
   SheetHeader,
   SheetTitle,
   VisuallyHidden,
-} from '@remi-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@remi-core/shared/constants';
-import { globalShareState } from '@remi-core/shared/global-state';
-import { cn } from '@remi-core/shared/utils';
+} from '@YDSZ-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@YDSZ-core/shared/constants';
+import { globalShareState } from '@YDSZ-core/shared/global-state';
+import { cn } from '@YDSZ-core/shared/utils';
 
 interface Props extends DrawerProps {
   drawerApi?: ExtendedDrawerApi;

@@ -1,6 +1,6 @@
-{
+﻿{
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@remi/tsconfig/node.json",
+  "extends": "@ydsz/tsconfig/node.json",
   "compilerOptions": {
     "moduleResolution": "bundler"
   },

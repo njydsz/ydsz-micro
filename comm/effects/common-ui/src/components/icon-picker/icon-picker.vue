@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * icon-picker 通用组件
  *
  * @path comm\effects\common-ui\src\components\icon-picker\icon-picker.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,9 +10,9 @@ import type { VNode } from 'vue';
 
 import { computed, ref, useAttrs, watch, watchEffect } from 'vue';
 
-import { usePagination } from '@remi/hooks';
-import { EmptyIcon, Grip, listIcons } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { usePagination } from '@ydsz/hooks';
+import { EmptyIcon, Grip, listIcons } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 
 import {
   Button,
@@ -28,8 +28,8 @@ import {
   REMIIcon,
   REMIIconButton,
   REMIPopover,
-} from '@remi-core/shadcn-ui';
-import { isFunction } from '@remi-core/shared/utils';
+} from '@YDSZ-core/shadcn-ui';
+import { isFunction } from '@YDSZ-core/shared/utils';
 
 import { objectOmit, refDebounced, watchDebounced } from '@vueuse/core';
 

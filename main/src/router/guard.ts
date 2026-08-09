@@ -1,16 +1,16 @@
-/**
+﻿/**
  * guard 路由模块
  *
  * @path main\src\router\guard.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Router } from 'vue-router';
 
-import { LOGIN_PATH } from '@remi/constants';
-import { preferences } from '@remi/preferences';
-import { useAccessStore, useUserStore } from '@remi/stores';
-import { setupCommonGuard } from '@remi/shared-auth/guards';
+import { LOGIN_PATH } from '@ydsz/constants';
+import { preferences } from '@ydsz/preferences';
+import { useAccessStore, useUserStore } from '@ydsz/stores';
+import { setupCommonGuard } from '@ydsz/shared-auth/guards';
 
 import { accessRoutes, coreRouteNames } from '#/router/routes';
 import { useAuthStore } from '#/store';

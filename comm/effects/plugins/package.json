@@ -1,11 +1,11 @@
-{
-  "name": "@remi/plugins",
+﻿{
+  "name": "@ydsz/plugins",
   "version": "5.5.9",
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
     "directory": "comm/effects/plugins"
   },
   "license": "MIT",
@@ -28,15 +28,15 @@
     }
   },
   "dependencies": {
-    "@remi-core/form-ui": "workspace:*",
-    "@remi-core/shadcn-ui": "workspace:*",
-    "@remi-core/shared": "workspace:*",
-    "@remi/hooks": "workspace:*",
-    "@remi/icons": "workspace:*",
-    "@remi/locales": "workspace:*",
-    "@remi/preferences": "workspace:*",
-    "@remi/types": "workspace:*",
-    "@remi/utils": "workspace:*",
+    "@YDSZ-core/form-ui": "workspace:*",
+    "@YDSZ-core/shadcn-ui": "workspace:*",
+    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz/hooks": "workspace:*",
+    "@ydsz/icons": "workspace:*",
+    "@ydsz/locales": "workspace:*",
+    "@ydsz/preferences": "workspace:*",
+    "@ydsz/types": "workspace:*",
+    "@ydsz/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "@vueuse/motion": "catalog:",
     "echarts": "catalog:",

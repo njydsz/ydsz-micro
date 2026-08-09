@@ -1,11 +1,11 @@
-/**
+﻿/**
  * 沙箱隔离约束规则配置
  *
  * <p>禁止子应用直接修改全局对象（window/document），防止运行时污染。
  * <p>配合 micro-kernel 快照沙箱使用，确保子应用隔离安全。
  *
  * @path conf/lint-configs/eslint-config/src/configs/sandbox.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 
@@ -20,7 +20,7 @@ import type { Linter } from 'eslint';
 export async function sandbox(): Promise<Linter.Config[]> {
   return [
     {
-      name: 'remi/sandbox/isolation',
+      name: 'YDSZ/sandbox/isolation',
       files: ['apps/**/*.ts', 'apps/**/*.tsx', 'apps/**/*.vue'],
       rules: {
         // 禁止直接修改 window 对象

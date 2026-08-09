@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * icon-404 Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\fallback\icons\icon-404.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <template>

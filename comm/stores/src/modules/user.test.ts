@@ -1,8 +1,8 @@
-/**
+﻿/**
  * user.test Pinia 状态管理
  *
  * @path comm\stores\src\modules\user.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { createPinia, setActivePinia } from 'pinia';

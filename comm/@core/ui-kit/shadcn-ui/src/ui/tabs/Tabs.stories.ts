@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Tabs 组件 Storybook Stories
  *
  * P1-2.3: 组件文档化 — Tabs 组件交互式文档
  *
  * @path comm/@core/ui-kit/shadcn-ui/src/ui/tabs/Tabs.stories.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Meta, StoryObj } from '@storybook/vue3';

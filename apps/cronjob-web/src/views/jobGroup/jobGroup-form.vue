@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 任务分组（表单组件）
  *
  * @path apps\cronjob-web\src\views\jobGroup\jobGroup-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 任务分组（表单组件）
  * <p>任务分组的创建/编辑表单。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { JobGroupApi } from '#/api/jobGroup';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createJobGroupApi, updateJobGroupApi } from '#/api/jobGroup';

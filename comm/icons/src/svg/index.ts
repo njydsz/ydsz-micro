@@ -1,11 +1,11 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\icons\src\svg\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import { createIconifyIcon } from '@remi-core/icons';
+import { createIconifyIcon } from '@YDSZ-core/icons';
 
 import './load.js';
 

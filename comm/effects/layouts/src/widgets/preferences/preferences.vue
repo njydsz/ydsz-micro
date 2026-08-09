@@ -1,20 +1,20 @@
-<!--
+﻿<!--
  * preferences 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { Settings } from '@remi/icons';
-import { $t, loadLocaleMessages } from '@remi/locales';
-import { preferences, updatePreferences } from '@remi/preferences';
-import { capitalizeFirstLetter } from '@remi/utils';
+import { Settings } from '@ydsz/icons';
+import { $t, loadLocaleMessages } from '@ydsz/locales';
+import { preferences, updatePreferences } from '@ydsz/preferences';
+import { capitalizeFirstLetter } from '@ydsz/utils';
 
-import { useREMIDrawer } from '@remi-core/popup-ui';
-import { REMIButton } from '@remi-core/shadcn-ui';
+import { useREMIDrawer } from '@YDSZ-core/popup-ui';
+import { REMIButton } from '@YDSZ-core/shadcn-ui';
 
 import PreferencesDrawer from './preferences-drawer.vue';
 

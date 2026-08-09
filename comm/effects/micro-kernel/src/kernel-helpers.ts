@@ -1,4 +1,4 @@
-/**
+﻿/**
  * kernel-helpers.ts — kernel 提取的纯函数与工具
  *
  * 从 kernel.ts 中提取的无闭包态依赖的函数：
@@ -12,7 +12,7 @@
  * 提取后 kernel.ts 从 ~1000 行缩减至 ~750 行，提升可读性与可维护性。
  *
  * @path comm/effects/micro-kernel/src/kernel-helpers.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.1
  */
 

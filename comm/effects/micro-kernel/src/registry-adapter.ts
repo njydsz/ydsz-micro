@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 远程注册表适配器
  *
  * 支持从远程 JSON（/api/micro-apps/registry.json）拉取子应用注册表，
@@ -12,13 +12,13 @@
  * }
  *
  * @path comm/effects/micro-kernel/src/registry-adapter.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.7.0
  */
 
-import type { MicroAppEntry } from '@remi/vite-config';
-import { MICRO_APPS, getProdEntry } from '@remi/vite-config';
-import { createLogger } from '@remi-core/shared/utils';
+import type { MicroAppEntry } from '@ydsz/vite-config';
+import { MICRO_APPS, getProdEntry } from '@ydsz/vite-config';
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');

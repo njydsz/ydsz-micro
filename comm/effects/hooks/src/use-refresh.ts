@@ -1,13 +1,13 @@
-/**
+﻿/**
  * use-refresh 组合式函数
  *
  * @path comm\effects\hooks\src\use-refresh.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { useRouter } from 'vue-router';
 
-import { useTabbarStore } from '@remi/stores';
+import { useTabbarStore } from '@ydsz/stores';
 
 /**
  * 提供刷新当前标签页内容的能力。

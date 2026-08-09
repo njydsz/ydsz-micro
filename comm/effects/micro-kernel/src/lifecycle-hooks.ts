@@ -1,4 +1,4 @@
-/**
+﻿/**
  * lifecycle-hooks.ts — 生命周期钩子注册表
  *
  * 从 kernel.ts 提取的生命周期钩子管理，消除闭包内 Map 状态对 createKernel
@@ -12,7 +12,7 @@
  *   const off = hooks.add('beforeMount', (app) => { ... });
  *
  * @path comm/effects/micro-kernel/src/lifecycle-hooks.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.1.0
  */
 
@@ -21,7 +21,7 @@ import type {
   LifecycleHook,
   LifecycleHookName,
   MicroAppConfig,
-} from '@remi/micro-runtime';
+} from '@ydsz/micro-runtime';
 
 /**
  * 生命周期钩子注册表。

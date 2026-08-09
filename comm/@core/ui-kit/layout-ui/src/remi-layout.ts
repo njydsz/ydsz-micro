@@ -1,8 +1,8 @@
-/**
- * remi-layout 模块
+﻿/**
+ * YDSZ-layout 模块
  *
- * @path comm\@core\ui-kit\layout-ui\src\remi-layout.ts
- * @author remi-team
+ * @path comm\@core\ui-kit\layout-ui\src\YDSZ-layout.ts
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
@@ -10,7 +10,7 @@ import type {
   LayoutHeaderModeType,
   LayoutType,
   ThemeModeType,
-} from '@remi-core/typings';
+} from '@YDSZ-core/typings';
 
 interface REMILayoutProps {
   /**

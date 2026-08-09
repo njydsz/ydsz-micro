@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * dict-select 通用组件
  *
  * @path comm\effects\shared-business\src\components\dict-select.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -13,7 +13,7 @@ import { computed, onMounted, watch } from 'vue';
 
 import { ElOption, ElSelect } from 'element-plus';
 
-import { useDictStore } from '@remi/stores';
+import { useDictStore } from '@ydsz/stores';
 
 interface Props {
   /** 字典类型编码，如 system_status */

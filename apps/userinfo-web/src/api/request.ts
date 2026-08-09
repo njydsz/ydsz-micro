@@ -1,16 +1,16 @@
-/**
+﻿/**
  * 用户中心 HTTP 请求客户端 API 模块（前端）
- * <p>封装 remi-userinfo 服务的 HTTP 请求客户端，基于 @remi/shared-auth 统一注入 Token / TraceId / 错误处理。
+ * <p>封装 YDSZ-userinfo 服务的 HTTP 请求客户端，基于 @ydsz/shared-auth 统一注入 Token / TraceId / 错误处理。
  * <p>所有 userinfo 业务 API 均通过该 requestClient 发起 HTTP 调用。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 /**
- * RequestClient — re-export from @remi/shared-auth
+ * RequestClient — re-export from @ydsz/shared-auth
  */
 export {
   baseRequestClient,
   initSharedRequest,
   requestClient,
-} from '@remi/shared-auth';
+} from '@ydsz/shared-auth';

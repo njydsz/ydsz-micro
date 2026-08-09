@@ -1,19 +1,19 @@
-<!--
+﻿<!--
  * language-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\language-toggle.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SupportedLanguagesType } from '@remi/locales';
+import type { SupportedLanguagesType } from '@ydsz/locales';
 
-import { SUPPORT_LANGUAGES } from '@remi/constants';
-import { Languages } from '@remi/icons';
-import { loadLocaleMessages } from '@remi/locales';
-import { preferences, updatePreferences } from '@remi/preferences';
+import { SUPPORT_LANGUAGES } from '@ydsz/constants';
+import { Languages } from '@ydsz/icons';
+import { loadLocaleMessages } from '@ydsz/locales';
+import { preferences, updatePreferences } from '@ydsz/preferences';
 
-import { REMIDropdownRadioMenu, REMIIconButton } from '@remi-core/shadcn-ui';
+import { REMIDropdownRadioMenu, REMIIconButton } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'LanguageToggle',

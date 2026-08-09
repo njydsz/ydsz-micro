@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 文件配额（表单组件）
  *
  * @path apps\nextwiki-web\src\views\quota\quota-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 文件配额（表单组件）
  * <p>配额的编辑表单，限制总容量/单文件大小/文件数。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { QuotaApi } from '#/api/quota';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createQuotaApi, updateQuotaApi } from '#/api/quota';

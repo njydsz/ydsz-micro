@@ -1,9 +1,9 @@
-/**
+﻿/**
  * 应用 API 模块（前端）
  *
  * 封装应用（{@code remi_app}）CRUD 接口，对应后端 {@code /api/v1/app/*} 端点。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

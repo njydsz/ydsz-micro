@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\effects\layouts\src\basic\menu\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export { default as LayoutExtraMenu } from './extra-menu.vue';

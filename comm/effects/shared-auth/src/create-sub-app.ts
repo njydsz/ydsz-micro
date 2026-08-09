@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用启动工厂 — 消除各子应用 main.ts 中重复的 bootstrap/mount/unmount 样板代码。
  *
  * v3.0: 对接 micro-kernel ESM 原生微前端运行时。
@@ -7,7 +7,7 @@
  *       - 独立运行时（非微前端环境）自启动
  *
  * @path comm/effects/shared-auth/src/create-sub-app.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 2.0.0
  */
 import type { App as VueApp } from 'vue';
@@ -16,23 +16,23 @@ import type { RouteRecordRaw, Router } from 'vue-router';
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { registerAccessDirective } from '@remi/access';
-import { registerLoadingDirective, registerSafeHtmlDirective } from '@remi/common-ui';
-import { setupMonitor } from '@remi/monitor';
-import { initPreferences } from '@remi/preferences';
-import { initStores } from '@remi/stores';
+import { registerAccessDirective } from '@ydsz/access';
+import { registerLoadingDirective, registerSafeHtmlDirective } from '@ydsz/common-ui';
+import { setupMonitor } from '@ydsz/monitor';
+import { initPreferences } from '@ydsz/preferences';
+import { initStores } from '@ydsz/stores';
 
 import { ElLoading } from 'element-plus';
 
 import { setupSharedAuth } from './setup-shared-auth';
-import { provideMicroProps, MICRO_PROPS_KEY } from '@remi/micro-runtime/use-micro-props';
-import type { StandardMicroProps } from '@remi/micro-runtime/standard-props';
+import { provideMicroProps, MICRO_PROPS_KEY } from '@ydsz/micro-runtime/use-micro-props';
+import type { StandardMicroProps } from '@ydsz/micro-runtime/standard-props';
 
 /** 子应用启动配置 */
 export interface SubAppConfig {
   /** 应用唯一标识（如 'workflow-web'，与微应用注册名一致） */
   appName: string;
-  /** 路由 basename（如 '/remi-proj'） */
+  /** 路由 basename（如 '/YDSZ-proj'） */
   basename: string;
   /** 路由表 */
   routes: RouteRecordRaw[];
@@ -100,10 +100,10 @@ async function installBasePlugins(vueApp: VueApp, appName: string) {
   registerAccessDirective(vueApp);
   registerSafeHtmlDirective(vueApp);
 
-  const { initTippy } = await import('@remi/common-ui/es/tippy');
+  const { initTippy } = await import('@ydsz/common-ui/es/tippy');
   initTippy(vueApp);
 
-  const { MotionPlugin } = await import('@remi/plugins/motion');
+  const { MotionPlugin } = await import('@ydsz/plugins/motion');
   vueApp.use(MotionPlugin);
 
   vueApp.config.errorHandler = (err, _instance, info) => {
@@ -293,7 +293,7 @@ export function createSubApp(config: SubAppConfig) {
       const router = await coreMount(config);
       await router.push(window.location.pathname.replace(config.basename, '') || '/');
 
-      const { unmountGlobalLoading } = await import('@remi/utils');
+      const { unmountGlobalLoading } = await import('@ydsz/utils');
       unmountGlobalLoading();
     })();
   }

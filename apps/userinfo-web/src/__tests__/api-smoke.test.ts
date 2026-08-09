@@ -1,8 +1,8 @@
-/**
+﻿/**
  * userinfo-web 冒烟测试 — 核心 API 模块导出完整性
  *
  * @path apps\userinfo-web\src\__tests__\api-smoke.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

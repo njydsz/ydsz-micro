@@ -1,4 +1,4 @@
-/**
+﻿/**
  * OpenAPI 契约生成脚本
  *
  * 从后端 SpringDoc /v3/api-docs 生成前端 TypeScript SDK。
@@ -17,7 +17,7 @@
  * 依赖: openapi-typescript（pnpm add -D -w openapi-typescript 首次使用需安装）
  *
  * @path bash/gen-api.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
@@ -132,7 +132,7 @@ async function main() {
  * @since 1.0.0
  */
 
-import { createOpenApiClient } from '@remi/shared-auth';
+import { createOpenApiClient } from '@ydsz/shared-auth';
 import type { paths } from './schema';
 
 /**
@@ -176,7 +176,7 @@ export type { paths, components, operations } from './schema';
  * @since 1.0.0
  */
 
-import { createOpenApiClient } from '@remi/shared-auth';
+import { createOpenApiClient } from '@ydsz/shared-auth';
 import type { paths } from './sdk/schema';
 
 /**

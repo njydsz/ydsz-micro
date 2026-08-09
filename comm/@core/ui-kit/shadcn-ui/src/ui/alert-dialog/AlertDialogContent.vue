@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * AlertDialogContent Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\AlertDialogContent.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -11,11 +11,11 @@ import type {
   AlertDialogContentProps,
 } from 'radix-vue';
 
-import type { ClassType } from '@remi-core/typings';
+import type { ClassType } from '@YDSZ-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import {
   AlertDialogContent,

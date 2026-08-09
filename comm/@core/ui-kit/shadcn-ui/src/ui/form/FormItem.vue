@@ -1,14 +1,14 @@
-<!--
+﻿<!--
  * FormItem Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\FormItem.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { provide, useId } from 'vue';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
 

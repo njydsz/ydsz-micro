@@ -1,15 +1,15 @@
-<!--
+﻿<!--
  * tool-more 通用组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\widgets\tool-more.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { DropdownMenuProps } from '@remi-core/shadcn-ui';
+import type { DropdownMenuProps } from '@YDSZ-core/shadcn-ui';
 
-import { ChevronDown } from '@remi-core/icons';
-import { REMIDropdownMenu } from '@remi-core/shadcn-ui';
+import { ChevronDown } from '@YDSZ-core/icons';
+import { REMIDropdownMenu } from '@YDSZ-core/shadcn-ui';
 
 defineProps<DropdownMenuProps>();
 </script>

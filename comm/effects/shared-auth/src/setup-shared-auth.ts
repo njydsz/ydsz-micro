@@ -1,4 +1,4 @@
-/**
+﻿/**
  * setup-shared-auth — 统一的 initSharedAuth 实现
  *
  * 消除 9 个子应用 main.ts 中完全重复的 initSharedAuth() 函数（约 40 行 × 9 = 360 行重复代码）。
@@ -29,8 +29,8 @@ const isHttpOnlyCookieMode: boolean =
  * @param appName 子应用名称，用于日志标识（如 'message-web'、'nextwiki-web'）
  */
 export async function setupSharedAuth(appName: string): Promise<void> {
-  const { preferences } = await import('@remi/preferences');
-  const { resetAllStores, useAccessStore, useTokenStore } = await import('@remi/stores');
+  const { preferences } = await import('@ydsz/preferences');
+  const { resetAllStores, useAccessStore, useTokenStore } = await import('@ydsz/stores');
 
   initSharedRequest(
     // doReAuthenticate: token 失效时退出登录

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 消息模板表单组件
  *
  * @path apps\message-web\src\views\template\template-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 消息模板（表单组件）
  * <p>消息模板的创建/编辑表单，支持多渠道模板内容配置。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { TemplateApi } from '#/api/template';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createTemplateApi, updateTemplateApi } from '#/api/template';

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 组合式函数
  *
  * @path comm\effects\hooks\src\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export * from './use-app-config';
@@ -13,4 +13,4 @@ export * from './use-pagination';
 export * from './use-refresh';
 export * from './use-tabs';
 export * from './use-watermark';
-export * from '@remi-core/composables';
+export * from '@YDSZ-core/composables';

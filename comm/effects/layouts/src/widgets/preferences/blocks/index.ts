@@ -1,8 +1,8 @@
-/**
+﻿/**
  * 应用偏好配置
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export { default as Block } from './block.vue';

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * layout-tabbar 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-tabbar.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Pinia 类型补丁：为 `acceptHMRUpdate` 提供宽松的类型声明。
  *
  * @remarks
@@ -10,7 +10,7 @@
  * 仅为编译期声明，不产生任何运行时代码；上游修复后应移除本文件。
  *
  * @see https://github.com/vuejs/pinia/issues/2098
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 // https://github.com/vuejs/pinia/issues/2098

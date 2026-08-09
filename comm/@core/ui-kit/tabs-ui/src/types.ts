@@ -1,12 +1,12 @@
-/**
+﻿/**
  * types 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { IContextMenuItem } from '@remi-core/shadcn-ui';
-import type { TabDefinition, TabsStyleType } from '@remi-core/typings';
+import type { IContextMenuItem } from '@YDSZ-core/shadcn-ui';
+import type { TabDefinition, TabsStyleType } from '@YDSZ-core/typings';
 
 /**
  * 标签页组件的自定义事件声明。

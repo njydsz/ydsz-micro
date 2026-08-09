@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * content-spinner 布局组件
  *
  * @path comm\effects\layouts\src\basic\content\content-spinner.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { REMISpinner } from '@remi-core/shadcn-ui';
+import { REMISpinner } from '@YDSZ-core/shadcn-ui';
 
 import { useContentSpinner } from './use-content-spinner';
 

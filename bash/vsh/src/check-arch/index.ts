@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 架构分层约束检查 — 前端 ArchUnit
  *
  * 基于 circular-dependency-scanner 的依赖图，校验 monorepo 分层架构约束：
@@ -8,14 +8,14 @@
  * - effects/ 副作用层禁止依赖 stores/ 之外的状态层
  *
  * @path bash\vsh\src\check-arch\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { CAC } from 'cac';
 
 import { relative, sep } from 'node:path';
 
-import { colors, consola } from '@remi/node-utils';
+import { colors, consola } from '@ydsz/node-utils';
 
 import { circularDepsDetect } from 'circular-dependency-scanner';
 
@@ -175,7 +175,7 @@ async function detectLayerViolations(
       importRegex.lastIndex = 0;
       while ((match = importRegex.exec(content)) !== null) {
         const importPath = match[1];
-        // 只检查相对路径与 @remi 别名路径，忽略 npm 包
+        // 只检查相对路径与 @YDSZ 别名路径，忽略 npm 包
         if (!importPath.startsWith('.') && !importPath.startsWith('@/') && !importPath.startsWith('#/')) {
           continue;
         }

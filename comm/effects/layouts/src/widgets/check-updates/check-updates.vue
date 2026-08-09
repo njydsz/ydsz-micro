@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * check-updates 布局组件
  *
  * @path comm\effects\layouts\src\widgets\check-updates\check-updates.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
-import { useREMIModal } from '@remi-core/popup-ui';
+import { useREMIModal } from '@YDSZ-core/popup-ui';
 
 interface Props {
   // 轮询时间，分钟

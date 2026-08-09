@@ -1,19 +1,19 @@
-/**
+﻿/**
  * use-access 数据级权限单元测试
  *
  * @path comm\effects\access\src\use-access.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('@remi/preferences', () => ({
+vi.mock('@ydsz/preferences', () => ({
   preferences: { app: { accessMode: 'frontend' } },
   updatePreferences: vi.fn(),
 }));
 
-import { useAccessStore } from '@remi/stores';
+import { useAccessStore } from '@ydsz/stores';
 
 import { useAccess } from './use-access';
 

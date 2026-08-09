@@ -1,10 +1,10 @@
-{
+﻿{
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@remi/tsconfig/web.json",
+  "extends": "@ydsz/tsconfig/web.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@remi-core/shadcn-ui/*": ["./src/*"]
+      "@YDSZ-core/shadcn-ui/*": ["./src/*"]
     }
   },
   "include": ["src"],

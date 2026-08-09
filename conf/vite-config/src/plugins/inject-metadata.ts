@@ -1,8 +1,8 @@
-/**
+﻿/**
  * inject-metadata 配置模块
  *
  * @path conf\vite-config\src\plugins\inject-metadata.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { PluginOption } from 'vite';
@@ -12,7 +12,7 @@ import {
   findMonorepoRoot,
   getPackages,
   readPackageJSON,
-} from '@remi/node-utils';
+} from '@ydsz/node-utils';
 
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest';
 

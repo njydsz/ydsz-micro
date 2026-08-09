@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * form Vue 组件
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -18,13 +18,13 @@ import type {
 
 import { computed } from 'vue';
 
-import { Form } from '@remi-core/shadcn-ui';
+import { Form } from '@YDSZ-core/shadcn-ui';
 import {
   cn,
   isFunction,
   isString,
   mergeWithArrayOverride,
-} from '@remi-core/shared/utils';
+} from '@YDSZ-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';

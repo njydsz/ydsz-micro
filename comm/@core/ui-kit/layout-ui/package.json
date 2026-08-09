@@ -1,12 +1,12 @@
-{
-  "name": "@remi-core/layout-ui",
+﻿{
+  "name": "@YDSZ-core/layout-ui",
   "version": "5.5.9",
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
-    "directory": "comm/@remi-core/uikit/layout-ui"
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
+    "directory": "comm/@YDSZ-core/uikit/layout-ui"
   },
   "license": "MIT",
   "type": "module",
@@ -37,11 +37,11 @@
     }
   },
   "dependencies": {
-    "@remi-core/composables": "workspace:*",
-    "@remi-core/icons": "workspace:*",
-    "@remi-core/shadcn-ui": "workspace:*",
-    "@remi-core/shared": "workspace:*",
-    "@remi-core/typings": "workspace:*",
+    "@YDSZ-core/composables": "workspace:*",
+    "@YDSZ-core/icons": "workspace:*",
+    "@YDSZ-core/shadcn-ui": "workspace:*",
+    "@YDSZ-core/shared": "workspace:*",
+    "@YDSZ-core/typings": "workspace:*",
     "@vueuse/core": "catalog:",
     "vue": "catalog:"
   }

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * apps 列表/管理页面组件
  *
  * @path apps\agent-web\src\views\dag\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -11,11 +11,11 @@
  * <p>Agent 任务 DAG 编排的列表页，支持查看/编辑 DAG 图。
  * <p>DAG 节点包括 LLM 调用、工具调用、条件分支、并行子任务等。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteDagApi, getDagPageApi, type DagApi } from '#/api/dag';

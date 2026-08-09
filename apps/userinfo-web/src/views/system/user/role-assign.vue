@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 用户角色分配弹窗 — 为用户分配或取消分配角色
  *
  * @path apps\userinfo-web\src\views\system\user\role-assign.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 用户角色分配
  * <p>用户角色分配的弹窗组件，分配/取消分配角色。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RoleApi } from '#/api/role';
 
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElMessage, ElTransfer } from 'element-plus';
 import { ref, watch } from 'vue';
 

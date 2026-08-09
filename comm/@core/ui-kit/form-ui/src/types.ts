@@ -1,8 +1,8 @@
-/**
+﻿/**
  * types 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { FieldOptions, FormContext, GenericObject } from 'vee-validate';
@@ -10,8 +10,8 @@ import type { ZodTypeAny } from 'zod';
 
 import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 
-import type { REMIButtonProps } from '@remi-core/shadcn-ui';
-import type { ClassType, MaybeComputedRef } from '@remi-core/typings';
+import type { REMIButtonProps } from '@YDSZ-core/shadcn-ui';
+import type { ClassType, MaybeComputedRef } from '@YDSZ-core/typings';
 
 /**
  * 表单项的标签排布方式。

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * vue-scoped-css 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\configs\scoped-css.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * back-top 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\back-top.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,7 +10,7 @@ import type { BacktopProps } from './backtop';
 
 import { computed } from 'vue';
 
-import { ArrowUpToLine } from '@remi-core/icons';
+import { ArrowUpToLine } from '@YDSZ-core/icons';
 
 import { REMIButton } from '../button';
 import { useBackTop } from './use-backtop';

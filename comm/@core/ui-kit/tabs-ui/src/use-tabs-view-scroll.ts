@@ -1,15 +1,15 @@
-/**
+﻿/**
  * use-tabs-view-scroll 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\use-tabs-view-scroll.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { REMIScrollbar } from '@remi-core/shadcn-ui';
+import { REMIScrollbar } from '@YDSZ-core/shadcn-ui';
 
 import { useDebounceFn } from '@vueuse/core';
 

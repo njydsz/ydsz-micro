@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * 子应用独立开发模式 CLI 工具
  *
@@ -23,7 +23,7 @@
  *   node bash/dev-standalone.mjs workflow-web --port 5800
  *
  * @path bash/dev-standalone.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 
@@ -125,7 +125,7 @@ const port = customPort || portMap[appName] || 5700;
 
 console.info(`
 ==========================================
-  REMI — ${appName} 独立开发模式
+  YDSZ — ${appName} 独立开发模式
 ==========================================
   URL:       http://localhost:${port}/
   Mock:      ${enableMock ? '已启用' : '已禁用'}
@@ -147,7 +147,7 @@ const viteArgs = [
   'exec',
   'pnpm',
   '--filter',
-  `@remi/${appName}`,
+  `@ydsz/${appName}`,
   'vite',
   '--mode',
   'development',

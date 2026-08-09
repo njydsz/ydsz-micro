@@ -1,11 +1,11 @@
-/**
+﻿/**
  * Micro-Kernel 契约测试套件
  *
  * 验证主子应用通信、注册表、生命周期等核心契约的稳定性。
  * 任意改动导致本套件失败时，需要 PR 提交方显式确认契约变更。
  *
  * @path comm/effects/micro-kernel/src/__tests__/contract/micro-kernel-contract.spec.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.7.0
  */
 
@@ -23,7 +23,7 @@ import type {
   MicroAppConfig,
   GlobalStateHandle,
   LifecycleExports,
-} from '@remi/micro-runtime';
+} from '@ydsz/micro-runtime';
 
 // ===========================================================================
 // Section 1: MicroAppEntry Schema Contract
@@ -35,7 +35,7 @@ describe('MicroAppEntry Schema Contract', () => {
 
   beforeEach(async () => {
     // 动态导入以避免在 vitest 启动时占用构建产物
-    const mod = await import('@remi/vite-config');
+    const mod = await import('@ydsz/vite-config');
     MICRO_APPS = mod.MICRO_APPS;
   });
 
@@ -71,8 +71,8 @@ describe('MicroAppEntry Schema Contract', () => {
     expect(unique.size).toBe(ports.length);
   });
 
-  it('packageName 必须是合法的 npm scope 包名 (@remi/...-web)', () => {
-    const re = /^@remi\/[a-z][a-z0-9-]*-web$/;
+  it('packageName 必须是合法的 npm scope 包名 (@ydsz/...-web)', () => {
+    const re = /^@YDSZ\/[a-z][a-z0-9-]*-web$/;
     for (const app of MICRO_APPS) {
       expect(re.test(app.packageName)).toBe(true);
     }
@@ -95,8 +95,8 @@ describe('Registry Response Schema Contract', () => {
     const valid = {
       version: '2026-08-04T12:00:00Z',
       apps: [
-        { name: 'workflow-web', activeRule: '/remi-flow' },
-        { name: 'system-web', activeRule: '/remi-sys' },
+        { name: 'workflow-web', activeRule: '/YDSZ-flow' },
+        { name: 'system-web', activeRule: '/YDSZ-sys' },
       ],
     } as unknown;
 
@@ -115,14 +115,14 @@ describe('Registry Response Schema Contract', () => {
     expect(Number.isNaN(parsed)).toBe(false);
   });
 
-  it('getProdEntry 未指定 prodPath 时回退到 /remi-{name}/', async () => {
-    const { getProdEntry } = await import('@remi/vite-config');
+  it('getProdEntry 未指定 prodPath 时回退到 /YDSZ-{name}/', async () => {
+    const { getProdEntry } = await import('@ydsz/vite-config');
     const entry = getProdEntry({ name: 'workflow-web' } as any);
-    expect(entry).toBe('/remi-workflow-web/');
+    expect(entry).toBe('/YDSZ-workflow-web/');
   });
 
   it('getProdEntry 指定 prodPath 时使用 prodPath', async () => {
-    const { getProdEntry } = await import('@remi/vite-config');
+    const { getProdEntry } = await import('@ydsz/vite-config');
     const entry = getProdEntry({ name: 'workflow-web', prodPath: '/custom-proj/' } as any);
     expect(entry).toBe('/custom-proj/');
   });
@@ -234,7 +234,7 @@ describe('Message Broker Contract', () => {
 
 describe('GlobalState Handle Contract', () => {
   it('createGlobalStateHandle 返回的对象满足 GlobalStateHandle 接口契约', async () => {
-    const { createGlobalStateHandle } = await import('@remi/micro-runtime');
+    const { createGlobalStateHandle } = await import('@ydsz/micro-runtime');
     const handle = createGlobalStateHandle<{ count: number; name: string }>({
       initial: { count: 0, name: '' },
     });
@@ -248,7 +248,7 @@ describe('GlobalState Handle Contract', () => {
   });
 
   it('set 后立即 get 反映最新值（浅合并语义）', async () => {
-    const { createGlobalStateHandle } = await import('@remi/micro-runtime');
+    const { createGlobalStateHandle } = await import('@ydsz/micro-runtime');
     const handle = createGlobalStateHandle<{ a: number; b: number }>({
       initial: { a: 1, b: 2 },
     });
@@ -259,7 +259,7 @@ describe('GlobalState Handle Contract', () => {
   });
 
   it('subscribe 在 set 后同步调用 listener（浅比较，同一引用 set 不触发）', async () => {
-    const { createGlobalStateHandle } = await import('@remi/micro-runtime');
+    const { createGlobalStateHandle } = await import('@ydsz/micro-runtime');
     const handle = createGlobalStateHandle<{ count: number }>({
       initial: { count: 0 },
     });
@@ -273,7 +273,7 @@ describe('GlobalState Handle Contract', () => {
   });
 
   it('取消订阅后 listener 不再触发', async () => {
-    const { createGlobalStateHandle } = await import('@remi/micro-runtime');
+    const { createGlobalStateHandle } = await import('@ydsz/micro-runtime');
     const handle = createGlobalStateHandle<{ count: number }>({
       initial: { count: 0 },
     });
@@ -335,7 +335,7 @@ describe('Lifecycle Exports Contract', () => {
 
 describe('Sandbox Type Contract', () => {
   it('每个 MicroAppEntry.sandbox 必须为有效值或 undefined', async () => {
-    const { MICRO_APPS } = await import('@remi/vite-config');
+    const { MICRO_APPS } = await import('@ydsz/vite-config');
     const valid = new Set(['snapshot', 'proxy', 'iframe', undefined]);
 
     for (const app of MICRO_APPS) {
@@ -350,7 +350,7 @@ describe('Sandbox Type Contract', () => {
 
 describe('Path-to-App Map Consistency', () => {
   it('MICRO_APPS.activeRule 与 PATH_TO_APP_MAP 完全对应', async () => {
-    const { MICRO_APPS, PATH_TO_APP_MAP } = await import('@remi/vite-config');
+    const { MICRO_APPS, PATH_TO_APP_MAP } = await import('@ydsz/vite-config');
 
     for (const app of MICRO_APPS) {
       expect(PATH_TO_APP_MAP[app.activeRule]).toBe(app.name);
@@ -364,7 +364,7 @@ describe('Path-to-App Map Consistency', () => {
   });
 
   it('APP_BY_NAME 包含且仅包含 MICRO_APPS 的所有应用', async () => {
-    const { MICRO_APPS, APP_BY_NAME } = await import('@remi/vite-config');
+    const { MICRO_APPS, APP_BY_NAME } = await import('@ydsz/vite-config');
 
     for (const app of MICRO_APPS) {
       expect(APP_BY_NAME[app.name]).toBeDefined();

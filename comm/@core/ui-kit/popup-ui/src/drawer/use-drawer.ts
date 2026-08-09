@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-drawer 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\use-drawer.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
@@ -21,7 +21,7 @@ import {
   ref,
 } from 'vue';
 
-import { useStore } from '@remi-core/shared/store';
+import { useStore } from '@YDSZ-core/shared/store';
 
 import { DrawerApi } from './drawer-api';
 import REMIDrawer from './drawer.vue';
@@ -190,7 +190,7 @@ async function checkProps(api: ExtendedDrawerApi, attrs: Record<string, any>) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Drawer的props，会造成复杂度提升，如果你需要修改Drawer的props，请使用 useREMIDrawer 或者api
       console.warn(
-        `[REMI Drawer]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Drawer, please use useREMIDrawer or api.`,
+        `[YDSZ Drawer]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Drawer, please use useREMIDrawer or api.`,
       );
     }
   }

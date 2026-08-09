@@ -1,8 +1,8 @@
-/**
+﻿/**
  * agent 路由模块
  *
  * @path apps\agent-web\src\router\routes\modules\agent.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';

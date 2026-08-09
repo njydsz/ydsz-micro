@@ -1,8 +1,8 @@
-/**
- * 统一导出 — @remi/micro-kernel
+﻿/**
+ * 统一导出 — @ydsz/micro-kernel
  *
  * @path comm/effects/micro-kernel/src/index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
@@ -124,4 +124,4 @@ export {
   createVersionManager,
 } from './kernel-managers';
 // v4.0 P1-1 (公开): semver 兼容校验工具 —— 子应用 bootstrap 阶段版本断言
-export { satisfiesVersion, parseVersion, compareVersion } from '@remi-core/shared/semver';
+export { satisfiesVersion, parseVersion, compareVersion } from '@YDSZ-core/shared/semver';

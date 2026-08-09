@@ -1,4 +1,4 @@
-/**
+﻿/**
  * BroadcastChannelManager 测试
  *
  * 覆盖：
@@ -9,7 +9,7 @@
  *   - 共享通道注册表
  *
  * @path comm/@core/base/shared/src/cache/__tests__/broadcast-channel.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

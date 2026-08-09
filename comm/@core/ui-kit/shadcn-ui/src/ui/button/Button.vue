@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * Button Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\Button.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { PrimitiveProps } from 'radix-vue';
 
 import type { ButtonVariants, ButtonVariantSize } from './types';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { Primitive } from 'radix-vue';
 

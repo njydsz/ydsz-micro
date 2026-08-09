@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 共享 RequestClient 工厂 — 统一拦截器配置（successCode="A00000" + Bearer Token + refreshToken）
  *
  * 子应用调用 createSharedRequestClient() 即可获得与主应用一致的请求客户端。
@@ -8,17 +8,17 @@
  * - 不再注入 `Authorization` 请求头（凭据由 Cookie 提供，前端无法读取）
  * - refreshToken 逻辑由后端 Cookie 续期接管，前端不再主动刷新
  */
-import type { RequestClientOptions } from '@remi/request';
+import type { RequestClientOptions } from '@ydsz/request';
 
-import { useAppConfig } from '@remi/hooks';
-import { preferences } from '@remi/preferences';
+import { useAppConfig } from '@ydsz/hooks';
+import { preferences } from '@ydsz/preferences';
 import {
   authenticateResponseInterceptor,
   defaultResponseInterceptor,
   errorMessageResponseInterceptor,
   RequestClient,
-} from '@remi/request';
-import { useAccessStore, useTokenStore } from '@remi/stores';
+} from '@ydsz/request';
+import { useAccessStore, useTokenStore } from '@ydsz/stores';
 
 import { ElMessage } from 'element-plus';
 

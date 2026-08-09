@@ -1,8 +1,8 @@
-/**
+﻿/**
  * types 模块
  *
  * @path comm\effects\plugins\src\motion\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export const MotionPresets = [

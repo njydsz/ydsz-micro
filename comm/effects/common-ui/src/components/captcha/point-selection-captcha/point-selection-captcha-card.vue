@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * point-selection-captcha-card 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\point-selection-captcha\point-selection-captcha-card.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { PointSelectionCaptchaCardProps } from '../types';
 
 import { computed } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
 import {
   Card,
@@ -18,7 +18,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   height: '220px',

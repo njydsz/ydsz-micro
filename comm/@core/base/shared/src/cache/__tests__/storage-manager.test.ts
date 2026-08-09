@@ -1,8 +1,8 @@
-/**
+﻿/**
  * storage-manager.test 模块
  *
  * @path comm\@core\base\shared\src\cache\__tests__\storage-manager.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';

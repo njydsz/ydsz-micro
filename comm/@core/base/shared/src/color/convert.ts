@@ -1,8 +1,8 @@
-/**
+﻿/**
  * convert 模块
  *
  * @path comm\@core\base\shared\src\color\convert.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { TinyColor } from '@ctrl/tinycolor';

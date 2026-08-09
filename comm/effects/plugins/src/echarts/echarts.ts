@@ -1,8 +1,8 @@
-/**
+﻿/**
  * echarts 模块
  *
  * @path comm\effects\plugins\src\echarts\echarts.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {

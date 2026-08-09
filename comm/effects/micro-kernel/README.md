@@ -1,10 +1,10 @@
-/**
+﻿/**
  * micro-kernel 接入指南
  *
  * 子应用接入 micro-kernel 时只需两步：
  *
  * 1. vite.config.ts 中添加 manifest 插件：
- *    import { viteManifestPlugin } from '@remi/micro-kernel';
+ *    import { viteManifestPlugin } from '@ydsz/micro-kernel';
  *    export default defineApplicationConfig(() => ({
  *      application: {
  *        // 在现有 options 中加一条

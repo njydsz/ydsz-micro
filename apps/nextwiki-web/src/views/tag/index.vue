@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 文件标签（列表页）
  *
  * @path apps\nextwiki-web\src\views\tag\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 文件标签（列表页）
  * <p>文件标签的列表页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteTagApi, getTagPageApi, type TagApi } from '#/api/tag';

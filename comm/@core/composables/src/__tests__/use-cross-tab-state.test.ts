@@ -1,4 +1,4 @@
-/**
+﻿/**
  * useCrossTabState 测试
  *
  * 覆盖：
@@ -8,7 +8,7 @@
  *   - onScopeDispose 清理订阅
  *
  * @path comm/@core/composables/src/__tests__/use-cross-tab-state.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { effectScope, ref } from 'vue';

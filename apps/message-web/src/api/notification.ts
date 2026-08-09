@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 站内通知 API 模块（前端）
  *
  * <p>封装站内消息（{@code remi_message_notification}）的 CRUD 接口调用，对应后端
@@ -13,7 +13,7 @@
  *   <li>{@link countUnreadApi} — 未读数</li>
  * </ul>
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

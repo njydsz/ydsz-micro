@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-is-mobile 组合式函数
  *
  * @path comm\@core\composables\src\use-is-mobile.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';

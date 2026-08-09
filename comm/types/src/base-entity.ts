@@ -1,7 +1,7 @@
-/**
+﻿/**
  * 后端基础实体类型 — 与 MpBaseEntity 对齐
  *
- * 后端类：com.remi.common.jdbc.entity.MpBaseEntity
+ * 后端类：com.YDSZ.common.jdbc.entity.MpBaseEntity
  */
 
 /** 基础实体字段（所有 DO 继承 MpBaseEntity） */

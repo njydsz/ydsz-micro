@@ -1,5 +1,5 @@
-{
-  "name": "@remi-core/feature-flags",
+﻿{
+  "name": "@YDSZ-core/feature-flags",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     }
   },
   "dependencies": {
-    "@remi-core/shared": "workspace:*",
+    "@YDSZ-core/shared": "workspace:*",
     "vue": "catalog:"
   },
   "license": "MIT"

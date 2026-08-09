@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * workbench-header Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-header.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { REMIAvatar } from '@remi-core/shadcn-ui';
+import { REMIAvatar } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   avatar?: string;

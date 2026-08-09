@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * full-screen 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\full-screen\full-screen.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Maximize, Minimize } from '@remi-core/icons';
+import { Maximize, Minimize } from '@YDSZ-core/icons';
 
 import { useFullscreen } from '@vueuse/core';
 

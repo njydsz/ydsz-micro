@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 工作台页面 — 展示用户问候、项目列表、快捷导航、待办事项、最新动态
  *
  * @path main\src\views\dashboard\workspace\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -11,7 +11,7 @@ import type {
   WorkbenchQuickNavItem,
   WorkbenchTodoItem,
   WorkbenchTrendItem,
-} from '@remi/common-ui';
+} from '@ydsz/common-ui';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -23,10 +23,10 @@ import {
   WorkbenchQuickNav,
   WorkbenchTodo,
   WorkbenchTrends,
-} from '@remi/common-ui';
-import { preferences } from '@remi/preferences';
-import { useUserStore } from '@remi/stores';
-import { openWindow } from '@remi/utils';
+} from '@ydsz/common-ui';
+import { preferences } from '@ydsz/preferences';
+import { useUserStore } from '@ydsz/stores';
+import { openWindow } from '@ydsz/utils';
 
 import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
@@ -187,7 +187,7 @@ const trendItems: WorkbenchTrendItem[] = [
     avatar: 'svg:avatar-4',
     content: `发表文章 <a>如何编写一个Vite插件</a> `,
     date: '2天前',
-    title: 'REMI',
+    title: 'YDSZ',
   },
   {
     avatar: 'svg:avatar-1',
@@ -215,9 +215,9 @@ const trendItems: WorkbenchTrendItem[] = [
   },
   {
     avatar: 'svg:avatar-4',
-    content: `发表文章 <a>如何编写使用 Admin REMI</a> `,
+    content: `发表文章 <a>如何编写使用 Admin YDSZ</a> `,
     date: '2021-03-01 20:00',
-    title: 'REMI',
+    title: 'YDSZ',
   },
 ];
 

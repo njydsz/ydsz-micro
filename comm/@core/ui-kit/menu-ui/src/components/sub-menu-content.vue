@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * sub-menu-content 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\sub-menu-content.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,9 +10,9 @@ import type { MenuItemProps } from '../types';
 
 import { computed } from 'vue';
 
-import { useNamespace } from '@remi-core/composables';
-import { ChevronDown, ChevronRight } from '@remi-core/icons';
-import { REMIIcon } from '@remi-core/shadcn-ui';
+import { useNamespace } from '@YDSZ-core/composables';
+import { ChevronDown, ChevronRight } from '@YDSZ-core/icons';
+import { REMIIcon } from '@YDSZ-core/shadcn-ui';
 
 import { useMenuContext } from '../hooks';
 

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * empty-state 通用组件
  *
  * @path comm\effects\shared-business\src\components\empty-state.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>

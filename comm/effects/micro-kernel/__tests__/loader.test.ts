@@ -1,14 +1,14 @@
-/**
+﻿/**
  * loader 模块单元测试
  *
  * @path comm/effects/micro-kernel/__tests__/loader.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { fetchManifest, removeStylesheets } from '../src/loader';
 
-import type { MicroAppConfig } from '@remi/micro-runtime';
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
 
 describe('loader', () => {
   const config: MicroAppConfig = {

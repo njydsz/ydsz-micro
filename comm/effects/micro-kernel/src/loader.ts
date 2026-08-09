@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ESM Manifest 加载器
  *
  * 约定：子应用由统一 vite-config 构建，输出 manifest.json：
@@ -9,12 +9,12 @@
  *   dev 模式（M4 修复）：跳过 manifest，直接 dynamic import 子应用 dev server 入口。
  *
  * @path comm/effects/micro-kernel/src/loader.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
-import type { LifecycleExports, MicroAppConfig } from '@remi/micro-runtime';
-import { createLogger } from '@remi-core/shared/utils';
+import type { LifecycleExports, MicroAppConfig } from '@ydsz/micro-runtime';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { retryOperation } from './retry';
 import { injectModulePreload, preloadAppAssets } from './link-hints';
 import { KernelError, KernelErrorCode } from './error-boundary';

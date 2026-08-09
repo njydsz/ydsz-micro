@@ -1,13 +1,13 @@
-/**
+﻿/**
  * use-layout 组合式函数
  *
  * @path comm\@core\ui-kit\layout-ui\src\hooks\use-layout.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { LayoutType } from '@remi-core/typings';
+import type { LayoutType } from '@YDSZ-core/typings';
 
-import type { REMILayoutProps } from '../remi-layout';
+import type { REMILayoutProps } from '../YDSZ-layout';
 
 import { computed } from 'vue';
 

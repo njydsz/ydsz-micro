@@ -1,4 +1,4 @@
-/**
+﻿/**
  * useSessionExpiryWarning 单元测试
  *
  * 通过 mock element-plus / refreshTokenApi / $t 验证：
@@ -9,7 +9,7 @@
  *   - 用户确认后调用 refreshTokenApi 续期
  *
  * @path main/src/hooks/__tests__/use-session-expiry-warning.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -45,7 +45,7 @@ vi.mock('#/hooks/use-cross-tab-sync', () => ({
   notifyCrossTab: vi.fn(),
 }));
 
-import { useTokenStore } from '@remi/stores';
+import { useTokenStore } from '@ydsz/stores';
 
 import { useSessionExpiryWarning } from '../use-session-expiry-warning';
 

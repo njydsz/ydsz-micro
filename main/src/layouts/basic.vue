@@ -1,25 +1,25 @@
-<!--
+﻿<!--
  * basic 布局组件
  *
  * @path main\src\layouts\basic.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { NotificationItem } from '@remi/layouts';
+import type { NotificationItem } from '@ydsz/layouts';
 
 import { computed, onMounted, onUnmounted, watch } from 'vue';
 
-import { AuthenticationLoginExpiredModal, NetworkStatus } from '@remi/common-ui';
-import { useWatermark } from '@remi/hooks';
+import { AuthenticationLoginExpiredModal, NetworkStatus } from '@ydsz/common-ui';
+import { useWatermark } from '@ydsz/hooks';
 import {
   BasicLayout,
   LockScreen,
   Notification,
   UserDropdown,
-} from '@remi/layouts';
-import { preferences } from '@remi/preferences';
-import { useAccessStore, useUserStore } from '@remi/stores';
+} from '@ydsz/layouts';
+import { preferences } from '@ydsz/preferences';
+import { useAccessStore, useUserStore } from '@ydsz/stores';
 
 import { useAuthStore } from '#/store';
 import { notificationStore } from '#/store/notification';
@@ -115,7 +115,7 @@ onUnmounted(() => {
       <UserDropdown
         :avatar
         :text="userStore.userInfo?.realName"
-        description="remi-team@remi.com"
+        description="ydsz-team@YDSZ.com"
         tag-text="Pro"
         @logout="handleLogout"
       />

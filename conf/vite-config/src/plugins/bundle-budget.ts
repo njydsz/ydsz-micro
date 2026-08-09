@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Bundle Budget 插件 — 构建产物体积硬阈值校验
  *
  * 在 Vite 构建完成后（generateBundle / writeBundle 阶段）扫描产物列表，
@@ -10,7 +10,7 @@
  * - 仅校验 JS/CSS 产物，忽略 sourcemap 与图片等二进制资源
  *
  * @path conf/vite-config/src/plugins/bundle-budget.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Plugin } from 'rollup';
@@ -61,7 +61,7 @@ export function bundleBudgetPlugin(options: BundleBudgetOptions = {}): Plugin {
   let hasViolation = false;
 
   return {
-    name: 'remi:bundle-budget',
+    name: 'YDSZ:bundle-budget',
     generateBundle(_opts, bundle) {
       for (const [fileName, chunk] of Object.entries(bundle)) {
         // 跳过 sourcemap

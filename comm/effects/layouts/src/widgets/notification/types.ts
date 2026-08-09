@@ -1,8 +1,8 @@
-/**
+﻿/**
  * types 模块
  *
  * @path comm\effects\layouts\src\widgets\notification\types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 interface NotificationItem {

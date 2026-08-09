@@ -1,11 +1,11 @@
-/**
+﻿/**
  * preferences 模块
  *
  * @path main\src\preferences.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import { defineOverridesPreferences } from '@remi/preferences';
+import { defineOverridesPreferences } from '@ydsz/preferences';
 
 /**
  * 主应用偏好设置

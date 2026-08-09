@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * workbench-todo Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-todo.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
   REMICheckbox,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchTodoItem[];

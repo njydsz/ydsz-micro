@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * col-page 通用组件
  *
  * @path comm\effects\common-ui\src\components\col-page\col-page.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -14,7 +14,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 import Page from '../page/page.vue';
 

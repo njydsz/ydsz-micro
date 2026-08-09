@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 沙箱模块 — 支持快照沙箱与 Proxy 沙箱双模式
  *
  * **快照沙箱（默认）**：
@@ -17,7 +17,7 @@
  * 本沙箱处置规则兜底的漏网之鱼。
  *
  * @path comm/effects/micro-kernel/src/sandbox.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 

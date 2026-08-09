@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-form-context 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\use-form-context.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { ZodRawShape } from 'zod';
@@ -13,8 +13,8 @@ import type { ExtendedFormApi, FormActions, REMIFormProps } from './types';
 
 import { computed, unref, useSlots } from 'vue';
 
-import { createContext } from '@remi-core/shadcn-ui';
-import { isString, mergeWithArrayOverride, set } from '@remi-core/shared/utils';
+import { createContext } from '@YDSZ-core/shadcn-ui';
+import { isString, mergeWithArrayOverride, set } from '@YDSZ-core/shared/utils';
 
 import { useForm } from 'vee-validate';
 import { object, ZodIntersection, ZodNumber, ZodObject, ZodString } from 'zod';

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * apps 列表/管理页面组件
  *
  * @path apps\agent-web\src\views\agent\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -12,11 +12,11 @@
  * <p>使用 VxeGrid 表格展示 Agent 名称、类型、模型提供商/名称、状态、创建时间。
  * <p>通过 {@code useVbenModal} 弹出表单抽屉完成创建/编辑。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteAgentApi, getAgentPageApi, type AgentApi } from '#/api/agent';

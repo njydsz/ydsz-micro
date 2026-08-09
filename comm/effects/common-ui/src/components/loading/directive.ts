@@ -1,16 +1,16 @@
-/**
+﻿/**
  * directive 模块
  *
  * @path comm\effects\common-ui\src\components\loading\directive.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { h, render } from 'vue';
 
-import { REMILoading, REMISpinner } from '@remi-core/shadcn-ui';
-import { isString } from '@remi-core/shared/utils';
+import { REMILoading, REMISpinner } from '@YDSZ-core/shadcn-ui';
+import { isString } from '@YDSZ-core/shared/utils';
 
 const LOADING_INSTANCE_KEY = Symbol('loading');
 const SPINNER_INSTANCE_KEY = Symbol('spinner');

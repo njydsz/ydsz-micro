@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 资源预连接与模块预加载提示（preconnect / modulepreload）。
  *
  * C4 性能优化：在子应用 dynamic import 之前，通过 `<link>` 提示浏览器提前
@@ -12,7 +12,7 @@
  * 以便需要时一键清理。
  *
  * @path comm/effects/micro-kernel/src/link-hints.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.5.0
  */
 

@@ -1,14 +1,14 @@
-/**
+﻿/**
  * use-design-tokens 组合式函数
  *
  * @path comm\effects\hooks\src\use-design-tokens.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { reactive, watch } from 'vue';
 
-import { preferences, usePreferences } from '@remi/preferences';
-import { convertToRgb, updateCSSVariables } from '@remi/utils';
+import { preferences, usePreferences } from '@ydsz/preferences';
+import { convertToRgb, updateCSSVariables } from '@ydsz/utils';
 
 /**
  * 用于适配各个框架的设计系统

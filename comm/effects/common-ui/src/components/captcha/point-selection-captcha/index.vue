@@ -1,17 +1,17 @@
-<!--
+﻿<!--
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\point-selection-captcha\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 
-import { RotateCw } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { RotateCw } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 
-import { REMIButton, REMIIconButton } from '@remi-core/shadcn-ui';
+import { REMIButton, REMIIconButton } from '@YDSZ-core/shadcn-ui';
 
 import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
 import CaptchaCard from './point-selection-captcha-card.vue';

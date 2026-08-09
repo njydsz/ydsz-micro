@@ -1,8 +1,8 @@
-/**
+﻿/**
  * dashboard 路由模块
  *
  * @path main\src\router\routes\modules\dashboard.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';

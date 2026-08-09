@@ -1,8 +1,8 @@
-/**
+﻿/**
  * jsonc 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\configs\jsonc.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Linter } from 'eslint';

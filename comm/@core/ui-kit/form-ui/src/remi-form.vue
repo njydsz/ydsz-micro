@@ -1,8 +1,8 @@
-<!--
- * remi-form Vue 组件
+﻿<!--
+ * YDSZ-form Vue 组件
  *
- * @path comm\@core\ui-kit\form-ui\src\remi-form.vue
- * @author remi-team
+ * @path comm\@core\ui-kit\form-ui\src\YDSZ-form.vue
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { REMIFormProps } from './types';
 
 import { ref, watchEffect } from 'vue';
 
-import { useForwardPropsEmits } from '@remi-core/composables';
+import { useForwardPropsEmits } from '@YDSZ-core/composables';
 
 import FormActions from './components/form-actions.vue';
 import {

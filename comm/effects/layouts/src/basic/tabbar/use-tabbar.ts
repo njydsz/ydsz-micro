@@ -1,20 +1,20 @@
-/**
+﻿/**
  * use-tabbar 模块
  *
  * @path comm\effects\layouts\src\basic\tabbar\use-tabbar.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteLocationNormalizedGeneric } from 'vue-router';
 
-import type { TabDefinition } from '@remi/types';
+import type { TabDefinition } from '@ydsz/types';
 
-import type { IContextMenuItem } from '@remi-core/tabs-ui';
+import type { IContextMenuItem } from '@YDSZ-core/tabs-ui';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { useContentMaximize, useTabs } from '@remi/hooks';
+import { useContentMaximize, useTabs } from '@ydsz/hooks';
 import {
   ArrowLeftToLine,
   ArrowRightLeft,
@@ -27,10 +27,10 @@ import {
   PinOff,
   RotateCw,
   X,
-} from '@remi/icons';
-import { $t, useI18n } from '@remi/locales';
-import { getTabKey, useAccessStore, useTabbarStore } from '@remi/stores';
-import { filterTree } from '@remi/utils';
+} from '@ydsz/icons';
+import { $t, useI18n } from '@ydsz/locales';
+import { getTabKey, useAccessStore, useTabbarStore } from '@ydsz/stores';
+import { filterTree } from '@ydsz/utils';
 
 /**
  * 标签栏容器组件的逻辑聚合，负责标签数据、激活态与右键菜单的组装。

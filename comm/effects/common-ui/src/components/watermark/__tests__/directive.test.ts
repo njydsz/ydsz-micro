@@ -1,4 +1,4 @@
-/**
+﻿/**
  * watermark 指令单元测试
  *
  * E3 敏感页面水印指令集成：
@@ -8,7 +8,7 @@
  * - 字符串与对象两种绑定值规范化
  *
  * @path comm/effects/common-ui/src/components/watermark/__tests__/directive.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { App, DirectiveBinding } from 'vue';

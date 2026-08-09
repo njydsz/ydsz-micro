@@ -1,26 +1,26 @@
-/**
+﻿/**
  * api 模块
  *
  * @path comm\effects\plugins\src\vxe-table\api.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridInstance } from 'vxe-table';
 
-import type { ExtendedFormApi } from '@remi-core/form-ui';
+import type { ExtendedFormApi } from '@YDSZ-core/form-ui';
 
 import type { VxeGridProps } from './types';
 
 import { toRaw } from 'vue';
 
-import { Store } from '@remi-core/shared/store';
+import { Store } from '@YDSZ-core/shared/store';
 import {
   bindMethods,
   isBoolean,
   isFunction,
   mergeWithArrayOverride,
   StateHandler,
-} from '@remi-core/shared/utils';
+} from '@YDSZ-core/shared/utils';
 
 function getDefaultState(): VxeGridProps {
   return {

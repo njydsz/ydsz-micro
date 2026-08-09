@@ -1,9 +1,9 @@
-/**
+﻿/**
  * 国际化 API 模块（前端）
  *
  * 封装国际化语言包接口，对应后端 {@code /api/v1/language/*} 端点。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

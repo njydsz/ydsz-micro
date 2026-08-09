@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * render-content 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\render-content\render-content.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts">
@@ -10,7 +10,7 @@ import type { Component, PropType } from 'vue';
 
 import { defineComponent, h } from 'vue';
 
-import { isFunction, isObject, isString } from '@remi-core/shared/utils';
+import { isFunction, isObject, isString } from '@YDSZ-core/shared/utils';
 
 export default defineComponent({
   name: 'RenderContent',

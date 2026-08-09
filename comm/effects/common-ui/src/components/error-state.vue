@@ -1,9 +1,9 @@
-<!--
+﻿<!--
   ErrorState — 统一错误状态展示组件
 
   用于 API 请求失败、网络异常等场景，提供友好提示 + 重试入口。
 
-  @author remi-team
+  @author ydsz-team
   @since 1.0.0
 -->
 <script setup lang="ts">

@@ -1,15 +1,15 @@
-<!--
+﻿<!--
  * input-password 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\input-password\input-password.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { ref, useSlots } from 'vue';
 
-import { Eye, EyeOff } from '@remi-core/icons';
-import { cn } from '@remi-core/shared/utils';
+import { Eye, EyeOff } from '@YDSZ-core/icons';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { Input } from '../../ui';
 import PasswordStrength from './password-strength.vue';

@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * sub-menu Vue 组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\sub-menu.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@remi-core/typings';
+import type { MenuRecordRaw } from '@YDSZ-core/typings';
 
 import { computed } from 'vue';
 

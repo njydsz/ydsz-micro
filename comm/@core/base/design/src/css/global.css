@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -181,7 +181,7 @@
     @apply outline-primary left-0 top-0 size-full opacity-100;
   }
 
-  .remi-link {
+  .YDSZ-link {
     @apply text-primary hover:text-primary-hover active:text-primary-active cursor-pointer;
   }
 

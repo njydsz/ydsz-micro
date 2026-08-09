@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 运行时工厂 + 内核注册机制
  *
  * 内核实现（qiankun / micro-kernel）通过 registerKernel 注册，
@@ -8,7 +8,7 @@
  * 即可替换现有 registerMicroApps/start 体系，此后切换内核只需改一个字面量。
  *
  * @path comm/effects/micro-runtime/src/create-runtime.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 

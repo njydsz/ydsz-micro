@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 消息批量发送列表页组件
  *
  * @path apps\message-web\src\views\batch\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 消息批量发送（列表页）
  * <p>批量发送任务的列表页，支持大批量收件人列表（10w+）、分片、限流。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteBatchApi, getBatchPageApi, type BatchApi } from '#/api/batch';

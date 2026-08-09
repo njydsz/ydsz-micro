@@ -1,8 +1,8 @@
-/**
+﻿/**
  * typing 配置模块
  *
  * @path conf\vite-config\src\typing.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';

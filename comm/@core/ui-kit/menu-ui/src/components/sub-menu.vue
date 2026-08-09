@@ -1,19 +1,19 @@
-<!--
+﻿<!--
  * sub-menu 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\sub-menu.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { HoverCardContentProps } from '@remi-core/shadcn-ui';
+import type { HoverCardContentProps } from '@YDSZ-core/shadcn-ui';
 
 import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
-import { useNamespace } from '@remi-core/composables';
-import { REMIHoverCard } from '@remi-core/shadcn-ui';
+import { useNamespace } from '@YDSZ-core/composables';
+import { REMIHoverCard } from '@YDSZ-core/shadcn-ui';
 
 import {
   createSubMenuContext,

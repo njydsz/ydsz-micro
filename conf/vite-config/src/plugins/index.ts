@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 配置模块
  *
  * @path conf\vite-config\src\plugins\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { PluginOption } from 'vite';
@@ -250,9 +250,9 @@ async function loadApplicationPlugins(
           },
           ...pwaOptions,
           manifest: {
-            name: 'REMI',
-            short_name: 'REMI',
-            description: 'REMI 项目管理系统',
+            name: 'YDSZ',
+            short_name: 'YDSZ',
+            description: 'YDSZ 项目管理系统',
             display: 'standalone',
             start_url: '/',
             theme_color: '#409eff',

@@ -1,18 +1,18 @@
-<!--
+﻿<!--
  * checkbox-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\checkbox-item.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectOption } from '@remi/types';
+import type { SelectOption } from '@ydsz/types';
 
 import { useSlots } from 'vue';
 
-import { CircleHelp } from '@remi/icons';
+import { CircleHelp } from '@ydsz/icons';
 
-import { REMICheckButtonGroup, REMITooltip } from '@remi-core/shadcn-ui';
+import { REMICheckButtonGroup, REMITooltip } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceCheckboxItem',

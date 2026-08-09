@@ -1,18 +1,18 @@
-<!--
+﻿<!--
  * internal-error 页面组件 — 500 错误页，集成 Sentry 用户反馈
  *
  * @path main/src/views/_core/fallback/internal-error.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
 
-import { Fallback } from '@remi/common-ui';
+import { Fallback } from '@ydsz/common-ui';
 
-import { ErrorFeedback } from '@remi/common-ui';
+import { ErrorFeedback } from '@ydsz/common-ui';
 
-import { getBreadcrumbs, isSentryInitialized } from '@remi/monitor';
+import { getBreadcrumbs, isSentryInitialized } from '@ydsz/monitor';
 
 defineOptions({ name: 'InternalError' });
 

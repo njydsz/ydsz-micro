@@ -1,21 +1,21 @@
-<!--
+﻿<!--
  * mixed-menu 布局组件
  *
  * @path comm\effects\layouts\src\basic\menu\mixed-menu.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { MenuRecordRaw } from '@remi/types';
+import type { MenuRecordRaw } from '@ydsz/types';
 
-import type { NormalMenuProps } from '@remi-core/menu-ui';
+import type { NormalMenuProps } from '@YDSZ-core/menu-ui';
 
 import { onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { findMenuByPath } from '@remi/utils';
+import { findMenuByPath } from '@ydsz/utils';
 
-import { NormalMenu } from '@remi-core/menu-ui';
+import { NormalMenu } from '@YDSZ-core/menu-ui';
 
 interface Props extends NormalMenuProps {}
 

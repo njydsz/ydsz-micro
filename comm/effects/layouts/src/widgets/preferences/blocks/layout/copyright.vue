@@ -1,14 +1,14 @@
-<!--
+﻿<!--
  * copyright 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\copyright.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
 import InputItem from '../input-item.vue';
 import SwitchItem from '../switch-item.vue';

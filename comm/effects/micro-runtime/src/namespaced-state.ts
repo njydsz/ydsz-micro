@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 命名空间隔离的 globalState
  *
  * 在现有 RawGlobalStateAPI 之上提供 scope 隔离：不同业务模块/子应用可使用
@@ -7,7 +7,7 @@
  * 注入子应用 mountProps 的 `_globalState.useNamespace(scope)` 即返回隔离 API。
  *
  * @path comm/effects/micro-runtime/src/namespaced-state.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.7.0
  */
 

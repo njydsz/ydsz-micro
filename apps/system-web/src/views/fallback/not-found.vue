@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 404 兜底页面 — Vue Router 未匹配路由时显示
  *
  * @path apps\system-web\src\views\fallback\not-found.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,7 +10,7 @@
  * 404 兜底页
  * <p>Vue Router 中未匹配到任何路由时显示的 404 兜底页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { useRouter } from 'vue-router';

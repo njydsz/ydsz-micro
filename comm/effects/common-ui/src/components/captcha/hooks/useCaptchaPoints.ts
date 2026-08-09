@@ -1,8 +1,8 @@
-/**
+﻿/**
  * useCaptchaPoints 组合式函数
  *
  * @path comm\effects\common-ui\src\components\captcha\hooks\useCaptchaPoints.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { CaptchaPoint } from '../types';

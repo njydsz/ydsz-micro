@@ -1,20 +1,20 @@
-<!--
+﻿<!--
  * api-component 通用组件
  *
  * @path comm\effects\common-ui\src\components\api-component\api-component.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { Component } from 'vue';
 
-import type { AnyPromiseFunction } from '@remi/types';
+import type { AnyPromiseFunction } from '@ydsz/types';
 
 import { computed, nextTick, ref, unref, useAttrs, watch } from 'vue';
 
-import { LoaderCircle } from '@remi/icons';
+import { LoaderCircle } from '@ydsz/icons';
 
-import { cloneDeep, get, isEqual, isFunction } from '@remi-core/shared/utils';
+import { cloneDeep, get, isEqual, isFunction } from '@YDSZ-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 

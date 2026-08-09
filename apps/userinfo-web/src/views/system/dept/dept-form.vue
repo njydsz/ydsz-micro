@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 部门表单组件 — 支持新增/编辑部门信息（部门名称、负责人、上级部门）
  *
  * @path apps\userinfo-web\src\views\system\dept\dept-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,13 +10,13 @@
  * 部门（表单组件）
  * <p>部门的创建/编辑表单。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { DeptApi } from '#/api/dept';
 import type { CompanyApi } from '#/api/company';
 
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio, ElTreeSelect, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

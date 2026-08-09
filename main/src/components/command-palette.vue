@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * Command Palette — 命令面板，对标 VS Code Ctrl+Shift+P
  *
  * 增强版全局搜索，支持：
@@ -8,7 +8,7 @@
  * 4. 应用级命令注册
  *
  * @path main/src/components/command-palette.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
 -->
 <script setup lang="ts">
@@ -21,7 +21,7 @@ import {
   SEARCH_PROVIDER_COUNT_EVENT,
 } from '@/hooks/use-global-search';
 import type { SearchProviderReadyDetail } from '@/hooks/use-global-search';
-import { getPreloadManager } from '@remi/micro-kernel/preload-strategy';
+import { getPreloadManager } from '@ydsz/micro-kernel/preload-strategy';
 
 // ==================== 类型定义 ====================
 
@@ -245,19 +245,19 @@ onMounted(() => {
   loadRecentItems();
 
   // 监听子应用命令注册事件
-  window.addEventListener('remi:register-commands', ((e: CustomEvent) => {
+  window.addEventListener('YDSZ:register-commands', ((e: CustomEvent) => {
     const { appName, commands: cmds } = e.detail;
     registerCommands(appName, cmds);
   }) as EventListener);
 
-  window.addEventListener('remi:unregister-commands', ((e: CustomEvent) => {
+  window.addEventListener('YDSZ:unregister-commands', ((e: CustomEvent) => {
     unregisterCommands(e.detail.appName);
   }) as EventListener);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('remi:register-commands', () => {});
-  window.removeEventListener('remi:unregister-commands', () => {});
+  window.removeEventListener('YDSZ:register-commands', () => {});
+  window.removeEventListener('YDSZ:unregister-commands', () => {});
 });
 
 // ==================== Expose ====================

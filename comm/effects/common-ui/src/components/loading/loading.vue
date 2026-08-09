@@ -1,13 +1,13 @@
-<!--
+﻿<!--
  * loading 通用组件
  *
  * @path comm\effects\common-ui\src\components\loading\loading.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { REMILoading } from '@remi-core/shadcn-ui';
-import { cn } from '@remi-core/shared/utils';
+import { REMILoading } from '@YDSZ-core/shadcn-ui';
+import { cn } from '@YDSZ-core/shared/utils';
 
 interface LoadingProps {
   class?: string;

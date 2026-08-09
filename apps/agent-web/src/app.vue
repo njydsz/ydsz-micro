@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * 应用根组件
  *
  * @path apps\agent-web\src\app.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { useElementPlusDesignTokens } from '@remi/hooks';
+import { useElementPlusDesignTokens } from '@ydsz/hooks';
 
 import { ElConfigProvider } from 'element-plus';
 

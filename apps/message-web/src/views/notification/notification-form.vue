@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 站内通知详情组件
  *
  * @path apps\message-web\src\views\notification\notification-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 站内通知（详情组件）
  * <p>站内通知的详情展示，支持标记已读。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { NotificationApi } from '#/api/notification';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createNotificationApi, updateNotificationApi } from '#/api/notification';

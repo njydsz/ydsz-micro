@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\configs\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export * from './command';

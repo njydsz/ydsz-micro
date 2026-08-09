@@ -1,8 +1,8 @@
-/**
+﻿/**
  * version-manager 模块单元测试
  *
  * @path comm/effects/micro-kernel/__tests__/version-manager.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

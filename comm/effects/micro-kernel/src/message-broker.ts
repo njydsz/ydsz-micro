@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用点对点通信（请求-响应模型）
  *
  * 在现有 globalState pub/sub 基础上，提供 request/response 式的点对点通信：
@@ -7,11 +7,11 @@
  * - 可选 await 对方响应 Promise（基于随机 correlationId 关联）
  *
  * @path comm/effects/micro-kernel/src/message-broker.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.7.0
  */
 
-import { createLogger } from '@remi-core/shared/utils';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { mark } from './performance-utils';
 
 const logger = createLogger('MicroKernel');

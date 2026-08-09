@@ -1,8 +1,8 @@
-/**
+﻿/**
  * 认证相关 Mock 处理器
  *
  * @path apps/userinfo-web/src/mock/handlers/auth.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 

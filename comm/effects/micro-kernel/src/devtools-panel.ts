@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 微前端 DevTools 管理面板（开发态）
  *
  * 通过 Alt+Shift+M 切换面板，可视化展示：
@@ -8,12 +8,12 @@
  * - 手动操作按钮（强制卸载/重载/降级/刷新注册表）
  *
  * @path comm/effects/micro-kernel/src/devtools-panel.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.7.0
  */
 
 import { getAllInstances } from './scheduler';
-import { createLogger } from '@remi-core/shared/utils';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { refreshRegistry } from './registry-adapter';
 import type { AppStatus } from './scheduler';
 import { getPerfStats, clearKernelMarks } from './performance-utils';
@@ -365,7 +365,7 @@ function registerKeyHandler(): void {
  *
  * @example
  * // main/src/bootstrap.ts
- * import { enableMicroDevTools } from '@remi/micro-kernel';
+ * import { enableMicroDevTools } from '@ydsz/micro-kernel';
  * if (import.meta.env.DEV) enableMicroDevTools();
  */
 export function enableMicroDevTools(): void {

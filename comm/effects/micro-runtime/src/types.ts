@@ -1,11 +1,11 @@
-/**
+﻿/**
  * 微应用运行时类型定义
  *
  * 接口层不绑定任何内核实现（qiankun / wujie / 自研 micro-kernel），
  * 主应用与子应用业务代码仅依赖此接口。
  *
  * @path comm/effects/micro-runtime/src/types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
@@ -42,8 +42,8 @@ export interface MicroAppConfig {
   container: string | HTMLElement;
   /**
    * 激活规则，支持三种模式：
-   * - string: 路由前缀匹配（如 '/remi-proj'）
-   * - RegExp: 正则表达式匹配（如 /^\/remi-proj\/.*\/detail$/）
+   * - string: 路由前缀匹配（如 '/YDSZ-proj'）
+   * - RegExp: 正则表达式匹配（如 /^\/YDSZ-proj\/.*\/detail$/）
    * - function: 自定义匹配函数（如 (path) => path.includes('/special')）
    */
   activeRule: ActiveRule;
@@ -214,9 +214,9 @@ export interface RegistryAdapter {
 export interface MicroAppEntry {
   /** 子应用唯一标识（如 'workflow-web'） */
   name: string;
-  /** Monorepo 内包名（如 @remi/workflow-web） */
+  /** Monorepo 内包名（如 @ydsz/workflow-web） */
   packageName: string;
-  /** 路由前缀（如 '/remi-proj'），也作为 activeRule */
+  /** 路由前缀（如 '/YDSZ-proj'），也作为 activeRule */
   activeRule: string;
   /** 菜单默认重定向路径 */
   redirect: string;

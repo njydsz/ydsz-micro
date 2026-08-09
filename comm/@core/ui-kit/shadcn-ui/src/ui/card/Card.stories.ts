@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Card 组件 Storybook Stories
  *
  * P1-2.3: 组件文档化 — Card 组件交互式文档
  *
  * @path comm/@core/ui-kit/shadcn-ui/src/ui/card/Card.stories.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Meta, StoryObj } from '@storybook/vue3';

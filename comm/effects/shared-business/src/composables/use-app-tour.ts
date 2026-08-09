@@ -1,8 +1,8 @@
-/**
+﻿/**
  * app-tour 组合式函数 — 用户操作引导
  *
  * @path comm\effects\shared-business\src\composables\use-app-tour.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks
@@ -54,7 +54,7 @@ interface TourState {
   target: Element | null;
 }
 
-const STORAGE_PREFIX = 'remi-tour-done';
+const STORAGE_PREFIX = 'YDSZ-tour-done';
 
 /** 获取目标元素（支持延迟等待元素渲染） */
 function queryTarget(selector: string): Element | null {

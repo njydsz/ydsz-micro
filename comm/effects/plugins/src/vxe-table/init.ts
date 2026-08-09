@@ -1,17 +1,17 @@
-/**
+﻿/**
  * init 模块
  *
  * @path comm\effects\plugins\src\vxe-table\init.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { SetupVxeTable } from './types';
 
 import { defineComponent, watch } from 'vue';
 
-import { usePreferences } from '@remi/preferences';
+import { usePreferences } from '@ydsz/preferences';
 
-import { useREMIForm } from '@remi-core/form-ui';
+import { useREMIForm } from '@YDSZ-core/form-ui';
 
 import {
   VxeButton,

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\@core\base\design\src\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import './design-tokens';

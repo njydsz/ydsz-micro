@@ -1,14 +1,14 @@
-/**
+﻿/**
  * 全局搜索 composable（v4.0）
  *
  * 为全局搜索面板提供搜索数据源注册、收集、搜索接口。
  * 子应用可通过 registerSearchProvider 注册自己的搜索项。
  *
  * v4.0 P2-2: 搜索提供者就绪事件广播
- *   - registerSearchProvider 注册时广播 `remi:search-provider-ready` 事件
- *   - removeSearchProvider 移除时广播 `remi:search-provider-removed` 事件
+ *   - registerSearchProvider 注册时广播 `YDSZ:search-provider-ready` 事件
+ *   - removeSearchProvider 移除时广播 `YDSZ:search-provider-removed` 事件
  *   - 搜索面板可监听事件更新状态栏（"已加载 N 个数据源"）
- *   - 与 command-palette 的 `remi:register-commands` 事件对齐
+ *   - 与 command-palette 的 `YDSZ:register-commands` 事件对齐
  *
  * @since 4.0.0
  */
@@ -43,11 +43,11 @@ let collectTimer: ReturnType<typeof setTimeout> | null = null;
 // ==================== P2-2: 提供者就绪事件广播 ====================
 
 /** 提供者就绪事件名 */
-export const SEARCH_PROVIDER_READY_EVENT = 'remi:search-provider-ready';
+export const SEARCH_PROVIDER_READY_EVENT = 'YDSZ:search-provider-ready';
 /** 提供者移除事件名 */
-export const SEARCH_PROVIDER_REMOVED_EVENT = 'remi:search-provider-removed';
+export const SEARCH_PROVIDER_REMOVED_EVENT = 'YDSZ:search-provider-removed';
 /** 提供者计数变更事件名 */
-export const SEARCH_PROVIDER_COUNT_EVENT = 'remi:search-provider-count';
+export const SEARCH_PROVIDER_COUNT_EVENT = 'YDSZ:search-provider-count';
 
 /** 提供者就绪事件详情 */
 export interface SearchProviderReadyDetail {
@@ -83,7 +83,7 @@ function broadcastProviderCount(): void {
  *
  * 子应用应在 mount 时调用，传入返回搜索项数组的函数。
  *
- * v4.0 P2-2: 注册成功后广播 `remi:search-provider-ready` 事件，
+ * v4.0 P2-2: 注册成功后广播 `YDSZ:search-provider-ready` 事件，
  * 搜索面板可监听此事件更新"已加载数据源"状态指示。
  *
  * @param appName   子应用名
@@ -94,7 +94,7 @@ function broadcastProviderCount(): void {
  * @example
  * onMounted(() => {
  *   registerSearchProvider('workflow-web', () => [
- *     { id: 'proj-list', title: '项目列表', appName: 'workflow-web', path: '/remi-proj/opportunities' },
+ *     { id: 'proj-list', title: '项目列表', appName: 'workflow-web', path: '/YDSZ-proj/opportunities' },
  *   ], '项目管理系统');
  * });
  */
@@ -183,7 +183,7 @@ export function useGlobalSearch() {
  * 子应用快捷注册搜索项的工具函数。
  *
  * @example
- * import { useSearchProvider } from '@remi/micro-runtime/search';
+ * import { useSearchProvider } from '@ydsz/micro-runtime/search';
  * useSearchProvider('workflow-web', [
  *   { id: 'list', title: '项目列表', path: '/proj/list' },
  *   { id: 'new',  title: '新建项目',  path: '/proj/new' },

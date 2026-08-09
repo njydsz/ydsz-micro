@@ -1,21 +1,21 @@
-<!--
+﻿<!--
  * breadcrumb 布局组件
  *
  * @path comm\effects\layouts\src\widgets\breadcrumb.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { BreadcrumbStyleType } from '@remi/types';
+import type { BreadcrumbStyleType } from '@ydsz/types';
 
-import type { IBreadcrumb } from '@remi-core/shadcn-ui';
+import type { IBreadcrumb } from '@YDSZ-core/shadcn-ui';
 
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
-import { REMIBreadcrumbView } from '@remi-core/shadcn-ui';
+import { REMIBreadcrumbView } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   hideWhenOnlyOne?: boolean;

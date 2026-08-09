@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 预加载 hover 视觉反馈工具（P3-1）
  *
  * 在用户 hover 某个子应用入口（导航菜单项、Tab 等）时，主应用触发预加载，
@@ -13,7 +13,7 @@
  *
  * **典型用法**（主应用导航栏）：
  * ```ts
- * import { attachHoverPreloadFeedback } from '@remi/micro-kernel';
+ * import { attachHoverPreloadFeedback } from '@ydsz/micro-kernel';
  *
  * const cleanup = attachHoverPreloadFeedback(navItemEl, () => {
  *   // 触发该子应用的预加载
@@ -23,7 +23,7 @@
  * ```
  *
  * @path comm/effects/micro-kernel/src/hover-feedback.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.1.0
  */
 

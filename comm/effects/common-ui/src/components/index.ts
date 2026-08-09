@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\effects\common-ui\src\components\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export * from "./api-component";
@@ -24,8 +24,8 @@ export * from "./resize";
 export * from "./safe-html";
 export * from "./tippy";
 export * from "./watermark";
-export * from "@remi-core/form-ui";
-export * from "@remi-core/popup-ui";
+export * from "@YDSZ-core/form-ui";
+export * from "@YDSZ-core/popup-ui";
 
 // 给文档用
 export {
@@ -43,7 +43,7 @@ export {
   REMISelect,
   REMISpinner,
   REMITree,
-} from "@remi-core/shadcn-ui";
+} from "@YDSZ-core/shadcn-ui";
 
-export type { FlattenedItem } from "@remi-core/shadcn-ui";
-export { globalShareState } from "@remi-core/shared/global-state";
+export type { FlattenedItem } from "@YDSZ-core/shadcn-ui";
+export { globalShareState } from "@YDSZ-core/shared/global-state";

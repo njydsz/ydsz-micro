@@ -1,20 +1,20 @@
-/**
- * RequestClient — 主应用复用 @remi/shared-auth 的共享请求客户端
+﻿/**
+ * RequestClient — 主应用复用 @ydsz/shared-auth 的共享请求客户端
  *
  * P2-3: 消除主应用与 shared-auth 的重复代码。
  * 主应用只需提供 doReAuthenticate 和 doRefreshToken 回调，
  * 其余拦截器配置（successCode="A00000" + Bearer Token + refreshToken）由 shared-auth 统一管理。
  */
-import type { RequestClientOptions } from '@remi/request';
+import type { RequestClientOptions } from '@ydsz/request';
 
-import { preferences } from '@remi/preferences';
-import { useAccessStore, useTokenStore } from '@remi/stores';
+import { preferences } from '@ydsz/preferences';
+import { useAccessStore, useTokenStore } from '@ydsz/stores';
 import {
   CROSS_TAB_EVENTS,
   createSharedBaseClient,
   createSharedRequestClient,
   notifyCrossTab,
-} from '@remi/shared-auth';
+} from '@ydsz/shared-auth';
 
 import { useAuthStore } from '#/store/auth';
 

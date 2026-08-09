@@ -1,4 +1,4 @@
-/**
+﻿/**
  * enforce-route-lazy-import 自定义 ESLint 规则
  *
  * @remarks
@@ -14,7 +14,7 @@
  * - `component: import('./Foo.vue')`（缺少箭头函数包裹）
  *
  * @path conf/lint-configs/eslint-config/src/rules/enforce-route-lazy-import.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

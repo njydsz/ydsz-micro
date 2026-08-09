@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export { default as LockScreenModal } from './lock-screen-modal.vue';

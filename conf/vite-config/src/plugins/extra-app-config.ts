@@ -1,8 +1,8 @@
-/**
+﻿/**
  * extra-app-config 配置模块
  *
  * @path conf\vite-config\src\plugins\extra-app-config.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { PluginOption } from 'vite';
@@ -11,7 +11,7 @@ import {
   colors,
   generatorContentHash,
   readPackageJSON,
-} from '@remi/node-utils';
+} from '@ydsz/node-utils';
 
 import { loadEnv } from '../utils/env';
 

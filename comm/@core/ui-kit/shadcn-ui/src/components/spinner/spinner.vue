@@ -1,14 +1,14 @@
-<!--
+﻿<!--
  * spinner 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\spinner\spinner.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 interface Props {
   class?: string;

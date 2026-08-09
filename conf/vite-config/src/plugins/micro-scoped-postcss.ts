@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PostCSS 插件：为子应用 CSS 添加作用域前缀。
  *
  * 约定：每个子应用挂载时，micro-kernel 在容器上设置 `data-micro-app="app-name"` 属性。
@@ -8,7 +8,7 @@
  * 仅处理构建产物（Vite build），开发模式下 Vite dev server 自带 HMR 作用域隔离。
  *
  * @path conf/vite-config/src/plugins/micro-scoped-postcss.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
@@ -32,7 +32,7 @@ export function microScopedPostcssPlugin(options: MicroCssScopeOptions): Accepte
   const prefix = `[data-micro-app="${options.appName}"]`;
 
   return {
-    postcssPlugin: 'remi:micro-scoped-postcss',
+    postcssPlugin: 'YDSZ:micro-scoped-postcss',
 
     /** 处理普通规则（.class、#id、tag 等） */
     Rule(rule: Rule) {

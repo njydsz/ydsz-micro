@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * apps 列表/管理页面组件
  *
  * @path apps\agent-web\src\views\rag\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * Agent RAG 知识库（列表页）
  * <p>RAG 知识库的列表页，管理向量化文档、检索配置。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteRagApi, getRagPageApi, type RagApi } from '#/api/rag';

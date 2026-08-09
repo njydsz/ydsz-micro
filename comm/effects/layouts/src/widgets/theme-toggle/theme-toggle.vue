@@ -1,26 +1,26 @@
-<!--
+﻿<!--
  * theme-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-toggle.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { ThemeModeType } from '@remi/types';
+import type { ThemeModeType } from '@ydsz/types';
 
-import { MoonStar, Sun, SunMoon } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { MoonStar, Sun, SunMoon } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@remi/preferences';
+} from '@ydsz/preferences';
 
 import {
   REMITooltip,
   ToggleGroup,
   ToggleGroupItem,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 import ThemeButton from './theme-button.vue';
 

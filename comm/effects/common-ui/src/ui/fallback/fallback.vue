@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * fallback Vue 组件 - 现代化缺省页
  *
  * @path comm\effects\common-ui\src\ui\fallback\fallback.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -11,10 +11,10 @@ import type { FallbackProps } from "./fallback";
 import { computed, defineAsyncComponent } from "vue";
 import { useRouter } from "vue-router";
 
-import { ArrowLeft, RotateCw } from "@remi/icons";
-import { $t } from "@remi/locales";
+import { ArrowLeft, RotateCw } from "@ydsz/icons";
+import { $t } from "@ydsz/locales";
 
-import { REMIButton } from "@remi-core/shadcn-ui";
+import { REMIButton } from "@YDSZ-core/shadcn-ui";
 
 interface Props extends FallbackProps {}
 

@@ -1,11 +1,11 @@
-{
-  "name": "@remi/access",
+﻿{
+  "name": "@ydsz/access",
   "version": "5.5.9",
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
     "directory": "comm/effects/permissions"
   },
   "license": "MIT",
@@ -20,10 +20,10 @@
     }
   },
   "dependencies": {
-    "@remi/preferences": "workspace:*",
-    "@remi/stores": "workspace:*",
-    "@remi/types": "workspace:*",
-    "@remi/utils": "workspace:*",
+    "@ydsz/preferences": "workspace:*",
+    "@ydsz/stores": "workspace:*",
+    "@ydsz/types": "workspace:*",
+    "@ydsz/utils": "workspace:*",
     "vue": "catalog:"
   }
 }

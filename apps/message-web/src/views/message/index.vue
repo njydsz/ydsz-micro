@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 消息发送记录列表页组件
  *
  * @path apps\message-web\src\views\message\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 消息（列表页）
  * <p>消息发送记录的查询页，支持站内/邮件/短信/企微/钉钉/飞书多渠道。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteMessageApi, getMessagePageApi, type MessageApi } from '#/api/message';

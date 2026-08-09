@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * menu 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -28,8 +28,8 @@ import {
   watchEffect,
 } from 'vue';
 
-import { useNamespace } from '@remi-core/composables';
-import { Ellipsis } from '@remi-core/icons';
+import { useNamespace } from '@YDSZ-core/composables';
+import { Ellipsis } from '@YDSZ-core/icons';
 
 import { useResizeObserver } from '@vueuse/core';
 
@@ -377,7 +377,7 @@ function getActivePaths() {
 </template>
 
 <style lang="scss">
-$namespace: remi;
+$namespace: YDSZ;
 
 @mixin menu-item-active {
   color: var(--menu-item-active-color);
@@ -516,7 +516,7 @@ $namespace: remi;
     --menu-item-padding-x: 12px;
   }
 
-  // .remi-menu__popup,
+  // .YDSZ-menu__popup,
   &.is-horizontal {
     --menu-item-padding-y: 0px;
     --menu-item-padding-x: 10px;

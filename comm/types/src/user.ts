@@ -1,11 +1,11 @@
-/**
+﻿/**
  * user 类型定义模块
  *
  * @path comm\types\src\user.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { BasicUserInfo } from '@remi-core/typings';
+import type { BasicUserInfo } from '@YDSZ-core/typings';
 
 /** 用户信息 */
 interface UserInfo extends BasicUserInfo {

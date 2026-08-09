@@ -1,8 +1,8 @@
-/**
+﻿/**
  * directive 模块
  *
  * @path comm\effects\common-ui\src\components\tippy\directive.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { ComputedRef, Directive } from 'vue';

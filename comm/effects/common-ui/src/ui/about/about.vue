@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * about Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\about\about.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -14,9 +14,9 @@ import {
   REMI_DOC_URL,
   REMI_GITHUB_URL,
   REMI_PREVIEW_URL,
-} from '@remi/constants';
+} from '@ydsz/constants';
 
-import { REMIRenderContent } from '@remi-core/shadcn-ui';
+import { REMIRenderContent } from '@YDSZ-core/shadcn-ui';
 
 import { Page } from '../../components';
 
@@ -29,7 +29,7 @@ defineOptions({
 withDefaults(defineProps<Props>(), {
   description:
     '是一个现代化开箱即用的中后台解决方案，采用最新的技术栈，包括 Vue 3.0、Vite、TailwindCSS 和 TypeScript 等前沿技术，代码规范严谨，提供丰富的配置选项，旨在为中大型项目的开发提供现成的开箱即用解决方案及丰富的示例，同时，它也是学习和深入前端技术的一个极佳示例。',
-  name: 'REMI Admin',
+  name: 'YDSZ Admin',
   title: '关于项目',
 });
 
@@ -52,7 +52,7 @@ declare global {
 const renderLink = (href: string, text: string) =>
   h(
     'a',
-    { href, target: '_blank', class: 'remi-link' },
+    { href, target: '_blank', class: 'YDSZ-link' },
     { default: () => text },
   );
 
@@ -122,7 +122,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
   <Page :title="title">
     <template #description>
       <p class="text-foreground mt-3 text-sm leading-6">
-        <a :href="REMI_GITHUB_URL" class="remi-link" target="_blank">
+        <a :href="REMI_GITHUB_URL" class="YDSZ-link" target="_blank">
           {{ name }}
         </a>
         {{ description }}

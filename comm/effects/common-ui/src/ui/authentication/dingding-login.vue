@@ -1,19 +1,19 @@
-<!--
+﻿<!--
  * dingding-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\dingding-login.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 
-import { RiDingding } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { RiDingding } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 
-import { alert, useREMIModal } from '@remi-core/popup-ui';
-import { REMIIconButton } from '@remi-core/shadcn-ui';
-import { loadScript } from '@remi-core/shared/utils';
+import { alert, useREMIModal } from '@YDSZ-core/popup-ui';
+import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { loadScript } from '@YDSZ-core/shared/utils';
 
 interface Props {
   clientId: string;

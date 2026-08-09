@@ -1,13 +1,13 @@
-/**
+﻿/**
  * drawer 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\drawer.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Component, Ref } from 'vue';
 
-import type { ClassType, MaybePromise } from '@remi-core/typings';
+import type { ClassType, MaybePromise } from '@YDSZ-core/typings';
 
 import type { DrawerApi } from './drawer-api';
 

@@ -1,14 +1,14 @@
-<!--
+﻿<!--
  * theme-button 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-button.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
 
-import { REMIButton } from '@remi-core/shadcn-ui';
+import { REMIButton } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   /**

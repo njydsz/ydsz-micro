@@ -1,7 +1,7 @@
-/**
+﻿/**
  * retry.ts — 轻量指数退避重试工具
  *
- * 原设计从 `@remi-core/shared/utils/retry` 导入，但该路径在 shared 包中并不存在
+ * 原设计从 `@YDSZ-core/shared/utils/retry` 导入，但该路径在 shared 包中并不存在
  * （shared 只导出 ./utils 聚合模块）。此处落地为 micro-kernel 本地实现，消除
  * 对不存在子路径的悬空依赖，供 loader 的 fetch / ESM import 重试使用。
  *
@@ -11,7 +11,7 @@
  * - onRetry 回调暴露 (error, attempt, delay) 供日志埋点
  *
  * @path comm/effects/micro-kernel/src/retry.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.1.0
  */
 

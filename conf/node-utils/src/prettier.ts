@@ -1,8 +1,8 @@
-/**
+﻿/**
  * prettier 配置模块
  *
  * @path conf\node-utils\src\prettier.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import fs from 'node:fs/promises';

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * drawer-api.test 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\__tests__\drawer-api.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { DrawerState } from '../drawer';
@@ -12,7 +12,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DrawerApi } from '../drawer-api';
 
 // 模拟 Store 类
-vi.mock('@remi-core/shared/store', () => {
+vi.mock('@YDSZ-core/shared/store', () => {
   return {
     isFunction: (fn: any) => typeof fn === 'function',
     Store: class {

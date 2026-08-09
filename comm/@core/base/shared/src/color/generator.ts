@@ -1,8 +1,8 @@
-/**
+﻿/**
  * generator 模块
  *
  * @path comm\@core\base\shared\src\color\generator.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { getColors } from 'theme-colors';

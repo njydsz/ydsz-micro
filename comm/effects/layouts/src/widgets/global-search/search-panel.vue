@@ -1,22 +1,22 @@
-<!--
+﻿<!--
  * search-panel 布局组件
  *
  * @path comm\effects\layouts\src\widgets\global-search\search-panel.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@remi/types';
+import type { MenuRecordRaw } from '@ydsz/types';
 
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { SearchX, X } from '@remi/icons';
-import { $t } from '@remi/locales';
-import { mapTree, traverseTreeValues, uniqueByField } from '@remi/utils';
+import { SearchX, X } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
+import { mapTree, traverseTreeValues, uniqueByField } from '@ydsz/utils';
 
-import { REMIIcon, REMIScrollbar } from '@remi-core/shadcn-ui';
-import { isHttpUrl } from '@remi-core/shared/utils';
+import { REMIIcon, REMIScrollbar } from '@YDSZ-core/shadcn-ui';
+import { isHttpUrl } from '@YDSZ-core/shared/utils';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
 

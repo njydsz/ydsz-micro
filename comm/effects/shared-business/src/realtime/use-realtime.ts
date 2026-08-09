@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-realtime 组合式函数 — 实时消息订阅
  *
  * @path comm\effects\shared-business\src\realtime\use-realtime.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

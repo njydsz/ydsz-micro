@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * breadcrumb 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\breadcrumb.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectOption } from '@remi/types';
+import type { SelectOption } from '@ydsz/types';
 
 import { computed } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
 import SwitchItem from '../switch-item.vue';
 import ToggleItem from '../toggle-item.vue';

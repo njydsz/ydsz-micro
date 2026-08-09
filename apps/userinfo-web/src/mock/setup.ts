@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mock 服务器 — 用于 standalone 开发模式
  *
  * 拦截 API 请求并返回模拟数据，使子应用可在无后端环境下独立开发。
@@ -7,7 +7,7 @@
  * 对于生产级需求，建议替换为 MSW (https://mswjs.io/)
  *
  * @path apps/userinfo-web/src/mock/setup.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * spinner 配置模块
  *
  * @path conf\node-utils\src\spinner.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Ora } from 'ora';

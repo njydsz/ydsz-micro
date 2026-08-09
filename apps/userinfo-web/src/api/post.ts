@@ -1,9 +1,9 @@
-/**
+﻿/**
  * 岗位 API 模块（前端）
  *
  * 封装岗位（{@code remi_post}）CRUD 接口，对应后端 {@code /api/v1/post/*} 端点。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

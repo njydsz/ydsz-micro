@@ -1,21 +1,21 @@
-/**
+﻿/**
  * use-vxe-grid 模块
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridSlots, VxeGridSlotTypes } from 'vxe-table';
 
 import type { SlotsType } from 'vue';
 
-import type { BaseFormComponentType } from '@remi-core/form-ui';
+import type { BaseFormComponentType } from '@YDSZ-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
 import { defineComponent, h, onBeforeUnmount } from 'vue';
 
-import { useStore } from '@remi-core/shared/store';
+import { useStore } from '@YDSZ-core/shared/store';
 
 import { VxeGridApi } from './api';
 import VxeGrid from './use-vxe-grid.vue';

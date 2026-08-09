@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * agent-form 表单页面组件
  *
  * @path apps\agent-web\src\views\agent\agent-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -12,11 +12,11 @@
  * <p>支持 Agent 名称、类型、模型提供商/名称、系统提示词、温度等字段。
  * <p>通过 {@code emit('success')} 通知父组件刷新列表。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { AgentApi } from '#/api/agent';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createAgentApi, updateAgentApi } from '#/api/agent';

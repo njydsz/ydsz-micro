@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * sidebar-fixed-button 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\widgets\sidebar-fixed-button.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { Pin, PinOff } from '@remi-core/icons';
+import { Pin, PinOff } from '@YDSZ-core/icons';
 
 const expandOnHover = defineModel<boolean>('expandOnHover');
 

@@ -1,25 +1,25 @@
-<!--
+﻿<!--
  * user-dropdown 布局组件
  *
  * @path comm\effects\layouts\src\widgets\user-dropdown\user-dropdown.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { Component } from 'vue';
 
-import type { AnyFunction } from '@remi/types';
+import type { AnyFunction } from '@ydsz/types';
 
 import { computed, useTemplateRef, watch } from 'vue';
 
-import { useHoverToggle } from '@remi/hooks';
-import { LockKeyhole, LogOut } from '@remi/icons';
-import { $t } from '@remi/locales';
-import { preferences, usePreferences } from '@remi/preferences';
-import { useTokenStore } from '@remi/stores';
-import { isWindowsOs } from '@remi/utils';
+import { useHoverToggle } from '@ydsz/hooks';
+import { LockKeyhole, LogOut } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
+import { preferences, usePreferences } from '@ydsz/preferences';
+import { useTokenStore } from '@ydsz/stores';
+import { isWindowsOs } from '@ydsz/utils';
 
-import { useREMIModal } from '@remi-core/popup-ui';
+import { useREMIModal } from '@YDSZ-core/popup-ui';
 import {
   Badge,
   DropdownMenu,
@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
   REMIAvatar,
   REMIIcon,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 

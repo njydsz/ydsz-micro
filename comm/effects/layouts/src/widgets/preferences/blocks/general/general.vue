@@ -1,13 +1,13 @@
-<!--
+﻿<!--
  * general 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\general\general.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { SUPPORT_LANGUAGES } from '@remi/constants';
-import { $t } from '@remi/locales';
+import { SUPPORT_LANGUAGES } from '@ydsz/constants';
+import { $t } from '@ydsz/locales';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';

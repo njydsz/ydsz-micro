@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用侧标准化 Props 访问器（v4.0 P1-2）
  *
  * 为子应用提供类型化的 mountProps 访问能力，消除手工解构的样板代码。
@@ -23,7 +23,7 @@
  * ```
  *
  * @path comm/effects/micro-runtime/src/use-micro-props.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 

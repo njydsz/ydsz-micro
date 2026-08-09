@@ -1,8 +1,8 @@
-/**
+﻿/**
  * state-handler 工具函数模块
  *
  * @path comm\@core\base\shared\src\utils\state-handler.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export class StateHandler {

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * typing 国际化语言包
  *
  * @path comm\locales\src\typing.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export type SupportedLanguagesType = 'en-US' | 'zh-CN';

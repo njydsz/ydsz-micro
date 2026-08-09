@@ -1,9 +1,9 @@
-/**
- * REMI 公共组件 Storybook 示例 — Loading 组件
+﻿/**
+ * YDSZ 公共组件 Storybook 示例 — Loading 组件
  *
  * P2-3: Storybook 组件文档
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Meta, StoryObj } from '@storybook/vue3';

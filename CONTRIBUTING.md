@@ -1,6 +1,6 @@
-# 贡献指南 (Contributing Guide)
+﻿# 贡献指南 (Contributing Guide)
 
-感谢你关注并愿意为 REMI Frontend 贡献力量！无论是修复 Bug、新增特性、完善文档，还是提出改进建议，都欢迎通过 Issue 或 Merge Request（MR）参与。
+感谢你关注并愿意为 YDSZ Frontend 贡献力量！无论是修复 Bug、新增特性、完善文档，还是提出改进建议，都欢迎通过 Issue 或 Merge Request（MR）参与。
 
 阅读本文档预计 5 分钟，请务必在发起 MR 前通读一遍，可以显著减少来回沟通的成本。
 

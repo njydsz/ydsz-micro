@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * apps 列表/管理页面组件
  *
  * @path apps\agent-web\src\views\definition\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * Agent 工具定义（列表页）
  * <p>Agent 工具（Tool）注册的列表页，管理可被 Agent 调用的工具。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteDefinitionApi, getDefinitionPageApi, type DefinitionApi } from '#/api/definition';

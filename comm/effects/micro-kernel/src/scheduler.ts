@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 生命周期调度器 + 保活控制 + 沙箱策略集成
  *
  * 每个子应用一个 AppInstance 实例：
@@ -13,7 +13,7 @@
  * 符合 OCP — 新增沙箱类型只需实现 SandboxStrategy 接口。
  *
  * @path comm/effects/micro-kernel/src/scheduler.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
@@ -23,7 +23,7 @@ import type {
   MountProps,
   SandboxType,
   UnmountResult,
-} from "@remi/micro-runtime";
+} from "@ydsz/micro-runtime";
 import { loadApp, removeStylesheets } from "./loader";
 import type { LoadOptions, LoadResult, Manifest } from "./loader";
 import {
@@ -32,7 +32,7 @@ import {
   ProxySandboxStrategy,
 } from "./sandbox-strategy";
 import type { SandboxStrategy } from "./sandbox-strategy";
-import { createLogger } from "@remi-core/shared/utils";
+import { createLogger } from "@YDSZ-core/shared/utils";
 import { mark, measure } from "./performance-utils";
 import type { DisposableManager } from "./manager-registry";
 import { KernelError, KernelErrorCode } from "./error-boundary";
@@ -62,7 +62,7 @@ export type AppStatus =
  *
  * @since 3.6.0 从 micro-runtime 导入，不再在本文件定义
  */
-export type { SandboxType } from "@remi/micro-runtime";
+export type { SandboxType } from "@ydsz/micro-runtime";
 
 /** 单个子应用在调度器中的运行时实例，含配置、生命周期导出、状态与保活缓存 */
 export interface AppInstance {
@@ -159,7 +159,7 @@ let keepAliveEnabled = true;
  *
  * @example
  * ```ts
- * import { configureKeepAlive } from '@remi/micro-kernel';
+ * import { configureKeepAlive } from '@ydsz/micro-kernel';
  *
  * // 调整上限与 TTL
  * configureKeepAlive({ max: 8, ttl: 10 * 60 * 1000 });

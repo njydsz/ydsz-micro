@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Vue 组合式 API — 子应用侧使用全局状态
  *
  * 子应用无需关心底层是 qiankun 还是 micro-kernel，
@@ -10,7 +10,7 @@
  *          改用 onScopeDispose 在组件/effect scope 销毁时统一清理。
  *
  * @path comm/effects/micro-runtime/src/composable/use-global-state.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 

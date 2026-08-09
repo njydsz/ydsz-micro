@@ -1,8 +1,8 @@
-/**
+﻿/**
  * 应用偏好配置
  *
  * @path comm\@core\preferences\src\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Preferences } from './types';

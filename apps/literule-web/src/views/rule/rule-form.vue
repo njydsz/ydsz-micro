@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 规则定义编辑表单组件
  *
  * @path apps\literule-web\src\views\rule\rule-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 规则定义（表单组件）
  * <p>规则定义的创建/编辑表单，包含规则类型选择、版本管理。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RuleApi } from '#/api/rule';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createRuleApi, updateRuleApi } from '#/api/rule';

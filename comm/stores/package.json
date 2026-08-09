@@ -1,11 +1,11 @@
-{
-  "name": "@remi/stores",
+﻿{
+  "name": "@ydsz/stores",
   "version": "5.5.9",
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
     "directory": "comm/stores"
   },
   "license": "MIT",
@@ -20,9 +20,9 @@
     }
   },
   "dependencies": {
-    "@remi-core/preferences": "workspace:*",
-    "@remi-core/shared": "workspace:*",
-    "@remi-core/typings": "workspace:*",
+    "@YDSZ-core/preferences": "workspace:*",
+    "@YDSZ-core/shared": "workspace:*",
+    "@YDSZ-core/typings": "workspace:*",
     "pinia": "catalog:",
     "pinia-plugin-persistedstate": "catalog:",
     "secure-ls": "catalog:",

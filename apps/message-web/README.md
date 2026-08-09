@@ -1,17 +1,17 @@
-# message-web 消息中心
+﻿# message-web 消息中心
 
-> REMI 消息中心子应用，提供多渠道消息发送、模板管理、批量发送、用户偏好、路由规则与死信队列管理（对应后端：remi-message，路由前缀：/remi-msg）
+> YDSZ 消息中心子应用，提供多渠道消息发送、模板管理、批量发送、用户偏好、路由规则与死信队列管理（对应后端：YDSZ-message，路由前缀：/YDSZ-msg）
 
 ## 应用定位
 
 | 属性 | 值 |
 |---|---|
 | **类型** | 微前端子应用 |
-| **包名** | @remi/message-web |
-| **对应后端服务** | remi-message |
+| **包名** | @ydsz/message-web |
+| **对应后端服务** | YDSZ-message |
 | **前端端口** | 5604 |
 | **后端端口** | 9004 |
-| **路由前缀** | /remi-msg |
+| **路由前缀** | /YDSZ-msg |
 | **版本** | 1.0.0 |
 
 message-web 是消息中心的前端载体，承接站内/邮件/短信/企微/钉钉/飞书多渠道消息的发送记录查询、模板维护、批量发送、用户偏好配置、路由规则编排与死信队列重试等能力，为全平台提供统一的消息触达管理。
@@ -23,7 +23,7 @@ message-web/
 ├── src/
 │   ├── adapter/                  # Element Plus / VXE Table 适配器
 │   ├── api/                      # 业务 API
-│   │   └── core/                 # 认证/菜单/用户 API（复用 @remi/shared-auth）
+│   │   └── core/                 # 认证/菜单/用户 API（复用 @ydsz/shared-auth）
 │   ├── layouts/                  # 子应用基础布局
 │   ├── locales/                  # 国际化（zh-CN/en-US）
 │   ├── router/                   # 路由守卫 + 模块化路由（message.ts）
@@ -52,14 +52,14 @@ message-web/
 
 | 依赖包 | 作用 |
 |---|---|
-| `@remi/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
-| `@remi/shared-business` | 业务公共组件与工具 |
-| `@remi/request` | HTTP 请求客户端（Axios 封装） |
-| `@remi/access` | 权限码与路由访问控制 |
-| `@remi/layouts` | 布局组件（basic） |
-| `@remi/common-ui` | 通用 UI 组件 |
-| `@remi/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@remi/locales` | 国际化基础包 |
+| `@ydsz/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
+| `@ydsz/shared-business` | 业务公共组件与工具 |
+| `@ydsz/request` | HTTP 请求客户端（Axios 封装） |
+| `@ydsz/access` | 权限码与路由访问控制 |
+| `@ydsz/layouts` | 布局组件（basic） |
+| `@ydsz/common-ui` | 通用 UI 组件 |
+| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
+| `@ydsz/locales` | 国际化基础包 |
 | `element-plus` | UI 组件库 |
 | `pinia` | 状态管理 |
 
@@ -78,7 +78,7 @@ message-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（remi-micro/）执行
+# 在 monorepo 根目录（ydsz-micro/）执行
 pnpm dev:message       # 启动消息中心子应用（端口 5604）
 
 # 启动主应用 + 所有子应用（含 message-web）
@@ -88,7 +88,7 @@ pnpm dev
 pnpm build:message
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/remi-msg` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-msg` 激活本应用。
 
 ## 环境变量
 
@@ -104,7 +104,7 @@ pnpm build:message
 
 ## 路由配置
 
-主应用通过 `/remi-msg` 前缀激活本应用，内部路由表（`src/router/routes/modules/message.ts`）分为五组：
+主应用通过 `/YDSZ-msg` 前缀激活本应用，内部路由表（`src/router/routes/modules/message.ts`）分为五组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|
@@ -125,13 +125,13 @@ pnpm build:message
 | `src/views/batch/index.vue` | 批量发送任务列表与进度跟踪 |
 | `src/views/deadLetter/index.vue` | 死信队列，支持重试与丢弃操作 |
 | `src/views/routeRule/index.vue` | 路由规则编排，配置渠道路由策略 |
-| `src/layouts/basic.vue` | 子应用基础布局，复用 `@remi/layouts` |
+| `src/layouts/basic.vue` | 子应用基础布局，复用 `@ydsz/layouts` |
 
 每个业务模块均包含 `index.vue`（列表页）与 `*-form.vue`（表单页）两个核心页面。
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@remi/request` 的 `requestClient`，对应后端 `/api/v1/message/*` 端点：
+API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/message/*` 端点：
 
 ```typescript
 // 消息发送记录（src/api/message.ts）
@@ -149,7 +149,7 @@ export function createMessageApi(data: MessageApi.MessageDTO) {
 }
 ```
 
-其他 API 模块：`template.ts`（消息模板）、`batch.ts`（批量发送）、`notification.ts`（站内通知）、`routeRule.ts`（路由规则）、`preference.ts`（用户偏好）、`deadLetter.ts`（死信队列）。认证与菜单 API 复用 `src/api/core/`（`@remi/shared-auth`）。
+其他 API 模块：`template.ts`（消息模板）、`batch.ts`（批量发送）、`notification.ts`（站内通知）、`routeRule.ts`（路由规则）、`preference.ts`（用户偏好）、`deadLetter.ts`（死信队列）。认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
 
 ## 注意事项
 
@@ -157,7 +157,7 @@ export function createMessageApi(data: MessageApi.MessageDTO) {
 2. **死信队列操作**：死信消息支持重试与丢弃，重试前应检查失败原因（如手机号格式、模板变量缺失），避免反复失败。
 3. **路由规则优先级**：路由规则按优先级匹配，新增规则时需设置合理的 `priority`，避免高优先级规则吞掉所有消息。
 4. **用户偏好覆盖**：用户偏好（`preference`）可覆盖路由规则默认渠道，发送前需校验用户是否禁用该渠道。
-5. **认证复用**：本应用依赖 `@remi/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@remi/shared-auth` 统一管理。
+5. **认证复用**：本应用依赖 `@ydsz/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@ydsz/shared-auth` 统一管理。
 
 ## 变更记录
 

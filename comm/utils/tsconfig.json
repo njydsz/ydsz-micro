@@ -1,8 +1,8 @@
-{
+﻿{
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@remi/tsconfig/library.json",
+  "extends": "@ydsz/tsconfig/library.json",
   "compilerOptions": {
-    "types": ["@remi-core/typings/vue-router"]
+    "types": ["@YDSZ-core/typings/vue-router"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

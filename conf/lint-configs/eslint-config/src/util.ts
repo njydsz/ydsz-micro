@@ -1,8 +1,8 @@
-/**
+﻿/**
  * util 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\util.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 /** 可为值本身或其 Promise 的联合类型，常用于支持同步/异步插件工厂 */

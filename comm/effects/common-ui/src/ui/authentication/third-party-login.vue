@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * third-party-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\third-party-login.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { useAppConfig } from '@remi/hooks';
-import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { useAppConfig } from '@ydsz/hooks';
+import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 
-import { REMIIconButton } from '@remi-core/shadcn-ui';
+import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
 
 import DingdingLogin from './dingding-login.vue';
 

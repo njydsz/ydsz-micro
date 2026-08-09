@@ -1,16 +1,16 @@
-/**
+﻿/**
  * access Pinia 状态管理 — 访问控制（menus/routes/codes）
  *
  * 认证相关状态（token/refreshToken/lockScreen）由 useTokenStore 管理，
  * 本 store 仅负责权限码、菜单、路由的存取。
  *
  * @path comm\stores\src\modules\access.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import type { MenuRecordRaw } from '@remi-core/typings';
+import type { MenuRecordRaw } from '@YDSZ-core/typings';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 

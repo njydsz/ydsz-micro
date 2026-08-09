@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * layout-sidebar 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-sidebar.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
-import { REMIScrollbar } from '@remi-core/shadcn-ui';
+import { REMIScrollbar } from '@YDSZ-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
 

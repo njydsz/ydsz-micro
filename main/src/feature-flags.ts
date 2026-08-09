@@ -1,20 +1,20 @@
-/**
+﻿/**
  * 主应用功能开关定义与远程加载
  *
  * 在 bootstrap 中通过 `await initFeatureFlags(featureFlagsOptions())` 初始化。
  * 新增开关只需在 APPLICATION_FLAGS 中追加定义，无需修改 bootstrap。
  *
  * @path main/src/feature-flags.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
   FeatureFlagDef,
   FeatureFlagValue,
   FeatureFlagsOptions,
-} from '@remi-core/feature-flags';
+} from '@YDSZ-core/feature-flags';
 
-import { defineFeatureFlags } from '@remi-core/feature-flags';
+import { defineFeatureFlags } from '@YDSZ-core/feature-flags';
 
 import { requestClient } from '#/api/request';
 
@@ -91,7 +91,7 @@ async function remoteFeatureFlagsLoader(): Promise<
  */
 export function featureFlagsOptions(): FeatureFlagsOptions {
   return {
-    namespace: 'remi',
+    namespace: 'YDSZ',
     env: import.meta.env,
     remoteLoader: remoteFeatureFlagsLoader,
     enableLocalOverrideInProd: false,

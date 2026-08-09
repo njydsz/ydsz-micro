@@ -1,13 +1,13 @@
-/**
+﻿/**
  * 路由配置入口，聚合所有路由模块
  *
  * @path apps\workflow-web\src\router\routes\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import { mergeRouteModules, traverseTreeValues } from '@remi/utils';
+import { mergeRouteModules, traverseTreeValues } from '@ydsz/utils';
 
 import { coreRoutes, fallbackNotFoundRoute } from './core';
 

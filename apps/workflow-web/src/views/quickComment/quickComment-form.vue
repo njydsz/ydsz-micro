@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 快捷回复（表单组件）
  *
  * @path apps\workflow-web\src\views\quickComment\quickComment-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 快捷回复（表单组件）
  * <p>快捷回复模板的创建/编辑表单。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { QuickCommentApi } from '#/api/quickComment';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createQuickCommentApi, updateQuickCommentApi } from '#/api/quickComment';

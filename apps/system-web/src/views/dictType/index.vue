@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 字典类型管理页面 — 字典类型的分页列表、搜索、新增、编辑、删除
  *
  * @path apps\system-web\src\views\dictType\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 字典类型（列表页）
  * <p>字典类型（{@code remi_dict_type}）的列表页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@remi/common-ui';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, h } from 'element-plus';
 

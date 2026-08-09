@@ -1,26 +1,26 @@
-/**
+﻿/**
  * 多 Tab 子应用同步增强 — 纯函数测试
  *
  * 避开 microRuntime 依赖，聚焦 per-app 会话状态机的纯逻辑。
  *
  * @path main/src/hooks/__tests__/use-tabbar-micro-sync.spec.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.7.0
  */
 
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 
 // 必须在 mock afterEach / microRuntime 之前先 mock 依赖
-vi.mock('@remi/stores', () => ({
+vi.mock('@ydsz/stores', () => ({
   onTabClosed: vi.fn(),
   useTabbarStore: vi.fn(),
 }));
 
-vi.mock('@remi/vite-config', () => ({
+vi.mock('@ydsz/vite-config', () => ({
   PATH_TO_APP_MAP: {
-    '/remi-user': 'userinfo-web',
-    '/remi-sys': 'system-web',
-    '/remi-flow': 'workflow-web',
+    '/YDSZ-user': 'userinfo-web',
+    '/YDSZ-sys': 'system-web',
+    '/YDSZ-flow': 'workflow-web',
   },
 }));
 
@@ -51,7 +51,7 @@ describe('多 Tab 子应用同步 — per-app session', () => {
     // 实现清理方式：直接调用完所有关闭即可，但此处依赖 public API snapshot 验证
     vi.clearAllMocks();
     // 通过关闭 Tab 使 session 清空
-    const allApps = ['/remi-user/a', '/remi-user/b', '/remi-sys/a', '/remi-flow/a', '/remi-flow/b'];
+    const allApps = ['/YDSZ-user/a', '/YDSZ-user/b', '/YDSZ-sys/a', '/YDSZ-flow/a', '/YDSZ-flow/b'];
     // 每次会话关闭全部
     for (const p of allApps) {
       // re-import 模块 — 实际上 sessions 是模块级变量，无法跨 test reset
@@ -60,37 +60,37 @@ describe('多 Tab 子应用同步 — per-app session', () => {
   });
 
   it('recordSubAppTabOpened 首次打开 Tab 必须记录到 session', () => {
-    recordSubAppTabOpened('/remi-flow/opportunities', 'workflow-web');
+    recordSubAppTabOpened('/YDSZ-flow/opportunities', 'workflow-web');
     const session = extractSession('workflow-web');
     expect(session, 'workflow-web session 应存在').toBeDefined();
-    expect(session!.openPaths).toContain('/remi-flow/opportunities');
-    expect(session!.lastActivePath).toBe('/remi-flow/opportunities');
+    expect(session!.openPaths).toContain('/YDSZ-flow/opportunities');
+    expect(session!.lastActivePath).toBe('/YDSZ-flow/opportunities');
   });
 
   it('同一子应用多次打开不同 Tab 需要累积到 openPaths', () => {
-    recordSubAppTabOpened('/remi-flow/opportunities', 'workflow-web');
-    recordSubAppTabOpened('/remi-flow/execution/list', 'workflow-web');
+    recordSubAppTabOpened('/YDSZ-flow/opportunities', 'workflow-web');
+    recordSubAppTabOpened('/YDSZ-flow/execution/list', 'workflow-web');
 
     const session = extractSession('workflow-web');
     expect(session!.openPaths).toHaveLength(2);
-    expect(session!.openPaths).toContain('/remi-flow/opportunities');
-    expect(session!.openPaths).toContain('/remi-flow/execution/list');
+    expect(session!.openPaths).toContain('/YDSZ-flow/opportunities');
+    expect(session!.openPaths).toContain('/YDSZ-flow/execution/list');
     // 最后更新的是 execution/list
-    expect(session!.lastActivePath).toBe('/remi-flow/execution/list');
+    expect(session!.lastActivePath).toBe('/YDSZ-flow/execution/list');
   });
 
   it('不同子应用的 session 互相隔离', () => {
-    recordSubAppTabOpened('/remi-user/users', 'userinfo-web');
-    recordSubAppTabOpened('/remi-flow/opportunities', 'workflow-web');
+    recordSubAppTabOpened('/YDSZ-user/users', 'userinfo-web');
+    recordSubAppTabOpened('/YDSZ-flow/opportunities', 'workflow-web');
 
     const userSession = extractSession('userinfo-web');
     const workflowSession = extractSession('workflow-web');
 
-    expect(userSession!.openPaths).toEqual(['/remi-user/users']);
-    expect(workflowSession!.openPaths).toEqual(['/remi-flow/opportunities']);
+    expect(userSession!.openPaths).toEqual(['/YDSZ-user/users']);
+    expect(workflowSession!.openPaths).toEqual(['/YDSZ-flow/opportunities']);
     // 两个 session lastActivePath 各自独立
-    expect(userSession!.lastActivePath).toBe('/remi-user/users');
-    expect(workflowSession!.lastActivePath).toBe('/remi-flow/opportunities');
+    expect(userSession!.lastActivePath).toBe('/YDSZ-user/users');
+    expect(workflowSession!.lastActivePath).toBe('/YDSZ-flow/opportunities');
   });
 
   it('getSubAppLastActivePath 无 session 时返回 null', () => {
@@ -106,8 +106,8 @@ describe('多 Tab 子应用同步 — per-app session', () => {
   });
 
   it('getAppFromPath 正确识别 registered 子应用前缀', () => {
-    expect(getAppFromPath('/remi-users')).toBe('userinfo-web');
-    expect(getAppFromPath('/remi-sys/configs')).toBe('system-web');
-    expect(getAppFromPath('/remi-flow/execution/list')).toBe('workflow-web');
+    expect(getAppFromPath('/YDSZ-users')).toBe('userinfo-web');
+    expect(getAppFromPath('/YDSZ-sys/configs')).toBe('system-web');
+    expect(getAppFromPath('/YDSZ-flow/execution/list')).toBe('workflow-web');
   });
 });

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * resize 通用组件
  *
  * @path comm\effects\common-ui\src\components\resize\resize.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>

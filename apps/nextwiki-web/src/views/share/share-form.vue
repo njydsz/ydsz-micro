@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 文件分享（表单组件）
  *
  * @path apps\nextwiki-web\src\views\share\share-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 文件分享（表单组件）
  * <p>分享链接的创建表单，支持公开/密码/有效期。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { ShareApi } from '#/api/share';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createShareApi, updateShareApi } from '#/api/share';

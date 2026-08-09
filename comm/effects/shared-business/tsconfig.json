@@ -1,4 +1,4 @@
-{
+﻿{
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -10,8 +10,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@remi/shared-business": ["./src/index.ts"],
-      "@remi/shared-business/*": ["./src/*"]
+      "@ydsz/shared-business": ["./src/index.ts"],
+      "@ydsz/shared-business/*": ["./src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.vue"],

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-backtop 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\use-backtop.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { BacktopProps } from './backtop';

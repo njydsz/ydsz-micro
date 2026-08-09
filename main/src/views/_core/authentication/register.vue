@@ -1,18 +1,18 @@
-<!--
+﻿<!--
  * register 页面组件
  *
  * @path main\src\views\_core\authentication\register.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { REMIFormSchema } from '@remi/common-ui';
-import type { Recordable } from '@remi/types';
+import type { REMIFormSchema } from '@ydsz/common-ui';
+import type { Recordable } from '@ydsz/types';
 
 import { computed, h, ref } from 'vue';
 
-import { AuthenticationRegister, z } from '@remi/common-ui';
-import { $t } from '@remi/locales';
+import { AuthenticationRegister, z } from '@ydsz/common-ui';
+import { $t } from '@ydsz/locales';
 
 defineOptions({ name: 'Register' });
 
@@ -74,7 +74,7 @@ const formSchema = computed((): REMIFormSchema[] => {
             h(
               'a',
               {
-                class: 'remi-link ml-1 ',
+                class: 'YDSZ-link ml-1 ',
                 href: '',
               },
               `${$t('authentication.privacyPolicy')} & ${$t('authentication.terms')}`,

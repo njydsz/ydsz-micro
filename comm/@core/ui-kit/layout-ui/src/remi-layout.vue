@@ -1,14 +1,14 @@
-<!--
- * remi-layout Vue 组件
+﻿<!--
+ * YDSZ-layout Vue 组件
  *
- * @path comm\@core\ui-kit\layout-ui\src\remi-layout.vue
- * @author remi-team
+ * @path comm\@core\ui-kit\layout-ui\src\YDSZ-layout.vue
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import type { REMILayoutProps } from './remi-layout';
+import type { REMILayoutProps } from './YDSZ-layout';
 
 import { computed, ref, watch } from 'vue';
 
@@ -16,10 +16,10 @@ import {
   SCROLL_FIXED_CLASS,
   useLayoutFooterStyle,
   useLayoutHeaderStyle,
-} from '@remi-core/composables';
-import { Menu } from '@remi-core/icons';
-import { REMIIconButton } from '@remi-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@remi-core/shared/constants';
+} from '@YDSZ-core/composables';
+import { Menu } from '@YDSZ-core/icons';
+import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@YDSZ-core/shared/constants';
 
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
 

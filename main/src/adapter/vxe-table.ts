@@ -1,16 +1,16 @@
-/**
+﻿/**
  * vxe-table 适配器模块
  *
  * @path main\src\adapter\vxe-table.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeTableGridOptions } from '@remi/plugins/vxe-table';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { h } from 'vue';
 
-import { useAccess } from '@remi/access';
-import { setupREMIVxeTable, useREMIVxeGrid } from '@remi/plugins/vxe-table';
+import { useAccess } from '@ydsz/access';
+import { setupREMIVxeTable, useREMIVxeGrid } from '@ydsz/plugins/vxe-table';
 
 import { ElButton, ElImage } from 'element-plus';
 
@@ -96,4 +96,4 @@ setupREMIVxeTable({
 
 export { useREMIVxeGrid };
 
-export type * from '@remi/plugins/vxe-table';
+export type * from '@ydsz/plugins/vxe-table';

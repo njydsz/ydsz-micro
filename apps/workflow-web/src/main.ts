@@ -1,16 +1,16 @@
-/**
+﻿/**
  * 应用入口文件 — 使用 createSubApp 工厂标准化生命周期
  *
  * @path apps\workflow-web\src\main.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import { createSubApp } from '@remi/shared-auth';
-import '@remi/styles';
-import '@remi/styles/ele';
+import { createSubApp } from '@ydsz/shared-auth';
+import '@ydsz/styles';
+import '@ydsz/styles/ele';
 
 import { initComponentAdapter } from './adapter/component';
-import { initSetupREMIForm } from './adapter/form';
+import { initSetupYDSZForm } from './adapter/form';
 import RootApp from './app.vue';
 import { setupI18n } from './locales';
 import { overridesPreferences } from './preferences';
@@ -19,7 +19,7 @@ import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
   appName: 'workflow-web',
-  basename: '/remi-flow',
+  basename: '/YDSZ-flow',
   routes,
   rootComponent: RootApp,
   preferencesOverrides,
@@ -27,7 +27,7 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
   guard: createRouterGuard,
   async onSetup(app) {
     await initComponentAdapter();
-    await initSetupREMIForm();
+    await initSetupYDSZForm();
     await setupI18n(app);
   },
 });

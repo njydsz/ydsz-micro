@@ -1,17 +1,17 @@
-/**
+﻿/**
  * subapps 路由模块
  *
  * 由注册表 MICRO_APPS 自动生成子应用路由，新增应用零路由改动。
  * v3.3: 透传 skeletonType 到 catch-all 路由 meta，供 SubAppContainer 读取。
  *
  * @path main/src/router/routes/modules/subapps.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 
 import type { RouteRecordRaw } from 'vue-router';
 
-import { MICRO_APPS } from '@remi/vite-config';
+import { MICRO_APPS } from '@ydsz/vite-config';
 
 const SubAppContainer = () => import('#/views/_core/subapp/index.vue');
 

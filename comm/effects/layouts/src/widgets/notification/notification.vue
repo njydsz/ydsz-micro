@@ -1,22 +1,22 @@
-<!--
+﻿<!--
  * notification 布局组件
  *
  * @path comm\effects\layouts\src\widgets\notification\notification.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { NotificationItem } from './types';
 
-import { Bell, MailCheck } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { Bell, MailCheck } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 
 import {
   REMIButton,
   REMIIconButton,
   REMIPopover,
   REMIScrollbar,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 import { useToggle } from '@vueuse/core';
 

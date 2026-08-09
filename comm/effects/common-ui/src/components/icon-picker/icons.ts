@@ -1,11 +1,11 @@
-/**
+﻿/**
  * icons 模块
  *
  * @path comm\effects\common-ui\src\components\icon-picker\icons.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { Recordable } from '@remi/types';
+import type { Recordable } from '@ydsz/types';
 
 /**
  * 一个缓存对象，在不刷新页面时，无需重复请求远程接口

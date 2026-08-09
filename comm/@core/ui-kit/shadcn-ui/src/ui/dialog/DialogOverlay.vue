@@ -1,14 +1,14 @@
-<!--
+﻿<!--
  * DialogOverlay Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogOverlay.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { inject } from 'vue';
 
-import { useScrollLock } from '@remi-core/composables';
+import { useScrollLock } from '@YDSZ-core/composables';
 
 useScrollLock();
 const id = inject('DISMISSABLE_MODAL_ID');

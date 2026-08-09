@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 角色管理页面 — 展示角色列表，支持新增/编辑/删除角色及权限分配
  *
  * @path apps\userinfo-web\src\views\system\role\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 角色（列表页）
  * <p>角色（{@code remi_role}）的列表页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@remi/common-ui';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, ElTransfer } from 'element-plus';
 import { h, onMounted, ref } from 'vue';

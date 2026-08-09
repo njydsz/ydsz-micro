@@ -1,15 +1,15 @@
-/**
+﻿/**
  * preset-interceptors 模块
  *
  * @path comm\effects\request\src\request-client\preset-interceptors.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RequestClient } from './request-client';
 import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
-import { $t } from '@remi/locales';
-import { isFunction } from '@remi/utils';
+import { $t } from '@ydsz/locales';
+import { isFunction } from '@ydsz/utils';
 
 import axios from 'axios';
 

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 灰度版本分流管理器（v4.0 Canary）
  *
  * 在 VersionManager 基础上扩展灰度能力：
@@ -16,8 +16,8 @@
  * @since 4.0.0
  */
 
-import { createLogger } from '@remi-core/shared/utils';
-import { satisfiesVersion } from '@remi-core/shared/semver';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { satisfiesVersion } from '@YDSZ-core/shared/semver';
 
 const logger = createLogger('Canary');
 

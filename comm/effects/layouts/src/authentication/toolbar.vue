@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * toolbar 布局组件
  *
  * @path comm\effects\layouts\src\authentication\toolbar.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { ToolbarType } from './types';
 
 import { computed } from 'vue';
 
-import { preferences } from '@remi/preferences';
+import { preferences } from '@ydsz/preferences';
 
 import {
   AuthenticationColorToggle,

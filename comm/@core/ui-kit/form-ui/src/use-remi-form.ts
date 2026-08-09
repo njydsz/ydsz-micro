@@ -1,8 +1,8 @@
-/**
- * use-remi-form 模块
+﻿/**
+ * use-YDSZ-form 模块
  *
- * @path comm\@core\ui-kit\form-ui\src\use-remi-form.ts
- * @author remi-team
+ * @path comm\@core\ui-kit\form-ui\src\use-YDSZ-form.ts
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
@@ -13,10 +13,10 @@ import type {
 
 import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 
-import { useStore } from '@remi-core/shared/store';
+import { useStore } from '@YDSZ-core/shared/store';
 
 import { FormApi } from './form-api';
-import REMIUseForm from './remi-use-form.vue';
+import REMIUseForm from './YDSZ-use-form.vue';
 
 /**
  * 创建一对「表单组件 + 命令式 API」，是业务使用 form-ui 的推荐入口。

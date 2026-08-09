@@ -1,8 +1,8 @@
-{
+﻿{
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@remi/tsconfig/web.json",
+  "extends": "@ydsz/tsconfig/web.json",
   "compilerOptions": {
-    "types": ["vite/client", "@remi/types/global"]
+    "types": ["vite/client", "@ydsz/types/global"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

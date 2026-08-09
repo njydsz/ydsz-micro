@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 性能标记工具 (Centralized Performance API)
  *
  * 统一管理 performance.mark / measure，防止 Performance Timeline 溢出。
@@ -12,7 +12,7 @@
  * 2. 统一的 mark/measure 封装
  *
  * @path comm/effects/micro-kernel/src/performance-utils.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.1 (ADR: P0-2 mark 缓冲保护)
  */
 

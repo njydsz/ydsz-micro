@@ -1,7 +1,7 @@
-# ADR-003: SSR / Pre-rendering 方案评估
+﻿# ADR-003: SSR / Pre-rendering 方案评估
 
 - **状态**: 已决定（2026-08-04）
-- **决策者**: remi-team
+- **决策者**: ydsz-team
 - **优先级**: P3-2（评估后可选实施）
 
 ## 背景

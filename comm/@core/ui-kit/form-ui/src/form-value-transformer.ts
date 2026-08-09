@@ -1,11 +1,11 @@
-/**
+﻿/**
  * form-value-transformer 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-value-transformer.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import { formatDate, isDate, isDayjsObject, isFunction } from '@remi-core/shared/utils';
+import { formatDate, isDate, isDayjsObject, isFunction } from '@YDSZ-core/shared/utils';
 
 import type { REMIFormProps } from './types';
 

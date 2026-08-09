@@ -1,20 +1,20 @@
-<!--
+﻿<!--
  * lock-screen-modal 布局组件
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\lock-screen-modal.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { Recordable } from '@remi/types';
+import type { Recordable } from '@ydsz/types';
 
 import { computed, reactive } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
-import { useREMIForm, z } from '@remi-core/form-ui';
-import { useREMIModal } from '@remi-core/popup-ui';
-import { REMIAvatar, REMIButton } from '@remi-core/shadcn-ui';
+import { useREMIForm, z } from '@YDSZ-core/form-ui';
+import { useREMIModal } from '@YDSZ-core/popup-ui';
+import { REMIAvatar, REMIButton } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   avatar?: string;

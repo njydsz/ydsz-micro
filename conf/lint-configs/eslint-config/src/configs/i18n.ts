@@ -1,8 +1,8 @@
-/**
+﻿/**
  * vue-i18n 配置模块
  *
  * @path conf\lint-configs\eslint-config\src\configs\i18n.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

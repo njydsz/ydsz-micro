@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * menu-item 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu-item.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@ import type { MenuItemProps, MenuItemRegistered } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
-import { useNamespace } from '@remi-core/composables';
-import { REMIIcon, REMITooltip } from '@remi-core/shadcn-ui';
+import { useNamespace } from '@YDSZ-core/composables';
+import { REMIIcon, REMITooltip } from '@YDSZ-core/shadcn-ui';
 
 import { MenuBadge } from '../components';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
-import { getPreloadManager } from '@remi/micro-kernel';
+import { getPreloadManager } from '@ydsz/micro-kernel';
 
 interface Props extends MenuItemProps {}
 

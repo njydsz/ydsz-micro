@@ -1,4 +1,4 @@
-/**
+﻿/**
  * toPosixPath 路径归一化工具的单元测试
  *
  * @remarks
@@ -6,7 +6,7 @@
  * glob 匹配、别名解析失效。此处覆盖混合分隔符、空串、纯分隔符、特殊字符等
  * 边界输入，确保转换只做分隔符替换、不吞字符也不做任何路径规范化。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { describe, expect, it } from 'vitest';

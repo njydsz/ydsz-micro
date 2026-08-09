@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * workbench-quick-nav Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-quick-nav.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
   REMIIcon,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchQuickNavItem[];

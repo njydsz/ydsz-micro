@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 用户账号 API 模块（前端）
  *
  * <p>封装用户账号（{@code remi_user_account}）的 CRUD 接口调用，对应后端
@@ -16,7 +16,7 @@
  *   <li>{@link assignRolesApi} — 分配角色</li>
  * </ul>
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

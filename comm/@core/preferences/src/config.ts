@@ -1,8 +1,8 @@
-/**
+﻿/**
  * 应用偏好配置
  *
  * @path comm\@core\preferences\src\config.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Preferences } from './types';
@@ -23,7 +23,7 @@ const defaultPreferences: Preferences = {
     contentPaddingRight: 0,
     contentPaddingTop: 0,
     defaultAvatar:
-      'https://unpkg.com/@remi/static-source@0.1.7/source/avatar-v1.webp',
+      'https://unpkg.com/@ydsz/static-source@0.1.7/source/avatar-v1.webp',
     defaultHomePath: '/dashboard/analytics',
     dynamicTitle: true,
     enableCheckUpdates: true,
@@ -33,7 +33,7 @@ const defaultPreferences: Preferences = {
     layout: 'header-sidebar-nav',
     locale: 'zh-CN',
     loginExpiredMode: 'page',
-    name: 'REMI Micro',
+    name: 'YDSZ Micro',
     preferencesButtonPosition: 'header',
     watermark: false,
     zIndex: 200,
@@ -47,7 +47,7 @@ const defaultPreferences: Preferences = {
   },
   copyright: {
     companyName: '瑞米软件',
-    companySiteLink: 'https://remi.com.cn',
+    companySiteLink: 'https://YDSZ.com.cn',
     date: '2026',
     enable: true,
     icp: '',
@@ -70,7 +70,7 @@ const defaultPreferences: Preferences = {
   logo: {
     enable: true,
     fit: 'contain',
-    source: 'https://unpkg.com/@remi/static-source@0.1.7/source/logo-v1.webp',
+    source: 'https://unpkg.com/@ydsz/static-source@0.1.7/source/logo-v1.webp',
   },
   navigation: {
     accordion: true,

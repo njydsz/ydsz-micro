@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-modal 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\use-modal.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { ExtendedModalApi, ModalApiOptions, ModalProps } from './modal';
@@ -17,7 +17,7 @@ import {
   ref,
 } from 'vue';
 
-import { useStore } from '@remi-core/shared/store';
+import { useStore } from '@YDSZ-core/shared/store';
 
 import { ModalApi } from './modal-api';
 import REMIModal from './modal.vue';
@@ -196,7 +196,7 @@ async function checkProps(api: ExtendedModalApi, attrs: Record<string, any>) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Modal的props，会造成复杂度提升，如果你需要修改Modal的props，请使用 useModal 或者api
       console.warn(
-        `[REMI Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useREMIModal or api.`,
+        `[YDSZ Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useREMIModal or api.`,
       );
     }
   }

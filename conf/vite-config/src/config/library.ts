@@ -1,15 +1,15 @@
-/**
+﻿/**
  * library 配置模块
  *
  * @path conf\vite-config\src\config\library.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { ConfigEnv, UserConfig } from 'vite';
 
 import type { DefineLibraryOptions } from '../typing';
 
-import { readPackageJSON } from '@remi/node-utils';
+import { readPackageJSON } from '@ydsz/node-utils';
 
 import { defineConfig, mergeConfig } from 'vite';
 

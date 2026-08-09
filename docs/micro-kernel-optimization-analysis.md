@@ -1,4 +1,4 @@
-# micro-kernel 架构审计与优化建议
+﻿# micro-kernel 架构审计与优化建议
 
 > 基于 v4.0 代码现状，对标 qiankun / wujie / micro-app / Garfish 等主流微前端方案，结合大厂研发规范（字节跳动 Web 架构、阿里云微前端、美团内部标准等），从架构、功能、性能、体验、过度设计五个维度给出可落地的优化建议。
 
@@ -8,7 +8,7 @@
 
 ### 1.1 模块职责
 
-`@remi/micro-kernel` 是 remi-micro 项目的核心微前端运行时，基于 ESM 原生动态导入实现同源子应用集群管理。当前能力覆盖：
+`@ydsz/micro-kernel` 是 ydsz-micro 项目的核心微前端运行时，基于 ESM 原生动态导入实现同源子应用集群管理。当前能力覆盖：
 
 | 维度 | 现状能力 |
 |------|----------|
@@ -115,7 +115,7 @@ interface SandboxStrategy {
 
 **现状**：`micro-runtime` 定义 `MicroRuntime` 接口，`micro-kernel` 实现它。但部分 kernel 导出的类型/工具函数与 runtime 模块产生了循环引用风险（如 `semver` 从 runtime 导入再被 kernel 重导出）。
 
-**建议**：确保依赖方向严格为 `apps/* → micro-runtime ← micro-kernel`，kernel 不应向 runtime 反向注入类型。`semver` 等公共工具可下沉到 `@remi-core/shared` 或独立 `@remi/semver` 包。
+**建议**：确保依赖方向严格为 `apps/* → micro-runtime ← micro-kernel`，kernel 不应向 runtime 反向注入类型。`semver` 等公共工具可下沉到 `@YDSZ-core/shared` 或独立 `@ydsz/semver` 包。
 
 ---
 
@@ -425,7 +425,7 @@ Sentry / 监控系统可按 errorCode 聚合报警。
 
 ### 8.3 Bundle Size 监控
 
-微前端运行时本身应轻量。建议在 CI 中加入 bundle-size 检查：`@remi/micro-kernel` 的发布产物控制在 50KB 以内（gzip）。
+微前端运行时本身应轻量。建议在 CI 中加入 bundle-size 检查：`@ydsz/micro-kernel` 的发布产物控制在 50KB 以内（gzip）。
 
 ---
 

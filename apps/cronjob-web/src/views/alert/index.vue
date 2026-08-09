@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 任务告警（列表页）
  *
  * @path apps\cronjob-web\src\views\alert\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 任务告警（列表页）
  * <p>任务告警规则的列表页，配置告警通道、抑制策略。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteAlertApi, getAlertPageApi, type AlertApi } from '#/api/alert';

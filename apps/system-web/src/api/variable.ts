@@ -1,9 +1,9 @@
-/**
+﻿/**
  * 系统变量 API 模块（前端）
  *
  * 封装系统变量（{@code remi_system_variable}）CRUD 接口，对应后端 {@code /api/v1/variable/*} 端点。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

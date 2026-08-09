@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 跨标签页状态同步管理器
  *
  * 基于 BroadcastChannel API（优先）+ storage event 兜底，实现：
@@ -16,7 +16,7 @@
  *   4. 消息负载 JSON 序列化，结构变更通过 `version` 兼容性检查。
  *
  * @path comm/@core/base/shared/src/cache/broadcast-channel.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 
@@ -287,7 +287,7 @@ function generateInstanceId(): string {
  * 全局通道注册表，避免同名 channel 被重复创建（多模块共享同一通道时）。
  *
  * 使用方式：
- *   const channel = getSharedBroadcastChannel('remi-app');
+ *   const channel = getSharedBroadcastChannel('YDSZ-app');
  *   channel.on('logout', ...);
  */
 const sharedChannels = new Map<string, BroadcastChannelManager>();

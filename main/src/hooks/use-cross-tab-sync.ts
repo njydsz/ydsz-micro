@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 跨标签页状态同步集成
  *
  * 监听关键状态变更（登出/会话失效/token 刷新）并广播到同源其它标签页，
@@ -10,19 +10,19 @@
  *     本标签页同步更新 tokenStore，避免各自独立刷新导致 refreshToken 竞态。
  *
  * @path main/src/hooks/use-cross-tab-sync.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { getCurrentScope, onScopeDispose } from 'vue';
 
-import { useCrossTabEvent } from '@remi/hooks';
+import { useCrossTabEvent } from '@ydsz/hooks';
 import {
   type TokenRefreshedPayload,
   CROSS_TAB_CHANNEL,
   CROSS_TAB_EVENTS,
   notifyCrossTab,
-} from '@remi/shared-auth';
-import { useTokenStore } from '@remi/stores';
+} from '@ydsz/shared-auth';
+import { useTokenStore } from '@ydsz/stores';
 
 import { useAuthStore } from '#/store/auth';
 

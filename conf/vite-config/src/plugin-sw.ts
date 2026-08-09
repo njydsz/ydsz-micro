@@ -1,4 +1,4 @@
-/**
+﻿/**
  * vite-plugin-pwa 集成 —— Service Worker 缓存层
  *
  * 子应用资源缓存策略：
@@ -49,7 +49,7 @@ export function swPlugin(options: SWPluginOptions): Plugin[] {
     const { VitePWA } = require('vite-plugin-pwa');
     const pwaOptions: Partial<VitePWAOptions> = {
       // 子应用注册在 activeRule 子路径下，避免与主应用 SW 冲突
-      scope: scope ?? `/remi-${appName.replace('-web', '')}/`,
+      scope: scope ?? `/YDSZ-${appName.replace('-web', '')}/`,
       base: '/',
       // 注意：mode 由 VitePWA 推断
       // 注册策略
@@ -110,7 +110,7 @@ export function swPlugin(options: SWPluginOptions): Plugin[] {
       },
       // manifest（子应用自己的 Web App Manifest，不影响主应用）
       manifest: {
-        name: `REMI - ${appName}`,
+        name: `YDSZ - ${appName}`,
         short_name: appName,
         start_url: '.',
         scope: scope ?? '/',

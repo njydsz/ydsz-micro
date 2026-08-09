@@ -1,21 +1,21 @@
-<!--
+﻿<!--
  * color-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\color-toggle.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { BuiltinThemeType } from '@remi/types';
+import type { BuiltinThemeType } from '@ydsz/types';
 
-import { Palette } from '@remi/icons';
+import { Palette } from '@ydsz/icons';
 import {
   COLOR_PRESETS,
   preferences,
   updatePreferences,
-} from '@remi/preferences';
+} from '@ydsz/preferences';
 
-import { REMIIconButton } from '@remi-core/shadcn-ui';
+import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationColorToggle',

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 主子应用标准化 Props 下发契约（v4.0 P1-2）
  *
  * 统一子应用 mountProps 的类型定义与构造过程，
@@ -14,7 +14,7 @@
  * - 子应用侧：调用 useMicroProps() 获取类型化 props 访问器
  *
  * @path comm/effects/micro-runtime/src/standard-props.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 

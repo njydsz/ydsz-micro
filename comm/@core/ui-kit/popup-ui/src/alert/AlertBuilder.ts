@@ -1,21 +1,21 @@
-/**
+﻿/**
  * AlertBuilder 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\AlertBuilder.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Component, VNode } from 'vue';
 
-import type { Recordable } from '@remi-core/typings';
+import type { Recordable } from '@YDSZ-core/typings';
 
 import type { AlertProps, BeforeCloseScope, PromptProps } from './alert';
 
 import { h, nextTick, ref, render } from 'vue';
 
-import { useSimpleLocale } from '@remi-core/composables';
-import { Input, REMIRenderContent } from '@remi-core/shadcn-ui';
-import { isFunction, isString } from '@remi-core/shared/utils';
+import { useSimpleLocale } from '@YDSZ-core/composables';
+import { Input, REMIRenderContent } from '@YDSZ-core/shadcn-ui';
+import { isFunction, isString } from '@YDSZ-core/shared/utils';
 
 import Alert from './alert.vue';
 

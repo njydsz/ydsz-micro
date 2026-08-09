@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * scrollbar 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\scrollbar\scrollbar.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ClassType } from '@remi-core/typings';
+import type { ClassType } from '@YDSZ-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { ScrollArea, ScrollBar } from '../../ui';
 
@@ -101,7 +101,7 @@ function handleScroll(event: Event) {
   <ScrollArea
     :class="[cn(props.class), computedShadowClasses]"
     :on-scroll="handleScroll"
-    class="remi-scrollbar relative"
+    class="YDSZ-scrollbar relative"
     role="region"
     aria-label="可滚动区域"
   >
@@ -131,7 +131,7 @@ function handleScroll(event: Event) {
 </template>
 
 <style scoped>
-.remi-scrollbar {
+.YDSZ-scrollbar {
   &:not(.both-shadow).left-shadow {
     mask-image: linear-gradient(90deg, transparent, #000 16px);
   }

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 预加载策略增强
  *
  * 提供多种预加载策略：
@@ -10,12 +10,12 @@
  * - frequency 预加载：基于使用频率智能预加载
  *
  * @path comm/effects/micro-kernel/src/preload-strategy.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 
-import type { MicroAppConfig } from '@remi/micro-runtime';
-import { createLogger } from '@remi-core/shared/utils';
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { getRoutePredictor, type Prediction } from './route-predictor';
 
 /** 模块级日志器 */

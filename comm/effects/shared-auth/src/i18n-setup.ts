@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用 i18n 装配工厂 — 消除各子应用 locales/index.ts 中重复的样板代码。
  *
  * v3.5 (A6/B6): 将 dayjs / element-plus / app langs 的加载逻辑收敛至 shared-auth，
@@ -12,13 +12,13 @@
  *   - `elementLocale` 作为响应式 ref 暴露，供 `ElConfigProvider` 注入
  *
  * @path comm/effects/shared-auth/src/i18n-setup.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.5.0
  */
 import type { Language } from 'element-plus/es/locale';
 
 import type { App, Ref } from 'vue';
-import type { LocaleSetupOptions, SupportedLanguagesType } from '@remi/locales';
+import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
 
 import { ref } from 'vue';
 
@@ -26,8 +26,8 @@ import {
   $t,
   loadLocalesMapFromDir,
   setupI18n as coreSetup,
-} from '@remi/locales';
-import { preferences } from '@remi/preferences';
+} from '@ydsz/locales';
+import { preferences } from '@ydsz/preferences';
 
 import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';
@@ -74,7 +74,7 @@ export interface SubAppI18nInstance {
  *
  * @example
  * ```ts
- * import { createSubAppI18n } from '@remi/shared-auth';
+ * import { createSubAppI18n } from '@ydsz/shared-auth';
  * // modules = import.meta.glob 扫描 ./langs 下的所有 JSON
  * export const { $t, elementLocale, setupI18n } = createSubAppI18n({ modules });
  * ```
@@ -153,7 +153,7 @@ export function createSubAppI18n(
   }
 
   /**
-   * 初始化 i18n（封装 @remi/locales 的核心 setup）。
+   * 初始化 i18n（封装 @ydsz/locales 的核心 setup）。
    */
   async function setupI18n(app: App, runtimeOptions: LocaleSetupOptions = {}) {
     await coreSetup(app, {

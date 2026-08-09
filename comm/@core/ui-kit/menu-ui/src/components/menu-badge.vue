@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * menu-badge 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu-badge.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordBadgeRaw } from '@remi-core/typings';
+import type { MenuRecordBadgeRaw } from '@YDSZ-core/typings';
 
 import { computed } from 'vue';
 
-import { isValidColor } from '@remi-core/shared/color';
+import { isValidColor } from '@YDSZ-core/shared/color';
 
 import BadgeDot from './menu-badge-dot.vue';
 

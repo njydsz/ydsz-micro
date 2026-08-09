@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 共享 Auth Store 工厂 — 完整登录/登出/token 刷新流程
  *
  * 子应用调用 createSharedAuthStore(router) 获得与主应用一致的 auth store。
@@ -8,24 +8,24 @@
  * - 仍读取 userInfo 和 accessCodes（非敏感数据，正常通过响应体返回）
  * - 登出时调用 logoutApi 让后端清除 Cookie，前端仅清理本地 UI 状态
  */
-import type { Recordable, UserInfo } from "@remi/types";
+import type { Recordable, UserInfo } from "@ydsz/types";
 
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { LOGIN_PATH } from "@remi/constants";
-import { preferences } from "@remi/preferences";
+import { LOGIN_PATH } from "@ydsz/constants";
+import { preferences } from "@ydsz/preferences";
 import {
   resetAllStores,
   useAccessStore,
   useTokenStore,
   useUserStore,
-} from "@remi/stores";
+} from "@ydsz/stores";
 
 import { ElNotification } from "element-plus";
 import { defineStore } from "pinia";
 
-import { $t } from "@remi/locales";
+import { $t } from "@ydsz/locales";
 import { getAccessCodesApi, loginApi, logoutApi } from "./auth-api";
 import { getUserInfoApi } from "./user-api";
 
@@ -42,7 +42,7 @@ const isHttpOnlyCookieMode: boolean =
  *
  * 子应用使用方式：
  * ```ts
- * import { createSharedAuthStore } from '@remi/shared-auth';
+ * import { createSharedAuthStore } from '@ydsz/shared-auth';
  * export const useAuthStore = createSharedAuthStore();
  * ```
  *

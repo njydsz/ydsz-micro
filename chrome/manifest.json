@@ -1,8 +1,8 @@
-{
+﻿{
   "manifest_version": 3,
-  "name": "REMI Micro Kernel DevTools",
+  "name": "YDSZ Micro Kernel DevTools",
   "version": "4.0.0",
-  "description": "REMI 运行时调试面板 — 监控子应用加载、keepAlive、状态、通信",
+  "description": "YDSZ 运行时调试面板 — 监控子应用加载、keepAlive、状态、通信",
   "permissions": ["activeTab", "storage", "tabs", "scripting"],
   "host_permissions": [
     "http://localhost:*/*",
@@ -28,7 +28,7 @@
   ],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "REMI Micro Kernel"
+    "default_title": "YDSZ Micro Kernel"
   },
   "web_accessible_resources": [
     {

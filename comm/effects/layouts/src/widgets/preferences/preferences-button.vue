@@ -1,14 +1,14 @@
-<!--
+﻿<!--
  * preferences-button 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences-button.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Settings } from '@remi/icons';
+import { Settings } from '@ydsz/icons';
 
-import { REMIIconButton } from '@remi-core/shadcn-ui';
+import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
 
 import Preferences from './preferences.vue';
 

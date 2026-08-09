@@ -1,4 +1,4 @@
-/**
+﻿/**
  * use-access 模块
  *
  * 提供三种粒度的权限判断：
@@ -7,13 +7,13 @@
  * - 数据级（字段级）：getFieldPermission / applyFieldMask
  *
  * @path comm\effects\access\src\use-access.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { computed } from 'vue';
 
-import { preferences, updatePreferences } from '@remi/preferences';
-import { useAccessStore, useUserStore } from '@remi/stores';
+import { preferences, updatePreferences } from '@ydsz/preferences';
+import { useAccessStore, useUserStore } from '@ydsz/stores';
 
 /** 字段访问模式 */
 export type FieldAccessMode = 'hidden' | 'mask' | 'read';

@@ -1,11 +1,11 @@
-{
-  "name": "@remi-core/preferences",
+﻿{
+  "name": "@YDSZ-core/preferences",
   "version": "5.5.9",
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
     "directory": "comm/@core/preferences"
   },
   "license": "MIT",
@@ -29,8 +29,8 @@
     }
   },
   "dependencies": {
-    "@remi-core/shared": "workspace:*",
-    "@remi-core/typings": "workspace:*",
+    "@YDSZ-core/shared": "workspace:*",
+    "@YDSZ-core/typings": "workspace:*",
     "@vueuse/core": "catalog:",
     "vue": "catalog:"
   }

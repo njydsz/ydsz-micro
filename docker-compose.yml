@@ -1,18 +1,18 @@
-version: '3.8'
+﻿version: '3.8'
 
 services:
   # ==================== Frontend (Nginx) ====================
-  remi-micro:
+  ydsz-micro:
     build:
       context: .
       dockerfile: bash/deploy/Dockerfile
-    container_name: remi-micro
+    container_name: ydsz-micro
     ports:
       - "5600:8080"
     depends_on:
       - gateway
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
@@ -23,135 +23,135 @@ services:
 
   # ==================== Backend Gateway (9000) ====================
   gateway:
-    image: remi/gateway:latest
-    container_name: remi-gateway
+    image: YDSZ/gateway:latest
+    container_name: YDSZ-gateway
     ports:
       - "9000:9000"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== System Service (9001) ====================
   system:
-    image: remi/system:latest
-    container_name: remi-system
+    image: YDSZ/system:latest
+    container_name: YDSZ-system
     ports:
       - "9001:9001"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== Userinfo Service (9002) ====================
   userinfo:
-    image: remi/userinfo:latest
-    container_name: remi-userinfo
+    image: YDSZ/userinfo:latest
+    container_name: YDSZ-userinfo
     ports:
       - "9002:9002"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== Nextwiki Service (9003) ====================
   nextwiki:
-    image: remi/nextwiki:latest
-    container_name: remi-nextwiki
+    image: YDSZ/nextwiki:latest
+    container_name: YDSZ-nextwiki
     ports:
       - "9003:9003"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== Message Service (9004) ====================
   message:
-    image: remi/message:latest
-    container_name: remi-message
+    image: YDSZ/message:latest
+    container_name: YDSZ-message
     ports:
       - "9004:9004"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== Workflow Service (9005) ====================
   workflow:
-    image: remi/workflow:latest
-    container_name: remi-workflow
+    image: YDSZ/workflow:latest
+    container_name: YDSZ-workflow
     ports:
       - "9005:9005"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== Cronjob Service (9006) ====================
   cronjob:
-    image: remi/cronjob:latest
-    container_name: remi-cronjob
+    image: YDSZ/cronjob:latest
+    container_name: YDSZ-cronjob
     ports:
       - "9006:9006"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== LiteRule Service (9007) ====================
   literule:
-    image: remi/literule:latest
-    container_name: remi-literule
+    image: YDSZ/literule:latest
+    container_name: YDSZ-literule
     ports:
       - "9007:9007"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== Agent Service (9008) ====================
   agent:
-    image: remi/agent:latest
-    container_name: remi-agent
+    image: YDSZ/agent:latest
+    container_name: YDSZ-agent
     ports:
       - "9008:9008"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
   # ==================== Project Service (9009) ====================
   project:
-    image: remi/project:latest
-    container_name: remi-project
+    image: YDSZ/project:latest
+    container_name: YDSZ-project
     ports:
       - "9009:9009"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - JAVA_OPTS=-Xms256m -Xmx512m
     networks:
-      - remi-net
+      - YDSZ-net
     restart: unless-stopped
 
 networks:
-  remi-net:
+  YDSZ-net:
     driver: bridge
-    name: remi-network
+    name: YDSZ-network

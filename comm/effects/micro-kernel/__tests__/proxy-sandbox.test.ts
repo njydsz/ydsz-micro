@@ -1,8 +1,8 @@
-/**
+﻿/**
  * proxy-sandbox 模块单元测试
  *
  * @path comm/effects/micro-kernel/__tests__/proxy-sandbox.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.2.0
  */
 import { describe, expect, it, vi } from 'vitest';

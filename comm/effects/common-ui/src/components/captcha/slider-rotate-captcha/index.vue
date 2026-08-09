@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-rotate-captcha\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -15,7 +15,7 @@ import type {
 
 import { computed, reactive, unref, useTemplateRef, watch } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
 import { useTimeoutFn } from '@vueuse/core';
 

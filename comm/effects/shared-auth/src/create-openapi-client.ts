@@ -1,11 +1,11 @@
-/**
+﻿/**
  * OpenAPI SDK 客户端工厂函数
  *
  * <p>基于 openapi-fetch 创建类型安全的 API 客户端，与现有 requestClient 集成。
  * 各子应用使用自身的 schema 类型调用此工厂创建专属客户端。
  *
  * @path comm/effects/shared-auth/src/create-openapi-client.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 
@@ -23,7 +23,7 @@ import { requestClient } from './request-setup';
  * @example
  * ```ts
  * // 在 system-web 中使用
- * import { createOpenApiClient } from '@remi/shared-auth';
+ * import { createOpenApiClient } from '@ydsz/shared-auth';
  * import type { paths } from '#/api/sdk/schema';
  *
  * const apiClient = createOpenApiClient<paths>({ baseUrl: '/api/system' });

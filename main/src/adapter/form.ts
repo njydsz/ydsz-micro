@@ -1,26 +1,26 @@
-/**
+﻿/**
  * form 适配器模块
  *
  * @path main\src\adapter\form.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
   REMIFormSchema as FormSchema,
   REMIFormProps,
-} from '@remi/common-ui';
+} from '@ydsz/common-ui';
 
 import type { ComponentType } from './component';
 
-import { setupREMIForm, useREMIForm as useForm, z } from '@remi/common-ui';
-import { $t } from '@remi/locales';
+import { setupREMIForm, useREMIForm as useForm, z } from '@ydsz/common-ui';
+import { $t } from '@ydsz/locales';
 
 /**
- * 初始化 remi-form 表单适配器。
+ * 初始化 YDSZ-form 表单适配器。
  *
  * 注册组件类型映射与内置校验规则（required / selectRequired），需在应用启动时调用一次。
  */
-async function initSetupREMIForm() {
+async function initSetupYDSZForm() {
   setupREMIForm<ComponentType>({
     config: {
       modelPropNameMap: {
@@ -48,7 +48,7 @@ async function initSetupREMIForm() {
 /** 封装后的表单组合式函数，已绑定业务组件类型 {@link ComponentType}。 */
 const useREMIForm = useForm<ComponentType>;
 
-export { initSetupREMIForm, useREMIForm, z };
+export { initSetupYDSZForm, useREMIForm, z };
 
 /** 表单 Schema 类型，泛型参数已绑定业务组件类型 {@link ComponentType}。 */
 export type REMIFormSchema = FormSchema<ComponentType>;

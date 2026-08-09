@@ -1,18 +1,18 @@
-/**
+﻿/**
  * use-tabs-drag 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\use-tabs-drag.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { Sortable } from '@remi-core/composables';
-import type { EmitType } from '@remi-core/typings';
+import type { Sortable } from '@YDSZ-core/composables';
+import type { EmitType } from '@YDSZ-core/typings';
 
 import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { useIsMobile, useSortable } from '@remi-core/composables';
+import { useIsMobile, useSortable } from '@YDSZ-core/composables';
 
 // 可能会找到拖拽的子元素，这里需要确保拖拽的dom时tab元素
 function findParentElement(element: HTMLElement) {

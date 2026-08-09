@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 组合式函数
  *
  * @path comm\@core\composables\src\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export * from './use-cross-tab-state';

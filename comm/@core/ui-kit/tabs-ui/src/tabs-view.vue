@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * tabs-view Vue 组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\tabs-view.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { TabsEmits, TabsProps } from './types';
 
-import { useForwardPropsEmits } from '@remi-core/composables';
-import { ChevronLeft, ChevronRight } from '@remi-core/icons';
-import { REMIScrollbar } from '@remi-core/shadcn-ui';
+import { useForwardPropsEmits } from '@YDSZ-core/composables';
+import { ChevronLeft, ChevronRight } from '@YDSZ-core/icons';
+import { REMIScrollbar } from '@YDSZ-core/shadcn-ui';
 
 import { Tabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';
@@ -23,7 +23,7 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  contentClass: 'remi-tabs-content',
+  contentClass: 'YDSZ-tabs-content',
   draggable: true,
   styleType: 'chrome',
   wheelable: true,

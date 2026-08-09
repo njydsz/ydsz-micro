@@ -1,22 +1,22 @@
-/**
+﻿/**
  * preferences 模块
  *
  * @path apps\message-web\src\preferences.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import { defineOverridesPreferences } from '@remi/preferences';
+import { defineOverridesPreferences } from '@ydsz/preferences';
 
 /**
  * 消息中心子应用偏好覆盖配置。
  *
- * 在 @remi/preferences 默认值基础上按 message-web 诉求定制：
- * 应用名取自构建期标题、默认首页指向 /remi-msg、隐藏侧边栏，并固定 deep-blue 主题。
+ * 在 @ydsz/preferences 默认值基础上按 message-web 诉求定制：
+ * 应用名取自构建期标题、默认首页指向 /YDSZ-msg、隐藏侧边栏，并固定 deep-blue 主题。
  */
 export const overridesPreferences = defineOverridesPreferences({
   app: {
     name: import.meta.env.VITE_APP_TITLE,
-    defaultHomePath: '/remi-msg',
+    defaultHomePath: '/YDSZ-msg',
   },
   sidebar: {
     hidden: true,

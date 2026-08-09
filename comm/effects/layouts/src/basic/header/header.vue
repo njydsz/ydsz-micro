@@ -1,19 +1,19 @@
-<!--
+﻿<!--
  * header 布局组件
  *
  * @path comm\effects\layouts\src\basic\header\header.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { computed, useSlots } from 'vue';
 
-import { useRefresh } from '@remi/hooks';
-import { RotateCw } from '@remi/icons';
-import { preferences, usePreferences } from '@remi/preferences';
-import { useAccessStore } from '@remi/stores';
+import { useRefresh } from '@ydsz/hooks';
+import { RotateCw } from '@ydsz/icons';
+import { preferences, usePreferences } from '@ydsz/preferences';
+import { useAccessStore } from '@ydsz/stores';
 
-import { REMIFullScreen, REMIIconButton } from '@remi-core/shadcn-ui';
+import { REMIFullScreen, REMIIconButton } from '@YDSZ-core/shadcn-ui';
 
 import {
   GlobalSearch,

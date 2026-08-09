@@ -1,8 +1,8 @@
-/**
+﻿/**
  * storage-manager 模块
  *
  * @path comm\@core\base\shared\src\cache\storage-manager.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 type StorageType = 'localStorage' | 'sessionStorage';

@@ -1,22 +1,22 @@
-<!--
+﻿<!--
  * code-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\code-login.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { Recordable } from '@remi/types';
+import type { Recordable } from '@ydsz/types';
 
-import type { REMIFormSchema } from '@remi-core/form-ui';
+import type { REMIFormSchema } from '@YDSZ-core/form-ui';
 
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
-import { useREMIForm } from '@remi-core/form-ui';
-import { REMIButton } from '@remi-core/shadcn-ui';
+import { useREMIForm } from '@YDSZ-core/form-ui';
+import { REMIButton } from '@YDSZ-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 

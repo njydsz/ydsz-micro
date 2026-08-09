@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * echarts-ui Vue 组件
  *
  * @path comm\effects\plugins\src\echarts\echarts-ui.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">

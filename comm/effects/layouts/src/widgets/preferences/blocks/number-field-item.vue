@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * number-field-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\number-field-item.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectOption } from '@remi/types';
+import type { SelectOption } from '@ydsz/types';
 
 import { useSlots } from 'vue';
 
-import { CircleHelp } from '@remi/icons';
+import { CircleHelp } from '@ydsz/icons';
 
 import {
   NumberField,
@@ -19,7 +19,7 @@ import {
   NumberFieldIncrement,
   NumberFieldInput,
   REMITooltip,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',

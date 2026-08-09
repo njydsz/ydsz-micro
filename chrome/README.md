@@ -1,6 +1,6 @@
-# REMI Micro Kernel DevTools — Chrome Extension
+﻿# YDSZ Micro Kernel DevTools — Chrome Extension
 
-> Manifest V3 浏览器扩展，用于监控和调试 remi 微前端运行时（micro-kernel）
+> Manifest V3 浏览器扩展，用于监控和调试 YDSZ 微前端运行时（micro-kernel）
 
 ## 📦 安装与使用
 

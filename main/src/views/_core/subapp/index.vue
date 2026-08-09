@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * micro-kernel 微前端子应用挂载容器组件 — 作为子应用的 DOM 挂载点
  *
  * v3.2: 直接订阅 microRuntime 生命周期钩子（替代 window 事件），
@@ -10,14 +10,14 @@
  *       骨架屏类型优先取自子应用 manifest.routes，回退到 route.meta.skeletonType。
  *
  * @path main\src\views\_core\subapp\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MicroAppConfig } from '@remi/micro-runtime';
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
 import type { Component } from 'vue';
 
-import { getAppInstance } from '@remi/micro-kernel';
+import { getAppInstance } from '@ydsz/micro-kernel';
 
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';

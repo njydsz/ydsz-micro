@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * 应用基础布局组件
  *
  * @path apps\literule-web\src\layouts\basic.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import { watch } from 'vue';
 
-import { useWatermark } from '@remi/hooks';
-import { preferences } from '@remi/preferences';
-import { useUserStore } from '@remi/stores';
+import { useWatermark } from '@ydsz/hooks';
+import { preferences } from '@ydsz/preferences';
+import { useUserStore } from '@ydsz/stores';
 
 const userStore = useUserStore();
 const { destroyWatermark, updateWatermark } = useWatermark();

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * System Web OpenAPI SDK 客户端
  *
  * <p>基于 openapi-fetch 创建的类型安全 API 客户端，
@@ -14,11 +14,11 @@
  * });
  * ```
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 
-import { createOpenApiClient } from '@remi/shared-auth';
+import { createOpenApiClient } from '@ydsz/shared-auth';
 import type { paths } from './sdk/schema';
 
 /**

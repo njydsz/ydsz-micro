@@ -1,9 +1,9 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\constants\src\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export * from './core';
-export * from '@remi-core/shared/constants';
+export * from '@YDSZ-core/shared/constants';

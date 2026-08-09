@@ -1,8 +1,8 @@
-/**
+﻿/**
  * form-api 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-api.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
@@ -12,7 +12,7 @@ import type {
   ValidationOptions,
 } from 'vee-validate';
 
-import type { Recordable } from '@remi-core/typings';
+import type { Recordable } from '@YDSZ-core/typings';
 
 import type { Ref } from 'vue';
 
@@ -20,7 +20,7 @@ import type { FormActions, FormSchema, REMIFormProps } from './types';
 
 import { toRaw } from 'vue';
 
-import { Store } from '@remi-core/shared/store';
+import { Store } from '@YDSZ-core/shared/store';
 import {
   bindMethods,
   createMerge,
@@ -30,7 +30,7 @@ import {
   isObject,
   mergeWithArrayOverride,
   StateHandler,
-} from '@remi-core/shared/utils';
+} from '@YDSZ-core/shared/utils';
 
 import { FormScrollHelper } from './form-scroll-helper';
 import { FormValueTransformer } from './form-value-transformer';

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 共享依赖自托管同步脚本。
  *
  * 配合 importmap 插件的 selfHostBase 模式，将 ESM 依赖产物从公网 CDN
@@ -16,7 +16,7 @@
  *   node bash/sync-shared-deps.mjs apps/agent-web  # 指定目标应用目录
  *
  * @path bash/sync-shared-deps.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 3.1.0
  */
 import fs from 'node:fs';

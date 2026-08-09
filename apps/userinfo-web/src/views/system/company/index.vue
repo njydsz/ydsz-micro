@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 公司管理页面 — 展示公司列表，支持新增/编辑/删除公司信息
  *
  * @path apps\userinfo-web\src\views\system\company\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,10 +10,10 @@
  * 公司（列表页）
  * <p>公司（{@code remi_company}）的列表页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import { Page, useVbenModal } from '@remi/common-ui';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag, ElInput } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';

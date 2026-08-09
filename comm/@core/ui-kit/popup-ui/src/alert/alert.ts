@@ -1,15 +1,15 @@
-/**
+﻿/**
  * alert 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\alert.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Component, VNode, VNodeArrayChildren } from 'vue';
 
-import type { Recordable } from '@remi-core/typings';
+import type { Recordable } from '@YDSZ-core/typings';
 
-import { createContext } from '@remi-core/shadcn-ui';
+import { createContext } from '@YDSZ-core/shadcn-ui';
 
 /**
  * 弹窗内置图标的语义类型。

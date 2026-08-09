@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 文件节点（表单组件）
  *
  * @path apps\nextwiki-web\src\views\file\file-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 文件节点（表单组件）
  * <p>文件/文件夹的创建/编辑表单。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { FileApi } from '#/api/file';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createFileApi, updateFileApi } from '#/api/file';

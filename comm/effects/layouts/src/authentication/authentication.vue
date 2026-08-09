@@ -1,14 +1,14 @@
-<!--
+﻿<!--
  * authentication 布局组件 - 现代化登录布局
  *
  * @path comm\effects\layouts\src\authentication\authentication.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { ToolbarType } from "./types";
 
-import { preferences, usePreferences } from "@remi/preferences";
+import { preferences, usePreferences } from "@ydsz/preferences";
 
 import { Copyright } from "../basic/copyright";
 import AuthenticationFormView from "./form.vue";

@@ -1,11 +1,11 @@
-/**
+﻿/**
  * find-menu-by-path 工具函数模块
  *
  * @path comm\utils\src\helpers\find-menu-by-path.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { MenuRecordRaw } from '@remi-core/typings';
+import type { MenuRecordRaw } from '@YDSZ-core/typings';
 
 function findMenuByPath(
   list: MenuRecordRaw[],

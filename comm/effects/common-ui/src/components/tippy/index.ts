@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\effects\common-ui\src\components\tippy\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { DefaultProps, Props } from 'tippy.js';
@@ -12,7 +12,7 @@ import type { App, SetupContext } from 'vue';
 import { h, watchEffect } from 'vue';
 import { setDefaultProps, Tippy as TippyComponent } from 'vue-tippy';
 
-import { usePreferences } from '@remi-core/preferences';
+import { usePreferences } from '@YDSZ-core/preferences';
 
 import useTippyDirective from './directive';
 

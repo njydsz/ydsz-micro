@@ -1,13 +1,13 @@
-/**
+﻿/**
  * load 模块
  *
  * @path comm\icons\src\svg\load.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { IconifyIconStructure } from '@remi-core/icons';
+import type { IconifyIconStructure } from '@YDSZ-core/icons';
 
-import { addIcon } from '@remi-core/icons';
+import { addIcon } from '@YDSZ-core/icons';
 
 let loaded = false;
 if (!loaded) {

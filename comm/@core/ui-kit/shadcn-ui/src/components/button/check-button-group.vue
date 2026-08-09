@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * check-button-group 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\check-button-group.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -12,8 +12,8 @@ import type { REMIButtonGroupProps, ValueType } from './button';
 
 import { computed, ref, watch } from 'vue';
 
-import { Circle, CircleCheckBig, LoaderCircle } from '@remi-core/icons';
-import { cn, isFunction } from '@remi-core/shared/utils';
+import { Circle, CircleCheckBig, LoaderCircle } from '@YDSZ-core/icons';
+import { cn, isFunction } from '@YDSZ-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 
@@ -115,7 +115,7 @@ async function onBtnClick(value: ValueType) {
   <REMIButtonGroup
     :size="props.size"
     :gap="props.gap"
-    class="remi-check-button-group"
+    class="YDSZ-check-button-group"
   >
     <Button
       v-for="(btn, index) in props.options"
@@ -152,7 +152,7 @@ async function onBtnClick(value: ValueType) {
   </REMIButtonGroup>
 </template>
 <style lang="scss" scoped>
-.remi-check-button-group {
+.YDSZ-check-button-group {
   display: flex;
   flex-wrap: wrap;
 

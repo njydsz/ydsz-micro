@@ -1,11 +1,11 @@
-/**
+﻿/**
  * user Pinia 状态管理
  *
  * @path comm\stores\src\modules\user.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { BasicUserInfo } from '@remi-core/typings';
+import type { BasicUserInfo } from '@YDSZ-core/typings';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 

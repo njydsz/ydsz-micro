@@ -1,20 +1,20 @@
-<!--
+﻿<!--
  * lock-screen 布局组件
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\lock-screen.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 
-import { LockKeyhole } from '@remi/icons';
-import { $t, useI18n } from '@remi/locales';
-import { storeToRefs, useTokenStore } from '@remi/stores';
+import { LockKeyhole } from '@ydsz/icons';
+import { $t, useI18n } from '@ydsz/locales';
+import { storeToRefs, useTokenStore } from '@ydsz/stores';
 
-import { useScrollLock } from '@remi-core/composables';
-import { useREMIForm, z } from '@remi-core/form-ui';
-import { REMIAvatar, REMIButton } from '@remi-core/shadcn-ui';
+import { useScrollLock } from '@YDSZ-core/composables';
+import { useREMIForm, z } from '@YDSZ-core/form-ui';
+import { REMIAvatar, REMIButton } from '@YDSZ-core/shadcn-ui';
 
 import { useDateFormat, useNow } from '@vueuse/core';
 

@@ -1,25 +1,25 @@
-<!--
+﻿<!--
  * 数据分析仪表盘页面 — 展示概览指标、流量趋势、月访问量、访问来源等统计图表
  *
  * @path main\src\views\dashboard\analytics\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { AnalysisOverviewItem } from '@remi/common-ui';
-import type { TabOption } from '@remi/types';
+import type { AnalysisOverviewItem } from '@ydsz/common-ui';
+import type { TabOption } from '@ydsz/types';
 
 import {
   AnalysisChartCard,
   AnalysisChartsTabs,
   AnalysisOverview,
-} from '@remi/common-ui';
+} from '@ydsz/common-ui';
 import {
   SvgBellIcon,
   SvgCakeIcon,
   SvgCardIcon,
   SvgDownloadIcon,
-} from '@remi/icons';
+} from '@ydsz/icons';
 
 import AnalyticsTrends from './analytics-trends.vue';
 import AnalyticsVisitsData from './analytics-visits-data.vue';

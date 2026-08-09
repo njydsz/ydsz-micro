@@ -1,14 +1,14 @@
-/**
+﻿/**
  * 核心路由配置（根路由 + 404 兜底）
  *
  * @path main\src\router\routes\core.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import { LOGIN_PATH } from '@remi/constants';
-import { preferences } from '@remi/preferences';
+import { LOGIN_PATH } from '@ydsz/constants';
+import { preferences } from '@ydsz/preferences';
 
 import { $t } from '#/locales';
 

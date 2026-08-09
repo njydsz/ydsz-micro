@@ -1,12 +1,12 @@
-{
-  "name": "@remi/tailwind-config",
+﻿{
+  "name": "@ydsz/tailwind-config",
   "version": "5.5.9",
   "private": true,
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
     "directory": "conf/tailwind-config"
   },
   "license": "MIT",

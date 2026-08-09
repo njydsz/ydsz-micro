@@ -1,8 +1,8 @@
-/**
+﻿/**
  * dict store 单元测试
  *
  * @path comm\stores\src\modules\dict.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';

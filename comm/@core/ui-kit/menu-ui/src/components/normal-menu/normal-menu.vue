@@ -1,17 +1,17 @@
-<!--
+﻿<!--
  * normal-menu 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\normal-menu\normal-menu.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@remi-core/typings';
+import type { MenuRecordRaw } from '@YDSZ-core/typings';
 
 import type { NormalMenuProps } from './normal-menu';
 
-import { useNamespace } from '@remi-core/composables';
-import { REMIIcon } from '@remi-core/shadcn-ui';
+import { useNamespace } from '@YDSZ-core/composables';
+import { REMIIcon } from '@YDSZ-core/shadcn-ui';
 
 interface Props extends NormalMenuProps {}
 
@@ -65,7 +65,7 @@ function menuIcon(menu: MenuRecordRaw) {
   </ul>
 </template>
 <style lang="scss" scoped>
-$namespace: remi;
+$namespace: YDSZ;
 
 .#{$namespace}-normal-menu {
   --menu-item-margin-y: 4px;

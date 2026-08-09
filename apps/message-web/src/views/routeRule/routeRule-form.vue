@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 消息路由规则表单组件
  *
  * @path apps\message-web\src\views\routeRule\routeRule-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 消息路由（表单组件）
  * <p>消息路由规则的编辑表单，支持按租户/部门/用户/优先级路由。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteRuleApi } from '#/api/routeRule';
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createRouteRuleApi, updateRouteRuleApi } from '#/api/routeRule';

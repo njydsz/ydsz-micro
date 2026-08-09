@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 规则断点调试管理列表页面
  *
  * @path apps\literule-web\src\views\breakpoint\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 规则断点（列表页）
  * <p>规则断点调试的列表页。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteBreakpointApi, getBreakpointPageApi, type BreakpointApi } from '#/api/breakpoint';

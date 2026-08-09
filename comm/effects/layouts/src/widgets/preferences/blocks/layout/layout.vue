@@ -1,21 +1,21 @@
-<!--
+﻿<!--
  * layout 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\layout.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { Component } from 'vue';
 
-import type { LayoutType } from '@remi/types';
+import type { LayoutType } from '@ydsz/types';
 
 import { computed } from 'vue';
 
-import { CircleHelp } from '@remi/icons';
-import { $t } from '@remi/locales';
+import { CircleHelp } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 
-import { REMITooltip } from '@remi-core/shadcn-ui';
+import { REMITooltip } from '@YDSZ-core/shadcn-ui';
 
 import {
   FullContent,

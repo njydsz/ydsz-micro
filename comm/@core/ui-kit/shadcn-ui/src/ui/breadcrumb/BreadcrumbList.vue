@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * BreadcrumbList Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\BreadcrumbList.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 const props = defineProps<{
   class?: any;

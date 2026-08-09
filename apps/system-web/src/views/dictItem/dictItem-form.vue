@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 字典项表单组件 — 支持新增/编辑字典项枚举值
  *
  * @path apps\system-web\src\views\dictItem\dictItem-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 字典项（表单组件）
  * <p>字典项的创建/编辑表单。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { DictitemApi } from '#/api/dictItem';
 
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

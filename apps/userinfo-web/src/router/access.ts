@@ -1,19 +1,19 @@
-/**
+﻿/**
  * 路由权限生成器
  * <p>根据用户角色/权限码动态生成可访问路由表。
  * <p>提供 {@code generateAccess} 异步方法，从后端拉取菜单、构建路由、注册到 router。
  * <p>支持前端静态路由 + 后端动态路由混合模式。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
-} from '@remi/types';
+} from '@ydsz/types';
 
-import { generateAccessible } from '@remi/access';
-import { preferences } from '@remi/preferences';
+import { generateAccessible } from '@ydsz/access';
+import { preferences } from '@ydsz/preferences';
 
 import { ElMessage } from 'element-plus';
 

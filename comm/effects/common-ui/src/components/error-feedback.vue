@@ -1,11 +1,11 @@
-<!--
+﻿<!--
  * 错误反馈组件 — 集成 Sentry 用户反馈弹窗
  *
  * 在错误页面（500/未捕获异常）中展示，允许用户附加描述后提交反馈到 Sentry。
  * 配合 Sentry 的 `beforeSend` 钩子，用户反馈会与错误事件关联便于问题追踪。
  *
  * @path comm/effects/common-ui/src/components/error-feedback.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
 -->
 <script lang="ts" setup>
@@ -17,10 +17,10 @@ import {
   MessageCircle,
   Send,
   X,
-} from "@remi/icons";
-import { isSentryInitialized } from "@remi/monitor/sentry";
+} from "@ydsz/icons";
+import { isSentryInitialized } from "@ydsz/monitor/sentry";
 
-import { REMIButton } from "@remi-core/shadcn-ui";
+import { REMIButton } from "@YDSZ-core/shadcn-ui";
 import {
   Dialog,
   DialogContent,
@@ -29,8 +29,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@remi-core/shadcn-ui/ui/dialog";
-import { Textarea } from "@remi-core/shadcn-ui/ui/textarea";
+} from "@YDSZ-core/shadcn-ui/ui/dialog";
+import { Textarea } from "@YDSZ-core/shadcn-ui/ui/textarea";
 
 /**
  * 组件属性

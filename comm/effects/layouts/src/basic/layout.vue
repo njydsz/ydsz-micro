@@ -1,31 +1,31 @@
-<!--
+﻿<!--
  * layout 布局组件
  *
  * @path comm\effects\layouts\src\basic\layout.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { SetupContext } from 'vue';
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
-import type { MenuRecordRaw } from '@remi/types';
+import type { MenuRecordRaw } from '@ydsz/types';
 
 import { computed, onMounted, useSlots, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { useRefresh } from '@remi/hooks';
-import { $t, i18n } from '@remi/locales';
+import { useRefresh } from '@ydsz/hooks';
+import { $t, i18n } from '@ydsz/locales';
 import {
   preferences,
   updatePreferences,
   usePreferences,
-} from '@remi/preferences';
-import { useAccessStore } from '@remi/stores';
-import { cloneDeep, mapTree } from '@remi/utils';
+} from '@ydsz/preferences';
+import { useAccessStore } from '@ydsz/stores';
+import { cloneDeep, mapTree } from '@ydsz/utils';
 
-import { REMIAdminLayout } from '@remi-core/layout-ui';
-import { REMILogo } from '@remi-core/shadcn-ui';
+import { REMIAdminLayout } from '@YDSZ-core/layout-ui';
+import { REMILogo } from '@YDSZ-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';

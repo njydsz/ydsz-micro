@@ -1,25 +1,25 @@
-/**
+﻿/**
  * 轻量级日志工具 — 控制台噪音收敛
  *
  * 设计目标：
  *   1. 生产环境默认只输出 warn/error，开发环境输出全部
- *   2. 支持按模块名过滤（debug 风格）：`localStorage.setItem('remi:debug', 'MicroKernel*,ImportMap*')`
+ *   2. 支持按模块名过滤（debug 风格）：`localStorage.setItem('YDSZ:debug', 'MicroKernel*,ImportMap*')`
  *   3. 禁用的日志调用为零开销（编译期或运行期 no-op），不影响性能
  *   4. API 与 console 对齐，迁移成本低
  *
  * 使用方式：
- *   import { createLogger } from '@remi-core/shared/utils';
+ *   import { createLogger } from '@YDSZ-core/shared/utils';
  *   const logger = createLogger('MicroKernel');
  *   logger.info('Started with', apps.length, 'apps');  // 开发环境输出
  *   logger.warn('Already started');                    // 始终输出
  *
  * 调试过滤：
- *   localStorage.setItem('remi:debug', 'MicroKernel:*')  // 仅 MicroKernel 模块
- *   localStorage.setItem('remi:debug', '*')                // 全部模块 debug 级别
- *   localStorage.setItem('remi:debug', '-MicroKernel:*')  // 排除 MicroKernel
+ *   localStorage.setItem('YDSZ:debug', 'MicroKernel:*')  // 仅 MicroKernel 模块
+ *   localStorage.setItem('YDSZ:debug', '*')                // 全部模块 debug 级别
+ *   localStorage.setItem('YDSZ:debug', '-MicroKernel:*')  // 排除 MicroKernel
  *
  * @path comm/@core/base/shared/src/utils/logger.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 
@@ -64,7 +64,7 @@ let globalConfig: LoggerConfig = {
 let initialized = false;
 
 /** 默认前缀（与 namespace 分隔） */
-const PREFIX_BRAND = '[remi]';
+const PREFIX_BRAND = '[YDSZ]';
 
 /**
  * 初始化日志配置。
@@ -84,7 +84,7 @@ export function initLogger(options?: {
 
   // 读取调试过滤（仅在浏览器环境）
   if (typeof localStorage !== 'undefined') {
-    const filter = localStorage.getItem('remi:debug');
+    const filter = localStorage.getItem('YDSZ:debug');
     if (filter) {
       const { include, exclude } = parseDebugFilter(filter);
       globalConfig.debugFilter = include;

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 角色表单组件 — 支持新增/编辑角色信息及权限分配
  *
  * @path apps\userinfo-web\src\views\system\role\role-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 角色（表单组件）
  * <p>角色的创建/编辑表单，包含权限分配。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RoleApi } from '#/api/role';
 
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

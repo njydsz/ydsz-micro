@@ -1,8 +1,8 @@
-/**
+﻿/**
  * Vue 组合式 API — 跨标签页状态同步
  *
  * 使用方式：
- *   const theme = useCrossTabState('remi-app', 'theme', 'light');
+ *   const theme = useCrossTabState('YDSZ-app', 'theme', 'light');
  *   theme.value = 'dark';  // 自动广播到其它标签页
  *
  * 设计要点：
@@ -12,7 +12,7 @@
  *   - onScopeDispose 自动取消订阅，无需手动清理
  *
  * @path comm/@core/composables/src/use-cross-tab-state.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Ref } from 'vue';
@@ -21,7 +21,7 @@ import { onScopeDispose, ref } from 'vue';
 import {
   BroadcastChannelManager,
   type BroadcastListener,
-} from '@remi-core/shared/cache';
+} from '@YDSZ-core/shared/cache';
 
 /** 已初始化的通道注册表：channelName → BroadcastChannelManager */
 const channelMap = new Map<string, BroadcastChannelManager>();
@@ -78,7 +78,7 @@ function releaseChannel(channelName: string): void {
  * @param initialValue 初始值（首次创建时使用）
  *
  * @example
- * const theme = useCrossTabState('remi', 'theme', 'light');
+ * const theme = useCrossTabState('YDSZ', 'theme', 'light');
  * theme.value = 'dark';  // 其它标签页的 theme 自动同步为 'dark'
  */
 export function useCrossTabState<T>(

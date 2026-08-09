@@ -1,4 +1,4 @@
-module.exports = {
+﻿module.exports = {
   ci: {
     collect: {
       // 采集配置
@@ -8,8 +8,8 @@ module.exports = {
       numberOfRuns: 3,
       url: [
         'http://localhost:4173/',
-        'http://localhost:4173/remi-proj/',
-        'http://localhost:4173/remi-user/',
+        'http://localhost:4173/YDSZ-proj/',
+        'http://localhost:4173/YDSZ-user/',
       ],
       settings: {
         // 模拟移动设备

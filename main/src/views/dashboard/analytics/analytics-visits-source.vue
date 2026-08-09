@@ -1,16 +1,16 @@
-<!--
+﻿<!--
  * analytics-visits-source 页面组件
  *
  * @path main\src\views\dashboard\analytics\analytics-visits-source.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { EchartsUIType } from '@remi/plugins/echarts';
+import type { EchartsUIType } from '@ydsz/plugins/echarts';
 
 import { onMounted, ref } from 'vue';
 
-import { EchartsUI, useEcharts } from '@remi/plugins/echarts';
+import { EchartsUI, useEcharts } from '@ydsz/plugins/echarts';
 
 const chartRef = ref<EchartsUIType>();
 const { renderEcharts } = useEcharts(chartRef);

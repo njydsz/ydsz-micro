@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * TabsContent Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\tabs\TabsContent.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { TabsContentProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { TabsContent } from 'radix-vue';
 

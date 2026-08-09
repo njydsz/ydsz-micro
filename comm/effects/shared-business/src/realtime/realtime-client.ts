@@ -1,8 +1,8 @@
-/**
+﻿/**
  * realtime 客户端 — WebSocket/SSE 统一实时通信封装
  *
  * @path comm\effects\shared-business\src\realtime\realtime-client.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

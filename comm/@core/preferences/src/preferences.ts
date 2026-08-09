@@ -1,18 +1,18 @@
-/**
+﻿/**
  * 应用偏好配置
  *
  * @path comm\@core\preferences\src\preferences.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { DeepPartial } from '@remi-core/typings';
+import type { DeepPartial } from '@YDSZ-core/typings';
 
 import type { InitialOptions, Preferences } from './types';
 
 import { markRaw, reactive, readonly, watch } from 'vue';
 
-import { StorageManager } from '@remi-core/shared/cache';
-import { isMacOs, merge } from '@remi-core/shared/utils';
+import { StorageManager } from '@YDSZ-core/shared/cache';
+import { isMacOs, merge } from '@YDSZ-core/shared/utils';
 
 import {
   breakpointsTailwind,

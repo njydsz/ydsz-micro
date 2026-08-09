@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 配置模块
  *
  * @path conf\vite-config\src\plugins\inject-app-loading\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { PluginOption } from 'vite';
@@ -12,7 +12,7 @@ import fsp from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { readPackageJSON } from '@remi/node-utils';
+import { readPackageJSON } from '@ydsz/node-utils';
 
 /**
  * 将统一的应用启动 loading 样式/脚本注入 HTML，免去各 app 单独维护。

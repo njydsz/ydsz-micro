@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 系统变量表单组件 — 支持新增/编辑系统变量，支持加密存储
  *
  * @path apps\system-web\src\views\variable\variable-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 系统变量（表单组件）
  * <p>系统变量的编辑表单，支持加密存储。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { VariableApi } from '#/api/variable';
 
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

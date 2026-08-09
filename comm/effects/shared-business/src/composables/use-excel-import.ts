@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-excel-import 组合式函数 — 统一 Excel 导入
  *
  * @path comm\effects\shared-business\src\composables\use-excel-import.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

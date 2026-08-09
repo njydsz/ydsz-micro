@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-excel-export 组合式函数 — 统一 Excel 导出
  *
  * @path comm\effects\shared-business\src\composables\use-excel-export.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

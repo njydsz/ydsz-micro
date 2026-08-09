@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * empty-icon Vue 组件
  *
  * @path comm\icons\src\icons\empty-icon.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <template>

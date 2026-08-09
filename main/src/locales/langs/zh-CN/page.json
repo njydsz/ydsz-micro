@@ -1,4 +1,4 @@
-{
+﻿{
   "auth": {
     "login": "登录",
     "register": "注册",
@@ -7,7 +7,7 @@
     "forgetPassword": "忘记密码"
   },
   "dashboard": {
-    "title": "REMI 项目管理平台",
+    "title": "YDSZ 项目管理平台",
     "analytics": "数据分析",
     "workspace": "工作台"
   },

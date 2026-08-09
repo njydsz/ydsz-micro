@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 类型安全的全局状态。
  *
  * 替代 qiankun initGlobalState（any 广播），提供类型化 get/set/subscribe。
@@ -10,7 +10,7 @@
  * - 敏感数据应使用 SecureLS 或 Pinia persist 的加密存储
  *
  * @path comm/effects/micro-runtime/src/global-state.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 

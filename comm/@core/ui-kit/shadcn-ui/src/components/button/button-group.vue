@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * button-group 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button-group.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@remi-core/shared/utils';
+import { cn } from '@YDSZ-core/shared/utils';
 
 defineOptions({ name: 'REMIButtonGroup' });
 
@@ -23,7 +23,7 @@ withDefaults(
   <div
     :class="
       cn(
-        'remi-button-group rounded-md',
+        'YDSZ-button-group rounded-md',
         `size-${size}`,
         gap ? 'with-gap' : 'no-gap',
         $attrs.class as string,
@@ -36,7 +36,7 @@ withDefaults(
 </template>
 
 <style lang="scss" scoped>
-.remi-button-group {
+.YDSZ-button-group {
   display: inline-flex;
 
   &.size-large :deep(button) {

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * login-expired-modal Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\login-expired-modal.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,10 +10,10 @@ import type { AuthenticationProps } from './types';
 
 import { computed, watch } from 'vue';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
-import { useREMIModal } from '@remi-core/popup-ui';
-import { REMIAvatar, Slot } from '@remi-core/shadcn-ui';
+import { useREMIModal } from '@YDSZ-core/popup-ui';
+import { REMIAvatar, Slot } from '@YDSZ-core/shadcn-ui';
 
 interface Props extends AuthenticationProps {
   avatar?: string;

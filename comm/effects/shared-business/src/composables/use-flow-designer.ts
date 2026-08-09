@@ -1,8 +1,8 @@
-/**
+﻿/**
  * use-flow-designer 组合式函数 — 工作流设计器辅助能力
  *
  * @path comm\effects\shared-business\src\composables\use-flow-designer.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks

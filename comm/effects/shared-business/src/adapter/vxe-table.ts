@@ -1,18 +1,18 @@
-/**
+﻿/**
  * vxe-table 适配器模块（公共包）
  *
- * 由各子应用 @remi/shared-business 统一复用，消除 9 份重复代码。
+ * 由各子应用 @ydsz/shared-business 统一复用，消除 9 份重复代码。
  * 子应用如需扩展自定义 renderer，可在此文件内补充，或复制为应用级 adapter。
  *
  * @path comm\effects\shared-business\src\adapter\vxe-table.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  */
-import type { VxeTableGridOptions } from '@remi/plugins/vxe-table';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { h } from 'vue';
 
-import { setupREMIVxeTable, useREMIVxeGrid } from '@remi/plugins/vxe-table';
+import { setupREMIVxeTable, useREMIVxeGrid } from '@ydsz/plugins/vxe-table';
 
 import { ElButton, ElImage } from 'element-plus';
 
@@ -77,4 +77,4 @@ setupREMIVxeTable({
 
 export { useREMIVxeGrid };
 
-export type * from '@remi/plugins/vxe-table';
+export type * from '@ydsz/plugins/vxe-table';

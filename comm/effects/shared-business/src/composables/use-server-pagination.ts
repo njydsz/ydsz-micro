@@ -1,13 +1,13 @@
-/**
+﻿/**
  * use-server-pagination 组合式函数 — 服务端分页
  *
  * @path comm\effects\shared-business\src\composables\use-server-pagination.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  *
  * @remarks
  * 管理服务端分页状态（pageNum/pageSize/total），提供查询参数合并。
- * 相比 @remi/hooks 的 usePagination（仅前端切片），本 Hook 面向服务端分页场景。
+ * 相比 @ydsz/hooks 的 usePagination（仅前端切片），本 Hook 面向服务端分页场景。
  */
 import { computed, reactive, ref, unref, type Ref } from 'vue';
 

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * config 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\config.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { Component } from 'vue';
@@ -22,8 +22,8 @@ import {
   REMIInputPassword,
   REMIPinInput,
   REMISelect,
-} from '@remi-core/shadcn-ui';
-import { globalShareState } from '@remi-core/shared/global-state';
+} from '@YDSZ-core/shadcn-ui';
+import { globalShareState } from '@YDSZ-core/shared/global-state';
 
 import { defineRule } from 'vee-validate';
 

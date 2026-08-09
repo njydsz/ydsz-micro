@@ -1,8 +1,8 @@
-/**
+﻿/**
  * merge 工具函数模块
  *
  * @path comm\@core\base\shared\src\utils\merge.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { createDefu } from 'defu';

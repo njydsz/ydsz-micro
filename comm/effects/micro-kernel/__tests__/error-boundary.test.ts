@@ -1,8 +1,8 @@
-/**
+﻿/**
  * error-boundary 模块单元测试
  *
  * @path comm/effects/micro-kernel/__tests__/error-boundary.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 import { beforeEach, describe, expect, it } from 'vitest';

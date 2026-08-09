@@ -1,8 +1,8 @@
-/**
+﻿/**
  * button 模块 - 现代化按钮样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\button.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { cva } from "class-variance-authority";

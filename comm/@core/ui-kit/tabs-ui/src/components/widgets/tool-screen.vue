@@ -1,12 +1,12 @@
-<!--
+﻿<!--
  * tool-screen 通用组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\widgets\tool-screen.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Fullscreen, Minimize2 } from '@remi-core/icons';
+import { Fullscreen, Minimize2 } from '@YDSZ-core/icons';
 
 const screen = defineModel<boolean>('screen');
 

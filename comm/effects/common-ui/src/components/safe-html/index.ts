@@ -1,4 +1,4 @@
-/**
+﻿/**
  * v-safe-html 指令 — DOMPurify 式白名单消毒
  *
  * 替代全局 5 处裸 v-html，防御 XSS。
@@ -9,7 +9,7 @@
  * 模板：<div v-safe-html="htmlContent"></div>
  *
  * @path comm/effects/common-ui/src/components/safe-html/index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 

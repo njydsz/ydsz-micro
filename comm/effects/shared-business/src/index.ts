@@ -1,5 +1,5 @@
-/**
- * @remi/shared-business — 跨子应用共享的业务组件包
+﻿/**
+ * @ydsz/shared-business — 跨子应用共享的业务组件包
  *
  * 消除各子应用中重复的业务 UI 组件，如：
  * - 状态徽章（项目阶段、任务状态、审批状态）
@@ -135,7 +135,7 @@ export {
 
 // ===== 统一适配器（消除 9 个子应用的重复代码） =====
 export {
-  initSetupREMIForm,
+  initSetupYDSZForm,
   useREMIForm,
   z,
   type REMIFormProps,

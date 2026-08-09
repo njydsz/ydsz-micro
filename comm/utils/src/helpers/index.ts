@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 工具函数模块
  *
  * @path comm\utils\src\helpers\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export * from './find-menu-by-path';

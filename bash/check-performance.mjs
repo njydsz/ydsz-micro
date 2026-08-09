@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 
 /**
  * 性能预算检查脚本
@@ -6,7 +6,7 @@
  * 运行 Lighthouse CI 并检查性能预算，超标时发送告警
  *
  * @path bash/check-performance.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

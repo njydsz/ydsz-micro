@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 路由预测引擎（P1-2）
  *
  * 基于马尔可夫链的一阶转移概率模型，根据用户历史导航序列预测下一步最可能访问的子应用。
@@ -16,11 +16,11 @@
  * - bootstrap.ts 在 router.afterEach 中调用 getRoutePredictor().predict(currentApp)
  *
  * @path comm/effects/micro-kernel/src/route-predictor.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 
-import { createLogger } from '@remi-core/shared/utils';
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 const logger = createLogger('RoutePredictor');
 

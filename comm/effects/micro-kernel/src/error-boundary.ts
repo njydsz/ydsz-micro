@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 轻内核错误边界
  *
  * - loadApp 失败 → 渲染降级 UI 到容器
@@ -8,12 +8,12 @@
  * 防止 config.name / config.entry / config.activeRule 含恶意字符导致 XSS。
  *
  * @path comm/effects/micro-kernel/src/error-boundary.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.0.0
  */
 
-import type { MicroAppConfig } from '@remi/micro-runtime';
-import { createLogger } from '@remi-core/shared/utils';
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');
@@ -77,7 +77,7 @@ export class KernelError extends Error {
 function getLocaleFromStorage(): string {
   try {
     // 与 main/src/preferences 中 localStorage key 约定对齐
-    const stored = localStorage.getItem('remi:preferences');
+    const stored = localStorage.getItem('YDSZ:preferences');
     if (stored) {
       const prefs = JSON.parse(stored);
       if (prefs?.app?.locale) return prefs.app.locale;

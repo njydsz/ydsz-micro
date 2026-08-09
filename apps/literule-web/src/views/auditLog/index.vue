@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 规则审计日志查询列表页面
  *
  * @path apps\literule-web\src\views\auditLog\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 规则审计日志（列表页）
  * <p>规则审计日志的查询页，记录发布/版本/A/B 分流/灰度/回滚等关键事件。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteAuditLogApi, getAuditLogPageApi, type AuditLogApi } from '#/api/auditLog';

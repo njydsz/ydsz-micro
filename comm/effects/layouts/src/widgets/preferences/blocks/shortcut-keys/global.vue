@@ -1,15 +1,15 @@
-<!--
+﻿<!--
  * global 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\shortcut-keys\global.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { $t } from '@remi/locales';
-import { isWindowsOs } from '@remi/utils';
+import { $t } from '@ydsz/locales';
+import { isWindowsOs } from '@ydsz/utils';
 
 import SwitchItem from '../switch-item.vue';
 

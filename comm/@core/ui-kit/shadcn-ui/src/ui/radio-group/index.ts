@@ -1,8 +1,8 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\radio-group\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export { default as RadioGroup } from './RadioGroup.vue';

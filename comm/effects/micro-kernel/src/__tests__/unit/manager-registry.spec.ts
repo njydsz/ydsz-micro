@@ -1,11 +1,11 @@
-/**
+﻿/**
  * ManagerRegistry 统一生命周期管理单元测试
  *
  * 验证 P0-A1 落地：10 个管理器全部被 ManagerRegistry 统一 dispose，
  * 且 disposeAll 按注册逆序释放（被依赖管理器先释放）。
  *
  * @path comm/effects/micro-kernel/src/__tests__/unit/manager-registry.spec.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.1.0
  */
 

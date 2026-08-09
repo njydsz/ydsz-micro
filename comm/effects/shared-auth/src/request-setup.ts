@@ -1,10 +1,10 @@
-/**
+﻿/**
  * request-setup — 延迟初始化的 requestClient/baseRequestClient
  *
  * 子应用在 main.ts 的 mount() 阶段调用 initSharedRequest() 注入回调后，
  * 本模块导出的 requestClient / baseRequestClient 才可安全使用。
  */
-import type { RequestClient } from '@remi/request';
+import type { RequestClient } from '@ydsz/request';
 
 import { createSharedBaseClient, createSharedRequestClient } from './request';
 

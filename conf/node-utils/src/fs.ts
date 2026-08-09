@@ -1,8 +1,8 @@
-/**
+﻿/**
  * fs 配置模块
  *
  * @path conf\node-utils\src\fs.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { promises as fs } from 'node:fs';

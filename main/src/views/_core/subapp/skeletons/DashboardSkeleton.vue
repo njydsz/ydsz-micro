@@ -1,10 +1,10 @@
-<!--
+﻿<!--
  仪表盘骨架屏组件
 
  适用于仪表盘页面的加载骨架屏，包含统计卡片和图表区域。
 
  @path main/src/views/_core/subapp/skeletons/DashboardSkeleton.vue
- @author remi-team
+ @author ydsz-team
  @since 1.0.0
 -->
 <template>

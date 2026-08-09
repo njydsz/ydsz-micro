@@ -1,8 +1,8 @@
-/**
+﻿/**
  * 功能开关类型定义
  *
  * @path comm/@core/feature-flags/src/types.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

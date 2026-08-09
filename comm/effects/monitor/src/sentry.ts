@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sentry 上报适配层（P0-3）
  *
  * 设计目标：
@@ -14,7 +14,7 @@
  *
  * 使用方式：
  * ```ts
- * import { initSentry } from '@remi/monitor/sentry';
+ * import { initSentry } from '@ydsz/monitor/sentry';
  *
  * // 在 bootstrap 中调用
  * if (import.meta.env.VITE_SENTRY_DSN) {
@@ -28,7 +28,7 @@
  * ```
  *
  * @path comm/effects/monitor/src/sentry.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 
@@ -74,7 +74,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
   } catch {
     console.warn(
       "[Monitor] @sentry/vue not installed; Sentry forwarding disabled. " +
-        "To enable: pnpm add @sentry/vue --filter @remi/monitor",
+        "To enable: pnpm add @sentry/vue --filter @ydsz/monitor",
     );
     return false;
   }

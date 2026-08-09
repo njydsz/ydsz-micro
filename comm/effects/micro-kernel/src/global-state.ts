@@ -1,4 +1,4 @@
-/**
+﻿/**
  * global-state.ts — 全局状态 (globalState) 纯内存 pub-sub 实现
  *
  * 从 kernel.ts 提取的 RawGlobalStateAPI 实现，消除闭包内状态对 createKernel
@@ -12,11 +12,11 @@
  *   api.setGlobalState({ theme: 'dark' });
  *
  * @path comm/effects/micro-kernel/src/global-state.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.1.0
  */
 
-import type { RawGlobalStateAPI } from '@remi/micro-runtime';
+import type { RawGlobalStateAPI } from '@ydsz/micro-runtime';
 import { mark } from './performance-utils';
 
 /**

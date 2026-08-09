@@ -1,5 +1,5 @@
-{
-  "name": "@remi/monitor",
+﻿{
+  "name": "@ydsz/monitor",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -14,9 +14,9 @@
     }
   },
   "dependencies": {
-    "@remi/hooks": "workspace:*",
-    "@remi/preferences": "workspace:*",
-    "@remi/request": "workspace:*",
+    "@ydsz/hooks": "workspace:*",
+    "@ydsz/preferences": "workspace:*",
+    "@ydsz/request": "workspace:*",
     "vue": "catalog:"
   },
   "license": "MIT"

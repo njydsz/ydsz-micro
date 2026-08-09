@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 视觉回归测试 — 核心页面截图基线
  *
  * 首次运行生成基线快照（e2e/visual-regression.spec.ts-snapshots/），
@@ -6,7 +6,7 @@
  *
  * 更新基线：pnpm exec playwright test --update-snapshots
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 3.1.0
  */
 import { test, expect } from '@playwright/test';

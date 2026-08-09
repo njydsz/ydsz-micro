@@ -1,8 +1,8 @@
-/**
+﻿/**
  * drawer-api 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\drawer-api.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { DrawerApiOptions, DrawerState } from './drawer';

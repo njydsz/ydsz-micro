@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * slider-captcha-content 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-captcha\slider-captcha-content.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, useTemplateRef } from 'vue';
 
-import { REMISpineText } from '@remi-core/shadcn-ui';
+import { REMISpineText } from '@YDSZ-core/shadcn-ui';
 
 const props = defineProps<{
   contentStyle: CSSProperties;

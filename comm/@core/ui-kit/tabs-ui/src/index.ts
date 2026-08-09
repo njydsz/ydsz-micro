@@ -1,10 +1,10 @@
-/**
+﻿/**
  * index 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 export * from './components/widgets';
 export { default as TabsView } from './tabs-view.vue';
-export type { IContextMenuItem } from '@remi-core/shadcn-ui';
+export type { IContextMenuItem } from '@YDSZ-core/shadcn-ui';

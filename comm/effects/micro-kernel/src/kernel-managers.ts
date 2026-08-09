@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 微内核统一管理器工厂聚合
  *
  * P0-A1: 为 ManagerRegistry 提供全部 9 个管理器的 DisposableManager 工厂函数。
@@ -18,7 +18,7 @@
  * 10. devtools-panel — 开发态面板 DOM + 刷新定时器
  *
  * @path comm/effects/micro-kernel/src/kernel-managers.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.1.0
  */
 

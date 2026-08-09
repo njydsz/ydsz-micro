@@ -1,11 +1,11 @@
-/**
+﻿/**
  * 用户行为面包屑（Breadcrumb）— 错误发生前的用户操作轨迹
  *
  * 记录最近 N 条用户行为（点击、路由跳转、HTTP 请求、自定义事件），
  * 在错误上报时附带，便于复现错误发生路径。对标 Sentry breadcrumb。
  *
  * @path comm/effects/monitor/src/breadcrumb.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

@@ -1,17 +1,17 @@
-<!--
+﻿<!--
  * qrcode-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\qrcode-login.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
-import { REMIButton } from '@remi-core/shadcn-ui';
+import { REMIButton } from '@YDSZ-core/shadcn-ui';
 
 import { useQRCode } from '@vueuse/integrations/useQRCode';
 
@@ -59,7 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const router = useRouter();
 
-const text = ref('https://remi.vvbin.cn');
+const text = ref('https://YDSZ.vvbin.cn');
 
 const qrcode = useQRCode(text, {
   errorCorrectionLevel: 'H',

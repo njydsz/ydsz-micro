@@ -1,4 +1,4 @@
-/**
+﻿/**
  * i18n 国际化模块单元测试
  *
  * F2 国际化按需加载改造：
@@ -7,16 +7,16 @@
  * - 空闲预加载（requestIdleCallback / setTimeout 回退）
  *
  * @path comm/locales/__tests__/i18n.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { NamespacedLocalesMap, SupportedLanguagesType } from '../src/typing';
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock @remi-core/composables 以隔离 @remi-core/shared 的预存在导入问题，
+// Mock @YDSZ-core/composables 以隔离 @YDSZ-core/shared 的预存在导入问题，
 // 仅暴露 i18n.ts 实际使用的 setSimpleLocale。
-vi.mock('@remi-core/composables', () => ({
+vi.mock('@YDSZ-core/composables', () => ({
   useSimpleLocale: () => ({
     currentLocale: { value: 'zh-CN' },
     setSimpleLocale: () => {},

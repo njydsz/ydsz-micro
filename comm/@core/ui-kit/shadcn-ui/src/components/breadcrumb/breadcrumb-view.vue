@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * breadcrumb-view 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\breadcrumb-view.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -27,17 +27,17 @@ const forward = useForwardPropsEmits(props, emit);
   <Breadcrumb
     v-if="styleType === 'normal'"
     v-bind="forward"
-    class="remi-breadcrumb"
+    class="YDSZ-breadcrumb"
   />
   <BreadcrumbBackground
     v-if="styleType === 'background'"
     v-bind="forward"
-    class="remi-breadcrumb"
+    class="YDSZ-breadcrumb"
   />
 </template>
 <style lang="scss" scoped>
 /** 修复全局引入Antd时，ol和ul的默认样式会被修改的问题 */
-.remi-breadcrumb {
+.YDSZ-breadcrumb {
   :deep(ol),
   :deep(ul) {
     margin-bottom: 0;

@@ -1,17 +1,17 @@
-# agent-web AI 助手
+﻿# agent-web AI 助手
 
-> REMI AI 助手子应用，提供 Agent 管理、审批配置、DAG 编排、流程定义与 RAG 知识库管理（对应后端：remi-agent，路由前缀：/remi-ai）
+> YDSZ AI 助手子应用，提供 Agent 管理、审批配置、DAG 编排、流程定义与 RAG 知识库管理（对应后端：YDSZ-agent，路由前缀：/YDSZ-ai）
 
 ## 应用定位
 
 | 属性 | 值 |
 |---|---|
 | **类型** | 微前端子应用 |
-| **包名** | @remi/agent-web |
-| **对应后端服务** | remi-agent |
+| **包名** | @ydsz/agent-web |
+| **对应后端服务** | YDSZ-agent |
 | **前端端口** | 5610 |
 | **后端端口** | 9008 |
-| **路由前缀** | /remi-ai |
+| **路由前缀** | /YDSZ-ai |
 | **版本** | 1.0.0 |
 
 agent-web 是 AI 智能体管理的前端载体，承接 Agent 定义与配置、人工审批节点编排、Agent DAG 工作流编排、流程定义管理以及 RAG 检索增强生成知识库管理，为业务场景提供可编排的 AI 能力接入。
@@ -23,7 +23,7 @@ agent-web/
 ├── src/
 │   ├── adapter/                  # Element Plus / VXE Table 适配器
 │   ├── api/                      # 业务 API
-│   │   └── core/                 # 认证/菜单/用户 API（复用 @remi/shared-auth）
+│   │   └── core/                 # 认证/菜单/用户 API（复用 @ydsz/shared-auth）
 │   ├── layouts/                  # 子应用基础布局
 │   ├── locales/                  # 国际化（zh-CN/en-US）
 │   ├── router/                   # 路由守卫 + 模块化路由（agent.ts）
@@ -50,14 +50,14 @@ agent-web/
 
 | 依赖包 | 作用 |
 |---|---|
-| `@remi/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
-| `@remi/shared-business` | 业务公共组件与工具 |
-| `@remi/request` | HTTP 请求客户端（Axios 封装） |
-| `@remi/access` | 权限码与路由访问控制 |
-| `@remi/layouts` | 布局组件（basic） |
-| `@remi/common-ui` | 通用 UI 组件 |
-| `@remi/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@remi/locales` | 国际化基础包 |
+| `@ydsz/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
+| `@ydsz/shared-business` | 业务公共组件与工具 |
+| `@ydsz/request` | HTTP 请求客户端（Axios 封装） |
+| `@ydsz/access` | 权限码与路由访问控制 |
+| `@ydsz/layouts` | 布局组件（basic） |
+| `@ydsz/common-ui` | 通用 UI 组件 |
+| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
+| `@ydsz/locales` | 国际化基础包 |
 | `element-plus` | UI 组件库 |
 | `pinia` | 状态管理 |
 
@@ -74,7 +74,7 @@ agent-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（remi-micro/）执行
+# 在 monorepo 根目录（ydsz-micro/）执行
 pnpm dev:agent        # 启动 AI 助手子应用（端口 5610）
 
 # 启动主应用 + 所有子应用（含 agent-web）
@@ -84,7 +84,7 @@ pnpm dev
 pnpm build:agent
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/remi-ai` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-ai` 激活本应用。
 
 ## 环境变量
 
@@ -100,7 +100,7 @@ pnpm build:agent
 
 ## 路由配置
 
-主应用通过 `/remi-ai` 前缀激活本应用，内部路由表（`src/router/routes/modules/agent.ts`）分为四组：
+主应用通过 `/YDSZ-ai` 前缀激活本应用，内部路由表（`src/router/routes/modules/agent.ts`）分为四组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|
@@ -119,13 +119,13 @@ pnpm build:agent
 | `src/views/dag/index.vue` | DAG 编排，配置节点依赖与执行顺序 |
 | `src/views/rag/index.vue` | RAG 知识库，管理文档与检索配置 |
 | `src/views/approval/index.vue` | 人工审批配置，设置审批节点与回调 |
-| `src/layouts/basic.vue` | 子应用基础布局，复用 `@remi/layouts` |
+| `src/layouts/basic.vue` | 子应用基础布局，复用 `@ydsz/layouts` |
 
 每个业务模块均包含 `index.vue`（列表页）与 `*-form.vue`（表单页）两个核心页面。
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@remi/request` 的 `requestClient`，对应后端 `/api/v1/agent/*` 端点：
+API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/agent/*` 端点：
 
 ```typescript
 // Agent 管理（src/api/agent.ts）
@@ -143,7 +143,7 @@ export function createAgentApi(data: AgentApi.AgentDTO) {
 }
 ```
 
-其他 API 模块：`definition.ts`（流程定义）、`dag.ts`（DAG 编排）、`approval.ts`（审批管理）、`rag.ts`（RAG 知识库）。认证与菜单 API 复用 `src/api/core/`（`@remi/shared-auth`）。
+其他 API 模块：`definition.ts`（流程定义）、`dag.ts`（DAG 编排）、`approval.ts`（审批管理）、`rag.ts`（RAG 知识库）。认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
 
 ## 注意事项
 
@@ -151,7 +151,7 @@ export function createAgentApi(data: AgentApi.AgentDTO) {
 2. **系统提示词安全**：`systemPrompt` 可能包含敏感指令，编辑时避免在前端日志或控制台明文输出完整提示词。
 3. **DAG 环路检测**：Agent DAG 编排需在前端做环路检测，避免循环依赖导致 Agent 执行死锁。
 4. **RAG 知识库容量**：知识库文档上传需限制单文件大小与总容量，大文件应走分片上传，避免前端内存溢出。
-5. **认证复用**：本应用依赖 `@remi/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@remi/shared-auth` 统一管理。
+5. **认证复用**：本应用依赖 `@ydsz/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@ydsz/shared-auth` 统一管理。
 
 ## 变更记录
 

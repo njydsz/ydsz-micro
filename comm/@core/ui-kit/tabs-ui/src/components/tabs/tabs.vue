@@ -1,19 +1,19 @@
-<!--
+﻿<!--
  * tabs 通用组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\tabs\tabs.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { TabDefinition } from '@remi-core/typings';
+import type { TabDefinition } from '@YDSZ-core/typings';
 
 import type { TabConfig, TabsProps } from '../../types';
 
 import { computed } from 'vue';
 
-import { Pin, X } from '@remi-core/icons';
-import { REMIContextMenu, REMIIcon } from '@remi-core/shadcn-ui';
+import { Pin, X } from '@YDSZ-core/icons';
+import { REMIContextMenu, REMIIcon } from '@YDSZ-core/shadcn-ui';
 
 interface Props extends TabsProps {}
 
@@ -23,7 +23,7 @@ defineOptions({
   inheritAttrs: false,
 });
 const props = withDefaults(defineProps<Props>(), {
-  contentClass: 'remi-tabs-content',
+  contentClass: 'YDSZ-tabs-content',
   contextMenus: () => [],
   tabs: () => [],
 });

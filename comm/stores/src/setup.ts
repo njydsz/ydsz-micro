@@ -1,8 +1,8 @@
-/**
+﻿/**
  * setup Pinia 状态管理
  *
  * @path comm\stores\src\setup.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  *
  * @important 安全提醒（v3.0）
@@ -54,7 +54,7 @@ const isHttpOnlyCookieMode: boolean =
  */
 export interface InitStoreOptions {
   /**
-   * @zh_CN 应用名,由于 @remi/stores 是公用的，后续可能有多个app，为了防止多个app缓存冲突，可在这里配置应用名,应用名将被用于持久化的前缀
+   * @zh_CN 应用名,由于 @ydsz/stores 是公用的，后续可能有多个app，为了防止多个app缓存冲突，可在这里配置应用名,应用名将被用于持久化的前缀
    */
   namespace: string;
 }

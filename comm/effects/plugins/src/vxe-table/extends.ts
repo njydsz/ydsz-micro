@@ -1,17 +1,17 @@
-/**
+﻿/**
  * extends 模块
  *
  * @path comm\effects\plugins\src\vxe-table\extends.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridProps, VxeUIExport } from 'vxe-table';
 
-import type { Recordable } from '@remi/types';
+import type { Recordable } from '@ydsz/types';
 
 import type { VxeGridApi } from './api';
 
-import { formatDate, formatDateTime, isFunction } from '@remi/utils';
+import { formatDate, formatDateTime, isFunction } from '@ydsz/utils';
 
 /**
  * 批量包装 vxe-grid 的代理请求钩子，使其自动携带搜索表单的当前值。
@@ -99,7 +99,7 @@ function extendProxyOption(
  *
  * @remarks
  * 注册后可在列配置中通过 `formatter: 'formatDate'` / `'formatDateTime'` 直接引用，
- * 分别输出日期与日期时间；具体输出格式与容错行为由 `@remi/utils` 的同名函数决定
+ * 分别输出日期与日期时间；具体输出格式与容错行为由 `@ydsz/utils` 的同名函数决定
  * （解析失败不抛异常）。
  *
  * 副作用：向 vxe-table 的**全局**格式化器注册表写入，同名注册会被后者覆盖，

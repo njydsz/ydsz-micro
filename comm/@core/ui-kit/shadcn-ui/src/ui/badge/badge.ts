@@ -1,8 +1,8 @@
-/**
+﻿/**
  * badge 模块 - 现代化徽标样式（含状态色语义）
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\badge\badge.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { VariantProps } from "class-variance-authority";

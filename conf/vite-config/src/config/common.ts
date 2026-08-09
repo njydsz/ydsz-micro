@@ -1,8 +1,8 @@
-/**
+﻿/**
  * common 配置模块
  *
  * @path conf\vite-config\src\config\common.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { UserConfig } from 'vite';

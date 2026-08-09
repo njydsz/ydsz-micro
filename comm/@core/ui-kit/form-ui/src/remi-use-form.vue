@@ -1,20 +1,20 @@
-<!--
- * remi-use-form Vue 组件
+﻿<!--
+ * YDSZ-use-form Vue 组件
  *
- * @path comm\@core\ui-kit\form-ui\src\remi-use-form.vue
- * @author remi-team
+ * @path comm\@core\ui-kit\form-ui\src\YDSZ-use-form.vue
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { Recordable } from '@remi-core/typings';
+import type { Recordable } from '@YDSZ-core/typings';
 
 import type { ExtendedFormApi, REMIFormProps } from './types';
 
 // import { toRaw, watch } from 'vue';
 import { nextTick, onMounted, watch } from 'vue';
 
-import { useForwardPriorityValues } from '@remi-core/composables';
-import { cloneDeep, get, isEqual, set } from '@remi-core/shared/utils';
+import { useForwardPriorityValues } from '@YDSZ-core/composables';
+import { cloneDeep, get, isEqual, set } from '@YDSZ-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
 

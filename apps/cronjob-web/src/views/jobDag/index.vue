@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 任务 DAG（列表页）
  *
  * @path apps\cronjob-web\src\views\jobDag\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 任务 DAG（列表页）
  * <p>任务 DAG 编排的列表页，支持多任务依赖、串并行执行。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteJobDagApi, getJobDagPageApi, type JobDagApi } from '#/api/jobDag';

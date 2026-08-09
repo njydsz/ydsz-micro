@@ -1,13 +1,13 @@
-/**
+﻿/**
  * index 模块
  *
  * @path bash\vsh\src\check-dep\index.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { CAC } from 'cac';
 
-import { getPackages } from '@remi/node-utils';
+import { getPackages } from '@ydsz/node-utils';
 
 import depcheck from 'depcheck';
 
@@ -18,23 +18,23 @@ const DEFAULT_CONFIG = {
     'vite',
     'vitest',
     'unbuild',
-    '@remi/tsconfig',
-    '@remi/vite-config',
-    '@remi/tailwind-config',
+    '@ydsz/tsconfig',
+    '@ydsz/vite-config',
+    '@ydsz/tailwind-config',
     '@types/*',
-    '@remi-core/design',
+    '@YDSZ-core/design',
   ],
   // 需要忽略的包
   ignorePackages: [
-    '@remi/commitlint-config',
-    '@remi/eslint-config',
-    '@remi/node-utils',
-    '@remi/prettier-config',
-    '@remi/stylelint-config',
-    '@remi/tailwind-config',
-    '@remi/tsconfig',
-    '@remi/vite-config',
-    '@remi/vsh',
+    '@ydsz/commitlint-config',
+    '@ydsz/eslint-config',
+    '@ydsz/node-utils',
+    '@ydsz/prettier-config',
+    '@ydsz/stylelint-config',
+    '@ydsz/tailwind-config',
+    '@ydsz/tsconfig',
+    '@ydsz/vite-config',
+    '@ydsz/vsh',
   ],
   // 需要忽略的文件模式
   ignorePatterns: ['dist', 'node_modules', 'public'],

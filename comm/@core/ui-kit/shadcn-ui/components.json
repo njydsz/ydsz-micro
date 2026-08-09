@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "https://shadcn-vue.com/schema.json",
   "style": "new-york",
   "typescript": true,
@@ -10,7 +10,7 @@
   },
   "framework": "vite",
   "aliases": {
-    "components": "@remi-core/shadcn-ui/components",
-    "utils": "@remi-core/shared/utils"
+    "components": "@YDSZ-core/shadcn-ui/components",
+    "utils": "@YDSZ-core/shared/utils"
   }
 }

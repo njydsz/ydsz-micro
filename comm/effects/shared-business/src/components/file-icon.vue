@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * file-icon 通用组件
  *
  * @path comm\effects\shared-business\src\components\file-icon.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>

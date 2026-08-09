@@ -1,20 +1,20 @@
-/**
+﻿/**
  * use-extra-menu 模块
  *
  * @path comm\effects\layouts\src\basic\menu\use-extra-menu.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { ComputedRef } from 'vue';
 
-import type { MenuRecordRaw } from '@remi/types';
+import type { MenuRecordRaw } from '@ydsz/types';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { preferences } from '@remi/preferences';
-import { useAccessStore } from '@remi/stores';
-import { findRootMenuByPath } from '@remi/utils';
+import { preferences } from '@ydsz/preferences';
+import { useAccessStore } from '@ydsz/stores';
+import { findRootMenuByPath } from '@ydsz/utils';
 
 import { useNavigation } from './use-navigation';
 

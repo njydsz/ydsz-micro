@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Service Worker 注册模块
  *
  * 负责注册和管理 Service Worker，实现离线缓存和性能优化
  *
  * @path main/src/service-worker.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

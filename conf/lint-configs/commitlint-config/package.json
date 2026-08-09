@@ -1,12 +1,12 @@
-{
-  "name": "@remi/commitlint-config",
+﻿{
+  "name": "@ydsz/commitlint-config",
   "version": "5.5.9",
   "private": true,
-  "homepage": "https://github.com/remi/vue-remi-admin",
-  "bugs": "https://github.com/remi/vue-remi-admin/issues",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remi/vue-remi-admin.git",
+    "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
     "directory": "conf/lint-configs/commitlint-config"
   },
   "license": "MIT",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@commitlint/cli": "catalog:",
     "@commitlint/config-conventional": "catalog:",
-    "@remi/node-utils": "workspace:*",
+    "@ydsz/node-utils": "workspace:*",
     "commitlint-plugin-function-rules": "catalog:",
     "cz-git": "catalog:",
     "czg": "catalog:"

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 角色 API 模块（前端）
  *
  * <p>封装角色（{@code remi_role}）的 CRUD + 权限分配接口调用，对应后端
@@ -14,7 +14,7 @@
  *   <li>{@link assignPermissionsApi} — 分配权限</li>
  * </ul>
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';

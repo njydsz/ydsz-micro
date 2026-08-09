@@ -1,16 +1,16 @@
-/**
+﻿/**
  * kernel 模块集成测试
  *
  * 覆盖 globalState 通信、路由同步、switchToken 竞态、生命周期钩子、_stop 清理。
  * 因 kernel 使用模块级状态，每个用例后调用 _stop() 重置。
  *
  * @path comm/effects/micro-kernel/__tests__/kernel.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 3.1.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { MicroAppConfig } from '@remi/micro-runtime';
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
 
 // Mock loader：可控延迟 + 缓存标记
 const loadAppMock = vi.fn();

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * slogan 布局组件
  *
  * @path comm\effects\layouts\src\authentication\icons\slogan.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <template>

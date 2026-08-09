@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用共享路由守卫 — 消除 9 个子应用中完全一致的 guard.ts 重复代码。
  *
  * 提供 setupCommonGuard（进度条）、setupAuthGuard（白名单 + 登录检查）、
@@ -7,19 +7,19 @@
  *
  * 子应用只需：
  * ```ts
- * import { createRouterGuard, initRoutes } from '@remi/shared-auth/guards';
+ * import { createRouterGuard, initRoutes } from '@ydsz/shared-auth/guards';
  * ```
  *
  * @path comm\effects\shared-auth\src\guards.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 2.0.0
  */
 import type { RouteRecordRaw, Router } from 'vue-router';
 
-import { LOGIN_PATH } from '@remi/constants';
-import { preferences } from '@remi/preferences';
-import { useAccessStore } from '@remi/stores';
-import { startProgress, stopProgress } from '@remi/utils';
+import { LOGIN_PATH } from '@ydsz/constants';
+import { preferences } from '@ydsz/preferences';
+import { useAccessStore } from '@ydsz/stores';
+import { startProgress, stopProgress } from '@ydsz/utils';
 
 /** 默认白名单路径 */
 const DEFAULT_WHITE_LIST: readonly string[] = ['/auth', LOGIN_PATH];

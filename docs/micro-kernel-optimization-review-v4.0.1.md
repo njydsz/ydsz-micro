@@ -1,4 +1,4 @@
-# micro-kernel v4.0.1 深度优化建议（基于最新代码现状）
+﻿# micro-kernel v4.0.1 深度优化建议（基于最新代码现状）
 
 > 对标行业主流竞品（qiankun / wujie / micro-app / Garfish）与互联网大厂研发规范（字节跳动 Web 架构、阿里云微前端、美团前端技术中心标准），基于 `comm/effects/micro-kernel/` 最新 v4.0.1 代码，从架构、功能、性能、体验、过度设计五个维度输出可落地的优化建议。
 
@@ -180,11 +180,11 @@ src/
 
 ### 2.4 [P2] micro-runtime 依赖方向校验
 
-**现状**：`index.ts` 第 109 行 `export { satisfiesVersion, parseVersion, compareVersion } from '@remi/micro-runtime/semver'`，存在 kernel → runtime 的重导出。`canary-manager.ts` 也直接 `import { satisfiesVersion } from '@remi/micro-runtime/semver'`。
+**现状**：`index.ts` 第 109 行 `export { satisfiesVersion, parseVersion, compareVersion } from '@ydsz/micro-runtime/semver'`，存在 kernel → runtime 的重导出。`canary-manager.ts` 也直接 `import { satisfiesVersion } from '@ydsz/micro-runtime/semver'`。
 
 **建议**：
-1. 短期：将 `@remi/micro-runtime/semver` 重导出下沉到 `@remi-core/shared/semver` 或独立 `@remi/semver` 包
-2. 长期：kernel 不重导出runtime 类型，外部直接使用 `@remi/micro-runtime`
+1. 短期：将 `@ydsz/micro-runtime/semver` 重导出下沉到 `@YDSZ-core/shared/semver` 或独立 `@ydsz/semver` 包
+2. 长期：kernel 不重导出runtime 类型，外部直接使用 `@ydsz/micro-runtime`
 
 **预估工期**：0.5d
 

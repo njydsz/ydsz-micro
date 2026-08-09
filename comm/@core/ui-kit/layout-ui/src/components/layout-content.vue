@@ -1,19 +1,19 @@
-<!--
+﻿<!--
  * layout-content 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-content.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import type { ContentCompactType } from '@remi-core/typings';
+import type { ContentCompactType } from '@YDSZ-core/typings';
 
 import { computed } from 'vue';
 
-import { useLayoutContentStyle } from '@remi-core/composables';
-import { Slot } from '@remi-core/shadcn-ui';
+import { useLayoutContentStyle } from '@YDSZ-core/composables';
+import { Slot } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   /**

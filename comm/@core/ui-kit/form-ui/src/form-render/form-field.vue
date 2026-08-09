@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * form-field Vue 组件
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\form-field.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -12,7 +12,7 @@ import type { FormSchema, MaybeComponentProps } from '../types';
 
 import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
-import { CircleAlert } from '@remi-core/icons';
+import { CircleAlert } from '@YDSZ-core/icons';
 import {
   FormControl,
   FormDescription,
@@ -21,8 +21,8 @@ import {
   FormMessage,
   REMIRenderContent,
   REMITooltip,
-} from '@remi-core/shadcn-ui';
-import { cn, isFunction, isObject, isString } from '@remi-core/shared/utils';
+} from '@YDSZ-core/shadcn-ui';
+import { cn, isFunction, isObject, isString } from '@YDSZ-core/shared/utils';
 
 import { toTypedSchema } from '@vee-validate/zod';
 import { useFieldError, useFormValues } from 'vee-validate';

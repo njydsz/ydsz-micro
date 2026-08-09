@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * analysis-overview Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\analysis-overview.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -16,7 +16,7 @@ import {
   CardTitle,
   REMICountToAnimator,
   REMIIcon,
-} from '@remi-core/shadcn-ui';
+} from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   items?: AnalysisOverviewItem[];

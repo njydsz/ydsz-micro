@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * full-content 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\icons\full-content.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <template>

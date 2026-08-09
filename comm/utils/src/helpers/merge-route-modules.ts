@@ -1,8 +1,8 @@
-/**
+﻿/**
  * merge-route-modules 工具函数模块
  *
  * @path comm\utils\src\helpers\merge-route-modules.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { RouteRecordRaw } from 'vue-router';

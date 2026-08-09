@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 文件节点（列表页）
  *
  * @path apps\nextwiki-web\src\views\file\index.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,11 +10,11 @@
  * 文件节点（列表页）
  * <p>文件节点的浏览页，支持目录/文件/快捷方式三种类型。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@remi/plugins/vxe-table';
-import { Page, useVbenModal } from '@remi/common-ui';
+import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 import { useREMIVxeGrid } from '#/adapter/vxe-table';
 import { deleteFileApi, getFilePageApi, type FileApi } from '#/api/file';

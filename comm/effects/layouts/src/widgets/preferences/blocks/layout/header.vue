@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * header 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\header.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,9 +10,9 @@ import type {
   LayoutHeaderMenuAlignType,
   LayoutHeaderModeType,
   SelectOption,
-} from '@remi/types';
+} from '@ydsz/types';
 
-import { $t } from '@remi/locales';
+import { $t } from '@ydsz/locales';
 
 import SelectItem from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';

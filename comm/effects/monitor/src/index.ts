@@ -1,5 +1,5 @@
-/**
- * @remi/monitor — 前端监控公共模块
+﻿/**
+ * @ydsz/monitor — 前端监控公共模块
  *
  * 包含三大能力：
  * 1. 错误监控：Vue errorHandler + window.onerror + unhandledrejection + 资源加载错误

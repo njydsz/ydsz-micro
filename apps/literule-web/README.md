@@ -1,17 +1,17 @@
-# literule-web 规则引擎
+﻿# literule-web 规则引擎
 
-> REMI 规则引擎子应用，提供规则管理、DSL 管理、变量管理、CEP 复杂事件、断点调试与审计日志（对应后端：remi-literule，路由前缀：/remi-rule）
+> YDSZ 规则引擎子应用，提供规则管理、DSL 管理、变量管理、CEP 复杂事件、断点调试与审计日志（对应后端：YDSZ-literule，路由前缀：/YDSZ-rule）
 
 ## 应用定位
 
 | 属性 | 值 |
 |---|---|
 | **类型** | 微前端子应用 |
-| **包名** | @remi/literule-web |
-| **对应后端服务** | remi-literule |
+| **包名** | @ydsz/literule-web |
+| **对应后端服务** | YDSZ-literule |
 | **前端端口** | 5608 |
 | **后端端口** | 9007 |
-| **路由前缀** | /remi-rule |
+| **路由前缀** | /YDSZ-rule |
 | **版本** | 1.0.0 |
 
 literule-web 是轻量规则引擎的前端载体，承接规则定义（决策表/决策树/评分卡/脚本/复合）、DSL 表达式管理、规则变量、CEP 复杂事件处理、断点调试与审计日志查询，为业务提供可可视化编排与可追溯的规则执行能力。
@@ -23,7 +23,7 @@ literule-web/
 ├── src/
 │   ├── adapter/                  # Element Plus / VXE Table 适配器
 │   ├── api/                      # 业务 API
-│   │   └── core/                 # 认证/菜单/用户 API（复用 @remi/shared-auth）
+│   │   └── core/                 # 认证/菜单/用户 API（复用 @ydsz/shared-auth）
 │   ├── layouts/                  # 子应用基础布局
 │   ├── locales/                  # 国际化（zh-CN/en-US）
 │   ├── router/                   # 路由守卫 + 模块化路由（literule.ts）
@@ -51,14 +51,14 @@ literule-web/
 
 | 依赖包 | 作用 |
 |---|---|
-| `@remi/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
-| `@remi/shared-business` | 业务公共组件与工具 |
-| `@remi/request` | HTTP 请求客户端（Axios 封装） |
-| `@remi/access` | 权限码与路由访问控制 |
-| `@remi/layouts` | 布局组件（basic） |
-| `@remi/common-ui` | 通用 UI 组件 |
-| `@remi/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@remi/locales` | 国际化基础包 |
+| `@ydsz/shared-auth` | 统一 RequestClient + Auth API + Auth Store |
+| `@ydsz/shared-business` | 业务公共组件与工具 |
+| `@ydsz/request` | HTTP 请求客户端（Axios 封装） |
+| `@ydsz/access` | 权限码与路由访问控制 |
+| `@ydsz/layouts` | 布局组件（basic） |
+| `@ydsz/common-ui` | 通用 UI 组件 |
+| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
+| `@ydsz/locales` | 国际化基础包 |
 | `element-plus` | UI 组件库 |
 | `pinia` | 状态管理 |
 
@@ -76,7 +76,7 @@ literule-web/
 ## 启动方式
 
 ```bash
-# 在 monorepo 根目录（remi-micro/）执行
+# 在 monorepo 根目录（ydsz-micro/）执行
 pnpm dev:literule      # 启动规则引擎子应用（端口 5608）
 
 # 启动主应用 + 所有子应用（含 literule-web）
@@ -86,7 +86,7 @@ pnpm dev
 pnpm build:literule
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/remi-rule` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-rule` 激活本应用。
 
 ## 环境变量
 
@@ -102,7 +102,7 @@ pnpm build:literule
 
 ## 路由配置
 
-主应用通过 `/remi-rule` 前缀激活本应用，内部路由表（`src/router/routes/modules/literule.ts`）分为三组：
+主应用通过 `/YDSZ-rule` 前缀激活本应用，内部路由表（`src/router/routes/modules/literule.ts`）分为三组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|
@@ -122,13 +122,13 @@ pnpm build:literule
 | `src/views/cep/index.vue` | CEP 复杂事件模式配置 |
 | `src/views/breakpoint/index.vue` | 断点调试，规则执行回放与变量快照 |
 | `src/views/auditLog/index.vue` | 审计日志，查询规则执行轨迹与命中结果 |
-| `src/layouts/basic.vue` | 子应用基础布局，复用 `@remi/layouts` |
+| `src/layouts/basic.vue` | 子应用基础布局，复用 `@ydsz/layouts` |
 
 每个业务模块均包含 `index.vue`（列表页）与 `*-form.vue`（表单页）两个核心页面。
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@remi/request` 的 `requestClient`，对应后端 `/api/v1/literule/*` 端点：
+API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/literule/*` 端点：
 
 ```typescript
 // 规则管理（src/api/rule.ts）
@@ -146,7 +146,7 @@ export function createRuleApi(data: RuleApi.RuleDTO) {
 }
 ```
 
-其他 API 模块：`dsl.ts`（DSL 管理）、`variable.ts`（规则变量）、`cep.ts`（CEP 复杂事件）、`breakpoint.ts`（断点调试）、`auditLog.ts`（审计日志）。认证与菜单 API 复用 `src/api/core/`（`@remi/shared-auth`）。
+其他 API 模块：`dsl.ts`（DSL 管理）、`variable.ts`（规则变量）、`cep.ts`（CEP 复杂事件）、`breakpoint.ts`（断点调试）、`auditLog.ts`（审计日志）。认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
 
 ## 注意事项
 
@@ -154,7 +154,7 @@ export function createRuleApi(data: RuleApi.RuleDTO) {
 2. **规则版本管理**：规则支持多版本，编辑时需注意版本号递增，避免覆盖已上线版本，发布前建议在断点调试中回放验证。
 3. **CEP 模式复杂度**：CEP 复杂事件模式配置较复杂，表单页需对事件窗口、匹配条件做前端校验，避免提交不可执行的模式。
 4. **审计日志容量**：审计日志数据量随规则执行次数线性增长，列表页需强制分页与时间范围筛选。
-5. **认证复用**：本应用依赖 `@remi/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@remi/shared-auth` 统一管理。
+5. **认证复用**：本应用依赖 `@ydsz/shared-auth`，不重复实现登录，token 通过 `useTokenStore()` 从 SecureLS 读取，由 `@ydsz/shared-auth` 统一管理。
 
 ## 变更记录
 

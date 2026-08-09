@@ -1,11 +1,11 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * 代码覆盖率检查脚本
  *
  * 运行单元测试并检查覆盖率阈值，生成覆盖率报告
  *
  * @path bash/check-coverage.mjs
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * alert Vue 组件
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\alert.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -12,7 +12,7 @@ import type { AlertProps } from './alert';
 
 import { computed, h, nextTick, ref } from 'vue';
 
-import { useSimpleLocale } from '@remi-core/composables';
+import { useSimpleLocale } from '@YDSZ-core/composables';
 import {
   CircleAlert,
   CircleCheckBig,
@@ -20,7 +20,7 @@ import {
   CircleX,
   Info,
   X,
-} from '@remi-core/icons';
+} from '@YDSZ-core/icons';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,9 +31,9 @@ import {
   REMIButton,
   REMILoading,
   REMIRenderContent,
-} from '@remi-core/shadcn-ui';
-import { globalShareState } from '@remi-core/shared/global-state';
-import { cn } from '@remi-core/shared/utils';
+} from '@YDSZ-core/shadcn-ui';
+import { globalShareState } from '@YDSZ-core/shared/global-state';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { provideAlertContext } from './alert';
 

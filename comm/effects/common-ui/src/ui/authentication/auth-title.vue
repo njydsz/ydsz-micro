@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * auth-title Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\auth-title.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <template>

@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * button 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
@@ -10,8 +10,8 @@ import type { REMIButtonProps } from './button';
 
 import { computed } from 'vue';
 
-import { LoaderCircle } from '@remi-core/icons';
-import { cn } from '@remi-core/shared/utils';
+import { LoaderCircle } from '@YDSZ-core/icons';
+import { cn } from '@YDSZ-core/shared/utils';
 
 import { Primitive } from 'radix-vue';
 

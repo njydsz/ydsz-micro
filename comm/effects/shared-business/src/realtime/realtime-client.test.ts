@@ -1,8 +1,8 @@
-/**
+﻿/**
  * realtime-client 单元测试
  *
  * @path comm\effects\shared-business\src\realtime\realtime-client.test.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 1.1.0
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

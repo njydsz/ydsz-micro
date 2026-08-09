@@ -1,8 +1,8 @@
-<!--
+﻿<!--
  * 岗位表单组件 — 支持新增/编辑岗位信息（岗位编码、名称、排序）
  *
  * @path apps\userinfo-web\src\views\system\post\post-form.vue
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
@@ -10,12 +10,12 @@
  * 岗位（表单组件）
  * <p>岗位的创建/编辑表单。
  *
- * @author remi-team
+ * @author ydsz-team
  * @since 1.0.0
  */
 import type { PostApi } from '#/api/post';
 
-import { useVbenModal } from '@remi/common-ui';
+import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

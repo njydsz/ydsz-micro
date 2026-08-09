@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用双模式入口工厂（P2-1 独立运行模式产品化）
  *
  * 提供统一的子应用定义入口，自动检测运行环境并选择合适的启动方式：
@@ -11,16 +11,16 @@
  * 2. **独立运行模式（Standalone Mode）**：
  *    - 当子应用脱离主应用直接访问时（如独立开发调试），
  *      `defineSubApp` 自动检测微内核不存在并自启动（bootstrap + mount）
- *    - 使用独立路由（`/` 而非 `/remi-xxx/`），注入 Mock 数据层
+ *    - 使用独立路由（`/` 而非 `/YDSZ-xxx/`），注入 Mock 数据层
  *
  * 使用方式：
  * ```ts
  * // apps/your-app/src/main.ts
- * import { defineSubApp } from '@remi/micro-runtime/define-sub-app';
+ * import { defineSubApp } from '@ydsz/micro-runtime/define-sub-app';
  *
  * export const { bootstrap, mount, unmount, update } = defineSubApp({
  *   appName: 'your-app',
- *   basename: '/remi-your',
+ *   basename: '/YDSZ-your',
  *   autoBootstrap: true, // 允许独立运行时自启动
  *   onSetup: async (app) => {
  *     // 自定义初始化
@@ -34,7 +34,7 @@
  * - 不存在 + `autoBootstrap=true` → 独立模式，直接创建 Vue app 挂载
  *
  * @path comm/effects/micro-runtime/src/define-sub-app.ts
- * @author remi-team
+ * @author ydsz-team
  * @since 4.0.0
  */
 
