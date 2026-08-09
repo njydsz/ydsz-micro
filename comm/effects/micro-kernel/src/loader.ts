@@ -51,6 +51,19 @@ export interface Manifest {
    * 主应用容器加载 manifest 后据此匹配当前路由子路径，渲染对应骨架屏。
    */
   routes?: ManifestRoute[];
+  /**
+   * v4.2.1 L2: 子应用静态资源完整性校验（SRI）。
+   *
+   * 构建期计算并写入，形如 `{ "css": { "https://cdn/a.css": "sha256-..." } }`。
+   * loader 注入样式表时附加 integrity + crossorigin="anonymous"，
+   * 防止 CDN 被篡改导致子应用样式被恶意替换。
+   *
+   * @since 4.2.1
+   */
+  integrity?: {
+    /** css URL → SRI hash */
+    css?: Record<string, string>;
+  };
 }
 
 /** 加载配置 */
@@ -196,7 +209,8 @@ export async function loadApp(
   preloadAppAssets(config.entry, manifest);
 
   // 注入样式（标记 data-micro-kernel-app，卸载时一键移除）
-  injectStylesheets(manifest.css, manifest.name);
+  // v4.2.1 L2: 附加 SRI integrity + CSP nonce
+  injectStylesheets(manifest.css, manifest.name, manifest.integrity?.css);
 
   const mod = await importWithRetry(manifest.entry, { timeout, retries, retryBaseDelay, extSignal });
   assertLifecycle(mod, config.name);
@@ -284,12 +298,61 @@ async function fetchWithRetry<T>(
 }
 
 /** 注入样式表，并标记 data-micro-kernel-app="name" 以便卸载时移除 */
-function injectStylesheets(cssUrls: string[], appName: string): void {
+/**
+ * v4.2.1 L2: 当前 CSP nonce（供注入 style/link 时附加）。
+ *
+ * 主应用在 CSP 环境中调用 setCspNonce() 注入页面 nonce，
+ * 使 loader 动态创建的样式标签通过 `style-src 'nonce-xxx'` 策略。
+ */
+let cspNonce: string | undefined;
+
+/**
+ * v4.2.1 L2: 设置 CSP nonce。
+ *
+ * 主应用（如 security.ts / index.html 脚本）在 CSP 策略下调用：
+ * ```ts
+ * setCspNonce(globalThis.__csp_nonce__);
+ * ```
+ *
+ * @param nonce - 页面 CSP nonce 值
+ * @since 4.2.1
+ */
+export function setCspNonce(nonce?: string): void {
+  cspNonce = nonce || undefined;
+}
+
+/** 获取当前 CSP nonce（内部使用） */
+function getCspNonce(): string | undefined {
+  return cspNonce;
+}
+
+/**
+ * 注入子应用样式表。
+ *
+ * v4.2.1 L2: 附加 SRI integrity（manifest.integrity.css）+ crossorigin，
+ * 以及 CSP nonce（style-src 策略兼容）。
+ */
+function injectStylesheets(
+  cssUrls: string[],
+  appName: string,
+  integrity?: Record<string, string>,
+): void {
+  const nonce = getCspNonce();
   for (const href of cssUrls) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = href;
     link.setAttribute('data-micro-kernel-app', appName);
+    // L2: SRI 校验（manifest 提供 hash 时）
+    const hash = integrity?.[href];
+    if (hash) {
+      link.integrity = hash;
+      link.crossOrigin = 'anonymous';
+    }
+    // L2: CSP nonce 兼容
+    if (nonce) {
+      link.setAttribute('nonce', nonce);
+    }
     document.head.appendChild(link);
   }
 }

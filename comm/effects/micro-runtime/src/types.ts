@@ -83,6 +83,20 @@ export interface MicroAppConfig {
    * @since 4.2.1
    */
   styleIsolation?: boolean;
+  /**
+   * v4.2.1 L6: 父内核标识（嵌套微前端方向性预留）。
+   *
+   * 当前版本内核**不支持**嵌套微前端（子应用内再嵌入子应用）。
+   * 此字段仅作方向性预留，供未来版本区分多级内核层级：
+   * - 顶层子应用：不设置（或 'main'）
+   * - 嵌套子应用：设置为所属父内核的 kernelName
+   *
+   * 当前实现会忽略该字段（不影响现有功能），仅在注册表 / DevTools
+   * 中作为元数据展示。
+   *
+   * @since 4.2.1
+   */
+  parentKernelName?: string;
 }
 
 /** 子应用挂载参数（与 qiankun mountProps 对齐语义） */

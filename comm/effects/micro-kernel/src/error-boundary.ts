@@ -96,22 +96,15 @@ export function getLocaleFromStorage(): string {
 }
 
 /**
- * P0-3: 获取当前生效的语言标识。
+ * v4.2.1 N12: 获取当前生效的语言标识（内部使用）。
  *
- * 全局消息已设置时优先匹配其语言，否则回退到 localStorage。
+ * 优先读取显式设置的 currentLocale，其次 localStorage 偏好。
+ * 保留导出以兼容旧调用方（renderErrorFallback 等内部使用）。
  *
  * @since 4.0.1
  */
 export function resolveEffectiveLocale(): string {
-  // 检测全局消息当前语言：捷克塞到 globalMessages 中取 title 对比中文默认值
-  const isChinese = globalMessages.title === zhCNMessages.title;
-  if (isChinese) {
-    // 全局消息为中文默认；检查用户是否偏好英文
-    const storageLocale = getLocaleFromStorage();
-    return storageLocale.startsWith("en") ? "en-US" : "zh-CN";
-  }
-  // 全局消息已被覆盖为非中文，按当前消息语言定
-  return globalMessages.title === enUSMessages.title ? "en-US" : "zh-CN";
+  return getCurrentLocale();
 }
 
 /**
@@ -209,7 +202,17 @@ const enUSMessages: ErrorFallbackMessages = {
 let globalMessages: ErrorFallbackMessages = zhCNMessages;
 
 /**
+ * v4.2.1 N12: 显式当前语言状态。
+ *
+ * 替代此前通过 `globalMessages.title === zhCNMessages.title` 的字符串比较
+ * 推断语言（脆弱：默认文案任何微调都会破坏推断）。
+ */
+let currentLocale: string = "zh-CN";
+
+/**
  * 设置全局错误降级 UI 消息。
+ *
+ * v4.2.1 N12: 同时根据消息内容推断并同步 currentLocale。
  *
  * @param messages - 消息配置对象
  */
@@ -217,6 +220,34 @@ export function setErrorFallbackMessages(
   messages: ErrorFallbackMessages,
 ): void {
   globalMessages = messages;
+  // 推断语言：与内置文案匹配时更新 currentLocale
+  if (messages.title === enUSMessages.title) {
+    currentLocale = "en-US";
+  } else if (messages.title === zhCNMessages.title) {
+    currentLocale = "zh-CN";
+  }
+}
+
+/**
+ * v4.2.1 N12: 显式设置当前语言（推荐由主应用在语言切换时调用）。
+ *
+ * @param locale - 语言标识，如 'zh-CN' / 'en-US'
+ * @since 4.2.1
+ */
+export function setCurrentLocale(locale: string): void {
+  currentLocale = locale;
+}
+
+/**
+ * v4.2.1 N12: 获取当前生效的语言标识。
+ *
+ * 优先级：显式设置的 currentLocale > localStorage 偏好 > navigator.language。
+ *
+ * @since 4.2.1
+ */
+export function getCurrentLocale(): string {
+  if (currentLocale) return currentLocale;
+  return getLocaleFromStorage();
 }
 
 /**
@@ -367,9 +398,11 @@ export function renderErrorFallback(
 
   const retryCount = retryCounters.get(config.name) ?? 0;
   const canRetry = onRetry && retryCount < MAX_MICRO_RETRIES;
-  // P0-3: 未显式提供消息时，根据当前全局配置自动选择（已包含 localStorage 后备）
+  // P0-3 + v4.2.1 N12: 未显式提供消息时，优先使用 setErrorFallbackMessages 注入的
+  // 全局消息（自定义文案真正生效）；全局消息未被覆盖时回退到 locale 内置文案。
   const msg =
     messages ??
+    globalMessages ??
     (resolveEffectiveLocale().startsWith("en") ? enUSMessages : zhCNMessages);
 
   // P0-E1: 转义所有动态值，防止 XSS

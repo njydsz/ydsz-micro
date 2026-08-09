@@ -830,6 +830,36 @@ export function getKeepAliveTTL(): number {
 }
 
 /**
+ * v4.2.1 L4: 计算自适应 KeepAlive 上限。
+ *
+ * 基于 performance.memory（Chrome）的 JS 堆占用比动态降低上限：
+ * - 堆占用 > 90%：上限降至 1（内存极度紧张，仅保留最近一个）
+ * - 堆占用 > 70%：上限降至 3
+ * - 其余：保持配置的上限（默认 5）
+ *
+ * 浏览器不提供 performance.memory 时回退到配置值。
+ */
+function getAdaptiveMaxKeepAlive(): number {
+  const base = getContext().maxKeepAliveApps;
+  const perf = (
+    window as unknown as {
+      performance?: {
+        memory?: {
+          jsHeapSizeLimit: number;
+          usedJSHeapSize: number;
+        };
+      };
+    }
+  ).performance;
+  const mem = perf?.memory;
+  if (!mem || mem.jsHeapSizeLimit <= 0) return base;
+  const ratio = mem.usedJSHeapSize / mem.jsHeapSizeLimit;
+  if (ratio > 0.9) return Math.min(base, 1);
+  if (ratio > 0.7) return Math.min(base, 3);
+  return base;
+}
+
+/**
  * 重置调度器状态：清空全部子应用实例并恢复保活上限默认值。
  *
  * 供 kernel `_stop()` 在 HMR / 测试场景调用，
@@ -891,7 +921,9 @@ export function getKeepAliveCount(): number {
 async function evictKeepAliveIfNeeded(
   ctx: SchedulerContext = getContext(),
 ): Promise<string[]> {
-  if (ctx.maxKeepAliveApps <= 0) return [];
+  // v4.2.1 L4: 使用自适应上限（内存压力下自动降低保活数）
+  const effectiveMax = getAdaptiveMaxKeepAlive();
+  if (effectiveMax <= 0) return [];
 
   const cached: AppInstance[] = [];
   const now = ctx.keepAliveTimestamp;
@@ -935,8 +967,8 @@ async function evictKeepAliveIfNeeded(
   }
 
   // LRU 淘汰：保活实例数仍超限时
-  while (cached.length > ctx.maxKeepAliveApps) {
-    // v4.2.1 L3: 最小堆按 lastActivatedAt 取最久未访问的（O(log n)）
+  while (cached.length > effectiveMax) {
+    // v4.2.1 L3: 线性扫描取最久未访问（n ≤ 20 时 O(n) 优于堆的常数开销）
     const victim = popLruVictim(cached);
 
     // pinned 实例：跳过（不淘汰）
@@ -952,7 +984,7 @@ async function evictKeepAliveIfNeeded(
 
     logger.debug(
       `LRU evicting keep-alive app "${victim.config.name}" ` +
-        `(cached=${cached.length + 1}, max=${ctx.maxKeepAliveApps})`,
+        `(cached=${cached.length + 1}, max=${effectiveMax})`,
     );
 
     await evictSingleInstance(victim);

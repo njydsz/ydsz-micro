@@ -102,7 +102,12 @@ export function registerDevToolsTab(tab: DevToolsTab): void {
  */
 export function unregisterDevToolsTab(id: string): boolean {
   // 内置 Tab 不允许移除
-  if (id === "overview" || id === "preload" || id === "instances") {
+  if (
+    id === "overview" ||
+    id === "preload" ||
+    id === "instances" ||
+    id === "performance"
+  ) {
     return false;
   }
   return tabRegistry.delete(id);
@@ -137,10 +142,18 @@ const instancesTab: DevToolsTab = {
   render: () => renderInstancesContent(),
 };
 
+// v4.2.1 N7: 独立性能 Tab（P50/P95 聚合 + 预加载命中率）
+const performanceTab: DevToolsTab = {
+  id: "performance",
+  label: "性能",
+  render: () => renderPerformanceContent(),
+};
+
 // 注册内置 Tab
 registerDevToolsTab(overviewTab);
 registerDevToolsTab(preloadTab);
 registerDevToolsTab(instancesTab);
+registerDevToolsTab(performanceTab);
 
 /** 获取内存使用（Chrome only） */
 function getMemoryInfo(): string {
@@ -317,6 +330,82 @@ function renderOverviewContent(): string {
       <button id="${PANEL_ID}-clear-cache" style="padding:4px 10px;font-size:11px;cursor:pointer;background:#fdf6ec;border:1px solid #f5dab1;border-radius:3px;color:#e6a23c">清缓存</button>
       <button id="${PANEL_ID}-perf-clear" style="padding:4px 10px;font-size:11px;cursor:pointer;background:#f4f4f5;border:1px solid #d3d4d6;border-radius:3px;color:#909399">清 perf</button>
       <button id="${PANEL_ID}-close" style="padding:4px 10px;font-size:11px;cursor:pointer;background:#f4f4f5;border:1px solid #d3d4d6;border-radius:3px;color:#909399">收起</button>
+    </div>
+  `;
+}
+
+/**
+ * v4.2.1 N7: 性能 Tab 内容。
+ *
+ * - kernel:* measures 按类型聚合（样本数 / P50 / P95）
+ * - 预加载命中率（PreloadManager.debugInfo）
+ */
+function renderPerformanceContent(): string {
+  const { measures, measureCount, markCount } = getPerfStats();
+
+  // 按 measure 名称分组聚合（同类型多次采样）
+  const groups = new Map<string, number[]>();
+  for (const m of measures) {
+    if (m.duration <= 0) continue;
+    const key = m.name.replace(/:\d+$/, ""); // 去除序号后缀便于分组
+    const list = groups.get(key) ?? [];
+    list.push(m.duration);
+    groups.set(key, list);
+  }
+
+  // 计算 P50 / P95
+  const percentile = (sorted: number[], p: number): number => {
+    if (sorted.length === 0) return 0;
+    const idx = Math.min(
+      sorted.length - 1,
+      Math.ceil((p / 100) * sorted.length) - 1,
+    );
+    return sorted[idx]!;
+  };
+
+  const rows = [...groups.entries()]
+    .map(([name, durations]) => {
+      const sorted = [...durations].sort((a, b) => a - b);
+      const p50 = percentile(sorted, 50);
+      const p95 = percentile(sorted, 95);
+      return `<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #f0f2f5">
+        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px" title="${name}">${name.replace("kernel:", "")}</span>
+        <span style="color:#909399;font-variant-numeric:tabular-nums">n=${durations.length}</span>
+        <span style="color:#303133;font-variant-numeric:tabular-nums">P50 ${Math.round(p50)}ms</span>
+        <span style="color:#e6a23c;font-variant-numeric:tabular-nums">P95 ${Math.round(p95)}ms</span>
+      </div>`;
+    })
+    .join("");
+
+  // 预加载命中率
+  const preload = getPreloadManager();
+  const preloadInfo = preload.debugInfo();
+  const hitRate = preloadInfo.hitRate;
+
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+      <div style="padding:6px;background:#f5f7fa;border-radius:4px">
+        <div style="color:#909399">measures</div>
+        <div style="font-weight:600">${measureCount}</div>
+      </div>
+      <div style="padding:6px;background:#f5f7fa;border-radius:4px">
+        <div style="color:#909399">marks</div>
+        <div style="font-weight:600">${markCount}</div>
+      </div>
+      <div style="padding:6px;background:#f5f7fa;border-radius:4px">
+        <div style="color:#909399">预加载命中率</div>
+        <div style="font-weight:600">${hitRate}%
+          <span style="color:#909399;font-weight:400">(${preloadInfo.consumedCount}/${preloadInfo.preloadCount})</span>
+        </div>
+      </div>
+      <div style="padding:6px;background:#f5f7fa;border-radius:4px">
+        <div style="color:#909399">缓存应用</div>
+        <div style="font-weight:600">${preloadInfo.preloadCache.length}</div>
+      </div>
+    </div>
+    <div style="margin-bottom:4px;color:#606266;font-weight:600">⚡ 耗时聚合 (P50/P95)</div>
+    <div style="padding:6px;background:#f5f7fa;border-radius:4px;max-height:36vh;overflow-y:auto">
+      ${rows || '<span style="color:#c0c4cc">暂无数据</span>'}
     </div>
   `;
 }
@@ -548,7 +637,12 @@ export function destroyMicroDevTools(): void {
  */
 function clearCustomTabs(): void {
   for (const id of tabRegistry.keys()) {
-    if (id !== "overview" && id !== "preload" && id !== "instances") {
+    if (
+      id !== "overview" &&
+      id !== "preload" &&
+      id !== "instances" &&
+      id !== "performance"
+    ) {
       tabRegistry.delete(id);
     }
   }

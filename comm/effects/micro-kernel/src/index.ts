@@ -39,7 +39,9 @@ export {
 } from "./devtools-panel";
 // v3.3: 公开 error-boundary i18n helpers，主应用可运行时切换降级 UI 文案语言
 export {
+  getCurrentLocale,
   getErrorFallbackMessagesByLocale,
+  setCurrentLocale,
   setErrorFallbackMessages,
 } from "./error-boundary";
 // v3.7.0: 三级降级决策 — 自动静默重试 / 占重试计数读写
@@ -101,6 +103,8 @@ export type {
   Manifest,
   ManifestRoute,
 } from "./loader";
+// v4.2.1 L2: CSP nonce 配置（SRI 兼容）
+export { setCspNonce } from "./loader";
 // v4.1 P0-A1: 管理器注册表 + 统一生命周期工厂
 export { createManagerRegistry } from "./manager-registry";
 export type { DisposableManager } from "./manager-registry";
