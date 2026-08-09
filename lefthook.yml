@@ -1,8 +1,36 @@
-# Lefthook 配置文件
-# 已禁用 — 所有 Git hooks 检查已被全局移除
-# 如需恢复，请参照 git 历史中的内容重新配置
+# Lefthook 配置 — Git hooks 自动化门控
+# 文档: https://github.com/evarto-io/lefthook
 
-# pre-commit: 已禁用
-# pre-push: 已禁用
-# commit-msg: 已禁用
-# post-merge: 已禁用
+pre-commit:
+  parallel: true
+  commands:
+    prettier:
+      glob: "*.{ts,tsx,vue,css,scss,mjs,cjs,json,md}"
+      run: pnpm prettier --check --write {staged_files}
+      stage_fixed: true
+    eslint:
+      glob: "*.{ts,tsx,vue,mjs,cjs}"
+      run: pnpm eslint --fix {staged_files}
+      stage_fixed: true
+    stylelint:
+      glob: "*.{css,scss,vue}"
+      run: pnpm stylelint --fix {staged_files}
+      stage_fixed: true
+    cspell:
+      glob: "*.{ts,tsx,vue,mjs,cjs,md,json}"
+      run: pnpm cspell {staged_files}
+
+pre-push:
+  parallel: true
+  commands:
+    check:
+      run: pnpm check
+    typecheck:
+      run: pnpm check:type
+    test-unit:
+      run: pnpm test:unit
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm commitlint --edit

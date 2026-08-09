@@ -138,19 +138,6 @@ services:
       - YDSZ-net
     restart: unless-stopped
 
-  # ==================== Project Service (9009) ====================
-  project:
-    image: YDSZ/project:latest
-    container_name: YDSZ-project
-    ports:
-      - "9009:9009"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - JAVA_OPTS=-Xms256m -Xmx512m
-    networks:
-      - YDSZ-net
-    restart: unless-stopped
-
 networks:
   YDSZ-net:
     driver: bridge

@@ -1,41 +1,44 @@
-﻿<!--
- * apps 列表/管理页面组件
+<!--
+ * Agent 管理（列表页）
  *
- * @path apps\agent-web\src\views\agent\index.vue
+ * @path apps/agent-web/src/views/agent/index.vue
  * @author ydsz-team
  * @since 1.0.0
+ * @modified 4.0.1 集成 useCrudTable + i18n，消除硬编码中文和空 catch。
 -->
 <script lang="ts" setup>
-/**
- * Agent 管理（列表页）
- * <p>Agent 智能体的列表/分页查询页，提供新增、编辑、删除操作入口。
- * <p>使用 VxeGrid 表格展示 Agent 名称、类型、模型提供商/名称、状态、创建时间。
- * <p>通过 {@code useVbenModal} 弹出表单抽屉完成创建/编辑。
- *
- * @author ydsz-team
- * @since 1.0.0
- */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
+import { ElButton, h } from 'element-plus';
+import { useI18n } from 'vue-i18n';
+import { useCrudTable } from '@ydsz/shared-business';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteAgentApi, getAgentPageApi, type AgentApi } from '#/api/agent';
 import AgentForm from './agent-form.vue';
+
 defineOptions({ name: 'AgentManagement' });
+const { t } = useI18n();
+
+const crud = useCrudTable({
+  fetcher: (query) => getAgentPageApi({ ...query }),
+  deleteFetcher: (row) => deleteAgentApi(row.id),
+  deleteMessage: (row) => t('agent.confirmDelete', { name: row.agentName }),
+});
+
 const gridOptions: VxeGridProps<AgentApi.AgentVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'agentName', title: 'Agent名称', width: 200 },
-    { field: 'agentType', title: '类型', width: 100 },
-    { field: 'modelProvider', title: '模型提供商', width: 120 },
-    { field: 'modelName', title: '模型名称', width: 120 },
-    { field: 'status', title: '状态', width: 80 },
-    { field: 'createTime', title: '创建时间', width: 160 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'agentName', title: t('agent.columns.name'), width: 200 },
+    { field: 'agentType', title: t('agent.columns.type'), width: 100 },
+    { field: 'modelProvider', title: t('agent.columns.provider'), width: 120 },
+    { field: 'modelName', title: t('agent.columns.model'), width: 120 },
+    { field: 'status', title: t('common.status'), width: 80 },
+    { field: 'createTime', title: t('common.createTime'), width: 160 },
     {
-      field: 'action', title: '操作', width: 160, fixed: 'right',
+      field: 'action', title: t('common.actions'), width: 160, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('common.edit')),
+        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => crud.handleDelete(row) }, () => t('common.delete')),
       ]) },
     },
   ],
@@ -49,18 +52,14 @@ const gridOptions: VxeGridProps<AgentApi.AgentVO> = {
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [AgentFormModal, agentFormApi] = useVbenModal({ connectedComponent: AgentForm });
+
 function handleAdd() { agentFormApi.open(); }
 function handleEdit(row: AgentApi.AgentVO) { agentFormApi.setData({ record: row }); agentFormApi.open(); }
-async function handleDelete(row: AgentApi.AgentVO) {
-  try { await ElMessageBox.confirm(`确定删除「${row.agentName}」吗？`, '删除确认', { type: 'warning' });
-    await deleteAgentApi(row.id); ElMessage.success('删除成功'); gridApi.query();
-  } catch {}
-}
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="Agent管理">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
+    <Grid :table-title="t('agent.title')">
+      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton></template>
     </Grid>
     <AgentFormModal @success="gridApi.query()" />
   </Page>

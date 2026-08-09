@@ -43,8 +43,7 @@
       "outputs": []
     },
     "test:unit": {
-      "outputs": [],
-      "dependsOn": ["^build"]
+      "outputs": []
     }
   }
 }

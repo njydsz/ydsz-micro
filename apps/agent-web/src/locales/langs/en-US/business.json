@@ -1,8 +1,28 @@
 {
-  "agentName": "Agent Name",
-  "agentType": "Agent Type",
-  "agentStatus": "Status",
-  "agentModel": "Model",
+  "agent": {
+    "title": "Agent Management",
+    "editTitle": "Edit Agent",
+    "createTitle": "Create Agent",
+    "columns": {
+      "name": "Agent Name",
+      "type": "Type",
+      "provider": "Model Provider",
+      "model": "Model Name",
+      "systemPrompt": "System Prompt",
+      "temperature": "Temperature",
+      "status": "Status"
+    },
+    "placeholder": {
+      "name": "Enter agent name",
+      "type": "Enter agent type",
+      "provider": "Enter model provider",
+      "model": "Enter model name",
+      "systemPrompt": "Enter system prompt"
+    },
+    "confirmDelete": "Are you sure you want to delete \"{name}\"?",
+    "updateSuccess": "Updated successfully",
+    "createSuccess": "Created successfully"
+  },
   "definitionName": "Definition Name",
   "definitionVersion": "Version",
   "systemPrompt": "System Prompt",
@@ -20,6 +40,5 @@
   "create": "Create",
   "edit": "Edit",
   "delete": "Delete",
-  "confirmDelete": "Confirm delete?",
   "operationSuccess": "Success"
 }

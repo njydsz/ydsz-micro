@@ -363,17 +363,32 @@ export class PreloadManager {
     // 初始设置
     setupElementListeners();
 
-    // 使用 MutationObserver 监听 DOM 变化
-    const observer = new MutationObserver(() => {
-      setupElementListeners();
-    });
+    // === v4.0.1: MutationObserver 回调节流，防止高频 DOM 变化导致过度触发 ===
+    let _throttleTimer: ReturnType<typeof setTimeout> | null = null;
+    const THROTTLE_MS = 100;
+    const throttledSetup = () => {
+      if (_throttleTimer !== null) return;
+      _throttleTimer = setTimeout(() => {
+        _throttleTimer = null;
+        setupElementListeners();
+      }, THROTTLE_MS);
+    };
+
+    // 使用 MutationObserver 监听 DOM 变化（带节流）
+    const observer = new MutationObserver(throttledSetup);
 
     observer.observe(document.body, {
       childList: true,
       subtree: true,
     });
 
-    this.hoverListeners.set(appName, () => observer.disconnect());
+    this.hoverListeners.set(appName, () => {
+      if (_throttleTimer !== null) {
+        clearTimeout(_throttleTimer);
+        _throttleTimer = null;
+      }
+      observer.disconnect();
+    });
   }
 
   /**

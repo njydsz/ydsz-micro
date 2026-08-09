@@ -1,8 +1,28 @@
 {
-  "agentName": "Agent名称",
-  "agentType": "Agent类型",
-  "agentStatus": "Agent状态",
-  "agentModel": "使用模型",
+  "agent": {
+    "title": "Agent管理",
+    "editTitle": "编辑Agent管理",
+    "createTitle": "新增Agent管理",
+    "columns": {
+      "name": "Agent名称",
+      "type": "类型",
+      "provider": "模型提供商",
+      "model": "模型名称",
+      "systemPrompt": "系统提示词",
+      "temperature": "温度参数",
+      "status": "状态"
+    },
+    "placeholder": {
+      "name": "请输入Agent名称",
+      "type": "请输入Agent类型",
+      "provider": "请输入模型提供商",
+      "model": "请输入模型名称",
+      "systemPrompt": "请输入系统提示词"
+    },
+    "confirmDelete": "确定删除「{name}」吗？",
+    "updateSuccess": "更新成功",
+    "createSuccess": "创建成功"
+  },
   "definitionName": "定义名称",
   "definitionVersion": "版本",
   "systemPrompt": "系统提示词",
@@ -20,6 +40,5 @@
   "create": "新增",
   "edit": "编辑",
   "delete": "删除",
-  "confirmDelete": "确定删除吗？",
   "operationSuccess": "操作成功"
 }

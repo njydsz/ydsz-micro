@@ -20,25 +20,37 @@ import type { Linter } from 'eslint';
  * a11y ESLint 配置对象
  */
 export const a11yConfig: Linter.Config = {
-  plugins: ['@stylistic', 'import-x'],
+  plugins: ['@stylistic', 'import-x', 'vuejs-accessibility'],
   rules: {
-    // ========== style 相关 a11y 检查 ==========
-    // 严格规则可按需启用
+    // ========== vuejs-accessibility 推荐规则 ==========
+    'vuejs-accessibility/alt-text': 'error',
+    'vuejs-accessibility/anchor-has-content': 'error',
+    'vuejs-accessibility/aria-props': 'error',
+    'vuejs-accessibility/aria-role': 'error',
+    'vuejs-accessibility/aria-unsupported-elements': 'error',
+    'vuejs-accessibility/click-events-have-key-events': 'warn',
+    'vuejs-accessibility/form-control-has-label': 'error',
+    'vuejs-accessibility/heading-has-content': 'error',
+    'vuejs-accessibility/iframe-has-title': 'error',
+    'vuejs-accessibility/interactive-supports-focus': 'warn',
+    'vuejs-accessibility/label-has-for': 'error',
+    'vuejs-accessibility/media-has-caption': 'warn',
+    'vuejs-accessibility/mouse-events-have-key-events': 'warn',
+    'vuejs-accessibility/no-access-key': 'error',
+    'vuejs-accessibility/no-autofocus': 'warn',
+    'vuejs-accessibility/no-distracting-elements': 'error',
+    'vuejs-accessibility/no-onchange': 'warn',
+    'vuejs-accessibility/no-redundant-roles': 'error',
+    'vuejs-accessibility/no-static-element-interactions': 'warn',
+    'vuejs-accessibility/role-has-required-aria-props': 'error',
+    'vuejs-accessibility/tabindex-no-positive': 'error',
   },
   overrides: [
     // Vue template 检查
     {
       files: ['**/*.vue'],
       rules: {
-        // 强制按钮可聚焦
-        'import-x/no-unused-modules': 'off', // Vue 模板不计入
-      },
-    },
-    // 组件相关
-    {
-      files: ['**/components/**/*.ts', '**/components/**/*.vue', '**/effects/**/components/**/*.vue'],
-      rules: {
-        // 自定义规则占位（如需要可启用 eslint-plugin-vuejs-accessibility）
+        'import-x/no-unused-modules': 'off',
       },
     },
   ],

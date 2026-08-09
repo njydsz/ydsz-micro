@@ -1,11 +1,15 @@
 {
-  "messageTitle": "消息标题",
-  "messageContent": "消息内容",
-  "messageType": "消息类型",
-  "channel": "通道",
-  "sendStatus": "发送状态",
-  "sendTime": "发送时间",
-  "recipient": "接收人",
+  "message": {
+    "title": "消息管理",
+    "columns": {
+      "id": "消息ID",
+      "channel": "通道",
+      "recipient": "接收者",
+      "subject": "主题",
+      "sendTime": "发送时间"
+    },
+    "confirmDelete": "确定删除「{id}」吗？"
+  },
   "templateName": "模板名称",
   "templateContent": "模板内容",
   "templateType": "模板类型",
@@ -19,6 +23,6 @@
   "create": "新增",
   "edit": "编辑",
   "delete": "删除",
-  "confirmDelete": "确定删除吗？",
+  "confirmDelete": "确定删除「{id}」吗？",
   "operationSuccess": "操作成功"
 }

@@ -20,5 +20,25 @@
   "yes": "是",
   "no": "否",
   "showSearchPanel": "显示搜索面板",
-  "hideSearchPanel": "隐藏搜索面板"
+  "hideSearchPanel": "隐藏搜索面板",
+  "seq": "序号",
+  "status": "状态",
+  "createTime": "创建时间",
+  "actions": "操作",
+  "validation": {
+    "required": "请输入{field}"
+  },
+  "error": {
+    "pageLoadFailed": "页面加载出错，请稍后重试"
+  },
+  "crud": {
+    "confirmDeleteDefault": "确定要删除这条记录吗？删除后不可恢复。",
+    "deleteConfirmTitle": "删除确认",
+    "deleteButton": "删除",
+    "deleteSuccess": "删除成功",
+    "deleteFailed": "删除失败",
+    "batchDeleteConfirm": "确定要删除选中的 {count} 条记录吗？",
+    "batchDeleteTitle": "批量删除确认",
+    "batchDeleteSuccess": "批量删除成功"
+  }
 }

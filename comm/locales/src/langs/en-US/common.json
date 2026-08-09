@@ -20,5 +20,25 @@
   "yes": "Yes",
   "no": "No",
   "showSearchPanel": "Show search panel",
-  "hideSearchPanel": "Hide search panel"
+  "hideSearchPanel": "Hide search panel",
+  "seq": "#",
+  "status": "Status",
+  "createTime": "Created",
+  "actions": "Actions",
+  "validation": {
+    "required": "Please enter {field}"
+  },
+  "error": {
+    "pageLoadFailed": "Page failed to load, please try again"
+  },
+  "crud": {
+    "confirmDeleteDefault": "Are you sure you want to delete this record? This action cannot be undone.",
+    "deleteConfirmTitle": "Confirm Delete",
+    "deleteButton": "Delete",
+    "deleteSuccess": "Deleted successfully",
+    "deleteFailed": "Delete failed",
+    "batchDeleteConfirm": "Are you sure you want to delete the selected {count} records?",
+    "batchDeleteTitle": "Batch Delete Confirm",
+    "batchDeleteSuccess": "Batch delete successful"
+  }
 }

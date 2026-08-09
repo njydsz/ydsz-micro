@@ -32,6 +32,25 @@ const release =
 const endpoint = getArg('endpoint', '/api/v1/monitor/sourcemaps');
 const keep = args.includes('--keep'); // 调试：不删除已上传的 .map
 
+// ==================== 重试配置 ====================
+const MAX_RETRIES = 3;
+const BASE_DELAY_MS = 1000;
+
+async function uploadWithRetry(filePath) {
+  let lastError;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const result = await uploadOne(filePath);
+    if (result.ok) return result;
+    lastError = result.error;
+    if (attempt < MAX_RETRIES) {
+      const delay = BASE_DELAY_MS * 2 ** (attempt - 1);
+      console.warn(`  重试 ${attempt}/${MAX_RETRIES - 1}: ${result.relativePath} (${lastError}) — ${delay}ms 后`);
+      await new Promise((r) => setTimeout(r, delay));
+    }
+  }
+  return { ok: false, relativePath: filePath, error: lastError };
+}
+
 if (!release) {
   console.error('[upload-sourcemaps] 缺少 release 标识（--release 或 VITE_APP_RELEASE）');
   process.exit(1);
@@ -90,7 +109,7 @@ async function main() {
   let ok = 0;
   let fail = 0;
   for (const file of mapFiles) {
-    const result = await uploadOne(file);
+    const result = await uploadWithRetry(file);
     if (result.ok) {
       ok++;
       if (!keep) fs.unlinkSync(file);

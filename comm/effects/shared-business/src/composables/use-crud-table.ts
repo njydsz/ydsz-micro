@@ -8,9 +8,11 @@
  * @remarks
  * 整合服务端分页 + 删除确认 + 刷新 + 新增/编辑弹窗控制，
  * 对标 Vben Admin useTable 的能力子集，让标准 CRUD 页面少于 200 行。
+ * v4.0.1: 内置 i18n 支持，消除硬编码中文。
  */
 import { computed, ref } from 'vue';
 
+import { useI18n } from 'vue-i18n';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 import {
@@ -51,6 +53,7 @@ export interface CrudTableOptions<T = any, Q = Record<string, any>> {
 export function useCrudTable<T = any, Q = Record<string, any>>(
   options: CrudTableOptions<T, Q>,
 ) {
+  const { t } = useI18n();
   const { fetcher, deleteFetcher, deleteMessage, rowKey = 'id', pageSize = 10 } = options;
 
   const {
@@ -100,12 +103,12 @@ export function useCrudTable<T = any, Q = Record<string, any>>(
   async function handleDelete(row: T) {
     if (!deleteFetcher) return;
     const msg =
-      deleteMessage?.(row) ?? `确定要删除这条记录吗？删除后不可恢复。`;
+      deleteMessage?.(row) ?? t('crud.confirmDeleteDefault');
     try {
-      await ElMessageBox.confirm(msg, '删除确认', {
+      await ElMessageBox.confirm(msg, t('crud.deleteConfirmTitle'), {
         type: 'warning',
-        confirmButtonText: '删除',
-        cancelButtonText: '取消',
+        confirmButtonText: t('crud.deleteButton'),
+        cancelButtonText: t('common.cancel'),
       });
     } catch {
       return; // 用户取消
@@ -113,7 +116,7 @@ export function useCrudTable<T = any, Q = Record<string, any>>(
 
     try {
       await deleteFetcher(row);
-      ElMessage.success('删除成功');
+      ElMessage.success(t('crud.deleteSuccess'));
       // 若当前页删空且不是第一页，回退一页
       if (items.value.length === 1 && pagination.value.current > 1) {
         changePage(pagination.value.current - 1);
@@ -121,7 +124,7 @@ export function useCrudTable<T = any, Q = Record<string, any>>(
         await fetchData();
       }
     } catch (error) {
-      ElMessage.error('删除失败');
+      ElMessage.error(t('crud.deleteFailed'));
       throw error;
     }
   }
@@ -131,15 +134,15 @@ export function useCrudTable<T = any, Q = Record<string, any>>(
     if (!deleteFetcher || selectedRows.value.length === 0) return;
     try {
       await ElMessageBox.confirm(
-        `确定要删除选中的 ${selectedRows.value.length} 条记录吗？`,
-        '批量删除确认',
+        t('crud.batchDeleteConfirm', { count: selectedRows.value.length }),
+        t('crud.batchDeleteTitle'),
         { type: 'warning' },
       );
     } catch {
       return;
     }
     await Promise.all(selectedRows.value.map((row) => deleteFetcher(row)));
-    ElMessage.success('批量删除成功');
+    ElMessage.success(t('crud.batchDeleteSuccess'));
     selectedRows.value = [];
     await fetchData();
   }

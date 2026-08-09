@@ -66,6 +66,13 @@ export function createGlobalStateAPI(): RawGlobalStateAPI & { reset(): void } {
     getGlobalState() {
       return { ..._globalState };
     },
+    /**
+     * 直接获取指定 key 的值（v4.0.1 性能优化）。
+     * 避免 getGlobalState() 在热路径中返回完整浅拷贝。
+     */
+    getState<K extends string>(key: K): Record<string, unknown>[K] {
+      return _globalState[key];
+    },
     reset() {
       _globalState = {};
       _globalStateListeners.clear();

@@ -1,11 +1,15 @@
 {
-  "messageTitle": "Title",
-  "messageContent": "Content",
-  "messageType": "Type",
-  "channel": "Channel",
-  "sendStatus": "Status",
-  "sendTime": "Sent At",
-  "recipient": "Recipient",
+  "message": {
+    "title": "Message Management",
+    "columns": {
+      "id": "Message ID",
+      "channel": "Channel",
+      "recipient": "Recipient",
+      "subject": "Subject",
+      "sendTime": "Sent At"
+    },
+    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+  },
   "templateName": "Template Name",
   "templateContent": "Template Content",
   "templateType": "Template Type",
@@ -19,6 +23,6 @@
   "create": "Create",
   "edit": "Edit",
   "delete": "Delete",
-  "confirmDelete": "Confirm delete?",
+  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
   "operationSuccess": "Success"
 }

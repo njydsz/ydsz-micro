@@ -8,10 +8,12 @@
 <script lang="ts" setup>
 import { watch } from 'vue';
 
-import { useWatermark } from '@ydsz/hooks';
+import { ErrorBoundary, useWatermark } from '@ydsz/common-ui';
+import { useI18n } from 'vue-i18n';
 import { preferences } from '@ydsz/preferences';
 import { useUserStore } from '@ydsz/stores';
 
+const { t } = useI18n();
 const userStore = useUserStore();
 const { destroyWatermark, updateWatermark } = useWatermark();
 
@@ -33,6 +35,8 @@ watch(
 </script>
 
 <template>
-  <!-- 只渲染路由视图，不渲染布局 -->
-  <RouterView />
+  <!-- 只渲染路由视图，不渲染布局。ErrorBoundary 防止业务组件渲染异常导致白屏 -->
+  <ErrorBoundary :show-retry="true" :error-message="t('error.pageLoadFailed')">
+    <RouterView />
+  </ErrorBoundary>
 </template>

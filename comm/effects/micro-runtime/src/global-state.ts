@@ -49,6 +49,8 @@ export interface RawGlobalStateAPI<T = Record<string, unknown>> {
   onGlobalStateChange: (listener: (state: T, prev: T) => void, fireImmediately?: boolean) => () => void;
   setGlobalState: (state: Partial<T>) => void;
   getGlobalState: () => T;
+  /** v4.0.1: 直接获取指定 key 的值，避免完整浅拷贝 */
+  getState: <K extends string>(key: K) => T[K];
 }
 
 /** 内部实现 — 基于原始 API 创建类型化句柄 */

@@ -989,13 +989,12 @@ export function resetKeepAliveEnabled(): void {
 /**
  * 设置指定子应用的保活状态（v3.x 兼容 API）。
  *
- * @param name - 子应用名称
- * @param keep - 是否保活
- * @deprecated 自 v4.0 起使用 `configureKeepAlive` 替代
+ * @param _name - 子应用名称（v4.0 起不再影响实例级 pin，仅保留签名兼容）
+ * @param keep - 是否启用全局保活
+ * @deprecated 自 v4.0.1 起使用 `configureKeepAlive({ enabled })` 替代；
+ *             参见 kernel.ts setKeepAliveEnabled()。
  * @since 3.7.0
  */
-export function setKeepAlive(name: string, keep: boolean): void {
-  // v4.0 兼容实现：使用统一的 configureKeepAlive
-  // 注意：这是一个简化实现，实际 pin 逻辑需要访问内部状态
+export function setKeepAlive(_name: string, keep: boolean): void {
   configureKeepAlive({ enabled: keep });
 }

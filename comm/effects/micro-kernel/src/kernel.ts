@@ -648,8 +648,14 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       return results;
     },
 
-    setKeepAlive(name, keep) {
-      setKeepAlive(name, keep);
+    /**
+     * 启用或禁用全局 KeepAlive（v4.0.1 语义修复）。
+     *
+     * @param enabled - 是否启用保活缓存
+     * @since 4.0.1
+     */
+    setKeepAliveEnabled(enabled: boolean) {
+      configureKeepAliveAction({ enabled });
     },
 
     // === v4.0 P3-2: KeepAlive 统一配置 ===

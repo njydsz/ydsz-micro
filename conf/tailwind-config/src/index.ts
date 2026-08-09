@@ -102,11 +102,28 @@ const shadcnUiColors = {
   },
 };
 
-// 自定义颜色
+// 自定义颜色（green 使用 --success-* 变量以统一语义色）
 const customColors = {
   green: {
-    ...createColorsPalette("green"),
+    50: "hsl(var(--success-50))",
+    100: "hsl(var(--success-100))",
+    200: "hsl(var(--success-200))",
+    300: "hsl(var(--success-300))",
+    400: "hsl(var(--success-400))",
+    500: "hsl(var(--success-500))",
+    600: "hsl(var(--success-600))",
+    700: "hsl(var(--success-700))",
+    active: "hsl(var(--success-700))",
+    "background-light": "hsl(var(--success-200))",
+    "background-lighter": "hsl(var(--success-100))",
+    "background-lightest": "hsl(var(--success-50))",
+    border: "hsl(var(--success-400))",
+    "border-light": "hsl(var(--success-300))",
     foreground: "hsl(var(--success-foreground))",
+    hover: "hsl(var(--success-600))",
+    text: "hsl(var(--success-500))",
+    "text-active": "hsl(var(--success-700))",
+    "text-hover": "hsl(var(--success-600))",
   },
   header: {
     DEFAULT: "hsl(var(--header))",
