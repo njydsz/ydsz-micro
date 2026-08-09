@@ -1,43 +1,43 @@
-{
+﻿{
   "folders": [
     {
-      "name": "@remi/agent-web",
+      "name": "@ydsz/agent-web",
       "path": "apps/agent-web",
     },
     {
-      "name": "@remi/cronjob-web",
+      "name": "@ydsz/cronjob-web",
       "path": "apps/cronjob-web",
     },
     {
-      "name": "@remi/literule-web",
+      "name": "@ydsz/literule-web",
       "path": "apps/literule-web",
     },
     {
-      "name": "@remi/message-web",
+      "name": "@ydsz/message-web",
       "path": "apps/message-web",
     },
     {
-      "name": "@remi/nextwiki-web",
+      "name": "@ydsz/nextwiki-web",
       "path": "apps/nextwiki-web",
     },
     {
-      "name": "@remi/system-web",
+      "name": "@ydsz/system-web",
       "path": "apps/system-web",
     },
     {
-      "name": "@remi/userinfo-web",
+      "name": "@ydsz/userinfo-web",
       "path": "apps/userinfo-web",
     },
     {
-      "name": "@remi/workflow-web",
+      "name": "@ydsz/workflow-web",
       "path": "apps/workflow-web",
     },
     {
-      "name": "@remi/turbo-run",
+      "name": "@ydsz/turbo-run",
       "path": "bash/turbo-run",
     },
     {
-      "name": "@remi/vsh",
+      "name": "@ydsz/vsh",
       "path": "bash/vsh",
     },
     {
@@ -93,115 +93,115 @@
       "path": "comm/@core/ui-kit/tabs-ui",
     },
     {
-      "name": "@remi/constants",
+      "name": "@ydsz/constants",
       "path": "comm/constants",
     },
     {
-      "name": "@remi/access",
+      "name": "@ydsz/access",
       "path": "comm/effects/access",
     },
     {
-      "name": "@remi/common-ui",
+      "name": "@ydsz/common-ui",
       "path": "comm/effects/common-ui",
     },
     {
-      "name": "@remi/hooks",
+      "name": "@ydsz/hooks",
       "path": "comm/effects/hooks",
     },
     {
-      "name": "@remi/layouts",
+      "name": "@ydsz/layouts",
       "path": "comm/effects/layouts",
     },
     {
-      "name": "@remi/micro-kernel",
+      "name": "@ydsz/micro-kernel",
       "path": "comm/effects/micro-kernel",
     },
     {
-      "name": "@remi/micro-runtime",
+      "name": "@ydsz/micro-runtime",
       "path": "comm/effects/micro-runtime",
     },
     {
-      "name": "@remi/monitor",
+      "name": "@ydsz/monitor",
       "path": "comm/effects/monitor",
     },
     {
-      "name": "@remi/plugins",
+      "name": "@ydsz/plugins",
       "path": "comm/effects/plugins",
     },
     {
-      "name": "@remi/request",
+      "name": "@ydsz/request",
       "path": "comm/effects/request",
     },
     {
-      "name": "@remi/shared-auth",
+      "name": "@ydsz/shared-auth",
       "path": "comm/effects/shared-auth",
     },
     {
-      "name": "@remi/shared-business",
+      "name": "@ydsz/shared-business",
       "path": "comm/effects/shared-business",
     },
     {
-      "name": "@remi/icons",
+      "name": "@ydsz/icons",
       "path": "comm/icons",
     },
     {
-      "name": "@remi/locales",
+      "name": "@ydsz/locales",
       "path": "comm/locales",
     },
     {
-      "name": "@remi/preferences",
+      "name": "@ydsz/preferences",
       "path": "comm/preferences",
     },
     {
-      "name": "@remi/stores",
+      "name": "@ydsz/stores",
       "path": "comm/stores",
     },
     {
-      "name": "@remi/styles",
+      "name": "@ydsz/styles",
       "path": "comm/styles",
     },
     {
-      "name": "@remi/types",
+      "name": "@ydsz/types",
       "path": "comm/types",
     },
     {
-      "name": "@remi/utils",
+      "name": "@ydsz/utils",
       "path": "comm/utils",
     },
     {
-      "name": "@remi/commitlint-config",
+      "name": "@ydsz/commitlint-config",
       "path": "conf/lint-configs/commitlint-config",
     },
     {
-      "name": "@remi/eslint-config",
+      "name": "@ydsz/eslint-config",
       "path": "conf/lint-configs/eslint-config",
     },
     {
-      "name": "@remi/prettier-config",
+      "name": "@ydsz/prettier-config",
       "path": "conf/lint-configs/prettier-config",
     },
     {
-      "name": "@remi/stylelint-config",
+      "name": "@ydsz/stylelint-config",
       "path": "conf/lint-configs/stylelint-config",
     },
     {
-      "name": "@remi/node-utils",
+      "name": "@ydsz/node-utils",
       "path": "conf/node-utils",
     },
     {
-      "name": "@remi/tailwind-config",
+      "name": "@ydsz/tailwind-config",
       "path": "conf/tailwind-config",
     },
     {
-      "name": "@remi/tsconfig",
+      "name": "@ydsz/tsconfig",
       "path": "conf/tsconfig",
     },
     {
-      "name": "@remi/vite-config",
+      "name": "@ydsz/vite-config",
       "path": "conf/vite-config",
     },
     {
-      "name": "@remi/main-web",
+      "name": "@ydsz/main-web",
       "path": "main",
     },
   ],

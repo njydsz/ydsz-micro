@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 set -e
 
 # ==================== Build & Deploy Frontend Docker Image ====================
@@ -6,7 +6,7 @@ set -e
 # Default tag: latest
 
 TAG=${1:-latest}
-IMAGE_NAME="remi/frontend"
+IMAGE_NAME="ydsz/frontend"
 CONTEXT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
 echo "============================================"

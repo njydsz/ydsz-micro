@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+﻿// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`defaultPreferences immutability test > should not modify the config object 1`] = `
 {
@@ -16,7 +16,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "contentPaddingLeft": 0,
     "contentPaddingRight": 0,
     "contentPaddingTop": 0,
-    "defaultAvatar": "https://unpkg.com/@remi/static-source@0.1.7/source/avatar-v1.webp",
+    "defaultAvatar": "https://unpkg.com/@ydsz/static-source@0.1.7/source/avatar-v1.webp",
     "defaultHomePath": "/dashboard/analytics",
     "dynamicTitle": true,
     "enableCheckUpdates": true,
@@ -26,7 +26,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
     "layout": "header-sidebar-nav",
     "locale": "zh-CN",
     "loginExpiredMode": "page",
-    "name": "REMI Micro",
+    "name": "YDSZ Micro",
     "preferencesButtonPosition": "header",
     "watermark": false,
     "zIndex": 200,
@@ -40,7 +40,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
   },
   "copyright": {
     "companyName": "瑞米软件",
-    "companySiteLink": "https://remi.com.cn",
+    "companySiteLink": "https://ydsz.com.cn",
     "date": "2026",
     "enable": true,
     "icp": "",
@@ -62,7 +62,7 @@ exports[`defaultPreferences immutability test > should not modify the config obj
   "logo": {
     "enable": true,
     "fit": "contain",
-    "source": "https://unpkg.com/@remi/static-source@0.1.7/source/logo-v1.webp",
+    "source": "https://unpkg.com/@ydsz/static-source@0.1.7/source/logo-v1.webp",
   },
   "navigation": {
     "accordion": true,
