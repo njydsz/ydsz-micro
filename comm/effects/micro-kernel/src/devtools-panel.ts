@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 微前端 DevTools 管理面板（开发态）
  *
  * 通过 Alt+Shift+M 切换面板，可视化展示：
@@ -7,108 +7,234 @@
  * - globalState 实时快照
  * - 手动操作按钮（强制卸载/重载/降级/刷新注册表）
  *
+ * P2-3 (v4.2): 支持可插拔 Tab — 通过 registerDevToolsTab() 注册自定义 Tab，
+ * 第三方开发者可以扩展面板功能，无需修改本模块源码。
+ *
  * @path comm/effects/micro-kernel/src/devtools-panel.ts
  * @author ydsz-team
  * @since 3.7.0
  */
 
-import { getAllInstances } from './scheduler';
-import { createLogger } from '@YDSZ-core/shared/utils';
-import { refreshRegistry } from './registry-adapter';
-import type { AppStatus } from './scheduler';
-import { getPerfStats, clearKernelMarks } from './performance-utils';
-import { getPreloadManager } from './preload-strategy';
-import { getRoutePredictor } from './route-predictor';
+import type { AppStatus } from "./scheduler";
 
-const logger = createLogger('MicroKernel');
+import { createLogger } from "@YDSZ-core/shared/utils";
+
+import { clearKernelMarks, getPerfStats } from "./performance-utils";
+import { getPreloadManager } from "./preload-strategy";
+import { refreshRegistry } from "./registry-adapter";
+import { getRoutePredictor } from "./route-predictor";
+import { getAllInstances } from "./scheduler";
+
+const logger = createLogger("MicroKernel");
 
 /** 面板 id，用于去重 */
-const PANEL_ID = 'micro-kernel-devtools';
+const PANEL_ID = "micro-kernel-devtools";
 
 /** 面板当前是否可见 */
 let panelVisible = false;
 
-/** 当前激活的 Tab（P2-7: Tab 分页） */
-let activeTab: 'overview' | 'preload' | 'routes' | 'instances' = 'overview';
-
 /** 刷新定时器 */
-let refreshTimer: ReturnType<typeof setInterval> | null = null;
+let refreshTimer: null | ReturnType<typeof setInterval> | undefined;
+
+// ==================== P2-3: 可插拔 Tab 注册表 ====================
+
+/**
+ * DevTools Tab 接口（P2-3 可插拔扩展点）。
+ *
+ * 实现此接口并调用 `registerDevToolsTab` 即可向 DevTools 面板添加自定义 Tab。
+ */
+export interface DevToolsTab {
+  /** Tab 唯一标识（kebab-case，如 'my-app-health'） */
+  readonly id: string;
+  /** Tab 显示名（支持中文、英文或 i18n key） */
+  readonly label: string;
+  /**
+   * 渲染 Tab 内容（返回 HTML 字符串）。
+   *
+   * 注意：
+   * - 返回 innerHTML 字符串，使用 inline style（面板是独立 shadow-dom 环境）
+   * - 需要交互时请使用 data-action 属性 + dataset 传递参数
+   *
+   * @returns HTML 字符串
+   */
+  render(): string;
+}
+
+/** Tab 注册表（有序） */
+const tabRegistry = new Map<string, DevToolsTab>();
+
+/** 当前激活的 Tab id */
+let activeTabId: string = "overview";
+
+/**
+ * 注册一个 DevTools Tab（幂等：同 id 覆盖）。
+ *
+ * 内置 Tab 在模块初始化时注册，外部调用者可在应用启动阶段注册自定义 Tab。
+ *
+ * @param tab - Tab 实例
+ *
+ * @example
+ * ```ts
+ * import { registerDevToolsTab } from '@ydsz/micro-kernel';
+ *
+ * registerDevToolsTab({
+ *   id: 'my-metrics',
+ *   label: '业务指标',
+ *   render() {
+ *     return `<div>自定义内容: ${Date.now()}</div>`;
+ *   },
+ * });
+ * ```
+ */
+export function registerDevToolsTab(tab: DevToolsTab): void {
+  if (!tab?.id) {
+    logger.warn("registerDevToolsTab: invalid tab (missing id)");
+    return;
+  }
+  tabRegistry.set(tab.id, tab);
+}
+
+/**
+ * 取消注册一个 DevTools Tab（内置 Tab 不可移除）。
+ *
+ * @param id - Tab id
+ * @returns 是否成功移除
+ */
+export function unregisterDevToolsTab(id: string): boolean {
+  // 内置 Tab 不允许移除
+  if (id === "overview" || id === "preload" || id === "instances") {
+    return false;
+  }
+  return tabRegistry.delete(id);
+}
+
+/**
+ * 获取已注册的 Tab 列表（只读）。
+ *
+ * @returns Tab 列表（按注册顺序）
+ */
+export function getRegisteredTabs(): ReadonlyArray<DevToolsTab> {
+  return [...tabRegistry.values()];
+}
+
+// ==================== 内置 Tab 实现 ====================
+
+const overviewTab: DevToolsTab = {
+  id: "overview",
+  label: "概览",
+  render: () => renderOverviewContent(),
+};
+
+const preloadTab: DevToolsTab = {
+  id: "preload",
+  label: "预加载",
+  render: () => renderPreloadContent(),
+};
+
+const instancesTab: DevToolsTab = {
+  id: "instances",
+  label: "子应用",
+  render: () => renderInstancesContent(),
+};
+
+// 注册内置 Tab
+registerDevToolsTab(overviewTab);
+registerDevToolsTab(preloadTab);
+registerDevToolsTab(instancesTab);
 
 /** 获取内存使用（Chrome only） */
 function getMemoryInfo(): string {
-  const perf = (window as unknown as {
-    performance?: { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number } };
-  }).performance;
+  const perf = (
+    window as unknown as {
+      performance?: {
+        memory?: { jsHeapSizeLimit: number; usedJSHeapSize: number };
+      };
+    }
+  ).performance;
   const mem = perf?.memory;
-  if (!mem) return 'N/A（仅 Chrome）';
+  if (!mem) return "N/A（仅 Chrome）";
   return `${(mem.usedJSHeapSize / 1024 / 1024).toFixed(1)} MB / ${(mem.jsHeapSizeLimit / 1024 / 1024).toFixed(0)} MB`;
 }
 
 /** 状态颜色 */
 function statusColor(status: AppStatus): string {
   switch (status) {
-    case 'MOUNTED':
-      return '#67c23a';
-    case 'LOADING':
-      return '#e6a23c';
-    case 'LOADED':
-      return '#409eff';
-    case 'UNMOUNTED':
-      return '#909399';
-    case 'NOT_LOADED':
-    default:
-      return '#c0c4cc';
+    case "LOADED": {
+      return "#409eff";
+    }
+    case "LOADING": {
+      return "#e6a23c";
+    }
+    case "MOUNTED": {
+      return "#67c23a";
+    }
+    case "UNMOUNTED": {
+      return "#909399";
+    }
+    case "NOT_LOADED":
+    default: {
+      return "#c0c4cc";
+    }
   }
 }
 
 /**
- * P2-7: Tab 栏样式生成器。
+ * P2-3 (v4.2): 生成 Tab 按钮 HTML 字符串。
  * 当前激活 Tab 高亮为主色，其余为灰色。
  */
-function tabStyle(tab: typeof activeTab, label: string): string {
-  const isActive = activeTab === tab;
-  return `<button data-tab="${tab}" style="padding:4px 10px;font-size:11px;cursor:pointer;border:none;border-bottom:2px solid ${isActive ? 'var(--el-color-primary,#409eff)' : 'transparent'};background:transparent;color:${isActive ? 'var(--el-color-primary,#409eff)' : '#909399'};font-weight:${isActive ? 600 : 400}">${label}</button>`;
+function renderTabButton(tab: DevToolsTab): string {
+  const isActive = activeTabId === tab.id;
+  return `<button data-tab="${tab.id}" style="padding:4px 10px;font-size:11px;cursor:pointer;border:none;border-bottom:2px solid ${isActive ? "var(--el-color-primary,#409eff)" : "transparent"};background:transparent;color:${isActive ? "var(--el-color-primary,#409eff)" : "#909399"};font-weight:${isActive ? 600 : 400}">${tab.label}</button>`;
 }
 
 /** P2-7: 渲染预加载可视化 Tab 内容 */
-function renderPreloadTab(): string {
+function renderPreloadContent(): string {
   const preload = getPreloadManager();
   const predictor = getRoutePredictor();
   const usageStats = preload.getAllUsageStats();
 
   // 构建 top predictions（取当前活跃应用的下一步预测）
   const allInstances = getAllInstances();
-  const activeApp = allInstances.find((i) => i.status === 'MOUNTED');
+  const activeApp = allInstances.find((i) => i.status === "MOUNTED");
   const predictions = activeApp
     ? predictor.predict(activeApp.config.name, 5)
     : [];
 
-  const predRows = predictions.length > 0
-    ? predictions.map((p) => {
-        const pct = Math.round(p.probability * 100);
-        return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0">
+  const predRows =
+    predictions.length > 0
+      ? predictions
+          .map((p) => {
+            const pct = Math.round(p.probability * 100);
+            return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0">
             <div style="width:${Math.max(pct, 5)}%;min-width:4px;height:8px;background:var(--el-color-primary,#409eff);border-radius:2px"></div>
             <span style="flex:1">${p.appName}</span>
             <span style="color:#303133;font-weight:600">${pct}%</span>
             <span style="color:#909399">(${p.sampleSize})</span>
           </div>`;
-      }).join('')
-    : '<span style="color:#c0c4cc">暂无预测数据</span>';
+          })
+          .join("")
+      : '<span style="color:#c0c4cc">暂无预测数据</span>';
 
   // 频率 top
-  const freqRows = usageStats.length > 0
-    ? usageStats.slice(0, 6).map((s) => `
+  const freqRows =
+    usageStats.length > 0
+      ? usageStats
+          .slice(0, 6)
+          .map(
+            (s) => `
         <div style="display:flex;justify-content:space-between;padding:2px 0">
           <span>${s.appName}</span>
           <span style="color:#909399">${s.visitCount} 次</span>
-        </div>`).join('')
-    : '<span style="color:#c0c4cc">暂无数据</span>';
+        </div>`,
+          )
+          .join("")
+      : '<span style="color:#c0c4cc">暂无数据</span>';
 
   return `
     <div style="display:flex;flex-direction:column;gap:12px">
       <div>
         <div style="margin-bottom:6px;color:#606266;font-weight:600">
-          🔮 路由预测 ${activeApp ? `(${activeApp.config.name})` : '(无活跃应用)'}
+          🔮 路由预测 ${activeApp ? `(${activeApp.config.name})` : "(无活跃应用)"}
         </div>
         <div style="padding:6px;background:#f5f7fa;border-radius:4px">
           ${predRows || '<span style="color:#c0c4cc">暂无预测数据</span>'}
@@ -124,41 +250,45 @@ function renderPreloadTab(): string {
   `;
 }
 
-/** P2-7: 渲染 Tab 内容（根据 activeTab 分派） */
+/** P2-3 (v4.2): 渲染当前激活 Tab 的内容。 */
 function renderTabContent(): string {
-  switch (activeTab) {
-    case 'overview':
-      return renderOverviewContent();
-    case 'preload':
-      return renderPreloadTab();
-    case 'instances':
-      return renderInstancesContent();
-    default:
-      return '';
+  const tab = tabRegistry.get(activeTabId);
+  if (!tab) return '<div style="color:#c0c4cc">Tab 未找到</div>';
+  try {
+    return tab.render();
+  } catch (error) {
+    return `<div style="color:#f56c6c">Tab 渲染错误: ${String(error)}</div>`;
   }
 }
 
 /** P2-7: Overview Tab 内容（原面板主体信息） */
 function renderOverviewContent(): string {
   const instances = getAllInstances();
-  const activeApp = instances.find((i) => i.status === 'MOUNTED');
-  const keepAliveCount = instances.filter((i) => i.keepAlive && i.status === 'UNMOUNTED' && i.cachedRoot).length;
+  const activeApp = instances.find((i) => i.status === "MOUNTED");
+  const keepAliveCount = instances.filter(
+    (i) => i.keepAlive && i.status === "UNMOUNTED" && i.cachedRoot,
+  ).length;
 
   // P1-7: 性能测量数据
   const perfStats = getPerfStats();
   const topMeasures = perfStats.measures
     .filter((m) => m.duration > 0)
     .slice(0, 8)
-    .map((m) => `<div style="display:flex;justify-content:space-between;padding:2px 0">
-        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px">${m.name.replace('kernel:', '')}</span>
+    .map(
+      (
+        m,
+      ) => `<div style="display:flex;justify-content:space-between;padding:2px 0">
+        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px">${m.name.replace("kernel:", "")}</span>
         <span style="color:#303133;font-variant-numeric:tabular-nums">${m.duration}ms</span>
-      </div>`).join('');
+      </div>`,
+    )
+    .join("");
 
   return `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
       <div style="padding:6px;background:#f5f7fa;border-radius:4px">
         <div style="color:#909399">活跃应用</div>
-        <div style="font-weight:600">${activeApp?.config.name ?? '无'}</div>
+        <div style="font-weight:600">${activeApp?.config.name ?? "无"}</div>
       </div>
       <div style="padding:6px;background:#f5f7fa;border-radius:4px">
         <div style="color:#909399">KeepAlive</div>
@@ -197,16 +327,20 @@ function renderInstancesContent(): string {
   return `
     <div style="margin-bottom:4px;color:#606266;font-weight:600">子应用状态</div>
     <div style="max-height:50vh;overflow-y:auto">
-      ${instances.map((inst) => `
+      ${instances
+        .map(
+          (inst) => `
         <div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #ebeef5">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${statusColor(inst.status)}"></span>
           <span style="flex:1">${inst.config.name}</span>
           <span style="color:${statusColor(inst.status)};font-weight:600">${inst.status}</span>
-          ${inst.loadMetrics ? `<span style="color:#909399">${Math.round(inst.loadMetrics.duration)}ms</span>` : ''}
+          ${inst.loadMetrics ? `<span style="color:#909399">${Math.round(inst.loadMetrics.duration)}ms</span>` : ""}
           <button data-act="unmount" data-app="${inst.config.name}" style="padding:2px 6px;font-size:11px;cursor:pointer;background:#f5f7fa;border:1px solid #dcdfe6;border-radius:3px">卸载</button>
           <button data-act="reload" data-app="${inst.config.name}" style="padding:2px 6px;font-size:11px;cursor:pointer;background:#ecf5ff;border:1px solid #c6e2ff;border-radius:3px;color:#409eff">重载</button>
         </div>
-      `).join('')}
+      `,
+        )
+        .join("")}
     </div>
   `;
 }
@@ -219,11 +353,9 @@ function renderPanel(): string {
         <strong>🛠 Micro Kernel DevTools</strong>
         <span style="color:#909399">${new Date().toLocaleTimeString()}</span>
       </div>
-      <!-- P2-7: Tab 分页栏 -->
-      <div style="display:flex;gap:2px;margin-bottom:12px;border-bottom:1px solid #ebeef5">
-        ${tabStyle('overview', '概览')}
-        ${tabStyle('preload', '预加载')}
-        ${tabStyle('instances', '子应用')}
+      <!-- P2-3 (v4.2): Tab 分页栏（动态渲染） -->
+      <div style="display:flex;gap:2px;margin-bottom:12px;border-bottom:1px solid #ebeef5;flex-wrap:wrap">
+        ${[...tabRegistry.values()].map(renderTabButton).join("")}
       </div>
       <div id="${PANEL_ID}-tab-content">
         ${renderTabContent()}
@@ -234,7 +366,7 @@ function renderPanel(): string {
 
 /** 挂载面板 DOM */
 function mountPanel(): HTMLDivElement {
-  const el = document.createElement('div');
+  const el = document.createElement("div");
   el.id = PANEL_ID;
   el.style.cssText = `
     position: fixed; right: 16px; bottom: 16px; z-index: 99999;
@@ -243,19 +375,19 @@ function mountPanel(): HTMLDivElement {
     box-shadow: 0 4px 16px rgba(0,0,0,0.12); padding: 16px;
     display: none;
   `;
-  document.body.appendChild(el);
+  document.body.append(el);
   return el;
 }
 
 /** 绑定面板内按钮事件 */
 function bindPanelEvents(el: HTMLDivElement): void {
-  el.addEventListener('click', (e) => {
+  el.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;
 
-    // P2-7: Tab 点击切换
-    const tab = target.dataset.tab as typeof activeTab | undefined;
-    if (tab) {
-      activeTab = tab;
+    // P2-3: Tab 点击切换
+    const tabId = target.dataset.tab;
+    if (tabId && tabRegistry.has(tabId)) {
+      activeTabId = tabId;
       refreshPanel(el);
       return;
     }
@@ -263,24 +395,40 @@ function bindPanelEvents(el: HTMLDivElement): void {
     const action = target.dataset.act;
     const appName = target.dataset.app;
 
-    if (action === 'unmount' && appName) {
-      window.dispatchEvent(new CustomEvent('micro-kernel:devtools:unmount', { detail: { appName } }));
-    } else if (action === 'reload' && appName) {
-      window.dispatchEvent(new CustomEvent('micro-kernel:devtools:reload', { detail: { appName } }));
+    if (action === "unmount" && appName) {
+      window.dispatchEvent(
+        new CustomEvent("micro-kernel:devtools:unmount", {
+          detail: { appName },
+        }),
+      );
+    } else if (action === "reload" && appName) {
+      window.dispatchEvent(
+        new CustomEvent("micro-kernel:devtools:reload", {
+          detail: { appName },
+        }),
+      );
     }
   });
 
-  el.querySelector(`#${PANEL_ID}-refresh-registry`)?.addEventListener('click', () => {
-    void refreshRegistry().then(() => refreshPanel());
-  });
-  el.querySelector(`#${PANEL_ID}-clear-cache`)?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('micro-kernel:devtools:clear-cache'));
-  });
-  el.querySelector(`#${PANEL_ID}-perf-clear`)?.addEventListener('click', () => {
+  el.querySelector(`#${PANEL_ID}-refresh-registry`)?.addEventListener(
+    "click",
+    () => {
+      void refreshRegistry().then(() => refreshPanel());
+    },
+  );
+  el.querySelector(`#${PANEL_ID}-clear-cache`)?.addEventListener(
+    "click",
+    () => {
+      window.dispatchEvent(
+        new CustomEvent("micro-kernel:devtools:clear-cache"),
+      );
+    },
+  );
+  el.querySelector(`#${PANEL_ID}-perf-clear`)?.addEventListener("click", () => {
     clearKernelMarks();
     refreshPanel(el);
   });
-  el.querySelector(`#${PANEL_ID}-close`)?.addEventListener('click', () => {
+  el.querySelector(`#${PANEL_ID}-close`)?.addEventListener("click", () => {
     toggleDevTools(false);
   });
 }
@@ -311,7 +459,10 @@ function refreshPanel(el?: HTMLDivElement): void {
   // 全量重建态
   const content = target.querySelector(`#${PANEL_ID}-content`);
   if (content) {
-    content.innerHTML = renderPanel().match(/<div id="[^"]-content"[^>]*>([\s\S]*)<\/div>\s*<\/div>/)?.[1] ?? '';
+    content.innerHTML =
+      renderPanel().match(
+        /<div id="[^"]-content"[^>]*>([\s\S]*)<\/div>\s*<\/div>/,
+      )?.[1] ?? "";
   }
 }
 
@@ -325,7 +476,7 @@ function toggleDevTools(forceVisible?: boolean): void {
   }
 
   panelVisible = forceVisible ?? !panelVisible;
-  el.style.display = panelVisible ? 'block' : 'none';
+  el.style.display = panelVisible ? "block" : "none";
 
   if (panelVisible) {
     el.innerHTML = renderPanel();
@@ -343,15 +494,15 @@ function toggleDevTools(forceVisible?: boolean): void {
 let keyHandlerRegistered = false;
 
 function registerKeyHandler(): void {
-  if (keyHandlerRegistered || typeof document === 'undefined') return;
+  if (keyHandlerRegistered || typeof document === "undefined") return;
   keyHandlerRegistered = true;
 
-  document.addEventListener('keydown', (e) => {
-    if (e.altKey && e.shiftKey && (e.key === 'M' || e.key === 'm')) {
+  document.addEventListener("keydown", (e) => {
+    if (e.altKey && e.shiftKey && (e.key === "M" || e.key === "m")) {
       e.preventDefault();
       toggleDevTools();
     }
-    if (e.key === 'Escape' && panelVisible) {
+    if (e.key === "Escape" && panelVisible) {
       toggleDevTools(false);
     }
   });
@@ -371,7 +522,7 @@ function registerKeyHandler(): void {
 export function enableMicroDevTools(): void {
   if (import.meta.env.PROD) return;
   registerKeyHandler();
-  logger.info('DevTools enabled — press Alt+Shift+M to toggle panel');
+  logger.info("DevTools enabled — press Alt+Shift+M to toggle panel");
 }
 
 /** 手动触发显示/隐藏（供外部按钮调用） */
@@ -390,17 +541,32 @@ export function destroyMicroDevTools(): void {
 }
 
 /**
+ * 清理自定义 Tab 注册（HMR 场景防止重复注册）。
+ *
+ * 仅清理 registerDevToolsTab() 注册的自定义 Tab，
+ * 内置 Tab（overview / preload / instances）保持不变。
+ */
+function clearCustomTabs(): void {
+  for (const id of tabRegistry.keys()) {
+    if (id !== "overview" && id !== "preload" && id !== "instances") {
+      tabRegistry.delete(id);
+    }
+  }
+}
+
+/**
  * P0-A1: 创建 devtools-panel 生命周期管理器。
  *
  * 纳入 ManagerRegistry 统一释放开发态面板资源。
  *
  * @since 4.1.0
  */
-export function createDevToolsManager(): import('./manager-registry').DisposableManager {
+export function createDevToolsManager(): import("./manager-registry").DisposableManager {
   return {
-    name: 'devtools-panel',
+    name: "devtools-panel",
     dispose(): void {
       destroyMicroDevTools();
+      clearCustomTabs();
     },
   };
 }

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * iframe 沙箱 — 基于 iframe contentWindow 的强隔离兜底方案
  *
  * **设计定位**：
@@ -44,7 +44,7 @@
 /** iframe 沙箱实例 */
 export interface IframeSandboxInstance {
   /** iframe 的 contentWindow（子应用可用的隔离 window） */
-  contentWindow: Window | null;
+  contentWindow: null | Window;
   /** iframe 的 contentDocument（子应用挂载用的隔离 document） */
   contentDocument: Document | null;
   /** 挂载容器元素（位于 iframe document 内） */
@@ -93,7 +93,7 @@ export interface IframeSandboxInstance {
 
 /** iframe 默认样式：撑满容器、无边框 */
 const IFRAME_STYLE =
-  'width:100%;height:100%;border:0;display:block;margin:0;padding:0;';
+  "width:100%;height:100%;border:0;display:block;margin:0;padding:0;";
 
 /**
  * postMessage 桥接协议标记。
@@ -103,7 +103,7 @@ const IFRAME_STYLE =
  *
  * @since 3.6.0
  */
-const BRIDGE_MARK = '__MICRO_KERNEL_BRIDGE__';
+const BRIDGE_MARK = "__MICRO_KERNEL_BRIDGE__";
 
 /**
  * 桥接消息类型。
@@ -115,11 +115,7 @@ const BRIDGE_MARK = '__MICRO_KERNEL_BRIDGE__';
  *
  * @since 3.6.0
  */
-type BridgeMessageType =
-  | 'state-set'
-  | 'state-sync'
-  | 'rpc-call'
-  | 'rpc-result';
+type BridgeMessageType = "rpc-call" | "rpc-result" | "state-set" | "state-sync";
 
 /** RPC 调用消息体 */
 interface RpcCallPayload {
@@ -157,7 +153,7 @@ interface BridgeMessage<T = unknown> {
  */
 function isBridgeMessage(data: unknown): data is BridgeMessage {
   return (
-    typeof data === 'object' &&
+    typeof data === "object" &&
     data !== null &&
     (data as Record<string, unknown>)[BRIDGE_MARK] === true
   );
@@ -184,7 +180,7 @@ function isBridgeMessage(data: unknown): data is BridgeMessage {
 function injectBridgeScript(iframeWin: Window): void {
   // 在 iframe document 中注入 <script>，确保代码在 iframe realm 执行
   const iframeDoc = iframeWin.document;
-  const script = iframeDoc.createElement('script');
+  const script = iframeDoc.createElement("script");
   script.textContent = `
     (function() {
       // 当前 globalState 快照（由主应用同步过来）
@@ -284,7 +280,7 @@ function injectBridgeScript(iframeWin: Window): void {
       });
     })();
   `;
-  iframeDoc.head.appendChild(script);
+  iframeDoc.head.append(script);
   script.remove();
 }
 
@@ -304,28 +300,83 @@ function injectBridgeScript(iframeWin: Window): void {
  *   传入时 iframe 将加载此地址而非 about:blank，子应用在 iframe 内独立运行
  * @returns iframe 沙箱实例
  */
+/**
+ * iframe 沙箱 RPC 配置（P1-3: 超时配置化 + 可选重试）。
+ */
+export interface IframeRpcConfig {
+  /** RPC 超时（毫秒），默认 30_000 */
+  timeout?: number;
+  /**
+   * 超时后是否自动重试（仅对幂等方法如 `getGlobalState` 重试）。
+   *
+   * 默认策略：
+   * - 3 次尝试（包含原始调用 + 2 次重试）
+   * - 仅当 timeout 触发且方法是 GET 类幂等操作时才重试
+   * - 指数退避：delay = baseDelay * 2^attempt
+   */
+  retry?: {
+    /** 重试基数延迟（毫秒），默认 1_000 */
+    baseDelay?: number;
+    /** 是否启用超时重试，默认 false */
+    enabled: boolean;
+    /**
+     * 判断给定 method 是否可重试。
+     * 默认：以 'get' / 'query' / 'fetch' 开头的方法视为幂等可重试。
+     */
+    isIdempotent?: (method: string) => boolean;
+    /** 最大重试次数，默认 2 */
+    maxRetries?: number;
+  };
+}
+
+/** 默认 RPC 配置 */
+const DEFAULT_RPC_CONFIG: Required<IframeRpcConfig> = {
+  timeout: 30_000,
+  retry: {
+    enabled: false,
+    maxRetries: 2,
+    baseDelay: 1000,
+    isIdempotent: (method) =>
+      /^(get|query|fetch|read|select|find)/i.test(method),
+  },
+};
+
 export function createIframeSandbox(
   appName: string,
   parentEl: HTMLElement,
   devUrl?: string,
+  rpcConfig?: IframeRpcConfig,
 ): IframeSandboxInstance {
-  const iframe = document.createElement('iframe');
-  iframe.setAttribute('aria-label', `sub-app-${appName}`);
-  iframe.setAttribute('data-micro-sandbox', 'iframe');
-  iframe.setAttribute('style', IFRAME_STYLE);
+  // P1-3: 合并 RPC 配置
+  const rpc: Required<IframeRpcConfig> = {
+    timeout: rpcConfig?.timeout ?? DEFAULT_RPC_CONFIG.timeout,
+    retry: {
+      enabled: rpcConfig?.retry?.enabled ?? DEFAULT_RPC_CONFIG.retry.enabled,
+      maxRetries:
+        rpcConfig?.retry?.maxRetries ?? DEFAULT_RPC_CONFIG.retry.maxRetries,
+      baseDelay:
+        rpcConfig?.retry?.baseDelay ?? DEFAULT_RPC_CONFIG.retry.baseDelay,
+      isIdempotent:
+        rpcConfig?.retry?.isIdempotent ?? DEFAULT_RPC_CONFIG.retry.isIdempotent,
+    },
+  };
+  const iframe = document.createElement("iframe");
+  iframe.setAttribute("aria-label", `sub-app-${appName}`);
+  iframe.dataset.microSandbox = "iframe";
+  iframe.setAttribute("style", IFRAME_STYLE);
 
   // P2-1: dev 模式下加载子应用 dev server，实现独立 realm 完整运行
   const isDevUrl = devUrl && import.meta.env.DEV;
   if (isDevUrl) {
-    iframe.setAttribute('src', devUrl);
-    iframe.setAttribute('data-iframe-mode', 'standalone-dev');
+    iframe.setAttribute("src", devUrl);
+    iframe.dataset.iframeMode = "standalone-dev";
   } else {
     // 使用 about:blank 避免额外网络请求，文档立即可用
-    iframe.setAttribute('src', 'about:blank');
-    iframe.setAttribute('data-iframe-mode', 'esm-hosted');
+    iframe.setAttribute("src", "about:blank");
+    iframe.dataset.iframeMode = "esm-hosted";
   }
 
-  parentEl.appendChild(iframe);
+  parentEl.append(iframe);
 
   // 同步等待 iframe document 就绪（about:blank 在同源下立即可用）
   const contentWindow = iframe.contentWindow;
@@ -336,7 +387,9 @@ export function createIframeSandbox(
   if (!contentWindow) {
     // 极端情况下 iframe 未就绪，移除并回退
     iframe.remove();
-    throw new Error(`[IframeSandbox:${appName}] Failed to access iframe contentWindow`);
+    throw new Error(
+      `[IframeSandbox:${appName}] Failed to access iframe contentWindow`,
+    );
   }
 
   // P2-1: dev 模式下 iframe 已加载子应用完整 SPA，无需注入桥接脚本和创建容器
@@ -347,7 +400,9 @@ export function createIframeSandbox(
 
     if (!contentDocument) {
       iframe.remove();
-      throw new Error(`[IframeSandbox:${appName}] Failed to access iframe contentDocument`);
+      throw new Error(
+        `[IframeSandbox:${appName}] Failed to access iframe contentDocument`,
+      );
     }
 
     // 写入基础 HTML 结构，确保有 body 可用
@@ -361,20 +416,20 @@ export function createIframeSandbox(
     // 仅复制 <style> 和 <link> 中带 data-shared-style 标记的，避免全量复制
     try {
       const sharedStyles = document.querySelectorAll(
-        'style[data-shared-style], link[data-shared-style]',
+        "style[data-shared-style], link[data-shared-style]",
       );
       sharedStyles.forEach((node) => {
-        contentDocument.head.appendChild(node.cloneNode(true));
+        contentDocument.head.append(node.cloneNode(true));
       });
     } catch {
       // 样式复制失败不阻断沙箱创建
     }
 
     // 在 iframe body 内创建挂载容器
-    container = contentDocument.createElement('div');
-    container.setAttribute('id', 'subapp-container');
-    container.setAttribute('data-micro-app', appName);
-    contentDocument.body.appendChild(container);
+    container = contentDocument.createElement("div");
+    container.setAttribute("id", "subapp-container");
+    container.dataset.microApp = appName;
+    contentDocument.body.append(container);
 
     // v3.6.0: 注入 postMessage 桥接脚本，建立跨 realm 通信通道
     injectBridgeScript(contentWindow);
@@ -387,7 +442,7 @@ export function createIframeSandbox(
   // v3.6.1: 主 → 子 RPC 待响应 Map（callId → resolve/reject）
   const pendingRpcs = new Map<
     string,
-    { resolve: (value: unknown) => void; reject: (error: Error) => void }
+    { reject: (error: Error) => void; resolve: (value: unknown) => void }
   >();
   // v3.6.1: 子 → 主 RPC 处理器（子应用可调用的主应用 API）
   const mainApiHandlers: Record<string, (...args: any[]) => unknown> = {};
@@ -400,7 +455,7 @@ export function createIframeSandbox(
     if (event.source !== contentWindow) return;
     const data = event.data;
     if (!isBridgeMessage(data)) return;
-    if (data.type === 'state-set') {
+    if (data.type === "state-set") {
       for (const handler of childMessageHandlers) {
         try {
           handler(data.payload);
@@ -410,7 +465,7 @@ export function createIframeSandbox(
       }
       return;
     }
-    if (data.type === 'rpc-result') {
+    if (data.type === "rpc-result") {
       const payload = data.payload as RpcResultPayload;
       const pending = pendingRpcs.get(payload.callId);
       if (pending) {
@@ -418,34 +473,38 @@ export function createIframeSandbox(
         if (payload.ok) {
           pending.resolve(payload.result);
         } else {
-          pending.reject(new Error(payload.error || 'RPC call failed'));
+          pending.reject(new Error(payload.error || "RPC call failed"));
         }
       }
       return;
     }
-    if (data.type === 'rpc-call') {
+    if (data.type === "rpc-call") {
       // 子应用调用主应用 API
       const payload = data.payload as RpcCallPayload;
       const handler = mainApiHandlers[payload.method];
       const respond = (ok: boolean, result?: unknown, error?: string) => {
         const response: BridgeMessage = {
           [BRIDGE_MARK]: true,
-          type: 'rpc-result',
+          type: "rpc-result",
           payload: { callId: payload.callId, ok, result, error },
         } as BridgeMessage;
-        contentWindow.postMessage(response, '*');
+        contentWindow.postMessage(response, "*");
       };
-      if (typeof handler !== 'function') {
+      if (typeof handler !== "function") {
         respond(false, undefined, `RPC method not found: ${payload.method}`);
         return;
       }
       try {
         // 使用 thenable 判定替代 (as Promise) 断言，兼容任意 thenable 返回值
         const result = handler(...payload.args);
-        if (result && typeof (result as { then?: unknown }).then === 'function') {
+        if (
+          result &&
+          typeof (result as { then?: unknown }).then === "function"
+        ) {
           Promise.resolve(result).then(
             (value) => respond(true, value),
-            (err) => respond(false, undefined, String(err?.message || err)),
+            (error) =>
+              respond(false, undefined, String(error?.message || error)),
           );
         } else {
           respond(true, result);
@@ -459,7 +518,7 @@ export function createIframeSandbox(
       }
     }
   };
-  window.addEventListener('message', onMessage);
+  window.addEventListener("message", onMessage);
 
   let isActive = false;
   let cleaned = false;
@@ -491,7 +550,7 @@ export function createIframeSandbox(
       isActive = false;
 
       // v3.6.0: 移除主侧 message 监听器，避免内存泄漏
-      window.removeEventListener('message', onMessage);
+      window.removeEventListener("message", onMessage);
       childMessageHandlers.clear();
 
       // v3.6.1: 清理待响应的 RPC 请求
@@ -504,7 +563,7 @@ export function createIframeSandbox(
       if (!isDevUrl) {
         // 清空 iframe 内容并移除
         try {
-          contentDocument?.write('');
+          contentDocument?.write("");
           contentDocument?.close();
         } catch {
           // 忽略清理异常
@@ -522,10 +581,10 @@ export function createIframeSandbox(
       if (cleaned || !contentWindow) return;
       const message: BridgeMessage = {
         [BRIDGE_MARK]: true,
-        type: 'state-sync',
+        type: "state-sync",
         payload,
       } as BridgeMessage;
-      contentWindow.postMessage(message, '*');
+      contentWindow.postMessage(message, "*");
     },
 
     // v3.6.0: 注册子 → 主 消息处理器
@@ -541,25 +600,70 @@ export function createIframeSandbox(
       if (cleaned || !contentWindow) {
         throw new Error(`[IframeSandbox:${appName}] Sandbox is closed`);
       }
-      const callId = `p${++rpcSeq}`;
-      const promise = new Promise<unknown>((resolve, reject) => {
-        pendingRpcs.set(callId, { resolve, reject });
-      });
-      const message: BridgeMessage = {
-        [BRIDGE_MARK]: true,
-        type: 'rpc-call',
-        payload: { method, args, callId } satisfies RpcCallPayload,
-      } as BridgeMessage;
-      contentWindow.postMessage(message, '*');
-      // 超时保护：30s 未响应视为失败
-      setTimeout(() => {
-        const pending = pendingRpcs.get(callId);
-        if (pending) {
-          pendingRpcs.delete(callId);
-          pending.reject(new Error(`[IframeSandbox:${appName}] RPC timeout: ${method}`));
+
+      // P1-3: 可重试的 RPC 调用
+      const maxAttempts =
+        rpc.retry.enabled && rpc.retry.isIdempotent(method)
+          ? 1 + rpc.retry.maxRetries
+          : 1;
+
+      let lastError: Error | undefined;
+      for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        // 重试等待（指数退避）
+        if (attempt > 0) {
+          const delay = rpc.retry.baseDelay * 2 ** (attempt - 1);
+          await new Promise((r) => setTimeout(r, delay));
+          // 重试前检查沙箱是否已关闭
+          if (cleaned || !contentWindow) {
+            throw new Error(
+              `[IframeSandbox:${appName}] Sandbox is closed during retry`,
+            );
+          }
         }
-      }, 30_000);
-      return promise;
+
+        const callId = `p${++rpcSeq}`;
+        const promise = new Promise<unknown>((resolve, reject) => {
+          pendingRpcs.set(callId, { resolve, reject });
+        });
+        const message: BridgeMessage = {
+          [BRIDGE_MARK]: true,
+          type: "rpc-call",
+          payload: { method, args, callId } satisfies RpcCallPayload,
+        } as BridgeMessage;
+        contentWindow.postMessage(message, "*");
+
+        // P1-3: 使用可配置的超时时间
+        const timeoutId = setTimeout(() => {
+          const pending = pendingRpcs.get(callId);
+          if (pending) {
+            pendingRpcs.delete(callId);
+            pending.reject(
+              new Error(
+                `[IframeSandbox:${appName}] RPC timeout: ${method} (attempt ${attempt + 1}/${maxAttempts})`,
+              ),
+            );
+          }
+        }, rpc.timeout);
+
+        try {
+          const result = await promise;
+          clearTimeout(timeoutId);
+          return result;
+        } catch (error) {
+          lastError = error instanceof Error ? error : new Error(String(error));
+          // 不重试或已达到最大次数时抛出
+          if (attempt === maxAttempts - 1) {
+            throw lastError;
+          }
+          // 继续下一次重试
+        }
+      }
+
+      // 不可达（循环至少执行一次），兜底
+      throw (
+        lastError ??
+        new Error(`[IframeSandbox:${appName}] RPC failed: ${method}`)
+      );
     },
 
     // v3.6.1: 注册主应用 API 供子应用调用

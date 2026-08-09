@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 子应用版本管理器
  *
  * 负责：
@@ -12,12 +12,15 @@
  * @since 1.0.0
  */
 
-import type { Manifest } from './loader';
-import { clearManifestCache } from './loader';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import type { Manifest } from "./loader";
+
+import { createLogger } from "@YDSZ-core/shared/utils";
+
+import { clearManifestCache } from "./loader";
+import { getStorage, setStorage, STORAGE_KEYS } from "./storage-utils";
 
 /** 模块级日志器 */
-const logger = createLogger('VersionManager');
+const logger = createLogger("VersionManager");
 
 /** 版本信息存储 */
 interface VersionInfo {
@@ -46,24 +49,24 @@ export interface VersionManagerOptions {
   onVersionCheck?: (result: VersionUpdateResult) => void;
 }
 
-const STORAGE_KEY = 'micro-kernel:versions';
+const STORAGE_KEY = STORAGE_KEYS.VERSION_CACHE;
 const DEFAULT_CHECK_INTERVAL = 5 * 60 * 1000; // 5分钟
 
 /** 是否为开发模式（dev 模式无 manifest.json，跳过自动检查） */
 const isDev =
-  typeof import.meta !== 'undefined' &&
+  import.meta !== undefined &&
   (import.meta as { env?: Record<string, unknown> }).env?.DEV === true;
 
 class VersionManager {
-  private versions: Map<string, VersionInfo> = new Map();
-  private checkInterval: number;
-  private autoCheck: boolean;
-  private onVersionCheck?: (result: VersionUpdateResult) => void;
-  private checkTimer: null | ReturnType<typeof setInterval> = null;
   /** P0-F1: 注册的子应用入口（appName → entry URL），供自动检查 fetch manifest */
   private appEntries: Map<string, string> = new Map();
+  private autoCheck: boolean;
   /** 并发保护：防止上一轮检查未完成时启动新一轮 */
   private checking = false;
+  private checkInterval: number;
+  private checkTimer: null | ReturnType<typeof setInterval> = null;
+  private onVersionCheck?: (result: VersionUpdateResult) => void;
+  private versions: Map<string, VersionInfo> = new Map();
 
   constructor(options: VersionManagerOptions = {}) {
     this.checkInterval = options.checkInterval ?? DEFAULT_CHECK_INTERVAL;
@@ -80,48 +83,29 @@ class VersionManager {
   }
 
   /**
-   * P0-F1: 注册子应用入口，供自动检查使用。
+   * P0-F1: 手动触发一次版本检查。
    *
-   * kernel 在 `registerApps` 时调用，将 appName → entry 映射注入版本管理器。
-   * 后续自动检查会根据这些入口 URL 主动 fetch manifest.json 比较版本。
+   * 供外部（如用户主动"检查更新"按钮）调用。
    */
-  setAppEntries(entries: Map<string, string>): void {
-    this.appEntries = new Map(entries);
-  }
-
-  /**
-   * 更新子应用版本信息
-   */
-  updateVersion(appName: string, manifest: Manifest): void {
-    const info: VersionInfo = {
-      appName,
-      version: manifest.version,
-      lastChecked: Date.now(),
-      manifest,
-    };
-    this.versions.set(appName, info);
-    this.saveToStorage();
-  }
-
-  /**
-   * 获取子应用当前版本
-   */
-  getVersion(appName: string): string | null {
-    const info = this.versions.get(appName);
-    return info?.version ?? null;
+  async checkNow(): Promise<VersionUpdateResult[]> {
+    return this.runCheck();
   }
 
   /**
    * 检查版本更新
    */
-  async checkUpdate(appName: string, manifest: Manifest): Promise<VersionUpdateResult> {
+  async checkUpdate(
+    appName: string,
+    manifest: Manifest,
+  ): Promise<VersionUpdateResult> {
     const currentVersion = this.getVersion(appName);
     const latestVersion = manifest.version;
-    const hasUpdate = currentVersion !== null && currentVersion !== latestVersion;
+    const hasUpdate =
+      currentVersion !== null && currentVersion !== latestVersion;
 
     const result: VersionUpdateResult = {
       appName,
-      currentVersion: currentVersion ?? 'unknown',
+      currentVersion: currentVersion ?? "unknown",
       latestVersion,
       hasUpdate,
       manifest,
@@ -139,7 +123,9 @@ class VersionManager {
   /**
    * 批量检查多个子应用的版本更新
    */
-  async checkUpdates(manifests: Map<string, Manifest>): Promise<VersionUpdateResult[]> {
+  async checkUpdates(
+    manifests: Map<string, Manifest>,
+  ): Promise<VersionUpdateResult[]> {
     const results: VersionUpdateResult[] = [];
     for (const [appName, manifest] of manifests) {
       const result = await this.checkUpdate(appName, manifest);
@@ -153,8 +139,8 @@ class VersionManager {
    * 返回：-1 (v1 < v2), 0 (v1 === v2), 1 (v1 > v2)
    */
   compareVersions(v1: string, v2: string): -1 | 0 | 1 {
-    const parts1 = v1.split('.').map(Number);
-    const parts2 = v2.split('.').map(Number);
+    const parts1 = v1.split(".").map(Number);
+    const parts2 = v2.split(".").map(Number);
     const len = Math.max(parts1.length, parts2.length);
 
     for (let i = 0; i < len; i++) {
@@ -167,13 +153,40 @@ class VersionManager {
   }
 
   /**
+   * 清理资源
+   */
+  destroy(): void {
+    this.stopAutoCheck();
+    this.versions.clear();
+    this.appEntries.clear();
+  }
+
+  /**
+   * 获取子应用当前版本
+   */
+  getVersion(appName: string): null | string {
+    const info = this.versions.get(appName);
+    return info?.version ?? null;
+  }
+
+  /**
    * 检查版本兼容性
    */
   isCompatible(requiredVersion: string, currentVersion: string): boolean {
     // 简单实现：主版本号必须相同
-    const requiredMajor = requiredVersion.split('.')[0];
-    const currentMajor = currentVersion.split('.')[0];
+    const requiredMajor = requiredVersion.split(".")[0];
+    const currentMajor = currentVersion.split(".")[0];
     return requiredMajor === currentMajor;
+  }
+
+  /**
+   * P0-F1: 注册子应用入口，供自动检查使用。
+   *
+   * kernel 在 `registerApps` 时调用，将 appName → entry 映射注入版本管理器。
+   * 后续自动检查会根据这些入口 URL 主动 fetch manifest.json 比较版本。
+   */
+  setAppEntries(entries: Map<string, string>): void {
+    this.appEntries = new Map(entries);
   }
 
   /**
@@ -192,7 +205,7 @@ class VersionManager {
 
     // dev 模式无 manifest.json 产物，自动检查无意义
     if (isDev) {
-      logger.debug('Auto-check skipped in dev mode');
+      logger.debug("Auto-check skipped in dev mode");
       return;
     }
 
@@ -206,12 +219,63 @@ class VersionManager {
   }
 
   /**
-   * P0-F1: 手动触发一次版本检查。
-   *
-   * 供外部（如用户主动"检查更新"按钮）调用。
+   * 停止自动版本检查
    */
-  async checkNow(): Promise<VersionUpdateResult[]> {
-    return this.runCheck();
+  stopAutoCheck(): void {
+    if (this.checkTimer) {
+      clearInterval(this.checkTimer);
+      this.checkTimer = null;
+    }
+  }
+
+  /**
+   * 更新子应用版本信息
+   */
+  updateVersion(appName: string, manifest: Manifest): void {
+    const info: VersionInfo = {
+      appName,
+      version: manifest.version,
+      lastChecked: Date.now(),
+      manifest,
+    };
+    this.versions.set(appName, info);
+    this.saveToStorage();
+  }
+
+  /**
+   * P0-F1: 直接 fetch manifest.json（绕过 loader 缓存）。
+   *
+   * 自动检查需要获取最新的 manifest 来比较版本，
+   * 不能使用 loader 的 manifestCache（其中可能缓存了旧版本）。
+   */
+  private async fetchLatestManifest(entry: string): Promise<Manifest> {
+    const manifestUrl = `${entry.replace(/\/$/, "")}/manifest.json`;
+    const response = await fetch(manifestUrl, {
+      cache: "no-cache",
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch manifest from ${manifestUrl}: ${response.status}`,
+      );
+    }
+    return (await response.json()) as Manifest;
+  }
+
+  /**
+   * 从存储加载版本信息
+   */
+  private loadFromStorage(): void {
+    // P0-4: 使用统一存储层
+    const data = getStorage<null | Record<string, VersionInfo>>(
+      STORAGE_KEY,
+      null,
+    );
+    if (data) {
+      for (const [key, value] of Object.entries(data)) {
+        this.versions.set(key, value);
+      }
+    }
   }
 
   /**
@@ -222,18 +286,18 @@ class VersionManager {
    */
   private async runCheck(): Promise<VersionUpdateResult[]> {
     if (this.checking) {
-      logger.debug('Check already in progress, skipping');
+      logger.debug("Check already in progress, skipping");
       return [];
     }
 
     // 页面不可见时跳过，节省网络请求
-    if (typeof document !== 'undefined' && document.hidden) {
-      logger.debug('Tab hidden, skipping check');
+    if (typeof document !== "undefined" && document.hidden) {
+      logger.debug("Tab hidden, skipping check");
       return [];
     }
 
     if (this.appEntries.size === 0) {
-      logger.debug('No app entries registered, skipping check');
+      logger.debug("No app entries registered, skipping check");
       return [];
     }
 
@@ -254,7 +318,9 @@ class VersionManager {
 
             // 派发版本更新事件，供 UI 层提示用户刷新
             window.dispatchEvent(
-              new CustomEvent('micro-kernel:version-update', { detail: result }),
+              new CustomEvent("micro-kernel:version-update", {
+                detail: result,
+              }),
             );
 
             // 清理 loader 的 manifest 缓存，确保下次 loadApp 拉取新版本
@@ -273,82 +339,27 @@ class VersionManager {
   }
 
   /**
-   * P0-F1: 直接 fetch manifest.json（绕过 loader 缓存）。
-   *
-   * 自动检查需要获取最新的 manifest 来比较版本，
-   * 不能使用 loader 的 manifestCache（其中可能缓存了旧版本）。
-   */
-  private async fetchLatestManifest(entry: string): Promise<Manifest> {
-    const manifestUrl = `${entry.replace(/\/$/, '')}/manifest.json`;
-    const response = await fetch(manifestUrl, {
-      cache: 'no-cache',
-      headers: { Accept: 'application/json' },
-    });
-    if (!response.ok) {
-      throw new Error(`Failed to fetch manifest from ${manifestUrl}: ${response.status}`);
-    }
-    return (await response.json()) as Manifest;
-  }
-
-  /**
-   * 停止自动版本检查
-   */
-  stopAutoCheck(): void {
-    if (this.checkTimer) {
-      clearInterval(this.checkTimer);
-      this.checkTimer = null;
-    }
-  }
-
-  /**
-   * 清理资源
-   */
-  destroy(): void {
-    this.stopAutoCheck();
-    this.versions.clear();
-    this.appEntries.clear();
-  }
-
-  /**
-   * 从存储加载版本信息
-   */
-  private loadFromStorage(): void {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const data = JSON.parse(stored) as Record<string, VersionInfo>;
-        for (const [key, value] of Object.entries(data)) {
-          this.versions.set(key, value);
-        }
-      }
-    } catch {
-      // 存储读取失败，忽略
-    }
-  }
-
-  /**
    * 保存版本信息到存储
    */
   private saveToStorage(): void {
-    try {
-      const data: Record<string, VersionInfo> = {};
-      for (const [key, value] of this.versions) {
-        data[key] = value;
-      }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch {
-      // 存储写入失败，忽略
+    // P0-4: 使用统一存储层
+    const data: Record<string, VersionInfo> = {};
+    for (const [key, value] of this.versions) {
+      data[key] = value;
     }
+    setStorage(STORAGE_KEY, data);
   }
 }
 
 /** 全局版本管理器实例 */
-let versionManagerInstance: VersionManager | null = null;
+let versionManagerInstance: null | VersionManager = null;
 
 /**
  * 获取或创建版本管理器实例
  */
-export function getVersionManager(options?: VersionManagerOptions): VersionManager {
+export function getVersionManager(
+  options?: VersionManagerOptions,
+): VersionManager {
   if (!versionManagerInstance) {
     versionManagerInstance = new VersionManager(options);
   }
@@ -370,9 +381,9 @@ export function resetVersionManager(): void {
  *
  * @since 4.1.0
  */
-export function createVersionManager(): import('./manager-registry').DisposableManager {
+export function createVersionManager(): import("./manager-registry").DisposableManager {
   return {
-    name: 'version-manager',
+    name: "version-manager",
     dispose(): void {
       versionManagerInstance?.destroy();
       versionManagerInstance = null;

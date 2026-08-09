@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 轻内核错误边界
  *
  * - loadApp 失败 → 渲染降级 UI 到容器
@@ -12,11 +12,14 @@
  * @since 3.0.0
  */
 
-import type { MicroAppConfig } from '@ydsz/micro-runtime';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import type { MicroAppConfig } from "@ydsz/micro-runtime";
+
+import { createLogger } from "@YDSZ-core/shared/utils";
+
+import { ERROR_UI_CLASSES, injectErrorStyles } from "./error-ui-styles";
 
 /** 模块级日志器 */
-const logger = createLogger('MicroKernel');
+const logger = createLogger("MicroKernel");
 
 /**
  * P1-8: 内核错误码枚举。
@@ -26,22 +29,22 @@ const logger = createLogger('MicroKernel');
  * @since 4.0.1
  */
 export enum KernelErrorCode {
-  /** manifest.json 拉取失败（HTTP 404 / 500 等） */
-  LOAD_MANIFEST_FETCH = 'LOAD_MANIFEST_FETCH',
-  /** manifest.json 内容非法（JSON 解析失败 / 缺少 entry 字段） */
-  LOAD_MANIFEST_INVALID = 'LOAD_MANIFEST_INVALID',
-  /** ESM 入口模块 dynamic import 失败 */
-  LOAD_ESM_IMPORT = 'LOAD_ESM_IMPORT',
-  /** 加载超时 */
-  LOAD_TIMEOUT = 'LOAD_TIMEOUT',
   /** 子应用未导出必要的 mount/unmount 方法 */
-  LIFECYCLE_MISSING = 'LIFECYCLE_MISSING',
+  LIFECYCLE_MISSING = "LIFECYCLE_MISSING",
+  /** ESM 入口模块 dynamic import 失败 */
+  LOAD_ESM_IMPORT = "LOAD_ESM_IMPORT",
+  /** manifest.json 拉取失败（HTTP 404 / 500 等） */
+  LOAD_MANIFEST_FETCH = "LOAD_MANIFEST_FETCH",
+  /** manifest.json 内容非法（JSON 解析失败 / 缺少 entry 字段） */
+  LOAD_MANIFEST_INVALID = "LOAD_MANIFEST_INVALID",
+  /** 加载超时 */
+  LOAD_TIMEOUT = "LOAD_TIMEOUT",
   /** mount 调用抛错 */
-  MOUNT_ERROR = 'MOUNT_ERROR',
-  /** unmount 调用抛错 */
-  UNMOUNT_ERROR = 'UNMOUNT_ERROR',
+  MOUNT_ERROR = "MOUNT_ERROR",
   /** 沙箱创建或进入失败 */
-  SANDBOX_ERROR = 'SANDBOX_ERROR',
+  SANDBOX_ERROR = "SANDBOX_ERROR",
+  /** unmount 调用抛错 */
+  UNMOUNT_ERROR = "UNMOUNT_ERROR",
 }
 
 /**
@@ -52,12 +55,12 @@ export enum KernelErrorCode {
  * @since 4.0.1
  */
 export class KernelError extends Error {
-  readonly code: KernelErrorCode;
   readonly cause?: unknown;
+  readonly code: KernelErrorCode;
 
   constructor(code: KernelErrorCode, message: string, cause?: unknown) {
     super(message);
-    this.name = 'KernelError';
+    this.name = "KernelError";
     this.code = code;
     this.cause = cause;
   }
@@ -77,19 +80,19 @@ export class KernelError extends Error {
 function getLocaleFromStorage(): string {
   try {
     // 与 main/src/preferences 中 localStorage key 约定对齐
-    const stored = localStorage.getItem('YDSZ:preferences');
+    const stored = localStorage.getItem("YDSZ:preferences");
     if (stored) {
       const prefs = JSON.parse(stored);
       if (prefs?.app?.locale) return prefs.app.locale;
     }
     // 兜底到 navigator.language
-    if (typeof navigator !== 'undefined' && navigator.language) {
+    if (typeof navigator !== "undefined" && navigator.language) {
       return navigator.language;
     }
   } catch {
     // 静默
   }
-  return 'zh-CN';
+  return "zh-CN";
 }
 
 /**
@@ -105,10 +108,10 @@ function resolveEffectiveLocale(): string {
   if (isChinese) {
     // 全局消息为中文默认；检查用户是否偏好英文
     const storageLocale = getLocaleFromStorage();
-    return storageLocale.startsWith('en') ? 'en-US' : 'zh-CN';
+    return storageLocale.startsWith("en") ? "en-US" : "zh-CN";
   }
   // 全局消息已被覆盖为非中文，按当前消息语言定
-  return globalMessages.title === enUSMessages.title ? 'en-US' : 'zh-CN';
+  return globalMessages.title === enUSMessages.title ? "en-US" : "zh-CN";
 }
 
 /**
@@ -119,11 +122,11 @@ function resolveEffectiveLocale(): string {
  */
 function escapeHtml(str: string): string {
   return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 /**
@@ -132,7 +135,7 @@ function escapeHtml(str: string): string {
  * HTML id 不允许空格和特殊字符，将非字母数字字符替换为 `-`。
  */
 function sanitizeId(appName: string): string {
-  return appName.replace(/[^a-zA-Z0-9_-]/g, '-');
+  return appName.replaceAll(/[^\w-]/g, "-");
 }
 
 /**
@@ -171,34 +174,35 @@ export interface ErrorFallbackMessages {
 
 /** 默认中文消息 */
 const zhCNMessages: ErrorFallbackMessages = {
-  title: '应用加载失败',
-  description: '子应用可能正在发版或网络异常，请稍后重试。',
-  retriesLeft: '剩余重试次数：',
-  retry: '重试加载',
-  goHome: '返回首页',
-  technicalDetails: '技术详情',
-  appName: '应用名称：',
-  entry: '入口地址：',
-  activeRule: '激活规则：',
-  retryCount: '重试次数：',
-  reloading: '重新加载中...',
-  goToSubAppUrl: '前往子应用独立页',
+  title: "应用加载失败",
+  description: "子应用可能正在发版或网络异常，请稍后重试。",
+  retriesLeft: "剩余重试次数：",
+  retry: "重试加载",
+  goHome: "返回首页",
+  technicalDetails: "技术详情",
+  appName: "应用名称：",
+  entry: "入口地址：",
+  activeRule: "激活规则：",
+  retryCount: "重试次数：",
+  reloading: "重新加载中...",
+  goToSubAppUrl: "前往子应用独立页",
 };
 
 /** 默认英文消息 */
 const enUSMessages: ErrorFallbackMessages = {
-  title: 'Failed to Load Application',
-  description: 'The sub-application may be deploying or experiencing network issues. Please try again later.',
-  retriesLeft: 'Retries left: ',
-  retry: 'Retry',
-  goHome: 'Go Home',
-  technicalDetails: 'Technical Details',
-  appName: 'App Name: ',
-  entry: 'Entry: ',
-  activeRule: 'Active Rule: ',
-  retryCount: 'Retry Count: ',
-  reloading: 'Reloading...',
-  goToSubAppUrl: 'Open Sub-App Page',
+  title: "Failed to Load Application",
+  description:
+    "The sub-application may be deploying or experiencing network issues. Please try again later.",
+  retriesLeft: "Retries left: ",
+  retry: "Retry",
+  goHome: "Go Home",
+  technicalDetails: "Technical Details",
+  appName: "App Name: ",
+  entry: "Entry: ",
+  activeRule: "Active Rule: ",
+  retryCount: "Retry Count: ",
+  reloading: "Reloading...",
+  goToSubAppUrl: "Open Sub-App Page",
 };
 
 /** 当前全局消息配置 */
@@ -209,7 +213,9 @@ let globalMessages: ErrorFallbackMessages = zhCNMessages;
  *
  * @param messages - 消息配置对象
  */
-export function setErrorFallbackMessages(messages: ErrorFallbackMessages): void {
+export function setErrorFallbackMessages(
+  messages: ErrorFallbackMessages,
+): void {
   globalMessages = messages;
 }
 
@@ -219,8 +225,10 @@ export function setErrorFallbackMessages(messages: ErrorFallbackMessages): void 
  * @param locale - 语言标识，如 'zh-CN'、'en-US'
  * @returns 消息配置对象
  */
-export function getErrorFallbackMessagesByLocale(locale: string): ErrorFallbackMessages {
-  if (locale.startsWith('en')) {
+export function getErrorFallbackMessagesByLocale(
+  locale: string,
+): ErrorFallbackMessages {
+  if (locale.startsWith("en")) {
     return enUSMessages;
   }
   return zhCNMessages;
@@ -274,9 +282,9 @@ export function setRetryCount(appName: string, count: number): void {
  *
  * @since 4.1.0
  */
-export function createErrorBoundaryManager(): import('./manager-registry').DisposableManager {
+export function createErrorBoundaryManager(): import("./manager-registry").DisposableManager {
   return {
-    name: 'error-boundary',
+    name: "error-boundary",
     dispose(): void {
       degradedApps.clear();
       retryCounters.clear();
@@ -305,11 +313,13 @@ function getAutoRetryDelay(attempt: number): number {
  * @param appName - 应用名
  * @returns 'auto-retry' | 'show-ui' | 'full-page'
  */
-export function decideDegradationLevel(appName: string): 'auto-retry' | 'show-ui' | 'full-page' {
+export function decideDegradationLevel(
+  appName: string,
+): "auto-retry" | "full-page" | "show-ui" {
   const count = retryCounters.get(appName) ?? 0;
-  if (count < MAX_AUTO_RETRIES) return 'auto-retry';
-  if (count < MAX_MICRO_RETRIES) return 'show-ui';
-  return 'full-page';
+  if (count < MAX_AUTO_RETRIES) return "auto-retry";
+  if (count < MAX_MICRO_RETRIES) return "show-ui";
+  return "full-page";
 }
 
 /** 获取下次自动重试延迟（仅 auto-retry 级别有意义） */
@@ -358,13 +368,17 @@ export function renderErrorFallback(
   const retryCount = retryCounters.get(config.name) ?? 0;
   const canRetry = onRetry && retryCount < MAX_MICRO_RETRIES;
   // P0-3: 未显式提供消息时，根据当前全局配置自动选择（已包含 localStorage 后备）
-  const msg = messages ?? (resolveEffectiveLocale().startsWith('en') ? enUSMessages : zhCNMessages);
+  const msg =
+    messages ??
+    (resolveEffectiveLocale().startsWith("en") ? enUSMessages : zhCNMessages);
 
   // P0-E1: 转义所有动态值，防止 XSS
   const escName = escapeHtml(config.name);
   const escEntry = escapeHtml(config.entry);
   const escActiveRule = escapeHtml(
-    typeof config.activeRule === 'string' ? config.activeRule : String(config.activeRule),
+    typeof config.activeRule === "string"
+      ? config.activeRule
+      : String(config.activeRule),
   );
   const escTitle = escapeHtml(msg.title);
   const escDescription = escapeHtml(msg.description);
@@ -378,7 +392,7 @@ export function renderErrorFallback(
   const escReloading = escapeHtml(msg.reloading);
   const escRetriesLeft = escapeHtml(msg.retriesLeft);
   // v3.7.0: 第三级降级按钮文案
-  const escGoToSubAppUrl = escapeHtml(msg.goToSubAppUrl || '独立访问');
+  const escGoToSubAppUrl = escapeHtml(msg.goToSubAppUrl || "独立访问");
 
   // P0-E1: 净化应用名为合法 HTML id
   const safeId = sanitizeId(config.name);
@@ -387,97 +401,66 @@ export function renderErrorFallback(
   // v3.7.0: 第三级降级按钮 id
   const subAppUrlBtnId = `micro-kernel-suburl-${safeId}`;
 
+  // P1-2: 注入 CSS 样式（首次调用时生效，注入到 document.head）
+  if (typeof document !== "undefined") {
+    injectErrorStyles();
+  }
+
+  const C = ERROR_UI_CLASSES;
+
   el.innerHTML =
-    // P2-3: role="alert" + aria-live 让屏幕阅读器感知错误；tabindex="-1" 让容器可编程聚焦
-    '<div role="alert" aria-live="assertive" tabindex="-1" ' +
-    'style="display:flex;flex-direction:column;align-items:center;justify-content:center;' +
-    'height:100%;padding:40px;font-family:var(--font-sans, system-ui, -apple-system, sans-serif);' +
-    'background:var(--el-bg-color, #fff);color:var(--el-text-color-primary, #303133);outline:none">' +
+    // P2-3 (v4.2 class-based): role="alert" + aria-live 让屏幕阅读器感知错误
+    // tabindex="-1" 让容器可编程聚焦
+    `<div role="alert" aria-live="assertive" tabindex="-1" class="${C.container}">` +
     // 错误图标（aria-hidden 不朗读装饰性图标）
-    '<div aria-hidden="true" style="width:80px;height:80px;margin-bottom:24px;border-radius:50%;' +
-    'background:var(--el-color-danger-light-9, #fef0f0);' +
-    'display:flex;align-items:center;justify-content:center">' +
-    '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--el-color-danger, #f56c6c)" stroke-width="2">' +
-    '<circle cx="12" cy="12" r="10"/>' +
-    '<line x1="12" y1="8" x2="12" y2="12"/>' +
-    '<line x1="12" y1="16" x2="12.01" y2="16"/>' +
-    '</svg></div>' +
+    `<div aria-hidden="true" class="${C.iconWrap}">` +
+    `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--micro-error-danger)" stroke-width="2">` +
+    `<circle cx="12" cy="12" r="10"/>` +
+    `<line x1="12" y1="8" x2="12" y2="12"/>` +
+    `<line x1="12" y1="16" x2="12.01" y2="16"/>` +
+    `</svg></div>` +
     // 错误标题
-    '<h2 style="margin:0 0 8px;font-size:20px;font-weight:600;color:var(--el-text-color-primary, #303133)">' +
-    escTitle +
-    '</h2>' +
+    `<h2 class="${C.title}">${escTitle}</h2>` +
     // 应用名称
-    '<p style="margin:0 0 16px;font-size:14px;color:var(--el-text-color-secondary, #909399)">' +
-    escName +
-    '</p>' +
+    `<p class="${C.appName}">${escName}</p>` +
     // 错误描述
-    '<p style="margin:0 0 24px;font-size:14px;color:var(--el-text-color-regular, #606266);' +
-    'text-align:center;max-width:400px;line-height:1.6">' +
-    escDescription +
-    (canRetry ? '<br/>' + escRetriesLeft + (MAX_MICRO_RETRIES - retryCount) : '') +
-    '</p>' +
+    `<p class="${C.description}">${escDescription}${
+      canRetry ? `<br/>${escRetriesLeft}${MAX_MICRO_RETRIES - retryCount}` : ""
+    }</p>` +
     // 操作按钮组
-    '<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">' +
-    (canRetry
-      // P2-3: 添加 focus-visible outline 样式
-      ? '<button id="' + retryBtnId + '" ' +
-        'style="padding:10px 24px;background:var(--el-color-primary, #409eff);' +
-        'color:#fff;border:none;border-radius:6px;cursor:pointer;' +
-        'font-size:14px;font-weight:500;transition:all 0.2s;' +
-        'outline:2px solid transparent;outline-offset:2px;' +
-        'focus-visible:outline-color:var(--el-color-primary-dark-2, #337ecc)" ' +
-        'aria-label="' + escRetry + ' ' + escName + '">' +
-        escRetry +
-        '</button>'
-      : '') +
-    '<button id="' + homeBtnId + '" ' +
-    'style="padding:10px 24px;background:var(--el-fill-color, #f5f7fa);' +
-    'color:var(--el-text-color-regular, #606266);border:1px solid var(--el-border-color, #dcdfe6);' +
-    'border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;transition:all 0.2s;' +
-    'outline:2px solid transparent;outline-offset:2px;' +
-    'focus-visible:outline-color:var(--el-color-primary, #409eff)" ' +
-    'aria-label="' + escGoHome + '">' +
-    escGoHome +
-    '</button>' +
-    // v3.7.0: 第三级降级按钮 — retry 耗尽后展示，允许用户跳转子应用独立地址
-    (!canRetry && escEntry
-      ? '<button id="' + subAppUrlBtnId + '" ' +
-        'style="padding:10px 24px;background:transparent;' +
-        'color:var(--el-color-info, #909399);border:1px dashed var(--el-border-color, #dcdfe6);' +
-        'border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;transition:all 0.2s;' +
-        'outline:2px solid transparent;outline-offset:2px;' +
-        'focus-visible:outline-color:var(--el-color-primary, #409eff)" ' +
-        'aria-label="' + escGoToSubAppUrl + ' — ' + escName + '">' +
-        escGoToSubAppUrl +
-        '</button>'
-      : '') +
-    '</div>' +
+    `<div class="${C.actions}">${
+      canRetry
+        ? // P2-3: focus-visible outline 通过 CSS class 控制
+          `<button id="${retryBtnId}" class="${C.btnPrimary}" aria-label="${escRetry} ${escName}">${escRetry}</button>`
+        : ""
+    }<button id="${homeBtnId}" class="${C.btnSecondary}" aria-label="${escGoHome}">${escGoHome}</button>${
+      // v3.7.0: 第三级降级按钮 — retry 耗尽后展示，允许用户跳转子应用独立地址
+      !canRetry && escEntry
+        ? `<button id="${subAppUrlBtnId}" class="${C.btnGhost}" aria-label="${escGoToSubAppUrl} — ${escName}">${escGoToSubAppUrl}</button>`
+        : ""
+    }</div>` +
     // 技术详情（可折叠）
-    '<details style="margin-top:24px;width:100%;max-width:500px">' +
-    '<summary style="cursor:pointer;font-size:13px;color:var(--el-text-color-secondary, #909399);' +
-    'padding:8px 0;user-select:none">' +
-    escTechnicalDetails +
-    '</summary>' +
-    '<div style="margin-top:8px;padding:12px;background:var(--el-fill-color-light, #fafafa);' +
-    'border-radius:6px;font-size:12px;color:var(--el-text-color-regular, #606266);' +
-    'font-family:monospace;word-break:break-all">' +
-    '<div>' + escAppNameLabel + escName + '</div>' +
-    '<div>' + escEntryLabel + escEntry + '</div>' +
-    '<div>' + escActiveRuleLabel + escActiveRule + '</div>' +
-    '<div>' + escRetryCountLabel + retryCount + '/' + MAX_MICRO_RETRIES + '</div>' +
-    '</div></details>' +
-    '</div>';
+    `<details class="${C.details}">` +
+    `<summary>${escTechnicalDetails}</summary>` +
+    `<div class="${C.detailsBody}">` +
+    `<div>${escAppNameLabel}${escName}</div>` +
+    `<div>${escEntryLabel}${escEntry}</div>` +
+    `<div>${escActiveRuleLabel}${escActiveRule}</div>` +
+    `<div>${escRetryCountLabel}${retryCount}/${MAX_MICRO_RETRIES}</div>` +
+    `</div></details>` +
+    `</div>`;
 
   // P2-3: 自动聚焦第一个可交互元素
   // 优先聚焦「重试」按钮，否则「返回首页」
   // 屏幕阅读器会朗读 role="alert" 的容器内容，键盘用户可直接 Enter 激活
-  const firstFocusable = document.getElementById(retryBtnId) || document.getElementById(homeBtnId);
+  const firstFocusable =
+    document.getElementById(retryBtnId) || document.getElementById(homeBtnId);
   if (firstFocusable) {
     firstFocusable.focus();
   }
 
   // 重试按钮事件
-  document.getElementById(retryBtnId)?.addEventListener('click', () => {
+  document.getElementById(retryBtnId)?.addEventListener("click", () => {
     if (!onRetry) return;
 
     retryCounters.set(config.name, retryCount + 1);
@@ -485,16 +468,16 @@ export function renderErrorFallback(
     // 微前端级重试：清除降级标记 → 重新激活
     degradedApps.delete(config.name);
     el.innerHTML =
-      '<div role="status" aria-live="polite" style="display:flex;flex-direction:column;align-items:center;justify-content:center;' +
-      'height:100%;font-family:var(--font-sans, sans-serif)">' +
-      '<div aria-hidden="true" style="width:40px;height:40px;border:3px solid var(--el-border-color-lighter, #ebeef5);' +
-      'border-top-color:var(--el-color-primary, #409eff);border-radius:50%;' +
-      'animation:spin 0.8s linear infinite"></div>' +
-      '<p style="margin:16px 0 0;font-size:14px;color:var(--el-text-color-secondary, #909399)">' +
-      escReloading +
-      '</p>' +
-      '<style>@keyframes spin { to { transform: rotate(360deg); } }</style>' +
-      '</div>';
+      `<div role="status" aria-live="polite" style="display:flex;flex-direction:column;align-items:center;justify-content:center;` +
+      `height:100%;font-family:var(--font-sans, sans-serif)">` +
+      `<div aria-hidden="true" style="width:40px;height:40px;border:3px solid var(--el-border-color-lighter, #ebeef5);` +
+      `border-top-color:var(--el-color-primary, #409eff);border-radius:50%;` +
+      `animation:spin 0.8s linear infinite"></div>` +
+      `<p style="margin:16px 0 0;font-size:14px;color:var(--el-text-color-secondary, #909399)">${
+        escReloading
+      }</p>` +
+      `<style>@keyframes spin { to { transform: rotate(360deg); } }</style>` +
+      `</div>`;
 
     onRetry().catch(() => {
       // 重试失败 → 重新渲染错误 UI（进入更高级别降级）
@@ -503,21 +486,21 @@ export function renderErrorFallback(
   });
 
   // 返回首页按钮事件
-  document.getElementById(homeBtnId)?.addEventListener('click', () => {
-    window.location.href = '/';
+  document.getElementById(homeBtnId)?.addEventListener("click", () => {
+    window.location.href = "/";
   });
 
   // v3.7.0: 三级降级第三级按钮 — 跳转子应用独立部署地址（full 模式 = 超过 micro 重试上限）
-  document.getElementById(subAppUrlBtnId)?.addEventListener('click', () => {
-    const subUrl = config.entry.replace(/\/$/, '');
-    window.location.href = subUrl || '/';
+  document.getElementById(subAppUrlBtnId)?.addEventListener("click", () => {
+    const subUrl = config.entry.replace(/\/$/, "");
+    window.location.href = subUrl || "/";
   });
 
   // P2-3: Escape 键返回首页（避免用户键盘被困在错误容器中）
   const onKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      window.location.href = '/';
+    if (e.key === "Escape") {
+      window.location.href = "/";
     }
   };
-  el.addEventListener('keydown', onKeydown);
+  el.addEventListener("keydown", onKeydown);
 }

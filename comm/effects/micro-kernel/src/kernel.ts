@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 自研轻内核 — 实现 MicroRuntime 接口
  *
  * ESM 原生微前端运行时：适合同一团队、统一构建链的同源子应用集群。
@@ -23,74 +23,81 @@ import type {
   MicroRuntime,
   MountProps,
   StartOptions,
-} from '@ydsz/micro-runtime';
-import { clearRegistryCache, resolveAppEntry, resolveRegistry } from './registry-adapter';
+} from "@ydsz/micro-runtime";
+
+import type { ManagerRegistry } from "./manager-registry";
+import type { GlobalStateBridge, KeepAliveConfig } from "./scheduler";
+
+import { createNamespacedGlobalStateWrapper } from "@ydsz/micro-runtime/namespaced-state";
+import { buildStandardMountProps } from "@ydsz/micro-runtime/standard-props";
+
+import { createLogger } from "@YDSZ-core/shared/utils";
 
 import {
   decideDegradationLevel,
-  getRetryCount,
   getNextAutoRetryDelay,
+  getRetryCount,
   isDegraded,
   markDegraded,
   renderErrorFallback,
   setRetryCount,
-} from './error-boundary';
+} from "./error-boundary";
+import { createGlobalStateAPI } from "./global-state";
 import {
-  activateApp,
-  createAppInstance,
-  configureKeepAlive as configureKeepAliveAction,
-  deactivateApp,
-  getAllInstances,
-  getAppInstance,
-  getKeepAliveConfig,
-  isKeepAliveEnabled,
-  setKeepAlive,
-  setupVisibilityAutoRelease,
-  updateAppProps,
-} from './scheduler';
-import type { GlobalStateBridge, KeepAliveConfig } from './scheduler';
-import { clearManifestCache, loadApp } from './loader';
-import { getPreloadManager, recordRouteTransition } from './preload-strategy';
-import { preloadManifest } from './link-hints';
-import { createLogger } from '@YDSZ-core/shared/utils';
-import { applyPrefetchBoost } from './speculation-rules';
-import { createNamespacedGlobalStateWrapper } from '@ydsz/micro-runtime/namespaced-state';
-import { buildStandardMountProps } from '@ydsz/micro-runtime/standard-props';
+  matchActiveRule,
+  patchHistory,
+  resolveContainer,
+  ROUTE_CHANGE_EVENT,
+  runWithConcurrency,
+  scheduleIdle,
+  shouldSkipPrefetchDueToNetwork,
+} from "./kernel-helpers";
+import {
+  createCanaryManager,
+  createDevToolsManager,
+  createErrorBoundaryManager,
+  createHealthCheckerManager,
+  createMessageBrokerManager,
+  createPerformanceManager,
+  createPreloadManager,
+  createRoutePredictorManager,
+  createSchedulerManager,
+  createSpeculationRulesManager,
+  createVersionManager,
+} from "./kernel-managers";
+import { createLifecycleHookRegistry } from "./lifecycle-hooks";
+import { preloadManifest } from "./link-hints";
+import { clearManifestCache, loadApp } from "./loader";
+import { createManagerRegistry } from "./manager-registry";
 import {
   registerAppMessageHandler,
   sendMessage,
   sendRequest,
   startMessageListener,
-} from './message-broker';
-import { createManagerRegistry } from './manager-registry';
-import type { ManagerRegistry } from './manager-registry';
+} from "./message-broker";
+import { mark, measure } from "./performance-utils";
+import { getPreloadManager, recordRouteTransition } from "./preload-strategy";
 import {
-  createSchedulerManager,
-  createVersionManager,
-  createPreloadManager,
-  createCanaryManager,
-  createRoutePredictorManager,
-  createMessageBrokerManager,
-  createPerformanceManager,
-  createSpeculationRulesManager,
-  createErrorBoundaryManager,
-  createDevToolsManager,
-} from './kernel-managers';
-import { mark, measure } from './performance-utils';
-import { createGlobalStateAPI } from './global-state';
-import { createLifecycleHookRegistry } from './lifecycle-hooks';
+  clearRegistryCache,
+  resolveAppEntry,
+  resolveRegistry,
+} from "./registry-adapter";
 import {
-  ROUTE_CHANGE_EVENT,
-  resolveContainer,
-  patchHistory,
-  matchActiveRule,
-  scheduleIdle,
-  runWithConcurrency,
-  shouldSkipPrefetchDueToNetwork,
-} from './kernel-helpers';
+  activateApp,
+  configureKeepAlive as configureKeepAliveAction,
+  createAppInstance,
+  deactivateApp,
+  getAllInstances,
+  getAppInstance,
+  getKeepAliveConfig,
+  isKeepAliveEnabled,
+  setupVisibilityAutoRelease,
+  updateAppProps,
+} from "./scheduler";
+import { applyPrefetchBoost } from "./speculation-rules";
 
 /** 模块级日志器 */
-const logger = createLogger('MicroKernel');
+const logger = createLogger("MicroKernel");
 
 /**
  * 创建轻内核运行时实例。
@@ -146,7 +153,10 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
    * 若不一致说明已有更晚的切换请求发起，当前操作结果直接丢弃，
    * 避免"后到的 deactivateApp 把刚激活的应用卸载"这类竞态。
    */
-  async function switchToApp(config: MicroAppConfig, options?: StartOptions): Promise<void> {
+  async function switchToApp(
+    config: MicroAppConfig,
+    options?: StartOptions,
+  ): Promise<void> {
     const token = ++switchToken;
     const fromApp = activeAppName;
 
@@ -170,19 +180,32 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     const instance = getAppInstance(config.name) || createAppInstance(config);
 
     // === v4.0 P1-2: 使用标准化 Props 构造器注入跨应用通信 API ===
-    const enhancedGlobalState = createNamespacedGlobalStateWrapper(globalStateAPI);
+    const enhancedGlobalState =
+      createNamespacedGlobalStateWrapper(globalStateAPI);
 
     // 构建标准化 mountProps（单一事实源）
     const standardProps = buildStandardMountProps(config, {
       rawGlobalState: globalStateAPI,
-      sendMessage: (action: string, payload?: unknown) => sendMessage(config.name, action, payload),
-      sendRequest: <R = unknown>(action: string, payload?: unknown, timeout?: number) =>
-        sendRequest(config.name, action, payload, timeout) as Promise<R>,
+      sendMessage: (action: string, payload?: unknown) =>
+        sendMessage(config.name, action, payload),
+      sendRequest: <R = unknown>(
+        action: string,
+        payload?: unknown,
+        timeout?: number,
+      ) => sendRequest(config.name, action, payload, timeout) as Promise<R>,
       registerHandler: <T = unknown, R = unknown>(
-        handler: (msg: { action: string; payload: T; from: string }) => R | Promise<R>,
+        handler: (msg: {
+          action: string;
+          from: string;
+          payload: T;
+        }) => Promise<R> | R,
       ) =>
         registerAppMessageHandler(config.name, (msg) =>
-          handler({ action: msg.action, payload: msg.payload as T, from: msg.from }),
+          handler({
+            action: msg.action,
+            payload: msg.payload as T,
+            from: msg.from,
+          }),
         ),
       theme: undefined, // 由 bootstrap 侧注入时可不传，子应用通过 context.theme 获取
       locale: undefined,
@@ -198,15 +221,25 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     };
 
     // 派发 before-load 事件，触发骨架屏显示
-    window.dispatchEvent(new CustomEvent('micro-kernel:before-load', { detail: { appName: config.name } }));
+    window.dispatchEvent(
+      new CustomEvent("micro-kernel:before-load", {
+        detail: { appName: config.name },
+      }),
+    );
 
-    await lifecycleHooks.run('beforeLoad', config);
+    await lifecycleHooks.run("beforeLoad", config);
     if (token !== switchToken) return;
 
     const container = resolveContainer(config.container);
     if (!container) {
-      logger.error(`Container "${config.container}" not found for ${config.name}`);
-      window.dispatchEvent(new CustomEvent('micro-kernel:error', { detail: { appName: config.name, error: 'Container not found' } }));
+      logger.error(
+        `Container "${config.container}" not found for ${config.name}`,
+      );
+      window.dispatchEvent(
+        new CustomEvent("micro-kernel:error", {
+          detail: { appName: config.name, error: "Container not found" },
+        }),
+      );
       return;
     }
 
@@ -216,27 +249,38 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       const globalStateBridge: GlobalStateBridge = {
         getGlobalState: () => globalStateAPI.getGlobalState(),
         setGlobalState: (patch) => globalStateAPI.setGlobalState(patch),
-        onGlobalStateChange: (listener, fireImmediately) => globalStateAPI.onGlobalStateChange(listener, fireImmediately),
+        onGlobalStateChange: (listener, fireImmediately) =>
+          globalStateAPI.onGlobalStateChange(listener, fireImmediately),
       };
 
-      await activateApp(instance, container as HTMLElement, {}, {
-        // v3.3: 细化生命周期 — 加载完成后触发 afterLoad 钩子与事件
-        onLoaded: (inst) => {
-          if (token !== switchToken) return;
-          void lifecycleHooks.run('afterLoad', inst.config);
-          window.dispatchEvent(
-            new CustomEvent('micro-kernel:after-load', { detail: { appName: inst.config.name } }),
-          );
+      await activateApp(
+        instance,
+        container as HTMLElement,
+        {},
+        {
+          // v3.3: 细化生命周期 — 加载完成后触发 afterLoad 钩子与事件
+          onLoaded: (inst) => {
+            if (token !== switchToken) return;
+            void lifecycleHooks.run("afterLoad", inst.config);
+            window.dispatchEvent(
+              new CustomEvent("micro-kernel:after-load", {
+                detail: { appName: inst.config.name },
+              }),
+            );
+          },
+          // v3.3: 细化生命周期 — mount 之前触发 beforeMount 钩子与事件
+          onBeforeMount: (inst) => {
+            if (token !== switchToken) return;
+            void lifecycleHooks.run("beforeMount", inst.config);
+            window.dispatchEvent(
+              new CustomEvent("micro-kernel:before-mount", {
+                detail: { appName: inst.config.name },
+              }),
+            );
+          },
         },
-        // v3.3: 细化生命周期 — mount 之前触发 beforeMount 钩子与事件
-        onBeforeMount: (inst) => {
-          if (token !== switchToken) return;
-          void lifecycleHooks.run('beforeMount', inst.config);
-          window.dispatchEvent(
-            new CustomEvent('micro-kernel:before-mount', { detail: { appName: inst.config.name } }),
-          );
-        },
-      }, globalStateBridge);
+        globalStateBridge,
+      );
       if (token !== switchToken) return;
       const prevAppName = activeAppName;
       activeAppName = config.name;
@@ -257,22 +301,28 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
           `kernel:route:${fromApp}→${config.name}:end`,
         );
       }
-      await lifecycleHooks.run('afterMount', config);
+      await lifecycleHooks.run("afterMount", config);
 
       // 派发 after-mount 事件，触发骨架屏隐藏
-      window.dispatchEvent(new CustomEvent('micro-kernel:after-mount', { detail: { appName: config.name } }));
-    } catch (err) {
-      logger.error(`Failed to activate ${config.name}:`, err);
+      window.dispatchEvent(
+        new CustomEvent("micro-kernel:after-mount", {
+          detail: { appName: config.name },
+        }),
+      );
+    } catch (error) {
+      logger.error(`Failed to activate ${config.name}:`, error);
 
       // === v3.7.0: 三级降级决策 ===
       const level = decideDegradationLevel(config.name);
 
-      if (level === 'auto-retry') {
+      if (level === "auto-retry") {
         // 第一级：静默自动重试（不展示 UI，应对 CDN 偶发抖动）
         const delay = getNextAutoRetryDelay(config.name);
         // 递增重试计数器，防止无限自动重试（下次 decideDegradationLevel 将读到增加后的值）
         setRetryCount(config.name, getRetryCount(config.name) + 1);
-        logger.info(`Auto-retry ${config.name} after ${Math.round(delay)}ms (silent)...`);
+        logger.info(
+          `Auto-retry ${config.name} after ${Math.round(delay)}ms (silent)...`,
+        );
         setTimeout(() => {
           void switchToApp(config, options);
         }, delay);
@@ -280,22 +330,28 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         return;
       }
 
-      if (level === 'show-ui') {
+      if (level === "show-ui") {
         // 第二级：展示占位 UI，允许用户手动重试
         renderErrorFallback(config, resolveContainer(config.container), () =>
-          switchToApp(config, options));
+          switchToApp(config, options),
+        );
       } else {
         // 第三级：超限 → 标记降级 + 整页跳转兜底
         markDegraded(config.name);
         renderErrorFallback(config, resolveContainer(config.container), () =>
-          switchToApp(config, options));
+          switchToApp(config, options),
+        );
       }
 
       // 派发 error 事件，触发骨架屏隐藏
-      window.dispatchEvent(new CustomEvent('micro-kernel:error', { detail: { appName: config.name, error: String(err) } }));
+      window.dispatchEvent(
+        new CustomEvent("micro-kernel:error", {
+          detail: { appName: config.name, error: String(error) },
+        }),
+      );
 
       // 触发 error 生命周期钩子（供 SubAppContainer 等订阅方使用）
-      await lifecycleHooks.runError(config, err);
+      await lifecycleHooks.runError(config, error);
 
       if (activeAppName === config.name) {
         activeAppName = null;
@@ -315,10 +371,10 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
     // === P2-2: activeRule 索引 — string 类型构建 Map + 排序，/function/RegExp 走 slow-path ===
     // string activeRule 按长度降序排列：/app/detail 优先于 /app
-    const stringRules: Array<{ rule: string; app: MicroAppConfig }> = [];
+    const stringRules: Array<{ app: MicroAppConfig; rule: string }> = [];
     const nonStringRules: MicroAppConfig[] = [];
     for (const app of routerApps) {
-      if (typeof app.activeRule === 'string') {
+      if (typeof app.activeRule === "string") {
         stringRules.push({ rule: app.activeRule, app });
       } else {
         nonStringRules.push(app);
@@ -348,7 +404,8 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
           // 降级应用走整页跳转
           if (activeAppName !== app.name) {
             // P0-2: 降级跳转需要有效的 URL，字符串类型直接使用，其他类型使用 entry
-            const fallbackUrl = typeof app.activeRule === 'string' ? app.activeRule : app.entry;
+            const fallbackUrl =
+              typeof app.activeRule === "string" ? app.activeRule : app.entry;
             window.location.href = fallbackUrl;
           }
           return;
@@ -370,7 +427,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         if (current) {
           void deactivateApp(current);
           activeAppName = null;
-          logger.debug(`Deactivated "${current.config.name}" (no activeRule match)`);
+          logger.debug(
+            `Deactivated "${current.config.name}" (no activeRule match)`,
+          );
         }
       }
     }
@@ -379,13 +438,13 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     handleRouteChange();
 
     // 浏览器的前进/后退
-    window.addEventListener('popstate', handleRouteChange);
+    window.addEventListener("popstate", handleRouteChange);
     // history pushState/replaceState 补丁派发的事件
     window.addEventListener(ROUTE_CHANGE_EVENT, handleRouteChange);
 
     return () => {
       historyPatchCleanup();
-      window.removeEventListener('popstate', handleRouteChange);
+      window.removeEventListener("popstate", handleRouteChange);
       window.removeEventListener(ROUTE_CHANGE_EVENT, handleRouteChange);
     };
   }
@@ -398,11 +457,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         createAppInstance(app);
       }
     }
-    versionManager.setAppEntries(
-      new Map(apps.map((a) => [a.name, a.entry])),
-    );
+    versionManager.setAppEntries(new Map(apps.map((a) => [a.name, a.entry])));
     const isBuildMode = !(
-      typeof import.meta !== 'undefined' &&
+      import.meta !== undefined &&
       (import.meta as { env?: Record<string, unknown> }).env?.DEV === true
     );
     if (isBuildMode) {
@@ -418,13 +475,13 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     },
 
     getRegisteredApps() {
-      return [...getAllInstances().map((i) => i.config)];
+      return getAllInstances().map((i) => i.config);
     },
 
     // === v3.7.0: 异步注册表支持 ===
 
     async registerAppsAsync(registry: {
-      adapter: 'static' | 'remote' | 'auto';
+      adapter: "auto" | "remote" | "static";
       fetcher?: () => Promise<MicroAppEntry[]>;
     }): Promise<MicroAppConfig[]> {
       let entries: MicroAppEntry[];
@@ -432,9 +489,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       if (registry.fetcher) {
         // 自定义 fetcher 优先
         entries = await registry.fetcher();
-      } else if (registry.adapter === 'static') {
+      } else if (registry.adapter === "static") {
         // 静态配置：动态导入 MICRO_APPS，避免 kernel 模块每次加载都携带完整注册表
-        const { MICRO_APPS } = await import('@ydsz/vite-config');
+        const { MICRO_APPS } = await import("@ydsz/vite-config");
         entries = MICRO_APPS as MicroAppEntry[];
       } else {
         // 'remote' / 'auto'：使用 registry-adapter 拉取（含缓存回退）
@@ -444,7 +501,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       const configs: MicroAppConfig[] = entries.map((entry) => ({
         name: entry.name,
         entry: resolveAppEntry(entry),
-        container: '#subapp-container',
+        container: "#subapp-container",
         activeRule: entry.activeRule,
         sandbox: entry.sandbox,
       }));
@@ -456,7 +513,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
     start(options) {
       if (started) {
-        logger.warn('Already started');
+        logger.warn("Already started");
         return;
       }
       started = true;
@@ -480,32 +537,39 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       // === v3.7.0: Speculation Rules API 预加载增强 ===
       // prefetchStrategy 控制：eager / lazy(默认) / never
       // 将 apps 映射为 MicroAppEntry 供 applyPrefetchBoost 使用
-      if (options?.prefetchStrategy !== 'never') {
+      if (options?.prefetchStrategy !== "never") {
         const appEntries: MicroAppEntry[] = apps.map((a) => ({
           name: a.name,
           packageName: `@ydsz/${a.name}`,
-          activeRule: typeof a.activeRule === 'string' ? a.activeRule : `/${a.name}`,
-          redirect: typeof a.activeRule === 'string' ? `${a.activeRule}/` : `/${a.name}/`,
+          activeRule:
+            typeof a.activeRule === "string" ? a.activeRule : `/${a.name}`,
+          redirect:
+            typeof a.activeRule === "string"
+              ? `${a.activeRule}/`
+              : `/${a.name}/`,
           title: a.name,
-          icon: 'lucide:box',
+          icon: "lucide:box",
           order: 100,
           devPort: 5601,
           entry: a.entry,
-          skeletonType: 'default',
+          skeletonType: "default",
           sandbox: a.sandbox,
         }));
-        const boostResult = applyPrefetchBoost(appEntries, options?.prefetchStrategy ?? 'lazy');
+        const boostResult = applyPrefetchBoost(
+          appEntries,
+          options?.prefetchStrategy ?? "lazy",
+        );
         logger.debug(`Prefetch boost: ${boostResult}`);
       }
 
       // === S1 修复：预加载只拉取 ESM 模块与样式，不执行 mount ===
       // loadApp 完成的资源会进入浏览器 HTTP / ESM 缓存，
       // 二次激活时仅差 mount 耗时，且不会篡改 activeAppName
-      if (typeof options?.prefetch === 'function') {
+      if (typeof options?.prefetch === "function") {
         const toPrefetch = apps.filter(options.prefetch);
         // P2: 网络条件感知 — 慢速网络（2g/3g）或省流量模式下跳过预加载
         if (shouldSkipPrefetchDueToNetwork()) {
-          logger.debug('Prefetch skipped due to slow network or saveData');
+          logger.debug("Prefetch skipped due to slow network or saveData");
         } else {
           scheduleIdle(() => {
             // 二次校验：可能在 idle 等待期间网络已变差
@@ -524,7 +588,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       // 为每个应用注册默认的 idle 预加载策略
       for (const app of apps) {
         preloadManager.registerStrategy(app.name, {
-          strategy: 'idle',
+          strategy: "idle",
           idleTimeout: 2000,
           onPreload: (appName: string) => {
             const config = apps.find((a) => a.name === appName);
@@ -538,7 +602,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       }
 
       logger.info(`Started with ${apps.length} apps`);
-      window.dispatchEvent(new CustomEvent('micro-kernel:started'));
+      window.dispatchEvent(new CustomEvent("micro-kernel:started"));
     },
 
     async prefetchApp(name) {
@@ -563,10 +627,10 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     async unmountApp(name) {
       const instance = getAppInstance(name);
       if (!instance) {
-        return { name, success: false, reason: 'App not registered' };
+        return { name, success: false, reason: "App not registered" };
       }
 
-      await lifecycleHooks.run('afterUnmount', instance.config);
+      await lifecycleHooks.run("afterUnmount", instance.config);
 
       const result = await deactivateApp(instance);
       if (activeAppName === name) activeAppName = null;
@@ -587,14 +651,19 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
      * await kernel.updateApp('workflow-web', { theme: 'dark' });
      * ```
      */
-    async updateApp(name: string, newProps: Record<string, unknown>): Promise<boolean> {
+    async updateApp(
+      name: string,
+      newProps: Record<string, unknown>,
+    ): Promise<boolean> {
       const instance = getAppInstance(name);
       if (!instance) {
         logger.warn(`updateApp: app "${name}" not registered`);
         return false;
       }
-      if (instance.status !== 'MOUNTED') {
-        logger.debug(`updateApp: app "${name}" not mounted (status=${instance.status}), skip`);
+      if (instance.status !== "MOUNTED") {
+        logger.debug(
+          `updateApp: app "${name}" not mounted (status=${instance.status}), skip`,
+        );
         return false;
       }
       try {
@@ -602,8 +671,8 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         instance.config.props = { ...instance.config.props, ...newProps };
         await updateAppProps(instance, instance.config.props as MountProps);
         return true;
-      } catch (err) {
-        logger.error(`updateApp: failed to update "${name}":`, err);
+      } catch (error) {
+        logger.error(`updateApp: failed to update "${name}":`, error);
         return false;
       }
     },
@@ -631,18 +700,23 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
      *
      * @since 4.1.0
      */
-    async updateAllApps(newProps: Record<string, unknown>): Promise<Record<string, boolean>> {
+    async updateAllApps(
+      newProps: Record<string, unknown>,
+    ): Promise<Record<string, boolean>> {
       const results: Record<string, boolean> = {};
       const instances = getAllInstances();
       for (const instance of instances) {
-        if (instance.status !== 'MOUNTED') continue;
+        if (instance.status !== "MOUNTED") continue;
         results[instance.config.name] = false;
         try {
           instance.config.props = { ...instance.config.props, ...newProps };
           await updateAppProps(instance, instance.config.props as MountProps);
           results[instance.config.name] = true;
-        } catch (err) {
-          logger.error(`updateAllApps: failed to update "${instance.config.name}":`, err);
+        } catch (error) {
+          logger.error(
+            `updateAllApps: failed to update "${instance.config.name}":`,
+            error,
+          );
         }
       }
       return results;
@@ -684,7 +758,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     },
 
     navigateTo(path) {
-      window.history.pushState(null, '', path);
+      window.history.pushState(null, "", path);
       // pushState 补丁会自动派发 ROUTE_CHANGE_EVENT，不再需要手动 dispatch popstate
     },
 
@@ -732,9 +806,21 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
      * @param handler - 收到消息时回调
      * @returns 取消监听函数
      */
-    onAppMessage(handler: (message: { from: string; action: string; payload: unknown; correlationId: string }) => void): () => void {
+    onAppMessage(
+      handler: (message: {
+        action: string;
+        correlationId: string;
+        from: string;
+        payload: unknown;
+      }) => void,
+    ): () => void {
       return startMessageListener((msg) => {
-        handler({ from: msg.from, action: msg.action, payload: msg.payload, correlationId: msg.correlationId });
+        handler({
+          from: msg.from,
+          action: msg.action,
+          payload: msg.payload,
+          correlationId: msg.correlationId,
+        });
       });
     },
 
@@ -746,7 +832,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       visibilityCleanup = null;
 
       for (const instance of getAllInstances()) {
-        if (instance.status === 'MOUNTED') {
+        if (instance.status === "MOUNTED") {
           await deactivateApp(instance);
         }
       }
@@ -770,13 +856,14 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       registry.register(createSpeculationRulesManager());
       registry.register(createErrorBoundaryManager());
       registry.register(createDevToolsManager());
+      registry.register(createHealthCheckerManager());
 
       await registry.disposeAll();
 
       // 清理 loader 模块级缓存（非单例管理器，独立清理）
       clearManifestCache();
 
-      logger.info('Stopped');
+      logger.info("Stopped");
     },
 
     // === P2-1: DevTools 公开方法 —— 供 enableDevToolsBridge 调用 ===
@@ -787,36 +874,77 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       return getAppInstance(name);
     },
     /**
-     * 内核健康检查（P1-1 落地到 kernel）。
-     * 返回 capabilities + metrics，供 Sentry 监控 / DevTools Extension 拉取。
+     * 内核健康检查（P1-1 增强版 v4.2）。
+     *
+     * 同步返回基础信息（兼容旧版调用方）；
+     * async 模式下会执行 ping 探测 + 内存估算（需 await healthCheckAsync()）。
+     *
+     * @returns 基础健康信息（向后兼容）
      */
     healthCheck() {
       const all = getAllInstances();
       let ka = 0;
-      for (const [, i] of all) if (i.keepAlive && i.status === 'MOUNTED') ka++;
+      for (const [, i] of all) if (i.keepAlive && i.status === "MOUNTED") ka++;
       return {
-        kernelVersion: '4.0.0',
-        kernelName: 'micro-kernel',
+        kernelVersion: "4.2.0",
+        kernelName: "micro-kernel",
         capabilities: {
-          sandbox: ['snapshot', 'proxy', 'iframe'] as const,
+          sandbox: ["snapshot", "proxy", "iframe"] as const,
           prefetch: true,
           keepAlive: true,
           hmr: !!import.meta.env.DEV,
+          healthCheckAsync: true as const, // v4.2: 支持异步深度检查
         },
-        metrics: { activeApps: all.size, keepAliveCount: ka, registeredApps: (this as any).getRegisteredApps?.().length ?? 0 },
+        metrics: {
+          activeApps: all.size,
+          keepAliveCount: ka,
+          registeredApps: (this as any).getRegisteredApps?.().length ?? 0,
+        },
       };
+    },
+
+    /**
+     * 异步深度健康检查（v4.2 P1-1 新增）。
+     *
+     * 执行实际 ping 探测 + 内存估算，返回完整健康报告。
+     *
+     * 节流：内部 30s 间隔，高频调用会快速返回。
+     *
+     * @param options - 探测选项
+     * @returns 完整健康报告
+     *
+     * @example
+     * ```ts
+     * const report = await kernel.healthCheckAsync({ force: true });
+     * if (report.memory?.isUnderPressure) {
+     *   evictAllKeepAliveOnMemoryPressure();
+     * }
+     * ```
+     */
+    async healthCheckAsync(options?: { force?: boolean; skipPing?: boolean }) {
+      // 延迟导入避免循环依赖（health-check 依赖 scheduler 类型）
+      const { runHealthCheck } = await import("./health-check");
+      const allInstances = getAllInstances();
+      const apps = [...allInstances.values()].map((i) => ({
+        config: { name: i.config.name, entry: i.config.entry },
+        status: i.status,
+        loadMetrics: i.loadMetrics,
+      }));
+      return runHealthCheck(apps, options);
     },
     /** 刷新远程注册表（每次调用清缓存重新拉取） */
     refreshRegistry() {
       clearRegistryCache();
-      logger.info('Registry cache cleared, will re-fetch on next access');
+      logger.info("Registry cache cleared, will re-fetch on next access");
     },
   };
 
   // === P2-1: 暴露到 window 主对象， DevTools Extension bridge 可自检 ===
   try {
     (window as any).__MICRO_KERNEL__ = kernelApi;
-  } catch { /* SSR 或无 window 环境静默 */ }
+  } catch {
+    /* SSR 或无 window 环境静默 */
+  }
 
   return kernelApi;
 }

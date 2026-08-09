@@ -1,7 +1,7 @@
-﻿/**
+/**
  * 微内核统一管理器工厂聚合
  *
- * P0-A1: 为 ManagerRegistry 提供全部 9 个管理器的 DisposableManager 工厂函数。
+ * P0-A1: 为 ManagerRegistry 提供全部管理器的 DisposableManager 工厂函数。
  * 通过此聚合模块避免 kernel.ts 与各管理器模块产生星形依赖，
  * 同时保持各管理器模块的独立可测试性。
  *
@@ -16,19 +16,21 @@
  * 8. speculation-rules — Speculation Rules API 注入元素
  * 9. error-boundary — 降级标记 + 重试计数器
  * 10. devtools-panel — 开发态面板 DOM + 刷新定时器
+ * 11. health-checker — 加载耗时窗口 + 节流状态
  *
  * @path comm/effects/micro-kernel/src/kernel-managers.ts
  * @author ydsz-team
  * @since 4.1.0
  */
 
-export { createSchedulerManager } from './scheduler';
-export { createVersionManager } from './version-manager';
-export { createPreloadManager } from './preload-strategy';
-export { createRoutePredictorManager } from './route-predictor';
-export { createCanaryManager } from './canary-manager';
-export { createMessageBrokerManager } from './message-broker';
-export { createPerformanceManager } from './performance-utils';
-export { createSpeculationRulesManager } from './speculation-rules';
-export { createErrorBoundaryManager } from './error-boundary';
-export { createDevToolsManager } from './devtools-panel';
+export { createCanaryManager } from "./canary-manager";
+export { createDevToolsManager } from "./devtools-panel";
+export { createErrorBoundaryManager } from "./error-boundary";
+export { createHealthCheckerManager } from "./health-check";
+export { createMessageBrokerManager } from "./message-broker";
+export { createPerformanceManager } from "./performance-utils";
+export { createPreloadManager } from "./preload-strategy";
+export { createRoutePredictorManager } from "./route-predictor";
+export { createSchedulerManager } from "./scheduler";
+export { createSpeculationRulesManager } from "./speculation-rules";
+export { createVersionManager } from "./version-manager";

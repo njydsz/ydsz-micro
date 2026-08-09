@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 灰度版本分流管理器（v4.0 Canary）
  *
  * 在 VersionManager 基础上扩展灰度能力：
@@ -16,10 +16,12 @@
  * @since 4.0.0
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
-import { satisfiesVersion } from '@YDSZ-core/shared/semver';
+import { satisfiesVersion } from "@YDSZ-core/shared/semver";
+import { createLogger } from "@YDSZ-core/shared/utils";
 
-const logger = createLogger('Canary');
+import { getStorage, setStorage, STORAGE_KEYS } from "./storage-utils";
+
+const logger = createLogger("Canary");
 
 /**
  * 灰度分流模式（P3-2 新增）。
@@ -32,10 +34,10 @@ const logger = createLogger('Canary');
  *
  * @since 4.1.0
  */
-export type CanaryMode = 'simple' | 'advanced';
+export type CanaryMode = "advanced" | "simple";
 
 /** 灰度标签 */
-export type CanaryTag = 'stable' | 'canary' | 'beta' | 'alpha';
+export type CanaryTag = "alpha" | "beta" | "canary" | "stable";
 
 /** 单版本配置 */
 export interface CanaryVersion {
@@ -117,10 +119,10 @@ const DEFAULT_CONFIG: CanaryGlobalConfig = {
  * 使用 FNV-1a 32-bit 变体，分布均匀且零依赖。
  */
 function hashToPercentage(input: string): number {
-  let h = 0x811c9dc5;
+  let h = 0x81_1c_9d_c5;
   for (let i = 0; i < input.length; i++) {
     h ^= input.charCodeAt(i);
-    h = Math.imul(h, 0x01000193);
+    h = Math.imul(h, 0x01_00_01_93);
   }
   return Math.abs(h % 100);
 }
@@ -129,31 +131,55 @@ function hashToPercentage(input: string): number {
  * 灰度管理器单例
  */
 class CanaryManager {
-  private config: CanaryGlobalConfig = DEFAULT_CONFIG;
   private cacheTimestamp = 0;
-  private fetchPromise: Promise<void> | null = null;
+  private config: CanaryGlobalConfig = DEFAULT_CONFIG;
+  private fetchPromise: null | Promise<void> = null;
   /** P0-1: 远端配置自动刷新定时器 ID，供 resetAutoRefresh 清理 */
-  private refreshTimerId: ReturnType<typeof setInterval> | null = null;
+  private refreshTimerId: null | ReturnType<typeof setInterval> = null;
+
+  /**
+   * 获取当前生效的配置（调试用）
+   */
+  getConfig(): Readonly<CanaryGlobalConfig> {
+    return this.config;
+  }
+
+  /**
+   * 当前分流模式（P3-2）。
+   *
+   * 从 config.mode 读取，未配置时回退到 advanced（保持向后兼容）。
+   */
+  getMode(): CanaryMode {
+    return this.config.mode ?? "advanced";
+  }
 
   /**
    * 初始化灰度管理器（拉取远端配置或注入本地配置）。
    *
    * @param options - 初始化选项
    */
-  async init(options?: { remoteUrl?: string; fallbackConfig?: Partial<CanaryGlobalConfig> }): Promise<void> {
-    const localKey = 'micro-kernel:canary-config';
-    // 先从本地缓存恢复
-    try {
-      const cached = localStorage.getItem(localKey);
-      if (cached) {
-        this.config = { ...DEFAULT_CONFIG, ...JSON.parse(cached) as Partial<CanaryGlobalConfig> };
-        logger.info('Canary config loaded from localStorage cache');
-      }
-    } catch { /* noop */ }
+  async init(options?: {
+    fallbackConfig?: Partial<CanaryGlobalConfig>;
+    remoteUrl?: string;
+  }): Promise<void> {
+    const localKey = STORAGE_KEYS.CANARY_CONFIG;
+    // P0-4: 先从本地缓存恢复（使用统一存储层）
+    const cached = getStorage<null | Partial<CanaryGlobalConfig>>(
+      localKey,
+      null,
+    );
+    if (cached) {
+      this.config = { ...DEFAULT_CONFIG, ...cached };
+      logger.info("Canary config loaded from localStorage cache");
+    }
 
     // 注入 fallback
     if (options?.fallbackConfig) {
-      this.config = { ...this.config, ...options.fallbackConfig, apps: options.fallbackConfig.apps ?? this.config.apps };
+      this.config = {
+        ...this.config,
+        ...options.fallbackConfig,
+        apps: options.fallbackConfig.apps ?? this.config.apps,
+      };
     }
 
     // 拉取远端
@@ -162,7 +188,17 @@ class CanaryManager {
       this.startAutoRefresh();
     }
 
-    logger.info(`Canary manager init done, enabled=${this.config.enabled}, apps=${this.config.apps.length}`);
+    logger.info(
+      `Canary manager init done, enabled=${this.config.enabled}, apps=${this.config.apps.length}`,
+    );
+  }
+
+  /**
+   * 判断版本兼容性（minKernelVersion）
+   */
+  isKernelCompatible(resolved: CanaryVersion, kernelVersion: string): boolean {
+    if (!resolved.minKernelVersion) return true;
+    return satisfiesVersion(kernelVersion, `>=${resolved.minKernelVersion}`);
   }
 
   /**
@@ -175,32 +211,21 @@ class CanaryManager {
     if (this.fetchPromise) return this.fetchPromise;
     this.fetchPromise = (async () => {
       try {
-        const res = await fetch(url, { cache: 'no-cache' });
+        const res = await fetch(url, { cache: "no-cache" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         this.config = { ...DEFAULT_CONFIG, ...data };
         this.cacheTimestamp = Date.now();
-        try { localStorage.setItem('micro-kernel:canary-config', JSON.stringify(this.config)); } catch { /* noop */ }
-        logger.info('Canary config refreshed from remote');
-      } catch (err) {
-        logger.warn(`Canary refresh failed, using cached: ${err}`);
+        // P0-4: 使用统一存储层缓存
+        setStorage(STORAGE_KEYS.CANARY_CONFIG, this.config);
+        logger.info("Canary config refreshed from remote");
+      } catch (error) {
+        logger.warn(`Canary refresh failed, using cached: ${error}`);
       } finally {
         this.fetchPromise = null;
       }
     })();
     return this.fetchPromise;
-  }
-
-  /**
-   * 启动自动刷新（按 cacheTtl 间隔）。
-   *
-   * P0-1: 先清理已有定时器避免重复启动导致多定时器并发。
-   */
-  startAutoRefresh(): void {
-    // 先清理已有定时器，防止重复调用产生多个并发定时器
-    this.resetAutoRefresh();
-    const ttl = this.config.cacheTtl ?? 60_000;
-    this.refreshTimerId = setInterval(() => void this.refreshFromRemote(), ttl);
   }
 
   /**
@@ -214,27 +239,6 @@ class CanaryManager {
       clearInterval(this.refreshTimerId);
       this.refreshTimerId = null;
     }
-  }
-
-  /**
-   * 当前分流模式（P3-2）。
-   *
-   * 从 config.mode 读取，未配置时回退到 advanced（保持向后兼容）。
-   */
-  getMode(): CanaryMode {
-    return this.config.mode ?? 'advanced';
-  }
-
-  /**
-   * 运行时切换分流模式（P3-2）。
-   *
-   * 允许在 simple / advanced 之间切换，无需重新 init。
-   *
-   * @param mode - 目标模式
-   */
-  setMode(mode: CanaryMode): void {
-    this.config = { ...this.config, mode };
-    logger.info(`Canary mode set to "${mode}"`);
   }
 
   /**
@@ -262,12 +266,16 @@ class CanaryManager {
       return this.defaultStableResolution(appName, appConfig);
     }
 
-    const allVersions = [appConfig.stable, ...appConfig.canaries.filter((c) => !c.disabled)];
-    const whitelisted = !!user?.userId && this.config.whitelistUserIds.includes(user.userId);
+    const allVersions = [
+      appConfig.stable,
+      ...appConfig.canaries.filter((c) => !c.disabled),
+    ];
+    const whitelisted =
+      !!user?.userId && this.config.whitelistUserIds.includes(user.userId);
     const mode = this.getMode();
 
     // ===== simple 模式：轻量 forceTag 分流（forceTag 对全体用户全局生效） =====
-    if (mode === 'simple') {
+    if (mode === "simple") {
       if (this.config.forceTag) {
         const forced = allVersions.find((v) => v.tag === this.config.forceTag);
         if (forced) {
@@ -275,7 +283,12 @@ class CanaryManager {
         }
       }
       // simple 模式无 forceTag → 直接回退 stable
-      return { appName, resolved: appConfig.stable, tag: 'stable', whitelisted };
+      return {
+        appName,
+        resolved: appConfig.stable,
+        tag: "stable",
+        whitelisted,
+      };
     }
 
     // ===== advanced 模式：白名单 + forceTag + 百分比哈希 =====
@@ -283,13 +296,23 @@ class CanaryManager {
     if (whitelisted && this.config.forceTag) {
       const forced = allVersions.find((v) => v.tag === this.config.forceTag);
       if (forced) {
-        return { appName, resolved: forced, tag: forced.tag, whitelisted: true };
+        return {
+          appName,
+          resolved: forced,
+          tag: forced.tag,
+          whitelisted: true,
+        };
       }
     }
 
     // 未登录用户或非白名单 → stable
     if (!user?.userId) {
-      return { appName, resolved: appConfig.stable, tag: 'stable', whitelisted: false };
+      return {
+        appName,
+        resolved: appConfig.stable,
+        tag: "stable",
+        whitelisted: false,
+      };
     }
 
     // 按递减百分比依次尝试命中（保证 canary 叠加 stable 总和 = 100%）
@@ -302,34 +325,56 @@ class CanaryManager {
       }
     }
 
-    return { appName, resolved: appConfig.stable, tag: 'stable', whitelisted };
+    return { appName, resolved: appConfig.stable, tag: "stable", whitelisted };
   }
 
-  private defaultStableResolution(appName: string, cfg?: CanaryAppConfig): CanaryResolution {
+  /**
+   * 运行时切换分流模式（P3-2）。
+   *
+   * 允许在 simple / advanced 之间切换，无需重新 init。
+   *
+   * @param mode - 目标模式
+   */
+  setMode(mode: CanaryMode): void {
+    this.config = { ...this.config, mode };
+    logger.info(`Canary mode set to "${mode}"`);
+  }
+
+  /**
+   * 启动自动刷新（按 cacheTtl 间隔）。
+   *
+   * P0-1: 先清理已有定时器避免重复启动导致多定时器并发。
+   */
+  startAutoRefresh(): void {
+    // 先清理已有定时器，防止重复调用产生多个并发定时器
+    this.resetAutoRefresh();
+    const ttl = this.config.cacheTtl ?? 60_000;
+    this.refreshTimerId = setInterval(() => void this.refreshFromRemote(), ttl);
+  }
+
+  private defaultStableResolution(
+    appName: string,
+    cfg?: CanaryAppConfig,
+  ): CanaryResolution {
     if (cfg) {
-      return { appName, resolved: cfg.stable, tag: 'stable', whitelisted: false };
+      return {
+        appName,
+        resolved: cfg.stable,
+        tag: "stable",
+        whitelisted: false,
+      };
     }
     return {
       appName,
-      resolved: { version: 'stable', tag: 'stable', entry: '', percentage: 100 },
-      tag: 'stable',
+      resolved: {
+        version: "stable",
+        tag: "stable",
+        entry: "",
+        percentage: 100,
+      },
+      tag: "stable",
       whitelisted: false,
     };
-  }
-
-  /**
-   * 判断版本兼容性（minKernelVersion）
-   */
-  isKernelCompatible(resolved: CanaryVersion, kernelVersion: string): boolean {
-    if (!resolved.minKernelVersion) return true;
-    return satisfiesVersion(kernelVersion, `>=${resolved.minKernelVersion}`);
-  }
-
-  /**
-   * 获取当前生效的配置（调试用）
-   */
-  getConfig(): Readonly<CanaryGlobalConfig> {
-    return this.config;
   }
 }
 
@@ -363,9 +408,9 @@ export function resetCanaryManager(): void {
  *
  * @since 4.1.0
  */
-export function createCanaryManager(): import('./manager-registry').DisposableManager {
+export function createCanaryManager(): import("./manager-registry").DisposableManager {
   return {
-    name: 'canary-manager',
+    name: "canary-manager",
     dispose(): void {
       instance?.resetAutoRefresh();
       instance = null;

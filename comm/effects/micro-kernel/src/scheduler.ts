@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 生命周期调度器 + 保活控制 + 沙箱策略集成
  *
  * 每个子应用一个 AppInstance 实例：
@@ -24,18 +24,23 @@ import type {
   SandboxType,
   UnmountResult,
 } from "@ydsz/micro-runtime";
-import { loadApp, removeStylesheets } from "./loader";
+
 import type { LoadOptions, LoadResult, Manifest } from "./loader";
+import type { DisposableManager } from "./manager-registry";
+import type { SandboxStrategy } from "./sandbox-strategy";
+
+import { createLogger } from "@YDSZ-core/shared/utils";
+
+import { KernelError, KernelErrorCode } from "./error-boundary";
+// v4.2 P1-1: 记录加载耗时用于健康检查移动平均
+import { recordLoadDuration } from "./health-check";
+import { loadApp, removeStylesheets } from "./loader";
+import { mark, measure } from "./performance-utils";
 import {
   createSandboxStrategy,
   IframeSandboxStrategy,
   ProxySandboxStrategy,
 } from "./sandbox-strategy";
-import type { SandboxStrategy } from "./sandbox-strategy";
-import { createLogger } from "@YDSZ-core/shared/utils";
-import { mark, measure } from "./performance-utils";
-import type { DisposableManager } from "./manager-registry";
-import { KernelError, KernelErrorCode } from "./error-boundary";
 
 /** 模块级日志器（生命周期事件默认 debug 级别，避免生产噪音） */
 const logger = createLogger("MicroKernel");
@@ -46,7 +51,7 @@ const logger = createLogger("MicroKernel");
  * @param container - 容器配置（string | HTMLElement）
  * @returns 解析后的 HTMLElement，未找到时返回 null
  */
-function resolveContainer(container: string | HTMLElement): HTMLElement | null {
+function resolveContainer(container: HTMLElement | string): HTMLElement | null {
   if (typeof container === "string") {
     return document.querySelector(container) as HTMLElement | null;
   }
@@ -55,7 +60,7 @@ function resolveContainer(container: string | HTMLElement): HTMLElement | null {
 
 /** 子应用生命周期状态：未加载 / 加载中 / 已加载 / 已挂载 / 已卸载 */
 export type AppStatus =
-  "NOT_LOADED" | "LOADING" | "LOADED" | "MOUNTED" | "UNMOUNTED";
+  "LOADED" | "LOADING" | "MOUNTED" | "NOT_LOADED" | "UNMOUNTED";
 
 /**
  * 沙箱类型（re-export 自 micro-runtime，保持单一事实源）。
@@ -68,19 +73,19 @@ export type { SandboxType } from "@ydsz/micro-runtime";
 export interface AppInstance {
   config: MicroAppConfig;
   status: AppStatus;
-  exports: null | LifecycleExports;
+  exports: LifecycleExports | null;
   keepAlive: boolean;
   /** keepAlive 时保存的 DOM 根节点 */
-  cachedRoot: null | HTMLElement;
+  cachedRoot: HTMLElement | null;
   /** keepAlive 时原始父节点（切回时 appendChild 回此处） */
-  cachedParent: null | Node;
+  cachedParent: Node | null;
   /**
    * 统一沙箱策略实例（v4.1 P0-A2 新增）。
    *
    * 进入沙箱时创建对应 SandboxStrategy，退出/cleanup 时调用其生命周期方法。
    * 使用单一字段替代此前的 sandbox / proxySandbox / iframeSandbox / iframeGlobalStateUnsub。
    */
-  strategy: SandboxStrategy | null;
+  strategy: null | SandboxStrategy;
   /** 沙箱类型：snapshot（默认）| proxy | iframe */
   sandboxType: SandboxType;
   /** 最近一次加载的性能指标（为监控提供数据） */
@@ -98,7 +103,7 @@ export interface AppInstance {
    * build 模式下含子应用自描述的 routes（骨架屏类型映射），
    * 主应用容器据此细化骨架屏；dev 模式为 null。
    */
-  manifest: null | Manifest;
+  manifest: Manifest | null;
 }
 
 /** 保活实例数上限（默认 5，超限按 LRU 淘汰最久未访问的子应用） */
@@ -111,7 +116,7 @@ let maxKeepAliveApps = 5;
  * （除非触发内存压力或手动强制卸载）。默认 30 分钟。设置为 0 表示禁用 TTL 保护，
  * 回退到既有 LRU-only 策略。
  */
-let keepAliveTTL = 30 * 60 * 1_000;
+let keepAliveTTL = 30 * 60 * 1000;
 
 /** 保活缓存创建时间戳序列（严格递增，用作 keepAliveSince 取值） */
 let keepAliveTimestamp = 1;
@@ -368,7 +373,7 @@ export async function activateApp(
   ) {
     // === ADR-006: kernel:activate 标记（keep-alive 恢复路径）===
     mark(`kernel:activate:${config.name}:start`);
-    container.appendChild(instance.cachedRoot);
+    container.append(instance.cachedRoot);
     instance.cachedParent = null;
     instance.status = "MOUNTED";
     instance.lastActivatedAt = Date.now();
@@ -378,8 +383,8 @@ export async function activateApp(
     if (instance.exports?.activate) {
       try {
         await instance.exports.activate();
-      } catch (err) {
-        logger.error(`${config.name} activate hook failed:`, err);
+      } catch (error) {
+        logger.error(`${config.name} activate hook failed:`, error);
       }
     }
     mark(`kernel:activate:${config.name}:end`);
@@ -405,12 +410,14 @@ export async function activateApp(
       // v3.3: 记录 manifest 供主应用容器读取 routes（骨架屏细化）
       instance.manifest = result.manifest;
       instance.status = "LOADED";
+      // v4.2 P1-1: 记录加载耗时（健康检查移动平均数据源）
+      recordLoadDuration(config.name, result.duration);
       // v3.3: 通知外部"加载完成"阶段（用于进度条推进、骨架屏细化）
       callbacks.onLoaded?.(instance);
-    } catch (err) {
+    } catch (error) {
       instance.status = "NOT_LOADED";
-      instance.error = String(err);
-      throw err;
+      instance.error = String(error);
+      throw error;
     }
   }
 
@@ -422,7 +429,7 @@ export async function activateApp(
   };
 
   // 设置容器属性，与 PostCSS 构建期 CSS scoping 联动
-  container.setAttribute("data-micro-app", config.name);
+  container.dataset.microApp = config.name;
 
   // === v4.1 P0-A2: 使用统一策略进入沙箱（消除 if-else）===
   instance.strategy = createSandboxStrategy(
@@ -500,17 +507,17 @@ export async function activateApp(
       `kernel:mount:${config.name}:end`,
     );
     logger.debug(`${config.name} mounted`);
-  } catch (err) {
+  } catch (error) {
     // 挂载失败：通过策略清理沙箱
     instance.strategy?.cleanup();
     instance.strategy = null;
     instance.status = "LOADED";
-    instance.error = String(err);
+    instance.error = String(error);
     // P1-8: 包装为 KernelError 后抛出
     throw new KernelError(
       KernelErrorCode.MOUNT_ERROR,
-      `[MicroKernel] ${config.name} mount failed: ${String(err)}`,
-      err,
+      `[MicroKernel] ${config.name} mount failed: ${String(error)}`,
+      error,
     );
   }
 }
@@ -538,7 +545,7 @@ export async function deactivateApp(
       instance.cachedRoot = container.firstElementChild as HTMLElement;
       instance.cachedParent = container;
       if (instance.cachedRoot) {
-        container.removeChild(instance.cachedRoot);
+        instance.cachedRoot.remove();
       }
       instance.status = "UNMOUNTED";
       // v3.7.0: 记录保活缓存创建时间（用于 TTL 过期检测）
@@ -549,8 +556,8 @@ export async function deactivateApp(
       if (instance.exports?.deactivate) {
         try {
           await instance.exports.deactivate();
-        } catch (err) {
-          logger.error(`${config.name} deactivate hook failed:`, err);
+        } catch (error) {
+          logger.error(`${config.name} deactivate hook failed:`, error);
         }
       }
       mark(`kernel:deactivate:${config.name}:end`);
@@ -589,7 +596,7 @@ export async function deactivateApp(
     // 移除容器级 CSS scoping 属性（data-micro-app）
     const containerEl = resolveContainer(config.container);
     if (containerEl) {
-      containerEl.removeAttribute("data-micro-app");
+      delete containerEl.dataset.microApp;
     }
 
     removeStylesheets(config.name);
@@ -605,16 +612,16 @@ export async function deactivateApp(
     );
     logger.debug(`${config.name} unmounted`);
     return { name: config.name, success: true };
-  } catch (err) {
+  } catch (error) {
     // unmount 失败仍尝试通过策略清理沙箱
     instance.strategy?.cleanup();
     instance.strategy = null;
-    instance.error = String(err);
+    instance.error = String(error);
     // P1-8: 包装为 KernelError 后抛出
     throw new KernelError(
       KernelErrorCode.UNMOUNT_ERROR,
-      `[MicroKernel] ${config.name} unmount failed: ${String(err)}`,
-      err,
+      `[MicroKernel] ${config.name} unmount failed: ${String(error)}`,
+      error,
     );
   }
 }
@@ -668,7 +675,7 @@ export function getKeepAliveTTL(): number {
 export function resetScheduler(): void {
   appInstances.clear();
   maxKeepAliveApps = 5;
-  keepAliveTTL = 30 * 60 * 1_000;
+  keepAliveTTL = 30 * 60 * 1000;
 }
 
 /**
@@ -797,9 +804,9 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
         basename: instance.config.activeRule,
       });
     }
-  } catch (err) {
+  } catch (error) {
     unmountSuccess = false;
-    logger.error(`Evict unmount failed for "${instance.config.name}":`, err);
+    logger.error(`Evict unmount failed for "${instance.config.name}":`, error);
   }
 
   // === P1-2: DOM 清理兜底 — unmount 失败或被跳过时清空容器残留 DOM ===
@@ -807,7 +814,7 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
     const container = instance.cachedParent as HTMLElement;
     try {
       while (container.firstChild) {
-        container.removeChild(container.firstChild);
+        container.firstChild.remove();
       }
       logger.debug(
         `DOM cleanup fallback: cleared residual DOM for "${instance.config.name}"`,
@@ -950,9 +957,9 @@ export async function updateAppProps(
   try {
     await instance.exports.update(newProps);
     logger.debug(`${instance.config.name} updated via update lifecycle`);
-  } catch (err) {
-    logger.error(`${instance.config.name} update lifecycle failed:`, err);
-    instance.error = String(err);
+  } catch (error) {
+    logger.error(`${instance.config.name} update lifecycle failed:`, error);
+    instance.error = String(error);
   }
 }
 
@@ -967,7 +974,7 @@ export function createSchedulerManager(): DisposableManager {
     dispose(): void {
       appInstances.clear();
       maxKeepAliveApps = 5;
-      keepAliveTTL = 30 * 60 * 1_000;
+      keepAliveTTL = 30 * 60 * 1000;
       keepAliveEnabled = true;
       keepAliveTimestamp = 1;
     },

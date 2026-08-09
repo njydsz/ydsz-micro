@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 国际化配置入口
  *
  * @path comm\locales\src\index.ts
@@ -10,22 +10,43 @@ import {
   loadLocaleMessages,
   loadLocalesMap,
   loadLocalesMapFromDir,
-  loadNamespaceMessages,
   loadNamespacedLocalesMap,
+  loadNamespaceMessages,
   preloadLocaleOnIdle,
   setupI18n,
-} from './i18n';
+} from "./i18n";
 
 /**
- * 延迟绑定的翻译函数
- * @description 避免模块顶层直接绑定 i18n.global.t，确保 i18n 初始化后才调用
+ * 延迟绑定的翻译函数 - 重载签名。
+ *
+ * @description 避免模块顶层直接绑定 i18n.global.t，确保 i18n 初始化后才调用。
+ *   使用显式重载替代 `Parameters<typeof i18n.global.t>`，
+ *   避免 TypeScript 将最后一个重载的必填参数误作全签名必填参数。
  */
-function $t(...args: Parameters<typeof i18n.global.t>) {
-  return i18n.global.t(...args);
+
+/** 简单键值翻译（无插值） */
+function $t(key: string): string;
+/** 带 locale 参数的键值翻译 */
+function $t(key: string, locale: string): string;
+/** 带命名插值对象的翻译 */
+function $t(key: string, values: Record<string, unknown>): string;
+/** 带位置插值数组的翻译 */
+function $t(key: string, values: Array<unknown>): string;
+/** 带 locale 与插值的翻译 */
+function $t(
+  key: string,
+  locale: string,
+  values: Array<unknown> | Record<string, unknown>,
+): string;
+function $t(...args: unknown[]): string {
+  return (i18n.global.t as (...a: unknown[]) => string)(...args);
 }
 
-function $te(...args: Parameters<typeof i18n.global.te>) {
-  return i18n.global.te(...args);
+/**
+ * 检查键是否存在。
+ */
+function $te(key: string): boolean {
+  return i18n.global.te(key);
 }
 
 export {
@@ -35,8 +56,8 @@ export {
   loadLocaleMessages,
   loadLocalesMap,
   loadLocalesMapFromDir,
-  loadNamespaceMessages,
   loadNamespacedLocalesMap,
+  loadNamespaceMessages,
   preloadLocaleOnIdle,
   setupI18n,
 };
@@ -47,9 +68,9 @@ export {
   type NamespacedLocalesMap,
   type PreloadLocaleOptions,
   type SupportedLanguagesType,
-} from './typing';
-export type { CompileError } from '@intlify/core-base';
+} from "./typing";
+export type { CompileError } from "@intlify/core-base";
 
-export { useI18n } from 'vue-i18n';
+export { useI18n } from "vue-i18n";
 
-export type { Locale } from 'vue-i18n';
+export type { Locale } from "vue-i18n";

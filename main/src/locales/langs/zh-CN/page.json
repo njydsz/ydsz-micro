@@ -12,6 +12,7 @@
     "workspace": "工作台"
   },
   "microKernel": {
+    "containerLabel": "微前端子应用容器",
     "phase": {
       "loading": "正在加载模块...",
       "loaded": "模块加载完成",
@@ -19,6 +20,14 @@
       "mounted": "加载完成",
       "unmounting": "正在切换应用...",
       "error": "加载失败"
+    },
+    "announcements": {
+      "loading": "正在加载{{appName}}子应用",
+      "loaded": "{{appName}}模块已加载，准备挂载",
+      "mounting": "正在挂载{{appName}}子应用",
+      "mounted": "{{appName}}子应用加载完成",
+      "unmounting": "正在切换离开{{appName}}",
+      "error": "{{appName}}子应用加载失败"
     },
     "errorMask": {
       "title": "应用加载失败",

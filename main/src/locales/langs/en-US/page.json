@@ -12,6 +12,7 @@
     "workspace": "Workspace"
   },
   "microKernel": {
+    "containerLabel": "Micro-frontend Subapplication Container",
     "phase": {
       "loading": "Loading modules...",
       "loaded": "Modules loaded",
@@ -19,6 +20,14 @@
       "mounted": "Loaded",
       "unmounting": "Switching application...",
       "error": "Load failed"
+    },
+    "announcements": {
+      "loading": "Loading{{appName}}subapplication",
+      "loaded": "{{appName}}modules loaded, preparing to mount",
+      "mounting": "Mounting{{appName}}subapplication",
+      "mounted": "{{appName}}subapplication loaded successfully",
+      "unmounting": "Switching away from{{appName}}",
+      "error": "{{appName}}subapplication failed to load"
     },
     "errorMask": {
       "title": "Failed to load application",
