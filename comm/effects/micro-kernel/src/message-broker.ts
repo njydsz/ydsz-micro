@@ -62,8 +62,8 @@ interface BrokerMessage<T = unknown> extends MicroMessage<T> {
   [BROKER_MARK]: true;
 }
 
-/** 消息处理器注册表（接收方应用名 → handler） */
-const handlers = new Map<string, MessageHandler>();
+/** 消息处理器注册表（接收方应用名 → 处理器集合，v4.2.1 N10 支持多 handler） */
+const handlers = new Map<string, Set<MessageHandler>>();
 
 /** 待确认的请求表 */
 const pendingRequests = new Map<string, PendingRequest>();
@@ -78,6 +78,9 @@ function generateCorrelationId(): string {
 /**
  * 注册应用的消息处理器。
  *
+ * v4.2.1 N10: 同一应用支持注册多个处理器（按注册顺序分发）。
+ * 返回值语义：第一个返回非 undefined 的处理器作为请求响应。
+ *
  * @param appName - 应用名
  * @param handler - 消息处理器，返回值将作为响应发回
  * @returns 取消注册函数
@@ -86,10 +89,20 @@ export function registerAppMessageHandler<T = unknown, R = unknown>(
   appName: string,
   handler: MessageHandler<T, R>,
 ): () => void {
-  handlers.set(appName, handler as MessageHandler);
-  logger.debug(`Message handler registered for "${appName}"`);
+  let set = handlers.get(appName);
+  if (!set) {
+    set = new Set<MessageHandler>();
+    handlers.set(appName, set);
+  }
+  set.add(handler as MessageHandler);
+  logger.debug(
+    `Message handler registered for "${appName}" (total: ${set.size})`,
+  );
   return () => {
-    handlers.delete(appName);
+    set.delete(handler as MessageHandler);
+    if (set.size === 0) {
+      handlers.delete(appName);
+    }
   };
 }
 

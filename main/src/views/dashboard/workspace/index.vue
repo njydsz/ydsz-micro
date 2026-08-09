@@ -222,12 +222,22 @@ const DEFAULT_TRENDS: WorkbenchTrendItem[] = [
   },
 ];
 
-const { data: workbenchData, load: loadWorkbench } = useWorkspaceData({
-  projects: DEFAULT_PROJECTS,
-  quickNavs: DEFAULT_QUICK_NAVS,
-  todos: DEFAULT_TODOS,
-  trends: DEFAULT_TRENDS,
-});
+/** 工作台数据（后端字段与 UI 组件类型对齐，greeting 可选） */
+interface WorkbenchData {
+  projects: WorkbenchProjectItem[];
+  quickNavs: WorkbenchQuickNavItem[];
+  todos: WorkbenchTodoItem[];
+  trends: WorkbenchTrendItem[];
+  greeting?: string;
+}
+
+const { data: workbenchData, load: loadWorkbench } =
+  useWorkspaceData<WorkbenchData>({
+    projects: DEFAULT_PROJECTS,
+    quickNavs: DEFAULT_QUICK_NAVS,
+    todos: DEFAULT_TODOS,
+    trends: DEFAULT_TRENDS,
+  });
 
 const projectItems = computed(() => workbenchData.value.projects);
 const quickNavItems = computed(() => workbenchData.value.quickNavs);
