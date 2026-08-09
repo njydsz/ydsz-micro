@@ -41,6 +41,11 @@ import { KernelError, KernelErrorCode } from "./error-boundary";
 import { recordLoadDuration } from "./health-check";
 import { loadApp, removeStylesheets } from "./loader";
 import { mark, measure } from "./performance-utils";
+// v4.2.1 N5: 运行时 CSS 作用域兜底
+import {
+  applyRuntimeCssScope,
+  removeRuntimeCssScope,
+} from "./runtime-css-scope";
 import {
   createSandboxStrategy,
   IframeSandboxStrategy,
@@ -103,6 +108,12 @@ export interface AppInstance {
   /** v3.7.0: 是否被"固定"（pin 住），固定实例在 LRU 淘汰时被跳过引脚保护 */
   pinned: boolean;
   /**
+   * v4.2.1 N6: keep-alive 停用时 serialize() 保存的应用状态快照。
+   *
+   * 恢复激活时通过 hydrate(state, props) 还原（列表滚动位置 / 表单输入等）。
+   */
+  cachedState: unknown;
+  /**
    * 最近一次加载得到的 manifest（v3.3 新增）。
    *
    * build 模式下含子应用自描述的 routes（骨架屏类型映射），
@@ -136,6 +147,13 @@ export interface SchedulerContext {
   keepAliveTimestamp: number;
   /** 当前 keep-alive 是否启用 */
   keepAliveEnabled: boolean;
+  /**
+   * 全局运行时 CSS 作用域兜底开关（v4.2.1 N5）。
+   *
+   * 由 kernel.start() 的 options.sandbox.styleIsolation 设置。
+   * 与 per-app config.styleIsolation 为 OR 关系。
+   */
+  styleIsolationEnabled: boolean;
 }
 
 /** 创建全新调度器上下文（工厂函数） */
@@ -146,6 +164,7 @@ export function createSchedulerContext(): SchedulerContext {
     keepAliveTTL: 30 * 60 * 1000,
     keepAliveTimestamp: 1,
     keepAliveEnabled: true,
+    styleIsolationEnabled: false,
   };
 }
 
@@ -262,6 +281,25 @@ export function isKeepAliveEnabled(): boolean {
   return getContext().keepAliveEnabled;
 }
 
+/**
+ * v4.2.1 N5: 设置全局运行时 CSS 作用域兜底开关。
+ *
+ * 由 kernel.start() 根据 options.sandbox.styleIsolation 调用。
+ * 与 per-app config.styleIsolation 为 OR 关系。
+ *
+ * @param enabled - 是否启用
+ * @since 4.2.1
+ */
+export function setStyleIsolation(enabled: boolean): void {
+  getContext().styleIsolationEnabled = enabled;
+}
+
+/** 判断指定应用是否需要运行时 CSS 作用域兜底（全局开关 OR per-app 配置） */
+function shouldApplyRuntimeCssScope(config: MicroAppConfig): boolean {
+  const ctx = getContext();
+  return ctx.styleIsolationEnabled || config.styleIsolation === true;
+}
+
 // ==================== KeepAlive 配置设置器（P3-2: 委托给统一 configureKeepAlive） ====================
 
 /**
@@ -293,6 +331,8 @@ export function createAppInstance(config: MicroAppConfig): AppInstance {
     // v3.7.0: 保活时间戳与 pin 标记初始化
     keepAliveSince: 0,
     pinned: false,
+    // v4.2.1 N6: 状态快照初始化
+    cachedState: undefined,
     manifest: null,
   };
   getContext().appInstances.set(config.name, instance);
@@ -444,6 +484,21 @@ export async function activateApp(
         logger.error(`${config.name} activate hook failed:`, error);
       }
     }
+    // v4.2.1 N6: 恢复上次停用时的状态快照（若子应用实现了 hydrate）
+    if (instance.exports?.hydrate && instance.cachedState !== undefined) {
+      try {
+        const hydrateProps: MountProps = {
+          container,
+          basename:
+            typeof config.activeRule === "string" ? config.activeRule : "/",
+          ...config.props,
+        };
+        await instance.exports.hydrate(instance.cachedState, hydrateProps);
+        logger.debug(`${config.name} hydrated cached state (keepAlive)`);
+      } catch (error) {
+        logger.error(`${config.name} hydrate hook failed:`, error);
+      }
+    }
     mark(`kernel:activate:${config.name}:end`);
     measure(
       `kernel:activate:${config.name}`,
@@ -494,6 +549,11 @@ export async function activateApp(
 
   // 设置容器属性，与 PostCSS 构建期 CSS scoping 联动
   container.dataset.microApp = config.name;
+
+  // v4.2.1 N5: 运行时 CSS 作用域兜底（可选启用）
+  if (shouldApplyRuntimeCssScope(config)) {
+    applyRuntimeCssScope(config.name);
+  }
 
   // === v4.1 P0-A2: 使用统一策略进入沙箱（消除 if-else）===
   // v4.2.1 P0-N2: 沙箱创建失败显式抛出 SANDBOX_ERROR（此前该错误码无任何抛出路径）
@@ -650,6 +710,16 @@ export async function deactivateApp(
           logger.error(`${config.name} deactivate hook failed:`, error);
         }
       }
+      // v4.2.1 N6: 停用时序列化应用状态（供下次 keep-alive 恢复）
+      if (instance.exports?.serialize) {
+        try {
+          instance.cachedState = await instance.exports.serialize();
+          logger.debug(`${config.name} serialized state (keepAlive)`);
+        } catch (error) {
+          logger.error(`${config.name} serialize hook failed:`, error);
+          instance.cachedState = undefined;
+        }
+      }
       mark(`kernel:deactivate:${config.name}:end`);
       measure(
         `kernel:deactivate:${config.name}`,
@@ -689,6 +759,9 @@ export async function deactivateApp(
     if (containerEl) {
       delete containerEl.dataset.microApp;
     }
+
+    // v4.2.1 N5: 移除运行时 scoped 样式（若启用过）
+    removeRuntimeCssScope(config.name);
 
     removeStylesheets(config.name);
     instance.exports = null;

@@ -57,6 +57,26 @@ export interface MessageBusAPI {
   registerHandler: <T = unknown, R = unknown>(handler: MessageHandler<T, R>) => () => void;
 }
 
+/**
+ * 统一微桥接 API（v4.2.1 N10）。
+ *
+ * messageBus 的简化别名视图，提供更直观的 send/call/on 三方法，
+ * 并按 action 过滤处理器（messageBus.registerHandler 需自行判断 action）。
+ *
+ * @since 4.2.1
+ */
+export interface MicroBridge {
+  /** 发送消息（fire-and-forget），返回消息 id */
+  send: (action: string, payload?: unknown) => string;
+  /** 发送请求并 await 响应（request/response） */
+  call: <R = unknown>(action: string, payload?: unknown, timeout?: number) => Promise<R>;
+  /** 注册指定 action 的处理器，返回取消订阅函数 */
+  on: <T = unknown, R = unknown>(
+    action: string,
+    handler: (payload: T, from: string) => R | Promise<R>,
+  ) => () => void;
+}
+
 // ==================== 子应用上下文 ====================
 
 /** 子应用运行时上下文 */
@@ -105,6 +125,8 @@ export interface StandardMicroProps extends MountProps {
   globalState: EnhancedGlobalStateAPI;
   /** 点对点消息总线 */
   messageBus: MessageBusAPI;
+  /** 统一微桥接（send/call/on 简化视图，v4.2.1 N10） */
+  microBridge: MicroBridge;
 
   // --- 主应用上下文 ---
   /** 子应用运行时上下文 */
@@ -173,6 +195,21 @@ export function buildStandardMountProps(
       sendMessage: ctx.sendMessage,
       sendRequest: ctx.sendRequest,
       registerHandler: ctx.registerHandler,
+    },
+    // v4.2.1 N10: 统一微桥接 — messageBus 的 send/call/on 简化视图
+    microBridge: {
+      send: (action: string, payload?: unknown) =>
+        ctx.sendMessage(action, payload),
+      call: <R = unknown>(action: string, payload?: unknown, timeout?: number) =>
+        ctx.sendRequest<R>(action, payload, timeout),
+      on: <T = unknown, R = unknown>(
+        action: string,
+        handler: (payload: T, from: string) => R | Promise<R>,
+      ) =>
+        ctx.registerHandler<T, R>((msg) => {
+          if (msg.action !== action) return undefined as R;
+          return handler(msg.payload as T, msg.from);
+        }),
     },
 
     // 上下文

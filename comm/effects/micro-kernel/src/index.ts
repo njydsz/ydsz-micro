@@ -169,10 +169,16 @@ export {
   setKeepAliveTTL,
   setMaxKeepAliveApps,
   setPinnedApp,
+  setStyleIsolation,
   setupVisibilityAutoRelease,
 } from "./scheduler";
 export type { KeepAliveConfig } from "./scheduler";
 export type { SchedulerContext } from "./scheduler";
+// v4.2.1 N5: 运行时 CSS 作用域兜底
+export {
+  applyRuntimeCssScope,
+  removeRuntimeCssScope,
+} from "./runtime-css-scope";
 // v3.6.0: 公开 GlobalStateBridge 类型，供外部扩展沙箱时使用
 export type { GlobalStateBridge } from "./scheduler";
 // P0-P2: 公开 DeactivateResult 类型，供调用方感知 LRU 淘汰

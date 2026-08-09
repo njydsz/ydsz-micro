@@ -99,6 +99,7 @@ import {
   isKeepAliveEnabled,
   setKeepAlive as setKeepAliveAction,
   setPinnedApp,
+  setStyleIsolation,
   setupVisibilityAutoRelease,
   updateAppProps,
 } from "./scheduler";
@@ -565,6 +566,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
       // 启动路由监听（含 history 补丁）
       routerSyncCleanup = startRouterSync(apps, options);
+
+      // v4.2.1 N5: 全局运行时 CSS 作用域兜底开关（来自 start options）
+      setStyleIsolation(options?.sandbox?.styleIsolation === true);
 
       // P0-P2: 页面切到后台时自动释放保活实例，减少后台内存占用
       visibilityCleanup = setupVisibilityAutoRelease();

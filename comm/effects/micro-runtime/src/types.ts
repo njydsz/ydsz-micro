@@ -73,6 +73,16 @@ export interface MicroAppConfig {
    * @since 4.0.1
    */
   devUrl?: string;
+  /**
+   * 是否对该子应用启用运行时 CSS 作用域兜底（v4.2.1 N5）。
+   *
+   * 默认 false（自有子应用已由构建期 micro-scoped-postcss 处理）。
+   * 对使用 :global 选择器 / 遗漏 PostCSS 配置 / 第三方构建链路接入的
+   * 子应用，开启后运行时将通过 CSSOM 为样式表加 `[data-micro-app]` 前缀。
+   *
+   * @since 4.2.1
+   */
+  styleIsolation?: boolean;
 }
 
 /** 子应用挂载参数（与 qiankun mountProps 对齐语义） */
@@ -111,6 +121,29 @@ export interface LifecycleExports {
   activate?: () => Promise<void> | void;
   /** keep-alive 停用时调用（可选） */
   deactivate?: () => Promise<void> | void;
+  /**
+   * keep-alive 停用时序列化应用状态（可选，v4.2.1 N6）。
+   *
+   * 返回的状态快照在下次激活时通过 hydrate 恢复。
+   * 适用于列表滚动位置、表单输入、展开/收起等组件状态记忆。
+   *
+   * @returns 可序列化的状态快照
+   * @since 4.2.1
+   */
+  serialize?: () => unknown | Promise<unknown>;
+  /**
+   * keep-alive 恢复时用快照还原应用状态（可选，v4.2.1 N6）。
+   *
+   * 与 serialize 配对；未实现 hydrate 时快照被忽略。
+   *
+   * @param state - 上次 deactivate 时 serialize 返回的快照
+   * @param props - 本次激活的 mountProps（含容器等上下文）
+   * @since 4.2.1
+   */
+  hydrate?: (
+    state: unknown,
+    props: MountProps,
+  ) => Promise<void> | void;
 }
 
 /** 内核生命周期钩子 */

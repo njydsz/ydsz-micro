@@ -29,21 +29,11 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "test:e2e": {},
     "dev": {
       "dependsOn": [],
       "outputs": [],
       "cache": false,
       "persistent": true
-    },
-    "typecheck": {
-      "outputs": []
-    },
-    "lint": {
-      "outputs": []
-    },
-    "test:unit": {
-      "outputs": []
     }
   }
 }
