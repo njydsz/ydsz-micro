@@ -41,55 +41,55 @@
       "path": "bash/vsh",
     },
     {
-      "name": "@remi-core/design",
+      "name": "@YDSZ-core/design",
       "path": "comm/@core/base/design",
     },
     {
-      "name": "@remi-core/icons",
+      "name": "@YDSZ-core/icons",
       "path": "comm/@core/base/icons",
     },
     {
-      "name": "@remi-core/shared",
+      "name": "@YDSZ-core/shared",
       "path": "comm/@core/base/shared",
     },
     {
-      "name": "@remi-core/typings",
+      "name": "@YDSZ-core/typings",
       "path": "comm/@core/base/typings",
     },
     {
-      "name": "@remi-core/composables",
+      "name": "@YDSZ-core/composables",
       "path": "comm/@core/composables",
     },
     {
-      "name": "@remi-core/feature-flags",
+      "name": "@YDSZ-core/feature-flags",
       "path": "comm/@core/feature-flags",
     },
     {
-      "name": "@remi-core/preferences",
+      "name": "@YDSZ-core/preferences",
       "path": "comm/@core/preferences",
     },
     {
-      "name": "@remi-core/form-ui",
+      "name": "@YDSZ-core/form-ui",
       "path": "comm/@core/ui-kit/form-ui",
     },
     {
-      "name": "@remi-core/layout-ui",
+      "name": "@YDSZ-core/layout-ui",
       "path": "comm/@core/ui-kit/layout-ui",
     },
     {
-      "name": "@remi-core/menu-ui",
+      "name": "@YDSZ-core/menu-ui",
       "path": "comm/@core/ui-kit/menu-ui",
     },
     {
-      "name": "@remi-core/popup-ui",
+      "name": "@YDSZ-core/popup-ui",
       "path": "comm/@core/ui-kit/popup-ui",
     },
     {
-      "name": "@remi-core/shadcn-ui",
+      "name": "@YDSZ-core/shadcn-ui",
       "path": "comm/@core/ui-kit/shadcn-ui",
     },
     {
-      "name": "@remi-core/tabs-ui",
+      "name": "@YDSZ-core/tabs-ui",
       "path": "comm/@core/ui-kit/tabs-ui",
     },
     {
