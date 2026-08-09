@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { useNetworkStatus } from "@/hooks/use-network-status";
+import { useNetworkStatus } from "#/hooks/use-network-status";
 
 const { networkStatus } = useNetworkStatus();
 const justRecovered = ref(false);

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SearchItem } from "@/hooks/use-global-search";
+import type { SearchItem } from "#/hooks/use-global-search";
 
 import { computed, defineModel, nextTick, ref, watch } from "vue";
 

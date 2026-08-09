@@ -22,7 +22,9 @@
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "imports": {
     "#/*": "./src/*"
@@ -30,6 +32,7 @@
   "dependencies": {
     "@vueuse/core": "catalog:",
     "@YDSZ-core/feature-flags": "workspace:*",
+    "@YDSZ-core/menu-ui": "workspace:*",
     "@YDSZ-core/shared": "workspace:*",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",

@@ -12,11 +12,11 @@
  * @since 4.0.0
 -->
 <script setup lang="ts">
-import type { SearchItem } from "@/hooks/use-global-search";
+import type { SearchItem } from "#/hooks/use-global-search";
 
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
-import { useSearchProviderStatus } from "@/hooks/use-global-search";
+import { useSearchProviderStatus } from "#/hooks/use-global-search";
 
 // ==================== 类型定义 ====================
 

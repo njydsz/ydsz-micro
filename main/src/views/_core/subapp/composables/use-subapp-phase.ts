@@ -10,7 +10,7 @@
  */
 import type { Ref } from "vue";
 
-import { computed, reactive, ref } from "vue";
+import { computed, ref } from "vue";
 
 import { $t } from "#/locales";
 
@@ -88,13 +88,16 @@ export function useSubAppPhase(containerRef: Ref<HTMLElement | null>) {
   /** 屏幕阅读器公告文案（随阶段变化） */
   const screenReaderAnnouncement = ref("");
 
-  const state = reactive({
+  // 注意：不使用 reactive() 包装 ref —— reactive 会自动解包 ref，
+  // 导致 state.phase 退化为原始值而非 Ref。此处用普通对象持有 ref，
+  // 组件模板通过 state.phase.value 访问（与响应式语义一致）。
+  const state: SubAppPhaseState = {
     phase,
     activeAppName,
     progress,
     phaseTextKey,
     lastError,
-  }) as unknown as SubAppPhaseState;
+  };
 
   /** 当前阶段的展示文案（i18n） */
   const phaseText = computed(() =>
