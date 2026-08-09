@@ -557,9 +557,10 @@ export async function activateApp(
 
   // === v4.1 P0-A2: 使用统一策略进入沙箱（消除 if-else）===
   // v4.2.1 P0-N2: 沙箱创建失败显式抛出 SANDBOX_ERROR（此前该错误码无任何抛出路径）
+  // v4.2.1 N11: createSandboxStrategy 为异步（proxy/iframe 动态导入）
   let strategy: SandboxStrategy;
   try {
-    strategy = createSandboxStrategy(
+    strategy = await createSandboxStrategy(
       instance.sandboxType,
       config.name,
       container,
@@ -578,17 +579,19 @@ export async function activateApp(
   strategy.mount();
 
   // 注入沙箱特有能力到 mountProps
-  if (strategy instanceof ProxySandboxStrategy) {
-    mountProps.fakeWindow = strategy.fakeWindow;
+  // v4.2.1 N11: 用 strategy.type 判断替代 instanceof（类定义已动态化）
+  if (strategy.type === "proxy") {
+    mountProps.fakeWindow = (strategy as ProxySandboxStrategy).fakeWindow;
     logger.debug(`${config.name} entered proxy sandbox (via strategy)`);
-  } else if (strategy instanceof IframeSandboxStrategy) {
+  } else if (strategy.type === "iframe") {
+    const iframeStrategy = strategy as IframeSandboxStrategy;
     // 将 mountProps 的容器指向 iframe 内的挂载容器
-    if (strategy.container) {
-      mountProps.container = strategy.container;
+    if (iframeStrategy.container) {
+      mountProps.container = iframeStrategy.container;
     }
     // 注入 iframeWindow 到 mountProps
-    if (strategy.contentWindow) {
-      mountProps.iframeWindow = strategy.contentWindow;
+    if (iframeStrategy.contentWindow) {
+      mountProps.iframeWindow = iframeStrategy.contentWindow;
     }
     // v3.6.0: 建立 globalState 跨 realm 桥接
     if (globalStateBridge) {
@@ -600,7 +603,7 @@ export async function activateApp(
           globalStateBridge.setGlobalState(patch);
           // 同时同步给子应用（setGlobalState 已会触发 onGlobalStateChange 广播，
           // 但为保证子应用即时收到，显式 postToChild 一次）
-          strategy.postToChild(globalStateBridge.getGlobalState());
+          iframeStrategy.postToChild(globalStateBridge.getGlobalState());
         },
         onGlobalStateChange: (
           listener: (state: Record<string, unknown>) => void,
@@ -614,7 +617,7 @@ export async function activateApp(
       };
       mountProps._globalState = proxyGlobalState;
       // 建立双向桥接（内部管理 unsubscribe）
-      strategy.attachGlobalStateBridge(globalStateBridge, proxyGlobalState);
+      iframeStrategy.attachGlobalStateBridge(globalStateBridge, proxyGlobalState);
     }
     logger.debug(`${config.name} entered iframe sandbox (via strategy)`);
   } else {

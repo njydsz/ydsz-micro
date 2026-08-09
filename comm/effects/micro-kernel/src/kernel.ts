@@ -510,9 +510,50 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     }
   }
 
+  /**
+   * v4.2.1 N10: 运行时追加单个子应用（懒注册）。
+   *
+   * 用于插件市场 / 动态安装等场景。重复注册同名应用为幂等 no-op。
+   *
+   * @param app - 子应用配置
+   * @since 4.2.1
+   */
+  function addAppInternal(app: MicroAppConfig): boolean {
+    if (apps.some((a) => a.name === app.name)) {
+      logger.warn(`addApp: app "${app.name}" already registered, skip`);
+      return false;
+    }
+    apps.push(app);
+    if (!getAppInstance(app.name)) {
+      createAppInstance(app);
+    }
+    versionManager.setAppEntries(new Map(apps.map((a) => [a.name, a.entry])));
+    // 构建模式预热 manifest（与 registerAppsInternal 一致）
+    const isBuildMode = !(
+      import.meta !== undefined &&
+      (import.meta as { env?: Record<string, unknown> }).env?.DEV === true
+    );
+    if (isBuildMode) {
+      preloadManifest(app.entry);
+    }
+    logger.info(`addApp: registered "${app.name}"`);
+    return true;
+  }
+
   const kernelApi = {
     registerApps(newApps: MicroAppConfig[]) {
       registerAppsInternal(newApps);
+    },
+
+    /**
+     * v4.2.1 N10: 运行时追加单个子应用（懒注册）。
+     *
+     * @param app - 子应用配置
+     * @returns 是否注册成功（同名重复注册返回 false）
+     * @since 4.2.1
+     */
+    addApp(app: MicroAppConfig): boolean {
+      return addAppInternal(app);
     },
 
     getRegisteredApps() {

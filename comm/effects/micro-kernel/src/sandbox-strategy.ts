@@ -24,11 +24,13 @@
 
 import { enterSandbox, exitSandbox } from './sandbox';
 import type { SandboxInstance } from './sandbox';
-import { createProxySandbox } from './proxy-sandbox';
-import type { ProxySandboxInstance } from './proxy-sandbox';
-import { createIframeSandbox } from './iframe-sandbox';
-import type { IframeSandboxInstance } from './iframe-sandbox';
 import type { GlobalStateBridge } from './scheduler';
+
+// v4.2.1 N11: proxy / iframe 沙箱改为动态导入（按需加载）。
+// snapshot 沙箱为默认路径保持静态，减少默认包体积。
+// 类型仍以 type-only import 保留（不产生运行时依赖）。
+import type { ProxySandboxInstance } from './proxy-sandbox';
+import type { IframeSandboxInstance } from './iframe-sandbox';
 
 /**
  * 沙箱公共生命周期操作。
@@ -242,26 +244,36 @@ export class IframeSandboxStrategy implements SandboxStrategy {
 /**
  * 创建沙箱策略实例的工厂函数。
  *
- * 根据 sandboxType 选择对应沙箱的 create 函数 + 包装为 SandboxStrategy。
+ * v4.2.1 N11: 根据 sandboxType 选择对应沙箱：
+ * - snapshot（默认）→ 静态创建，无额外加载
+ * - proxy / iframe → 动态 import 对应模块（按需加载，减小默认包体积）
+ *
+ * 返回 Promise（动态导入异步）。
  *
  * @param type - 沙箱类型
  * @param appName - 应用名（传递给底层 create 函数）
  * @param parentEl - 父容器（iframe 沙箱需要）
  * @returns 统一的 SandboxStrategy 实例
  */
-export function createSandboxStrategy(
+export async function createSandboxStrategy(
   type: 'snapshot' | 'proxy' | 'iframe',
   appName: string,
   parentEl: HTMLElement,
   devUrl?: string,
-): SandboxStrategy {
+): Promise<SandboxStrategy> {
   switch (type) {
     case 'snapshot':
       return new SnapshotSandboxStrategy();
-    case 'proxy':
+    case 'proxy': {
+      const { createProxySandbox } = await import('./proxy-sandbox');
       return new ProxySandboxStrategy(createProxySandbox(appName));
-    case 'iframe':
-      return new IframeSandboxStrategy(createIframeSandbox(appName, parentEl, devUrl));
+    }
+    case 'iframe': {
+      const { createIframeSandbox } = await import('./iframe-sandbox');
+      return new IframeSandboxStrategy(
+        createIframeSandbox(appName, parentEl, devUrl),
+      );
+    }
     default:
       // 回退到快照沙箱
       return new SnapshotSandboxStrategy();

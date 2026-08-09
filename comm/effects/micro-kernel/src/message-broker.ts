@@ -211,24 +211,37 @@ export function startMessageListener(
       }
     }
 
-    // 请求消息：调用注册的 handler
-    const appHandler = handlers.get(message.to);
-    if (appHandler) {
-      try {
-        const result = appHandler(message);
-        // 如果是 Promise，await 后发送响应
-        if (result instanceof Promise) {
-          result.then((response) => {
-            sendResponse(message, response);
-          }).catch((err) => {
+    // 请求消息：调用注册的 handler（v4.2.1 N10: 支持同应用多 handler）
+    const handlerSet = handlers.get(message.to);
+    if (handlerSet && handlerSet.size > 0) {
+      let responded = false;
+      for (const appHandler of handlerSet) {
+        try {
+          const result = appHandler(message);
+          // 如果是 Promise，await 后发送响应
+          if (result instanceof Promise) {
+            result
+              .then((response) => {
+                // 仅第一个非 undefined 响应回发，避免多 handler 竞争
+                if (!responded && response !== undefined) {
+                  responded = true;
+                  sendResponse(message, response);
+                }
+              })
+              .catch((err) => {
+                sendResponse(message, { error: String(err) });
+              });
+          } else if (!responded && result !== undefined) {
+            responded = true;
+            sendResponse(message, result);
+          }
+        } catch (err) {
+          logger.error(`Handler for "${message.to}" failed:`, err);
+          if (!responded) {
+            responded = true;
             sendResponse(message, { error: String(err) });
-          });
-        } else if (result !== undefined) {
-          sendResponse(message, result);
+          }
         }
-      } catch (err) {
-        logger.error(`Handler for "${message.to}" failed:`, err);
-        sendResponse(message, { error: String(err) });
       }
     } else {
       logger.debug(`No handler for app "${message.to}"`);
