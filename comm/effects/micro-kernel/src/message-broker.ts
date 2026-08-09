@@ -259,9 +259,13 @@ export function startMessageListener(
 
 /**
  * 发送响应消息。
+ *
+ * P1-4: 响应消息同样携带 __MICRO_BROKER__ 协议标记，
+ * 确保 startMessageListener 的 protocol filter 能正确接收响应。
  */
 function sendResponse(originalMessage: MicroMessage, responsePayload: unknown): void {
-  const response: MicroMessage = {
+  const response: BrokerMessage = {
+    [BROKER_MARK]: true,
     from: originalMessage.to,
     to: originalMessage.from,
     action: originalMessage.action,

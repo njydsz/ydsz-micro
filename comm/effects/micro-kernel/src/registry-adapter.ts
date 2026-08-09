@@ -23,6 +23,9 @@ import { createLogger } from '@YDSZ-core/shared/utils';
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');
 
+/** Inflight 拉取请求（用于多次并发调用去重） */
+let inflightRegistry: Promise<MicroAppEntry[] | null> | null = null;
+
 /** 注册表拉取超时（ms） */
 const REGISTRY_FETCH_TIMEOUT = 5_000;
 
@@ -137,6 +140,19 @@ function validateRegistry(data: unknown): data is RegistryResponse {
  * @returns 注册表应用数组，或 null（拉取失败时）
  */
 async function fetchRemoteRegistry(): Promise<MicroAppEntry[] | null> {
+  // 去重：如果已有 inflight 请求，直接复用
+  if (inflightRegistry) return inflightRegistry;
+
+  inflightRegistry = doFetchRemoteRegistry();
+  try {
+    return await inflightRegistry;
+  } finally {
+    inflightRegistry = null;
+  }
+}
+
+/** 实际执行远端拉取逻辑（不含去重） */
+async function doFetchRemoteRegistry(): Promise<MicroAppEntry[] | null> {
   const endpoint = getRegistryEndpoint();
 
   try {

@@ -25,7 +25,7 @@
 
 import { createLogger } from "@YDSZ-core/shared/utils";
 
-import { getStorage, setStorage, STORAGE_KEYS } from "./storage-utils";
+import { getStorage, removeStorage, setStorage, STORAGE_KEYS } from "./storage-utils";
 
 const logger = createLogger("RoutePredictor");
 
@@ -427,8 +427,9 @@ export class RoutePredictor {
       toMap.set(record.to, Math.max(existingCount, record.count));
       seenMap.set(record.to, now); // 标记为当前时间（首次加载时统一）
 
+      // P1-5: 累加所有转移计数作为 totals
       const existingTotal = this.totals.get(record.from) || 0;
-      this.totals.set(record.from, Math.max(existingTotal, record.count));
+      this.totals.set(record.from, existingTotal + record.count);
     }
 
     // 迁移：立即以 v2 格式保存
@@ -456,7 +457,7 @@ export class RoutePredictor {
       let toMap = this.transitions.get(record.from);
       if (!toMap) {
         toMap = new Map();
-        this.transitions.set(from, toMap);
+        this.transitions.set(record.from, toMap);
       }
 
       let seenMap = this.lastSeen.get(record.from);
@@ -477,8 +478,9 @@ export class RoutePredictor {
       toMap.set(record.to, Math.max(existingCount, decayedCount));
       seenMap.set(record.to, record.timestamp);
 
+      // P1-5: 累加所有衰减后的转移计数作为 totals（概率归一化分母）
       const existingTotal = this.totals.get(record.from) || 0;
-      this.totals.set(record.from, Math.max(existingTotal, decayedCount));
+      this.totals.set(record.from, existingTotal + decayedCount);
     }
 
     logger.debug(
