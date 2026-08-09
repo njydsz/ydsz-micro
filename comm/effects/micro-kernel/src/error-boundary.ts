@@ -77,7 +77,7 @@ export class KernelError extends Error {
  *
  * @since 4.0.1
  */
-function getLocaleFromStorage(): string {
+export function getLocaleFromStorage(): string {
   try {
     // 与 main/src/preferences 中 localStorage key 约定对齐
     const stored = localStorage.getItem("YDSZ:preferences");
@@ -102,7 +102,7 @@ function getLocaleFromStorage(): string {
  *
  * @since 4.0.1
  */
-function resolveEffectiveLocale(): string {
+export function resolveEffectiveLocale(): string {
   // 检测全局消息当前语言：捷克塞到 globalMessages 中取 title 对比中文默认值
   const isChinese = globalMessages.title === zhCNMessages.title;
   if (isChinese) {
@@ -120,7 +120,7 @@ function resolveEffectiveLocale(): string {
  * 将 &, <, >, ", ' 转义为对应的 HTML 实体，
  * 确保动态值安全地注入 innerHTML。
  */
-function escapeHtml(str: string): string {
+export function escapeHtml(str: string): string {
   return str
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -134,7 +134,7 @@ function escapeHtml(str: string): string {
  *
  * HTML id 不允许空格和特殊字符，将非字母数字字符替换为 `-`。
  */
-function sanitizeId(appName: string): string {
+export function sanitizeId(appName: string): string {
   return appName.replaceAll(/[^\w-]/g, "-");
 }
 
