@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteCommentApi, getCommentPageApi, type CommentApi } from '#/api/comment';
 import CommentForm from './comment-form.vue';
 defineOptions({ name: 'CommentManagement' });
@@ -43,7 +43,7 @@ const gridOptions: VxeGridProps<CommentApi.CommentVO> = {
       { field: 'fileId', title: 'fileId', itemRender: { name: 'Input', props: { placeholder: 'fileId' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [CommentFormModal, commentFormApi] = useVbenModal({ connectedComponent: CommentForm });
 function handleAdd() { commentFormApi.open(); }
 function handleEdit(row: CommentApi.CommentVO) { commentFormApi.setData({ record: row }); commentFormApi.open(); }

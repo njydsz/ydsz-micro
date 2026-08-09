@@ -13,7 +13,7 @@ import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
 import { useNamespace } from '@YDSZ-core/composables';
-import { REMIHoverCard } from '@YDSZ-core/shadcn-ui';
+import { YDSZHoverCard } from '@YDSZ-core/shadcn-ui';
 
 import {
   createSubMenuContext,
@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
     @mouseleave="() => handleMouseleave()"
   >
     <template v-if="rootMenu.isMenuPopup">
-      <REMIHoverCard
+      <YDSZHoverCard
         :content-class="[
           rootMenu.theme,
           nsMenu.e('popup-container'),
@@ -250,7 +250,7 @@ onBeforeUnmount(() => {
             <slot></slot>
           </ul>
         </div>
-      </REMIHoverCard>
+      </YDSZHoverCard>
     </template>
 
     <template v-else>

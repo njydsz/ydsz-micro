@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { Recordable } from '@YDSZ-core/typings';
 
-import type { ExtendedFormApi, REMIFormProps } from './types';
+import type { ExtendedFormApi, YDSZFormProps } from './types';
 
 // import { toRaw, watch } from 'vue';
 import { nextTick, onMounted, watch } from 'vue';
@@ -31,7 +31,7 @@ import {
   useFormInitial,
 } from './use-form-context';
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
-interface Props extends REMIFormProps {
+interface Props extends YDSZFormProps {
   formApi: ExtendedFormApi;
 }
 

@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import type { REMILayoutProps } from './YDSZ-layout';
+import type { YDSZLayoutProps } from './YDSZ-layout';
 
 import { computed, ref, watch } from 'vue';
 
@@ -18,7 +18,7 @@ import {
   useLayoutHeaderStyle,
 } from '@YDSZ-core/composables';
 import { Menu } from '@YDSZ-core/icons';
-import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@YDSZ-core/shared/constants';
 
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
@@ -32,10 +32,10 @@ import {
 } from './components';
 import { useLayout } from './hooks/use-layout';
 
-interface Props extends REMILayoutProps {}
+interface Props extends YDSZLayoutProps {}
 
 defineOptions({
-  name: 'REMILayout',
+  name: 'YDSZLayout',
 });
 
 const props = withDefaults(defineProps<Props>(), {
@@ -541,13 +541,13 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
           </template>
 
           <template #toggle-button>
-            <REMIIconButton
+            <YDSZIconButton
               v-if="showHeaderToggleButton"
               class="my-0 mr-1 rounded-md"
               @click="handleHeaderToggle"
             >
               <Menu class="size-4" />
-            </REMIIconButton>
+            </YDSZIconButton>
           </template>
           <slot name="header"></slot>
         </LayoutHeader>

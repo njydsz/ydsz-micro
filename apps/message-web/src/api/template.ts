@@ -1,6 +1,6 @@
 ﻿/**
  * 消息模板 API 模块（前端）
- * <p>封装消息模板（{@code remi_message_template}）CRUD 接口，对应后端 {@code /api/v1/message/template/*} 端点。
+ * <p>封装消息模板（{@code ydsz_message_template}）CRUD 接口，对应后端 {@code /api/v1/message/template/*} 端点。
  * <p>支持多渠道（站内/邮件/短信/企微/钉钉/飞书）模板管理、变量替换、状态控制。
  * <p>供「消息中心 → 模板管理」使用。
  *

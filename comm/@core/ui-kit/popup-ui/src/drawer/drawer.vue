@@ -25,10 +25,10 @@ import {
 } from '@YDSZ-core/composables';
 import { X } from '@YDSZ-core/icons';
 import {
-  REMIButton,
-  REMIHelpTooltip,
-  REMIIconButton,
-  REMILoading,
+  YDSZButton,
+  YDSZHelpTooltip,
+  YDSZIconButton,
+  YDSZLoading,
   Separator,
   Sheet,
   SheetClose,
@@ -233,9 +233,9 @@ const getForceMount = computed(() => {
             class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
             <slot name="close-icon">
-              <REMIIconButton>
+              <YDSZIconButton>
                 <X class="size-4" />
-              </REMIIconButton>
+              </YDSZIconButton>
             </slot>
           </SheetClose>
           <Separator
@@ -248,9 +248,9 @@ const getForceMount = computed(() => {
             <slot name="title">
               {{ title }}
 
-              <REMIHelpTooltip v-if="titleTooltip" trigger-class="pb-1">
+              <YDSZHelpTooltip v-if="titleTooltip" trigger-class="pb-1">
                 {{ titleTooltip }}
-              </REMIHelpTooltip>
+              </YDSZHelpTooltip>
             </slot>
           </SheetTitle>
           <SheetDescription v-if="description" class="mt-1 text-xs">
@@ -274,9 +274,9 @@ const getForceMount = computed(() => {
             class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
             <slot name="close-icon">
-              <REMIIconButton>
+              <YDSZIconButton>
                 <X class="size-4" />
-              </REMIIconButton>
+              </YDSZIconButton>
             </slot>
           </SheetClose>
         </div>
@@ -297,7 +297,7 @@ const getForceMount = computed(() => {
       >
         <slot></slot>
       </div>
-      <REMILoading v-if="showLoading || submitting" spinning />
+      <YDSZLoading v-if="showLoading || submitting" spinning />
       <SheetFooter
         v-if="showFooter"
         :class="
@@ -310,7 +310,7 @@ const getForceMount = computed(() => {
         <slot name="prepend-footer"></slot>
         <slot name="footer">
           <component
-            :is="components.DefaultButton || REMIButton"
+            :is="components.DefaultButton || YDSZButton"
             v-if="showCancelButton"
             variant="ghost"
             :disabled="submitting"
@@ -322,7 +322,7 @@ const getForceMount = computed(() => {
           </component>
           <slot name="center-footer"></slot>
           <component
-            :is="components.PrimaryButton || REMIButton"
+            :is="components.PrimaryButton || YDSZButton"
             v-if="showConfirmButton"
             :loading="confirmLoading || submitting"
             @click="() => drawerApi?.onConfirm()"

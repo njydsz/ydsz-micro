@@ -10,7 +10,7 @@ import type { ZodTypeAny } from 'zod';
 
 import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
 
-import type { REMIButtonProps } from '@YDSZ-core/shadcn-ui';
+import type { YDSZButtonProps } from '@YDSZ-core/shadcn-ui';
 import type { ClassType, MaybeComputedRef } from '@YDSZ-core/typings';
 
 /**
@@ -35,11 +35,11 @@ export type FormLayout = 'horizontal' | 'vertical';
 export type BaseFormComponentType =
   | 'DefaultButton'
   | 'PrimaryButton'
-  | 'REMICheckbox'
-  | 'REMIInput'
-  | 'REMIInputPassword'
-  | 'REMIPinInput'
-  | 'REMISelect'
+  | 'YDSZCheckbox'
+  | 'YDSZInput'
+  | 'YDSZInputPassword'
+  | 'YDSZPinInput'
+  | 'YDSZSelect'
   | (Record<never, never> & string);
 
 type Breakpoints = '2xl:' | '3xl:' | '' | 'lg:' | 'md:' | 'sm:' | 'xl:';
@@ -184,7 +184,7 @@ export type CustomRenderType = (() => Component | string) | string;
  * @remarks
  * 支持三种写法，按表达能力递增：
  * 1. 内置简写字符串 `'required'` / `'selectRequired'`——由适配器在
- *    {@link REMIFormAdapterOptions.defineRules} 中注册具体实现，二者区别在于错误文案
+ *    {@link YDSZFormAdapterOptions.defineRules} 中注册具体实现，二者区别在于错误文案
  *    （「请输入」vs「请选择」）；
  * 2. 任意自定义规则名字符串——需适配器提前注册，未注册时该字段校验被静默跳过；
  * 3. zod schema——直接给出完整校验逻辑，表达能力最强。
@@ -577,7 +577,7 @@ export interface FormFieldProps extends FormSchema {
  *
  * @remarks
  * 它是纯渲染层，**不持有表单实例**：`form` 由外部传入，因此同一份 schema 可被多个
- * 表单实例复用。与之相对，{@link REMIFormProps} 是面向业务的上层封装，
+ * 表单实例复用。与之相对，{@link YDSZFormProps} 是面向业务的上层封装，
  * 会自行创建表单实例并屏蔽 `componentMap` 等底层细节。
  * 业务代码通常不直接使用本类型。
  */
@@ -654,11 +654,11 @@ export interface FormRenderProps<
  * 表单操作按钮（提交 / 重置）的配置。
  *
  * @remarks
- * 继承 {@link REMIButtonProps}，故按钮的尺寸、类型、loading 等原生能力均可直接透传；
+ * 继承 {@link YDSZButtonProps}，故按钮的尺寸、类型、loading 等原生能力均可直接透传；
  * 索引签名的存在意味着**多余的属性不会被类型系统拦截**，会原样透传到按钮组件，
  * 拼错 prop 名时不会有编译错误，只表现为配置不生效。
  */
-export interface ActionButtonOptions extends REMIButtonProps {
+export interface ActionButtonOptions extends YDSZButtonProps {
   [key: string]: any;
   /**
    * 按钮文案。支持传 ref 或 getter，以便在切换语言时自动更新；
@@ -677,12 +677,12 @@ export interface ActionButtonOptions extends REMIButtonProps {
  *
  * @remarks
  * 相较 {@link FormRenderProps}，此处 `Omit` 掉了 `componentMap`、`componentBindEventMap`
- * 与 `form` 三项：前两者由适配器（见 {@link REMIFormAdapterOptions}）在应用启动时全局注册，
+ * 与 `form` 三项：前两者由适配器（见 {@link YDSZFormAdapterOptions}）在应用启动时全局注册，
  * 后者由组件内部创建，业务无需也不应关心，从而让调用方只聚焦「字段长什么样、提交做什么」。
  *
  * 在此基础上补充了操作按钮布局与提交/重置/值变更回调等业务能力。
  */
-export interface REMIFormProps<
+export interface YDSZFormProps<
   T extends BaseFormComponentType = BaseFormComponentType,
 > extends Omit<
   FormRenderProps<T>,
@@ -768,11 +768,11 @@ export interface REMIFormProps<
  * 表单适配器的全局初始化选项，用于把 form-ui 对接到具体的 UI 组件库。
  *
  * @remarks
- * 由 `setupREMIForm` 在应用启动阶段消费，**全局只应配置一次**。
+ * 由 `setupYDSZForm` 在应用启动阶段消费，**全局只应配置一次**。
  * 其存在意义是让 form-ui 与具体 UI 库解耦：不同组件库的 v-model prop 名、
  * 空值表示、必填判定方式各不相同，这些差异全部在此收敛。
  */
-export interface REMIFormAdapterOptions<
+export interface YDSZFormAdapterOptions<
   T extends BaseFormComponentType = BaseFormComponentType,
 > {
   /**

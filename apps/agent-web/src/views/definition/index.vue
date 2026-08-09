@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteDefinitionApi, getDefinitionPageApi, type DefinitionApi } from '#/api/definition';
 import DefinitionForm from './definition-form.vue';
 defineOptions({ name: 'DefinitionManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<DefinitionApi.DefinitionVO> = {
       { field: 'defName', title: 'defName', itemRender: { name: 'Input', props: { placeholder: 'defName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [DefinitionFormModal, definitionFormApi] = useVbenModal({ connectedComponent: DefinitionForm });
 function handleAdd() { definitionFormApi.open(); }
 function handleEdit(row: DefinitionApi.DefinitionVO) { definitionFormApi.setData({ record: row }); definitionFormApi.open(); }

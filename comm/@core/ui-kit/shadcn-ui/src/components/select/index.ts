@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMISelect } from './select.vue';
+export { default as YDSZSelect } from './select.vue';

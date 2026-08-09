@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteAlertApi, getAlertPageApi, type AlertApi } from '#/api/alert';
 import AlertForm from './alert-form.vue';
 defineOptions({ name: 'AlertManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<AlertApi.AlertVO> = {
       { field: 'alertName', title: 'alertName', itemRender: { name: 'Input', props: { placeholder: 'alertName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [AlertFormModal, alertFormApi] = useVbenModal({ connectedComponent: AlertForm });
 function handleAdd() { alertFormApi.open(); }
 function handleEdit(row: AlertApi.AlertVO) { alertFormApi.setData({ record: row }); alertFormApi.open(); }

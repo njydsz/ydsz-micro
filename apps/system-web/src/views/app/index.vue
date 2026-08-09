@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 应用（列表页）
- * <p>应用（{@code remi_app}）的列表页，管理多应用隔离。
+ * <p>应用（{@code ydsz_app}）的列表页，管理多应用隔离。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -19,7 +19,7 @@ import { Page, useVbenModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteAppApi,
   getAppPageApi,
@@ -76,7 +76,7 @@ const gridOptions: VxeGridProps<AppApi.AppVO> = {
   },
 };
 
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [AppFormModal, appFormApi] = useVbenModal({ connectedComponent: AppForm });
 

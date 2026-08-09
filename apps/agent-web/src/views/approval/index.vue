@@ -17,7 +17,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApprovalApi, getApprovalPageApi, type ApprovalApi } from '#/api/approval';
 import ApprovalForm from './approval-form.vue';
 defineOptions({ name: 'ApprovalManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<ApprovalApi.ApprovalVO> = {
       { field: 'approvalStatus', title: 'approvalStatus', itemRender: { name: 'Input', props: { placeholder: 'approvalStatus' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [ApprovalFormModal, approvalFormApi] = useVbenModal({ connectedComponent: ApprovalForm });
 function handleAdd() { approvalFormApi.open(); }
 function handleEdit(row: ApprovalApi.ApprovalVO) { approvalFormApi.setData({ record: row }); approvalFormApi.open(); }

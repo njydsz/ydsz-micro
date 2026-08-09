@@ -5,15 +5,15 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { setupREMIForm } from './config';
+export { setupYDSZForm } from './config';
 
 export type {
   BaseFormComponentType,
   ExtendedFormApi,
-  REMIFormProps,
-  FormSchema as REMIFormSchema,
+  YDSZFormProps,
+  FormSchema as YDSZFormSchema,
 } from './types';
 
 export * from './use-YDSZ-form';
-// export { default as REMIForm } from './YDSZ-form.vue';
+// export { default as YDSZForm } from './YDSZ-form.vue';
 export * as z from 'zod';

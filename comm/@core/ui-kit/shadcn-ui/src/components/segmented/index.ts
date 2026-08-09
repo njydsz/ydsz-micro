@@ -5,6 +5,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMISegmented } from './segmented.vue';
+export { default as YDSZSegmented } from './segmented.vue';
 
 export type * from './types';

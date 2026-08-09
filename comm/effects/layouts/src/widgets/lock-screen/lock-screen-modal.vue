@@ -12,9 +12,9 @@ import { computed, reactive } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useREMIForm, z } from '@YDSZ-core/form-ui';
-import { useREMIModal } from '@YDSZ-core/popup-ui';
-import { REMIAvatar, REMIButton } from '@YDSZ-core/shadcn-ui';
+import { useYDSZForm, z } from '@YDSZ-core/form-ui';
+import { useYDSZModal } from '@YDSZ-core/popup-ui';
+import { YDSZAvatar, YDSZButton } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   avatar?: string;
@@ -34,7 +34,7 @@ const emit = defineEmits<{
   submit: [Recordable<any>];
 }>();
 
-const [Form, { resetForm, validate, getValues }] = useREMIForm(
+const [Form, { resetForm, validate, getValues }] = useYDSZForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -42,7 +42,7 @@ const [Form, { resetForm, validate, getValues }] = useREMIForm(
     },
     schema: computed(() => [
       {
-        component: 'REMIInputPassword' as const,
+        component: 'YDSZInputPassword' as const,
         componentProps: {
           placeholder: $t('ui.widgets.lockScreen.placeholder'),
         },
@@ -58,7 +58,7 @@ const [Form, { resetForm, validate, getValues }] = useREMIForm(
   }),
 );
 
-const [Modal] = useREMIModal({
+const [Modal] = useYDSZModal({
   onConfirm() {
     handleSubmit();
   },
@@ -90,7 +90,7 @@ async function handleSubmit() {
     >
       <div class="w-full">
         <div class="ml-2 flex w-full flex-col items-center">
-          <REMIAvatar
+          <YDSZAvatar
             :src="avatar"
             class="size-20"
             dot-class="bottom-0 right-1 border-2 size-4 bg-green-500"
@@ -100,9 +100,9 @@ async function handleSubmit() {
           </div>
         </div>
         <Form />
-        <REMIButton class="mt-1 w-full" @click="handleSubmit">
+        <YDSZButton class="mt-1 w-full" @click="handleSubmit">
           {{ $t('ui.widgets.lockScreen.screenButton') }}
-        </REMIButton>
+        </YDSZButton>
       </div>
     </div>
   </Modal>

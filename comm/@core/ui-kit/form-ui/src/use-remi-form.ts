@@ -8,7 +8,7 @@
 import type {
   BaseFormComponentType,
   ExtendedFormApi,
-  REMIFormProps,
+  YDSZFormProps,
 } from './types';
 
 import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
@@ -16,7 +16,7 @@ import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 import { useStore } from '@YDSZ-core/shared/store';
 
 import { FormApi } from './form-api';
-import REMIUseForm from './YDSZ-use-form.vue';
+import YDSZUseForm from './YDSZ-use-form.vue';
 
 /**
  * 创建一对「表单组件 + 命令式 API」，是业务使用 form-ui 的推荐入口。
@@ -37,19 +37,19 @@ import REMIUseForm from './YDSZ-use-form.vue';
  *   不会落到根 DOM 元素上；
  * - 每次调用都会新建一个独立的 FormApi 实例，**不要**在渲染函数或循环中调用。
  *
- * @param options - 表单配置，包含 schema、布局、提交回调等，详见 {@link REMIFormProps}
+ * @param options - 表单配置，包含 schema、布局、提交回调等，详见 {@link YDSZFormProps}
  * @returns 长度为 2 的只读元组：`[Form, formApi]`——`Form` 用于模板渲染，
  *          `formApi` 为扩展后的命令式句柄（含 `useStore` 订阅能力）
  *
  * @example
  * ```ts
- * const [Form, formApi] = useREMIForm({ schema, handleSubmit });
+ * const [Form, formApi] = useYDSZForm({ schema, handleSubmit });
  * await formApi.validate();
  * ```
  */
-export function useREMIForm<
+export function useYDSZForm<
   T extends BaseFormComponentType = BaseFormComponentType,
->(options: REMIFormProps<T>) {
+>(options: YDSZFormProps<T>) {
   const IS_REACTIVE = isReactive(options);
   const api = new FormApi(options);
   const extendedApi: ExtendedFormApi = api as never;
@@ -58,16 +58,16 @@ export function useREMIForm<
   };
 
   const Form = defineComponent(
-    (props: REMIFormProps, { attrs, slots }) => {
+    (props: YDSZFormProps, { attrs, slots }) => {
       onBeforeUnmount(() => {
         api.unmount();
       });
       api.setState({ ...props, ...attrs });
       return () =>
-        h(REMIUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
+        h(YDSZUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },
     {
-      name: 'REMIUseForm',
+      name: 'YDSZUseForm',
       inheritAttrs: false,
     },
   );

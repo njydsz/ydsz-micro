@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 系统变量（列表页）
- * <p>系统变量（{@code remi_system_variable}）的列表页。
+ * <p>系统变量（{@code ydsz_system_variable}）的列表页。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -19,7 +19,7 @@ import { Page, useVbenModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteVariableApi,
   getVariablePageApi,
@@ -76,7 +76,7 @@ const gridOptions: VxeGridProps<VariableApi.VariableVO> = {
   },
 };
 
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [VariableFormModal, variableFormApi] = useVbenModal({ connectedComponent: VariableForm });
 

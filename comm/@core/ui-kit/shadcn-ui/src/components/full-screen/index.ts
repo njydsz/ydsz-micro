@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIFullScreen } from './full-screen.vue';
+export { default as YDSZFullScreen } from './full-screen.vue';

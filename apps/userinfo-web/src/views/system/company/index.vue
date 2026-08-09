@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 公司（列表页）
- * <p>公司（{@code remi_company}）的列表页。
+ * <p>公司（{@code ydsz_company}）的列表页。
  *
  * @author ydsz-team
  * @since 1.0.0

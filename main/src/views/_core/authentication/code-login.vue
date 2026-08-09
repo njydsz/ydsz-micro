@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { REMIFormSchema } from '@ydsz/common-ui';
+import type { YDSZFormSchema } from '@ydsz/common-ui';
 import type { Recordable } from '@ydsz/types';
 
 import { computed, ref } from 'vue';
@@ -19,10 +19,10 @@ defineOptions({ name: 'CodeLogin' });
 const loading = ref(false);
 const CODE_LENGTH = 6;
 
-const formSchema = computed((): REMIFormSchema[] => {
+const formSchema = computed((): YDSZFormSchema[] => {
   return [
     {
-      component: 'REMIInput',
+      component: 'YDSZInput',
       componentProps: {
         placeholder: $t('authentication.mobile'),
       },
@@ -36,7 +36,7 @@ const formSchema = computed((): REMIFormSchema[] => {
         }),
     },
     {
-      component: 'REMIPinInput',
+      component: 'YDSZPinInput',
       componentProps: {
         codeLength: CODE_LENGTH,
         createText: (countdown: number) => {

@@ -14,8 +14,8 @@ export type {
 export { useAlertContext } from './alert';
 export { default as Alert } from './alert.vue';
 export {
-  remiAlert as alert,
+  ydszAlert as alert,
   clearAllAlerts,
-  remiConfirm as confirm,
-  remiPrompt as prompt,
+  ydszConfirm as confirm,
+  ydszPrompt as prompt,
 } from './AlertBuilder';

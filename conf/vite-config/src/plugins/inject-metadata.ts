@@ -94,7 +94,7 @@ async function resolveMonorepoDependencies() {
 /**
  * 向构建产物注入项目元信息（版本/作者/依赖/构建时间等）。
  *
- * 在 config 阶段将元信息写入 `__REMI_ADMIN_METADATA__` 全局变量与
+ * 在 config 阶段将元信息写入 `__YDSZ_ADMIN_METADATA__` 全局变量与
  * `import.meta.env.VITE_APP_VERSION`，便于运行时展示与诊断；
  * 依赖版本经 {@link resolveMonorepoDependencies} 解析。
  *
@@ -121,7 +121,7 @@ async function viteMetadataPlugin(
 
       return {
         define: {
-          __REMI_ADMIN_METADATA__: JSON.stringify({
+          __YDSZ_ADMIN_METADATA__: JSON.stringify({
             authorEmail,
             authorName,
             authorUrl,

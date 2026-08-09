@@ -345,7 +345,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'adapter', 'component', 'index.ts'), a
 
 // ==================== src/adapter/form.ts ====================
 
-const adapterFormTs = `import { createSetupREMIForm } from '@ydsz/shared-auth';
+const adapterFormTs = `import { createSetupYDSZForm } from '@ydsz/shared-auth';
 
 import type { ComponentType } from './component';
 
@@ -355,10 +355,10 @@ import type { ComponentType } from './component';
  * @path apps/${name}/src/adapter/form.ts
  * @since 1.0.0
  */
-export const { useREMIForm, z, REMIFormSchema } = createSetupREMIForm<ComponentType>();
+export const { useYDSZForm, z, YDSZFormSchema } = createSetupYDSZForm<ComponentType>();
 
 export async function initSetupYDSZForm(): Promise<void> {
-  // 组件类型映射与校验规则已在 createSetupREMIForm 中完成
+  // 组件类型映射与校验规则已在 createSetupYDSZForm 中完成
 }
 `;
 

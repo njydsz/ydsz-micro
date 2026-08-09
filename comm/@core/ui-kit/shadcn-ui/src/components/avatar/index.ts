@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIAvatar } from './avatar.vue';
+export { default as YDSZAvatar } from './avatar.vue';

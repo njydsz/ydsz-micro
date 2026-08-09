@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { Settings } from '@ydsz/icons';
 
-import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
 
 import Preferences from './preferences.vue';
 
@@ -20,8 +20,8 @@ function clearPreferencesAndLogout() {
 </script>
 <template>
   <Preferences @clear-preferences-and-logout="clearPreferencesAndLogout">
-    <REMIIconButton>
+    <YDSZIconButton>
       <Settings class="text-foreground size-4" />
-    </REMIIconButton>
+    </YDSZIconButton>
   </Preferences>
 </template>

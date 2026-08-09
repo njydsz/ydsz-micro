@@ -9,7 +9,7 @@ import type { ZodRawShape } from 'zod';
 
 import type { ComputedRef } from 'vue';
 
-import type { ExtendedFormApi, FormActions, REMIFormProps } from './types';
+import type { ExtendedFormApi, FormActions, YDSZFormProps } from './types';
 
 import { computed, unref, useSlots } from 'vue';
 
@@ -20,11 +20,11 @@ import { useForm } from 'vee-validate';
 import { object, ZodIntersection, ZodNumber, ZodObject, ZodString } from 'zod';
 import { getDefaultsForSchema } from 'zod-defaults';
 
-type ExtendFormProps = REMIFormProps & { formApi: ExtendedFormApi };
+type ExtendFormProps = YDSZFormProps & { formApi: ExtendedFormApi };
 
 export const [injectFormProps, provideFormProps] =
   createContext<[ComputedRef<ExtendFormProps> | ExtendFormProps, FormActions]>(
-    'REMIFormProps',
+    'YDSZFormProps',
   );
 
 export const [injectComponentRefMap, provideComponentRefMap] =
@@ -57,7 +57,7 @@ export const [injectComponentRefMap, provideComponentRefMap] =
  *          （已剔除 `default`，因为默认插槽由表单组件自身消费）
  */
 export function useFormInitial(
-  props: ComputedRef<REMIFormProps> | REMIFormProps,
+  props: ComputedRef<YDSZFormProps> | YDSZFormProps,
 ) {
   const slots = useSlots();
   const initialValues = generateInitialValues();

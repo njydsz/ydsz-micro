@@ -11,7 +11,7 @@ import type { MenuRecordRaw } from '@YDSZ-core/typings';
 import type { NormalMenuProps } from './normal-menu';
 
 import { useNamespace } from '@YDSZ-core/composables';
-import { REMIIcon } from '@YDSZ-core/shadcn-ui';
+import { YDSZIcon } from '@YDSZ-core/shadcn-ui';
 
 interface Props extends NormalMenuProps {}
 
@@ -57,7 +57,7 @@ function menuIcon(menu: MenuRecordRaw) {
         @click="() => emit('select', menu)"
         @mouseenter="() => emit('enter', menu)"
       >
-        <REMIIcon :class="e('icon')" :icon="menuIcon(menu)" fallback />
+        <YDSZIcon :class="e('icon')" :icon="menuIcon(menu)" fallback />
 
         <span :class="e('name')" class="truncate"> {{ menu.name }}</span>
       </li>

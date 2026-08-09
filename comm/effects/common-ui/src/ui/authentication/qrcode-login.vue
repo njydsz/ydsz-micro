@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { REMIButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZButton } from '@YDSZ-core/shadcn-ui';
 
 import { useQRCode } from '@vueuse/integrations/useQRCode';
 
@@ -95,8 +95,8 @@ function goToLogin() {
       </p>
     </div>
 
-    <REMIButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
+    <YDSZButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
       {{ $t('common.back') }}
-    </REMIButton>
+    </YDSZButton>
   </div>
 </template>

@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { REMIButtonProps } from './button';
+import type { YDSZButtonProps } from './button';
 
 import { computed } from 'vue';
 
@@ -17,7 +17,7 @@ import { Primitive } from 'radix-vue';
 
 import { buttonVariants } from '../../ui';
 
-interface Props extends REMIButtonProps {}
+interface Props extends YDSZButtonProps {}
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'button',

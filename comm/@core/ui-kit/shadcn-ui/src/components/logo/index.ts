@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMILogo } from './logo.vue';
+export { default as YDSZLogo } from './logo.vue';

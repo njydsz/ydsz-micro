@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIHelpTooltip } from './help-tooltip.vue';
-export { default as REMITooltip } from './tooltip.vue';
+export { default as YDSZHelpTooltip } from './help-tooltip.vue';
+export { default as YDSZTooltip } from './tooltip.vue';

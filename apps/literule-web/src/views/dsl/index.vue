@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteDslApi, getDslPageApi, type DslApi } from '#/api/dsl';
 import DslForm from './dsl-form.vue';
 defineOptions({ name: 'DslManagement' });
@@ -43,7 +43,7 @@ const gridOptions: VxeGridProps<DslApi.DslVO> = {
       { field: 'dslName', title: 'dslName', itemRender: { name: 'Input', props: { placeholder: 'dslName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [DslFormModal, dslFormApi] = useVbenModal({ connectedComponent: DslForm });
 function handleAdd() { dslFormApi.open(); }
 function handleEdit(row: DslApi.DslVO) { dslFormApi.setData({ record: row }); dslFormApi.open(); }

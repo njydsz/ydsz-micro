@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 角色（列表页）
- * <p>角色（{@code remi_role}）的列表页。
+ * <p>角色（{@code ydsz_role}）的列表页。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -20,7 +20,7 @@ import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, ElTransfer } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteRoleApi,
   getRolePageApi,
@@ -124,7 +124,7 @@ const gridOptions: VxeGridProps<RoleApi.RoleVO> = {
   },
 };
 
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 // ========== Form ==========
 const [RoleFormModal, roleFormApi] = useVbenModal({ connectedComponent: RoleForm });

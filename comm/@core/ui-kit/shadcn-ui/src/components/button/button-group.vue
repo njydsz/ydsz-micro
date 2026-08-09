@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { cn } from '@YDSZ-core/shared/utils';
 
-defineOptions({ name: 'REMIButtonGroup' });
+defineOptions({ name: 'YDSZButtonGroup' });
 
 withDefaults(
   defineProps<{

@@ -8,7 +8,7 @@ export const CSS_VARIABLE_LAYOUT_HEADER_HEIGHT = `--YDSZ-header-height`;
 export const CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT = `--YDSZ-footer-height`;
 
 /** 内容区域的组件ID */
-export const ELEMENT_ID_MAIN_CONTENT = `__remi_main_content`;
+export const ELEMENT_ID_MAIN_CONTENT = `__ydsz_main_content`;
 
 /**
  * @zh_CN 默认命名空间

@@ -10,18 +10,18 @@ import type { Component } from 'vue';
 import type {
   BaseFormComponentType,
   FormCommonConfig,
-  REMIFormAdapterOptions,
+  YDSZFormAdapterOptions,
 } from './types';
 
 import { h } from 'vue';
 
 import {
-  REMIButton,
-  REMICheckbox,
-  Input as REMIInput,
-  REMIInputPassword,
-  REMIPinInput,
-  REMISelect,
+  YDSZButton,
+  YDSZCheckbox,
+  Input as YDSZInput,
+  YDSZInputPassword,
+  YDSZPinInput,
+  YDSZSelect,
 } from '@YDSZ-core/shadcn-ui';
 import { globalShareState } from '@YDSZ-core/shared/global-state';
 
@@ -29,25 +29,25 @@ import { defineRule } from 'vee-validate';
 
 const DEFAULT_MODEL_PROP_NAME = 'modelValue';
 
-/** 表单控件行为默认配置，由 setupREMIForm 在启动时合并宿主传入的覆盖项 */
+/** 表单控件行为默认配置，由 setupYDSZForm 在启动时合并宿主传入的覆盖项 */
 export const DEFAULT_FORM_COMMON_CONFIG: FormCommonConfig = {};
 
 /** 基础表单控件类型到渲染组件的映射表，可由宿主通过 globalShareState 注册的组件按需覆盖 */
 export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
-  DefaultButton: h(REMIButton, { size: 'sm', variant: 'outline' }),
-  PrimaryButton: h(REMIButton, { size: 'sm', variant: 'default' }),
-  REMICheckbox,
-  REMIInput,
-  REMIInputPassword,
-  REMIPinInput,
-  REMISelect,
+  DefaultButton: h(YDSZButton, { size: 'sm', variant: 'outline' }),
+  PrimaryButton: h(YDSZButton, { size: 'sm', variant: 'default' }),
+  YDSZCheckbox,
+  YDSZInput,
+  YDSZInputPassword,
+  YDSZPinInput,
+  YDSZSelect,
 };
 
 /** 各表单控件默认绑定的 v-model prop 名映射，如复选框使用 `checked` 而非 `modelValue` */
 export const COMPONENT_BIND_EVENT_MAP: Partial<
   Record<BaseFormComponentType, string>
 > = {
-  REMICheckbox: 'checked',
+  YDSZCheckbox: 'checked',
 };
 
 /**
@@ -65,18 +65,18 @@ export const COMPONENT_BIND_EVENT_MAP: Partial<
  *   重复调用会以后一次为准覆盖同名项，但**不会清除**上一次注册的多余项；
  * - 必须在 `globalShareState.setComponents()` 之后调用，否则第 3 步读到空对象，
  *   自定义控件全部注册失败，表现为字段渲染空白；
- * - 同名 key 会直接覆盖内置控件（如自定义 `REMIInput` 将替换默认实现），
+ * - 同名 key 会直接覆盖内置控件（如自定义 `YDSZInput` 将替换默认实现），
  *   这是有意保留的定制能力，但也意味着命名冲突不会有任何告警。
  *
  * `disabledOnChangeListener` / `disabledOnInputListener` 缺省均为 `true`，
  * 即默认关闭 change/input 监听以避免与 v-model 重复触发校验；
  * `emptyStateValue` 缺省为 `undefined`，对接 naive-ui 等要求 `null` 的库时必须显式指定。
  *
- * @param options - 适配器配置，含控件行为配置与内置规则实现，详见 {@link REMIFormAdapterOptions}
+ * @param options - 适配器配置，含控件行为配置与内置规则实现，详见 {@link YDSZFormAdapterOptions}
  */
-export function setupREMIForm<
+export function setupYDSZForm<
   T extends BaseFormComponentType = BaseFormComponentType,
->(options: REMIFormAdapterOptions<T>) {
+>(options: YDSZFormAdapterOptions<T>) {
   const { config, defineRules } = options;
 
   const {

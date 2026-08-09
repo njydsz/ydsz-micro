@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { Recordable } from '@ydsz/types';
 
-import type { REMIFormSchema } from '@YDSZ-core/form-ui';
+import type { YDSZFormSchema } from '@YDSZ-core/form-ui';
 
 import type { AuthenticationProps } from './types';
 
@@ -17,14 +17,14 @@ import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { useREMIForm } from '@YDSZ-core/form-ui';
-import { REMIButton, REMICheckbox } from '@YDSZ-core/shadcn-ui';
+import { useYDSZForm } from '@YDSZ-core/form-ui';
+import { YDSZButton, YDSZCheckbox } from '@YDSZ-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 import ThirdPartyLogin from './third-party-login.vue';
 
 interface Props extends AuthenticationProps {
-  formSchema?: REMIFormSchema[];
+  formSchema?: YDSZFormSchema[];
 }
 
 defineOptions({
@@ -53,7 +53,7 @@ const emit = defineEmits<{
   submit: [Recordable<any>];
 }>();
 
-const [Form, formApi] = useREMIForm(
+const [Form, formApi] = useYDSZForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -122,13 +122,13 @@ defineExpose({
       class="mb-6 flex justify-between"
     >
       <div class="flex-center">
-        <REMICheckbox
+        <YDSZCheckbox
           v-if="showRememberMe"
           v-model:checked="rememberMe"
           name="rememberMe"
         >
           {{ $t('authentication.rememberMe') }}
-        </REMICheckbox>
+        </YDSZCheckbox>
       </div>
 
       <span
@@ -139,7 +139,7 @@ defineExpose({
         {{ $t('authentication.forgetPassword') }}
       </span>
     </div>
-    <REMIButton
+    <YDSZButton
       :class="{
         'cursor-wait': loading,
       }"
@@ -149,28 +149,28 @@ defineExpose({
       @click="handleSubmit"
     >
       {{ submitButtonText || $t('common.login') }}
-    </REMIButton>
+    </YDSZButton>
 
     <div
       v-if="showCodeLogin || showQrcodeLogin"
       class="mb-2 mt-4 flex items-center justify-between"
     >
-      <REMIButton
+      <YDSZButton
         v-if="showCodeLogin"
         class="w-1/2"
         variant="outline"
         @click="handleGo(codeLoginPath)"
       >
         {{ $t('authentication.mobileLogin') }}
-      </REMIButton>
-      <REMIButton
+      </YDSZButton>
+      <YDSZButton
         v-if="showQrcodeLogin"
         class="ml-4 w-1/2"
         variant="outline"
         @click="handleGo(qrCodeLoginPath)"
       >
         {{ $t('authentication.qrcodeLogin') }}
-      </REMIButton>
+      </YDSZButton>
     </div>
 
     <!-- 第三方登录 -->

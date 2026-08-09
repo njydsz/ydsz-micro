@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { REMIFormSchema } from '@ydsz/common-ui';
+import type { YDSZFormSchema } from '@ydsz/common-ui';
 import type { Recordable } from '@ydsz/types';
 
 import { computed, h, ref } from 'vue';
@@ -18,10 +18,10 @@ defineOptions({ name: 'Register' });
 
 const loading = ref(false);
 
-const formSchema = computed((): REMIFormSchema[] => {
+const formSchema = computed((): YDSZFormSchema[] => {
   return [
     {
-      component: 'REMIInput',
+      component: 'YDSZInput',
       componentProps: {
         placeholder: $t('authentication.usernameTip'),
       },
@@ -30,7 +30,7 @@ const formSchema = computed((): REMIFormSchema[] => {
       rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
     },
     {
-      component: 'REMIInputPassword',
+      component: 'YDSZInputPassword',
       componentProps: {
         passwordStrength: true,
         placeholder: $t('authentication.password'),
@@ -45,7 +45,7 @@ const formSchema = computed((): REMIFormSchema[] => {
       rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
     },
     {
-      component: 'REMIInputPassword',
+      component: 'YDSZInputPassword',
       componentProps: {
         placeholder: $t('authentication.confirmPassword'),
       },
@@ -65,7 +65,7 @@ const formSchema = computed((): REMIFormSchema[] => {
       label: $t('authentication.confirmPassword'),
     },
     {
-      component: 'REMICheckbox',
+      component: 'YDSZCheckbox',
       fieldName: 'agreePolicy',
       renderComponentContent: () => ({
         default: () =>

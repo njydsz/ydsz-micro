@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteFileApi, getFilePageApi, type FileApi } from '#/api/file';
 import FileForm from './file-form.vue';
 defineOptions({ name: 'FileManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<FileApi.FileVO> = {
       { field: 'fileName', title: 'fileName', itemRender: { name: 'Input', props: { placeholder: 'fileName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [FileFormModal, fileFormApi] = useVbenModal({ connectedComponent: FileForm });
 function handleAdd() { fileFormApi.open(); }
 function handleEdit(row: FileApi.FileVO) { fileFormApi.setData({ record: row }); fileFormApi.open(); }

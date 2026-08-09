@@ -28,9 +28,9 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
-  REMIButton,
-  REMILoading,
-  REMIRenderContent,
+  YDSZButton,
+  YDSZLoading,
+  YDSZRenderContent,
 } from '@YDSZ-core/shadcn-ui';
 import { globalShareState } from '@YDSZ-core/shared/global-state';
 import { cn } from '@YDSZ-core/shared/utils';
@@ -168,7 +168,7 @@ async function handleOpenChange(val: boolean) {
             <component :is="getIconRender" class="mr-2" />
             <span class="flex-auto">{{ $t(title) }}</span>
             <AlertDialogCancel v-if="showCancel" as-child>
-              <REMIButton
+              <YDSZButton
                 variant="ghost"
                 size="icon"
                 class="rounded-full"
@@ -176,24 +176,24 @@ async function handleOpenChange(val: boolean) {
                 @click="handleCancel"
               >
                 <X class="text-muted-foreground size-4" />
-              </REMIButton>
+              </YDSZButton>
             </AlertDialogCancel>
           </div>
         </AlertDialogTitle>
         <AlertDialogDescription>
           <div class="m-4 min-h-[30px]">
-            <REMIRenderContent :content="content" render-br />
+            <YDSZRenderContent :content="content" render-br />
           </div>
-          <REMILoading v-if="loading && contentMasking" :spinning="loading" />
+          <YDSZLoading v-if="loading && contentMasking" :spinning="loading" />
         </AlertDialogDescription>
         <div
           class="flex items-center justify-end gap-x-2"
           :class="`justify-${buttonAlign}`"
         >
-          <REMIRenderContent :content="footer" />
+          <YDSZRenderContent :content="footer" />
           <AlertDialogCancel v-if="showCancel" as-child>
             <component
-              :is="components.DefaultButton || REMIButton"
+              :is="components.DefaultButton || YDSZButton"
               :disabled="loading"
               variant="ghost"
               @click="handleCancel"
@@ -203,7 +203,7 @@ async function handleOpenChange(val: boolean) {
           </AlertDialogCancel>
           <AlertDialogAction as-child>
             <component
-              :is="components.PrimaryButton || REMIButton"
+              :is="components.PrimaryButton || YDSZButton"
               :loading="loading"
               @click="handleConfirm"
             >

@@ -8,6 +8,6 @@
  * @author ydsz-team
  * @since 1.1.0
  */
-export { useREMIVxeGrid } from '@ydsz/shared-business';
+export { useYDSZVxeGrid } from '@ydsz/shared-business';
 
 export type * from '@ydsz/plugins/vxe-table';

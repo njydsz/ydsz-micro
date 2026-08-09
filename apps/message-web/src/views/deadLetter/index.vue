@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteDeadLetterApi, getDeadLetterPageApi, type DeadLetterApi } from '#/api/deadLetter';
 import DeadLetterForm from './deadLetter-form.vue';
 defineOptions({ name: 'DeadLetterManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<DeadLetterApi.DeadLetterVO> = {
       { field: 'messageId', title: 'messageId', itemRender: { name: 'Input', props: { placeholder: 'messageId' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [DeadLetterFormModal, deadLetterFormApi] = useVbenModal({ connectedComponent: DeadLetterForm });
 function handleAdd() { deadLetterFormApi.open(); }
 function handleEdit(row: DeadLetterApi.DeadLetterVO) { deadLetterFormApi.setData({ record: row }); deadLetterFormApi.open(); }

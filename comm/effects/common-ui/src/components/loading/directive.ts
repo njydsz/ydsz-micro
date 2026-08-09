@@ -9,7 +9,7 @@ import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { h, render } from 'vue';
 
-import { REMILoading, REMISpinner } from '@YDSZ-core/shadcn-ui';
+import { YDSZLoading, YDSZSpinner } from '@YDSZ-core/shadcn-ui';
 import { isString } from '@YDSZ-core/shared/utils';
 
 const LOADING_INSTANCE_KEY = Symbol('loading');
@@ -19,7 +19,7 @@ const CLASS_NAME_RELATIVE = 'spinner-parent--relative';
 
 const loadingDirective: Directive = {
   mounted(el, binding) {
-    const instance = h(REMILoading, getOptions(binding));
+    const instance = h(YDSZLoading, getOptions(binding));
     render(instance, el);
 
     el.classList.add(CLASS_NAME_RELATIVE);
@@ -62,7 +62,7 @@ function getOptions(binding: DirectiveBinding) {
 
 const spinningDirective: Directive = {
   mounted(el, binding) {
-    const instance = h(REMISpinner, getOptions(binding));
+    const instance = h(YDSZSpinner, getOptions(binding));
     render(instance, el);
 
     el.classList.add(CLASS_NAME_RELATIVE);

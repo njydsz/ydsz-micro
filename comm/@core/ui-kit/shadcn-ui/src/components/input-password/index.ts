@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIInputPassword } from './input-password.vue';
+export { default as YDSZInputPassword } from './input-password.vue';

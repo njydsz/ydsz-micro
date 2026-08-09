@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteBreakpointApi, getBreakpointPageApi, type BreakpointApi } from '#/api/breakpoint';
 import BreakpointForm from './breakpoint-form.vue';
 defineOptions({ name: 'BreakpointManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<BreakpointApi.BreakpointVO> = {
       { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [BreakpointFormModal, breakpointFormApi] = useVbenModal({ connectedComponent: BreakpointForm });
 function handleAdd() { breakpointFormApi.open(); }
 function handleEdit(row: BreakpointApi.BreakpointVO) { breakpointFormApi.setData({ record: row }); breakpointFormApi.open(); }

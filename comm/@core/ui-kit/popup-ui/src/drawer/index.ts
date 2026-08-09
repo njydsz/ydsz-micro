@@ -6,5 +6,5 @@
  * @since 1.0.0
  */
 export type * from './drawer';
-export { default as REMIDrawer } from './drawer.vue';
-export { setDefaultDrawerProps, useREMIDrawer } from './use-drawer';
+export { default as YDSZDrawer } from './drawer.vue';
+export { setDefaultDrawerProps, useYDSZDrawer } from './use-drawer';

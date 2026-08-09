@@ -12,7 +12,7 @@ import { computed } from 'vue';
 
 import { ArrowUpToLine } from '@YDSZ-core/icons';
 
-import { REMIButton } from '../button';
+import { YDSZButton } from '../button';
 import { useBackTop } from './use-backtop';
 
 interface Props extends BacktopProps {}
@@ -36,7 +36,7 @@ const { handleClick, visible } = useBackTop(props);
 </script>
 <template>
   <transition name="fade-down">
-    <REMIButton
+    <YDSZButton
       v-if="visible"
       :style="backTopStyle"
       class="dark:bg-accent dark:hover:bg-heavy bg-background hover:bg-heavy data shadow-float z-popup fixed bottom-10 size-10 rounded-full duration-500"
@@ -46,6 +46,6 @@ const { handleClick, visible } = useBackTop(props);
       @click="handleClick"
     >
       <ArrowUpToLine class="size-4" aria-hidden="true" />
-    </REMIButton>
+    </YDSZButton>
   </transition>
 </template>

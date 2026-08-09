@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { REMIFormProps } from './types';
+import type { YDSZFormProps } from './types';
 
 import { ref, watchEffect } from 'vue';
 
@@ -22,7 +22,7 @@ import { Form } from './form-render';
 import { provideFormProps, useFormInitial } from './use-form-context';
 
 // 通过 extends 会导致热更新卡死
-interface Props extends REMIFormProps {}
+interface Props extends YDSZFormProps {}
 const props = withDefaults(defineProps<Props>(), {
   actionWrapperClass: '',
   collapsed: false,

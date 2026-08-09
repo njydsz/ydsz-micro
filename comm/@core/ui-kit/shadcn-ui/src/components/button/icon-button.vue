@@ -7,16 +7,16 @@
 -->
 <script setup lang="ts">
 import type { ButtonVariants } from '../../ui';
-import type { REMIButtonProps } from './button';
+import type { YDSZButtonProps } from './button';
 
 import { computed, useSlots } from 'vue';
 
 import { cn } from '@YDSZ-core/shared/utils';
 
-import { REMITooltip } from '../tooltip';
-import REMIButton from './button.vue';
+import { YDSZTooltip } from '../tooltip';
+import YDSZButton from './button.vue';
 
-interface Props extends REMIButtonProps {
+interface Props extends YDSZButtonProps {
   class?: any;
   disabled?: boolean;
   onClick?: () => void;
@@ -40,7 +40,7 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
 </script>
 
 <template>
-  <REMIButton
+  <YDSZButton
     v-if="!showTooltip"
     :class="cn('rounded-full', props.class)"
     :disabled="disabled"
@@ -49,15 +49,15 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
     @click="onClick"
   >
     <slot></slot>
-  </REMIButton>
+  </YDSZButton>
 
-  <REMITooltip
+  <YDSZTooltip
     v-else
     :delay-duration="tooltipDelayDuration"
     :side="tooltipSide"
   >
     <template #trigger>
-      <REMIButton
+      <YDSZButton
         :class="cn('rounded-full', props.class)"
         :disabled="disabled"
         :variant="variant"
@@ -65,11 +65,11 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
         @click="onClick"
       >
         <slot></slot>
-      </REMIButton>
+      </YDSZButton>
     </template>
     <slot v-if="slots.tooltip" name="tooltip"> </slot>
     <template v-else>
       {{ tooltip }}
     </template>
-  </REMITooltip>
+  </YDSZTooltip>
 </template>

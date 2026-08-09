@@ -8,20 +8,20 @@
 <script setup lang="ts">
 import type { Recordable } from '@ydsz/types';
 
-import type { REMIFormSchema } from '@YDSZ-core/form-ui';
+import type { YDSZFormSchema } from '@YDSZ-core/form-ui';
 
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { useREMIForm } from '@YDSZ-core/form-ui';
-import { REMIButton } from '@YDSZ-core/shadcn-ui';
+import { useYDSZForm } from '@YDSZ-core/form-ui';
+import { YDSZButton } from '@YDSZ-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 
 interface Props {
-  formSchema?: REMIFormSchema[];
+  formSchema?: YDSZFormSchema[];
   /**
    * @zh_CN 是否处于加载处理状态
    */
@@ -61,7 +61,7 @@ const emit = defineEmits<{
   submit: [Recordable<any>];
 }>();
 
-const [Form, formApi] = useREMIForm(
+const [Form, formApi] = useYDSZForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -105,7 +105,7 @@ defineExpose({
     </Title>
     <Form />
 
-    <REMIButton
+    <YDSZButton
       :class="{
         'cursor-wait': loading,
       }"
@@ -117,7 +117,7 @@ defineExpose({
       <slot name="submitButtonText">
         {{ submitButtonText || $t('authentication.signUp') }}
       </slot>
-    </REMIButton>
+    </YDSZButton>
     <div class="mt-4 text-center text-sm">
       {{ $t('authentication.alreadyHaveAccount') }}
       <span class="YDSZ-link text-sm font-normal" @click="goToLogin()">

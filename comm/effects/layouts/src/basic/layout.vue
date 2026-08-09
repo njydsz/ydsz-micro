@@ -24,8 +24,8 @@ import {
 import { useAccessStore } from '@ydsz/stores';
 import { cloneDeep, mapTree } from '@ydsz/utils';
 
-import { REMIAdminLayout } from '@YDSZ-core/layout-ui';
-import { REMILogo } from '@YDSZ-core/shadcn-ui';
+import { YDSZAdminLayout } from '@YDSZ-core/layout-ui';
+import { YDSZLogo } from '@YDSZ-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';
@@ -203,7 +203,7 @@ const headerSlots = computed(() => {
 </script>
 
 <template>
-  <REMIAdminLayout
+  <YDSZAdminLayout
     v-model:sidebar-extra-visible="sidebarExtraVisible"
     :content-compact="preferences.app.contentCompact"
     :content-compact-width="preferences.app.contentCompactWidth"
@@ -258,7 +258,7 @@ const headerSlots = computed(() => {
   >
     <!-- logo -->
     <template #logo>
-      <REMILogo
+      <YDSZLogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
         :class="logoClass"
@@ -271,7 +271,7 @@ const headerSlots = computed(() => {
         <template v-if="$slots['logo-text']" #text>
           <slot name="logo-text"></slot>
         </template>
-      </REMILogo>
+      </YDSZLogo>
     </template>
     <!-- 头部区域 -->
     <template #header>
@@ -349,7 +349,7 @@ const headerSlots = computed(() => {
       />
     </template>
     <template #side-extra-title>
-      <REMILogo
+      <YDSZLogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
         :text="preferences.app.name"
@@ -358,7 +358,7 @@ const headerSlots = computed(() => {
         <template v-if="$slots['logo-text']" #text>
           <slot name="logo-text"></slot>
         </template>
-      </REMILogo>
+      </YDSZLogo>
     </template>
 
     <template #tabbar>
@@ -405,7 +405,7 @@ const headerSlots = computed(() => {
           @clear-preferences-and-logout="clearPreferencesAndLogout"
         />
       </template>
-      <!-- <REMIBackTop /> -->
+      <!-- <YDSZBackTop /> -->
     </template>
-  </REMIAdminLayout>
+  </YDSZAdminLayout>
 </template>

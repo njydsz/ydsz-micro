@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickCommentApi, getQuickCommentPageApi, type QuickCommentApi } from '#/api/quickComment';
 import QuickCommentForm from './quickComment-form.vue';
 defineOptions({ name: 'QuickCommentManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<QuickCommentApi.QuickCommentVO> = {
       { field: 'content', title: 'content', itemRender: { name: 'Input', props: { placeholder: 'content' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [QuickCommentFormModal, quickCommentFormApi] = useVbenModal({ connectedComponent: QuickCommentForm });
 function handleAdd() { quickCommentFormApi.open(); }
 function handleEdit(row: QuickCommentApi.QuickCommentVO) { quickCommentFormApi.setData({ record: row }); quickCommentFormApi.open(); }

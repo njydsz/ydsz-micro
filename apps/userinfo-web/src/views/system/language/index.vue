@@ -19,7 +19,7 @@ import { Page, useVbenModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteLanguageApi,
   getLanguagePageApi,
@@ -99,7 +99,7 @@ const gridOptions: VxeGridProps<LanguageApi.LanguageVO> = {
   },
 };
 
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [LanguageFormModal, languageFormApi] = useVbenModal({ connectedComponent: LanguageForm });
 

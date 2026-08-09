@@ -13,7 +13,7 @@ import { useSlots } from 'vue';
 import { CircleHelp } from '@ydsz/icons';
 
 import {
-  REMITooltip,
+  YDSZTooltip,
   Select,
   SelectContent,
   SelectItem,
@@ -54,12 +54,12 @@ const slots = useSlots();
     <span class="flex items-center text-sm">
       <slot></slot>
 
-      <REMITooltip v-if="slots.tip" side="bottom">
+      <YDSZTooltip v-if="slots.tip" side="bottom">
         <template #trigger>
           <CircleHelp class="ml-1 size-3 cursor-help" />
         </template>
         <slot name="tip"></slot>
-      </REMITooltip>
+      </YDSZTooltip>
     </span>
     <Select v-model="selectValue">
       <SelectTrigger class="h-8 w-[165px]">

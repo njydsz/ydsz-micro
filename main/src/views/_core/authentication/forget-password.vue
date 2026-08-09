@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { REMIFormSchema } from '@ydsz/common-ui';
+import type { YDSZFormSchema } from '@ydsz/common-ui';
 import type { Recordable } from '@ydsz/types';
 
 import { computed, ref } from 'vue';
@@ -18,10 +18,10 @@ defineOptions({ name: 'ForgetPassword' });
 
 const loading = ref(false);
 
-const formSchema = computed((): REMIFormSchema[] => {
+const formSchema = computed((): YDSZFormSchema[] => {
   return [
     {
-      component: 'REMIInput',
+      component: 'YDSZInput',
       componentProps: {
         placeholder: 'example@example.com',
       },

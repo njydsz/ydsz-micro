@@ -17,7 +17,7 @@ import {
 } from '@ydsz/preferences';
 
 import {
-  REMITooltip,
+  YDSZTooltip,
   ToggleGroup,
   ToggleGroupItem,
 } from '@YDSZ-core/shadcn-ui';
@@ -60,7 +60,7 @@ const PRESETS = [
 </script>
 <template>
   <div>
-    <REMITooltip :disabled="!shouldOnHover" side="bottom">
+    <YDSZTooltip :disabled="!shouldOnHover" side="bottom">
       <template #trigger>
         <ThemeButton
           :model-value="isDark"
@@ -85,6 +85,6 @@ const PRESETS = [
           <component :is="item.icon" class="size-5" />
         </ToggleGroupItem>
       </ToggleGroup>
-    </REMITooltip>
+    </YDSZTooltip>
   </div>
 </template>

@@ -6,5 +6,5 @@
  * @since 1.0.0
  */
 export type * from './modal';
-export { default as REMIModal } from './modal.vue';
-export { setDefaultModalProps, useREMIModal } from './use-modal';
+export { default as YDSZModal } from './modal.vue';
+export { setDefaultModalProps, useYDSZModal } from './use-modal';

@@ -11,8 +11,8 @@ import { useRoute } from 'vue-router';
 import { RiDingding } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { alert, useREMIModal } from '@YDSZ-core/popup-ui';
-import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { alert, useYDSZModal } from '@YDSZ-core/popup-ui';
+import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
 import { loadScript } from '@YDSZ-core/shared/utils';
 
 interface Props {
@@ -28,7 +28,7 @@ const props = defineProps<Props>();
 
 const route = useRoute();
 
-const [Modal, modalApi] = useREMIModal({
+const [Modal, modalApi] = useYDSZModal({
   header: false,
   footer: false,
   fullscreenButton: false,
@@ -98,13 +98,13 @@ const handleLogin = () => {
 
 <template>
   <div>
-    <REMIIconButton
+    <YDSZIconButton
       @click="handleLogin"
       :tooltip="$t('authentication.dingdingLogin')"
       tooltip-side="top"
     >
       <RiDingding />
-    </REMIIconButton>
+    </YDSZIconButton>
     <Modal>
       <div id="dingding_qrcode_login_element"></div>
     </Modal>

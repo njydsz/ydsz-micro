@@ -8,13 +8,13 @@
  * @since 1.1.0
  */
 import type {
-  REMIFormSchema as FormSchema,
-  REMIFormProps,
+  YDSZFormSchema as FormSchema,
+  YDSZFormProps,
 } from '@ydsz/common-ui';
 
 import type { ComponentType } from './component';
 
-import { setupREMIForm, useREMIForm as useForm, z } from '@ydsz/common-ui';
+import { setupYDSZForm, useYDSZForm as useForm, z } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 
 /**
@@ -27,7 +27,7 @@ import { $t } from '@ydsz/locales';
  * 校验文案统一走 {@link $t}，保证语言切换时错误提示同步刷新。
  */
 async function initSetupYDSZForm() {
-  setupREMIForm<ComponentType>({
+  setupYDSZForm<ComponentType>({
     config: {
       modelPropNameMap: {
         Upload: 'fileList',
@@ -51,11 +51,11 @@ async function initSetupYDSZForm() {
   });
 }
 
-/** 绑定 ComponentType 的 useREMIForm 组合式函数，供表单页面统一引入。 */
-const useREMIForm = useForm<ComponentType>;
+/** 绑定 ComponentType 的 useYDSZForm 组合式函数，供表单页面统一引入。 */
+const useYDSZForm = useForm<ComponentType>;
 
-export { initSetupYDSZForm, useREMIForm, z };
+export { initSetupYDSZForm, useYDSZForm, z };
 
 /** 基于公共组件类型约束的表单 Schema 类型别名。 */
-export type REMIFormSchema = FormSchema<ComponentType>;
-export type { REMIFormProps };
+export type YDSZFormSchema = FormSchema<ComponentType>;
+export type { YDSZFormProps };

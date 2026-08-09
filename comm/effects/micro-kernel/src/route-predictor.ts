@@ -25,7 +25,7 @@ import { createLogger } from '@YDSZ-core/shared/utils';
 const logger = createLogger('RoutePredictor');
 
 /** localStorage key */
-const STORAGE_KEY = 'remi_route_predictions';
+const STORAGE_KEY = 'ydsz_route_predictions';
 
 /** 最大保留的转移记录时间窗口（7 天） */
 const MAX_RETENTION_MS = 7 * 24 * 60 * 60 * 1000;

@@ -11,7 +11,7 @@ import type { PinInputProps } from './types';
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
-import { REMIButton } from '../button';
+import { YDSZButton } from '../button';
 
 defineOptions({
   inheritAttrs: false,
@@ -114,7 +114,7 @@ const id = useId();
           :aria-label="`第 ${index + 1} 位验证码`"
         />
       </PinInputGroup>
-      <REMIButton
+      <YDSZButton
         :disabled="disabled"
         :loading="btnLoading"
         class="flex-grow"
@@ -124,7 +124,7 @@ const id = useId();
         @click="handleSend"
       >
         {{ btnText }}
-      </REMIButton>
+      </YDSZButton>
     </div>
   </PinInput>
 </template>

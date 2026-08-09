@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMICheckbox } from './checkbox.vue';
+export { default as YDSZCheckbox } from './checkbox.vue';

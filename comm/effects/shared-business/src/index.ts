@@ -136,13 +136,13 @@ export {
 // ===== 统一适配器（消除 9 个子应用的重复代码） =====
 export {
   initSetupYDSZForm,
-  useREMIForm,
+  useYDSZForm,
   z,
-  type REMIFormProps,
-  type REMIFormSchema,
+  type YDSZFormProps,
+  type YDSZFormSchema,
 } from './adapter/form';
 export {
   initComponentAdapter,
   type ComponentType,
 } from './adapter/component';
-export { useREMIVxeGrid } from './adapter/vxe-table';
+export { useYDSZVxeGrid } from './adapter/vxe-table';

@@ -5,11 +5,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { setupREMIVxeTable } from './init';
+export { setupYDSZVxeTable } from './init';
 export type { VxeTableGridOptions } from './types';
 export * from './use-vxe-grid';
 
-export { default as REMIVxeGrid } from './use-vxe-grid.vue';
+export { default as YDSZVxeGrid } from './use-vxe-grid.vue';
 export type {
   VxeGridListeners,
   VxeGridProps,

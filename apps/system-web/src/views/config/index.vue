@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 系统配置（列表页）
- * <p>系统参数（{@code remi_config}）的列表页。
+ * <p>系统参数（{@code ydsz_config}）的列表页。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -19,7 +19,7 @@ import { Page, useVbenModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
 
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteConfigApi,
   getConfigPageApi,
@@ -77,7 +77,7 @@ const gridOptions: VxeGridProps<ConfigApi.ConfigVO> = {
   },
 };
 
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [ConfigFormModal, configFormApi] = useVbenModal({ connectedComponent: ConfigForm });
 

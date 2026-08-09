@@ -11,12 +11,12 @@ import type { AboutProps, DescriptionItem } from './about';
 import { h } from 'vue';
 
 import {
-  REMI_DOC_URL,
-  REMI_GITHUB_URL,
-  REMI_PREVIEW_URL,
+  YDSZ_DOC_URL,
+  YDSZ_GITHUB_URL,
+  YDSZ_PREVIEW_URL,
 } from '@ydsz/constants';
 
-import { REMIRenderContent } from '@YDSZ-core/shadcn-ui';
+import { YDSZRenderContent } from '@YDSZ-core/shadcn-ui';
 
 import { Page } from '../../components';
 
@@ -34,7 +34,7 @@ withDefaults(defineProps<Props>(), {
 });
 
 declare global {
-  const __REMI_ADMIN_METADATA__: {
+  const __YDSZ_ADMIN_METADATA__: {
     authorEmail: string;
     authorName: string;
     authorUrl: string;
@@ -67,9 +67,9 @@ const {
   license,
   version,
   // vite inject-metadata 插件注入的全局变量
-} = __REMI_ADMIN_METADATA__ || {};
+} = __YDSZ_ADMIN_METADATA__ || {};
 
-const remiDescriptionItems: DescriptionItem[] = [
+const ydszDescriptionItems: DescriptionItem[] = [
   {
     content: version,
     title: '版本号',
@@ -87,15 +87,15 @@ const remiDescriptionItems: DescriptionItem[] = [
     title: '主页',
   },
   {
-    content: renderLink(REMI_DOC_URL, '点击查看'),
+    content: renderLink(YDSZ_DOC_URL, '点击查看'),
     title: '文档地址',
   },
   {
-    content: renderLink(REMI_PREVIEW_URL, '点击查看'),
+    content: renderLink(YDSZ_PREVIEW_URL, '点击查看'),
     title: '预览地址',
   },
   {
-    content: renderLink(REMI_GITHUB_URL, '点击查看'),
+    content: renderLink(YDSZ_GITHUB_URL, '点击查看'),
     title: 'Github',
   },
   {
@@ -122,7 +122,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
   <Page :title="title">
     <template #description>
       <p class="text-foreground mt-3 text-sm leading-6">
-        <a :href="REMI_GITHUB_URL" class="YDSZ-link" target="_blank">
+        <a :href="YDSZ_GITHUB_URL" class="YDSZ-link" target="_blank">
           {{ name }}
         </a>
         {{ description }}
@@ -134,13 +134,13 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <template v-for="item in remiDescriptionItems" :key="item.title">
+          <template v-for="item in ydszDescriptionItems" :key="item.title">
             <div class="border-border border-t px-4 py-6 sm:col-span-1 sm:px-0">
               <dt class="text-foreground text-sm font-medium leading-6">
                 {{ item.title }}
               </dt>
               <dd class="text-foreground mt-1 text-sm leading-6 sm:mt-2">
-                <REMIRenderContent :content="item.content" />
+                <YDSZRenderContent :content="item.content" />
               </dd>
             </div>
           </template>
@@ -160,7 +160,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
                 {{ item.title }}
               </dt>
               <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
-                <REMIRenderContent :content="item.content" />
+                <YDSZRenderContent :content="item.content" />
               </dd>
             </div>
           </template>
@@ -179,7 +179,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
                 {{ item.title }}
               </dt>
               <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
-                <REMIRenderContent :content="item.content" />
+                <YDSZRenderContent :content="item.content" />
               </dd>
             </div>
           </template>

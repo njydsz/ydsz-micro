@@ -18,7 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteAgentApi, getAgentPageApi, type AgentApi } from '#/api/agent';
 import AgentForm from './agent-form.vue';
 defineOptions({ name: 'AgentManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<AgentApi.AgentVO> = {
       { field: 'agentName', title: 'agentName', itemRender: { name: 'Input', props: { placeholder: 'agentName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [AgentFormModal, agentFormApi] = useVbenModal({ connectedComponent: AgentForm });
 function handleAdd() { agentFormApi.open(); }
 function handleEdit(row: AgentApi.AgentVO) { agentFormApi.setData({ record: row }); agentFormApi.open(); }

@@ -10,7 +10,7 @@ import type { TabsEmits, TabsProps } from './types';
 
 import { useForwardPropsEmits } from '@YDSZ-core/composables';
 import { ChevronLeft, ChevronRight } from '@YDSZ-core/icons';
-import { REMIScrollbar } from '@YDSZ-core/shadcn-ui';
+import { YDSZScrollbar } from '@YDSZ-core/shadcn-ui';
 
 import { Tabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';
@@ -75,7 +75,7 @@ useTabsDrag(props, emit);
       }"
       class="size-full flex-1 overflow-hidden"
     >
-      <REMIScrollbar
+      <YDSZScrollbar
         ref="scrollbarRef"
         :shadow-bottom="false"
         :shadow-top="false"
@@ -94,7 +94,7 @@ useTabsDrag(props, emit);
         />
 
         <Tabs v-else v-bind="{ ...forward, ...$attrs, ...$props }" />
-      </REMIScrollbar>
+      </YDSZScrollbar>
     </div>
 
     <!-- 右侧滚动按钮 -->

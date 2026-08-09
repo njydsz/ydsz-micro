@@ -20,7 +20,7 @@ import {
 } from "@ydsz/icons";
 import { isSentryInitialized } from "@ydsz/monitor/sentry";
 
-import { REMIButton } from "@YDSZ-core/shadcn-ui";
+import { YDSZButton } from "@YDSZ-core/shadcn-ui";
 import {
   Dialog,
   DialogContent,
@@ -163,7 +163,7 @@ defineExpose({ open, close });
 <template>
   <div class="error-feedback">
     <!-- 触发按钮 -->
-    <REMIButton
+    <YDSZButton
       v-if="sentryEnabled"
       size="lg"
       variant="outline"
@@ -173,7 +173,7 @@ defineExpose({ open, close });
     >
       <MessageCircle class="size-4" aria-hidden="true" />
       {{ t("feedback.title") }}
-    </REMIButton>
+    </YDSZButton>
 
     <!-- 反馈弹窗 -->
     <Dialog :open="isOpen" @update:open="(val: boolean) => (isOpen = val)">
@@ -270,14 +270,14 @@ defineExpose({ open, close });
         </div>
 
         <DialogFooter v-if="submitStatus !== 'success'">
-          <REMIButton
+          <YDSZButton
             variant="outline"
             @click="close"
             :disabled="submitStatus === 'submitting'"
           >
             {{ t("feedback.cancel") }}
-          </REMIButton>
-          <REMIButton
+          </YDSZButton>
+          <YDSZButton
             @click="submitFeedback"
             :disabled="submitStatus === 'submitting' || !feedback.trim()"
             class="gap-2"
@@ -293,7 +293,7 @@ defineExpose({ open, close });
               aria-hidden="true"
             ></span>
             {{ t("feedback.submit") }}
-          </REMIButton>
+          </YDSZButton>
         </DialogFooter>
 
         <!-- 关闭按钮 -->

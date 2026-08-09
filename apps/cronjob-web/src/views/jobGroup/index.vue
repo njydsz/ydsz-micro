@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteJobGroupApi, getJobGroupPageApi, type JobGroupApi } from '#/api/jobGroup';
 import JobGroupForm from './jobGroup-form.vue';
 defineOptions({ name: 'JobGroupManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<JobGroupApi.JobGroupVO> = {
       { field: 'groupName', title: 'groupName', itemRender: { name: 'Input', props: { placeholder: 'groupName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [JobGroupFormModal, jobGroupFormApi] = useVbenModal({ connectedComponent: JobGroupForm });
 function handleAdd() { jobGroupFormApi.open(); }
 function handleEdit(row: JobGroupApi.JobGroupVO) { jobGroupFormApi.setData({ record: row }); jobGroupFormApi.open(); }

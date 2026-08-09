@@ -6,4 +6,4 @@
  * @since 1.0.0
  */
 export type * from './YDSZ-layout';
-export { default as REMIAdminLayout } from './YDSZ-layout.vue';
+export { default as YDSZAdminLayout } from './YDSZ-layout.vue';

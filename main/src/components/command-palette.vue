@@ -65,7 +65,7 @@ const inputRef = ref<HTMLInputElement | null>(null);
 const commands = ref<Map<string, CommandItem[]>>(new Map());
 // 最近访问（最多20条）
 const recentItems = ref<RecentItem[]>([]);
-const RECENT_STORAGE_KEY = 'remi_command_palette_recent';
+const RECENT_STORAGE_KEY = 'ydsz_command_palette_recent';
 const MAX_RECENT = 20;
 
 // P2-2: 搜索提供者就绪状态

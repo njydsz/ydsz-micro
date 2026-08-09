@@ -50,13 +50,13 @@ type FilteredSlots<T> = {
  *
  * @example
  * ```ts
- * const [Grid, gridApi] = useREMIVxeGrid({
+ * const [Grid, gridApi] = useYDSZVxeGrid({
  *   formOptions,
  *   gridOptions: { columns, proxyConfig: { ajax: { query: fetchList } } },
  * });
  * ```
  */
-export function useREMIVxeGrid<
+export function useYDSZVxeGrid<
   T extends Record<string, any> = any,
   D extends BaseFormComponentType = BaseFormComponentType,
 >(options: VxeGridProps<T, D>) {
@@ -76,7 +76,7 @@ export function useREMIVxeGrid<
       return () => h(VxeGrid, { ...props, ...attrs, api: extendedApi }, slots);
     },
     {
-      name: 'REMIVxeGrid',
+      name: 'YDSZVxeGrid',
       inheritAttrs: false,
       slots: Object as SlotsType<
         {
@@ -105,9 +105,9 @@ export function useREMIVxeGrid<
 }
 
 /**
- * {@link useREMIVxeGrid} 的函数类型别名。
+ * {@link useYDSZVxeGrid} 的函数类型别名。
  *
  * @remarks
  * 供应用层在依赖注入或适配层声明中引用该 Hook 的签名，避免直接依赖实现。
  */
-export type UseREMIVxeGrid = typeof useREMIVxeGrid;
+export type UseYDSZVxeGrid = typeof useYDSZVxeGrid;

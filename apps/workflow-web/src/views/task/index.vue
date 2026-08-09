@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 流程任务（列表页）
- * <p>流程任务（{@code remi_flow_run_task}）的列表页，展示待办/已办。
+ * <p>流程任务（{@code ydsz_flow_run_task}）的列表页，展示待办/已办。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteTaskApi, getTaskPageApi, type TaskApi } from '#/api/task';
 import TaskForm from './task-form.vue';
 defineOptions({ name: 'TaskManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<TaskApi.TaskVO> = {
       { field: 'assignee', title: 'assignee', itemRender: { name: 'Input', props: { placeholder: 'assignee' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [TaskFormModal, taskFormApi] = useVbenModal({ connectedComponent: TaskForm });
 function handleAdd() { taskFormApi.open(); }
 function handleEdit(row: TaskApi.TaskVO) { taskFormApi.setData({ record: row }); taskFormApi.open(); }

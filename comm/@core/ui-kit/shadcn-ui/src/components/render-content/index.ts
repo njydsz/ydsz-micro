@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIRenderContent } from './render-content.vue';
+export { default as YDSZRenderContent } from './render-content.vue';

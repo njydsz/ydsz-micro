@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteShareApi, getSharePageApi, type ShareApi } from '#/api/share';
 import ShareForm from './share-form.vue';
 defineOptions({ name: 'ShareManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<ShareApi.ShareVO> = {
       // 无搜索项
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [ShareFormModal, shareFormApi] = useVbenModal({ connectedComponent: ShareForm });
 function handleAdd() { shareFormApi.open(); }
 function handleEdit(row: ShareApi.ShareVO) { shareFormApi.setData({ record: row }); shareFormApi.open(); }

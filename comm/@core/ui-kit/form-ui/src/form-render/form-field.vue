@@ -19,8 +19,8 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  REMIRenderContent,
-  REMITooltip,
+  YDSZRenderContent,
+  YDSZTooltip,
 } from '@YDSZ-core/shadcn-ui';
 import { cn, isFunction, isObject, isString } from '@YDSZ-core/shared/utils';
 
@@ -327,7 +327,7 @@ onUnmounted(() => {
         :style="labelStyle"
       >
         <template v-if="label">
-          <REMIRenderContent :content="label" />
+          <YDSZRenderContent :content="label" />
         </template>
       </FormLabel>
       <div class="flex-auto overflow-hidden p-[1px]">
@@ -356,14 +356,14 @@ onUnmounted(() => {
                   :key="name"
                   #[name]="renderSlotProps"
                 >
-                  <REMIRenderContent
+                  <YDSZRenderContent
                     :content="customContentRender[name]"
                     v-bind="{ ...renderSlotProps, formContext: slotProps }"
                   />
                 </template>
                 <!-- <slot></slot> -->
               </component>
-              <REMITooltip
+              <YDSZTooltip
                 v-if="compact && isInValid"
                 :delay-duration="300"
                 side="left"
@@ -380,15 +380,15 @@ onUnmounted(() => {
                   </slot>
                 </template>
                 <FormMessage />
-              </REMITooltip>
+              </YDSZTooltip>
             </slot>
           </FormControl>
           <!-- 自定义后缀 -->
           <div v-if="suffix" class="ml-1">
-            <REMIRenderContent :content="suffix" />
+            <YDSZRenderContent :content="suffix" />
           </div>
           <FormDescription v-if="description" class="ml-1">
-            <REMIRenderContent :content="description" />
+            <YDSZRenderContent :content="description" />
           </FormDescription>
         </div>
 

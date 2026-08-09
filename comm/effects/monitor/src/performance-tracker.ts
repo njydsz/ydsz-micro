@@ -73,7 +73,7 @@ let memorySampleTimer: ReturnType<typeof setInterval> | null = null;
  *
  * 启用条件（满足任一）：
  * - URL 参数包含 `debug_perf=1`
- * - localStorage `remi_perf_tracking` = 'true'
+ * - localStorage `ydsz_perf_tracking` = 'true'
  * - 开发环境
  */
 function checkEnabled(): boolean {
@@ -92,7 +92,7 @@ function checkEnabled(): boolean {
 
   // 检查 localStorage
   try {
-    if (localStorage.getItem('remi_perf_tracking') === 'true') return true;
+    if (localStorage.getItem('ydsz_perf_tracking') === 'true') return true;
   } catch {
     // 静默
   }

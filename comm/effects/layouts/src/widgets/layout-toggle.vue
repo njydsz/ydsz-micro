@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { AuthPageLayoutType } from '@ydsz/types';
 
-import type { REMIDropdownMenuItem } from '@YDSZ-core/shadcn-ui';
+import type { YDSZDropdownMenuItem } from '@YDSZ-core/shadcn-ui';
 
 import { computed } from 'vue';
 
@@ -20,13 +20,13 @@ import {
   usePreferences,
 } from '@ydsz/preferences';
 
-import { REMIDropdownRadioMenu, REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZDropdownRadioMenu, YDSZIconButton } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationLayoutToggle',
 });
 
-const menus = computed((): REMIDropdownMenuItem[] => [
+const menus = computed((): YDSZDropdownMenuItem[] => [
   {
     icon: PanelLeft,
     label: $t('authentication.layout.alignLeft'),
@@ -57,15 +57,15 @@ function handleUpdate(value: string | undefined) {
 </script>
 
 <template>
-  <REMIDropdownRadioMenu
+  <YDSZDropdownRadioMenu
     :menus="menus"
     :model-value="preferences.app.authPageLayout"
     @update:model-value="handleUpdate"
   >
-    <REMIIconButton>
+    <YDSZIconButton>
       <PanelRight v-if="authPanelRight" class="size-4" />
       <PanelLeft v-if="authPanelLeft" class="size-4" />
       <InspectionPanel v-if="authPanelCenter" class="size-4" />
-    </REMIIconButton>
-  </REMIDropdownRadioMenu>
+    </YDSZIconButton>
+  </YDSZDropdownRadioMenu>
 </template>

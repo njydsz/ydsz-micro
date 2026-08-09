@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 部门（列表页）
- * <p>部门（{@code remi_dept}）的列表页。
+ * <p>部门（{@code ydsz_dept}）的列表页。
  *
  * @author ydsz-team
  * @since 1.0.0

@@ -32,11 +32,11 @@ import {
   usePreferences,
 } from '@ydsz/preferences';
 
-import { useREMIDrawer } from '@YDSZ-core/popup-ui';
+import { useYDSZDrawer } from '@YDSZ-core/popup-ui';
 import {
-  REMIButton,
-  REMIIconButton,
-  REMISegmented,
+  YDSZButton,
+  YDSZIconButton,
+  YDSZSegmented,
 } from '@YDSZ-core/shadcn-ui';
 import { globalShareState } from '@YDSZ-core/shared/global-state';
 
@@ -184,7 +184,7 @@ const {
 } = usePreferences();
 const { copy } = useClipboard({ legacy: true });
 
-const [Drawer] = useREMIDrawer();
+const [Drawer] = useYDSZDrawer();
 
 const activeTab = ref('appearance');
 
@@ -251,7 +251,7 @@ async function handleReset() {
     >
       <template #extra>
         <div class="flex items-center">
-          <REMIIconButton
+          <YDSZIconButton
             :disabled="!diffPreference"
             :tooltip="$t('preferences.resetTip')"
             class="relative"
@@ -261,12 +261,12 @@ async function handleReset() {
               class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
             ></span>
             <RotateCw class="size-4" @click="handleReset" />
-          </REMIIconButton>
+          </YDSZIconButton>
         </div>
       </template>
 
       <div class="p-1">
-        <REMISegmented v-model="activeTab" :tabs="tabs">
+        <YDSZSegmented v-model="activeTab" :tabs="tabs">
           <template #general>
             <Block :title="$t('preferences.general')">
               <General
@@ -427,11 +427,11 @@ async function handleReset() {
               />
             </Block>
           </template>
-        </REMISegmented>
+        </YDSZSegmented>
       </div>
 
       <template #footer>
-        <REMIButton
+        <YDSZButton
           :disabled="!diffPreference"
           class="mx-4 w-full"
           size="sm"
@@ -440,8 +440,8 @@ async function handleReset() {
         >
           <Copy class="mr-2 size-3" />
           {{ $t('preferences.copyPreferences') }}
-        </REMIButton>
-        <REMIButton
+        </YDSZButton>
+        <YDSZButton
           :disabled="!diffPreference"
           class="mr-4 w-full"
           size="sm"
@@ -449,7 +449,7 @@ async function handleReset() {
           @click="handleClearCache"
         >
           {{ $t('preferences.clearAndLogout') }}
-        </REMIButton>
+        </YDSZButton>
       </template>
     </Drawer>
   </div>

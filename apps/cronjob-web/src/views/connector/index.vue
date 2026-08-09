@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteConnectorApi, getConnectorPageApi, type ConnectorApi } from '#/api/connector';
 import ConnectorForm from './connector-form.vue';
 defineOptions({ name: 'ConnectorManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<ConnectorApi.ConnectorVO> = {
       { field: 'connectorName', title: 'connectorName', itemRender: { name: 'Input', props: { placeholder: 'connectorName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [ConnectorFormModal, connectorFormApi] = useVbenModal({ connectedComponent: ConnectorForm });
 function handleAdd() { connectorFormApi.open(); }
 function handleEdit(row: ConnectorApi.ConnectorVO) { connectorFormApi.setData({ record: row }); connectorFormApi.open(); }

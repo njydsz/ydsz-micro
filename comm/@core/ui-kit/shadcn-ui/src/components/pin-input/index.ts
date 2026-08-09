@@ -5,6 +5,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIPinInput } from './input.vue';
+export { default as YDSZPinInput } from './input.vue';
 
 export type * from './types';

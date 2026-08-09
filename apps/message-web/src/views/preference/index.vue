@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deletePreferenceApi, getPreferencePageApi, type PreferenceApi } from '#/api/preference';
 import PreferenceForm from './preference-form.vue';
 defineOptions({ name: 'PreferenceManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<PreferenceApi.PreferenceVO> = {
       { field: 'userId', title: 'userId', itemRender: { name: 'Input', props: { placeholder: 'userId' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [PreferenceFormModal, preferenceFormApi] = useVbenModal({ connectedComponent: PreferenceForm });
 function handleAdd() { preferenceFormApi.open(); }
 function handleEdit(row: PreferenceApi.PreferenceVO) { preferenceFormApi.setData({ record: row }); preferenceFormApi.open(); }

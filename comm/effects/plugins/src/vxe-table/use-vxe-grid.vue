@@ -17,7 +17,7 @@ import type {
 
 import type { SetupContext } from 'vue';
 
-import type { REMIFormProps } from '@YDSZ-core/form-ui';
+import type { YDSZFormProps } from '@YDSZ-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
@@ -44,7 +44,7 @@ import {
   mergeWithArrayOverride,
 } from '@ydsz/utils';
 
-import { REMIHelpTooltip, REMILoading } from '@YDSZ-core/shadcn-ui';
+import { YDSZHelpTooltip, YDSZLoading } from '@YDSZ-core/shadcn-ui';
 
 import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid, VxeUI } from 'vxe-table';
@@ -334,7 +334,7 @@ watch(
   formOptions,
   () => {
     formApi.setState((prev) => {
-      const finalFormOptions: REMIFormProps = mergeWithArrayOverride(
+      const finalFormOptions: YDSZFormProps = mergeWithArrayOverride(
         {},
         formOptions.value,
         prev,
@@ -386,9 +386,9 @@ onUnmounted(() => {
         <slot v-if="showTableTitle" name="table-title">
           <div class="mr-1 pl-1 text-[1rem]">
             {{ tableTitle }}
-            <REMIHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
+            <YDSZHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
               {{ tableTitleHelp }}
-            </REMIHelpTooltip>
+            </YDSZHelpTooltip>
           </div>
         </slot>
         <slot name="toolbar-actions" v-bind="slotProps"> </slot>
@@ -471,7 +471,7 @@ onUnmounted(() => {
       <!-- loading -->
       <template #loading>
         <slot name="loading">
-          <REMILoading :spinning="true" />
+          <YDSZLoading :spinning="true" />
         </slot>
       </template>
       <!-- 统一控状态 -->

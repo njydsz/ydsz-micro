@@ -197,7 +197,7 @@ export function useNaiveDesignTokens() {
  *
  * 副作用与生命周期：
  * - 侦听 `preferences.theme`（`immediate: true`，调用即执行一次），
- *   每次变化都调用 `updateCSSVariables` 覆写 id 为 `__remi_design_styles__` 的全局 `<style>` 标签，
+ *   每次变化都调用 `updateCSSVariables` 覆写 id 为 `__ydsz_design_styles__` 的全局 `<style>` 标签，
  *   属于**全局副作用**，多次调用会互相覆盖；
  * - 侦听器未显式停止，应在 `setup` 中调用以便随组件作用域回收；
  * - 依赖 `document.documentElement`，仅浏览器端可用。
@@ -360,7 +360,7 @@ export function useElementPlusDesignTokens() {
         '--el-text-color-regular': getCssVariableValue('--foreground'),
       };
 
-      updateCSSVariables(variables, `__remi_design_styles__`);
+      updateCSSVariables(variables, `__ydsz_design_styles__`);
     },
     { immediate: true },
   );

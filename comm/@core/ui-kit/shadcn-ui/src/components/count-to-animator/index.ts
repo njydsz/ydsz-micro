@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMICountToAnimator } from './count-to-animator.vue';
+export { default as YDSZCountToAnimator } from './count-to-animator.vue';

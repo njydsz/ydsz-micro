@@ -24,7 +24,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'REMISpinner',
+  name: 'YDSZSpinner',
 });
 
 const props = withDefaults(defineProps<Props>(), {

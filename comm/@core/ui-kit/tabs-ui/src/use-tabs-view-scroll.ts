@@ -9,7 +9,7 @@ import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { REMIScrollbar } from '@YDSZ-core/shadcn-ui';
+import { YDSZScrollbar } from '@YDSZ-core/shadcn-ui';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -40,7 +40,7 @@ export function useTabsViewScroll(props: TabsProps) {
   let resizeObserver: null | ResizeObserver = null;
   let mutationObserver: MutationObserver | null = null;
   let tabItemCount = 0;
-  const scrollbarRef = ref<InstanceType<typeof REMIScrollbar> | null>(null);
+  const scrollbarRef = ref<InstanceType<typeof YDSZScrollbar> | null>(null);
   const scrollViewportEl = ref<DomElement>(null);
   const showScrollButton = ref(false);
   const scrollIsAtLeft = ref(true);

@@ -37,7 +37,7 @@ export type BeforeCloseScope = {
  * 通用提示弹窗的配置项。
  *
  * @remarks
- * 是 `remiAlert` / `remiConfirm` 共用的参数结构，二者差异仅在于默认是否显示取消按钮。
+ * 是 `ydszAlert` / `ydszConfirm` 共用的参数结构，二者差异仅在于默认是否显示取消按钮。
  * 除 `content` 外均为可选，未指定项使用组件默认值或全局默认配置。
  */
 export type AlertProps = {
@@ -114,7 +114,7 @@ export type AlertContext = {
 };
 
 export const [injectAlertContext, provideAlertContext] =
-  createContext<AlertContext>('REMIAlertContext');
+  createContext<AlertContext>('YDSZAlertContext');
 
 /**
  * 获取Alert上下文

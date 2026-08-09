@@ -9,8 +9,8 @@
  */
 export {
   initSetupYDSZForm,
-  useREMIForm,
+  useYDSZForm,
   z,
-  type REMIFormProps,
-  type REMIFormSchema,
+  type YDSZFormProps,
+  type YDSZFormSchema,
 } from '@ydsz/shared-business';

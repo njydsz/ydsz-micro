@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import type {
   DropdownMenuProps,
-  REMIDropdownMenuItem as IDropdownMenuItem,
+  YDSZDropdownMenuItem as IDropdownMenuItem,
 } from './interface';
 
 import {

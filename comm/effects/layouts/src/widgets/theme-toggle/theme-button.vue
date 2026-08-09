@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
 
-import { REMIButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZButton } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
   /**
@@ -88,7 +88,7 @@ function toggleTheme(event: MouseEvent) {
 </script>
 
 <template>
-  <REMIButton
+  <YDSZButton
     :aria-label="theme"
     :class="[`is-${theme}`]"
     aria-live="polite"
@@ -125,7 +125,7 @@ function toggleTheme(event: MouseEvent) {
         <line x1="18.36" x2="19.78" y1="5.64" y2="4.22" />
       </g>
     </svg>
-  </REMIButton>
+  </YDSZButton>
 </template>
 
 <style scoped>

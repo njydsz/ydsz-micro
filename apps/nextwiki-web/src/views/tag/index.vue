@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteTagApi, getTagPageApi, type TagApi } from '#/api/tag';
 import TagForm from './tag-form.vue';
 defineOptions({ name: 'TagManagement' });
@@ -43,7 +43,7 @@ const gridOptions: VxeGridProps<TagApi.TagVO> = {
       { field: 'tagName', title: 'tagName', itemRender: { name: 'Input', props: { placeholder: 'tagName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [TagFormModal, tagFormApi] = useVbenModal({ connectedComponent: TagForm });
 function handleAdd() { tagFormApi.open(); }
 function handleEdit(row: TagApi.TagVO) { tagFormApi.setData({ record: row }); tagFormApi.open(); }

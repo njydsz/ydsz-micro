@@ -1,6 +1,6 @@
 ﻿/**
  * 菜单 API 模块（前端）
- * <p>封装菜单（{@code remi_menu}）CRUD 接口，对应后端 {@code /api/v1/userinfo/menu/*} 端点。
+ * <p>封装菜单（{@code ydsz_menu}）CRUD 接口，对应后端 {@code /api/v1/userinfo/menu/*} 端点。
  * <p>支持菜单树、权限标识、组件路径、图标、排序。
  * <p>供「组织架构 → 菜单管理」使用。
  *

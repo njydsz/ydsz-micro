@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import type { Arrayable } from '@vueuse/core';
 
-import type { REMIButtonGroupProps, ValueType } from './button';
+import type { YDSZButtonGroupProps, ValueType } from './button';
 
 import { computed, ref, watch } from 'vue';
 
@@ -17,11 +17,11 @@ import { cn, isFunction } from '@YDSZ-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 
-import { REMIRenderContent } from '../render-content';
-import REMIButtonGroup from './button-group.vue';
+import { YDSZRenderContent } from '../render-content';
+import YDSZButtonGroup from './button-group.vue';
 import Button from './button.vue';
 
-const props = withDefaults(defineProps<REMIButtonGroupProps>(), {
+const props = withDefaults(defineProps<YDSZButtonGroupProps>(), {
   gap: 0,
   multiple: false,
   showIcon: true,
@@ -112,7 +112,7 @@ async function onBtnClick(value: ValueType) {
 }
 </script>
 <template>
-  <REMIButtonGroup
+  <YDSZButtonGroup
     :size="props.size"
     :gap="props.gap"
     class="YDSZ-check-button-group"
@@ -146,10 +146,10 @@ async function onBtnClick(value: ValueType) {
         </slot>
       </div>
       <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
-        <REMIRenderContent :content="btn.label" />
+        <YDSZRenderContent :content="btn.label" />
       </slot>
     </Button>
-  </REMIButtonGroup>
+  </YDSZButtonGroup>
 </template>
 <style lang="scss" scoped>
 .YDSZ-check-button-group {

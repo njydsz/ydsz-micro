@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { REMISpinner } from '@YDSZ-core/shadcn-ui';
+import { YDSZSpinner } from '@YDSZ-core/shadcn-ui';
 import { cn } from '@YDSZ-core/shared/utils';
 
 interface SpinnerProps {
@@ -27,7 +27,7 @@ const props = defineProps<SpinnerProps>();
 <template>
   <div :class="cn('relative min-h-20', props.class)">
     <slot></slot>
-    <REMISpinner
+    <YDSZSpinner
       :min-loading-time="props.minLoadingTime"
       :spinning="props.spinning"
     />

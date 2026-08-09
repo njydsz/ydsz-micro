@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 用户（列表页）
- * <p>用户（{@code remi_user}）的列表/分页查询页。
+ * <p>用户（{@code ydsz_user}）的列表/分页查询页。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -21,7 +21,7 @@ import { getVxePopupContainer } from '@ydsz/utils';
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElSelect, ElOption, ElTag } from 'element-plus';
 import { computed, h, onMounted, reactive, ref } from 'vue';
 
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   assignUserRolesApi,
   deleteUserApi,
@@ -231,7 +231,7 @@ const gridOptions: VxeGridProps<UserApi.UserAccountVO> = {
   },
 };
 
-const [Grid, gridApi] = useREMIVxeGrid({
+const [Grid, gridApi] = useYDSZVxeGrid({
   gridOptions,
   formOptions: {
     schema: [

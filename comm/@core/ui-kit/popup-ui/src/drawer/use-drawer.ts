@@ -24,9 +24,9 @@ import {
 import { useStore } from '@YDSZ-core/shared/store';
 
 import { DrawerApi } from './drawer-api';
-import REMIDrawer from './drawer.vue';
+import YDSZDrawer from './drawer.vue';
 
-const USER_DRAWER_INJECT_KEY = Symbol('REMI_DRAWER_INJECT');
+const USER_DRAWER_INJECT_KEY = Symbol('YDSZ_DRAWER_INJECT');
 
 const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {};
 
@@ -40,7 +40,7 @@ const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {};
  * 副作用与约束：
  * - 通过 `Object.assign` **原地修改模块级单例**，多次调用为累加式覆盖，
  *   不会清除此前设置的其他键；
- * - 优先级最低：单个抽屉在 `useREMIDrawer(options)` 中传入的同名项会覆盖它；
+ * - 优先级最低：单个抽屉在 `useYDSZDrawer(options)` 中传入的同名项会覆盖它；
  * - **仅对之后创建的抽屉生效**，已创建的实例不受影响，因此不要在运行中动态调用它来批量改样式。
  *
  * @param props - 要合并进全局默认值的抽屉配置
@@ -78,11 +78,11 @@ export function setDefaultDrawerProps(props: Partial<DrawerProps>) {
  *
  * @example
  * ```ts
- * const [Drawer, drawerApi] = useREMIDrawer({ connectedComponent: DetailDrawer });
+ * const [Drawer, drawerApi] = useYDSZDrawer({ connectedComponent: DetailDrawer });
  * drawerApi.setData(row).open();
  * ```
  */
-export function useREMIDrawer<
+export function useYDSZDrawer<
   TParentDrawerProps extends DrawerProps = DrawerProps,
 >(options: DrawerApiOptions = {}) {
   // Drawer一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
@@ -121,7 +121,7 @@ export function useREMIDrawer<
       },
       // eslint-disable-next-line vue/one-component-per-file
       {
-        name: 'REMIParentDrawer',
+        name: 'YDSZParentDrawer',
         inheritAttrs: false,
       },
     );
@@ -160,11 +160,11 @@ export function useREMIDrawer<
   const Drawer = defineComponent(
     (props: DrawerProps, { attrs, slots }) => {
       return () =>
-        h(REMIDrawer, { ...props, ...attrs, drawerApi: extendedApi }, slots);
+        h(YDSZDrawer, { ...props, ...attrs, drawerApi: extendedApi }, slots);
     },
     // eslint-disable-next-line vue/one-component-per-file
     {
-      name: 'REMIDrawer',
+      name: 'YDSZDrawer',
       inheritAttrs: false,
     },
   );
@@ -188,9 +188,9 @@ async function checkProps(api: ExtendedDrawerApi, attrs: Record<string, any>) {
 
   for (const attr of Object.keys(attrs)) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
-      // connectedComponent存在时，不要传入Drawer的props，会造成复杂度提升，如果你需要修改Drawer的props，请使用 useREMIDrawer 或者api
+      // connectedComponent存在时，不要传入Drawer的props，会造成复杂度提升，如果你需要修改Drawer的props，请使用 useYDSZDrawer 或者api
       console.warn(
-        `[YDSZ Drawer]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Drawer, please use useREMIDrawer or api.`,
+        `[YDSZ Drawer]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Drawer, please use useYDSZDrawer or api.`,
       );
     }
   }

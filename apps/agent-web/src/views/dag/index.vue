@@ -17,7 +17,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteDagApi, getDagPageApi, type DagApi } from '#/api/dag';
 import DagForm from './dag-form.vue';
 defineOptions({ name: 'DagManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<DagApi.DagVO> = {
       { field: 'dagName', title: 'dagName', itemRender: { name: 'Input', props: { placeholder: 'dagName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [DagFormModal, dagFormApi] = useVbenModal({ connectedComponent: DagForm });
 function handleAdd() { dagFormApi.open(); }
 function handleEdit(row: DagApi.DagVO) { dagFormApi.setData({ record: row }); dagFormApi.open(); }

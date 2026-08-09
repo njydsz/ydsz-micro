@@ -15,7 +15,7 @@ import {
   updatePreferences,
 } from '@ydsz/preferences';
 
-import { REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationColorToggle',
@@ -37,7 +37,7 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
       class="flex w-0 overflow-hidden transition-all duration-500 ease-out group-hover:w-60"
     >
       <template v-for="preset in COLOR_PRESETS" :key="preset.color">
-        <REMIIconButton
+        <YDSZIconButton
           class="flex-center flex-shrink-0"
           @click="handleUpdate(preset.color, preset.type)"
         >
@@ -60,12 +60,12 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
               />
             </svg>
           </div>
-        </REMIIconButton>
+        </YDSZIconButton>
       </template>
     </div>
 
-    <REMIIconButton>
+    <YDSZIconButton>
       <Palette class="text-primary size-4" />
-    </REMIIconButton>
+    </YDSZIconButton>
   </div>
 </template>

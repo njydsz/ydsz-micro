@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteAuditLogApi, getAuditLogPageApi, type AuditLogApi } from '#/api/auditLog';
 import AuditLogForm from './auditLog-form.vue';
 defineOptions({ name: 'AuditLogManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<AuditLogApi.AuditLogVO> = {
       { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [AuditLogFormModal, auditLogFormApi] = useVbenModal({ connectedComponent: AuditLogForm });
 function handleAdd() { auditLogFormApi.open(); }
 function handleEdit(row: AuditLogApi.AuditLogVO) { auditLogFormApi.setData({ record: row }); auditLogFormApi.open(); }

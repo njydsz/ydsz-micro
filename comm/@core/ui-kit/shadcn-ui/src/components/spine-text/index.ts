@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMISpineText } from './spine-text.vue';
+export { default as YDSZSpineText } from './spine-text.vue';

@@ -14,8 +14,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  REMICountToAnimator,
-  REMIIcon,
+  YDSZCountToAnimator,
+  YDSZIcon,
 } from '@YDSZ-core/shadcn-ui';
 
 interface Props {
@@ -40,17 +40,17 @@ withDefaults(defineProps<Props>(), {
         </CardHeader>
 
         <CardContent class="flex items-center justify-between">
-          <REMICountToAnimator
+          <YDSZCountToAnimator
             :end-val="item.value"
             :start-val="1"
             class="text-xl"
             prefix=""
           />
-          <REMIIcon :icon="item.icon" class="size-8 flex-shrink-0" />
+          <YDSZIcon :icon="item.icon" class="size-8 flex-shrink-0" />
         </CardContent>
         <CardFooter class="justify-between">
           <span>{{ item.totalTitle }}</span>
-          <REMICountToAnimator
+          <YDSZCountToAnimator
             :end-val="item.totalValue"
             :start-val="1"
             prefix=""

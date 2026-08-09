@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { REMIFormSchema } from '@ydsz/common-ui';
+import type { YDSZFormSchema } from '@ydsz/common-ui';
 import type { BasicOption } from '@ydsz/types';
 
 import { computed, markRaw } from 'vue';
@@ -35,10 +35,10 @@ const MOCK_TENANT_OPTIONS: BasicOption[] = [
   },
 ];
 
-const formSchema = computed((): REMIFormSchema[] => {
+const formSchema = computed((): YDSZFormSchema[] => {
   return [
     {
-      component: 'REMISelect',
+      component: 'YDSZSelect',
       componentProps: {
         options: MOCK_TENANT_OPTIONS,
         placeholder: '请选择租户',
@@ -52,7 +52,7 @@ const formSchema = computed((): REMIFormSchema[] => {
         .default('YDSZ'),
     },
     {
-      component: 'REMIInput',
+      component: 'YDSZInput',
       componentProps: {
         placeholder: '请输入账号',
       },
@@ -61,7 +61,7 @@ const formSchema = computed((): REMIFormSchema[] => {
       rules: z.string().min(1, { message: '请输入账号' }),
     },
     {
-      component: 'REMIInputPassword',
+      component: 'YDSZInputPassword',
       componentProps: {
         placeholder: '请输入密码',
       },

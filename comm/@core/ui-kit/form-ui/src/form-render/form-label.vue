@@ -10,8 +10,8 @@ import type { CustomRenderType } from '../types';
 
 import {
   FormLabel,
-  REMIHelpTooltip,
-  REMIRenderContent,
+  YDSZHelpTooltip,
+  YDSZRenderContent,
 } from '@YDSZ-core/shadcn-ui';
 import { cn } from '@YDSZ-core/shared/utils';
 
@@ -30,9 +30,9 @@ const props = defineProps<Props>();
   <FormLabel :class="cn('flex items-center', props.class)">
     <span v-if="required" class="text-destructive mr-[2px]">*</span>
     <slot></slot>
-    <REMIHelpTooltip v-if="help" trigger-class="size-3.5 ml-1">
-      <REMIRenderContent :content="help" />
-    </REMIHelpTooltip>
+    <YDSZHelpTooltip v-if="help" trigger-class="size-3.5 ml-1">
+      <YDSZRenderContent :content="help" />
+    </YDSZHelpTooltip>
     <span v-if="colon && label" class="ml-[2px]">:</span>
   </FormLabel>
 </template>

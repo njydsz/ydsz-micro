@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIPopover } from './popover.vue';
+export { default as YDSZPopover } from './popover.vue';

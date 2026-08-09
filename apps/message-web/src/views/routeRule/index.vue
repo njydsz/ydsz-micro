@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteRouteRuleApi, getRouteRulePageApi, type RouteRuleApi } from '#/api/routeRule';
 import RouteRuleForm from './routeRule-form.vue';
 defineOptions({ name: 'RouteRuleManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<RouteRuleApi.RouteRuleVO> = {
       { field: 'ruleName', title: 'ruleName', itemRender: { name: 'Input', props: { placeholder: 'ruleName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [RouteRuleFormModal, routeRuleFormApi] = useVbenModal({ connectedComponent: RouteRuleForm });
 function handleAdd() { routeRuleFormApi.open(); }
 function handleEdit(row: RouteRuleApi.RouteRuleVO) { routeRuleFormApi.setData({ record: row }); routeRuleFormApi.open(); }

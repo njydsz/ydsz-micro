@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as REMIIcon } from './icon.vue';
+export { default as YDSZIcon } from './icon.vue';

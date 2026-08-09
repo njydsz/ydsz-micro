@@ -20,7 +20,7 @@ import {
 import { $t } from '@ydsz/locales';
 import { isWindowsOs } from '@ydsz/utils';
 
-import { useREMIModal } from '@YDSZ-core/popup-ui';
+import { useYDSZModal } from '@YDSZ-core/popup-ui';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 
@@ -41,7 +41,7 @@ const props = withDefaults(
 const keyword = ref('');
 const searchInputRef = ref<HTMLInputElement>();
 
-const [Modal, modalApi] = useREMIModal({
+const [Modal, modalApi] = useYDSZModal({
   onCancel() {
     modalApi.close();
   },

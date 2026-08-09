@@ -29,7 +29,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'REMILoading',
+  name: 'YDSZLoading',
 });
 
 const props = withDefaults(defineProps<Props>(), {

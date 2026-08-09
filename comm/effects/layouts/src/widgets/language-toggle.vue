@@ -13,7 +13,7 @@ import { Languages } from '@ydsz/icons';
 import { loadLocaleMessages } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 
-import { REMIDropdownRadioMenu, REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZDropdownRadioMenu, YDSZIconButton } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
   name: 'LanguageToggle',
@@ -33,14 +33,14 @@ async function handleUpdate(value: string | undefined) {
 
 <template>
   <div>
-    <REMIDropdownRadioMenu
+    <YDSZDropdownRadioMenu
       :menus="SUPPORT_LANGUAGES"
       :model-value="preferences.app.locale"
       @update:model-value="handleUpdate"
     >
-      <REMIIconButton>
+      <YDSZIconButton>
         <Languages class="text-foreground size-4" />
-      </REMIIconButton>
-    </REMIDropdownRadioMenu>
+      </YDSZIconButton>
+    </YDSZDropdownRadioMenu>
   </div>
 </template>

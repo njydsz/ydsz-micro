@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteJobDagApi, getJobDagPageApi, type JobDagApi } from '#/api/jobDag';
 import JobDagForm from './jobDag-form.vue';
 defineOptions({ name: 'JobDagManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<JobDagApi.JobDagVO> = {
       { field: 'dagName', title: 'dagName', itemRender: { name: 'Input', props: { placeholder: 'dagName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [JobDagFormModal, jobDagFormApi] = useVbenModal({ connectedComponent: JobDagForm });
 function handleAdd() { jobDagFormApi.open(); }
 function handleEdit(row: JobDagApi.JobDagVO) { jobDagFormApi.setData({ record: row }); jobDagFormApi.open(); }

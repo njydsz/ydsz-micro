@@ -7,7 +7,7 @@
  */
 import type {
   ApplicationConfig,
-  REMIAdminProAppConfigRaw,
+  YDSZAdminProAppConfigRaw,
 } from '@ydsz/types/global';
 
 /**
@@ -17,10 +17,10 @@ export function useAppConfig(
   env: Record<string, any>,
   isProduction: boolean,
 ): ApplicationConfig {
-  // 生产环境下，直接使用 window._REMI_ADMIN_PRO_APP_CONF_ 全局变量
+  // 生产环境下，直接使用 window._YDSZ_ADMIN_PRO_APP_CONF_ 全局变量
   const config = isProduction
-    ? window._REMI_ADMIN_PRO_APP_CONF_
-    : (env as REMIAdminProAppConfigRaw);
+    ? window._YDSZ_ADMIN_PRO_APP_CONF_
+    : (env as YDSZAdminProAppConfigRaw);
 
   const {
     VITE_GLOB_API_URL,

@@ -12,7 +12,7 @@
 |----|------|--------|----------|
 | **Element Plus** | 基础表单/布局/弹窗 | ~300KB gzip | 极高（所有子应用） |
 | **Tailwind CSS** | 原子化布局/间距辅助 | ~15KB (purge 后) | 高（shadcn-ui 依赖） |
-| **shadcn-ui** | 自研可定制组件 | ~80KB gzip | 中（REMIButton 等） |
+| **shadcn-ui** | 自研可定制组件 | ~80KB gzip | 中（YDSZButton 等） |
 
 三套方案并存带来：
 1. **视觉风格不一致**：Element Plus 的圆角/阴影规范与 shadcn-ui 有差异
@@ -39,8 +39,8 @@
 **定位**：品牌差异化组件、精细交互组件
 
 保留并限定使用范围：
-- `REMIButton`（品牌主按钮，带 loading/disabled 复合状态）
-- `REMILogo`（品牌 Logo 组件）
+- `YDSZButton`（品牌主按钮，带 loading/disabled 复合状态）
+- `YDSZLogo`（品牌 Logo 组件）
 - `BackTop`、`FullScreen` 等 Element Plus 无内置的功能组件
 - `PinInput`、`Avatar` 等视觉差异化组件
 
@@ -75,7 +75,7 @@
 
 | 场景 | 推荐方案 | 避免混用 |
 |------|----------|----------|
-| 按钮 | `REMIButton`（品牌差异化） | 不要同时用 ElButton |
+| 按钮 | `YDSZButton`（品牌差异化） | 不要同时用 ElButton |
 | 表单输入 | `ElInput` / `ElSelect` | 不用 shadcn 同名组件 |
 | 弹窗 | `ElDialog` / `ElMessageBox` | 不用 shadcn Dialog |
 | 日期选择 | `ElDatePicker` | 不用 shadcn 日期组件 |
@@ -83,7 +83,7 @@
 | 面包屑 | shadcn `Breadcrumb` | 不用 ElBreadcrumb |
 | 卡片 | `ElCard` | 不用 shadcn Card |
 | 标签页 | shadcn `Tabs` | 不用 ElTabs |
-| 品牌按钮 | `REMIButton` | 不用 ElButton |
+| 品牌按钮 | `YDSZButton` | 不用 ElButton |
 | 返回顶部 | shadcn `BackTop` | Element Plus 无此组件 |
 
 ## 风险与缓解

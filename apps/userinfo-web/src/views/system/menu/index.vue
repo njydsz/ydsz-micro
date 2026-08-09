@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 菜单（列表页）
- * <p>菜单（{@code remi_menu}）的列表页。
+ * <p>菜单（{@code ydsz_menu}）的列表页。
  *
  * @author ydsz-team
  * @since 1.0.0

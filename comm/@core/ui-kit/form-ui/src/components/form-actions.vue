@@ -9,7 +9,7 @@
 import { computed, toRaw, unref, watch } from 'vue';
 
 import { useSimpleLocale } from '@YDSZ-core/composables';
-import { REMIExpandableArrow } from '@YDSZ-core/shadcn-ui';
+import { YDSZExpandableArrow } from '@YDSZ-core/shadcn-ui';
 import { cn, isFunction, triggerWindowResize } from '@YDSZ-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';
@@ -181,13 +181,13 @@ defineExpose({
     <!-- 展开按钮前 -->
     <slot name="expand-before"></slot>
 
-    <REMIExpandableArrow
+    <YDSZExpandableArrow
       class="ml-[-0.3em]"
       v-if="rootProps.showCollapseButton"
       v-model:model-value="collapsed"
     >
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
-    </REMIExpandableArrow>
+    </YDSZExpandableArrow>
 
     <!-- 展开按钮后 -->
     <slot name="expand-after"></slot>

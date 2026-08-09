@@ -29,20 +29,20 @@ export * from "@YDSZ-core/popup-ui";
 
 // 给文档用
 export {
-  REMIAvatar,
-  REMIButton,
-  REMIButtonGroup,
-  REMICheckbox,
-  REMICheckButtonGroup,
-  REMICountToAnimator,
-  REMIFullScreen,
-  REMIInputPassword,
-  REMILoading,
-  REMILogo,
-  REMIPinInput,
-  REMISelect,
-  REMISpinner,
-  REMITree,
+  YDSZAvatar,
+  YDSZButton,
+  YDSZButtonGroup,
+  YDSZCheckbox,
+  YDSZCheckButtonGroup,
+  YDSZCountToAnimator,
+  YDSZFullScreen,
+  YDSZInputPassword,
+  YDSZLoading,
+  YDSZLogo,
+  YDSZPinInput,
+  YDSZSelect,
+  YDSZSpinner,
+  YDSZTree,
 } from "@YDSZ-core/shadcn-ui";
 
 export type { FlattenedItem } from "@YDSZ-core/shadcn-ui";

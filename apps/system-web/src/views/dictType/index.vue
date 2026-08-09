@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 /**
  * 字典类型（列表页）
- * <p>字典类型（{@code remi_dict_type}）的列表页。
+ * <p>字典类型（{@code ydsz_dict_type}）的列表页。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -20,7 +20,7 @@ import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, h } from 'element-plus';
 
 import { $t } from '#/locales';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   deleteDicttypeApi,
   getDicttypePageApi,
@@ -77,7 +77,7 @@ const gridOptions: VxeGridProps<DicttypeApi.DicttypeVO> = {
   },
 };
 
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [DicttypeFormModal, dictTypeFormApi] = useVbenModal({ connectedComponent: DicttypeForm });
 

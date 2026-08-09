@@ -10,7 +10,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, useTemplateRef } from 'vue';
 
-import { REMISpineText } from '@YDSZ-core/shadcn-ui';
+import { YDSZSpineText } from '@YDSZ-core/shadcn-ui';
 
 const props = defineProps<{
   contentStyle: CSSProperties;
@@ -46,9 +46,9 @@ defineExpose({
     class="absolute top-0 flex size-full select-none items-center justify-center text-xs"
   >
     <slot name="text">
-      <REMISpineText class="flex h-full items-center">
+      <YDSZSpineText class="flex h-full items-center">
         {{ isPassing ? successText : text }}
-      </REMISpineText>
+      </YDSZSpineText>
     </slot>
   </div>
 </template>

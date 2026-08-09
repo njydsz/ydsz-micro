@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteRuleApi, getRulePageApi, type RuleApi } from '#/api/rule';
 import RuleForm from './rule-form.vue';
 defineOptions({ name: 'RuleManagement' });
@@ -47,7 +47,7 @@ const gridOptions: VxeGridProps<RuleApi.RuleVO> = {
       { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [RuleFormModal, ruleFormApi] = useVbenModal({ connectedComponent: RuleForm });
 function handleAdd() { ruleFormApi.open(); }
 function handleEdit(row: RuleApi.RuleVO) { ruleFormApi.setData({ record: row }); ruleFormApi.open(); }

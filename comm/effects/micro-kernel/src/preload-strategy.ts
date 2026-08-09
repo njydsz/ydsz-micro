@@ -141,7 +141,7 @@ export class PreloadManager {
   private visibilityListener: (() => void) | null = null;
   private usageStats: Map<string, AppUsageStats> = new Map();
   private permissionChecker: PermissionChecker | null = null;
-  private storageKey = 'remi_app_usage_stats';
+  private storageKey = 'ydsz_app_usage_stats';
   /** P1-2: 预加载命中率统计 */
   private stats = {
     preloadCount: 0,

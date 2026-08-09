@@ -53,7 +53,7 @@ function getDefaultState(): VxeGridProps {
  *
  * @example
  * ```ts
- * const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+ * const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
  * await gridApi.query({ keyword: 'foo' });
  * gridApi.setLoading(true);
  * ```

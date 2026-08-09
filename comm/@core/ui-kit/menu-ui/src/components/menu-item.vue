@@ -11,7 +11,7 @@ import type { MenuItemProps, MenuItemRegistered } from '../types';
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
 import { useNamespace } from '@YDSZ-core/composables';
-import { REMIIcon, REMITooltip } from '@YDSZ-core/shadcn-ui';
+import { YDSZIcon, YDSZTooltip } from '@YDSZ-core/shadcn-ui';
 
 import { MenuBadge } from '../components';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
@@ -133,14 +133,14 @@ onBeforeUnmount(() => {
     @click.stop="handleClick"
     @mouseenter="handleMouseEnter"
   >
-    <REMITooltip
+    <YDSZTooltip
       v-if="showTooltip"
       :content-class="[rootMenu.theme]"
       side="right"
     >
       <template #trigger>
         <div :class="[nsMenu.be('tooltip', 'trigger')]">
-          <REMIIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
+          <YDSZIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
           <slot></slot>
           <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
             <slot name="title"></slot>
@@ -148,14 +148,14 @@ onBeforeUnmount(() => {
         </div>
       </template>
       <slot name="title"></slot>
-    </REMITooltip>
+    </YDSZTooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
       <MenuBadge
         v-if="rootMenu.props.mode !== 'horizontal'"
         class="right-2"
         v-bind="props"
       />
-      <REMIIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
+      <YDSZIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
       <slot></slot>
       <slot name="title"></slot>
     </div>

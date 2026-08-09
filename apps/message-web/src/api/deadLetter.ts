@@ -1,6 +1,6 @@
 ﻿/**
  * 死信队列 API 模块（前端）
- * <p>封装死信队列（{@code remi_message_dead_letter}）接口，对应后端 {@code /api/v1/message/deadLetter/*} 端点。
+ * <p>封装死信队列（{@code ydsz_message_dead_letter}）接口，对应后端 {@code /api/v1/message/deadLetter/*} 端点。
  * <p>查询/重投/丢弃发送失败超过阈值次数的消息。
  * <p>供「消息中心 → 死信管理」使用。
  *

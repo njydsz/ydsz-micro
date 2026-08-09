@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteBatchApi, getBatchPageApi, type BatchApi } from '#/api/batch';
 import BatchForm from './batch-form.vue';
 defineOptions({ name: 'BatchManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<BatchApi.BatchVO> = {
       { field: 'batchName', title: 'batchName', itemRender: { name: 'Input', props: { placeholder: 'batchName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [BatchFormModal, batchFormApi] = useVbenModal({ connectedComponent: BatchForm });
 function handleAdd() { batchFormApi.open(); }
 function handleEdit(row: BatchApi.BatchVO) { batchFormApi.setData({ record: row }); batchFormApi.open(); }

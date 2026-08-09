@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteMessageApi, getMessagePageApi, type MessageApi } from '#/api/message';
 import MessageForm from './message-form.vue';
 defineOptions({ name: 'MessageManagement' });
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<MessageApi.MessageVO> = {
       { field: 'status', title: 'status', itemRender: { name: 'Input', props: { placeholder: 'status' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [MessageFormModal, messageFormApi] = useVbenModal({ connectedComponent: MessageForm });
 function handleAdd() { messageFormApi.open(); }
 function handleEdit(row: MessageApi.MessageVO) { messageFormApi.setData({ record: row }); messageFormApi.open(); }

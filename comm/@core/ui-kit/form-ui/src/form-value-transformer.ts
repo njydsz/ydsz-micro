@@ -7,16 +7,16 @@
  */
 import { formatDate, isDate, isDayjsObject, isFunction } from '@YDSZ-core/shared/utils';
 
-import type { REMIFormProps } from './types';
+import type { YDSZFormProps } from './types';
 
 /**
  * 表单值转换器
  * @description 负责表单值的格式转换，包括范围时间值处理、数组与字符串互转等
  */
 export class FormValueTransformer {
-  private getState: () => null | REMIFormProps;
+  private getState: () => null | YDSZFormProps;
 
-  constructor(getState: () => null | REMIFormProps) {
+  constructor(getState: () => null | YDSZFormProps) {
     this.getState = getState;
   }
 

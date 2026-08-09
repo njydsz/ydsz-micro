@@ -18,7 +18,7 @@ import {
   NumberFieldDecrement,
   NumberFieldIncrement,
   NumberFieldInput,
-  REMITooltip,
+  YDSZTooltip,
 } from '@YDSZ-core/shadcn-ui';
 
 defineOptions({
@@ -56,7 +56,7 @@ const slots = useSlots();
     <span class="flex items-center text-sm">
       <slot></slot>
 
-      <REMITooltip v-if="slots.tip || tip" side="bottom">
+      <YDSZTooltip v-if="slots.tip || tip" side="bottom">
         <template #trigger>
           <CircleHelp class="ml-1 size-3 cursor-help" />
         </template>
@@ -67,7 +67,7 @@ const slots = useSlots();
             </p>
           </template>
         </slot>
-      </REMITooltip>
+      </YDSZTooltip>
     </span>
 
     <NumberField v-model="inputValue" v-bind="$attrs" class="w-[165px]">

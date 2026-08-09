@@ -19,7 +19,7 @@ import { preferences, usePreferences } from '@ydsz/preferences';
 import { useTokenStore } from '@ydsz/stores';
 import { isWindowsOs } from '@ydsz/utils';
 
-import { useREMIModal } from '@YDSZ-core/popup-ui';
+import { useYDSZModal } from '@YDSZ-core/popup-ui';
 import {
   Badge,
   DropdownMenu,
@@ -29,8 +29,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-  REMIAvatar,
-  REMIIcon,
+  YDSZAvatar,
+  YDSZIcon,
 } from '@YDSZ-core/shadcn-ui';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
@@ -94,10 +94,10 @@ const emit = defineEmits<{ logout: [] }>();
 const { globalLockScreenShortcutKey, globalLogoutShortcutKey } =
   usePreferences();
 const tokenStore = useTokenStore();
-const [LockModal, lockModalApi] = useREMIModal({
+const [LockModal, lockModalApi] = useYDSZModal({
   connectedComponent: LockScreenModal,
 });
-const [LogoutModal, logoutModalApi] = useREMIModal({
+const [LogoutModal, logoutModalApi] = useYDSZModal({
   onConfirm() {
     handleSubmitLogout();
   },
@@ -199,14 +199,14 @@ if (enableShortcutKey.value) {
     <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
       <div class="hover:bg-accent ml-1 mr-2 cursor-pointer rounded-full p-1.5">
         <div class="hover:text-accent-foreground flex-center">
-          <REMIAvatar :alt="text" :src="avatar" class="size-8" dot />
+          <YDSZAvatar :alt="text" :src="avatar" class="size-8" dot />
         </div>
       </div>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="mr-2 min-w-[240px] p-0 pb-1">
       <div ref="refContent">
         <DropdownMenuLabel class="flex items-center p-3">
-          <REMIAvatar
+          <YDSZAvatar
             :alt="text"
             :src="avatar"
             class="size-12"
@@ -237,7 +237,7 @@ if (enableShortcutKey.value) {
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
           @click="menu.handler"
         >
-          <REMIIcon :icon="menu.icon" class="mr-2 size-4" />
+          <YDSZIcon :icon="menu.icon" class="mr-2 size-4" />
           {{ menu.text }}
         </DropdownMenuItem>
         <DropdownMenuSeparator />

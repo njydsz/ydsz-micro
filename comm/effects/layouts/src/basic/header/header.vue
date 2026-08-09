@@ -13,7 +13,7 @@ import { RotateCw } from '@ydsz/icons';
 import { preferences, usePreferences } from '@ydsz/preferences';
 import { useAccessStore } from '@ydsz/stores';
 
-import { REMIFullScreen, REMIIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZFullScreen, YDSZIconButton } from '@YDSZ-core/shadcn-ui';
 
 import {
   GlobalSearch,
@@ -126,9 +126,9 @@ function clearPreferencesAndLogout() {
   >
     <slot :name="slot.name">
       <template v-if="slot.name === 'refresh'">
-        <REMIIconButton class="my-0 mr-1 rounded-md" @click="refresh">
+        <YDSZIconButton class="my-0 mr-1 rounded-md" @click="refresh">
           <RotateCw class="size-4" />
-        </REMIIconButton>
+        </YDSZIconButton>
       </template>
     </slot>
   </template>
@@ -171,7 +171,7 @@ function clearPreferencesAndLogout() {
           <LanguageToggle class="mr-1" />
         </template>
         <template v-else-if="slot.name === 'fullscreen'">
-          <REMIFullScreen class="mr-1" />
+          <YDSZFullScreen class="mr-1" />
         </template>
       </slot>
     </template>

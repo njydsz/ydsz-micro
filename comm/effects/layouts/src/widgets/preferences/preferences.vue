@@ -13,12 +13,12 @@ import { $t, loadLocaleMessages } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 import { capitalizeFirstLetter } from '@ydsz/utils';
 
-import { useREMIDrawer } from '@YDSZ-core/popup-ui';
-import { REMIButton } from '@YDSZ-core/shadcn-ui';
+import { useYDSZDrawer } from '@YDSZ-core/popup-ui';
+import { YDSZButton } from '@YDSZ-core/shadcn-ui';
 
 import PreferencesDrawer from './preferences-drawer.vue';
 
-const [Drawer, drawerApi] = useREMIDrawer({
+const [Drawer, drawerApi] = useYDSZDrawer({
   connectedComponent: PreferencesDrawer,
 });
 
@@ -67,12 +67,12 @@ const listen = computed(() => {
 
     <div @click="() => drawerApi.open()">
       <slot>
-        <REMIButton
+        <YDSZButton
           :title="$t('preferences.title')"
           class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
         >
           <Settings class="size-5" />
-        </REMIButton>
+        </YDSZButton>
       </slot>
     </div>
   </div>

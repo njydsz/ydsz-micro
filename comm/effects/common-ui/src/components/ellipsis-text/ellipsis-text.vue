@@ -17,7 +17,7 @@ import {
   watchEffect,
 } from 'vue';
 
-import { REMITooltip } from '@YDSZ-core/shadcn-ui';
+import { YDSZTooltip } from '@YDSZ-core/shadcn-ui';
 
 import { useElementSize } from '@vueuse/core';
 
@@ -191,7 +191,7 @@ function handleExpand() {
 </script>
 <template>
   <div>
-    <REMITooltip
+    <YDSZTooltip
       :content-style="{
         ...tooltipOverlayStyle,
         maxWidth: `${defaultTooltipMaxWidth}px`,
@@ -227,7 +227,7 @@ function handleExpand() {
           <slot></slot>
         </div>
       </template>
-    </REMITooltip>
+    </YDSZTooltip>
   </div>
 </template>
 

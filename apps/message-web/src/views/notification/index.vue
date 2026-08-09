@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteNotificationApi, getNotificationPageApi, type NotificationApi } from '#/api/notification';
 import NotificationForm from './notification-form.vue';
 defineOptions({ name: 'NotificationManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<NotificationApi.NotificationVO> = {
       { field: 'type', title: 'type', itemRender: { name: 'Input', props: { placeholder: 'type' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [NotificationFormModal, notificationFormApi] = useVbenModal({ connectedComponent: NotificationForm });
 function handleAdd() { notificationFormApi.open(); }
 function handleEdit(row: NotificationApi.NotificationVO) { notificationFormApi.setData({ record: row }); notificationFormApi.open(); }

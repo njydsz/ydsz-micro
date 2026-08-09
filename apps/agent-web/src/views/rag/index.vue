@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteRagApi, getRagPageApi, type RagApi } from '#/api/rag';
 import RagForm from './rag-form.vue';
 defineOptions({ name: 'RagManagement' });
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<RagApi.RagVO> = {
       { field: 'knowledgeName', title: 'knowledgeName', itemRender: { name: 'Input', props: { placeholder: 'knowledgeName' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [RagFormModal, ragFormApi] = useVbenModal({ connectedComponent: RagForm });
 function handleAdd() { ragFormApi.open(); }
 function handleEdit(row: RagApi.RagVO) { ragFormApi.setData({ record: row }); ragFormApi.open(); }

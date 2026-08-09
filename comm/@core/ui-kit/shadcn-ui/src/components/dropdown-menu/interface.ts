@@ -7,7 +7,7 @@
  */
 import type { Component } from 'vue';
 
-interface REMIDropdownMenuItem {
+interface YDSZDropdownMenuItem {
   disabled?: boolean;
   /**
    * @zh_CN 点击事件处理
@@ -33,7 +33,7 @@ interface REMIDropdownMenuItem {
 }
 
 interface DropdownMenuProps {
-  menus: REMIDropdownMenuItem[];
+  menus: YDSZDropdownMenuItem[];
 }
 
-export type { DropdownMenuProps, REMIDropdownMenuItem };
+export type { DropdownMenuProps, YDSZDropdownMenuItem };

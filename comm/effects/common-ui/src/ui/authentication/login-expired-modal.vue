@@ -12,8 +12,8 @@ import { computed, watch } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useREMIModal } from '@YDSZ-core/popup-ui';
-import { REMIAvatar, Slot } from '@YDSZ-core/shadcn-ui';
+import { useYDSZModal } from '@YDSZ-core/popup-ui';
+import { YDSZAvatar, Slot } from '@YDSZ-core/shadcn-ui';
 
 interface Props extends AuthenticationProps {
   avatar?: string;
@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const open = defineModel<boolean>('open');
 
-const [Modal, modalApi] = useREMIModal();
+const [Modal, modalApi] = useYDSZModal();
 
 watch(
   () => open.value,
@@ -87,7 +87,7 @@ function calcZIndex() {
       :z-index="getZIndex"
       class="border-none px-10 py-6 text-center shadow-xl sm:w-[600px] sm:rounded-2xl md:h-[unset]"
     >
-      <REMIAvatar :src="avatar" class="mx-auto mb-6 size-20" />
+      <YDSZAvatar :src="avatar" class="mx-auto mb-6 size-20" />
       <Slot
         :show-forget-password="false"
         :show-register="false"

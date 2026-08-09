@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useREMIVxeGrid } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuotaApi, getQuotaPageApi, type QuotaApi } from '#/api/quota';
 import QuotaForm from './quota-form.vue';
 defineOptions({ name: 'QuotaManagement' });
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<QuotaApi.QuotaVO> = {
       { field: 'userId', title: 'userId', itemRender: { name: 'Input', props: { placeholder: 'userId' } } },
   ] },
 };
-const [Grid, gridApi] = useREMIVxeGrid({ gridOptions });
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [QuotaFormModal, quotaFormApi] = useVbenModal({ connectedComponent: QuotaForm });
 function handleAdd() { quotaFormApi.open(); }
 function handleEdit(row: QuotaApi.QuotaVO) { quotaFormApi.setData({ record: row }); quotaFormApi.open(); }

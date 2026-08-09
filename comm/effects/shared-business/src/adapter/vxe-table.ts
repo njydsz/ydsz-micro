@@ -12,13 +12,13 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { h } from 'vue';
 
-import { setupREMIVxeTable, useREMIVxeGrid } from '@ydsz/plugins/vxe-table';
+import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
 
 import { ElButton, ElImage } from 'element-plus';
 
-import { useREMIForm } from './form';
+import { useYDSZForm } from './form';
 
-setupREMIVxeTable({
+setupYDSZVxeTable({
   configVxeTable: (vxeUI) => {
     vxeUI.setConfig({
       grid: {
@@ -72,9 +72,9 @@ setupREMIVxeTable({
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add
   },
-  useREMIForm,
+  useYDSZForm,
 });
 
-export { useREMIVxeGrid };
+export { useYDSZVxeGrid };
 
 export type * from '@ydsz/plugins/vxe-table';

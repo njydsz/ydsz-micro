@@ -12,7 +12,7 @@ import type {
   ThemeModeType,
 } from '@YDSZ-core/typings';
 
-interface REMILayoutProps {
+interface YDSZLayoutProps {
   /**
    * 内容区域定宽
    * @default 'wide'
@@ -179,4 +179,4 @@ interface REMILayoutProps {
    */
   zIndex?: number;
 }
-export type { REMILayoutProps };
+export type { YDSZLayoutProps };
