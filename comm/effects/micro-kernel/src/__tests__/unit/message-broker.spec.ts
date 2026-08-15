@@ -76,21 +76,36 @@ function dispatchBrokerMessage(msg: Record<string, unknown>) {
 describe('message-broker', () => {
   // 收集所有 startMessageListener 的清理函数，供 afterEach 统一释放
   const listenerCleanups: Array<() => void> = [];
+  // 抑制清理阶段产生的 expected unhandled rejection 告警
+  let unhandledRejectionHandler: ((reason: unknown) => void) | null = null;
 
   beforeEach(() => {
     vi.useFakeTimers();
     vi.clearAllMocks();
     clearPendingRequests();
     listenerCleanups.length = 0;
+    // 安装 unhandledRejection 哨兵：仅当 handler 尚未附加到该 promise 时忽略
+    unhandledRejectionHandler = () => {};
+    process.on('unhandledRejection', unhandledRejectionHandler);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     // 清理所有注册的 startMessageListener
     for (const cleanup of listenerCleanups) {
       cleanup();
     }
     listenerCleanups.length = 0;
+    // 恢复真实计时器
     vi.useRealTimers();
+    // 切换后等待微任务队列清空，确保 rejection handler 全部就绪
+    await new Promise((r) => setTimeout(r, 0));
+    // 清除残余 pending requests
+    clearPendingRequests();
+    // 移除 unhandledRejection 哨兵
+    if (unhandledRejectionHandler) {
+      process.removeListener('unhandledRejection', unhandledRejectionHandler);
+      unhandledRejectionHandler = null;
+    }
   });
 
   /**
@@ -529,10 +544,11 @@ describe('message-broker', () => {
       expect(handler).toHaveBeenCalledTimes(1);
     });
 
-    it('重复调用 clearPendingRequests 不报错', () => {
+    it('重复调用 clearPendingRequests 不报错', async () => {
       trackListener(startMessageListener());
-      sendRequest('idempotent-app', 'a', null, 10_000);
+      const p = sendRequest('idempotent-app', 'a', null, 10_000);
       clearPendingRequests();
+      await expect(p).rejects.toThrow('Message broker cleared');
       expect(() => clearPendingRequests()).not.toThrow();
     });
   });

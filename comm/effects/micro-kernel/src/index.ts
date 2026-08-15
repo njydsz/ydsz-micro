@@ -6,11 +6,15 @@
  * @since 3.0.0
  */
 
-// v4.0 P2-2: 灰度版本分流管理器
-export { getCanaryManager, resetCanaryManager } from "./canary-manager";
+// v4.0 P2-2: 灰度版本分流管理器 + v4.2.2 P3-5 扩展（组织白名单 + 标签路由 + 遥测回调）
+export {
+  getCanaryManager,
+  resetCanaryManager,
+} from "./canary-manager";
 export type {
   CanaryGlobalConfig,
   CanaryMode,
+  CanaryResolutionEvent,
   CanaryTag,
   CanaryVersion,
 } from "./canary-manager";
@@ -73,6 +77,14 @@ export {
   attachHoverPreloadFeedbackAll,
 } from "./hover-feedback";
 export type { PrefetchFeedbackState } from "./hover-feedback";
+// v4.2.2 P4-2: CSS Containment 样式隔离增强 + CSS 变量透传
+export {
+  copyRootCssVariables,
+  disableCssContainment,
+  enableCssContainment,
+  hasCssContainment,
+} from "./css-containment";
+export type { ContainmentConfig, ContainmentLevel } from "./css-containment";
 export { createIframeSandbox } from "./iframe-sandbox";
 export type { IframeSandboxInstance } from "./iframe-sandbox";
 export { createKernel } from "./kernel";
@@ -96,6 +108,28 @@ export {
   preloadAppAssets,
   preloadManifest,
 } from "./link-hints";
+// v4.2.2 P3-4: 子应用页面缓存状态记忆（滚动位置 + localStorage 持久化 + 编程式状态存取）
+export {
+  captureScrollPosition,
+  clearAllPageCache,
+  clearPageCacheForApp,
+  configurePageCache,
+  consumePersistedPageCache,
+  getCacheSummary,
+  getPageCachePolicy,
+  hasPersistedPageCache,
+  loadAppState,
+  persistPageCache,
+  removeAppState,
+  resetPageCachePolicy,
+  restoreScrollPosition,
+  saveAppState,
+} from "./page-cache-manager";
+export type {
+  PageCachePolicy,
+  PageCacheRecord,
+  ScrollPosition,
+} from "./page-cache-manager";
 // v3.3: 公开 Manifest 类型供主应用容器读取 routes 配置（骨架屏细化）
 export type {
   LoadOptions,
