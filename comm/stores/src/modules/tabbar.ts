@@ -1,13 +1,15 @@
 ﻿/**
  * tabbar Pinia 状态管理
  *
+ * 纯工具函数与回调注册中心已拆分至 `./tabbar-utils`（见云顶编码规范 §15.1）。
+ * 本文件仅保留 useTabbarStore 的状态、getters 与业务动作。
+ *
  * @path comm\stores\src\modules\tabbar.ts
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { ComputedRef } from 'vue';
 import type {
-  RouteLocationNormalized,
   Router,
   RouteRecordNormalized,
 } from 'vue-router';
@@ -22,8 +24,24 @@ import {
   startProgress,
   stopProgress,
 } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
+
+import {
+  cloneTab,
+  equalTab,
+  getTabKey,
+  getTabKeyFromTab,
+  isAffixTab,
+  isTabShown,
+  notifyTabClosed,
+  onTabClosed,
+  routeToTab,
+} from './tabbar-utils';
+
+/** 模块级日志器 */
+const logger = createLogger('Tabbar');
 
 interface TabbarState {
   /**
@@ -54,34 +72,6 @@ interface TabbarState {
    * @zh_CN 更新时间，用于一些更新场景，使用watch深度监听的话，会损耗性能
    */
   updateTime?: number;
-}
-
-/**
- * 标签关闭回调注册中心。
- * 主应用布局可注册回调，在标签关闭时通知微前端内核 unmountApp。
- * 回调接收已关闭标签的 path（如 '/YDSZ-proj/execution'）。
- */
-const tabClosedCallbacks = new Set<(path: string) => void>();
-
-/**
- * 注册标签关闭回调。
- *
- * @remarks
- * 主应用布局在标签关闭时注册回调，通知微前端内核 unmount 对应子应用；
- * 返回的取消函数可在组件卸载时调用以解除注册，避免回调泄漏。
- *
- * @param callback - 回调函数，接收已关闭标签的 path（如 '/YDSZ-proj/execution'）
- * @returns 取消注册函数（调用后移除该回调）
- */
-export function onTabClosed(callback: (path: string) => void) {
-  tabClosedCallbacks.add(callback);
-  return () => { tabClosedCallbacks.delete(callback); };
-}
-
-function notifyTabClosed(path: string) {
-  for (const cb of tabClosedCallbacks) {
-    try { cb(path); } catch (err) { console.error('[Tabbar] onTabClosed error:', err); }
-  }
 }
 
 /**
@@ -310,7 +300,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         this._close(tab);
         await this._goToTab(before, router);
       } else {
-        console.error('Failed to close the tab; only one tab remains open.');
+        logger.error('Failed to close the tab; only one tab remains open.');
       }
     },
 
@@ -597,101 +587,5 @@ if (hot) {
   hot.accept(acceptHMRUpdate(useTabbarStore, hot));
 }
 
-/**
- * @zh_CN 克隆路由,防止路由被修改
- * @param route
- */
-function cloneTab(route: TabDefinition): TabDefinition {
-  if (!route) {
-    return route;
-  }
-  const { matched, meta, ...opt } = route;
-  return {
-    ...opt,
-    matched: (matched
-      ? matched.map((item) => ({
-          meta: item.meta,
-          name: item.name,
-          path: item.path,
-        }))
-      : undefined) as RouteRecordNormalized[],
-    meta: {
-      ...meta,
-      newTabTitle: meta.newTabTitle,
-    },
-  };
-}
-
-/**
- * @zh_CN 是否是固定标签页
- * @param tab
- */
-function isAffixTab(tab: TabDefinition) {
-  return tab?.meta?.affixTab ?? false;
-}
-
-/**
- * @zh_CN 是否显示标签
- * @param tab
- */
-function isTabShown(tab: TabDefinition) {
-  const matched = tab?.matched ?? [];
-  return !tab.meta.hideInTab && matched.every((item) => !item.meta.hideInTab);
-}
-
-/**
- * 从route获取tab页的key
- * @param tab
- */
-function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
-  const {
-    fullPath,
-    path,
-    meta: { fullPathKey } = {},
-    query = {},
-  } = tab as RouteLocationNormalized;
-  // pageKey可能是数组（查询参数重复时可能出现）
-  const pageKey = Array.isArray(query.pageKey)
-    ? query.pageKey[0]
-    : query.pageKey;
-  let rawKey;
-  if (pageKey) {
-    rawKey = pageKey;
-  } else {
-    rawKey = fullPathKey === false ? path : (fullPath ?? path);
-  }
-  try {
-    return decodeURIComponent(rawKey);
-  } catch {
-    return rawKey;
-  }
-}
-
-/**
- * 从tab获取tab页的key
- * 如果tab没有key,那么就从route获取key
- * @param tab
- */
-function getTabKeyFromTab(tab: TabDefinition): string {
-  return tab.key ?? getTabKey(tab);
-}
-
-/**
- * 比较两个tab是否相等
- * @param a
- * @param b
- */
-function equalTab(a: TabDefinition, b: TabDefinition) {
-  return getTabKeyFromTab(a) === getTabKeyFromTab(b);
-}
-
-function routeToTab(route: RouteRecordNormalized) {
-  return {
-    meta: route.meta,
-    name: route.name,
-    path: route.path,
-    key: getTabKey(route),
-  } as TabDefinition;
-}
-
+export { onTabClosed };
 export { getTabKey };
