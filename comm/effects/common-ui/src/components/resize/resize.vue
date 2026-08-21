@@ -42,9 +42,11 @@ import type {
   DimensionsBeforeMove,
   Limits,
   Rect,
+  ResizeState,
 } from './composables/use-resize';
 
 import { addEvents, removeEvents } from './composables/use-resize-events';
+import { useResizeWatchers } from './composables/use-resize-watchers';
 import { useValidation } from './utils/validators';
 
 interface ResizeProps {
@@ -281,158 +283,12 @@ onBeforeUnmount(() => {
   removeEvents(domEvents.value);
 });
 
-// Watch: active state
-watch(
-  () => active.value,
-  (isActive) => {
-    if (isActive) {
-      emit('activated');
-    } else {
-      emit('deactivated');
-    }
-  },
-);
-
-// Watch: isActive prop
-watch(
-  () => isActive.value,
-  (val) => {
-    active.value = val;
-  },
-  { immediate: true },
-);
-
-// Watch: z prop
-watch(
-  () => z.value,
-  (val) => {
-    if ((val as number) >= 0 || val === 'auto') {
-      zIndex.value = val as number;
-    }
-  },
-  { immediate: true },
-);
-
-// Watch: x prop
-watch(
-  () => x.value,
-  (newVal, oldVal) => {
-    if (stickDrag.value || bodyDrag.value || newVal === left.value) {
-      return;
-    }
-
-    const delta = oldVal - newVal;
-
-    bodyDown(
-      { pageX: left.value!, pageY: top.value! } as MouseEvent & TouchEvent,
-      resizeState,
-      saveDimensionsBeforeMove,
-      calcDragLimitation,
-      emit,
-    );
-    bodyMove({ x: delta, y: 0 }, resizeState, rect, emit);
-
-    nextTick(() => {
-      bodyUp(resizeState, rect, emit);
-    });
-  },
-);
-
-// Watch: y prop
-watch(
-  () => y.value,
-  (newVal, oldVal) => {
-    if (stickDrag.value || bodyDrag.value || newVal === top.value) {
-      return;
-    }
-
-    const delta = oldVal - newVal;
-
-    bodyDown(
-      { pageX: left.value, pageY: top.value } as MouseEvent & TouchEvent,
-      resizeState,
-      saveDimensionsBeforeMove,
-      calcDragLimitation,
-      emit,
-    );
-    bodyMove({ x: 0, y: delta }, resizeState, rect, emit);
-
-    nextTick(() => {
-      bodyUp(resizeState, rect, emit);
-    });
-  },
-);
-
-// Watch: w prop
-watch(
-  () => w.value,
-  (newVal, oldVal) => {
-    if (stickDrag.value || bodyDrag.value || newVal === width.value) {
-      return;
-    }
-
-    const stick = 'mr';
-    const delta = (oldVal as number) - (newVal as number);
-
-    stickDown(
-      stick,
-      { pageX: right.value, pageY: top.value! + height.value / 2 },
-      resizeState,
-      saveDimensionsBeforeMove,
-      calcResizeLimits,
-      true,
-    );
-    stickMove({ x: delta, y: 0 }, resizeState, rect, emit);
-
-    nextTick(() => {
-      stickUp(resizeState, rect, emit);
-    });
-  },
-);
-
-// Watch: h prop
-watch(
-  () => h.value,
-  (newVal, oldVal) => {
-    if (stickDrag.value || bodyDrag.value || newVal === height.value) {
-      return;
-    }
-
-    const stick = 'bm';
-    const delta = (oldVal as number) - (newVal as number);
-
-    stickDown(
-      stick,
-      { pageX: left.value! + width.value / 2, pageY: bottom.value },
-      resizeState,
-      saveDimensionsBeforeMove,
-      calcResizeLimits,
-      true,
-    );
-    stickMove({ x: 0, y: delta }, resizeState, rect, emit);
-
-    nextTick(() => {
-      stickUp(resizeState, rect, emit);
-    });
-  },
-);
-
-// Watch: parentW prop
-watch(
-  () => parentW.value,
-  (val) => {
-    right.value = val - width.value - left.value!;
-    parentWidth.value = val;
-  },
-);
-
-// Watch: parentH prop
-watch(
-  () => parentH.value,
-  (val) => {
-    bottom.value = val - height.value - top.value!;
-    parentHeight.value = val;
-  },
+// 设置所有 watchers
+useResizeWatchers(
+  { x, y, w, h, z, parentW, parentH, isActive },
+  resizeState,
+  rect.value,
+  emit,
 );
 </script>
 

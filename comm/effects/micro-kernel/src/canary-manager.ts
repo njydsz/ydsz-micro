@@ -7,10 +7,12 @@
  * - 版本回滚与一键禁用
  * - 本地缓存 + Nacos 远端拉取灰度配置
  *
- * 用法：
- *   const cm = getCanaryManager();
- *   const version = cm.resolveVersion('workflow-web', userId);
- *   // → { version: 'v4.0.0', tag: 'canary', percentage: 10, entry: '...' }
+ * 为控制单文件行数，以下内容已拆分为独立模块：
+ * - canary-types.ts：类型定义（CanaryAppConfig / CanaryGlobalConfig / CanaryMode 等）
+ * - canary-hash.ts：哈希工具（hashToPercentage）
+ * - canary-manager-core.ts：核心分流逻辑（resolveVersion / emitResolutionEvent / defaultStableResolution / 单例管理）
+ *
+ * 本文件保留 CanaryManager 类定义与公开 API，并重新导出类型以保持向后兼容。
  *
  * @path comm/effects/micro-kernel/src/canary-manager.ts
  * @since 4.0.0
@@ -34,6 +36,18 @@ import type {
 import { DEFAULT_CONFIG } from "./canary-types";
 import { hashToPercentage } from "./canary-hash";
 
+import {
+  resolveVersionCore,
+  emitResolutionEvent,
+  defaultStableResolution,
+  refreshFromRemoteCore,
+  resetAutoRefreshCore,
+  __registerCanaryManager,
+  getCanaryManager,
+  resetCanaryManager,
+  createCanaryManagerLifecycle,
+} from "./canary-manager-core";
+
 // 重新导出类型，保持向后兼容
 export type {
   CanaryAppConfig,
@@ -47,12 +61,18 @@ export type {
   CanaryVersion,
 } from "./canary-types";
 
+// 重新导出单例管理函数，保持向后兼容
+export {
+  getCanaryManager,
+  resetCanaryManager,
+} from "./canary-manager-core";
+
 const logger = createLogger("Canary");
 
 /**
  * 灰度管理器单例
  */
-class CanaryManager {
+export class CanaryManager {
   private cacheTimestamp = 0;
   private config: CanaryGlobalConfig = DEFAULT_CONFIG;
   private fetchPromise: null | Promise<void> = null;
@@ -80,16 +100,8 @@ class CanaryManager {
   /**
    * P3-5: 注册分流决策回调。
    *
-   * 每次 resolveVersion 决策后触发回调，供分析平台订阅灰度效果。
-   * 返回取消注册函数（直接调用即可移除监听）。
-   *
    * @param callback - 决策事件回调
    * @returns 取消注册函数
-   *
-   * @example
-   * const unregister = getCanaryManager().onResolution((event) => {
-   *   analytics.track('canary_resolution', event);
-   * });
    */
   onResolution(callback: CanaryResolutionCallback): () => void {
     this.resolutionCallbacks.push(callback);
@@ -99,7 +111,7 @@ class CanaryManager {
   }
 
   /**
-   * P3-5: 移除分流决策回调（onResolution 返回的函数的等价方法）。
+   * P3-5: 移除分流决策回调。
    *
    * @param callback - 需移除的回调引用
    */
@@ -117,7 +129,6 @@ class CanaryManager {
     remoteUrl?: string;
   }): Promise<void> {
     const localKey = STORAGE_KEYS.CANARY_CONFIG;
-    // P0-4: 先从本地缓存恢复（使用统一存储层）
     const cached = getStorage<null | Partial<CanaryGlobalConfig>>(
       localKey,
       null,
@@ -127,7 +138,6 @@ class CanaryManager {
       logger.info("Canary config loaded from localStorage cache");
     }
 
-    // 注入 fallback
     if (options?.fallbackConfig) {
       this.config = {
         ...this.config,
@@ -136,9 +146,8 @@ class CanaryManager {
       };
     }
 
-    // 拉取远端
     if (options?.remoteUrl || this.config.remoteUrl) {
-      await this.refreshFromRemote();
+      await refreshFromRemoteCore(this as unknown as import("./canary-manager-core").CanaryManagerLike);
       this.startAutoRefresh();
     }
 
@@ -159,307 +168,36 @@ class CanaryManager {
    * 刷新远端配置
    */
   async refreshFromRemote(): Promise<void> {
-    const url = this.config.remoteUrl;
-    if (!url) return;
-
-    if (this.fetchPromise) return this.fetchPromise;
-    this.fetchPromise = (async () => {
-      try {
-        const res = await fetch(url, { cache: "no-cache" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        this.config = { ...DEFAULT_CONFIG, ...data };
-        this.cacheTimestamp = Date.now();
-        // P0-4: 使用统一存储层缓存
-        setStorage(STORAGE_KEYS.CANARY_CONFIG, this.config);
-        logger.info("Canary config refreshed from remote");
-      } catch (error) {
-        logger.warn(`Canary refresh failed, using cached: ${error}`);
-      } finally {
-        this.fetchPromise = null;
-      }
-    })();
-    return this.fetchPromise;
+    await refreshFromRemoteCore(this as unknown as import("./canary-manager-core").CanaryManagerLike);
   }
 
   /**
    * P0-1: 停止远端配置自动刷新定时器。
-   *
-   * 供 kernel._stop() 在 HMR / 测试场景调用，
-   * 防止旧内核的定时器在新内核创建后继续运行造成状态串扰。
    */
   resetAutoRefresh(): void {
-    if (this.refreshTimerId !== null) {
-      clearInterval(this.refreshTimerId);
-      this.refreshTimerId = null;
-    }
+    resetAutoRefreshCore(this as unknown as import("./canary-manager-core").CanaryManagerLike);
   }
 
   /**
    * 核心分流决策。
-   *
-   * **advanced 模式**（默认）决策流程：
-   * 1. 灰度关闭 → 直接返回 stable
-   * 2. 用户在白名单 → 强制命中 forceTag 版本
-   * 3. 组织在白名单 → 强制命中 forceTag 版本（P3-5）
-   * 4. 标签匹配 routeTags → 强制命中 forceTag 版本（P3-5）
-   * 5. 按 userId FNV-1a 哈希 < canary.percentage → 命中 canary
-   * 6. 否则 → stable
-   *
-   * **simple 模式**决策流程（P3-2）：
-   * 1. 灰度关闭 → 直接返回 stable
-   * 2. 存在 forceTag → 强制返回指定 tag 版本
-   * 3. 否则 → stable（不做按用户哈希命中）
-   *
-   * 每次决策后触发 P3-5 分辨率事件（供遥测/分析使用）。
    *
    * @param appName - 子应用名
    * @param user - 用户上下文
    * @returns 分流决策结果
    */
   resolveVersion(appName: string, user?: CanaryUserContext): CanaryResolution {
-    const appConfig = this.config.apps.find((a) => a.appName === appName);
-    // 无灰度配置 → 稳定版
-    if (!appConfig || !this.config.enabled) {
-      const resolution = this.defaultStableResolution(appName, appConfig);
-      this.emitResolutionEvent({
-        appName,
-        userId: user?.userId,
-        orgId: user?.orgId,
-        resolvedTag: "stable",
-        resolvedVersion: resolution.resolved.version,
-        whitelisted: false,
-        reason: "stable_fallback",
-        timestamp: Date.now(),
-      });
-      return resolution;
-    }
-
-    const allVersions = [
-      appConfig.stable,
-      ...appConfig.canaries.filter((c) => !c.disabled),
-    ];
-    const userIdWhitelisted =
-      !!user?.userId && this.config.whitelistUserIds.includes(user.userId);
-    const mode = this.getMode();
-
-    // ===== simple 模式：轻量 forceTag 分流（forceTag 对全体用户全局生效） =====
-    if (mode === "simple") {
-      if (this.config.forceTag) {
-        const forced = allVersions.find((v) => v.tag === this.config.forceTag);
-        if (forced) {
-          const resolution: CanaryResolution = {
-            appName,
-            resolved: forced,
-            tag: forced.tag,
-            whitelisted: userIdWhitelisted,
-          };
-          this.emitResolutionEvent({
-            appName,
-            userId: user?.userId,
-            orgId: user?.orgId,
-            resolvedTag: forced.tag,
-            resolvedVersion: forced.version,
-            whitelisted: userIdWhitelisted,
-            reason: "force_tag",
-            timestamp: Date.now(),
-          });
-          return resolution;
-        }
-      }
-      // simple 模式无 forceTag → 直接回退 stable
-      const resolution: CanaryResolution = {
-        appName,
-        resolved: appConfig.stable,
-        tag: "stable",
-        whitelisted: userIdWhitelisted,
-      };
-      this.emitResolutionEvent({
-        appName,
-        userId: user?.userId,
-        orgId: user?.orgId,
-        resolvedTag: "stable",
-        resolvedVersion: appConfig.stable.version,
-        whitelisted: userIdWhitelisted,
-        reason: "stable_fallback",
-        timestamp: Date.now(),
-      });
-      return resolution;
-    }
-
-    // ===== advanced 模式：白名单 + 标签路由 + 百分比哈希 =====
-
-    // P3-5: 用户级白名单命中
-    if (userIdWhitelisted && this.config.forceTag) {
-      const forced = allVersions.find((v) => v.tag === this.config.forceTag);
-      if (forced) {
-        const resolution: CanaryResolution = {
-          appName,
-          resolved: forced,
-          tag: forced.tag,
-          whitelisted: true,
-        };
-        this.emitResolutionEvent({
-          appName,
-          userId: user?.userId,
-          orgId: user?.orgId,
-          resolvedTag: forced.tag,
-          resolvedVersion: forced.version,
-          whitelisted: true,
-          reason: "whitelist_user",
-          timestamp: Date.now(),
-        });
-        return resolution;
-      }
-    }
-
-    // P3-5: 组织级白名单命中
-    const orgWhitelisted =
-      !!user?.orgId &&
-      (this.config.whitelistOrgIds?.length ?? 0) > 0 &&
-      this.config.whitelistOrgIds!.includes(user.orgId);
-    if (orgWhitelisted && this.config.forceTag) {
-      const forced = allVersions.find((v) => v.tag === this.config.forceTag);
-      if (forced) {
-        const resolution: CanaryResolution = {
-          appName,
-          resolved: forced,
-          tag: forced.tag,
-          whitelisted: true,
-        };
-        this.emitResolutionEvent({
-          appName,
-          userId: user?.userId,
-          orgId: user?.orgId,
-          resolvedTag: forced.tag,
-          resolvedVersion: forced.version,
-          whitelisted: true,
-          reason: "whitelist_org",
-          timestamp: Date.now(),
-        });
-        return resolution;
-      }
-    }
-
-    // P3-5: 标签路由匹配（用户 tags 与 routeTags 任意交集即命中）
-    const routeTags = this.config.routeTags ?? [];
-    const userTags = user?.tags ?? [];
-    const tagMatched =
-      routeTags.length > 0 &&
-      userTags.length > 0 &&
-      routeTags.some((rt) => userTags.includes(rt));
-    if (tagMatched && this.config.forceTag) {
-      const forced = allVersions.find((v) => v.tag === this.config.forceTag);
-      if (forced) {
-        const resolution: CanaryResolution = {
-          appName,
-          resolved: forced,
-          tag: forced.tag,
-          whitelisted: false,
-        };
-        this.emitResolutionEvent({
-          appName,
-          userId: user?.userId,
-          orgId: user?.orgId,
-          resolvedTag: forced.tag,
-          resolvedVersion: forced.version,
-          whitelisted: false,
-          reason: "tag_match",
-          timestamp: Date.now(),
-        });
-        return resolution;
-      }
-    }
-
-    // 未登录用户或非白名单 → stable
-    if (!user?.userId) {
-      const resolution: CanaryResolution = {
-        appName,
-        resolved: appConfig.stable,
-        tag: "stable",
-        whitelisted: false,
-      };
-      this.emitResolutionEvent({
-        appName,
-        resolvedTag: "stable",
-        resolvedVersion: appConfig.stable.version,
-        whitelisted: false,
-        reason: "stable_fallback",
-        timestamp: Date.now(),
-      });
-      return resolution;
-    }
-
-    // 按递减百分比依次尝试命中（保证 canary 叠加 stable 总和 = 100%）
-    let cumulative = 0;
-    for (const ver of allVersions) {
-      cumulative += ver.percentage;
-      const userBucket = hashToPercentage(`${appName}:${user.userId}`);
-      if (userBucket < cumulative) {
-        const resolution: CanaryResolution = {
-          appName,
-          resolved: ver,
-          tag: ver.tag,
-          whitelisted: false,
-        };
-        this.emitResolutionEvent({
-          appName,
-          userId: user?.userId,
-          orgId: user?.orgId,
-          resolvedTag: ver.tag,
-          resolvedVersion: ver.version,
-          whitelisted: false,
-          reason: "percentage_hash",
-          timestamp: Date.now(),
-        });
-        return resolution;
-      }
-    }
-
-    const resolution: CanaryResolution = {
-      appName,
-      resolved: appConfig.stable,
-      tag: "stable",
-      whitelisted: userIdWhitelisted || orgWhitelisted,
-    };
-    this.emitResolutionEvent({
-      appName,
-      userId: user?.userId,
-      orgId: user?.orgId,
-      resolvedTag: "stable",
-      resolvedVersion: appConfig.stable.version,
-      whitelisted: userIdWhitelisted || orgWhitelisted,
-      reason: "stable_fallback",
-      timestamp: Date.now(),
-    });
-    return resolution;
+    return resolveVersionCore(this as unknown as import("./canary-manager-core").CanaryManagerLike, appName, user);
   }
 
   /**
    * P3-5: 触发所有分流决策回调。
-   *
-   * 异步触发（setTimeout 0）避免回调耗时阻塞 resolveVersion 热路径。
-   * 回调内部抛出异常不影响分流结果（捕获并 log.warn）。
    */
   private emitResolutionEvent(event: CanaryResolutionEvent): void {
-    if (this.resolutionCallbacks.length === 0) return;
-    const callbacks = [...this.resolutionCallbacks];
-    // 异步触发：避免同步阻塞决策热路径
-    queueMicrotask(() => {
-      for (const cb of callbacks) {
-        try {
-          cb(event);
-        } catch (error) {
-          logger.warn("Canary resolution callback threw:", error);
-        }
-      }
-    });
+    emitResolutionEvent(this as unknown as import("./canary-manager-core").CanaryManagerLike, event);
   }
 
   /**
    * 运行时切换分流模式（P3-2）。
-   *
-   * 允许在 simple / advanced 之间切换，无需重新 init。
    *
    * @param mode - 目标模式
    */
@@ -470,79 +208,46 @@ class CanaryManager {
 
   /**
    * 启动自动刷新（按 cacheTtl 间隔）。
-   *
-   * P0-1: 先清理已有定时器避免重复启动导致多定时器并发。
    */
   startAutoRefresh(): void {
-    // 先清理已有定时器，防止重复调用产生多个并发定时器
     this.resetAutoRefresh();
     const ttl = this.config.cacheTtl ?? 60_000;
     this.refreshTimerId = setInterval(() => void this.refreshFromRemote(), ttl);
   }
 
+  /**
+   * 默认稳定版决策
+   */
   private defaultStableResolution(
     appName: string,
     cfg?: CanaryAppConfig,
   ): CanaryResolution {
-    if (cfg) {
-      return {
-        appName,
-        resolved: cfg.stable,
-        tag: "stable",
-        whitelisted: false,
-      };
-    }
-    return {
-      appName,
-      resolved: {
-        version: "stable",
-        tag: "stable",
-        entry: "",
-        percentage: 100,
-      },
-      tag: "stable",
-      whitelisted: false,
-    };
+    return defaultStableResolution(this as unknown as import("./canary-manager-core").CanaryManagerLike, appName, cfg);
   }
 }
 
-// ==================== 单例导出 ====================
+// ==================== 单例注册 ====================
 
 let instance: CanaryManager | null = null;
 
-/**
- * 获取灰度管理器单例。
- */
-export function getCanaryManager(): CanaryManager {
-  if (!instance) {
-    instance = new CanaryManager();
-  }
-  return instance;
-}
-
-/**
- * 重置单例（测试用）。
- * P0-1: 清定时器后再置 null，避免定时器回调访问已销毁实例。
- * P3-5: 清空分辨率回调列表，防止测试间串扰。
- */
-export function resetCanaryManager(): void {
-  instance?.resetAutoRefresh();
-  instance = null;
-}
+__registerCanaryManager(
+  () => {
+    if (!instance) {
+      instance = new CanaryManager();
+    }
+    return instance;
+  },
+  () => {
+    instance?.resetAutoRefresh();
+    instance = null;
+  },
+);
 
 /**
  * P0-A1: 创建 canary-manager 生命周期管理器。
  *
- * 停止 canary 定时刷新 + 清理分流缓存。
- *
  * @since 4.1.0
  */
 export function createCanaryManager(): import("./manager-registry").DisposableManager {
-  return {
-    name: "canary-manager",
-    dispose(): void {
-      instance?.resetAutoRefresh();
-      instance = null;
-    },
-  };
+  return createCanaryManagerLifecycle();
 }

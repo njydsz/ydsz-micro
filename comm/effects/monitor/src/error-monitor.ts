@@ -13,295 +13,34 @@
  * 为控制单文件行数，以下内容已拆分为独立模块：
  * - error-monitor-types.ts：类型定义（ErrorType / ErrorReport / MonitorConfig）
  * - error-monitor-offline.ts：离线缓存（cacheForOffline / loadOfflineCache 等）
+ * - error-monitor-queue.ts：队列管理（enqueueError / flushQueue / sendBatch / reportError 等）
  *
- * 本文件保留核心队列逻辑与公开 API，并重新导出类型以保持向后兼容。
+ * 本文件保留核心安装逻辑与公开 API，并重新导出类型以保持向后兼容。
  *
  * @path comm/effects/monitor/src/error-monitor.ts
  * @author ydsz-team
  * @since 3.0.0
  */
 
-import { getBreadcrumbs } from './breadcrumb';
-
 import type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-types';
 import {
-  cacheForOffline,
-  loadOfflineCache,
-  clearOfflineCache,
-  restoreOfflineCache as restoreOfflineCacheBase,
-} from './error-monitor-offline';
+  setSentryForwarding,
+  enableSentryForwarding,
+  ensureSessionId,
+  enqueueError,
+  flushQueue,
+  restoreOfflineCache,
+  reportError,
+  getCurrentRoute,
+  __setMonitorConfig,
+  __onBeforeUnload,
+} from './error-monitor-queue';
 
 // 向后兼容：重新导出类型
 export type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-types';
 export { cacheForOffline, loadOfflineCache, clearOfflineCache } from './error-monitor-offline';
-
-/** Sentry 转发开关：由 setupErrorMonitoring 设置 */
-let sentryForwardingEnabled = false;
-
-/**
- * 设置 Sentry 转发开关
- *
- * 由 setupErrorMonitoring 内部调用（当 config.sentryDsn 非空时启用）。
- * 也可以使用 enableSentryForwarding() / disableSentryForwarding() 手动控制。
- */
-export function setSentryForwarding(enabled: boolean): void {
-  sentryForwardingEnabled = enabled;
-}
-
-/**
- * 动态启用 Sentry 转发（无需重启应用）
- *
- * @example
- * enableSentryForwarding(); // 运行时启用
- */
-export function enableSentryForwarding(): void {
-  sentryForwardingEnabled = true;
-}
-
-/**
- * 动态禁用 Sentry 转发
- */
-export function disableSentryForwarding(): void {
-  sentryForwardingEnabled = false;
-}
-
-/** 上报端点 */
-const REPORT_ENDPOINT = '/api/v1/monitor/error';
-
-/** 错误缓冲队列（批量上报） */
-const errorQueue: ErrorReport[] = [];
-
-/** 上报定时器 */
-let flushTimer: null | ReturnType<typeof setTimeout> = null;
-
-/** 最大缓冲数量 */
-const MAX_QUEUE_SIZE = 10;
-
-/** 上报间隔（ms） */
-const FLUSH_INTERVAL = 10_000;
-
-/** 单类型最大排队数（防止单一错误类型打满队列） */
-const MAX_PER_TYPE = 5;
-
-/** 当前监控配置 */
-let monitorConfig: MonitorConfig = {};
-
-/** 当前会话 ID（页面生命周期内唯一） */
-let sessionId = '';
-
-/** 生成唯一 traceId */
-function generateTraceId(): string {
-  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-}
-
-/** 初始化会话 ID */
-function ensureSessionId(): string {
-  if (!sessionId) {
-    sessionId = generateTraceId();
-  }
-  return sessionId;
-}
-
-/**
- * 为错误报告注入会话追踪字段
- *
- * v3.4: 同时附带当前面包屑快照，便于后端复现错误路径
- */
-function enrichReport(report: ErrorReport): ErrorReport {
-  return {
-    ...report,
-    sessionId: ensureSessionId(),
-    traceId: generateTraceId(),
-    release: monitorConfig.release,
-    userId: report.userId || monitorConfig.getUserId?.(),
-    breadcrumbs: getBreadcrumbs(),
-  };
-}
-
-/**
- * 添加错误到队列并触发批量上报
- *
- * v3.1: 应用采样率 + beforeSend 钩子 + 单类型限流
- */
-function enqueueError(rawReport: ErrorReport) {
-  // 采样：在 enrich 之前按 sampleRate 采样，避免无效处理
-  const sampleRate = monitorConfig.sampleRate ?? 1;
-  if (sampleRate < 1 && Math.random() > sampleRate) {
-    return;
-  }
-
-  let report = enrichReport(rawReport);
-
-  // beforeSend 钩子：可丢弃或脱敏
-  if (monitorConfig.beforeSend) {
-    const result = monitorConfig.beforeSend(report);
-    if (!result) return;
-    report = result;
-  }
-
-  // 避免重复上报同一错误（10秒内）
-  const isDuplicate = errorQueue.some(
-    (item) =>
-      item.type === report.type &&
-      item.message === report.message &&
-      Date.now() - item.timestamp < 10_000,
-  );
-  if (isDuplicate) return;
-
-  // 单类型限流：同类型错误超过阈值时丢弃（防止单一错误源打满队列）
-  const sameTypeCount = errorQueue.filter((e) => e.type === report.type).length;
-  if (sameTypeCount >= MAX_PER_TYPE) {
-    return;
-  }
-
-  errorQueue.push(report);
-
-  // 同时转发到 Sentry（如果已启用）
-  if (sentryForwardingEnabled) {
-    void forwardToSentry(report);
-  }
-
-  // 达到最大数量立即上报
-  if (errorQueue.length >= MAX_QUEUE_SIZE) {
-    flush();
-    return;
-  }
-
-  // 延迟批量上报
-  if (flushTimer) clearTimeout(flushTimer);
-  flushTimer = setTimeout(flush, FLUSH_INTERVAL);
-}
-
-/**
- * 将错误报告转发到 Sentry
- *
- * 异步动态导入 @sentry/monitor/src/sentry.ts 中的 captureError，
- * 避免循环依赖（sentry.ts 不 import error-monitor.ts）。
- *
- * 失败时静默，不影响主监控流程。
- */
-async function forwardToSentry(report: ErrorReport): Promise<void> {
-  try {
-    const { captureError } = await import('./sentry');
-    captureError(report);
-  } catch {
-    // Sentry 未初始化或不可用 —— 静默降级
-  }
-}
-
-/**
- * 批量上报错误到后端
- *
- * v3.2: 支持重试 + 离线缓存
- */
-function flush() {
-  if (errorQueue.length === 0) return;
-
-  const batch = errorQueue.splice(0, errorQueue.length);
-  flushTimer = null;
-
-  sendBatch(batch, 0);
-}
-
-/**
- * 发送错误批次，支持重试
- */
-function sendBatch(batch: ErrorReport[], retryCount: number): void {
-  const maxRetries = monitorConfig.maxRetries ?? 3;
-  const retryBaseDelay = monitorConfig.retryBaseDelay ?? 1000;
-  const shouldRetry = monitorConfig.retry !== false;
-
-  try {
-    // 使用 sendBeacon 确保页面卸载时也能上报
-    if (navigator.sendBeacon) {
-      const blob = new Blob([JSON.stringify({ errors: batch })], {
-        type: 'application/json',
-      });
-      const sent = navigator.sendBeacon(REPORT_ENDPOINT, blob);
-      if (!sent && shouldRetry && retryCount < maxRetries) {
-        scheduleRetry(batch, retryCount, retryBaseDelay);
-      }
-    } else {
-      // 降级 fetch
-      fetch(REPORT_ENDPOINT, {
-        body: JSON.stringify({ errors: batch }),
-        headers: { 'Content-Type': 'application/json' },
-        keepalive: true,
-        method: 'POST',
-      })
-        .then((res) => {
-          if (!res.ok && shouldRetry && retryCount < maxRetries) {
-            scheduleRetry(batch, retryCount, retryBaseDelay);
-          }
-        })
-        .catch(() => {
-          if (shouldRetry && retryCount < maxRetries) {
-            scheduleRetry(batch, retryCount, retryBaseDelay);
-          } else {
-            // 重试耗尽，缓存到本地存储
-            cacheForOffline(batch);
-          }
-        });
-    }
-  } catch {
-    // 上报失败，尝试缓存
-    cacheForOffline(batch);
-  }
-}
-
-/**
- * 调度重试（指数退避 + 抖动）
- */
-function scheduleRetry(batch: ErrorReport[], retryCount: number, baseDelay: number): void {
-  // 指数退避：baseDelay * 2^retryCount
-  const delay = baseDelay * Math.pow(2, retryCount);
-  // 添加抖动：±25%
-  const jitter = delay * 0.25 * (Math.random() * 2 - 1);
-  const finalDelay = Math.max(0, delay + jitter);
-
-  setTimeout(() => {
-    sendBatch(batch, retryCount + 1);
-  }, finalDelay);
-}
-
-/**
- * 恢复离线缓存的错误（网络恢复时调用）
- */
-function restoreOfflineCache(): void {
-  restoreOfflineCacheBase(sendBatch);
-}
-
-/**
- * 手动上报错误
- */
-export function reportError(
-  type: ErrorType,
-  message: string,
-  extra?: Record<string, any>,
-) {
-  enqueueError({
-    colno: undefined,
-    filename: undefined,
-    lineno: undefined,
-    message,
-    stack: undefined,
-    timestamp: Date.now(),
-    type,
-    url: window.location.href,
-    userAgent: navigator.userAgent,
-    extra,
-  });
-}
-
-/**
- * 获取当前路由路径
- */
-function getCurrentRoute(): string {
-  return window.location.pathname + window.location.hash;
-}
+export { setSentryForwarding, enableSentryForwarding, disableSentryForwarding } from './error-monitor-queue';
+export { reportError } from './error-monitor-queue';
 
 /**
  * 安装错误监控
@@ -309,15 +48,19 @@ function getCurrentRoute(): string {
  * 在 app.mount() 之前调用 setupErrorMonitoring(app, config)
  * v3.1: config 支持采样率、beforeSend、release 版本标识
  */
-export function setupErrorMonitoring(app: any, config: MonitorConfig = {}) {
-  monitorConfig = config;
+export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): void {
+  __setMonitorConfig(config);
   ensureSessionId();
 
   // 1. Vue 组件错误
-  app.config.errorHandler = (err: any, _instance: any, info: string) => {
+  (app as { config: { errorHandler?: unknown } }).config.errorHandler = (
+    err: unknown,
+    _instance: unknown,
+    info: string,
+  ) => {
     const report: ErrorReport = {
-      message: err?.message || String(err),
-      stack: err?.stack,
+      message: err instanceof Error ? err.message : String(err),
+      stack: err instanceof Error ? err.stack : undefined,
       timestamp: Date.now(),
       type: 'vue',
       url: getCurrentRoute(),
@@ -326,7 +69,6 @@ export function setupErrorMonitoring(app: any, config: MonitorConfig = {}) {
     };
     enqueueError(report);
 
-    // 开发环境打印
     if (!import.meta.env.PROD) {
       console.error('[Vue Error]', err, info);
     }
@@ -335,11 +77,11 @@ export function setupErrorMonitoring(app: any, config: MonitorConfig = {}) {
   // 2. window 全局错误
   window.addEventListener('error', (event) => {
     // 资源加载错误
-    if (event.target && (event.target as any).src) {
-      const target = event.target as any;
+    if (event.target && (event.target as HTMLElement).src) {
+      const target = event.target as HTMLElement;
       const report: ErrorReport = {
-        message: `Resource load failed: ${target.src || target.href}`,
-        filename: target.src || target.href,
+        message: `Resource load failed: ${(target as HTMLImageElement).src || (target as HTMLAnchorElement).href}`,
+        filename: (target as HTMLImageElement).src || (target as HTMLAnchorElement).href,
         timestamp: Date.now(),
         type: 'resource',
         url: getCurrentRoute(),
@@ -363,30 +105,29 @@ export function setupErrorMonitoring(app: any, config: MonitorConfig = {}) {
       userAgent: navigator.userAgent,
     };
     enqueueError(report);
-  }, true); // 使用捕获阶段以获取资源错误
+  }, true);
 
   // 3. Promise 未捕获异常
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason;
     const report: ErrorReport = {
-      message: reason?.message || String(reason),
-      stack: reason?.stack,
+      message: reason instanceof Error ? reason.message : String(reason),
+      stack: reason instanceof Error ? reason.stack : undefined,
       timestamp: Date.now(),
       type: 'promise',
       url: getCurrentRoute(),
       userAgent: navigator.userAgent,
-      extra: reason?.config
-        ? { url: reason.config.url, method: reason.config.method }
+      extra: reason && typeof reason === 'object' && 'config' in reason
+        ? { url: (reason as { config: { url: string } }).config.url, method: (reason as { config: { method: string } }).config.method }
         : undefined,
     };
     enqueueError(report);
   });
 
   // 4. 页面卸载时强制上报
-  window.addEventListener('beforeunload', flush);
+  window.addEventListener('beforeunload', __onBeforeUnload);
 
   // 5. 网络恢复时自动重放离线缓存的上报
-  //    v3.4: 此前 restoreOfflineCache 已定义但从未调用，导致离线缓存写而不读
   window.addEventListener('online', restoreOfflineCache);
 
   // 启动时若已在线，尝试重放上次会话遗留的离线缓存
@@ -394,7 +135,7 @@ export function setupErrorMonitoring(app: any, config: MonitorConfig = {}) {
     restoreOfflineCache();
   }
 
-  // v4.0 P0-3: 可选启用 Sentry 转发（需同时配置 sentryDsn）
+  // v4.0 P0-3: 可选启用 Sentry 转发
   if (config.sentryDsn) {
     void (async () => {
       try {

@@ -14,8 +14,9 @@
  * - preload-usage-stats.ts：应用使用统计存储（UsageStatsRecord）
  * - preload-types.ts：类型定义（AppUsageStats / PermissionChecker / PreloadStrategyOptions 等）
  * - network-utils.ts：网络工具函数（shouldPrefetchByStrategy）
+ * - preload-manager-helpers.ts：PreloadManager 辅助函数（setupHoverListener / setupVisibilityListener / recordPreloadConsumedHelper / debugInfoHelper / 单例管理）
  *
- * 本文件保留 PreloadManager 核心类与管理器生命周期管理，并重新导出工厂函数以保持向后兼容。
+ * 本文件保留 PreloadManager 核心类定义，并重新导出工厂函数与单例管理以保持向后兼容。
  *
  * @path comm/effects/micro-kernel/src/preload-strategy.ts
  * @author ydsz-team
@@ -31,6 +32,26 @@ import type {
   PreloadStrategyOptions,
 } from "./preload-types";
 import { shouldPrefetchByStrategy } from "./network-utils";
+
+import {
+  setupHoverListener,
+  setupVisibilityListener,
+  recordPreloadConsumedHelper,
+  debugInfoHelper,
+  destroyHelper,
+  clearCacheHelper,
+  hasPreloadedHelper,
+  hasPermissionHelper,
+  registerStrategyHelper,
+  recordPreloadTriggerHelper,
+  executePreloadHelper,
+  __registerPreloadManager,
+  getPreloadManager,
+  resetPreloadManager,
+  createPreloadManagerLifecycle,
+} from "./preload-manager-helpers";
+
+type PM = import("./preload-manager-helpers").PreloadManagerLike;
 
 // 重新导出策略工厂函数，保持向后兼容
 export {
@@ -55,6 +76,12 @@ export type {
 } from "./preload-types";
 export { shouldPrefetchByStrategy } from "./network-utils";
 
+// 重新导出单例管理函数，保持向后兼容
+export {
+  getPreloadManager,
+  resetPreloadManager,
+} from "./preload-manager-helpers";
+
 /** 模块级日志器 */
 const logger = createLogger("PreloadManager");
 
@@ -76,7 +103,7 @@ export class PreloadManager {
       appName: string;
       timestamp: number;
       consumed: boolean;
-    }>;
+    }>,
   };
   private usageStore: UsageStatsStore;
 
@@ -138,75 +165,29 @@ export class PreloadManager {
    * @returns 是否有权限
    */
   hasPermission(appName: string): boolean {
-    const strategy = this.strategies.get(appName);
-    if (!strategy?.permissionCodes || strategy.permissionCodes.length === 0) {
-      return true; // 无权限要求则默认允许
-    }
-    if (!this.permissionChecker) {
-      return true; // 未设置权限检查器则默认允许
-    }
-    return this.permissionChecker(strategy.permissionCodes);
+    return hasPermissionHelper(this as unknown as PM, appName);
   }
 
   /**
    * 注册预加载策略
    */
   registerStrategy(appName: string, options: PreloadStrategyOptions): void {
-    this.strategies.set(appName, options);
-
-    // 根据策略类型设置监听器
-    if (options.strategy === "hover") {
-      this.setupHoverListener(appName, options);
-    } else if (options.strategy === "visibility") {
-      this.setupVisibilityListener();
-    }
+    registerStrategyHelper(this as unknown as PM, appName, options);
   }
 
   /**
    * 触发预加载
    */
   async triggerPreload(appName: string): Promise<void> {
-    // 避免重复预加载
-    if (this.preloadCache.has(appName)) {
-      return;
-    }
-
-    // 权限检查：无权限则跳过
+    if (this.preloadCache.has(appName)) return;
     if (!this.hasPermission(appName)) {
       logger.debug(`Skipped preload ${appName} due to permission check`);
       return;
     }
-
     const strategy = this.strategies.get(appName);
-    if (!strategy?.onPreload) {
-      return;
-    }
-
-    // P1-2: 记录预加载触发
-    this.stats.preloadCount++;
-    this.stats.preloadRecords.push({
-      appName,
-      timestamp: Date.now(),
-      consumed: false,
-    });
-    // 限制 records 长度防止内存膨胀
-    if (this.stats.preloadRecords.length > 200) {
-      this.stats.preloadRecords.splice(0, 50);
-    }
-
-    try {
-      this.preloadCache.add(appName);
-      await strategy.onPreload(appName);
-      logger.debug(`Preloaded ${appName} via ${strategy.strategy} strategy`);
-    } catch (error) {
-      logger.warn(`Failed to preload ${appName}:`, error);
-      this.preloadCache.delete(appName);
-      // 回滚对应的 record
-      const rec = this.stats.preloadRecords.find(
-        (r) => r.appName === appName && !r.consumed,
-      );
-      if (rec) rec.consumed = false;
-    }
+    if (!strategy?.onPreload) return;
+    recordPreloadTriggerHelper(this as unknown as PM, appName);
+    await executePreloadHelper(this as unknown as PM, appName, strategy);
   }
 
   /**
@@ -218,13 +199,7 @@ export class PreloadManager {
    * @since 4.0.1
    */
   recordPreloadConsumed(appName: string): void {
-    if (this.preloadCache.has(appName)) {
-      this.stats.consumedCount++;
-      const rec = this.stats.preloadRecords.find(
-        (r) => r.appName === appName && !r.consumed,
-      );
-      if (rec) rec.consumed = true;
-    }
+    recordPreloadConsumedHelper(this as unknown as PM, appName);
   }
 
   /**
@@ -241,112 +216,14 @@ export class PreloadManager {
     strategiesCount: number;
     usageStatsCount: number;
   } {
-    // 计算未消费的预加载缓存数（视为潜在浪费）
-    let wasted = 0;
-    for (const rec of this.stats.preloadRecords) {
-      if (!rec.consumed && Date.now() - rec.timestamp > 60_000) wasted++;
-    }
-    this.stats.wastedCount = wasted;
-    const hitRate =
-      this.stats.preloadCount > 0
-        ? Math.round(
-            (this.stats.consumedCount / this.stats.preloadCount) * 100,
-          )
-        : 0;
-    return {
-      preloadCount: this.stats.preloadCount,
-      consumedCount: this.stats.consumedCount,
-      wastedCount: wasted,
-      hitRate,
-      preloadCache: Array.from(this.preloadCache),
-      strategiesCount: this.strategies.size,
-      usageStatsCount: this.usageStore.stats.size,
-    };
-  }
-
-  /**
-   * 设置 hover 预加载监听器
-   */
-  private setupHoverListener(
-    appName: string,
-    _options: PreloadStrategyOptions,
-  ): void {
-    const listener = () => {
-      void this.triggerPreload(appName);
-    };
-
-    // 查找所有可能触发该应用的元素
-    const setupElementListeners = () => {
-      const elements = document.querySelectorAll(
-        `[data-preload-app="${appName}"]`,
-      );
-      elements.forEach((el) => {
-        el.addEventListener("mouseenter", listener, { once: true });
-      });
-    };
-
-    // 初始设置
-    setupElementListeners();
-
-    // === v4.0.1: MutationObserver 回调节流，防止高频 DOM 变化导致过度触发 ===
-    let _throttleTimer: ReturnType<typeof setTimeout> | null = null;
-    const THROTTLE_MS = 100;
-    const throttledSetup = () => {
-      if (_throttleTimer !== null) return;
-      _throttleTimer = setTimeout(() => {
-        _throttleTimer = null;
-        setupElementListeners();
-      }, THROTTLE_MS);
-    };
-
-    // 使用 MutationObserver 监听 DOM 变化（带节流）
-    const observer = new MutationObserver(throttledSetup);
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    this.hoverListeners.set(appName, () => {
-      if (_throttleTimer !== null) {
-        clearTimeout(_throttleTimer);
-        _throttleTimer = null;
-      }
-      observer.disconnect();
-    });
-  }
-
-  /**
-   * 设置可见性预加载监听器
-   */
-  private setupVisibilityListener(): void {
-    if (this.visibilityListener) {
-      return;
-    }
-
-    this.visibilityListener = () => {
-      if (document.visibilityState === "visible") {
-        // 页面可见时，预加载所有 visibility 策略的应用
-        for (const [appName, strategy] of this.strategies) {
-          if (strategy.strategy === "visibility") {
-            void this.triggerPreload(appName);
-          }
-        }
-      }
-    };
-
-    document.addEventListener("visibilitychange", this.visibilityListener);
+    return debugInfoHelper(this as unknown as PM);
   }
 
   /**
    * 清除预加载缓存
    */
   clearCache(appName?: string): void {
-    if (appName) {
-      this.preloadCache.delete(appName);
-    } else {
-      this.preloadCache.clear();
-    }
+    clearCacheHelper(this as unknown as PM, appName);
   }
 
   /**
@@ -355,30 +232,16 @@ export class PreloadManager {
    * v3.4: 供 frequency 策略避免重复预加载
    */
   hasPreloaded(appName: string): boolean {
-    return this.preloadCache.has(appName);
+    return hasPreloadedHelper(this as unknown as PM, appName);
   }
 
   /**
    * 销毁管理器
    */
   destroy(): void {
-    // 清理 hover 监听器
-    for (const cleanup of this.hoverListeners.values()) {
-      cleanup();
-    }
-    this.hoverListeners.clear();
-
-    // 清理可见性监听器
-    if (this.visibilityListener) {
-      document.removeEventListener("visibilitychange", this.visibilityListener);
-      this.visibilityListener = null;
-    }
-
-    this.strategies.clear();
-    this.preloadCache.clear();
+    destroyHelper(this as unknown as PM);
     this.usageStore.clear();
     this.permissionChecker = null;
-    // P1-2: 清除统计
     this.stats.preloadCount = 0;
     this.stats.consumedCount = 0;
     this.stats.wastedCount = 0;
@@ -386,26 +249,23 @@ export class PreloadManager {
   }
 }
 
-/** 全局预加载管理器实例 */
+// ==================== 单例注册 ====================
+
 let preloadManagerInstance: PreloadManager | null = null;
 
-/**
- * 获取或创建预加载管理器实例
- */
-export function getPreloadManager(): PreloadManager {
-  if (!preloadManagerInstance) {
-    preloadManagerInstance = new PreloadManager();
-  }
-  return preloadManagerInstance;
-}
-
-/**
- * 重置预加载管理器（用于测试）
- */
-export function resetPreloadManager(): void {
-  preloadManagerInstance?.destroy();
-  preloadManagerInstance = null;
-}
+// 注册单例工厂到 helpers 模块
+__registerPreloadManager(
+  () => {
+    if (!preloadManagerInstance) {
+      preloadManagerInstance = new PreloadManager();
+    }
+    return preloadManagerInstance;
+  },
+  () => {
+    preloadManagerInstance?.destroy();
+    preloadManagerInstance = null;
+  },
+);
 
 /**
  * P0-A1: 创建 preload-strategy 生命周期管理器。
@@ -416,11 +276,5 @@ export function resetPreloadManager(): void {
  * @since 4.1.0
  */
 export function createPreloadManager(): import("./manager-registry").DisposableManager {
-  return {
-    name: "preload-strategy",
-    dispose(): void {
-      preloadManagerInstance?.destroy();
-      preloadManagerInstance = null;
-    },
-  };
+  return createPreloadManagerLifecycle();
 }
