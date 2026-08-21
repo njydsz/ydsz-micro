@@ -10,7 +10,7 @@
 <template>
   <div class="page-skeleton detail-skeleton">
     <div class="skeleton-detail">
-      <div class="skeleton-detail-item" v-for="i in 6" :key="i">
+      <div class="skeleton-detail-item" v-for="i in 6" :key="`detail-item-${i}`">
         <div class="skeleton-label"></div>
         <div class="skeleton-value"></div>
       </div>

@@ -47,7 +47,7 @@ function handleClick() {
         </template>
         <slot name="tip">
           <template v-if="tip">
-            <p v-for="(line, index) in tip.split('\n')" :key="index">
+            <p v-for="(line, index) in tip.split('\n')" :key="`tip-line-${index}`">
               {{ line }}
             </p>
           </template>

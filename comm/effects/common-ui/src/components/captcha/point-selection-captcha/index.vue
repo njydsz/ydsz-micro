@@ -153,7 +153,7 @@ function handleConfirm() {
 
     <div
       v-for="(point, index) in points"
-      :key="index"
+      :key="`point-${index}`"
       :aria-label="$t('ui.captcha.pointAriaLabel') + (index + 1)"
       :style="{
         top: `${point.y - POINT_OFFSET}px`,

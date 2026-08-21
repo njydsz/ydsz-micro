@@ -119,7 +119,7 @@ async function onBtnClick(value: ValueType) {
   >
     <Button
       v-for="(btn, index) in props.options"
-      :key="index"
+      :key="btn.value ?? `btn-${index}`"
       :class="cn('border', props.btnClass)"
       :disabled="
         props.disabled ||

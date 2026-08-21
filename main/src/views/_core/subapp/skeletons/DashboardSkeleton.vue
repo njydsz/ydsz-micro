@@ -11,7 +11,7 @@
   <div class="page-skeleton dashboard-skeleton">
     <!-- 统计卡片骨架 -->
     <div class="skeleton-stats">
-      <div class="skeleton-stat-card" v-for="i in 4" :key="i">
+      <div class="skeleton-stat-card" v-for="i in 4" :key="`stat-card-${i}`">
         <div class="skeleton-stat-title"></div>
         <div class="skeleton-stat-value"></div>
         <div class="skeleton-stat-trend"></div>
@@ -20,7 +20,7 @@
 
     <!-- 图表骨架 -->
     <div class="skeleton-charts">
-      <div class="skeleton-chart-card" v-for="i in 2" :key="i">
+      <div class="skeleton-chart-card" v-for="i in 2" :key="`chart-card-${i}`">
         <div class="skeleton-chart-title"></div>
         <div class="skeleton-chart-content"></div>
       </div>

@@ -1052,7 +1052,7 @@ watch(
     </div>
     <div
       v-for="(stick, index) of sticks"
-      :key="index"
+      :key="`stick-${stick}`"
       :class="[`resize-stick-${stick}`, isResizable ? '' : 'not-resizable']"
       :style="stickStyles(stick)"
       class="resize-stick"

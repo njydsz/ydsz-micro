@@ -734,9 +734,10 @@ export interface YDSZFormProps<
   handleSubmit?: HandleSubmitFn;
   /**
    * 表单值变化回调
+   * 使用 Record<string, unknown> 支持任意表单结构。
    */
   handleValuesChange?: (
-    values: Record<string, any>,
+    values: Record<string, unknown>,
     fieldsChanged: string[],
   ) => void;
   /**

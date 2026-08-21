@@ -11,7 +11,7 @@
   <div class="page-skeleton list-skeleton">
     <!-- 搜索栏骨架 -->
     <div class="skeleton-search-bar">
-      <div class="skeleton-search-item" v-for="i in 3" :key="i">
+      <div class="skeleton-search-item" v-for="i in 3" :key="`search-item-${i}`">
         <div class="skeleton-label"></div>
         <div class="skeleton-input"></div>
       </div>
@@ -21,11 +21,11 @@
     <!-- 表格骨架 -->
     <div class="skeleton-table">
       <div class="skeleton-table-header">
-        <div class="skeleton-table-cell" v-for="i in 5" :key="i"></div>
+        <div class="skeleton-table-cell" v-for="i in 5" :key="`header-cell-${i}`"></div>
       </div>
       <div class="skeleton-table-body">
-        <div class="skeleton-table-row" v-for="i in 8" :key="i">
-          <div class="skeleton-table-cell" v-for="j in 5" :key="j"></div>
+        <div class="skeleton-table-row" v-for="i in 8" :key="`table-row-${i}`">
+          <div class="skeleton-table-cell" v-for="j in 5" :key="`cell-${i}-${j}`"></div>
         </div>
       </div>
     </div>

@@ -264,7 +264,7 @@ defineExpose({ toggleOpenState, open, close });
       <div class="grid max-h-[360px] w-full grid-cols-6 justify-items-center">
         <YDSZIconButton
           v-for="(item, index) in paginationList"
-          :key="index"
+          :key="`icon-${item}-${index}`"
           :tooltip="item"
           tooltip-side="top"
           @click="handleClick(item)"
@@ -298,7 +298,7 @@ defineExpose({ toggleOpenState, open, close });
             <template v-for="(item, index) in items">
               <PaginationListItem
                 v-if="item.type === 'page'"
-                :key="index"
+                :key="`page-${item.value}`"
                 :value="item.value"
                 as-child
               >

@@ -10,7 +10,7 @@
 <template>
   <div class="page-skeleton form-skeleton">
     <div class="skeleton-form">
-      <div class="skeleton-form-item" v-for="i in 4" :key="i">
+      <div class="skeleton-form-item" v-for="i in 4" :key="`form-item-${i}`">
         <div class="skeleton-label"></div>
         <div class="skeleton-input"></div>
       </div>
