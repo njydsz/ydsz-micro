@@ -20,17 +20,31 @@ import { createLogger } from '@YDSZ-core/shared/utils';
 /** 模块级日志器 */
 const logger = createLogger('GlobalSearch');
 
-/** 搜索项 */
+/**
+ * 搜索项定义
+ *
+ * 描述全局搜索面板中单个搜索结果的数据结构。
+ *
+ * @since 4.0.0
+ */
 export interface SearchItem {
+  /** 唯一标识 */
   id: string;
+  /** 搜索项标题 */
   title: string;
+  /** 搜索项描述（可选） */
   description?: string;
+  /** 图标类名或 URL（可选） */
   icon?: string;
+  /** 点击后跳转的路由路径（可选） */
   path?: string;
+  /** 所属子应用名 */
   appName: string;
+  /** 子应用显示名（可选，用于分组展示） */
   appLabel?: string;
+  /** 自定义点击回调（优先级高于 path 跳转） */
   onClick?: () => void;
-  /** 内部字段：高亮标题 */
+  /** 内部字段：高亮后的标题（由搜索面板填充） */
   highlightedTitle?: string;
 }
 
@@ -54,17 +68,35 @@ export const SEARCH_PROVIDER_REMOVED_EVENT = 'YDSZ:search-provider-removed';
 /** 提供者计数变更事件名 */
 export const SEARCH_PROVIDER_COUNT_EVENT = 'YDSZ:search-provider-count';
 
-/** 提供者就绪事件详情 */
+/**
+ * 搜索提供者就绪事件详情
+ *
+ * 当新的搜索提供者注册成功后广播的事件载荷。
+ *
+ * @since 4.0.0
+ */
 export interface SearchProviderReadyDetail {
+  /** 子应用名 */
   appName: string;
+  /** 子应用显示名（可选） */
   appLabel?: string;
+  /** 该提供者贡献的搜索项数量 */
   itemCount: number;
+  /** 当前总提供者数量 */
   totalProviders: number;
 }
 
-/** 提供者计数事件详情 */
+/**
+ * 搜索提供者计数事件详情
+ *
+ * 当提供者数量变更时广播的事件载荷。
+ *
+ * @since 4.0.0
+ */
 export interface SearchProviderCountDetail {
+  /** 当前总提供者数量 */
   totalProviders: number;
+  /** 所有已注册的子应用名列表 */
   appNames: string[];
 }
 
@@ -164,11 +196,23 @@ function collectItems(): void {
 }
 
 /**
- * 全局搜索 composable —— 面板组件内使用。
+ * 全局搜索 composable — 面板组件内使用
+ *
+ * 提供搜索项数据源、应用名称标签映射和手动刷新能力。
+ * 搜索面板组件使用此 composable 获取所有已注册的搜索项。
+ *
+ * @returns 搜索面板所需数据
+ * @returns items - 所有已收集的搜索项（只读 Ref）
+ * @returns appNameLabels - 子应用名到显示名的映射（Computed）
+ * @returns refresh - 手动触发重新收集搜索项的函数
  *
  * @example
+ * ```ts
  * // global-search.vue 内
- * const { items, appNameLabels } = useGlobalSearch();
+ * const { items, appNameLabels, refresh } = useGlobalSearch();
+ * ```
+ *
+ * @since 4.0.0
  */
 export function useGlobalSearch() {
   const appNameLabels = computed<Record<string, string>>(() => {
@@ -185,14 +229,25 @@ export function useGlobalSearch() {
 }
 
 /**
- * 子应用快捷注册搜索项的工具函数。
+ * 子应用快捷注册搜索项的工具函数
+ *
+ * 提供子应用快速注册搜索项的便捷接口，支持静态数组和动态函数两种方式。
+ * 注册延迟 100ms 执行，确保挂载后完成。
+ *
+ * @param appName - 子应用名
+ * @param items - 搜索项数组或返回搜索项数组的函数
+ * @returns 取消注册函数，调用后移除该子应用的搜索项
  *
  * @example
+ * ```ts
  * import { useSearchProvider } from '@ydsz/micro-runtime/search';
  * useSearchProvider('workflow-web', [
  *   { id: 'list', title: '项目列表', path: '/proj/list' },
- *   { id: 'new',  title: '新建项目',  path: '/proj/new' },
+ *   { id: 'new',  title: '新建项目', path: '/proj/new' },
  * ]);
+ * ```
+ *
+ * @since 4.0.0
  */
 export function useSearchProvider(appName: string, items: (() => SearchItem[]) | SearchItem[]): (() => void) {
   if (typeof window === 'undefined') return () => {};
@@ -251,7 +306,23 @@ export function useSearchProviderStatus() {
 }
 
 /**
- * 动态注册搜索项（子应用运行时调用，例如菜单变化后更新搜索源）。
+ * 动态追加搜索项
+ *
+ * 子应用运行时调用（例如菜单变化后更新搜索源），
+ * 将新搜索项追加到指定子应用的搜索提供者中。
+ *
+ * @param appName - 子应用名
+ * @param items - 要追加的搜索项数组
+ *
+ * @example
+ * ```ts
+ * // 菜单变化后更新搜索项
+ * watch(menuItems, (items) => {
+ *   addSearchItems('workflow-web', items.map(toSearchItem));
+ * });
+ * ```
+ *
+ * @since 4.0.0
  */
 export function addSearchItems(appName: string, items: SearchItem[]): void {
   const existing = providers.get(appName);

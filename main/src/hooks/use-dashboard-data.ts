@@ -19,10 +19,29 @@ import {
 } from '#/api/core/dashboard';
 
 /**
- * 加载概览统计项。
+ * 加载概览统计项
  *
+ * 优先从后端 API 获取真实数据，后端不可用或返回空时静默回退到 fallback 默认值，
+ * 确保页面不白屏、不报错。后端就绪后自动切换到真实数据。
+ *
+ * @typeParam T - 统计项类型，需继承自 DashboardApi.OverviewItem
  * @param fallback - 后端不可用/返回空时的默认数据（类型为 UI 组件类型）
- * @returns [数据, 是否来自后端]
+ * @returns 概览统计数据与加载状态
+ * @returns items - 统计项列表（Ref），初始值为 fallback
+ * @returns loading - 加载中状态（Ref）
+ * @returns fromServer - 数据是否来自后端（Ref）
+ * @returns load - 触发加载的函数
+ *
+ * @example
+ * ```ts
+ * const { items, loading, fromServer, load } = useOverviewStats<OverviewItem>([
+ *   { title: '项目总数', totalValue: 0, icon: 'project' },
+ *   { title: '待办事项', totalValue: 0, icon: 'todo' },
+ * ]);
+ * onMounted(load);
+ * ```
+ *
+ * @since 4.1.0
  */
 export function useOverviewStats<T extends DashboardApi.OverviewItem>(
   fallback: T[],
@@ -55,10 +74,28 @@ export function useOverviewStats<T extends DashboardApi.OverviewItem>(
 }
 
 /**
- * 加载工作台聚合数据（项目/快捷导航/待办/动态）。
+ * 加载工作台聚合数据
  *
- * @param fallback - 后端不可用/返回空时的默认数据（类型为 UI 组件类型，
- *                   与 DashboardApi.WorkspaceData 字段对齐即可）
+ * 加载项目列表、快捷导航、待办事项、动态等聚合数据。
+ * 后端不可用或返回空时静默回退到 fallback 默认值，按字段粒度合并确保页面不白屏。
+ *
+ * @typeParam T - 工作台数据类型
+ * @param fallback - 后端不可用/返回空时的默认数据（与 DashboardApi.WorkspaceData 字段对齐）
+ * @returns 工作台数据与加载状态
+ * @returns data - 工作台数据（Ref），初始值为 fallback
+ * @returns loading - 加载中状态（Ref）
+ * @returns fromServer - 数据是否来自后端（Ref）
+ * @returns load - 触发加载的函数
+ *
+ * @example
+ * ```ts
+ * const { data, loading, load } = useWorkspaceData<WorkspaceData>({
+ *   projects: [], quickNavs: [], todos: [], trends: [], greeting: '欢迎回来',
+ * });
+ * onMounted(load);
+ * ```
+ *
+ * @since 4.1.0
  */
 export function useWorkspaceData<T extends object>(fallback: T) {
   const data = ref<T>(fallback);

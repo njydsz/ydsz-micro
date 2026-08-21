@@ -17,11 +17,19 @@ import { computed } from 'vue';
 
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
-/** 表格列裁剪配置 */
+/**
+ * 响应式表格列配置
+ *
+ * 根据设备类型（移动端/平板/桌面端）控制列的显示与隐藏，
+ * 实现一套列配置适配多端布局。
+ *
+ * @typeParam T - 数据行类型
+ * @since 1.1.0
+ */
 export interface ResponsiveColumn<T = any> {
   /** 列属性（对应 vxe-table column field） */
   key: string;
-  /** 标题 */
+  /** 列标题 */
   title: string;
   /** 桌面端是否显示，默认 true */
   desktop?: boolean;
@@ -29,18 +37,30 @@ export interface ResponsiveColumn<T = any> {
   tablet?: boolean;
   /** 移动端是否显示，默认 false（移动端只保留核心列） */
   mobile?: boolean;
-  /** 额外列配置（宽度等） */
+  /** 额外列配置（宽度等），会透传给表格组件 */
   extra?: Record<string, any>;
 }
 
 /**
  * 移动端/响应式适配 Hook
  *
+ * 基于 Tailwind 断点（md: 768px, lg: 1024px）提供设备类型判断与列裁剪能力。
+ *
+ * @returns 响应式状态与工具函数
+ * @returns isMobile - 是否移动端视口（< 768px，Computed Ref）
+ * @returns isTablet - 是否平板视口（768-1024px，Computed Ref）
+ * @returns isDesktop - 是否桌面视口（>= 1024px，Computed Ref）
+ * @returns responsiveColumns - 根据当前设备裁剪列配置的函数
+ * @returns gridCols - 移动端栅格列数（1 列），桌面端 undefined（Computed Ref）
+ * @returns showDesktop - 是否非移动端（配合 v-if 使用，Computed Ref）
+ *
  * @example
  * ```ts
  * const { isMobile, responsiveColumns, gridCols } = useResponsive();
- * // vxe-table columns 直接用 responsiveColumns
+ * // vxe-table columns 直接用 responsiveColumns(fullColumns)
  * ```
+ *
+ * @since 1.1.0
  */
 export function useResponsive() {
   const breakpoints = useBreakpoints(breakpointsTailwind);

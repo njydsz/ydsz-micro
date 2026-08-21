@@ -14,18 +14,30 @@
  */
 import { onBeforeUnmount, onMounted } from 'vue';
 
-/** 修饰键集合 */
+/**
+ * 修饰键类型
+ *
+ * 支持 Ctrl、Shift、Alt、Meta（Mac 上的 Command）四种修饰键组合。
+ *
+ * @since 1.1.0
+ */
 type ModifierKey = 'ctrl' | 'shift' | 'alt' | 'meta';
 
-/** 快捷键描述 */
+/**
+ * 快捷键描述符
+ *
+ * 定义一个快捷键的触发条件与行为选项。
+ *
+ * @since 1.1.0
+ */
 export interface ShortcutDescriptor {
   /** 触发键（小写），如 'k'、's'、'enter' */
   key: string;
-  /** 修饰键组合 */
+  /** 修饰键组合，如 ['ctrl', 'shift'] */
   modifiers?: ModifierKey[];
-  /** 作用域标识，默认 'global' */
+  /** 作用域标识，默认 'global'。不同作用域可注册同名快捷键互不冲突 */
   scope?: string;
-  /** 是否阻止默认行为 */
+  /** 是否阻止默认行为，默认 true */
   preventDefault?: boolean;
   /** 是否在输入框内也触发（默认 false：输入时不触发） */
   allowInInput?: boolean;
@@ -163,6 +175,26 @@ export function useKeyboardShortcut(
 
 /**
  * 注册全局快捷键（非组件场景，返回手动解绑函数）
+ *
+ * 适用于非 Vue 组件环境（如纯 TS 模块、工具函数等），
+ * 返回的解绑函数需在适当时机调用以避免内存泄漏。
+ *
+ * @param descriptor - 快捷键描述符
+ * @param handler - 按键触发时的回调函数
+ * @returns 手动解绑函数，调用后移除该快捷键注册
+ *
+ * @example
+ * ```ts
+ * // 在工具模块中注册
+ * const unregister = bindGlobalShortcut(
+ *   { key: 's', modifiers: ['ctrl'] },
+ *   (e) => { e.preventDefault(); save(); },
+ * );
+ * // 清理时调用
+ * unregister();
+ * ```
+ *
+ * @since 1.1.0
  */
 export function bindGlobalShortcut(
   descriptor: ShortcutDescriptor,
@@ -181,7 +213,22 @@ export function bindGlobalShortcut(
   return () => unbind(scope, key, modifiers);
 }
 
-/** 清理某作用域下全部快捷键 */
-export function clearScope(scope: string) {
+/**
+ * 清理某作用域下全部快捷键
+ *
+ * 移除指定作用域内所有已注册的快捷键。
+ * 通常在离开页面或销毁模块时调用。
+ *
+ * @param scope - 要清理的作用域标识
+ *
+ * @example
+ * ```ts
+ * // 离开页面时清理当前作用域
+ * onUnmounted(() => clearScope('list-page'));
+ * ```
+ *
+ * @since 1.1.0
+ */
+export function clearScope(scope: string): void {
   registry.delete(scope);
 }

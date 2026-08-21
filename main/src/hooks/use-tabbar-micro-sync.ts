@@ -43,6 +43,8 @@ function getAppFromPath(path: string): null | string {
  *
  * 维护每个子应用当前打开的 Tab 路径集合与最后激活路径，
  * 用于决定何时可以安全卸载子应用、何时需要 keep-alive pin。
+ *
+ * @since 3.0.0
  */
 interface SubAppSession {
   /** 该子应用最后激活的路径（用于路由恢复） */
@@ -65,12 +67,21 @@ function getOrCreateSession(appName: string): SubAppSession {
 }
 
 /**
- * 记录子应用打开了一个 Tab（由路由变化驱动添加）
+ * 记录子应用打开了一个 Tab
  *
- * 在 onTabOpened 事件或 route guard 中调用；已存在路径时仅更新激活态。
+ * 由路由变化驱动添加，首次打开时自动 pin 子应用并启用 keep-alive。
+ * 已存在路径时仅更新激活态（lastActivePath）。
  *
  * @param path - 打开的完整路径
  * @param appName - 关联的子应用名
+ *
+ * @example
+ * ```ts
+ * // 在 route guard 或 onTabOpened 回调中
+ * recordSubAppTabOpened('/YDSZ-proj/execution/list', 'workflow-web');
+ * ```
+ *
+ * @since 3.0.0
  */
 export function recordSubAppTabOpened(path: string, appName: string): void {
   const session = getOrCreateSession(appName);
@@ -107,8 +118,20 @@ function recordSubAppTabClosed(appName: string, path: string): boolean {
 }
 
 /**
- * 根据路径前缀提取子应用名。
- * @example getAppFromPath('/YDSZ-proj/execution/list') → 'workflow-web'
+ * 根据路径前缀提取子应用名
+ *
+ * 遍历 PATH_TO_APP_MAP 匹配路径前缀，返回对应的子应用名。
+ *
+ * @param path - 完整路由路径
+ * @returns 匹配的子应用名，未匹配时返回 null
+ *
+ * @example
+ * ```ts
+ * getAppFromPath('/YDSZ-proj/execution/list'); // => 'workflow-web'
+ * getAppFromPath('/unknown/path');              // => null
+ * ```
+ *
+ * @since 3.0.0
  */
 export { getAppFromPath };
 
@@ -155,9 +178,23 @@ export function useTabbarMicroSync(): void {
 }
 
 /**
- * 获取当前子应用会话快照（供调试面板使用）。
+ * 获取当前子应用会话快照
  *
- * 返回数据为深拷贝，调用方可安全使用。
+ * 返回所有子应用会话状态的深拷贝数组，供调试面板或开发者工具使用。
+ * 返回数据为深拷贝，调用方可安全修改而不影响内部状态。
+ *
+ * @returns 子应用会话快照数组，每项包含 appName、lastActivePath 和 openPaths
+ *
+ * @example
+ * ```ts
+ * // 调试面板中展示
+ * const snapshot = getSubAppSessionSnapshot();
+ * snapshot.forEach(({ appName, openPaths }) => {
+ *   console.log(`${appName}: ${openPaths.length} 个 Tab 打开`);
+ * });
+ * ```
+ *
+ * @since 3.0.0
  */
 export function getSubAppSessionSnapshot(): Array<{
   appName: string;
@@ -172,12 +209,24 @@ export function getSubAppSessionSnapshot(): Array<{
 }
 
 /**
- * 尝试恢复子应用最后激活的路径。
+ * 获取子应用最后激活的路径
  *
  * 在用户打开新 Tab 且目标路由前缀与原活跃子应用相同时，
- * 可调用此函数决定是否跳转到 lastActivePath。
+ * 可调用此函数决定是否跳转到 lastActivePath 恢复之前的浏览位置。
  *
- * @returns 可恢复路径，或 null（无历史）
+ * @param appName - 子应用名
+ * @returns 可恢复路径，或 null（无历史记录）
+ *
+ * @example
+ * ```ts
+ * // 打开新 Tab 时尝试恢复
+ * const lastPath = getSubAppLastActivePath('workflow-web');
+ * if (lastPath && lastPath !== currentPath) {
+ *   router.push(lastPath);
+ * }
+ * ```
+ *
+ * @since 3.0.0
  */
 export function getSubAppLastActivePath(appName: string): null | string {
   return sessions.get(appName)?.lastActivePath ?? null;

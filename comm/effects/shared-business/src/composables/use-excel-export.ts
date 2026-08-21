@@ -11,27 +11,37 @@
  */
 import * as XLSX from 'xlsx';
 
-/** 导出列定义 */
+/**
+ * Excel 导出列定义
+ *
+ * @typeParam T - 数据行类型
+ * @since 1.1.0
+ */
 export interface ExcelExportColumn<T = any> {
-  /** 列标题 */
+  /** 列标题（表头文字） */
   title: string;
   /** 数据字段 key */
   key: string;
-  /** 自定义取值/格式化函数 */
+  /** 自定义取值/格式化函数，接收数据行返回单元格值 */
   formatter?: (row: T) => string | number;
-  /** 列宽（字符数） */
+  /** 列宽（字符数），默认 12 */
   width?: number;
 }
 
-/** 导出配置 */
+/**
+ * Excel 导出配置项
+ *
+ * @typeParam T - 数据行类型
+ * @since 1.1.0
+ */
 export interface ExcelExportOptions<T = any> {
-  /** sheet 名称 */
+  /** sheet 名称，默认 'Sheet1' */
   sheetName?: string;
-  /** 文件名称（不含扩展名） */
+  /** 文件名称（不含扩展名），默认 `export-${timestamp}` */
   fileName?: string;
   /** 列定义 */
   columns: ExcelExportColumn<T>[];
-  /** 数据 */
+  /** 要导出的数据 */
   data: T[];
 }
 
@@ -39,14 +49,18 @@ export interface ExcelExportOptions<T = any> {
 const DEFAULT_COL_WIDTH = 12;
 
 /**
- * 将数据导出为 .xlsx 文件
+ * 统一 Excel 导出 composable
  *
- * @param options - 导出配置
- * @returns 是否导出成功
+ * 基于 SheetJS (xlsx) 实现带列映射、自定义格式化、列宽设置的客户端导出。
+ * 适合常规报表场景（< 10 万行），大数据量建议改用后端导出。
+ *
+ * @typeParam T - 数据行类型
+ * @returns 导出工具方法
+ * @returns exportExcel - 将数据导出为 .xlsx 文件并触发下载
  *
  * @example
  * ```ts
- * const { exportExcel } = useExcelExport();
+ * const { exportExcel } = useExcelExport<ProjectItem>();
  * exportExcel({
  *   fileName: '项目列表',
  *   columns: [
@@ -56,6 +70,8 @@ const DEFAULT_COL_WIDTH = 12;
  *   data: rows,
  * });
  * ```
+ *
+ * @since 1.1.0
  */
 export function useExcelExport<T = any>() {
   function exportExcel(options: ExcelExportOptions<T>) {

@@ -20,25 +20,65 @@ import {
   type ServerPaginationFetcher,
 } from './use-server-pagination';
 
-/** 删除函数签名 */
+/**
+ * 删除函数类型
+ *
+ * @typeParam T - 数据行类型
+ * @param row - 要删除的数据行
+ * @returns 删除操作的 Promise
+ * @since 1.1.0
+ */
 export type DeleteFetcher<T = any> = (row: T) => Promise<unknown>;
 
-/** CRUD 配置 */
+/**
+ * CRUD 列表页配置项
+ *
+ * @typeParam T - 数据行类型
+ * @typeParam Q - 查询参数类型
+ * @since 1.1.0
+ */
 export interface CrudTableOptions<T = any, Q = Record<string, any>> {
   /** 分页查询函数 */
   fetcher: ServerPaginationFetcher<T, Q>;
   /** 删除函数（可选，不传则不显示删除按钮） */
   deleteFetcher?: DeleteFetcher<T>;
-  /** 删除确认文案 */
+  /** 删除确认文案，接收数据行返回提示消息 */
   deleteMessage?: (row: T) => string;
-  /** 主键字段名，默认 id */
+  /** 主键字段名，默认 'id' */
   rowKey?: string;
-  /** 初始分页大小 */
+  /** 初始分页大小，默认 10 */
   pageSize?: number;
 }
 
 /**
- * 通用 CRUD 列表 Hook
+ * 通用 CRUD 列表 Hook — 整合分页、删除、弹窗控制
+ *
+ * 封装了标准 CRUD 列表页的核心逻辑：服务端分页、单条/批量删除（带确认弹窗）、
+ * 新增/编辑弹窗状态管理。让标准 CRUD 页面代码量大幅减少。
+ *
+ * @typeParam T - 数据行类型
+ * @typeParam Q - 查询参数类型
+ * @param options - CRUD 配置项
+ * @returns CRUD 状态与操作方法的集合
+ * @returns items - 当前页数据列表（Ref）
+ * @returns loading - 加载中状态（Ref）
+ * @returns pagination - 分页信息（Computed）
+ * @returns total - 总条数（Ref）
+ * @returns selectedRows - 批量选中的行（Ref）
+ * @returns dialogVisible - 新增/编辑弹窗是否可见（Ref）
+ * @returns editingRow - 当前编辑的数据行（Ref）
+ * @returns isEdit - 是否编辑模式（Computed）
+ * @returns rowKey - 主键字段名
+ * @returns search - 重置页码并查询
+ * @returns fetchData - 执行当前页查询
+ * @returns changePage - 切换页码
+ * @returns changePageSize - 切换每页条数
+ * @returns openCreate - 打开新增弹窗
+ * @returns openEdit - 打开编辑弹窗
+ * @returns closeDialog - 关闭弹窗
+ * @returns onSaved - 保存成功后关闭弹窗并刷新
+ * @returns handleDelete - 单条删除（带确认）
+ * @returns handleBatchDelete - 批量删除（带确认）
  *
  * @example
  * ```ts
@@ -49,6 +89,8 @@ export interface CrudTableOptions<T = any, Q = Record<string, any>> {
  *
  * // 模板中：@confirm-delete="crud.handleDelete"
  * ```
+ *
+ * @since 1.1.0
  */
 export function useCrudTable<T = any, Q = Record<string, any>>(
   options: CrudTableOptions<T, Q>,

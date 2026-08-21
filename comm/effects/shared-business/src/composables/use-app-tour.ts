@@ -21,7 +21,13 @@
  * ```
  */
 
-/** 引导步骤定义 */
+/**
+ * 引导步骤定义
+ *
+ * 描述用户引导中单个步骤的目标元素、提示内容与气泡位置。
+ *
+ * @since 1.1.0
+ */
 export interface TourStep {
   /** 目标元素选择器（CSS selector） */
   selector: string;
@@ -29,13 +35,17 @@ export interface TourStep {
   title: string;
   /** 步骤说明 */
   content: string;
-  /** 气泡位置：top/bottom/left/right，默认 bottom */
+  /** 气泡位置：top / bottom / left / right，默认 bottom */
   placement?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-/** 引导配置 */
+/**
+ * 引导配置项
+ *
+ * @since 1.1.0
+ */
 export interface AppTourOptions {
-  /** 唯一标识（localStorage key 后缀） */
+  /** 唯一标识（localStorage key 后缀），用于持久化完成状态 */
   id: string;
   /** 步骤列表 */
   steps: TourStep[];
@@ -66,10 +76,30 @@ function queryTarget(selector: string): Element | null {
 }
 
 /**
- * 创建引导实例
+ * 用户操作引导 composable
  *
- * @param options - 引导配置
+ * 轻量自研引导系统（不依赖第三方库），通过高亮目标元素 + 蒙层 + 气泡提示
+ * 引导用户熟悉产品功能。支持步骤推进、完成状态持久化（localStorage）。
+ *
+ * @param options - 引导配置项
  * @returns 引导控制对象
+ * @returns start - 启动引导（默认仅对未完成的用户展示）
+ * @returns finish - 完成引导（标记完成并清理 DOM）
+ * @returns skip - 跳过引导（不标记完成，下次仍会展示）
+ * @returns isCompleted - 检查引导是否已完成
+ * @returns state - 引导状态（active / currentIndex / total / target）
+ *
+ * @example
+ * ```ts
+ * const tour = useAppTour('first-login', [
+ *   { selector: '#menu', title: '菜单', content: '从这里进入各模块' },
+ *   { selector: '#search', title: '全局搜索', content: '按 Ctrl+K 快速搜索' },
+ * ]);
+ * // 在 onMounted 中启动
+ * onMounted(() => tour.start());
+ * ```
+ *
+ * @since 1.1.0
  */
 export function useAppTour(options: AppTourOptions) {
   const { id, steps, force = false } = options;

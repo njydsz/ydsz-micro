@@ -40,14 +40,27 @@ export { notifyCrossTab };
 export { CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS };
 
 /**
- * 安装跨标签页状态同步。
+ * 安装跨标签页状态同步 composable
  *
- * 必须在 Pinia 初始化后调用（bootstrap 中 initStores 之后）。
+ * 监听关键状态变更（登出/会话失效/token 刷新）并广播到同源其它标签页，
+ * 同时订阅远端事件执行本地联动。
+ *
+ * 防回环机制：远端事件触发的本地操作不再广播（通过 isHandlingRemote 标志位）。
  *
  * 当前集成：
- *   - 登出同步：任一标签页登出 → 所有标签页同步登出
- *   - 会话失效同步：401 触发重新认证时通知其它标签页
- *   - Token 刷新同步：任一标签页刷新 token → 其它标签页更新本地 tokenStore
+ * - 登出同步：任一标签页登出 -> 所有标签页同步登出
+ * - 会话失效同步：401 触发重新认证时通知其它标签页
+ * - Token 刷新同步：任一标签页刷新 token -> 其它标签页更新本地 tokenStore
+ *
+ * @remarks 必须在 Pinia 初始化后调用（bootstrap 中 initStores 之后）
+ *
+ * @example
+ * ```ts
+ * // 在 bootstrap 中
+ * useCrossTabSync();
+ * ```
+ *
+ * @since 1.0.0
  */
 export function useCrossTabSync(): void {
   // 订阅远端登出事件

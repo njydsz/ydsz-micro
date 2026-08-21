@@ -18,12 +18,24 @@ import { createLogger } from '@YDSZ-core/shared/utils';
 /** 模块级日志器 */
 const logger = createLogger('GlobalShortcut');
 
+/**
+ * 修饰键类型
+ *
+ * 支持 cmd（Mac Command / Windows Ctrl）、alt、shift 三种修饰键。
+ *
+ * @since 4.0.0
+ */
 export type Modifier = 'cmd' | 'ctrl' | 'alt' | 'shift';
 
+/**
+ * 快捷键选项
+ *
+ * @since 4.0.0
+ */
 export interface ShortcutOptions {
-  /** 是否阻止默认行为（默认 true） */
+  /** 是否阻止默认行为，默认 true */
   preventDefault?: boolean;
-  /** 是否在 input/textarea 内仍生效 */
+  /** 是否在 input/textarea 内仍生效，默认 false */
   enableInInput?: boolean;
 }
 
@@ -136,7 +148,18 @@ export function registerKeyboard(
 }
 
 /**
- * 取消所有快捷键（测试用 / 全局重置）
+ * 取消所有已注册的快捷键
+ *
+ * 清空注册表并移除全局 keydown 监听器。
+ * 主要用于测试环境清理或全局重置场景。
+ *
+ * @example
+ * ```ts
+ * // 测试用例 afterEach 中
+ * afterEach(() => resetAllShortcuts());
+ * ```
+ *
+ * @since 4.0.0
  */
 export function resetAllShortcuts(): void {
   registry.clear();
@@ -147,7 +170,21 @@ export function resetAllShortcuts(): void {
 }
 
 /**
- * 获取当前已注册的快捷键列表（调试用）
+ * 获取当前已注册的快捷键列表
+ *
+ * 返回所有已注册快捷键的标准化组合字符串数组，
+ * 主要用于调试面板或开发者工具。
+ *
+ * @returns 已注册的快捷键组合字符串数组
+ *
+ * @example
+ * ```ts
+ * // 调试面板中展示
+ * const shortcuts = listRegisteredShortcuts();
+ * console.log(`已注册 ${shortcuts.length} 个快捷键:`, shortcuts);
+ * ```
+ *
+ * @since 4.0.0
  */
 export function listRegisteredShortcuts(): string[] {
   return [...registry.keys()];

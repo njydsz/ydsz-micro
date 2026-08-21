@@ -56,6 +56,14 @@ const ANNOUNCEMENT_KEYS: Record<LoadingPhase, string> = {
   error: "page.microKernel.announcements.error",
 };
 
+/**
+ * 子应用加载阶段状态集合
+ *
+ * 持有所有响应式状态引用，供组件模板直接访问。
+ * 注意：不使用 reactive() 包装 ref，避免自动解包导致响应式丢失。
+ *
+ * @since 4.1.0
+ */
 export interface SubAppPhaseState {
   /** 当前阶段 */
   phase: Ref<LoadingPhase>;
@@ -70,9 +78,39 @@ export interface SubAppPhaseState {
 }
 
 /**
- * 创建子应用加载阶段状态机。
+ * 子应用加载阶段管理 composable
+ *
+ * 从 SubAppContainer 拆出：阶段状态机 + 阶段映射 + 无障碍公告 + 焦点管理。
+ * 由 micro-kernel 细化生命周期钩子驱动（v3.3）。
+ *
+ * 阶段流转：
+ * - idle -> loading -> loaded -> mounting -> mounted
+ * - 切换中：mounted -> unmounting -> loading -> ...
+ * - 失败：任意阶段 -> error
  *
  * @param containerRef - 子应用容器 DOM 引用（mounted 后焦点管理用）
+ * @returns 阶段状态与控制方法
+ * @returns state - 阶段状态集合（SubAppPhaseState）
+ * @returns phaseText - 当前阶段的展示文案（Computed，i18n）
+ * @returns screenReaderAnnouncement - 屏幕阅读器公告文案（Ref）
+ * @returns showSkeleton - 是否展示骨架屏的判断函数
+ * @returns showErrorMask - 是否展示错误遮罩的判断函数
+ * @returns errorMaskTitle - 错误遮罩标题（Computed，i18n）
+ * @returns errorMaskHint - 错误遮罩提示（Computed，i18n）
+ * @returns setPhase - 切换到指定阶段（更新进度/文案/公告/焦点）
+ * @returns setError - 设置错误信息并切换到 error 阶段
+ *
+ * @example
+ * ```ts
+ * const containerRef = ref<HTMLElement | null>(null);
+ * const { state, setPhase, setError, showSkeleton } = useSubAppPhase(containerRef);
+ *
+ * // 内核钩子中调用
+ * onBeforeLoad(() => setPhase('loading', appName));
+ * onAfterMount(() => setPhase('mounted', appName));
+ * ```
+ *
+ * @since 4.1.0
  */
 export function useSubAppPhase(containerRef: Ref<HTMLElement | null>) {
   /** 当前阶段 */

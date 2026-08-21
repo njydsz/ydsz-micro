@@ -24,10 +24,16 @@ import { getAppInstance } from "@ydsz/micro-kernel";
 import { getSkeletonComponent } from "../skeletons/skeleton-registry";
 
 /**
- * 根据当前路由子路径从子应用 manifest.routes 匹配骨架屏类型。
+ * 根据当前路由子路径从子应用 manifest.routes 匹配骨架屏类型
  *
- * @param activeAppName - 当前激活的子应用名
+ * 遍历子应用 manifest.routes 配置，按子路径前缀匹配找到对应的骨架屏类型。
+ * 仅支持字符串类型的 activeRule 前缀裁剪。
+ *
+ * @param activeAppName - 当前激活的子应用名（Ref）
  * @param route - 当前路由实例
+ * @returns 匹配的骨架屏类型，未匹配时返回 null
+ *
+ * @since 4.1.0
  */
 function resolveSkeletonTypeFromManifest(
   activeAppName: Ref<null | string>,
@@ -57,8 +63,28 @@ function resolveSkeletonTypeFromManifest(
 }
 
 /**
- * 创建骨架屏组件解析器。
+ * 骨架屏组件解析器 composable
+ *
+ * 根据当前路由和子应用信息自动解析对应的骨架屏组件。
  * 依赖 route.path（computed 自动追踪），路由变化时自动重算。
+ *
+ * 解析优先级（v3.3）：
+ * 1. manifest.routes 中按子路径前缀匹配（build 模式可用）
+ * 2. route.meta.skeletonType（注册表配置）
+ * 3. 'default'
+ *
+ * @param activeAppName - 当前激活的子应用名（Ref）
+ * @param route - 当前路由实例
+ * @returns 骨架屏组件的 ComputedRef，路由变化时自动更新
+ *
+ * @example
+ * ```ts
+ * const activeAppName = ref<string | null>(null);
+ * const skeleton = useSkeletonResolver(activeAppName, route);
+ * // <component :is="skeleton" />
+ * ```
+ *
+ * @since 4.1.0
  */
 export function useSkeletonResolver(
   activeAppName: Ref<null | string>,

@@ -11,16 +11,35 @@
  */
 import { computed, reactive, ref, unref, type Ref } from 'vue';
 
-/** 分页查询函数 */
+/**
+ * 分页查询函数类型
+ *
+ * @typeParam T - 数据项类型
+ * @typeParam Q - 查询参数类型
+ * @param query - 合并了分页字段的完整查询参数
+ * @returns 数据项列表与总条数
+ *
+ * @example
+ * ```ts
+ * const fetcher: ServerPaginationFetcher<Item, { keyword: string }> = async (query) => {
+ *   const res = await fetchList({ keyword: query.keyword, page: query.pageNum, size: query.pageSize });
+ *   return { items: res.list, total: res.total };
+ * };
+ * ```
+ */
 export type ServerPaginationFetcher<T = any, Q = Record<string, any>> = (
   query: Q & { pageNum: number; pageSize: number },
 ) => Promise<{ items: T[]; total: number }>;
 
-/** 分页配置 */
+/**
+ * 服务端分页配置项
+ *
+ * @since 1.1.0
+ */
 export interface ServerPaginationOptions {
-  /** 初始页码 */
+  /** 初始页码，默认 1 */
   pageNum?: number;
-  /** 初始每页条数 */
+  /** 初始每页条数，默认 10 */
   pageSize?: number;
   /** 是否首次自动加载，默认 true */
   immediate?: boolean;
@@ -30,18 +49,40 @@ export interface ServerPaginationOptions {
 type QueryParams<Q> = Ref<Q> | Record<string, any>;
 
 /**
- * 服务端分页 Hook
+ * 服务端分页 Hook — 管理服务端分页状态与查询
  *
- * @param fetcher - 分页查询函数
- * @param params - 额外查询参数（ref 或响应式对象）
- * @param options - 配置
+ * 封装 pageNum / pageSize / total / items / loading 等响应式状态，
+ * 提供 search / changePage / changePageSize / reset 等操作方法。
+ *
+ * @typeParam T - 数据项类型
+ * @typeParam Q - 查询参数类型
+ * @param fetcher - 分页查询函数，接收合并了分页字段的查询参数
+ * @param params - 额外查询参数（ref 或响应式对象），默认空对象
+ * @param options - 分页配置项
+ * @returns 分页状态与操作方法的集合
+ * @returns items - 当前页数据列表（Ref）
+ * @returns total - 总条数（Ref）
+ * @returns loading - 加载中状态（Ref）
+ * @returns pageNum - 当前页码（Ref）
+ * @returns pageSize - 每页条数（Ref）
+ * @returns pagination - 分页组件用的聚合对象（Computed）
+ * @returns fetchData - 执行查询的函数
+ * @returns search - 重置到第一页并查询
+ * @returns changePage - 切换页码并查询
+ * @returns changePageSize - 切换每页条数并查询（重置到第一页）
+ * @returns reset - 重置分页状态到初始值
  *
  * @example
  * ```ts
  * const query = reactive({ keyword: '' });
  * const { items, total, loading, pagination, fetchData, search } =
  *   useServerPagination(getListApi, query);
+ *
+ * // 搜索场景：重置页码并查询
+ * watch(searchKeyword, () => search());
  * ```
+ *
+ * @since 1.1.0
  */
 export function useServerPagination<T = any, Q = Record<string, any>>(
   fetcher: ServerPaginationFetcher<T, Q>,

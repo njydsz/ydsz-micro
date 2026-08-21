@@ -33,9 +33,25 @@ const WARNING_BEFORE_MS = 5 * 60 * 1000;
 const CHECK_INTERVAL_MS = 30 * 1000;
 
 /**
- * 启动会话超时预警。
+ * 启动会话超时预警 composable
  *
- * 必须在 Pinia 初始化后调用（bootstrap 中 initStores 之后）。
+ * 监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出
+ * ElMessageBox 询问用户是否立即续期：
+ * - 用户确认 -> 调用 refreshTokenApi 续期，更新 accessToken + expiresAt
+ * - 用户取消 -> 不打扰，等真正过期时由 401 拦截器走 doReAuthenticate
+ *
+ * 同一过期周期只提示一次；expiresAt 变化（登录/续期成功）后重新计时。
+ * 仅在主应用安装一次（bootstrap 中调用），子应用共享同一 tokenStore，无需各自重复安装。
+ *
+ * @remarks 必须在 Pinia 初始化后调用（bootstrap 中 initStores 之后）
+ *
+ * @example
+ * ```ts
+ * // 在 bootstrap 中
+ * useSessionExpiryWarning();
+ * ```
+ *
+ * @since 1.0.0
  */
 export function useSessionExpiryWarning(): void {
   const tokenStore = useTokenStore();
