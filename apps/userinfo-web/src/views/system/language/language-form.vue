@@ -66,10 +66,10 @@ const [Modal, modalApi] = useVbenModal({
     modalApi.lock();
     try {
       if (isEdit.value) {
-        await updateLanguageApi(formData as any);
+        await updateLanguageApi(formData as LanguageApi.LanguageSaveDTO);
         ElMessage.success('更新成功');
       } else {
-        await createLanguageApi(formData as any);
+        await createLanguageApi(formData as LanguageApi.LanguageSaveDTO);
         ElMessage.success('创建成功');
       }
       emit('success');

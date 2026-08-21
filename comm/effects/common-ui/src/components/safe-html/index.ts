@@ -19,6 +19,8 @@ import type { Directive } from 'vue';
 const ALLOWED_TAGS = new Set([
   'b', 'i', 'em', 'strong', 'a', 'br', 'p', 'span', 'ul', 'ol', 'li',
   'h1', 'h2', 'h3', 'h4', 'div', 'code', 'pre',
+  // mark：搜索高亮语义标签（global-search/command-palette 高亮关键词）
+  'mark',
 ]);
 
 /** 允许的 http 协议 */

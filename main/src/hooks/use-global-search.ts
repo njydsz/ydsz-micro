@@ -15,6 +15,11 @@
 
 import { ref, computed, readonly, onUnmounted } from 'vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+/** 模块级日志器 */
+const logger = createLogger('GlobalSearch');
+
 /** 搜索项 */
 export interface SearchItem {
   id: string;
@@ -152,7 +157,7 @@ function collectItems(): void {
       const items = provider();
       all.push(...items.map((item) => ({ ...item, appName })));
     } catch (err) {
-      console.warn(`[global-search] provider ${appName} failed:`, err);
+      logger.warn(`provider ${appName} failed:`, err);
     }
   }
   cachedItems.value = all;

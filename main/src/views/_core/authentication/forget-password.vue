@@ -35,9 +35,8 @@ const formSchema = computed((): YDSZFormSchema[] => {
   ];
 });
 
-function handleSubmit(value: Recordable<any>) {
-  // eslint-disable-next-line no-console
-  console.log('reset email:', value);
+function handleSubmit(_value: Recordable<any>) {
+  // 重置密码流程由 AuthenticationForgetPassword 组件内部处理
 }
 </script>
 

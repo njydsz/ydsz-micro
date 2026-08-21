@@ -6,6 +6,7 @@
  * @since 1.0.0
  */
 import type { RouteMeta as IRouteMeta } from '@YDSZ-core/typings';
+import type { MicroRuntime } from '@ydsz/micro-runtime';
 
 import 'vue-router';
 
@@ -60,5 +61,11 @@ export interface ApplicationConfig {
 declare global {
   interface Window {
     _YDSZ_ADMIN_PRO_APP_CONF_: YDSZAdminProAppConfigRaw;
+    /**
+     * 微前端内核实例（registerMicroRuntime 时挂载）。
+     * 供 DevTools Bridge / 独立模式检测等场景使用，业务代码请优先通过
+     * `@ydsz/micro-runtime` 的 API 访问，不要直接读该全局引用。
+     */
+    __MICRO_KERNEL__?: MicroRuntime;
   }
 }

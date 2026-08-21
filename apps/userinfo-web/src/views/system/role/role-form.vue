@@ -68,10 +68,10 @@ const [Modal, modalApi] = useVbenModal({
     modalApi.lock();
     try {
       if (isEdit.value) {
-        await updateRoleApi(formData as any);
+        await updateRoleApi(formData as RoleApi.RoleSaveDTO);
         ElMessage.success('更新成功');
       } else {
-        await createRoleApi(formData as any);
+        await createRoleApi(formData as RoleApi.RoleSaveDTO);
         ElMessage.success('创建成功');
       }
       emit('success');

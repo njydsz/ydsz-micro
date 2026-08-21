@@ -13,6 +13,11 @@
  * @since 4.0.0
  */
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+/** 模块级日志器 */
+const logger = createLogger('GlobalShortcut');
+
 export type Modifier = 'cmd' | 'ctrl' | 'alt' | 'shift';
 
 export interface ShortcutOptions {
@@ -117,7 +122,7 @@ export function registerKeyboard(
 
   // 冲突检测：同 combo 已注册则 console 警告
   if (registry.has(combo)) {
-    console.warn(`[shortcut] 快捷键 ${combo} 已被注册，后注册将覆盖`);
+    logger.warn(`快捷键 ${combo} 已被注册，后注册将覆盖`);
   }
 
   registry.set(combo, { combo, handler, options });

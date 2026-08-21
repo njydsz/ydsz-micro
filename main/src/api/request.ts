@@ -16,9 +16,14 @@ import {
   notifyCrossTab,
 } from '@ydsz/shared-auth';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import { useAuthStore } from '#/store/auth';
 
 import { refreshTokenApi } from './core/auth';
+
+/** 模块级日志器 */
+const logger = createLogger('MainRequest');
 
 const options: RequestClientOptions = {
   responseReturn: 'data',
@@ -31,7 +36,7 @@ const options: RequestClientOptions = {
  * 若配置为弹窗模式且已完成首次访问校验则弹出登录过期提示，否则直接登出。
  */
 async function doReAuthenticate() {
-  console.warn('Access token or refresh token is invalid or expired. ');
+  logger.warn('Access token or refresh token is invalid or expired. ');
   const accessStore = useAccessStore();
   const tokenStore = useTokenStore();
   tokenStore.setAccessToken(null);
@@ -61,26 +66,27 @@ async function doRefreshToken() {
     return null;
   }
   const resp = await refreshTokenApi(refreshToken);
-  const newToken = resp.data?.accessToken || resp.data as unknown as string;
+  // baseRequestClient responseReturn='data'，resp 即 RefreshTokenResult（无 .data 包装）
+  const newToken = resp?.accessToken ?? '';
   let newExpiresAt: null | number = null;
-  if (typeof newToken === 'string') {
+  if (newToken) {
     tokenStore.setAccessToken(newToken);
   }
   // 续期后同步刷新绝对过期时间戳（供会话超时预警使用）
-  const expiresIn = (resp.data as { expiresIn?: number } | undefined)?.expiresIn;
+  const expiresIn = resp?.expiresIn;
   if (typeof expiresIn === 'number' && expiresIn > 0) {
     newExpiresAt = Date.now() + expiresIn * 1000;
     tokenStore.setExpiresAt(newExpiresAt);
   }
   // D4: 广播 token 刷新成功事件到其它标签页，
   //     避免其它标签页同时 401 时重复刷新导致 refreshToken 竞态
-  if (typeof newToken === 'string') {
+  if (newToken) {
     notifyCrossTab(CROSS_TAB_EVENTS.TOKEN_REFRESHED, {
       accessToken: newToken,
       expiresAt: newExpiresAt,
     });
   }
-  return newToken;
+  return newToken || null;
 }
 
 /** 主应用共享请求客户端：携带鉴权拦截器，响应统一只返回 data 字段。 */

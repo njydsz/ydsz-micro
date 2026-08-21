@@ -1,6 +1,8 @@
 ﻿/**
  * dict Pinia 状态管理 — 全局数据字典缓存
  *
+ * 采用 Composition API（setup）语法，符合云顶编码规范 §8.1。
+ *
  * @path comm\stores\src\modules\dict.ts
  * @author ydsz-team
  * @since 1.0.0
@@ -16,6 +18,12 @@
  * 保持本包不依赖 @ydsz/request，遵守包边界约束。
  */
 import { acceptHMRUpdate, defineStore } from 'pinia';
+import { computed, ref } from 'vue';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+/** 模块级日志器 */
+const logger = createLogger('DictStore');
 
 /** 字典项数据结构（对齐后端 DictItemVO） */
 export interface DictItem {
@@ -33,7 +41,8 @@ export interface DictItem {
   sort: number;
   /** 状态：1 启用 0 禁用 */
   status?: number;
-  [key: string]: any;
+  /** 扩展字段（后端可能返回附加属性，避免索引签名丢失可读性） */
+  [key: string]: unknown;
 }
 
 /** 字典加载器函数签名：传入类型编码，返回字典项数组 */
@@ -48,52 +57,43 @@ interface DictCacheEntry {
   loading?: Promise<DictItem[]>;
 }
 
-interface DictState {
-  /** typeCode → 缓存条目 */
-  cache: Record<string, DictCacheEntry>;
-  /** 正在加载的字典类型集合 */
-  loadingTypes: Set<string>;
-  /** 注入的加载器 */
-  loader: DictLoader | null;
-}
-
 /** 默认 TTL：10 分钟 */
 const DEFAULT_TTL = 10 * 60 * 1000;
 
 /**
  * @zh_CN 数据字典缓存 store
  */
-export const useDictStore = defineStore('core-dict', {
-  state: (): DictState => ({
-    cache: {},
-    loadingTypes: new Set(),
-    loader: null,
-  }),
+export const useDictStore = defineStore(
+  'core-dict',
+  () => {
+    /** typeCode → 缓存条目 */
+    const cache = ref<Record<string, DictCacheEntry>>({});
+    /** 正在加载的字典类型集合 */
+    const loadingTypes = ref<Set<string>>(new Set());
+    /** 注入的加载器 */
+    const loader = ref<DictLoader | null>(null);
 
-  getters: {
     /**
      * 获取某字典类型的缓存项（未加载返回空数组，不触发请求）
      */
-    getItems: (state) => {
+    const getItems = computed(() => {
       return (typeCode: string): DictItem[] => {
-        const entry = state.cache[typeCode];
+        const entry = cache.value[typeCode];
         if (!entry || entry.expiresAt < Date.now()) {
           return [];
         }
         return entry.items;
       };
-    },
-  },
+    });
 
-  actions: {
     /**
      * 注入字典加载器（应用启动时调用一次）
      *
-     * @param loader - 根据 typeCode 返回字典项数组的异步函数
+     * @param dictLoader - 根据 typeCode 返回字典项数组的异步函数
      */
-    setDictLoader(loader: DictLoader) {
-      this.loader = loader;
-    },
+    function setDictLoader(dictLoader: DictLoader) {
+      loader.value = dictLoader;
+    }
 
     /**
      * 确保某字典类型已加载；未加载或已过期时异步拉取。
@@ -102,8 +102,8 @@ export const useDictStore = defineStore('core-dict', {
      * @param force - 强制刷新（忽略缓存与 TTL）
      * @returns 字典项数组
      */
-    async ensureLoaded(typeCode: string, force = false): Promise<DictItem[]> {
-      const cached = this.cache[typeCode];
+    async function ensureLoaded(typeCode: string, force = false): Promise<DictItem[]> {
+      const cached = cache.value[typeCode];
       if (!force && cached && cached.expiresAt >= Date.now()) {
         return cached.items;
       }
@@ -113,77 +113,89 @@ export const useDictStore = defineStore('core-dict', {
         return cached.loading;
       }
 
-      if (!this.loader) {
-        console.warn('[dict-store] 未注入字典加载器，请先调用 setDictLoader()');
+      if (!loader.value) {
+        logger.warn('未注入字典加载器，请先调用 setDictLoader()');
         return [];
       }
 
-      const loading = this.loader(typeCode)
+      const loading = loader.value(typeCode)
         .then((items) => {
-          this.cache[typeCode] = {
+          cache.value[typeCode] = {
             items,
             expiresAt: Date.now() + DEFAULT_TTL,
           };
           return items;
         })
         .finally(() => {
-          this.loadingTypes.delete(typeCode);
-          delete this.cache[typeCode]?.loading;
+          loadingTypes.value.delete(typeCode);
+          delete cache.value[typeCode]?.loading;
         });
 
       // 先占位 loading，防止重复请求
-      if (this.cache[typeCode]) {
-        this.cache[typeCode].loading = loading;
+      if (cache.value[typeCode]) {
+        cache.value[typeCode].loading = loading;
       } else {
-        this.cache[typeCode] = {
+        cache.value[typeCode] = {
           items: [],
           expiresAt: 0,
           loading,
         };
       }
-      this.loadingTypes.add(typeCode);
+      loadingTypes.value.add(typeCode);
 
       return loading;
-    },
+    }
 
     /**
      * 同步获取字典项；若未加载则异步拉取后返回（await 使用）。
      *
      * @param typeCode - 字典类型编码
      */
-    async getDictItems(typeCode: string): Promise<DictItem[]> {
-      const cached = this.cache[typeCode];
+    async function getDictItems(typeCode: string): Promise<DictItem[]> {
+      const cached = cache.value[typeCode];
       if (cached && cached.expiresAt >= Date.now()) {
         return cached.items;
       }
-      return this.ensureLoaded(typeCode);
-    },
+      return ensureLoaded(typeCode);
+    }
 
     /**
      * 使某字典类型缓存失效（字典维护后调用）
      */
-    invalidate(typeCode?: string) {
+    function invalidate(typeCode?: string) {
       if (typeCode) {
-        delete this.cache[typeCode];
+        delete cache.value[typeCode];
       } else {
-        this.cache = {};
+        cache.value = {};
       }
-    },
+    }
 
     /**
      * 清理过期缓存条目
      */
-    prune() {
+    function prune() {
       const now = Date.now();
-      for (const key of Object.keys(this.cache)) {
-        const entry = this.cache[key];
+      for (const key of Object.keys(cache.value)) {
+        const entry = cache.value[key];
         if (entry && entry.expiresAt < now && !entry.loading) {
-          delete this.cache[key];
+          delete cache.value[key];
         }
       }
-    },
+    }
+
+    return {
+      cache,
+      ensureLoaded,
+      getDictItems,
+      getItems,
+      invalidate,
+      loader,
+      loadingTypes,
+      prune,
+      setDictLoader,
+    };
   },
-});
+);
 
 // 解决热更新问题
 const hot = import.meta.hot;

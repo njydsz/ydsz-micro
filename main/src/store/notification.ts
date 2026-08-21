@@ -12,7 +12,8 @@ import type { NotificationApi } from "#/api/core/notification";
 
 import { ref } from "vue";
 
-import { useAccessStore } from "@ydsz/stores";
+import { useTokenStore } from "@ydsz/stores";
+import { createLogger } from "@YDSZ-core/shared/utils";
 
 import { ElNotification } from "element-plus";
 import { defineStore } from "pinia";
@@ -23,6 +24,9 @@ import {
   markAllAsReadApi,
   markAsReadApi,
 } from "#/api/core/notification";
+
+/** 模块级日志器 */
+const logger = createLogger("NotificationStore");
 
 /**
  * 全局通知 Store — 整合 REST API + WebSocket 实时推送。
@@ -149,7 +153,7 @@ export const useNotificationStore = defineStore("notification", () => {
    */
   function scheduleReconnect() {
     if (reconnectAttempts >= maxReconnectAttempts) {
-      console.warn("[WS] Max reconnection attempts reached, giving up.");
+      logger.warn("[WS] Max reconnection attempts reached, giving up.");
       return;
     }
 
@@ -159,7 +163,7 @@ export const useNotificationStore = defineStore("notification", () => {
     const delay = reconnectDelay * reconnectAttempts;
 
     reconnectTimer = setTimeout(() => {
-      console.info(
+      logger.info(
         `[WS] Reconnecting (attempt ${reconnectAttempts}/${maxReconnectAttempts})...`,
       );
       connectWebSocket();
@@ -172,8 +176,8 @@ export const useNotificationStore = defineStore("notification", () => {
   function connectWebSocket() {
     if (ws?.readyState === WebSocket.OPEN) return;
 
-    const accessStore = useAccessStore();
-    const token = accessStore.accessToken;
+    const tokenStore = useTokenStore();
+    const token = tokenStore.accessToken;
     if (!token) return;
 
     // 构建 WebSocket URL
@@ -185,7 +189,7 @@ export const useNotificationStore = defineStore("notification", () => {
       ws = new WebSocket(wsUrl);
 
       ws.addEventListener("open", () => {
-        console.info("[WS] Notification WebSocket connected");
+        logger.info("[WS] Notification WebSocket connected");
         wsConnected.value = true;
         reconnectAttempts = 0;
       });
@@ -200,17 +204,17 @@ export const useNotificationStore = defineStore("notification", () => {
       };
 
       ws.addEventListener("close", () => {
-        console.info("[WS] Notification WebSocket closed");
+        logger.info("[WS] Notification WebSocket closed");
         wsConnected.value = false;
         scheduleReconnect();
       });
 
       ws.onerror = (error) => {
-        console.error("[WS] Notification WebSocket error:", error);
+        logger.error("[WS] Notification WebSocket error:", error);
         wsConnected.value = false;
       };
     } catch (error) {
-      console.error("[WS] Failed to connect WebSocket:", error);
+      logger.error("[WS] Failed to connect WebSocket:", error);
       scheduleReconnect();
     }
   }

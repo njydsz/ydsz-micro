@@ -50,8 +50,8 @@ const [Modal, modalApi] = useVbenModal({
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
-      if (isEdit.value) { await updateFileApi(formData as any); ElMessage.success('更新成功'); }
-      else { await createFileApi(formData as any); ElMessage.success('创建成功'); }
+      if (isEdit.value) { await updateFileApi(formData as FileApi.FileDTO); ElMessage.success('更新成功'); }
+      else { await createFileApi(formData as FileApi.FileDTO); ElMessage.success('创建成功'); }
       emit('success'); modalApi.close();
     } finally { modalApi.unlock(); }
   },

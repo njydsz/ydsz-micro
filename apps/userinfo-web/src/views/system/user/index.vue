@@ -16,6 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useVbenModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { getVxePopupContainer } from '@ydsz/utils';
 
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElSelect, ElOption, ElTag } from 'element-plus';
@@ -30,7 +31,7 @@ import {
   resetPasswordApi,
   type UserApi,
 } from '#/api/user';
-import { getDeptTreeApi } from '#/api/dept';
+import { getDeptTreeApi, type DeptApi } from '#/api/dept';
 import { getRoleListApi, type RoleApi } from '#/api/role';
 import { getCompanyListApi, type CompanyApi } from '#/api/company';
 import { getPostListApi, type PostApi } from '#/api/post';
@@ -38,9 +39,12 @@ import { getPostListApi, type PostApi } from '#/api/post';
 import UserForm from './user-form.vue';
 import RoleAssign from './role-assign.vue';
 
+/** 模块级日志器 */
+const logger = createLogger('UserManagement');
+
 defineOptions({ name: 'UserManagement' });
 
-const deptTreeData = ref<any[]>([]);
+const deptTreeData = ref<DeptApi.DepartmentTreeVO[]>([]);
 const roleList = ref<RoleApi.RoleVO[]>([]);
 const companyList = ref<CompanyApi.CompanyVO[]>([]);
 const postList = ref<PostApi.PostVO[]>([]);
@@ -56,32 +60,32 @@ const searchForm = reactive({
 async function loadDeptTree() {
   try {
     deptTreeData.value = await getDeptTreeApi();
-  } catch {
-    // ignore
+  } catch (error) {
+    logger.warn('loadDeptTree failed:', error);
   }
 }
 
 async function loadRoleList() {
   try {
     roleList.value = await getRoleListApi();
-  } catch {
-    // ignore
+  } catch (error) {
+    logger.warn('loadRoleList failed:', error);
   }
 }
 
 async function loadCompanyList() {
   try {
     companyList.value = await getCompanyListApi();
-  } catch {
-    // ignore
+  } catch (error) {
+    logger.warn('loadCompanyList failed:', error);
   }
 }
 
 async function loadPostList() {
   try {
     postList.value = await getPostListApi();
-  } catch {
-    // ignore
+  } catch (error) {
+    logger.warn('loadPostList failed:', error);
   }
 }
 

@@ -18,11 +18,9 @@ import {
   errorMessageResponseInterceptor,
   RequestClient,
 } from '@ydsz/request';
-import { useAccessStore, useTokenStore } from '@ydsz/stores';
+import { useTokenStore } from '@ydsz/stores';
 
 import { ElMessage } from 'element-plus';
-
-import type { AuthApi } from './types';
 
 /**
  * P0-F2: 认证令牌存储模式（构建期常量，与 auth.ts 保持一致）。
@@ -49,6 +47,34 @@ function generateTraceId(): string {
   const random2 = Math.random().toString(36).substring(2, 10);
   return `${timestamp}-${random}-${random2}`;
 }
+
+/**
+ * P1-3: 读取后端下发的 CSRF Token（云顶编码规范 §7.2）。
+ *
+ * 后端通过 Cookie 下发 CSRF 令牌（常见命名 XSRF-TOKEN / csrf-token / CSRF-TOKEN），
+ * 前端读取后回传 `X-CSRF-Token` 请求头。读取失败返回空串，不强制阻断请求
+ * （是否校验由后端策略决定，保持对未启用 CSRF 的后端兼容）。
+ */
+const CSRF_COOKIE_NAMES = ['XSRF-TOKEN', 'csrf-token', 'CSRF-TOKEN'];
+
+function getCsrfToken(): string {
+  if (typeof document === 'undefined') return '';
+  for (const pair of document.cookie.split(';')) {
+    const [name, ...rest] = pair.trim().split('=');
+    const value = rest.join('=');
+    if (name && CSRF_COOKIE_NAMES.includes(name) && value) {
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return value;
+      }
+    }
+  }
+  return '';
+}
+
+/** 需要 CSRF 防护的请求方法（状态变更请求，GET/HEAD/OPTIONS 豁免） */
+const CSRF_MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
 /**
  * 创建与后端对齐的 RequestClient
@@ -90,6 +116,14 @@ export function createSharedRequestClient(
       // P1-6: 生成前端 TraceID，与后端日志/链路追踪关联
       if (!config.headers['X-Trace-Id']) {
         config.headers['X-Trace-Id'] = generateTraceId();
+      }
+      // P1-3: 状态变更请求（POST/PUT/PATCH/DELETE）携带 CSRF Token，防御 CSRF 攻击（规范 §7.2）
+      const method = (config.method ?? 'get').toUpperCase();
+      if (CSRF_MUTATING_METHODS.has(method) && !config.headers['X-CSRF-Token']) {
+        const csrfToken = getCsrfToken();
+        if (csrfToken) {
+          config.headers['X-CSRF-Token'] = csrfToken;
+        }
       }
       return config;
     },

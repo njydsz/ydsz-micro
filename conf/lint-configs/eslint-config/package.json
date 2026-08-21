@@ -1,0 +1,21 @@
+{
+  "name": "@ydsz/eslint-config",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "YDSZ 前端 ESLint 9 扁平配置（云顶编码规范执行层）",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-vue": "catalog:",
+    "vue-eslint-parser": "catalog:"
+  }
+}

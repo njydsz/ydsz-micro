@@ -13,6 +13,8 @@ import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
 
 import { ref } from 'vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import {
   $t,
   loadLocalesMapFromDir,
@@ -24,6 +26,9 @@ import { preferences } from '@ydsz/preferences';
 import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
+
+/** 模块级日志器 */
+const logger = createLogger('Locales');
 
 const elementLocale = ref<Language>(defaultLocale);
 
@@ -64,7 +69,7 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
   if (locale) {
     dayjs.locale(locale);
   } else {
-    console.error(`Failed to load dayjs locale for ${lang}`);
+    logger.error(`Failed to load dayjs locale for ${lang}`);
   }
 }
 

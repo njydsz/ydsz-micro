@@ -80,10 +80,10 @@ const [Modal, modalApi] = useVbenModal({
     modalApi.lock();
     try {
       if (isEdit.value) {
-        await updateConfigApi(formData as any);
+        await updateConfigApi(formData as ConfigApi.ConfigDTO);
         ElMessage.success('更新成功');
       } else {
-        await createConfigApi(formData as any);
+        await createConfigApi(formData as ConfigApi.ConfigDTO);
         ElMessage.success('创建成功');
       }
       emit('success');

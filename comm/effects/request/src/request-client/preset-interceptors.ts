@@ -83,7 +83,7 @@ export const defaultResponseInterceptor = ({
  * @param options - 拦截器依赖项
  * @param options.client - 该拦截器所属的请求客户端，用于共享刷新状态与重放请求
  * @param options.doReAuthenticate - 重新认证回调，通常清理登录态并跳转登录页
- * @param options.doRefreshToken - 刷新 token 回调，需返回新的 token 字符串
+ * @param options.doRefreshToken - 刷新 token 回调，需返回新的 token 字符串；返回 null 表示刷新失败（如 refreshToken 缺失），将触发重新认证
  * @param options.enableRefreshToken - 是否启用无感刷新；为 false 时 401 直接走重新认证
  * @param options.formatToken - 把 token 格式化为 Authorization 头的值（如加 `Bearer ` 前缀）
  * @returns 可注册到请求客户端的响应拦截器配置（仅含 `rejected` 分支）
@@ -97,7 +97,7 @@ export const authenticateResponseInterceptor = ({
 }: {
   client: RequestClient;
   doReAuthenticate: () => Promise<void>;
-  doRefreshToken: () => Promise<string>;
+  doRefreshToken: () => Promise<null | string>;
   enableRefreshToken: boolean;
   formatToken: (token: string) => null | string;
 }): ResponseInterceptorConfig => {
@@ -136,6 +136,14 @@ export const authenticateResponseInterceptor = ({
 
       try {
         const newToken = await doRefreshToken();
+
+        // 刷新失败（如 refreshToken 缺失）：拒绝队列并走重新认证
+        if (!newToken) {
+          client.refreshTokenQueue.forEach((cb) => cb.reject(new Error('Refresh token unavailable')));
+          client.refreshTokenQueue = [];
+          await doReAuthenticate();
+          throw new Error('Refresh token unavailable, please login again.');
+        }
 
         // 处理队列中的请求
         client.refreshTokenQueue.forEach((callback) => callback.resolve(newToken));

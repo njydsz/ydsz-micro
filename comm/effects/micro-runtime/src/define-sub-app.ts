@@ -40,6 +40,11 @@
 
 import type { App as VueApp } from 'vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+/** 模块级日志器 */
+const logger = createLogger('SubApp');
+
 /**
  * 子应用生命周期导出。
  *
@@ -162,9 +167,9 @@ export function defineSubApp(options: DefineSubAppOptions): SubAppLifecycle {
       const app = await createStandaloneApp(appName);
       currentStandaloneApp = app;
       app.mount(standaloneContainer);
-      console.info(`[${appName}] Standalone mode bootstrapped`);
+      logger.info(`[${appName}] Standalone mode bootstrapped`);
     } catch (err) {
-      console.error(`[${appName}] Standalone bootstrap failed:`, err);
+      logger.error(`[${appName}] Standalone bootstrap failed:`, err);
     }
   }
 

@@ -21,11 +21,16 @@ import { useRoute } from "vue-router";
 
 import type { MicroAppConfig } from "@ydsz/micro-runtime";
 
+import { createLogger } from "@YDSZ-core/shared/utils";
+
 import { microRuntime } from "#/bootstrap";
 import { $t } from "#/locales";
 
 import { useSubAppPhase } from "./composables/use-subapp-phase";
 import { useSkeletonResolver } from "./composables/use-skeleton-resolver";
+
+/** 模块级日志器 */
+const logger = createLogger("SubAppContainer");
 
 defineOptions({
   name: "SubAppContainer",
@@ -59,7 +64,7 @@ const unsubscribers: Array<() => void> = [];
 onMounted(() => {
   if (!microRuntime) {
     // 内核尚未初始化（理论上 bootstrap 已同步注册，防御性处理）
-    console.warn("[SubAppContainer] microRuntime not ready");
+    logger.warn("microRuntime not ready");
     return;
   }
 

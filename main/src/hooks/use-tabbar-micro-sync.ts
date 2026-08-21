@@ -18,8 +18,12 @@
 
 import { onTabClosed } from "@ydsz/stores";
 import { PATH_TO_APP_MAP } from "@ydsz/vite-config";
+import { createLogger } from "@YDSZ-core/shared/utils";
 
 import { microRuntime } from "../bootstrap";
+
+/** 模块级日志器 */
+const logger = createLogger("MultiTabSync");
 
 /** 路由前缀 → 子应用名 映射（由注册表单源 PATH_TO_APP_MAP 驱动） */
 const PATH_TO_APP = PATH_TO_APP_MAP;
@@ -141,7 +145,7 @@ export function useTabbarMicroSync(): void {
 
     void microRuntime.unmountApp(appName).then((result) => {
       if (result.success) {
-        console.info(`[MultiTabSync] Unmounted ${appName} (all tabs closed)`);
+        logger.info(`Unmounted ${appName} (all tabs closed)`);
       }
     });
   });

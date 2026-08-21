@@ -218,7 +218,8 @@ async function loadNamespaceMessages(
     namespaces
       .filter((ns) => typeof localeMap[ns] === 'function')
       .map(async (ns) => {
-        const mod = await localeMap[ns]();
+        // filter 已保证 localeMap[ns] 存在，此处非空断言仅为满足 TS 收窄限制
+        const mod = await localeMap[ns]!();
         return [ns, mod?.default ?? {}] as const;
       }),
   );

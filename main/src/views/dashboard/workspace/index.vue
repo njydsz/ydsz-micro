@@ -26,7 +26,11 @@ import {
 } from '@ydsz/common-ui';
 import { preferences } from '@ydsz/preferences';
 import { useUserStore } from '@ydsz/stores';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { openWindow } from '@ydsz/utils';
+
+/** 模块级日志器 */
+const logger = createLogger('Dashboard');
 
 import { useWorkspaceData } from '#/hooks/use-dashboard-data';
 
@@ -266,10 +270,10 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
   }
   if (nav.url?.startsWith('/')) {
     router.push(nav.url).catch((error) => {
-      console.error('Navigation failed:', error);
+      logger.error("Navigation failed:", error);
     });
   } else {
-    console.warn(`Unknown URL for navigation item: ${nav.title} -> ${nav.url}`);
+    logger.warn(`Unknown URL for navigation item: ${nav.title} -> ${nav.url}`);
   }
 }
 

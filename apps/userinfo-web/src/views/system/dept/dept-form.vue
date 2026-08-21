@@ -95,10 +95,10 @@ const [Modal, modalApi] = useVbenModal({
     modalApi.lock();
     try {
       if (isEdit.value) {
-        await updateDeptApi(formData as any);
+        await updateDeptApi(formData as DeptApi.DepartmentSaveDTO);
         ElMessage.success('更新成功');
       } else {
-        await createDeptApi(formData as any);
+        await createDeptApi(formData as DeptApi.DepartmentSaveDTO);
         ElMessage.success('创建成功');
       }
       emit('success');

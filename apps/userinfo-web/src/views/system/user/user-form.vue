@@ -110,10 +110,10 @@ const [Modal, modalApi] = useVbenModal({
     try {
       if (isEdit.value) {
         const { password: _pw, ...updateData } = formData;
-        await updateUserApi(updateData as any);
+        await updateUserApi(updateData as UserApi.UserAccountUpdateDTO);
         ElMessage.success('更新成功');
       } else {
-        await createUserApi(formData as any);
+        await createUserApi(formData as UserApi.UserAccountCreateDTO);
         ElMessage.success('创建成功');
       }
       emit('success');

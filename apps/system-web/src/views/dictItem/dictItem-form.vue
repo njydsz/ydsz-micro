@@ -78,10 +78,10 @@ const [Modal, modalApi] = useVbenModal({
     modalApi.lock();
     try {
       if (isEdit.value) {
-        await updateDictitemApi(formData as any);
+        await updateDictitemApi(formData as DictitemApi.DictitemDTO);
         ElMessage.success('更新成功');
       } else {
-        await createDictitemApi(formData as any);
+        await createDictitemApi(formData as DictitemApi.DictitemDTO);
         ElMessage.success('创建成功');
       }
       emit('success');

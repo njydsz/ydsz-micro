@@ -81,9 +81,9 @@ export function initMicroDevTools() {
  * kernel 实例在 registerMicroRuntime() 内 createKernel() 时被挂载到 window.__MICRO_KERNEL__
  */
 export function initDevToolsBridge(runtime: typeof microRuntime) {
-  if ((window as any).__MICRO_KERNEL__) {
+  if (window.__MICRO_KERNEL__) {
     enableDevToolsBridge({
-      kernel: (window as any).__MICRO_KERNEL__,
+      kernel: window.__MICRO_KERNEL__,
       microRuntime: runtime ?? undefined,
     });
   }

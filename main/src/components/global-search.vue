@@ -128,7 +128,7 @@ function close() {
               <div class="gs-item-body">
                 <span
                   class="gs-item-title"
-                  v-html="item.highlightedTitle || item.title"
+                  v-safe-html="item.highlightedTitle || item.title"
                 ></span>
                 <span class="gs-item-desc" v-if="item.description">{{
                   item.description

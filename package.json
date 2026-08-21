@@ -57,7 +57,9 @@
     "standalone:agent": "node ./bash/dev-standalone.mjs agent-web --no-mock",
     "sync:shared-deps": "node ./bash/sync-shared-deps.mjs",
     "upload:sourcemaps": "node ./bash/upload-sourcemaps.mjs",
-    "update:deps": "npx taze -r -w"
+    "update:deps": "npx taze -r -w",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",

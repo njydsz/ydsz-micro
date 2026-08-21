@@ -88,9 +88,8 @@ const formSchema = computed((): YDSZFormSchema[] => {
   ];
 });
 
-function handleSubmit(value: Recordable<any>) {
-  // eslint-disable-next-line no-console
-  console.log('register submit:', value);
+function handleSubmit(_value: Recordable<any>) {
+  // 注册流程由 AuthenticationRegister 组件内部处理
 }
 </script>
 
