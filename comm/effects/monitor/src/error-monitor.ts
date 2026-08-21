@@ -1,19 +1,39 @@
-﻿/**
+/**
  * 错误监控 — Vue + window + Promise + 资源加载错误捕获
  *
  * v3.1 增强：
- *   - 会话追踪：每个错误携带 sessionId / traceId / release，支持全链路关联
- *   - 采样控制：sampleRate + beforeSend 钩子，防止高频错误打满上报队列
- *   - sourcemap 关联：release 字段供后端匹配 sourcemap 符号化 stack trace
+ * - 会话追踪：每个错误携带 sessionId / traceId / release，支持全链路关联
+ * - 采样控制：sampleRate + beforeSend 钩子，防止高频错误打满上报队列
+ * - sourcemap 关联：release 字段供后端匹配 sourcemap 符号化 stack trace
  *
  * v3.4 增强：
- *   - 面包屑：错误上报时附带最近 N 条用户行为轨迹
- *   - 离线恢复：监听 online 事件自动重放离线缓存的上报
+ * - 面包屑：错误上报时附带最近 N 条用户行为轨迹
+ * - 离线恢复：监听 online 事件自动重放离线缓存的上报
  *
- * 对标 Sentry / 阿里 ARMS / 腾讯 APM 的前端错误采集能力。
+ * 为控制单文件行数，以下内容已拆分为独立模块：
+ * - error-monitor-types.ts：类型定义（ErrorType / ErrorReport / MonitorConfig）
+ * - error-monitor-offline.ts：离线缓存（cacheForOffline / loadOfflineCache 等）
+ *
+ * 本文件保留核心队列逻辑与公开 API，并重新导出类型以保持向后兼容。
+ *
+ * @path comm/effects/monitor/src/error-monitor.ts
+ * @author ydsz-team
+ * @since 3.0.0
  */
 
-import { getBreadcrumbs, type Breadcrumb } from './breadcrumb';
+import { getBreadcrumbs } from './breadcrumb';
+
+import type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-types';
+import {
+  cacheForOffline,
+  loadOfflineCache,
+  clearOfflineCache,
+  restoreOfflineCache as restoreOfflineCacheBase,
+} from './error-monitor-offline';
+
+// 向后兼容：重新导出类型
+export type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-types';
+export { cacheForOffline, loadOfflineCache, clearOfflineCache } from './error-monitor-offline';
 
 /** Sentry 转发开关：由 setupErrorMonitoring 设置 */
 let sentryForwardingEnabled = false;
@@ -45,67 +65,6 @@ export function disableSentryForwarding(): void {
   sentryForwardingEnabled = false;
 }
 
-/** 错误事件类型 */
-export type ErrorType =
-  | 'vue'
-  | 'window'
-  | 'promise'
-  | 'resource';
-
-/** 错误上报数据结构 */
-export interface ErrorReport {
-  type: ErrorType;
-  message: string;
-  stack?: string;
-  filename?: string;
-  lineno?: number;
-  colno?: number;
-  url?: string;
-  timestamp: number;
-  userAgent: string;
-  appVersion?: string;
-  userId?: string;
-  route?: string;
-  /** v3.1: 会话 ID，单次页面生命周期唯一 */
-  sessionId?: string;
-  /** v3.1: 错误追踪 ID，单条错误唯一，便于后端关联 */
-  traceId?: string;
-  /** v3.1: 发布版本（commit hash），用于 sourcemap 符号化 */
-  release?: string;
-  /** v3.4: 错误发生前的用户行为面包屑 */
-  breadcrumbs?: Breadcrumb[];
-  extra?: Record<string, any>;
-}
-
-/** 监控配置选项 */
-export interface MonitorConfig {
-  /** 发布版本标识（commit hash / 版本号），用于 sourcemap 关联 */
-  release?: string;
-  /** 采样率 0~1，默认 1（全量上报） */
-  sampleRate?: number;
-  /** 上报前钩子，返回 false 丢弃该错误，返回修改后的 report 可脱敏 */
-  beforeSend?: (report: ErrorReport) => ErrorReport | null;
-  /** 动态获取用户 ID（如从 Pinia store） */
-  getUserId?: () => string | undefined;
-  /** 上报失败时是否自动重试，默认 true */
-  retry?: boolean;
-  /** 最大重试次数，默认 3 */
-  maxRetries?: number;
-  /** 重试基础延迟（ms），默认 1000 */
-  retryBaseDelay?: number;
-  /**
-   * Sentry DSN（可选）。设置后错误将同时转发到 Sentry APM。
-   *
-   * 启用流程：
-   * 1. 在 .env.production 中设置 VITE_SENTRY_DSN=...
-   * 2. 调用 initSentry({ dsn, release }) 在 bootstrap 中初始化
-   * 3. 本模块会在 enqueueError 时自动向 Sentry 转发
-   *
-   * @since 4.0.0
-   */
-  sentryDsn?: string;
-}
-
 /** 上报端点 */
 const REPORT_ENDPOINT = '/api/v1/monitor/error';
 
@@ -123,12 +82,6 @@ const FLUSH_INTERVAL = 10_000;
 
 /** 单类型最大排队数（防止单一错误类型打满队列） */
 const MAX_PER_TYPE = 5;
-
-/** 离线缓存键名 */
-const OFFLINE_CACHE_KEY = 'ydsz_monitor_offline_queue';
-
-/** 离线缓存最大条数 */
-const MAX_OFFLINE_CACHE = 100;
 
 /** 当前监控配置 */
 let monitorConfig: MonitorConfig = {};
@@ -315,50 +268,10 @@ function scheduleRetry(batch: ErrorReport[], retryCount: number, baseDelay: numb
 }
 
 /**
- * 缓存错误到本地存储（离线场景）
- */
-function cacheForOffline(batch: ErrorReport[]): void {
-  try {
-    const cached = loadOfflineCache();
-    const merged = [...cached, ...batch].slice(-MAX_OFFLINE_CACHE);
-    localStorage.setItem(OFFLINE_CACHE_KEY, JSON.stringify(merged));
-  } catch {
-    // 存储失败静默
-  }
-}
-
-/**
- * 加载离线缓存的错误
- */
-function loadOfflineCache(): ErrorReport[] {
-  try {
-    const data = localStorage.getItem(OFFLINE_CACHE_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
-}
-
-/**
- * 清空离线缓存
- */
-function clearOfflineCache(): void {
-  try {
-    localStorage.removeItem(OFFLINE_CACHE_KEY);
-  } catch {
-    // 静默
-  }
-}
-
-/**
  * 恢复离线缓存的错误（网络恢复时调用）
  */
 function restoreOfflineCache(): void {
-  const cached = loadOfflineCache();
-  if (cached.length > 0) {
-    clearOfflineCache();
-    sendBatch(cached, 0);
-  }
+  restoreOfflineCacheBase(sendBatch);
 }
 
 /**

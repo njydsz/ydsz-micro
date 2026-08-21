@@ -10,6 +10,7 @@
  * @author ydsz-team
  * @since 4.3.0
  */
+import type { ComputedRef, Ref } from 'vue';
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 
 import type { TabDefinition } from '@YDSZ-core/typings';
@@ -154,3 +155,29 @@ export function routeToTab(route: RouteRecordNormalized) {
     key: getTabKey(route),
   } as TabDefinition;
 }
+
+/**
+ * Store 上下文接口
+ *
+ * 用于在 utility 函数中访问 store 的响应式状态与计算属性。
+ * 将 store 的 refs 与 computed 集中传递，避免 action 函数签名过长。
+ */
+export interface TabbarStoreContext {
+  /** 当前打开的标签页列表 */
+  tabs: Ref<TabDefinition[]>;
+  /** 当前打开的标签页列表缓存 */
+  cachedTabs: Ref<string[]>;
+  /** 需要排除缓存的标签页 */
+  excludeCachedTabs: Ref<string[]>;
+  /** 是否刷新 */
+  renderRouteView: Ref<boolean>;
+  /** 拖拽结束的索引 */
+  dragEndIndex: Ref<number>;
+  /** 更新时间 */
+  updateTime: Ref<number>;
+  /** 常规标签页 + 固定标签页（固定优先） */
+  getTabs: ComputedRef<TabDefinition[]>;
+  /** 缓存标签页副本 */
+  getCachedTabs: ComputedRef<string[]>;
+}
+

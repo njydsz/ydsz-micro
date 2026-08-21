@@ -17,6 +17,8 @@
  * - localStorage 写入在 serialize 之后（拿到最新状态一并持久化）
  * - localStorage 读取在下次应用加载时（一次性，读后清除防串扰）
  *
+ * 类型定义已提取至 page-cache-types.ts，滚动工具提取至 page-cache-scroll.ts。
+ *
  * @path comm/effects/micro-kernel/src/page-cache-manager.ts
  * @author ydsz-team
  * @since 4.2.2
@@ -24,54 +26,23 @@
 
 import { createLogger } from "@YDSZ-core/shared/utils";
 
-import { getStorage, setStorage, removeStorage, STORAGE_KEYS } from "./storage-utils";
+import { getStorage, setStorage, removeStorage } from "./storage-utils";
+import type { PageCachePolicy, PageCacheRecord, ScrollPosition } from "./page-cache-types";
+import {
+  CACHE_REGISTRY_KEY,
+  DEFAULT_POLICY,
+  NAMESPACE_PREFIX,
+} from "./page-cache-types";
+import { captureScrollPosition, restoreScrollPosition } from "./page-cache-scroll";
+
+// 重新导出类型，保持向后兼容
+export type {
+  PageCachePolicy,
+  PageCacheRecord,
+  ScrollPosition,
+} from "./page-cache-types";
 
 const logger = createLogger("PageCacheManager");
-
-// ==================== 类型定义 ====================
-
-/** 单条页面缓存记录 */
-export interface PageCacheRecord {
-  /** 滚动位置 */
-  scroll: ScrollPosition;
-  /** 应用自定义状态快照（来自 serialize()） */
-  appState: unknown;
-  /** 缓存创建时间戳 */
-  createdAt: number;
-  /** 路由 path（用于校验缓存是否对应当前路由） */
-  routePath: string;
-}
-
-/** 滚动位置信息 */
-export interface ScrollPosition {
-  /** window 垂直滚动位置 */
-  windowScrollY: number;
-  /** window 水平滚动位置 */
-  windowScrollX: number;
-  /** 可滚动容器的滚动位置（CSS 选择器 → {top, left}） */
-  containers: Record<string, { top: number; left: number }>;
-}
-
-/** 缓存策略配置 */
-export interface PageCachePolicy {
-  /** 单应用最大缓存条目数（按路由 path 区分，默认 10） */
-  maxEntriesPerApp: number;
-  /** 缓存 TTL（毫秒，默认 24 小时） */
-  ttlMs: number;
-  /** 滚动位置恢复延迟（毫秒，等待渲染完成，默认 100ms） */
-  restoreScrollDelayMs: number;
-  /** 记录的最大容器滚动位置数（防止 DOM 探测器开销过大，默认 20） */
-  maxContainerScrolls: number;
-}
-
-// ==================== 默认策略 ====================
-
-const DEFAULT_POLICY: PageCachePolicy = {
-  maxEntriesPerApp: 10,
-  ttlMs: 24 * 60 * 60 * 1000, // 24 小时
-  restoreScrollDelayMs: 100,
-  maxContainerScrolls: 20,
-};
 
 // ==================== 全局配置 ====================
 
@@ -100,10 +71,7 @@ export function resetPageCachePolicy(): void {
   _policy = { ...DEFAULT_POLICY };
 }
 
-// ==================== localStorage 	key 管理 ====================
-
-/** 缓存存储 registry key（记录已缓存的 app 列表） */
-const CACHE_REGISTRY_KEY = `${STORAGE_KEYS.CANARY_CONFIG}-page-cache-registry`;
+// ==================== localStorage key 管理 ====================
 
 /**
  * 生成单条缓存的存储 key（按路由 path 区分）
@@ -114,9 +82,7 @@ function buildCacheKey(appName: string, routePath: string): string {
   return `${NAMESPACE_PREFIX}page-cache:${appName}:${safePath}`;
 }
 
-const NAMESPACE_PREFIX = "micro-kernel:";
-
-// ==================== 滚动位置捕获 ====================
+// ==================== 滚动位置捕获/恢复（委托给 page-cache-scroll.ts） ====================
 
 /**
  * 捕获当前页面滚动位置（window + 可滚动容器）。
@@ -127,125 +93,28 @@ const NAMESPACE_PREFIX = "micro-kernel:";
  * @param container - 子应用根容器元素
  * @returns 滚动位置快照
  */
-export function captureScrollPosition(container: HTMLElement): ScrollPosition {
-  const position: ScrollPosition = {
-    windowScrollY: window.scrollY || window.pageYOffset,
-    windowScrollX: window.scrollX || window.pageXOffset,
-    containers: {},
-  };
-
-  // 探测可滚动容器：在子应用容器范围内查找 overflow: auto/scroll 的元素
-  const scrollableSelectors = findScrollableContainers(container, _policy.maxContainerScrolls);
-  for (const { el, selector } of scrollableSelectors) {
-    if (el.scrollTop > 0 || el.scrollLeft > 0) {
-      position.containers[selector] = {
-        top: el.scrollTop,
-        left: el.scrollLeft,
-      };
-    }
-  }
-
-  return position;
+export function captureScroll(container: HTMLElement): ScrollPosition {
+  return captureScrollPosition(container, _policy);
 }
-
-/**
- * 查找子应用容器内的可滚动元素。
- *
- * 排除 window/document 级别，仅查找 overflow-y: auto/scroll 的块级元素。
- * 返回结果按文档顺序排列，限制数量以防性能开销。
- *
- * @param root - 子应用根容器
- * @param limit - 最大查找数量
- */
-function findScrollableContainers(
-  root: HTMLElement,
-  limit: number,
-): Array<{ el: HTMLElement; selector: string }> {
-  const result: Array<{ el: HTMLElement; selector: string }> = [];
-  const allElements = root.querySelectorAll<HTMLElement>("*");
-
-  for (const el of allElements) {
-    if (result.length >= limit) break;
-    const style = window.getComputedStyle(el);
-    const overflowY = style.overflowY;
-    const overflowX = style.overflowX;
-
-    // 排除不可见元素（getComputedStyle 对 display:none 返回 ""）
-    if (!overflowY && !overflowX) continue;
-
-    const isScrollableY = (overflowY === "auto" || overflowY === "scroll") && el.scrollHeight > el.clientHeight;
-    const isScrollableX = (overflowX === "auto" || overflowX === "scroll") && el.scrollWidth > el.clientWidth;
-
-    if (isScrollableY || isScrollableX) {
-      result.push({
-        el,
-        selector: generateSelector(el),
-      });
-    }
-  }
-
-  return result;
-}
-
-/**
- * 为元素生成简短的选择器路径（用于恢复时定位）。
- *
- * 优先使用 id，其次用 class（首个类名），最后用标签 + nth-child。
- */
-function generateSelector(el: HTMLElement): string {
-  if (el.id) return `#${el.id}`;
-  if (el.className && typeof el.className === "string") {
-    const classes = el.className.trim().split(/\s+/).filter(Boolean);
-    if (classes.length > 0) return `.${classes[0]}`;
-  }
-  // 简化：返回 tagName + data-micro-app 属性链
-  const tag = el.tagName.toLowerCase();
-  const parent = el.parentElement;
-  if (parent) {
-    const siblings = Array.from(parent.children).filter(
-      (child) => (child as HTMLElement).tagName === el.tagName,
-    );
-    if (siblings.length > 1) {
-      const idx = siblings.indexOf(el);
-      return `${tag}:nth-child(${idx + 1})`;
-    }
-  }
-  return tag;
-}
-
-// ==================== 滚动位置恢复 ====================
 
 /**
  * 恢复页面滚动位置（window + 容器）。
  *
  * 应在 activateApp hydrate 之后调用，此时 DOM 尺寸已就位。
- * 使用 requestAnimationFrame 确保渲染帧就绪。
  *
  * @param record - 缓存记录
  * @param container - 子应用根容器元素
  */
-export function restoreScrollPosition(
+export function restoreScroll(
   record: PageCacheRecord,
   container: HTMLElement,
 ): void {
-  const { scroll } = record;
-  const delay = _policy.restoreScrollDelayMs;
-
-  // 延迟恢复：等待 Vue 完成异步渲染 + hydration
-  setTimeout(() => {
-    // 恢复 window 滚动（仅当路由 path 一致时）
-    if (record.routePath === location.pathname) {
-      window.scrollTo(scroll.windowScrollX, scroll.windowScrollY);
-    }
-
-    // 恢复容器滚动
-    for (const [selector, pos] of Object.entries(scroll.containers)) {
-      const el = container.querySelector<HTMLElement>(selector);
-      if (el) {
-        el.scrollTo(pos.left, pos.top);
-      }
-    }
-  }, delay);
+  restoreScrollPosition(
+    record.scroll,
+    record.routePath,
+    container,
+    _policy.restoreScrollDelayMs,
+  );
 }
 
 // ==================== 缓存持久化（localStorage） ====================

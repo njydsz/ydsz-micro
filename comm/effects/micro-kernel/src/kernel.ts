@@ -21,76 +21,37 @@ import type {
   MicroAppConfig,
   MicroAppEntry,
   MicroRuntime,
-  MountProps,
   StartOptions,
 } from "@ydsz/micro-runtime";
 
 import type { ManagerRegistry } from "./manager-registry";
-import type { GlobalStateBridge, KeepAliveConfig } from "./scheduler";
-
-import { createNamespacedGlobalStateWrapper } from "@ydsz/micro-runtime/namespaced-state";
-import { buildStandardMountProps } from "@ydsz/micro-runtime/standard-props";
+import type { KeepAliveConfig } from "./scheduler";
 
 import { createLogger } from "@YDSZ-core/shared/utils";
 
-import {
-  decideDegradationLevel,
-  getNextAutoRetryDelay,
-  getRetryCount,
-  isDegraded,
-  markDegraded,
-  renderErrorFallback,
-  setRetryCount,
-} from "./error-boundary";
 import { createGlobalStateAPI } from "./global-state";
+import { clearRegistryCache, resolveAppEntry, resolveRegistry } from "./registry-adapter";
 import {
-  matchActiveRule,
-  patchHistory,
-  resolveContainer,
-  ROUTE_CHANGE_EVENT,
-  runWithConcurrency,
-  scheduleIdle,
-  shouldSkipPrefetchDueToNetwork,
-} from "./kernel-helpers";
+  createSwitchToApp,
+  createStartRouterSync as createStartRouterSyncFn,
+  type LifecycleDependencies,
+  type LifecycleStateAccessors,
+} from "./kernel-lifecycle";
 import {
-  createCanaryManager,
-  createDevToolsManager,
-  createErrorBoundaryManager,
-  createHealthCheckerManager,
-  createMessageBrokerManager,
-  createPerformanceManager,
-  createPreloadManager,
-  createRoutePredictorManager,
-  createSchedulerManager,
-  createSpeculationRulesManager,
-  createVersionManager,
-} from "./kernel-managers";
+  createKernelMessagingAPI,
+  type KernelMessagingAPI,
+} from "./kernel-events";
+import { createHealthCheckFunctions, type HealthCheckContext } from "./kernel-health";
+import { createStartFunction, type StartupContext } from "./kernel-startup";
+import { createStopFunction, type ShutdownContext } from "./kernel-shutdown";
+import { createRegistryFunctions, type RegistryContext } from "./kernel-registry";
+import { createPropsFunctions, type PropsContext } from "./kernel-props";
 import { createLifecycleHookRegistry } from "./lifecycle-hooks";
-import { preloadManifest } from "./link-hints";
-import { clearManifestCache, loadApp } from "./loader";
 import { createManagerRegistry } from "./manager-registry";
+import { getPreloadManager } from "./preload-strategy";
 import {
-  registerAppMessageHandler,
-  sendMessage,
-  sendRequest,
-  startMessageListener,
-} from "./message-broker";
-import { mark, measure } from "./performance-utils";
-import {
-  createRoutePreloadStrategy,
-  getPreloadManager,
-  recordRouteTransition,
-} from "./preload-strategy";
-import {
-  clearRegistryCache,
-  resolveAppEntry,
-  resolveRegistry,
-} from "./registry-adapter";
-import {
-  activateApp,
   bindSchedulerContext,
   configureKeepAlive as configureKeepAliveAction,
-  createAppInstance,
   createSchedulerContext,
   deactivateApp,
   getAllInstances,
@@ -99,11 +60,7 @@ import {
   isKeepAliveEnabled,
   setKeepAlive as setKeepAliveAction,
   setPinnedApp,
-  setStyleIsolation,
-  setupVisibilityAutoRelease,
-  updateAppProps,
 } from "./scheduler";
-import { applyPrefetchBoost } from "./speculation-rules";
 import { getVersionManager } from "./version-manager";
 
 /** 模块级日志器 */
@@ -129,457 +86,105 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   let visibilityCleanup: (() => void) | null = null;
   const versionManager = getVersionManager();
   const preloadManager = getPreloadManager();
-
-  // === P0-A1: 管理器注册表（统一 dispose） ===
   const registry: ManagerRegistry = createManagerRegistry();
 
   // === P0-N1 (v4.2.1): 绑定内核专属调度器上下文 ===
-  // 每个 createKernel 实例持有独立 appInstances / keepAlive 配置，
-  // 消除多 Kernel 实例（测试并行 / SSR / 嵌套微前端）状态串扰。
-  const schedulerContext = createSchedulerContext();
-  bindSchedulerContext(schedulerContext);
+  bindSchedulerContext(createSchedulerContext());
 
   // ==================== P0-A2: 闭包级状态 ====================
-
-  /** 当前活跃应用名 */
   let activeAppName: null | string = null;
-
-  /** 切换令牌：递增代次，防止快速连续切换时异步竞态 */
   let switchToken = 0;
-
-  /** v4.2.1 P0-N2: 切换中止控制器 — 快速连续切换时中止旧 deactivate/activate */
   let switchAbortController: AbortController | null = null;
 
-  // ==================== 全局通信 (globalState) ====================
-
-  /**
-   * micro-kernel 内置的 RawGlobalStateAPI 实现（从 global-state.ts 提取）。
-   * 不依赖 qiankun initGlobalState，纯内存 pub-sub。
-   * 注入子应用 mountProps 后，子应用可通过 {@link createGlobalStateHandle} 消费。
-   */
+  // ==================== 全局通信 ====================
   const globalStateAPI = createGlobalStateAPI();
-
-  // ==================== 生命周期钩子 ====================
-
   const lifecycleHooks = createLifecycleHookRegistry();
 
-  // ==================== 路由同步 + 应用切换 ====================
+  // ==================== 构建闭包状态访问器 ====================
+  const lifecycleState: LifecycleStateAccessors = {
+    getActiveAppName: () => activeAppName,
+    setActiveAppName: (name: string | null) => { activeAppName = name; },
+    incrementToken: () => ++switchToken,
+    getToken: () => switchToken,
+    getAbortController: () => switchAbortController,
+    setAbortController: (c: AbortController | null) => { switchAbortController = c; },
+  };
 
-  /**
-   * === S3 修复：带令牌的并发安全切换 ===
-   *
-   * 每次拨动 switchToken，异步操作前后校验令牌是否一致。
-   * 若不一致说明已有更晚的切换请求发起，当前操作结果直接丢弃，
-   * 避免"后到的 deactivateApp 把刚激活的应用卸载"这类竞态。
-   *
-   * v4.2.1 P0-N2: 引入 AbortController — 快速连续切换时
-   * 中止旧的 deactivate/activate 异步链路，避免不必要的
-   * unmount/cleanup 开销与"旧切换插花"时序问题。
-   */
-  async function switchToApp(
-    config: MicroAppConfig,
-    options?: StartOptions,
-  ): Promise<void> {
-    // 中止上一轮切换的未完成异步操作（deactivate / load / mount）
-    switchAbortController?.abort();
-    const controller = new AbortController();
-    switchAbortController = controller;
-    const signal = controller.signal;
+  const lifecycleDeps: LifecycleDependencies = {
+    globalStateAPI,
+    lifecycleHooks,
+    recordAppVisit: (n: string) => preloadManager.recordAppVisit(n),
+    recordPreloadConsumed: (n: string) => preloadManager.recordPreloadConsumed(n),
+  };
 
-    const token = ++switchToken;
-    const fromApp = activeAppName;
+  // ==================== 创建核心函数 ====================
+  const switchToApp = createSwitchToApp(lifecycleState, lifecycleDeps);
+  const startRouterSync = createStartRouterSyncFn(lifecycleState, switchToApp);
+  const messagingApi: KernelMessagingAPI = createKernelMessagingAPI();
 
-    if (activeAppName === config.name) return;
+  // ==================== 创建启动/关闭/健康检查/注册/Props函数 ====================
+  const startupCtx: StartupContext = {
+    getApps: () => apps,
+    setRouterSyncCleanup: (c) => { routerSyncCleanup = c; },
+    setVisibilityCleanup: (c) => { visibilityCleanup = c; },
+    preloadManager,
+    startRouterSync,
+  };
+  const shutdownCtx: ShutdownContext = {
+    getRouterSyncCleanup: () => routerSyncCleanup,
+    setRouterSyncCleanup: (c) => { routerSyncCleanup = c; },
+    getVisibilityCleanup: () => visibilityCleanup,
+    setVisibilityCleanup: (c) => { visibilityCleanup = c; },
+    getAbortController: () => switchAbortController,
+    setAbortController: (c: AbortController | null) => { switchAbortController = c; },
+    resetActiveAppName: () => { activeAppName = null; },
+    resetSwitchToken: () => { switchToken = 0; },
+    globalStateAPI,
+    lifecycleHooks,
+    resetApps: () => { apps = []; },
+    resetStarted: () => { started = false; },
+    registry,
+  };
+  const healthCtx: HealthCheckContext = {
+    getRegisteredAppsCount: () => getAllInstances().length,
+  };
+  const registryCtx: RegistryContext = {
+    getApps: () => apps,
+    setApps: (a: MicroAppConfig[]) => { apps = a; },
+    setAppEntries: (e) => versionManager.setAppEntries(e),
+  };
+  const propsCtx: PropsContext = {
+    getApps: () => apps,
+    checkVersionUpdate: (name: string, manifest: unknown) =>
+      versionManager.checkUpdate(name, manifest),
+  };
 
-    // === ADR-006: kernel:route 标记 ===
-    if (fromApp) {
-      mark(`kernel:route:${fromApp}→${config.name}:start`);
-    }
+  const startFn = createStartFunction(startupCtx);
+  const stopFn = createStopFunction(shutdownCtx);
+  const { healthCheck, healthCheckAsync } = createHealthCheckFunctions(healthCtx);
+  const { registerAppsInternal, addAppInternal } = createRegistryFunctions(registryCtx);
+  const { updateApp, updateAllApps, prefetchApp } = createPropsFunctions(propsCtx);
 
-    // 卸载当前
-    if (activeAppName) {
-      const prev = getAppInstance(activeAppName);
-      if (prev) {
-        await deactivateApp(prev, signal);
-        if (token !== switchToken) return;
-        if (signal.aborted) return;
-      }
-    }
-
-    // 激活目标
-    const instance = getAppInstance(config.name) || createAppInstance(config);
-
-    // === v4.0 P1-2: 使用标准化 Props 构造器注入跨应用通信 API ===
-    const enhancedGlobalState =
-      createNamespacedGlobalStateWrapper(globalStateAPI);
-
-    // 构建标准化 mountProps（单一事实源）
-    const standardProps = buildStandardMountProps(config, {
-      rawGlobalState: globalStateAPI,
-      sendMessage: (action: string, payload?: unknown) =>
-        sendMessage(config.name, action, payload),
-      sendRequest: <R = unknown>(
-        action: string,
-        payload?: unknown,
-        timeout?: number,
-      ) => sendRequest(config.name, action, payload, timeout) as Promise<R>,
-      registerHandler: <T = unknown, R = unknown>(
-        handler: (msg: {
-          action: string;
-          from: string;
-          payload: T;
-        }) => Promise<R> | R,
-      ) =>
-        registerAppMessageHandler(config.name, (msg) =>
-          handler({
-            action: msg.action,
-            payload: msg.payload as T,
-            from: msg.from,
-          }),
-        ),
-      theme: undefined, // 由 bootstrap 侧注入时可不传，子应用通过 context.theme 获取
-      locale: undefined,
-      userId: undefined,
-    });
-
-    // 覆盖 config.props：标准化 props + 向后兼容别名（旧代码使用 _globalState / _messageBus）
-    config.props = {
-      ...standardProps,
-      // 向后兼容别名：确保未迁移的子应用仍能通过 _globalState / _messageBus 访问
-      _globalState: enhancedGlobalState,
-      _messageBus: standardProps.messageBus,
-    };
-
-    // 派发 before-load 事件，触发骨架屏显示
-    window.dispatchEvent(
-      new CustomEvent("micro-kernel:before-load", {
-        detail: { appName: config.name },
-      }),
-    );
-
-    await lifecycleHooks.run("beforeLoad", config);
-    if (token !== switchToken) return;
-
-    const container = resolveContainer(config.container);
-    if (!container) {
-      logger.error(
-        `Container "${config.container}" not found for ${config.name}`,
-      );
-      window.dispatchEvent(
-        new CustomEvent("micro-kernel:error", {
-          detail: { appName: config.name, error: "Container not found" },
-        }),
-      );
-      return;
-    }
-
-    try {
-      // v3.6.0: 构造 globalStateBridge，用于 iframe 沙箱跨 realm 通信
-      // snapshot/proxy 沙箱不使用此桥接（直接注入 globalStateAPI 引用）
-      const globalStateBridge: GlobalStateBridge = {
-        getGlobalState: () => globalStateAPI.getGlobalState(),
-        setGlobalState: (patch) => globalStateAPI.setGlobalState(patch),
-        onGlobalStateChange: (listener, fireImmediately) =>
-          globalStateAPI.onGlobalStateChange(listener, fireImmediately),
-      };
-
-      await activateApp(
-        instance,
-        container as HTMLElement,
-        {},
-        {
-          // v3.3: 细化生命周期 — 加载完成后触发 afterLoad 钩子与事件
-          onLoaded: (inst) => {
-            if (token !== switchToken || signal.aborted) return;
-            void lifecycleHooks.run("afterLoad", inst.config);
-            window.dispatchEvent(
-              new CustomEvent("micro-kernel:after-load", {
-                detail: { appName: inst.config.name },
-              }),
-            );
-          },
-          // v3.3: 细化生命周期 — mount 之前触发 beforeMount 钩子与事件
-          onBeforeMount: (inst) => {
-            if (token !== switchToken || signal.aborted) return;
-            void lifecycleHooks.run("beforeMount", inst.config);
-            window.dispatchEvent(
-              new CustomEvent("micro-kernel:before-mount", {
-                detail: { appName: inst.config.name },
-              }),
-            );
-          },
-        },
-        globalStateBridge,
-        signal,
-      );
-      if (token !== switchToken) return;
-      if (signal.aborted) return;
-      const prevAppName = activeAppName;
-      activeAppName = config.name;
-      // v3.4: 记录应用访问频率，供 frequency 预加载策略使用
-      preloadManager.recordAppVisit(config.name);
-      // P1-2: 标记预加载被消费（如果该应用之前被预加载过）
-      preloadManager.recordPreloadConsumed(config.name);
-      // v4.0 P1-2: 记录路由跳转供预测引擎学习
-      if (prevAppName) {
-        recordRouteTransition(prevAppName, config.name);
-      }
-      // ADR-006: kernel:route 结束标记
-      if (fromApp) {
-        mark(`kernel:route:${fromApp}→${config.name}:end`);
-        measure(
-          `kernel:route:${fromApp}→${config.name}`,
-          `kernel:route:${fromApp}→${config.name}:start`,
-          `kernel:route:${fromApp}→${config.name}:end`,
-        );
-      }
-      await lifecycleHooks.run("afterMount", config);
-
-      // 派发 after-mount 事件，触发骨架屏隐藏
-      window.dispatchEvent(
-        new CustomEvent("micro-kernel:after-mount", {
-          detail: { appName: config.name },
-        }),
-      );
-    } catch (error) {
-      // v4.2.1 P0-N2: 切换被更新的请求中止 → 静默退出，不触发降级
-      if (
-        (error instanceof DOMException && error.name === "AbortError") ||
-        (error instanceof Error && error.name === "AbortError")
-      ) {
-        logger.debug(`Switch to ${config.name} aborted by newer request`);
-        return;
-      }
-
-      logger.error(`Failed to activate ${config.name}:`, error);
-
-      // === v3.7.0: 三级降级决策 ===
-      const level = decideDegradationLevel(config.name);
-
-      if (level === "auto-retry") {
-        // 第一级：静默自动重试（不展示 UI，应对 CDN 偶发抖动）
-        const delay = getNextAutoRetryDelay(config.name);
-        // 递增重试计数器，防止无限自动重试（下次 decideDegradationLevel 将读到增加后的值）
-        setRetryCount(config.name, getRetryCount(config.name) + 1);
-        logger.info(
-          `Auto-retry ${config.name} after ${Math.round(delay)}ms (silent)...`,
-        );
-        setTimeout(() => {
-          void switchToApp(config, options);
-        }, delay);
-        // 不派发 error 事件：骨架屏保持显示，等待自动重试结果
-        return;
-      }
-
-      if (level === "show-ui") {
-        // 第二级：展示占位 UI，允许用户手动重试
-        renderErrorFallback(config, resolveContainer(config.container), () =>
-          switchToApp(config, options),
-        );
-      } else {
-        // 第三级：超限 → 标记降级 + 整页跳转兜底
-        markDegraded(config.name);
-        renderErrorFallback(config, resolveContainer(config.container), () =>
-          switchToApp(config, options),
-        );
-      }
-
-      // 派发 error 事件，触发骨架屏隐藏
-      window.dispatchEvent(
-        new CustomEvent("micro-kernel:error", {
-          detail: { appName: config.name, error: String(error) },
-        }),
-      );
-
-      // 触发 error 生命周期钩子（供 SubAppContainer 等订阅方使用）
-      await lifecycleHooks.runError(config, error);
-
-      if (activeAppName === config.name) {
-        activeAppName = null;
-      }
-    }
-  }
-
-  /**
-   * 路由监听：匹配 activeRule → 激活对应子应用。
-   * 覆盖 popstate（浏览器前进/后退）+ 自定义 route-change（history pushState/replaceState 补丁）。
-   */
-  function startRouterSync(
-    routerApps: MicroAppConfig[],
-    options?: StartOptions,
-  ): () => void {
-    const historyPatchCleanup = patchHistory();
-
-    // === P2-2: activeRule 索引 — string 类型构建 Map + 排序，/function/RegExp 走 slow-path ===
-    // string activeRule 按长度降序排列：/app/detail 优先于 /app
-    const stringRules: Array<{ app: MicroAppConfig; rule: string }> = [];
-    const nonStringRules: MicroAppConfig[] = [];
-    for (const app of routerApps) {
-      if (typeof app.activeRule === "string") {
-        stringRules.push({ rule: app.activeRule, app });
-      } else {
-        nonStringRules.push(app);
-      }
-    }
-    // 长度降序：更具体的路径优先匹配
-    stringRules.sort((a, b) => b.rule.length - a.rule.length);
-
-    function findMatchingApp(path: string): MicroAppConfig | null {
-      // 1. string 索引：按长度降序首次命中即返回（O(k)，k = string 数 ≤ N）
-      for (const { rule, app } of stringRules) {
-        if (path.startsWith(rule)) return app;
-      }
-      // 2. slow-path：仅遍历 RegExp/function 类型
-      for (const app of nonStringRules) {
-        if (matchActiveRule(path, app.activeRule)) return app;
-      }
-      return null;
-    }
-
-    function handleRouteChange(): void {
-      const path = window.location.pathname;
-
-      const app = findMatchingApp(path);
-      if (app) {
-        if (isDegraded(app.name)) {
-          // 降级应用走整页跳转
-          if (activeAppName !== app.name) {
-            // P0-2: 降级跳转需要有效的 URL，字符串类型直接使用，其他类型使用 entry
-            const fallbackUrl =
-              typeof app.activeRule === "string" ? app.activeRule : app.entry;
-            window.location.href = fallbackUrl;
-          }
-          return;
-        }
-
-        // P1-3: 路由激活阶段权限守卫
-        if (options?.onRouteActivate && !options.onRouteActivate(app.name)) {
-          logger.warn(`Route activation blocked by guard for "${app.name}"`);
-          return;
-        }
-
-        void switchToApp(app, options);
-        return;
-      }
-
-      // === S2 修复：路径不匹配任何子应用时，卸载当前活跃应用 ===
-      if (activeAppName) {
-        const current = getAppInstance(activeAppName);
-        if (current) {
-          void deactivateApp(current);
-          activeAppName = null;
-          logger.debug(
-            `Deactivated "${current.config.name}" (no activeRule match)`,
-          );
-        }
-      }
-    }
-
-    // 首次匹配
-    handleRouteChange();
-
-    // 浏览器的前进/后退
-    window.addEventListener("popstate", handleRouteChange);
-    // history pushState/replaceState 补丁派发的事件
-    window.addEventListener(ROUTE_CHANGE_EVENT, handleRouteChange);
-
-    return () => {
-      historyPatchCleanup();
-      window.removeEventListener("popstate", handleRouteChange);
-      window.removeEventListener(ROUTE_CHANGE_EVENT, handleRouteChange);
-    };
-  }
-
-  // === 闭包级 registerApps 实现（供 registerApps 与 registerAppsAsync 复用） ===
-  function registerAppsInternal(newApps: MicroAppConfig[]): void {
-    apps = [...new Set([...apps, ...newApps])];
-    for (const app of newApps) {
-      if (!getAppInstance(app.name)) {
-        createAppInstance(app);
-      }
-    }
-    versionManager.setAppEntries(new Map(apps.map((a) => [a.name, a.entry])));
-    const isBuildMode = !(
-      import.meta !== undefined &&
-      (import.meta as { env?: Record<string, unknown> }).env?.DEV === true
-    );
-    if (isBuildMode) {
-      for (const app of newApps) {
-        preloadManifest(app.entry);
-      }
-    }
-  }
-
-  /**
-   * v4.2.1 N10: 运行时追加单个子应用（懒注册）。
-   *
-   * 用于插件市场 / 动态安装等场景。重复注册同名应用为幂等 no-op。
-   *
-   * @param app - 子应用配置
-   * @since 4.2.1
-   */
-  function addAppInternal(app: MicroAppConfig): boolean {
-    if (apps.some((a) => a.name === app.name)) {
-      logger.warn(`addApp: app "${app.name}" already registered, skip`);
-      return false;
-    }
-    apps.push(app);
-    if (!getAppInstance(app.name)) {
-      createAppInstance(app);
-    }
-    versionManager.setAppEntries(new Map(apps.map((a) => [a.name, a.entry])));
-    // 构建模式预热 manifest（与 registerAppsInternal 一致）
-    const isBuildMode = !(
-      import.meta !== undefined &&
-      (import.meta as { env?: Record<string, unknown> }).env?.DEV === true
-    );
-    if (isBuildMode) {
-      preloadManifest(app.entry);
-    }
-    logger.info(`addApp: registered "${app.name}"`);
-    return true;
-  }
+  // ==================== 内核 API ====================
 
   const kernelApi = {
-    registerApps(newApps: MicroAppConfig[]) {
-      registerAppsInternal(newApps);
-    },
+    registerApps(newApps: MicroAppConfig[]) { registerAppsInternal(newApps); },
+    addApp(app: MicroAppConfig): boolean { return addAppInternal(app); },
+    getRegisteredApps() { return getAllInstances().map((i) => i.config); },
 
-    /**
-     * v4.2.1 N10: 运行时追加单个子应用（懒注册）。
-     *
-     * @param app - 子应用配置
-     * @returns 是否注册成功（同名重复注册返回 false）
-     * @since 4.2.1
-     */
-    addApp(app: MicroAppConfig): boolean {
-      return addAppInternal(app);
-    },
-
-    getRegisteredApps() {
-      return getAllInstances().map((i) => i.config);
-    },
-
-    // === v3.7.0: 异步注册表支持 ===
-
-    async registerAppsAsync(registry: {
+    async registerAppsAsync(reg: {
       adapter: "auto" | "remote" | "static";
       fetcher?: () => Promise<MicroAppEntry[]>;
     }): Promise<MicroAppConfig[]> {
       let entries: MicroAppEntry[];
-
-      if (registry.fetcher) {
-        // 自定义 fetcher 优先
-        entries = await registry.fetcher();
-      } else if (registry.adapter === "static") {
-        // 静态配置：动态导入 MICRO_APPS，避免 kernel 模块每次加载都携带完整注册表
+      if (reg.fetcher) {
+        entries = await reg.fetcher();
+      } else if (reg.adapter === "static") {
         const { MICRO_APPS } = await import("@ydsz/vite-config");
         entries = MICRO_APPS as MicroAppEntry[];
       } else {
-        // 'remote' / 'auto'：使用 registry-adapter 拉取（含缓存回退）
         entries = await resolveRegistry(true);
       }
-
       const configs: MicroAppConfig[] = entries.map((entry) => ({
         name: entry.name,
         entry: resolveAppEntry(entry),
@@ -587,524 +192,74 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         activeRule: entry.activeRule,
         sandbox: entry.sandbox,
       }));
-
-      // 调用闭包级 registerApps（避免 this 指向混乱）
       registerAppsInternal(configs);
       return configs;
     },
 
     start(options?: StartOptions) {
-      if (started) {
-        logger.warn("Already started");
-        return;
-      }
+      if (started) { logger.warn("Already started"); return; }
       started = true;
-
-      // P1-3.2: 设置权限检查器，预加载时会根据用户权限过滤
-      if (options?.permissionChecker) {
-        preloadManager.setPermissionChecker(options.permissionChecker);
-      }
-
-      // 启动路由监听（含 history 补丁）
-      routerSyncCleanup = startRouterSync(apps, options);
-
-      // v4.2.1 N5: 全局运行时 CSS 作用域兜底开关（来自 start options）
-      setStyleIsolation(options?.sandbox?.styleIsolation === true);
-
-      // P0-P2: 页面切到后台时自动释放保活实例，减少后台内存占用
-      visibilityCleanup = setupVisibilityAutoRelease();
-
-      // === v3.7.0: 启动全局消息监听（子应用点对点通信） ===
-      startMessageListener((msg) => {
-        logger.debug(`Message from ${msg.from} → ${msg.to}: ${msg.action}`);
-      });
-
-      // === v3.7.0: Speculation Rules API 预加载增强 ===
-      // prefetchStrategy 控制：eager / lazy(默认) / never
-      // 将 apps 映射为 MicroAppEntry 供 applyPrefetchBoost 使用
-      if (options?.prefetchStrategy !== "never") {
-        const appEntries: MicroAppEntry[] = apps.map((a) => ({
-          name: a.name,
-          packageName: `@ydsz/${a.name}`,
-          activeRule:
-            typeof a.activeRule === "string" ? a.activeRule : `/${a.name}`,
-          redirect:
-            typeof a.activeRule === "string"
-              ? `${a.activeRule}/`
-              : `/${a.name}/`,
-          title: a.name,
-          icon: "lucide:box",
-          order: 100,
-          devPort: 5601,
-          entry: a.entry,
-          skeletonType: "default",
-          sandbox: a.sandbox,
-        }));
-        const boostResult = applyPrefetchBoost(
-          appEntries,
-          options?.prefetchStrategy ?? "lazy",
-        );
-        logger.debug(`Prefetch boost: ${boostResult}`);
-      }
-
-      // === S1 修复：预加载只拉取 ESM 模块与样式，不执行 mount ===
-      // loadApp 完成的资源会进入浏览器 HTTP / ESM 缓存，
-      // 二次激活时仅差 mount 耗时，且不会篡改 activeAppName
-      const prefetchFilter = options?.prefetch;
-      if (typeof prefetchFilter === "function") {
-        const toPrefetch = apps.filter((app) => prefetchFilter(app));
-        // P2: 网络条件感知 — 慢速网络（2g/3g）或省流量模式下跳过预加载
-        if (shouldSkipPrefetchDueToNetwork()) {
-          logger.debug("Prefetch skipped due to slow network or saveData");
-        } else {
-          scheduleIdle(() => {
-            // 二次校验：可能在 idle 等待期间网络已变差
-            if (shouldSkipPrefetchDueToNetwork()) return;
-            // === P1-3: 并发控制预加载 — 限制同时加载数，避免抢占主请求带宽 ===
-            void runWithConcurrency(toPrefetch, 3, (app) =>
-              loadApp(app).catch(() => {
-                // 预加载失败不阻塞，静默跳过
-              }),
-            );
-          });
-        }
-      }
-
-      // === P2-10: 初始化预加载策略 ===
-      // 为每个应用注册默认的 idle 预加载策略
-      for (const app of apps) {
-        preloadManager.registerStrategy(app.name, {
-          strategy: "idle",
-          idleTimeout: 2000,
-          onPreload: (appName: string) => {
-            const config = apps.find((a) => a.name === appName);
-            if (config) {
-              void loadApp(config).catch(() => {
-                // 预加载失败不阻塞
-              });
-            }
-          },
-        });
-      }
-
-      // === v4.2.1 N9: 内核内置路由预测预加载 ===
-      // 基于马尔可夫链转移概率，在浏览器空闲时预测并预加载下一目标。
-      // 此前该逻辑在 bootstrap 侧注册，但因其调用了不存在的 getApps()/prefetch()
-      // 导致策略从未真正生效（隐藏 bug）。现下沉到内核 start() 内部，
-      // 通过 StartOptions.routePreload 控制开关（默认启用）。
-      if (options?.routePreload !== false) {
-        try {
-          preloadManager.registerStrategy(
-            "__route_prediction__",
-            createRoutePreloadStrategy(
-              apps,
-              undefined,
-              (appName: string) => {
-                const config = apps.find((a) => a.name === appName);
-                if (config) {
-                  void loadApp(config).catch(() => {
-                    // 预测预加载失败不阻塞
-                  });
-                }
-              },
-              { minProbability: 0.15, maxPreloads: 2 },
-            ),
-          );
-          // 浏览器空闲时触发一次预测预加载
-          scheduleIdle(() => {
-            if (shouldSkipPrefetchDueToNetwork()) return;
-            void preloadManager.triggerPreload("__route_prediction__");
-          });
-          logger.debug(
-            "Route prediction preload strategy registered (kernel-builtin)",
-          );
-        } catch (error) {
-          logger.warn(
-            `Route prediction strategy registration skipped: ${String(error)}`,
-          );
-        }
-      }
-
-      logger.info(`Started with ${apps.length} apps`);
-      window.dispatchEvent(new CustomEvent("micro-kernel:started"));
+      startFn(options);
     },
 
-    async prefetchApp(name: string) {
-      // 手动预加载：用于 hover 预热等场景。
-      // 不检查网络条件（用户主动悬停意味着即将访问，值得拉取）。
-      const config = apps.find((a) => a.name === name);
-      if (!config) {
-        logger.warn(`prefetchApp: app "${name}" not registered`);
-        return;
-      }
-      try {
-        const result = await loadApp(config);
-        // P2-10: 预加载成功后检查版本更新
-        if (result.manifest) {
-          void versionManager.checkUpdate(name, result.manifest);
-        }
-      } catch {
-        // 静默 — 预加载失败不影响后续正常激活
-      }
-    },
+    prefetchApp(name: string) { return prefetchApp(name); },
 
     async unmountApp(name: string) {
       const instance = getAppInstance(name);
-      if (!instance) {
-        return { name, success: false, reason: "App not registered" };
-      }
-
+      if (!instance) return { name, success: false, reason: "App not registered" };
       await lifecycleHooks.run("afterUnmount", instance.config);
-
       const result = await deactivateApp(instance);
       if (activeAppName === name) activeAppName = null;
       return result;
     },
 
-    // === P1-1: update 生命周期 — 运行时更新子应用 props ===
-
-    /**
-     * 运行时更新已挂载子应用的 props（P1-1）。
-     *
-     * 当主应用需要向子应用注入新数据（切换租户、主题、locale 等）时，
-     * 通过此方法通知子应用 update 生命周期，避免完整卸载-重新挂载。
-     *
-     * @example
-     * ```ts
-     * // 主题切换
-     * await kernel.updateApp('workflow-web', { theme: 'dark' });
-     * ```
-     */
-    async updateApp(
-      name: string,
-      newProps: Record<string, unknown>,
-    ): Promise<boolean> {
-      const instance = getAppInstance(name);
-      if (!instance) {
-        logger.warn(`updateApp: app "${name}" not registered`);
-        return false;
-      }
-      if (instance.status !== "MOUNTED") {
-        logger.debug(
-          `updateApp: app "${name}" not mounted (status=${instance.status}), skip`,
-        );
-        return false;
-      }
-      try {
-        // 合并新 props 到 instance.config.props（保留原有通信 API 别名）
-        instance.config.props = { ...instance.config.props, ...newProps };
-        await updateAppProps(instance, instance.config.props as MountProps);
-        return true;
-      } catch (error) {
-        logger.error(`updateApp: failed to update "${name}":`, error);
-        return false;
-      }
+    updateApp(name: string, newProps: Record<string, unknown>) {
+      return updateApp(name, newProps);
+    },
+    updateAllApps(newProps: Record<string, unknown>) {
+      return updateAllApps(newProps);
     },
 
-    /**
-     * P2-1: 批量更新所有已挂载子应用的 props。
-     *
-     * 适用于"一键切换"场景：
-     * - 主题切换：{ theme: 'dark' }
-     * - 租户切换：{ tenantId: 'new-tenant' }
-     * - 语言切换：{ locale: 'en-US' }
-     *
-     * 每个已挂载子应用的 update 生命周期被调用；未挂载应用静默跳过。
-     * 若子应用未定义 update 方法则静默忽略（兼容旧子应用）。
-     *
-     * @param newProps - 新挂载 props（浅合并到现有 props）
-     * @returns 各应用更新结果 Map<appName, success>
-     *
-     * @example
-     * ```ts
-     * // 主题切换
-     * await kernel.updateAllApps({ theme: 'dark' });
-     * // → { 'workflow-web': true, 'system-web': true }
-     * ```
-     *
-     * @since 4.1.0
-     */
-    async updateAllApps(
-      newProps: Record<string, unknown>,
-    ): Promise<Record<string, boolean>> {
-      const results: Record<string, boolean> = {};
-      const instances = getAllInstances();
-      for (const instance of instances) {
-        if (instance.status !== "MOUNTED") continue;
-        results[instance.config.name] = false;
-        try {
-          instance.config.props = { ...instance.config.props, ...newProps };
-          await updateAppProps(instance, instance.config.props as MountProps);
-          results[instance.config.name] = true;
-        } catch (error) {
-          logger.error(
-            `updateAllApps: failed to update "${instance.config.name}":`,
-            error,
-          );
-        }
-      }
-      return results;
-    },
+    setKeepAliveEnabled(enabled: boolean) { configureKeepAliveAction({ enabled }); },
+    setKeepAlive(name: string, keep: boolean) { setKeepAliveAction(name, keep); },
+    setPinnedApp(name: string, pin: boolean) { setPinnedApp(name, pin); },
+    configureKeepAlive(cfg: KeepAliveConfig) { configureKeepAliveAction(cfg); },
+    getKeepAliveConfig() { return getKeepAliveConfig(); },
+    isKeepAliveEnabled() { return isKeepAliveEnabled(); },
 
-    /**
-     * 启用或禁用全局 KeepAlive（v4.0.1 语义修复）。
-     *
-     * @param enabled - 是否启用保活缓存
-     * @since 4.0.1
-     */
-    setKeepAliveEnabled(enabled: boolean) {
-      configureKeepAliveAction({ enabled });
-    },
-
-    /**
-     * 设置指定子应用的保活状态（v4.2.1 补齐接口实现）。
-     *
-     * 兼容 MicroRuntime 接口契约；实例级保活由 scheduler.setKeepAlive 精确控制。
-     *
-     * @param name - 子应用名
-     * @param keep - 是否启用保活
-     * @since 4.2.1
-     */
-    setKeepAlive(name: string, keep: boolean) {
-      setKeepAliveAction(name, keep);
-    },
-
-    /**
-     * 设置指定子应用的"固定"（pin）状态（v4.2.1 公开）。
-     *
-     * 固定后的保活实例在 LRU 淘汰时不会被移除，适用于常用应用常驻
-     * 或用户显式 pin 住的标签页。
-     *
-     * @param name - 子应用名
-     * @param pin - 是否固定
-     * @since 4.2.1
-     */
-    setPinnedApp(name: string, pin: boolean) {
-      setPinnedApp(name, pin);
-    },
-
-    // === v4.0 P3-2: KeepAlive 统一配置 ===
-
-    /**
-     * 统一配置 KeepAlive 策略（v4.0 P3-2）。
-     *
-     * @example
-     * ```ts
-     * window.__MICRO_KERNEL__.configureKeepAlive({ max: 8, ttl: 10 * 60 * 1000 });
-     * window.__MICRO_KERNEL__.configureKeepAlive({ enabled: false });
-     * ```
-     */
-    configureKeepAlive(cfg: KeepAliveConfig) {
-      configureKeepAliveAction(cfg);
-    },
-
-    /** 获取当前 KeepAlive 配置快照 */
-    getKeepAliveConfig() {
-      return getKeepAliveConfig();
-    },
-
-    /** KeepAlive 当前是否启用 */
-    isKeepAliveEnabled() {
-      return isKeepAliveEnabled();
-    },
-
-    navigateTo(path: string) {
-      window.history.pushState(null, "", path);
-      // pushState 补丁会自动派发 ROUTE_CHANGE_EVENT，不再需要手动 dispatch popstate
-    },
-
+    navigateTo(path: string) { window.history.pushState(null, "", path); },
     addLifecycleHook: lifecycleHooks.add,
+    getActiveAppName() { return activeAppName; },
 
-    getActiveAppName() {
-      return activeAppName;
-    },
-
-    // === v3.7.0: 子应用点对点通信 API ===
-
-    /**
-     * 向指定子应用发送消息（fire-and-forget）。
-     *
-     * @param appName - 目标子应用名
-     * @param action - 业务 action
-     * @param payload - 业务数据
-     * @returns 消息 id（用于调试跟踪）
-     */
     sendToApp(appName: string, action: string, payload?: unknown): string {
-      return sendMessage(appName, action, payload);
+      return messagingApi.sendToApp(appName, action, payload);
     },
-
-    /**
-     * 向指定子应用发送请求并await响应。
-     *
-     * @param appName - 目标子应用名
-     * @param action - 业务 action
-     * @param payload - 业务数据
-     * @param timeout - 超时（ms），默认 10000
-     * @returns 子应用响应数据
-     */
     sendRequestToApp<T = unknown, R = unknown>(
-      appName: string,
-      action: string,
-      payload?: T,
-      timeout?: number,
+      appName: string, action: string, payload?: T, timeout?: number,
     ): Promise<R> {
-      return sendRequest(appName, action, payload, timeout);
+      return messagingApi.sendRequestToApp<T, R>(appName, action, payload, timeout);
+    },
+    onAppMessage(handler: (message: {
+      action: string; correlationId: string; from: string; payload: unknown;
+    }) => void): () => void {
+      return messagingApi.onAppMessage(handler);
     },
 
-    /**
-     * 注册全局消息监听器（供主应用代码接收来自子应用的消息）。
-     *
-     * @param handler - 收到消息时回调
-     * @returns 取消监听函数
-     */
-    onAppMessage(
-      handler: (message: {
-        action: string;
-        correlationId: string;
-        from: string;
-        payload: unknown;
-      }) => void,
-    ): () => void {
-      return startMessageListener((msg) => {
-        handler({
-          from: msg.from,
-          action: msg.action,
-          payload: msg.payload,
-          correlationId: msg.correlationId,
-        });
-      });
+    async _stop() { await stopFn(); },
+
+    getAllInstances() { return getAllInstances(); },
+    getAppInstance(name: string) { return getAppInstance(name); },
+    healthCheck() { return healthCheck(); },
+    healthCheckAsync(options?: { force?: boolean; skipPing?: boolean }) {
+      return healthCheckAsync(options);
     },
-
-    /** 内部停止方法：清理所有注册，用于 HMR / 测试环境重启 */
-    async _stop() {
-      routerSyncCleanup?.();
-      routerSyncCleanup = null;
-      visibilityCleanup?.();
-      visibilityCleanup = null;
-
-      // v4.2.1 P0-N2: 中止未完成的切换异步链路
-      switchAbortController?.abort();
-      switchAbortController = null;
-
-      for (const instance of getAllInstances()) {
-        if (instance.status === "MOUNTED") {
-          await deactivateApp(instance);
-        }
-      }
-
-      // === P0-A2: 重置闭包级状态 ===
-      activeAppName = null;
-      switchToken = 0;
-      globalStateAPI.reset();
-      lifecycleHooks.clear();
-      apps = [];
-      started = false;
-
-      // === P0-A1 (v4.1): 注册全部 10 个管理器到 ManagerRegistry 后统一释放 ===
-      registry.register(createSchedulerManager());
-      registry.register(createVersionManager());
-      registry.register(createPreloadManager());
-      registry.register(createCanaryManager());
-      registry.register(createRoutePredictorManager());
-      registry.register(createMessageBrokerManager());
-      registry.register(createPerformanceManager());
-      registry.register(createSpeculationRulesManager());
-      registry.register(createErrorBoundaryManager());
-      registry.register(createDevToolsManager());
-      registry.register(createHealthCheckerManager());
-
-      await registry.disposeAll();
-
-      // 清理 loader 模块级缓存（非单例管理器，独立清理）
-      clearManifestCache();
-
-      // v4.2.1 P0-N1: 恢复全新调度器上下文（释放本内核持有的实例集）
-      bindSchedulerContext(createSchedulerContext());
-
-      logger.info("Stopped");
-    },
-
-    // === P2-1: DevTools 公开方法 —— 供 enableDevToolsBridge 调用 ===
-    getAllInstances() {
-      return getAllInstances();
-    },
-    getAppInstance(name: string) {
-      return getAppInstance(name);
-    },
-    /**
-     * 内核健康检查（P1-1 增强版 v4.2）。
-     *
-     * 同步返回基础信息（兼容旧版调用方）；
-     * async 模式下会执行 ping 探测 + 内存估算（需 await healthCheckAsync()）。
-     *
-     * @returns 基础健康信息（向后兼容）
-     */
-    healthCheck() {
-      const all = getAllInstances();
-      let ka = 0;
-      // v4.2.1 修复: getAllInstances() 返回数组，此前按 Map 解构导致 keepAliveCount 恒为 0
-      for (const i of all) if (i.keepAlive && i.status === "MOUNTED") ka++;
-      return {
-        kernelVersion: "4.2.1",
-        kernelName: "micro-kernel",
-        capabilities: {
-          sandbox: ["snapshot", "proxy", "iframe"] as const,
-          prefetch: true,
-          keepAlive: true,
-          hmr: !!import.meta.env?.DEV,
-          healthCheckAsync: true as const, // v4.2: 支持异步深度检查
-        },
-        metrics: {
-          activeApps: all.length,
-          keepAliveCount: ka,
-          registeredApps: this.getRegisteredApps?.().length ?? 0,
-        },
-      };
-    },
-
-    /**
-     * 异步深度健康检查（v4.2 P1-1 新增）。
-     *
-     * 执行实际 ping 探测 + 内存估算，返回完整健康报告。
-     *
-     * 节流：内部 30s 间隔，高频调用会快速返回。
-     *
-     * @param options - 探测选项
-     * @returns 完整健康报告
-     *
-     * @example
-     * ```ts
-     * const report = await kernel.healthCheckAsync({ force: true });
-     * if (report.memory?.isUnderPressure) {
-     *   evictAllKeepAliveOnMemoryPressure();
-     * }
-     * ```
-     */
-    async healthCheckAsync(options?: { force?: boolean; skipPing?: boolean }) {
-      // 延迟导入避免循环依赖（health-check 依赖 scheduler 类型）
-      const { runHealthCheck } = await import("./health-check");
-      const allInstances = getAllInstances();
-      // v4.2.1 修复: getAllInstances() 返回数组，移除错误的 .values() 调用
-      const apps = allInstances.map((i) => ({
-        config: { name: i.config.name, entry: i.config.entry },
-        status: i.status,
-        loadMetrics: i.loadMetrics ?? undefined,
-      }));
-      return runHealthCheck(apps, options);
-    },
-    /** 刷新远程注册表（每次调用清缓存重新拉取） */
     refreshRegistry() {
       clearRegistryCache();
       logger.info("Registry cache cleared, will re-fetch on next access");
     },
   };
 
-  // === P2-1: 暴露到 window 主对象， DevTools Extension bridge 可自检 ===
-  try {
-    (window as any).__MICRO_KERNEL__ = kernelApi;
-  } catch {
-    /* SSR 或无 window 环境静默 */
-  }
+  try { (window as any).__MICRO_KERNEL__ = kernelApi; } catch { /* SSR 静默 */ }
 
   return kernelApi;
 }

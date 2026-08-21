@@ -1,56 +1,38 @@
-﻿<!--
+<!--
  * use-vxe-grid Vue 组件
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.vue
  * @author ydsz-team
  * @since 1.0.0
+ *
+ * @remarks
+ * 表格核心逻辑已抽取至 {@link useVxeGridLogic} composable，
+ * 本文件仅保留 Props/Emits 定义、Template 与 Styles，
+ * 确保单文件组件不超过 400 行。
+ *
+ * 完整逻辑请参考：
+ * - `composables/use-vxe-grid-logic.ts` — CRUD、分页、数据加载、列配置
+ * - `init.ts` — vxe-table 组件注册与表单初始化
+ * - `extends.ts` — 代理请求包装与格式化器注册
+ * - `api.ts` — VxeGridApi 操作句柄
+ * - `types.ts` — 类型定义
+ * - `use-vxe-grid.ts` — useYDSZVxeGrid 工厂函数
+*/
 -->
 <script lang="ts" setup>
-import type {
-  VxeGridDefines,
-  VxeGridInstance,
-  VxeGridListeners,
-  VxeGridPropTypes,
-  VxeGridProps as VxeTableGridProps,
-  VxeToolbarPropTypes,
-} from 'vxe-table';
-
-import type { SetupContext } from 'vue';
-
-import type { YDSZFormProps } from '@YDSZ-core/form-ui';
-
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
-import {
-  computed,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  toRaw,
-  useSlots,
-  useTemplateRef,
-  watch,
-} from 'vue';
-
-import { usePriorityValues } from '@ydsz/hooks';
-import { EmptyIcon } from '@ydsz/icons';
-import { $t } from '@ydsz/locales';
-import { usePreferences } from '@ydsz/preferences';
-import {
-  cloneDeep,
-  cn,
-  isBoolean,
-  isEqual,
-  mergeWithArrayOverride,
-} from '@ydsz/utils';
+import { cn } from '@ydsz/utils';
 
 import { YDSZHelpTooltip, YDSZLoading } from '@YDSZ-core/shadcn-ui';
 
 import { VxeButton } from 'vxe-pc-ui';
-import { VxeGrid, VxeUI } from 'vxe-table';
+import { VxeGrid } from 'vxe-table';
 
-import { extendProxyOptions } from './extends';
-import { useTableForm } from './init';
+import { EmptyIcon } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
+
+import { useVxeGridLogic } from './composables/use-vxe-grid-logic';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
@@ -62,307 +44,29 @@ interface Props extends VxeGridProps {
 
 const props = withDefaults(defineProps<Props>(), {});
 
-const FORM_SLOT_PREFIX = 'form-';
-
-const TOOLBAR_ACTIONS = 'toolbar-actions';
-const TOOLBAR_TOOLS = 'toolbar-tools';
-const TABLE_TITLE = 'table-title';
-
-const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
-
-const state = props.api?.useStore?.();
-
 const {
-  gridOptions,
-  class: className,
-  gridClass,
-  gridEvents,
-  formOptions,
+  gridRef,
+  options,
+  events,
+  showToolbar,
+  showTableTitle,
   tableTitle,
   tableTitleHelp,
-  showSearchForm,
-  separator,
-} = usePriorityValues(props, state);
-
-const { isMobile } = usePreferences();
-const isSeparator = computed(() => {
-  if (
-    !formOptions.value ||
-    showSearchForm.value === false ||
-    separator.value === false
-  ) {
-    return false;
-  }
-  if (separator.value === true || separator.value === undefined) {
-    return true;
-  }
-  return separator.value.show !== false;
-});
-const separatorBg = computed(() => {
-  return !separator.value ||
-    isBoolean(separator.value) ||
-    !separator.value.backgroundColor
-    ? undefined
-    : separator.value.backgroundColor;
-});
-const slots: SetupContext['slots'] = useSlots();
-
-const [Form, formApi] = useTableForm({
-  compact: true,
-  handleSubmit: async () => {
-    const formValues = await formApi.getValues();
-    formApi.setLatestSubmissionValues(toRaw(formValues));
-    props.api.reload(formValues);
-  },
-  handleReset: async () => {
-    const prevValues = await formApi.getValues();
-    await formApi.resetForm();
-    const formValues = await formApi.getValues();
-    formApi.setLatestSubmissionValues(formValues);
-    // 如果值发生了变化，submitOnChange会触发刷新。所以只在submitOnChange为false或者值没有发生变化时，手动刷新
-    if (isEqual(prevValues, formValues) || !formOptions.value?.submitOnChange) {
-      props.api.reload(formValues);
-    }
-  },
-  commonConfig: {
-    componentProps: {
-      class: 'w-full',
-    },
-  },
-  showCollapseButton: true,
-  submitButtonOptions: {
-    content: computed(() => $t('common.search')),
-  },
-  wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-});
-
-const showTableTitle = computed(() => {
-  return !!slots[TABLE_TITLE]?.() || tableTitle.value;
-});
-
-const showToolbar = computed(() => {
-  return (
-    !!slots[TOOLBAR_ACTIONS]?.() ||
-    !!slots[TOOLBAR_TOOLS]?.() ||
-    showTableTitle.value
-  );
-});
-
-const toolbarOptions = computed(() => {
-  const slotActions = slots[TOOLBAR_ACTIONS]?.();
-  const slotTools = slots[TOOLBAR_TOOLS]?.();
-  const searchBtn: VxeToolbarPropTypes.ToolConfig = {
-    code: 'search',
-    icon: 'vxe-icon-search',
-    circle: true,
-    status: showSearchForm.value ? 'primary' : undefined,
-    title: showSearchForm.value
-      ? $t('common.hideSearchPanel')
-      : $t('common.showSearchPanel'),
-  };
-  // 将搜索按钮合并到用户配置的toolbarConfig.tools中
-  const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
-    tools: (gridOptions.value?.toolbarConfig?.tools ??
-      []) as VxeToolbarPropTypes.ToolConfig[],
-  };
-  if (gridOptions.value?.toolbarConfig?.search && !!formOptions.value) {
-    toolbarConfig.tools = Array.isArray(toolbarConfig.tools)
-      ? [...toolbarConfig.tools, searchBtn]
-      : [searchBtn];
-  }
-
-  if (!showToolbar.value) {
-    return { toolbarConfig };
-  }
-
-  // 强制使用固定的toolbar配置，不允许用户自定义
-  // 减少配置的复杂度，以及后续维护的成本
-  toolbarConfig.slots = {
-    ...(slotActions || showTableTitle.value
-      ? { buttons: TOOLBAR_ACTIONS }
-      : {}),
-    ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
-  };
-  return { toolbarConfig };
-});
-
-const options = computed(() => {
-  const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
-
-  const mergedOptions: VxeTableGridProps = cloneDeep(
-    mergeWithArrayOverride(
-      {},
-      toRaw(toolbarOptions.value),
-      toRaw(gridOptions.value),
-      globalGridConfig,
-    ),
-  );
-
-  if (mergedOptions.proxyConfig) {
-    const { ajax } = mergedOptions.proxyConfig;
-    mergedOptions.proxyConfig.enabled = !!ajax;
-    // 不自动加载数据, 由组件控制
-    mergedOptions.proxyConfig.autoLoad = false;
-  }
-
-  if (mergedOptions.pagerConfig) {
-    const mobileLayouts = [
-      'PrevJump',
-      'PrevPage',
-      'Number',
-      'NextPage',
-      'NextJump',
-    ] as any;
-    const layouts = [
-      'Total',
-      'Sizes',
-      'Home',
-      ...mobileLayouts,
-      'End',
-    ] as readonly string[];
-    mergedOptions.pagerConfig = mergeWithArrayOverride(
-      {},
-      mergedOptions.pagerConfig,
-      {
-        pageSize: 20,
-        background: true,
-        pageSizes: [10, 20, 30, 50, 100, 200],
-        className: 'mt-2 w-full',
-        layouts: isMobile.value ? mobileLayouts : layouts,
-        size: 'mini' as const,
-      },
-    );
-  }
-  if (mergedOptions.formConfig) {
-    mergedOptions.formConfig.enabled = false;
-  }
-  return mergedOptions;
-});
-
-function onToolbarToolClick(event: VxeGridDefines.ToolbarToolClickEventParams) {
-  if (event.code === 'search') {
-    onSearchBtnClick();
-  }
-  (
-    gridEvents.value?.toolbarToolClick as VxeGridListeners['toolbarToolClick']
-  )?.(event);
-}
-
-function onSearchBtnClick() {
-  props.api?.toggleSearchForm?.();
-}
-
-const events = computed(() => {
-  return {
-    ...gridEvents.value,
-    toolbarToolClick: onToolbarToolClick,
-  };
-});
-
-const delegatedSlots = computed(() => {
-  const resultSlots: string[] = [];
-
-  for (const key of Object.keys(slots)) {
-    if (
-      !['empty', 'form', 'loading', TOOLBAR_ACTIONS, TOOLBAR_TOOLS].includes(
-        key,
-      )
-    ) {
-      resultSlots.push(key);
-    }
-  }
-  return resultSlots;
-});
-
-const delegatedFormSlots = computed(() => {
-  const resultSlots: string[] = [];
-
-  for (const key of Object.keys(slots)) {
-    if (key.startsWith(FORM_SLOT_PREFIX)) {
-      resultSlots.push(key);
-    }
-  }
-  return resultSlots.map((key) => key.replace(FORM_SLOT_PREFIX, ''));
-});
-
-const showDefaultEmpty = computed(() => {
-  // 检查是否有原生的 VXE Table 空状态配置
-  const hasEmptyText = options.value.emptyText !== undefined;
-  const hasEmptyRender = options.value.emptyRender !== undefined;
-
-  // 如果有原生配置，就不显示默认的空状态
-  return !hasEmptyText && !hasEmptyRender;
-});
-
-async function init() {
-  await nextTick();
-  const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};
-  const defaultGridOptions: VxeTableGridProps = mergeWithArrayOverride(
-    {},
-    toRaw(gridOptions.value),
-    toRaw(globalGridConfig),
-  );
-  // 内部主动加载数据，防止form的默认值影响
-  const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
-  const enableProxyConfig = options.value.proxyConfig?.enabled;
-  if (enableProxyConfig && autoLoad) {
-    props.api.grid.commitProxy?.(
-      'query',
-      formOptions.value ? ((await formApi.getValues()) ?? {}) : {},
-    );
-    // props.api.reload(formApi.form?.values ?? {});
-  }
-
-  // form 由 YDSZ-form代替，所以不适配formConfig，这里给出警告
-  const formConfig = gridOptions.value?.formConfig;
-  // 处理某个页面加载多个Table时，第2个之后的Table初始化报出警告
-  // 因为第一次初始化之后会把defaultGridOptions和gridOptions合并后缓存进State
-  if (formConfig && formConfig.enabled) {
-    console.warn(
-      '[YDSZ Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
-    );
-  }
-  props.api?.setState?.({ gridOptions: defaultGridOptions });
-  // form 由 YDSZ-form 代替，所以需要保证query相关事件可以拿到参数
-  extendProxyOptions(props.api, defaultGridOptions, () =>
-    formApi.getLatestSubmissionValues(),
-  );
-}
-
-// formOptions支持响应式
-watch(
+  delegatedSlots,
+  delegatedFormSlots,
   formOptions,
-  () => {
-    formApi.setState((prev) => {
-      const finalFormOptions: YDSZFormProps = mergeWithArrayOverride(
-        {},
-        formOptions.value,
-        prev,
-      );
-      return {
-        ...finalFormOptions,
-        collapseTriggerResize: !!finalFormOptions.showCollapseButton,
-      };
-    });
-  },
-  {
-    immediate: true,
-  },
-);
-
-const isCompactForm = computed(() => {
-  return formApi.getState()?.compact;
-});
-
-onMounted(() => {
-  props.api?.mount?.(gridRef.value, formApi);
-  init();
-});
-
-onUnmounted(() => {
-  formApi?.unmount?.();
-  props.api?.unmount?.();
-});
+  showSearchForm,
+  isCompactForm,
+  isSeparator,
+  separatorBg,
+  FORM_SLOT_PREFIX,
+  Form,
+  onSearchBtnClick,
+  gridOptions,
+  showDefaultEmpty,
+  className,
+  gridClass,
+} = useVxeGridLogic(props);
 </script>
 
 <template>

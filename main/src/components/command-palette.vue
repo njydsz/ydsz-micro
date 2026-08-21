@@ -7,44 +7,37 @@
  * 3. 最近访问记录
  * 4. 应用级命令注册
  *
+ * 搜索逻辑已提取至 composables/use-command-search.ts，
+ * 本组件专注于模板渲染与状态管理。
+ *
  * @path main/src/components/command-palette.vue
  * @author ydsz-team
  * @since 4.0.0
 -->
 <script setup lang="ts">
-import type { SearchItem } from "#/hooks/use-global-search";
-
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 import { useSearchProviderStatus } from "#/hooks/use-global-search";
 
-// ==================== 类型定义 ====================
+import {
+  useCommandSearch,
+  type CommandItem,
+  type PaletteMode,
+  type RecentItem,
+} from "./command-palette/composables/use-command-search";
 
-type PaletteMode = "command" | "search";
+// ==================== Constants ====================
 
-interface CommandItem {
-  action: () => Promise<void> | void;
-  appName?: string;
-  category?: string;
-  icon?: string;
-  id: string;
-  shortcut?: string;
-  title: string;
-}
-
-interface RecentItem {
-  appName: string;
-  id: string;
-  path: string;
-  timestamp: number;
-  title: string;
-}
+/** 最近访问 localStorage key */
+const RECENT_STORAGE_KEY = "ydsz_command_palette_recent";
+/** 最大最近访问记录数 */
+const MAX_RECENT = 20;
 
 // ==================== Props & Model ====================
 
 const props = defineProps<{
   appNameLabels?: Record<string, string>;
-  items: SearchItem[];
+  items: import("#/hooks/use-global-search").SearchItem[];
 }>();
 
 const visible = defineModel<boolean>("visible", { default: false });
@@ -60,120 +53,37 @@ const inputRef = ref<HTMLInputElement | null>(null);
 const commands = ref<Map<string, CommandItem[]>>(new Map());
 // 最近访问（最多20条）
 const recentItems = ref<RecentItem[]>([]);
-const RECENT_STORAGE_KEY = "ydsz_command_palette_recent";
-const MAX_RECENT = 20;
 
 // P2-2: 搜索提供者就绪状态
 const { providerCount: searchProviderCount, appNames: searchProviderNames } =
   useSearchProviderStatus();
 
-// ==================== Computed ====================
+// ==================== Search Composable ====================
 
-/** 搜索结果 */
-const searchResults = computed(() => {
-  const q = query.value.trim().toLowerCase();
-  if (!q) return [];
-  return props.items
-    .map((item) => {
-      const titleIdx = item.title.toLowerCase().indexOf(q);
-      const descIdx = item.description?.toLowerCase().indexOf(q) ?? -1;
-      if (titleIdx === -1 && descIdx < 0) return null;
-      const qIdx = titleIdx === -1 ? descIdx : titleIdx;
-      const highlightedTitle = `${item.title.slice(
-        0,
-        qIdx,
-      )}<mark>${item.title.slice(qIdx, qIdx + q.length)}</mark>${item.title.slice(
-        qIdx + q.length,
-      )}`;
-      return { ...item, highlightedTitle, _kind: "search" as const };
-    })
-    .filter(
-      (x): x is SearchItem & { _kind: "search"; highlightedTitle: string } =>
-        x !== null,
-    )
-    .slice(0, 20);
-});
-
-/** 命令结果 */
-const commandResults = computed(() => {
-  const q = query.value.trim().toLowerCase();
-  const allCommands: (CommandItem & { _kind: "command" })[] = [];
-
-  for (const [, cmds] of commands.value) {
-    for (const cmd of cmds) {
-      if (
-        !q ||
-        cmd.title.toLowerCase().includes(q) ||
-        cmd.category?.toLowerCase().includes(q)
-      ) {
-        allCommands.push({ ...cmd, _kind: "command" });
-      }
-    }
-  }
-
-  return allCommands.slice(0, 20);
-});
-
-/** 最近访问 */
-const recentResults = computed((): (RecentItem & { _kind: "recent" })[] => {
-  if (query.value.trim()) return [];
-  return recentItems.value
-    .slice(0, 5)
-    .map((r) => ({ ...r, _kind: "recent" as const }));
-});
-
-/** 综合结果 */
-const results = computed(() => {
-  if (mode.value === "command") return commandResults.value;
-  return [...recentResults.value, ...searchResults.value];
-});
-
-/** 占位符文本 */
-const placeholder = computed(() => {
-  if (mode.value === "command") return "输入命令... (⌘⇧P)";
-  return "搜索菜单、功能、操作... (⌘K)";
-});
-
-/** P2-2: 搜索提供者状态栏文案 */
-const searchProviderStatus = computed(() => {
-  const count = searchProviderCount.value;
-  if (count === 0) return "暂无搜索数据源";
-  return `已加载 ${count} 个数据源${searchProviderNames.value.length > 0 ? ` · ${searchProviderNames.value.slice(0, 3).join(", ")}${count > 3 ? "…" : ""}` : ""}`;
+const {
+  searchResults,
+  commandResults,
+  recentResults,
+  results,
+  placeholder,
+  searchProviderStatus,
+  navigate,
+  handleEnter,
+} = useCommandSearch({
+  query,
+  mode,
+  items: () => props.items,
+  commands,
+  recentItems,
+  activeIndex,
+  appNameLabels: () => props.appNameLabels,
+  searchProviderCount,
+  searchProviderNames,
+  close,
+  recordRecentAccess,
 });
 
 // ==================== Methods ====================
-
-function navigate(dir: number) {
-  const len = results.value.length;
-  if (!len) return;
-  activeIndex.value = (activeIndex.value + dir + len) % len;
-}
-
-function handleEnter() {
-  const item = results.value[activeIndex.value];
-  if (!item) return;
-
-  if (item._kind === "command") {
-    close();
-    item.action();
-  } else if (item._kind === "recent") {
-    close();
-    window.dispatchEvent(
-      new CustomEvent("micro-kernel:navigate", { detail: { path: item.path } }),
-    );
-  } else {
-    close();
-    if (item.onClick) item.onClick();
-    else if (item.path) {
-      recordRecentAccess(item);
-      window.dispatchEvent(
-        new CustomEvent("micro-kernel:navigate", {
-          detail: { path: item.path },
-        }),
-      );
-    }
-  }
-}
 
 function close() {
   visible.value = false;
@@ -187,7 +97,7 @@ function toggleMode() {
 }
 
 /** 记录最近访问 */
-function recordRecentAccess(item: SearchItem) {
+function recordRecentAccess(item: import("#/hooks/use-global-search").SearchItem) {
   if (!item.path) return;
   const existing = recentItems.value.findIndex((r) => r.path === item.path);
   if (existing !== -1) recentItems.value.splice(existing, 1);
@@ -242,10 +152,6 @@ watch(visible, async (v) => {
     query.value = "";
     activeIndex.value = 0;
   }
-});
-
-watch(query, () => {
-  activeIndex.value = 0;
 });
 
 watch(mode, () => {

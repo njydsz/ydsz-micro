@@ -10,6 +10,13 @@ export type { VxeTableGridOptions } from './types';
 export * from './use-vxe-grid';
 
 export { default as YDSZVxeGrid } from './use-vxe-grid.vue';
+export {
+  useVxeGridLogic,
+} from './composables/use-vxe-grid-logic';
+export type {
+  VxeGridLogicProps,
+  UseVxeGridLogicReturn,
+} from './composables/use-vxe-grid-logic';
 export type {
   VxeGridListeners,
   VxeGridProps,

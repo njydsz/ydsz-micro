@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 运行时性能追踪器 — 采集子应用加载/挂载/通信的 Performance API 标记
  *
  * 设计目标：
@@ -11,10 +11,37 @@
  * 2. `getTimeline()` → 时间线视图
  * 3. `getMemoryTrend()` → 内存趋势（配合 performance.memory）
  *
+ * 为控制单文件行数，以下内容已拆分为独立模块：
+ * - performance-tracker-types.ts：类型定义（TimelineEntry / FlameNode / MemorySample）
+ * - performance-tracker-flame.ts：火焰图数据生成（getFlameData）
+ * - performance-tracker-memory.ts：内存采样（startMemorySampling / sampleMemory 等）
+ *
+ * 本文件保留核心追踪逻辑与公开 API，并重新导出以保持向后兼容。
+ *
  * @path comm/effects/monitor/src/performance-tracker.ts
  * @author ydsz-team
  * @since 4.0.0
  */
+
+import type { TimelineEntry, FlameNode, MemorySample } from './performance-tracker-types';
+import { getFlameData } from './performance-tracker-flame';
+import {
+  startMemorySampling,
+  stopMemorySampling,
+  getMemoryTrend,
+  setKeepAliveCount,
+  clearMemorySamples,
+} from './performance-tracker-memory';
+
+// 向后兼容：重新导出类型和函数
+export type { TimelineEntry, FlameNode, MemorySample } from './performance-tracker-types';
+export { getFlameData } from './performance-tracker-flame';
+export {
+  startMemorySampling,
+  stopMemorySampling,
+  getMemoryTrend,
+  setKeepAliveCount,
+} from './performance-tracker-memory';
 
 /** 性能标记名称前缀 */
 const MARK_PREFIX = 'YDSZ:';
@@ -22,51 +49,11 @@ const MARK_PREFIX = 'YDSZ:';
 /** 是否启用追踪（通过 URL 参数 ?debug_perf=1 或 localStorage 开关） */
 let trackingEnabled = false;
 
-/** 内存采样间隔（ms） */
-const MEMORY_SAMPLE_INTERVAL = 5_000;
-
 /** 最大保留时间线条目数 */
 const MAX_TIMELINE_ENTRIES = 1000;
 
-/** 时间线条目 */
-export interface TimelineEntry {
-  name: string;
-  startTime: number;
-  duration: number;
-  category: 'load' | 'mount' | 'unmount' | 'activate' | 'deactivate' | 'preload' | 'message' | 'state' | 'route';
-  appName?: string;
-  timestamp: number;
-}
-
-/** 火焰图节点 */
-export interface FlameNode {
-  name: string;
-  startTime: number;
-  duration: number;
-  endTime: number;
-  children: FlameNode[];
-  category: string;
-  depth: number;
-  parent?: FlameNode;
-}
-
-/** 内存采样数据 */
-export interface MemorySample {
-  timestamp: number;
-  jsHeapUsedMB: number;
-  jsHeapLimitMB: number;
-  domNodes: number;
-  keepAliveCount: number;
-}
-
 /** 时间线数据 */
 const timeline: TimelineEntry[] = [];
-
-/** 内存采样数据 */
-const memorySamples: MemorySample[] = [];
-
-/** 内存采样定时器 */
-let memorySampleTimer: ReturnType<typeof setInterval> | null = null;
 
 /**
  * 检查追踪是否启用
@@ -319,66 +306,7 @@ export function trackRouteChange(to: string, appName: string): void {
   }
 }
 
-// ==================== 火焰图数据生成 ====================
-
-/**
- * 获取火焰图数据（从 Performance API 中提取 YDSZ: 标记）
- */
-export function getFlameData(): FlameNode[] {
-  if (!checkEnabled()) return [];
-
-  const flames: FlameNode[] = [];
-  const measures = performance.getEntriesByType('measure').filter(
-    (m) => m.name.startsWith(MARK_PREFIX),
-  );
-
-  // 构建树：按父子关系（名称中包含 : 的层级结构）
-  const nodeMap = new Map<string, FlameNode>();
-
-  for (const m of measures) {
-    const name = m.name.slice(MARK_PREFIX.length);
-    const node: FlameNode = {
-      name,
-      startTime: m.startTime,
-      duration: m.duration,
-      endTime: m.startTime + m.duration,
-      children: [],
-      category: name.split(':')[0] || 'unknown',
-      depth: 0,
-    };
-    nodeMap.set(name, node);
-  }
-
-  // 构建父子关系：基于时间区间包含关系
-  const allNodes = [...nodeMap.values()].sort((a, b) => a.startTime - b.startTime);
-
-  for (let i = 0; i < allNodes.length; i++) {
-    const node = allNodes[i];
-    // 寻找父节点（最近一个包含当前节点的）
-    for (let j = i - 1; j >= 0; j--) {
-      const candidate = allNodes[j];
-      if (
-        candidate.startTime <= node.startTime &&
-        candidate.endTime >= node.endTime &&
-        candidate.name !== node.name
-      ) {
-        // 找到直接父节点（depth 最小的那个）
-        if (!node.parent || candidate.depth > (node.parent?.depth ?? -1)) {
-          node.parent = candidate;
-        }
-      }
-    }
-
-    if (node.parent) {
-      node.parent.children.push(node);
-      node.depth = node.parent.depth + 1;
-    } else {
-      flames.push(node);
-    }
-  }
-
-  return flames;
-}
+// ==================== 数据查询 ====================
 
 /**
  * 获取时间线数据
@@ -392,83 +320,7 @@ export function getTimeline(): TimelineEntry[] {
  */
 export function clearTimeline(): void {
   timeline.length = 0;
-  memorySamples.length = 0;
-}
-
-// ==================== 内存采样 ====================
-
-/**
- * 启动内存采样
- */
-export function startMemorySampling(): void {
-  if (memorySampleTimer) return;
-
-  memorySampleTimer = setInterval(() => {
-    const sample = sampleMemory();
-    if (sample) {
-      memorySamples.push(sample);
-      // 保留最近 100 条
-      while (memorySamples.length > 100) {
-        memorySamples.shift();
-      }
-    }
-  }, MEMORY_SAMPLE_INTERVAL);
-
-  // 立即采集一次
-  const sample = sampleMemory();
-  if (sample) memorySamples.push(sample);
-}
-
-/**
- * 停止内存采样
- */
-export function stopMemorySampling(): void {
-  if (memorySampleTimer) {
-    clearInterval(memorySampleTimer);
-    memorySampleTimer = null;
-  }
-}
-
-/**
- * 采样当前内存状态
- */
-function sampleMemory(): MemorySample | null {
-  try {
-    const perf = performance as unknown as {
-      memory?: {
-        usedJSHeapSize: number;
-        totalJSHeapSize: number;
-        jsHeapSizeLimit: number;
-      };
-    };
-    const memory = perf.memory;
-
-    return {
-      timestamp: Date.now(),
-      jsHeapUsedMB: memory ? Math.round(memory.usedJSHeapSize / 1024 / 1024) : 0,
-      jsHeapLimitMB: memory ? Math.round(memory.jsHeapSizeLimit / 1024 / 1024) : 0,
-      domNodes: document.querySelectorAll('*').length,
-      keepAliveCount: 0, // 需要外部注入（scheduler 暴露）
-    };
-  } catch {
-    return null;
-  }
-}
-
-/**
- * 获取内存趋势数据
- */
-export function getMemoryTrend(): MemorySample[] {
-  return [...memorySamples];
-}
-
-/**
- * 设置 keep-alive 实例数（由 scheduler 调用）
- */
-export function setKeepAliveCount(count: number): void {
-  if (memorySamples.length > 0) {
-    memorySamples[memorySamples.length - 1].keepAliveCount = count;
-  }
+  clearMemorySamples();
 }
 
 /**
@@ -495,7 +347,7 @@ export function getStats(): {
   return {
     isTracking: checkEnabled(),
     timelineEntries: timeline.length,
-    memorySamples: memorySamples.length,
+    memorySamples: getMemoryTrend().length,
     categories,
   };
 }
