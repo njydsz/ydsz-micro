@@ -63,6 +63,36 @@ const tabsView = computed(() => {
   });
 });
 
+function handleKeydown(e: KeyboardEvent, index: number) {
+  const tabs = tabsView.value;
+  let newIndex = -1;
+
+  switch (e.key) {
+    case 'ArrowLeft':
+      e.preventDefault();
+      newIndex = index === 0 ? tabs.length - 1 : index - 1;
+      break;
+    case 'ArrowRight':
+      e.preventDefault();
+      newIndex = index === tabs.length - 1 ? 0 : index + 1;
+      break;
+    case 'Home':
+      e.preventDefault();
+      newIndex = 0;
+      break;
+    case 'End':
+      e.preventDefault();
+      newIndex = tabs.length - 1;
+      break;
+    default:
+      return;
+  }
+
+  if (newIndex >= 0 && tabs[newIndex]) {
+    active = tabs[newIndex].key;
+  }
+}
+
 function onMouseDown(e: MouseEvent, tab: TabConfig) {
   if (
     e.button === 1 &&
@@ -83,7 +113,9 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
     ref="contentRef"
     :class="contentClass"
     :style="style"
+    aria-label="标签页"
     class="tabs-chrome !flex h-full w-full overflow-y-hidden"
+    role="tablist"
   >
     <TransitionGroup name="slide-left">
       <div
@@ -99,9 +131,14 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
         ]"
         :data-active-tab="active"
         :data-index="i"
+        :aria-controls="`tabpanel-${tab.key}`"
+        :aria-selected="tab.key === active"
+        :tabindex="tab.key === active ? 0 : -1"
         class="tabs-chrome__item draggable translate-all group relative -mr-3 flex h-full select-none items-center"
         data-tab-item="true"
+        role="tab"
         @click="active = tab.key"
+        @keydown="handleKeydown($event, i)"
         @mousedown="onMouseDown($event, tab)"
       >
         <YDSZContextMenu

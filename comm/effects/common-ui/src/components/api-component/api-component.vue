@@ -289,7 +289,9 @@ defineExpose({
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
     <template v-if="loadingSlot && loading" #[loadingSlot]>
-      <LoaderCircle class="animate-spin" />
+      <span aria-live="polite" role="status">
+        <LoaderCircle class="animate-spin" />
+      </span>
     </template>
   </component>
 </template>

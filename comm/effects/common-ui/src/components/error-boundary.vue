@@ -108,7 +108,12 @@ function handleBack() {
     <slot v-if="!showError"></slot>
 
     <!-- 错误降级 UI -->
-    <div v-else class="error-boundary__fallback">
+    <div
+      v-else
+      aria-live="assertive"
+      class="error-boundary__fallback"
+      role="alert"
+    >
       <ElResult :icon="status" :title="errorMessage">
         <template v-if="showRetry || showBack" #extra>
           <div class="error-boundary__actions">

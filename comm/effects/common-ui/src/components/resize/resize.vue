@@ -21,151 +21,234 @@ import {
   watch,
 } from 'vue';
 
-const props = defineProps({
-  stickSize: {
-    type: Number,
-    default: 8,
-  },
-  parentScaleX: {
-    type: Number,
-    default: 1,
-  },
-  parentScaleY: {
-    type: Number,
-    default: 1,
-  },
-  isActive: {
-    type: Boolean,
-    default: false,
-  },
-  preventActiveBehavior: {
-    type: Boolean,
-    default: false,
-  },
-  isDraggable: {
-    type: Boolean,
-    default: true,
-  },
-  isResizable: {
-    type: Boolean,
-    default: true,
-  },
-  aspectRatio: {
-    type: Boolean,
-    default: false,
-  },
-  parentLimitation: {
-    type: Boolean,
-    default: false,
-  },
-  snapToGrid: {
-    type: Boolean,
-    default: false,
-  },
-  gridX: {
-    type: Number,
-    default: 50,
-    validator(val: number) {
-      return val >= 0;
-    },
-  },
-  gridY: {
-    type: Number,
-    default: 50,
-    validator(val: number) {
-      return val >= 0;
-    },
-  },
-  parentW: {
-    type: Number,
-    default: 0,
-    validator(val: number) {
-      return val >= 0;
-    },
-  },
-  parentH: {
-    type: Number,
-    default: 0,
-    validator(val: number) {
-      return val >= 0;
-    },
-  },
-  w: {
-    type: [String, Number],
-    default: 200,
-    validator(val: number) {
-      return typeof val === 'string' ? val === 'auto' : val >= 0;
-    },
-  },
-  h: {
-    type: [String, Number],
-    default: 200,
-    validator(val: number) {
-      return typeof val === 'string' ? val === 'auto' : val >= 0;
-    },
-  },
-  minw: {
-    type: Number,
-    default: 50,
-    validator(val: number) {
-      return val >= 0;
-    },
-  },
-  minh: {
-    type: Number,
-    default: 50,
-    validator(val: number) {
-      return val >= 0;
-    },
-  },
-  x: {
-    type: Number,
-    default: 0,
-    validator(val: number) {
-      return typeof val === 'number';
-    },
-  },
-  y: {
-    type: Number,
-    default: 0,
-    validator(val: number) {
-      return typeof val === 'number';
-    },
-  },
-  z: {
-    type: [String, Number],
-    default: 'auto',
-    validator(val: number) {
-      return typeof val === 'string' ? val === 'auto' : val >= 0;
-    },
-  },
-  dragHandle: {
-    type: String,
-    default: null,
-  },
-  dragCancel: {
-    type: String,
-    default: null,
-  },
-  sticks: {
-    type: Array<'bl' | 'bm' | 'br' | 'ml' | 'mr' | 'tl' | 'tm' | 'tr'>,
-    default() {
-      return ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'];
-    },
-  },
-  axis: {
-    type: String,
-    default: 'both',
-    validator(val: string) {
-      return ['both', 'none', 'x', 'y'].includes(val);
-    },
-  },
-  contentClass: {
-    type: String,
-    required: false,
-    default: '',
-  },
+interface ResizeProps {
+  stickSize?: number;
+  parentScaleX?: number;
+  parentScaleY?: number;
+  isActive?: boolean;
+  preventActiveBehavior?: boolean;
+  isDraggable?: boolean;
+  isResizable?: boolean;
+  aspectRatio?: boolean;
+  parentLimitation?: boolean;
+  snapToGrid?: boolean;
+  gridX?: number;
+  gridY?: number;
+  parentW?: number;
+  parentH?: number;
+  w?: string | number;
+  h?: string | number;
+  minw?: number;
+  minh?: number;
+  x?: number;
+  y?: number;
+  z?: string | number;
+  dragHandle?: string | null;
+  dragCancel?: string | null;
+  sticks?: Array<'bl' | 'bm' | 'br' | 'ml' | 'mr' | 'tl' | 'tm' | 'tr'>;
+  axis?: string;
+  contentClass?: string;
+}
+
+const props = withDefaults(defineProps<ResizeProps>(), {
+  stickSize: 8,
+  parentScaleX: 1,
+  parentScaleY: 1,
+  isActive: false,
+  preventActiveBehavior: false,
+  isDraggable: true,
+  isResizable: true,
+  aspectRatio: false,
+  parentLimitation: false,
+  snapToGrid: false,
+  gridX: 50,
+  gridY: 50,
+  parentW: 0,
+  parentH: 0,
+  w: 200,
+  h: 200,
+  minw: 50,
+  minh: 50,
+  x: 0,
+  y: 0,
+  z: 'auto',
+  dragHandle: null,
+  dragCancel: null,
+  sticks: () => ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'],
+  axis: 'both',
+  contentClass: '',
 });
+
+watch(
+  () => props.gridX,
+  (val: number) => {
+    if (val < 0) {
+      console.warn(
+        `[resize] gridX prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.gridX = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.gridY,
+  (val: number) => {
+    if (val < 0) {
+      console.warn(
+        `[resize] gridY prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.gridY = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.parentW,
+  (val: number) => {
+    if (val < 0) {
+      console.warn(
+        `[resize] parentW prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.parentW = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.parentH,
+  (val: number) => {
+    if (val < 0) {
+      console.warn(
+        `[resize] parentH prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.parentH = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.w,
+  (val: string | number) => {
+    if (typeof val === 'string' && val !== 'auto') {
+      console.warn(
+        `[resize] w prop 为字符串时必须为 "auto"，当前值为 "${val}"，已自动修正为 "auto"。`,
+      );
+      props.w = 'auto';
+    } else if (typeof val === 'number' && val < 0) {
+      console.warn(
+        `[resize] w prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.w = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.h,
+  (val: string | number) => {
+    if (typeof val === 'string' && val !== 'auto') {
+      console.warn(
+        `[resize] h prop 为字符串时必须为 "auto"，当前值为 "${val}"，已自动修正为 "auto"。`,
+      );
+      props.h = 'auto';
+    } else if (typeof val === 'number' && val < 0) {
+      console.warn(
+        `[resize] h prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.h = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.minw,
+  (val: number) => {
+    if (val < 0) {
+      console.warn(
+        `[resize] minw prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.minw = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.minh,
+  (val: number) => {
+    if (val < 0) {
+      console.warn(
+        `[resize] minh prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.minh = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.x,
+  (val: number) => {
+    if (typeof val !== 'number') {
+      console.warn(
+        `[resize] x prop 必须为数字类型，当前值已自动修正为 0。`,
+      );
+      props.x = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.y,
+  (val: number) => {
+    if (typeof val !== 'number') {
+      console.warn(
+        `[resize] y prop 必须为数字类型，当前值已自动修正为 0。`,
+      );
+      props.y = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.z,
+  (val: string | number) => {
+    if (typeof val === 'string' && val !== 'auto') {
+      console.warn(
+        `[resize] z prop 为字符串时必须为 "auto"，当前值为 "${val}"，已自动修正为 "auto"。`,
+      );
+      props.z = 'auto';
+    } else if (typeof val === 'number' && val < 0) {
+      console.warn(
+        `[resize] z prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
+      );
+      props.z = 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  () => props.axis,
+  (val: string) => {
+    if (!['both', 'none', 'x', 'y'].includes(val)) {
+      console.warn(
+        `[resize] axis prop 必须为 "both"、"none"、"x"、"y" 之一，当前值为 "${val}"，已自动修正为 "both"。`,
+      );
+      props.axis = 'both';
+    }
+  },
+  { immediate: true },
+);
 
 const emit = defineEmits([
   'clicked',

@@ -332,7 +332,11 @@ onUnmounted(() => {
       </FormLabel>
       <div class="flex-auto overflow-hidden p-[1px]">
         <div :class="cn('relative flex w-full items-center', wrapperClass)">
-          <FormControl :class="cn(controlClass)">
+          <FormControl
+            :aria-describedby="!compact && isInValid ? `${fieldName}-message` : undefined"
+            :aria-invalid="isInValid || undefined"
+            :class="cn(controlClass)"
+          >
             <slot
               v-bind="{
                 ...slotProps,
@@ -393,7 +397,7 @@ onUnmounted(() => {
         </div>
 
         <Transition name="slide-up" v-if="!compact">
-          <FormMessage class="absolute" />
+          <FormMessage :id="`${fieldName}-message`" class="absolute" />
         </Transition>
       </div>
     </FormItem>

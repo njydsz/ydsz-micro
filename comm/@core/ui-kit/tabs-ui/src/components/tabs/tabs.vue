@@ -70,6 +70,36 @@ const tabsView = computed(() => {
   });
 });
 
+function handleKeydown(e: KeyboardEvent, index: number) {
+  const tabs = tabsView.value;
+  let newIndex = -1;
+
+  switch (e.key) {
+    case 'ArrowLeft':
+      e.preventDefault();
+      newIndex = index === 0 ? tabs.length - 1 : index - 1;
+      break;
+    case 'ArrowRight':
+      e.preventDefault();
+      newIndex = index === tabs.length - 1 ? 0 : index + 1;
+      break;
+    case 'Home':
+      e.preventDefault();
+      newIndex = 0;
+      break;
+    case 'End':
+      e.preventDefault();
+      newIndex = tabs.length - 1;
+      break;
+    default:
+      return;
+  }
+
+  if (newIndex >= 0 && tabs[newIndex]) {
+    active = tabs[newIndex].key;
+  }
+}
+
 function onMouseDown(e: MouseEvent, tab: TabConfig) {
   if (
     e.button === 1 &&
@@ -88,7 +118,9 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
 <template>
   <div
     :class="contentClass"
+    aria-label="标签页"
     class="relative !flex h-full w-max items-center overflow-hidden pr-6"
+    role="tablist"
   >
     <TransitionGroup name="slide-left">
       <div
@@ -103,9 +135,14 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
           typeWithClass.content,
         ]"
         :data-index="i"
+        :aria-controls="`tabpanel-${tab.key}`"
+        :aria-selected="tab.key === active"
+        :tabindex="tab.key === active ? 0 : -1"
         class="tab-item [&:not(.is-active)]:hover:bg-accent translate-all group relative flex cursor-pointer select-none"
         data-tab-item="true"
+        role="tab"
         @click="active = tab.key"
+        @keydown="handleKeydown($event, i)"
         @mousedown="onMouseDown($event, tab)"
       >
         <YDSZContextMenu

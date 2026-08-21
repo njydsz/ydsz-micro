@@ -86,7 +86,11 @@ function onTransitionEnd() {
     @transitionend="onTransitionEnd"
   >
     <slot name="icon" v-if="renderSpinner">
-      <span class="dot relative inline-block size-9 text-3xl">
+      <span
+        aria-label="加载中"
+        class="dot relative inline-block size-9 text-3xl"
+        role="status"
+      >
         <i
           v-for="index in 4"
           :key="`spinner-dot-${index}`"
