@@ -42,10 +42,10 @@ function getClient(options: RealtimeOptions): RealtimeClient {
  * );
  * ```
  */
-export function useRealtime(
+export function useRealtime<T = unknown>(
   options: RealtimeOptions,
   channel: string,
-  handler: (payload: any, channel: string) => void,
+  handler: (payload: T, channel: string) => void,
   connectImmediately = true,
 ) {
   const client = getClient(options);
@@ -59,7 +59,7 @@ export function useRealtime(
 
   return {
     /** 发送消息到服务端 */
-    send: (data: any) => client.send(data),
+    send: <D = unknown>(data: D) => client.send(data),
     /** 获取连接状态 */
     status: () => client.getStatus(),
     /** 关闭连接（影响所有共享该连接的组件） */

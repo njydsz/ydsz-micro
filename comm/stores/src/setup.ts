@@ -107,6 +107,8 @@ export async function initStores(app: App, options: InitStoreOptions) {
   );
 
   const originalUse = pinia._s.set.bind(pinia._s);
+  // Note: Pinia 内部 _s.set 参数类型为 any，此处为兼容 Pinia 内部类型而保留
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pinia._s.set = function (key: string, value: any) {
     registeredStores.add(value);
     originalUse(key, value);

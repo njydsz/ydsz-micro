@@ -12,14 +12,14 @@ import { dirname } from 'node:path';
  * 将对象序列化为 JSON 并写入文件（自动创建父目录）。
  *
  * @param filePath - 目标文件绝对或相对路径
- * @param data - 待序列化的任意数据
+ * @param data - 待序列化的任意数据（可 JSON 序列化的未知类型）
  * @param spaces - JSON 缩进空格数，默认 2
  * @returns 写入完成后 resolve 的 Promise
  * @throws 写入失败时抛出原始错误
  */
 export async function outputJSON(
   filePath: string,
-  data: any,
+  data: unknown,
   spaces: number = 2,
 ) {
   try {

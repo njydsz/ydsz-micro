@@ -28,6 +28,14 @@ import {
 /** 模块级日志器 */
 const logger = createLogger("NotificationStore");
 
+/** WebSocket 消息类型 */
+interface WsMessage {
+  type: 'mark_read' | 'notification' | 'unread_count';
+  notificationId?: string;
+  payload?: NotificationApi.NotificationItem;
+  count?: number;
+}
+
 /**
  * 全局通知 Store — 整合 REST API + WebSocket 实时推送。
  *
@@ -111,7 +119,7 @@ export const useNotificationStore = defineStore("notification", () => {
    *
    * @param data - 服务端推送的消息体
    */
-  function handleWsMessage(data: any) {
+  function handleWsMessage(data: WsMessage) {
     switch (data.type) {
       case "mark_read": {
         // 标记已读（多端同步）

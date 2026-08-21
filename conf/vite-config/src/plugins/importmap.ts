@@ -334,8 +334,8 @@ async function viteImportMapPlugin(
           if (cacheKey && resolvedImportMap) {
             writeCachedImportMap(cacheKey, resolvedImportMap);
           }
-        } catch (error: any) {
-          installError = error;
+        } catch (error: unknown) {
+          installError = error instanceof Error ? error : new Error(String(error));
           installed = false;
         }
         return null;

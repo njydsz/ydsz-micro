@@ -32,12 +32,12 @@ export interface RealtimeOptions {
 export type RealtimeStatus = 'connecting' | 'open' | 'closed' | 'reconnecting';
 
 /** 消息处理器 */
-type MessageHandler = (payload: any, channel: string) => void;
+type MessageHandler<T = unknown> = (payload: T, channel: string) => void;
 
 /** 频道事件 */
-interface ChannelListener {
+interface ChannelListener<T = unknown> {
   channel: string;
-  handler: MessageHandler;
+  handler: MessageHandler<T>;
 }
 
 const HEARTBEAT_INTERVAL = 30_000;
@@ -57,7 +57,7 @@ export class RealtimeClient {
   private reconnectAttempts = 0;
   private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
-  private offlineMessages: any[] = [];
+  private offlineMessages: Array<{ channel: string; payload: unknown }> = [];
   private manualClosed = false;
 
   constructor(options: RealtimeOptions) {
@@ -127,17 +127,17 @@ export class RealtimeClient {
    * @param handler - 消息回调 (payload, channel)
    * @returns 取消订阅函数
    */
-  subscribe(channel: string, handler: MessageHandler): () => void {
-    const listener: ChannelListener = { channel, handler };
-    this.listeners.push(listener);
+  subscribe<T = unknown>(channel: string, handler: MessageHandler<T>): () => void {
+    const listener: ChannelListener<T> = { channel, handler };
+    this.listeners.push(listener as ChannelListener<unknown>);
     return () => {
-      const idx = this.listeners.indexOf(listener);
+      const idx = this.listeners.indexOf(listener as ChannelListener<unknown>);
       if (idx >= 0) this.listeners.splice(idx, 1);
     };
   }
 
   /** 发送消息（支持待连接时缓存） */
-  send(data: any): boolean {
+  send(data: unknown): boolean {
     if (this.ws?.readyState === WebSocket.OPEN) {
       this.ws.send(typeof data === 'string' ? data : JSON.stringify(data));
       return true;
@@ -156,8 +156,8 @@ export class RealtimeClient {
     this.status = status;
   }
 
-  private handleMessage(raw: any) {
-    let message: { channel?: string; payload?: any } | null = null;
+  private handleMessage(raw: unknown) {
+    let message: { channel?: string; payload?: unknown } | null = null;
     try {
       message = typeof raw === 'string' ? JSON.parse(raw) : raw;
     } catch {
@@ -216,7 +216,7 @@ export class RealtimeClient {
   }
 
   /** 业务侧可调用：写入离线消息（若已连接则直接分发） */
-  dispatch(channel: string, payload: any) {
+  dispatch(channel: string, payload: unknown) {
     if (this.status === 'open') {
       this.handleMessage(JSON.stringify({ channel, payload }));
       return;
