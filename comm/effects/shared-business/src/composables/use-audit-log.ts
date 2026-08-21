@@ -32,7 +32,7 @@ export interface AuditLogItem {
   result?: string;
   /** 操作时间 */
   createTime: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /** 审计日志查询参数 */

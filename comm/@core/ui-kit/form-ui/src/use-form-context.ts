@@ -78,7 +78,7 @@ export function useFormInitial(
   });
 
   function generateInitialValues() {
-    const initialValues: Record<string, any> = {};
+    const initialValues: Record<string, unknown> = {};
 
     const zodObject: ZodRawShape = {};
     (unref(props).schema || []).forEach((item) => {
@@ -96,21 +96,21 @@ export function useFormInitial(
 
     const schemaInitialValues = getDefaultsForSchema(object(zodObject));
 
-    const zodDefaults: Record<string, any> = {};
+    const zodDefaults: Record<string, unknown> = {};
     for (const key in schemaInitialValues) {
       set(zodDefaults, key, schemaInitialValues[key]);
     }
     return mergeWithArrayOverride(initialValues, zodDefaults);
   }
   // 自定义默认值提取逻辑
-  function getCustomDefaultValue(rule: any): any {
+  function getCustomDefaultValue(rule: ZodTypeAny): unknown {
     if (rule instanceof ZodString) {
       return ''; // 默认为空字符串
     } else if (rule instanceof ZodNumber) {
       return null; // 默认为 null（避免显示 0）
     } else if (rule instanceof ZodObject) {
       // 递归提取嵌套对象的默认值
-      const defaultValues: Record<string, any> = {};
+      const defaultValues: Record<string, unknown> = {};
       for (const [key, valueSchema] of Object.entries(rule.shape)) {
         defaultValues[key] = getCustomDefaultValue(valueSchema);
       }

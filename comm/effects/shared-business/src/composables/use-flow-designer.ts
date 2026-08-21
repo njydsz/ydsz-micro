@@ -21,7 +21,7 @@ export interface FlowNode {
   id: string;
   type: string;
   label: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /** 设计器画布控制（由画布实现注入） */

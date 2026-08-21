@@ -140,12 +140,12 @@ const ElUpload = defineAsyncComponent(() =>
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
   type: 'input' | 'select',
-  componentProps: Recordable<any> = {},
+  componentProps: Record<string, unknown> = {},
 ) => {
   return defineComponent({
     name: component.name,
     inheritAttrs: false,
-    setup: (props: any, { attrs, expose, slots }) => {
+    setup: (props: Record<string, unknown>, { attrs, expose, slots }) => {
       const placeholder =
         props?.placeholder ||
         attrs?.placeholder ||
@@ -300,7 +300,7 @@ async function initComponentAdapter() {
     Switch: ElSwitch,
     TimePicker: (props, { attrs, slots }) => {
       const { name, id, isRange } = props;
-      const extraProps: Recordable<any> = {};
+      const extraProps: Record<string, unknown> = {};
       if (isRange) {
         if (name && !Array.isArray(name)) {
           extraProps.name = [name, `${name}_end`];
@@ -321,7 +321,7 @@ async function initComponentAdapter() {
     },
     DatePicker: (props, { attrs, slots }) => {
       const { name, id, type } = props;
-      const extraProps: Recordable<any> = {};
+      const extraProps: Record<string, unknown> = {};
       if (type && type.includes('range')) {
         if (name && !Array.isArray(name)) {
           extraProps.name = [name, `${name}_end`];

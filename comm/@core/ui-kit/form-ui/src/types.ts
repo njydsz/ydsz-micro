@@ -109,8 +109,9 @@ export interface FormShape {
    * @remarks
    * 表单初始化及 reset 后回填的值。未设置时字段初始为 `undefined`，
    * 对于 Select 等受控组件可能触发「非受控转受控」告警，建议显式给出。
+   * 使用 unknown 类型以支持任意表单值类型。
    */
-  default?: any;
+  default?: unknown;
   /**
    * 字段名
    *
@@ -151,11 +152,11 @@ export type MaybeComponentPropKey =
  * 传递给具体表单控件的 props 对象。
  *
  * @remarks
- * 值类型为 `any` 是刻意为之——控件类型直到运行时才确定，无法做静态约束。
+ * 值类型为 `unknown` 是刻意的——控件类型直到运行时才确定，无法做静态约束。
  * 代价是这里**完全没有类型保护**，prop 名或值写错只会在运行时表现为控件行为异常，
  * 编写时建议对照目标控件的文档。
  */
-export type MaybeComponentProps = { [K in MaybeComponentPropKey]?: any };
+export type MaybeComponentProps = { [K in MaybeComponentPropKey]?: unknown };
 
 /**
  * 表单操作句柄，即 vee-validate 的表单上下文。
@@ -199,17 +200,20 @@ export type FormSchemaRuleType =
   | ZodTypeAny;
 
 type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
-  value: Partial<Record<string, any>>,
+  // 表单值为 Partial 类型，值类型为 unknown 以支持任意表单结构
+  value: Partial<Record<string, unknown>>,
   actions: FormActions,
 ) => T;
 
 type FormItemDependenciesConditionWithRules = (
-  value: Partial<Record<string, any>>,
+  // 表单值为 Partial 类型，值类型为 unknown 以支持任意表单结构
+  value: Partial<Record<string, unknown>>,
   actions: FormActions,
 ) => FormSchemaRuleType | PromiseLike<FormSchemaRuleType>;
 
 type FormItemDependenciesConditionWithProps = (
-  value: Partial<Record<string, any>>,
+  // 表单值为 Partial 类型，值类型为 unknown 以支持任意表单结构
+  value: Partial<Record<string, unknown>>,
   actions: FormActions,
 ) => MaybeComponentProps | PromiseLike<MaybeComponentProps>;
 
@@ -289,7 +293,8 @@ export interface FormItemDependencies {
 
 type ComponentProps =
   | ((
-      value: Partial<Record<string, any>>,
+      // 表单值为 Partial 类型，值类型为 unknown 以支持任意表单结构
+      value: Partial<Record<string, unknown>>,
       actions: FormActions,
     ) => MaybeComponentProps)
   | MaybeComponentProps;
@@ -379,9 +384,10 @@ export interface FormCommonConfig {
 }
 
 type RenderComponentContentType = (
-  value: Partial<Record<string, any>>,
+  // 表单值为 Partial 类型，值类型为 unknown 以支持任意表单结构
+  value: Partial<Record<string, unknown>>,
   api: FormActions,
-) => Record<string, any>;
+) => Record<string, unknown>;
 
 /**
  * 表单提交回调。
@@ -390,6 +396,7 @@ type RenderComponentContentType = (
  * **仅在校验全部通过后**才会被调用，因此回调内无需再做必填等基础校验。
  * 入参是经过 `fieldMappingTime`、`arrayToStringFields` 等后处理的最终值，
  * 而非控件的原始值。
+ * 使用 Record<string, unknown> 支持任意表单结构。
  *
  * 返回 Promise 时表单会等待其 resolve，期间提交按钮保持 loading，可借此防重复提交；
  * 若回调内抛出异常或 Promise reject，loading 状态由表单负责结束，但**不会自动提示错误**，
@@ -398,7 +405,7 @@ type RenderComponentContentType = (
  * @param values - 经过归一化处理的表单值
  */
 export type HandleSubmitFn = (
-  values: Record<string, any>,
+  values: Record<string, unknown>,
 ) => Promise<void> | void;
 
 /**
@@ -407,11 +414,12 @@ export type HandleSubmitFn = (
  * @remarks
  * 在表单值**已经被重置为默认值之后**触发，因此入参是重置后的值而非重置前的旧值；
  * 需要旧值请在回调外自行缓存。常用于重置后重新拉取列表数据。
+ * 使用 Record<string, unknown> 支持任意表单结构。
  *
  * @param values - 重置完成后的表单值
  */
 export type HandleResetFn = (
-  values: Record<string, any>,
+  values: Record<string, unknown>,
 ) => Promise<void> | void;
 
 /**
@@ -491,8 +499,9 @@ export interface FormSchema<
    *
    * @remarks
    * 同时作为表单初始值与 reset 后的回填值。注意它优先级高于控件自身的默认值。
+   * 使用 unknown 类型以支持任意表单值类型。
    */
-  defaultValue?: any;
+  defaultValue?: unknown;
   /**
    * 依赖
    *
@@ -657,9 +666,10 @@ export interface FormRenderProps<
  * 继承 {@link YDSZButtonProps}，故按钮的尺寸、类型、loading 等原生能力均可直接透传；
  * 索引签名的存在意味着**多余的属性不会被类型系统拦截**，会原样透传到按钮组件，
  * 拼错 prop 名时不会有编译错误，只表现为配置不生效。
+ * 使用 unknown 作为索引签名类型以支持任意透传属性。
  */
 export interface ActionButtonOptions extends YDSZButtonProps {
-  [key: string]: any;
+  [key: string]: unknown;
   /**
    * 按钮文案。支持传 ref 或 getter，以便在切换语言时自动更新；
    * 传普通字符串则固定不变，国际化场景下会出现切换语言后文案不刷新的问题。
@@ -821,10 +831,15 @@ export interface YDSZFormAdapterOptions<
   defineRules?: {
     /**
      * 输入类控件的必填校验。返回 `true` 表示通过，返回字符串表示不通过并作为错误文案。
+     * 参数类型来自 vee-validate 的 RuleOptions 定义，使用 unknown 以兼容各种校验场景。
      */
     required?: (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value: any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       params: any,
+      // 兼容 vee-validate 的校验上下文类型
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ctx: Record<string, any>,
     ) => boolean | string;
     /**
@@ -835,8 +850,11 @@ export interface YDSZFormAdapterOptions<
      * 直接套用输入类的非空字符串判断会误判；错误文案也需为「请选择」。
      */
     selectRequired?: (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value: any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       params: any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ctx: Record<string, any>,
     ) => boolean | string;
   };
