@@ -133,7 +133,7 @@ interface CommonPluginOptions {
    * 环境变量
    * @description 自定义环境变量
    */
-  env?: Record<string, any>;
+  env?: Record<string, unknown>;
   /**
    * 是否注入元数据
    * @default true

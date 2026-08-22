@@ -16,6 +16,7 @@
 import type { UserApi } from '#/api/user';
 import type { CompanyApi } from '#/api/company';
 import type { PostApi } from '#/api/post';
+import type { DeptApi } from '#/api/dept';
 
 import { useVbenModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElSelect, ElOption, ElTreeSelect, ElRadioGroup, ElRadio } from 'element-plus';
@@ -27,7 +28,7 @@ const emit = defineEmits<{ success: [] }>();
 
 const formRef = ref();
 const isEdit = ref(false);
-const deptTreeData = ref<any[]>([]);
+const deptTreeData = ref<DeptApi.DepartmentTreeVO[]>([]);
 const companyList = ref<CompanyApi.CompanyVO[]>([]);
 const postList = ref<PostApi.PostVO[]>([]);
 
@@ -57,7 +58,7 @@ const [Modal, modalApi] = useVbenModal({
     if (!isOpen) return;
     const data = modalApi.getData<{
       record?: UserApi.UserAccountVO;
-      deptTreeData: any[];
+      deptTreeData: DeptApi.DepartmentTreeVO[];
       companyList: CompanyApi.CompanyVO[];
       postList: PostApi.PostVO[];
     }>();

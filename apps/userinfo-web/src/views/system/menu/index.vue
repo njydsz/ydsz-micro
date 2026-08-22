@@ -63,7 +63,7 @@ function buildTree(list: MenuApi.MenuVO[]): MenuApi.MenuVO[] {
 
 onMounted(loadData);
 
-const menuTypeMap: Record<number, { label: string; type: any }> = {
+const menuTypeMap: Record<number, { label: string; type: 'primary' | 'success' | 'warning' | 'info' | 'danger' | 'default' }> = {
   0: { label: '目录', type: 'primary' },
   1: { label: '菜单', type: 'success' },
   2: { label: '按钮', type: 'warning' },

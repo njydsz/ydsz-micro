@@ -16,9 +16,9 @@ import { ref } from 'vue';
 
 import { useVirtualizer } from '@tanstack/vue-virtual';
 
-interface Props {
+interface Props<T = unknown> {
   /** 列表数据 */
-  items: any[];
+  items: T[];
   /** 行高（px），默认 36 */
   rowHeight?: number;
   /** 容器预估高度（px），默认 400 */

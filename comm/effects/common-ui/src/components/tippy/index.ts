@@ -94,7 +94,7 @@ export function initTippy(app: App<Element>, options?: DefaultProps) {
  * @param ctx - 组件上下文，其中 `attrs.theme` 参与主题解析，`slots` 原样透传
  * @returns 底层 Tippy 组件的 VNode
  */
-export const Tippy = (props: any, { attrs, slots }: SetupContext) => {
+export const Tippy = (props: TippyProps, { attrs, slots }: SetupContext) => {
   let theme: string = (attrs.theme as string) ?? 'auto';
   if (theme === 'auto') {
     theme = isDark.value ? '' : 'light';

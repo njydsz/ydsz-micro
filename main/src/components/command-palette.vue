@@ -288,7 +288,6 @@ defineExpose({
               <span
                 class="cp-item-icon"
                 v-if="item.icon"
-                v-html="''"
                 aria-hidden="true"
               >
                 <i :class="item.icon"></i>
@@ -297,7 +296,7 @@ defineExpose({
               <div class="cp-item-body">
                 <span
                   class="cp-item-title"
-                  v-html="item.highlightedTitle || item.title"
+                  v-safe-html="item.highlightedTitle || item.title"
                 ></span>
                 <span class="cp-item-desc" v-if="item.description">{{
                   item.description

@@ -26,7 +26,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
  * @typeParam T - 数据行类型
  * @since 1.1.0
  */
-export interface ResponsiveColumn<T = any> {
+export interface ResponsiveColumn<T = unknown> {
   /** 列属性（对应 vxe-table column field） */
   key: string;
   /** 列标题 */
@@ -38,7 +38,7 @@ export interface ResponsiveColumn<T = any> {
   /** 移动端是否显示，默认 false（移动端只保留核心列） */
   mobile?: boolean;
   /** 额外列配置（宽度等），会透传给表格组件 */
-  extra?: Record<string, any>;
+  extra?: Record<string, unknown>;
 }
 
 /**
@@ -75,7 +75,7 @@ export function useResponsive() {
    * @param columns - 完整列配置
    * @returns 当前设备可见的列
    */
-  function responsiveColumns<T = any>(
+  function responsiveColumns<T = unknown>(
     columns: ResponsiveColumn<T>[],
   ): ResponsiveColumn<T>[] {
     if (isDesktop.value) {

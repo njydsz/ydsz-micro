@@ -28,5 +28,10 @@
   "devDependencies": {
     "@types/qs": "catalog:",
     "axios-mock-adapter": "catalog:"
+  },
+  "scripts": {
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "test:coverage": "vitest run --config vitest.config.ts --coverage"
   }
 }

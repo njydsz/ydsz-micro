@@ -26,7 +26,7 @@ const emit = defineEmits<{ success: [] }>();
 
 const formRef = ref();
 const isEdit = ref(false);
-const treeData = ref<any[]>([]);
+const treeData = ref<DeptApi.DepartmentTreeVO[]>([]);
 const companyList = ref<CompanyApi.CompanyVO[]>([]);
 
 const formData = reactive({
@@ -51,7 +51,7 @@ const [Modal, modalApi] = useVbenModal({
     if (!isOpen) return;
     const data = modalApi.getData<{
       record?: DeptApi.DepartmentVO;
-      treeData: any[];
+      treeData: DeptApi.DepartmentTreeVO[];
       companyList: CompanyApi.CompanyVO[];
       parentId?: string;
     }>();

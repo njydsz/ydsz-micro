@@ -93,6 +93,9 @@ function vueConfig(): Linter.Config {
       ...ydszRules,
       // §4.6 v-for 必须绑定 key（vue 插件内置校验）
       'vue/require-v-for-key': 'error',
+      // §7.1 XSS 防护：禁止裸 v-html，必须使用 v-safe-html（DOMPurify 白名单指令）
+      // 自定义指令 v-safe-html 不受影响，从源头拦截 XSS 点状遗漏回归
+      'vue/no-v-html': 'error',
       // §4.1 script setup 优先（非 setup 的 script 报错）
       'vue/component-api-style': ['error', ['script-setup']],
       // §4.4 组件多词命名
@@ -132,6 +135,25 @@ export function defineConfig(): Linter.Config[] {
     vueConfig(),
     // 与 Prettier 兼容（关闭格式类规则）
     prettier,
+    // 统一日志模块实现文件：内部需直接调用 console.*，豁免 no-console
+    // （配合 §14.5：业务代码必须使用 createLogger，仅实现层可直用 console）
+    {
+      files: [
+        '**/utils/logger.ts',
+        '**/@core/base/shared/src/utils/logger.ts',
+      ],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+    // 第三方生成组件库（shadcn-ui）：由 CLI 生成，含受控 any 透传，
+    // 豁免 no-explicit-any 避免污染红线统计（云顶规范 §3.1 第三方生成件豁免）
+    {
+      files: ['**/@core/ui-kit/shadcn-ui/**/*.ts', '**/@core/ui-kit/shadcn-ui/**/*.vue'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+    },
   ];
 }
 

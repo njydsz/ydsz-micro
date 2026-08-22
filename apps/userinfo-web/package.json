@@ -8,7 +8,10 @@
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
     "dev:standalone": "cross-env VITE_STANDALONE=true vite --mode development --port 5701 --open /",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "test:coverage": "vitest run --config vitest.config.ts --coverage"
   },
   "imports": {
     "#/*": "./src/*"

@@ -64,11 +64,11 @@ async function viteExtraAppConfigPlugin({
           type: 'asset',
         });
 
-        console.log(colors.cyan(`✨configuration file is build successfully!`));
+        process.stdout.write(colors.cyan(`✨configuration file is build successfully!\n`));
       } catch (error) {
-        console.log(
+        process.stderr.write(
           colors.red(
-            `configuration file configuration file failed to package:\n${error}`,
+            `configuration file configuration file failed to package:\n${error}\n`,
           ),
         );
       }

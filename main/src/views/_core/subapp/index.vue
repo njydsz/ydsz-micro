@@ -61,6 +61,9 @@ const pageSkeletonComponent = useSkeletonResolver(state.activeAppName, route);
 /** 取消订阅函数集合，组件卸载时统一调用 */
 const unsubscribers: Array<() => void> = [];
 
+/** mounted 阶段重置定时器 */
+let mountedResetTimer: ReturnType<typeof setTimeout> | undefined;
+
 onMounted(() => {
   if (!microRuntime) {
     // 内核尚未初始化（理论上 bootstrap 已同步注册，防御性处理）
@@ -98,7 +101,8 @@ onMounted(() => {
     microRuntime.addLifecycleHook("afterMount", (app: MicroAppConfig) => {
       setPhase("mounted", app.name);
       // 100% 后短暂保持，再切回 idle 以便复用
-      window.setTimeout(() => {
+      clearTimeout(mountedResetTimer);
+      mountedResetTimer = window.setTimeout(() => {
         if (state.phase.value === "mounted") setPhase("idle");
       }, 300);
     }),
@@ -133,6 +137,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  clearTimeout(mountedResetTimer);
   for (const off of unsubscribers.splice(0)) {
     try {
       off();

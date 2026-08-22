@@ -19,7 +19,7 @@ import { ElSelectV2 } from 'element-plus';
 interface Option {
   label: string;
   value: string | number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface Props {

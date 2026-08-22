@@ -35,7 +35,7 @@ export interface ExcelImportColumn {
  * @typeParam T - 数据行类型
  * @since 1.1.0
  */
-export interface ExcelImportResult<T = any> {
+export interface ExcelImportResult<T = unknown> {
   /** 解析成功的数据行 */
   data: T[];
   /** 有错误的行（rowIndex 从 2 开始，第 1 行为表头） */
@@ -50,7 +50,7 @@ export interface ExcelImportResult<T = any> {
  * @typeParam T - 数据行类型
  * @since 1.1.0
  */
-export interface ExcelImportOptions<T = any> {
+export interface ExcelImportOptions<T = unknown> {
   /** 列映射配置 */
   columns: ExcelImportColumn[];
   /** 自定义校验函数：返回错误消息字符串，null 表示通过 */
@@ -91,7 +91,7 @@ export interface ExcelImportOptions<T = any> {
  *
  * @since 1.1.0
  */
-export function useExcelImport<T = any>() {
+export function useExcelImport<T = unknown>() {
   function parseExcel(
     file: File,
     options: ExcelImportOptions<T>,
@@ -107,7 +107,7 @@ export function useExcelImport<T = any>() {
           const workbook = XLSX.read(buffer, { type: 'array' });
           const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
           // 表头行作为首行，后续为数据
-          const rawRows = XLSX.utils.sheet_to_json<Record<string, any>>(
+          const rawRows = XLSX.utils.sheet_to_json<Record<string, unknown>>(
             firstSheet,
             { defval: '' },
           );
@@ -118,7 +118,7 @@ export function useExcelImport<T = any>() {
           rawRows.forEach((rawRow, idx) => {
             // Excel 行号 = idx + 2（表头占 1 行，sheet_to_json 从 0 开始）
             const rowIndex = idx + 2;
-            const row = {} as Record<string, any>;
+            const row: Record<string, unknown> = {};
             let rowError: string | null = null;
 
             for (const col of columns) {

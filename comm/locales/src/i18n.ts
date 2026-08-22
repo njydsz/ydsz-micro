@@ -97,9 +97,9 @@ function loadLocalesMapFromDir(
   // Convert raw locale data into async import functions
   for (const [locale, files] of Object.entries(localesRaw)) {
     localesMap[locale] = async () => {
-      const messages: Record<string, any> = {};
+      const messages: Record<string, Record<string, unknown>> = {};
       for (const [fileName, importFn] of Object.entries(files)) {
-        messages[fileName] = ((await importFn()) as any)?.default;
+        messages[fileName] = ((await importFn()) as { default: Record<string, unknown> })?.default;
       }
       return { default: messages };
     };

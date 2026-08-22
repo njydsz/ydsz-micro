@@ -17,7 +17,7 @@ import * as XLSX from 'xlsx';
  * @typeParam T - 数据行类型
  * @since 1.1.0
  */
-export interface ExcelExportColumn<T = any> {
+export interface ExcelExportColumn<T = unknown> {
   /** 列标题（表头文字） */
   title: string;
   /** 数据字段 key */
@@ -34,7 +34,7 @@ export interface ExcelExportColumn<T = any> {
  * @typeParam T - 数据行类型
  * @since 1.1.0
  */
-export interface ExcelExportOptions<T = any> {
+export interface ExcelExportOptions<T = unknown> {
   /** sheet 名称，默认 'Sheet1' */
   sheetName?: string;
   /** 文件名称（不含扩展名），默认 `export-${timestamp}` */
@@ -73,7 +73,7 @@ const DEFAULT_COL_WIDTH = 12;
  *
  * @since 1.1.0
  */
-export function useExcelExport<T = any>() {
+export function useExcelExport<T = unknown>() {
   function exportExcel(options: ExcelExportOptions<T>) {
     const {
       sheetName = 'Sheet1',
@@ -86,7 +86,7 @@ export function useExcelExport<T = any>() {
     const header = columns.map((col) => col.title);
     const rows = data.map((row) =>
       columns.map((col) => {
-        const value = col.formatter ? col.formatter(row) : (row as any)[col.key];
+        const value = col.formatter ? col.formatter(row) : (row as Record<string, unknown>)[col.key];
         return value ?? '';
       }),
     );

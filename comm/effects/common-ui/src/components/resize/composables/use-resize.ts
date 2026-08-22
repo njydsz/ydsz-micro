@@ -8,65 +8,20 @@
 
 import { type Ref, computed, getCurrentInstance } from 'vue';
 
-// ==================== 类型定义 ====================
-
-export interface DimensionsBeforeMove {
-  pointerX: number;
-  pointerY: number;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-  width: number;
-  height: number;
-}
-
-export interface Limit {
-  min: null | number;
-  max: null | number;
-}
-
-export interface Limits {
-  left: Limit;
-  right: Limit;
-  top: Limit;
-  bottom: Limit;
-}
-
-export interface Rect {
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-}
-
-export interface RectCorrectionInput {
-  newBottom: number;
-  newLeft: number;
-  newRight: number;
-  newTop: number;
-}
-
-export type Stick = 'bl' | 'bm' | 'br' | 'ml' | 'mr' | 'tl' | 'tm' | 'tr';
+// ==================== 类型导出 ====================
+// 类型声明已剥离至 use-resize-types.ts（云顶规范 §15.1：类型声明单独组织）
+export type {
+  DimensionsBeforeMove,
+  Limit,
+  Limits,
+  Rect,
+  RectCorrectionInput,
+  Stick,
+} from './use-resize-types';
 
 // ==================== 样式映射 ====================
-
-export const styleMapping = {
-  y: {
-    t: 'top',
-    m: 'marginTop',
-    b: 'bottom',
-  },
-  x: {
-    l: 'left',
-    m: 'marginLeft',
-    r: 'right',
-  },
-};
+// 样式映射已剥离至 use-resize-style.ts（云顶规范 §15.1：常量单独组织）
+export { styleMapping } from './use-resize-style';
 
 // ==================== 核心拖拽/调整逻辑 ====================
 

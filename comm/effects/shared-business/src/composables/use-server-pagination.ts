@@ -27,7 +27,7 @@ import { computed, reactive, ref, unref, type Ref } from 'vue';
  * };
  * ```
  */
-export type ServerPaginationFetcher<T = any, Q = Record<string, any>> = (
+export type ServerPaginationFetcher<T = unknown, Q = Record<string, unknown>> = (
   query: Q & { pageNum: number; pageSize: number },
 ) => Promise<{ items: T[]; total: number }>;
 
@@ -46,7 +46,7 @@ export interface ServerPaginationOptions {
 }
 
 /** 响应式查询参数（不含分页字段） */
-type QueryParams<Q> = Ref<Q> | Record<string, any>;
+type QueryParams<Q> = Ref<Q> | Record<string, unknown>;
 
 /**
  * 服务端分页 Hook — 管理服务端分页状态与查询
@@ -84,7 +84,7 @@ type QueryParams<Q> = Ref<Q> | Record<string, any>;
  *
  * @since 1.1.0
  */
-export function useServerPagination<T = any, Q = Record<string, any>>(
+export function useServerPagination<T = unknown, Q = Record<string, unknown>>(
   fetcher: ServerPaginationFetcher<T, Q>,
   params: QueryParams<Q> = {} as Q,
   options: ServerPaginationOptions = {},

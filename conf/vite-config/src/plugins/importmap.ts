@@ -129,9 +129,9 @@ async function viteImportMapPlugin(
 
     if (options?.debug) {
       (async () => {
-        for await (const { message, type } of generator.logStream()) {
-          console.log(`${type}: ${message}`);
-        }
+          for await (const { message, type } of generator.logStream()) {
+            process.stdout.write(`${type}: ${message}\n`);
+          }
       })();
     }
   }

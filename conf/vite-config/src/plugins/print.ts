@@ -32,8 +32,8 @@ export const vitePrintPlugin = (
         _printUrls();
 
         for (const [key, value] of Object.entries(infoMap)) {
-          console.log(
-            `  ${colors.green('➜')}  ${colors.bold(key)}: ${colors.cyan(value)}`,
+          process.stdout.write(
+            `  ${colors.green('➜')}  ${colors.bold(key)}: ${colors.cyan(value)}\n`,
           );
         }
       };

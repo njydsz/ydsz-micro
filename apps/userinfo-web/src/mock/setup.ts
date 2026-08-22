@@ -54,5 +54,6 @@ export async function setupMockServer(): Promise<void> {
     return originalFetch(input, init as RequestInit);
   };
 
+  // @standalone-only Mock 层启用提示，不进入生产构建
   console.info('[Mock] Fetch monkey-patch enabled for standalone mode');
 }

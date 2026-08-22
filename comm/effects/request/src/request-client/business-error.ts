@@ -6,13 +6,13 @@ export class BusinessError extends Error {
   /** 业务错误码 */
   code: number;
   /** 响应数据 */
-  data: any;
+  data: unknown;
   /** HTTP 状态码 */
   statusCode: number;
 
   constructor(
     message: string,
-    options: { code?: number; data?: any; statusCode?: number } = {},
+    options: { code?: number; data?: unknown; statusCode?: number } = {},
   ) {
     super(message);
     this.name = 'BusinessError';

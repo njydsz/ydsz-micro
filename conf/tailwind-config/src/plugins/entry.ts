@@ -15,7 +15,7 @@ import plugin from 'tailwindcss/plugin.js';
  */
 const enterAnimationPlugin = plugin(({ addUtilities }) => {
   const maxChild = 5;
-  const utilities: Record<string, any> = {};
+  const utilities: Record<string, Record<string, string>> = {};
   for (let i = 1; i <= maxChild; i++) {
     const baseDelay = 0.1;
     const delay = `${baseDelay * i}s`;

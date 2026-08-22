@@ -25,7 +25,7 @@ const emit = defineEmits<{ success: [] }>();
 
 const formRef = ref();
 const isEdit = ref(false);
-const treeData = ref<any[]>([]);
+const treeData = ref<MenuApi.MenuTreeVO[]>([]);
 
 const formData = reactive({
   id: '',
@@ -50,7 +50,7 @@ const [Modal, modalApi] = useVbenModal({
     if (!isOpen) return;
     const data = modalApi.getData<{
       record?: MenuApi.MenuVO;
-      tableData: any[];
+      tableData: MenuApi.MenuTreeVO[];
       parentId?: string;
     }>();
     treeData.value = data.tableData || [];

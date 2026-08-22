@@ -26,6 +26,34 @@ import { ref, readonly, onMounted, onUnmounted } from 'vue';
 export type EffectiveType = '4g' | '3g' | '2g' | 'slow-2g' | 'unknown';
 
 /**
+ * 非标准 Network Information API 连接对象类型。
+ *
+ * 该接口不属于标准 Navigator 类型，需显式声明后做类型收窄，
+ * 避免使用 `as any`（云顶规范 §3.1）。
+ *
+ * @since 4.0.0
+ */
+export interface NetworkInformation {
+  /** 实际网络类型 */
+  effectiveType?: string;
+  /** 是否开启省流量模式 */
+  saveData?: boolean;
+  /** 估算下行带宽（Mbps） */
+  downlink?: number;
+  /** 估算往返延迟（ms） */
+  rtt?: number;
+  /** 事件监听 */
+  addEventListener?: (type: string, listener: () => void) => void;
+  /** 事件移除 */
+  removeEventListener?: (type: string, listener: () => void) => void;
+}
+
+/** 带 Network Information 扩展的 Navigator 类型 */
+export type NavigatorWithConnection = Navigator & {
+  connection?: NetworkInformation;
+};
+
+/**
  * 网络状态信息
  *
  * 描述当前设备的网络连接状态与质量指标。
@@ -50,16 +78,7 @@ export interface NetworkStatus {
 const STATUS_KEY = '__MICRO_NETWORK_STATUS__';
 
 function readNavigatorConnection(): NetworkStatus {
-  const nav = navigator as Navigator & {
-    connection?: {
-      effectiveType?: string;
-      saveData?: boolean;
-      downlink?: number;
-      rtt?: number;
-      addEventListener?: (type: string, listener: () => void) => void;
-      removeEventListener?: (type: string, listener: () => void) => void;
-    };
-  };
+  const nav = navigator as NavigatorWithConnection;
   const conn = nav.connection;
   const type = (conn?.effectiveType || '4g') as EffectiveType;
   const isSlow = ['slow-2g', '2g', '3g'].includes(type);
@@ -85,8 +104,9 @@ function initState() {
   };
   window.addEventListener('online', update);
   window.addEventListener('offline', update);
-  if ((navigator as any).connection?.addEventListener) {
-    (navigator as any).connection.addEventListener('change', update);
+  const conn = (navigator as NavigatorWithConnection).connection;
+  if (conn?.addEventListener) {
+    conn.addEventListener('change', update);
   }
   return refInstance;
 }

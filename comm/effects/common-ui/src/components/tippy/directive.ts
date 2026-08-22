@@ -58,31 +58,31 @@ export default function useTippyDirective(isDark: ComputedRef<boolean>) {
       }
 
       if (vnode.props && vnode.props.onTippyShow) {
-        opts.onShow = function (...args: any[]) {
+        opts.onShow = function (...args: unknown[]) {
           return vnode.props?.onTippyShow(...args);
         };
       }
 
       if (vnode.props && vnode.props.onTippyShown) {
-        opts.onShown = function (...args: any[]) {
+        opts.onShown = function (...args: unknown[]) {
           return vnode.props?.onTippyShown(...args);
         };
       }
 
       if (vnode.props && vnode.props.onTippyHidden) {
-        opts.onHidden = function (...args: any[]) {
+        opts.onHidden = function (...args: unknown[]) {
           return vnode.props?.onTippyHidden(...args);
         };
       }
 
       if (vnode.props && vnode.props.onTippyHide) {
-        opts.onHide = function (...args: any[]) {
+        opts.onHide = function (...args: unknown[]) {
           return vnode.props?.onTippyHide(...args);
         };
       }
 
       if (vnode.props && vnode.props.onTippyMount) {
-        opts.onMount = function (...args: any[]) {
+        opts.onMount = function (...args: unknown[]) {
           return vnode.props?.onTippyMount(...args);
         };
       }

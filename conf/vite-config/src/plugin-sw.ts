@@ -144,7 +144,7 @@ export function cleanupOutdatedSubAppCaches(currentVersion: string): void {
     );
     return Promise.all(stale.map((n) => caches.delete(n)));
   }).then((deleted) => {
-    if (deleted.length) console.log(`[micro-kernel] Purged ${deleted.length} stale SW caches`);
+    if (deleted.length) process.stdout.write(`[micro-kernel] Purged ${deleted.length} stale SW caches\n`);
   });
 }
 

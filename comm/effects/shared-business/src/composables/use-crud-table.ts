@@ -28,7 +28,7 @@ import {
  * @returns 删除操作的 Promise
  * @since 1.1.0
  */
-export type DeleteFetcher<T = any> = (row: T) => Promise<unknown>;
+export type DeleteFetcher<T = unknown> = (row: T) => Promise<unknown>;
 
 /**
  * CRUD 列表页配置项
@@ -37,7 +37,7 @@ export type DeleteFetcher<T = any> = (row: T) => Promise<unknown>;
  * @typeParam Q - 查询参数类型
  * @since 1.1.0
  */
-export interface CrudTableOptions<T = any, Q = Record<string, any>> {
+export interface CrudTableOptions<T = unknown, Q = Record<string, unknown>> {
   /** 分页查询函数 */
   fetcher: ServerPaginationFetcher<T, Q>;
   /** 删除函数（可选，不传则不显示删除按钮） */
@@ -92,7 +92,7 @@ export interface CrudTableOptions<T = any, Q = Record<string, any>> {
  *
  * @since 1.1.0
  */
-export function useCrudTable<T = any, Q = Record<string, any>>(
+export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
   options: CrudTableOptions<T, Q>,
 ) {
   const { t } = useI18n();

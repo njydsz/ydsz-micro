@@ -47,9 +47,11 @@ async function setupMockLayer(): Promise<void> {
   try {
     const { setupMockServer } = await import('./mock/setup');
     await setupMockServer();
+    // @standalone-only 独立开发模式日志，不进入生产构建
     console.info('[Standalone] Mock server started');
   } catch {
     // Mock 模块可选，未实现时不影响启动
+    // @standalone-only 独立开发模式日志，不进入生产构建
     console.debug('[Standalone] No mock module found, skipping');
   }
 }
@@ -144,6 +146,7 @@ async function bootstrap(): Promise<void> {
   // 挂载应用
   vueApp.mount('#app');
 
+  // @standalone-only 独立开发模式日志，不进入生产构建
   console.info(`[Standalone] ${appName} started in standalone mode`);
 }
 

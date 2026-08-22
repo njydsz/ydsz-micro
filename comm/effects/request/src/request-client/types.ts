@@ -12,7 +12,7 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios';
 
-type ExtendOptions<T = any> = {
+type ExtendOptions<T = unknown> = {
   /**
    * 参数序列化方式。预置的有
    * - brackets: ids[]=1&ids[]=2&ids[]=3
@@ -47,9 +47,9 @@ type ExtendOptions<T = any> = {
     retryJitter?: number;
   };
 };
-type RequestClientConfig<T = any> = AxiosRequestConfig<T> & ExtendOptions<T>;
+type RequestClientConfig<T = unknown> = AxiosRequestConfig<T> & ExtendOptions<T>;
 
-type RequestResponse<T = any> = AxiosResponse<T> & {
+type RequestResponse<T = unknown> = AxiosResponse<T> & {
   config: RequestClientConfig<T>;
 };
 
@@ -65,21 +65,21 @@ interface RequestInterceptorConfig {
   fulfilled?: (
     config: ExtendOptions & InternalAxiosRequestConfig,
   ) =>
-    | (ExtendOptions & InternalAxiosRequestConfig<any>)
-    | Promise<ExtendOptions & InternalAxiosRequestConfig<any>>;
-  rejected?: (error: any) => any;
+    | (ExtendOptions & InternalAxiosRequestConfig)
+    | Promise<ExtendOptions & InternalAxiosRequestConfig>;
+  rejected?: (error: unknown) => unknown;
 }
 
-interface ResponseInterceptorConfig<T = any> {
+interface ResponseInterceptorConfig<T = unknown> {
   fulfilled?: (
     response: RequestResponse<T>,
   ) => Promise<RequestResponse> | RequestResponse;
-  rejected?: (error: any) => any;
+  rejected?: (error: unknown) => unknown;
 }
 
-type MakeErrorMessageFn = (message: string, error: any) => void;
+type MakeErrorMessageFn = (message: string, error: unknown) => void;
 
-interface HttpResponse<T = any> {
+interface HttpResponse<T = unknown> {
   /**
    * 0 表示成功 其他表示失败
    * 0 means success, others means fail

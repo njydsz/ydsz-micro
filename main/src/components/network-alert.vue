@@ -36,11 +36,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, onUnmounted, ref, watch } from "vue";
 import { useNetworkStatus } from "#/hooks/use-network-status";
 
 const { networkStatus } = useNetworkStatus();
 const justRecovered = ref(false);
+
+/** 网络恢复提示的自动隐藏定时器 */
+let recoveryTimer: ReturnType<typeof setTimeout> | undefined;
 
 const severity = computed<"info" | "warning" | "error" | "success" | "none">(
   () => {
@@ -90,12 +93,17 @@ watch(
   (online, prev) => {
     if (online && prev === false) {
       justRecovered.value = true;
-      setTimeout(() => {
+      clearTimeout(recoveryTimer);
+      recoveryTimer = setTimeout(() => {
         justRecovered.value = false;
       }, 3000);
     }
   },
 );
+
+onUnmounted(() => {
+  clearTimeout(recoveryTimer);
+});
 </script>
 
 <style scoped>
