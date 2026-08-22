@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "@ydsz/micro-runtime",
   "version": "1.0.0",
   "private": true,
@@ -30,6 +30,7 @@
     }
   },
   "dependencies": {
+    "@YDSZ-core/shared": "workspace:*",
     "@ydsz/constants": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "vue": "catalog:"

@@ -65,6 +65,7 @@ function flushVitalsQueue(): void {
       const sent = navigator.sendBeacon(REPORT_ENDPOINT, blob);
       // sendBeacon 失败时降级 fetch
       if (!sent) {
+        // @infra-fetch 基础设施层直用，无统一客户端上下文（Web Vitals 批量上报，sendBeacon 失败降级）
         fetch(REPORT_ENDPOINT, {
           body: payload,
           headers: { 'Content-Type': 'application/json' },
@@ -73,6 +74,7 @@ function flushVitalsQueue(): void {
         }).catch(() => {});
       }
     } else {
+      // @infra-fetch 基础设施层直用，无统一客户端上下文（Web Vitals 批量上报，无 sendBeacon 环境）
       fetch(REPORT_ENDPOINT, {
         body: payload,
         headers: { 'Content-Type': 'application/json' },

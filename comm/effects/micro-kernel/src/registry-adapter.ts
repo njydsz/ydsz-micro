@@ -106,6 +106,7 @@ async function fetchWithTimeout(url: string, timeout: number): Promise<Response>
   const timeoutId = setTimeout(() => controller.abort(`Registry fetch timeout after ${timeout}ms`), timeout);
 
   try {
+    // @infra-fetch 基础设施层直用，无统一客户端上下文（远程 registry 注册表拉取）
     const response = await fetch(url, {
       signal: controller.signal,
       headers: { Accept: 'application/json' },

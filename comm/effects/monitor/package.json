@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "@ydsz/monitor",
   "version": "1.0.0",
   "private": true,
@@ -14,6 +14,7 @@
     }
   },
   "dependencies": {
+    "@YDSZ-core/shared": "workspace:*",
     "@ydsz/hooks": "workspace:*",
     "@ydsz/preferences": "workspace:*",
     "@ydsz/request": "workspace:*",

@@ -29,6 +29,10 @@
  * @since 3.2.0
  */
 
+import { createLogger } from "@YDSZ-core/shared/utils";
+
+const logger = createLogger("MicroKernel:ProxySandbox");
+
 /** Proxy 沙箱实例 */
 export interface ProxySandboxInstance {
   /** 沙箱的 fakeWindow（子应用代码中访问的 window） */
@@ -113,7 +117,7 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
       // 不可修改的属性直接忽略（或抛出警告）
       if (immutableProps.has(prop as string)) {
         if (!import.meta.env.PROD) {
-          console.warn(
+          logger.warn(
             `[ProxySandbox:${appName}] Attempt to modify immutable property "${String(prop)}" blocked`,
           );
         }
@@ -179,7 +183,7 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
 
       // 激活时无需特殊操作，Proxy 会自动拦截所有访问
       if (!import.meta.env.PROD) {
-        console.debug(`[ProxySandbox:${appName}] Activated`);
+        logger.debug(`[ProxySandbox:${appName}] Activated`);
       }
     },
 
@@ -189,7 +193,7 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
 
       // 停用时可以记录当前状态（用于调试）
       if (!import.meta.env.PROD) {
-        console.debug(
+        logger.debug(
           `[ProxySandbox:${appName}] Deactivated, modified props:`,
           Array.from(modifiedProps),
         );
@@ -205,7 +209,7 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
       isActive = false;
 
       if (!import.meta.env.PROD) {
-        console.debug(`[ProxySandbox:${appName}] Cleaned up`);
+        logger.debug(`[ProxySandbox:${appName}] Cleaned up`);
       }
     },
   };

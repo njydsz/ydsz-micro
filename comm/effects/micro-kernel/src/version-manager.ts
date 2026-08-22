@@ -250,6 +250,7 @@ class VersionManager {
    */
   private async fetchLatestManifest(entry: string): Promise<Manifest> {
     const manifestUrl = `${entry.replace(/\/$/, "")}/manifest.json`;
+    // @infra-fetch 基础设施层直用，无统一客户端上下文（版本自动检查拉取最新 manifest）
     const response = await fetch(manifestUrl, {
       cache: "no-cache",
       headers: { Accept: "application/json" },

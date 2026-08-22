@@ -200,6 +200,7 @@ async function pingApp(
 
   try {
     const start = performance.now();
+    // @infra-fetch 基础设施层直用，无统一客户端上下文（微内核健康检查 ping）
     // 使用 HEAD + no-cors 模式，仅检验可达性
     await fetch(origin, {
       method: "HEAD",

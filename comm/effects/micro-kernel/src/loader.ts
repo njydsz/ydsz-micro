@@ -134,6 +134,7 @@ export async function fetchManifest(
 
   let response: Response;
   try {
+    // @infra-fetch 基础设施层直用，无统一客户端上下文（子应用 manifest 加载）
     response = await fetch(manifestUrl, { signal });
   } catch (err) {
     throw new KernelError(

@@ -52,6 +52,7 @@ import {
 } from "./iframe-types";
 import { injectBridgeScript } from "./iframe-bridge";
 import { createIframeRpc } from "./iframe-rpc";
+import { createLogger } from "@YDSZ-core/shared/utils";
 
 // 重新导出类型，保持向后兼容
 export type {
@@ -64,6 +65,8 @@ export type {
   RpcCallPayload,
   RpcResultPayload,
 } from "./iframe-types";
+
+const logger = createLogger("MicroKernel:IframeSandbox");
 
 /**
  * 创建 iframe 沙箱实例。
@@ -195,7 +198,7 @@ export function createIframeSandbox(
       if (isActive || cleaned) return;
       isActive = true;
       if (!import.meta.env.PROD) {
-        console.debug(`[IframeSandbox:${appName}] Activated`);
+        logger.debug(`[IframeSandbox:${appName}] Activated`);
       }
     },
 
@@ -203,7 +206,7 @@ export function createIframeSandbox(
       if (!isActive || cleaned) return;
       isActive = false;
       if (!import.meta.env.PROD) {
-        console.debug(`[IframeSandbox:${appName}] Deactivated`);
+        logger.debug(`[IframeSandbox:${appName}] Deactivated`);
       }
     },
 
@@ -230,7 +233,7 @@ export function createIframeSandbox(
       iframe.remove();
 
       if (!import.meta.env.PROD) {
-        console.debug(`[IframeSandbox:${appName}] Cleaned up`);
+        logger.debug(`[IframeSandbox:${appName}] Cleaned up`);
       }
     },
 

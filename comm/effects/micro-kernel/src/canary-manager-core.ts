@@ -352,6 +352,7 @@ export async function refreshFromRemoteCore(
   if (manager.fetchPromise) return manager.fetchPromise;
   manager.fetchPromise = (async () => {
     try {
+      // @infra-fetch 基础设施层直用，无统一客户端上下文（canary 远端配置拉取）
       const res = await fetch(url, { cache: "no-cache" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
