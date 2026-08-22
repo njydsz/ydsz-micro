@@ -24,9 +24,13 @@ import { initStores } from '@ydsz/stores';
 
 import { ElLoading } from 'element-plus';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import { setupSharedAuth } from './setup-shared-auth';
 import { provideMicroProps, MICRO_PROPS_KEY } from '@ydsz/micro-runtime/use-micro-props';
 import type { StandardMicroProps } from '@ydsz/micro-runtime/standard-props';
+
+const logger = createLogger('SubApp');
 
 /** 子应用启动配置 */
 export interface SubAppConfig {
@@ -237,14 +241,14 @@ export function defineSubApp(config: SubAppConfig) {
     async activate() {
       // 子应用可在此钩子中恢复定时器、重新订阅数据等
       if (!import.meta.env.PROD) {
-        console.debug(`[${config.appName}] Activated (keep-alive)`);
+        logger.debug(`[${config.appName}] Activated (keep-alive)`);
       }
     },
     /** keep-alive 停用时调用 — 暂停定时器、取消订阅等 */
     async deactivate() {
       // 子应用可在此钩子中暂停定时器、取消订阅等
       if (!import.meta.env.PROD) {
-        console.debug(`[${config.appName}] Deactivated (keep-alive)`);
+        logger.debug(`[${config.appName}] Deactivated (keep-alive)`);
       }
     },
   };
@@ -266,7 +270,7 @@ export function defineSubApp(config: SubAppConfig) {
         // coreMount 内部 import 的模块已被 Vite 失效刷新，重挂载即拿到新版本
         await coreMount(config, lastMountProps);
         if (!import.meta.env.PROD) {
-          console.info(`[${config.appName}] HMR remount done`);
+          logger.info(`[${config.appName}] HMR remount done`);
         }
       } catch (err) {
         console.error(`[${config.appName}] HMR remount failed:`, err);
