@@ -1,0 +1,33 @@
+{
+  "name": "@ydsz/prettier-config",
+  "version": "1.0.0",
+  "description": "YDSZ Prettier 配置 - 云顶微前端编码规范",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src/"
+  ],
+  "scripts": {
+    "format": "prettier --check src/",
+    "format:fix": "prettier --write src/"
+  },
+  "dependencies": {
+    "prettier": "^3.3.0",
+    "prettier-plugin-tailwindcss": "^0.6.0"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "author": "YDSZ Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meituan/ydsz-micro"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

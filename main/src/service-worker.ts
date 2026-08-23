@@ -8,6 +8,10 @@
  * @since 1.0.0
  */
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('ServiceWorker');
+
 /**
  * 注册 Service Worker
  *
@@ -34,23 +38,23 @@ export async function registerServiceWorker(): Promise<void> {
       scope: '/',
     });
 
-    console.info('[ServiceWorker] Registered successfully', registration.scope);
+    logger.info('[ServiceWorker] Registered successfully', registration.scope);
 
     // 监听更新
     registration.addEventListener('updatefound', () => {
       const newWorker = registration.installing;
       if (!newWorker) return;
 
-      console.info('[ServiceWorker] Update found, installing...');
+      logger.info('[ServiceWorker] Update found, installing...');
 
       newWorker.addEventListener('statechange', () => {
         if (newWorker.state === 'installed') {
           if (navigator.serviceWorker.controller) {
             // 有新版本可用，提示用户刷新
-            console.info('[ServiceWorker] New version available, please refresh');
+            logger.info('[ServiceWorker] New version available, please refresh');
             // 可以在这里触发 UI 提示用户刷新页面
           } else {
-            console.info('[ServiceWorker] Content cached for offline use');
+            logger.info('[ServiceWorker] Content cached for offline use');
           }
         }
       });
@@ -61,7 +65,7 @@ export async function registerServiceWorker(): Promise<void> {
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (refreshing) return;
       refreshing = true;
-      console.info('[ServiceWorker] New controller activated, reloading...');
+      logger.info('[ServiceWorker] New controller activated, reloading...');
       window.location.reload();
     });
   } catch (error) {
@@ -82,7 +86,7 @@ export async function unregisterServiceWorker(): Promise<boolean> {
   try {
     const registration = await navigator.serviceWorker.ready;
     const result = await registration.unregister();
-    console.info('[ServiceWorker] Unregistered:', result);
+    logger.info('[ServiceWorker] Unregistered:', result);
     return result;
   } catch (error) {
     console.error('[ServiceWorker] Unregister failed:', error);
@@ -99,6 +103,6 @@ export async function clearServiceWorkerCache(): Promise<void> {
   if ('caches' in window) {
     const keys = await caches.keys();
     await Promise.all(keys.map((key) => caches.delete(key)));
-    console.info('[ServiceWorker] Cache cleared');
+    logger.info('[ServiceWorker] Cache cleared');
   }
 }

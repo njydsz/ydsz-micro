@@ -147,11 +147,38 @@ export function defineConfig(): Linter.Config[] {
       },
     },
     // 第三方生成组件库（shadcn-ui）：由 CLI 生成，含受控 any 透传，
-    // 豁免 no-explicit-any 避免污染红线统计（云顶规范 §3.1 第三方生成件豁免）
+    // 豁免 no-explicit-any 避免污染红线统计（云顶规范 §3.1 第三方生成件豁免）；
+    // stories 演示示例允许 console（§14.5 约束面向浏览器业务代码，不适用于生成件演示）
     {
       files: ['**/@core/ui-kit/shadcn-ui/**/*.ts', '**/@core/ui-kit/shadcn-ui/**/*.vue'],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
+        'no-console': 'off',
+      },
+    },
+    // Node CLI / Vite 构建插件：console 是 CLI 输出与插件日志的标准实践
+    // （§14.5 面向浏览器业务代码，Node 侧工具不适用 createLogger 约束）
+    {
+      files: [
+        'bash/**/*.{ts,mjs,cts,mts}',
+        'conf/vite-config/src/**/*.ts',
+        'conf/node-utils/src/**/*.ts',
+        'conf/tailwind-config/src/**/*.ts',
+        'conf/lint-configs/**/*.ts',
+        'comm/effects/micro-kernel/src/vite-plugin-manifest.ts',
+      ],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+    // 子应用独立运行入口（standalone-main）与 mock 初始化：开发辅助输出，不属于生产业务路径
+    {
+      files: [
+        '**/src/standalone-main.ts',
+        '**/src/mock/**/*.ts',
+      ],
+      rules: {
+        'no-console': 'off',
       },
     },
   ];

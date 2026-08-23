@@ -23,6 +23,10 @@ export type {
 // 样式映射已剥离至 use-resize-style.ts（云顶规范 §15.1：常量单独组织）
 export { styleMapping } from './use-resize-style';
 
+// ==================== 计算工具 ====================
+// 计算函数已剥离至 use-resize-utils.ts（云顶规范 §15.1：大文件拆分）
+export { rectCorrectionByLimit, sideCorrectionByLimit } from './use-resize-utils';
+
 // ==================== 核心拖拽/调整逻辑 ====================
 
 /**
@@ -56,53 +60,7 @@ export function saveDimensionsBeforeMove(
   state.aspectFactor.value = state.width.value / state.height.value;
 }
 
-/**
- * 根据限制修正单侧值
- */
-export function sideCorrectionByLimit(
-  limit: { max: number; min: number },
-  current: number,
-) {
-  let value = current;
-
-  if (limit.min !== null && current < limit.min) {
-    value = limit.min;
-  } else if (limit.max !== null && limit.max < current) {
-    value = limit.max;
-  }
-
-  return value;
-}
-
-/**
- * 根据限制修正矩形
- */
-export function rectCorrectionByLimit(
-  rect: RectCorrectionInput,
-  limits: Ref<Limits>,
-) {
-  let { newRight, newLeft, newBottom, newTop } = rect;
-
-  type RectRange = {
-    max: number;
-    min: number;
-  };
-
-  newLeft = sideCorrectionByLimit(limits.value.left as RectRange, newLeft);
-  newRight = sideCorrectionByLimit(limits.value.right as RectRange, newRight);
-  newTop = sideCorrectionByLimit(limits.value.top as RectRange, newTop);
-  newBottom = sideCorrectionByLimit(
-    limits.value.bottom as RectRange,
-    newBottom,
-  );
-
-  return {
-    newLeft,
-    newRight,
-    newTop,
-    newBottom,
-  };
-}
+// sideCorrectionByLimit / rectCorrectionByLimit 已剥离至 use-resize-utils.ts
 
 /**
  * 根据宽高比修正矩形

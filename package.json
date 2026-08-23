@@ -59,7 +59,18 @@
     "upload:sourcemaps": "node ./bash/upload-sourcemaps.mjs",
     "update:deps": "npx taze -r -w",
     "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "type-check": "turbo type-check",
+    "stylelint": "stylelint \"**/*.{vue,scss,css}\" --max-warnings=0",
+    "stylelint:fix": "stylelint \"**/*.{vue,scss,css}\" --fix",
+    "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
+    "vsh": "node ./bash/vsh/bin/vsh.mjs",
+    "vsh:check-arch": "node ./bash/vsh/bin/vsh.mjs check-arch",
+    "vsh:check-circular": "node ./bash/vsh/bin/vsh.mjs check-circular",
+    "vsh:check-dep": "node ./bash/vsh/bin/vsh.mjs check-dep",
+    "vsh:code-workspace": "node ./bash/vsh/bin/vsh.mjs code-workspace",
+    "vsh:publint": "node ./bash/vsh/bin/vsh.mjs publint"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",

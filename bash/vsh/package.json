@@ -1,0 +1,24 @@
+{
+  "name": "@ydsz/vsh",
+  "version": "1.0.0",
+  "description": "YDSZ 工程化工具链",
+  "type": "module",
+  "bin": {
+    "vsh": "./bin/vsh.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@typescript-eslint/typescript-estree": "^8.0.0",
+    "fast-glob": "^3.3.0",
+    "commander": "^12.0.0"
+  },
+  "author": "YDSZ Team",
+  "license": "MIT"
+}

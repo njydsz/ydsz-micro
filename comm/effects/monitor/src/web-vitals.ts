@@ -5,6 +5,10 @@
  * 对标 Google Web Vitals 标准 + Sentry Performance + 阿里 ARMS。
  */
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('Monitor:WebVitals');
+
 /** Web Vital 指标名称 */
 export type WebVitalName =
   | 'LCP'  // Largest Contentful Paint
@@ -155,7 +159,7 @@ export function reportWebVital(
 
   // 开发环境打印
   if (!import.meta.env.PROD) {
-    console.debug(`[Web Vitals] ${name}: ${report.value} (${report.rating})`);
+    logger.debug(`[Web Vitals] ${name}: ${report.value} (${report.rating})`);
   }
 }
 
@@ -263,7 +267,7 @@ export function setupWebVitals() {
     // 浏览器不支持
   }
 
-  console.info('[Monitor] Web Vitals monitoring installed');
+  logger.info('[Monitor] Web Vitals monitoring installed');
 
   // 页面卸载时强制 flush 缓冲队列，避免丢失未达批量阈值的指标
   window.addEventListener('beforeunload', flushVitalsQueue);

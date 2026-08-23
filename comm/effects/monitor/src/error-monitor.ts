@@ -22,6 +22,8 @@
  * @since 3.0.0
  */
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-types';
 import {
   setSentryForwarding,
@@ -41,6 +43,8 @@ export type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-type
 export { cacheForOffline, loadOfflineCache, clearOfflineCache } from './error-monitor-offline';
 export { setSentryForwarding, enableSentryForwarding, disableSentryForwarding } from './error-monitor-queue';
 export { reportError } from './error-monitor-queue';
+
+const logger = createLogger('Monitor:Errors');
 
 /**
  * 安装错误监控
@@ -153,7 +157,7 @@ export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): 
     })();
   }
 
-  console.info('[Monitor] Error monitoring installed', {
+  logger.info('[Monitor] Error monitoring installed', {
     release: config.release,
     sampleRate: config.sampleRate ?? 1,
     sentryForwarding: !!config.sentryDsn,

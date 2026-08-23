@@ -15,6 +15,9 @@
  */
 
 import type { Plugin } from 'vite';
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('MicroKernel:ManifestPlugin');
 
 /** 子应用 manifest.json 中声明的路由级骨架屏配置（与 loader.ts ManifestRoute 对齐） */
 export interface ManifestPluginRoute {
@@ -101,7 +104,7 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
         source: JSON.stringify(manifest),
       });
 
-      console.info(`[ManifestPlugin] Generated manifest for ${appName}:`, manifest);
+      logger.info(`Generated manifest for ${appName}`, { manifest });
     },
   };
 }
