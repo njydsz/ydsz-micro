@@ -4,28 +4,16 @@
  * @since 2026-08-23
  */
 
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
-import { resolve } from 'node:path';
+import { defineBuildConfig } from 'unbuild';
 
-export default defineConfig({
-  plugins: [
-    dts({
-      entryRoot: 'src',
-      outDir: 'dist',
-      tsconfigPath: './tsconfig.json',
-    }),
-  ],
-  build: {
-    lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      formats: ['es'],
-      fileName: () => 'index.js',
+export default defineBuildConfig({
+  entries: ['src/index.ts'],
+  declaration: true,
+  clean: true,
+  rollup: {
+    emitCJS: false,
+    esbuild: {
+      target: 'es2022',
     },
-    rollupOptions: {
-      external: ['eslint', 'typescript-eslint', '@eslint/js'],
-    },
-    sourcemap: true,
-    minify: false,
   },
 });

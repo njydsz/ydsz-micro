@@ -11,6 +11,11 @@
  * @path comm/utils/src/helpers/__tests__/reset-routes.test.ts
  * @author ydsz-team
  * @since 4.2.1
+ *
+ * @todo(any) 测试文件使用 38 处 as any，原因：
+ * 1. component 字段使用空对象 mock，不需要真实组件
+ * 2. mockRouter 使用简化对象模拟 Router 类型
+ * 后续可通过创建完整的 mock 工厂函数减少 any 使用
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 

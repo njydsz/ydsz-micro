@@ -115,6 +115,7 @@ export function useResizeWatchers(
         calcDragLimitation,
         emit,
       );
+      // TODO(any): bodyMove 期望 Ref<Rect>，待后续重构 rect 为 ref
       bodyMove({ x: delta, y: 0 }, resizeState, rect as any, emit);
 
       nextTick(() => {
@@ -147,6 +148,7 @@ export function useResizeWatchers(
         calcDragLimitation,
         emit,
       );
+      // TODO(any): bodyMove 期望 Ref<Rect>，待后续重构 rect 为 ref
       bodyMove({ x: 0, y: delta }, resizeState, rect as any, emit);
 
       nextTick(() => {
@@ -181,6 +183,7 @@ export function useResizeWatchers(
         calcResizeLimits,
         true,
       );
+      // TODO(any): stickMove 期望 Ref<Rect>，待后续重构 rect 为 ref
       stickMove({ x: delta, y: 0 }, resizeState, rect as any, emit);
 
       nextTick(() => {
@@ -215,6 +218,7 @@ export function useResizeWatchers(
         calcResizeLimits,
         true,
       );
+      // TODO(any): stickMove 期望 Ref<Rect>，待后续重构 rect 为 ref
       stickMove({ x: 0, y: delta }, resizeState, rect as any, emit);
 
       nextTick(() => {
