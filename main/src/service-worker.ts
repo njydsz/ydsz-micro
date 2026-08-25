@@ -21,14 +21,14 @@ const logger = createLogger('ServiceWorker');
 export async function registerServiceWorker(): Promise<void> {
   // 检查是否支持 Service Worker
   if (!('serviceWorker' in navigator)) {
-    console.warn('[ServiceWorker] Service Worker not supported');
+    logger.warn('[ServiceWorker] Service Worker not supported');
     return;
   }
 
   // 检查是否在安全上下文中（HTTPS 或 localhost）
   const isSecureContext = window.location.protocol === 'https:' || window.location.hostname === 'localhost';
   if (!isSecureContext) {
-    console.warn('[ServiceWorker] Service Worker requires HTTPS or localhost');
+    logger.warn('[ServiceWorker] Service Worker requires HTTPS or localhost');
     return;
   }
 
@@ -69,7 +69,7 @@ export async function registerServiceWorker(): Promise<void> {
       window.location.reload();
     });
   } catch (error) {
-    console.error('[ServiceWorker] Registration failed:', error);
+    logger.error('[ServiceWorker] Registration failed:', error);
   }
 }
 
@@ -89,7 +89,7 @@ export async function unregisterServiceWorker(): Promise<boolean> {
     logger.info('[ServiceWorker] Unregistered:', result);
     return result;
   } catch (error) {
-    console.error('[ServiceWorker] Unregister failed:', error);
+    logger.error('[ServiceWorker] Unregister failed:', error);
     return false;
   }
 }

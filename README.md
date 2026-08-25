@@ -234,8 +234,7 @@ pnpm build:literule          # 规则引擎
 pnpm build:agent             # AI 助手
 
 pnpm preview                 # 本地预览构建产物
-pnpm build:analyze           # 产物体积分析
-pnpm bundle-size             # 包体积预算检查（--baseline 生成基线）
+pnpm build:analyze           # 产物体积分析（rollup-plugin-visualizer）
 ```
 
 ### 代码生成
@@ -296,7 +295,7 @@ server: {
 - 业务成功码统一为 `successCode = "A00000"`
 - 登录响应统一为 `LoginVO` 类型
 - `refreshToken` 自动刷新与重放
-- 通过 `openapi-fetch + openapi-typescript` 从 OpenAPI 契约生成类型安全的 API 客户端（`pnpm gen:api`），`pnpm check:contract` 校验契约漂移
+- 通过 `openapi-fetch + openapi-typescript` 从 OpenAPI 契约生成类型安全的 API 客户端（`pnpm gen:api`），`pnpm gen:api:check` 校验契约漂移
 
 ## 工程规范
 
@@ -328,7 +327,7 @@ Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint �
 
 ## 性能预算
 
-`pnpm test:perf`（Lighthouse CI，3 次采样，desktop preset）执行以下断言：
+> ⚠️ 待接入：以下断言由 `pnpm test:perf`（Lighthouse CI，3 次采样，desktop preset）执行，当前脚本与 lighthouserc 配置尚未落地，预算目标如下：
 
 - **错误级**：Accessibility ≥ 0.9
 - **警告级**：Performance ≥ 0.9；FCP ≤ 2000ms、LCP ≤ 2500ms、TTI ≤ 3800ms、TBT ≤ 300ms、CLS ≤ 0.1、SI ≤ 3400ms

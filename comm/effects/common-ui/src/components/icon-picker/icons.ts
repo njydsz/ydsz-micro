@@ -43,6 +43,8 @@ export async function fetchIconsData(prefix: string): Promise<string[]> {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 1000 * 10);
+      // @infra-fetch 基础设施层直用：Iconify 外部第三方 CDN 图标元数据拉取，
+      // 无统一请求客户端上下文（跨域外部域 + AbortController 超时控制），云顶规范 §6.1 例外条款。
       const response: IconifyResponse = await fetch(
         `https://api.iconify.design/collection?prefix=${prefix}`,
         { signal: controller.signal },

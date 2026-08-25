@@ -55,7 +55,7 @@ const DEFAULT_CONFIG: DepComplianceConfig = {
     'Python-2.0',
     'BlueOak-1.0.0',
   ],
-  forbiddenPackages: [],
+  forbiddenPackages: ['moment', 'jquery', 'lodash'],
   requireWorkspaceProtocol: true,
   businessDirs: ['apps', 'main/src'],
   forbiddenFetchPackages: [
@@ -241,6 +241,74 @@ function parseLockfileImporters(lockPath: string): Set<string> {
 }
 
 /**
+ * 从 pnpm-workspace.yaml 解析 catalog 段定义的键集合。
+ * 用于校验各包 `catalog:` 引用的一致性（"最小化外部依赖、版本绝对可控"的硬性抓手）。
+ */
+function parseCatalogKeys(rootDir: string): Set<string> {
+  const keys = new Set<string>();
+  const wsPath = join(rootDir, 'pnpm-workspace.yaml');
+  if (!existsSync(wsPath)) return keys;
+  let text: string;
+  try {
+    text = readFileSync(wsPath, 'utf-8');
+  } catch {
+    return keys;
+  }
+  // catalog 段：顶层 `catalog:` 键起，到下一个 0 缩进顶层键止
+  const sectionMatch = text.match(/^catalog:\s*\n([\s\S]*?)(?=^\S)/m);
+  if (!sectionMatch) return keys;
+  const entryRe = /^\s{2}['"]?([^'":\s]+)['"]?\s*:/gm;
+  let m: RegExpExecArray | null;
+  while ((m = entryRe.exec(sectionMatch[1])) !== null) {
+    keys.add(m[1]);
+  }
+  return keys;
+}
+
+/**
+ * catalog 一致性校验：各包依赖中 `catalog:` 引用必须能在 pnpm-workspace.yaml catalog 中找到定义。
+ */
+function checkCatalogConsistency(rootDir: string, packagePaths: string[]): DepViolation[] {
+  const violations: DepViolation[] = [];
+  const catalogKeys = parseCatalogKeys(rootDir);
+  if (catalogKeys.size === 0) {
+    violations.push({
+      package: 'pnpm-workspace.yaml',
+      version: '-',
+      license: '-',
+      reason: 'pnpm-workspace.yaml 中 catalog 段缺失或为空，无法校验 catalog: 引用一致性',
+      file: join(rootDir, 'pnpm-workspace.yaml'),
+      severity: 'error',
+    });
+    return violations;
+  }
+  for (const packagePath of packagePaths) {
+    let pkg: Record<string, unknown>;
+    try {
+      pkg = JSON.parse(readFileSync(packagePath, 'utf-8').replace(/^﻿/, ''));
+    } catch {
+      continue;
+    }
+    const deps = pkg.dependencies as Record<string, string> | undefined;
+    const devDeps = pkg.devDependencies as Record<string, string> | undefined;
+    const allDeps = { ...(deps ?? {}), ...(devDeps ?? {}) };
+    for (const [name, version] of Object.entries(allDeps)) {
+      if (version === 'catalog:' && !catalogKeys.has(name)) {
+        violations.push({
+          package: name,
+          version,
+          license: '-',
+          reason: `依赖使用 catalog: 协议，但 pnpm-workspace.yaml catalog 未定义「${name}」——请补 catalog 条目或改用显式版本`,
+          file: packagePath,
+          severity: 'error',
+        });
+      }
+    }
+  }
+  return violations;
+}
+
+/**
  * lockfile 一致性校验：检查工作区包是否均已锁定（出现在 importers 中）。
  */
 function checkLockfile(rootDir: string): DepViolation[] {
@@ -369,18 +437,19 @@ export async function checkDep(options: {
 
   const violations: DepViolation[] = [];
 
-  // 1) package.json 依赖（根 + apps）
+  // 1) 全 workspace package.json 依赖检查（根 + apps/comm/conf/main/bash 全部工作区包）
   const rootPkg = resolve(rootDir, 'package.json');
-  violations.push(...checkPackageJson(rootPkg, config, rootDir));
-
-  const appsDir = resolve(rootDir, 'apps');
-  if (existsSync(appsDir)) {
-    for (const d of readdirSync(appsDir, { withFileTypes: true })) {
-      if (!d.isDirectory()) continue;
-      const appPkg = resolve(appsDir, d.name, 'package.json');
-      violations.push(...checkPackageJson(appPkg, config, rootDir));
-    }
+  const packagePaths: string[] = [rootPkg];
+  const workspaceRoots = ['apps', 'comm', 'conf', 'main', 'bash'];
+  for (const dir of collectPackageDirs(rootDir, workspaceRoots)) {
+    packagePaths.push(resolve(rootDir, dir, 'package.json'));
   }
+  for (const packagePath of packagePaths) {
+    violations.push(...checkPackageJson(packagePath, config, rootDir));
+  }
+
+  // 1.5) catalog 一致性（catalog: 引用必须能在 pnpm-workspace.yaml 中找到定义）
+  violations.push(...checkCatalogConsistency(rootDir, packagePaths));
 
   // 2) import 边界（云顶规范 §6.1）
   violations.push(...checkImportBoundary(rootDir, config));

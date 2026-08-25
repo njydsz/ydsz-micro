@@ -622,9 +622,18 @@ def build_ts_models(builder: SchemaBuilder) -> str:
 
 
 def camel(name: str) -> str:
-    """下划线/连字符 -> camelCase（用于 TS 字段名）"""
-    parts = re.split(r"[_-]+", name)
-    return parts[0] + "".join(p.capitalize() for p in parts[1:])
+    """任意风格 -> camelCase（首字母小写）：FlowTask->flowTask, CEPTest->cepTest, OAuth2Application->oauth2Application"""
+    s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", name)  # CEPTest -> CEP Test
+    s = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", s)  # FlowTask -> Flow Task
+    s = re.sub(r"[_\-]+", " ", s)
+    parts = s.split()
+    if not parts:
+        return ""
+    out = parts[0].lower()
+    for p in parts[1:]:
+        if p:
+            out += p[0].upper() + p[1:].lower()
+    return out
 
 
 def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:

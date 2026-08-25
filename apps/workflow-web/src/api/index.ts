@@ -8,3 +8,15 @@
  */
 export * from './core';
 export { requestClient, baseRequestClient } from './request';
+export * from './flowAdvanced';
+export * from './flowAnalytics';
+export * from './flowCategory';
+export * from './flowComment';
+export * from './flowDefinition';
+export * from './flowDesigner';
+export * from './flowEmbeddedApproval';
+export * from './flowInstance';
+export * from './flowMonitorDashboard';
+export * from './flowTask';
+export * from './flowTemplate';
+export * from './models';

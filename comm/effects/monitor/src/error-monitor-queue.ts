@@ -222,7 +222,8 @@ export function sendBatch(batch: ErrorReport[], retryCount: number): void {
         scheduleRetry(batch, retryCount, retryBaseDelay);
       }
     } else {
-      // 降级 fetch
+      // @infra-fetch 基础设施层直用：监控上报降级通道（sendBeacon 不可用时），
+      // 无统一请求客户端上下文（keepalive 语义 + 页面卸载窗口），云顶规范 §6.1 例外条款。
       fetch(REPORT_ENDPOINT, {
         body: JSON.stringify({ errors: batch }),
         headers: { 'Content-Type': 'application/json' },
