@@ -254,13 +254,22 @@ function parseCatalogKeys(rootDir: string): Set<string> {
   } catch {
     return keys;
   }
-  // catalog 段：顶层 `catalog:` 键起，到下一个 0 缩进顶层键止
-  const sectionMatch = text.match(/^catalog:\s*\n([\s\S]*?)(?=^\S)/m);
-  if (!sectionMatch) return keys;
-  const entryRe = /^\s{2}['"]?([^'":\s]+)['"]?\s*:/gm;
-  let m: RegExpExecArray | null;
-  while ((m = entryRe.exec(sectionMatch[1])) !== null) {
-    keys.add(m[1]);
+  // catalog 段：顶层 `catalog:` 键起，到下一个 0 缩进顶层键（或文件末尾）止
+  const lines = text.split('\n');
+  let inCatalog = false;
+  for (const line of lines) {
+    if (line.trim() === 'catalog:') {
+      inCatalog = true;
+      continue;
+    }
+    if (inCatalog) {
+      if (line && !line.startsWith(' ')) {
+        inCatalog = false;
+        continue;
+      }
+      const m = /^\s{2}['"]?([^'":\s]+)['"]?\s*:/.exec(line);
+      if (m) keys.add(m[1]);
+    }
   }
   return keys;
 }

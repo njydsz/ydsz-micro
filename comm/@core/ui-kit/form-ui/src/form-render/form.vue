@@ -47,7 +47,7 @@ const props = withDefaults(
 );
 
 const emits = defineEmits<{
-  submit: [event: any];
+  submit: [event: unknown];
 }>();
 
 const wrapperClass = computed(() => {

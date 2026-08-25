@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { FlowAuditTrailVO, FlowAutoTriggerCreateDTO, FlowAutoTriggerVO, FlowDefinitionDetailVO, FlowInstanceVariablesDTO, FlowInstanceViewDTO, FlowRecallableNodeVO, FlowReplayStepVO, FlowStartProcessDTO, FlowTimelineVO, InstanceMigrationDTO, InstanceMigrationResultDTO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { FlowAuditTrailVO, FlowAutoTriggerCreateDTO, FlowAutoTriggerVO, FlowDefinitionDetailVO, FlowInstanceVO, FlowInstanceVariablesDTO, FlowInstanceViewDTO, FlowRecallableNodeVO, FlowReplayStepVO, FlowStartProcessDTO, FlowTimelineVO, InstanceMigrationDTO, InstanceMigrationResultDTO } from './models';
 
 /**
  * startProcess: POST /api/v1/workflow/engine/instance/start
@@ -158,8 +159,8 @@ export function instancePage(params: {
     startTime?: string;
     endTime?: string;
     tenantId?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/instance/page`, { params });
+  }): Promise<PageResponse<FlowInstanceVO[]>> {
+  return requestClient.get<PageResponse<FlowInstanceVO[]>>(`/api/v1/workflow/engine/instance/page`, { params });
 }
 
 /**
@@ -173,8 +174,8 @@ export function instanceMy(params: {
     endTime?: string;
     pageNum?: number;
     pageSize?: number;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/instance/my`, { params });
+  }): Promise<PageResponse<FlowInstanceVO[]>> {
+  return requestClient.get<PageResponse<FlowInstanceVO[]>>(`/api/v1/workflow/engine/instance/my`, { params });
 }
 
 /**
@@ -187,8 +188,8 @@ export function instanceAll(params: {
     flowStatus?: string;
     startTime?: string;
     endTime?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/instance/all`, { params });
+  }): Promise<PageResponse<FlowInstanceVO[]>> {
+  return requestClient.get<PageResponse<FlowInstanceVO[]>>(`/api/v1/workflow/engine/instance/all`, { params });
 }
 
 /**

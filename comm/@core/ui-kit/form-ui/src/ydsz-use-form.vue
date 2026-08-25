@@ -72,7 +72,7 @@ const handleValuesChangeDebounced = useDebounceFn(async () => {
   state.value.submitOnChange && forward.value.formApi?.validateAndSubmitForm();
 }, 300);
 
-const valuesCache: Recordable<any> = {};
+const valuesCache: Recordable<unknown> = {};
 
 onMounted(async () => {
   // 只在挂载后开始监听，form.values会有一个初始化的过程

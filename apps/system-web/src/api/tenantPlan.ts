@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse, TenantPlanDTO, TenantPlanMenuDTO, TenantPlanMenuVO, TenantPlanPageQuery, TenantPlanVO } from './models';
+import type { PageResponse } from './models';
+import type { TenantPlanDTO, TenantPlanMenuDTO, TenantPlanMenuVO, TenantPlanPageQuery, TenantPlanVO } from './models';
 
 /**
  * page: GET /api/v1/tenant-plan/page
  */
 export function page(params: {
     query?: TenantPlanPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/tenant-plan/page`, { params });
+  }): Promise<PageResponse<TenantPlanVO[]>> {
+  return requestClient.get<PageResponse<TenantPlanVO[]>>(`/api/v1/tenant-plan/page`, { params });
 }
 
 /**
@@ -35,7 +36,7 @@ export function listAll(): Promise<TenantPlanVO[]> {
 export function getById({ id }: {
     id: string;
   }): Promise<TenantPlanVO> {
-  return requestClient.get<TenantPlanVO>(`/api/v1/tenant-plan/$${id}`);
+  return requestClient.get<TenantPlanVO>(`/api/v1/tenant-plan/${id}`);
 }
 
 /**
@@ -58,7 +59,7 @@ export function update(data: TenantPlanDTO): Promise<boolean> {
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/tenant-plan/$${id}`);
+  return requestClient.delete<boolean>(`/api/v1/tenant-plan/${id}`);
 }
 
 /**
@@ -67,7 +68,7 @@ export function remove({ id }: {
 export function listMenus({ planId }: {
     planId: string;
   }): Promise<TenantPlanMenuVO[]> {
-  return requestClient.get<TenantPlanMenuVO[]>(`/api/v1/tenant-plan/$${planId}/menus`);
+  return requestClient.get<TenantPlanMenuVO[]>(`/api/v1/tenant-plan/${planId}/menus`);
 }
 
 /**

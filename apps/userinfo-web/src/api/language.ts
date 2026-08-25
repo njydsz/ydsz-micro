@@ -11,6 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { PageResponse } from './models';
 import type { LanguageDTO, LanguagePageQuery, LanguageVO } from './models';
 
 /**
@@ -18,8 +19,8 @@ import type { LanguageDTO, LanguagePageQuery, LanguageVO } from './models';
  */
 export function page(params: {
     query?: LanguagePageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/language/page`, { params });
+  }): Promise<PageResponse<LanguageVO[]>> {
+  return requestClient.get<PageResponse<LanguageVO[]>>(`/api/v1/language/page`, { params });
 }
 
 /**

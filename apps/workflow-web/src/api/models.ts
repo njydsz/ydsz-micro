@@ -1006,6 +1006,67 @@ export interface FlowReplayStepVO {
   coordinate?: Record<string, unknown>;
 }
 
+export interface FlowInstanceVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  flowCode?: string;
+
+  flowName?: string;
+
+  definitionId?: string;
+
+  flowVersion?: string;
+
+  businessType?: string;
+
+  businessId?: string;
+
+  businessNo?: string;
+
+  title?: string;
+
+  initiatorId?: string;
+
+  initiatorName?: string;
+
+  currentNodeCode?: string;
+
+  currentNodeName?: string;
+
+  variable?: string;
+
+  flowStatus?: string;
+
+  activityStatus?: number;
+
+  startAt?: string;
+
+  endAt?: string;
+
+  durationMs?: number;
+
+  parentInstanceId?: string;
+
+  parentNodeCode?: string;
+
+  providerTraceId?: string;
+
+  dueAt?: string;
+
+  rejectReason?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
 export interface InstanceMigrationResultDTO {
 
   serialVersionUID?: number;

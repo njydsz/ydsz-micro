@@ -74,7 +74,8 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
       onEnd(evt) {
         const { newIndex, oldIndex } = evt;
         // const fromElement = evt.item;
-        const { srcElement } = (evt as any).originalEvent;
+        // SortableJS 事件类型未暴露 originalEvent，收窄为结构类型访问
+        const { srcElement } = (evt as { originalEvent?: Event }).originalEvent ?? {};
 
         if (!srcElement) {
           resetElState();

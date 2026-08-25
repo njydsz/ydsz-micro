@@ -90,10 +90,10 @@ export type PromptProps<T = any> = {
   /** 用于接受用户输入的组件 */
   component?: Component;
   /** 输入组件的属性 */
-  componentProps?: Recordable<any>;
+  componentProps?: Recordable<unknown>;
   /** 输入组件的插槽 */
   componentSlots?:
-    | (() => any)
+    | (() => unknown)
     | Recordable<unknown>
     | VNode
     | VNodeArrayChildren;

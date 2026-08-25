@@ -11,6 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { PageResponse } from './models';
 import type { AuthPolicyDTO, AuthPolicyPageQuery, AuthPolicyVO } from './models';
 
 /**
@@ -18,8 +19,8 @@ import type { AuthPolicyDTO, AuthPolicyPageQuery, AuthPolicyVO } from './models'
  */
 export function page(params: {
     query?: AuthPolicyPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/auth-policy/page`, { params });
+  }): Promise<PageResponse<AuthPolicyVO[]>> {
+  return requestClient.get<PageResponse<AuthPolicyVO[]>>(`/api/v1/auth-policy/page`, { params });
 }
 
 /**

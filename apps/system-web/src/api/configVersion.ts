@@ -19,7 +19,7 @@ import type { EntityVersionVO } from './models';
 export function listByResourceKey({ resourceKey }: {
     resourceKey: string;
   }): Promise<EntityVersionVO[]> {
-  return requestClient.get<EntityVersionVO[]>(`/api/v1/config/version/$${resourceKey}`);
+  return requestClient.get<EntityVersionVO[]>(`/api/v1/config/version/${resourceKey}`);
 }
 
 /**
@@ -30,5 +30,5 @@ export function rollback({ resourceKey }: {
   }, params: {
     targetVersion?: string;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/v1/config/version/$${resourceKey}/rollback`, { params });
+  return requestClient.post<string>(`/api/v1/config/version/${resourceKey}/rollback`, { params });
 }

@@ -68,12 +68,20 @@ async function main() {
     case 'check-dep': {
       const { checkDep } = await import('../src/check-dep/index.ts');
       const violations = await checkDep({ rootDir });
-      if (violations.length === 0) {
-        console.log('✅ 依赖合规检查通过');
+      const errors = violations.filter((v) => v.severity !== 'warn');
+      const warns = violations.filter((v) => v.severity === 'warn');
+      if (warns.length > 0) {
+        console.warn(`\n⚠️  ${warns.length} 处警告（不阻断）:`);
+        for (const v of warns) {
+          console.warn(`  ${v.package}@${v.version}: ${v.reason}`);
+        }
+      }
+      if (errors.length === 0) {
+        console.log(`✅ 依赖合规检查通过${warns.length ? `（含 ${warns.length} 警告）` : ''}`);
         process.exit(0);
       }
-      console.error(`❌ 发现 ${violations.length} 处依赖违规:\n`);
-      for (const v of violations) {
+      console.error(`\n❌ 发现 ${errors.length} 处依赖违规:`);
+      for (const v of errors) {
         console.error(`  ${v.package}@${v.version}: ${v.reason}`);
       }
       process.exit(1);

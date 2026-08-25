@@ -11,6 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { PageResponse } from './models';
 import type { AssignPermissionsDTO, RoleDTO, RolePageQuery, RoleVO } from './models';
 
 /**
@@ -18,8 +19,8 @@ import type { AssignPermissionsDTO, RoleDTO, RolePageQuery, RoleVO } from './mod
  */
 export function page(params: {
     query?: RolePageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/role/page`, { params });
+  }): Promise<PageResponse<RoleVO[]>> {
+  return requestClient.get<PageResponse<RoleVO[]>>(`/api/v1/role/page`, { params });
 }
 
 /**

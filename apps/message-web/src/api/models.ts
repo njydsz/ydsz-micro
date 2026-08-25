@@ -434,6 +434,43 @@ export interface UserChannelBindingDTO {
   extra?: string;
 }
 
+export interface MsgAggregateVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  aggregateGroup?: string;
+
+  receiver?: string;
+
+  channel?: string;
+
+  batchStatus?: string;
+
+  messageCount?: number;
+
+  firstMessageAt?: string;
+
+  lastMessageAt?: string;
+
+  scheduledSendAt?: string;
+
+  sentAt?: string;
+
+  digestContent?: string;
+
+  status?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
 export interface MsgBatchVO {
 
   serialVersionUID?: number;
@@ -512,6 +549,87 @@ export interface BatchProgressVO {
   createdAt?: string;
 }
 
+export interface MsgLogVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  channel?: string;
+
+  bizType?: string;
+
+  bizId?: string;
+
+  receiver?: string;
+
+  templateCode?: string;
+
+  templateParams?: string;
+
+  content?: string;
+
+  status?: string;
+
+  errorMessage?: string;
+
+  priority?: string;
+
+  senderId?: string;
+
+  messageGroup?: string;
+
+  batchId?: string;
+
+  routeRuleId?: string;
+
+  canary?: number;
+
+  canaryKey?: string;
+
+  dedupKey?: string;
+
+  recallStatus?: string;
+
+  recallAt?: string;
+
+  receiptStatus?: string;
+
+  receiptAt?: string;
+
+  retryCount?: number;
+
+  nextRetryAt?: string;
+
+  providerTraceId?: string;
+
+  costMs?: number;
+
+  cost?: number;
+
+  traceId?: string;
+
+  tenantId?: string;
+
+  msgId?: string;
+
+  topic?: string;
+
+  reconsumeTimes?: number;
+
+  parentMsgId?: string;
+
+  scheduledAt?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
 export interface MessageResult {
 
   serialVersionUID?: number;
@@ -543,6 +661,39 @@ export interface BatchSendResult {
 }
 
 export interface NotifySendResult {}
+export interface MsgFeedbackVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  msgId?: string;
+
+  notificationId?: string;
+
+  userId?: string;
+
+  channel?: string;
+
+  bizType?: string;
+
+  rating?: number;
+
+  feedbackType?: string;
+
+  content?: string;
+
+  status?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
 export interface MessageStatsVO {
 
   total?: number;
@@ -652,6 +803,67 @@ export interface CostStatsVO {
   messageCount?: number;
 
   unitPrice?: number;
+}
+
+export interface MsgNotificationVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  title?: string;
+
+  content?: string;
+
+  level?: string;
+
+  category?: string;
+
+  priority?: string;
+
+  senderId?: string;
+
+  receiverId?: string;
+
+  bizType?: string;
+
+  bizId?: string;
+
+  messageGroup?: string;
+
+  batchId?: string;
+
+  actionUrl?: string;
+
+  actionText?: string;
+
+  icon?: string;
+
+  extra?: string;
+
+  sourceModule?: string;
+
+  readStatus?: number;
+
+  readTime?: string;
+
+  recallStatus?: string;
+
+  recallAt?: string;
+
+  expiredAt?: string;
+
+  mentionUserIds?: string;
+
+  status?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
 }
 
 export interface CacheStatsVO {

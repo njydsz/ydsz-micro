@@ -88,6 +88,38 @@ function checkFile(filePath: string, rules: ArchRule[], rootDir: string): ArchVi
 }
 
 /**
+ * 子应用生命周期导出校验（云顶规范 §12.2【强制】）：
+ * 每个子应用（apps 下各应用的 src/main.ts）必须导出标准的 bootstrap / mount / unmount 生命周期。
+ * 本项目经 @ydsz/shared-auth 的 createSubApp 工厂统一产出，检查文件是否以
+ * `export const { bootstrap, mount, unmount }`（含 update）形式导出。
+ */
+function checkSubAppLifecycle(rootDir: string, files: string[]): ArchViolation[] {
+  const violations: ArchViolation[] = [];
+  const appMainFiles = files.filter((f) => /apps\/[^/]+\/src\/main\.ts$/.test(f));
+  for (const file of appMainFiles) {
+    let content: string;
+    try {
+      content = readFileSync(file, 'utf-8');
+    } catch {
+      continue;
+    }
+    // 匹配 `export const { bootstrap, mount, unmount[, update] } = createSubApp(...)`
+    const lifecycleRe =
+      /export\s+const\s*\{\s*(?:bootstrap|mount|unmount)\s*,\s*(?:bootstrap|mount|unmount)\s*,\s*(?:bootstrap|mount|unmount)\s*(?:,\s*update\s*)?\}/;
+    if (!lifecycleRe.test(content)) {
+      violations.push({
+        rule: 'sub-app-standard-lifecycle',
+        file,
+        line: 1,
+        message:
+          '子应用未导出标准 bootstrap/mount/unmount 生命周期（云顶规范 §12.2），请使用 createSubApp 工厂',
+      });
+    }
+  }
+  return violations;
+}
+
+/**
  * 执行架构检查
  */
 export async function checkArch(options: {
@@ -103,6 +135,7 @@ export async function checkArch(options: {
   for (const file of files) {
     allViolations.push(...checkFile(file, rules, rootDir));
   }
+  allViolations.push(...checkSubAppLifecycle(rootDir, files));
   return allViolations;
 }
 

@@ -154,7 +154,8 @@ const fieldRules = computed(() => {
 
   const isOptional = !shouldRequired.value;
   if (!isOptional) {
-    const unwrappedRules = (rules as any)?.unwrap?.();
+    // Zod 可选包装器（ZodOptional/ZodDefault）的 unwrap 方法未在公共类型暴露，收窄为结构类型调用
+    const unwrappedRules = (rules as { unwrap?: () => unknown })?.unwrap?.();
     if (unwrappedRules) {
       rules = unwrappedRules;
     }

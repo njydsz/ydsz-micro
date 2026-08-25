@@ -131,7 +131,10 @@ export function useYDSZDrawer<
     return [Drawer, extendedApi as ExtendedDrawerApi] as const;
   }
 
-  const injectData = inject<any>(USER_DRAWER_INJECT_KEY, {});
+  const injectData = inject<{ options?: Partial<DrawerApiOptions> }>(
+    USER_DRAWER_INJECT_KEY,
+    {},
+  );
 
   const mergedOptions = {
     ...DEFAULT_DRAWER_PROPS,

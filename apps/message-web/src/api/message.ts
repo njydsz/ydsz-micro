@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { BatchSendResult, MessageLogQueryDTO, MessageRequest, MessageResult, MessageSendDTO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { BatchSendResult, MessageLogQueryDTO, MessageRequest, MessageResult, MessageSendDTO, MsgLogVO } from './models';
 
 /**
  * send: POST /api/v1/message/send
@@ -39,8 +40,8 @@ export function sendAsync(data: MessageRequest): Promise<MessageResult> {
  */
 export function pageLog(params: {
     query?: MessageLogQueryDTO;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/log/page`, { params });
+  }): Promise<PageResponse<MsgLogVO[]>> {
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/api/v1/message/log/page`, { params });
 }
 
 /**
@@ -76,6 +77,6 @@ export function batchProgress({ batchId }: {
   }, params: {
     page?: number;
     size?: number;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/batch/${batchId}/progress`, { params });
+  }): Promise<PageResponse<MsgLogVO[]>> {
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/api/v1/message/batch/${batchId}/progress`, { params });
 }

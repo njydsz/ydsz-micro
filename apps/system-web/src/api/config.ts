@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { ConfigBatchDTO, ConfigDTO, ConfigPageQuery, ConfigVO, CursorPageResponse, ImportResult, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { ConfigBatchDTO, ConfigDTO, ConfigPageQuery, ConfigVO, CursorPageResponse, ImportResult } from './models';
 
 /**
  * page: GET /api/v1/config/page
  */
 export function page(params: {
     query?: ConfigPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/config/page`, { params });
+  }): Promise<PageResponse<ConfigVO[]>> {
+  return requestClient.get<PageResponse<ConfigVO[]>>(`/api/v1/config/page`, { params });
 }
 
 /**
@@ -40,7 +41,7 @@ export function pageByCursor(params: {
 export function getById({ id }: {
     id: string;
   }): Promise<ConfigVO> {
-  return requestClient.get<ConfigVO>(`/api/v1/config/$${id}`);
+  return requestClient.get<ConfigVO>(`/api/v1/config/${id}`);
 }
 
 /**
@@ -63,7 +64,7 @@ export function update(data: ConfigDTO): Promise<boolean> {
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/config/$${id}`);
+  return requestClient.delete<boolean>(`/api/v1/config/${id}`);
 }
 
 /**
@@ -79,7 +80,7 @@ export function batchSave(data: ConfigBatchDTO): Promise<unknown> {
 export function getByKey({ configKey }: {
     configKey: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/v1/config/key/$${configKey}`);
+  return requestClient.get<string>(`/api/v1/config/key/${configKey}`);
 }
 
 /**
@@ -88,7 +89,7 @@ export function getByKey({ configKey }: {
 export function getConfigsByGroup({ configGroup }: {
     configGroup: string;
   }): Promise<ConfigVO[]> {
-  return requestClient.get<ConfigVO[]>(`/api/v1/config/group/$${configGroup}`);
+  return requestClient.get<ConfigVO[]>(`/api/v1/config/group/${configGroup}`);
 }
 
 /**

@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { MessageLogQueryDTO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { MessageLogQueryDTO, MsgLogVO } from './models';
 
 /**
  * page: GET /api/v1/message/dead-letter/page
  */
 export function page(params: {
     query?: MessageLogQueryDTO;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/dead-letter/page`, { params });
+  }): Promise<PageResponse<MsgLogVO[]>> {
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/api/v1/message/dead-letter/page`, { params });
 }
 
 /**

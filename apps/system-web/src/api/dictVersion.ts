@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { EntityVersionPageQuery, EntityVersionVO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { EntityVersionPageQuery, EntityVersionVO } from './models';
 
 /**
  * listByTypeCode: GET /api/v1/dict/version/{typeCode}
@@ -19,7 +20,7 @@ import type { EntityVersionPageQuery, EntityVersionVO, PageResponse } from './mo
 export function listByTypeCode({ typeCode }: {
     typeCode: string;
   }): Promise<EntityVersionVO[]> {
-  return requestClient.get<EntityVersionVO[]>(`/api/v1/dict/version/$${typeCode}`);
+  return requestClient.get<EntityVersionVO[]>(`/api/v1/dict/version/${typeCode}`);
 }
 
 /**
@@ -27,8 +28,8 @@ export function listByTypeCode({ typeCode }: {
  */
 export function pageByTypeCode(params: {
     query?: EntityVersionPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/dict/version/page`, { params });
+  }): Promise<PageResponse<EntityVersionVO[]>> {
+  return requestClient.get<PageResponse<EntityVersionVO[]>>(`/api/v1/dict/version/page`, { params });
 }
 
 /**
@@ -39,5 +40,5 @@ export function rollback({ typeCode }: {
   }, params: {
     targetVersion?: string;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/v1/dict/version/$${typeCode}/rollback`, { params });
+  return requestClient.post<string>(`/api/v1/dict/version/${typeCode}/rollback`, { params });
 }

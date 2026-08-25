@@ -185,8 +185,8 @@ export class FormValueTransformer {
   private processFields(
     fields: string[],
     separator: string,
-    originValues: Record<string, any>,
-    transformFn: (value: any, separator: string) => any,
+    originValues: Record<string, unknown>,
+    transformFn: (value: unknown, separator: string) => unknown,
   ) {
     fields.forEach((field) => {
       const value = originValues[field];

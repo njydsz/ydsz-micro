@@ -94,7 +94,7 @@ const jsonData = computed<Record<string, any>>(() => {
   }
 });
 
-const bindProps = computed<Recordable<any>>(() => {
+const bindProps = computed<Recordable<unknown>>(() => {
   const copyable = {
     copyText: $t('ui.jsonViewer.copy'),
     copiedText: $t('ui.jsonViewer.copied'),

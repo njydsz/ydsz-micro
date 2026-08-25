@@ -70,7 +70,7 @@ export function createSharedAuthStore(
     const loginLoading = ref(false);
 
     async function authLogin(
-      params: Recordable<any>,
+      params: Recordable<unknown>,
       onSuccess?: () => Promise<void> | void,
     ) {
       let userInfo: null | UserInfo = null;

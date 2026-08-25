@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { DictItemBatchDTO, DictItemDTO, DictItemPageQuery, DictItemVO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { DictItemBatchDTO, DictItemDTO, DictItemPageQuery, DictItemVO } from './models';
 
 /**
  * page: GET /api/v1/dict/item/page
  */
 export function page(params: {
     query?: DictItemPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/dict/item/page`, { params });
+  }): Promise<PageResponse<DictItemVO[]>> {
+  return requestClient.get<PageResponse<DictItemVO[]>>(`/api/v1/dict/item/page`, { params });
 }
 
 /**
@@ -28,7 +29,7 @@ export function page(params: {
 export function getById({ id }: {
     id: string;
   }): Promise<DictItemVO> {
-  return requestClient.get<DictItemVO>(`/api/v1/dict/item/$${id}`);
+  return requestClient.get<DictItemVO>(`/api/v1/dict/item/${id}`);
 }
 
 /**
@@ -47,7 +48,7 @@ export function lookup(params: {
 export function listByType({ typeCode }: {
     typeCode: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/type/$${typeCode}`);
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/type/${typeCode}`);
 }
 
 /**
@@ -56,7 +57,7 @@ export function listByType({ typeCode }: {
 export function listChildren({ parentId }: {
     parentId: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/children/$${parentId}`);
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/children/${parentId}`);
 }
 
 /**
@@ -65,7 +66,7 @@ export function listChildren({ parentId }: {
 export function buildTree({ typeCode }: {
     typeCode: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/tree/$${typeCode}`);
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/tree/${typeCode}`);
 }
 
 /**
@@ -88,7 +89,7 @@ export function update(data: DictItemDTO): Promise<boolean> {
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/dict/item/$${id}`);
+  return requestClient.delete<boolean>(`/api/v1/dict/item/${id}`);
 }
 
 /**

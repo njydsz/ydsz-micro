@@ -12,6 +12,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
+import type { MsgLogVO } from './models';
 
 /**
  * search: GET /api/v1/message/archive/search
@@ -25,6 +26,6 @@ export function search(params: {
     endTime?: string;
     pageNum?: number;
     pageSize?: number;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/archive/search`, { params });
+  }): Promise<PageResponse<MsgLogVO[]>> {
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/api/v1/message/archive/search`, { params });
 }

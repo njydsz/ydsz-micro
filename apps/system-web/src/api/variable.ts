@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse, VariableDTO, VariablePageQuery, VariableVO } from './models';
+import type { PageResponse } from './models';
+import type { VariableDTO, VariablePageQuery, VariableVO } from './models';
 
 /**
  * page: GET /api/v1/variable/page
  */
 export function page(params: {
     query?: VariablePageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/variable/page`, { params });
+  }): Promise<PageResponse<VariableVO[]>> {
+  return requestClient.get<PageResponse<VariableVO[]>>(`/api/v1/variable/page`, { params });
 }
 
 /**
@@ -28,7 +29,7 @@ export function page(params: {
 export function getById({ id }: {
     id: string;
   }): Promise<VariableVO> {
-  return requestClient.get<VariableVO>(`/api/v1/variable/$${id}`);
+  return requestClient.get<VariableVO>(`/api/v1/variable/${id}`);
 }
 
 /**
@@ -37,7 +38,7 @@ export function getById({ id }: {
 export function getByKey({ variableKey }: {
     variableKey: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/v1/variable/key/$${variableKey}`);
+  return requestClient.get<string>(`/api/v1/variable/key/${variableKey}`);
 }
 
 /**
@@ -60,5 +61,5 @@ export function update(data: VariableDTO): Promise<boolean> {
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/variable/$${id}`);
+  return requestClient.delete<boolean>(`/api/v1/variable/${id}`);
 }

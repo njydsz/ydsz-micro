@@ -218,7 +218,7 @@ const resizeState = {
   active,
   zIndex,
   parentElement,
-});
+};
 
 const positionStyle = createPositionStyle({ top, left, zIndex });
 const sizeStyle = createSizeStyle(w, width, h, height);

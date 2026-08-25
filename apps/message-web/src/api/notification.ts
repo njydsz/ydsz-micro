@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { BroadcastRequestDTO, MessageResult, NotificationQueryDTO, NotificationSendDTO, PageResponse, PushRealtimeRequestDTO } from './models';
+import type { PageResponse } from './models';
+import type { BroadcastRequestDTO, MessageResult, MsgNotificationVO, NotificationQueryDTO, NotificationSendDTO, PushRealtimeRequestDTO } from './models';
 
 /**
  * send: POST /api/v1/message/notifications/send
@@ -25,8 +26,8 @@ export function send(data: NotificationSendDTO): Promise<number> {
  */
 export function inbox(params: {
     query?: NotificationQueryDTO;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/notifications/inbox`, { params });
+  }): Promise<PageResponse<MsgNotificationVO[]>> {
+  return requestClient.get<PageResponse<MsgNotificationVO[]>>(`/api/v1/message/notifications/inbox`, { params });
 }
 
 /**

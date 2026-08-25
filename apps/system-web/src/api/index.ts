@@ -8,17 +8,4 @@
  */
 export * from './core';
 export { requestClient, baseRequestClient } from './request';
-export * from './appInfo';
-export * from './auditAdmin';
-export * from './config';
-export * from './configVersion';
-export * from './dict';
-export * from './dictItem';
-export * from './dictVersion';
-export * from './frontendInit';
-export * from './internalApi';
-export * from './tenant';
-export * from './tenantPlan';
-export * from './variable';
-export * from './variableVersion';
 export * from './models';

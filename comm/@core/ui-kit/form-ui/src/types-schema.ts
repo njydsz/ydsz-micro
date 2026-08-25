@@ -181,7 +181,7 @@ export type FieldMappingTime = [
   string,
   [string, string],
   (
-    | ((value: any, fieldName: string) => any)
+    | ((value: unknown, fieldName: string) => unknown)
     | [string, string]
     | null
     | string

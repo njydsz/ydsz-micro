@@ -8,6 +8,4 @@
  */
 export * from './core';
 export { requestClient, baseRequestClient } from './request';
-export * from './jobDagInstance';
-export * from './scheduleCalendar';
 export * from './models';

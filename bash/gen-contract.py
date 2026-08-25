@@ -649,6 +649,9 @@ def collect_type_names(*exprs: str) -> List[str]:
     }
     names = set()
     for expr in exprs:
+        # 剔除字符串字面量（enum 值如 'RECEIVED' 不应被当作类型名）
+        expr = re.sub(r"'[^']*'", "", expr)
+        expr = re.sub(r'"[^"]*"', "", expr)
         for m in re.finditer(r"\b([A-Z][A-Za-z0-9_]*)\b", expr):
             n = m.group(1)
             if n not in BASIC_TS:
@@ -878,7 +881,7 @@ def main():
             if "export * from './core'" not in idx_existing:
                 idx_existing = idx_existing.rstrip() + "\nexport * from './core';\n" if idx_existing.strip() else "/**\n * API 索引（auto-generated 追加导出）\n */\nexport * from './core';\n"
             # 移除先前追加的业务模块/models 导出段，避免重复与歧义（core 保留）
-            idx_existing = re.sub(r"\nexport \* from '\./(?!core|models)[\w]+';\n", "\n", idx_existing)
+            idx_existing = re.sub(r"(?m)^export \* from '\./(?!core|models)[\w]+';\n", "", idx_existing)
             idx_existing = re.sub(r"\nexport \* from '\./models';\n$", "\n", idx_existing)
             if "export * from './core'" not in idx_existing:
                 idx_existing = idx_existing.rstrip() + "\nexport * from './core';\n"

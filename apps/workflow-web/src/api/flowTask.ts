@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { FlowAttachmentPreviewVO, FlowAttachmentVO, FlowBatchUrgeResultVO, FlowCcQuery, FlowCcVO, FlowDelegateAuthPostDTO, FlowDelegateAuthVO, FlowRejectableNodeVO, FlowRunTaskVO, FlowTaskDetailVO, FlowTaskOperateDTO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { FlowAttachmentPreviewVO, FlowAttachmentVO, FlowBatchUrgeResultVO, FlowCcQuery, FlowCcVO, FlowDelegateAuthPostDTO, FlowDelegateAuthVO, FlowRejectableNodeVO, FlowRunTaskVO, FlowTaskDetailVO, FlowTaskOperateDTO } from './models';
 
 /**
  * taskDetail: GET /api/v1/workflow/engine/task/{taskId}
@@ -150,8 +151,8 @@ export function todo(params: {
     businessType?: string;
     startTime?: string;
     endTime?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/task/todo`, { params });
+  }): Promise<PageResponse<FlowRunTaskVO[]>> {
+  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/todo`, { params });
 }
 
 /**
@@ -164,8 +165,8 @@ export function done(params: {
     businessType?: string;
     startTime?: string;
     endTime?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/task/done`, { params });
+  }): Promise<PageResponse<FlowRunTaskVO[]>> {
+  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/done`, { params });
 }
 
 /**
@@ -188,8 +189,8 @@ export function doneSearch(params: {
     startTime?: string;
     endTime?: string;
     keyword?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/task/done/search`, { params });
+  }): Promise<PageResponse<FlowRunTaskVO[]>> {
+  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/done/search`, { params });
 }
 
 /**

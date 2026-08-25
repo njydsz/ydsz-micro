@@ -14,8 +14,8 @@ import type {
 
 import { isVNode } from 'vue';
 
-type VNodeChildAtom = Exclude<VNodeChild, Array<any>>;
-type RawSlots = Exclude<VNodeNormalizedChildren, Array<any> | null | string>;
+type VNodeChildAtom = Exclude<VNodeChild, Array<unknown>>;
+type RawSlots = Exclude<VNodeNormalizedChildren, Array<unknown> | null | string>;
 
 type FlattenVNodes = Array<RawSlots | VNodeChildAtom>;
 

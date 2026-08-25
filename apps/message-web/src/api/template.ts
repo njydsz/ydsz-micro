@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { MsgTemplateVO, PageResponse, TemplateAuditDTO, TemplateCreateDTO, TemplateQueryDTO } from './models';
+import type { PageResponse } from './models';
+import type { MsgTemplateVO, TemplateAuditDTO, TemplateCreateDTO, TemplateQueryDTO } from './models';
 
 /**
  * create: POST /api/v1/message/template
@@ -52,8 +53,8 @@ export function getById({ id }: {
  */
 export function page(params: {
     query?: TemplateQueryDTO;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/template/page`, { params });
+  }): Promise<PageResponse<MsgTemplateVO[]>> {
+  return requestClient.get<PageResponse<MsgTemplateVO[]>>(`/api/v1/message/template/page`, { params });
 }
 
 /**

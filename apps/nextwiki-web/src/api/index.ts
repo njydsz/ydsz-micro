@@ -8,25 +8,14 @@
  */
 export * from './core';
 export { requestClient, baseRequestClient } from './request';
-export * from './ai';
 export * from './analysis';
-export * from './batchImport';
 export * from './download';
-export * from './file';
 export * from './fileBatch';
-export * from './fileChunk';
 export * from './fileComment';
-export * from './fileLock';
 export * from './presignedUrl';
-export * from './preview';
 export * from './quota';
-export * from './search';
 export * from './share';
-export * from './space';
 export * from './spaceTemplate';
-export * from './tag';
 export * from './trash';
-export * from './userFavorite';
 export * from './userRecent';
-export * from './wopi';
 export * from './models';

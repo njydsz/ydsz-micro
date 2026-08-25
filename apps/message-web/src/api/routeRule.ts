@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { MsgRouteRuleVO, PageQuery, PageResponse, RouteRuleUpsertDTO } from './models';
+import type { PageResponse } from './models';
+import type { MsgRouteRuleVO, PageQuery, RouteRuleUpsertDTO } from './models';
 
 /**
  * create: POST /api/v1/message/route-rule
@@ -52,8 +53,8 @@ export function getById({ id }: {
  */
 export function page(params: {
     query?: PageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/route-rule/page`, { params });
+  }): Promise<PageResponse<MsgRouteRuleVO[]>> {
+  return requestClient.get<PageResponse<MsgRouteRuleVO[]>>(`/api/v1/message/route-rule/page`, { params });
 }
 
 /**

@@ -31,7 +31,7 @@ withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  submit: [Recordable<any>];
+  submit: [Recordable<unknown>];
 }>();
 
 const [Form, { resetForm, validate, getValues }] = useYDSZForm(

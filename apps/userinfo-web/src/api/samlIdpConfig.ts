@@ -11,6 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { PageResponse } from './models';
 import type { SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
 
 /**
@@ -18,8 +19,8 @@ import type { SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
  */
 export function page(params: {
     query?: SamlIdpPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/saml-idp-config/page`, { params });
+  }): Promise<PageResponse<SamlIdpConfigVO[]>> {
+  return requestClient.get<PageResponse<SamlIdpConfigVO[]>>(`/api/v1/saml-idp-config/page`, { params });
 }
 
 /**

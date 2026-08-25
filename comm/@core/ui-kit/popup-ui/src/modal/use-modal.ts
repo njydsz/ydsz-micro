@@ -127,7 +127,10 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
     return [Modal, extendedApi as ExtendedModalApi] as const;
   }
 
-  const injectData = inject<any>(USER_MODAL_INJECT_KEY, {});
+  const injectData = inject<{ options?: Partial<ModalApiOptions> }>(
+    USER_MODAL_INJECT_KEY,
+    {},
+  );
 
   const mergedOptions = {
     ...DEFAULT_MODAL_PROPS,

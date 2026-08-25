@@ -8,20 +8,4 @@
  */
 export * from './core';
 export { requestClient, baseRequestClient } from './request';
-export * from './auth';
-export * from './authPolicy';
-export * from './cas';
-export * from './department';
-export * from './internalApi';
-export * from './ldapSync';
-export * from './oAuth2';
-export * from './oidc';
-export * from './role';
-export * from './samlIdpConfig';
-export * from './securityAlert';
-export * from './selfService';
-export * from './socialClientConfig';
-export * from './tokenExchange';
-export * from './userProfile';
-export * from './webAuthn';
 export * from './models';

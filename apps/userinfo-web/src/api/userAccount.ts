@@ -11,6 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { PageResponse } from './models';
 import type { AssignRolesDTO, BatchUserStatusDTO, ChangePasswordDTO, ResetPasswordDTO, SensitiveVerifyDTO, UserAccountDTO, UserAccountPageQuery, UserAccountVO, UserImportResultDTO, UserLoginHistoryVO } from './models';
 
 /**
@@ -18,8 +19,8 @@ import type { AssignRolesDTO, BatchUserStatusDTO, ChangePasswordDTO, ResetPasswo
  */
 export function page(params: {
     query?: UserAccountPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/user/page`, { params });
+  }): Promise<PageResponse<UserAccountVO[]>> {
+  return requestClient.get<PageResponse<UserAccountVO[]>>(`/api/v1/user/page`, { params });
 }
 
 /**

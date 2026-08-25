@@ -27,7 +27,7 @@ const [Drawer, drawerApi] = useYDSZDrawer({
  * preferences.widget.fullscreen=>widgetFullscreen
  */
 const attrs = computed(() => {
-  const result: Record<string, any> = {};
+  const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(preferences)) {
     for (const [subKey, subValue] of Object.entries(value)) {
       result[`${key}${capitalizeFirstLetter(subKey)}`] = subValue;
@@ -41,16 +41,19 @@ const attrs = computed(() => {
  * preferences.widget.fullscreen=>@update:widgetFullscreen
  */
 const listen = computed(() => {
-  const result: Record<string, any> = {};
+  const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(preferences)) {
     if (typeof value === 'object') {
       for (const subKey of Object.keys(value)) {
         result[`update:${key}${capitalizeFirstLetter(subKey)}`] = (
-          val: any,
+          val: unknown,
         ) => {
-          updatePreferences({ [key]: { [subKey]: val } });
+          // 偏好值动态键更新：键为运行时字符串，无法静态枚举，断言为 DeepPartial<Preferences>
+          updatePreferences({
+            [key]: { [subKey]: val },
+          } as unknown as Parameters<typeof updatePreferences>[0]);
           if (key === 'app' && subKey === 'locale') {
-            loadLocaleMessages(val);
+            loadLocaleMessages(val as string);
           }
         };
       }

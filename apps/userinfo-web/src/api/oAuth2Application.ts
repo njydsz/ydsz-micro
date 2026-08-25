@@ -11,7 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { CONFIDENTIAL, PUBLIC } from './models';
+import type { PageResponse } from './models';
 
 /**
  * register: POST /api/v1/admin/oauth2/applications
@@ -28,8 +28,8 @@ export function page(params: {
     keyword?: string;
     pageNum?: number;
     pageSize?: number;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/admin/oauth2/applications`, { params });
+  }): Promise<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>> {
+  return requestClient.get<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>>(`/api/v1/admin/oauth2/applications`, { params });
 }
 
 /**

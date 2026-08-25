@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { AppInfoDTO, AppInfoPageQuery, AppInfoVO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { AppInfoDTO, AppInfoPageQuery, AppInfoVO } from './models';
 
 /**
  * page: GET /api/v1/app/page
  */
 export function page(params: {
     query?: AppInfoPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/app/page`, { params });
+  }): Promise<PageResponse<AppInfoVO[]>> {
+  return requestClient.get<PageResponse<AppInfoVO[]>>(`/api/v1/app/page`, { params });
 }
 
 /**
@@ -28,7 +29,7 @@ export function page(params: {
 export function getById({ id }: {
     id: string;
   }): Promise<AppInfoVO> {
-  return requestClient.get<AppInfoVO>(`/api/v1/app/$${id}`);
+  return requestClient.get<AppInfoVO>(`/api/v1/app/${id}`);
 }
 
 /**
@@ -51,5 +52,5 @@ export function update(data: AppInfoDTO): Promise<boolean> {
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/app/$${id}`);
+  return requestClient.delete<boolean>(`/api/v1/app/${id}`);
 }

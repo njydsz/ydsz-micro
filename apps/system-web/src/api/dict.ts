@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { DictPageQuery, DictTypeDTO, DictTypeVO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { DictPageQuery, DictTypeDTO, DictTypeVO } from './models';
 
 /**
  * page: GET /api/v1/dict/type/page
  */
 export function page(params: {
     query?: DictPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/dict/type/page`, { params });
+  }): Promise<PageResponse<DictTypeVO[]>> {
+  return requestClient.get<PageResponse<DictTypeVO[]>>(`/api/v1/dict/type/page`, { params });
 }
 
 /**
@@ -28,7 +29,7 @@ export function page(params: {
 export function getById({ id }: {
     id: string;
   }): Promise<DictTypeVO> {
-  return requestClient.get<DictTypeVO>(`/api/v1/dict/type/$${id}`);
+  return requestClient.get<DictTypeVO>(`/api/v1/dict/type/${id}`);
 }
 
 /**
@@ -51,7 +52,7 @@ export function update(data: DictTypeDTO): Promise<boolean> {
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/dict/type/$${id}`);
+  return requestClient.delete<boolean>(`/api/v1/dict/type/${id}`);
 }
 
 /**

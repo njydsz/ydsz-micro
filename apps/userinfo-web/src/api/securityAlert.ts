@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { ACCOUNT_BANNED, ACCOUNT_LOCKED, ANOMALOUS_LOGIN, BRUTE_FORCE, MFA_FAILED, PASSWORD_SPRAY, SecurityAlertPageQuery } from './models';
+import type { PageResponse } from './models';
+import type { SecurityAlertPageQuery } from './models';
 
 /**
  * pageAlerts: GET /api/v1/admin/security/alerts
  */
 export function pageAlerts(params: {
     query?: SecurityAlertPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/admin/security/alerts`, { params });
+  }): Promise<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>> {
+  return requestClient.get<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>>(`/api/v1/admin/security/alerts`, { params });
 }
 
 /**

@@ -105,7 +105,7 @@ const emit = defineEmits<{
   optionsChange: [OptionsItem[]];
 }>();
 
-const modelValue = defineModel<any>({ default: undefined });
+const modelValue = defineModel<unknown>({ default: undefined });
 
 const attrs = useAttrs();
 const innerParams = ref({});

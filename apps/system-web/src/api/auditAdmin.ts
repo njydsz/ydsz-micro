@@ -34,7 +34,7 @@ export function queryByOperator({ operatorId }: {
     page?: number;
     size?: number;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/operator/$${operatorId}`, { params });
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/operator/${operatorId}`, { params });
 }
 
 /**
@@ -46,7 +46,7 @@ export function queryByAction({ action }: {
     page?: number;
     size?: number;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/action/$${action}`, { params });
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/action/${action}`, { params });
 }
 
 /**
@@ -55,7 +55,7 @@ export function queryByAction({ action }: {
 export function queryByTraceId({ traceId }: {
     traceId: string;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/trace/$${traceId}`);
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/trace/${traceId}`);
 }
 
 /**
@@ -64,5 +64,5 @@ export function queryByTraceId({ traceId }: {
 export function getById({ id }: {
     id: string;
   }): Promise<AuditLog> {
-  return requestClient.get<AuditLog>(`/api/v1/admin/audit/$${id}`);
+  return requestClient.get<AuditLog>(`/api/v1/admin/audit/${id}`);
 }

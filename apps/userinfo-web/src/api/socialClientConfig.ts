@@ -11,6 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { PageResponse } from './models';
 import type { SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './models';
 
 /**
@@ -18,8 +19,8 @@ import type { SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './m
  */
 export function page(params: {
     query?: SocialClientPageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/social-client-config/page`, { params });
+  }): Promise<PageResponse<SocialClientVO[]>> {
+  return requestClient.get<PageResponse<SocialClientVO[]>>(`/api/v1/social-client-config/page`, { params });
 }
 
 /**

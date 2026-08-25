@@ -11,15 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageQuery, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { MsgAggregateVO, PageQuery } from './models';
 
 /**
  * page: GET /api/v1/message/aggregate/page
  */
 export function page(params: {
     query?: PageQuery;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/message/aggregate/page`, { params });
+  }): Promise<PageResponse<MsgAggregateVO[]>> {
+  return requestClient.get<PageResponse<MsgAggregateVO[]>>(`/api/v1/message/aggregate/page`, { params });
 }
 
 /**

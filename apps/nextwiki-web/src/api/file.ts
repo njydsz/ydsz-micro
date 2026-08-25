@@ -11,7 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { FileNodeVO, PageResponse } from './models';
+import type { PageResponse } from './models';
+import type { FileNodeVO } from './models';
 
 /**
  * upload: POST /api/v1/nextwiki/files/upload
@@ -42,8 +43,8 @@ export function listFiles(params: {
     type?: string;
     page?: number;
     pageSize?: number;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/nextwiki/files/list`, { params });
+  }): Promise<PageResponse<FileNodeVO[]>> {
+  return requestClient.get<PageResponse<FileNodeVO[]>>(`/api/v1/nextwiki/files/list`, { params });
 }
 
 /**
