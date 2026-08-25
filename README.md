@@ -291,11 +291,14 @@ server: {
 
 全仓 API 契约统一对齐：
 
-- 路径统一为 `/api/v1/*`
-- 业务成功码统一为 `successCode = "A00000"`
-- 登录响应统一为 `LoginVO` 类型
-- `refreshToken` 自动刷新与重放
-- 通过 `openapi-fetch + openapi-typescript` 从 OpenAPI 契约生成类型安全的 API 客户端（`pnpm gen:api`），`pnpm gen:api:check` 校验契约漂移
+- 路径统一为 `/api/v1/{service}/{resource}`（kebab-case），成功码统一为 `successCode = "A00000"`
+- 登录响应统一为 `LoginVO` 类型，`refreshToken` 自动刷新与重放
+- **契约门禁**（CI 防漂移）：
+  - `pnpm gen:contract`：从 `ydsz-cloud` 源码静态提取 8 个服务全部端点，生成 `apps/*/src/api/` 下的类型化 API 封装（`models.ts` 含全部 DTO/VO 类型）与 `sdk/openapi.json` 契约基线，产物扁平落于 `api/` 根目录（遵循云顶编码规范 6.2）
+  - `pnpm gen:contract:check`：校验后端接口变更是否已同步（有漂移则退出码非 0），建议挂入 CI
+  - `pnpm gen:api` / `gen:api:check`：后端运行后从 `/v3/api-docs` 拉取运行时契约生成 SDK，可无缝替换静态基线
+- 业务代码按模块 import 真实契约 API，如 `import { list as listRules } from '#/api/ruleAdmin'`；`#/api` 聚合导出仅保留 `core`（认证/菜单/用户）与 `models`，避免多 Controller 重名函数（get/stats/validate）的导出歧义
+- **流式接口**：agent `chat/stream`、`execute/stream` 等 SSE 场景使用 `streamRequest`（`@ydsz/shared-auth`，fetch + ReadableStream 解析，Token 自动注入、支持 AbortSignal 取消）
 
 ## 工程规范
 

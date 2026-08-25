@@ -78,3 +78,10 @@ export {
 export {
   createOpenApiClient,
 } from './create-openapi-client';
+
+export {
+  type SseEvent,
+  type StreamRequestOptions,
+  parseSseChunk,
+  streamRequest,
+} from './sse';
