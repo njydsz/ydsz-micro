@@ -122,7 +122,7 @@ describe('lifecycle — keep-alive 停靠与 LRU 淘汰', () => {
   beforeEach(() => {
     resetScheduler();
     container = mountContainer();
-    configureKeepAlive({ enabled: true, maxKeepAliveApps: 2, keepAliveTTL: 0 });
+    configureKeepAlive({ enabled: true, max: 2, ttl: 0 });
   });
 
   afterEach(() => {
@@ -162,7 +162,7 @@ describe('lifecycle — keep-alive 停靠与 LRU 淘汰', () => {
   });
 
   it('LRU 淘汰：超过 maxKeepAliveApps 时淘汰最久未访问实例', async () => {
-    configureKeepAlive({ enabled: true, maxKeepAliveApps: 1, keepAliveTTL: 0 });
+    configureKeepAlive({ enabled: true, max: 1, ttl: 0 });
 
     const appA = createAppInstance(makeConfig('a'));
     appA.status = 'MOUNTED';
@@ -193,7 +193,7 @@ describe('lifecycle — keep-alive 停靠与 LRU 淘汰', () => {
   });
 
   it('pin 保护：pinned 实例跳过 LRU 淘汰', async () => {
-    configureKeepAlive({ enabled: true, maxKeepAliveApps: 1, keepAliveTTL: 0 });
+    configureKeepAlive({ enabled: true, max: 1, ttl: 0 });
 
     const appA = createAppInstance(makeConfig('a'));
     appA.status = 'MOUNTED';

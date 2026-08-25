@@ -804,6 +804,8 @@ def main():
             for ctrl in sorted(controllers):
                 fname = ctrl.replace("Controller", "").replace("controller", "")
                 fname = camel(fname) or ctrl
+                # 文件名统一 camelCase 且首字母小写
+                fname = fname[0].lower() + fname[1:] if fname else ctrl
                 fpath = os.path.join(gen_dir, f"{fname}.ts")
                 content = gen_api_file(svc, ctrl, controllers[ctrl], builder)
                 with open(fpath, "w", encoding="utf-8") as f:
