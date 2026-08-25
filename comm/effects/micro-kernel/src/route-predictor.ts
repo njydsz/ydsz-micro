@@ -26,6 +26,9 @@ import { createLogger } from "@YDSZ-core/shared/utils";
 
 import type { PersistedData, TransitionRecord } from "./route-predictor-types";
 
+import { removeStorage } from "./storage-utils";
+import { STORAGE_KEY } from "./route-predictor-types";
+
 import {
   saveCore,
   loadCore,
@@ -86,10 +89,12 @@ export class RoutePredictor {
       clearTimeout(this.persistTimer);
       this.persistTimer = null;
     }
-    // 动态导入避免循环依赖
-    import("./storage-utils").then(({ removeStorage }) => {
-      removeStorage("ydsz_route_predictions" as StorageKey);
-    });
+    // v4.3.0 修复：此前动态导入 removeStorage 且误删不存在的 key
+    // "ydsz_route_predictions"（实际 key 为 STORAGE_KEYS.ROUTE_PREDICTIONS =
+    // "micro-kernel:route-predictions"），持久化数据从未被真正清除，且异步
+    // 竞态导致 clear() 后立刻断言 localStorage 不可靠。
+    // 改为静态导入 + 同步移除真实 key。
+    removeStorage(STORAGE_KEY);
   }
 
   /**

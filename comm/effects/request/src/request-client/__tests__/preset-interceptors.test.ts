@@ -31,7 +31,9 @@ function makeResponse(data: Record<string, unknown>, status = 200, config: Recor
   return {
     config: { responseReturn: undefined, ...config },
     data,
+    headers: {},
     status,
+    statusText: 'OK',
   };
 }
 

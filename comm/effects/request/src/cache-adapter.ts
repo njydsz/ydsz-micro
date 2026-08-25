@@ -58,7 +58,10 @@ function evict(maxEntries: number) {
   const keys = [...cacheMap.keys()];
   const toRemove = cacheMap.size - maxEntries;
   for (let i = 0; i < toRemove; i += 1) {
-    cacheMap.delete(keys[i]);
+    const key = keys[i];
+    if (key !== undefined) {
+      cacheMap.delete(key);
+    }
   }
 }
 
@@ -109,7 +112,7 @@ export function withSwrCache<T>(
     maxEntries = DEFAULT_MAX_ENTRIES,
   } = options;
 
-  return async (url, params, ...rest) => {
+  return async (url, params, ...rest): Promise<T> => {
     if (!enabled) {
       return fetcher(url, params, ...rest);
     }
@@ -145,20 +148,20 @@ export function withSwrCache<T>(
 
     // 缓存完全过期（超过 maxAge）：返回旧数据（stale）同时后台刷新
     if (age > maxAge) {
-      const staleData = entry.data;
+      const staleData = entry.data as T;
       void revalidate(key, url, params, rest, fetcher);
       return staleData;
     }
 
     // SWR 窗口内（超过 staleTime 未超 maxAge）：返回旧数据 + 后台刷新
     if (age > staleTime) {
-      const staleData = entry.data;
+      const staleData = entry.data as T;
       void revalidate(key, url, params, rest, fetcher);
       return staleData;
     }
 
     // 新鲜缓存：直接返回
-    return entry.data;
+    return entry.data as T;
   };
 }
 
