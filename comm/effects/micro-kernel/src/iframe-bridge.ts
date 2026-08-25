@@ -25,17 +25,29 @@ import { BRIDGE_MARK } from './iframe-types';
  * 通过 `mountProps.iframeWindow.__MICRO_SET_GLOBAL_STATE__({ key: value })` 回写，
  * 通过 `mountProps.iframeWindow.__MICRO_CALL_MAIN__('method', [args])` 调用主应用能力。
  *
+ * v4.3.0 安全加固：postMessage targetOrigin 由通配 `'*'` 收敛为宿主精确 origin。
+ * 注入脚本时在主 realm 计算 `window.location.origin`（即宿主 origin），
+ * 子 → 主消息一律携带该精确 targetOrigin，杜绝任意第三方页面注入消息。
+ * about:blank iframe 继承宿主 origin，devUrl（跨源）模式下 targetOrigin 同样为
+ * 宿主 origin（浏览器按目标窗口真实 origin 校验），两种模式均正确。
+ *
  * @since 3.6.0
  * @param iframeWin - iframe 的 contentWindow
  */
 export function injectBridgeScript(iframeWin: Window): void {
   // 在 iframe document 中注入 <script>，确保代码在 iframe realm 执行
   const iframeDoc = iframeWin.document;
+  // v4.3.0: 宿主精确 origin（file:// / sandbox 等 origin 为 'null' 时回退 '*'）
+  const origin = window.location.origin;
+  const targetOrigin = origin && origin !== "null" ? origin : "*";
   const script = iframeDoc.createElement("script");
   script.textContent = `
     (function() {
       // 当前 globalState 快照（由主应用同步过来）
       window.__MICRO_GLOBAL_STATE__ = {};
+
+      // v4.3.0: 子 → 主消息目标 origin（主 realm 注入，精确到宿主 origin）
+      var __TARGET_ORIGIN__ = ${JSON.stringify(targetOrigin)};
 
       // 子应用调用此方法回写状态到主应用
       window.__MICRO_SET_GLOBAL_STATE__ = function(patch) {
@@ -43,7 +55,7 @@ export function injectBridgeScript(iframeWin: Window): void {
           ${BRIDGE_MARK}: true,
           type: 'state-set',
           payload: patch
-        }, '*');
+        }, __TARGET_ORIGIN__);
       };
 
       // ===== RPC 协议 v3.6.1 增强 =====
@@ -64,7 +76,7 @@ export function injectBridgeScript(iframeWin: Window): void {
             ${BRIDGE_MARK}: true,
             type: 'rpc-call',
             payload: { method: method, args: args || [], callId: callId }
-          }, '*');
+          }, __TARGET_ORIGIN__);
         });
       };
 
@@ -92,13 +104,13 @@ export function injectBridgeScript(iframeWin: Window): void {
               ${BRIDGE_MARK}: true,
               type: 'rpc-result',
               payload: { callId: payload.callId, ok: true, result: value }
-            }, '*');
+            }, __TARGET_ORIGIN__);
           }).catch(function(err) {
             window.parent.postMessage({
               ${BRIDGE_MARK}: true,
               type: 'rpc-result',
               payload: { callId: payload.callId, ok: false, error: String(err && err.message || err) }
-            }, '*');
+            }, __TARGET_ORIGIN__);
           });
           return;
         }
@@ -106,11 +118,12 @@ export function injectBridgeScript(iframeWin: Window): void {
           ${BRIDGE_MARK}: true,
           type: 'rpc-result',
           payload: { callId: payload.callId, ok: ok, result: result, error: error }
-        }, '*');
+        }, __TARGET_ORIGIN__);
       };
 
-      // 监听主应用发来的消息
+      // 监听主应用发来的消息（v4.3.0: 校验消息来源为父窗口）
       window.addEventListener('message', function(event) {
+        if (event.source !== window.parent) return;
         var data = event.data;
         if (!data || data.${BRIDGE_MARK} !== true) return;
         if (data.type === 'state-sync') {

@@ -181,7 +181,16 @@ export function createIframeSandbox(
   // 注：dev 模式下 postMessage 桥接由子应用自行监听 message 事件处理
 
   // v3.6.0/v3.6.1: 创建 RPC 桥接子系统（跨 realm 通信核心）
-  const rpcBridge = createIframeRpc(contentWindow, rpc);
+  // v4.3.0: 通道加固 — 精确 targetOrigin + 接收侧 origin 白名单
+  //   about:blank 模式：子窗口继承宿主 origin
+  //   standalone-dev 模式：子窗口 origin 为 devUrl 的 origin
+  const childOrigin = isDevUrl
+    ? new URL(devUrl!, window.location.href).origin
+    : window.location.origin;
+  const rpcBridge = createIframeRpc(contentWindow, rpc, {
+    targetOrigin: childOrigin,
+    expectedOrigins: [childOrigin],
+  });
 
   // 主侧监听 iframe 发来的消息（通过 postMessage 回传）
   window.addEventListener("message", rpcBridge.onMessage);

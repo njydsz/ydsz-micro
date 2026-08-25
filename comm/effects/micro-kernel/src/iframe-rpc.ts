@@ -35,8 +35,15 @@ interface PendingRpc {
  * 返回的 `postToChild` / `onChildMessage` / `callRpc` / `registerMainApi` 直接挂载到
  * IframeSandboxInstance 上。
  *
+ * v4.3.0 安全加固：
+ * - 主 → 子 postMessage 由 `'*'` 收敛为精确 targetOrigin（about:blank 继承宿主
+ *   origin；devUrl 跨源模式取 devUrl origin）
+ * - 接收侧在 source 校验（event.source === contentWindow）之外增加
+ *   event.origin 白名单校验（expectedOrigins），拦截伪装消息
+ *
  * @param contentWindow - iframe 的 contentWindow
  * @param rpc - 合并后的 RPC 配置
+ * @param options - v4.3.0: 通道加固选项
  * @returns RPC 桥接函数集合
  *
  * @since 3.6.1
@@ -44,6 +51,7 @@ interface PendingRpc {
 export function createIframeRpc(
   contentWindow: Window,
   rpc: Required<IframeRpcConfig>,
+  options: { targetOrigin?: string; expectedOrigins?: string[] } = {},
 ): {
   /** 主侧消息处理器（需注册到 window.addEventListener("message", ...)） */
   onMessage: (event: MessageEvent) => void;
@@ -62,6 +70,18 @@ export function createIframeRpc(
   /** 清理所有待响应的 RPC（cleanup 时调用） */
   cleanupRpc: (appName: string) => void;
 } {
+  // v4.3.0: 主 → 子消息目标 origin（默认宿主 origin；devUrl 模式由调用方传入）
+  const hostOrigin = window.location.origin;
+  const targetOrigin =
+    options.targetOrigin && options.targetOrigin !== "null"
+      ? options.targetOrigin
+      : hostOrigin && hostOrigin !== "null"
+        ? hostOrigin
+        : "*";
+  // v4.3.0: 接收侧 origin 白名单（默认宿主 origin；为空时不校验 origin 仅校验 source）
+  const expectedOrigins = options.expectedOrigins?.length
+    ? new Set(options.expectedOrigins)
+    : null;
   // v3.6.1: 子 → 主 RPC 处理器（子应用可调用的主应用 API）
   const mainApiHandlers: Record<
     string,
@@ -77,6 +97,8 @@ export function createIframeRpc(
   // 主侧监听 iframe 发来的消息（通过 postMessage 回传）
   const onMessage = (event: MessageEvent): void => {
     if (event.source !== contentWindow) return;
+    // v4.3.0: origin 白名单校验（未配置白名单时跳过，仅依赖 source 校验）
+    if (expectedOrigins && !expectedOrigins.has(event.origin)) return;
     const data = event.data;
     if (!isBridgeMessage(data)) return;
     if (data.type === "state-set") {
@@ -112,7 +134,7 @@ export function createIframeRpc(
           type: "rpc-result",
           payload: { callId: payload.callId, ok, result, error },
         } as BridgeMessage;
-        contentWindow.postMessage(response, "*");
+        contentWindow.postMessage(response, targetOrigin);
       };
       if (typeof handler !== "function") {
         respond(false, undefined, `RPC method not found: ${payload.method}`);
@@ -150,7 +172,7 @@ export function createIframeRpc(
       type: "state-sync",
       payload,
     } as BridgeMessage;
-    contentWindow.postMessage(message, "*");
+    contentWindow.postMessage(message, targetOrigin);
   };
 
   const onChildMessage = (
@@ -197,7 +219,7 @@ export function createIframeRpc(
         type: "rpc-call",
         payload: { method, args, callId } satisfies RpcCallPayload,
       } as BridgeMessage;
-      contentWindow.postMessage(message, "*");
+      contentWindow.postMessage(message, targetOrigin);
 
       // P1-3: 使用可配置的超时时间
       const timeoutId = setTimeout(() => {
