@@ -1,5 +1,5 @@
 <!--
- * 规则 DSL 脚本管理列表页面
+ * 规则 DSL 工具页面
  *
  * @path apps\literule-web\src\views\dsl\index.vue
  * @author ydsz-team
@@ -7,57 +7,71 @@
 -->
 <script lang="ts" setup>
 /**
- * 规则 DSL（列表页）
- * <p>规则 DSL 脚本的列表页。
+ * 规则 DSL（工具页）
+ * <p>DSL 输入/校验/解析/预览工具页，数据来自后端契约 API（apps/literule-web/src/api/ruleDsl.ts）。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { deleteDslApi, getDslPageApi, type DslApi } from '#/api/dsl';
-import DslForm from './dsl-form.vue';
+import { Page } from '@ydsz/common-ui';
+import { ElButton, ElInput, ElMessage, ElTag } from 'element-plus';
+import { ref } from 'vue';
+import { parse, preview, validate } from '#/api/ruleDsl';
+import { formatJsonResult } from '#/utils/format';
 defineOptions({ name: 'DslManagement' });
-const gridOptions: VxeGridProps<DslApi.DslVO> = {
-  columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'dslName', title: 'DSL名称', width: 200 },
-    { field: 'dslType', title: '类型', width: 100 },
-    { field: 'status', title: '状态', width: 80 },
-    { field: 'createTime', title: '创建时间', width: 160 },
-    {
-      field: 'action', title: '操作', width: 160, fixed: 'right',
-      slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
-      ]) },
-    },
-  ],
-  height: 'auto',
-  pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
-  proxyConfig: { ajax: { query: async ({ page }, formValues) => await getDslPageApi({ pageNum: page.currentPage, pageSize: page.pageSize, ...formValues }) } },
-  toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
-  formConfig: { enabled: true, items: [
-      { field: 'dslName', title: 'dslName', itemRender: { name: 'Input', props: { placeholder: 'dslName' } } },
-  ] },
-};
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [DslFormModal, dslFormApi] = useVbenModal({ connectedComponent: DslForm });
-function handleAdd() { dslFormApi.open(); }
-function handleEdit(row: DslApi.DslVO) { dslFormApi.setData({ record: row }); dslFormApi.open(); }
-async function handleDelete(row: DslApi.DslVO) {
-  try { await ElMessageBox.confirm(`确定删除「${row.dslName}」吗？`, '删除确认', { type: 'warning' });
-    await deleteDslApi(row.id); ElMessage.success('删除成功'); gridApi.query();
-  } catch {}
+const dslText = ref('');
+const resultText = ref('');
+const actionLabel = ref('');
+const running = ref(false);
+/** 执行一次 DSL 动作并展示返回结果 */
+async function runAction(fn: () => Promise<unknown>, label: string) {
+  if (!dslText.value.trim()) {
+    ElMessage.warning('请先输入 DSL 内容');
+    return;
+  }
+  running.value = true;
+  actionLabel.value = label;
+  try {
+    const data = await fn();
+    resultText.value = formatJsonResult(data);
+  } finally {
+    running.value = false;
+  }
+}
+/** DSL 校验 */
+function handleValidate() {
+  void runAction(() => validate({ dsl: dslText.value }), '校验');
+}
+/** DSL 解析 */
+function handleParse() {
+  void runAction(() => parse({ dsl: dslText.value }), '解析');
+}
+/** DSL 预览 */
+function handlePreview() {
+  void runAction(() => preview({ dsl: dslText.value }), '预览');
 }
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="DSL管理">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
-    </Grid>
-    <DslFormModal @success="gridApi.query()" />
+    <div class="flex h-full flex-col gap-3 p-4">
+      <span class="text-sm text-gray-500">输入 DSL 内容，可执行校验 / 解析 / 预览操作：</span>
+      <ElInput
+        v-model="dslText"
+        type="textarea"
+        :rows="12"
+        placeholder="请输入 DSL 内容…"
+        resize="vertical"
+      />
+      <div class="flex gap-2">
+        <ElButton type="primary" :loading="running" @click="handleValidate">校验</ElButton>
+        <ElButton type="success" :loading="running" @click="handleParse">解析</ElButton>
+        <ElButton type="warning" :loading="running" @click="handlePreview">预览</ElButton>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-500">结果：</span>
+        <ElTag v-if="actionLabel" size="small" type="info">{{ actionLabel }}</ElTag>
+      </div>
+      <pre class="min-h-0 flex-1 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{ resultText }}</pre>
+    </div>
   </Page>
 </template>

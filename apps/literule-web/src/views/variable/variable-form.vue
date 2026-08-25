@@ -1,5 +1,5 @@
 <!--
- * 系统变量编辑表单组件
+ * 规则变量编辑表单组件
  *
  * @path apps\literule-web\src\views\variable\variable-form.vue
  * @author ydsz-team
@@ -7,51 +7,59 @@
 -->
 <script lang="ts" setup>
 /**
- * 系统变量（表单组件）
- * <p>系统变量的编辑表单，支持加密存储。
+ * 规则变量（表单组件）
+ * <p>规则变量的创建/编辑表单，数据提交到后端契约 API ruleVariableAdmin#save。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VariableApi } from '#/api/variable';
+import type { VariableDefinitionVO } from '#/api/models';
 import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
-import { createVariableApi, updateVariableApi } from '#/api/variable';
+import { save } from '#/api/ruleVariableAdmin';
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 const isEdit = ref(false);
-const formData = reactive({ id: '',
-  variableName: '',
-  variableType: '',
-  defaultValue: '',
+/** 变量表单数据（映射 VariableDefinition 的可编辑字段） */
+interface VariableFormData {
+  name: string;
+  type: string;
+  category: string;
+  description: string;
+  required: boolean;
+}
+const formData = reactive<VariableFormData>({
+  name: '',
+  type: '',
+  category: '',
   description: '',
-  status: 0,
+  required: false,
 });
 const rules = {
-  variableName: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
+  name: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
 };
 const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: VariableApi.VariableVO }>();
+    const data = modalApi.getData<{ record?: VariableDefinitionVO }>();
     if (data?.record) {
       isEdit.value = true;
-      Object.assign(formData, { id: data.record.id,
-        variableName: data.record.variableName || '',
-        variableType: data.record.variableType || '',
-        defaultValue: data.record.defaultValue || '',
-        description: data.record.description || '',
-        status: data.record.status || 0,
+      Object.assign(formData, {
+        name: data.record.name ?? '',
+        type: data.record.type ?? '',
+        category: data.record.category ?? '',
+        description: data.record.description ?? '',
+        required: false,
       });
     } else {
       isEdit.value = false;
-      Object.assign(formData, { id: '',
-  variableName: '',
-  variableType: '',
-  defaultValue: '',
-  description: '',
-  status: 0,
+      Object.assign(formData, {
+        name: '',
+        type: '',
+        category: '',
+        description: '',
+        required: false,
       });
     }
   },
@@ -59,9 +67,10 @@ const [Modal, modalApi] = useVbenModal({
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
-      if (isEdit.value) { await updateVariableApi(formData as VariableApi.VariableDTO); ElMessage.success('更新成功'); }
-      else { await createVariableApi(formData as VariableApi.VariableDTO); ElMessage.success('创建成功'); }
-      emit('success'); modalApi.close();
+      await save(formData);
+      ElMessage.success(isEdit.value ? '更新成功' : '创建成功');
+      emit('success');
+      modalApi.close();
     } finally { modalApi.unlock(); }
   },
 });
@@ -70,23 +79,20 @@ const title = computed(() => (isEdit.value ? '编辑规则变量' : '新增规�
 <template>
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="变量名称" prop="variableName">
-        <ElInput v-model="formData.variableName" placeholder="请输入变量名称" />
+      <ElFormItem label="变量名称" prop="name">
+        <ElInput v-model="formData.name" placeholder="请输入变量名称" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="变量类型" prop="variableType">
-        <ElInput v-model="formData.variableType" placeholder="请输入变量类型" />
+      <ElFormItem label="变量类型">
+        <ElInput v-model="formData.type" placeholder="请输入变量类型（如 String/Number/Boolean）" />
       </ElFormItem>
-      <ElFormItem label="默认值" prop="defaultValue">
-        <ElInput v-model="formData.defaultValue" placeholder="请输入默认值" />
+      <ElFormItem label="分类">
+        <ElInput v-model="formData.category" placeholder="请输入分类" />
       </ElFormItem>
       <ElFormItem label="描述">
         <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
       </ElFormItem>
-      <ElFormItem label="状态">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio :value="1">启用</ElRadio>
-          <ElRadio :value="0">禁用</ElRadio>
-        </ElRadioGroup>
+      <ElFormItem label="必填">
+        <ElSwitch v-model="formData.required" />
       </ElFormItem>
     </ElForm>
   </Modal>

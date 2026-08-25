@@ -51,7 +51,7 @@ const gridOptions: VxeGridProps<JobLogVO> = {
     { field: 'endTime', title: '结束时间', width: 170 },
     { field: 'durationMs', title: '耗时(ms)', width: 100 },
     { field: 'triggerType', title: '触发类型', width: 110 },
-    { field: 'errorMessage', title: '错误信息', min-width: 180 },
+    { field: 'errorMessage', title: '错误信息', minWidth: 180 },
     { field: 'createdAt', title: '创建时间', width: 170 },
   ],
   height: 'auto',

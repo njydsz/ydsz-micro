@@ -1,5 +1,5 @@
 <!--
- * 规则审计日志查询列表页面
+ * 规则审计日志查询页面
  *
  * @path apps\literule-web\src\views\auditLog\index.vue
  * @author ydsz-team
@@ -7,59 +7,110 @@
 -->
 <script lang="ts" setup>
 /**
- * 规则审计日志（列表页）
- * <p>规则审计日志的查询页，记录发布/版本/A/B 分流/灰度/回滚等关键事件。
+ * 规则审计日志（只读查询页）
+ * <p>审计日志查询页，数据来自后端契约 API（apps/literule-web/src/api/ruleAuditLog.ts）。
+ * <p>支持按规则编码/操作人/动作/时间范围筛选。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
+import type { AuditLogEntryVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
+import { Page } from '@ydsz/common-ui';
+import { ElButton, ElTag, h } from 'element-plus';
+import { reactive } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { deleteAuditLogApi, getAuditLogPageApi, type AuditLogApi } from '#/api/auditLog';
-import AuditLogForm from './auditLog-form.vue';
+import { byAction, byOperator, byRuleCode, byTimeRange, recent } from '#/api/ruleAuditLog';
 defineOptions({ name: 'AuditLogManagement' });
-const gridOptions: VxeGridProps<AuditLogApi.AuditLogVO> = {
+/** 审计日志筛选条件 */
+interface AuditFilter {
+  ruleCode: string;
+  operator: string;
+  action: string;
+  startTime: string;
+  endTime: string;
+}
+const filter = reactive<AuditFilter>({
+  ruleCode: '',
+  operator: '',
+  action: '',
+  startTime: '',
+  endTime: '',
+});
+/** 按当前筛选条件查询审计日志 */
+async function queryAudit(): Promise<{ items: AuditLogEntryVO[]; total: number }> {
+  let items: AuditLogEntryVO[] = [];
+  if (filter.ruleCode.trim()) {
+    items = await byRuleCode({ ruleCode: filter.ruleCode.trim() });
+  } else if (filter.operator.trim()) {
+    items = await byOperator({ operator: filter.operator.trim() });
+  } else if (filter.action.trim()) {
+    items = await byAction({ action: filter.action.trim() });
+  } else if (filter.startTime || filter.endTime) {
+    items = await byTimeRange({
+      startTime: filter.startTime || undefined,
+      endTime: filter.endTime || undefined,
+    });
+  } else {
+    items = await recent({});
+  }
+  return { items, total: items.length };
+}
+/** 重置筛选条件并重新查询 */
+function handleReset() {
+  Object.assign(filter, {
+    ruleCode: '',
+    operator: '',
+    action: '',
+    startTime: '',
+    endTime: '',
+  });
+  gridApi.query();
+}
+const gridOptions: VxeGridProps<AuditLogEntryVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'ruleCode', title: '规则编码', width: 150 },
-    { field: 'ruleName', title: '规则名称', width: 200 },
-    { field: 'triggerTime', title: '触发时间', width: 160 },
-    { field: 'result', title: '结果', width: 100 },
-    { field: 'duration', title: '耗时(ms)', width: 100 },
-    { field: 'operator', title: '操作人', width: 100 },
+    { field: 'ruleName', title: '规则名称', width: 160 },
     {
-      field: 'action', title: '操作', width: 160, fixed: 'right',
-      slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
-      ]) },
+      field: 'action', title: '动作', width: 120,
+      slots: { default: ({ row }) => h(ElTag, { type: 'primary' }, () => row.action ?? '-') },
     },
+    { field: 'operator', title: '操作人', width: 100 },
+    { field: 'result', title: '结果', width: 90 },
+    { field: 'createdAt', title: '触发时间', width: 170 },
+    { field: 'errorMessage', title: '错误信息', minWidth: 160 },
   ],
   height: 'auto',
-  pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
-  proxyConfig: { ajax: { query: async ({ page }, formValues) => await getAuditLogPageApi({ pageNum: page.currentPage, pageSize: page.pageSize, ...formValues }) } },
-  toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
-  formConfig: { enabled: true, items: [
-      { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
-  ] },
+  proxyConfig: { ajax: { query: async () => await queryAudit() } },
+  toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [AuditLogFormModal, auditLogFormApi] = useVbenModal({ connectedComponent: AuditLogForm });
-function handleAdd() { auditLogFormApi.open(); }
-function handleEdit(row: AuditLogApi.AuditLogVO) { auditLogFormApi.setData({ record: row }); auditLogFormApi.open(); }
-async function handleDelete(row: AuditLogApi.AuditLogVO) {
-  try { await ElMessageBox.confirm(`确定删除「${row.ruleCode}」吗？`, '删除确认', { type: 'warning' });
-    await deleteAuditLogApi(row.id); ElMessage.success('删除成功'); gridApi.query();
-  } catch {}
-}
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="审计日志">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
-    </Grid>
-    <AuditLogFormModal @success="gridApi.query()" />
+    <div class="mb-2 flex flex-wrap items-center gap-2 rounded border border-gray-200 bg-white p-3">
+      <ElInput v-model="filter.ruleCode" placeholder="规则编码" clearable class="w-40" />
+      <ElInput v-model="filter.operator" placeholder="操作人" clearable class="w-40" />
+      <ElInput v-model="filter.action" placeholder="动作" clearable class="w-40" />
+      <ElDatePicker
+        v-model="filter.startTime"
+        type="datetime"
+        placeholder="开始时间"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        class="w-48"
+      />
+      <span class="text-gray-400">-</span>
+      <ElDatePicker
+        v-model="filter.endTime"
+        type="datetime"
+        placeholder="结束时间"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        class="w-48"
+      />
+      <ElButton type="primary" @click="gridApi.query()">查询</ElButton>
+      <ElButton @click="handleReset">重置</ElButton>
+    </div>
+    <Grid table-title="审计日志" />
   </Page>
 </template>

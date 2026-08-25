@@ -1,61 +1,73 @@
 <!--
- * Agent 管理（表单组件）
+ * Agent 定义（表单组件）
  *
  * @path apps/agent-web/src/views/agent/agent-form.vue
  * @author ydsz-team
  * @since 1.0.0
- * @modified 4.0.1 消除 as any + i18n 接入。
 -->
 <script lang="ts" setup>
 /**
- * Agent 管理（表单组件）
+ * Agent 定义（表单组件）
+ * <p>新增/编辑 Agent 定义弹窗，字段对齐后端 AgentDefinitionDTO。
+ * <p>编辑时 agentCode 不可修改；提交时按 isEdit 调用 update / create。
+ *
+ * @author ydsz-team
+ * @since 1.0.0
  */
-import type { AgentApi } from '#/api/agent';
 import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
-import { computed, reactive, ref, toRaw } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { createAgentApi, updateAgentApi } from '#/api/agent';
-
-const { t } = useI18n();
-
+import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
+import { computed, reactive, ref } from 'vue';
+import { create, update } from '#/api/agentDefinition';
+import type { AgentDefinitionDTO, AgentDefinitionVO } from '#/api/models';
 /** 表单提交成功后触发，通知父级列表页刷新数据 */
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 const isEdit = ref(false);
-const formData = reactive<Omit<AgentApi.AgentDTO, 'id'> & { id?: string }>({
+const formData = reactive<AgentDefinitionDTO>({ id: '',
+  agentCode: '',
   agentName: '',
   agentType: '',
-  modelProvider: '',
-  modelName: '',
+  description: '',
   systemPrompt: '',
+  modelConfig: '',
+  toolNames: '',
   temperature: 0,
-  status: 0,
+  maxTokens: 0,
 });
-
 const rules = {
-  agentName: [{ required: true, message: () => t('validation.required', { field: t('agent.columns.name') }), trigger: 'blur' }],
+  agentCode: [{ required: true, message: '请输入Agent编码', trigger: 'blur' }],
+  agentName: [{ required: true, message: '请输入Agent名称', trigger: 'blur' }],
 };
-
 const [Modal, modalApi] = useVbenModal({
   onOpenChange: (isOpen) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: AgentApi.AgentVO }>();
+    const data = modalApi.getData<{ record?: AgentDefinitionVO }>();
     if (data?.record) {
       isEdit.value = true;
-      const { id, ...rest } = data.record;
-      Object.assign(formData, { id, ...rest });
+      const record = data.record;
+      Object.assign(formData, { id: record.id ?? '',
+        agentCode: record.agentCode ?? '',
+        agentName: record.agentName ?? '',
+        agentType: record.agentType ?? '',
+        description: record.description ?? '',
+        systemPrompt: record.systemPrompt ?? '',
+        modelConfig: record.modelConfig ?? '',
+        toolNames: record.toolNames ?? '',
+        temperature: record.temperature ?? 0,
+        maxTokens: record.maxTokens ?? 0,
+      });
     } else {
       isEdit.value = false;
-      Object.assign(formData, {
-        id: '',
+      Object.assign(formData, { id: '',
+        agentCode: '',
         agentName: '',
         agentType: '',
-        modelProvider: '',
-        modelName: '',
+        description: '',
         systemPrompt: '',
+        modelConfig: '',
+        toolNames: '',
         temperature: 0,
-        status: 0,
+        maxTokens: 0,
       });
     }
   },
@@ -63,49 +75,43 @@ const [Modal, modalApi] = useVbenModal({
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
-      const { id, ...payload } = toRaw(formData);
-      if (isEdit.value) {
-        await updateAgentApi(payload);
-        ElMessage.success(t('agent.updateSuccess'));
-      } else {
-        await createAgentApi(payload);
-        ElMessage.success(t('agent.createSuccess'));
-      }
-      emit('success');
-      modalApi.close();
-    } finally {
-      modalApi.unlock();
-    }
+      if (isEdit.value) { await update({ ...formData }); ElMessage.success('更新成功'); }
+      else { await create({ ...formData }); ElMessage.success('创建成功'); }
+      emit('success'); modalApi.close();
+    } finally { modalApi.unlock(); }
   },
 });
-const title = computed(() => (isEdit.value ? t('agent.editTitle') : t('agent.createTitle')));
+const title = computed(() => (isEdit.value ? '编辑Agent定义' : '新增Agent定义'));
 </script>
 <template>
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem :label="t('agent.columns.name')" prop="agentName">
-        <ElInput v-model="formData.agentName" :placeholder="t('agent.placeholder.name')" />
+      <ElFormItem label="Agent编码" prop="agentCode">
+        <ElInput v-model="formData.agentCode" placeholder="请输入Agent编码" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem :label="t('agent.columns.type')" prop="agentType">
-        <ElInput v-model="formData.agentType" :placeholder="t('agent.placeholder.type')" />
+      <ElFormItem label="Agent名称" prop="agentName">
+        <ElInput v-model="formData.agentName" placeholder="请输入Agent名称" />
       </ElFormItem>
-      <ElFormItem :label="t('agent.columns.provider')" prop="modelProvider">
-        <ElInput v-model="formData.modelProvider" :placeholder="t('agent.placeholder.provider')" />
+      <ElFormItem label="Agent类型">
+        <ElInput v-model="formData.agentType" placeholder="请输入Agent类型" />
       </ElFormItem>
-      <ElFormItem :label="t('agent.columns.model')" prop="modelName">
-        <ElInput v-model="formData.modelName" :placeholder="t('agent.placeholder.model')" />
+      <ElFormItem label="描述">
+        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
       </ElFormItem>
-      <ElFormItem :label="t('agent.columns.systemPrompt')" prop="systemPrompt">
-        <ElInput v-model="formData.systemPrompt" type="textarea" :rows="2" :placeholder="t('agent.placeholder.systemPrompt')" />
+      <ElFormItem label="系统提示词">
+        <ElInput v-model="formData.systemPrompt" type="textarea" :rows="2" placeholder="请输入系统提示词" />
       </ElFormItem>
-      <ElFormItem :label="t('agent.columns.temperature')" prop="temperature">
+      <ElFormItem label="模型配置">
+        <ElInput v-model="formData.modelConfig" placeholder="请输入模型配置（JSON）" />
+      </ElFormItem>
+      <ElFormItem label="工具列表">
+        <ElInput v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
+      </ElFormItem>
+      <ElFormItem label="温度">
         <ElInputNumber v-model="formData.temperature" :min="0" :max="2" :step="0.1" />
       </ElFormItem>
-      <ElFormItem :label="t('agent.columns.status')" prop="status">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio :value="1">{{ t('common.enabled') }}</ElRadio>
-          <ElRadio :value="0">{{ t('common.disabled') }}</ElRadio>
-        </ElRadioGroup>
+      <ElFormItem label="MaxTokens">
+        <ElInputNumber v-model="formData.maxTokens" :min="0" :max="100000" :step="100" />
       </ElFormItem>
     </ElForm>
   </Modal>

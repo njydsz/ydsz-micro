@@ -40,6 +40,22 @@ export interface TourStep {
 }
 
 /**
+ * HTML 转义（云顶规范 §7.1 XSS 防护）：
+ * 引导气泡经 innerHTML 注入模板，title/content 来自配置，仍须转义防止
+ * 特殊字符破坏结构或注入脚本。
+ */
+function escapeHtml(value: unknown): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return String(value).replace(/[&<>"']/g, (c) => map[c] ?? c);
+}
+
+/**
  * 引导配置项
  *
  * @since 1.1.0
@@ -197,8 +213,8 @@ export function useAppTour(options: AppTourOptions) {
     }
     Object.assign(popupEl.style, popupStyle);
     popupEl.innerHTML = `
-      <div style="font-weight:600;font-size:14px;margin-bottom:6px;">${step.title}</div>
-      <div style="color:#606266;margin-bottom:12px;">${step.content}</div>
+      <div style="font-weight:600;font-size:14px;margin-bottom:6px;">${escapeHtml(step.title)}</div>
+      <div style="color:#606266;margin-bottom:12px;">${escapeHtml(step.content)}</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <span style="font-size:12px;color:#909399;">${state.currentIndex + 1} / ${state.total}</span>
         <div>

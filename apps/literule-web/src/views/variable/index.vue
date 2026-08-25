@@ -1,5 +1,5 @@
 <!--
- * 系统变量管理列表页面
+ * 规则变量管理列表页面
  *
  * @path apps\literule-web\src\views\variable\index.vue
  * @author ydsz-team
@@ -7,29 +7,39 @@
 -->
 <script lang="ts" setup>
 /**
- * 系统变量（列表页）
- * <p>系统变量（{@code ydsz_system_variable}）的列表页。
+ * 规则变量（列表页）
+ * <p>规则变量列表页，数据来自后端契约 API（apps/literule-web/src/api/ruleVariableAdmin.ts）。
+ * <p>支持新增/编辑、删除与手动刷新变量定义。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
+import type { VariableDefinitionVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useVbenModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
+import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { deleteVariableApi, getVariablePageApi, type VariableApi } from '#/api/variable';
+import { deleteApi, list, refresh } from '#/api/ruleVariableAdmin';
+import { formatJsonResult } from '#/utils/format';
 import VariableForm from './variable-form.vue';
 defineOptions({ name: 'VariableManagement' });
-const gridOptions: VxeGridProps<VariableApi.VariableVO> = {
+const gridOptions: VxeGridProps<VariableDefinitionVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
-    { field: 'variableName', title: '变量名称', width: 200 },
-    { field: 'variableType', title: '类型', width: 100 },
-    { field: 'defaultValue', title: '默认值', width: 150 },
-    { field: 'status', title: '状态', width: 80 },
-    { field: 'createTime', title: '创建时间', width: 160 },
+    { field: 'name', title: '变量名称', width: 180 },
     {
-      field: 'action', title: '操作', width: 160, fixed: 'right',
+      field: 'type', title: '类型', width: 110,
+      slots: { default: ({ row }) => h(ElTag, { type: 'primary' }, () => row.type ?? '-') },
+    },
+    { field: 'category', title: '分类', width: 110 },
+    {
+      field: 'sampleValue', title: '示例值', minWidth: 160,
+      slots: { default: ({ row }) => h('span', { class: 'truncate text-xs text-gray-500' }, formatJsonResult(row.sampleValue)) },
+    },
+    { field: 'description', title: '描述', minWidth: 160 },
+    {
+      field: 'action', title: '操作', width: 150, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
         h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
         h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
@@ -37,27 +47,46 @@ const gridOptions: VxeGridProps<VariableApi.VariableVO> = {
     },
   ],
   height: 'auto',
-  pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
-  proxyConfig: { ajax: { query: async ({ page }, formValues) => await getVariablePageApi({ pageNum: page.currentPage, pageSize: page.pageSize, ...formValues }) } },
-  toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
-  formConfig: { enabled: true, items: [
-      { field: 'variableName', title: 'variableName', itemRender: { name: 'Input', props: { placeholder: 'variableName' } } },
-  ] },
+  proxyConfig: {
+    ajax: {
+      query: async () => {
+        const items = await list({});
+        return { items, total: items.length };
+      },
+    },
+  },
+  toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [VariableFormModal, variableFormApi] = useVbenModal({ connectedComponent: VariableForm });
 function handleAdd() { variableFormApi.open(); }
-function handleEdit(row: VariableApi.VariableVO) { variableFormApi.setData({ record: row }); variableFormApi.open(); }
-async function handleDelete(row: VariableApi.VariableVO) {
-  try { await ElMessageBox.confirm(`确定删除「${row.variableName}」吗？`, '删除确认', { type: 'warning' });
-    await deleteVariableApi(row.id); ElMessage.success('删除成功'); gridApi.query();
+function handleEdit(row: VariableDefinitionVO) { variableFormApi.setData({ record: row }); variableFormApi.open(); }
+async function handleDelete(row: VariableDefinitionVO) {
+  if (!row.name) return;
+  try {
+    await ElMessageBox.confirm(`确定删除变量「${row.name}」吗？`, '删除确认', { type: 'warning' });
+    await deleteApi({ varName: row.name });
+    ElMessage.success('删除成功');
+    gridApi.query();
+  } catch {}
+}
+/** 手动刷新变量定义 */
+async function handleRefresh() {
+  try {
+    await ElMessageBox.confirm('确定重新加载后端变量定义吗？', '刷新确认', { type: 'warning' });
+    await refresh();
+    ElMessage.success('刷新成功');
+    gridApi.query();
   } catch {}
 }
 </script>
 <template>
   <Page auto-content-height>
     <Grid table-title="规则变量">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
+      <template #toolbar-tools>
+        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton @click="handleRefresh">刷新</ElButton>
+      </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />
   </Page>

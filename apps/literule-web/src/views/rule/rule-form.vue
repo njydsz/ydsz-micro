@@ -8,54 +8,66 @@
 <script lang="ts" setup>
 /**
  * 规则定义（表单组件）
- * <p>规则定义的创建/编辑表单，包含规则类型选择、版本管理。
+ * <p>规则定义的创建/编辑表单，数据提交到后端契约 API ruleAdmin#save。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { RuleApi } from '#/api/rule';
+import type { RuleDefinitionVO } from '#/api/models';
 import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
-import { createRuleApi, updateRuleApi } from '#/api/rule';
+import { save } from '#/api/ruleAdmin';
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 const isEdit = ref(false);
-const formData = reactive({ id: '',
-  ruleCode: '',
-  ruleName: '',
-  ruleType: '',
-  priority: 0,
+/** 规则表单数据（映射 RuleDefinition 的可编辑字段） */
+interface RuleFormData {
+  code: string;
+  name: string;
+  category: string;
+  description: string;
+  conditionExpression: string;
+  priority: number;
+  enabled: boolean;
+}
+const formData = reactive<RuleFormData>({
+  code: '',
+  name: '',
+  category: '',
   description: '',
-  status: 0,
+  conditionExpression: '',
+  priority: 0,
+  enabled: true,
 });
 const rules = {
-  ruleCode: [{ required: true, message: '请输入规则编码', trigger: 'blur' }],
-  ruleName: [{ required: true, message: '请输入规则名称', trigger: 'blur' }],
+  name: [{ required: true, message: '请输入规则名称', trigger: 'blur' }],
 };
 const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: RuleApi.RuleVO }>();
+    const data = modalApi.getData<{ record?: RuleDefinitionVO }>();
     if (data?.record) {
       isEdit.value = true;
-      Object.assign(formData, { id: data.record.id,
-        ruleCode: data.record.ruleCode || '',
-        ruleName: data.record.ruleName || '',
-        ruleType: data.record.ruleType || '',
-        priority: data.record.priority || 0,
-        description: data.record.description || '',
-        status: data.record.status || 0,
+      Object.assign(formData, {
+        code: data.record.ruleCode ?? '',
+        name: data.record.ruleName ?? '',
+        category: data.record.category ?? '',
+        description: data.record.description ?? '',
+        conditionExpression: data.record.conditionExpression ?? '',
+        priority: data.record.priority ?? 0,
+        enabled: data.record.enabled ?? true,
       });
     } else {
       isEdit.value = false;
-      Object.assign(formData, { id: '',
-  ruleCode: '',
-  ruleName: '',
-  ruleType: '',
-  priority: 0,
-  description: '',
-  status: 0,
+      Object.assign(formData, {
+        code: '',
+        name: '',
+        category: '',
+        description: '',
+        conditionExpression: '',
+        priority: 0,
+        enabled: true,
       });
     }
   },
@@ -63,37 +75,38 @@ const [Modal, modalApi] = useVbenModal({
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
-      if (isEdit.value) { await updateRuleApi(formData as RuleApi.RuleDTO); ElMessage.success('更新成功'); }
-      else { await createRuleApi(formData as RuleApi.RuleDTO); ElMessage.success('创建成功'); }
-      emit('success'); modalApi.close();
+      await save({ changeDesc: isEdit.value ? '更新规则' : '创建规则' }, formData);
+      ElMessage.success(isEdit.value ? '更新成功' : '创建成功');
+      emit('success');
+      modalApi.close();
     } finally { modalApi.unlock(); }
   },
 });
-const title = computed(() => (isEdit.value ? '编辑规则管理' : '新增规则管理'));
+const title = computed(() => (isEdit.value ? '编辑规则' : '新增规则'));
 </script>
 <template>
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="规则编码" prop="ruleCode">
-        <ElInput v-model="formData.ruleCode" placeholder="请输入规则编码" :disabled="isEdit" />
+      <ElFormItem label="规则编码" prop="code">
+        <ElInput v-model="formData.code" placeholder="请输入规则编码" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="规则名称" prop="ruleName">
-        <ElInput v-model="formData.ruleName" placeholder="请输入规则名称" />
+      <ElFormItem label="规则名称" prop="name">
+        <ElInput v-model="formData.name" placeholder="请输入规则名称" />
       </ElFormItem>
-      <ElFormItem label="规则类型" prop="ruleType">
-        <ElInput v-model="formData.ruleType" placeholder="请输入规则类型" />
+      <ElFormItem label="分类" prop="category">
+        <ElInput v-model="formData.category" placeholder="请输入分类" />
       </ElFormItem>
       <ElFormItem label="优先级">
         <ElInputNumber v-model="formData.priority" :min="0" :max="999" />
       </ElFormItem>
+      <ElFormItem label="条件表达式">
+        <ElInput v-model="formData.conditionExpression" type="textarea" :rows="3" placeholder="请输入条件表达式" />
+      </ElFormItem>
       <ElFormItem label="描述">
         <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
       </ElFormItem>
-      <ElFormItem label="状态">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio :value="1">启用</ElRadio>
-          <ElRadio :value="0">禁用</ElRadio>
-        </ElRadioGroup>
+      <ElFormItem label="启用">
+        <ElSwitch v-model="formData.enabled" />
       </ElFormItem>
     </ElForm>
   </Modal>
