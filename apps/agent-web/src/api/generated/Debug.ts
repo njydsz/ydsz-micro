@@ -11,8 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AgentTraceDetailDTO, AgentTraceListDTO } from './models';
 
 /**
  * listTraces: GET /api/v1/agent/debug/traces

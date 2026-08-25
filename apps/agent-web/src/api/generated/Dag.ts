@@ -11,8 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DagCheckpoint, DagExecutionDTO } from './models';
 
 /**
  * execute: POST /api/v1/agent/dag/execute

@@ -11,8 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * evaluate: POST /api/v1/agent/prompt/evaluate

@@ -11,8 +11,8 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DocumentIngestDTO, RagQueryDTO } from './models';
 
 /**
  * ingest: POST /api/v1/agent/rag/ingest
