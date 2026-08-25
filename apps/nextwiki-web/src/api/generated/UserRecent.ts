@@ -11,44 +11,48 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { UserRecentVO } from './models';
 
 /**
  * listRecent: GET /api/v1/nextwiki/recent
  */
-export function listRecent(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/recent`);
+export function listRecent(params: {
+    limit?: number;
+  }): Promise<UserRecentVO[]> {
+  return requestClient.get<UserRecentVO[]>(`/api/v1/nextwiki/recent`, { params });
 }
 
 /**
  * recordAccess: POST /api/v1/nextwiki/recent/{nodeId}
  */
-export function recordAccess(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/recent/{nodeId}`, { params });
+export function recordAccess(path: {
+    nodeId: string;
+  }, params: {
+    accessType?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/nextwiki/recent/${nodeId}`, { params });
 }
 
 /**
  * clearAll: DELETE /api/v1/nextwiki/recent
  */
-export function clearAll(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/recent`);
+export function clearAll(): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/nextwiki/recent`);
 }
 
 /**
  * removeRecent: DELETE /api/v1/nextwiki/recent/{nodeId}
  */
-export function removeRecent(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/recent/{nodeId}`, { params });
+export function removeRecent(path: {
+    nodeId: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/nextwiki/recent/${nodeId}`);
 }
 
 /**
  * getRecentCount: GET /api/v1/nextwiki/recent/count
  */
-export function getRecentCount(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/recent/count`);
+export function getRecentCount(): Promise<number> {
+  return requestClient.get<number>(`/api/v1/nextwiki/recent/count`);
 }

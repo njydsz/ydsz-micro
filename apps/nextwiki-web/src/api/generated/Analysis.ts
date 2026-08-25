@@ -11,35 +11,35 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FileNodeVO } from './models';
 
 /**
  * getOverview: GET /api/v1/nextwiki/analysis/overview
  */
-export function getOverview(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/analysis/overview`);
+export function getOverview(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/nextwiki/analysis/overview`);
 }
 
 /**
  * statsByType: GET /api/v1/nextwiki/analysis/by-type
  */
-export function statsByType(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/analysis/by-type`);
+export function statsByType(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/nextwiki/analysis/by-type`);
 }
 
 /**
  * topLargeFiles: GET /api/v1/nextwiki/analysis/top-large-files
  */
-export function topLargeFiles(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/analysis/top-large-files`);
+export function topLargeFiles(params: {
+    limit?: number;
+  }): Promise<FileNodeVO[]> {
+  return requestClient.get<FileNodeVO[]>(`/api/v1/nextwiki/analysis/top-large-files`, { params });
 }
 
 /**
  * analyze: POST /api/v1/nextwiki/analysis/summary
  */
-export function analyze(params: {
-    content?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/analysis/summary`, { params });
+export function analyze(data: string): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/analysis/summary`, data);
 }

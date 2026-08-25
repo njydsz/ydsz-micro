@@ -11,32 +11,30 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BatchProgressVO, BatchSendRequestDTO, MsgBatchVO } from './models';
 
 /**
  * submitBatch: POST /api/v1/message/batch/send
  */
-export function submitBatch(params: {
-    dto?: BatchSendRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/batch/send`, { params });
+export function submitBatch(data: BatchSendRequestDTO): Promise<MsgBatchVO> {
+  return requestClient.post<MsgBatchVO>(`/api/v1/message/batch/send`, data);
 }
 
 /**
  * getProgress: GET /api/v1/message/batch/progress/{batchId}
  */
-export function getProgress(params: {
-    batchId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/batch/progress/{batchId}`, { params });
+export function getProgress(path: {
+    batchId: string;
+  }): Promise<BatchProgressVO> {
+  return requestClient.get<BatchProgressVO>(`/api/v1/message/batch/progress/${batchId}`);
 }
 
 /**
  * subscribeProgress: GET /api/v1/message/batch/progress/{batchId}/sse
  */
-export function subscribeProgress(params: {
-    batchId?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/message/batch/progress/{batchId}/sse`, { params });
+export function subscribeProgress(path: {
+    batchId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/message/batch/progress/${batchId}/sse`);
 }

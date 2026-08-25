@@ -11,16 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MsgSubscriptionVO, PageResponse, UnsubscribeQueryDTO, UnsubscribeTokenPayload } from './models';
 
 /**
  * oneClick: POST /api/v1/message/unsubscribe/oneClick
  */
 export function oneClick(params: {
     token?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/unsubscribe/oneClick`, { params });
+  }): Promise<MsgSubscriptionVO> {
+  return requestClient.post<MsgSubscriptionVO>(`/api/v1/message/unsubscribe/oneClick`, { params });
 }
 
 /**
@@ -28,8 +28,8 @@ export function oneClick(params: {
  */
 export function preview(params: {
     token?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/unsubscribe/preview`, { params });
+  }): Promise<UnsubscribeTokenPayload> {
+  return requestClient.get<UnsubscribeTokenPayload>(`/api/v1/message/unsubscribe/preview`, { params });
 }
 
 /**
@@ -37,15 +37,17 @@ export function preview(params: {
  */
 export function page(params: {
     query?: UnsubscribeQueryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/unsubscribe/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/unsubscribe/page`, { params });
 }
 
 /**
  * resubscribe: POST /api/v1/message/unsubscribe/resubscribe
  */
 export function resubscribe(params: {
-    userId?: string;\n    topicCode?: string;\n    channel?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/unsubscribe/resubscribe`, { params });
+    userId?: string;
+    topicCode?: string;
+    channel?: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/message/unsubscribe/resubscribe`, { params });
 }

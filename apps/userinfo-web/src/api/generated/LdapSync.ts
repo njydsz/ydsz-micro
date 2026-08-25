@@ -11,26 +11,26 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * triggerSync: POST /api/v1/admin/ldap/sync
  */
-export function triggerSync(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/admin/ldap/sync`);
+export function triggerSync(): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/admin/ldap/sync`);
 }
 
 /**
  * getStatus: GET /api/v1/admin/ldap/sync/status
  */
-export function getStatus(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/ldap/sync/status`);
+export function getStatus(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/admin/ldap/sync/status`);
 }
 
 /**
  * getLogs: GET /api/v1/admin/ldap/sync/logs
  */
-export function getLogs(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/ldap/sync/logs`);
+export function getLogs(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/admin/ldap/sync/logs`);
 }

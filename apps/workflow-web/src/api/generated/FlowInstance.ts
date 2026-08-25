@@ -11,258 +11,291 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FlowAuditTrailVO, FlowAutoTriggerCreateDTO, FlowAutoTriggerVO, FlowDefinitionDetailVO, FlowInstanceVariablesDTO, FlowInstanceViewDTO, FlowRecallableNodeVO, FlowReplayStepVO, FlowStartProcessDTO, FlowTimelineVO, InstanceMigrationDTO, InstanceMigrationResultDTO, PageResponse } from './models';
 
 /**
  * startProcess: POST /api/v1/workflow/engine/instance/start
  */
-export function startProcess(params: {
-    dto?: FlowStartProcessDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/start`, { params });
+export function startProcess(data: FlowStartProcessDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/instance/start`, data);
 }
 
 /**
  * batchStartInstances: POST /api/v1/workflow/engine/instance/batchStart
  */
-export function batchStartInstances(params: {
-    dtos?: FlowStartProcessDTO[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/batchStart`, { params });
+export function batchStartInstances(data: FlowStartProcessDTO[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/workflow/engine/instance/batchStart`, data);
 }
 
 /**
  * getByBusiness: GET /api/v1/workflow/engine/instance/byBusiness
  */
 export function getByBusiness(params: {
-    businessType?: string;\n    businessId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/byBusiness`, { params });
+    businessType?: string;
+    businessId?: string;
+  }): Promise<FlowInstanceViewDTO> {
+  return requestClient.get<FlowInstanceViewDTO>(`/api/v1/workflow/engine/instance/byBusiness`, { params });
 }
 
 /**
  * terminate: POST /api/v1/workflow/engine/instance/{id}/terminate
  */
-export function terminate(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/terminate`, { params });
+export function terminate(path: {
+    id: string;
+  }, params: {
+    reason?: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/terminate`, { params });
 }
 
 /**
  * suspend: POST /api/v1/workflow/engine/instance/{id}/suspend
  */
-export function suspend(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/suspend`, { params });
+export function suspend(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/suspend`);
 }
 
 /**
  * activate: POST /api/v1/workflow/engine/instance/{id}/activate
  */
-export function activate(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/activate`, { params });
+export function activate(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/activate`);
 }
 
 /**
  * recall: POST /api/v1/workflow/engine/instance/{id}/recall
  */
-export function recall(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/recall`, { params });
+export function recall(path: {
+    id: string;
+  }, params: {
+    targetNodeCode?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/engine/instance/${id}/recall`, { params });
 }
 
 /**
  * listRecallableNodes: GET /api/v1/workflow/engine/instance/{id}/recallableNodes
  */
-export function listRecallableNodes(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/recallableNodes`, { params });
+export function listRecallableNodes(path: {
+    id: string;
+  }): Promise<FlowRecallableNodeVO[]> {
+  return requestClient.get<FlowRecallableNodeVO[]>(`/api/v1/workflow/engine/instance/${id}/recallableNodes`);
 }
 
 /**
  * rollback: POST /api/v1/workflow/engine/instance/{id}/rollback
  */
-export function rollback(params: {
-    id?: string;\n    reason?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/rollback`, { params });
+export function rollback(path: {
+    id: string;
+  }, params: {
+    reason?: string;
+    maxRollbackDays?: number;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/engine/instance/${id}/rollback`, { params });
 }
 
 /**
  * resubmit: POST /api/v1/workflow/engine/instance/{id}/resubmit
  */
-export function resubmit(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/resubmit`, { params });
+export function resubmit(path: {
+    id: string;
+  }, params: {
+    comment?: string;
+    redoMode?: string;
+  }, data: Record<string, unknown>): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/instance/${id}/resubmit`, data, { params });
 }
 
 /**
  * auditTrail: GET /api/v1/workflow/engine/instance/{id}/auditTrail
  */
-export function auditTrail(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/auditTrail`, { params });
+export function auditTrail(path: {
+    id: string;
+  }): Promise<FlowAuditTrailVO[]> {
+  return requestClient.get<FlowAuditTrailVO[]>(`/api/v1/workflow/engine/instance/${id}/auditTrail`);
 }
 
 /**
  * timeline: GET /api/v1/workflow/engine/instance/{id}/timeline
  */
-export function timeline(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/timeline`, { params });
+export function timeline(path: {
+    id: string;
+  }): Promise<FlowTimelineVO[]> {
+  return requestClient.get<FlowTimelineVO[]>(`/api/v1/workflow/engine/instance/${id}/timeline`);
 }
 
 /**
  * diagram: GET /api/v1/workflow/engine/instance/{id}/diagram
  */
-export function diagram(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/diagram`, { params });
+export function diagram(path: {
+    id: string;
+  }): Promise<FlowDefinitionDetailVO> {
+  return requestClient.get<FlowDefinitionDetailVO>(`/api/v1/workflow/engine/instance/${id}/diagram`);
 }
 
 /**
  * replay: GET /api/v1/workflow/engine/instance/{id}/replay
  */
-export function replay(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/replay`, { params });
+export function replay(path: {
+    id: string;
+  }): Promise<FlowReplayStepVO[]> {
+  return requestClient.get<FlowReplayStepVO[]>(`/api/v1/workflow/engine/instance/${id}/replay`);
 }
 
 /**
  * instancePage: GET /api/v1/workflow/engine/instance/page
  */
-export function instancePage(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/page`);
+export function instancePage(params: {
+    pageNo?: number;
+    pageSize?: number;
+    businessType?: string;
+    initiatorId?: string;
+    flowStatus?: string;
+    startTime?: string;
+    endTime?: string;
+    tenantId?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/instance/page`, { params });
 }
 
 /**
  * instanceMy: GET /api/v1/workflow/engine/instance/my
  */
-export function instanceMy(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/my`);
+export function instanceMy(params: {
+    flowCode?: string;
+    flowName?: string;
+    status?: string;
+    startTime?: string;
+    endTime?: string;
+    pageNum?: number;
+    pageSize?: number;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/instance/my`, { params });
 }
 
 /**
  * instanceAll: GET /api/v1/workflow/engine/instance/all
  */
-export function instanceAll(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/all`);
+export function instanceAll(params: {
+    page?: number;
+    size?: number;
+    businessType?: string;
+    flowStatus?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/instance/all`, { params });
 }
 
 /**
  * getVariables: GET /api/v1/workflow/engine/instance/{id}/variables
  */
-export function getVariables(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/variables`, { params });
+export function getVariables(path: {
+    id: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/variables`);
 }
 
 /**
  * setVariables: POST /api/v1/workflow/engine/instance/{id}/variables
  */
-export function setVariables(params: {
-    id?: string;\n    dto?: FlowInstanceVariablesDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/variables`, { params });
+export function setVariables(path: {
+    id: string;
+  }, data: FlowInstanceVariablesDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/variables`, data);
 }
 
 /**
  * urge: POST /api/v1/workflow/engine/instance/{id}/urge
  */
-export function urge(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/urge`, { params });
+export function urge(path: {
+    id: string;
+  }, params: {
+    comment?: string;
+  }): Promise<string[]> {
+  return requestClient.post<string[]>(`/api/v1/workflow/engine/instance/${id}/urge`, { params });
 }
 
 /**
  * urgeByNode: POST /api/v1/workflow/engine/instance/{id}/urge/node
  */
-export function urgeByNode(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/urge/node`, { params });
+export function urgeByNode(path: {
+    id: string;
+  }, params: {
+    nodeCode?: string;
+    comment?: string;
+  }): Promise<string[]> {
+  return requestClient.post<string[]>(`/api/v1/workflow/engine/instance/${id}/urge/node`, { params });
 }
 
 /**
  * getFormRenderData: GET /api/v1/workflow/engine/instance/{id}/formRender
  */
-export function getFormRenderData(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/{id}/formRender`, { params });
+export function getFormRenderData(path: {
+    id: string;
+  }, params: {
+    taskId?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/formRender`, { params });
 }
 
 /**
  * migrateInstances: POST /api/v1/workflow/engine/instance/migrate
  */
-export function migrateInstances(params: {
-    dto?: InstanceMigrationDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/migrate`, { params });
+export function migrateInstances(data: InstanceMigrationDTO): Promise<InstanceMigrationResultDTO> {
+  return requestClient.post<InstanceMigrationResultDTO>(`/api/v1/workflow/engine/instance/migrate`, data);
 }
 
 /**
  * previewMigration: POST /api/v1/workflow/engine/instance/migrate/preview
  */
-export function previewMigration(params: {
-    dto?: InstanceMigrationDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/migrate/preview`, { params });
+export function previewMigration(data: InstanceMigrationDTO): Promise<InstanceMigrationResultDTO> {
+  return requestClient.post<InstanceMigrationResultDTO>(`/api/v1/workflow/engine/instance/migrate/preview`, data);
 }
 
 /**
  * autoMapNodes: GET /api/v1/workflow/engine/instance/migrate/autoMap
  */
 export function autoMapNodes(params: {
-    sourceDefinitionId?: number;\n    targetDefinitionId?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/migrate/autoMap`, { params });
+    sourceDefinitionId?: number;
+    targetDefinitionId?: number;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/migrate/autoMap`, { params });
 }
 
 /**
  * listTriggers: GET /api/v1/workflow/engine/instance/trigger/list
  */
-export function listTriggers(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/trigger/list`);
+export function listTriggers(): Promise<FlowAutoTriggerVO[]> {
+  return requestClient.get<FlowAutoTriggerVO[]>(`/api/v1/workflow/engine/instance/trigger/list`);
 }
 
 /**
  * createTrigger: POST /api/v1/workflow/engine/instance/trigger
  */
-export function createTrigger(params: {
-    dto?: FlowAutoTriggerCreateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/trigger`, { params });
+export function createTrigger(data: FlowAutoTriggerCreateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/instance/trigger`, data);
 }
 
 /**
  * deleteTrigger: DELETE /api/v1/workflow/engine/instance/trigger/{id}
  */
-export function deleteTrigger(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/trigger/{id}`, { params });
+export function deleteTrigger(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/workflow/engine/instance/trigger/${id}`);
 }
 
 /**
  * toggleTrigger: PUT /api/v1/workflow/engine/instance/trigger/{id}/toggle
  */
-export function toggleTrigger(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/trigger/{id}/toggle`, { params });
+export function toggleTrigger(path: {
+    id: string;
+  }): Promise<unknown> {
+  return requestClient.put<unknown>(`/api/v1/workflow/engine/instance/trigger/${id}/toggle`);
 }

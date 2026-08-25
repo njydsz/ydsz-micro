@@ -11,23 +11,27 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { OAuth2AuthorizeRequest, OAuth2TokenRequest } from './models';
 
 /**
  * authorize: GET /api/v1/oauth2/authorize
  */
 export function authorize(params: {
     request?: OAuth2AuthorizeRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/oauth2/authorize`, { params });
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/oauth2/authorize`, { params });
 }
 
 /**
  * getConsentInfo: GET /api/v1/oauth2/consent
  */
-export function getConsentInfo(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/oauth2/consent`);
+export function getConsentInfo(params: {
+    clientId?: string;
+    redirectUri?: string;
+    scope?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/oauth2/consent`, { params });
 }
 
 /**
@@ -35,8 +39,8 @@ export function getConsentInfo(): Promise<YdszResponse<YdszResponse>> {
  */
 export function submitConsent(params: {
     request?: OAuth2AuthorizeRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/oauth2/consent`, { params });
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/oauth2/consent`, { params });
 }
 
 /**
@@ -44,8 +48,8 @@ export function submitConsent(params: {
  */
 export function token(params: {
     request?: OAuth2TokenRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/oauth2/token`, { params });
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/oauth2/token`, { params });
 }
 
 /**
@@ -53,22 +57,25 @@ export function token(params: {
  */
 export function revoke(params: {
     token?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/oauth2/revoke`, { params });
+    tokenTypeHint?: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/oauth2/revoke`, { params });
 }
 
 /**
  * introspect: POST /api/v1/oauth2/introspect
  */
 export function introspect(params: {
-    token?: string;\n    clientId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/oauth2/introspect`, { params });
+    token?: string;
+    clientId?: string;
+    clientSecret?: string;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/oauth2/introspect`, { params });
 }
 
 /**
  * userinfo: GET /api/v1/oauth2/userinfo
  */
-export function userinfo(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/oauth2/userinfo`);
+export function userinfo(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/oauth2/userinfo`);
 }

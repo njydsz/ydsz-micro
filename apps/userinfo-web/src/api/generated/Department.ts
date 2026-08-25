@@ -11,55 +11,51 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DepartmentDTO, DepartmentTreeVO, DepartmentVO } from './models';
 
 /**
  * list: GET /api/v1/dept/list
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dept/list`);
+export function list(): Promise<DepartmentVO[]> {
+  return requestClient.get<DepartmentVO[]>(`/api/v1/dept/list`);
 }
 
 /**
  * tree: GET /api/v1/dept/tree
  */
-export function tree(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dept/tree`);
+export function tree(): Promise<DepartmentTreeVO[]> {
+  return requestClient.get<DepartmentTreeVO[]>(`/api/v1/dept/tree`);
 }
 
 /**
  * getById: GET /api/v1/dept/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dept/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<DepartmentVO> {
+  return requestClient.get<DepartmentVO>(`/api/v1/dept/${id}`);
 }
 
 /**
  * create: POST /api/v1/dept
  */
-export function create(params: {
-    dto?: DepartmentDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/dept`, { params });
+export function create(data: DepartmentDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/dept`, data);
 }
 
 /**
  * update: PUT /api/v1/dept
  */
-export function update(params: {
-    dto?: DepartmentDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/dept`, { params });
+export function update(data: DepartmentDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/dept`, data);
 }
 
 /**
  * remove: DELETE /api/v1/dept/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/dept/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/dept/${id}`);
 }

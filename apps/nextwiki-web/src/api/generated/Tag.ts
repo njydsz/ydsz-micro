@@ -11,48 +11,44 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { TagDTO, TagVO } from './models';
 
 /**
  * createTag: POST /api/v1/nextwiki/tags
  */
-export function createTag(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/tags`, { params });
+export function createTag(data: Record<string, unknown>): Promise<TagDTO> {
+  return requestClient.post<TagDTO>(`/api/v1/nextwiki/tags`, data);
 }
 
 /**
  * listTags: GET /api/v1/nextwiki/tags
  */
-export function listTags(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/tags`);
+export function listTags(): Promise<TagVO[]> {
+  return requestClient.get<TagVO[]>(`/api/v1/nextwiki/tags`);
 }
 
 /**
  * bindTag: POST /api/v1/nextwiki/tags/bind
  */
-export function bindTag(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/tags/bind`, { params });
+export function bindTag(data: Record<string, unknown>): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/tags/bind`, data);
 }
 
 /**
  * getFileTags: GET /api/v1/nextwiki/tags/file/{fileNodeId}
  */
-export function getFileTags(params: {
-    fileNodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/tags/file/{fileNodeId}`, { params });
+export function getFileTags(path: {
+    fileNodeId: string;
+  }): Promise<TagVO[]> {
+  return requestClient.get<TagVO[]>(`/api/v1/nextwiki/tags/file/${fileNodeId}`);
 }
 
 /**
  * recommendTags: GET /api/v1/nextwiki/tags/recommend/{fileNodeId}
  */
-export function recommendTags(params: {
-    fileNodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/tags/recommend/{fileNodeId}`, { params });
+export function recommendTags(path: {
+    fileNodeId: string;
+  }): Promise<TagVO[]> {
+  return requestClient.get<TagVO[]>(`/api/v1/nextwiki/tags/recommend/${fileNodeId}`);
 }

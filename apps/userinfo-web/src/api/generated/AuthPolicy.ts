@@ -11,50 +11,48 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AuthPolicyDTO, AuthPolicyPageQuery, AuthPolicyVO, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/auth-policy/page
  */
 export function page(params: {
     query?: AuthPolicyPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/auth-policy/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/auth-policy/page`, { params });
 }
 
 /**
  * getByTenantId: GET /api/v1/auth-policy/{tenantId}
  */
-export function getByTenantId(params: {
-    tenantId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/auth-policy/{tenantId}`, { params });
+export function getByTenantId(path: {
+    tenantId: string;
+  }): Promise<AuthPolicyVO> {
+  return requestClient.get<AuthPolicyVO>(`/api/v1/auth-policy/${tenantId}`);
 }
 
 /**
  * create: POST /api/v1/auth-policy
  */
-export function create(params: {
-    dto?: AuthPolicyDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth-policy`, { params });
+export function create(data: AuthPolicyDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/auth-policy`, data);
 }
 
 /**
  * update: PUT /api/v1/auth-policy/{tenantId}
  */
-export function update(params: {
-    tenantId?: string;\n    dto?: AuthPolicyDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/auth-policy/{tenantId}`, { params });
+export function update(path: {
+    tenantId: string;
+  }, data: AuthPolicyDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/auth-policy/${tenantId}`, data);
 }
 
 /**
  * delete: DELETE /api/v1/auth-policy/{tenantId}
  */
-export function delete(params: {
-    tenantId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/auth-policy/{tenantId}`, { params });
+export function delete(path: {
+    tenantId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/auth-policy/${tenantId}`);
 }

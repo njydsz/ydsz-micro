@@ -24,16 +24,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AgentExecutionRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AgentExecutionRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/execute/stream": {
@@ -54,16 +54,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AgentExecutionRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AgentExecutionRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/chat": {
@@ -84,16 +84,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ChatRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChatRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/chat/stream": {
@@ -114,16 +114,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ChatRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChatRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/chat/batch": {
@@ -144,16 +144,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/BatchChatRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchChatRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/history": {
@@ -210,6 +210,14 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "requestId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
     ]
    }
@@ -250,16 +258,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AgentDefinitionDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AgentDefinitionDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -278,16 +286,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AgentDefinitionDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AgentDefinitionDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/definitions/{id}": {
@@ -311,8 +319,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -339,8 +347,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -369,8 +377,8 @@
     "parameters": [
      {
       "name": "code",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -436,16 +444,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DagExecutionDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DagExecutionDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/dag/checkpoint/{executionId}": {
@@ -469,8 +477,8 @@
     "parameters": [
      {
       "name": "executionId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -496,16 +504,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DagExecutionDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DagExecutionDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/debug/traces": {
@@ -525,7 +533,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/agent/debug/trace/{traceId}": {
@@ -549,8 +568,8 @@
     "parameters": [
      {
       "name": "traceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -579,8 +598,8 @@
     "parameters": [
      {
       "name": "traceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -629,8 +648,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -659,6 +678,22 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "approver",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
@@ -689,6 +724,22 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "approver",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
@@ -735,7 +786,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "days",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/agent/prompt/evaluate": {
@@ -756,16 +818,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/prompt/compare": {
@@ -786,16 +848,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/rag/ingest": {
@@ -816,16 +878,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DocumentIngestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DocumentIngestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/rag/search": {
@@ -846,16 +908,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RagQueryDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RagQueryDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/agent/rag/documents/{documentId}": {
@@ -879,8 +941,8 @@
     "parameters": [
      {
       "name": "documentId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }

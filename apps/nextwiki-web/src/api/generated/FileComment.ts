@@ -11,41 +11,39 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FileCommentVO } from './models';
 
 /**
  * listComments: GET /api/v1/nextwiki/comments/file/{fileNodeId}
  */
-export function listComments(params: {
-    fileNodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/comments/file/{fileNodeId}`, { params });
+export function listComments(path: {
+    fileNodeId: string;
+  }): Promise<FileCommentVO[]> {
+  return requestClient.get<FileCommentVO[]>(`/api/v1/nextwiki/comments/file/${fileNodeId}`);
 }
 
 /**
  * addComment: POST /api/v1/nextwiki/comments
  */
-export function addComment(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/comments`, { params });
+export function addComment(data: Record<string, unknown>): Promise<FileCommentVO> {
+  return requestClient.post<FileCommentVO>(`/api/v1/nextwiki/comments`, data);
 }
 
 /**
  * deleteComment: DELETE /api/v1/nextwiki/comments/{commentId}
  */
-export function deleteComment(params: {
-    commentId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/comments/{commentId}`, { params });
+export function deleteComment(path: {
+    commentId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/nextwiki/comments/${commentId}`);
 }
 
 /**
  * resolveComment: POST /api/v1/nextwiki/comments/{commentId}/resolve
  */
-export function resolveComment(params: {
-    commentId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/comments/{commentId}/resolve`, { params });
+export function resolveComment(path: {
+    commentId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/comments/${commentId}/resolve`);
 }

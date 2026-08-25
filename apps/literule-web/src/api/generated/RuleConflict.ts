@@ -11,12 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleConflictInfoVO } from './models';
 
 /**
  * detectConflicts: GET /api/v1/literule/rules/conflicts
  */
-export function detectConflicts(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/conflicts`);
+export function detectConflicts(): Promise<RuleConflictInfoVO[]> {
+  return requestClient.get<RuleConflictInfoVO[]>(`/api/v1/literule/rules/conflicts`);
 }

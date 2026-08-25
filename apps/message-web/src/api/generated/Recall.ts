@@ -11,41 +11,39 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RecallRequestDTO } from './models';
 
 /**
  * recallNotification: POST /api/v1/message/recall/notification
  */
 export function recallNotification(params: {
-    userId?: string;\n    dto?: RecallRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/recall/notification`, { params });
+    userId?: string;
+  }, data: RecallRequestDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/recall/notification`, data, { params });
 }
 
 /**
  * recallMessage: POST /api/v1/message/recall/message/{logId}
  */
-export function recallMessage(params: {
-    logId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/recall/message/{logId}`, { params });
+export function recallMessage(path: {
+    logId: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/recall/message/${logId}`);
 }
 
 /**
  * recallByMsgId: POST /api/v1/message/recall/msg/{msgId}
  */
-export function recallByMsgId(params: {
-    msgId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/recall/msg/{msgId}`, { params });
+export function recallByMsgId(path: {
+    msgId: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/recall/msg/${msgId}`);
 }
 
 /**
  * recallBatch: POST /api/v1/message/recall/batch
  */
-export function recallBatch(params: {
-    dto?: RecallRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/recall/batch`, { params });
+export function recallBatch(data: RecallRequestDTO): Promise<number> {
+  return requestClient.post<number>(`/api/v1/message/recall/batch`, data);
 }

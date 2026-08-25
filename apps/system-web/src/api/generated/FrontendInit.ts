@@ -11,19 +11,21 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FrontendInitVO } from './models';
 
 /**
  * init: GET /api/v1/system/init
  */
-export function init(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/system/init`);
+export function init(): Promise<FrontendInitVO> {
+  return requestClient.get<FrontendInitVO>(`/api/v1/system/init`);
 }
 
 /**
  * initWithDicts: GET /api/v1/system/init/dicts
  */
-export function initWithDicts(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/system/init/dicts`);
+export function initWithDicts(params: {
+    dictTypes?: string[];
+  }): Promise<FrontendInitVO> {
+  return requestClient.get<FrontendInitVO>(`/api/v1/system/init/dicts`, { params });
 }

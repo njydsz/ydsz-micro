@@ -11,55 +11,51 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MenuDTO, MenuTreeVO, MenuVO } from './models';
 
 /**
  * list: GET /api/v1/menu/list
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/menu/list`);
+export function list(): Promise<MenuVO[]> {
+  return requestClient.get<MenuVO[]>(`/api/v1/menu/list`);
 }
 
 /**
  * tree: GET /api/v1/menu/tree
  */
-export function tree(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/menu/tree`);
+export function tree(): Promise<MenuTreeVO[]> {
+  return requestClient.get<MenuTreeVO[]>(`/api/v1/menu/tree`);
 }
 
 /**
  * getById: GET /api/v1/menu/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/menu/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<MenuVO> {
+  return requestClient.get<MenuVO>(`/api/v1/menu/${id}`);
 }
 
 /**
  * create: POST /api/v1/menu
  */
-export function create(params: {
-    dto?: MenuDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/menu`, { params });
+export function create(data: MenuDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/menu`, data);
 }
 
 /**
  * update: PUT /api/v1/menu
  */
-export function update(params: {
-    dto?: MenuDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/menu`, { params });
+export function update(data: MenuDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/menu`, data);
 }
 
 /**
  * remove: DELETE /api/v1/menu/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/menu/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/menu/${id}`);
 }

@@ -11,46 +11,44 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { TrashItemVO } from './models';
 
 /**
  * list: GET /api/v1/nextwiki/trash/list
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/trash/list`);
+export function list(): Promise<TrashItemVO[]> {
+  return requestClient.get<TrashItemVO[]>(`/api/v1/nextwiki/trash/list`);
 }
 
 /**
  * restore: POST /api/v1/nextwiki/trash/{trashItemId}/restore
  */
-export function restore(params: {
-    trashItemId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/trash/{trashItemId}/restore`, { params });
+export function restore(path: {
+    trashItemId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/trash/${trashItemId}/restore`);
 }
 
 /**
  * batchRestore: POST /api/v1/nextwiki/trash/batch-restore
  */
-export function batchRestore(params: {
-    trashItemIds?: string[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/trash/batch-restore`, { params });
+export function batchRestore(data: string[]): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/trash/batch-restore`, data);
 }
 
 /**
  * purge: DELETE /api/v1/nextwiki/trash/{trashItemId}
  */
-export function purge(params: {
-    trashItemId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/trash/{trashItemId}`, { params });
+export function purge(path: {
+    trashItemId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/nextwiki/trash/${trashItemId}`);
 }
 
 /**
  * emptyTrash: DELETE /api/v1/nextwiki/trash/empty
  */
-export function emptyTrash(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/trash/empty`);
+export function emptyTrash(): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/nextwiki/trash/empty`);
 }

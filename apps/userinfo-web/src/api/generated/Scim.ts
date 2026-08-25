@@ -11,85 +11,90 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ScimPatchOp, ScimUser } from './models';
 
 /**
  * listUsers: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Users
  */
-export function listUsers(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users`);
+export function listUsers(params: {
+    startIndex?: number;
+    count?: number;
+    filter?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users`, { params });
 }
 
 /**
  * getUser: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
  */
-export function getUser(params: {
-    id?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}`, { params });
+export function getUser(path: {
+    id: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`);
 }
 
 /**
  * createUser: POST /${ydsz.userinfo.scim.base-path:/scim/v2}/Users
  */
-export function createUser(params: {
-    scimUser?: ScimUser;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users`, { params });
+export function createUser(data: ScimUser): Promise<unknown> {
+  return requestClient.post<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users`, data);
 }
 
 /**
  * updateUser: PUT /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
  */
-export function updateUser(params: {
-    id?: string;\n    scimUser?: ScimUser;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.put<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}`, { params });
+export function updateUser(path: {
+    id: string;
+  }, data: ScimUser): Promise<unknown> {
+  return requestClient.put<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`, data);
 }
 
 /**
  * patchUser: PATCH /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
  */
-export function patchUser(params: {
-    id?: string;\n    patchOp?: ScimPatchOp;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.patch<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}`, { params });
+export function patchUser(path: {
+    id: string;
+  }, data: ScimPatchOp): Promise<unknown> {
+  return requestClient.patch<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`, data);
 }
 
 /**
  * deleteUser: DELETE /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
  */
-export function deleteUser(params: {
-    id?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.delete<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}`, { params });
+export function deleteUser(path: {
+    id: string;
+  }): Promise<unknown> {
+  return requestClient.delete<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`);
 }
 
 /**
  * listGroups: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Groups
  */
-export function listGroups(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Groups`);
+export function listGroups(params: {
+    startIndex?: number;
+    count?: number;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Groups`, { params });
 }
 
 /**
  * getServiceProviderConfig: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig
  */
-export function getServiceProviderConfig(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig`);
+export function getServiceProviderConfig(): Promise<unknown> {
+  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig`);
 }
 
 /**
  * getResourceTypes: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/ResourceTypes
  */
-export function getResourceTypes(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/ResourceTypes`);
+export function getResourceTypes(): Promise<unknown> {
+  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/ResourceTypes`);
 }
 
 /**
  * getSchemas: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Schemas
  */
-export function getSchemas(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Schemas`);
+export function getSchemas(): Promise<unknown> {
+  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Schemas`);
 }

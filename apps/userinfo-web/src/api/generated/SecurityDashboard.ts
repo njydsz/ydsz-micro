@@ -11,82 +11,94 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ActiveUserVO, AnomalySessionVO, DeviceDistributionVO, LoginFailDistributionVO, LoginSuccessRateVO, MfaCoverageVO, RiskLevelDistributionVO, SecurityDashboardVO, SecurityEventVO, SessionActivityVO, SessionTrendVO } from './models';
 
 /**
  * getDashboard: GET /api/v1/admin/security/dashboard
  */
-export function getDashboard(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/dashboard`);
+export function getDashboard(): Promise<SecurityDashboardVO> {
+  return requestClient.get<SecurityDashboardVO>(`/api/v1/admin/security/dashboard`);
 }
 
 /**
  * getLoginSuccessRate: GET /api/v1/admin/security/login-success-rate
  */
-export function getLoginSuccessRate(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/login-success-rate`);
+export function getLoginSuccessRate(params: {
+    start?: string;
+    end?: string;
+  }): Promise<LoginSuccessRateVO[]> {
+  return requestClient.get<LoginSuccessRateVO[]>(`/api/v1/admin/security/login-success-rate`, { params });
 }
 
 /**
  * getLoginFailDistribution: GET /api/v1/admin/security/login-fail-distribution
  */
-export function getLoginFailDistribution(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/login-fail-distribution`);
+export function getLoginFailDistribution(params: {
+    date?: string;
+  }): Promise<LoginFailDistributionVO[]> {
+  return requestClient.get<LoginFailDistributionVO[]>(`/api/v1/admin/security/login-fail-distribution`, { params });
 }
 
 /**
  * getMfaCoverage: GET /api/v1/admin/security/mfa-coverage
  */
-export function getMfaCoverage(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/mfa-coverage`);
+export function getMfaCoverage(): Promise<MfaCoverageVO> {
+  return requestClient.get<MfaCoverageVO>(`/api/v1/admin/security/mfa-coverage`);
 }
 
 /**
  * getRiskLevelDistribution: GET /api/v1/admin/security/risk-distribution
  */
-export function getRiskLevelDistribution(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/risk-distribution`);
+export function getRiskLevelDistribution(): Promise<RiskLevelDistributionVO> {
+  return requestClient.get<RiskLevelDistributionVO>(`/api/v1/admin/security/risk-distribution`);
 }
 
 /**
  * getRecentSecurityEvents: GET /api/v1/admin/security/recent-events
  */
-export function getRecentSecurityEvents(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/recent-events`);
+export function getRecentSecurityEvents(params: {
+    limit?: number;
+  }): Promise<SecurityEventVO[]> {
+  return requestClient.get<SecurityEventVO[]>(`/api/v1/admin/security/recent-events`, { params });
 }
 
 /**
  * getSessionActivity: GET /api/v1/admin/security/session-activity
  */
-export function getSessionActivity(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/session-activity`);
+export function getSessionActivity(): Promise<SessionActivityVO> {
+  return requestClient.get<SessionActivityVO>(`/api/v1/admin/security/session-activity`);
 }
 
 /**
  * getActiveUserRanking: GET /api/v1/admin/security/active-user-ranking
  */
-export function getActiveUserRanking(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/active-user-ranking`);
+export function getActiveUserRanking(params: {
+    limit?: number;
+  }): Promise<ActiveUserVO[]> {
+  return requestClient.get<ActiveUserVO[]>(`/api/v1/admin/security/active-user-ranking`, { params });
 }
 
 /**
  * getSessionTrend: GET /api/v1/admin/security/session-trend
  */
-export function getSessionTrend(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/session-trend`);
+export function getSessionTrend(params: {
+    start?: string;
+    end?: string;
+  }): Promise<SessionTrendVO[]> {
+  return requestClient.get<SessionTrendVO[]>(`/api/v1/admin/security/session-trend`, { params });
 }
 
 /**
  * getDeviceDistribution: GET /api/v1/admin/security/device-distribution
  */
-export function getDeviceDistribution(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/device-distribution`);
+export function getDeviceDistribution(): Promise<DeviceDistributionVO[]> {
+  return requestClient.get<DeviceDistributionVO[]>(`/api/v1/admin/security/device-distribution`);
 }
 
 /**
  * detectAnomalySessions: GET /api/v1/admin/security/anomaly-sessions
  */
-export function detectAnomalySessions(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/anomaly-sessions`);
+export function detectAnomalySessions(): Promise<AnomalySessionVO[]> {
+  return requestClient.get<AnomalySessionVO[]>(`/api/v1/admin/security/anomaly-sessions`);
 }

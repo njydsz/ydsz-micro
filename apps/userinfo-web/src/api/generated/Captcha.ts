@@ -11,21 +11,22 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * generate: GET /api/v1/captcha/generate
  */
-export function generate(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/captcha/generate`);
+export function generate(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/captcha/generate`);
 }
 
 /**
  * validate: POST /api/v1/captcha/validate
  */
 export function validate(params: {
-    captchaKey?: string;\n    captcha?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/captcha/validate`, { params });
+    captchaKey?: string;
+    captcha?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/captcha/validate`, { params });
 }

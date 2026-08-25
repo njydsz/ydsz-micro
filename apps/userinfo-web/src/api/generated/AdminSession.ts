@@ -11,64 +11,68 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BanInfoVO, UserBanRequestDTO, UserSessionStatistics, UserSessionVO } from './models';
 
 /**
  * banUser: POST /api/v1/admin/users/{userId}/ban
  */
-export function banUser(params: {
-    userId?: string;\n    dto?: UserBanRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/admin/users/{userId}/ban`, { params });
+export function banUser(path: {
+    userId: string;
+  }, data: UserBanRequestDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/admin/users/${userId}/ban`, data);
 }
 
 /**
  * unbanUser: POST /api/v1/admin/users/{userId}/unban
  */
-export function unbanUser(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/admin/users/{userId}/unban`, { params });
+export function unbanUser(path: {
+    userId: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/admin/users/${userId}/unban`);
 }
 
 /**
  * getBanInfo: GET /api/v1/admin/users/{userId}/ban-info
  */
-export function getBanInfo(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/users/{userId}/ban-info`, { params });
+export function getBanInfo(path: {
+    userId: string;
+  }): Promise<BanInfoVO> {
+  return requestClient.get<BanInfoVO>(`/api/v1/admin/users/${userId}/ban-info`);
 }
 
 /**
  * getUserSessions: GET /api/v1/admin/users/{userId}/sessions
  */
-export function getUserSessions(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/users/{userId}/sessions`, { params });
+export function getUserSessions(path: {
+    userId: string;
+  }): Promise<UserSessionVO[]> {
+  return requestClient.get<UserSessionVO[]>(`/api/v1/admin/users/${userId}/sessions`);
 }
 
 /**
  * forceLogout: DELETE /api/v1/admin/users/{userId}/sessions/{accessToken}
  */
-export function forceLogout(params: {
-    userId?: string;\n    accessToken?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/admin/users/{userId}/sessions/{accessToken}`, { params });
+export function forceLogout(path: {
+    userId: string;
+    accessToken: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/admin/users/${userId}/sessions/${accessToken}`);
 }
 
 /**
  * getAllActiveSessions: GET /api/v1/admin/sessions
  */
-export function getAllActiveSessions(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/sessions`);
+export function getAllActiveSessions(params: {
+    page?: number;
+    size?: number;
+  }): Promise<UserSessionVO[]> {
+  return requestClient.get<UserSessionVO[]>(`/api/v1/admin/sessions`, { params });
 }
 
 /**
  * getSessionStatistics: GET /api/v1/admin/sessions/statistics
  */
-export function getSessionStatistics(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/sessions/statistics`);
+export function getSessionStatistics(): Promise<UserSessionStatistics> {
+  return requestClient.get<UserSessionStatistics>(`/api/v1/admin/sessions/statistics`);
 }

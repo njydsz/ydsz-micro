@@ -11,77 +11,88 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ExpressionValidateDTO, ExpressionValidationResultVO, PageQuery, PageResponse, RuleABTestDTO, RuleDefinition, RuleDefinitionVO, RuleEngineStatsVO, RuleResultVO, RuleVersionDiffVO, RuleVersionVO } from './models';
 
 /**
  * list: GET /api/v1/literule/rules
  */
 export function list(params: {
     pageQuery?: PageQuery;
-  }): Promise<YdszResponse<PageResponse>> {
-  return requestClient.get<YdszResponse<PageResponse>>(`/api/v1/literule/rules`, { params });
+  }): Promise<PageResponse<RuleDefinitionVO[]>> {
+  return requestClient.get<PageResponse<RuleDefinitionVO[]>>(`/api/v1/literule/rules`, { params });
 }
 
 /**
  * get: GET /api/v1/literule/rules/{ruleCode}
  */
-export function get(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}`, { params });
+export function get(path: {
+    ruleCode: string;
+  }): Promise<RuleDefinitionVO> {
+  return requestClient.get<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}`);
 }
 
 /**
  * save: POST /api/v1/literule/rules
  */
 export function save(params: {
-    definition?: RuleDefinition;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules`, { params });
+    changeDesc?: string;
+  }, data: RuleDefinition): Promise<RuleDefinitionVO> {
+  return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules`, data, { params });
 }
 
 /**
  * toggle: PUT /api/v1/literule/rules/{ruleCode}/toggle
  */
-export function toggle(params: {
-    ruleCode?: string;\n    enabled?: boolean;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/toggle`, { params });
+export function toggle(path: {
+    ruleCode: string;
+  }, params: {
+    enabled?: boolean;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/literule/rules/${ruleCode}/toggle`, { params });
 }
 
 /**
  * listVersions: GET /api/v1/literule/rules/{ruleCode}/versions
  */
-export function listVersions(params: {
-    ruleCode?: string;\n    pageQuery?: Record<string, unknown>;
-  }): Promise<YdszResponse<PageResponse>> {
-  return requestClient.get<YdszResponse<PageResponse>>(`/api/v1/literule/rules/{ruleCode}/versions`, { params });
+export function listVersions(path: {
+    ruleCode: string;
+  }, params: {
+    pageQuery?: Record<string, unknown>;
+  }): Promise<PageResponse<RuleVersionVO[]>> {
+  return requestClient.get<PageResponse<RuleVersionVO[]>>(`/api/v1/literule/rules/${ruleCode}/versions`, { params });
 }
 
 /**
  * versionDiff: GET /api/v1/literule/rules/{ruleCode}/version-diff
  */
-export function versionDiff(params: {
-    ruleCode?: string;\n    oldVersion?: number;\n    newVersion?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/version-diff`, { params });
+export function versionDiff(path: {
+    ruleCode: string;
+  }, params: {
+    oldVersion?: number;
+    newVersion?: number;
+  }): Promise<RuleVersionDiffVO> {
+  return requestClient.get<RuleVersionDiffVO>(`/api/v1/literule/rules/${ruleCode}/version-diff`, { params });
 }
 
 /**
  * rollback: POST /api/v1/literule/rules/{ruleCode}/rollback
  */
-export function rollback(params: {
-    ruleCode?: string;\n    version?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/rollback`, { params });
+export function rollback(path: {
+    ruleCode: string;
+  }, params: {
+    version?: number;
+  }): Promise<RuleDefinitionVO> {
+  return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}/rollback`, { params });
 }
 
 /**
  * dryRun: POST /api/v1/literule/rules/dry-run
  */
-export function dryRun(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/dry-run`);
+export function dryRun(params: {
+    ruleCode?: string;
+  }, data: Record<string, unknown>): Promise<RuleResultVO[]> {
+  return requestClient.post<RuleResultVO[]>(`/api/v1/literule/rules/dry-run`, data, { params });
 }
 
 /**
@@ -89,49 +100,43 @@ export function dryRun(): Promise<YdszResponse<YdszResponse>> {
  */
 export function validate(params: {
     expression?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/validate`, { params });
+  }): Promise<boolean> {
+  return requestClient.get<boolean>(`/api/v1/literule/rules/validate`, { params });
 }
 
 /**
  * traceExpression: POST /api/v1/literule/rules/expr-trace
  */
-export function traceExpression(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/expr-trace`, { params });
+export function traceExpression(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/expr-trace`, data);
 }
 
 /**
  * validateExpression: POST /api/v1/literule/rules/validate-expression
  */
-export function validateExpression(params: {
-    dto?: ExpressionValidateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/validate-expression`, { params });
+export function validateExpression(data: ExpressionValidateDTO): Promise<ExpressionValidationResultVO> {
+  return requestClient.post<ExpressionValidationResultVO>(`/api/v1/literule/rules/validate-expression`, data);
 }
 
 /**
  * validateBatch: POST /api/v1/literule/rules/validate-batch
  */
-export function validateBatch(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/validate-batch`, { params });
+export function validateBatch(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/validate-batch`, data);
 }
 
 /**
  * abTest: POST /api/v1/literule/rules/{ruleCode}/ab-test
  */
-export function abTest(params: {
-    ruleCode?: string;\n    dto?: RuleABTestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/ab-test`, { params });
+export function abTest(path: {
+    ruleCode: string;
+  }, data: RuleABTestDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/${ruleCode}/ab-test`, data);
 }
 
 /**
  * stats: GET /api/v1/literule/rules/stats
  */
-export function stats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/stats`);
+export function stats(): Promise<RuleEngineStatsVO> {
+  return requestClient.get<RuleEngineStatsVO>(`/api/v1/literule/rules/stats`);
 }

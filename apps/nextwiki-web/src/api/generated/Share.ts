@@ -11,64 +11,64 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ShareAccessLogVO, ShareLinkVO, ShareRecipientVO } from './models';
 
 /**
  * createShare: POST /api/v1/nextwiki/shares
  */
-export function createShare(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/shares`, { params });
+export function createShare(data: Record<string, unknown>): Promise<ShareLinkVO> {
+  return requestClient.post<ShareLinkVO>(`/api/v1/nextwiki/shares`, data);
 }
 
 /**
  * verifyAccess: POST /api/v1/nextwiki/shares/verify
  */
 export function verifyAccess(params: {
-    request?: Record<string, unknown>;\n    httpRequest?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/shares/verify`, { params });
+    httpRequest?: Record<string, unknown>;
+  }, data: Record<string, unknown>): Promise<ShareLinkVO> {
+  return requestClient.post<ShareLinkVO>(`/api/v1/nextwiki/shares/verify`, data, { params });
 }
 
 /**
  * revoke: DELETE /api/v1/nextwiki/shares/{shareId}
  */
-export function revoke(params: {
-    shareId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/shares/{shareId}`, { params });
+export function revoke(path: {
+    shareId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/nextwiki/shares/${shareId}`);
 }
 
 /**
  * myShares: GET /api/v1/nextwiki/shares/my
  */
-export function myShares(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/shares/my`);
+export function myShares(): Promise<ShareLinkVO[]> {
+  return requestClient.get<ShareLinkVO[]>(`/api/v1/nextwiki/shares/my`);
 }
 
 /**
  * getAccessLogs: GET /api/v1/nextwiki/shares/{shareId}/logs
  */
-export function getAccessLogs(params: {
-    shareId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/shares/{shareId}/logs`, { params });
+export function getAccessLogs(path: {
+    shareId: string;
+  }, params: {
+    limit?: number;
+  }): Promise<ShareAccessLogVO[]> {
+  return requestClient.get<ShareAccessLogVO[]>(`/api/v1/nextwiki/shares/${shareId}/logs`, { params });
 }
 
 /**
  * getRecipients: GET /api/v1/nextwiki/shares/{shareId}/recipients
  */
-export function getRecipients(params: {
-    shareId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/shares/{shareId}/recipients`, { params });
+export function getRecipients(path: {
+    shareId: string;
+  }): Promise<ShareRecipientVO[]> {
+  return requestClient.get<ShareRecipientVO[]>(`/api/v1/nextwiki/shares/${shareId}/recipients`);
 }
 
 /**
  * getReceivedShares: GET /api/v1/nextwiki/shares/received
  */
-export function getReceivedShares(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/shares/received`);
+export function getReceivedShares(): Promise<ShareRecipientVO[]> {
+  return requestClient.get<ShareRecipientVO[]>(`/api/v1/nextwiki/shares/received`);
 }

@@ -11,28 +11,38 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * overview: GET /api/v1/workflow/analytics/overview
  */
-export function overview(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/overview`);
+export function overview(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/analytics/overview`, { params });
 }
 
 /**
  * approverEfficiency: GET /api/v1/workflow/analytics/approverEfficiency
  */
-export function approverEfficiency(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/approverEfficiency`);
+export function approverEfficiency(params: {
+    startTime?: string;
+    endTime?: string;
+    limit?: number;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/analytics/approverEfficiency`, { params });
 }
 
 /**
  * flowEfficiency: GET /api/v1/workflow/analytics/flowEfficiency
  */
-export function flowEfficiency(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/flowEfficiency`);
+export function flowEfficiency(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/analytics/flowEfficiency`, { params });
 }
 
 /**
@@ -40,59 +50,74 @@ export function flowEfficiency(): Promise<YdszResponse<YdszResponse>> {
  */
 export function nodeDuration(params: {
     flowCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/nodeDuration`, { params });
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/analytics/nodeDuration`, { params });
 }
 
 /**
  * approvalTrend: GET /api/v1/workflow/analytics/approvalTrend
  */
-export function approvalTrend(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/approvalTrend`);
+export function approvalTrend(params: {
+    startTime?: string;
+    endTime?: string;
+    granularity?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/analytics/approvalTrend`, { params });
 }
 
 /**
  * getArchiveConfig: GET /api/v1/workflow/analytics/history/config
  */
-export function getArchiveConfig(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/history/config`);
+export function getArchiveConfig(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/analytics/history/config`);
 }
 
 /**
  * archive: POST /api/v1/workflow/analytics/history/archive
  */
-export function archive(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/history/archive`);
+export function archive(params: {
+    retentionDays?: number;
+    batchSize?: number;
+    maxProcessMs?: number;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/workflow/analytics/history/archive`, { params });
 }
 
 /**
  * purge: POST /api/v1/workflow/analytics/history/purge
  */
-export function purge(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/history/purge`);
+export function purge(params: {
+    purgeDays?: number;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/workflow/analytics/history/purge`, { params });
 }
 
 /**
  * enumDescriptions: GET /api/v1/workflow/analytics/i18n/enum/{enumType}
  */
-export function enumDescriptions(params: {
-    enumType?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/i18n/enum/{enumType}`, { params });
+export function enumDescriptions(path: {
+    enumType: string;
+  }, params: {
+    locale?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/analytics/i18n/enum/${enumType}`, { params });
 }
 
 /**
  * enumDescription: GET /api/v1/workflow/analytics/i18n/enum/{enumType}/{enumName}
  */
-export function enumDescription(params: {
-    enumType?: string;\n    enumName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/i18n/enum/{enumType}/{enumName}`, { params });
+export function enumDescription(path: {
+    enumType: string;
+    enumName: string;
+  }, params: {
+    locale?: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/workflow/analytics/i18n/enum/${enumType}/${enumName}`, { params });
 }
 
 /**
  * supportedLocales: GET /api/v1/workflow/analytics/i18n/locales
  */
-export function supportedLocales(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/analytics/i18n/locales`);
+export function supportedLocales(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/analytics/i18n/locales`);
 }

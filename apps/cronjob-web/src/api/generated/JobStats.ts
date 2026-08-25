@@ -11,16 +11,18 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { JobDailyStatsVO, JobLogVO } from './models';
 
 /**
  * daily: GET /api/v1/cronjob/stats/daily
  */
 export function daily(params: {
     jobId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/stats/daily`, { params });
+    startDate?: string;
+    endDate?: string;
+  }): Promise<JobDailyStatsVO[]> {
+  return requestClient.get<JobDailyStatsVO[]>(`/api/v1/cronjob/stats/daily`, { params });
 }
 
 /**
@@ -28,27 +30,33 @@ export function daily(params: {
  */
 export function summary(params: {
     jobId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/stats/summary`, { params });
+    startDate?: string;
+    endDate?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/stats/summary`, { params });
 }
 
 /**
  * dashboard: GET /api/v1/cronjob/stats/dashboard
  */
-export function dashboard(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/stats/dashboard`);
+export function dashboard(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/stats/dashboard`);
 }
 
 /**
  * recentFailures: GET /api/v1/cronjob/stats/recent-failures
  */
-export function recentFailures(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/stats/recent-failures`);
+export function recentFailures(params: {
+    limit?: number;
+  }): Promise<JobLogVO[]> {
+  return requestClient.get<JobLogVO[]>(`/api/v1/cronjob/stats/recent-failures`, { params });
 }
 
 /**
  * heatmap: GET /api/v1/cronjob/stats/heatmap
  */
-export function heatmap(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/stats/heatmap`);
+export function heatmap(params: {
+    date?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/cronjob/stats/heatmap`, { params });
 }

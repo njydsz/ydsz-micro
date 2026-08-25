@@ -11,57 +11,58 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { JobWebhookPostDTO, JobWebhookPutDTO, JobWebhookVO, PageResponse } from './models';
 
 /**
  * create: POST /api/v1/cronjob/webhook
  */
-export function create(params: {
-    dto?: JobWebhookPostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/webhook`, { params });
+export function create(data: JobWebhookPostDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/cronjob/webhook`, data);
 }
 
 /**
  * update: PUT /api/v1/cronjob/webhook
  */
-export function update(params: {
-    dto?: JobWebhookPutDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob/webhook`, { params });
+export function update(data: JobWebhookPutDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob/webhook`, data);
 }
 
 /**
  * delete: DELETE /api/v1/cronjob/webhook/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/cronjob/webhook/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/cronjob/webhook/${id}`);
 }
 
 /**
  * page: GET /api/v1/cronjob/webhook/page
  */
-export function page(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/webhook/page`);
+export function page(params: {
+    pageNum?: number;
+    size?: number;
+    eventType?: string;
+    jobKey?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/cronjob/webhook/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/cronjob/webhook/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/webhook/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<JobWebhookVO> {
+  return requestClient.get<JobWebhookVO>(`/api/v1/cronjob/webhook/${id}`);
 }
 
 /**
  * testWebhook: POST /api/v1/cronjob/webhook/{id}/test
  */
-export function testWebhook(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/webhook/{id}/test`, { params });
+export function testWebhook(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/cronjob/webhook/${id}/test`);
 }

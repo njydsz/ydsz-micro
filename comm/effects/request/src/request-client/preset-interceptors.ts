@@ -12,7 +12,8 @@ import { $t } from '@ydsz/locales';
 import { isFunction } from '@ydsz/utils';
 
 import axios from 'axios';
-import type { AxiosError } from 'axios';
+import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import type { RequestResponse } from './types';
 
 import { BusinessError } from './business-error';
 
@@ -27,6 +28,11 @@ type SuccessCodeFn = (code: unknown) => boolean;
 
 /** 可调用的 dataField 类型 */
 type DataFieldFn = (response: UnknownResponse) => unknown;
+
+/** 扩展的 Axios 请求配置（含自定义字段） */
+type ExtendedAxiosRequestConfig = InternalAxiosRequestConfig & {
+  __isRetryRequest?: boolean;
+};
 
 /** 类型守卫：判断是否为 successCode 函数 */
 function isSuccessCodeFn(value: unknown): value is SuccessCodeFn {
@@ -57,26 +63,27 @@ export const defaultResponseInterceptor = ({
       const responseData = data as UnknownResponse;
 
       if (config.responseReturn === 'raw') {
-        return response;
+        return response as unknown as RequestResponse;
       }
 
       if (status >= 200 && status < 400) {
         if (config.responseReturn === 'body') {
-          return responseData;
+          return responseData as unknown as RequestResponse;
         } else if (
           isSuccessCodeFn(successCode)
             ? successCode(responseData[codeField])
             : responseData[codeField] === successCode
         ) {
-          return isDataFieldFn(dataField)
+          const result = isDataFieldFn(dataField)
             ? dataField(responseData)
             : responseData[dataField];
+          return result as unknown as RequestResponse;
         }
       }
       throw new BusinessError(
-        responseData?.message || '业务请求失败',
+        (responseData?.message as string) || '业务请求失败',
         {
-          code: responseData?.[codeField],
+          code: responseData?.[codeField] as number | undefined,
           data: responseData,
           statusCode: status,
         },
@@ -128,14 +135,15 @@ export const authenticateResponseInterceptor = ({
   return {
     rejected: async (error: unknown) => {
       const axiosError = error as AxiosError;
-      const { config, response } = axiosError;
+      const config = axiosError.config as ExtendedAxiosRequestConfig | undefined;
+      const { response } = axiosError;
       // 如果不是 401 错误，直接抛出异常
       if (response?.status !== 401) {
         throw error;
       }
       // 判断是否启用了 refreshToken 功能
       // 如果没有启用或者已经是重试请求了，直接跳转到重新登录
-      if (!enableRefreshToken || config.__isRetryRequest) {
+      if (!enableRefreshToken || config?.__isRetryRequest) {
         await doReAuthenticate();
         throw error;
       }
@@ -144,8 +152,10 @@ export const authenticateResponseInterceptor = ({
         return new Promise((resolve, reject) => {
           client.refreshTokenQueue.push({
             resolve: (newToken: string) => {
-              config.headers.Authorization = formatToken(newToken);
-              resolve(client.request(config.url, { ...config }));
+              if (config?.headers) {
+                config.headers.Authorization = formatToken(newToken);
+              }
+              resolve(client.request(config?.url ?? '', { ...config }));
             },
             reject: (error: unknown) => {
               reject(error);
@@ -157,7 +167,9 @@ export const authenticateResponseInterceptor = ({
       // 标记开始刷新 token
       client.isRefreshing = true;
       // 标记当前请求为重试请求，避免无限循环
-      config.__isRetryRequest = true;
+      if (config) {
+        config.__isRetryRequest = true;
+      }
 
       try {
         const newToken = await doRefreshToken();

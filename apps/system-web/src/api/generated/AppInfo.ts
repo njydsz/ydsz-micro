@@ -11,50 +11,46 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AppInfoDTO, AppInfoPageQuery, AppInfoVO, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/app/page
  */
 export function page(params: {
     query?: AppInfoPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/app/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/app/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/app/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/app/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<AppInfoVO> {
+  return requestClient.get<AppInfoVO>(`/api/v1/app/${id}`);
 }
 
 /**
  * save: POST /api/v1/app
  */
-export function save(params: {
-    dto?: AppInfoDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/app`, { params });
+export function save(data: AppInfoDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/app`, data);
 }
 
 /**
  * update: PUT /api/v1/app
  */
-export function update(params: {
-    dto?: AppInfoDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/app`, { params });
+export function update(data: AppInfoDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/app`, data);
 }
 
 /**
  * remove: DELETE /api/v1/app/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/app/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/app/${id}`);
 }

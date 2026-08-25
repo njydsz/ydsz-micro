@@ -11,48 +11,69 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ACCOUNT_BANNED, ACCOUNT_LOCKED, ANOMALOUS_LOGIN, BRUTE_FORCE, IP, MFA, MFA_FAILED, PASSWORD_SPRAY, PageResponse, SecurityAlertPageQuery } from './models';
 
 /**
  * pageAlerts: GET /api/v1/admin/security/alerts
  */
 export function pageAlerts(params: {
     query?: SecurityAlertPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/alerts`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/admin/security/alerts`, { params });
 }
 
 /**
  * getPendingAlerts: GET /api/v1/admin/security/alerts/pending
  */
-export function getPendingAlerts(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/security/alerts/pending`);
+export function getPendingAlerts(params: {
+    riskLevel?: string;
+    limit?: number;
+  }): Promise<'/** 账号锁定告警 */
+    ACCOUNT_LOCKED' | '/** 账号封禁告警 */
+    ACCOUNT_BANNED' | '/** MFA 验证失败告警 */
+    MFA_FAILED' | '/** 暴力破解告警（同一 IP 多次失败） */
+    BRUTE_FORCE' | '/** 异常登录告警（新设备 + 异常时段） */
+    ANOMALOUS_LOGIN' | '/** 密码喷洒告警（多用户同一 IP 失败） */
+    PASSWORD_SPRAY'[]> {
+  return requestClient.get<'/** 账号锁定告警 */
+    ACCOUNT_LOCKED' | '/** 账号封禁告警 */
+    ACCOUNT_BANNED' | '/** MFA 验证失败告警 */
+    MFA_FAILED' | '/** 暴力破解告警（同一 IP 多次失败） */
+    BRUTE_FORCE' | '/** 异常登录告警（新设备 + 异常时段） */
+    ANOMALOUS_LOGIN' | '/** 密码喷洒告警（多用户同一 IP 失败） */
+    PASSWORD_SPRAY'[]>(`/api/v1/admin/security/alerts/pending`, { params });
 }
 
 /**
  * acknowledgeAlert: PUT /api/v1/admin/security/alerts/{id}/acknowledge
  */
-export function acknowledgeAlert(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/admin/security/alerts/{id}/acknowledge`, { params });
+export function acknowledgeAlert(path: {
+    id: string;
+  }, params: {
+    note?: string;
+  }): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/admin/security/alerts/${id}/acknowledge`, { params });
 }
 
 /**
  * resolveAlert: PUT /api/v1/admin/security/alerts/{id}/resolve
  */
-export function resolveAlert(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/admin/security/alerts/{id}/resolve`, { params });
+export function resolveAlert(path: {
+    id: string;
+  }, params: {
+    note?: string;
+  }): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/admin/security/alerts/${id}/resolve`, { params });
 }
 
 /**
  * ignoreAlert: PUT /api/v1/admin/security/alerts/{id}/ignore
  */
-export function ignoreAlert(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/admin/security/alerts/{id}/ignore`, { params });
+export function ignoreAlert(path: {
+    id: string;
+  }, params: {
+    note?: string;
+  }): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/admin/security/alerts/${id}/ignore`, { params });
 }

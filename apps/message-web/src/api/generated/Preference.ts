@@ -11,41 +11,41 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MsgPreferenceVO, PreferenceUpsertDTO } from './models';
 
 /**
  * upsert: POST /api/v1/message/preference
  */
-export function upsert(params: {
-    dto?: PreferenceUpsertDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/preference`, { params });
+export function upsert(data: PreferenceUpsertDTO): Promise<MsgPreferenceVO> {
+  return requestClient.post<MsgPreferenceVO>(`/api/v1/message/preference`, data);
 }
 
 /**
  * listByUser: GET /api/v1/message/preference/{userId}
  */
-export function listByUser(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/preference/{userId}`, { params });
+export function listByUser(path: {
+    userId: string;
+  }): Promise<MsgPreferenceVO[]> {
+  return requestClient.get<MsgPreferenceVO[]>(`/api/v1/message/preference/${userId}`);
 }
 
 /**
  * getByUser: GET /api/v1/message/preference/{userId}/{channel}/{bizType}
  */
-export function getByUser(params: {
-    userId?: string;\n    channel?: string;\n    bizType?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/preference/{userId}/{channel}/{bizType}`, { params });
+export function getByUser(path: {
+    userId: string;
+    channel: string;
+    bizType: string;
+  }): Promise<MsgPreferenceVO> {
+  return requestClient.get<MsgPreferenceVO>(`/api/v1/message/preference/${userId}/${channel}/${bizType}`);
 }
 
 /**
  * delete: DELETE /api/v1/message/preference/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/message/preference/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/message/preference/${id}`);
 }

@@ -11,41 +11,43 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * pause: POST /api/v1/cronjob/dag/instance/{instanceId}/pause
  */
-export function pause(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/pause`, { params });
+export function pause(path: {
+    instanceId: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/cronjob/dag/instance/${instanceId}/pause`);
 }
 
 /**
  * resume: POST /api/v1/cronjob/dag/instance/{instanceId}/resume
  */
-export function resume(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/resume`, { params });
+export function resume(path: {
+    instanceId: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/cronjob/dag/instance/${instanceId}/resume`);
 }
 
 /**
  * cancel: POST /api/v1/cronjob/dag/instance/{instanceId}/cancel
  */
-export function cancel(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/cancel`, { params });
+export function cancel(path: {
+    instanceId: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/cronjob/dag/instance/${instanceId}/cancel`);
 }
 
 /**
  * retryNode: POST /api/v1/cronjob/dag/instance/{instanceId}/retryNode
  */
-export function retryNode(params: {
-    instanceId?: string;\n    jobKey?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/retryNode`, { params });
+export function retryNode(path: {
+    instanceId: string;
+  }, params: {
+    jobKey?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/cronjob/dag/instance/${instanceId}/retryNode`, { params });
 }

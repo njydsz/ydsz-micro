@@ -97,6 +97,8 @@ HTTP_VERBS = {"GetMapping": "get", "PostMapping": "post", "PutMapping": "put", "
 # 前端基础响应类型（与后端 YdszResponse 对齐）
 BASE_RESPONSE_TS = """/**
  * 后端统一响应结构（对齐 {@code YdszResponse<T>}）
+ * <p>注意: requestClient 拦截器已按 successCode='A00000' 解包 data，
+ * 业务调用处泛型直接写 data 类型；此处类型仅供契约说明使用。
  */
 export interface YdszResponse<T = unknown> {
   /** 业务成功码（A00000 表示成功） */
@@ -113,17 +115,19 @@ export interface YdszResponse<T = unknown> {
   extensions?: Record<string, unknown>;
 }
 
-/** 分页响应（对齐 {@code PageResponse<T>}） */
-export interface PageResponse<T = unknown> extends YdszResponse<T> {
-  pages?: number;
+/** 分页响应（对齐后端 {@code PageResponse<T>}：total/pageNum/pageSize 平铺 + data 分页数据） */
+export interface PageResponse<T = unknown> {
+  /** 总记录数 */
   total?: number;
+  /** 当前页码（从 1 开始） */
   pageNum?: number;
+  /** 每页记录数 */
   pageSize?: number;
-  current?: number;
-  size?: number;
+  /** 分页数据（由后端工厂方法填充） */
+  data: T;
 }
 
-/** 分页查询参数 */
+/** 分页查询参数（前端通用约定） */
 export interface PageQuery {
   pageNum?: number;
   pageSize?: number;
@@ -197,6 +201,7 @@ class JavaSource:
     """单个 Java 文件缓存"""
 
     _cache: Dict[str, "JavaSource"] = {}
+    _not_found: set = set()
 
     def __init__(self, path: str):
         self.path = path
@@ -216,10 +221,13 @@ class JavaSource:
 
     @classmethod
     def load(cls, simple_name: str, hint_pkg: Optional[str] = None) -> Optional["JavaSource"]:
-        """按简单类名查找（带缓存）"""
+        """按简单类名查找（带缓存 + 负缓存）"""
         if simple_name in cls._cache:
             return cls._cache[simple_name]
+        if simple_name in cls._not_found:
+            return None
         if simple_name in BASIC_TYPES or simple_name in ("Object", "String", "Integer", "Long", "Boolean", "Double", "Float", "BigDecimal", "BigInteger", "Character", "Short", "Byte", "UUID", "LocalDate", "LocalDateTime", "LocalTime", "Instant", "OffsetDateTime", "Date", "Timestamp", "JsonNode", "List", "Set", "Map", "Collection", "Iterable", "ArrayList", "LinkedList", "HashSet", "TreeSet", "HashMap", "LinkedHashMap", "TreeMap", "ConcurrentHashMap", "Optional", "Map.Entry"):
+            cls._not_found.add(simple_name)
             return None
         found = None
         for root in JAVA_ROOTS:
@@ -234,6 +242,8 @@ class JavaSource:
                 break
         if found:
             cls._cache[simple_name] = found
+        else:
+            cls._not_found.add(simple_name)
         return found
 
     # ---- record ----
@@ -412,6 +422,40 @@ def _param_name(decl: str) -> str:
     return parts[-1] if parts else "arg"
 
 
+def match_paren(s: str, open_idx: int) -> int:
+    """从 open_idx（指向 '('）配平找到匹配的 ')' 下标"""
+    depth = 0
+    i = open_idx
+    while i < len(s):
+        ch = s[i]
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+            if depth == 0:
+                return i
+        i += 1
+    return len(s) - 1
+
+
+def split_paren_top(s: str) -> List[str]:
+    """顶层逗号拆分（配平 ()<>），用于参数列表拆分"""
+    parts, depth, cur = [], 0, []
+    for ch in s:
+        if ch in "(<":
+            depth += 1
+        elif ch in ")>":
+            depth -= 1
+        if ch == "," and depth == 0:
+            parts.append("".join(cur).strip())
+            cur = []
+        else:
+            cur.append(ch)
+    if cur:
+        parts.append("".join(cur).strip())
+    return parts
+
+
 def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
     """解析一个 Controller，返回 (service, endpoints)"""
     rel = os.path.relpath(path, CLOUD_ROOT).replace("\\", "/")
@@ -420,33 +464,30 @@ def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
     # 类级映射
     cm = re.search(r'@RequestMapping\s*\(\s*(?:value\s*=\s*)?["\']([^"\']+)["\']', src)
     base = cm.group(1) if cm else ""
-    # 去掉所有注解（保留方法体），逐方法切分
     endpoints = []
-    # 用方法级注解切分：找到每个 @XxxMapping 的位置
-    method_positions = [(m.start(), m) for m in re.finditer(r'@(GetMapping|PostMapping|PutMapping|DeleteMapping|PatchMapping)\b', src)]
-    for i, (pos, m) in enumerate(method_positions):
-        end = method_positions[i + 1][0] if i + 1 < len(method_positions) else len(src)
-        seg = src[pos:end]
+    for m in re.finditer(r'@(GetMapping|PostMapping|PutMapping|DeleteMapping|PatchMapping)\b', src):
+        pos = m.start()
         verb = HTTP_VERBS[m.group(1)]
         # 方法路径
-        pm = re.search(r'@(?:Get|Post|Put|Delete|Patch)Mapping\s*\(\s*(?:value\s*=\s*)?["\']([^"\']*)["\']', seg)
+        pm = re.match(r'@\w+Mapping\s*\(\s*(?:value\s*=\s*)?["\']([^"\']*)["\']', src[pos:])
         sub = pm.group(1) if pm else ""
-        # 方法签名（public ... name(...)）
-        sig = re.search(r'public\s+([\w.$<>?,\s\[\]]+?)\s+(\w+)\s*\(([^)]*)\)', seg, re.S)
-        if not sig:
+        # 方法签名: public Type name(
+        sig_m = re.search(r"\bpublic\s+([\w.$<>?,\s\[\]]+?)\s+(\w+)\s*\(", src[pos:])
+        if not sig_m:
             continue
-        ret_raw = sig.group(1).strip()
-        method_name = sig.group(2)
-        params_raw = sig.group(3)
+        ret_raw = sig_m.group(1).strip()
+        method_name = sig_m.group(2)
+        open_idx = pos + sig_m.end() - 1
+        close_idx = match_paren(src, open_idx)
+        params_raw = src[open_idx + 1 : close_idx]
         # 返回类型
         ret_ref = parse_type(ret_raw)
         # 参数
         params = []
-        param_segs = split_top_level(params_raw) if params_raw.strip() else []
-        for pseg in param_segs:
-            # 分离注解与类型声明
-            ann_m = re.findall(r"@(\w+(?:\([^)]*\))?)", pseg)
-            ann_text = " ".join(ann_m)
+        for pseg in split_paren_top(params_raw):
+            if not pseg.strip():
+                continue
+            ann_text = " ".join(re.findall(r"@\w+(?:\([^)]*\))?", pseg))
             decl = re.sub(r"@\w+(?:\([^)]*\))?", "", pseg).strip()
             jt = None
             m2 = re.match(r"^([\w.$<>?,\s\[\]]+?)\s+(\w+)$", decl)
@@ -466,8 +507,10 @@ def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
                 pm2 = re.search(r'@RequestParam\s*\(\s*"([\w-]+)"\s*\)', ann_text)
                 if pm2:
                     name = pm2.group(1)
-            elif "@RequestPart" in ann_text or "@RequestHeader" in ann_text:
-                kind = "form" if "@RequestPart" in ann_text else "header"
+            elif "@RequestPart" in ann_text:
+                kind = "form"
+            elif "@RequestHeader" in ann_text:
+                kind = "header"
             if jt:
                 params.append({"name": name, "kind": kind, "type": jt, "annot": ann_text})
         path = ("/" + base + "/" + sub).replace("//", "/").rstrip("/") or "/"
@@ -583,37 +626,76 @@ def camel(name: str) -> str:
 
 def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:
     """生成一个 Controller 对应的 TS API 文件"""
-    header = f"""/**
- * {ctrl_name} API 封装（auto-generated by bash/gen-contract.py）
- *
- * <p>对应后端 {{@code {ctrl_name}}}，共 {len(endpoints)} 个端点。
- * <p>路径规范: /api/v1/{svc}/**（kebab-case），成功码统一为 code === 'A00000'。
- *
- * @author ydsz-team
- * @auto-generated 请勿手动修改；后端契约变更后执行 {{@code python bash/gen-contract.py {svc}}} 重新生成
- * @since 1.0.0
- */
-import {{ requestClient }} from '#/api/request';
-import type {{ YdszResponse, PageResponse, PageQuery }} from './base';
+def collect_type_names(*exprs: str) -> List[str]:
+    """从 TS 类型表达式中收集引用的自定义类型名（大写开头、非基础类型）"""
+    BASIC_TS = {
+        "string", "number", "boolean", "unknown", "void", "Record", "object",
+        "Date", "any", "null", "undefined",
+    }
+    names = set()
+    for expr in exprs:
+        for m in re.finditer(r"\b([A-Z][A-Za-z0-9_]*)\b", expr):
+            n = m.group(1)
+            if n not in BASIC_TS:
+                names.add(n)
+    return sorted(names)
 
-"""
-    lines = [header]
-    used_types = set()
+
+def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:
+    """生成一个 Controller 对应的 TS API 文件"""
+def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:
+    """生成一个 Controller 对应的 TS API 文件"""
+    header = (
+        "/**\n"
+        f" * {ctrl_name} API 封装（auto-generated by bash/gen-contract.py）\n"
+        " *\n"
+        f" * <p>对应后端 {{@code {ctrl_name}}}，共 {len(endpoints)} 个端点。\n"
+        f" * <p>路径规范: /api/v1/{svc}/**（kebab-case），成功码统一为 code === 'A00000'。\n"
+        " *\n"
+        " * @author ydsz-team\n"
+        f" * @auto-generated 请勿手动修改；后端契约变更后执行 {{@code python bash/gen-contract.py {svc}}} 重新生成\n"
+        " * @since 1.0.0\n"
+        " */\n"
+        "import { requestClient } from '#/api/request';\n"
+        "import type { PageResponse } from './base';\n"
+        "import type { {types_placeholder} } from './models';\n"
+        "\n"
+    )
+    lines = []
+    used_types: List[str] = []
     for ep in endpoints:
         # 函数名
         fn = camel(ep["operationId"])
-        ret_schema = builder.convert(ep["returns"])
-        ret_ts = java_to_ts(ret_schema, builder)
-        if ret_ts in ("object", "Record<string, unknown>", "unknown") or ret_ts.endswith("[]"):
-            data_type = ret_ts if ret_ts not in ("object", "Record<string, unknown>", "unknown") else "unknown"
-            wrapper = "YdszResponse"
+        # ---- 返回类型剥壳：后端 YdszResponse<T>/PageResponse<T>，前端拦截器已解包 data ----
+        ret_ref = ep["returns"]
+        data_ref = ret_ref
+        is_page = False
+        if ret_ref and ret_ref.simple in ("YdszResponse", "PageResponse", "BaseResponse", "Result", "R", "AjaxResult"):
+            if ret_ref.simple == "PageResponse":
+                is_page = True
+            if ret_ref.args:
+                data_ref = ret_ref.args[0]
+            else:
+                data_ref = JavaTypeRef("Object")
+        if data_ref and data_ref.simple in ("void", "Void"):
+            ret_ts = "void"
         else:
-            data_type = ret_ts
-            wrapper = "YdszResponse"
-        # 参数
+            ret_schema = builder.convert(data_ref)
+            ret_ts = java_to_ts(ret_schema, builder)
+            if ret_ts in ("object", "Record<string, unknown>"):
+                ret_ts = "unknown"
+        if is_page:
+            ret_annotation = f"PageResponse<{ret_ts}>"
+        elif ret_ts == "void":
+            ret_annotation = "void"
+        else:
+            ret_annotation = ret_ts
+        used_types.extend(collect_type_names(ret_annotation))
+        # ---- 参数 ----
         path_params, query_params, body_param, form_params = [], [], [], []
         for p in ep["params"]:
             pt = java_to_ts(builder.convert(p["type"]), builder)
+            used_types.extend(collect_type_names(pt))
             if p["kind"] == "path":
                 path_params.append(f"    {camel(p['name'])}: {pt};")
             elif p["kind"] == "query":
@@ -624,40 +706,38 @@ import type {{ YdszResponse, PageResponse, PageQuery }} from './base';
                 form_params.append(f"    {camel(p['name'])}?: {pt};")
         sig_parts = []
         if path_params:
-            sig_parts.append(f"path: {{\n{'\\n'.join(path_params)}\n  }}")
+            sig_parts.append(f"path: {{\n{chr(10).join(path_params)}\n  }}")
         if query_params:
-            sig_parts.append(f"params: {{\n{'\\n'.join(query_params)}\n  }}")
+            sig_parts.append(f"params: {{\n{chr(10).join(query_params)}\n  }}")
         if body_param:
             sig_parts.append(f"data: {body_param[1]}")
         sig = ", ".join(sig_parts) if sig_parts else ""
-        # URL 模板
+        # URL 模板：path 参数替换为 ${}
         url = ep["path"]
         for p in ep["params"]:
             if p["kind"] == "path":
                 url = url.replace("{" + p["name"] + "}", "${" + camel(p["name"]) + "}")
         verb = ep["method"]
-        ret_annotation = f"{wrapper}<{data_type}>" if data_type != "void" else f"{wrapper}<void>"
-        if data_type == "unknown":
-            ret_annotation = "YdszResponse<unknown>"
-        if ret_ts.endswith("[]"):
-            pass
-        call = f"requestClient.{verb}<{ret_annotation}>(`{url}`"
+        # 请求体存在 -> 传 data；否则 query/form 传 { params }
         args = []
         if body_param:
             args.append("data")
         if query_params or form_params:
             args.append("{ params }")
-        if path_params and not args:
-            args.append("{}")
         call_args = ", ".join(args)
-        call = f"{call}{', ' if call_args else ''}{call_args})"
+        call = f"requestClient.{verb}<{ret_annotation}>(`{url}`"
+        if call_args:
+            call += ", " + call_args
+        call += ")"
         # 生成
         lines.append(f"/**\n * {ep['operationId']}: {ep['method'].upper()} {ep['path']}\n */")
         lines.append(f"export function {fn}({sig}): Promise<{ret_annotation}> {{")
         lines.append(f"  return {call};")
         lines.append("}")
         lines.append("")
-    return "\n".join(lines)
+    used_types = sorted(set(used_types))
+    header = header.replace("{types_placeholder}", ", ".join(used_types) if used_types else "Record<string, never>")
+    return header + "\n".join(lines)
 
 
 # ======================================================================
@@ -678,6 +758,7 @@ def main():
             continue
         # 每个服务独立解析，清空类型缓存避免跨服务同名类串扰
         JavaSource._cache = {}
+        JavaSource._not_found = set()
         try:
             # 1. 收集该服务全部 Controller
             controllers = {}
@@ -715,6 +796,10 @@ def main():
             os.makedirs(gen_dir, exist_ok=True)
             with open(os.path.join(gen_dir, "base.ts"), "w", encoding="utf-8") as f:
                 f.write("/* eslint-disable */\n/** auto-generated by bash/gen-contract.py — DO NOT EDIT */\n" + BASE_RESPONSE_TS)
+            # models.ts: 全部组件类型定义
+            models_content = "/* eslint-disable */\n/** auto-generated by bash/gen-contract.py — DO NOT EDIT */\n" + build_ts_models(builder)
+            with open(os.path.join(gen_dir, "models.ts"), "w", encoding="utf-8") as f:
+                f.write(models_content)
             exports = []
             for ctrl in sorted(controllers):
                 fname = ctrl.replace("Controller", "").replace("controller", "")

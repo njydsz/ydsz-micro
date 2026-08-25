@@ -11,19 +11,19 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ChannelHealthVO, SystemHealthVO } from './models';
 
 /**
  * getSystemHealth: GET /api/v1/message/health
  */
-export function getSystemHealth(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/health`);
+export function getSystemHealth(): Promise<SystemHealthVO> {
+  return requestClient.get<SystemHealthVO>(`/api/v1/message/health`);
 }
 
 /**
  * getChannelHealths: GET /api/v1/message/health/channels
  */
-export function getChannelHealths(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/health/channels`);
+export function getChannelHealths(): Promise<ChannelHealthVO[]> {
+  return requestClient.get<ChannelHealthVO[]>(`/api/v1/message/health/channels`);
 }

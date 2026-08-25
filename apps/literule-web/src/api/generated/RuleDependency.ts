@@ -11,50 +11,51 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleDependencyAddDTO, RuleDependencyVO, StringVO } from './models';
 
 /**
  * addDependency: POST /api/v1/literule/rules/{ruleCode}/dependencies
  */
-export function addDependency(params: {
-    ruleCode?: string;\n    dto?: RuleDependencyAddDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/dependencies`, { params });
+export function addDependency(path: {
+    ruleCode: string;
+  }, data: RuleDependencyAddDTO): Promise<RuleDependencyVO> {
+  return requestClient.post<RuleDependencyVO>(`/api/v1/literule/rules/${ruleCode}/dependencies`, data);
 }
 
 /**
  * removeDependency: DELETE /api/v1/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}
  */
-export function removeDependency(params: {
-    ruleCode?: string;\n    dependsOnRuleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}`, { params });
+export function removeDependency(path: {
+    ruleCode: string;
+    dependsOnRuleCode: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/literule/rules/${ruleCode}/dependencies/${dependsOnRuleCode}`);
 }
 
 /**
  * listDependencies: GET /api/v1/literule/rules/{ruleCode}/dependencies
  */
-export function listDependencies(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/dependencies`, { params });
+export function listDependencies(path: {
+    ruleCode: string;
+  }): Promise<RuleDependencyVO[]> {
+  return requestClient.get<RuleDependencyVO[]>(`/api/v1/literule/rules/${ruleCode}/dependencies`);
 }
 
 /**
  * listDependents: GET /api/v1/literule/rules/{ruleCode}/dependents
  */
-export function listDependents(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/dependents`, { params });
+export function listDependents(path: {
+    ruleCode: string;
+  }): Promise<RuleDependencyVO[]> {
+  return requestClient.get<RuleDependencyVO[]>(`/api/v1/literule/rules/${ruleCode}/dependents`);
 }
 
 /**
  * cascadingDisable: GET /api/v1/literule/rules/{ruleCode}/cascading-disable
  */
-export function cascadingDisable(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/cascading-disable`, { params });
+export function cascadingDisable(path: {
+    ruleCode: string;
+  }): Promise<StringVO[]> {
+  return requestClient.get<StringVO[]>(`/api/v1/literule/rules/${ruleCode}/cascading-disable`);
 }

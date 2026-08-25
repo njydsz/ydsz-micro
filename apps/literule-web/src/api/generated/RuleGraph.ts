@@ -11,75 +11,75 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ExpressionFunctionDefVO, ExpressionPreviewResultVO, RuleChainGraph, RuleChainGraphVO, RuleResultVO, StringVO } from './models';
 
 /**
  * getChainGraph: GET /api/v1/literule/rules/{ruleCode}/graph
  */
-export function getChainGraph(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/graph`, { params });
+export function getChainGraph(path: {
+    ruleCode: string;
+  }): Promise<RuleChainGraphVO> {
+  return requestClient.get<RuleChainGraphVO>(`/api/v1/literule/rules/${ruleCode}/graph`);
 }
 
 /**
  * saveChainGraph: POST /api/v1/literule/rules/{ruleCode}/graph
  */
-export function saveChainGraph(params: {
-    ruleCode?: string;\n    graph?: RuleChainGraph;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/graph`, { params });
+export function saveChainGraph(path: {
+    ruleCode: string;
+  }, data: RuleChainGraph): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/${ruleCode}/graph`, data);
 }
 
 /**
  * deleteChainGraph: DELETE /api/v1/literule/rules/{ruleCode}/graph
  */
-export function deleteChainGraph(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/graph`, { params });
+export function deleteChainGraph(path: {
+    ruleCode: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/literule/rules/${ruleCode}/graph`);
 }
 
 /**
  * validateChainGraph: POST /api/v1/literule/rules/{ruleCode}/graph/validate
  */
-export function validateChainGraph(params: {
-    graph?: RuleChainGraph;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/graph/validate`, { params });
+export function validateChainGraph(data: RuleChainGraph): Promise<Record<string, unknown>[]> {
+  return requestClient.post<Record<string, unknown>[]>(`/api/v1/literule/rules/{ruleCode}/graph/validate`, data);
 }
 
 /**
  * previewExpression: POST /api/v1/literule/rules/expression-preview
  */
 export function previewExpression(params: {
-    expression?: string;\n    facts?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/expression-preview`, { params });
+    expression?: string;
+  }, data: Record<string, unknown>): Promise<ExpressionPreviewResultVO> {
+  return requestClient.post<ExpressionPreviewResultVO>(`/api/v1/literule/rules/expression-preview`, data, { params });
 }
 
 /**
  * dryRunGraph: POST /api/v1/literule/rules/{ruleCode}/graph/dry-run
  */
-export function dryRunGraph(params: {
-    ruleCode?: string;\n    facts?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/graph/dry-run`, { params });
+export function dryRunGraph(path: {
+    ruleCode: string;
+  }, data: Record<string, unknown>): Promise<RuleResultVO[]> {
+  return requestClient.post<RuleResultVO[]>(`/api/v1/literule/rules/${ruleCode}/graph/dry-run`, data);
 }
 
 /**
  * invalidGraphRefs: GET /api/v1/literule/rules/{ruleCode}/graph/invalid-refs
  */
-export function invalidGraphRefs(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/graph/invalid-refs`, { params });
+export function invalidGraphRefs(path: {
+    ruleCode: string;
+  }): Promise<StringVO[]> {
+  return requestClient.get<StringVO[]>(`/api/v1/literule/rules/${ruleCode}/graph/invalid-refs`);
 }
 
 /**
  * expressionFunctions: GET /api/v1/literule/rules/expression-functions
  */
-export function expressionFunctions(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/expression-functions`);
+export function expressionFunctions(params: {
+    engine?: string;
+  }): Promise<ExpressionFunctionDefVO[]> {
+  return requestClient.get<ExpressionFunctionDefVO[]>(`/api/v1/literule/rules/expression-functions`, { params });
 }

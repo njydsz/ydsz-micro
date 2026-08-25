@@ -11,34 +11,36 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { JobHistoryVO, JobVO } from './models';
 
 /**
  * versions: GET /api/v1/cronjob/history/versions
  */
 export function versions(params: {
     jobId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/history/versions`, { params });
+  }): Promise<JobHistoryVO[]> {
+  return requestClient.get<JobHistoryVO[]>(`/api/v1/cronjob/history/versions`, { params });
 }
 
 /**
  * detail: GET /api/v1/cronjob/history/detail
  */
 export function detail(params: {
-    jobId?: string;\n    version?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/history/detail`, { params });
+    jobId?: string;
+    version?: number;
+  }): Promise<JobHistoryVO> {
+  return requestClient.get<JobHistoryVO>(`/api/v1/cronjob/history/detail`, { params });
 }
 
 /**
  * rollback: POST /api/v1/cronjob/history/rollback
  */
 export function rollback(params: {
-    jobId?: string;\n    version?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/history/rollback`, { params });
+    jobId?: string;
+    version?: number;
+  }): Promise<JobVO> {
+  return requestClient.post<JobVO>(`/api/v1/cronjob/history/rollback`, { params });
 }
 
 /**
@@ -46,6 +48,8 @@ export function rollback(params: {
  */
 export function compare(params: {
     jobId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/history/compare`, { params });
+    v1?: number;
+    v2?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/cronjob/history/compare`, { params });
 }

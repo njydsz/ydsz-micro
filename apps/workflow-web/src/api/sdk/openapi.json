@@ -140,8 +140,8 @@
     "parameters": [
      {
       "name": "mergeGroupId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -170,6 +170,14 @@
     "parameters": [
      {
       "name": "mergeGroupId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
@@ -200,6 +208,14 @@
     "parameters": [
      {
       "name": "mergeGroupId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
@@ -250,8 +266,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -288,8 +304,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -327,16 +343,16 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -365,8 +381,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -395,8 +411,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -489,7 +505,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/analytics/approverEfficiency": {
@@ -509,7 +545,36 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/analytics/flowEfficiency": {
@@ -529,7 +594,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/analytics/nodeDuration": {
@@ -579,7 +664,35 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "granularity",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/analytics/history/config": {
@@ -619,7 +732,36 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "retentionDays",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "batchSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "maxProcessMs",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int64"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/analytics/history/purge": {
@@ -639,7 +781,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "purgeDays",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/analytics/i18n/enum/{enumType}": {
@@ -663,6 +816,14 @@
     "parameters": [
      {
       "name": "enumType",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "locale",
       "in": "query",
       "required": false,
       "schema": {
@@ -693,14 +854,22 @@
     "parameters": [
      {
       "name": "enumType",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "enumName",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "locale",
       "in": "query",
       "required": false,
       "schema": {
@@ -766,16 +935,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowCategoryDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowCategoryDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -794,16 +963,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowCategoryDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowCategoryDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/categories/tree": {
@@ -847,8 +1016,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -874,16 +1043,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowCommentCreateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowCommentCreateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/comment/instance/{instanceId}": {
@@ -907,8 +1076,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -937,8 +1106,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -967,8 +1136,8 @@
     "parameters": [
      {
       "name": "parentCommentId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -997,8 +1166,8 @@
     "parameters": [
      {
       "name": "commentId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1042,16 +1211,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowQuickCommentDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowQuickCommentDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "updateQuickComment",
@@ -1070,16 +1239,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowQuickCommentDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowQuickCommentDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/comment/quick/{id}": {
@@ -1103,8 +1272,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1133,8 +1302,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1160,16 +1329,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowDeployProcessDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowDeployProcessDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/batchDeployZip": {
@@ -1189,7 +1358,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/definition/{id}/publish": {
@@ -1213,10 +1392,18 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "force",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "boolean"
       }
      }
     ]
@@ -1243,8 +1430,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1273,6 +1460,22 @@
     "parameters": [
      {
       "name": "code",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "tenantId",
       "in": "query",
       "required": false,
       "schema": {
@@ -1299,7 +1502,43 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "pageNo",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/definition/{id}": {
@@ -1323,8 +1562,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1351,21 +1590,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowDeployProcessDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowDeployProcessDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/{id}/preview": {
@@ -1389,8 +1630,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1419,6 +1660,14 @@
     "parameters": [
      {
       "name": "code",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "definitionId",
       "in": "query",
       "required": false,
       "schema": {
@@ -1426,7 +1675,7 @@
       }
      },
      {
-      "name": "definitionId",
+      "name": "tenantId",
       "in": "query",
       "required": false,
       "schema": {
@@ -1457,8 +1706,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1487,8 +1736,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1517,8 +1766,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1547,8 +1796,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1625,29 +1874,31 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "nodeCode",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
-      "name": "coordinate",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/workflow/engine/definition/{id}/export": {
@@ -1671,8 +1922,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1700,14 +1951,24 @@
     },
     "parameters": [
      {
-      "name": "json",
+      "name": "tenantId",
       "in": "query",
       "required": false,
       "schema": {
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/workflow/engine/definition/migrationImpact": {
@@ -1794,8 +2055,34 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "correlationKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "tenantId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/workflow/engine/event/throwError": {
@@ -1824,8 +2111,34 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "tenantId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/workflow/engine/instance/{instanceId}/eventSubscriptions": {
@@ -1849,8 +2162,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1899,8 +2212,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1926,19 +2239,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/conditionExpr/parse": {
@@ -1959,19 +2272,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/conditionExpr/validate": {
@@ -1992,19 +2305,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/conditionExpr/operators": {
@@ -2068,8 +2381,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2095,19 +2408,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/conditionExpr/templates": {
@@ -2200,22 +2513,24 @@
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "buttons",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "type": "object",
-        "additionalProperties": {
-         "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "object"
+         }
         }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/customButtons/execute": {
@@ -2252,8 +2567,29 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "comment",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/workflow/engine/definition/{id}/designer": {
@@ -2277,8 +2613,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2305,21 +2641,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowDesignerDataDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowDesignerDataDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/definition/{id}/lock": {
@@ -2343,8 +2681,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2373,8 +2711,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2403,8 +2741,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2433,16 +2771,16 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "nodeCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2469,29 +2807,31 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "nodeCode",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
-      "name": "formFieldsConfig",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}": {
@@ -2515,16 +2855,16 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "nodeCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2551,32 +2891,34 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "nodeCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "slaConfig",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/assignee/types": {
@@ -2656,7 +2998,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/template/{templateCode}/import": {
@@ -2680,6 +3032,14 @@
     "parameters": [
      {
       "name": "templateCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "flowName",
       "in": "query",
       "required": false,
       "schema": {
@@ -2710,8 +3070,8 @@
     "parameters": [
      {
       "name": "templateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2753,6 +3113,14 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
     ]
    }
@@ -2775,16 +3143,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/EmbeddedApprovalActionDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EmbeddedApprovalActionDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/embedded/{businessType}/{businessId}/action": {
@@ -2808,29 +3176,31 @@
     "parameters": [
      {
       "name": "businessType",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "businessId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/EmbeddedApprovalActionDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EmbeddedApprovalActionDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/start": {
@@ -2851,16 +3221,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowStartProcessDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowStartProcessDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/batchStart": {
@@ -2881,19 +3251,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dtos",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "$ref": "#/components/schemas/FlowStartProcessDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/FlowStartProcessDTO"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/byBusiness": {
@@ -2955,6 +3325,14 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "reason",
       "in": "query",
       "required": false,
       "schema": {
@@ -2985,8 +3363,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3015,8 +3393,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3045,6 +3423,14 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "targetNodeCode",
       "in": "query",
       "required": false,
       "schema": {
@@ -3075,8 +3461,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3105,8 +3491,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3117,6 +3503,15 @@
       "required": false,
       "schema": {
        "type": "string"
+      }
+     },
+     {
+      "name": "maxRollbackDays",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -3143,13 +3538,42 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "redoMode",
       "in": "query",
       "required": false,
       "schema": {
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/workflow/engine/instance/{id}/auditTrail": {
@@ -3173,8 +3597,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3203,8 +3627,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3233,8 +3657,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3263,8 +3687,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3289,7 +3713,77 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "pageNo",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "businessType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "initiatorId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "flowStatus",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "tenantId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/instance/my": {
@@ -3309,7 +3803,69 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "flowName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/instance/all": {
@@ -3329,7 +3885,61 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "businessType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "flowStatus",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/instance/{id}/variables": {
@@ -3353,8 +3963,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3381,21 +3991,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowInstanceVariablesDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowInstanceVariablesDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/{id}/urge": {
@@ -3419,6 +4031,14 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
@@ -3449,6 +4069,22 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "nodeCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
@@ -3479,6 +4115,14 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "taskId",
       "in": "query",
       "required": false,
       "schema": {
@@ -3506,16 +4150,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/InstanceMigrationDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InstanceMigrationDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/migrate/preview": {
@@ -3536,16 +4180,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/InstanceMigrationDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InstanceMigrationDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/migrate/autoMap": {
@@ -3626,16 +4270,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowAutoTriggerCreateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowAutoTriggerCreateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/trigger/{id}": {
@@ -3659,8 +4303,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3689,8 +4333,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3735,7 +4379,43 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "anomalyType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "warnLevel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/monitor/instanceTrend": {
@@ -3755,7 +4435,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "days",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/monitor/approverEfficiency": {
@@ -3775,7 +4466,34 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "topN",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/monitor/flowTypeDistribution": {
@@ -3795,7 +4513,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/monitor/dashboard": {
@@ -3835,7 +4571,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/monitor/approverWorkload": {
@@ -3855,7 +4602,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/monitor/flowEfficiencyComparison": {
@@ -3875,7 +4633,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/efficiency/stats": {
@@ -3895,7 +4671,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/efficiency/bottleneck": {
@@ -3915,7 +4709,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/efficiency/approverRanking": {
@@ -3935,7 +4748,34 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/efficiency/trend": {
@@ -3955,7 +4795,33 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "interval",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/efficiency/healthScore": {
@@ -3975,7 +4841,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/task/{taskId}": {
@@ -3995,7 +4879,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "taskId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/task/claim": {
@@ -4045,6 +4939,16 @@
        }
       }
      }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
+      }
+     }
     }
    }
   },
@@ -4066,16 +4970,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/{taskId}/rejectableNodes": {
@@ -4099,8 +5003,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4126,16 +5030,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/delegate": {
@@ -4156,16 +5060,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/countersignBefore": {
@@ -4186,16 +5090,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/countersignAfter": {
@@ -4216,16 +5120,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/countersignParallel": {
@@ -4246,16 +5150,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/jump": {
@@ -4276,16 +5180,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/freeJump": {
@@ -4306,16 +5210,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/batchPass": {
@@ -4336,19 +5240,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "taskIds",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/batchReject": {
@@ -4369,19 +5273,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dtos",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/FlowTaskOperateDTO"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/batchTransfer": {
@@ -4402,19 +5306,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dtos",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/FlowTaskOperateDTO"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/instance/batchUrge": {
@@ -4437,17 +5341,27 @@
     },
     "parameters": [
      {
-      "name": "instanceIds",
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/passAll": {
@@ -4487,7 +5401,61 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "businessType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/task/done": {
@@ -4507,7 +5475,61 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "businessType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/task/overdue": {
@@ -4527,7 +5549,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/task/done/search": {
@@ -4547,7 +5580,69 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "businessType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/stats/nodeDuration": {
@@ -4567,7 +5662,35 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/stats/overdue": {
@@ -4587,7 +5710,35 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "flowCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/task/countersignRemove": {
@@ -4608,16 +5759,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/{taskId}/read": {
@@ -4641,8 +5792,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4668,16 +5819,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/saveDraft": {
@@ -4698,16 +5849,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/addApprover": {
@@ -4728,16 +5879,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowTaskOperateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowTaskOperateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/task/{taskId}/retract": {
@@ -4761,6 +5912,14 @@
     "parameters": [
      {
       "name": "taskId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "comment",
       "in": "query",
       "required": false,
       "schema": {
@@ -4791,6 +5950,14 @@
     "parameters": [
      {
       "name": "taskId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "reason",
       "in": "query",
       "required": false,
       "schema": {
@@ -4821,8 +5988,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4891,10 +6058,28 @@
     "parameters": [
      {
       "name": "instanceId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "pageNo",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -4921,10 +6106,28 @@
     "parameters": [
      {
       "name": "taskId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "pageNo",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -4948,16 +6151,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowDelegateAuthPostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowDelegateAuthPostDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/delegateAuth/{id}/revoke": {
@@ -4981,8 +6184,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5011,8 +6214,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5045,7 +6248,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/delegateAuth/asDelegate": {
@@ -5065,7 +6278,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/engine/cc/page": {
@@ -5086,16 +6309,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "query",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/FlowCcQuery"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowCcQuery"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/workflow/engine/cc/unreadCount": {
@@ -5139,8 +6362,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5189,8 +6412,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5219,8 +6442,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5249,8 +6472,8 @@
     "parameters": [
      {
       "name": "attachmentId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5287,8 +6510,8 @@
     "parameters": [
      {
       "name": "attachmentId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5313,7 +6536,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/template/{templateCode}": {
@@ -5337,8 +6570,8 @@
     "parameters": [
      {
       "name": "templateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5367,6 +6600,14 @@
     "parameters": [
      {
       "name": "templateCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "flowName",
       "in": "query",
       "required": false,
       "schema": {
@@ -5397,6 +6638,14 @@
     "parameters": [
      {
       "name": "definitionId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateName",
       "in": "query",
       "required": false,
       "schema": {
@@ -5404,7 +6653,7 @@
       }
      },
      {
-      "name": "templateName",
+      "name": "category",
       "in": "query",
       "required": false,
       "schema": {
@@ -5435,8 +6684,8 @@
     "parameters": [
      {
       "name": "templateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5465,16 +6714,16 @@
     "parameters": [
      {
       "name": "templateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "version",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "integer",
        "format": "int32"
@@ -5504,6 +6753,14 @@
     "parameters": [
      {
       "name": "templateCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "versionLabel",
       "in": "query",
       "required": false,
       "schema": {
@@ -5534,8 +6791,8 @@
     "parameters": [
      {
       "name": "templateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5550,6 +6807,14 @@
      },
      {
       "name": "newTemplateName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "newCategory",
       "in": "query",
       "required": false,
       "schema": {
@@ -5580,8 +6845,8 @@
     "parameters": [
      {
       "name": "parentTemplateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5596,6 +6861,14 @@
      },
      {
       "name": "newTemplateName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "newCategory",
       "in": "query",
       "required": false,
       "schema": {
@@ -5626,8 +6899,8 @@
     "parameters": [
      {
       "name": "parentTemplateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5656,8 +6929,8 @@
     "parameters": [
      {
       "name": "childTemplateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5682,7 +6955,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "topN",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/workflow/template/recommend/byBusinessType": {
@@ -5710,6 +6994,15 @@
       "required": false,
       "schema": {
        "type": "string"
+      }
+     },
+     {
+      "name": "topN",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]

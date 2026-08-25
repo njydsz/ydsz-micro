@@ -11,35 +11,35 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { StringVO } from './models';
 
 /**
  * weeklyReport: GET /api/v1/workflow/advanced/report/weekly
  */
-export function weeklyReport(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/report/weekly`);
+export function weeklyReport(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/advanced/report/weekly`);
 }
 
 /**
  * monthlyReport: GET /api/v1/workflow/advanced/report/monthly
  */
-export function monthlyReport(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/report/monthly`);
+export function monthlyReport(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/advanced/report/monthly`);
 }
 
 /**
  * sendWeekly: POST /api/v1/workflow/advanced/report/weekly/send
  */
-export function sendWeekly(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/report/weekly/send`);
+export function sendWeekly(): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/advanced/report/weekly/send`);
 }
 
 /**
  * sendMonthly: POST /api/v1/workflow/advanced/report/monthly/send
  */
-export function sendMonthly(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/report/monthly/send`);
+export function sendMonthly(): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/advanced/report/monthly/send`);
 }
 
 /**
@@ -47,87 +47,96 @@ export function sendMonthly(): Promise<YdszResponse<YdszResponse>> {
  */
 export function merge(params: {
     instanceIds?: string[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/merge`, { params });
+  }): Promise<StringVO> {
+  return requestClient.post<StringVO>(`/api/v1/workflow/advanced/merge`, { params });
 }
 
 /**
  * getMergeGroup: GET /api/v1/workflow/advanced/merge/{mergeGroupId}
  */
-export function getMergeGroup(params: {
-    mergeGroupId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/merge/{mergeGroupId}`, { params });
+export function getMergeGroup(path: {
+    mergeGroupId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/advanced/merge/${mergeGroupId}`);
 }
 
 /**
  * mergePass: POST /api/v1/workflow/advanced/merge/{mergeGroupId}/pass
  */
-export function mergePass(params: {
-    mergeGroupId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/merge/{mergeGroupId}/pass`, { params });
+export function mergePass(path: {
+    mergeGroupId: string;
+  }, params: {
+    comment?: string;
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/advanced/merge/${mergeGroupId}/pass`, { params });
 }
 
 /**
  * mergeReject: POST /api/v1/workflow/advanced/merge/{mergeGroupId}/reject
  */
-export function mergeReject(params: {
-    mergeGroupId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/merge/{mergeGroupId}/reject`, { params });
+export function mergeReject(path: {
+    mergeGroupId: string;
+  }, params: {
+    comment?: string;
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/advanced/merge/${mergeGroupId}/reject`, { params });
 }
 
 /**
  * mergeable: GET /api/v1/workflow/advanced/mergeable
  */
-export function mergeable(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/mergeable`);
+export function mergeable(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/advanced/mergeable`);
 }
 
 /**
  * updateVotePassRate: POST /api/v1/workflow/advanced/countersign/{taskId}/votePassRate
  */
-export function updateVotePassRate(params: {
-    taskId?: string;\n    votePassRate?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/countersign/{taskId}/votePassRate`, { params });
+export function updateVotePassRate(path: {
+    taskId: string;
+  }, params: {
+    votePassRate?: number;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/advanced/countersign/${taskId}/votePassRate`, { params });
 }
 
 /**
  * updateApproveCount: POST /api/v1/workflow/advanced/countersign/{taskId}/approveCount
  */
-export function updateApproveCount(params: {
-    taskId?: string;\n    approveCount?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/countersign/{taskId}/approveCount`, { params });
+export function updateApproveCount(path: {
+    taskId: string;
+  }, params: {
+    approveCount?: number;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/advanced/countersign/${taskId}/approveCount`, { params });
 }
 
 /**
  * hasApproved: GET /api/v1/workflow/advanced/dedup/{instanceId}/check/{userId}
  */
-export function hasApproved(params: {
-    instanceId?: string;\n    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/dedup/{instanceId}/check/{userId}`, { params });
+export function hasApproved(path: {
+    instanceId: string;
+    userId: string;
+  }): Promise<boolean> {
+  return requestClient.get<boolean>(`/api/v1/workflow/advanced/dedup/${instanceId}/check/${userId}`);
 }
 
 /**
  * approvedUsers: GET /api/v1/workflow/advanced/dedup/{instanceId}/approvedUsers
  */
-export function approvedUsers(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/dedup/{instanceId}/approvedUsers`, { params });
+export function approvedUsers(path: {
+    instanceId: string;
+  }): Promise<StringVO[]> {
+  return requestClient.get<StringVO[]>(`/api/v1/workflow/advanced/dedup/${instanceId}/approvedUsers`);
 }
 
 /**
  * urgeCooldown: GET /api/v1/workflow/advanced/urge/cooldown/{instanceId}
  */
-export function urgeCooldown(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/urge/cooldown/{instanceId}`, { params });
+export function urgeCooldown(path: {
+    instanceId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/advanced/urge/cooldown/${instanceId}`);
 }
 
 /**
@@ -135,15 +144,16 @@ export function urgeCooldown(params: {
  */
 export function autoForward(params: {
     authId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/offlineForward/auto`, { params });
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/advanced/offlineForward/auto`, { params });
 }
 
 /**
  * manualForward: POST /api/v1/workflow/advanced/offlineForward/manual
  */
 export function manualForward(params: {
-    userId?: string;\n    delegateUserId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/advanced/offlineForward/manual`, { params });
+    userId?: string;
+    delegateUserId?: string;
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/advanced/offlineForward/manual`, { params });
 }

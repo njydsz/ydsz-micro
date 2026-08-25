@@ -11,28 +11,28 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { SocialAccountVO } from './models';
 
 /**
  * getBindings: GET /api/v1/profile/social/bindings
  */
-export function getBindings(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/profile/social/bindings`);
+export function getBindings(): Promise<SocialAccountVO[]> {
+  return requestClient.get<SocialAccountVO[]>(`/api/v1/profile/social/bindings`);
 }
 
 /**
  * getAvailablePlatforms: GET /api/v1/profile/social/platforms
  */
-export function getAvailablePlatforms(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/profile/social/platforms`);
+export function getAvailablePlatforms(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/profile/social/platforms`);
 }
 
 /**
  * unbind: DELETE /api/v1/profile/social/bindings/{platform}
  */
-export function unbind(params: {
-    platform?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/profile/social/bindings/{platform}`, { params });
+export function unbind(path: {
+    platform: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/profile/social/bindings/${platform}`);
 }

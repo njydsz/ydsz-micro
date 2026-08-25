@@ -11,26 +11,28 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * previewRetrySchedule: GET /api/v1/message/retry/preview
  */
-export function previewRetrySchedule(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/retry/preview`);
+export function previewRetrySchedule(params: {
+    preset?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/message/retry/preview`, { params });
 }
 
 /**
  * previewAllPresets: GET /api/v1/message/retry/preview/all
  */
-export function previewAllPresets(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/retry/preview/all`);
+export function previewAllPresets(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/message/retry/preview/all`);
 }
 
 /**
  * listPresets: GET /api/v1/message/retry/presets
  */
-export function listPresets(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/retry/presets`);
+export function listPresets(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/message/retry/presets`);
 }

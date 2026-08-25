@@ -11,41 +11,33 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AppValidateRequest, ConfigGetRequest, DictItemGetRequest, DictListRequest } from './models';
 
 /**
  * getConfig: POST /api/internal/config/get
  */
-export function getConfig(params: {
-    request?: ConfigGetRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/config/get`, { params });
+export function getConfig(data: ConfigGetRequest): Promise<string> {
+  return requestClient.post<string>(`/api/internal/config/get`, data);
 }
 
 /**
  * getDictItem: POST /api/internal/dict/item
  */
-export function getDictItem(params: {
-    request?: DictItemGetRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/dict/item`, { params });
+export function getDictItem(data: DictItemGetRequest): Promise<string> {
+  return requestClient.post<string>(`/api/internal/dict/item`, data);
 }
 
 /**
  * listDictItems: POST /api/internal/dict/list
  */
-export function listDictItems(params: {
-    request?: DictListRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/dict/list`, { params });
+export function listDictItems(data: DictListRequest): Promise<string[]> {
+  return requestClient.post<string[]>(`/api/internal/dict/list`, data);
 }
 
 /**
  * validateClient: POST /api/internal/app/validate
  */
-export function validateClient(params: {
-    request?: AppValidateRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/app/validate`, { params });
+export function validateClient(data: AppValidateRequest): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/internal/app/validate`, data);
 }

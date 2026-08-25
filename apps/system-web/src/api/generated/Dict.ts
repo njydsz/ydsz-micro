@@ -11,57 +11,53 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DictPageQuery, DictTypeDTO, DictTypeVO, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/dict/type/page
  */
 export function page(params: {
     query?: DictPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/type/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/dict/type/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/dict/type/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/type/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<DictTypeVO> {
+  return requestClient.get<DictTypeVO>(`/api/v1/dict/type/${id}`);
 }
 
 /**
  * save: POST /api/v1/dict/type
  */
-export function save(params: {
-    dto?: DictTypeDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/dict/type`, { params });
+export function save(data: DictTypeDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/dict/type`, data);
 }
 
 /**
  * update: PUT /api/v1/dict/type
  */
-export function update(params: {
-    dto?: DictTypeDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/dict/type`, { params });
+export function update(data: DictTypeDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/dict/type`, data);
 }
 
 /**
  * remove: DELETE /api/v1/dict/type/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/dict/type/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/dict/type/${id}`);
 }
 
 /**
  * listAll: GET /api/v1/dict/type/all
  */
-export function listAll(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/type/all`);
+export function listAll(): Promise<DictTypeVO[]> {
+  return requestClient.get<DictTypeVO[]>(`/api/v1/dict/type/all`);
 }

@@ -11,48 +11,56 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FileNodeVO } from './models';
 
 /**
  * initChunkUpload: POST /api/v1/nextwiki/files/chunk/init
  */
-export function initChunkUpload(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/chunk/init`);
+export function initChunkUpload(params: {
+    fileName?: string;
+    fileSize?: number;
+    totalChunks?: number;
+    parentId?: string;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/files/chunk/init`, { params });
 }
 
 /**
  * uploadChunk: POST /api/v1/nextwiki/files/chunk/{uploadId}/{chunkNumber}
  */
-export function uploadChunk(params: {
-    uploadId?: string;\n    chunkNumber?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/chunk/{uploadId}/{chunkNumber}`, { params });
+export function uploadChunk(path: {
+    uploadId: string;
+    chunkNumber: number;
+  }, params: {
+    chunk?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/files/chunk/${uploadId}/${chunkNumber}`, { params });
 }
 
 /**
  * completeChunkUpload: POST /api/v1/nextwiki/files/chunk/{uploadId}/complete
  */
-export function completeChunkUpload(params: {
-    uploadId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/chunk/{uploadId}/complete`, { params });
+export function completeChunkUpload(path: {
+    uploadId: string;
+  }): Promise<FileNodeVO> {
+  return requestClient.post<FileNodeVO>(`/api/v1/nextwiki/files/chunk/${uploadId}/complete`);
 }
 
 /**
  * abortChunkUpload: DELETE /api/v1/nextwiki/files/chunk/{uploadId}
  */
-export function abortChunkUpload(params: {
-    uploadId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/chunk/{uploadId}`, { params });
+export function abortChunkUpload(path: {
+    uploadId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/nextwiki/files/chunk/${uploadId}`);
 }
 
 /**
  * getUploadedChunks: GET /api/v1/nextwiki/files/chunk/{uploadId}/uploaded-chunks
  */
-export function getUploadedChunks(params: {
-    uploadId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/chunk/{uploadId}/uploaded-chunks`, { params });
+export function getUploadedChunks(path: {
+    uploadId: string;
+  }): Promise<number[]> {
+  return requestClient.get<number[]>(`/api/v1/nextwiki/files/chunk/${uploadId}/uploaded-chunks`);
 }

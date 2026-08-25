@@ -11,95 +11,97 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DagInstanceVisualizationVO, JobDagInstanceVO, JobDagNodeInstanceVO } from './models';
 
 /**
  * getInstanceById: GET /api/v1/cronjob/dag/instance/{instanceId}
  */
-export function getInstanceById(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}`, { params });
+export function getInstanceById(path: {
+    instanceId: string;
+  }): Promise<JobDagInstanceVO> {
+  return requestClient.get<JobDagInstanceVO>(`/api/v1/cronjob/dag/instance/${instanceId}`);
 }
 
 /**
  * listByDagId: GET /api/v1/cronjob/dag/instance/dag/{dagId}
  */
-export function listByDagId(params: {
-    dagId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/dag/{dagId}`, { params });
+export function listByDagId(path: {
+    dagId: string;
+  }, params: {
+    limit?: number;
+  }): Promise<JobDagInstanceVO[]> {
+  return requestClient.get<JobDagInstanceVO[]>(`/api/v1/cronjob/dag/instance/dag/${dagId}`, { params });
 }
 
 /**
  * listByStatus: GET /api/v1/cronjob/dag/instance/status/{status}
  */
-export function listByStatus(params: {
-    status?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/status/{status}`, { params });
+export function listByStatus(path: {
+    status: string;
+  }): Promise<JobDagInstanceVO[]> {
+  return requestClient.get<JobDagInstanceVO[]>(`/api/v1/cronjob/dag/instance/status/${status}`);
 }
 
 /**
  * listNodes: GET /api/v1/cronjob/dag/instance/{instanceId}/nodes
  */
-export function listNodes(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/nodes`, { params });
+export function listNodes(path: {
+    instanceId: string;
+  }): Promise<JobDagNodeInstanceVO[]> {
+  return requestClient.get<JobDagNodeInstanceVO[]>(`/api/v1/cronjob/dag/instance/${instanceId}/nodes`);
 }
 
 /**
  * getVisualization: GET /api/v1/cronjob/dag/instance/{instanceId}/visualization
  */
-export function getVisualization(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/visualization`, { params });
+export function getVisualization(path: {
+    instanceId: string;
+  }): Promise<DagInstanceVisualizationVO> {
+  return requestClient.get<DagInstanceVisualizationVO>(`/api/v1/cronjob/dag/instance/${instanceId}/visualization`);
 }
 
 /**
  * getMermaidDiagram: GET /api/v1/cronjob/dag/instance/{instanceId}/mermaid
  */
-export function getMermaidDiagram(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/mermaid`, { params });
+export function getMermaidDiagram(path: {
+    instanceId: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/cronjob/dag/instance/${instanceId}/mermaid`);
 }
 
 /**
  * pauseInstance: PUT /api/v1/cronjob/dag/instance/{instanceId}/pause
  */
-export function pauseInstance(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/pause`, { params });
+export function pauseInstance(path: {
+    instanceId: string;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/pause`);
 }
 
 /**
  * resumeInstance: PUT /api/v1/cronjob/dag/instance/{instanceId}/resume
  */
-export function resumeInstance(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/resume`, { params });
+export function resumeInstance(path: {
+    instanceId: string;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/resume`);
 }
 
 /**
  * cancelInstance: PUT /api/v1/cronjob/dag/instance/{instanceId}/cancel
  */
-export function cancelInstance(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/cancel`, { params });
+export function cancelInstance(path: {
+    instanceId: string;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/cancel`);
 }
 
 /**
  * updateContext: PUT /api/v1/cronjob/dag/instance/{instanceId}/context
  */
-export function updateContext(params: {
-    instanceId?: string;\n    contextJson?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob/dag/instance/{instanceId}/context`, { params });
+export function updateContext(path: {
+    instanceId: string;
+  }, data: string): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/context`, data);
 }

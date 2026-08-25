@@ -11,57 +11,52 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { LoginDTO, LoginVO, RefreshRequest, SecondaryAuthRequest, SendVerifyCodeDTO } from './models';
 
 /**
  * sendMfaCode: POST /api/v1/auth/mfa/send-code
  */
-export function sendMfaCode(params: {
-    request?: SendVerifyCodeDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/mfa/send-code`, { params });
+export function sendMfaCode(data: SendVerifyCodeDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/auth/mfa/send-code`, data);
 }
 
 /**
  * sendMfaEmailCode: POST /api/v1/auth/mfa/send-email-code
  */
-export function sendMfaEmailCode(params: {
-    request?: SendVerifyCodeDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/mfa/send-email-code`, { params });
+export function sendMfaEmailCode(data: SendVerifyCodeDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/auth/mfa/send-email-code`, data);
 }
 
 /**
  * login: POST /api/v1/auth/login
  */
 export function login(params: {
-    request?: LoginDTO;\n    servletRequest?: Record<string, unknown>;\n    servletResponse?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/login`, { params });
+    servletRequest?: Record<string, unknown>;
+    servletResponse?: Record<string, unknown>;
+  }, data: LoginDTO): Promise<LoginVO> {
+  return requestClient.post<LoginVO>(`/api/v1/auth/login`, data, { params });
 }
 
 /**
  * logout: POST /api/v1/auth/logout
  */
-export function logout(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/logout`);
+export function logout(): Promise<void> {
+  return requestClient.post<void>(`/api/v1/auth/logout`);
 }
 
 /**
  * refresh: POST /api/v1/auth/refresh
  */
-export function refresh(params: {
-    request?: RefreshRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/refresh`, { params });
+export function refresh(data: RefreshRequest): Promise<LoginVO> {
+  return requestClient.post<LoginVO>(`/api/v1/auth/refresh`, data);
 }
 
 /**
  * generateDeviceCode: POST /api/v1/auth/sso/device-code
  */
-export function generateDeviceCode(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/sso/device-code`);
+export function generateDeviceCode(): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/auth/sso/device-code`);
 }
 
 /**
@@ -69,38 +64,36 @@ export function generateDeviceCode(): Promise<YdszResponse<YdszResponse>> {
  */
 export function exchangeDeviceCode(params: {
     code?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/sso/device-exchange`, { params });
+  }): Promise<LoginVO> {
+  return requestClient.post<LoginVO>(`/api/v1/auth/sso/device-exchange`, { params });
 }
 
 /**
  * listActiveSessions: GET /api/v1/auth/sessions
  */
-export function listActiveSessions(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/auth/sessions`);
+export function listActiveSessions(): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/auth/sessions`);
 }
 
 /**
  * kickOutSession: DELETE /api/v1/auth/sessions/{token}
  */
-export function kickOutSession(params: {
-    token?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/auth/sessions/{token}`, { params });
+export function kickOutSession(path: {
+    token: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/auth/sessions/${token}`);
 }
 
 /**
  * secondaryAuth: POST /api/v1/auth/secondary-auth
  */
-export function secondaryAuth(params: {
-    request?: SecondaryAuthRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/auth/secondary-auth`, { params });
+export function secondaryAuth(data: SecondaryAuthRequest): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/auth/secondary-auth`, data);
 }
 
 /**
  * kickOutOtherSessions: DELETE /api/v1/auth/sessions
  */
-export function kickOutOtherSessions(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/auth/sessions`);
+export function kickOutOtherSessions(): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/auth/sessions`);
 }

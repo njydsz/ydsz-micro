@@ -11,23 +11,19 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * generateUploadUrl: POST /api/v1/nextwiki/storage/presigned-upload
  */
-export function generateUploadUrl(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/storage/presigned-upload`, { params });
+export function generateUploadUrl(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/storage/presigned-upload`, data);
 }
 
 /**
  * generateDownloadUrl: POST /api/v1/nextwiki/storage/presigned-download
  */
-export function generateDownloadUrl(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/storage/presigned-download`, { params });
+export function generateDownloadUrl(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/storage/presigned-download`, data);
 }

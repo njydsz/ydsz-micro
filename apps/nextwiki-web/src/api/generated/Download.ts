@@ -11,41 +11,52 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * downloadFolder: POST /api/v1/nextwiki/download/folder/{folderId}
  */
-export function downloadFolder(params: {
-    folderId?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/api/v1/nextwiki/download/folder/{folderId}`, { params });
+export function downloadFolder(path: {
+    folderId: string;
+  }, params: {
+    response?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/download/folder/${folderId}`, { params });
 }
 
 /**
  * download: POST /api/v1/nextwiki/download/{nodeId}
  */
-export function download(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/api/v1/nextwiki/download/{nodeId}`, { params });
+export function download(path: {
+    nodeId: string;
+  }, params: {
+    request?: Record<string, unknown>;
+    response?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/download/${nodeId}`, { params });
 }
 
 /**
  * generateSignedUrl: POST /api/v1/nextwiki/download/{nodeId}/signed-url
  */
-export function generateSignedUrl(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/download/{nodeId}/signed-url`, { params });
+export function generateSignedUrl(path: {
+    nodeId: string;
+  }, params: {
+    request?: Record<string, unknown>;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/nextwiki/download/${nodeId}/signed-url`, { params });
 }
 
 /**
  * downloadBySignedUrl: GET /api/v1/nextwiki/download/signed/{sign}
  */
-export function downloadBySignedUrl(params: {
-    sign?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/nextwiki/download/signed/{sign}`, { params });
+export function downloadBySignedUrl(path: {
+    sign: string;
+  }, params: {
+    expires?: number;
+    request?: Record<string, unknown>;
+    response?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.get<void>(`/api/v1/nextwiki/download/signed/${sign}`, { params });
 }

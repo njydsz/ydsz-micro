@@ -11,16 +11,14 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { SearchRequest, SearchResultVO } from './models';
 
 /**
  * search: POST /api/v1/nextwiki/search
  */
-export function search(params: {
-    request?: SearchRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search`, { params });
+export function search(data: SearchRequest): Promise<SearchResultVO> {
+  return requestClient.post<SearchResultVO>(`/api/v1/nextwiki/search`, data);
 }
 
 /**
@@ -28,8 +26,8 @@ export function search(params: {
  */
 export function suggest(params: {
     prefix?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search/suggest`, { params });
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/nextwiki/search/suggest`, { params });
 }
 
 /**
@@ -37,36 +35,36 @@ export function suggest(params: {
  */
 export function didYouMean(params: {
     keyword?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search/did-you-mean`, { params });
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/nextwiki/search/did-you-mean`, { params });
 }
 
 /**
  * rebuildIndices: POST /api/v1/nextwiki/search/rebuild
  */
-export function rebuildIndices(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search/rebuild`);
+export function rebuildIndices(): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/search/rebuild`);
 }
 
 /**
  * getSearchHistory: GET /api/v1/nextwiki/search/history
  */
-export function getSearchHistory(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search/history`);
+export function getSearchHistory(): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/nextwiki/search/history`);
 }
 
 /**
  * clearSearchHistory: DELETE /api/v1/nextwiki/search/history
  */
-export function clearSearchHistory(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search/history`);
+export function clearSearchHistory(): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/nextwiki/search/history`);
 }
 
 /**
  * getHotSearches: GET /api/v1/nextwiki/search/hot
  */
-export function getHotSearches(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search/hot`);
+export function getHotSearches(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/nextwiki/search/hot`);
 }
 
 /**
@@ -74,6 +72,9 @@ export function getHotSearches(): Promise<YdszResponse<YdszResponse>> {
  */
 export function advancedSearch(params: {
     rawInput?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/search/advanced`, { params });
+    scope?: string;
+    page?: number;
+    pageSize?: number;
+  }): Promise<SearchResultVO> {
+  return requestClient.get<SearchResultVO>(`/api/v1/nextwiki/search/advanced`, { params });
 }

@@ -11,48 +11,46 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ConnectorConfigPostDTO, ConnectorExportResult, ConnectorTaskInfo } from './models';
 
 /**
  * types: GET /api/v1/cronjob/connector/types
  */
-export function types(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/connector/types`);
+export function types(): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/cronjob/connector/types`);
 }
 
 /**
  * testConnection: POST /api/v1/cronjob/connector/test
  */
 export function testConnection(params: {
-    dto?: ConnectorConfigPostDTO;\n    type?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/connector/test`, { params });
+    type?: string;
+  }, data: ConnectorConfigPostDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/cronjob/connector/test`, data, { params });
 }
 
 /**
  * listRemoteTasks: POST /api/v1/cronjob/connector/remote-tasks
  */
 export function listRemoteTasks(params: {
-    dto?: ConnectorConfigPostDTO;\n    type?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/connector/remote-tasks`, { params });
+    type?: string;
+  }, data: ConnectorConfigPostDTO): Promise<ConnectorTaskInfo[]> {
+  return requestClient.post<ConnectorTaskInfo[]>(`/api/v1/cronjob/connector/remote-tasks`, data, { params });
 }
 
 /**
  * importTasks: POST /api/v1/cronjob/connector/import
  */
 export function importTasks(params: {
-    dto?: ConnectorConfigPostDTO;\n    type?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/connector/import`, { params });
+    type?: string;
+  }, data: ConnectorConfigPostDTO): Promise<ConnectorTaskInfo[]> {
+  return requestClient.post<ConnectorTaskInfo[]>(`/api/v1/cronjob/connector/import`, data, { params });
 }
 
 /**
  * exportTasks: POST /api/v1/cronjob/connector/export
  */
-export function exportTasks(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/connector/export`, { params });
+export function exportTasks(data: Record<string, unknown>): Promise<ConnectorExportResult> {
+  return requestClient.post<ConnectorExportResult>(`/api/v1/cronjob/connector/export`, data);
 }

@@ -11,75 +11,71 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AssignPermissionsDTO, PageResponse, RoleDTO, RolePageQuery, RoleVO } from './models';
 
 /**
  * page: GET /api/v1/role/page
  */
 export function page(params: {
     query?: RolePageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/role/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/role/page`, { params });
 }
 
 /**
  * list: GET /api/v1/role/list
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/role/list`);
+export function list(): Promise<RoleVO[]> {
+  return requestClient.get<RoleVO[]>(`/api/v1/role/list`);
 }
 
 /**
  * getById: GET /api/v1/role/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/role/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<RoleVO> {
+  return requestClient.get<RoleVO>(`/api/v1/role/${id}`);
 }
 
 /**
  * create: POST /api/v1/role
  */
-export function create(params: {
-    dto?: RoleDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/role`, { params });
+export function create(data: RoleDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/role`, data);
 }
 
 /**
  * update: PUT /api/v1/role
  */
-export function update(params: {
-    dto?: RoleDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/role`, { params });
+export function update(data: RoleDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/role`, data);
 }
 
 /**
  * remove: DELETE /api/v1/role/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/role/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/role/${id}`);
 }
 
 /**
  * assignPermissions: POST /api/v1/role/{roleId}/permissions
  */
-export function assignPermissions(params: {
-    roleId?: string;\n    dto?: AssignPermissionsDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/role/{roleId}/permissions`, { params });
+export function assignPermissions(path: {
+    roleId: string;
+  }, data: AssignPermissionsDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/role/${roleId}/permissions`, data);
 }
 
 /**
  * getRolePermissions: GET /api/v1/role/{roleId}/permissions
  */
-export function getRolePermissions(params: {
-    roleId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/role/{roleId}/permissions`, { params });
+export function getRolePermissions(path: {
+    roleId: string;
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/role/${roleId}/permissions`);
 }

@@ -11,23 +11,23 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MessageLogQueryDTO, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/message/dead-letter/page
  */
 export function page(params: {
     query?: MessageLogQueryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/dead-letter/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/dead-letter/page`, { params });
 }
 
 /**
  * resend: POST /api/v1/message/dead-letter/{logId}/resend
  */
-export function resend(params: {
-    logId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/dead-letter/{logId}/resend`, { params });
+export function resend(path: {
+    logId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/message/dead-letter/${logId}/resend`);
 }

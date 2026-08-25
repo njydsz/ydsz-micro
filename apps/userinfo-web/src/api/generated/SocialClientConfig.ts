@@ -11,48 +11,46 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { PageResponse, SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './models';
 
 /**
  * page: GET /api/v1/social-client-config/page
  */
 export function page(params: {
     query?: SocialClientPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/social-client-config/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/social-client-config/page`, { params });
 }
 
 /**
  * listEnabled: GET /api/v1/social-client-config/enabled
  */
-export function listEnabled(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/social-client-config/enabled`);
+export function listEnabled(): Promise<SocialClientVO[]> {
+  return requestClient.get<SocialClientVO[]>(`/api/v1/social-client-config/enabled`);
 }
 
 /**
  * create: POST /api/v1/social-client-config
  */
-export function create(params: {
-    dto?: SocialClientDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/social-client-config`, { params });
+export function create(data: SocialClientDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/social-client-config`, data);
 }
 
 /**
  * update: PUT /api/v1/social-client-config/{platform}
  */
-export function update(params: {
-    platform?: string;\n    dto?: SocialClientDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/social-client-config/{platform}`, { params });
+export function update(path: {
+    platform: string;
+  }, data: SocialClientDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/social-client-config/${platform}`, data);
 }
 
 /**
  * delete: DELETE /api/v1/social-client-config/{platform}
  */
-export function delete(params: {
-    platform?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/social-client-config/{platform}`, { params });
+export function delete(path: {
+    platform: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/social-client-config/${platform}`);
 }

@@ -24,16 +24,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AlertRulePostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AlertRulePostDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/alert/rule/{id}": {
@@ -57,21 +57,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AlertRulePutDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AlertRulePutDTO"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "deleteRule",
@@ -93,8 +95,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -121,8 +123,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -171,8 +173,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -210,10 +212,19 @@
     "parameters": [
      {
       "name": "jobId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "since",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "string",
+       "format": "date-time"
       }
      }
     ]
@@ -259,14 +270,6 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ConnectorConfigPostDTO"
-      }
-     },
-     {
       "name": "type",
       "in": "query",
       "required": false,
@@ -274,7 +277,17 @@
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConnectorConfigPostDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/cronjob/connector/remote-tasks": {
@@ -297,14 +310,6 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ConnectorConfigPostDTO"
-      }
-     },
-     {
       "name": "type",
       "in": "query",
       "required": false,
@@ -312,7 +317,17 @@
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConnectorConfigPostDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/cronjob/connector/import": {
@@ -335,14 +350,6 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ConnectorConfigPostDTO"
-      }
-     },
-     {
       "name": "type",
       "in": "query",
       "required": false,
@@ -350,7 +357,17 @@
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConnectorConfigPostDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/cronjob/connector/export": {
@@ -371,16 +388,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/dag/instance/{instanceId}/pause": {
@@ -404,8 +421,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -432,8 +449,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -462,8 +479,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -490,8 +507,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -520,8 +537,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -548,8 +565,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -578,8 +595,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -613,16 +630,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobDagPostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobDagPostDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/dag/{dagId}": {
@@ -646,21 +663,23 @@
     "parameters": [
      {
       "name": "dagId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobDagPutDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobDagPutDTO"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "deleteDag",
@@ -682,8 +701,8 @@
     "parameters": [
      {
       "name": "dagId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -710,8 +729,8 @@
     "parameters": [
      {
       "name": "dagId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -740,8 +759,8 @@
     "parameters": [
      {
       "name": "dagId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -770,8 +789,8 @@
     "parameters": [
      {
       "name": "dagId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -800,8 +819,8 @@
     "parameters": [
      {
       "name": "dagKey",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -847,16 +866,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobDagTriggerDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobDagTriggerDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/dag/validate": {
@@ -877,16 +896,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dagDefinitionJson",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/dag/{dagId}/versions": {
@@ -910,8 +929,8 @@
     "parameters": [
      {
       "name": "dagId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -940,8 +959,8 @@
     "parameters": [
      {
       "name": "dagId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -979,8 +998,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1009,10 +1028,19 @@
     "parameters": [
      {
       "name": "dagId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -1039,8 +1067,8 @@
     "parameters": [
      {
       "name": "status",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1069,8 +1097,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1099,8 +1127,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1129,8 +1157,8 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1159,21 +1187,23 @@
     "parameters": [
      {
       "name": "instanceId",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
-      "name": "contextJson",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/cronjob/topology/dagInstance/{dagInstanceId}": {
@@ -1197,8 +1227,8 @@
     "parameters": [
      {
       "name": "dagInstanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1227,8 +1257,8 @@
     "parameters": [
      {
       "name": "dagInstanceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1257,8 +1287,8 @@
     "parameters": [
      {
       "name": "jobKey",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1284,16 +1314,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RemoteTaskRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RemoteTaskRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/internal/executeSubTask": {
@@ -1314,16 +1344,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RemoteSubTaskRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RemoteSubTaskRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob": {
@@ -1344,16 +1374,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobPostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobPostDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -1372,16 +1402,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobPutDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobPutDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/cron/validate": {
@@ -1410,6 +1440,15 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "count",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
      }
     ]
    }
@@ -1432,16 +1471,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobBatchDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobBatchDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/{id}": {
@@ -1465,8 +1504,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1493,8 +1532,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1523,8 +1562,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1553,8 +1592,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1583,10 +1622,18 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "holdLock",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "boolean"
       }
      }
     ]
@@ -1610,16 +1657,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobBatchDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobBatchDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/batch/resume": {
@@ -1640,16 +1687,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobBatchDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobBatchDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/batch/trigger": {
@@ -1670,16 +1717,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobBatchDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobBatchDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/page": {
@@ -1699,7 +1746,51 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "group",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/cronjob/log/page": {
@@ -1719,7 +1810,43 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "jobKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/cronjob/reload": {
@@ -1763,10 +1890,28 @@
     "parameters": [
      {
       "name": "jobGroup",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "page",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -1793,8 +1938,8 @@
     "parameters": [
      {
       "name": "jobGroup",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1823,8 +1968,8 @@
     "parameters": [
      {
       "name": "jobGroup",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1853,8 +1998,8 @@
     "parameters": [
      {
       "name": "jobGroup",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2016,6 +2161,24 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "v1",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "v2",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
      }
     ]
    }
@@ -2046,6 +2209,24 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "startDate",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     },
+     {
+      "name": "endDate",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
      }
     ]
    }
@@ -2075,6 +2256,24 @@
       "required": false,
       "schema": {
        "type": "string"
+      }
+     },
+     {
+      "name": "startDate",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     },
+     {
+      "name": "endDate",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
       }
      }
     ]
@@ -2117,7 +2316,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/cronjob/stats/heatmap": {
@@ -2137,7 +2347,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "date",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     }
+    ]
    }
   },
   "/api/v1/cronjob/task/list": {
@@ -2196,6 +2417,24 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
      }
     ]
    }
@@ -2248,16 +2487,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobWebhookPostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobWebhookPostDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -2276,16 +2515,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/JobWebhookPutDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobWebhookPutDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/webhook/{id}": {
@@ -2309,8 +2548,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2337,8 +2576,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2363,7 +2602,43 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "eventType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "jobKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/cronjob/webhook/{id}/test": {
@@ -2387,8 +2662,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2413,7 +2688,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "jobKey",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/cronjob/queue/status": {
@@ -2454,16 +2739,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/glue/latest": {
@@ -2544,16 +2829,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/glue/test": {
@@ -2574,16 +2859,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/cronjob/glue/template": {
@@ -2603,7 +2888,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "language",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/cronjob/glue/diff": {
@@ -2680,6 +2975,24 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "hours",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "maxCount",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
      }
     ]
    }
@@ -2701,7 +3014,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "hours",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "maxPerJob",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   }
  },

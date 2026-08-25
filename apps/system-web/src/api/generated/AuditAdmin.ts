@@ -11,40 +11,59 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AuditLog } from './models';
 
 /**
  * queryByTimeRange: GET /api/v1/admin/audit/logs
  */
-export function queryByTimeRange(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/audit/logs`);
+export function queryByTimeRange(params: {
+    startTime?: string;
+    endTime?: string;
+    page?: number;
+    size?: number;
+  }): Promise<AuditLog[]> {
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/logs`, { params });
 }
 
 /**
  * queryByOperator: GET /api/v1/admin/audit/operator/{operatorId}
  */
-export function queryByOperator(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/audit/operator/{operatorId}`);
+export function queryByOperator(path: {
+    operatorId: string;
+  }, params: {
+    page?: number;
+    size?: number;
+  }): Promise<AuditLog[]> {
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/operator/${operatorId}`, { params });
 }
 
 /**
  * queryByAction: GET /api/v1/admin/audit/action/{action}
  */
-export function queryByAction(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/audit/action/{action}`);
+export function queryByAction(path: {
+    action: number;
+  }, params: {
+    page?: number;
+    size?: number;
+  }): Promise<AuditLog[]> {
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/action/${action}`, { params });
 }
 
 /**
  * queryByTraceId: GET /api/v1/admin/audit/trace/{traceId}
  */
-export function queryByTraceId(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/audit/trace/{traceId}`);
+export function queryByTraceId(path: {
+    traceId: string;
+  }): Promise<AuditLog[]> {
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/trace/${traceId}`);
 }
 
 /**
  * getById: GET /api/v1/admin/audit/{id}
  */
-export function getById(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/audit/{id}`);
+export function getById(path: {
+    id: string;
+  }): Promise<AuditLog> {
+  return requestClient.get<AuditLog>(`/api/v1/admin/audit/${id}`);
 }

@@ -11,40 +11,57 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ChannelStatsVO, CostStatsVO, FunnelStatsVO, MessageStatsVO, ReceiptStatsVO } from './models';
 
 /**
  * overview: GET /api/v1/message/stats/overview
  */
-export function overview(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/stats/overview`);
+export function overview(params: {
+    start?: string;
+    end?: string;
+  }): Promise<MessageStatsVO> {
+  return requestClient.get<MessageStatsVO>(`/api/v1/message/stats/overview`, { params });
 }
 
 /**
  * channelStats: GET /api/v1/message/stats/channel
  */
-export function channelStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/stats/channel`);
+export function channelStats(params: {
+    start?: string;
+    end?: string;
+  }): Promise<ChannelStatsVO[]> {
+  return requestClient.get<ChannelStatsVO[]>(`/api/v1/message/stats/channel`, { params });
 }
 
 /**
  * receiptStats: GET /api/v1/message/stats/receipt
  */
-export function receiptStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/stats/receipt`);
+export function receiptStats(params: {
+    start?: string;
+    end?: string;
+  }): Promise<ReceiptStatsVO> {
+  return requestClient.get<ReceiptStatsVO>(`/api/v1/message/stats/receipt`, { params });
 }
 
 /**
  * funnel: GET /api/v1/message/stats/funnel
  */
-export function funnel(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/stats/funnel`);
+export function funnel(params: {
+    start?: string;
+    end?: string;
+    channel?: string;
+    templateCode?: string;
+  }): Promise<FunnelStatsVO> {
+  return requestClient.get<FunnelStatsVO>(`/api/v1/message/stats/funnel`, { params });
 }
 
 /**
  * cost: GET /api/v1/message/stats/cost
  */
-export function cost(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/stats/cost`);
+export function cost(params: {
+    start?: string;
+    end?: string;
+  }): Promise<CostStatsVO> {
+  return requestClient.get<CostStatsVO>(`/api/v1/message/stats/cost`, { params });
 }

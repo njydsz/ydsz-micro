@@ -11,43 +11,41 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MsgRouteRuleVO, PageQuery, PageResponse, RouteRuleUpsertDTO } from './models';
 
 /**
  * create: POST /api/v1/message/route-rule
  */
-export function create(params: {
-    dto?: RouteRuleUpsertDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/route-rule`, { params });
+export function create(data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
+  return requestClient.post<MsgRouteRuleVO>(`/api/v1/message/route-rule`, data);
 }
 
 /**
  * update: PUT /api/v1/message/route-rule/{id}
  */
-export function update(params: {
-    id?: string;\n    dto?: RouteRuleUpsertDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/message/route-rule/{id}`, { params });
+export function update(path: {
+    id: string;
+  }, data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
+  return requestClient.put<MsgRouteRuleVO>(`/api/v1/message/route-rule/${id}`, data);
 }
 
 /**
  * delete: DELETE /api/v1/message/route-rule/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/message/route-rule/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/message/route-rule/${id}`);
 }
 
 /**
  * getById: GET /api/v1/message/route-rule/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/route-rule/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<MsgRouteRuleVO> {
+  return requestClient.get<MsgRouteRuleVO>(`/api/v1/message/route-rule/${id}`);
 }
 
 /**
@@ -55,13 +53,13 @@ export function getById(params: {
  */
 export function page(params: {
     query?: PageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/route-rule/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/route-rule/page`, { params });
 }
 
 /**
  * listEnabled: GET /api/v1/message/route-rule/enabled
  */
-export function listEnabled(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/route-rule/enabled`);
+export function listEnabled(): Promise<MsgRouteRuleVO[]> {
+  return requestClient.get<MsgRouteRuleVO[]>(`/api/v1/message/route-rule/enabled`);
 }

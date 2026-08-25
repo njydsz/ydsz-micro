@@ -11,52 +11,42 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AgentExecutionRequestDTO, BatchChatRequestDTO, BatchChatResponseDTO, ChatRequestDTO, ChatResponseDTO } from './models';
 
 /**
  * execute: POST /api/v1/agent/execute
  */
-export function execute(params: {
-    request?: AgentExecutionRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/execute`, { params });
+export function execute(data: AgentExecutionRequestDTO): Promise<ChatResponseDTO> {
+  return requestClient.post<ChatResponseDTO>(`/api/v1/agent/execute`, data);
 }
 
 /**
  * executeStream: POST /api/v1/agent/execute/stream
  */
-export function executeStream(params: {
-    request?: AgentExecutionRequestDTO;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/api/v1/agent/execute/stream`, { params });
+export function executeStream(data: AgentExecutionRequestDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/execute/stream`, data);
 }
 
 /**
  * chat: POST /api/v1/agent/chat
  */
-export function chat(params: {
-    request?: ChatRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/chat`, { params });
+export function chat(data: ChatRequestDTO): Promise<ChatResponseDTO> {
+  return requestClient.post<ChatResponseDTO>(`/api/v1/agent/chat`, data);
 }
 
 /**
  * chatStream: POST /api/v1/agent/chat/stream
  */
-export function chatStream(params: {
-    request?: ChatRequestDTO;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/api/v1/agent/chat/stream`, { params });
+export function chatStream(data: ChatRequestDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/chat/stream`, data);
 }
 
 /**
  * batchChat: POST /api/v1/agent/chat/batch
  */
-export function batchChat(params: {
-    request?: BatchChatRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/chat/batch`, { params });
+export function batchChat(data: BatchChatRequestDTO): Promise<BatchChatResponseDTO> {
+  return requestClient.post<BatchChatResponseDTO>(`/api/v1/agent/chat/batch`, data);
 }
 
 /**
@@ -64,8 +54,8 @@ export function batchChat(params: {
  */
 export function history(params: {
     conversationId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/history`, { params });
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/agent/history`, { params });
 }
 
 /**
@@ -73,6 +63,7 @@ export function history(params: {
  */
 export function clearHistory(params: {
     conversationId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/agent/history`, { params });
+    requestId?: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/agent/history`, { params });
 }

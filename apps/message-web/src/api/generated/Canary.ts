@@ -11,23 +11,27 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * createExperiment: POST /api/v1/message/canary/experiment
  */
 export function createExperiment(params: {
-    templateCode?: string;\n    experimentName?: string;\n    canaryPercent?: number;\n    metricsGoal?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/canary/experiment`, { params });
+    templateCode?: string;
+    experimentName?: string;
+    canaryPercent?: number;
+    metricsGoal?: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/message/canary/experiment`, { params });
 }
 
 /**
  * assignBucket: GET /api/v1/message/canary/assign
  */
 export function assignBucket(params: {
-    experimentId?: string;\n    requestKey?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/canary/assign`, { params });
+    experimentId?: string;
+    requestKey?: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/message/canary/assign`, { params });
 }

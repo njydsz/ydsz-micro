@@ -11,48 +11,51 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BatchResult, PageResponse } from './models';
 
 /**
  * pageByGroup: GET /api/v1/cronjob/group/{jobGroup}/page
  */
-export function pageByGroup(params: {
-    jobGroup?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/group/{jobGroup}/page`, { params });
+export function pageByGroup(path: {
+    jobGroup: string;
+  }, params: {
+    page?: number;
+    size?: number;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/cronjob/group/${jobGroup}/page`, { params });
 }
 
 /**
  * pauseByGroup: POST /api/v1/cronjob/group/{jobGroup}/pause
  */
-export function pauseByGroup(params: {
-    jobGroup?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/group/{jobGroup}/pause`, { params });
+export function pauseByGroup(path: {
+    jobGroup: string;
+  }): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/cronjob/group/${jobGroup}/pause`);
 }
 
 /**
  * resumeByGroup: POST /api/v1/cronjob/group/{jobGroup}/resume
  */
-export function resumeByGroup(params: {
-    jobGroup?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/group/{jobGroup}/resume`, { params });
+export function resumeByGroup(path: {
+    jobGroup: string;
+  }): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/cronjob/group/${jobGroup}/resume`);
 }
 
 /**
  * triggerByGroup: POST /api/v1/cronjob/group/{jobGroup}/trigger
  */
-export function triggerByGroup(params: {
-    jobGroup?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/group/{jobGroup}/trigger`, { params });
+export function triggerByGroup(path: {
+    jobGroup: string;
+  }): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/cronjob/group/${jobGroup}/trigger`);
 }
 
 /**
  * groupStats: GET /api/v1/cronjob/group/stats
  */
-export function groupStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/group/stats`);
+export function groupStats(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/cronjob/group/stats`);
 }

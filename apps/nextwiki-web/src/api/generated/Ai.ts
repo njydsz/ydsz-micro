@@ -11,21 +11,19 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * generateSummary: POST /api/v1/nextwiki/ai/summary
  */
-export function generateSummary(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/ai/summary`, { params });
+export function generateSummary(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/ai/summary`, data);
 }
 
 /**
  * getStatus: GET /api/v1/nextwiki/ai/status
  */
-export function getStatus(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/ai/status`);
+export function getStatus(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/nextwiki/ai/status`);
 }

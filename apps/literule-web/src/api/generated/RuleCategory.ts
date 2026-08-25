@@ -11,44 +11,52 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { CategoryNodeVO, RuleDefinitionVO } from './models';
 
 /**
  * categoryTree: GET /api/v1/literule/rules/category-tree
  */
-export function categoryTree(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/category-tree`);
+export function categoryTree(): Promise<CategoryNodeVO> {
+  return requestClient.get<CategoryNodeVO>(`/api/v1/literule/rules/category-tree`);
 }
 
 /**
  * listByCategoryPath: GET /api/v1/literule/rules/by-category-path
  */
-export function listByCategoryPath(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/by-category-path`);
+export function listByCategoryPath(params: {
+    path?: string;
+  }): Promise<RuleDefinitionVO[]> {
+  return requestClient.get<RuleDefinitionVO[]>(`/api/v1/literule/rules/by-category-path`, { params });
 }
 
 /**
  * listByOwner: GET /api/v1/literule/rules/by-owner
  */
-export function listByOwner(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/by-owner`);
+export function listByOwner(params: {
+    owner?: string;
+  }): Promise<RuleDefinitionVO[]> {
+  return requestClient.get<RuleDefinitionVO[]>(`/api/v1/literule/rules/by-owner`, { params });
 }
 
 /**
  * setOwner: PUT /api/v1/literule/rules/{ruleCode}/owner
  */
-export function setOwner(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/owner`, { params });
+export function setOwner(path: {
+    ruleCode: string;
+  }, params: {
+    owner?: string;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/literule/rules/${ruleCode}/owner`, { params });
 }
 
 /**
  * setCategoryPath: PUT /api/v1/literule/rules/{ruleCode}/category-path
  */
-export function setCategoryPath(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/category-path`, { params });
+export function setCategoryPath(path: {
+    ruleCode: string;
+  }, params: {
+    path?: string;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/literule/rules/${ruleCode}/category-path`, { params });
 }

@@ -11,59 +11,55 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { PageResponse, VariableDTO, VariablePageQuery, VariableVO } from './models';
 
 /**
  * page: GET /api/v1/variable/page
  */
 export function page(params: {
     query?: VariablePageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/variable/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/variable/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/variable/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/variable/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<VariableVO> {
+  return requestClient.get<VariableVO>(`/api/v1/variable/${id}`);
 }
 
 /**
  * getByKey: GET /api/v1/variable/key/{variableKey}
  */
-export function getByKey(params: {
-    variableKey?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/variable/key/{variableKey}`, { params });
+export function getByKey(path: {
+    variableKey: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/variable/key/${variableKey}`);
 }
 
 /**
  * save: POST /api/v1/variable
  */
-export function save(params: {
-    dto?: VariableDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/variable`, { params });
+export function save(data: VariableDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/variable`, data);
 }
 
 /**
  * update: PUT /api/v1/variable
  */
-export function update(params: {
-    dto?: VariableDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/variable`, { params });
+export function update(data: VariableDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/variable`, data);
 }
 
 /**
  * remove: DELETE /api/v1/variable/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/variable/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/variable/${id}`);
 }

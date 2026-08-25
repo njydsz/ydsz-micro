@@ -11,41 +11,33 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AccountUnlockDTO, ForgotPasswordDTO, SelfRegisterDTO, SendVerifyCodeDTO } from './models';
 
 /**
  * sendVerifyCode: POST /api/v1/self-service/send-verify-code
  */
-export function sendVerifyCode(params: {
-    dto?: SendVerifyCodeDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/self-service/send-verify-code`, { params });
+export function sendVerifyCode(data: SendVerifyCodeDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/self-service/send-verify-code`, data);
 }
 
 /**
  * register: POST /api/v1/self-service/register
  */
-export function register(params: {
-    dto?: SelfRegisterDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/self-service/register`, { params });
+export function register(data: SelfRegisterDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/self-service/register`, data);
 }
 
 /**
  * forgotPassword: POST /api/v1/self-service/forgot-password
  */
-export function forgotPassword(params: {
-    dto?: ForgotPasswordDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/self-service/forgot-password`, { params });
+export function forgotPassword(data: ForgotPasswordDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/self-service/forgot-password`, data);
 }
 
 /**
  * unlockAccount: POST /api/v1/self-service/unlock
  */
-export function unlockAccount(params: {
-    dto?: AccountUnlockDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/self-service/unlock`, { params });
+export function unlockAccount(data: AccountUnlockDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/self-service/unlock`, data);
 }

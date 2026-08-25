@@ -11,32 +11,33 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from './models';
 
 /**
  * loadPanel: GET /api/v1/workflow/embedded/panel
  */
 export function loadPanel(params: {
-    businessType?: string;\n    businessId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/embedded/panel`, { params });
+    businessType?: string;
+    businessId?: string;
+    userId?: string;
+  }): Promise<EmbeddedApprovalViewDTO> {
+  return requestClient.get<EmbeddedApprovalViewDTO>(`/api/v1/workflow/embedded/panel`, { params });
 }
 
 /**
  * quickAction: POST /api/v1/workflow/embedded/action
  */
-export function quickAction(params: {
-    dto?: EmbeddedApprovalActionDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/embedded/action`, { params });
+export function quickAction(data: EmbeddedApprovalActionDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/embedded/action`, data);
 }
 
 /**
  * quickActionByPath: POST /api/v1/workflow/embedded/{businessType}/{businessId}/action
  */
-export function quickActionByPath(params: {
-    businessType?: string;\n    businessId?: string;\n    dto?: EmbeddedApprovalActionDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/embedded/{businessType}/{businessId}/action`, { params });
+export function quickActionByPath(path: {
+    businessType: string;
+    businessId: string;
+  }, data: EmbeddedApprovalActionDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/embedded/${businessType}/${businessId}/action`, data);
 }

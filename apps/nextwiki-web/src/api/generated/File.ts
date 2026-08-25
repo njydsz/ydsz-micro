@@ -11,73 +11,83 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FileNodeVO, PageResponse } from './models';
 
 /**
  * upload: POST /api/v1/nextwiki/files/upload
  */
-export function upload(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/upload`);
+export function upload(params: {
+    file?: Record<string, unknown>;
+    parentId?: string;
+    rename?: string;
+    versionRemark?: string;
+  }): Promise<FileNodeVO> {
+  return requestClient.post<FileNodeVO>(`/api/v1/nextwiki/files/upload`, { params });
 }
 
 /**
  * createFolder: POST /api/v1/nextwiki/files/folders
  */
-export function createFolder(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/folders`, { params });
+export function createFolder(data: Record<string, unknown>): Promise<FileNodeVO> {
+  return requestClient.post<FileNodeVO>(`/api/v1/nextwiki/files/folders`, data);
 }
 
 /**
  * listFiles: GET /api/v1/nextwiki/files/list
  */
-export function listFiles(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/list`);
+export function listFiles(params: {
+    parentId?: string;
+    sortBy?: string;
+    sortDir?: string;
+    type?: string;
+    page?: number;
+    pageSize?: number;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/nextwiki/files/list`, { params });
 }
 
 /**
  * move: PUT /api/v1/nextwiki/files/{nodeId}/move
  */
-export function move(params: {
-    nodeId?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/move`, { params });
+export function move(path: {
+    nodeId: string;
+  }, data: Record<string, unknown>): Promise<FileNodeVO> {
+  return requestClient.put<FileNodeVO>(`/api/v1/nextwiki/files/${nodeId}/move`, data);
 }
 
 /**
  * rename: PUT /api/v1/nextwiki/files/{nodeId}/rename
  */
-export function rename(params: {
-    nodeId?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/rename`, { params });
+export function rename(path: {
+    nodeId: string;
+  }, data: Record<string, unknown>): Promise<FileNodeVO> {
+  return requestClient.put<FileNodeVO>(`/api/v1/nextwiki/files/${nodeId}/rename`, data);
 }
 
 /**
  * delete: DELETE /api/v1/nextwiki/files/{nodeId}
  */
-export function delete(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}`, { params });
+export function delete(path: {
+    nodeId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/nextwiki/files/${nodeId}`);
 }
 
 /**
  * copy: POST /api/v1/nextwiki/files/{nodeId}/copy
  */
-export function copy(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/copy`, { params });
+export function copy(path: {
+    nodeId: string;
+  }, params: {
+    targetParentId?: string;
+  }): Promise<FileNodeVO> {
+  return requestClient.post<FileNodeVO>(`/api/v1/nextwiki/files/${nodeId}/copy`, { params });
 }
 
 /**
  * batchSort: PUT /api/v1/nextwiki/files/sort
  */
-export function batchSort(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/sort`, { params });
+export function batchSort(data: Record<string, unknown>): Promise<number> {
+  return requestClient.put<number>(`/api/v1/nextwiki/files/sort`, data);
 }

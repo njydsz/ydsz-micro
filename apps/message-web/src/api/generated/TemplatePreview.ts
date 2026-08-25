@@ -11,23 +11,19 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * previewByCode: POST /api/v1/message/template/preview/by-code
  */
-export function previewByCode(params: {
-    req?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/template/preview/by-code`, { params });
+export function previewByCode(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/message/template/preview/by-code`, data);
 }
 
 /**
  * previewRaw: POST /api/v1/message/template/preview/raw
  */
-export function previewRaw(params: {
-    req?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/template/preview/raw`, { params });
+export function previewRaw(data: Record<string, unknown>): Promise<string> {
+  return requestClient.post<string>(`/api/v1/message/template/preview/raw`, data);
 }

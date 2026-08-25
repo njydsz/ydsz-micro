@@ -11,41 +11,38 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MessageResult, TemplatePreviewDTO, TemplateTestSendDTO } from './models';
 
 /**
  * listVersions: GET /api/v1/message/template/version/list/{templateCode}
  */
-export function listVersions(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/template/version/list/{templateCode}`, { params });
+export function listVersions(path: {
+    templateCode: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/message/template/version/list/${templateCode}`);
 }
 
 /**
  * rollback: POST /api/v1/message/template/version/rollback
  */
 export function rollback(params: {
-    templateCode?: string;\n    version?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/template/version/rollback`, { params });
+    templateCode?: string;
+    version?: number;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/message/template/version/rollback`, { params });
 }
 
 /**
  * preview: POST /api/v1/message/template/version/preview
  */
-export function preview(params: {
-    dto?: TemplatePreviewDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/template/version/preview`, { params });
+export function preview(data: TemplatePreviewDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/message/template/version/preview`, data);
 }
 
 /**
  * testSend: POST /api/v1/message/template/version/testSend
  */
-export function testSend(params: {
-    dto?: TemplateTestSendDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/template/version/testSend`, { params });
+export function testSend(data: TemplateTestSendDTO): Promise<MessageResult> {
+  return requestClient.post<MessageResult>(`/api/v1/message/template/version/testSend`, data);
 }

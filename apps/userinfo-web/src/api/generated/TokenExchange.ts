@@ -11,16 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * tokenExchange: POST /api/v1/sso/token-exchange
  */
 export function tokenExchange(params: {
-    request?: Record<string, unknown>;\n    body?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/sso/token-exchange`, { params });
+    request?: Record<string, unknown>;
+  }, data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/sso/token-exchange`, data, { params });
 }
 
 /**
@@ -28,15 +28,16 @@ export function tokenExchange(params: {
  */
 export function validate(params: {
     request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/sso/validate`, { params });
+    token?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/sso/validate`, { params });
 }
 
 /**
  * logoutNotify: POST /api/v1/sso/logout-notify
  */
 export function logoutNotify(params: {
-    request?: Record<string, unknown>;\n    body?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/sso/logout-notify`, { params });
+    request?: Record<string, unknown>;
+  }, data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/sso/logout-notify`, data, { params });
 }

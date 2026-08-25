@@ -17,24 +17,26 @@ import type { YdszResponse, PageResponse, PageQuery } from './base';
 /**
  * listTraces: GET /api/v1/agent/debug/traces
  */
-export function listTraces(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/debug/traces`);
+export function listTraces(params: {
+    limit?: number;
+  }): Promise<AgentTraceListDTO[]> {
+  return requestClient.get<AgentTraceListDTO[]>(`/api/v1/agent/debug/traces`, { params });
 }
 
 /**
  * getTrace: GET /api/v1/agent/debug/trace/{traceId}
  */
-export function getTrace(params: {
-    traceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/debug/trace/{traceId}`, { params });
+export function getTrace(path: {
+    traceId: string;
+  }): Promise<AgentTraceDetailDTO> {
+  return requestClient.get<AgentTraceDetailDTO>(`/api/v1/agent/debug/trace/${traceId}`);
 }
 
 /**
  * replayTrace: POST /api/v1/agent/debug/trace/{traceId}/replay
  */
-export function replayTrace(params: {
-    traceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/debug/trace/{traceId}/replay`, { params });
+export function replayTrace(path: {
+    traceId: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/agent/debug/trace/${traceId}/replay`);
 }

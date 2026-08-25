@@ -11,73 +11,69 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * listBreakpoints: GET /api/v1/literule/debug/breakpoints
  */
-export function listBreakpoints(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/breakpoints`);
+export function listBreakpoints(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/literule/debug/breakpoints`);
 }
 
 /**
  * addBreakpoint: POST /api/v1/literule/debug/breakpoints
  */
-export function addBreakpoint(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/breakpoints`, { params });
+export function addBreakpoint(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/debug/breakpoints`, data);
 }
 
 /**
  * removeBreakpoint: DELETE /api/v1/literule/debug/breakpoints/{breakpointId}
  */
-export function removeBreakpoint(params: {
-    breakpointId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/breakpoints/{breakpointId}`, { params });
+export function removeBreakpoint(path: {
+    breakpointId: string;
+  }): Promise<unknown> {
+  return requestClient.delete<unknown>(`/api/v1/literule/debug/breakpoints/${breakpointId}`);
 }
 
 /**
  * createSession: POST /api/v1/literule/debug/sessions
  */
-export function createSession(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/sessions`, { params });
+export function createSession(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/debug/sessions`, data);
 }
 
 /**
  * getSession: GET /api/v1/literule/debug/sessions/{sessionId}
  */
-export function getSession(params: {
-    sessionId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/sessions/{sessionId}`, { params });
+export function getSession(path: {
+    sessionId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/literule/debug/sessions/${sessionId}`);
 }
 
 /**
  * submitCommand: POST /api/v1/literule/debug/sessions/{sessionId}/command
  */
-export function submitCommand(params: {
-    sessionId?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/sessions/{sessionId}/command`, { params });
+export function submitCommand(path: {
+    sessionId: string;
+  }, data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/debug/sessions/${sessionId}/command`, data);
 }
 
 /**
  * terminateSession: DELETE /api/v1/literule/debug/sessions/{sessionId}
  */
-export function terminateSession(params: {
-    sessionId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/sessions/{sessionId}`, { params });
+export function terminateSession(path: {
+    sessionId: string;
+  }): Promise<unknown> {
+  return requestClient.delete<unknown>(`/api/v1/literule/debug/sessions/${sessionId}`);
 }
 
 /**
  * listSessions: GET /api/v1/literule/debug/sessions
  */
-export function listSessions(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/debug/sessions`);
+export function listSessions(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/literule/debug/sessions`);
 }

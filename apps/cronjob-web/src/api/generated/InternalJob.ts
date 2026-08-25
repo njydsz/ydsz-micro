@@ -11,23 +11,19 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ProcessResult, RemoteSubTaskRequest, RemoteTaskRequest } from './models';
 
 /**
  * execute: POST /api/v1/cronjob/internal/execute
  */
-export function execute(params: {
-    request?: RemoteTaskRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/internal/execute`, { params });
+export function execute(data: RemoteTaskRequest): Promise<string> {
+  return requestClient.post<string>(`/api/v1/cronjob/internal/execute`, data);
 }
 
 /**
  * executeSubTask: POST /api/v1/cronjob/internal/executeSubTask
  */
-export function executeSubTask(params: {
-    request?: RemoteSubTaskRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/internal/executeSubTask`, { params });
+export function executeSubTask(data: RemoteSubTaskRequest): Promise<ProcessResult> {
+  return requestClient.post<ProcessResult>(`/api/v1/cronjob/internal/executeSubTask`, data);
 }

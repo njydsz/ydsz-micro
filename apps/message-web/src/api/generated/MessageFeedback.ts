@@ -11,16 +11,14 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MessageFeedbackDTO, PageResponse } from './models';
 
 /**
  * submitFeedback: POST /api/v1/message/feedback
  */
-export function submitFeedback(params: {
-    dto?: MessageFeedbackDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/feedback`, { params });
+export function submitFeedback(data: MessageFeedbackDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/message/feedback`, data);
 }
 
 /**
@@ -28,15 +26,21 @@ export function submitFeedback(params: {
  */
 export function getAverageRating(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/feedback/rating`, { params });
+    channel?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/message/feedback/rating`, { params });
 }
 
 /**
  * pageFeedback: GET /api/v1/message/feedback/page
  */
-export function pageFeedback(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/feedback/page`);
+export function pageFeedback(params: {
+    page?: number;
+    size?: number;
+    channel?: string;
+    userId?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/feedback/page`, { params });
 }
 
 /**
@@ -44,6 +48,6 @@ export function pageFeedback(): Promise<YdszResponse<YdszResponse>> {
  */
 export function shouldReduceFrequency(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/feedback/shouldReduceFreq`, { params });
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/message/feedback/shouldReduceFreq`, { params });
 }

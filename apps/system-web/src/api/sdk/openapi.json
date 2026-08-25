@@ -57,8 +57,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -85,8 +85,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -112,16 +112,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AppInfoDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AppInfoDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -140,16 +140,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AppInfoDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AppInfoDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/admin/audit/logs": {
@@ -169,7 +169,45 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/audit/operator/{operatorId}": {
@@ -189,7 +227,35 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "operatorId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/audit/action/{action}": {
@@ -209,7 +275,36 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "action",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/audit/trace/{traceId}": {
@@ -229,7 +324,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "traceId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/audit/{id}": {
@@ -249,7 +354,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/config/page": {
@@ -299,7 +414,42 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "configGroup",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "configKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "cursor",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/config/{id}": {
@@ -323,8 +473,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -351,8 +501,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -378,16 +528,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ConfigDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConfigDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -406,16 +556,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ConfigDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConfigDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/config/batch": {
@@ -436,16 +586,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "batchDTO",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ConfigBatchDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConfigBatchDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/config/key/{configKey}": {
@@ -469,8 +619,8 @@
     "parameters": [
      {
       "name": "configKey",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -499,8 +649,8 @@
     "parameters": [
      {
       "name": "configGroup",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -546,7 +696,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "configGroup",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    }
   },
   "/api/v1/config/import": {
@@ -566,7 +734,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    }
   },
   "/api/v1/config/version/{resourceKey}": {
@@ -590,8 +768,8 @@
     "parameters": [
      {
       "name": "resourceKey",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -616,7 +794,33 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "resourceKey",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "targetVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operatorId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/dict/type/page": {
@@ -670,8 +874,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -698,8 +902,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -725,16 +929,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DictTypeDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DictTypeDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -753,16 +957,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DictTypeDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DictTypeDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/dict/type/all": {
@@ -836,8 +1040,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -864,8 +1068,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -890,7 +1094,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "typeCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "itemCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/dict/item/type/{typeCode}": {
@@ -914,8 +1136,8 @@
     "parameters": [
      {
       "name": "typeCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -944,8 +1166,8 @@
     "parameters": [
      {
       "name": "parentId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -974,8 +1196,8 @@
     "parameters": [
      {
       "name": "typeCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1001,16 +1223,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DictItemDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DictItemDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -1029,16 +1251,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DictItemDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DictItemDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/dict/item/batch": {
@@ -1059,16 +1281,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "batchDTO",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DictItemBatchDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DictItemBatchDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/dict/version/{typeCode}": {
@@ -1092,8 +1314,8 @@
     "parameters": [
      {
       "name": "typeCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1148,7 +1370,33 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "typeCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "targetVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operatorId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/system/init": {
@@ -1188,7 +1436,20 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "dictTypes",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    ]
    }
   },
   "/api/internal/config/get": {
@@ -1209,16 +1470,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ConfigGetRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConfigGetRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/internal/dict/item": {
@@ -1239,16 +1500,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DictItemGetRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DictItemGetRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/internal/dict/list": {
@@ -1269,16 +1530,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DictListRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DictListRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/internal/app/validate": {
@@ -1299,16 +1560,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AppValidateRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AppValidateRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/tenant/page": {
@@ -1362,8 +1623,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1390,8 +1651,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1419,14 +1680,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/TenantDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TenantDTO"
+       }
+      }
+     }
+    }
    },
    "put": {
     "operationId": "update",
@@ -1447,14 +1718,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/TenantDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TenantDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/tenant-plan/page": {
@@ -1528,8 +1809,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1556,8 +1837,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1585,14 +1866,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/TenantPlanDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TenantPlanDTO"
+       }
+      }
+     }
+    }
    },
    "put": {
     "operationId": "update",
@@ -1613,14 +1904,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/TenantPlanDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TenantPlanDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/tenant-plan/{planId}/menus": {
@@ -1644,8 +1945,8 @@
     "parameters": [
      {
       "name": "planId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1671,16 +1972,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/TenantPlanMenuDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TenantPlanMenuDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/variable/page": {
@@ -1734,8 +2035,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1762,8 +2063,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1792,8 +2093,8 @@
     "parameters": [
      {
       "name": "variableKey",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1819,16 +2120,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/VariableDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/VariableDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -1847,16 +2148,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/VariableDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/VariableDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/variable/version/{resourceKey}": {
@@ -1880,8 +2181,8 @@
     "parameters": [
      {
       "name": "resourceKey",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1906,7 +2207,33 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "resourceKey",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "targetVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operatorId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   }
  },

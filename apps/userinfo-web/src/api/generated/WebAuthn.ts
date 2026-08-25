@@ -11,50 +11,48 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { LoginVO, WebAuthnCredentialVO } from './models';
 
 /**
  * getPasskeyRegistrationOptions: GET /api/v1/webauthn/passkey/registration/options
  */
 export function getPasskeyRegistrationOptions(params: {
-    username?: string;\n    displayName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/webauthn/passkey/registration/options`, { params });
+    username?: string;
+    displayName?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/webauthn/passkey/registration/options`, { params });
 }
 
 /**
  * getPasskeyAuthenticationOptions: GET /api/v1/webauthn/passkey/options
  */
-export function getPasskeyAuthenticationOptions(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/webauthn/passkey/options`);
+export function getPasskeyAuthenticationOptions(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/webauthn/passkey/options`);
 }
 
 /**
  * verifyPasskeyAuthentication: POST /api/v1/webauthn/passkey/verify
  */
-export function verifyPasskeyAuthentication(params: {
-    assertion?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/webauthn/passkey/verify`, { params });
+export function verifyPasskeyAuthentication(data: Record<string, unknown>): Promise<LoginVO> {
+  return requestClient.post<LoginVO>(`/api/v1/webauthn/passkey/verify`, data);
 }
 
 /**
  * getRegistrationOptions: GET /api/v1/webauthn/registration/options
  */
 export function getRegistrationOptions(params: {
-    username?: string;\n    displayName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/webauthn/registration/options`, { params });
+    username?: string;
+    displayName?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/webauthn/registration/options`, { params });
 }
 
 /**
  * verifyRegistration: POST /api/v1/webauthn/registration/verify
  */
-export function verifyRegistration(params: {
-    credential?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/webauthn/registration/verify`, { params });
+export function verifyRegistration(data: Record<string, unknown>): Promise<void> {
+  return requestClient.post<void>(`/api/v1/webauthn/registration/verify`, data);
 }
 
 /**
@@ -62,31 +60,29 @@ export function verifyRegistration(params: {
  */
 export function getAuthenticationOptions(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/webauthn/authentication/options`, { params });
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/webauthn/authentication/options`, { params });
 }
 
 /**
  * verifyAuthentication: POST /api/v1/webauthn/authentication/verify
  */
-export function verifyAuthentication(params: {
-    assertion?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/webauthn/authentication/verify`, { params });
+export function verifyAuthentication(data: Record<string, unknown>): Promise<LoginVO> {
+  return requestClient.post<LoginVO>(`/api/v1/webauthn/authentication/verify`, data);
 }
 
 /**
  * listCredentials: GET /api/v1/webauthn/credentials
  */
-export function listCredentials(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/webauthn/credentials`);
+export function listCredentials(): Promise<WebAuthnCredentialVO[]> {
+  return requestClient.get<WebAuthnCredentialVO[]>(`/api/v1/webauthn/credentials`);
 }
 
 /**
  * deleteCredential: DELETE /api/v1/webauthn/credentials/{credentialId}
  */
-export function deleteCredential(params: {
-    credentialId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/webauthn/credentials/{credentialId}`, { params });
+export function deleteCredential(path: {
+    credentialId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/webauthn/credentials/${credentialId}`);
 }

@@ -11,16 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { JobTaskVO, PageResponse } from './models';
 
 /**
  * list: GET /api/v1/cronjob/task/list
  */
 export function list(params: {
     logId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/task/list`, { params });
+  }): Promise<JobTaskVO[]> {
+  return requestClient.get<JobTaskVO[]>(`/api/v1/cronjob/task/list`, { params });
 }
 
 /**
@@ -28,8 +28,10 @@ export function list(params: {
  */
 export function page(params: {
     logId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/task/page`, { params });
+    page?: number;
+    size?: number;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/cronjob/task/page`, { params });
 }
 
 /**
@@ -37,6 +39,6 @@ export function page(params: {
  */
 export function progress(params: {
     logId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/task/progress`, { params });
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/task/progress`, { params });
 }

@@ -11,21 +11,22 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { SearchResponse, UserSearchQuery } from './models';
 
 /**
  * search: GET /api/v1/userinfo/search
  */
 export function search(params: {
-    query?: UserSearchQuery;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/userinfo/search`, { params });
+    query?: UserSearchQuery;
+    request?: Record<string, unknown>;
+  }): Promise<SearchResponse> {
+  return requestClient.get<SearchResponse>(`/api/v1/userinfo/search`, { params });
 }
 
 /**
  * rebuildIndex: POST /api/v1/userinfo/search/rebuild
  */
-export function rebuildIndex(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/userinfo/search/rebuild`);
+export function rebuildIndex(): Promise<void> {
+  return requestClient.post<void>(`/api/v1/userinfo/search/rebuild`);
 }

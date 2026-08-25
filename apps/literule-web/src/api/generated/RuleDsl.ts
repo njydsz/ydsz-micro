@@ -11,32 +11,26 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleDslVO } from './models';
 
 /**
  * validate: POST /api/v1/literule/dsl/validate
  */
-export function validate(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/dsl/validate`, { params });
+export function validate(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/dsl/validate`, data);
 }
 
 /**
  * parse: POST /api/v1/literule/dsl/parse
  */
-export function parse(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/dsl/parse`, { params });
+export function parse(data: Record<string, unknown>): Promise<RuleDslVO> {
+  return requestClient.post<RuleDslVO>(`/api/v1/literule/dsl/parse`, data);
 }
 
 /**
  * preview: POST /api/v1/literule/dsl/preview
  */
-export function preview(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/dsl/preview`, { params });
+export function preview(data: Record<string, unknown>): Promise<Record<string, unknown>[]> {
+  return requestClient.post<Record<string, unknown>[]>(`/api/v1/literule/dsl/preview`, data);
 }

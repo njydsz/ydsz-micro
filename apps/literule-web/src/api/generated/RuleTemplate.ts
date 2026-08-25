@@ -11,39 +11,39 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleDefinitionVO, RuleTemplateVO } from './models';
 
 /**
  * listTemplates: GET /api/v1/literule/rules/templates
  */
-export function listTemplates(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/templates`);
+export function listTemplates(): Promise<RuleTemplateVO[]> {
+  return requestClient.get<RuleTemplateVO[]>(`/api/v1/literule/rules/templates`);
 }
 
 /**
  * listTemplatesByCategory: GET /api/v1/literule/rules/templates/category/{category}
  */
-export function listTemplatesByCategory(params: {
-    category?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/templates/category/{category}`, { params });
+export function listTemplatesByCategory(path: {
+    category: string;
+  }): Promise<RuleTemplateVO[]> {
+  return requestClient.get<RuleTemplateVO[]>(`/api/v1/literule/rules/templates/category/${category}`);
 }
 
 /**
  * listTemplatesByIndustry: GET /api/v1/literule/rules/templates/industry/{industry}
  */
-export function listTemplatesByIndustry(params: {
-    industry?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/templates/industry/{industry}`, { params });
+export function listTemplatesByIndustry(path: {
+    industry: string;
+  }): Promise<RuleTemplateVO[]> {
+  return requestClient.get<RuleTemplateVO[]>(`/api/v1/literule/rules/templates/industry/${industry}`);
 }
 
 /**
  * importTemplate: POST /api/v1/literule/rules/templates/{templateCode}/import
  */
-export function importTemplate(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/templates/{templateCode}/import`, { params });
+export function importTemplate(path: {
+    templateCode: string;
+  }): Promise<RuleDefinitionVO> {
+  return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules/templates/${templateCode}/import`);
 }

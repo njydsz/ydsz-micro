@@ -27,8 +27,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -55,21 +55,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleABPolicyPutDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleABPolicyPutDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/ab-rollbacks": {
@@ -93,8 +103,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -123,8 +133,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -153,7 +163,23 @@
     "parameters": [
      {
       "name": "ruleCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "reason",
       "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -210,14 +236,32 @@
     },
     "parameters": [
      {
-      "name": "definition",
+      "name": "operator",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "changeDesc",
       "in": "query",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleDefinition"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleDefinition"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}": {
@@ -241,8 +285,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -269,7 +313,15 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -299,8 +351,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -311,6 +363,14 @@
       "required": false,
       "schema": {
        "type": "boolean"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
       }
      }
     ]
@@ -337,8 +397,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -375,8 +435,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -423,8 +483,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -436,6 +496,14 @@
       "schema": {
        "type": "integer",
        "format": "int32"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
       }
      }
     ]
@@ -454,6 +522,29 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "ruleCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
         }
        }
       }
@@ -509,19 +600,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/validate-expression": {
@@ -542,16 +633,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ExpressionValidateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ExpressionValidateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/validate-batch": {
@@ -572,19 +663,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/ab-test": {
@@ -608,21 +699,23 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RuleABTestDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleABTestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/stats": {
@@ -665,14 +758,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleBatchToggleDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleBatchToggleDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/batch-priority": {
@@ -695,14 +798,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleBatchPriorityDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleBatchPriorityDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/batch-category": {
@@ -725,14 +838,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleBatchCategoryDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleBatchCategoryDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/category-tree": {
@@ -772,7 +895,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "path",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/rules/by-owner": {
@@ -792,7 +925,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "owner",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/rules/{ruleCode}/owner": {
@@ -816,7 +959,23 @@
     "parameters": [
      {
       "name": "ruleCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "owner",
       "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -846,7 +1005,23 @@
     "parameters": [
      {
       "name": "ruleCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "path",
       "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -911,19 +1086,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/debug/breakpoints/{breakpointId}": {
@@ -947,8 +1122,8 @@
     "parameters": [
      {
       "name": "breakpointId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -974,19 +1149,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    },
    "get": {
     "operationId": "listSessions",
@@ -1028,8 +1203,8 @@
     "parameters": [
      {
       "name": "sessionId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1056,8 +1231,8 @@
     "parameters": [
      {
       "name": "sessionId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1086,24 +1261,26 @@
     "parameters": [
      {
       "name": "sessionId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "string"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/decision-tables": {
@@ -1142,16 +1319,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DecisionTablePostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DecisionTablePostDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/decision-tables/{tableCode}": {
@@ -1175,8 +1352,8 @@
     "parameters": [
      {
       "name": "tableCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1205,8 +1382,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1235,24 +1412,26 @@
     "parameters": [
      {
       "name": "tableCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "facts",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/decision-tables/{tableCode}/export-excel": {
@@ -1277,8 +1456,8 @@
     "parameters": [
      {
       "name": "tableCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1311,7 +1490,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/rules/decision-tables/excel-template": {
@@ -1366,21 +1563,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleDependencyAddDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleDependencyAddDTO"
+       }
+      }
+     }
+    }
    },
    "get": {
     "operationId": "listDependencies",
@@ -1402,8 +1609,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1432,16 +1639,16 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "dependsOnRuleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1470,8 +1677,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1500,8 +1707,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1530,8 +1737,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1558,21 +1765,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "graph",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleChainGraph"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleChainGraph"
+       }
+      }
+     }
+    }
    },
    "delete": {
     "operationId": "deleteChainGraph",
@@ -1594,8 +1811,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1621,16 +1838,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "graph",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RuleChainGraph"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleChainGraph"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/expression-preview": {
@@ -1659,19 +1876,21 @@
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "facts",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/graph/dry-run": {
@@ -1695,24 +1914,26 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "facts",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/graph/invalid-refs": {
@@ -1736,8 +1957,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1762,7 +1983,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "engine",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/rules/export": {
@@ -1825,14 +2056,24 @@
     },
     "parameters": [
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleImportDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleImportDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/status": {
@@ -1856,21 +2097,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleStatusChangeDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleStatusChangeDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/approve": {
@@ -1894,21 +2145,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleApproveDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleApproveDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/reject": {
@@ -1932,21 +2193,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleRejectDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleRejectDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/submit-review": {
@@ -1970,13 +2241,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleSubmitReviewDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/approve-level": {
@@ -2000,21 +2289,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleApproveDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleApproveDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/reject-level": {
@@ -2038,21 +2337,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleRejectDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleRejectDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/delegate": {
@@ -2076,21 +2385,31 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "dto",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RuleDelegateDTO"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleDelegateDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/approval-status": {
@@ -2114,8 +2433,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2174,7 +2493,15 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2241,14 +2568,24 @@
     },
     "parameters": [
      {
-      "name": "pack",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/RulePack"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RulePack"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/packs/search": {
@@ -2268,7 +2605,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/rules/packs/{packCode}/latest": {
@@ -2292,8 +2639,8 @@
     "parameters": [
      {
       "name": "packCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2322,8 +2669,8 @@
     "parameters": [
      {
       "name": "packCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2352,16 +2699,16 @@
     "parameters": [
      {
       "name": "packCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "version",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2390,7 +2737,23 @@
     "parameters": [
      {
       "name": "packCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
       "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2420,6 +2783,22 @@
     "parameters": [
      {
       "name": "packCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "fromVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "toVersion",
       "in": "query",
       "required": false,
       "schema": {
@@ -2450,7 +2829,23 @@
     "parameters": [
      {
       "name": "packCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
       "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2480,8 +2875,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2510,10 +2905,18 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "official",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "boolean"
       }
      }
     ]
@@ -2540,10 +2943,18 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "rating",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "number"
       }
      }
     ]
@@ -2567,19 +2978,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/packs/update-check": {
@@ -2622,17 +3033,27 @@
     },
     "parameters": [
      {
-      "name": "packCodes",
-      "in": "query",
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/templates": {
@@ -2676,8 +3097,8 @@
     "parameters": [
      {
       "name": "category",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2706,8 +3127,8 @@
     "parameters": [
      {
       "name": "industry",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2736,7 +3157,15 @@
     "parameters": [
      {
       "name": "templateCode",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "operator",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2762,7 +3191,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "ruleCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    },
    "post": {
     "operationId": "saveTestCase",
@@ -2781,16 +3220,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RuleTestCasePostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleTestCasePostDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/test-cases/{id}": {
@@ -2814,8 +3253,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2841,16 +3280,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/TestCaseBatchRunDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TestCaseBatchRunDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/traces/{traceId}": {
@@ -2874,8 +3313,8 @@
     "parameters": [
      {
       "name": "traceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2904,10 +3343,19 @@
     "parameters": [
      {
       "name": "ruleCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -2934,8 +3382,8 @@
     "parameters": [
      {
       "name": "traceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2961,19 +3409,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/{ruleCode}/impact-preview": {
@@ -2997,24 +3445,26 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/rules/traces": {
@@ -3034,7 +3484,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/cep/patterns": {
@@ -3073,16 +3534,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "pattern",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/CEPPattern"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CEPPattern"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/cep/patterns/{pattern-id}": {
@@ -3106,8 +3567,8 @@
     "parameters": [
      {
       "name": "patternId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3133,19 +3594,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/cep/events/batch": {
@@ -3166,22 +3627,22 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "events",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "type": "object",
-        "additionalProperties": {
-         "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "object"
+         }
         }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/cep/hits": {
@@ -3242,19 +3703,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/audit/recent": {
@@ -3274,7 +3735,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/audit/by-rule/{ruleCode}": {
@@ -3298,10 +3770,19 @@
     "parameters": [
      {
       "name": "ruleCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -3324,7 +3805,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "operator",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/audit/by-action": {
@@ -3344,7 +3844,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "action",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/audit/by-time-range": {
@@ -3364,7 +3883,34 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/dashboard/overview": {
@@ -3404,7 +3950,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "timeRange",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/dashboard/distribution": {
@@ -3444,7 +4000,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/dashboard/realtime": {
@@ -3484,7 +4059,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/dashboard/hot-rules": {
@@ -3504,7 +4090,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/dsl/validate": {
@@ -3525,19 +4122,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/dsl/parse": {
@@ -3558,19 +4155,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/dsl/preview": {
@@ -3591,19 +4188,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/dsl/import": {
@@ -3624,19 +4221,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/dsl/export": {
@@ -3656,7 +4253,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/literule/dsl/export/{ruleCode}": {
@@ -3680,8 +4287,8 @@
     "parameters": [
      {
       "name": "ruleCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3706,7 +4313,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    },
    "post": {
     "operationId": "save",
@@ -3725,16 +4342,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "definition",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/VariableDefinition"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/VariableDefinition"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/literule/variables/{varName}": {
@@ -3758,8 +4375,8 @@
     "parameters": [
      {
       "name": "varName",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3786,8 +4403,8 @@
     "parameters": [
      {
       "name": "varName",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4500,6 +5117,15 @@
      }
     },
     "description": "class RuleRejectDTO"
+   },
+   "RuleSubmitReviewDTO": {
+    "type": "object",
+    "properties": {
+     "flowCode": {
+      "type": "string"
+     }
+    },
+    "description": "class RuleSubmitReviewDTO"
    },
    "RuleDelegateDTO": {
     "type": "object",

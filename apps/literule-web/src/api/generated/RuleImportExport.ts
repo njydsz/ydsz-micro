@@ -11,28 +11,26 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleImportDTO } from './models';
 
 /**
  * exportRules: GET /api/v1/literule/rules/export
  */
-export function exportRules(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/export`);
+export function exportRules(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/literule/rules/export`);
 }
 
 /**
  * exportRulesAsYaml: GET /api/v1/literule/rules/export.yaml
  */
-export function exportRulesAsYaml(): Promise<YdszResponse<string>> {
-  return requestClient.get<YdszResponse<string>>(`/api/v1/literule/rules/export.yaml`);
+export function exportRulesAsYaml(): Promise<string> {
+  return requestClient.get<string>(`/api/v1/literule/rules/export.yaml`);
 }
 
 /**
  * importRules: POST /api/v1/literule/rules/import
  */
-export function importRules(params: {
-    dto?: RuleImportDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/import`, { params });
+export function importRules(data: RuleImportDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/import`, data);
 }

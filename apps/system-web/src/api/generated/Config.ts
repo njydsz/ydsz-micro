@@ -11,105 +11,109 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ConfigBatchDTO, ConfigDTO, ConfigPageQuery, ConfigVO, CursorPageResponse, ImportResult, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/config/page
  */
 export function page(params: {
     query?: ConfigPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/config/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/config/page`, { params });
 }
 
 /**
  * pageByCursor: GET /api/v1/config/cursor
  */
-export function pageByCursor(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/config/cursor`);
+export function pageByCursor(params: {
+    configGroup?: string;
+    configKey?: string;
+    pageSize?: number;
+    cursor?: string;
+  }): Promise<CursorPageResponse> {
+  return requestClient.get<CursorPageResponse>(`/api/v1/config/cursor`, { params });
 }
 
 /**
  * getById: GET /api/v1/config/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/config/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<ConfigVO> {
+  return requestClient.get<ConfigVO>(`/api/v1/config/${id}`);
 }
 
 /**
  * save: POST /api/v1/config
  */
-export function save(params: {
-    dto?: ConfigDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/config`, { params });
+export function save(data: ConfigDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/config`, data);
 }
 
 /**
  * update: PUT /api/v1/config
  */
-export function update(params: {
-    dto?: ConfigDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/config`, { params });
+export function update(data: ConfigDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/config`, data);
 }
 
 /**
  * remove: DELETE /api/v1/config/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/config/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/config/${id}`);
 }
 
 /**
  * batchSave: POST /api/v1/config/batch
  */
-export function batchSave(params: {
-    batchDTO?: ConfigBatchDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/config/batch`, { params });
+export function batchSave(data: ConfigBatchDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/config/batch`, data);
 }
 
 /**
  * getByKey: GET /api/v1/config/key/{configKey}
  */
-export function getByKey(params: {
-    configKey?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/config/key/{configKey}`, { params });
+export function getByKey(path: {
+    configKey: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/config/key/${configKey}`);
 }
 
 /**
  * getConfigsByGroup: GET /api/v1/config/group/{configGroup}
  */
-export function getConfigsByGroup(params: {
-    configGroup?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/config/group/{configGroup}`, { params });
+export function getConfigsByGroup(path: {
+    configGroup: string;
+  }): Promise<ConfigVO[]> {
+  return requestClient.get<ConfigVO[]>(`/api/v1/config/group/${configGroup}`);
 }
 
 /**
  * listPublicConfigs: GET /api/v1/config/public
  */
-export function listPublicConfigs(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/config/public`);
+export function listPublicConfigs(): Promise<ConfigVO[]> {
+  return requestClient.get<ConfigVO[]>(`/api/v1/config/public`);
 }
 
 /**
  * exportConfigs: GET /api/v1/config/export
  */
-export function exportConfigs(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/config/export`);
+export function exportConfigs(params: {
+    configGroup?: string;
+    response?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.get<void>(`/api/v1/config/export`, { params });
 }
 
 /**
  * importConfigs: POST /api/v1/config/import
  */
-export function importConfigs(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/config/import`);
+export function importConfigs(params: {
+    file?: Record<string, unknown>;
+  }): Promise<ImportResult> {
+  return requestClient.post<ImportResult>(`/api/v1/config/import`, { params });
 }

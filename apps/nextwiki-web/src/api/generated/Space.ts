@@ -11,84 +11,83 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { SpaceMemberDTO, SpaceVO } from './models';
 
 /**
  * listSpaces: GET /api/v1/nextwiki/spaces
  */
-export function listSpaces(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces`);
+export function listSpaces(): Promise<SpaceVO[]> {
+  return requestClient.get<SpaceVO[]>(`/api/v1/nextwiki/spaces`);
 }
 
 /**
  * createSpace: POST /api/v1/nextwiki/spaces
  */
-export function createSpace(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces`, { params });
+export function createSpace(data: Record<string, unknown>): Promise<SpaceVO> {
+  return requestClient.post<SpaceVO>(`/api/v1/nextwiki/spaces`, data);
 }
 
 /**
  * getSpace: GET /api/v1/nextwiki/spaces/{spaceId}
  */
-export function getSpace(params: {
-    spaceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces/{spaceId}`, { params });
+export function getSpace(path: {
+    spaceId: string;
+  }): Promise<SpaceVO> {
+  return requestClient.get<SpaceVO>(`/api/v1/nextwiki/spaces/${spaceId}`);
 }
 
 /**
  * updateSpace: PUT /api/v1/nextwiki/spaces/{spaceId}
  */
-export function updateSpace(params: {
-    spaceId?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces/{spaceId}`, { params });
+export function updateSpace(path: {
+    spaceId: string;
+  }, data: Record<string, unknown>): Promise<SpaceVO> {
+  return requestClient.put<SpaceVO>(`/api/v1/nextwiki/spaces/${spaceId}`, data);
 }
 
 /**
  * archiveSpace: POST /api/v1/nextwiki/spaces/{spaceId}/archive
  */
-export function archiveSpace(params: {
-    spaceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces/{spaceId}/archive`, { params });
+export function archiveSpace(path: {
+    spaceId: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/nextwiki/spaces/${spaceId}/archive`);
 }
 
 /**
  * deleteSpace: DELETE /api/v1/nextwiki/spaces/{spaceId}
  */
-export function deleteSpace(params: {
-    spaceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces/{spaceId}`, { params });
+export function deleteSpace(path: {
+    spaceId: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/nextwiki/spaces/${spaceId}`);
 }
 
 /**
  * addMember: POST /api/v1/nextwiki/spaces/{spaceId}/members
  */
-export function addMember(params: {
-    spaceId?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces/{spaceId}/members`, { params });
+export function addMember(path: {
+    spaceId: string;
+  }, data: Record<string, unknown>): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/nextwiki/spaces/${spaceId}/members`, data);
 }
 
 /**
  * removeMember: DELETE /api/v1/nextwiki/spaces/{spaceId}/members/{targetUserId}
  */
-export function removeMember(params: {
-    spaceId?: string;\n    targetUserId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces/{spaceId}/members/{targetUserId}`, { params });
+export function removeMember(path: {
+    spaceId: string;
+    targetUserId: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/nextwiki/spaces/${spaceId}/members/${targetUserId}`);
 }
 
 /**
  * listMembers: GET /api/v1/nextwiki/spaces/{spaceId}/members
  */
-export function listMembers(params: {
-    spaceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/spaces/{spaceId}/members`, { params });
+export function listMembers(path: {
+    spaceId: string;
+  }): Promise<SpaceMemberDTO[]> {
+  return requestClient.get<SpaceMemberDTO[]>(`/api/v1/nextwiki/spaces/${spaceId}/members`);
 }

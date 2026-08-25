@@ -11,14 +11,14 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { SamlIdpConfigVO } from './models';
 
 /**
  * metadata: GET /saml/metadata
  */
-export function metadata(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/saml/metadata`);
+export function metadata(): Promise<unknown> {
+  return requestClient.get<unknown>(`/saml/metadata`);
 }
 
 /**
@@ -26,36 +26,46 @@ export function metadata(): Promise<YdszResponse<unknown>> {
  */
 export function initiateSso(params: {
     response?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/saml/sso`, { params });
+  }): Promise<void> {
+  return requestClient.get<void>(`/saml/sso`, { params });
 }
 
 /**
  * assertionConsumerService: POST /saml/acs
  */
-export function assertionConsumerService(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/saml/acs`);
+export function assertionConsumerService(params: {
+    SAMLResponse?: string;
+    relayState?: string;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/saml/acs`, { params });
 }
 
 /**
  * initiateSsoByEntityId: GET /saml/sso/{idpEntityId}
  */
-export function initiateSsoByEntityId(params: {
-    idpEntityId?: string;\n    response?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/saml/sso/{idpEntityId}`, { params });
+export function initiateSsoByEntityId(path: {
+    idpEntityId: string;
+  }, params: {
+    response?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.get<void>(`/saml/sso/${idpEntityId}`, { params });
 }
 
 /**
  * assertionConsumerServiceByEntityId: POST /saml/acs/{idpEntityId}
  */
-export function assertionConsumerServiceByEntityId(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/saml/acs/{idpEntityId}`);
+export function assertionConsumerServiceByEntityId(path: {
+    idpEntityId: string;
+  }, params: {
+    SAMLResponse?: string;
+    relayState?: string;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/saml/acs/${idpEntityId}`, { params });
 }
 
 /**
  * listIdps: GET /saml/idp-list
  */
-export function listIdps(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/saml/idp-list`);
+export function listIdps(): Promise<SamlIdpConfigVO[]> {
+  return requestClient.get<SamlIdpConfigVO[]>(`/saml/idp-list`);
 }

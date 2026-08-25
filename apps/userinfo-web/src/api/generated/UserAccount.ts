@@ -11,102 +11,96 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AssignRolesDTO, BatchUserStatusDTO, ChangePasswordDTO, PageResponse, ResetPasswordDTO, SensitiveVerifyDTO, UserAccountDTO, UserAccountPageQuery, UserAccountVO, UserImportResultDTO, UserLoginHistoryVO } from './models';
 
 /**
  * page: GET /api/v1/user/page
  */
 export function page(params: {
     query?: UserAccountPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/user/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/user/page`, { params });
 }
 
 /**
  * list: GET /api/v1/user/list
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/user/list`);
+export function list(): Promise<UserAccountVO[]> {
+  return requestClient.get<UserAccountVO[]>(`/api/v1/user/list`);
 }
 
 /**
  * getById: GET /api/v1/user/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/user/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<UserAccountVO> {
+  return requestClient.get<UserAccountVO>(`/api/v1/user/${id}`);
 }
 
 /**
  * create: POST /api/v1/user
  */
-export function create(params: {
-    dto?: UserAccountDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user`, { params });
+export function create(data: UserAccountDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/user`, data);
 }
 
 /**
  * update: PUT /api/v1/user
  */
-export function update(params: {
-    dto?: UserAccountDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/user`, { params });
+export function update(data: UserAccountDTO): Promise<string> {
+  return requestClient.put<string>(`/api/v1/user`, data);
 }
 
 /**
  * remove: DELETE /api/v1/user/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/user/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/user/${id}`);
 }
 
 /**
  * changePassword: POST /api/v1/user/change-password
  */
-export function changePassword(params: {
-    dto?: ChangePasswordDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/change-password`, { params });
+export function changePassword(data: ChangePasswordDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/user/change-password`, data);
 }
 
 /**
  * resetPassword: POST /api/v1/user/reset-password
  */
-export function resetPassword(params: {
-    dto?: ResetPasswordDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/reset-password`, { params });
+export function resetPassword(data: ResetPasswordDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/user/reset-password`, data);
 }
 
 /**
  * assignRoles: POST /api/v1/user/{userId}/roles
  */
-export function assignRoles(params: {
-    userId?: string;\n    dto?: AssignRolesDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/roles`, { params });
+export function assignRoles(path: {
+    userId: string;
+  }, data: AssignRolesDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/user/${userId}/roles`, data);
 }
 
 /**
  * getUserRoles: GET /api/v1/user/{userId}/roles
  */
-export function getUserRoles(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/roles`, { params });
+export function getUserRoles(path: {
+    userId: string;
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/user/${userId}/roles`);
 }
 
 /**
  * importUsers: POST /api/v1/user/import
  */
-export function importUsers(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/import`);
+export function importUsers(params: {
+    file?: Record<string, unknown>;
+  }): Promise<UserImportResultDTO> {
+  return requestClient.post<UserImportResultDTO>(`/api/v1/user/import`, { params });
 }
 
 /**
@@ -114,8 +108,8 @@ export function importUsers(): Promise<YdszResponse<YdszResponse>> {
  */
 export function downloadImportTemplate(params: {
     response?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/user/import-template`, { params });
+  }): Promise<void> {
+  return requestClient.get<void>(`/api/v1/user/import-template`, { params });
 }
 
 /**
@@ -123,96 +117,90 @@ export function downloadImportTemplate(params: {
  */
 export function exportUsers(params: {
     response?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/user/export`, { params });
+  }): Promise<void> {
+  return requestClient.get<void>(`/api/v1/user/export`, { params });
 }
 
 /**
  * getLoginHistory: GET /api/v1/user/{userId}/login-history
  */
-export function getLoginHistory(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/login-history`, { params });
+export function getLoginHistory(path: {
+    userId: string;
+  }, params: {
+    limit?: number;
+  }): Promise<UserLoginHistoryVO[]> {
+  return requestClient.get<UserLoginHistoryVO[]>(`/api/v1/user/${userId}/login-history`, { params });
 }
 
 /**
  * batchRemove: POST /api/v1/user/batch-remove
  */
-export function batchRemove(params: {
-    dto?: BatchUserStatusDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/batch-remove`, { params });
+export function batchRemove(data: BatchUserStatusDTO): Promise<number> {
+  return requestClient.post<number>(`/api/v1/user/batch-remove`, data);
 }
 
 /**
  * batchEnable: POST /api/v1/user/batch-enable
  */
-export function batchEnable(params: {
-    dto?: BatchUserStatusDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/batch-enable`, { params });
+export function batchEnable(data: BatchUserStatusDTO): Promise<number> {
+  return requestClient.post<number>(`/api/v1/user/batch-enable`, data);
 }
 
 /**
  * batchDisable: POST /api/v1/user/batch-disable
  */
-export function batchDisable(params: {
-    dto?: BatchUserStatusDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/batch-disable`, { params });
+export function batchDisable(data: BatchUserStatusDTO): Promise<number> {
+  return requestClient.post<number>(`/api/v1/user/batch-disable`, data);
 }
 
 /**
  * suspend: PUT /api/v1/user/{userId}/lifecycle/suspend
  */
-export function suspend(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/lifecycle/suspend`, { params });
+export function suspend(path: {
+    userId: string;
+  }): Promise<string> {
+  return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/suspend`);
 }
 
 /**
  * resume: PUT /api/v1/user/{userId}/lifecycle/resume
  */
-export function resume(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/lifecycle/resume`, { params });
+export function resume(path: {
+    userId: string;
+  }): Promise<string> {
+  return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/resume`);
 }
 
 /**
  * disable: PUT /api/v1/user/{userId}/lifecycle/disable
  */
-export function disable(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/lifecycle/disable`, { params });
+export function disable(path: {
+    userId: string;
+  }): Promise<string> {
+  return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/disable`);
 }
 
 /**
  * enable: PUT /api/v1/user/{userId}/lifecycle/enable
  */
-export function enable(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/lifecycle/enable`, { params });
+export function enable(path: {
+    userId: string;
+  }): Promise<string> {
+  return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/enable`);
 }
 
 /**
  * resign: PUT /api/v1/user/{userId}/lifecycle/resign
  */
-export function resign(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/user/{userId}/lifecycle/resign`, { params });
+export function resign(path: {
+    userId: string;
+  }): Promise<string> {
+  return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/resign`);
 }
 
 /**
  * sensitiveVerify: POST /api/v1/user/sensitive-verify
  */
-export function sensitiveVerify(params: {
-    dto?: SensitiveVerifyDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/user/sensitive-verify`, { params });
+export function sensitiveVerify(data: SensitiveVerifyDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/user/sensitive-verify`, data);
 }

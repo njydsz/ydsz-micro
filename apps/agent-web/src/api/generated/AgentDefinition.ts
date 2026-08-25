@@ -11,57 +11,53 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AgentDefinitionDTO, AgentDefinitionVO } from './models';
 
 /**
  * list: GET /api/v1/agent/definitions
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/definitions`);
+export function list(): Promise<AgentDefinitionVO[]> {
+  return requestClient.get<AgentDefinitionVO[]>(`/api/v1/agent/definitions`);
 }
 
 /**
  * getById: GET /api/v1/agent/definitions/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/definitions/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<AgentDefinitionVO> {
+  return requestClient.get<AgentDefinitionVO>(`/api/v1/agent/definitions/${id}`);
 }
 
 /**
  * getByCode: GET /api/v1/agent/definitions/code/{code}
  */
-export function getByCode(params: {
-    code?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/definitions/code/{code}`, { params });
+export function getByCode(path: {
+    code: string;
+  }): Promise<AgentDefinitionVO> {
+  return requestClient.get<AgentDefinitionVO>(`/api/v1/agent/definitions/code/${code}`);
 }
 
 /**
  * create: POST /api/v1/agent/definitions
  */
-export function create(params: {
-    dto?: AgentDefinitionDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/definitions`, { params });
+export function create(data: AgentDefinitionDTO): Promise<AgentDefinitionVO> {
+  return requestClient.post<AgentDefinitionVO>(`/api/v1/agent/definitions`, data);
 }
 
 /**
  * update: PUT /api/v1/agent/definitions
  */
-export function update(params: {
-    dto?: AgentDefinitionDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/agent/definitions`, { params });
+export function update(data: AgentDefinitionDTO): Promise<AgentDefinitionVO> {
+  return requestClient.put<AgentDefinitionVO>(`/api/v1/agent/definitions`, data);
 }
 
 /**
  * delete: DELETE /api/v1/agent/definitions/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/agent/definitions/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/agent/definitions/${id}`);
 }

@@ -11,16 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * generatePreview: POST /api/v1/nextwiki/preview/{fileNodeId}/generate
  */
-export function generatePreview(params: {
-    fileNodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/preview/{fileNodeId}/generate`, { params });
+export function generatePreview(path: {
+    fileNodeId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/preview/${fileNodeId}/generate`);
 }
 
 /**
@@ -28,8 +28,8 @@ export function generatePreview(params: {
  */
 export function isSupported(params: {
     suffix?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/preview/supported`, { params });
+  }): Promise<boolean> {
+  return requestClient.get<boolean>(`/api/v1/nextwiki/preview/supported`, { params });
 }
 
 /**
@@ -37,6 +37,6 @@ export function isSupported(params: {
  */
 export function getPreviewType(params: {
     suffix?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/preview/type`, { params });
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/nextwiki/preview/type`, { params });
 }

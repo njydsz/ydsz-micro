@@ -11,34 +11,28 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BatchSendResult, MessageLogQueryDTO, MessageRequest, MessageResult, MessageSendDTO, PageResponse } from './models';
 
 /**
  * send: POST /api/v1/message/send
  */
-export function send(params: {
-    dto?: MessageSendDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/send`, { params });
+export function send(data: MessageSendDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/message/send`, data);
 }
 
 /**
  * sendDirect: POST /api/v1/message/sendDirect
  */
-export function sendDirect(params: {
-    dto?: MessageSendDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/sendDirect`, { params });
+export function sendDirect(data: MessageSendDTO): Promise<MessageResult> {
+  return requestClient.post<MessageResult>(`/api/v1/message/sendDirect`, data);
 }
 
 /**
  * sendAsync: POST /api/v1/message/sendAsync
  */
-export function sendAsync(params: {
-    request?: MessageRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/sendAsync`, { params });
+export function sendAsync(data: MessageRequest): Promise<MessageResult> {
+  return requestClient.post<MessageResult>(`/api/v1/message/sendAsync`, data);
 }
 
 /**
@@ -46,8 +40,8 @@ export function sendAsync(params: {
  */
 export function pageLog(params: {
     query?: MessageLogQueryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/log/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/log/page`, { params });
 }
 
 /**
@@ -55,33 +49,34 @@ export function pageLog(params: {
  */
 export function cancelScheduled(params: {
     msgId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/cancelScheduled`, { params });
+  }): Promise<MessageResult> {
+  return requestClient.post<MessageResult>(`/api/v1/message/cancelScheduled`, { params });
 }
 
 /**
  * sendTransactionally: POST /api/v1/message/sendTransactional
  */
-export function sendTransactionally(params: {
-    request?: MessageRequest;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/sendTransactional`, { params });
+export function sendTransactionally(data: MessageRequest): Promise<MessageResult> {
+  return requestClient.post<MessageResult>(`/api/v1/message/sendTransactional`, data);
 }
 
 /**
  * batchSend: POST /api/v1/message/batchSend
  */
 export function batchSend(params: {
-    requests?: MessageRequest[];\n    batchId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/batchSend`, { params });
+    batchId?: string;
+  }, data: MessageRequest[]): Promise<BatchSendResult> {
+  return requestClient.post<BatchSendResult>(`/api/v1/message/batchSend`, data, { params });
 }
 
 /**
  * batchProgress: GET /api/v1/message/batch/{batchId}/progress
  */
-export function batchProgress(params: {
-    batchId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/batch/{batchId}/progress`, { params });
+export function batchProgress(path: {
+    batchId: string;
+  }, params: {
+    page?: number;
+    size?: number;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/batch/${batchId}/progress`, { params });
 }

@@ -11,14 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * testPattern: POST /api/v1/literule/cep/patterns/test
  */
-export function testPattern(params: {
-    body?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/patterns/test`, { params });
+export function testPattern(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/cep/patterns/test`, data);
 }

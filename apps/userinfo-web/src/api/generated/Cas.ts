@@ -11,40 +11,61 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * login: GET /cas/login
  */
-export function login(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/cas/login`);
+export function login(params: {
+    service?: string;
+    username?: string;
+    password?: string;
+    request?: Record<string, unknown>;
+    response?: Record<string, unknown>;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/cas/login`, { params });
 }
 
 /**
  * loginPost: POST /cas/login
  */
-export function loginPost(): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/cas/login`);
+export function loginPost(params: {
+    service?: string;
+    username?: string;
+    password?: string;
+    response?: Record<string, unknown>;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/cas/login`, { params });
 }
 
 /**
  * serviceValidate: GET /cas/serviceValidate
  */
-export function serviceValidate(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/cas/serviceValidate`);
+export function serviceValidate(params: {
+    ticket?: string;
+    service?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/cas/serviceValidate`, { params });
 }
 
 /**
  * serviceValidateJson: GET /cas/p3/serviceValidate
  */
-export function serviceValidateJson(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/cas/p3/serviceValidate`);
+export function serviceValidateJson(params: {
+    ticket?: string;
+    service?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/cas/p3/serviceValidate`, { params });
 }
 
 /**
  * logout: GET /cas/logout
  */
-export function logout(): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/cas/logout`);
+export function logout(params: {
+    service?: string;
+    request?: Record<string, unknown>;
+    response?: Record<string, unknown>;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/cas/logout`, { params });
 }

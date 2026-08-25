@@ -11,75 +11,69 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { PageResponse, TenantPlanDTO, TenantPlanMenuDTO, TenantPlanMenuVO, TenantPlanPageQuery, TenantPlanVO } from './models';
 
 /**
  * page: GET /api/v1/tenant-plan/page
  */
 export function page(params: {
     query?: TenantPlanPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/tenant-plan/page`, { params });
 }
 
 /**
  * listAll: GET /api/v1/tenant-plan/list
  */
-export function listAll(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan/list`);
+export function listAll(): Promise<TenantPlanVO[]> {
+  return requestClient.get<TenantPlanVO[]>(`/api/v1/tenant-plan/list`);
 }
 
 /**
  * getById: GET /api/v1/tenant-plan/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<TenantPlanVO> {
+  return requestClient.get<TenantPlanVO>(`/api/v1/tenant-plan/${id}`);
 }
 
 /**
  * save: POST /api/v1/tenant-plan
  */
-export function save(params: {
-    dto?: TenantPlanDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan`, { params });
+export function save(data: TenantPlanDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/tenant-plan`, data);
 }
 
 /**
  * update: PUT /api/v1/tenant-plan
  */
-export function update(params: {
-    dto?: TenantPlanDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan`, { params });
+export function update(data: TenantPlanDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/tenant-plan`, data);
 }
 
 /**
  * remove: DELETE /api/v1/tenant-plan/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/tenant-plan/${id}`);
 }
 
 /**
  * listMenus: GET /api/v1/tenant-plan/{planId}/menus
  */
-export function listMenus(params: {
-    planId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan/{planId}/menus`, { params });
+export function listMenus(path: {
+    planId: string;
+  }): Promise<TenantPlanMenuVO[]> {
+  return requestClient.get<TenantPlanMenuVO[]>(`/api/v1/tenant-plan/${planId}/menus`);
 }
 
 /**
  * updateMenus: POST /api/v1/tenant-plan/menus
  */
-export function updateMenus(params: {
-    dto?: TenantPlanMenuDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/tenant-plan/menus`, { params });
+export function updateMenus(data: TenantPlanMenuDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/tenant-plan/menus`, data);
 }

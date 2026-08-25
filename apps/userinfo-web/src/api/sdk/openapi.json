@@ -27,21 +27,23 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/UserBanRequestDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserBanRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/admin/users/{userId}/unban": {
@@ -65,8 +67,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -95,8 +97,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -125,8 +127,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -155,16 +157,16 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "accessToken",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -189,7 +191,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/sessions/statistics": {
@@ -230,16 +252,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SendVerifyCodeDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SendVerifyCodeDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/auth/mfa/send-email-code": {
@@ -260,16 +282,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SendVerifyCodeDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SendVerifyCodeDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/auth/login": {
@@ -292,14 +314,6 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/LoginDTO"
-      }
-     },
-     {
       "name": "servletRequest",
       "in": "query",
       "required": false,
@@ -315,7 +329,17 @@
        "type": "object"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LoginDTO"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/auth/logout": {
@@ -335,7 +359,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "token",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/auth/refresh": {
@@ -356,16 +390,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RefreshRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RefreshRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/auth/sso/device-code": {
@@ -385,7 +419,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/auth/sso/device-exchange": {
@@ -453,7 +497,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "currentToken",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/auth/sessions/{token}": {
@@ -477,8 +531,8 @@
     "parameters": [
      {
       "name": "token",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -504,16 +558,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SecondaryAuthRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SecondaryAuthRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/auth-policy/page": {
@@ -567,8 +621,8 @@
     "parameters": [
      {
       "name": "tenantId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -595,21 +649,23 @@
     "parameters": [
      {
       "name": "tenantId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AuthPolicyDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AuthPolicyDTO"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "delete",
@@ -631,8 +687,8 @@
     "parameters": [
      {
       "name": "tenantId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -658,16 +714,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AuthPolicyDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AuthPolicyDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/captcha/generate": {
@@ -745,7 +801,49 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "service",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "username",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "password",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    },
    "post": {
     "operationId": "loginPost",
@@ -763,7 +861,41 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "service",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "username",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "password",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    }
   },
   "/cas/serviceValidate": {
@@ -783,7 +915,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "ticket",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "service",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/cas/p3/serviceValidate": {
@@ -803,7 +953,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "ticket",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "service",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/cas/logout": {
@@ -823,7 +991,33 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "service",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    }
   },
   "/api/v1/company/list": {
@@ -887,8 +1081,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -915,8 +1109,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -942,16 +1136,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/CompanyDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CompanyDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -970,16 +1164,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/CompanyDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CompanyDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/dept/list": {
@@ -1043,8 +1237,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1071,8 +1265,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1098,16 +1292,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DepartmentDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DepartmentDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -1126,16 +1320,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/DepartmentDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DepartmentDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/internal/user/info": {
@@ -1435,6 +1629,19 @@
        }
       }
      }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -1451,6 +1658,19 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
         }
        }
       }
@@ -1475,6 +1695,19 @@
        }
       }
      }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -1495,6 +1728,19 @@
        }
       }
      }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -1511,6 +1757,19 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
         }
        }
       }
@@ -1569,8 +1828,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1597,8 +1856,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1644,16 +1903,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/LanguageDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LanguageDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -1672,16 +1931,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/LanguageDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LanguageDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/admin/ldap/sync": {
@@ -1805,8 +2064,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1833,8 +2092,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1860,16 +2119,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MenuDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MenuDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -1888,16 +2147,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MenuDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MenuDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/admin/oauth2/applications": {
@@ -1918,16 +2177,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    },
    "get": {
     "operationId": "page",
@@ -1945,7 +2204,43 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/oauth2/applications/{id}": {
@@ -1969,8 +2264,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1997,21 +2292,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "delete",
@@ -2033,8 +2330,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2063,8 +2360,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2119,7 +2416,41 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "clientId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "redirectUri",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "scope",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    },
    "post": {
     "operationId": "submitConsent",
@@ -2206,6 +2537,14 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "tokenTypeHint",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
     ]
    }
@@ -2244,6 +2583,14 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "clientSecret",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
     ]
    }
@@ -2265,7 +2612,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/.well-known/openid-configuration": {
@@ -2349,8 +2706,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2377,8 +2734,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2404,16 +2761,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/PostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PostDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -2432,16 +2789,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/PostDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PostDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/role/page": {
@@ -2515,8 +2872,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2543,8 +2900,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2570,16 +2927,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RoleDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RoleDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -2598,16 +2955,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RoleDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RoleDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/role/{roleId}/permissions": {
@@ -2631,21 +2988,23 @@
     "parameters": [
      {
       "name": "roleId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AssignPermissionsDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AssignPermissionsDTO"
+       }
       }
      }
-    ]
+    }
    },
    "get": {
     "operationId": "getRolePermissions",
@@ -2667,8 +3026,8 @@
     "parameters": [
      {
       "name": "roleId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2744,7 +3103,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "SAMLResponse",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "relayState",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/saml/sso/{idpEntityId}": {
@@ -2769,8 +3146,8 @@
     "parameters": [
      {
       "name": "idpEntityId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2803,7 +3180,33 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "SAMLResponse",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "idpEntityId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "relayState",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/saml/idp-list": {
@@ -2894,16 +3297,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SamlIdpDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SamlIdpDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/saml-idp-config/{entityId}": {
@@ -2927,21 +3330,23 @@
     "parameters": [
      {
       "name": "entityId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SamlIdpDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SamlIdpDTO"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "delete",
@@ -2963,8 +3368,8 @@
     "parameters": [
      {
       "name": "entityId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2989,7 +3394,35 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startIndex",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "count",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "filter",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    },
    "post": {
     "operationId": "createUser",
@@ -3008,16 +3441,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "scimUser",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ScimUser"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScimUser"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}": {
@@ -3041,8 +3474,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3069,21 +3502,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "scimUser",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ScimUser"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScimUser"
+       }
       }
      }
-    ]
+    }
    },
    "patch": {
     "operationId": "patchUser",
@@ -3105,21 +3540,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "patchOp",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ScimPatchOp"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScimPatchOp"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "deleteUser",
@@ -3141,8 +3578,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3167,7 +3604,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "startIndex",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "count",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig": {
@@ -3277,7 +3734,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "riskLevel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/security/alerts/{id}/acknowledge": {
@@ -3301,6 +3777,14 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "note",
       "in": "query",
       "required": false,
       "schema": {
@@ -3331,6 +3815,14 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "note",
       "in": "query",
       "required": false,
       "schema": {
@@ -3361,6 +3853,14 @@
     "parameters": [
      {
       "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "note",
       "in": "query",
       "required": false,
       "schema": {
@@ -3407,7 +3907,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/security/login-fail-distribution": {
@@ -3427,7 +3947,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "date",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/security/mfa-coverage": {
@@ -3487,7 +4018,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/security/session-activity": {
@@ -3527,7 +4069,18 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/security/session-trend": {
@@ -3547,7 +4100,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date"
+      }
+     }
+    ]
    }
   },
   "/api/v1/admin/security/device-distribution": {
@@ -3651,8 +4224,8 @@
     "parameters": [
      {
       "name": "platform",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3728,16 +4301,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SocialClientDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SocialClientDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/social-client-config/{platform}": {
@@ -3761,21 +4334,23 @@
     "parameters": [
      {
       "name": "platform",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SocialClientDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SocialClientDTO"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "delete",
@@ -3797,8 +4372,8 @@
     "parameters": [
      {
       "name": "platform",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -3852,16 +4427,18 @@
       "schema": {
        "type": "object"
       }
-     },
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/sso/validate": {
@@ -3889,6 +4466,22 @@
       "required": false,
       "schema": {
        "type": "object"
+      }
+     },
+     {
+      "name": "token",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "authorization",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
       }
      }
     ]
@@ -3920,16 +4513,18 @@
       "schema": {
        "type": "object"
       }
-     },
-     {
-      "name": "body",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/user/page": {
@@ -4003,8 +4598,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4031,8 +4626,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4058,16 +4653,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/UserAccountDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserAccountDTO"
+       }
       }
      }
-    ]
+    }
    },
    "put": {
     "operationId": "update",
@@ -4086,16 +4681,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/UserAccountDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserAccountDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/user/change-password": {
@@ -4116,16 +4711,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ChangePasswordDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChangePasswordDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/user/reset-password": {
@@ -4146,16 +4741,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ResetPasswordDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResetPasswordDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/user/{userId}/roles": {
@@ -4179,21 +4774,23 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AssignRolesDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AssignRolesDTO"
+       }
       }
      }
-    ]
+    }
    },
    "get": {
     "operationId": "getUserRoles",
@@ -4215,8 +4812,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4241,7 +4838,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    }
   },
   "/api/v1/user/import-template": {
@@ -4327,10 +4934,19 @@
     "parameters": [
      {
       "name": "userId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int32"
       }
      }
     ]
@@ -4354,16 +4970,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/BatchUserStatusDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchUserStatusDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/user/batch-enable": {
@@ -4384,16 +5000,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/BatchUserStatusDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchUserStatusDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/user/batch-disable": {
@@ -4414,16 +5030,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/BatchUserStatusDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchUserStatusDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/user/{userId}/lifecycle/suspend": {
@@ -4447,8 +5063,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4477,8 +5093,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4507,8 +5123,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4537,8 +5153,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4567,8 +5183,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -4594,16 +5210,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SensitiveVerifyDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SensitiveVerifyDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/userinfo/search": {
@@ -4661,7 +5277,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/profile/me": {
@@ -4700,16 +5326,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/UserProfileUpdateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserProfileUpdateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/profile/password": {
@@ -4730,16 +5356,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/profile/avatar": {
@@ -4759,7 +5385,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
    }
   },
   "/api/v1/profile/mfa/status": {
@@ -4820,16 +5456,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MfaOperationDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MfaOperationDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/profile/mfa/disable": {
@@ -4850,16 +5486,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MfaOperationDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MfaOperationDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/webauthn/passkey/registration/options": {
@@ -4938,19 +5574,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "assertion",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/webauthn/registration/options": {
@@ -5009,19 +5645,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "credential",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/webauthn/authentication/options": {
@@ -5072,19 +5708,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "assertion",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object",
-       "additionalProperties": {
-        "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/webauthn/credentials": {
@@ -5128,8 +5764,8 @@
     "parameters": [
      {
       "name": "credentialId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5178,8 +5814,8 @@
     "parameters": [
      {
       "name": "sessionId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -5205,16 +5841,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SendVerifyCodeDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SendVerifyCodeDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/self-service/register": {
@@ -5235,16 +5871,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SelfRegisterDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SelfRegisterDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/self-service/forgot-password": {
@@ -5265,16 +5901,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ForgotPasswordDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ForgotPasswordDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/self-service/unlock": {
@@ -5295,16 +5931,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/AccountUnlockDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AccountUnlockDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/auth/events/stream": {

@@ -17,13 +17,15 @@ import type { YdszResponse, PageResponse, PageQuery } from './base';
 /**
  * getOverview: GET /api/v1/agent/observability/overview
  */
-export function getOverview(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/observability/overview`);
+export function getOverview(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/agent/observability/overview`);
 }
 
 /**
  * getModelUsage: GET /api/v1/agent/observability/model-usage
  */
-export function getModelUsage(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/observability/model-usage`);
+export function getModelUsage(params: {
+    days?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/agent/observability/model-usage`, { params });
 }

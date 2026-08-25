@@ -11,57 +11,57 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { SpaceTemplateDTO, SpaceVO } from './models';
 
 /**
  * listTemplates: GET /api/v1/nextwiki/templates
  */
-export function listTemplates(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/templates`);
+export function listTemplates(params: {
+    category?: string;
+  }): Promise<SpaceTemplateDTO[]> {
+  return requestClient.get<SpaceTemplateDTO[]>(`/api/v1/nextwiki/templates`, { params });
 }
 
 /**
  * getTemplate: GET /api/v1/nextwiki/templates/{templateId}
  */
-export function getTemplate(params: {
-    templateId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/templates/{templateId}`, { params });
+export function getTemplate(path: {
+    templateId: string;
+  }): Promise<SpaceTemplateDTO> {
+  return requestClient.get<SpaceTemplateDTO>(`/api/v1/nextwiki/templates/${templateId}`);
 }
 
 /**
  * createTemplate: POST /api/v1/nextwiki/templates
  */
-export function createTemplate(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/templates`, { params });
+export function createTemplate(data: Record<string, unknown>): Promise<SpaceTemplateDTO> {
+  return requestClient.post<SpaceTemplateDTO>(`/api/v1/nextwiki/templates`, data);
 }
 
 /**
  * updateTemplate: PUT /api/v1/nextwiki/templates/{templateId}
  */
-export function updateTemplate(params: {
-    templateId?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/templates/{templateId}`, { params });
+export function updateTemplate(path: {
+    templateId: string;
+  }, data: Record<string, unknown>): Promise<SpaceTemplateDTO> {
+  return requestClient.put<SpaceTemplateDTO>(`/api/v1/nextwiki/templates/${templateId}`, data);
 }
 
 /**
  * deleteTemplate: DELETE /api/v1/nextwiki/templates/{templateId}
  */
-export function deleteTemplate(params: {
-    templateId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/templates/{templateId}`, { params });
+export function deleteTemplate(path: {
+    templateId: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/nextwiki/templates/${templateId}`);
 }
 
 /**
  * useTemplate: POST /api/v1/nextwiki/templates/{templateId}/use
  */
-export function useTemplate(params: {
-    templateId?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/templates/{templateId}/use`, { params });
+export function useTemplate(path: {
+    templateId: string;
+  }, data: Record<string, unknown>): Promise<SpaceVO> {
+  return requestClient.post<SpaceVO>(`/api/v1/nextwiki/templates/${templateId}/use`, data);
 }

@@ -11,14 +11,14 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * streamEvents: GET /api/v1/auth/events/stream
  */
 export function streamEvents(params: {
     request?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/auth/events/stream`, { params });
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/auth/events/stream`, { params });
 }

@@ -11,48 +11,46 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { PageResponse, SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
 
 /**
  * page: GET /api/v1/saml-idp-config/page
  */
 export function page(params: {
     query?: SamlIdpPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/saml-idp-config/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/saml-idp-config/page`, { params });
 }
 
 /**
  * listEnabled: GET /api/v1/saml-idp-config/enabled
  */
-export function listEnabled(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/saml-idp-config/enabled`);
+export function listEnabled(): Promise<SamlIdpConfigVO[]> {
+  return requestClient.get<SamlIdpConfigVO[]>(`/api/v1/saml-idp-config/enabled`);
 }
 
 /**
  * create: POST /api/v1/saml-idp-config
  */
-export function create(params: {
-    dto?: SamlIdpDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/saml-idp-config`, { params });
+export function create(data: SamlIdpDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/saml-idp-config`, data);
 }
 
 /**
  * update: PUT /api/v1/saml-idp-config/{entityId}
  */
-export function update(params: {
-    entityId?: string;\n    dto?: SamlIdpDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/saml-idp-config/{entityId}`, { params });
+export function update(path: {
+    entityId: string;
+  }, data: SamlIdpDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/saml-idp-config/${entityId}`, data);
 }
 
 /**
  * delete: DELETE /api/v1/saml-idp-config/{entityId}
  */
-export function delete(params: {
-    entityId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/saml-idp-config/{entityId}`, { params });
+export function delete(path: {
+    entityId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/saml-idp-config/${entityId}`);
 }

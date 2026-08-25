@@ -11,50 +11,46 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { PageResponse, TenantDTO, TenantPageQuery, TenantVO } from './models';
 
 /**
  * page: GET /api/v1/tenant/page
  */
 export function page(params: {
     query?: TenantPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/tenant/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/tenant/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/tenant/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/tenant/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<TenantVO> {
+  return requestClient.get<TenantVO>(`/api/v1/tenant/${id}`);
 }
 
 /**
  * save: POST /api/v1/tenant
  */
-export function save(params: {
-    dto?: TenantDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/tenant`, { params });
+export function save(data: TenantDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/tenant`, data);
 }
 
 /**
  * update: PUT /api/v1/tenant
  */
-export function update(params: {
-    dto?: TenantDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/tenant`, { params });
+export function update(data: TenantDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/tenant`, data);
 }
 
 /**
  * remove: DELETE /api/v1/tenant/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/tenant/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/tenant/${id}`);
 }

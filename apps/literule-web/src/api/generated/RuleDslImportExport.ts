@@ -11,30 +11,30 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * importDsl: POST /api/v1/literule/dsl/import
  */
-export function importDsl(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/dsl/import`, { params });
+export function importDsl(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/dsl/import`, data);
 }
 
 /**
  * exportAll: GET /api/v1/literule/dsl/export
  */
-export function exportAll(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dsl/export`);
+export function exportAll(params: {
+    category?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/literule/dsl/export`, { params });
 }
 
 /**
  * exportSingle: GET /api/v1/literule/dsl/export/{ruleCode}
  */
-export function exportSingle(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dsl/export/{ruleCode}`, { params });
+export function exportSingle(path: {
+    ruleCode: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/literule/dsl/export/${ruleCode}`);
 }

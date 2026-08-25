@@ -11,23 +11,21 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ReceiptCallbackDTO } from './models';
 
 /**
  * callback: POST /api/v1/message/receipt/callback
  */
-export function callback(params: {
-    dto?: ReceiptCallbackDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/receipt/callback`, { params });
+export function callback(data: ReceiptCallbackDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/message/receipt/callback`, data);
 }
 
 /**
  * listByLogId: GET /api/v1/message/receipt/{logId}
  */
-export function listByLogId(params: {
-    logId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/receipt/{logId}`, { params });
+export function listByLogId(path: {
+    logId: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/message/receipt/${logId}`);
 }

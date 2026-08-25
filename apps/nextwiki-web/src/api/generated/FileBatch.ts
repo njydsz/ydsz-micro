@@ -11,86 +11,82 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BatchResult, FileNodeVO, FileVersionVO } from './models';
 
 /**
  * batchDelete: POST /api/v1/nextwiki/files/batch/delete
  */
-export function batchDelete(params: {
-    nodeIds?: string[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/batch/delete`, { params });
+export function batchDelete(data: string[]): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/nextwiki/files/batch/delete`, data);
 }
 
 /**
  * batchMove: POST /api/v1/nextwiki/files/batch/move
  */
-export function batchMove(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/batch/move`, { params });
+export function batchMove(data: Record<string, unknown>): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/nextwiki/files/batch/move`, data);
 }
 
 /**
  * getVersionHistory: GET /api/v1/nextwiki/files/{nodeId}/versions
  */
-export function getVersionHistory(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/versions`, { params });
+export function getVersionHistory(path: {
+    nodeId: string;
+  }): Promise<FileVersionVO[]> {
+  return requestClient.get<FileVersionVO[]>(`/api/v1/nextwiki/files/${nodeId}/versions`);
 }
 
 /**
  * rollbackVersion: POST /api/v1/nextwiki/files/{nodeId}/versions/{version}/rollback
  */
-export function rollbackVersion(params: {
-    nodeId?: string;\n    version?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/versions/{version}/rollback`, { params });
+export function rollbackVersion(path: {
+    nodeId: string;
+    version: number;
+  }): Promise<FileNodeVO> {
+  return requestClient.post<FileNodeVO>(`/api/v1/nextwiki/files/${nodeId}/versions/${version}/rollback`);
 }
 
 /**
  * diffVersions: GET /api/v1/nextwiki/files/{nodeId}/versions/diff
  */
-export function diffVersions(params: {
-    nodeId?: string;\n    oldVersion?: number;\n    newVersion?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/versions/diff`, { params });
+export function diffVersions(path: {
+    nodeId: string;
+  }, params: {
+    oldVersion?: number;
+    newVersion?: number;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/nextwiki/files/${nodeId}/versions/diff`, { params });
 }
 
 /**
  * asyncBatchDelete: POST /api/v1/nextwiki/files/batch/async-delete
  */
-export function asyncBatchDelete(params: {
-    nodeIds?: string[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/batch/async-delete`, { params });
+export function asyncBatchDelete(data: string[]): Promise<string> {
+  return requestClient.post<string>(`/api/v1/nextwiki/files/batch/async-delete`, data);
 }
 
 /**
  * asyncBatchMove: POST /api/v1/nextwiki/files/batch/async-move
  */
-export function asyncBatchMove(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/batch/async-move`, { params });
+export function asyncBatchMove(data: Record<string, unknown>): Promise<string> {
+  return requestClient.post<string>(`/api/v1/nextwiki/files/batch/async-move`, data);
 }
 
 /**
  * getBatchTaskStatus: GET /api/v1/nextwiki/files/batch/task/{taskId}
  */
-export function getBatchTaskStatus(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/batch/task/{taskId}`, { params });
+export function getBatchTaskStatus(path: {
+    taskId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/nextwiki/files/batch/task/${taskId}`);
 }
 
 /**
  * toggleStar: PUT /api/v1/nextwiki/files/{nodeId}/star
  */
-export function toggleStar(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/star`, { params });
+export function toggleStar(path: {
+    nodeId: string;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/nextwiki/files/${nodeId}/star`);
 }

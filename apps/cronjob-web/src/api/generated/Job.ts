@@ -11,25 +11,21 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BatchResult, JobBatchDTO, JobPostDTO, JobPutDTO, JobVO, PageResponse } from './models';
 
 /**
  * create: POST /api/v1/cronjob
  */
-export function create(params: {
-    dto?: JobPostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob`, { params });
+export function create(data: JobPostDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/cronjob`, data);
 }
 
 /**
  * update: PUT /api/v1/cronjob
  */
-export function update(params: {
-    dto?: JobPutDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob`, { params });
+export function update(data: JobPutDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob`, data);
 }
 
 /**
@@ -37,108 +33,114 @@ export function update(params: {
  */
 export function validateCron(params: {
     expr?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/cron/validate`, { params });
+    count?: number;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/cron/validate`, { params });
 }
 
 /**
  * batchDelete: POST /api/v1/cronjob/batch/delete
  */
-export function batchDelete(params: {
-    dto?: JobBatchDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/batch/delete`, { params });
+export function batchDelete(data: JobBatchDTO): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/cronjob/batch/delete`, data);
 }
 
 /**
  * delete: DELETE /api/v1/cronjob/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/cronjob/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/cronjob/${id}`);
 }
 
 /**
  * pause: POST /api/v1/cronjob/{id}/pause
  */
-export function pause(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/{id}/pause`, { params });
+export function pause(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/cronjob/${id}/pause`);
 }
 
 /**
  * resume: POST /api/v1/cronjob/{id}/resume
  */
-export function resume(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/{id}/resume`, { params });
+export function resume(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/cronjob/${id}/resume`);
 }
 
 /**
  * trigger: POST /api/v1/cronjob/{id}/trigger
  */
-export function trigger(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/{id}/trigger`, { params });
+export function trigger(path: {
+    id: string;
+  }, params: {
+    holdLock?: boolean;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/cronjob/${id}/trigger`, { params });
 }
 
 /**
  * batchPause: POST /api/v1/cronjob/batch/pause
  */
-export function batchPause(params: {
-    dto?: JobBatchDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/batch/pause`, { params });
+export function batchPause(data: JobBatchDTO): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/cronjob/batch/pause`, data);
 }
 
 /**
  * batchResume: POST /api/v1/cronjob/batch/resume
  */
-export function batchResume(params: {
-    dto?: JobBatchDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/batch/resume`, { params });
+export function batchResume(data: JobBatchDTO): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/cronjob/batch/resume`, data);
 }
 
 /**
  * batchTrigger: POST /api/v1/cronjob/batch/trigger
  */
-export function batchTrigger(params: {
-    dto?: JobBatchDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/batch/trigger`, { params });
+export function batchTrigger(data: JobBatchDTO): Promise<BatchResult> {
+  return requestClient.post<BatchResult>(`/api/v1/cronjob/batch/trigger`, data);
 }
 
 /**
  * getById: GET /api/v1/cronjob/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<JobVO> {
+  return requestClient.get<JobVO>(`/api/v1/cronjob/${id}`);
 }
 
 /**
  * page: GET /api/v1/cronjob/page
  */
-export function page(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/page`);
+export function page(params: {
+    pageNum?: number;
+    size?: number;
+    keyword?: string;
+    status?: string;
+    group?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/cronjob/page`, { params });
 }
 
 /**
  * pageLog: GET /api/v1/cronjob/log/page
  */
-export function pageLog(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/log/page`);
+export function pageLog(params: {
+    pageNum?: number;
+    size?: number;
+    jobKey?: string;
+    status?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/cronjob/log/page`, { params });
 }
 
 /**
  * reload: POST /api/v1/cronjob/reload
  */
-export function reload(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/reload`);
+export function reload(): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/cronjob/reload`);
 }

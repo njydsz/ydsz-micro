@@ -11,41 +11,35 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleBatchCategoryDTO, RuleBatchPriorityDTO, RuleBatchToggleDTO } from './models';
 
 /**
  * deleteRule: DELETE /api/v1/literule/rules/{ruleCode}
  */
-export function deleteRule(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}`, { params });
+export function deleteRule(path: {
+    ruleCode: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/literule/rules/${ruleCode}`);
 }
 
 /**
  * batchToggle: POST /api/v1/literule/rules/batch-toggle
  */
-export function batchToggle(params: {
-    dto?: RuleBatchToggleDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/batch-toggle`, { params });
+export function batchToggle(data: RuleBatchToggleDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/batch-toggle`, data);
 }
 
 /**
  * batchPriority: POST /api/v1/literule/rules/batch-priority
  */
-export function batchPriority(params: {
-    dto?: RuleBatchPriorityDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/batch-priority`, { params });
+export function batchPriority(data: RuleBatchPriorityDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/batch-priority`, data);
 }
 
 /**
  * batchCategory: POST /api/v1/literule/rules/batch-category
  */
-export function batchCategory(params: {
-    dto?: RuleBatchCategoryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/batch-category`, { params });
+export function batchCategory(data: RuleBatchCategoryDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/batch-category`, data);
 }

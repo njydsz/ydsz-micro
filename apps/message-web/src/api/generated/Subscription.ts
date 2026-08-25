@@ -11,41 +11,42 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MsgSubscriptionVO, SubscriptionUpsertDTO } from './models';
 
 /**
  * upsert: POST /api/v1/message/subscription
  */
-export function upsert(params: {
-    dto?: SubscriptionUpsertDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/subscription`, { params });
+export function upsert(data: SubscriptionUpsertDTO): Promise<MsgSubscriptionVO> {
+  return requestClient.post<MsgSubscriptionVO>(`/api/v1/message/subscription`, data);
 }
 
 /**
  * listByUser: GET /api/v1/message/subscription/user/{userId}
  */
-export function listByUser(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/subscription/user/{userId}`, { params });
+export function listByUser(path: {
+    userId: string;
+  }): Promise<MsgSubscriptionVO[]> {
+  return requestClient.get<MsgSubscriptionVO[]>(`/api/v1/message/subscription/user/${userId}`);
 }
 
 /**
  * listByTopic: GET /api/v1/message/subscription/topic/{topicCode}/{channel}
  */
-export function listByTopic(params: {
-    topicCode?: string;\n    channel?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/subscription/topic/{topicCode}/{channel}`, { params });
+export function listByTopic(path: {
+    topicCode: string;
+    channel: string;
+  }): Promise<MsgSubscriptionVO[]> {
+  return requestClient.get<MsgSubscriptionVO[]>(`/api/v1/message/subscription/topic/${topicCode}/${channel}`);
 }
 
 /**
  * unsubscribe: POST /api/v1/message/subscription/unsubscribe
  */
 export function unsubscribe(params: {
-    userId?: string;\n    topicCode?: string;\n    channel?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/subscription/unsubscribe`, { params });
+    userId?: string;
+    topicCode?: string;
+    channel?: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/message/subscription/unsubscribe`, { params });
 }

@@ -11,16 +11,14 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BroadcastRequestDTO, MessageResult, NotificationQueryDTO, NotificationSendDTO, PageResponse, PushRealtimeRequestDTO } from './models';
 
 /**
  * send: POST /api/v1/message/notifications/send
  */
-export function send(params: {
-    dto?: NotificationSendDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/send`, { params });
+export function send(data: NotificationSendDTO): Promise<number> {
+  return requestClient.post<number>(`/api/v1/message/notifications/send`, data);
 }
 
 /**
@@ -28,74 +26,69 @@ export function send(params: {
  */
 export function inbox(params: {
     query?: NotificationQueryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/inbox`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/notifications/inbox`, { params });
 }
 
 /**
  * countUnread: GET /api/v1/message/notifications/unreadCount
  */
-export function countUnread(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/unreadCount`);
+export function countUnread(): Promise<number> {
+  return requestClient.get<number>(`/api/v1/message/notifications/unreadCount`);
 }
 
 /**
  * markRead: POST /api/v1/message/notifications/{id}/read
  */
-export function markRead(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/{id}/read`, { params });
+export function markRead(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/notifications/${id}/read`);
 }
 
 /**
  * markAllRead: POST /api/v1/message/notifications/readAll
  */
-export function markAllRead(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/readAll`);
+export function markAllRead(): Promise<number> {
+  return requestClient.post<number>(`/api/v1/message/notifications/readAll`);
 }
 
 /**
  * delete: DELETE /api/v1/message/notifications
  */
-export function delete(params: {
-    ids?: string[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/message/notifications`, { params });
+export function delete(data: string[]): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/message/notifications`, data);
 }
 
 /**
  * recall: POST /api/v1/message/notifications/{id}/recall
  */
-export function recall(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/{id}/recall`, { params });
+export function recall(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/notifications/${id}/recall`);
 }
 
 /**
  * push: POST /api/v1/message/notifications/push
  */
 export function push(params: {
-    userId?: string;\n    type?: string;\n    payload?: PushRealtimeRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/push`, { params });
+    userId?: string;
+    type?: string;
+  }, data: PushRealtimeRequestDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/message/notifications/push`, data, { params });
 }
 
 /**
  * broadcast: POST /api/v1/message/notifications/broadcast
  */
-export function broadcast(params: {
-    request?: BroadcastRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/broadcast`, { params });
+export function broadcast(data: BroadcastRequestDTO): Promise<MessageResult> {
+  return requestClient.post<MessageResult>(`/api/v1/message/notifications/broadcast`, data);
 }
 
 /**
  * pushRealtime: POST /api/v1/message/notifications/push-realtime
  */
-export function pushRealtime(params: {
-    request?: PushRealtimeRequestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/notifications/push-realtime`, { params });
+export function pushRealtime(data: PushRealtimeRequestDTO): Promise<MessageResult> {
+  return requestClient.post<MessageResult>(`/api/v1/message/notifications/push-realtime`, data);
 }

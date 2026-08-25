@@ -11,57 +11,53 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { LanguageDTO, LanguagePageQuery, LanguageVO, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/language/page
  */
 export function page(params: {
     query?: LanguagePageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/language/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/language/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/language/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/language/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<LanguageVO> {
+  return requestClient.get<LanguageVO>(`/api/v1/language/${id}`);
 }
 
 /**
  * list: GET /api/v1/language/list
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/language/list`);
+export function list(): Promise<LanguageVO[]> {
+  return requestClient.get<LanguageVO[]>(`/api/v1/language/list`);
 }
 
 /**
  * create: POST /api/v1/language
  */
-export function create(params: {
-    dto?: LanguageDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/language`, { params });
+export function create(data: LanguageDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/language`, data);
 }
 
 /**
  * update: PUT /api/v1/language
  */
-export function update(params: {
-    dto?: LanguageDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/language`, { params });
+export function update(data: LanguageDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/language`, data);
 }
 
 /**
  * remove: DELETE /api/v1/language/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/language/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/language/${id}`);
 }

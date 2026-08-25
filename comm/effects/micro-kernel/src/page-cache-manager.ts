@@ -27,7 +27,10 @@ import {
   DEFAULT_POLICY,
   NAMESPACE_PREFIX,
 } from "./page-cache-types";
-import { captureScrollPosition, restoreScrollPosition } from "./page-cache-scroll";
+import {
+  captureScrollPosition as captureScrollPositionRaw,
+  restoreScrollPosition as restoreScrollPositionRaw,
+} from "./page-cache-scroll";
 
 import {
   __setPageCachePolicy,
@@ -39,7 +42,13 @@ import {
   saveAppStateStorage,
   loadAppStateStorage,
   removeAppStateStorage,
+  removeFromRegistry,
 } from "./page-cache-storage";
+
+// v4.3.0 修复：consumePersistedPageCache 使用 getStorage/removeStorage 但
+// 模块拆分（v4.2.2）时遗漏导入，导致任何环境读取缓存即 ReferenceError
+// → 被 catch 吞掉后恒返回 null（页面缓存记忆功能实际失效）。
+import { getStorage, removeStorage } from "./storage-utils";
 
 // 重新导出类型，保持向后兼容
 export type {
@@ -87,11 +96,14 @@ export function resetPageCachePolicy(): void {
 /**
  * 捕获当前页面滚动位置（window + 可滚动容器）。
  *
+ * v4.3.0 修复：函数名与 index.ts / 文档声明对齐（captureScrollPosition），
+ * 此前模块拆分时误命名为 captureScroll，导致 index.ts:113 导出悬空。
+ *
  * @param container - 子应用根容器元素
  * @returns 滚动位置快照
  */
-export function captureScroll(container: HTMLElement): ScrollPosition {
-  return captureScrollPosition(container, _policy);
+export function captureScrollPosition(container: HTMLElement): ScrollPosition {
+  return captureScrollPositionRaw(container, _policy);
 }
 
 /**
@@ -100,16 +112,29 @@ export function captureScroll(container: HTMLElement): ScrollPosition {
  * @param record - 缓存记录
  * @param container - 子应用根容器元素
  */
-export function restoreScroll(
+export function restoreScrollPosition(
   record: PageCacheRecord,
   container: HTMLElement,
 ): void {
-  restoreScrollPosition(
+  restoreScrollPositionRaw(
     record.scroll,
     record.routePath,
     container,
     _policy.restoreScrollDelayMs,
   );
+}
+
+/** @deprecated v4.3.0 起更名为 captureScrollPosition，本别名仅为向后兼容 */
+export function captureScroll(container: HTMLElement): ScrollPosition {
+  return captureScrollPosition(container);
+}
+
+/** @deprecated v4.3.0 起更名为 restoreScrollPosition，本别名仅为向后兼容 */
+export function restoreScroll(
+  record: PageCacheRecord,
+  container: HTMLElement,
+): void {
+  restoreScrollPosition(record, container);
 }
 
 // ==================== 缓存持久化（localStorage） ====================
@@ -145,16 +170,14 @@ export function consumePersistedPageCache(
     const age = Date.now() - record.createdAt;
     if (age > _policy.ttlMs) {
       removeStorage(cacheKey);
-      import("./page-cache-storage").then(({ removeFromRegistry }) => {
-        removeFromRegistry(appName, routePath);
-      });
+      // v4.3.0: 由动态导入改为同步调用（本模块已静态依赖 page-cache-storage，
+      // 无循环依赖风险），消除消费后 registry 清理的异步竞态
+      removeFromRegistry(appName, routePath);
       return null;
     }
 
     removeStorage(cacheKey);
-    import("./page-cache-storage").then(({ removeFromRegistry }) => {
-      removeFromRegistry(appName, routePath);
-    });
+    removeFromRegistry(appName, routePath);
 
     return record;
   } catch (error) {

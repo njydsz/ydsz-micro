@@ -17,17 +17,13 @@ import type { YdszResponse, PageResponse, PageQuery } from './base';
 /**
  * evaluate: POST /api/v1/agent/prompt/evaluate
  */
-export function evaluate(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/prompt/evaluate`, { params });
+export function evaluate(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/prompt/evaluate`, data);
 }
 
 /**
  * compare: POST /api/v1/agent/prompt/compare
  */
-export function compare(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/prompt/compare`, { params });
+export function compare(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/prompt/compare`, data);
 }

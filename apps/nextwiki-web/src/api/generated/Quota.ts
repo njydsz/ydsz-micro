@@ -11,21 +11,22 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { StorageQuotaVO } from './models';
 
 /**
  * getQuota: GET /api/v1/nextwiki/quota/info
  */
-export function getQuota(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/quota/info`);
+export function getQuota(params: {
+    scopeType?: string;
+    scopeId?: string;
+  }): Promise<StorageQuotaVO> {
+  return requestClient.get<StorageQuotaVO>(`/api/v1/nextwiki/quota/info`, { params });
 }
 
 /**
  * setQuota: POST /api/v1/nextwiki/quota/set
  */
-export function setQuota(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/quota/set`, { params });
+export function setQuota(data: Record<string, unknown>): Promise<StorageQuotaVO> {
+  return requestClient.post<StorageQuotaVO>(`/api/v1/nextwiki/quota/set`, data);
 }

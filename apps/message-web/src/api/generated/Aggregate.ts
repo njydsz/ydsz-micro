@@ -11,30 +11,31 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { PageQuery, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/message/aggregate/page
  */
 export function page(params: {
     query?: PageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/aggregate/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/aggregate/page`, { params });
 }
 
 /**
  * flushByGroup: POST /api/v1/message/aggregate/flush
  */
 export function flushByGroup(params: {
-    group?: string;\n    receiver?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/aggregate/flush`, { params });
+    group?: string;
+    receiver?: string;
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/message/aggregate/flush`, { params });
 }
 
 /**
  * flushDue: POST /api/v1/message/aggregate/flushDue
  */
-export function flushDue(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/aggregate/flushDue`);
+export function flushDue(): Promise<number> {
+  return requestClient.post<number>(`/api/v1/message/aggregate/flushDue`);
 }

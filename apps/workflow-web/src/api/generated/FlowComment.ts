@@ -11,93 +11,87 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FlowCommentCreateDTO, FlowCommentVO, FlowQuickCommentDTO, FlowQuickCommentVO } from './models';
 
 /**
  * addComment: POST /api/v1/workflow/comment
  */
-export function addComment(params: {
-    dto?: FlowCommentCreateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment`, { params });
+export function addComment(data: FlowCommentCreateDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/comment`, data);
 }
 
 /**
  * listByInstance: GET /api/v1/workflow/comment/instance/{instanceId}
  */
-export function listByInstance(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/instance/{instanceId}`, { params });
+export function listByInstance(path: {
+    instanceId: string;
+  }): Promise<FlowCommentVO[]> {
+  return requestClient.get<FlowCommentVO[]>(`/api/v1/workflow/comment/instance/${instanceId}`);
 }
 
 /**
  * listRootComments: GET /api/v1/workflow/comment/root/{instanceId}
  */
-export function listRootComments(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/root/{instanceId}`, { params });
+export function listRootComments(path: {
+    instanceId: string;
+  }): Promise<FlowCommentVO[]> {
+  return requestClient.get<FlowCommentVO[]>(`/api/v1/workflow/comment/root/${instanceId}`);
 }
 
 /**
  * listReplies: GET /api/v1/workflow/comment/replies/{parentCommentId}
  */
-export function listReplies(params: {
-    parentCommentId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/replies/{parentCommentId}`, { params });
+export function listReplies(path: {
+    parentCommentId: string;
+  }): Promise<FlowCommentVO[]> {
+  return requestClient.get<FlowCommentVO[]>(`/api/v1/workflow/comment/replies/${parentCommentId}`);
 }
 
 /**
  * deleteComment: DELETE /api/v1/workflow/comment/{commentId}
  */
-export function deleteComment(params: {
-    commentId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/{commentId}`, { params });
+export function deleteComment(path: {
+    commentId: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/workflow/comment/${commentId}`);
 }
 
 /**
  * listQuickComments: GET /api/v1/workflow/comment/quick
  */
-export function listQuickComments(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/quick`);
+export function listQuickComments(): Promise<FlowQuickCommentVO[]> {
+  return requestClient.get<FlowQuickCommentVO[]>(`/api/v1/workflow/comment/quick`);
 }
 
 /**
  * createQuickComment: POST /api/v1/workflow/comment/quick
  */
-export function createQuickComment(params: {
-    dto?: FlowQuickCommentDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/quick`, { params });
+export function createQuickComment(data: FlowQuickCommentDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/comment/quick`, data);
 }
 
 /**
  * updateQuickComment: PUT /api/v1/workflow/comment/quick
  */
-export function updateQuickComment(params: {
-    dto?: FlowQuickCommentDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/quick`, { params });
+export function updateQuickComment(data: FlowQuickCommentDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/workflow/comment/quick`, data);
 }
 
 /**
  * deleteQuickComment: DELETE /api/v1/workflow/comment/quick/{id}
  */
-export function deleteQuickComment(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/quick/{id}`, { params });
+export function deleteQuickComment(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/workflow/comment/quick/${id}`);
 }
 
 /**
  * incrementUseCount: POST /api/v1/workflow/comment/quick/{id}/use
  */
-export function incrementUseCount(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/comment/quick/{id}/use`, { params });
+export function incrementUseCount(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/comment/quick/${id}/use`);
 }

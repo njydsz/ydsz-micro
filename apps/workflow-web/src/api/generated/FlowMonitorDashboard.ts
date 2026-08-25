@@ -11,103 +11,141 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * monitorOverview: GET /api/v1/workflow/engine/monitor/overview
  */
-export function monitorOverview(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/overview`);
+export function monitorOverview(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/monitor/overview`);
 }
 
 /**
  * monitorAnomaly: GET /api/v1/workflow/engine/monitor/anomaly
  */
-export function monitorAnomaly(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/anomaly`);
+export function monitorAnomaly(params: {
+    anomalyType?: string;
+    warnLevel?: string;
+    pageNum?: number;
+    pageSize?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/anomaly`, { params });
 }
 
 /**
  * monitorInstanceTrend: GET /api/v1/workflow/engine/monitor/instanceTrend
  */
-export function monitorInstanceTrend(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/instanceTrend`);
+export function monitorInstanceTrend(params: {
+    days?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/instanceTrend`, { params });
 }
 
 /**
  * monitorApproverEfficiency: GET /api/v1/workflow/engine/monitor/approverEfficiency
  */
-export function monitorApproverEfficiency(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/approverEfficiency`);
+export function monitorApproverEfficiency(params: {
+    topN?: number;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/approverEfficiency`, { params });
 }
 
 /**
  * monitorFlowTypeDistribution: GET /api/v1/workflow/engine/monitor/flowTypeDistribution
  */
-export function monitorFlowTypeDistribution(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/flowTypeDistribution`);
+export function monitorFlowTypeDistribution(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/flowTypeDistribution`, { params });
 }
 
 /**
  * monitorDashboard: GET /api/v1/workflow/engine/monitor/dashboard
  */
-export function monitorDashboard(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/dashboard`);
+export function monitorDashboard(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/monitor/dashboard`);
 }
 
 /**
  * monitorOverdueTasks: GET /api/v1/workflow/engine/monitor/overdueTasks
  */
-export function monitorOverdueTasks(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/overdueTasks`);
+export function monitorOverdueTasks(params: {
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/overdueTasks`, { params });
 }
 
 /**
  * monitorApproverWorkload: GET /api/v1/workflow/engine/monitor/approverWorkload
  */
-export function monitorApproverWorkload(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/approverWorkload`);
+export function monitorApproverWorkload(params: {
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/approverWorkload`, { params });
 }
 
 /**
  * monitorFlowEfficiencyComparison: GET /api/v1/workflow/engine/monitor/flowEfficiencyComparison
  */
-export function monitorFlowEfficiencyComparison(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/monitor/flowEfficiencyComparison`);
+export function monitorFlowEfficiencyComparison(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/flowEfficiencyComparison`, { params });
 }
 
 /**
  * efficiencyStats: GET /api/v1/workflow/engine/efficiency/stats
  */
-export function efficiencyStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/efficiency/stats`);
+export function efficiencyStats(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/efficiency/stats`, { params });
 }
 
 /**
  * bottleneckRanking: GET /api/v1/workflow/engine/efficiency/bottleneck
  */
-export function bottleneckRanking(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/efficiency/bottleneck`);
+export function bottleneckRanking(params: {
+    flowCode?: string;
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/efficiency/bottleneck`, { params });
 }
 
 /**
  * approverRanking: GET /api/v1/workflow/engine/efficiency/approverRanking
  */
-export function approverRanking(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/efficiency/approverRanking`);
+export function approverRanking(params: {
+    startTime?: string;
+    endTime?: string;
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/efficiency/approverRanking`, { params });
 }
 
 /**
  * approvalTrend: GET /api/v1/workflow/engine/efficiency/trend
  */
-export function approvalTrend(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/efficiency/trend`);
+export function approvalTrend(params: {
+    interval?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/efficiency/trend`, { params });
 }
 
 /**
  * healthScore: GET /api/v1/workflow/engine/efficiency/healthScore
  */
-export function healthScore(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/efficiency/healthScore`);
+export function healthScore(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/efficiency/healthScore`, { params });
 }

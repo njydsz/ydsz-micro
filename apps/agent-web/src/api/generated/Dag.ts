@@ -17,26 +17,22 @@ import type { YdszResponse, PageResponse, PageQuery } from './base';
 /**
  * execute: POST /api/v1/agent/dag/execute
  */
-export function execute(params: {
-    request?: DagExecutionDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/dag/execute`, { params });
+export function execute(data: DagExecutionDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/dag/execute`, data);
 }
 
 /**
  * getCheckpoint: GET /api/v1/agent/dag/checkpoint/{executionId}
  */
-export function getCheckpoint(params: {
-    executionId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/dag/checkpoint/{executionId}`, { params });
+export function getCheckpoint(path: {
+    executionId: string;
+  }): Promise<DagCheckpoint> {
+  return requestClient.get<DagCheckpoint>(`/api/v1/agent/dag/checkpoint/${executionId}`);
 }
 
 /**
  * validate: POST /api/v1/agent/dag/validate
  */
-export function validate(params: {
-    request?: DagExecutionDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/dag/validate`, { params });
+export function validate(data: DagExecutionDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/dag/validate`, data);
 }

@@ -11,30 +11,30 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DepartmentTreeVO, DepartmentVO, UserAccountVO } from './models';
 
 /**
  * getUserInfo: GET /api/internal/user/info
  */
 export function getUserInfo(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/user/info`, { params });
+  }): Promise<UserAccountVO> {
+  return requestClient.get<UserAccountVO>(`/api/internal/user/info`, { params });
 }
 
 /**
  * getDeptTree: GET /api/internal/dept/tree
  */
-export function getDeptTree(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/dept/tree`);
+export function getDeptTree(): Promise<DepartmentTreeVO[]> {
+  return requestClient.get<DepartmentTreeVO[]>(`/api/internal/dept/tree`);
 }
 
 /**
  * getDeptList: GET /api/internal/dept/list
  */
-export function getDeptList(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/dept/list`);
+export function getDeptList(): Promise<DepartmentVO[]> {
+  return requestClient.get<DepartmentVO[]>(`/api/internal/dept/list`);
 }
 
 /**
@@ -42,8 +42,8 @@ export function getDeptList(): Promise<YdszResponse<YdszResponse>> {
  */
 export function listUserIdsByRole(params: {
     roleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/user/list-by-role`, { params });
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/internal/user/list-by-role`, { params });
 }
 
 /**
@@ -51,8 +51,8 @@ export function listUserIdsByRole(params: {
  */
 export function listRoleCodesByUserId(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/user/role-codes`, { params });
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/internal/user/role-codes`, { params });
 }
 
 /**
@@ -60,8 +60,8 @@ export function listRoleCodesByUserId(params: {
  */
 export function listDeptIdsByUserId(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/user/dept-ids`, { params });
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/internal/user/dept-ids`, { params });
 }
 
 /**
@@ -69,8 +69,8 @@ export function listDeptIdsByUserId(params: {
  */
 export function getLeaderByUserId(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/user/leader`, { params });
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/internal/user/leader`, { params });
 }
 
 /**
@@ -78,8 +78,8 @@ export function getLeaderByUserId(params: {
  */
 export function listUserIdsByPosition(params: {
     positionCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/user/list-by-position`, { params });
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/internal/user/list-by-position`, { params });
 }
 
 /**
@@ -87,8 +87,8 @@ export function listUserIdsByPosition(params: {
  */
 export function getDeptLeaderByDeptId(params: {
     deptId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/dept/leader-by-id`, { params });
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/internal/dept/leader-by-id`, { params });
 }
 
 /**
@@ -96,41 +96,41 @@ export function getDeptLeaderByDeptId(params: {
  */
 export function getDeptLeaderByDeptCode(params: {
     deptCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/internal/dept/leader-by-code`, { params });
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/internal/dept/leader-by-code`, { params });
 }
 
 /**
  * batchUserNames: POST /api/internal/user/batch-names
  */
-export function batchUserNames(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/user/batch-names`);
+export function batchUserNames(data: string[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/internal/user/batch-names`, data);
 }
 
 /**
  * batchDeptNames: POST /api/internal/dept/batch-names
  */
-export function batchDeptNames(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/dept/batch-names`);
+export function batchDeptNames(data: string[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/internal/dept/batch-names`, data);
 }
 
 /**
  * batchRoleNames: POST /api/internal/role/batch-names
  */
-export function batchRoleNames(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/role/batch-names`);
+export function batchRoleNames(data: string[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/internal/role/batch-names`, data);
 }
 
 /**
  * batchPostNames: POST /api/internal/post/batch-names
  */
-export function batchPostNames(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/post/batch-names`);
+export function batchPostNames(data: string[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/internal/post/batch-names`, data);
 }
 
 /**
  * batchCompanyNames: POST /api/internal/company/batch-names
  */
-export function batchCompanyNames(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/internal/company/batch-names`);
+export function batchCompanyNames(data: string[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/internal/company/batch-names`, data);
 }

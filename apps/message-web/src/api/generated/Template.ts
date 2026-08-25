@@ -11,43 +11,41 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MsgTemplateVO, PageResponse, TemplateAuditDTO, TemplateCreateDTO, TemplateQueryDTO } from './models';
 
 /**
  * create: POST /api/v1/message/template
  */
-export function create(params: {
-    dto?: TemplateCreateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/template`, { params });
+export function create(data: TemplateCreateDTO): Promise<MsgTemplateVO> {
+  return requestClient.post<MsgTemplateVO>(`/api/v1/message/template`, data);
 }
 
 /**
  * update: PUT /api/v1/message/template/{id}
  */
-export function update(params: {
-    id?: string;\n    dto?: TemplateCreateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/message/template/{id}`, { params });
+export function update(path: {
+    id: string;
+  }, data: TemplateCreateDTO): Promise<MsgTemplateVO> {
+  return requestClient.put<MsgTemplateVO>(`/api/v1/message/template/${id}`, data);
 }
 
 /**
  * delete: DELETE /api/v1/message/template/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/message/template/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/message/template/${id}`);
 }
 
 /**
  * getById: GET /api/v1/message/template/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/template/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<MsgTemplateVO> {
+  return requestClient.get<MsgTemplateVO>(`/api/v1/message/template/${id}`);
 }
 
 /**
@@ -55,15 +53,15 @@ export function getById(params: {
  */
 export function page(params: {
     query?: TemplateQueryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/template/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/message/template/page`, { params });
 }
 
 /**
  * audit: POST /api/v1/message/template/{id}/audit
  */
-export function audit(params: {
-    id?: string;\n    dto?: TemplateAuditDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/template/{id}/audit`, { params });
+export function audit(path: {
+    id: string;
+  }, data: TemplateAuditDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/message/template/${id}/audit`, data);
 }

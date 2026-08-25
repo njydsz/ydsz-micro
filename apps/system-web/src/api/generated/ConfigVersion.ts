@@ -11,21 +11,25 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { EntityVersionVO } from './models';
 
 /**
  * listByResourceKey: GET /api/v1/config/version/{resourceKey}
  */
-export function listByResourceKey(params: {
-    resourceKey?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/config/version/{resourceKey}`, { params });
+export function listByResourceKey(path: {
+    resourceKey: string;
+  }): Promise<EntityVersionVO[]> {
+  return requestClient.get<EntityVersionVO[]>(`/api/v1/config/version/${resourceKey}`);
 }
 
 /**
  * rollback: POST /api/v1/config/version/{resourceKey}/rollback
  */
-export function rollback(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/config/version/{resourceKey}/rollback`);
+export function rollback(path: {
+    resourceKey: string;
+  }, params: {
+    targetVersion?: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/config/version/${resourceKey}/rollback`, { params });
 }

@@ -11,32 +11,32 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { JobLogVO } from './models';
 
 /**
  * getDagInstanceTopology: GET /api/v1/cronjob/topology/dagInstance/{dagInstanceId}
  */
-export function getDagInstanceTopology(params: {
-    dagInstanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/topology/dagInstance/{dagInstanceId}`, { params });
+export function getDagInstanceTopology(path: {
+    dagInstanceId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/topology/dagInstance/${dagInstanceId}`);
 }
 
 /**
  * getDagInstanceCytoscape: GET /api/v1/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape
  */
-export function getDagInstanceCytoscape(params: {
-    dagInstanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape`, { params });
+export function getDagInstanceCytoscape(path: {
+    dagInstanceId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/topology/dagInstance/${dagInstanceId}/cytoscape`);
 }
 
 /**
  * getJobExecutionHistory: GET /api/v1/cronjob/topology/jobHistory/{jobKey}
  */
-export function getJobExecutionHistory(params: {
-    jobKey?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/topology/jobHistory/{jobKey}`, { params });
+export function getJobExecutionHistory(path: {
+    jobKey: string;
+  }): Promise<JobLogVO[]> {
+  return requestClient.get<JobLogVO[]>(`/api/v1/cronjob/topology/jobHistory/${jobKey}`);
 }

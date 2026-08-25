@@ -11,14 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FlowAttachmentPreviewVO, FlowAttachmentVO, FlowBatchUrgeResultVO, FlowCcQuery, FlowCcVO, FlowDelegateAuthPostDTO, FlowDelegateAuthVO, FlowRejectableNodeVO, FlowRunTaskVO, FlowTaskDetailVO, FlowTaskOperateDTO, PageResponse } from './models';
 
 /**
  * taskDetail: GET /api/v1/workflow/engine/task/{taskId}
  */
-export function taskDetail(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/{taskId}`);
+export function taskDetail(path: {
+    taskId: string;
+  }): Promise<FlowTaskDetailVO> {
+  return requestClient.get<FlowTaskDetailVO>(`/api/v1/workflow/engine/task/${taskId}`);
 }
 
 /**
@@ -26,392 +28,408 @@ export function taskDetail(): Promise<YdszResponse<YdszResponse>> {
  */
 export function claim(params: {
     taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/claim`, { params });
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/claim`, { params });
 }
 
 /**
  * pass: POST /api/v1/workflow/engine/task/pass
  */
-export function pass(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/pass`);
+export function pass(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/pass`, data);
 }
 
 /**
  * reject: POST /api/v1/workflow/engine/task/reject
  */
-export function reject(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/reject`, { params });
+export function reject(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/reject`, data);
 }
 
 /**
  * rejectableNodes: GET /api/v1/workflow/engine/task/{taskId}/rejectableNodes
  */
-export function rejectableNodes(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/{taskId}/rejectableNodes`, { params });
+export function rejectableNodes(path: {
+    taskId: string;
+  }): Promise<FlowRejectableNodeVO[]> {
+  return requestClient.get<FlowRejectableNodeVO[]>(`/api/v1/workflow/engine/task/${taskId}/rejectableNodes`);
 }
 
 /**
  * transfer: POST /api/v1/workflow/engine/task/transfer
  */
-export function transfer(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/transfer`, { params });
+export function transfer(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/transfer`, data);
 }
 
 /**
  * delegate: POST /api/v1/workflow/engine/task/delegate
  */
-export function delegate(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/delegate`, { params });
+export function delegate(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/delegate`, data);
 }
 
 /**
  * countersignBefore: POST /api/v1/workflow/engine/task/countersignBefore
  */
-export function countersignBefore(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/countersignBefore`, { params });
+export function countersignBefore(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/countersignBefore`, data);
 }
 
 /**
  * countersignAfter: POST /api/v1/workflow/engine/task/countersignAfter
  */
-export function countersignAfter(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/countersignAfter`, { params });
+export function countersignAfter(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/countersignAfter`, data);
 }
 
 /**
  * countersignParallel: POST /api/v1/workflow/engine/task/countersignParallel
  */
-export function countersignParallel(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/countersignParallel`, { params });
+export function countersignParallel(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/countersignParallel`, data);
 }
 
 /**
  * jump: POST /api/v1/workflow/engine/task/jump
  */
-export function jump(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/jump`, { params });
+export function jump(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/jump`, data);
 }
 
 /**
  * freeJump: POST /api/v1/workflow/engine/task/freeJump
  */
-export function freeJump(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/freeJump`, { params });
+export function freeJump(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/freeJump`, data);
 }
 
 /**
  * batchPass: POST /api/v1/workflow/engine/task/batchPass
  */
-export function batchPass(params: {
-    taskIds?: string[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/batchPass`, { params });
+export function batchPass(data: string[]): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/batchPass`, data);
 }
 
 /**
  * batchReject: POST /api/v1/workflow/engine/task/batchReject
  */
-export function batchReject(params: {
-    dtos?: FlowTaskOperateDTO[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/batchReject`, { params });
+export function batchReject(data: FlowTaskOperateDTO[]): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/batchReject`, data);
 }
 
 /**
  * batchTransfer: POST /api/v1/workflow/engine/task/batchTransfer
  */
-export function batchTransfer(params: {
-    dtos?: FlowTaskOperateDTO[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/batchTransfer`, { params });
+export function batchTransfer(data: FlowTaskOperateDTO[]): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/batchTransfer`, data);
 }
 
 /**
  * batchUrge: POST /api/v1/workflow/engine/instance/batchUrge
  */
 export function batchUrge(params: {
-    instanceIds?: string[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/instance/batchUrge`, { params });
+    comment?: string;
+  }, data: string[]): Promise<FlowBatchUrgeResultVO> {
+  return requestClient.post<FlowBatchUrgeResultVO>(`/api/v1/workflow/engine/instance/batchUrge`, data, { params });
 }
 
 /**
  * passAll: POST /api/v1/workflow/engine/task/passAll
  */
-export function passAll(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/passAll`);
+export function passAll(): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/engine/task/passAll`);
 }
 
 /**
  * todo: GET /api/v1/workflow/engine/task/todo
  */
-export function todo(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/todo`);
+export function todo(params: {
+    page?: number;
+    size?: number;
+    flowCode?: string;
+    businessType?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/task/todo`, { params });
 }
 
 /**
  * done: GET /api/v1/workflow/engine/task/done
  */
-export function done(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/done`);
+export function done(params: {
+    page?: number;
+    size?: number;
+    flowCode?: string;
+    businessType?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/task/done`, { params });
 }
 
 /**
  * overdue: GET /api/v1/workflow/engine/task/overdue
  */
-export function overdue(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/overdue`);
+export function overdue(params: {
+    limit?: number;
+  }): Promise<FlowRunTaskVO[]> {
+  return requestClient.get<FlowRunTaskVO[]>(`/api/v1/workflow/engine/task/overdue`, { params });
 }
 
 /**
  * doneSearch: GET /api/v1/workflow/engine/task/done/search
  */
-export function doneSearch(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/done/search`);
+export function doneSearch(params: {
+    page?: number;
+    size?: number;
+    flowCode?: string;
+    businessType?: string;
+    startTime?: string;
+    endTime?: string;
+    keyword?: string;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/workflow/engine/task/done/search`, { params });
 }
 
 /**
  * nodeDurationStats: GET /api/v1/workflow/engine/stats/nodeDuration
  */
-export function nodeDurationStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/stats/nodeDuration`);
+export function nodeDurationStats(params: {
+    flowCode?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/stats/nodeDuration`, { params });
 }
 
 /**
  * overdueStats: GET /api/v1/workflow/engine/stats/overdue
  */
-export function overdueStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/stats/overdue`);
+export function overdueStats(params: {
+    flowCode?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/stats/overdue`, { params });
 }
 
 /**
  * countersignRemove: POST /api/v1/workflow/engine/task/countersignRemove
  */
-export function countersignRemove(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/countersignRemove`, { params });
+export function countersignRemove(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/countersignRemove`, data);
 }
 
 /**
  * markRead: POST /api/v1/workflow/engine/task/{taskId}/read
  */
-export function markRead(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/{taskId}/read`, { params });
+export function markRead(path: {
+    taskId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/read`);
 }
 
 /**
  * communicate: POST /api/v1/workflow/engine/task/communicate
  */
-export function communicate(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/communicate`, { params });
+export function communicate(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/communicate`, data);
 }
 
 /**
  * saveDraft: POST /api/v1/workflow/engine/task/saveDraft
  */
-export function saveDraft(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/saveDraft`, { params });
+export function saveDraft(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/saveDraft`, data);
 }
 
 /**
  * addApprover: POST /api/v1/workflow/engine/task/addApprover
  */
-export function addApprover(params: {
-    dto?: FlowTaskOperateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/addApprover`, { params });
+export function addApprover(data: FlowTaskOperateDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/addApprover`, data);
 }
 
 /**
  * retract: POST /api/v1/workflow/engine/task/{taskId}/retract
  */
-export function retract(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/{taskId}/retract`, { params });
+export function retract(path: {
+    taskId: string;
+  }, params: {
+    comment?: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/task/${taskId}/retract`, { params });
 }
 
 /**
  * suspendTask: POST /api/v1/workflow/engine/task/{taskId}/suspend
  */
-export function suspendTask(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/{taskId}/suspend`, { params });
+export function suspendTask(path: {
+    taskId: string;
+  }, params: {
+    reason?: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/suspend`, { params });
 }
 
 /**
  * activateTask: POST /api/v1/workflow/engine/task/{taskId}/activate
  */
-export function activateTask(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/task/{taskId}/activate`, { params });
+export function activateTask(path: {
+    taskId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/activate`);
 }
 
 /**
  * myTodoCount: GET /api/v1/workflow/engine/todo/count
  */
-export function myTodoCount(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/todo/count`);
+export function myTodoCount(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/todo/count`);
 }
 
 /**
  * pushMyTodoCount: POST /api/v1/workflow/engine/todo/pushMine
  */
-export function pushMyTodoCount(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/todo/pushMine`);
+export function pushMyTodoCount(): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/engine/todo/pushMine`);
 }
 
 /**
  * countersignByInstanceId: GET /api/v1/workflow/engine/countersign/instance/{instanceId}
  */
-export function countersignByInstanceId(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/countersign/instance/{instanceId}`, { params });
+export function countersignByInstanceId(path: {
+    instanceId: string;
+  }, params: {
+    pageNo?: number;
+    pageSize?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/countersign/instance/${instanceId}`, { params });
 }
 
 /**
  * countersignByTaskId: GET /api/v1/workflow/engine/countersign/task/{taskId}
  */
-export function countersignByTaskId(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/countersign/task/{taskId}`, { params });
+export function countersignByTaskId(path: {
+    taskId: string;
+  }, params: {
+    pageNo?: number;
+    pageSize?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/countersign/task/${taskId}`, { params });
 }
 
 /**
  * createDelegateAuth: POST /api/v1/workflow/engine/delegateAuth/create
  */
-export function createDelegateAuth(params: {
-    dto?: FlowDelegateAuthPostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/delegateAuth/create`, { params });
+export function createDelegateAuth(data: FlowDelegateAuthPostDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/delegateAuth/create`, data);
 }
 
 /**
  * revokeDelegateAuth: POST /api/v1/workflow/engine/delegateAuth/{id}/revoke
  */
-export function revokeDelegateAuth(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/delegateAuth/{id}/revoke`, { params });
+export function revokeDelegateAuth(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/delegateAuth/${id}/revoke`);
 }
 
 /**
  * updateDelegateAuthStatus: POST /api/v1/workflow/engine/delegateAuth/{id}/status
  */
-export function updateDelegateAuthStatus(params: {
-    id?: string;\n    status?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/delegateAuth/{id}/status`, { params });
+export function updateDelegateAuthStatus(path: {
+    id: string;
+  }, params: {
+    status?: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/delegateAuth/${id}/status`, { params });
 }
 
 /**
  * listMyDelegateAuths: GET /api/v1/workflow/engine/delegateAuth/mine
  */
-export function listMyDelegateAuths(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/delegateAuth/mine`);
+export function listMyDelegateAuths(params: {
+    status?: string;
+  }): Promise<FlowDelegateAuthVO[]> {
+  return requestClient.get<FlowDelegateAuthVO[]>(`/api/v1/workflow/engine/delegateAuth/mine`, { params });
 }
 
 /**
  * listAsDelegate: GET /api/v1/workflow/engine/delegateAuth/asDelegate
  */
-export function listAsDelegate(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/delegateAuth/asDelegate`);
+export function listAsDelegate(params: {
+    status?: string;
+  }): Promise<FlowDelegateAuthVO[]> {
+  return requestClient.get<FlowDelegateAuthVO[]>(`/api/v1/workflow/engine/delegateAuth/asDelegate`, { params });
 }
 
 /**
  * pageCc: POST /api/v1/workflow/engine/cc/page
  */
-export function pageCc(params: {
-    query?: FlowCcQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/cc/page`, { params });
+export function pageCc(data: FlowCcQuery): Promise<FlowCcVO[]> {
+  return requestClient.post<FlowCcVO[]>(`/api/v1/workflow/engine/cc/page`, data);
 }
 
 /**
  * ccUnreadCount: GET /api/v1/workflow/engine/cc/unreadCount
  */
-export function ccUnreadCount(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/cc/unreadCount`);
+export function ccUnreadCount(): Promise<number> {
+  return requestClient.get<number>(`/api/v1/workflow/engine/cc/unreadCount`);
 }
 
 /**
  * ccMarkRead: POST /api/v1/workflow/engine/cc/{id}/read
  */
-export function ccMarkRead(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/cc/{id}/read`, { params });
+export function ccMarkRead(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/engine/cc/${id}/read`);
 }
 
 /**
  * ccMarkAllRead: POST /api/v1/workflow/engine/cc/readAll
  */
-export function ccMarkAllRead(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/cc/readAll`);
+export function ccMarkAllRead(): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/engine/cc/readAll`);
 }
 
 /**
  * listByTask: GET /api/v1/workflow/engine/attachment/task/{taskId}
  */
-export function listByTask(params: {
-    taskId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/attachment/task/{taskId}`, { params });
+export function listByTask(path: {
+    taskId: string;
+  }): Promise<FlowAttachmentVO[]> {
+  return requestClient.get<FlowAttachmentVO[]>(`/api/v1/workflow/engine/attachment/task/${taskId}`);
 }
 
 /**
  * listByInstance: GET /api/v1/workflow/engine/attachment/instance/{instanceId}
  */
-export function listByInstance(params: {
-    instanceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/attachment/instance/{instanceId}`, { params });
+export function listByInstance(path: {
+    instanceId: string;
+  }): Promise<FlowAttachmentVO[]> {
+  return requestClient.get<FlowAttachmentVO[]>(`/api/v1/workflow/engine/attachment/instance/${instanceId}`);
 }
 
 /**
  * delete: DELETE /api/v1/workflow/engine/attachment/{attachmentId}
  */
-export function delete(params: {
-    attachmentId?: string;\n    operatorId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/attachment/{attachmentId}`, { params });
+export function delete(path: {
+    attachmentId: string;
+  }, params: {
+    operatorId?: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/workflow/engine/attachment/${attachmentId}`, { params });
 }
 
 /**
  * preview: GET /api/v1/workflow/engine/attachment/{attachmentId}/preview
  */
-export function preview(params: {
-    attachmentId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/attachment/{attachmentId}/preview`, { params });
+export function preview(path: {
+    attachmentId: string;
+  }): Promise<FlowAttachmentPreviewVO> {
+  return requestClient.get<FlowAttachmentPreviewVO>(`/api/v1/workflow/engine/attachment/${attachmentId}/preview`);
 }

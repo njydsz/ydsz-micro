@@ -11,57 +11,76 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { CONFIDENTIAL, PUBLIC, PageResponse, SPA } from './models';
 
 /**
  * register: POST /api/v1/admin/oauth2/applications
  */
-export function register(params: {
-    dto?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/admin/oauth2/applications`, { params });
+export function register(data: Record<string, unknown>): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'> {
+  return requestClient.post<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'>(`/api/v1/admin/oauth2/applications`, data);
 }
 
 /**
  * page: GET /api/v1/admin/oauth2/applications
  */
-export function page(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/oauth2/applications`);
+export function page(params: {
+    status?: string;
+    keyword?: string;
+    pageNum?: number;
+    pageSize?: number;
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/admin/oauth2/applications`, { params });
 }
 
 /**
  * getById: GET /api/v1/admin/oauth2/applications/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/admin/oauth2/applications/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'> {
+  return requestClient.get<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`);
 }
 
 /**
  * update: PUT /api/v1/admin/oauth2/applications/{id}
  */
-export function update(params: {
-    id?: string;\n    dto?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/admin/oauth2/applications/{id}`, { params });
+export function update(path: {
+    id: string;
+  }, data: Record<string, unknown>): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'> {
+  return requestClient.put<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`, data);
 }
 
 /**
  * resetSecret: POST /api/v1/admin/oauth2/applications/{id}/reset-secret
  */
-export function resetSecret(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/admin/oauth2/applications/{id}/reset-secret`, { params });
+export function resetSecret(path: {
+    id: string;
+  }): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'> {
+  return requestClient.post<'/** 机密客户端（可安全存储密钥，如后端服务） */
+    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
+    PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}/reset-secret`);
 }
 
 /**
  * delete: DELETE /api/v1/admin/oauth2/applications/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/admin/oauth2/applications/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/admin/oauth2/applications/${id}`);
 }

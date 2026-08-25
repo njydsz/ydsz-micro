@@ -11,50 +11,52 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleABPolicyPutDTO, RuleABPolicyVO, RuleABRollbackVO } from './models';
 
 /**
  * getABPolicy: GET /api/v1/literule/rules/{ruleCode}/ab-policy
  */
-export function getABPolicy(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/ab-policy`, { params });
+export function getABPolicy(path: {
+    ruleCode: string;
+  }): Promise<RuleABPolicyVO> {
+  return requestClient.get<RuleABPolicyVO>(`/api/v1/literule/rules/${ruleCode}/ab-policy`);
 }
 
 /**
  * updateABPolicy: PUT /api/v1/literule/rules/{ruleCode}/ab-policy
  */
-export function updateABPolicy(params: {
-    ruleCode?: string;\n    dto?: RuleABPolicyPutDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/ab-policy`, { params });
+export function updateABPolicy(path: {
+    ruleCode: string;
+  }, data: RuleABPolicyPutDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/literule/rules/${ruleCode}/ab-policy`, data);
 }
 
 /**
  * listRollbackHistory: GET /api/v1/literule/rules/{ruleCode}/ab-rollbacks
  */
-export function listRollbackHistory(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/ab-rollbacks`, { params });
+export function listRollbackHistory(path: {
+    ruleCode: string;
+  }): Promise<RuleABRollbackVO[]> {
+  return requestClient.get<RuleABRollbackVO[]>(`/api/v1/literule/rules/${ruleCode}/ab-rollbacks`);
 }
 
 /**
  * evaluateAB: POST /api/v1/literule/rules/{ruleCode}/ab-evaluate
  */
-export function evaluateAB(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/ab-evaluate`, { params });
+export function evaluateAB(path: {
+    ruleCode: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/literule/rules/${ruleCode}/ab-evaluate`);
 }
 
 /**
  * manualRollback: POST /api/v1/literule/rules/{ruleCode}/ab-rollback
  */
-export function manualRollback(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/ab-rollback`, { params });
+export function manualRollback(path: {
+    ruleCode: string;
+  }, params: {
+    reason?: string;
+  }): Promise<RuleABRollbackVO> {
+  return requestClient.post<RuleABRollbackVO>(`/api/v1/literule/rules/${ruleCode}/ab-rollback`, { params });
 }

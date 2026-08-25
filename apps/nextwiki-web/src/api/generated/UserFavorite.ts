@@ -11,55 +11,59 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { UserFavoriteVO } from './models';
 
 /**
  * listFavorites: GET /api/v1/nextwiki/favorites
  */
-export function listFavorites(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/favorites`);
+export function listFavorites(params: {
+    limit?: number;
+  }): Promise<UserFavoriteVO[]> {
+  return requestClient.get<UserFavoriteVO[]>(`/api/v1/nextwiki/favorites`, { params });
 }
 
 /**
  * addFavorite: POST /api/v1/nextwiki/favorites/{nodeId}
  */
-export function addFavorite(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/favorites/{nodeId}`, { params });
+export function addFavorite(path: {
+    nodeId: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/nextwiki/favorites/${nodeId}`);
 }
 
 /**
  * removeFavorite: DELETE /api/v1/nextwiki/favorites/{nodeId}
  */
-export function removeFavorite(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/favorites/{nodeId}`, { params });
+export function removeFavorite(path: {
+    nodeId: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/nextwiki/favorites/${nodeId}`);
 }
 
 /**
  * isFavorited: GET /api/v1/nextwiki/favorites/{nodeId}/is-favorited
  */
-export function isFavorited(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/favorites/{nodeId}/is-favorited`, { params });
+export function isFavorited(path: {
+    nodeId: string;
+  }): Promise<boolean> {
+  return requestClient.get<boolean>(`/api/v1/nextwiki/favorites/${nodeId}/is-favorited`);
 }
 
 /**
  * updateSortOrder: POST /api/v1/nextwiki/favorites/{nodeId}/sort
  */
-export function updateSortOrder(params: {
-    nodeId?: string;\n    sortOrder?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/favorites/{nodeId}/sort`, { params });
+export function updateSortOrder(path: {
+    nodeId: string;
+  }, params: {
+    sortOrder?: number;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/nextwiki/favorites/${nodeId}/sort`, { params });
 }
 
 /**
  * getFavoriteCount: GET /api/v1/nextwiki/favorites/count
  */
-export function getFavoriteCount(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/favorites/count`);
+export function getFavoriteCount(): Promise<number> {
+  return requestClient.get<number>(`/api/v1/nextwiki/favorites/count`);
 }

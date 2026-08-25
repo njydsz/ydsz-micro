@@ -23,7 +23,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/analysis/by-type": {
@@ -43,7 +53,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/analysis/top-large-files": {
@@ -63,7 +83,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/analysis/summary": {
@@ -84,16 +123,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "content",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/nextwiki/import/batch-upload": {
@@ -113,7 +152,36 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "files",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "object"
+       }
+      }
+     },
+     {
+      "name": "parentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/import/zip": {
@@ -133,7 +201,33 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "parentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/download/folder/{folderId}": {
@@ -158,10 +252,26 @@
     "parameters": [
      {
       "name": "folderId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
       }
      }
     ]
@@ -189,10 +299,34 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
       }
      }
     ]
@@ -219,10 +353,26 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
       }
      }
     ]
@@ -250,10 +400,35 @@
     "parameters": [
      {
       "name": "sign",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "expires",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int64"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
       }
      }
     ]
@@ -279,17 +454,27 @@
     },
     "parameters": [
      {
-      "name": "nodeIds",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/nextwiki/files/batch/move": {
@@ -312,14 +497,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/files/{nodeId}/versions": {
@@ -343,8 +538,8 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -373,19 +568,27 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "version",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "integer",
        "format": "int32"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
       }
      }
     ]
@@ -412,8 +615,8 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -459,17 +662,27 @@
     },
     "parameters": [
      {
-      "name": "nodeIds",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/nextwiki/files/batch/async-move": {
@@ -492,14 +705,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/files/batch/task/{taskId}": {
@@ -523,8 +746,8 @@
     "parameters": [
      {
       "name": "taskId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -553,7 +776,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -579,7 +810,51 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "fileName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "fileSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int64"
+      }
+     },
+     {
+      "name": "totalChunks",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "parentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
@@ -603,19 +878,35 @@
     "parameters": [
      {
       "name": "uploadId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "chunkNumber",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "integer",
        "format": "int32"
+      }
+     },
+     {
+      "name": "chunk",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
       }
      }
     ]
@@ -642,7 +933,15 @@
     "parameters": [
      {
       "name": "uploadId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -672,8 +971,8 @@
     "parameters": [
      {
       "name": "uploadId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -702,8 +1001,8 @@
     "parameters": [
      {
       "name": "uploadId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -732,8 +1031,8 @@
     "parameters": [
      {
       "name": "fileNodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -761,14 +1060,32 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
+      }
+     },
+     {
+      "name": "userName",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/comments/{commentId}": {
@@ -792,7 +1109,15 @@
     "parameters": [
      {
       "name": "commentId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -822,7 +1147,15 @@
     "parameters": [
      {
       "name": "commentId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -848,7 +1181,49 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "parentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "rename",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "versionRemark",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/files/folders": {
@@ -871,14 +1246,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/files/list": {
@@ -898,7 +1283,67 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "parentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "sortBy",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "sortDir",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/files/{nodeId}/move": {
@@ -922,21 +1367,31 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/files/{nodeId}/rename": {
@@ -960,21 +1415,31 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/files/{nodeId}": {
@@ -998,7 +1463,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1028,7 +1501,23 @@
     "parameters": [
      {
       "name": "nodeId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "targetParentId",
       "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1057,14 +1546,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/files/{nodeId}/lock": {
@@ -1088,7 +1587,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1118,7 +1625,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1148,8 +1663,8 @@
     "parameters": [
      {
       "name": "fileNodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1234,7 +1749,25 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "scopeType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "scopeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/quota/set": {
@@ -1257,14 +1790,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/search": {
@@ -1287,14 +1830,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "$ref": "#/components/schemas/SearchRequest"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SearchRequest"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/search/suggest": {
@@ -1374,7 +1927,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/search/history": {
@@ -1394,7 +1957,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    },
    "delete": {
     "operationId": "clearSearchHistory",
@@ -1412,7 +1985,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/search/hot": {
@@ -1461,6 +2044,40 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "scope",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
     ]
    }
@@ -1485,14 +2102,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/shares/verify": {
@@ -1515,14 +2142,6 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
-      }
-     },
-     {
       "name": "httpRequest",
       "in": "query",
       "required": false,
@@ -1530,7 +2149,17 @@
        "type": "object"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/shares/{shareId}": {
@@ -1554,7 +2183,15 @@
     "parameters": [
      {
       "name": "shareId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1580,7 +2217,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/shares/{shareId}/logs": {
@@ -1604,7 +2251,24 @@
     "parameters": [
      {
       "name": "shareId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
       "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1634,7 +2298,15 @@
     "parameters": [
      {
       "name": "shareId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1660,7 +2332,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/spaces": {
@@ -1680,7 +2362,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    },
    "post": {
     "operationId": "createSpace",
@@ -1701,14 +2393,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/spaces/{spaceId}": {
@@ -1732,7 +2434,15 @@
     "parameters": [
      {
       "name": "spaceId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1760,21 +2470,31 @@
     "parameters": [
      {
       "name": "spaceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    },
    "delete": {
     "operationId": "deleteSpace",
@@ -1796,7 +2516,15 @@
     "parameters": [
      {
       "name": "spaceId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1826,7 +2554,15 @@
     "parameters": [
      {
       "name": "spaceId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1856,21 +2592,31 @@
     "parameters": [
      {
       "name": "spaceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    },
    "get": {
     "operationId": "listMembers",
@@ -1892,7 +2638,15 @@
     "parameters": [
      {
       "name": "spaceId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1922,15 +2676,23 @@
     "parameters": [
      {
       "name": "spaceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "targetUserId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -1956,7 +2718,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    },
    "post": {
     "operationId": "createTemplate",
@@ -1977,14 +2749,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/templates/{templateId}": {
@@ -2008,8 +2790,8 @@
     "parameters": [
      {
       "name": "templateId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2036,21 +2818,31 @@
     "parameters": [
      {
       "name": "templateId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    },
    "delete": {
     "operationId": "deleteTemplate",
@@ -2072,7 +2864,15 @@
     "parameters": [
      {
       "name": "templateId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2102,21 +2902,31 @@
     "parameters": [
      {
       "name": "templateId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/tags": {
@@ -2139,14 +2949,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    },
    "get": {
     "operationId": "listTags",
@@ -2187,14 +3007,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/tags/file/{fileNodeId}": {
@@ -2218,8 +3048,8 @@
     "parameters": [
      {
       "name": "fileNodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2248,8 +3078,8 @@
     "parameters": [
      {
       "name": "fileNodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2274,7 +3104,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/trash/{trashItemId}/restore": {
@@ -2298,7 +3138,15 @@
     "parameters": [
      {
       "name": "trashItemId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2327,17 +3175,27 @@
     },
     "parameters": [
      {
-      "name": "trashItemIds",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/nextwiki/trash/{trashItemId}": {
@@ -2361,7 +3219,15 @@
     "parameters": [
      {
       "name": "trashItemId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2387,7 +3253,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/favorites": {
@@ -2407,7 +3283,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/favorites/{nodeId}": {
@@ -2431,7 +3326,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2459,7 +3362,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2489,7 +3400,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2519,8 +3438,8 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2532,6 +3451,14 @@
       "schema": {
        "type": "integer",
        "format": "int32"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
       }
      }
     ]
@@ -2554,7 +3481,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/recent": {
@@ -2574,7 +3511,26 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    },
    "delete": {
     "operationId": "clearAll",
@@ -2592,7 +3548,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/recent/{nodeId}": {
@@ -2616,6 +3582,22 @@
     "parameters": [
      {
       "name": "nodeId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "accessType",
       "in": "query",
       "required": false,
       "schema": {
@@ -2644,7 +3626,15 @@
     "parameters": [
      {
       "name": "nodeId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2670,7 +3660,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/nextwiki/wopi/files/{fileId}": {
@@ -2694,7 +3694,23 @@
     "parameters": [
      {
       "name": "fileId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "authToken",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2728,7 +3744,15 @@
     "parameters": [
      {
       "name": "fileId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "authToken",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2756,13 +3780,51 @@
     "parameters": [
      {
       "name": "fileId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "authToken",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "lockId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "integer",
+         "format": "int32"
+        }
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/wopi/files/{fileId}/lock": {
@@ -2786,7 +3848,31 @@
     "parameters": [
      {
       "name": "fileId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "lockId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "authToken",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2816,7 +3902,23 @@
     "parameters": [
      {
       "name": "fileId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "lockId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "authToken",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -2845,14 +3947,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/ai/status": {
@@ -2895,14 +4007,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/nextwiki/storage/presigned-download": {
@@ -2925,14 +4047,24 @@
     },
     "parameters": [
      {
-      "name": "request",
-      "in": "query",
+      "name": "userId",
+      "in": "header",
       "required": false,
       "schema": {
-       "type": "object"
+       "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
    }
   }
  },

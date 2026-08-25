@@ -11,93 +11,90 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DictItemBatchDTO, DictItemDTO, DictItemPageQuery, DictItemVO, PageResponse } from './models';
 
 /**
  * page: GET /api/v1/dict/item/page
  */
 export function page(params: {
     query?: DictItemPageQuery;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/item/page`, { params });
+  }): Promise<PageResponse> {
+  return requestClient.get<PageResponse>(`/api/v1/dict/item/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/dict/item/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/item/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<DictItemVO> {
+  return requestClient.get<DictItemVO>(`/api/v1/dict/item/${id}`);
 }
 
 /**
  * lookup: GET /api/v1/dict/item/lookup
  */
-export function lookup(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/item/lookup`);
+export function lookup(params: {
+    typeCode?: string;
+    itemCode?: string;
+  }): Promise<DictItemVO> {
+  return requestClient.get<DictItemVO>(`/api/v1/dict/item/lookup`, { params });
 }
 
 /**
  * listByType: GET /api/v1/dict/item/type/{typeCode}
  */
-export function listByType(params: {
-    typeCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/item/type/{typeCode}`, { params });
+export function listByType(path: {
+    typeCode: string;
+  }): Promise<DictItemVO[]> {
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/type/${typeCode}`);
 }
 
 /**
  * listChildren: GET /api/v1/dict/item/children/{parentId}
  */
-export function listChildren(params: {
-    parentId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/item/children/{parentId}`, { params });
+export function listChildren(path: {
+    parentId: string;
+  }): Promise<DictItemVO[]> {
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/children/${parentId}`);
 }
 
 /**
  * buildTree: GET /api/v1/dict/item/tree/{typeCode}
  */
-export function buildTree(params: {
-    typeCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/dict/item/tree/{typeCode}`, { params });
+export function buildTree(path: {
+    typeCode: string;
+  }): Promise<DictItemVO[]> {
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/tree/${typeCode}`);
 }
 
 /**
  * save: POST /api/v1/dict/item
  */
-export function save(params: {
-    dto?: DictItemDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/dict/item`, { params });
+export function save(data: DictItemDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/dict/item`, data);
 }
 
 /**
  * update: PUT /api/v1/dict/item
  */
-export function update(params: {
-    dto?: DictItemDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/dict/item`, { params });
+export function update(data: DictItemDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/dict/item`, data);
 }
 
 /**
  * remove: DELETE /api/v1/dict/item/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/dict/item/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/dict/item/${id}`);
 }
 
 /**
  * batchSave: POST /api/v1/dict/item/batch
  */
-export function batchSave(params: {
-    batchDTO?: DictItemBatchDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/dict/item/batch`, { params });
+export function batchSave(data: DictItemBatchDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/dict/item/batch`, data);
 }

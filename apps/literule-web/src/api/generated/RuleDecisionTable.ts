@@ -11,66 +11,68 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DecisionTableDefinitionVO, DecisionTablePostDTO, DecisionTableVO } from './models';
 
 /**
  * listDecisionTables: GET /api/v1/literule/rules/decision-tables
  */
-export function listDecisionTables(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/decision-tables`);
+export function listDecisionTables(): Promise<DecisionTableVO[]> {
+  return requestClient.get<DecisionTableVO[]>(`/api/v1/literule/rules/decision-tables`);
 }
 
 /**
  * getDecisionTable: GET /api/v1/literule/rules/decision-tables/{tableCode}
  */
-export function getDecisionTable(params: {
-    tableCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/decision-tables/{tableCode}`, { params });
+export function getDecisionTable(path: {
+    tableCode: string;
+  }): Promise<DecisionTableVO> {
+  return requestClient.get<DecisionTableVO>(`/api/v1/literule/rules/decision-tables/${tableCode}`);
 }
 
 /**
  * saveDecisionTable: POST /api/v1/literule/rules/decision-tables
  */
-export function saveDecisionTable(params: {
-    dto?: DecisionTablePostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/decision-tables`, { params });
+export function saveDecisionTable(data: DecisionTablePostDTO): Promise<DecisionTableVO> {
+  return requestClient.post<DecisionTableVO>(`/api/v1/literule/rules/decision-tables`, data);
 }
 
 /**
  * deleteDecisionTable: DELETE /api/v1/literule/rules/decision-tables/{id}
  */
-export function deleteDecisionTable(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/decision-tables/{id}`, { params });
+export function deleteDecisionTable(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/literule/rules/decision-tables/${id}`);
 }
 
 /**
  * evaluateDecisionTable: POST /api/v1/literule/rules/decision-tables/{tableCode}/evaluate
  */
-export function evaluateDecisionTable(params: {
-    tableCode?: string;\n    facts?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/decision-tables/{tableCode}/evaluate`, { params });
+export function evaluateDecisionTable(path: {
+    tableCode: string;
+  }, data: Record<string, unknown>): Promise<Record<string, unknown>[]> {
+  return requestClient.post<Record<string, unknown>[]>(`/api/v1/literule/rules/decision-tables/${tableCode}/evaluate`, data);
 }
 
 /**
  * exportDecisionTableExcel: GET /api/v1/literule/rules/decision-tables/{tableCode}/export-excel
  */
-export function exportDecisionTableExcel(params: {
-    tableCode?: string;\n    response?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/literule/rules/decision-tables/{tableCode}/export-excel`, { params });
+export function exportDecisionTableExcel(path: {
+    tableCode: string;
+  }, params: {
+    response?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.get<void>(`/api/v1/literule/rules/decision-tables/${tableCode}/export-excel`, { params });
 }
 
 /**
  * importDecisionTableExcel: POST /api/v1/literule/rules/decision-tables/import-excel
  */
-export function importDecisionTableExcel(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/decision-tables/import-excel`);
+export function importDecisionTableExcel(params: {
+    file?: Record<string, unknown>;
+  }): Promise<DecisionTableDefinitionVO> {
+  return requestClient.post<DecisionTableDefinitionVO>(`/api/v1/literule/rules/decision-tables/import-excel`, { params });
 }
 
 /**
@@ -78,6 +80,6 @@ export function importDecisionTableExcel(): Promise<YdszResponse<YdszResponse>> 
  */
 export function downloadDecisionTableExcelTemplate(params: {
     response?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/literule/rules/decision-tables/excel-template`, { params });
+  }): Promise<void> {
+  return requestClient.get<void>(`/api/v1/literule/rules/decision-tables/excel-template`, { params });
 }

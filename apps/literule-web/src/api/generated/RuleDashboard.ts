@@ -11,54 +11,63 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleDashboardDistributionVO, RuleDashboardOverviewVO, RuleDashboardRealtimeVO, RuleDashboardTopRuleVO, RuleDashboardTrendVO } from './models';
 
 /**
  * overview: GET /api/v1/literule/dashboard/overview
  */
-export function overview(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dashboard/overview`);
+export function overview(): Promise<RuleDashboardOverviewVO> {
+  return requestClient.get<RuleDashboardOverviewVO>(`/api/v1/literule/dashboard/overview`);
 }
 
 /**
  * trends: GET /api/v1/literule/dashboard/trends
  */
-export function trends(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dashboard/trends`);
+export function trends(params: {
+    timeRange?: string;
+  }): Promise<RuleDashboardTrendVO> {
+  return requestClient.get<RuleDashboardTrendVO>(`/api/v1/literule/dashboard/trends`, { params });
 }
 
 /**
  * distribution: GET /api/v1/literule/dashboard/distribution
  */
-export function distribution(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dashboard/distribution`);
+export function distribution(): Promise<RuleDashboardDistributionVO> {
+  return requestClient.get<RuleDashboardDistributionVO>(`/api/v1/literule/dashboard/distribution`);
 }
 
 /**
  * topRules: GET /api/v1/literule/dashboard/top-rules
  */
-export function topRules(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dashboard/top-rules`);
+export function topRules(params: {
+    type?: string;
+    limit?: number;
+  }): Promise<RuleDashboardTopRuleVO[]> {
+  return requestClient.get<RuleDashboardTopRuleVO[]>(`/api/v1/literule/dashboard/top-rules`, { params });
 }
 
 /**
  * realtime: GET /api/v1/literule/dashboard/realtime
  */
-export function realtime(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dashboard/realtime`);
+export function realtime(): Promise<RuleDashboardRealtimeVO> {
+  return requestClient.get<RuleDashboardRealtimeVO>(`/api/v1/literule/dashboard/realtime`);
 }
 
 /**
  * slowRules: GET /api/v1/literule/dashboard/slow-rules
  */
-export function slowRules(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dashboard/slow-rules`);
+export function slowRules(params: {
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/literule/dashboard/slow-rules`, { params });
 }
 
 /**
  * hotRules: GET /api/v1/literule/dashboard/hot-rules
  */
-export function hotRules(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/dashboard/hot-rules`);
+export function hotRules(params: {
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/literule/dashboard/hot-rules`, { params });
 }

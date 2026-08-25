@@ -11,46 +11,42 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from './models';
 
 /**
  * list: GET /api/v1/workflow/categories
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/categories`);
+export function list(): Promise<FlowCategoryVO[]> {
+  return requestClient.get<FlowCategoryVO[]>(`/api/v1/workflow/categories`);
 }
 
 /**
  * tree: GET /api/v1/workflow/categories/tree
  */
-export function tree(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/categories/tree`);
+export function tree(): Promise<FlowCategoryTreeVO[]> {
+  return requestClient.get<FlowCategoryTreeVO[]>(`/api/v1/workflow/categories/tree`);
 }
 
 /**
  * create: POST /api/v1/workflow/categories
  */
-export function create(params: {
-    dto?: FlowCategoryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/categories`, { params });
+export function create(data: FlowCategoryDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/categories`, data);
 }
 
 /**
  * update: PUT /api/v1/workflow/categories
  */
-export function update(params: {
-    dto?: FlowCategoryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/workflow/categories`, { params });
+export function update(data: FlowCategoryDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/workflow/categories`, data);
 }
 
 /**
  * delete: DELETE /api/v1/workflow/categories/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/workflow/categories/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/workflow/categories/${id}`);
 }

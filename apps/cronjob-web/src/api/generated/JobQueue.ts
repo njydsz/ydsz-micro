@@ -11,12 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * getQueueStatus: GET /api/v1/cronjob/queue/status
  */
-export function getQueueStatus(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/queue/status`);
+export function getQueueStatus(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/queue/status`);
 }

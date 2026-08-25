@@ -11,53 +11,53 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { VariableDefinition, VariableDefinitionVO } from './models';
 
 /**
  * list: GET /api/v1/literule/variables
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/variables`);
+export function list(params: {
+    category?: string;
+  }): Promise<VariableDefinitionVO[]> {
+  return requestClient.get<VariableDefinitionVO[]>(`/api/v1/literule/variables`, { params });
 }
 
 /**
  * get: GET /api/v1/literule/variables/{varName}
  */
-export function get(params: {
-    varName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/variables/{varName}`, { params });
+export function get(path: {
+    varName: string;
+  }): Promise<VariableDefinitionVO> {
+  return requestClient.get<VariableDefinitionVO>(`/api/v1/literule/variables/${varName}`);
 }
 
 /**
  * save: POST /api/v1/literule/variables
  */
-export function save(params: {
-    definition?: VariableDefinition;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/variables`, { params });
+export function save(data: VariableDefinition): Promise<VariableDefinitionVO> {
+  return requestClient.post<VariableDefinitionVO>(`/api/v1/literule/variables`, data);
 }
 
 /**
  * delete: DELETE /api/v1/literule/variables/{varName}
  */
-export function delete(params: {
-    varName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/variables/{varName}`, { params });
+export function delete(path: {
+    varName: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/literule/variables/${varName}`);
 }
 
 /**
  * refresh: POST /api/v1/literule/variables/refresh
  */
-export function refresh(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/variables/refresh`);
+export function refresh(): Promise<void> {
+  return requestClient.post<void>(`/api/v1/literule/variables/refresh`);
 }
 
 /**
  * listAvailable: GET /api/v1/literule/variables/available
  */
-export function listAvailable(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/variables/available`);
+export function listAvailable(): Promise<VariableDefinitionVO[]> {
+  return requestClient.get<VariableDefinitionVO[]>(`/api/v1/literule/variables/available`);
 }

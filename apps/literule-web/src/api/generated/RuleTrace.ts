@@ -11,57 +11,59 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleExecutionTraceVO } from './models';
 
 /**
  * getTrace: GET /api/v1/literule/rules/traces/{traceId}
  */
-export function getTrace(params: {
-    traceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/traces/{traceId}`, { params });
+export function getTrace(path: {
+    traceId: string;
+  }): Promise<RuleExecutionTraceVO[]> {
+  return requestClient.get<RuleExecutionTraceVO[]>(`/api/v1/literule/rules/traces/${traceId}`);
 }
 
 /**
  * getTracesByRule: GET /api/v1/literule/rules/traces/rule/{ruleCode}
  */
-export function getTracesByRule(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/traces/rule/{ruleCode}`, { params });
+export function getTracesByRule(path: {
+    ruleCode: string;
+  }, params: {
+    limit?: number;
+  }): Promise<RuleExecutionTraceVO[]> {
+  return requestClient.get<RuleExecutionTraceVO[]>(`/api/v1/literule/rules/traces/rule/${ruleCode}`, { params });
 }
 
 /**
  * replayTrace: POST /api/v1/literule/rules/traces/{traceId}/replay
  */
-export function replayTrace(params: {
-    traceId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/traces/{traceId}/replay`, { params });
+export function replayTrace(path: {
+    traceId: string;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/traces/${traceId}/replay`);
 }
 
 /**
  * batchReplayTraces: POST /api/v1/literule/rules/traces/batch-replay
  */
-export function batchReplayTraces(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/traces/batch-replay`, { params });
+export function batchReplayTraces(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/traces/batch-replay`, data);
 }
 
 /**
  * impactPreview: POST /api/v1/literule/rules/{ruleCode}/impact-preview
  */
-export function impactPreview(params: {
-    ruleCode?: string;\n    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/impact-preview`, { params });
+export function impactPreview(path: {
+    ruleCode: string;
+  }, data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/${ruleCode}/impact-preview`, data);
 }
 
 /**
  * listRecentTraces: GET /api/v1/literule/rules/traces
  */
-export function listRecentTraces(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/traces`);
+export function listRecentTraces(params: {
+    limit?: number;
+  }): Promise<RuleExecutionTraceVO[]> {
+  return requestClient.get<RuleExecutionTraceVO[]>(`/api/v1/literule/rules/traces`, { params });
 }

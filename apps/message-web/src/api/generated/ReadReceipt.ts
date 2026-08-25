@@ -11,14 +11,16 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * shortLinkRedirect: GET /api/v1/message/read-receipt/s/{shortCode}
  */
-export function shortLinkRedirect(params: {
-    shortCode?: string;\n    response?: Record<string, unknown>;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/message/read-receipt/s/{shortCode}`, { params });
+export function shortLinkRedirect(path: {
+    shortCode: string;
+  }, params: {
+    response?: Record<string, unknown>;
+  }): Promise<void> {
+  return requestClient.get<void>(`/api/v1/message/read-receipt/s/${shortCode}`, { params });
 }

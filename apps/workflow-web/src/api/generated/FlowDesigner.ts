@@ -11,132 +11,140 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { FlowDesignerDataDTO } from './models';
 
 /**
  * getDesignerData: GET /api/v1/workflow/engine/definition/{id}/designer
  */
-export function getDesignerData(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/designer`, { params });
+export function getDesignerData(path: {
+    id: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/designer`);
 }
 
 /**
  * saveDesignerData: POST /api/v1/workflow/engine/definition/{id}/designer
  */
-export function saveDesignerData(params: {
-    id?: string;\n    dto?: FlowDesignerDataDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/designer`, { params });
+export function saveDesignerData(path: {
+    id: string;
+  }, data: FlowDesignerDataDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/designer`, data);
 }
 
 /**
  * lockDefinition: POST /api/v1/workflow/engine/definition/{id}/lock
  */
-export function lockDefinition(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/lock`, { params });
+export function lockDefinition(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/engine/definition/${id}/lock`);
 }
 
 /**
  * unlockDefinition: POST /api/v1/workflow/engine/definition/{id}/unlock
  */
-export function unlockDefinition(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/unlock`, { params });
+export function unlockDefinition(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/workflow/engine/definition/${id}/unlock`);
 }
 
 /**
  * getLockStatus: GET /api/v1/workflow/engine/definition/{id}/lockStatus
  */
-export function getLockStatus(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/lockStatus`, { params });
+export function getLockStatus(path: {
+    id: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/lockStatus`);
 }
 
 /**
  * getFormConfig: GET /api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}
  */
-export function getFormConfig(params: {
-    id?: string;\n    nodeCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}`, { params });
+export function getFormConfig(path: {
+    id: string;
+    nodeCode: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/workflow/engine/definition/${id}/formConfig/${nodeCode}`);
 }
 
 /**
  * saveFormConfig: POST /api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}
  */
-export function saveFormConfig(params: {
-    id?: string;\n    nodeCode?: string;\n    formFieldsConfig?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}`, { params });
+export function saveFormConfig(path: {
+    id: string;
+    nodeCode: string;
+  }, data: string): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/formConfig/${nodeCode}`, data);
 }
 
 /**
  * getSlaConfig: GET /api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}
  */
-export function getSlaConfig(params: {
-    id?: string;\n    nodeCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}`, { params });
+export function getSlaConfig(path: {
+    id: string;
+    nodeCode: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/workflow/engine/definition/${id}/slaConfig/${nodeCode}`);
 }
 
 /**
  * saveSlaConfig: POST /api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}
  */
-export function saveSlaConfig(params: {
-    id?: string;\n    nodeCode?: string;\n    slaConfig?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}`, { params });
+export function saveSlaConfig(path: {
+    id: string;
+    nodeCode: string;
+  }, data: Record<string, unknown>): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/slaConfig/${nodeCode}`, data);
 }
 
 /**
  * listAssigneeTypes: GET /api/v1/workflow/engine/assignee/types
  */
-export function listAssigneeTypes(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/assignee/types`);
+export function listAssigneeTypes(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/assignee/types`);
 }
 
 /**
  * listListenerPlugins: GET /api/v1/workflow/engine/listener/plugins
  */
-export function listListenerPlugins(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/listener/plugins`);
+export function listListenerPlugins(): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/workflow/engine/listener/plugins`);
 }
 
 /**
  * listListenerEventTypes: GET /api/v1/workflow/engine/listener/eventTypes
  */
-export function listListenerEventTypes(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/listener/eventTypes`);
+export function listListenerEventTypes(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/listener/eventTypes`);
 }
 
 /**
  * listTemplates: GET /api/v1/workflow/engine/template/list
  */
-export function listTemplates(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/template/list`);
+export function listTemplates(params: {
+    category?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/template/list`, { params });
 }
 
 /**
  * importTemplate: POST /api/v1/workflow/engine/template/{templateCode}/import
  */
-export function importTemplate(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/template/{templateCode}/import`, { params });
+export function importTemplate(path: {
+    templateCode: string;
+  }, params: {
+    flowName?: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/template/${templateCode}/import`, { params });
 }
 
 /**
  * getTemplate: GET /api/v1/workflow/engine/template/{templateCode}
  */
-export function getTemplate(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/engine/template/{templateCode}`, { params });
+export function getTemplate(path: {
+    templateCode: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/template/${templateCode}`);
 }

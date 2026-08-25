@@ -11,21 +11,26 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * getUpcomingFireTimes: GET /api/v1/cronjob/calendar/fireTimes
  */
 export function getUpcomingFireTimes(params: {
     jobKey?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/calendar/fireTimes`, { params });
+    hours?: number;
+    maxCount?: number;
+  }): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/cronjob/calendar/fireTimes`, { params });
 }
 
 /**
  * getScheduleCalendar: GET /api/v1/cronjob/calendar/schedule
  */
-export function getScheduleCalendar(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/calendar/schedule`);
+export function getScheduleCalendar(params: {
+    hours?: number;
+    maxPerJob?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/cronjob/calendar/schedule`, { params });
 }

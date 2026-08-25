@@ -11,23 +11,23 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * lock: POST /api/v1/nextwiki/files/{nodeId}/lock
  */
-export function lock(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/lock`, { params });
+export function lock(path: {
+    nodeId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/files/${nodeId}/lock`);
 }
 
 /**
  * unlock: POST /api/v1/nextwiki/files/{nodeId}/unlock
  */
-export function unlock(params: {
-    nodeId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/nextwiki/files/{nodeId}/unlock`, { params });
+export function unlock(path: {
+    nodeId: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/nextwiki/files/${nodeId}/unlock`);
 }

@@ -11,21 +11,21 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { DeviceSessionVO } from './models';
 
 /**
  * listMyDevices: GET /api/v1/devices
  */
-export function listMyDevices(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/devices`);
+export function listMyDevices(): Promise<DeviceSessionVO[]> {
+  return requestClient.get<DeviceSessionVO[]>(`/api/v1/devices`);
 }
 
 /**
  * revokeDevice: DELETE /api/v1/devices/{sessionId}
  */
-export function revokeDevice(params: {
-    sessionId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/devices/{sessionId}`, { params });
+export function revokeDevice(path: {
+    sessionId: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/devices/${sessionId}`);
 }

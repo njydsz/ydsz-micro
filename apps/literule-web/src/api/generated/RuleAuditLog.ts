@@ -11,42 +11,56 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AuditLogEntryVO } from './models';
 
 /**
  * recent: GET /api/v1/literule/audit/recent
  */
-export function recent(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/audit/recent`);
+export function recent(params: {
+    limit?: number;
+  }): Promise<AuditLogEntryVO[]> {
+  return requestClient.get<AuditLogEntryVO[]>(`/api/v1/literule/audit/recent`, { params });
 }
 
 /**
  * byRuleCode: GET /api/v1/literule/audit/by-rule/{ruleCode}
  */
-export function byRuleCode(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/audit/by-rule/{ruleCode}`, { params });
+export function byRuleCode(path: {
+    ruleCode: string;
+  }, params: {
+    limit?: number;
+  }): Promise<AuditLogEntryVO[]> {
+  return requestClient.get<AuditLogEntryVO[]>(`/api/v1/literule/audit/by-rule/${ruleCode}`, { params });
 }
 
 /**
  * byOperator: GET /api/v1/literule/audit/by-operator
  */
-export function byOperator(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/audit/by-operator`);
+export function byOperator(params: {
+    operator?: string;
+    limit?: number;
+  }): Promise<AuditLogEntryVO[]> {
+  return requestClient.get<AuditLogEntryVO[]>(`/api/v1/literule/audit/by-operator`, { params });
 }
 
 /**
  * byAction: GET /api/v1/literule/audit/by-action
  */
-export function byAction(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/audit/by-action`);
+export function byAction(params: {
+    action?: string;
+    limit?: number;
+  }): Promise<AuditLogEntryVO[]> {
+  return requestClient.get<AuditLogEntryVO[]>(`/api/v1/literule/audit/by-action`, { params });
 }
 
 /**
  * byTimeRange: GET /api/v1/literule/audit/by-time-range
  */
-export function byTimeRange(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/audit/by-time-range`);
+export function byTimeRange(params: {
+    startTime?: string;
+    endTime?: string;
+    limit?: number;
+  }): Promise<AuditLogEntryVO[]> {
+  return requestClient.get<AuditLogEntryVO[]>(`/api/v1/literule/audit/by-time-range`, { params });
 }

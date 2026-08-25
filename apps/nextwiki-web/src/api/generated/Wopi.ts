@@ -11,50 +11,50 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * checkFileInfo: GET /api/v1/nextwiki/wopi/files/{fileId}
  */
-export function checkFileInfo(params: {
-    fileId?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.get<YdszResponse<unknown>>(`/api/v1/nextwiki/wopi/files/{fileId}`, { params });
+export function checkFileInfo(path: {
+    fileId: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}`);
 }
 
 /**
  * getFileContents: GET /api/v1/nextwiki/wopi/files/{fileId}/contents
  */
-export function getFileContents(params: {
-    fileId?: string;
-  }): Promise<YdszResponse<number[]>> {
-  return requestClient.get<YdszResponse<number[]>>(`/api/v1/nextwiki/wopi/files/{fileId}/contents`, { params });
+export function getFileContents(path: {
+    fileId: string;
+  }): Promise<number[]> {
+  return requestClient.get<number[]>(`/api/v1/nextwiki/wopi/files/${fileId}/contents`);
 }
 
 /**
  * putFileContents: POST /api/v1/nextwiki/wopi/files/{fileId}/contents
  */
-export function putFileContents(params: {
-    fileId?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/api/v1/nextwiki/wopi/files/{fileId}/contents`, { params });
+export function putFileContents(path: {
+    fileId: string;
+  }, data: number[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}/contents`, data);
 }
 
 /**
  * lockFile: POST /api/v1/nextwiki/wopi/files/{fileId}/lock
  */
-export function lockFile(params: {
-    fileId?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/api/v1/nextwiki/wopi/files/{fileId}/lock`, { params });
+export function lockFile(path: {
+    fileId: string;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}/lock`);
 }
 
 /**
  * unlockFile: POST /api/v1/nextwiki/wopi/files/{fileId}/unlock
  */
-export function unlockFile(params: {
-    fileId?: string;
-  }): Promise<YdszResponse<unknown>> {
-  return requestClient.post<YdszResponse<unknown>>(`/api/v1/nextwiki/wopi/files/{fileId}/unlock`, { params });
+export function unlockFile(path: {
+    fileId: string;
+  }): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}/unlock`);
 }

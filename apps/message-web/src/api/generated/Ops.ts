@@ -11,14 +11,14 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { BloomFilterStatsVO, CacheStatsVO } from './models';
 
 /**
  * getTemplateCacheStats: GET /api/v1/message/ops/template-cache/stats
  */
-export function getTemplateCacheStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/ops/template-cache/stats`);
+export function getTemplateCacheStats(): Promise<CacheStatsVO> {
+  return requestClient.get<CacheStatsVO>(`/api/v1/message/ops/template-cache/stats`);
 }
 
 /**
@@ -26,20 +26,20 @@ export function getTemplateCacheStats(): Promise<YdszResponse<YdszResponse>> {
  */
 export function evictTemplateCache(params: {
     template?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/message/ops/template-cache`, { params });
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/message/ops/template-cache`, { params });
 }
 
 /**
  * clearTemplateCache: DELETE /api/v1/message/ops/template-cache/all
  */
-export function clearTemplateCache(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/message/ops/template-cache/all`);
+export function clearTemplateCache(): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/message/ops/template-cache/all`);
 }
 
 /**
  * getBloomFilterStats: GET /api/v1/message/ops/bloomfilter/stats
  */
-export function getBloomFilterStats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/ops/bloomfilter/stats`);
+export function getBloomFilterStats(): Promise<BloomFilterStatsVO> {
+  return requestClient.get<BloomFilterStatsVO>(`/api/v1/message/ops/bloomfilter/stats`);
 }

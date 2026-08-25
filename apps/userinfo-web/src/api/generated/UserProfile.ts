@@ -11,69 +11,63 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MfaOperationDTO, MfaSetupVO, UserAccountVO, UserProfileUpdateDTO } from './models';
 
 /**
  * getCurrentUserProfile: GET /api/v1/profile/me
  */
-export function getCurrentUserProfile(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/profile/me`);
+export function getCurrentUserProfile(): Promise<UserAccountVO> {
+  return requestClient.get<UserAccountVO>(`/api/v1/profile/me`);
 }
 
 /**
  * updateCurrentUserProfile: PUT /api/v1/profile/me
  */
-export function updateCurrentUserProfile(params: {
-    dto?: UserProfileUpdateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/profile/me`, { params });
+export function updateCurrentUserProfile(data: UserProfileUpdateDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/profile/me`, data);
 }
 
 /**
  * changePassword: PUT /api/v1/profile/password
  */
-export function changePassword(params: {
-    dto?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/profile/password`, { params });
+export function changePassword(data: Record<string, unknown>): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/profile/password`, data);
 }
 
 /**
  * uploadAvatar: PUT /api/v1/profile/avatar
  */
-export function uploadAvatar(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/profile/avatar`);
+export function uploadAvatar(params: {
+    file?: Record<string, unknown>;
+  }): Promise<string> {
+  return requestClient.put<string>(`/api/v1/profile/avatar`, { params });
 }
 
 /**
  * getMfaStatus: GET /api/v1/profile/mfa/status
  */
-export function getMfaStatus(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/profile/mfa/status`);
+export function getMfaStatus(): Promise<boolean> {
+  return requestClient.get<boolean>(`/api/v1/profile/mfa/status`);
 }
 
 /**
  * setupMfa: POST /api/v1/profile/mfa/setup
  */
-export function setupMfa(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/profile/mfa/setup`);
+export function setupMfa(): Promise<MfaSetupVO> {
+  return requestClient.post<MfaSetupVO>(`/api/v1/profile/mfa/setup`);
 }
 
 /**
  * activateMfa: POST /api/v1/profile/mfa/activate
  */
-export function activateMfa(params: {
-    dto?: MfaOperationDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/profile/mfa/activate`, { params });
+export function activateMfa(data: MfaOperationDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/profile/mfa/activate`, data);
 }
 
 /**
  * disableMfa: POST /api/v1/profile/mfa/disable
  */
-export function disableMfa(params: {
-    dto?: MfaOperationDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/profile/mfa/disable`, { params });
+export function disableMfa(data: MfaOperationDTO): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/profile/mfa/disable`, data);
 }

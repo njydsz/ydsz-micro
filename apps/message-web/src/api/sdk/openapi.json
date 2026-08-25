@@ -112,16 +112,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/BatchSendRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchSendRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/batch/progress/{batchId}": {
@@ -145,8 +145,8 @@
     "parameters": [
      {
       "name": "batchId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -175,7 +175,15 @@
     "parameters": [
      {
       "name": "batchId",
-      "in": "query",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "lastEventId",
+      "in": "header",
       "required": false,
       "schema": {
        "type": "string"
@@ -328,8 +336,8 @@
     "parameters": [
      {
       "name": "logId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -354,7 +362,77 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "bizType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/send": {
@@ -375,16 +453,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MessageSendDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageSendDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/sendDirect": {
@@ -405,16 +483,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MessageSendDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageSendDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/sendAsync": {
@@ -435,16 +513,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MessageRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/log/page": {
@@ -525,16 +603,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MessageRequest"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageRequest"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/batchSend": {
@@ -557,17 +635,6 @@
     },
     "parameters": [
      {
-      "name": "requests",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "$ref": "#/components/schemas/MessageRequest"
-       }
-      }
-     },
-     {
       "name": "batchId",
       "in": "query",
       "required": false,
@@ -575,7 +642,20 @@
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/MessageRequest"
+        }
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/message/batch/{batchId}/progress": {
@@ -599,10 +679,28 @@
     "parameters": [
      {
       "name": "batchId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "page",
       "in": "query",
       "required": false,
       "schema": {
-       "type": "string"
+       "type": "integer",
+       "format": "int64"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int64"
       }
      }
     ]
@@ -626,16 +724,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/MessageFeedbackDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageFeedbackDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/feedback/rating": {
@@ -664,6 +762,14 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
     ]
    }
@@ -685,7 +791,43 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/feedback/shouldReduceFreq": {
@@ -735,7 +877,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/stats/channel": {
@@ -755,7 +917,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/stats/receipt": {
@@ -775,7 +957,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/stats/funnel": {
@@ -795,7 +997,43 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/stats/cost": {
@@ -815,7 +1053,27 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/trace/msg/{msgId}": {
@@ -839,8 +1097,8 @@
     "parameters": [
      {
       "name": "msgId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -869,8 +1127,8 @@
     "parameters": [
      {
       "name": "traceId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -934,16 +1192,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/NotificationSendDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/NotificationSendDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/notifications/inbox": {
@@ -1017,8 +1275,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1064,19 +1322,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "ids",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
        }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/notifications/{id}/recall": {
@@ -1100,8 +1358,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1143,16 +1401,18 @@
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "payload",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/PushRealtimeRequestDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PushRealtimeRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/notifications/broadcast": {
@@ -1173,16 +1433,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/BroadcastRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BroadcastRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/notifications/push-realtime": {
@@ -1203,16 +1463,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "request",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/PushRealtimeRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PushRealtimeRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/ops/template-cache/stats": {
@@ -1323,16 +1583,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/PreferenceUpsertDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PreferenceUpsertDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/preference/{userId}": {
@@ -1356,8 +1616,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1386,24 +1646,24 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "channel",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "bizType",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1432,8 +1692,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1463,8 +1723,8 @@
     "parameters": [
      {
       "name": "shortCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1501,8 +1761,8 @@
     "parameters": [
      {
       "name": "msgId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1538,17 +1798,6 @@
     },
     "parameters": [
      {
-      "name": "msgIds",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "array",
-       "items": {
-        "type": "string"
-       }
-      }
-     },
-     {
       "name": "userId",
       "in": "query",
       "required": false,
@@ -1556,7 +1805,20 @@
        "type": "string"
       }
      }
-    ]
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/message/read-status/notification/{notificationId}": {
@@ -1580,8 +1842,8 @@
     "parameters": [
      {
       "name": "notificationId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1623,6 +1885,14 @@
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "bizType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
      }
     ]
    }
@@ -1648,6 +1918,14 @@
     "parameters": [
      {
       "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
       "in": "query",
       "required": false,
       "schema": {
@@ -1683,16 +1961,18 @@
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RecallRequestDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RecallRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/recall/message/{logId}": {
@@ -1716,8 +1996,8 @@
     "parameters": [
      {
       "name": "logId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1746,8 +2026,8 @@
     "parameters": [
      {
       "name": "msgId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1773,16 +2053,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RecallRequestDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RecallRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/receipt/callback": {
@@ -1803,16 +2083,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/ReceiptCallbackDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReceiptCallbackDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/receipt/{logId}": {
@@ -1836,8 +2116,8 @@
     "parameters": [
      {
       "name": "logId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -1862,7 +2142,17 @@
        }
       }
      }
-    }
+    },
+    "parameters": [
+     {
+      "name": "preset",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   },
   "/api/v1/message/retry/preview/all": {
@@ -1923,16 +2213,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RouteRuleUpsertDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RouteRuleUpsertDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/route-rule/{id}": {
@@ -1956,21 +2246,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/RouteRuleUpsertDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RouteRuleUpsertDTO"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "delete",
@@ -1992,8 +2284,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2020,8 +2312,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2097,16 +2389,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/SubscriptionUpsertDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SubscriptionUpsertDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/subscription/user/{userId}": {
@@ -2130,8 +2422,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2160,16 +2452,16 @@
     "parameters": [
      {
       "name": "topicCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
      },
      {
       "name": "channel",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2281,16 +2573,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/TemplateCreateDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateCreateDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/template/{id}": {
@@ -2314,21 +2606,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/TemplateCreateDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateCreateDTO"
+       }
       }
      }
-    ]
+    }
    },
    "delete": {
     "operationId": "delete",
@@ -2350,8 +2644,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2378,8 +2672,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2438,21 +2732,23 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
-     },
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/TemplateAuditDTO"
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateAuditDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/template/preview/by-code": {
@@ -2473,16 +2769,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "req",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/template/preview/raw": {
@@ -2503,16 +2799,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "req",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "object"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/template/version/list/{templateCode}": {
@@ -2536,8 +2832,8 @@
     "parameters": [
      {
       "name": "templateCode",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2602,16 +2898,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/TemplatePreviewDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplatePreviewDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/template/version/testSend": {
@@ -2632,16 +2928,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/TemplateTestSendDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateTestSendDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/unsubscribe/oneClick": {
@@ -2798,16 +3094,16 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "dto",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "$ref": "#/components/schemas/UserChannelBindingDTO"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserChannelBindingDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
   "/api/v1/message/user-channels/mine": {
@@ -2851,8 +3147,8 @@
     "parameters": [
      {
       "name": "userId",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }
@@ -2881,8 +3177,8 @@
     "parameters": [
      {
       "name": "id",
-      "in": "query",
-      "required": false,
+      "in": "path",
+      "required": true,
       "schema": {
        "type": "string"
       }

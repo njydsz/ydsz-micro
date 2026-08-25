@@ -11,62 +11,56 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { CEPHitVO, CEPPattern, CEPPatternVO } from './models';
 
 /**
  * listPatterns: GET /api/v1/literule/cep/patterns
  */
-export function listPatterns(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/patterns`);
+export function listPatterns(): Promise<CEPPatternVO[]> {
+  return requestClient.get<CEPPatternVO[]>(`/api/v1/literule/cep/patterns`);
 }
 
 /**
  * registerPattern: POST /api/v1/literule/cep/patterns
  */
-export function registerPattern(params: {
-    pattern?: CEPPattern;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/patterns`, { params });
+export function registerPattern(data: CEPPattern): Promise<void> {
+  return requestClient.post<void>(`/api/v1/literule/cep/patterns`, data);
 }
 
 /**
  * unregisterPattern: DELETE /api/v1/literule/cep/patterns/{pattern-id}
  */
-export function unregisterPattern(params: {
-    patternId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/patterns/{pattern-id}`, { params });
+export function unregisterPattern(path: {
+    patternId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/literule/cep/patterns/{pattern-id}`);
 }
 
 /**
  * feedEvent: POST /api/v1/literule/cep/events
  */
-export function feedEvent(params: {
-    body?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/events`, { params });
+export function feedEvent(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/cep/events`, data);
 }
 
 /**
  * feedEvents: POST /api/v1/literule/cep/events/batch
  */
-export function feedEvents(params: {
-    events?: Record<string, unknown>[];
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/events/batch`, { params });
+export function feedEvents(data: Record<string, unknown>[]): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/cep/events/batch`, data);
 }
 
 /**
  * recentHits: GET /api/v1/literule/cep/hits
  */
-export function recentHits(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/hits`);
+export function recentHits(): Promise<CEPHitVO[]> {
+  return requestClient.get<CEPHitVO[]>(`/api/v1/literule/cep/hits`);
 }
 
 /**
  * stats: GET /api/v1/literule/cep/stats
  */
-export function stats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/cep/stats`);
+export function stats(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/literule/cep/stats`);
 }

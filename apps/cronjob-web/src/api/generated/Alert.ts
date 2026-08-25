@@ -11,66 +11,68 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { AlertRulePostDTO, AlertRulePutDTO, JobAlertLogVO, JobAlertRuleVO } from './models';
 
 /**
  * createRule: POST /api/v1/cronjob/alert/rule
  */
-export function createRule(params: {
-    dto?: AlertRulePostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/alert/rule`, { params });
+export function createRule(data: AlertRulePostDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/cronjob/alert/rule`, data);
 }
 
 /**
  * updateRule: PUT /api/v1/cronjob/alert/rule/{id}
  */
-export function updateRule(params: {
-    id?: string;\n    dto?: AlertRulePutDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob/alert/rule/{id}`, { params });
+export function updateRule(path: {
+    id: string;
+  }, data: AlertRulePutDTO): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob/alert/rule/${id}`, data);
 }
 
 /**
  * deleteRule: DELETE /api/v1/cronjob/alert/rule/{id}
  */
-export function deleteRule(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/cronjob/alert/rule/{id}`, { params });
+export function deleteRule(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/cronjob/alert/rule/${id}`);
 }
 
 /**
  * getRuleById: GET /api/v1/cronjob/alert/rule/{id}
  */
-export function getRuleById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/alert/rule/{id}`, { params });
+export function getRuleById(path: {
+    id: string;
+  }): Promise<JobAlertRuleVO> {
+  return requestClient.get<JobAlertRuleVO>(`/api/v1/cronjob/alert/rule/${id}`);
 }
 
 /**
  * listRules: GET /api/v1/cronjob/alert/rules
  */
-export function listRules(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/alert/rules`);
+export function listRules(): Promise<JobAlertRuleVO[]> {
+  return requestClient.get<JobAlertRuleVO[]>(`/api/v1/cronjob/alert/rules`);
 }
 
 /**
  * toggleRule: PUT /api/v1/cronjob/alert/rule/{id}/toggle
  */
-export function toggleRule(params: {
-    id?: string;\n    enabled?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/cronjob/alert/rule/{id}/toggle`, { params });
+export function toggleRule(path: {
+    id: string;
+  }, params: {
+    enabled?: number;
+  }): Promise<void> {
+  return requestClient.put<void>(`/api/v1/cronjob/alert/rule/${id}/toggle`, { params });
 }
 
 /**
  * queryAlertLogs: GET /api/v1/cronjob/alert/logs/{jobId}
  */
-export function queryAlertLogs(params: {
-    jobId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/alert/logs/{jobId}`, { params });
+export function queryAlertLogs(path: {
+    jobId: string;
+  }, params: {
+    since?: string;
+  }): Promise<JobAlertLogVO[]> {
+  return requestClient.get<JobAlertLogVO[]>(`/api/v1/cronjob/alert/logs/${jobId}`, { params });
 }

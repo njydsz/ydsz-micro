@@ -11,34 +11,38 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * markRead: POST /api/v1/message/read-status/read/{msgId}
  */
-export function markRead(params: {
-    msgId?: string;\n    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/read-status/read/{msgId}`, { params });
+export function markRead(path: {
+    msgId: string;
+  }, params: {
+    userId?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/read-status/read/${msgId}`, { params });
 }
 
 /**
  * markReadBatch: POST /api/v1/message/read-status/readBatch
  */
 export function markReadBatch(params: {
-    msgIds?: string[];\n    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/read-status/readBatch`, { params });
+    userId?: string;
+  }, data: string[]): Promise<number> {
+  return requestClient.post<number>(`/api/v1/message/read-status/readBatch`, data, { params });
 }
 
 /**
  * markNotificationRead: POST /api/v1/message/read-status/notification/{notificationId}
  */
-export function markNotificationRead(params: {
-    notificationId?: string;\n    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/read-status/notification/{notificationId}`, { params });
+export function markNotificationRead(path: {
+    notificationId: string;
+  }, params: {
+    userId?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/read-status/notification/${notificationId}`, { params });
 }
 
 /**
@@ -46,8 +50,9 @@ export function markNotificationRead(params: {
  */
 export function markAllNotificationsRead(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/read-status/notification/readAll`, { params });
+    bizType?: string;
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/message/read-status/notification/readAll`, { params });
 }
 
 /**
@@ -55,6 +60,7 @@ export function markAllNotificationsRead(params: {
  */
 export function getUnreadCount(params: {
     userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/read-status/unreadCount`, { params });
+    channel?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/message/read-status/unreadCount`, { params });
 }

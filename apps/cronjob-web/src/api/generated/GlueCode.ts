@@ -11,16 +11,14 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { GlueCodeVO } from './models';
 
 /**
  * save: POST /api/v1/cronjob/glue/save
  */
-export function save(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/glue/save`, { params });
+export function save(data: Record<string, unknown>): Promise<GlueCodeVO> {
+  return requestClient.post<GlueCodeVO>(`/api/v1/cronjob/glue/save`, data);
 }
 
 /**
@@ -28,8 +26,8 @@ export function save(params: {
  */
 export function latest(params: {
     jobId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/glue/latest`, { params });
+  }): Promise<GlueCodeVO> {
+  return requestClient.get<GlueCodeVO>(`/api/v1/cronjob/glue/latest`, { params });
 }
 
 /**
@@ -37,40 +35,40 @@ export function latest(params: {
  */
 export function versions(params: {
     jobId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/glue/versions`, { params });
+  }): Promise<GlueCodeVO[]> {
+  return requestClient.get<GlueCodeVO[]>(`/api/v1/cronjob/glue/versions`, { params });
 }
 
 /**
  * rollback: POST /api/v1/cronjob/glue/rollback
  */
-export function rollback(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/glue/rollback`, { params });
+export function rollback(data: Record<string, unknown>): Promise<GlueCodeVO> {
+  return requestClient.post<GlueCodeVO>(`/api/v1/cronjob/glue/rollback`, data);
 }
 
 /**
  * test: POST /api/v1/cronjob/glue/test
  */
-export function test(params: {
-    request?: Record<string, unknown>;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/cronjob/glue/test`, { params });
+export function test(data: Record<string, unknown>): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/cronjob/glue/test`, data);
 }
 
 /**
  * template: GET /api/v1/cronjob/glue/template
  */
-export function template(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/glue/template`);
+export function template(params: {
+    language?: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/glue/template`, { params });
 }
 
 /**
  * diff: GET /api/v1/cronjob/glue/diff
  */
 export function diff(params: {
-    jobId?: string;\n    versionA?: number;\n    versionB?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/cronjob/glue/diff`, { params });
+    jobId?: string;
+    versionA?: number;
+    versionB?: number;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/cronjob/glue/diff`, { params });
 }

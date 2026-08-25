@@ -17,33 +17,29 @@ import type { YdszResponse, PageResponse, PageQuery } from './base';
 /**
  * ingest: POST /api/v1/agent/rag/ingest
  */
-export function ingest(params: {
-    request?: DocumentIngestDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/rag/ingest`, { params });
+export function ingest(data: DocumentIngestDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/rag/ingest`, data);
 }
 
 /**
  * search: POST /api/v1/agent/rag/search
  */
-export function search(params: {
-    request?: RagQueryDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/rag/search`, { params });
+export function search(data: RagQueryDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/agent/rag/search`, data);
 }
 
 /**
  * deleteDocument: DELETE /api/v1/agent/rag/documents/{documentId}
  */
-export function deleteDocument(params: {
-    documentId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/agent/rag/documents/{documentId}`, { params });
+export function deleteDocument(path: {
+    documentId: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/agent/rag/documents/${documentId}`);
 }
 
 /**
  * stats: GET /api/v1/agent/rag/stats
  */
-export function stats(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/rag/stats`);
+export function stats(): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/agent/rag/stats`);
 }

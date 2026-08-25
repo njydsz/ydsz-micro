@@ -11,48 +11,44 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { PostDTO, PostVO } from './models';
 
 /**
  * list: GET /api/v1/post/list
  */
-export function list(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/post/list`);
+export function list(): Promise<PostVO[]> {
+  return requestClient.get<PostVO[]>(`/api/v1/post/list`);
 }
 
 /**
  * getById: GET /api/v1/post/{id}
  */
-export function getById(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/post/{id}`, { params });
+export function getById(path: {
+    id: string;
+  }): Promise<PostVO> {
+  return requestClient.get<PostVO>(`/api/v1/post/${id}`);
 }
 
 /**
  * create: POST /api/v1/post
  */
-export function create(params: {
-    dto?: PostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/post`, { params });
+export function create(data: PostDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/post`, data);
 }
 
 /**
  * update: PUT /api/v1/post
  */
-export function update(params: {
-    dto?: PostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/post`, { params });
+export function update(data: PostDTO): Promise<boolean> {
+  return requestClient.put<boolean>(`/api/v1/post`, data);
 }
 
 /**
  * remove: DELETE /api/v1/post/{id}
  */
-export function remove(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/post/{id}`, { params });
+export function remove(path: {
+    id: string;
+  }): Promise<boolean> {
+  return requestClient.delete<boolean>(`/api/v1/post/${id}`);
 }

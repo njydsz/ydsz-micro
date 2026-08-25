@@ -17,33 +17,39 @@ import type { YdszResponse, PageResponse, PageQuery } from './base';
 /**
  * listPending: GET /api/v1/agent/approvals/pending
  */
-export function listPending(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/approvals/pending`);
+export function listPending(): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/agent/approvals/pending`);
 }
 
 /**
  * getApproval: GET /api/v1/agent/approvals/{id}
  */
-export function getApproval(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/agent/approvals/{id}`, { params });
+export function getApproval(path: {
+    id: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/agent/approvals/${id}`);
 }
 
 /**
  * approve: POST /api/v1/agent/approvals/{id}/approve
  */
-export function approve(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/approvals/{id}/approve`, { params });
+export function approve(path: {
+    id: string;
+  }, params: {
+    approver?: string;
+    comment?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/agent/approvals/${id}/approve`, { params });
 }
 
 /**
  * reject: POST /api/v1/agent/approvals/{id}/reject
  */
-export function reject(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/agent/approvals/{id}/reject`, { params });
+export function reject(path: {
+    id: string;
+  }, params: {
+    approver?: string;
+    comment?: string;
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/agent/approvals/${id}/reject`, { params });
 }

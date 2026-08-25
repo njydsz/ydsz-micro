@@ -11,111 +11,131 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { Record<string, never> } from './models';
 
 /**
  * listTemplates: GET /api/v1/workflow/template/list
  */
-export function listTemplates(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/list`);
+export function listTemplates(params: {
+    category?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/list`, { params });
 }
 
 /**
  * getTemplate: GET /api/v1/workflow/template/{templateCode}
  */
-export function getTemplate(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{templateCode}`, { params });
+export function getTemplate(path: {
+    templateCode: string;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/template/${templateCode}`);
 }
 
 /**
  * importTemplate: POST /api/v1/workflow/template/{templateCode}/import
  */
-export function importTemplate(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{templateCode}/import`, { params });
+export function importTemplate(path: {
+    templateCode: string;
+  }, params: {
+    flowName?: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/template/${templateCode}/import`, { params });
 }
 
 /**
  * exportAsTemplate: POST /api/v1/workflow/template/export/{definitionId}
  */
-export function exportAsTemplate(params: {
-    definitionId?: string;\n    templateName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/export/{definitionId}`, { params });
+export function exportAsTemplate(path: {
+    definitionId: string;
+  }, params: {
+    templateName?: string;
+    category?: string;
+  }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/template/export/${definitionId}`, { params });
 }
 
 /**
  * listTemplateVersions: GET /api/v1/workflow/template/{templateCode}/versions
  */
-export function listTemplateVersions(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{templateCode}/versions`, { params });
+export function listTemplateVersions(path: {
+    templateCode: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/${templateCode}/versions`);
 }
 
 /**
  * getTemplateVersion: GET /api/v1/workflow/template/{templateCode}/versions/{version}
  */
-export function getTemplateVersion(params: {
-    templateCode?: string;\n    version?: number;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{templateCode}/versions/{version}`, { params });
+export function getTemplateVersion(path: {
+    templateCode: string;
+    version: number;
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/template/${templateCode}/versions/${version}`);
 }
 
 /**
  * createNewVersion: POST /api/v1/workflow/template/{templateCode}/newVersion
  */
-export function createNewVersion(params: {
-    templateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{templateCode}/newVersion`, { params });
+export function createNewVersion(path: {
+    templateCode: string;
+  }, params: {
+    versionLabel?: string;
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/template/${templateCode}/newVersion`, { params });
 }
 
 /**
  * cloneTemplate: POST /api/v1/workflow/template/{templateCode}/clone
  */
-export function cloneTemplate(params: {
-    templateCode?: string;\n    newTemplateCode?: string;\n    newTemplateName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{templateCode}/clone`, { params });
+export function cloneTemplate(path: {
+    templateCode: string;
+  }, params: {
+    newTemplateCode?: string;
+    newTemplateName?: string;
+    newCategory?: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/template/${templateCode}/clone`, { params });
 }
 
 /**
  * inheritFromParent: POST /api/v1/workflow/template/{parentTemplateCode}/inherit
  */
-export function inheritFromParent(params: {
-    parentTemplateCode?: string;\n    newTemplateCode?: string;\n    newTemplateName?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{parentTemplateCode}/inherit`, { params });
+export function inheritFromParent(path: {
+    parentTemplateCode: string;
+  }, params: {
+    newTemplateCode?: string;
+    newTemplateName?: string;
+    newCategory?: string;
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/template/${parentTemplateCode}/inherit`, { params });
 }
 
 /**
  * listInheritedTemplates: GET /api/v1/workflow/template/{parentTemplateCode}/inherited
  */
-export function listInheritedTemplates(params: {
-    parentTemplateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{parentTemplateCode}/inherited`, { params });
+export function listInheritedTemplates(path: {
+    parentTemplateCode: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/${parentTemplateCode}/inherited`);
 }
 
 /**
  * syncFromParent: POST /api/v1/workflow/template/{childTemplateCode}/sync
  */
-export function syncFromParent(params: {
-    childTemplateCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/{childTemplateCode}/sync`, { params });
+export function syncFromParent(path: {
+    childTemplateCode: string;
+  }): Promise<number> {
+  return requestClient.post<number>(`/api/v1/workflow/template/${childTemplateCode}/sync`);
 }
 
 /**
  * recommend: GET /api/v1/workflow/template/recommend
  */
-export function recommend(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/recommend`);
+export function recommend(params: {
+    topN?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/recommend`, { params });
 }
 
 /**
@@ -123,6 +143,7 @@ export function recommend(): Promise<YdszResponse<YdszResponse>> {
  */
 export function recommendByBusinessType(params: {
     businessType?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/workflow/template/recommend/byBusinessType`, { params });
+    topN?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/recommend/byBusinessType`, { params });
 }

@@ -11,39 +11,37 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { MsgUserChannelVO, UserChannelBindingDTO } from './models';
 
 /**
  * upsert: POST /api/v1/message/user-channels
  */
-export function upsert(params: {
-    dto?: UserChannelBindingDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/message/user-channels`, { params });
+export function upsert(data: UserChannelBindingDTO): Promise<MsgUserChannelVO> {
+  return requestClient.post<MsgUserChannelVO>(`/api/v1/message/user-channels`, data);
 }
 
 /**
  * listMine: GET /api/v1/message/user-channels/mine
  */
-export function listMine(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/user-channels/mine`);
+export function listMine(): Promise<MsgUserChannelVO[]> {
+  return requestClient.get<MsgUserChannelVO[]>(`/api/v1/message/user-channels/mine`);
 }
 
 /**
  * listByUser: GET /api/v1/message/user-channels/user/{userId}
  */
-export function listByUser(params: {
-    userId?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/message/user-channels/user/{userId}`, { params });
+export function listByUser(path: {
+    userId: string;
+  }): Promise<MsgUserChannelVO[]> {
+  return requestClient.get<MsgUserChannelVO[]>(`/api/v1/message/user-channels/user/${userId}`);
 }
 
 /**
  * delete: DELETE /api/v1/message/user-channels/{id}
  */
-export function delete(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/message/user-channels/{id}`, { params });
+export function delete(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/message/user-channels/${id}`);
 }

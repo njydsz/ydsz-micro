@@ -11,39 +11,37 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { RuleTestCasePostDTO, RuleTestCaseVO, TestCaseBatchRunDTO } from './models';
 
 /**
  * listTestCases: GET /api/v1/literule/rules/test-cases
  */
-export function listTestCases(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/test-cases`);
+export function listTestCases(params: {
+    ruleCode?: string;
+  }): Promise<RuleTestCaseVO[]> {
+  return requestClient.get<RuleTestCaseVO[]>(`/api/v1/literule/rules/test-cases`, { params });
 }
 
 /**
  * saveTestCase: POST /api/v1/literule/rules/test-cases
  */
-export function saveTestCase(params: {
-    dto?: RuleTestCasePostDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/test-cases`, { params });
+export function saveTestCase(data: RuleTestCasePostDTO): Promise<RuleTestCaseVO> {
+  return requestClient.post<RuleTestCaseVO>(`/api/v1/literule/rules/test-cases`, data);
 }
 
 /**
  * deleteTestCase: DELETE /api/v1/literule/rules/test-cases/{id}
  */
-export function deleteTestCase(params: {
-    id?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.delete<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/test-cases/{id}`, { params });
+export function deleteTestCase(path: {
+    id: string;
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/literule/rules/test-cases/${id}`);
 }
 
 /**
  * batchRunTestCases: POST /api/v1/literule/rules/test-cases/batch-run
  */
-export function batchRunTestCases(params: {
-    dto?: TestCaseBatchRunDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/test-cases/batch-run`, { params });
+export function batchRunTestCases(data: TestCaseBatchRunDTO): Promise<unknown> {
+  return requestClient.post<unknown>(`/api/v1/literule/rules/test-cases/batch-run`, data);
 }

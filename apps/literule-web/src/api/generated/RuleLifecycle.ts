@@ -11,79 +11,79 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { YdszResponse, PageResponse, PageQuery } from './base';
-
+import type { PageResponse } from './base';
+import type { ApprovalFlowVO, ApprovalRecordVO, RuleApproveDTO, RuleDefinitionVO, RuleDelegateDTO, RuleRejectDTO, RuleStatusChangeDTO, RuleSubmitReviewDTO } from './models';
 
 /**
  * changeStatus: PUT /api/v1/literule/rules/{ruleCode}/status
  */
-export function changeStatus(params: {
-    ruleCode?: string;\n    dto?: RuleStatusChangeDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.put<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/status`, { params });
+export function changeStatus(path: {
+    ruleCode: string;
+  }, data: RuleStatusChangeDTO): Promise<RuleDefinitionVO> {
+  return requestClient.put<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}/status`, data);
 }
 
 /**
  * approve: POST /api/v1/literule/rules/{ruleCode}/approve
  */
-export function approve(params: {
-    ruleCode?: string;\n    dto?: RuleApproveDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/approve`, { params });
+export function approve(path: {
+    ruleCode: string;
+  }, data: RuleApproveDTO): Promise<RuleDefinitionVO> {
+  return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}/approve`, data);
 }
 
 /**
  * reject: POST /api/v1/literule/rules/{ruleCode}/reject
  */
-export function reject(params: {
-    ruleCode?: string;\n    dto?: RuleRejectDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/reject`, { params });
+export function reject(path: {
+    ruleCode: string;
+  }, data: RuleRejectDTO): Promise<RuleDefinitionVO> {
+  return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}/reject`, data);
 }
 
 /**
  * submitReview: POST /api/v1/literule/rules/{ruleCode}/submit-review
  */
-export function submitReview(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/submit-review`, { params });
+export function submitReview(path: {
+    ruleCode: string;
+  }, data: RuleSubmitReviewDTO): Promise<ApprovalRecordVO> {
+  return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/submit-review`, data);
 }
 
 /**
  * approveLevel: POST /api/v1/literule/rules/{ruleCode}/approve-level
  */
-export function approveLevel(params: {
-    ruleCode?: string;\n    dto?: RuleApproveDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/approve-level`, { params });
+export function approveLevel(path: {
+    ruleCode: string;
+  }, data: RuleApproveDTO): Promise<ApprovalRecordVO> {
+  return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/approve-level`, data);
 }
 
 /**
  * rejectLevel: POST /api/v1/literule/rules/{ruleCode}/reject-level
  */
-export function rejectLevel(params: {
-    ruleCode?: string;\n    dto?: RuleRejectDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/reject-level`, { params });
+export function rejectLevel(path: {
+    ruleCode: string;
+  }, data: RuleRejectDTO): Promise<ApprovalRecordVO> {
+  return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/reject-level`, data);
 }
 
 /**
  * delegate: POST /api/v1/literule/rules/{ruleCode}/delegate
  */
-export function delegate(params: {
-    ruleCode?: string;\n    dto?: RuleDelegateDTO;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/delegate`, { params });
+export function delegate(path: {
+    ruleCode: string;
+  }, data: RuleDelegateDTO): Promise<ApprovalRecordVO> {
+  return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/delegate`, data);
 }
 
 /**
  * approvalStatus: GET /api/v1/literule/rules/{ruleCode}/approval-status
  */
-export function approvalStatus(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/approval-status`, { params });
+export function approvalStatus(path: {
+    ruleCode: string;
+  }): Promise<ApprovalRecordVO> {
+  return requestClient.get<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/approval-status`);
 }
 
 /**
@@ -91,22 +91,22 @@ export function approvalStatus(params: {
  */
 export function pendingApprovals(params: {
     approver?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/pending-approvals`, { params });
+  }): Promise<ApprovalRecordVO[]> {
+  return requestClient.get<ApprovalRecordVO[]>(`/api/v1/literule/rules/pending-approvals`, { params });
 }
 
 /**
  * cancelReview: POST /api/v1/literule/rules/{ruleCode}/cancel-review
  */
-export function cancelReview(params: {
-    ruleCode?: string;
-  }): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.post<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/{ruleCode}/cancel-review`, { params });
+export function cancelReview(path: {
+    ruleCode: string;
+  }): Promise<ApprovalRecordVO> {
+  return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/cancel-review`);
 }
 
 /**
  * approvalFlows: GET /api/v1/literule/rules/approval-flows
  */
-export function approvalFlows(): Promise<YdszResponse<YdszResponse>> {
-  return requestClient.get<YdszResponse<YdszResponse>>(`/api/v1/literule/rules/approval-flows`);
+export function approvalFlows(): Promise<ApprovalFlowVO[]> {
+  return requestClient.get<ApprovalFlowVO[]>(`/api/v1/literule/rules/approval-flows`);
 }
