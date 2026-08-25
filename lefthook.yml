@@ -1,0 +1,45 @@
+# lefthook.yml — 云顶编码规范质量门禁
+# 触发时机：
+#   pre-commit  并行执行 ESLint / Prettier / Stylelint（仅检查暂存文件，保证增量速度）
+#   pre-push    全量执行 类型检查 / 单元测试 / vsh 三件套 / 安全审计
+#   commit-msg  Conventional Commits 校验（commitlint）
+#   post-merge  自动同步依赖
+
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{ts,tsx,vue,js,mjs,cjs}"
+      run: pnpm exec eslint {staged_files} --max-warnings=0
+    prettier:
+      glob: "*.{ts,tsx,vue,js,mjs,cjs,json,md,scss,css,html,yml,yaml}"
+      run: pnpm exec prettier --check {staged_files}
+    stylelint:
+      glob: "*.{vue,scss,css}"
+      run: pnpm exec stylelint {staged_files} --max-warnings=0
+
+pre-push:
+  parallel: true
+  commands:
+    type-check:
+      run: pnpm type-check
+    test:
+      run: pnpm test
+    vsh-check-dep:
+      run: node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-dep
+    vsh-check-arch:
+      run: node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-arch
+    vsh-check-circular:
+      run: node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-circular
+    audit:
+      run: pnpm audit --audit-level=high
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit "$1"
+
+post-merge:
+  commands:
+    install:
+      run: pnpm install
