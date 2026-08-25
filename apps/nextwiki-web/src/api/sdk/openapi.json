@@ -1,0 +1,3087 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ydsz-nextwiki",
+  "version": "1.0.0",
+  "description": "static contract extracted from ydsz-cloud nextwiki"
+ },
+ "paths": {
+  "/api/v1/nextwiki/analysis/overview": {
+   "get": {
+    "operationId": "getOverview",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/analysis/by-type": {
+   "get": {
+    "operationId": "statsByType",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/analysis/top-large-files": {
+   "get": {
+    "operationId": "topLargeFiles",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/analysis/summary": {
+   "post": {
+    "operationId": "analyze",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "content",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/import/batch-upload": {
+   "post": {
+    "operationId": "batchUpload",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/import/zip": {
+   "post": {
+    "operationId": "importZip",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/download/folder/{folderId}": {
+   "post": {
+    "operationId": "downloadFolder",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "folderId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/download/{nodeId}": {
+   "post": {
+    "operationId": "download",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/download/{nodeId}/signed-url": {
+   "post": {
+    "operationId": "generateSignedUrl",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/download/signed/{sign}": {
+   "get": {
+    "operationId": "downloadBySignedUrl",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "sign",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/batch/delete": {
+   "post": {
+    "operationId": "batchDelete",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeIds",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/batch/move": {
+   "post": {
+    "operationId": "batchMove",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/versions": {
+   "get": {
+    "operationId": "getVersionHistory",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/versions/{version}/rollback": {
+   "post": {
+    "operationId": "rollbackVersion",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/versions/diff": {
+   "get": {
+    "operationId": "diffVersions",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "oldVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "newVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/batch/async-delete": {
+   "post": {
+    "operationId": "asyncBatchDelete",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeIds",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/batch/async-move": {
+   "post": {
+    "operationId": "asyncBatchMove",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/batch/task/{taskId}": {
+   "get": {
+    "operationId": "getBatchTaskStatus",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "taskId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/star": {
+   "put": {
+    "operationId": "toggleStar",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/chunk/init": {
+   "post": {
+    "operationId": "initChunkUpload",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
+   "post": {
+    "operationId": "uploadChunk",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "uploadId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "chunkNumber",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/chunk/{uploadId}/complete": {
+   "post": {
+    "operationId": "completeChunkUpload",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "uploadId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/chunk/{uploadId}": {
+   "delete": {
+    "operationId": "abortChunkUpload",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "uploadId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
+   "get": {
+    "operationId": "getUploadedChunks",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "uploadId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/comments/file/{fileNodeId}": {
+   "get": {
+    "operationId": "listComments",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileNodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/comments": {
+   "post": {
+    "operationId": "addComment",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/comments/{commentId}": {
+   "delete": {
+    "operationId": "deleteComment",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "commentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/comments/{commentId}/resolve": {
+   "post": {
+    "operationId": "resolveComment",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "commentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/upload": {
+   "post": {
+    "operationId": "upload",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/files/folders": {
+   "post": {
+    "operationId": "createFolder",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/list": {
+   "get": {
+    "operationId": "listFiles",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/move": {
+   "put": {
+    "operationId": "move",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/rename": {
+   "put": {
+    "operationId": "rename",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}": {
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/copy": {
+   "post": {
+    "operationId": "copy",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/sort": {
+   "put": {
+    "operationId": "batchSort",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/lock": {
+   "post": {
+    "operationId": "lock",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/files/{nodeId}/unlock": {
+   "post": {
+    "operationId": "unlock",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/preview/{fileNodeId}/generate": {
+   "post": {
+    "operationId": "generatePreview",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileNodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/preview/supported": {
+   "get": {
+    "operationId": "isSupported",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "suffix",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/preview/type": {
+   "get": {
+    "operationId": "getPreviewType",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "suffix",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/quota/info": {
+   "get": {
+    "operationId": "getQuota",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/quota/set": {
+   "post": {
+    "operationId": "setQuota",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/search": {
+   "post": {
+    "operationId": "search",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SearchRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/search/suggest": {
+   "get": {
+    "operationId": "suggest",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "prefix",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/search/did-you-mean": {
+   "get": {
+    "operationId": "didYouMean",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/search/rebuild": {
+   "post": {
+    "operationId": "rebuildIndices",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/search/history": {
+   "get": {
+    "operationId": "getSearchHistory",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "operationId": "clearSearchHistory",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/search/hot": {
+   "get": {
+    "operationId": "getHotSearches",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/search/advanced": {
+   "get": {
+    "operationId": "advancedSearch",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "rawInput",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/shares": {
+   "post": {
+    "operationId": "createShare",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/shares/verify": {
+   "post": {
+    "operationId": "verifyAccess",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "httpRequest",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/shares/{shareId}": {
+   "delete": {
+    "operationId": "revoke",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "shareId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/shares/my": {
+   "get": {
+    "operationId": "myShares",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/shares/{shareId}/logs": {
+   "get": {
+    "operationId": "getAccessLogs",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "shareId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/shares/{shareId}/recipients": {
+   "get": {
+    "operationId": "getRecipients",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "shareId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/shares/received": {
+   "get": {
+    "operationId": "getReceivedShares",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/spaces": {
+   "get": {
+    "operationId": "listSpaces",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "createSpace",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/spaces/{spaceId}": {
+   "get": {
+    "operationId": "getSpace",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "updateSpace",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "deleteSpace",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/spaces/{spaceId}/archive": {
+   "post": {
+    "operationId": "archiveSpace",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/spaces/{spaceId}/members": {
+   "post": {
+    "operationId": "addMember",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "listMembers",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
+   "delete": {
+    "operationId": "removeMember",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "targetUserId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/templates": {
+   "get": {
+    "operationId": "listTemplates",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "createTemplate",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/templates/{templateId}": {
+   "get": {
+    "operationId": "getTemplate",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "updateTemplate",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "deleteTemplate",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/templates/{templateId}/use": {
+   "post": {
+    "operationId": "useTemplate",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/tags": {
+   "post": {
+    "operationId": "createTag",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "listTags",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/tags/bind": {
+   "post": {
+    "operationId": "bindTag",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/tags/file/{fileNodeId}": {
+   "get": {
+    "operationId": "getFileTags",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileNodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/tags/recommend/{fileNodeId}": {
+   "get": {
+    "operationId": "recommendTags",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileNodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/trash/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/trash/{trashItemId}/restore": {
+   "post": {
+    "operationId": "restore",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "trashItemId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/trash/batch-restore": {
+   "post": {
+    "operationId": "batchRestore",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "trashItemIds",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/trash/{trashItemId}": {
+   "delete": {
+    "operationId": "purge",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "trashItemId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/trash/empty": {
+   "delete": {
+    "operationId": "emptyTrash",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/favorites": {
+   "get": {
+    "operationId": "listFavorites",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/favorites/{nodeId}": {
+   "post": {
+    "operationId": "addFavorite",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "removeFavorite",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/favorites/{nodeId}/is-favorited": {
+   "get": {
+    "operationId": "isFavorited",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/favorites/{nodeId}/sort": {
+   "post": {
+    "operationId": "updateSortOrder",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "sortOrder",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/favorites/count": {
+   "get": {
+    "operationId": "getFavoriteCount",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/recent": {
+   "get": {
+    "operationId": "listRecent",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "operationId": "clearAll",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/recent/{nodeId}": {
+   "post": {
+    "operationId": "recordAccess",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "removeRecent",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "nodeId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/recent/count": {
+   "get": {
+    "operationId": "getRecentCount",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/wopi/files/{fileId}": {
+   "get": {
+    "operationId": "checkFileInfo",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/wopi/files/{fileId}/contents": {
+   "get": {
+    "operationId": "getFileContents",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "integer",
+          "format": "int32"
+         }
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "post": {
+    "operationId": "putFileContents",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/wopi/files/{fileId}/lock": {
+   "post": {
+    "operationId": "lockFile",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/wopi/files/{fileId}/unlock": {
+   "post": {
+    "operationId": "unlockFile",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "fileId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/ai/summary": {
+   "post": {
+    "operationId": "generateSummary",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/ai/status": {
+   "get": {
+    "operationId": "getStatus",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/nextwiki/storage/presigned-upload": {
+   "post": {
+    "operationId": "generateUploadUrl",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/nextwiki/storage/presigned-download": {
+   "post": {
+    "operationId": "generateDownloadUrl",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "YdszResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "code": {
+      "type": "string"
+     },
+     "msg": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object"
+     },
+     "traceId": {
+      "type": "object"
+     },
+     "requestId": {
+      "type": "object"
+     },
+     "spanId": {
+      "type": "object"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "extensions": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "RESOLVER": {
+      "type": "object"
+     }
+    },
+    "description": "class YdszResponse"
+   },
+   "SearchRequest": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "keyword": {
+      "type": "string"
+     },
+     "types": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "page": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sortBy": {
+      "type": "string"
+     },
+     "ascending": {
+      "type": "boolean"
+     },
+     "highlight": {
+      "type": "boolean"
+     },
+     "highlightPreTag": {
+      "type": "string"
+     },
+     "highlightPostTag": {
+      "type": "string"
+     },
+     "highlightFragmentSize": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "fuzzy": {
+      "type": "boolean"
+     },
+     "fuzzyMinSimilarity": {
+      "type": "number"
+     },
+     "filters": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "/** 等于 */\n    EQ",
+        "/** 不等于 */\n    NE",
+        "/** 在...范围内 */\n    IN",
+        "/** 不在...范围内 */\n    NOT_IN",
+        "/** 大于 */\n    GT",
+        "/** 小于 */\n    LT",
+        "/** 大于等于 */\n    GTE",
+        "/** 小于等于 */\n    LTE",
+        "/** 介于两者之间 */\n    BETWEEN"
+       ],
+       "description": "枚举 SearchFilter"
+      }
+     },
+     "aggregations": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "roles": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "deptId": {
+      "type": "string"
+     },
+     "admin": {
+      "type": "boolean"
+     },
+     "titleOnly": {
+      "type": "boolean"
+     },
+     "cursor": {
+      "type": "string"
+     },
+     "offset": {
+      "type": "string"
+     }
+    },
+    "description": "class SearchRequest"
+   }
+  }
+ }
+}

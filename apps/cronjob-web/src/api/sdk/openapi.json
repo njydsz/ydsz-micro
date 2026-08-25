@@ -1,0 +1,3426 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ydsz-cronjob",
+  "version": "1.0.0",
+  "description": "static contract extracted from ydsz-cloud cronjob"
+ },
+ "paths": {
+  "/api/v1/cronjob/alert/rule": {
+   "post": {
+    "operationId": "createRule",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AlertRulePostDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/alert/rule/{id}": {
+   "put": {
+    "operationId": "updateRule",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AlertRulePutDTO"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "deleteRule",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getRuleById",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/alert/rules": {
+   "get": {
+    "operationId": "listRules",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/alert/rule/{id}/toggle": {
+   "put": {
+    "operationId": "toggleRule",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "enabled",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/alert/logs/{jobId}": {
+   "get": {
+    "operationId": "queryAlertLogs",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/connector/types": {
+   "get": {
+    "operationId": "types",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/connector/test": {
+   "post": {
+    "operationId": "testConnection",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConnectorConfigPostDTO"
+      }
+     },
+     {
+      "name": "type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/connector/remote-tasks": {
+   "post": {
+    "operationId": "listRemoteTasks",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConnectorConfigPostDTO"
+      }
+     },
+     {
+      "name": "type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/connector/import": {
+   "post": {
+    "operationId": "importTasks",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConnectorConfigPostDTO"
+      }
+     },
+     {
+      "name": "type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/connector/export": {
+   "post": {
+    "operationId": "exportTasks",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/pause": {
+   "post": {
+    "operationId": "pause",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "pauseInstance",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/resume": {
+   "post": {
+    "operationId": "resume",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "resumeInstance",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/cancel": {
+   "post": {
+    "operationId": "cancel",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "cancelInstance",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/retryNode": {
+   "post": {
+    "operationId": "retryNode",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "jobKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag": {
+   "post": {
+    "operationId": "createDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobDagPostDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/{dagId}": {
+   "put": {
+    "operationId": "updateDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobDagPutDTO"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "deleteDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getDagById",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/{dagId}/enable": {
+   "put": {
+    "operationId": "enableDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/{dagId}/disable": {
+   "put": {
+    "operationId": "disableDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/key/{dagKey}": {
+   "get": {
+    "operationId": "getDagByKey",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/enabled": {
+   "get": {
+    "operationId": "listEnabledDags",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/dag/trigger": {
+   "post": {
+    "operationId": "triggerDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobDagTriggerDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/validate": {
+   "post": {
+    "operationId": "validateDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagDefinitionJson",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/{dagId}/versions": {
+   "get": {
+    "operationId": "listDagVersions",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/{dagId}/rollback": {
+   "post": {
+    "operationId": "rollbackDag",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}": {
+   "get": {
+    "operationId": "getInstanceById",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/dag/{dagId}": {
+   "get": {
+    "operationId": "listByDagId",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/status/{status}": {
+   "get": {
+    "operationId": "listByStatus",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/nodes": {
+   "get": {
+    "operationId": "listNodes",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/visualization": {
+   "get": {
+    "operationId": "getVisualization",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/mermaid": {
+   "get": {
+    "operationId": "getMermaidDiagram",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/dag/instance/{instanceId}/context": {
+   "put": {
+    "operationId": "updateContext",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "instanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "contextJson",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/topology/dagInstance/{dagInstanceId}": {
+   "get": {
+    "operationId": "getDagInstanceTopology",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagInstanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape": {
+   "get": {
+    "operationId": "getDagInstanceCytoscape",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dagInstanceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/topology/jobHistory/{jobKey}": {
+   "get": {
+    "operationId": "getJobExecutionHistory",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/internal/execute": {
+   "post": {
+    "operationId": "execute",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/RemoteTaskRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/internal/executeSubTask": {
+   "post": {
+    "operationId": "executeSubTask",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/RemoteSubTaskRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobPostDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobPutDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/cron/validate": {
+   "get": {
+    "operationId": "validateCron",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "expr",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/batch/delete": {
+   "post": {
+    "operationId": "batchDelete",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobBatchDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/{id}": {
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/{id}/pause": {
+   "post": {
+    "operationId": "pause",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/{id}/resume": {
+   "post": {
+    "operationId": "resume",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/{id}/trigger": {
+   "post": {
+    "operationId": "trigger",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/batch/pause": {
+   "post": {
+    "operationId": "batchPause",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobBatchDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/batch/resume": {
+   "post": {
+    "operationId": "batchResume",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobBatchDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/batch/trigger": {
+   "post": {
+    "operationId": "batchTrigger",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobBatchDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/log/page": {
+   "get": {
+    "operationId": "pageLog",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/reload": {
+   "post": {
+    "operationId": "reload",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/group/{jobGroup}/page": {
+   "get": {
+    "operationId": "pageByGroup",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobGroup",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/group/{jobGroup}/pause": {
+   "post": {
+    "operationId": "pauseByGroup",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobGroup",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/group/{jobGroup}/resume": {
+   "post": {
+    "operationId": "resumeByGroup",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobGroup",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/group/{jobGroup}/trigger": {
+   "post": {
+    "operationId": "triggerByGroup",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobGroup",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/group/stats": {
+   "get": {
+    "operationId": "groupStats",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/history/versions": {
+   "get": {
+    "operationId": "versions",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/history/detail": {
+   "get": {
+    "operationId": "detail",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/history/rollback": {
+   "post": {
+    "operationId": "rollback",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/history/compare": {
+   "get": {
+    "operationId": "compare",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/stats/daily": {
+   "get": {
+    "operationId": "daily",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/stats/summary": {
+   "get": {
+    "operationId": "summary",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/stats/dashboard": {
+   "get": {
+    "operationId": "dashboard",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/stats/recent-failures": {
+   "get": {
+    "operationId": "recentFailures",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/stats/heatmap": {
+   "get": {
+    "operationId": "heatmap",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/task/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "logId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/task/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "logId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/task/progress": {
+   "get": {
+    "operationId": "progress",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "logId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/webhook": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobWebhookPostDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/JobWebhookPutDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/webhook/{id}": {
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/webhook/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/webhook/{id}/test": {
+   "post": {
+    "operationId": "testWebhook",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/monitor/diagnosis/{jobKey}": {
+   "get": {
+    "operationId": "diagnose",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/queue/status": {
+   "get": {
+    "operationId": "getQueueStatus",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/glue/save": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/glue/latest": {
+   "get": {
+    "operationId": "latest",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/glue/versions": {
+   "get": {
+    "operationId": "versions",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/glue/rollback": {
+   "post": {
+    "operationId": "rollback",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/glue/test": {
+   "post": {
+    "operationId": "test",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/glue/template": {
+   "get": {
+    "operationId": "template",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/cronjob/glue/diff": {
+   "get": {
+    "operationId": "diff",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "versionA",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "versionB",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/calendar/fireTimes": {
+   "get": {
+    "operationId": "getUpcomingFireTimes",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/cronjob/calendar/schedule": {
+   "get": {
+    "operationId": "getScheduleCalendar",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "YdszResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "code": {
+      "type": "string"
+     },
+     "msg": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object"
+     },
+     "traceId": {
+      "type": "object"
+     },
+     "requestId": {
+      "type": "object"
+     },
+     "spanId": {
+      "type": "object"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "extensions": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "RESOLVER": {
+      "type": "object"
+     }
+    },
+    "description": "class YdszResponse"
+   },
+   "AlertRulePostDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "ruleName": {
+      "type": "string"
+     },
+     "jobId": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "alertType": {
+      "type": "string"
+     },
+     "alertLevel": {
+      "type": "string"
+     },
+     "threshold": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "timeWindowMinutes": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "channels": {
+      "type": "string"
+     },
+     "receivers": {
+      "type": "string"
+     },
+     "cooldownMinutes": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "enabled": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class AlertRulePostDTO"
+   },
+   "AlertRulePutDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "ruleName": {
+      "type": "string"
+     },
+     "jobId": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "alertType": {
+      "type": "string"
+     },
+     "alertLevel": {
+      "type": "string"
+     },
+     "threshold": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "timeWindowMinutes": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "channels": {
+      "type": "string"
+     },
+     "receivers": {
+      "type": "string"
+     },
+     "cooldownMinutes": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "enabled": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class AlertRulePutDTO"
+   },
+   "ConnectorConfigPostDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "endpoint": {
+      "type": "string"
+     },
+     "authType": {
+      "type": "string"
+     },
+     "username": {
+      "type": "string"
+     },
+     "password": {
+      "type": "string"
+     },
+     "accessKey": {
+      "type": "string"
+     },
+     "secretKey": {
+      "type": "string"
+     },
+     "extraProps": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      }
+     },
+     "connectTimeoutSeconds": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "readTimeoutSeconds": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class ConnectorConfigPostDTO"
+   },
+   "JobDagPostDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "dagKey": {
+      "type": "string"
+     },
+     "dagName": {
+      "type": "string"
+     },
+     "dagDefinition": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "triggerType": {
+      "type": "string"
+     },
+     "cronExpression": {
+      "type": "string"
+     },
+     "maxConcurrentInstances": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "failStrategy": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     }
+    },
+    "description": "class JobDagPostDTO"
+   },
+   "JobDagPutDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "dagKey": {
+      "type": "string"
+     },
+     "dagName": {
+      "type": "string"
+     },
+     "dagDefinition": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "triggerType": {
+      "type": "string"
+     },
+     "cronExpression": {
+      "type": "string"
+     },
+     "maxConcurrentInstances": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "failStrategy": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     }
+    },
+    "description": "class JobDagPutDTO"
+   },
+   "JobDagTriggerDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "dagKey": {
+      "type": "string"
+     },
+     "triggerBy": {
+      "type": "string"
+     }
+    },
+    "description": "class JobDagTriggerDTO"
+   },
+   "RemoteTaskRequest": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "job": {
+      "$ref": "#/components/schemas/JobVO"
+     },
+     "triggerType": {
+      "type": "string"
+     },
+     "shardIndex": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "shardTotal": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "traceId": {
+      "type": "string"
+     }
+    },
+    "description": "class RemoteTaskRequest"
+   },
+   "JobVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "jobName": {
+      "type": "string"
+     },
+     "jobGroup": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "handler": {
+      "type": "string"
+     },
+     "cronExpression": {
+      "type": "string"
+     },
+     "scheduleType": {
+      "type": "string"
+     },
+     "fixedRateMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fixedDelayMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "paramsJson": {
+      "type": "string"
+     },
+     "jobRemark": {
+      "type": "string"
+     },
+     "nextFireTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "lastFireTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "fireCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "failCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "lockTtlMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "timeoutMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "slowThresholdMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "misfirePolicy": {
+      "type": "string"
+     },
+     "shardTotal": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "jobType": {
+      "type": "string"
+     },
+     "maxRetries": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "retryIntervalMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "retryBackoff": {
+      "type": "string"
+     },
+     "blockStrategy": {
+      "type": "string"
+     },
+     "consecutiveFailCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "maxConsecutiveFails": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "autoResumeAfterMinutes": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "priority": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "timezone": {
+      "type": "string"
+     },
+     "cluster": {
+      "type": "string"
+     },
+     "canaryRatio": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "canaryHandler": {
+      "type": "string"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "class JobVO"
+   },
+   "RemoteSubTaskRequest": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "jobId": {
+      "type": "string"
+     },
+     "logId": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "handler": {
+      "type": "string"
+     },
+     "taskName": {
+      "type": "string"
+     },
+     "taskParams": {
+      "type": "string"
+     },
+     "traceId": {
+      "type": "string"
+     }
+    },
+    "description": "class RemoteSubTaskRequest"
+   },
+   "JobPostDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "jobName": {
+      "type": "string"
+     },
+     "jobGroup": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "handler": {
+      "type": "string"
+     },
+     "cronExpression": {
+      "type": "string"
+     },
+     "scheduleType": {
+      "type": "string"
+     },
+     "fixedRateMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fixedDelayMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "paramsJson": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "remark": {
+      "type": "string"
+     },
+     "lockTtlMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "timeoutMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "slowThresholdMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "misfirePolicy": {
+      "type": "string"
+     },
+     "shardTotal": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "timezone": {
+      "type": "string"
+     },
+     "cluster": {
+      "type": "string"
+     }
+    },
+    "description": "class JobPostDTO"
+   },
+   "JobPutDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "jobName": {
+      "type": "string"
+     },
+     "jobGroup": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "handler": {
+      "type": "string"
+     },
+     "cronExpression": {
+      "type": "string"
+     },
+     "scheduleType": {
+      "type": "string"
+     },
+     "fixedRateMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fixedDelayMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "paramsJson": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "remark": {
+      "type": "string"
+     },
+     "lockTtlMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "timeoutMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "slowThresholdMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "misfirePolicy": {
+      "type": "string"
+     },
+     "shardTotal": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "timezone": {
+      "type": "string"
+     },
+     "cluster": {
+      "type": "string"
+     }
+    },
+    "description": "class JobPutDTO"
+   },
+   "JobBatchDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "jobIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "description": "class JobBatchDTO"
+   },
+   "JobWebhookPostDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "name": {
+      "type": "string"
+     },
+     "eventType": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "jobGroup": {
+      "type": "string"
+     },
+     "callbackUrl": {
+      "type": "string"
+     },
+     "httpMethod": {
+      "type": "string"
+     },
+     "headers": {
+      "type": "string"
+     },
+     "secret": {
+      "type": "string"
+     },
+     "webhookStatus": {
+      "type": "string"
+     }
+    },
+    "description": "class JobWebhookPostDTO"
+   },
+   "JobWebhookPutDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "eventType": {
+      "type": "string"
+     },
+     "jobKey": {
+      "type": "string"
+     },
+     "jobGroup": {
+      "type": "string"
+     },
+     "callbackUrl": {
+      "type": "string"
+     },
+     "httpMethod": {
+      "type": "string"
+     },
+     "headers": {
+      "type": "string"
+     },
+     "secret": {
+      "type": "string"
+     },
+     "webhookStatus": {
+      "type": "string"
+     }
+    },
+    "description": "class JobWebhookPutDTO"
+   }
+  }
+ }
+}
