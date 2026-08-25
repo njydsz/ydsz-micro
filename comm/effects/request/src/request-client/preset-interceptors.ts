@@ -12,6 +12,7 @@ import { $t } from '@ydsz/locales';
 import { isFunction } from '@ydsz/utils';
 
 import axios from 'axios';
+import type { AxiosError } from 'axios';
 
 import { BusinessError } from './business-error';
 
@@ -20,6 +21,22 @@ const logger = createLogger('preset-interceptors');
 
 /** 响应数据类型（未知结构） */
 type UnknownResponse = Record<string, unknown>;
+
+/** 可调用的 successCode 类型 */
+type SuccessCodeFn = (code: unknown) => boolean;
+
+/** 可调用的 dataField 类型 */
+type DataFieldFn = (response: UnknownResponse) => unknown;
+
+/** 类型守卫：判断是否为 successCode 函数 */
+function isSuccessCodeFn(value: unknown): value is SuccessCodeFn {
+  return isFunction(value);
+}
+
+/** 类型守卫：判断是否为 dataField 函数 */
+function isDataFieldFn(value: unknown): value is DataFieldFn {
+  return isFunction(value);
+}
 
 /** 默认响应拦截器：按 codeField/successCode 判定业务成功，剥离 dataField 数据或抛 BusinessError */
 export const defaultResponseInterceptor = ({
@@ -30,13 +47,14 @@ export const defaultResponseInterceptor = ({
   /** 响应数据中代表访问结果的字段名 */
   codeField: string;
   /** 响应数据中装载实际数据的字段名，或者提供一个函数从响应数据中解析需要返回的数据 */
-  dataField: ((response: UnknownResponse) => unknown) | string;
+  dataField: DataFieldFn | string;
   /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
-  successCode: ((code: unknown) => boolean) | number | string;
+  successCode: SuccessCodeFn | number | string;
 }): ResponseInterceptorConfig => {
   return {
     fulfilled: (response) => {
-      const { config, data: responseData, status } = response;
+      const { config, data, status } = response;
+      const responseData = data as UnknownResponse;
 
       if (config.responseReturn === 'raw') {
         return response;
@@ -46,11 +64,11 @@ export const defaultResponseInterceptor = ({
         if (config.responseReturn === 'body') {
           return responseData;
         } else if (
-          isFunction(successCode)
+          isSuccessCodeFn(successCode)
             ? successCode(responseData[codeField])
             : responseData[codeField] === successCode
         ) {
-          return isFunction(dataField)
+          return isDataFieldFn(dataField)
             ? dataField(responseData)
             : responseData[dataField];
         }
@@ -108,8 +126,9 @@ export const authenticateResponseInterceptor = ({
   formatToken: (token: string) => null | string;
 }): ResponseInterceptorConfig => {
   return {
-    rejected: async (error) => {
-      const { config, response } = error;
+    rejected: async (error: unknown) => {
+      const axiosError = error as AxiosError;
+      const { config, response } = axiosError;
       // 如果不是 401 错误，直接抛出异常
       if (response?.status !== 401) {
         throw error;
@@ -156,7 +175,7 @@ export const authenticateResponseInterceptor = ({
         // 清空队列
         client.refreshTokenQueue = [];
 
-        return client.request(error.config.url, { ...error.config });
+        return client.request(axiosError.config?.url ?? '', { ...axiosError.config });
       } catch (refreshError) {
         // 如果刷新 token 失败，拒绝队列中所有等待的请求
         client.refreshTokenQueue.forEach((callback) => callback.reject(refreshError));
@@ -196,7 +215,7 @@ export const errorMessageResponseInterceptor = (
   return {
     // 非标准 API 收窄：axios 错误类型为 AxiosError，但为兼容未知错误源使用 unknown
     rejected: (error: unknown) => {
-      const axiosError = error as axios.AxiosError;
+      const axiosError = error as AxiosError;
       if (axios.isCancel(axiosError)) {
         return Promise.reject(axiosError);
       }

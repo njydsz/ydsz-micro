@@ -25,16 +25,17 @@ vi.mock('@ydsz/utils', () => ({
 
 import { defaultResponseInterceptor } from '../preset-interceptors';
 import { BusinessError } from '../business-error';
+import type { RequestResponse } from '../types';
 
 /** 构造一个 axios 风格的响应对象 */
-function makeResponse(data: Record<string, unknown>, status = 200, config: Record<string, unknown> = {}) {
+function makeResponse(data: Record<string, unknown>, status = 200, config: Record<string, unknown> = {}): RequestResponse {
   return {
     config: { responseReturn: undefined, ...config },
     data,
     headers: {},
     status,
     statusText: 'OK',
-  };
+  } as RequestResponse;
 }
 
 describe('defaultResponseInterceptor.fulfilled', () => {
