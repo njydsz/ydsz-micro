@@ -1,5 +1,6 @@
 # ---- 依赖 ----
 node_modules/
+.pnpm-store/
 
 # ---- 构建产物 ----
 dist/
@@ -18,6 +19,7 @@ lhci_reports/
 
 # ---- 日志与临时文件 ----
 *.log
+*.txt
 tsc-result.txt
 pnpm-debug.log*
 npm-debug.log*
@@ -52,3 +54,4 @@ Desktop.ini
 
 # ---- WorkBuddy 本地助手记录（不纳入版本库） ----
 .workbuddy/memory/
+.meituan-catpaw/
