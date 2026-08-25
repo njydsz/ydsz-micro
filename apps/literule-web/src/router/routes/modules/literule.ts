@@ -21,6 +21,12 @@ const routes: RouteRecordRaw[] = [
         meta: { icon: 'lucide:git-branch', title: '规则列表' },
       },
       {
+        name: 'RuleDashboard',
+        path: 'dashboard',
+        component: () => import('#/views/dashboard/index.vue'),
+        meta: { icon: 'lucide:activity', title: '规则看板' },
+      },
+      {
         name: 'DslManagement',
         path: 'dsl',
         component: () => import('#/views/dsl/index.vue'),
