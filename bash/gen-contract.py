@@ -824,11 +824,14 @@ def main():
             idx_existing = re.sub(r"\n(?:export \* from '\./[\w]+';\n)+export \* from '\./models';\n$", "\n", idx_existing)
             with open(idx_path, "w", encoding="utf-8") as f:
                 f.write(idx_existing.rstrip() + "\n" + idx_add)
-            # 移除已废弃的 generated/ 目录（如存在）
+            # 移除已废弃的 generated/ 目录（如存在）：rename 归档而非删除，规避沙箱回收站限制
             gen_old = os.path.join(api_dir, "generated")
             if os.path.isdir(gen_old):
                 import shutil
-                shutil.rmtree(gen_old)
+                bak = os.path.join(api_dir, ".generated-archived")
+                if os.path.isdir(bak):
+                    shutil.rmtree(bak)
+                os.rename(gen_old, bak)
         except Exception:
             import traceback
             traceback.print_exc()
