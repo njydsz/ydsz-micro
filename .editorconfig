@@ -1,0 +1,25 @@
+# EditorConfig — 云顶编码规范工程约定
+# https://editorconfig.org
+# 注意：charset = utf-8 即「UTF-8 无 BOM」，配合编辑器保存时自动去 BOM。
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[Makefile]
+indent_style = tab

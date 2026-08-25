@@ -1,0 +1,22 @@
+# Git Attributes — 云顶编码规范工程约定
+# 文本文件统一按 UTF-8（无 BOM）存储，行尾由 core.autocrlf 按平台转换。
+# 二进制资源显式声明，防止 diff/合并损坏。
+
+* text=auto
+
+# 二进制资源
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.zip binary
+*.gz binary
+*.map binary
+*.pdf binary
