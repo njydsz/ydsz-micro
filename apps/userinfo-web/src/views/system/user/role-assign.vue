@@ -1,5 +1,5 @@
 <!--
- * 用户角色分配弹窗 — 为用户分配或取消分配角色
+ * 用户角色分配弹窗 — 为用户分配或取消分配角色（穿梭框形式）
  *
  * @path apps\userinfo-web\src\views\system\user\role-assign.vue
  * @author ydsz-team
@@ -8,44 +8,47 @@
 <script lang="ts" setup>
 /**
  * 用户角色分配
- * <p>用户角色分配的弹窗组件，分配/取消分配角色。
+ * <p>用户角色分配的弹窗组件，消费契约 assignRoles / getUserRoles
+ * （src/api/userAccount.ts，auto-generated）：列表页打开前通过
+ * modalApi.setData 传入 userId / username / roleList / selectedRoleIds，
+ * 确认后调用 assignRoles({ userId }, { roleIds }) 提交，成功 emit('success')。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { RoleApi } from '#/api/role';
+import { useYDSZModal } from '@ydsz/common-ui';
 
-import { useVbenModal } from '@ydsz/common-ui';
 import { ElMessage, ElTransfer } from 'element-plus';
 import { ref, watch } from 'vue';
 
-import { assignUserRolesApi } from '#/api/user';
+import type { RoleVO } from '#/api/models';
+import { assignRoles } from '#/api/userAccount';
 
 const emit = defineEmits<{ success: [] }>();
 
 const userId = ref('');
 const username = ref('');
-const roleList = ref<RoleApi.RoleVO[]>([]);
+const roleList = ref<RoleVO[]>([]);
 const selectedRoleIds = ref<string[]>([]);
 
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{
-      userId: string;
-      username: string;
-      roleList: RoleApi.RoleVO[];
-      selectedRoleIds: string[];
+      userId?: string;
+      username?: string;
+      roleList?: RoleVO[];
+      selectedRoleIds?: string[];
     }>();
-    userId.value = data.userId;
-    username.value = data.username;
-    roleList.value = data.roleList || [];
-    selectedRoleIds.value = [...(data.selectedRoleIds || [])];
+    userId.value = data?.userId ?? '';
+    username.value = data?.username ?? '';
+    roleList.value = data?.roleList ?? [];
+    selectedRoleIds.value = [...(data?.selectedRoleIds ?? [])];
   },
   onConfirm: async () => {
     modalApi.lock();
     try {
-      await assignUserRolesApi(userId.value, selectedRoleIds.value);
+      await assignRoles({ userId: userId.value }, { roleIds: selectedRoleIds.value });
       ElMessage.success('角色分配成功');
       emit('success');
       modalApi.close();
@@ -55,14 +58,21 @@ const [Modal, modalApi] = useVbenModal({
   },
 });
 
+/** 穿梭框可选项（角色列表 => { label, key }） */
 const transferData = ref<{ label: string; key: string }[]>([]);
-watch(roleList, (list) => {
-  transferData.value = list.map((r) => ({
-    label: `${r.roleName} (${r.roleCode})`,
-    key: r.id,
-  }));
-}, { immediate: true });
 
+watch(
+  roleList,
+  (list) => {
+    transferData.value = list
+      .filter((role) => role.id)
+      .map((role) => ({
+        label: `${role.roleName ?? ''}${role.roleCode ? ` (${role.roleCode})` : ''}`,
+        key: role.id as string,
+      }));
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

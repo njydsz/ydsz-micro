@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
@@ -96,7 +96,7 @@ const taskGridOptions: VxeGridProps<ConnectorTaskInfo> = {
 
 const [TaskGrid, taskGridApi] = useYDSZVxeGrid({ gridOptions: taskGridOptions });
 
-const [ConnectorFormModal, connectorFormApi] = useVbenModal({ connectedComponent: ConnectorForm });
+const [ConnectorFormModal, connectorFormApi] = useYDSZModal({ connectedComponent: ConnectorForm });
 
 onMounted(async () => {
   try {

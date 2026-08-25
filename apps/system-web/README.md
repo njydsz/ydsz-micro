@@ -125,25 +125,27 @@ pnpm build:system
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/*` 端点：
+API 模块位于 `src/api/`，由 `bash/gen-contract.py` 生成（带 auto-generated banner，勿手动修改），
+使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/*` 端点，成功码统一为 `code === 'A00000'`：
 
 ```typescript
-// 系统配置（src/api/config.ts）
+// 系统配置（src/api/config.ts，auto-generated）
 import { requestClient } from '#/api/request';
+import type { PageResponse } from './models';
+import type { ConfigDTO, ConfigPageQuery, ConfigVO } from './models';
 
-export function getConfigPageApi(params: ConfigApi.ConfigPageQuery) {
-  return requestClient.get<{
-    total: number; current: number; size: number;
-    items: ConfigApi.ConfigVO[];
-  }>('/api/v1/config/page', { params });
+export function page(params: { query?: ConfigPageQuery }): Promise<PageResponse<ConfigVO[]>> {
+  return requestClient.get<PageResponse<ConfigVO[]>>('/api/v1/config/page', { params });
 }
 
-export function createConfigApi(data: ConfigApi.ConfigDTO) {
+export function save(data: ConfigDTO): Promise<string> {
   return requestClient.post<string>('/api/v1/config', data);
 }
 ```
 
-其他 API 模块：`dictType.ts`（字典类型）、`dictItem.ts`（字典项）、`variable.ts`（系统变量）、`app.ts`（应用注册）。认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
+真实类型（DTO/VO/PageQuery 等）统一在 `src/api/models.ts`，视图按「列表 page → 表单 save/update → 删除 remove」的模式消费。
+API 模块：`appInfo.ts`（应用注册）、`dict.ts`（字典类型）、`dictItem.ts`（字典项）、`variable.ts`（系统变量）、`config.ts`（系统配置）。
+认证与菜单 API 复用 `src/api/core/`（`@ydsz/shared-auth`）。
 
 ## 注意事项
 

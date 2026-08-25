@@ -20,8 +20,8 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElInput, h } from 'element-plus';
-import { ref } from 'vue';
+import { ElButton, ElMessage, ElMessageBox, ElInput } from 'element-plus';
+import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/jobGroup';

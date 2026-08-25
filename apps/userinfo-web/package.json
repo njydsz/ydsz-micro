@@ -42,7 +42,10 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
-    "unplugin-element-plus": "catalog:"
+    "@vitest/coverage-v8": "catalog:",
+    "happy-dom": "catalog:",
+    "unplugin-element-plus": "catalog:",
+    "vitest": "catalog:"
   },
   "license": "MIT"
 }

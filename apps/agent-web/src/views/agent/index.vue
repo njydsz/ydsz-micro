@@ -14,9 +14,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, h } from 'element-plus';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { h } from 'vue';
+import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -24,7 +25,7 @@ import AgentForm from './agent-form.vue';
 
 defineOptions({ name: 'AgentManagement' });
 
-const gridOptions: VxeGridProps<AgentDefinitionVO> = {
+const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'agentCode', title: 'Agent编码', width: 140 },
@@ -62,7 +63,7 @@ const gridOptions: VxeGridProps<AgentDefinitionVO> = {
   ] },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [AgentFormModal, agentFormApi] = useVbenModal({ connectedComponent: AgentForm });
+const [AgentFormModal, agentFormApi] = useYDSZModal({ connectedComponent: AgentForm });
 
 /** 打开新增弹窗 */
 function handleAdd() { agentFormApi.open(); }

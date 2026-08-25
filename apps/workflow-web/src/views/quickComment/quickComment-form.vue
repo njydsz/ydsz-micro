@@ -8,79 +8,107 @@
 <script lang="ts" setup>
 /**
  * 快捷回复（表单组件）
- * <p>快捷回复模板的创建/编辑表单。
+ * <p>常用意见的创建/编辑表单，字段对应契约 FlowQuickCommentDTO（src/api/flowComment.ts，auto-generated）：
+ * content/commentType/sortNum。提交走 createQuickComment / updateQuickComment，
+ * 成功后 emit('success') 并关闭弹窗。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { QuickCommentApi } from '#/api/quickComment';
-import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
+import { useYDSZModal } from '@ydsz/common-ui';
+import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
-import { createQuickCommentApi, updateQuickCommentApi } from '#/api/quickComment';
+import { createQuickComment, updateQuickComment } from '#/api/flowComment';
+import type { FlowQuickCommentDTO, FlowQuickCommentVO } from '#/api/models';
+
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 const isEdit = ref(false);
-const formData = reactive({ id: '',
+
+/** 表单状态（字段对应 FlowQuickCommentDTO） */
+interface QuickCommentFormState {
+  id: string;
+  content: string;
+  commentType: string;
+  sortNum: number;
+}
+
+const formData = reactive<QuickCommentFormState>({
+  id: '',
   content: '',
-  category: '',
-  sort: 0,
-  status: 0,
+  commentType: '',
+  sortNum: 0,
 });
+
 const rules = {
   content: [{ required: true, message: '请输入评语内容', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: QuickCommentApi.QuickCommentVO }>();
+    const data = modalApi.getData<{ record?: FlowQuickCommentVO }>();
     if (data?.record) {
       isEdit.value = true;
-      Object.assign(formData, { id: data.record.id,
-        content: data.record.content || '',
-        category: data.record.category || '',
-        sort: data.record.sort || 0,
-        status: data.record.status || 0,
+      Object.assign(formData, {
+        id: data.record.id ?? '',
+        content: data.record.content ?? '',
+        commentType: data.record.commentType ?? '',
+        sortNum: data.record.sortNum ?? 0,
       });
     } else {
       isEdit.value = false;
-      Object.assign(formData, { id: '',
-  content: '',
-  category: '',
-  sort: 0,
-  status: 0,
+      Object.assign(formData, {
+        id: '',
+        content: '',
+        commentType: '',
+        sortNum: 0,
       });
     }
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
-      if (isEdit.value) { await updateQuickCommentApi(formData as QuickCommentApi.QuickCommentDTO); ElMessage.success('更新成功'); }
-      else { await createQuickCommentApi(formData as QuickCommentApi.QuickCommentDTO); ElMessage.success('创建成功'); }
-      emit('success'); modalApi.close();
-    } finally { modalApi.unlock(); }
+      const payload: FlowQuickCommentDTO = {
+        id: formData.id || undefined,
+        content: formData.content,
+        commentType: formData.commentType || undefined,
+        sortNum: formData.sortNum,
+      };
+      if (isEdit.value) {
+        await updateQuickComment(payload);
+        ElMessage.success('更新成功');
+      } else {
+        await createQuickComment(payload);
+        ElMessage.success('创建成功');
+      }
+      emit('success');
+      modalApi.close();
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
+
 const title = computed(() => (isEdit.value ? '编辑快捷评语' : '新增快捷评语'));
 </script>
+
 <template>
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="评语内容">
-        <ElInput v-model="formData.content" type="textarea" :rows="2" placeholder="请输入评语内容" />
+      <ElFormItem label="评语内容" prop="content">
+        <ElInput v-model="formData.content" type="textarea" :rows="3" placeholder="请输入评语内容" />
       </ElFormItem>
-      <ElFormItem label="分类" prop="category">
-        <ElInput v-model="formData.category" placeholder="请输入分类" />
+      <ElFormItem label="意见类型">
+        <ElInput v-model="formData.commentType" placeholder="如 APPROVE/REJECT（可选）" />
       </ElFormItem>
       <ElFormItem label="排序">
-        <ElInputNumber v-model="formData.sort" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem label="状态">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio :value="1">启用</ElRadio>
-          <ElRadio :value="0">禁用</ElRadio>
-        </ElRadioGroup>
+        <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />
       </ElFormItem>
     </ElForm>
   </Modal>

@@ -8,14 +8,4 @@
  */
 export * from './core';
 export { requestClient, baseRequestClient } from './request';
-export * from './analysis';
-export * from './download';
-export * from './fileBatch';
-export * from './fileComment';
-export * from './presignedUrl';
-export * from './quota';
-export * from './share';
-export * from './spaceTemplate';
-export * from './trash';
-export * from './userRecent';
 export * from './models';

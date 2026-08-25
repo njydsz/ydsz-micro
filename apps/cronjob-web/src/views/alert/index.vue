@@ -17,10 +17,10 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag, h } from 'element-plus';
-import { ref } from 'vue';
+import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteRule, listRules, queryAlertLogs, toggleRule } from '#/api/alert';
@@ -88,7 +88,7 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [AlertFormModal, alertFormApi] = useVbenModal({ connectedComponent: AlertForm });
+const [AlertFormModal, alertFormApi] = useYDSZModal({ connectedComponent: AlertForm });
 
 function handleAdd() {
   alertFormApi.open();
@@ -134,7 +134,7 @@ async function handleLogs(row: JobAlertRuleVO) {
   logsDrawerVisible.value = true;
   alertLogs.value = [];
   try {
-    alertLogs.value = await queryAlertLogs({ jobId: row.jobId });
+    alertLogs.value = await queryAlertLogs({ jobId: row.jobId }, {});
   } catch {
     alertLogs.value = [];
     // 错误提示由请求拦截器统一处理

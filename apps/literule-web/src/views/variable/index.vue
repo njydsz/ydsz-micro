@@ -16,7 +16,7 @@
  */
 import type { VariableDefinitionVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -58,7 +58,7 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [VariableFormModal, variableFormApi] = useVbenModal({ connectedComponent: VariableForm });
+const [VariableFormModal, variableFormApi] = useYDSZModal({ connectedComponent: VariableForm });
 function handleAdd() { variableFormApi.open(); }
 function handleEdit(row: VariableDefinitionVO) { variableFormApi.setData({ record: row }); variableFormApi.open(); }
 async function handleDelete(row: VariableDefinitionVO) {

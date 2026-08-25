@@ -15,11 +15,12 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag, h } from 'element-plus';
+import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchDelete, batchPause, batchResume, deleteApi, page, pause, resume, trigger } from '#/api/job';
@@ -38,7 +39,7 @@ function isPaused(row: JobRow): boolean {
   return status === 'PAUSED' || status === 'DISABLED' || status === '0';
 }
 
-const gridOptions: VxeGridProps<JobRow> = {
+const gridOptions: VxeTableGridOptions<JobRow> = {
   columns: [
     { type: 'checkbox', width: 50 },
     { type: 'seq', width: 50, title: '序号' },
@@ -112,7 +113,7 @@ const gridOptions: VxeGridProps<JobRow> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [JobFormModal, jobFormApi] = useVbenModal({ connectedComponent: JobForm });
+const [JobFormModal, jobFormApi] = useYDSZModal({ connectedComponent: JobForm });
 
 function handleAdd() {
   jobFormApi.open();
@@ -148,7 +149,7 @@ async function handleResume(row: JobRow) {
 async function handleTrigger(row: JobRow) {
   if (!row.id) return;
   try {
-    await trigger({ id: row.id });
+    await trigger({ id: row.id }, {});
     ElMessage.success('触发成功');
   } catch {
     // 错误提示由请求拦截器统一处理

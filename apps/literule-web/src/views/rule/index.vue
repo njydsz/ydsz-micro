@@ -15,8 +15,8 @@
  * @since 1.0.0
  */
 import type { RuleDefinitionVO, RuleVersionVO } from '#/api/models';
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -24,7 +24,7 @@ import { list, listVersions, rollback, toggle } from '#/api/ruleAdmin';
 import { deleteRule } from '#/api/ruleBatch';
 import RuleForm from './rule-form.vue';
 defineOptions({ name: 'RuleManagement' });
-const gridOptions: VxeGridProps<RuleDefinitionVO> = {
+const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'ruleCode', title: '规则编码', width: 150 },
@@ -73,7 +73,7 @@ const gridOptions: VxeGridProps<RuleDefinitionVO> = {
   },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [RuleFormModal, ruleFormApi] = useVbenModal({ connectedComponent: RuleForm });
+const [RuleFormModal, ruleFormApi] = useYDSZModal({ connectedComponent: RuleForm });
 function handleAdd() { ruleFormApi.open(); }
 function handleEdit(row: RuleDefinitionVO) { ruleFormApi.setData({ record: row }); ruleFormApi.open(); }
 async function handleToggle(row: RuleDefinitionVO) {

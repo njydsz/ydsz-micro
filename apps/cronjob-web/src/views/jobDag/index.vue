@@ -18,10 +18,10 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag, h } from 'element-plus';
-import { ref } from 'vue';
+import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -105,7 +105,7 @@ const gridOptions: VxeGridProps<JobDagVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [JobDagFormModal, jobDagFormApi] = useVbenModal({ connectedComponent: JobDagForm });
+const [JobDagFormModal, jobDagFormApi] = useYDSZModal({ connectedComponent: JobDagForm });
 
 function handleAdd() {
   jobDagFormApi.open();

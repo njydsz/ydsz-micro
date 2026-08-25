@@ -1,5 +1,5 @@
 <!--
- * 菜单表单组件 — 支持新增/编辑菜单信息（菜单名称、路径、图标、权限标识）
+ * 菜单表单组件 — 支持新增/编辑菜单项（上级菜单、名称、编码、类型、路由、组件、权限标识等）
  *
  * @path apps\userinfo-web\src\views\system\menu\menu-form.vue
  * @author ydsz-team
@@ -8,85 +8,154 @@
 <script lang="ts" setup>
 /**
  * 菜单（表单组件）
- * <p>菜单的创建/编辑表单。
+ * <p>菜单的创建/编辑弹窗，字段对应契约 MenuDTO（src/api/menu.ts，auto-generated）：
+ * 上级菜单（ElTreeSelect 级联选择）、菜单名称、菜单编码、菜单类型（目录/菜单/按钮）、
+ * 路由路径、组件路径、图标、权限标识、排序、可见、状态。
+ * 提交走 create/update，成功后 emit('success') 并关闭弹窗。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { MenuApi } from '#/api/menu';
+import { useYDSZModal } from '@ydsz/common-ui';
 
-import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio, ElTreeSelect, ElSelect, ElOption } from 'element-plus';
+import {
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElInputNumber,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElSelect,
+  ElTreeSelect,
+} from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { createMenuApi, updateMenuApi } from '#/api/menu';
+import { create, update } from '#/api/menu';
+import type { MenuDTO, MenuTreeVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
 
 const formRef = ref();
 const isEdit = ref(false);
-const treeData = ref<MenuApi.MenuTreeVO[]>([]);
 
-const formData = reactive({
+/** 菜单树（来自 menu.tree()，由列表页传入，用于上级菜单选择） */
+const treeData = ref<MenuTreeVO[]>([]);
+
+/** 菜单类型选项（契约 menuType 为字符串，兼容 'DIRECTORY'/'MENU'/'BUTTON' 与 '0'/'1'/'2'） */
+const MENU_TYPE_OPTIONS = [
+  { label: '目录', value: 'DIRECTORY' },
+  { label: '菜单', value: 'MENU' },
+  { label: '按钮', value: 'BUTTON' },
+];
+
+/** 表单状态（字段对应 MenuDTO） */
+interface MenuFormState {
+  id: string;
+  parentId: string;
+  menuName: string;
+  menuCode: string;
+  menuType: string;
+  path: string;
+  component: string;
+  icon: string;
+  permissionCode: string;
+  sortOrder: number;
+  visible: number;
+  status: string;
+}
+
+const formData = reactive<MenuFormState>({
   id: '',
+  parentId: '',
   menuName: '',
-  parentId: '0',
-  menuType: 1,
+  menuCode: '',
+  menuType: 'MENU',
   path: '',
   component: '',
   icon: '',
-  permission: '',
-  sort: 0,
+  permissionCode: '',
+  sortOrder: 0,
   visible: 1,
-  status: 1,
+  status: '1',
 });
 
 const rules = {
   menuName: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
+  menuType: [{ required: true, message: '请选择菜单类型', trigger: 'change' }],
 };
 
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{
-      record?: MenuApi.MenuVO;
-      tableData: MenuApi.MenuTreeVO[];
+      record?: MenuTreeVO;
+      treeData?: MenuTreeVO[];
       parentId?: string;
     }>();
-    treeData.value = data.tableData || [];
+    treeData.value = data?.treeData ?? [];
 
-    if (data.record) {
+    if (data?.record) {
       isEdit.value = true;
       Object.assign(formData, {
-        id: data.record.id,
-        menuName: data.record.menuName,
-        parentId: data.record.parentId,
-        menuType: data.record.menuType,
-        path: data.record.path || '',
-        component: data.record.component || '',
-        icon: data.record.icon || '',
-        permission: data.record.permission || '',
-        sort: data.record.sort || 0,
+        id: data.record.id ?? '',
+        parentId: data.record.parentId ?? '',
+        menuName: data.record.menuName ?? '',
+        menuCode: data.record.menuCode ?? '',
+        menuType: data.record.menuType ?? 'MENU',
+        path: data.record.path ?? '',
+        component: data.record.component ?? '',
+        icon: data.record.icon ?? '',
+        permissionCode: data.record.permissionCode ?? '',
+        sortOrder: data.record.sortOrder ?? 0,
         visible: data.record.visible ?? 1,
-        status: data.record.status,
+        status: data.record.status ?? '1',
       });
     } else {
       isEdit.value = false;
       Object.assign(formData, {
-        id: '', menuName: '', parentId: data.parentId || '0', menuType: 1,
-        path: '', component: '', icon: '', permission: '', sort: 0, visible: 1, status: 1,
+        id: '',
+        parentId: data?.parentId ?? '',
+        menuName: '',
+        menuCode: '',
+        menuType: 'MENU',
+        path: '',
+        component: '',
+        icon: '',
+        permissionCode: '',
+        sortOrder: 0,
+        visible: 1,
+        status: '1',
       });
     }
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
+      const payload: MenuDTO = {
+        parentId: formData.parentId || undefined,
+        menuName: formData.menuName,
+        menuCode: formData.menuCode,
+        menuType: formData.menuType,
+        path: formData.path,
+        component: formData.component,
+        icon: formData.icon,
+        permissionCode: formData.permissionCode,
+        sortOrder: formData.sortOrder,
+        visible: formData.visible,
+        status: formData.status,
+      };
       if (isEdit.value) {
-        await updateMenuApi(formData as MenuApi.MenuSaveDTO);
+        await update({ ...payload, id: formData.id || undefined });
         ElMessage.success('更新成功');
       } else {
-        await createMenuApi(formData as MenuApi.MenuSaveDTO);
+        await create(payload);
         ElMessage.success('创建成功');
       }
       emit('success');
@@ -98,52 +167,61 @@ const [Modal, modalApi] = useVbenModal({
 });
 
 const title = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'));
-
-const menuTypeOptions = [
-  { label: '目录', value: 0 },
-  { label: '菜单', value: 1 },
-  { label: '按钮', value: 2 },
-];
 </script>
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="上级菜单">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
+      <ElFormItem label="上级菜单" prop="parentId">
         <ElTreeSelect
           v-model="formData.parentId"
-          :data="[{ id: '0', label: '顶级菜单', children: treeData }]"
+          :data="[{ id: '', label: '顶级菜单', children: treeData }]"
           :props="{ label: 'label', children: 'children' }"
           node-key="id"
           check-strictly
+          clearable
           placeholder="请选择上级菜单"
           class="w-full"
         />
       </ElFormItem>
-      <ElFormItem label="菜单类型">
-        <ElRadioGroup v-model="formData.menuType">
-          <ElRadio v-for="opt in menuTypeOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
       <ElFormItem label="菜单名称" prop="menuName">
         <ElInput v-model="formData.menuName" placeholder="请输入菜单名称" />
       </ElFormItem>
-      <ElFormItem v-if="formData.menuType !== 2" label="路由路径">
-        <ElInput v-model="formData.path" placeholder="请输入路由路径" />
+      <ElFormItem label="菜单编码" prop="menuCode">
+        <ElInput v-model="formData.menuCode" placeholder="请输入菜单编码" />
       </ElFormItem>
-      <ElFormItem v-if="formData.menuType === 1" label="组件路径">
+      <ElFormItem label="菜单类型" prop="menuType">
+        <ElSelect v-model="formData.menuType" placeholder="请选择菜单类型" class="w-full">
+          <ElOption
+            v-for="opt in MENU_TYPE_OPTIONS"
+            :key="opt.value"
+            :label="opt.label"
+            :value="opt.value"
+          />
+        </ElSelect>
+      </ElFormItem>
+      <ElFormItem label="路由路径">
+        <ElInput v-model="formData.path" placeholder="请输入路由路径（如 /system/menu）" />
+      </ElFormItem>
+      <ElFormItem label="组件路径">
         <ElInput v-model="formData.component" placeholder="请输入组件路径" />
       </ElFormItem>
-      <ElFormItem v-if="formData.menuType !== 0" label="权限标识">
-        <ElInput v-model="formData.permission" placeholder="如: system:user:add" />
-      </ElFormItem>
-      <ElFormItem v-if="formData.menuType !== 2" label="图标">
+      <ElFormItem label="图标">
         <ElInput v-model="formData.icon" placeholder="请输入图标名称" />
       </ElFormItem>
-      <ElFormItem label="排序">
-        <ElInputNumber v-model="formData.sort" :min="0" :max="999" />
+      <ElFormItem label="权限标识">
+        <ElInput v-model="formData.permissionCode" placeholder="请输入权限标识（如 system:menu:add）" />
       </ElFormItem>
-      <ElFormItem v-if="formData.menuType !== 2" label="是否显示">
+      <ElFormItem label="排序">
+        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
+      </ElFormItem>
+      <ElFormItem label="可见">
         <ElRadioGroup v-model="formData.visible">
           <ElRadio :value="1">显示</ElRadio>
           <ElRadio :value="0">隐藏</ElRadio>
@@ -151,8 +229,8 @@ const menuTypeOptions = [
       </ElFormItem>
       <ElFormItem label="状态">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio :value="1">启用</ElRadio>
-          <ElRadio :value="0">禁用</ElRadio>
+          <ElRadio value="1">启用</ElRadio>
+          <ElRadio value="0">禁用</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

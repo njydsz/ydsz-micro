@@ -767,6 +767,12 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
             args.append("data")
         if query_params or form_params:
             args.append("{ params }")
+        # DELETE 无 (url, data) 重载：请求体需并入 config（{ data } 或 { data, params }）
+        if verb == "delete" and body_param:
+            config_kv = ["data"]
+            if query_params or form_params:
+                config_kv.append("params")
+            args = ["{{ {0} }}".format(", ".join(config_kv))]
         call_args = ", ".join(args)
         call = f"requestClient.{verb}<{ret_annotation}>(`{url}`"
         if call_args:

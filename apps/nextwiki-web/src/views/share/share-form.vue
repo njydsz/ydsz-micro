@@ -8,76 +8,65 @@
 <script lang="ts" setup>
 /**
  * 文件分享（表单组件）
- * <p>分享链接的创建表单，支持公开/密码/有效期。
+ * <p>新建分享表单，数据提交到后端契约 API share#createShare（apps/nextwiki-web/src/api/share.ts）。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { ShareApi } from '#/api/share';
-import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
-import { computed, reactive, ref } from 'vue';
-import { createShareApi, updateShareApi } from '#/api/share';
+import { useYDSZModal } from '@ydsz/common-ui';
+import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+import { reactive, ref } from 'vue';
+import { createShare } from '#/api/share';
+
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
-const isEdit = ref(false);
-const formData = reactive({ id: '',
-  fileId: '',
-  shareTo: '',
-  permission: '',
-  expireDate: '',
+/** 新建分享表单数据 */
+interface ShareFormData {
+  title: string;
+  fileNodeId: string;
+  shareType: string;
+  expireTime: string;
+}
+const formData = reactive<ShareFormData>({
+  title: '',
+  fileNodeId: '',
+  shareType: 'LINK',
+  expireTime: '',
 });
 const rules = {
-  fileId: [{ required: true, message: '请输入文件ID', trigger: 'blur' }],
+  fileNodeId: [{ required: true, message: '请输入文件节点ID', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: ShareApi.ShareVO }>();
-    if (data?.record) {
-      isEdit.value = true;
-      Object.assign(formData, { id: data.record.id,
-        fileId: data.record.fileId || '',
-        shareTo: data.record.shareTo || '',
-        permission: data.record.permission || '',
-        expireDate: data.record.expireDate || '',
-      });
-    } else {
-      isEdit.value = false;
-      Object.assign(formData, { id: '',
-  fileId: '',
-  shareTo: '',
-  permission: '',
-  expireDate: '',
-      });
-    }
+    Object.assign(formData, { title: '', fileNodeId: '', shareType: 'LINK', expireTime: '' });
   },
   onConfirm: async () => {
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
-      if (isEdit.value) { await updateShareApi(formData as ShareApi.ShareDTO); ElMessage.success('更新成功'); }
-      else { await createShareApi(formData as ShareApi.ShareDTO); ElMessage.success('创建成功'); }
-      emit('success'); modalApi.close();
+      await createShare({ ...formData });
+      ElMessage.success('创建成功');
+      emit('success');
+      modalApi.close();
     } finally { modalApi.unlock(); }
   },
 });
-const title = computed(() => (isEdit.value ? '编辑文件分享' : '新增文件分享'));
 </script>
 <template>
-  <Modal :title="title">
+  <Modal title="新建分享">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="文件ID" prop="fileId">
-        <ElInput v-model="formData.fileId" placeholder="请输入文件ID" />
+      <ElFormItem label="分享标题" prop="title">
+        <ElInput v-model="formData.title" placeholder="请输入分享标题（可选）" />
       </ElFormItem>
-      <ElFormItem label="分享给" prop="shareTo">
-        <ElInput v-model="formData.shareTo" placeholder="请输入分享给" />
+      <ElFormItem label="文件节点ID" prop="fileNodeId">
+        <ElInput v-model="formData.fileNodeId" placeholder="请输入文件节点ID" />
       </ElFormItem>
-      <ElFormItem label="权限" prop="permission">
-        <ElInput v-model="formData.permission" placeholder="请输入权限" />
+      <ElFormItem label="分享类型" prop="shareType">
+        <ElInput v-model="formData.shareType" placeholder="如 LINK / PASSWORD" />
       </ElFormItem>
-      <ElFormItem label="过期日期" prop="expireDate">
-        <ElInput v-model="formData.expireDate" placeholder="请输入过期日期" />
+      <ElFormItem label="过期时间" prop="expireTime">
+        <ElInput v-model="formData.expireTime" placeholder="格式 yyyy-MM-dd HH:mm:ss，留空永久有效" />
       </ElFormItem>
     </ElForm>
   </Modal>

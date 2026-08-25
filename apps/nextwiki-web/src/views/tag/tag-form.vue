@@ -8,64 +8,52 @@
 <script lang="ts" setup>
 /**
  * 文件标签（表单组件）
- * <p>标签的创建/编辑表单。
+ * <p>新建标签表单，数据提交到后端契约 API tag#createTag（apps/nextwiki-web/src/api/tag.ts）。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { TagApi } from '#/api/tag';
-import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
-import { computed, reactive, ref } from 'vue';
-import { createTagApi, updateTagApi } from '#/api/tag';
+import { useYDSZModal } from '@ydsz/common-ui';
+import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+import { reactive, ref } from 'vue';
+import { createTag } from '#/api/tag';
+
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
-const isEdit = ref(false);
-const formData = reactive({ id: '',
-  tagName: '',
-  tagColor: '',
-});
+/** 新建标签表单数据 */
+interface TagFormData {
+  name: string;
+  color: string;
+}
+const formData = reactive<TagFormData>({ name: '', color: '' });
 const rules = {
-  tagName: [{ required: true, message: '请输入标签名称', trigger: 'blur' }],
+  name: [{ required: true, message: '请输入标签名称', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: TagApi.TagVO }>();
-    if (data?.record) {
-      isEdit.value = true;
-      Object.assign(formData, { id: data.record.id,
-        tagName: data.record.tagName || '',
-        tagColor: data.record.tagColor || '',
-      });
-    } else {
-      isEdit.value = false;
-      Object.assign(formData, { id: '',
-  tagName: '',
-  tagColor: '',
-      });
-    }
+    Object.assign(formData, { name: '', color: '' });
   },
   onConfirm: async () => {
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
-      if (isEdit.value) { await updateTagApi(formData as TagApi.TagDTO); ElMessage.success('更新成功'); }
-      else { await createTagApi(formData as TagApi.TagDTO); ElMessage.success('创建成功'); }
-      emit('success'); modalApi.close();
+      await createTag({ ...formData });
+      ElMessage.success('创建成功');
+      emit('success');
+      modalApi.close();
     } finally { modalApi.unlock(); }
   },
 });
-const title = computed(() => (isEdit.value ? '编辑标签管理' : '新增标签管理'));
 </script>
 <template>
-  <Modal :title="title">
+  <Modal title="新增标签">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="标签名称" prop="tagName">
-        <ElInput v-model="formData.tagName" placeholder="请输入标签名称" />
+      <ElFormItem label="标签名称" prop="name">
+        <ElInput v-model="formData.name" placeholder="请输入标签名称" />
       </ElFormItem>
-      <ElFormItem label="标签颜色" prop="tagColor">
-        <ElInput v-model="formData.tagColor" placeholder="请输入标签颜色" />
+      <ElFormItem label="标签颜色" prop="color">
+        <ElInput v-model="formData.color" placeholder="如 #409eff（可选）" />
       </ElFormItem>
     </ElForm>
   </Modal>

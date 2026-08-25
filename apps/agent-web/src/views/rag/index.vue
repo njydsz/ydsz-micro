@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Page, useVbenModal } from '@ydsz/common-ui';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 import {
   ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElInputNumber,
   ElMessage, ElMessageBox, ElStatistic, ElTable, ElTableColumn,
@@ -35,7 +35,7 @@ const queryForm = ref<RagQueryDTO>({ query: '', topK: 10, minScore: 0 });
 const searchRows = ref<Record<string, unknown>[]>([]);
 const searchLoading = ref(false);
 
-const [RagFormModal, ragFormApi] = useVbenModal({ connectedComponent: RagForm });
+const [RagFormModal, ragFormApi] = useYDSZModal({ connectedComponent: RagForm });
 
 /** 统计条目（v-for 渲染用） */
 const statsEntries = computed<[string, unknown][]>(() => Object.entries(statsData.value));
@@ -116,7 +116,7 @@ onMounted(() => { handleLoadStats(); });
     <div class="mb-3 flex flex-wrap gap-3">
       <div v-for="card in statCards" :key="card.key" class="w-40 rounded-md border p-3">
         <div class="mb-1 truncate text-sm text-gray-500">{{ card.label }}</div>
-        <ElStatistic :value="card.value" />
+        <ElStatistic :value="Number(card.value) || 0" />
       </div>
     </div>
     <ElDescriptions v-if="statsEntries.length > statCards.length" :column="2" border class="mb-3">

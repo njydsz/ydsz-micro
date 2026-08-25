@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useVbenModal } from '@ydsz/common-ui';
+import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
@@ -62,8 +62,8 @@ const rules = {
   ruleName: [{ required: true, message: '请输入规则名称', trigger: 'blur' }],
 };
 
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: JobAlertRuleVO }>();
     if (data?.record) {

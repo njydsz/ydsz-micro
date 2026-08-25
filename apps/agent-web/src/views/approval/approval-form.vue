@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useVbenModal } from '@ydsz/common-ui';
+import { useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { computed, ref } from 'vue';
 import { approve, getApproval, reject } from '#/api/humanApproval';
@@ -49,7 +49,7 @@ function displayValue(value: unknown): string {
   return String(value);
 }
 
-const [Modal, modalApi] = useVbenModal({
+const [Modal, modalApi] = useYDSZModal({
   onOpenChange: async (isOpen) => {
     if (!isOpen) { return; }
     comment.value = '';

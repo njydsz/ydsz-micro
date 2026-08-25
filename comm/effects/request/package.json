@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@YDSZ-core/shared": "workspace:*",
     "@ydsz/locales": "workspace:*",
     "@ydsz/utils": "workspace:*",
     "axios": "catalog:",
@@ -27,7 +28,10 @@
   },
   "devDependencies": {
     "@types/qs": "catalog:",
-    "axios-mock-adapter": "catalog:"
+    "@vitest/coverage-v8": "catalog:",
+    "axios-mock-adapter": "catalog:",
+    "happy-dom": "catalog:",
+    "vitest": "catalog:"
   },
   "scripts": {
     "test": "vitest run --config vitest.config.ts",

@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useVbenModal } from '@ydsz/common-ui';
+import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { ingest } from '#/api/rag';
@@ -31,7 +31,7 @@ const formData = reactive<DocumentIngestDTO>({
 const rules = {
   content: [{ required: true, message: '请输入文档内容', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useVbenModal({
+const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen) => {
     if (!isOpen) return;
     Object.assign(formData, { documentId: '', content: '', documentTitle: '', source: '' });

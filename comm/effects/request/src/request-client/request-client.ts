@@ -169,6 +169,20 @@ class RequestClient {
   }
 
   /**
+   * PATCH请求方法
+   *
+   * 用于部分更新等后端 PATCH 语义（如 SCIM /scim/v2/Users/{id}）。
+   * 请求体放宽为 unknown，兼容业务 DTO 直传。
+   */
+  public patch<T = unknown>(
+    url: string,
+    data?: unknown,
+    config?: RequestClientConfig,
+  ): Promise<T> {
+    return this.request<T>(url, { ...config, data, method: 'PATCH' });
+  }
+
+  /**
    * 通用的请求方法
    *
    * v3.1 修复：为每次请求创建 AbortController 并注入 axios signal，

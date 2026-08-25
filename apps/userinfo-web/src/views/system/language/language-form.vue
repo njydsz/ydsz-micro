@@ -1,5 +1,5 @@
 <!--
- * 国际化语言条目表单组件 — 支持新增/编辑语言包翻译内容
+ * 国际化语言表单组件 — 支持新增/编辑语言（语言编码、名称、默认标识、排序、状态）
  *
  * @path apps\userinfo-web\src\views\system\language\language-form.vue
  * @author ydsz-team
@@ -8,31 +8,51 @@
 <script lang="ts" setup>
 /**
  * 国际化（表单组件）
- * <p>语言条目的编辑表单。
+ * <p>语言的创建/编辑弹窗，字段对应契约 LanguageDTO（src/api/language.ts，auto-generated）：
+ * 语言编码、语言名称、默认语言标识（数字 1/0）、排序、状态。
+ * 提交走 create/update，成功后 emit('success') 并关闭弹窗。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { LanguageApi } from '#/api/language';
+import { useYDSZModal } from '@ydsz/common-ui';
 
-import { useVbenModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadioGroup, ElRadio } from 'element-plus';
+import {
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElInputNumber,
+  ElMessage,
+  ElRadio,
+  ElRadioGroup,
+} from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { createLanguageApi, updateLanguageApi } from '#/api/language';
+import { create, update } from '#/api/language';
+import type { LanguageDTO, LanguageVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
 
 const formRef = ref();
 const isEdit = ref(false);
 
-const formData = reactive({
+/** 表单状态（字段对应 LanguageDTO） */
+interface LanguageFormState {
+  id: string;
+  languageCode: string;
+  languageName: string;
+  isDefault: number;
+  sortOrder: number;
+  status: string;
+}
+
+const formData = reactive<LanguageFormState>({
   id: '',
   languageCode: '',
   languageName: '',
-  nativeName: '',
-  sort: 0,
-  status: 1,
+  isDefault: 0,
+  sortOrder: 0,
+  status: '1',
 });
 
 const rules = {
@@ -40,36 +60,52 @@ const rules = {
   languageName: [{ required: true, message: '请输入语言名称', trigger: 'blur' }],
 };
 
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: LanguageApi.LanguageVO }>();
+    const data = modalApi.getData<{ record?: LanguageVO }>();
     if (data?.record) {
       isEdit.value = true;
       Object.assign(formData, {
-        id: data.record.id,
-        languageCode: data.record.languageCode,
-        languageName: data.record.languageName,
-        nativeName: data.record.nativeName || '',
-        sort: data.record.sort || 0,
-        status: data.record.status,
+        id: data.record.id ?? '',
+        languageCode: data.record.languageCode ?? '',
+        languageName: data.record.languageName ?? '',
+        isDefault: data.record.isDefault ?? 0,
+        sortOrder: data.record.sortOrder ?? 0,
+        status: data.record.status ?? '1',
       });
     } else {
       isEdit.value = false;
       Object.assign(formData, {
-        id: '', languageCode: '', languageName: '', nativeName: '', sort: 0, status: 1,
+        id: '',
+        languageCode: '',
+        languageName: '',
+        isDefault: 0,
+        sortOrder: 0,
+        status: '1',
       });
     }
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
+      const payload: LanguageDTO = {
+        languageCode: formData.languageCode,
+        languageName: formData.languageName,
+        isDefault: formData.isDefault,
+        sortOrder: formData.sortOrder,
+        status: formData.status,
+      };
       if (isEdit.value) {
-        await updateLanguageApi(formData as LanguageApi.LanguageSaveDTO);
+        await update({ ...payload, id: formData.id || undefined });
         ElMessage.success('更新成功');
       } else {
-        await createLanguageApi(formData as LanguageApi.LanguageSaveDTO);
+        await create(payload);
         ElMessage.success('创建成功');
       }
       emit('success');
@@ -85,23 +121,32 @@ const title = computed(() => (isEdit.value ? '编辑语言' : '新增语言'));
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="语言编码" prop="languageCode">
         <ElInput v-model="formData.languageCode" placeholder="如: zh-CN" :disabled="isEdit" />
       </ElFormItem>
       <ElFormItem label="语言名称" prop="languageName">
         <ElInput v-model="formData.languageName" placeholder="如: 简体中文" />
       </ElFormItem>
-      <ElFormItem label="本地名称">
-        <ElInput v-model="formData.nativeName" placeholder="如: 简体中文" />
+      <ElFormItem label="默认语言">
+        <ElRadioGroup v-model="formData.isDefault">
+          <ElRadio :value="1">默认</ElRadio>
+          <ElRadio :value="0">非默认</ElRadio>
+        </ElRadioGroup>
       </ElFormItem>
       <ElFormItem label="排序">
-        <ElInputNumber v-model="formData.sort" :min="0" :max="999" />
+        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
       </ElFormItem>
       <ElFormItem label="状态">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio :value="1">启用</ElRadio>
-          <ElRadio :value="0">禁用</ElRadio>
+          <ElRadio value="1">启用</ElRadio>
+          <ElRadio value="0">禁用</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

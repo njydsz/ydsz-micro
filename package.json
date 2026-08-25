@@ -80,6 +80,7 @@
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "@ydsz/eslint-config": "workspace:*",
     "@ydsz/tailwind-config": "workspace:*",
     "@ydsz/turbo-run": "workspace:*",
@@ -87,6 +88,7 @@
     "autoprefixer": "catalog:",
     "cross-env": "catalog:",
     "eslint": "^9.39.5",
+    "happy-dom": "catalog:",
     "is-ci": "catalog:",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
@@ -96,6 +98,7 @@
     "typescript": "catalog:",
     "unbuild": "catalog:",
     "vite": "catalog:",
+    "vitest": "catalog:",
     "vue": "catalog:"
   },
   "engines": {

@@ -58,9 +58,10 @@ catalog:
   '@vueuse/integrations': ^13.4.0
   '@vueuse/motion': ^3.0.3
   # 测试体系（v4.3.1：修复 vitest 幻影依赖——4 个包 test 脚本引用 vitest 却未声明）
-  '@vitest/coverage-v8': ^4.1.11
+  # 注：vitest 与 @vitest/coverage-v8 版本须严格对齐，coverage-v8 最新为 4.1.10
+  '@vitest/coverage-v8': ^4.1.10
   happy-dom: ^20.8.3
-  vitest: ^4.1.11
+  vitest: ^4.1.10
   archiver: ^7.0.1
   autoprefixer: ^10.4.21
   axios: ^1.10.0

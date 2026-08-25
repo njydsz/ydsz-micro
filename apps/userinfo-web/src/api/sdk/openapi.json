@@ -6674,7 +6674,7 @@
    "SecurityAlertPageQuery": {
     "type": "object",
     "properties": {
-     "status": {
+     "alertStatus": {
       "type": "object"
      },
      "riskLevel": {

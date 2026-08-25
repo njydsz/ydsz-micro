@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useVbenModal } from '@ydsz/common-ui';
+import { useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
@@ -55,8 +55,8 @@ const rules = {
   cronExpression: [{ required: true, message: '请输入Cron表达式', trigger: 'blur' }],
 };
 
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: JobVO }>();
     if (data?.record) {

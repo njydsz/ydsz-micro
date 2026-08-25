@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
@@ -27,7 +27,7 @@ import type { JobLogVO } from '#/api/models';
 
 defineOptions({ name: 'JobLogManagement' });
 
-const gridOptions: VxeGridProps<JobLogVO> = {
+const gridOptions: VxeTableGridOptions<JobLogVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'jobKey', title: '任务标识', width: 140 },

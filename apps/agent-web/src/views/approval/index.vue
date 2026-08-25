@@ -15,16 +15,17 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useVbenModal } from '@ydsz/common-ui';
-import { ElButton, h } from 'element-plus';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { h } from 'vue';
+import { ElButton } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { listPending } from '#/api/humanApproval';
 import ApprovalForm from './approval-form.vue';
 
 defineOptions({ name: 'ApprovalManagement' });
 
-const gridOptions: VxeGridProps<Record<string, unknown>> = {
+const gridOptions: VxeTableGridOptions<Record<string, unknown>> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'id', title: '审批ID', width: 200, showOverflow: true },
@@ -53,7 +54,7 @@ const gridOptions: VxeGridProps<Record<string, unknown>> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [ApprovalFormModal, approvalFormApi] = useVbenModal({ connectedComponent: ApprovalForm });
+const [ApprovalFormModal, approvalFormApi] = useYDSZModal({ connectedComponent: ApprovalForm });
 
 /** 打开审批处理弹窗，action 标记默认操作（通过/驳回） */
 function handleOpen(row: Record<string, unknown>, action: 'approve' | 'reject') {

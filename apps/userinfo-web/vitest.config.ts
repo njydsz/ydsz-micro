@@ -25,6 +25,9 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     include: ['src/**/*.test.ts'],
+    // v4.3.1：契约化 API 层重构期间旧版 api 测试已被移除，
+    // 允许空测试集（新契约测试补齐后可移除该开关）
+    passWithNoTests: true,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

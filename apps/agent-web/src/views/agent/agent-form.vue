@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useVbenModal } from '@ydsz/common-ui';
+import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { create, update } from '#/api/agentDefinition';
@@ -38,7 +38,7 @@ const rules = {
   agentCode: [{ required: true, message: '请输入Agent编码', trigger: 'blur' }],
   agentName: [{ required: true, message: '请输入Agent名称', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useVbenModal({
+const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: AgentDefinitionVO }>();

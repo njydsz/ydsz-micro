@@ -1,8 +1,15 @@
 /**
- * Vitest 单元测试配置
+ * Vitest 根级配置（仅服务仓库根目录自身的测试）
  *
  * <p>配置 Vue 3 + JSX 测试环境，使用 happy-dom 作为 DOM 模拟器。
- * 排除 e2e 目录的端到端测试文件。
+ *
+ * <p>v4.3.1 架构调整：全仓测试改为「每包自持配置」——各 workspace 包
+ * （apps/*、main、comm/*）使用各自包内的 vitest.config.ts 与 test 脚本，
+ * 由 `pnpm test`（turbo）编排执行。根级配置不再跨包 glob（**/*.spec.ts），
+ * 原因：跨包运行缺少各包专属别名/插件声明，必然产生解析失败；
+ * 同时移除 json reporter（其产物 test-results.json 长期滞留仓库根目录）。
+ *
+ * 根级仅覆盖 `tests/` 目录（仓库级横切测试预留位）。
  *
  * @path vitest.config.ts
  * @author ydsz-team
@@ -11,22 +18,15 @@
 import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import { configDefaults, defineConfig } from 'vitest/config';
-import { resolve } from 'node:path';
 
 export default defineConfig({
   plugins: [Vue(), VueJsx()],
-  resolve: {
-    alias: {
-      '@YDSZ-core/composables': resolve(__dirname, 'comm/@core/composables/src/index.ts'),
-    },
-  },
   test: {
-    // 默认包含 src 和 comm 下的 spec/contract 测试文件
-    include: ['**/*.spec.ts', '**/*.test.ts'],
+    // 仓库级横切测试预留位；各包测试请勿放置于此
+    include: ['tests/**/*.{test,spec}.ts'],
     coverage: {
-      // v4.3.0 修复：移除 enabled:true —— @vitest/coverage-v8 未安装，
-      // 开启 enabled 会导致任意 `vitest run` 直接报 MISSING DEPENDENCY。
-      // 覆盖率仅在显式 --coverage 时生效；子应用请使用各自包内的 vitest.config.ts。
+      // v4.3.1：@vitest/coverage-v8 已安装（root devDependencies），
+      // 覆盖率门槛自此可执行；各包覆盖率请使用包内 test:coverage 脚本。
       exclude: [
         '**/e2e/**',
         '**/node_modules/**',
@@ -42,7 +42,7 @@ export default defineConfig({
         '**/mock/**',
       ],
       provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov', 'clover'],
+      reporter: ['text', 'html', 'lcov'],
       reportsDirectory: './coverage',
       // Q1 目标阈值：branches/functions 70%、lines/statements 80%
       // 后续阶段提升路线：Q2 → 80%/85%，Q3 → 85%/90%
@@ -56,9 +56,7 @@ export default defineConfig({
     },
     environment: 'happy-dom',
     exclude: [...configDefaults.exclude, '**/e2e/**'],
-    reporters: ['default', 'json'],
-    outputFile: {
-      json: './test-results.json',
-    },
+    // 契约化重构期间部分包可能暂无测试文件
+    passWithNoTests: true,
   },
 });

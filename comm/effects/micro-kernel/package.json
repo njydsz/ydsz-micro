@@ -11,13 +11,19 @@
   },
   "scripts": {
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@YDSZ-core/composables": "workspace:*",
     "@YDSZ-core/shared": "workspace:*",
     "@ydsz/micro-runtime": "workspace:*",
     "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "catalog:",
+    "@ydsz/tsconfig": "workspace:*",
+    "happy-dom": "catalog:",
+    "vitest": "catalog:"
   },
   "license": "MIT"
 }

@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 import type { RuleDefinitionVO } from '#/api/models';
-import { useVbenModal } from '@ydsz/common-ui';
+import { useYDSZModal } from '@ydsz/common-ui';
 import { ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { save } from '#/api/ruleAdmin';
@@ -43,7 +43,7 @@ const formData = reactive<RuleFormData>({
 const rules = {
   name: [{ required: true, message: '请输入规则名称', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useVbenModal({
+const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: RuleDefinitionVO }>();

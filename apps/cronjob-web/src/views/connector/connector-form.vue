@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useVbenModal } from '@ydsz/common-ui';
+import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
@@ -66,8 +66,8 @@ function toConnectorConfig(): ConnectorConfigPostDTO {
   };
 }
 
-const [Modal, modalApi] = useVbenModal({
-  onOpenChange: (isOpen) => {
+const [Modal, modalApi] = useYDSZModal({
+  onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: Partial<ConnectorFormState> & { types?: string[] } }>();
     connectorTypes.value = data?.record?.types ?? [];

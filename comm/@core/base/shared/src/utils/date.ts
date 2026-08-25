@@ -7,7 +7,10 @@
  */
 import dayjs from 'dayjs';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+// v4.3.1 修复循环自引用：utils/index.ts 已 `export * from './date'`，
+// 此处再经包名导回 index 会形成循环（index 尚未执行到 logger 的 re-export，
+// createLogger 处于 TDZ → "createLogger is not a function"）。改为相对导入。
+import { createLogger } from './logger';
 const logger = createLogger('date');
 /**
  * 将时间戳或日期字符串格式化为指定格式的日期文本。

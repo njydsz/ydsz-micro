@@ -410,7 +410,7 @@ export interface ScimPatchOp {
 
 export interface SecurityAlertPageQuery {
 
-  status?: Record<string, unknown>;
+  alertStatus?: Record<string, unknown>;
 
   riskLevel?: Record<string, unknown>;
 

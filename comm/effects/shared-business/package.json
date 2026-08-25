@@ -17,6 +17,10 @@
       "import": "./src/index.ts"
     }
   },
+  "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
   "dependencies": {
     "@tanstack/vue-virtual": "catalog:",
     "@ydsz/common-ui": "workspace:*",
@@ -29,7 +33,10 @@
     "xlsx": "catalog:"
   },
   "devDependencies": {
-    "typescript": "^5.5.0"
+    "@vitest/coverage-v8": "catalog:",
+    "happy-dom": "catalog:",
+    "typescript": "^5.5.0",
+    "vitest": "catalog:"
   },
   "license": "MIT"
 }

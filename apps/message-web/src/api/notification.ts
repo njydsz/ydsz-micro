@@ -57,7 +57,7 @@ export function markAllRead(): Promise<number> {
  * delete: DELETE /api/v1/message/notifications
  */
 export function deleteApi(data: string[]): Promise<void> {
-  return requestClient.delete<void>(`/api/v1/message/notifications`, data);
+  return requestClient.delete<void>(`/api/v1/message/notifications`, { data });
 }
 
 /**

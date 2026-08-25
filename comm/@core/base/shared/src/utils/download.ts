@@ -7,7 +7,8 @@
  */
 import { openWindow } from './window';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+// v4.3.1 修复循环自引用：同 date.ts，改相对导入避免 utils/index 循环
+import { createLogger } from './logger';
 const logger = createLogger('download');
 interface DownloadOptions<T = string> {
   fileName?: string;

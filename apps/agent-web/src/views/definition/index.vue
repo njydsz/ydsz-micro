@@ -15,10 +15,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElMessage, ElInput, h } from 'element-plus';
-import { ref } from 'vue';
+import { h, ref } from 'vue';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElMessage, ElInput } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -32,7 +32,7 @@ const queryDetail = ref<AgentDefinitionVO | null>(null);
 const detailVisible = ref(false);
 const detail = ref<AgentDefinitionVO | null>(null);
 
-const gridOptions: VxeGridProps<AgentDefinitionVO> = {
+const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'agentCode', title: 'Agent编码', width: 140 },

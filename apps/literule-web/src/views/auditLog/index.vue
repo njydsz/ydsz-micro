@@ -17,8 +17,8 @@
 import type { AuditLogEntryVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElTag, h } from 'element-plus';
-import { reactive } from 'vue';
+import { ElButton, ElTag } from 'element-plus';
+import { h, reactive } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { byAction, byOperator, byRuleCode, byTimeRange, recent } from '#/api/ruleAuditLog';
 defineOptions({ name: 'AuditLogManagement' });
@@ -41,7 +41,7 @@ const filter = reactive<AuditFilter>({
 async function queryAudit(): Promise<{ items: AuditLogEntryVO[]; total: number }> {
   let items: AuditLogEntryVO[] = [];
   if (filter.ruleCode.trim()) {
-    items = await byRuleCode({ ruleCode: filter.ruleCode.trim() });
+    items = await byRuleCode({ ruleCode: filter.ruleCode.trim() }, {});
   } else if (filter.operator.trim()) {
     items = await byOperator({ operator: filter.operator.trim() });
   } else if (filter.action.trim()) {

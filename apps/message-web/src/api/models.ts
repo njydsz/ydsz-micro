@@ -937,6 +937,25 @@ export interface MsgPreferenceVO {
   updatedAt?: string;
 }
 
+export interface MsgReceipt {
+
+  serialVersionUID?: number;
+
+  logId?: string;
+
+  providerTraceId?: string;
+
+  receiptType?: string;
+
+  receiptTime?: string;
+
+  providerCode?: string;
+
+  providerMsg?: string;
+
+  rawResponse?: string;
+}
+
 export interface MsgRouteRuleVO {
 
   serialVersionUID?: number;
@@ -1084,6 +1103,25 @@ export interface MsgTemplateVO {
   updatedBy?: string;
 
   updatedAt?: string;
+}
+
+export interface MsgTemplateVersion {
+
+  serialVersionUID?: number;
+
+  templateCode?: string;
+
+  version?: number;
+
+  content?: string;
+
+  variableDefs?: string;
+
+  auditStatus?: string;
+
+  auditor?: string;
+
+  auditRemark?: string;
 }
 
 export interface UnsubscribeTokenPayload {
