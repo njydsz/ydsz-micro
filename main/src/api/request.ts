@@ -20,8 +20,6 @@ import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { useAuthStore } from '#/store/auth';
 
-import { refreshTokenApi } from './core/auth';
-
 /** 模块级日志器 */
 const logger = createLogger('MainRequest');
 
@@ -65,6 +63,8 @@ async function doRefreshToken() {
   if (!refreshToken) {
     return null;
   }
+  // 延迟引用避免 request ↔ core/auth 初始化期循环依赖（仅在刷新令牌时加载）
+  const { refreshTokenApi } = await import('./core/auth');
   const resp = await refreshTokenApi(refreshToken);
   // baseRequestClient responseReturn='data'，resp 即 RefreshTokenResult（无 .data 包装）
   const newToken = resp?.accessToken ?? '';

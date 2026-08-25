@@ -14,6 +14,8 @@
  */
 import { onBeforeUnmount, onMounted } from 'vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-keyboard-shortcut');
 /**
  * 修饰键类型
  *
@@ -153,7 +155,7 @@ export function useKeyboardShortcut(
       JSON.stringify(s.descriptor.modifiers) === JSON.stringify(modifiers),
   );
   if (conflict) {
-    console.warn(
+    logger.warn(
       `[shortcut] 快捷键冲突: scope=${scope}, key=${key}, modifiers=${JSON.stringify(modifiers)}`,
     );
   }

@@ -5,7 +5,7 @@
  * @description 同步 VS Code 工作区配置，统一管理扩展推荐和设置
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 /** 工作区配置 */
@@ -51,7 +51,6 @@ const RECOMMENDED_SETTINGS = {
  * 扫描项目中的 apps 和 comm 目录
  */
 function scanProjectFolders(rootDir: string): Array<{ path: string; name: string }> {
-  const { readdirSync, statSync } = require('node:fs') as typeof import('node:fs');
   const folders: Array<{ path: string; name: string }> = [];
 
   const scanDir = (dir: string, prefix: string) => {

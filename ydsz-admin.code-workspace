@@ -1,208 +1,128 @@
-﻿{
+{
   "folders": [
     {
-      "name": "@ydsz/agent-web",
-      "path": "apps/agent-web",
+      "path": ".",
+      "name": "root"
     },
     {
-      "name": "@ydsz/cronjob-web",
-      "path": "apps/cronjob-web",
+      "path": "./apps/agent-web",
+      "name": "apps/agent-web"
     },
     {
-      "name": "@ydsz/literule-web",
-      "path": "apps/literule-web",
+      "path": "./apps/cronjob-web",
+      "name": "apps/cronjob-web"
     },
     {
-      "name": "@ydsz/message-web",
-      "path": "apps/message-web",
+      "path": "./apps/literule-web",
+      "name": "apps/literule-web"
     },
     {
-      "name": "@ydsz/nextwiki-web",
-      "path": "apps/nextwiki-web",
+      "path": "./apps/message-web",
+      "name": "apps/message-web"
     },
     {
-      "name": "@ydsz/system-web",
-      "path": "apps/system-web",
+      "path": "./apps/nextwiki-web",
+      "name": "apps/nextwiki-web"
     },
     {
-      "name": "@ydsz/userinfo-web",
-      "path": "apps/userinfo-web",
+      "path": "./apps/system-web",
+      "name": "apps/system-web"
     },
     {
-      "name": "@ydsz/workflow-web",
-      "path": "apps/workflow-web",
+      "path": "./apps/userinfo-web",
+      "name": "apps/userinfo-web"
     },
     {
-      "name": "@ydsz/turbo-run",
-      "path": "bash/turbo-run",
+      "path": "./apps/workflow-web",
+      "name": "apps/workflow-web"
     },
     {
-      "name": "@ydsz/vsh",
-      "path": "bash/vsh",
+      "path": "./comm/@core",
+      "name": "comm/@core"
     },
     {
-      "name": "@YDSZ-core/design",
-      "path": "comm/@core/base/design",
+      "path": "./comm/constants",
+      "name": "comm/constants"
     },
     {
-      "name": "@YDSZ-core/icons",
-      "path": "comm/@core/base/icons",
+      "path": "./comm/effects",
+      "name": "comm/effects"
     },
     {
-      "name": "@YDSZ-core/shared",
-      "path": "comm/@core/base/shared",
+      "path": "./comm/icons",
+      "name": "comm/icons"
     },
     {
-      "name": "@YDSZ-core/typings",
-      "path": "comm/@core/base/typings",
+      "path": "./comm/locales",
+      "name": "comm/locales"
     },
     {
-      "name": "@YDSZ-core/composables",
-      "path": "comm/@core/composables",
+      "path": "./comm/preferences",
+      "name": "comm/preferences"
     },
     {
-      "name": "@YDSZ-core/feature-flags",
-      "path": "comm/@core/feature-flags",
+      "path": "./comm/stores",
+      "name": "comm/stores"
     },
     {
-      "name": "@YDSZ-core/preferences",
-      "path": "comm/@core/preferences",
+      "path": "./comm/styles",
+      "name": "comm/styles"
     },
     {
-      "name": "@YDSZ-core/form-ui",
-      "path": "comm/@core/ui-kit/form-ui",
+      "path": "./comm/types",
+      "name": "comm/types"
     },
     {
-      "name": "@YDSZ-core/layout-ui",
-      "path": "comm/@core/ui-kit/layout-ui",
+      "path": "./comm/utils",
+      "name": "comm/utils"
     },
     {
-      "name": "@YDSZ-core/menu-ui",
-      "path": "comm/@core/ui-kit/menu-ui",
+      "path": "./main/public",
+      "name": "main/public"
     },
     {
-      "name": "@YDSZ-core/popup-ui",
-      "path": "comm/@core/ui-kit/popup-ui",
-    },
-    {
-      "name": "@YDSZ-core/shadcn-ui",
-      "path": "comm/@core/ui-kit/shadcn-ui",
-    },
-    {
-      "name": "@YDSZ-core/tabs-ui",
-      "path": "comm/@core/ui-kit/tabs-ui",
-    },
-    {
-      "name": "@ydsz/constants",
-      "path": "comm/constants",
-    },
-    {
-      "name": "@ydsz/access",
-      "path": "comm/effects/access",
-    },
-    {
-      "name": "@ydsz/common-ui",
-      "path": "comm/effects/common-ui",
-    },
-    {
-      "name": "@ydsz/hooks",
-      "path": "comm/effects/hooks",
-    },
-    {
-      "name": "@ydsz/layouts",
-      "path": "comm/effects/layouts",
-    },
-    {
-      "name": "@ydsz/micro-kernel",
-      "path": "comm/effects/micro-kernel",
-    },
-    {
-      "name": "@ydsz/micro-runtime",
-      "path": "comm/effects/micro-runtime",
-    },
-    {
-      "name": "@ydsz/monitor",
-      "path": "comm/effects/monitor",
-    },
-    {
-      "name": "@ydsz/plugins",
-      "path": "comm/effects/plugins",
-    },
-    {
-      "name": "@ydsz/request",
-      "path": "comm/effects/request",
-    },
-    {
-      "name": "@ydsz/shared-auth",
-      "path": "comm/effects/shared-auth",
-    },
-    {
-      "name": "@ydsz/shared-business",
-      "path": "comm/effects/shared-business",
-    },
-    {
-      "name": "@ydsz/icons",
-      "path": "comm/icons",
-    },
-    {
-      "name": "@ydsz/locales",
-      "path": "comm/locales",
-    },
-    {
-      "name": "@ydsz/preferences",
-      "path": "comm/preferences",
-    },
-    {
-      "name": "@ydsz/stores",
-      "path": "comm/stores",
-    },
-    {
-      "name": "@ydsz/styles",
-      "path": "comm/styles",
-    },
-    {
-      "name": "@ydsz/types",
-      "path": "comm/types",
-    },
-    {
-      "name": "@ydsz/utils",
-      "path": "comm/utils",
-    },
-    {
-      "name": "@ydsz/commitlint-config",
-      "path": "conf/lint-configs/commitlint-config",
-    },
-    {
-      "name": "@ydsz/eslint-config",
-      "path": "conf/lint-configs/eslint-config",
-    },
-    {
-      "name": "@ydsz/prettier-config",
-      "path": "conf/lint-configs/prettier-config",
-    },
-    {
-      "name": "@ydsz/stylelint-config",
-      "path": "conf/lint-configs/stylelint-config",
-    },
-    {
-      "name": "@ydsz/node-utils",
-      "path": "conf/node-utils",
-    },
-    {
-      "name": "@ydsz/tailwind-config",
-      "path": "conf/tailwind-config",
-    },
-    {
-      "name": "@ydsz/tsconfig",
-      "path": "conf/tsconfig",
-    },
-    {
-      "name": "@ydsz/vite-config",
-      "path": "conf/vite-config",
-    },
-    {
-      "name": "@ydsz/main-web",
-      "path": "main",
-    },
+      "path": "./main/src",
+      "name": "main/src"
+    }
   ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "never"
+    },
+    "eslint.validate": [
+      "javascript",
+      "typescript",
+      "vue"
+    ],
+    "tailwindCSS.experimental.classRegex": [
+      [
+        "clsx\\(([^)]*)\\)",
+        [
+          "\"([^\"]*)\"",
+          "'([^']*)'"
+        ]
+      ],
+      [
+        "cn\\(([^)]*)\\)",
+        [
+          "\"([^\"]*)\"",
+          "'([^']*)'"
+        ]
+      ]
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "Vue.volar",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "bradlc.vscode-tailwindcss",
+      "usernamehw.errorlens",
+      "eamodio.gitlens",
+      "streetsidesoftware.code-spell-checker"
+    ]
+  }
 }

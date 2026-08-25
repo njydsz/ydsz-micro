@@ -33,6 +33,8 @@ import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('i18n-setup');
 /** 默认 locale → file 正则（与子应用既有约定一致） */
 const DEFAULT_LANG_PATTERN = /\.\/langs\/([^/]+)\/(.*)\.json$/;
 
@@ -132,7 +134,7 @@ export function createSubAppI18n(
     if (locale) {
       dayjs.locale(locale);
     } else {
-      console.error(`Failed to load dayjs locale for ${lang}`);
+      logger.error(`Failed to load dayjs locale for ${lang}`);
     }
   }
 

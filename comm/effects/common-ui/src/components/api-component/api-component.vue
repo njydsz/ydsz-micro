@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('api-component');
 import type { Component } from 'vue';
 
 import type { AnyPromiseFunction } from '@ydsz/types';
@@ -189,7 +191,7 @@ async function fetchApi() {
     }
     emitChange();
   } catch (error) {
-    console.warn(error);
+    logger.warn(error);
     // reset status
     isFirstLoaded.value = false;
   } finally {

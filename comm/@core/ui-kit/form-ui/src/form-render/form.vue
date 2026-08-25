@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('form');
 import type { GenericObject } from 'vee-validate';
 import type { ZodTypeAny } from 'zod';
 
@@ -138,7 +140,7 @@ const computedSchema = computed(
         try {
           resolvedSchemaFormItemClass = schema.formItemClass();
         } catch (error) {
-          console.error('Error calling formItemClass function:', error);
+          logger.error('Error calling formItemClass function:', error);
           resolvedSchemaFormItemClass = '';
         }
       }

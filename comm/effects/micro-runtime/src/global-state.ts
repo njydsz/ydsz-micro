@@ -1,3 +1,5 @@
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('global-state');
 ﻿/**
  * 类型安全的全局状态。
  *
@@ -89,7 +91,7 @@ export function createGlobalStateHandle<T extends Record<string, unknown>>(
         try {
           listener({ ...current.data }, prev);
         } catch (error) {
-          console.error('[GlobalState] Listener error:', error);
+          logger.error('[GlobalState] Listener error:', error);
         }
       }
     },

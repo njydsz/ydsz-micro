@@ -1,3 +1,5 @@
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('storage-utils');
 /**
  * storage-utils.ts — localStorage 统一抽象层
  *
@@ -105,7 +107,7 @@ function checkCapacity(key: string, value: string): boolean {
 
   // 若估算接近容量上限，标记告警
   if (_estimatedSize + incomingSize > CAPACITY_LIMIT_BYTES) {
-    console.warn(
+    logger.warn(
       `[micro-kernel] 存储接近容量上限（预估 ${_estimatedSize + incomingSize} 字节，限制 ${CAPACITY_LIMIT_BYTES} 字节），部分数据可能写入失败。`,
     );
     return false;
@@ -145,7 +147,7 @@ export function setStorage<T>(key: StorageKey | string, value: T): boolean {
     return true;
   } catch (error) {
     // QuotaExceededError 或其他异常时静默降级
-    console.warn(
+    logger.warn(
       `[micro-kernel] 写入 ${key} 失败：`,
       error instanceof Error ? error.message : error,
     );

@@ -300,31 +300,31 @@ server: {
 
 ## 工程规范
 
-| 检查项     | 命令                  | 说明                            |
-| ---------- | --------------------- | ------------------------------- |
-| Lint       | `pnpm lint`           | ESLint + Stylelint              |
-| 格式化     | `pnpm format`         | Prettier（`vsh lint --format`） |
-| 类型检查   | `pnpm check:type`     | 全仓 `vue-tsc` / `tsc`          |
-| 循环依赖   | `pnpm check:circular` | `vsh check-circular --fail`     |
-| 依赖合法性 | `pnpm check:dep`      | `vsh check-dep`                 |
-| 契约校验   | `pnpm check:contract` | OpenAPI 契约漂移检查            |
-| 拼写检查   | `pnpm check:cspell`   | 全仓 TS + README 拼写           |
-| 综合检查   | `pnpm check`          | 以上全部 + 契约测试             |
-| 发布校验   | `pnpm publint`        | 共享包发布规范校验              |
+| 检查项     | 命令                          | 说明                                          |
+| ---------- | ----------------------------- | --------------------------------------------- |
+| Lint       | `pnpm lint` / `pnpm lint:fix` | ESLint + Stylelint（含 Stylelint 自动修复）   |
+| 类型检查   | `pnpm type-check`             | 全仓 `vue-tsc` / `tsc`（turbo 编排）          |
+| 循环依赖   | `pnpm vsh:check-circular`     | `vsh check-circular`（零循环依赖守护）        |
+| 依赖合法性 | `pnpm vsh:check-dep`          | `vsh check-dep`（依赖合规）                   |
+| 契约校验   | `pnpm gen:api:check`          | OpenAPI 契约漂移检查（`--check`）             |
+| 发布校验   | `pnpm vsh:publint`            | 共享包发布规范校验                            |
+| 格式化     | —（待接入）                   | Prettier 经 `lint:fix` 集成，独立 `format` 脚本未落地 |
+| 拼写检查   | —（待接入）                   | `cspell` 配置未落地，`check:cspell` 脚本缺失  |
+| 综合检查   | —（待接入）                   | 聚合 lint + type-check + vsh:check-* 的门禁脚本尚未落地 |
 
 Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push` 执行单元测试、类型检查与 `pnpm audit` 安全审计；`commit-msg` 执行 Commitlint；`post-merge` 自动 `pnpm install`。
 
 ## 测试体系
 
-| 层级       | 命令                          | 覆盖范围                                                                                 |
-| ---------- | ----------------------------- | ---------------------------------------------------------------------------------------- |
-| 单元测试   | `pnpm test:unit`              | Vitest + happy-dom，含覆盖率报告                                                         |
-| 覆盖率门槛 | `pnpm test:coverage:check`    | branches ≥ 70% / functions ≥ 70% / lines ≥ 80% / statements ≥ 80%（Q1 目标，逐文件生效） |
-| 契约测试   | `pnpm test:contract`          | API 契约对齐用例                                                                         |
-| E2E        | `pnpm test:e2e`               | Playwright × 3 浏览器（chromium/firefox/webkit）                                         |
-| 可访问性   | `pnpm test:a11y`              | axe-core 全子应用核心页扫描                                                              |
-| 视觉回归   | e2e/visual-regression.spec.ts | 登录页/首页/骨架屏基线对比                                                               |
-| 性能预算   | `pnpm test:perf`              | Lighthouse CI 断言（见下节）                                                             |
+| 层级       | 命令                          | 覆盖范围                                                                                 | 状态 |
+| ---------- | ----------------------------- | ---------------------------------------------------------------------------------------- | ---- |
+| 单元测试   | `pnpm test` / `pnpm test:coverage` | Vitest + happy-dom（`vitest.config.ts` 已配置），含覆盖率报告                       | ✅ 已落地 |
+| 覆盖率门槛 | —（待接入）                   | 覆盖率门槛断言脚本（`test:coverage:check`）尚未落地                                       | ⚠️ 待接入 |
+| 契约测试   | `pnpm gen:api:check`          | API 契约对齐（`--check` 校验漂移），替代 `test:contract`                                 | ✅ 已落地 |
+| E2E        | —（待接入）                   | `e2e/` 目录为空，Playwright 配置文件未落地                                               | ⚠️ 待接入 |
+| 可访问性   | —（待接入）                   | `@axe-core/playwright` 已声明，但 `test:a11y` 脚本与用例未落地（见 ADR-005）            | ⚠️ 待接入 |
+| 视觉回归   | —（待接入）                   | `e2e/visual-regression.spec.ts` 尚未创建                                                 | ⚠️ 待接入 |
+| 性能预算   | —（待接入）                   | Lighthouse CI 配置未落地（`test:perf` 脚本缺失）                                         | ⚠️ 待接入 |
 
 ## 性能预算
 
@@ -376,7 +376,7 @@ YDSZ 微前端中后台底座的对标竞品均为 Gitee 上的 Java/Spring 系�
 
 ## Roadmap
 
-- [ ] 接入 CI/CD 流水线（当前 Lefthook / Playwright / Lighthouse 已就绪，CI 触发分支待落地）
+- [ ] 接入 CI/CD 流水线（Lefthook 已落地；Playwright / Lighthouse / cspell 配置与 `e2e/` 用例尚未接入，CI 触发分支待落地）
 - [ ] 补齐 Changesets 发布配置（`@changesets/cli` 已引入，`.changeset/` 目录待初始化）
 - [ ] 补全 ADR-001 / ADR-002 决策记录
 - [x] 移除 `project-web` 相关残留引用（package.json 脚本 / 部署配置 / e2e 用例）

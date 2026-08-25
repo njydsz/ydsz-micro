@@ -22,6 +22,8 @@ import { useStore } from '@YDSZ-core/shared/store';
 import { ModalApi } from './modal-api';
 import YDSZModal from './modal.vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-modal');
 const USER_MODAL_INJECT_KEY = Symbol('YDSZ_MODAL_INJECT');
 
 const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
@@ -195,7 +197,7 @@ async function checkProps(api: ExtendedModalApi, attrs: Record<string, any>) {
   for (const attr of Object.keys(attrs)) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Modal的props，会造成复杂度提升，如果你需要修改Modal的props，请使用 useModal 或者api
-      console.warn(
+      logger.warn(
         `[YDSZ Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useYDSZModal or api.`,
       );
     }

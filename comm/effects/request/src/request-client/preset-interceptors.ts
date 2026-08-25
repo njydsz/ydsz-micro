@@ -15,6 +15,8 @@ import axios from 'axios';
 
 import { BusinessError } from './business-error';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('preset-interceptors');
 /** 默认响应拦截器：按 codeField/successCode 判定业务成功，剥离 dataField 数据或抛 BusinessError */
 export const defaultResponseInterceptor = ({
   codeField = 'code',
@@ -155,7 +157,7 @@ export const authenticateResponseInterceptor = ({
         // 如果刷新 token 失败，拒绝队列中所有等待的请求
         client.refreshTokenQueue.forEach((callback) => callback.reject(refreshError));
         client.refreshTokenQueue = [];
-        console.error('Refresh token failed, please login again.');
+        logger.error('Refresh token failed, please login again.');
         await doReAuthenticate();
 
         throw refreshError;

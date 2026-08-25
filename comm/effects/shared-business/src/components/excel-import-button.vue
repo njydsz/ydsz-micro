@@ -6,6 +6,8 @@
  * @since 1.1.0
 -->
 <script lang="ts" setup>
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('excel-import-button');
 /**
  * Excel 导入按钮 — 隐藏 file input + 解析回调
  */
@@ -60,7 +62,7 @@ async function handleFileChange(event: Event) {
     await props.onSuccess(result);
   } catch (error) {
     ElMessage.error('文件解析失败，请检查格式');
-    console.error('[excel-import]', error);
+    logger.error('[excel-import]', error);
   } finally {
     loading.value = false;
     // 重置 input 以便再次选择相同文件

@@ -16,12 +16,36 @@
  * @since 3.7.0
  */
 
-import type { MicroAppEntry } from '@ydsz/vite-config';
-import { MICRO_APPS, getProdEntry } from '@ydsz/vite-config';
+import type { MicroAppEntry } from '@ydsz/micro-runtime';
 import { createLogger } from '@YDSZ-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');
+
+/**
+ * 静态注册表（依赖注入缝，v4.3.0）。
+ *
+ * 内核不反向依赖构建配置包（@ydsz/vite-config），静态注册表数据由宿主
+ * （main-web）在 bootstrap 阶段通过 `setStaticRegistry(MICRO_APPS)` 注入，
+ * 远程注册表拉取失败时回退使用。对齐 menu-ui preload-adapter 的依赖反转模式。
+ */
+let staticRegistry: MicroAppEntry[] = [];
+
+/**
+ * 注入静态注册表数据（由宿主在 bootstrap 阶段调用）。
+ *
+ * @param entries - 静态子应用条目（MICRO_APPS）
+ * @since 4.3.0
+ */
+export function setStaticRegistry(entries: MicroAppEntry[]): void {
+  staticRegistry = [...entries];
+  logger.info(`Static registry injected: ${entries.length} apps`);
+}
+
+/** 获取当前静态注册表（内部使用） */
+export function getStaticRegistry(): MicroAppEntry[] {
+  return [...staticRegistry];
+}
 
 /** Inflight 拉取请求（用于多次并发调用去重） */
 let inflightRegistry: Promise<MicroAppEntry[] | null> | null = null;
@@ -206,8 +230,14 @@ export async function resolveRegistry(useCache = true): Promise<MicroAppEntry[]>
     }
   }
 
-  // 3. 回退到静态配置
-  return [...MICRO_APPS];
+  // 3. 回退到静态配置（宿主注入）
+  const staticApps = getStaticRegistry();
+  if (staticApps.length === 0) {
+    logger.warn(
+      'Static registry is empty — host must call setStaticRegistry(MICRO_APPS) before start, or provide a fetcher',
+    );
+  }
+  return staticApps;
 }
 
 /**
@@ -228,8 +258,8 @@ export function resolveAppEntry(app: MicroAppEntry): string {
     return `//localhost:${app.devPort}`;
   }
 
-  // 生产模式：prodPath 回退到 /{name}/
-  return getProdEntry(app);
+  // 生产模式：prodPath 回退到 /YDSZ-{name}/（原 getProdEntry，内联以避免依赖构建配置包）
+  return (app as MicroAppEntry & { prodPath?: string }).prodPath ?? `/YDSZ-${app.name}/`;
 }
 
 /**

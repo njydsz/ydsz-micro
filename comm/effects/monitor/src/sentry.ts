@@ -34,6 +34,8 @@
 
 import type { ErrorReport } from "./error-monitor";
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('sentry');
 /** Sentry 初始化选项 */
 export interface SentryConfig {
   /** Sentry DSN（来自 sentry.io 项目设置） */
@@ -72,7 +74,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
     const sentrySpecifier = "@sentry/vue";
     sentryModule = await import(/* @vite-ignore */ sentrySpecifier);
   } catch {
-    console.warn(
+    logger.warn(
       "[Monitor] @sentry/vue not installed; Sentry forwarding disabled. " +
         "To enable: pnpm add @sentry/vue --filter @ydsz/monitor",
     );
@@ -102,7 +104,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
   });
 
   initialized = true;
-  console.warn("[Monitor] Sentry adapter initialized", {
+  logger.warn("[Monitor] Sentry adapter initialized", {
     release: config.release,
     environment: config.environment,
   });

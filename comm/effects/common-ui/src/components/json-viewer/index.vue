@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('index');
 import type { SetupContext } from 'vue';
 
 import type { Recordable } from '@ydsz/types';
@@ -87,7 +89,7 @@ const jsonData = computed<Record<string, any>>(() => {
   try {
     return JsonBigint({ storeAsString: true }).parse(props.value);
   } catch (error) {
-    console.error('JSON parse error:', error);
+    logger.error('JSON parse error:', error);
     return {};
   }
 });

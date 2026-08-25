@@ -18,6 +18,8 @@ import type { Ref } from 'vue';
 import { computed, onScopeDispose, ref } from 'vue';
 import type { GlobalStateHandle } from '../global-state';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-global-state');
 /** 全局状态单例（由主应用/子应用 bootstrap 时注入） */
 let globalStateHandle: null | GlobalStateHandle<Record<string, unknown>> = null;
 
@@ -45,7 +47,7 @@ export function useGlobalState<K extends string, V = unknown>(key: K): Ref<null 
   const value = ref<null | V>(null);
 
   if (!globalStateHandle) {
-    console.warn('[MicroRuntime] useGlobalState: globalState not provided yet');
+    logger.warn('[MicroRuntime] useGlobalState: globalState not provided yet');
     return value as Ref<null | V>;
   }
 

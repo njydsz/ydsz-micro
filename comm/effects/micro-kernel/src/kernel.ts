@@ -30,7 +30,7 @@ import type { KeepAliveConfig } from "./scheduler";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
 import { createGlobalStateAPI } from "./global-state";
-import { clearRegistryCache, resolveAppEntry, resolveRegistry } from "./registry-adapter";
+import { clearRegistryCache, getStaticRegistry, resolveAppEntry, resolveRegistry } from "./registry-adapter";
 import {
   createSwitchToApp,
   createStartRouterSync as createStartRouterSyncFn,
@@ -180,8 +180,14 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       if (reg.fetcher) {
         entries = await reg.fetcher();
       } else if (reg.adapter === "static") {
-        const { MICRO_APPS } = await import("@ydsz/vite-config");
-        entries = MICRO_APPS as MicroAppEntry[];
+        // v4.3.0: 静态注册表由宿主注入（setStaticRegistry），内核不再依赖构建配置包
+        entries = getStaticRegistry();
+        if (entries.length === 0) {
+          throw new KernelError(
+            KernelErrorCode.REGISTRY_STATIC_EMPTY,
+            "Static registry is empty — host must call setStaticRegistry(MICRO_APPS) or provide a fetcher",
+          );
+        }
       } else {
         entries = await resolveRegistry(true);
       }
@@ -259,7 +265,21 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     },
   };
 
-  try { (window as any).__MICRO_KERNEL__ = kernelApi; } catch { /* SSR 静默 */ }
+  // v4.3.0: 调试口收敛 — dev 暴露完整内核 API（HMR/调试/DevTools 扩展），
+  // 生产环境仅暴露只读快照（安全 getter 集合），避免任意页面脚本直接操控内核。
+  try {
+    if (import.meta.env.DEV) {
+      (window as unknown as Record<string, unknown>).__MICRO_KERNEL__ = kernelApi;
+    } else {
+      (window as unknown as Record<string, unknown>).__MICRO_KERNEL__ = Object.freeze({
+        getRegisteredApps: kernelApi.getRegisteredApps,
+        getActiveAppName: kernelApi.getActiveAppName,
+        getKeepAliveConfig: kernelApi.getKeepAliveConfig,
+        isKeepAliveEnabled: kernelApi.isKeepAliveEnabled,
+        healthCheck: kernelApi.healthCheck,
+      });
+    }
+  } catch { /* SSR 静默 */ }
 
   return kernelApi;
 }

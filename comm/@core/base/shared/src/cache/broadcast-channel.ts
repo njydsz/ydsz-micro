@@ -1,3 +1,5 @@
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('broadcast-channel');
 ﻿/**
  * 跨标签页状态同步管理器
  *
@@ -118,7 +120,7 @@ export class BroadcastChannelManager<T = unknown> {
     try {
       serialized = JSON.stringify(message);
     } catch (error) {
-      console.error(
+      logger.error(
         `[BroadcastChannel] Failed to serialize message "${type}":`,
         error,
       );
@@ -130,7 +132,7 @@ export class BroadcastChannelManager<T = unknown> {
       try {
         this.channel.postMessage(message);
       } catch (error) {
-        console.error(
+        logger.error(
           `[BroadcastChannel] Failed to post message "${type}":`,
           error,
         );
@@ -140,7 +142,7 @@ export class BroadcastChannelManager<T = unknown> {
       try {
         localStorage.setItem(this.options.storageKey, serialized);
       } catch (error) {
-        console.error(
+        logger.error(
           `[BroadcastChannel] Failed to write storage fallback for "${type}":`,
           error,
         );
@@ -213,7 +215,7 @@ export class BroadcastChannelManager<T = unknown> {
       const message = JSON.parse(event.newValue) as BroadcastMessage<T>;
       this.dispatchToListeners(message);
     } catch (error) {
-      console.warn('[BroadcastChannel] Failed to parse storage event:', error);
+      logger.warn('[BroadcastChannel] Failed to parse storage event:', error);
     }
   };
 
@@ -227,7 +229,7 @@ export class BroadcastChannelManager<T = unknown> {
   private dispatchToListeners(message: BroadcastMessage<T>): void {
     // 版本兼容性检查（主版本不一致时丢弃，避免结构错乱）
     if (message.v !== undefined && message.v !== this.options.version) {
-      console.warn(
+      logger.warn(
         `[BroadcastChannel] Message version mismatch: got ${message.v}, expected ${this.options.version}; dropped`,
       );
       return;
@@ -249,7 +251,7 @@ export class BroadcastChannelManager<T = unknown> {
   private dispatchToLocalListeners(message: BroadcastMessage<T>): void {
     // 版本兼容性检查（主版本不一致时丢弃）
     if (message.v !== undefined && message.v !== this.options.version) {
-      console.warn(
+      logger.warn(
         `[BroadcastChannel] Message version mismatch: got ${message.v}, expected ${this.options.version}; dropped`,
       );
       return;
@@ -264,7 +266,7 @@ export class BroadcastChannelManager<T = unknown> {
       try {
         listener(message);
       } catch (error) {
-        console.error(
+        logger.error(
           `[BroadcastChannel] Listener error on "${message.type}":`,
           error,
         );

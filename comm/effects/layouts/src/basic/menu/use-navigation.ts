@@ -11,6 +11,8 @@ import { useRouter } from 'vue-router';
 
 import { isHttpUrl, openRouteInNewWindow, openWindow } from '@ydsz/utils';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-navigation');
 function useNavigation() {
   const router = useRouter();
   const routeMetaMap = new Map<string, RouteRecordNormalized>();
@@ -59,7 +61,7 @@ function useNavigation() {
         });
       }
     } catch (error) {
-      console.error('Navigation failed:', error);
+      logger.error('Navigation failed:', error);
       throw error;
     }
   };

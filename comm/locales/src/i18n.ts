@@ -23,6 +23,8 @@ import { createI18n } from 'vue-i18n';
 
 import { useSimpleLocale } from '@YDSZ-core/composables';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('i18n');
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,
@@ -128,7 +130,7 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   // 在控制台打印警告
   i18n.global.setMissingHandler((locale, key) => {
     if (options.missingWarn && key.includes('.')) {
-      console.warn(
+      logger.warn(
         `[intlify] Not found '${key}' key in '${locale}' locale messages.`,
       );
     }
@@ -285,7 +287,7 @@ function preloadLocaleOnIdle(
         onLoaded?.();
       })
       .catch((err) => {
-        console.warn(`[i18n] Failed to preload locale ${lang}:`, err);
+        logger.warn(`[i18n] Failed to preload locale ${lang}:`, err);
         onError?.(err);
       });
   };

@@ -14,6 +14,8 @@ import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { useIsMobile, useSortable } from '@YDSZ-core/composables';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-tabs-drag');
 // 可能会找到拖拽的子元素，这里需要确保拖拽的dom时tab元素
 function findParentElement(element: HTMLElement) {
   const parentCls = 'group';
@@ -53,7 +55,7 @@ export function useTabsDrag(props: TabsProps, emit: EmitType) {
     )?.[0] as HTMLElement;
 
     if (!el) {
-      console.warn('Element not found for sortable initialization');
+      logger.warn('Element not found for sortable initialization');
       return;
     }
 

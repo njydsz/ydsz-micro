@@ -1,6 +1,6 @@
 ﻿/**
  * 消息路由规则 API 模块（前端）
- * <p>封装消息路由规则接口，对应后端 {@code /api/v1/message/routeRule/*} 端点。
+ * <p>封装消息路由规则接口，对应后端 {@code /api/v1/message/route-rule/*} 端点。
  * <p>支持按租户/部门/用户/优先级动态路由到不同渠道。
  * <p>供「消息中心 → 路由配置」使用。
  *
@@ -47,30 +47,30 @@ export function getRouteRulePageApi(params: RouteRuleApi.RouteRulePageQuery) {
     current: number;
     size: number;
     items: RouteRuleApi.RouteRuleVO[];
-  }>(`/api/v1/message/routeRule/page`, { params });
+  }>(`/api/v1/message/route-rule/page`, { params });
 }
 
 /** 查询全部列表 */
 export function getRouteRuleListApi() {
-  return requestClient.get<RouteRuleApi.RouteRuleVO[]>(`/api/v1/message/routeRule/list`);
+  return requestClient.get<RouteRuleApi.RouteRuleVO[]>(`/api/v1/message/route-rule/list`);
 }
 
 /** 根据 ID 查询 */
 export function getRouteRuleByIdApi(id: string) {
-  return requestClient.get<RouteRuleApi.RouteRuleVO>(`/api/v1/message/routeRule/${id}`);
+  return requestClient.get<RouteRuleApi.RouteRuleVO>(`/api/v1/message/route-rule/${id}`);
 }
 
 /** 创建 */
 export function createRouteRuleApi(data: RouteRuleApi.RouteRuleDTO) {
-  return requestClient.post<string>(`/api/v1/message/routeRule`, data);
+  return requestClient.post<string>(`/api/v1/message/route-rule`, data);
 }
 
 /** 更新 */
 export function updateRouteRuleApi(data: RouteRuleApi.RouteRuleDTO) {
-  return requestClient.put<boolean>(`/api/v1/message/routeRule`, data);
+  return requestClient.put<boolean>(`/api/v1/message/route-rule`, data);
 }
 
 /** 删除 */
 export function deleteRouteRuleApi(id: string) {
-  return requestClient.delete<boolean>(`/api/v1/message/routeRule/${id}`);
+  return requestClient.delete<boolean>(`/api/v1/message/route-rule/${id}`);
 }

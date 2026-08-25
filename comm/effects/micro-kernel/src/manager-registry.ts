@@ -1,3 +1,5 @@
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('manager-registry');
 /**
  * 微内核管理器注册表
  *
@@ -185,7 +187,7 @@ export class ManagerRegistry {
         .reverse();
       if (typeof console !== "undefined") {
         const cycleNames = remaining.map((m) => m.name).join(", ");
-        console.warn(
+        logger.warn(
           `[ManagerRegistry] Circular dependency detected among: ${cycleNames}. ` +
             `Falling back to reverse-registration order.`,
         );

@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('index');
 import type {
   CaptchaVerifyPassingData,
   SliderCaptchaActionType,
@@ -74,7 +76,7 @@ const getImgWrapStyleRef = computed(() => {
 const getFactorRef = computed(() => {
   const { maxDegree, minDegree } = props;
   if (minDegree > maxDegree) {
-    console.warn('minDegree should not be greater than maxDegree');
+    logger.warn('minDegree should not be greater than maxDegree');
   }
 
   if (minDegree === maxDegree) {

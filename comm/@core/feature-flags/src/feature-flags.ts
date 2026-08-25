@@ -25,6 +25,8 @@ import { reactive, readonly } from 'vue';
 
 import { StorageManager } from '@YDSZ-core/shared/cache';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('feature-flags');
 /** localStorage 子键（挂在 namespace 之下） */
 const STORAGE_KEY = 'feature-flags';
 /** 环境变量前缀：VITE_FEATURE_NEW_DASHBOARD → flag 'new-dashboard' */
@@ -145,11 +147,11 @@ class FeatureFlagsManager {
   setEnabled(name: string, value: boolean): void {
     const def = this.defs.get(name);
     if (!def) {
-      console.warn(`[FeatureFlags] Unknown flag "${name}" — ignored`);
+      logger.warn(`[FeatureFlags] Unknown flag "${name}" — ignored`);
       return;
     }
     if (!this.canUseLocalOverride() || def.allowLocalOverride === false) {
-      console.warn(
+      logger.warn(
         `[FeatureFlags] Local override for "${name}" is not allowed in current environment`,
       );
       return;
@@ -187,7 +189,7 @@ class FeatureFlagsManager {
         this.notify(name);
       }
     } catch (err) {
-      console.warn('[FeatureFlags] Remote loader failed:', err);
+      logger.warn('[FeatureFlags] Remote loader failed:', err);
     }
   }
 

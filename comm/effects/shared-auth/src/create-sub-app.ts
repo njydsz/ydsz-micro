@@ -111,10 +111,10 @@ async function installBasePlugins(vueApp: VueApp, appName: string) {
   vueApp.use(MotionPlugin);
 
   vueApp.config.errorHandler = (err, _instance, info) => {
-    console.error(`[${appName}] Unhandled error:`, err, info);
+    logger.error(`[${appName}] Unhandled error:`, err, info);
   };
   vueApp.config.warnHandler = (msg, _instance, trace) => {
-    console.warn(`[${appName}] Vue warning:`, msg, trace);
+    logger.warn(`[${appName}] Vue warning:`, msg, trace);
   };
 }
 
@@ -228,7 +228,7 @@ export function defineSubApp(config: SubAppConfig) {
         try {
           await cleanup();
         } catch (err) {
-          console.error(`[${config.appName}] Cleanup error:`, err);
+          logger.error(`[${config.appName}] Cleanup error:`, err);
         }
       }
       cleanupCallbacks.clear();
@@ -273,7 +273,7 @@ export function defineSubApp(config: SubAppConfig) {
           logger.info(`[${config.appName}] HMR remount done`);
         }
       } catch (err) {
-        console.error(`[${config.appName}] HMR remount failed:`, err);
+        logger.error(`[${config.appName}] HMR remount failed:`, err);
       }
     });
   }

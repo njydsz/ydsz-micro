@@ -26,18 +26,6 @@ vi.mock('@YDSZ-core/shared/utils', () => ({
   }),
 }));
 
-vi.mock('@ydsz/vite-config', () => {
-  const staticApps = [
-    { name: 'static-a', activeRule: '/static-a', devPort: 5701 },
-    { name: 'static-b', activeRule: '/static-b', devPort: 5702 },
-  ];
-  return {
-    MICRO_APPS: staticApps,
-    getProdEntry: (app: { name: string; prodPath?: string }) =>
-      app.prodPath ?? `/YDSZ-${app.name}/`,
-  };
-});
-
 // ---------------------------------------------------------------------------
 // 被测模块
 // ---------------------------------------------------------------------------
@@ -47,6 +35,7 @@ import {
   refreshRegistry,
   resolveAppEntry,
   resolveRegistry,
+  setStaticRegistry,
 } from '../../registry-adapter';
 
 // ---------------------------------------------------------------------------
@@ -54,6 +43,12 @@ import {
 // ---------------------------------------------------------------------------
 
 const REGISTRY_CACHE_KEY = 'ydsz_micro_apps_registry';
+
+/** 静态注册表（模拟宿主注入的 MICRO_APPS） */
+const STATIC_APPS = [
+  { name: 'static-a', activeRule: '/static-a', devPort: 5701 },
+  { name: 'static-b', activeRule: '/static-b', devPort: 5702 },
+];
 
 /** 构造合法的远端 registry 响应 */
 function mockRemoteApps() {
@@ -83,10 +78,11 @@ describe('registry-adapter', () => {
   let fetchSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    // 在每个测试前重置 localStorage / env / fetch
+    // 在每个测试前重置 localStorage / env / fetch / 静态注册表
     localStorage.clear();
     vi.restoreAllMocks();
     delete import.meta.env.VITE_MICRO_APPS_REGISTRY;
+    setStaticRegistry(STATIC_APPS);
 
     fetchSpy = vi.spyOn(globalThis, 'fetch');
   });
@@ -169,10 +165,22 @@ describe('registry-adapter', () => {
 
     const result = await resolveRegistry();
 
-    // 回退到 mock 的 MICRO_APPS
+    // 回退到宿主注入的静态注册表
     expect(result).toHaveLength(2);
     expect(result[0].name).toBe('static-a');
     expect(result[1].name).toBe('static-b');
+  });
+
+  // -----------------------------------------------------------------------
+  // 4.1 未注入静态注册表且网络失败时应返回空数组（并告警）
+  // -----------------------------------------------------------------------
+  it('静态注册表为空且网络失败时应返回空数组', async () => {
+    setStaticRegistry([]);
+    fetchSpy.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+
+    const result = await resolveRegistry();
+
+    expect(result).toHaveLength(0);
   });
 
   // -----------------------------------------------------------------------
@@ -251,7 +259,7 @@ describe('registry-adapter', () => {
 
     const result = await resolveRegistry(false);
 
-    expect(result[0].name).toBe('static-a'); // 来自 MICRO_APPS 而非缓存
+    expect(result[0].name).toBe('static-a'); // 来自注入的静态注册表而非缓存
   });
 
   // -----------------------------------------------------------------------

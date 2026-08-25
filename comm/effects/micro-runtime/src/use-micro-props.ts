@@ -42,6 +42,8 @@ import type {
 } from './standard-props';
 import type { NamespacedGlobalStateAPI } from './namespaced-state';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-micro-props');
 // ==================== 注入 key ====================
 
 /** 子应用 mountProps 注入 key（Symbol 避免冲突） */
@@ -133,7 +135,7 @@ function createDefaultProps(): StandardMicroProps {
         _payload?: unknown,
         _timeout?: number,
       ): Promise<R> => {
-        console.warn(`[Standalone] sendRequest("${action}") called but no parent kernel available`);
+        logger.warn(`[Standalone] sendRequest("${action}") called but no parent kernel available`);
         return undefined as R;
       },
       registerHandler: <_T = unknown, _R = unknown>(

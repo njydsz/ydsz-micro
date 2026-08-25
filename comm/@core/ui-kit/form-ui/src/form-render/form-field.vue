@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('form-field');
 import type { ZodType } from 'zod';
 
 import type { FormSchema, MaybeComponentProps } from '../types';
@@ -75,7 +77,7 @@ const FieldComponent = computed(() => {
     : component;
   if (!finalComponent) {
     // 组件未注册
-    console.warn(`Component ${component} is not registered`);
+    logger.warn(`Component ${component} is not registered`);
   }
   return finalComponent;
 });

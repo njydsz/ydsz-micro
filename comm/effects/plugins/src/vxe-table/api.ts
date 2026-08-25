@@ -14,6 +14,8 @@ import type { VxeGridProps } from './types';
 import { toRaw } from 'vue';
 
 import { Store } from '@YDSZ-core/shared/store';
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('api');
 import {
   bindMethods,
   isBoolean,
@@ -127,7 +129,7 @@ export class VxeGridApi<T extends Record<string, any> = any> {
     try {
       await this.grid.commitProxy('query', toRaw(params));
     } catch (error) {
-      console.error('Error occurred while querying:', error);
+      logger.error('Error occurred while querying:', error);
     }
   }
 
@@ -144,7 +146,7 @@ export class VxeGridApi<T extends Record<string, any> = any> {
     try {
       await this.grid.commitProxy('reload', toRaw(params));
     } catch (error) {
-      console.error('Error occurred while reloading:', error);
+      logger.error('Error occurred while reloading:', error);
     }
   }
 

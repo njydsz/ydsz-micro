@@ -24,8 +24,6 @@ import {
 } from '@ydsz/shared-auth';
 import { useTokenStore } from '@ydsz/stores';
 
-import { useAuthStore } from '#/store/auth';
-
 /** 防回环标志：正在处理远端事件时为 true */
 let isHandlingRemote = false;
 
@@ -64,9 +62,11 @@ export { CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS };
  */
 export function useCrossTabSync(): void {
   // 订阅远端登出事件
-  useCrossTabEvent(CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS.LOGOUT, () => {
+  useCrossTabEvent(CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS.LOGOUT, async () => {
     isHandlingRemote = true;
     try {
+      // 延迟引用避免 auth ↔ cross-tab-sync 初始化期循环依赖
+      const { useAuthStore } = await import('#/store/auth');
       const authStore = useAuthStore();
       // 远端登出不跳转（已在其它标签页完成跳转），仅清理本地状态
       void authStore.logout(false);
@@ -79,9 +79,11 @@ export function useCrossTabSync(): void {
   useCrossTabEvent(
     CROSS_TAB_CHANNEL,
     CROSS_TAB_EVENTS.SESSION_EXPIRED,
-    () => {
+    async () => {
       isHandlingRemote = true;
       try {
+        // 延迟引用避免 auth ↔ cross-tab-sync 初始化期循环依赖
+        const { useAuthStore } = await import('#/store/auth');
         const authStore = useAuthStore();
         void authStore.logout(false);
       } finally {

@@ -5,7 +5,7 @@
  * @description 发布前检查包的合规性，确保符合 npm 发布规范
  */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 /** 包检查项 */
@@ -33,7 +33,7 @@ function lintPackageJson(packagePath: string): PackageLintResult {
     };
   }
 
-  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8').replace(/^﻿/, ''));
 
   if (!pkg.name) errors.push('缺少 name 字段');
   if (!pkg.version) errors.push('缺少 version 字段');
@@ -56,15 +56,14 @@ function lintPackageJson(packagePath: string): PackageLintResult {
  */
 function findPackages(rootDir: string): string[] {
   const packages: string[] = [];
-  const { readdirSync, existsSync: exists } = require('node:fs');
 
   const scanDir = (dir: string) => {
-    if (!exists(dir)) return;
+    if (!existsSync(dir)) return;
     const entries = readdirSync(dir, { withFileTypes: true });
     for (const entry of entries) {
       if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
         const subDir = resolve(dir, entry.name);
-        if (exists(resolve(subDir, 'package.json'))) {
+        if (existsSync(resolve(subDir, 'package.json'))) {
           packages.push(subDir);
         }
       }

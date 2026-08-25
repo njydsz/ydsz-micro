@@ -27,6 +27,8 @@ import {
 
 import echarts from './echarts';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-echarts');
 type EchartsUIType = typeof EchartsUI | undefined;
 
 type EchartsThemeType = 'dark' | 'light' | null;
@@ -75,7 +77,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     return new Promise((resolve) => {
       if (chartRef.value?.offsetHeight === 0) {
         if (renderRetryCount >= MAX_RENDER_RETRY) {
-          console.warn('[useEcharts] 图表容器高度为 0，已达到最大重试次数，终止渲染');
+          logger.warn('[useEcharts] 图表容器高度为 0，已达到最大重试次数，终止渲染');
           resolve(null);
           return;
         }

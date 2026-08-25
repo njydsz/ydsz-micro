@@ -15,6 +15,8 @@ import { CROSS_TAB_EVENTS, notifyCrossTab } from './cross-tab';
 import { refreshTokenApi } from './auth-api';
 import { initSharedRequest } from './request-setup';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('setup-shared-auth');
 /**
  * P0-F2: 认证令牌存储模式（构建期常量，与 request.ts 保持一致）。
  *
@@ -35,7 +37,7 @@ export async function setupSharedAuth(appName: string): Promise<void> {
   initSharedRequest(
     // doReAuthenticate: token 失效时退出登录
     async () => {
-      console.warn(`[${appName}] Access token expired, re-authenticating...`);
+      logger.warn(`[${appName}] Access token expired, re-authenticating...`);
       const tokenStore = useTokenStore();
       const accessStore = useAccessStore();
       // P0-F2: HttpOnly Cookie 模式下前端无 token 可清，跳过 setAccessToken(null)

@@ -1,0 +1,6459 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ydsz-userinfo",
+  "version": "1.0.0",
+  "description": "static contract extracted from ydsz-cloud userinfo"
+ },
+ "paths": {
+  "/api/v1/admin/users/{userId}/ban": {
+   "post": {
+    "operationId": "banUser",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/UserBanRequestDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/users/{userId}/unban": {
+   "post": {
+    "operationId": "unbanUser",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/users/{userId}/ban-info": {
+   "get": {
+    "operationId": "getBanInfo",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/users/{userId}/sessions": {
+   "get": {
+    "operationId": "getUserSessions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/users/{userId}/sessions/{accessToken}": {
+   "delete": {
+    "operationId": "forceLogout",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "accessToken",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/sessions": {
+   "get": {
+    "operationId": "getAllActiveSessions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/sessions/statistics": {
+   "get": {
+    "operationId": "getSessionStatistics",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/mfa/send-code": {
+   "post": {
+    "operationId": "sendMfaCode",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SendVerifyCodeDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/mfa/send-email-code": {
+   "post": {
+    "operationId": "sendMfaEmailCode",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SendVerifyCodeDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/login": {
+   "post": {
+    "operationId": "login",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/LoginDTO"
+      }
+     },
+     {
+      "name": "servletRequest",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "servletResponse",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/logout": {
+   "post": {
+    "operationId": "logout",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/refresh": {
+   "post": {
+    "operationId": "refresh",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/RefreshRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/sso/device-code": {
+   "post": {
+    "operationId": "generateDeviceCode",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/sso/device-exchange": {
+   "post": {
+    "operationId": "exchangeDeviceCode",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "code",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/sessions": {
+   "get": {
+    "operationId": "listActiveSessions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "operationId": "kickOutOtherSessions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/sessions/{token}": {
+   "delete": {
+    "operationId": "kickOutSession",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "token",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/secondary-auth": {
+   "post": {
+    "operationId": "secondaryAuth",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SecondaryAuthRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth-policy/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AuthPolicyPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth-policy/{tenantId}": {
+   "get": {
+    "operationId": "getByTenantId",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "tenantId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "tenantId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AuthPolicyDTO"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "tenantId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth-policy": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AuthPolicyDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/captcha/generate": {
+   "get": {
+    "operationId": "generate",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/captcha/validate": {
+   "post": {
+    "operationId": "validate",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "captchaKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "captcha",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/cas/login": {
+   "get": {
+    "operationId": "login",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "loginPost",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/cas/serviceValidate": {
+   "get": {
+    "operationId": "serviceValidate",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/cas/p3/serviceValidate": {
+   "get": {
+    "operationId": "serviceValidateJson",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/cas/logout": {
+   "get": {
+    "operationId": "logout",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/company/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/company/tree": {
+   "get": {
+    "operationId": "tree",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/company/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/company": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/CompanyDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/CompanyDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dept/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dept/tree": {
+   "get": {
+    "operationId": "tree",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dept/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dept": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DepartmentDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DepartmentDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/user/info": {
+   "get": {
+    "operationId": "getUserInfo",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/dept/tree": {
+   "get": {
+    "operationId": "getDeptTree",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/dept/list": {
+   "get": {
+    "operationId": "getDeptList",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/user/list-by-role": {
+   "get": {
+    "operationId": "listUserIdsByRole",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "roleCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/user/role-codes": {
+   "get": {
+    "operationId": "listRoleCodesByUserId",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/user/dept-ids": {
+   "get": {
+    "operationId": "listDeptIdsByUserId",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/user/leader": {
+   "get": {
+    "operationId": "getLeaderByUserId",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/user/list-by-position": {
+   "get": {
+    "operationId": "listUserIdsByPosition",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "positionCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/dept/leader-by-id": {
+   "get": {
+    "operationId": "getDeptLeaderByDeptId",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "deptId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/dept/leader-by-code": {
+   "get": {
+    "operationId": "getDeptLeaderByDeptCode",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "deptCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/user/batch-names": {
+   "post": {
+    "operationId": "batchUserNames",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/dept/batch-names": {
+   "post": {
+    "operationId": "batchDeptNames",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/role/batch-names": {
+   "post": {
+    "operationId": "batchRoleNames",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/post/batch-names": {
+   "post": {
+    "operationId": "batchPostNames",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/company/batch-names": {
+   "post": {
+    "operationId": "batchCompanyNames",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/language/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/LanguagePageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/language/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/language/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/language": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/LanguageDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/LanguageDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/ldap/sync": {
+   "post": {
+    "operationId": "triggerSync",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/ldap/sync/status": {
+   "get": {
+    "operationId": "getStatus",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/ldap/sync/logs": {
+   "get": {
+    "operationId": "getLogs",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/menu/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/menu/tree": {
+   "get": {
+    "operationId": "tree",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/menu/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/menu": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MenuDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MenuDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/oauth2/applications": {
+   "post": {
+    "operationId": "register",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/oauth2/applications/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/oauth2/applications/{id}/reset-secret": {
+   "post": {
+    "operationId": "resetSecret",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/oauth2/authorize": {
+   "get": {
+    "operationId": "authorize",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/OAuth2AuthorizeRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/oauth2/consent": {
+   "get": {
+    "operationId": "getConsentInfo",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "submitConsent",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/OAuth2AuthorizeRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/oauth2/token": {
+   "post": {
+    "operationId": "token",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/OAuth2TokenRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/oauth2/revoke": {
+   "post": {
+    "operationId": "revoke",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "token",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/oauth2/introspect": {
+   "post": {
+    "operationId": "introspect",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "token",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "clientId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/oauth2/userinfo": {
+   "get": {
+    "operationId": "userinfo",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/.well-known/openid-configuration": {
+   "get": {
+    "operationId": "discovery",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/.well-known/jwks.json": {
+   "get": {
+    "operationId": "jwks",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/post/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/post/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/post": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/PostDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/PostDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/role/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/RolePageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/role/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/role/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/role": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/RoleDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/RoleDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/role/{roleId}/permissions": {
+   "post": {
+    "operationId": "assignPermissions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "roleId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AssignPermissionsDTO"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getRolePermissions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "roleId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/saml/metadata": {
+   "get": {
+    "operationId": "metadata",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/saml/sso": {
+   "get": {
+    "operationId": "initiateSso",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/saml/acs": {
+   "post": {
+    "operationId": "assertionConsumerService",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/saml/sso/{idpEntityId}": {
+   "get": {
+    "operationId": "initiateSsoByEntityId",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "idpEntityId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/saml/acs/{idpEntityId}": {
+   "post": {
+    "operationId": "assertionConsumerServiceByEntityId",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/saml/idp-list": {
+   "get": {
+    "operationId": "listIdps",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/saml-idp-config/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SamlIdpPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/saml-idp-config/enabled": {
+   "get": {
+    "operationId": "listEnabled",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/saml-idp-config": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SamlIdpDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/saml-idp-config/{entityId}": {
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "entityId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SamlIdpDTO"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "entityId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Users": {
+   "get": {
+    "operationId": "listUsers",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "createUser",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "scimUser",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ScimUser"
+      }
+     }
+    ]
+   }
+  },
+  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}": {
+   "get": {
+    "operationId": "getUser",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "updateUser",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "scimUser",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ScimUser"
+      }
+     }
+    ]
+   },
+   "patch": {
+    "operationId": "patchUser",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "patchOp",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ScimPatchOp"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "deleteUser",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Groups": {
+   "get": {
+    "operationId": "listGroups",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig": {
+   "get": {
+    "operationId": "getServiceProviderConfig",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/${ydsz.userinfo.scim.base-path:/scim/v2}/ResourceTypes": {
+   "get": {
+    "operationId": "getResourceTypes",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Schemas": {
+   "get": {
+    "operationId": "getSchemas",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/alerts": {
+   "get": {
+    "operationId": "pageAlerts",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SecurityAlertPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/security/alerts/pending": {
+   "get": {
+    "operationId": "getPendingAlerts",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/alerts/{id}/acknowledge": {
+   "put": {
+    "operationId": "acknowledgeAlert",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/security/alerts/{id}/resolve": {
+   "put": {
+    "operationId": "resolveAlert",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/security/alerts/{id}/ignore": {
+   "put": {
+    "operationId": "ignoreAlert",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/security/dashboard": {
+   "get": {
+    "operationId": "getDashboard",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/login-success-rate": {
+   "get": {
+    "operationId": "getLoginSuccessRate",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/login-fail-distribution": {
+   "get": {
+    "operationId": "getLoginFailDistribution",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/mfa-coverage": {
+   "get": {
+    "operationId": "getMfaCoverage",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/risk-distribution": {
+   "get": {
+    "operationId": "getRiskLevelDistribution",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/recent-events": {
+   "get": {
+    "operationId": "getRecentSecurityEvents",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/session-activity": {
+   "get": {
+    "operationId": "getSessionActivity",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/active-user-ranking": {
+   "get": {
+    "operationId": "getActiveUserRanking",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/session-trend": {
+   "get": {
+    "operationId": "getSessionTrend",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/device-distribution": {
+   "get": {
+    "operationId": "getDeviceDistribution",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/security/anomaly-sessions": {
+   "get": {
+    "operationId": "detectAnomalySessions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profile/social/bindings": {
+   "get": {
+    "operationId": "getBindings",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profile/social/platforms": {
+   "get": {
+    "operationId": "getAvailablePlatforms",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profile/social/bindings/{platform}": {
+   "delete": {
+    "operationId": "unbind",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "platform",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/social-client-config/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SocialClientPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/social-client-config/enabled": {
+   "get": {
+    "operationId": "listEnabled",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/social-client-config": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SocialClientDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/social-client-config/{platform}": {
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "platform",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SocialClientDTO"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "platform",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/sso/metrics/overview": {
+   "get": {
+    "operationId": "getOverview",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/sso/token-exchange": {
+   "post": {
+    "operationId": "tokenExchange",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "body",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/sso/validate": {
+   "get": {
+    "operationId": "validate",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/sso/logout-notify": {
+   "post": {
+    "operationId": "logoutNotify",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     },
+     {
+      "name": "body",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/UserAccountPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/user/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/UserAccountDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/UserAccountDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/change-password": {
+   "post": {
+    "operationId": "changePassword",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ChangePasswordDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/reset-password": {
+   "post": {
+    "operationId": "resetPassword",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ResetPasswordDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/{userId}/roles": {
+   "post": {
+    "operationId": "assignRoles",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AssignRolesDTO"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getUserRoles",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/import": {
+   "post": {
+    "operationId": "importUsers",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/user/import-template": {
+   "get": {
+    "operationId": "downloadImportTemplate",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/export": {
+   "get": {
+    "operationId": "exportUsers",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/{userId}/login-history": {
+   "get": {
+    "operationId": "getLoginHistory",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/batch-remove": {
+   "post": {
+    "operationId": "batchRemove",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/BatchUserStatusDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/batch-enable": {
+   "post": {
+    "operationId": "batchEnable",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/BatchUserStatusDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/batch-disable": {
+   "post": {
+    "operationId": "batchDisable",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/BatchUserStatusDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/{userId}/lifecycle/suspend": {
+   "put": {
+    "operationId": "suspend",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/{userId}/lifecycle/resume": {
+   "put": {
+    "operationId": "resume",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/{userId}/lifecycle/disable": {
+   "put": {
+    "operationId": "disable",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/{userId}/lifecycle/enable": {
+   "put": {
+    "operationId": "enable",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/{userId}/lifecycle/resign": {
+   "put": {
+    "operationId": "resign",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/user/sensitive-verify": {
+   "post": {
+    "operationId": "sensitiveVerify",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SensitiveVerifyDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/userinfo/search": {
+   "get": {
+    "operationId": "search",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/UserSearchQuery"
+      }
+     },
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/userinfo/search/rebuild": {
+   "post": {
+    "operationId": "rebuildIndex",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profile/me": {
+   "get": {
+    "operationId": "getCurrentUserProfile",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "operationId": "updateCurrentUserProfile",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/UserProfileUpdateDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/profile/password": {
+   "put": {
+    "operationId": "changePassword",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/profile/avatar": {
+   "put": {
+    "operationId": "uploadAvatar",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profile/mfa/status": {
+   "get": {
+    "operationId": "getMfaStatus",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profile/mfa/setup": {
+   "post": {
+    "operationId": "setupMfa",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profile/mfa/activate": {
+   "post": {
+    "operationId": "activateMfa",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MfaOperationDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/profile/mfa/disable": {
+   "post": {
+    "operationId": "disableMfa",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MfaOperationDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/webauthn/passkey/registration/options": {
+   "get": {
+    "operationId": "getPasskeyRegistrationOptions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "username",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "displayName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/webauthn/passkey/options": {
+   "get": {
+    "operationId": "getPasskeyAuthenticationOptions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/webauthn/passkey/verify": {
+   "post": {
+    "operationId": "verifyPasskeyAuthentication",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "assertion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/webauthn/registration/options": {
+   "get": {
+    "operationId": "getRegistrationOptions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "username",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "displayName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/webauthn/registration/verify": {
+   "post": {
+    "operationId": "verifyRegistration",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "credential",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/webauthn/authentication/options": {
+   "get": {
+    "operationId": "getAuthenticationOptions",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/webauthn/authentication/verify": {
+   "post": {
+    "operationId": "verifyAuthentication",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "assertion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/webauthn/credentials": {
+   "get": {
+    "operationId": "listCredentials",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/webauthn/credentials/{credentialId}": {
+   "delete": {
+    "operationId": "deleteCredential",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "credentialId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/devices": {
+   "get": {
+    "operationId": "listMyDevices",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/devices/{sessionId}": {
+   "delete": {
+    "operationId": "revokeDevice",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "sessionId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/self-service/send-verify-code": {
+   "post": {
+    "operationId": "sendVerifyCode",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SendVerifyCodeDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/self-service/register": {
+   "post": {
+    "operationId": "register",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/SelfRegisterDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/self-service/forgot-password": {
+   "post": {
+    "operationId": "forgotPassword",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ForgotPasswordDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/self-service/unlock": {
+   "post": {
+    "operationId": "unlockAccount",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AccountUnlockDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/events/stream": {
+   "get": {
+    "operationId": "streamEvents",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "YdszResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "code": {
+      "type": "string"
+     },
+     "msg": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object"
+     },
+     "traceId": {
+      "type": "object"
+     },
+     "requestId": {
+      "type": "object"
+     },
+     "spanId": {
+      "type": "object"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "extensions": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "RESOLVER": {
+      "type": "object"
+     }
+    },
+    "description": "class YdszResponse"
+   },
+   "UserBanRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "banType": {
+      "type": "string"
+     },
+     "banReason": {
+      "type": "string"
+     },
+     "banExpireAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "class UserBanRequestDTO"
+   },
+   "SendVerifyCodeDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "type": {
+      "type": "string"
+     },
+     "targetType": {
+      "type": "string"
+     },
+     "target": {
+      "type": "string"
+     },
+     "captchaKey": {
+      "type": "string"
+     },
+     "captcha": {
+      "type": "string"
+     },
+     "phone": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     }
+    },
+    "description": "class SendVerifyCodeDTO"
+   },
+   "LoginDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "username": {
+      "type": "string"
+     },
+     "password": {
+      "type": "string"
+     },
+     "captchaKey": {
+      "type": "string"
+     },
+     "captcha": {
+      "type": "string"
+     },
+     "mfaCode": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "loginIp": {
+      "type": "string"
+     },
+     "userAgent": {
+      "type": "string"
+     },
+     "platform": {
+      "type": "string"
+     },
+     "rememberMe": {
+      "type": "boolean"
+     }
+    },
+    "description": "class LoginDTO"
+   },
+   "RefreshRequest": {
+    "type": "object",
+    "properties": {
+     "refreshToken": {
+      "type": "string"
+     }
+    },
+    "description": "class RefreshRequest"
+   },
+   "SecondaryAuthRequest": {
+    "type": "object",
+    "properties": {
+     "password": {
+      "type": "string"
+     },
+     "scene": {
+      "type": "string"
+     },
+     "ttlSeconds": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "level": {
+      "type": "string",
+      "enum": [
+       "/** 中等敏感（个人资料等） */\n  MEDIUM",
+       "/** 高敏感（默认，改密/角色分配等） */\n  HIGH",
+       "/** 极敏感（删除用户/批量禁用/租户级操作等） */\n  CRITICAL"
+      ],
+      "description": "枚举 SensitiveLevel"
+     }
+    },
+    "description": "class SecondaryAuthRequest"
+   },
+   "AuthPolicyPageQuery": {
+    "type": "object",
+    "properties": {
+     "tenantId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     }
+    },
+    "description": "class AuthPolicyPageQuery"
+   },
+   "AuthPolicyDTO": {
+    "type": "object",
+    "properties": {
+     "tenantId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "passwordMinLength": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "passwordRequireUppercase": {
+      "type": "boolean"
+     },
+     "passwordRequireDigit": {
+      "type": "boolean"
+     },
+     "mfaEnabled": {
+      "type": "boolean"
+     },
+     "captchaEnabled": {
+      "type": "boolean"
+     },
+     "allowedIdentityProviders": {
+      "type": "string"
+     },
+     "maxSessionsPerUser": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sessionTimeoutSeconds": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "remark": {
+      "type": "string"
+     }
+    },
+    "description": "class AuthPolicyDTO"
+   },
+   "CompanyDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "companyName": {
+      "type": "string"
+     },
+     "companyCode": {
+      "type": "string"
+     },
+     "parentId": {
+      "type": "string"
+     },
+     "contactPerson": {
+      "type": "string"
+     },
+     "contactPhone": {
+      "type": "string"
+     },
+     "address": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class CompanyDTO"
+   },
+   "DepartmentDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "deptCode": {
+      "type": "string"
+     },
+     "deptName": {
+      "type": "string"
+     },
+     "parentId": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     }
+    },
+    "description": "class DepartmentDTO"
+   },
+   "LanguagePageQuery": {
+    "type": "object",
+    "properties": {
+     "languageCode": {
+      "type": "string"
+     },
+     "languageName": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class LanguagePageQuery"
+   },
+   "LanguageDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "languageCode": {
+      "type": "string"
+     },
+     "languageName": {
+      "type": "string"
+     },
+     "isDefault": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class LanguageDTO"
+   },
+   "MenuDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "parentId": {
+      "type": "string"
+     },
+     "menuName": {
+      "type": "string"
+     },
+     "menuCode": {
+      "type": "string"
+     },
+     "menuType": {
+      "type": "string"
+     },
+     "path": {
+      "type": "string"
+     },
+     "component": {
+      "type": "string"
+     },
+     "icon": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "permissionCode": {
+      "type": "string"
+     },
+     "visible": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class MenuDTO"
+   },
+   "OAuth2AuthorizeRequest": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "description": "record OAuth2AuthorizeRequest"
+   },
+   "OAuth2TokenRequest": {
+    "type": "object",
+    "properties": {
+     "grantType": {
+      "type": "object"
+     },
+     "false": {
+      "type": "object"
+     }
+    },
+    "required": [
+     "grantType",
+     "false"
+    ],
+    "description": "record OAuth2TokenRequest"
+   },
+   "PostDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "postName": {
+      "type": "string"
+     },
+     "postCode": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class PostDTO"
+   },
+   "RolePageQuery": {
+    "type": "object",
+    "properties": {
+     "roleCode": {
+      "type": "string"
+     },
+     "roleName": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     }
+    },
+    "description": "class RolePageQuery"
+   },
+   "RoleDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "roleCode": {
+      "type": "string"
+     },
+     "roleName": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "dataScope": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "builtIn": {
+      "type": "boolean"
+     },
+     "tenantId": {
+      "type": "string"
+     }
+    },
+    "description": "class RoleDTO"
+   },
+   "AssignPermissionsDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "permissionIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "description": "class AssignPermissionsDTO"
+   },
+   "SamlIdpPageQuery": {
+    "type": "object",
+    "properties": {
+     "status": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     }
+    },
+    "description": "class SamlIdpPageQuery"
+   },
+   "SamlIdpDTO": {
+    "type": "object",
+    "properties": {
+     "entityId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "ssoUrl": {
+      "type": "string"
+     },
+     "certificate": {
+      "type": "string"
+     },
+     "emailAttribute": {
+      "type": "string"
+     },
+     "displayNameAttribute": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "remark": {
+      "type": "string"
+     }
+    },
+    "description": "class SamlIdpDTO"
+   },
+   "ScimName": {
+    "type": "object",
+    "properties": {
+     "formatted": {
+      "type": "string"
+     },
+     "familyName": {
+      "type": "string"
+     },
+     "givenName": {
+      "type": "string"
+     }
+    },
+    "description": "class ScimName"
+   },
+   "ScimEmail": {
+    "type": "object",
+    "properties": {
+     "value": {
+      "type": "string"
+     },
+     "display": {
+      "type": "string"
+     },
+     "primary": {
+      "type": "boolean"
+     }
+    },
+    "description": "class ScimEmail"
+   },
+   "ScimPhone": {
+    "type": "object",
+    "properties": {
+     "value": {
+      "type": "string"
+     },
+     "display": {
+      "type": "string"
+     },
+     "primary": {
+      "type": "boolean"
+     }
+    },
+    "description": "class ScimPhone"
+   },
+   "ScimMeta": {
+    "type": "object",
+    "properties": {
+     "resourceType": {
+      "type": "string"
+     },
+     "created": {
+      "type": "string"
+     },
+     "lastModified": {
+      "type": "string"
+     }
+    },
+    "description": "class ScimMeta"
+   },
+   "ScimUser": {
+    "type": "object",
+    "properties": {
+     "schemas": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "id": {
+      "type": "string"
+     },
+     "externalId": {
+      "type": "string"
+     },
+     "userName": {
+      "type": "string"
+     },
+     "name": {
+      "$ref": "#/components/schemas/ScimName"
+     },
+     "displayName": {
+      "type": "string"
+     },
+     "active": {
+      "type": "boolean"
+     },
+     "emails": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ScimEmail"
+      }
+     },
+     "phoneNumbers": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ScimPhone"
+      }
+     },
+     "meta": {
+      "$ref": "#/components/schemas/ScimMeta"
+     }
+    },
+    "description": "class ScimUser"
+   },
+   "ScimPatchOp": {
+    "type": "object",
+    "properties": {
+     "Operations": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     },
+     "op": {
+      "type": "string"
+     },
+     "path": {
+      "type": "string"
+     },
+     "value": {
+      "type": "object"
+     },
+     "PATCH_OP_SCHEMA": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "schemas": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "operations": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    "description": "class ScimPatchOp"
+   },
+   "SecurityAlertPageQuery": {
+    "type": "object",
+    "properties": {
+     "status": {
+      "type": "object"
+     },
+     "riskLevel": {
+      "type": "object"
+     },
+     "start": {
+      "type": "string",
+      "format": "date"
+     },
+     "end": {
+      "type": "string",
+      "format": "date"
+     },
+     "startTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "endTime": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "class SecurityAlertPageQuery"
+   },
+   "SocialClientPageQuery": {
+    "type": "object",
+    "properties": {
+     "platform": {
+      "type": "string"
+     },
+     "platformName": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class SocialClientPageQuery"
+   },
+   "SocialClientDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "platform": {
+      "type": "string"
+     },
+     "platformName": {
+      "type": "string"
+     },
+     "appId": {
+      "type": "string"
+     },
+     "appSecret": {
+      "type": "string"
+     },
+     "scope": {
+      "type": "string"
+     },
+     "redirectUri": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "remark": {
+      "type": "string"
+     }
+    },
+    "description": "class SocialClientDTO"
+   },
+   "UserAccountPageQuery": {
+    "type": "object",
+    "properties": {
+     "username": {
+      "type": "string"
+     },
+     "realName": {
+      "type": "string"
+     },
+     "phone": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "userType": {
+      "type": "string"
+     },
+     "companyId": {
+      "type": "string"
+     },
+     "deptId": {
+      "type": "string"
+     },
+     "leaderId": {
+      "type": "string"
+     },
+     "positionCode": {
+      "type": "string"
+     }
+    },
+    "description": "class UserAccountPageQuery"
+   },
+   "UserAccountDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "username": {
+      "type": "string"
+     },
+     "userName": {
+      "type": "string"
+     },
+     "externalId": {
+      "type": "string"
+     },
+     "password": {
+      "type": "string"
+     },
+     "realName": {
+      "type": "string"
+     },
+     "phone": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "avatar": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string",
+      "enum": [],
+      "description": "枚举 EnableStatusEnum"
+     },
+     "userType": {
+      "type": "string"
+     },
+     "companyId": {
+      "type": "string"
+     },
+     "deptId": {
+      "type": "string"
+     },
+     "leaderId": {
+      "type": "string"
+     },
+     "positionCode": {
+      "type": "string"
+     },
+     "roleIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class UserAccountDTO"
+   },
+   "ChangePasswordDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "oldPassword": {
+      "type": "string"
+     },
+     "newPassword": {
+      "type": "string"
+     }
+    },
+    "description": "class ChangePasswordDTO"
+   },
+   "ResetPasswordDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "newPassword": {
+      "type": "string"
+     },
+     "notifyChannel": {
+      "type": "string"
+     }
+    },
+    "description": "class ResetPasswordDTO"
+   },
+   "AssignRolesDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "roleIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "description": "class AssignRolesDTO"
+   },
+   "BatchUserStatusDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "ids": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "description": "class BatchUserStatusDTO"
+   },
+   "SensitiveVerifyDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "password": {
+      "type": "string"
+     }
+    },
+    "description": "class SensitiveVerifyDTO"
+   },
+   "UserSearchQuery": {
+    "type": "object",
+    "properties": {
+     "DEFAULT_PAGE": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "DEFAULT_PAGE_SIZE": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "keyword": {
+      "type": "string"
+     },
+     "page": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class UserSearchQuery"
+   },
+   "UserProfileUpdateDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "realName": {
+      "type": "string"
+     },
+     "phone": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "avatar": {
+      "type": "string"
+     }
+    },
+    "description": "class UserProfileUpdateDTO"
+   },
+   "MfaOperationDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "code": {
+      "type": "string"
+     }
+    },
+    "description": "class MfaOperationDTO"
+   },
+   "SelfRegisterDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "username": {
+      "type": "string"
+     },
+     "realName": {
+      "type": "string"
+     },
+     "password": {
+      "type": "string"
+     },
+     "phone": {
+      "type": "string"
+     },
+     "email": {
+      "type": "string"
+     },
+     "verifyCode": {
+      "type": "string"
+     },
+     "captchaKey": {
+      "type": "string"
+     },
+     "captcha": {
+      "type": "string"
+     }
+    },
+    "description": "class SelfRegisterDTO"
+   },
+   "ForgotPasswordDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "username": {
+      "type": "string"
+     },
+     "phone": {
+      "type": "string"
+     },
+     "verifyCode": {
+      "type": "string"
+     },
+     "newPassword": {
+      "type": "string"
+     },
+     "captchaKey": {
+      "type": "string"
+     },
+     "captcha": {
+      "type": "string"
+     }
+    },
+    "description": "class ForgotPasswordDTO"
+   },
+   "AccountUnlockDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "username": {
+      "type": "string"
+     },
+     "targetType": {
+      "type": "string"
+     },
+     "target": {
+      "type": "string"
+     },
+     "verifyCode": {
+      "type": "string"
+     },
+     "captchaKey": {
+      "type": "string"
+     },
+     "captcha": {
+      "type": "string"
+     }
+    },
+    "description": "class AccountUnlockDTO"
+   }
+  }
+ }
+}

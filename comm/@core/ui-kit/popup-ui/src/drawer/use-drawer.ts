@@ -26,6 +26,8 @@ import { useStore } from '@YDSZ-core/shared/store';
 import { DrawerApi } from './drawer-api';
 import YDSZDrawer from './drawer.vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('use-drawer');
 const USER_DRAWER_INJECT_KEY = Symbol('YDSZ_DRAWER_INJECT');
 
 const DEFAULT_DRAWER_PROPS: Partial<DrawerProps> = {};
@@ -189,7 +191,7 @@ async function checkProps(api: ExtendedDrawerApi, attrs: Record<string, any>) {
   for (const attr of Object.keys(attrs)) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Drawer的props，会造成复杂度提升，如果你需要修改Drawer的props，请使用 useYDSZDrawer 或者api
-      console.warn(
+      logger.warn(
         `[YDSZ Drawer]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Drawer, please use useYDSZDrawer or api.`,
       );
     }

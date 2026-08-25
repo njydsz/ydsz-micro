@@ -15,6 +15,8 @@ import type {
 
 import { mapTree } from '@YDSZ-core/shared/utils';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('generate-routes-backend');
 /**
  * 动态生成路由 - 后端方式
  */
@@ -39,7 +41,7 @@ async function generateRoutesByBackend(
 
     return routes;
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw error;
   }
 }
@@ -54,7 +56,7 @@ function convertRoutes(
     const { component, name } = node;
 
     if (!name) {
-      console.error('route name is required', route);
+      logger.error('route name is required', route);
     }
 
     // layout转换
@@ -69,7 +71,7 @@ function convertRoutes(
       if (pageMap[pageKey]) {
         route.component = pageMap[pageKey];
       } else {
-        console.error(`route component is invalid: ${pageKey}`, route);
+        logger.error(`route component is invalid: ${pageKey}`, route);
         route.component = pageMap['/_core/fallback/not-found.vue'];
       }
     }

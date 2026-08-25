@@ -15,6 +15,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('error-boundary');
 import type { ErrorInfo } from 'vue';
 
 import { computed, onErrorCaptured, ref } from 'vue';
@@ -81,7 +83,7 @@ onErrorCaptured((err: Error, _instance, info: ErrorInfo) => {
 
   // 开发环境打印详细错误
   if (!import.meta.env.PROD) {
-    console.error('[ErrorBoundary] Captured error:', err, info);
+    logger.error('[ErrorBoundary] Captured error:', err, info);
   }
 
   // 返回 false 阻止错误继续传播

@@ -45,6 +45,8 @@ export enum KernelErrorCode {
   SANDBOX_ERROR = "SANDBOX_ERROR",
   /** unmount 调用抛错 */
   UNMOUNT_ERROR = "UNMOUNT_ERROR",
+  /** 静态注册表为空（宿主未注入 setStaticRegistry 且未提供 fetcher） */
+  REGISTRY_STATIC_EMPTY = "REGISTRY_STATIC_EMPTY",
 }
 
 /**

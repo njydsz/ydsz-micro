@@ -12,6 +12,8 @@ import { h, render } from 'vue';
 import { YDSZLoading, YDSZSpinner } from '@YDSZ-core/shadcn-ui';
 import { isString } from '@YDSZ-core/shared/utils';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('directive');
 const LOADING_INSTANCE_KEY = Symbol('loading');
 const SPINNER_INSTANCE_KEY = Symbol('spinner');
 
@@ -44,7 +46,7 @@ const loadingDirective: Directive = {
         });
         instance.component.update();
       } catch (error) {
-        console.error('更新 loading 组件失败:', error);
+        logger.error('更新 loading 组件失败:', error);
       }
     }
   },
@@ -87,7 +89,7 @@ const spinningDirective: Directive = {
         });
         instance.component.update();
       } catch (error) {
-        console.error('更新 spinner 组件失败:', error);
+        logger.error('更新 spinner 组件失败:', error);
       }
     }
   },

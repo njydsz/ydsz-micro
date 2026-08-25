@@ -20,10 +20,22 @@ import { onTabClosed } from "@ydsz/stores";
 import { PATH_TO_APP_MAP } from "@ydsz/vite-config";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
-import { microRuntime } from "../bootstrap";
+import type { MicroRuntime } from "#/bootstrap";
 
 /** 模块级日志器 */
 const logger = createLogger("MultiTabSync");
+
+/**
+ * 延迟加载 microRuntime，避免本模块与 bootstrap 之间形成初始化期循环依赖（云顶规范 18.x 零循环依赖）。
+ * microRuntime 仅在运行时（路由事件回调）使用，模块初始化期无需同步引用。
+ */
+let microRuntimeRef: null | Promise<MicroRuntime | null> = null;
+function loadMicroRuntime(): Promise<MicroRuntime | null> {
+  if (!microRuntimeRef) {
+    microRuntimeRef = import("#/bootstrap").then((m) => m.microRuntime ?? null);
+  }
+  return microRuntimeRef;
+}
 
 /** 路由前缀 → 子应用名 映射（由注册表单源 PATH_TO_APP_MAP 驱动） */
 const PATH_TO_APP = PATH_TO_APP_MAP;
@@ -83,17 +95,20 @@ function getOrCreateSession(appName: string): SubAppSession {
  *
  * @since 3.0.0
  */
-export function recordSubAppTabOpened(path: string, appName: string): void {
+export async function recordSubAppTabOpened(path: string, appName: string): Promise<void> {
   const session = getOrCreateSession(appName);
   const isNewTab = !session.openPaths.has(path);
   session.openPaths.add(path);
   session.lastActivePath = path;
 
   // 首次打开该子应用的 Tab → 保活 + pin
-  if (isNewTab && microRuntime) {
-    microRuntime.setKeepAlive(appName, true);
-    // v4.2.1 N8: setPinnedApp 已纳入 MicroRuntime 接口（此前 as any 调用永不生效）
-    microRuntime.setPinnedApp?.(appName, true);
+  if (isNewTab) {
+    const microRuntime = await loadMicroRuntime();
+    if (microRuntime) {
+      microRuntime.setKeepAlive(appName, true);
+      // v4.2.1 N8: setPinnedApp 已纳入 MicroRuntime 接口（此前 as any 调用永不生效）
+      microRuntime.setPinnedApp?.(appName, true);
+    }
   }
 }
 
@@ -150,7 +165,8 @@ export { getAppFromPath };
  * - 如果业务侧需独立追踪 Tab 打开事件，可手动调用 recordSubAppTabOpened
  */
 export function useTabbarMicroSync(): void {
-  onTabClosed((path) => {
+  onTabClosed(async (path) => {
+    const microRuntime = await loadMicroRuntime();
     if (!microRuntime) return;
 
     const appName = getAppFromPath(path);

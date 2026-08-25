@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('index');
 import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 
 import { RotateCw } from '@ydsz/icons';
@@ -34,7 +36,7 @@ const emit = defineEmits<{
 const { addPoint, clearPoints, points } = useCaptchaPoints();
 
 if (!props.hintImage && !props.hintText) {
-  console.warn('At least one of hint image or hint text must be provided');
+  logger.warn('At least one of hint image or hint text must be provided');
 }
 
 const POINT_OFFSET = 11;
@@ -68,7 +70,7 @@ function handleClick(e: MouseEvent) {
 
     // 点击位置边界校验
     if (xPos < 0 || yPos < 0 || xPos > rect.width || yPos > rect.height) {
-      console.warn('Click position is out of the valid range');
+      logger.warn('Click position is out of the valid range');
       return;
     }
 
@@ -88,7 +90,7 @@ function handleClick(e: MouseEvent) {
     e.stopPropagation();
     e.preventDefault();
   } catch (error) {
-    console.error('Error in handleClick:', error);
+    logger.error('Error in handleClick:', error);
   }
 }
 
@@ -96,7 +98,7 @@ function clear() {
   try {
     clearPoints();
   } catch (error) {
-    console.error('Error in clear:', error);
+    logger.error('Error in clear:', error);
   }
 }
 
@@ -105,7 +107,7 @@ function handleRefresh() {
     clear();
     emit('refresh');
   } catch (error) {
-    console.error('Error in handleRefresh:', error);
+    logger.error('Error in handleRefresh:', error);
   }
 }
 
@@ -114,7 +116,7 @@ function handleConfirm() {
   try {
     emit('confirm', points, clear);
   } catch (error) {
-    console.error('Error in handleConfirm:', error);
+    logger.error('Error in handleConfirm:', error);
   }
 }
 </script>

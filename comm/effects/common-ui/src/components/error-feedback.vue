@@ -9,6 +9,8 @@
  * @since 4.0.0
 -->
 <script lang="ts" setup>
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('error-feedback');
 import { computed, ref } from "vue";
 
 import {
@@ -137,7 +139,7 @@ async function submitFeedback(): Promise<void> {
   } catch (error) {
     submitStatus.value = "error";
     submitError.value = error instanceof Error ? error.message : String(error);
-    console.error("[ErrorFeedback] Failed to submit:", error);
+    logger.error("[ErrorFeedback] Failed to submit:", error);
 
     // 降级：即使 Sentry 发送失败，也记录用户反馈到本地
     try {
@@ -150,7 +152,7 @@ async function submitFeedback(): Promise<void> {
         userAgent: navigator.userAgent,
         url: window.location.href,
       };
-      console.warn("[ErrorFeedback] Fallback log:", feedbackLog);
+      logger.warn("[ErrorFeedback] Fallback log:", feedbackLog);
     } catch {
       // 静默
     }

@@ -74,7 +74,7 @@ export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): 
     enqueueError(report);
 
     if (!import.meta.env.PROD) {
-      console.error('[Vue Error]', err, info);
+      logger.error('[Vue Error]', err, info);
     }
   };
 
@@ -152,7 +152,7 @@ export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): 
         });
         enableSentryForwarding();
       } catch {
-        console.warn('[Monitor] Sentry auto-init failed, forwarding disabled');
+        logger.warn('[Monitor] Sentry auto-init failed, forwarding disabled');
       }
     })();
   }

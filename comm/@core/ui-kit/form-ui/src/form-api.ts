@@ -35,6 +35,8 @@ import {
 import { FormScrollHelper } from './form-scroll-helper';
 import { FormValueTransformer } from './form-value-transformer';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('form-api');
 function getDefaultState(): YDSZFormProps {
   return {
     actionWrapperClass: '',
@@ -217,7 +219,7 @@ export class FormApi {
               }
               return results;
             } catch (error) {
-              console.error('Validation error:', error);
+              logger.error('Validation error:', error);
             }
           };
         }
@@ -366,7 +368,7 @@ export class FormApi {
     );
 
     if (!allItemsHaveFieldName) {
-      console.error(
+      logger.error(
         'All items in the schema array must have a valid `fieldName` property to be updated',
       );
       return;
@@ -399,7 +401,7 @@ export class FormApi {
     const validateResult = await form.validate(opts);
 
     if (Object.keys(validateResult?.errors ?? {}).length > 0) {
-      console.error('validate error', validateResult?.errors);
+      logger.error('validate error', validateResult?.errors);
 
       if (this.state?.scrollToFirstError) {
         this.scrollHelper.scrollToFirstError(validateResult.errors);
@@ -425,7 +427,7 @@ export class FormApi {
     const validateResult = await form.validateField(fieldName, opts);
 
     if (Object.keys(validateResult?.errors ?? {}).length > 0) {
-      console.error('validate error', validateResult?.errors);
+      logger.error('validate error', validateResult?.errors);
 
       if (this.state?.scrollToFirstError) {
         this.scrollHelper.scrollToFirstError(fieldName);

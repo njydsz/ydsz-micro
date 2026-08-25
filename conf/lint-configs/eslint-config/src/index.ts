@@ -3,7 +3,7 @@
  *
  * 强制规则（对应《云顶编码规范》）：
  * - §3.1 禁止 any：`@typescript-eslint/no-explicit-any: error`
- * - §14.5 统一日志：`no-console: error`（仅允许 warn/error 过渡，logger.ts 豁免）
+ * - §14.5 统一日志：`no-console: error`（业务代码全面禁止 console，统一使用 createLogger；logger.ts 实现层豁免）
  * - §3.5 类型导入：`@typescript-eslint/consistent-type-imports`
  * - §4.6 v-for key、§18.5 提交前检查等由 vue/ts 基础规则承载
  *
@@ -24,15 +24,16 @@ import tsParser from '@typescript-eslint/parser';
  * 云顶编码规范强制规则集。
  *
  * 说明：
- * - `no-console` 采用 `allow: ['warn', 'error']` 过渡策略——先禁止调试残留的
- *   log/debug/info，warn/error 保留到 logger 迁移完成后收紧（配合 §14.5）。
+ * - `no-console` 全面禁止（error）：业务代码一律使用 `createLogger`（@YDSZ-core/shared/utils）
+ *   统一日志，禁止在生产路径直接调用 console.*（§14.5）。
+ * - 过渡期允许的 warn/error 已在 comm 组件 codemod 完成后收紧（见仓库 codemod 记录）。
  * - logger.ts 是统一日志模块的实现文件，豁免 no-console。
  */
 const ydszRules: Linter.RulesRecord = {
   // §3.1 禁止 any
   '@typescript-eslint/no-explicit-any': 'error',
-  // §14.5 生产环境禁止 console（过渡期允许 warn/error）
-  'no-console': ['error', { allow: ['warn', 'error'] }],
+  // §14.5 生产环境全面禁止 console（业务代码必须改用 createLogger）
+  'no-console': 'error',
   // §3.5 类型导入使用 type 关键字
   '@typescript-eslint/consistent-type-imports': [
     'error',
@@ -177,6 +178,14 @@ export function defineConfig(): Linter.Config[] {
         '**/src/standalone-main.ts',
         '**/src/mock/**/*.ts',
       ],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+    // Service Worker：浏览器侧基础设施，生命周期（注册/注销/不支持）日志属于运行期可观测输出，
+    // 与 Node 工具同属「非业务路径」，豁免 no-console（§14.5 面向业务代码）
+    {
+      files: ['**/service-worker.ts'],
       rules: {
         'no-console': 'off',
       },

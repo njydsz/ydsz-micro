@@ -13,7 +13,7 @@ import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 import { useNamespace } from '@YDSZ-core/composables';
 import { YDSZIcon, YDSZTooltip } from '@YDSZ-core/shadcn-ui';
 
-import { MenuBadge } from '../components';
+import { MenuBadge } from '../menu-badge.vue';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
 import { getPreloadAdapter } from '../preload-adapter';
 

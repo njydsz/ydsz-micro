@@ -7,6 +7,8 @@
  */
 import type { Recordable } from '@ydsz/types';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('icons');
 /**
  * 一个缓存对象，在不刷新页面时，无需重复请求远程接口
  */
@@ -54,7 +56,7 @@ export async function fetchIconsData(prefix: string): Promise<string[]> {
       }
       ICONS_MAP[prefix] = list.map((v) => `${prefix}:${v}`);
     } catch (error) {
-      console.error(`Failed to fetch icons for prefix ${prefix}:`, error);
+      logger.error(`Failed to fetch icons for prefix ${prefix}:`, error);
       return [] as string[];
     }
     return ICONS_MAP[prefix];

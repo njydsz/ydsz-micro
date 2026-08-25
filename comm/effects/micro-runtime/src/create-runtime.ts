@@ -14,6 +14,8 @@
 
 import type { MicroRuntime } from './types';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('create-runtime');
 /** 已知内核名称 */
 export type KernelName = 'micro-kernel' | 'qiankun' | string;
 
@@ -29,7 +31,7 @@ const kernelRegistry = new Map<KernelName, () => MicroRuntime>();
  */
 export function registerKernel(name: KernelName, factory: () => MicroRuntime): void {
   if (kernelRegistry.has(name)) {
-    console.warn(`[MicroRuntime] Kernel "${name}" is already registered, overwriting.`);
+    logger.warn(`[MicroRuntime] Kernel "${name}" is already registered, overwriting.`);
   }
   kernelRegistry.set(name, factory);
 }

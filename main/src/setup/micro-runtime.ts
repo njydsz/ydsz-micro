@@ -19,6 +19,7 @@ import {
   getPreloadManager,
   getVersionManager,
   setErrorFallbackMessages,
+  setStaticRegistry,
 } from "@ydsz/micro-kernel";
 import { registerPreloadAdapter } from "@YDSZ-core/menu-ui";
 import { createRuntime, registerKernel, type MicroAppConfig } from "@ydsz/micro-runtime";
@@ -79,6 +80,10 @@ function buildStaticAppConfigs() {
 export function registerMicroRuntime() {
   // 1. 注册 micro-kernel 内核
   registerKernel("micro-kernel", () => createKernel());
+
+  // 1.1 v4.3.0: 注入静态注册表（内核依赖反转，见 registry-adapter.setStaticRegistry）
+  //     远程注册表拉取失败时的回退数据源，内核不再直接依赖构建配置包。
+  setStaticRegistry(MICRO_APPS);
 
   // 2. 创建运行时实例
   microRuntime = createRuntime({ kernel: "micro-kernel" });

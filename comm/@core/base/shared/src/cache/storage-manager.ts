@@ -1,3 +1,5 @@
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('storage-manager');
 ﻿/**
  * storage-manager 模块
  *
@@ -80,7 +82,7 @@ class StorageManager {
       }
       return item.value;
     } catch (error) {
-      console.error(`Error parsing item with key "${fullKey}":`, error);
+      logger.error(`Error parsing item with key "${fullKey}":`, error);
       this.storage.removeItem(fullKey); // 如果解析失败，删除该项
       return defaultValue;
     }
@@ -108,7 +110,7 @@ class StorageManager {
     try {
       this.storage.setItem(fullKey, JSON.stringify(item));
     } catch (error) {
-      console.error(`Error setting item with key "${fullKey}":`, error);
+      logger.error(`Error setting item with key "${fullKey}":`, error);
     }
   }
 

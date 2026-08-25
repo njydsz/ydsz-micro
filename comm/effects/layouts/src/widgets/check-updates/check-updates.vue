@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('check-updates');
 import { onMounted, onUnmounted, ref } from 'vue';
 
 import { $t } from '@ydsz/locales';
@@ -60,7 +62,7 @@ async function getVersionTag() {
       response.headers.get('etag') || response.headers.get('last-modified')
     );
   } catch {
-    console.error('Failed to fetch version tag');
+    logger.error('Failed to fetch version tag');
     return null;
   }
 }

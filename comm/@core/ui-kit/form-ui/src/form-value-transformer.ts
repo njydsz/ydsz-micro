@@ -9,6 +9,8 @@ import { formatDate, isDate, isDayjsObject, isFunction } from '@YDSZ-core/shared
 
 import type { YDSZFormProps } from './types';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('form-value-transformer');
 /**
  * 表单值转换器
  * @description 负责表单值的格式转换，包括范围时间值处理、数组与字符串互转等
@@ -104,7 +106,7 @@ export class FormValueTransformer {
       if (Array.isArray(fieldConfig)) {
         const [fields, separator = ','] = fieldConfig;
         if (!Array.isArray(fields)) {
-          console.warn(
+          logger.warn(
             `Invalid field configuration: fields should be an array of strings, got ${typeof fields}`,
           );
           return;

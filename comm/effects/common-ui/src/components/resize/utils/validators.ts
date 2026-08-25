@@ -8,6 +8,8 @@
 
 import { watch } from 'vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('validators');
 /**
  * 创建属性验证监听器
  * 设置所有属性的验证和自动修正逻辑
@@ -32,7 +34,7 @@ export function useValidation(props: {
     () => props.gridX,
     (val: number) => {
       if (val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] gridX prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.gridX = 0;
@@ -45,7 +47,7 @@ export function useValidation(props: {
     () => props.gridY,
     (val: number) => {
       if (val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] gridY prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.gridY = 0;
@@ -58,7 +60,7 @@ export function useValidation(props: {
     () => props.parentW,
     (val: number) => {
       if (val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] parentW prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.parentW = 0;
@@ -71,7 +73,7 @@ export function useValidation(props: {
     () => props.parentH,
     (val: number) => {
       if (val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] parentH prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.parentH = 0;
@@ -84,12 +86,12 @@ export function useValidation(props: {
     () => props.w,
     (val: string | number) => {
       if (typeof val === 'string' && val !== 'auto') {
-        console.warn(
+        logger.warn(
           `[resize] w prop 为字符串时必须为 "auto"，当前值为 "${val}"，已自动修正为 "auto"。`,
         );
         props.w = 'auto';
       } else if (typeof val === 'number' && val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] w prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.w = 0;
@@ -102,12 +104,12 @@ export function useValidation(props: {
     () => props.h,
     (val: string | number) => {
       if (typeof val === 'string' && val !== 'auto') {
-        console.warn(
+        logger.warn(
           `[resize] h prop 为字符串时必须为 "auto"，当前值为 "${val}"，已自动修正为 "auto"。`,
         );
         props.h = 'auto';
       } else if (typeof val === 'number' && val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] h prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.h = 0;
@@ -120,7 +122,7 @@ export function useValidation(props: {
     () => props.minw,
     (val: number) => {
       if (val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] minw prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.minw = 0;
@@ -133,7 +135,7 @@ export function useValidation(props: {
     () => props.minh,
     (val: number) => {
       if (val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] minh prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.minh = 0;
@@ -146,7 +148,7 @@ export function useValidation(props: {
     () => props.x,
     (val: number) => {
       if (typeof val !== 'number') {
-        console.warn(
+        logger.warn(
           `[resize] x prop 必须为数字类型，当前值已自动修正为 0。`,
         );
         props.x = 0;
@@ -159,7 +161,7 @@ export function useValidation(props: {
     () => props.y,
     (val: number) => {
       if (typeof val !== 'number') {
-        console.warn(
+        logger.warn(
           `[resize] y prop 必须为数字类型，当前值已自动修正为 0。`,
         );
         props.y = 0;
@@ -172,12 +174,12 @@ export function useValidation(props: {
     () => props.z,
     (val: string | number) => {
       if (typeof val === 'string' && val !== 'auto') {
-        console.warn(
+        logger.warn(
           `[resize] z prop 为字符串时必须为 "auto"，当前值为 "${val}"，已自动修正为 "auto"。`,
         );
         props.z = 'auto';
       } else if (typeof val === 'number' && val < 0) {
-        console.warn(
+        logger.warn(
           `[resize] z prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
         );
         props.z = 0;
@@ -190,7 +192,7 @@ export function useValidation(props: {
     () => props.axis,
     (val: string) => {
       if (!['both', 'none', 'x', 'y'].includes(val)) {
-        console.warn(
+        logger.warn(
           `[resize] axis prop 必须为 "both"、"none"、"x"、"y" 之一，当前值为 "${val}"，已自动修正为 "both"。`,
         );
         props.axis = 'both';

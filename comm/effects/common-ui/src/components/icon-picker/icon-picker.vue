@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('icon-picker');
 import type { VNode } from 'vue';
 
 import { computed, ref, useAttrs, watch, watchEffect } from 'vue';
@@ -111,14 +113,14 @@ const currentList = computed(() => {
       }
       const icons = listIcons('', props.prefix);
       if (icons.length === 0) {
-        console.warn(`No icons found for prefix: ${props.prefix}`);
+        logger.warn(`No icons found for prefix: ${props.prefix}`);
       }
       return icons;
     } else {
       return props.icons;
     }
   } catch (error) {
-    console.error('Failed to load icons:', error);
+    logger.error('Failed to load icons:', error);
     return [];
   }
 });

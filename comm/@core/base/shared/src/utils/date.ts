@@ -7,6 +7,8 @@
  */
 import dayjs from 'dayjs';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('date');
 /**
  * 将时间戳或日期字符串格式化为指定格式的日期文本。
  *
@@ -37,7 +39,7 @@ export function formatDate(time: number | string, format = 'YYYY-MM-DD') {
     }
     return date.format(format);
   } catch (error) {
-    console.error(`Error formatting date: ${error}`);
+    logger.error(`Error formatting date: ${error}`);
     return time;
   }
 }

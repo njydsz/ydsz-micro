@@ -1,3 +1,5 @@
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('realtime-client');
 ﻿/**
  * realtime 客户端 — WebSocket/SSE 统一实时通信封装
  *
@@ -79,7 +81,7 @@ export class RealtimeClient {
     try {
       this.ws = new WebSocket(this.url);
     } catch (error) {
-      console.error('[realtime] WebSocket 创建失败', error);
+      logger.error('[realtime] WebSocket 创建失败', error);
       this.scheduleReconnect();
       return;
     }
@@ -193,7 +195,7 @@ export class RealtimeClient {
   private scheduleReconnect() {
     if (this.manualClosed || !this.autoReconnect) return;
     if (this.maxReconnectAttempts >= 0 && this.reconnectAttempts >= this.maxReconnectAttempts) {
-      console.warn('[realtime] 重连次数已达上限，停止重连');
+      logger.warn('[realtime] 重连次数已达上限，停止重连');
       return;
     }
 

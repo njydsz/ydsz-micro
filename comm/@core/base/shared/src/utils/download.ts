@@ -7,6 +7,8 @@
  */
 import { openWindow } from './window';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('download');
 interface DownloadOptions<T = string> {
   fileName?: string;
   source: T;
@@ -32,7 +34,7 @@ export async function downloadFileFromUrl({
   const isSafari = window.navigator.userAgent.toLowerCase().includes('safari');
 
   if (/iP/.test(window.navigator.userAgent)) {
-    console.error('Your browser does not support download!');
+    logger.error('Your browser does not support download!');
     return;
   }
 

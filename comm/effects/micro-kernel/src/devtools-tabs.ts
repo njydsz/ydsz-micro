@@ -15,6 +15,8 @@ import { getRoutePredictor } from "./route-predictor";
 import { getAllInstances } from "./scheduler";
 import { clearKernelMarks, getPerfStats } from "./performance-utils";
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('devtools-tabs');
 // ==================== Tab 接口与注册表 ====================
 
 /**
@@ -67,7 +69,7 @@ export let activeTabId: string = "overview";
  */
 export function registerDevToolsTab(tab: DevToolsTab): void {
   if (!tab?.id) {
-    console.warn("[DevTools] registerDevToolsTab: invalid tab (missing id)");
+    logger.warn("[DevTools] registerDevToolsTab: invalid tab (missing id)");
     return;
   }
   tabRegistry.set(tab.id, tab);
