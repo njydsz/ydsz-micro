@@ -132,8 +132,9 @@ export const useNotificationStore = defineStore("notification", () => {
         break;
       }
       case "notification": {
-        // 新通知
-        const notification: NotificationItem = data.payload;
+        // 新通知（payload 缺失时忽略，避免写入 undefined）
+        const notification = data.payload;
+        if (!notification) break;
         notifications.value.unshift(notification);
         unreadCount.value++;
 

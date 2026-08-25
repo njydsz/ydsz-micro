@@ -73,17 +73,15 @@ export function useSessionExpiryWarning(): void {
     renewing = true;
     try {
       const resp = await refreshTokenApi(refreshToken);
-      const data = resp.data as
-        | { accessToken?: string; expiresIn?: number }
-        | undefined;
-      const newToken = data?.accessToken;
+      // shared 请求客户端已统一解包 data（responseReturn='data'），resp 即刷新结果本体
+      const newToken = resp?.accessToken;
       let newExpiresAt: null | number = null;
       if (typeof newToken === 'string') {
         tokenStore.setAccessToken(newToken);
       }
       // doRefreshToken 回调中也会更新 expiresAt，这里同步兜底
-      if (typeof data?.expiresIn === 'number' && data.expiresIn > 0) {
-        newExpiresAt = Date.now() + data.expiresIn * 1000;
+      if (typeof resp?.expiresIn === 'number' && resp.expiresIn > 0) {
+        newExpiresAt = Date.now() + resp.expiresIn * 1000;
         tokenStore.setExpiresAt(newExpiresAt);
       }
       // D4: 广播 token 刷新成功事件到其它标签页

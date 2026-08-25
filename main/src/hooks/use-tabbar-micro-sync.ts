@@ -20,7 +20,8 @@ import { onTabClosed } from "@ydsz/stores";
 import { PATH_TO_APP_MAP } from "@ydsz/vite-config";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
-import type { MicroRuntime } from "#/bootstrap";
+/** MicroRuntime 实例类型（bootstrap 仅导出值，由此推导类型；避免依赖不存在的类型导出） */
+type MicroRuntime = (typeof import("#/bootstrap"))["microRuntime"];
 
 /** 模块级日志器 */
 const logger = createLogger("MultiTabSync");
