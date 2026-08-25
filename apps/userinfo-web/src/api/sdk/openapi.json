@@ -5891,6 +5891,51 @@
     },
     "description": "class SamlIdpDTO"
    },
+   "ScimUser": {
+    "type": "object",
+    "properties": {
+     "schemas": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "id": {
+      "type": "string"
+     },
+     "externalId": {
+      "type": "string"
+     },
+     "userName": {
+      "type": "string"
+     },
+     "name": {
+      "$ref": "#/components/schemas/ScimName"
+     },
+     "displayName": {
+      "type": "string"
+     },
+     "active": {
+      "type": "boolean"
+     },
+     "emails": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ScimEmail"
+      }
+     },
+     "phoneNumbers": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ScimPhone"
+      }
+     },
+     "meta": {
+      "$ref": "#/components/schemas/ScimMeta"
+     }
+    },
+    "description": "class ScimUser"
+   },
    "ScimName": {
     "type": "object",
     "properties": {
@@ -5950,51 +5995,6 @@
      }
     },
     "description": "class ScimMeta"
-   },
-   "ScimUser": {
-    "type": "object",
-    "properties": {
-     "schemas": {
-      "type": "array",
-      "items": {
-       "type": "string"
-      }
-     },
-     "id": {
-      "type": "string"
-     },
-     "externalId": {
-      "type": "string"
-     },
-     "userName": {
-      "type": "string"
-     },
-     "name": {
-      "$ref": "#/components/schemas/ScimName"
-     },
-     "displayName": {
-      "type": "string"
-     },
-     "active": {
-      "type": "boolean"
-     },
-     "emails": {
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/ScimEmail"
-      }
-     },
-     "phoneNumbers": {
-      "type": "array",
-      "items": {
-       "$ref": "#/components/schemas/ScimPhone"
-      }
-     },
-     "meta": {
-      "$ref": "#/components/schemas/ScimMeta"
-     }
-    },
-    "description": "class ScimUser"
    },
    "ScimPatchOp": {
     "type": "object",

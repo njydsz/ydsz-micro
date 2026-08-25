@@ -24,7 +24,9 @@ export default defineConfig({
     // 默认包含 src 和 comm 下的 spec/contract 测试文件
     include: ['**/*.spec.ts', '**/*.test.ts'],
     coverage: {
-      enabled: true,
+      // v4.3.0 修复：移除 enabled:true —— @vitest/coverage-v8 未安装，
+      // 开启 enabled 会导致任意 `vitest run` 直接报 MISSING DEPENDENCY。
+      // 覆盖率仅在显式 --coverage 时生效；子应用请使用各自包内的 vitest.config.ts。
       exclude: [
         '**/e2e/**',
         '**/node_modules/**',

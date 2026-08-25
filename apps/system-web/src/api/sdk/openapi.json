@@ -1,0 +1,2496 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ydsz-system",
+  "version": "1.0.0",
+  "description": "static contract extracted from ydsz-cloud system"
+ },
+ "paths": {
+  "/api/v1/app/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AppInfoPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/app/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/app": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AppInfoDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AppInfoDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/admin/audit/logs": {
+   "get": {
+    "operationId": "queryByTimeRange",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/audit/operator/{operatorId}": {
+   "get": {
+    "operationId": "queryByOperator",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/audit/action/{action}": {
+   "get": {
+    "operationId": "queryByAction",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/audit/trace/{traceId}": {
+   "get": {
+    "operationId": "queryByTraceId",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/admin/audit/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/config/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConfigPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/config/cursor": {
+   "get": {
+    "operationId": "pageByCursor",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/config/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/config": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConfigDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConfigDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/config/batch": {
+   "post": {
+    "operationId": "batchSave",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "batchDTO",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConfigBatchDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/config/key/{configKey}": {
+   "get": {
+    "operationId": "getByKey",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "configKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/config/group/{configGroup}": {
+   "get": {
+    "operationId": "getConfigsByGroup",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "configGroup",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/config/public": {
+   "get": {
+    "operationId": "listPublicConfigs",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/config/export": {
+   "get": {
+    "operationId": "exportConfigs",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/config/import": {
+   "post": {
+    "operationId": "importConfigs",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/config/version/{resourceKey}": {
+   "get": {
+    "operationId": "listByResourceKey",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "resourceKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/config/version/{resourceKey}/rollback": {
+   "post": {
+    "operationId": "rollback",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dict/type/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/type/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/type": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictTypeDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictTypeDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/type/all": {
+   "get": {
+    "operationId": "listAll",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dict/item/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictItemPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/item/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/item/lookup": {
+   "get": {
+    "operationId": "lookup",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dict/item/type/{typeCode}": {
+   "get": {
+    "operationId": "listByType",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "typeCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/item/children/{parentId}": {
+   "get": {
+    "operationId": "listChildren",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "parentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/item/tree/{typeCode}": {
+   "get": {
+    "operationId": "buildTree",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "typeCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/item": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictItemDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictItemDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/item/batch": {
+   "post": {
+    "operationId": "batchSave",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "batchDTO",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictItemBatchDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/version/{typeCode}": {
+   "get": {
+    "operationId": "listByTypeCode",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "typeCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/version/page": {
+   "get": {
+    "operationId": "pageByTypeCode",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/EntityVersionPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/dict/version/{typeCode}/rollback": {
+   "post": {
+    "operationId": "rollback",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/system/init": {
+   "get": {
+    "operationId": "init",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/system/init/dicts": {
+   "get": {
+    "operationId": "initWithDicts",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/config/get": {
+   "post": {
+    "operationId": "getConfig",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ConfigGetRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/dict/item": {
+   "post": {
+    "operationId": "getDictItem",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictItemGetRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/dict/list": {
+   "post": {
+    "operationId": "listDictItems",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DictListRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/app/validate": {
+   "post": {
+    "operationId": "validateClient",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AppValidateRequest"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TenantPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TenantDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TenantDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant-plan/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TenantPlanPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant-plan/list": {
+   "get": {
+    "operationId": "listAll",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/tenant-plan/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant-plan": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TenantPlanDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TenantPlanDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant-plan/{planId}/menus": {
+   "get": {
+    "operationId": "listMenus",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "planId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/tenant-plan/menus": {
+   "post": {
+    "operationId": "updateMenus",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TenantPlanMenuDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/variable/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/VariablePageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/variable/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "remove",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/variable/key/{variableKey}": {
+   "get": {
+    "operationId": "getByKey",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "variableKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/variable": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/VariableDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/VariableDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/variable/version/{resourceKey}": {
+   "get": {
+    "operationId": "listByResourceKey",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "resourceKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/variable/version/{resourceKey}/rollback": {
+   "post": {
+    "operationId": "rollback",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "YdszResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "code": {
+      "type": "string"
+     },
+     "msg": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object"
+     },
+     "traceId": {
+      "type": "object"
+     },
+     "requestId": {
+      "type": "object"
+     },
+     "spanId": {
+      "type": "object"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "extensions": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "RESOLVER": {
+      "type": "object"
+     }
+    },
+    "description": "class YdszResponse"
+   },
+   "AppInfoPageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "appName": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class AppInfoPageQuery"
+   },
+   "AppInfoDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "appCode": {
+      "type": "string"
+     },
+     "appName": {
+      "type": "string"
+     },
+     "appKey": {
+      "type": "string"
+     },
+     "appSecret": {
+      "type": "string"
+     },
+     "redirectUrl": {
+      "type": "string"
+     },
+     "scopes": {
+      "type": "string"
+     },
+     "boundIps": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class AppInfoDTO"
+   },
+   "ConfigPageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "configGroup": {
+      "type": "string"
+     },
+     "configKey": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class ConfigPageQuery"
+   },
+   "ConfigDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "configGroup": {
+      "type": "string"
+     },
+     "configKey": {
+      "type": "string"
+     },
+     "configValue": {
+      "type": "string"
+     },
+     "valueType": {
+      "type": "string"
+     },
+     "defaultValue": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "isPublic": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class ConfigDTO"
+   },
+   "ConfigBatchDTO": {
+    "type": "object",
+    "properties": {
+     "items": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ConfigVO"
+      }
+     }
+    },
+    "description": "class ConfigBatchDTO"
+   },
+   "ConfigVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "configGroup": {
+      "type": "string"
+     },
+     "configKey": {
+      "type": "string"
+     },
+     "configValue": {
+      "type": "string"
+     },
+     "valueType": {
+      "type": "string"
+     },
+     "defaultValue": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "isPublic": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class ConfigVO"
+   },
+   "DictPageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "typeCode": {
+      "type": "string"
+     },
+     "typeName": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class DictPageQuery"
+   },
+   "DictTypeDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "typeCode": {
+      "type": "string"
+     },
+     "typeName": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class DictTypeDTO"
+   },
+   "DictItemPageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "typeCode": {
+      "type": "string"
+     },
+     "itemCode": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class DictItemPageQuery"
+   },
+   "DictItemDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "parentId": {
+      "type": "string"
+     },
+     "typeCode": {
+      "type": "string"
+     },
+     "itemCode": {
+      "type": "string"
+     },
+     "itemValue": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "description": {
+      "type": "string"
+     },
+     "extJson": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class DictItemDTO"
+   },
+   "DictItemBatchDTO": {
+    "type": "object",
+    "properties": {
+     "items": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/DictItemVO"
+      }
+     }
+    },
+    "description": "class DictItemBatchDTO"
+   },
+   "DictItemVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "parentId": {
+      "type": "string"
+     },
+     "children": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/DictItemVO"
+      }
+     },
+     "level": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "path": {
+      "type": "string"
+     },
+     "typeCode": {
+      "type": "string"
+     },
+     "itemCode": {
+      "type": "string"
+     },
+     "itemValue": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "description": {
+      "type": "string"
+     },
+     "extJson": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class DictItemVO"
+   },
+   "EntityVersionPageQuery": {
+    "type": "object",
+    "properties": {
+     "resourceType": {
+      "type": "string"
+     },
+     "resourceKey": {
+      "type": "string"
+     },
+     "pageNum": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "DEFAULT_PAGE_SIZE": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class EntityVersionPageQuery"
+   },
+   "ConfigGetRequest": {
+    "type": "object",
+    "properties": {
+     "key": {
+      "type": "string"
+     }
+    },
+    "description": "class ConfigGetRequest"
+   },
+   "DictItemGetRequest": {
+    "type": "object",
+    "properties": {
+     "typeCode": {
+      "type": "string"
+     },
+     "itemCode": {
+      "type": "string"
+     }
+    },
+    "description": "class DictItemGetRequest"
+   },
+   "DictListRequest": {
+    "type": "object",
+    "properties": {
+     "typeCode": {
+      "type": "string"
+     }
+    },
+    "description": "class DictListRequest"
+   },
+   "AppValidateRequest": {
+    "type": "object",
+    "properties": {
+     "appKey": {
+      "type": "string"
+     },
+     "appSecret": {
+      "type": "string"
+     }
+    },
+    "description": "class AppValidateRequest"
+   },
+   "TenantPageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "tenantName": {
+      "type": "string"
+     },
+     "tenantCode": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class TenantPageQuery"
+   },
+   "TenantDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "tenantCode": {
+      "type": "string"
+     },
+     "tenantName": {
+      "type": "string"
+     },
+     "contactName": {
+      "type": "string"
+     },
+     "contactPhone": {
+      "type": "string"
+     },
+     "contactEmail": {
+      "type": "string"
+     },
+     "planId": {
+      "type": "string"
+     },
+     "expireAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "datasourceKey": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "remark": {
+      "type": "string"
+     }
+    },
+    "description": "class TenantDTO"
+   },
+   "TenantPlanPageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "planName": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class TenantPlanPageQuery"
+   },
+   "TenantPlanDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "planCode": {
+      "type": "string"
+     },
+     "planName": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "quotaJson": {
+      "type": "string"
+     },
+     "featureJson": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class TenantPlanDTO"
+   },
+   "TenantPlanMenuDTO": {
+    "type": "object",
+    "properties": {
+     "planId": {
+      "type": "string"
+     },
+     "menuIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "description": "class TenantPlanMenuDTO"
+   },
+   "VariablePageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "variableKey": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class VariablePageQuery"
+   },
+   "VariableDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "variableKey": {
+      "type": "string"
+     },
+     "variableValue": {
+      "type": "string"
+     },
+     "valueType": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "class VariableDTO"
+   }
+  }
+ }
+}

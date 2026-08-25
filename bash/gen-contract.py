@@ -149,7 +149,9 @@ class JavaTypeRef:
         return self.raw
 
 
-def parse_type(raw: str) -> Optional[JavaTypeRef]:
+def parse_type(raw: str, _depth: int = 0) -> Optional[JavaTypeRef]:
+    if _depth > 12:
+        return None
     raw = raw.strip()
     # 去掉数组后缀
     is_array = raw.endswith("[]")
@@ -160,7 +162,11 @@ def parse_type(raw: str) -> Optional[JavaTypeRef]:
     if m:
         outer = m.group(1).strip()
         inner_raw = split_top_level(m.group(2))
-        args = [parse_type(x) for x in inner_raw if parse_type(x)]
+        args = []
+        for x in inner_raw:
+            r = parse_type(x, _depth + 1)
+            if r:
+                args.append(r)
         ref = JavaTypeRef(outer, args)
     else:
         ref = JavaTypeRef(raw)
@@ -345,10 +351,11 @@ class SchemaBuilder:
         src = JavaSource.load(name, owner.pkg if owner else None)
         if src and src.is_enum:
             return {"type": "string", "enum": src.enum_values, "description": f"枚举 {name}"}
-        # 自定义类 -> $ref
+        # 自定义类 -> $ref（先占位防循环引用）
         if src:
             ref_name = name
             if ref_name not in self.components:
+                self.components[ref_name] = {"type": "object", "description": f"building {ref_name}"}
                 self.components[ref_name] = self._build_object_schema(src)
             return {"$ref": f"#/components/schemas/{ref_name}"}
         # 未知 -> object

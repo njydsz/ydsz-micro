@@ -33,17 +33,8 @@ function dispatchBeforeEvict(appName: string): boolean {
 
 /** 获取动态内存阈值：堆大小限制的 80%，不可用时回退到 defaultMB（默认 500MB） */
 function getDynamicMemoryThreshold(defaultMB = 500): number {
-  const perf = (
-    window as unknown as {
-      performance?: {
-        memory?: {
-          jsHeapSizeLimit?: number;
-          usedJSHeapSize?: number;
-        };
-      };
-    }
-  ).performance;
-  const limit = perf?.memory?.jsHeapSizeLimit;
+  const mem = getJsHeapInfo();
+  const limit = mem?.jsHeapSizeLimit;
   if (limit && limit > 0) {
     return (limit / 1024 / 1024) * 0.8;
   }
@@ -57,15 +48,47 @@ function getDynamicMemoryThreshold(defaultMB = 500): number {
  * - 堆占用 > 90%：上限降至 1
  * - 堆占用 > 70%：上限降至 3
  * - 其余：保持配置值
+ *
+ * v4.3.0: 移除 (window as any)，统一走 getJsHeapInfo() 未知类型访问；
+ * 非 Chromium（无 performance.memory）时回退到配置上限（纯计数 LRU）。
  */
 function getAdaptiveMaxKeepAlive(): number {
   const base = getContext().maxKeepAliveApps;
-  const mem = (window as any)?.performance?.memory;
+  const mem = getJsHeapInfo();
   if (!mem || mem.jsHeapSizeLimit <= 0) return base;
   const ratio = mem.usedJSHeapSize / mem.jsHeapSizeLimit;
   if (ratio > 0.9) return Math.min(base, 1);
   if (ratio > 0.7) return Math.min(base, 3);
   return base;
+}
+
+/**
+ * v4.3.0: 安全读取 performance.memory（非标准 Chromium API）。
+ *
+ * 返回 null 表示环境不支持（Safari / Firefox / 未启用），调用方应退化为
+ * 计数启发式（保活实例数量）而非静默跳过。
+ */
+function getJsHeapInfo(): {
+  jsHeapSizeLimit?: number;
+  usedJSHeapSize?: number;
+} | null {
+  try {
+    const perf = (
+      window as unknown as {
+        performance?: {
+          memory?: { jsHeapSizeLimit?: number; usedJSHeapSize?: number };
+        };
+      }
+    ).performance;
+    const memory = perf?.memory;
+    if (!memory) return null;
+    return {
+      jsHeapSizeLimit: memory.jsHeapSizeLimit,
+      usedJSHeapSize: memory.usedJSHeapSize,
+    };
+  } catch {
+    return null;
+  }
 }
 
 // ==================== LRU 淘汰核心逻辑 ====================
@@ -213,26 +236,44 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
  * 内存压力下强制卸载所有非活跃保活实例（使用动态阈值，默认 jsHeapSizeLimit 的 80%）。
  * 淘汰前派发 before-evict 事件（v4.1 P0-A2: strategy.cleanup() 清理沙箱）。
  *
+ * v4.3.0 降级路径：非 Chromium（无 performance.memory）时退化为计数启发式 ——
+ * 保活实例数超过自适应上限则触发淘汰，避免内存压力调度在 Safari/Firefox 下完全失效。
+ *
  * @param thresholdMB - 内存阈值（MB），默认使用动态阈值
  */
 export async function evictAllKeepAliveOnMemoryPressure(
   thresholdMB?: number,
 ): Promise<void> {
   const effectiveThreshold = thresholdMB ?? getDynamicMemoryThreshold();
-  const performance = (
-    window as unknown as {
-      performance?: { memory?: { usedJSHeapSize: number } };
-    }
-  ).performance;
-  const usedMB = performance?.memory
-    ? performance.memory.usedJSHeapSize / 1024 / 1024
+  const memory = getJsHeapInfo();
+  const usedMB = memory?.usedJSHeapSize
+    ? memory.usedJSHeapSize / 1024 / 1024
     : 0;
 
-  if (usedMB < effectiveThreshold) return;
-
-  logger.warn(
-    `Memory pressure detected (${usedMB.toFixed(0)}MB > ${effectiveThreshold.toFixed(0)}MB), evicting all keep-alive instances`,
-  );
+  if (usedMB > 0) {
+    // Chromium 路径：按 JS 堆占用判定
+    if (usedMB < effectiveThreshold) return;
+    logger.warn(
+      `Memory pressure detected (${usedMB.toFixed(0)}MB > ${effectiveThreshold.toFixed(0)}MB), evicting all keep-alive instances`,
+    );
+  } else {
+    // 非 Chromium 降级路径：无 memory API，按保活实例数量判定
+    const max = getAdaptiveMaxKeepAlive();
+    let keepAliveCount = 0;
+    for (const instance of getContext().appInstances.values()) {
+      if (
+        instance.keepAlive &&
+        instance.status === "UNMOUNTED" &&
+        instance.cachedRoot
+      ) {
+        keepAliveCount++;
+      }
+    }
+    if (keepAliveCount <= max) return;
+    logger.warn(
+      `Memory API unavailable; count-based fallback (${keepAliveCount} keep-alive > ${max}), evicting idle instances`,
+    );
+  }
 
   for (const instance of getContext().appInstances.values()) {
     if (

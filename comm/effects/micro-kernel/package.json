@@ -9,8 +9,12 @@
       "default": "./src/index.ts"
     }
   },
-  "scripts": {},
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
   "dependencies": {
+    "@YDSZ-core/composables": "workspace:*",
     "@YDSZ-core/shared": "workspace:*",
     "@ydsz/micro-runtime": "workspace:*",
     "vue": "catalog:"
