@@ -122,7 +122,7 @@ export class FormApi {
 
   private componentRefMap: Map<string, unknown> = new Map();
 
-  private latestSubmissionValues: null | Recordable<any> = null;
+  private latestSubmissionValues: null | Recordable<unknown> = null;
 
   private prevState: null | YDSZFormProps = null;
 
@@ -161,7 +161,7 @@ export class FormApi {
    * @param fieldName 字段名
    * @returns 组件实例
    */
-  getFieldComponentRef<T = any>(fieldName: string): T | undefined {
+  getFieldComponentRef<T = unknown>(fieldName: string): T | undefined {
     return this.scrollHelper.getFieldComponentRef<T>(fieldName);
   }
 
@@ -180,7 +180,7 @@ export class FormApi {
     return this.state;
   }
 
-  async getValues<T = Recordable<any>>() {
+  async getValues<T = Recordable<unknown>>() {
     const form = await this.getForm();
     return (form.values ? this.valueTransformer.handleRangeTimeValue(form.values) : {}) as T;
   }
@@ -193,7 +193,8 @@ export class FormApi {
   merge(formApi: FormApi) {
     const chain = [this, formApi];
     const proxy = new Proxy(formApi, {
-      get(target: any, prop: any) {
+      // Proxy 拦截器回调：target 收窄为 FormApi，prop 为 PropertyKey（消除 any）
+      get(target: FormApi, prop: PropertyKey) {
         if (prop === 'merge') {
           return (nextFormApi: FormApi) => {
             chain.push(nextFormApi);
@@ -281,16 +282,16 @@ export class FormApi {
    * 滚动到第一个错误字段
    * @param errors 验证错误对象
    */
-  scrollToFirstError(errors: Record<string, any> | string) {
+  scrollToFirstError(errors: Record<string, unknown> | string) {
     this.scrollHelper.scrollToFirstError(errors);
   }
 
-  async setFieldValue(field: string, value: any, shouldValidate?: boolean) {
+  async setFieldValue(field: string, value: unknown, shouldValidate?: boolean) {
     const form = await this.getForm();
     form.setFieldValue(field, value, shouldValidate);
   }
 
-  setLatestSubmissionValues(values: null | Recordable<any>) {
+  setLatestSubmissionValues(values: null | Recordable<unknown>) {
     this.latestSubmissionValues = { ...toRaw(values) };
   }
 
@@ -315,7 +316,7 @@ export class FormApi {
    * @param shouldValidate
    */
   async setValues(
-    fields: Record<string, any>,
+    fields: Record<string, unknown>,
     filterFields: boolean = true,
     shouldValidate: boolean = false,
   ) {
@@ -375,7 +376,7 @@ export class FormApi {
     }
     const currentSchema = [...(this.state?.schema ?? [])];
 
-    const updatedMap: Record<string, any> = {};
+    const updatedMap: Record<string, unknown> = {};
 
     updated.forEach((item) => {
       if (item.fieldName) {

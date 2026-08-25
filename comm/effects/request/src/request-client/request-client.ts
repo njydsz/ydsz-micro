@@ -143,10 +143,13 @@ class RequestClient {
 
   /**
    * POST请求方法
+   *
+   * data 保留为 unknown：调用方直接传入业务 DTO（interface 无索引签名），
+   * 不可固定为 Record<string, unknown> 以免 TS 报类型不兼容；底层交给 axios 序列化。
    */
   public post<T = unknown>(
     url: string,
-    data?: Record<string, unknown>,
+    data?: unknown,
     config?: RequestClientConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: 'POST' });
@@ -154,10 +157,12 @@ class RequestClient {
 
   /**
    * PUT请求方法
+   *
+   * 同 post：请求体放宽为 unknown，兼容业务 DTO 直传。
    */
   public put<T = unknown>(
     url: string,
-    data?: Record<string, unknown>,
+    data?: unknown,
     config?: RequestClientConfig,
   ): Promise<T> {
     return this.request<T>(url, { ...config, data, method: 'PUT' });

@@ -94,7 +94,7 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
 
       // Symbol.toPrimitive 等特殊符号
       if (typeof prop === 'symbol') {
-        return (rawWindow as any)[prop];
+        return Reflect.get(rawWindow, prop);
       }
 
       // 优先从 fakeWindow 读取（子应用修改过的）
@@ -103,7 +103,7 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
       }
 
       // 否则从真实 window 读取
-      const value = (rawWindow as any)[prop];
+      const value = Reflect.get(rawWindow, prop);
 
       // 函数需要绑定到真实 window（如 alert、confirm 等）
       if (typeof value === 'function' && !value.prototype?.constructor) {
@@ -133,7 +133,7 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
 
     has(target, prop) {
       // in 操作符：先检查 fakeWindow，再检查真实 window
-      return prop in target || prop in (rawWindow as any);
+      return prop in target || Reflect.has(rawWindow, prop);
     },
 
     deleteProperty(target, prop) {

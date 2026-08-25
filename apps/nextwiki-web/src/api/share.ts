@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { ShareAccessLogVO, ShareLinkVO, ShareRecipientVO } from './models';
 
 /**
@@ -33,7 +32,7 @@ export function verifyAccess(params: {
 /**
  * revoke: DELETE /api/v1/nextwiki/shares/{shareId}
  */
-export function revoke(path: {
+export function revoke({ shareId }: {
     shareId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/nextwiki/shares/${shareId}`);
@@ -49,7 +48,7 @@ export function myShares(): Promise<ShareLinkVO[]> {
 /**
  * getAccessLogs: GET /api/v1/nextwiki/shares/{shareId}/logs
  */
-export function getAccessLogs(path: {
+export function getAccessLogs({ shareId }: {
     shareId: string;
   }, params: {
     limit?: number;
@@ -60,7 +59,7 @@ export function getAccessLogs(path: {
 /**
  * getRecipients: GET /api/v1/nextwiki/shares/{shareId}/recipients
  */
-export function getRecipients(path: {
+export function getRecipients({ shareId }: {
     shareId: string;
   }): Promise<ShareRecipientVO[]> {
   return requestClient.get<ShareRecipientVO[]>(`/api/v1/nextwiki/shares/${shareId}/recipients`);

@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * downloadFolder: POST /api/v1/nextwiki/download/folder/{folderId}
  */
-export function downloadFolder(path: {
+export function downloadFolder({ folderId }: {
     folderId: string;
   }, params: {
     response?: Record<string, unknown>;
@@ -28,7 +27,7 @@ export function downloadFolder(path: {
 /**
  * download: POST /api/v1/nextwiki/download/{nodeId}
  */
-export function download(path: {
+export function download({ nodeId }: {
     nodeId: string;
   }, params: {
     request?: Record<string, unknown>;
@@ -40,7 +39,7 @@ export function download(path: {
 /**
  * generateSignedUrl: POST /api/v1/nextwiki/download/{nodeId}/signed-url
  */
-export function generateSignedUrl(path: {
+export function generateSignedUrl({ nodeId }: {
     nodeId: string;
   }, params: {
     request?: Record<string, unknown>;
@@ -51,7 +50,7 @@ export function generateSignedUrl(path: {
 /**
  * downloadBySignedUrl: GET /api/v1/nextwiki/download/signed/{sign}
  */
-export function downloadBySignedUrl(path: {
+export function downloadBySignedUrl({ sign }: {
     sign: string;
   }, params: {
     expires?: number;

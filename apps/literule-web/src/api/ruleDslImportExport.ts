@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * importDsl: POST /api/v1/literule/dsl/import
@@ -33,7 +32,7 @@ export function exportAll(params: {
 /**
  * exportSingle: GET /api/v1/literule/dsl/export/{ruleCode}
  */
-export function exportSingle(path: {
+export function exportSingle({ ruleCode }: {
     ruleCode: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/literule/dsl/export/${ruleCode}`);

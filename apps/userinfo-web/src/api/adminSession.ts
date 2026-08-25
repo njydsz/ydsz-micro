@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { BanInfoVO, UserBanRequestDTO, UserSessionStatistics, UserSessionVO } from './models';
 
 /**
  * banUser: POST /api/v1/admin/users/{userId}/ban
  */
-export function banUser(path: {
+export function banUser({ userId }: {
     userId: string;
   }, data: UserBanRequestDTO): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/admin/users/${userId}/ban`, data);
@@ -26,7 +25,7 @@ export function banUser(path: {
 /**
  * unbanUser: POST /api/v1/admin/users/{userId}/unban
  */
-export function unbanUser(path: {
+export function unbanUser({ userId }: {
     userId: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/admin/users/${userId}/unban`);
@@ -35,7 +34,7 @@ export function unbanUser(path: {
 /**
  * getBanInfo: GET /api/v1/admin/users/{userId}/ban-info
  */
-export function getBanInfo(path: {
+export function getBanInfo({ userId }: {
     userId: string;
   }): Promise<BanInfoVO> {
   return requestClient.get<BanInfoVO>(`/api/v1/admin/users/${userId}/ban-info`);
@@ -44,7 +43,7 @@ export function getBanInfo(path: {
 /**
  * getUserSessions: GET /api/v1/admin/users/{userId}/sessions
  */
-export function getUserSessions(path: {
+export function getUserSessions({ userId }: {
     userId: string;
   }): Promise<UserSessionVO[]> {
   return requestClient.get<UserSessionVO[]>(`/api/v1/admin/users/${userId}/sessions`);
@@ -53,7 +52,7 @@ export function getUserSessions(path: {
 /**
  * forceLogout: DELETE /api/v1/admin/users/{userId}/sessions/{accessToken}
  */
-export function forceLogout(path: {
+export function forceLogout({ userId, accessToken }: {
     userId: string;
     accessToken: string;
   }): Promise<boolean> {

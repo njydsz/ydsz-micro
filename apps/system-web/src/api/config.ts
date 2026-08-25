@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { ConfigBatchDTO, ConfigDTO, ConfigPageQuery, ConfigVO, CursorPageResponse, ImportResult, PageResponse } from './models';
 
 /**
@@ -38,10 +37,10 @@ export function pageByCursor(params: {
 /**
  * getById: GET /api/v1/config/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<ConfigVO> {
-  return requestClient.get<ConfigVO>(`/api/v1/config/${id}`);
+  return requestClient.get<ConfigVO>(`/api/v1/config/$${id}`);
 }
 
 /**
@@ -61,10 +60,10 @@ export function update(data: ConfigDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/config/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/config/${id}`);
+  return requestClient.delete<boolean>(`/api/v1/config/$${id}`);
 }
 
 /**
@@ -77,19 +76,19 @@ export function batchSave(data: ConfigBatchDTO): Promise<unknown> {
 /**
  * getByKey: GET /api/v1/config/key/{configKey}
  */
-export function getByKey(path: {
+export function getByKey({ configKey }: {
     configKey: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/v1/config/key/${configKey}`);
+  return requestClient.get<string>(`/api/v1/config/key/$${configKey}`);
 }
 
 /**
  * getConfigsByGroup: GET /api/v1/config/group/{configGroup}
  */
-export function getConfigsByGroup(path: {
+export function getConfigsByGroup({ configGroup }: {
     configGroup: string;
   }): Promise<ConfigVO[]> {
-  return requestClient.get<ConfigVO[]>(`/api/v1/config/group/${configGroup}`);
+  return requestClient.get<ConfigVO[]>(`/api/v1/config/group/$${configGroup}`);
 }
 
 /**

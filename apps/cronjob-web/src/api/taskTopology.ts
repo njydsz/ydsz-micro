@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { JobLogVO } from './models';
 
 /**
  * getDagInstanceTopology: GET /api/v1/cronjob/topology/dagInstance/{dagInstanceId}
  */
-export function getDagInstanceTopology(path: {
+export function getDagInstanceTopology({ dagInstanceId }: {
     dagInstanceId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/cronjob/topology/dagInstance/${dagInstanceId}`);
@@ -26,7 +25,7 @@ export function getDagInstanceTopology(path: {
 /**
  * getDagInstanceCytoscape: GET /api/v1/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape
  */
-export function getDagInstanceCytoscape(path: {
+export function getDagInstanceCytoscape({ dagInstanceId }: {
     dagInstanceId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/cronjob/topology/dagInstance/${dagInstanceId}/cytoscape`);
@@ -35,7 +34,7 @@ export function getDagInstanceCytoscape(path: {
 /**
  * getJobExecutionHistory: GET /api/v1/cronjob/topology/jobHistory/{jobKey}
  */
-export function getJobExecutionHistory(path: {
+export function getJobExecutionHistory({ jobKey }: {
     jobKey: string;
   }): Promise<JobLogVO[]> {
   return requestClient.get<JobLogVO[]>(`/api/v1/cronjob/topology/jobHistory/${jobKey}`);

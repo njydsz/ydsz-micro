@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { createSharedAuthStore } from '@ydsz/shared-auth';
+import { createSharedAuthStore } from '@ydsz/shared-auth';
 
 /** 当前子应用的认证 Store 实例（共享登录 / 刷新 / 登出逻辑）。 */
 const useAuthStore = createSharedAuthStore();

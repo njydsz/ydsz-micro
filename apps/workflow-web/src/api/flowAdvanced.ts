@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { StringVO } from './models';
 
 /**
@@ -54,7 +53,7 @@ export function merge(params: {
 /**
  * getMergeGroup: GET /api/v1/workflow/advanced/merge/{mergeGroupId}
  */
-export function getMergeGroup(path: {
+export function getMergeGroup({ mergeGroupId }: {
     mergeGroupId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/advanced/merge/${mergeGroupId}`);
@@ -63,7 +62,7 @@ export function getMergeGroup(path: {
 /**
  * mergePass: POST /api/v1/workflow/advanced/merge/{mergeGroupId}/pass
  */
-export function mergePass(path: {
+export function mergePass({ mergeGroupId }: {
     mergeGroupId: string;
   }, params: {
     comment?: string;
@@ -74,7 +73,7 @@ export function mergePass(path: {
 /**
  * mergeReject: POST /api/v1/workflow/advanced/merge/{mergeGroupId}/reject
  */
-export function mergeReject(path: {
+export function mergeReject({ mergeGroupId }: {
     mergeGroupId: string;
   }, params: {
     comment?: string;
@@ -92,7 +91,7 @@ export function mergeable(): Promise<Record<string, unknown>[]> {
 /**
  * updateVotePassRate: POST /api/v1/workflow/advanced/countersign/{taskId}/votePassRate
  */
-export function updateVotePassRate(path: {
+export function updateVotePassRate({ taskId }: {
     taskId: string;
   }, params: {
     votePassRate?: number;
@@ -103,7 +102,7 @@ export function updateVotePassRate(path: {
 /**
  * updateApproveCount: POST /api/v1/workflow/advanced/countersign/{taskId}/approveCount
  */
-export function updateApproveCount(path: {
+export function updateApproveCount({ taskId }: {
     taskId: string;
   }, params: {
     approveCount?: number;
@@ -114,7 +113,7 @@ export function updateApproveCount(path: {
 /**
  * hasApproved: GET /api/v1/workflow/advanced/dedup/{instanceId}/check/{userId}
  */
-export function hasApproved(path: {
+export function hasApproved({ instanceId, userId }: {
     instanceId: string;
     userId: string;
   }): Promise<boolean> {
@@ -124,7 +123,7 @@ export function hasApproved(path: {
 /**
  * approvedUsers: GET /api/v1/workflow/advanced/dedup/{instanceId}/approvedUsers
  */
-export function approvedUsers(path: {
+export function approvedUsers({ instanceId }: {
     instanceId: string;
   }): Promise<StringVO[]> {
   return requestClient.get<StringVO[]>(`/api/v1/workflow/advanced/dedup/${instanceId}/approvedUsers`);
@@ -133,7 +132,7 @@ export function approvedUsers(path: {
 /**
  * urgeCooldown: GET /api/v1/workflow/advanced/urge/cooldown/{instanceId}
  */
-export function urgeCooldown(path: {
+export function urgeCooldown({ instanceId }: {
     instanceId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/advanced/urge/cooldown/${instanceId}`);

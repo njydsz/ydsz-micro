@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FileNodeVO } from './models';
 
 /**
@@ -29,7 +28,7 @@ export function initChunkUpload(params: {
 /**
  * uploadChunk: POST /api/v1/nextwiki/files/chunk/{uploadId}/{chunkNumber}
  */
-export function uploadChunk(path: {
+export function uploadChunk({ uploadId, chunkNumber }: {
     uploadId: string;
     chunkNumber: number;
   }, params: {
@@ -41,7 +40,7 @@ export function uploadChunk(path: {
 /**
  * completeChunkUpload: POST /api/v1/nextwiki/files/chunk/{uploadId}/complete
  */
-export function completeChunkUpload(path: {
+export function completeChunkUpload({ uploadId }: {
     uploadId: string;
   }): Promise<FileNodeVO> {
   return requestClient.post<FileNodeVO>(`/api/v1/nextwiki/files/chunk/${uploadId}/complete`);
@@ -50,7 +49,7 @@ export function completeChunkUpload(path: {
 /**
  * abortChunkUpload: DELETE /api/v1/nextwiki/files/chunk/{uploadId}
  */
-export function abortChunkUpload(path: {
+export function abortChunkUpload({ uploadId }: {
     uploadId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/nextwiki/files/chunk/${uploadId}`);
@@ -59,7 +58,7 @@ export function abortChunkUpload(path: {
 /**
  * getUploadedChunks: GET /api/v1/nextwiki/files/chunk/{uploadId}/uploaded-chunks
  */
-export function getUploadedChunks(path: {
+export function getUploadedChunks({ uploadId }: {
     uploadId: string;
   }): Promise<number[]> {
   return requestClient.get<number[]>(`/api/v1/nextwiki/files/chunk/${uploadId}/uploaded-chunks`);

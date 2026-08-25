@@ -8,21 +8,6 @@
  */
 export * from './core';
 export { requestClient, baseRequestClient } from './request';
-export * from './alert';
-export * from './connector';
-export * from './dagInstanceControl';
-export * from './glueCode';
-export * from './internalJob';
-export * from './job';
-export * from './jobDag';
 export * from './jobDagInstance';
-export * from './jobDiagnosis';
-export * from './jobGroup';
-export * from './jobHistory';
-export * from './jobQueue';
-export * from './jobStats';
-export * from './jobTask';
-export * from './jobWebhook';
 export * from './scheduleCalendar';
-export * from './taskTopology';
 export * from './models';

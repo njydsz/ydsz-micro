@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { AuditLog } from './models';
 
 /**
@@ -29,41 +28,41 @@ export function queryByTimeRange(params: {
 /**
  * queryByOperator: GET /api/v1/admin/audit/operator/{operatorId}
  */
-export function queryByOperator(path: {
+export function queryByOperator({ operatorId }: {
     operatorId: string;
   }, params: {
     page?: number;
     size?: number;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/operator/${operatorId}`, { params });
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/operator/$${operatorId}`, { params });
 }
 
 /**
  * queryByAction: GET /api/v1/admin/audit/action/{action}
  */
-export function queryByAction(path: {
+export function queryByAction({ action }: {
     action: number;
   }, params: {
     page?: number;
     size?: number;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/action/${action}`, { params });
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/action/$${action}`, { params });
 }
 
 /**
  * queryByTraceId: GET /api/v1/admin/audit/trace/{traceId}
  */
-export function queryByTraceId(path: {
+export function queryByTraceId({ traceId }: {
     traceId: string;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/trace/${traceId}`);
+  return requestClient.get<AuditLog[]>(`/api/v1/admin/audit/trace/$${traceId}`);
 }
 
 /**
  * getById: GET /api/v1/admin/audit/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<AuditLog> {
-  return requestClient.get<AuditLog>(`/api/v1/admin/audit/${id}`);
+  return requestClient.get<AuditLog>(`/api/v1/admin/audit/$${id}`);
 }

@@ -11,90 +11,89 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { ScimPatchOp, ScimUser } from './models';
 
 /**
- * listUsers: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Users
+ * listUsers: GET /scim/v2/Users
  */
 export function listUsers(params: {
     startIndex?: number;
     count?: number;
     filter?: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users`, { params });
+  return requestClient.get<unknown>(`/scim/v2/Users`, { params });
 }
 
 /**
- * getUser: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
+ * getUser: GET /scim/v2/Users/{id}
  */
-export function getUser(path: {
+export function getUser({ id }: {
     id: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`);
+  return requestClient.get<unknown>(`/scim/v2/Users/${id}`);
 }
 
 /**
- * createUser: POST /${ydsz.userinfo.scim.base-path:/scim/v2}/Users
+ * createUser: POST /scim/v2/Users
  */
 export function createUser(data: ScimUser): Promise<unknown> {
-  return requestClient.post<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users`, data);
+  return requestClient.post<unknown>(`/scim/v2/Users`, data);
 }
 
 /**
- * updateUser: PUT /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
+ * updateUser: PUT /scim/v2/Users/{id}
  */
-export function updateUser(path: {
+export function updateUser({ id }: {
     id: string;
   }, data: ScimUser): Promise<unknown> {
-  return requestClient.put<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`, data);
+  return requestClient.put<unknown>(`/scim/v2/Users/${id}`, data);
 }
 
 /**
- * patchUser: PATCH /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
+ * patchUser: PATCH /scim/v2/Users/{id}
  */
-export function patchUser(path: {
+export function patchUser({ id }: {
     id: string;
   }, data: ScimPatchOp): Promise<unknown> {
-  return requestClient.patch<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`, data);
+  return requestClient.patch<unknown>(`/scim/v2/Users/${id}`, data);
 }
 
 /**
- * deleteUser: DELETE /${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}
+ * deleteUser: DELETE /scim/v2/Users/{id}
  */
-export function deleteUser(path: {
+export function deleteUser({ id }: {
     id: string;
   }): Promise<unknown> {
-  return requestClient.delete<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/${id}`);
+  return requestClient.delete<unknown>(`/scim/v2/Users/${id}`);
 }
 
 /**
- * listGroups: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Groups
+ * listGroups: GET /scim/v2/Groups
  */
 export function listGroups(params: {
     startIndex?: number;
     count?: number;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Groups`, { params });
+  return requestClient.get<unknown>(`/scim/v2/Groups`, { params });
 }
 
 /**
- * getServiceProviderConfig: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig
+ * getServiceProviderConfig: GET /scim/v2/ServiceProviderConfig
  */
 export function getServiceProviderConfig(): Promise<unknown> {
-  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig`);
+  return requestClient.get<unknown>(`/scim/v2/ServiceProviderConfig`);
 }
 
 /**
- * getResourceTypes: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/ResourceTypes
+ * getResourceTypes: GET /scim/v2/ResourceTypes
  */
 export function getResourceTypes(): Promise<unknown> {
-  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/ResourceTypes`);
+  return requestClient.get<unknown>(`/scim/v2/ResourceTypes`);
 }
 
 /**
- * getSchemas: GET /${ydsz.userinfo.scim.base-path:/scim/v2}/Schemas
+ * getSchemas: GET /scim/v2/Schemas
  */
 export function getSchemas(): Promise<unknown> {
-  return requestClient.get<unknown>(`/${ydsz.userinfo.scim.base-path:/scim/v2}/Schemas`);
+  return requestClient.get<unknown>(`/scim/v2/Schemas`);
 }

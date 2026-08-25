@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { RuleABPolicyPutDTO, RuleABPolicyVO, RuleABRollbackVO } from './models';
 
 /**
  * getABPolicy: GET /api/v1/literule/rules/{ruleCode}/ab-policy
  */
-export function getABPolicy(path: {
+export function getAbPolicy({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleABPolicyVO> {
   return requestClient.get<RuleABPolicyVO>(`/api/v1/literule/rules/${ruleCode}/ab-policy`);
@@ -26,7 +25,7 @@ export function getABPolicy(path: {
 /**
  * updateABPolicy: PUT /api/v1/literule/rules/{ruleCode}/ab-policy
  */
-export function updateABPolicy(path: {
+export function updateAbPolicy({ ruleCode }: {
     ruleCode: string;
   }, data: RuleABPolicyPutDTO): Promise<void> {
   return requestClient.put<void>(`/api/v1/literule/rules/${ruleCode}/ab-policy`, data);
@@ -35,7 +34,7 @@ export function updateABPolicy(path: {
 /**
  * listRollbackHistory: GET /api/v1/literule/rules/{ruleCode}/ab-rollbacks
  */
-export function listRollbackHistory(path: {
+export function listRollbackHistory({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleABRollbackVO[]> {
   return requestClient.get<RuleABRollbackVO[]>(`/api/v1/literule/rules/${ruleCode}/ab-rollbacks`);
@@ -44,7 +43,7 @@ export function listRollbackHistory(path: {
 /**
  * evaluateAB: POST /api/v1/literule/rules/{ruleCode}/ab-evaluate
  */
-export function evaluateAB(path: {
+export function evaluateAb({ ruleCode }: {
     ruleCode: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/literule/rules/${ruleCode}/ab-evaluate`);
@@ -53,7 +52,7 @@ export function evaluateAB(path: {
 /**
  * manualRollback: POST /api/v1/literule/rules/{ruleCode}/ab-rollback
  */
-export function manualRollback(path: {
+export function manualRollback({ ruleCode }: {
     ruleCode: string;
   }, params: {
     reason?: string;

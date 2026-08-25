@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MsgTemplateVO, PageResponse, TemplateAuditDTO, TemplateCreateDTO, TemplateQueryDTO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function create(data: TemplateCreateDTO): Promise<MsgTemplateVO> {
 /**
  * update: PUT /api/v1/message/template/{id}
  */
-export function update(path: {
+export function update({ id }: {
     id: string;
   }, data: TemplateCreateDTO): Promise<MsgTemplateVO> {
   return requestClient.put<MsgTemplateVO>(`/api/v1/message/template/${id}`, data);
@@ -33,7 +32,7 @@ export function update(path: {
 /**
  * delete: DELETE /api/v1/message/template/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/message/template/${id}`);
@@ -42,7 +41,7 @@ export function delete(path: {
 /**
  * getById: GET /api/v1/message/template/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<MsgTemplateVO> {
   return requestClient.get<MsgTemplateVO>(`/api/v1/message/template/${id}`);
@@ -60,7 +59,7 @@ export function page(params: {
 /**
  * audit: POST /api/v1/message/template/{id}/audit
  */
-export function audit(path: {
+export function audit({ id }: {
     id: string;
   }, data: TemplateAuditDTO): Promise<void> {
   return requestClient.post<void>(`/api/v1/message/template/${id}/audit`, data);

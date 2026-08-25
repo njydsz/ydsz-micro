@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { AgentTraceDetailDTO, AgentTraceListDTO } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function listTraces(params: {
 /**
  * getTrace: GET /api/v1/agent/debug/trace/{traceId}
  */
-export function getTrace(path: {
+export function getTrace({ traceId }: {
     traceId: string;
   }): Promise<AgentTraceDetailDTO> {
   return requestClient.get<AgentTraceDetailDTO>(`/api/v1/agent/debug/trace/${traceId}`);
@@ -35,7 +34,7 @@ export function getTrace(path: {
 /**
  * replayTrace: POST /api/v1/agent/debug/trace/{traceId}/replay
  */
-export function replayTrace(path: {
+export function replayTrace({ traceId }: {
     traceId: string;
   }): Promise<string> {
   return requestClient.post<string>(`/api/v1/agent/debug/trace/${traceId}/replay`);

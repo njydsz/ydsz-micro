@@ -11,18 +11,13 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { CONFIDENTIAL, PUBLIC, PageResponse, SPA } from './models';
+import type { CONFIDENTIAL, PUBLIC } from './models';
 
 /**
  * register: POST /api/v1/admin/oauth2/applications
  */
-export function register(data: Record<string, unknown>): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'> {
-  return requestClient.post<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'>(`/api/v1/admin/oauth2/applications`, data);
+export function register(data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications`, data);
 }
 
 /**
@@ -40,46 +35,34 @@ export function page(params: {
 /**
  * getById: GET /api/v1/admin/oauth2/applications/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
-  }): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'> {
-  return requestClient.get<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`);
+  }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+  return requestClient.get<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`);
 }
 
 /**
  * update: PUT /api/v1/admin/oauth2/applications/{id}
  */
-export function update(path: {
+export function update({ id }: {
     id: string;
-  }, data: Record<string, unknown>): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'> {
-  return requestClient.put<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`, data);
+  }, data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+  return requestClient.put<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`, data);
 }
 
 /**
  * resetSecret: POST /api/v1/admin/oauth2/applications/{id}/reset-secret
  */
-export function resetSecret(path: {
+export function resetSecret({ id }: {
     id: string;
-  }): Promise<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'> {
-  return requestClient.post<'/** 机密客户端（可安全存储密钥，如后端服务） */
-    CONFIDENTIAL' | '/** 公共客户端（无法安全存储密钥，如 SPA、移动端） */
-    PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}/reset-secret`);
+  }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}/reset-secret`);
 }
 
 /**
  * delete: DELETE /api/v1/admin/oauth2/applications/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/admin/oauth2/applications/${id}`);

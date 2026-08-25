@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FlowBatchDeployResultVO, FlowDefinitionDetailVO, FlowDefinitionDiffVO, FlowDefinitionVO, FlowDefinitionVersionVO, FlowDeployProcessDTO, FlowEventSubscriptionVO, FlowMigrationImpactVO, FlowRollbackResultVO } from './models';
 
 /**
@@ -33,7 +32,7 @@ export function batchDeployFromZip(params: {
 /**
  * publish: POST /api/v1/workflow/engine/definition/{id}/publish
  */
-export function publish(path: {
+export function publish({ id }: {
     id: string;
   }, params: {
     force?: boolean;
@@ -44,7 +43,7 @@ export function publish(path: {
 /**
  * deprecate: POST /api/v1/workflow/engine/definition/{id}/deprecate
  */
-export function deprecate(path: {
+export function deprecate({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/deprecate`);
@@ -53,7 +52,7 @@ export function deprecate(path: {
 /**
  * getByCode: GET /api/v1/workflow/engine/definition/code/{code}
  */
-export function getByCode(path: {
+export function getByCode({ code }: {
     code: string;
   }, params: {
     version?: string;
@@ -77,7 +76,7 @@ export function page(params: {
 /**
  * getDefinitionDetail: GET /api/v1/workflow/engine/definition/{id}
  */
-export function getDefinitionDetail(path: {
+export function getDefinitionDetail({ id }: {
     id: string;
   }): Promise<FlowDefinitionDetailVO> {
   return requestClient.get<FlowDefinitionDetailVO>(`/api/v1/workflow/engine/definition/${id}`);
@@ -86,7 +85,7 @@ export function getDefinitionDetail(path: {
 /**
  * getDefinitionPreview: GET /api/v1/workflow/engine/definition/{id}/preview
  */
-export function getDefinitionPreview(path: {
+export function getDefinitionPreview({ id }: {
     id: string;
   }): Promise<FlowDefinitionDetailVO> {
   return requestClient.get<FlowDefinitionDetailVO>(`/api/v1/workflow/engine/definition/${id}/preview`);
@@ -95,7 +94,7 @@ export function getDefinitionPreview(path: {
 /**
  * switchVersion: POST /api/v1/workflow/engine/definition/{code}/switchVersion
  */
-export function switchVersion(path: {
+export function switchVersion({ code }: {
     code: string;
   }, params: {
     definitionId?: string;
@@ -107,7 +106,7 @@ export function switchVersion(path: {
 /**
  * enable: POST /api/v1/workflow/engine/definition/{id}/enable
  */
-export function enable(path: {
+export function enable({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/enable`);
@@ -116,7 +115,7 @@ export function enable(path: {
 /**
  * disable: POST /api/v1/workflow/engine/definition/{id}/disable
  */
-export function disable(path: {
+export function disable({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/disable`);
@@ -125,7 +124,7 @@ export function disable(path: {
 /**
  * listVersions: GET /api/v1/workflow/engine/definition/{id}/versions
  */
-export function listVersions(path: {
+export function listVersions({ id }: {
     id: string;
   }): Promise<FlowDefinitionVersionVO[]> {
   return requestClient.get<FlowDefinitionVersionVO[]>(`/api/v1/workflow/engine/definition/${id}/versions`);
@@ -134,7 +133,7 @@ export function listVersions(path: {
 /**
  * diffVersions: GET /api/v1/workflow/engine/definition/{id}/diff
  */
-export function diffVersions(path: {
+export function diffVersions({ id }: {
     id: string;
   }, params: {
     v1?: number;
@@ -155,7 +154,7 @@ export function rollbackDefinition(params: {
 /**
  * updateNodeCoordinate: POST /api/v1/workflow/engine/definition/{id}/node/{nodeCode}/coordinate
  */
-export function updateNodeCoordinate(path: {
+export function updateNodeCoordinate({ id, nodeCode }: {
     id: string;
     nodeCode: string;
   }, data: string): Promise<void> {
@@ -165,7 +164,7 @@ export function updateNodeCoordinate(path: {
 /**
  * updateDefinition: PUT /api/v1/workflow/engine/definition/{id}
  */
-export function updateDefinition(path: {
+export function updateDefinition({ id }: {
     id: string;
   }, data: FlowDeployProcessDTO): Promise<void> {
   return requestClient.put<void>(`/api/v1/workflow/engine/definition/${id}`, data);
@@ -174,7 +173,7 @@ export function updateDefinition(path: {
 /**
  * exportDefinition: GET /api/v1/workflow/engine/definition/{id}/export
  */
-export function exportDefinition(path: {
+export function exportDefinition({ id }: {
     id: string;
   }): Promise<string> {
   return requestClient.get<string>(`/api/v1/workflow/engine/definition/${id}/export`);
@@ -231,7 +230,7 @@ export function throwError(params: {
 /**
  * listEventSubscriptions: GET /api/v1/workflow/engine/instance/{instanceId}/eventSubscriptions
  */
-export function listEventSubscriptions(path: {
+export function listEventSubscriptions({ instanceId }: {
     instanceId: string;
   }): Promise<FlowEventSubscriptionVO[]> {
   return requestClient.get<FlowEventSubscriptionVO[]>(`/api/v1/workflow/engine/instance/${instanceId}/eventSubscriptions`);
@@ -247,7 +246,7 @@ export function slaScan(): Promise<number> {
 /**
  * slaProcess: POST /api/v1/workflow/engine/sla/process/{taskId}
  */
-export function slaProcess(path: {
+export function slaProcess({ taskId }: {
     taskId: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/sla/process/${taskId}`);
@@ -291,7 +290,7 @@ export function valueTypes(): Promise<Record<string, unknown>[]> {
 /**
  * variables: GET /api/v1/workflow/engine/definition/conditionExpr/variables/{id}
  */
-export function variables(path: {
+export function variables({ id }: {
     id: string;
   }): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/definition/conditionExpr/variables/${id}`);

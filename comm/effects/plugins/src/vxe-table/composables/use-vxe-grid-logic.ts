@@ -27,7 +27,7 @@ import type {
   VxeToolbarPropTypes,
 } from 'vxe-table';
 
-import type { ComputedRef, Ref, SetupContext } from 'vue';
+import type { Component, ComputedRef, Ref, SetupContext } from 'vue';
 
 import type { YDSZFormProps } from '@YDSZ-core/form-ui';
 
@@ -99,7 +99,7 @@ export interface UseVxeGridLogicReturn {
   /** 合并后的 vxe-grid 配置（含工具栏、分页、代理等） */
   options: ComputedRef<VxeTableGridProps>;
   /** 合并后的 vxe-grid 事件监听器 */
-  events: ComputedRef<Record<string, any>>;
+  events: ComputedRef<Record<string, unknown>>;
   /** 是否显示工具栏 */
   showToolbar: ComputedRef<boolean>;
   /** 是否显示表格标题 */
@@ -125,19 +125,19 @@ export interface UseVxeGridLogicReturn {
   /** 表单插槽前缀常量 */
   FORM_SLOT_PREFIX: string;
   /** 搜索表单组件 */
-  Form: any;
+  Form: Component;
   /** 搜索按钮点击事件处理器 */
   onSearchBtnClick: () => void;
   /** vxe-grid 原始配置（含 toolbarConfig 等） */
-  gridOptions: ComputedRef<any>;
+  gridOptions: ComputedRef<VxeTableGridProps>;
   /** 是否显示默认空状态 */
   showDefaultEmpty: ComputedRef<boolean>;
   /** 类名合并工具函数 */
   cn: (typeof import('@ydsz/utils'))['cn'];
   /** 组件根元素 class */
-  className: ComputedRef<any>;
+  className: ComputedRef<string>;
   /** vxe-grid 元素 class */
-  gridClass: ComputedRef<any>;
+  gridClass: ComputedRef<string>;
 }
 
 /**
@@ -318,7 +318,7 @@ export function useVxeGridLogic(
         'Number',
         'NextPage',
         'NextJump',
-      ] as any;
+      ] as string[];
       const layouts = [
         'Total',
         'Sizes',

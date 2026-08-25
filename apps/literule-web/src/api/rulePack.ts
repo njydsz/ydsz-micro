@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { InstallResultVO, PackDiffVO, PackUpdateInfoVO, RulePack, RulePackVO } from './models';
 
 /**
@@ -33,7 +32,7 @@ export function searchPacks(params: {
 /**
  * getLatestPack: GET /api/v1/literule/rules/packs/{packCode}/latest
  */
-export function getLatestPack(path: {
+export function getLatestPack({ packCode }: {
     packCode: string;
   }): Promise<RulePackVO> {
   return requestClient.get<RulePackVO>(`/api/v1/literule/rules/packs/${packCode}/latest`);
@@ -42,7 +41,7 @@ export function getLatestPack(path: {
 /**
  * listPackVersions: GET /api/v1/literule/rules/packs/{packCode}/versions
  */
-export function listPackVersions(path: {
+export function listPackVersions({ packCode }: {
     packCode: string;
   }): Promise<RulePackVO[]> {
   return requestClient.get<RulePackVO[]>(`/api/v1/literule/rules/packs/${packCode}/versions`);
@@ -51,7 +50,7 @@ export function listPackVersions(path: {
 /**
  * getPackVersion: GET /api/v1/literule/rules/packs/{packCode}/versions/{version}
  */
-export function getPackVersion(path: {
+export function getPackVersion({ packCode, version }: {
     packCode: string;
     version: string;
   }): Promise<RulePackVO> {
@@ -61,7 +60,7 @@ export function getPackVersion(path: {
 /**
  * rollbackPack: POST /api/v1/literule/rules/packs/{packCode}/rollback
  */
-export function rollbackPack(path: {
+export function rollbackPack({ packCode }: {
     packCode: string;
   }, params: {
     version?: string;
@@ -72,7 +71,7 @@ export function rollbackPack(path: {
 /**
  * diffPack: GET /api/v1/literule/rules/packs/{packCode}/diff
  */
-export function diffPack(path: {
+export function diffPack({ packCode }: {
     packCode: string;
   }, params: {
     fromVersion?: string;
@@ -91,7 +90,7 @@ export function publishPack(data: RulePack): Promise<RulePackVO> {
 /**
  * installPack: POST /api/v1/literule/rules/packs/{packCode}/install
  */
-export function installPack(path: {
+export function installPack({ packCode }: {
     packCode: string;
   }, params: {
     version?: string;
@@ -102,7 +101,7 @@ export function installPack(path: {
 /**
  * deletePack: DELETE /api/v1/literule/rules/packs/{id}
  */
-export function deletePack(path: {
+export function deletePack({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/literule/rules/packs/${id}`);
@@ -111,7 +110,7 @@ export function deletePack(path: {
 /**
  * markOfficialPack: PUT /api/v1/literule/rules/packs/{id}/official
  */
-export function markOfficialPack(path: {
+export function markOfficialPack({ id }: {
     id: string;
   }, params: {
     official?: boolean;
@@ -122,7 +121,7 @@ export function markOfficialPack(path: {
 /**
  * ratePack: PUT /api/v1/literule/rules/packs/{id}/rate
  */
-export function ratePack(path: {
+export function ratePack({ id }: {
     id: string;
   }, params: {
     rating?: number;

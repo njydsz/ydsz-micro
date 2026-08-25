@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { ExpressionFunctionDefVO, ExpressionPreviewResultVO, RuleChainGraph, RuleChainGraphVO, RuleResultVO, StringVO } from './models';
 
 /**
  * getChainGraph: GET /api/v1/literule/rules/{ruleCode}/graph
  */
-export function getChainGraph(path: {
+export function getChainGraph({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleChainGraphVO> {
   return requestClient.get<RuleChainGraphVO>(`/api/v1/literule/rules/${ruleCode}/graph`);
@@ -26,7 +25,7 @@ export function getChainGraph(path: {
 /**
  * saveChainGraph: POST /api/v1/literule/rules/{ruleCode}/graph
  */
-export function saveChainGraph(path: {
+export function saveChainGraph({ ruleCode }: {
     ruleCode: string;
   }, data: RuleChainGraph): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/literule/rules/${ruleCode}/graph`, data);
@@ -35,7 +34,7 @@ export function saveChainGraph(path: {
 /**
  * deleteChainGraph: DELETE /api/v1/literule/rules/{ruleCode}/graph
  */
-export function deleteChainGraph(path: {
+export function deleteChainGraph({ ruleCode }: {
     ruleCode: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/literule/rules/${ruleCode}/graph`);
@@ -44,8 +43,10 @@ export function deleteChainGraph(path: {
 /**
  * validateChainGraph: POST /api/v1/literule/rules/{ruleCode}/graph/validate
  */
-export function validateChainGraph(data: RuleChainGraph): Promise<Record<string, unknown>[]> {
-  return requestClient.post<Record<string, unknown>[]>(`/api/v1/literule/rules/{ruleCode}/graph/validate`, data);
+export function validateChainGraph({ ruleCode }: {
+    ruleCode: string;
+  }, data: RuleChainGraph): Promise<Record<string, unknown>[]> {
+  return requestClient.post<Record<string, unknown>[]>(`/api/v1/literule/rules/${ruleCode}/graph/validate`, data);
 }
 
 /**
@@ -60,7 +61,7 @@ export function previewExpression(params: {
 /**
  * dryRunGraph: POST /api/v1/literule/rules/{ruleCode}/graph/dry-run
  */
-export function dryRunGraph(path: {
+export function dryRunGraph({ ruleCode }: {
     ruleCode: string;
   }, data: Record<string, unknown>): Promise<RuleResultVO[]> {
   return requestClient.post<RuleResultVO[]>(`/api/v1/literule/rules/${ruleCode}/graph/dry-run`, data);
@@ -69,7 +70,7 @@ export function dryRunGraph(path: {
 /**
  * invalidGraphRefs: GET /api/v1/literule/rules/{ruleCode}/graph/invalid-refs
  */
-export function invalidGraphRefs(path: {
+export function invalidGraphRefs({ ruleCode }: {
     ruleCode: string;
   }): Promise<StringVO[]> {
   return requestClient.get<StringVO[]>(`/api/v1/literule/rules/${ruleCode}/graph/invalid-refs`);

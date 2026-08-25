@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { PageResponse, SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
+import type { SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
 
 /**
  * page: GET /api/v1/saml-idp-config/page
@@ -40,7 +39,7 @@ export function create(data: SamlIdpDTO): Promise<void> {
 /**
  * update: PUT /api/v1/saml-idp-config/{entityId}
  */
-export function update(path: {
+export function update({ entityId }: {
     entityId: string;
   }, data: SamlIdpDTO): Promise<void> {
   return requestClient.put<void>(`/api/v1/saml-idp-config/${entityId}`, data);
@@ -49,7 +48,7 @@ export function update(path: {
 /**
  * delete: DELETE /api/v1/saml-idp-config/{entityId}
  */
-export function delete(path: {
+export function deleteApi({ entityId }: {
     entityId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/saml-idp-config/${entityId}`);

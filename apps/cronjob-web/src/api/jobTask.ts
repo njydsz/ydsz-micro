@@ -12,7 +12,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { JobTaskVO, PageResponse } from './models';
+import type { JobTaskVO } from './models';
 
 /**
  * list: GET /api/v1/cronjob/task/list
@@ -30,8 +30,8 @@ export function page(params: {
     logId?: string;
     page?: number;
     size?: number;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/cronjob/task/page`, { params });
+  }): Promise<PageResponse<JobTaskVO[]>> {
+  return requestClient.get<PageResponse<JobTaskVO[]>>(`/api/v1/cronjob/task/page`, { params });
 }
 
 /**

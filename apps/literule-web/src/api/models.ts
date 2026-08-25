@@ -81,11 +81,7 @@ export interface RuleDefinition {
 
   severityExpression?: string;
   /** 枚举 RuleSeverity */
-  defaultSeverity?: '/** 提示级别 */
-  INFO' | '1' | '"提示")' | '/** 黄色预警 */
-  YELLOW' | '2' | '"黄色预警")' | '/** 红色严重 */
-  RED' | '3' | '"红色严重")' | 'int weight' | 'String desc) {
-    this.code = code';
+  defaultSeverity?: string;
 
   titleTemplate?: string;
 
@@ -133,13 +129,6 @@ export interface ExpressionValidateDTO {
   expression?: string;
 
   type?: string;
-}
-
-export interface RuleABTestDTO {
-
-  candidate?: RuleDefinition;
-
-  facts?: Record<string, unknown>;
 }
 
 export interface RuleBatchToggleDTO {
@@ -369,26 +358,6 @@ export interface RulePack {
   rating?: number;
 }
 
-export interface RuleTestCasePostDTO {
-
-  serialVersionUID?: number;
-
-  name?: string;
-
-  ruleCode?: string;
-
-  factsData?: Record<string, unknown>;
-
-  expectedTriggered?: string[];
-
-  description?: string;
-}
-
-export interface TestCaseBatchRunDTO {
-
-  ids?: number[];
-}
-
 export interface CEPPattern {
 
   serialVersionUID?: number;
@@ -429,4 +398,859 @@ export interface VariableDefinition {
   required?: boolean;
 
   simpleType?: string;
+}
+
+export interface CEPPatternVO {
+
+  id?: string;
+
+  ruleCode?: string;
+
+  name?: string;
+
+  window?: Record<string, unknown>;
+
+  threshold?: number;
+
+  eventType?: string;
+
+  filter?: string;
+
+  description?: string;
+}
+
+export interface CEPHitVO {
+
+  patternId?: string;
+
+  ruleCode?: string;
+
+  matchedEvents?: Record<string, unknown>[];
+
+  hitAt?: string;
+
+  metric?: number;
+
+  context?: Record<string, unknown>;
+}
+
+export interface RuleABPolicyVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ruleCode?: string;
+
+  autoRollbackEnabled?: boolean;
+
+  rollbackAction?: string;
+
+  errorRateThreshold?: number;
+
+  minSampleSize?: number;
+
+  checkWindowMinutes?: number;
+
+  notifyChannels?: string;
+
+  description?: string;
+
+  lastEvaluatedAt?: string;
+
+  lastRollbackAt?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface RuleABRollbackVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ruleCode?: string;
+
+  triggerReason?: string;
+
+  errorRate?: number;
+
+  sampleSize?: number;
+
+  fromCanary?: boolean;
+
+  operator?: string;
+
+  notifyStatus?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface RuleDefinitionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ruleCode?: string;
+
+  ruleName?: string;
+
+  category?: string;
+
+  categoryPath?: string;
+
+  owner?: string;
+
+  description?: string;
+
+  conditionExpression?: string;
+
+  severityExpression?: string;
+
+  defaultSeverity?: string;
+
+  titleTemplate?: string;
+
+  descriptionTemplate?: string;
+
+  priority?: number;
+
+  enabled?: boolean;
+
+  scope?: string;
+
+  mutexGroup?: string;
+
+  drilldownAvailable?: boolean;
+
+  version?: number;
+
+  status?: string;
+
+  effectiveFrom?: string;
+
+  effectiveTo?: string;
+
+  reviewedBy?: string;
+
+  reviewedAt?: string;
+
+  reviewComment?: string;
+
+  canaryRatio?: number;
+
+  canaryConditions?: string;
+
+  canaryConditionExpression?: string;
+
+  canarySeverityExpression?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface RuleVersionVO {
+
+  id?: string;
+
+  ruleCode?: string;
+
+  version?: number;
+
+  definitionJson?: string;
+
+  changeDesc?: string;
+
+  operator?: string;
+
+  createdAt?: string;
+}
+
+export interface RuleVersionDiffVO {
+
+  oldVersion?: number;
+
+  newVersion?: number;
+
+  ruleCode?: string;
+
+  entries?: Record<string, unknown>[];
+
+  summary?: string;
+
+  type?: string;
+
+  field?: string;
+
+  fieldLabel?: string;
+
+  oldValue?: string;
+
+  newValue?: string;
+}
+
+export interface RuleResultVO {
+
+  ruleCode?: string;
+
+  ruleName?: string;
+
+  category?: string;
+
+  triggered?: boolean;
+
+  severity?: string;
+
+  title?: string;
+
+  description?: string;
+
+  currentValue?: string;
+
+  threshold?: string;
+
+  scope?: string;
+
+  triggeredAt?: string;
+
+  drilldownAvailable?: boolean;
+
+  elapsedMs?: number;
+
+  canaryBucket?: string;
+}
+
+export interface ExpressionValidationResultVO {
+
+  valid?: boolean;
+
+  errorType?: string;
+
+  errorMessage?: string;
+
+  errorLine?: number;
+
+  errorColumn?: number;
+
+  expression?: string;
+
+  parseTimeMs?: number;
+}
+
+export interface RuleEngineStatsVO {
+
+  totalEvaluations?: number;
+
+  totalTriggered?: number;
+
+  totalErrors?: number;
+
+  totalElapsedMs?: number;
+
+  registeredRules?: number;
+
+  lastEvaluatedRules?: number;
+
+  perRuleStats?: Record<string, unknown>;
+
+  executions?: number;
+
+  triggered?: number;
+
+  errors?: number;
+}
+
+export interface AuditLogEntryVO {
+
+  id?: string;
+
+  ruleCode?: string;
+
+  ruleName?: string;
+
+  action?: string;
+
+  operator?: string;
+
+  source?: string;
+
+  changeDesc?: string;
+
+  beforeSnapshot?: Record<string, unknown>;
+
+  afterSnapshot?: Record<string, unknown>;
+
+  fieldDiffs?: Record<string, unknown>;
+
+  result?: string;
+
+  errorMessage?: string;
+
+  createdAt?: string;
+}
+
+export interface CategoryNodeVO {
+
+  name?: string;
+
+  path?: string;
+
+  depth?: number;
+
+  root?: boolean;
+
+  ruleCount?: number;
+}
+
+export interface RuleConflictInfoVO {
+
+  ruleA?: string;
+
+  ruleAName?: string;
+
+  ruleB?: string;
+
+  ruleBName?: string;
+
+  overlapFields?: string[];
+
+  severity?: string;
+}
+
+export interface RuleDashboardOverviewVO {
+
+  serialVersionUID?: number;
+
+  totalRules?: number;
+
+  enabledRules?: number;
+
+  statusDistribution?: Record<string, unknown>;
+
+  categoryDistribution?: Record<string, unknown>;
+
+  todayEvaluations?: number;
+
+  todayTriggered?: number;
+
+  todayTriggerRate?: number;
+
+  todayErrors?: number;
+
+  todayErrorRate?: number;
+
+  todayActiveRules?: number;
+
+  p50ElapsedMs?: number;
+
+  p95ElapsedMs?: number;
+
+  p99ElapsedMs?: number;
+
+  avgElapsedMs?: number;
+
+  since?: string;
+
+  until?: string;
+}
+
+export interface RuleDashboardTrendVO {
+
+  serialVersionUID?: number;
+
+  timeRange?: string;
+
+  timeLabels?: string[];
+
+  evaluationSeries?: number[];
+
+  triggeredSeries?: number[];
+
+  errorSeries?: number[];
+
+  p99ElapsedSeries?: number[];
+
+  p50ElapsedSeries?: number[];
+
+  errorRateSeries?: number[];
+
+  triggerRateSeries?: number[];
+
+  since?: string;
+
+  until?: string;
+}
+
+export interface RuleDashboardDistributionVO {
+
+  serialVersionUID?: number;
+
+  byStatus?: Record<string, unknown>;
+
+  byCategory?: Record<string, unknown>;
+
+  bySeverity?: Record<string, unknown>;
+
+  byScenario?: Record<string, unknown>;
+
+  byTenant?: Record<string, unknown>;
+
+  byOwner?: Record<string, unknown>;
+
+  statusPie?: Record<string, unknown>[];
+
+  categoryPie?: Record<string, unknown>[];
+
+  severityPie?: Record<string, unknown>[];
+
+  scenarioPie?: Record<string, unknown>[];
+
+  name?: string;
+
+  value?: number;
+}
+
+export interface RuleDashboardTopRuleVO {
+
+  serialVersionUID?: number;
+
+  ruleCode?: string;
+
+  ruleName?: string;
+
+  category?: string;
+
+  owner?: string;
+
+  enabled?: boolean;
+
+  defaultSeverity?: string;
+
+  evaluations?: number;
+
+  triggered?: number;
+
+  errors?: number;
+
+  triggerRate?: number;
+
+  errorRate?: number;
+
+  avgElapsedMs?: number;
+
+  p99ElapsedMs?: number;
+
+  totalElapsedMs?: number;
+}
+
+export interface RuleDashboardRealtimeVO {
+
+  serialVersionUID?: number;
+
+  registeredRules?: number;
+
+  lastEvaluatedRules?: number;
+
+  recentEvaluations?: number;
+
+  recentTriggered?: number;
+
+  recentErrors?: number;
+
+  currentQps?: number;
+
+  activeRules?: number;
+
+  traceQueueSize?: number;
+
+  timestamp?: number;
+}
+
+export interface DecisionTableVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  tableCode?: string;
+
+  tableName?: string;
+
+  description?: string;
+
+  category?: string;
+
+  hitPolicy?: string;
+
+  enabled?: boolean;
+
+  priority?: number;
+
+  version?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface DecisionTableDefinitionVO {
+
+  tableCode?: string;
+
+  tableName?: string;
+
+  description?: string;
+
+  category?: string;
+
+  conditionColumns?: Record<string, unknown>[];
+
+  actionColumns?: Record<string, unknown>[];
+
+  rows?: Record<string, unknown>[];
+
+  defaultActions?: Record<string, unknown>;
+
+  scope?: string;
+
+  name?: string;
+
+  label?: string;
+
+  type?: string;
+
+  conditions?: Record<string, unknown>;
+
+  actions?: Record<string, unknown>;
+}
+
+export interface RuleDependencyVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ruleCode?: string;
+
+  dependsOnRuleCode?: string;
+
+  dependencyType?: string;
+
+  cascadeOnDisable?: boolean;
+
+  description?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface StringVO {
+
+  value?: string;
+}
+
+export interface RuleDslVO {
+
+  rules?: Record<string, unknown>[];
+
+  chains?: Record<string, unknown>[];
+
+  meta?: Record<string, unknown>;
+}
+
+export interface RuleChainGraphVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ruleCode?: string;
+
+  name?: string;
+
+  description?: string;
+
+  scenario?: string;
+
+  graphVersion?: number;
+
+  status?: string;
+
+  contentJson?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface ExpressionPreviewResultVO {
+
+  expression?: string;
+
+  value?: string;
+
+  javaType?: string;
+
+  booleanValue?: boolean;
+
+  elapsedMs?: number;
+
+  error?: string;
+}
+
+export interface ExpressionFunctionDefVO {
+
+  name?: string;
+
+  signature?: string;
+
+  description?: string;
+
+  sample?: string;
+
+  category?: string;
+
+  supportedEngines?: string;
+}
+
+export interface ApprovalRecordVO {
+
+  recordId?: string;
+
+  ruleCode?: string;
+
+  flowCode?: string;
+
+  currentLevel?: number;
+
+  currentStatus?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+}
+
+export interface ApprovalFlowVO {
+
+  flowCode?: string;
+
+  name?: string;
+
+  steps?: Record<string, unknown>[];
+
+  enabled?: boolean;
+}
+
+export interface RulePackVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  packCode?: string;
+
+  packVersion?: string;
+
+  packName?: string;
+
+  industry?: string;
+
+  tags?: string;
+
+  ruleCodes?: string;
+
+  ruleSnapshots?: string;
+
+  previousVersion?: string;
+
+  description?: string;
+
+  author?: string;
+
+  downloadCount?: number;
+
+  rating?: number;
+
+  enabled?: boolean;
+
+  official?: boolean;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface InstallResultVO {
+
+  packCode?: string;
+
+  version?: string;
+
+  total?: number;
+
+  success?: number;
+
+  failed?: number;
+
+  failedCodes?: string[];
+}
+
+export interface PackDiffVO {
+
+  packCode?: string;
+
+  fromVersion?: string;
+
+  toVersion?: string;
+
+  added?: string[];
+
+  removed?: string[];
+
+  changed?: string[];
+}
+
+export interface PackUpdateInfoVO {
+
+  packCode?: string;
+
+  packName?: string;
+
+  installedVersion?: string;
+
+  latestVersion?: string;
+
+  hasUpdate?: boolean;
+
+  installedAt?: string;
+
+  industry?: string;
+
+  description?: string;
+}
+
+export interface RuleTemplateVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  templateCode?: string;
+
+  templateName?: string;
+
+  category?: string;
+
+  description?: string;
+
+  conditionExpression?: string;
+
+  severityExpression?: string;
+
+  defaultSeverity?: string;
+
+  titleTemplate?: string;
+
+  descriptionTemplate?: string;
+
+  priority?: number;
+
+  scope?: string;
+
+  industry?: string;
+
+  tags?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface RuleExecutionTraceVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  traceId?: string;
+
+  ruleCode?: string;
+
+  ruleName?: string;
+
+  scenario?: string;
+
+  triggered?: boolean;
+
+  severity?: string;
+
+  conditionResult?: string;
+
+  elapsedMs?: number;
+
+  errorMessage?: string;
+
+  factsSnapshot?: Record<string, unknown>;
+
+  resultSnapshot?: Record<string, unknown>;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface VariableDefinitionVO {
+
+  name?: string;
+
+  type?: string;
+
+  description?: string;
+
+  sampleValue?: Record<string, unknown>;
+
+  category?: string;
 }

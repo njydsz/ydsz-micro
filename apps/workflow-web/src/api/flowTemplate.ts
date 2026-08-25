@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * listTemplates: GET /api/v1/workflow/template/list
@@ -26,7 +25,7 @@ export function listTemplates(params: {
 /**
  * getTemplate: GET /api/v1/workflow/template/{templateCode}
  */
-export function getTemplate(path: {
+export function getTemplate({ templateCode }: {
     templateCode: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/template/${templateCode}`);
@@ -35,7 +34,7 @@ export function getTemplate(path: {
 /**
  * importTemplate: POST /api/v1/workflow/template/{templateCode}/import
  */
-export function importTemplate(path: {
+export function importTemplate({ templateCode }: {
     templateCode: string;
   }, params: {
     flowName?: string;
@@ -46,7 +45,7 @@ export function importTemplate(path: {
 /**
  * exportAsTemplate: POST /api/v1/workflow/template/export/{definitionId}
  */
-export function exportAsTemplate(path: {
+export function exportAsTemplate({ definitionId }: {
     definitionId: string;
   }, params: {
     templateName?: string;
@@ -58,7 +57,7 @@ export function exportAsTemplate(path: {
 /**
  * listTemplateVersions: GET /api/v1/workflow/template/{templateCode}/versions
  */
-export function listTemplateVersions(path: {
+export function listTemplateVersions({ templateCode }: {
     templateCode: string;
   }): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/${templateCode}/versions`);
@@ -67,7 +66,7 @@ export function listTemplateVersions(path: {
 /**
  * getTemplateVersion: GET /api/v1/workflow/template/{templateCode}/versions/{version}
  */
-export function getTemplateVersion(path: {
+export function getTemplateVersion({ templateCode, version }: {
     templateCode: string;
     version: number;
   }): Promise<unknown> {
@@ -77,7 +76,7 @@ export function getTemplateVersion(path: {
 /**
  * createNewVersion: POST /api/v1/workflow/template/{templateCode}/newVersion
  */
-export function createNewVersion(path: {
+export function createNewVersion({ templateCode }: {
     templateCode: string;
   }, params: {
     versionLabel?: string;
@@ -88,7 +87,7 @@ export function createNewVersion(path: {
 /**
  * cloneTemplate: POST /api/v1/workflow/template/{templateCode}/clone
  */
-export function cloneTemplate(path: {
+export function cloneTemplate({ templateCode }: {
     templateCode: string;
   }, params: {
     newTemplateCode?: string;
@@ -101,7 +100,7 @@ export function cloneTemplate(path: {
 /**
  * inheritFromParent: POST /api/v1/workflow/template/{parentTemplateCode}/inherit
  */
-export function inheritFromParent(path: {
+export function inheritFromParent({ parentTemplateCode }: {
     parentTemplateCode: string;
   }, params: {
     newTemplateCode?: string;
@@ -114,7 +113,7 @@ export function inheritFromParent(path: {
 /**
  * listInheritedTemplates: GET /api/v1/workflow/template/{parentTemplateCode}/inherited
  */
-export function listInheritedTemplates(path: {
+export function listInheritedTemplates({ parentTemplateCode }: {
     parentTemplateCode: string;
   }): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/${parentTemplateCode}/inherited`);
@@ -123,7 +122,7 @@ export function listInheritedTemplates(path: {
 /**
  * syncFromParent: POST /api/v1/workflow/template/{childTemplateCode}/sync
  */
-export function syncFromParent(path: {
+export function syncFromParent({ childTemplateCode }: {
     childTemplateCode: string;
   }): Promise<number> {
   return requestClient.post<number>(`/api/v1/workflow/template/${childTemplateCode}/sync`);

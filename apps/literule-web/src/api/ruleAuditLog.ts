@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { AuditLogEntryVO } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function recent(params: {
 /**
  * byRuleCode: GET /api/v1/literule/audit/by-rule/{ruleCode}
  */
-export function byRuleCode(path: {
+export function byRuleCode({ ruleCode }: {
     ruleCode: string;
   }, params: {
     limit?: number;

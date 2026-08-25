@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { PostDTO, PostVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function list(): Promise<PostVO[]> {
 /**
  * getById: GET /api/v1/post/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<PostVO> {
   return requestClient.get<PostVO>(`/api/v1/post/${id}`);
@@ -47,7 +46,7 @@ export function update(data: PostDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/post/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/post/${id}`);

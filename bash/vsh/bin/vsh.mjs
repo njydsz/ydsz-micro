@@ -10,7 +10,7 @@
  * 运行需 Node 类型剥离能力（脚本经 --experimental-strip-types 调用，见根 package.json scripts）。
  */
 
-import { resolve } from 'node:path';
+import { resolve, relative } from 'node:path';
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -47,7 +47,7 @@ async function main() {
       }
       console.error(`❌ 发现 ${violations.length} 处架构违规:\n`);
       for (const v of violations) {
-        console.error(`  [${v.rule}] ${relative(rootDir, v.file)}:${v.line}`);
+        console.error(`  [${v.rule}] ${relativePath(rootDir, v.file)}:${v.line}`);
         console.error(`    ${v.message}`);
       }
       process.exit(1);
@@ -112,7 +112,7 @@ async function main() {
   }
 }
 
-function relative(base, target) {
+function relativePath(base, target) {
   try {
     return relative(base, target);
   } catch {

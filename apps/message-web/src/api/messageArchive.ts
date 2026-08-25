@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { PageResponse } from './models';
 
 /**
  * search: GET /api/v1/message/archive/search

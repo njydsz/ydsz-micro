@@ -66,16 +66,7 @@ export interface SearchRequest {
 
   fuzzyMinSimilarity?: number;
 
-  filters?: '/** 等于 */
-    EQ' | '/** 不等于 */
-    NE' | '/** 在...范围内 */
-    IN' | '/** 不在...范围内 */
-    NOT_IN' | '/** 大于 */
-    GT' | '/** 小于 */
-    LT' | '/** 大于等于 */
-    GTE' | '/** 小于等于 */
-    LTE' | '/** 介于两者之间 */
-    BETWEEN'[];
+  filters?: 'EQ' | 'NE' | 'IN' | 'NOT_IN' | 'GT' | 'LT' | 'GTE' | 'LTE' | 'BETWEEN'[];
 
   aggregations?: string[];
 
@@ -94,4 +85,529 @@ export interface SearchRequest {
   cursor?: string;
 
   offset?: string;
+}
+
+export interface FileNodeVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  parentId?: string;
+
+  name?: string;
+
+  nodeType?: string;
+
+  suffix?: string;
+
+  size?: number;
+
+  mimeType?: string;
+
+  storageKey?: string;
+
+  bucketName?: string;
+
+  storageClass?: string;
+
+  fileHash?: string;
+
+  path?: string;
+
+  level?: number;
+
+  sort?: number;
+
+  currentVersion?: number;
+
+  thumbnailKey?: string;
+
+  previewReady?: boolean;
+
+  starred?: boolean;
+
+  status?: string;
+
+  shareStatus?: string;
+
+  tenantId?: string;
+
+  createdBy?: string;
+
+  updatedBy?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+
+  children?: FileNodeVO[];
+
+  tags?: string[];
+}
+
+export interface BatchResult {
+
+  total?: number;
+
+  successCount?: number;
+
+  failureCount?: number;
+
+  details?: Record<string, unknown>[];
+
+  item?: Record<string, unknown>;
+
+  success?: boolean;
+
+  error?: string;
+}
+
+export interface FileVersionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  fileNodeId?: string;
+
+  versionNumber?: number;
+
+  storageKey?: string;
+
+  size?: number;
+
+  fileHash?: string;
+
+  mimeType?: string;
+
+  remark?: string;
+
+  changeType?: string;
+
+  active?: boolean;
+
+  createdBy?: string;
+
+  createdAt?: string;
+}
+
+export interface FileCommentVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  fileNodeId?: string;
+
+  content?: string;
+
+  parentCommentId?: string;
+
+  resolved?: boolean;
+
+  position?: string;
+
+  edited?: boolean;
+
+  createdBy?: string;
+
+  createdAt?: string;
+}
+
+export interface StorageQuotaVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  scopeType?: string;
+
+  scopeId?: string;
+
+  quotaLimit?: number;
+
+  quotaUsed?: number;
+
+  fileCountLimit?: number;
+
+  fileCountUsed?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+
+  revision?: number;
+
+  deleted?: number;
+}
+
+export interface SearchResultVO {
+
+  serialVersionUID?: number;
+
+  hits?: Record<string, unknown>[];
+
+  total?: number;
+
+  page?: number;
+
+  pageSize?: number;
+
+  tookMs?: number;
+
+  fileNodeId?: string;
+
+  name?: string;
+
+  path?: string;
+
+  nodeType?: string;
+
+  suffix?: string;
+
+  size?: number;
+
+  highlight?: string;
+
+  score?: number;
+
+  tags?: string[];
+
+  createdBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface ShareLinkVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  fileNodeId?: string;
+
+  shareCode?: string;
+
+  extractCode?: string;
+
+  fileName?: string;
+
+  shareType?: string;
+
+  expireTime?: string;
+
+  maxAccessCount?: number;
+
+  accessCount?: number;
+
+  status?: string;
+
+  shareTargetType?: string;
+
+  password?: string;
+
+  reminderSent?: boolean;
+
+  title?: string;
+
+  hasPassword?: boolean;
+
+  shareUrl?: string;
+
+  createdBy?: string;
+
+  updatedBy?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+}
+
+export interface ShareAccessLogVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  shareId?: string;
+
+  shareCode?: string;
+
+  fileNodeId?: string;
+
+  visitorId?: string;
+
+  visitorName?: string;
+
+  visitorIp?: string;
+
+  userAgent?: string;
+
+  accessType?: string;
+
+  accessStatus?: string;
+
+  failReason?: string;
+
+  accessTime?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+
+  revision?: number;
+
+  deleted?: number;
+}
+
+export interface ShareRecipientVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  shareId?: string;
+
+  recipientType?: string;
+
+  recipientId?: string;
+
+  recipientName?: string;
+
+  status?: string;
+
+  viewedAt?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+}
+
+export interface SpaceVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  name?: string;
+
+  description?: string;
+
+  iconUrl?: string;
+
+  coverUrl?: string;
+
+  ownerId?: string;
+
+  status?: string;
+
+  visibility?: string;
+
+  sortOrder?: number;
+
+  memberCount?: number;
+
+  nodeCount?: number;
+
+  quotaLimit?: number;
+
+  quotaUsed?: number;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+}
+
+export interface SpaceMemberDTO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  spaceId?: string;
+
+  userId?: string;
+
+  role?: string;
+
+  tenantId?: string;
+
+  joinedAt?: string;
+
+  createdBy?: string;
+
+  updatedAt?: string;
+
+  updatedBy?: string;
+}
+
+export interface SpaceTemplateDTO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  name?: string;
+
+  description?: string;
+
+  category?: string;
+
+  iconUrl?: string;
+
+  tenantId?: string;
+
+  isSystem?: boolean;
+
+  isPublic?: boolean;
+
+  structureJson?: string;
+
+  sortOrder?: number;
+
+  usageCount?: number;
+
+  createdAt?: string;
+
+  createdBy?: string;
+
+  updatedAt?: string;
+
+  updatedBy?: string;
+}
+
+export interface TagDTO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  name?: string;
+
+  color?: string;
+
+  type?: string;
+
+  usageCount?: number;
+
+  createdBy?: string;
+
+  updatedBy?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+
+  tenantId?: string;
+}
+
+export interface TagVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  name?: string;
+
+  color?: string;
+
+  type?: string;
+
+  usageCount?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+}
+
+export interface TrashItemVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  fileNodeId?: string;
+
+  originalName?: string;
+
+  originalPath?: string;
+
+  originalParentId?: string;
+
+  nodeType?: string;
+
+  size?: number;
+
+  deletedTime?: string;
+
+  purgeTime?: string;
+
+  status?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+}
+
+export interface UserFavoriteVO {
+
+  serialVersionUID?: number;
+
+  favoriteId?: string;
+
+  nodeId?: string;
+
+  name?: string;
+
+  nodeType?: string;
+
+  suffix?: string;
+
+  size?: number;
+
+  path?: string;
+
+  thumbnailKey?: string;
+
+  sortOrder?: number;
+
+  starred?: boolean;
+
+  updatedAt?: string;
+
+  favoritedAt?: string;
+}
+
+export interface UserRecentVO {
+
+  serialVersionUID?: number;
+
+  nodeId?: string;
+
+  name?: string;
+
+  nodeType?: string;
+
+  suffix?: string;
+
+  size?: number;
+
+  path?: string;
+
+  thumbnailKey?: string;
+
+  accessType?: string;
+
+  accessedAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
 }

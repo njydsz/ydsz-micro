@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MsgRouteRuleVO, PageQuery, PageResponse, RouteRuleUpsertDTO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function create(data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
 /**
  * update: PUT /api/v1/message/route-rule/{id}
  */
-export function update(path: {
+export function update({ id }: {
     id: string;
   }, data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
   return requestClient.put<MsgRouteRuleVO>(`/api/v1/message/route-rule/${id}`, data);
@@ -33,7 +32,7 @@ export function update(path: {
 /**
  * delete: DELETE /api/v1/message/route-rule/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/message/route-rule/${id}`);
@@ -42,7 +41,7 @@ export function delete(path: {
 /**
  * getById: GET /api/v1/message/route-rule/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<MsgRouteRuleVO> {
   return requestClient.get<MsgRouteRuleVO>(`/api/v1/message/route-rule/${id}`);

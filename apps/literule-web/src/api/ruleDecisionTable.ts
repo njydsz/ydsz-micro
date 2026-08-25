@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DecisionTableDefinitionVO, DecisionTablePostDTO, DecisionTableVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function listDecisionTables(): Promise<DecisionTableVO[]> {
 /**
  * getDecisionTable: GET /api/v1/literule/rules/decision-tables/{tableCode}
  */
-export function getDecisionTable(path: {
+export function getDecisionTable({ tableCode }: {
     tableCode: string;
   }): Promise<DecisionTableVO> {
   return requestClient.get<DecisionTableVO>(`/api/v1/literule/rules/decision-tables/${tableCode}`);
@@ -40,7 +39,7 @@ export function saveDecisionTable(data: DecisionTablePostDTO): Promise<DecisionT
 /**
  * deleteDecisionTable: DELETE /api/v1/literule/rules/decision-tables/{id}
  */
-export function deleteDecisionTable(path: {
+export function deleteDecisionTable({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/literule/rules/decision-tables/${id}`);
@@ -49,7 +48,7 @@ export function deleteDecisionTable(path: {
 /**
  * evaluateDecisionTable: POST /api/v1/literule/rules/decision-tables/{tableCode}/evaluate
  */
-export function evaluateDecisionTable(path: {
+export function evaluateDecisionTable({ tableCode }: {
     tableCode: string;
   }, data: Record<string, unknown>): Promise<Record<string, unknown>[]> {
   return requestClient.post<Record<string, unknown>[]>(`/api/v1/literule/rules/decision-tables/${tableCode}/evaluate`, data);
@@ -58,7 +57,7 @@ export function evaluateDecisionTable(path: {
 /**
  * exportDecisionTableExcel: GET /api/v1/literule/rules/decision-tables/{tableCode}/export-excel
  */
-export function exportDecisionTableExcel(path: {
+export function exportDecisionTableExcel({ tableCode }: {
     tableCode: string;
   }, params: {
     response?: Record<string, unknown>;

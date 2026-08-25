@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { CategoryNodeVO, RuleDefinitionVO } from './models';
 
 /**
@@ -42,7 +41,7 @@ export function listByOwner(params: {
 /**
  * setOwner: PUT /api/v1/literule/rules/{ruleCode}/owner
  */
-export function setOwner(path: {
+export function setOwner({ ruleCode }: {
     ruleCode: string;
   }, params: {
     owner?: string;
@@ -53,7 +52,7 @@ export function setOwner(path: {
 /**
  * setCategoryPath: PUT /api/v1/literule/rules/{ruleCode}/category-path
  */
-export function setCategoryPath(path: {
+export function setCategoryPath({ ruleCode }: {
     ruleCode: string;
   }, params: {
     path?: string;

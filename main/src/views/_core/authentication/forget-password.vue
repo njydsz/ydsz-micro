@@ -35,7 +35,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
   ];
 });
 
-function handleSubmit(_value: Recordable<any>) {
+function handleSubmit(_value: Record<string, unknown>) {
   // 重置密码流程由 AuthenticationForgetPassword 组件内部处理
 }
 </script>

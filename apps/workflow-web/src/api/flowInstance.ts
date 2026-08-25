@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FlowAuditTrailVO, FlowAutoTriggerCreateDTO, FlowAutoTriggerVO, FlowDefinitionDetailVO, FlowInstanceVariablesDTO, FlowInstanceViewDTO, FlowRecallableNodeVO, FlowReplayStepVO, FlowStartProcessDTO, FlowTimelineVO, InstanceMigrationDTO, InstanceMigrationResultDTO, PageResponse } from './models';
 
 /**
@@ -41,7 +40,7 @@ export function getByBusiness(params: {
 /**
  * terminate: POST /api/v1/workflow/engine/instance/{id}/terminate
  */
-export function terminate(path: {
+export function terminate({ id }: {
     id: string;
   }, params: {
     reason?: string;
@@ -52,7 +51,7 @@ export function terminate(path: {
 /**
  * suspend: POST /api/v1/workflow/engine/instance/{id}/suspend
  */
-export function suspend(path: {
+export function suspend({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/suspend`);
@@ -61,7 +60,7 @@ export function suspend(path: {
 /**
  * activate: POST /api/v1/workflow/engine/instance/{id}/activate
  */
-export function activate(path: {
+export function activate({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/activate`);
@@ -70,7 +69,7 @@ export function activate(path: {
 /**
  * recall: POST /api/v1/workflow/engine/instance/{id}/recall
  */
-export function recall(path: {
+export function recall({ id }: {
     id: string;
   }, params: {
     targetNodeCode?: string;
@@ -81,7 +80,7 @@ export function recall(path: {
 /**
  * listRecallableNodes: GET /api/v1/workflow/engine/instance/{id}/recallableNodes
  */
-export function listRecallableNodes(path: {
+export function listRecallableNodes({ id }: {
     id: string;
   }): Promise<FlowRecallableNodeVO[]> {
   return requestClient.get<FlowRecallableNodeVO[]>(`/api/v1/workflow/engine/instance/${id}/recallableNodes`);
@@ -90,7 +89,7 @@ export function listRecallableNodes(path: {
 /**
  * rollback: POST /api/v1/workflow/engine/instance/{id}/rollback
  */
-export function rollback(path: {
+export function rollback({ id }: {
     id: string;
   }, params: {
     reason?: string;
@@ -102,7 +101,7 @@ export function rollback(path: {
 /**
  * resubmit: POST /api/v1/workflow/engine/instance/{id}/resubmit
  */
-export function resubmit(path: {
+export function resubmit({ id }: {
     id: string;
   }, params: {
     comment?: string;
@@ -114,7 +113,7 @@ export function resubmit(path: {
 /**
  * auditTrail: GET /api/v1/workflow/engine/instance/{id}/auditTrail
  */
-export function auditTrail(path: {
+export function auditTrail({ id }: {
     id: string;
   }): Promise<FlowAuditTrailVO[]> {
   return requestClient.get<FlowAuditTrailVO[]>(`/api/v1/workflow/engine/instance/${id}/auditTrail`);
@@ -123,7 +122,7 @@ export function auditTrail(path: {
 /**
  * timeline: GET /api/v1/workflow/engine/instance/{id}/timeline
  */
-export function timeline(path: {
+export function timeline({ id }: {
     id: string;
   }): Promise<FlowTimelineVO[]> {
   return requestClient.get<FlowTimelineVO[]>(`/api/v1/workflow/engine/instance/${id}/timeline`);
@@ -132,7 +131,7 @@ export function timeline(path: {
 /**
  * diagram: GET /api/v1/workflow/engine/instance/{id}/diagram
  */
-export function diagram(path: {
+export function diagram({ id }: {
     id: string;
   }): Promise<FlowDefinitionDetailVO> {
   return requestClient.get<FlowDefinitionDetailVO>(`/api/v1/workflow/engine/instance/${id}/diagram`);
@@ -141,7 +140,7 @@ export function diagram(path: {
 /**
  * replay: GET /api/v1/workflow/engine/instance/{id}/replay
  */
-export function replay(path: {
+export function replay({ id }: {
     id: string;
   }): Promise<FlowReplayStepVO[]> {
   return requestClient.get<FlowReplayStepVO[]>(`/api/v1/workflow/engine/instance/${id}/replay`);
@@ -195,7 +194,7 @@ export function instanceAll(params: {
 /**
  * getVariables: GET /api/v1/workflow/engine/instance/{id}/variables
  */
-export function getVariables(path: {
+export function getVariables({ id }: {
     id: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/variables`);
@@ -204,7 +203,7 @@ export function getVariables(path: {
 /**
  * setVariables: POST /api/v1/workflow/engine/instance/{id}/variables
  */
-export function setVariables(path: {
+export function setVariables({ id }: {
     id: string;
   }, data: FlowInstanceVariablesDTO): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/variables`, data);
@@ -213,7 +212,7 @@ export function setVariables(path: {
 /**
  * urge: POST /api/v1/workflow/engine/instance/{id}/urge
  */
-export function urge(path: {
+export function urge({ id }: {
     id: string;
   }, params: {
     comment?: string;
@@ -224,7 +223,7 @@ export function urge(path: {
 /**
  * urgeByNode: POST /api/v1/workflow/engine/instance/{id}/urge/node
  */
-export function urgeByNode(path: {
+export function urgeByNode({ id }: {
     id: string;
   }, params: {
     nodeCode?: string;
@@ -236,7 +235,7 @@ export function urgeByNode(path: {
 /**
  * getFormRenderData: GET /api/v1/workflow/engine/instance/{id}/formRender
  */
-export function getFormRenderData(path: {
+export function getFormRenderData({ id }: {
     id: string;
   }, params: {
     taskId?: string;
@@ -285,7 +284,7 @@ export function createTrigger(data: FlowAutoTriggerCreateDTO): Promise<void> {
 /**
  * deleteTrigger: DELETE /api/v1/workflow/engine/instance/trigger/{id}
  */
-export function deleteTrigger(path: {
+export function deleteTrigger({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/workflow/engine/instance/trigger/${id}`);
@@ -294,7 +293,7 @@ export function deleteTrigger(path: {
 /**
  * toggleTrigger: PUT /api/v1/workflow/engine/instance/trigger/{id}/toggle
  */
-export function toggleTrigger(path: {
+export function toggleTrigger({ id }: {
     id: string;
   }): Promise<unknown> {
   return requestClient.put<unknown>(`/api/v1/workflow/engine/instance/trigger/${id}/toggle`);

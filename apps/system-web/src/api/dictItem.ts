@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DictItemBatchDTO, DictItemDTO, DictItemPageQuery, DictItemVO, PageResponse } from './models';
 
 /**
@@ -26,10 +25,10 @@ export function page(params: {
 /**
  * getById: GET /api/v1/dict/item/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<DictItemVO> {
-  return requestClient.get<DictItemVO>(`/api/v1/dict/item/${id}`);
+  return requestClient.get<DictItemVO>(`/api/v1/dict/item/$${id}`);
 }
 
 /**
@@ -45,28 +44,28 @@ export function lookup(params: {
 /**
  * listByType: GET /api/v1/dict/item/type/{typeCode}
  */
-export function listByType(path: {
+export function listByType({ typeCode }: {
     typeCode: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/type/${typeCode}`);
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/type/$${typeCode}`);
 }
 
 /**
  * listChildren: GET /api/v1/dict/item/children/{parentId}
  */
-export function listChildren(path: {
+export function listChildren({ parentId }: {
     parentId: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/children/${parentId}`);
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/children/$${parentId}`);
 }
 
 /**
  * buildTree: GET /api/v1/dict/item/tree/{typeCode}
  */
-export function buildTree(path: {
+export function buildTree({ typeCode }: {
     typeCode: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/tree/${typeCode}`);
+  return requestClient.get<DictItemVO[]>(`/api/v1/dict/item/tree/$${typeCode}`);
 }
 
 /**
@@ -86,10 +85,10 @@ export function update(data: DictItemDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/dict/item/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/dict/item/${id}`);
+  return requestClient.delete<boolean>(`/api/v1/dict/item/$${id}`);
 }
 
 /**

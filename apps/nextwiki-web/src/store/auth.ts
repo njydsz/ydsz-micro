@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { createSharedAuthStore } from '@ydsz/shared-auth';
+import { createSharedAuthStore } from '@ydsz/shared-auth';
 
 const useAuthStore = createSharedAuthStore();
 export { useAuthStore };

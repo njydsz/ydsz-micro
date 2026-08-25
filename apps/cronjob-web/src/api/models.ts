@@ -427,3 +427,586 @@ export interface JobWebhookPutDTO {
 
   webhookStatus?: string;
 }
+
+export interface JobAlertRuleVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ruleName?: string;
+
+  jobId?: string;
+
+  jobKey?: string;
+
+  alertType?: string;
+
+  alertLevel?: string;
+
+  threshold?: number;
+
+  timeWindowMinutes?: number;
+
+  channels?: string;
+
+  receivers?: string;
+
+  cooldownMinutes?: number;
+
+  enabled?: number;
+
+  sourceType?: string;
+
+  tenantId?: string;
+
+  lastAlertAt?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobAlertLogVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  alertCode?: string;
+
+  sourceType?: string;
+
+  ruleId?: string;
+
+  ruleName?: string;
+
+  jobId?: string;
+
+  jobKey?: string;
+
+  alertType?: string;
+
+  alertLevel?: string;
+
+  triggerValue?: string;
+
+  threshold?: number;
+
+  channels?: string;
+
+  alertStatus?: string;
+
+  errorMessage?: string;
+
+  traceId?: string;
+
+  triggerLogId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface ConnectorTaskInfo {
+
+  externalTaskId?: string;
+
+  jobName?: string;
+
+  jobGroup?: string;
+
+  cronExpression?: string;
+
+  jobType?: string;
+
+  executorHandler?: string;
+
+  paramsJson?: string;
+
+  description?: string;
+
+  routeStrategy?: string;
+
+  blockStrategy?: string;
+
+  timeoutSeconds?: number;
+
+  retryCount?: number;
+
+  alertEmail?: string;
+
+  extraProps?: Record<string, unknown>;
+
+  sourceSystem?: string;
+}
+
+export interface ConnectorExportResult {
+
+  total?: number;
+
+  success?: number;
+
+  failed?: number;
+
+  skipped?: number;
+
+  errors?: string[];
+}
+
+export interface GlueCodeVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  jobId?: string;
+
+  sourceCode?: string;
+
+  language?: string;
+
+  version?: number;
+
+  remark?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface ProcessResult {
+
+  success?: boolean;
+
+  result?: string;
+
+  errorMessage?: string;
+}
+
+export interface BatchResult {
+
+  total?: number;
+
+  successCount?: number;
+
+  failureCount?: number;
+
+  details?: Record<string, unknown>[];
+
+  item?: Record<string, unknown>;
+
+  success?: boolean;
+
+  error?: string;
+}
+
+export interface JobLogVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  jobId?: string;
+
+  jobKey?: string;
+
+  startTime?: string;
+
+  endTime?: string;
+
+  durationMs?: number;
+
+  errorMessage?: string;
+
+  paramsJson?: string;
+
+  resultJson?: string;
+
+  traceId?: string;
+
+  triggerType?: string;
+
+  lockHolder?: string;
+
+  execNodeId?: string;
+
+  execThreadId?: number;
+
+  status?: string;
+
+  deleted?: number;
+
+  shardIndex?: number;
+
+  shardTotal?: number;
+
+  isSlow?: number;
+
+  slowThresholdMs?: number;
+
+  queueTime?: string;
+
+  dispatchTime?: string;
+
+  handlerInitTime?: string;
+
+  handlerEndTime?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobDagVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  dagKey?: string;
+
+  dagName?: string;
+
+  dagDefinition?: string;
+
+  dagStatus?: string;
+
+  triggerType?: string;
+
+  cronExpression?: string;
+
+  maxConcurrentInstances?: number;
+
+  failStrategy?: string;
+
+  description?: string;
+
+  timeoutMs?: number;
+
+  nextFireTime?: string;
+
+  lastFireTime?: string;
+
+  fireCount?: number;
+
+  successCount?: number;
+
+  failCount?: number;
+
+  version?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobDagVersionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  dagId?: string;
+
+  dagKey?: string;
+
+  version?: number;
+
+  dagDefinition?: string;
+
+  dagName?: string;
+
+  triggerType?: string;
+
+  cronExpression?: string;
+
+  failStrategy?: string;
+
+  remark?: string;
+
+  changedBy?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobDagInstanceVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  dagId?: string;
+
+  dagKey?: string;
+
+  instanceStatus?: string;
+
+  triggerType?: string;
+
+  triggerBy?: string;
+
+  triggerTraceId?: string;
+
+  contextJson?: string;
+
+  startedAt?: string;
+
+  finishedAt?: string;
+
+  durationMs?: number;
+
+  errorMessage?: string;
+
+  totalNodes?: number;
+
+  successNodes?: number;
+
+  failedNodes?: number;
+
+  skippedNodes?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobDagNodeInstanceVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  dagInstanceId?: string;
+
+  dagId?: string;
+
+  jobId?: string;
+
+  jobKey?: string;
+
+  nodeStatus?: string;
+
+  logId?: string;
+
+  retryCount?: number;
+
+  maxRetries?: number;
+
+  startedAt?: string;
+
+  finishedAt?: string;
+
+  durationMs?: number;
+
+  resultJson?: string;
+
+  errorMessage?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface DagInstanceVisualizationVO {
+
+  instance?: JobDagInstanceVO;
+
+  definition?: DagDefinition;
+
+  nodeInstances?: JobDagNodeInstanceVO[];
+}
+
+export interface DagDefinition {
+
+  nodes?: 'TASK' | 'SUB_WORKFLOW' | 'APPROVAL'[];
+
+  edges?: DagEdge[];
+}
+
+export interface DagEdge {}
+export interface JobHistoryVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  jobId?: string;
+
+  version?: number;
+
+  snapshot?: string;
+
+  changeType?: string;
+
+  beforeSnapshot?: string;
+
+  changeRemark?: string;
+
+  jobName?: string;
+
+  jobKey?: string;
+
+  handler?: string;
+
+  cronExpression?: string;
+
+  paramsJson?: string;
+
+  remark?: string;
+
+  changedBy?: string;
+
+  changedAt?: string;
+
+  historyDeleted?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobDailyStatsVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  jobId?: string;
+
+  jobKey?: string;
+
+  statsDate?: string;
+
+  fireCount?: number;
+
+  successCount?: number;
+
+  failCount?: number;
+
+  timeoutCount?: number;
+
+  avgDurationMs?: number;
+
+  maxDurationMs?: number;
+
+  minDurationMs?: number;
+
+  p95DurationMs?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobTaskVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  jobId?: string;
+
+  logId?: string;
+
+  jobKey?: string;
+
+  taskName?: string;
+
+  taskParams?: string;
+
+  taskType?: string;
+
+  taskStatus?: string;
+
+  result?: string;
+
+  errorMessage?: string;
+
+  execNodeId?: string;
+
+  retryCount?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface JobWebhookVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  name?: string;
+
+  eventType?: string;
+
+  jobKey?: string;
+
+  jobGroup?: string;
+
+  callbackUrl?: string;
+
+  httpMethod?: string;
+
+  headers?: string;
+
+  secret?: string;
+
+  webhookStatus?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}

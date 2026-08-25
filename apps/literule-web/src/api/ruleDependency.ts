@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { RuleDependencyAddDTO, RuleDependencyVO, StringVO } from './models';
 
 /**
  * addDependency: POST /api/v1/literule/rules/{ruleCode}/dependencies
  */
-export function addDependency(path: {
+export function addDependency({ ruleCode }: {
     ruleCode: string;
   }, data: RuleDependencyAddDTO): Promise<RuleDependencyVO> {
   return requestClient.post<RuleDependencyVO>(`/api/v1/literule/rules/${ruleCode}/dependencies`, data);
@@ -26,7 +25,7 @@ export function addDependency(path: {
 /**
  * removeDependency: DELETE /api/v1/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}
  */
-export function removeDependency(path: {
+export function removeDependency({ ruleCode, dependsOnRuleCode }: {
     ruleCode: string;
     dependsOnRuleCode: string;
   }): Promise<void> {
@@ -36,7 +35,7 @@ export function removeDependency(path: {
 /**
  * listDependencies: GET /api/v1/literule/rules/{ruleCode}/dependencies
  */
-export function listDependencies(path: {
+export function listDependencies({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleDependencyVO[]> {
   return requestClient.get<RuleDependencyVO[]>(`/api/v1/literule/rules/${ruleCode}/dependencies`);
@@ -45,7 +44,7 @@ export function listDependencies(path: {
 /**
  * listDependents: GET /api/v1/literule/rules/{ruleCode}/dependents
  */
-export function listDependents(path: {
+export function listDependents({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleDependencyVO[]> {
   return requestClient.get<RuleDependencyVO[]>(`/api/v1/literule/rules/${ruleCode}/dependents`);
@@ -54,7 +53,7 @@ export function listDependents(path: {
 /**
  * cascadingDisable: GET /api/v1/literule/rules/{ruleCode}/cascading-disable
  */
-export function cascadingDisable(path: {
+export function cascadingDisable({ ruleCode }: {
     ruleCode: string;
   }): Promise<StringVO[]> {
   return requestClient.get<StringVO[]>(`/api/v1/literule/rules/${ruleCode}/cascading-disable`);

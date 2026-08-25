@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * checkFileInfo: GET /api/v1/nextwiki/wopi/files/{fileId}
  */
-export function checkFileInfo(path: {
+export function checkFileInfo({ fileId }: {
     fileId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}`);
@@ -26,7 +25,7 @@ export function checkFileInfo(path: {
 /**
  * getFileContents: GET /api/v1/nextwiki/wopi/files/{fileId}/contents
  */
-export function getFileContents(path: {
+export function getFileContents({ fileId }: {
     fileId: string;
   }): Promise<number[]> {
   return requestClient.get<number[]>(`/api/v1/nextwiki/wopi/files/${fileId}/contents`);
@@ -35,7 +34,7 @@ export function getFileContents(path: {
 /**
  * putFileContents: POST /api/v1/nextwiki/wopi/files/{fileId}/contents
  */
-export function putFileContents(path: {
+export function putFileContents({ fileId }: {
     fileId: string;
   }, data: number[]): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}/contents`, data);
@@ -44,7 +43,7 @@ export function putFileContents(path: {
 /**
  * lockFile: POST /api/v1/nextwiki/wopi/files/{fileId}/lock
  */
-export function lockFile(path: {
+export function lockFile({ fileId }: {
     fileId: string;
   }): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}/lock`);
@@ -53,7 +52,7 @@ export function lockFile(path: {
 /**
  * unlockFile: POST /api/v1/nextwiki/wopi/files/{fileId}/unlock
  */
-export function unlockFile(path: {
+export function unlockFile({ fileId }: {
     fileId: string;
   }): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/nextwiki/wopi/files/${fileId}/unlock`);

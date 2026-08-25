@@ -7,6 +7,7 @@
  */
 import type { MaybePromise } from '@YDSZ-core/typings';
 
+import type { Component } from 'vue';
 import { Store } from '@YDSZ-core/shared/store';
 import { bindMethods, isFunction } from '@YDSZ-core/shared/utils';
 
@@ -25,10 +26,10 @@ export interface PopupApiCallbacks {
 /**
  * 弹窗通用 API 选项接口
  */
-export interface PopupApiOptions<State extends Record<string, any>>
+export interface PopupApiOptions<State extends Record<string, unknown>>
   extends PopupApiCallbacks {
-  connectedComponent?: any;
-  [key: string]: any;
+  connectedComponent?: Component;
+  [key: string]: unknown;
 }
 
 /**
@@ -36,8 +37,8 @@ export interface PopupApiOptions<State extends Record<string, any>>
  * @description 提供 Modal 和 Drawer 共享的通用方法实现，消除代码重复
  * @template State 弹窗状态类型
  */
-export class PopupApi<State extends Record<string, any>> {
-  public sharedData: Record<'payload', any> = {
+export class PopupApi<State extends Record<string, unknown>> {
+  public sharedData: Record<'payload', unknown> = {
     payload: {},
   };
   public store: Store<State>;
@@ -109,7 +110,7 @@ export class PopupApi<State extends Record<string, any>> {
     }
   }
 
-  getData<T extends object = Record<string, any>>() {
+  getData<T extends object = Record<string, unknown>>() {
     return (this.sharedData?.payload ?? {}) as T;
   }
 

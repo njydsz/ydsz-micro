@@ -71,7 +71,7 @@ export function formatDateTime(time: number | string) {
  * @param value - 任意待检测值
  * @returns 是 Date 实例返回 `true`，同时把类型收窄为 `Date`
  */
-export function isDate(value: any): value is Date {
+export function isDate(value: unknown): value is Date {
   return value instanceof Date;
 }
 
@@ -89,6 +89,6 @@ export function isDate(value: any): value is Date {
  * @param value - 任意待检测值
  * @returns 是 dayjs 实例返回 `true`，同时把类型收窄为 `dayjs.Dayjs`
  */
-export function isDayjsObject(value: any): value is dayjs.Dayjs {
+export function isDayjsObject(value: unknown): value is dayjs.Dayjs {
   return dayjs.isDayjs(value);
 }

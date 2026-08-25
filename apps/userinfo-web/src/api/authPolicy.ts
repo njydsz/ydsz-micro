@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { AuthPolicyDTO, AuthPolicyPageQuery, AuthPolicyVO, PageResponse } from './models';
+import type { AuthPolicyDTO, AuthPolicyPageQuery, AuthPolicyVO } from './models';
 
 /**
  * page: GET /api/v1/auth-policy/page
@@ -26,7 +25,7 @@ export function page(params: {
 /**
  * getByTenantId: GET /api/v1/auth-policy/{tenantId}
  */
-export function getByTenantId(path: {
+export function getByTenantId({ tenantId }: {
     tenantId: string;
   }): Promise<AuthPolicyVO> {
   return requestClient.get<AuthPolicyVO>(`/api/v1/auth-policy/${tenantId}`);
@@ -42,7 +41,7 @@ export function create(data: AuthPolicyDTO): Promise<void> {
 /**
  * update: PUT /api/v1/auth-policy/{tenantId}
  */
-export function update(path: {
+export function update({ tenantId }: {
     tenantId: string;
   }, data: AuthPolicyDTO): Promise<void> {
   return requestClient.put<void>(`/api/v1/auth-policy/${tenantId}`, data);
@@ -51,7 +50,7 @@ export function update(path: {
 /**
  * delete: DELETE /api/v1/auth-policy/{tenantId}
  */
-export function delete(path: {
+export function deleteApi({ tenantId }: {
     tenantId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/auth-policy/${tenantId}`);

@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MsgUserChannelVO, UserChannelBindingDTO } from './models';
 
 /**
@@ -31,7 +30,7 @@ export function listMine(): Promise<MsgUserChannelVO[]> {
 /**
  * listByUser: GET /api/v1/message/user-channels/user/{userId}
  */
-export function listByUser(path: {
+export function listByUser({ userId }: {
     userId: string;
   }): Promise<MsgUserChannelVO[]> {
   return requestClient.get<MsgUserChannelVO[]>(`/api/v1/message/user-channels/user/${userId}`);
@@ -40,7 +39,7 @@ export function listByUser(path: {
 /**
  * delete: DELETE /api/v1/message/user-channels/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/message/user-channels/${id}`);

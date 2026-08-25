@@ -61,7 +61,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
  * Asynchronously handle the login process
  * @param values 登录表单数据
  */
-async function handleLogin(_values: Recordable<any>) {
+async function handleLogin(_values: Record<string, unknown>) {
   // 登录逻辑由 AuthenticationCodeLogin 组件内部处理，此处保留表单数据入口
 }
 </script>

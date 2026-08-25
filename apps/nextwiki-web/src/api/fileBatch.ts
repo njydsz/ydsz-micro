@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { BatchResult, FileNodeVO, FileVersionVO } from './models';
 
 /**
@@ -31,7 +30,7 @@ export function batchMove(data: Record<string, unknown>): Promise<BatchResult> {
 /**
  * getVersionHistory: GET /api/v1/nextwiki/files/{nodeId}/versions
  */
-export function getVersionHistory(path: {
+export function getVersionHistory({ nodeId }: {
     nodeId: string;
   }): Promise<FileVersionVO[]> {
   return requestClient.get<FileVersionVO[]>(`/api/v1/nextwiki/files/${nodeId}/versions`);
@@ -40,7 +39,7 @@ export function getVersionHistory(path: {
 /**
  * rollbackVersion: POST /api/v1/nextwiki/files/{nodeId}/versions/{version}/rollback
  */
-export function rollbackVersion(path: {
+export function rollbackVersion({ nodeId, version }: {
     nodeId: string;
     version: number;
   }): Promise<FileNodeVO> {
@@ -50,7 +49,7 @@ export function rollbackVersion(path: {
 /**
  * diffVersions: GET /api/v1/nextwiki/files/{nodeId}/versions/diff
  */
-export function diffVersions(path: {
+export function diffVersions({ nodeId }: {
     nodeId: string;
   }, params: {
     oldVersion?: number;
@@ -76,7 +75,7 @@ export function asyncBatchMove(data: Record<string, unknown>): Promise<string> {
 /**
  * getBatchTaskStatus: GET /api/v1/nextwiki/files/batch/task/{taskId}
  */
-export function getBatchTaskStatus(path: {
+export function getBatchTaskStatus({ taskId }: {
     taskId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/nextwiki/files/batch/task/${taskId}`);
@@ -85,7 +84,7 @@ export function getBatchTaskStatus(path: {
 /**
  * toggleStar: PUT /api/v1/nextwiki/files/{nodeId}/star
  */
-export function toggleStar(path: {
+export function toggleStar({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
   return requestClient.put<void>(`/api/v1/nextwiki/files/${nodeId}/star`);

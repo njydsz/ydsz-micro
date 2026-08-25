@@ -118,9 +118,9 @@ export function ydszAlert(
     document.body.append(container);
 
     // 创建一个引用，用于在回调中访问实例
-    const alertRef = { container, instance: null as any };
+    const alertRef = { container, instance: null as unknown as Component | null };
 
-    const props: AlertProps & Recordable<any> = {
+    const props: AlertProps & Recordable<unknown> = {
       onClosed: (isConfirm: boolean) => {
         // 移除组件实例以及创建的所有dom（恢复页面到打开前的状态）
         // 从alerts数组中移除该实例
@@ -263,7 +263,7 @@ export function ydszConfirm(
  * });
  * ```
  */
-export async function ydszPrompt<T = any>(
+export async function ydszPrompt<T = unknown>(
   options: PromptProps<T>,
 ): Promise<T | undefined> {
   const {
@@ -312,7 +312,7 @@ export async function ydszPrompt<T = any>(
     );
   };
 
-  const props: AlertProps & Recordable<any> = {
+  const props: AlertProps & Recordable<unknown> = {
     ...delegated,
     async beforeClose(scope: BeforeCloseScope) {
       if (delegated.beforeClose) {

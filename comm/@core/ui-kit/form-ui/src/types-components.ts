@@ -297,13 +297,10 @@ export interface YDSZFormAdapterOptions<
      * 参数类型来自 vee-validate 的 RuleOptions 定义，使用 unknown 以兼容各种校验场景。
      */
     required?: (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      value: any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      params: any,
+      value: unknown,
+      params: unknown,
       // 兼容 vee-validate 的校验上下文类型
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ctx: Record<string, any>,
+      ctx: Record<string, unknown>,
     ) => boolean | string;
     /**
      * 选择类控件的必填校验。
@@ -313,12 +310,10 @@ export interface YDSZFormAdapterOptions<
      * 直接套用输入类的非空字符串判断会误判；错误文案也需为「请选择」。
      */
     selectRequired?: (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      value: any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      params: any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ctx: Record<string, any>,
+      value: unknown,
+      params: unknown,
+      // 兼容 vee-validate 的校验上下文类型
+      ctx: Record<string, unknown>,
     ) => boolean | string;
   };
 }

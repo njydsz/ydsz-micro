@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MsgPreferenceVO, PreferenceUpsertDTO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function upsert(data: PreferenceUpsertDTO): Promise<MsgPreferenceVO> {
 /**
  * listByUser: GET /api/v1/message/preference/{userId}
  */
-export function listByUser(path: {
+export function listByUser({ userId }: {
     userId: string;
   }): Promise<MsgPreferenceVO[]> {
   return requestClient.get<MsgPreferenceVO[]>(`/api/v1/message/preference/${userId}`);
@@ -33,7 +32,7 @@ export function listByUser(path: {
 /**
  * getByUser: GET /api/v1/message/preference/{userId}/{channel}/{bizType}
  */
-export function getByUser(path: {
+export function getByUser({ userId, channel, bizType }: {
     userId: string;
     channel: string;
     bizType: string;
@@ -44,7 +43,7 @@ export function getByUser(path: {
 /**
  * delete: DELETE /api/v1/message/preference/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/message/preference/${id}`);

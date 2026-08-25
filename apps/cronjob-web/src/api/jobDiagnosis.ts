@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * diagnose: GET /api/v1/cronjob/monitor/diagnosis/{jobKey}
  */
-export function diagnose(path: {
+export function diagnose({ jobKey }: {
     jobKey: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/cronjob/monitor/diagnosis/${jobKey}`);

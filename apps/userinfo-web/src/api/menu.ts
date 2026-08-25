@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MenuDTO, MenuTreeVO, MenuVO } from './models';
 
 /**
@@ -31,7 +30,7 @@ export function tree(): Promise<MenuTreeVO[]> {
 /**
  * getById: GET /api/v1/menu/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<MenuVO> {
   return requestClient.get<MenuVO>(`/api/v1/menu/${id}`);
@@ -54,7 +53,7 @@ export function update(data: MenuDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/menu/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/menu/${id}`);

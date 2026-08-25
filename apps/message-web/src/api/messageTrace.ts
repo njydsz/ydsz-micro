@@ -11,113 +11,24 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { AGGREGATED, CANARY_HIT, CASCADE_SENT, CHANNEL_CHECK, DEDUP_CHECK, DISPATCH_START, DISPATCH_SUCCESS, FALLBACK, PERSISTED, PREFERENCE_CHECK, RATE_LIMIT_CHECK, RECALLED, RECEIPT_RECEIVED, RECEIVED, RETRY, ROUTE_MATCHED, SCHEDULED, SEND_FAILED, SENSITIVE_FILTERED, SUBSCRIPTION_CHECK, TEMPLATE_LOADED, TEMPLATE_RENDERED } from './models';
 
 /**
  * getByMsgId: GET /api/v1/message/trace/msg/{msgId}
  */
-export function getByMsgId(path: {
+export function getByMsgId({ msgId }: {
     msgId: string;
-  }): Promise<'/** 消息接收 */
-    RECEIVED' | '/** 通道校验 */
-    CHANNEL_CHECK' | '/** 路由匹配 */
-    ROUTE_MATCHED' | '/** 灰度命中 */
-    CANARY_HIT' | '/** 订阅校验 */
-    SUBSCRIPTION_CHECK' | '/** 偏好校验（DND等） */
-    PREFERENCE_CHECK' | '/** 去重检查 */
-    DEDUP_CHECK' | '/** 限流检查 */
-    RATE_LIMIT_CHECK' | '/** 模板加载 */
-    TEMPLATE_LOADED' | '/** 模板渲染 */
-    TEMPLATE_RENDERED' | '/** 敏感词过滤 */
-    SENSITIVE_FILTERED' | '/** 消息落库 */
-    PERSISTED' | '/** 定时消息调度 */
-    SCHEDULED' | '/** 聚合加入 */
-    AGGREGATED' | '/** 通道分发开始 */
-    DISPATCH_START' | '/** 通道分发成功 */
-    DISPATCH_SUCCESS' | '/** 通道降级 */
-    FALLBACK' | '/** 通道重试 */
-    RETRY' | '/** 发送失败（终态） */
-    SEND_FAILED' | '/** 回执接收 */
-    RECEIPT_RECEIVED' | '/** 消息撤回 */
-    RECALLED' | '/** 级联发送 */
-    CASCADE_SENT'[]> {
-  return requestClient.get<'/** 消息接收 */
-    RECEIVED' | '/** 通道校验 */
-    CHANNEL_CHECK' | '/** 路由匹配 */
-    ROUTE_MATCHED' | '/** 灰度命中 */
-    CANARY_HIT' | '/** 订阅校验 */
-    SUBSCRIPTION_CHECK' | '/** 偏好校验（DND等） */
-    PREFERENCE_CHECK' | '/** 去重检查 */
-    DEDUP_CHECK' | '/** 限流检查 */
-    RATE_LIMIT_CHECK' | '/** 模板加载 */
-    TEMPLATE_LOADED' | '/** 模板渲染 */
-    TEMPLATE_RENDERED' | '/** 敏感词过滤 */
-    SENSITIVE_FILTERED' | '/** 消息落库 */
-    PERSISTED' | '/** 定时消息调度 */
-    SCHEDULED' | '/** 聚合加入 */
-    AGGREGATED' | '/** 通道分发开始 */
-    DISPATCH_START' | '/** 通道分发成功 */
-    DISPATCH_SUCCESS' | '/** 通道降级 */
-    FALLBACK' | '/** 通道重试 */
-    RETRY' | '/** 发送失败（终态） */
-    SEND_FAILED' | '/** 回执接收 */
-    RECEIPT_RECEIVED' | '/** 消息撤回 */
-    RECALLED' | '/** 级联发送 */
-    CASCADE_SENT'[]>(`/api/v1/message/trace/msg/${msgId}`);
+  }): Promise<'RECEIVED' | 'CHANNEL_CHECK' | 'ROUTE_MATCHED' | 'CANARY_HIT' | 'SUBSCRIPTION_CHECK' | 'PREFERENCE_CHECK' | 'DEDUP_CHECK' | 'RATE_LIMIT_CHECK' | 'TEMPLATE_LOADED' | 'TEMPLATE_RENDERED' | 'SENSITIVE_FILTERED' | 'PERSISTED' | 'SCHEDULED' | 'AGGREGATED' | 'DISPATCH_START' | 'DISPATCH_SUCCESS' | 'FALLBACK' | 'RETRY' | 'SEND_FAILED' | 'RECEIPT_RECEIVED' | 'RECALLED' | 'CASCADE_SENT'[]> {
+  return requestClient.get<'RECEIVED' | 'CHANNEL_CHECK' | 'ROUTE_MATCHED' | 'CANARY_HIT' | 'SUBSCRIPTION_CHECK' | 'PREFERENCE_CHECK' | 'DEDUP_CHECK' | 'RATE_LIMIT_CHECK' | 'TEMPLATE_LOADED' | 'TEMPLATE_RENDERED' | 'SENSITIVE_FILTERED' | 'PERSISTED' | 'SCHEDULED' | 'AGGREGATED' | 'DISPATCH_START' | 'DISPATCH_SUCCESS' | 'FALLBACK' | 'RETRY' | 'SEND_FAILED' | 'RECEIPT_RECEIVED' | 'RECALLED' | 'CASCADE_SENT'[]>(`/api/v1/message/trace/msg/${msgId}`);
 }
 
 /**
  * getByTraceId: GET /api/v1/message/trace/trace/{traceId}
  */
-export function getByTraceId(path: {
+export function getByTraceId({ traceId }: {
     traceId: string;
-  }): Promise<'/** 消息接收 */
-    RECEIVED' | '/** 通道校验 */
-    CHANNEL_CHECK' | '/** 路由匹配 */
-    ROUTE_MATCHED' | '/** 灰度命中 */
-    CANARY_HIT' | '/** 订阅校验 */
-    SUBSCRIPTION_CHECK' | '/** 偏好校验（DND等） */
-    PREFERENCE_CHECK' | '/** 去重检查 */
-    DEDUP_CHECK' | '/** 限流检查 */
-    RATE_LIMIT_CHECK' | '/** 模板加载 */
-    TEMPLATE_LOADED' | '/** 模板渲染 */
-    TEMPLATE_RENDERED' | '/** 敏感词过滤 */
-    SENSITIVE_FILTERED' | '/** 消息落库 */
-    PERSISTED' | '/** 定时消息调度 */
-    SCHEDULED' | '/** 聚合加入 */
-    AGGREGATED' | '/** 通道分发开始 */
-    DISPATCH_START' | '/** 通道分发成功 */
-    DISPATCH_SUCCESS' | '/** 通道降级 */
-    FALLBACK' | '/** 通道重试 */
-    RETRY' | '/** 发送失败（终态） */
-    SEND_FAILED' | '/** 回执接收 */
-    RECEIPT_RECEIVED' | '/** 消息撤回 */
-    RECALLED' | '/** 级联发送 */
-    CASCADE_SENT'[]> {
-  return requestClient.get<'/** 消息接收 */
-    RECEIVED' | '/** 通道校验 */
-    CHANNEL_CHECK' | '/** 路由匹配 */
-    ROUTE_MATCHED' | '/** 灰度命中 */
-    CANARY_HIT' | '/** 订阅校验 */
-    SUBSCRIPTION_CHECK' | '/** 偏好校验（DND等） */
-    PREFERENCE_CHECK' | '/** 去重检查 */
-    DEDUP_CHECK' | '/** 限流检查 */
-    RATE_LIMIT_CHECK' | '/** 模板加载 */
-    TEMPLATE_LOADED' | '/** 模板渲染 */
-    TEMPLATE_RENDERED' | '/** 敏感词过滤 */
-    SENSITIVE_FILTERED' | '/** 消息落库 */
-    PERSISTED' | '/** 定时消息调度 */
-    SCHEDULED' | '/** 聚合加入 */
-    AGGREGATED' | '/** 通道分发开始 */
-    DISPATCH_START' | '/** 通道分发成功 */
-    DISPATCH_SUCCESS' | '/** 通道降级 */
-    FALLBACK' | '/** 通道重试 */
-    RETRY' | '/** 发送失败（终态） */
-    SEND_FAILED' | '/** 回执接收 */
-    RECEIPT_RECEIVED' | '/** 消息撤回 */
-    RECALLED' | '/** 级联发送 */
-    CASCADE_SENT'[]>(`/api/v1/message/trace/trace/${traceId}`);
+  }): Promise<'RECEIVED' | 'CHANNEL_CHECK' | 'ROUTE_MATCHED' | 'CANARY_HIT' | 'SUBSCRIPTION_CHECK' | 'PREFERENCE_CHECK' | 'DEDUP_CHECK' | 'RATE_LIMIT_CHECK' | 'TEMPLATE_LOADED' | 'TEMPLATE_RENDERED' | 'SENSITIVE_FILTERED' | 'PERSISTED' | 'SCHEDULED' | 'AGGREGATED' | 'DISPATCH_START' | 'DISPATCH_SUCCESS' | 'FALLBACK' | 'RETRY' | 'SEND_FAILED' | 'RECEIPT_RECEIVED' | 'RECALLED' | 'CASCADE_SENT'[]> {
+  return requestClient.get<'RECEIVED' | 'CHANNEL_CHECK' | 'ROUTE_MATCHED' | 'CANARY_HIT' | 'SUBSCRIPTION_CHECK' | 'PREFERENCE_CHECK' | 'DEDUP_CHECK' | 'RATE_LIMIT_CHECK' | 'TEMPLATE_LOADED' | 'TEMPLATE_RENDERED' | 'SENSITIVE_FILTERED' | 'PERSISTED' | 'SCHEDULED' | 'AGGREGATED' | 'DISPATCH_START' | 'DISPATCH_SUCCESS' | 'FALLBACK' | 'RETRY' | 'SEND_FAILED' | 'RECEIPT_RECEIVED' | 'RECALLED' | 'CASCADE_SENT'[]>(`/api/v1/message/trace/trace/${traceId}`);
 }
 
 /**
@@ -126,50 +37,6 @@ export function getByTraceId(path: {
 export function getByBiz(params: {
     bizType?: string;
     bizId?: string;
-  }): Promise<'/** 消息接收 */
-    RECEIVED' | '/** 通道校验 */
-    CHANNEL_CHECK' | '/** 路由匹配 */
-    ROUTE_MATCHED' | '/** 灰度命中 */
-    CANARY_HIT' | '/** 订阅校验 */
-    SUBSCRIPTION_CHECK' | '/** 偏好校验（DND等） */
-    PREFERENCE_CHECK' | '/** 去重检查 */
-    DEDUP_CHECK' | '/** 限流检查 */
-    RATE_LIMIT_CHECK' | '/** 模板加载 */
-    TEMPLATE_LOADED' | '/** 模板渲染 */
-    TEMPLATE_RENDERED' | '/** 敏感词过滤 */
-    SENSITIVE_FILTERED' | '/** 消息落库 */
-    PERSISTED' | '/** 定时消息调度 */
-    SCHEDULED' | '/** 聚合加入 */
-    AGGREGATED' | '/** 通道分发开始 */
-    DISPATCH_START' | '/** 通道分发成功 */
-    DISPATCH_SUCCESS' | '/** 通道降级 */
-    FALLBACK' | '/** 通道重试 */
-    RETRY' | '/** 发送失败（终态） */
-    SEND_FAILED' | '/** 回执接收 */
-    RECEIPT_RECEIVED' | '/** 消息撤回 */
-    RECALLED' | '/** 级联发送 */
-    CASCADE_SENT'[]> {
-  return requestClient.get<'/** 消息接收 */
-    RECEIVED' | '/** 通道校验 */
-    CHANNEL_CHECK' | '/** 路由匹配 */
-    ROUTE_MATCHED' | '/** 灰度命中 */
-    CANARY_HIT' | '/** 订阅校验 */
-    SUBSCRIPTION_CHECK' | '/** 偏好校验（DND等） */
-    PREFERENCE_CHECK' | '/** 去重检查 */
-    DEDUP_CHECK' | '/** 限流检查 */
-    RATE_LIMIT_CHECK' | '/** 模板加载 */
-    TEMPLATE_LOADED' | '/** 模板渲染 */
-    TEMPLATE_RENDERED' | '/** 敏感词过滤 */
-    SENSITIVE_FILTERED' | '/** 消息落库 */
-    PERSISTED' | '/** 定时消息调度 */
-    SCHEDULED' | '/** 聚合加入 */
-    AGGREGATED' | '/** 通道分发开始 */
-    DISPATCH_START' | '/** 通道分发成功 */
-    DISPATCH_SUCCESS' | '/** 通道降级 */
-    FALLBACK' | '/** 通道重试 */
-    RETRY' | '/** 发送失败（终态） */
-    SEND_FAILED' | '/** 回执接收 */
-    RECEIPT_RECEIVED' | '/** 消息撤回 */
-    RECALLED' | '/** 级联发送 */
-    CASCADE_SENT'[]>(`/api/v1/message/trace/biz`, { params });
+  }): Promise<'RECEIVED' | 'CHANNEL_CHECK' | 'ROUTE_MATCHED' | 'CANARY_HIT' | 'SUBSCRIPTION_CHECK' | 'PREFERENCE_CHECK' | 'DEDUP_CHECK' | 'RATE_LIMIT_CHECK' | 'TEMPLATE_LOADED' | 'TEMPLATE_RENDERED' | 'SENSITIVE_FILTERED' | 'PERSISTED' | 'SCHEDULED' | 'AGGREGATED' | 'DISPATCH_START' | 'DISPATCH_SUCCESS' | 'FALLBACK' | 'RETRY' | 'SEND_FAILED' | 'RECEIPT_RECEIVED' | 'RECALLED' | 'CASCADE_SENT'[]> {
+  return requestClient.get<'RECEIVED' | 'CHANNEL_CHECK' | 'ROUTE_MATCHED' | 'CANARY_HIT' | 'SUBSCRIPTION_CHECK' | 'PREFERENCE_CHECK' | 'DEDUP_CHECK' | 'RATE_LIMIT_CHECK' | 'TEMPLATE_LOADED' | 'TEMPLATE_RENDERED' | 'SENSITIVE_FILTERED' | 'PERSISTED' | 'SCHEDULED' | 'AGGREGATED' | 'DISPATCH_START' | 'DISPATCH_SUCCESS' | 'FALLBACK' | 'RETRY' | 'SEND_FAILED' | 'RECEIPT_RECEIVED' | 'RECALLED' | 'CASCADE_SENT'[]>(`/api/v1/message/trace/biz`, { params });
 }

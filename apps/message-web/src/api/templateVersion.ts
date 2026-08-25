@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MessageResult, TemplatePreviewDTO } from './models';
 
 /**
  * listVersions: GET /api/v1/message/template/version/list/{templateCode}
  */
-export function listVersions(path: {
+export function listVersions({ templateCode }: {
     templateCode: string;
   }): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/api/v1/message/template/version/list/${templateCode}`);

@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { AssignRolesDTO, BatchUserStatusDTO, ChangePasswordDTO, PageResponse, ResetPasswordDTO, SensitiveVerifyDTO, UserAccountDTO, UserAccountPageQuery, UserAccountVO, UserImportResultDTO, UserLoginHistoryVO } from './models';
+import type { AssignRolesDTO, BatchUserStatusDTO, ChangePasswordDTO, ResetPasswordDTO, SensitiveVerifyDTO, UserAccountDTO, UserAccountPageQuery, UserAccountVO, UserImportResultDTO, UserLoginHistoryVO } from './models';
 
 /**
  * page: GET /api/v1/user/page
@@ -33,7 +32,7 @@ export function list(): Promise<UserAccountVO[]> {
 /**
  * getById: GET /api/v1/user/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<UserAccountVO> {
   return requestClient.get<UserAccountVO>(`/api/v1/user/${id}`);
@@ -56,7 +55,7 @@ export function update(data: UserAccountDTO): Promise<string> {
 /**
  * remove: DELETE /api/v1/user/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/user/${id}`);
@@ -79,7 +78,7 @@ export function resetPassword(data: ResetPasswordDTO): Promise<boolean> {
 /**
  * assignRoles: POST /api/v1/user/{userId}/roles
  */
-export function assignRoles(path: {
+export function assignRoles({ userId }: {
     userId: string;
   }, data: AssignRolesDTO): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/user/${userId}/roles`, data);
@@ -88,7 +87,7 @@ export function assignRoles(path: {
 /**
  * getUserRoles: GET /api/v1/user/{userId}/roles
  */
-export function getUserRoles(path: {
+export function getUserRoles({ userId }: {
     userId: string;
   }): Promise<string[]> {
   return requestClient.get<string[]>(`/api/v1/user/${userId}/roles`);
@@ -124,7 +123,7 @@ export function exportUsers(params: {
 /**
  * getLoginHistory: GET /api/v1/user/{userId}/login-history
  */
-export function getLoginHistory(path: {
+export function getLoginHistory({ userId }: {
     userId: string;
   }, params: {
     limit?: number;
@@ -156,7 +155,7 @@ export function batchDisable(data: BatchUserStatusDTO): Promise<number> {
 /**
  * suspend: PUT /api/v1/user/{userId}/lifecycle/suspend
  */
-export function suspend(path: {
+export function suspend({ userId }: {
     userId: string;
   }): Promise<string> {
   return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/suspend`);
@@ -165,7 +164,7 @@ export function suspend(path: {
 /**
  * resume: PUT /api/v1/user/{userId}/lifecycle/resume
  */
-export function resume(path: {
+export function resume({ userId }: {
     userId: string;
   }): Promise<string> {
   return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/resume`);
@@ -174,7 +173,7 @@ export function resume(path: {
 /**
  * disable: PUT /api/v1/user/{userId}/lifecycle/disable
  */
-export function disable(path: {
+export function disable({ userId }: {
     userId: string;
   }): Promise<string> {
   return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/disable`);
@@ -183,7 +182,7 @@ export function disable(path: {
 /**
  * enable: PUT /api/v1/user/{userId}/lifecycle/enable
  */
-export function enable(path: {
+export function enable({ userId }: {
     userId: string;
   }): Promise<string> {
   return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/enable`);
@@ -192,7 +191,7 @@ export function enable(path: {
 /**
  * resign: PUT /api/v1/user/{userId}/lifecycle/resign
  */
-export function resign(path: {
+export function resign({ userId }: {
     userId: string;
   }): Promise<string> {
   return requestClient.put<string>(`/api/v1/user/${userId}/lifecycle/resign`);

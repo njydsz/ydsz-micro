@@ -12,7 +12,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { BatchResult, JobBatchDTO, JobPostDTO, JobPutDTO, JobVO, PageResponse } from './models';
+import type { BatchResult, JobBatchDTO, JobLogVO, JobPostDTO, JobPutDTO, JobVO } from './models';
 
 /**
  * create: POST /api/v1/cronjob
@@ -48,7 +48,7 @@ export function batchDelete(data: JobBatchDTO): Promise<BatchResult> {
 /**
  * delete: DELETE /api/v1/cronjob/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/cronjob/${id}`);
@@ -57,7 +57,7 @@ export function delete(path: {
 /**
  * pause: POST /api/v1/cronjob/{id}/pause
  */
-export function pause(path: {
+export function pause({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/cronjob/${id}/pause`);
@@ -66,7 +66,7 @@ export function pause(path: {
 /**
  * resume: POST /api/v1/cronjob/{id}/resume
  */
-export function resume(path: {
+export function resume({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/cronjob/${id}/resume`);
@@ -75,7 +75,7 @@ export function resume(path: {
 /**
  * trigger: POST /api/v1/cronjob/{id}/trigger
  */
-export function trigger(path: {
+export function trigger({ id }: {
     id: string;
   }, params: {
     holdLock?: boolean;
@@ -107,7 +107,7 @@ export function batchTrigger(data: JobBatchDTO): Promise<BatchResult> {
 /**
  * getById: GET /api/v1/cronjob/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<JobVO> {
   return requestClient.get<JobVO>(`/api/v1/cronjob/${id}`);
@@ -122,8 +122,8 @@ export function page(params: {
     keyword?: string;
     status?: string;
     group?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/cronjob/page`, { params });
+  }): Promise<PageResponse<JobVO[]>> {
+  return requestClient.get<PageResponse<JobVO[]>>(`/api/v1/cronjob/page`, { params });
 }
 
 /**
@@ -134,8 +134,8 @@ export function pageLog(params: {
     size?: number;
     jobKey?: string;
     status?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/cronjob/log/page`, { params });
+  }): Promise<PageResponse<JobLogVO[]>> {
+  return requestClient.get<PageResponse<JobLogVO[]>>(`/api/v1/cronjob/log/page`, { params });
 }
 
 /**

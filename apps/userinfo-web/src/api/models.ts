@@ -106,10 +106,7 @@ export interface SecondaryAuthRequest {
 
   ttlSeconds?: number;
   /** 枚举 SensitiveLevel */
-  level?: '/** 中等敏感（个人资料等） */
-  MEDIUM' | '/** 高敏感（默认，改密/角色分配等） */
-  HIGH' | '/** 极敏感（删除用户/批量禁用/租户级操作等） */
-  CRITICAL';
+  level?: 'MEDIUM' | 'HIGH' | 'CRITICAL';
 }
 
 export interface AuthPolicyPageQuery {
@@ -651,4 +648,709 @@ export interface AccountUnlockDTO {
   captchaKey?: string;
 
   captcha?: string;
+}
+
+export interface BanInfoVO {
+
+  serialVersionUID?: number;
+
+  banned?: boolean;
+
+  banType?: string;
+
+  banReason?: string;
+
+  banExpireAt?: string;
+
+  bannedBy?: string;
+
+  bannedAt?: string;
+}
+
+export interface UserSessionVO {
+
+  serialVersionUID?: number;
+
+  accessToken?: string;
+
+  loginTime?: string;
+
+  loginIp?: string;
+
+  userAgent?: string;
+
+  expireTime?: string;
+
+  device?: string;
+
+  username?: string;
+}
+
+export interface UserSessionStatistics {
+
+  totalActiveSessions?: number;
+
+  activeUserCount?: number;
+
+  sessionsPerDevice?: Record<string, unknown>;
+}
+
+export interface LoginVO {
+
+  accessToken?: string;
+
+  refreshToken?: string;
+
+  tokenType?: string;
+
+  expiresIn?: number;
+
+  scope?: string;
+
+  userInfo?: Record<string, unknown>;
+
+  userId?: string;
+
+  username?: string;
+
+  realName?: string;
+
+  roleCode?: string;
+
+  roleName?: string;
+
+  tenantId?: string;
+
+  avatar?: string;
+}
+
+export interface AuthPolicyVO {
+
+  id?: string;
+
+  tenantId?: string;
+
+  name?: string;
+
+  passwordMinLength?: number;
+
+  passwordRequireUppercase?: boolean;
+
+  passwordRequireDigit?: boolean;
+
+  mfaEnabled?: boolean;
+
+  captchaEnabled?: boolean;
+
+  allowedIdentityProviders?: string;
+
+  maxSessionsPerUser?: number;
+
+  sessionTimeoutSeconds?: number;
+
+  remark?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+}
+
+export interface CompanyVO {
+
+  id?: string;
+
+  companyName?: string;
+
+  companyCode?: string;
+
+  parentId?: string;
+
+  contactPerson?: string;
+
+  contactPhone?: string;
+
+  address?: string;
+
+  status?: string;
+}
+
+export interface CompanyTreeVO {
+
+  id?: string;
+
+  parentId?: string;
+
+  children?: CompanyTreeVO[];
+
+  level?: number;
+
+  path?: string;
+
+  companyName?: string;
+
+  companyCode?: string;
+
+  contactPerson?: string;
+
+  contactPhone?: string;
+
+  address?: string;
+
+  status?: string;
+}
+
+export interface DepartmentVO {
+
+  id?: string;
+
+  parentId?: string;
+
+  deptName?: string;
+
+  deptCode?: string;
+
+  description?: string;
+
+  sortOrder?: number;
+
+  status?: string;
+
+  leaderId?: string;
+}
+
+export interface DepartmentTreeVO {
+
+  id?: string;
+
+  parentId?: string;
+
+  deptCode?: string;
+
+  deptName?: string;
+
+  deptPath?: string;
+
+  sortOrder?: number;
+
+  status?: string;
+
+  children?: DepartmentTreeVO[];
+}
+
+export interface DeviceSessionVO {
+
+  sessionId?: string;
+
+  deviceType?: string;
+
+  deviceTypeDesc?: string;
+
+  loginIp?: string;
+
+  loginTime?: string;
+
+  lastActiveTime?: string;
+
+  currentSession?: boolean;
+
+  deviceFingerprint?: string;
+
+  location?: string;
+}
+
+export interface UserAccountVO {
+
+  ENABLED_INT_VALUE?: number;
+
+  DISABLED_INT_VALUE?: number;
+
+  id?: string;
+
+  username?: string;
+
+  realName?: string;
+
+  phone?: string;
+
+  email?: string;
+
+  avatar?: string;
+
+  status?: number;
+
+  userType?: string;
+
+  companyId?: string;
+
+  deptId?: string;
+
+  leaderId?: string;
+
+  positionCode?: string;
+
+  tenantId?: string;
+
+  lastLoginAt?: string;
+
+  lastLoginIp?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+
+  loginFailCount?: number;
+
+  lockedUntil?: string;
+
+  revision?: number;
+
+  banType?: string;
+
+  banReason?: string;
+
+  banExpireAt?: string;
+
+  bannedBy?: string;
+
+  bannedAt?: string;
+}
+
+export interface LanguageVO {
+
+  id?: string;
+
+  languageCode?: string;
+
+  languageName?: string;
+
+  isDefault?: number;
+
+  sortOrder?: number;
+
+  status?: string;
+}
+
+export interface MenuVO {
+
+  id?: string;
+
+  parentId?: string;
+
+  menuName?: string;
+
+  menuCode?: string;
+
+  menuType?: string;
+
+  path?: string;
+
+  component?: string;
+
+  icon?: string;
+
+  sortOrder?: number;
+
+  permissionCode?: string;
+
+  visible?: number;
+
+  status?: string;
+}
+
+export interface MenuTreeVO {
+
+  id?: string;
+
+  parentId?: string;
+
+  menuName?: string;
+
+  menuCode?: string;
+
+  menuType?: string;
+
+  path?: string;
+
+  component?: string;
+
+  icon?: string;
+
+  sortOrder?: number;
+
+  permissionCode?: string;
+
+  visible?: number;
+
+  status?: string;
+
+  children?: MenuTreeVO[];
+}
+
+export interface PostVO {
+
+  id?: string;
+
+  postName?: string;
+
+  postCode?: string;
+
+  description?: string;
+
+  sortOrder?: number;
+
+  status?: string;
+}
+
+export interface RoleVO {
+
+  id?: string;
+
+  roleCode?: string;
+
+  roleName?: string;
+
+  description?: string;
+
+  sortOrder?: number;
+
+  status?: string;
+
+  builtIn?: boolean;
+}
+
+export interface SamlIdpConfigVO {
+
+  id?: string;
+
+  name?: string;
+
+  entityId?: string;
+
+  ssoUrl?: string;
+
+  certificate?: string;
+
+  emailAttribute?: string;
+
+  displayNameAttribute?: string;
+
+  status?: string;
+
+  sortOrder?: number;
+
+  remark?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+
+  createdBy?: string;
+}
+
+export interface SecurityDashboardVO {
+
+  totalUsers?: number;
+
+  activeUsers?: number;
+
+  onlineUsers?: number;
+
+  mfaEnabledUsers?: number;
+
+  lockedUsers?: number;
+
+  bannedUsers?: number;
+
+  todayLoginCount?: number;
+
+  todayLoginSuccessRate?: number;
+
+  riskScoreAverage?: number;
+}
+
+export interface LoginSuccessRateVO {
+
+  date?: string;
+
+  successCount?: number;
+
+  failCount?: number;
+
+  successRate?: number;
+}
+
+export interface LoginFailDistributionVO {
+
+  reason?: string;
+
+  count?: number;
+
+  percentage?: number;
+}
+
+export interface MfaCoverageVO {
+
+  totalUsers?: number;
+
+  mfaEnabledUsers?: number;
+
+  coverageRate?: number;
+}
+
+export interface RiskLevelDistributionVO {
+
+  highRisk?: number;
+
+  mediumRisk?: number;
+
+  lowRisk?: number;
+}
+
+export interface SecurityEventVO {
+
+  eventType?: string;
+
+  username?: string;
+
+  ip?: string;
+
+  timestamp?: string;
+
+  description?: string;
+}
+
+export interface SessionActivityVO {
+
+  totalActiveSessions?: number;
+
+  activeUserCount?: number;
+
+  avgSessionDuration?: number;
+}
+
+export interface ActiveUserVO {
+
+  userId?: string;
+
+  username?: string;
+
+  loginCount?: number;
+
+  lastLoginTime?: string;
+}
+
+export interface SessionTrendVO {
+
+  date?: string;
+
+  newSessions?: number;
+
+  activeSessions?: number;
+}
+
+export interface DeviceDistributionVO {
+
+  deviceType?: string;
+
+  percentage?: number;
+
+  count?: number;
+}
+
+export interface AnomalySessionVO {
+
+  userId?: string;
+
+  username?: string;
+
+  anomalyType?: string;
+
+  description?: string;
+
+  riskLevel?: string;
+}
+
+export interface SocialAccountVO {
+
+  id?: string;
+
+  userId?: string;
+
+  platform?: string;
+
+  openId?: string;
+
+  unionId?: string;
+
+  nickname?: string;
+
+  avatarUrl?: string;
+
+  expiresAt?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+}
+
+export interface SocialClientVO {
+
+  id?: string;
+
+  platform?: string;
+
+  platformName?: string;
+
+  appId?: string;
+
+  scope?: string;
+
+  redirectUri?: string;
+
+  status?: string;
+
+  sortOrder?: number;
+
+  remark?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+
+  createdBy?: string;
+}
+
+export interface UserImportResultDTO {
+
+  totalCount?: number;
+
+  successCount?: number;
+
+  failCount?: number;
+
+  failDetails?: string;
+}
+
+export interface UserLoginHistoryVO {
+
+  id?: string;
+
+  userId?: string;
+
+  username?: string;
+
+  loginIp?: string;
+
+  loginResult?: string;
+
+  failReason?: string;
+
+  userAgent?: string;
+
+  createdAt?: string;
+}
+
+export interface MfaSetupVO {
+
+  serialVersionUID?: number;
+
+  secret?: string;
+
+  otpauthUri?: string;
+}
+
+export interface SearchResponse {
+
+  serialVersionUID?: number;
+
+  hits?: SearchHit[];
+
+  total?: number;
+
+  page?: number;
+
+  pageSize?: number;
+
+  tookMs?: number;
+
+  aggregations?: SearchAggregation[];
+  /** 枚举 SearchSuggestion */
+  suggestion?: 'AUTOCOMPLETE' | 'DID_YOU_MEAN';
+
+  engine?: string;
+
+  degraded?: boolean;
+
+  nextCursor?: string;
+
+  timing?: Record<string, unknown>;
+}
+
+export interface SearchHit {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  type?: string;
+
+  title?: string;
+
+  subtitle?: string;
+
+  snippet?: string;
+
+  highlight?: string;
+
+  score?: number;
+
+  path?: string;
+
+  status?: string;
+
+  tags?: string[];
+
+  metadata?: Record<string, unknown>;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+}
+
+export interface SearchAggregation {
+
+  serialVersionUID?: number;
+
+  field?: string;
+
+  label?: string;
+
+  buckets?: Record<string, unknown>[];
+
+  key?: string;
+
+  count?: number;
+}
+
+export interface WebAuthnCredentialVO {
+
+  serialVersionUID?: number;
+
+  credentialId?: string;
+
+  userId?: string;
+
+  publicKey?: string;
+
+  signCount?: number;
+
+  credentialType?: string;
+
+  aaguid?: string;
+
+  displayName?: string;
+
+  registeredAt?: string;
+
+  lastUsedAt?: string;
 }

@@ -4165,15 +4165,15 @@
       "items": {
        "type": "string",
        "enum": [
-        "/** 等于 */\n    EQ",
-        "/** 不等于 */\n    NE",
-        "/** 在...范围内 */\n    IN",
-        "/** 不在...范围内 */\n    NOT_IN",
-        "/** 大于 */\n    GT",
-        "/** 小于 */\n    LT",
-        "/** 大于等于 */\n    GTE",
-        "/** 小于等于 */\n    LTE",
-        "/** 介于两者之间 */\n    BETWEEN"
+        "EQ",
+        "NE",
+        "IN",
+        "NOT_IN",
+        "GT",
+        "LT",
+        "GTE",
+        "LTE",
+        "BETWEEN"
        ],
        "description": "枚举 SearchFilter"
       }

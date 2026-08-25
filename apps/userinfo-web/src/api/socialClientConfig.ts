@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { PageResponse, SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './models';
+import type { SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './models';
 
 /**
  * page: GET /api/v1/social-client-config/page
@@ -40,7 +39,7 @@ export function create(data: SocialClientDTO): Promise<void> {
 /**
  * update: PUT /api/v1/social-client-config/{platform}
  */
-export function update(path: {
+export function update({ platform }: {
     platform: string;
   }, data: SocialClientDTO): Promise<void> {
   return requestClient.put<void>(`/api/v1/social-client-config/${platform}`, data);
@@ -49,7 +48,7 @@ export function update(path: {
 /**
  * delete: DELETE /api/v1/social-client-config/{platform}
  */
-export function delete(path: {
+export function deleteApi({ platform }: {
     platform: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/social-client-config/${platform}`);

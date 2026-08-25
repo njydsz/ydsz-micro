@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { UserFavoriteVO } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function listFavorites(params: {
 /**
  * addFavorite: POST /api/v1/nextwiki/favorites/{nodeId}
  */
-export function addFavorite(path: {
+export function addFavorite({ nodeId }: {
     nodeId: string;
   }): Promise<string> {
   return requestClient.post<string>(`/api/v1/nextwiki/favorites/${nodeId}`);
@@ -35,7 +34,7 @@ export function addFavorite(path: {
 /**
  * removeFavorite: DELETE /api/v1/nextwiki/favorites/{nodeId}
  */
-export function removeFavorite(path: {
+export function removeFavorite({ nodeId }: {
     nodeId: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/nextwiki/favorites/${nodeId}`);
@@ -44,7 +43,7 @@ export function removeFavorite(path: {
 /**
  * isFavorited: GET /api/v1/nextwiki/favorites/{nodeId}/is-favorited
  */
-export function isFavorited(path: {
+export function isFavorited({ nodeId }: {
     nodeId: string;
   }): Promise<boolean> {
   return requestClient.get<boolean>(`/api/v1/nextwiki/favorites/${nodeId}/is-favorited`);
@@ -53,7 +52,7 @@ export function isFavorited(path: {
 /**
  * updateSortOrder: POST /api/v1/nextwiki/favorites/{nodeId}/sort
  */
-export function updateSortOrder(path: {
+export function updateSortOrder({ nodeId }: {
     nodeId: string;
   }, params: {
     sortOrder?: number;

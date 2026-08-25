@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MsgSubscriptionVO, SubscriptionUpsertDTO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function upsert(data: SubscriptionUpsertDTO): Promise<MsgSubscriptionVO> 
 /**
  * listByUser: GET /api/v1/message/subscription/user/{userId}
  */
-export function listByUser(path: {
+export function listByUser({ userId }: {
     userId: string;
   }): Promise<MsgSubscriptionVO[]> {
   return requestClient.get<MsgSubscriptionVO[]>(`/api/v1/message/subscription/user/${userId}`);
@@ -33,7 +32,7 @@ export function listByUser(path: {
 /**
  * listByTopic: GET /api/v1/message/subscription/topic/{topicCode}/{channel}
  */
-export function listByTopic(path: {
+export function listByTopic({ topicCode, channel }: {
     topicCode: string;
     channel: string;
   }): Promise<MsgSubscriptionVO[]> {

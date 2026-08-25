@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { RuleBatchCategoryDTO, RuleBatchPriorityDTO, RuleBatchToggleDTO } from './models';
 
 /**
  * deleteRule: DELETE /api/v1/literule/rules/{ruleCode}
  */
-export function deleteRule(path: {
+export function deleteRule({ ruleCode }: {
     ruleCode: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/literule/rules/${ruleCode}`);

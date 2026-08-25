@@ -86,9 +86,11 @@ function isHttpUrl(url?: string): boolean {
  * @param {any} value 要检查的值。
  * @returns {boolean} 如果值是window对象，返回true，否则返回false。
  */
-function isWindow(value: any): value is Window {
+function isWindow(value: unknown): value is Window {
   return (
-    typeof window !== 'undefined' && value !== null && value === value.window
+    typeof window !== 'undefined' &&
+    value !== null &&
+    value === (value as Window).window
   );
 }
 
@@ -122,7 +124,7 @@ function isWindowsOs(): boolean {
  * 检查传入的值是否为数字
  * @param value
  */
-function isNumber(value: any): value is number {
+function isNumber(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value);
 }
 

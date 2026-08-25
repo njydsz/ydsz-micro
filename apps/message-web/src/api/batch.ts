@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { BatchProgressVO, BatchSendRequestDTO, MsgBatchVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function submitBatch(data: BatchSendRequestDTO): Promise<MsgBatchVO> {
 /**
  * getProgress: GET /api/v1/message/batch/progress/{batchId}
  */
-export function getProgress(path: {
+export function getProgress({ batchId }: {
     batchId: string;
   }): Promise<BatchProgressVO> {
   return requestClient.get<BatchProgressVO>(`/api/v1/message/batch/progress/${batchId}`);
@@ -33,7 +32,7 @@ export function getProgress(path: {
 /**
  * subscribeProgress: GET /api/v1/message/batch/progress/{batchId}/sse
  */
-export function subscribeProgress(path: {
+export function subscribeProgress({ batchId }: {
     batchId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/message/batch/progress/${batchId}/sse`);

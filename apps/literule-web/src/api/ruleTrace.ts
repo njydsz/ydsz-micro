@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { RuleExecutionTraceVO } from './models';
 
 /**
  * getTrace: GET /api/v1/literule/rules/traces/{traceId}
  */
-export function getTrace(path: {
+export function getTrace({ traceId }: {
     traceId: string;
   }): Promise<RuleExecutionTraceVO[]> {
   return requestClient.get<RuleExecutionTraceVO[]>(`/api/v1/literule/rules/traces/${traceId}`);
@@ -26,7 +25,7 @@ export function getTrace(path: {
 /**
  * getTracesByRule: GET /api/v1/literule/rules/traces/rule/{ruleCode}
  */
-export function getTracesByRule(path: {
+export function getTracesByRule({ ruleCode }: {
     ruleCode: string;
   }, params: {
     limit?: number;
@@ -37,7 +36,7 @@ export function getTracesByRule(path: {
 /**
  * replayTrace: POST /api/v1/literule/rules/traces/{traceId}/replay
  */
-export function replayTrace(path: {
+export function replayTrace({ traceId }: {
     traceId: string;
   }): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/literule/rules/traces/${traceId}/replay`);
@@ -53,7 +52,7 @@ export function batchReplayTraces(data: Record<string, unknown>): Promise<unknow
 /**
  * impactPreview: POST /api/v1/literule/rules/{ruleCode}/impact-preview
  */
-export function impactPreview(path: {
+export function impactPreview({ ruleCode }: {
     ruleCode: string;
   }, data: Record<string, unknown>): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/literule/rules/${ruleCode}/impact-preview`, data);

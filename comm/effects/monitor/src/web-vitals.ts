@@ -185,7 +185,7 @@ export function setupWebVitals() {
     new PerformanceObserver((list) => {
       const entries = list.getEntries();
       for (const entry of entries) {
-        const fidEntry = entry as any;
+        const fidEntry = entry as PerformanceEventTiming;
         reportWebVital(
           'FID',
           fidEntry.processingStart - fidEntry.startTime,
@@ -201,7 +201,7 @@ export function setupWebVitals() {
     let clsValue = 0;
     new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        const layoutShift = entry as any;
+        const layoutShift = entry as LayoutShift;
         if (!layoutShift.hadRecentInput) {
           clsValue += layoutShift.value;
         }
@@ -217,7 +217,7 @@ export function setupWebVitals() {
     new PerformanceObserver((list) => {
       const entries = list.getEntries();
       if (entries.length > 0) {
-        const lastEntry = entries[entries.length - 1] as any;
+        const lastEntry = entries[entries.length - 1] as PerformanceEventTiming;
         reportWebVital(
           'INP',
           lastEntry.processingEnd - lastEntry.startTime,

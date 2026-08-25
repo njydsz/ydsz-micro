@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { PageResponse, TenantDTO, TenantPageQuery, TenantVO } from './models';
 
 /**
@@ -26,10 +25,10 @@ export function page(params: {
 /**
  * getById: GET /api/v1/tenant/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<TenantVO> {
-  return requestClient.get<TenantVO>(`/api/v1/tenant/${id}`);
+  return requestClient.get<TenantVO>(`/api/v1/tenant/$${id}`);
 }
 
 /**
@@ -49,8 +48,8 @@ export function update(data: TenantDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/tenant/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/tenant/${id}`);
+  return requestClient.delete<boolean>(`/api/v1/tenant/$${id}`);
 }

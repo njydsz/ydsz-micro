@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * lock: POST /api/v1/nextwiki/files/{nodeId}/lock
  */
-export function lock(path: {
+export function lock({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/nextwiki/files/${nodeId}/lock`);
@@ -26,7 +25,7 @@ export function lock(path: {
 /**
  * unlock: POST /api/v1/nextwiki/files/{nodeId}/unlock
  */
-export function unlock(path: {
+export function unlock({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/nextwiki/files/${nodeId}/unlock`);

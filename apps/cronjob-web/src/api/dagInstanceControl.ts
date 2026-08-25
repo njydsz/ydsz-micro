@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * pause: POST /api/v1/cronjob/dag/instance/{instanceId}/pause
  */
-export function pause(path: {
+export function pause({ instanceId }: {
     instanceId: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/cronjob/dag/instance/${instanceId}/pause`);
@@ -26,7 +25,7 @@ export function pause(path: {
 /**
  * resume: POST /api/v1/cronjob/dag/instance/{instanceId}/resume
  */
-export function resume(path: {
+export function resume({ instanceId }: {
     instanceId: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/cronjob/dag/instance/${instanceId}/resume`);
@@ -35,7 +34,7 @@ export function resume(path: {
 /**
  * cancel: POST /api/v1/cronjob/dag/instance/{instanceId}/cancel
  */
-export function cancel(path: {
+export function cancel({ instanceId }: {
     instanceId: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/cronjob/dag/instance/${instanceId}/cancel`);
@@ -44,7 +43,7 @@ export function cancel(path: {
 /**
  * retryNode: POST /api/v1/cronjob/dag/instance/{instanceId}/retryNode
  */
-export function retryNode(path: {
+export function retryNode({ instanceId }: {
     instanceId: string;
   }, params: {
     jobKey?: string;

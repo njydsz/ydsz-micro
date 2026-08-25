@@ -37,7 +37,7 @@ import { formatDate, formatDateTime, isFunction } from '@ydsz/utils';
 export function extendProxyOptions(
   api: VxeGridApi,
   options: VxeGridProps,
-  getFormValues: () => Recordable<any>,
+  getFormValues: () => Recordable<unknown>,
 ) {
   [
     'query',
@@ -55,18 +55,18 @@ function extendProxyOption(
   key: string,
   api: VxeGridApi,
   options: VxeGridProps,
-  getFormValues: () => Recordable<any>,
+  getFormValues: () => Recordable<unknown>,
 ) {
   const { proxyConfig } = options;
-  const configFn = (proxyConfig?.ajax as Recordable<any>)?.[key];
+  const configFn = (proxyConfig?.ajax as Recordable<unknown>)?.[key];
   if (!isFunction(configFn)) {
     return options;
   }
 
   const wrapperFn = async (
-    params: Recordable<any>,
-    customValues: Recordable<any>,
-    ...args: Recordable<any>[]
+    params: Recordable<unknown>,
+    customValues: Recordable<unknown>,
+    ...args: Recordable<unknown>[]
   ) => {
     const formValues = getFormValues();
     const data = await configFn(

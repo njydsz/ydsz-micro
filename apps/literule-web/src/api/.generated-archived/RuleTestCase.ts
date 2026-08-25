@@ -11,7 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './base';
+import type { PageResponse } from './models';
 import type { RuleTestCasePostDTO, RuleTestCaseVO, TestCaseBatchRunDTO } from './models';
 
 /**

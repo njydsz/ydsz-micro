@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { SamlIdpConfigVO } from './models';
 
 /**
@@ -43,7 +42,7 @@ export function assertionConsumerService(params: {
 /**
  * initiateSsoByEntityId: GET /saml/sso/{idpEntityId}
  */
-export function initiateSsoByEntityId(path: {
+export function initiateSsoByEntityId({ idpEntityId }: {
     idpEntityId: string;
   }, params: {
     response?: Record<string, unknown>;
@@ -54,7 +53,7 @@ export function initiateSsoByEntityId(path: {
 /**
  * assertionConsumerServiceByEntityId: POST /saml/acs/{idpEntityId}
  */
-export function assertionConsumerServiceByEntityId(path: {
+export function assertionConsumerServiceByEntityId({ idpEntityId }: {
     idpEntityId: string;
   }, params: {
     samlResponse?: string;

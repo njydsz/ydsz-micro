@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { BroadcastRequestDTO, MessageResult, NotificationQueryDTO, NotificationSendDTO, PageResponse, PushRealtimeRequestDTO } from './models';
 
 /**
@@ -40,7 +39,7 @@ export function countUnread(): Promise<number> {
 /**
  * markRead: POST /api/v1/message/notifications/{id}/read
  */
-export function markRead(path: {
+export function markRead({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/notifications/${id}/read`);
@@ -56,14 +55,14 @@ export function markAllRead(): Promise<number> {
 /**
  * delete: DELETE /api/v1/message/notifications
  */
-export function delete(data: string[]): Promise<void> {
+export function deleteApi(data: string[]): Promise<void> {
   return requestClient.delete<void>(`/api/v1/message/notifications`, data);
 }
 
 /**
  * recall: POST /api/v1/message/notifications/{id}/recall
  */
-export function recall(path: {
+export function recall({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/notifications/${id}/recall`);

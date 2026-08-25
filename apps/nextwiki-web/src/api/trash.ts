@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { TrashItemVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function list(): Promise<TrashItemVO[]> {
 /**
  * restore: POST /api/v1/nextwiki/trash/{trashItemId}/restore
  */
-export function restore(path: {
+export function restore({ trashItemId }: {
     trashItemId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/nextwiki/trash/${trashItemId}/restore`);
@@ -40,7 +39,7 @@ export function batchRestore(data: string[]): Promise<void> {
 /**
  * purge: DELETE /api/v1/nextwiki/trash/{trashItemId}
  */
-export function purge(path: {
+export function purge({ trashItemId }: {
     trashItemId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/nextwiki/trash/${trashItemId}`);

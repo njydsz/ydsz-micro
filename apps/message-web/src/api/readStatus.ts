@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * markRead: POST /api/v1/message/read-status/read/{msgId}
  */
-export function markRead(path: {
+export function markRead({ msgId }: {
     msgId: string;
   }, params: {
     userId?: string;
@@ -37,7 +36,7 @@ export function markReadBatch(params: {
 /**
  * markNotificationRead: POST /api/v1/message/read-status/notification/{notificationId}
  */
-export function markNotificationRead(path: {
+export function markNotificationRead({ notificationId }: {
     notificationId: string;
   }, params: {
     userId?: string;

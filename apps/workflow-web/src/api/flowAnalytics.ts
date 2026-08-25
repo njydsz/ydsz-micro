@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * overview: GET /api/v1/workflow/analytics/overview
@@ -95,7 +94,7 @@ export function purge(params: {
 /**
  * enumDescriptions: GET /api/v1/workflow/analytics/i18n/enum/{enumType}
  */
-export function enumDescriptions(path: {
+export function enumDescriptions({ enumType }: {
     enumType: string;
   }, params: {
     locale?: string;
@@ -106,7 +105,7 @@ export function enumDescriptions(path: {
 /**
  * enumDescription: GET /api/v1/workflow/analytics/i18n/enum/{enumType}/{enumName}
  */
-export function enumDescription(path: {
+export function enumDescription({ enumType, enumName }: {
     enumType: string;
     enumName: string;
   }, params: {

@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { LoginVO, WebAuthnCredentialVO } from './models';
 
 /**
@@ -81,7 +80,7 @@ export function listCredentials(): Promise<WebAuthnCredentialVO[]> {
 /**
  * deleteCredential: DELETE /api/v1/webauthn/credentials/{credentialId}
  */
-export function deleteCredential(path: {
+export function deleteCredential({ credentialId }: {
     credentialId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/webauthn/credentials/${credentialId}`);

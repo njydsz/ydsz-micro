@@ -172,3 +172,131 @@ export interface RagQueryDTO {
 
   includeContext?: boolean;
 }
+
+export interface ChatResponseDTO {
+
+  serialVersionUID?: number;
+
+  conversationId?: string;
+
+  content?: string;
+
+  model?: string;
+
+  usage?: Record<string, unknown>;
+
+  respondedAt?: string;
+
+  promptTokens?: number;
+
+  completionTokens?: number;
+
+  totalTokens?: number;
+}
+
+export interface BatchChatResponseDTO {
+
+  serialVersionUID?: number;
+
+  results?: Record<string, unknown>[];
+
+  totalDurationMs?: number;
+
+  successCount?: number;
+
+  failedCount?: number;
+
+  itemId?: string;
+
+  success?: boolean;
+
+  content?: string;
+
+  model?: string;
+
+  usage?: Record<string, unknown>;
+
+  finishReason?: string;
+
+  errorMessage?: string;
+}
+
+export interface AgentDefinitionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  agentCode?: string;
+
+  agentName?: string;
+
+  agentType?: string;
+
+  description?: string;
+
+  systemPrompt?: string;
+
+  modelConfig?: string;
+
+  toolNames?: string;
+
+  temperature?: number;
+
+  maxTokens?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface DagCheckpoint {
+
+  serialVersionUID?: number;
+
+  executionId?: string;
+
+  dagName?: string;
+
+  dsl?: string;
+
+  userInput?: string;
+
+  nodeResults?: Record<string, unknown>;
+
+  completedNodes?: string[];
+
+  failedNodes?: string[];
+
+  snapshotTime?: string;
+}
+
+export interface AgentTraceListDTO {
+
+  id?: string;
+
+  conversationId?: string;
+
+  agentType?: string;
+
+  status?: string;
+
+  startedAt?: string;
+
+  durationMs?: number;
+
+  stepCount?: number;
+}
+
+export interface AgentTraceDetailDTO {
+
+  traceId?: string;
+
+  agentType?: string;
+
+  plan?: string;
+}

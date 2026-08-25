@@ -267,7 +267,7 @@ export function createIframeSandbox(
 
     // v3.6.1: 注册主应用 API 供子应用调用
     registerMainApi(
-      handlers: Record<string, (...args: any[]) => unknown>,
+      handlers: Record<string, (...args: unknown[]) => unknown>,
     ): () => void {
       return rpcBridge.registerMainApi(handlers);
     },

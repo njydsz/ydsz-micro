@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DocumentIngestDTO, RagQueryDTO } from './models';
 
 /**
@@ -31,7 +30,7 @@ export function search(data: RagQueryDTO): Promise<unknown> {
 /**
  * deleteDocument: DELETE /api/v1/agent/rag/documents/{documentId}
  */
-export function deleteDocument(path: {
+export function deleteDocument({ documentId }: {
     documentId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/agent/rag/documents/${documentId}`);

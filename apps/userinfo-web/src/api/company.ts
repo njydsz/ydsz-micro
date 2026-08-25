@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { CompanyDTO, CompanyTreeVO, CompanyVO } from './models';
 
 /**
@@ -31,7 +30,7 @@ export function tree(): Promise<CompanyTreeVO[]> {
 /**
  * getById: GET /api/v1/company/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<CompanyVO> {
   return requestClient.get<CompanyVO>(`/api/v1/company/${id}`);
@@ -54,7 +53,7 @@ export function update(data: CompanyDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/company/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/company/${id}`);

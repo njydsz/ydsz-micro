@@ -351,3 +351,210 @@ export interface VariableDTO {
 
   status?: string;
 }
+
+export interface AppInfoVO {
+
+  id?: string;
+
+  appCode?: string;
+
+  appName?: string;
+
+  appKey?: string;
+
+  appSecret?: string;
+
+  redirectUrl?: string;
+
+  scopes?: string;
+
+  boundIps?: string;
+
+  description?: string;
+
+  status?: string;
+}
+
+export interface AuditLog {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  auditType?: number;
+
+  action?: number;
+
+  status?: number;
+
+  module?: string;
+
+  content?: string;
+
+  businessNo?: string;
+
+  operatorId?: string;
+
+  operatorName?: string;
+
+  operationTime?: string;
+
+  ipAddress?: string;
+
+  requestParams?: string;
+
+  responseResult?: string;
+
+  errorMessage?: string;
+
+  costTime?: number;
+
+  appKey?: string;
+
+  tenantId?: string;
+
+  traceId?: string;
+
+  createdAt?: string;
+}
+
+export interface CursorPageResponse {
+
+  records?: Record<string, unknown>[];
+
+  nextCursor?: string;
+
+  hasMore?: boolean;
+
+  size?: number;
+}
+
+export interface ImportResult {
+
+  totalCount?: number;
+
+  successCount?: number;
+
+  failCount?: number;
+
+  skipCount?: number;
+
+  errors?: string[];
+
+  message?: string;
+}
+
+export interface EntityVersionVO {
+
+  id?: string;
+
+  resourceType?: string;
+
+  resourceKey?: string;
+
+  resourceGroup?: string;
+
+  version?: string;
+
+  changeLog?: string;
+
+  effectiveDate?: string;
+
+  snapshotJson?: string;
+}
+
+export interface DictTypeVO {
+
+  id?: string;
+
+  typeCode?: string;
+
+  typeName?: string;
+
+  description?: string;
+
+  status?: string;
+}
+
+export interface FrontendInitVO {
+
+  publicConfigs?: Record<string, unknown>;
+
+  dictMap?: Record<string, unknown>;
+
+  systemVersion?: string;
+
+  tenantId?: string;
+
+  userId?: string;
+}
+
+export interface TenantVO {
+
+  id?: string;
+
+  tenantCode?: string;
+
+  tenantName?: string;
+
+  contactName?: string;
+
+  contactPhone?: string;
+
+  contactEmail?: string;
+
+  planId?: string;
+
+  expireAt?: string;
+
+  datasourceKey?: string;
+
+  status?: string;
+
+  remark?: string;
+
+  createdAt?: string;
+
+  updatedAt?: string;
+}
+
+export interface TenantPlanVO {
+
+  id?: string;
+
+  planCode?: string;
+
+  planName?: string;
+
+  description?: string;
+
+  sortOrder?: number;
+
+  quotaJson?: string;
+
+  featureJson?: string;
+}
+
+export interface TenantPlanMenuVO {
+
+  id?: string;
+
+  planId?: string;
+
+  menuId?: string;
+}
+
+export interface VariableVO {
+
+  id?: string;
+
+  variableKey?: string;
+
+  variableValue?: string;
+
+  valueType?: string;
+
+  description?: string;
+
+  status?: string;
+}

@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * generatePreview: POST /api/v1/nextwiki/preview/{fileNodeId}/generate
  */
-export function generatePreview(path: {
+export function generatePreview({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/nextwiki/preview/${fileNodeId}/generate`);

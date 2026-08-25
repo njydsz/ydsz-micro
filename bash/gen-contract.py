@@ -301,13 +301,15 @@ class JavaSource:
     @property
     def enum_values(self) -> List[str]:
         if self._enum_values is None:
-            m = re.search(r"\benum\s+\w+\s*\{([^}]*)\}", self.src)
+            m = re.search(r"\benum\s+\w+\s*\{([^}]*)\}", self.src, re.S)
             vals = []
             if m:
-                for seg in m.group(1).split(","):
-                    seg = seg.strip()
-                    if seg:
-                        vals.append(seg.split("(")[0].split(";")[0].strip())
+                # 只提取大写常量标识符（INFO / YELLOW / RED），忽略构造参数与方法体
+                for seg in re.split(r"[;,]", m.group(1)):
+                    seg = re.sub(r"/\*.*?\*/", "", seg, flags=re.S).strip()
+                    mm = re.match(r"^([A-Z][A-Z0-9_]{1,})$", seg)
+                    if mm and mm.group(1) not in vals:
+                        vals.append(mm.group(1))
             self._enum_values = vals
         return self._enum_values
 
@@ -464,6 +466,9 @@ def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
     # 类级映射
     cm = re.search(r'@RequestMapping\s*\(\s*(?:value\s*=\s*)?["\']([^"\']+)["\']', src)
     base = cm.group(1) if cm else ""
+    # Spring 占位符（${prop:/default}）替换为默认值，避免破坏路径与参数解析
+    base = re.sub(r"\$\{[\w.\-]+:\s*([^}]+)\}", r"\1", base)
+    base = re.sub(r"\$\{[\w.\-]+\}", "", base)
     endpoints = []
     for m in re.finditer(r'@(GetMapping|PostMapping|PutMapping|DeleteMapping|PatchMapping)\b', src):
         pos = m.start()
@@ -636,13 +641,11 @@ def camel(name: str) -> str:
     return out
 
 
-def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:
-    """生成一个 Controller 对应的 TS API 文件"""
 def collect_type_names(*exprs: str) -> List[str]:
     """从 TS 类型表达式中收集引用的自定义类型名（大写开头、非基础类型）"""
     BASIC_TS = {
         "string", "number", "boolean", "unknown", "void", "Record", "object",
-        "Date", "any", "null", "undefined",
+        "Date", "any", "null", "undefined", "PageResponse", "YdszResponse",
     }
     names = set()
     for expr in exprs:
@@ -653,8 +656,24 @@ def collect_type_names(*exprs: str) -> List[str]:
     return sorted(names)
 
 
-def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:
-    """生成一个 Controller 对应的 TS API 文件"""
+JS_RESERVED = {
+    "abstract", "arguments", "await", "boolean", "break", "byte", "case", "catch",
+    "char", "class", "const", "continue", "debugger", "default", "delete", "do",
+    "double", "else", "enum", "eval", "export", "extends", "false", "final",
+    "finally", "float", "for", "function", "goto", "if", "implements", "import",
+    "in", "instanceof", "int", "interface", "let", "long", "native", "new", "null",
+    "package", "private", "protected", "public", "return", "short", "static",
+    "super", "switch", "synchronized", "this", "throw", "throws", "transient",
+    "true", "try", "typeof", "var", "void", "volatile", "while", "with", "yield",
+    "of",
+}
+
+
+def safe_fn_name(name: str) -> str:
+    """规避 JS/TS 保留字：delete -> deleteApi"""
+    return name + "Api" if name in JS_RESERVED else name
+
+
 def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:
     """生成一个 Controller 对应的 TS API 文件"""
     header = (
@@ -669,26 +688,25 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         " * @since 1.0.0\n"
         " */\n"
         "import { requestClient } from '#/api/request';\n"
-        "import type { PageResponse } from './models';\n"
-        "import type { {types_placeholder} } from './models';\n"
+        "{extra_imports}\n"
         "\n"
     )
     lines = []
     used_types: List[str] = []
+    any_page = False
     for ep in endpoints:
         # 函数名
-        fn = camel(ep["operationId"])
+        fn = safe_fn_name(camel(ep["operationId"]))
         # ---- 返回类型剥壳：后端 YdszResponse<T>/PageResponse<T>，前端拦截器已解包 data ----
+        # 递归剥壳：YdszResponse<PageResponse<X>> 需剥两层，data 类型取最内层 X
         ret_ref = ep["returns"]
         data_ref = ret_ref
         is_page = False
-        if ret_ref and ret_ref.simple in ("YdszResponse", "PageResponse", "BaseResponse", "Result", "R", "AjaxResult"):
-            if ret_ref.simple == "PageResponse":
+        WRAP = ("YdszResponse", "PageResponse", "BaseResponse", "Result", "R", "AjaxResult")
+        while data_ref and data_ref.simple in WRAP:
+            if data_ref.simple == "PageResponse":
                 is_page = True
-            if ret_ref.args:
-                data_ref = ret_ref.args[0]
-            else:
-                data_ref = JavaTypeRef("Object")
+            data_ref = data_ref.args[0] if data_ref.args else JavaTypeRef("Object")
         if data_ref and data_ref.simple in ("void", "Void"):
             ret_ts = "void"
         else:
@@ -697,6 +715,7 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
             if ret_ts in ("object", "Record<string, unknown>"):
                 ret_ts = "unknown"
         if is_page:
+            any_page = True
             ret_annotation = f"PageResponse<{ret_ts}>"
         elif ret_ts == "void":
             ret_annotation = "void"
@@ -716,19 +735,28 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
                 body_param = (camel(p["name"]), pt)
             elif p["kind"] == "form":
                 form_params.append(f"    {camel(p['name'])}?: {pt};")
+        # URL 模板：path 参数替换为 ${}；并对解析遗漏的占位符兜底替换
+        url = ep["path"]
+        path_keys: List[str] = []
+        for p in ep["params"]:
+            if p["kind"] == "path":
+                path_keys.append(camel(p["name"]))
+                url = url.replace("{" + p["name"] + "}", "${" + camel(p["name"]) + "}")
+        for m in re.finditer(r"(?<!\$)\{([^{}]+)\}", url):
+            pk = camel(m.group(1))
+            url = url.replace("{" + m.group(1) + "}", "${" + pk + "}")
+            if pk not in path_keys:
+                path_params.append(f"    {pk}: string;")
+                path_keys.append(pk)
         sig_parts = []
         if path_params:
-            sig_parts.append(f"path: {{\n{chr(10).join(path_params)}\n  }}")
+            sig_parts.append("{{ {keys} }}: {{\n{body}\n  }}".format(
+                keys=", ".join(path_keys), body=chr(10).join(path_params)))
         if query_params:
             sig_parts.append(f"params: {{\n{chr(10).join(query_params)}\n  }}")
         if body_param:
             sig_parts.append(f"data: {body_param[1]}")
         sig = ", ".join(sig_parts) if sig_parts else ""
-        # URL 模板：path 参数替换为 ${}
-        url = ep["path"]
-        for p in ep["params"]:
-            if p["kind"] == "path":
-                url = url.replace("{" + p["name"] + "}", "${" + camel(p["name"]) + "}")
         verb = ep["method"]
         # 请求体存在 -> 传 data；否则 query/form 传 { params }
         args = []
@@ -747,8 +775,13 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         lines.append(f"  return {call};")
         lines.append("}")
         lines.append("")
-    used_types = sorted(set(used_types))
-    header = header.replace("{types_placeholder}", ", ".join(used_types) if used_types else "Record<string, never>")
+    used_types = sorted(set(t for t in used_types if t != "PageResponse"))
+    import_lines = []
+    if any_page:
+        import_lines.append("import type { PageResponse } from './models';")
+    if used_types:
+        import_lines.append("import type { " + ", ".join(used_types) + " } from './models';")
+    header = header.replace("{extra_imports}", "\n".join(import_lines))
     return header + "\n".join(lines)
 
 
@@ -810,32 +843,72 @@ def main():
             # 业务 API 文件直接落在 api/ 根目录
             api_dir = os.path.join(MICRO_ROOT, "apps", app, "src", "api")
             os.makedirs(api_dir, exist_ok=True)
-            with open(os.path.join(api_dir, "models.ts"), "w", encoding="utf-8") as f:
-                f.write("/* eslint-disable */\n/** auto-generated by bash/gen-contract.py — DO NOT EDIT */\n" + BASE_RESPONSE_TS + "\n" + build_ts_models(builder))
+            # 文件名统一 camelCase 且首字母小写；大小写与既有文件保持一致，避免跨平台导出漂移
+            existing_basenames = {f[:-3]: f for f in os.listdir(api_dir) if f.endswith(".ts")}
+
+            def _export_name(fname: str) -> str:
+                for key in existing_basenames:
+                    if key.lower() == fname.lower():
+                        return key
+                return fname
+
             exports = []
             for ctrl in sorted(controllers):
                 fname = ctrl.replace("Controller", "").replace("controller", "")
                 fname = camel(fname) or ctrl
                 # 文件名统一 camelCase 且首字母小写
                 fname = fname[0].lower() + fname[1:] if fname else ctrl
+                fname = _export_name(fname)
                 fpath = os.path.join(api_dir, f"{fname}.ts")
                 content = gen_api_file(svc, ctrl, controllers[ctrl], builder)
                 with open(fpath, "w", encoding="utf-8") as f:
                     f.write("/* eslint-disable */\n/** auto-generated by bash/gen-contract.py — DO NOT EDIT */\n" + content)
                 exports.append(fname)
-            # 更新 api/index.ts：保留 core/request 导出，追加业务模块与 models 导出
+            # models.ts 必须在 API 文件生成之后写入：gen_api_file 阶段才把
+            # 返回类型（如 RuleDefinitionVO）加入 components，先写会导致类型缺失
+            with open(os.path.join(api_dir, "models.ts"), "w", encoding="utf-8") as f:
+                f.write("/* eslint-disable */\n/** auto-generated by bash/gen-contract.py — DO NOT EDIT */\n" + BASE_RESPONSE_TS + "\n" + build_ts_models(builder))
+            # 更新 api/index.ts：仅保留 core/request/models 导出。
+            # 业务模块不在此聚合（多个 Controller 存在 get/stats/validate 等重名方法，
+            # export * 会触发 TS2308 歧义），由业务代码按文件名直接 import（如 '#/api/ruleAdmin'）。
             idx_path = os.path.join(api_dir, "index.ts")
             idx_existing = ""
             if os.path.exists(idx_path):
                 idx_existing = open(idx_path, encoding="utf-8").read()
             if "export * from './core'" not in idx_existing:
                 idx_existing = idx_existing.rstrip() + "\nexport * from './core';\n" if idx_existing.strip() else "/**\n * API 索引（auto-generated 追加导出）\n */\nexport * from './core';\n"
-            idx_add = "\n".join(f"export * from './{e}';" for e in sorted(set(exports)))
-            idx_add += "\nexport * from './models';\n"
-            # 移除先前追加的导出段，避免重复
-            idx_existing = re.sub(r"\n(?:export \* from '\./[\w]+';\n)+export \* from '\./models';\n$", "\n", idx_existing)
+            # 移除先前追加的业务模块/models 导出段，避免重复与歧义（core 保留）
+            idx_existing = re.sub(r"\nexport \* from '\./(?!core|models)[\w]+';\n", "\n", idx_existing)
+            idx_existing = re.sub(r"\nexport \* from '\./models';\n$", "\n", idx_existing)
+            if "export * from './core'" not in idx_existing:
+                idx_existing = idx_existing.rstrip() + "\nexport * from './core';\n"
+            if "export * from './models'" not in idx_existing:
+                idx_existing = idx_existing.rstrip() + "\nexport * from './models';\n"
             with open(idx_path, "w", encoding="utf-8") as f:
-                f.write(idx_existing.rstrip() + "\n" + idx_add)
+                f.write(idx_existing)
+            # 归档孤立生成文件（后端已删除相应 Controller 的旧产物），避免悬空导入
+            expected_files = {e.lower() for e in set(exports) | {"index", "models", "request"}}
+            gen_banner = "auto-generated by bash/gen-contract.py"
+            for fname in sorted(os.listdir(api_dir)):
+                if not fname.endswith(".ts") or fname[:-3].lower() in expected_files:
+                    continue
+                fpath_orphan = os.path.join(api_dir, fname)
+                if not os.path.isfile(fpath_orphan):
+                    continue
+                try:
+                    with open(fpath_orphan, encoding="utf-8", errors="ignore") as hf:
+                        head = hf.read(300)
+                except OSError:
+                    continue
+                if gen_banner not in head:
+                    continue
+                bak_dir = os.path.join(api_dir, ".generated-archived")
+                os.makedirs(bak_dir, exist_ok=True)
+                dst = os.path.join(bak_dir, fname)
+                if os.path.exists(dst):
+                    os.remove(dst)
+                os.rename(fpath_orphan, dst)
+                print(f"[gen-contract] {svc}: 归档孤立生成文件 {fname}")
             # 移除已废弃的 generated/ 目录（如存在）：rename 归档而非删除，规避沙箱回收站限制
             gen_old = os.path.join(api_dir, "generated")
             if os.path.isdir(gen_old):

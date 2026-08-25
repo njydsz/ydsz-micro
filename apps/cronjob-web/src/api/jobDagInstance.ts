@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DagInstanceVisualizationVO, JobDagInstanceVO, JobDagNodeInstanceVO } from './models';
 
 /**
  * getInstanceById: GET /api/v1/cronjob/dag/instance/{instanceId}
  */
-export function getInstanceById(path: {
+export function getInstanceById({ instanceId }: {
     instanceId: string;
   }): Promise<JobDagInstanceVO> {
   return requestClient.get<JobDagInstanceVO>(`/api/v1/cronjob/dag/instance/${instanceId}`);
@@ -26,7 +25,7 @@ export function getInstanceById(path: {
 /**
  * listByDagId: GET /api/v1/cronjob/dag/instance/dag/{dagId}
  */
-export function listByDagId(path: {
+export function listByDagId({ dagId }: {
     dagId: string;
   }, params: {
     limit?: number;
@@ -37,7 +36,7 @@ export function listByDagId(path: {
 /**
  * listByStatus: GET /api/v1/cronjob/dag/instance/status/{status}
  */
-export function listByStatus(path: {
+export function listByStatus({ status }: {
     status: string;
   }): Promise<JobDagInstanceVO[]> {
   return requestClient.get<JobDagInstanceVO[]>(`/api/v1/cronjob/dag/instance/status/${status}`);
@@ -46,7 +45,7 @@ export function listByStatus(path: {
 /**
  * listNodes: GET /api/v1/cronjob/dag/instance/{instanceId}/nodes
  */
-export function listNodes(path: {
+export function listNodes({ instanceId }: {
     instanceId: string;
   }): Promise<JobDagNodeInstanceVO[]> {
   return requestClient.get<JobDagNodeInstanceVO[]>(`/api/v1/cronjob/dag/instance/${instanceId}/nodes`);
@@ -55,7 +54,7 @@ export function listNodes(path: {
 /**
  * getVisualization: GET /api/v1/cronjob/dag/instance/{instanceId}/visualization
  */
-export function getVisualization(path: {
+export function getVisualization({ instanceId }: {
     instanceId: string;
   }): Promise<DagInstanceVisualizationVO> {
   return requestClient.get<DagInstanceVisualizationVO>(`/api/v1/cronjob/dag/instance/${instanceId}/visualization`);
@@ -64,7 +63,7 @@ export function getVisualization(path: {
 /**
  * getMermaidDiagram: GET /api/v1/cronjob/dag/instance/{instanceId}/mermaid
  */
-export function getMermaidDiagram(path: {
+export function getMermaidDiagram({ instanceId }: {
     instanceId: string;
   }): Promise<string> {
   return requestClient.get<string>(`/api/v1/cronjob/dag/instance/${instanceId}/mermaid`);
@@ -73,7 +72,7 @@ export function getMermaidDiagram(path: {
 /**
  * pauseInstance: PUT /api/v1/cronjob/dag/instance/{instanceId}/pause
  */
-export function pauseInstance(path: {
+export function pauseInstance({ instanceId }: {
     instanceId: string;
   }): Promise<void> {
   return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/pause`);
@@ -82,7 +81,7 @@ export function pauseInstance(path: {
 /**
  * resumeInstance: PUT /api/v1/cronjob/dag/instance/{instanceId}/resume
  */
-export function resumeInstance(path: {
+export function resumeInstance({ instanceId }: {
     instanceId: string;
   }): Promise<void> {
   return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/resume`);
@@ -91,7 +90,7 @@ export function resumeInstance(path: {
 /**
  * cancelInstance: PUT /api/v1/cronjob/dag/instance/{instanceId}/cancel
  */
-export function cancelInstance(path: {
+export function cancelInstance({ instanceId }: {
     instanceId: string;
   }): Promise<void> {
   return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/cancel`);
@@ -100,7 +99,7 @@ export function cancelInstance(path: {
 /**
  * updateContext: PUT /api/v1/cronjob/dag/instance/{instanceId}/context
  */
-export function updateContext(path: {
+export function updateContext({ instanceId }: {
     instanceId: string;
   }, data: string): Promise<void> {
   return requestClient.put<void>(`/api/v1/cronjob/dag/instance/${instanceId}/context`, data);

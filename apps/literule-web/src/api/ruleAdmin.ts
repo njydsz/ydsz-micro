@@ -12,7 +12,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { ExpressionValidateDTO, ExpressionValidationResultVO, PageQuery, PageResponse, RuleABTestDTO, RuleDefinition, RuleDefinitionVO, RuleEngineStatsVO, RuleResultVO, RuleVersionDiffVO, RuleVersionVO } from './models';
+import type { ExpressionValidateDTO, ExpressionValidationResultVO, PageQuery, RuleDefinition, RuleDefinitionVO, RuleEngineStatsVO, RuleResultVO, RuleVersionDiffVO, RuleVersionVO } from './models';
 
 /**
  * list: GET /api/v1/literule/rules
@@ -26,7 +26,7 @@ export function list(params: {
 /**
  * get: GET /api/v1/literule/rules/{ruleCode}
  */
-export function get(path: {
+export function get({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleDefinitionVO> {
   return requestClient.get<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}`);
@@ -44,7 +44,7 @@ export function save(params: {
 /**
  * toggle: PUT /api/v1/literule/rules/{ruleCode}/toggle
  */
-export function toggle(path: {
+export function toggle({ ruleCode }: {
     ruleCode: string;
   }, params: {
     enabled?: boolean;
@@ -55,7 +55,7 @@ export function toggle(path: {
 /**
  * listVersions: GET /api/v1/literule/rules/{ruleCode}/versions
  */
-export function listVersions(path: {
+export function listVersions({ ruleCode }: {
     ruleCode: string;
   }, params: {
     pageQuery?: Record<string, unknown>;
@@ -66,7 +66,7 @@ export function listVersions(path: {
 /**
  * versionDiff: GET /api/v1/literule/rules/{ruleCode}/version-diff
  */
-export function versionDiff(path: {
+export function versionDiff({ ruleCode }: {
     ruleCode: string;
   }, params: {
     oldVersion?: number;
@@ -78,7 +78,7 @@ export function versionDiff(path: {
 /**
  * rollback: POST /api/v1/literule/rules/{ruleCode}/rollback
  */
-export function rollback(path: {
+export function rollback({ ruleCode }: {
     ruleCode: string;
   }, params: {
     version?: number;
@@ -128,9 +128,9 @@ export function validateBatch(data: Record<string, unknown>): Promise<unknown> {
 /**
  * abTest: POST /api/v1/literule/rules/{ruleCode}/ab-test
  */
-export function abTest(path: {
+export function abTest({ ruleCode }: {
     ruleCode: string;
-  }, data: RuleABTestDTO): Promise<unknown> {
+  }, data: Record<string, unknown>): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/literule/rules/${ruleCode}/ab-test`, data);
 }
 

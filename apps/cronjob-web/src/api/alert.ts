@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { AlertRulePostDTO, AlertRulePutDTO, JobAlertLogVO, JobAlertRuleVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function createRule(data: AlertRulePostDTO): Promise<string> {
 /**
  * updateRule: PUT /api/v1/cronjob/alert/rule/{id}
  */
-export function updateRule(path: {
+export function updateRule({ id }: {
     id: string;
   }, data: AlertRulePutDTO): Promise<void> {
   return requestClient.put<void>(`/api/v1/cronjob/alert/rule/${id}`, data);
@@ -33,7 +32,7 @@ export function updateRule(path: {
 /**
  * deleteRule: DELETE /api/v1/cronjob/alert/rule/{id}
  */
-export function deleteRule(path: {
+export function deleteRule({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/cronjob/alert/rule/${id}`);
@@ -42,7 +41,7 @@ export function deleteRule(path: {
 /**
  * getRuleById: GET /api/v1/cronjob/alert/rule/{id}
  */
-export function getRuleById(path: {
+export function getRuleById({ id }: {
     id: string;
   }): Promise<JobAlertRuleVO> {
   return requestClient.get<JobAlertRuleVO>(`/api/v1/cronjob/alert/rule/${id}`);
@@ -58,7 +57,7 @@ export function listRules(): Promise<JobAlertRuleVO[]> {
 /**
  * toggleRule: PUT /api/v1/cronjob/alert/rule/{id}/toggle
  */
-export function toggleRule(path: {
+export function toggleRule({ id }: {
     id: string;
   }, params: {
     enabled?: number;
@@ -69,7 +68,7 @@ export function toggleRule(path: {
 /**
  * queryAlertLogs: GET /api/v1/cronjob/alert/logs/{jobId}
  */
-export function queryAlertLogs(path: {
+export function queryAlertLogs({ jobId }: {
     jobId: string;
   }, params: {
     since?: string;

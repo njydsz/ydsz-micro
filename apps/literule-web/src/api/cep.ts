@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { CEPHitVO, CEPPattern, CEPPatternVO } from './models';
 
 /**
@@ -31,10 +30,10 @@ export function registerPattern(data: CEPPattern): Promise<void> {
 /**
  * unregisterPattern: DELETE /api/v1/literule/cep/patterns/{pattern-id}
  */
-export function unregisterPattern(path: {
+export function unregisterPattern({ patternId }: {
     patternId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/v1/literule/cep/patterns/{pattern-id}`);
+  return requestClient.delete<void>(`/api/v1/literule/cep/patterns/${patternId}`);
 }
 
 /**

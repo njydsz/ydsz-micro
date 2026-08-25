@@ -711,7 +711,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "$ref": "#/components/schemas/RuleABTestDTO"
+        "type": "object"
        }
       }
      }
@@ -3174,124 +3174,6 @@
     ]
    }
   },
-  "/api/v1/literule/rules/test-cases": {
-   "get": {
-    "operationId": "listTestCases",
-    "tags": [
-     "literule"
-    ],
-    "responses": {
-     "200": {
-      "description": "OK",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/YdszResponse"
-        }
-       }
-      }
-     }
-    },
-    "parameters": [
-     {
-      "name": "ruleCode",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     }
-    ]
-   },
-   "post": {
-    "operationId": "saveTestCase",
-    "tags": [
-     "literule"
-    ],
-    "responses": {
-     "200": {
-      "description": "OK",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/YdszResponse"
-        }
-       }
-      }
-     }
-    },
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/RuleTestCasePostDTO"
-       }
-      }
-     }
-    }
-   }
-  },
-  "/api/v1/literule/rules/test-cases/{id}": {
-   "delete": {
-    "operationId": "deleteTestCase",
-    "tags": [
-     "literule"
-    ],
-    "responses": {
-     "200": {
-      "description": "OK",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/YdszResponse"
-        }
-       }
-      }
-     }
-    },
-    "parameters": [
-     {
-      "name": "id",
-      "in": "path",
-      "required": true,
-      "schema": {
-       "type": "string"
-      }
-     }
-    ]
-   }
-  },
-  "/api/v1/literule/rules/test-cases/batch-run": {
-   "post": {
-    "operationId": "batchRunTestCases",
-    "tags": [
-     "literule"
-    ],
-    "responses": {
-     "200": {
-      "description": "OK",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/YdszResponse"
-        }
-       }
-      }
-     }
-    },
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/TestCaseBatchRunDTO"
-       }
-      }
-     }
-    }
-   }
-  },
   "/api/v1/literule/rules/traces/{traceId}": {
    "get": {
     "operationId": "getTrace",
@@ -3678,39 +3560,6 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/YdszResponse"
-        }
-       }
-      }
-     }
-    }
-   }
-  },
-  "/api/v1/literule/cep/patterns/test": {
-   "post": {
-    "operationId": "testPattern",
-    "tags": [
-     "literule"
-    ],
-    "responses": {
-     "200": {
-      "description": "OK",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/YdszResponse"
-        }
-       }
-      }
-     }
-    },
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "type": "object",
-        "additionalProperties": {
-         "type": "object"
         }
        }
       }
@@ -4576,8 +4425,8 @@
       "items": {
        "type": "string",
        "enum": [
-        "/** asc */\n    ASC",
-        "/** desc */\n    DESC"
+        "ASC",
+        "DESC"
        ],
        "description": "枚举 OrderItem"
       }
@@ -4642,19 +4491,7 @@
      },
      "defaultSeverity": {
       "type": "string",
-      "enum": [
-       "/** 提示级别 */\n  INFO",
-       "1",
-       "\"提示\")",
-       "/** 黄色预警 */\n  YELLOW",
-       "2",
-       "\"黄色预警\")",
-       "/** 红色严重 */\n  RED",
-       "3",
-       "\"红色严重\")",
-       "int weight",
-       "String desc) {\n    this.code = code"
-      ],
+      "enum": [],
       "description": "枚举 RuleSeverity"
      },
      "titleTemplate": {
@@ -4739,21 +4576,6 @@
      }
     },
     "description": "class ExpressionValidateDTO"
-   },
-   "RuleABTestDTO": {
-    "type": "object",
-    "properties": {
-     "candidate": {
-      "$ref": "#/components/schemas/RuleDefinition"
-     },
-     "facts": {
-      "type": "object",
-      "additionalProperties": {
-       "type": "object"
-      }
-     }
-    },
-    "description": "class RuleABTestDTO"
    },
    "RuleBatchToggleDTO": {
     "type": "object",
@@ -5194,50 +5016,6 @@
      }
     },
     "description": "class RulePack"
-   },
-   "RuleTestCasePostDTO": {
-    "type": "object",
-    "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
-     "name": {
-      "type": "string"
-     },
-     "ruleCode": {
-      "type": "string"
-     },
-     "factsData": {
-      "type": "object",
-      "additionalProperties": {
-       "type": "object"
-      }
-     },
-     "expectedTriggered": {
-      "type": "array",
-      "items": {
-       "type": "string"
-      }
-     },
-     "description": {
-      "type": "string"
-     }
-    },
-    "description": "class RuleTestCasePostDTO"
-   },
-   "TestCaseBatchRunDTO": {
-    "type": "object",
-    "properties": {
-     "ids": {
-      "type": "array",
-      "items": {
-       "type": "integer",
-       "format": "int64"
-      }
-     }
-    },
-    "description": "class TestCaseBatchRunDTO"
    },
    "CEPPattern": {
     "type": "object",

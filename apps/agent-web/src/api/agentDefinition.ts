@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { AgentDefinitionDTO, AgentDefinitionVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function list(): Promise<AgentDefinitionVO[]> {
 /**
  * getById: GET /api/v1/agent/definitions/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<AgentDefinitionVO> {
   return requestClient.get<AgentDefinitionVO>(`/api/v1/agent/definitions/${id}`);
@@ -33,7 +32,7 @@ export function getById(path: {
 /**
  * getByCode: GET /api/v1/agent/definitions/code/{code}
  */
-export function getByCode(path: {
+export function getByCode({ code }: {
     code: string;
   }): Promise<AgentDefinitionVO> {
   return requestClient.get<AgentDefinitionVO>(`/api/v1/agent/definitions/code/${code}`);
@@ -56,7 +55,7 @@ export function update(data: AgentDefinitionDTO): Promise<AgentDefinitionVO> {
 /**
  * delete: DELETE /api/v1/agent/definitions/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/agent/definitions/${id}`);

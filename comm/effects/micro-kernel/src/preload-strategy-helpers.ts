@@ -38,7 +38,7 @@ export function createIdlePreloadStrategy(
       // 使用 requestIdleCallback 在空闲时执行
       if ("requestIdleCallback" in window) {
         return new Promise<void>((resolve) => {
-          (window as any).requestIdleCallback(
+          window.requestIdleCallback(
             () => {
               void Promise.resolve(onPreload(app.name)).then(resolve);
             },

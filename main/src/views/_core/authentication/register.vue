@@ -88,7 +88,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
   ];
 });
 
-function handleSubmit(_value: Recordable<any>) {
+function handleSubmit(_value: Record<string, unknown>) {
   // 注册流程由 AuthenticationRegister 组件内部处理
 }
 </script>

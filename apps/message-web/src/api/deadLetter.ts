@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { MessageLogQueryDTO, PageResponse } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function page(params: {
 /**
  * resend: POST /api/v1/message/dead-letter/{logId}/resend
  */
-export function resend(path: {
+export function resend({ logId }: {
     logId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/message/dead-letter/${logId}/resend`);

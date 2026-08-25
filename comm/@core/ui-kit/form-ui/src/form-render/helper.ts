@@ -36,7 +36,7 @@ export function getBaseRules<
 /**
  * Search for a "ZodDefault" in the Zod stack and return its value.
  */
-export function getDefaultValueInZodStack(schema: ZodTypeAny): any {
+export function getDefaultValueInZodStack(schema: ZodTypeAny): unknown {
   if (!schema || isString(schema)) {
     return;
   }
@@ -52,7 +52,8 @@ export function getDefaultValueInZodStack(schema: ZodTypeAny): any {
   }
   if ('schema' in typedSchema._def) {
     return getDefaultValueInZodStack(
-      (typedSchema._def as any).schema as ZodTypeAny,
+      // Zod 内部 _def 结构未在公开类型中暴露 schema 属性，收窄为对象后取字段
+      (typedSchema._def as unknown as { schema: ZodTypeAny }).schema as ZodTypeAny,
     );
   }
 
@@ -77,7 +78,7 @@ export function getDefaultValueInZodStack(schema: ZodTypeAny): any {
  * @param obj - 任意待检测值；`null`、原始类型一律返回 `false`
  * @returns 同时具备 `target` 与 `stopPropagation` 属性时返回 `true`
  */
-export function isEventObjectLike(obj: any) {
+export function isEventObjectLike(obj: unknown) {
   if (!obj || !isObject(obj)) {
     return false;
   }

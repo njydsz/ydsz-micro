@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { AppInfoDTO, AppInfoPageQuery, AppInfoVO, PageResponse } from './models';
 
 /**
@@ -26,10 +25,10 @@ export function page(params: {
 /**
  * getById: GET /api/v1/app/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<AppInfoVO> {
-  return requestClient.get<AppInfoVO>(`/api/v1/app/${id}`);
+  return requestClient.get<AppInfoVO>(`/api/v1/app/$${id}`);
 }
 
 /**
@@ -49,8 +48,8 @@ export function update(data: AppInfoDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/app/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/app/${id}`);
+  return requestClient.delete<boolean>(`/api/v1/app/$${id}`);
 }

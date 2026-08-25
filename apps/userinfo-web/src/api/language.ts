@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { LanguageDTO, LanguagePageQuery, LanguageVO, PageResponse } from './models';
+import type { LanguageDTO, LanguagePageQuery, LanguageVO } from './models';
 
 /**
  * page: GET /api/v1/language/page
@@ -26,7 +25,7 @@ export function page(params: {
 /**
  * getById: GET /api/v1/language/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<LanguageVO> {
   return requestClient.get<LanguageVO>(`/api/v1/language/${id}`);
@@ -56,7 +55,7 @@ export function update(data: LanguageDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/language/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/language/${id}`);

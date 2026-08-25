@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { ACCOUNT_BANNED, ACCOUNT_LOCKED, ANOMALOUS_LOGIN, BRUTE_FORCE, IP, MFA, MFA_FAILED, PASSWORD_SPRAY, PageResponse, SecurityAlertPageQuery } from './models';
+import type { ACCOUNT_BANNED, ACCOUNT_LOCKED, ANOMALOUS_LOGIN, BRUTE_FORCE, MFA_FAILED, PASSWORD_SPRAY, SecurityAlertPageQuery } from './models';
 
 /**
  * pageAlerts: GET /api/v1/admin/security/alerts
@@ -29,26 +28,14 @@ export function pageAlerts(params: {
 export function getPendingAlerts(params: {
     riskLevel?: string;
     limit?: number;
-  }): Promise<'/** 账号锁定告警 */
-    ACCOUNT_LOCKED' | '/** 账号封禁告警 */
-    ACCOUNT_BANNED' | '/** MFA 验证失败告警 */
-    MFA_FAILED' | '/** 暴力破解告警（同一 IP 多次失败） */
-    BRUTE_FORCE' | '/** 异常登录告警（新设备 + 异常时段） */
-    ANOMALOUS_LOGIN' | '/** 密码喷洒告警（多用户同一 IP 失败） */
-    PASSWORD_SPRAY'[]> {
-  return requestClient.get<'/** 账号锁定告警 */
-    ACCOUNT_LOCKED' | '/** 账号封禁告警 */
-    ACCOUNT_BANNED' | '/** MFA 验证失败告警 */
-    MFA_FAILED' | '/** 暴力破解告警（同一 IP 多次失败） */
-    BRUTE_FORCE' | '/** 异常登录告警（新设备 + 异常时段） */
-    ANOMALOUS_LOGIN' | '/** 密码喷洒告警（多用户同一 IP 失败） */
-    PASSWORD_SPRAY'[]>(`/api/v1/admin/security/alerts/pending`, { params });
+  }): Promise<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]> {
+  return requestClient.get<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>(`/api/v1/admin/security/alerts/pending`, { params });
 }
 
 /**
  * acknowledgeAlert: PUT /api/v1/admin/security/alerts/{id}/acknowledge
  */
-export function acknowledgeAlert(path: {
+export function acknowledgeAlert({ id }: {
     id: string;
   }, params: {
     note?: string;
@@ -59,7 +46,7 @@ export function acknowledgeAlert(path: {
 /**
  * resolveAlert: PUT /api/v1/admin/security/alerts/{id}/resolve
  */
-export function resolveAlert(path: {
+export function resolveAlert({ id }: {
     id: string;
   }, params: {
     note?: string;
@@ -70,7 +57,7 @@ export function resolveAlert(path: {
 /**
  * ignoreAlert: PUT /api/v1/admin/security/alerts/{id}/ignore
  */
-export function ignoreAlert(path: {
+export function ignoreAlert({ id }: {
     id: string;
   }, params: {
     note?: string;

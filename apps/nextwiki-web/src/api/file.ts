@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FileNodeVO, PageResponse } from './models';
 
 /**
@@ -50,7 +49,7 @@ export function listFiles(params: {
 /**
  * move: PUT /api/v1/nextwiki/files/{nodeId}/move
  */
-export function move(path: {
+export function move({ nodeId }: {
     nodeId: string;
   }, data: Record<string, unknown>): Promise<FileNodeVO> {
   return requestClient.put<FileNodeVO>(`/api/v1/nextwiki/files/${nodeId}/move`, data);
@@ -59,7 +58,7 @@ export function move(path: {
 /**
  * rename: PUT /api/v1/nextwiki/files/{nodeId}/rename
  */
-export function rename(path: {
+export function rename({ nodeId }: {
     nodeId: string;
   }, data: Record<string, unknown>): Promise<FileNodeVO> {
   return requestClient.put<FileNodeVO>(`/api/v1/nextwiki/files/${nodeId}/rename`, data);
@@ -68,7 +67,7 @@ export function rename(path: {
 /**
  * delete: DELETE /api/v1/nextwiki/files/{nodeId}
  */
-export function delete(path: {
+export function deleteApi({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/nextwiki/files/${nodeId}`);
@@ -77,7 +76,7 @@ export function delete(path: {
 /**
  * copy: POST /api/v1/nextwiki/files/{nodeId}/copy
  */
-export function copy(path: {
+export function copy({ nodeId }: {
     nodeId: string;
   }, params: {
     targetParentId?: string;

@@ -10,7 +10,7 @@
  * 以控制单文件行数符合云顶编码规范（≤400 行）。
  */
 
-import { nextTick, watch } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 
 import type { EmitFn } from './use-resize-events';
 import {
@@ -58,6 +58,9 @@ export function useResizeWatchers(
   emit: EmitFn,
 ): void {
   const { x, y, w, h, z, parentW, parentH, isActive } = refs;
+  // bodyMove/bodyUp/stickMove/stickUp 期望 Ref<Rect>（只读访问 rect.value），
+  // 以 ref 包装收窄类型，消除 as any（云顶规范 §3.1）。
+  const rectRef = ref(rect);
 
   // Watch: active state
   watch(
@@ -116,10 +119,10 @@ export function useResizeWatchers(
         emit,
       );
       // TODO(any): bodyMove 期望 Ref<Rect>，待后续重构 rect 为 ref
-      bodyMove({ x: delta, y: 0 }, resizeState, rect as any, emit);
+      bodyMove({ x: delta, y: 0 }, resizeState, rectRef, emit);
 
       nextTick(() => {
-        bodyUp(resizeState, rect as any, emit);
+        bodyUp(resizeState, rectRef, emit);
       });
     },
   );
@@ -149,10 +152,10 @@ export function useResizeWatchers(
         emit,
       );
       // TODO(any): bodyMove 期望 Ref<Rect>，待后续重构 rect 为 ref
-      bodyMove({ x: 0, y: delta }, resizeState, rect as any, emit);
+      bodyMove({ x: 0, y: delta }, resizeState, rectRef, emit);
 
       nextTick(() => {
-        bodyUp(resizeState, rect as any, emit);
+        bodyUp(resizeState, rectRef, emit);
       });
     },
   );
@@ -184,10 +187,10 @@ export function useResizeWatchers(
         true,
       );
       // TODO(any): stickMove 期望 Ref<Rect>，待后续重构 rect 为 ref
-      stickMove({ x: delta, y: 0 }, resizeState, rect as any, emit);
+      stickMove({ x: delta, y: 0 }, resizeState, rectRef, emit);
 
       nextTick(() => {
-        stickUp(resizeState, rect as any, emit);
+        stickUp(resizeState, rectRef, emit);
       });
     },
   );
@@ -219,10 +222,10 @@ export function useResizeWatchers(
         true,
       );
       // TODO(any): stickMove 期望 Ref<Rect>，待后续重构 rect 为 ref
-      stickMove({ x: 0, y: delta }, resizeState, rect as any, emit);
+      stickMove({ x: 0, y: delta }, resizeState, rectRef, emit);
 
       nextTick(() => {
-        stickUp(resizeState, rect as any, emit);
+        stickUp(resizeState, rectRef, emit);
       });
     },
   );

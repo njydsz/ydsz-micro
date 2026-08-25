@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * shortLinkRedirect: GET /api/v1/message/read-receipt/s/{shortCode}
  */
-export function shortLinkRedirect(path: {
+export function shortLinkRedirect({ shortCode }: {
     shortCode: string;
   }, params: {
     response?: Record<string, unknown>;

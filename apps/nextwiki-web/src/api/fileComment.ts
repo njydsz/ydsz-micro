@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FileCommentVO } from './models';
 
 /**
  * listComments: GET /api/v1/nextwiki/comments/file/{fileNodeId}
  */
-export function listComments(path: {
+export function listComments({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<FileCommentVO[]> {
   return requestClient.get<FileCommentVO[]>(`/api/v1/nextwiki/comments/file/${fileNodeId}`);
@@ -33,7 +32,7 @@ export function addComment(data: Record<string, unknown>): Promise<FileCommentVO
 /**
  * deleteComment: DELETE /api/v1/nextwiki/comments/{commentId}
  */
-export function deleteComment(path: {
+export function deleteComment({ commentId }: {
     commentId: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/nextwiki/comments/${commentId}`);
@@ -42,7 +41,7 @@ export function deleteComment(path: {
 /**
  * resolveComment: POST /api/v1/nextwiki/comments/{commentId}/resolve
  */
-export function resolveComment(path: {
+export function resolveComment({ commentId }: {
     commentId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/nextwiki/comments/${commentId}/resolve`);

@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { RecallRequestDTO } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function recallNotification(params: {
 /**
  * recallMessage: POST /api/v1/message/recall/message/{logId}
  */
-export function recallMessage(path: {
+export function recallMessage({ logId }: {
     logId: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/recall/message/${logId}`);
@@ -35,7 +34,7 @@ export function recallMessage(path: {
 /**
  * recallByMsgId: POST /api/v1/message/recall/msg/{msgId}
  */
-export function recallByMsgId(path: {
+export function recallByMsgId({ msgId }: {
     msgId: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/recall/msg/${msgId}`);

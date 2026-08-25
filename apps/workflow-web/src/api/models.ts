@@ -342,3 +342,1022 @@ export interface FlowCcQuery {
 
   flowCode?: string;
 }
+
+export interface StringVO {
+
+  value?: string;
+}
+
+export interface FlowCategoryVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  categoryCode?: string;
+
+  categoryName?: string;
+
+  parentId?: string;
+
+  sortNum?: number;
+
+  icon?: string;
+
+  remark?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowCategoryTreeVO {
+
+  id?: string;
+
+  parentId?: string;
+
+  children?: FlowCategoryTreeVO[];
+
+  level?: number;
+
+  path?: string;
+
+  categoryCode?: string;
+
+  categoryName?: string;
+
+  sortNum?: number;
+
+  icon?: string;
+
+  remark?: string;
+}
+
+export interface FlowCommentVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  instanceId?: string;
+
+  taskId?: string;
+
+  nodeCode?: string;
+
+  userId?: string;
+
+  userName?: string;
+
+  content?: string;
+
+  type?: string;
+
+  parentCommentId?: string;
+
+  replyToUserId?: string;
+
+  replyToUserName?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowQuickCommentVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  userId?: string;
+
+  content?: string;
+
+  commentType?: string;
+
+  sortNum?: number;
+
+  useCount?: number;
+
+  isSystem?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowBatchDeployResultVO {
+
+  serialVersionUID?: number;
+
+  successCount?: number;
+
+  failedCount?: number;
+
+  definitionIds?: string[];
+
+  failedItems?: Record<string, unknown>[];
+
+  fileName?: string;
+
+  reason?: string;
+}
+
+export interface FlowDefinitionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  flowCode?: string;
+
+  flowName?: string;
+
+  category?: string;
+
+  flowVersion?: string;
+
+  modelValue?: string;
+
+  formCustom?: string;
+
+  formPath?: string;
+
+  activityStatus?: number;
+
+  isPublish?: number;
+
+  listenerType?: string;
+
+  listenerPath?: string;
+
+  ext?: string;
+
+  description?: string;
+
+  providerTraceId?: string;
+
+  canaryPercent?: number;
+
+  canaryStatus?: string;
+
+  canaryStrategy?: string;
+
+  canaryRolloutLog?: string;
+
+  lockedBy?: string;
+
+  lockedAt?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowDefinitionDetailVO {
+
+  serialVersionUID?: number;
+
+  definition?: FlowDefinitionVO;
+
+  nodes?: FlowNodeVO[];
+
+  skips?: FlowSkipVO[];
+
+  readOnly?: boolean;
+}
+
+export interface FlowNodeVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  definitionId?: string;
+
+  flowCode?: string;
+
+  nodeType?: number;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  permissionFlag?: string;
+
+  skipAnyNode?: string;
+
+  coordinate?: string;
+
+  skipList?: string;
+
+  ext?: string;
+
+  formFieldsConfig?: string;
+
+  slaConfig?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+
+  parsedExt?: Record<string, unknown>;
+
+  extMap?: string;
+
+  defaultFlowId?: string;
+
+  serviceType?: string;
+
+  serviceUrl?: string;
+
+  serviceMethod?: string;
+
+  serviceScript?: string;
+
+  emptyStrategy?: string;
+
+  adminUserId?: string;
+
+  specifiedUserId?: string;
+
+  autoDedup?: string;
+
+  formSchemaJson?: string;
+
+  priority?: string;
+
+  escalateUser?: string;
+
+  timeoutStrategy?: string;
+
+  timeoutMinutes?: string;
+
+  eventType?: string;
+
+  attachedToRef?: string;
+
+  errorRef?: string;
+}
+
+export interface FlowSkipVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  definitionId?: string;
+
+  flowCode?: string;
+
+  skipName?: string;
+
+  skipType?: string;
+
+  coordinate?: string;
+
+  skipCondition?: string;
+
+  nextNodeCode?: string;
+
+  nextNodeType?: number;
+
+  coordinateNext?: string;
+
+  skipList?: string;
+
+  ext?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+
+  parsedExt?: Record<string, unknown>;
+
+  extMap?: string;
+
+  sourceRef?: string;
+
+  sequenceFlowId?: string;
+}
+
+export interface FlowDefinitionVersionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  flowCode?: string;
+
+  version?: number;
+
+  flowName?: string;
+
+  status?: string;
+
+  publishedBy?: string;
+
+  publishedAt?: string;
+}
+
+export interface FlowDefinitionDiffVO {
+
+  serialVersionUID?: number;
+
+  v1?: number;
+
+  v2?: number;
+
+  nodeChanges?: Record<string, unknown>[];
+
+  skipChanges?: Record<string, unknown>[];
+}
+
+export interface FlowRollbackResultVO {
+
+  serialVersionUID?: number;
+
+  success?: boolean;
+
+  message?: string;
+
+  flowCode?: string;
+
+  fromVersion?: number;
+
+  toVersion?: number;
+}
+
+export interface FlowMigrationImpactVO {
+
+  serialVersionUID?: number;
+
+  oldDefinitionId?: string;
+
+  newDefinitionId?: string;
+
+  riskLevel?: string;
+
+  runningInstanceCount?: number;
+
+  affectedInstances?: Record<string, unknown>[];
+
+  blockedNodes?: Record<string, unknown>[];
+
+  affectedNodes?: Record<string, unknown>[];
+
+  recommendation?: string;
+}
+
+export interface FlowEventSubscriptionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  instanceId?: string;
+
+  definitionId?: string;
+
+  flowCode?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  eventType?: string;
+
+  eventRef?: string;
+
+  correlationKey?: string;
+
+  boundaryTaskId?: string;
+
+  subscriptionStatus?: string;
+
+  payload?: string;
+
+  triggeredAt?: string;
+
+  triggerSource?: string;
+
+  cancelReason?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface EmbeddedApprovalViewDTO {
+
+  serialVersionUID?: number;
+
+  businessType?: string;
+
+  businessId?: string;
+
+  instance?: FlowInstanceViewDTO;
+
+  diagram?: Record<string, unknown>;
+
+  currentTasks?: Record<string, unknown>[];
+
+  history?: Record<string, unknown>[];
+
+  myRole?: string;
+
+  actions?: string[];
+
+  canRecall?: boolean;
+
+  finished?: boolean;
+
+  message?: string;
+
+  taskId?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  nodeType?: number;
+
+  assigneeType?: string;
+
+  assigneeId?: string;
+
+  assigneeName?: string;
+
+  performType?: string;
+
+  taskStatus?: string;
+
+  createAt?: string;
+
+  dueAt?: string;
+
+  mine?: boolean;
+}
+
+export interface FlowInstanceViewDTO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  flowCode?: string;
+
+  flowName?: string;
+
+  version?: string;
+
+  businessType?: string;
+
+  businessId?: string;
+
+  businessNo?: string;
+
+  title?: string;
+
+  initiatorId?: string;
+
+  initiatorName?: string;
+
+  currentNodeCode?: string;
+
+  currentNodeName?: string;
+
+  flowStatus?: string;
+
+  activityStatus?: number;
+
+  startAt?: string;
+
+  endAt?: string;
+
+  durationMs?: number;
+
+  variable?: string;
+
+  currentTasks?: Record<string, unknown>[];
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  nodeType?: number;
+
+  assigneeType?: string;
+
+  assigneeId?: string;
+
+  assigneeName?: string;
+
+  performType?: string;
+
+  taskStatus?: string;
+
+  comment?: string;
+
+  createAt?: string;
+
+  claimAt?: string;
+
+  finishAt?: string;
+
+  dueAt?: string;
+
+  priority?: number;
+}
+
+export interface FlowRecallableNodeVO {
+
+  serialVersionUID?: number;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  completedAt?: string;
+
+  completedBy?: string;
+}
+
+export interface FlowAuditTrailVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  instanceId?: string;
+
+  taskId?: string;
+
+  flowCode?: string;
+
+  businessType?: string;
+
+  businessId?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  action?: string;
+
+  operatorId?: string;
+
+  operatorName?: string;
+
+  targetId?: string;
+
+  comment?: string;
+
+  operatedAt?: string;
+}
+
+export interface FlowTimelineVO {
+
+  serialVersionUID?: number;
+
+  type?: string;
+
+  timestamp?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  assigneeId?: string;
+
+  assigneeName?: string;
+
+  action?: string;
+
+  comment?: string;
+
+  taskStatus?: string;
+}
+
+export interface FlowReplayStepVO {
+
+  serialVersionUID?: number;
+
+  stepIndex?: number;
+
+  type?: string;
+
+  timestamp?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  actor?: string;
+
+  actorName?: string;
+
+  action?: string;
+
+  comment?: string;
+
+  nodeState?: string;
+
+  durationMs?: number;
+
+  coordinate?: Record<string, unknown>;
+}
+
+export interface InstanceMigrationResultDTO {
+
+  serialVersionUID?: number;
+
+  totalInstances?: number;
+
+  migratedCount?: number;
+
+  skippedCount?: number;
+
+  failedCount?: number;
+
+  details?: Record<string, unknown>[];
+
+  nodeMappingApplied?: Record<string, unknown>;
+
+  instanceId?: string;
+
+  instanceTitle?: string;
+
+  oldNodeCode?: string;
+
+  newNodeCode?: string;
+
+  status?: string;
+
+  reason?: string;
+}
+
+export interface FlowAutoTriggerVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  sourceFlowCode?: string;
+
+  targetFlowCode?: string;
+
+  conditionExpression?: string;
+
+  description?: string;
+
+  enabled?: number;
+
+  sortOrder?: number;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowTaskDetailVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  nodeType?: string;
+
+  assigneeType?: string;
+
+  assigneeId?: string;
+
+  assigneeName?: string;
+
+  performType?: string;
+
+  taskStatus?: string;
+
+  comment?: string;
+
+  createAt?: string;
+
+  claimAt?: string;
+
+  finishAt?: string;
+
+  durationMs?: number;
+
+  dueAt?: string;
+}
+
+export interface FlowRejectableNodeVO {
+
+  serialVersionUID?: number;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  completedAt?: string;
+
+  completedBy?: string;
+}
+
+export interface FlowBatchUrgeResultVO {
+
+  serialVersionUID?: number;
+
+  totalCount?: number;
+
+  successCount?: number;
+
+  failedCount?: number;
+
+  urgedByInstance?: Record<string, unknown>;
+}
+
+export interface FlowRunTaskVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  instanceId?: string;
+
+  flowCode?: string;
+
+  definitionId?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  nodeType?: number;
+
+  businessType?: string;
+
+  businessId?: string;
+
+  businessNo?: string;
+
+  flowName?: string;
+
+  title?: string;
+
+  assignorId?: string;
+
+  assignorName?: string;
+
+  assigneeType?: string;
+
+  assigneeId?: string;
+
+  assigneeName?: string;
+
+  permissionFlag?: string;
+
+  performType?: string;
+
+  approveCount?: number;
+
+  approveFinished?: number;
+
+  votePassRate?: number;
+
+  taskStatus?: string;
+
+  comment?: string;
+
+  claimAt?: string;
+
+  finishAt?: string;
+
+  durationMs?: number;
+
+  dueAt?: string;
+
+  priority?: number;
+
+  urgeCount?: number;
+
+  lastUrgedAt?: string;
+
+  slaAction?: string;
+
+  slaEscalated?: number;
+
+  iterVar?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowDelegateAuthVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ownerUserId?: string;
+
+  ownerUserName?: string;
+
+  delegateUserId?: string;
+
+  delegateUserName?: string;
+
+  scopeType?: string;
+
+  flowCode?: string;
+
+  nodeCode?: string;
+
+  roleCode?: string;
+
+  startTime?: string;
+
+  endTime?: string;
+
+  authStatus?: string;
+
+  reason?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowCcVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  instanceId?: string;
+
+  taskId?: string;
+
+  nodeCode?: string;
+
+  nodeName?: string;
+
+  flowCode?: string;
+
+  flowName?: string;
+
+  businessKey?: string;
+
+  ccUserId?: string;
+
+  ccUserName?: string;
+
+  ccType?: string;
+
+  triggerUserId?: string;
+
+  triggerUserName?: string;
+
+  title?: string;
+
+  content?: string;
+
+  readStatus?: string;
+
+  readAt?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowAttachmentVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  instanceId?: string;
+
+  taskId?: string;
+
+  nodeCode?: string;
+
+  bizType?: string;
+
+  fileName?: string;
+
+  fileExt?: string;
+
+  fileSize?: number;
+
+  contentType?: string;
+
+  storageKey?: string;
+
+  storageType?: string;
+
+  uploaderId?: string;
+
+  uploaderName?: string;
+
+  downloadUrl?: string;
+
+  md5?: string;
+
+  providerTraceId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface FlowAttachmentPreviewVO {
+
+  serialVersionUID?: number;
+
+  attachmentId?: string;
+
+  fileName?: string;
+
+  fileExt?: string;
+
+  contentType?: string;
+
+  previewType?: string;
+
+  previewUrl?: string;
+
+  downloadUrl?: string;
+
+  previewable?: boolean;
+}

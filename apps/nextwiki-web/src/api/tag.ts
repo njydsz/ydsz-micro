@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { TagDTO, TagVO } from './models';
 
 /**
@@ -38,7 +37,7 @@ export function bindTag(data: Record<string, unknown>): Promise<void> {
 /**
  * getFileTags: GET /api/v1/nextwiki/tags/file/{fileNodeId}
  */
-export function getFileTags(path: {
+export function getFileTags({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<TagVO[]> {
   return requestClient.get<TagVO[]>(`/api/v1/nextwiki/tags/file/${fileNodeId}`);
@@ -47,7 +46,7 @@ export function getFileTags(path: {
 /**
  * recommendTags: GET /api/v1/nextwiki/tags/recommend/{fileNodeId}
  */
-export function recommendTags(path: {
+export function recommendTags({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<TagVO[]> {
   return requestClient.get<TagVO[]>(`/api/v1/nextwiki/tags/recommend/${fileNodeId}`);

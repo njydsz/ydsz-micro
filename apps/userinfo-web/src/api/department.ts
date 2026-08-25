@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DepartmentDTO, DepartmentTreeVO, DepartmentVO } from './models';
 
 /**
@@ -31,7 +30,7 @@ export function tree(): Promise<DepartmentTreeVO[]> {
 /**
  * getById: GET /api/v1/dept/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<DepartmentVO> {
   return requestClient.get<DepartmentVO>(`/api/v1/dept/${id}`);
@@ -54,7 +53,7 @@ export function update(data: DepartmentDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/dept/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/dept/${id}`);

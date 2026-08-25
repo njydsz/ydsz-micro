@@ -12,24 +12,24 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { BatchResult, PageResponse } from './models';
+import type { BatchResult, JobVO } from './models';
 
 /**
  * pageByGroup: GET /api/v1/cronjob/group/{jobGroup}/page
  */
-export function pageByGroup(path: {
+export function pageByGroup({ jobGroup }: {
     jobGroup: string;
   }, params: {
     page?: number;
     size?: number;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/cronjob/group/${jobGroup}/page`, { params });
+  }): Promise<PageResponse<JobVO[]>> {
+  return requestClient.get<PageResponse<JobVO[]>>(`/api/v1/cronjob/group/${jobGroup}/page`, { params });
 }
 
 /**
  * pauseByGroup: POST /api/v1/cronjob/group/{jobGroup}/pause
  */
-export function pauseByGroup(path: {
+export function pauseByGroup({ jobGroup }: {
     jobGroup: string;
   }): Promise<BatchResult> {
   return requestClient.post<BatchResult>(`/api/v1/cronjob/group/${jobGroup}/pause`);
@@ -38,7 +38,7 @@ export function pauseByGroup(path: {
 /**
  * resumeByGroup: POST /api/v1/cronjob/group/{jobGroup}/resume
  */
-export function resumeByGroup(path: {
+export function resumeByGroup({ jobGroup }: {
     jobGroup: string;
   }): Promise<BatchResult> {
   return requestClient.post<BatchResult>(`/api/v1/cronjob/group/${jobGroup}/resume`);
@@ -47,7 +47,7 @@ export function resumeByGroup(path: {
 /**
  * triggerByGroup: POST /api/v1/cronjob/group/{jobGroup}/trigger
  */
-export function triggerByGroup(path: {
+export function triggerByGroup({ jobGroup }: {
     jobGroup: string;
   }): Promise<BatchResult> {
   return requestClient.post<BatchResult>(`/api/v1/cronjob/group/${jobGroup}/trigger`);

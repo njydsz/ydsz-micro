@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DepartmentTreeVO, DepartmentVO, UserAccountVO } from './models';
 
 /**

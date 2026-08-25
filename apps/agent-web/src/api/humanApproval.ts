@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * listPending: GET /api/v1/agent/approvals/pending
@@ -24,7 +23,7 @@ export function listPending(): Promise<Record<string, unknown>[]> {
 /**
  * getApproval: GET /api/v1/agent/approvals/{id}
  */
-export function getApproval(path: {
+export function getApproval({ id }: {
     id: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/agent/approvals/${id}`);
@@ -33,7 +32,7 @@ export function getApproval(path: {
 /**
  * approve: POST /api/v1/agent/approvals/{id}/approve
  */
-export function approve(path: {
+export function approve({ id }: {
     id: string;
   }, params: {
     approver?: string;
@@ -45,7 +44,7 @@ export function approve(path: {
 /**
  * reject: POST /api/v1/agent/approvals/{id}/reject
  */
-export function reject(path: {
+export function reject({ id }: {
     id: string;
   }, params: {
     approver?: string;

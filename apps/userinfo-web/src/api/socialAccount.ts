@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { SocialAccountVO } from './models';
 
 /**
@@ -31,7 +30,7 @@ export function getAvailablePlatforms(): Promise<Record<string, unknown>[]> {
 /**
  * unbind: DELETE /api/v1/profile/social/bindings/{platform}
  */
-export function unbind(path: {
+export function unbind({ platform }: {
     platform: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/profile/social/bindings/${platform}`);

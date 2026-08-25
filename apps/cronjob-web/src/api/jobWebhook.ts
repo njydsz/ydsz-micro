@@ -12,7 +12,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { JobWebhookPostDTO, JobWebhookPutDTO, JobWebhookVO, PageResponse } from './models';
+import type { JobWebhookPostDTO, JobWebhookPutDTO, JobWebhookVO } from './models';
 
 /**
  * create: POST /api/v1/cronjob/webhook
@@ -31,7 +31,7 @@ export function update(data: JobWebhookPutDTO): Promise<void> {
 /**
  * delete: DELETE /api/v1/cronjob/webhook/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/cronjob/webhook/${id}`);
@@ -45,14 +45,14 @@ export function page(params: {
     size?: number;
     eventType?: string;
     jobKey?: string;
-  }): Promise<PageResponse> {
-  return requestClient.get<PageResponse>(`/api/v1/cronjob/webhook/page`, { params });
+  }): Promise<PageResponse<JobWebhookVO[]>> {
+  return requestClient.get<PageResponse<JobWebhookVO[]>>(`/api/v1/cronjob/webhook/page`, { params });
 }
 
 /**
  * getById: GET /api/v1/cronjob/webhook/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<JobWebhookVO> {
   return requestClient.get<JobWebhookVO>(`/api/v1/cronjob/webhook/${id}`);
@@ -61,7 +61,7 @@ export function getById(path: {
 /**
  * testWebhook: POST /api/v1/cronjob/webhook/{id}/test
  */
-export function testWebhook(path: {
+export function testWebhook({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/cronjob/webhook/${id}/test`);

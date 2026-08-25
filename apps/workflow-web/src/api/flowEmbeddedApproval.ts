@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from './models';
 
 /**
@@ -35,7 +34,7 @@ export function quickAction(data: EmbeddedApprovalActionDTO): Promise<void> {
 /**
  * quickActionByPath: POST /api/v1/workflow/embedded/{businessType}/{businessId}/action
  */
-export function quickActionByPath(path: {
+export function quickActionByPath({ businessType, businessId }: {
     businessType: string;
     businessId: string;
   }, data: EmbeddedApprovalActionDTO): Promise<void> {

@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { SpaceTemplateDTO, SpaceVO } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function listTemplates(params: {
 /**
  * getTemplate: GET /api/v1/nextwiki/templates/{templateId}
  */
-export function getTemplate(path: {
+export function getTemplate({ templateId }: {
     templateId: string;
   }): Promise<SpaceTemplateDTO> {
   return requestClient.get<SpaceTemplateDTO>(`/api/v1/nextwiki/templates/${templateId}`);
@@ -42,7 +41,7 @@ export function createTemplate(data: Record<string, unknown>): Promise<SpaceTemp
 /**
  * updateTemplate: PUT /api/v1/nextwiki/templates/{templateId}
  */
-export function updateTemplate(path: {
+export function updateTemplate({ templateId }: {
     templateId: string;
   }, data: Record<string, unknown>): Promise<SpaceTemplateDTO> {
   return requestClient.put<SpaceTemplateDTO>(`/api/v1/nextwiki/templates/${templateId}`, data);
@@ -51,7 +50,7 @@ export function updateTemplate(path: {
 /**
  * deleteTemplate: DELETE /api/v1/nextwiki/templates/{templateId}
  */
-export function deleteTemplate(path: {
+export function deleteTemplate({ templateId }: {
     templateId: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/nextwiki/templates/${templateId}`);
@@ -60,7 +59,7 @@ export function deleteTemplate(path: {
 /**
  * useTemplate: POST /api/v1/nextwiki/templates/{templateId}/use
  */
-export function useTemplate(path: {
+export function useTemplate({ templateId }: {
     templateId: string;
   }, data: Record<string, unknown>): Promise<SpaceVO> {
   return requestClient.post<SpaceVO>(`/api/v1/nextwiki/templates/${templateId}/use`, data);

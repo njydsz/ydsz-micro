@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { UserRecentVO } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function listRecent(params: {
 /**
  * recordAccess: POST /api/v1/nextwiki/recent/{nodeId}
  */
-export function recordAccess(path: {
+export function recordAccess({ nodeId }: {
     nodeId: string;
   }, params: {
     accessType?: string;
@@ -44,7 +43,7 @@ export function clearAll(): Promise<boolean> {
 /**
  * removeRecent: DELETE /api/v1/nextwiki/recent/{nodeId}
  */
-export function removeRecent(path: {
+export function removeRecent({ nodeId }: {
     nodeId: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/nextwiki/recent/${nodeId}`);

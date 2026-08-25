@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { Record<string, never> } from './models';
+
 
 /**
  * listBreakpoints: GET /api/v1/literule/debug/breakpoints
@@ -31,7 +30,7 @@ export function addBreakpoint(data: Record<string, unknown>): Promise<unknown> {
 /**
  * removeBreakpoint: DELETE /api/v1/literule/debug/breakpoints/{breakpointId}
  */
-export function removeBreakpoint(path: {
+export function removeBreakpoint({ breakpointId }: {
     breakpointId: string;
   }): Promise<unknown> {
   return requestClient.delete<unknown>(`/api/v1/literule/debug/breakpoints/${breakpointId}`);
@@ -47,7 +46,7 @@ export function createSession(data: Record<string, unknown>): Promise<unknown> {
 /**
  * getSession: GET /api/v1/literule/debug/sessions/{sessionId}
  */
-export function getSession(path: {
+export function getSession({ sessionId }: {
     sessionId: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/literule/debug/sessions/${sessionId}`);
@@ -56,7 +55,7 @@ export function getSession(path: {
 /**
  * submitCommand: POST /api/v1/literule/debug/sessions/{sessionId}/command
  */
-export function submitCommand(path: {
+export function submitCommand({ sessionId }: {
     sessionId: string;
   }, data: Record<string, unknown>): Promise<unknown> {
   return requestClient.post<unknown>(`/api/v1/literule/debug/sessions/${sessionId}/command`, data);
@@ -65,7 +64,7 @@ export function submitCommand(path: {
 /**
  * terminateSession: DELETE /api/v1/literule/debug/sessions/{sessionId}
  */
-export function terminateSession(path: {
+export function terminateSession({ sessionId }: {
     sessionId: string;
   }): Promise<unknown> {
   return requestClient.delete<unknown>(`/api/v1/literule/debug/sessions/${sessionId}`);

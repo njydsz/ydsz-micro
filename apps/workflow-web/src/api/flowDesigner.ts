@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FlowDesignerDataDTO } from './models';
 
 /**
  * getDesignerData: GET /api/v1/workflow/engine/definition/{id}/designer
  */
-export function getDesignerData(path: {
+export function getDesignerData({ id }: {
     id: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/designer`);
@@ -26,7 +25,7 @@ export function getDesignerData(path: {
 /**
  * saveDesignerData: POST /api/v1/workflow/engine/definition/{id}/designer
  */
-export function saveDesignerData(path: {
+export function saveDesignerData({ id }: {
     id: string;
   }, data: FlowDesignerDataDTO): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/designer`, data);
@@ -35,7 +34,7 @@ export function saveDesignerData(path: {
 /**
  * lockDefinition: POST /api/v1/workflow/engine/definition/{id}/lock
  */
-export function lockDefinition(path: {
+export function lockDefinition({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/definition/${id}/lock`);
@@ -44,7 +43,7 @@ export function lockDefinition(path: {
 /**
  * unlockDefinition: POST /api/v1/workflow/engine/definition/{id}/unlock
  */
-export function unlockDefinition(path: {
+export function unlockDefinition({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/definition/${id}/unlock`);
@@ -53,7 +52,7 @@ export function unlockDefinition(path: {
 /**
  * getLockStatus: GET /api/v1/workflow/engine/definition/{id}/lockStatus
  */
-export function getLockStatus(path: {
+export function getLockStatus({ id }: {
     id: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/lockStatus`);
@@ -62,7 +61,7 @@ export function getLockStatus(path: {
 /**
  * getFormConfig: GET /api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}
  */
-export function getFormConfig(path: {
+export function getFormConfig({ id, nodeCode }: {
     id: string;
     nodeCode: string;
   }): Promise<string> {
@@ -72,7 +71,7 @@ export function getFormConfig(path: {
 /**
  * saveFormConfig: POST /api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}
  */
-export function saveFormConfig(path: {
+export function saveFormConfig({ id, nodeCode }: {
     id: string;
     nodeCode: string;
   }, data: string): Promise<void> {
@@ -82,7 +81,7 @@ export function saveFormConfig(path: {
 /**
  * getSlaConfig: GET /api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}
  */
-export function getSlaConfig(path: {
+export function getSlaConfig({ id, nodeCode }: {
     id: string;
     nodeCode: string;
   }): Promise<string> {
@@ -92,7 +91,7 @@ export function getSlaConfig(path: {
 /**
  * saveSlaConfig: POST /api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}
  */
-export function saveSlaConfig(path: {
+export function saveSlaConfig({ id, nodeCode }: {
     id: string;
     nodeCode: string;
   }, data: Record<string, unknown>): Promise<void> {
@@ -132,7 +131,7 @@ export function listTemplates(params: {
 /**
  * importTemplate: POST /api/v1/workflow/engine/template/{templateCode}/import
  */
-export function importTemplate(path: {
+export function importTemplate({ templateCode }: {
     templateCode: string;
   }, params: {
     flowName?: string;
@@ -143,7 +142,7 @@ export function importTemplate(path: {
 /**
  * getTemplate: GET /api/v1/workflow/engine/template/{templateCode}
  */
-export function getTemplate(path: {
+export function getTemplate({ templateCode }: {
     templateCode: string;
   }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/template/${templateCode}`);

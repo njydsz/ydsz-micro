@@ -3250,8 +3250,8 @@
       "items": {
        "type": "string",
        "enum": [
-        "/** asc */\n    ASC",
-        "/** desc */\n    DESC"
+        "ASC",
+        "DESC"
        ],
        "description": "枚举 OrderItem"
       }
@@ -3450,11 +3450,11 @@
      "strategy": {
       "type": "string",
       "enum": [
-       "/** 同步发送（阻塞返回供应商结果） */\n  SYNC",
-       "/** 直接发送（使用本模块 DTO，含扩展字段） */\n  DIRECT",
-       "/** 异步发送（先落库 PENDING 再投递 MQ） */\n  ASYNC",
-       "/** 事务消息（RocketMQ 半消息 + 本地事务校验） */\n  TRANSACTIONAL",
-       "/** 批量发送（同步循环，限制 100 条/批） */\n  BATCH"
+       "SYNC",
+       "DIRECT",
+       "ASYNC",
+       "TRANSACTIONAL",
+       "BATCH"
       ],
       "description": "枚举 SendStrategyEnum"
      },

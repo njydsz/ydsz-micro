@@ -11,8 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
-import type { AssignPermissionsDTO, PageResponse, RoleDTO, RolePageQuery, RoleVO } from './models';
+import type { AssignPermissionsDTO, RoleDTO, RolePageQuery, RoleVO } from './models';
 
 /**
  * page: GET /api/v1/role/page
@@ -33,7 +32,7 @@ export function list(): Promise<RoleVO[]> {
 /**
  * getById: GET /api/v1/role/{id}
  */
-export function getById(path: {
+export function getById({ id }: {
     id: string;
   }): Promise<RoleVO> {
   return requestClient.get<RoleVO>(`/api/v1/role/${id}`);
@@ -56,7 +55,7 @@ export function update(data: RoleDTO): Promise<boolean> {
 /**
  * remove: DELETE /api/v1/role/{id}
  */
-export function remove(path: {
+export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/role/${id}`);
@@ -65,7 +64,7 @@ export function remove(path: {
 /**
  * assignPermissions: POST /api/v1/role/{roleId}/permissions
  */
-export function assignPermissions(path: {
+export function assignPermissions({ roleId }: {
     roleId: string;
   }, data: AssignPermissionsDTO): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/role/${roleId}/permissions`, data);
@@ -74,7 +73,7 @@ export function assignPermissions(path: {
 /**
  * getRolePermissions: GET /api/v1/role/{roleId}/permissions
  */
-export function getRolePermissions(path: {
+export function getRolePermissions({ roleId }: {
     roleId: string;
   }): Promise<string[]> {
   return requestClient.get<string[]>(`/api/v1/role/${roleId}/permissions`);

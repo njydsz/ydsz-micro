@@ -24,6 +24,32 @@ interface Props {
   isQrCode?: boolean;
 }
 
+// 非标准 API 收窄：钉钉 h5-dingtalk-login SDK 注入的全局登录方法，类型未公开
+interface DingTalkFrameLoginConfig {
+  id: string;
+  width: number;
+  height: number;
+}
+interface DingTalkFrameLoginParams {
+  redirect_uri: string;
+  client_id: string;
+  scope: string;
+  response_type: string;
+  state: string;
+  prompt: string;
+  corpId: string;
+}
+interface DingTalkFrameLoginResult {
+  redirectUrl?: string;
+}
+type DingTalkFrameLogin = (
+  config: DingTalkFrameLoginConfig,
+  params: DingTalkFrameLoginParams,
+  onSuccess: (result: DingTalkFrameLoginResult) => void,
+  onError: (msg: string) => void,
+) => void;
+type DingTalkWindow = Window & { DTFrameLogin?: DingTalkFrameLogin };
+
 const props = defineProps<Props>();
 
 const route = useRoute();
@@ -51,13 +77,13 @@ const getRedirectUri = () => {
  */
 const handleQrCodeLogin = async () => {
   const { clientId, corpId } = props;
-  if (!(window as any).DTFrameLogin) {
+  if (!(window as DingTalkWindow).DTFrameLogin) {
     // 二维码登录 加载资源
     await loadScript(
       'https://g.alicdn.com/dingding/h5-dingtalk-login/0.21.0/ddlogin.js',
     );
   }
-  (window as any).DTFrameLogin(
+  (window as DingTalkWindow).DTFrameLogin?.(
     {
       id: 'dingding_qrcode_login_element',
       width: 300,
@@ -73,7 +99,7 @@ const handleQrCodeLogin = async () => {
       prompt: 'consent',
       corpId,
     },
-    (loginResult: any) => {
+    (loginResult: DingTalkFrameLoginResult) => {
       const { redirectUrl } = loginResult;
       // 这里可以直接进行重定向
       window.location.href = redirectUrl;

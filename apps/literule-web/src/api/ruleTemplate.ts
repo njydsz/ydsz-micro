@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { RuleDefinitionVO, RuleTemplateVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function listTemplates(): Promise<RuleTemplateVO[]> {
 /**
  * listTemplatesByCategory: GET /api/v1/literule/rules/templates/category/{category}
  */
-export function listTemplatesByCategory(path: {
+export function listTemplatesByCategory({ category }: {
     category: string;
   }): Promise<RuleTemplateVO[]> {
   return requestClient.get<RuleTemplateVO[]>(`/api/v1/literule/rules/templates/category/${category}`);
@@ -33,7 +32,7 @@ export function listTemplatesByCategory(path: {
 /**
  * listTemplatesByIndustry: GET /api/v1/literule/rules/templates/industry/{industry}
  */
-export function listTemplatesByIndustry(path: {
+export function listTemplatesByIndustry({ industry }: {
     industry: string;
   }): Promise<RuleTemplateVO[]> {
   return requestClient.get<RuleTemplateVO[]>(`/api/v1/literule/rules/templates/industry/${industry}`);
@@ -42,7 +41,7 @@ export function listTemplatesByIndustry(path: {
 /**
  * importTemplate: POST /api/v1/literule/rules/templates/{templateCode}/import
  */
-export function importTemplate(path: {
+export function importTemplate({ templateCode }: {
     templateCode: string;
   }): Promise<RuleDefinitionVO> {
   return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules/templates/${templateCode}/import`);

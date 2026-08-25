@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DeviceSessionVO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function listMyDevices(): Promise<DeviceSessionVO[]> {
 /**
  * revokeDevice: DELETE /api/v1/devices/{sessionId}
  */
-export function revokeDevice(path: {
+export function revokeDevice({ sessionId }: {
     sessionId: string;
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/api/v1/devices/${sessionId}`);

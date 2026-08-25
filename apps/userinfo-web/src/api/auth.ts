@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { LoginDTO, LoginVO, RefreshRequest, SecondaryAuthRequest, SendVerifyCodeDTO } from './models';
 
 /**
@@ -78,7 +77,7 @@ export function listActiveSessions(): Promise<string[]> {
 /**
  * kickOutSession: DELETE /api/v1/auth/sessions/{token}
  */
-export function kickOutSession(path: {
+export function kickOutSession({ token }: {
     token: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/auth/sessions/${token}`);

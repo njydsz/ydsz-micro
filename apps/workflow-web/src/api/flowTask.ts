@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FlowAttachmentPreviewVO, FlowAttachmentVO, FlowBatchUrgeResultVO, FlowCcQuery, FlowCcVO, FlowDelegateAuthPostDTO, FlowDelegateAuthVO, FlowRejectableNodeVO, FlowRunTaskVO, FlowTaskDetailVO, FlowTaskOperateDTO, PageResponse } from './models';
 
 /**
  * taskDetail: GET /api/v1/workflow/engine/task/{taskId}
  */
-export function taskDetail(path: {
+export function taskDetail({ taskId }: {
     taskId: string;
   }): Promise<FlowTaskDetailVO> {
   return requestClient.get<FlowTaskDetailVO>(`/api/v1/workflow/engine/task/${taskId}`);
@@ -49,7 +48,7 @@ export function reject(data: FlowTaskOperateDTO): Promise<void> {
 /**
  * rejectableNodes: GET /api/v1/workflow/engine/task/{taskId}/rejectableNodes
  */
-export function rejectableNodes(path: {
+export function rejectableNodes({ taskId }: {
     taskId: string;
   }): Promise<FlowRejectableNodeVO[]> {
   return requestClient.get<FlowRejectableNodeVO[]>(`/api/v1/workflow/engine/task/${taskId}/rejectableNodes`);
@@ -225,7 +224,7 @@ export function countersignRemove(data: FlowTaskOperateDTO): Promise<void> {
 /**
  * markRead: POST /api/v1/workflow/engine/task/{taskId}/read
  */
-export function markRead(path: {
+export function markRead({ taskId }: {
     taskId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/read`);
@@ -255,7 +254,7 @@ export function addApprover(data: FlowTaskOperateDTO): Promise<void> {
 /**
  * retract: POST /api/v1/workflow/engine/task/{taskId}/retract
  */
-export function retract(path: {
+export function retract({ taskId }: {
     taskId: string;
   }, params: {
     comment?: string;
@@ -266,7 +265,7 @@ export function retract(path: {
 /**
  * suspendTask: POST /api/v1/workflow/engine/task/{taskId}/suspend
  */
-export function suspendTask(path: {
+export function suspendTask({ taskId }: {
     taskId: string;
   }, params: {
     reason?: string;
@@ -277,7 +276,7 @@ export function suspendTask(path: {
 /**
  * activateTask: POST /api/v1/workflow/engine/task/{taskId}/activate
  */
-export function activateTask(path: {
+export function activateTask({ taskId }: {
     taskId: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/activate`);
@@ -300,7 +299,7 @@ export function pushMyTodoCount(): Promise<boolean> {
 /**
  * countersignByInstanceId: GET /api/v1/workflow/engine/countersign/instance/{instanceId}
  */
-export function countersignByInstanceId(path: {
+export function countersignByInstanceId({ instanceId }: {
     instanceId: string;
   }, params: {
     pageNo?: number;
@@ -312,7 +311,7 @@ export function countersignByInstanceId(path: {
 /**
  * countersignByTaskId: GET /api/v1/workflow/engine/countersign/task/{taskId}
  */
-export function countersignByTaskId(path: {
+export function countersignByTaskId({ taskId }: {
     taskId: string;
   }, params: {
     pageNo?: number;
@@ -331,7 +330,7 @@ export function createDelegateAuth(data: FlowDelegateAuthPostDTO): Promise<strin
 /**
  * revokeDelegateAuth: POST /api/v1/workflow/engine/delegateAuth/{id}/revoke
  */
-export function revokeDelegateAuth(path: {
+export function revokeDelegateAuth({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/delegateAuth/${id}/revoke`);
@@ -340,7 +339,7 @@ export function revokeDelegateAuth(path: {
 /**
  * updateDelegateAuthStatus: POST /api/v1/workflow/engine/delegateAuth/{id}/status
  */
-export function updateDelegateAuthStatus(path: {
+export function updateDelegateAuthStatus({ id }: {
     id: string;
   }, params: {
     status?: string;
@@ -383,7 +382,7 @@ export function ccUnreadCount(): Promise<number> {
 /**
  * ccMarkRead: POST /api/v1/workflow/engine/cc/{id}/read
  */
-export function ccMarkRead(path: {
+export function ccMarkRead({ id }: {
     id: string;
   }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/cc/${id}/read`);
@@ -399,7 +398,7 @@ export function ccMarkAllRead(): Promise<number> {
 /**
  * listByTask: GET /api/v1/workflow/engine/attachment/task/{taskId}
  */
-export function listByTask(path: {
+export function listByTask({ taskId }: {
     taskId: string;
   }): Promise<FlowAttachmentVO[]> {
   return requestClient.get<FlowAttachmentVO[]>(`/api/v1/workflow/engine/attachment/task/${taskId}`);
@@ -408,7 +407,7 @@ export function listByTask(path: {
 /**
  * listByInstance: GET /api/v1/workflow/engine/attachment/instance/{instanceId}
  */
-export function listByInstance(path: {
+export function listByInstance({ instanceId }: {
     instanceId: string;
   }): Promise<FlowAttachmentVO[]> {
   return requestClient.get<FlowAttachmentVO[]>(`/api/v1/workflow/engine/attachment/instance/${instanceId}`);
@@ -417,7 +416,7 @@ export function listByInstance(path: {
 /**
  * delete: DELETE /api/v1/workflow/engine/attachment/{attachmentId}
  */
-export function delete(path: {
+export function deleteApi({ attachmentId }: {
     attachmentId: string;
   }, params: {
     operatorId?: string;
@@ -428,7 +427,7 @@ export function delete(path: {
 /**
  * preview: GET /api/v1/workflow/engine/attachment/{attachmentId}/preview
  */
-export function preview(path: {
+export function preview({ attachmentId }: {
     attachmentId: string;
   }): Promise<FlowAttachmentPreviewVO> {
   return requestClient.get<FlowAttachmentPreviewVO>(`/api/v1/workflow/engine/attachment/${attachmentId}/preview`);

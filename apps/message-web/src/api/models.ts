@@ -131,12 +131,7 @@ export interface MessageLogQueryDTO {
 
 export interface MessageSendDTO {
   /** 枚举 SendStrategyEnum */
-  strategy?: '/** 同步发送（阻塞返回供应商结果） */
-  SYNC' | '/** 直接发送（使用本模块 DTO，含扩展字段） */
-  DIRECT' | '/** 异步发送（先落库 PENDING 再投递 MQ） */
-  ASYNC' | '/** 事务消息（RocketMQ 半消息 + 本地事务校验） */
-  TRANSACTIONAL' | '/** 批量发送（同步循环，限制 100 条/批） */
-  BATCH';
+  strategy?: 'SYNC' | 'DIRECT' | 'ASYNC' | 'TRANSACTIONAL' | 'BATCH';
 
   channel?: string;
 
@@ -437,4 +432,484 @@ export interface UserChannelBindingDTO {
   isPrimary?: number;
 
   extra?: string;
+}
+
+export interface MsgBatchVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  batchId?: string;
+
+  batchName?: string;
+
+  channel?: string;
+
+  templateCode?: string;
+
+  bizType?: string;
+
+  total?: number;
+
+  success?: number;
+
+  failed?: number;
+
+  skipped?: number;
+
+  status?: string;
+
+  audienceSource?: string;
+
+  errorMessage?: string;
+
+  startedAt?: string;
+
+  completedAt?: string;
+
+  senderId?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface BatchProgressVO {
+
+  batchId?: string;
+
+  batchName?: string;
+
+  channel?: string;
+
+  templateCode?: string;
+
+  total?: number;
+
+  success?: number;
+
+  failed?: number;
+
+  skipped?: number;
+
+  processed?: number;
+
+  progressPercent?: number;
+
+  status?: string;
+
+  errorMessage?: string;
+
+  startedAt?: string;
+
+  completedAt?: string;
+
+  createdAt?: string;
+}
+
+export interface MessageResult {
+
+  serialVersionUID?: number;
+
+  success?: boolean;
+
+  errorMessage?: string;
+
+  traceId?: string;
+
+  providerTraceId?: string;
+
+  status?: string;
+
+  errorCode?: string;
+
+  userMessage?: string;
+
+  developerMessage?: string;
+
+  retryAfter?: number;
+}
+
+export interface BatchSendResult {
+
+  receiver?: string;
+
+  result?: NotifySendResult;
+}
+
+export interface NotifySendResult {}
+export interface MessageStatsVO {
+
+  total?: number;
+
+  success?: number;
+
+  failed?: number;
+
+  retry?: number;
+
+  dead?: number;
+
+  recalled?: number;
+
+  successRate?: number;
+
+  deadRate?: number;
+
+  start?: string;
+
+  end?: string;
+}
+
+export interface ChannelStatsVO {
+
+  channel?: string;
+
+  total?: number;
+
+  success?: number;
+
+  failed?: number;
+
+  retry?: number;
+
+  dead?: number;
+
+  successRate?: number;
+
+  deadRate?: number;
+}
+
+export interface ReceiptStatsVO {
+
+  total?: number;
+
+  delivered?: number;
+
+  read?: number;
+
+  clicked?: number;
+
+  failed?: number;
+
+  timeout?: number;
+
+  none?: number;
+
+  deliveryRate?: number;
+
+  readRate?: number;
+}
+
+export interface FunnelStatsVO {
+
+  sent?: number;
+
+  delivered?: number;
+
+  read?: number;
+
+  clicked?: number;
+
+  deliveryRate?: number;
+
+  readRate?: number;
+
+  clickRate?: number;
+
+  deliveredToReadRate?: number;
+
+  readToClickRate?: number;
+
+  overallConversionRate?: number;
+
+  channel?: string;
+
+  templateCode?: string;
+
+  start?: string;
+
+  end?: string;
+}
+
+export interface CostStatsVO {
+
+  totalCost?: number;
+
+  channels?: Record<string, unknown>[];
+
+  start?: string;
+
+  end?: string;
+
+  channel?: string;
+
+  messageCount?: number;
+
+  unitPrice?: number;
+}
+
+export interface CacheStatsVO {
+
+  serialVersionUID?: number;
+
+  size?: number;
+
+  hitCount?: number;
+
+  missCount?: number;
+
+  hitRate?: number;
+
+  evictionCount?: number;
+}
+
+export interface BloomFilterStatsVO {
+
+  serialVersionUID?: number;
+
+  expectedInsertions?: number;
+
+  fpp?: number;
+
+  primary?: boolean;
+
+  windowAgeSeconds?: number;
+}
+
+export interface MsgPreferenceVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  userId?: string;
+
+  channel?: string;
+
+  bizType?: string;
+
+  enabled?: number;
+
+  dndEnabled?: number;
+
+  dndStart?: string;
+
+  dndEnd?: string;
+
+  dailyLimit?: number;
+
+  hourlyLimit?: number;
+
+  digestEnabled?: number;
+
+  digestFrequency?: string;
+
+  locale?: string;
+
+  extra?: string;
+
+  status?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface MsgRouteRuleVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  ruleCode?: string;
+
+  ruleName?: string;
+
+  bizType?: string;
+
+  channel?: string;
+
+  priority?: number;
+
+  conditionExpr?: string;
+
+  targetChannel?: string;
+
+  fallbackChannel?: string;
+
+  description?: string;
+
+  sortOrder?: number;
+
+  status?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface MsgSubscriptionVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  userId?: string;
+
+  topicCode?: string;
+
+  channel?: string;
+
+  status?: string;
+
+  roleScope?: string;
+
+  extra?: string;
+
+  unsubscribedAt?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface SystemHealthVO {
+
+  serialVersionUID?: number;
+
+  status?: string;
+
+  totalChannels?: number;
+
+  enabledChannels?: number;
+
+  openBreakers?: number;
+
+  channels?: ChannelHealthVO[];
+}
+
+export interface ChannelHealthVO {
+
+  serialVersionUID?: number;
+
+  channel?: string;
+
+  enabled?: boolean;
+
+  circuitBreakerState?: string;
+
+  failureCount?: number;
+
+  totalCount?: number;
+
+  failureRate?: number;
+}
+
+export interface MsgTemplateVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  templateCode?: string;
+
+  channel?: string;
+
+  locale?: string;
+
+  version?: string;
+
+  category?: string;
+
+  sceneCode?: string;
+
+  subject?: string;
+
+  content?: string;
+
+  provider?: string;
+
+  providerKey?: string;
+
+  signName?: string;
+
+  status?: string;
+
+  auditStatus?: string;
+
+  auditBy?: string;
+
+  auditAt?: string;
+
+  auditRemark?: string;
+
+  description?: string;
+
+  variableDefs?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
+}
+
+export interface UnsubscribeTokenPayload {
+
+  userId?: string;
+
+  topicCode?: string;
+
+  channel?: string;
+
+  expiresAt?: number;
+}
+
+export interface MsgUserChannelVO {
+
+  serialVersionUID?: number;
+
+  id?: string;
+
+  userId?: string;
+
+  channelType?: string;
+
+  channelUserId?: string;
+
+  verified?: number;
+
+  isPrimary?: number;
+
+  extra?: string;
+
+  status?: string;
+
+  createdBy?: string;
+
+  createdAt?: string;
+
+  updatedBy?: string;
+
+  updatedAt?: string;
 }

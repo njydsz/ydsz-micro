@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from './models';
 
 /**
@@ -45,7 +44,7 @@ export function update(data: FlowCategoryDTO): Promise<void> {
 /**
  * delete: DELETE /api/v1/workflow/categories/{id}
  */
-export function delete(path: {
+export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/workflow/categories/${id}`);

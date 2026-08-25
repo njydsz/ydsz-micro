@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { VariableDefinition, VariableDefinitionVO } from './models';
 
 /**
@@ -26,7 +25,7 @@ export function list(params: {
 /**
  * get: GET /api/v1/literule/variables/{varName}
  */
-export function get(path: {
+export function get({ varName }: {
     varName: string;
   }): Promise<VariableDefinitionVO> {
   return requestClient.get<VariableDefinitionVO>(`/api/v1/literule/variables/${varName}`);
@@ -42,7 +41,7 @@ export function save(data: VariableDefinition): Promise<VariableDefinitionVO> {
 /**
  * delete: DELETE /api/v1/literule/variables/{varName}
  */
-export function delete(path: {
+export function deleteApi({ varName }: {
     varName: string;
   }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/literule/variables/${varName}`);

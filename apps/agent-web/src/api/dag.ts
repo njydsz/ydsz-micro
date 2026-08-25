@@ -11,7 +11,6 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { DagCheckpoint, DagExecutionDTO } from './models';
 
 /**
@@ -24,7 +23,7 @@ export function execute(data: DagExecutionDTO): Promise<unknown> {
 /**
  * getCheckpoint: GET /api/v1/agent/dag/checkpoint/{executionId}
  */
-export function getCheckpoint(path: {
+export function getCheckpoint({ executionId }: {
     executionId: string;
   }): Promise<DagCheckpoint> {
   return requestClient.get<DagCheckpoint>(`/api/v1/agent/dag/checkpoint/${executionId}`);

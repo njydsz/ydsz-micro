@@ -3377,7 +3377,7 @@
     ]
    }
   },
-  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Users": {
+  "/scim/v2/Users": {
    "get": {
     "operationId": "listUsers",
     "tags": [
@@ -3453,7 +3453,7 @@
     }
    }
   },
-  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Users/{id}": {
+  "/scim/v2/Users/{id}": {
    "get": {
     "operationId": "getUser",
     "tags": [
@@ -3587,7 +3587,7 @@
     ]
    }
   },
-  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Groups": {
+  "/scim/v2/Groups": {
    "get": {
     "operationId": "listGroups",
     "tags": [
@@ -3627,7 +3627,7 @@
     ]
    }
   },
-  "/${ydsz.userinfo.scim.base-path:/scim/v2}/ServiceProviderConfig": {
+  "/scim/v2/ServiceProviderConfig": {
    "get": {
     "operationId": "getServiceProviderConfig",
     "tags": [
@@ -3647,7 +3647,7 @@
     }
    }
   },
-  "/${ydsz.userinfo.scim.base-path:/scim/v2}/ResourceTypes": {
+  "/scim/v2/ResourceTypes": {
    "get": {
     "operationId": "getResourceTypes",
     "tags": [
@@ -3667,7 +3667,7 @@
     }
    }
   },
-  "/${ydsz.userinfo.scim.base-path:/scim/v2}/Schemas": {
+  "/scim/v2/Schemas": {
    "get": {
     "operationId": "getSchemas",
     "tags": [
@@ -6133,9 +6133,9 @@
      "level": {
       "type": "string",
       "enum": [
-       "/** 中等敏感（个人资料等） */\n  MEDIUM",
-       "/** 高敏感（默认，改密/角色分配等） */\n  HIGH",
-       "/** 极敏感（删除用户/批量禁用/租户级操作等） */\n  CRITICAL"
+       "MEDIUM",
+       "HIGH",
+       "CRITICAL"
       ],
       "description": "枚举 SensitiveLevel"
      }

@@ -11,13 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { PageResponse } from './models';
 import type { ApprovalFlowVO, ApprovalRecordVO, RuleApproveDTO, RuleDefinitionVO, RuleDelegateDTO, RuleRejectDTO, RuleStatusChangeDTO, RuleSubmitReviewDTO } from './models';
 
 /**
  * changeStatus: PUT /api/v1/literule/rules/{ruleCode}/status
  */
-export function changeStatus(path: {
+export function changeStatus({ ruleCode }: {
     ruleCode: string;
   }, data: RuleStatusChangeDTO): Promise<RuleDefinitionVO> {
   return requestClient.put<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}/status`, data);
@@ -26,7 +25,7 @@ export function changeStatus(path: {
 /**
  * approve: POST /api/v1/literule/rules/{ruleCode}/approve
  */
-export function approve(path: {
+export function approve({ ruleCode }: {
     ruleCode: string;
   }, data: RuleApproveDTO): Promise<RuleDefinitionVO> {
   return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}/approve`, data);
@@ -35,7 +34,7 @@ export function approve(path: {
 /**
  * reject: POST /api/v1/literule/rules/{ruleCode}/reject
  */
-export function reject(path: {
+export function reject({ ruleCode }: {
     ruleCode: string;
   }, data: RuleRejectDTO): Promise<RuleDefinitionVO> {
   return requestClient.post<RuleDefinitionVO>(`/api/v1/literule/rules/${ruleCode}/reject`, data);
@@ -44,7 +43,7 @@ export function reject(path: {
 /**
  * submitReview: POST /api/v1/literule/rules/{ruleCode}/submit-review
  */
-export function submitReview(path: {
+export function submitReview({ ruleCode }: {
     ruleCode: string;
   }, data: RuleSubmitReviewDTO): Promise<ApprovalRecordVO> {
   return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/submit-review`, data);
@@ -53,7 +52,7 @@ export function submitReview(path: {
 /**
  * approveLevel: POST /api/v1/literule/rules/{ruleCode}/approve-level
  */
-export function approveLevel(path: {
+export function approveLevel({ ruleCode }: {
     ruleCode: string;
   }, data: RuleApproveDTO): Promise<ApprovalRecordVO> {
   return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/approve-level`, data);
@@ -62,7 +61,7 @@ export function approveLevel(path: {
 /**
  * rejectLevel: POST /api/v1/literule/rules/{ruleCode}/reject-level
  */
-export function rejectLevel(path: {
+export function rejectLevel({ ruleCode }: {
     ruleCode: string;
   }, data: RuleRejectDTO): Promise<ApprovalRecordVO> {
   return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/reject-level`, data);
@@ -71,7 +70,7 @@ export function rejectLevel(path: {
 /**
  * delegate: POST /api/v1/literule/rules/{ruleCode}/delegate
  */
-export function delegate(path: {
+export function delegate({ ruleCode }: {
     ruleCode: string;
   }, data: RuleDelegateDTO): Promise<ApprovalRecordVO> {
   return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/delegate`, data);
@@ -80,7 +79,7 @@ export function delegate(path: {
 /**
  * approvalStatus: GET /api/v1/literule/rules/{ruleCode}/approval-status
  */
-export function approvalStatus(path: {
+export function approvalStatus({ ruleCode }: {
     ruleCode: string;
   }): Promise<ApprovalRecordVO> {
   return requestClient.get<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/approval-status`);
@@ -98,7 +97,7 @@ export function pendingApprovals(params: {
 /**
  * cancelReview: POST /api/v1/literule/rules/{ruleCode}/cancel-review
  */
-export function cancelReview(path: {
+export function cancelReview({ ruleCode }: {
     ruleCode: string;
   }): Promise<ApprovalRecordVO> {
   return requestClient.post<ApprovalRecordVO>(`/api/v1/literule/rules/${ruleCode}/cancel-review`);
