@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 流程分类（列表页）
  *
  * @path apps\workflow-web\src\views\category\index.vue

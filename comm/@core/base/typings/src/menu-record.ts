@@ -1,4 +1,4 @@
-﻿/**
+/**
  * menu-record 模块
  *
  * @path comm\@core\base\typings\src\menu-record.ts

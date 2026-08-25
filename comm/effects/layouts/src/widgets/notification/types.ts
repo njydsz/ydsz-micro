@@ -1,4 +1,4 @@
-﻿/**
+/**
  * types 模块
  *
  * @path comm\effects\layouts\src\widgets\notification\types.ts

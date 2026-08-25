@@ -1,4 +1,4 @@
-﻿/**
+/**
  * User API — 对齐后端 /api/v1/auth/userinfo
  */
 import type { UserInfo } from '@ydsz/types';

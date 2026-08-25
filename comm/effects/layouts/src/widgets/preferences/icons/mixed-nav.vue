@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * mixed-nav 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\icons\mixed-nav.vue

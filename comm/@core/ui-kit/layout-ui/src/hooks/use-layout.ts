@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-layout 组合式函数
  *
  * @path comm\@core\ui-kit\layout-ui\src\hooks\use-layout.ts

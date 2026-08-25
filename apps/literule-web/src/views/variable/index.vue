@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 系统变量管理列表页面
  *
  * @path apps\literule-web\src\views\variable\index.vue

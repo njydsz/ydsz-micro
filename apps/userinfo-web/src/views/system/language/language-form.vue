@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 国际化语言条目表单组件 — 支持新增/编辑语言包翻译内容
  *
  * @path apps\userinfo-web\src\views\system\language\language-form.vue

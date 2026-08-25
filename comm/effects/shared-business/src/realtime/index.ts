@@ -1,4 +1,4 @@
-﻿/**
+/**
  * realtime 模块入口
  *
  * @path comm\effects\shared-business\src\realtime\index.ts

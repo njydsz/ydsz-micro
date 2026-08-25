@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 空状态图标组件
  *
  * @path comm\effects\common-ui\src\ui\fallback\icons\icon-empty.vue

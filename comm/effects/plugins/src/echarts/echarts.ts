@@ -1,4 +1,4 @@
-﻿/**
+/**
  * echarts 模块
  *
  * @path comm\effects\plugins\src\echarts\echarts.ts

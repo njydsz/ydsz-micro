@@ -1,4 +1,4 @@
-﻿/**
+/**
  * init 模块
  *
  * @path comm\effects\plugins\src\vxe-table\init.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 模块
  *
  * @path comm\@core\ui-kit\layout-ui\src\index.ts

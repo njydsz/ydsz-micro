@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 死信队列列表页组件
  *
  * @path apps\message-web\src\views\deadLetter\index.vue

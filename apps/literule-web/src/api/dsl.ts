@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 规则 DSL API 模块（前端）
  * <p>封装规则 DSL（Domain Specific Language）编辑与导入接口，对应后端 {@code /api/v1/literule/dsl/*} 端点。
  * <p>支持 JSON/YAML 格式的规则脚本上传、解析、校验、转换。

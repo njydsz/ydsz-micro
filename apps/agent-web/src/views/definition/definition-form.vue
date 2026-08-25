@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * definition-form 表单页面组件
  *
  * @path apps\agent-web\src\views\definition\definition-form.vue

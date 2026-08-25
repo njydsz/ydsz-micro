@@ -1,4 +1,4 @@
-﻿# system-web 系统管理
+# system-web 系统管理
 
 > YDSZ 系统管理子应用，提供系统配置、字典管理、变量管理与应用注册（对应后端：YDSZ-system，路由前缀：/YDSZ-sys）
 

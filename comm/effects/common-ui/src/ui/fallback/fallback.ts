@@ -1,4 +1,4 @@
-﻿/**
+/**
  * fallback 模块
  *
  * @path comm\effects\common-ui\src\ui\fallback\fallback.ts

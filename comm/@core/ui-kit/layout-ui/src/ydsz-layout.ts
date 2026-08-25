@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YDSZ-layout 模块
  *
  * @path comm\@core\ui-kit\layout-ui\src\YDSZ-layout.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * form-label Vue 组件
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\form-label.vue

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * OpenAPI 契约生成脚本
  *
  * 从后端 SpringDoc /v3/api-docs 生成前端 TypeScript SDK。

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 子应用共享路由守卫 — 消除 9 个子应用中完全一致的 guard.ts 重复代码。
  *
  * 提供 setupCommonGuard（进度条）、setupAuthGuard（白名单 + 登录检查）、

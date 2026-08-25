@@ -1,4 +1,4 @@
-﻿/**
+/**
  * dashboard 路由模块
  *
  * @path main\src\router\routes\modules\dashboard.ts

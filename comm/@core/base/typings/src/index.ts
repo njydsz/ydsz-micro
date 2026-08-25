@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 模块
  *
  * @path comm\@core\base\typings\src\index.ts

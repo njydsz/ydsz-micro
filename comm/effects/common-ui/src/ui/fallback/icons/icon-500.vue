@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * icon-500 Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\fallback\icons\icon-500.vue

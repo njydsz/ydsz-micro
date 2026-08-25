@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 共享依赖自托管同步脚本。
  *
  * 配合 importmap 插件的 selfHostBase 模式，将 ESM 依赖产物从公网 CDN

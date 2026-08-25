@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Bundle Budget 插件 — 构建产物体积硬阈值校验
  *
  * 在 Vite 构建完成后（generateBundle / writeBundle 阶段）扫描产物列表，

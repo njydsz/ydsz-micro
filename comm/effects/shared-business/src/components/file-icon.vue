@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * file-icon 通用组件
  *
  * @path comm\effects\shared-business\src\components\file-icon.vue

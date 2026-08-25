@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * keyboard-help 通用组件 — 快捷键帮助面板
  *
  * @path comm\effects\shared-business\src\components\keyboard-help.vue

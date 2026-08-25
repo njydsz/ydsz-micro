@@ -1,4 +1,4 @@
-﻿/**
+/**
  * button 模块 - 现代化按钮样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\button.ts

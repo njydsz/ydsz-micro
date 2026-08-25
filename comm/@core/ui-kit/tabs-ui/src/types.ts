@@ -1,4 +1,4 @@
-﻿/**
+/**
  * types 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\types.ts

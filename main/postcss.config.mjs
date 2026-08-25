@@ -1,4 +1,4 @@
-﻿/**
+/**
  * main 应用 PostCSS 配置。
  *
  * @remarks

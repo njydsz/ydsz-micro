@@ -1,4 +1,4 @@
-﻿/**
+/**
  * retry.ts — 轻量指数退避重试工具
  *
  * 原设计从 `@YDSZ-core/shared/utils/retry` 导入，但该路径在 shared 包中并不存在

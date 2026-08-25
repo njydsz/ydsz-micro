@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz/shared-auth — 微前端子应用公共认证/请求/API 模块
  *
  * 消除 9 个子应用中重复的 request.ts / auth.ts / user.ts / menu.ts / store/auth.ts 代码。

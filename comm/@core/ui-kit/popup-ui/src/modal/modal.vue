@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * modal Vue 组件
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\modal.vue

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * nextwiki 路由模块
  *
  * @path apps\nextwiki-web\src\router\routes\modules\nextwiki.ts

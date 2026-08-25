@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\radio-group\index.ts

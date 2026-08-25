@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * basic 布局组件
  *
  * @path apps\system-web\src\layouts\basic.vue

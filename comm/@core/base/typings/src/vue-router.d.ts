@@ -1,4 +1,4 @@
-﻿/**
+/**
  * vue-router.d 模块
  *
  * @path comm\@core\base\typings\src\vue-router.d.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 后端基础实体类型 — 与 MpBaseEntity 对齐
  *
  * 后端类：com.YDSZ.common.jdbc.entity.MpBaseEntity

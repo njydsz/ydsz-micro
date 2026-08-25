@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * auth 布局组件
  *
  * @path main\src\layouts\auth.vue

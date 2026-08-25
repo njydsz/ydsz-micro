@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 模块
  *
  * @path main\src\layouts\index.ts

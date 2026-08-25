@@ -1,4 +1,4 @@
-﻿# @ydsz/icons
+# @ydsz/icons
 
 用于多个 `app` 公用的图标文件，继承了 `@YDSZ-core/icons` 的所有能力。业务上有通用图标可以放在这里。
 

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * nginx 子应用配置生成器 — MICRO_APPS → nginx.conf 生成闭环。
  *

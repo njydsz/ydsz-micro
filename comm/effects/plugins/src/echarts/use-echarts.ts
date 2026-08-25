@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-echarts 模块
  *
  * @path comm\effects\plugins\src\echarts\use-echarts.ts

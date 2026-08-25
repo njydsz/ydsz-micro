@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AlertBuilder 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\AlertBuilder.ts

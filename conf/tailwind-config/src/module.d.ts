@@ -1,4 +1,4 @@
-﻿/**
+/**
  * module.d 配置模块
  *
  * @path conf\tailwind-config\src\module.d.ts

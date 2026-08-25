@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * slider-captcha-content 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-captcha\slider-captcha-content.vue

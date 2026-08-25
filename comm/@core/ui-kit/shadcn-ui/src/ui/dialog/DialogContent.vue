@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * DialogContent Vue 组件 - 现代化弹窗样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogContent.vue

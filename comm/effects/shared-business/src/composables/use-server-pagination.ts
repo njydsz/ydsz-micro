@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-server-pagination 组合式函数 — 服务端分页
  *
  * @path comm\effects\shared-business\src\composables\use-server-pagination.ts

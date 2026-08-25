@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vue 组合式 API — 子应用侧使用全局状态
  *
  * 子应用无需关心底层是 qiankun 还是 micro-kernel，

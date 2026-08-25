@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * hover-card 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\hover-card\hover-card.vue

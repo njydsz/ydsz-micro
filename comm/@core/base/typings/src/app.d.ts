@@ -1,4 +1,4 @@
-﻿/**
+/**
  * app.d 模块
  *
  * @path comm\@core\base\typings\src\app.d.ts

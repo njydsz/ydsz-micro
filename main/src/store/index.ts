@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Pinia Store 导出入口
  *
  * @path main\src\store\index.ts

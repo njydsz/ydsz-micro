@@ -1,4 +1,4 @@
-﻿/**
+/**
  * color 模块
  *
  * @path comm\@core\base\shared\src\color\color.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 404 兜底页面
  *
  * @path apps\literule-web\src\views\fallback\not-found.vue

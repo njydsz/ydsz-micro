@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 应用根组件
  *
  * @path apps\cronjob-web\src\app.vue

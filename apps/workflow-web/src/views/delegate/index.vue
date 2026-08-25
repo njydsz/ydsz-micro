@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 流程委托（列表页）
  *
  * @path apps\workflow-web\src\views\delegate\index.vue

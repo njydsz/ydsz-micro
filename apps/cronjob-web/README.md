@@ -1,4 +1,4 @@
-﻿# cronjob-web 定时任务
+# cronjob-web 定时任务
 
 > YDSZ 定时任务子应用，提供任务管理、任务分组、DAG 管理、执行日志、告警管理与连接器配置（对应后端：YDSZ-cronjob，路由前缀：/YDSZ-cron）
 

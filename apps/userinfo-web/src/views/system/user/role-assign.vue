@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 用户角色分配弹窗 — 为用户分配或取消分配角色
  *
  * @path apps\userinfo-web\src\views\system\user\role-assign.vue

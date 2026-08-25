@@ -1,4 +1,4 @@
-﻿/**
+/**
  * popup-api 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\popup-api.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 任务调度子应用偏好配置
  *
  * @path apps\cronjob-web\src\preferences.ts

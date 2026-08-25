@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 命名空间隔离的 globalState
  *
  * 在现有 RawGlobalStateAPI 之上提供 scope 隔离：不同业务模块/子应用可使用

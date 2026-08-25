@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 流程分类（表单组件）
  *
  * @path apps\workflow-web\src\views\category\category-form.vue

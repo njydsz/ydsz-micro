@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * authentication 布局组件 - 现代化登录布局
  *
  * @path comm\effects\layouts\src\authentication\authentication.vue

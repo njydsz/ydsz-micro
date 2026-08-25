@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Agent 审批 API 模块（前端）
  * <p>封装 Agent 工具调用的人工审批（Human-in-the-Loop）接口，对应后端 {@code /api/v1/agent/approval/*} 端点。
  * <p>提供审批单的查询、通过、驳回、转办能力，确保高风险工具调用有人工把关。

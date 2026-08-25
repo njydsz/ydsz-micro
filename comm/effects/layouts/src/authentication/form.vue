@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * form 布局组件
  *
  * @path comm\effects\layouts\src\authentication\form.vue

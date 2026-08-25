@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * dict-tag 通用组件
  *
  * @path comm\effects\shared-business\src\components\dict-tag.vue

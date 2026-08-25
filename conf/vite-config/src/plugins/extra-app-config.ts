@@ -1,4 +1,4 @@
-﻿/**
+/**
  * extra-app-config 配置模块
  *
  * @path conf\vite-config\src\plugins\extra-app-config.ts

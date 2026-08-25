@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 set -e
 
 # ==================== Build & Deploy Frontend Docker Image ====================

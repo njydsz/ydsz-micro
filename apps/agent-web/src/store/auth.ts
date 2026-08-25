@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Auth Store（Agent 子应用）
  * <p>封装 YDSZ-agent 子应用的 Pinia 认证状态：accessToken / refreshToken / userInfo / accessCodes。
  * <p>底层基于 {@code @ydsz/shared-auth} 的 {@code createSharedAuthStore}，与 9 个子应用共享同一份登录/刷新/登出逻辑。

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * CardContent Vue 组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\CardContent.vue

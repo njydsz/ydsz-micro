@@ -1,4 +1,4 @@
-﻿/**
+/**
  * build.config 配置模块
  *
  * @path conf\vite-config\build.config.ts

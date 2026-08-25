@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 模块
  *
  * @path bash\turbo-run\src\index.ts

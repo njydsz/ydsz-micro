@@ -1,4 +1,4 @@
-﻿/**
+/**
  * create-icon 模块
  *
  * @path comm\@core\base\icons\src\create-icon.ts

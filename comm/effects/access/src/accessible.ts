@@ -1,4 +1,4 @@
-﻿/**
+/**
  * accessible 模块
  *
  * @path comm\effects\access\src\accessible.ts

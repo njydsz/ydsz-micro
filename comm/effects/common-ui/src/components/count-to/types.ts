@@ -1,4 +1,4 @@
-﻿/**
+/**
  * types 模块
  *
  * @path comm\effects\common-ui\src\components\count-to\types.ts

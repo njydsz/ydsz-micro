@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 消息模板表单组件
  *
  * @path apps\message-web\src\views\template\template-form.vue

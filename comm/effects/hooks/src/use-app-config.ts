@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-app-config 组合式函数
  *
  * @path comm\effects\hooks\src\use-app-config.ts

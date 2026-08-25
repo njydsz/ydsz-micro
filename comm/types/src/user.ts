@@ -1,4 +1,4 @@
-﻿/**
+/**
  * user 类型定义模块
  *
  * @path comm\types\src\user.ts

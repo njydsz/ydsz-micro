@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * error-state 通用组件 — 统一错误状态展示
  *
  * @path comm\effects\shared-business\src\components\error-state.vue

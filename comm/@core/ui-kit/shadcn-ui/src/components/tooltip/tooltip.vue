@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * tooltip 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\tooltip\tooltip.vue

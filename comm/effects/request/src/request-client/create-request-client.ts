@@ -1,4 +1,4 @@
-﻿/**
+/**
  * create-request-client 模块
  *
  * @path comm\effects\request\src\request-client\create-request-client.ts

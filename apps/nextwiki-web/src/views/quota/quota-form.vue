@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件配额（表单组件）
  *
  * @path apps\nextwiki-web\src\views\quota\quota-form.vue

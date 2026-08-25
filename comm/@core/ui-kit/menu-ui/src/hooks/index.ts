@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 组合式函数
  *
  * @path comm\@core\ui-kit\menu-ui\src\hooks\index.ts

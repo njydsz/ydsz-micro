@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * layout-sidebar 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-sidebar.vue

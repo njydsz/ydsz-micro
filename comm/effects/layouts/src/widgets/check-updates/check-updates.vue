@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * check-updates 布局组件
  *
  * @path comm\effects\layouts\src\widgets\check-updates\check-updates.vue

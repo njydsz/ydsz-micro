@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 用户中心基础布局 — 包含侧边栏、顶栏、水印等页面外壳
  *
  * @path apps\userinfo-web\src\layouts\basic.vue

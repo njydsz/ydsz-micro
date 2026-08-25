@@ -1,4 +1,4 @@
-﻿/**
+/**
  * preferences 模块
  *
  * @path apps\message-web\src\preferences.ts

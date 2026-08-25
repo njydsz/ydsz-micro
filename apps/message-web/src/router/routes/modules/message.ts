@@ -1,4 +1,4 @@
-﻿/**
+/**
  * message 路由模块
  *
  * @path apps\message-web\src\router\routes\modules\message.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 子应用 i18n 装配工厂 — 消除各子应用 locales/index.ts 中重复的样板代码。
  *
  * v3.5 (A6/B6): 将 dayjs / element-plus / app langs 的加载逻辑收敛至 shared-auth，

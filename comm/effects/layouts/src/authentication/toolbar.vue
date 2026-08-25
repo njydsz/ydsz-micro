@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * toolbar 布局组件
  *
  * @path comm\effects\layouts\src\authentication\toolbar.vue

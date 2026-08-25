@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 统一导出 — @ydsz/micro-runtime
  *
  * @path comm/effects/micro-runtime/src/index.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * notification API 接口定义
  *
  * @path main\src\api\core\notification.ts

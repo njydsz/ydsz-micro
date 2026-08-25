@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 流程模板（列表页）
  *
  * @path apps\workflow-web\src\views\template\index.vue

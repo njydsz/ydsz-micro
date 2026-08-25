@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 部门管理页面 — 展示部门树结构，支持新增/编辑/删除部门
  *
  * @path apps\userinfo-web\src\views\system\dept\index.vue

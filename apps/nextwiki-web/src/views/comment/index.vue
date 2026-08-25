@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件评论（列表页）
  *
  * @path apps\nextwiki-web\src\views\comment\index.vue

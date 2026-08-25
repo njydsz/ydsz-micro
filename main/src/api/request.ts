@@ -1,4 +1,4 @@
-﻿/**
+/**
  * RequestClient — 主应用复用 @ydsz/shared-auth 的共享请求客户端
  *
  * P2-3: 消除主应用与 shared-auth 的重复代码。

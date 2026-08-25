@@ -1,4 +1,4 @@
-﻿/**
+/**
  * access 路由模块
  *
  * @path main\src\router\access.ts

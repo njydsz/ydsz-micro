@@ -1,4 +1,4 @@
-﻿/* MV3 bridge: micro-kernel page -> extension */
+/* MV3 bridge: micro-kernel page -> extension */
 ;(function (g) {
   var NS = '__YDSZ_MICRO_KERNEL__';
   var CH = NS + '_CHANNEL';

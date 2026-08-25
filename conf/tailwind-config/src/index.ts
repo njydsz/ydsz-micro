@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 配置模块
  *
  * @path conf\tailwind-config\src\index.ts

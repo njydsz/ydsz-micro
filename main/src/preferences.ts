@@ -1,4 +1,4 @@
-﻿/**
+/**
  * preferences 模块
  *
  * @path main\src\preferences.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * checkbox-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\checkbox-item.vue

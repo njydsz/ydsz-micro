@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * footer 布局组件
  *
  * @path comm\effects\layouts\src\basic\footer\footer.vue

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * collapse-transition 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\collapse-transition.vue

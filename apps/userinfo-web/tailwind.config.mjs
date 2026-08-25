@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 用户中心子应用 Tailwind CSS 配置。
  *
  * @remarks

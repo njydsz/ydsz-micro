@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 工具函数模块
  *
  * @path comm\@core\base\shared\src\utils\index.ts

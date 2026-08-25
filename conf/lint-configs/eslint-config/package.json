@@ -23,6 +23,14 @@
   "peerDependencies": {
     "eslint": "^9.0.0"
   },
+  "dependencies": {
+    "@eslint/js": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-vue": "catalog:",
+    "vue-eslint-parser": "catalog:"
+  },
   "devDependencies": {
     "unbuild": "^2.0.0"
   },

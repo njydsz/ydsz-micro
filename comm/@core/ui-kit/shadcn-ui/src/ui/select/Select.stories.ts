@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Select 组件 Storybook Stories
  *
  * P1-2.3: 组件文档化 — Select 组件交互式文档

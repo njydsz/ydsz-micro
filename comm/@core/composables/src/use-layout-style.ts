@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-layout-style 组合式函数
  *
  * @path comm\@core\composables\src\use-layout-style.ts

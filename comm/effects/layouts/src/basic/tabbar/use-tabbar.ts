@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-tabbar 模块
  *
  * @path comm\effects\layouts\src\basic\tabbar\use-tabbar.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * menu-badge-dot 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu-badge-dot.vue

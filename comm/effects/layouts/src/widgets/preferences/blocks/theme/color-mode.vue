@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * color-mode 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\theme\color-mode.vue

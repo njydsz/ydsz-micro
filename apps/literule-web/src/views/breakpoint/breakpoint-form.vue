@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则断点调试编辑表单组件
  *
  * @path apps\literule-web\src\views\breakpoint\breakpoint-form.vue

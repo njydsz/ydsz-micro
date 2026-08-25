@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 部门 API 模块（前端）
  * <p>封装部门（{@code ydsz_dept}）CRUD 接口，对应后端 {@code /api/v1/userinfo/dept/*} 端点。
  * <p>支持部门树、负责人、上级部门、排序、状态。

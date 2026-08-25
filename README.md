@@ -1,4 +1,4 @@
-﻿<p align="center">
+<p align="center">
   <h1 align="center">YDSZ Micro</h1>
   <p align="center">
     基于 Vue 3 · TypeScript · Micro-kernel 的企业级微应用开发平台

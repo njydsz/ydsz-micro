@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-excel-export 组合式函数 — 统一 Excel 导出
  *
  * @path comm\effects\shared-business\src\composables\use-excel-export.ts

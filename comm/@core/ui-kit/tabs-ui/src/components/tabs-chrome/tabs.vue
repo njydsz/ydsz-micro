@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * tabs 通用组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\tabs-chrome\tabs.vue

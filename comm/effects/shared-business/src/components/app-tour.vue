@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * app-tour 通用组件 — 用户操作引导（onboarding tour）
  *
  * @path comm\effects\shared-business\src\components\app-tour.vue

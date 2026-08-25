@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * check-button-group 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\check-button-group.vue

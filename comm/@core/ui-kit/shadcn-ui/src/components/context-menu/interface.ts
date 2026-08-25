@@ -1,4 +1,4 @@
-﻿/**
+/**
  * interface 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\context-menu\interface.ts

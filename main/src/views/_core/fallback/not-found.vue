@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * not-found 页面组件
  *
  * @path main\src\views\_core\fallback\not-found.vue

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * lifecycle-hooks.ts — 生命周期钩子注册表
  *
  * 从 kernel.ts 提取的生命周期钩子管理，消除闭包内 Map 状态对 createKernel

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-responsive 组合式函数 — 移动端适配基础
  *
  * @path comm\effects\shared-business\src\composables\use-responsive.ts

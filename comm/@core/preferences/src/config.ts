@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 应用偏好配置
  *
  * @path comm\@core\preferences\src\config.ts

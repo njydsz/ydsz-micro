@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-navigation 模块
  *
  * @path comm\effects\layouts\src\basic\menu\use-navigation.ts

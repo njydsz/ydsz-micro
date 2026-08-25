@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 国际化配置入口 — 通过 @ydsz/shared-auth 的 createSubAppI18n 工厂装配。
  *
  * @path apps\cronjob-web\src\locales\index.ts

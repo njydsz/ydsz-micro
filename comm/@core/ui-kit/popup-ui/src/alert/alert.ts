@@ -1,4 +1,4 @@
-﻿/**
+/**
  * alert 模块
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\alert.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * auth Pinia 状态管理
  *
  * 主应用 auth store：复用 @ydsz/shared-auth 的 createSharedAuthStore 工厂，

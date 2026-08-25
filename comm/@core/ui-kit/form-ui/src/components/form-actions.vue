@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * form-actions 通用组件
  *
  * @path comm\@core\ui-kit\form-ui\src\components\form-actions.vue

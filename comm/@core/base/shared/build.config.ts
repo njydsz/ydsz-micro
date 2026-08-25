@@ -1,4 +1,4 @@
-﻿/**
+/**
  * build.config 模块
  *
  * @path comm\@core\base\shared\build.config.ts
@@ -17,5 +17,6 @@ export default defineBuildConfig({
     'src/color/index',
     'src/cache/index',
     'src/global-state',
+    'src/semver',
   ],
 });

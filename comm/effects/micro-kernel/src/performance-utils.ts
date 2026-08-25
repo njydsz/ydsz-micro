@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 性能标记工具 (Centralized Performance API)
  *
  * 统一管理 performance.mark / measure，防止 Performance Timeline 溢出。

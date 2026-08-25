@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * extra-menu 布局组件
  *
  * @path comm\effects\layouts\src\basic\menu\extra-menu.vue

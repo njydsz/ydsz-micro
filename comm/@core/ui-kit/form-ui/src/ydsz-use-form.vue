@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * YDSZ-use-form Vue 组件
  *
  * @path comm\@core\ui-kit\form-ui\src\YDSZ-use-form.vue

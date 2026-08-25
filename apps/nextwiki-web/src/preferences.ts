@@ -1,4 +1,4 @@
-﻿/**
+/**
  * preferences 模块
  *
  * @path apps\nextwiki-web\src\preferences.ts

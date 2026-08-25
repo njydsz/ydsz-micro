@@ -1,4 +1,4 @@
-﻿/**
+/**
  * extends 模块
  *
  * @path comm\effects\plugins\src\vxe-table\extends.ts

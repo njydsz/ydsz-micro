@@ -1,4 +1,4 @@
-﻿/**
+/**
  * inject-metadata 配置模块
  *
  * @path conf\vite-config\src\plugins\inject-metadata.ts

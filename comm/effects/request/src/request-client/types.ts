@@ -1,4 +1,4 @@
-﻿/**
+/**
  * types 模块
  *
  * @path comm\effects\request\src\request-client\types.ts

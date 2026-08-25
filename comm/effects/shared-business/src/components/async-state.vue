@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * async-state 通用容器组件
  *
  * @path comm\effects\shared-business\src\components\async-state.vue

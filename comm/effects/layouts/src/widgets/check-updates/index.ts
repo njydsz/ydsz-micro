@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 模块
  *
  * @path comm\effects\layouts\src\widgets\check-updates\index.ts

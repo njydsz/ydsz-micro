@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则审计日志查询列表页面
  *
  * @path apps\literule-web\src\views\auditLog\index.vue

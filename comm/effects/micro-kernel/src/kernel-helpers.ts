@@ -1,4 +1,4 @@
-﻿/**
+/**
  * kernel-helpers.ts — kernel 提取的纯函数与工具
  *
  * 从 kernel.ts 中提取的无闭包态依赖的函数：

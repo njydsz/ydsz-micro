@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件评论（表单组件）
  *
  * @path apps\nextwiki-web\src\views\comment\comment-form.vue

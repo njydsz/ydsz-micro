@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 站内通知 API 模块（前端）
  *
  * <p>封装站内消息（{@code ydsz_message_notification}）的 CRUD 接口调用，对应后端

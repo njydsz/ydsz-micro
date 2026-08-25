@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 公司表单组件 — 支持新增/编辑公司信息（公司名称、统一社会信用代码、法人）
  *
  * @path apps\userinfo-web\src\views\system\company\company-form.vue

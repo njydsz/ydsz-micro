@@ -1,4 +1,4 @@
-﻿/**
+/**
  * vxe-table 适配器模块（公共包）
  *
  * 由各子应用 @ydsz/shared-business 统一复用，消除 9 份重复代码。

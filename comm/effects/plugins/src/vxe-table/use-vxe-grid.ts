@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-vxe-grid 模块
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.ts

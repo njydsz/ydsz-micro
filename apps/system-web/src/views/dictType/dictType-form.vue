@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 字典类型表单组件 — 支持新增/编辑字典类型
  *
  * @path apps\system-web\src\views\dictType\dictType-form.vue

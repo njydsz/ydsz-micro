@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * expandable-arrow 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\expandable-arrow\expandable-arrow.vue

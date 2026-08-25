@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * content-spinner 布局组件
  *
  * @path comm\effects\layouts\src\basic\content\content-spinner.vue

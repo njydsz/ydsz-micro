@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件标签（表单组件）
  *
  * @path apps\nextwiki-web\src\views\tag\tag-form.vue

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * micro-kernel 共享依赖清单（importmap 外置）。
  *
  * ESM 原生微前端运行时要求 Vue / Pinia / Vue Router 等核心框架在主子应用间

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * workbench-project Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-project.vue

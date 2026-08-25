@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-content-spinner 模块
  *
  * @path comm\effects\layouts\src\basic\content\use-content-spinner.ts

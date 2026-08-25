@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 工具函数模块
  *
  * @path comm\utils\src\helpers\index.ts

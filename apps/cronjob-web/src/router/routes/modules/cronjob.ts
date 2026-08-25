@@ -1,4 +1,4 @@
-﻿/**
+/**
  * cronjob 路由模块
  *
  * @path apps\cronjob-web\src\router\routes\modules\cronjob.ts

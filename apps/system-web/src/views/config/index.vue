@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 系统配置管理页面 — 参数配置的分页列表、搜索、新增、编辑、删除
  *
  * @path apps\system-web\src\views\config\index.vue

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 应用基础布局组件
  *
  * @path apps\literule-web\src\layouts\basic.vue

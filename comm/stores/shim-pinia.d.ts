@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Pinia 类型补丁：为 `acceptHMRUpdate` 提供宽松的类型声明。
  *
  * @remarks

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ESM Manifest 加载器
  *
  * 约定：子应用由统一 vite-config 构建，输出 manifest.json：

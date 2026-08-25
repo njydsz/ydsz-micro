@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Auth API 重导出
  * <p>从 {@code @ydsz/shared-auth} 统一 re-export 认证相关 API。
  * <p>提供 {@code loginApi}（登录）、{@code logoutApi}（登出）、{@code refreshTokenApi}（刷新 Token）、{@code getAccessCodesApi}（权限码）。

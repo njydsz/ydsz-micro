@@ -1,4 +1,4 @@
-﻿/**
+/**
  * access Pinia 状态管理 — 访问控制（menus/routes/codes）
  *
  * 认证相关状态（token/refreshToken/lockScreen）由 useTokenStore 管理，

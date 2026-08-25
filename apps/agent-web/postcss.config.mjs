@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Agent 子应用 PostCSS 配置。
  *
  * @remarks

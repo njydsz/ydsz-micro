@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dialog 组件 Storybook Stories
  *
  * P1-2.3: 组件文档化 — Dialog 组件交互式文档

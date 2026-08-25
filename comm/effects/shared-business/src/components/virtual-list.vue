@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * virtual-list 通用组件 — 通用虚拟列表
  *
  * @path comm\effects\shared-business\src\components\virtual-list.vue

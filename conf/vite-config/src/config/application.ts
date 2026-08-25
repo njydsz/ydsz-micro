@@ -1,4 +1,4 @@
-﻿/**
+/**
  * application 配置模块
  *
  * @path conf\vite-config\src\config\application.ts

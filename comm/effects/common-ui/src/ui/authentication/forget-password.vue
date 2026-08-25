@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * forget-password Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\forget-password.vue

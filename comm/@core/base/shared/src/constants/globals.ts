@@ -1,4 +1,4 @@
-﻿/** layout content 组件的高度 */
+/** layout content 组件的高度 */
 export const CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT = `--YDSZ-content-height`;
 /** layout content 组件的宽度 */
 export const CSS_VARIABLE_LAYOUT_CONTENT_WIDTH = `--YDSZ-content-width`;

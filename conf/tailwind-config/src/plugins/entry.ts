@@ -1,4 +1,4 @@
-﻿/**
+/**
  * entry 配置模块
  *
  * @path conf\tailwind-config\src\plugins\entry.ts

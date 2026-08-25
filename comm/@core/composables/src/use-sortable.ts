@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-sortable 组合式函数
  *
  * @path comm\@core\composables\src\use-sortable.ts

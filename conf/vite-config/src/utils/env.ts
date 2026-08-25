@@ -1,4 +1,4 @@
-﻿/**
+/**
  * env 工具函数模块
  *
  * @path conf\vite-config\src\utils\env.ts

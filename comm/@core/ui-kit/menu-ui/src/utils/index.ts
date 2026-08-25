@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 工具函数模块
  *
  * @path comm\@core\ui-kit\menu-ui\src\utils\index.ts

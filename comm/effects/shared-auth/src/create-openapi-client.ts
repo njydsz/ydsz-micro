@@ -1,4 +1,4 @@
-﻿/**
+/**
  * OpenAPI SDK 客户端工厂函数
  *
  * <p>基于 openapi-fetch 创建类型安全的 API 客户端，与现有 requestClient 集成。

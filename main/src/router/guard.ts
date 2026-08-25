@@ -1,4 +1,4 @@
-﻿/**
+/**
  * guard 路由模块
  *
  * @path main\src\router\guard.ts

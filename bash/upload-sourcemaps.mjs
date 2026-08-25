@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Sourcemap 上传脚本。
  *
  * 构建后运行，将 dist/ 下的 .map 文件上传到后端监控服务做 stack trace 符号化，

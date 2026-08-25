@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * icon-button 通用组件
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\icon-button.vue

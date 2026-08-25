@@ -1,4 +1,4 @@
-﻿/**
+/**
  * vxe-table 适配器模块
  *
  * @path main\src\adapter\vxe-table.ts

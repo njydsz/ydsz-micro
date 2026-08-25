@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 任务分组 API 模块（前端）
  * <p>封装任务分组（{@code ydsz_job_group}）接口，对应后端 {@code /api/v1/cronjob/jobGroup/*} 端点。
  * <p>支持按业务域/部门/优先级对任务进行分组管理与权限控制。

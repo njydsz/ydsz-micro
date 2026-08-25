@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 配置模块
  *
  * @path conf\node-utils\src\index.ts

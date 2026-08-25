@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 消息批量发送列表页组件
  *
  * @path apps\message-web\src\views\batch\index.vue

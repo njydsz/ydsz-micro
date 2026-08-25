@@ -1,4 +1,4 @@
-﻿/**
+/**
  * global.d 类型定义模块
  *
  * @path comm\types\global.d.ts

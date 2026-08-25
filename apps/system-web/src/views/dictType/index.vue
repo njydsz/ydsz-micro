@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 字典类型管理页面 — 字典类型的分页列表、搜索、新增、编辑、删除
  *
  * @path apps\system-web\src\views\dictType\index.vue

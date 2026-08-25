@@ -1,4 +1,4 @@
-﻿/**
+/**
  * form 适配器模块
  *
  * @path main\src\adapter\form.ts

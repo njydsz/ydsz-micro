@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 消息偏好设置表单组件
  *
  * @path apps\message-web\src\views\preference\preference-form.vue

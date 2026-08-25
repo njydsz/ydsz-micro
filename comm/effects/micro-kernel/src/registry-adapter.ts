@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 远程注册表适配器
  *
  * 支持从远程 JSON（/api/micro-apps/registry.json）拉取子应用注册表，

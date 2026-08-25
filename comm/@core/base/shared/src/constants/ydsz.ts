@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @zh_CN GITHUB 仓库地址
  */
 export const YDSZ_GITHUB_URL = 'https://github.com/ydsz/vue-ydsz-admin';

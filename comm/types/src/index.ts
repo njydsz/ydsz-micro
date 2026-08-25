@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 类型定义模块
  *
  * @path comm\types\src\index.ts

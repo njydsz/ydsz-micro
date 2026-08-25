@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * coming-soon 页面组件
  *
  * @path main\src\views\_core\fallback\coming-soon.vue

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * merge-route-modules 工具函数模块
  *
  * @path comm\utils\src\helpers\merge-route-modules.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-backtop 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\use-backtop.ts

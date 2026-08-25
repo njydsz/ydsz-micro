@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-menu-context 组合式函数
  *
  * @path comm\@core\ui-kit\menu-ui\src\hooks\use-menu-context.ts

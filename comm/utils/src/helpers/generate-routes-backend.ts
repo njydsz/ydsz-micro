@@ -1,4 +1,4 @@
-﻿/**
+/**
  * generate-routes-backend 工具函数模块
  *
  * @path comm\utils\src\helpers\generate-routes-backend.ts

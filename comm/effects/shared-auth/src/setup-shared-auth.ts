@@ -1,4 +1,4 @@
-﻿/**
+/**
  * setup-shared-auth — 统一的 initSharedAuth 实现
  *
  * 消除 9 个子应用 main.ts 中完全重复的 initSharedAuth() 函数（约 40 行 × 9 = 360 行重复代码）。

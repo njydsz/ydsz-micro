@@ -1,4 +1,4 @@
-﻿/**
+/**
  * icons 模块
  *
  * @path comm\effects\common-ui\src\components\icon-picker\icons.ts

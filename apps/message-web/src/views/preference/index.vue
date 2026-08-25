@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 消息偏好设置列表页组件
  *
  * @path apps\message-web\src\views\preference\index.vue

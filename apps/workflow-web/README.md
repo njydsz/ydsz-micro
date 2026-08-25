@@ -1,4 +1,4 @@
-﻿# workflow-web 工作流引擎
+# workflow-web 工作流引擎
 
 > YDSZ 工作流引擎子应用，提供流程模板、流程实例、审批任务、委托授权与快捷意见管理（对应后端：YDSZ-workflow，路由前缀：/YDSZ-flow）
 

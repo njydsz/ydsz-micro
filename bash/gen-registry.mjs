@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 注册表生成器 — 从 micro-apps.config.ts 生成 registry.json
  *
  * CI/CD 流水线在构建子应用后调用此脚本，

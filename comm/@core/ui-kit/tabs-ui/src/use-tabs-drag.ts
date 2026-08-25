@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-tabs-drag 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\use-tabs-drag.ts

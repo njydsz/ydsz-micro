@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * tabs-view Vue 组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\tabs-view.vue

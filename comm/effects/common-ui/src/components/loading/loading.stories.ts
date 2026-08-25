@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YDSZ 公共组件 Storybook 示例 — Loading 组件
  *
  * P2-3: Storybook 组件文档

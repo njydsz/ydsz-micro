@@ -1,4 +1,4 @@
-﻿/**
+/**
  * dict Pinia 状态管理 — 全局数据字典缓存
  *
  * 采用 Composition API（setup）语法，符合云顶编码规范 §8.1。

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * agent 路由模块
  *
  * @path apps\agent-web\src\router\routes\modules\agent.ts

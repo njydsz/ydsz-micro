@@ -1,4 +1,4 @@
-﻿# @ydsz/types
+# @ydsz/types
 
 用于多个 `app` 公用的工具类型，继承了 `@YDSZ-core/typings` 的所有能力。业务上有通用的类型定义可以放在这里。
 

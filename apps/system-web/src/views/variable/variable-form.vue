@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 系统变量表单组件 — 支持新增/编辑系统变量，支持加密存储
  *
  * @path apps\system-web\src\views\variable\variable-form.vue

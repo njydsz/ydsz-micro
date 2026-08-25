@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\point-selection-captcha\index.vue

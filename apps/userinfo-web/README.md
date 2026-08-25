@@ -1,4 +1,4 @@
-﻿# userinfo-web 用户中心
+# userinfo-web 用户中心
 
 > YDSZ 用户中心子应用，提供用户、角色、菜单、部门、公司、岗位与语言管理（对应后端：YDSZ-userinfo，路由前缀：/YDSZ-user）
 

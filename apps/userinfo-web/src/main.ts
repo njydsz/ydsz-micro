@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 应用入口文件 — 使用 createSubApp 工厂标准化生命周期
  *
  * @path apps\userinfo-web\src\main.ts

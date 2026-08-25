@@ -1,4 +1,4 @@
-﻿/**
+/**
  * load 模块
  *
  * @path comm\icons\src\svg\load.ts

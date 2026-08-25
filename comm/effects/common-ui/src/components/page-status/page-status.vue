@@ -1,4 +1,4 @@
-﻿<!--
+<!--
   PageStatus — 统一页面状态容器
 
   以声明式 status prop 切换 loading / error / empty / success 四种状态，

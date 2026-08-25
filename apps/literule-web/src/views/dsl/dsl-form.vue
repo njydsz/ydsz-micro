@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则 DSL 脚本编辑表单组件
  *
  * @path apps\literule-web\src\views\dsl\dsl-form.vue

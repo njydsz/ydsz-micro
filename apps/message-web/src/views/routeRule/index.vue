@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 消息路由规则列表页组件
  *
  * @path apps\message-web\src\views\routeRule\index.vue

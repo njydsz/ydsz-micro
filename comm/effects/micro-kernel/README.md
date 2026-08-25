@@ -1,4 +1,4 @@
-﻿/**
+/**
  * micro-kernel 接入指南
  *
  * 子应用接入 micro-kernel 时只需两步：

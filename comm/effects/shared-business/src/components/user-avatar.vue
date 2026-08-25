@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * user-avatar 通用组件
  *
  * @path comm\effects\shared-business\src\components\user-avatar.vue

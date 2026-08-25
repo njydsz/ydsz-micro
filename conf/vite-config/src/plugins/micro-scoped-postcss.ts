@@ -1,4 +1,4 @@
-﻿/**
+/**
  * PostCSS 插件：为子应用 CSS 添加作用域前缀。
  *
  * 约定：每个子应用挂载时，micro-kernel 在容器上设置 `data-micro-app="app-name"` 属性。

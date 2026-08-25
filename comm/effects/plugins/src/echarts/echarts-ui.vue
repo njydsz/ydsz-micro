@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * echarts-ui Vue 组件
  *
  * @path comm\effects\plugins\src\echarts\echarts-ui.vue

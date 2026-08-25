@@ -1,4 +1,4 @@
-﻿/* Content Script: page <-> background 之间的消息中转 + bridge 注入 */
+/* Content Script: page <-> background 之间的消息中转 + bridge 注入 */
 ;(function () {
   /* 1. 主文档注入 kernel-bridge.js（让页面侧微内核可以主动推送事件到 Extension） */
   function injectBridge() {

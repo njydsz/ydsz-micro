@@ -1,4 +1,4 @@
-﻿# message-web 消息中心
+# message-web 消息中心
 
 > YDSZ 消息中心子应用，提供多渠道消息发送、模板管理、批量发送、用户偏好、路由规则与死信队列管理（对应后端：YDSZ-message，路由前缀：/YDSZ-msg）
 

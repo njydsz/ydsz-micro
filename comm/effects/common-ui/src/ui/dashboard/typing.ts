@@ -1,4 +1,4 @@
-﻿/**
+/**
  * typing 模块
  *
  * @path comm\effects\common-ui\src\ui\dashboard\typing.ts

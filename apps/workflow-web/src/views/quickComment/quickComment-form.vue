@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 快捷回复（表单组件）
  *
  * @path apps\workflow-web\src\views\quickComment\quickComment-form.vue

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 站内通知列表页组件
  *
  * @path apps\message-web\src\views\notification\index.vue

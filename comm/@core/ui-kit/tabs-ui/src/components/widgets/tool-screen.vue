@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * tool-screen 通用组件
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\widgets\tool-screen.vue

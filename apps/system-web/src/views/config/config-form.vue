@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 系统配置表单组件 — 支持新增/编辑系统参数，热更新无需重启
  *
  * @path apps\system-web\src\views\config\config-form.vue

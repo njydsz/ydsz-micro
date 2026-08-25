@@ -1,4 +1,4 @@
-﻿/**
+/**
  * lucide 模块
  *
  * @path comm\@core\base\icons\src\lucide.ts

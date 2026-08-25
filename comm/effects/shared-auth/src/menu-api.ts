@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Menu API — 对齐后端 /api/v1/menu/routes
  */
 import type { RouteRecordStringComponent } from '@ydsz/types';

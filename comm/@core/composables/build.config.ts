@@ -1,4 +1,4 @@
-﻿/**
+/**
  * build.config 组合式函数
  *
  * @path comm\@core\composables\build.config.ts

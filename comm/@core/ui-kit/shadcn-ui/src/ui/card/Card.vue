@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * Card Vue 组件 - 现代化卡片样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\Card.vue

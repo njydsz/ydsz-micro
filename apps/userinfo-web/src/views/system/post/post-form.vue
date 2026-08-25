@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 岗位表单组件 — 支持新增/编辑岗位信息（岗位编码、名称、排序）
  *
  * @path apps\userinfo-web\src\views\system\post\post-form.vue

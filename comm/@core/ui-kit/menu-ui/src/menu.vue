@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * menu Vue 组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\menu.vue

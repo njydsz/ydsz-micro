@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 工作流子应用基础布局
  *
  * @path apps\workflow-web\src\layouts\basic.vue

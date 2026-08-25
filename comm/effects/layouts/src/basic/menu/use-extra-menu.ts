@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-extra-menu 模块
  *
  * @path comm\effects\layouts\src\basic\menu\use-extra-menu.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * sub-menu 通用组件
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\sub-menu.vue

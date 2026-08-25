@@ -1,4 +1,4 @@
-﻿/**
+/**
  * build.config 模块
  *
  * @path bash\turbo-run\build.config.ts

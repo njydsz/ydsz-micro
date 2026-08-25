@@ -1,4 +1,4 @@
-﻿/**
+/**
  * build.config 模块
  *
  * @path comm\@core\ui-kit\shadcn-ui\build.config.ts

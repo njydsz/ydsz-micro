@@ -163,7 +163,8 @@ export function consumePersistedPageCache(
 ): PageCacheRecord | null {
   try {
     const cacheKey = `${NAMESPACE_PREFIX}page-cache:${appName}:${routePath.replace(/[^a-zA-Z0-9-]/g, "_")}`;
-    const record = getStorage<PageCacheRecord>(cacheKey);
+    // v4.3.0: getStorage 双参契约（缺失返回 defaultValue），显式传 null 避免类型违约
+    const record = getStorage<PageCacheRecord | null>(cacheKey, null);
 
     if (!record) return null;
 

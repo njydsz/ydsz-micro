@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 共享 Auth Store 工厂 — 完整登录/登出/token 刷新流程
  *
  * 子应用调用 createSharedAuthStore(router) 获得与主应用一致的 auth store。

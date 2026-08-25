@@ -1,4 +1,4 @@
-﻿/**
+/**
  * vite-plugin-pwa 集成 —— Service Worker 缓存层
  *
  * 子应用资源缓存策略：

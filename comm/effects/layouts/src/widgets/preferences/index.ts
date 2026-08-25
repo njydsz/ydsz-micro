@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 应用偏好配置
  *
  * @path comm\effects\layouts\src\widgets\preferences\index.ts

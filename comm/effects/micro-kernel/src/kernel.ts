@@ -33,10 +33,11 @@ import { createGlobalStateAPI } from "./global-state";
 import { clearRegistryCache, getStaticRegistry, resolveAppEntry, resolveRegistry } from "./registry-adapter";
 import {
   createSwitchToApp,
-  createStartRouterSync as createStartRouterSyncFn,
   type LifecycleDependencies,
   type LifecycleStateAccessors,
 } from "./kernel-lifecycle";
+import { createStartRouterSync as createStartRouterSyncFn } from "./kernel-router";
+import { KernelError, KernelErrorCode } from "./error-boundary";
 import {
   createKernelMessagingAPI,
   type KernelMessagingAPI,

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * status-badge 通用组件
  *
  * @path comm\effects\shared-business\src\components\status-badge.vue

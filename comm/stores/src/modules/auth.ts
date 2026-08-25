@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Token Store — 独立的认证令牌状态管理（accessToken / refreshToken / 锁屏）
  *
  * 从 accessStore 中拆分出纯令牌职责，与 main 应用的 useAuthStore（业务级登录/登出）

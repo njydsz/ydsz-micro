@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 国际化配置入口
  *
  * @path main\src\locales\index.ts

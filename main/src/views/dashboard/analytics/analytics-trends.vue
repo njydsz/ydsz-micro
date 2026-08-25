@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * analytics-trends 页面组件
  *
  * @path main\src\views\dashboard\analytics\analytics-trends.vue

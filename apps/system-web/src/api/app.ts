@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 应用 API 模块（前端）
  *
  * 封装应用（{@code ydsz_app}）CRUD 接口，对应后端 {@code /api/v1/app/*} 端点。

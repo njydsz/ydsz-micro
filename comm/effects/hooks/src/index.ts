@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 组合式函数
  *
  * @path comm\effects\hooks\src\index.ts

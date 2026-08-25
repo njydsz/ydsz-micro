@@ -1,4 +1,4 @@
-﻿/**
+/**
  * request-setup — 延迟初始化的 requestClient/baseRequestClient
  *
  * 子应用在 main.ts 的 mount() 阶段调用 initSharedRequest() 注入回调后，

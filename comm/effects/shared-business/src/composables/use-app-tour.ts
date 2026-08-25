@@ -1,4 +1,4 @@
-﻿/**
+/**
  * app-tour 组合式函数 — 用户操作引导
  *
  * @path comm\effects\shared-business\src\composables\use-app-tour.ts

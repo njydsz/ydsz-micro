@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件节点（表单组件）
  *
  * @path apps\nextwiki-web\src\views\file\file-form.vue

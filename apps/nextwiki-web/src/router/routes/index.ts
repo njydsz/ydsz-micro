@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 路由配置入口，聚合所有路由模块
  *
  * @path apps\nextwiki-web\src\router\routes\index.ts

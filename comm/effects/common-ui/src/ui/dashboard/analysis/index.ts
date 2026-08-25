@@ -1,4 +1,4 @@
-﻿/**
+/**
  * index 模块
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\index.ts

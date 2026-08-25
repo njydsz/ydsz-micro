@@ -1,4 +1,4 @@
-﻿/**
+/**
  * design 包 Vite 构建配置：将 scss-bem 源码目录作为静态资源目录。
  *
  * @remarks

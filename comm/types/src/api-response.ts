@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 后端统一响应类型 — 与 BaseResponse 对齐
  *
  * 后端类：com.YDSZ.common.core.response.BaseResponse

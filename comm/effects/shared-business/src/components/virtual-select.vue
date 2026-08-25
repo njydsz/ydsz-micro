@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * virtual-select 通用组件 — 大数据量下拉选择器
  *
  * @path comm\effects\shared-business\src\components\virtual-select.vue

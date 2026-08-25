@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * empty-icon Vue 组件
  *
  * @path comm\icons\src\icons\empty-icon.vue

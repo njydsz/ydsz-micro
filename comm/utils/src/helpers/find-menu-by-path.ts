@@ -1,4 +1,4 @@
-﻿/**
+/**
  * find-menu-by-path 工具函数模块
  *
  * @path comm\utils\src\helpers\find-menu-by-path.ts

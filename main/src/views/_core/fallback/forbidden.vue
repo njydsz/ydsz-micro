@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * forbidden 页面组件
  *
  * @path main\src\views\_core\fallback\forbidden.vue

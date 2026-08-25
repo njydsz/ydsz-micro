@@ -1,4 +1,4 @@
-﻿# nextwiki-web 网盘知识库
+# nextwiki-web 网盘知识库
 
 > YDSZ 网盘知识库子应用，提供文件管理、分享管理、标签管理、配额管理与评论管理（对应后端：YDSZ-nextwiki，路由前缀：/YDSZ-wiki）
 

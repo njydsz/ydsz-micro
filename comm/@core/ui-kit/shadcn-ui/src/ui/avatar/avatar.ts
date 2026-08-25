@@ -1,4 +1,4 @@
-﻿/**
+/**
  * avatar 模块 - 现代化头像样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\avatar\avatar.ts

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * date 配置模块
  *
  * @path conf\node-utils\src\date.ts

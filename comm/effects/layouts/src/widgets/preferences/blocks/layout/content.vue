@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * content 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\content.vue

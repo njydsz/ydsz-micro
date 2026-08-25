@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * header-sidebar-nav 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\icons\header-sidebar-nav.vue

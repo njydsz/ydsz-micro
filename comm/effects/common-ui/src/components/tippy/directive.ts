@@ -1,4 +1,4 @@
-﻿/**
+/**
  * directive 模块
  *
  * @path comm\effects\common-ui\src\components\tippy\directive.ts

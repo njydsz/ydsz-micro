@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Agent 子应用 Vite 构建配置。
  *
  * @remarks

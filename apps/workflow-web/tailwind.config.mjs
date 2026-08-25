@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 工作流子应用 Tailwind CSS 配置。
  *
  * @remarks

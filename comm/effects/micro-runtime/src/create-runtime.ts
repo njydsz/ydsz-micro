@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 运行时工厂 + 内核注册机制
  *
  * 内核实现（qiankun / micro-kernel）通过 registerKernel 注册，

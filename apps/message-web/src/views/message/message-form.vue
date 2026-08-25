@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 消息详情组件
  *
  * @path apps\message-web\src\views\message\message-form.vue

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-tabs-view-scroll 模块
  *
  * @path comm\@core\ui-kit\tabs-ui\src\use-tabs-view-scroll.ts

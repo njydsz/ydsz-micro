@@ -1,4 +1,4 @@
-﻿/**
+/**
  * dependencies 模块
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\dependencies.ts

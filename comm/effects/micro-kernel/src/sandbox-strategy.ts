@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 沙箱策略接口（P3-1: SandboxStrategy 接口拆分）
  *
  * 三种沙箱模式（snapshot / proxy / iframe）的统一抽象，

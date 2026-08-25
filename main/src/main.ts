@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 应用入口文件，创建并挂载 Vue 实例
  *
  * @path main\src\main.ts

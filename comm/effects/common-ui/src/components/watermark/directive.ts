@@ -1,4 +1,4 @@
-﻿/**
+/**
  * watermark 指令模块
  *
  * @remarks

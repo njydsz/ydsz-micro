@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * layout-content 通用组件
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-content.vue

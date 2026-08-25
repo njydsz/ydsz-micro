@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 系统变量编辑表单组件
  *
  * @path apps\literule-web\src\views\variable\variable-form.vue

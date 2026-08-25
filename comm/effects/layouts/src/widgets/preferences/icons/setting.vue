@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * setting 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\icons\setting.vue

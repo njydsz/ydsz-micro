@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 消息中心子应用 Tailwind CSS 配置。
  *
  * @remarks

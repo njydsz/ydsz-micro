@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 核心路由配置（根路由 + 404 兜底）
  *
  * @path apps\system-web\src\router\routes\core.ts

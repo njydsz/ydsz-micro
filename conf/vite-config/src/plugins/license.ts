@@ -1,4 +1,4 @@
-﻿/**
+/**
  * license 配置模块
  *
  * @path conf\vite-config\src\plugins\license.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 死信队列详情组件
  *
  * @path apps\message-web\src\views\deadLetter\deadLetter-form.vue

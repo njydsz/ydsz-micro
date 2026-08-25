@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 共享 RequestClient 工厂 — 统一拦截器配置（successCode="A00000" + Bearer Token + refreshToken）
  *
  * 子应用调用 createSharedRequestClient() 即可获得与主应用一致的请求客户端。

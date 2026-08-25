@@ -1,4 +1,4 @@
-﻿/**
+/**
  * use-mixed-menu 模块
  *
  * @path comm\effects\layouts\src\basic\menu\use-mixed-menu.ts

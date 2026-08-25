@@ -1,4 +1,4 @@
-﻿/**
+/**
  * typing 国际化语言包
  *
  * @path comm\locales\src\typing.ts

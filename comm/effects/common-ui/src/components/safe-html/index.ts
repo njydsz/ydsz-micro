@@ -1,4 +1,4 @@
-﻿/**
+/**
  * v-safe-html 指令 — DOMPurify 式白名单消毒
  *
  * 替代全局 5 处裸 v-html，防御 XSS。

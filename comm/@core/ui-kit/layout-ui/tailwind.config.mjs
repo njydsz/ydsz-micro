@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tailwind CSS 构建配置：复用共享的主题、插件与内容扫描配置。
  *
  * @author ydsz-team

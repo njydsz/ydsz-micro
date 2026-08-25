@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * language-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\language-toggle.vue

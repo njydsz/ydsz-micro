@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则定义管理列表页面
  *
  * @path apps\literule-web\src\views\rule\index.vue

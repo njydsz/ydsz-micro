@@ -1,4 +1,4 @@
-﻿/**
+/**
  * typing 配置模块
  *
  * @path conf\vite-config\src\typing.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 应用表单组件 — 支持新增/编辑应用注册信息
  *
  * @path apps\system-web\src\views\app\app-form.vue
