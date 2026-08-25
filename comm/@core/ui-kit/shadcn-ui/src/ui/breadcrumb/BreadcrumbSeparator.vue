@@ -10,8 +10,10 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<{
-  class?: any;
+  class?: ClassValue;
 }>();
 </script>
 

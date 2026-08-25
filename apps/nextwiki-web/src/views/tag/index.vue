@@ -84,7 +84,7 @@ async function confirmBind() {
     await bindTag({ ...bindForm });
     ElMessage.success('绑定成功');
     bindVisible.value = false;
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 
 /** 按文件查询 / 推荐标签弹窗 */
@@ -102,13 +102,13 @@ async function loadFileTags() {
   if (!fileTagsNodeId.value) { fileTags.value = []; return; }
   try {
     fileTags.value = await getFileTags({ fileNodeId: fileTagsNodeId.value });
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 async function loadRecommendedTags() {
   if (!fileTagsNodeId.value) { ElMessage.warning('请先输入文件节点ID'); return; }
   try {
     recommendTagList.value = await recommendTags({ fileNodeId: fileTagsNodeId.value });
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

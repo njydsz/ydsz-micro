@@ -14,9 +14,11 @@ import { AvatarRoot } from 'radix-vue';
 
 import { avatarVariant } from './avatar';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = withDefaults(
   defineProps<{
-    class?: any;
+    class?: ClassValue;
     shape?: AvatarVariants['shape'];
     size?: AvatarVariants['size'];
   }>(),

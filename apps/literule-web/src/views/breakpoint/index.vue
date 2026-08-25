@@ -73,7 +73,7 @@ async function handleAddBreakpoint() {
     await addBreakpoint({ ruleCode: value.trim() });
     ElMessage.success('断点新增成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 /** 删除断点 */
 async function handleRemoveBreakpoint(row: DebugRow) {
@@ -87,7 +87,7 @@ async function handleRemoveBreakpoint(row: DebugRow) {
     await removeBreakpoint({ breakpointId });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 /** 调试会话列表 */
 const sessions = ref<DebugRow[]>([]);
@@ -113,7 +113,7 @@ async function handleCreateSession() {
     await createSession(value?.trim() ? { ruleCode: value.trim() } : {});
     ElMessage.success('会话创建成功');
     await loadSessions();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 /** 选择会话 */
 function handleSelectSession(row: DebugRow) {
@@ -132,7 +132,7 @@ async function handleTerminateSession(row?: DebugRow) {
     ElMessage.success('会话已结束');
     if (!row) { selectedSessionId.value = ''; }
     await loadSessions();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 /** 向选中会话提交调试命令 */
 async function handleSubmitCommand() {

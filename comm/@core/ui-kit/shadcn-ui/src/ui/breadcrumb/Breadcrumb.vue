@@ -6,8 +6,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<{
-  class?: any;
+  class?: ClassValue;
 }>();
 </script>
 

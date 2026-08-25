@@ -18,8 +18,10 @@ defineOptions({
   inheritAttrs: false,
 });
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = withDefaults(
-  defineProps<TooltipContentProps & { class?: any }>(),
+  defineProps<TooltipContentProps & { class?: ClassValue }>(),
   {
     class: "",
     side: "top",

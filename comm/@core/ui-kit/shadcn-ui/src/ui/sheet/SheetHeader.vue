@@ -8,7 +8,9 @@
 <script setup lang="ts">
 import { cn } from '@YDSZ-core/shared/utils';
 
-const props = defineProps<{ class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<{ class?: ClassValue }>();
 </script>
 
 <template>

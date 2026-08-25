@@ -50,7 +50,13 @@ const ydszRules: Linter.RulesRecord = {
   '@typescript-eslint/no-empty-object-type': 'error',
 };
 
-/** TS 文件（.ts/.mts/.cts）规则 */
+/**
+ * TS 文件（.ts/.mts/.cts）规则
+ *
+ * 说明：core 的 `no-undef`/`no-unused-vars` 对 TS 语义不生效（浏览器/Node 全局量、
+ * 函数类型参数等会被误报），故关闭并交由 `@typescript-eslint` 类型感知规则接管
+ * （与 typescript-eslint 官方 recommended 的处置一致）。
+ */
 function tsConfig(): Linter.Config {
   return {
     files: ['**/*.{ts,mts,cts,tsx}'],
@@ -68,11 +74,20 @@ function tsConfig(): Linter.Config {
     rules: {
       ...tseslint.configs.recommended.rules,
       ...ydszRules,
+      // core 规则不识别 TS 类型信息，交由 @typescript-eslint 规则接管（同官方推荐）
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
     },
   };
 }
 
-/** Vue SFC 规则（.vue 文件，template 使用 vue-eslint-parser） */
+/**
+ * Vue SFC 规则（.vue 文件，template 使用 vue-eslint-parser）
+ *
+ * 说明：script 部分同样由 TS 语义处理，core 的 `no-undef`/`no-unused-vars`
+ * 对 vue-eslint-parser 中内嵌的 TS 代码不适用（HTML 全局量/组件标签等会被误报），
+ * 统一交由 @typescript-eslint 规则接管。
+ */
 function vueConfig(): Linter.Config {
   return {
     files: ['**/*.vue'],
@@ -92,6 +107,9 @@ function vueConfig(): Linter.Config {
     rules: {
       ...pluginVue.configs['flat/recommended'].rules,
       ...ydszRules,
+      // core 规则不识别内嵌 TS 语义，交由 @typescript-eslint 规则接管
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
       // §4.6 v-for 必须绑定 key（vue 插件内置校验）
       'vue/require-v-for-key': 'error',
       // §7.1 XSS 防护：禁止裸 v-html，必须使用 v-safe-html（DOMPurify 白名单指令）

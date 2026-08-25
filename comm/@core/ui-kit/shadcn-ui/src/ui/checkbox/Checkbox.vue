@@ -19,8 +19,10 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<
-  CheckboxRootProps & { class?: any; indeterminate?: boolean }
+  CheckboxRootProps & { class?: ClassValue; indeterminate?: boolean }
 >();
 const emits = defineEmits<CheckboxRootEmits>();
 

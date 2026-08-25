@@ -49,7 +49,7 @@ async function handleQuery() {
       scopeId: queryForm.scopeId || undefined,
     });
     ElMessage.success('查询成功');
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 
 const [QuotaFormModal, quotaFormApi] = useYDSZModal({ connectedComponent: QuotaForm });

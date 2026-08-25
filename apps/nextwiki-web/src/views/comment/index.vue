@@ -85,7 +85,7 @@ async function handleResolve(row: FileCommentVO) {
     await resolveComment({ commentId: row.id });
     ElMessage.success('已标记为解决');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 async function handleDelete(row: FileCommentVO) {
   if (!row.id) return;
@@ -94,7 +94,7 @@ async function handleDelete(row: FileCommentVO) {
     await deleteComment({ commentId: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

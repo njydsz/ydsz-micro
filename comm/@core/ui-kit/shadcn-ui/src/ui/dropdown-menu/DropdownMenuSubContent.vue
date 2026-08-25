@@ -17,7 +17,9 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { DropdownMenuSubContent, useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<DropdownMenuSubContentProps & { class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<DropdownMenuSubContentProps & { class?: ClassValue }>();
 const emits = defineEmits<DropdownMenuSubContentEmits>();
 
 const delegatedProps = computed(() => {

@@ -22,7 +22,9 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-const props = defineProps<DropdownMenuRadioItemProps & { class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<DropdownMenuRadioItemProps & { class?: ClassValue }>();
 
 const emits = defineEmits<DropdownMenuRadioItemEmits>();
 

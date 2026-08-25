@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { NotificationApi } from "#/api/core/notification";
+import type { NotificationItem } from "#/api/core/notification";
 
 import { ref } from "vue";
 
@@ -32,7 +32,7 @@ const logger = createLogger("NotificationStore");
 interface WsMessage {
   type: 'mark_read' | 'notification' | 'unread_count';
   notificationId?: string;
-  payload?: NotificationApi.NotificationItem;
+  payload?: NotificationItem;
   count?: number;
 }
 
@@ -44,7 +44,7 @@ interface WsMessage {
  */
 export const useNotificationStore = defineStore("notification", () => {
   /** 通知列表（响应式） */
-  const notifications = ref<NotificationApi.NotificationItem[]>([]);
+  const notifications = ref<NotificationItem[]>([]);
   /** 未读通知数量（响应式） */
   const unreadCount = ref(0);
   /** WebSocket 是否已连接（响应式） */
@@ -57,7 +57,9 @@ export const useNotificationStore = defineStore("notification", () => {
   const reconnectDelay = 5000;
 
   /**
-   * 从后端分页加载通知列表，并同步未读总数。
+   * 从后端分页加载收件箱通知列表。
+   *
+   * <p>未读数以 {@link refreshUnreadCount} 接口为准，此处不覆盖未读角标。
    *
    * @param pageNum - 页码，默认 1
    * @param pageSize - 每页条数，默认 20
@@ -66,7 +68,7 @@ export const useNotificationStore = defineStore("notification", () => {
     try {
       const res = await getNotificationsApi({ pageNum, pageSize });
       notifications.value = res.items;
-      unreadCount.value = res.total;
+      // 未读数以 refreshUnreadCount 接口为准，避免以收件箱总数覆盖未读角标
     } catch {
       // 静默失败
     }
@@ -131,7 +133,7 @@ export const useNotificationStore = defineStore("notification", () => {
       }
       case "notification": {
         // 新通知
-        const notification: NotificationApi.NotificationItem = data.payload;
+        const notification: NotificationItem = data.payload;
         notifications.value.unshift(notification);
         unreadCount.value++;
 

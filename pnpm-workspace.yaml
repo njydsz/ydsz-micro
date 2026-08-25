@@ -47,6 +47,12 @@ catalog:
   '@types/qs': ^6.14.0
   '@types/sortablejs': ^1.15.8
   '@vee-validate/zod': ^4.15.1
+  # Git hooks 与提交规范（v4.3.1：lefthook.yml/commitlint.config.mjs 此前存在但工具链未安装，
+  # hooks 从未真正生效；现补齐声明并由 prepare 脚本自动安装）
+  '@commitlint/cli': ^19.3.0
+  '@commitlint/config-conventional': ^19.3.0
+  lefthook: ^1.10.0
+  prettier: ^3.3.0
   '@eslint/js': ^9.39.5
   '@typescript-eslint/eslint-plugin': ^8.35.0
   '@typescript-eslint/parser': ^8.35.0

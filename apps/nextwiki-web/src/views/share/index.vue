@@ -153,7 +153,7 @@ async function handleRevoke(row: ShareLinkVO) {
     await revoke({ shareId: row.id });
     ElMessage.success('撤销成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

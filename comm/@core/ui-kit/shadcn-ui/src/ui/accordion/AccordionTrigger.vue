@@ -15,7 +15,9 @@ import { cn } from '@YDSZ-core/shared/utils';
 import { ChevronDown } from 'lucide-vue-next';
 import { AccordionHeader, AccordionTrigger } from 'radix-vue';
 
-const props = defineProps<AccordionTriggerProps & { class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<AccordionTriggerProps & { class?: ClassValue }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

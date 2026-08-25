@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
-import { h } from 'vue';
+import { h, onUnmounted } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/dictItem';
@@ -28,6 +28,9 @@ import type { DictItemPageQuery, DictItemVO, PageQuery } from '#/api/models';
 import DictItemForm from './dictItem-form.vue';
 
 defineOptions({ name: 'DictItemManagement' });
+
+/** 请求控制器，用于取消未完成的请求 */
+const abortController = new AbortController();
 
 /** 行类型：真实契约 DictItemVO（字段以 models.ts 为准） */
 type DictItemRow = DictItemVO;
@@ -127,6 +130,11 @@ async function handleDelete(row: DictItemRow) {
     // 用户取消或请求失败
   }
 }
+
+/** 页面卸载时取消未完成的请求 */
+onUnmounted(() => {
+  abortController.abort();
+});
 </script>
 
 <template>

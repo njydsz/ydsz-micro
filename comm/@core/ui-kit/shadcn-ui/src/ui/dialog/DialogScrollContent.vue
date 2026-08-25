@@ -21,8 +21,10 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = withDefaults(
-  defineProps<DialogContentProps & { class?: any; zIndex?: number }>(),
+  defineProps<DialogContentProps & { class?: ClassValue; zIndex?: number }>(),
   { zIndex: 1000 },
 );
 const emits = defineEmits<DialogContentEmits>();

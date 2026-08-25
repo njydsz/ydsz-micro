@@ -52,6 +52,7 @@
     "gen:registry": "node ./bash/gen-registry.mjs",
     "postinstall": "pnpm -r run stub --if-present",
     "preinstall": "npx only-allow pnpm",
+    "prepare": "lefthook install",
     "preview": "turbo-run preview",
     "reinstall": "pnpm clean --del-lock && pnpm install",
     "standalone": "node ./bash/dev-standalone.mjs",
@@ -77,11 +78,14 @@
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
+    "@commitlint/cli": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "@ydsz/eslint-config": "workspace:*",
+    "@ydsz/prettier-config": "workspace:*",
     "@ydsz/tailwind-config": "workspace:*",
     "@ydsz/turbo-run": "workspace:*",
     "@ydsz/vite-config": "workspace:*",
@@ -90,8 +94,10 @@
     "eslint": "^9.39.5",
     "happy-dom": "catalog:",
     "is-ci": "catalog:",
+    "lefthook": "catalog:",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
+    "prettier": "catalog:",
     "rimraf": "catalog:",
     "tailwindcss": "catalog:",
     "turbo": "catalog:",
@@ -101,6 +107,7 @@
     "vitest": "catalog:",
     "vue": "catalog:"
   },
+  "prettier": "@ydsz/prettier-config",
   "engines": {
     "node": ">=20.10.0",
     "pnpm": ">=9.12.0"

@@ -14,7 +14,9 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { TabsList } from 'radix-vue';
 
-const props = defineProps<TabsListProps & { class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<TabsListProps & { class?: ClassValue }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

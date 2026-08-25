@@ -59,6 +59,19 @@ function ratioText(value: number | undefined | null): string {
 }
 
 /**
+ * ECOption 与 useEcharts 内部 EChartsOption 存在类型身份差异（子路径声明 vs 根包声明），
+ * 在调用边界做一次显式转换（语义等价，仅化解模块身份差异）。
+ */
+type RenderChartsFn = (
+  option: Parameters<typeof renderTrendChart>[0],
+  clear?: Parameters<typeof renderTrendChart>[1],
+) => ReturnType<typeof renderTrendChart>;
+
+function renderChartOption(render: RenderChartsFn, option: ECOption): void {
+  void render(option as unknown as Parameters<typeof renderTrendChart>[0]);
+}
+
+/**
  * 从 distribution.statusPie（{name,value}[]）抽取饼图数据。
  * <p>分布接口字段为 Record<string, unknown>[] 的弱类型契约，防御性取值并过滤 0 值扇区。
  */
@@ -131,7 +144,7 @@ const { renderEcharts: renderPieChart } = useEcharts(pieChartRef);
 watch(
   trendOption,
   (option) => {
-    void renderTrendChart(option);
+    renderChartOption(renderTrendChart, option);
   },
   { deep: true, immediate: true },
 );
@@ -139,7 +152,7 @@ watch(
 watch(
   pieOption,
   (option) => {
-    void renderPieChart(option);
+    renderChartOption(renderPieChart, option);
   },
   { deep: true, immediate: true },
 );
@@ -210,6 +223,16 @@ const [TopGrid] = useYDSZVxeGrid({ gridOptions: topGridOptions });
 const [HotGrid] = useYDSZVxeGrid({ gridOptions: hotGridOptions });
 const [SlowGrid] = useYDSZVxeGrid({ gridOptions: slowGridOptions });
 
+/** 实时指标带（数值化展示，QPS 保留 2 位小数） */
+const realtimeItems = computed(() => [
+  { label: '实时QPS', value: num(realtimeData.value?.currentQps), precision: 2 },
+  { label: '注册规则', value: num(realtimeData.value?.registeredRules), precision: 0 },
+  { label: '活跃规则', value: num(realtimeData.value?.activeRules), precision: 0 },
+  { label: '近段评估', value: num(realtimeData.value?.recentEvaluations), precision: 0 },
+  { label: '近段命中', value: num(realtimeData.value?.recentTriggered), precision: 0 },
+  { label: '近段异常', value: num(realtimeData.value?.recentErrors), precision: 0 },
+]);
+
 /** 并行拉取全部看板数据 */
 async function loadDashboard(): Promise<void> {
   loading.value = true;
@@ -278,7 +301,12 @@ onBeforeUnmount(() => {
         </ElCol>
         <ElCol :span="4">
           <ElCard shadow="never">
-            <ElStatistic title="今日触发率" :value="ratioText(overviewData?.todayTriggerRate)" />
+            <ElStatistic
+              title="今日触发率"
+              :value="num(overviewData?.todayTriggerRate)"
+              :precision="1"
+              suffix="%"
+            />
           </ElCard>
         </ElCol>
         <ElCol :span="4">
@@ -289,20 +317,9 @@ onBeforeUnmount(() => {
       </ElRow>
       <!-- 实时指标带 -->
       <ElRow :gutter="12" class="mb-4">
-        <ElCol
-          v-for="item in [
-            { label: '实时QPS', value: realtimeData?.currentQps },
-            { label: '注册规则', value: realtimeData?.registeredRules },
-            { label: '活跃规则', value: realtimeData?.activeRules },
-            { label: '近段评估', value: realtimeData?.recentEvaluations },
-            { label: '近段命中', value: realtimeData?.recentTriggered },
-            { label: '近段异常', value: realtimeData?.recentErrors },
-          ]"
-          :key="item.label"
-          :span="4"
-        >
+        <ElCol v-for="item in realtimeItems" :key="item.label" :span="4">
           <ElCard shadow="never">
-            <ElStatistic :title="item.label" :value="item.value == null ? '-' : String(item.value)" />
+            <ElStatistic :title="item.label" :value="item.value" :precision="item.precision" />
           </ElCard>
         </ElCol>
       </ElRow>

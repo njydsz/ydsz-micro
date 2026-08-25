@@ -19,9 +19,11 @@ import { ToggleGroupRoot, useForwardPropsEmits } from 'radix-vue';
 
 type ToggleGroupVariants = VariantProps<typeof toggleVariants>;
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<
   ToggleGroupRootProps & {
-    class?: any;
+    class?: ClassValue;
     size?: ToggleGroupVariants['size'];
     variant?: ToggleGroupVariants['variant'];
   }

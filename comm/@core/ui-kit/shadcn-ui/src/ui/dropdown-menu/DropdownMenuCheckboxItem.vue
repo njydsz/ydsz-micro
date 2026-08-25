@@ -22,7 +22,9 @@ import {
   useForwardPropsEmits,
 } from 'radix-vue';
 
-const props = defineProps<DropdownMenuCheckboxItemProps & { class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<DropdownMenuCheckboxItemProps & { class?: ClassValue }>();
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
 
 const delegatedProps = computed(() => {

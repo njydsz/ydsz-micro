@@ -114,7 +114,7 @@ async function handleUnregister(row: CEPPatternVO) {
     await unregisterPattern({ patternId: row.id });
     ElMessage.success('注销成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 /** 事件上抛 */
 const eventText = ref('{\n  "eventType": "example",\n  "amount": 100\n}');

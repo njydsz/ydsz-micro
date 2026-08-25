@@ -19,9 +19,11 @@ import { toggleVariants } from '../toggle';
 
 type ToggleGroupVariants = VariantProps<typeof toggleVariants>;
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<
   ToggleGroupItemProps & {
-    class?: any;
+    class?: ClassValue;
     size?: ToggleGroupVariants['size'];
     variant?: ToggleGroupVariants['variant'];
   }

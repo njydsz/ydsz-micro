@@ -5,6 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  * @modified 4.1.0 由脚手架 CRUD 重写为消费契约 API（inbox/countUnread/markRead/markAllRead/deleteApi/recall）。
+ * @modified 4.2.0 新增「@提及」列，消费 MsgNotificationVO.mentionUserIds（由评论等业务侧 @提及产生）。
 -->
 <script lang="ts" setup>
 /**
@@ -71,6 +72,17 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       slots: {
         default: ({ row }) =>
           h(ElTag, { type: row.recallStatus ? 'warning' : 'info' }, () => row.recallStatus ?? '-'),
+      },
+    },
+    {
+      field: 'mentionUserIds',
+      title: '@提及',
+      width: 150,
+      slots: {
+        default: ({ row }) =>
+          row.mentionUserIds
+            ? h(ElTag, { type: 'warning', effect: 'light' }, () => `@${row.mentionUserIds}`)
+            : h('span', { class: 'text-gray-400' }, '-'),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },

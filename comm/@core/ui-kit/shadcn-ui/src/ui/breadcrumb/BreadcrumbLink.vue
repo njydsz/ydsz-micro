@@ -12,7 +12,9 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { Primitive } from 'radix-vue';
 
-const props = withDefaults(defineProps<PrimitiveProps & { class?: any }>(), {
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = withDefaults(defineProps<PrimitiveProps & { class?: ClassValue }>(), {
   as: 'a',
 });
 </script>

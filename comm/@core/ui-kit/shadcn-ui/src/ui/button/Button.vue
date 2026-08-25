@@ -16,8 +16,11 @@ import { Primitive } from 'radix-vue';
 
 import { buttonVariants } from './button';
 
+/** CSS class 类型定义 */
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 interface Props extends PrimitiveProps {
-  class?: any;
+  class?: ClassValue;
   size?: ButtonVariantSize;
   variant?: ButtonVariants;
 }

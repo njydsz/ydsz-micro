@@ -27,6 +27,9 @@ class MockWebSocket {
   static CLOSING = 2;
   static CLOSED = 3;
 
+  /** v4.3.1：构造计数（替代 vitest 4 中不可用的 vi.fn spy 计数） */
+  static instanceCount = 0;
+
   url: string;
   readyState: number = MockWebSocket.CONNECTING;
   onopen: ((event: Event) => void) | null = null;
@@ -39,6 +42,11 @@ class MockWebSocket {
 
   constructor(url: string) {
     this.url = url;
+    // v4.3.1 修复（vitest 4 兼容）：在构造器内登记当前实例与构造计数。
+    // 此前用 vi.fn 包装全局 WebSocket，vitest 4 中 vi.fn 返回值不可 new 构造，
+    // `new WebSocket()` 抛 TypeError 被 SUT 捕获走重连分支 → currentSocket 恒为 null。
+    MockWebSocket.instanceCount += 1;
+    trackCurrentSocket(this);
   }
 
   send(data: string) {
@@ -70,8 +78,13 @@ class MockWebSocket {
   }
 }
 
-// 全局 WebSocket 实例追踪
+// 全局 WebSocket 实例追踪（声明置于类后，构造器在执行期才引用，无 TDZ 风险）
 let currentSocket: MockWebSocket | null = null;
+
+/** 登记最新 WebSocket 实例（供测试断言访问；避免构造器内 this 别名） */
+function trackCurrentSocket(socket: MockWebSocket): void {
+  currentSocket = socket;
+}
 
 // ============================================================
 // Import SUT (System Under Test)
@@ -87,18 +100,13 @@ describe('RealtimeClient', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     currentSocket = null;
+    MockWebSocket.instanceCount = 0;
     originalWebSocket = globalThis.WebSocket;
-    // 替换全局 WebSocket 并确保常量可被访问
-    const mockFn = vi.fn((url: string) => {
-      currentSocket = new MockWebSocket(url);
-      return currentSocket as unknown as WebSocket;
-    }) as unknown as typeof WebSocket;
-    // 将 MockWebSocket 的静态常量复制到 mock 函数上
-    (mockFn as any).CONNECTING = MockWebSocket.CONNECTING;
-    (mockFn as any).OPEN = MockWebSocket.OPEN;
-    (mockFn as any).CLOSING = MockWebSocket.CLOSING;
-    (mockFn as any).CLOSED = MockWebSocket.CLOSED;
-    globalThis.WebSocket = mockFn;
+    // v4.3.1 修复（vitest 4 兼容）：直接以 MockWebSocket 类替换全局 WebSocket。
+    // vi.fn 包装在 vitest 4 中不可 new 构造；类本身携带静态常量
+    // （CONNECTING/OPEN/CLOSING/CLOSED），实例登记由构造器完成，
+    // 构造计数用 MockWebSocket.instanceCount 断言。
+    globalThis.WebSocket = MockWebSocket as unknown as typeof WebSocket;
   });
 
   afterEach(async () => {
@@ -144,7 +152,7 @@ describe('RealtimeClient', () => {
       client.connect();
 
       // 只创建了一个 WebSocket 实例
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(1);
+      expect(MockWebSocket.instanceCount).toBe(1);
     });
 
     it('连接已 OPEN 时重复调用 connect 不应创建多个 WebSocket', () => {
@@ -154,7 +162,7 @@ describe('RealtimeClient', () => {
       // 已 OPEN，再次 connect 应直接返回
       client.connect();
 
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(1);
+      expect(MockWebSocket.instanceCount).toBe(1);
     });
 
     it('WebSocket 创建失败时应调度重连', () => {
@@ -203,7 +211,7 @@ describe('RealtimeClient', () => {
       vi.advanceTimersByTime(60_000);
 
       // 仍然只有一个 WebSocket 实例（没有重连）
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(1);
+      expect(MockWebSocket.instanceCount).toBe(1);
     });
 
     it('close 应调用 WebSocket.close()', () => {
@@ -236,7 +244,7 @@ describe('RealtimeClient', () => {
       vi.advanceTimersByTime(2_000);
 
       // 应创建了新的 WebSocket 实例
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(2);
+      expect(MockWebSocket.instanceCount).toBe(2);
     });
 
     it('autoReconnect=false 时不应自动重连', () => {
@@ -254,7 +262,7 @@ describe('RealtimeClient', () => {
       vi.advanceTimersByTime(60_000);
 
       // 仍然只有一个 WebSocket 实例
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(1);
+      expect(MockWebSocket.instanceCount).toBe(1);
     });
 
     it('重连成功后应重置重连计数器', () => {
@@ -278,7 +286,7 @@ describe('RealtimeClient', () => {
       vi.advanceTimersByTime(1_500);
 
       // 应已重连（计数器重置后 base 回到 1000ms）
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(3);
+      expect(MockWebSocket.instanceCount).toBe(3);
     });
 
     it('达到最大重连次数后应停止重连', () => {
@@ -303,7 +311,7 @@ describe('RealtimeClient', () => {
       vi.advanceTimersByTime(60_000);
 
       // 总共 3 次 WebSocket 创建（初始 + 2 次重连）
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(3);
+      expect(MockWebSocket.instanceCount).toBe(3);
     });
 
     it('重连期间状态应为 reconnecting', () => {
@@ -587,12 +595,7 @@ describe('RealtimeClient', () => {
       client.connect();
       currentSocket!.simulateOpen();
 
-      // 重连成功后 replayOffline 应分发缓存的消息
-      // 注意：replayOffline 调用 handleMessage，需要订阅才能验证
-      const handler = vi.fn();
-      // 重新订阅（因为 replayOffline 在 subscribe 之前发生）
-      // 实际上 replayOffline 在 onopen 中触发，此时还没有订阅者
-      // 所以这里验证的是 dispatch 在连接后的行为
+      // 重连后 replayOffline 会回放缓存消息；回放细节（丢弃最旧）由下方“超出上限”用例验证
     });
 
     it('连接后 dispatch 应直接分发消息', () => {
@@ -639,7 +642,7 @@ describe('RealtimeClient', () => {
       // 超出上限时最旧消息被丢弃，应收到 100 条（index=1..100）
       // 验证: index=0 的消息被丢弃，handler 未被调用时携带 index=0
       const calledWithIndex0 = handler.mock.calls.some(
-        (call) => (call[0] as any).index === 0,
+        (call) => (call[0] as { index?: number }).index === 0,
       );
       expect(calledWithIndex0).toBe(false);
       // handler 应被调用 100 次（总共 101 条，丢弃 1 条最旧的）
@@ -689,7 +692,7 @@ describe('RealtimeClient', () => {
       vi.advanceTimersByTime(2_000);
 
       // 应已重连
-      expect(globalThis.WebSocket).toHaveBeenCalledTimes(2);
+      expect(MockWebSocket.instanceCount).toBe(2);
     });
   });
 });

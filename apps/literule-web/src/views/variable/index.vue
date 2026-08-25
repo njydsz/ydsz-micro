@@ -68,7 +68,7 @@ async function handleDelete(row: VariableDefinitionVO) {
     await deleteApi({ varName: row.name });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 /** 手动刷新变量定义 */
 async function handleRefresh() {
@@ -77,7 +77,7 @@ async function handleRefresh() {
     await refresh();
     ElMessage.success('刷新成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

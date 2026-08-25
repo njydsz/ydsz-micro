@@ -18,10 +18,12 @@ import { Toggle, useForwardPropsEmits } from 'radix-vue';
 
 import { toggleVariants } from './toggle';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = withDefaults(
   defineProps<
     ToggleProps & {
-      class?: any;
+      class?: ClassValue;
       size?: ToggleVariants['size'];
       variant?: ToggleVariants['variant'];
     }

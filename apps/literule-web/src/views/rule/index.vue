@@ -83,7 +83,7 @@ async function handleToggle(row: RuleDefinitionVO) {
     await toggle({ ruleCode: row.ruleCode }, { enabled: !row.enabled });
     ElMessage.success('操作成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 async function handleDelete(row: RuleDefinitionVO) {
   if (!row.ruleCode) return;
@@ -92,7 +92,7 @@ async function handleDelete(row: RuleDefinitionVO) {
     await deleteRule({ ruleCode: row.ruleCode });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 /** 版本历史状态 */
 const versionsVisible = ref(false);
@@ -127,7 +127,7 @@ async function handleRollback(versionItem: RuleVersionVO) {
     ElMessage.success('回滚成功');
     gridApi.query();
     await loadVersions();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

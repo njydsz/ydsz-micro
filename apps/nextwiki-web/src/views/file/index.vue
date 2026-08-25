@@ -112,7 +112,7 @@ async function confirmRename() {
     ElMessage.success('重命名成功');
     renameVisible.value = false;
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 
 /** 移动弹窗状态（简化：输入目标父目录 ID） */
@@ -129,7 +129,7 @@ async function confirmMove() {
     ElMessage.success('移动成功');
     moveVisible.value = false;
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 
 async function handleCopy(row: FileNodeVO) {
@@ -139,7 +139,7 @@ async function handleCopy(row: FileNodeVO) {
     await copy({ nodeId: row.id }, {});
     ElMessage.success('复制成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 
 async function handleDelete(row: FileNodeVO) {
@@ -149,7 +149,7 @@ async function handleDelete(row: FileNodeVO) {
     await deleteApi({ nodeId: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch {}
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

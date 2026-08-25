@@ -14,7 +14,9 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<SwitchRootProps & { class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<SwitchRootProps & { class?: ClassValue }>();
 
 const emits = defineEmits<SwitchRootEmits>();
 

@@ -14,7 +14,9 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { AccordionItem, useForwardProps } from 'radix-vue';
 
-const props = defineProps<AccordionItemProps & { class?: any }>();
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = defineProps<AccordionItemProps & { class?: ClassValue }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

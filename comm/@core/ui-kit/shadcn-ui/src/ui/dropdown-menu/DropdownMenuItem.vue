@@ -14,8 +14,10 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { DropdownMenuItem, useForwardProps } from 'radix-vue';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<
-  DropdownMenuItemProps & { class?: any; inset?: boolean }
+  DropdownMenuItemProps & { class?: ClassValue; inset?: boolean }
 >();
 
 const delegatedProps = computed(() => {

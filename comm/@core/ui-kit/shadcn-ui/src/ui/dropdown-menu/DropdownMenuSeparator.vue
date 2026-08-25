@@ -14,9 +14,11 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { DropdownMenuSeparator } from 'radix-vue';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<
   DropdownMenuSeparatorProps & {
-    class?: any;
+    class?: ClassValue;
   }
 >();
 

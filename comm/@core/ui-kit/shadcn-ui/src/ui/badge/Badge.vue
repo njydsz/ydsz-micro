@@ -12,8 +12,10 @@ import { cn } from '@YDSZ-core/shared/utils';
 
 import { badgeVariants } from './badge';
 
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
 const props = defineProps<{
-  class?: any;
+  class?: ClassValue;
   variant?: BadgeVariants['variant'];
 }>();
 </script>
