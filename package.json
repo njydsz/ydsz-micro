@@ -45,6 +45,8 @@
     "gen:api": "node ./bash/gen-api.mjs",
     "gen:api:check": "node ./bash/gen-api.mjs --check",
     "gen:app": "node ./bash/gen-app.mjs",
+    "gen:contract": "python ./bash/gen-contract.py",
+    "gen:contract:check": "python ./bash/gen-contract.py --check",
     "gen:nginx": "node ./bash/gen-nginx-conf.mjs",
     "gen:nginx:check": "node ./bash/gen-nginx-conf.mjs --check",
     "gen:registry": "node ./bash/gen-registry.mjs",

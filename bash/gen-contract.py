@@ -757,11 +757,14 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
 # ======================================================================
 
 def main():
-    targets = sys.argv[1:] if len(sys.argv) > 1 else list(SERVICE_MAP.keys())
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    is_check = "--check" in sys.argv[1:]
+    targets = args if args else list(SERVICE_MAP.keys())
     for svc in targets:
         if svc not in SERVICE_MAP:
             print(f"[gen-contract] 未知服务: {svc}，可用: {list(SERVICE_MAP.keys())}")
             sys.exit(1)
+    exit_code = 0
     for svc in targets:
         app = SERVICE_MAP[svc]
         svc_dir = os.path.join(CLOUD_ROOT, f"ydsz-{svc}")
@@ -848,6 +851,21 @@ def main():
             sys.exit(1)
         total = len(all_eps)
         print(f"[gen-contract] {svc:10s} -> {app:16s} controllers={len(controllers):3d} endpoints={total:4d} schemas={len(builder.components)}")
+        # 4. --check 模式：仅校验契约基线是否漂移（不改写文件）
+        if is_check:
+            spec_path = os.path.join(MICRO_ROOT, "apps", app, "src", "api", "sdk", "openapi.json")
+            if not os.path.exists(spec_path):
+                print(f"[gen-contract] {svc}: 契约基线缺失 {spec_path}，请先执行 pnpm gen:contract")
+                exit_code = 1
+                continue
+            existing = open(spec_path, encoding="utf-8").read()
+            current = json.dumps(spec, ensure_ascii=False, indent=1)
+            if existing != current:
+                print(f"[gen-contract] {svc}: ✗ 契约漂移！后端接口已变更，请执行 pnpm gen:contract 重新生成")
+                exit_code = 1
+            else:
+                print(f"[gen-contract] {svc}: ✓ 契约一致")
+    sys.exit(exit_code)
 
 
 if __name__ == "__main__":

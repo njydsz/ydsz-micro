@@ -413,19 +413,6 @@ export interface TemplatePreviewDTO {
   params?: Record<string, unknown>;
 }
 
-export interface TemplateTestSendDTO {
-
-  templateCode?: string;
-
-  locale?: string;
-
-  params?: Record<string, unknown>;
-
-  testReceiver?: string;
-
-  testChannel?: string;
-}
-
 export interface UnsubscribeQueryDTO {
 
   userId?: string;

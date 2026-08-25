@@ -30,6 +30,9 @@ catalog:
   '@tailwindcss/typography': ^0.5.16
   '@tanstack/vue-query': ^5.81.5
   '@tanstack/vue-store': ^0.7.1
+  # 3.13.36 依赖的 @tanstack/virtual-core@3.17.8 已被上游从 registry 撤下，
+  # 钉到 3.13.35（依赖 3.17.7，可用）；待上游修复后恢复 ^
+  '@tanstack/vue-virtual': 3.13.35
   '@types/archiver': ^6.0.3
   '@types/html-minifier-terser': ^7.0.2
   '@types/json-bigint': ^1.0.4
@@ -77,6 +80,8 @@ catalog:
   find-up: ^7.0.0
   get-port: ^7.1.0
   h3: ^1.15.3
+  html-minifier-terser: ^7.2.0
+  is-ci: ^4.1.0
   json-bigint: ^1.0.0
   lodash.clonedeep: ^4.5.0
   lodash.get: ^4.4.2
@@ -86,6 +91,7 @@ catalog:
   medium-zoom: ^1.1.0
   nitropack: ^2.11.13
   nprogress: ^0.2.0
+  openapi-fetch: ^0.17.0
   ora: ^8.2.0
   pinia: ^3.0.3
   pinia-plugin-persistedstate: ^4.4.1
@@ -132,5 +138,6 @@ catalog:
   vxe-pc-ui: ^4.7.12
   vxe-table: ^4.14.4
   watermark-js-plus: ^1.6.2
+  xlsx: ^0.18.5
   zod: ^3.25.67
   zod-defaults: ^0.1.3

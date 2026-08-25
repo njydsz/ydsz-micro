@@ -111,6 +111,84 @@ describe('sandbox — 快照沙箱', () => {
     expect(document.title).toBe('YDSZ Admin');
   });
 
+  it('v4.3.1 回归：exit 移除 mount 期间注册的 document 事件监听', () => {
+    const sandbox = enterSandbox();
+    const listener = vi.fn();
+
+    // 子应用常见的 document 级监听（如 visibilitychange）
+    document.addEventListener('sandbox-doc-event', listener);
+
+    document.dispatchEvent(new Event('sandbox-doc-event'));
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    exitSandbox(sandbox);
+
+    // 修复前：document.addEventListener 未被代理，监听器未记录 → 卸载后泄漏
+    document.dispatchEvent(new Event('sandbox-doc-event'));
+    expect(listener).toHaveBeenCalledTimes(1);
+  });
+
+  it('v4.3.1 回归：exit 以 cancelAnimationFrame 取消 mount 期间的 rAF', () => {
+    const rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockReturnValue(4242);
+    const cancelSpy = vi
+      .spyOn(window, 'cancelAnimationFrame')
+      .mockImplementation(() => undefined);
+
+    const sandbox = enterSandbox();
+    const id = window.requestAnimationFrame(() => {});
+    expect(id).toBe(4242);
+
+    exitSandbox(sandbox);
+
+    // 修复前：rAF ID 混入 timerIds，exit 仅以 clearTimeout/clearInterval 清理，
+    // 非 Chromium 环境（rAF 与定时器 ID 分池）回调在卸载后仍会触发
+    expect(cancelSpy).toHaveBeenCalledWith(4242);
+
+    rafSpy.mockRestore();
+    cancelSpy.mockRestore();
+  });
+
+  it('v4.3.1 回归：cancelAnimationFrame 在沙箱内主动取消后 exit 不重复取消', () => {
+    const rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockReturnValue(77);
+    const cancelSpy = vi
+      .spyOn(window, 'cancelAnimationFrame')
+      .mockImplementation(() => undefined);
+
+    const sandbox = enterSandbox();
+    window.requestAnimationFrame(() => {});
+    window.cancelAnimationFrame(77); // 子应用自行取消
+
+    exitSandbox(sandbox);
+
+    // exit 阶段 rafIds 已空，不应再次调用 cancelAnimationFrame
+    expect(cancelSpy).toHaveBeenCalledTimes(1);
+
+    rafSpy.mockRestore();
+    cancelSpy.mockRestore();
+  });
+
+  it('v4.3.1 回归：反复 enter/exit 多轮后监听器数量恒定（无累积泄漏）', () => {
+    const listener = vi.fn();
+    const ROUNDS = 5;
+
+    for (let i = 0; i < ROUNDS; i++) {
+      const sandbox = enterSandbox();
+      window.addEventListener('sandbox-round-event', listener);
+      document.addEventListener('sandbox-round-doc-event', listener);
+      window.setTimeout(() => {}, 1000);
+      exitSandbox(sandbox);
+    }
+
+    // 5 轮切换后，事件均不应再触发（监听器被逐轮清理，无累积）
+    window.dispatchEvent(new Event('sandbox-round-event'));
+    document.dispatchEvent(new Event('sandbox-round-doc-event'));
+    expect(listener).toHaveBeenCalledTimes(0);
+
+    // 全局 API 已还原（非代理态）
+    expect(window.addEventListener.name).not.toBe('proxyAddEventListener');
+    expect(document.addEventListener.name).not.toBe('proxyDocumentAddEventListener');
+  });
+
   it('嵌套沙箱：内层退出不还原全局代理，外层退出才还原', () => {
     const outer = enterSandbox();
     const inner = enterSandbox();

@@ -2933,7 +2933,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "$ref": "#/components/schemas/TemplateTestSendDTO"
+        "type": "object"
        }
       }
      }
@@ -3922,30 +3922,6 @@
      }
     },
     "description": "class TemplatePreviewDTO"
-   },
-   "TemplateTestSendDTO": {
-    "type": "object",
-    "properties": {
-     "templateCode": {
-      "type": "string"
-     },
-     "locale": {
-      "type": "string"
-     },
-     "params": {
-      "type": "object",
-      "additionalProperties": {
-       "type": "object"
-      }
-     },
-     "testReceiver": {
-      "type": "string"
-     },
-     "testChannel": {
-      "type": "string"
-     }
-    },
-    "description": "class TemplateTestSendDTO"
    },
    "UnsubscribeQueryDTO": {
     "type": "object",

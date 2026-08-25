@@ -34,7 +34,7 @@ export function initiateSso(params: {
  * assertionConsumerService: POST /saml/acs
  */
 export function assertionConsumerService(params: {
-    SAMLResponse?: string;
+    samlResponse?: string;
     relayState?: string;
   }): Promise<unknown> {
   return requestClient.post<unknown>(`/saml/acs`, { params });
@@ -57,7 +57,7 @@ export function initiateSsoByEntityId(path: {
 export function assertionConsumerServiceByEntityId(path: {
     idpEntityId: string;
   }, params: {
-    SAMLResponse?: string;
+    samlResponse?: string;
     relayState?: string;
   }): Promise<unknown> {
   return requestClient.post<unknown>(`/saml/acs/${idpEntityId}`, { params });

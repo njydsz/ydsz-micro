@@ -12,7 +12,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { MessageResult, TemplatePreviewDTO, TemplateTestSendDTO } from './models';
+import type { MessageResult, TemplatePreviewDTO } from './models';
 
 /**
  * listVersions: GET /api/v1/message/template/version/list/{templateCode}
@@ -43,6 +43,6 @@ export function preview(data: TemplatePreviewDTO): Promise<string> {
 /**
  * testSend: POST /api/v1/message/template/version/testSend
  */
-export function testSend(data: TemplateTestSendDTO): Promise<MessageResult> {
+export function testSend(data: Record<string, unknown>): Promise<MessageResult> {
   return requestClient.post<MessageResult>(`/api/v1/message/template/version/testSend`, data);
 }

@@ -16,6 +16,14 @@
  * 配合 ESLint no-restricted-globals 规则约束子应用不直接写 window，
  * 本沙箱处置规则兜底的漏网之鱼。
  *
+ * v4.3.1 泄漏修复：
+ * - document.addEventListener/removeEventListener 纳入代理
+ *   （此前走 Document 原型方法绕过记录 → 卸载后监听器泄漏）；
+ * - rAF ID 与定时器 ID 分池管理，exit 时以 cancelAnimationFrame 取消
+ *   （此前混入 timerIds 仅以 clearTimeout/clearInterval 清理 → 非 Chromium
+ *   环境子应用卸载后幽灵帧回调持续触发）；
+ * - 监听器清理按 target 路由到 window/document 各自的原始 removeEventListener。
+ *
  * @path comm/effects/micro-kernel/src/sandbox.ts
  * @author ydsz-team
  * @since 3.0.0
@@ -34,8 +42,18 @@ export interface SandboxInstance {
     listener: EventListenerOrEventListenerObject;
     options?: boolean | AddEventListenerOptions;
   }>;
-  /** 此应用创建的定时器 ID */
+  /** 此应用创建的 setTimeout/setInterval 定时器 ID */
   timerIds: number[];
+  /**
+   * 此应用创建的 requestAnimationFrame ID
+   *
+   * v4.3.1 修复：rAF ID 与定时器 ID 在浏览器规范中不保证共享 ID 池
+   * （Chromium 恰好同池，Firefox/Safari 分池），此前混入 timerIds 后
+   * exitSandbox 仅以 clearTimeout/clearInterval 清理，导致非 Chromium
+   * 环境 rAF 回调在子应用卸载后仍持续触发（内存泄漏 + 幽灵帧回调）。
+   * 现分池记录，exit 时统一以 cancelAnimationFrame 取消。
+   */
+  rafIds: number[];
   /** mount 前的 document.title 快照（子应用常修改标题，unmount 时需还原） */
   documentTitleSnapshot: string;
 }
@@ -44,6 +62,17 @@ export interface SandboxInstance {
 let originalAddEventListener: typeof window.addEventListener;
 /** 记录 removeEventListener 原始方法的引用，用于恢复 */
 let originalRemoveEventListener: typeof window.removeEventListener;
+/**
+ * 记录 document.addEventListener 原始方法的引用，用于恢复
+ *
+ * v4.3.1 修复：此前仅代理 window.addEventListener，子应用调用
+ * document.addEventListener（如 visibilitychange 监听）走
+ * Document 原型方法，永远绕过代理 → 监听器无法记录 → 卸载后泄漏。
+ * 现同步代理 document 的监听 API。
+ */
+let originalDocumentAddEventListener: typeof document.addEventListener;
+/** 记录 document.removeEventListener 原始方法的引用，用于恢复 */
+let originalDocumentRemoveEventListener: typeof document.removeEventListener;
 /** 记录 setTimeout 原始方法的引用 */
 let originalSetTimeout: typeof window.setTimeout;
 /** 记录 setInterval 原始方法的引用 */
@@ -94,6 +123,7 @@ export function enterSandbox(): SandboxInstance {
     valueSnapshot,
     listeners: [],
     timerIds: [],
+    rafIds: [],
     documentTitleSnapshot: document.title,
   };
 
@@ -112,15 +142,26 @@ export function enterSandbox(): SandboxInstance {
  * 调用时机：子应用 unmount 后。栈空时还原全局 API。
  */
 export function exitSandbox(sandbox: SandboxInstance): void {
-  // 1. 清理定时器
+  // 1. 清理定时器（防御：happy-dom 等环境可能未代理定时器 API，原句柄为 undefined）
   for (const id of sandbox.timerIds) {
-    originalClearTimeout(id);
-    originalClearInterval(id);
+    if (originalClearTimeout) originalClearTimeout(id);
+    if (originalClearInterval) originalClearInterval(id);
   }
 
-  // 2. 移除事件监听
+  // 1.1 清理 rAF（v4.3.1 修复：rAF ID 分池记录，必须用 cancelAnimationFrame 取消）
+  for (const id of sandbox.rafIds) {
+    if (originalCancelAnimationFrame) originalCancelAnimationFrame(id);
+  }
+
+  // 2. 移除事件监听（按 target 路由到对应的原始 removeEventListener）
   for (const { target, type, listener, options } of sandbox.listeners) {
-    originalRemoveEventListener.call(target, type, listener, options);
+    if (target === document && originalDocumentRemoveEventListener) {
+      // v4.3.1：document 监听器须用 document 的原始方法移除
+      // （window 的原句柄已 bind(window)，误用会静默移除失败）
+      originalDocumentRemoveEventListener.call(document, type, listener, options);
+    } else if (originalRemoveEventListener) {
+      originalRemoveEventListener.call(target, type, listener, options);
+    }
   }
 
   // 3. 恢复 window
@@ -166,8 +207,10 @@ export function exitSandbox(sandbox: SandboxInstance): void {
 function proxyGlobals(): void {
   originalAddEventListener = window.addEventListener.bind(window);
   originalRemoveEventListener = window.removeEventListener.bind(window);
+  originalDocumentAddEventListener = document.addEventListener.bind(document);
+  originalDocumentRemoveEventListener = document.removeEventListener.bind(document);
 
-  // --- addEventListener 代理 ---
+  // --- addEventListener 代理（window）---
   window.addEventListener = function proxyAddEventListener(
     this: EventTarget,
     type: string,
@@ -182,7 +225,7 @@ function proxyGlobals(): void {
     return originalAddEventListener.call(this, type, listener, options);
   } as typeof window.addEventListener;
 
-  // --- removeEventListener 代理 ---
+  // --- removeEventListener 代理（window）---
   window.removeEventListener = function proxyRemoveEventListener(
     this: EventTarget,
     type: string,
@@ -196,8 +239,44 @@ function proxyGlobals(): void {
       );
       if (idx !== -1) current.listeners.splice(idx, 1);
     }
+    // 按 this 路由到对应原始方法（window 句柄已 bind(window)，不可用于 document）
+    if (this === document && originalDocumentRemoveEventListener) {
+      return originalDocumentRemoveEventListener.call(this, type, listener, options);
+    }
     return originalRemoveEventListener.call(this, type, listener, options);
   } as typeof window.removeEventListener;
+
+  // --- addEventListener/removeEventListener 代理（document）---
+  // v4.3.1 修复：子应用的 document.addEventListener（如 visibilitychange）
+  // 此前走 Document 原型方法绕过代理，导致监听器无法记录、卸载后泄漏。
+  document.addEventListener = function proxyDocumentAddEventListener(
+    this: Document,
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ): void {
+    const current = topSandbox();
+    if (current) {
+      current.listeners.push({ target: this, type, listener, options });
+    }
+    return originalDocumentAddEventListener.call(this, type, listener, options);
+  } as typeof document.addEventListener;
+
+  document.removeEventListener = function proxyDocumentRemoveEventListener(
+    this: Document,
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions,
+  ): void {
+    const current = topSandbox();
+    if (current) {
+      const idx = current.listeners.findIndex(
+        (l) => l.target === this && l.type === type && l.listener === listener,
+      );
+      if (idx !== -1) current.listeners.splice(idx, 1);
+    }
+    return originalDocumentRemoveEventListener.call(this, type, listener, options);
+  } as typeof document.removeEventListener;
 
   // --- 定时器代理 ---
   // 防御：在 happy-dom 等非标准环境下 window.setTimeout 可能不存在
@@ -249,18 +328,19 @@ function proxyGlobals(): void {
     } as typeof window.clearInterval;
 
     // --- requestAnimationFrame 代理 ---
+    // v4.3.1 修复：rAF ID 记录到独立的 rafIds（与定时器 ID 分池），见 SandboxInstance.rafIds 注释
     window.requestAnimationFrame = function proxyRAF(cb: FrameRequestCallback): number {
       const id = originalRequestAnimationFrame(cb);
       const current = topSandbox();
-      if (current) current.timerIds.push(id);
+      if (current) current.rafIds.push(id);
       return id;
     };
 
     window.cancelAnimationFrame = function proxyCAF(id: number): void {
       const current = topSandbox();
       if (current) {
-        const idx = current.timerIds.indexOf(id);
-        if (idx !== -1) current.timerIds.splice(idx, 1);
+        const idx = current.rafIds.indexOf(id);
+        if (idx !== -1) current.rafIds.splice(idx, 1);
       }
       originalCancelAnimationFrame(id);
     };
@@ -274,6 +354,10 @@ function restoreGlobals(): void {
   if (originalAddEventListener) {
     window.addEventListener = originalAddEventListener;
     window.removeEventListener = originalRemoveEventListener;
+    if (originalDocumentAddEventListener) {
+      document.addEventListener = originalDocumentAddEventListener;
+      document.removeEventListener = originalDocumentRemoveEventListener;
+    }
     // 仅还原实际被代理过的定时器 API（happy-dom 等环境可能跳过代理）
     if (timersProxied) {
       window.setTimeout = originalSetTimeout;
