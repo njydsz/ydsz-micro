@@ -37,7 +37,7 @@ import { requestClient } from './request-setup';
  * @param options - openapi-fetch 配置选项（baseUrl 等）
  * @returns 类型安全的 OpenAPI 客户端
  */
-export function createOpenApiClient<T extends Record<string, any>>(
+export function createOpenApiClient<T extends Record<string, unknown>>(
   options?: ClientOptions,
 ) {
   return createClient<T>({
@@ -59,7 +59,7 @@ export function createOpenApiClient<T extends Record<string, any>>(
       }
 
       // 解析 body
-      let data: any;
+      let data: unknown;
       if (init?.body) {
         try {
           data = JSON.parse(init.body as string);
@@ -71,7 +71,8 @@ export function createOpenApiClient<T extends Record<string, any>>(
       // 使用 requestClient 发起请求（复用拦截器链）
       const response = await requestClient.request({
         url: urlStr,
-        method: method as any,
+        // 非标准 API 收窄：requestClient.request 接受 string 类型 method
+        method: method as string,
         headers,
         data,
       });

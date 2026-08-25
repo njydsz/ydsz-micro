@@ -1,0 +1,1194 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ydsz-agent",
+  "version": "1.0.0",
+  "description": "static contract extracted from ydsz-cloud agent"
+ },
+ "paths": {
+  "/api/v1/agent/execute": {
+   "post": {
+    "operationId": "execute",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AgentExecutionRequestDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/execute/stream": {
+   "post": {
+    "operationId": "executeStream",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AgentExecutionRequestDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/chat": {
+   "post": {
+    "operationId": "chat",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ChatRequestDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/chat/stream": {
+   "post": {
+    "operationId": "chatStream",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ChatRequestDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/chat/batch": {
+   "post": {
+    "operationId": "batchChat",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/BatchChatRequestDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/history": {
+   "get": {
+    "operationId": "history",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "conversationId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "clearHistory",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "conversationId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/definitions": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AgentDefinitionDTO"
+      }
+     }
+    ]
+   },
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "dto",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/AgentDefinitionDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/definitions/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/definitions/code/{code}": {
+   "get": {
+    "operationId": "getByCode",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "code",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/models": {
+   "get": {
+    "operationId": "models",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/agent/tools": {
+   "get": {
+    "operationId": "tools",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/agent/dag/execute": {
+   "post": {
+    "operationId": "execute",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DagExecutionDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/dag/checkpoint/{executionId}": {
+   "get": {
+    "operationId": "getCheckpoint",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "executionId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/dag/validate": {
+   "post": {
+    "operationId": "validate",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DagExecutionDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/debug/traces": {
+   "get": {
+    "operationId": "listTraces",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/agent/debug/trace/{traceId}": {
+   "get": {
+    "operationId": "getTrace",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "traceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/debug/trace/{traceId}/replay": {
+   "post": {
+    "operationId": "replayTrace",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "traceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/approvals/pending": {
+   "get": {
+    "operationId": "listPending",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/agent/approvals/{id}": {
+   "get": {
+    "operationId": "getApproval",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/approvals/{id}/approve": {
+   "post": {
+    "operationId": "approve",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/approvals/{id}/reject": {
+   "post": {
+    "operationId": "reject",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/observability/overview": {
+   "get": {
+    "operationId": "getOverview",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/agent/observability/model-usage": {
+   "get": {
+    "operationId": "getModelUsage",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/agent/prompt/evaluate": {
+   "post": {
+    "operationId": "evaluate",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/prompt/compare": {
+   "post": {
+    "operationId": "compare",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/rag/ingest": {
+   "post": {
+    "operationId": "ingest",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/DocumentIngestDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/rag/search": {
+   "post": {
+    "operationId": "search",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "request",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/RagQueryDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/rag/documents/{documentId}": {
+   "delete": {
+    "operationId": "deleteDocument",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "documentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/agent/rag/stats": {
+   "get": {
+    "operationId": "stats",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "YdszResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "code": {
+      "type": "string"
+     },
+     "msg": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object"
+     },
+     "traceId": {
+      "type": "object"
+     },
+     "requestId": {
+      "type": "object"
+     },
+     "spanId": {
+      "type": "object"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "extensions": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "RESOLVER": {
+      "type": "object"
+     }
+    },
+    "description": "class YdszResponse"
+   },
+   "AgentExecutionRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "agentCode": {
+      "type": "string"
+     },
+     "conversationId": {
+      "type": "string"
+     },
+     "requestId": {
+      "type": "string"
+     },
+     "userInput": {
+      "type": "string"
+     },
+     "systemPrompt": {
+      "type": "string"
+     },
+     "maxIterations": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "enabledTools": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "stream": {
+      "type": "boolean"
+     }
+    },
+    "description": "class AgentExecutionRequestDTO"
+   },
+   "ChatRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "conversationId": {
+      "type": "string"
+     },
+     "requestId": {
+      "type": "string"
+     },
+     "message": {
+      "type": "string"
+     },
+     "multimodalContent": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     },
+     "systemPrompt": {
+      "type": "string"
+     },
+     "model": {
+      "type": "string"
+     },
+     "temperature": {
+      "type": "number"
+     },
+     "maxTokens": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "type": {
+      "type": "string"
+     },
+     "text": {
+      "type": "string"
+     },
+     "imageUrl": {
+      "type": "string"
+     }
+    },
+    "description": "class ChatRequestDTO"
+   },
+   "BatchChatRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "requestId": {
+      "type": "string"
+     },
+     "items": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     },
+     "model": {
+      "type": "string"
+     },
+     "temperature": {
+      "type": "number"
+     },
+     "maxTokens": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "systemPrompt": {
+      "type": "string"
+     },
+     "itemId": {
+      "type": "string"
+     },
+     "conversationId": {
+      "type": "string"
+     },
+     "message": {
+      "type": "string"
+     },
+     "multimodalContent": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    "description": "class BatchChatRequestDTO"
+   },
+   "AgentDefinitionDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "agentCode": {
+      "type": "string"
+     },
+     "agentName": {
+      "type": "string"
+     },
+     "agentType": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "systemPrompt": {
+      "type": "string"
+     },
+     "modelConfig": {
+      "type": "string"
+     },
+     "toolNames": {
+      "type": "string"
+     },
+     "temperature": {
+      "type": "number"
+     },
+     "maxTokens": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class AgentDefinitionDTO"
+   },
+   "DagExecutionDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "dsl": {
+      "type": "string"
+     },
+     "userInput": {
+      "type": "string"
+     },
+     "resumeExecutionId": {
+      "type": "string"
+     }
+    },
+    "description": "class DagExecutionDTO"
+   },
+   "DocumentIngestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "documentId": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "documentTitle": {
+      "type": "string"
+     },
+     "source": {
+      "type": "string"
+     }
+    },
+    "description": "class DocumentIngestDTO"
+   },
+   "RagQueryDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "query": {
+      "type": "string"
+     },
+     "topK": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "minScore": {
+      "type": "number"
+     },
+     "includeContext": {
+      "type": "boolean"
+     }
+    },
+    "description": "class RagQueryDTO"
+   }
+  }
+ }
+}

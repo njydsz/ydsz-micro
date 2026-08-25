@@ -17,6 +17,10 @@ import { BusinessError } from './business-error';
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 const logger = createLogger('preset-interceptors');
+
+/** 响应数据类型（未知结构） */
+type UnknownResponse = Record<string, unknown>;
+
 /** 默认响应拦截器：按 codeField/successCode 判定业务成功，剥离 dataField 数据或抛 BusinessError */
 export const defaultResponseInterceptor = ({
   codeField = 'code',
@@ -26,9 +30,9 @@ export const defaultResponseInterceptor = ({
   /** 响应数据中代表访问结果的字段名 */
   codeField: string;
   /** 响应数据中装载实际数据的字段名，或者提供一个函数从响应数据中解析需要返回的数据 */
-  dataField: ((response: any) => any) | string;
+  dataField: ((response: UnknownResponse) => unknown) | string;
   /** 当codeField所指定的字段值与successCode相同时，代表接口访问成功。如果提供一个函数，则返回true代表接口访问成功 */
-  successCode: ((code: any) => boolean) | number | string;
+  successCode: ((code: unknown) => boolean) | number | string;
 }): ResponseInterceptorConfig => {
   return {
     fulfilled: (response) => {
@@ -190,25 +194,27 @@ export const errorMessageResponseInterceptor = (
   makeErrorMessage?: MakeErrorMessageFn,
 ): ResponseInterceptorConfig => {
   return {
-    rejected: (error: any) => {
-      if (axios.isCancel(error)) {
-        return Promise.reject(error);
+    // 非标准 API 收窄：axios 错误类型为 AxiosError，但为兼容未知错误源使用 unknown
+    rejected: (error: unknown) => {
+      const axiosError = error as axios.AxiosError;
+      if (axios.isCancel(axiosError)) {
+        return Promise.reject(axiosError);
       }
 
-      const err: string = error?.toString?.() ?? '';
+      const err: string = axiosError?.toString?.() ?? '';
       let errMsg = '';
       if (err?.includes('Network Error')) {
         errMsg = $t('ui.fallback.http.networkError');
-      } else if (error?.message?.includes?.('timeout')) {
+      } else if (axiosError?.message?.includes?.('timeout')) {
         errMsg = $t('ui.fallback.http.requestTimeout');
       }
       if (errMsg) {
-        makeErrorMessage?.(errMsg, error);
-        return Promise.reject(error);
+        makeErrorMessage?.(errMsg, axiosError);
+        return Promise.reject(axiosError);
       }
 
       let errorMessage = '';
-      const status = error?.response?.status;
+      const status = axiosError?.response?.status;
 
       switch (status) {
         case 400: {
@@ -249,8 +255,8 @@ export const errorMessageResponseInterceptor = (
           break;
         }
       }
-      makeErrorMessage?.(errorMessage, error);
-      return Promise.reject(error);
+      makeErrorMessage?.(errorMessage, axiosError);
+      return Promise.reject(axiosError);
     },
   };
 };

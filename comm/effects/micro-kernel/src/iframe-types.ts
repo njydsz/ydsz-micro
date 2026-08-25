@@ -54,7 +54,7 @@ export interface IframeSandboxInstance {
    * @returns 取消注册函数
    */
   registerMainApi: (
-    handlers: Record<string, (...args: any[]) => unknown>,
+    handlers: Record<string, (...args: unknown[]) => unknown>,
   ) => () => void;
 }
 

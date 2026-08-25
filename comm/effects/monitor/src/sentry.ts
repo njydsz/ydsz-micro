@@ -36,7 +36,44 @@ import type { ErrorReport } from "./error-monitor";
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 const logger = createLogger('sentry');
+
+/** Sentry SDK 模块接口（动态导入，软依赖） */
+interface SentryModule {
+  init: (options: SentryInitOptions) => void;
+  vueIntegration: () => unknown;
+  browserTracingIntegration: () => unknown;
+  captureException: (error: Error) => void;
+  captureMessage: (message: string, level: string) => void;
+  configureScope: (callback: (scope: SentryScope) => void) => void;
+}
+
 /** Sentry 初始化选项 */
+interface SentryInitOptions {
+  dsn: string;
+  release?: string;
+  environment?: string;
+  integrations: unknown[];
+  sampleRate: number;
+  tracesSampleRate: number;
+  beforeSend: (event: SentryEvent) => SentryEvent | null;
+}
+
+/** Sentry 事件对象 */
+interface SentryEvent {
+  request?: {
+    headers?: Record<string, string>;
+  };
+}
+
+/** Sentry Scope 接口 */
+interface SentryScope {
+  setTag: (key: string, value: string) => void;
+  setContext: (key: string, context: Record<string, unknown>) => void;
+  setUser: (user: { id: string; email?: string; username?: string } | null) => void;
+  setLevel: (level: string) => void;
+}
+
+/** Sentry 初始化选项（对外暴露） */
 export interface SentryConfig {
   /** Sentry DSN（来自 sentry.io 项目设置） */
   dsn: string;
@@ -49,11 +86,11 @@ export interface SentryConfig {
   /** 性能监控采样率 0~1，默认 0（不采样 traces） */
   tracesSampleRate?: number;
   /** Vue 应用实例（用于 Vue 错误上下文） */
-  app?: any;
+  app?: unknown;
 }
 
 /** Sentry SDK 模块缓存（动态导入） */
-let sentryModule: any = null;
+let sentryModule: SentryModule | null = null;
 /** 是否已完成初始化 */
 let initialized = false;
 /** 当前配置 */
@@ -94,7 +131,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
     sampleRate: config.sampleRate ?? 1,
     tracesSampleRate: config.tracesSampleRate ?? 0,
     // 隐藏敏感信息
-    beforeSend(event: any) {
+    beforeSend(event: SentryEvent) {
       // 可以在这里做最后的脱敏
       if (event.request?.headers?.Authorization) {
         delete event.request.headers.Authorization;
@@ -126,7 +163,7 @@ export function captureError(report: ErrorReport): void {
   // 将错误映射为 Sentry 级别
   const level = report.type === "resource" ? "warning" : "error";
 
-  configureScope((scope: any) => {
+  configureScope((scope: SentryScope) => {
     // 设置标签便于 Sentry dashboard 过滤
     scope.setTag("error.type", report.type);
     scope.setTag("error.sessionId", report.sessionId || "unknown");
@@ -189,7 +226,7 @@ export function sentrySetUser(
 ): void {
   if (!initialized || !sentryModule) return;
   const { configureScope } = sentryModule;
-  configureScope((scope: any) => {
+  configureScope((scope: SentryScope) => {
     scope.setUser(user);
   });
 }

@@ -5,9 +5,15 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+
+/** JSON 值类型（递归） */
+export type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
+interface JsonObject { [key: string]: JsonValue }
+interface JsonArray extends Array<JsonValue> {}
+
 export interface JsonViewerProps {
   /** 要展示的结构数据 */
-  value: any;
+  value: JsonValue;
   /** 展开深度 */
   expandDepth?: number;
   /** 是否可复制 */
@@ -56,7 +62,7 @@ export interface JsonViewerAction {
  */
 export interface JsonViewerValue {
   /** 解析后的节点值；文本无法解析时不会派发事件 */
-  value: any;
+  value: JsonValue;
   /** 该节点在 JSON 中的访问路径，如 `'data.list[0].id'`；取不到时为空字符串 */
   path: string;
   /** 节点所处的嵌套层级，根层为 0；取不到时兜底为 0 */

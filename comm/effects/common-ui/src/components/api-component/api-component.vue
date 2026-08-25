@@ -21,7 +21,7 @@ import { cloneDeep, get, isEqual, isFunction } from '@YDSZ-core/shared/utils';
 import { objectOmit } from '@vueuse/core';
 
 type OptionsItem = {
-  [name: string]: any;
+  [name: string]: unknown;
   children?: OptionsItem[];
   disabled?: boolean;
   label?: string;
@@ -34,9 +34,9 @@ interface Props {
   /** 是否将value从数字转为string */
   numberToString?: boolean;
   /** 获取options数据的函数 */
-  api?: (arg?: any) => Promise<OptionsItem[] | Record<string, any>>;
+  api?: (arg?: Record<string, unknown>) => Promise<OptionsItem[] | Record<string, unknown>>;
   /** 传递给api的参数 */
-  params?: Record<string, any>;
+  params?: Record<string, unknown>;
   /** 从api返回的结果中提取options数组的字段名 */
   resultField?: string;
   /** label字段名 */

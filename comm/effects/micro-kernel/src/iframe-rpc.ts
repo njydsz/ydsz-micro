@@ -65,7 +65,7 @@ export function createIframeRpc(
   callRpc: (method: string, args: unknown[]) => Promise<unknown>;
   /** 注册主应用 API 供子应用调用 */
   registerMainApi: (
-    handlers: Record<string, (...args: any[]) => unknown>,
+    handlers: Record<string, (...args: unknown[]) => unknown>,
   ) => () => void;
   /** 清理所有待响应的 RPC（cleanup 时调用） */
   cleanupRpc: (appName: string) => void;
@@ -85,7 +85,7 @@ export function createIframeRpc(
   // v3.6.1: 子 → 主 RPC 处理器（子应用可调用的主应用 API）
   const mainApiHandlers: Record<
     string,
-    (...args: any[]) => unknown
+    (...args: unknown[]) => unknown
   > = {};
   // v3.6.1: 主 → 子 RPC 待响应 Map（callId → resolve/reject）
   const pendingRpcs = new Map<string, PendingRpc>();
@@ -253,7 +253,7 @@ export function createIframeRpc(
   }
 
   function registerMainApi(
-    handlers: Record<string, (...args: any[]) => unknown>,
+    handlers: Record<string, (...args: unknown[]) => unknown>,
   ): () => void {
     for (const [method, handler] of Object.entries(handlers)) {
       mainApiHandlers[method] = handler;

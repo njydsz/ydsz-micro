@@ -16,6 +16,9 @@
  * 典型应用：字典、菜单、配置等低频变更数据。
  */
 
+/** 请求参数类型 */
+type RequestParams = Record<string, unknown>;
+
 /** SWR 缓存配置 */
 export interface SwrCacheOptions {
   /** 缓存有效期 ms（超过后不再返回旧数据，强制刷新），默认 10 分钟 */
@@ -25,7 +28,7 @@ export interface SwrCacheOptions {
   /** 是否启用，默认 true */
   enabled?: boolean;
   /** 自定义缓存 key（默认 url + 序列化 params） */
-  keyFn?: (url: string, params?: any) => string;
+  keyFn?: (url: string, params?: RequestParams) => string;
   /** 是否缓存失败的请求，默认 false */
   cacheError?: boolean;
   /** 缓存容量上限，默认 100 */
@@ -46,8 +49,8 @@ const DEFAULT_MAX_AGE = 10 * 60 * 1000;
 const DEFAULT_STALE_TIME = 5 * 60 * 1000;
 const DEFAULT_MAX_ENTRIES = 100;
 
-/** 模块级缓存 map */
-const cacheMap = new Map<string, CacheEntry<any>>();
+/** 模块级缓存 map（unknown 类型，使用时需类型断言） */
+const cacheMap = new Map<string, CacheEntry<unknown>>();
 
 /** LRU 淘汰：删除最旧条目 */
 function evict(maxEntries: number) {
@@ -60,7 +63,7 @@ function evict(maxEntries: number) {
 }
 
 /** 生成缓存 key */
-function defaultKeyFn(url: string, params?: any): string {
+function defaultKeyFn(url: string, params?: RequestParams): string {
   if (!params) return url;
   try {
     return `${url}?${JSON.stringify(params)}`;
@@ -93,10 +96,10 @@ export function clearSwrCache(key?: string) {
  * );
  * ```
  */
-export function withSwrCache<T = any>(
-  fetcher: (url: string, params?: any, ...rest: any[]) => Promise<T>,
+export function withSwrCache<T>(
+  fetcher: (url: string, params?: RequestParams, ...rest: unknown[]) => Promise<T>,
   options: SwrCacheOptions = {},
-): (url: string, params?: any, ...rest: any[]) => Promise<T> {
+): (url: string, params?: RequestParams, ...rest: unknown[]) => Promise<T> {
   const {
     maxAge = DEFAULT_MAX_AGE,
     staleTime = DEFAULT_STALE_TIME,
@@ -163,9 +166,9 @@ export function withSwrCache<T = any>(
 function revalidate<T>(
   key: string,
   url: string,
-  params: any,
-  rest: any[],
-  fetcher: (url: string, params?: any, ...rest: any[]) => Promise<T>,
+  params: RequestParams | undefined,
+  rest: unknown[],
+  fetcher: (url: string, params?: RequestParams, ...rest: unknown[]) => Promise<T>,
 ) {
   const entry = cacheMap.get(key);
   if (entry?.inflight) return entry.inflight;
