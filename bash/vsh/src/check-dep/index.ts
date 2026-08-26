@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file vsh check-dep - 依赖合规检查工具
  * @author YDSZ Team
  * @since 2026-08-23
@@ -45,6 +45,8 @@ interface DepViolation {
 const DEFAULT_CONFIG: DepComplianceConfig = {
   allowedLicenses: [
     'MIT',
+    // MIT-0（MIT No Attribution）：OSI 认证的 MIT 免署名变体，条款较 MIT 更宽松
+    'MIT-0',
     'Apache-2.0',
     'BSD-2-Clause',
     'BSD-3-Clause',
@@ -85,7 +87,7 @@ function resolveLicense(name: string, pkgDir: string, rootDir: string): string {
   for (const p of candidates) {
     if (!existsSync(p)) continue;
     try {
-      const meta = JSON.parse(readFileSync(p, 'utf-8').replace(/^﻿/, ''));
+      const meta = JSON.parse(readFileSync(p, 'utf-8').replace(/^\ufeff/, ''));
       if (typeof meta.license === 'string') return meta.license;
       if (Array.isArray(meta.licenses) && meta.licenses.length > 0) {
         const first = meta.licenses[0];
@@ -114,7 +116,7 @@ function checkPackageJson(
   }
 
   const pkgDir = dirname(packagePath);
-  const pkg = JSON.parse(readFileSync(packagePath, 'utf-8').replace(/^﻿/, ''));
+  const pkg = JSON.parse(readFileSync(packagePath, 'utf-8').replace(/^\ufeff/, ''));
   const deps = pkg.dependencies ?? {};
   const devDeps = pkg.devDependencies ?? {};
 
@@ -294,7 +296,7 @@ function checkCatalogConsistency(rootDir: string, packagePaths: string[]): DepVi
   for (const packagePath of packagePaths) {
     let pkg: Record<string, unknown>;
     try {
-      pkg = JSON.parse(readFileSync(packagePath, 'utf-8').replace(/^﻿/, ''));
+      pkg = JSON.parse(readFileSync(packagePath, 'utf-8').replace(/^\ufeff/, ''));
     } catch {
       continue;
     }
@@ -346,7 +348,8 @@ function checkLockfile(rootDir: string): DepViolation[] {
         package: dir,
         version: '-',
         license: '-',
-        reason: '工作区包未在 pnpm-lock.yaml 的 importers 中锁定（lockfile 可能过期，请运行 pnpm install）',
+        reason:
+          '工作区包未在 pnpm-lock.yaml 的 importers 中锁定（lockfile 可能过期，请运行 pnpm install）',
         file: join(rootDir, dir),
         severity: 'error',
       });
@@ -423,7 +426,8 @@ function checkImportBoundary(rootDir: string, config: DepComplianceConfig): DepV
           package: 'fetch/XMLHttpRequest',
           version: '-',
           license: '-',
-          reason: '业务代码禁止直接使用 fetch/XMLHttpRequest（云顶规范 §6.1），请改用 @ydsz/request',
+          reason:
+            '业务代码禁止直接使用 fetch/XMLHttpRequest（云顶规范 §6.1），请改用 @ydsz/request',
           file: rel,
           severity: 'error',
         });
@@ -472,7 +476,6 @@ export async function checkDep(options: {
 // CLI 入口
 if (import.meta.url === `file://${process.argv[1]}`) {
   const rootDir = process.argv[2] ?? process.cwd();
-  // eslint-disable-next-line no-console
   console.log(`🔍 执行依赖合规检查: ${rootDir}`);
   checkDep({ rootDir })
     .then((violations) => {
@@ -480,32 +483,26 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const warns = violations.filter((v) => v.severity === 'warn');
 
       if (warns.length > 0) {
-        // eslint-disable-next-line no-console
         console.warn(`\n⚠️  ${warns.length} 处警告（不阻断）:`);
         for (const v of warns) {
           const loc = v.file ? ` (${v.file})` : '';
-          // eslint-disable-next-line no-console
           console.warn(`  ${v.package}@${v.version}: ${v.reason}${loc}`);
         }
       }
 
       if (errors.length === 0) {
-        // eslint-disable-next-line no-console
         console.log(`✅ 依赖合规检查通过${warns.length ? `（含 ${warns.length} 警告）` : ''}`);
         process.exit(0);
       }
 
-      // eslint-disable-next-line no-console
       console.error(`\n❌ 发现 ${errors.length} 处依赖违规:`);
       for (const v of errors) {
         const loc = v.file ? ` (${v.file})` : '';
-        // eslint-disable-next-line no-console
         console.error(`  ${v.package}@${v.version}: ${v.reason}${loc}`);
       }
       process.exit(1);
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
       console.error('依赖合规检查出错:', err);
       process.exit(2);
     });

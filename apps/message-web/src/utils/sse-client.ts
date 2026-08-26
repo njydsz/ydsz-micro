@@ -1,14 +1,18 @@
 /**
- * SSE 客户端工具（基于 fetch + ReadableStream 的手写解析）
+ * SSE 客户端工具（基于 @ydsz/shared-auth streamRequest 的业务分发层）
  *
  * <p>用于消费后端 text/event-stream 接口（如 {@code /api/v1/message/batch/progress/{batchId}/sse}），
  * 相比浏览器 EventSource 的优势：可携带鉴权头、可控中断、可续传 Last-Event-ID。
+ *
+ * <p>v4.3.1 重构：鉴权头注入与 SSE 帧解析（fetch + ReadableStream）下沉至
+ * 共享基础设施 {@link streamRequest}（云顶规范 §6.1：业务代码禁裸 fetch），
+ * 本文件仅保留消息业务事件分发（onOpen/onEvent/onClose）与 abort 生命周期管理。
  *
  * @path apps/message-web/src/utils/sse-client.ts
  * @author ydsz-team
  * @since 4.1.0
  */
-import { useTokenStore } from '@ydsz/stores';
+import { streamRequest } from '@ydsz/shared-auth';
 
 /** SSE 事件回调集合 */
 export interface SseEventHandlers {
@@ -29,11 +33,6 @@ export interface SseStreamOptions {
   lastEventId?: string;
 }
 
-interface SseFrame {
-  event?: string;
-  data?: string;
-}
-
 /** 解析单个 JSON 数据帧，失败返回 null */
 function safeParseJson(raw: string): Record<string, unknown> | null {
   try {
@@ -44,43 +43,20 @@ function safeParseJson(raw: string): Record<string, unknown> | null {
   }
 }
 
-/** 解析单个 SSE 帧块（event/data 字段；注释、id、retry 帧忽略） */
-function parseSseFrame(block: string): SseFrame | null {
-  const dataLines: string[] = [];
-  let eventName: string | undefined;
-  const lines = block.split(/\r?\n/);
-  for (const line of lines) {
-    if (!line || line.startsWith(':')) continue;
-    const colon = line.indexOf(':');
-    const field = colon === -1 ? line : line.slice(0, colon);
-    const value = colon === -1 ? '' : line.slice(colon + 1).replace(/^ /, '');
-    switch (field) {
-      case 'event':
-        eventName = value;
-        break;
-      case 'data':
-        dataLines.push(value);
-        break;
-      default:
-        // id / retry / 未知字段忽略
-        break;
-    }
-  }
-  if (!eventName && dataLines.length === 0) return null;
-  return { event: eventName, data: dataLines.length ? dataLines.join('\n') : undefined };
-}
-
 /**
  * 打开一条 SSE 流。
  *
  * <p>启动后立即返回关闭函数；连接状态通过回调驱动（onOpen→live、onClose/onError→终态）。
- * 鉴权：自动从 {@link useAccessStore} 读取 accessToken 注入 Authorization 头。
+ * 鉴权与帧解析由 {@link streamRequest} 承担（含 HttpOnly Cookie 模式自动跳过 Authorization 头）。
  *
  * @param url 相对路径（如 /api/v1/message/...）或完整 URL
  * @param handlers 事件回调 + 流选项
  * @returns 关闭连接函数（幂等，可重复调用）
  */
-export function openSseStream(url: string, handlers: SseEventHandlers & SseStreamOptions): () => void {
+export function openSseStream(
+  url: string,
+  handlers: SseEventHandlers & SseStreamOptions,
+): () => void {
   const { signal, lastEventId, onOpen, onEvent, onClose, onError } = handlers;
 
   const controller = new AbortController();
@@ -95,57 +71,26 @@ export function openSseStream(url: string, handlers: SseEventHandlers & SseStrea
     if (!controller.signal.aborted) controller.abort();
   };
 
-  // 同步读取 token（调用方处于组件 setup，pinia 已激活）
-  const accessToken = useTokenStore().accessToken;
-
   const run = async (): Promise<void> => {
-    const headers = new Headers({ accept: 'text/event-stream' });
-    if (accessToken) headers.set('authorization', `Bearer ${accessToken}`);
-    if (lastEventId) headers.set('last-event-id', lastEventId);
+    const headers: Record<string, string> = {};
+    if (lastEventId) headers['Last-Event-ID'] = lastEventId;
+
+    let opened = false;
 
     try {
-      const response = await fetch(url, {
+      await streamRequest({
+        url,
         method: 'GET',
         headers,
-        credentials: 'include',
         signal: controller.signal,
+        onEvent: ({ event, data }) => {
+          if (!opened) {
+            opened = true;
+            onOpen?.();
+          }
+          onEvent?.(event ?? 'message', data.trim() !== '' ? safeParseJson(data) : null);
+        },
       });
-      if (!response.ok) {
-        throw new Error(`SSE 请求失败：HTTP ${response.status}`);
-      }
-      if (!response.body) {
-        throw new Error('当前环境不支持 ReadableStream，无法消费 SSE 流');
-      }
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let buffer = '';
-      let opened = false;
-
-      const dispatch = (frame: SseFrame): void => {
-        if (!opened) {
-          opened = true;
-          onOpen?.();
-        }
-        const data = frame.data && frame.data.trim() !== '' ? safeParseJson(frame.data) : null;
-        onEvent?.(frame.event ?? 'message', data);
-      };
-
-      for (;;) {
-        const { done: streamDone, value } = await reader.read();
-        if (streamDone) break;
-        buffer += decoder.decode(value, { stream: true });
-        const blocks = buffer.split(/\r?\n\r?\n/);
-        buffer = blocks.pop() ?? '';
-        for (const block of blocks) {
-          const frame = parseSseFrame(block);
-          if (frame) dispatch(frame);
-        }
-      }
-      // 兜底：无结尾空行的最后一帧
-      if (buffer.trim()) {
-        const frame = parseSseFrame(buffer);
-        if (frame) dispatch(frame);
-      }
       if (!isAborted()) onClose?.();
     } catch (error: unknown) {
       if (!isAborted()) onError?.(error);

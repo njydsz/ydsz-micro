@@ -22,12 +22,7 @@ import type { RouteRecordRaw } from 'vue-router';
  * 与主应用 main/src/views/_core/subapp/skeletons/skeleton-registry.ts 的 SkeletonType 对齐。
  * 此处单独定义类型而非从主应用导入，避免 conf/vite-config 反向依赖 main 包。
  */
-export type MicroAppSkeletonType =
-  | 'dashboard'
-  | 'default'
-  | 'detail'
-  | 'form'
-  | 'list';
+export type MicroAppSkeletonType = 'dashboard' | 'default' | 'detail' | 'form' | 'list';
 
 /** 单个微应用的完整注册信息 */
 export interface MicroAppEntry {
@@ -114,7 +109,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
     name: 'cronjob-web',
     packageName: '@ydsz/cronjob-web',
     activeRule: '/YDSZ-cron',
-    redirect: '/YDSZ-cron/jobs',
+    // B2-FIX: 与 cronjob-web 实际路由（/job/list）对齐，此前 /jobs 激活后首跳 404
+    redirect: '/YDSZ-cron/job/list',
     title: '定时任务',
     icon: 'lucide:clock',
     order: 104,

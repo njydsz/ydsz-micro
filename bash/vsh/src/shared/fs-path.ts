@@ -13,14 +13,25 @@ import { resolve, dirname, join, extname } from 'node:path';
 const SOURCE_EXTS = ['.ts', '.tsx', '.mts', '.cts', '.vue', '.js', '.mjs', '.cjs'];
 
 /** 递归收集时跳过的目录 */
-const IGNORE_DIRS = new Set(['node_modules', 'dist', 'coverage', '.git', '.husky', 'e2e', '.changeset']);
+const IGNORE_DIRS = new Set([
+  'node_modules',
+  'dist',
+  'coverage',
+  '.git',
+  '.husky',
+  'e2e',
+  '.changeset',
+]);
 
 /**
  * 递归收集 rootDir 下指定顶层目录中的所有源码文件。
  * @param rootDir 项目根
  * @param dirs 需要扫描的顶层目录（默认 main / apps / comm）
  */
-export function collectSourceFiles(rootDir: string, dirs: string[] = ['main', 'apps', 'comm']): string[] {
+export function collectSourceFiles(
+  rootDir: string,
+  dirs: string[] = ['main', 'apps', 'comm'],
+): string[] {
   const files: string[] = [];
   for (const dir of dirs) {
     walk(resolve(rootDir, dir), files);
@@ -150,6 +161,12 @@ export function resolveSpecifier(
  * 从文件内容提取静态 import/export 的 specifier，用于「初始化期」依赖图。
  *
  * 排除规则（避免循环依赖误报/过度严格）：
+ * - 注释行：JSDoc 内容行以 `*` 开头（云顶规范注释风格），`//`、`/*` 行同理。
+ *   v4.3.1 修复：此前未排除注释，JSDoc 示例代码
+ *   （`* import { x } from '@ydsz/shared-auth';`）被误判为真实依赖边，
+ *   导致 check-circular 对 barrel re-export 模式批量误报循环依赖（×9）。
+ *   注：曾尝试字符级 stripComments 状态机，但正则字面量（如 /<div id="..."/）
+ *   内的引号会污染字符串状态机，故采用行级过滤——更简单且对此用途零误伤。
  * - 整行 `import type` / `export type`：编译后擦除，不构成运行时依赖。
  * - 动态 `import("x")` / `import("x").Type`：属于运行期懒加载或内联类型查询，不阻塞模块初始化，
  *   不计入初始化期循环（业界主流工具 madge/dependency-cruiser 同此默认）。此类导入本就是打破循环的惯用法。
@@ -161,6 +178,10 @@ export function extractSpecifiers(content: string): string[] {
   const lines = content.split('\n');
   const staticRe = /(?:from\s*|export\s+\*\s+from\s+)['"]([^'"]+)['"]/g;
   for (const line of lines) {
+    const trimmed = line.trimStart();
+    if (trimmed.startsWith('*') || trimmed.startsWith('/*') || trimmed.startsWith('//')) {
+      continue;
+    }
     if (/^\s*import\s+type\s/.test(line)) continue;
     if (/^\s*export\s+type\s/.test(line)) continue;
     let m;

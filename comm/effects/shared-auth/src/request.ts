@@ -77,6 +77,27 @@ function getCsrfToken(): string {
 const CSRF_MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
 /**
+ * P0-7: 解析当前租户 ID（多租户头 X-Tenant-Id 注入，MULTI 模式）。
+ *
+ * <p>解析顺序（先到先得，无值则不注入，保持对单租户应用的零行为影响）：
+ *
+ * <ol>
+ *   <li>请求头已显式携带（调用方覆盖，最高优先级）
+ *   <li>{@code localStorage["X-Tenant-Id"]}（由租户切换器/宿主应用写入）
+ *   <li>{@code import.meta.env.VITE_APP_TENANT_ID}（构建期默认租户）
+ * </ol>
+ */
+function resolveTenantId(existingHeader?: string): string {
+  if (existingHeader) return existingHeader;
+  if (typeof localStorage !== 'undefined') {
+    const stored = localStorage.getItem('X-Tenant-Id');
+    if (stored) return stored;
+  }
+  const envTenant = import.meta.env.VITE_APP_TENANT_ID as string | undefined;
+  return envTenant ?? '';
+}
+
+/**
  * 创建与后端对齐的 RequestClient
  *
  * @param onReAuthenticate token 失效时的回调（通常由子应用传入 logout 逻辑）
@@ -113,6 +134,11 @@ export function createSharedRequestClient(
         config.headers.Authorization = formatToken(tokenStore.accessToken);
       }
       config.headers['Accept-Language'] = preferences.app.locale;
+      // P0-7: 多租户（MULTI 模式）租户头注入；无租户配置时为空串不注入，保持单租户兼容
+      const tenantId = resolveTenantId(config.headers['X-Tenant-Id']);
+      if (tenantId) {
+        config.headers['X-Tenant-Id'] = tenantId;
+      }
       // P1-6: 生成前端 TraceID，与后端日志/链路追踪关联
       if (!config.headers['X-Trace-Id']) {
         config.headers['X-Trace-Id'] = generateTraceId();

@@ -22,7 +22,7 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
   basename: '/YDSZ-flow',
   routes,
   rootComponent: RootApp,
-  preferencesOverrides,
+  preferencesOverrides: overridesPreferences,
   initRoutes,
   guard: createRouterGuard,
   async onSetup(app) {

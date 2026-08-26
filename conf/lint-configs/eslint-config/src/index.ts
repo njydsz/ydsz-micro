@@ -66,6 +66,7 @@ function tsConfig(): Linter.Config {
         ecmaVersion: 'latest',
         sourceType: 'module',
         projectService: true,
+        allowDefaultProject: ['*.config.ts', '*.config.mts'],
       },
     },
     plugins: {
@@ -144,6 +145,8 @@ export function defineConfig(): Linter.Config[] {
         '**/*.d.ts',
         '**/*.d.mts',
         '**/*.d.cts',
+        '**/archived/**',
+        '**/.generated-archived/**',
       ],
     },
     // 基础 JS 规则
@@ -157,10 +160,7 @@ export function defineConfig(): Linter.Config[] {
     // 统一日志模块实现文件：内部需直接调用 console.*，豁免 no-console
     // （配合 §14.5：业务代码必须使用 createLogger，仅实现层可直用 console）
     {
-      files: [
-        '**/utils/logger.ts',
-        '**/@core/base/shared/src/utils/logger.ts',
-      ],
+      files: ['**/utils/logger.ts', '**/@core/base/shared/src/utils/logger.ts'],
       rules: {
         'no-console': 'off',
       },
@@ -192,10 +192,7 @@ export function defineConfig(): Linter.Config[] {
     },
     // 子应用独立运行入口（standalone-main）与 mock 初始化：开发辅助输出，不属于生产业务路径
     {
-      files: [
-        '**/src/standalone-main.ts',
-        '**/src/mock/**/*.ts',
-      ],
+      files: ['**/src/standalone-main.ts', '**/src/mock/**/*.ts'],
       rules: {
         'no-console': 'off',
       },

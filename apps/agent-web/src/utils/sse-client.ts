@@ -1,5 +1,5 @@
 /**
- * Agent SSE 客户端工具（POST + fetch ReadableStream 解析）
+ * Agent SSE 客户端工具（基于 @ydsz/shared-auth streamRequest 的业务分发层）
  *
  * <p>用于消费后端 AgentController 的流式接口（{@code POST /api/v1/agent/chat/stream}、
  * {@code POST /api/v1/agent/execute/stream}）。后端 SseExecutor 统一推送三种事件：
@@ -10,11 +10,15 @@
  * </ul>
  * 心跳帧为注释帧（{:keep-alive}），解析器自动忽略。
  *
+ * <p>v4.3.1 重构：鉴权头注入与 SSE 帧解析（fetch + ReadableStream）下沉至
+ * 共享基础设施 {@link streamRequest}（云顶规范 §6.1：业务代码禁裸 fetch），
+ * 本文件仅保留 Agent 业务事件分发（chunk/done/error）与 abort 生命周期管理。
+ *
  * @path apps/agent-web/src/utils/sse-client.ts
  * @author ydsz-team
  * @since 4.2.0
  */
-import { useTokenStore } from '@ydsz/stores';
+import { streamRequest } from '@ydsz/shared-auth';
 
 /** 流式分片数据（对应后端 sent {@code chunk} 事件负载） */
 export interface AgentStreamChunk {
@@ -43,11 +47,6 @@ export interface AgentStreamOptions {
   signal?: AbortSignal;
 }
 
-interface SseFrame {
-  event?: string;
-  data?: string;
-}
-
 /** 解析单个 JSON 数据帧，失败返回 null */
 function safeParseJson(raw: string): Record<string, unknown> | null {
   try {
@@ -58,37 +57,12 @@ function safeParseJson(raw: string): Record<string, unknown> | null {
   }
 }
 
-/** 解析单个 SSE 帧块（event/data 字段；注释、id、retry 帧忽略） */
-function parseSseFrame(block: string): SseFrame | null {
-  const dataLines: string[] = [];
-  let eventName: string | undefined;
-  const lines = block.split(/\r?\n/);
-  for (const line of lines) {
-    if (!line || line.startsWith(':')) continue;
-    const colon = line.indexOf(':');
-    const field = colon === -1 ? line : line.slice(0, colon);
-    const value = colon === -1 ? '' : line.slice(colon + 1).replace(/^ /, '');
-    switch (field) {
-      case 'event':
-        eventName = value;
-        break;
-      case 'data':
-        dataLines.push(value);
-        break;
-      default:
-        // id / retry / 未知字段忽略
-        break;
-    }
-  }
-  if (!eventName && dataLines.length === 0) return null;
-  return { event: eventName, data: dataLines.length ? dataLines.join('\n') : undefined };
-}
-
 /**
  * 打开一条 Agent 流式 SSE 连接（POST 请求体 + 事件回调）。
  *
- * <p>鉴权：自动从 {@link useTokenStore} 读取 accessToken 注入 Authorization 头；
- * 返回关闭函数（幂等），配合外部 signal 供「停止生成」与组件卸载时断开连接。
+ * <p>鉴权与帧解析由 {@link streamRequest} 承担（含 HttpOnly Cookie 模式自动跳过
+ * Authorization 头）；返回关闭函数（幂等），配合外部 signal 供「停止生成」
+ * 与组件卸载时断开连接。
  *
  * @param url 相对路径（如 /api/v1/agent/chat/stream）
  * @param body 请求体（ChatRequestDTO / AgentExecutionRequestDTO，弱类型直传）
@@ -114,76 +88,50 @@ export function openAgentStream(
     if (!controller.signal.aborted) controller.abort();
   };
 
-  // 同步读取 token（调用方处于组件 setup，pinia 已激活）
-  const accessToken = useTokenStore().accessToken;
-
   const run = async (): Promise<void> => {
-    const headers = new Headers({ accept: 'text/event-stream', 'content-type': 'application/json' });
-    if (accessToken) headers.set('authorization', `Bearer ${accessToken}`);
+    let opened = false;
+
+    const dispatch = (eventName: string, rawData: string): void => {
+      if (!opened) {
+        opened = true;
+        onOpen?.();
+      }
+      const data = rawData.trim() !== '' ? safeParseJson(rawData) : null;
+      switch (eventName) {
+        case 'chunk':
+          onChunk?.({
+            content: String(data?.content ?? ''),
+            finished: Boolean(data?.finished),
+            finishReason:
+              typeof data?.finishReason === 'string' ? (data.finishReason as string) : undefined,
+            toolCalls: data?.toolCalls,
+          });
+          break;
+        case 'done':
+          onDone?.();
+          break;
+        case 'error':
+          onError?.(
+            new Error(
+              typeof data?.error === 'string' ? (data.error as string) : 'Agent 流式响应异常',
+            ),
+          );
+          break;
+        default:
+          // message / 未知事件忽略
+          break;
+      }
+    };
 
     try {
-      const response = await fetch(url, {
+      await streamRequest({
+        url,
         method: 'POST',
-        headers,
-        body: JSON.stringify(body),
-        credentials: 'include',
+        headers: { 'content-type': 'application/json' },
+        data: body,
         signal: controller.signal,
+        onEvent: ({ event, data }) => dispatch(event ?? 'message', data),
       });
-      if (!response.ok) {
-        throw new Error(`SSE 请求失败：HTTP ${response.status}`);
-      }
-      if (!response.body) {
-        throw new Error('当前环境不支持 ReadableStream，无法消费 SSE 流');
-      }
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let buffer = '';
-      let opened = false;
-
-      const dispatch = (frame: SseFrame): void => {
-        if (!opened) {
-          opened = true;
-          onOpen?.();
-        }
-        const eventName = frame.event ?? 'message';
-        const data = frame.data && frame.data.trim() !== '' ? safeParseJson(frame.data) : null;
-        switch (eventName) {
-          case 'chunk':
-            onChunk?.({
-              content: String(data?.content ?? ''),
-              finished: Boolean(data?.finished),
-              finishReason: typeof data?.finishReason === 'string' ? (data.finishReason as string) : undefined,
-              toolCalls: data?.toolCalls,
-            });
-            break;
-          case 'done':
-            onDone?.();
-            break;
-          case 'error':
-            onError?.(new Error(typeof data?.error === 'string' ? (data.error as string) : 'Agent 流式响应异常'));
-            break;
-          default:
-            // message / 未知事件忽略
-            break;
-        }
-      };
-
-      for (;;) {
-        const { done: streamDone, value } = await reader.read();
-        if (streamDone) break;
-        buffer += decoder.decode(value, { stream: true });
-        const blocks = buffer.split(/\r?\n\r?\n/);
-        buffer = blocks.pop() ?? '';
-        for (const block of blocks) {
-          const frame = parseSseFrame(block);
-          if (frame) dispatch(frame);
-        }
-      }
-      // 兜底：无结尾空行的最后一帧
-      if (buffer.trim()) {
-        const frame = parseSseFrame(buffer);
-        if (frame) dispatch(frame);
-      }
       if (!isAborted()) onClose?.();
     } catch (error: unknown) {
       if (!isAborted()) onError?.(error);

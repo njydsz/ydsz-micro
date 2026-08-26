@@ -17,7 +17,15 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import {
+  ElButton,
+  ElDrawer,
+  ElMessage,
+  ElMessageBox,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+} from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
@@ -52,21 +60,46 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
     { field: 'businessNo', title: '业务单号', width: 140 },
     { field: 'initiatorName', title: '发起人', width: 100 },
     {
-      field: 'flowStatus', title: '状态', width: 90,
+      field: 'flowStatus',
+      title: '状态',
+      width: 90,
       slots: { default: ({ row }) => statusTag(row.flowStatus) },
     },
     { field: 'currentNodeName', title: '当前节点', width: 120 },
     { field: 'startAt', title: '开始时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 260, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 260,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleTerminate(row) }, () => '终止'),
-            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleSuspend(row) }, () => '挂起'),
-            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleActivate(row) }, () => '恢复'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleRecall(row) }, () => '撤回'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => openTimeline(row) }, () => '轨迹'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleTerminate(row) },
+              () => '终止',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'warning', onClick: () => handleSuspend(row) },
+              () => '挂起',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'success', onClick: () => handleActivate(row) },
+              () => '恢复',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleRecall(row) },
+              () => '撤回',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => openTimeline(row) },
+              () => '轨迹',
+            ),
           ]),
       },
     },
@@ -90,8 +123,16 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'flowName', title: '流程名称', itemRender: { name: 'Input', props: { placeholder: '流程名称' } } },
-      { field: 'status', title: '状态', itemRender: { name: 'Input', props: { placeholder: '状态' } } },
+      {
+        field: 'flowName',
+        title: '流程名称',
+        itemRender: { name: 'Input', props: { placeholder: '流程名称' } },
+      },
+      {
+        field: 'status',
+        title: '状态',
+        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+      },
     ],
   },
 };
@@ -99,14 +140,16 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [InstanceFormModal, instanceFormApi] = useYDSZModal({ connectedComponent: InstanceForm });
 
-function handleAdd() { instanceFormApi.open(); }
+function handleAdd() {
+  instanceFormApi.open();
+}
 
 /** 终止实例（需填写终止原因） */
 async function handleTerminate(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
     const { value: reason } = await ElMessageBox.prompt('请输入终止原因', '终止流程实例', {
-      inputPlaceholder: 'terminate reason',
+      inputPlaceholder: '请输入终止原因',
       inputValidator: (value) => (value ? true : '终止原因不能为空'),
     });
     await terminate({ id: row.id }, { reason });
@@ -121,7 +164,9 @@ async function handleTerminate(row: FlowInstanceVO) {
 async function handleSuspend(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定挂起流程「${row.flowName}」吗？`, '挂起确认', { type: 'warning' });
+    await ElMessageBox.confirm(`确定挂起流程「${row.flowName}」吗？`, '挂起确认', {
+      type: 'warning',
+    });
     await suspend({ id: row.id });
     ElMessage.success('已挂起');
     gridApi.query();
@@ -134,11 +179,14 @@ async function handleSuspend(row: FlowInstanceVO) {
 async function handleActivate(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
+    await ElMessageBox.confirm(`确定恢复流程「${row.flowName}」吗？`, '恢复确认', {
+      type: 'warning',
+    });
     await activate({ id: row.id });
     ElMessage.success('已恢复');
     gridApi.query();
   } catch {
-    // 请求失败提示由拦截器统一处理
+    // 用户取消或请求失败
   }
 }
 
@@ -146,7 +194,9 @@ async function handleActivate(row: FlowInstanceVO) {
 async function handleRecall(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定撤回流程「${row.flowName}」吗？`, '撤回确认', { type: 'warning' });
+    await ElMessageBox.confirm(`确定撤回流程「${row.flowName}」吗？`, '撤回确认', {
+      type: 'warning',
+    });
     await recall({ id: row.id }, {});
     ElMessage.success('已撤回');
     gridApi.query();
@@ -175,7 +225,9 @@ async function openTimeline(row: FlowInstanceVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="流程实例">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">发起流程</ElButton></template>
+      <template #toolbar-tools
+        ><ElButton type="primary" @click="handleAdd">发起流程</ElButton></template
+      >
     </Grid>
     <InstanceFormModal @success="gridApi.query()" />
     <ElDrawer v-model="timelineVisible" title="流程运行轨迹" :size="640">

@@ -38,6 +38,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/jobDag/index.vue'),
         meta: { icon: 'lucide:workflow', title: 'DAG列表' },
       },
+      {
+        name: 'JobDagInstanceManagement',
+        path: 'instance',
+        component: () => import('#/views/jobDagInstance/index.vue'),
+        meta: { icon: 'lucide:activity', title: '运行实例' },
+      },
     ],
   },
   {
@@ -45,6 +51,12 @@ const routes: RouteRecordRaw[] = [
     name: 'LogMgmt',
     path: '/log',
     children: [
+      {
+        name: 'CronjobDashboard',
+        path: 'dashboard',
+        component: () => import('#/views/dashboard/index.vue'),
+        meta: { icon: 'lucide:layout-dashboard', title: '运行看板' },
+      },
       {
         name: 'JobLogManagement',
         path: 'list',

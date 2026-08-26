@@ -21,14 +21,26 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { batchDelete, batchPause, batchResume, deleteApi, page, pause, resume, trigger } from '#/api/job';
+import {
+  batchDelete,
+  batchPause,
+  batchResume,
+  deleteApi,
+  page,
+  pause,
+  resume,
+  trigger,
+} from '#/api/job';
 import type { JobBatchDTO, JobVO } from '#/api/models';
 
 import JobForm from './job-form.vue';
 
 defineOptions({ name: 'JobManagement' });
+
+const router = useRouter();
 
 /** 行类型：以真实契约 JobVO 为基础，status 由后端响应附带（契约模型未声明该字段） */
 type JobRow = JobVO & { status?: string };
@@ -56,31 +68,66 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
       slots: {
         default: ({ row }) => {
           const job = row as JobRow;
-          return h(
-            ElTag,
-            { type: isPaused(job) ? 'info' : 'success' },
-            () => (isPaused(job) ? '已暂停' : '运行中'),
+          return h(ElTag, { type: isPaused(job) ? 'info' : 'success' }, () =>
+            isPaused(job) ? '已暂停' : '运行中',
           );
         },
       },
     },
     { field: 'jobRemark', title: '备注', width: 140 },
+    {
+      field: 'nextFireTime',
+      title: '下次触发',
+      width: 170,
+      formatter: ({ cellValue }) => (cellValue ? String(cellValue).replace('T', ' ') : '-'),
+    },
+    {
+      field: 'lastFireTime',
+      title: '上次触发',
+      width: 170,
+      formatter: ({ cellValue }) => (cellValue ? String(cellValue).replace('T', ' ') : '-'),
+    },
     { field: 'createdAt', title: '创建时间', width: 160 },
     {
       field: 'action',
       title: '操作',
-      width: 250,
+      width: 300,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const job = row as JobRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(job) }, () => '编辑'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(job) },
+              () => '编辑',
+            ),
             isPaused(job)
-              ? h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleResume(job) }, () => '恢复')
-              : h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handlePause(job) }, () => '暂停'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleTrigger(job) }, () => '触发'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(job) }, () => '删除'),
+              ? h(
+                  ElButton,
+                  { size: 'small', link: true, type: 'success', onClick: () => handleResume(job) },
+                  () => '恢复',
+                )
+              : h(
+                  ElButton,
+                  { size: 'small', link: true, type: 'warning', onClick: () => handlePause(job) },
+                  () => '暂停',
+                ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleTrigger(job) },
+              () => '触发',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'info', onClick: () => handleViewLog(job) },
+              () => '日志',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(job) },
+              () => '删除',
+            ),
           ]);
         },
       },
@@ -94,7 +141,7 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
       query: async ({ page: pageInfo }, formValues) => {
         const res = await page({
           pageNum: pageInfo.currentPage,
-          pageSize: pageInfo.pageSize,
+          size: pageInfo.pageSize,
           ...formValues,
         });
         return { items: res.data ?? [], total: res.total ?? 0 };
@@ -105,8 +152,32 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'keyword', title: '关键词', itemRender: { name: 'Input', props: { placeholder: '任务名称/标识' } } },
-      { field: 'group', title: '分组', itemRender: { name: 'Input', props: { placeholder: '分组' } } },
+      {
+        field: 'keyword',
+        title: '关键词',
+        itemRender: { name: 'Input', props: { placeholder: '任务名称/标识' } },
+      },
+      {
+        field: 'group',
+        title: '分组',
+        itemRender: { name: 'Input', props: { placeholder: '分组' } },
+      },
+      {
+        field: 'status',
+        title: '状态',
+        itemRender: {
+          name: 'Select',
+          props: {
+            clearable: true,
+            options: [
+              { label: '运行中', value: 'NORMAL' },
+              { label: '已暂停', value: 'PAUSED' },
+              { label: '已停止', value: 'STOPPED' },
+              { label: '异常', value: 'ERROR' },
+            ],
+          },
+        },
+      },
     ],
   },
 };
@@ -167,6 +238,11 @@ async function handleDelete(row: JobRow) {
   }
 }
 
+/** 跳转到执行日志页并预填任务标识筛选 */
+function handleViewLog(row: JobRow) {
+  router.push({ path: '/log/list', query: { jobKey: row.jobKey ?? '' } });
+}
+
 /** 收集勾选行的任务 ID（JobBatchDTO.jobIds），未勾选时给出提示 */
 function getSelectedIds(): string[] {
   const rows = gridApi.grid.getCheckboxRecords() as JobRow[];
@@ -207,7 +283,9 @@ async function handleBatchDelete() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
   try {
-    await ElMessageBox.confirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, '批量删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, '批量删除确认', {
+      type: 'warning',
+    });
     await batchDelete({ jobIds: ids } satisfies JobBatchDTO);
     ElMessage.success('批量删除成功');
     gridApi.query();

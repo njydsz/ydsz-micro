@@ -911,7 +911,9 @@ def main():
                     continue
                 if gen_banner not in head:
                     continue
-                bak_dir = os.path.join(api_dir, ".generated-archived")
+                # P0-8: 归档目录固定为 {app}/archived/contracts（位于 src 外，
+                #       避免 ESLint/tsconfig 将归档产物纳入工程导致解析错误）
+                bak_dir = os.path.join(MICRO_ROOT, "apps", app, "archived", "contracts")
                 os.makedirs(bak_dir, exist_ok=True)
                 dst = os.path.join(bak_dir, fname)
                 if os.path.exists(dst):
@@ -922,7 +924,7 @@ def main():
             gen_old = os.path.join(api_dir, "generated")
             if os.path.isdir(gen_old):
                 import shutil
-                bak = os.path.join(api_dir, ".generated-archived")
+                bak = os.path.join(MICRO_ROOT, "apps", app, "archived", "contracts")
                 if os.path.isdir(bak):
                     shutil.rmtree(bak)
                 os.rename(gen_old, bak)

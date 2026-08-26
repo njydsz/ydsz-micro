@@ -4,17 +4,19 @@
 
 ## 应用定位
 
-| 属性 | 值 |
-|---|---|
-| **类型** | 微前端主应用（micro-kernel micro-frontend host） |
-| **包名** | @ydsz/main-web |
-| **对应后端服务** | YDSZ-gateway |
-| **前端端口** | 5600 |
-| **后端端口** | 9000 |
-| **路由前缀** | / |
-| **版本** | 1.0.0 |
+| 属性             | 值                                               |
+| ---------------- | ------------------------------------------------ |
+| **类型**         | 微前端主应用（micro-kernel micro-frontend host） |
+| **包名**         | @ydsz/main-web                                   |
+| **对应后端服务** | YDSZ-gateway                                     |
+| **前端端口**     | 5600                                             |
+| **后端端口**     | 9000                                             |
+| **路由前缀**     | /                                                |
+| **版本**         | 1.0.0                                            |
 
-主应用是整个 YDSZ 前端的入口与宿主，负责登录认证、全局布局、菜单分发、子应用注册与激活、全局状态通信（micro-kernel globalState）以及路由守卫。9 个业务子应用通过路径前缀匹配挂载到 `#subapp-container` 容器中。
+主应用是整个 YDSZ 前端的入口与宿主，负责登录认证、全局布局、菜单分发、子应用注册与激活、全局状态通信（micro-kernel
+globalState）以及路由守卫。9 个业务子应用通过路径前缀匹配挂载到
+`#subapp-container` 容器中。
 
 ## 目录结构
 
@@ -47,31 +49,31 @@ main/
 
 主应用作为微前端宿主，复用 monorepo 共享包：
 
-| 依赖包 | 作用 |
-|---|---|
-| `@ydsz/request` | HTTP 请求客户端（Axios 封装），承载认证拦截 |
-| `@ydsz/access` | 权限码与路由访问控制 |
-| `@ydsz/layouts` | 布局组件（basic + auth） |
-| `@ydsz/common-ui` | 通用 UI 组件 |
-| `@ydsz/monitor` | 前端监控（错误捕获 + Web Vitals） |
-| `@ydsz/stores` | 全局状态管理 |
-| `@ydsz/locales` | 国际化基础包 |
-| `element-plus` | UI 组件库 |
-| `pinia` | 状态管理 |
+| 依赖包            | 作用                                        |
+| ----------------- | ------------------------------------------- |
+| `@ydsz/request`   | HTTP 请求客户端（Axios 封装），承载认证拦截 |
+| `@ydsz/access`    | 权限码与路由访问控制                        |
+| `@ydsz/layouts`   | 布局组件（basic + auth）                    |
+| `@ydsz/common-ui` | 通用 UI 组件                                |
+| `@ydsz/monitor`   | 前端监控（错误捕获 + Web Vitals）           |
+| `@ydsz/stores`    | 全局状态管理                                |
+| `@ydsz/locales`   | 国际化基础包                                |
+| `element-plus`    | UI 组件库                                   |
+| `pinia`           | 状态管理                                    |
 
 ## 核心功能模块
 
-| 模块 | 功能描述 | 关键目录/文件 |
-|---|---|---|
-| 登录认证 | 账号密码/验证码/二维码/注册/忘记密码 | `src/views/_core/authentication/` |
-| 仪表盘 | 数据分析（Analytics）与工作台（Workspace） | `src/views/dashboard/` |
-| 子应用管理 | micro-kernel 子应用注册与激活 | 注册表 MICRO_APPS |
-| 路由守卫 | 登录态校验、权限码控制、子应用 catch-all | `src/router/guard.ts` |
-| 布局系统 | 基础布局（basic）与认证布局（auth） | `src/layouts/` |
-| 全局搜索 | 跨模块菜单/资源快速检索 | `src/components/global-search.vue` |
-| 国际化 | zh-CN / en-US 双语切换 | `src/locales/` |
-| 全局状态 | 认证状态、通知状态、micro-kernel 全局状态 | `src/store/` |
-| 异常页面 | 404/403/500/离线/敬请期待 | `src/views/_core/fallback/` |
+| 模块       | 功能描述                                   | 关键目录/文件                      |
+| ---------- | ------------------------------------------ | ---------------------------------- |
+| 登录认证   | 账号密码/验证码/二维码/注册/忘记密码       | `src/views/_core/authentication/`  |
+| 仪表盘     | 数据分析（Analytics）与工作台（Workspace） | `src/views/dashboard/`             |
+| 子应用管理 | micro-kernel 子应用注册与激活              | 注册表 MICRO_APPS                  |
+| 路由守卫   | 登录态校验、权限码控制、子应用 catch-all   | `src/router/guard.ts`              |
+| 布局系统   | 基础布局（basic）与认证布局（auth）        | `src/layouts/`                     |
+| 全局搜索   | 跨模块菜单/资源快速检索                    | `src/components/global-search.vue` |
+| 国际化     | zh-CN / en-US 双语切换                     | `src/locales/`                     |
+| 全局状态   | 认证状态、通知状态、micro-kernel 全局状态  | `src/store/`                       |
+| 异常页面   | 404/403/500/离线/敬请期待                  | `src/views/_core/fallback/`        |
 
 ## 启动方式
 
@@ -92,47 +94,47 @@ pnpm build:main
 
 环境变量位于 `.env.development` / `.env.production` / `.env.analyze`：
 
-| 变量 | 说明 | 默认值 |
-|---|---|---|
-| `VITE_PORT` | 开发服务器端口 | 5600 |
-| `VITE_BASE` | 路由 base 路径 | / |
-| `VITE_GLOB_API_URL` | 接口地址前缀（经 Gateway 9000 代理） | /api |
-| `VITE_DEVTOOLS` | 是否开启 Vue Devtools | true |
-| `VITE_INJECT_APP_LOADING` | 是否注入全局 loading | true |
+| 变量                      | 说明                                 | 默认值 |
+| ------------------------- | ------------------------------------ | ------ |
+| `VITE_PORT`               | 开发服务器端口                       | 5600   |
+| `VITE_BASE`               | 路由 base 路径                       | /      |
+| `VITE_GLOB_API_URL`       | 接口地址前缀（经 Gateway 9000 代理） | /api   |
+| `VITE_DEVTOOLS`           | 是否开启 Vue Devtools                | true   |
+| `VITE_INJECT_APP_LOADING` | 是否注入全局 loading                 | true   |
 
 ## 路由配置
 
 主应用路由分为三类模块（`src/router/routes/modules/`）：
 
-| 模块文件 | 路径前缀 | 说明 |
-|---|---|---|
-| `dashboard.ts` | `/dashboard` | 数据分析、工作台 |
-| `subapps.ts` | `/YDSZ-user` `/YDSZ-sys` 等 | 8 个子应用 catch-all 激活路由 |
-| `demos.ts` | `/demos` | 演示页面 |
+| 模块文件       | 路径前缀                    | 说明                          |
+| -------------- | --------------------------- | ----------------------------- |
+| `dashboard.ts` | `/dashboard`                | 数据分析、工作台              |
+| `subapps.ts`   | `/YDSZ-user` `/YDSZ-sys` 等 | 8 个子应用 catch-all 激活路由 |
+| `demos.ts`     | `/demos`                    | 演示页面                      |
 
 子应用激活规则（路径前缀匹配 → 挂载对应子应用）：
 
-| 路径前缀 | 子应用 | 默认重定向 |
-|---|---|---|
-| `/YDSZ-user/*` | userinfo-web | /YDSZ-user/users |
-| `/YDSZ-sys/*` | system-web | /YDSZ-sys/configs |
-| `/YDSZ-msg/*` | message-web | /YDSZ-msg/messages |
-| `/YDSZ-cron/*` | cronjob-web | /YDSZ-cron/jobs |
+| 路径前缀       | 子应用       | 默认重定向           |
+| -------------- | ------------ | -------------------- |
+| `/YDSZ-user/*` | userinfo-web | /YDSZ-user/users     |
+| `/YDSZ-sys/*`  | system-web   | /YDSZ-sys/configs    |
+| `/YDSZ-msg/*`  | message-web  | /YDSZ-msg/messages   |
+| `/YDSZ-cron/*` | cronjob-web  | /YDSZ-cron/job/list  |
 | `/YDSZ-flow/*` | workflow-web | /YDSZ-flow/templates |
-| `/YDSZ-wiki/*` | nextwiki-web | /YDSZ-wiki/files |
-| `/YDSZ-rule/*` | literule-web | /YDSZ-rule/rules |
-| `/ydsz-ai/*` | agent-web | /ydsz-ai/chat |
+| `/YDSZ-wiki/*` | nextwiki-web | /YDSZ-wiki/files     |
+| `/YDSZ-rule/*` | literule-web | /YDSZ-rule/rules     |
+| `/ydsz-ai/*`   | agent-web    | /ydsz-ai/chat        |
 
 ## 关键页面与组件
 
-| 路径 | 功能 |
-|---|---|
-| `src/views/dashboard/analytics/index.vue` | 数据分析仪表盘，含趋势/访问量/销售/来源统计组件 |
-| `src/views/dashboard/workspace/index.vue` | 个人工作台 |
-| `src/views/_core/authentication/login.vue` | 登录页（账号密码 + 验证码） |
-| `src/views/_core/subapp/index.vue` | 子应用挂载容器，承载 micro-kernel 渲染 |
-| `src/components/global-search.vue` | 全局搜索弹窗组件 |
-| `src/layouts/basic.vue` | 主框架布局（顶栏 + 侧栏 + 标签页 + 内容区） |
+| 路径                                       | 功能                                            |
+| ------------------------------------------ | ----------------------------------------------- |
+| `src/views/dashboard/analytics/index.vue`  | 数据分析仪表盘，含趋势/访问量/销售/来源统计组件 |
+| `src/views/dashboard/workspace/index.vue`  | 个人工作台                                      |
+| `src/views/_core/authentication/login.vue` | 登录页（账号密码 + 验证码）                     |
+| `src/views/_core/subapp/index.vue`         | 子应用挂载容器，承载 micro-kernel 渲染          |
+| `src/components/global-search.vue`         | 全局搜索弹窗组件                                |
+| `src/layouts/basic.vue`                    | 主框架布局（顶栏 + 侧栏 + 标签页 + 内容区）     |
 
 ## API 调用
 
@@ -159,15 +161,24 @@ export async function getAccessCodesApi() {
 }
 ```
 
-其他核心 API：`user.ts`（用户信息）、`menu.ts`（菜单树）、`notification.ts`（通知）、`search.ts`（全局搜索）。所有请求经 Vite proxy 统一代理到 Gateway 9000 端口。
+其他核心 API：`user.ts`（用户信息）、`menu.ts`（菜单树）、`notification.ts`（通知）、`search.ts`（全局搜索）。所有请求经 Vite
+proxy 统一代理到 Gateway 9000 端口。
 
 ## 注意事项
 
-1. **子应用激活依赖路径前缀**：新增子应用时需同步在注册表 MICRO_APPS 和 `src/router/routes/modules/subapps.ts`（catch-all 路由）两处注册，二者 `activeRule` 必须一致。
-2. **认证状态共享**：登录后 `accessToken` / `userInfo` 通过 `@ydsz/shared-auth` 的 `requestClient` 拦截器与 micro-kernel `globalState` 同步给所有子应用，子应用无需重复登录。
-3. **API 代理统一走 Gateway**：开发环境所有 `/api/*` 请求由 Vite proxy 转发到 `http://localhost:9000`（Gateway），不要直接指向子应用后端端口。
-4. **路由守卫顺序**：`src/router/guard.ts` 中先校验登录态再校验权限码，子应用 catch-all 路由使用 `hideInMenu` 避免菜单重复渲染。
-5. **生产环境子应用地址**：注册表 MICRO_APPS 中 `prodUrls` 使用相对路径（如 `/YDSZ-userinfo-web/`），部署时需保证 Nginx 反向代理到各子应用静态资源目录。
+1. **子应用激活依赖路径前缀**：新增子应用时需同步在注册表 MICRO_APPS 和
+   `src/router/routes/modules/subapps.ts`（catch-all 路由）两处注册，二者
+   `activeRule` 必须一致。
+2. **认证状态共享**：登录后 `accessToken` / `userInfo` 通过 `@ydsz/shared-auth`
+   的 `requestClient` 拦截器与 micro-kernel `globalState`
+   同步给所有子应用，子应用无需重复登录。
+3. **API 代理统一走 Gateway**：开发环境所有 `/api/*` 请求由 Vite proxy 转发到
+   `http://localhost:9000`（Gateway），不要直接指向子应用后端端口。
+4. **路由守卫顺序**：`src/router/guard.ts`
+   中先校验登录态再校验权限码，子应用 catch-all 路由使用 `hideInMenu`
+   避免菜单重复渲染。
+5. **生产环境子应用地址**：注册表 MICRO_APPS 中 `prodUrls` 使用相对路径（如
+   `/YDSZ-userinfo-web/`），部署时需保证 Nginx 反向代理到各子应用静态资源目录。
 
 ## 变更记录
 

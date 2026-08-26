@@ -11,3 +11,7 @@ node_modules/
 
 # 自动生成的 API 文件
 **/api/generated/
+
+# 归档目录（含生成代码参考文件）
+**/archived/**
+**/.generated-archived/**

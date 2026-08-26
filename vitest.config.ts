@@ -4,8 +4,8 @@
  * <p>配置 Vue 3 + JSX 测试环境，使用 happy-dom 作为 DOM 模拟器。
  *
  * <p>v4.3.1 架构调整：全仓测试改为「每包自持配置」——各 workspace 包
- * （apps/*、main、comm/*）使用各自包内的 vitest.config.ts 与 test 脚本，
- * 由 `pnpm test`（turbo）编排执行。根级配置不再跨包 glob（**/*.spec.ts），
+ * （apps、main、comm）使用各自包内的 vitest.config.ts 与 test 脚本，
+ * 由 pnpm test（turbo）编排执行。根级配置不再跨包 glob 匹配 spec 文件，
  * 原因：跨包运行缺少各包专属别名/插件声明，必然产生解析失败；
  * 同时移除 json reporter（其产物 test-results.json 长期滞留仓库根目录）。
  *

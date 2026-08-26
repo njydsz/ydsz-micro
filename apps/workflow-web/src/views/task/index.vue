@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElTabs, ElTabPane, ElTag } from 'element-plus';
+import { ElButton, ElMessage, ElMessageBox, ElTabs, ElTabPane, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, done, todo } from '#/api/flowTask';
@@ -57,19 +57,28 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
     { field: 'instanceId', title: '实例ID', width: 200 },
     { field: 'assigneeName', title: '办理人', width: 100 },
     {
-      field: 'taskStatus', title: '状态', width: 90,
+      field: 'taskStatus',
+      title: '状态',
+      width: 90,
       slots: { default: ({ row }) => statusTag(row.taskStatus) },
     },
     { field: 'createAt', title: '创建时间', width: 170 },
     { field: 'dueAt', title: '截止时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 120, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 120,
+      fixed: 'right',
       slots: {
         default: ({ row }) => {
           // 已办列表不提供处理操作
           if (activeTab.value !== 'todo') return h('span', { class: 'text-gray-400 text-xs' }, '-');
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleProcess(row) }, () => '处理'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleProcess(row) },
+              () => '处理',
+            ),
           ]);
         },
       },
@@ -96,8 +105,16 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'flowCode', title: '流程编码', itemRender: { name: 'Input', props: { placeholder: '流程编码' } } },
-      { field: 'businessType', title: '业务类型', itemRender: { name: 'Input', props: { placeholder: '业务类型' } } },
+      {
+        field: 'flowCode',
+        title: '流程编码',
+        itemRender: { name: 'Input', props: { placeholder: '流程编码' } },
+      },
+      {
+        field: 'businessType',
+        title: '业务类型',
+        itemRender: { name: 'Input', props: { placeholder: '业务类型' } },
+      },
     ],
   },
 };
@@ -131,11 +148,14 @@ async function handleBatchPass() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
   try {
+    await ElMessageBox.confirm(`确定批量通过选中的 ${ids.length} 条任务吗？`, '批量通过确认', {
+      type: 'warning',
+    });
     await batchPass(ids);
     ElMessage.success('批量通过成功');
     gridApi.query();
   } catch {
-    // 请求失败提示由拦截器统一处理
+    // 用户取消或请求失败
   }
 }
 
@@ -144,11 +164,20 @@ async function handleBatchReject() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
   try {
+    await ElMessageBox.confirm(
+      `确定批量驳回选中的 ${ids.length} 条任务吗？此操作不可撤销。`,
+      '批量驳回确认',
+      {
+        type: 'warning',
+        confirmButtonText: '确认驳回',
+        cancelButtonText: '取消',
+      },
+    );
     await batchReject(ids.map((taskId) => ({ taskId })));
     ElMessage.success('批量驳回成功');
     gridApi.query();
   } catch {
-    // 请求失败提示由拦截器统一处理
+    // 用户取消或请求失败
   }
 }
 </script>

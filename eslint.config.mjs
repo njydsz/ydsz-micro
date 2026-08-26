@@ -8,4 +8,11 @@
  */
 import { defineConfig } from '@ydsz/eslint-config';
 
-export default defineConfig();
+const config = defineConfig();
+
+// 归档目录（含生成代码参考文件）及根级配置文件不参与 lint
+config.unshift({
+  ignores: ['**/archived/**', '**/.generated-archived/**', 'vitest.config.ts', 'eslint.config.mjs'],
+});
+
+export default config;

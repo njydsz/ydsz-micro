@@ -33,22 +33,61 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
     { field: 'priority', title: '优先级', width: 80 },
     { field: 'version', title: '版本', width: 80 },
     {
-      field: 'status', title: '状态', width: 90,
-      slots: { default: ({ row }) => h(ElTag, { type: 'success' }, () => row.status ?? '-') },
+      field: 'status',
+      title: '状态',
+      width: 90,
+      slots: {
+        default: ({ row }) =>
+          h(ElTag, { type: statusTagType(row.status) }, () => row.status ?? '-'),
+      },
     },
     {
-      field: 'enabled', title: '启用', width: 80,
-      slots: { default: ({ row }) => h(ElTag, { type: row.enabled ? 'success' : 'info' }, () => (row.enabled ? '启用' : '停用')) },
+      field: 'enabled',
+      title: '启用',
+      width: 80,
+      slots: {
+        default: ({ row }) =>
+          h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
+            row.enabled ? '启用' : '停用',
+          ),
+      },
     },
     { field: 'createdAt', title: '创建时间', width: 160 },
     {
-      field: 'action', title: '操作', width: 250, fixed: 'right',
-      slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(ElButton, { size: 'small', link: true, type: row.enabled ? 'warning' : 'success', onClick: () => handleToggle(row) }, () => (row.enabled ? '停用' : '启用')),
-        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => openVersions(row) }, () => '版本'),
-        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
-      ]) },
+      field: 'action',
+      title: '操作',
+      width: 250,
+      fixed: 'right',
+      slots: {
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              ElButton,
+              {
+                size: 'small',
+                link: true,
+                type: row.enabled ? 'warning' : 'success',
+                onClick: () => handleToggle(row),
+              },
+              () => (row.enabled ? '停用' : '启用'),
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => openVersions(row) },
+              () => '版本',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
+          ]),
+      },
     },
   ],
   height: 'auto',
@@ -67,32 +106,72 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'ruleName', title: 'ruleName', itemRender: { name: 'Input', props: { placeholder: 'ruleName' } } },
-      { field: 'ruleCode', title: 'ruleCode', itemRender: { name: 'Input', props: { placeholder: 'ruleCode' } } },
+      {
+        field: 'ruleName',
+        title: '规则名称',
+        itemRender: { name: 'Input', props: { placeholder: '请输入规则名称' } },
+      },
+      {
+        field: 'ruleCode',
+        title: '规则编码',
+        itemRender: { name: 'Input', props: { placeholder: '请输入规则编码' } },
+      },
     ],
   },
 };
+/** 状态 → ElTag 类型映射（DRAFT 待发布 / PUBLISHED 已发布 / 其余按生命周期着色） */
+function statusTagType(status?: string): 'success' | 'warning' | 'info' | 'danger' {
+  switch ((status ?? '').toUpperCase()) {
+    case 'PUBLISHED':
+    case 'ACTIVE':
+      return 'success';
+    case 'DRAFT':
+    case 'PENDING':
+      return 'warning';
+    case 'REJECTED':
+    case 'DISABLED':
+    case 'OFFLINE':
+      return 'danger';
+    default:
+      return 'info';
+  }
+}
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [RuleFormModal, ruleFormApi] = useYDSZModal({ connectedComponent: RuleForm });
-function handleAdd() { ruleFormApi.open(); }
-function handleEdit(row: RuleDefinitionVO) { ruleFormApi.setData({ record: row }); ruleFormApi.open(); }
+function handleAdd() {
+  ruleFormApi.open();
+}
+function handleEdit(row: RuleDefinitionVO) {
+  ruleFormApi.setData({ record: row });
+  ruleFormApi.open();
+}
 async function handleToggle(row: RuleDefinitionVO) {
   if (!row.ruleCode) return;
   try {
-    await ElMessageBox.confirm(`确定${row.enabled ? '停用' : '启用'}规则「${row.ruleName}」吗？`, '确认', { type: 'warning' });
+    await ElMessageBox.confirm(
+      `确定${row.enabled ? '停用' : '启用'}规则「${row.ruleName}」吗？`,
+      '确认',
+      { type: 'warning' },
+    );
     await toggle({ ruleCode: row.ruleCode }, { enabled: !row.enabled });
     ElMessage.success('操作成功');
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 async function handleDelete(row: RuleDefinitionVO) {
   if (!row.ruleCode) return;
   try {
-    await ElMessageBox.confirm(`确定删除规则「${row.ruleName}」吗？`, '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(`确定删除规则「${row.ruleName}」吗？`, '删除确认', {
+      type: 'warning',
+    });
     await deleteRule({ ruleCode: row.ruleCode });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 /** 版本历史状态 */
 const versionsVisible = ref(false);
@@ -122,18 +201,26 @@ async function handleRollback(versionItem: RuleVersionVO) {
   const rule = currentRule.value;
   if (!rule?.ruleCode || versionItem.version === undefined) return;
   try {
-    await ElMessageBox.confirm(`确定将规则「${rule.ruleName}」回滚到版本 ${versionItem.version} 吗？`, '回滚确认', { type: 'warning' });
+    await ElMessageBox.confirm(
+      `确定将规则「${rule.ruleName}」回滚到版本 ${versionItem.version} 吗？`,
+      '回滚确认',
+      { type: 'warning' },
+    );
     await rollback({ ruleCode: rule.ruleCode }, { version: versionItem.version });
     ElMessage.success('回滚成功');
     gridApi.query();
     await loadVersions();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 </script>
 <template>
   <Page auto-content-height>
     <Grid table-title="规则管理">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
+      <template #toolbar-tools
+        ><ElButton type="primary" @click="handleAdd">新增</ElButton></template
+      >
     </Grid>
     <RuleFormModal @success="gridApi.query()" />
     <ElDrawer v-model="versionsVisible" title="版本历史" :size="540">

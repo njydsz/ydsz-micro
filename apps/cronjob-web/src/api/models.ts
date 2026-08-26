@@ -39,7 +39,6 @@ export interface PageQuery {
 }
 
 export interface AlertRulePostDTO {
-
   serialVersionUID?: number;
 
   ruleName?: string;
@@ -66,7 +65,6 @@ export interface AlertRulePostDTO {
 }
 
 export interface AlertRulePutDTO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -95,7 +93,6 @@ export interface AlertRulePutDTO {
 }
 
 export interface ConnectorConfigPostDTO {
-
   serialVersionUID?: number;
 
   endpoint?: string;
@@ -118,7 +115,6 @@ export interface ConnectorConfigPostDTO {
 }
 
 export interface JobDagPostDTO {
-
   serialVersionUID?: number;
 
   dagKey?: string;
@@ -141,7 +137,6 @@ export interface JobDagPostDTO {
 }
 
 export interface JobDagPutDTO {
-
   serialVersionUID?: number;
 
   dagKey?: string;
@@ -164,7 +159,6 @@ export interface JobDagPutDTO {
 }
 
 export interface JobDagTriggerDTO {
-
   serialVersionUID?: number;
 
   dagKey?: string;
@@ -173,7 +167,6 @@ export interface JobDagTriggerDTO {
 }
 
 export interface RemoteTaskRequest {
-
   serialVersionUID?: number;
 
   job?: JobVO;
@@ -188,7 +181,6 @@ export interface RemoteTaskRequest {
 }
 
 export interface JobVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -271,7 +263,6 @@ export interface JobVO {
 }
 
 export interface RemoteSubTaskRequest {
-
   serialVersionUID?: number;
 
   jobId?: string;
@@ -290,7 +281,6 @@ export interface RemoteSubTaskRequest {
 }
 
 export interface JobPostDTO {
-
   serialVersionUID?: number;
 
   jobName?: string;
@@ -328,10 +318,29 @@ export interface JobPostDTO {
   timezone?: string;
 
   cluster?: string;
+
+  maxRetries?: number;
+
+  retryIntervalMs?: number;
+
+  retryBackoff?: string;
+
+  slaMs?: number;
+
+  blockStrategy?: string;
+
+  maxConsecutiveFails?: number;
+
+  autoResumeAfterMinutes?: number;
+
+  priority?: number;
+
+  canaryRatio?: number;
+
+  canaryHandler?: string;
 }
 
 export interface JobPutDTO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -371,17 +380,35 @@ export interface JobPutDTO {
   timezone?: string;
 
   cluster?: string;
+
+  maxRetries?: number;
+
+  retryIntervalMs?: number;
+
+  retryBackoff?: string;
+
+  slaMs?: number;
+
+  blockStrategy?: string;
+
+  maxConsecutiveFails?: number;
+
+  autoResumeAfterMinutes?: number;
+
+  priority?: number;
+
+  canaryRatio?: number;
+
+  canaryHandler?: string;
 }
 
 export interface JobBatchDTO {
-
   serialVersionUID?: number;
 
   jobIds?: string[];
 }
 
 export interface JobWebhookPostDTO {
-
   serialVersionUID?: number;
 
   name?: string;
@@ -404,7 +431,6 @@ export interface JobWebhookPostDTO {
 }
 
 export interface JobWebhookPutDTO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -429,7 +455,6 @@ export interface JobWebhookPutDTO {
 }
 
 export interface JobAlertRuleVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -472,7 +497,6 @@ export interface JobAlertRuleVO {
 }
 
 export interface JobAlertLogVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -517,7 +541,6 @@ export interface JobAlertLogVO {
 }
 
 export interface ConnectorTaskInfo {
-
   externalTaskId?: string;
 
   jobName?: string;
@@ -550,7 +573,6 @@ export interface ConnectorTaskInfo {
 }
 
 export interface ConnectorExportResult {
-
   total?: number;
 
   success?: number;
@@ -563,7 +585,6 @@ export interface ConnectorExportResult {
 }
 
 export interface GlueCodeVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -588,7 +609,6 @@ export interface GlueCodeVO {
 }
 
 export interface ProcessResult {
-
   success?: boolean;
 
   result?: string;
@@ -597,7 +617,6 @@ export interface ProcessResult {
 }
 
 export interface BatchResult {
-
   total?: number;
 
   successCount?: number;
@@ -614,7 +633,6 @@ export interface BatchResult {
 }
 
 export interface JobLogVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -675,7 +693,6 @@ export interface JobLogVO {
 }
 
 export interface JobDagVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -722,7 +739,6 @@ export interface JobDagVO {
 }
 
 export interface JobDagVersionVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -757,7 +773,6 @@ export interface JobDagVersionVO {
 }
 
 export interface JobDagInstanceVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -802,7 +817,6 @@ export interface JobDagInstanceVO {
 }
 
 export interface JobDagNodeInstanceVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -843,7 +857,6 @@ export interface JobDagNodeInstanceVO {
 }
 
 export interface DagInstanceVisualizationVO {
-
   instance?: JobDagInstanceVO;
 
   definition?: DagDefinition;
@@ -852,7 +865,6 @@ export interface DagInstanceVisualizationVO {
 }
 
 export interface DagDefinition {
-
   nodes?: 'TASK' | 'SUB_WORKFLOW' | 'APPROVAL'[];
 
   edges?: DagEdge[];
@@ -860,7 +872,6 @@ export interface DagDefinition {
 
 export interface DagEdge {}
 export interface JobHistoryVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -905,7 +916,6 @@ export interface JobHistoryVO {
 }
 
 export interface JobDailyStatsVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -942,7 +952,6 @@ export interface JobDailyStatsVO {
 }
 
 export interface JobTaskVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -979,7 +988,6 @@ export interface JobTaskVO {
 }
 
 export interface JobWebhookVO {
-
   serialVersionUID?: number;
 
   id?: string;
