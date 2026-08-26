@@ -14,12 +14,10 @@
     "format": "prettier --check src/",
     "format:fix": "prettier --write src/"
   },
-  "dependencies": {
-    "prettier": "^3.3.0",
-    "prettier-plugin-tailwindcss": "^0.6.0"
-  },
+  "dependencies": {},
   "peerDependencies": {
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.6.0"
   },
   "author": "YDSZ Team",
   "license": "MIT",

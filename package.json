@@ -98,6 +98,7 @@
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
     "prettier": "catalog:",
+    "prettier-plugin-tailwindcss": "catalog:",
     "rimraf": "catalog:",
     "tailwindcss": "catalog:",
     "turbo": "catalog:",

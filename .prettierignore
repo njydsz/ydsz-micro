@@ -1,0 +1,13 @@
+# 自动生成的 lock 文件，由 pnpm 管理
+pnpm-lock.yaml
+
+# 构建产物
+dist/
+build/
+coverage/
+
+# 依赖目录
+node_modules/
+
+# 自动生成的 API 文件
+**/api/generated/
