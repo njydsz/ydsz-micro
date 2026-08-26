@@ -8,5 +8,7 @@
   "approval": "审批配置",
   "delegate": "委派管理",
   "sla": "SLA管理",
-  "quickComment": "快捷评语"
+  "quickComment": "快捷评语",
+  "monitor": "监控分析",
+  "analytics": "数据分析"
 }

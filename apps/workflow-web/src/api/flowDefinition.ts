@@ -11,7 +11,27 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { FlowBatchDeployResultVO, FlowDefinitionDetailVO, FlowDefinitionDiffVO, FlowDefinitionVO, FlowDefinitionVersionVO, FlowDeployProcessDTO, FlowEventSubscriptionVO, FlowMigrationImpactVO, FlowRollbackResultVO } from './models';
+import type {
+  FlowBatchDeployResultVO,
+  FlowConditionExpressionDTO,
+  FlowCustomButtonResultVO,
+  FlowCustomButtonVO,
+  FlowDefinitionDetailVO,
+  FlowDefinitionDiffVO,
+  FlowDefinitionVO,
+  FlowDefinitionVersionVO,
+  FlowDeployProcessDTO,
+  FlowEngineInfoVO,
+  FlowEventSubscriptionVO,
+  FlowExpressionOperatorVO,
+  FlowExpressionPreviewVO,
+  FlowExpressionTemplateVO,
+  FlowExpressionValidateVO,
+  FlowExpressionValueTypeVO,
+  FlowExpressionVariableVO,
+  FlowMigrationImpactVO,
+  FlowRollbackResultVO,
+} from './models';
 
 /**
  * deploy: POST /api/v1/workflow/engine/definition/deploy
@@ -201,8 +221,8 @@ export function analyzeMigrationImpact(params: {
 /**
  * info: GET /api/v1/workflow/engine/info
  */
-export function info(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/info`);
+export function info(): Promise<FlowEngineInfoVO> {
+  return requestClient.get<FlowEngineInfoVO>(`/api/v1/workflow/engine/info`);
 }
 
 /**
@@ -255,36 +275,36 @@ export function slaProcess({ taskId }: {
 /**
  * buildExpression: POST /api/v1/workflow/engine/definition/conditionExpr/build
  */
-export function buildExpression(data: Record<string, unknown>): Promise<string> {
+export function buildExpression(data: FlowConditionExpressionDTO): Promise<string> {
   return requestClient.post<string>(`/api/v1/workflow/engine/definition/conditionExpr/build`, data);
 }
 
 /**
  * parseExpression: POST /api/v1/workflow/engine/definition/conditionExpr/parse
  */
-export function parseExpression(data: Record<string, unknown>): Promise<string> {
+export function parseExpression(data: FlowConditionExpressionDTO): Promise<string> {
   return requestClient.post<string>(`/api/v1/workflow/engine/definition/conditionExpr/parse`, data);
 }
 
 /**
  * validateExpression: POST /api/v1/workflow/engine/definition/conditionExpr/validate
  */
-export function validateExpression(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/engine/definition/conditionExpr/validate`, data);
+export function validateExpression(data: FlowConditionExpressionDTO): Promise<FlowExpressionValidateVO> {
+  return requestClient.post<FlowExpressionValidateVO>(`/api/v1/workflow/engine/definition/conditionExpr/validate`, data);
 }
 
 /**
  * operators: GET /api/v1/workflow/engine/definition/conditionExpr/operators
  */
-export function operators(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/definition/conditionExpr/operators`);
+export function operators(): Promise<FlowExpressionOperatorVO[]> {
+  return requestClient.get<FlowExpressionOperatorVO[]>(`/api/v1/workflow/engine/definition/conditionExpr/operators`);
 }
 
 /**
  * valueTypes: GET /api/v1/workflow/engine/definition/conditionExpr/valueTypes
  */
-export function valueTypes(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/definition/conditionExpr/valueTypes`);
+export function valueTypes(): Promise<FlowExpressionValueTypeVO[]> {
+  return requestClient.get<FlowExpressionValueTypeVO[]>(`/api/v1/workflow/engine/definition/conditionExpr/valueTypes`);
 }
 
 /**
@@ -292,22 +312,22 @@ export function valueTypes(): Promise<Record<string, unknown>[]> {
  */
 export function variables({ id }: {
     id: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/definition/conditionExpr/variables/${id}`);
+  }): Promise<FlowExpressionVariableVO[]> {
+  return requestClient.get<FlowExpressionVariableVO[]>(`/api/v1/workflow/engine/definition/conditionExpr/variables/${id}`);
 }
 
 /**
  * previewExpression: POST /api/v1/workflow/engine/definition/conditionExpr/preview
  */
-export function previewExpression(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/engine/definition/conditionExpr/preview`, data);
+export function previewExpression(data: FlowConditionExpressionDTO): Promise<FlowExpressionPreviewVO> {
+  return requestClient.post<FlowExpressionPreviewVO>(`/api/v1/workflow/engine/definition/conditionExpr/preview`, data);
 }
 
 /**
  * conditionTemplates: GET /api/v1/workflow/engine/definition/conditionExpr/templates
  */
-export function conditionTemplates(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/definition/conditionExpr/templates`);
+export function conditionTemplates(): Promise<FlowExpressionTemplateVO[]> {
+  return requestClient.get<FlowExpressionTemplateVO[]>(`/api/v1/workflow/engine/definition/conditionExpr/templates`);
 }
 
 /**
@@ -316,8 +336,8 @@ export function conditionTemplates(): Promise<Record<string, unknown>[]> {
 export function listCustomButtons(params: {
     definitionId?: string;
     nodeCode?: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/definition/customButtons`, { params });
+  }): Promise<FlowCustomButtonVO[]> {
+  return requestClient.get<FlowCustomButtonVO[]>(`/api/v1/workflow/engine/definition/customButtons`, { params });
 }
 
 /**
@@ -326,7 +346,7 @@ export function listCustomButtons(params: {
 export function saveCustomButtons(params: {
     definitionId?: string;
     nodeCode?: string;
-  }, data: Record<string, unknown>[]): Promise<void> {
+  }, data: FlowCustomButtonVO[]): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/definition/customButtons`, data, { params });
 }
 
@@ -337,6 +357,6 @@ export function executeCustomButton(params: {
     taskId?: string;
     buttonCode?: string;
     comment?: string;
-  }, data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/engine/definition/customButtons/execute`, data, { params });
+  }, data: FlowConditionExpressionDTO): Promise<FlowCustomButtonResultVO> {
+  return requestClient.post<FlowCustomButtonResultVO>(`/api/v1/workflow/engine/definition/customButtons/execute`, data, { params });
 }

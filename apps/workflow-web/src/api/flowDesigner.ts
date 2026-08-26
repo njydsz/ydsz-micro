@@ -11,15 +11,15 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { FlowDesignerDataDTO } from './models';
+import type { FlowDesignerDataDTO, FlowDesignerDataVO, FlowLockStatusVO, FlowTemplateVO } from './models';
 
 /**
  * getDesignerData: GET /api/v1/workflow/engine/definition/{id}/designer
  */
 export function getDesignerData({ id }: {
     id: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/designer`);
+  }): Promise<FlowDesignerDataVO> {
+  return requestClient.get<FlowDesignerDataVO>(`/api/v1/workflow/engine/definition/${id}/designer`);
 }
 
 /**
@@ -54,8 +54,8 @@ export function unlockDefinition({ id }: {
  */
 export function getLockStatus({ id }: {
     id: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/lockStatus`);
+  }): Promise<FlowLockStatusVO> {
+  return requestClient.get<FlowLockStatusVO>(`/api/v1/workflow/engine/definition/${id}/lockStatus`);
 }
 
 /**
@@ -94,15 +94,15 @@ export function getSlaConfig({ id, nodeCode }: {
 export function saveSlaConfig({ id, nodeCode }: {
     id: string;
     nodeCode: string;
-  }, data: Record<string, unknown>): Promise<void> {
+  }, data: FlowDesignerDataDTO): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/slaConfig/${nodeCode}`, data);
 }
 
 /**
  * listAssigneeTypes: GET /api/v1/workflow/engine/assignee/types
  */
-export function listAssigneeTypes(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/assignee/types`);
+export function listAssigneeTypes(): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/workflow/engine/assignee/types`);
 }
 
 /**
@@ -115,8 +115,8 @@ export function listListenerPlugins(): Promise<string[]> {
 /**
  * listListenerEventTypes: GET /api/v1/workflow/engine/listener/eventTypes
  */
-export function listListenerEventTypes(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/listener/eventTypes`);
+export function listListenerEventTypes(): Promise<string[]> {
+  return requestClient.get<string[]>(`/api/v1/workflow/engine/listener/eventTypes`);
 }
 
 /**
@@ -124,8 +124,8 @@ export function listListenerEventTypes(): Promise<Record<string, unknown>[]> {
  */
 export function listTemplates(params: {
     category?: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/template/list`, { params });
+  }): Promise<FlowTemplateVO[]> {
+  return requestClient.get<FlowTemplateVO[]>(`/api/v1/workflow/engine/template/list`, { params });
 }
 
 /**
@@ -144,6 +144,6 @@ export function importTemplate({ templateCode }: {
  */
 export function getTemplate({ templateCode }: {
     templateCode: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/template/${templateCode}`);
+  }): Promise<FlowTemplateVO> {
+  return requestClient.get<FlowTemplateVO>(`/api/v1/workflow/engine/template/${templateCode}`);
 }

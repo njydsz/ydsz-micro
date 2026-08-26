@@ -8,5 +8,7 @@
   "approval": "Approval",
   "delegate": "Delegate",
   "sla": "SLA",
-  "quickComment": "Quick Comment"
+  "quickComment": "Quick Comment",
+  "monitor": "Monitor",
+  "analytics": "Analytics"
 }

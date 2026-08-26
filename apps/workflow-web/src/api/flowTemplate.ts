@@ -11,6 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { FlowTemplateVO, FlowTemplateVersionVO } from './models';
 
 
 /**
@@ -18,8 +19,8 @@ import { requestClient } from '#/api/request';
  */
 export function listTemplates(params: {
     category?: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/list`, { params });
+  }): Promise<FlowTemplateVO[]> {
+  return requestClient.get<FlowTemplateVO[]>(`/api/v1/workflow/template/list`, { params });
 }
 
 /**
@@ -27,8 +28,8 @@ export function listTemplates(params: {
  */
 export function getTemplate({ templateCode }: {
     templateCode: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/template/${templateCode}`);
+  }): Promise<FlowTemplateVO> {
+  return requestClient.get<FlowTemplateVO>(`/api/v1/workflow/template/${templateCode}`);
 }
 
 /**
@@ -59,8 +60,8 @@ export function exportAsTemplate({ definitionId }: {
  */
 export function listTemplateVersions({ templateCode }: {
     templateCode: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/${templateCode}/versions`);
+  }): Promise<FlowTemplateVersionVO[]> {
+  return requestClient.get<FlowTemplateVersionVO[]>(`/api/v1/workflow/template/${templateCode}/versions`);
 }
 
 /**
@@ -69,8 +70,8 @@ export function listTemplateVersions({ templateCode }: {
 export function getTemplateVersion({ templateCode, version }: {
     templateCode: string;
     version: number;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/template/${templateCode}/versions/${version}`);
+  }): Promise<FlowTemplateVersionVO> {
+  return requestClient.get<FlowTemplateVersionVO>(`/api/v1/workflow/template/${templateCode}/versions/${version}`);
 }
 
 /**
@@ -115,8 +116,8 @@ export function inheritFromParent({ parentTemplateCode }: {
  */
 export function listInheritedTemplates({ parentTemplateCode }: {
     parentTemplateCode: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/${parentTemplateCode}/inherited`);
+  }): Promise<FlowTemplateVO[]> {
+  return requestClient.get<FlowTemplateVO[]>(`/api/v1/workflow/template/${parentTemplateCode}/inherited`);
 }
 
 /**
@@ -133,8 +134,8 @@ export function syncFromParent({ childTemplateCode }: {
  */
 export function recommend(params: {
     topN?: number;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/recommend`, { params });
+  }): Promise<FlowTemplateVO[]> {
+  return requestClient.get<FlowTemplateVO[]>(`/api/v1/workflow/template/recommend`, { params });
 }
 
 /**
@@ -143,6 +144,6 @@ export function recommend(params: {
 export function recommendByBusinessType(params: {
     businessType?: string;
     topN?: number;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/template/recommend/byBusinessType`, { params });
+  }): Promise<FlowTemplateVO[]> {
+  return requestClient.get<FlowTemplateVO[]>(`/api/v1/workflow/template/recommend/byBusinessType`, { params });
 }

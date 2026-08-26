@@ -11,6 +11,17 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type {
+  FlowAnalyticsOverviewVO,
+  FlowArchiveConfigVO,
+  FlowArchiveResultVO,
+  FlowApproverEfficiencyVO,
+  FlowEfficiencyDetailVO,
+  FlowEnumDescriptionVO,
+  FlowNodeDurationVO,
+  FlowSupportedLocaleVO,
+  FlowTrendDetailVO,
+} from './models';
 
 
 /**
@@ -19,8 +30,8 @@ import { requestClient } from '#/api/request';
 export function overview(params: {
     startTime?: string;
     endTime?: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/analytics/overview`, { params });
+  }): Promise<FlowAnalyticsOverviewVO> {
+  return requestClient.get<FlowAnalyticsOverviewVO>(`/api/v1/workflow/analytics/overview`, { params });
 }
 
 /**
@@ -30,8 +41,8 @@ export function approverEfficiency(params: {
     startTime?: string;
     endTime?: string;
     limit?: number;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/analytics/approverEfficiency`, { params });
+  }): Promise<FlowApproverEfficiencyVO[]> {
+  return requestClient.get<FlowApproverEfficiencyVO[]>(`/api/v1/workflow/analytics/approverEfficiency`, { params });
 }
 
 /**
@@ -40,8 +51,8 @@ export function approverEfficiency(params: {
 export function flowEfficiency(params: {
     startTime?: string;
     endTime?: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/analytics/flowEfficiency`, { params });
+  }): Promise<FlowEfficiencyDetailVO[]> {
+  return requestClient.get<FlowEfficiencyDetailVO[]>(`/api/v1/workflow/analytics/flowEfficiency`, { params });
 }
 
 /**
@@ -49,8 +60,8 @@ export function flowEfficiency(params: {
  */
 export function nodeDuration(params: {
     flowCode?: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/analytics/nodeDuration`, { params });
+  }): Promise<FlowNodeDurationVO[]> {
+  return requestClient.get<FlowNodeDurationVO[]>(`/api/v1/workflow/analytics/nodeDuration`, { params });
 }
 
 /**
@@ -60,15 +71,15 @@ export function approvalTrend(params: {
     startTime?: string;
     endTime?: string;
     granularity?: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/analytics/approvalTrend`, { params });
+  }): Promise<FlowTrendDetailVO[]> {
+  return requestClient.get<FlowTrendDetailVO[]>(`/api/v1/workflow/analytics/approvalTrend`, { params });
 }
 
 /**
  * getArchiveConfig: GET /api/v1/workflow/analytics/history/config
  */
-export function getArchiveConfig(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/analytics/history/config`);
+export function getArchiveConfig(): Promise<FlowArchiveConfigVO> {
+  return requestClient.get<FlowArchiveConfigVO>(`/api/v1/workflow/analytics/history/config`);
 }
 
 /**
@@ -78,8 +89,8 @@ export function archive(params: {
     retentionDays?: number;
     batchSize?: number;
     maxProcessMs?: number;
-  }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/analytics/history/archive`, { params });
+  }): Promise<FlowArchiveResultVO> {
+  return requestClient.post<FlowArchiveResultVO>(`/api/v1/workflow/analytics/history/archive`, { params });
 }
 
 /**
@@ -87,8 +98,8 @@ export function archive(params: {
  */
 export function purge(params: {
     purgeDays?: number;
-  }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/analytics/history/purge`, { params });
+  }): Promise<FlowArchiveResultVO> {
+  return requestClient.post<FlowArchiveResultVO>(`/api/v1/workflow/analytics/history/purge`, { params });
 }
 
 /**
@@ -98,8 +109,8 @@ export function enumDescriptions({ enumType }: {
     enumType: string;
   }, params: {
     locale?: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/analytics/i18n/enum/${enumType}`, { params });
+  }): Promise<FlowEnumDescriptionVO[]> {
+  return requestClient.get<FlowEnumDescriptionVO[]>(`/api/v1/workflow/analytics/i18n/enum/${enumType}`, { params });
 }
 
 /**
@@ -117,6 +128,6 @@ export function enumDescription({ enumType, enumName }: {
 /**
  * supportedLocales: GET /api/v1/workflow/analytics/i18n/locales
  */
-export function supportedLocales(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/analytics/i18n/locales`);
+export function supportedLocales(): Promise<FlowSupportedLocaleVO[]> {
+  return requestClient.get<FlowSupportedLocaleVO[]>(`/api/v1/workflow/analytics/i18n/locales`);
 }

@@ -1286,7 +1286,6 @@ export interface FlowBatchUrgeResultVO {
 }
 
 export interface FlowRunTaskVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -1378,4 +1377,456 @@ export interface FlowRunTaskVO {
   updatedBy?: string;
 
   updatedAt?: string;
+}
+
+// ========== 类型安全增强：补充自动生成的类型定义 ==========
+
+/** 报表周报/月报数据 */
+export interface FlowReportVO {
+  /** 统计周期 */
+  period?: string;
+  /** 发起数量 */
+  startedCount?: number;
+  /** 完成数量 */
+  completedCount?: number;
+  /** 平均耗时（毫秒） */
+  avgDurationMs?: number;
+  /** 逾期数量 */
+  overdueCount?: number;
+}
+
+/** 合并组详情 */
+export interface FlowMergeGroupVO {
+  /** 合并组 ID */
+  mergeGroupId?: string;
+  /** 合并实例 ID 列表 */
+  instanceIds?: string[];
+  /** 合并状态 */
+  status?: string;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+}
+
+/** 催办冷却信息 */
+export interface FlowUrgeCooldownVO {
+  /** 是否可催办 */
+  canUrge?: boolean;
+  /** 剩余冷却秒数 */
+  cooldownSeconds?: number;
+  /** 下次可催办时间 */
+  nextUrgeAt?: string;
+}
+
+/** 分析概览数据 */
+export interface FlowAnalyticsOverviewVO {
+  /** 总实例数 */
+  totalInstances?: number;
+  /** 运行中实例数 */
+  runningInstances?: number;
+  /** 已完成实例数 */
+  completedInstances?: number;
+  /** 平均完成耗时（毫秒） */
+  avgDurationMs?: number;
+  /** 逾期率 */
+  overdueRate?: number;
+  /** 代理率 */
+  proxyRate?: number;
+}
+
+/** 流程效率统计 */
+export interface FlowEfficiencyDetailVO {
+  /** 流程编码 */
+  flowCode?: string;
+  /** 流程名称 */
+  flowName?: string;
+  /** 实例数量 */
+  totalCount?: number;
+  /** 平均耗时（毫秒） */
+  avgDurationMs?: number;
+  /** 代理率 */
+  proxyRate?: number;
+  /** 逾期率 */
+  overdueRate?: number;
+}
+
+/** 节点耗时统计 */
+export interface FlowNodeDurationVO {
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 平均耗时（毫秒） */
+  avgDurationMs?: number;
+  /** 处理数量 */
+  count?: number;
+}
+
+/** 审批趋势数据 */
+export interface FlowTrendDetailVO {
+  /** 时间标签 */
+  timeLabel?: string;
+  /** 数量 */
+  count?: number;
+  /** 平均耗时（毫秒） */
+  avgDurationMs?: number;
+}
+
+/** 归档配置 */
+export interface FlowArchiveConfigVO {
+  /** 保留天数 */
+  retentionDays?: number;
+  /** 批处理大小 */
+  batchSize?: number;
+  /** 最大处理时间（毫秒） */
+  maxProcessMs?: number;
+  /** 是否启用 */
+  enabled?: boolean;
+}
+
+/** 归档/清理结果 */
+export interface FlowArchiveResultVO {
+  /** 处理数量 */
+  processedCount?: number;
+  /** 耗时（毫秒） */
+  elapsedMs?: number;
+}
+
+/** i18n 枚举描述 */
+export interface FlowEnumDescriptionVO {
+  /** 枚举类型 */
+  enumType?: string;
+  /** 枚举名称 */
+  enumName?: string;
+  /** 枚举描述 */
+  description?: string;
+  /** 本地化标签 */
+  label?: string;
+}
+
+/** 支持的国际化语言 */
+export interface FlowSupportedLocaleVO {
+  /** 语言标签 */
+  locale?: string;
+  /** 语言名称 */
+  displayName?: string;
+  /** 是否启用 */
+  enabled?: boolean;
+}
+
+/** 条件表达式运算符 */
+export interface FlowExpressionOperatorVO {
+  /** 运算符编码 */
+  code?: string;
+  /** 运算符名称 */
+  name?: string;
+  /** 运算符符号 */
+  symbol?: string;
+  /** 描述 */
+  description?: string;
+}
+
+/** 条件表达式值类型 */
+export interface FlowExpressionValueTypeVO {
+  /** 类型编码 */
+  code?: string;
+  /** 类型名称 */
+  name?: string;
+  /** 示例值 */
+  example?: string;
+}
+
+/** 条件表达式变量 */
+export interface FlowExpressionVariableVO {
+  /** 变量名 */
+  name?: string;
+  /** 变量类型 */
+  type?: string;
+  /** 变量描述 */
+  description?: string;
+}
+
+/** 条件表达式模板 */
+export interface FlowExpressionTemplateVO {
+  /** 模板编码 */
+  code?: string;
+  /** 模板名称 */
+  name?: string;
+  /** 模板内容 */
+  template?: string;
+  /** 描述 */
+  description?: string;
+}
+
+/** 自定义按钮 */
+export interface FlowCustomButtonVO {
+  /** 按钮编码 */
+  buttonCode?: string;
+  /** 按钮名称 */
+  buttonName?: string;
+  /** 按钮类型 */
+  buttonType?: string;
+  /** 图标 */
+  icon?: string;
+  /** 描述 */
+  description?: string;
+}
+
+/** 自定义按钮执行结果 */
+export interface FlowCustomButtonResultVO {
+  /** 执行结果 */
+  result?: string;
+  /** 回调地址 */
+  callbackUrl?: string;
+}
+
+/** 表达式验证结果 */
+export interface FlowExpressionValidateVO {
+  /** 是否有效 */
+  valid?: boolean;
+  /** 错误信息 */
+  errorMessage?: string;
+  /** 错误位置 */
+  errorPosition?: number;
+}
+
+/** 表达式预览结果 */
+export interface FlowExpressionPreviewVO {
+  /** 预览结果 */
+  result?: string;
+  /** 是否成功 */
+  success?: boolean;
+  /** 错误信息 */
+  errorMessage?: string;
+}
+
+/** 引擎信息 */
+export interface FlowEngineInfoVO {
+  /** 引擎版本 */
+  version?: string;
+  /** 支持的 BPMN 元素 */
+  supportedElements?: string[];
+  /** 节点数量 */
+  nodeCount?: number;
+  /** 边数量 */
+  skipCount?: number;
+}
+
+/** 条件表达式 DTO（用于构建/解析/验证/预览） */
+export interface FlowConditionExpressionDTO {
+  /** 表达式内容 */
+  expression?: string;
+  /** 表达式语言（如 aviator） */
+  language?: string;
+  /** 流程定义 ID */
+  definitionId?: string;
+  /** 节点编码 */
+  nodeCode?: string;
+}
+
+/** 批量发起结果 */
+export interface FlowBatchStartResultVO {
+  /** 成功数量 */
+  successCount?: number;
+  /** 失败数量 */
+  failedCount?: number;
+  /** 实例 ID 列表 */
+  instanceIds?: string[];
+  /** 失败详情 */
+  failures?: Array<{ index?: number; reason?: string }>;
+}
+
+/** 流程图数据（SVG/JSON） */
+export interface FlowDiagramVO {
+  /** 流程图 SVG 内容 */
+  svgContent?: string;
+  /** 流程图 JSON 数据 */
+  diagramJson?: string;
+  /** 高亮节点编码列表 */
+  highlightedNodes?: string[];
+  /** 高亮边编码列表 */
+  highlightedSkips?: string[];
+}
+
+/** 表单渲染数据 */
+export interface FlowFormRenderDataVO {
+  /** 表单 Schema JSON */
+  formSchema?: string;
+  /** 表单数据 JSON */
+  formData?: string;
+  /** 表单模式（view/edit） */
+  mode?: string;
+  /** 节点编码 */
+  nodeCode?: string;
+}
+
+/** 时间线/审计日志条目 */
+export interface FlowTimelineVO {
+  /** 操作类型 */
+  action?: string;
+  /** 操作人 ID */
+  operatorId?: string;
+  /** 操作人姓名 */
+  operatorName?: string;
+  /** 操作时间 */
+  operatedAt?: string;
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 评论 */
+  comment?: string;
+  /** 附件列表 */
+  attachments?: FlowAttachmentVO[];
+}
+
+/** 流程变量 */
+export interface FlowVariableVO {
+  /** 变量名 */
+  name?: string;
+  /** 变量值 */
+  value?: unknown;
+  /** 变量类型 */
+  type?: string;
+  /** 作用域 */
+  scope?: string;
+}
+
+/** 可驳回节点 */
+export interface FlowRejectableNodeVO {
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 节点类型 */
+  nodeType?: number;
+  /** 操作人 ID */
+  operatorId?: string;
+  /** 操作人姓名 */
+  operatorName?: string;
+  /** 操作时间 */
+  operatedAt?: string;
+}
+
+/** 待办数量统计 */
+export interface FlowTodoCountVO {
+  /** 总待办数 */
+  total?: number;
+  /** 今日到期数 */
+  dueToday?: number;
+  /** 逾期数 */
+  overdue?: number;
+}
+
+/** 加签/会签任务信息 */
+export interface FlowCountersignVO {
+  /** 任务 ID */
+  taskId?: string;
+  /** 操作人 ID */
+  userId?: string;
+  /** 操作人姓名 */
+  userName?: string;
+  /** 操作类型 */
+  action?: string;
+  /** 评论 */
+  comment?: string;
+  /** 操作时间 */
+  operatedAt?: string;
+}
+
+/** 流程模板 */
+export interface FlowTemplateVO {
+  /** 模板编码 */
+  templateCode?: string;
+  /** 模板名称 */
+  templateName?: string;
+  /** 分类 */
+  category?: string;
+  /** 描述 */
+  description?: string;
+  /** 流程定义 ID */
+  definitionId?: string;
+  /** 使用次数 */
+  useCount?: number;
+  /** 创建时间 */
+  createdAt?: string;
+}
+
+/** 流程模板版本 */
+export interface FlowTemplateVersionVO {
+  /** 版本号 */
+  version?: number;
+  /** 版本标签 */
+  versionLabel?: string;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+}
+
+/** 监控概览 */
+export interface FlowMonitorOverviewVO {
+  /** 总实例数 */
+  totalInstances?: number;
+  /** 运行中实例数 */
+  runningInstances?: number;
+  /** 逾期任务数 */
+  overdueTasks?: number;
+  /** 平均耗时（毫秒） */
+  avgDurationMs?: number;
+  /** 健康评分 */
+  healthScore?: number;
+}
+
+/** 异常告警 */
+export interface FlowAnomalyVO {
+  /** 异常类型 */
+  anomalyType?: string;
+  /** 告警级别 */
+  warnLevel?: string;
+  /** 实例 ID */
+  instanceId?: string;
+  /** 流程名称 */
+  flowName?: string;
+  /** 描述 */
+  description?: string;
+  /** 触发时间 */
+  triggeredAt?: string;
+}
+
+/** 健康评分 */
+export interface FlowHealthScoreVO {
+  /** 总分 */
+  totalScore?: number;
+  /** 效率分 */
+  efficiencyScore?: number;
+  /** 质量分 */
+  qualityScore?: number;
+  /** 时效分 */
+  timelinessScore?: number;
+  /** 评价 */
+  evaluation?: string;
+}
+
+/** 设计器数据 */
+export interface FlowDesignerDataVO {
+  /** 流程图 JSON */
+  diagramJson?: string;
+  /** 节点配置 */
+  nodeConfigs?: Record<string, string>;
+  /** 全局配置 */
+  globalConfig?: string;
+}
+
+/** 锁定状态 */
+export interface FlowLockStatusVO {
+  /** 是否已锁定 */
+  locked?: boolean;
+  /** 锁定人 ID */
+  lockedBy?: string;
+  /** 锁定人姓名 */
+  lockedByName?: string;
+  /** 锁定时间 */
+  lockedAt?: string;
 }

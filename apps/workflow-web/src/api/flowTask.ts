@@ -11,15 +11,15 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { FlowBatchUrgeResultVO, FlowRunTaskVO, FlowTaskOperateDTO } from './models';
+import type { FlowBatchUrgeResultVO, FlowCountersignVO, FlowNodeDurationVO, FlowRejectableNodeVO, FlowRunTaskVO, FlowTaskOperateDTO, FlowTodoCountVO, FlowTrendDetailVO } from './models';
 
 /**
  * taskDetail: GET /api/v1/workflow/engine/task/{taskId}
  */
 export function taskDetail({ taskId }: {
     taskId: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/task/${taskId}`);
+  }): Promise<FlowRunTaskVO> {
+  return requestClient.get<FlowRunTaskVO>(`/api/v1/workflow/engine/task/${taskId}`);
 }
 
 /**
@@ -50,8 +50,8 @@ export function reject(data: FlowTaskOperateDTO): Promise<void> {
  */
 export function rejectableNodes({ taskId }: {
     taskId: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/task/${taskId}/rejectableNodes`);
+  }): Promise<FlowRejectableNodeVO[]> {
+  return requestClient.get<FlowRejectableNodeVO[]>(`/api/v1/workflow/engine/task/${taskId}/rejectableNodes`);
 }
 
 /**
@@ -197,8 +197,8 @@ export function doneSearch(params: {
  */
 export function nodeDurationStats(params: {
     flowCode?: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/stats/nodeDuration`, { params });
+  }): Promise<FlowNodeDurationVO[]> {
+  return requestClient.get<FlowNodeDurationVO[]>(`/api/v1/workflow/engine/stats/nodeDuration`, { params });
 }
 
 /**
@@ -208,8 +208,8 @@ export function overdueStats(params: {
     flowCode?: string;
     startTime?: string;
     endTime?: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/stats/overdue`, { params });
+  }): Promise<FlowTrendDetailVO[]> {
+  return requestClient.get<FlowTrendDetailVO[]>(`/api/v1/workflow/engine/stats/overdue`, { params });
 }
 
 /**
@@ -283,8 +283,8 @@ export function activateTask({ taskId }: {
 /**
  * myTodoCount: GET /api/v1/workflow/engine/todo/count
  */
-export function myTodoCount(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/todo/count`);
+export function myTodoCount(): Promise<FlowTodoCountVO> {
+  return requestClient.get<FlowTodoCountVO>(`/api/v1/workflow/engine/todo/count`);
 }
 
 /**
@@ -302,8 +302,8 @@ export function countersignByInstanceId({ instanceId }: {
   }, params: {
     pageNo?: number;
     pageSize?: number;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/countersign/instance/${instanceId}`, { params });
+  }): Promise<FlowCountersignVO[]> {
+  return requestClient.get<FlowCountersignVO[]>(`/api/v1/workflow/engine/countersign/instance/${instanceId}`, { params });
 }
 
 /**
@@ -314,6 +314,6 @@ export function countersignByTaskId({ taskId }: {
   }, params: {
     pageNo?: number;
     pageSize?: number;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/countersign/task/${taskId}`, { params });
+  }): Promise<FlowCountersignVO[]> {
+  return requestClient.get<FlowCountersignVO[]>(`/api/v1/workflow/engine/countersign/task/${taskId}`, { params });
 }

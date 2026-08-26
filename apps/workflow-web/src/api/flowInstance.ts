@@ -11,7 +11,21 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { FlowAutoTriggerCreateDTO, FlowAutoTriggerVO, FlowInstanceVO, FlowInstanceVariablesDTO, FlowInstanceViewDTO, FlowStartProcessDTO, InstanceMigrationDTO, InstanceMigrationResultDTO } from './models';
+import type {
+  FlowAutoTriggerCreateDTO,
+  FlowAutoTriggerVO,
+  FlowDiagramVO,
+  FlowFormRenderDataVO,
+  FlowInstanceVO,
+  FlowInstanceVariablesDTO,
+  FlowInstanceViewDTO,
+  FlowNodeVO,
+  FlowStartProcessDTO,
+  FlowTimelineVO,
+  FlowVariableVO,
+  InstanceMigrationDTO,
+  InstanceMigrationResultDTO,
+} from './models';
 
 /**
  * startProcess: POST /api/v1/workflow/engine/instance/start
@@ -23,8 +37,8 @@ export function startProcess(data: FlowStartProcessDTO): Promise<string> {
 /**
  * batchStartInstances: POST /api/v1/workflow/engine/instance/batchStart
  */
-export function batchStartInstances(data: FlowStartProcessDTO[]): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/engine/instance/batchStart`, data);
+export function batchStartInstances(data: FlowStartProcessDTO[]): Promise<FlowBatchStartResultVO> {
+  return requestClient.post<FlowBatchStartResultVO>(`/api/v1/workflow/engine/instance/batchStart`, data);
 }
 
 /**
@@ -82,8 +96,8 @@ export function recall({ id }: {
  */
 export function listRecallableNodes({ id }: {
     id: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/recallableNodes`);
+  }): Promise<FlowNodeVO[]> {
+  return requestClient.get<FlowNodeVO[]>(`/api/v1/workflow/engine/instance/${id}/recallableNodes`);
 }
 
 /**
@@ -106,7 +120,7 @@ export function resubmit({ id }: {
   }, params: {
     comment?: string;
     redoMode?: string;
-  }, data: Record<string, unknown>): Promise<string> {
+  }, data: FlowVariableVO): Promise<string> {
   return requestClient.post<string>(`/api/v1/workflow/engine/instance/${id}/resubmit`, data, { params });
 }
 
@@ -115,8 +129,8 @@ export function resubmit({ id }: {
  */
 export function auditTrail({ id }: {
     id: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/auditTrail`);
+  }): Promise<FlowTimelineVO[]> {
+  return requestClient.get<FlowTimelineVO[]>(`/api/v1/workflow/engine/instance/${id}/auditTrail`);
 }
 
 /**
@@ -124,8 +138,8 @@ export function auditTrail({ id }: {
  */
 export function timeline({ id }: {
     id: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/timeline`);
+  }): Promise<FlowTimelineVO[]> {
+  return requestClient.get<FlowTimelineVO[]>(`/api/v1/workflow/engine/instance/${id}/timeline`);
 }
 
 /**
@@ -133,8 +147,8 @@ export function timeline({ id }: {
  */
 export function diagram({ id }: {
     id: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/diagram`);
+  }): Promise<FlowDiagramVO> {
+  return requestClient.get<FlowDiagramVO>(`/api/v1/workflow/engine/instance/${id}/diagram`);
 }
 
 /**
@@ -142,8 +156,8 @@ export function diagram({ id }: {
  */
 export function replay({ id }: {
     id: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/replay`);
+  }): Promise<FlowTimelineVO[]> {
+  return requestClient.get<FlowTimelineVO[]>(`/api/v1/workflow/engine/instance/${id}/replay`);
 }
 
 /**
@@ -187,8 +201,8 @@ export function instanceAll(params: {
     flowStatus?: string;
     startTime?: string;
     endTime?: string;
-  }): Promise<PageResponse<Record<string, unknown>[]>> {
-  return requestClient.get<PageResponse<Record<string, unknown>[]>>(`/api/v1/workflow/engine/instance/all`, { params });
+  }): Promise<PageResponse<FlowInstanceVO[]>> {
+  return requestClient.get<PageResponse<FlowInstanceVO[]>>(`/api/v1/workflow/engine/instance/all`, { params });
 }
 
 /**
@@ -196,8 +210,8 @@ export function instanceAll(params: {
  */
 export function getVariables({ id }: {
     id: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/variables`);
+  }): Promise<FlowVariableVO> {
+  return requestClient.get<FlowVariableVO>(`/api/v1/workflow/engine/instance/${id}/variables`);
 }
 
 /**
@@ -239,8 +253,8 @@ export function getFormRenderData({ id }: {
     id: string;
   }, params: {
     taskId?: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/formRender`, { params });
+  }): Promise<FlowFormRenderDataVO> {
+  return requestClient.get<FlowFormRenderDataVO>(`/api/v1/workflow/engine/instance/${id}/formRender`, { params });
 }
 
 /**
@@ -263,8 +277,8 @@ export function previewMigration(data: InstanceMigrationDTO): Promise<InstanceMi
 export function autoMapNodes(params: {
     sourceDefinitionId?: number;
     targetDefinitionId?: number;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/migrate/autoMap`, { params });
+  }): Promise<FlowNodeVO[]> {
+  return requestClient.get<FlowNodeVO[]>(`/api/v1/workflow/engine/instance/migrate/autoMap`, { params });
 }
 
 /**
@@ -295,6 +309,6 @@ export function deleteTrigger({ id }: {
  */
 export function toggleTrigger({ id }: {
     id: string;
-  }): Promise<unknown> {
-  return requestClient.put<unknown>(`/api/v1/workflow/engine/instance/trigger/${id}/toggle`);
+  }): Promise<FlowAutoTriggerVO> {
+  return requestClient.put<FlowAutoTriggerVO>(`/api/v1/workflow/engine/instance/trigger/${id}/toggle`);
 }

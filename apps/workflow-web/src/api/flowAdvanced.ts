@@ -11,20 +11,20 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { StringVO } from './models';
+import type { FlowInstanceVO, FlowMergeGroupVO, FlowReportVO, FlowUrgeCooldownVO, StringVO } from './models';
 
 /**
  * weeklyReport: GET /api/v1/workflow/advanced/report/weekly
  */
-export function weeklyReport(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/advanced/report/weekly`);
+export function weeklyReport(): Promise<FlowReportVO> {
+  return requestClient.get<FlowReportVO>(`/api/v1/workflow/advanced/report/weekly`);
 }
 
 /**
  * monthlyReport: GET /api/v1/workflow/advanced/report/monthly
  */
-export function monthlyReport(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/advanced/report/monthly`);
+export function monthlyReport(): Promise<FlowReportVO> {
+  return requestClient.get<FlowReportVO>(`/api/v1/workflow/advanced/report/monthly`);
 }
 
 /**
@@ -55,8 +55,8 @@ export function merge(params: {
  */
 export function getMergeGroup({ mergeGroupId }: {
     mergeGroupId: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/advanced/merge/${mergeGroupId}`);
+  }): Promise<FlowMergeGroupVO> {
+  return requestClient.get<FlowMergeGroupVO>(`/api/v1/workflow/advanced/merge/${mergeGroupId}`);
 }
 
 /**
@@ -84,8 +84,8 @@ export function mergeReject({ mergeGroupId }: {
 /**
  * mergeable: GET /api/v1/workflow/advanced/mergeable
  */
-export function mergeable(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/advanced/mergeable`);
+export function mergeable(): Promise<FlowInstanceVO[]> {
+  return requestClient.get<FlowInstanceVO[]>(`/api/v1/workflow/advanced/mergeable`);
 }
 
 /**
@@ -134,8 +134,8 @@ export function approvedUsers({ instanceId }: {
  */
 export function urgeCooldown({ instanceId }: {
     instanceId: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/advanced/urge/cooldown/${instanceId}`);
+  }): Promise<FlowUrgeCooldownVO> {
+  return requestClient.get<FlowUrgeCooldownVO>(`/api/v1/workflow/advanced/urge/cooldown/${instanceId}`);
 }
 
 /**

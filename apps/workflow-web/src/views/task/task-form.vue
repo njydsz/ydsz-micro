@@ -16,14 +16,49 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
-import { computed, reactive, ref } from 'vue';
+import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { delegate, pass, reject, transfer } from '#/api/flowTask';
-import type { FlowRunTaskVO, FlowTaskOperateDTO } from '#/api/models';
+import { listQuickComments, incrementUseCount } from '#/api/flowComment';
+import type { FlowRunTaskVO, FlowTaskOperateDTO, FlowQuickCommentVO } from '#/api/models';
 import { $t } from '#/locales';
+import FlowUserSelector from '#/components/FlowUserSelector.vue';
 
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
+
+/** 快捷评语列表 */
+const quickComments = ref<FlowQuickCommentVO[]>([]);
+/** 快捷评语加载状态 */
+const quickCommentLoading = ref(false);
+/** 当前选中的快捷评语 ID */
+const selectedQuickCommentId = ref<string>('');
+
+/** 加载快捷评语列表 */
+async function loadQuickComments() {
+  quickCommentLoading.value = true;
+  try {
+    quickComments.value = (await listQuickComments()) ?? [];
+  } finally {
+    quickCommentLoading.value = false;
+  }
+}
+
+/** 选择快捷评语 */
+function handleQuickCommentSelect(commentId: string) {
+  const selected = quickComments.value.find((c) => c.id === commentId);
+  if (selected?.content) {
+    formData.comment = selected.content;
+    // 累计使用次数
+    if (selected.id) {
+      incrementUseCount({ id: selected.id }).catch(() => {});
+    }
+  }
+}
+
+onMounted(() => {
+  loadQuickComments();
+});
 
 /** 处理动作 */
 type TaskAction = 'pass' | 'reject' | 'transfer' | 'delegate';
@@ -51,6 +86,7 @@ const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: FlowRunTaskVO }>();
+    selectedQuickCommentId.value = '';
     Object.assign(formData, {
       taskId: data?.record?.id ?? '',
       action: 'pass',
@@ -133,6 +169,23 @@ const title = computed(() => {
           <ElRadio value="delegate">{{ $t('wf.delegate') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
+      <ElFormItem :label="$t('wf.quickComment')">
+        <ElSelect
+          v-model="selectedQuickCommentId"
+          :placeholder="$t('wf.selectQuickCommentPlaceholder')"
+          :loading="quickCommentLoading"
+          clearable
+          style="width: 100%"
+          @change="handleQuickCommentSelect"
+        >
+          <ElOption
+            v-for="item in quickComments"
+            :key="item.id"
+            :label="item.content"
+            :value="item.id"
+          />
+        </ElSelect>
+      </ElFormItem>
       <ElFormItem :label="$t('wf.comment')">
         <ElInput
           v-model="formData.comment"
@@ -146,7 +199,7 @@ const title = computed(() => {
         :label="$t('wf.targetUser')"
         prop="targetUserId"
       >
-        <ElInput v-model="formData.targetUserId" :placeholder="$t('wf.targetUserPlaceholder')" />
+        <FlowUserSelector v-model="formData.targetUserId" />
       </ElFormItem>
     </ElForm>
   </Modal>
