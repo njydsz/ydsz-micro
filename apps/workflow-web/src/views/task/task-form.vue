@@ -20,6 +20,7 @@ import { ElForm, ElFormItem, ElInput, ElMessage, ElRadio, ElRadioGroup } from 'e
 import { computed, reactive, ref } from 'vue';
 import { delegate, pass, reject, transfer } from '#/api/flowTask';
 import type { FlowRunTaskVO, FlowTaskOperateDTO } from '#/api/models';
+import { $t } from '#/locales';
 
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
@@ -43,7 +44,7 @@ const formData = reactive<TaskHandleState>({
 });
 
 const rules = {
-  targetUserId: [{ required: true, message: '请填写目标用户ID', trigger: 'blur' }],
+  targetUserId: [{ required: true, message: $t('wf.fillTargetUser'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -67,7 +68,7 @@ const [Modal, modalApi] = useYDSZModal({
       }
     }
     if (!formData.taskId) {
-      ElMessage.warning('缺少任务 ID，无法处理');
+      ElMessage.warning($t('wf.missingTaskId'));
       return;
     }
     modalApi.lock();
@@ -95,7 +96,7 @@ const [Modal, modalApi] = useYDSZModal({
           break;
         }
       }
-      ElMessage.success('处理成功');
+      ElMessage.success($t('wf.processSuccess'));
       emit('success');
       modalApi.close();
     } finally {
@@ -106,31 +107,46 @@ const [Modal, modalApi] = useYDSZModal({
 
 const title = computed(() => {
   const actionMap: Record<TaskAction, string> = {
-    pass: '同意（通过）',
-    reject: '驳回',
-    transfer: '转办',
-    delegate: '委托',
+    pass: $t('wf.actionPass'),
+    reject: $t('wf.actionReject'),
+    transfer: $t('wf.actionTransfer'),
+    delegate: $t('wf.actionDelegate'),
   };
-  return `${actionMap[formData.action]} - 任务处理`;
+  return `${actionMap[formData.action]} - ${$t('wf.taskHandle')}`;
 });
 </script>
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="处理动作">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
+      <ElFormItem :label="$t('wf.handleAction')">
         <ElRadioGroup v-model="formData.action">
-          <ElRadio value="pass">同意</ElRadio>
-          <ElRadio value="reject">驳回</ElRadio>
-          <ElRadio value="transfer">转办</ElRadio>
-          <ElRadio value="delegate">委托</ElRadio>
+          <ElRadio value="pass">{{ $t('wf.approve') }}</ElRadio>
+          <ElRadio value="reject">{{ $t('wf.reject') }}</ElRadio>
+          <ElRadio value="transfer">{{ $t('wf.transfer') }}</ElRadio>
+          <ElRadio value="delegate">{{ $t('wf.delegate') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
-      <ElFormItem label="处理意见">
-        <ElInput v-model="formData.comment" type="textarea" :rows="3" placeholder="请输入处理意见（可选）" />
+      <ElFormItem :label="$t('wf.comment')">
+        <ElInput
+          v-model="formData.comment"
+          type="textarea"
+          :rows="3"
+          :placeholder="$t('wf.commentPlaceholder')"
+        />
       </ElFormItem>
-      <ElFormItem v-if="formData.action === 'transfer' || formData.action === 'delegate'" label="目标用户ID" prop="targetUserId">
-        <ElInput v-model="formData.targetUserId" placeholder="请输入目标用户 ID" />
+      <ElFormItem
+        v-if="formData.action === 'transfer' || formData.action === 'delegate'"
+        :label="$t('wf.targetUser')"
+        prop="targetUserId"
+      >
+        <ElInput v-model="formData.targetUserId" :placeholder="$t('wf.targetUserPlaceholder')" />
       </ElFormItem>
     </ElForm>
   </Modal>

@@ -35,8 +35,9 @@ pre-push:
     # P0-8: 契约漂移门禁 — 后端 OpenAPI 变更后未重新生成则阻断推送
     gen-contract-check:
       run: pnpm gen:contract:check
-    audit:
-      run: pnpm audit --audit-level=high
+    # 临时禁用：私有 npm 仓库（npmmirror）不支持 audit 端点
+    # audit:
+    #   run: pnpm audit --audit-level=high
 
 commit-msg:
   commands:

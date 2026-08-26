@@ -109,6 +109,8 @@ export interface ConnectorConfigPostDTO {
 
   extraProps?: Record<string, unknown>;
 
+  DEFAULT_READ_TIMEOUT_SECONDS?: number;
+
   connectTimeoutSeconds?: number;
 
   readTimeoutSeconds?: number;
@@ -189,6 +191,8 @@ export interface JobVO {
 
   jobGroup?: string;
 
+  status?: string;
+
   jobKey?: string;
 
   handler?: string;
@@ -218,6 +222,8 @@ export interface JobVO {
   lockTtlMs?: number;
 
   timeoutMs?: number;
+
+  slaMs?: number;
 
   slowThresholdMs?: number;
 
@@ -260,6 +266,8 @@ export interface JobVO {
   updatedBy?: string;
 
   updatedAt?: string;
+
+  tenantId?: string;
 }
 
 export interface RemoteSubTaskRequest {
@@ -282,6 +290,8 @@ export interface RemoteSubTaskRequest {
 
 export interface JobPostDTO {
   serialVersionUID?: number;
+
+  id?: string;
 
   jobName?: string;
 
@@ -338,6 +348,8 @@ export interface JobPostDTO {
   canaryRatio?: number;
 
   canaryHandler?: string;
+
+  tenantId?: string;
 }
 
 export interface JobPutDTO {
@@ -400,6 +412,8 @@ export interface JobPutDTO {
   canaryRatio?: number;
 
   canaryHandler?: string;
+
+  tenantId?: string;
 }
 
 export interface JobBatchDTO {
@@ -736,6 +750,8 @@ export interface JobDagVO {
   updatedBy?: string;
 
   updatedAt?: string;
+
+  tenantId?: string;
 }
 
 export interface JobDagVersionVO {
@@ -814,6 +830,8 @@ export interface JobDagInstanceVO {
   updatedBy?: string;
 
   updatedAt?: string;
+
+  tenantId?: string;
 }
 
 export interface JobDagNodeInstanceVO {
@@ -854,6 +872,8 @@ export interface JobDagNodeInstanceVO {
   updatedBy?: string;
 
   updatedAt?: string;
+
+  tenantId?: string;
 }
 
 export interface DagInstanceVisualizationVO {

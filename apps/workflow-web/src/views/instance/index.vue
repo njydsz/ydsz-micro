@@ -30,6 +30,7 @@ import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
 import type { FlowInstanceVO, FlowTimelineVO } from '#/api/models';
+import { $t } from '#/locales';
 import InstanceForm from './instance-form.vue';
 defineOptions({ name: 'InstanceManagement' });
 
@@ -37,39 +38,39 @@ defineOptions({ name: 'InstanceManagement' });
 function statusTag(flowStatus: string | undefined) {
   const status = (flowStatus ?? '').toUpperCase();
   if (status === 'FINISHED' || status === 'COMPLETED' || status === '1') {
-    return h(ElTag, { type: 'success' }, () => '已完成');
+    return h(ElTag, { type: 'success' }, () => $t('wf.statusDone'));
   }
   if (status === 'SUSPENDED' || status === 'PAUSED') {
-    return h(ElTag, { type: 'warning' }, () => '已挂起');
+    return h(ElTag, { type: 'warning' }, () => $t('wf.statusPaused'));
   }
   if (status === 'TERMINATED' || status === 'CANCELED') {
-    return h(ElTag, { type: 'danger' }, () => '已终止');
+    return h(ElTag, { type: 'danger' }, () => $t('wf.statusTerminated'));
   }
   if (status === 'RUNNING' || status === 'ACTIVE') {
-    return h(ElTag, { type: 'primary' }, () => '运行中');
+    return h(ElTag, { type: 'primary' }, () => $t('wf.statusRunning'));
   }
   return h(ElTag, {}, () => flowStatus ?? '-');
 }
 
 const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'flowName', title: '流程名称', width: 180 },
-    { field: 'flowCode', title: '流程编码', width: 140 },
-    { field: 'title', title: '标题', width: 160 },
-    { field: 'businessNo', title: '业务单号', width: 140 },
-    { field: 'initiatorName', title: '发起人', width: 100 },
+    { type: 'seq', width: 50, title: $t('wf.seq') },
+    { field: 'flowName', title: $t('wf.flowName'), width: 180 },
+    { field: 'flowCode', title: $t('wf.flowCode'), width: 140 },
+    { field: 'title', title: $t('wf.title'), width: 160 },
+    { field: 'businessNo', title: $t('wf.businessNo'), width: 140 },
+    { field: 'initiatorName', title: $t('wf.initiator'), width: 100 },
     {
       field: 'flowStatus',
-      title: '状态',
+      title: $t('wf.status'),
       width: 90,
       slots: { default: ({ row }) => statusTag(row.flowStatus) },
     },
-    { field: 'currentNodeName', title: '当前节点', width: 120 },
-    { field: 'startAt', title: '开始时间', width: 170 },
+    { field: 'currentNodeName', title: $t('wf.currentNode'), width: 120 },
+    { field: 'startAt', title: $t('wf.startTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: $t('wf.action'),
       width: 260,
       fixed: 'right',
       slots: {
@@ -78,27 +79,27 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleTerminate(row) },
-              () => '终止',
+              () => $t('wf.terminate'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleSuspend(row) },
-              () => '挂起',
+              () => $t('wf.suspend'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'success', onClick: () => handleActivate(row) },
-              () => '恢复',
+              () => $t('wf.activate'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleRecall(row) },
-              () => '撤回',
+              () => $t('wf.recall'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => openTimeline(row) },
-              () => '轨迹',
+              () => $t('wf.timeline'),
             ),
           ]),
       },
@@ -125,13 +126,13 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
     items: [
       {
         field: 'flowName',
-        title: '流程名称',
-        itemRender: { name: 'Input', props: { placeholder: '流程名称' } },
+        title: $t('wf.flowName'),
+        itemRender: { name: 'Input', props: { placeholder: $t('wf.flowName') } },
       },
       {
         field: 'status',
-        title: '状态',
-        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+        title: $t('wf.status'),
+        itemRender: { name: 'Input', props: { placeholder: $t('wf.status') } },
       },
     ],
   },
@@ -148,12 +149,16 @@ function handleAdd() {
 async function handleTerminate(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
-    const { value: reason } = await ElMessageBox.prompt('请输入终止原因', '终止流程实例', {
-      inputPlaceholder: '请输入终止原因',
-      inputValidator: (value) => (value ? true : '终止原因不能为空'),
-    });
+    const { value: reason } = await ElMessageBox.prompt(
+      $t('wf.inputTerminateReason'),
+      $t('wf.terminateTitle'),
+      {
+        inputPlaceholder: $t('wf.inputTerminateReason'),
+        inputValidator: (value) => (value ? true : $t('wf.terminateReasonRequired')),
+      },
+    );
     await terminate({ id: row.id }, { reason });
-    ElMessage.success('已终止');
+    ElMessage.success($t('wf.terminatedSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -164,11 +169,15 @@ async function handleTerminate(row: FlowInstanceVO) {
 async function handleSuspend(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定挂起流程「${row.flowName}」吗？`, '挂起确认', {
-      type: 'warning',
-    });
+    await ElMessageBox.confirm(
+      $t('wf.confirmSuspend', { name: row.flowName }),
+      $t('wf.suspendConfirm'),
+      {
+        type: 'warning',
+      },
+    );
     await suspend({ id: row.id });
-    ElMessage.success('已挂起');
+    ElMessage.success($t('wf.suspendedSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -179,11 +188,15 @@ async function handleSuspend(row: FlowInstanceVO) {
 async function handleActivate(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定恢复流程「${row.flowName}」吗？`, '恢复确认', {
-      type: 'warning',
-    });
+    await ElMessageBox.confirm(
+      $t('wf.confirmActivate', { name: row.flowName }),
+      $t('wf.activateConfirm'),
+      {
+        type: 'warning',
+      },
+    );
     await activate({ id: row.id });
-    ElMessage.success('已恢复');
+    ElMessage.success($t('wf.activatedSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -194,11 +207,15 @@ async function handleActivate(row: FlowInstanceVO) {
 async function handleRecall(row: FlowInstanceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定撤回流程「${row.flowName}」吗？`, '撤回确认', {
-      type: 'warning',
-    });
+    await ElMessageBox.confirm(
+      $t('wf.confirmRecall', { name: row.flowName }),
+      $t('wf.recallConfirm'),
+      {
+        type: 'warning',
+      },
+    );
     await recall({ id: row.id }, {});
-    ElMessage.success('已撤回');
+    ElMessage.success($t('wf.recalledSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -224,21 +241,26 @@ async function openTimeline(row: FlowInstanceVO) {
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="流程实例">
+    <Grid :table-title="$t('wf.flowInstances')">
       <template #toolbar-tools
-        ><ElButton type="primary" @click="handleAdd">发起流程</ElButton></template
+        ><ElButton type="primary" @click="handleAdd">{{ $t('wf.startFlow') }}</ElButton></template
       >
     </Grid>
     <InstanceFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="timelineVisible" title="流程运行轨迹" :size="640">
+    <ElDrawer v-model="timelineVisible" :title="$t('wf.flowTimeline')" :size="640">
       <ElTable :data="timelineRows" border size="small" v-loading="timelineLoading">
-        <ElTableColumn prop="type" label="类型" width="100" />
-        <ElTableColumn prop="timestamp" label="时间" width="170" />
-        <ElTableColumn prop="nodeName" label="节点" width="120" />
-        <ElTableColumn prop="assigneeName" label="处理人" width="100" />
-        <ElTableColumn prop="action" label="动作" width="100" />
-        <ElTableColumn prop="comment" label="意见" min-width="120" show-overflow-tooltip />
-        <ElTableColumn prop="taskStatus" label="任务状态" width="100" />
+        <ElTableColumn prop="type" :label="$t('wf.type')" width="100" />
+        <ElTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
+        <ElTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
+        <ElTableColumn prop="assigneeName" :label="$t('wf.assigneeName')" width="100" />
+        <ElTableColumn prop="action" :label="$t('wf.action')" width="100" />
+        <ElTableColumn
+          prop="comment"
+          :label="$t('wf.comment')"
+          min-width="120"
+          show-overflow-tooltip
+        />
+        <ElTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
       </ElTable>
     </ElDrawer>
   </Page>

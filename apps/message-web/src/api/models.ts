@@ -39,7 +39,6 @@ export interface PageQuery {
 }
 
 export interface BatchSendRequestDTO {
-
   batchId?: string;
 
   batchName?: string;
@@ -62,7 +61,6 @@ export interface BatchSendRequestDTO {
 }
 
 export interface MessageRequest {
-
   serialVersionUID?: number;
 
   channel?: string;
@@ -97,7 +95,6 @@ export interface MessageRequest {
 }
 
 export interface MessageLogQueryDTO {
-
   channel?: string;
 
   bizType?: string;
@@ -165,7 +162,6 @@ export interface MessageSendDTO {
 }
 
 export interface MessageFeedbackDTO {
-
   msgId?: string;
 
   notificationId?: string;
@@ -180,7 +176,6 @@ export interface MessageFeedbackDTO {
 }
 
 export interface NotificationSendDTO {
-
   receiverId?: string;
 
   receiverIds?: string[];
@@ -217,16 +212,24 @@ export interface NotificationSendDTO {
 }
 
 export interface NotificationQueryDTO {
-
   category?: string;
 
   level?: string;
 
   readStatus?: number;
+
+  receiverId?: string;
+
+  ids?: string[];
+
+  tenantId?: string;
+
+  messageGroup?: string;
+
+  recallStatus?: string;
 }
 
 export interface PushRealtimeRequestDTO {
-
   serialVersionUID?: number;
 
   userId?: string;
@@ -239,7 +242,6 @@ export interface PushRealtimeRequestDTO {
 }
 
 export interface BroadcastRequestDTO {
-
   serialVersionUID?: number;
 
   topic?: string;
@@ -250,7 +252,6 @@ export interface BroadcastRequestDTO {
 }
 
 export interface PreferenceUpsertDTO {
-
   userId?: string;
 
   channel?: string;
@@ -279,7 +280,6 @@ export interface PreferenceUpsertDTO {
 }
 
 export interface RecallRequestDTO {
-
   id?: string;
 
   bizType?: string;
@@ -290,7 +290,6 @@ export interface RecallRequestDTO {
 }
 
 export interface ReceiptCallbackDTO {
-
   logId?: string;
 
   providerTraceId?: string;
@@ -305,7 +304,6 @@ export interface ReceiptCallbackDTO {
 }
 
 export interface RouteRuleUpsertDTO {
-
   ruleCode?: string;
 
   ruleName?: string;
@@ -330,7 +328,6 @@ export interface RouteRuleUpsertDTO {
 }
 
 export interface SubscriptionUpsertDTO {
-
   userId?: string;
 
   topicCode?: string;
@@ -345,7 +342,6 @@ export interface SubscriptionUpsertDTO {
 }
 
 export interface TemplateCreateDTO {
-
   templateCode?: string;
 
   channel?: string;
@@ -372,7 +368,6 @@ export interface TemplateCreateDTO {
 }
 
 export interface TemplateQueryDTO {
-
   templateCode?: string;
 
   channel?: string;
@@ -389,7 +384,6 @@ export interface TemplateQueryDTO {
 }
 
 export interface TemplateAuditDTO {
-
   id?: string;
 
   auditStatus?: string;
@@ -398,7 +392,6 @@ export interface TemplateAuditDTO {
 }
 
 export interface TemplatePreviewDTO {
-
   templateCode?: string;
 
   content?: string;
@@ -408,8 +401,19 @@ export interface TemplatePreviewDTO {
   params?: Record<string, unknown>;
 }
 
-export interface UnsubscribeQueryDTO {
+export interface TemplateTestSendDTO {
+  serialVersionUID?: number;
 
+  templateCode?: string;
+
+  testReceiver?: string;
+
+  params?: Record<string, unknown>;
+
+  testChannel?: string;
+}
+
+export interface UnsubscribeQueryDTO {
   userId?: string;
 
   topicCode?: string;
@@ -420,7 +424,6 @@ export interface UnsubscribeQueryDTO {
 }
 
 export interface UserChannelBindingDTO {
-
   userId?: string;
 
   channelType?: string;
@@ -435,7 +438,6 @@ export interface UserChannelBindingDTO {
 }
 
 export interface MsgAggregateVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -472,7 +474,6 @@ export interface MsgAggregateVO {
 }
 
 export interface MsgBatchVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -517,7 +518,6 @@ export interface MsgBatchVO {
 }
 
 export interface BatchProgressVO {
-
   batchId?: string;
 
   batchName?: string;
@@ -550,7 +550,6 @@ export interface BatchProgressVO {
 }
 
 export interface MsgLogVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -631,7 +630,6 @@ export interface MsgLogVO {
 }
 
 export interface MessageResult {
-
   serialVersionUID?: number;
 
   success?: boolean;
@@ -654,7 +652,6 @@ export interface MessageResult {
 }
 
 export interface BatchSendResult {
-
   receiver?: string;
 
   result?: NotifySendResult;
@@ -662,7 +659,6 @@ export interface BatchSendResult {
 
 export interface NotifySendResult {}
 export interface MsgFeedbackVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -695,7 +691,6 @@ export interface MsgFeedbackVO {
 }
 
 export interface MessageStatsVO {
-
   total?: number;
 
   success?: number;
@@ -718,7 +713,6 @@ export interface MessageStatsVO {
 }
 
 export interface ChannelStatsVO {
-
   channel?: string;
 
   total?: number;
@@ -737,7 +731,6 @@ export interface ChannelStatsVO {
 }
 
 export interface ReceiptStatsVO {
-
   total?: number;
 
   delivered?: number;
@@ -758,7 +751,6 @@ export interface ReceiptStatsVO {
 }
 
 export interface FunnelStatsVO {
-
   sent?: number;
 
   delivered?: number;
@@ -789,7 +781,6 @@ export interface FunnelStatsVO {
 }
 
 export interface CostStatsVO {
-
   totalCost?: number;
 
   channels?: Record<string, unknown>[];
@@ -806,7 +797,6 @@ export interface CostStatsVO {
 }
 
 export interface MsgNotificationVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -867,7 +857,6 @@ export interface MsgNotificationVO {
 }
 
 export interface CacheStatsVO {
-
   serialVersionUID?: number;
 
   size?: number;
@@ -882,7 +871,6 @@ export interface CacheStatsVO {
 }
 
 export interface BloomFilterStatsVO {
-
   serialVersionUID?: number;
 
   expectedInsertions?: number;
@@ -895,7 +883,6 @@ export interface BloomFilterStatsVO {
 }
 
 export interface MsgPreferenceVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -938,7 +925,6 @@ export interface MsgPreferenceVO {
 }
 
 export interface MsgReceipt {
-
   serialVersionUID?: number;
 
   logId?: string;
@@ -957,7 +943,6 @@ export interface MsgReceipt {
 }
 
 export interface MsgRouteRuleVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -994,7 +979,6 @@ export interface MsgRouteRuleVO {
 }
 
 export interface MsgSubscriptionVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -1023,7 +1007,6 @@ export interface MsgSubscriptionVO {
 }
 
 export interface SystemHealthVO {
-
   serialVersionUID?: number;
 
   status?: string;
@@ -1038,7 +1021,6 @@ export interface SystemHealthVO {
 }
 
 export interface ChannelHealthVO {
-
   serialVersionUID?: number;
 
   channel?: string;
@@ -1055,7 +1037,6 @@ export interface ChannelHealthVO {
 }
 
 export interface MsgTemplateVO {
-
   serialVersionUID?: number;
 
   id?: string;
@@ -1106,7 +1087,6 @@ export interface MsgTemplateVO {
 }
 
 export interface MsgTemplateVersion {
-
   serialVersionUID?: number;
 
   templateCode?: string;
@@ -1125,7 +1105,6 @@ export interface MsgTemplateVersion {
 }
 
 export interface UnsubscribeTokenPayload {
-
   userId?: string;
 
   topicCode?: string;
@@ -1136,7 +1115,6 @@ export interface UnsubscribeTokenPayload {
 }
 
 export interface MsgUserChannelVO {
-
   serialVersionUID?: number;
 
   id?: string;

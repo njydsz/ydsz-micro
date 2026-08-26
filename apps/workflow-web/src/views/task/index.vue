@@ -23,6 +23,7 @@ import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, done, todo } from '#/api/flowTask';
 import type { FlowRunTaskVO } from '#/api/models';
+import { $t } from '#/locales';
 import TaskForm from './task-form.vue';
 defineOptions({ name: 'TaskManagement' });
 
@@ -33,16 +34,16 @@ const activeTab = ref<'todo' | 'done'>('todo');
 function statusTag(taskStatus: string | undefined) {
   const status = (taskStatus ?? '').toUpperCase();
   if (status === 'DONE' || status === 'FINISHED' || status === 'COMPLETED' || status === '1') {
-    return h(ElTag, { type: 'success' }, () => '已完成');
+    return h(ElTag, { type: 'success' }, () => $t('wf.statusDone'));
   }
   if (status === 'REJECTED') {
-    return h(ElTag, { type: 'danger' }, () => '已驳回');
+    return h(ElTag, { type: 'danger' }, () => $t('wf.statusRejected'));
   }
   if (status === 'DELEGATED' || status === 'TRANSFERRED') {
-    return h(ElTag, { type: 'warning' }, () => '已转交');
+    return h(ElTag, { type: 'warning' }, () => $t('wf.statusTransferred'));
   }
   if (status === 'SUSPENDED' || status === 'PAUSED') {
-    return h(ElTag, { type: 'warning' }, () => '已挂起');
+    return h(ElTag, { type: 'warning' }, () => $t('wf.statusPaused'));
   }
   return h(ElTag, { type: 'primary' }, () => taskStatus ?? '-');
 }
@@ -50,23 +51,23 @@ function statusTag(taskStatus: string | undefined) {
 const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
   columns: [
     { type: 'checkbox', width: 50 },
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'nodeName', title: '任务节点', width: 140 },
-    { field: 'flowName', title: '流程名称', width: 180 },
-    { field: 'title', title: '标题', width: 160 },
-    { field: 'instanceId', title: '实例ID', width: 200 },
-    { field: 'assigneeName', title: '办理人', width: 100 },
+    { type: 'seq', width: 50, title: $t('wf.seq') },
+    { field: 'nodeName', title: $t('wf.taskNode'), width: 140 },
+    { field: 'flowName', title: $t('wf.flowName'), width: 180 },
+    { field: 'title', title: $t('wf.title'), width: 160 },
+    { field: 'instanceId', title: $t('wf.instanceId'), width: 200 },
+    { field: 'assigneeName', title: $t('wf.assignee'), width: 100 },
     {
       field: 'taskStatus',
-      title: '状态',
+      title: $t('wf.status'),
       width: 90,
       slots: { default: ({ row }) => statusTag(row.taskStatus) },
     },
-    { field: 'createAt', title: '创建时间', width: 170 },
-    { field: 'dueAt', title: '截止时间', width: 170 },
+    { field: 'createAt', title: $t('wf.createTime'), width: 170 },
+    { field: 'dueAt', title: $t('wf.dueTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: $t('wf.action'),
       width: 120,
       fixed: 'right',
       slots: {
@@ -108,12 +109,12 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
       {
         field: 'flowCode',
         title: '流程编码',
-        itemRender: { name: 'Input', props: { placeholder: '流程编码' } },
+        itemRender: { name: 'Input', props: { placeholder: $t('wf.flowCode') } },
       },
       {
         field: 'businessType',
         title: '业务类型',
-        itemRender: { name: 'Input', props: { placeholder: '业务类型' } },
+        itemRender: { name: 'Input', props: { placeholder: $t('wf.businessType') } },
       },
     ],
   },
@@ -138,7 +139,7 @@ function getSelectedIds(): string[] {
   const rows = gridApi.grid.getCheckboxRecords() as FlowRunTaskVO[];
   const ids = rows.map((item) => item.id ?? '').filter((id) => id !== '');
   if (ids.length === 0) {
-    ElMessage.warning('请先勾选需要操作的任务');
+    ElMessage.warning($t('wf.selectTasksFirst'));
   }
   return ids;
 }
@@ -148,11 +149,15 @@ async function handleBatchPass() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
   try {
-    await ElMessageBox.confirm(`确定批量通过选中的 ${ids.length} 条任务吗？`, '批量通过确认', {
-      type: 'warning',
-    });
+    await ElMessageBox.confirm(
+      $t('wf.confirmBatchPass', { count: ids.length }),
+      $t('wf.batchPassConfirm'),
+      {
+        type: 'warning',
+      },
+    );
     await batchPass(ids);
-    ElMessage.success('批量通过成功');
+    ElMessage.success($t('wf.batchPassSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -165,16 +170,16 @@ async function handleBatchReject() {
   if (ids.length === 0) return;
   try {
     await ElMessageBox.confirm(
-      `确定批量驳回选中的 ${ids.length} 条任务吗？此操作不可撤销。`,
-      '批量驳回确认',
+      $t('wf.confirmBatchReject', { count: ids.length }),
+      $t('wf.batchRejectConfirm'),
       {
         type: 'warning',
-        confirmButtonText: '确认驳回',
-        cancelButtonText: '取消',
+        confirmButtonText: $t('wf.confirmReject'),
+        cancelButtonText: $t('wf.cancel'),
       },
     );
     await batchReject(ids.map((taskId) => ({ taskId })));
-    ElMessage.success('批量驳回成功');
+    ElMessage.success($t('wf.batchRejectSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -184,14 +189,18 @@ async function handleBatchReject() {
 <template>
   <Page auto-content-height>
     <ElTabs v-model="activeTab" class="px-4 pt-2" @tab-change="handleTabChange">
-      <ElTabPane label="我的待办" name="todo" />
-      <ElTabPane label="我的已办" name="done" />
+      <ElTabPane :label="$t('wf.myTodo')" name="todo" />
+      <ElTabPane :label="$t('wf.myDone')" name="done" />
     </ElTabs>
-    <Grid table-title="待办任务">
+    <Grid :table-title="$t('wf.todoTasks')">
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">
-          <ElButton type="success" plain @click="handleBatchPass">批量通过</ElButton>
-          <ElButton type="danger" plain @click="handleBatchReject">批量驳回</ElButton>
+          <ElButton type="success" plain @click="handleBatchPass">{{
+            $t('wf.batchPass')
+          }}</ElButton>
+          <ElButton type="danger" plain @click="handleBatchReject">{{
+            $t('wf.batchReject')
+          }}</ElButton>
         </template>
       </template>
     </Grid>

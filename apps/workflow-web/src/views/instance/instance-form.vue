@@ -20,6 +20,7 @@ import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { startProcess } from '#/api/flowInstance';
 import type { FlowStartProcessDTO } from '#/api/models';
+import { $t } from '#/locales';
 
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
@@ -42,7 +43,7 @@ const formData = reactive<StartProcessState>({
 });
 
 const rules = {
-  flowCode: [{ required: true, message: '请输入流程编码', trigger: 'blur' }],
+  flowCode: [{ required: true, message: $t('wf.inputFlowCode'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -72,7 +73,7 @@ const [Modal, modalApi] = useYDSZModal({
         initiatorName: formData.initiatorName || undefined,
       };
       await startProcess(payload);
-      ElMessage.success('发起成功');
+      ElMessage.success($t('wf.startSuccess'));
       emit('success');
       modalApi.close();
     } finally {
@@ -83,22 +84,28 @@ const [Modal, modalApi] = useYDSZModal({
 </script>
 
 <template>
-  <Modal title="发起流程">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
-      <ElFormItem label="流程编码" prop="flowCode">
-        <ElInput v-model="formData.flowCode" placeholder="请输入流程编码（flowCode）" />
+  <Modal :title="$t('wf.startFlow')">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="110px"
+      label-position="right"
+    >
+      <ElFormItem :label="$t('wf.flowCode')" prop="flowCode">
+        <ElInput v-model="formData.flowCode" :placeholder="$t('wf.inputFlowCode')" />
       </ElFormItem>
-      <ElFormItem label="标题">
-        <ElInput v-model="formData.title" placeholder="流程实例标题（可选）" />
+      <ElFormItem :label="$t('wf.title')">
+        <ElInput v-model="formData.title" :placeholder="$t('wf.titlePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="业务类型">
-        <ElInput v-model="formData.businessType" placeholder="业务类型（可选）" />
+      <ElFormItem :label="$t('wf.businessType')">
+        <ElInput v-model="formData.businessType" :placeholder="$t('wf.businessTypePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="业务单号">
-        <ElInput v-model="formData.businessNo" placeholder="业务单号（可选）" />
+      <ElFormItem :label="$t('wf.businessNo')">
+        <ElInput v-model="formData.businessNo" :placeholder="$t('wf.businessNoPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="发起人">
-        <ElInput v-model="formData.initiatorName" placeholder="发起人姓名（可选）" />
+      <ElFormItem :label="$t('wf.initiator')">
+        <ElInput v-model="formData.initiatorName" :placeholder="$t('wf.initiatorPlaceholder')" />
       </ElFormItem>
     </ElForm>
   </Modal>

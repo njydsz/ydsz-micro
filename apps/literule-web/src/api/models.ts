@@ -127,6 +127,12 @@ export interface ExpressionValidateDTO {
   type?: string;
 }
 
+export interface RuleABTestDTO {
+  candidate?: RuleDefinition;
+
+  facts?: Record<string, unknown>;
+}
+
 export interface RuleBatchToggleDTO {
   ruleCodes?: string[];
 
@@ -348,8 +354,7 @@ export interface CEPPattern {
 
   name?: string;
 
-  /** ISO-8601 时长字符串（如 "PT30M"，后端 java.time.Duration）或 Jackson 序列化对象 */
-  window?: Record<string, unknown> | string;
+  window?: Record<string, unknown>;
 
   threshold?: number;
 
@@ -392,9 +397,6 @@ export interface CEPPatternVO {
   threshold?: number;
 
   eventType?: string;
-
-  /** 多事件类型列表（OR 匹配，P0-3 前端展示补充） */
-  eventTypes?: string[];
 
   filter?: string;
 
@@ -517,6 +519,8 @@ export interface RuleDefinitionVO {
   version?: number;
 
   status?: string;
+
+  tenantId?: string;
 
   effectiveFrom?: string;
 
