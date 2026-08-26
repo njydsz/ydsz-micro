@@ -11,9 +11,12 @@
  */
 import { requestClient } from '#/api/request';
 
+
 /**
  * stream: GET /api/v1/cronjob/log/stream/{logId}
  */
-export function stream({ logId }: { logId: string }): Promise<unknown> {
+export function stream({ logId }: {
+    logId: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/cronjob/log/stream/${logId}`);
 }

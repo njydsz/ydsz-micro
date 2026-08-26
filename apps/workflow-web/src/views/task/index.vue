@@ -78,7 +78,7 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleProcess(row) },
-              () => '处理',
+              () => $t('wf.process'),
             ),
           ]);
         },
@@ -108,12 +108,12 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
     items: [
       {
         field: 'flowCode',
-        title: '流程编码',
+        title: $t('wf.flowCode'),
         itemRender: { name: 'Input', props: { placeholder: $t('wf.flowCode') } },
       },
       {
         field: 'businessType',
-        title: '业务类型',
+        title: $t('wf.businessType'),
         itemRender: { name: 'Input', props: { placeholder: $t('wf.businessType') } },
       },
     ],

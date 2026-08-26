@@ -38,6 +38,7 @@ export interface PageQuery {
 }
 
 export interface RuleABPolicyPutDTO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -60,6 +61,7 @@ export interface RuleABPolicyPutDTO {
 }
 
 export interface RuleDefinition {
+
   serialVersionUID?: number;
 
   code?: string;
@@ -122,36 +124,42 @@ export interface RuleDefinition {
 }
 
 export interface ExpressionValidateDTO {
+
   expression?: string;
 
   type?: string;
 }
 
 export interface RuleABTestDTO {
+
   candidate?: RuleDefinition;
 
   facts?: Record<string, unknown>;
 }
 
 export interface RuleBatchToggleDTO {
+
   ruleCodes?: string[];
 
   enabled?: boolean;
 }
 
 export interface RuleBatchPriorityDTO {
+
   ruleCodes?: string[];
 
   delta?: number;
 }
 
 export interface RuleBatchCategoryDTO {
+
   ruleCodes?: string[];
 
   category?: string;
 }
 
 export interface DecisionTablePostDTO {
+
   serialVersionUID?: number;
 
   tableCode?: string;
@@ -180,6 +188,7 @@ export interface DecisionTablePostDTO {
 }
 
 export interface RuleDependencyAddDTO {
+
   dependsOnRuleCode?: string;
 
   dependencyType?: string;
@@ -190,6 +199,7 @@ export interface RuleDependencyAddDTO {
 }
 
 export interface RuleChainGraph {
+
   serialVersionUID?: number;
 
   graphId?: string;
@@ -232,6 +242,7 @@ export interface RuleChainGraph {
 }
 
 export interface ChainNodeDTO {
+
   serialVersionUID?: number;
 
   nodeId?: string;
@@ -268,6 +279,7 @@ export interface ChainNodeDTO {
 }
 
 export interface ChainEdgeDTO {
+
   serialVersionUID?: number;
 
   edgeId?: string;
@@ -290,34 +302,41 @@ export interface ChainEdgeDTO {
 }
 
 export interface RuleImportDTO {
+
   rules?: Record<string, unknown>[];
 }
 
 export interface RuleStatusChangeDTO {
+
   targetStatus?: string;
 
   comment?: string;
 }
 
 export interface RuleApproveDTO {
+
   comment?: string;
 }
 
 export interface RuleRejectDTO {
+
   reason?: string;
 }
 
 export interface RuleSubmitReviewDTO {
+
   flowCode?: string;
 }
 
 export interface RuleDelegateDTO {
+
   delegatedTo?: string;
 
   comment?: string;
 }
 
 export interface RulePack {
+
   serialVersionUID?: number;
 
   packCode?: string;
@@ -346,6 +365,7 @@ export interface RulePack {
 }
 
 export interface CEPPattern {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -368,6 +388,7 @@ export interface CEPPattern {
 }
 
 export interface VariableDefinition {
+
   serialVersionUID?: number;
 
   name?: string;
@@ -386,6 +407,7 @@ export interface VariableDefinition {
 }
 
 export interface CEPPatternVO {
+
   id?: string;
 
   ruleCode?: string;
@@ -404,6 +426,7 @@ export interface CEPPatternVO {
 }
 
 export interface CEPHitVO {
+
   patternId?: string;
 
   ruleCode?: string;
@@ -418,6 +441,7 @@ export interface CEPHitVO {
 }
 
 export interface RuleABPolicyVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -452,6 +476,7 @@ export interface RuleABPolicyVO {
 }
 
 export interface RuleABRollbackVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -480,6 +505,7 @@ export interface RuleABRollbackVO {
 }
 
 export interface RuleDefinitionVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -550,6 +576,7 @@ export interface RuleDefinitionVO {
 }
 
 export interface RuleVersionVO {
+
   id?: string;
 
   ruleCode?: string;
@@ -566,6 +593,7 @@ export interface RuleVersionVO {
 }
 
 export interface RuleVersionDiffVO {
+
   oldVersion?: number;
 
   newVersion?: number;
@@ -588,6 +616,7 @@ export interface RuleVersionDiffVO {
 }
 
 export interface RuleResultVO {
+
   ruleCode?: string;
 
   ruleName?: string;
@@ -618,6 +647,7 @@ export interface RuleResultVO {
 }
 
 export interface ExpressionValidationResultVO {
+
   valid?: boolean;
 
   errorType?: string;
@@ -634,6 +664,7 @@ export interface ExpressionValidationResultVO {
 }
 
 export interface RuleEngineStatsVO {
+
   totalEvaluations?: number;
 
   totalTriggered?: number;
@@ -656,6 +687,7 @@ export interface RuleEngineStatsVO {
 }
 
 export interface AuditLogEntryVO {
+
   id?: string;
 
   ruleCode?: string;
@@ -684,6 +716,7 @@ export interface AuditLogEntryVO {
 }
 
 export interface CategoryNodeVO {
+
   name?: string;
 
   path?: string;
@@ -696,6 +729,7 @@ export interface CategoryNodeVO {
 }
 
 export interface RuleConflictInfoVO {
+
   ruleA?: string;
 
   ruleAName?: string;
@@ -710,6 +744,7 @@ export interface RuleConflictInfoVO {
 }
 
 export interface RuleDashboardOverviewVO {
+
   serialVersionUID?: number;
 
   totalRules?: number;
@@ -746,6 +781,7 @@ export interface RuleDashboardOverviewVO {
 }
 
 export interface RuleDashboardTrendVO {
+
   serialVersionUID?: number;
 
   timeRange?: string;
@@ -772,6 +808,7 @@ export interface RuleDashboardTrendVO {
 }
 
 export interface RuleDashboardDistributionVO {
+
   serialVersionUID?: number;
 
   byStatus?: Record<string, unknown>;
@@ -800,6 +837,7 @@ export interface RuleDashboardDistributionVO {
 }
 
 export interface RuleDashboardTopRuleVO {
+
   serialVersionUID?: number;
 
   ruleCode?: string;
@@ -832,6 +870,7 @@ export interface RuleDashboardTopRuleVO {
 }
 
 export interface RuleDashboardRealtimeVO {
+
   serialVersionUID?: number;
 
   registeredRules?: number;
@@ -854,6 +893,7 @@ export interface RuleDashboardRealtimeVO {
 }
 
 export interface DecisionTableVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -884,6 +924,7 @@ export interface DecisionTableVO {
 }
 
 export interface DecisionTableDefinitionVO {
+
   tableCode?: string;
 
   tableName?: string;
@@ -914,6 +955,7 @@ export interface DecisionTableDefinitionVO {
 }
 
 export interface RuleDependencyVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -938,10 +980,12 @@ export interface RuleDependencyVO {
 }
 
 export interface StringVO {
+
   value?: string;
 }
 
 export interface RuleDslVO {
+
   rules?: Record<string, unknown>[];
 
   chains?: Record<string, unknown>[];
@@ -950,6 +994,7 @@ export interface RuleDslVO {
 }
 
 export interface RuleChainGraphVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -978,6 +1023,7 @@ export interface RuleChainGraphVO {
 }
 
 export interface ExpressionPreviewResultVO {
+
   expression?: string;
 
   value?: string;
@@ -992,6 +1038,7 @@ export interface ExpressionPreviewResultVO {
 }
 
 export interface ExpressionFunctionDefVO {
+
   name?: string;
 
   signature?: string;
@@ -1006,6 +1053,7 @@ export interface ExpressionFunctionDefVO {
 }
 
 export interface ApprovalRecordVO {
+
   recordId?: string;
 
   ruleCode?: string;
@@ -1022,6 +1070,7 @@ export interface ApprovalRecordVO {
 }
 
 export interface ApprovalFlowVO {
+
   flowCode?: string;
 
   name?: string;
@@ -1032,6 +1081,7 @@ export interface ApprovalFlowVO {
 }
 
 export interface RulePackVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -1074,6 +1124,7 @@ export interface RulePackVO {
 }
 
 export interface InstallResultVO {
+
   packCode?: string;
 
   version?: string;
@@ -1088,6 +1139,7 @@ export interface InstallResultVO {
 }
 
 export interface PackDiffVO {
+
   packCode?: string;
 
   fromVersion?: string;
@@ -1102,6 +1154,7 @@ export interface PackDiffVO {
 }
 
 export interface PackUpdateInfoVO {
+
   packCode?: string;
 
   packName?: string;
@@ -1120,6 +1173,7 @@ export interface PackUpdateInfoVO {
 }
 
 export interface RuleTemplateVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -1160,6 +1214,7 @@ export interface RuleTemplateVO {
 }
 
 export interface RuleExecutionTraceVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -1196,6 +1251,7 @@ export interface RuleExecutionTraceVO {
 }
 
 export interface VariableDefinitionVO {
+
   name?: string;
 
   type?: string;

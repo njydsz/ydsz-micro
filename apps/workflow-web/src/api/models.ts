@@ -38,6 +38,7 @@ export interface PageQuery {
 }
 
 export interface FlowCategoryDTO {
+
   id?: string;
 
   categoryCode?: string;
@@ -54,6 +55,7 @@ export interface FlowCategoryDTO {
 }
 
 export interface FlowCcQuery {
+
   serialVersionUID?: number;
 
   readStatus?: string;
@@ -62,6 +64,7 @@ export interface FlowCcQuery {
 }
 
 export interface FlowCommentCreateDTO {
+
   serialVersionUID?: number;
 
   instanceId?: string;
@@ -80,6 +83,7 @@ export interface FlowCommentCreateDTO {
 }
 
 export interface FlowQuickCommentDTO {
+
   id?: string;
 
   content?: string;
@@ -90,6 +94,7 @@ export interface FlowQuickCommentDTO {
 }
 
 export interface FlowDeployProcessDTO {
+
   serialVersionUID?: number;
 
   flowCode?: string;
@@ -138,6 +143,7 @@ export interface FlowDeployProcessDTO {
 }
 
 export interface FlowDelegateAuthPostDTO {
+
   serialVersionUID?: number;
 
   ownerUserId?: string;
@@ -164,12 +170,14 @@ export interface FlowDelegateAuthPostDTO {
 }
 
 export interface FlowDesignerDataDTO {
+
   serialVersionUID?: number;
 
   designerData?: string;
 }
 
 export interface EmbeddedApprovalActionDTO {
+
   serialVersionUID?: number;
 
   businessType?: string;
@@ -196,6 +204,7 @@ export interface EmbeddedApprovalActionDTO {
 }
 
 export interface FlowStartProcessDTO {
+
   serialVersionUID?: number;
 
   flowCode?: string;
@@ -232,6 +241,7 @@ export interface FlowStartProcessDTO {
 }
 
 export interface FlowAssigneeDTO {
+
   serialVersionUID?: number;
 
   userType?: string;
@@ -242,12 +252,14 @@ export interface FlowAssigneeDTO {
 }
 
 export interface FlowInstanceVariablesDTO {
+
   serialVersionUID?: number;
 
   variables?: Record<string, unknown>;
 }
 
 export interface InstanceMigrationDTO {
+
   serialVersionUID?: number;
 
   sourceDefinitionId?: string;
@@ -262,6 +274,7 @@ export interface InstanceMigrationDTO {
 }
 
 export interface FlowAutoTriggerCreateDTO {
+
   sourceFlowCode?: string;
 
   targetFlowCode?: string;
@@ -272,6 +285,7 @@ export interface FlowAutoTriggerCreateDTO {
 }
 
 export interface FlowTaskOperateDTO {
+
   serialVersionUID?: number;
 
   taskId?: string;
@@ -312,6 +326,7 @@ export interface FlowTaskOperateDTO {
 }
 
 export interface FlowAttachmentDTO {
+
   serialVersionUID?: number;
 
   fileName?: string;
@@ -332,10 +347,12 @@ export interface FlowAttachmentDTO {
 }
 
 export interface StringVO {
+
   value?: string;
 }
 
 export interface FlowAttachmentVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -384,6 +401,7 @@ export interface FlowAttachmentVO {
 }
 
 export interface FlowAttachmentPreviewVO {
+
   serialVersionUID?: number;
 
   attachmentId?: string;
@@ -404,6 +422,7 @@ export interface FlowAttachmentPreviewVO {
 }
 
 export interface FlowCategoryVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -434,6 +453,7 @@ export interface FlowCategoryVO {
 }
 
 export interface FlowCategoryTreeVO {
+
   id?: string;
 
   parentId?: string;
@@ -456,6 +476,7 @@ export interface FlowCategoryTreeVO {
 }
 
 export interface FlowCcVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -506,6 +527,7 @@ export interface FlowCcVO {
 }
 
 export interface FlowCommentVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -546,6 +568,7 @@ export interface FlowCommentVO {
 }
 
 export interface FlowQuickCommentVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -576,6 +599,7 @@ export interface FlowQuickCommentVO {
 }
 
 export interface FlowBatchDeployResultVO {
+
   serialVersionUID?: number;
 
   successCount?: number;
@@ -592,6 +616,7 @@ export interface FlowBatchDeployResultVO {
 }
 
 export interface FlowDefinitionVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -652,6 +677,7 @@ export interface FlowDefinitionVO {
 }
 
 export interface FlowDefinitionDetailVO {
+
   serialVersionUID?: number;
 
   definition?: FlowDefinitionVO;
@@ -664,6 +690,7 @@ export interface FlowDefinitionDetailVO {
 }
 
 export interface FlowNodeVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -744,6 +771,7 @@ export interface FlowNodeVO {
 }
 
 export interface FlowSkipVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -794,6 +822,7 @@ export interface FlowSkipVO {
 }
 
 export interface FlowDefinitionVersionVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -812,6 +841,7 @@ export interface FlowDefinitionVersionVO {
 }
 
 export interface FlowDefinitionDiffVO {
+
   serialVersionUID?: number;
 
   v1?: number;
@@ -824,6 +854,7 @@ export interface FlowDefinitionDiffVO {
 }
 
 export interface FlowRollbackResultVO {
+
   serialVersionUID?: number;
 
   success?: boolean;
@@ -838,6 +869,7 @@ export interface FlowRollbackResultVO {
 }
 
 export interface FlowMigrationImpactVO {
+
   serialVersionUID?: number;
 
   oldDefinitionId?: string;
@@ -858,6 +890,7 @@ export interface FlowMigrationImpactVO {
 }
 
 export interface FlowEventSubscriptionVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -904,6 +937,7 @@ export interface FlowEventSubscriptionVO {
 }
 
 export interface FlowDelegateAuthVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -946,6 +980,7 @@ export interface FlowDelegateAuthVO {
 }
 
 export interface EmbeddedApprovalViewDTO {
+
   serialVersionUID?: number;
 
   businessType?: string;
@@ -996,6 +1031,7 @@ export interface EmbeddedApprovalViewDTO {
 }
 
 export interface FlowInstanceViewDTO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -1066,6 +1102,7 @@ export interface FlowInstanceViewDTO {
 }
 
 export interface FlowInstanceVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -1128,6 +1165,7 @@ export interface FlowInstanceVO {
 }
 
 export interface InstanceMigrationResultDTO {
+
   serialVersionUID?: number;
 
   totalInstances?: number;
@@ -1156,6 +1194,7 @@ export interface InstanceMigrationResultDTO {
 }
 
 export interface FlowAutoTriggerVO {
+
   serialVersionUID?: number;
 
   id?: string;
@@ -1182,6 +1221,7 @@ export interface FlowAutoTriggerVO {
 }
 
 export interface FlowEfficiencyStatsVO {
+
   serialVersionUID?: number;
 
   totalCount?: number;
@@ -1194,6 +1234,7 @@ export interface FlowEfficiencyStatsVO {
 }
 
 export interface FlowBottleneckVO {
+
   serialVersionUID?: number;
 
   nodeCode?: string;
@@ -1206,6 +1247,7 @@ export interface FlowBottleneckVO {
 }
 
 export interface FlowApproverEfficiencyVO {
+
   serialVersionUID?: number;
 
   userId?: string;
@@ -1220,6 +1262,7 @@ export interface FlowApproverEfficiencyVO {
 }
 
 export interface FlowTrendVO {
+
   serialVersionUID?: number;
 
   timeLabel?: string;
@@ -1230,6 +1273,7 @@ export interface FlowTrendVO {
 }
 
 export interface FlowBatchUrgeResultVO {
+
   serialVersionUID?: number;
 
   totalCount?: number;
@@ -1242,6 +1286,7 @@ export interface FlowBatchUrgeResultVO {
 }
 
 export interface FlowRunTaskVO {
+
   serialVersionUID?: number;
 
   id?: string;

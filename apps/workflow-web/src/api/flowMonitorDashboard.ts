@@ -10,12 +10,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type {
-  FlowApproverEfficiencyVO,
-  FlowBottleneckVO,
-  FlowEfficiencyStatsVO,
-  FlowTrendVO,
-} from './models';
+import type { FlowApproverEfficiencyVO, FlowBottleneckVO, FlowEfficiencyStatsVO, FlowTrendVO } from './models';
 
 /**
  * monitorOverview: GET /api/v1/workflow/engine/monitor/overview
@@ -28,53 +23,42 @@ export function monitorOverview(): Promise<unknown> {
  * monitorAnomaly: GET /api/v1/workflow/engine/monitor/anomaly
  */
 export function monitorAnomaly(params: {
-  anomalyType?: string;
-  warnLevel?: string;
-  pageNum?: number;
-  pageSize?: number;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/anomaly`, {
-    params,
-  });
+    anomalyType?: string;
+    warnLevel?: string;
+    pageNum?: number;
+    pageSize?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/anomaly`, { params });
 }
 
 /**
  * monitorInstanceTrend: GET /api/v1/workflow/engine/monitor/instanceTrend
  */
 export function monitorInstanceTrend(params: {
-  days?: number;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/monitor/instanceTrend`,
-    { params },
-  );
+    days?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/instanceTrend`, { params });
 }
 
 /**
  * monitorApproverEfficiency: GET /api/v1/workflow/engine/monitor/approverEfficiency
  */
 export function monitorApproverEfficiency(params: {
-  topN?: number;
-  startTime?: string;
-  endTime?: string;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/monitor/approverEfficiency`,
-    { params },
-  );
+    topN?: number;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/approverEfficiency`, { params });
 }
 
 /**
  * monitorFlowTypeDistribution: GET /api/v1/workflow/engine/monitor/flowTypeDistribution
  */
 export function monitorFlowTypeDistribution(params: {
-  startTime?: string;
-  endTime?: string;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/monitor/flowTypeDistribution`,
-    { params },
-  );
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/flowTypeDistribution`, { params });
 }
 
 /**
@@ -88,91 +72,78 @@ export function monitorDashboard(): Promise<unknown> {
  * monitorOverdueTasks: GET /api/v1/workflow/engine/monitor/overdueTasks
  */
 export function monitorOverdueTasks(params: {
-  limit?: number;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/monitor/overdueTasks`,
-    { params },
-  );
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/overdueTasks`, { params });
 }
 
 /**
  * monitorApproverWorkload: GET /api/v1/workflow/engine/monitor/approverWorkload
  */
 export function monitorApproverWorkload(params: {
-  limit?: number;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/monitor/approverWorkload`,
-    { params },
-  );
+    limit?: number;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/approverWorkload`, { params });
 }
 
 /**
  * monitorFlowEfficiencyComparison: GET /api/v1/workflow/engine/monitor/flowEfficiencyComparison
  */
 export function monitorFlowEfficiencyComparison(params: {
-  startTime?: string;
-  endTime?: string;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/monitor/flowEfficiencyComparison`,
-    { params },
-  );
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/monitor/flowEfficiencyComparison`, { params });
 }
 
 /**
  * efficiencyStats: GET /api/v1/workflow/engine/efficiency/stats
  */
 export function efficiencyStats(params: {
-  startTime?: string;
-  endTime?: string;
-}): Promise<FlowEfficiencyStatsVO> {
-  return requestClient.get<FlowEfficiencyStatsVO>(`/api/v1/workflow/engine/efficiency/stats`, {
-    params,
-  });
+    startTime?: string;
+    endTime?: string;
+  }): Promise<FlowEfficiencyStatsVO> {
+  return requestClient.get<FlowEfficiencyStatsVO>(`/api/v1/workflow/engine/efficiency/stats`, { params });
 }
 
 /**
  * bottleneckRanking: GET /api/v1/workflow/engine/efficiency/bottleneck
  */
 export function bottleneckRanking(params: {
-  flowCode?: string;
-  limit?: number;
-}): Promise<FlowBottleneckVO[]> {
-  return requestClient.get<FlowBottleneckVO[]>(`/api/v1/workflow/engine/efficiency/bottleneck`, {
-    params,
-  });
+    flowCode?: string;
+    limit?: number;
+  }): Promise<FlowBottleneckVO[]> {
+  return requestClient.get<FlowBottleneckVO[]>(`/api/v1/workflow/engine/efficiency/bottleneck`, { params });
 }
 
 /**
  * approverRanking: GET /api/v1/workflow/engine/efficiency/approverRanking
  */
 export function approverRanking(params: {
-  startTime?: string;
-  endTime?: string;
-  limit?: number;
-}): Promise<FlowApproverEfficiencyVO[]> {
-  return requestClient.get<FlowApproverEfficiencyVO[]>(
-    `/api/v1/workflow/engine/efficiency/approverRanking`,
-    { params },
-  );
+    startTime?: string;
+    endTime?: string;
+    limit?: number;
+  }): Promise<FlowApproverEfficiencyVO[]> {
+  return requestClient.get<FlowApproverEfficiencyVO[]>(`/api/v1/workflow/engine/efficiency/approverRanking`, { params });
 }
 
 /**
  * approvalTrend: GET /api/v1/workflow/engine/efficiency/trend
  */
 export function approvalTrend(params: {
-  interval?: string;
-  startTime?: string;
-  endTime?: string;
-}): Promise<FlowTrendVO[]> {
+    interval?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<FlowTrendVO[]> {
   return requestClient.get<FlowTrendVO[]>(`/api/v1/workflow/engine/efficiency/trend`, { params });
 }
 
 /**
  * healthScore: GET /api/v1/workflow/engine/efficiency/healthScore
  */
-export function healthScore(params: { startTime?: string; endTime?: string }): Promise<unknown> {
+export function healthScore(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/efficiency/healthScore`, { params });
 }

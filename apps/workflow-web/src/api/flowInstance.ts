@@ -11,16 +11,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type {
-  FlowAutoTriggerCreateDTO,
-  FlowAutoTriggerVO,
-  FlowInstanceVO,
-  FlowInstanceVariablesDTO,
-  FlowInstanceViewDTO,
-  FlowStartProcessDTO,
-  InstanceMigrationDTO,
-  InstanceMigrationResultDTO,
-} from './models';
+import type { FlowAutoTriggerCreateDTO, FlowAutoTriggerVO, FlowInstanceVO, FlowInstanceVariablesDTO, FlowInstanceViewDTO, FlowStartProcessDTO, InstanceMigrationDTO, InstanceMigrationResultDTO } from './models';
 
 /**
  * startProcess: POST /api/v1/workflow/engine/instance/start
@@ -40,294 +31,239 @@ export function batchStartInstances(data: FlowStartProcessDTO[]): Promise<unknow
  * getByBusiness: GET /api/v1/workflow/engine/instance/byBusiness
  */
 export function getByBusiness(params: {
-  businessType?: string;
-  businessId?: string;
-}): Promise<FlowInstanceViewDTO> {
-  return requestClient.get<FlowInstanceViewDTO>(`/api/v1/workflow/engine/instance/byBusiness`, {
-    params,
-  });
+    businessType?: string;
+    businessId?: string;
+  }): Promise<FlowInstanceViewDTO> {
+  return requestClient.get<FlowInstanceViewDTO>(`/api/v1/workflow/engine/instance/byBusiness`, { params });
 }
 
 /**
  * terminate: POST /api/v1/workflow/engine/instance/{id}/terminate
  */
-export function terminate(
-  {
-    id,
-  }: {
+export function terminate({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     reason?: string;
-  },
-): Promise<void> {
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/terminate`, { params });
 }
 
 /**
  * suspend: POST /api/v1/workflow/engine/instance/{id}/suspend
  */
-export function suspend({ id }: { id: string }): Promise<void> {
+export function suspend({ id }: {
+    id: string;
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/suspend`);
 }
 
 /**
  * activate: POST /api/v1/workflow/engine/instance/{id}/activate
  */
-export function activate({ id }: { id: string }): Promise<void> {
+export function activate({ id }: {
+    id: string;
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/activate`);
 }
 
 /**
  * recall: POST /api/v1/workflow/engine/instance/{id}/recall
  */
-export function recall(
-  {
-    id,
-  }: {
+export function recall({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     targetNodeCode?: string;
-  },
-): Promise<boolean> {
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/instance/${id}/recall`, { params });
 }
 
 /**
  * listRecallableNodes: GET /api/v1/workflow/engine/instance/{id}/recallableNodes
  */
-export function listRecallableNodes({ id }: { id: string }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/instance/${id}/recallableNodes`,
-  );
+export function listRecallableNodes({ id }: {
+    id: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/recallableNodes`);
 }
 
 /**
  * rollback: POST /api/v1/workflow/engine/instance/{id}/rollback
  */
-export function rollback(
-  {
-    id,
-  }: {
+export function rollback({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     reason?: string;
     maxRollbackDays?: number;
-  },
-): Promise<boolean> {
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/instance/${id}/rollback`, { params });
 }
 
 /**
  * resubmit: POST /api/v1/workflow/engine/instance/{id}/resubmit
  */
-export function resubmit(
-  {
-    id,
-  }: {
+export function resubmit({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     comment?: string;
     redoMode?: string;
-  },
-  data: Record<string, unknown>,
-): Promise<string> {
-  return requestClient.post<string>(`/api/v1/workflow/engine/instance/${id}/resubmit`, data, {
-    params,
-  });
+  }, data: Record<string, unknown>): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/instance/${id}/resubmit`, data, { params });
 }
 
 /**
  * auditTrail: GET /api/v1/workflow/engine/instance/{id}/auditTrail
  */
-export function auditTrail({ id }: { id: string }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/instance/${id}/auditTrail`,
-  );
+export function auditTrail({ id }: {
+    id: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/auditTrail`);
 }
 
 /**
  * timeline: GET /api/v1/workflow/engine/instance/{id}/timeline
  */
-export function timeline({ id }: { id: string }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/instance/${id}/timeline`,
-  );
+export function timeline({ id }: {
+    id: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/timeline`);
 }
 
 /**
  * diagram: GET /api/v1/workflow/engine/instance/{id}/diagram
  */
-export function diagram({ id }: { id: string }): Promise<unknown> {
+export function diagram({ id }: {
+    id: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/diagram`);
 }
 
 /**
  * replay: GET /api/v1/workflow/engine/instance/{id}/replay
  */
-export function replay({ id }: { id: string }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/instance/${id}/replay`,
-  );
+export function replay({ id }: {
+    id: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/instance/${id}/replay`);
 }
 
 /**
  * instancePage: GET /api/v1/workflow/engine/instance/page
  */
 export function instancePage(params: {
-  pageNo?: number;
-  pageSize?: number;
-  businessType?: string;
-  initiatorId?: string;
-  flowStatus?: string;
-  startTime?: string;
-  endTime?: string;
-  tenantId?: string;
-}): Promise<PageResponse<FlowInstanceVO[]>> {
-  return requestClient.get<PageResponse<FlowInstanceVO[]>>(
-    `/api/v1/workflow/engine/instance/page`,
-    { params },
-  );
+    pageNo?: number;
+    pageSize?: number;
+    businessType?: string;
+    initiatorId?: string;
+    flowStatus?: string;
+    startTime?: string;
+    endTime?: string;
+    tenantId?: string;
+  }): Promise<PageResponse<FlowInstanceVO[]>> {
+  return requestClient.get<PageResponse<FlowInstanceVO[]>>(`/api/v1/workflow/engine/instance/page`, { params });
 }
 
 /**
  * instanceMy: GET /api/v1/workflow/engine/instance/my
  */
 export function instanceMy(params: {
-  flowCode?: string;
-  flowName?: string;
-  status?: string;
-  startTime?: string;
-  endTime?: string;
-  pageNum?: number;
-  pageSize?: number;
-}): Promise<PageResponse<FlowInstanceVO[]>> {
-  return requestClient.get<PageResponse<FlowInstanceVO[]>>(`/api/v1/workflow/engine/instance/my`, {
-    params,
-  });
+    flowCode?: string;
+    flowName?: string;
+    status?: string;
+    startTime?: string;
+    endTime?: string;
+    pageNum?: number;
+    pageSize?: number;
+  }): Promise<PageResponse<FlowInstanceVO[]>> {
+  return requestClient.get<PageResponse<FlowInstanceVO[]>>(`/api/v1/workflow/engine/instance/my`, { params });
 }
 
 /**
  * instanceAll: GET /api/v1/workflow/engine/instance/all
  */
 export function instanceAll(params: {
-  page?: number;
-  size?: number;
-  businessType?: string;
-  flowStatus?: string;
-  startTime?: string;
-  endTime?: string;
-}): Promise<PageResponse<Record<string, unknown>[]>> {
-  return requestClient.get<PageResponse<Record<string, unknown>[]>>(
-    `/api/v1/workflow/engine/instance/all`,
-    { params },
-  );
+    page?: number;
+    size?: number;
+    businessType?: string;
+    flowStatus?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<PageResponse<Record<string, unknown>[]>> {
+  return requestClient.get<PageResponse<Record<string, unknown>[]>>(`/api/v1/workflow/engine/instance/all`, { params });
 }
 
 /**
  * getVariables: GET /api/v1/workflow/engine/instance/{id}/variables
  */
-export function getVariables({ id }: { id: string }): Promise<unknown> {
+export function getVariables({ id }: {
+    id: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/variables`);
 }
 
 /**
  * setVariables: POST /api/v1/workflow/engine/instance/{id}/variables
  */
-export function setVariables(
-  {
-    id,
-  }: {
+export function setVariables({ id }: {
     id: string;
-  },
-  data: FlowInstanceVariablesDTO,
-): Promise<void> {
+  }, data: FlowInstanceVariablesDTO): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/variables`, data);
 }
 
 /**
  * urge: POST /api/v1/workflow/engine/instance/{id}/urge
  */
-export function urge(
-  {
-    id,
-  }: {
+export function urge({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     comment?: string;
-  },
-): Promise<string[]> {
+  }): Promise<string[]> {
   return requestClient.post<string[]>(`/api/v1/workflow/engine/instance/${id}/urge`, { params });
 }
 
 /**
  * urgeByNode: POST /api/v1/workflow/engine/instance/{id}/urge/node
  */
-export function urgeByNode(
-  {
-    id,
-  }: {
+export function urgeByNode({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     nodeCode?: string;
     comment?: string;
-  },
-): Promise<string[]> {
-  return requestClient.post<string[]>(`/api/v1/workflow/engine/instance/${id}/urge/node`, {
-    params,
-  });
+  }): Promise<string[]> {
+  return requestClient.post<string[]>(`/api/v1/workflow/engine/instance/${id}/urge/node`, { params });
 }
 
 /**
  * getFormRenderData: GET /api/v1/workflow/engine/instance/{id}/formRender
  */
-export function getFormRenderData(
-  {
-    id,
-  }: {
+export function getFormRenderData({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     taskId?: string;
-  },
-): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/formRender`, {
-    params,
-  });
+  }): Promise<unknown> {
+  return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/${id}/formRender`, { params });
 }
 
 /**
  * migrateInstances: POST /api/v1/workflow/engine/instance/migrate
  */
 export function migrateInstances(data: InstanceMigrationDTO): Promise<InstanceMigrationResultDTO> {
-  return requestClient.post<InstanceMigrationResultDTO>(
-    `/api/v1/workflow/engine/instance/migrate`,
-    data,
-  );
+  return requestClient.post<InstanceMigrationResultDTO>(`/api/v1/workflow/engine/instance/migrate`, data);
 }
 
 /**
  * previewMigration: POST /api/v1/workflow/engine/instance/migrate/preview
  */
 export function previewMigration(data: InstanceMigrationDTO): Promise<InstanceMigrationResultDTO> {
-  return requestClient.post<InstanceMigrationResultDTO>(
-    `/api/v1/workflow/engine/instance/migrate/preview`,
-    data,
-  );
+  return requestClient.post<InstanceMigrationResultDTO>(`/api/v1/workflow/engine/instance/migrate/preview`, data);
 }
 
 /**
  * autoMapNodes: GET /api/v1/workflow/engine/instance/migrate/autoMap
  */
 export function autoMapNodes(params: {
-  sourceDefinitionId?: number;
-  targetDefinitionId?: number;
-}): Promise<unknown> {
+    sourceDefinitionId?: number;
+    targetDefinitionId?: number;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/instance/migrate/autoMap`, { params });
 }
 
@@ -348,13 +284,17 @@ export function createTrigger(data: FlowAutoTriggerCreateDTO): Promise<void> {
 /**
  * deleteTrigger: DELETE /api/v1/workflow/engine/instance/trigger/{id}
  */
-export function deleteTrigger({ id }: { id: string }): Promise<void> {
+export function deleteTrigger({ id }: {
+    id: string;
+  }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/workflow/engine/instance/trigger/${id}`);
 }
 
 /**
  * toggleTrigger: PUT /api/v1/workflow/engine/instance/trigger/{id}/toggle
  */
-export function toggleTrigger({ id }: { id: string }): Promise<unknown> {
+export function toggleTrigger({ id }: {
+    id: string;
+  }): Promise<unknown> {
   return requestClient.put<unknown>(`/api/v1/workflow/engine/instance/trigger/${id}/toggle`);
 }

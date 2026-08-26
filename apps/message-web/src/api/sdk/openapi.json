@@ -1,3814 +1,4015 @@
 {
-  "openapi": "3.0.3",
-  "info": {
-    "title": "ydsz-message",
-    "version": "1.0.0",
-    "description": "static contract extracted from ydsz-cloud message"
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ydsz-message",
+  "version": "1.0.0",
+  "description": "static contract extracted from ydsz-cloud message"
+ },
+ "paths": {
+  "/api/v1/message/aggregate/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/PageQuery"
+      }
+     }
+    ]
+   }
   },
-  "paths": {
-    "/api/v1/message/aggregate/page": {
-      "get": {
-        "operationId": "page",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/PageQuery"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/aggregate/flush": {
-      "post": {
-        "operationId": "flushByGroup",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "group",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "receiver",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/aggregate/flushDue": {
-      "post": {
-        "operationId": "flushDue",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
+  "/api/v1/message/aggregate/flush": {
+   "post": {
+    "operationId": "flushByGroup",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
         }
-      }
-    },
-    "/api/v1/message/batch/send": {
-      "post": {
-        "operationId": "submitBatch",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchSendRequestDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/batch/progress/{batchId}": {
-      "get": {
-        "operationId": "getProgress",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "batchId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/batch/progress/{batchId}/sse": {
-      "get": {
-        "operationId": "subscribeProgress",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "batchId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "lastEventId",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/canary/experiment": {
-      "post": {
-        "operationId": "createExperiment",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "templateCode",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "experimentName",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "canaryPercent",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "metricsGoal",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/canary/assign": {
-      "get": {
-        "operationId": "assignBucket",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "experimentId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "requestKey",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/dead-letter/page": {
-      "get": {
-        "operationId": "page",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/MessageLogQueryDTO"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/dead-letter/{logId}/resend": {
-      "post": {
-        "operationId": "resend",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "logId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/archive/search": {
-      "get": {
-        "operationId": "search",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "keyword",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "bizType",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "startTime",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "endTime",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "pageNum",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/send": {
-      "post": {
-        "operationId": "send",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageSendDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/sendDirect": {
-      "post": {
-        "operationId": "sendDirect",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageSendDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/sendAsync": {
-      "post": {
-        "operationId": "sendAsync",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/log/page": {
-      "get": {
-        "operationId": "pageLog",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/MessageLogQueryDTO"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/cancelScheduled": {
-      "post": {
-        "operationId": "cancelScheduled",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "msgId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/sendTransactional": {
-      "post": {
-        "operationId": "sendTransactionally",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/batchSend": {
-      "post": {
-        "operationId": "batchSend",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "batchId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/MessageRequest"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/batch/{batchId}/progress": {
-      "get": {
-        "operationId": "batchProgress",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "batchId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/feedback": {
-      "post": {
-        "operationId": "submitFeedback",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageFeedbackDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/feedback/rating": {
-      "get": {
-        "operationId": "getAverageRating",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/feedback/page": {
-      "get": {
-        "operationId": "pageFeedback",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/feedback/shouldReduceFreq": {
-      "get": {
-        "operationId": "shouldReduceFrequency",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/stats/overview": {
-      "get": {
-        "operationId": "overview",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "start",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "end",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/stats/channel": {
-      "get": {
-        "operationId": "channelStats",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "start",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "end",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/stats/receipt": {
-      "get": {
-        "operationId": "receiptStats",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "start",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "end",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/stats/funnel": {
-      "get": {
-        "operationId": "funnel",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "start",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "end",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "templateCode",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/stats/cost": {
-      "get": {
-        "operationId": "cost",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "start",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "end",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/trace/msg/{msgId}": {
-      "get": {
-        "operationId": "getByMsgId",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "msgId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/trace/trace/{traceId}": {
-      "get": {
-        "operationId": "getByTraceId",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "traceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/trace/biz": {
-      "get": {
-        "operationId": "getByBiz",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "bizType",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "bizId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/notifications/send": {
-      "post": {
-        "operationId": "send",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NotificationSendDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/notifications/inbox": {
-      "get": {
-        "operationId": "inbox",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/NotificationQueryDTO"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/notifications/unreadCount": {
-      "get": {
-        "operationId": "countUnread",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/notifications/{id}/read": {
-      "post": {
-        "operationId": "markRead",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/notifications/readAll": {
-      "post": {
-        "operationId": "markAllRead",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/notifications": {
-      "delete": {
-        "operationId": "delete",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/notifications/{id}/recall": {
-      "post": {
-        "operationId": "recall",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/notifications/push": {
-      "post": {
-        "operationId": "push",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PushRealtimeRequestDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/notifications/broadcast": {
-      "post": {
-        "operationId": "broadcast",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BroadcastRequestDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/notifications/push-realtime": {
-      "post": {
-        "operationId": "pushRealtime",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PushRealtimeRequestDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/ops/template-cache/stats": {
-      "get": {
-        "operationId": "getTemplateCacheStats",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/ops/template-cache": {
-      "delete": {
-        "operationId": "evictTemplateCache",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "template",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/ops/template-cache/all": {
-      "delete": {
-        "operationId": "clearTemplateCache",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/ops/bloomfilter/stats": {
-      "get": {
-        "operationId": "getBloomFilterStats",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/preference": {
-      "post": {
-        "operationId": "upsert",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PreferenceUpsertDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/preference/{userId}": {
-      "get": {
-        "operationId": "listByUser",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/preference/{userId}/{channel}/{bizType}": {
-      "get": {
-        "operationId": "getByUser",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "bizType",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/preference/{id}": {
-      "delete": {
-        "operationId": "delete",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/read-receipt/s/{shortCode}": {
-      "get": {
-        "operationId": "shortLinkRedirect",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "nullable": true
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "shortCode",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "response",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "object"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/read-status/read/{msgId}": {
-      "post": {
-        "operationId": "markRead",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "msgId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/read-status/readBatch": {
-      "post": {
-        "operationId": "markReadBatch",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/read-status/notification/{notificationId}": {
-      "post": {
-        "operationId": "markNotificationRead",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "notificationId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/read-status/notification/readAll": {
-      "post": {
-        "operationId": "markAllNotificationsRead",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "bizType",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/read-status/unreadCount": {
-      "get": {
-        "operationId": "getUnreadCount",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/recall/notification": {
-      "post": {
-        "operationId": "recallNotification",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecallRequestDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/recall/message/{logId}": {
-      "post": {
-        "operationId": "recallMessage",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "logId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/recall/msg/{msgId}": {
-      "post": {
-        "operationId": "recallByMsgId",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "msgId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/recall/batch": {
-      "post": {
-        "operationId": "recallBatch",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecallRequestDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/receipt/callback": {
-      "post": {
-        "operationId": "callback",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReceiptCallbackDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/receipt/{logId}": {
-      "get": {
-        "operationId": "listByLogId",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "logId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/retry/preview": {
-      "get": {
-        "operationId": "previewRetrySchedule",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "preset",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/retry/preview/all": {
-      "get": {
-        "operationId": "previewAllPresets",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/retry/presets": {
-      "get": {
-        "operationId": "listPresets",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/route-rule": {
-      "post": {
-        "operationId": "create",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RouteRuleUpsertDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/route-rule/{id}": {
-      "put": {
-        "operationId": "update",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RouteRuleUpsertDTO"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "operationId": "delete",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "get": {
-        "operationId": "getById",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/route-rule/page": {
-      "get": {
-        "operationId": "page",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/PageQuery"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/route-rule/enabled": {
-      "get": {
-        "operationId": "listEnabled",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/subscription": {
-      "post": {
-        "operationId": "upsert",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubscriptionUpsertDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/subscription/user/{userId}": {
-      "get": {
-        "operationId": "listByUser",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/subscription/topic/{topicCode}/{channel}": {
-      "get": {
-        "operationId": "listByTopic",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "topicCode",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/subscription/unsubscribe": {
-      "post": {
-        "operationId": "unsubscribe",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "topicCode",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/health": {
-      "get": {
-        "operationId": "getSystemHealth",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/health/channels": {
-      "get": {
-        "operationId": "getChannelHealths",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/template": {
-      "post": {
-        "operationId": "create",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TemplateCreateDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/template/{id}": {
-      "put": {
-        "operationId": "update",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TemplateCreateDTO"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "operationId": "delete",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "get": {
-        "operationId": "getById",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/template/page": {
-      "get": {
-        "operationId": "page",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/TemplateQueryDTO"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/template/{id}/audit": {
-      "post": {
-        "operationId": "audit",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TemplateAuditDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/template/preview/by-code": {
-      "post": {
-        "operationId": "previewByCode",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/template/preview/raw": {
-      "post": {
-        "operationId": "previewRaw",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/template/version/list/{templateCode}": {
-      "get": {
-        "operationId": "listVersions",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "templateCode",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/template/version/rollback": {
-      "post": {
-        "operationId": "rollback",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "templateCode",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "version",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/template/version/preview": {
-      "post": {
-        "operationId": "preview",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TemplatePreviewDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/template/version/testSend": {
-      "post": {
-        "operationId": "testSend",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TemplateTestSendDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/unsubscribe/oneClick": {
-      "post": {
-        "operationId": "oneClick",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/unsubscribe/preview": {
-      "get": {
-        "operationId": "preview",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/unsubscribe/page": {
-      "get": {
-        "operationId": "page",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/UnsubscribeQueryDTO"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/unsubscribe/resubscribe": {
-      "post": {
-        "operationId": "resubscribe",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "topicCode",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/user-channels": {
-      "post": {
-        "operationId": "upsert",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserChannelBindingDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/user-channels/mine": {
-      "get": {
-        "operationId": "listMine",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/message/user-channels/user/{userId}": {
-      "get": {
-        "operationId": "listByUser",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/message/user-channels/{id}": {
-      "delete": {
-        "operationId": "delete",
-        "tags": ["message"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/YdszResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "group",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "receiver",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
   },
-  "components": {
-    "schemas": {
-      "YdszResponse": {
-        "type": "object",
-        "properties": {
-          "serialVersionUID": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "code": {
-            "type": "string"
-          },
-          "msg": {
-            "type": "string"
-          },
-          "data": {
-            "type": "object"
-          },
-          "traceId": {
-            "type": "object"
-          },
-          "requestId": {
-            "type": "object"
-          },
-          "spanId": {
-            "type": "object"
-          },
-          "timestamp": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "extensions": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          },
-          "RESOLVER": {
-            "type": "object"
-          }
-        },
-        "description": "class YdszResponse"
-      },
-      "PageQuery": {
-        "type": "object",
-        "properties": {
-          "serialVersionUID": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "pageNum": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "orderItems": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": ["ASC", "DESC"],
-              "description": "枚举 OrderItem"
-            }
-          },
-          "cursor": {
-            "type": "string"
-          },
-          "orderCount": {
-            "type": "string"
-          },
-          "offset": {
-            "type": "string"
-          },
-          "offsetLong": {
-            "type": "string"
-          },
-          "effectivePageSize": {
-            "type": "string"
-          },
-          "effectivePageNum": {
-            "type": "string"
-          },
-          "startRow": {
-            "type": "string"
-          },
-          "endRow": {
-            "type": "string"
-          }
-        },
-        "description": "class PageQuery"
-      },
-      "BatchSendRequestDTO": {
-        "type": "object",
-        "properties": {
-          "batchId": {
-            "type": "string"
-          },
-          "batchName": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "templateCode": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "params": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          },
-          "receiverList": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "async": {
-            "type": "boolean"
-          },
-          "senderId": {
-            "type": "string"
-          },
-          "requests": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MessageRequest"
-            }
-          }
-        },
-        "description": "class BatchSendRequestDTO"
-      },
-      "MessageRequest": {
-        "type": "object",
-        "properties": {
-          "serialVersionUID": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "receiver": {
-            "type": "string"
-          },
-          "subject": {
-            "type": "string"
-          },
-          "content": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "bizId": {
-            "type": "string"
-          },
-          "templateCode": {
-            "type": "string"
-          },
-          "messageId": {
-            "type": "string"
-          },
-          "params": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          },
-          "channelMeta": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
-          "scheduledAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "priority": {
-            "type": "string"
-          },
-          "parentMsgId": {
-            "type": "string"
-          },
-          "cascadeTo": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MessageRequest"
-            }
-          },
-          "scenario": {
-            "type": "string"
-          }
-        },
-        "description": "class MessageRequest"
-      },
-      "MessageLogQueryDTO": {
-        "type": "object",
-        "properties": {
-          "channel": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "bizId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "receiver": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "string"
-          },
-          "recallStatus": {
-            "type": "string"
-          },
-          "keyword": {
-            "type": "string"
-          },
-          "messageGroup": {
-            "type": "string"
-          },
-          "msgId": {
-            "type": "string"
-          },
-          "receiptStatus": {
-            "type": "string"
-          },
-          "startTime": {
-            "type": "string"
-          },
-          "endTime": {
-            "type": "string"
-          },
-          "searchAfterId": {
-            "type": "string"
-          },
-          "useSearchAfter": {
-            "type": "boolean"
-          }
-        },
-        "description": "class MessageLogQueryDTO"
-      },
-      "MessageSendDTO": {
-        "type": "object",
-        "properties": {
-          "strategy": {
-            "type": "string",
-            "enum": ["SYNC", "DIRECT", "ASYNC", "TRANSACTIONAL", "BATCH"],
-            "description": "枚举 SendStrategyEnum"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "templateCode": {
-            "type": "string"
-          },
-          "receiver": {
-            "type": "string"
-          },
-          "params": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          },
-          "content": {
-            "type": "string"
-          },
-          "subject": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "bizId": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "string"
-          },
-          "messageId": {
-            "type": "string"
-          },
-          "senderId": {
-            "type": "string"
-          },
-          "messageGroup": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "batchRequests": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MessageRequest"
-            }
-          },
-          "batchId": {
-            "type": "string"
-          }
-        },
-        "description": "class MessageSendDTO"
-      },
-      "MessageFeedbackDTO": {
-        "type": "object",
-        "properties": {
-          "msgId": {
-            "type": "string"
-          },
-          "notificationId": {
-            "type": "string"
-          },
-          "userId": {
-            "type": "string"
-          },
-          "rating": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "feedbackType": {
-            "type": "string"
-          },
-          "content": {
-            "type": "string"
-          }
-        },
-        "description": "class MessageFeedbackDTO"
-      },
-      "NotificationSendDTO": {
-        "type": "object",
-        "properties": {
-          "receiverId": {
-            "type": "string"
-          },
-          "receiverIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "title": {
-            "type": "string"
-          },
-          "content": {
-            "type": "string"
-          },
-          "level": {
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "string"
-          },
-          "senderId": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "bizId": {
-            "type": "string"
-          },
-          "messageGroup": {
-            "type": "string"
-          },
-          "actionUrl": {
-            "type": "string"
-          },
-          "actionText": {
-            "type": "string"
-          },
-          "icon": {
-            "type": "string"
-          },
-          "extra": {
-            "type": "string"
-          },
-          "sourceModule": {
-            "type": "string"
-          },
-          "expiredAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "description": "class NotificationSendDTO"
-      },
-      "NotificationQueryDTO": {
-        "type": "object",
-        "properties": {
-          "category": {
-            "type": "string"
-          },
-          "level": {
-            "type": "string"
-          },
-          "readStatus": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "receiverId": {
-            "type": "string"
-          },
-          "ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "tenantId": {
-            "type": "string"
-          },
-          "messageGroup": {
-            "type": "string"
-          },
-          "recallStatus": {
-            "type": "string"
-          }
-        },
-        "description": "class NotificationQueryDTO"
-      },
-      "PushRealtimeRequestDTO": {
-        "type": "object",
-        "properties": {
-          "serialVersionUID": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "userId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "data": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          },
-          "messageId": {
-            "type": "string"
-          }
-        },
-        "description": "class PushRealtimeRequestDTO"
-      },
-      "BroadcastRequestDTO": {
-        "type": "object",
-        "properties": {
-          "serialVersionUID": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "data": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          },
-          "messageId": {
-            "type": "string"
-          }
-        },
-        "description": "class BroadcastRequestDTO"
-      },
-      "PreferenceUpsertDTO": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "enabled": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "dndEnabled": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "dndStart": {
-            "type": "string"
-          },
-          "dndEnd": {
-            "type": "string"
-          },
-          "dailyLimit": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "hourlyLimit": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "digestEnabled": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "digestFrequency": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "extra": {
-            "type": "string"
-          }
-        },
-        "description": "class PreferenceUpsertDTO"
-      },
-      "RecallRequestDTO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "bizId": {
-            "type": "string"
-          },
-          "recallScope": {
-            "type": "string"
-          }
-        },
-        "description": "class RecallRequestDTO"
-      },
-      "ReceiptCallbackDTO": {
-        "type": "object",
-        "properties": {
-          "logId": {
-            "type": "string"
-          },
-          "providerTraceId": {
-            "type": "string"
-          },
-          "receiptType": {
-            "type": "string"
-          },
-          "providerCode": {
-            "type": "string"
-          },
-          "providerMsg": {
-            "type": "string"
-          },
-          "rawResponse": {
-            "type": "string"
-          }
-        },
-        "description": "class ReceiptCallbackDTO"
-      },
-      "RouteRuleUpsertDTO": {
-        "type": "object",
-        "properties": {
-          "ruleCode": {
-            "type": "string"
-          },
-          "ruleName": {
-            "type": "string"
-          },
-          "bizType": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "conditionExpr": {
-            "type": "string"
-          },
-          "targetChannel": {
-            "type": "string"
-          },
-          "fallbackChannel": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "sortOrder": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "description": "class RouteRuleUpsertDTO"
-      },
-      "SubscriptionUpsertDTO": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "topicCode": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "roleScope": {
-            "type": "string"
-          },
-          "extra": {
-            "type": "string"
-          }
-        },
-        "description": "class SubscriptionUpsertDTO"
-      },
-      "TemplateCreateDTO": {
-        "type": "object",
-        "properties": {
-          "templateCode": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          },
-          "sceneCode": {
-            "type": "string"
-          },
-          "subject": {
-            "type": "string"
-          },
-          "content": {
-            "type": "string"
-          },
-          "provider": {
-            "type": "string"
-          },
-          "providerKey": {
-            "type": "string"
-          },
-          "signName": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        },
-        "description": "class TemplateCreateDTO"
-      },
-      "TemplateQueryDTO": {
-        "type": "object",
-        "properties": {
-          "templateCode": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "auditStatus": {
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          },
-          "sceneCode": {
-            "type": "string"
-          }
-        },
-        "description": "class TemplateQueryDTO"
-      },
-      "TemplateAuditDTO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "auditStatus": {
-            "type": "string"
-          },
-          "auditRemark": {
-            "type": "string"
-          }
-        },
-        "description": "class TemplateAuditDTO"
-      },
-      "TemplatePreviewDTO": {
-        "type": "object",
-        "properties": {
-          "templateCode": {
-            "type": "string"
-          },
-          "content": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "params": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          }
-        },
-        "description": "class TemplatePreviewDTO"
-      },
-      "TemplateTestSendDTO": {
-        "type": "object",
-        "properties": {
-          "serialVersionUID": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "templateCode": {
-            "type": "string"
-          },
-          "testReceiver": {
-            "type": "string"
-          },
-          "params": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          },
-          "testChannel": {
-            "type": "string"
-          }
-        },
-        "description": "class TemplateTestSendDTO"
-      },
-      "UnsubscribeQueryDTO": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "topicCode": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "tenantId": {
-            "type": "string"
-          }
-        },
-        "description": "class UnsubscribeQueryDTO"
-      },
-      "UserChannelBindingDTO": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "channelType": {
-            "type": "string"
-          },
-          "channelUserId": {
-            "type": "string"
-          },
-          "verified": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "isPrimary": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "extra": {
-            "type": "string"
-          }
-        },
-        "description": "class UserChannelBindingDTO"
+  "/api/v1/message/aggregate/flushDue": {
+   "post": {
+    "operationId": "flushDue",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
       }
+     }
     }
+   }
+  },
+  "/api/v1/message/batch/send": {
+   "post": {
+    "operationId": "submitBatch",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchSendRequestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/batch/progress/{batchId}": {
+   "get": {
+    "operationId": "getProgress",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "batchId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/batch/progress/{batchId}/sse": {
+   "get": {
+    "operationId": "subscribeProgress",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "batchId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "lastEventId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/canary/experiment": {
+   "post": {
+    "operationId": "createExperiment",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "experimentName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "canaryPercent",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "metricsGoal",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/canary/assign": {
+   "get": {
+    "operationId": "assignBucket",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "experimentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "requestKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/dead-letter/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MessageLogQueryDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/dead-letter/{logId}/resend": {
+   "post": {
+    "operationId": "resend",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "logId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/archive/search": {
+   "get": {
+    "operationId": "search",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "bizType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "pageNum",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/send": {
+   "post": {
+    "operationId": "send",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageSendDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/sendDirect": {
+   "post": {
+    "operationId": "sendDirect",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageSendDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/sendAsync": {
+   "post": {
+    "operationId": "sendAsync",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageRequest"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/log/page": {
+   "get": {
+    "operationId": "pageLog",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MessageLogQueryDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/cancelScheduled": {
+   "post": {
+    "operationId": "cancelScheduled",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "msgId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/sendTransactional": {
+   "post": {
+    "operationId": "sendTransactionally",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageRequest"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/batchSend": {
+   "post": {
+    "operationId": "batchSend",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "batchId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/MessageRequest"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/batch/{batchId}/progress": {
+   "get": {
+    "operationId": "batchProgress",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "batchId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int64"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int64"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/feedback": {
+   "post": {
+    "operationId": "submitFeedback",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MessageFeedbackDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/feedback/rating": {
+   "get": {
+    "operationId": "getAverageRating",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/feedback/page": {
+   "get": {
+    "operationId": "pageFeedback",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/feedback/shouldReduceFreq": {
+   "get": {
+    "operationId": "shouldReduceFrequency",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/stats/overview": {
+   "get": {
+    "operationId": "overview",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/stats/channel": {
+   "get": {
+    "operationId": "channelStats",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/stats/receipt": {
+   "get": {
+    "operationId": "receiptStats",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/stats/funnel": {
+   "get": {
+    "operationId": "funnel",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/stats/cost": {
+   "get": {
+    "operationId": "cost",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "end",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/trace/msg/{msgId}": {
+   "get": {
+    "operationId": "getByMsgId",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "msgId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/trace/trace/{traceId}": {
+   "get": {
+    "operationId": "getByTraceId",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "traceId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/trace/biz": {
+   "get": {
+    "operationId": "getByBiz",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "bizType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "bizId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/notifications/send": {
+   "post": {
+    "operationId": "send",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/NotificationSendDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/notifications/inbox": {
+   "get": {
+    "operationId": "inbox",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/NotificationQueryDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/notifications/unreadCount": {
+   "get": {
+    "operationId": "countUnread",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/notifications/{id}/read": {
+   "post": {
+    "operationId": "markRead",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/notifications/readAll": {
+   "post": {
+    "operationId": "markAllRead",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/notifications": {
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/notifications/{id}/recall": {
+   "post": {
+    "operationId": "recall",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/notifications/push": {
+   "post": {
+    "operationId": "push",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "type",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PushRealtimeRequestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/notifications/broadcast": {
+   "post": {
+    "operationId": "broadcast",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BroadcastRequestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/notifications/push-realtime": {
+   "post": {
+    "operationId": "pushRealtime",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PushRealtimeRequestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/ops/template-cache/stats": {
+   "get": {
+    "operationId": "getTemplateCacheStats",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/ops/template-cache": {
+   "delete": {
+    "operationId": "evictTemplateCache",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "template",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/ops/template-cache/all": {
+   "delete": {
+    "operationId": "clearTemplateCache",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/ops/bloomfilter/stats": {
+   "get": {
+    "operationId": "getBloomFilterStats",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/preference": {
+   "post": {
+    "operationId": "upsert",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PreferenceUpsertDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/preference/{userId}": {
+   "get": {
+    "operationId": "listByUser",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/preference/{userId}/{channel}/{bizType}": {
+   "get": {
+    "operationId": "getByUser",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "bizType",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/preference/{id}": {
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/read-receipt/s/{shortCode}": {
+   "get": {
+    "operationId": "shortLinkRedirect",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "shortCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/read-status/read/{msgId}": {
+   "post": {
+    "operationId": "markRead",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "msgId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/read-status/readBatch": {
+   "post": {
+    "operationId": "markReadBatch",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/read-status/notification/{notificationId}": {
+   "post": {
+    "operationId": "markNotificationRead",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "notificationId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/read-status/notification/readAll": {
+   "post": {
+    "operationId": "markAllNotificationsRead",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "bizType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/read-status/unreadCount": {
+   "get": {
+    "operationId": "getUnreadCount",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/recall/notification": {
+   "post": {
+    "operationId": "recallNotification",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RecallRequestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/recall/message/{logId}": {
+   "post": {
+    "operationId": "recallMessage",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "logId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/recall/msg/{msgId}": {
+   "post": {
+    "operationId": "recallByMsgId",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "msgId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/recall/batch": {
+   "post": {
+    "operationId": "recallBatch",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RecallRequestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/receipt/callback": {
+   "post": {
+    "operationId": "callback",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReceiptCallbackDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/receipt/{logId}": {
+   "get": {
+    "operationId": "listByLogId",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "logId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/retry/preview": {
+   "get": {
+    "operationId": "previewRetrySchedule",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "preset",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/retry/preview/all": {
+   "get": {
+    "operationId": "previewAllPresets",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/retry/presets": {
+   "get": {
+    "operationId": "listPresets",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/route-rule": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RouteRuleUpsertDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/route-rule/{id}": {
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RouteRuleUpsertDTO"
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/route-rule/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/PageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/route-rule/enabled": {
+   "get": {
+    "operationId": "listEnabled",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/subscription": {
+   "post": {
+    "operationId": "upsert",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SubscriptionUpsertDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/subscription/user/{userId}": {
+   "get": {
+    "operationId": "listByUser",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/subscription/topic/{topicCode}/{channel}": {
+   "get": {
+    "operationId": "listByTopic",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "topicCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/subscription/unsubscribe": {
+   "post": {
+    "operationId": "unsubscribe",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "topicCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/health": {
+   "get": {
+    "operationId": "getSystemHealth",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/health/channels": {
+   "get": {
+    "operationId": "getChannelHealths",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/template": {
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateCreateDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/template/{id}": {
+   "put": {
+    "operationId": "update",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateCreateDTO"
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/template/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/TemplateQueryDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/template/{id}/audit": {
+   "post": {
+    "operationId": "audit",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateAuditDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/template/preview/by-code": {
+   "post": {
+    "operationId": "previewByCode",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/template/preview/raw": {
+   "post": {
+    "operationId": "previewRaw",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/template/version/list/{templateCode}": {
+   "get": {
+    "operationId": "listVersions",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/template/version/rollback": {
+   "post": {
+    "operationId": "rollback",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/template/version/preview": {
+   "post": {
+    "operationId": "preview",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplatePreviewDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/template/version/testSend": {
+   "post": {
+    "operationId": "testSend",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TemplateTestSendDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/unsubscribe/oneClick": {
+   "post": {
+    "operationId": "oneClick",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "token",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/unsubscribe/preview": {
+   "get": {
+    "operationId": "preview",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "token",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/unsubscribe/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/UnsubscribeQueryDTO"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/unsubscribe/resubscribe": {
+   "post": {
+    "operationId": "resubscribe",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "topicCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "channel",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/user-channels": {
+   "post": {
+    "operationId": "upsert",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserChannelBindingDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/user-channels/mine": {
+   "get": {
+    "operationId": "listMine",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/message/user-channels/user/{userId}": {
+   "get": {
+    "operationId": "listByUser",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/v1/message/user-channels/{id}": {
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
   }
+ },
+ "components": {
+  "schemas": {
+   "YdszResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "code": {
+      "type": "string"
+     },
+     "msg": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object"
+     },
+     "traceId": {
+      "type": "object"
+     },
+     "requestId": {
+      "type": "object"
+     },
+     "spanId": {
+      "type": "object"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "extensions": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "RESOLVER": {
+      "type": "object"
+     }
+    },
+    "description": "class YdszResponse"
+   },
+   "PageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "pageNum": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "orderItems": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "ASC",
+        "DESC"
+       ],
+       "description": "枚举 OrderItem"
+      }
+     },
+     "cursor": {
+      "type": "string"
+     },
+     "orderCount": {
+      "type": "string"
+     },
+     "offset": {
+      "type": "string"
+     },
+     "offsetLong": {
+      "type": "string"
+     },
+     "effectivePageSize": {
+      "type": "string"
+     },
+     "effectivePageNum": {
+      "type": "string"
+     },
+     "startRow": {
+      "type": "string"
+     },
+     "endRow": {
+      "type": "string"
+     }
+    },
+    "description": "class PageQuery"
+   },
+   "BatchSendRequestDTO": {
+    "type": "object",
+    "properties": {
+     "batchId": {
+      "type": "string"
+     },
+     "batchName": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "templateCode": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "params": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "receiverList": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "async": {
+      "type": "boolean"
+     },
+     "senderId": {
+      "type": "string"
+     },
+     "requests": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MessageRequest"
+      }
+     }
+    },
+    "description": "class BatchSendRequestDTO"
+   },
+   "MessageRequest": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "receiver": {
+      "type": "string"
+     },
+     "subject": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "bizId": {
+      "type": "string"
+     },
+     "templateCode": {
+      "type": "string"
+     },
+     "messageId": {
+      "type": "string"
+     },
+     "params": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "channelMeta": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      }
+     },
+     "scheduledAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "priority": {
+      "type": "string"
+     },
+     "parentMsgId": {
+      "type": "string"
+     },
+     "cascadeTo": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MessageRequest"
+      }
+     },
+     "scenario": {
+      "type": "string"
+     }
+    },
+    "description": "class MessageRequest"
+   },
+   "MessageLogQueryDTO": {
+    "type": "object",
+    "properties": {
+     "channel": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "bizId": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "receiver": {
+      "type": "string"
+     },
+     "priority": {
+      "type": "string"
+     },
+     "recallStatus": {
+      "type": "string"
+     },
+     "keyword": {
+      "type": "string"
+     },
+     "messageGroup": {
+      "type": "string"
+     },
+     "msgId": {
+      "type": "string"
+     },
+     "receiptStatus": {
+      "type": "string"
+     },
+     "startTime": {
+      "type": "string"
+     },
+     "endTime": {
+      "type": "string"
+     },
+     "searchAfterId": {
+      "type": "string"
+     },
+     "useSearchAfter": {
+      "type": "boolean"
+     }
+    },
+    "description": "class MessageLogQueryDTO"
+   },
+   "MessageSendDTO": {
+    "type": "object",
+    "properties": {
+     "strategy": {
+      "type": "string",
+      "enum": [
+       "SYNC",
+       "DIRECT",
+       "ASYNC",
+       "TRANSACTIONAL",
+       "BATCH"
+      ],
+      "description": "枚举 SendStrategyEnum"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "templateCode": {
+      "type": "string"
+     },
+     "receiver": {
+      "type": "string"
+     },
+     "params": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "content": {
+      "type": "string"
+     },
+     "subject": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "bizId": {
+      "type": "string"
+     },
+     "priority": {
+      "type": "string"
+     },
+     "messageId": {
+      "type": "string"
+     },
+     "senderId": {
+      "type": "string"
+     },
+     "messageGroup": {
+      "type": "string"
+     },
+     "locale": {
+      "type": "string"
+     },
+     "batchRequests": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MessageRequest"
+      }
+     },
+     "batchId": {
+      "type": "string"
+     }
+    },
+    "description": "class MessageSendDTO"
+   },
+   "MessageFeedbackDTO": {
+    "type": "object",
+    "properties": {
+     "msgId": {
+      "type": "string"
+     },
+     "notificationId": {
+      "type": "string"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "rating": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "feedbackType": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     }
+    },
+    "description": "class MessageFeedbackDTO"
+   },
+   "NotificationSendDTO": {
+    "type": "object",
+    "properties": {
+     "receiverId": {
+      "type": "string"
+     },
+     "receiverIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "title": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "level": {
+      "type": "string"
+     },
+     "category": {
+      "type": "string"
+     },
+     "priority": {
+      "type": "string"
+     },
+     "senderId": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "bizId": {
+      "type": "string"
+     },
+     "messageGroup": {
+      "type": "string"
+     },
+     "actionUrl": {
+      "type": "string"
+     },
+     "actionText": {
+      "type": "string"
+     },
+     "icon": {
+      "type": "string"
+     },
+     "extra": {
+      "type": "string"
+     },
+     "sourceModule": {
+      "type": "string"
+     },
+     "expiredAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "class NotificationSendDTO"
+   },
+   "NotificationQueryDTO": {
+    "type": "object",
+    "properties": {
+     "category": {
+      "type": "string"
+     },
+     "level": {
+      "type": "string"
+     },
+     "readStatus": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "receiverId": {
+      "type": "string"
+     },
+     "ids": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "messageGroup": {
+      "type": "string"
+     },
+     "recallStatus": {
+      "type": "string"
+     }
+    },
+    "description": "class NotificationQueryDTO"
+   },
+   "PushRealtimeRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "type": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "messageId": {
+      "type": "string"
+     }
+    },
+    "description": "class PushRealtimeRequestDTO"
+   },
+   "BroadcastRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "topic": {
+      "type": "string"
+     },
+     "data": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "messageId": {
+      "type": "string"
+     }
+    },
+    "description": "class BroadcastRequestDTO"
+   },
+   "PreferenceUpsertDTO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "enabled": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "dndEnabled": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "dndStart": {
+      "type": "string"
+     },
+     "dndEnd": {
+      "type": "string"
+     },
+     "dailyLimit": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "hourlyLimit": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "digestEnabled": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "digestFrequency": {
+      "type": "string"
+     },
+     "locale": {
+      "type": "string"
+     },
+     "extra": {
+      "type": "string"
+     }
+    },
+    "description": "class PreferenceUpsertDTO"
+   },
+   "RecallRequestDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "bizId": {
+      "type": "string"
+     },
+     "recallScope": {
+      "type": "string"
+     }
+    },
+    "description": "class RecallRequestDTO"
+   },
+   "ReceiptCallbackDTO": {
+    "type": "object",
+    "properties": {
+     "logId": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "receiptType": {
+      "type": "string"
+     },
+     "providerCode": {
+      "type": "string"
+     },
+     "providerMsg": {
+      "type": "string"
+     },
+     "rawResponse": {
+      "type": "string"
+     }
+    },
+    "description": "class ReceiptCallbackDTO"
+   },
+   "RouteRuleUpsertDTO": {
+    "type": "object",
+    "properties": {
+     "ruleCode": {
+      "type": "string"
+     },
+     "ruleName": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "priority": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "conditionExpr": {
+      "type": "string"
+     },
+     "targetChannel": {
+      "type": "string"
+     },
+     "fallbackChannel": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "sortOrder": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "description": "class RouteRuleUpsertDTO"
+   },
+   "SubscriptionUpsertDTO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string"
+     },
+     "topicCode": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "roleScope": {
+      "type": "string"
+     },
+     "extra": {
+      "type": "string"
+     }
+    },
+    "description": "class SubscriptionUpsertDTO"
+   },
+   "TemplateCreateDTO": {
+    "type": "object",
+    "properties": {
+     "templateCode": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "locale": {
+      "type": "string"
+     },
+     "version": {
+      "type": "string"
+     },
+     "category": {
+      "type": "string"
+     },
+     "sceneCode": {
+      "type": "string"
+     },
+     "subject": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "provider": {
+      "type": "string"
+     },
+     "providerKey": {
+      "type": "string"
+     },
+     "signName": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     }
+    },
+    "description": "class TemplateCreateDTO"
+   },
+   "TemplateQueryDTO": {
+    "type": "object",
+    "properties": {
+     "templateCode": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "locale": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "auditStatus": {
+      "type": "string"
+     },
+     "category": {
+      "type": "string"
+     },
+     "sceneCode": {
+      "type": "string"
+     }
+    },
+    "description": "class TemplateQueryDTO"
+   },
+   "TemplateAuditDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "auditStatus": {
+      "type": "string"
+     },
+     "auditRemark": {
+      "type": "string"
+     }
+    },
+    "description": "class TemplateAuditDTO"
+   },
+   "TemplatePreviewDTO": {
+    "type": "object",
+    "properties": {
+     "templateCode": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "locale": {
+      "type": "string"
+     },
+     "params": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     }
+    },
+    "description": "class TemplatePreviewDTO"
+   },
+   "TemplateTestSendDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "templateCode": {
+      "type": "string"
+     },
+     "testReceiver": {
+      "type": "string"
+     },
+     "params": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "testChannel": {
+      "type": "string"
+     }
+    },
+    "description": "class TemplateTestSendDTO"
+   },
+   "UnsubscribeQueryDTO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string"
+     },
+     "topicCode": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     }
+    },
+    "description": "class UnsubscribeQueryDTO"
+   },
+   "UserChannelBindingDTO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string"
+     },
+     "channelType": {
+      "type": "string"
+     },
+     "channelUserId": {
+      "type": "string"
+     },
+     "verified": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "isPrimary": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "extra": {
+      "type": "string"
+     }
+    },
+    "description": "class UserChannelBindingDTO"
+   }
+  }
+ }
 }

@@ -16,14 +16,18 @@ import type { FlowBatchUrgeResultVO, FlowRunTaskVO, FlowTaskOperateDTO } from '.
 /**
  * taskDetail: GET /api/v1/workflow/engine/task/{taskId}
  */
-export function taskDetail({ taskId }: { taskId: string }): Promise<unknown> {
+export function taskDetail({ taskId }: {
+    taskId: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/engine/task/${taskId}`);
 }
 
 /**
  * claim: POST /api/v1/workflow/engine/task/claim
  */
-export function claim(params: { taskId?: string }): Promise<void> {
+export function claim(params: {
+    taskId?: string;
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/task/claim`, { params });
 }
 
@@ -44,14 +48,10 @@ export function reject(data: FlowTaskOperateDTO): Promise<void> {
 /**
  * rejectableNodes: GET /api/v1/workflow/engine/task/{taskId}/rejectableNodes
  */
-export function rejectableNodes({
-  taskId,
-}: {
-  taskId: string;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/task/${taskId}/rejectableNodes`,
-  );
+export function rejectableNodes({ taskId }: {
+    taskId: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/task/${taskId}/rejectableNodes`);
 }
 
 /**
@@ -127,17 +127,10 @@ export function batchTransfer(data: FlowTaskOperateDTO[]): Promise<void> {
 /**
  * batchUrge: POST /api/v1/workflow/engine/instance/batchUrge
  */
-export function batchUrge(
-  params: {
+export function batchUrge(params: {
     comment?: string;
-  },
-  data: string[],
-): Promise<FlowBatchUrgeResultVO> {
-  return requestClient.post<FlowBatchUrgeResultVO>(
-    `/api/v1/workflow/engine/instance/batchUrge`,
-    data,
-    { params },
-  );
+  }, data: string[]): Promise<FlowBatchUrgeResultVO> {
+  return requestClient.post<FlowBatchUrgeResultVO>(`/api/v1/workflow/engine/instance/batchUrge`, data, { params });
 }
 
 /**
@@ -151,38 +144,36 @@ export function passAll(): Promise<number> {
  * todo: GET /api/v1/workflow/engine/task/todo
  */
 export function todo(params: {
-  page?: number;
-  size?: number;
-  flowCode?: string;
-  businessType?: string;
-  startTime?: string;
-  endTime?: string;
-}): Promise<PageResponse<FlowRunTaskVO[]>> {
-  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/todo`, {
-    params,
-  });
+    page?: number;
+    size?: number;
+    flowCode?: string;
+    businessType?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<PageResponse<FlowRunTaskVO[]>> {
+  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/todo`, { params });
 }
 
 /**
  * done: GET /api/v1/workflow/engine/task/done
  */
 export function done(params: {
-  page?: number;
-  size?: number;
-  flowCode?: string;
-  businessType?: string;
-  startTime?: string;
-  endTime?: string;
-}): Promise<PageResponse<FlowRunTaskVO[]>> {
-  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/done`, {
-    params,
-  });
+    page?: number;
+    size?: number;
+    flowCode?: string;
+    businessType?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<PageResponse<FlowRunTaskVO[]>> {
+  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/done`, { params });
 }
 
 /**
  * overdue: GET /api/v1/workflow/engine/task/overdue
  */
-export function overdue(params: { limit?: number }): Promise<FlowRunTaskVO[]> {
+export function overdue(params: {
+    limit?: number;
+  }): Promise<FlowRunTaskVO[]> {
   return requestClient.get<FlowRunTaskVO[]>(`/api/v1/workflow/engine/task/overdue`, { params });
 }
 
@@ -190,43 +181,35 @@ export function overdue(params: { limit?: number }): Promise<FlowRunTaskVO[]> {
  * doneSearch: GET /api/v1/workflow/engine/task/done/search
  */
 export function doneSearch(params: {
-  page?: number;
-  size?: number;
-  flowCode?: string;
-  businessType?: string;
-  startTime?: string;
-  endTime?: string;
-  keyword?: string;
-}): Promise<PageResponse<FlowRunTaskVO[]>> {
-  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(
-    `/api/v1/workflow/engine/task/done/search`,
-    { params },
-  );
+    page?: number;
+    size?: number;
+    flowCode?: string;
+    businessType?: string;
+    startTime?: string;
+    endTime?: string;
+    keyword?: string;
+  }): Promise<PageResponse<FlowRunTaskVO[]>> {
+  return requestClient.get<PageResponse<FlowRunTaskVO[]>>(`/api/v1/workflow/engine/task/done/search`, { params });
 }
 
 /**
  * nodeDurationStats: GET /api/v1/workflow/engine/stats/nodeDuration
  */
 export function nodeDurationStats(params: {
-  flowCode?: string;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/stats/nodeDuration`,
-    { params },
-  );
+    flowCode?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/stats/nodeDuration`, { params });
 }
 
 /**
  * overdueStats: GET /api/v1/workflow/engine/stats/overdue
  */
 export function overdueStats(params: {
-  flowCode?: string;
-  startTime?: string;
-  endTime?: string;
-}): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/stats/overdue`, {
-    params,
-  });
+    flowCode?: string;
+    startTime?: string;
+    endTime?: string;
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/stats/overdue`, { params });
 }
 
 /**
@@ -239,7 +222,9 @@ export function countersignRemove(data: FlowTaskOperateDTO): Promise<void> {
 /**
  * markRead: POST /api/v1/workflow/engine/task/{taskId}/read
  */
-export function markRead({ taskId }: { taskId: string }): Promise<void> {
+export function markRead({ taskId }: {
+    taskId: string;
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/read`);
 }
 
@@ -267,39 +252,31 @@ export function addApprover(data: FlowTaskOperateDTO): Promise<void> {
 /**
  * retract: POST /api/v1/workflow/engine/task/{taskId}/retract
  */
-export function retract(
-  {
-    taskId,
-  }: {
+export function retract({ taskId }: {
     taskId: string;
-  },
-  params: {
+  }, params: {
     comment?: string;
-  },
-): Promise<string> {
+  }): Promise<string> {
   return requestClient.post<string>(`/api/v1/workflow/engine/task/${taskId}/retract`, { params });
 }
 
 /**
  * suspendTask: POST /api/v1/workflow/engine/task/{taskId}/suspend
  */
-export function suspendTask(
-  {
-    taskId,
-  }: {
+export function suspendTask({ taskId }: {
     taskId: string;
-  },
-  params: {
+  }, params: {
     reason?: string;
-  },
-): Promise<void> {
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/suspend`, { params });
 }
 
 /**
  * activateTask: POST /api/v1/workflow/engine/task/{taskId}/activate
  */
-export function activateTask({ taskId }: { taskId: string }): Promise<void> {
+export function activateTask({ taskId }: {
+    taskId: string;
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/task/${taskId}/activate`);
 }
 
@@ -320,39 +297,23 @@ export function pushMyTodoCount(): Promise<boolean> {
 /**
  * countersignByInstanceId: GET /api/v1/workflow/engine/countersign/instance/{instanceId}
  */
-export function countersignByInstanceId(
-  {
-    instanceId,
-  }: {
+export function countersignByInstanceId({ instanceId }: {
     instanceId: string;
-  },
-  params: {
+  }, params: {
     pageNo?: number;
     pageSize?: number;
-  },
-): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/countersign/instance/${instanceId}`,
-    { params },
-  );
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/countersign/instance/${instanceId}`, { params });
 }
 
 /**
  * countersignByTaskId: GET /api/v1/workflow/engine/countersign/task/{taskId}
  */
-export function countersignByTaskId(
-  {
-    taskId,
-  }: {
+export function countersignByTaskId({ taskId }: {
     taskId: string;
-  },
-  params: {
+  }, params: {
     pageNo?: number;
     pageSize?: number;
-  },
-): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/countersign/task/${taskId}`,
-    { params },
-  );
+  }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/countersign/task/${taskId}`, { params });
 }

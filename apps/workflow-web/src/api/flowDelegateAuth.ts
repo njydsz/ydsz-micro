@@ -22,41 +22,37 @@ export function createDelegateAuth(data: FlowDelegateAuthPostDTO): Promise<strin
 /**
  * revokeDelegateAuth: POST /api/v1/workflow/engine/delegateAuth/{id}/revoke
  */
-export function revokeDelegateAuth({ id }: { id: string }): Promise<void> {
+export function revokeDelegateAuth({ id }: {
+    id: string;
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/delegateAuth/${id}/revoke`);
 }
 
 /**
  * updateDelegateAuthStatus: POST /api/v1/workflow/engine/delegateAuth/{id}/status
  */
-export function updateDelegateAuthStatus(
-  {
-    id,
-  }: {
+export function updateDelegateAuthStatus({ id }: {
     id: string;
-  },
-  params: {
+  }, params: {
     status?: string;
-  },
-): Promise<void> {
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/delegateAuth/${id}/status`, { params });
 }
 
 /**
  * listMyDelegateAuths: GET /api/v1/workflow/engine/delegateAuth/mine
  */
-export function listMyDelegateAuths(params: { status?: string }): Promise<FlowDelegateAuthVO[]> {
-  return requestClient.get<FlowDelegateAuthVO[]>(`/api/v1/workflow/engine/delegateAuth/mine`, {
-    params,
-  });
+export function listMyDelegateAuths(params: {
+    status?: string;
+  }): Promise<FlowDelegateAuthVO[]> {
+  return requestClient.get<FlowDelegateAuthVO[]>(`/api/v1/workflow/engine/delegateAuth/mine`, { params });
 }
 
 /**
  * listAsDelegate: GET /api/v1/workflow/engine/delegateAuth/asDelegate
  */
-export function listAsDelegate(params: { status?: string }): Promise<FlowDelegateAuthVO[]> {
-  return requestClient.get<FlowDelegateAuthVO[]>(
-    `/api/v1/workflow/engine/delegateAuth/asDelegate`,
-    { params },
-  );
+export function listAsDelegate(params: {
+    status?: string;
+  }): Promise<FlowDelegateAuthVO[]> {
+  return requestClient.get<FlowDelegateAuthVO[]>(`/api/v1/workflow/engine/delegateAuth/asDelegate`, { params });
 }

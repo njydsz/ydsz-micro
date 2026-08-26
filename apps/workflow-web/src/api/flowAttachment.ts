@@ -15,50 +15,37 @@ import type { FlowAttachmentPreviewVO, FlowAttachmentVO } from './models';
 /**
  * listByTask: GET /api/v1/workflow/engine/attachment/task/{taskId}
  */
-export function listByTask({ taskId }: { taskId: string }): Promise<FlowAttachmentVO[]> {
+export function listByTask({ taskId }: {
+    taskId: string;
+  }): Promise<FlowAttachmentVO[]> {
   return requestClient.get<FlowAttachmentVO[]>(`/api/v1/workflow/engine/attachment/task/${taskId}`);
 }
 
 /**
  * listByInstance: GET /api/v1/workflow/engine/attachment/instance/{instanceId}
  */
-export function listByInstance({
-  instanceId,
-}: {
-  instanceId: string;
-}): Promise<FlowAttachmentVO[]> {
-  return requestClient.get<FlowAttachmentVO[]>(
-    `/api/v1/workflow/engine/attachment/instance/${instanceId}`,
-  );
+export function listByInstance({ instanceId }: {
+    instanceId: string;
+  }): Promise<FlowAttachmentVO[]> {
+  return requestClient.get<FlowAttachmentVO[]>(`/api/v1/workflow/engine/attachment/instance/${instanceId}`);
 }
 
 /**
  * delete: DELETE /api/v1/workflow/engine/attachment/{attachmentId}
  */
-export function deleteApi(
-  {
-    attachmentId,
-  }: {
+export function deleteApi({ attachmentId }: {
     attachmentId: string;
-  },
-  params: {
+  }, params: {
     operatorId?: string;
-  },
-): Promise<void> {
-  return requestClient.delete<void>(`/api/v1/workflow/engine/attachment/${attachmentId}`, {
-    params,
-  });
+  }): Promise<void> {
+  return requestClient.delete<void>(`/api/v1/workflow/engine/attachment/${attachmentId}`, { params });
 }
 
 /**
  * preview: GET /api/v1/workflow/engine/attachment/{attachmentId}/preview
  */
-export function preview({
-  attachmentId,
-}: {
-  attachmentId: string;
-}): Promise<FlowAttachmentPreviewVO> {
-  return requestClient.get<FlowAttachmentPreviewVO>(
-    `/api/v1/workflow/engine/attachment/${attachmentId}/preview`,
-  );
+export function preview({ attachmentId }: {
+    attachmentId: string;
+  }): Promise<FlowAttachmentPreviewVO> {
+  return requestClient.get<FlowAttachmentPreviewVO>(`/api/v1/workflow/engine/attachment/${attachmentId}/preview`);
 }
