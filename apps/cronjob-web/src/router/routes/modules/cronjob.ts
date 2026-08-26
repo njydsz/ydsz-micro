@@ -79,7 +79,20 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:plug', order: 5, title: '连接器' },
+    meta: { icon: 'lucide:calendar', order: 6, title: '调度日历' },
+    name: 'ScheduleCalendarMgmt',
+    path: '/schedule-calendar',
+    children: [
+      {
+        name: 'ScheduleCalendar',
+        path: 'index',
+        component: () => import('#/views/schedule-calendar/index.vue'),
+        meta: { icon: 'lucide:calendar-days', title: '调度日历' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:plug', order: 7, title: '连接器' },
     name: 'ConnectorMgmt',
     path: '/connector',
     children: [
