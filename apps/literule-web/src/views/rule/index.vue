@@ -23,6 +23,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { list, listVersions, rollback, toggle } from '#/api/ruleAdmin';
 import { deleteRule } from '#/api/ruleBatch';
 import RuleForm from './rule-form.vue';
+import RuleChainDesigner from './components/RuleChainDesigner.vue';
 defineOptions({ name: 'RuleManagement' });
 const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
   columns: [
@@ -56,7 +57,7 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
     {
       field: 'action',
       title: '操作',
-      width: 250,
+      width: 280,
       fixed: 'right',
       slots: {
         default: ({ row }) =>
@@ -65,6 +66,11 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
               () => '编辑',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'success', onClick: () => handleDesign(row) },
+              () => '编排',
             ),
             h(
               ElButton,
@@ -178,6 +184,15 @@ const versionsVisible = ref(false);
 const versionsLoading = ref(false);
 const versionRows = ref<RuleVersionVO[]>([]);
 const currentRule = ref<RuleDefinitionVO | null>(null);
+
+/** 规则链设计器引用 */
+const ruleChainDesignerRef = ref<InstanceType<typeof RuleChainDesigner> | null>(null);
+
+/** 打开规则链设计器 */
+function handleDesign(row: RuleDefinitionVO): void {
+  currentRule.value = row;
+  ruleChainDesignerRef.value?.open();
+}
 /** 打开版本历史抽屉 */
 async function openVersions(row: RuleDefinitionVO) {
   currentRule.value = row;
@@ -223,6 +238,7 @@ async function handleRollback(versionItem: RuleVersionVO) {
       >
     </Grid>
     <RuleFormModal @success="gridApi.query()" />
+    <RuleChainDesigner ref="ruleChainDesignerRef" :rule-code="currentRule?.ruleCode" @success="gridApi.query()" />
     <ElDrawer v-model="versionsVisible" title="版本历史" :size="540">
       <div class="mb-2 flex justify-end">
         <ElButton size="small" @click="loadVersions">刷新</ElButton>
