@@ -19,6 +19,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 
 import {
+  ElButton,
   ElForm,
   ElFormItem,
   ElInput,
@@ -35,10 +36,23 @@ import { computed, reactive, ref } from 'vue';
 import { create, update } from '#/api/menu';
 import type { MenuDTO, MenuTreeVO } from '#/api/models';
 
+import IconPicker from './components/IconPicker.vue';
+
 const emit = defineEmits<{ success: [] }>();
 
 const formRef = ref();
 const isEdit = ref(false);
+const iconPickerRef = ref<InstanceType<typeof IconPicker> | null>(null);
+
+/** 打开图标选择器 */
+function openIconPicker(): void {
+  iconPickerRef.value?.open();
+}
+
+/** 处理图标选择 */
+function handleIconSelect(icon: string): void {
+  formData.icon = icon;
+}
 
 /** 菜单树（来自 menu.tree()，由列表页传入，用于上级菜单选择） */
 const treeData = ref<MenuTreeVO[]>([]);
@@ -213,7 +227,10 @@ const title = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'));
         <ElInput v-model="formData.component" placeholder="请输入组件路径" />
       </ElFormItem>
       <ElFormItem label="图标">
-        <ElInput v-model="formData.icon" placeholder="请输入图标名称" />
+        <div class="flex w-full gap-2">
+          <ElInput v-model="formData.icon" placeholder="请输入图标名称或点击选择" readonly @click="openIconPicker" />
+          <ElButton @click="openIconPicker">选择图标</ElButton>
+        </div>
       </ElFormItem>
       <ElFormItem label="权限标识">
         <ElInput v-model="formData.permissionCode" placeholder="请输入权限标识（如 system:menu:add）" />
@@ -234,5 +251,6 @@ const title = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'));
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>
+    <IconPicker ref="iconPickerRef" @select="handleIconSelect" />
   </Modal>
 </template>
