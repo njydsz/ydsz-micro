@@ -25,6 +25,7 @@ import { batchPass, batchReject, done, todo } from '#/api/flowTask';
 import type { FlowRunTaskVO } from '#/api/models';
 import { $t } from '#/locales';
 import TaskForm from './task-form.vue';
+import TaskOperationDialog from './components/TaskOperationDialog.vue';
 defineOptions({ name: 'TaskManagement' });
 
 /** 当前 Tab：todo=待办，done=已办 */
@@ -80,6 +81,11 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
               { size: 'small', link: true, type: 'primary', onClick: () => handleProcess(row) },
               () => $t('wf.process'),
             ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'warning', onClick: () => handleOperation(row) },
+              () => '更多',
+            ),
           ]);
         },
       },
@@ -122,6 +128,7 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [TaskFormModal, taskFormApi] = useYDSZModal({ connectedComponent: TaskForm });
+const [TaskOperationModal, taskOperationApi] = useYDSZModal({ connectedComponent: TaskOperationDialog });
 
 /** 切换待办/已办 Tab 后重新查询 */
 function handleTabChange() {
@@ -132,6 +139,12 @@ function handleTabChange() {
 function handleProcess(row: FlowRunTaskVO) {
   taskFormApi.setData({ record: row });
   taskFormApi.open();
+}
+
+/** 打开任务操作弹窗（跳转/沟通/草稿） */
+function handleOperation(row: FlowRunTaskVO) {
+  taskOperationApi.setData({ task: row });
+  taskOperationApi.open();
 }
 
 /** 收集勾选行的任务 ID，未勾选时提示 */
@@ -205,5 +218,6 @@ async function handleBatchReject() {
       </template>
     </Grid>
     <TaskFormModal @success="gridApi.query()" />
+    <TaskOperationModal @success="gridApi.query()" />
   </Page>
 </template>

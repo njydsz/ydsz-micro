@@ -120,6 +120,15 @@ const routes: RouteRecordRaw[] = [
           title: '审计日志',
         },
       },
+      {
+        name: 'SecurityDashboard',
+        path: 'security-dashboard',
+        component: () => import('#/views/system/security-dashboard/index.vue'),
+        meta: {
+          icon: 'lucide:shield-alert',
+          title: '安全仪表盘',
+        },
+      },
     ],
   },
 ];

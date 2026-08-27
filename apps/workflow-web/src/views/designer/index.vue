@@ -11,6 +11,9 @@
  *   <li>节点属性配置（办理人、表单、SLA、监听器）
  *   <li>保存/加载设计数据（与后端 FlowDesignerController 交互）
  *   <li>协作锁（防止多人同时编辑）
+ *   <li>撤销/重做（历史记录管理）
+ *   <li>缩放控制（50%-200%）
+ *   <li>对齐操作（左/中/右/上/下/居中/分布）
  * </ul>
  *
  * @path apps\workflow-web\src\views\designer\index.vue
@@ -52,6 +55,11 @@ const designerState = ref<DesignerState>({
 /** 画布组件引用 */
 const canvasRef = ref<InstanceType<typeof DesignerCanvas>>();
 
+/** 历史记录栈（用于撤销/重做） */
+const historyStack = ref<string[]>([]);
+const historyIndex = ref(-1);
+const maxHistorySize = 50;
+
 /**
  * 加载设计数据
  *
@@ -64,6 +72,8 @@ async function loadDesignerData() {
     const data = await getDesignerData({ id: definitionId.value });
     if (data?.diagramJson) {
       canvasRef.value?.loadGraph(data.diagramJson);
+      // 初始化历史记录
+      pushHistory(data.diagramJson);
     }
     ElMessage.success($t('wf.designer.loadSuccess'));
   } catch {
@@ -145,6 +155,103 @@ function handleNodeConfigChange(config: DesignerNodeConfig) {
   }
 }
 
+// ========== 撤销/重做 ==========
+
+/**
+ * 推入历史记录
+ *
+ * @param data 画布数据 JSON 字符串
+ */
+function pushHistory(data: string): void {
+  // 如果当前不在历史记录末尾，截断后面的记录
+  if (historyIndex.value < historyStack.value.length - 1) {
+    historyStack.value = historyStack.value.slice(0, historyIndex.value + 1);
+  }
+  historyStack.value.push(data);
+  // 超出最大记录数时移除最早的记录
+  if (historyStack.value.length > maxHistorySize) {
+    historyStack.value.shift();
+  }
+  historyIndex.value = historyStack.value.length - 1;
+}
+
+/** 撤销 */
+function handleUndo(): void {
+  if (historyIndex.value > 0) {
+    historyIndex.value--;
+    const data = historyStack.value[historyIndex.value];
+    canvasRef.value?.loadGraph(data);
+  }
+}
+
+/** 重做 */
+function handleRedo(): void {
+  if (historyIndex.value < historyStack.value.length - 1) {
+    historyIndex.value++;
+    const data = historyStack.value[historyIndex.value];
+    canvasRef.value?.loadGraph(data);
+  }
+}
+
+// ========== 缩放控制 ==========
+
+/** 放大 */
+function handleZoomIn(): void {
+  canvasRef.value?.zoomIn();
+}
+
+/** 缩小 */
+function handleZoomOut(): void {
+  canvasRef.value?.zoomOut();
+}
+
+/** 重置缩放 */
+function handleZoomReset(): void {
+  canvasRef.value?.zoomReset();
+}
+
+// ========== 对齐操作 ==========
+
+/** 左对齐 */
+function handleAlignLeft(): void {
+  canvasRef.value?.alignLeft();
+}
+
+/** 水平居中 */
+function handleAlignCenter(): void {
+  canvasRef.value?.alignCenter();
+}
+
+/** 右对齐 */
+function handleAlignRight(): void {
+  canvasRef.value?.alignRight();
+}
+
+/** 上对齐 */
+function handleAlignTop(): void {
+  canvasRef.value?.alignTop();
+}
+
+/** 垂直居中 */
+function handleAlignMiddle(): void {
+  canvasRef.value?.alignMiddle();
+}
+
+/** 下对齐 */
+function handleAlignBottom(): void {
+  canvasRef.value?.alignBottom();
+}
+
+/** 水平分布 */
+function handleDistributeHorizontal(): void {
+  canvasRef.value?.distributeHorizontal();
+}
+
+/** 垂直分布 */
+function handleDistributeVertical(): void {
+  canvasRef.value?.distributeVertical();
+}
+
 onMounted(async () => {
   definitionId.value = route.query.id as string || '';
   if (definitionId.value) {
@@ -166,6 +273,19 @@ onBeforeUnmount(async () => {
       :saving="isSaving"
       :locked="isLocked"
       @save="handleSave"
+      @undo="handleUndo"
+      @redo="handleRedo"
+      @zoom-in="handleZoomIn"
+      @zoom-out="handleZoomOut"
+      @zoom-reset="handleZoomReset"
+      @align-left="handleAlignLeft"
+      @align-center="handleAlignCenter"
+      @align-right="handleAlignRight"
+      @align-top="handleAlignTop"
+      @align-middle="handleAlignMiddle"
+      @align-bottom="handleAlignBottom"
+      @distribute-horizontal="handleDistributeHorizontal"
+      @distribute-vertical="handleDistributeVertical"
     />
     <div class="designer-body">
       <!-- 左侧节点面板 -->

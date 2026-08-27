@@ -20,12 +20,13 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
-import { h } from 'vue';
+import { ElButton, ElDialog, ElDrawer, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { h, reactive, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { audit, deleteApi, page } from '#/api/template';
-import type { MsgTemplateVO } from '#/api/models';
+import { listVersions, preview, rollback, testSend } from '#/api/templateVersion';
+import type { MsgTemplateVO, MsgTemplateVersion } from '#/api/models';
 
 import TemplateForm from './template-form.vue';
 
@@ -78,6 +79,9 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleVersion(row) }, () => '版本'),
+            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handlePreview(row) }, () => '预览'),
+            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleTestSend(row) }, () => '测试'),
             h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleAudit(row) }, () => '审核'),
             h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
@@ -147,6 +151,93 @@ async function handleDelete(row: MsgTemplateVO) {
     // 用户取消或请求失败
   }
 }
+
+/** 版本管理抽屉状态 */
+const versionVisible = ref(false);
+const versionLoading = ref(false);
+const versionList = ref<MsgTemplateVersion[]>([]);
+const currentTemplateCode = ref('');
+
+/** 打开版本管理 */
+async function handleVersion(row: MsgTemplateVO) {
+  if (!row.templateCode) return;
+  currentTemplateCode.value = row.templateCode;
+  versionVisible.value = true;
+  versionLoading.value = true;
+  try {
+    versionList.value = await listVersions({ templateCode: row.templateCode });
+  } catch {
+    versionList.value = [];
+  } finally {
+    versionLoading.value = false;
+  }
+}
+
+/** 版本回滚 */
+async function handleRollback(version: MsgTemplateVersion) {
+  if (!version.version) return;
+  try {
+    await ElMessageBox.confirm(`确定回滚到版本 ${version.version} 吗？`, '回滚确认', { type: 'warning' });
+    await rollback({ templateCode: currentTemplateCode.value, version: version.version });
+    ElMessage.success('回滚成功');
+    await handleVersion({ templateCode: currentTemplateCode.value });
+  } catch {
+    // 用户取消或请求失败
+  }
+}
+
+/** 预览弹窗状态 */
+const previewVisible = ref(false);
+const previewContent = ref('');
+const previewLoading = ref(false);
+
+/** 打开预览 */
+async function handlePreview(row: MsgTemplateVO) {
+  if (!row.templateCode) return;
+  previewVisible.value = true;
+  previewLoading.value = true;
+  try {
+    const result = await preview({
+      templateCode: row.templateCode,
+      variables: {},
+    });
+    previewContent.value = result ?? '';
+  } catch {
+    previewContent.value = '预览生成失败';
+  } finally {
+    previewLoading.value = false;
+  }
+}
+
+/** 测试发送弹窗状态 */
+const testSendVisible = ref(false);
+const testSendForm = reactive({ receiver: '', variables: '' });
+
+/** 打开测试发送 */
+function handleTestSend(row: MsgTemplateVO) {
+  testSendForm.receiver = '';
+  testSendForm.variables = '';
+  testSendVisible.value = true;
+}
+
+/** 执行测试发送 */
+async function executeTestSend(): Promise<void> {
+  if (!testSendForm.receiver.trim()) {
+    ElMessage.warning('请输入接收人');
+    return;
+  }
+  try {
+    await testSend({
+      templateCode: '',
+      receiver: testSendForm.receiver,
+      variables: {},
+    });
+    ElMessage.success('测试发送成功');
+    testSendVisible.value = false;
+  } catch {
+    // 错误提示由请求拦截器统一处理
+  }
+}
 </script>
 <template>
   <Page auto-content-height>
@@ -156,5 +247,44 @@ async function handleDelete(row: MsgTemplateVO) {
       </template>
     </Grid>
     <TemplateFormModal @success="gridApi.query()" />
+    <!-- 版本管理抽屉 -->
+    <ElDrawer v-model="versionVisible" title="版本管理" :size="640">
+      <div v-loading="versionLoading">
+        <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">暂无版本记录</div>
+        <div
+          v-for="version in versionList"
+          :key="version.version"
+          class="mb-3 flex items-center justify-between rounded border p-3"
+        >
+          <div>
+            <p class="text-sm font-medium">版本 {{ version.version }}</p>
+            <p class="text-xs text-gray-500">{{ version.createdAt }}</p>
+            <p v-if="version.changeLog" class="mt-1 text-xs text-gray-600">{{ version.changeLog }}</p>
+          </div>
+          <ElButton size="small" type="warning" @click="handleRollback(version)">回滚</ElButton>
+        </div>
+      </div>
+    </ElDrawer>
+    <!-- 预览弹窗 -->
+    <ElDialog v-model="previewVisible" title="模板预览" width="600px">
+      <div v-loading="previewLoading" class="min-h-32">
+        <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-4 text-sm">{{ previewContent }}</pre>
+      </div>
+    </ElDialog>
+    <!-- 测试发送弹窗 -->
+    <ElDialog v-model="testSendVisible" title="测试发送" width="480px">
+      <ElForm :model="testSendForm" label-width="80px">
+        <ElFormItem label="接收人" required>
+          <ElInput v-model="testSendForm.receiver" placeholder="请输入接收人邮箱/手机号" />
+        </ElFormItem>
+        <ElFormItem label="变量">
+          <ElInput v-model="testSendForm.variables" placeholder="请输入变量JSON（选填）" type="textarea" :rows="3" />
+        </ElFormItem>
+      </ElForm>
+      <template #footer>
+        <ElButton @click="testSendVisible = false">取消</ElButton>
+        <ElButton type="primary" @click="executeTestSend">发送</ElButton>
+      </template>
+    </ElDialog>
   </Page>
 </template>

@@ -25,6 +25,8 @@ import {
   ElDialog,
   ElMessage,
   ElMessageBox,
+  ElTable,
+  ElTableColumn,
   ElTag,
   ElTransfer,
 } from 'element-plus';
@@ -32,8 +34,9 @@ import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { tree as menuTree } from '#/api/menu';
-import type { MenuTreeVO } from '#/api/models';
-import { assignPermissions, getRolePermissions, page, remove } from '#/api/role';
+import type { MenuTreeVO, UserAccountVO } from '#/api/models';
+import { page as userPage } from '#/api/userAccount';
+import { assignPermissions, create, getById, getRolePermissions, page, remove } from '#/api/role';
 import type { RoleVO } from '#/api/models';
 
 import RoleForm from './role-form.vue';
@@ -79,7 +82,7 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
     {
       field: 'action',
       title: '操作',
-      width: 220,
+      width: 320,
       fixed: 'right',
       slots: {
         default: ({ row }) =>
@@ -93,6 +96,16 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
               ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleAssignPermissions(row) },
               () => '分配权限',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'info', onClick: () => handleCopyRole(row) },
+              () => '复制',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'success', onClick: () => handleViewUsers(row) },
+              () => '用户',
             ),
             h(
               ElButton,
@@ -244,6 +257,53 @@ async function handleDelete(row: RoleVO) {
     // 用户取消或请求失败
   }
 }
+
+// ========== 复制角色 ==========
+async function handleCopyRole(row: RoleVO): Promise<void> {
+  if (!row.id) return;
+  try {
+    // 获取源角色详情
+    const sourceRole = await getById({ id: row.id });
+    // 创建新角色（复制属性，修改名称和编码）
+    const newRoleId = await create({
+      roleName: `${sourceRole.roleName ?? ''}_副本`,
+      roleCode: `${sourceRole.roleCode ?? ''}_COPY_${Date.now()}`,
+      description: sourceRole.description,
+      sortOrder: sourceRole.sortOrder,
+      dataScope: sourceRole.dataScope,
+      status: sourceRole.status,
+      tenantId: sourceRole.tenantId,
+    });
+    // 复制权限
+    const permissions = await getRolePermissions({ roleId: row.id });
+    if (permissions.length > 0 && newRoleId) {
+      await assignPermissions({ roleId: newRoleId }, { permissionIds: permissions });
+    }
+    ElMessage.success('角色复制成功');
+    gridApi.query();
+  } catch {
+    // 错误提示由请求拦截器统一处理
+  }
+}
+
+// ========== 角色用户列表 ==========
+const userListDialogVisible = ref(false);
+const roleUserList = ref<UserAccountVO[]>([]);
+const currentViewRoleName = ref('');
+
+async function handleViewUsers(row: RoleVO): Promise<void> {
+  if (!row.id) return;
+  currentViewRoleName.value = row.roleName ?? '';
+  userListDialogVisible.value = true;
+  try {
+    const res = await userPage({
+      query: { roleIds: row.id },
+    });
+    roleUserList.value = res.data ?? [];
+  } catch {
+    roleUserList.value = [];
+  }
+}
 </script>
 
 <template>
@@ -270,6 +330,32 @@ async function handleDelete(row: RoleVO) {
       <template #footer>
         <ElButton @click="permDialogVisible = false">取消</ElButton>
         <ElButton type="primary" @click="confirmPermissionAssign">确定</ElButton>
+      </template>
+    </ElDialog>
+
+    <!-- 角色用户列表弹窗 -->
+    <ElDialog
+      v-model="userListDialogVisible"
+      :title="`角色用户 - ${currentViewRoleName}`"
+      width="800px"
+    >
+      <ElTable :data="roleUserList" border max-height="400">
+        <ElTableColumn type="index" label="序号" width="60" />
+        <ElTableColumn prop="username" label="用户名" width="120" />
+        <ElTableColumn prop="realName" label="姓名" width="120" />
+        <ElTableColumn prop="phone" label="手机号" width="130" />
+        <ElTableColumn prop="email" label="邮箱" width="180" />
+        <ElTableColumn prop="status" label="状态" width="80">
+          <template #default="{ row }">
+            <ElTag :type="row.status === 1 ? 'success' : 'danger'" size="small">
+              {{ row.status === 1 ? '启用' : '禁用' }}
+            </ElTag>
+          </template>
+        </ElTableColumn>
+        <ElTableColumn prop="createdAt" label="创建时间" width="170" />
+      </ElTable>
+      <template #footer>
+        <ElButton @click="userListDialogVisible = false">关闭</ElButton>
       </template>
     </ElDialog>
   </Page>

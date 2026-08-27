@@ -31,6 +31,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
 import type { FlowInstanceVO, FlowTimelineVO } from '#/api/models';
 import { $t } from '#/locales';
+import FlowDiagramViewer from './components/FlowDiagramViewer.vue';
 import InstanceForm from './instance-form.vue';
 defineOptions({ name: 'InstanceManagement' });
 
@@ -226,12 +227,14 @@ async function handleRecall(row: FlowInstanceVO) {
 const timelineVisible = ref(false);
 const timelineLoading = ref(false);
 const timelineRows = ref<FlowTimelineVO[]>([]);
+const timelineInstance = ref<FlowInstanceVO | null>(null);
 
 /** 查看流程运行轨迹 */
 async function openTimeline(row: FlowInstanceVO) {
   if (!row.id) return;
   timelineVisible.value = true;
   timelineLoading.value = true;
+  timelineInstance.value = row;
   try {
     timelineRows.value = (await timeline({ id: row.id })) ?? [];
   } finally {
@@ -247,21 +250,26 @@ async function openTimeline(row: FlowInstanceVO) {
       >
     </Grid>
     <InstanceFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="timelineVisible" :title="$t('wf.flowTimeline')" :size="640">
-      <ElTable :data="timelineRows" border size="small" v-loading="timelineLoading">
-        <ElTableColumn prop="type" :label="$t('wf.type')" width="100" />
-        <ElTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
-        <ElTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
-        <ElTableColumn prop="assigneeName" :label="$t('wf.assigneeName')" width="100" />
-        <ElTableColumn prop="action" :label="$t('wf.action')" width="100" />
-        <ElTableColumn
-          prop="comment"
-          :label="$t('wf.comment')"
-          min-width="120"
-          show-overflow-tooltip
-        />
-        <ElTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
-      </ElTable>
+    <ElDrawer v-model="timelineVisible" :title="$t('wf.flowTimeline')" :size="900">
+      <div class="drawer-content">
+        <!-- 流程图高亮 -->
+        <FlowDiagramViewer :instance="timelineInstance" />
+        <!-- 轨迹表格 -->
+        <ElTable :data="timelineRows" border size="small" v-loading="timelineLoading" class="mt-4">
+          <ElTableColumn prop="type" :label="$t('wf.type')" width="100" />
+          <ElTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
+          <ElTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
+          <ElTableColumn prop="assigneeName" :label="$t('wf.assigneeName')" width="100" />
+          <ElTableColumn prop="action" :label="$t('wf.action')" width="100" />
+          <ElTableColumn
+            prop="comment"
+            :label="$t('wf.comment')"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <ElTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
+        </ElTable>
+      </div>
     </ElDrawer>
   </Page>
 </template>
