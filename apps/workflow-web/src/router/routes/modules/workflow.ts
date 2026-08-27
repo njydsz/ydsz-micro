@@ -48,7 +48,33 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:user-check', order: 3, title: '审批配置' },
+    meta: { icon: 'lucide:pen-tool', order: 4, title: '流程设计' },
+    name: 'FlowDesign',
+    path: '/design',
+    children: [
+      {
+        name: 'DesignerEditor',
+        path: 'editor',
+        component: () => import('#/views/designer/index.vue'),
+        meta: { icon: 'lucide:workflow', title: '设计器' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:monitor', order: 3, title: '监控分析' },
+    name: 'MonitorDashboard',
+    path: '/monitor',
+    children: [
+      {
+        name: 'MonitorOverview',
+        path: 'overview',
+        component: () => import('#/views/monitor/index.vue'),
+        meta: { icon: 'lucide:activity', title: '监控概览' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:user-check', order: 4, title: '审批配置' },
     name: 'ApprovalConfig',
     path: '/approval',
     children: [

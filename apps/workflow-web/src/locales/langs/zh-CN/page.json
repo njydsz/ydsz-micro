@@ -10,5 +10,7 @@
   "sla": "SLA管理",
   "quickComment": "快捷评语",
   "monitor": "监控分析",
-  "analytics": "数据分析"
+  "analytics": "数据分析",
+  "design": "流程设计",
+  "designer": "设计器"
 }

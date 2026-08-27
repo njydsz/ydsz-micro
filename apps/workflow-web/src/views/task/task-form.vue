@@ -18,7 +18,15 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { delegate, pass, reject, transfer } from '#/api/flowTask';
+import {
+  countersignAfter,
+  countersignBefore,
+  countersignParallel,
+  delegate,
+  pass,
+  reject,
+  transfer,
+} from '#/api/flowTask';
 import { listQuickComments, incrementUseCount } from '#/api/flowComment';
 import type { FlowRunTaskVO, FlowTaskOperateDTO, FlowQuickCommentVO } from '#/api/models';
 import { $t } from '#/locales';
@@ -61,7 +69,7 @@ onMounted(() => {
 });
 
 /** 处理动作 */
-type TaskAction = 'pass' | 'reject' | 'transfer' | 'delegate';
+type TaskAction = 'pass' | 'reject' | 'transfer' | 'delegate' | 'countersignBefore' | 'countersignAfter' | 'countersignParallel';
 
 /** 任务处理表单状态 */
 interface TaskHandleState {
@@ -131,6 +139,18 @@ const [Modal, modalApi] = useYDSZModal({
           await delegate(payload);
           break;
         }
+        case 'countersignBefore': {
+          await countersignBefore(payload);
+          break;
+        }
+        case 'countersignAfter': {
+          await countersignAfter(payload);
+          break;
+        }
+        case 'countersignParallel': {
+          await countersignParallel(payload);
+          break;
+        }
       }
       ElMessage.success($t('wf.processSuccess'));
       emit('success');
@@ -147,6 +167,9 @@ const title = computed(() => {
     reject: $t('wf.actionReject'),
     transfer: $t('wf.actionTransfer'),
     delegate: $t('wf.actionDelegate'),
+    countersignBefore: $t('wf.actionCountersignBefore'),
+    countersignAfter: $t('wf.actionCountersignAfter'),
+    countersignParallel: $t('wf.actionCountersignParallel'),
   };
   return `${actionMap[formData.action]} - ${$t('wf.taskHandle')}`;
 });
@@ -167,6 +190,9 @@ const title = computed(() => {
           <ElRadio value="reject">{{ $t('wf.reject') }}</ElRadio>
           <ElRadio value="transfer">{{ $t('wf.transfer') }}</ElRadio>
           <ElRadio value="delegate">{{ $t('wf.delegate') }}</ElRadio>
+          <ElRadio value="countersignBefore">{{ $t('wf.countersignBefore') }}</ElRadio>
+          <ElRadio value="countersignAfter">{{ $t('wf.countersignAfter') }}</ElRadio>
+          <ElRadio value="countersignParallel">{{ $t('wf.countersignParallel') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
       <ElFormItem :label="$t('wf.quickComment')">
