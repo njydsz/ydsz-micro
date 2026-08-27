@@ -9,19 +9,23 @@
 /**
  * 文件节点（列表页）
  * <p>文件节点的浏览页，支持目录/文件两种类型，数据来自后端契约 API（apps/nextwiki-web/src/api/file.ts）。
- * <p>支持重命名、移动、复制、删除，新建文件夹使用 file-form.vue 提交 createFolder。
+ * <p>支持上传、下载、预览、重命名、移动、复制、删除，新建文件夹使用 file-form.vue 提交 createFolder。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElDialog, ElDrawer, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { copy, deleteApi, listFiles, move, rename } from '#/api/file';
+import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
 import FileForm from './file-form.vue';
+import FileUpload from './file-upload.vue';
+import FilePreview from './file-preview.vue';
+
 defineOptions({ name: 'FileManagement' });
 
 /** 文件大小格式化（字节 → 可读单位） */
@@ -62,10 +66,20 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
     { field: 'createdBy', title: '创建人', width: 110 },
     { field: 'createdAt', title: '创建时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 240, fixed: 'right',
+      field: 'action', title: '操作', width: 320, fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
+            h(ElButton, {
+              size: 'small', link: true, type: 'success',
+              onClick: () => handlePreview(row),
+              disabled: row.nodeType === 'FOLDER',
+            }, () => '预览'),
+            h(ElButton, {
+              size: 'small', link: true, type: 'primary',
+              onClick: () => handleDownload(row),
+              disabled: row.nodeType === 'FOLDER',
+            }, () => '下载'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleRename(row) }, () => '重命名'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleMove(row) }, () => '移动'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleCopy(row) }, () => '复制'),
@@ -94,8 +108,31 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [FileFormModal, fileFormApi] = useYDSZModal({ connectedComponent: FileForm });
+const [FileUploadModal, fileUploadApi] = useYDSZModal({ connectedComponent: FileUpload });
+
+/** 预览抽屉状态 */
+const previewVisible = ref(false);
+const previewFileNode = ref<FileNodeVO | null>(null);
 
 function handleAdd() { fileFormApi.open(); }
+
+function handleUpload() { fileUploadApi.open(); }
+
+/** 预览文件 */
+function handlePreview(row: FileNodeVO) {
+  if (row.nodeType === 'FOLDER') return;
+  previewFileNode.value = row;
+  previewVisible.value = true;
+}
+
+/** 下载文件 */
+async function handleDownload(row: FileNodeVO) {
+  if (row.nodeType === 'FOLDER' || !row.id) return;
+  try {
+    await download({ nodeId: row.id }, {});
+    ElMessage.success('下载已开始');
+  } catch { /* 错误提示由请求拦截器统一处理 */ }
+}
 
 /** 重命名弹窗状态 */
 const renameVisible = ref(false);
@@ -156,10 +193,12 @@ async function handleDelete(row: FileNodeVO) {
   <Page auto-content-height>
     <Grid table-title="文件管理">
       <template #toolbar-tools>
+        <ElButton type="primary" @click="handleUpload">上传文件</ElButton>
         <ElButton type="primary" @click="handleAdd">新建文件夹</ElButton>
       </template>
     </Grid>
     <FileFormModal @success="gridApi.query()" />
+    <FileUploadModal @success="gridApi.query()" />
     <ElDialog v-model="renameVisible" title="重命名" width="420px">
       <ElInput v-model="renameForm.name" placeholder="请输入新名称" />
       <template #footer>
@@ -174,5 +213,8 @@ async function handleDelete(row: FileNodeVO) {
         <ElButton type="primary" @click="confirmMove">确定</ElButton>
       </template>
     </ElDialog>
+    <ElDrawer v-model="previewVisible" title="文件预览" :size="800" direction="rtl">
+      <FilePreview :file-node="previewFileNode" @close="previewVisible = false" />
+    </ElDrawer>
   </Page>
 </template>

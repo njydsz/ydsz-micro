@@ -28,7 +28,33 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:share-2', order: 2, title: '分享管理' },
+    meta: { icon: 'lucide:search', order: 2, title: '全文搜索' },
+    name: 'SearchMgmt',
+    path: '/search',
+    children: [
+      {
+        name: 'FullTextSearch',
+        path: 'index',
+        component: () => import('#/views/search/index.vue'),
+        meta: { icon: 'lucide:search', title: '全文搜索' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:cloud', order: 3, title: '空间管理' },
+    name: 'SpaceMgmt',
+    path: '/space',
+    children: [
+      {
+        name: 'SpaceManagement',
+        path: 'list',
+        component: () => import('#/views/space/index.vue'),
+        meta: { icon: 'lucide:cloud', title: '空间列表' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:share-2', order: 4, title: '分享管理' },
     name: 'ShareMgmt',
     path: '/share',
     children: [
@@ -41,7 +67,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:tag', order: 3, title: '标签管理' },
+    meta: { icon: 'lucide:tag', order: 5, title: '标签管理' },
     name: 'TagMgmt',
     path: '/tag',
     children: [
@@ -54,7 +80,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:database', order: 4, title: '存储管理' },
+    meta: { icon: 'lucide:database', order: 6, title: '存储管理' },
     name: 'StorageMgmt',
     path: '/storage',
     children: [

@@ -42,7 +42,10 @@ import type { PostVO } from '#/api/models';
 import { list as roleList } from '#/api/role';
 import type { RoleVO } from '#/api/models';
 import {
+  downloadImportTemplate,
+  exportUsers,
   getUserRoles,
+  importUsers,
   page,
   remove,
   resetPassword,
@@ -51,6 +54,7 @@ import type { UserAccountVO } from '#/api/models';
 
 import RoleAssign from './role-assign.vue';
 import UserForm from './user-form.vue';
+import UserImport from './user-import.vue';
 
 defineOptions({ name: 'UserManagement' });
 
@@ -267,6 +271,9 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   },
 });
 
+// ========== 导入弹窗 ==========
+const [UserImportModal, userImportApi] = useYDSZModal({ connectedComponent: UserImport });
+
 // ========== 表单弹窗 ==========
 const [UserFormModal, userFormApi] = useYDSZModal({ connectedComponent: UserForm });
 
@@ -278,6 +285,29 @@ function handleAdd() {
     roleList: roleOptions.value,
   });
   userFormApi.open();
+}
+
+// ========== 导入导出 ==========
+function handleImport() {
+  userImportApi.open();
+}
+
+async function handleExport() {
+  try {
+    await exportUsers({});
+    ElMessage.success('导出成功');
+  } catch {
+    // 错误提示由请求拦截器统一处理
+  }
+}
+
+async function handleDownloadTemplate() {
+  try {
+    await downloadImportTemplate({});
+    ElMessage.success('模板下载成功');
+  } catch {
+    // 错误提示由请求拦截器统一处理
+  }
 }
 
 function handleEdit(row: UserAccountVO) {
@@ -396,9 +426,13 @@ async function handleDelete(row: UserAccountVO) {
     <Grid table-title="用户管理">
       <template #toolbar-tools>
         <ElButton type="primary" @click="handleAdd">新增用户</ElButton>
+        <ElButton type="success" @click="handleImport">导入用户</ElButton>
+        <ElButton type="warning" @click="handleExport">导出用户</ElButton>
+        <ElButton @click="handleDownloadTemplate">下载模板</ElButton>
       </template>
     </Grid>
     <UserFormModal @success="gridApi.query()" />
     <RoleAssignModal @success="gridApi.query()" />
+    <UserImportModal @success="gridApi.query()" />
   </Page>
 </template>
