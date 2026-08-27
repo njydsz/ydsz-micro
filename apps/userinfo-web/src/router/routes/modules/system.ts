@@ -1,5 +1,5 @@
 /**
- * 系统管理路由模块 — 定义组织架构相关路由（部门、岗位、公司、菜单、角色、用户、国际化）
+ * 系统管理路由模块 — 定义组织架构相关路由（部门、岗位、公司、菜单、角色、用户、国际化、会话、审计）
  *
  * @path apps\userinfo-web\src\router\routes\modules\system.ts
  * @author ydsz-team
@@ -89,6 +89,35 @@ const routes: RouteRecordRaw[] = [
         meta: {
           icon: 'lucide:languages',
           title: '语言管理',
+        },
+      },
+    ],
+  },
+  {
+    meta: {
+      icon: 'lucide:monitor',
+      order: 3,
+      title: '安全审计',
+    },
+    name: 'SecurityAudit',
+    path: '/security-audit',
+    children: [
+      {
+        name: 'SessionManagement',
+        path: 'session',
+        component: () => import('#/views/system/session/index.vue'),
+        meta: {
+          icon: 'lucide:monitor',
+          title: '在线用户',
+        },
+      },
+      {
+        name: 'AuditLogManagement',
+        path: 'audit',
+        component: () => import('#/views/system/audit/index.vue'),
+        meta: {
+          icon: 'lucide:file-text',
+          title: '审计日志',
         },
       },
     ],
