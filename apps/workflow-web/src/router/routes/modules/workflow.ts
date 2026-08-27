@@ -58,6 +58,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/designer/index.vue'),
         meta: { icon: 'lucide:workflow', title: '设计器' },
       },
+      {
+        name: 'FormDesigner',
+        path: 'form',
+        component: () => import('#/views/form-designer/index.vue'),
+        meta: { icon: 'lucide:list-form', title: '表单设计器' },
+      },
     ],
   },
   {

@@ -66,6 +66,32 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    meta: { icon: 'lucide:wrench', order: 5, title: '工具管理' },
+    name: 'ToolMgmt',
+    path: '/tool',
+    children: [
+      {
+        name: 'ToolManagement',
+        path: 'list',
+        component: () => import('#/views/tool/index.vue'),
+        meta: { icon: 'lucide:wrench', title: '工具列表' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:message-square-code', order: 7, title: 'Prompt模板' },
+    name: 'PromptMgmt',
+    path: '/prompt',
+    children: [
+      {
+        name: 'PromptManagement',
+        path: 'list',
+        component: () => import('#/views/prompt/index.vue'),
+        meta: { icon: 'lucide:message-square-code', title: 'Prompt 列表' },
+      },
+    ],
+  },
+  {
     meta: { icon: 'lucide:check-circle', order: 4, title: '审批管理' },
     name: 'ApprovalMgmt',
     path: '/approval',
@@ -75,6 +101,19 @@ const routes: RouteRecordRaw[] = [
         path: 'list',
         component: () => import('#/views/approval/index.vue'),
         meta: { icon: 'lucide:clipboard-check', title: '人工审批' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:activity', order: 6, title: '可观测性' },
+    name: 'ObservabilityMgmt',
+    path: '/observability',
+    children: [
+      {
+        name: 'ObservabilityManagement',
+        path: 'overview',
+        component: () => import('#/views/observability/index.vue'),
+        meta: { icon: 'lucide:activity', title: 'Trace 监控' },
       },
     ],
   },

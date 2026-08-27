@@ -35,6 +35,8 @@ import { computed, onBeforeUnmount, ref } from 'vue';
 import { clearHistory, history as fetchHistory } from '#/api/agent';
 import { openAgentStream } from '#/utils/sse-client';
 
+import ConversationShare from './components/ConversationShare.vue';
+
 defineOptions({ name: 'AgentChatConsole' });
 
 /** 会话消息（role + 增量 content） */
@@ -52,6 +54,9 @@ const sending = ref(false);
 /** SSE 连接状态（idle/connecting/live） */
 const streamState = ref<'idle' | 'connecting' | 'live'>('idle');
 const scrollEl = ref<HTMLElement | null>(null);
+
+/** 对话分享组件引用 */
+const conversationShareRef = ref<InstanceType<typeof ConversationShare> | null>(null);
 
 let closeStream = (() => undefined) as () => void;
 
@@ -185,6 +190,7 @@ onBeforeUnmount(() => {
           @keyup.enter="loadHistory"
         />
         <ElButton @click="loadHistory">加载历史</ElButton>
+        <ElButton type="primary" plain :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)">发布/分享</ElButton>
         <ElButton type="danger" plain @click="handleClearHistory">清空会话</ElButton>
         <ElTooltip :content="`流式状态：${streamStateText[streamState]}`" placement="top">
           <span
@@ -216,6 +222,7 @@ onBeforeUnmount(() => {
           </div>
         </div>
       </div>
+      <ConversationShare ref="conversationShareRef" />
       <!-- 输入区 -->
       <div class="mt-3">
         <ElCollapse class="mb-2">
