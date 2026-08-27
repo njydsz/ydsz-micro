@@ -16,10 +16,12 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElMessage } from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElMessage, ElTabPane, ElTabs } from 'element-plus';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';
 import type { DagCheckpoint } from '#/api/models';
+
+import WorkflowDesigner from './components/WorkflowDesigner.vue';
 
 defineOptions({ name: 'DagManagement' });
 
@@ -34,6 +36,17 @@ const submitting = ref(false);
 const validateResult = ref<unknown>(null);
 const executeResult = ref<unknown>(null);
 const checkpointResult = ref<DagCheckpoint | null>(null);
+
+/** 当前激活的标签页 */
+const activeTab = ref('dsl');
+
+/** 工作流设计器引用 */
+const workflowDesignerRef = ref<InstanceType<typeof WorkflowDesigner> | null>(null);
+
+/** 打开可视化设计器 */
+function openWorkflowDesigner(): void {
+  workflowDesignerRef.value?.open();
+}
 
 /** 已完成节点展示文本 */
 const completedNodesText = computed(() => checkpointResult.value?.completedNodes?.join(', ') ?? '-');
@@ -86,58 +99,76 @@ async function handleQueryCheckpoint() {
 </script>
 <template>
   <Page>
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <div class="rounded-md border p-3">
-        <div class="mb-2 text-sm font-medium">DSL 编排脚本</div>
-        <ElInput v-model="dsl" type="textarea" :rows="16" placeholder="粘贴 DSL 编排脚本" />
-      </div>
-      <div class="flex flex-col gap-4">
-        <div class="rounded-md border p-3">
-          <div class="mb-2 text-sm font-medium">执行参数</div>
-          <div class="mb-2">
-            <div class="mb-1 text-sm text-gray-500">用户输入</div>
-            <ElInput v-model="userInput" type="textarea" :rows="3" placeholder="用户输入（可选）" />
+    <ElTabs v-model="activeTab">
+      <!-- DSL 编排标签页 -->
+      <ElTabPane label="DSL 编排" name="dsl">
+        <div class="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
+          <div class="rounded-md border p-3">
+            <div class="mb-2 flex items-center justify-between">
+              <span class="text-sm font-medium">DSL 编排脚本</span>
+              <ElButton size="small" type="primary" @click="openWorkflowDesigner">可视化编排</ElButton>
+            </div>
+            <ElInput v-model="dsl" type="textarea" :rows="16" placeholder="粘贴 DSL 编排脚本" />
           </div>
-          <div class="flex gap-2">
-            <ElButton :loading="submitting" @click="handleValidate">校验</ElButton>
-            <ElButton type="primary" :loading="submitting" @click="handleExecute">执行</ElButton>
+          <div class="flex flex-col gap-4">
+            <div class="rounded-md border p-3">
+              <div class="mb-2 text-sm font-medium">执行参数</div>
+              <div class="mb-2">
+                <div class="mb-1 text-sm text-gray-500">用户输入</div>
+                <ElInput v-model="userInput" type="textarea" :rows="3" placeholder="用户输入（可选）" />
+              </div>
+              <div class="flex gap-2">
+                <ElButton :loading="submitting" @click="handleValidate">校验</ElButton>
+                <ElButton type="primary" :loading="submitting" @click="handleExecute">执行</ElButton>
+              </div>
+            </div>
+            <div class="rounded-md border p-3">
+              <div class="mb-2 text-sm font-medium">Checkpoint 查询</div>
+              <div class="flex gap-2">
+                <ElInput v-model="executionId" placeholder="输入 executionId" clearable />
+                <ElButton :loading="submitting" @click="handleQueryCheckpoint">查询</ElButton>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="rounded-md border p-3">
-          <div class="mb-2 text-sm font-medium">Checkpoint 查询</div>
-          <div class="flex gap-2">
-            <ElInput v-model="executionId" placeholder="输入 executionId" clearable />
-            <ElButton :loading="submitting" @click="handleQueryCheckpoint">查询</ElButton>
+        <div class="mt-4 grid grid-cols-1 gap-4 px-4 pb-4 lg:grid-cols-2">
+          <div class="rounded-md border p-3">
+            <div class="mb-2 text-sm font-medium">校验结果</div>
+            <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{ displayValue(validateResult) }}</pre>
+          </div>
+          <div class="rounded-md border p-3">
+            <div class="mb-2 text-sm font-medium">执行结果</div>
+            <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{ displayValue(executeResult) }}</pre>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <div class="rounded-md border p-3">
-        <div class="mb-2 text-sm font-medium">校验结果</div>
-        <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{ displayValue(validateResult) }}</pre>
-      </div>
-      <div class="rounded-md border p-3">
-        <div class="mb-2 text-sm font-medium">执行结果</div>
-        <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{ displayValue(executeResult) }}</pre>
-      </div>
-    </div>
-    <div v-if="checkpointResult" class="mt-4 rounded-md border p-3">
-      <div class="mb-2 text-sm font-medium">Checkpoint</div>
-      <ElDescriptions :column="2" border>
-        <ElDescriptionsItem label="ExecutionId">{{ checkpointResult.executionId }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="DAG名称">{{ checkpointResult.dagName }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="用户输入">{{ checkpointResult.userInput }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="快照时间">{{ checkpointResult.snapshotTime }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="已完成节点" :span="2">{{ completedNodesText }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="失败节点" :span="2">{{ failedNodesText }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="DSL" :span="2">
-          <pre class="whitespace-pre-wrap break-all">{{ checkpointResult.dsl }}</pre>
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="节点结果" :span="2">
-          <pre class="whitespace-pre-wrap break-all">{{ displayValue(checkpointResult.nodeResults) }}</pre>
-        </ElDescriptionsItem>
-      </ElDescriptions>
-    </div>
+        <div v-if="checkpointResult" class="mx-4 mb-4 rounded-md border p-3">
+          <div class="mb-2 text-sm font-medium">Checkpoint</div>
+          <ElDescriptions :column="2" border>
+            <ElDescriptionsItem label="ExecutionId">{{ checkpointResult.executionId }}</ElDescriptionsItem>
+            <ElDescriptionsItem label="DAG名称">{{ checkpointResult.dagName }}</ElDescriptionsItem>
+            <ElDescriptionsItem label="用户输入">{{ checkpointResult.userInput }}</ElDescriptionsItem>
+            <ElDescriptionsItem label="快照时间">{{ checkpointResult.snapshotTime }}</ElDescriptionsItem>
+            <ElDescriptionsItem label="已完成节点" :span="2">{{ completedNodesText }}</ElDescriptionsItem>
+            <ElDescriptionsItem label="失败节点" :span="2">{{ failedNodesText }}</ElDescriptionsItem>
+            <ElDescriptionsItem label="DSL" :span="2">
+              <pre class="whitespace-pre-wrap break-all">{{ checkpointResult.dsl }}</pre>
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label="节点结果" :span="2">
+              <pre class="whitespace-pre-wrap break-all">{{ displayValue(checkpointResult.nodeResults) }}</pre>
+            </ElDescriptionsItem>
+          </ElDescriptions>
+        </div>
+      </ElTabPane>
+
+      <!-- 可视化编排标签页 -->
+      <ElTabPane label="可视化编排" name="visual">
+        <div class="p-4">
+          <ElButton type="primary" @click="openWorkflowDesigner">打开可视化工作流设计器</ElButton>
+          <p class="mt-2 text-sm text-gray-500">使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。</p>
+        </div>
+      </ElTabPane>
+    </ElTabs>
+
+    <WorkflowDesigner ref="workflowDesignerRef" />
   </Page>
 </template>

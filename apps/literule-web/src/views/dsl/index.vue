@@ -14,10 +14,12 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElMessage, ElTag } from 'element-plus';
+import { ElButton, ElMessage, ElTag } from 'element-plus';
 import { ref } from 'vue';
 import { parse, preview, validate } from '#/api/ruleDsl';
 import { formatJsonResult } from '#/utils/format';
+
+import DslEditor from './components/DslEditor.vue';
 defineOptions({ name: 'DslManagement' });
 const dslText = ref('');
 const resultText = ref('');
@@ -54,14 +56,10 @@ function handlePreview() {
 <template>
   <Page auto-content-height>
     <div class="flex h-full flex-col gap-3 p-4">
-      <span class="text-sm text-gray-500">输入 DSL 内容，可执行校验 / 解析 / 预览操作：</span>
-      <ElInput
-        v-model="dslText"
-        type="textarea"
-        :rows="12"
-        placeholder="请输入 DSL 内容…"
-        resize="vertical"
-      />
+      <span class="text-sm text-gray-500">输入 DSL 内容，可执行校验 / 解析 / 预览操作（支持语法高亮与自动补全）：</span>
+      <div class="min-h-0 flex-1">
+        <DslEditor v-model="dslText" placeholder="请输入 DSL 内容…" />
+      </div>
       <div class="flex gap-2">
         <ElButton type="primary" :loading="running" @click="handleValidate">校验</ElButton>
         <ElButton type="success" :loading="running" @click="handleParse">解析</ElButton>
@@ -71,7 +69,7 @@ function handlePreview() {
         <span class="text-sm text-gray-500">结果：</span>
         <ElTag v-if="actionLabel" size="small" type="info">{{ actionLabel }}</ElTag>
       </div>
-      <pre class="min-h-0 flex-1 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{ resultText }}</pre>
+      <pre class="min-h-0 max-h-60 flex-1 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{ resultText }}</pre>
     </div>
   </Page>
 </template>

@@ -38,6 +38,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/variable/index.vue'),
         meta: { icon: 'lucide:variable', title: '规则变量' },
       },
+      {
+        name: 'DecisionTableManagement',
+        path: 'decision-table',
+        component: () => import('#/views/decision-table/index.vue'),
+        meta: { icon: 'lucide:table', title: '决策表' },
+      },
     ],
   },
   {
