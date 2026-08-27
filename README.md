@@ -16,6 +16,15 @@
 
 ---
 
+## 关联仓库
+
+| 平台 | 后端仓库 |
+| ---- | -------- |
+| Gitee | https://gitee.com/njydsz/ydsz-cloud |
+| GitHub | https://github.com/njydsz/ydsz-cloud |
+
+---
+
 # YDSZ 前端微应用 Monorepo
 
 基于自研 **micro-kernel** 微前端运行时，采用 Vue 3 + Element Plus + TypeScript 技术栈。每个后端微服务对应一个独立的前端微应用，实现「独立开发」「独立测试」「独立部署」。
