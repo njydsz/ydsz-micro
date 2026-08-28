@@ -104,7 +104,8 @@ describe('safeParseSseJson', () => {
   it('合法 JSON 对象返回解析结果，非法输入返回 null', () => {
     expect(safeParseSseJson('{"a":1}')).toEqual({ a: 1 });
     expect(safeParseSseJson('not-json')).toBeNull();
-    expect(safeParseSseJson('[1,2]')).toBeNull(); // 数组视为无效帧
     expect(safeParseSseJson('null')).toBeNull();
+    // 数组为合法 JSON，按原两份副本行为原样透传（业务侧按对象取字段自然忽略）
+    expect(safeParseSseJson('[1,2]')).toEqual([1, 2]);
   });
 });

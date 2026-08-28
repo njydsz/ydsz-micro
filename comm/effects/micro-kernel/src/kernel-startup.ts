@@ -16,6 +16,7 @@ import { createLogger } from "@YDSZ-core/shared/utils";
 import { runWithConcurrency, scheduleIdle, shouldSkipPrefetchDueToNetwork } from "./kernel-helpers";
 import { loadApp } from "./loader";
 import { startMessageListener } from "./message-broker";
+import type { PreloadManagerLike } from "./preload-manager-helpers";
 import { setupPreloadMetricsReporting } from "./preload-metrics";
 import {
   createRoutePreloadStrategy,
@@ -165,8 +166,10 @@ export function createStartFunction(ctx: StartupContext) {
     // sendBeacon 上报后端，用于数据驱动验证/调整预测策略（v4.4 优化项 P1-9）
     if (options?.metricsReporting !== false) {
       try {
+        // PreloadManager 私有字段为名义类型，内部辅助函数按 PreloadManagerLike 结构访问
+        const pmLike = ctx.preloadManager as unknown as PreloadManagerLike;
         ctx.setMetricsCleanup(
-          setupPreloadMetricsReporting(ctx.preloadManager, {
+          setupPreloadMetricsReporting(pmLike, {
             intervalMs: options?.metricsIntervalMs,
             getPredictor: () => {
               try {

@@ -28,12 +28,15 @@ function runPlugin(plugin: ReturnType<typeof viteManifestPlugin>, bundle: Record
     emitFile: (file: { fileName: string; source: string }) => emitted.push(file),
   };
 
-  plugin.configResolved?.({
-    base: '/sub/',
-  } as never);
+  // Plugin 的 configResolved / generateBundle 均为 rollup ObjectHook 类型，
+  // 测试侧以宽松签名调用
+  const hooks = plugin as unknown as {
+    configResolved?: (config: { base: string }) => void;
+    generateBundle: (this: unknown, options: unknown, bundle: Record<string, unknown>) => void;
+  };
 
-  const generateBundle = (plugin as { generateBundle: (o: unknown, b: Record<string, unknown>) => void }).generateBundle;
-  generateBundle.call(ctx as never, {}, bundle);
+  hooks.configResolved?.({ base: '/sub/' });
+  hooks.generateBundle.call(ctx, {}, bundle);
 
   const manifestAsset = emitted.find((f) => f.fileName === 'manifest.json');
   expect(manifestAsset, 'manifest.json 未产出').toBeDefined();
@@ -104,8 +107,10 @@ describe('viteManifestPlugin', () => {
     const ctx = { emitFile: (file: { fileName: string; source: string }) => emitted.push(file) };
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
-    const generateBundle = (plugin as { generateBundle: (o: unknown, b: Record<string, unknown>) => void }).generateBundle;
-    generateBundle.call(ctx as never, {}, {});
+    const hooks = plugin as unknown as {
+      generateBundle: (this: unknown, options: unknown, bundle: Record<string, unknown>) => void;
+    };
+    hooks.generateBundle.call(ctx, {}, {});
 
     expect(emitted).toHaveLength(0);
     expect(warnSpy).toHaveBeenCalled();

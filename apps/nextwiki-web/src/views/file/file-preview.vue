@@ -18,6 +18,7 @@ import { ElButton, ElMessage, ElSkeleton, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { generatePreview, getPreviewType, isSupported } from '#/api/preview';
 import { download } from '#/api/download';
+import { requestClient } from '#/api/request';
 import type { FileNodeVO } from '#/api/models';
 
 defineOptions({ name: 'FilePreview' });
@@ -110,10 +111,10 @@ async function loadPreviewContent(): Promise<void> {
   }
 
   if (isText.value) {
-    // 文本文件通过 fetch 获取内容
+    // 文本文件通过 requestClient 获取内容
     try {
-      const resp = await fetch(`/api/v1/nextwiki/download/${props.fileNode.id}`);
-      previewContent.value = await resp.text();
+      const resp = await requestClient.get<string>(`/api/v1/nextwiki/download/${props.fileNode.id}`);
+      previewContent.value = typeof resp === 'string' ? resp : JSON.stringify(resp);
     } catch {
       previewContent.value = '加载文本内容失败';
     }
