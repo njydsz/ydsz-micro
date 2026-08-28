@@ -92,18 +92,24 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
         return;
       }
 
-      // 收集 CSS 文件，使用 base 前缀确保子路径部署正确
-      const cssAssets = Object.values(bundle).filter(
-        (asset): asset is { type: 'asset'; fileName: string; source: string | Uint8Array } =>
-          asset.type === 'asset' && asset.fileName.endsWith('.css'),
+      // 收集 CSS 文件，使用 base 前缀确保子路径部署正确。
+      // 注：以宽松结构类型收窄，规避各 Vite/rollup 版本间 OutputBundle
+      // 谓词兼容性差异（source/code 在部分版本类型声明中为可选）。
+      type LooseBundleItem = {
+        type: string;
+        fileName: string;
+        source?: string | Uint8Array;
+        code?: string;
+      };
+      const bundleItems = Object.values(bundle) as unknown as LooseBundleItem[];
+
+      const cssAssets = bundleItems.filter(
+        (asset) => asset.type === 'asset' && asset.fileName.endsWith('.css'),
       );
       const cssFiles = cssAssets.map((asset) => `${base}${asset.fileName}`);
 
       // v4.4.0: 收集 JS chunk 并计算 sha256（entry + 全部分包）
-      const jsChunks = Object.values(bundle).filter(
-        (chunk): chunk is { type: 'chunk'; fileName: string; code: string } =>
-          chunk.type === 'chunk',
-      );
+      const jsChunks = bundleItems.filter((chunk) => chunk.type === 'chunk');
 
       const manifest: Record<string, unknown> = {
         name: appName,
@@ -117,11 +123,11 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
         const integrity: Record<string, Record<string, string>> = {};
         const cssIntegrity: Record<string, string> = {};
         for (const asset of cssAssets) {
-          cssIntegrity[`${base}${asset.fileName}`] = sha256Sri(asset.source);
+          cssIntegrity[`${base}${asset.fileName}`] = sha256Sri(asset.source ?? '');
         }
         const jsIntegrity: Record<string, string> = {};
         for (const chunk of jsChunks) {
-          jsIntegrity[`${base}${chunk.fileName}`] = sha256Sri(chunk.code);
+          jsIntegrity[`${base}${chunk.fileName}`] = sha256Sri(chunk.code ?? '');
         }
         if (Object.keys(cssIntegrity).length > 0) integrity.css = cssIntegrity;
         if (Object.keys(jsIntegrity).length > 0) integrity.js = jsIntegrity;

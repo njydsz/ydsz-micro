@@ -22,6 +22,7 @@ import {
   createRoutePreloadStrategy,
   type PreloadManager,
 } from "./preload-strategy";
+import type { RoutePredictorLike } from "./route-predictor-core";
 import { getRoutePredictor } from "./route-predictor-core";
 import { setStyleIsolation, setupVisibilityAutoRelease } from "./scheduler";
 import { applyPrefetchBoost } from "./speculation-rules";
@@ -173,7 +174,8 @@ export function createStartFunction(ctx: StartupContext) {
             intervalMs: options?.metricsIntervalMs,
             getPredictor: () => {
               try {
-                return getRoutePredictor();
+                // RoutePredictor 私有字段为名义类型，指标采样按 RoutePredictorLike 结构访问
+                return getRoutePredictor() as unknown as RoutePredictorLike;
               } catch {
                 return undefined; // 路由预测器未初始化（routePreload=false）时静默
               }
