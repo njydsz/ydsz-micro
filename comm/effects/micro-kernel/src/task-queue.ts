@@ -67,6 +67,9 @@ function getAdaptiveMaxKeepAlive(): number {
  *
  * 返回 null 表示环境不支持（Safari / Firefox / 未启用），调用方应退化为
  * 计数启发式（保活实例数量）而非静默跳过。
+ *
+ * v4.4.0 标注：该 API 已被 W3C 废弃，仅作为 performance.measureMemory()
+ * 不可用时的同步回退路径保留，见 getMemoryUsageMB()。
  */
 function getJsHeapInfo(): {
   jsHeapSizeLimit?: number;
@@ -89,6 +92,38 @@ function getJsHeapInfo(): {
   } catch {
     return null;
   }
+}
+
+/**
+ * v4.4.0: 获取当前 JS 堆占用（MB），优先标准 API。
+ *
+ * 优先级：
+ * 1. `performance.measureMemory()` —— W3C 标准提案，Chrome 128+ 可用，
+ *    异步返回 { bytes }；每次调用有约几十毫秒开销，仅在内存压力判定时调用。
+ * 2. `performance.memory.usedJSHeapSize` —— 已废弃的 Chromium 私有 API（同步）。
+ * 3. 均不可用时返回 null，调用方退化为计数启发式。
+ */
+async function getMemoryUsageMB(): Promise<number | null> {
+  // 标准路径：performance.measureMemory()（feature-detect，勿假设存在）
+  const measure = (
+    window.performance as unknown as {
+      measureMemory?: (o?: { attribution?: boolean }) => Promise<{ bytes?: number }>;
+    }
+  )?.measureMemory?.bind(window.performance);
+  if (typeof measure === "function") {
+    try {
+      const result = await measure({ attribution: false });
+      if (result && typeof result.bytes === "number") {
+        return result.bytes / 1024 / 1024;
+      }
+    } catch {
+      // 部分实现要求跨域隔离（crossOriginIsolated），失败时走回退
+    }
+  }
+
+  // 回退路径：Chromium 私有 API（已废弃）
+  const heap = getJsHeapInfo();
+  return heap?.usedJSHeapSize ? heap.usedJSHeapSize / 1024 / 1024 : null;
 }
 
 // ==================== LRU 淘汰核心逻辑 ====================
@@ -236,8 +271,11 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
  * 内存压力下强制卸载所有非活跃保活实例（使用动态阈值，默认 jsHeapSizeLimit 的 80%）。
  * 淘汰前派发 before-evict 事件（v4.1 P0-A2: strategy.cleanup() 清理沙箱）。
  *
- * v4.3.0 降级路径：非 Chromium（无 performance.memory）时退化为计数启发式 ——
+ * v4.3.0 降级路径：非 Chromium（无 memory API）时退化为计数启发式 ——
  * 保活实例数超过自适应上限则触发淘汰，避免内存压力调度在 Safari/Firefox 下完全失效。
+ *
+ * v4.4.0：堆占用优先经 performance.measureMemory() 标准接口获取，
+ * 已废弃的 performance.memory 仅作同步回退；两者均不可用时走计数启发式。
  *
  * @param thresholdMB - 内存阈值（MB），默认使用动态阈值
  */
@@ -245,16 +283,13 @@ export async function evictAllKeepAliveOnMemoryPressure(
   thresholdMB?: number,
 ): Promise<void> {
   const effectiveThreshold = thresholdMB ?? getDynamicMemoryThreshold();
-  const memory = getJsHeapInfo();
-  const usedMB = memory?.usedJSHeapSize
-    ? memory.usedJSHeapSize / 1024 / 1024
-    : 0;
+  const measuredMB = await getMemoryUsageMB();
 
-  if (usedMB > 0) {
-    // Chromium 路径：按 JS 堆占用判定
-    if (usedMB < effectiveThreshold) return;
+  if (measuredMB !== null) {
+    // 堆占用路径：按 JS 堆内存判定（标准或回退 API）
+    if (measuredMB < effectiveThreshold) return;
     logger.warn(
-      `Memory pressure detected (${usedMB.toFixed(0)}MB > ${effectiveThreshold.toFixed(0)}MB), evicting all keep-alive instances`,
+      `Memory pressure detected (${measuredMB.toFixed(0)}MB > ${effectiveThreshold.toFixed(0)}MB), evicting all keep-alive instances`,
     );
   } else {
     // 非 Chromium 降级路径：无 memory API，按保活实例数量判定

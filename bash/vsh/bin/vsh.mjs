@@ -112,9 +112,22 @@ async function main() {
       console.log(`\n📊 统计: ${totalErrors} 个错误, ${totalWarnings} 个警告`);
       process.exit(totalErrors > 0 ? 1 : 0);
     }
+    case 'check-bundle': {
+      const { checkBundle } = await import('../src/check-bundle/index.ts');
+      const violations = checkBundle(rootDir);
+      if (violations.length === 0) {
+        console.log('✅ 产物检测通过：共享依赖均经 importmap 外置，无重复打包');
+        process.exit(0);
+      }
+      console.error(`❌ 发现 ${violations.length} 处产物依赖违规:\n`);
+      for (const v of violations) {
+        console.error(`  [${v.app}] ${v.dep}: ${v.message}`);
+      }
+      process.exit(1);
+    }
     default: {
       console.error(`未知命令: ${command ?? '(空)'}`);
-      console.error('可用命令: check-arch, check-circular, check-dep, code-workspace, publint');
+      console.error('可用命令: check-arch, check-bundle, check-circular, check-dep, code-workspace, publint');
       process.exit(2);
     }
   }

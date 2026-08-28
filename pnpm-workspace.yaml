@@ -10,6 +10,8 @@ packages:
   - main
   - bash/*
   - bash/turbo-run
+  - e2e
+
 
 catalog:
   "@ast-grep/napi": ^0.37.0
@@ -70,6 +72,9 @@ catalog:
   "@vitest/coverage-v8": ^4.1.10
   happy-dom: ^20.8.3
   vitest: ^4.1.10
+  # E2E 测试体系（v4.4.0：落地 Playwright 冒烟与 a11y 扫描，见 e2e/ 目录）
+  "@axe-core/playwright": ^4.11.0
+  "@playwright/test": ^1.57.0
   archiver: ^7.0.1
   autoprefixer: ^10.4.21
   axios: ^1.10.0

@@ -78,8 +78,8 @@ export function createHoverPreloadStrategy(
  *    基于用户历史跳转的马尔可夫链概率预测下一步应用。
  * 2. 自定义模式：传入 `getRoutePredictions` 回调，按自定义逻辑返回预测路径。
  *
- * 仅在转移概率 ≥ minProbability（默认 0.15）时才触发预加载，
- * 避免低频误判浪费带宽。
+ * 仅在转移概率 ≥ minProbability（默认 0.15）且样本量 ≥ minSampleSize（默认 3）时
+ * 才触发预加载，避免低频误判与小样本高估浪费带宽。
  */
 export function createRoutePreloadStrategy(
   apps: MicroAppConfig[],
@@ -90,9 +90,18 @@ export function createRoutePreloadStrategy(
     minProbability?: number;
     /** 单源最大预加载数量，默认 2 */
     maxPreloads?: number;
+    /**
+     * 最低转移样本量门槛（v4.4.0），默认 3。
+     *
+     * 马尔可夫链在样本量极小时会高估概率（1 次转移即 p=1.0），
+     * 低于该门槛的预测一律跳过 —— 冷启动阶段自然回退到
+     * 已注册的 idle / frequency 基线策略，避免"为预测而预测"。
+     * 结合 preload-metrics 周报数据可按需调高门槛或关闭 routePreload。
+     */
+    minSampleSize?: number;
   } = {},
 ): PreloadStrategyOptions {
-  const { minProbability = 0.15, maxPreloads = 2 } = options;
+  const { minProbability = 0.15, maxPreloads = 2, minSampleSize = 3 } = options;
 
   // 内部预加载回调，去重并标记已预加载
   const preloadedApps = new Set<string>();
@@ -143,6 +152,8 @@ export function createRoutePreloadStrategy(
         for (const pred of predictions) {
           if (preloadCount >= maxPreloads) break;
           if (pred.probability < minProbability) continue;
+          // v4.4.0: 小样本高估防护 —— 样本量不足时跳过，回退基线策略
+          if ((pred.sampleSize ?? 0) < minSampleSize) continue;
 
           const app = apps.find((a) => a.name === pred.appName);
           if (app) {

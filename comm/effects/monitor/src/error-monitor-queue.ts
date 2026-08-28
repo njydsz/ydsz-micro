@@ -14,6 +14,7 @@
  */
 
 import { getBreadcrumbs } from './breadcrumb';
+import { getErrorEndpoint } from './monitor-endpoints';
 
 import type { ErrorReport, MonitorConfig } from './error-monitor-types';
 import {
@@ -26,8 +27,7 @@ import {
 // 重新导出离线缓存函数
 export { cacheForOffline, loadOfflineCache, clearOfflineCache } from './error-monitor-offline';
 
-/** 上报端点 */
-const REPORT_ENDPOINT = '/api/v1/monitor/error';
+/** 上报端点（v4.4.0 起由 monitor-endpoints.ts 集中管理，可通过 setupMonitor 配置覆盖） */
 
 /** 错误缓冲队列（批量上报） */
 const errorQueue: ErrorReport[] = [];
@@ -217,14 +217,14 @@ export function sendBatch(batch: ErrorReport[], retryCount: number): void {
       const blob = new Blob([JSON.stringify({ errors: batch })], {
         type: 'application/json',
       });
-      const sent = navigator.sendBeacon(REPORT_ENDPOINT, blob);
+      const sent = navigator.sendBeacon(getErrorEndpoint(), blob);
       if (!sent && shouldRetry && retryCount < maxRetries) {
         scheduleRetry(batch, retryCount, retryBaseDelay);
       }
     } else {
       // @infra-fetch 基础设施层直用：监控上报降级通道（sendBeacon 不可用时），
       // 无统一请求客户端上下文（keepalive 语义 + 页面卸载窗口），云顶规范 §6.1 例外条款。
-      fetch(REPORT_ENDPOINT, {
+      fetch(getErrorEndpoint(), {
         body: JSON.stringify({ errors: batch }),
         headers: { 'Content-Type': 'application/json' },
         keepalive: true,

@@ -16,10 +16,12 @@ import { createLogger } from "@YDSZ-core/shared/utils";
 import { runWithConcurrency, scheduleIdle, shouldSkipPrefetchDueToNetwork } from "./kernel-helpers";
 import { loadApp } from "./loader";
 import { startMessageListener } from "./message-broker";
+import { setupPreloadMetricsReporting } from "./preload-metrics";
 import {
   createRoutePreloadStrategy,
   type PreloadManager,
 } from "./preload-strategy";
+import { getRoutePredictor } from "./route-predictor-core";
 import { setStyleIsolation, setupVisibilityAutoRelease } from "./scheduler";
 import { applyPrefetchBoost } from "./speculation-rules";
 
@@ -36,6 +38,8 @@ export interface StartupContext {
   setRouterSyncCleanup: (cleanup: (() => void) | null) => void;
   /** 设置可见性清理函数 */
   setVisibilityCleanup: (cleanup: (() => void) | null) => void;
+  /** 设置预加载指标上报清理函数（v4.4.0） */
+  setMetricsCleanup: (cleanup: (() => void) | null) => void;
   /** 预加载管理器 */
   preloadManager: PreloadManager;
   /** 路由同步函数 */
@@ -143,7 +147,7 @@ export function createStartFunction(ctx: StartupContext) {
                 void loadApp(config).catch(() => { /* 预测预加载失败不阻塞 */ });
               }
             },
-            { minProbability: 0.15, maxPreloads: 2 },
+            { minProbability: 0.15, maxPreloads: 2, minSampleSize: 3 },
           ),
         );
         scheduleIdle(() => {
@@ -153,6 +157,28 @@ export function createStartFunction(ctx: StartupContext) {
         logger.debug("Route prediction preload strategy registered (kernel-builtin)");
       } catch (error) {
         logger.warn(`Route prediction strategy registration skipped: ${String(error)}`);
+      }
+    }
+
+    // === v4.4.0: 预加载命中率指标回环 ===
+    // 周期采样 preloadCount/consumedCount/hitRate 与马尔可夫转移样本量，
+    // sendBeacon 上报后端，用于数据驱动验证/调整预测策略（v4.4 优化项 P1-9）
+    if (options?.metricsReporting !== false) {
+      try {
+        ctx.setMetricsCleanup(
+          setupPreloadMetricsReporting(ctx.preloadManager, {
+            intervalMs: options?.metricsIntervalMs,
+            getPredictor: () => {
+              try {
+                return getRoutePredictor();
+              } catch {
+                return undefined; // 路由预测器未初始化（routePreload=false）时静默
+              }
+            },
+          }),
+        );
+      } catch (error) {
+        logger.warn(`Preload metrics reporting setup skipped: ${String(error)}`);
       }
     }
 

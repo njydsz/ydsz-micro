@@ -25,6 +25,8 @@ import type { FileNodeVO } from '#/api/models';
 import FileForm from './file-form.vue';
 import FileUpload from './file-upload.vue';
 import FilePreview from './file-preview.vue';
+import FileVersionHistory from './components/FileVersionHistory.vue';
+import WopiEditor from './components/WopiEditor.vue';
 
 defineOptions({ name: 'FileManagement' });
 
@@ -80,6 +82,16 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
               onClick: () => handleDownload(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '下载'),
+            h(ElButton, {
+              size: 'small', link: true, type: 'warning',
+              onClick: () => handleOnlineEdit(row),
+              disabled: row.nodeType === 'FOLDER',
+            }, () => '编辑'),
+            h(ElButton, {
+              size: 'small', link: true, type: 'primary',
+              onClick: () => handleVersionHistory(row),
+              disabled: row.nodeType === 'FOLDER',
+            }, () => '版本'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleRename(row) }, () => '重命名'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleMove(row) }, () => '移动'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleCopy(row) }, () => '复制'),
@@ -109,6 +121,25 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [FileFormModal, fileFormApi] = useYDSZModal({ connectedComponent: FileForm });
 const [FileUploadModal, fileUploadApi] = useYDSZModal({ connectedComponent: FileUpload });
+
+/** 版本历史弹窗引用 */
+const fileVersionHistoryRef = ref<InstanceType<typeof FileVersionHistory> | null>(null);
+const wopiEditorRef = ref<InstanceType<typeof WopiEditor> | null>(null);
+
+/** 当前操作的文件节点 */
+const currentNode = ref<FileNodeVO | null>(null);
+
+/** 打开版本历史 */
+function handleVersionHistory(row: FileNodeVO): void {
+  currentNode.value = row;
+  fileVersionHistoryRef.value?.open();
+}
+
+/** 打开在线编辑器 */
+function handleOnlineEdit(row: FileNodeVO): void {
+  currentNode.value = row;
+  wopiEditorRef.value?.open();
+}
 
 /** 预览抽屉状态 */
 const previewVisible = ref(false);
@@ -216,5 +247,7 @@ async function handleDelete(row: FileNodeVO) {
     <ElDrawer v-model="previewVisible" title="文件预览" :size="800" direction="rtl">
       <FilePreview :file-node="previewFileNode" @close="previewVisible = false" />
     </ElDrawer>
+    <FileVersionHistory ref="fileVersionHistoryRef" :file-node="currentNode" />
+    <WopiEditor ref="wopiEditorRef" :file-node="currentNode" />
   </Page>
 </template>

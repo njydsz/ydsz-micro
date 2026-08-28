@@ -85,6 +85,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   let started = false;
   let routerSyncCleanup: (() => void) | null = null;
   let visibilityCleanup: (() => void) | null = null;
+  let metricsCleanup: (() => void) | null = null;
   const versionManager = getVersionManager();
   const preloadManager = getPreloadManager();
   const registry: ManagerRegistry = createManagerRegistry();
@@ -128,6 +129,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     getApps: () => apps,
     setRouterSyncCleanup: (c) => { routerSyncCleanup = c; },
     setVisibilityCleanup: (c) => { visibilityCleanup = c; },
+    setMetricsCleanup: (c) => { metricsCleanup = c; },
     preloadManager,
     startRouterSync,
   };
@@ -136,6 +138,8 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     setRouterSyncCleanup: (c) => { routerSyncCleanup = c; },
     getVisibilityCleanup: () => visibilityCleanup,
     setVisibilityCleanup: (c) => { visibilityCleanup = c; },
+    getMetricsCleanup: () => metricsCleanup,
+    setMetricsCleanup: (c) => { metricsCleanup = c; },
     getAbortController: () => switchAbortController,
     setAbortController: (c: AbortController | null) => { switchAbortController = c; },
     resetActiveAppName: () => { activeAppName = null; },

@@ -7,6 +7,8 @@
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 
+import { getWebVitalsEndpoint } from './monitor-endpoints';
+
 const logger = createLogger('Monitor:WebVitals');
 
 /** Web Vital 指标名称 */
@@ -32,8 +34,7 @@ export interface WebVitalReport {
   timestamp: number;
 }
 
-/** 上报端点 */
-const REPORT_ENDPOINT = '/api/v1/monitor/web-vitals';
+/** 上报端点（v4.4.0 起由 monitor-endpoints.ts 集中管理，可通过 setupMonitor 配置覆盖） */
 
 /** 已上报的指标（避免重复） */
 const reportedMetrics = new Set<string>();
@@ -66,11 +67,11 @@ function flushVitalsQueue(): void {
     const payload = JSON.stringify({ vitals: batch });
     if (navigator.sendBeacon) {
       const blob = new Blob([payload], { type: 'application/json' });
-      const sent = navigator.sendBeacon(REPORT_ENDPOINT, blob);
+      const sent = navigator.sendBeacon(getWebVitalsEndpoint(), blob);
       // sendBeacon 失败时降级 fetch
       if (!sent) {
         // @infra-fetch 基础设施层直用，无统一客户端上下文（Web Vitals 批量上报，sendBeacon 失败降级）
-        fetch(REPORT_ENDPOINT, {
+        fetch(getWebVitalsEndpoint(), {
           body: payload,
           headers: { 'Content-Type': 'application/json' },
           keepalive: true,
@@ -79,7 +80,7 @@ function flushVitalsQueue(): void {
       }
     } else {
       // @infra-fetch 基础设施层直用，无统一客户端上下文（Web Vitals 批量上报，无 sendBeacon 环境）
-      fetch(REPORT_ENDPOINT, {
+      fetch(getWebVitalsEndpoint(), {
         body: payload,
         headers: { 'Content-Type': 'application/json' },
         keepalive: true,

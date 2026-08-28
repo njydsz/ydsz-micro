@@ -34,7 +34,9 @@ from typing import Any, Dict, List, Optional, Tuple
 # 常量
 # ======================================================================
 
-CLOUD_ROOT = r"D:\Code\open\ydsz-cloud"
+# 后端仓库根目录：支持通过环境变量 YDSZ_CLOUD_ROOT 覆盖（CI checkout 到
+# 同级目录后注入该变量即可），默认指向本机开发路径，保持向后兼容。
+CLOUD_ROOT = os.environ.get("YDSZ_CLOUD_ROOT", r"D:\Code\open\ydsz-cloud")
 MICRO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 后端服务 -> 前端 app

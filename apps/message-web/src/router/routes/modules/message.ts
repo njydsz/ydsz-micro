@@ -85,6 +85,19 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: { icon: 'lucide:bookmark', order: 6, title: '订阅管理' },
+    name: 'SubscriptionMgmt',
+    path: '/subscription',
+    children: [
+      {
+        name: 'SubscriptionManagement',
+        path: 'list',
+        component: () => import('#/views/subscription/index.vue'),
+        meta: { icon: 'lucide:bookmark', title: '订阅列表' },
+      },
+    ],
+  },
 ];
 
 export default routes;

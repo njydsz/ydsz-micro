@@ -35,5 +35,15 @@
     "vue": "catalog:",
     "vue-router": "catalog:"
   },
+  "devDependencies": {
+    "@vitest/coverage-v8": "catalog:",
+    "happy-dom": "catalog:",
+    "vitest": "catalog:"
+  },
+  "scripts": {
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "test:coverage": "vitest run --config vitest.config.ts --coverage"
+  },
   "license": "MIT"
 }

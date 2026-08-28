@@ -36,6 +36,14 @@ export {
   setupMonitor,
 } from './setup';
 
+// v4.4.0: 上报端点集中配置
+export {
+  configureMonitorEndpoints,
+  getErrorEndpoint,
+  getWebVitalsEndpoint,
+} from './monitor-endpoints';
+export type { MonitorEndpoints } from './monitor-endpoints';
+
 export {
   initSentry,
   captureError as sentryCaptureError,

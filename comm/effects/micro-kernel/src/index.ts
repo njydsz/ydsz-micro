@@ -182,6 +182,13 @@ export {
 // v4.0 P1-2: 路由预测引擎（马尔可夫链转移概率模型）
 export { getRoutePredictor, resetRoutePredictor } from "./route-predictor";
 export type { Prediction } from "./route-predictor";
+// v4.4.0: 预加载命中率指标回环（sendBeacon 上报，数据驱动预测策略调优）
+export {
+  collectPreloadMetrics,
+  setPreloadMetricsEndpoint,
+  setupPreloadMetricsReporting,
+} from "./preload-metrics";
+export type { PreloadMetricsSnapshot } from "./preload-metrics";
 export { enterSandbox, exitSandbox } from "./sandbox";
 export type { SandboxInstance } from "./sandbox";
 // v4.0 P3-1: 沙箱策略统一接口（snapshot / proxy / iframe 三模式抽象）

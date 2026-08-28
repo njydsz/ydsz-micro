@@ -58,11 +58,17 @@ export interface Manifest {
    * loader 注入样式表时附加 integrity + crossorigin="anonymous"，
    * 防止 CDN 被篡改导致子应用样式被恶意替换。
    *
+   * v4.4.0: 新增 `js` 清单（entry + 全部 chunk 的 sha256）。浏览器
+   * dynamic import 不支持 integrity 属性，js 清单供 strictIntegrity
+   * 加载模式（先取文本验签再 import）与 Service Worker 校验使用。
+   *
    * @since 4.2.1
    */
   integrity?: {
     /** css URL → SRI hash */
     css?: Record<string, string>;
+    /** js URL → SRI hash（v4.4.0，供 strictIntegrity 模式） */
+    js?: Record<string, string>;
   };
 }
 
@@ -76,6 +82,14 @@ export interface LoadOptions {
   retryBaseDelay?: number;
   /** 外部 AbortSignal（叠加于超时之上） */
   signal?: AbortSignal;
+  /**
+   * v4.4.0: JS 入口严格完整性校验（默认 false）。
+   *
+   * 开启后（且 manifest.integrity.js 存在）在 dynamic import 前
+   * fetch 入口文本并校验 sha256，验签失败抛 LOAD_MANIFEST_INVALID。
+   * 代价：入口多一次网络往返（命中 HTTP 缓存时可接受）。
+   */
+  strictIntegrity?: boolean;
 }
 
 /** 加载结果 */
@@ -212,6 +226,11 @@ export async function loadApp(
   // 注入样式（标记 data-micro-kernel-app，卸载时一键移除）
   // v4.2.1 L2: 附加 SRI integrity + CSP nonce
   injectStylesheets(manifest.css, manifest.name, manifest.integrity?.css);
+
+  // v4.4.0: 严格完整性校验（可选）—— 在 dynamic import 前验签 JS 入口
+  if (options.strictIntegrity) {
+    await verifyEntryIntegrity(manifest, extSignal);
+  }
 
   const mod = await importWithRetry(manifest.entry, { timeout, retries, retryBaseDelay, extSignal });
   assertLifecycle(mod, config.name);
@@ -376,6 +395,37 @@ export function removeStylesheets(appName: string): void {
  */
 export function clearManifestCache(): void {
   manifestCache.clear();
+}
+
+/**
+ * v4.4.0: JS 入口严格完整性校验。
+ *
+ * fetch 入口文本 → sha256 → 与 manifest.integrity.js[entry] 比对。
+ * 仅在 strictIntegrity 开启且清单存在时执行；验签失败抛 LOAD_MANIFEST_INVALID。
+ */
+async function verifyEntryIntegrity(manifest: Manifest, signal?: AbortSignal): Promise<void> {
+  const expected = manifest.integrity?.js?.[manifest.entry];
+  if (!expected) return; // 清单未生成（旧构建产物）时静默放行，保持兼容
+
+  // @infra-fetch 基础设施层直用：安全验签通道（复用 manifest URL 上下文），云顶规范 §6.1 例外条款。
+  const response = await fetch(manifest.entry, { signal });
+  if (!response.ok) {
+    throw new KernelError(
+      KernelErrorCode.LOAD_MANIFEST_FETCH,
+      `[MicroKernel] Strict integrity fetch failed for ${manifest.entry}: ${response.status}`,
+    );
+  }
+  const body = await response.text();
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(body));
+  const base64 = btoa(String.fromCharCode(...new Uint8Array(digest)));
+  const actual = `sha256-${base64}`;
+  if (actual !== expected) {
+    throw new KernelError(
+      KernelErrorCode.LOAD_MANIFEST_INVALID,
+      `[MicroKernel] Strict integrity check failed for ${manifest.entry}: expected ${expected}, got ${actual}`,
+    );
+  }
+  logger.debug(`Strict integrity verified for ${manifest.entry}`);
 }
 
 /** 断言模块导出 mount 方法（必需）和 unmount（必需） */

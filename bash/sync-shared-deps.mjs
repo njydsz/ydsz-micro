@@ -14,6 +14,14 @@
  * 使用方式：
  *   pnpm sync:shared-deps                          # 默认下载到 main/public/vendor
  *   node bash/sync-shared-deps.mjs apps/agent-web  # 指定目标应用目录
+ *   node bash/sync-shared-deps.mjs --refresh       # 忽略锁定版本重新解析
+ *   node bash/sync-shared-deps.mjs --check         # CI 校验：锁定版本一致 + vendor 无悬空引用
+ *
+ * 版本锁定（v4.4.0）：
+ *   解析结果写入 bash/importmap.lock.json（顶层依赖名 → 精确版本 + URL）。
+ *   后续同步默认按锁定的精确版本安装，避免 `^range` 在不同时间解析到不同
+ *   patch 版本，导致主/子应用加载两个 Vue 实例（provide/inject 割裂）。
+ *   升级共享依赖：先 `--refresh` 重新解析，检查 diff 后提交 lock 文件。
  *
  * @path bash/sync-shared-deps.mjs
  * @author ydsz-team
@@ -22,8 +30,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-import { Generator } from '@jspm/generator';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -45,10 +51,41 @@ const ALL_SHARED_DEPS = [
 
 const VENDOR_DIR_NAME = 'vendor';
 
+/** 仓库根级版本锁文件（顶层依赖名 → 精确版本 + 解析 URL） */
+const LOCK_FILE = path.join(root, 'bash', 'importmap.lock.json');
+
+/** 解析命令行标志 */
+const flags = process.argv.slice(2).filter((a) => a.startsWith('--'));
+const positionals = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const isCheck = flags.includes('--check');
+const isRefresh = flags.includes('--refresh');
+
+/** 从 esm.sh 类 URL 中提取精确版本号，失败返回 null */
+function extractVersion(url) {
+  const match = new URL(url).pathname.match(/\/@?[^/@]+@(\d+\.\d+\.\d+(?:-[\w.]+)?)/);
+  return match ? match[1] : null;
+}
+
+/** 读取版本锁文件，不存在或解析失败返回 null */
+function readLock() {
+  if (isRefresh || !fs.existsSync(LOCK_FILE)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(LOCK_FILE, 'utf-8'));
+  } catch (err) {
+    console.warn(`[sync-shared-deps] 锁文件解析失败，忽略锁定: ${err.message}`);
+    return null;
+  }
+}
+
 // ==================== 主流程 ====================
 
 async function main() {
-  const targetAppDir = process.argv[2] || 'main';
+  // === CI 校验模式：不联网，只校验锁与产物一致性 ===
+  if (isCheck) {
+    process.exit(checkVendorArtifacts());
+  }
+
+  const targetAppDir = positionals[0] || 'main';
   const vendorBase = `/${VENDOR_DIR_NAME}`;
   const publicDir = path.resolve(root, targetAppDir, 'public');
   const vendorDir = path.join(publicDir, VENDOR_DIR_NAME);
@@ -63,7 +100,13 @@ async function main() {
   }
   fs.mkdirSync(vendorDir, { recursive: true });
 
-  // 2. jspm generator 解析完整依赖图
+  // 2. jspm generator 解析完整依赖图（存在锁文件时按精确版本安装）
+  // 惰性导入：--check 模式不联网也不依赖该包
+  const { Generator } = await import('@jspm/generator');
+  const lock = readLock();
+  if (lock?.deps) {
+    console.info(`[sync-shared-deps] 检测到版本锁，按锁定版本安装（--refresh 可重解析）`);
+  }
   console.info('[sync-shared-deps] 通过 jspm generator 解析依赖图...');
   const generator = new Generator({
     baseUrl: root,
@@ -72,8 +115,12 @@ async function main() {
   });
 
   for (const dep of ALL_SHARED_DEPS) {
-    await generator.install({ target: dep.name, range: dep.range });
-    console.info(`  ✓ ${dep.name}@${dep.range}`);
+    const lockedVersion = lock?.deps?.[dep.name]?.version;
+    await generator.install({
+      target: dep.name,
+      range: lockedVersion || dep.range,
+    });
+    console.info(`  ✓ ${dep.name}@${lockedVersion || dep.range}${lockedVersion ? '（锁定）' : ''}`);
   }
 
   const originalMap = generator.getMap();
@@ -123,7 +170,118 @@ async function main() {
   const importmapPath = path.join(vendorDir, 'importmap.json');
   fs.writeFileSync(importmapPath, JSON.stringify(remapped, null, 2), 'utf-8');
   console.info(`[sync-shared-deps] importmap 已写入: ${importmapPath}`);
+
+  // 7. 写入/更新版本锁文件（顶层依赖 → 精确版本）
+  writeLock(originalMap.imports || {});
+
   console.info('[sync-shared-deps] 完成。构建时设置 VITE_IMPORTMAP_SELF_HOST=/vendor 即可启用。');
+}
+
+/**
+ * 从解析结果提取顶层依赖的精确版本并写入锁文件。
+ * 已存在锁且未 --refresh 时保留原锁（防覆盖人工确认过的版本）。
+ */
+function writeLock(imports) {
+  const lock = readLock() || { version: 1, syncedAt: '', deps: {} };
+  let updated = false;
+
+  for (const dep of ALL_SHARED_DEPS) {
+    const url = imports[dep.name];
+    if (!url) continue;
+    const version = extractVersion(url);
+    if (!version) {
+      console.warn(`[sync-shared-deps] 无法从 URL 提取版本: ${dep.name} → ${url}`);
+      continue;
+    }
+    const prev = lock.deps[dep.name];
+    if (!prev || prev.version !== version || isRefresh) {
+      lock.deps[dep.name] = { url, version };
+      updated = true;
+    }
+  }
+
+  if (updated || !fs.existsSync(LOCK_FILE)) {
+    lock.syncedAt = new Date().toISOString();
+    fs.writeFileSync(LOCK_FILE, JSON.stringify(lock, null, 2), 'utf-8');
+    console.info(`[sync-shared-deps] 版本锁已写入: ${LOCK_FILE}`);
+  }
+}
+
+/**
+ * CI 校验模式：校验各应用 vendor 产物与版本锁的一致性。
+ * - 每个引用的 /vendor/ 路径必须存在对应文件（无悬空引用）
+ * - 各应用 importmap.json 顶层依赖版本必须与锁一致（跨应用单实例保证）
+ * @returns 退出码（0 一致，1 漂移）
+ */
+function checkVendorArtifacts() {
+  let drift = 0;
+  const lock = readLock();
+
+  const appDirs = ['main', ...fs.readdirSync(path.join(root, 'apps'))];
+  const seen = new Map(); // 应用名 → 顶层依赖版本 Map
+
+  for (const app of appDirs) {
+    const importmapPath = path.join(root, app, 'public/vendor/importmap.json');
+    if (!fs.existsSync(importmapPath)) continue;
+    const vendorDir = path.join(root, app, 'public/vendor');
+
+    const map = JSON.parse(fs.readFileSync(importmapPath, 'utf-8'));
+    const versions = new Map();
+
+    // 1. 悬空引用检查
+    for (const [key, url] of Object.entries(map.imports || {})) {
+      if (!url.startsWith('/vendor/')) continue;
+      const rel = url.slice('/vendor/'.length);
+      if (!fs.existsSync(path.join(vendorDir, rel)) && !fs.existsSync(path.join(vendorDir, rel, 'index.js'))) {
+        console.error(`  [悬空] ${app}: ${key} → ${url}`);
+        drift++;
+      }
+    }
+
+    // 2. 顶层依赖版本提取（bare 名 key；/vendor/ 路径保留 host 结构，版本仍可提取）
+    for (const dep of ALL_SHARED_DEPS) {
+      const url = map.imports?.[dep.name];
+      if (!url) continue;
+      const version = extractVersion(url);
+      if (version) versions.set(dep.name, version);
+    }
+    seen.set(app, versions);
+  }
+
+  // 3. 跨应用版本一致性
+  if (seen.size >= 2) {
+    const [baseApp, baseVersions] = [...seen.entries()][0];
+    for (const [app, versions] of seen.entries()) {
+      for (const [dep, version] of versions) {
+        if (baseVersions.has(dep) && baseVersions.get(dep) !== version) {
+          console.error(
+            `  [漂移] ${dep}: ${baseApp}@${baseVersions.get(dep)} vs ${app}@${version}（将产生双实例）`,
+          );
+          drift++;
+        }
+      }
+    }
+  }
+
+  // 4. 与锁文件比对
+  if (lock?.deps) {
+    for (const [app, versions] of seen.entries()) {
+      for (const [dep, version] of versions) {
+        const locked = lock.deps[dep]?.version;
+        if (locked && locked !== version) {
+          console.error(`  [锁漂移] ${app} ${dep}@${version} ≠ lock@${locked}，请重跑 sync:shared-deps`);
+          drift++;
+        }
+      }
+    }
+  }
+
+  if (drift === 0) {
+    console.log(`[sync-shared-deps] --check 通过：${seen.size} 个应用 vendor 产物一致且无悬空引用 ✓`);
+    return 0;
+  }
+  console.error(`[sync-shared-deps] --check 发现 ${drift} 处不一致`);
+  return 1;
 }
 
 /**

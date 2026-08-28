@@ -1,0 +1,108 @@
+name: CI
+
+# 云顶编码规范 §18.5 —— 全门禁 CI：
+# PR 必跑质量门禁（lint / type-check / 单测 / 循环依赖 / 依赖合规），
+# 契约漂移检查在 push main 与手动触发时执行（需后端仓库），
+# E2E 冒烟默认手动触发，待用例稳定后放开至 PR。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: 质量门禁（lint + 类型 + 单测 + 架构守护）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22（vsh 需要 --experimental-strip-types）
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: ESLint（零告警）
+        run: pnpm lint
+
+      - name: Stylelint（零告警）
+        run: pnpm stylelint
+
+      - name: 类型检查
+        run: pnpm type-check
+
+      - name: 循环依赖检查（零循环）
+        run: pnpm vsh:check-circular
+
+      - name: 依赖合规检查
+        run: pnpm vsh:check-dep
+
+      - name: 单元测试
+        run: pnpm test
+
+      - name: 国际化 key 一致性校验
+        run: pnpm check:i18n
+
+  contract:
+    name: API 契约漂移检查
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 检出后端契约事实源（ydsz-cloud）
+        uses: actions/checkout@v4
+        with:
+          repository: njydsz/ydsz-cloud
+          ref: main
+          path: ydsz-cloud
+          fetch-depth: 1
+
+      - name: 契约校验（后端接口变更必须已同步）
+        env:
+          YDSZ_CLOUD_ROOT: ${{ github.workspace }}/ydsz-cloud
+        run: |
+          python3 bash/gen-contract.py --check
+
+  e2e-smoke:
+    name: Playwright 冒烟（手动触发）
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 构建 main-web
+        run: pnpm build:main
+
+      - name: 运行冒烟测试
+        run: pnpm test:e2e
+
+      - name: 上传失败截图
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failures
+          path: e2e/test-results/
+          retention-days: 7

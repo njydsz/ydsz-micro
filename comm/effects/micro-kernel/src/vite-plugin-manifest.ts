@@ -15,9 +15,24 @@
  */
 
 import type { Plugin } from 'vite';
+import { createHash } from 'node:crypto';
+
 import { createLogger } from '@YDSZ-core/shared/utils';
 
 const logger = createLogger('MicroKernel:ManifestPlugin');
+
+/**
+ * 计算构建产物内容的 sha256（SRI 格式前缀）。
+ *
+ * CSS 哈希写入 manifest.integrity.css，loader 注入样式表时附加
+ * integrity + crossorigin 完成浏览器级 SRI 校验；
+ * JS 哈希写入 manifest.integrity.js——浏览器 dynamic import 不支持
+ * integrity 属性，该清单供 strictIntegrity 加载模式（loader 先取文本
+ * 验签再 import）与未来 Service Worker 校验使用。
+ */
+function sha256Sri(content: string | Uint8Array): string {
+  return `sha256-${createHash('sha256').update(content).digest('base64')}`;
+}
 
 /** 子应用 manifest.json 中声明的路由级骨架屏配置（与 loader.ts ManifestRoute 对齐） */
 export interface ManifestPluginRoute {
@@ -78,12 +93,17 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
       }
 
       // 收集 CSS 文件，使用 base 前缀确保子路径部署正确
-      const cssFiles = Object.values(bundle)
-        .filter(
-          (asset): asset is { type: 'asset'; fileName: string; source: string | Uint8Array } =>
-            asset.type === 'asset' && asset.fileName.endsWith('.css'),
-        )
-        .map((asset) => `${base}${asset.fileName}`);
+      const cssAssets = Object.values(bundle).filter(
+        (asset): asset is { type: 'asset'; fileName: string; source: string | Uint8Array } =>
+          asset.type === 'asset' && asset.fileName.endsWith('.css'),
+      );
+      const cssFiles = cssAssets.map((asset) => `${base}${asset.fileName}`);
+
+      // v4.4.0: 收集 JS chunk 并计算 sha256（entry + 全部分包）
+      const jsChunks = Object.values(bundle).filter(
+        (chunk): chunk is { type: 'chunk'; fileName: string; code: string } =>
+          chunk.type === 'chunk',
+      );
 
       const manifest: Record<string, unknown> = {
         name: appName,
@@ -91,6 +111,22 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
         css: cssFiles,
         version: appVersion,
       };
+
+      // v4.4.0: 产物完整性清单（CSS 浏览器级 SRI；JS 供 strictIntegrity/SW 校验）
+      if (cssAssets.length > 0 || jsChunks.length > 0) {
+        const integrity: Record<string, Record<string, string>> = {};
+        const cssIntegrity: Record<string, string> = {};
+        for (const asset of cssAssets) {
+          cssIntegrity[`${base}${asset.fileName}`] = sha256Sri(asset.source);
+        }
+        const jsIntegrity: Record<string, string> = {};
+        for (const chunk of jsChunks) {
+          jsIntegrity[`${base}${chunk.fileName}`] = sha256Sri(chunk.code);
+        }
+        if (Object.keys(cssIntegrity).length > 0) integrity.css = cssIntegrity;
+        if (Object.keys(jsIntegrity).length > 0) integrity.js = jsIntegrity;
+        if (Object.keys(integrity).length > 0) manifest.integrity = integrity;
+      }
 
       // v3.3: 透传路由级骨架屏配置（可选）
       if (Array.isArray(options.routes) && options.routes.length > 0) {

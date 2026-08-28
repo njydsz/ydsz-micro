@@ -53,6 +53,10 @@ export interface ShutdownContext {
   getVisibilityCleanup: () => (() => void) | null;
   /** 设置可见性清理函数 */
   setVisibilityCleanup: (cleanup: (() => void) | null) => void;
+  /** 获取预加载指标上报清理函数（v4.4.0） */
+  getMetricsCleanup: () => (() => void) | null;
+  /** 设置预加载指标上报清理函数（v4.4.0） */
+  setMetricsCleanup: (cleanup: (() => void) | null) => void;
   /** 获取当前 AbortController */
   getAbortController: () => AbortController | null;
   /** 设置当前 AbortController */
@@ -87,6 +91,8 @@ export function createStopFunction(ctx: ShutdownContext) {
     ctx.setRouterSyncCleanup(null);
     ctx.getVisibilityCleanup?.();
     ctx.setVisibilityCleanup(null);
+    ctx.getMetricsCleanup?.();
+    ctx.setMetricsCleanup(null);
 
     // v4.2.1 P0-N2: 中止未完成的切换异步链路
     ctx.getAbortController?.().abort();

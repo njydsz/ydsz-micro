@@ -10,15 +10,18 @@ import type { MonitorConfig } from './error-monitor';
 
 import { setupBreadcrumbAutoCapture } from './breadcrumb';
 import { setupErrorMonitoring } from './error-monitor';
+import { configureMonitorEndpoints } from './monitor-endpoints';
 import { setupWebVitals } from './web-vitals';
 
 /**
  * 安装全部监控能力
  *
  * @param app - Vue 应用实例
- * @param config - 监控配置（release 版本、采样率、脱敏钩子、用户 ID 获取）
+ * @param config - 监控配置（release 版本、采样率、脱敏钩子、用户 ID 获取、上报端点覆盖）
  */
 export function setupMonitor(app: App, config: MonitorConfig = {}) {
+  // 端点配置需在错误/性能监控安装前生效
+  configureMonitorEndpoints(config.endpoints);
   // 面包屑自动采集需最先安装，确保后续错误上报能携带完整轨迹
   setupBreadcrumbAutoCapture();
   setupErrorMonitoring(app, config);
