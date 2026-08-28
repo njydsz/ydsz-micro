@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'AgentChatConsole',
         path: 'chat',
-        component: () => import('#/views/agentChat/index.vue'),
+        component: () => import('#/views/agent-chat/index.vue'),
         meta: { icon: 'lucide:message-square', title: '对话调试台' },
       },
     ],

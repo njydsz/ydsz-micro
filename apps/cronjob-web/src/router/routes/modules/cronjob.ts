@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'JobGroupManagement',
         path: 'group',
-        component: () => import('#/views/jobGroup/index.vue'),
+        component: () => import('#/views/job-group/index.vue'),
         meta: { icon: 'lucide:folder', title: '任务分组' },
       },
     ],
@@ -35,13 +35,13 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'JobDagManagement',
         path: 'list',
-        component: () => import('#/views/jobDag/index.vue'),
+        component: () => import('#/views/job-dag/index.vue'),
         meta: { icon: 'lucide:workflow', title: 'DAG列表' },
       },
       {
         name: 'JobDagInstanceManagement',
         path: 'instance',
-        component: () => import('#/views/jobDagInstance/index.vue'),
+        component: () => import('#/views/job-dag-instance/index.vue'),
         meta: { icon: 'lucide:activity', title: '运行实例' },
       },
     ],
@@ -60,7 +60,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'JobLogManagement',
         path: 'list',
-        component: () => import('#/views/jobLog/index.vue'),
+        component: () => import('#/views/job-log/index.vue'),
         meta: { icon: 'lucide:file-text', title: '执行日志' },
       },
     ],

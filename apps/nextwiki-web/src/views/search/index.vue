@@ -323,7 +323,7 @@ onMounted(async () => {
               <div class="flex items-start justify-between">
                 <div class="flex-1">
                   <h3 class="cursor-pointer text-base font-medium text-blue-600 hover:underline">
-                    <span v-html="item.highlight || item.name"></span>
+                    <span v-safe-html="item.highlight || item.name"></span>
                   </h3>
                   <p class="mt-1 text-sm text-gray-500">{{ item.path }}</p>
                   <div class="mt-2 flex items-center gap-3 text-xs text-gray-400">

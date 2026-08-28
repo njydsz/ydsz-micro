@@ -19,7 +19,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect, ElSlider } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
-import { createDag, updateDag, validateDag } from '#/api/jobDag';
+import { createDag, updateDag, validateDag } from '#/api/job-dag';
 import type { JobDagPostDTO } from '#/api/models';
 
 interface Props {
@@ -287,8 +287,8 @@ function handleNodeNameChange(name: string): void {
           <!-- 连线（简化显示） -->
           <svg class="edges-layer">
             <line
-              v-for="(edge, index) in edgeList"
-              :key="index"
+              v-for="edge in edgeList"
+              :key="edge.id ?? `${edge.from}-${edge.to}`"
               :x1="(nodeList.find((n) => n.id === edge.from)?.x ?? 0) + 60"
               :y1="(nodeList.find((n) => n.id === edge.from)?.y ?? 0) + 30"
               :x2="(nodeList.find((n) => n.id === edge.to)?.x ?? 0) + 60"
@@ -323,11 +323,11 @@ function handleNodeNameChange(name: string): void {
       <div v-if="edgeList.length > 0" class="edge-list mt-3">
         <h4 class="mb-2 text-sm font-medium">依赖关系（{{ edgeList.length }}）</h4>
         <div class="flex flex-wrap gap-2">
-          <div v-for="(edge, index) in edgeList" :key="index" class="flex items-center gap-1 rounded border px-2 py-1">
+          <div v-for="edge in edgeList" :key="edge.id ?? `${edge.from}-${edge.to}`" class="flex items-center gap-1 rounded border px-2 py-1">
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.from)?.name }}</span>
             <span class="text-xs text-gray-400">→</span>
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.to)?.name }}</span>
-            <ElButton size="small" link type="danger" @click="handleDeleteEdge(index)">删除</ElButton>
+            <ElButton size="small" link type="danger" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</ElButton>
           </div>
         </div>
       </div>

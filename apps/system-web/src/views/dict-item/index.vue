@@ -1,7 +1,7 @@
 <!--
  * 字典项管理页面 — 字典项的分页列表、搜索、新增、编辑、删除
  *
- * @path apps\system-web\src\views\dictItem\index.vue
+ * @path apps\system-web\src\views\dict-item\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -22,10 +22,10 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { page, remove } from '#/api/dictItem';
+import { page, remove } from '#/api/dict-item';
 import type { DictItemPageQuery, DictItemVO, PageQuery } from '#/api/models';
 
-import DictItemForm from './dictItem-form.vue';
+import DictItemForm from './dict-item-form.vue';
 
 defineOptions({ name: 'DictItemManagement' });
 

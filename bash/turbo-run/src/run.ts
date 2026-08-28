@@ -45,7 +45,7 @@ export async function run(options: RunOptions) {
 
   // 只显示有对应命令的包
   const selectPkgs = packages.filter((pkg) => {
-    return (pkg?.packageJson as Record<string, any>)?.scripts?.[command];
+    return (pkg?.packageJson as { scripts?: Record<string, string> })?.scripts?.[command];
   });
 
   let selectPkg: string | symbol;

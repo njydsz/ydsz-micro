@@ -451,6 +451,7 @@ watch(visible, (isOpen) => {
             :key="index"
             class="mb-2 rounded border bg-gray-50 p-3"
           >
+            <!-- @data-file 评估结果可能缺少稳定 ID，index 作为兜底 key -->
             <pre class="whitespace-pre-wrap text-xs">{{ JSON.stringify(result, null, 2) }}</pre>
           </div>
         </div>

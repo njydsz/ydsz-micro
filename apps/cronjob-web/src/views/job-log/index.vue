@@ -1,7 +1,7 @@
 <!--
  * 任务执行日志（列表页 / 只读）
  *
- * @path apps\cronjob-web\src\views\jobLog\index.vue
+ * @path apps\cronjob-web\src\views\job-log\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

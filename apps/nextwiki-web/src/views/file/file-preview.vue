@@ -180,7 +180,7 @@ onMounted(async () => {
       <div class="preview-content min-h-[400px] rounded border bg-gray-50 p-4">
         <!-- 图片预览 -->
         <div v-if="isImage && previewUrl" class="flex justify-center">
-          <img :src="previewUrl" :alt="fileNode.name" class="max-h-[600px] max-w-full object-contain" />
+          <img :src="previewUrl" :alt="fileNode.name" class="max-h-[600px] max-w-full object-contain" loading="lazy" />
         </div>
 
         <!-- PDF 预览 -->

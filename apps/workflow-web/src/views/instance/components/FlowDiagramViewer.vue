@@ -155,7 +155,7 @@ onMounted(() => {
       <div v-if="loading" class="flex h-64 items-center justify-center text-gray-400">
         正在加载流程图...
       </div>
-      <div v-else-if="diagramSvg && diagramData" class="diagram-content" v-html="diagramSvg" />
+      <div v-else-if="diagramSvg && diagramData" class="diagram-content" v-safe-html="diagramSvg" />
       <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
         <p>暂无流程图数据</p>
         <ElButton size="small" class="mt-2" @click="loadDiagram">重新加载</ElButton>

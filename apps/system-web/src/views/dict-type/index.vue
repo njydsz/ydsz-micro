@@ -1,7 +1,7 @@
 <!--
  * 字典类型管理页面 — 字典类型的分页列表、搜索、新增、编辑、删除
  *
- * @path apps\system-web\src\views\dictType\index.vue
+ * @path apps\system-web\src\views\dict-type\index.vue
  * @author ydsz-team
  * @since 1.1.0
 -->
@@ -25,7 +25,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/dict';
 import type { DictPageQuery, DictTypeVO, PageQuery } from '#/api/models';
 
-import DictTypeForm from './dictType-form.vue';
+import DictTypeForm from './dict-type-form.vue';
 
 defineOptions({ name: 'DictTypeManagement' });
 

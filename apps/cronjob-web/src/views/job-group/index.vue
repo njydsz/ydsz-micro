@@ -1,7 +1,7 @@
 <!--
  * 任务分组（列表页）
  *
- * @path apps\cronjob-web\src\views\jobGroup\index.vue
+ * @path apps\cronjob-web\src\views\job-group\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -24,7 +24,7 @@ import { ElButton, ElMessage, ElMessageBox, ElInput } from 'element-plus';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/jobGroup';
+import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/job-group';
 import type { JobVO } from '#/api/models';
 
 defineOptions({ name: 'JobGroupManagement' });

@@ -33,7 +33,7 @@ function lintPackageJson(packagePath: string): PackageLintResult {
     };
   }
 
-  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8').replace(/^﻿/, ''));
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8').replace(/^\uFEFF/, ''));
 
   if (!pkg.name) errors.push('缺少 name 字段');
   if (!pkg.version) errors.push('缺少 version 字段');

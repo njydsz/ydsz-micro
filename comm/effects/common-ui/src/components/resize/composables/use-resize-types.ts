@@ -9,6 +9,8 @@
  * @since 1.0.0
  */
 
+import type { Ref } from 'vue';
+
 /** 移动前记录的尺寸与位置快照 */
 export interface DimensionsBeforeMove {
   pointerX: number;
@@ -57,3 +59,69 @@ export interface RectCorrectionInput {
 
 /** 拖拽手柄方位 */
 export type Stick = 'bl' | 'bm' | 'br' | 'ml' | 'mr' | 'tl' | 'tm' | 'tr';
+
+/** 核心逻辑状态对象（resize 组件内部状态集合） */
+export interface ResizeState {
+  left: Ref<null | number>;
+  top: Ref<null | number>;
+  right: Ref<null | number>;
+  bottom: Ref<null | number>;
+  parentWidth: Ref<null | number>;
+  parentHeight: Ref<null | number>;
+  width: Ref<null | number>;
+  height: Ref<null | number>;
+  aspectFactor: Ref<null | number>;
+  dimensionsBeforeMove: Ref<DimensionsBeforeMove>;
+  limits: Ref<Limits>;
+  currentStick: Ref<null | string>;
+  stickDrag: Ref<boolean>;
+  bodyDrag: Ref<boolean>;
+  active: Ref<boolean>;
+  zIndex: Ref<null | number>;
+  preventActiveBehavior?: Ref<boolean>;
+  isDraggable?: Ref<boolean>;
+  isResizable?: Ref<boolean>;
+  aspectRatio?: Ref<boolean>;
+  parentLimitation?: Ref<boolean>;
+  snapToGrid?: Ref<boolean>;
+  gridX?: Ref<number>;
+  gridY?: Ref<number>;
+  minw?: Ref<number>;
+  minh?: Ref<number>;
+  dragHandle?: Ref<string | null>;
+  dragCancel?: Ref<string | null>;
+  axis?: Ref<string>;
+}
+
+/** 核心逻辑状态对象（resize 组件内部状态集合） */
+export interface ResizeState {
+  left: Ref<null | number>;
+  top: Ref<null | number>;
+  right: Ref<null | number>;
+  bottom: Ref<null | number>;
+  parentWidth: Ref<null | number>;
+  parentHeight: Ref<null | number>;
+  width: Ref<null | number>;
+  height: Ref<null | number>;
+  aspectFactor: Ref<null | number>;
+  dimensionsBeforeMove: Ref<DimensionsBeforeMove>;
+  limits: Ref<Limits>;
+  currentStick: Ref<null | string>;
+  stickDrag: Ref<boolean>;
+  bodyDrag: Ref<boolean>;
+  active: Ref<boolean>;
+  zIndex: Ref<null | number>;
+  preventActiveBehavior?: Ref<boolean>;
+  isDraggable?: Ref<boolean>;
+  isResizable?: Ref<boolean>;
+  aspectRatio?: Ref<boolean>;
+  parentLimitation?: Ref<boolean>;
+  snapToGrid?: Ref<boolean>;
+  gridX?: Ref<number>;
+  gridY?: Ref<number>;
+  minw?: Ref<number>;
+  minh?: Ref<number>;
+  dragHandle?: Ref<string | null>;
+  dragCancel?: Ref<string | null>;
+  axis?: Ref<string>;
+}

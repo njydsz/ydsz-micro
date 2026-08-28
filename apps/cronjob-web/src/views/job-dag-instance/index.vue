@@ -1,7 +1,7 @@
 <!--
  * DAG 运行实例（列表 + 控制 + 详情）
  *
- * @path apps\cronjob-web\src\views\jobDagInstance\index.vue
+ * @path apps\cronjob-web\src\views\job-dag-instance\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -37,7 +37,7 @@ import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { cancel, pause, resume, retryNode } from '#/api/dagInstanceControl';
-import { listByStatus, listNodes, getMermaidDiagram } from '#/api/jobDagInstance';
+import { listByStatus, listNodes, getMermaidDiagram } from '#/api/job-dag-instance';
 import type { JobDagInstanceVO, JobDagNodeInstanceVO } from '#/api/models';
 
 defineOptions({ name: 'JobDagInstanceManagement' });

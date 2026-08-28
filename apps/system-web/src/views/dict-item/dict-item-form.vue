@@ -29,7 +29,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 
 import { listAll } from '#/api/dict';
-import { save, update } from '#/api/dictItem';
+import { save, update } from '#/api/dict-item';
 import type { DictItemVO, DictTypeVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();

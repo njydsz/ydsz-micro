@@ -19,7 +19,7 @@ import { useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { createDag, updateDag, validateDag } from '#/api/jobDag';
+import { createDag, updateDag, validateDag } from '#/api/job-dag';
 import type { JobDagVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();

@@ -103,7 +103,7 @@
 ESM loader → 生命周期 → 沙箱 → keep-alive → 错误降级 → 路由同步 → 全局通信
 ```
 
-核心能力：三种沙箱（`sandbox` 快照 / `proxy-sandbox` / `iframe-sandbox`）、vite-plugin-manifest（子应用产物清单与版本）、远程 registry 注册表 + 缓存、版本管理与灰度分流、资源调度器（keep-alive / LRU / TTL / 内存压力 / 可见性释放）、分级错误降级、消息总线（sendMessage / sendRequest 请求-响应）、四种预加载策略、路由马尔可夫预测。调试请使用 [chrome/](chrome/) 下的 DevTools 扩展。
+核心能力：三种沙箱（`sandbox` 快照 / `proxy-sandbox` / `iframe-sandbox`，支持矩阵与 experimental 边界见 [ADR-007](docs/decisions/adr-007-sandbox-matrix.md)）、vite-plugin-manifest（子应用产物清单、版本与 sha256 完整性清单）、远程 registry 注册表 + 缓存、版本管理与灰度分流、资源调度器（keep-alive / LRU / TTL / 内存压力 / 可见性释放，内存优先标准 `performance.measureMemory()`）、分级错误降级、消息总线（sendMessage / sendRequest 请求-响应）、四种预加载策略、路由马尔可夫预测（含 `minSampleSize` 冷启动门槛）与预加载命中率指标回环（`preload-metrics`，数据驱动策略调优）。调试请使用 [chrome/](chrome/) 下的 DevTools 扩展。
 
 ## 应用清单
 
@@ -294,32 +294,36 @@ server: {
 | 检查项     | 命令                          | 说明                                          |
 | ---------- | ----------------------------- | --------------------------------------------- |
 | Lint       | `pnpm lint` / `pnpm lint:fix` | ESLint + Stylelint（含 Stylelint 自动修复）   |
-| 类型检查   | `pnpm type-check`             | 全仓 `vue-tsc` / `tsc`（turbo 编排）          |
+| 类型检查   | `pnpm type-check`             | turbo 编排（⚠️ 各包 `type-check` 脚本尚未接线，当前执行 0 任务；存量类型错误清理后逐包接线） |
 | 循环依赖   | `pnpm vsh:check-circular`     | `vsh check-circular`（零循环依赖守护）        |
 | 依赖合法性 | `pnpm vsh:check-dep`          | `vsh check-dep`（依赖合规）                   |
-| 契约校验   | `pnpm gen:api:check`          | OpenAPI 契约漂移检查（`--check`）             |
+| 产物依赖   | `pnpm vsh:check-bundle`       | 共享依赖外置证据检测（防 importmap 依赖被误打包致双实例，v4.4.0） |
+| 产物体积   | `pnpm check:size`             | 构建产物 gzip 预算断言（主应用 512KB / 子应用 384KB，v4.4.0） |
+| i18n 校验  | `pnpm check:i18n`             | 全仓 zh-CN / en-US key 集合一致性校验（v4.4.0） |
+| importmap  | `pnpm sync:shared-deps:check` | 版本锁（`bash/importmap.lock.json`）与 vendor 产物一致性校验（v4.4.0） |
+| 契约校验   | `pnpm gen:contract:check`     | 静态契约基线漂移检查；`pnpm gen:api:check` 为运行时契约（后端运行后） |
 | 发布校验   | `pnpm vsh:publint`            | 共享包发布规范校验                            |
 | 格式化     | —（待接入）                   | Prettier 经 `lint:fix` 集成，独立 `format` 脚本未落地 |
 | 拼写检查   | —（待接入）                   | `cspell` 配置未落地，`check:cspell` 脚本缺失  |
-| 综合检查   | —（待接入）                   | 聚合 lint + type-check + vsh:check-* 的门禁脚本尚未落地 |
 
 Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push` 执行单元测试、类型检查与 `pnpm audit` 安全审计；`commit-msg` 执行 Commitlint；`post-merge` 自动 `pnpm install`。
+
+CI（GitHub Actions，v4.4.0 起落地）：`verify` job（lint / stylelint / test / check-circular / check-dep / check:i18n / sync:shared-deps:check）PR 必跑；`contract` job（`gen-contract.py --check`，经 `YDSZ_CLOUD_ROOT` 检出后端）push main 必跑；`e2e-smoke` job（build + check:size + check-bundle + Playwright 冒烟）手动触发。
 
 ## 测试体系
 
 | 层级       | 命令                          | 覆盖范围                                                                                 | 状态 |
 | ---------- | ----------------------------- | ---------------------------------------------------------------------------------------- | ---- |
-| 单元测试   | `pnpm test` / `pnpm test:coverage` | Vitest + happy-dom（`vitest.config.ts` 已配置），含覆盖率报告                       | ✅ 已落地 |
-| 覆盖率门槛 | —（待接入）                   | 覆盖率门槛断言脚本（`test:coverage:check`）尚未落地                                       | ⚠️ 待接入 |
-| 契约测试   | `pnpm gen:api:check`          | API 契约对齐（`--check` 校验漂移），替代 `test:contract`                                 | ✅ 已落地 |
-| E2E        | —（待接入）                   | `e2e/` 目录为空，Playwright 配置文件未落地                                               | ⚠️ 待接入 |
-| 可访问性   | —（待接入）                   | `@axe-core/playwright` 已声明，但 `test:a11y` 脚本与用例未落地（见 ADR-005）            | ⚠️ 待接入 |
+| 单元测试   | `pnpm test` / `pnpm test:coverage` | Vitest + happy-dom（micro-kernel / request / shared-auth 等包自持配置），覆盖率门槛已在根配置声明（branches/functions 70% / lines 80%） | ✅ 已落地 |
+| 契约测试   | `pnpm gen:contract:check`     | API 契约对齐（静态提取基线 `--check` 校验漂移）                                          | ✅ 已落地 |
+| E2E 冒烟   | `pnpm test:e2e`               | Playwright：主应用启动/路由可达/无致命异常（`e2e/specs/main-smoke.spec.ts`，v4.4.0）     | ✅ 已落地（CI 手动触发） |
+| 可访问性   | `pnpm test:e2e`（同一套件）   | 登录页 axe 扫描（wcag2a/wcag21a，critical=0 基线，见 ADR-005）                           | ✅ 基线落地 |
 | 视觉回归   | —（待接入）                   | `e2e/visual-regression.spec.ts` 尚未创建                                                 | ⚠️ 待接入 |
-| 性能预算   | —（待接入）                   | Lighthouse CI 配置未落地（`test:perf` 脚本缺失）                                         | ⚠️ 待接入 |
+| 性能预算   | `pnpm test:perf`              | Lighthouse CI（lighthouserc.json，3 次采样，desktop preset）；另有产物级 `check:size`   | ✅ 已落地 |
 
 ## 性能预算
 
-> ⚠️ 待接入：以下断言由 `pnpm test:perf`（Lighthouse CI，3 次采样，desktop preset）执行，当前脚本与 lighthouserc 配置尚未落地，预算目标如下：
+> 由 `pnpm test:perf`（Lighthouse CI，3 次采样，desktop preset，`lighthouserc.json`）执行；产物级预算由 `pnpm check:size` 与构建期 bundle-budget 插件兜底。预算目标如下：
 
 - **错误级**：Accessibility ≥ 0.9
 - **警告级**：Performance ≥ 0.9；FCP ≤ 2000ms、LCP ≤ 2500ms、TTI ≤ 3800ms、TBT ≤ 300ms、CLS ≤ 0.1、SI ≤ 3400ms
@@ -348,8 +352,14 @@ Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint �
 
 ## 文档与决策记录
 
-- [docs/v4.0-优化设施说明.md](docs/v4.0-优化设施说明.md) — 微应用框架优化设施说明（v4.0）
-- [docs/decisions/](docs/decisions/) — 架构决策记录（ADR），如 [ADR-003: SSR / Pre-rendering 方案评估](docs/decisions/adr-003-ssr-pre-rendering.md)
+- [docs/v4.0-优化设施说明.md](docs/v4.0-优化设施说明.md) — 微应用框架优化设施说明（v4.0-v4.4）
+- [docs/decisions/](docs/decisions/README.md) — 架构决策记录（ADR 索引）：
+  - [ADR-001: 微前端运行时选型](docs/decisions/adr-001-micro-kernel-vs-qiankun.md)（自研 ESM 内核 vs qiankun）
+  - [ADR-002: Monorepo 工具链](docs/decisions/adr-002-monorepo-toolchain.md)（pnpm + turbo + vsh）
+  - [ADR-003: SSR / Pre-rendering 评估](docs/decisions/adr-003-ssr-pre-rendering.md)
+  - [ADR-005: 可访问性基线](docs/decisions/adr-005-accessibility.md)（axe E2E）
+  - [ADR-006: 可观测性体系](docs/decisions/adr-006-observability.md)（错误/性能/预加载指标）
+  - [ADR-007: 三沙箱支持矩阵](docs/decisions/adr-007-sandbox-matrix.md)（iframe 沙箱为 experimental）
 
 ## 竞品对标
 
@@ -367,9 +377,11 @@ YDSZ 微前端中后台底座的对标竞品均为 Gitee 上的 Java/Spring 系�
 
 ## Roadmap
 
-- [ ] 接入 CI/CD 流水线（Lefthook 已落地；Playwright / Lighthouse / cspell 配置与 `e2e/` 用例尚未接入，CI 触发分支待落地）
-- [ ] 补齐 Changesets 发布配置（`@changesets/cli` 已引入，`.changeset/` 目录待初始化）
-- [ ] 补全 ADR-001 / ADR-002 决策记录
+- [ ] 接入 CI/CD 流水线（~~已完成主链路~~ v4.4.0：GitHub Actions `verify` / `contract` 已落地，`e2e-smoke` 手动触发；待办：e2e 放开至 PR 必跑、cspell 接入）
+- [x] 补齐 Changesets 发布配置（v4.4.0：`.changeset/` 已初始化）
+- [x] 补全 ADR 决策记录（v4.4.0：ADR-001/002/003/005/006/007 已归档，004 编号跳过）
+- [ ] 共享依赖版本锁推广：`pnpm sync:shared-deps` 生成 `bash/importmap.lock.json` 后提交，各应用 vendor 产物对齐（v4.4.0 机制已落地，待首次执行）
+- [ ] manifest 签名验签升级：当前 strictIntegrity 为 sha256 清单比对（可选模式），后续评估 HMAC/ed25519 签名与 Service Worker 校验
 - [x] 移除 `project-web` 相关残留引用（package.json 脚本 / 部署配置 / e2e 用例）
 
 ## 开源许可

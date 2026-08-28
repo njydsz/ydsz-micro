@@ -15,7 +15,7 @@
  * 运行：node bash/codemod-console.mjs [rootDir]
  * 幂等：重复运行不会产生重复导入 / 重复 logger。
  */
-import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { join, basename } from 'node:path';
 
 const ROOT = process.argv[2] ?? process.cwd();
@@ -77,7 +77,6 @@ function replaceConsole(line) {
   // 行内注释之后的 console 跳过
   const cIdx = line.indexOf('//');
   const probe = cIdx >= 0 ? line.slice(0, cIdx) : line;
-  let idx = -1;
   let mutated = line;
   for (const m of METHODS) {
     const needle = `console.${m}(`;

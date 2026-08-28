@@ -139,6 +139,25 @@ function registerCustomNodes() {
     return { view: ApproveNode, model: ApproveNodeModel };
   });
 
+  // AI 审批节点
+  lf.register('ai-agent-node', ({ RectNode, RectNodeModel }) => {
+    class AiAgentNode extends RectNode {}
+    class AiAgentNodeModel extends RectNodeModel {
+      getNodeStyle() {
+        return {
+          fill: '#fff',
+          stroke: '#9254de',
+          strokeWidth: 2,
+          radius: 8,
+        };
+      }
+      getTextStyle() {
+        return { fontSize: 14, fill: '#303133' };
+      }
+    }
+    return { view: AiAgentNode, model: AiAgentNodeModel };
+  });
+
   // 服务节点
   lf.register('service-node', ({ RectNode, RectNodeModel }) => {
     class ServiceNode extends RectNode {}
@@ -162,8 +181,9 @@ function registerCustomNodes() {
   lf.register('condition-node', ({ PolygonNode, PolygonNodeModel }) => {
     class ConditionNode extends PolygonNode {}
     class ConditionNodeModel extends PolygonNodeModel {
-      initNodeData(data: any) {
-        super.initNodeData(data);
+      // 非标准 API 收窄：LogicFlow 基类方法签名使用 any，覆写时保持兼容
+      initNodeData(data: Record<string, unknown>) {
+        super.initNodeData(data as Record<string, unknown>);
         this.points = [[50, 0], [100, 50], [50, 100], [0, 50]];
       }
       getNodeStyle() {
@@ -207,7 +227,7 @@ function bindEvents() {
       nodeCode: `node_${Date.now()}`,
       nodeName: getDefaultNodeName(data.type as string),
     };
-    lf?.setProperties(data.id, defaultConfig as any);
+    lf?.setProperties(data.id, defaultConfig as Record<string, unknown>);
     emit('nodeSelect', data.id, defaultConfig);
   });
 }
@@ -220,6 +240,7 @@ function getDefaultNodeName(type: string): string {
     'start-node': '开始',
     'end-node': '结束',
     'approve-node': '审批',
+    'ai-agent-node': 'AI审批',
     'service-node': '服务',
     'condition-node': '条件',
   };
@@ -252,7 +273,7 @@ function getGraphData() {
  */
 function updateNodeProperties(nodeId: string, config: DesignerNodeConfig) {
   if (!lf || !nodeId) return;
-  lf.setProperties(nodeId, config as any);
+  lf.setProperties(nodeId, config as Record<string, unknown>);
 }
 
 /**
@@ -267,6 +288,7 @@ function addNode(type: DesignerNodeType, x: number, y: number, text: string) {
     [DesignerNodeType.SERVICE]: 'service-node',
     [DesignerNodeType.CONDITION]: 'condition-node',
     [DesignerNodeType.SUB_PROCESS]: 'approve-node',
+    [DesignerNodeType.AI_AGENT]: 'ai-agent-node',
   };
   lf.addNode({
     type: nodeTypeMap[type] || 'approve-node',
@@ -286,6 +308,138 @@ watch(() => props.locked, (locked) => {
   }
 });
 
+// ==================== 缩放操作 ====================
+
+/** 放大 */
+function zoomIn() {
+  if (!lf) return;
+  const currentZoom = lf.getTransform().SCALE_X || 1;
+  const newZoom = Math.min(currentZoom + 0.1, 2);
+  lf.zoom(newZoom);
+}
+
+/** 缩小 */
+function zoomOut() {
+  if (!lf) return;
+  const currentZoom = lf.getTransform().SCALE_X || 1;
+  const newZoom = Math.max(currentZoom - 0.1, 0.5);
+  lf.zoom(newZoom);
+}
+
+/** 重置缩放 */
+function zoomReset() {
+  if (!lf) return;
+  lf.resetZoom();
+  lf.translate(0, 0);
+}
+
+// ==================== 对齐操作 ====================
+
+/** 获取选中的节点 */
+function getSelectedNodes(): Array<{ id: string; x: number; y: number; width: number; height: number }> {
+  if (!lf) return [];
+  const selectedIds = lf.graphModel.nodes
+    .filter((n: any) => n.isSelected)
+    .map((n: any) => n.id);
+  if (selectedIds.length < 2) return [];
+
+  return selectedIds.map((id: string) => {
+    const node = lf!.graphModel.nodes.find((n: any) => n.id === id);
+    const { x, y, width, height } = node || {};
+    return { id, x: x || 0, y: y || 0, width: width || 100, height: height || 50 };
+  });
+}
+
+/** 左对齐 */
+function alignLeft() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 2) return;
+  const minX = Math.min(...nodes.map((n) => n.x));
+  nodes.forEach((n) => {
+    lf?.updateNode(n.id, { x: minX });
+  });
+}
+
+/** 水平居中 */
+function alignCenter() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 2) return;
+  const avgX = nodes.reduce((sum, n) => sum + n.x + n.width / 2, 0) / nodes.length;
+  nodes.forEach((n) => {
+    lf?.updateNode(n.id, { x: avgX - n.width / 2 });
+  });
+}
+
+/** 右对齐 */
+function alignRight() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 2) return;
+  const maxRight = Math.max(...nodes.map((n) => n.x + n.width));
+  nodes.forEach((n) => {
+    lf?.updateNode(n.id, { x: maxRight - n.width });
+  });
+}
+
+/** 上对齐 */
+function alignTop() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 2) return;
+  const minY = Math.min(...nodes.map((n) => n.y));
+  nodes.forEach((n) => {
+    lf?.updateNode(n.id, { y: minY });
+  });
+}
+
+/** 垂直居中 */
+function alignMiddle() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 2) return;
+  const avgY = nodes.reduce((sum, n) => sum + n.y + n.height / 2, 0) / nodes.length;
+  nodes.forEach((n) => {
+    lf?.updateNode(n.id, { y: avgY - n.height / 2 });
+  });
+}
+
+/** 下对齐 */
+function alignBottom() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 2) return;
+  const maxBottom = Math.max(...nodes.map((n) => n.y + n.height));
+  nodes.forEach((n) => {
+    lf?.updateNode(n.id, { y: maxBottom - n.height });
+  });
+}
+
+/** 水平分布 */
+function distributeHorizontal() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 3) return;
+  const sorted = [...nodes].sort((a, b) => a.x - b.x);
+  const totalWidth = sorted.reduce((sum, n) => sum + n.width, 0);
+  const span = sorted[sorted.length - 1].x + sorted[sorted.length - 1].width - sorted[0].x;
+  const gap = (span - totalWidth) / (sorted.length - 1);
+  let cursor = sorted[0].x;
+  sorted.forEach((n) => {
+    lf?.updateNode(n.id, { x: cursor });
+    cursor += n.width + gap;
+  });
+}
+
+/** 垂直分布 */
+function distributeVertical() {
+  const nodes = getSelectedNodes();
+  if (nodes.length < 3) return;
+  const sorted = [...nodes].sort((a, b) => a.y - b.y);
+  const totalHeight = sorted.reduce((sum, n) => sum + n.height, 0);
+  const span = sorted[sorted.length - 1].y + sorted[sorted.length - 1].height - sorted[0].y;
+  const gap = (span - totalHeight) / (sorted.length - 1);
+  let cursor = sorted[0].y;
+  sorted.forEach((n) => {
+    lf?.updateNode(n.id, { y: cursor });
+    cursor += n.height + gap;
+  });
+}
+
 onMounted(() => {
   initLogicFlow();
 });
@@ -300,6 +454,17 @@ defineExpose({
   getGraphData,
   updateNodeProperties,
   addNode,
+  zoomIn,
+  zoomOut,
+  zoomReset,
+  alignLeft,
+  alignCenter,
+  alignRight,
+  alignTop,
+  alignMiddle,
+  alignBottom,
+  distributeHorizontal,
+  distributeVertical,
 });
 </script>
 

@@ -16,6 +16,7 @@
  * @since 1.0.0
 */
 import { computed, nextTick, ref, watch } from 'vue';
+import { useDebounceFn } from '@vueuse/core';
 
 interface Props {
   modelValue?: string;
@@ -186,12 +187,17 @@ function handleScroll(): void {
   }
 }
 
-/** 输入处理 */
+/** 输入处理（v-model 立即同步，补全计算防抖 150ms） */
 function handleInput(event: Event): void {
   const target = event.target as HTMLTextAreaElement;
   emit('update:modelValue', target.value);
-  updateCompletion(target);
+  debouncedUpdateCompletion(target);
 }
+
+/** 防抖更新补全建议（规范 5.4：高频输入事件防抖） */
+const debouncedUpdateCompletion = useDebounceFn((textarea: HTMLTextAreaElement) => {
+  updateCompletion(textarea);
+}, 150);
 
 /** 更新补全建议 */
 function updateCompletion(textarea: HTMLTextAreaElement): void {
@@ -336,7 +342,7 @@ watch(
       <div
         ref="highlightRef"
         class="highlight-layer"
-        v-html="highlightedHtml"
+        v-safe-html="highlightedHtml"
       />
       
       <!-- 输入层 -->

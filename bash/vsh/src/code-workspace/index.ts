@@ -5,7 +5,7 @@
  * @description 同步 VS Code 工作区配置，统一管理扩展推荐和设置
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
+import { writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 /** 工作区配置 */

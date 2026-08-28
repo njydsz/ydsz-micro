@@ -183,7 +183,7 @@ watch(() => props.modelValue, (val) => {
           <div v-if="conditionList.length > 0" class="mb-4">
             <div
               v-for="(condition, index) in conditionList"
-              :key="index"
+              :key="condition.field ? `${condition.field}-${condition.operator}` : index"
               class="mb-2 flex items-center gap-2 rounded border bg-gray-50 p-2"
             >
               <span v-if="index > 0" class="logic-tag">{{ condition.logic }}</span>

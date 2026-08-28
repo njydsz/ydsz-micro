@@ -391,8 +391,8 @@ watch(visible, (isOpen) => {
           <!-- 连线 SVG -->
           <svg class="edges-layer">
             <path
-              v-for="(edge, index) in edges"
-              :key="index"
+              v-for="edge in edges"
+              :key="edge.id ?? `${edge.from}-${edge.to}`"
               :d="getEdgePath(edge)"
               stroke="#909399"
               stroke-width="2"
@@ -499,7 +499,7 @@ watch(visible, (isOpen) => {
         <div v-else class="max-h-96 overflow-auto">
           <div
             v-for="(result, index) in dryRunResults"
-            :key="index"
+            :key="result.ruleId ?? result.nodeId ?? index"
             class="mb-2 rounded border p-3"
           >
             <pre class="whitespace-pre-wrap text-xs">{{ JSON.stringify(result, null, 2) }}</pre>

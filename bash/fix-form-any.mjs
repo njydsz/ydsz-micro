@@ -12,7 +12,7 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { globSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { join } from 'node:path';
 
 const ROOT = join(import.meta.dirname, '..');
 

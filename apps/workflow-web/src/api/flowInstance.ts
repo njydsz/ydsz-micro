@@ -20,7 +20,9 @@ import type {
   FlowInstanceVariablesDTO,
   FlowInstanceViewDTO,
   FlowNodeVO,
+  FlowSaveDraftDTO,
   FlowStartProcessDTO,
+  FlowSubmitDraftDTO,
   FlowTimelineVO,
   FlowVariableVO,
   InstanceMigrationDTO,
@@ -32,6 +34,27 @@ import type {
  */
 export function startProcess(data: FlowStartProcessDTO): Promise<string> {
   return requestClient.post<string>(`/api/v1/workflow/engine/instance/start`, data);
+}
+
+/**
+ * saveDraft: POST /api/v1/workflow/engine/instance/draft/save
+ */
+export function saveDraft(data: FlowSaveDraftDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/instance/draft/save`, data);
+}
+
+/**
+ * submitDraft: POST /api/v1/workflow/engine/instance/draft/submit
+ */
+export function submitDraft(data: FlowSubmitDraftDTO): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/instance/draft/submit`, data);
+}
+
+/**
+ * cancelDraft: POST /api/v1/workflow/engine/instance/{id}/draft/cancel
+ */
+export function cancelDraft({ id }: { id: string }): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/instance/${id}/draft/cancel`);
 }
 
 /**

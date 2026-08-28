@@ -154,6 +154,7 @@ function refresh() {
       :alt="titleText"
       class="md:1/3 w-1/2 lg:w-1/4"
       role="img"
+      loading="lazy"
     />
     <component
       :is="fallbackIcon"

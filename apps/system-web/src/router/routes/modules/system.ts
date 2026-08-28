@@ -26,13 +26,13 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'DictTypeManagement',
         path: 'dict-type',
-        component: () => import('#/views/dictType/index.vue'),
+        component: () => import('#/views/dict-type/index.vue'),
         meta: { icon: 'lucide:book-open', title: '字典类型' },
       },
       {
         name: 'DictItemManagement',
         path: 'dict-item',
-        component: () => import('#/views/dictItem/index.vue'),
+        component: () => import('#/views/dict-item/index.vue'),
         meta: { icon: 'lucide:list', title: '字典项' },
       },
       {

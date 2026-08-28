@@ -88,7 +88,7 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
       );
 
       if (!entryChunk || entryChunk.type !== 'chunk') {
-        console.warn(`[ManifestPlugin] No entry chunk found for ${appName}`);
+        logger.warn(`No entry chunk found for ${appName}`);
         return;
       }
 

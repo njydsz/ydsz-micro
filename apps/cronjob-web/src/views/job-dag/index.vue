@@ -1,7 +1,7 @@
 <!--
  * 任务 DAG（列表页）
  *
- * @path apps\cronjob-web\src\views\jobDag\index.vue
+ * @path apps\cronjob-web\src\views\job-dag\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -32,10 +32,10 @@ import {
   listEnabledDags,
   rollbackDag,
   triggerDag,
-} from '#/api/jobDag';
+} from '#/api/job-dag';
 import type { JobDagVO, JobDagVersionVO } from '#/api/models';
 
-import JobDagForm from './jobDag-form.vue';
+import JobDagForm from './job-dag-form.vue';
 
 defineOptions({ name: 'JobDagManagement' });
 

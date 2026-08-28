@@ -240,6 +240,63 @@ export interface FlowStartProcessDTO {
   nodeAssignees?: Record<string, unknown>;
 }
 
+/** 保存流程草稿 DTO */
+export interface FlowSaveDraftDTO {
+
+  serialVersionUID?: number;
+
+  /** 流程编码（必填） */
+  flowCode?: string;
+
+  /** 流程版本 */
+  version?: string;
+
+  /** 业务类型（必填） */
+  businessType?: string;
+
+  /** 业务单据 ID（必填） */
+  businessId?: string;
+
+  /** 业务单据编号 */
+  businessNo?: string;
+
+  /** 流程标题 */
+  title?: string;
+
+  /** 发起人 ID */
+  initiatorId?: string;
+
+  /** 发起人姓名 */
+  initiatorName?: string;
+
+  /** 草稿表单数据（流程变量） */
+  draftData?: Record<string, unknown>;
+
+  /** 租户 ID */
+  tenantId?: string;
+
+  /** 链路追踪 ID */
+  providerTraceId?: string;
+}
+
+/** 提交流程草稿 DTO */
+export interface FlowSubmitDraftDTO {
+
+  serialVersionUID?: number;
+
+  /** 草稿实例 ID（必填） */
+  instanceId?: string;
+
+  /** 更新后的表单数据（可选） */
+  draftData?: Record<string, unknown>;
+
+  /** 操作人 ID */
+  operatorId?: string;
+
+  /** 链路追踪 ID */
+  providerTraceId?: string;
+}
+
 export interface FlowAssigneeDTO {
 
   serialVersionUID?: number;

@@ -44,6 +44,7 @@ const [UpdateNoticeModal, modalApi] = useYDSZModal({
   },
 });
 
+// @infra-fetch 基础设施层直用，无统一客户端上下文（HEAD 请求检查 etag/last-modified）
 async function getVersionTag() {
   try {
     if (

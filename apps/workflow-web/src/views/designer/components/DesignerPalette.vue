@@ -43,6 +43,13 @@ const paletteItems = ref<PaletteItem[]>([
     height: 60,
   },
   {
+    type: DesignerNodeType.AI_AGENT,
+    label: 'AI审批',
+    icon: 'lucide:bot',
+    width: 120,
+    height: 60,
+  },
+  {
     type: DesignerNodeType.SERVICE,
     label: '服务',
     icon: 'lucide:server',
@@ -203,6 +210,14 @@ function handleDragStart(event: DragEvent, item: PaletteItem) {
   border-color: #409eff;
   background: #ecf5ff;
   box-shadow: inset 2px 2px 0 #409eff;
+}
+
+.node-preview--ai_agent {
+  width: 28px;
+  height: 18px;
+  border-radius: 4px;
+  border-color: #9254de;
+  background: #f9f0ff;
 }
 
 .item-label {

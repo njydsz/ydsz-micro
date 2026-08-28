@@ -29,5 +29,8 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
     await initComponentAdapter();
     await initSetupYDSZForm();
     await setupI18n(app);
+    // v-safe-html — XSS 防护指令
+    const { registerSafeHtmlDirective } = await import('@ydsz/common-ui/es/safe-html');
+    registerSafeHtmlDirective(app);
   },
 });

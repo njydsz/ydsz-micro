@@ -156,7 +156,7 @@ function getStepConfig(step: string): { label: string; type: string; description
         >
           <ElStep
             v-for="(step, index) in traceSteps"
-            :key="index"
+            :key="step.id ?? step.name ?? step"
             :title="getStepConfig(step).label"
             :description="getStepConfig(step).description"
             :status="index === currentStepIndex ? 'process' : index < currentStepIndex ? 'finish' : 'wait'"

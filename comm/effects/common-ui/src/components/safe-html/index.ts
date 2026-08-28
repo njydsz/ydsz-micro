@@ -17,34 +17,64 @@ import type { Directive } from 'vue';
 
 /** 允许的白名单标签 */
 const ALLOWED_TAGS = new Set([
+  // 文本格式化标签
   'b', 'i', 'em', 'strong', 'a', 'br', 'p', 'span', 'ul', 'ol', 'li',
   'h1', 'h2', 'h3', 'h4', 'div', 'code', 'pre',
   // mark：搜索高亮语义标签（global-search/command-palette 高亮关键词）
   'mark',
+  // SVG 标签：流程图渲染场景
+  'svg', 'g', 'path', 'rect', 'circle', 'ellipse', 'line', 'polyline',
+  'polygon', 'text', 'tspan', 'defs', 'use', 'symbol', 'clipPath',
+  'linearGradient', 'radialGradient', 'stop', 'image', 'title', 'desc',
+  'textPath', 'marker', 'pattern', 'mask', 'filter', 'switch', 'foreignObject',
 ]);
 
 /** 允许的 http 协议 */
 const ALLOWED_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
 
+/** 允许的白名单属性（通用 + SVG） */
+const ALLOWED_ATTRS = new Set([
+  // 通用属性
+  'class', 'id', 'style', 'title', 'dir', 'lang', 'tabindex',
+  // 链接属性
+  'href', 'target', 'rel',
+  // SVG 呈现属性
+  'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin',
+  'stroke-dasharray', 'stroke-dashoffset', 'stroke-opacity', 'fill-opacity',
+  'opacity', 'transform', 'd', 'x', 'y', 'width', 'height', 'rx', 'ry',
+  'cx', 'cy', 'r', 'x1', 'y1', 'x2', 'y2', 'points', 'viewBox', 'preserveAspectRatio',
+  'xmlns', 'xmlns:xlink', 'xlink:href', 'version', 'gradientUnits',
+  'gradientTransform', 'offset', 'stop-color', 'stop-opacity', 'clip-path',
+  'clip-rule', 'fill-rule', 'mask', 'filter', 'marker-start', 'marker-mid',
+  'marker-end', 'text-anchor', 'font-family', 'font-size', 'font-weight',
+  'dominant-baseline', 'alignment-baseline', 'patternUnits', 'patternTransform',
+  'maskUnits', 'maskContentUnits', 'filterUnits', 'primitiveUnits',
+  'refX', 'refY', 'markerWidth', 'markerHeight', 'orient', 'startOffset',
+  'lengthAdjust', 'textLength', 'spreadMethod', 'result', 'in', 'in2',
+  'mode', 'k1', 'k2', 'k3', 'k4', 'order', 'kernelMatrix', 'divisor',
+  'bias', 'targetX', 'targetY', 'edgeMode', 'preserveAlpha', 'surfaceScale',
+  'specularConstant', 'specularExponent', 'stdDeviation', 'dx', 'dy',
+  'glyphRef', 'format', 'path', 'side', 'hreflang', 'media', 'role', 'aria-label',
+]);
+
 /** 白名单属性 */
 function sanitizeAttrs(element: Element): void {
   const attrs = element.getAttributeNames();
   for (const attr of attrs) {
-    if (attr === 'href' && element.tagName === 'A') {
-      const value = element.getAttribute('href') || '';
-      // 仅允许 http/https/mailto
+    // href 安全校验：仅允许 http/https/mailto 协议
+    if (attr === 'href' || attr === 'xlink:href') {
+      const value = element.getAttribute(attr) || '';
       if (
         !value.startsWith('/') &&
         !value.startsWith('#') &&
-        !ALLOWED_PROTOCOLS.has((value.match(/^[^:]+:/)?.[0] ?? 'http:'))
+        !ALLOWED_PROTOCOLS.has((value.match(/^[^:]+:/)?.[0] ?? ''))
       ) {
-        element.removeAttribute('href');
+        element.removeAttribute(attr);
       }
-    } else if (attr === 'class') {
-      // class 允许（用于高亮等 UI 样式）
       continue;
-    } else {
-      // 移除 onclick/onload/data- 等所有其他属性
+    }
+    // 移除所有非白名单属性（含事件处理器 onclick/onload 等）
+    if (!ALLOWED_ATTRS.has(attr)) {
       element.removeAttribute(attr);
     }
   }

@@ -47,6 +47,7 @@ const isComponent = computed(() => {
     v-bind="$attrs"
     role="img"
     aria-hidden="true"
+    loading="lazy"
   />
   <IconifyIcon
     v-else-if="icon"

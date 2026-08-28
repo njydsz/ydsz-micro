@@ -1,7 +1,7 @@
 <!--
  * Agent 对话调试台（新页面）
  *
- * @path apps/agent-web/src/views/agentChat/index.vue
+ * @path apps/agent-web/src/views/agent-chat/index.vue
  * @author ydsz-team
  * @since 4.2.0
 -->

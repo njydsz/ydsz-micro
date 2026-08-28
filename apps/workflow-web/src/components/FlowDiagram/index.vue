@@ -97,7 +97,7 @@ onMounted(() => {
         v-else
         class="diagram-content"
         @click="handleSvgClick"
-        v-html="svgContent"
+        v-safe-html="svgContent"
       />
     </div>
   </ElCard>
@@ -109,7 +109,7 @@ onMounted(() => {
         v-else
         class="diagram-content"
         @click="handleSvgClick"
-        v-html="svgContent"
+        v-safe-html="svgContent"
       />
     </div>
   </div>

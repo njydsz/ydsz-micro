@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-fallthrough */
 /**
  * @file vsh CLI 入口（零依赖原生实现）
  * @author YDSZ Team

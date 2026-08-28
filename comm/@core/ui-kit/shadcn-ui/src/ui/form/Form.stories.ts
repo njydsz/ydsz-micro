@@ -50,7 +50,9 @@ export const LoginForm: Story = {
       });
 
       const handleSubmit = () => {
-        console.log('提交数据:', form.value);
+        // 日志脱敏：禁止输出 password 字段
+        const maskedData = { ...form.value, password: '***' };
+        console.log('提交数据:', maskedData);
       };
 
       return { form, handleSubmit };
@@ -96,7 +98,9 @@ export const RegistrationForm: Story = {
       });
 
       const handleSubmit = () => {
-        console.log('注册数据:', form.value);
+        // 日志脱敏：禁止输出 password / confirmPassword 字段
+        const maskedData = { ...form.value, password: '***', confirmPassword: '***' };
+        console.log('注册数据:', maskedData);
       };
 
       return { form, handleSubmit };

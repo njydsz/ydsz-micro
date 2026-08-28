@@ -22,6 +22,8 @@ export enum DesignerNodeType {
   CONDITION = 'condition',
   /** 子流程节点 */
   SUB_PROCESS = 'sub_process',
+  /** AI 审批节点 */
+  AI_AGENT = 'ai_agent',
 }
 
 /** 节点配置 */
@@ -44,6 +46,34 @@ export interface DesignerNodeConfig {
   serviceUrl?: string;
   /** 条件表达式 */
   conditionExpr?: string;
+  /** AI Agent ID */
+  agentId?: string;
+  /** AI Agent 提示词模板 */
+  promptTemplate?: string;
+  /** AI Agent 输出 JSON Schema */
+  outputSchema?: string;
+  /** AI Agent 兜底策略 */
+  fallbackStrategy?: string;
+  /** AI Agent 最大重试次数 */
+  retryMax?: number;
+  /** AI Agent 超时毫秒 */
+  timeoutMs?: number;
+  /** 驳回策略 */
+  rejectStrategy?: string;
+  /** 允许的驳回策略列表 */
+  allowedStrategies?: string[];
+  /** 驳回后重执行模式 */
+  reExecuteMode?: string;
+  /** 自定义驳回目标节点 */
+  customTarget?: string;
+  /** 催办通道列表 */
+  urgeChannels?: string[];
+  /** 催办间隔分钟数 */
+  urgeIntervalMinutes?: number;
+  /** 最大催办次数 */
+  urgeMaxCount?: number;
+  /** 是否启用催办 */
+  urgeEnabled?: boolean;
 }
 
 /** 设计器状态 */

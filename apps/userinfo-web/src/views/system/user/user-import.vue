@@ -148,7 +148,7 @@ function handleClose(): void {
         <div v-if="importResult.details && importResult.details.length > 0" class="mt-3">
           <p class="mb-1 text-xs font-medium text-gray-600">失败详情：</p>
           <div class="max-h-32 overflow-auto rounded bg-white p-2">
-            <p v-for="(detail, index) in importResult.details" :key="index" class="text-xs text-red-500">
+            <p v-for="(detail, index) in importResult.details" :key="detail.rowIndex ?? detail.field ?? index" class="text-xs text-red-500">
               {{ detail.error || '导入失败' }}
             </p>
           </div>
