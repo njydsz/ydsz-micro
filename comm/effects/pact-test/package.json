@@ -1,0 +1,29 @@
+{
+  "name": "@ydsz/pact-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pact 消费者驱动契约测试 — 前后端契约验证",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./provider": {
+      "types": "./src/provider.ts",
+      "default": "./src/provider.ts"
+    }
+  },
+  "dependencies": {
+    "@pact-foundation/pact": "catalog:",
+    "@pact-foundation/pact-node": "catalog:"
+  },
+  "devDependencies": {
+    "vitest": "catalog:"
+  },
+  "scripts": {
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts"
+  },
+  "license": "MIT"
+}

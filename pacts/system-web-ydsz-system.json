@@ -1,0 +1,174 @@
+{
+  "consumer": {
+    "name": "system-web"
+  },
+  "provider": {
+    "name": "ydsz-system"
+  },
+  "interactions": [
+    {
+      "description": "获取配置分页列表",
+      "providerState": "存在配置数据",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/config/page",
+        "headers": {
+          "Content-Type": "application/json",
+          "Accept-Language": "zh-CN"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "code": "A00000",
+          "msg": "操作成功",
+          "data": {
+            "list": [
+              {
+                "id": "string",
+                "configGroup": "SYSTEM",
+                "configKey": "site_name",
+                "configValue": "YDSZ Cloud",
+                "valueType": "STRING",
+                "status": "ENABLED"
+              }
+            ],
+            "total": 1,
+            "pageNum": 1,
+            "pageSize": 10,
+            "pages": 1
+          },
+          "traceId": "string",
+          "timestamp": 1725000000000
+        }
+      }
+    },
+    {
+      "description": "根据 ID 获取配置详情",
+      "providerState": "配置存在",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/config/{id}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "code": "A00000",
+          "msg": "操作成功",
+          "data": {
+            "id": "test-config-id",
+            "configGroup": "SYSTEM",
+            "configKey": "site_name",
+            "configValue": "YDSZ Cloud",
+            "valueType": "STRING",
+            "defaultValue": "",
+            "description": "站点名称",
+            "status": "ENABLED",
+            "createdBy": "admin",
+            "createdAt": "2024-01-01T00:00:00.000Z",
+            "updatedBy": "admin",
+            "updatedAt": "2024-01-01T00:00:00.000Z"
+          },
+          "traceId": "string",
+          "timestamp": 1725000000000
+        }
+      }
+    },
+    {
+      "description": "创建配置",
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/config",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "configGroup": "SYSTEM",
+          "configKey": "new_config",
+          "configValue": "value",
+          "valueType": "STRING",
+          "description": "新配置"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "code": "A00000",
+          "msg": "操作成功",
+          "data": "new-config-id",
+          "traceId": "string",
+          "timestamp": 1725000000000
+        }
+      }
+    },
+    {
+      "description": "更新配置",
+      "providerState": "配置存在",
+      "request": {
+        "method": "PUT",
+        "path": "/api/v1/config",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "test-config-id",
+          "configValue": "updated_value"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "code": "A00000",
+          "msg": "操作成功",
+          "data": true,
+          "traceId": "string",
+          "timestamp": 1725000000000
+        }
+      }
+    },
+    {
+      "description": "删除配置",
+      "providerState": "配置存在",
+      "request": {
+        "method": "DELETE",
+        "path": "/api/v1/config/{id}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "code": "A00000",
+          "msg": "操作成功",
+          "data": true,
+          "traceId": "string",
+          "timestamp": 1725000000000
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  }
+}
