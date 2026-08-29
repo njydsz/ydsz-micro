@@ -204,6 +204,21 @@ class JavaSource:
 
     _cache: Dict[str, "JavaSource"] = {}
     _not_found: set = set()
+    # P0-4 优化：全仓 Java 文件名 -> 路径 索引（懒构建一次，替代逐类全树 os.walk）
+    _index: Optional[Dict[str, str]] = None
+
+    @classmethod
+    def _build_index(cls) -> Dict[str, str]:
+        """单次遍历 JAVA_ROOTS 构建 {类名: 文件路径} 索引，查找降为 O(1)。"""
+        index: Dict[str, str] = {}
+        for root in JAVA_ROOTS:
+            for dp, dn, fn in os.walk(root):
+                # 原地剪枝构建产物目录，防止 Maven target 膨胀后遍历退化
+                dn[:] = [d for d in dn if d not in ("target", "node_modules", ".git", "build", "dist")]
+                for name in fn:
+                    if name.endswith(".java") and name not in index:
+                        index[name[: -len(".java")]] = os.path.join(dp, name)
+        return index
 
     def __init__(self, path: str):
         self.path = path
@@ -232,16 +247,11 @@ class JavaSource:
             cls._not_found.add(simple_name)
             return None
         found = None
-        for root in JAVA_ROOTS:
-            for dp, dn, fn in os.walk(root):
-                if "target" in dp or "node_modules" in dp:
-                    continue
-                if f"{simple_name}.java" in fn:
-                    p = os.path.join(dp, f"{simple_name}.java")
-                    found = JavaSource(p)
-                    break
-            if found:
-                break
+        if cls._index is None:
+            cls._index = cls._build_index()
+        path = cls._index.get(simple_name)
+        if path:
+            found = JavaSource(path)
         if found:
             cls._cache[simple_name] = found
         else:
@@ -954,7 +964,76 @@ def main():
                 exit_code = 1
             else:
                 print(f"[gen-contract] {svc}: ✓ 契约一致")
+    # 5. P1-6: 校验 Feign 路径常量与各服务契约一致（防 /ruleEngine 类路径失配复发）
+    exit_code = check_feign_constants(exit_code)
     sys.exit(exit_code)
+
+
+# ======================================================================
+# P1-6: Feign 路径常量契约校验
+# ======================================================================
+
+FEIGN_CONSTANTS_REL = os.path.join(
+    "ydsz-common", "ydsz-common-feign", "src", "main", "java",
+    "com", "njydsz", "common", "feign", "FeignClientConstants.java")
+
+# FeignClientConstants 常量名前缀 -> 目标服务
+FEIGN_PREFIX_SERVICE = {
+    "SYSTEM_": "system",
+    "MESSAGE_": "message",
+    "CRONJOB_": "cronjob",
+    "LITERULE_": "literule",
+    "WORKFLOW_": "workflow",
+    "USERINFO_": "userinfo",
+}
+
+
+def _normalize_tpl(path: str) -> str:
+    """路径模板归一化：{xxx} -> {}，便于与服务实际路径模板比对。"""
+    return re.sub(r"\{[^}]*\}", "{}", path)
+
+
+def check_feign_constants(exit_code: int) -> int:
+    """校验 FeignClientConstants 路径常量均存在于对应服务 openapi.json（P1-6）。
+
+    <p>历史缺陷：LITERULE_PATH_DRY_RUN 指向已废弃的 /ruleEngine/rules/dryRun，
+    Feign 调用 404 后静默走 fallback。将本类常量纳入契约门禁可杜绝复发。
+
+    @param exit_code 现有退出码（不覆盖已有失败）
+    @return 更新后的退出码：存在失配常量时为 1
+    """
+    const_path = os.path.join(CLOUD_ROOT, FEIGN_CONSTANTS_REL)
+    if not os.path.exists(const_path):
+        print(f"[gen-contract] P1-6: 未找到 FeignClientConstants，跳过校验: {const_path}")
+        return exit_code
+    with open(const_path, encoding="utf-8", errors="ignore") as f:
+        src = f.read()
+    constants = re.findall(r'public\s+static\s+final\s+String\s+(\w+)\s*=\s*"([^"]+)"', src)
+    # 聚合各服务已生成契约中的路径模板
+    svc_paths: Dict[str, set] = {}
+    for svc, app in SERVICE_MAP.items():
+        spec_path = os.path.join(MICRO_ROOT, "apps", app, "src", "api", "sdk", "openapi.json")
+        if not os.path.exists(spec_path):
+            continue
+        with open(spec_path, encoding="utf-8") as f:
+            spec = json.load(f)
+        svc_paths[svc] = {_normalize_tpl(p) for p in spec.get("paths", {})}
+    mismatch = []
+    for name, value in constants:
+        prefix = next((p for p in FEIGN_PREFIX_SERVICE if name.startswith(p)), None)
+        if prefix is None:
+            continue
+        paths = svc_paths.get(FEIGN_PREFIX_SERVICE[prefix])
+        if paths is None:
+            continue
+        if _normalize_tpl(value) not in paths:
+            mismatch.append((name, value, FEIGN_PREFIX_SERVICE[prefix]))
+    if mismatch:
+        for name, value, svc in mismatch:
+            print(f"[gen-contract] P1-6: ✗ Feign 常量 {name}={value} 在 {svc} 契约中不存在")
+        return 1
+    print("[gen-contract] P1-6: Feign 路径常量与契约全部一致")
+    return exit_code
 
 
 if __name__ == "__main__":

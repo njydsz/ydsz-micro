@@ -987,6 +987,31 @@ export interface MenuTreeVO {
   children?: MenuTreeVO[];
 }
 
+export interface OAuth2Application {
+
+  clientId?: string;
+
+  clientName?: string;
+
+  clientSecret?: string;
+
+  clientType?: string;
+
+  redirectUris?: string[];
+
+  allowedScopes?: string[];
+
+  allowedAudiences?: string[];
+
+  status?: string;
+
+  description?: string;
+
+  iconUrl?: string;
+
+  createdBy?: string;
+}
+
 export interface PostVO {
 
   id?: string;
@@ -1046,6 +1071,29 @@ export interface SamlIdpConfigVO {
   updatedAt?: string;
 
   createdBy?: string;
+}
+
+export interface SecurityAlert {
+
+  alertType?: string;
+
+  riskLevel?: string;
+
+  userId?: string;
+
+  username?: string;
+
+  sourceIp?: string;
+
+  title?: string;
+
+  content?: string;
+
+  status?: string;
+
+  handledAt?: string;
+
+  handlerNote?: string;
 }
 
 export interface SecurityDashboardVO {

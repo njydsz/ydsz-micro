@@ -13,12 +13,13 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
+import type { OAuth2Application } from './models';
 
 /**
  * register: POST /api/v1/admin/oauth2/applications
  */
-export function register(data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications`, data);
+export function register(data: Record<string, unknown>): Promise<OAuth2Application> {
+  return requestClient.post<OAuth2Application>(`/api/v1/admin/oauth2/applications`, data);
 }
 
 /**
@@ -29,8 +30,8 @@ export function page(params: {
     keyword?: string;
     pageNum?: number;
     pageSize?: number;
-  }): Promise<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>> {
-  return requestClient.get<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>>(`/api/v1/admin/oauth2/applications`, { params });
+  }): Promise<PageResponse<OAuth2Application[]>> {
+  return requestClient.get<PageResponse<OAuth2Application[]>>(`/api/v1/admin/oauth2/applications`, { params });
 }
 
 /**
@@ -38,8 +39,8 @@ export function page(params: {
  */
 export function getById({ id }: {
     id: string;
-  }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.get<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`);
+  }): Promise<OAuth2Application> {
+  return requestClient.get<OAuth2Application>(`/api/v1/admin/oauth2/applications/${id}`);
 }
 
 /**
@@ -47,8 +48,8 @@ export function getById({ id }: {
  */
 export function update({ id }: {
     id: string;
-  }, data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.put<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}`, data);
+  }, data: Record<string, unknown>): Promise<OAuth2Application> {
+  return requestClient.put<OAuth2Application>(`/api/v1/admin/oauth2/applications/${id}`, data);
 }
 
 /**
@@ -56,8 +57,8 @@ export function update({ id }: {
  */
 export function resetSecret({ id }: {
     id: string;
-  }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/v1/admin/oauth2/applications/${id}/reset-secret`);
+  }): Promise<OAuth2Application> {
+  return requestClient.post<OAuth2Application>(`/api/v1/admin/oauth2/applications/${id}/reset-secret`);
 }
 
 /**

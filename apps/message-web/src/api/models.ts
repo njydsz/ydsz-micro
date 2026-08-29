@@ -691,12 +691,17 @@ export interface MessageResult {
 
 export interface BatchSendResult {
 
-  receiver?: string;
+  batchId?: string;
 
-  result?: NotifySendResult;
+  total?: number;
+
+  success?: number;
+
+  failed?: number;
+
+  skipped?: number;
 }
 
-export interface NotifySendResult {}
 export interface MsgFeedbackVO {
 
   serialVersionUID?: number;

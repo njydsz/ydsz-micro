@@ -1,21 +1,38 @@
 # lefthook.yml — 云顶编码规范质量门禁
 # 触发时机：
 #   pre-commit  并行执行 ESLint / Prettier / Stylelint（仅检查暂存文件，保证增量速度）
-#   pre-push    全量执行 类型检查 / 单元测试 / vsh 三件套 / 安全审计
+#   pre-push    全量执行 类型检查 / 单元测试 / vsh 三件套 / 契约漂移校验
 #   commit-msg  Conventional Commits 校验（commitlint）
 #   post-merge  自动同步依赖
+#
+# P0-2 修复说明（2026-08-29）：
+#   此前 pre-commit / pre-push 的绝大部分门禁被整段注释，注释理由为
+#   "node_modules 中 fast-glob 依赖损坏"。实测该前提已不成立：
+#     - eslint  v9.39.5  可用
+#     - prettier 3.9.6   可用
+#     - vitest  4.1.10   可用
+#     - tsc     5.9.3    可用
+#   真正缺失的是 stylelint：它未在根 package.json 声明，仅作为传递依赖存在于
+#   .pnpm store，根级无法解析（幻影依赖）。已在根 package.json 补声明
+#   stylelint + @ydsz/stylelint-config，待 pnpm install 成功链接后启用 stylelint 门禁。
+#   audit 保持禁用：私有 npm 仓库（npmmirror）不支持 audit 端点，属环境限制非配置遗漏。
 
 pre-commit:
   parallel: true
   commands:
-    # 临时禁用：本地开发期间关闭格式/语法门禁，发布前统一修复
-    # eslint:
-    #   glob: "*.{ts,tsx,vue,js,mjs,cjs}"
-    #   run: pnpm exec eslint {staged_files} --max-warnings=0 --no-warn-ignored
-    # prettier:
-    #   glob: "*.{ts,tsx,vue,js,mjs,cjs,json,md,scss,css,html,yml,yaml}"
-    #   run: pnpm exec prettier --check {staged_files}
-    # 临时禁用：node_modules 中 fast-glob 依赖损坏，待 pnpm install --force 修复后恢复
+    eslint:
+      glob: "*.{ts,tsx,vue,js,mjs,cjs}"
+      run: pnpm exec eslint {staged_files} --max-warnings=0 --no-warn-ignored
+    prettier:
+      glob: "*.{ts,tsx,vue,js,mjs,cjs,json,md,scss,css,html,yml,yaml}"
+      run: pnpm exec prettier --check {staged_files}
+    # stylelint 暂未启用（依赖尚未链接完成，启用会导致每次提交报错）。
+    # 根因：stylelint 与 @ydsz/stylelint-config 此前都没有在根 package.json 声明，
+    #       仅作为传递依赖存在于 .pnpm store，pnpm 严格模式下根级无法解析（幻影依赖）。
+    #       现已在根 package.json 补声明二者。
+    # 阻塞：当前 pnpm install 在 @pact-foundation/pact 的传递依赖 underscore 上失败
+    #       （D:\.pnpm-store EPERM），依赖未链接完成。
+    # 恢复：pnpm install 成功后，取消下面三行注释即可启用。
     # stylelint:
     #   glob: "*.{vue,scss,css}"
     #   run: pnpm exec stylelint {staged_files} --max-warnings=0
@@ -23,22 +40,22 @@ pre-commit:
 pre-push:
   parallel: true
   commands:
-    # 临时禁用：node_modules 中 fast-glob 依赖损坏，待 pnpm install --force 修复后恢复
-    # type-check:
-    #   run: pnpm type-check
-    # test:
-    #   run: pnpm test
+    type-check:
+      run: pnpm type-check
+    test:
+      run: pnpm test
     vsh-check-dep:
       run: node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-dep
     vsh-check-arch:
       run: node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-arch
     vsh-check-circular:
       run: node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-circular
-    # 临时禁用：node_modules 中 fast-glob 依赖损坏，待 pnpm install --force 修复后恢复
     # P0-8: 契约漂移门禁 — 后端 OpenAPI 变更后未重新生成则阻断推送
-    # gen-contract-check:
-    #   run: pnpm gen:contract:check
-    # 临时禁用：私有 npm 仓库（npmmirror）不支持 audit 端点
+    # 依赖: 后端仓库（默认 D:\Code\open\ydsz-cloud，可用 YDSZ_CLOUD_ROOT 覆盖）
+    # 注意: --check 已修为纯只读（此前会改写 api/*.ts 并归档文件，污染工作区）
+    gen-contract-check:
+      run: pnpm gen:contract:check
+    # 临时禁用：私有 npm 仓库（npmmirror）不支持 audit 端点，属环境限制
     # audit:
     #   run: pnpm audit --audit-level=high
 

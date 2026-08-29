@@ -13,15 +13,15 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { SecurityAlertPageQuery } from './models';
+import type { SecurityAlert, SecurityAlertPageQuery } from './models';
 
 /**
  * pageAlerts: GET /api/v1/admin/security/alerts
  */
 export function pageAlerts(params: {
     query?: SecurityAlertPageQuery;
-  }): Promise<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>> {
-  return requestClient.get<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>>(`/api/v1/admin/security/alerts`, { params });
+  }): Promise<PageResponse<SecurityAlert[]>> {
+  return requestClient.get<PageResponse<SecurityAlert[]>>(`/api/v1/admin/security/alerts`, { params });
 }
 
 /**
@@ -30,8 +30,8 @@ export function pageAlerts(params: {
 export function getPendingAlerts(params: {
     riskLevel?: string;
     limit?: number;
-  }): Promise<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]> {
-  return requestClient.get<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>(`/api/v1/admin/security/alerts/pending`, { params });
+  }): Promise<SecurityAlert[]> {
+  return requestClient.get<SecurityAlert[]>(`/api/v1/admin/security/alerts/pending`, { params });
 }
 
 /**
