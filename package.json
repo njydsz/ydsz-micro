@@ -72,6 +72,8 @@
     "test": "turbo test",
     "test:coverage": "turbo test:coverage",
     "test:e2e": "pnpm -F @ydsz/e2e run test",
+    "test:pact": "node ./bash/verify-pacts.mjs",
+    "verify:pacts": "node ./bash/verify-pacts.mjs",
     "test:perf": "npx --yes @lhci/cli@0.15.x autorun --config=lighthouserc.json",
     "vsh": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs",
     "vsh:check-arch": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-arch",

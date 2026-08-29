@@ -26,6 +26,12 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
   initRoutes,
   guard: createRouterGuard,
   async onSetup(app) {
+    // MSW Mock Server（开发环境且启用 Mock 时启动）
+    if (import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === 'true') {
+      const { initSystemMockServer } = await import('./mock');
+      await initSystemMockServer();
+    }
+
     await initComponentAdapter();
     await initSetupYDSZForm();
     await setupI18n(app);

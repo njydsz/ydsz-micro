@@ -92,6 +92,8 @@ catalog:
   dotenv: ^16.6.1
   echarts: ^5.6.0
   element-plus: ^2.10.2
+  "@faker-js/faker": ^9.0.0
+  msw: ^2.7.0
   eslint-config-prettier: ^10.1.5
   eslint-plugin-vue: ^10.0.0
   execa: ^9.6.0
@@ -111,6 +113,8 @@ catalog:
   nprogress: ^0.2.0
   openapi-fetch: ^0.17.0
   ora: ^8.2.0
+  "@pact-foundation/pact": ^13.0.0
+  "@pact-foundation/pact-node": ^10.0.0
   pinia: ^3.0.3
   pinia-plugin-persistedstate: ^4.4.1
   pkg-types: ^2.2.0

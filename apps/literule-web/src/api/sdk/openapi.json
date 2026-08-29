@@ -408,7 +408,7 @@
       "in": "query",
       "required": false,
       "schema": {
-       "type": "object"
+       "$ref": "#/components/schemas/PageQuery"
       }
      }
     ]
@@ -580,6 +580,73 @@
       }
      }
     ]
+   }
+  },
+  "/api/v1/literule/rules/evaluate": {
+   "post": {
+    "operationId": "evaluate",
+    "tags": [
+     "literule"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "ruleCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "scenario",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "tenantId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "traceId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
    }
   },
   "/api/v1/literule/rules/expr-trace": {

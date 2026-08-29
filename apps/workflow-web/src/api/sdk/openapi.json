@@ -3652,6 +3652,96 @@
     }
    }
   },
+  "/api/v1/workflow/engine/instance/draft/save": {
+   "post": {
+    "operationId": "saveDraft",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowSaveDraftDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/workflow/engine/instance/draft/submit": {
+   "post": {
+    "operationId": "submitDraft",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowSubmitDraftDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/workflow/engine/instance/{id}/draft/cancel": {
+   "post": {
+    "operationId": "cancelDraft",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
   "/api/v1/workflow/engine/instance/byBusiness": {
    "get": {
     "operationId": "getByBusiness",
@@ -5844,6 +5934,63 @@
     ]
    }
   },
+  "/api/v1/workflow/engine/task/todo/cursor": {
+   "get": {
+    "operationId": "todoCursor",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "lastPriority",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "lastCreatedAt",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "lastId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
   "/api/v1/workflow/engine/task/done": {
    "get": {
     "operationId": "done",
@@ -7404,6 +7551,77 @@
      }
     },
     "description": "class FlowAssigneeDTO"
+   },
+   "FlowSaveDraftDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "flowCode": {
+      "type": "string"
+     },
+     "version": {
+      "type": "string"
+     },
+     "businessType": {
+      "type": "string"
+     },
+     "businessId": {
+      "type": "string"
+     },
+     "businessNo": {
+      "type": "string"
+     },
+     "title": {
+      "type": "string"
+     },
+     "initiatorId": {
+      "type": "string"
+     },
+     "initiatorName": {
+      "type": "string"
+     },
+     "draftData": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     }
+    },
+    "description": "class FlowSaveDraftDTO"
+   },
+   "FlowSubmitDraftDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "instanceId": {
+      "type": "string"
+     },
+     "draftData": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "operatorId": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     }
+    },
+    "description": "class FlowSubmitDraftDTO"
    },
    "FlowInstanceVariablesDTO": {
     "type": "object",
