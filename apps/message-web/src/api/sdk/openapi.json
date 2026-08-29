@@ -3435,6 +3435,10 @@
      "endTime": {
       "type": "string"
      },
+     "scheduledAtEnd": {
+      "type": "string",
+      "format": "date-time"
+     },
      "searchAfterId": {
       "type": "string"
      },
@@ -3627,6 +3631,12 @@
       "type": "string"
      },
      "recallStatus": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "bizId": {
       "type": "string"
      }
     },
