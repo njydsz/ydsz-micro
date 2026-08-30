@@ -11,14 +11,16 @@
  * @since 4.0.0
  */
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import { mockAuthHandlers } from './handlers/auth';
 import { mockUserHandlers } from './handlers/users';
 
+// 云顶规范 §14.5：统一日志模块，禁止裸 console
+const logger = createLogger('Mock');
+
 /** Mock 处理器注册表 */
-const handlers = [
-  ...mockAuthHandlers,
-  ...mockUserHandlers,
-];
+const handlers = [...mockAuthHandlers, ...mockUserHandlers];
 
 /**
  * 简单的 fetch monkey-patch mock服务器
@@ -55,5 +57,5 @@ export async function setupMockServer(): Promise<void> {
   };
 
   // @standalone-only Mock 层启用提示，不进入生产构建
-  console.info('[Mock] Fetch monkey-patch enabled for standalone mode');
+  logger.info('Fetch monkey-patch enabled for standalone mode');
 }

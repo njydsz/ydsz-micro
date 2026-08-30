@@ -10,8 +10,13 @@ import type { PinInputProps } from './types';
 
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
 import { YDSZButton } from '../button';
+
+// 云顶规范 §14.5：统一日志模块，禁止裸 console
+const logger = createLogger('PinInput');
 
 defineOptions({
   inheritAttrs: false,
@@ -70,7 +75,7 @@ async function handleSend(e: Event) {
     countdown.value = maxTime;
     startCountdown();
   } catch (error) {
-    console.error('Failed to send code:', error);
+    logger.error('Failed to send code:', error);
     // Consider emitting an error event or showing a notification
     emit('sendError', error);
   }

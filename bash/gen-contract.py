@@ -602,6 +602,14 @@ def java_to_ts(jschema: Dict[str, Any], builder: SchemaBuilder, depth: int = 0) 
         item = java_to_ts(jschema.get("items", {}), builder, depth + 1)
         return f"{item}[]"
     if t == "object":
+        # Map<K, V> 的 value 类型承载在 additionalProperties 中。
+        # 旧实现一律退化为 Record<string, unknown>，导致 Map<String, Long>、
+        # Map<String, Boolean> 等值类型信息在前端全部丢失。此处按真实 value 类型展开。
+        ap = jschema.get("additionalProperties")
+        if isinstance(ap, dict) and ap:
+            value_ts = java_to_ts(ap, builder, depth + 1)
+            if value_ts and value_ts != "unknown":
+                return f"Record<string, {value_ts}>"
         return "Record<string, unknown>"
     if t == "integer":
         return "number"
@@ -790,8 +798,19 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         if call_args:
             call += ", " + call_args
         call += ")"
-        # 生成
-        lines.append(f"/**\n * {ep['operationId']}: {ep['method'].upper()} {ep['path']}\n */")
+        # 生成 JSDoc。
+        # 云顶编码规范 §3.1：unknown 属"特殊场景"，必须注释说明理由；
+        # 后端返回 Map<String, Object> / Object 这类未固定为具名 VO 的响应会落到 unknown，
+        # 若不注明理由即构成规范违规，故在此自动补齐说明。
+        doc = [f" * {ep['operationId']}: {ep['method'].upper()} {ep['path']}"]
+        if ret_annotation == "unknown":
+            raw_ret = (ret_ref.raw if ret_ref else "").replace("*/", "*\\/")
+            doc.append(" *")
+            doc.append(" * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：")
+            doc.append(" * 后端方法声明为 {@code " + raw_ret + "}，响应结构未固定为具名 VO，")
+            doc.append(" * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。")
+            doc.append(" * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。")
+        lines.append("/**\n" + "\n".join(doc) + "\n */")
         lines.append(f"export function {fn}({sig}): Promise<{ret_annotation}> {{")
         lines.append(f"  return {call};")
         lines.append("}")

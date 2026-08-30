@@ -25,6 +25,7 @@ import '@ydsz/styles/ele';
 import { setupMonitor } from '@ydsz/monitor';
 import { initPreferences } from '@ydsz/preferences';
 import { initStores } from '@ydsz/stores';
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { ElLoading } from 'element-plus';
 
@@ -37,6 +38,9 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 import { createRouter, createWebHistory } from 'vue-router';
 
+// 云顶规范 §14.5：统一日志模块，禁止裸 console
+const logger = createLogger('Standalone');
+
 // ==================== Mock 数据注入 ====================
 // standalone 模式下注入 Mock 数据，模拟后端响应
 // 可通过环境变量 VITE_ENABLE_MOCK=false 禁用
@@ -47,12 +51,10 @@ async function setupMockLayer(): Promise<void> {
   try {
     const { setupMockServer } = await import('./mock/setup');
     await setupMockServer();
-    // @standalone-only 独立开发模式日志，不进入生产构建
-    console.info('[Standalone] Mock server started');
+    logger.info('Mock server started');
   } catch {
     // Mock 模块可选，未实现时不影响启动
-    // @standalone-only 独立开发模式日志，不进入生产构建
-    console.debug('[Standalone] No mock module found, skipping');
+    logger.debug('No mock module found, skipping');
   }
 }
 
@@ -146,11 +148,10 @@ async function bootstrap(): Promise<void> {
   // 挂载应用
   vueApp.mount('#app');
 
-  // @standalone-only 独立开发模式日志，不进入生产构建
-  console.info(`[Standalone] ${appName} started in standalone mode`);
+  logger.info(`${appName} started in standalone mode`);
 }
 
 // 启动
 bootstrap().catch((err) => {
-  console.error('[Standalone] Failed to start:', err);
+  logger.error('Failed to start:', err);
 });

@@ -82,6 +82,59 @@ jobs:
         run: |
           python3 bash/gen-contract.py --check
 
+  security:
+    name: 安全扫描（依赖 + 密钥）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 依赖安全审计
+        run: |
+          pnpm audit --audit-level=high
+
+      - name: 密钥扫描（防止密钥泄露）
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --only-verified
+
+  notify:
+    name: 契约变更通知
+    runs-on: ubuntu-latest
+    needs: contract
+    if: github.ref == 'refs/heads/main' && failure()
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 发送契约变更通知
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          node bash/contract-notify.mjs
+
   e2e-smoke:
     name: Playwright 冒烟（手动触发）
     runs-on: ubuntu-latest
