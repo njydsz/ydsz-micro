@@ -7,11 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import {
-  createRouter,
-  createWebHashHistory,
-  createWebHistory,
-} from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 import { resetStaticRoutes } from '@ydsz/utils';
 

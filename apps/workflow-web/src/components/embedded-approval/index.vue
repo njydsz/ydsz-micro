@@ -11,7 +11,7 @@
  *   <li>流程图预览
  * </ul>
  *
- * @path apps\workflow-web\src\components\EmbeddedApproval\index.vue
+ * @path apps\workflow-web\src\components\embedded-approval\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -22,8 +22,20 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElMessage, ElSpace, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+ */
+import {
+  ElButton,
+  ElCard,
+  ElEmpty,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElSpace,
+  ElTag,
+  ElTimeline,
+  ElTimelineItem,
+} from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';
@@ -205,14 +217,8 @@ onMounted(() => {
           />
         </ElFormItem>
         <ElFormItem>
-          <ElButton type="primary" :loading="submitting" @click="handleAction">
-            提交
-          </ElButton>
-          <ElButton
-            v-if="canRecall"
-            :loading="submitting"
-            @click="handleRecall"
-          >
+          <ElButton type="primary" :loading="submitting" @click="handleAction"> 提交 </ElButton>
+          <ElButton v-if="canRecall" :loading="submitting" @click="handleRecall">
             {{ $t('wf.recall') }}
           </ElButton>
         </ElFormItem>

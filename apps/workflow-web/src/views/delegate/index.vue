@@ -53,7 +53,9 @@ function isEnabled(row: FlowDelegateAuthVO): boolean {
 
 /** 授权状态标签 */
 function statusTag(row: FlowDelegateAuthVO) {
-  return isEnabled(row) ? h(ElTag, { type: 'success' }, () => '启用中') : h(ElTag, { type: 'info' }, () => '已停用');
+  return isEnabled(row)
+    ? h(ElTag, { type: 'success' }, () => '启用中')
+    : h(ElTag, { type: 'info' }, () => '已停用');
 }
 
 const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
@@ -66,17 +68,35 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
     { field: 'startTime', title: '开始时间', width: 160 },
     { field: 'endTime', title: '结束时间', width: 160 },
     {
-      field: 'authStatus', title: '状态', width: 90,
+      field: 'authStatus',
+      title: '状态',
+      width: 90,
       slots: { default: ({ row }) => statusTag(row) },
     },
     { field: 'reason', title: '委托原因', width: 140, showOverflow: 'title' },
     {
-      field: 'action', title: '操作', width: 150, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 150,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: isEnabled(row) ? 'warning' : 'success', onClick: () => handleToggle(row) }, () => (isEnabled(row) ? '停用' : '启用')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleRevoke(row) }, () => '撤销'),
+            h(
+              ElButton,
+              {
+                size: 'small',
+                link: true,
+                type: isEnabled(row) ? 'warning' : 'success',
+                onClick: () => handleToggle(row),
+              },
+              () => (isEnabled(row) ? '停用' : '启用'),
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleRevoke(row) },
+              () => '撤销',
+            ),
           ]),
       },
     },
@@ -105,7 +125,9 @@ const asDelegateGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
     { field: 'startTime', title: '开始时间', width: 160 },
     { field: 'endTime', title: '结束时间', width: 160 },
     {
-      field: 'authStatus', title: '状态', width: 90,
+      field: 'authStatus',
+      title: '状态',
+      width: 90,
       slots: { default: ({ row }) => statusTag(row) },
     },
     { field: 'reason', title: '委托原因', width: 140, showOverflow: 'title' },
@@ -183,7 +205,11 @@ async function handleToggle(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   const next = isEnabled(row) ? 'DISABLED' : 'ENABLED';
   try {
-    await ElMessageBox.confirm(`确定${next === 'DISABLED' ? '停用' : '启用'}该委托授权吗？`, '确认', { type: 'warning' });
+    await ElMessageBox.confirm(
+      `确定${next === 'DISABLED' ? '停用' : '启用'}该委托授权吗？`,
+      '确认',
+      { type: 'warning' },
+    );
     await updateDelegateAuthStatus({ id: row.id }, { status: next });
     ElMessage.success('操作成功');
     myGridApi.query();
@@ -196,7 +222,9 @@ async function handleToggle(row: FlowDelegateAuthVO) {
 async function handleRevoke(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定撤销给「${row.delegateUserName}」的委托授权吗？`, '撤销确认', { type: 'warning' });
+    await ElMessageBox.confirm(`确定撤销给「${row.delegateUserName}」的委托授权吗？`, '撤销确认', {
+      type: 'warning',
+    });
     await revokeDelegateAuth({ id: row.id });
     ElMessage.success('已撤销');
     myGridApi.query();
@@ -220,7 +248,13 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
       </ElTabPane>
     </ElTabs>
     <ElDialog v-model="createVisible" title="新增委托授权" width="520px">
-      <ElForm ref="createFormRef" :model="createForm" :rules="createRules" label-width="110px" label-position="right">
+      <ElForm
+        ref="createFormRef"
+        :model="createForm"
+        :rules="createRules"
+        label-width="110px"
+        label-position="right"
+      >
         <ElFormItem label="被委托人ID" prop="delegateUserId">
           <ElInput v-model="createForm.delegateUserId" placeholder="请输入被委托人用户 ID" />
         </ElFormItem>
@@ -235,16 +269,36 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
           </ElSelect>
         </ElFormItem>
         <ElFormItem label="流程编码">
-          <ElInput v-model="createForm.flowCode" placeholder="范围类型为 FLOW/NODE 时填写（可选）" />
+          <ElInput
+            v-model="createForm.flowCode"
+            placeholder="范围类型为 FLOW/NODE 时填写（可选）"
+          />
         </ElFormItem>
         <ElFormItem label="开始时间">
-          <ElDatePicker v-model="createForm.startTime" type="date" value-format="YYYY-MM-DD" placeholder="委托开始日期（可选）" style="width: 100%" />
+          <ElDatePicker
+            v-model="createForm.startTime"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="委托开始日期（可选）"
+            style="width: 100%"
+          />
         </ElFormItem>
         <ElFormItem label="结束时间">
-          <ElDatePicker v-model="createForm.endTime" type="date" value-format="YYYY-MM-DD" placeholder="委托结束日期（可选）" style="width: 100%" />
+          <ElDatePicker
+            v-model="createForm.endTime"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="委托结束日期（可选）"
+            style="width: 100%"
+          />
         </ElFormItem>
         <ElFormItem label="委托原因">
-          <ElInput v-model="createForm.reason" type="textarea" :rows="2" placeholder="请输入委托原因（可选）" />
+          <ElInput
+            v-model="createForm.reason"
+            type="textarea"
+            :rows="2"
+            placeholder="请输入委托原因（可选）"
+          />
         </ElFormItem>
       </ElForm>
       <template #footer>

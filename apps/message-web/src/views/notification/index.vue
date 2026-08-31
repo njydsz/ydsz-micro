@@ -58,10 +58,8 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(
-            ElTag,
-            { type: row.readStatus === 1 ? 'success' : 'info' },
-            () => (row.readStatus === 1 ? '已读' : '未读'),
+          h(ElTag, { type: row.readStatus === 1 ? 'success' : 'info' }, () =>
+            row.readStatus === 1 ? '已读' : '未读',
           ),
       },
     },
@@ -96,9 +94,28 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
           h('div', { class: 'flex gap-1' }, [
             ...(row.readStatus === 1
               ? []
-              : [h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleMarkRead(row) }, () => '已读')]),
-            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleRecall(row) }, () => '撤回'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+              : [
+                  h(
+                    ElButton,
+                    {
+                      size: 'small',
+                      link: true,
+                      type: 'primary',
+                      onClick: () => handleMarkRead(row),
+                    },
+                    () => '已读',
+                  ),
+                ]),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'warning', onClick: () => handleRecall(row) },
+              () => '撤回',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -117,15 +134,25 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'category', title: '分类', itemRender: { name: 'Input', props: { placeholder: '分类' } } },
-      { field: 'level', title: '级别', itemRender: { name: 'Input', props: { placeholder: '级别' } } },
+      {
+        field: 'category',
+        title: '分类',
+        itemRender: { name: 'Input', props: { placeholder: '分类' } },
+      },
+      {
+        field: 'level',
+        title: '级别',
+        itemRender: { name: 'Input', props: { placeholder: '级别' } },
+      },
     ],
   },
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [NotificationFormModal, notificationFormApi] = useYDSZModal({ connectedComponent: NotificationForm });
+const [NotificationFormModal, notificationFormApi] = useYDSZModal({
+  connectedComponent: NotificationForm,
+});
 
 function handleSend() {
   notificationFormApi.open();

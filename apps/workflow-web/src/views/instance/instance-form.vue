@@ -156,12 +156,7 @@ async function handleSaveDraft(): Promise<void> {
     </ElForm>
     <!-- 草稿保存按钮（置于弹窗底部操作区左侧） -->
     <template #footer>
-      <ElButton
-        :loading="savingDraft"
-        @click="handleSaveDraft"
-      >
-        保存草稿
-      </ElButton>
+      <ElButton :loading="savingDraft" @click="handleSaveDraft"> 保存草稿 </ElButton>
     </template>
   </Modal>
 </template>

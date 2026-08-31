@@ -18,7 +18,17 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadio, ElRadioGroup, ElSelect, ElOption } from 'element-plus';
+import {
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElInputNumber,
+  ElMessage,
+  ElRadio,
+  ElRadioGroup,
+  ElSelect,
+  ElOption,
+} from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
 import { upsert } from '#/api/preference';
@@ -137,7 +147,13 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
 </script>
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="用户ID" prop="userId">
         <ElInput v-model="formData.userId" placeholder="请输入用户ID" />
       </ElFormItem>
@@ -178,7 +194,11 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
         </ElRadioGroup>
       </ElFormItem>
       <ElFormItem label="摘要频率" prop="digestFrequency">
-        <ElSelect v-model="formData.digestFrequency" placeholder="请选择摘要频率（可为空）" clearable>
+        <ElSelect
+          v-model="formData.digestFrequency"
+          placeholder="请选择摘要频率（可为空）"
+          clearable
+        >
           <ElOption label="每天" value="DAILY" />
           <ElOption label="每周" value="WEEKLY" />
           <ElOption label="每月" value="MONTHLY" />

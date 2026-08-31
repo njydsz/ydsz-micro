@@ -15,9 +15,19 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
+import {
+  ElButton,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElSelect,
+  ElTabPane,
+  ElTabs,
+} from 'element-plus';
 import { computed, reactive, ref, watch } from 'vue';
 
 interface Props {
@@ -107,7 +117,9 @@ const functionOptions = [
 ];
 
 /** 已构建的条件列表 */
-const conditionList = ref<Array<{ field: string; operator: string; value: string; logic: string }>>([]);
+const conditionList = ref<Array<{ field: string; operator: string; value: string; logic: string }>>(
+  [],
+);
 
 /** 预览表达式 */
 const previewExpression = computed(() => {
@@ -168,9 +180,12 @@ watch(activeTab, (tab) => {
   }
 });
 
-watch(() => props.modelValue, (val) => {
-  expressionText.value = val;
-});
+watch(
+  () => props.modelValue,
+  (val) => {
+    expressionText.value = val;
+  },
+);
 </script>
 
 <template>
@@ -190,7 +205,9 @@ watch(() => props.modelValue, (val) => {
               <span class="field-tag">{{ condition.field }}</span>
               <span class="operator-tag">{{ condition.operator }}</span>
               <span class="value-tag">{{ condition.value }}</span>
-              <ElButton size="small" link type="danger" @click="handleRemoveCondition(index)">删除</ElButton>
+              <ElButton size="small" link type="danger" @click="handleRemoveCondition(index)"
+                >删除</ElButton
+              >
             </div>
           </div>
 
@@ -198,7 +215,12 @@ watch(() => props.modelValue, (val) => {
           <ElForm :model="builderForm" label-width="80px" class="condition-form">
             <ElFormItem v-if="conditionList.length > 0" label="逻辑连接">
               <ElSelect v-model="builderForm.logic" placeholder="选择逻辑连接符">
-                <ElOption v-for="opt in logicOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+                <ElOption
+                  v-for="opt in logicOptions"
+                  :key="opt.value"
+                  :label="opt.label"
+                  :value="opt.value"
+                />
               </ElSelect>
             </ElFormItem>
             <ElFormItem label="字段">
@@ -213,7 +235,12 @@ watch(() => props.modelValue, (val) => {
             </ElFormItem>
             <ElFormItem label="运算符">
               <ElSelect v-model="builderForm.operator" placeholder="选择运算符">
-                <ElOption v-for="opt in operatorOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+                <ElOption
+                  v-for="opt in operatorOptions"
+                  :key="opt.value"
+                  :label="opt.label"
+                  :value="opt.value"
+                />
               </ElSelect>
             </ElFormItem>
             <ElFormItem label="值">
@@ -257,7 +284,9 @@ watch(() => props.modelValue, (val) => {
     <!-- 表达式预览 -->
     <div class="mt-4 rounded border bg-gray-50 p-3">
       <p class="mb-1 text-xs font-medium text-gray-500">当前表达式：</p>
-      <pre class="overflow-auto whitespace-pre-wrap break-words text-sm text-gray-700">{{ expressionText || '（空）' }}</pre>
+      <pre class="overflow-auto whitespace-pre-wrap break-words text-sm text-gray-700">{{
+        expressionText || '（空）'
+      }}</pre>
     </div>
   </Modal>
 </template>

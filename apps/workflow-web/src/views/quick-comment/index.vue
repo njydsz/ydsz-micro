@@ -1,7 +1,7 @@
 <!--
  * 快捷回复（列表页）
  *
- * @path apps\workflow-web\src\views\quickComment\index.vue
+ * @path apps\workflow-web\src\views\quick-comment\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -22,12 +22,14 @@ import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickComment, incrementUseCount, listQuickComments } from '#/api/flowComment';
 import type { FlowQuickCommentVO } from '#/api/models';
-import QuickCommentForm from './quickComment-form.vue';
+import QuickCommentForm from './quick-comment-form.vue';
 defineOptions({ name: 'QuickCommentManagement' });
 
 /** 系统预置标识标签 */
 function systemTag(isSystem: number | undefined) {
-  return isSystem ? h(ElTag, { type: 'warning' }, () => '系统') : h(ElTag, { type: 'info' }, () => '个人');
+  return isSystem
+    ? h(ElTag, { type: 'warning' }, () => '系统')
+    : h(ElTag, { type: 'info' }, () => '个人');
 }
 
 const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
@@ -38,18 +40,35 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
     { field: 'sortNum', title: '排序', width: 80 },
     { field: 'useCount', title: '使用次数', width: 90 },
     {
-      field: 'isSystem', title: '来源', width: 90,
+      field: 'isSystem',
+      title: '来源',
+      width: 90,
       slots: { default: ({ row }) => systemTag(row.isSystem) },
     },
     { field: 'updatedAt', title: '更新时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 170, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 170,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleUse(row) }, () => '使用'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleUse(row) },
+              () => '使用',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -69,9 +88,16 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [QuickCommentFormModal, quickCommentFormApi] = useYDSZModal({ connectedComponent: QuickCommentForm });
-function handleAdd() { quickCommentFormApi.open(); }
-function handleEdit(row: FlowQuickCommentVO) { quickCommentFormApi.setData({ record: row }); quickCommentFormApi.open(); }
+const [QuickCommentFormModal, quickCommentFormApi] = useYDSZModal({
+  connectedComponent: QuickCommentForm,
+});
+function handleAdd() {
+  quickCommentFormApi.open();
+}
+function handleEdit(row: FlowQuickCommentVO) {
+  quickCommentFormApi.setData({ record: row });
+  quickCommentFormApi.open();
+}
 
 /** 使用该常用意见（累计使用次数） */
 async function handleUse(row: FlowQuickCommentVO) {
@@ -100,7 +126,9 @@ async function handleDelete(row: FlowQuickCommentVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="快捷评语">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
+      <template #toolbar-tools
+        ><ElButton type="primary" @click="handleAdd">新增</ElButton></template
+      >
     </Grid>
     <QuickCommentFormModal @success="gridApi.query()" />
   </Page>

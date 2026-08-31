@@ -27,8 +27,8 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { ElMessage, ElMessageBox } from 'element-plus';
+ */
+import { ElMessage } from 'element-plus';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DesignerCanvas from './components/DesignerCanvas.vue';
@@ -36,7 +36,12 @@ import DesignerPalette from './components/DesignerPalette.vue';
 import DesignerPropertyPanel from './components/DesignerPropertyPanel.vue';
 import DesignerToolbar from './components/DesignerToolbar.vue';
 import type { DesignerNodeConfig, DesignerState } from './types';
-import { getDesignerData, lockDefinition, saveDesignerData, unlockDefinition } from '#/api/flowDesigner';
+import {
+  getDesignerData,
+  lockDefinition,
+  saveDesignerData,
+  unlockDefinition,
+} from '#/api/flowDesigner';
 import { $t } from '#/locales';
 
 const route = useRoute();
@@ -44,7 +49,6 @@ const definitionId = ref<string>('');
 const isLoading = ref(false);
 const isSaving = ref(false);
 const isLocked = ref(false);
-const lockedBy = ref('');
 
 /** 设计器状态 */
 const designerState = ref<DesignerState>({
@@ -253,7 +257,7 @@ function handleDistributeVertical(): void {
 }
 
 onMounted(async () => {
-  definitionId.value = route.query.id as string || '';
+  definitionId.value = (route.query.id as string) || '';
   if (definitionId.value) {
     await acquireLock();
     await loadDesignerData();

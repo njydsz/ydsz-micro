@@ -1,7 +1,7 @@
 <!--
  * 规则审计日志查询页面
  *
- * @path apps\literule-web\src\views\auditLog\index.vue
+ * @path apps\literule-web\src\views\audit-log\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -73,7 +73,9 @@ const gridOptions: VxeGridProps<AuditLogEntryVO> = {
     { field: 'ruleCode', title: '规则编码', width: 150 },
     { field: 'ruleName', title: '规则名称', width: 160 },
     {
-      field: 'action', title: '动作', width: 120,
+      field: 'action',
+      title: '动作',
+      width: 120,
       slots: { default: ({ row }) => h(ElTag, { type: 'primary' }, () => row.action ?? '-') },
     },
     { field: 'operator', title: '操作人', width: 100 },

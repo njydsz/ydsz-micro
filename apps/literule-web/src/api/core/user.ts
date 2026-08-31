@@ -7,6 +7,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export {
-  getUserInfoApi,
-} from '@ydsz/shared-auth';
+export { getUserInfoApi } from '@ydsz/shared-auth';

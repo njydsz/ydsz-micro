@@ -147,7 +147,13 @@ const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
 </script>
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="模板编码" prop="templateCode">
         <ElInput v-model="formData.templateCode" placeholder="请输入模板编码" :disabled="isEdit" />
       </ElFormItem>
@@ -164,7 +170,12 @@ const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
         <ElInput v-model="formData.subject" placeholder="请输入主题（可为空）" />
       </ElFormItem>
       <ElFormItem label="内容" prop="content">
-        <ElInput v-model="formData.content" type="textarea" :rows="4" placeholder="请输入模板内容" />
+        <ElInput
+          v-model="formData.content"
+          type="textarea"
+          :rows="4"
+          placeholder="请输入模板内容"
+        />
       </ElFormItem>
       <ElFormItem label="供应商" prop="provider">
         <ElInput v-model="formData.provider" placeholder="请输入供应商（可为空）" />
@@ -182,7 +193,12 @@ const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
         <ElInput v-model="formData.version" placeholder="请输入版本（可为空）" />
       </ElFormItem>
       <ElFormItem label="描述" prop="description">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述（可为空）" />
+        <ElInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          placeholder="请输入描述（可为空）"
+        />
       </ElFormItem>
     </ElForm>
   </Modal>

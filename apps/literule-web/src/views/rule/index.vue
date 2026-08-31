@@ -238,7 +238,11 @@ async function handleRollback(versionItem: RuleVersionVO) {
       >
     </Grid>
     <RuleFormModal @success="gridApi.query()" />
-    <RuleChainDesigner ref="ruleChainDesignerRef" :rule-code="currentRule?.ruleCode" @success="gridApi.query()" />
+    <RuleChainDesigner
+      ref="ruleChainDesignerRef"
+      :rule-code="currentRule?.ruleCode"
+      @success="gridApi.query()"
+    />
     <ElDrawer v-model="versionsVisible" title="版本历史" :size="540">
       <div class="mb-2 flex justify-end">
         <ElButton size="small" @click="loadVersions">刷新</ElButton>

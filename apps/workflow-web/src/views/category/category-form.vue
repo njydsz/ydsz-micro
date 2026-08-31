@@ -149,7 +149,13 @@ const title = computed(() => (isEdit.value ? '编辑流程分类' : '新增流�
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="分类编码" prop="categoryCode">
         <ElInput v-model="formData.categoryCode" placeholder="请输入分类编码" :disabled="isEdit" />
       </ElFormItem>

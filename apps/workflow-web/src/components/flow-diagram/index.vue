@@ -11,7 +11,7 @@
  *   <li>支持点击节点查看详情
  * </ul>
  *
- * @path apps\workflow-web\src\components\FlowDiagram\index.vue
+ * @path apps\workflow-web\src\components\flow-diagram\index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -22,7 +22,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { ElCard, ElEmpty, ElSkeleton } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
@@ -93,24 +93,14 @@ onMounted(() => {
     <div class="diagram-container">
       <ElSkeleton v-if="loading" :rows="6" animated />
       <ElEmpty v-else-if="!hasDiagram" description="暂无流程图" />
-      <div
-        v-else
-        class="diagram-content"
-        @click="handleSvgClick"
-        v-safe-html="svgContent"
-      />
+      <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
     </div>
   </ElCard>
   <div v-else class="flow-diagram flow-diagram--borderless">
     <div class="diagram-container">
       <ElSkeleton v-if="loading" :rows="6" animated />
       <ElEmpty v-else-if="!hasDiagram" description="暂无流程图" />
-      <div
-        v-else
-        class="diagram-content"
-        @click="handleSvgClick"
-        v-safe-html="svgContent"
-      />
+      <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
     </div>
   </div>
 </template>

@@ -15,7 +15,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTag } from 'element-plus';
 import { computed, ref } from 'vue';
@@ -127,7 +127,12 @@ function getStepConfig(step: string): { label: string; type: string; description
         <h1 class="mb-4 text-2xl font-bold text-gray-800">消息轨迹查询</h1>
         <div class="flex items-center gap-3">
           <ElSelect v-model="queryType" placeholder="查询类型" class="w-32">
-            <ElOption v-for="opt in queryTypeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+            <ElOption
+              v-for="opt in queryTypeOptions"
+              :key="opt.value"
+              :label="opt.label"
+              :value="opt.value"
+            />
           </ElSelect>
           <template v-if="queryType === 'biz'">
             <ElInput v-model="bizType" placeholder="业务类型" class="w-40" />
@@ -159,12 +164,20 @@ function getStepConfig(step: string): { label: string; type: string; description
             :key="step.id ?? step.name ?? step"
             :title="getStepConfig(step).label"
             :description="getStepConfig(step).description"
-            :status="index === currentStepIndex ? 'process' : index < currentStepIndex ? 'finish' : 'wait'"
+            :status="
+              index === currentStepIndex ? 'process' : index < currentStepIndex ? 'finish' : 'wait'
+            "
           >
             <template #icon>
-              <ElTag v-if="getStepConfig(step).type === 'success'" type="success" size="small">✓</ElTag>
-              <ElTag v-else-if="getStepConfig(step).type === 'danger'" type="danger" size="small">✗</ElTag>
-              <ElTag v-else-if="getStepConfig(step).type === 'warning'" type="warning" size="small">!</ElTag>
+              <ElTag v-if="getStepConfig(step).type === 'success'" type="success" size="small"
+                >✓</ElTag
+              >
+              <ElTag v-else-if="getStepConfig(step).type === 'danger'" type="danger" size="small"
+                >✗</ElTag
+              >
+              <ElTag v-else-if="getStepConfig(step).type === 'warning'" type="warning" size="small"
+                >!</ElTag
+              >
               <ElTag v-else type="primary" size="small">{{ index + 1 }}</ElTag>
             </template>
           </ElStep>
@@ -172,12 +185,18 @@ function getStepConfig(step: string): { label: string; type: string; description
       </div>
 
       <!-- 空状态 -->
-      <div v-else-if="!loading" class="flex h-64 items-center justify-center rounded border bg-white text-gray-400">
+      <div
+        v-else-if="!loading"
+        class="flex h-64 items-center justify-center rounded border bg-white text-gray-400"
+      >
         <p>请输入查询条件后点击查询按钮</p>
       </div>
 
       <!-- 加载中 -->
-      <div v-else class="flex h-64 items-center justify-center rounded border bg-white text-gray-400">
+      <div
+        v-else
+        class="flex h-64 items-center justify-center rounded border bg-white text-gray-400"
+      >
         <p>正在查询轨迹数据...</p>
       </div>
     </div>

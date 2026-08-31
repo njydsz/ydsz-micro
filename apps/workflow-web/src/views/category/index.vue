@@ -33,12 +33,23 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
     { field: 'sortNum', title: '排序', width: 80 },
     { field: 'updatedAt', title: '更新时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 160, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 160,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -58,12 +69,21 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [CategoryFormModal, categoryFormApi] = useYDSZModal({ connectedComponent: CategoryForm });
-function handleAdd() { categoryFormApi.open(); }
-function handleEdit(row: FlowCategoryVO) { categoryFormApi.setData({ record: row }); categoryFormApi.open(); }
+function handleAdd() {
+  categoryFormApi.open();
+}
+function handleEdit(row: FlowCategoryVO) {
+  categoryFormApi.setData({ record: row });
+  categoryFormApi.open();
+}
 async function handleDelete(row: FlowCategoryVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除「${row.categoryName ?? row.categoryCode}」吗？`, '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(
+      `确定删除「${row.categoryName ?? row.categoryCode}」吗？`,
+      '删除确认',
+      { type: 'warning' },
+    );
     await deleteApi({ id: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
@@ -75,7 +95,9 @@ async function handleDelete(row: FlowCategoryVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="流程分类">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
+      <template #toolbar-tools
+        ><ElButton type="primary" @click="handleAdd">新增</ElButton></template
+      >
     </Grid>
     <CategoryFormModal @success="gridApi.query()" />
   </Page>

@@ -57,7 +57,7 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
       },
     },
     { field: 'version', title: '版本', width: 80 },
-    { field: 'description', title: '描述', min-width: 150 },
+    { field: 'description', title: '描述', minWidth: 150 },
     { field: 'createdAt', title: '创建时间', width: 160 },
     {
       field: 'action',

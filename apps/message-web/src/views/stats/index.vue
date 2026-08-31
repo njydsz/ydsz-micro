@@ -15,12 +15,12 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
 import { ElCard, ElMessage, ElOption, ElSelect, ElStatistic } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
-import { channelStats, cost, funnel, overview, receiptStats } from '#/api/messageStats';
+import { channelStats, cost, funnel, overview } from '#/api/messageStats';
 import type { MessageStatsVO } from '#/api/models';
 
 defineOptions({ name: 'MessageStats' });
@@ -33,7 +33,9 @@ const loading = ref(false);
 const timeRange = ref('30');
 
 /** 渠道统计数据 */
-const channelData = ref<Array<{ channel: string; sent: number; success: number; fail: number }>>([]);
+const channelData = ref<Array<{ channel: string; sent: number; success: number; fail: number }>>(
+  [],
+);
 
 /** 漏斗数据 */
 const funnelData = ref<{ sent: number; delivered: number; read: number; clicked: number }>({
@@ -126,12 +128,7 @@ async function loadCost(): Promise<void> {
 async function loadAllData(): Promise<void> {
   loading.value = true;
   try {
-    await Promise.all([
-      loadOverview(),
-      loadChannelStats(),
-      loadFunnel(),
-      loadCost(),
-    ]);
+    await Promise.all([loadOverview(), loadChannelStats(), loadFunnel(), loadCost()]);
   } finally {
     loading.value = false;
   }
@@ -217,13 +214,17 @@ function renderFunnelChart(): void {
 /** 送达率 */
 const deliveryRate = computed(() => {
   if (!overviewData.value.totalSent) return '0';
-  return (((overviewData.value.totalDelivered ?? 0) / overviewData.value.totalSent) * 100).toFixed(1);
+  return (((overviewData.value.totalDelivered ?? 0) / overviewData.value.totalSent) * 100).toFixed(
+    1,
+  );
 });
 
 /** 已读率 */
 const readRate = computed(() => {
   if (!overviewData.value.totalDelivered) return '0';
-  return (((overviewData.value.totalRead ?? 0) / overviewData.value.totalDelivered) * 100).toFixed(1);
+  return (((overviewData.value.totalRead ?? 0) / overviewData.value.totalDelivered) * 100).toFixed(
+    1,
+  );
 });
 
 watch(timeRange, () => {
@@ -242,7 +243,12 @@ onMounted(() => {
       <h1 class="text-xl font-bold text-gray-800">消息统计看板</h1>
       <div class="flex items-center gap-3">
         <ElSelect v-model="timeRange" placeholder="时间范围" class="w-32">
-          <ElOption v-for="opt in timeRangeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+          <ElOption
+            v-for="opt in timeRangeOptions"
+            :key="opt.value"
+            :label="opt.label"
+            :value="opt.value"
+          />
         </ElSelect>
         <ElButton type="primary" :loading="loading" @click="loadAllData">刷新</ElButton>
       </div>

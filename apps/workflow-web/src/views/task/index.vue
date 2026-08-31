@@ -128,7 +128,9 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [TaskFormModal, taskFormApi] = useYDSZModal({ connectedComponent: TaskForm });
-const [TaskOperationModal, taskOperationApi] = useYDSZModal({ connectedComponent: TaskOperationDialog });
+const [TaskOperationModal, taskOperationApi] = useYDSZModal({
+  connectedComponent: TaskOperationDialog,
+});
 
 /** 切换待办/已办 Tab 后重新查询 */
 function handleTabChange() {

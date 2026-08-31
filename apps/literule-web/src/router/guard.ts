@@ -7,14 +7,11 @@
  * @author ydsz-team
  * @since 2.0.0
  */
-import type { Router } from "vue-router";
+import type { Router } from 'vue-router';
 
-import {
-  createSubAppRouterGuard,
-  initRoutes as sharedInitRoutes,
-} from "@ydsz/shared-auth/guards";
+import { createSubAppRouterGuard, initRoutes as sharedInitRoutes } from '@ydsz/shared-auth/guards';
 
-import { accessRoutes } from "#/router/routes";
+import { accessRoutes } from '#/router/routes';
 
 function createRouterGuard(router: Router) {
   createSubAppRouterGuard(router, accessRoutes);
@@ -25,4 +22,3 @@ function initRoutes(router: Router) {
 }
 
 export { createRouterGuard, initRoutes };
-

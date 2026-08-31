@@ -5,11 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  FormItemDependencies,
-  FormSchemaRuleType,
-  MaybeComponentProps,
-} from '../types';
+import type { FormItemDependencies, FormSchemaRuleType, MaybeComponentProps } from '../types';
 
 import { computed, ref, watch } from 'vue';
 
@@ -45,14 +41,11 @@ import { injectRenderFormProps } from './context';
  * @returns 六个响应式状态，供字段渲染组件直接绑定
  * @throws 当脱离 `<YDSZForm>` 上下文调用（拿不到 vee-validate 表单值）时抛出 Error
  */
-export default function useDependencies(
-  getDependencies: () => FormItemDependencies | undefined,
-) {
+export default function useDependencies(getDependencies: () => FormItemDependencies | undefined) {
   const values = useFormValues();
 
   const formRenderProps = injectRenderFormProps();
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const formApi = formRenderProps.form!;
 
   if (!values) {
@@ -90,15 +83,7 @@ export default function useDependencies(
         return;
       }
       resetConditionState();
-      const {
-        componentProps,
-        disabled,
-        if: whenIf,
-        required,
-        rules,
-        show,
-        trigger,
-      } = dependencies;
+      const { componentProps, disabled, if: whenIf, required, rules, show, trigger } = dependencies;
 
       // 1. 优先判断if，如果if为false，则不渲染dom，后续判断也不再执行
       const formValues = values.value;

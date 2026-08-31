@@ -15,13 +15,19 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
-import { ElCard, ElDatePicker, ElMessage, ElOption, ElSelect, ElStatistic, ElTag } from 'element-plus';
+import {
+  ElCard,
+  ElMessage,
+  ElOption,
+  ElSelect,
+  ElStatistic,
+  ElTag,
+} from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import {
-  approvalTrend,
   bottleneckRanking,
   healthScore,
   monitorApproverEfficiency,
@@ -296,7 +302,12 @@ onMounted(() => {
       <h1 class="text-xl font-bold text-gray-800">流程监控仪表盘</h1>
       <div class="flex items-center gap-3">
         <ElSelect v-model="timeRange" placeholder="时间范围" class="w-32">
-          <ElOption v-for="opt in timeRangeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+          <ElOption
+            v-for="opt in timeRangeOptions"
+            :key="opt.value"
+            :label="opt.label"
+            :value="opt.value"
+          />
         </ElSelect>
         <ElButton type="primary" :loading="loading" @click="loadAllData">刷新</ElButton>
       </div>
@@ -321,7 +332,15 @@ onMounted(() => {
               {{ healthScoreData.score }}
             </div>
           </div>
-          <ElTag :type="healthScoreData.score >= 80 ? 'success' : healthScoreData.score >= 60 ? 'warning' : 'danger'">
+          <ElTag
+            :type="
+              healthScoreData.score >= 80
+                ? 'success'
+                : healthScoreData.score >= 60
+                  ? 'warning'
+                  : 'danger'
+            "
+          >
             {{ healthScoreData.level }}
           </ElTag>
         </div>

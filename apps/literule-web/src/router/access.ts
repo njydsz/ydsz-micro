@@ -7,10 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  ComponentRecordType,
-  GenerateMenuAndRoutesOptions,
-} from '@ydsz/types';
+import type { ComponentRecordType, GenerateMenuAndRoutesOptions } from '@ydsz/types';
 
 import { generateAccessible } from '@ydsz/access';
 import { preferences } from '@ydsz/preferences';

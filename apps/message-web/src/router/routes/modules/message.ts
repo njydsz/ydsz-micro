@@ -28,7 +28,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'DeadLetterManagement',
         path: 'dead-letter',
-        component: () => import('#/views/deadLetter/index.vue'),
+        component: () => import('#/views/dead-letter/index.vue'),
         meta: { icon: 'lucide:alert-octagon', title: '死信队列' },
       },
     ],
@@ -67,7 +67,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'RouteRuleManagement',
         path: 'rules',
-        component: () => import('#/views/routeRule/index.vue'),
+        component: () => import('#/views/route-rule/index.vue'),
         meta: { icon: 'lucide:git-branch', title: '路由规则' },
       },
     ],

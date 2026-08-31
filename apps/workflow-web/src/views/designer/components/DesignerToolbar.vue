@@ -14,7 +14,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { ElButton, ElIcon, ElSlider, ElSpace, ElTooltip } from 'element-plus';
 import { computed, ref } from 'vue';
 
@@ -27,7 +27,7 @@ interface Props {
   locked: boolean;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const emit = defineEmits<{
   save: [];
@@ -96,29 +96,20 @@ function handleZoomReset(): void {
       <ElSpace :size="4">
         <!-- 撤销 -->
         <ElTooltip content="撤销 Ctrl+Z" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('undo')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('undo')">
             <ElIcon><span class="icon-undo" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <!-- 重做 -->
         <ElTooltip content="重做 Ctrl+Y" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('redo')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('redo')">
             <ElIcon><span class="icon-redo" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <div class="toolbar-divider" />
         <!-- 缩小 -->
         <ElTooltip content="缩小" placement="bottom">
-          <ElButton
-            :disabled="zoomPercent <= 50 || locked || loading"
-            @click="handleZoomOut"
-          >
+          <ElButton :disabled="zoomPercent <= 50 || locked || loading" @click="handleZoomOut">
             <ElIcon><span class="icon-zoom-out" /></ElIcon>
           </ElButton>
         </ElTooltip>
@@ -136,10 +127,7 @@ function handleZoomReset(): void {
         </div>
         <!-- 放大 -->
         <ElTooltip content="放大" placement="bottom">
-          <ElButton
-            :disabled="zoomPercent >= 200 || locked || loading"
-            @click="handleZoomIn"
-          >
+          <ElButton :disabled="zoomPercent >= 200 || locked || loading" @click="handleZoomIn">
             <ElIcon><span class="icon-zoom-in" /></ElIcon>
           </ElButton>
         </ElTooltip>
@@ -152,66 +140,42 @@ function handleZoomReset(): void {
         <div class="toolbar-divider" />
         <!-- 对齐操作 -->
         <ElTooltip content="左对齐" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('alignLeft')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('alignLeft')">
             <ElIcon><span class="icon-align-left" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <ElTooltip content="水平居中" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('alignCenter')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('alignCenter')">
             <ElIcon><span class="icon-align-center" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <ElTooltip content="右对齐" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('alignRight')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('alignRight')">
             <ElIcon><span class="icon-align-right" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <ElTooltip content="上对齐" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('alignTop')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('alignTop')">
             <ElIcon><span class="icon-align-top" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <ElTooltip content="垂直居中" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('alignMiddle')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('alignMiddle')">
             <ElIcon><span class="icon-align-middle" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <ElTooltip content="下对齐" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('alignBottom')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('alignBottom')">
             <ElIcon><span class="icon-align-bottom" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <ElTooltip content="水平分布" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('distributeHorizontal')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('distributeHorizontal')">
             <ElIcon><span class="icon-distribute-h" /></ElIcon>
           </ElButton>
         </ElTooltip>
         <ElTooltip content="垂直分布" placement="bottom">
-          <ElButton
-            :disabled="locked || loading"
-            @click="emit('distributeVertical')"
-          >
+          <ElButton :disabled="locked || loading" @click="emit('distributeVertical')">
             <ElIcon><span class="icon-distribute-v" /></ElIcon>
           </ElButton>
         </ElTooltip>

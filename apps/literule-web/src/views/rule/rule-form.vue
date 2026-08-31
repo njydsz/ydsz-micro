@@ -72,21 +72,33 @@ const [Modal, modalApi] = useYDSZModal({
     }
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
       await save({ changeDesc: isEdit.value ? '更新规则' : '创建规则' }, formData);
       ElMessage.success(isEdit.value ? '更新成功' : '创建成功');
       emit('success');
       modalApi.close();
-    } finally { modalApi.unlock(); }
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 const title = computed(() => (isEdit.value ? '编辑规则' : '新增规则'));
 </script>
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="规则编码" prop="code">
         <ElInput v-model="formData.code" placeholder="请输入规则编码" :disabled="isEdit" />
       </ElFormItem>
@@ -100,10 +112,20 @@ const title = computed(() => (isEdit.value ? '编辑规则' : '新增规则'));
         <ElInputNumber v-model="formData.priority" :min="0" :max="999" />
       </ElFormItem>
       <ElFormItem label="条件表达式">
-        <ElInput v-model="formData.conditionExpression" type="textarea" :rows="3" placeholder="请输入条件表达式" />
+        <ElInput
+          v-model="formData.conditionExpression"
+          type="textarea"
+          :rows="3"
+          placeholder="请输入条件表达式"
+        />
       </ElFormItem>
       <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+        <ElInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          placeholder="请输入描述"
+        />
       </ElFormItem>
       <ElFormItem label="启用">
         <ElSwitch v-model="formData.enabled" />

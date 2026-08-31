@@ -16,14 +16,13 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import {
   ElButton,
   ElDialog,
   ElForm,
   ElFormItem,
   ElInput,
-  ElInputNumber,
   ElMessage,
   ElOption,
   ElSelect,
@@ -31,11 +30,12 @@ import {
   ElTableColumn,
 } from 'element-plus';
 import { computed, nextTick, ref, watch } from 'vue';
+import type { DecisionTableVO } from '#/api/models';
 import {
-  type DecisionTableDefinitionVO,
-  type DecisionTableVO,
-} from '#/api/models';
-import { evaluateDecisionTable, getDecisionTable, saveDecisionTable } from '#/api/ruleDecisionTable';
+  evaluateDecisionTable,
+  getDecisionTable,
+  saveDecisionTable,
+} from '#/api/ruleDecisionTable';
 
 interface Props {
   /** 决策表数据（编辑时传入） */
@@ -142,9 +142,7 @@ function initDefaultTable(): void {
   conditionColumns.value = [
     { colCode: 'condition1', colName: '条件1', colType: 'STRING', operator: '==' },
   ];
-  actionColumns.value = [
-    { colCode: 'action1', colName: '动作1', colType: 'STRING' },
-  ];
+  actionColumns.value = [{ colCode: 'action1', colName: '动作1', colType: 'STRING' }];
   ruleRows.value = [createEmptyRow()];
 }
 
@@ -293,7 +291,11 @@ watch(visible, (isOpen) => {
       <ElForm label-width="100px" class="mb-4">
         <div class="grid grid-cols-2 gap-4">
           <ElFormItem label="决策表编码" required>
-            <ElInput v-model="tableInfo.tableCode" placeholder="请输入编码" :disabled="isEditMode" />
+            <ElInput
+              v-model="tableInfo.tableCode"
+              placeholder="请输入编码"
+              :disabled="isEditMode"
+            />
           </ElFormItem>
           <ElFormItem label="决策表名称" required>
             <ElInput v-model="tableInfo.tableName" placeholder="请输入名称" />
@@ -312,7 +314,12 @@ watch(visible, (isOpen) => {
             </ElSelect>
           </ElFormItem>
           <ElFormItem label="描述" class="col-span-2">
-            <ElInput v-model="tableInfo.description" type="textarea" :rows="2" placeholder="请输入描述" />
+            <ElInput
+              v-model="tableInfo.description"
+              type="textarea"
+              :rows="2"
+              placeholder="请输入描述"
+            />
           </ElFormItem>
         </div>
       </ElForm>
@@ -331,7 +338,7 @@ watch(visible, (isOpen) => {
         <div class="overflow-auto">
           <ElTable :data="ruleRows" border size="small" style="width: 100%">
             <ElTableColumn type="index" label="#" width="50" />
-            
+
             <!-- 条件列 -->
             <ElTableColumn
               v-for="(col, colIndex) in conditionColumns"
@@ -341,12 +348,7 @@ watch(visible, (isOpen) => {
               <template #header>
                 <div class="flex flex-col items-center gap-1">
                   <span class="text-xs text-blue-600">条件</span>
-                  <ElInput
-                    v-model="col.colName"
-                    size="small"
-                    class="w-full"
-                    placeholder="列名"
-                  />
+                  <ElInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
                   <div class="flex gap-1">
                     <ElSelect v-model="col.operator" size="small" class="flex-1">
                       <ElOption label="等于" value="==" />
@@ -358,7 +360,9 @@ watch(visible, (isOpen) => {
                       <ElOption label="包含" value="contains" />
                       <ElOption label="为空" value="empty" />
                     </ElSelect>
-                    <ElButton size="small" type="danger" @click="removeConditionColumn(colIndex)">×</ElButton>
+                    <ElButton size="small" type="danger" @click="removeConditionColumn(colIndex)"
+                      >×</ElButton
+                    >
                   </div>
                 </div>
               </template>
@@ -380,12 +384,7 @@ watch(visible, (isOpen) => {
               <template #header>
                 <div class="flex flex-col items-center gap-1">
                   <span class="text-xs text-green-600">动作</span>
-                  <ElInput
-                    v-model="col.colName"
-                    size="small"
-                    class="w-full"
-                    placeholder="列名"
-                  />
+                  <ElInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
                   <div class="flex gap-1">
                     <ElSelect v-model="col.colType" size="small" class="flex-1">
                       <ElOption
@@ -395,7 +394,9 @@ watch(visible, (isOpen) => {
                         :value="opt.value"
                       />
                     </ElSelect>
-                    <ElButton size="small" type="danger" @click="removeActionColumn(colIndex)">×</ElButton>
+                    <ElButton size="small" type="danger" @click="removeActionColumn(colIndex)"
+                      >×</ElButton
+                    >
                   </div>
                 </div>
               </template>

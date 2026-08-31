@@ -16,7 +16,16 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import {
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElSelect,
+} from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 import {
   countersignAfter,
@@ -69,7 +78,14 @@ onMounted(() => {
 });
 
 /** 处理动作 */
-type TaskAction = 'pass' | 'reject' | 'transfer' | 'delegate' | 'countersignBefore' | 'countersignAfter' | 'countersignParallel';
+type TaskAction =
+  | 'pass'
+  | 'reject'
+  | 'transfer'
+  | 'delegate'
+  | 'countersignBefore'
+  | 'countersignAfter'
+  | 'countersignParallel';
 
 /** 任务处理表单状态 */
 interface TaskHandleState {

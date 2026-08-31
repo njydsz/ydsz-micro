@@ -7,7 +7,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export {
-  getAllMenusApi,
-  getMenuTreeApi,
-} from '@ydsz/shared-auth';
+export { getAllMenusApi, getMenuTreeApi } from '@ydsz/shared-auth';

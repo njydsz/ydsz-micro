@@ -10,10 +10,7 @@
  * @author ydsz-team
  * @since 4.1.0
  */
-import {
-  openSseRequest,
-  type SseLifecycleHandlers,
-} from '@ydsz/shared-auth';
+import { openSseRequest, type SseLifecycleHandlers } from '@ydsz/shared-auth';
 
 /** SSE 事件回调集合 */
 export type SseEventHandlers = SseLifecycleHandlers;

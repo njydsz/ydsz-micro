@@ -1,7 +1,7 @@
 <!--
  * 快捷回复（表单组件）
  *
- * @path apps\workflow-web\src\views\quickComment\quickComment-form.vue
+ * @path apps\workflow-web\src\views\quick-comment\quick-comment-form.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -100,9 +100,20 @@ const title = computed(() => (isEdit.value ? '编辑快捷评语' : '新增快�
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="评语内容" prop="content">
-        <ElInput v-model="formData.content" type="textarea" :rows="3" placeholder="请输入评语内容" />
+        <ElInput
+          v-model="formData.content"
+          type="textarea"
+          :rows="3"
+          placeholder="请输入评语内容"
+        />
       </ElFormItem>
       <ElFormItem label="意见类型">
         <ElInput v-model="formData.commentType" placeholder="如 APPROVE/REJECT（可选）" />

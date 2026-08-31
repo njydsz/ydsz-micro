@@ -96,12 +96,16 @@ function handleClear() {
 }
 
 /** 初始化时如果有 modelValue 但无列表，尝试加载 */
-watch(() => props.modelValue, (newVal) => {
-  if (newVal && userList.value.length === 0 && props.modelLabel) {
-    // 有初始值但无列表时，将初始值加入列表用于回显
-    userList.value = [{ userId: newVal, userName: props.modelLabel }];
-  }
-}, { immediate: true });
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    if (newVal && userList.value.length === 0 && props.modelLabel) {
+      // 有初始值但无列表时，将初始值加入列表用于回显
+      userList.value = [{ userId: newVal, userName: props.modelLabel }];
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

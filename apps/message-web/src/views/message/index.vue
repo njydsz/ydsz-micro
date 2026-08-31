@@ -74,10 +74,26 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'channel', title: '通道', itemRender: { name: 'Input', props: { placeholder: '通道' } } },
-      { field: 'bizType', title: '业务类型', itemRender: { name: 'Input', props: { placeholder: '业务类型' } } },
-      { field: 'status', title: '状态', itemRender: { name: 'Input', props: { placeholder: '状态' } } },
-      { field: 'keyword', title: '关键词', itemRender: { name: 'Input', props: { placeholder: '关键词' } } },
+      {
+        field: 'channel',
+        title: '通道',
+        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+      },
+      {
+        field: 'bizType',
+        title: '业务类型',
+        itemRender: { name: 'Input', props: { placeholder: '业务类型' } },
+      },
+      {
+        field: 'status',
+        title: '状态',
+        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+      },
+      {
+        field: 'keyword',
+        title: '关键词',
+        itemRender: { name: 'Input', props: { placeholder: '关键词' } },
+      },
     ],
   },
 };

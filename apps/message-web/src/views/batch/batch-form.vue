@@ -103,7 +103,13 @@ const [Modal, modalApi] = useYDSZModal({
 </script>
 <template>
   <Modal title="提交批量发送">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="批次名称" prop="batchName">
         <ElInput v-model="formData.batchName" placeholder="请输入批次名称" />
       </ElFormItem>

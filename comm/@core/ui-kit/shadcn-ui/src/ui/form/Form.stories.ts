@@ -13,7 +13,10 @@ import { ref } from 'vue';
 
 import { Button } from '../button';
 import { Input } from '../input';
-import { Label } from '../label';
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('FormStories');
+
 import {
   Form,
   FormControl,
@@ -52,7 +55,7 @@ export const LoginForm: Story = {
       const handleSubmit = () => {
         // 日志脱敏：禁止输出 password 字段
         const maskedData = { ...form.value, password: '***' };
-        console.log('提交数据:', maskedData);
+        logger.debug('提交数据:', maskedData);
       };
 
       return { form, handleSubmit };
@@ -88,7 +91,17 @@ export const LoginForm: Story = {
 /** 注册表单（带验证） */
 export const RegistrationForm: Story = {
   render: () => ({
-    components: { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, Input, Button },
+    components: {
+      Form,
+      FormField,
+      FormItem,
+      FormLabel,
+      FormControl,
+      FormDescription,
+      FormMessage,
+      Input,
+      Button,
+    },
     setup() {
       const form = ref({
         email: '',
@@ -100,7 +113,7 @@ export const RegistrationForm: Story = {
       const handleSubmit = () => {
         // 日志脱敏：禁止输出 password / confirmPassword 字段
         const maskedData = { ...form.value, password: '***', confirmPassword: '***' };
-        console.log('注册数据:', maskedData);
+        logger.debug('注册数据:', maskedData);
       };
 
       return { form, handleSubmit };
@@ -166,7 +179,7 @@ export const SearchForm: Story = {
       });
 
       const handleSubmit = () => {
-        console.log('搜索:', form.value.keyword);
+        logger.debug('搜索:', form.value.keyword);
       };
 
       return { form, handleSubmit };
@@ -198,7 +211,7 @@ export const FormWithErrors: Story = {
       });
 
       const handleSubmit = () => {
-        console.log('提交数据:', form.value);
+        logger.debug('提交数据:', form.value);
       };
 
       return { form, handleSubmit };

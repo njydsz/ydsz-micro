@@ -16,19 +16,24 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElMessage, ElMessageBox, ElOption, ElSelect, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import {
+  ElButton,
+  ElInput,
+  ElMessage,
+  ElMessageBox,
+  ElOption,
+  ElSelect,
+  ElTabPane,
+  ElTabs,
+  ElTag,
+} from 'element-plus';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import {
-  listByTopic,
-  listByUser,
-  unsubscribe,
-  upsert,
-} from '#/api/subscription';
+import { listByTopic, listByUser, unsubscribe } from '#/api/subscription';
 import type { MsgSubscriptionVO } from '#/api/models';
 
 import SubscriptionForm from './subscription-form.vue';
@@ -117,7 +122,10 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
         if (activeTab.value === 'user' && currentUserId.value) {
           items = await listByUser({ userId: currentUserId.value });
         } else if (activeTab.value === 'topic' && currentTopicCode.value) {
-          items = await listByTopic({ topicCode: currentTopicCode.value, channel: currentChannel.value });
+          items = await listByTopic({
+            topicCode: currentTopicCode.value,
+            channel: currentChannel.value,
+          });
         }
         return { items, total: items.length };
       },
@@ -127,7 +135,9 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [SubscriptionFormModal, subscriptionFormApi] = useYDSZModal({ connectedComponent: SubscriptionForm });
+const [SubscriptionFormModal, subscriptionFormApi] = useYDSZModal({
+  connectedComponent: SubscriptionForm,
+});
 
 /** 新增订阅 */
 function handleAdd(): void {
@@ -189,12 +199,7 @@ function handleQueryByTopic(): void {
         <ElTabs v-model="activeTab" class="mt-2">
           <ElTabPane label="按用户查询" name="user">
             <div class="flex gap-2 py-2">
-              <ElInput
-                v-model="currentUserId"
-                placeholder="请输入用户ID"
-                class="w-64"
-                clearable
-              />
+              <ElInput v-model="currentUserId" placeholder="请输入用户ID" class="w-64" clearable />
               <ElButton type="primary" @click="handleQueryByUser">查询</ElButton>
             </div>
           </ElTabPane>

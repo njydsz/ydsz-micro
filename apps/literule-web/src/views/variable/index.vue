@@ -29,21 +29,42 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
     { type: 'seq', width: 50, title: '序号' },
     { field: 'name', title: '变量名称', width: 180 },
     {
-      field: 'type', title: '类型', width: 110,
+      field: 'type',
+      title: '类型',
+      width: 110,
       slots: { default: ({ row }) => h(ElTag, { type: 'primary' }, () => row.type ?? '-') },
     },
     { field: 'category', title: '分类', width: 110 },
     {
-      field: 'sampleValue', title: '示例值', minWidth: 160,
-      slots: { default: ({ row }) => h('span', { class: 'truncate text-xs text-gray-500' }, formatJsonResult(row.sampleValue)) },
+      field: 'sampleValue',
+      title: '示例值',
+      minWidth: 160,
+      slots: {
+        default: ({ row }) =>
+          h('span', { class: 'truncate text-xs text-gray-500' }, formatJsonResult(row.sampleValue)),
+      },
     },
     { field: 'description', title: '描述', minWidth: 160 },
     {
-      field: 'action', title: '操作', width: 150, fixed: 'right',
-      slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
-      ]) },
+      field: 'action',
+      title: '操作',
+      width: 150,
+      fixed: 'right',
+      slots: {
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
+          ]),
+      },
     },
   ],
   height: 'auto',
@@ -59,8 +80,13 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [VariableFormModal, variableFormApi] = useYDSZModal({ connectedComponent: VariableForm });
-function handleAdd() { variableFormApi.open(); }
-function handleEdit(row: VariableDefinitionVO) { variableFormApi.setData({ record: row }); variableFormApi.open(); }
+function handleAdd() {
+  variableFormApi.open();
+}
+function handleEdit(row: VariableDefinitionVO) {
+  variableFormApi.setData({ record: row });
+  variableFormApi.open();
+}
 async function handleDelete(row: VariableDefinitionVO) {
   if (!row.name) return;
   try {
@@ -68,7 +94,9 @@ async function handleDelete(row: VariableDefinitionVO) {
     await deleteApi({ varName: row.name });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 /** 手动刷新变量定义 */
 async function handleRefresh() {
@@ -77,7 +105,9 @@ async function handleRefresh() {
     await refresh();
     ElMessage.success('刷新成功');
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 </script>
 <template>

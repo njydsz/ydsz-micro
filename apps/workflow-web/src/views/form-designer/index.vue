@@ -15,7 +15,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
 import {
   ElButton,
@@ -162,12 +162,19 @@ async function loadFormConfig(): Promise<void> {
       return;
     }
     const parsed = typeof raw === 'string' ? JSON.parse(raw) : (raw as unknown);
-    const props = ((parsed as Record<string, unknown>)?.properties ?? {}) as Record<string, Record<string, unknown>>;
+    const props = ((parsed as Record<string, unknown>)?.properties ?? {}) as Record<
+      string,
+      Record<string, unknown>
+    >;
     const requiredList = ((parsed as Record<string, unknown>)?.required ?? []) as string[];
     fields.value = Object.entries(props).map(([key, prop]) => ({
       key,
       label: String(prop.title ?? key),
-      type: prop.enum ? 'select' : String(prop.type ?? 'input') === 'number' ? 'number' : String(prop.type ?? 'input'),
+      type: prop.enum
+        ? 'select'
+        : String(prop.type ?? 'input') === 'number'
+          ? 'number'
+          : String(prop.type ?? 'input'),
       required: requiredList.includes(key),
       placeholder: String(prop.description ?? ''),
       defaultValue: '',
@@ -189,10 +196,7 @@ async function handleSave(): Promise<void> {
   }
   saving.value = true;
   try {
-    await saveFormConfig(
-      { id: definitionId.value, nodeCode: nodeCode.value },
-      schemaText.value,
-    );
+    await saveFormConfig({ id: definitionId.value, nodeCode: nodeCode.value }, schemaText.value);
     ElMessage.success('表单配置保存成功');
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -254,7 +258,9 @@ async function handleSave(): Promise<void> {
             <ElTag v-if="field.required" size="small" type="danger">必填</ElTag>
             <ElButton size="small" link @click.stop="moveUp(index)">↑</ElButton>
             <ElButton size="small" link @click.stop="moveDown(index)">↓</ElButton>
-            <ElButton size="small" link type="danger" @click.stop="removeField(field)">删除</ElButton>
+            <ElButton size="small" link type="danger" @click.stop="removeField(field)"
+              >删除</ElButton
+            >
           </div>
         </ElCard>
 
@@ -280,7 +286,12 @@ async function handleSave(): Promise<void> {
               </ElFormItem>
               <ElFormItem v-if="selectedField.type === 'select'" label="选项">
                 <div class="w-full">
-                  <ElInput v-model="optionsText" type="textarea" :rows="4" placeholder="每行一个选项" />
+                  <ElInput
+                    v-model="optionsText"
+                    type="textarea"
+                    :rows="4"
+                    placeholder="每行一个选项"
+                  />
                 </div>
               </ElFormItem>
             </ElForm>
@@ -292,7 +303,9 @@ async function handleSave(): Promise<void> {
 
     <!-- Schema 预览弹窗 -->
     <ElDialog v-model="schemaVisible" title="JSON Schema 预览" width="600px">
-      <pre class="max-h-96 overflow-auto rounded border bg-gray-50 p-3 text-xs">{{ schemaText }}</pre>
+      <pre class="max-h-96 overflow-auto rounded border bg-gray-50 p-3 text-xs">{{
+        schemaText
+      }}</pre>
       <template #footer>
         <ElButton type="primary" @click="schemaVisible = false">关闭</ElButton>
       </template>

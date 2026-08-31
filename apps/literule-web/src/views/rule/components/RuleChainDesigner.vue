@@ -16,14 +16,21 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect, ElSlider, ElTooltip } from 'element-plus';
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+ */
 import {
-  type ChainEdgeDTO,
-  type ChainNodeDTO,
-  type RuleChainGraph,
-} from '#/api/models';
+  ElButton,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElSelect,
+  ElSlider,
+  ElTooltip,
+} from 'element-plus';
+import { computed, nextTick, ref, watch } from 'vue';
+import { type ChainEdgeDTO, type ChainNodeDTO, type RuleChainGraph } from '#/api/models';
 import { dryRunGraph, getChainGraph, saveChainGraph, validateChainGraph } from '#/api/ruleGraph';
 
 interface Props {
@@ -117,7 +124,7 @@ const canvasStyle = computed(() => ({
 }));
 
 /** 打开弹窗 */
-async function open(): Promise<void> {
+async function openEditor(): Promise<void> {
   visible.value = true;
   await nextTick();
   await loadGraph();
@@ -240,9 +247,7 @@ function addNode(nodeType: string): void {
 /** 删除节点 */
 function deleteNode(nodeId: string): void {
   nodes.value = nodes.value.filter((n) => n.nodeId !== nodeId);
-  edges.value = edges.value.filter(
-    (e) => e.sourceNodeId !== nodeId && e.targetNodeId !== nodeId,
-  );
+  edges.value = edges.value.filter((e) => e.sourceNodeId !== nodeId && e.targetNodeId !== nodeId);
   if (selectedNode.value?.nodeId === nodeId) {
     selectedNode.value = null;
   }
@@ -341,6 +346,10 @@ watch(visible, (isOpen) => {
     });
   }
 });
+
+defineExpose({
+  openEditor,
+});
 </script>
 
 <template>
@@ -356,9 +365,13 @@ watch(visible, (isOpen) => {
       <!-- 工具栏 -->
       <div class="toolbar">
         <div class="toolbar-left">
-          <ElButton size="small" type="primary" @click="handleSave" :loading="saving">保存</ElButton>
+          <ElButton size="small" type="primary" @click="handleSave" :loading="saving"
+            >保存</ElButton
+          >
           <ElButton size="small" @click="handleValidate">验证</ElButton>
-          <ElButton size="small" type="success" @click="handleDryRun" :loading="dryRunning">试运行</ElButton>
+          <ElButton size="small" type="success" @click="handleDryRun" :loading="dryRunning"
+            >试运行</ElButton
+          >
         </div>
         <div class="toolbar-center">
           <span class="text-xs text-gray-500">添加节点：</span>
@@ -402,7 +415,14 @@ watch(visible, (isOpen) => {
               @click="deleteEdge(edge)"
             />
             <defs>
-              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <marker
+                id="arrowhead"
+                markerWidth="10"
+                markerHeight="7"
+                refX="9"
+                refY="3.5"
+                orient="auto"
+              >
                 <polygon points="0 0, 10 3.5, 0 7" fill="#909399" />
               </marker>
             </defs>
@@ -414,7 +434,7 @@ watch(visible, (isOpen) => {
             :key="node.nodeId"
             class="chain-node"
             :class="{
-              'selected': selectedNode?.nodeId === node.nodeId,
+              selected: selectedNode?.nodeId === node.nodeId,
               'connecting-target': isConnecting && connectStart !== node.nodeId,
             }"
             :style="{
@@ -427,7 +447,10 @@ watch(visible, (isOpen) => {
             @mousedown="handleNodeMouseDown($event, node)"
             @click.stop="finishConnect(node.nodeId ?? '')"
           >
-            <div class="node-header" :style="{ backgroundColor: nodeTypeColors[node.nodeType ?? 'RULE'] }">
+            <div
+              class="node-header"
+              :style="{ backgroundColor: nodeTypeColors[node.nodeType ?? 'RULE'] }"
+            >
               <span class="node-label">{{ node.label ?? node.nodeType }}</span>
             </div>
             <div class="node-body">
@@ -441,7 +464,12 @@ watch(visible, (isOpen) => {
                 </ElButton>
               </ElTooltip>
               <ElTooltip content="删除" placement="top">
-                <ElButton size="small" circle type="danger" @click.stop="deleteNode(node.nodeId ?? '')">
+                <ElButton
+                  size="small"
+                  circle
+                  type="danger"
+                  @click.stop="deleteNode(node.nodeId ?? '')"
+                >
                   <span class="text-xs">×</span>
                 </ElButton>
               </ElTooltip>
@@ -584,7 +612,9 @@ watch(visible, (isOpen) => {
 }
 
 .chain-node.selected {
-  box-shadow: 0 0 0 2px #409eff, 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 0 0 2px #409eff,
+    0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .chain-node.connecting-target {

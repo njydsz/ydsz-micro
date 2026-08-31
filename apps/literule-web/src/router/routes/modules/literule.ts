@@ -73,7 +73,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'AuditLogManagement',
         path: 'log',
-        component: () => import('#/views/auditLog/index.vue'),
+        component: () => import('#/views/audit-log/index.vue'),
         meta: { icon: 'lucide:file-text', title: '审计日志' },
       },
     ],

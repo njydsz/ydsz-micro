@@ -9,7 +9,7 @@ import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { YDSZScrollbar } from '@YDSZ-core/shadcn-ui';
+import { type YDSZScrollbar } from '@YDSZ-core/shadcn-ui';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -59,10 +59,7 @@ export function useTabsViewScroll(props: TabsProps) {
     };
   }
 
-  function scrollDirection(
-    direction: 'left' | 'right',
-    distance: number = 150,
-  ) {
+  function scrollDirection(direction: 'left' | 'right', distance: number = 150) {
     const { scrollbarWidth, scrollViewWidth } = getScrollClientWidth();
 
     if (!scrollbarWidth || !scrollViewWidth) return;
@@ -71,10 +68,7 @@ export function useTabsViewScroll(props: TabsProps) {
 
     scrollViewportEl.value?.scrollBy({
       behavior: 'smooth',
-      left:
-        direction === 'left'
-          ? -(scrollbarWidth - distance)
-          : +(scrollbarWidth - distance),
+      left: direction === 'left' ? -(scrollbarWidth - distance) : +(scrollbarWidth - distance),
     });
   }
 
@@ -86,9 +80,7 @@ export function useTabsViewScroll(props: TabsProps) {
       return;
     }
 
-    const viewportEl = scrollbarEl?.querySelector(
-      'div[data-radix-scroll-area-viewport]',
-    );
+    const viewportEl = scrollbarEl?.querySelector('div[data-radix-scroll-area-viewport]');
 
     scrollViewportEl.value = viewportEl;
     calcShowScrollbarButton();
@@ -110,9 +102,7 @@ export function useTabsViewScroll(props: TabsProps) {
     mutationObserver?.disconnect();
     // 使用 MutationObserver 仅监听子节点数量变化
     mutationObserver = new MutationObserver(() => {
-      const count = viewportEl.querySelectorAll(
-        `div[data-tab-item="true"]`,
-      ).length;
+      const count = viewportEl.querySelectorAll(`div[data-tab-item="true"]`).length;
 
       if (count > tabItemCount) {
         scrollToActiveIntoView();
@@ -161,8 +151,7 @@ export function useTabsViewScroll(props: TabsProps) {
 
     const { scrollbarWidth } = getScrollClientWidth();
 
-    showScrollButton.value =
-      scrollViewportEl.value.scrollWidth > scrollbarWidth;
+    showScrollButton.value = scrollViewportEl.value.scrollWidth > scrollbarWidth;
   }
 
   const handleScrollAt = useDebounceFn(({ left, right }) => {

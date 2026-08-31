@@ -15,7 +15,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { ElMessage, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
@@ -44,7 +44,7 @@ const NODE_STATUS_MAP: Record<string, { label: string; color: string; bgColor: s
 };
 
 /** 当前节点ID */
-const currentNodeId = computed(() => props.instance?.currentNodeId ?? '');
+const _currentNodeId = computed(() => props.instance?.currentNodeId ?? '');
 
 /** 流程图SVG内容（模拟） */
 const diagramSvg = computed(() => {
@@ -126,11 +126,15 @@ async function loadDiagram(): Promise<void> {
   }
 }
 
-watch(() => props.instance, (val) => {
-  if (val) {
-    loadDiagram();
-  }
-}, { immediate: true });
+watch(
+  () => props.instance,
+  (val) => {
+    if (val) {
+      loadDiagram();
+    }
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   if (props.instance) {

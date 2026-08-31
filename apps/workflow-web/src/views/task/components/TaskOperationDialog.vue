@@ -14,9 +14,21 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElRadioButton, ElRadioGroup, ElSelect, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import {
+  ElButton,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElRadioButton,
+  ElRadioGroup,
+  ElSelect,
+  ElTabPane,
+  ElTabs,
+} from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { communicate, freeJump, jump, saveDraft } from '#/api/flowTask';
 import type { FlowRunTaskVO, FlowTaskOperateDTO } from '#/api/models';
@@ -186,7 +198,12 @@ function handleSubmit(): void {
             </ElRadioGroup>
           </ElFormItem>
           <ElFormItem v-if="jumpForm.mode === 'designated'" label="目标节点">
-            <ElSelect v-model="jumpForm.targetNodeCode" placeholder="选择目标节点" filterable class="w-full">
+            <ElSelect
+              v-model="jumpForm.targetNodeCode"
+              placeholder="选择目标节点"
+              filterable
+              class="w-full"
+            >
               <ElOption
                 v-for="node in jumpableNodes"
                 :key="node.nodeCode"

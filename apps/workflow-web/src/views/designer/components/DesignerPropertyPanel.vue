@@ -14,7 +14,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { computed, reactive, watch } from 'vue';
 import {
   ElForm,
@@ -29,7 +29,6 @@ import {
 } from 'element-plus';
 import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
-import { $t } from '#/locales';
 
 interface Props {
   /** 当前选中的节点 ID */
@@ -81,9 +80,7 @@ const isAiAgentNode = computed(() => props.nodeType === DesignerNodeType.AI_AGEN
 
 /** 是否为审批节点（含 AI Agent） */
 const isApproveNode = computed(
-  () =>
-    props.nodeType === DesignerNodeType.APPROVE ||
-    props.nodeType === DesignerNodeType.AI_AGENT,
+  () => props.nodeType === DesignerNodeType.APPROVE || props.nodeType === DesignerNodeType.AI_AGENT,
 );
 
 /** 监听节点配置变化，同步到本地表单 */
@@ -233,12 +230,7 @@ function handleFormChange() {
             </ElSelect>
           </ElFormItem>
           <ElFormItem label="最大重试">
-            <ElInputNumber
-              v-model="form.retryMax"
-              :min="0"
-              :max="5"
-              @change="handleFormChange"
-            />
+            <ElInputNumber v-model="form.retryMax" :min="0" :max="5" @change="handleFormChange" />
           </ElFormItem>
           <ElFormItem label="超时(ms)">
             <ElInputNumber
@@ -289,10 +281,7 @@ function handleFormChange() {
       <ElTabPane v-if="isApproveNode" label="催办">
         <ElForm :model="form" label-width="80px" size="small">
           <ElFormItem label="启用催办">
-            <ElSwitch
-              v-model="form.urgeEnabled"
-              @change="handleFormChange"
-            />
+            <ElSwitch v-model="form.urgeEnabled" @change="handleFormChange" />
           </ElFormItem>
           <ElFormItem label="催办通道">
             <ElSelect

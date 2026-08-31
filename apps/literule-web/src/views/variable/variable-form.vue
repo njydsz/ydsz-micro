@@ -64,21 +64,33 @@ const [Modal, modalApi] = useYDSZModal({
     }
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
       await save(formData);
       ElMessage.success(isEdit.value ? '更新成功' : '创建成功');
       emit('success');
       modalApi.close();
-    } finally { modalApi.unlock(); }
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 const title = computed(() => (isEdit.value ? '编辑规则变量' : '新增规则变量'));
 </script>
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="变量名称" prop="name">
         <ElInput v-model="formData.name" placeholder="请输入变量名称" :disabled="isEdit" />
       </ElFormItem>
@@ -89,7 +101,12 @@ const title = computed(() => (isEdit.value ? '编辑规则变量' : '新增规�
         <ElInput v-model="formData.category" placeholder="请输入分类" />
       </ElFormItem>
       <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+        <ElInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          placeholder="请输入描述"
+        />
       </ElFormItem>
       <ElFormItem label="必填">
         <ElSwitch v-model="formData.required" />

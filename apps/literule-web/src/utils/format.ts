@@ -45,8 +45,7 @@ export function toRecordList(data: unknown): Record<string, unknown>[] {
     return [];
   }
   return data.filter(
-    (item): item is Record<string, unknown> =>
-      typeof item === 'object' && item !== null,
+    (item): item is Record<string, unknown> => typeof item === 'object' && item !== null,
   );
 }
 
@@ -59,9 +58,7 @@ export function toRecordList(data: unknown): Record<string, unknown>[] {
  * @returns 对象形式的 Record；非法输入返回空对象
  */
 export function toRecord(value: unknown): Record<string, unknown> {
-  return typeof value === 'object' && value !== null
-    ? (value as Record<string, unknown>)
-    : {};
+  return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
 }
 
 /**

@@ -46,7 +46,9 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.enabled === 1 ? 'success' : 'info' }, () => (row.enabled === 1 ? '启用' : '停用')),
+          h(ElTag, { type: row.enabled === 1 ? 'success' : 'info' }, () =>
+            row.enabled === 1 ? '启用' : '停用',
+          ),
       },
     },
     {
@@ -55,7 +57,9 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.dndEnabled === 1 ? 'warning' : 'info' }, () => (row.dndEnabled === 1 ? '开启' : '关闭')),
+          h(ElTag, { type: row.dndEnabled === 1 ? 'warning' : 'info' }, () =>
+            row.dndEnabled === 1 ? '开启' : '关闭',
+          ),
       },
     },
     { field: 'dndStart', title: '免打扰开始', width: 110 },
@@ -68,7 +72,11 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 'DISABLED' ? 'info' : 'success' }, () => row.status ?? '-'),
+          h(
+            ElTag,
+            { type: row.status === 'DISABLED' ? 'info' : 'success' },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },
@@ -80,8 +88,16 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -103,14 +119,20 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'channel', title: '通道', itemRender: { name: 'Input', props: { placeholder: '通道' } } },
+      {
+        field: 'channel',
+        title: '通道',
+        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+      },
     ],
   },
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [PreferenceFormModal, preferenceFormApi] = useYDSZModal({ connectedComponent: PreferenceForm });
+const [PreferenceFormModal, preferenceFormApi] = useYDSZModal({
+  connectedComponent: PreferenceForm,
+});
 
 function handleAdd() {
   preferenceFormApi.open();

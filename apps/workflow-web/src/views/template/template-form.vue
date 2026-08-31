@@ -51,7 +51,10 @@ const [Modal, modalApi] = useYDSZModal({
     }
     modalApi.lock();
     try {
-      await importTemplate({ templateCode: formData.templateCode }, { flowName: formData.flowName || undefined });
+      await importTemplate(
+        { templateCode: formData.templateCode },
+        { flowName: formData.flowName || undefined },
+      );
       ElMessage.success('导入成功');
       emit('success');
       modalApi.close();
@@ -64,7 +67,13 @@ const [Modal, modalApi] = useYDSZModal({
 
 <template>
   <Modal title="模板导入">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="模板编码" prop="templateCode">
         <ElInput v-model="formData.templateCode" placeholder="请输入后端模板库中的模板编码" />
       </ElFormItem>
@@ -72,7 +81,7 @@ const [Modal, modalApi] = useYDSZModal({
         <ElInput v-model="formData.flowName" placeholder="导入后的流程名称（可选）" />
       </ElFormItem>
       <ElFormItem label="说明">
-        <div class="text-xs text-gray-400 leading-relaxed">
+        <div class="text-xs leading-relaxed text-gray-400">
           填写模板编码后将调用后端模板导入接口，
           <br />把模板库中的指定模板导入为可发起流程的流程定义。
         </div>

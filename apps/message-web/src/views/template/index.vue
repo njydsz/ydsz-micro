@@ -20,7 +20,17 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDialog, ElDrawer, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import {
+  ElButton,
+  ElDialog,
+  ElDrawer,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElMessageBox,
+  ElTag,
+} from 'element-plus';
 import { h, reactive, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -66,7 +76,11 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 'DISABLED' ? 'info' : 'success' }, () => row.status ?? '-'),
+          h(
+            ElTag,
+            { type: row.status === 'DISABLED' ? 'info' : 'success' },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },
@@ -78,12 +92,36 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleVersion(row) }, () => '版本'),
-            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handlePreview(row) }, () => '预览'),
-            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleTestSend(row) }, () => '测试'),
-            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleAudit(row) }, () => '审核'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleVersion(row) },
+              () => '版本',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'success', onClick: () => handlePreview(row) },
+              () => '预览',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'warning', onClick: () => handleTestSend(row) },
+              () => '测试',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'warning', onClick: () => handleAudit(row) },
+              () => '审核',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -102,9 +140,21 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'templateCode', title: '模板编码', itemRender: { name: 'Input', props: { placeholder: '模板编码' } } },
-      { field: 'channel', title: '通道', itemRender: { name: 'Input', props: { placeholder: '通道' } } },
-      { field: 'auditStatus', title: '审核状态', itemRender: { name: 'Input', props: { placeholder: '审核状态' } } },
+      {
+        field: 'templateCode',
+        title: '模板编码',
+        itemRender: { name: 'Input', props: { placeholder: '模板编码' } },
+      },
+      {
+        field: 'channel',
+        title: '通道',
+        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+      },
+      {
+        field: 'auditStatus',
+        title: '审核状态',
+        itemRender: { name: 'Input', props: { placeholder: '审核状态' } },
+      },
     ],
   },
 };
@@ -129,10 +179,7 @@ async function handleAudit(row: MsgTemplateVO) {
       type: 'warning',
       inputPlaceholder: '审核备注',
     });
-    await audit(
-      { id: row.id },
-      { auditStatus: 'APPROVED', auditRemark: remark ?? undefined },
-    );
+    await audit({ id: row.id }, { auditStatus: 'APPROVED', auditRemark: remark ?? undefined });
     ElMessage.success('审核通过');
     gridApi.query();
   } catch {
@@ -143,7 +190,9 @@ async function handleAudit(row: MsgTemplateVO) {
 async function handleDelete(row: MsgTemplateVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除模板「${row.templateCode}」吗？`, '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(`确定删除模板「${row.templateCode}」吗？`, '删除确认', {
+      type: 'warning',
+    });
     await deleteApi({ id: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
@@ -177,7 +226,9 @@ async function handleVersion(row: MsgTemplateVO) {
 async function handleRollback(version: MsgTemplateVersion) {
   if (!version.version) return;
   try {
-    await ElMessageBox.confirm(`确定回滚到版本 ${version.version} 吗？`, '回滚确认', { type: 'warning' });
+    await ElMessageBox.confirm(`确定回滚到版本 ${version.version} 吗？`, '回滚确认', {
+      type: 'warning',
+    });
     await rollback({ templateCode: currentTemplateCode.value, version: version.version });
     ElMessage.success('回滚成功');
     await handleVersion({ templateCode: currentTemplateCode.value });
@@ -214,7 +265,7 @@ const testSendVisible = ref(false);
 const testSendForm = reactive({ receiver: '', variables: '' });
 
 /** 打开测试发送 */
-function handleTestSend(row: MsgTemplateVO) {
+function handleTestSend(_row: MsgTemplateVO) {
   testSendForm.receiver = '';
   testSendForm.variables = '';
   testSendVisible.value = true;
@@ -250,7 +301,9 @@ async function executeTestSend(): Promise<void> {
     <!-- 版本管理抽屉 -->
     <ElDrawer v-model="versionVisible" title="版本管理" :size="640">
       <div v-loading="versionLoading">
-        <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">暂无版本记录</div>
+        <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">
+          暂无版本记录
+        </div>
         <div
           v-for="version in versionList"
           :key="version.version"
@@ -259,7 +312,9 @@ async function executeTestSend(): Promise<void> {
           <div>
             <p class="text-sm font-medium">版本 {{ version.version }}</p>
             <p class="text-xs text-gray-500">{{ version.createdAt }}</p>
-            <p v-if="version.changeLog" class="mt-1 text-xs text-gray-600">{{ version.changeLog }}</p>
+            <p v-if="version.changeLog" class="mt-1 text-xs text-gray-600">
+              {{ version.changeLog }}
+            </p>
           </div>
           <ElButton size="small" type="warning" @click="handleRollback(version)">回滚</ElButton>
         </div>
@@ -268,7 +323,9 @@ async function executeTestSend(): Promise<void> {
     <!-- 预览弹窗 -->
     <ElDialog v-model="previewVisible" title="模板预览" width="600px">
       <div v-loading="previewLoading" class="min-h-32">
-        <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-4 text-sm">{{ previewContent }}</pre>
+        <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-4 text-sm">{{
+          previewContent
+        }}</pre>
       </div>
     </ElDialog>
     <!-- 测试发送弹窗 -->
@@ -278,7 +335,12 @@ async function executeTestSend(): Promise<void> {
           <ElInput v-model="testSendForm.receiver" placeholder="请输入接收人邮箱/手机号" />
         </ElFormItem>
         <ElFormItem label="变量">
-          <ElInput v-model="testSendForm.variables" placeholder="请输入变量JSON（选填）" type="textarea" :rows="3" />
+          <ElInput
+            v-model="testSendForm.variables"
+            placeholder="请输入变量JSON（选填）"
+            type="textarea"
+            :rows="3"
+          />
         </ElFormItem>
       </ElForm>
       <template #footer>

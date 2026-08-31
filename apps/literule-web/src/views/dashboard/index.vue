@@ -34,7 +34,15 @@ import type {
   RuleDashboardTopRuleVO,
   RuleDashboardTrendVO,
 } from '#/api/models';
-import { distribution, hotRules, overview, realtime, slowRules, topRules, trends } from '#/api/ruleDashboard';
+import {
+  distribution,
+  hotRules,
+  overview,
+  realtime,
+  slowRules,
+  topRules,
+  trends,
+} from '#/api/ruleDashboard';
 
 defineOptions({ name: 'RuleDashboard' });
 

@@ -117,7 +117,13 @@ const [Modal, modalApi] = useYDSZModal({
 </script>
 <template>
   <Modal title="发送通知">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="接收者" prop="receiverListText">
         <ElInput
           v-model="formData.receiverListText"

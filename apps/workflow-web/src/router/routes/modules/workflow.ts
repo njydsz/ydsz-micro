@@ -93,7 +93,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'QuickCommentManagement',
         path: 'quick-comment',
-        component: () => import('#/views/quickComment/index.vue'),
+        component: () => import('#/views/quick-comment/index.vue'),
         meta: { icon: 'lucide:message-square', title: '快捷评语' },
       },
     ],

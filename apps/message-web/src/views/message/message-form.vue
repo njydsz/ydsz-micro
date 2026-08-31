@@ -17,7 +17,16 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import {
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElSelect,
+} from 'element-plus';
 import { reactive, ref } from 'vue';
 
 import { send } from '#/api/message';
@@ -109,7 +118,13 @@ const [Modal, modalApi] = useYDSZModal({
 </script>
 <template>
   <Modal title="发送消息">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <ElForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <ElFormItem label="发送策略" prop="strategy">
         <ElRadioGroup v-model="formData.strategy">
           <ElRadio value="SYNC">同步</ElRadio>

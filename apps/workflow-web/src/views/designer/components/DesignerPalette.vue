@@ -14,7 +14,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { ref } from 'vue';
 import type { PaletteItem } from '../types';
 import { DesignerNodeType } from '../types';

@@ -85,7 +85,11 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) =>
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleProgress(row) }, () => '进度'),
+          h(
+            ElButton,
+            { size: 'small', link: true, type: 'primary', onClick: () => handleProgress(row) },
+            () => '进度',
+          ),
       },
     },
   ],
@@ -105,7 +109,11 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'batchName', title: '批次名称', itemRender: { name: 'Input', props: { placeholder: '批次名称' } } },
+      {
+        field: 'batchName',
+        title: '批次名称',
+        itemRender: { name: 'Input', props: { placeholder: '批次名称' } },
+      },
     ],
   },
 };
@@ -243,10 +251,19 @@ onBeforeUnmount(() => {
         <div class="flex w-full items-center justify-between pr-2">
           <span>批次进度</span>
           <span class="flex items-center gap-2">
-            <ElTag :type="sseState === 'live' ? 'success' : sseState === 'error' ? 'danger' : 'info'" size="small">
+            <ElTag
+              :type="sseState === 'live' ? 'success' : sseState === 'error' ? 'danger' : 'info'"
+              size="small"
+            >
               {{ sseStateText[sseState] }}
             </ElTag>
-            <ElButton size="small" link type="primary" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
+            <ElButton
+              size="small"
+              link
+              type="primary"
+              :disabled="!subscribedBatchId"
+              @click="refreshProgressSnapshot"
+            >
               刷新快照
             </ElButton>
           </span>
@@ -254,14 +271,22 @@ onBeforeUnmount(() => {
       </template>
       <ElDescriptions v-if="progressData" :column="1" border size="small">
         <ElDescriptionsItem label="批次ID">{{ progressData.batchId ?? '-' }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="批次名称">{{ progressData.batchName ?? '-' }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="批次名称">{{
+          progressData.batchName ?? '-'
+        }}</ElDescriptionsItem>
         <ElDescriptionsItem label="通道">{{ progressData.channel ?? '-' }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="模板编码">{{ progressData.templateCode ?? '-' }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="模板编码">{{
+          progressData.templateCode ?? '-'
+        }}</ElDescriptionsItem>
         <ElDescriptionsItem label="状态">{{ progressData.status ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem label="进度">
           <ElProgress
             :percentage="Math.min(100, Number(progressData.progressPercent ?? 0))"
-            :status="Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status) ? 'success' : undefined"
+            :status="
+              Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status)
+                ? 'success'
+                : undefined
+            "
             :stroke-width="12"
             class="w-56"
           />
@@ -271,9 +296,15 @@ onBeforeUnmount(() => {
         <ElDescriptionsItem label="成功">{{ progressData.success ?? 0 }}</ElDescriptionsItem>
         <ElDescriptionsItem label="失败">{{ progressData.failed ?? 0 }}</ElDescriptionsItem>
         <ElDescriptionsItem label="跳过">{{ progressData.skipped ?? 0 }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="错误信息">{{ progressData.errorMessage ?? '-' }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="开始时间">{{ progressData.startedAt ?? '-' }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="完成时间">{{ progressData.completedAt ?? '-' }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="错误信息">{{
+          progressData.errorMessage ?? '-'
+        }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="开始时间">{{
+          progressData.startedAt ?? '-'
+        }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="完成时间">{{
+          progressData.completedAt ?? '-'
+        }}</ElDescriptionsItem>
       </ElDescriptions>
     </ElDrawer>
   </Page>

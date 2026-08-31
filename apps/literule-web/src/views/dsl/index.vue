@@ -56,7 +56,9 @@ function handlePreview() {
 <template>
   <Page auto-content-height>
     <div class="flex h-full flex-col gap-3 p-4">
-      <span class="text-sm text-gray-500">输入 DSL 内容，可执行校验 / 解析 / 预览操作（支持语法高亮与自动补全）：</span>
+      <span class="text-sm text-gray-500"
+        >输入 DSL 内容，可执行校验 / 解析 / 预览操作（支持语法高亮与自动补全）：</span
+      >
       <div class="min-h-0 flex-1">
         <DslEditor v-model="dslText" placeholder="请输入 DSL 内容…" />
       </div>
@@ -69,7 +71,9 @@ function handlePreview() {
         <span class="text-sm text-gray-500">结果：</span>
         <ElTag v-if="actionLabel" size="small" type="info">{{ actionLabel }}</ElTag>
       </div>
-      <pre class="min-h-0 max-h-60 flex-1 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{ resultText }}</pre>
+      <pre
+        class="max-h-60 min-h-0 flex-1 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
+        >{{ resultText }}</pre>
     </div>
   </Page>
 </template>

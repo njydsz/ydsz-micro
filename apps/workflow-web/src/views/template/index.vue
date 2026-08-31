@@ -58,14 +58,33 @@ const gridOptions: VxeGridProps<TemplateRow> = {
     { field: 'status', title: '状态', width: 80 },
     { field: 'updatedAt', title: '更新时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 220, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 220,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleImport(row) }, () => '导入'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleClone(row) }, () => '克隆'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleNewVersion(row) }, () => '新建版本'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => openVersions(row) }, () => '版本'),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleImport(row) },
+              () => '导入',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleClone(row) },
+              () => '克隆',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleNewVersion(row) },
+              () => '新建版本',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => openVersions(row) },
+              () => '版本',
+            ),
           ]),
       },
     },
@@ -77,7 +96,8 @@ const gridOptions: VxeGridProps<TemplateRow> = {
       // listTemplates() 为全量非分页接口：直接返回全部条目，total 取条目数
       query: async (_params, formValues) => {
         const values = (formValues ?? {}) as TemplateRow;
-        const items = (await listTemplates({ category: str(values, 'category') || undefined })) ?? [];
+        const items =
+          (await listTemplates({ category: str(values, 'category') || undefined })) ?? [];
         return { items, total: items.length };
       },
     },
@@ -86,7 +106,11 @@ const gridOptions: VxeGridProps<TemplateRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'category', title: '分类', itemRender: { name: 'Input', props: { placeholder: '分类' } } },
+      {
+        field: 'category',
+        title: '分类',
+        itemRender: { name: 'Input', props: { placeholder: '分类' } },
+      },
     ],
   },
 };
@@ -109,10 +133,14 @@ async function handleImport(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
   try {
-    const { value: flowName } = await ElMessageBox.prompt('请输入导入后的流程名称（可选）', '导入模板', {
-      inputPlaceholder: 'flowName',
-      inputValidator: (value) => (value ? true : '流程名称不能为空'),
-    });
+    const { value: flowName } = await ElMessageBox.prompt(
+      '请输入导入后的流程名称（可选）',
+      '导入模板',
+      {
+        inputPlaceholder: 'flowName',
+        inputValidator: (value) => (value ? true : '流程名称不能为空'),
+      },
+    );
     await importTemplate({ templateCode }, { flowName });
     ElMessage.success('导入成功');
     gridApi.query();
@@ -143,9 +171,13 @@ async function handleNewVersion(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
   try {
-    const { value: versionLabel } = await ElMessageBox.prompt('请输入版本标签（可选）', '新建版本', {
-      inputPlaceholder: 'versionLabel（如 v2.0）',
-    });
+    const { value: versionLabel } = await ElMessageBox.prompt(
+      '请输入版本标签（可选）',
+      '新建版本',
+      {
+        inputPlaceholder: 'versionLabel（如 v2.0）',
+      },
+    );
     await createNewVersion({ templateCode }, { versionLabel: versionLabel || undefined });
     ElMessage.success('已创建新版本');
     gridApi.query();
@@ -174,7 +206,8 @@ async function loadVersions() {
   if (!currentTemplateCode.value) return;
   versionsLoading.value = true;
   try {
-    versionRows.value = (await listTemplateVersions({ templateCode: currentTemplateCode.value })) ?? [];
+    versionRows.value =
+      (await listTemplateVersions({ templateCode: currentTemplateCode.value })) ?? [];
   } finally {
     versionsLoading.value = false;
   }
@@ -190,9 +223,13 @@ async function handleVersionDetail(versionItem: TemplateRow) {
   }
   try {
     const detail = await getTemplateVersion({ templateCode: currentTemplateCode.value, version });
-    ElMessageBox.alert(`<pre class="text-left text-xs max-h-64 overflow-auto">${JSON.stringify(detail, null, 2)}</pre>`, `版本详情 ${version}`, {
-      dangerouslyUseHTMLString: true,
-    });
+    ElMessageBox.alert(
+      `<pre class="text-left text-xs max-h-64 overflow-auto">${JSON.stringify(detail, null, 2)}</pre>`,
+      `版本详情 ${version}`,
+      {
+        dangerouslyUseHTMLString: true,
+      },
+    );
   } catch {
     // 请求失败提示由拦截器统一处理
   }
@@ -218,7 +255,13 @@ async function handleVersionDetail(versionItem: TemplateRow) {
         <ElTableColumn prop="updatedAt" label="更新时间" width="170" />
         <ElTableColumn label="操作" width="90" fixed="right">
           <template #default="{ row }">
-            <ElButton link type="primary" size="small" @click="handleVersionDetail(row as TemplateRow)">查看</ElButton>
+            <ElButton
+              link
+              type="primary"
+              size="small"
+              @click="handleVersionDetail(row as TemplateRow)"
+              >查看</ElButton
+            >
           </template>
         </ElTableColumn>
       </ElTable>

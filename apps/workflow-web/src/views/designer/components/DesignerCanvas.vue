@@ -14,13 +14,27 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { LogicFlow } from '@logicflow/core';
+ */
 import '@logicflow/core/dist/style/index.css';
+import { LogicFlow } from '@logicflow/core';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { register } from '@logicflow/core';
+
 import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
+
+/**
+ * LogicFlow 图节点结构（裁剪业务所需的最小字段集）
+ */
+interface LfGraphNode {
+  id: string;
+  isSelected: boolean;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  type?: string;
+  text?: string;
+}
 
 interface Props {
   /** 流程定义 ID */
@@ -184,7 +198,12 @@ function registerCustomNodes() {
       // 非标准 API 收窄：LogicFlow 基类方法签名使用 any，覆写时保持兼容
       initNodeData(data: Record<string, unknown>) {
         super.initNodeData(data as Record<string, unknown>);
-        this.points = [[50, 0], [100, 50], [50, 100], [0, 50]];
+        this.points = [
+          [50, 0],
+          [100, 50],
+          [50, 100],
+          [0, 50],
+        ];
       }
       getNodeStyle() {
         return {
@@ -302,11 +321,14 @@ function addNode(type: DesignerNodeType, x: number, y: number, text: string) {
   });
 }
 
-watch(() => props.locked, (locked) => {
-  if (lf) {
-    lf.options.isSilentMode = locked;
-  }
-});
+watch(
+  () => props.locked,
+  (locked) => {
+    if (lf) {
+      lf.options.isSilentMode = locked;
+    }
+  },
+);
 
 // ==================== 缩放操作 ====================
 
@@ -336,17 +358,22 @@ function zoomReset() {
 // ==================== 对齐操作 ====================
 
 /** 获取选中的节点 */
-function getSelectedNodes(): Array<{ id: string; x: number; y: number; width: number; height: number }> {
+function getSelectedNodes(): Array<{
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}> {
   if (!lf) return [];
-  const selectedIds = lf.graphModel.nodes
-    .filter((n: any) => n.isSelected)
-    .map((n: any) => n.id);
+  const nodes = lf.graphModel.nodes as unknown as LfGraphNode[];
+  const selectedIds = nodes.filter((n) => n.isSelected).map((n) => n.id);
   if (selectedIds.length < 2) return [];
 
   return selectedIds.map((id: string) => {
-    const node = lf!.graphModel.nodes.find((n: any) => n.id === id);
-    const { x, y, width, height } = node || {};
-    return { id, x: x || 0, y: y || 0, width: width || 100, height: height || 50 };
+    const node = (lf!.graphModel.nodes as unknown as LfGraphNode[]).find((n) => n.id === id);
+    const { x, y, width, height } = node ?? {};
+    return { id, x: x ?? 0, y: y ?? 0, width: width ?? 100, height: height ?? 50 };
   });
 }
 
