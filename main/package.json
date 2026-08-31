@@ -22,9 +22,7 @@
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
-    "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "preview": "vite preview"
   },
   "imports": {
     "#/*": "./src/*"
@@ -61,8 +59,6 @@
   },
   "devDependencies": {
     "@babel/core": "^8.0.1",
-    "happy-dom": "catalog:",
-    "unplugin-element-plus": "catalog:",
-    "vitest": "catalog:"
+    "unplugin-element-plus": "catalog:"
   }
 }

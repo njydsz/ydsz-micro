@@ -16,8 +16,6 @@ deploy
 bash/turbo-run
 bash/vsh
 bash/clean.mjs
-vitest.config.ts
-vitest.workspace.ts
 cspell.json
 stylelint.config.mjs
 lefthook.yml

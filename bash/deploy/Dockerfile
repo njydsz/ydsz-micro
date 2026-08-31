@@ -12,7 +12,7 @@ WORKDIR /app
 
 # Copy workspace files
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* turbo.json ./
-COPY cspell.json eslint.config.mjs lefthook.yml stylelint.config.mjs vitest.config.ts vitest.workspace.ts ./
+COPY cspell.json eslint.config.mjs lefthook.yml stylelint.config.mjs ./
 
 # Copy conf/ and comm/ (shared packages)
 COPY conf/ ./conf/

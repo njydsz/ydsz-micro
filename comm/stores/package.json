@@ -19,10 +19,6 @@
       "default": "./src/index.ts"
     }
   },
-  "scripts": {
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
-  },
   "dependencies": {
     "@YDSZ-core/preferences": "workspace:*",
     "@YDSZ-core/shared": "workspace:*",
@@ -33,9 +29,5 @@
     "vue": "catalog:",
     "vue-router": "catalog:"
   },
-  "devDependencies": {
-    "@vitest/coverage-v8": "catalog:",
-    "happy-dom": "catalog:",
-    "vitest": "catalog:"
-  }
+  "devDependencies": {}
 }

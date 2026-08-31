@@ -16,10 +16,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        "dist/**",
-        "dist.zip"
-      ]
+      "outputs": ["dist/**", "dist.zip"]
     },
     "preview": {
       "dependsOn": ["^build"],
@@ -34,10 +31,6 @@
       "outputs": [],
       "cache": false,
       "persistent": true
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
     },
     "type-check": {
       "dependsOn": ["^build"],

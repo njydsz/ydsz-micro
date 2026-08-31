@@ -8,10 +8,7 @@
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
     "dev:standalone": "cross-env VITE_STANDALONE=true vite --mode development --port 5701 --open /",
-    "preview": "vite preview",
-    "test": "vitest run --config vitest.config.ts",
-    "test:watch": "vitest --config vitest.config.ts",
-    "test:coverage": "vitest run --config vitest.config.ts --coverage"
+    "preview": "vite preview"
   },
   "imports": {
     "#/*": "./src/*"
@@ -42,10 +39,7 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "catalog:",
-    "happy-dom": "catalog:",
-    "unplugin-element-plus": "catalog:",
-    "vitest": "catalog:"
+    "unplugin-element-plus": "catalog:"
   },
   "license": "MIT"
 }

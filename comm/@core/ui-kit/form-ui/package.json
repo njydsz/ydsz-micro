@@ -12,9 +12,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm unbuild",
-    "prepublishOnly": "npm run build",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
@@ -51,9 +49,5 @@
     "zod": "catalog:",
     "zod-defaults": "catalog:"
   },
-  "devDependencies": {
-    "@vitest/coverage-v8": "catalog:",
-    "happy-dom": "catalog:",
-    "vitest": "catalog:"
-  }
+  "devDependencies": {}
 }
