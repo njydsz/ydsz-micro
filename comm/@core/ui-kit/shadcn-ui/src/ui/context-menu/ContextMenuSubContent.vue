@@ -1,5 +1,8 @@
 <!--
- * ContextMenuSubContent Vue 组件
+ * 子菜单内容浮层：定义子菜单展开后的面板外观。
+ *
+ * 内容类型复用 DropdownMenuSubContent 的 props：两者的内容区配置完全一致，
+ * 共用一份类型可避免两边各自漂移。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuSubContent.vue
  * @author ydsz-team

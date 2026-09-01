@@ -1,5 +1,7 @@
 <!--
- * Dialog Vue 组件
+ * 对话框根容器：包装 radix DialogRoot，持有对话框的开关状态。
+ *
+ * 支持 v-model:open 受控；不传时由 radix 内部维护非受控状态。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\Dialog.vue
  * @author ydsz-team

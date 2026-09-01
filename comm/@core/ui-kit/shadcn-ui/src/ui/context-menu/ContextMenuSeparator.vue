@@ -1,5 +1,8 @@
 <!--
- * ContextMenuSeparator Vue 组件
+ * 右键菜单分隔线：在菜单项之间绘制视觉分组线。
+ *
+ * 纯装饰元素，对辅助技术不可见；语义分组应通过 ContextMenuGroup 表达，
+ * 不要用它替代分组。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuSeparator.vue
  * @author ydsz-team

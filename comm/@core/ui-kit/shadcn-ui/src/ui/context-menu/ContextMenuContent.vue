@@ -1,5 +1,7 @@
 <!--
- * ContextMenuContent Vue 组件
+ * 右键菜单内容浮层：包装 radix ContextMenuContent，定义浮层的定位与外观。
+ *
+ * 浮层以 Portal 形式挂到 body，避免被父级 overflow 裁剪或受祖先 z-index 影响。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuContent.vue
  * @author ydsz-team

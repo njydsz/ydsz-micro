@@ -18,7 +18,11 @@ import {
   generateMockHandlers,
   createCrudHandlers,
 } from '@ydsz/mock-service';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import spec from '../api/sdk/openapi.json';
+
+/** 模块级日志器 */
+const logger = createLogger('MessageMock');
 
 /** 消息通道枚举（与后端 ChannelEnum 对齐） */
 const CHANNELS = ['EMAIL', 'SMS', 'IN_APP', 'WEBHOOK'] as const;
@@ -131,5 +135,5 @@ export async function initMessageMockServer(): Promise<void> {
     onUnhandledRequest: 'bypass',
   });
 
-  console.info('[Message Mock] MSW Server 已启动，共 %d 个处理器', allHandlers.length);
+  logger.info(`MSW Server 已启动，共 ${allHandlers.length} 个处理器`);
 }

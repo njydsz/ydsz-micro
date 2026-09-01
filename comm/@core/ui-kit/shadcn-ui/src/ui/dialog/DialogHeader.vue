@@ -1,5 +1,7 @@
 <!--
- * DialogHeader Vue 组件
+ * 对话框头部区：排布标题与描述。
+ *
+ * 窄屏居中、宽屏左对齐：移动端标题居中更符合阅读习惯，宽屏左对齐与正文基线一致。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogHeader.vue
  * @author ydsz-team

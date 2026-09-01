@@ -11,6 +11,7 @@
  */
 import type { FeatureFlagDef, FeatureFlagsOptions } from './types';
 
+import { createApiFeatureLoader } from './remote-loader';
 import { featureFlagsManager } from './feature-flags';
 import { useAllFeatureFlags, useFeatureFlag } from './use-feature-flag';
 
@@ -34,12 +35,18 @@ async function initFeatureFlags(options: FeatureFlagsOptions = {}): Promise<void
 }
 
 export {
+  createApiFeatureLoader,
   defineFeatureFlags,
   featureFlagsManager,
   initFeatureFlags,
   useAllFeatureFlags,
   useFeatureFlag,
 };
+export type {
+  CreateApiFeatureLoaderOptions,
+  FeatureFlagApiResponse,
+  FeatureFlagRemoteConfig,
+} from './remote-loader';
 export type {
   FeatureFlagDef,
   FeatureFlagsChangeListener,

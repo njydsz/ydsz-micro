@@ -1,5 +1,8 @@
 <!--
- * ContextMenuLabel Vue 组件
+ * 右键菜单分组标题：为一组菜单项提供说明性标题。
+ *
+ * 纯展示元素、不可聚焦，因此不参与键盘导航序列；
+ * 需要可点击的标题请改用 ContextMenuItem。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuLabel.vue
  * @author ydsz-team

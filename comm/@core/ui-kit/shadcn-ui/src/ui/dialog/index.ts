@@ -1,5 +1,8 @@
 /**
- * index 模块
+ * 对话框族的出口：导出根容器、触发器、内容区、标题描述与底部区。
+ *
+ * 同时提供 DialogContent 与 DialogScrollContent 两种内容区，按内容是否超高选用；
+ * 两者共用其余部件。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\index.ts
  * @author ydsz-team

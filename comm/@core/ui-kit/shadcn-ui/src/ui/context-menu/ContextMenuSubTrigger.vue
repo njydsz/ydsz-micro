@@ -1,5 +1,7 @@
 <!--
- * ContextMenuSubTrigger Vue 组件
+ * 子菜单触发器：渲染带展开指示的菜单项，悬停或右方向键展开子菜单。
+ *
+ * 展开与收起的延迟由 radix 处理，避免鼠标斜向移动时误收起子菜单。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuSubTrigger.vue
  * @author ydsz-team

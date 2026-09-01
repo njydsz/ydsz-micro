@@ -1,5 +1,9 @@
 <!--
- * DialogScrollContent Vue 组件
+ * 可滚动对话框内容区：内容超高时内部滚动，而不是让整页滚动。
+ *
+ * 额外开放 zIndex（默认 1000）：对话框常与其它浮层（抽屉、下拉）叠加，
+ * 固定值无法适配不同宿主应用的层级规划，故留出覆盖入口。
+ * 与 DialogContent 的区别仅在于滚动策略，标题与关闭按钮内置于内容区内。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogScrollContent.vue
  * @author ydsz-team

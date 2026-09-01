@@ -1,5 +1,8 @@
 <!--
- * ContextMenuShortcut Vue 组件
+ * 右键菜单快捷键提示：右对齐展示组合键文案。
+ *
+ * 只做展示，不绑定键盘事件 —— 实际快捷键需由调用方自行注册，
+ * 否则会出现「显示了快捷键但按下去没反应」。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuShortcut.vue
  * @author ydsz-team

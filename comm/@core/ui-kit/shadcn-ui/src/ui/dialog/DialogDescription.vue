@@ -1,5 +1,8 @@
 <!--
- * DialogDescription Vue 组件
+ * 对话框描述：为对话框提供补充说明，并关联到无障碍描述。
+ *
+ * 会被 radix 用作 aria-describedby 的目标，建议始终提供；缺省时读屏只播报标题，
+ * 用户不清楚该对话框要做什么。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogDescription.vue
  * @author ydsz-team

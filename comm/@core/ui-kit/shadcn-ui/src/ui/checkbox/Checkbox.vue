@@ -1,5 +1,10 @@
 <!--
- * Checkbox Vue 组件
+ * 复选框：包装 radix CheckboxRoot，并补充 indeterminate 半选态与自定义指示器。
+ *
+ * 半选态用于「全选」这类表达「子项部分选中」的场景，原生 checkbox 只能通过脚本
+ * 设置且各浏览器表现不一，这里统一为受控属性。
+ * props 中的 class 会被剥离后再转发给 radix：若原样透传，radix 会再套一份原始
+ * class，与经 cn 合并后的结果重复，tailwind-merge 也就失去了消解冲突的机会。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\checkbox\Checkbox.vue
  * @author ydsz-team

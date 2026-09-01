@@ -1,5 +1,8 @@
 /**
- * index 模块
+ * 右键菜单族的出口：导出根容器、触发器、内容区与全部菜单项子组件。
+ *
+ * 整族导出是因为右键菜单必须由这些部件组合而成，缺一不可；
+ * 子组件不单独对外开放，避免出现半成品用法。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\index.ts
  * @author ydsz-team

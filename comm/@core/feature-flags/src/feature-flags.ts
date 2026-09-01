@@ -16,7 +16,6 @@
  */
 import type {
   FeatureFlagDef,
-  FeatureFlagValue,
   FeatureFlagsChangeListener,
   FeatureFlagsOptions,
 } from './types';
@@ -24,6 +23,7 @@ import type {
 import { reactive, readonly } from 'vue';
 
 import { StorageManager } from '@YDSZ-core/shared/cache';
+import { createApiFeatureLoader } from './remote-loader';
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 const logger = createLogger('feature-flags');

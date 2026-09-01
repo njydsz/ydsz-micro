@@ -1,5 +1,8 @@
 <!--
- * DropdownMenuCheckboxItem Vue 组件
+ * 下拉菜单的勾选菜单项：用于可切换的开关型操作。
+ *
+ * 勾选状态由 radix 以 menuitemcheckbox 语义维护，读屏会播报选中与否；
+ * 包装层仅统一标记位置与高亮样式。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\DropdownMenuCheckboxItem.vue
  * @author ydsz-team

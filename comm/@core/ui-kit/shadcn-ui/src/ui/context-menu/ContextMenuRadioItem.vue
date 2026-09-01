@@ -1,5 +1,8 @@
 <!--
- * ContextMenuRadioItem Vue 组件
+ * 右键菜单单选项：在单选组内表示互斥选项之一。
+ *
+ * 必须置于 ContextMenuRadioGroup 内使用，否则拿不到互斥上下文，
+ * 会退化为普通菜单项。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuRadioItem.vue
  * @author ydsz-team

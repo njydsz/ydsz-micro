@@ -1,5 +1,8 @@
 /**
- * types 模块
+ * 按钮的变体类型：由 cva 配置推导的 variant 与 size 取值联合类型。
+ *
+ * 类型从 cva 配置反推而非手写，保证新增变体时类型自动跟随，
+ * 不会出现「样式已支持但类型不认」的错配。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\types.ts
  * @author ydsz-team

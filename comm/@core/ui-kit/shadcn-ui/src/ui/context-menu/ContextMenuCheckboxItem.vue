@@ -1,5 +1,8 @@
 <!--
- * ContextMenuCheckboxItem Vue 组件
+ * 右键菜单的勾选菜单项：带勾选标记的菜单项。
+ *
+ * 用于可切换的开关型操作，menuitemcheckbox 语义由 radix 保证，
+ * 读屏会播报选中状态；包装层只负责勾选标记的位置与高亮样式。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\ContextMenuCheckboxItem.vue
  * @author ydsz-team

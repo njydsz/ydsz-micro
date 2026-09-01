@@ -1,5 +1,7 @@
 <!--
- * DropdownMenuRadioItem Vue 组件
+ * 下拉菜单单选项：在单选组内表示互斥选项之一。
+ *
+ * 必须置于 DropdownMenuRadioGroup 内，否则拿不到互斥上下文，会退化为普通项。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\DropdownMenuRadioItem.vue
  * @author ydsz-team

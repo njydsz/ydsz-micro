@@ -1,5 +1,8 @@
 <!--
- * CardContent Vue 组件
+ * 卡片内容区：承载正文的容器。
+ *
+ * 上内边距置 0（p-6 pt-0）是因为它通常紧跟在 CardHeader 之后，
+ * 由 Header 已有的下间距提供分隔，避免两处间距叠加。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\CardContent.vue
  * @author ydsz-team

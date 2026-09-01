@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 复选框的出口：导出 Checkbox。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\checkbox\index.ts
  * @author ydsz-team

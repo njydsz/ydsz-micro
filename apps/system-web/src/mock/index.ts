@@ -16,7 +16,11 @@ import {
   generateMockHandlers,
   createCrudHandlers,
 } from '@ydsz/mock-service';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import spec from '../api/sdk/openapi.json';
+
+/** 模块级日志器 */
+const logger = createLogger('SystemMock');
 
 /**
  * 初始化 System Web Mock Server
@@ -120,5 +124,5 @@ export async function initSystemMockServer(): Promise<void> {
     onUnhandledRequest: 'bypass',
   });
 
-  console.info('[System Mock] MSW Server 已启动，共 %d 个处理器', allHandlers.length);
+  logger.info(`MSW Server 已启动，共 ${allHandlers.length} 个处理器`);
 }

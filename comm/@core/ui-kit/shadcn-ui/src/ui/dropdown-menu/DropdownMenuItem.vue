@@ -1,5 +1,8 @@
 <!--
- * DropdownMenuItem Vue 组件
+ * 下拉菜单项：包装 radix DropdownMenuItem，补充 inset 对齐选项。
+ *
+ * inset 用于与带图标或勾选标记的项保持左对齐；这些标记占用固定前置宽度，
+ * 混排时未开启 inset 的项会显得缩进不足。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\DropdownMenuItem.vue
  * @author ydsz-team

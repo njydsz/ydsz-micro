@@ -1,5 +1,8 @@
 <!--
- * DialogTitle Vue 组件
+ * 对话框标题：作为无障碍标题关联到对话框本体。
+ *
+ * 会被 radix 用作 aria-labelledby 的目标，缺失会导致对话框对读屏「无标题」，
+ * 因此建议始终渲染（需要隐藏可用 sr-only 类）。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogTitle.vue
  * @author ydsz-team

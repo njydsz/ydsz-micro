@@ -1,5 +1,8 @@
 <!--
- * DropdownMenuSub Vue 组件
+ * 下拉子菜单容器：包装 radix DropdownMenuSub，持有子菜单的展开状态。
+ *
+ * 与根容器分离是因为子菜单的展开方向、延迟与键盘进出规则不同，
+ * 共用一套配置会互相干扰。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\DropdownMenuSub.vue
  * @author ydsz-team

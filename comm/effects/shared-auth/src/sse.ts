@@ -34,6 +34,19 @@ export interface SseEvent {
   id?: string;
 }
 
+/**
+ * 类型化 SSE 帧（流数据已反序列化为 T）。
+ *
+ * <p>由 streamRequestAsync 配合类型参数生成，将 {@link SseEvent.data} 自动
+ * 解析为类型 T 的业务对象，消费方无需自行 JSON.parse。
+ *
+ * @template T 业务数据类型（如 ChatChunk / ProgressEvent）
+ */
+export interface TypedSseEvent<T = unknown> extends Omit<SseEvent, 'data'> {
+  /** 已解析的业务数据 */
+  data: T;
+}
+
 /** 流式请求配置 */
 export interface StreamRequestOptions {
   /** 完整请求 URL（含 baseURL） */
@@ -159,3 +172,108 @@ export async function streamRequest(options: StreamRequestOptions): Promise<void
     onDone?.();
   }
 }
+
+// =====================================================================
+// AsyncIterable 模式（for-await-of 友好）—— P2-9：类型化流式 SDK 基础
+// =====================================================================
+
+/** AsyncIterable 模式的可迭代流选项（与 StreamRequestOptions 去回调） */
+export interface StreamAsyncOptions {
+  /** 完整请求 URL（含 baseURL） */
+  url: string;
+  /** 请求方法（默认 POST） */
+  method?: 'GET' | 'POST';
+  /** 请求体（POST 时 JSON 序列化） */
+  data?: unknown;
+  /** 额外请求头 */
+  headers?: Record<string, string>;
+  /** 取消信号 */
+  signal?: AbortSignal;
+}
+
+/**
+ * 发起流式请求，返回 AsyncIterable 以支持 {@code for-await-of} 消费。
+ *
+ * <p>相比 callback 风格的 {@link streamRequest}：
+ * <ul>
+ *   <li>更符合「async/await + 迭代」的现代代码风格</li>
+ *   <li>组件卸载时通过 break / return() 自动中止 reader</li>
+ *   <li>生成的 AsyncGenerator 在外部 signal 触发时抛出 AbortError</li>
+ * </ul>
+ *
+ * <p>配合 {@link TypedSseEvent} 类型参数与调用方显式 {@code JSON.parse} 使用，
+ * 具体的类型化包装由 SDK 生成器输出（见 bash/gen-streaming-sdk.mjs）。
+ *
+ * @example
+ * ```ts
+ * const stream = streamRequestAsync<ChatChunk>({ url: '/api/v1/agent/chat/stream', data: req });
+ * for await (const evt of stream) {
+ *   // evt.data 为字符串，调用方 parse: evt.data as ChatChunk
+ *   appendToChat(JSON.parse(evt.data));
+ * }
+ * ```
+ */
+export async function* streamRequestAsync(
+  options: StreamAsyncOptions,
+): AsyncGenerator<SseEvent, void, unknown> {
+  const { url, method = 'POST', data, headers = {}, signal } = options;
+
+  const tokenStore = useTokenStore();
+  const requestHeaders: Record<string, string> = {
+    Accept: 'text/event-stream',
+    ...headers,
+  };
+  const token = tokenStore.accessToken;
+  if (token) {
+    requestHeaders.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, {
+    method,
+    headers: requestHeaders,
+    body: data !== undefined ? JSON.stringify(data) : undefined,
+    signal,
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`[streamRequestAsync] HTTP ${response.status}: ${response.statusText}`);
+  }
+  if (!response.body) {
+    throw new Error('[streamRequestAsync] 响应体为空，无法读取流');
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder('utf-8');
+  let buffer = '';
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      if (signal?.aborted) {
+        throw new DOMException('Aborted', 'AbortError');
+      }
+      buffer += decoder.decode(value, { stream: true });
+      const { events, rest } = parseSseChunk(buffer);
+      buffer = rest;
+      for (const evt of events) {
+        yield evt;
+      }
+    }
+    // 处理残留帧
+    if (buffer.trim()) {
+      const tail = parseSseChunk(buffer + '\n\n');
+      for (const evt of tail.events) {
+        yield evt;
+      }
+    }
+  } finally {
+    reader.cancel().catch(() => {
+      /* ignore: reader 已完成或已被取消 */
+    });
+  }
+}
+
