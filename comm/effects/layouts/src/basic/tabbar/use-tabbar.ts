@@ -1,5 +1,13 @@
 /**
- * use-tabbar 模块
+ * 多标签页（tabbar）的视图层逻辑：标签数据、激活态与右键菜单的组装。
+ *
+ * 分层上属于「渲染适配层」——真正的标签增删、固定、批量关闭等状态操作
+ * 都在 `useTabs` / `tabbarStore` 中，本模块只负责把 store 里的数据
+ * 翻译成组件可直接渲染的形态（主要是标题国际化）以及拼装右键菜单项。
+ *
+ * 之所以要经过 `currentTabs` 这一层本地副本而非直接用 store：
+ * 标签标题需要按当前语言翻译，若回写 store 会让 store 里同时存在
+ * 已翻译与未翻译两种文本，切换语言时无法还原。
  *
  * @path comm\effects\layouts\src\basic\tabbar\use-tabbar.ts
  * @author ydsz-team

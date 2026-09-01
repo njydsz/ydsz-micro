@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * Iconify 图标快捷导出 — 声明 MDI/RDI 常用的第三方品牌或功能图标组件。
  *
  * @path comm\icons\src\iconify\index.ts
  * @author ydsz-team

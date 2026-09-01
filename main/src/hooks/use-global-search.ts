@@ -1,16 +1,9 @@
 /**
- * 全局搜索 composable（v4.0）
+ * 全局搜索数据源管理 —— 提供搜索提供者注册、就绪事件广播与状态追踪（v4.0）
  *
- * 为全局搜索面板提供搜索数据源注册、收集、搜索接口。
- * 子应用可通过 registerSearchProvider 注册自己的搜索项。
+ * 子应用通过 registerSearchProvider 注册搜索项；搜索面板监听就绪事件更新状态栏。
  *
- * v4.0 P2-2: 搜索提供者就绪事件广播
- *   - registerSearchProvider 注册时广播 `YDSZ:search-provider-ready` 事件
- *   - removeSearchProvider 移除时广播 `YDSZ:search-provider-removed` 事件
- *   - 搜索面板可监听事件更新状态栏（"已加载 N 个数据源"）
- *   - 与 command-palette 的 `YDSZ:register-commands` 事件对齐
- *
- * @path main/src/hooks/use-global-search.ts
+ * @path main\src\hooks\use-global-search.ts
  * @author ydsz-team
  * @since 4.0.0
  */

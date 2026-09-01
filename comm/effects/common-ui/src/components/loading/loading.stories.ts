@@ -25,6 +25,13 @@ const meta: Meta<typeof Loading> = {
   },
 };
 
+/**
+ * Storybook 默认导出：Loading 组件的 story 集合元数据。
+ *
+ * 必须作为本模块的 default 导出，Storybook 依据 `title` 决定侧边栏层级
+ * （此处落到 `Common/Loading`），并依据 `component` 自动推断 props 表格。
+ * `tags: ['autodocs']` 让文档页自动生成，省去手写 Docs 页。
+ */
 export default meta;
 type Story = StoryObj<typeof Loading>;
 

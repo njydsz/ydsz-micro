@@ -6,7 +6,7 @@
  * （onOpen/onEvent/onClose/onError + abort 管理）进一步收敛至共享层
  * {@link openSseRequest}，本文件仅保留类型别名与 re-export，消除跨应用重复代码。
  *
- * @path apps/message-web/src/utils/sse-client.ts
+ * @path apps\message-web\src\utils\sse-client.ts
  * @author ydsz-team
  * @since 4.1.0
  */
@@ -15,6 +15,7 @@ import { openSseRequest, type SseLifecycleHandlers } from '@ydsz/shared-auth';
 /** SSE 事件回调集合 */
 export type SseEventHandlers = SseLifecycleHandlers;
 
+/** SSE 流式连接配置选项 */
 export interface SseStreamOptions {
   /** 断线续传标记（Last-Event-ID） */
   lastEventId?: string;

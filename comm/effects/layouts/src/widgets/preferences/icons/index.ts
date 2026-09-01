@@ -1,5 +1,5 @@
 /**
- * 应用偏好配置
+ * 偏好设置面板图标组件导出（布局模式、内容紧凑、导航模式示意图标）
  *
  * @path comm\effects\layouts\src\widgets\preferences\icons\index.ts
  * @author ydsz-team

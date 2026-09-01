@@ -1,5 +1,5 @@
 /**
- * types 模块
+ * 认证页组件公共类型声明（AuthenticationProps）
  *
  * @path comm\effects\common-ui\src\ui\authentication\types.ts
  * @author ydsz-team

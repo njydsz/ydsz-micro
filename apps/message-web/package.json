@@ -40,6 +40,7 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
+    "vite": "catalog:",
     "@faker-js/faker": "catalog:",
     "msw": "catalog:",
     "unplugin-element-plus": "catalog:"

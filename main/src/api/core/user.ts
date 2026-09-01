@@ -1,5 +1,5 @@
 /**
- * user API 接口定义
+ * 用户 API —— 获取当前登录用户信息接口定义
  *
  * @path main\src\api\core\user.ts
  * @author ydsz-team

@@ -1,5 +1,5 @@
 /**
- * 应用偏好配置
+ * 偏好配置统一导出入口，对外暴露管理器、初始化函数、类型与响应式状态。
  *
  * @path comm\@core\preferences\src\index.ts
  * @author ydsz-team

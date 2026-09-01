@@ -590,6 +590,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   apps/cronjob-web:
     dependencies:
@@ -666,6 +669,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   apps/literule-web:
     dependencies:
@@ -742,6 +748,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   apps/message-web:
     dependencies:
@@ -827,6 +836,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   apps/nextwiki-web:
     dependencies:
@@ -903,6 +915,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   apps/system-web:
     dependencies:
@@ -988,6 +1003,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   apps/userinfo-web:
     dependencies:
@@ -1064,6 +1082,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   apps/workflow-web:
     dependencies:
@@ -1146,6 +1167,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   bash/turbo-run:
     dependencies:
@@ -1455,6 +1479,10 @@ importers:
       '@YDSZ-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
+    devDependencies:
+      '@ydsz/tsconfig':
+        specifier: workspace:*
+        version: link:../../conf/tsconfig
 
   comm/effects/access:
     dependencies:
@@ -1648,6 +1676,9 @@ importers:
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
+      vue-i18n:
+        specifier: 'catalog:'
+        version: 11.4.8(vue@3.5.40(typescript@5.9.3))
     devDependencies:
       '@ydsz/tsconfig':
         specifier: workspace:*
@@ -1667,6 +1698,10 @@ importers:
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
+    devDependencies:
+      '@ydsz/tsconfig':
+        specifier: workspace:*
+        version: link:../../../conf/tsconfig
 
   comm/effects/mock-service:
     dependencies:
@@ -1694,6 +1729,10 @@ importers:
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
+    devDependencies:
+      '@ydsz/tsconfig':
+        specifier: workspace:*
+        version: link:../../../conf/tsconfig
 
   comm/effects/plugins:
     dependencies:
@@ -2294,6 +2333,9 @@ importers:
       unplugin-element-plus:
         specifier: 'catalog:'
         version: 0.10.0
+      vite:
+        specifier: 'catalog:'
+        version: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
 packages:
 

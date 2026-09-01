@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 工作台页面子组件导出（头部、项目、快捷导航、待办、动态）
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\index.ts
  * @author ydsz-team

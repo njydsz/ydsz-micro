@@ -11,7 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { BatchProgressVO, BatchSendRequestDTO, MsgBatchVO } from './models';
+import type { BatchProgressDTO, BatchSendRequestDTO, MsgBatchVO } from './models';
 
 /**
  * submitBatch: POST /api/v1/message/batch/send
@@ -23,13 +23,22 @@ export function submitBatch(data: BatchSendRequestDTO): Promise<MsgBatchVO> {
 /**
  * getProgress: GET /api/v1/message/batch/progress/{batchId}
  */
-export function getProgress({ batchId }: { batchId: string }): Promise<BatchProgressVO> {
-  return requestClient.get<BatchProgressVO>(`/api/v1/message/batch/progress/${batchId}`);
+export function getProgress({ batchId }: {
+    batchId: string;
+  }): Promise<BatchProgressDTO> {
+  return requestClient.get<BatchProgressDTO>(`/api/v1/message/batch/progress/${batchId}`);
 }
 
 /**
  * subscribeProgress: GET /api/v1/message/batch/progress/{batchId}/sse
+ *
+ * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
+ * 后端方法声明为 {@code SseEmitter}，响应结构未固定为具名 VO，
+ * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
+ * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function subscribeProgress({ batchId }: { batchId: string }): Promise<unknown> {
+export function subscribeProgress({ batchId }: {
+    batchId: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/message/batch/progress/${batchId}/sse`);
 }

@@ -90,7 +90,11 @@ export function createErrorBoundaryManager(): DisposableManager {
  */
 function getAutoRetryDelay(attempt: number): number {
   const base = 500;
+  // 抖动不可省：多个子应用常因同一次 CDN 抖动同时失败，
+  // 若退避时刻完全一致，重试请求会在同一毫秒集体回源，把刚恢复的 CDN 再次打挂
   const jitter = Math.random() * 200;
+  // 只做一次重试（MAX_AUTO_RETRIES = 1），因此 attempt 实际取值为 0，
+  // 指数形式是为后续调大上限预留，届时不需改本函数
   return base * 2 ** attempt + jitter;
 }
 

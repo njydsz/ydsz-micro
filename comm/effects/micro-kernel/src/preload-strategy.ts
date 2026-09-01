@@ -86,13 +86,15 @@ const logger = createLogger("PreloadManager");
  * 预加载管理器
  */
 export class PreloadManager {
-  private strategies: Map<string, PreloadStrategyOptions> = new Map();
-  private preloadCache: Set<string> = new Set();
-  private hoverListeners: Map<string, () => void> = new Map();
-  private visibilityListener: (() => void) | null = null;
-  private permissionChecker: PermissionChecker | null = null;
+  // 以下字段经 preload-manager-helpers 的 PreloadManagerLike 接口跨模块读写，
+  // 故声明为公开字段（单例包内部协作约定，非对外 API 承诺）。
+  strategies: Map<string, PreloadStrategyOptions> = new Map();
+  preloadCache: Set<string> = new Set();
+  hoverListeners: Map<string, () => void> = new Map();
+  visibilityListener: (() => void) | null = null;
+  permissionChecker: PermissionChecker | null = null;
   /** P1-2: 预加载命中率统计 */
-  private stats = {
+  stats = {
     preloadCount: 0,
     consumedCount: 0,
     wastedCount: 0,
@@ -102,7 +104,7 @@ export class PreloadManager {
       consumed: boolean;
     }>,
   };
-  private usageStore: UsageStatsStore;
+  usageStore: UsageStatsStore;
 
   constructor() {
     this.usageStore = new UsageStatsStore();
@@ -176,13 +178,19 @@ export class PreloadManager {
    * 触发预加载
    */
   async triggerPreload(appName: string): Promise<void> {
+    // 三道短路按开销从低到高排列：缓存查表 → 权限（可能打权限接口）→ 策略存在性。
+    // 缓存命中必须先判，否则重复触发会重复拉资源，预加载反而变成带宽负担
     if (this.preloadCache.has(appName)) return;
+    // 权限在真正拉资源前拦截：无权限的应用预加载成功也进不去，
+    // 白白占用带宽与内存，还会在 DevTools 里留下误导性的 wastedCount
     if (!this.hasPermission(appName)) {
       logger.debug(`Skipped preload ${appName} due to permission check`);
       return;
     }
     const strategy = this.strategies.get(appName);
     if (!strategy?.onPreload) return;
+    // 先记账再执行：即使 onPreload 抛错也已计入 preloadCount，
+    // 这样统计口径反映「触发量」而非「成功量」，wastedCount 才能暴露真实的浪费率
     recordPreloadTriggerHelper(this as unknown as PM, appName);
     await executePreloadHelper(this as unknown as PM, appName, strategy);
   }

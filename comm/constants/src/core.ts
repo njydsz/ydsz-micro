@@ -1,5 +1,13 @@
 /**
- * @zh_CN 登录页面 url 地址
+ * 业务常量定义 — 登录路径、支持语言列表及语言选项结构。
+ *
+ * @path comm\constants\src\core.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
+ * 登录页面路由地址。
  */
 export const LOGIN_PATH = '/auth/login';
 
@@ -18,7 +26,7 @@ export interface LanguageOption {
 }
 
 /**
- * Supported languages
+ * 支持的语言列表。
  */
 export const SUPPORT_LANGUAGES: LanguageOption[] = [
   {

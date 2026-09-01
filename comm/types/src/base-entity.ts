@@ -1,7 +1,11 @@
 /**
- * 后端基础实体类型 — 与 MpBaseEntity 对齐
+ * 后端基础实体类型定义 — 与 MpBaseEntity 对齐，提供通用审计字段与逻辑删除标记。
  *
  * 后端类：com.YDSZ.common.jdbc.entity.MpBaseEntity
+ *
+ * @path comm\types\src\base-entity.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 /** 基础实体字段（所有 DO 继承 MpBaseEntity） */

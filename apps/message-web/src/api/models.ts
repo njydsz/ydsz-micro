@@ -38,1129 +38,1437 @@ export interface PageQuery {
   pageSize?: number;
 }
 
+/**
+ * 批量发送请求 DTO。
+ *
+ * 支持两种接收人模式：
+ * 直接传入 `requests` 列表（每条含 receiver/params）
+ * 传入 `receiverList` 接收人列表 + 统一 `templateCode/params/channel`（引擎自动展开）
+ * 异步模式下立即返回 batchId，后台异步处理，前端通过 `/batch/{batchId`/progress} 查询进度。
+ */
 export interface BatchSendRequestDTO {
+  /** 批次 ID（业务侧生成；为空时引擎自动生成雪花 ID） */
   batchId?: string;
-
+  /** 批次名称 */
   batchName?: string;
-
+  /** 发送通道（receiverList 模式下必填） */
   channel?: string;
-
+  /** 模板编码（receiverList 模式下必填） */
   templateCode?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
-  params?: Record<string, unknown>;
-
+  /** 统一模板参数（receiverList 模式下使用，所有接收人共用） */
+  params?: Record<string, Record<string, unknown>>;
+  /** 接收人列表（receiverList 模式） */
   receiverList?: string[];
-
+  /** 是否异步发送（默认 true；false 时同步返回结果） */
   async?: boolean;
-
+  /** 触发发送的用户 ID */
   senderId?: string;
-
+  /** 直接传入的请求列表（requests 模式，优先于 receiverList） */
   requests?: MessageRequest[];
 }
 
+/**
+ * 消息发送请求 DTO（兼容旧 com.njydsz.common.feign.MessageRequest）。
+ *
+ * 封装消息发送所需的全部信息，支持多通道路由。
+ */
 export interface MessageRequest {
   serialVersionUID?: number;
-
+  /** 消息通道：INAPP / EMAIL / WEBHOOK / SMS */
   channel?: string;
-
+  /** 接收者标识（用户ID / 邮箱 / Webhook URL 等） */
   receiver?: string;
-
+  /** 消息主题 */
   subject?: string;
-
+  /** 消息内容 */
   content?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务单据 ID */
   bizId?: string;
-
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 消息 ID（业务侧生成，用于全链路追踪） */
   messageId?: string;
-
-  params?: Record<string, unknown>;
-
-  channelMeta?: Record<string, unknown>;
-
+  /** 附加参数（模板变量、Webhook 配置等） */
+  params?: Record<string, Record<string, unknown>>;
+  /** 通道元数据（signName、providerKey、attachments 等） */
+  channelMeta?: Record<string, string>;
+  /** 定时发送时间 */
   scheduledAt?: string;
-
+  /** 发送优先级（URGENT / HIGH / NORMAL / LOW） */
   priority?: string;
-
+  /** 父消息 ID（级联发送时使用） */
   parentMsgId?: string;
-
+  /** 级联子消息列表 */
   cascadeTo?: MessageRequest[];
-
+  /**
+   * 发送场景标识（可选，用于管线模板选择）。
+   * 可选值：simple / template / batch / callback / full。 为空时由 {@link
+   * com.njydsz.message.server.service.chain.SendPipelineFacade} 自动推断。
+   * 自动推断规则：
+   * 有 parentMsgId → callback（内部回调）
+   * 有 cascadeTo → batch（批量/级联）
+   * 有 templateCode → template（模板发送）
+   * 其他 → simple（简单直发）
+   */
   scenario?: string;
 }
 
+/**
+ * 消息日志分页查询 DTO
+ */
 export interface MessageLogQueryDTO {
+  /** 通道 */
   channel?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务单据 ID */
   bizId?: string;
-
+  /** 发送状态 */
   status?: string;
-
+  /** 接收人 */
   receiver?: string;
-
+  /** 发送优先级 */
   priority?: string;
-
+  /** 撤回状态 */
   recallStatus?: string;
-
+  /** P2-13: 全文搜索关键词（模糊匹配 content / receiver / templateCode） */
   keyword?: string;
-
+  /** P2-13: 消息分组（按业务分组筛选） */
   messageGroup?: string;
-
+  /** 消息业务 ID（精确匹配，用于幂等查重等场景） */
   msgId?: string;
-
+  /** 回执状态（精确匹配，用于统计查询） */
   receiptStatus?: string;
-
+  /** P2-13: 时间范围开始 */
   startTime?: string;
-
+  /** P2-13: 时间范围结束 */
   endTime?: string;
-
+  /** 定时消息调度时间结束（scheduledAt <= now） */
   scheduledAtEnd?: string;
-
+  /** 游标 ID（searchAfter 分页）：上一页最后一条记录的 ID */
   searchAfterId?: string;
-
+  /** 是否启用 searchAfter 游标分页（true 时优先使用游标分页，忽略 pageNum） */
   useSearchAfter?: boolean;
 }
 
+/**
+ * 消息发送 DTO — 统一发送端点 `POST /send` 的请求体。
+ *
+ * 通过 #strategy 字段区分发送模式，替代原有的多个独立发送端点：
+ * SYNC：同步发送，阻塞返回供应商结果
+ * DIRECT：直接发送，使用本模块 DTO 扩展字段
+ * ASYNC：异步发送，先落库 PENDING 再投递 MQ
+ * TRANSACTIONAL：事务消息，RocketMQ 半消息机制
+ * BATCH：批量发送，同步循环限制 100 条/批（需配合 #batchRequests + #batchId）
+ * 支持两种发送模式：
+ * 模板发送：指定 `templateCode` + `params`，由模板引擎渲染最终内容
+ * 直接发送：指定 `content` 直接发送原始内容（不走模板，适合动态内容场景）
+ * 发送后由 `MessageService` 统一走渠道路由 → 限流 → 发送 → 回执 → 重试 全链路。
+ */
 export interface MessageSendDTO {
-  /** 枚举 SendStrategyEnum */
+  /** 发送策略（SYNC / DIRECT / ASYNC / TRANSACTIONAL / BATCH） */
   strategy?: 'SYNC' | 'DIRECT' | 'ASYNC' | 'TRANSACTIONAL' | 'BATCH';
-
+  /** 通道 */
   channel?: string;
-
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 接收人 */
   receiver?: string;
-
-  params?: Record<string, unknown>;
-
+  /** 模板参数(用于占位符渲染) */
+  params?: Record<string, Record<string, unknown>>;
+  /** 直接发送的内容(不走模板) */
   content?: string;
-
+  /** 邮件主题(仅 EMAIL) */
   subject?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务单据 ID */
   bizId?: string;
-
+  /** 发送优先级 */
   priority?: string;
-
+  /** 消息唯一标识(用于幂等去重) */
   messageId?: string;
-
+  /** 触发发送的用户 ID */
   senderId?: string;
-
+  /** 聚合组 */
   messageGroup?: string;
-
+  /** 语言区域 */
   locale?: string;
-
+  /**
+   * 批量请求列表（仅 strategy=BATCH 时使用）。
+   * 单次最多 100 条，超出返回 400。
+   */
   batchRequests?: MessageRequest[];
-
+  /** 批次 ID（仅 strategy=BATCH 时使用，业务侧生成，用于进度查询）。 */
   batchId?: string;
 }
 
+/**
+ * P1-4: 消息反馈请求 DTO
+ */
 export interface MessageFeedbackDTO {
+  /** 消息 ID（关联 ydsz_msg_log.msg_id） */
   msgId?: string;
-
+  /** 站内通知 ID（可选） */
   notificationId?: string;
-
+  /** 用户 ID */
   userId?: string;
-
+  /** 评分: 1-5 分 */
   rating?: number;
-
+  /** 反馈类型 */
   feedbackType?: string;
-
+  /** 反馈内容 */
   content?: string;
 }
 
+/**
+ * 站内通知发送 DTO
+ */
 export interface NotificationSendDTO {
+  /** 接收人 ID(单发) */
   receiverId?: string;
-
+  /** 接收人 ID 列表(群发) */
   receiverIds?: string[];
-
+  /** 通知标题 */
   title?: string;
-
+  /** 通知内容 */
   content?: string;
-
+  /** 通知级别: INFO/WARN/ERROR/URGENT */
   level?: string;
-
+  /** 通知分类 */
   category?: string;
-
+  /** 发送优先级 */
   priority?: string;
-
+  /** 发送人 ID(系统通知为 SYSTEM) */
   senderId?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务单据 ID */
   bizId?: string;
-
+  /** 聚合组 */
   messageGroup?: string;
-
+  /** 点击跳转 URL */
   actionUrl?: string;
-
+  /** 跳转按钮文案 */
   actionText?: string;
-
+  /** 通知图标标识 */
   icon?: string;
-
+  /** 扩展字段 JSON */
   extra?: string;
-
+  /** 来源模块 */
   sourceModule?: string;
-
+  /** 过期时间 */
   expiredAt?: string;
 }
 
+/**
+ * 站内通知分页查询 DTO
+ */
 export interface NotificationQueryDTO {
+  /** 通知分类 */
   category?: string;
-
+  /** 通知级别 */
   level?: string;
-
+  /** 已读状态: 0 未读 / 1 已读 */
   readStatus?: number;
-
+  /** 接收人 ID */
   receiverId?: string;
-
+  /** 通知 ID 列表（批量查询） */
   ids?: string[];
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 消息分组 */
   messageGroup?: string;
-
+  /** 撤回状态 */
   recallStatus?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务 ID */
   bizId?: string;
 }
 
+/**
+ * 实时单播推送请求 DTO。
+ *
+ * 封装单播推送的全部参数（目标用户 ID + 消息类型 + 数据载荷）， 用于工作流待办数推送、任务分配通知等场景。
+ * P0-3-fix：新增 DTO 以支持 com.njydsz.common.feign.NotificationClient#pushRealtime 方法。
+ */
 export interface PushRealtimeRequestDTO {
   serialVersionUID?: number;
-
+  /** 目标用户 ID */
   userId?: string;
-
+  /** 推送消息类型（如 "TODO_COUNT"、"TASK_ASSIGNED"） */
   type?: string;
-
-  data?: Record<string, unknown>;
-
+  /** 推送数据载荷 */
+  data?: Record<string, Record<string, unknown>>;
+  /** 业务级消息唯一 ID（可选，用于幂等去重） */
   messageId?: string;
 }
 
+/**
+ * 广播推送请求 DTO。
+ *
+ * 封装广播推送的全部参数，替代原 `broadcast(String topic, RealtimePushDTO)` 的分离参数设计， 使接口符合 RESTful POST
+ * 语义（请求体自描述），并支持幂等去重。
+ * P0-3-fix：将 topic 并入请求体，返回 com.njydsz.common.socket.push.PushResult 使调用方可感知结果。
+ */
 export interface BroadcastRequestDTO {
   serialVersionUID?: number;
-
+  /**
+   * 广播主题（如 "ALERT"、"TASK"）。
+   * 用于前端订阅过滤，仅推送给订阅了该主题的连接。
+   */
   topic?: string;
-
-  data?: Record<string, unknown>;
-
+  /**
+   * 推送数据载荷。
+   * Map 结构，将被序列化为 JSON 发送到客户端。
+   */
+  data?: Record<string, Record<string, unknown>>;
+  /**
+   * 业务级消息唯一 ID（可选，用于幂等去重）。
+   * 非空时，消息中心基于此 ID 去重，避免重复广播。
+   */
   messageId?: string;
 }
 
+/**
+ * 用户消息偏好新增/更新 DTO
+ */
 export interface PreferenceUpsertDTO {
+  /** 用户 ID */
   userId?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 是否启用该通道: 0 关闭 / 1 开启 */
   enabled?: number;
-
+  /** 免打扰开关: 0 关闭 / 1 开启 */
   dndEnabled?: number;
-
+  /** 免打扰开始时间 HH:mm */
   dndStart?: string;
-
+  /** 免打扰结束时间 HH:mm */
   dndEnd?: string;
-
+  /** 每日发送上限 */
   dailyLimit?: number;
-
+  /** 每小时发送上限 */
   hourlyLimit?: number;
-
+  /** 聚合开关: 0 即时发送 / 1 聚合摘要 */
   digestEnabled?: number;
-
+  /** 聚合频率: HOURLY/DAILY/WEEKLY */
   digestFrequency?: string;
-
+  /** 偏好语言 */
   locale?: string;
-
+  /** 扩展字段 JSON */
   extra?: string;
 }
 
+/**
+ * 消息撤回请求 DTO
+ */
 export interface RecallRequestDTO {
+  /** 消息/通知 ID */
   id?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务单据 ID */
   bizId?: string;
-
+  /** 撤回范围: SINGLE 单条 / BATCH 批次 */
   recallScope?: string;
 }
 
+/**
+ * 服务商回执回调 DTO
+ */
 export interface ReceiptCallbackDTO {
+  /** 关联日志 ID */
   logId?: string;
-
+  /** 三方服务商回执 ID */
   providerTraceId?: string;
-
+  /** 回执类型: DELIVERED/READ/CLICKED/FAILED */
   receiptType?: string;
-
+  /** 供应商编码 */
   providerCode?: string;
-
+  /** 供应商消息 */
   providerMsg?: string;
-
+  /** 原始响应 JSON */
   rawResponse?: string;
 }
 
+/**
+ * 路由规则新增/更新 DTO
+ */
 export interface RouteRuleUpsertDTO {
+  /** 规则编码 */
   ruleCode?: string;
-
+  /** 规则名称 */
   ruleName?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 优先级(数值越小越优先) */
   priority?: number;
-
+  /** 路由条件(SpEL 表达式) */
   conditionExpr?: string;
-
+  /** 命中后目标通道 */
   targetChannel?: string;
-
+  /** 目标通道发送失败时降级通道 */
   fallbackChannel?: string;
-
+  /** 状态: ENABLED/DISABLED */
   status?: string;
-
+  /** 描述说明 */
   description?: string;
-
+  /** 排序序号 */
   sortOrder?: number;
 }
 
+/**
+ * 订阅关系新增/更新 DTO
+ */
 export interface SubscriptionUpsertDTO {
+  /** 用户 ID */
   userId?: string;
-
+  /** 主题编码 */
   topicCode?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 订阅状态: SUBSCRIBED/UNSUBSCRIBED */
   status?: string;
-
+  /** 角色范围 */
   roleScope?: string;
-
+  /** 扩展字段 JSON */
   extra?: string;
 }
 
+/**
+ * 模板创建/更新 DTO
+ */
 export interface TemplateCreateDTO {
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 语言区域 */
   locale?: string;
-
+  /** 语义版本 */
   version?: string;
-
+  /** 模板分类 */
   category?: string;
-
+  /** 场景编码 */
   sceneCode?: string;
-
+  /** 主题(EMAIL 专用) */
   subject?: string;
-
+  /** 模板内容 */
   content?: string;
-
+  /** 供应商 */
   provider?: string;
-
+  /** 供应商侧模板 ID */
   providerKey?: string;
-
+  /** 短信签名 */
   signName?: string;
-
+  /** 描述说明 */
   description?: string;
 }
 
+/**
+ * 模板分页查询 DTO
+ */
 export interface TemplateQueryDTO {
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 语言区域 */
   locale?: string;
-
+  /** 状态: ENABLED/DISABLED */
   status?: string;
-
+  /** 审核状态 */
   auditStatus?: string;
-
+  /** 模板分类 */
   category?: string;
-
+  /** 场景编码 */
   sceneCode?: string;
 }
 
+/**
+ * 模板审核 DTO
+ */
 export interface TemplateAuditDTO {
+  /** 模板 ID */
   id?: string;
-
+  /** 审核状态: DRAFT/AUDITING/APPROVED/REJECTED */
   auditStatus?: string;
-
+  /** 审核备注 */
   auditRemark?: string;
 }
 
+/**
+ * 模板预览请求 DTO。
+ *
+ * P1-6: 支持两种预览模式：
+ * 按 templateCode 加载已发布模板 + 传入 params 渲染预览
+ * 直接传入 content + params 渲染预览（草稿预览）
+ */
 export interface TemplatePreviewDTO {
+  /** 模板编码（二选一：templateCode 或 content） */
   templateCode?: string;
-
+  /** 模板内容（草稿预览时直接传入，不走模板查询） */
   content?: string;
-
+  /** 语言区域 */
   locale?: string;
-
-  params?: Record<string, unknown>;
+  /** 渲染参数 */
+  params?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 模板试发请求 DTO。
+ *
+ * 用于模板编辑后的真实发送验证，向测试接收人发送一条真实消息。
+ */
 export interface TemplateTestSendDTO {
   serialVersionUID?: number;
-
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 测试接收人（用户 ID 或手机号/邮箱等） */
   testReceiver?: string;
-
-  params?: Record<string, unknown>;
-
+  /** 模板变量参数 */
+  params?: Record<string, Record<string, unknown>>;
+  /** 测试通道（可选，未指定时使用模板默认通道） */
   testChannel?: string;
 }
 
+/**
+ * 退订记录分页查询 DTO（P1-5）。
+ *
+ * 用于管理后台分页查看已退订用户列表，支持按用户 / 主题 / 通道过滤， 仅返回 `status=UNSUBSCRIBED` 的记录。
+ */
 export interface UnsubscribeQueryDTO {
+  /** 用户 ID（精确匹配） */
   userId?: string;
-
+  /** 主题编码（精确匹配） */
   topicCode?: string;
-
+  /** 通道（精确匹配） */
   channel?: string;
-
+  /** 租户 ID（精确匹配） */
   tenantId?: string;
 }
 
+/**
+ * 用户通道绑定 DTO。
+ */
 export interface UserChannelBindingDTO {
+  /** 用户 ID */
   userId?: string;
-
+  /** 通道类型: SMS/EMAIL/PUSH/DINGTALK/WECOM/FEISHU 等 */
   channelType?: string;
-
+  /** 通道用户标识(手机号/邮箱/钉钉userId 等) */
   channelUserId?: string;
-
+  /** 是否已验证: 0 未验证 / 1 已验证 */
   verified?: number;
-
+  /** 是否主绑定: 0 否 / 1 是 */
   isPrimary?: number;
-
+  /** 扩展字段 JSON */
   extra?: string;
 }
 
+/**
+ * 聚合批次视图对象（VO）。
+ *
+ * 用于 Controller 层返回消息聚合发送的完整信息，将同一接收人同一通道的 多条消息聚合为一条摘要消息发送，减少打扰并提升信息密度。
+ */
 export interface MsgAggregateVO {
   serialVersionUID?: number;
-
+  /** 聚合记录唯一标识（主键） */
   id?: string;
-
+  /** 聚合分组键 */
   aggregateGroup?: string;
-
+  /** 接收人 */
   receiver?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 批次状态（PENDING/SENDING/SENT/FAILED） */
   batchStatus?: string;
-
+  /** 聚合消息数 */
   messageCount?: number;
-
+  /** 首条消息时间 */
   firstMessageAt?: string;
-
+  /** 末条消息时间 */
   lastMessageAt?: string;
-
+  /** 计划发送时间 */
   scheduledSendAt?: string;
-
+  /** 实际发送时间 */
   sentAt?: string;
-
+  /** 摘要内容 */
   digestContent?: string;
-
+  /** 状态（ACTIVE/EXPIRED/SENT） */
   status?: string;
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 消息发送批次视图对象（VO）。
+ *
+ * 用于 Controller 层返回批量发送的进度和统计信息，包含总条数、成功/失败/跳过数、 批次状态及时间线，支撑批量发送运维监控。
+ */
 export interface MsgBatchVO {
   serialVersionUID?: number;
-
+  /** 批次记录唯一标识（主键） */
   id?: string;
-
+  /** 批次 ID（业务唯一） */
   batchId?: string;
-
+  /** 批次名称 */
   batchName?: string;
-
+  /** 发送通道 */
   channel?: string;
-
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 总条数 */
   total?: number;
-
+  /** 成功条数 */
   success?: number;
-
+  /** 失败条数 */
   failed?: number;
-
+  /** 跳过条数（去重/限流/免打扰） */
   skipped?: number;
-
+  /** 批次状态（PENDING/RUNNING/COMPLETED/FAILED/CANCELLED） */
   status?: string;
-
+  /** 受众来源（MANUAL/TAG/DEPT/FILE） */
   audienceSource?: string;
-
+  /** 错误信息 */
   errorMessage?: string;
-
+  /** 开始发送时间 */
   startedAt?: string;
-
+  /** 完成发送时间 */
   completedAt?: string;
-
+  /** 发送人 ID */
   senderId?: string;
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 请求列表 JSON（断点续传） */
   payload?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
-export interface BatchProgressVO {
+/**
+ * 批次发送进度 VO。
+ */
+export interface BatchProgressDTO {
+  /** 批次 ID */
   batchId?: string;
-
+  /** 批次名称 */
   batchName?: string;
-
+  /** 发送通道 */
   channel?: string;
-
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 总数 */
   total?: number;
-
+  /** 成功数 */
   success?: number;
-
+  /** 失败数 */
   failed?: number;
-
+  /** 跳过数 */
   skipped?: number;
-
+  /** 已处理数（success + failed + skipped） */
   processed?: number;
-
+  /** 进度百分比（0-100） */
   progressPercent?: number;
-
+  /** 批次状态: PENDING / PROCESSING / COMPLETED / FAILED */
   status?: string;
-
+  /** 错误信息 */
   errorMessage?: string;
-
+  /** 开始处理时间 */
   startedAt?: string;
-
+  /** 完成时间 */
   completedAt?: string;
-
+  /** 创建时间 */
   createdAt?: string;
 }
 
+/**
+ * 消息发送日志视图对象（VO）。
+ *
+ * 用于 Controller 层返回消息发送日志的完整信息，包含通道、模板、发送状态、 重试信息、灰度标记、回执状态及成本等，支撑消息全链路追踪与运维排查。
+ */
 export interface MsgLogVO {
   serialVersionUID?: number;
-
+  /** 日志唯一标识（主键） */
   id?: string;
-
+  /** 发送通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE） */
   channel?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务 ID */
   bizId?: string;
-
+  /** 接收人标识（手机号/邮箱/openid） */
   receiver?: string;
-
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 模板参数 JSON */
   templateParams?: string;
-
+  /** 实际发送内容 */
   content?: string;
-
+  /** 发送状态（PENDING/SENDING/SUCCESS/FAILED/SKIPPED） */
   status?: string;
-
+  /** 错误信息 */
   errorMessage?: string;
-
+  /** 优先级（LOW/NORMAL/HIGH/URGENT） */
   priority?: string;
-
+  /** 发送人 ID */
   senderId?: string;
-
+  /** 消息分组 */
   messageGroup?: string;
-
+  /** 批次 ID */
   batchId?: string;
-
+  /** 路由规则 ID */
   routeRuleId?: string;
-
+  /** 灰度标记（0=主版本，1=灰度版本） */
   canary?: number;
-
+  /** 灰度分桶键 */
   canaryKey?: string;
-
+  /** 去重键 */
   dedupKey?: string;
-
+  /** 撤回状态 */
   recallStatus?: string;
-
+  /** 撤回时间 */
   recallAt?: string;
-
+  /** 回执状态（PENDING/DELIVERED/READ/FAILED） */
   receiptStatus?: string;
-
+  /** 回执时间 */
   receiptAt?: string;
-
+  /** 重试次数 */
   retryCount?: number;
-
+  /** 下次重试时间 */
   nextRetryAt?: string;
-
+  /** 供应商追踪 ID */
   providerTraceId?: string;
-
+  /** 发送耗时（毫秒） */
   costMs?: number;
-
+  /** 发送成本（元） */
   cost?: number;
-
+  /** 链路追踪 ID */
   traceId?: string;
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 消息 ID */
   msgId?: string;
-
+  /** MQ Topic */
   topic?: string;
-
+  /** MQ 重消费次数 */
   reconsumeTimes?: number;
-
+  /** 父消息 ID（聚合/拆分场景） */
   parentMsgId?: string;
-
+  /** 计划发送时间 */
   scheduledAt?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 消息发送结果 DTO（兼容旧 com.njydsz.common.feign.MessageResult）。
+ *
+ * 错误消息分层：
+ * #userMessage — 用户友好消息，走 i18n 解析，前端直接展示
+ * #developerMessage — 开发者调试信息，含异常类名 + 详情，前端可折叠展示或日志采集
+ * #retryAfter — 建议重试等待秒数，取自 {@link
+ * com.njydsz.common.exception.enums.ExceptionCode#retryAfterSeconds()}
+ */
 export interface MessageResult {
   serialVersionUID?: number;
-
+  /** 是否发送成功 */
   success?: boolean;
-
-  errorMessage?: string;
-
+  /** 消息追踪 ID */
   traceId?: string;
-
+  /** 服务商追踪 ID（回执查询用） */
   providerTraceId?: string;
-
+  /** 发送状态（SUCCESS / FAILED / UNKNOWN） */
   status?: string;
-
+  /**
+   * 错误码（失败时填充，便于前端/客户端识别错误类别）。
+   * 取值来自 com.njydsz.message.domain.enums.MessageExceptionCode#getCode()， 为 null 表示无细分错误码（兼容旧调用方）。
+   */
   errorCode?: string;
-
+  /** 用户友好消息（走 i18n 解析，前端直接展示）。 */
   userMessage?: string;
-
+  /** 开发者调试信息（含异常类名 + 详情，前端可折叠展示或日志采集）。 */
   developerMessage?: string;
-
+  /** 建议重试等待秒数（单位秒，取自 com.njydsz.common.exception.enums.ExceptionCode#retryAfterSeconds()）。 */
   retryAfter?: number;
 }
 
-export interface BatchSendResult {
-  batchId?: string;
-
-  total?: number;
-
-  success?: number;
-
-  failed?: number;
-
-  skipped?: number;
-}
-
+/**
+ * 消息用户反馈视图对象（VO）。
+ *
+ * 用于 Controller 层返回用户对消息的反馈信息，包含评分、反馈类型和内容， 支撑消息质量评估和用户满意度分析。
+ */
 export interface MsgFeedbackVO {
   serialVersionUID?: number;
-
+  /** 反馈记录唯一标识（主键） */
   id?: string;
-
+  /** 关联消息 ID */
   msgId?: string;
-
+  /** 关联通知 ID */
   notificationId?: string;
-
+  /** 用户 ID */
   userId?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 评分（1~5） */
   rating?: number;
-
+  /** 反馈类型（USEFUL/USELESS/SPAM/OTHER） */
   feedbackType?: string;
-
+  /** 反馈内容 */
   content?: string;
-
+  /** 状态（PENDING/PROCESSED） */
   status?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
-export interface MessageStatsVO {
+/**
+ * 消息发送总览统计（P1-2 可观测看板）。
+ */
+export interface MessageStatsDTO {
+  /** 总发送量 */
   total?: number;
-
+  /** 发送成功数 */
   success?: number;
-
+  /** 发送失败数 */
   failed?: number;
-
+  /** 重试中数 */
   retry?: number;
-
+  /** 死信数 */
   dead?: number;
-
+  /** 已撤回数 */
   recalled?: number;
-
+  /** 成功率(%) = success / total * 100 */
   successRate?: number;
-
+  /** 死信率(%) = dead / total * 100 */
   deadRate?: number;
-
+  /** 统计起始时间 */
   start?: string;
-
+  /** 统计结束时间 */
   end?: string;
 }
 
-export interface ChannelStatsVO {
+/**
+ * 按通道维度的发送统计（P1-2 可观测看板）。
+ */
+export interface ChannelStatsDTO {
+  /** 通道 */
   channel?: string;
-
+  /** 总发送量 */
   total?: number;
-
+  /** 发送成功数 */
   success?: number;
-
+  /** 发送失败数 */
   failed?: number;
-
+  /** 重试中数 */
   retry?: number;
-
+  /** 死信数 */
   dead?: number;
-
+  /** 成功率(%) */
   successRate?: number;
-
+  /** 死信率(%) */
   deadRate?: number;
 }
 
-export interface ReceiptStatsVO {
+/**
+ * 回执统计（P1-2 可观测看板）。
+ */
+export interface ReceiptStatsDTO {
+  /** 成功发送总数（回执分母） */
   total?: number;
-
+  /** 已送达 */
   delivered?: number;
-
+  /** 已读 */
   read?: number;
-
+  /** 已点击 */
   clicked?: number;
-
+  /** 投递失败 */
   failed?: number;
-
+  /** 回执超时 */
   timeout?: number;
-
+  /** 无回执 */
   none?: number;
-
+  /** 送达率(%) = (delivered + read + clicked) / total * 100 */
   deliveryRate?: number;
-
+  /** 已读率(%) = (read + clicked) / total * 100 */
   readRate?: number;
 }
 
-export interface FunnelStatsVO {
+/**
+ * 消息转化漏斗统计 VO（P2-2 漏斗分析）。
+ *
+ * 漏斗四阶段（逐层递减）：
+ * <ol>
+ * sent（已发送）：status = SUCCESS 的消息总量
+ * delivered（已送达）：receiptStatus IN (DELIVERED, READ, CLICKED)
+ * read（已读）：receiptStatus IN (READ, CLICKED)
+ * clicked（已点击）：receiptStatus = CLICKED
+ * </ol>
+ * 各阶段转化率 = 下一阶段 / 上一阶段 * 100，整体转化率 = clicked / sent * 100。
+ */
+export interface FunnelStatsDTO {
   sent?: number;
-
   delivered?: number;
-
   read?: number;
-
   clicked?: number;
-
   deliveryRate?: number;
-
   readRate?: number;
-
   clickRate?: number;
-
   deliveredToReadRate?: number;
-
   readToClickRate?: number;
-
   overallConversionRate?: number;
-
   channel?: string;
-
   templateCode?: string;
-
   start?: string;
-
   end?: string;
 }
 
-export interface CostStatsVO {
+/**
+ * 消息发送成本统计 VO（P2-4 成本看板）。
+ *
+ * 按通道维度统计发送成本：单条成本 × 成功发送数 = 通道总成本。 通道单价由 `ydsz.message.cost.unit-prices` 配置。
+ */
+export interface CostStatsDTO {
   totalCost?: number;
-
   channels?: Record<string, unknown>[];
-
   start?: string;
-
   end?: string;
-
   channel?: string;
-
   messageCount?: number;
-
   unitPrice?: number;
 }
 
+/**
+ * 消息轨迹视图对象（VO）。
+ *
+ * 用于返回消息轨迹的完整信息，包含节点类型、状态及耗时等。
+ */
+export interface MsgTraceVO {
+  serialVersionUID?: number;
+  /** 轨迹记录唯一标识（主键） */
+  id?: string;
+  /** 消息 ID */
+  msgId?: string;
+  /** 链路追踪 ID */
+  traceId?: string;
+  /** 轨迹节点类型 */
+  node?: string;
+  /** 节点状态（SUCCESS/FAILED/SKIPPED/PENDING） */
+  status?: string;
+  /** 通道 */
+  channel?: string;
+  /** 接收人 */
+  receiver?: string;
+  /** 业务类型 */
+  bizType?: string;
+  /** 业务单据 ID */
+  bizId?: string;
+  /** 模板编码 */
+  templateCode?: string;
+  /** 节点耗时（毫秒） */
+  costMs?: number;
+  /** 节点描述/错误信息 */
+  message?: string;
+  /** 扩展信息 JSON */
+  extra?: string;
+  /** 节点发生时间 */
+  eventAt?: string;
+  /** 租户 ID */
+  tenantId?: string;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 更新人 */
+  updatedBy?: string;
+  /** 更新时间 */
+  updatedAt?: string;
+}
+
+/**
+ * 站内通知视图对象（VO）。
+ *
+ * 用于 Controller 层返回站内通知的完整信息，包含通知内容、业务关联、 已读状态、撤回状态及审计字段。
+ */
 export interface MsgNotificationVO {
   serialVersionUID?: number;
-
+  /** 通知唯一标识（主键） */
   id?: string;
-
+  /** 通知标题 */
   title?: string;
-
+  /** 通知内容 */
   content?: string;
-
+  /** 级别（INFO/WARN/ERROR/CRITICAL） */
   level?: string;
-
+  /** 分类 */
   category?: string;
-
+  /** 优先级（LOW/NORMAL/HIGH/URGENT） */
   priority?: string;
-
+  /** 发送人 ID */
   senderId?: string;
-
+  /** 接收人 ID */
   receiverId?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 业务 ID */
   bizId?: string;
-
+  /** 消息分组（同组消息在收件箱中折叠展示） */
   messageGroup?: string;
-
+  /** 批次 ID */
   batchId?: string;
-
+  /** 操作跳转 URL */
   actionUrl?: string;
-
+  /** 操作按钮文案 */
   actionText?: string;
-
+  /** 图标 */
   icon?: string;
-
+  /** 扩展信息（JSON） */
   extra?: string;
-
+  /** 来源模块 */
   sourceModule?: string;
-
+  /** 已读状态（0=未读，1=已读） */
   readStatus?: number;
-
+  /** 已读时间 */
   readTime?: string;
-
+  /** 撤回状态（null=未撤回，RECALLED=已撤回） */
   recallStatus?: string;
-
+  /** 撤回时间 */
   recallAt?: string;
-
+  /** 过期时间 */
   expiredAt?: string;
-
+  /** @提及用户 ID 列表，逗号分隔 */
   mentionUserIds?: string;
-
+  /** 状态（PENDING/SENT/FAILED） */
   status?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
-
+  /** 租户 ID */
   tenantId?: string;
 }
 
+/**
+ * 缓存统计信息视图对象。
+ *
+ * 反映模板引擎 AST 缓存（YdszCache）的运行时统计指标，包含缓存条目数、命中率、淘汰次数等运维关键数据，
+ * 供运维诊断接口（`GET /api/v1/message/ops/template-cache/stats`）返回。
+ */
 export interface CacheStatsVO {
   serialVersionUID?: number;
-
+  /** 当前缓存条目数 */
   size?: number;
-
+  /** 缓存命中次数 */
   hitCount?: number;
-
+  /** 缓存未命中次数 */
   missCount?: number;
-
+  /** 缓存命中率（0.0 ~ 1.0） */
   hitRate?: number;
-
+  /** 缓存淘汰次数 */
   evictionCount?: number;
 }
 
+/**
+ * BloomFilter 统计信息视图对象。
+ *
+ * 反映消息去重 BloomFilter 的运行状态，包含预期插入条目数、当前误判率、窗口年龄等运维关键数据，
+ * 供运维诊断接口（`GET /api/v1/message/ops/bloomfilter/stats`）返回。
+ */
 export interface BloomFilterStatsVO {
   serialVersionUID?: number;
-
+  /** 预期插入条目数（单窗口容量） */
   expectedInsertions?: number;
-
+  /** 当前误判率 */
   fpp?: number;
-
+  /** 当前窗口是否为主窗口（true=活跃写入窗口） */
   primary?: boolean;
-
+  /** 当前窗口已运行秒数 */
   windowAgeSeconds?: number;
 }
 
+/**
+ * 用户消息偏好视图对象（VO）。
+ *
+ * 用于 Controller 层返回用户消息偏好的完整信息，包含通道启停、免打扰时段、 频率限制、摘要配置及语言偏好，支撑用户个性化消息设置。
+ */
 export interface MsgPreferenceVO {
   serialVersionUID?: number;
-
+  /** 偏好记录唯一标识（主键） */
   id?: string;
-
+  /** 用户 ID */
   userId?: string;
-
+  /** 通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE） */
   channel?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 是否启用（1=启用，0=停用） */
   enabled?: number;
-
+  /** 是否启用免打扰（1=启用，0=停用） */
   dndEnabled?: number;
-
+  /** 免打扰开始时间（HH:mm 格式） */
   dndStart?: string;
-
+  /** 免打扰结束时间（HH:mm 格式） */
   dndEnd?: string;
-
+  /** 每日发送上限 */
   dailyLimit?: number;
-
+  /** 每小时发送上限 */
   hourlyLimit?: number;
-
+  /** 是否启用摘要聚合（1=启用，0=停用） */
   digestEnabled?: number;
-
+  /** 摘要频率（HOURLY/DAILY/WEEKLY） */
   digestFrequency?: string;
-
+  /** 语言区域 */
   locale?: string;
-
+  /** 扩展配置（JSON） */
   extra?: string;
-
+  /** 状态（ACTIVE/INACTIVE） */
   status?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
-export interface MsgReceipt {
+/**
+ * 消息回执视图对象（VO）。
+ *
+ * 用于返回消息回执的完整信息，包含回执类型、供应商信息及原始响应。
+ */
+export interface MsgReceiptVO {
   serialVersionUID?: number;
-
+  /** 回执记录唯一标识（主键） */
+  id?: string;
+  /** 租户 ID */
+  tenantId?: string;
+  /** 关联消息日志 ID */
   logId?: string;
-
+  /** 三方服务商回执 ID */
   providerTraceId?: string;
-
+  /** 回执类型（DELIVERED/READ/CLICKED/FAILED） */
   receiptType?: string;
-
+  /** 回执时间 */
   receiptTime?: string;
-
+  /** 供应商编码 */
   providerCode?: string;
-
+  /** 供应商消息 */
   providerMsg?: string;
-
+  /** 原始响应 JSON */
   rawResponse?: string;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 更新人 */
+  updatedBy?: string;
+  /** 更新时间 */
+  updatedAt?: string;
 }
 
+/**
+ * 消息路由规则视图对象（VO）。
+ *
+ * 用于 Controller 层返回消息路由规则的配置信息，路由规则决定消息 从哪个通道发出、按什么条件筛选等，支撑消息智能路由。
+ */
 export interface MsgRouteRuleVO {
   serialVersionUID?: number;
-
+  /** 路由规则唯一标识（主键） */
   id?: string;
-
+  /** 规则编码（唯一） */
   ruleCode?: string;
-
+  /** 规则名称 */
   ruleName?: string;
-
+  /** 业务类型 */
   bizType?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 优先级（数值越小越优先） */
   priority?: number;
-
+  /** 路由条件（SpEL 表达式） */
   conditionExpr?: string;
-
+  /** 命中后目标通道 */
   targetChannel?: string;
-
+  /** 目标通道发送失败时降级通道 */
   fallbackChannel?: string;
-
+  /** 描述说明 */
   description?: string;
-
+  /** 排序序号 */
   sortOrder?: number;
-
+  /** 状态（ENABLED/DISABLED） */
   status?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 订阅关系视图对象（VO）。
+ *
+ * 用于 Controller 层返回用户订阅关系的完整信息，包含订阅主题、通道、 状态及退订时间，支撑消息订阅管理。
+ */
 export interface MsgSubscriptionVO {
   serialVersionUID?: number;
-
+  /** 订阅记录唯一标识（主键） */
   id?: string;
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 用户 ID */
   userId?: string;
-
+  /** 订阅主题编码 */
   topicCode?: string;
-
+  /** 接收通道 */
   channel?: string;
-
+  /** 状态（SUBSCRIBED/UNSUBSCRIBED） */
   status?: string;
-
+  /** 角色范围 */
   roleScope?: string;
-
+  /** 扩展配置（JSON） */
   extra?: string;
-
+  /** 退订时间 */
   unsubscribedAt?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 系统健康状态视图对象。
+ *
+ * 汇总消息模块的整体健康状态，包含全局摘要和各通道详细健康指标，是系统健康检查接口的顶层返回对象，供运维监控和大屏展示使用。
+ * 健康判定规则：
+ * 任一通道熔断器状态为 OPEN → 整体状态 DEGRADED
+ * 所有通道熔断器状态为 CLOSED → 整体状态 UP
+ * 无可用通道 → 整体状态 DOWN
+ */
 export interface SystemHealthVO {
   serialVersionUID?: number;
-
+  /** 整体健康状态：UP（正常）/ DEGRADED（降级）/ DOWN（不可用） */
   status?: string;
-
+  /** 已注册通道总数 */
   totalChannels?: number;
-
+  /** 启用通道数 */
   enabledChannels?: number;
-
+  /** 熔断打开的通道数 */
   openBreakers?: number;
-
+  /** 各通道详细健康状态列表 */
   channels?: ChannelHealthVO[];
 }
 
+/**
+ * 通道健康状态视图对象。
+ *
+ * 反映单个消息通道的实时运行状态，包含熔断器状态、启用状态、滑动窗口失败计数等运维关键指标，供管理后台通道监控面板和系统健康检查接口使用。
+ */
 export interface ChannelHealthVO {
   serialVersionUID?: number;
-
+  /** 通道名称（大写，如 SMS/EMAIL/PUSH） */
   channel?: string;
-
+  /** 通道是否启用 */
   enabled?: boolean;
-
+  /** 熔断器状态：CLOSED / OPEN / HALF_OPEN */
   circuitBreakerState?: string;
-
+  /** 滑动窗口内失败次数 */
   failureCount?: number;
-
+  /** 滑动窗口内总请求次数 */
   totalCount?: number;
-
+  /** 失败率（失败次数 / 总请求次数，总计为 0 时返回 0） */
   failureRate?: number;
 }
 
+/**
+ * 消息模板视图对象（VO）。
+ *
+ * 用于 Controller 层返回消息模板的完整信息，包含模板内容、通道配置、 供应商绑定、审核状态及变量定义，支撑模板管理与多语言配置。
+ */
 export interface MsgTemplateVO {
   serialVersionUID?: number;
-
+  /** 模板唯一标识（主键） */
   id?: string;
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 模板编码，业务唯一 */
   templateCode?: string;
-
+  /** 通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE） */
   channel?: string;
-
+  /** 语言区域（如 zh_CN/en_US） */
   locale?: string;
-
+  /** 版本号 */
   version?: string;
-
+  /** 分类 */
   category?: string;
-
+  /** 场景编码 */
   sceneCode?: string;
-
+  /** 主题（邮件标题/短信签名+正文） */
   subject?: string;
-
+  /** 模板内容 */
   content?: string;
-
+  /** 供应商（ALIYUN/TENCENT/HUAWEI） */
   provider?: string;
-
+  /** 供应商侧模板 ID */
   providerKey?: string;
-
+  /** 签名名称 */
   signName?: string;
-
+  /** 状态（ENABLED/DISABLED） */
   status?: string;
-
+  /** 审核状态（PENDING/APPROVED/REJECTED） */
   auditStatus?: string;
-
+  /** 审核人 */
   auditBy?: string;
-
+  /** 审核时间 */
   auditAt?: string;
-
+  /** 审核备注 */
   auditRemark?: string;
-
+  /** 模板描述 */
   description?: string;
-
+  /** 变量定义 JSON */
   variableDefs?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
-export interface MsgTemplateVersion {
+/**
+ * 消息模板版本历史视图对象（VO）。
+ *
+ * 用于返回模板版本历史的完整信息，包含版本号、内容快照及审核信息。
+ */
+export interface MsgTemplateVersionVO {
   serialVersionUID?: number;
-
+  /** 版本记录唯一标识（主键） */
+  id?: string;
+  /** 租户 ID */
+  tenantId?: string;
+  /** 模板编码 */
   templateCode?: string;
-
+  /** 版本号 */
   version?: number;
-
+  /** 模板内容快照 */
   content?: string;
-
+  /** 模板变量定义快照（JSON） */
   variableDefs?: string;
-
+  /** 审核状态（APPROVED/REJECTED） */
   auditStatus?: string;
-
+  /** 审核人 */
   auditor?: string;
-
+  /** 审核意见 */
   auditRemark?: string;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 更新人 */
+  updatedBy?: string;
+  /** 更新时间 */
+  updatedAt?: string;
 }
 
+/**
+ * 退订 token 载荷（P1-5）。
+ *
+ * 封装 token 解析后的关键字段，用于退订确认页渲染与执行退订。 字段经 HMAC-SHA256 签名，token 不可篡改。
+ */
 export interface UnsubscribeTokenPayload {
+  /** 用户 ID */
   userId?: string;
-
+  /** 主题编码 */
   topicCode?: string;
-
+  /** 通道 */
   channel?: string;
-
+  /** 过期时间（epoch 秒） */
   expiresAt?: number;
 }
 
+/**
+ * 用户通道绑定视图对象（VO）。
+ *
+ * 用于 Controller 层返回用户在各通道的身份绑定信息，@包含通道用户 ID、 验证状态和主通道标记，支撑多通道消息投递。
+ */
 export interface MsgUserChannelVO {
   serialVersionUID?: number;
-
+  /** 绑定记录唯一标识（主键） */
   id?: string;
-
+  /** 用户 ID */
   userId?: string;
-
+  /** 通道类型（SMS/EMAIL/WECHAT/WEBHOOK） */
   channelType?: string;
-
+  /** 通道侧用户 ID（手机号/邮箱/openid） */
   channelUserId?: string;
-
+  /** 是否已验证（1=已验证，0=未验证） */
   verified?: number;
-
+  /** 是否主通道（1=主通道，0=备用） */
   isPrimary?: number;
-
+  /** 扩展配置（JSON） */
   extra?: string;
-
+  /** 状态（ACTIVE/INACTIVE） */
   status?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }

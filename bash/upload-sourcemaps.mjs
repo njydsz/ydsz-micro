@@ -8,7 +8,7 @@
  *   VITE_APP_RELEASE=v1.0.0-abc123 pnpm upload:sourcemaps
  *   node bash/upload-sourcemaps.mjs --dist=apps/agent-web/dist --release=v1.0.0
  *
- * @path bash/upload-sourcemaps.mjs
+ * @path bash\upload-sourcemaps.mjs
  * @author ydsz-team
  * @since 3.1.0
  */

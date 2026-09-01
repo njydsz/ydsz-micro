@@ -1,5 +1,5 @@
 /**
- * index 工具函数模块
+ * 共享工具函数统一导出入口，按功能分类聚合 utils 目录下的所有函数。
  *
  * @path comm\@core\base\shared\src\utils\index.ts
  * @author ydsz-team

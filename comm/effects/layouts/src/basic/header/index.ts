@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 布局顶部栏组件（LayoutHeader）导出
  *
  * @path comm\effects\layouts\src\basic\header\index.ts
  * @author ydsz-team

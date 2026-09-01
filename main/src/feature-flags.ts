@@ -9,7 +9,7 @@
  * 在 bootstrap 中通过 `await initFeatureFlags(featureFlagsOptions())` 初始化。
  * 新增开关只需在 APPLICATION_FLAGS 中追加定义，无需修改 bootstrap。
  *
- * @path main/src/feature-flags.ts
+ * @path main\src\feature-flags.ts
  * @author ydsz-team
  * @since 1.0.0
  */

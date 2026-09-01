@@ -100,4 +100,5 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
+/** Message 消息中心路由配置（子应用内部路由表） */
 export default routes;

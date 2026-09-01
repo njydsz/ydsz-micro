@@ -23,7 +23,7 @@ import { ElButton, ElMessage, ElTag } from 'element-plus';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { page, resend } from '#/api/dead-letter';
+import { page, resend } from '#/api/deadLetter';
 import type { MsgLogVO } from '#/api/models';
 
 defineOptions({ name: 'DeadLetterManagement' });

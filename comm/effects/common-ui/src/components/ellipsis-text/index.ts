@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 文本溢出省略组件（EllipsisText）导出
  *
  * @path comm\effects\common-ui\src\components\ellipsis-text\index.ts
  * @author ydsz-team

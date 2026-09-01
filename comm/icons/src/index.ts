@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 图标组件统一导出入口，聚合 SVG 内联图标与 Iconify 第三方图标库组件。
  *
  * @path comm\icons\src\index.ts
  * @author ydsz-team

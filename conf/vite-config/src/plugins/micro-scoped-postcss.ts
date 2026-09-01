@@ -14,6 +14,7 @@
 
 import type { AcceptedPlugin, Rule, AtRule, ChildNode } from 'postcss';
 
+/** 子应用 CSS 作用域插件配置选项 */
 export interface MicroCssScopeOptions {
   /** 子应用名称（如 'workflow-web'），作为 data-micro-app 属性值 */
   appName: string;

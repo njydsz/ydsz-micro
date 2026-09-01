@@ -40,7 +40,7 @@ export interface StartOptions {
   /**
    * 注册表适配器（v3.7.0 新增）。
    *
-   * 默认 'static'：从 micro-apps.config.ts 静态 MICRO_APPS 数组读取。
+   * 默认 'static'：从 @ydsz/constants 静态 MICRO_APPS 数组读取。
    * 'remote' / 'auto'：优先拉取远程 registry.json，失败回退到静态。
    */
   registry?: "auto" | "remote" | "static";

@@ -37,7 +37,7 @@ import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { cancel, pause, resume, retryNode } from '#/api/dagInstanceControl';
-import { listByStatus, listNodes, getMermaidDiagram } from '#/api/job-dag-instance';
+import { listByStatus, listNodes, getMermaidDiagram } from '#/api/jobDagInstance';
 import type { JobDagInstanceVO, JobDagNodeInstanceVO } from '#/api/models';
 
 defineOptions({ name: 'JobDagInstanceManagement' });

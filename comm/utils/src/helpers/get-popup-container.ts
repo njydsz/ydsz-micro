@@ -17,7 +17,7 @@
  * <ElSelect :get-popup-container="getPopupContainer" />
  * ```
  *
- * @path comm/utils/src/helpers/get-popup-container.ts
+ * @path comm\utils\src\helpers\get-popup-container.ts
  * @author ydsz-team
  * @since 1.0.0
  */

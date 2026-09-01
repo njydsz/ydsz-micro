@@ -66,18 +66,23 @@ export function getFlameData(): FlameNode[] {
 
   for (let i = 0; i < allNodes.length; i++) {
     const node = allNodes[i];
+    if (!node) continue;
     // 寻找父节点（最近一个包含当前节点的）
     for (let j = i - 1; j >= 0; j--) {
       const candidate = allNodes[j];
       if (
-        candidate.startTime <= node.startTime &&
-        candidate.endTime >= node.endTime &&
-        candidate.name !== node.name
+        !candidate ||
+        !(
+          candidate.startTime <= node.startTime &&
+          candidate.endTime >= node.endTime &&
+          candidate.name !== node.name
+        )
       ) {
-        // 找到直接父节点（depth 最小的那个）
-        if (!node.parent || candidate.depth > (node.parent?.depth ?? -1)) {
-          node.parent = candidate;
-        }
+        continue;
+      }
+      // 找到直接父节点（depth 最小的那个）
+      if (!node.parent || candidate.depth > (node.parent?.depth ?? -1)) {
+        node.parent = candidate;
       }
     }
 

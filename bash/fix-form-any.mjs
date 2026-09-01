@@ -6,7 +6,7 @@
  *
  * 用法：node bash/fix-form-any.mjs
  *
- * @path bash/fix-form-any.mjs
+ * @path bash\fix-form-any.mjs
  * @author ydsz-team
  * @since 4.3.0
  */

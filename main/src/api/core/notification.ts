@@ -1,5 +1,5 @@
 /**
- * 站内通知 API 接口定义 — 对齐 ydsz-message 后端 NotificationController
+ * 站内通知 API —— 收件箱分页/未读数/标记已读/批量删除接口（对齐后端 NotificationController）
  *
  * <p>后端契约：{@code NotificationController} 映射于 {@code /api/v1/message/notifications}，
  * 提供 收件箱分页(inbox) / 未读数(unreadCount) / 标记已读({id}/read) / 全部已读(readAll) / 批量删除(delete)。

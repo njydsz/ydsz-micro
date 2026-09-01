@@ -12,7 +12,7 @@
  * 用法:
  *   node bash/check-locales.mjs          # 校验，有差异退出码 1
  *
- * @path bash/check-locales.mjs
+ * @path bash\check-locales.mjs
  * @author ydsz-team
  * @since 4.4.0
  */

@@ -8,6 +8,8 @@
  *                - 复用 tsconfig.paths.json 解析 @ydsz/@YDSZ-core 别名，并支持 #/ 包内别名；
  *                - 修复原 resolveImport 对 #/ 直接 return null、@ 前缀错误拼接导致的「主路径循环检测失明」问题；
  *                - 默认递归收集 main/apps/comm 全部源码文件参与构图。
+ *
+ * @path bash\vsh\src\check-circular\index.ts
  */
 
 import { readFileSync } from 'node:fs';

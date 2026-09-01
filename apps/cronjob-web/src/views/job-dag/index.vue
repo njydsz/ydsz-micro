@@ -32,7 +32,7 @@ import {
   listEnabledDags,
   rollbackDag,
   triggerDag,
-} from '#/api/job-dag';
+} from '#/api/jobDag';
 import type { JobDagVO, JobDagVersionVO } from '#/api/models';
 
 import JobDagForm from './job-dag-form.vue';

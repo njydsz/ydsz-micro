@@ -12,11 +12,12 @@
  */
 import { requestClient } from '#/api/request';
 
+
 /**
  * previewByCode: POST /api/v1/message/template/preview/by-code
  */
-export function previewByCode(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/message/template/preview/by-code`, data);
+export function previewByCode(data: Record<string, unknown>): Promise<Record<string, string>> {
+  return requestClient.post<Record<string, string>>(`/api/v1/message/template/preview/by-code`, data);
 }
 
 /**

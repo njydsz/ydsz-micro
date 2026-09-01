@@ -17,6 +17,7 @@
  * <p>本文件属于基础设施层，允许直接使用 fetch（云顶编码规范 6.1 例外条款）。
  * // @infra-fetch 基础设施层直用，无统一客户端上下文
  *
+ * @path comm\effects\shared-auth\src\sse.ts
  * @author ydsz-team
  * @since 1.0.0
  */

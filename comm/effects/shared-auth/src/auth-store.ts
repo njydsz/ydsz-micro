@@ -1,5 +1,12 @@
 /**
- * 共享 Auth Store 工厂 — 完整登录/登出/token 刷新流程
+ * 共享 Auth Store 工厂 — 子应用登录/登出/Token 刷新状态管理
+ *
+ * 封装完整的身份认证状态机：登录调用、用户信息获取、权限码拉取、
+ * 登出清理，使子应用无需各自实现即可获得与主应用一致的认证流程。
+ *
+ * @path comm\effects\shared-auth\src\auth-store.ts
+ * @author ydsz-team
+ * @since 1.0.0
  *
  * 子应用调用 createSharedAuthStore(router) 获得与主应用一致的 auth store。
  *

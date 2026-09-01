@@ -59,6 +59,8 @@ function getAdaptiveMaxKeepAlive(): number {
   const { jsHeapSizeLimit, usedJSHeapSize } = mem;
   if (!jsHeapSizeLimit || jsHeapSizeLimit <= 0 || !usedJSHeapSize) return base;
   const ratio = usedJSHeapSize / jsHeapSizeLimit;
+  // 取 min(base, N) 而非直接返回 N：业务方可能把上限配成 0（不做数量限制）
+  // 或 2（比 3 更严格），直接返回固定值会反过来放大配置，属于越权放宽
   if (ratio > 0.9) return Math.min(base, 1);
   if (ratio > 0.7) return Math.min(base, 3);
   return base;
@@ -183,6 +185,9 @@ export async function evictKeepAliveIfNeeded(
   // LRU 淘汰
   while (cached.length > effectiveMax) {
     const victim = popLruVictim(cached);
+    // popLruVictim 会把 victim 从 cached 中移除，因此 pinned 实例被跳过后
+    // 也随之离开候选集。这正是期望行为：pin 的应用不参与淘汰，
+    // 且不能因为「每次都选中它」而让 while 循环空转
     if (victim.pinned) continue;
     if (!dispatchBeforeEvict(victim.config.name)) {
       logger.debug(
@@ -204,6 +209,8 @@ export async function evictKeepAliveIfNeeded(
 
 /** 从缓存实例数组中弹出最久未访问的实例 (v4.2.1 L3 线性扫描) */
 function popLruVictim(cached: AppInstance[]): AppInstance {
+  // O(n) 线性扫描而非维护有序结构：候选集就是已缓存的应用数，通常 ≤ maxKeepAliveApps
+  // （默认 5），常数极小；用 Map/堆维护顺序反而增加状态与出错面，收益为负
   let minIdx = 0;
   let minTime = cached[0]?.lastActivatedAt ?? 0;
   for (let i = 1; i < cached.length; i++) {

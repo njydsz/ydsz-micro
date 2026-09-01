@@ -4,6 +4,7 @@
  * <p>底层基于 {@code @ydsz/shared-auth} 的 {@code createSharedAuthStore}，与 9 个子应用共享同一份登录/刷新/登出逻辑。
  * <p>供路由守卫、菜单渲染、按钮级权限校验使用。
  *
+ * @path apps\system-web\src\store\auth.ts
  * @author ydsz-team
  * @since 1.0.0
  */

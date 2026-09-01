@@ -4,6 +4,7 @@
  * <p>提供 {@code loginApi}（登录）、{@code logoutApi}（登出）、{@code refreshTokenApi}（刷新 Token）、{@code getAccessCodesApi}（权限码）。
  * <p>供业务代码统一 {@code import { loginApi } from '#/api/core/auth'} 引用。
  *
+ * @path apps\message-web\src\api\core\auth.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -10,7 +10,7 @@
  *   - ComponentType 联合类型统一定义表单/弹窗支持的组件集合
  *   - initComponentAdapter() 将装配好的组件注册到 globalShareState，并定义全局消息提示
  *
- * @path main/src/adapter/component/index.ts
+ * @path main\src\adapter\component\index.ts
  * @author ydsz-team
  * @since 3.0.0
  */

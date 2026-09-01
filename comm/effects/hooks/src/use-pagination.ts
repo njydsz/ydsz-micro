@@ -1,5 +1,7 @@
 /**
- * use-pagination 组合式函数
+ * 纯前端分页组合式函数，对已加载的内存数组做分页切片。
+ *
+ * 适用于数据量可控、已全部拉回前端的场景；不支持服务端分页。
  *
  * @path comm\effects\hooks\src\use-pagination.ts
  * @author ydsz-team
@@ -10,12 +12,13 @@ import type { Ref } from 'vue';
 import { computed, ref, unref } from 'vue';
 
 /**
- * Paginates an array of items
- * @param list The array to paginate
- * @param pageNo The current page number (1-based)
- * @param pageSize Number of items per page
- * @returns Paginated array slice
- * @throws {Error} If pageNo or pageSize are invalid
+ * 对数组进行分页切片（纯函数）。
+ *
+ * @param list - 待分页的完整数组
+ * @param pageNo - 当前页码（1-based）
+ * @param pageSize - 每页条数
+ * @returns 当前页的数据切片
+ * @throws {Error} pageNo 或 pageSize 小于 1 时抛出
  */
 function pagination<T>(list: T[], pageNo: number, pageSize: number): T[] {
   if (pageNo < 1) throw new Error('Page number must be positive');
@@ -75,6 +78,7 @@ export function usePagination<T>(list: Ref<T[]>, pageSize: number) {
     return unref(list).length;
   });
 
+  /** 跳转到指定页码 */
   function setCurrentPage(page: number) {
     if (page < 1 || page > unref(totalPages)) {
       throw new Error('Invalid page number');
@@ -82,6 +86,7 @@ export function usePagination<T>(list: Ref<T[]>, pageSize: number) {
     currentPage.value = page;
   }
 
+  /** 修改每页条数并回到第一页 */
   function setPageSize(pageSize: number) {
     if (pageSize < 1) {
       throw new Error('Page size must be positive');

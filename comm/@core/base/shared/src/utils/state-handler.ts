@@ -1,5 +1,5 @@
 /**
- * state-handler 工具函数模块
+ * 一次性条件门控器，用于将异步「等待某件事变为 true」的逻辑封装为 Promise 链。
  *
  * @path comm\@core\base\shared\src\utils\state-handler.ts
  * @author ydsz-team

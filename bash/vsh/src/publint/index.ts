@@ -3,6 +3,8 @@
  * @author YDSZ Team
  * @since 2026-08-23
  * @description 发布前检查包的合规性，确保符合 npm 发布规范
+ *
+ * @path bash\vsh\src\publint\index.ts
  */
 
 import { readFileSync, existsSync, readdirSync } from 'node:fs';

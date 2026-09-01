@@ -13,7 +13,7 @@
  *   node bash/check-size.mjs                     # 校验全部预算
  *   node bash/check-size.mjs --list              # 仅列出扫描结果
  *
- * @path bash/check-size.mjs
+ * @path bash\check-size.mjs
  * @author ydsz-team
  * @since 4.4.0
  */

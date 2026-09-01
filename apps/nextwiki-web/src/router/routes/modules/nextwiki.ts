@@ -94,4 +94,5 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
+/** Nextwiki 知识库路由配置（子应用内部路由表） */
 export default routes;

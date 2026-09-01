@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 异常兜底页组件导出（403/404/500 等状态与 Fallback 类型）
  *
  * @path comm\effects\common-ui\src\ui\fallback\index.ts
  * @author ydsz-team

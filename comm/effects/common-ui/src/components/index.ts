@@ -1,5 +1,8 @@
 /**
- * index 模块
+ * 公共组件统一出口 — 聚合全部基础 UI 组件与第三方适配层
+ *
+ * 集中导出表单、表格、弹窗、验证码、骨架屏、水印等复用组件，
+ * 并补充 shadcn-ui 适配导出，供业务侧单点引用。
  *
  * @path comm\effects\common-ui\src\components\index.ts
  * @author ydsz-team

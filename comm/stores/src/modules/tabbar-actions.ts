@@ -38,9 +38,10 @@ import {
 const logger = createLogger('Tabbar');
 
 /**
- * Close tabs in bulk
- * @param ctx
- * @param keys
+ * 批量关闭指定 key 的标签页。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param keys - 待关闭的标签页 key 列表
  */
 export async function bulkCloseByKeys(
   ctx: TabbarStoreContext,

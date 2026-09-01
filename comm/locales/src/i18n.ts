@@ -1,5 +1,5 @@
 /**
- * i18n 国际化语言包
+ * vue-i18n 初始化与语言包加载逻辑，支持扁平/目录结构及命名空间按需加载。
  *
  * @path comm\locales\src\i18n.ts
  * @author ydsz-team
@@ -52,8 +52,10 @@ let loadMessages: LoadMessageFn;
 const loadedLocales = new Set<SupportedLanguagesType>();
 
 /**
- * Load locale modules
- * @param modules
+ * 构建扁平结构语言包映射表（locale → 异步加载函数）。
+ *
+ * @param modules - import.meta.glob 产出的模块映射
+ * @returns 语言标识到加载函数的映射
  */
 function loadLocalesMap(modules: Record<string, () => Promise<unknown>>) {
   const localesMap: Record<Locale, ImportLocaleFn> = {};
@@ -68,10 +70,11 @@ function loadLocalesMap(modules: Record<string, () => Promise<unknown>>) {
 }
 
 /**
- * Load locale modules with directory structure
- * @param regexp - Regular expression to match language and file names
- * @param modules - The modules object containing paths and import functions
- * @returns A map of locales to their corresponding import functions
+ * 构建目录结构语言包映射（按 locale + 文件名分组），生成合并加载函数。
+ *
+ * @param regexp - 匹配路径中正则，需包含 locale 与文件名两个捕获组
+ * @param modules - import.meta.glob 产出的模块映射
+ * @returns 语言标识到合并加载函数的映射
  */
 function loadLocalesMapFromDir(
   regexp: RegExp,
@@ -111,8 +114,9 @@ function loadLocalesMapFromDir(
 }
 
 /**
- * Set i18n language
- * @param locale
+ * 切换当前激活的 i18n 语言并同步更新 html lang 属性。
+ *
+ * @param locale - 目标语言标识
  */
 function setI18nLanguage(locale: Locale) {
   i18n.global.locale.value = locale;

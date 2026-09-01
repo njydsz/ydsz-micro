@@ -1,5 +1,5 @@
 /**
- * guard 路由模块
+ * 路由守卫装配 —— 注册通用守卫与权限访问守卫，拦截未登录/无权限请求
  *
  * @path main\src\router\guard.ts
  * @author ydsz-team

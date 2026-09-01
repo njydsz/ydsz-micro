@@ -1,5 +1,5 @@
 /**
- * index 类型定义模块
+ * 公共类型定义聚合导出，包含 API 响应类型、基础实体类型及用户信息类型。
  *
  * @path comm\types\src\index.ts
  * @author ydsz-team

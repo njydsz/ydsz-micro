@@ -1,11 +1,11 @@
 /**
  * 运行时环境与值的类型判断工具集。
  *
- * @remarks
  * 提供 isUndefined / isBoolean / isEmpty / isHttpUrl / isWindow / isMacOs /
  * isWindowsOs / isNumber / getFirstNonNullOrUndefined 等纯函数判断工具，
  * 内部复用 @vue/shared 的 isFunction / isObject / isString，均无副作用。
  *
+ * @path comm\@core\base\shared\src\utils\inference.ts
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -94,12 +94,10 @@ function isWindow(value: unknown): value is Window {
 }
 
 /**
- * 检查当前运行环境是否为Mac OS。
+ * 检查当前运行环境是否为 Mac OS。
  *
- * 这个函数通过检查navigator.userAgent字符串来判断当前运行环境。
- * 如果userAgent字符串中包含"macintosh"或"mac os x"（不区分大小写），则认为当前环境是Mac OS。
- *
- * @returns {boolean} 如果当前环境是Mac OS，返回true，否则返回false。
+ * 通过解析 navigator.userAgent 判断，命中 `macintosh` 或 `mac os x`(不区分大小写)即视为 Mac。
+ * 注意 userAgent 可被客户端篡改，不可用于安全敏感场景。
  */
 function isMacOs(): boolean {
   const macRegex = /macintosh|mac os x/i;
@@ -107,12 +105,9 @@ function isMacOs(): boolean {
 }
 
 /**
- * 检查当前运行环境是否为Windows OS。
+ * 检查当前运行环境是否为 Windows OS。
  *
- * 这个函数通过检查navigator.userAgent字符串来判断当前运行环境。
- * 如果userAgent字符串中包含"windows"或"win32"（不区分大小写），则认为当前环境是Windows OS。
- *
- * @returns {boolean} 如果当前环境是Windows OS，返回true，否则返回false。
+ * 通过解析 navigator.userAgent 判断，命中 `windows` 或 `win32`(不区分大小写)即视为 Windows。
  */
 function isWindowsOs(): boolean {
   const windowsRegex = /windows|win32/i;
@@ -128,27 +123,16 @@ function isNumber(value: unknown): value is number {
 }
 
 /**
- * Returns the first value in the provided list that is neither `null` nor `undefined`.
+ * 从参数列表中返回第一个既非 null 也非 undefined 的值。
  *
- * This function iterates over the input values and returns the first one that is
- * not strictly equal to `null` or `undefined`. If all values are either `null` or
- * `undefined`, it returns `undefined`.
- *
- * @template T - The type of the input values.
- * @param {...(T | null | undefined)[]} values - A list of values to evaluate.
- * @returns {T | undefined} - The first value that is not `null` or `undefined`, or `undefined` if none are found.
+ * @param values - 待检测的值列表
+ * @returns 首个非空值；全部为空时返回 undefined
  *
  * @example
- * // Returns 42 because it is the first non-null, non-undefined value.
+ * ```ts
  * getFirstNonNullOrUndefined(undefined, null, 42, 'hello'); // 42
- *
- * @example
- * // Returns 'hello' because it is the first non-null, non-undefined value.
- * getFirstNonNullOrUndefined(null, undefined, 'hello', 123); // 'hello'
- *
- * @example
- * // Returns undefined because all values are either null or undefined.
- * getFirstNonNullOrUndefined(undefined, null); // undefined
+ * getFirstNonNullOrUndefined(null, undefined);              // undefined
+ * ```
  */
 function getFirstNonNullOrUndefined<T>(
   ...values: (null | T | undefined)[]

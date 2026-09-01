@@ -84,4 +84,7 @@ const config = {
   ],
 };
 
+/**
+ * YDSZ 共享 Stylelint 配置对象。
+ */
 export default config;

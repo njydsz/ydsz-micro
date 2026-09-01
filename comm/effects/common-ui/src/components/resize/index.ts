@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 可拖拽调整大小容器组件导出（VResize）
  *
  * @path comm\effects\common-ui\src\components\resize\index.ts
  * @author ydsz-team

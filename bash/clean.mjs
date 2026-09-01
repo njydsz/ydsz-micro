@@ -1,9 +1,13 @@
 /**
- * 清理构建产物的脚本。
- * 
- * @remarks
- * 递归删除各包 dist/target 等构建输出目录，保持工作区干净。
- * 
+ * 递归清理全仓构建产物目录（dist / .turbo / node_modules / dist.zip），保持工作区干净。
+ *
+ * 默认排除 pnpm-lock.yaml；加 --del-lock 同步删除锁文件（用于彻底重建）。
+ *
+ * 用法：
+ *   node bash/clean.mjs                  # 清理 dist/.turbo/node_modules/dist.zip
+ *   node bash/clean.mjs --del-lock       # 同时删除 pnpm-lock.yaml
+ *
+ * @path bash\clean.mjs
  * @author ydsz-team
  * @since 1.0.0
  */

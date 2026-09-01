@@ -24,7 +24,7 @@
  * - Garfish proxySandbox（含 with 执行，UMD 场景）
  * - 本项目因 ESM 路线不使用 with 执行，仅保留 fakeWindow 数据隔离
  *
- * @path comm/effects/micro-kernel/src/proxy-sandbox.ts
+ * @path comm\effects\micro-kernel\src\proxy-sandbox.ts
  * @author ydsz-team
  * @since 3.2.0
  */
@@ -124,9 +124,9 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
         return true;
       }
 
-      // 记录修改
-      target[prop] = value;
-      modifiedProps.add(prop as string);
+      // 记录修改（symbol 键运行时同样写入 fakeWindow，仅跳过字符串集合登记）
+      (target as Record<PropertyKey, unknown>)[prop] = value;
+      if (typeof prop === 'string') modifiedProps.add(prop);
 
       return true;
     },
@@ -139,8 +139,8 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
     deleteProperty(target, prop) {
       // 只能删除 fakeWindow 中的属性
       if (prop in target) {
-        delete target[prop];
-        modifiedProps.delete(prop as string);
+        delete (target as Record<PropertyKey, unknown>)[prop];
+        if (typeof prop === 'string') modifiedProps.delete(prop);
       }
       return true;
     },

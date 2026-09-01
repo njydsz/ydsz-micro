@@ -1,5 +1,5 @@
 /**
- * access 路由模块
+ * 动态路由生成 —— 根据用户角色与菜单树生成可访问路由配置
  *
  * @path main\src\router\access.ts
  * @author ydsz-team

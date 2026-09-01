@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 用户下拉菜单挂件组件（UserDropdown）导出
  *
  * @path comm\effects\layouts\src\widgets\user-dropdown\index.ts
  * @author ydsz-team

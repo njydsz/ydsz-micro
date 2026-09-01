@@ -1,5 +1,5 @@
 /**
- * color 模块
+ * 颜色明暗判定工具，基于 TinyColor 计算上层文字应使用亮色或暗色。
  *
  * @path comm\@core\base\shared\src\color\color.ts
  * @author ydsz-team

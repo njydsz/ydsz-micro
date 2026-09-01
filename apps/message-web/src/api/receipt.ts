@@ -11,7 +11,7 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { MsgReceipt, ReceiptCallbackDTO } from './models';
+import type { MsgReceiptVO, ReceiptCallbackDTO } from './models';
 
 /**
  * callback: POST /api/v1/message/receipt/callback
@@ -23,6 +23,8 @@ export function callback(data: ReceiptCallbackDTO): Promise<void> {
 /**
  * listByLogId: GET /api/v1/message/receipt/{logId}
  */
-export function listByLogId({ logId }: { logId: string }): Promise<MsgReceipt[]> {
-  return requestClient.get<MsgReceipt[]>(`/api/v1/message/receipt/${logId}`);
+export function listByLogId({ logId }: {
+    logId: string;
+  }): Promise<MsgReceiptVO[]> {
+  return requestClient.get<MsgReceiptVO[]>(`/api/v1/message/receipt/${logId}`);
 }

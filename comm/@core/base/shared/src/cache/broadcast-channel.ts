@@ -1,6 +1,3 @@
-// v4.3.1 修复循环自引用：包内模块改相对导入，避免经包名绕回 index 形成环
-import { createLogger } from '../utils/logger';
-const logger = createLogger('broadcast-channel');
 /**
  * 跨标签页状态同步管理器
  *
@@ -22,6 +19,10 @@ const logger = createLogger('broadcast-channel');
  * @author ydsz-team
  * @since 1.0.0
  */
+
+// v4.3.1 修复循环自引用：包内模块改相对导入，避免经包名绕回 index 形成环
+import { createLogger } from '../utils/logger';
+const logger = createLogger('broadcast-channel');
 
 /** 广播消息载荷 */
 export interface BroadcastMessage<T = unknown> {
@@ -116,7 +117,9 @@ export class BroadcastChannelManager<T = unknown> {
       v: this.options.version,
     };
 
-    // 序列化（提前失败比静默丢弃好）
+    // 序列化前置而非在各投递分支内各自序列化：让循环引用、BigInt 等不可序列化
+    // 载荷在调用点即可被感知并中断投递，避免兜底路径把半截 JSON 写入 localStorage、
+    // 最终在其它标签页的 JSON.parse 处才静默失败
     let serialized: string;
     try {
       serialized = JSON.stringify(message);
@@ -139,7 +142,10 @@ export class BroadcastChannelManager<T = unknown> {
         );
       }
     } else if (typeof localStorage !== 'undefined') {
-      // 兜底：写入 localStorage 触发其它标签页的 storage 事件
+      // 兜底：写入 localStorage 触发其它标签页的 storage 事件。
+      // 边界条件：storage 事件仅在「值发生变化」时触发，连续投递两条完全相同
+      // （含相同 origin/version）的消息时，第二条不会唤醒其它标签页。
+      // 因此重复投递必须依赖 payload 自身的差异（如时间戳），不可依赖本通道去重
       try {
         localStorage.setItem(this.options.storageKey, serialized);
       } catch (error) {
@@ -152,9 +158,10 @@ export class BroadcastChannelManager<T = unknown> {
 
     // 本实例回响（默认关闭）。
     // 直接派发到本地监听器，绕过 origin 检查（echo 是显式请求本实例触发）。
+    // P 为 T 的调用方窄化类型，回响时按 T 收窄（监听器签名以 T 为准）
     const echo = options?.echo ?? this.options.echo;
     if (echo) {
-      this.dispatchToLocalListeners(message as BroadcastMessage<T>);
+      this.dispatchToLocalListeners(message as unknown as BroadcastMessage<T>);
     }
   }
 

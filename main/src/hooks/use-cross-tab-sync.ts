@@ -9,7 +9,7 @@
  * D4: 新增 TOKEN_REFRESHED 事件订阅 — 其它标签页刷新 token 后，
  *     本标签页同步更新 tokenStore，避免各自独立刷新导致 refreshToken 竞态。
  *
- * @path main/src/hooks/use-cross-tab-sync.ts
+ * @path main\src\hooks\use-cross-tab-sync.ts
  * @author ydsz-team
  * @since 1.0.0
  */

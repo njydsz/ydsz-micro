@@ -1,7 +1,12 @@
 /**
- * 后端统一响应类型 — 与 BaseResponse 对齐
+ * 后端统一响应类型定义 — 与后端 BaseResponse 对齐。
  *
+ * 提供统一 API 响应结构、分页数据结构及响应解包工具函数。
  * 后端类：com.YDSZ.common.core.response.BaseResponse
+ *
+ * @path comm\types\src\api-response.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 /** 统一 API 返回结果 */
@@ -50,12 +55,23 @@ export interface PageQuery {
   orderDirection?: 'asc' | 'desc';
 }
 
-/** 成功响应快捷判断（业务响应码 "A00000" 表示成功，非 HTTP 状态码 200） */
+/**
+ * 判断 API 响应是否成功（业务响应码 "A00000"）。
+ *
+ * @param resp - API 响应对象
+ * @returns 当 code 为 "A00000" 时返回 true
+ */
 export function isSuccess<T>(resp: BaseResponse<T>): resp is BaseResponse<T> & { data: T } {
   return resp.code === 'A00000';
 }
 
-/** 提取响应数据的快捷方法（业务响应码 "A00000" 表示成功） */
+/**
+ * 提取响应数据，非成功状态抛出错误。
+ *
+ * @param resp - API 响应对象
+ * @returns 响应数据
+ * @throws {Error} 当 code 不为 "A00000" 时抛出含 msg 的错误
+ */
 export function unwrapResponse<T>(resp: BaseResponse<T>): T {
   if (resp.code !== 'A00000') {
     throw new Error(resp.msg || 'Unknown error');

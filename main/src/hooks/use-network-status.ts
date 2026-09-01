@@ -1,17 +1,7 @@
 /**
- * 网络状态感知 composable（v4.0）
+ * 网络状态感知 —— 基于 Network Information API 提供联网/慢速/省流量等状态（v4.0）
  *
- * 为 UI 提供：
- * - isOnline: 是否联网
- * - isSlow: 是否慢速网络
- * - isSaveData: 是否开启省流量模式
- * - effectiveType: 实际网络类型（4g/3g/2g/slow-2g）
- * - downlink: 估算带宽（Mbps）
- * - rtt: 往返延迟（ms）
- *
- * 用法：在 NetworkAlert 组件或任意 setup 内 useNetworkStatus()
- *
- * @path main/src/hooks/use-network-status.ts
+ * @path main\src\hooks\use-network-status.ts
  * @author ydsz-team
  * @since 4.0.0
  */

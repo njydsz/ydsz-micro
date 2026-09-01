@@ -1,5 +1,14 @@
 /**
- * setup-shared-auth — 统一的 initSharedAuth 实现
+ * setup-shared-auth — 子应用共享请求客户端统一装配入口
+ *
+ * 封装 initSharedRequest 调用与 reAuthenticate/refreshToken 回调注入，
+ * 使子应用只需调用 setupSharedAuth(appName) 即可完成认证链路装配。
+ *
+ * @path comm\effects\shared-auth\src\setup-shared-auth.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ *
+ * 统一的 initSharedAuth 实现
  *
  * 消除 9 个子应用 main.ts 中完全重复的 initSharedAuth() 函数（约 40 行 × 9 = 360 行重复代码）。
  * 子应用调用 setupSharedAuth(appName) 即可完成共享请求客户端的初始化。

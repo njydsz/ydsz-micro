@@ -1,5 +1,5 @@
 /**
- * 会话超时预警 — 到期前 5 分钟提示续期
+ * 会话超时预警 —— 到期前 5 分钟提示续期
  *
  * 监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出
  * ElMessageBox 询问用户是否立即续期：
@@ -10,7 +10,7 @@
  * 仅在主应用安装一次（bootstrap 中调用），子应用共享同一 tokenStore，
  * 无需各自重复安装。
  *
- * @path main/src/hooks/use-session-expiry-warning.ts
+ * @path main\src\hooks\use-session-expiry-warning.ts
  * @author ydsz-team
  * @since 1.0.0
  */

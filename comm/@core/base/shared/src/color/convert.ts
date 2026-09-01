@@ -1,5 +1,5 @@
 /**
- * convert 模块
+ * 颜色格式转换工具集，支持 HSL / RGB / CSS 变量格式互转及有效性校验。
  *
  * @path comm\@core\base\shared\src\color\convert.ts
  * @author ydsz-team

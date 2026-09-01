@@ -1,9 +1,10 @@
-/**
+﻿/**
  * 规则引擎 HTTP 请求客户端 API 模块（前端）
  * <p>封装 YDSZ-literule 服务的 HTTP 请求客户端，基于 @ydsz/shared-auth 统一注入 Token / TraceId / 错误处理。
  * <p>所有 literule 业务 API 均通过该 requestClient 发起 HTTP 调用。
  *
  * @author ydsz-team
+ * @path apps\literule-web\src\api\request.ts
  * @since 1.0.0
  */
 /**

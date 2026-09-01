@@ -29,11 +29,17 @@
       "default": "./src/use-micro-props.ts"
     }
   },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
   "dependencies": {
     "@YDSZ-core/shared": "workspace:*",
     "@ydsz/constants": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@ydsz/tsconfig": "workspace:*"
   },
   "license": "MIT"
 }

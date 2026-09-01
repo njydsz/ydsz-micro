@@ -7,6 +7,9 @@
  */
 import { defineBuildConfig } from 'unbuild';
 
+/**
+ * node-utils 包的构建配置。
+ */
 export default defineBuildConfig({
   clean: true,
   declaration: true,

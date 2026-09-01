@@ -6,6 +6,9 @@
 
 import { defineBuildConfig } from 'unbuild';
 
+/**
+ * ESLint 配置包的构建配置。
+ */
 export default defineBuildConfig({
   entries: ['src/index.ts'],
   declaration: true,

@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * JSON 只读查看器组件导出（组件 + 类型声明）
  *
  * @path comm\effects\common-ui\src\components\json-viewer\index.ts
  * @author ydsz-team

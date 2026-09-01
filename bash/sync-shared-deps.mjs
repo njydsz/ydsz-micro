@@ -23,7 +23,7 @@
  *   patch 版本，导致主/子应用加载两个 Vue 实例（provide/inject 割裂）。
  *   升级共享依赖：先 `--refresh` 重新解析，检查 diff 后提交 lock 文件。
  *
- * @path bash/sync-shared-deps.mjs
+ * @path bash\sync-shared-deps.mjs
  * @author ydsz-team
  * @since 3.1.0
  */

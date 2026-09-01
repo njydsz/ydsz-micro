@@ -16,7 +16,7 @@
  *   GITHUB_SHA           GitHub commit SHA（CI 环境）
  *   GITHUB_ACTOR         GitHub 触发者（CI 环境）
  *
- * @path bash/contract-notify.mjs
+ * @path bash\contract-notify.mjs
  * @author ydsz-team
  * @since 4.0.0
  * @see docs/云顶编码规范.md 第 6 章 API 请求规范

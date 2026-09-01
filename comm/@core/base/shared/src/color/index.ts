@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 主题色相关工具的统一导出入口，聚合颜色转换、生成与判定能力。
  *
  * @path comm\@core\base\shared\src\color\index.ts
  * @author ydsz-team

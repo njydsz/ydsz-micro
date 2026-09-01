@@ -143,7 +143,9 @@ export async function runWithConcurrency<T>(
 
   async function worker(): Promise<void> {
     while (index < items.length) {
-      const item = items[index++];
+      const item = items[index];
+      index++;
+      if (item === undefined) continue;
       await fn(item);
     }
   }

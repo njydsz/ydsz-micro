@@ -16,26 +16,27 @@ import type { RecallRequestDTO } from './models';
 /**
  * recallNotification: POST /api/v1/message/recall/notification
  */
-export function recallNotification(
-  params: {
+export function recallNotification(params: {
     userId?: string;
-  },
-  data: RecallRequestDTO,
-): Promise<boolean> {
+  }, data: RecallRequestDTO): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/recall/notification`, data, { params });
 }
 
 /**
  * recallMessage: POST /api/v1/message/recall/message/{logId}
  */
-export function recallMessage({ logId }: { logId: string }): Promise<boolean> {
+export function recallMessage({ logId }: {
+    logId: string;
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/recall/message/${logId}`);
 }
 
 /**
  * recallByMsgId: POST /api/v1/message/recall/msg/{msgId}
  */
-export function recallByMsgId({ msgId }: { msgId: string }): Promise<boolean> {
+export function recallByMsgId({ msgId }: {
+    msgId: string;
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/recall/msg/${msgId}`);
 }
 

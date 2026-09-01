@@ -2,7 +2,7 @@
 /**
  * nginx 子应用配置生成器 — MICRO_APPS → nginx.conf 生成闭环。
  *
- * 从 conf/vite-config/src/micro-apps.config.ts 读取微应用注册表，
+ * 从 comm/constants/src/micro-apps.ts 读取微应用注册表（v4.4.1 A3 迁移），
  * 自动生成子应用 location 片段并写入 bash/deploy/nginx-sub-apps.conf。
  * nginx.conf 通过 include 指令引用该片段，确保注册表与部署配置始终一致。
  *
@@ -10,7 +10,7 @@
  *   node ./bash/gen-nginx-conf.mjs           # 写入片段文件
  *   node ./bash/gen-nginx-conf.mjs --check   # 仅校验，不写入（CI 用）
  *
- * @path bash/gen-nginx-conf.mjs
+ * @path bash\gen-nginx-conf.mjs
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -21,13 +21,13 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = resolve(__dirname, '..');
-const CONFIG_FILE = join(ROOT_DIR, 'conf/vite-config/src/micro-apps.config.ts');
+const CONFIG_FILE = join(ROOT_DIR, 'comm/constants/src/micro-apps.ts');
 const OUTPUT_FILE = join(ROOT_DIR, 'bash/deploy/nginx-sub-apps.conf');
 
 const isCheckMode = process.argv.includes('--check');
 
 /**
- * 从 micro-apps.config.ts 提取子应用注册信息。
+ * 从 comm/constants/src/micro-apps.ts 提取子应用注册信息。
  *
  * 该文件是 TypeScript，但仅导入类型（vue-router 的 RouteRecordRaw），
  * 运行时数据为纯静态。此处用正则提取 name/prodPath 字段，
@@ -84,7 +84,7 @@ function parseMicroApps() {
 }
 
 /**
- * 获取子应用生产部署路径（与 micro-apps.config.ts 的 getProdEntry 逻辑一致）。
+ * 获取子应用生产部署路径（与 comm/constants/src/micro-apps.ts 的 getProdEntry 逻辑一致）。
  */
 function getProdPath(app) {
   return app.prodPath ?? `/YDSZ-${app.name}/`;

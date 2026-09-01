@@ -37,6 +37,7 @@ import {
 import type {
   EnhancedGlobalStateAPI,
   MessageBusAPI,
+  MessageHandler,
   StandardMicroProps,
   SubAppContext,
 } from './standard-props';
@@ -138,9 +139,10 @@ function createDefaultProps(): StandardMicroProps {
         logger.warn(`[Standalone] sendRequest("${action}") called but no parent kernel available`);
         return undefined as R;
       },
-      registerHandler: <_T = unknown, _R = unknown>(
-        _handler: never,
+      registerHandler: <T = unknown, _R = unknown>(
+        _handler: MessageHandler<T, _R>,
       ) => {
+        // 独立运行模式无内核消息通道，注册处理器为空实现
         return () => {};
       },
     },
@@ -148,6 +150,20 @@ function createDefaultProps(): StandardMicroProps {
       appName: (import.meta.env.VITE_APP_NAME as string) || 'standalone',
       basename: (import.meta.env.BASE_URL as string) || '/',
       sandbox: 'snapshot',
+    },
+    // v4.2.1 N10: 独立运行模式下的统一微桥接空实现（无内核通道）
+    microBridge: {
+      send: (_action: string, _payload?: unknown) => `standalone-${Date.now()}`,
+      call: async <R = unknown>(action: string): Promise<R> => {
+        logger.warn(`[Standalone] microBridge.call("${action}") called but no parent kernel available`);
+        return undefined as R;
+      },
+      on: <T = unknown, _R = unknown>(
+        _action: string,
+        _handler: (payload: T, from: string) => unknown,
+      ) => {
+        return () => {};
+      },
     },
   };
 }

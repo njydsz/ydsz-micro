@@ -24,7 +24,7 @@
  *   环境子应用卸载后幽灵帧回调持续触发）；
  * - 监听器清理按 target 路由到 window/document 各自的原始 removeEventListener。
  *
- * @path comm/effects/micro-kernel/src/sandbox.ts
+ * @path comm\effects\micro-kernel\src\sandbox.ts
  * @author ydsz-team
  * @since 3.0.0
  */

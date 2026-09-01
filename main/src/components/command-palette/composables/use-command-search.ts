@@ -1,16 +1,7 @@
 /**
- * 命令面板搜索逻辑 composable
+ * 命令面板搜索逻辑 —— 封装搜索过滤、键盘导航与命令分组的响应式计算
  *
- * 封装命令面板的搜索过滤、键盘导航、命令分组等核心逻辑，
- * 使主组件专注于模板与状态管理。
- *
- * 功能：
- * 1. 搜索菜单/页面（⌘K 模式）
- * 2. 执行命令/操作（⌘⇧P 模式）
- * 3. 最近访问记录展示
- * 4. 搜索提供者状态文案
- *
- * @path main/src/components/command-palette/composables/use-command-search.ts
+ * @path main\src\components\command-palette\composables\use-command-search.ts
  * @author ydsz-team
  * @since 4.0.0
  */
@@ -133,9 +124,9 @@ export interface UseCommandSearchReturn {
 // ==================== 高亮工具函数 ====================
 
 /**
- * 高亮搜索关键词（包裹 &lt;mark&gt; 标签）
+ * 高亮搜索关键词（包裹 <mark> 标签）。
  *
- * @param text  - 原始文本
+ * @param text - 原始文本
  * @param query - 搜索词（已 toLowerCase）
  * @returns 高亮后的 HTML 字符串
  */

@@ -100,4 +100,5 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
+/** Workflow 工作流路由配置（子应用内部路由表） */
 export default routes;

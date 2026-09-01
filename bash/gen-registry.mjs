@@ -1,5 +1,5 @@
 /**
- * 注册表生成器 — 从 micro-apps.config.ts 生成 registry.json
+ * 注册表生成器 — 从 comm/constants/src/micro-apps.ts 生成 registry.json
  *
  * CI/CD 流水线在构建子应用后调用此脚本，
  * 将最新子应用清单写入 public/registry.json 并部署到 CDN。
@@ -13,7 +13,7 @@
  *   # 写入自定义路径（如 CDN 部署目录）
  *   pnpm gen:registry --output dist-cdn/registry.json
  *
- * @path bash/gen-registry.mjs
+ * @path bash\gen-registry.mjs
  * @author ydsz-team
  * @since 3.7.0
  */
@@ -41,24 +41,23 @@ for (let i = 0; i < args.length; i++) {
 
 // ==================== 读取注册表 ====================
 
-// 直接从 TypeScript 配置文件导入
-// 注意：此脚本需在 pnpm / Node 22+ 环境下执行（支持原生 TypeScript import）
+// v4.4.1 A3: 注册表单源为 comm/constants/src/micro-apps.ts（TS 源文件，
+// 该包不做 dist 构建），Node 脚本无法直接 import TS，统一走正则裸读。
+// 该文件为纯数据定义（接口 + 数组字面量），正则解析稳定可靠。
 let MICRO_APPS;
 try {
-  const mod = await import('@ydsz/vite-config');
-  MICRO_APPS = mod.MICRO_APPS;
-} catch {
-  // 回退：从源文件裸读（编译前场景）
-  console.warn('[GenRegistry] @ydsz/vite-config 不可导入，尝试裸读源文件...');
-  const configPath = path.join(root, 'conf', 'vite-config', 'src', 'micro-apps.config.ts');
+  const configPath = path.join(root, 'comm', 'constants', 'src', 'micro-apps.ts');
   const src = fs.readFileSync(configPath, 'utf8');
-  const match = src.match(/export const MICRO_APPS[^\n]+=\s*\[([\s\S]*?)\];/);
+  const match = src.match(/export const MICRO_APPS[^\n]+=\s*\[([\s\S]*?)\n\];/);
   if (!match) {
-    console.error('[GenRegistry] 无法解析 MICRO_APPS 配置');
+    console.error('[GenRegistry] 无法解析 MICRO_APPS 配置（comm/constants/src/micro-apps.ts）');
     process.exit(1);
   }
-  // 简单 JSON 映射（仅做兜底，推荐 import 方式成功）
+  // 数据文件内容为受控的 JSON 兼容字面量（同仓提交、CI 校验），此处直接求值
   MICRO_APPS = eval(`[${match[1]}]`);
+} catch (error) {
+  console.error('[GenRegistry] 读取注册表失败:', error);
+  process.exit(1);
 }
 
 if (!MICRO_APPS || !Array.isArray(MICRO_APPS) || MICRO_APPS.length === 0) {

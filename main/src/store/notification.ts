@@ -1,8 +1,5 @@
 /**
- * notification Pinia 状态管理
- *
- * v4.1: 由 class-based singleton 迁移为 Pinia setup store，
- *       获得 DevTools 调试、$reset、$subscribe 等 Pinia 内置能力。
+ * 通知 Pinia Store —— 整合 REST 分页加载与 WebSocket 实时推送（v4.1）
  *
  * @path main\src\store\notification.ts
  * @author ydsz-team

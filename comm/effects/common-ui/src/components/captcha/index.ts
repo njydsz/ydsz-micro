@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 验证码组件导出（点选、滑块、旋转、拼图验证码 + 全部类型声明）
  *
  * @path comm\effects\common-ui\src\components\captcha\index.ts
  * @author ydsz-team

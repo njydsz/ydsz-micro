@@ -77,17 +77,21 @@ export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): 
 
   // 2. window 全局错误
   window.addEventListener('error', (event) => {
-    // 资源加载错误
-    if (event.target && (event.target as HTMLElement).src) {
-      const target = event.target as HTMLElement;
+    // 资源加载错误（src 属性仅存在于 img/script/source 等元素上）
+    const resourceTarget = event.target as
+      | HTMLImageElement
+      | HTMLScriptElement
+      | HTMLSourceElement
+      | null;
+    if (event.target && resourceTarget?.src) {
       const report: ErrorReport = {
-        message: `Resource load failed: ${(target as HTMLImageElement).src || (target as HTMLAnchorElement).href}`,
-        filename: (target as HTMLImageElement).src || (target as HTMLAnchorElement).href,
+        message: `Resource load failed: ${resourceTarget.src}`,
+        filename: resourceTarget.src,
         timestamp: Date.now(),
         type: 'resource',
         url: getCurrentRoute(),
         userAgent: navigator.userAgent,
-        extra: { tagName: target.tagName },
+        extra: { tagName: resourceTarget.tagName },
       };
       enqueueError(report);
       return;
@@ -138,12 +142,14 @@ export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): 
 
   // v4.0 P0-3: 可选启用 Sentry 转发
   if (config.sentryDsn) {
+    // 提前收敛非空断言：async 闭包内 TS 无法保持跨作用域的窄化
+    const sentryDsn = config.sentryDsn;
     void (async () => {
       try {
         const { initSentry } = await import('./sentry');
         await initSentry({
-          dsn: config.sentryDsn,
-          release: config.release,
+          dsn: sentryDsn,
+          release: config.release ?? 'unknown',
           environment: import.meta.env.MODE,
           sampleRate: config.sampleRate,
         });

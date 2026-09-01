@@ -4,6 +4,7 @@
  * <p>提供 {@code generateAccess} 异步方法，从后端拉取菜单、构建路由、注册到 router。
  * <p>支持前端静态路由 + 后端动态路由混合模式。
  *
+ * @path apps\userinfo-web\src\router\access.ts
  * @author ydsz-team
  * @since 1.0.0
  */

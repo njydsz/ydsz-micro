@@ -1,5 +1,5 @@
 /**
- * helper.d 模块
+ * 通用辅助类型集合，提供深度递归、函数包装、可空等常用类型工具。
  *
  * @path comm\@core\base\typings\src\helper.d.ts
  * @author ydsz-team

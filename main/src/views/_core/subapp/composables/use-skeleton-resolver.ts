@@ -8,7 +8,7 @@
  *   2. route.meta.skeletonType（注册表配置）
  *   3. 'default'
  *
- * @path main/src/views/_core/subapp/composables/use-skeleton-resolver.ts
+ * @path main\src\views\_core\subapp\composables\use-skeleton-resolver.ts
  * @author ydsz-team
  * @since 4.1.0
  */

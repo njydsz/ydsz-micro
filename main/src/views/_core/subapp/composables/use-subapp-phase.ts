@@ -4,7 +4,7 @@
  * 从 SubAppContainer 拆出：阶段状态机 + 阶段映射 + 无障碍公告 + 焦点管理。
  * 由 micro-kernel 细化生命周期钩子驱动。
  *
- * @path main/src/views/_core/subapp/composables/use-subapp-phase.ts
+ * @path main\src\views\_core\subapp\composables\use-subapp-phase.ts
  * @author ydsz-team
  * @since 4.1.0
  */

@@ -1,20 +1,8 @@
 /**
- * DevTools Bridge —— 将 micro-kernel 生命周期事件桥接到 Chrome Extension
+ * DevTools Bridge —— 桥接 micro-kernel 生命周期事件到 Chrome Extension 调试面板
  *
- * 架构：
- *   micro-kernel (scheduler/lifecycle)
- *        ↓  addLifecycleHook callbacks
- *   DevTools Bridge (本模块)
- *        ↓  window.__sendToExtension / window.postMessage
- *   Chrome Extension Content Script
- *        ↓  chrome.runtime.sendMessage
- *   Background Service Worker → DevTools Panel
- *
- * 启用条件：
- *   - import.meta.env.DEV（开发态默认启用）
- *   - localStorage.getItem('micro-kernel:devtools') === '1'（生产态手动开启）
- *
- * @path main/src/monitoring/devtools-bridge.ts
+ * @path main\src\monitoring\devtools-bridge.ts
+ * @author ydsz-team
  * @since 4.0.0
  */
 
@@ -53,6 +41,7 @@ interface KernelDiagnostics {
   unmountApp?: (name: string) => Promise<UnmountResult>;
 }
 
+/** DevTools Bridge 启动配置选项 */
 export interface DevToolsBridgeOptions {
   forceEnable?: boolean;
   heartbeatMs?: number;
@@ -213,6 +202,11 @@ function errorToMessage(err: unknown): string {
   return err instanceof Error ? err.message : String(err);
 }
 
+/**
+ * 启用 DevTools Bridge，注册内核生命周期钩子与心跳定时器。
+ *
+ * @param opts Bridge 配置选项
+ */
 export function enableDevToolsBridge(opts: DevToolsBridgeOptions): void {
   if (bridgeActive) return;
   if (!opts.forceEnable && !shouldEnable()) {
@@ -399,6 +393,9 @@ function handleExtensionCommand(
   }
 }
 
+/**
+ * 禁用 DevTools Bridge，清理心跳定时器并重置状态。
+ */
 export function disableDevToolsBridge(): void {
   if (!bridgeActive) return;
   if (heartbeatTimer) {
@@ -409,6 +406,11 @@ export function disableDevToolsBridge(): void {
   bridgeActive = false;
 }
 
+/**
+ * 查询 DevTools Bridge 是否处于活跃状态。
+ *
+ * @returns 当前是否已启用
+ */
 export function isDevToolsBridgeActive(): boolean {
   return bridgeActive;
 }

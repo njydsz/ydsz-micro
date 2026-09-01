@@ -1,5 +1,5 @@
 /**
- * index 工具函数模块
+ * 路由与菜单工具函数聚合导出，包含路由模块合并、前后端路由生成及菜单构建。
  *
  * @path comm\utils\src\helpers\index.ts
  * @author ydsz-team

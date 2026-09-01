@@ -1,5 +1,5 @@
 /**
- * 国际化配置入口
+ * 国际化配置入口 —— 配置 i18n、加载第三方库（Element Plus/dayjs）语言包
  *
  * @path main\src\locales\index.ts
  * @author ydsz-team

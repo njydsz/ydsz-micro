@@ -1,5 +1,9 @@
 /**
- * types 模块
+ * JSON 查看器组件的对外类型契约。
+ *
+ * 独立成文件的原因：Props 与三个自定义事件载荷会被业务方在 `defineProps`
+ * / `defineEmits` 中显式引用，抽离后组件实现可替换（当前基于
+ * vue-json-viewer 封装）而不破坏使用方的类型导入。
  *
  * @path comm\effects\common-ui\src\components\json-viewer\types.ts
  * @author ydsz-team
@@ -11,28 +15,35 @@ export type JsonValue = string | number | boolean | null | JsonObject | JsonArra
 interface JsonObject { [key: string]: JsonValue }
 type JsonArray = JsonValue[];
 
+/**
+ * JSON 查看器的入参。
+ *
+ * 整体是底层 vue-json-viewer 的收窄封装：只暴露展示与交互相关的开关，
+ * 不暴露编辑能力，因此本组件定位为**只读**查看器。所有字段均为可选
+ * （除 `value`），便于在日志、审计、调试面板等场景零配置接入。
+ */
 export interface JsonViewerProps {
-  /** 要展示的结构数据 */
+  /** 要展示的结构数据；必须是可 JSON 序列化的值，含 undefined/函数/循环引用会导致渲染异常 */
   value: JsonValue;
-  /** 展开深度 */
+  /** 初始展开深度，从 1 开始计数；默认 1（仅展开最外层）。设置过大在深层结构上会拖慢首屏 */
   expandDepth?: number;
-  /** 是否可复制 */
+  /** 是否在右上角显示复制按钮；默认 false。仅在 `previewMode` 为 false 时生效 */
   copyable?: boolean;
-  /** 是否排序 */
+  /** 对象 key 是否按字典序重排；默认 false（保持后端返回的原始字段顺序） */
   sort?: boolean;
-  /** 显示边框 */
+  /** 是否渲染外边框与浅色底；默认 false，用于与卡片背景融合 */
   boxed?: boolean;
-  /** 主题 */
+  /** 配色主题标识，具体取值取决于底层主题类名的注册情况，如 `'light'` / `'dark'` */
   theme?: string;
-  /** 是否展开 */
+  /** 是否默认全量展开所有层级；默认 false。与 `expandDepth` 同时存在时以全量展开为准 */
   expanded?: boolean;
-  /** 时间格式化函数 */
+  /** 时间格式化函数，用于把识别出的时间值渲染为可读文本；不传则原样输出 */
   timeformat?: (time: Date | number | string) => string;
-  /** 预览模式 */
+  /** 预览模式：隐藏交互控件，仅做静态展示；默认 false */
   previewMode?: boolean;
-  /** 显示数组索引 */
+  /** 数组是否显示下标前缀；默认 true，长数组场景可关闭以减少视觉噪声 */
   showArrayIndex?: boolean;
-  /** 显示双引号 */
+  /** 字符串值是否保留双引号；默认 true，关闭后更贴近普通文本阅读习惯 */
   showDoubleQuotes?: boolean;
 }
 

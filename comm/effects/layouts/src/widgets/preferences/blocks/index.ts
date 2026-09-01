@@ -1,5 +1,5 @@
 /**
- * 应用偏好配置
+ * 偏好设置面板配置块导出（主题/布局/快捷键/常规各区块及表单项组件）
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\index.ts
  * @author ydsz-team

@@ -9,11 +9,15 @@
       "default": "./src/index.ts"
     }
   },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
   "dependencies": {
     "@YDSZ-core/composables": "workspace:*",
     "@YDSZ-core/shared": "workspace:*",
     "@ydsz/micro-runtime": "workspace:*",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "vue-i18n": "catalog:"
   },
   "devDependencies": {
     "@ydsz/tsconfig": "workspace:*"

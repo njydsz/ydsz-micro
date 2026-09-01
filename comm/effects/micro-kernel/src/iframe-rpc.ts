@@ -193,16 +193,20 @@ export function createIframeRpc(
     }
 
     // P1-3: 可重试的 RPC 调用
+    // retry 内层字段（isIdempotent/maxRetries/baseDelay）在类型上仍可选，
+    // 此处按 DEFAULT_RPC_CONFIG 同款默认值兜底（启用重试时必有完整配置）
+    const retryConfig = rpc.retry;
+    const isIdempotent = retryConfig.isIdempotent?.(method) ?? false;
     const maxAttempts =
-      rpc.retry.enabled && rpc.retry.isIdempotent(method)
-        ? 1 + rpc.retry.maxRetries
+      retryConfig.enabled && isIdempotent
+        ? 1 + (retryConfig.maxRetries ?? 2)
         : 1;
 
     let lastError: Error | undefined;
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       // 重试等待（指数退避）
       if (attempt > 0) {
-        const delay = rpc.retry.baseDelay * 2 ** (attempt - 1);
+        const delay = (retryConfig.baseDelay ?? 1_000) * 2 ** (attempt - 1);
         await new Promise((r) => setTimeout(r, delay));
         // 重试前检查沙箱是否已关闭
         if (!contentWindow) {

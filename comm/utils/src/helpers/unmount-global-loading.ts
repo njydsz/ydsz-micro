@@ -1,11 +1,22 @@
 /**
- * 移除并销毁loading
- * 放在这里是而不是放在 index.html 的app标签内，是因为这样比较不会生硬，渲染过快可能会有闪烁
- * 通过先添加css动画隐藏，在动画结束后在移除loading节点来改善体验
- * 不好的地方是会增加一些代码量
- * 自定义loading可以见：https://docs.YDSZ.com.cn/guide/in-depth/loading.html
+ * 全局 Loading 移除与销毁，通过 CSS 过渡动画平滑隐藏后清理 DOM 节点。
+ *
+ * 放在工具函数中而非 index.html 的 app 标签内，是因为直接移除会造成渲染闪烁；
+ * 通过先添加 `hidden` 类触发过渡动画，待 `transitionend` 后再移除节点，体验更平滑。
+ *
+ * @path comm\utils\src\helpers\unmount-global-loading.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
-export function unmountGlobalLoading() {
+
+/**
+ * 移除页面初始化时的全局 loading 遮罩与所有注入的 loading 子元素。
+ *
+ * @remarks
+ * 流程：查找 `#__app-loading__` → 添加 `.hidden` 类触发 CSS 过渡 →
+ * `transitionend` 后移除 loading 节点及 `[data-app-loading^="inject"]` 元素。
+ */
+export function unmountGlobalLoading(): void {
   // 查找全局 loading 元素
   const loadingElement = document.querySelector('#__app-loading__');
 

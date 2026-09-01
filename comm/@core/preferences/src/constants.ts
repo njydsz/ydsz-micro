@@ -1,5 +1,5 @@
 /**
- * 应用偏好配置
+ * 内置主题色彩预设与偏好配置常量定义。
  *
  * @path comm\@core\preferences\src\constants.ts
  * @author ydsz-team

@@ -1,5 +1,12 @@
 /**
- * 认证相关类型定义（对齐后端 LoginVO）
+ * 认证模块类型定义（对齐后端 LoginVO 结构）
+ *
+ * 声明登录请求/响应、用户信息、刷新 token 等核心类型，
+ * 供 shared-auth 包内 API 层与 Store 层共用，确保前后端契约一致。
+ *
+ * @path comm\effects\shared-auth\src\types.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 /** 登录接口参数 */

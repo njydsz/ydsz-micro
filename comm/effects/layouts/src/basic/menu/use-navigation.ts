@@ -1,5 +1,13 @@
 /**
- * use-navigation 模块
+ * 菜单点击的统一导航入口。
+ *
+ * 菜单项的目标有三类（站内路由、外链、需在新窗口打开的站内页），
+ * 若让每个菜单组件各自判断，判断逻辑会重复且容易漏掉某一类。
+ * 这里集中处理三类分支，对外只暴露一个 `navigation(path)`。
+ *
+ * 另一个作用是提供 `willOpenedByWindow(path)`：菜单在渲染时就需要知道
+ * 「点击后会不会跳出当前页」，以便显示外链图标，而这个结论必须与
+ * 真正点击时的判断一致，因此两者共用同一套判定。
  *
  * @path comm\effects\layouts\src\basic\menu\use-navigation.ts
  * @author ydsz-team

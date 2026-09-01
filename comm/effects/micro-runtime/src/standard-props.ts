@@ -184,6 +184,8 @@ export function buildStandardMountProps(
       onGlobalStateChange: ctx.rawGlobalState.onGlobalStateChange,
       setGlobalState: ctx.rawGlobalState.setGlobalState,
       getGlobalState: ctx.rawGlobalState.getGlobalState,
+      getState: ctx.rawGlobalState.getState?.bind(ctx.rawGlobalState)
+        ?? ((key: string) => ctx.rawGlobalState.getGlobalState()[key]),
       // 命名空间能力由 createNamespacedGlobalStateWrapper 在 kernel 侧注入
       useNamespace: (scope: string) => {
         return createNamespacedState(ctx.rawGlobalState, scope);

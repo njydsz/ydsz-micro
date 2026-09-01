@@ -12,116 +12,136 @@
  */
 import { requestClient } from '#/api/request';
 
+
 /**
  * overview: GET /api/v1/workflow/analytics/overview
+ *
+ * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
+ * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
+ * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
+ * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function overview(params: { startTime?: string; endTime?: string }): Promise<unknown> {
+export function overview(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/analytics/overview`, { params });
 }
 
 /**
  * approverEfficiency: GET /api/v1/workflow/analytics/approverEfficiency
+ *
+ * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
+ * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
+ * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
+ * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function approverEfficiency(params: {
-  startTime?: string;
-  endTime?: string;
-  limit?: number;
-}): Promise<unknown> {
+    startTime?: string;
+    endTime?: string;
+    limit?: number;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/analytics/approverEfficiency`, { params });
 }
 
 /**
  * flowEfficiency: GET /api/v1/workflow/analytics/flowEfficiency
+ *
+ * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
+ * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
+ * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
+ * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function flowEfficiency(params: { startTime?: string; endTime?: string }): Promise<unknown> {
+export function flowEfficiency(params: {
+    startTime?: string;
+    endTime?: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/analytics/flowEfficiency`, { params });
 }
 
 /**
  * nodeDuration: GET /api/v1/workflow/analytics/nodeDuration
+ *
+ * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
+ * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
+ * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
+ * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function nodeDuration(params: { flowCode?: string }): Promise<unknown> {
+export function nodeDuration(params: {
+    flowCode?: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/analytics/nodeDuration`, { params });
 }
 
 /**
  * approvalTrend: GET /api/v1/workflow/analytics/approvalTrend
+ *
+ * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
+ * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
+ * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
+ * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function approvalTrend(params: {
-  startTime?: string;
-  endTime?: string;
-  granularity?: string;
-}): Promise<unknown> {
+    startTime?: string;
+    endTime?: string;
+    granularity?: string;
+  }): Promise<unknown> {
   return requestClient.get<unknown>(`/api/v1/workflow/analytics/approvalTrend`, { params });
 }
 
 /**
  * getArchiveConfig: GET /api/v1/workflow/analytics/history/config
  */
-export function getArchiveConfig(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/analytics/history/config`);
+export function getArchiveConfig(): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/v1/workflow/analytics/history/config`);
 }
 
 /**
  * archive: POST /api/v1/workflow/analytics/history/archive
  */
 export function archive(params: {
-  retentionDays?: number;
-  batchSize?: number;
-  maxProcessMs?: number;
-}): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/analytics/history/archive`, { params });
+    retentionDays?: number;
+    batchSize?: number;
+    maxProcessMs?: number;
+  }): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/v1/workflow/analytics/history/archive`, { params });
 }
 
 /**
  * purge: POST /api/v1/workflow/analytics/history/purge
  */
-export function purge(params: { purgeDays?: number }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/workflow/analytics/history/purge`, { params });
+export function purge(params: {
+    purgeDays?: number;
+  }): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/v1/workflow/analytics/history/purge`, { params });
 }
 
 /**
  * enumDescriptions: GET /api/v1/workflow/analytics/i18n/enum/{enumType}
  */
-export function enumDescriptions(
-  {
-    enumType,
-  }: {
+export function enumDescriptions({ enumType }: {
     enumType: string;
-  },
-  params: {
+  }, params: {
     locale?: string;
-  },
-): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/analytics/i18n/enum/${enumType}`,
-    { params },
-  );
+  }): Promise<Record<string, string>[]> {
+  return requestClient.get<Record<string, string>[]>(`/api/v1/workflow/analytics/i18n/enum/${enumType}`, { params });
 }
 
 /**
  * enumDescription: GET /api/v1/workflow/analytics/i18n/enum/{enumType}/{enumName}
  */
-export function enumDescription(
-  {
-    enumType,
-    enumName,
-  }: {
+export function enumDescription({ enumType, enumName }: {
     enumType: string;
     enumName: string;
-  },
-  params: {
+  }, params: {
     locale?: string;
-  },
-): Promise<string> {
-  return requestClient.get<string>(`/api/v1/workflow/analytics/i18n/enum/${enumType}/${enumName}`, {
-    params,
-  });
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/workflow/analytics/i18n/enum/${enumType}/${enumName}`, { params });
 }
 
 /**
  * supportedLocales: GET /api/v1/workflow/analytics/i18n/locales
  */
-export function supportedLocales(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/analytics/i18n/locales`);
+export function supportedLocales(): Promise<Record<string, string>[]> {
+  return requestClient.get<Record<string, string>[]>(`/api/v1/workflow/analytics/i18n/locales`);
 }

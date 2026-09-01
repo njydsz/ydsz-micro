@@ -1,5 +1,14 @@
 /**
- * request-client 模块
+ * 基于 axios 的统一请求客户端。
+ *
+ * 在 axios 之上补齐四类工程能力，各应用共用同一套实现：
+ * - 请求取消：按 URL 索引在途请求的 AbortController，支持单条/全部取消；
+ * - 重试：可配置次数、退避策略与抖动，且通过内部 axios 实例重入以避开策略叠加；
+ * - 上传 / 下载：委托给 FileUploader / FileDownloader，见各自模块；
+ * - 拦截器增删：委托给 InterceptorManager，保证可移除。
+ *
+ * 不在这里处理后端信封（code/data 解包）——那是 `preset-interceptor` 的职责，
+ * 二者以拦截器形式组合，便于后端契约变更时只改一处。
  *
  * @path comm\effects\request\src\request-client\request-client.ts
  * @author ydsz-team
@@ -71,7 +80,13 @@ class RequestClient {
    */
   private abortControllerMap: Map<string, Set<AbortController>> = new Map();
 
-  private readonly instance: AxiosInstance;
+  /**
+   * 内部 axios 实例。
+   *
+   * <p>响应拦截器（如 retryResponseInterceptor）需要通过本实例执行请求重入，
+   * 以绕过 RequestClient.request() 内置的旧版重试逻辑，避免重试策略叠加冲突。
+   */
+  public readonly instance: AxiosInstance;
 
   /** 重试配置 */
   private retryConfig: {

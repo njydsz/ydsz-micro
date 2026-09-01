@@ -1,5 +1,5 @@
 /**
- * types 模块
+ * RequestClient 公共类型定义（配置、拦截器、响应数据类型）
  *
  * @path comm\effects\request\src\request-client\types.ts
  * @author ydsz-team

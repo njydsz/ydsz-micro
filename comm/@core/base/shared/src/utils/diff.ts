@@ -1,8 +1,17 @@
 /**
- * 比较两个数组是否相等
- * @param a 数组 a
- * @param b 数组 b
- * @returns 是否相等
+ * 对象差异比较与数组相等判断工具。
+ *
+ * @path comm\@core\base\shared\src\utils\diff.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
+ * 比较两个数组是否相等（元素相同且出现次数一致，忽略顺序）。
+ *
+ * @param a - 待比较数组 a
+ * @param b - 待比较数组 b
+ * @returns 相等返回 `true`，否则 `false`
  */
 function arraysEqual<T>(a: T[], b: T[]): boolean {
   if (a.length !== b.length) return false;

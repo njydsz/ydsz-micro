@@ -1,5 +1,5 @@
 /**
- * index 组合式函数
+ * 极简国际化（i18n）组合式函数，为框架内置基础组件提供中英文切换能力。
  *
  * @path comm\@core\composables\src\use-simple-locale\index.ts
  * @author ydsz-team

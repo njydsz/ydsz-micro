@@ -1,23 +1,14 @@
 /**
- * 多 Tab 子应用同步增强
+ * 多 Tab 子应用会话追踪 —— 按子应用独立计数 Tab，全部关闭时才卸载（v3.7.0 P3-1）
  *
- * v3.7.0 (P3-1): 从"关闭任意 Tab 即卸载子应用"升级为"按子应用会话追踪"：
- * 1. 每个子应用独立追踪打开的 Tab 数，仅当最后一项 Tab 关闭时才卸载子应用
- * 2. 打开 Tab 时自动 pin 子应用（防 keep-alive 淘汰），最后 Tab 关闭时 unpin
- * 3. 记录子应用最后一次激活的路径，下次打开同子应用时自动恢复激活态
- *
- * 与 `comm/effects/layouts` 中 useTabbar 的配合：
- * - useTabbar 的 watch(route.fullPath) 在路由变化时自动 addTab
- * - 本 hook 监听 onTabClosed / onTabOpened，维护 per-app Tab 计数器
- * - 计数器 > 0 时 setKeepAlive(true) 并 pin；计数器 === 0 时 unpin 并 unmount
- *
- * @path main/src/hooks/use-tabbar-micro-sync.ts
+ * @path main\src\hooks\use-tabbar-micro-sync.ts
  * @author ydsz-team
  * @since 3.0.0
  */
 
 import { onTabClosed } from "@ydsz/stores";
-import { PATH_TO_APP_MAP } from "@ydsz/vite-config";
+// v4.4.1 A3: 注册表迁至 @ydsz/constants（运行时单源），不再依赖构建配置包
+import { PATH_TO_APP_MAP } from "@ydsz/constants";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
 import type { microRuntime } from "#/bootstrap";
@@ -115,7 +106,13 @@ export async function recordSubAppTabOpened(path: string, appName: string): Prom
   }
 }
 
-/** 记录子应用关闭了一个 Tab；返回是否需要卸载子应用 */
+/**
+ * 记录子应用关闭了一个 Tab。
+ *
+ * @param appName - 子应用名
+ * @param path - 关闭的路径
+ * @returns 是否需要卸载子应用（最后一项 Tab 关闭时为 true）
+ */
 function recordSubAppTabClosed(appName: string, path: string): boolean {
   const session = sessions.get(appName);
   if (!session) return false;

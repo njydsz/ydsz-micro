@@ -1,5 +1,5 @@
 /**
- * messages 组合式函数
+ * 内置极简文案字典与国际化辅助函数，仅覆盖基础组件所需的通用词条。
  *
  * @path comm\@core\composables\src\use-simple-locale\messages.ts
  * @author ydsz-team

@@ -23,7 +23,9 @@ export function getTemplateCacheStats(): Promise<CacheStatsVO> {
 /**
  * evictTemplateCache: DELETE /api/v1/message/ops/template-cache
  */
-export function evictTemplateCache(params: { template?: string }): Promise<void> {
+export function evictTemplateCache(params: {
+    template?: string;
+  }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/message/ops/template-cache`, { params });
 }
 

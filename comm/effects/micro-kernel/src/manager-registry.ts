@@ -1,5 +1,3 @@
-import { createLogger } from '@YDSZ-core/shared/utils';
-const logger = createLogger('manager-registry');
 /**
  * 微内核管理器注册表
  *
@@ -22,6 +20,9 @@ const logger = createLogger('manager-registry');
  * @author ydsz-team
  * @since 4.0.1
  */
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('manager-registry');
 
 /**
  * 可释放的管理器接口。

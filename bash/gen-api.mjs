@@ -16,7 +16,7 @@
  *
  * 依赖: openapi-typescript（pnpm add -D -w openapi-typescript 首次使用需安装）
  *
- * @path bash/gen-api.mjs
+ * @path bash\gen-api.mjs
  * @author ydsz-team
  * @since 3.0.0
  */

@@ -28,7 +28,9 @@ export const useUserStore = defineStore(
     const userRoles = ref<string[]>([]);
 
     /**
-     * 设置用户信息（同步设置角色）
+     * 设置用户信息并同步更新角色列表。
+     *
+     * @param info - 用户登录信息，包含 roles 数组；传 null 表示清除登录态
      */
     function setUserInfo(info: BasicUserInfo | null) {
       userInfo.value = info;
@@ -36,6 +38,11 @@ export const useUserStore = defineStore(
       setUserRoles(roles);
     }
 
+    /**
+     * 单独设置当前用户的角色列表（不修改其他用户信息）。
+     *
+     * @param roles - 角色标识字符串数组（如 ['admin', 'editor']）
+     */
     function setUserRoles(roles: string[]) {
       userRoles.value = roles;
     }

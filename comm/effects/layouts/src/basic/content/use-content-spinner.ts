@@ -1,5 +1,13 @@
 /**
- * use-content-spinner 模块
+ * 路由切换期间的内容区加载遮罩控制。
+ *
+ * 挂在路由守卫上而非各页面内，是为了让「切路由就显示 loading」这一行为
+ * 有唯一实现：新增页面无需关心 loading，也不会出现部分页面漏加导致
+ * 切换时白屏无反馈。
+ *
+ * 关键设计：**最小显示时长 500ms**。若实际加载只要 50ms，不加这个下限
+ * 遮罩会一闪而过，视觉上比不显示更糟（闪烁）；加上后即使瞬时完成也保持
+ * 500ms，用户感知为稳定过渡。这也是 `onEnd` 里需要补一个延时定时器的原因。
  *
  * @path comm\effects\layouts\src\basic\content\use-content-spinner.ts
  * @author ydsz-team
@@ -23,6 +31,8 @@ function useContentSpinner() {
       return;
     }
     const processTime = performance.now() - startTime.value;
+    // 补足到最小显示时长：加载太快时立即关闭会造成遮罩闪烁，
+    // 观感上比不显示更差，因此宁可多停留一会儿
     if (processTime < minShowTime) {
       setTimeout(() => {
         spinning.value = false;

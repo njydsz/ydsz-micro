@@ -7,7 +7,7 @@
  *
  * 从 bootstrap.ts 拆出（原 v3.0/v3.3/v3.7.0/v4.0 逻辑），保持行为不变。
  *
- * @path main/src/setup/micro-runtime.ts
+ * @path main\src\setup\micro-runtime.ts
  * @author ydsz-team
  * @since 4.1.0
  */
@@ -22,10 +22,10 @@ import {
   setStaticRegistry,
 } from "@ydsz/micro-kernel";
 import { registerPreloadAdapter } from "@YDSZ-core/menu-ui";
+import { getProdEntry, MICRO_APPS, PATH_TO_APP_MAP } from "@ydsz/constants";
 import { createRuntime, registerKernel, type MicroAppConfig } from "@ydsz/micro-runtime";
 import { preferences } from "@ydsz/preferences";
 import { startProgress, stopProgress } from "@ydsz/utils";
-import { getProdEntry, MICRO_APPS, PATH_TO_APP_MAP } from "@ydsz/vite-config";
 
 import { createLogger } from "@YDSZ-core/shared/utils";
 

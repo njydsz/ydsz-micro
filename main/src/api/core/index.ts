@@ -1,5 +1,5 @@
 /**
- * API 导出入口
+ * 核心 API 统一导出 —— 聚合 auth/dashboard/menu/notification/search/user 模块
  *
  * @path main\src\api\core\index.ts
  * @author ydsz-team

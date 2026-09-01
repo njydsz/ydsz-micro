@@ -22,7 +22,7 @@
  *   # 自定义端口
  *   node bash/dev-standalone.mjs workflow-web --port 5800
  *
- * @path bash/dev-standalone.mjs
+ * @path bash\dev-standalone.mjs
  * @author ydsz-team
  * @since 4.0.0
  */
@@ -106,7 +106,7 @@ if (!fs.existsSync(standaloneEntry)) {
 
 // ==================== 端口分配 ====================
 
-// 默认端口映射（对齐 micro-apps.config.ts）
+// 默认端口映射（对齐 comm/constants/src/micro-apps.ts）
 const portMap = {
   'userinfo-web': 5701,
   'system-web': 5702,

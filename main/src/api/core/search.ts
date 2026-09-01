@@ -1,5 +1,5 @@
 /**
- * search API 接口定义
+ * 搜索 API —— 全局搜索与搜索建议接口定义
  *
  * @path main\src\api\core\search.ts
  * @author ydsz-team

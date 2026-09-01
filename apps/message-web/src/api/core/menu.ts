@@ -4,6 +4,7 @@
  * <p>提供 {@code getAllMenusApi}（获取全部菜单）、{@code getMenuTreeApi}（菜单树）。
  * <p>供业务代码统一 {@code import { getAllMenusApi } from '#/api/core/menu'} 引用。
  *
+ * @path apps\message-web\src\api\core\menu.ts
  * @author ydsz-team
  * @since 1.0.0
  */

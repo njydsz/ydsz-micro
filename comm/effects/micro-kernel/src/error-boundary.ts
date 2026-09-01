@@ -12,7 +12,7 @@
  * - error-fallback-messages.ts   降级 UI i18n 消息与全局语言状态
  * - error-degradation.ts         会话级降级标记 / 重试计数 / 三级降级决策
  *
- * @path comm/effects/micro-kernel/src/error-boundary.ts
+ * @path comm\effects\micro-kernel\src\error-boundary.ts
  * @author ydsz-team
  * @since 3.0.0
  */
@@ -99,7 +99,7 @@ export enum KernelErrorCode {
  * @since 4.0.1
  */
 export class KernelError extends Error {
-  readonly cause?: unknown;
+  override readonly cause?: unknown;
   readonly code: KernelErrorCode;
 
   constructor(code: KernelErrorCode, message: string, cause?: unknown) {

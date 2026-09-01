@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 布局标签栏组件导出（LayoutTabbar + useTabbar composable）
  *
  * @path comm\effects\layouts\src\basic\tabbar\index.ts
  * @author ydsz-team

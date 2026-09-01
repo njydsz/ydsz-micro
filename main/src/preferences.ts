@@ -1,5 +1,5 @@
 /**
- * preferences 模块
+ * 偏好设置覆盖配置 —— 定义主应用的主题、布局、功能开关等覆盖值
  *
  * @path main\src\preferences.ts
  * @author ydsz-team

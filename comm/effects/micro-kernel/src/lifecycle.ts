@@ -60,6 +60,8 @@ export async function activateApp(
   if (instance.status === "MOUNTED") return;
 
   // keepAlive 复用
+  // 必须同时校验 cachedRoot 与 cachedParent：前者是缓存的 DOM，后者标记「已摘离待恢复」。
+  // 只看 cachedRoot 会把仍在页面上的实例误判为可恢复，导致 append 一个已在 DOM 树中的节点
   if (
     ctx.keepAliveEnabled &&
     instance.keepAlive &&
@@ -68,6 +70,8 @@ export async function activateApp(
   ) {
     mark(`kernel:activate:${config.name}:start`);
     container.append(instance.cachedRoot);
+    // 置空即「已归还」标记：本次恢复后本轮保活周期结束，
+    // 再次激活会走完整挂载路径，避免同一 DOM 被重复 append
     instance.cachedParent = null;
     instance.status = "MOUNTED";
     instance.lastActivatedAt = Date.now();
@@ -77,6 +81,9 @@ export async function activateApp(
       catch (error) { logger.error(`${config.name} activate hook failed:`, error); }
     }
     // v4.2.1 N6: keep-alive 恢复 hydrate
+    // 仅当 cachedState 被显式序列化过才 hydrate：undefined 可能表示
+    // 「子应用未提供 serialize」或「序列化失败」，此时传 undefined 会让子应用
+    // 误以为要重置为空状态，反而丢数据
     if (instance.exports?.hydrate && instance.cachedState !== undefined) {
       try { await instance.exports.hydrate(instance.cachedState, { container,
         basename: typeof config.activeRule === "string" ? config.activeRule : "/", ...config.props });
@@ -203,10 +210,17 @@ export async function deactivateApp(
     const container = resolveContainer(config.container);
     if (container) {
       mark(`kernel:deactivate:${config.name}:start`);
+      // 只缓存容器的第一个子节点：子应用 mount 时约定把根节点挂在容器下，
+      // 保活不需要记录整棵子树，恢复时 append 这个根即可
       instance.cachedRoot = container.firstElementChild as HTMLElement;
       instance.cachedParent = container;
+      // remove() 而非隐藏（display:none）：保留 DOM 会让子应用继续响应
+      // 路由、定时器和 IntersectionObserver，且仍参与全局样式计算与查询，
+      // 达不到释放的目的
       if (instance.cachedRoot) instance.cachedRoot.remove();
       instance.status = "UNMOUNTED";
+      // 用逻辑时钟而非 Date.now()：同一毫秒内缓存多个应用时时间戳会相同，
+      // LRU 排序将退化为不确定顺序；自增序号保证严格有序
       instance.keepAliveSince = ctx.keepAliveTimestamp++;
       instance.strategy?.unmount();
       if (instance.exports?.deactivate) {
@@ -227,6 +241,8 @@ export async function deactivateApp(
       logger.debug(`${config.name} detached (keepAlive)`);
 
       // P0-P2: LRU 淘汰
+      // 必须在本实例入缓存**之后**执行：否则刚缓存的实例不在候选集里，
+      // 本次停用不会触发超限淘汰，缓存数会突破 maxKeepAliveApps
       const evicted = await evictKeepAliveIfNeeded(ctx);
       return {
         name: config.name,
@@ -239,6 +255,9 @@ export async function deactivateApp(
   // 完整卸载
   mark(`kernel:unmount:${config.name}:start`);
   try {
+    // 容器已不存在（路由切换时父节点被销毁）时用临时 div 兜底：
+    // 子应用 unmount 常会访问 container 做清理，传 null 会引发连锁异常，
+    // 使本已失败的场景更难恢复。兜底容器不插入文档，用完即弃
     await instance.exports?.unmount?.({
       container: resolveContainer(config.container) || document.createElement("div"),
       basename: typeof config.activeRule === "string" ? config.activeRule : "/",

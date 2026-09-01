@@ -1,5 +1,5 @@
 /**
- * types 模块
+ * 页面容器 Page 组件的 Props 类型声明
  *
  * @path comm\effects\common-ui\src\components\page\types.ts
  * @author ydsz-team

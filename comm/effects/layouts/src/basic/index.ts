@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 基础布局容器组件导出（BasicLayout）
  *
  * @path comm\effects\layouts\src\basic\index.ts
  * @author ydsz-team

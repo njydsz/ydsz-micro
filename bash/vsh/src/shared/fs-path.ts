@@ -4,6 +4,10 @@
  * @since 2026-08-24
  * @description 供 check-arch / check-circular 复用：递归收集源码文件、解析 #/ 与 @ydsz/@YDSZ-core 别名。
  *              纯 Node 内置模块实现，零第三方依赖，契合「最小化外部依赖、绝对可控」原则。
+ *
+ * @path bash\vsh\src\shared\fs-path.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';

@@ -48,7 +48,7 @@ export interface MicroAppConfig {
   /**
    * 沙箱类型（v3.6.0 对外开放，未配置时默认 'snapshot'）。
    *
-   * 业务侧可在 micro-apps.config.ts 注册表中按子应用指定沙箱类型，
+   * 业务侧可在注册表（comm/constants/src/micro-apps.ts）中按子应用指定沙箱类型，
    * 例如对全局样式冲突的子应用设置 `sandbox: 'iframe'`。
    *
    * @since 3.6.0

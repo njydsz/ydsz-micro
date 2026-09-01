@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 认证页布局组件导出（AuthPageLayout + ToolbarType 类型）
  *
  * @path comm\effects\layouts\src\authentication\index.ts
  * @author ydsz-team

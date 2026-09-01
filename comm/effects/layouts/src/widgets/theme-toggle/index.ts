@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 明暗主题切换挂件组件（ThemeToggle）导出
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\index.ts
  * @author ydsz-team

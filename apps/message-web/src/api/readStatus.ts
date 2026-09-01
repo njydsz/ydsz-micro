@@ -12,65 +12,54 @@
  */
 import { requestClient } from '#/api/request';
 
+
 /**
  * markRead: POST /api/v1/message/read-status/read/{msgId}
  */
-export function markRead(
-  {
-    msgId,
-  }: {
+export function markRead({ msgId }: {
     msgId: string;
-  },
-  params: {
+  }, params: {
     userId?: string;
-  },
-): Promise<boolean> {
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/read-status/read/${msgId}`, { params });
 }
 
 /**
  * markReadBatch: POST /api/v1/message/read-status/readBatch
  */
-export function markReadBatch(
-  params: {
+export function markReadBatch(params: {
     userId?: string;
-  },
-  data: string[],
-): Promise<number> {
+  }, data: string[]): Promise<number> {
   return requestClient.post<number>(`/api/v1/message/read-status/readBatch`, data, { params });
 }
 
 /**
  * markNotificationRead: POST /api/v1/message/read-status/notification/{notificationId}
  */
-export function markNotificationRead(
-  {
-    notificationId,
-  }: {
+export function markNotificationRead({ notificationId }: {
     notificationId: string;
-  },
-  params: {
+  }, params: {
     userId?: string;
-  },
-): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/v1/message/read-status/notification/${notificationId}`, {
-    params,
-  });
+  }): Promise<boolean> {
+  return requestClient.post<boolean>(`/api/v1/message/read-status/notification/${notificationId}`, { params });
 }
 
 /**
  * markAllNotificationsRead: POST /api/v1/message/read-status/notification/readAll
  */
 export function markAllNotificationsRead(params: {
-  userId?: string;
-  bizType?: string;
-}): Promise<number> {
+    userId?: string;
+    bizType?: string;
+  }): Promise<number> {
   return requestClient.post<number>(`/api/v1/message/read-status/notification/readAll`, { params });
 }
 
 /**
  * getUnreadCount: GET /api/v1/message/read-status/unreadCount
  */
-export function getUnreadCount(params: { userId?: string; channel?: string }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/message/read-status/unreadCount`, { params });
+export function getUnreadCount(params: {
+    userId?: string;
+    channel?: string;
+  }): Promise<Record<string, number>> {
+  return requestClient.get<Record<string, number>>(`/api/v1/message/read-status/unreadCount`, { params });
 }

@@ -29,7 +29,7 @@ import {
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { create, update } from '#/api/route-rule';
+import { create, update } from '#/api/routeRule';
 import type { MsgRouteRuleVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();

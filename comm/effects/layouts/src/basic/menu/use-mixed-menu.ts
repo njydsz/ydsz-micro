@@ -1,5 +1,14 @@
 /**
- * use-mixed-menu 模块
+ * 混合导航（顶部一级 + 侧边二级）下的菜单拆分与激活状态。
+ *
+ * 核心职责是把**同一份**菜单树按当前布局切成两份：顶部展示一级节点
+ * （`headerMenus` 会清空 children，避免顶部菜单渲染下拉），
+ * 侧边展示选中一级节点的子菜单（`sidebarMenus`）。这样布局切换时
+ * 数据源不变，只有切分方式变化，避免为每个布局各存一份菜单。
+ *
+ * 需要注意 `needSplit` 的两个来源：`preferences.navigation.split`
+ * 控制侧边混合导航，`isHeaderMixedNav` 控制顶部混合导航，
+ * 两者任一开启都要拆分，否则侧边栏会出现「有菜单却不显示」的空态。
  *
  * @path comm\effects\layouts\src\basic\menu\use-mixed-menu.ts
  * @author ydsz-team

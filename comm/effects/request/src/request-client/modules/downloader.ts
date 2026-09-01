@@ -1,5 +1,12 @@
 /**
- * downloader 模块
+ * 文件下载能力：在请求客户端之上固定二进制下载所需的响应配置。
+ *
+ * 单独封装的原因：下载必须把 `responseType` 设为 `blob`，否则 axios 会
+ * 按文本解析响应体，得到的内容无法构造文件。这类配置容易漏写，
+ * 且漏写后不报错、只产出损坏的文件，排查成本高，因此固化为专用方法。
+ *
+ * 默认 `responseReturn: 'body'` 直出 Blob；需要读取 Content-Disposition
+ * 等响应头时可显式传 `'raw'`。
  *
  * @path comm\effects\request\src\request-client\modules\downloader.ts
  * @author ydsz-team

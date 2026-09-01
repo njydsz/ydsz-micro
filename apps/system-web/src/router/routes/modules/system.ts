@@ -102,4 +102,5 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
+/** System 系统管理路由配置（子应用内部路由表） */
 export default routes;

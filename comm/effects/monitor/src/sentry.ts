@@ -118,6 +118,8 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
     return false;
   }
 
+  // 动态导入成功后 sentryModule 必非空，此处收窄供后续解构使用
+  if (!sentryModule) return false;
   const { init, vueIntegration, browserTracingIntegration } = sentryModule;
 
   init({

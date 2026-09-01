@@ -6,7 +6,7 @@
  * v4.1: 拆分职责 —— 应用装配（setup/app）、微前端运行时（setup/micro-runtime）、
  *       监控与运行期增强（setup/monitoring）。本文件仅保留编排逻辑。
  *
- * @path main/src/bootstrap.ts
+ * @path main\src\bootstrap.ts
  * @author ydsz-team
  * @since 1.0.0
  */

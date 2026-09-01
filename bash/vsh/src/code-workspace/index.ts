@@ -3,6 +3,8 @@
  * @author YDSZ Team
  * @since 2026-08-23
  * @description 同步 VS Code 工作区配置，统一管理扩展推荐和设置
+ *
+ * @path bash\vsh\src\code-workspace\index.ts
  */
 
 import { writeFileSync, existsSync, readdirSync } from 'node:fs';

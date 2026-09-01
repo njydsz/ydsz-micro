@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 布局菜单组件导出（普通菜单、混合菜单、扩展菜单 + 相关 composable）
  *
  * @path comm\effects\layouts\src\basic\menu\index.ts
  * @author ydsz-team

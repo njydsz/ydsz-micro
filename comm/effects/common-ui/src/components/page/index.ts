@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 页面容器组件导出（Page + PageProps 类型）
  *
  * @path comm\effects\common-ui\src\components\page\index.ts
  * @author ydsz-team

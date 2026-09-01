@@ -1,5 +1,5 @@
 /**
- * types 模块
+ * 数字滚动动画组件类型声明（CountToProps / TransitionPresets）
  *
  * @path comm\effects\common-ui\src\components\count-to\types.ts
  * @author ydsz-team

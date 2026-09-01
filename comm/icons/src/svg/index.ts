@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * SVG 图标组件导出声明，以 `svg:` 命名空间注册供 Iconify 组件引用。
  *
  * @path comm\icons\src\svg\index.ts
  * @author ydsz-team

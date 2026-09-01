@@ -1,4 +1,12 @@
 /**
+ * YDSZ 品牌常量集合，包含仓库、文档、Logo 等资源链接。
+ *
+ * @path comm\@core\base\shared\src\constants\ydsz.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
  * @zh_CN GITHUB 仓库地址
  */
 export const YDSZ_GITHUB_URL = 'https://github.com/ydsz/vue-ydsz-admin';

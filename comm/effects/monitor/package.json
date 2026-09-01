@@ -20,5 +20,11 @@
     "@ydsz/request": "workspace:*",
     "vue": "catalog:"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ydsz/tsconfig": "workspace:*"
+  }
 }

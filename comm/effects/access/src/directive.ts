@@ -1,8 +1,16 @@
 /**
- * 全局权限指令
- * 用于组件级别的细粒度权限控制
+ * Vue 全局权限指令（v-access / v-permission）注册模块。
+ *
+ * 通过 display:none + 标记属性实现元素级细粒度权限控制，
+ * 相比物理移除 DOM 的方式，可在权限变更时恢复显示，无需重新挂载。
+ *
  * @example v-access:role="[ROLE_NAME]" 或 v-access:role="ROLE_NAME"
  * @example v-access:code="[ROLE_CODE]" 或 v-access:code="ROLE_CODE"
+ * @example v-permission="['sys:dict:add', 'sys:dict:edit']"
+ *
+ * @path comm\effects\access\src\directive.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 import type { App, Directive, DirectiveBinding } from 'vue';
 
@@ -28,6 +36,13 @@ function getAccess() {
   return cachedAccess;
 }
 
+/**
+ * 检测当前绑定值是否命中用户权限。
+ *
+ * @param _el - 被绑定元素（此处未使用，保留参数位置以符合签名）
+ * @param binding - 指令绑定对象，包含 value（角色码或权限码数组）与 arg（role/code）
+ * @returns 有权限返回 true，否则 false
+ */
 function checkAccess(
   _el: Element,
   binding: DirectiveBinding<string | string[]>,
@@ -87,35 +102,61 @@ const updated = (el: Element, binding: DirectiveBinding<string | string[]>) => {
   }
 };
 
+/** v-access 指令：OR 语义权限校验，按 accessMode 自动选择角色或权限码 */
 const authDirective: Directive = {
   mounted,
   updated,
 };
 
 /**
- * 向 Vue 应用注册全局权限指令 `v-access`。
+ * v-permission 指令 —— 基于 API 权限码的按钮级鉴权（AND 语义：全部匹配才放行）。
  *
- * @remarks
- * 匹配规则：仅当 `accessMode === 'frontend'` 且指令参数为 `role` 时按角色（`hasAccessByRoles`）匹配，
- * 其余情况（含 `v-access:code`、后端权限模式下的 `v-access:role`）一律按权限码（`hasAccessByCodes`）匹配。
- * 指令值可以是单个字符串或字符串数组，数组语义为「命中任意一项即放行」。
+ * <p>与 v-access:code 的区别：
+ * <ul>
+ *   <li>v-access:code：OR 语义（数组中任意一项命中即放行），沿用 vben-admin 旧习</li>
+ *   <li>v-permission：AND 语义（必须全部命中才放行），对齐后端 @AuthApiPermission 语义</li>
+ * </ul>
  *
- * 失败表现：鉴权不通过时设置 `display: none` + `data-access-hidden` 属性，
- * **不物理移除元素**，权限变更后 updated 钩子可自动恢复显示。
+ * <p>始终按权限码（apiCode）模式校验，忽略 preferences.app.accessMode 与 arg。
+ */
+function checkPermission(binding: DirectiveBinding<string | string[]>): boolean {
+  const value = binding.value;
+  if (!value) return true;
+  const { hasAccessByCodesAll } = getAccess();
+  const values = Array.isArray(value) ? value : [value];
+  return hasAccessByCodesAll(values);
+}
+
+const permissionDirective: Directive = {
+  mounted(el: Element, binding: DirectiveBinding<string | string[]>) {
+    if (!checkPermission(binding)) {
+      hideElement(el);
+    }
+  },
+  updated(el: Element, binding: DirectiveBinding<string | string[]>) {
+    if (!document.contains(el)) return;
+    const hasAccess = checkPermission(binding);
+    const wasHidden = el.hasAttribute(HIDDEN_ATTR);
+    if (!hasAccess && !wasHidden) {
+      hideElement(el);
+    } else if (hasAccess && wasHidden) {
+      showElement(el);
+    }
+  },
+};
+
+/**
+ * 同时注册 v-access 和 v-permission 两条全局指令。
  *
- * 生命周期：实现了 `mounted` + `updated`，支持元素属性更新与权限变更时重新评估。
+ * <p>注册后可在模板中使用：
+ * <ul>
+ *   <li>{@code v-access:code="'sys:dict:add'"} — OR 语义：拥有 sys:dict:add 即放行</li>
+ *   <li>{@code v-permission="['sys:dict:add', 'sys:dict:edit']"} — AND 语义：同时拥有两者才放行</li>
+ * </ul>
  *
  * @param app - 需要注册指令的 Vue 应用实例，通常在应用启动阶段调用一次
- *
- * @example
- * ```ts
- * registerAccessDirective(app);
- * ```
- * ```html
- * <button v-access:code="'AC_100100'">新增</button>
- * <button v-access:role="['super', 'admin']">删除</button>
- * ```
  */
 export function registerAccessDirective(app: App) {
   app.directive('access', authDirective);
+  app.directive('permission', permissionDirective);
 }

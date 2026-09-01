@@ -54,6 +54,7 @@ const mockMenuResponse = {
   message: 'success',
 };
 
+/** 认证相关 Mock 处理器集合（登录 / 用户信息 / 登出 / Token 刷新 / 菜单） */
 export const mockAuthHandlers: MockHandler[] = [
   // 登录
   {

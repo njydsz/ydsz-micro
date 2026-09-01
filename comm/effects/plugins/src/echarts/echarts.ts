@@ -1,5 +1,14 @@
 /**
- * echarts 模块
+ * ECharts 按需引入的统一入口。
+ *
+ * 存在的意义是**把「注册哪些组件」这件事收敛到唯一一处**：直接
+ * `import * as echarts from 'echarts'` 会打进全量包（约 1MB+），而各处
+ * 分散 `echarts.use()` 又会导致注册时机不确定、漏注册时图表静默不渲染。
+ * 本模块在模块求值期一次性完成注册，业务侧只 `import echarts from '...'`
+ * 即可，无需关心注册细节。
+ *
+ * 新增图表类型或组件时必须同步改两处：`echarts.use([...])` 与下方
+ * `ECOption` 的联合类型，否则要么运行时不渲染，要么类型报错。
  *
  * @path comm\effects\plugins\src\echarts\echarts.ts
  * @author ydsz-team
@@ -82,4 +91,18 @@ echarts.use([
   ToolboxComponent,
 ]);
 
+/**
+ * 已完成组件注册（bar / line / pie / radar + 常用组件 + CanvasRenderer）的
+ * echarts 命名空间。
+ *
+ * 与 `echarts/core` 的区别：本导出可直接调用 `echarts.init()`，无需再
+ * `use()`；未注册的图表类型（如 `map`、`gauge`）仍会静默不渲染。
+ *
+ * @example
+ * ```ts
+ * import echarts from '@YDSZ-effects/plugins/echarts';
+ * const chart = echarts.init(el);
+ * chart.setOption(option as ECOption);
+ * ```
+ */
 export default echarts;

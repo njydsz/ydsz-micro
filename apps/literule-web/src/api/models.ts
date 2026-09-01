@@ -38,1172 +38,1539 @@ export interface PageQuery {
   pageSize?: number;
 }
 
-export interface RuleABPolicyPutDTO {
+/**
+ * 规则 A/B 测试策略 DTO（统一新增/修改）。
+ *
+ * 创建时 `id` 字段不传，更新时传入 `id`。
+ */
+export interface RuleABPolicyDTO {
   serialVersionUID?: number;
-
+  /** 策略唯一标识（主键，更新时传入） */
   id?: string;
-
+  /** 关联的规则编码 */
   ruleCode?: string;
-
+  /** 是否启用自动回滚 */
   autoRollbackEnabled?: boolean;
-
+  /** 回滚动作（AUTO/NOTIFY） */
   rollbackAction?: string;
-
+  /** 错误率阈值，超过此值触发自动回滚 */
   errorRateThreshold?: number;
-
+  /** 最小样本量，样本不足时不触发回滚 */
   minSampleSize?: number;
-
+  /** 评估窗口（分钟） */
   checkWindowMinutes?: number;
-
+  /** 通知渠道，逗号分隔 */
   notifyChannels?: string;
-
+  /** 策略描述 */
   description?: string;
 }
 
-export interface RuleDefinition {
+/**
+ * 规则定义（元数据）
+ *
+ * 描述一条可配置规则的完整元信息，支持从数据库加载或编程式创建。 conditionExpression 为 LiteExpr 表达式，返回 boolean；actionExpression
+ * 可选，用于动态生成结果描述。
+ */
+export interface RuleDefinitionDTO {
   serialVersionUID?: number;
-
+  /** 规则编码（唯一） */
   code?: string;
-
+  /** 规则名称 */
   name?: string;
-
+  /** 规则类别 */
   category?: string;
-
+  /**
+   * 分类路径（P1-9 规则目录树）
+   * 多级分类用 `/` 分隔，如 `"finance/credit/loan"`。前端左侧树按此字段构建。 兼容：category
+   * 保留作为一级分类，categoryPath 可空（空时按 category 显示）。
+   */
   categoryPath?: string;
-
+  /**
+   * 责任人（P1-9 规则目录树）
+   * 工号/用户名。Owner 在以下场景使用：
+   * 规则异常告警通知（执行失败率突增、连续 N 次未命中）
+   * AB Test 自动回滚后的通知
+   * 规则巡检/审核派单
+   */
   owner?: string;
-
+  /** 规则描述 */
   description?: string;
-
+  /**
+   * 条件表达式（LiteExpr 语法）
+   * 示例：`evmRedCount >= 3` 或 `grossMargin < 0.05 && confirmedRevenue > 0`
+   */
   conditionExpression?: string;
-
+  /**
+   * 严重度表达式（LiteExpr 语法，可选）
+   * 当条件满足时，根据上下文动态决定严重度。 示例：`benchIdleCost >= 1000000 ? 'RED' : 'YELLOW'` 为空时使用 {@link
+   * #defaultSeverity}
+   */
   severityExpression?: string;
-  /** 枚举 RuleSeverity */
+  /** 默认严重度（当 severityExpression 为空时使用） */
   defaultSeverity?: string;
-
+  /** 标题模板（支持 ${var} 占位符） */
   titleTemplate?: string;
-
+  /** 描述模板（支持 ${var} 占位符） */
   descriptionTemplate?: string;
-
+  /** 优先级（数值越小越先执行） */
   priority?: number;
-
+  /** 是否启用 */
   enabled?: boolean;
-
+  /** 影响范围 */
   scope?: string;
-
+  /**
+   * 互斥组名称
+   * 同组内首个命中的规则执行后，其余规则跳过评估。null 表示无互斥组。
+   */
   mutexGroup?: string;
-
+  /** 是否可下钻 */
   drilldownAvailable?: boolean;
-
+  /** 当前版本号 */
   version?: number;
-
+  /**
+   * 租户 ID
+   * 多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link
+   * com.njydsz.literule.server.core.DefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link
+   * RuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。
+   */
   tenantId?: string;
-
+  /**
+   * 环境标识（dev/staging/prod/default）
+   * 与 #tenantId 正交，实现多环境规则隔离（P1-5）。
+   * `"default"`（默认）- 全环境生效，向后兼容
+   * `"dev"` / `"staging"` / `"prod"` - 仅匹配同环境的上下文
+   * 过滤规则：规则的 environment 为 `"default"` 时匹配任何上下文环境； 非 `"default"` 时必须与 {@link
+   * RuleContextVO#getEnvironment()} 完全匹配。
+   */
   environment?: string;
-
+  /** 生命周期状态 */
   status?: string;
-
+  /** 生效时间 */
   effectiveFrom?: string;
-
+  /** 失效时间 */
   effectiveTo?: string;
-
+  /** 审核人 */
   reviewedBy?: string;
-
+  /** 审核时间 */
   reviewedAt?: string;
-
+  /** 审核意见 */
   reviewComment?: string;
-
+  /**
+   * 灰度比例（0.0~1.0，0 表示不启用灰度）
+   * 当 canaryRatio > 0 且存在候选版本（canaryDefinition 非空）时， 引擎按此比例将流量分到候选版本。
+   */
   canaryRatio?: number;
-
+  /**
+   * 灰度条件（LiteExpr 表达式列表，AND 关系）
+   * 仅当 canaryRatio > 0 时生效；满足全部条件才进入灰度流量分桶。 示例：{@code ["tenantId == 'T001'", "userRole ==
+   * 'ADMIN'"]} 为空时仅按 canaryRatio 比例分桶。
+   */
   canaryConditions?: string[];
-
+  /**
+   * 灰度候选版本表达式（条件/严重度表达式，覆盖主版本）
+   * 当流量被分到灰度桶时，使用此候选表达式构造一条临时规则进行评估， 结果会被标记 com.njydsz.literule.domain.vo.RuleResultVO#isCanary() = true，便于运营对比新旧命中差异。
+   */
   canaryConditionExpression?: string;
-
+  /** 灰度候选版本的严重度表达式 */
   canarySeverityExpression?: string;
 }
 
+/**
+ * 表达式校验请求体 DTO
+ *
+ * 用于 `/rules/validate-expression` 接口，校验条件/严重度/模板表达式。
+ */
 export interface ExpressionValidateDTO {
+  /** 表达式内容 */
   expression?: string;
-
+  /** 表达式类型：condition / severity / template，默认 condition */
   type?: string;
 }
 
+/**
+ * A/B 测试请求体 DTO
+ *
+ * 用于 `/rules/{ruleCode`/ab-test} 接口：基于当前规则与候选规则定义， 对同一份事实数据分别评估，
+ * 输出对比报告（触发差异 / 严重度差异 / 建议结论）。
+ * 候选规则通常由前端基于当前规则克隆并修改条件/严重度表达式后提交， 服务端仅做评估对比，不落库、不发布事件、不记录统计。
+ */
 export interface RuleABTestDTO {
-  candidate?: RuleDefinition;
-
-  facts?: Record<string, unknown>;
+  /** 候选规则定义（需包含与当前规则相同的 code，服务端强制覆盖） */
+  candidate?: RuleDefinitionDTO;
+  /** 测试用事实数据（同一份 facts 分别评估当前规则与候选规则） */
+  facts?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 规则批量启停请求体 DTO
+ *
+ * 用于 `/rules/batch-toggle` 接口，批量启用/停用规则。 启用时校验 status=PUBLISHED，未发布的规则不能启用。
+ */
 export interface RuleBatchToggleDTO {
+  /** 规则编码列表 */
   ruleCodes?: string[];
-
+  /** 是否启用（true=启用，false=停用） */
   enabled?: boolean;
 }
 
+/**
+ * 规则批量优先级调整请求体 DTO
+ *
+ * 用于 `/rules/batch-priority` 接口，批量调整规则优先级。 `delta` 为增量（可为负），最终优先级钳制在 0-100 范围。
+ */
 export interface RuleBatchPriorityDTO {
+  /** 规则编码列表 */
   ruleCodes?: string[];
-
+  /** 优先级增量（可为负，最终优先级钳制 0-100） */
   delta?: number;
 }
 
+/**
+ * 规则批量分类调整请求体 DTO
+ *
+ * 用于 `/rules/batch-category` 接口，批量调整规则分类。
+ */
 export interface RuleBatchCategoryDTO {
+  /** 规则编码列表 */
   ruleCodes?: string[];
-
+  /** 目标分类 */
   category?: string;
 }
 
-export interface DecisionTablePostDTO {
+/**
+ * 决策表请求 DTO（统一新增/修改）。
+ *
+ * 创建时 `id` 字段不传，更新时传入 `id`。
+ */
+export interface DecisionTableDTO {
   serialVersionUID?: number;
-
+  /** 决策表 ID（更新时传入） */
+  id?: number;
+  /** 决策表编码，业务唯一 */
   tableCode?: string;
-
+  /** 决策表名称 */
   tableName?: string;
-
+  /** 决策表描述 */
   description?: string;
-
+  /** 分类编码 */
   category?: string;
-
-  conditionColumns?: Record<string, unknown>[];
-
-  actionColumns?: Record<string, unknown>[];
-
-  rows?: Record<string, unknown>[];
-
-  defaultActions?: Record<string, unknown>;
-
+  /** 条件列定义列表 */
+  conditionColumns?: Record<string, Record<string, unknown>>[];
+  /** 动作列定义列表 */
+  actionColumns?: Record<string, Record<string, unknown>>[];
+  /** 决策行数据列表 */
+  rows?: Record<string, Record<string, unknown>>[];
+  /** 默认动作（无匹配行时执行） */
+  defaultActions?: Record<string, Record<string, unknown>>;
+  /** 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/ANY/RULE_ORDER） */
   hitPolicy?: string;
-
+  /** 是否启用 */
   enabled?: boolean;
-
+  /** 优先级，数值越小优先级越高 */
   priority?: number;
-
+  /** 版本号 */
   version?: number;
 }
 
+/**
+ * 规则依赖新增请求体 DTO
+ *
+ * 用于 `/rules/{ruleCode`/dependencies} 接口，为规则添加依赖关系 （依赖另一条规则的执行结果，支持级联禁用）。
+ */
 export interface RuleDependencyAddDTO {
+  /** 被依赖的规则编码 */
   dependsOnRuleCode?: string;
-
+  /** 依赖类型：EXECUTE / DATA，默认 EXECUTE */
   dependencyType?: string;
-
+  /** 被依赖规则禁用时是否级联禁用本规则，默认 false */
   cascadeOnDisable?: boolean;
-
+  /** 依赖关系描述（可选） */
   description?: string;
 }
 
+/**
+ * 可视化规则链编排画布图 DTO（P2-1）
+ *
+ * 规则链画布的完整元数据模型，由 ChainNodeDTO 节点集合、 ChainEdgeDTO 连线集合以及画布视口元数据组成。
+ * 支撑前端可视化规则编排画布的"画布持久化"能力：
+ * 规则链可视化编辑（拖拽节点、连线、布局自动对齐）
+ * 规则链版本回放（按 graphId 拉取历史画布快照）
+ * 规则链导入导出（导出为 JSON，跨环境同步）
+ * 该 DTO 与 RuleChain 的关系：
+ * RuleChain：运行时执行模型，承载规则编排语义（THEN/WHEN/IF...），不含布局信息
+ * RuleChainGraph：可视化元数据模型，承载画布节点位置和连线，不参与运行时执行
+ * 通过 ChainGraphConverter 可在 RuleChain 与 RuleChainGraph 之间双向转换： RuleChain → Graph
+ * 提取结构骨架（不包含位置），Graph → RuleChain 还原可执行编排。
+ * 典型用法：
+ * <pre>
+ * RuleChainGraph graph = RuleChainGraph.builder()
+ * .graphId("graph-1")
+ * .name("CPI 预警链")
+ * .scenario("EVM")
+ * .nodes(List.of(node1, node2))
+ * .edges(List.of(edge1))
+ * .viewport(new RuleChainGraph.Viewport(0, 0, 1.0))
+ * .build();
+ * </pre>
+ */
 export interface RuleChainGraph {
   serialVersionUID?: number;
-
+  /** 画布 ID（全局唯一） */
   graphId?: string;
-
+  /** 画布名称（如"CPI 预警链-2024Q1"） */
   name?: string;
-
+  /** 关联规则编码（一对一，P0-1 增强：作为画布查询的 key） */
   ruleCode?: string;
-
+  /** 画布描述 */
   description?: string;
-
+  /** 适用场景（与 RuleContextVO.scenario 对应） */
   scenario?: string;
-
+  /** 租户 ID（多租户隔离，P1-3） */
   tenantId?: string;
-
+  /** 画布版本号（语义化版本，如 1.0.0、1.0.0-SNAPSHOT） */
   version?: string;
-
+  /** 画布状态：DRAFT / PUBLISHED / ARCHIVED（与 RuleStatus 对齐） */
   status?: string;
-
+  /** 节点列表 */
   nodes?: ChainNodeDTO[];
-
+  /** 连线列表 */
   edges?: ChainEdgeDTO[];
-
+  /** 画布视口（前端缩放和平移状态） */
   viewport?: Record<string, unknown>;
-
-  metadata?: Record<string, unknown>;
-
+  /** 画布元数据扩展（如作者、标签、自定义属性） */
+  metadata?: Record<string, Record<string, unknown>>;
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 最后更新时间 */
   updatedAt?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 最后更新人 */
   updatedBy?: string;
-
   x?: number;
-
   y?: number;
-
   zoom?: number;
 }
 
+/**
+ * 可视化规则链编排画布节点 DTO（P2-1）
+ *
+ * 描述规则链画布上的一个节点，包含节点在画布上的位置坐标、引用的规则或子链、 节点形态（单规则 / 子链 / 规则组）以及前端渲染所需的扩展元数据。
+ * 该 DTO 仅承载可视化元数据，与 RuleNode 的运行时编排节点分离， 避免可视化布局信息污染运行时执行模型。
+ * 典型用法：
+ * <pre>
+ * ChainNodeDTO node = ChainNodeDTO.builder()
+ * .nodeId("node-1")
+ * .nodeType("SINGLE")
+ * .label("CPI 预警")
+ * .ruleCode("CPI_WARN")
+ * .position(new ChainNodeDTO.Position(120, 80))
+ * .build();
+ * </pre>
+ */
 export interface ChainNodeDTO {
   serialVersionUID?: number;
-
+  /** 节点 ID（画布内唯一，前端生成的 uuid 或后端分配的有序 id） */
   nodeId?: string;
-
+  /** 节点形态：SINGLE / CHAIN / GROUP（对应 RuleNode.NodeType） */
   nodeType?: string;
-
+  /** 节点显示标签（默认取规则名称） */
   label?: string;
-
+  /** 引用的规则编码（nodeType=SINGLE 时必填） */
   ruleCode?: string;
-
+  /** 引用的规则名称（便于画布展示，避免每次反查规则定义） */
   ruleName?: string;
-
+  /** 引用的规则类别（EVM / COST / BENCH 等，用于前端按类别着色） */
   category?: string;
-
+  /** 子链类型（nodeType=CHAIN 时有效，对应 RuleChainType：THEN/WHEN/IF/ELIF/SWITCH） */
   chainType?: string;
-
+  /** 父节点 ID（嵌套链时使用，根节点为 null） */
   parentNodeId?: string;
-
+  /** 节点位置坐标（画布坐标系，左上角为原点） */
   position?: Record<string, unknown>;
-
+  /** 节点尺寸（可选，前端可按默认尺寸渲染） */
   size?: Record<string, unknown>;
-
-  style?: Record<string, unknown>;
-
-  metadata?: Record<string, unknown>;
-
+  /** 节点样式扩展（颜色、图标等，前端自定义） */
+  style?: Record<string, Record<string, unknown>>;
+  /** 业务扩展字段（如分支条件、循环变量名等，按 chainType 解释） */
+  metadata?: Record<string, Record<string, unknown>>;
   x?: number;
-
   y?: number;
-
   width?: number;
-
   height?: number;
 }
 
+/**
+ * 可视化规则链编排画布连线 DTO（P2-1）
+ *
+ * 描述画布上两个节点之间的连接关系，承载与 RuleChain 编排语义对应的连线类型：
+ * THEN - 顺序流：source 执行完毕后执行 target
+ * IF_BRANCH - 条件分支：source 是 IF/ELIF 节点，target 是分支动作节点， condition 字段携带分支条件表达式
+ * SWITCH_BRANCH - 分支选择：source 是 SWITCH 节点，target 是分支节点， branchValue 字段携带分支 key
+ * DEFAULT_BRANCH - 默认分支：SWITCH/ELIF 未命中时执行的兜底分支
+ * GROUP_MEMBER - 组成员：source 是 GROUP 节点，target 是组成员节点
+ * 连线本身不参与运行时执行（执行由 RuleChain 内部逻辑驱动）， 仅作为可视化布局元数据，便于前端画布渲染和后端持久化。
+ */
 export interface ChainEdgeDTO {
   serialVersionUID?: number;
-
+  /** 边 ID（画布内唯一） */
   edgeId?: string;
-
+  /** 起点节点 ID */
   sourceNodeId?: string;
-
+  /** 终点节点 ID */
   targetNodeId?: string;
-
+  /** 边类型：THEN / IF_BRANCH / SWITCH_BRANCH / DEFAULT_BRANCH / GROUP_MEMBER */
   edgeType?: string;
-
+  /** 边显示标签（如 "amount > 1000" 或 "type=A"） */
   label?: string;
-
+  /** 条件表达式（IF_BRANCH / ELIF 分支时携带） */
   condition?: string;
-
+  /** 分支值（SWITCH_BRANCH 时携带，对应 facts 中 branchKey 取值） */
   branchValue?: string;
-
-  style?: Record<string, unknown>;
-
-  metadata?: Record<string, unknown>;
+  /** 边样式扩展（线型、颜色、箭头样式等，前端自定义） */
+  style?: Record<string, Record<string, unknown>>;
+  /** 业务扩展字段 */
+  metadata?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 规则导入请求体 DTO
+ *
+ * 用于 `/rules/import` 接口，批量导入规则定义。
+ * 注意：`rules` 保留 `List<Map<String, Object>>` 形式，因为每条规则的字段 由前端导出格式决定，需通过 {@code
+ * objectMapper.convertValue} 转为 com.njydsz.literule.domain.api.RuleDefinitionDTO，且导入时容错（单条失败跳过）。
+ */
 export interface RuleImportDTO {
-  rules?: Record<string, unknown>[];
+  /** 待导入的规则列表（每条为规则定义的 JSON 对象） */
+  rules?: Record<string, Record<string, unknown>>[];
 }
 
+/**
+ * 规则状态变更请求体 DTO
+ *
+ * 用于 `/rules/{ruleCode`/status} 接口，切换规则生命周期状态 （DRAFT / REVIEW / PUBLISHED / ARCHIVED 等）。
+ */
 export interface RuleStatusChangeDTO {
+  /** 目标状态（RuleStatus 枚举名，如 PUBLISHED / ARCHIVED） */
   targetStatus?: string;
-
+  /** 变更备注（审批意见/驳回理由等，可选） */
   comment?: string;
 }
 
+/**
+ * 规则审批通过请求体 DTO
+ *
+ * 用于 `/rules/{ruleCode`/approve} 接口，将规则从 DRAFT/REVIEW 状态变更为 PUBLISHED，并记录审批人、审批时间、审批意见。
+ */
 export interface RuleApproveDTO {
+  /** 审批意见（可选） */
   comment?: string;
 }
 
+/**
+ * 规则审批驳回请求体 DTO
+ *
+ * 用于 `/rules/{ruleCode`/reject} 接口，将规则从 DRAFT/REVIEW/PUBLISHED 状态变更为 ARCHIVED，并记录驳回理由。
+ */
 export interface RuleRejectDTO {
+  /** 驳回理由（必填） */
   reason?: string;
 }
 
+/**
+ * 规则提交审核请求体 DTO（P1-3 多级审批流）
+ *
+ * 用于 `/rules/{ruleCode`/submit-review} 接口，将规则从 DRAFT 状态 提交到指定审批流的第一级。flowCode 为空时使用默认 2
+ * 级审批流。
+ */
 export interface RuleSubmitReviewDTO {
+  /** 审批流编码（可选，为空时使用默认 2 级审批流 default-2level） */
   flowCode?: string;
 }
 
+/**
+ * 规则审批委托请求体 DTO（P1-3 多级审批流）
+ *
+ * 用于 `/rules/{ruleCode`/delegate} 接口，将当前级别的审批权委托给他人。
+ */
 export interface RuleDelegateDTO {
+  /** 被委托人工号（必填） */
   delegatedTo?: string;
-
+  /** 委托说明（可选） */
   comment?: string;
 }
 
-export interface RulePack {
+/**
+ * 规则包视图对象（VO）。
+ *
+ * 用于 Controller 层返回规则包的完整信息。规则包是行业级规则集合的封装， 支持版本管理、规则快照、评分和下载统计，实现规则的复用与共享。
+ */
+export interface RulePackVO {
   serialVersionUID?: number;
-
+  /** 规则包唯一标识（主键） */
+  id?: string;
+  /** 规则包编码，业务唯一 */
   packCode?: string;
-
-  packName?: string;
-
+  /** 规则包版本号 */
   packVersion?: string;
-
-  description?: string;
-
+  /** 规则包名称 */
+  packName?: string;
+  /** 所属行业（如 finance/ecommerce/healthcare） */
   industry?: string;
-
-  tags?: string[];
-
-  ruleCodes?: string[];
-
-  ruleSnapshots?: RuleDefinition[];
-
+  /** 标签，逗号分隔 */
+  tags?: string;
+  /** 包含的规则编码列表，逗号分隔 */
+  ruleCodes?: string;
+  /** 规则快照 JSON，保存发布时的规则定义副本 */
+  ruleSnapshots?: string;
+  /** 前一版本号 */
   previousVersion?: string;
-
+  /** 规则包描述 */
+  description?: string;
+  /** 作者 */
   author?: string;
-
+  /** 下载次数 */
   downloadCount?: number;
-
+  /** 评分（0~5） */
   rating?: number;
+  /** 是否启用 */
+  enabled?: boolean;
+  /** 是否为官方包 */
+  official?: boolean;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 更新人 */
+  updatedBy?: string;
+  /** 更新时间 */
+  updatedAt?: string;
 }
 
+/**
+ * CEP 模式定义
+ *
+ * 支持滚动窗口计数模式：当窗口内匹配的事件数达到阈值时触发。
+ * 例如：
+ * <pre>
+ * Pattern: 检测 "3 分钟内 5 次登录失败"
+ * - eventType: LOGIN_FAILED
+ * - window: 3 分钟
+ * - threshold: 5
+ * </pre>
+ */
 export interface CEPPattern {
   serialVersionUID?: number;
-
+  /** 模式唯一标识 */
   id?: string;
-
+  /** 关联的规则编码（命中模式时触发的规则） */
   ruleCode?: string;
-
+  /** 模式名称（中文） */
   name?: string;
-
+  /** 时间窗口长度 */
   window?: Record<string, unknown>;
-
+  /** 触发阈值（窗口内事件次数达到此值时触发） */
   threshold?: number;
-
+  /** 事件类型（单事件类型匹配） */
   eventType?: string;
-
+  /** 事件类型列表（多类型 OR 匹配，如 LOGIN_FAILED 或 LOGIN_TIMEOUT） */
   eventTypes?: string[];
-
+  /** 事件过滤条件（LiteExpr 表达式，可访问 $event.attr('xxx')） */
   filter?: string;
-
+  /** 描述 */
   description?: string;
 }
 
+/**
+ * 变量定义元数据
+ *
+ * 描述规则表达式中可引用的变量，包括名称、类型、描述、示例值等。 由 VariableRegistry 提供，供 {@link
+ * ExpressionValidationService} 做 UNDEFINED_VARIABLE 校验。
+ */
 export interface VariableDefinition {
   serialVersionUID?: number;
-
+  /** 变量名（如 cpi / budgetAmount / evmRedCount） */
   name?: string;
-
+  /** 变量类型（String / Number / Boolean 等） */
   type?: string;
-
+  /** 变量描述（中文，供前端编辑器提示） */
   description?: string;
-
+  /** 示例值（用于前端编辑器预览和 dryRun 默认 facts） */
   sampleValue?: Record<string, unknown>;
-
+  /** 变量来源类别（如 EVM / PROJECT / FINANCE / BENCH 等） */
   category?: string;
-
+  /** 是否必填（前端编辑器可标记必填变量） */
   required?: boolean;
-
   simpleType?: string;
 }
 
+/**
+ * CEP（复杂事件处理）模式视图对象（VO）。
+ *
+ * 用于前端配置与展示复杂事件模式，支持滚动窗口计数模式。与后端 `CEPPattern` 领域对象对应，仅承载展示所需字段。
+ */
 export interface CEPPatternVO {
+  /** 模式 ID（业务唯一标识） */
   id?: string;
-
+  /** 关联规则编码 */
   ruleCode?: string;
-
+  /** 模式名称（展示用） */
   name?: string;
-
+  /** 时间窗口长度（滚动窗口大小） */
   window?: Record<string, unknown>;
-
+  /** 触发阈值（窗口内事件次数达到该值时触发） */
   threshold?: number;
-
+  /** 关注的事件类型（模式只匹配该类型事件） */
   eventType?: string;
-
+  /** 事件过滤表达式（对事件附加条件过滤） */
   filter?: string;
-
+  /** 模式描述 */
   description?: string;
 }
 
+/**
+ * CEP（复杂事件处理）命中视图对象（VO）。
+ *
+ * 用于前端展示某条 CEP 模式被事件流命中的记录， 包含命中的模式、规则、匹配到的事件及命中时的度量值。
+ */
 export interface CEPHitVO {
+  /** 命中的 CEP 模式 ID */
   patternId?: string;
-
+  /** 关联规则编码 */
   ruleCode?: string;
-
+  /** 命中的事件列表（按模式匹配到的原始/派生事件对象） */
   matchedEvents?: Record<string, unknown>[];
-
+  /** 命中时间（Instant，事件流中的时间戳） */
   hitAt?: string;
-
+  /** 命中指标值（如窗口内聚合度量，用于排序/告警分级） */
   metric?: number;
-
-  context?: Record<string, unknown>;
+  /** 命中上下文（附加维度信息，如项目/组织等） */
+  context?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 规则 A/B 测试策略视图对象（VO）。
+ *
+ * 用于 Controller 层返回 A/B 测试策略的完整信息，包含灰度比例、自动回滚阈值、 评估窗口及通知渠道配置，支撑规则灰度发布的效果评估与安全回滚。
+ */
 export interface RuleABPolicyVO {
   serialVersionUID?: number;
-
+  /** 策略唯一标识（主键） */
   id?: string;
-
+  /** 关联的规则编码 */
   ruleCode?: string;
-
+  /** 是否启用自动回滚 */
   autoRollbackEnabled?: boolean;
-
+  /** 回滚动作（ROLLBACK/NOTIFY_ONLY） */
   rollbackAction?: string;
-
+  /** 错误率阈值，超过此值触发自动回滚 */
   errorRateThreshold?: number;
-
+  /** 最小样本量，样本不足时不触发回滚 */
   minSampleSize?: number;
-
+  /** 评估窗口（分钟），在此时间窗口内统计错误率 */
   checkWindowMinutes?: number;
-
+  /** 通知渠道，逗号分隔（如 "sms,email,dingtalk"） */
   notifyChannels?: string;
-
+  /** 策略描述 */
   description?: string;
-
+  /** 最近一次评估时间 */
   lastEvaluatedAt?: string;
-
+  /** 最近一次回滚时间 */
   lastRollbackAt?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 规则 A/B 测试回滚记录视图对象（VO）。
+ *
+ * 用于 Controller 层返回灰度发布回滚操作的完整记录，包含触发原因、 回滚时的错误率和样本量、操作人及通知状态，支撑灰度回滚审计追溯。
+ */
 export interface RuleABRollbackVO {
   serialVersionUID?: number;
-
+  /** 回滚记录唯一标识（主键） */
   id?: string;
-
+  /** 关联的规则编码 */
   ruleCode?: string;
-
+  /** 触发回滚的原因（ERROR_RATE_EXCEEDED/MANUAL/SAMPLE_INSUFFICIENT） */
   triggerReason?: string;
-
+  /** 回滚时的错误率 */
   errorRate?: number;
-
+  /** 回滚时的样本量 */
   sampleSize?: number;
-
+  /** 是否从灰度版本回滚 */
   fromCanary?: boolean;
-
+  /** 操作人 */
   operator?: string;
-
+  /** 通知状态（SUCCESS/FAILED/NOT_SENT） */
   notifyStatus?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 规则定义视图对象（VO）。
+ *
+ * 用于 Controller 层返回规则定义的完整信息，涵盖规则基本信息、条件表达式、 灰度发布配置、审批信息及审计字段。不参与持久化，仅用于展示和传输。
+ */
 export interface RuleDefinitionVO {
   serialVersionUID?: number;
-
+  /** 规则唯一标识（主键） */
   id?: string;
-
+  /** 规则编码，业务唯一，用于规则引用和路由 */
   ruleCode?: string;
-
+  /** 规则名称，用于展示 */
   ruleName?: string;
-
+  /** 规则分类编码 */
   category?: string;
-
+  /** 分类完整路径，如 "risk/credit/loan" */
   categoryPath?: string;
-
+  /** 规则归属人 */
   owner?: string;
-
+  /** 规则描述 */
   description?: string;
-
+  /** 条件表达式（LiteExpr 语法） */
   conditionExpression?: string;
-
+  /** 严重度表达式，动态计算规则命中后的严重级别 */
   severityExpression?: string;
-
+  /** 默认严重级别（HIGH/MEDIUM/LOW/INFO） */
   defaultSeverity?: string;
-
+  /** 告警标题模板 */
   titleTemplate?: string;
-
+  /** 告警描述模板 */
   descriptionTemplate?: string;
-
+  /** 优先级，数值越小优先级越高 */
   priority?: number;
-
+  /** 是否启用 */
   enabled?: boolean;
-
+  /** 适用范围 */
   scope?: string;
-
+  /** 互斥组，同组规则仅命中一条 */
   mutexGroup?: string;
-
+  /** 是否支持下钻查看详情 */
   drilldownAvailable?: boolean;
-
+  /** 版本号 */
   version?: number;
-
+  /** 状态（DRAFT/PENDING_REVIEW/APPROVED/PUBLISHED/REJECTED） */
   status?: string;
-
+  /** 租户 ID（多租户隔离，供搜索索引与权限过滤使用） */
   tenantId?: string;
-
+  /** 生效起始时间 */
   effectiveFrom?: string;
-
+  /** 生效结束时间 */
   effectiveTo?: string;
-
+  /** 审批人 */
   reviewedBy?: string;
-
+  /** 审批时间 */
   reviewedAt?: string;
-
+  /** 审批意见 */
   reviewComment?: string;
-
+  /** 灰度发布比例（0.0~1.0），1.0 表示全量发布 */
   canaryRatio?: number;
-
+  /** 灰度条件描述 */
   canaryConditions?: string;
-
+  /** 灰度条件表达式 */
   canaryConditionExpression?: string;
-
+  /** 灰度严重度表达式 */
   canarySeverityExpression?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 规则版本视图对象（VO）。
+ *
+ * 用于前端展示规则单次版本快照的信息，包含版本号、定义 JSON、变更说明与操作人， 支撑版本查看与回溯。
+ */
 export interface RuleVersionVO {
+  /** 版本记录唯一标识（主键） */
   id?: string;
-
+  /** 规则编码 */
   ruleCode?: string;
-
+  /** 版本号 */
   version?: number;
-
+  /** 该版本的规则定义 JSON 快照 */
   definitionJson?: string;
-
+  /** 变更说明 */
   changeDesc?: string;
-
+  /** 操作人 */
   operator?: string;
-
+  /** 创建时间 */
   createdAt?: string;
 }
 
+/**
+ * 规则版本差异视图对象（VO）。
+ *
+ * 用于前端展示单条规则两个版本之间的差异，既可整体呈现（版本号、差异条目列表、 摘要），也可逐字段呈现（类型、字段名、前后值）。
+ */
 export interface RuleVersionDiffVO {
+  /** 对比的源版本号（旧版本） */
   oldVersion?: number;
-
+  /** 对比的目标版本号（新版本） */
   newVersion?: number;
-
+  /** 规则编码 */
   ruleCode?: string;
-
+  /** 差异条目列表（每项为一个字段级差异对象） */
   entries?: Record<string, unknown>[];
-
+  /** 差异整体摘要（如"修改了 3 个字段"） */
   summary?: string;
-
+  /** 单条差异类型（如 MODIFY/ADD/REMOVE） */
   type?: string;
-
+  /** 差异字段名（英文标识） */
   field?: string;
-
+  /** 差异字段中文标签（展示用） */
   fieldLabel?: string;
-
+  /** 变更前的值 */
   oldValue?: string;
-
+  /** 变更后的值 */
   newValue?: string;
 }
 
+/**
+ * 规则评估结果视图对象（VO）。
+ *
+ * 用于前端展示单次规则评估的输出：是否命中、严重级别、生成的告警标题/描述， 以及当前值、阈值、耗时与灰度桶来源，支撑告警展示与问题下钻。
+ */
 export interface RuleResultVO {
+  /** 规则编码 */
   ruleCode?: string;
-
+  /** 规则名称（展示用） */
   ruleName?: string;
-
+  /** 规则分类 */
   category?: string;
-
+  /** 是否命中触发（true=命中并产生告警） */
   triggered?: boolean;
-
+  /** 命中严重级别（HIGH/MEDIUM/LOW/INFO） */
   severity?: string;
-
+  /** 告警标题（命中时根据模板生成） */
   title?: string;
-
+  /** 告警描述 */
   description?: string;
-
+  /** 当前实际值（用于与阈值对比展示） */
   currentValue?: string;
-
+  /** 规则设定的判定阈值 */
   threshold?: string;
-
+  /** 适用范围 */
   scope?: string;
-
+  /** 命中时间 */
   triggeredAt?: string;
-
+  /** 是否支持下钻查看命中详情 */
   drilldownAvailable?: boolean;
-
+  /** 评估耗时（毫秒） */
   elapsedMs?: number;
-
+  /** 命中所属桶（如 NORMAL/CANARY，标识来自全量还是灰度） */
   canaryBucket?: string;
 }
 
+/**
+ * 表达式校验结果视图对象（VO）。
+ *
+ * 用于前端展示表达式语法/语义校验结果，包含是否通过、错误类型与精确的位置 （行/列），辅助业务人员定位并修正表达式错误。
+ */
 export interface ExpressionValidationResultVO {
+  /** 是否校验通过（true=合法可保存） */
   valid?: boolean;
-
+  /** 错误类型（如 SYNTAX_ERROR / UNDEFINED_VARIABLE / TYPE_MISMATCH） */
   errorType?: string;
-
+  /** 错误描述（中文说明） */
   errorMessage?: string;
-
+  /** 错误所在行号（从 1 开始，无错误为 0） */
   errorLine?: number;
-
+  /** 错误所在列号（从 1 开始，无错误为 0） */
   errorColumn?: number;
-
+  /** 被校验的表达式原文 */
   expression?: string;
-
+  /** 解析耗时（毫秒，用于性能评估） */
   parseTimeMs?: number;
 }
 
+/**
+ * 规则引擎运行统计视图对象（VO）。
+ *
+ * 用于前端展示规则引擎的运行时指标，包含累计评估/命中/错误次数、耗时、 已注册规则数及单规则明细，支撑引擎健康度与性能监控。
+ */
 export interface RuleEngineStatsVO {
+  /** 累计评估次数（全部规则评估的总调用数） */
   totalEvaluations?: number;
-
+  /** 累计命中次数 */
   totalTriggered?: number;
-
+  /** 累计错误次数（评估抛出异常的次数） */
   totalErrors?: number;
-
+  /** 累计评估耗时（毫秒） */
   totalElapsedMs?: number;
-
+  /** 当前已注册规则数 */
   registeredRules?: number;
-
+  /** 最近一次评估涉及的规则数 */
   lastEvaluatedRules?: number;
-
-  perRuleStats?: Record<string, unknown>;
-
+  /** 各规则统计明细（规则编码 → 统计对象） */
+  perRuleStats?: Record<string, Record<string, unknown>>;
+  /** 执行次数（与 totalEvaluations 并行的另一统计口径，用于交叉校验） */
   executions?: number;
-
+  /** 命中次数（与 totalTriggered 并行的另一统计口径） */
   triggered?: number;
-
+  /** 错误次数（与 totalErrors 并行的另一统计口径） */
   errors?: number;
 }
 
+/**
+ * 审计日志条目视图对象（VO）。
+ *
+ * 用于前端展示规则变更的审计轨迹，包含操作人、操作类型、 变更前/后快照及字段级差异，便于合规追溯与问题排查。
+ */
 export interface AuditLogEntryVO {
+  /** 审计日志条目 ID（主键） */
   id?: string;
-
+  /** 关联规则编码 */
   ruleCode?: string;
-
+  /** 规则名称（快照，便于展示） */
   ruleName?: string;
-
+  /** 操作类型（如 CREATE/UPDATE/DELETE/TOGGLE） */
   action?: string;
-
+  /** 操作人（用户名） */
   operator?: string;
-
+  /** 操作来源（如 WEB/API，标识触发渠道） */
   source?: string;
-
+  /** 变更说明（人工填写或系统生成的描述） */
   changeDesc?: string;
-
-  beforeSnapshot?: Record<string, unknown>;
-
-  afterSnapshot?: Record<string, unknown>;
-
-  fieldDiffs?: Record<string, unknown>;
-
+  /** 变更前快照（字段名 → 值），无变更前为空 */
+  beforeSnapshot?: Record<string, Record<string, unknown>>;
+  /** 变更后快照（字段名 → 值） */
+  afterSnapshot?: Record<string, Record<string, unknown>>;
+  /** 字段级差异（字段名 → 前后值对照） */
+  fieldDiffs?: Record<string, Record<string, unknown>>;
+  /** 操作结果（SUCCESS/FAIL） */
   result?: string;
-
+  /** 失败时的错误信息（result=FAIL 时有效） */
   errorMessage?: string;
-
+  /** 创建时间 */
   createdAt?: string;
 }
 
+/**
+ * 规则分类树节点视图对象（VO）。
+ *
+ * 用于前端以树形结构展示规则分类（如按行业/模块分组）。 每个节点包含名称、层级路径、是否根节点及下属规则数量。
+ */
 export interface CategoryNodeVO {
+  /** 分类节点名称（展示用） */
   name?: string;
-
+  /** 分类层级路径（如 /行业/模块/子模块，用于回溯父级） */
   path?: string;
-
+  /** 节点深度（根节点为 0 或 1，逐级递增） */
   depth?: number;
-
+  /** 是否根节点（true=顶层分类） */
   root?: boolean;
-
+  /** 该分类下的规则数量（含下级或仅本级，取决于聚合口径） */
   ruleCount?: number;
 }
 
+/**
+ * 规则冲突信息视图对象（VO）。
+ *
+ * 用于前端展示规则冲突检测结果：当两条规则在相同或相关字段上可能产生 相互矛盾的判定时，标记为冲突，并列出重叠字段与严重级别，辅助梳理规则集。
+ */
 export interface RuleConflictInfoVO {
+  /** 冲突方规则 A 的编码 */
   ruleA?: string;
-
+  /** 冲突方规则 A 的名称（展示用） */
   ruleAName?: string;
-
+  /** 冲突方规则 B 的编码 */
   ruleB?: string;
-
+  /** 冲突方规则 B 的名称（展示用） */
   ruleBName?: string;
-
+  /** 两条规则重叠/冲突的字段名列表（如预算金额、进度等） */
   overlapFields?: string[];
-
+  /** 冲突严重级别（如 HIGH/MEDIUM/LOW） */
   severity?: string;
 }
 
+/**
+ * 规则引擎监控大盘 - 概览指标 VO
+ *
+ * 用于大盘首屏指标卡片展示，包含规则数量、触发率、耗时分布、错误率等核心指标。
+ */
 export interface RuleDashboardOverviewVO {
   serialVersionUID?: number;
-
+  /** 规则总数 */
   totalRules?: number;
-
+  /** 启用规则数 */
   enabledRules?: number;
-
-  statusDistribution?: Record<string, unknown>;
-
-  categoryDistribution?: Record<string, unknown>;
-
+  /** 按状态分组的规则数：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
+  statusDistribution?: Record<string, number>;
+  /** 按类别分组的规则数：category → 数量 */
+  categoryDistribution?: Record<string, number>;
+  /** 今日评估次数 */
   todayEvaluations?: number;
-
+  /** 今日触发次数 */
   todayTriggered?: number;
-
+  /** 今日触发率（0~1） */
   todayTriggerRate?: number;
-
+  /** 今日错误次数 */
   todayErrors?: number;
-
+  /** 今日错误率（0~1） */
   todayErrorRate?: number;
-
+  /** 今日活跃规则数（有触发的规则） */
   todayActiveRules?: number;
-
+  /** P50 耗时（毫秒） */
   p50ElapsedMs?: number;
-
+  /** P95 耗时（毫秒） */
   p95ElapsedMs?: number;
-
+  /** P99 耗时（毫秒） */
   p99ElapsedMs?: number;
-
+  /** 平均耗时（毫秒） */
   avgElapsedMs?: number;
-
+  /** 统计时间窗口起始时间（含） */
   since?: string;
-
+  /** 统计时间窗口结束时间（不含） */
   until?: string;
 }
 
+/**
+ * 规则引擎监控大盘 - 趋势指标 VO
+ *
+ * 用于折线图展示触发次数、P99 耗时、错误率的时间序列趋势。
+ */
 export interface RuleDashboardTrendVO {
   serialVersionUID?: number;
-
+  /** 时间维度标签：24h=按小时 / 7d=按天 / 30d=按天 */
   timeRange?: string;
-
+  /** 时间点标签列表（X 轴），格式：24h→"HH:00" / 7d/30d→"MM-DD" */
   timeLabels?: string[];
-
+  /** 评估次数序列（与 timeLabels 等长） */
   evaluationSeries?: number[];
-
+  /** 触发次数序列 */
   triggeredSeries?: number[];
-
+  /** 错误次数序列 */
   errorSeries?: number[];
-
+  /** P99 耗时序列（毫秒） */
   p99ElapsedSeries?: number[];
-
+  /** P50 耗时序列（毫秒） */
   p50ElapsedSeries?: number[];
-
+  /** 错误率序列（0~1） */
   errorRateSeries?: number[];
-
+  /** 触发率序列（0~1） */
   triggerRateSeries?: number[];
-
+  /** 统计时间窗口起始时间（含） */
   since?: string;
-
+  /** 统计时间窗口结束时间（不含） */
   until?: string;
 }
 
+/**
+ * 规则引擎监控大盘 - 分布指标 VO
+ *
+ * 用于饼图展示规则在多个维度的分布情况。
+ */
 export interface RuleDashboardDistributionVO {
   serialVersionUID?: number;
-
-  byStatus?: Record<string, unknown>;
-
-  byCategory?: Record<string, unknown>;
-
-  bySeverity?: Record<string, unknown>;
-
-  byScenario?: Record<string, unknown>;
-
-  byTenant?: Record<string, unknown>;
-
-  byOwner?: Record<string, unknown>;
-
+  /** 按状态分布：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
+  byStatus?: Record<string, number>;
+  /** 按类别分布：category → 数量 */
+  byCategory?: Record<string, number>;
+  /** 按严重度分布（今日触发结果中）：RED/YELLOW/NORMAL → 数量 */
+  bySeverity?: Record<string, number>;
+  /** 按场景分布（今日触发结果中）：scenario → 数量 */
+  byScenario?: Record<string, number>;
+  /** 按租户分布：tenantId → 数量 */
+  byTenant?: Record<string, number>;
+  /** 按责任人分布：owner → 数量 */
+  byOwner?: Record<string, number>;
+  /** 状态分布条目列表（用于前端饼图直接渲染） */
   statusPie?: Record<string, unknown>[];
-
+  /** 类别分布条目列表 */
   categoryPie?: Record<string, unknown>[];
-
+  /** 严重度分布条目列表 */
   severityPie?: Record<string, unknown>[];
-
+  /** 场景分布条目列表 */
   scenarioPie?: Record<string, unknown>[];
-
+  /** 名称 */
   name?: string;
-
+  /** 数量 */
   value?: number;
 }
 
+/**
+ * 规则引擎监控大盘 - Top 规则条目 VO
+ *
+ * 用于表格展示最活跃 / 最慢 / 错误率最高的规则。
+ */
 export interface RuleDashboardTopRuleVO {
   serialVersionUID?: number;
-
+  /** 规则编码 */
   ruleCode?: string;
-
+  /** 规则名称 */
   ruleName?: string;
-
+  /** 规则类别 */
   category?: string;
-
+  /** 责任人 */
   owner?: string;
-
+  /** 是否启用 */
   enabled?: boolean;
-
+  /** 默认严重度 */
   defaultSeverity?: string;
-
+  /** 评估次数 */
   evaluations?: number;
-
+  /** 触发次数 */
   triggered?: number;
-
+  /** 错误次数 */
   errors?: number;
-
+  /** 触发率（0~1） */
   triggerRate?: number;
-
+  /** 错误率（0~1） */
   errorRate?: number;
-
+  /** 平均耗时（毫秒） */
   avgElapsedMs?: number;
-
+  /** P99 耗时（毫秒） */
   p99ElapsedMs?: number;
-
+  /** 总耗时（毫秒） */
   totalElapsedMs?: number;
 }
 
+/**
+ * 规则引擎监控大盘 - 实时指标 VO
+ *
+ * 用于展示当前 QPS、活跃规则数等秒级实时指标。
+ */
 export interface RuleDashboardRealtimeVO {
   serialVersionUID?: number;
-
+  /** 当前注册规则数（引擎内存中） */
   registeredRules?: number;
-
+  /** 最近一次评估遍历的规则数 */
   lastEvaluatedRules?: number;
-
+  /** 最近 1 分钟评估次数 */
   recentEvaluations?: number;
-
+  /** 最近 1 分钟触发次数 */
   recentTriggered?: number;
-
+  /** 最近 1 分钟错误次数 */
   recentErrors?: number;
-
+  /** 当前 QPS（次/秒） */
   currentQps?: number;
-
+  /** 当前活跃规则数（最近 1 分钟有触发的规则） */
   activeRules?: number;
-
+  /** Trace 队列积压 */
   traceQueueSize?: number;
-
+  /** 服务器当前时间戳（毫秒） */
   timestamp?: number;
 }
 
+/**
+ * 决策表视图对象（VO）。
+ *
+ * 用于 Controller 层返回决策表的完整信息，包含决策表基本信息、命中策略、 优先级及审计字段。决策表是一种结构化的规则表达形式，以行列方式组织 条件与动作的映射关系。
+ */
 export interface DecisionTableVO {
   serialVersionUID?: number;
-
+  /** 决策表唯一标识（主键） */
   id?: string;
-
+  /** 决策表编码，业务唯一 */
   tableCode?: string;
-
+  /** 决策表名称，用于展示 */
   tableName?: string;
-
+  /** 决策表描述 */
   description?: string;
-
+  /** 分类编码 */
   category?: string;
-
+  /** 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/RULE_ORDER） */
   hitPolicy?: string;
-
+  /** 是否启用 */
   enabled?: boolean;
-
+  /** 优先级，数值越小优先级越高 */
   priority?: number;
-
+  /** 版本号 */
   version?: number;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 决策表定义视图对象（VO）。
+ *
+ * 用于前端配置与展示决策表的结构化定义，包含表头信息、条件列/动作列定义、 行数据（条件→动作映射）及默认动作。决策表以行列方式组织规则，便于业务人员维护。
+ */
 export interface DecisionTableDefinitionVO {
+  /** 决策表编码（业务唯一标识） */
   tableCode?: string;
-
+  /** 决策表名称（展示用） */
   tableName?: string;
-
+  /** 决策表描述 */
   description?: string;
-
+  /** 分类编码 */
   category?: string;
-
+  /** 条件列定义列表（每列代表一个条件维度，如字段名/类型） */
   conditionColumns?: Record<string, unknown>[];
-
+  /** 动作列定义列表（每列代表一个输出动作） */
   actionColumns?: Record<string, unknown>[];
-
+  /** 决策表行数据（每行是条件组合到动作输出的映射） */
   rows?: Record<string, unknown>[];
-
-  defaultActions?: Record<string, unknown>;
-
+  /** 默认动作（无行命中时执行，列名 → 值） */
+  defaultActions?: Record<string, Record<string, unknown>>;
+  /** 适用范围（限定规则可生效的场景） */
   scope?: string;
-
+  /** 节点名称（树形/视图展示用） */
   name?: string;
-
+  /** 节点标签（展示标签） */
   label?: string;
-
+  /** 类型（节点/表类型标识） */
   type?: string;
-
-  conditions?: Record<string, unknown>;
-
-  actions?: Record<string, unknown>;
+  /** 条件键值对（条件列名 → 表达式） */
+  conditions?: Record<string, string>;
+  /** 动作键值对（动作列名 → 值） */
+  actions?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 规则依赖关系视图对象（VO）。
+ *
+ * 用于 Controller 层返回规则之间的依赖关系信息，包含依赖类型、级联禁用配置 及描述，支撑规则拓扑分析和依赖影响评估。
+ */
 export interface RuleDependencyVO {
   serialVersionUID?: number;
-
+  /** 依赖记录唯一标识（主键） */
   id?: string;
-
+  /** 规则编码 */
   ruleCode?: string;
-
+  /** 被依赖的规则编码 */
   dependsOnRuleCode?: string;
-
+  /** 依赖类型（HARD/SOFT/TRIGGER） */
   dependencyType?: string;
-
+  /** 禁用被依赖规则时是否级联禁用本规则 */
   cascadeOnDisable?: boolean;
-
+  /** 依赖描述 */
   description?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 通用字符串包装视图对象（VO）。
+ *
+ * 用于接口返回单个字符串结果（如合并组 ID、用户 ID 列表等）， 避免直接返回裸 String 导致 JSON 反序列化歧义。
+ */
 export interface StringVO {
+  /** 包装的字符串值 */
   value?: string;
 }
 
+/**
+ * 规则 DSL（领域特定语言）视图对象（VO）。
+ *
+ * 用于承载一次 DSL 导入/导出解析后的结构，包含规则定义列表、规则链列表及元信息。 DSL 以文本化的方式批量描述规则与编排，便于版本管理与跨环境迁移。
+ */
 export interface RuleDslVO {
+  /** DSL 中定义的规则列表（每项为一个规则定义对象） */
   rules?: Record<string, unknown>[];
-
+  /** DSL 中定义的规则链列表（每项为一个链编排对象） */
   chains?: Record<string, unknown>[];
-
-  meta?: Record<string, unknown>;
+  /** DSL 元信息（如版本、作者、来源等键值对） */
+  meta?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 规则链图视图对象（VO）。
+ *
+ * 用于 Controller 层返回规则链编排图的完整信息。规则链图以有向无环图（DAG） 方式编排多条规则的执行顺序，支持条件分支和并行执行，适用于复杂决策场景。
+ */
 export interface RuleChainGraphVO {
   serialVersionUID?: number;
-
+  /** 链图唯一标识（主键） */
   id?: string;
-
+  /** 关联的规则编码 */
   ruleCode?: string;
-
+  /** 链图名称 */
   name?: string;
-
+  /** 链图描述 */
   description?: string;
-
+  /** 执行场景标识 */
   scenario?: string;
-
+  /** 图版本号 */
   graphVersion?: number;
-
+  /** 状态（DRAFT/PUBLISHED） */
   status?: string;
-
+  /** 图内容 JSON，包含节点和边定义 */
   contentJson?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 表达式预览结果视图对象（VO）。
+ *
+ * 用于前端实时预览某条表达式在给定事实下的求值结果， 包含求值结果值、类型、布尔判定及耗时，便于调试表达式。
+ */
 export interface ExpressionPreviewResultVO {
+  /** 被预览的表达式原文 */
   expression?: string;
-
+  /** 求值结果值（以字符串形式呈现，便于展示） */
   value?: string;
-
+  /** 结果 Java 类型（如 Boolean/BigDecimal/String，用于前端格式化） */
   javaType?: string;
-
+  /** 布尔型求值结果（条件表达式的真假判定） */
   booleanValue?: boolean;
-
+  /** 求值耗时（毫秒，用于性能评估） */
   elapsedMs?: number;
-
+  /** 求值错误信息（无错误时为空） */
   error?: string;
 }
 
+/**
+ * 表达式函数定义视图对象（VO）。
+ *
+ * 用于前端展示规则表达式中可调用内置函数的元信息（名称、签名、示例等）， 辅助业务人员编写表达式并做语法提示。
+ */
 export interface ExpressionFunctionDefVO {
+  /** 函数名称（表达式中实际调用的名字，如 add） */
   name?: string;
-
+  /** 函数签名（形式参数声明，如 add(a, b)） */
   signature?: string;
-
+  /** 函数功能说明（中文描述） */
   description?: string;
-
+  /** 调用示例（如 add(1, 2)） */
   sample?: string;
-
+  /** 函数分类（如 MATH/STRING/DATE，用于分组展示） */
   category?: string;
-
+  /** 支持的表达式引擎（逗号分隔，如 LiteExpr/MVEL） */
   supportedEngines?: string;
 }
 
+/**
+ * 审批记录视图对象（VO）。
+ *
+ * 用于前端展示某条规则在某审批流中的审批进度与状态。 每行对应一个规则的一次审批实例，记录当前所处层级与状态。
+ */
 export interface ApprovalRecordVO {
+  /** 审批记录 ID（主键） */
   recordId?: string;
-
+  /** 关联规则编码 */
   ruleCode?: string;
-
+  /** 关联审批流编码 */
   flowCode?: string;
-
+  /** 当前审批层级（从 1 开始，表示在第几级审批） */
   currentLevel?: number;
-
+  /** 当前审批状态（如 PENDING/APPROVED/REJECTED） */
   currentStatus?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 审批流视图对象（VO）。
+ *
+ * 用于前端展示审批流配置，描述一条审批流的基础信息及其有序的审批步骤。 与后端 `ApprovalFlow` 领域对象一一对应，仅承载展示所需的字段。
+ */
 export interface ApprovalFlowVO {
+  /** 审批流编码（业务唯一标识，用于关联规则与审批记录） */
   flowCode?: string;
-
+  /** 审批流名称（展示用） */
   name?: string;
-
+  /** 审批步骤列表（按审批顺序，每项为一个步骤配置对象） */
   steps?: Record<string, unknown>[];
-
+  /** 是否启用（true=启用并参与审批，false=停用） */
   enabled?: boolean;
 }
 
-export interface RulePackVO {
-  serialVersionUID?: number;
-
-  id?: string;
-
-  packCode?: string;
-
-  packVersion?: string;
-
-  packName?: string;
-
-  industry?: string;
-
-  tags?: string;
-
-  ruleCodes?: string;
-
-  ruleSnapshots?: string;
-
-  previousVersion?: string;
-
-  description?: string;
-
-  author?: string;
-
-  downloadCount?: number;
-
-  rating?: number;
-
-  enabled?: boolean;
-
-  official?: boolean;
-
-  createdBy?: string;
-
-  createdAt?: string;
-
-  updatedBy?: string;
-
-  updatedAt?: string;
-}
-
+/**
+ * 规则集安装结果视图对象（VO）。
+ *
+ * 用于前端展示一次规则集（知识包）安装的整体结果， 包含成功/失败计数及失败的规则编码，便于定位安装异常。
+ */
 export interface InstallResultVO {
+  /** 规则集编码 */
   packCode?: string;
-
+  /** 安装的目标版本号 */
   version?: string;
-
+  /** 待安装规则总数 */
   total?: number;
-
+  /** 安装成功数量 */
   success?: number;
-
+  /** 安装失败数量 */
   failed?: number;
-
+  /** 安装失败的规则编码列表（便于逐一排查） */
   failedCodes?: string[];
 }
 
+/**
+ * 规则集版本差异视图对象（VO）。
+ *
+ * 用于前端展示同一规则集在两个版本之间的规则变更情况， 包含新增、移除与修改的规则编码列表，支撑版本对比与升级预览。
+ */
 export interface PackDiffVO {
+  /** 规则集编码 */
   packCode?: string;
-
+  /** 对比的源版本号（旧版本） */
   fromVersion?: string;
-
+  /** 对比的目标版本号（新版本） */
   toVersion?: string;
-
+  /** 相对源版本新增的规则编码列表 */
   added?: string[];
-
+  /** 相对源版本移除的规则编码列表 */
   removed?: string[];
-
+  /** 相对源版本发生内容变更的规则编码列表 */
   changed?: string[];
 }
 
+/**
+ * 规则集更新信息视图对象（VO）。
+ *
+ * 用于前端展示已安装规则集是否有新版本可升级， 包含已安装版本与最新版本对比、是否有更新及安装时间等。
+ */
 export interface PackUpdateInfoVO {
+  /** 规则集编码 */
   packCode?: string;
-
+  /** 规则集名称（展示用） */
   packName?: string;
-
+  /** 当前已安装版本号 */
   installedVersion?: string;
-
+  /** 最新可用版本号 */
   latestVersion?: string;
-
+  /** 是否存在可更新版本（true=有新版可升级） */
   hasUpdate?: boolean;
-
+  /** 安装时间 */
   installedAt?: string;
-
+  /** 所属行业 */
   industry?: string;
-
+  /** 规则集描述 */
   description?: string;
 }
 
+/**
+ * 规则模板视图对象（VO）。
+ *
+ * 用于 Controller 层返回规则模板的完整信息。规则模板预置条件表达式、 严重度表达式和告警模板，用户基于模板快速创建规则，按行业和标签分类管理。
+ */
 export interface RuleTemplateVO {
   serialVersionUID?: number;
-
+  /** 模板唯一标识（主键） */
   id?: string;
-
+  /** 模板编码，业务唯一 */
   templateCode?: string;
-
+  /** 模板名称 */
   templateName?: string;
-
+  /** 分类编码 */
   category?: string;
-
+  /** 模板描述 */
   description?: string;
-
+  /** 预置条件表达式 */
   conditionExpression?: string;
-
+  /** 预置严重度表达式 */
   severityExpression?: string;
-
+  /** 默认严重级别 */
   defaultSeverity?: string;
-
+  /** 告警标题模板 */
   titleTemplate?: string;
-
+  /** 告警描述模板 */
   descriptionTemplate?: string;
-
+  /** 优先级，数值越小优先级越高 */
   priority?: number;
-
+  /** 适用范围 */
   scope?: string;
-
+  /** 所属行业 */
   industry?: string;
-
+  /** 标签，逗号分隔 */
   tags?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 规则执行轨迹视图对象（VO）。
+ *
+ * 用于 Controller 层返回单次规则执行的完整轨迹信息，包含命中结果、 严重级别、条件求值结果、耗时及错误信息，支撑执行回放和问题排查。
+ */
 export interface RuleExecutionTraceVO {
   serialVersionUID?: number;
-
+  /** 轨迹记录唯一标识（主键） */
   id?: string;
-
+  /** 链路追踪 ID，用于关联同一次请求的多条轨迹 */
   traceId?: string;
-
+  /** 规则编码 */
   ruleCode?: string;
-
+  /** 规则名称 */
   ruleName?: string;
-
+  /** 执行场景标识 */
   scenario?: string;
-
+  /** 是否命中触发 */
   triggered?: boolean;
-
+  /** 命中严重级别（HIGH/MEDIUM/LOW/INFO） */
   severity?: string;
-
+  /** 条件表达式求值结果 */
   conditionResult?: string;
-
+  /** 执行耗时（毫秒） */
   elapsedMs?: number;
-
+  /** 错误信息（执行异常时填充） */
   errorMessage?: string;
-
-  factsSnapshot?: Record<string, unknown>;
-
-  resultSnapshot?: Record<string, unknown>;
-
+  /** 事实数据快照（用于执行回放） */
+  factsSnapshot?: Record<string, Record<string, unknown>>;
+  /** 结果快照 */
+  resultSnapshot?: Record<string, Record<string, unknown>>;
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 变量定义视图对象（VO）。
+ *
+ * 用于前端展示规则表达式中可引用变量的元信息（名称、类型、示例值、分类）， 支撑规则编辑时的变量提示与校验。
+ */
 export interface VariableDefinitionVO {
+  /** 变量名称（表达式中引用的标识） */
   name?: string;
-
+  /** 变量类型（STRING/NUMBER/BOOLEAN/DATE 等） */
   type?: string;
-
+  /** 变量描述（中文说明） */
   description?: string;
-
+  /** 示例值（用于前端预览与默认值提示） */
   sampleValue?: Record<string, unknown>;
-
+  /** 变量分类（来源模块，如 EVM/PROJECT/FINANCE） */
   category?: string;
 }

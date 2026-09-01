@@ -1,16 +1,7 @@
 /**
- * 快捷键中枢（v4.0）
+ * 全局快捷键注册中心 —— 统一管理快捷键的注册、冲突检测与标准化（v4.0）
  *
- * 统一管理全局快捷键：注册、冲突检测、用户自定义（可选）
- *
- * 用法：
- *   registerKeyboard('cmd+k', handler)
- *   registerKeyboard('ctrl+s', handler, { preventDefault: false })
- *   const stop = registerKeyboard('escape', handler)
- *
- *   stop() —— 取消注册
- *
- * @path main/src/hooks/use-global-shortcut.ts
+ * @path main\src\hooks\use-global-shortcut.ts
  * @author ydsz-team
  * @since 4.0.0
  */

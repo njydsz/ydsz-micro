@@ -16,106 +16,93 @@ import type { FlowDesignerDataDTO } from './models';
 /**
  * getDesignerData: GET /api/v1/workflow/engine/definition/{id}/designer
  */
-export function getDesignerData({ id }: { id: string }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/designer`);
+export function getDesignerData({ id }: {
+    id: string;
+  }): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/v1/workflow/engine/definition/${id}/designer`);
 }
 
 /**
  * saveDesignerData: POST /api/v1/workflow/engine/definition/{id}/designer
  */
-export function saveDesignerData(
-  {
-    id,
-  }: {
+export function saveDesignerData({ id }: {
     id: string;
-  },
-  data: FlowDesignerDataDTO,
-): Promise<void> {
+  }, data: FlowDesignerDataDTO): Promise<void> {
   return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/designer`, data);
 }
 
 /**
  * lockDefinition: POST /api/v1/workflow/engine/definition/{id}/lock
  */
-export function lockDefinition({ id }: { id: string }): Promise<boolean> {
+export function lockDefinition({ id }: {
+    id: string;
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/definition/${id}/lock`);
 }
 
 /**
  * unlockDefinition: POST /api/v1/workflow/engine/definition/{id}/unlock
  */
-export function unlockDefinition({ id }: { id: string }): Promise<boolean> {
+export function unlockDefinition({ id }: {
+    id: string;
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/workflow/engine/definition/${id}/unlock`);
 }
 
 /**
  * getLockStatus: GET /api/v1/workflow/engine/definition/{id}/lockStatus
  */
-export function getLockStatus({ id }: { id: string }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/definition/${id}/lockStatus`);
+export function getLockStatus({ id }: {
+    id: string;
+  }): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/v1/workflow/engine/definition/${id}/lockStatus`);
 }
 
 /**
  * getFormConfig: GET /api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}
  */
-export function getFormConfig({ id, nodeCode }: { id: string; nodeCode: string }): Promise<string> {
-  return requestClient.get<string>(
-    `/api/v1/workflow/engine/definition/${id}/formConfig/${nodeCode}`,
-  );
+export function getFormConfig({ id, nodeCode }: {
+    id: string;
+    nodeCode: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/workflow/engine/definition/${id}/formConfig/${nodeCode}`);
 }
 
 /**
  * saveFormConfig: POST /api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}
  */
-export function saveFormConfig(
-  {
-    id,
-    nodeCode,
-  }: {
+export function saveFormConfig({ id, nodeCode }: {
     id: string;
     nodeCode: string;
-  },
-  data: string,
-): Promise<void> {
-  return requestClient.post<void>(
-    `/api/v1/workflow/engine/definition/${id}/formConfig/${nodeCode}`,
-    data,
-  );
+  }, data: string): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/formConfig/${nodeCode}`, data);
 }
 
 /**
  * getSlaConfig: GET /api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}
  */
-export function getSlaConfig({ id, nodeCode }: { id: string; nodeCode: string }): Promise<string> {
-  return requestClient.get<string>(
-    `/api/v1/workflow/engine/definition/${id}/slaConfig/${nodeCode}`,
-  );
+export function getSlaConfig({ id, nodeCode }: {
+    id: string;
+    nodeCode: string;
+  }): Promise<string> {
+  return requestClient.get<string>(`/api/v1/workflow/engine/definition/${id}/slaConfig/${nodeCode}`);
 }
 
 /**
  * saveSlaConfig: POST /api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}
  */
-export function saveSlaConfig(
-  {
-    id,
-    nodeCode,
-  }: {
+export function saveSlaConfig({ id, nodeCode }: {
     id: string;
     nodeCode: string;
-  },
-  data: Record<string, unknown>,
-): Promise<void> {
-  return requestClient.post<void>(
-    `/api/v1/workflow/engine/definition/${id}/slaConfig/${nodeCode}`,
-    data,
-  );
+  }, data: Record<string, Record<string, unknown>>): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/engine/definition/${id}/slaConfig/${nodeCode}`, data);
 }
 
 /**
  * listAssigneeTypes: GET /api/v1/workflow/engine/assignee/types
  */
-export function listAssigneeTypes(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/assignee/types`);
+export function listAssigneeTypes(): Promise<Record<string, string>[]> {
+  return requestClient.get<Record<string, string>[]>(`/api/v1/workflow/engine/assignee/types`);
 }
 
 /**
@@ -128,42 +115,35 @@ export function listListenerPlugins(): Promise<string[]> {
 /**
  * listListenerEventTypes: GET /api/v1/workflow/engine/listener/eventTypes
  */
-export function listListenerEventTypes(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/engine/listener/eventTypes`,
-  );
+export function listListenerEventTypes(): Promise<Record<string, string>[]> {
+  return requestClient.get<Record<string, string>[]>(`/api/v1/workflow/engine/listener/eventTypes`);
 }
 
 /**
  * listTemplates: GET /api/v1/workflow/engine/template/list
  */
-export function listTemplates(params: { category?: string }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/v1/workflow/engine/template/list`, {
-    params,
-  });
+export function listTemplates(params: {
+    category?: string;
+  }): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/v1/workflow/engine/template/list`, { params });
 }
 
 /**
  * importTemplate: POST /api/v1/workflow/engine/template/{templateCode}/import
  */
-export function importTemplate(
-  {
-    templateCode,
-  }: {
+export function importTemplate({ templateCode }: {
     templateCode: string;
-  },
-  params: {
+  }, params: {
     flowName?: string;
-  },
-): Promise<string> {
-  return requestClient.post<string>(`/api/v1/workflow/engine/template/${templateCode}/import`, {
-    params,
-  });
+  }): Promise<string> {
+  return requestClient.post<string>(`/api/v1/workflow/engine/template/${templateCode}/import`, { params });
 }
 
 /**
  * getTemplate: GET /api/v1/workflow/engine/template/{templateCode}
  */
-export function getTemplate({ templateCode }: { templateCode: string }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/v1/workflow/engine/template/${templateCode}`);
+export function getTemplate({ templateCode }: {
+    templateCode: string;
+  }): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/v1/workflow/engine/template/${templateCode}`);
 }

@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 数字滚动动画组件导出（CountTo + CountToProps 类型）
  *
  * @path comm\effects\common-ui\src\components\count-to\index.ts
  * @author ydsz-team

@@ -1,5 +1,5 @@
 /**
- * index 工具函数模块
+ * 工具函数统一导出入口，聚合路由生成、菜单构建、重试策略等公共工具。
  *
  * @path comm\utils\src\index.ts
  * @author ydsz-team

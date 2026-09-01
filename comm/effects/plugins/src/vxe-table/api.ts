@@ -1,5 +1,8 @@
 /**
- * api 模块
+ * VxeGrid 表格的命令式操作句柄类，封装配置状态与表格实例的生命周期。
+ *
+ * 通过 Store 模式解耦配置与组件实例，业务侧持有 API 对象即可调用 reload /
+ * setState / toggleSearchForm 等方法驱动表格，无需层层传递 ref。
  *
  * @path comm\effects\plugins\src\vxe-table\api.ts
  * @author ydsz-team
@@ -24,6 +27,7 @@ import {
   StateHandler,
 } from '@YDSZ-core/shared/utils';
 
+/** 返回默认的表格初始配置 */
 function getDefaultState(): VxeGridProps {
   return {
     class: '',

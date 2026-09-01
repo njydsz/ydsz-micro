@@ -1,5 +1,5 @@
 /**
- * dashboard 路由模块
+ * 仪表盘路由 —— 定义 analytics（分析页）与 workspace（工作台）子路由
  *
  * @path main\src\router\routes\modules\dashboard.ts
  * @author ydsz-team
@@ -44,4 +44,5 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
+/** Dashboard 仪表盘路由配置（子应用内部路由表） */
 export default routes;

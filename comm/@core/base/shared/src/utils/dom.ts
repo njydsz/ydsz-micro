@@ -1,5 +1,5 @@
 /**
- * dom 工具函数模块
+ * DOM 元素几何测量、样式读取与滚动条探测工具集。
  *
  * @path comm\@core\base\shared\src\utils\dom.ts
  * @author ydsz-team

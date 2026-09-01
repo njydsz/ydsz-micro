@@ -56,8 +56,10 @@ export function notifyTabClosed(path: string) {
 }
 
 /**
- * @zh_CN 克隆路由,防止路由被修改
- * @param route
+ * 深拷贝标签页对象，剥离响应式引用以防止外部修改影响 store 状态。
+ *
+ * @param route - 源标签页对象
+ * @returns 拷贝后的标签页
  */
 export function cloneTab(route: TabDefinition): TabDefinition {
   if (!route) {
@@ -81,27 +83,35 @@ export function cloneTab(route: TabDefinition): TabDefinition {
 }
 
 /**
- * @zh_CN 是否是固定标签页
- * @param tab
+ * 判断是否为固定标签页（affixTab 元信息为 true）。
+ *
+ * @param tab - 标签页对象
+ * @returns 是否固定
  */
-export function isAffixTab(tab: TabDefinition) {
+export function isAffixTab(tab: TabDefinition): boolean {
   return tab?.meta?.affixTab ?? false;
 }
 
 /**
- * @zh_CN 是否显示标签
- * @param tab
+ * 判断标签页是否在标签栏中可见（hideInTab 为 false 时显示）。
+ *
+ * @param tab - 标签页对象
+ * @returns 是否显示
  */
-export function isTabShown(tab: TabDefinition) {
+export function isTabShown(tab: TabDefinition): boolean {
   const matched = tab?.matched ?? [];
   return !tab.meta.hideInTab && matched.every((item) => !item.meta.hideInTab);
 }
 
 /**
- * 从route获取tab页的key
- * @param tab
+ * 根据路由位置或路由记录计算标签页唯一键。
+ *
+ * 优先取 query.pageKey，其次按 meta.fullPathKey 决定使用 fullPath 或 path。
+ *
+ * @param tab - 路由位置或路由记录
+ * @returns 解码后的唯一键字符串
  */
-export function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
+export function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized): string {
   const {
     fullPath,
     path,
@@ -126,28 +136,33 @@ export function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) 
 }
 
 /**
- * 从tab获取tab页的key
- * 如果tab没有key,那么就从route获取key
- * @param tab
+ * 从标签页对象获取唯一键（直接使用 tab.key 或通过路由计算）。
+ *
+ * @param tab - 标签页对象
+ * @returns 唯一键字符串
  */
 export function getTabKeyFromTab(tab: TabDefinition): string {
   return tab.key ?? getTabKey(tab);
 }
 
 /**
- * 比较两个tab是否相等
- * @param a
- * @param b
+ * 通过唯一键比较两个标签页是否为同一页面。
+ *
+ * @param a - 标签页 A
+ * @param b - 标签页 B
+ * @returns 是否相等
  */
-export function equalTab(a: TabDefinition, b: TabDefinition) {
+export function equalTab(a: TabDefinition, b: TabDefinition): boolean {
   return getTabKeyFromTab(a) === getTabKeyFromTab(b);
 }
 
 /**
- * 路由记录转为标签页定义
- * @param route
+ * 将 Vue Router 路由记录转换为标签页定义对象。
+ *
+ * @param route - Vue Router 路由记录
+ * @returns 标签页定义
  */
-export function routeToTab(route: RouteRecordNormalized) {
+export function routeToTab(route: RouteRecordNormalized): TabDefinition {
   return {
     meta: route.meta,
     name: route.name,

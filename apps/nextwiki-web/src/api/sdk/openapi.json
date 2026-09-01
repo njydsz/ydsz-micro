@@ -4078,38 +4078,63 @@
       "format": "int64"
      },
      "code": {
-      "type": "string"
+      "type": "string",
+      "description": "返回编码"
      },
      "msg": {
-      "type": "string"
+      "type": "string",
+      "description": "返回信息"
      },
      "data": {
-      "type": "object"
+      "type": "object",
+      "description": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。"
      },
      "traceId": {
-      "type": "object"
+      "type": "object",
+      "description": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。"
      },
      "requestId": {
-      "type": "object"
+      "type": "object",
+      "description": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。"
      },
      "spanId": {
-      "type": "object"
+      "type": "object",
+      "description": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。"
      },
      "timestamp": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "时间戳"
      },
      "extensions": {
       "type": "object",
       "additionalProperties": {
        "type": "object"
-      }
+      },
+      "description": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
      },
      "RESOLVER": {
-      "type": "object"
+      "type": "object",
+      "description": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。"
      }
     },
-    "description": "class YdszResponse"
+    "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
+    "x-field-docs": {
+     "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
+     "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
+     "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。",
+     "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。",
+     "code": "返回编码",
+     "msg": "返回信息",
+     "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
+     "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
+     "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
+     "spanId": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。",
+     "timestamp": "时间戳",
+     "extensions": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
+     "RESOLVER": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。",
+     "tid": "ensure traceId resolved first so we know if it's present"
+    }
    },
    "SearchRequest": {
     "type": "object",
@@ -4119,46 +4144,58 @@
       "format": "int64"
      },
      "keyword": {
-      "type": "string"
+      "type": "string",
+      "description": "搜索关键词"
      },
      "types": {
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "搜索范围（实体类型列表），为空表示搜索全部"
      },
      "page": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "页码（从 1 开始）"
      },
      "pageSize": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "每页大小"
      },
      "sortBy": {
-      "type": "string"
+      "type": "string",
+      "description": "排序字段"
      },
      "ascending": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否升序"
      },
      "highlight": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否启用高亮"
      },
      "highlightPreTag": {
-      "type": "string"
+      "type": "string",
+      "description": "高亮前置标签"
      },
      "highlightPostTag": {
-      "type": "string"
+      "type": "string",
+      "description": "高亮后置标签"
      },
      "highlightFragmentSize": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "高亮片段最大长度"
      },
      "fuzzy": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否启用模糊匹配"
      },
      "fuzzyMinSimilarity": {
-      "type": "number"
+      "type": "number",
+      "description": "模糊匹配最小相似度（0~1）"
      },
      "filters": {
       "type": "array",
@@ -4175,44 +4212,76 @@
         "LTE",
         "BETWEEN"
        ],
-       "description": "枚举 SearchFilter"
-      }
+       "description": "搜索过滤条件"
+      },
+      "description": "过滤条件（字段名 → 值列表）"
      },
      "aggregations": {
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "聚合字段列表（用于分面统计）"
      },
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID（权限隔离）"
      },
      "userId": {
-      "type": "string"
+      "type": "string",
+      "description": "操作人 ID（权限过滤）"
      },
      "roles": {
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "操作人角色列表（权限过滤）"
      },
      "deptId": {
-      "type": "string"
+      "type": "string",
+      "description": "操作人部门 ID（权限过滤）"
      },
      "admin": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否管理员（跳过权限过滤）"
      },
      "titleOnly": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否仅搜索标题字段（不含内容）"
      },
      "cursor": {
-      "type": "string"
+      "type": "string",
+      "description": "P3-21: 游标分页 cursor（base64 编码，为空表示从头开始）"
      },
      "offset": {
       "type": "string"
      }
     },
-    "description": "class SearchRequest"
+    "description": "统一搜索请求\n\n封装所有搜索引擎通用的搜索参数，包括关键词、分页、排序、过滤、高亮等。 各业务模块通过 `SearchProvider` 补充特定于实体的搜索逻辑。",
+    "x-field-docs": {
+     "keyword": "搜索关键词",
+     "types": "搜索范围（实体类型列表），为空表示搜索全部",
+     "page": "页码（从 1 开始）",
+     "pageSize": "每页大小",
+     "sortBy": "排序字段",
+     "ascending": "是否升序",
+     "highlight": "是否启用高亮",
+     "highlightPreTag": "高亮前置标签",
+     "highlightPostTag": "高亮后置标签",
+     "highlightFragmentSize": "高亮片段最大长度",
+     "fuzzy": "是否启用模糊匹配",
+     "fuzzyMinSimilarity": "模糊匹配最小相似度（0~1）",
+     "filters": "过滤条件（字段名 → 值列表）",
+     "aggregations": "聚合字段列表（用于分面统计）",
+     "tenantId": "租户 ID（权限隔离）",
+     "userId": "操作人 ID（权限过滤）",
+     "roles": "操作人角色列表（权限过滤）",
+     "deptId": "操作人部门 ID（权限过滤）",
+     "admin": "是否管理员（跳过权限过滤）",
+     "titleOnly": "是否仅搜索标题字段（不含内容）",
+     "cursor": "P3-21: 游标分页 cursor（base64 编码，为空表示从头开始）"
+    }
    }
   }
  }

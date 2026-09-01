@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 关于页面组件导出
  *
  * @path comm\effects\common-ui\src\ui\about\index.ts
  * @author ydsz-team

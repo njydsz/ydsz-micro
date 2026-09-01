@@ -62,9 +62,12 @@ export const useAccessStore = defineStore(
     const fieldPermissions = ref<Record<string, 'mask' | 'hidden' | 'read'>>({});
 
     /**
-     * 根据路径查找菜单（含子级递归）
+     * 根据路径在已授权菜单列表递归查找匹配项。
+     *
+     * @param path - 目标菜单路径（如 '/system/user'）
+     * @returns 匹配的菜单项，未找到返回 undefined
      */
-    function getMenuByPath(path: string) {
+    function getMenuByPath(path: string): MenuRecordRaw | undefined {
       function findMenu(
         menus: MenuRecordRaw[],
         targetPath: string,
@@ -84,26 +87,56 @@ export const useAccessStore = defineStore(
       return findMenu(accessMenus.value, path);
     }
 
+    /**
+     * 设置当前用户权限码列表。
+     *
+     * @param codes - 权限码字符串数组（如 ['system:user:add', 'system:user:edit']）
+     */
     function setAccessCodes(codes: string[]) {
       accessCodes.value = codes;
     }
 
+    /**
+     * 设置可访问菜单列表。
+     *
+     * @param menus - 经后端或前端过滤后的菜单配置数组
+     */
     function setAccessMenus(menus: MenuRecordRaw[]) {
       accessMenus.value = menus;
     }
 
+    /**
+     * 设置可访问路由列表。
+     *
+     * @param routes - 经鉴权过滤后的 Vue Router 路由配置
+     */
     function setAccessRoutes(routes: RouteRecordRaw[]) {
       accessRoutes.value = routes;
     }
 
+    /**
+     * 设置数据行级权限范围。
+     *
+     * @param scopes - 资源码到数据范围约束的映射
+     */
     function setDataScopes(scopes: Record<string, unknown>) {
       dataScopes.value = scopes;
     }
 
+    /**
+     * 设置字段级访问控制清单。
+     *
+     * @param perms - 字段标识到访问模式（read / mask / hidden）的映射
+     */
     function setFieldPermissions(perms: Record<string, 'mask' | 'hidden' | 'read'>) {
       fieldPermissions.value = perms;
     }
 
+    /**
+     * 标记权限检查是否已完成。
+     *
+     * @param checked - true 表示权限已检查
+     */
     function setIsAccessChecked(checked: boolean) {
       isAccessChecked.value = checked;
     }

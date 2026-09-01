@@ -1,5 +1,5 @@
 /**
- * generate-routes-frontend 工具函数模块
+ * 前端过滤动态路由与菜单，基于角色权限替换无权限页面为 403 组件。
  *
  * @path comm\utils\src\helpers\generate-routes-frontend.ts
  * @author ydsz-team
@@ -10,7 +10,16 @@ import type { RouteRecordRaw } from 'vue-router';
 import { filterTree, mapTree } from '@YDSZ-core/shared/utils';
 
 /**
- * 动态生成路由 - 前端方式
+ * 根据角色权限过滤路由配置（前端鉴权模式）。
+ *
+ * @remarks
+ * 遍历路由树，保留有权限或标记为 `menuVisibleWithForbidden` 的路由；
+ * 若提供 forbiddenComponent，将无权限但需展示的页面替换为 403 组件。
+ *
+ * @param routes - 完整路由配置
+ * @param roles - 当前用户角色列表
+ * @param forbiddenComponent - 用于替换无权限页面的 403 组件
+ * @returns 过滤后的路由配置
  */
 async function generateRoutesByFrontend(
   routes: RouteRecordRaw[],
@@ -36,11 +45,17 @@ async function generateRoutesByFrontend(
 }
 
 /**
- * 判断路由是否有权限访问
- * @param route
- * @param access
+ * 判断路由是否在指定角色权限范围内可访问。
+ *
+ * 若路由未配置 authority 则视为公开路由（始终可访问）；
+ * 若配置了 authority，则检查是否与用户角色有交集；
+ * 若配置了 `menuVisibleWithForbidden`，即使无权限也会保留（将替换为 403）。
+ *
+ * @param route - 路由配置
+ * @access - 用户角色列表
+ * @returns 是否有权限
  */
-function hasAuthority(route: RouteRecordRaw, access: string[]) {
+function hasAuthority(route: RouteRecordRaw, access: string[]): boolean {
   const authority = route.meta?.authority;
   if (!authority) {
     return true;
@@ -51,10 +66,12 @@ function hasAuthority(route: RouteRecordRaw, access: string[]) {
 }
 
 /**
- * 判断路由是否在菜单中显示，但是访问会被重定向到403
- * @param route
+ * 判断路由是否在菜单中展示但访问将被替换为 403 页面。
+ *
+ * @param route - 路由配置
+ * @returns 是否标记为有权限展示但无权限访问
  */
-function menuHasVisibleWithForbidden(route: RouteRecordRaw) {
+function menuHasVisibleWithForbidden(route: RouteRecordRaw): boolean {
   return (
     !!route.meta?.authority &&
     Reflect.has(route.meta || {}, 'menuVisibleWithForbidden') &&

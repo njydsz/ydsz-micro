@@ -1,7 +1,14 @@
 /**
- * request-setup — 延迟初始化的 requestClient/baseRequestClient
+ * request-setup — 提供延迟初始化的共享请求客户端代理
  *
- * 子应用在 main.ts 的 mount() 阶段调用 initSharedRequest() 注入回调后，
+ * 通过 Proxy 实现懒加载：子应用调用 initSharedRequest() 注入回调后，
+ * requestClient/baseRequestClient 才可安全使用，防止未初始化时被误调用。
+ *
+ * @path comm\effects\shared-auth\src\request-setup.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ *
+ * 在 main.ts 的 mount() 阶段调用 initSharedRequest() 注入回调后，
  * 本模块导出的 requestClient / baseRequestClient 才可安全使用。
  */
 import type { RequestClient } from '@ydsz/request';

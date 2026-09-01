@@ -1,5 +1,12 @@
 /**
- * types 模块
+ * 左右双栏页面容器 `ColPage` 的布局配置类型。
+ *
+ * 在 `PageProps` 之上只扩展「分栏」相关字段：宽度、拖拽范围、折叠行为。
+ * 单独成文件是为了让分栏配置可以独立于组件被引用（例如偏好设置面板
+ * 需要读写默认分栏比例，但不需要渲染组件）。
+ *
+ * 所有宽度字段单位均为父容器宽度的百分比（0~100）而非像素，
+ * 这样窗口缩放时无需重算。
  *
  * @path comm\effects\common-ui\src\components\col-page\types.ts
  * @author ydsz-team

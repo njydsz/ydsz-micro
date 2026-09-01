@@ -11,7 +11,7 @@
  *   pnpm turbo-run dev          # 运行开发模式
  *   pnpm turbo-run build --all  # 运行所有子应用的构建
  *
- * @path bash/turbo-run/src/index.ts
+ * @path bash\turbo-run\src\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

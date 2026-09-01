@@ -1,7 +1,6 @@
 /**
- * use-access 模块
+ * 权限判断组合式函数，提供三种粒度的数据访问控制能力。
  *
- * 提供三种粒度的权限判断：
  * - 按钮级：hasAccessByCodes / hasAccessByRoles
  * - 数据级（行级）：hasDataScope / getDataScope
  * - 数据级（字段级）：getFieldPermission / applyFieldMask
@@ -46,15 +45,27 @@ function useAccess() {
   }
 
   /**
-   * 基于权限码判断是否有权限
-   * @description: Determine whether there is permission，The permission code is judged by the user's permission code
-   * @param codes
+   * 基于权限码判断是否有权限（OR 语义：命中任意一项即放行）。
    */
   function hasAccessByCodes(codes: string[]) {
     const userCodesSet = new Set(accessStore.accessCodes);
 
     const intersection = codes.filter((item) => userCodesSet.has(item));
     return intersection.length > 0;
+  }
+
+  /**
+   * 基于权限码判断是否有权限（AND 语义：全部命中才放行）。
+   *
+   * <p>适用于需要同时具备多个权限才能操作的场景（如：同时拥有「编辑」+「发布」才能执行发布操作）。
+   * <p>单码场景等同于 hasAccessByCodes。
+   *
+   * @param codes 权限码数组
+   * @returns 是否拥有全部指定的权限码
+   */
+  function hasAccessByCodesAll(codes: string[]) {
+    const userCodesSet = new Set(accessStore.accessCodes);
+    return codes.every((code) => userCodesSet.has(code));
   }
 
   /**
@@ -117,6 +128,7 @@ function useAccess() {
     return value === null || value === undefined ? '' : String(value);
   }
 
+  /** 在前端模式与后端模式之间切换权限管控策略（preferences.app.accessMode） */
   async function toggleAccessMode() {
     updatePreferences({
       app: {
@@ -132,10 +144,19 @@ function useAccess() {
     getFieldPermission,
     getDataScope,
     hasAccessByCodes,
+    hasAccessByCodesAll,
     hasAccessByRoles,
     hasDataScope,
     toggleAccessMode,
   };
 }
 
+/**
+ * 权限判断组合式函数入口。
+ *
+ * 在组件 setup 中调用以获取当前用户的权限码、数据范围与字段级权限，
+ * 覆盖按钮显隐、行级过滤与字段脱敏三类场景。
+ *
+ * @returns 权限判断方法集合
+ */
 export { useAccess };

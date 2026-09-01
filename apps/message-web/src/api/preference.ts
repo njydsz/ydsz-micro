@@ -23,30 +23,28 @@ export function upsert(data: PreferenceUpsertDTO): Promise<MsgPreferenceVO> {
 /**
  * listByUser: GET /api/v1/message/preference/{userId}
  */
-export function listByUser({ userId }: { userId: string }): Promise<MsgPreferenceVO[]> {
+export function listByUser({ userId }: {
+    userId: string;
+  }): Promise<MsgPreferenceVO[]> {
   return requestClient.get<MsgPreferenceVO[]>(`/api/v1/message/preference/${userId}`);
 }
 
 /**
  * getByUser: GET /api/v1/message/preference/{userId}/{channel}/{bizType}
  */
-export function getByUser({
-  userId,
-  channel,
-  bizType,
-}: {
-  userId: string;
-  channel: string;
-  bizType: string;
-}): Promise<MsgPreferenceVO> {
-  return requestClient.get<MsgPreferenceVO>(
-    `/api/v1/message/preference/${userId}/${channel}/${bizType}`,
-  );
+export function getByUser({ userId, channel, bizType }: {
+    userId: string;
+    channel: string;
+    bizType: string;
+  }): Promise<MsgPreferenceVO> {
+  return requestClient.get<MsgPreferenceVO>(`/api/v1/message/preference/${userId}/${channel}/${bizType}`);
 }
 
 /**
  * delete: DELETE /api/v1/message/preference/{id}
  */
-export function deleteApi({ id }: { id: string }): Promise<void> {
+export function deleteApi({ id }: {
+    id: string;
+  }): Promise<void> {
   return requestClient.delete<void>(`/api/v1/message/preference/${id}`);
 }

@@ -11,50 +11,56 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type {
-  ChannelStatsVO,
-  CostStatsVO,
-  FunnelStatsVO,
-  MessageStatsVO,
-  ReceiptStatsVO,
-} from './models';
+import type { ChannelStatsDTO, CostStatsDTO, FunnelStatsDTO, MessageStatsDTO, ReceiptStatsDTO } from './models';
 
 /**
  * overview: GET /api/v1/message/stats/overview
  */
-export function overview(params: { start?: string; end?: string }): Promise<MessageStatsVO> {
-  return requestClient.get<MessageStatsVO>(`/api/v1/message/stats/overview`, { params });
+export function overview(params: {
+    start?: string;
+    end?: string;
+  }): Promise<MessageStatsDTO> {
+  return requestClient.get<MessageStatsDTO>(`/api/v1/message/stats/overview`, { params });
 }
 
 /**
  * channelStats: GET /api/v1/message/stats/channel
  */
-export function channelStats(params: { start?: string; end?: string }): Promise<ChannelStatsVO[]> {
-  return requestClient.get<ChannelStatsVO[]>(`/api/v1/message/stats/channel`, { params });
+export function channelStats(params: {
+    start?: string;
+    end?: string;
+  }): Promise<ChannelStatsDTO[]> {
+  return requestClient.get<ChannelStatsDTO[]>(`/api/v1/message/stats/channel`, { params });
 }
 
 /**
  * receiptStats: GET /api/v1/message/stats/receipt
  */
-export function receiptStats(params: { start?: string; end?: string }): Promise<ReceiptStatsVO> {
-  return requestClient.get<ReceiptStatsVO>(`/api/v1/message/stats/receipt`, { params });
+export function receiptStats(params: {
+    start?: string;
+    end?: string;
+  }): Promise<ReceiptStatsDTO> {
+  return requestClient.get<ReceiptStatsDTO>(`/api/v1/message/stats/receipt`, { params });
 }
 
 /**
  * funnel: GET /api/v1/message/stats/funnel
  */
 export function funnel(params: {
-  start?: string;
-  end?: string;
-  channel?: string;
-  templateCode?: string;
-}): Promise<FunnelStatsVO> {
-  return requestClient.get<FunnelStatsVO>(`/api/v1/message/stats/funnel`, { params });
+    start?: string;
+    end?: string;
+    channel?: string;
+    templateCode?: string;
+  }): Promise<FunnelStatsDTO> {
+  return requestClient.get<FunnelStatsDTO>(`/api/v1/message/stats/funnel`, { params });
 }
 
 /**
  * cost: GET /api/v1/message/stats/cost
  */
-export function cost(params: { start?: string; end?: string }): Promise<CostStatsVO> {
-  return requestClient.get<CostStatsVO>(`/api/v1/message/stats/cost`, { params });
+export function cost(params: {
+    start?: string;
+    end?: string;
+  }): Promise<CostStatsDTO> {
+  return requestClient.get<CostStatsDTO>(`/api/v1/message/stats/cost`, { params });
 }

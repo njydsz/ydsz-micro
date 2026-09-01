@@ -1,5 +1,3 @@
-import { createLogger } from '@YDSZ-core/shared/utils';
-const logger = createLogger('realtime-client');
 /**
  * realtime 客户端 — WebSocket/SSE 统一实时通信封装
  *
@@ -15,6 +13,9 @@ const logger = createLogger('realtime-client');
  * - 频道订阅（channel）模式，支持多监听器
  * - 跨 Tab 去重由业务层通过 globalState 处理
  */
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('realtime-client');
 
 /** 重连配置 */
 export interface RealtimeOptions {
@@ -46,6 +47,31 @@ const HEARTBEAT_INTERVAL = 30_000;
 const MAX_RECONNECT_ATTEMPTS = 10;
 const MAX_QUEUE_SIZE = 100;
 
+/**
+ * WebSocket 实时通信客户端。
+ *
+ * 在裸 WebSocket 之上补齐生产环境必需的三项能力：断线自动重连、
+ * 心跳保活、离线消息重放。业务侧只感知「订阅频道 / 发消息」，
+ * 不感知底层连接生命周期。
+ *
+ * 设计取舍：
+ * - **不做跨 Tab 去重**：多 Tab 同时在线时同一条消息会被多次投递，
+ *   去重需要全局 leader 选举，成本高于收益，交由业务层用 globalState 判断。
+ * - **不提供连接就绪 Promise**：调用方可能早于页面初始化就 subscribe，
+ *   若返回 Promise 会迫使所有调用点 async 化；改为 send() 同步返回 false 表示未送达。
+ * - **心跳走业务协议而非 WebSocket ping 帧**：浏览器未暴露 ping/pong API，
+ *   只能在应用层用 `__heartbeat__` 频道收发，因此服务端必须配合忽略该频道。
+ *
+ * @example
+ * ```ts
+ * const client = new RealtimeClient({ url: 'wss://host/ws' });
+ * const off = client.subscribe<OrderMsg>('order', (payload) => render(payload));
+ * client.connect();
+ * // 组件卸载时：off(); client.close();
+ * ```
+ *
+ * @since 1.1.0
+ */
 export class RealtimeClient {
   private ws: WebSocket | null = null;
   private url: string;
@@ -104,12 +130,20 @@ export class RealtimeClient {
       this.scheduleReconnect();
     };
 
+    // 不在此处重连：WebSocket 规范规定 error 后必定紧随 close 事件，
+    // 若两处都触发重连会创建两条并行连接且 reconnectAttempts 被双倍消耗。
     this.ws.onerror = () => {
       // onclose 会随后触发，统一走 scheduleReconnect
     };
   }
 
-  /** 关闭连接（手动关闭不再自动重连） */
+  /**
+   * 关闭连接并终止重连。
+   *
+   * 与 `onclose` 触发的被动断开不同：这里置 `manualClosed` 为 true，
+   * 使 `scheduleReconnect()` 直接返回，避免 `ws.close()` 引发的 onclose
+   * 回调被误判为异常断线而再次重连。
+   */
   close() {
     this.manualClosed = true;
     this.stopHeartbeat();
@@ -169,7 +203,8 @@ export class RealtimeClient {
     const channel = message?.channel ?? '';
     const payload = message?.payload ?? message;
 
-    // 心跳响应
+    // 心跳响应是连接健康检查的回声，不属于业务消息，若下发给监听器
+    // 会被误当作频道 '__heartbeat__' 的订阅数据
     if (channel === '__heartbeat__') return;
 
     const matched = this.listeners.filter((l) => l.channel === channel);
@@ -201,6 +236,8 @@ export class RealtimeClient {
 
     // 指数退避 + 抖动：2^n * 1s ± 30%，上限 30s
     const base = Math.min(2 ** this.reconnectAttempts * 1000, 30_000);
+    // 抖动不可省：服务端重启后所有客户端会在同一秒重连，形成重连风暴
+    // 把已恢复的服务再次打垮；乘 0.7~1.3 让重试时刻在窗口内打散
     const jitter = base * (0.7 + Math.random() * 0.6);
     this.reconnectAttempts += 1;
     this.setStatus('reconnecting');
@@ -213,7 +250,10 @@ export class RealtimeClient {
   private replayOffline() {
     if (!this.offlineQueue || this.offlineMessages.length === 0) return;
     const messages = [...this.offlineMessages];
+    // 先清空再分发：分发过程中若监听器再次 dispatch，新消息进的是新队列，
+    // 不会被本次遍历重复消费
     this.offlineMessages = [];
+    // 传入对象而非字符串，复用 handleMessage 的非字符串分支，避免序列化往返
     messages.forEach((msg) => this.handleMessage(msg));
   }
 
@@ -224,6 +264,8 @@ export class RealtimeClient {
       return;
     }
     if (this.offlineQueue) {
+      // 丢弃队首而非拒绝入队：实时消息的价值随时间衰减，
+      // 保留最新 N 条比保留最早的 N 条更有意义，同时也给队列设了内存上限
       if (this.offlineMessages.length >= MAX_QUEUE_SIZE) {
         this.offlineMessages.shift();
       }

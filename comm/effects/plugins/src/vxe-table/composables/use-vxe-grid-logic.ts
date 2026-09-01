@@ -1,22 +1,13 @@
 /**
- * use-vxe-grid-logic 组合式函数
+ * YDSZVxeGrid 表格核心逻辑的组合式函数封装。
+ *
+ * 将 use-vxe-grid.vue 中的 CRUD、分页、数据加载、列配置、工具栏/表单/插槽
+ * 等响应式计算与生命周期抽取为独立 composable，使 SFC 保持在 400 行以内。
+ * 插槽相关职责已进一步拆分至 use-vxe-grid-slots.ts。
  *
  * @path comm\effects\plugins\src\vxe-table\composables\use-vxe-grid-logic.ts
  * @author ydsz-team
  * @since 1.0.0
- *
- * @remarks
- * 将 use-vxe-grid.vue 中的表格核心逻辑（CRUD 操作、分页管理、数据加载、列配置处理、
- * 工具栏/表单/插槽等响应式计算与生命周期）抽取为独立 composable，
- * 使 Vue 单文件组件保持在 400 行以内。
- * 插槽相关职责（工具栏/标题/表单插槽）已进一步拆分至 use-vxe-grid-slots.ts。
- *
- * 使用方式：
- * ```ts
- * const {
- *   gridRef, options, events, showToolbar, Form, onSearchBtnClick, ...
- * } = useVxeGridLogic(props);
- * ```
  */
 
 import type {
@@ -312,6 +303,7 @@ export function useVxeGridLogic(
 
   // ---------- 事件处理 ----------
 
+  /** 工具栏按钮点击：若点击搜索按钮则切换搜索表单，其余透传给业务侧 */
   function onToolbarToolClick(
     event: VxeGridDefines.ToolbarToolClickEventParams,
   ) {
@@ -323,6 +315,7 @@ export function useVxeGridLogic(
     )?.(event);
   }
 
+  /** 切换搜索表单显隐 */
   function onSearchBtnClick() {
     props.api?.toggleSearchForm?.();
   }
@@ -347,6 +340,7 @@ export function useVxeGridLogic(
 
   // ---------- 初始化 ----------
 
+  /** 首次挂载时触发数据加载并注入表单参数到 proxyConfig */
   async function init() {
     await nextTick();
     const globalGridConfig = VxeUI?.getConfig()?.grid ?? {};

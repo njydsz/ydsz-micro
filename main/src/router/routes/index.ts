@@ -1,5 +1,5 @@
 /**
- * 路由配置入口，聚合所有路由模块
+ * 路由聚合与分类 —— 导入全部模块路由并按核心/动态/静态分组导出
  *
  * @path main\src\router\routes\index.ts
  * @author ydsz-team

@@ -1,5 +1,8 @@
 /**
- * use-design-tokens 组合式函数
+ * 将项目 CSS 变量映射为各 UI 框架设计令牌的主题适配层。
+ *
+ * 支持 Antd、Naive UI、Element Plus 三套框架的主题同步，
+ * 运行时监听 preferences.theme 变化自动更新，无需手动刷新。
  *
  * @path comm\effects\hooks\src\use-design-tokens.ts
  * @author ydsz-team
@@ -14,6 +17,17 @@ import { convertToRgb, updateCSSVariables } from '@ydsz/utils';
  * 用于适配各个框架的设计系统
  */
 
+/**
+ * 把项目 CSS 变量映射为 Ant Design 的 token，实现主题联动。
+ *
+ * @remarks
+ * 调用即同步一次，后续通过 watch preferences.theme 自动更新。
+ * 返回的 tokens 对象为 reactive，可在模板中直接绑定。
+ *
+ * 依赖 `document.documentElement`，仅限浏览器端使用。
+ *
+ * @returns `tokens` —— Ant Design 主题 token 集合（响应式）
+ */
 export function useAntdDesignTokens() {
   const rootStyles = getComputedStyle(document.documentElement);
 

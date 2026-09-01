@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 检查版本更新挂件组件（CheckUpdates）导出
  *
  * @path comm\effects\layouts\src\widgets\check-updates\index.ts
  * @author ydsz-team

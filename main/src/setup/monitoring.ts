@@ -12,7 +12,7 @@ import { useUserStore } from "@ydsz/stores";
  *
  * 从 bootstrap.ts 拆出（原 v3.1/v4.0 逻辑），保持行为不变。
  *
- * @path main/src/setup/monitoring.ts
+ * @path main\src\setup\monitoring.ts
  * @author ydsz-team
  * @since 4.1.0
  */

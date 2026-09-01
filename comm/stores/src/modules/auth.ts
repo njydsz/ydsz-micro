@@ -71,33 +71,66 @@ export const useTokenStore = defineStore(
      */
     const expiresAt = ref<null | number>(null);
 
+    /**
+     * 设置访问令牌。
+     *
+     * @param token - JWT 访问令牌字符串，null 表示清除
+     */
     function setAccessToken(token: AuthToken) {
       accessToken.value = token;
     }
 
+    /**
+     * 设置刷新令牌。
+     *
+     * @param token - JWT 刷新令牌字符串，null 表示清除
+     */
     function setRefreshToken(token: AuthToken) {
       refreshToken.value = token;
     }
 
+    /**
+     * 设置登录过期标记。
+     *
+     * @param expired - true 表示登录已过期
+     */
     function setLoginExpired(expired: boolean) {
       loginExpired.value = expired;
     }
 
-    /** 设置 accessToken 绝对过期时间戳（ms），null 表示未知 */
+    /**
+     * 设置 accessToken 绝对过期时间戳。
+     *
+     * @param timestamp - 过期时间戳（ms），null 表示未知（后端未返回 expiresIn）
+     */
     function setExpiresAt(timestamp: null | number) {
       expiresAt.value = timestamp;
     }
 
+    /**
+     * 锁定屏幕，使用 SHA-256 哈希存储密码后开启锁屏状态。
+     *
+     * @param password - 锁屏密码（明文）
+     */
     async function lockScreen(password: string) {
       isLockScreen.value = true;
       lockScreenPassword.value = await hashPassword(password);
     }
 
+    /**
+     * 解锁屏幕，清除锁屏状态与密码哈希。
+     */
     function unlockScreen() {
       isLockScreen.value = false;
       lockScreenPassword.value = undefined;
     }
 
+    /**
+     * 验证锁屏密码是否匹配。
+     *
+     * @param password - 待验证的密码（明文）
+     * @returns 密码是否匹配已存储的哈希值
+     */
     async function verifyLockScreenPassword(password: string): Promise<boolean> {
       if (!lockScreenPassword.value) return false;
       return verifyPassword(password, lockScreenPassword.value);

@@ -126,9 +126,11 @@ export function createRoutePreloadStrategy(
       if (getRoutePredictions) {
         const predictions = getRoutePredictions();
         for (const route of predictions) {
-          const app = apps.find(
-            (a) => a.activeRule && route.startsWith(a.activeRule),
-          );
+          const app = apps.find((a) => {
+            // ActiveRule 支持字符串/正则/函数，路由预测场景仅字符串前缀可比较
+            if (typeof a.activeRule !== "string") return false;
+            return route.startsWith(a.activeRule);
+          });
           if (app) {
             await doPreload(app.name);
           }

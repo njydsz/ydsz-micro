@@ -4,6 +4,7 @@
  * <p>提供 {@code getUserInfoApi}（获取当前用户信息）。
  * <p>供业务代码统一 {@code import { getUserInfoApi } from '#/api/core/user'} 引用。
  *
+ * @path apps\message-web\src\api\core\user.ts
  * @author ydsz-team
  * @since 1.0.0
  */

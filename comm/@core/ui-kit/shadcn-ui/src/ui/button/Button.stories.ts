@@ -45,6 +45,20 @@ const meta: Meta<typeof Button> = {
   },
 };
 
+/**
+ * Button 组件示例集的 Storybook 元信息。
+ *
+ * 覆盖的状态：
+ *  - 全部 6 个 `variant`：default / destructive / outline / secondary / ghost / link；
+ *  - 全部 4 个 `size`：default / sm / lg / icon；
+ *  - 交互与语义状态：`disabled` 禁用态，以及 `as` 切换渲染元素（button / a / div）。
+ *
+ * 另有 `AllVariants`、`AllSizes` 两个同屏对照 story，用于一次性横向评审样式，
+ * 以及回归时肉眼比对 Tailwind class 是否被 tailwind-merge 误合并。
+ *
+ * meta 上声明了 `argTypes`，因此在 Storybook 面板里可实时切换上述取值，
+ * 无需改代码即可验证 variant 与 size 的组合。
+ */
 export default meta;
 type Story = StoryObj<typeof Button>;
 

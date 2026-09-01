@@ -4,6 +4,7 @@
  * <p>{@code BasicLayout} 来自当前子应用本地（{@code ./basic.vue}），{@code IFrameView} 来自 {@code @ydsz/layouts} 公共包。
  * <p>供路由表按需引用，避免一次性加载所有布局。
  *
+ * @path apps\message-web\src\layouts\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

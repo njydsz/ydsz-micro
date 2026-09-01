@@ -18,7 +18,7 @@
  *   comm/effects/request/src/error-codes.generated.ts   生成常量（禁止手改）
  *   comm/effects/request/src/.error-codes.lock          内容哈希快照（--check 基线）
  *
- * @path bash/gen-error-codes.mjs
+ * @path bash\gen-error-codes.mjs
  * @author ydsz-team
  * @since 4.1.0
  * @see bash/gen-contract.py（API 契约主链路，本脚本与其互为补充）

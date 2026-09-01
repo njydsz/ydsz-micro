@@ -1,5 +1,5 @@
 /**
- * tabs 模块
+ * 多页签（Tab）数据类型定义，继承自 vue-router 的路由位置。
  *
  * @path comm\@core\base\typings\src\tabs.ts
  * @author ydsz-team

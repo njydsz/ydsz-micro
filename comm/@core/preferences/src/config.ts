@@ -1,5 +1,5 @@
 /**
- * 应用偏好配置
+ * 默认偏好设置配置对象，作为未初始化或未持久化时的兜底基准。
  *
  * @path comm\@core\preferences\src\config.ts
  * @author ydsz-team

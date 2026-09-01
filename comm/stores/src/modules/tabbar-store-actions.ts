@@ -28,9 +28,10 @@ import {
 import type { TabbarStoreContext } from './tabbar-utils';
 
 /**
- * @zh_CN 跳转到标签页
- * @param tab
- * @param router
+ * 使用 router.replace 跳转到指定标签页对应的路由。
+ *
+ * @param tab - 目标标签页（含 path、params、query）
+ * @param router - Vue Router 实例
  */
 export async function goToTab(tab: TabDefinition, router: Router) {
   const { params, path, query } = tab;
@@ -43,9 +44,10 @@ export async function goToTab(tab: TabDefinition, router: Router) {
 }
 
 /**
- * @zh_CN 跳转到默认标签页
- * @param ctx
- * @param router
+ * 跳转到标签栏第一个标签页（固定标签页优先）。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param router - Vue Router 实例
  */
 export async function goToDefaultTab(
   ctx: TabbarStoreContext,
@@ -61,9 +63,10 @@ export async function goToDefaultTab(
 }
 
 /**
- * @zh_CN 关闭标签页（内部函数）
- * @param ctx
- * @param tab
+ * 从标签栏移除指定标签页并通知监听器（内部函数，不处理路由跳转）。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 待关闭的标签页
  */
 export function closeTabInternal(ctx: TabbarStoreContext, tab: TabDefinition) {
   if (isAffixTab(tab)) {
@@ -79,10 +82,11 @@ export function closeTabInternal(ctx: TabbarStoreContext, tab: TabDefinition) {
 }
 
 /**
- * @zh_CN 设置标签页顺序
- * @param ctx
- * @param oldIndex
- * @param newIndex
+ * 通过将标签页从 oldIndex 移动到 newIndex 来重新排序（支持拖拽排序）。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param oldIndex - 拖拽起始索引
+ * @param newIndex - 拖拽目标索引
  */
 export async function sortTabs(
   ctx: TabbarStoreContext,
@@ -99,8 +103,9 @@ export async function sortTabs(
 }
 
 /**
- * 根据当前打开的选项卡更新缓存
- * @param ctx
+ * 根据当前打开的标签页列表更新 keepAlive 缓存集合。
+ *
+ * @param ctx - Tabbar store 上下文
  */
 export async function updateCacheTabs(ctx: TabbarStoreContext) {
   const cacheMap = new Set<string>();
@@ -124,9 +129,11 @@ export async function updateCacheTabs(ctx: TabbarStoreContext) {
 }
 
 /**
- * 根据tab的key获取tab
- * @param ctx
- * @param key
+ * 根据 key 查找标签栏中对应的标签页。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param key - 标签页唯一标识
+ * @returns 匹配的标签页定义
  */
 export function getTabByKey(ctx: TabbarStoreContext, key: string) {
   return ctx.getTabs.value.find(
@@ -135,9 +142,10 @@ export function getTabByKey(ctx: TabbarStoreContext, key: string) {
 }
 
 /**
- * 根据路由名称刷新指定标签页
- * @param ctx
- * @param name
+ * 先将路由名加入排除缓存集合，延迟 200ms 后移除以触发组件重建。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param name - 路由名称匹配的标签页
  */
 export async function refreshByName(ctx: TabbarStoreContext, name: string) {
   ctx.excludeCachedTabs.value = [
@@ -150,9 +158,11 @@ export async function refreshByName(ctx: TabbarStoreContext, name: string) {
 }
 
 /**
- * @zh_CN 添加标签页
- * @param ctx
- * @param routeTab
+ * 添加标签页到标签栏（已存在则合并更新，超出 maxCount 时关闭最早非固定标签页）。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param routeTab - 待添加的配置路由转换标签页
+ * @returns 添加/更新后的标签页定义
  */
 export function addTab(
   ctx: TabbarStoreContext,

@@ -18,7 +18,7 @@
  *   localStorage.setItem('YDSZ:debug', '*')                // 全部模块 debug 级别
  *   localStorage.setItem('YDSZ:debug', '-MicroKernel:*')  // 排除 MicroKernel
  *
- * @path comm/@core/base/shared/src/utils/logger.ts
+ * @path comm\@core\base\shared\src\utils\logger.ts
  * @author ydsz-team
  * @since 1.0.0
  */

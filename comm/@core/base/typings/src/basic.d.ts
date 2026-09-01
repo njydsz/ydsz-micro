@@ -1,5 +1,5 @@
 /**
- * basic.d 模块
+ * 基础业务类型定义：下拉选项、用户信息等通用数据结构。
  *
  * @path comm\@core\base\typings\src\basic.d.ts
  * @author ydsz-team

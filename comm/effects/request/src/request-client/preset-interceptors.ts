@@ -1,5 +1,14 @@
 /**
- * preset-interceptors 模块
+ * 与后端响应契约对齐的预置拦截器。
+ *
+ * 承载四套应用共用的响应处理约定，业务侧无需重复实现：
+ * - 业务码判定与数据剥离：按 `code` / `successCode` 判定成功，
+ *   直接返回 `data` 字段，失败则抛 `BusinessError`；
+ * - 401 自动刷新 token 并重放请求，刷新期间并发请求排队而非各自刷新；
+ * - 错误消息国际化与统一提示。
+ *
+ * 独立成文件是为了让「契约适配」与「通用传输能力」分离：
+ * `request-client.ts` 只管发请求，后端信封格式的变化应只改这里。
  *
  * @path comm\effects\request\src\request-client\preset-interceptors.ts
  * @author ydsz-team
@@ -12,7 +21,7 @@ import { $t } from '@ydsz/locales';
 import { isFunction } from '@ydsz/utils';
 
 import axios from 'axios';
-import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import type { RequestResponse } from './types';
 
 import { BusinessError } from './business-error';
@@ -32,6 +41,8 @@ type DataFieldFn = (response: UnknownResponse) => unknown;
 /** 扩展的 Axios 请求配置（含自定义字段） */
 type ExtendedAxiosRequestConfig = InternalAxiosRequestConfig & {
   __isRetryRequest?: boolean;
+  /** 当前请求已重试次数 */
+  __retryCount?: number;
 };
 
 /** 类型守卫：判断是否为 successCode 函数 */
@@ -288,6 +299,143 @@ export const errorMessageResponseInterceptor = (
       }
       makeErrorMessage?.(errorMessage, axiosError);
       return Promise.reject(axiosError);
+    },
+  };
+};
+
+/**
+ * 创建「自动重试」响应拦截器 —— 基于错误码元信息 (retryable) 和 HTTP 5xx 状态码执行退避重试。
+ *
+ * <p>重试判定逻辑（满足任一即触发）：
+ * <ol>
+ *   <li>错误为 {@link BusinessError} 且 {@link BusinessError.retryable} = true（后端显式标记可重试）</li>
+ *   <li>HTTP 状态码为 5xx（服务端瞬时故障）</li>
+ * </ol>
+ *
+ * <p>退避策略：指数退避 + 随机抖动，公式：{@code delay = min(baseDelay * 2^retryCount + jitter, maxDelay)}。
+ *
+ * <p>注意事项：
+ * - 本拦截器必须在 {@link errorMessageResponseInterceptor} **之前**注册，避免重试过程触发冗余错误提示。
+ * - 401 / 认证错误由 {@link authenticateResponseInterceptor} 接管，不参与本拦截器重试。
+ * - 最大重试次数默认 3 次，超过后抛出原始错误。
+ * - GET/HEAD/OPTIONS 请求默认启用重试；写请求（POST/PUT/PATCH/DELETE）需显式配置 {@code retryable: true}。
+ *
+ * @param options - 重试配置
+ * @param options.client - 请求客户端实例（用于重新发起请求）
+ * @param options.maxRetries - 最大重试次数，默认 3
+ * @param options.baseDelay - 基础延迟（毫秒），默认 1000
+ * @param options.maxDelay - 最大延迟（毫秒），默认 10000
+ * @param options.jitter - 随机抖动范围（毫秒），默认 300
+ * @param options.onRetry - 重试命中回调（可选，用于监控上报）
+ * @returns 可注册到请求客户端的响应拦截器配置（仅含 `rejected` 分支）
+ */
+/**
+ * 创建「自动重试」响应拦截器 —— 基于错误码元信息 (retryable) 和 HTTP 5xx 状态码执行退避重试。
+ *
+ * <p>重试判定逻辑（满足任一即触发）：
+ * <ol>
+ *   <li>错误为 {@link BusinessError} 且 {@link BusinessError.retryable} = true（后端显式标记可重试）</li>
+ *   <li>HTTP 状态码为 5xx（服务端瞬时故障）</li>
+ * </ol>
+ *
+ * <p>退避策略：指数退避 + 随机抖动，公式：{@code delay = min(baseDelay * 2^retryCount + jitter, maxDelay)}。
+ *
+ * <p>注意事项：
+ * - 本拦截器必须在 {@link errorMessageResponseInterceptor} **之前**注册，避免重试过程触发冗余错误提示。
+ * - 401 / 认证错误由 {@link authenticateResponseInterceptor} 接管，不参与本拦截器重试。
+ * - 最大重试次数默认 3 次，超过后抛出原始错误。
+ * - 重入方式为 axios 实例级 re-dispatch（instance.request），不经过 RequestClient.request() 的内置重试逻辑。
+ *
+ * @param options - 重试配置
+ * @param options.axiosInstance - 客户端内部的 axios 实例（用于 re-dispatch，避免进入 RequestClient.request 的内置重试）
+ * @param options.maxRetries - 最大重试次数，默认 3
+ * @param options.baseDelay - 基础延迟（毫秒），默认 1000
+ * @param options.maxDelay - 最大延迟（毫秒），默认 10000
+ * @param options.jitter - 随机抖动范围（毫秒），默认 300
+ * @param options.onRetry - 重试命中回调（可选，用于监控上报）
+ * @returns 可注册到请求客户端的响应拦截器配置（仅含 `rejected` 分支）
+ */
+export const retryResponseInterceptor = ({
+  axiosInstance,
+  maxRetries = 3,
+  baseDelay = 1000,
+  maxDelay = 10000,
+  jitter = 300,
+  onRetry,
+}: {
+  axiosInstance: AxiosInstance;
+  maxRetries?: number;
+  baseDelay?: number;
+  maxDelay?: number;
+  jitter?: number;
+  onRetry?: (info: { url: string; retryCount: number; error: unknown }) => void;
+}): ResponseInterceptorConfig => {
+  return {
+    rejected: async (error: unknown) => {
+      const axiosError = error as AxiosError;
+      const config = axiosError.config as ExtendedAxiosRequestConfig | undefined;
+
+      // 无配置信息（如请求被拦截器构造失败），不参与重试
+      if (!config) {
+        throw error;
+      }
+
+      const retryCount = config.__retryCount ?? 0;
+
+      // 超过最大重试次数，抛出原始错误
+      if (retryCount >= maxRetries) {
+        throw error;
+      }
+
+      // 判断是否需要重试
+      let shouldRetry = false;
+
+      // 条件 1：BusinessError 显式标记 retryable
+      if (error instanceof BusinessError && error.retryable) {
+        shouldRetry = true;
+      }
+
+      // 条件 2：HTTP 5xx 状态码（服务端瞬时故障）
+      const status = axiosError?.response?.status;
+      if (status && status >= 500 && status < 600) {
+        shouldRetry = true;
+      }
+
+      // 条件 3：网络错误（无响应）且请求方法幂等
+      if (!axiosError.response) {
+        const method = (config.method ?? 'get').toUpperCase();
+        if (['GET', 'HEAD', 'OPTIONS'].includes(method)) {
+          shouldRetry = true;
+        }
+      }
+
+      if (!shouldRetry) {
+        throw error;
+      }
+
+      // 递增重试计数
+      config.__retryCount = retryCount + 1;
+      config.__isRetryRequest = true;
+
+      // 计算退避延迟
+      const exponentialDelay = baseDelay * Math.pow(2, retryCount);
+      const jitterMs = Math.floor(Math.random() * jitter);
+      const delay = Math.min(exponentialDelay + jitterMs, maxDelay);
+
+      logger.debug(`请求重试 (${config.__retryCount}/${maxRetries})，${delay}ms 后重放: ${config.url}`);
+
+      // 监控回调
+      onRetry?.({
+        url: config.url ?? '',
+        retryCount: config.__retryCount,
+        error,
+      });
+
+      // 执行退避等待
+      await new Promise((resolve) => setTimeout(resolve, delay));
+
+      // 通过 axios 实例级 request 重入拦截器链（不触发 RequestClient 内置重试配置）
+      return axiosInstance.request(config);
     },
   };
 };

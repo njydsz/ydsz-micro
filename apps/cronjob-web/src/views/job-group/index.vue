@@ -24,7 +24,7 @@ import { ElButton, ElMessage, ElMessageBox, ElInput } from 'element-plus';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/job-group';
+import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/jobGroup';
 import type { JobVO } from '#/api/models';
 
 defineOptions({ name: 'JobGroupManagement' });

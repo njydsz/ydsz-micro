@@ -173,13 +173,13 @@ export function sendRequest<T = unknown, R = unknown>(
       timer,
     });
 
-    // P1-4: 所有消息携带统一协议标记
+    // P1-4: 所有消息携带统一协议标记（payload 未传时按默认 unknown 放行）
     const message: BrokerMessage<T> = {
       [BROKER_MARK]: true,
       from: 'main',
       to,
       action,
-      payload,
+      payload: payload as T,
       correlationId,
     };
     window.dispatchEvent(new CustomEvent(MESSAGE_EVENT, { detail: message }));

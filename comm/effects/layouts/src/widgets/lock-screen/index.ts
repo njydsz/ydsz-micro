@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 锁屏挂件组件导出（LockScreen 锁屏界面 + LockScreenModal 解锁弹窗）
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\index.ts
  * @author ydsz-team

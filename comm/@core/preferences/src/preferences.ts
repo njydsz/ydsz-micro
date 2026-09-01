@@ -1,5 +1,5 @@
 /**
- * 应用偏好配置
+ * 偏好配置管理器，提供响应式偏好设置的读写、持久化与变更监听。
  *
  * @path comm\@core\preferences\src\preferences.ts
  * @author ydsz-team

@@ -4,6 +4,7 @@
  * <p>提供 {@code generateAccess} 异步方法，从后端拉取菜单、构建路由、注册到 router。
  * <p>支持前端静态路由 + 后端动态路由混合模式。
  *
+ * @path apps\workflow-web\src\router\access.ts
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -20,6 +21,15 @@ import { $t } from '#/locales';
 
 const forbiddenComponent = () => import('#/views/fallback/not-found.vue');
 
+/**
+ * 根据当前用户权限动态生成可访问路由表。
+ *
+ * <p>从后端拉取菜单列表，结合前端 pageMap / layoutMap 组件注册表，
+ * 构造包含路由元信息、权限码的 RouteRecordRaw 数组并注册到 router。
+ *
+ * @param options 路由生成选项（含 router 实例等）
+ * @returns 生成的可访问路由表
+ */
 async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   const pageMap: ComponentRecordType = import.meta.glob('../views/**/*.vue');
 

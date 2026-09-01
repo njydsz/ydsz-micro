@@ -42,6 +42,7 @@ export interface AgentSseEventHandlers {
   onClose?: () => void;
 }
 
+/** Agent 流式 SSE 连接配置选项 */
 export interface AgentStreamOptions {
   /** 外部中止信号（调用方负责 abort，用于停止生成/组件卸载） */
   signal?: AbortSignal;

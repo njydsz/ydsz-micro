@@ -1,5 +1,5 @@
 /**
- * vxe-table 适配器模块
+ * vxe-table 适配器 —— 全局表格配置与自定义单元格渲染器注册
  *
  * @path main\src\adapter\vxe-table.ts
  * @author ydsz-team

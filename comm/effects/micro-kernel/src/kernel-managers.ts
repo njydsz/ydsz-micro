@@ -18,7 +18,7 @@
  * 10. devtools-panel — 开发态面板 DOM + 刷新定时器
  * 11. health-checker — 加载耗时窗口 + 节流状态
  *
- * @path comm/effects/micro-kernel/src/kernel-managers.ts
+ * @path comm\effects\micro-kernel\src\kernel-managers.ts
  * @author ydsz-team
  * @since 4.1.0
  */

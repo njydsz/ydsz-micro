@@ -10,7 +10,7 @@
  * 状态采用 Vue reactive，组件侧 useFeatureFlag 返回 computed 可响应变更。
  * 同时提供轻量 pub-sub 监听器，供路由守卫、指令等非组件场景使用。
  *
- * @path comm/@core/feature-flags/src/feature-flags.ts
+ * @path comm\@core\feature-flags\src\feature-flags.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -1,5 +1,3 @@
-import { createLogger } from '@YDSZ-core/shared/utils';
-const logger = createLogger('global-state');
 /**
  * 类型安全的全局状态。
  *
@@ -15,6 +13,9 @@ const logger = createLogger('global-state');
  * @author ydsz-team
  * @since 3.0.0
  */
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('global-state');
 
 /** 全局状态的版本化包装，结构变更时递增 version，跨版本不兼容直接报错 */
 export interface VersionedState<T> {
@@ -46,7 +47,7 @@ export interface GlobalStateConfig<T> {
 }
 
 /** 内核注入的原始全局状态通信能力 */
-export interface RawGlobalStateAPI<T = Record<string, unknown>> {
+export interface RawGlobalStateAPI<T extends Record<string, unknown> = Record<string, unknown>> {
   /** 监听全局状态变化，返回取消订阅函数 */
   onGlobalStateChange: (listener: (state: T, prev: T) => void, fireImmediately?: boolean) => () => void;
   setGlobalState: (state: Partial<T>) => void;

@@ -1,5 +1,5 @@
 /**
- * generate-menus 工具函数模块
+ * 根据路由配置生成侧边栏菜单列表，组装图标、徽标、层级关系及父子路径。
  *
  * @path comm\utils\src\helpers\generate-menus.ts
  * @author ydsz-team
@@ -16,10 +16,15 @@ import type {
 import { filterTree, mapTree } from '@YDSZ-core/shared/utils';
 
 /**
- * 根据 routes 生成菜单列表
+ * 根据路由配置生成侧边栏菜单列表。
+ *
+ * @remarks
+ * 遍历路由树，将 RouteMeta 中的菜单相关字段（icon、title、badge 等）
+ * 转换为 MenuRecordRaw 结构，并按 order 过滤隐藏的菜单项。
+ *
  * @param routes - 路由配置列表
- * @param router - Vue Router 实例
- * @returns 生成的菜单列表
+ * @param router - Vue Router 实例（用于获取最终注册路径）
+ * @returns 排序并过滤后的菜单配置数组
  */
 function generateMenus(
   routes: RouteRecordRaw[],

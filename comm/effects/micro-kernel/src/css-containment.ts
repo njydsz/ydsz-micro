@@ -221,7 +221,7 @@ function collectRootCssVariables(
 
   for (let i = 0; i < rootStyle.length; i++) {
     const propName = rootStyle[i];
-    if (propName.startsWith("--")) {
+    if (typeof propName === "string" && propName.startsWith("--")) {
       const value = rootStyle.getPropertyValue(propName).trim();
       if (value) {
         result.set(propName, value);

@@ -38,1492 +38,1605 @@ export interface PageQuery {
   pageSize?: number;
 }
 
+/**
+ * 流程分类 DTO
+ */
 export interface FlowCategoryDTO {
   id?: string;
-
   categoryCode?: string;
-
   categoryName?: string;
-
   parentId?: string;
-
   sortNum?: number;
-
   icon?: string;
-
   remark?: string;
+  tenantId?: string;
+  deleted?: number;
 }
 
+/**
+ * 抄送查询参数。
+ *
+ * P0-3: 抄送中心查询参数。 P1-7a: 继承 PageQuery 复用分页安全校验（@Min/@Max/@Pattern + safeOrderBy）。
+ * 命名合规说明（1.0.0 DDD 分层规范）：查询请求参数置于 `query/` 包下、以 `Query` 结尾
+ * （符合 §34.2.1 表格：query/ 查询请求参数 以 Query 结尾）。
+ */
 export interface FlowCcQuery {
   serialVersionUID?: number;
-
+  /** 已读状态：UNREAD / READ / null=全部 */
   readStatus?: string;
-
+  /** 流程编码过滤 */
   flowCode?: string;
+  /** 流程实例ID（合并自 FlowCcQueryDTO） */
+  instanceId?: string;
+  /** 抄送用户ID（合并自 FlowCcQueryDTO） */
+  ccUserId?: string;
 }
 
+/**
+ * P2-2: 流程评论创建 DTO
+ *
+ * 用于发表评论或回复。一级评论不传 `parentCommentId`； 回复时传入 `parentCommentId`（必填）和 {@code
+ * replyToUserId}（可选）。
+ */
 export interface FlowCommentCreateDTO {
   serialVersionUID?: number;
-
+  /** 流程实例 ID（必填） */
   instanceId?: string;
-
+  /** 任务 ID（可选，任务级评论时传入） */
   taskId?: string;
-
+  /** 节点编码（可选） */
   nodeCode?: string;
-
+  /** 评论内容（必填，最长 2000 字符） */
   content?: string;
-
+  /** 父评论 ID（可选，一级评论为 null；回复时必填） */
   parentCommentId?: string;
-
+  /** 被回复人 ID（可选，回复某条评论时标记） */
   replyToUserId?: string;
-
+  /** 被回复人姓名（可选） */
   replyToUserName?: string;
 }
 
+/**
+ * 审批常用语 DTO
+ */
 export interface FlowQuickCommentDTO {
   id?: string;
-
   content?: string;
-
   commentType?: string;
-
   sortNum?: number;
 }
 
+/**
+ * 自建工作流引擎 - 部署流程 DTO
+ *
+ * 支持两种部署模式：
+ * BPMN 2.0 模式：传入 `bpmnXml`（标准 BPMN XML），由 BpmnXmlParser 自动解析为节点/跳转
+ * 轻量 JSON 模式：直接传入 `nodes` + `skips` 数组
+ */
 export interface FlowDeployProcessDTO {
   serialVersionUID?: number;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 流程名称 */
   flowName?: string;
-
+  /** 流程版本 */
   version?: string;
-
+  /** 流程类别 */
   category?: string;
-
+  /** 流程描述 */
   description?: string;
-
+  /** 审批表单路径 */
   formPath?: string;
-
+  /**
+   * BPMN 2.0 XML 内容（标准 .bpmn20.xml 文件内容）
+   * 与 `nodes`/`skips` 二选一。优先使用 BPMN XML 模式。
+   */
   bpmnXml?: string;
-
+  /** 轻量节点列表（JSON 模式） */
   nodes?: Record<string, unknown>[];
-
+  /** 轻量跳转列表（JSON 模式） */
   skips?: Record<string, unknown>[];
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 链路追踪 ID */
   providerTraceId?: string;
-
+  /** 节点编码（流程内唯一） */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 节点类型：0开始/1审批/2抄送/3条件/4并行/5包容/6结束/7子流程 */
   nodeType?: number;
-
+  /** 办理人权限标识 */
   permissionFlag?: string;
-
+  /** 会签类型 */
   performType?: string;
-
+  /** 任意跳转目标节点 */
   skipAnyNode?: string;
-
+  /** 源节点编码 */
   fromNodeCode?: string;
-
+  /** 目标节点编码 */
   toNodeCode?: string;
-
+  /** 跳转类型：PASS/REJECT */
   skipType?: string;
-
+  /** 跳转条件 */
   skipCondition?: string;
-
+  /** 跳转名称（线上标签） */
   skipName?: string;
 }
 
+/**
+ * FlowDelegateAuth 新增请求 DTO。
+ */
 export interface FlowDelegateAuthPostDTO {
   serialVersionUID?: number;
-
   ownerUserId?: string;
-
   ownerUserName?: string;
-
   delegateUserId?: string;
-
   delegateUserName?: string;
-
   scopeType?: string;
-
   flowCode?: string;
-
   nodeCode?: string;
-
   roleCode?: string;
-
   startTime?: string;
-
   endTime?: string;
-
   reason?: string;
 }
 
+/**
+ * 流程设计器数据 DTO
+ *
+ * P1-10: 由原 Map body 改造为强类型 DTO + JSR-303 校验。 designerData 为前端序列化好的 JSON 字符串，控制器层反序列化为 Map 后转交
+ * service。
+ */
 export interface FlowDesignerDataDTO {
   serialVersionUID?: number;
-
+  /** 设计器数据 JSON 字符串（含 nodes + edges，前端已序列化好） */
   designerData?: string;
 }
 
+/**
+ * P2-2 嵌入式审批快捷操作 DTO
+ *
+ * 嵌入式场景下业务页不感知 taskId，只需要知道 businessType+businessId+action 即可触发审批。
+ * action: PASS/REJECT/TRANSFER/DELEGATE/URGE/WITHDRAW
+ */
 export interface EmbeddedApprovalActionDTO {
   serialVersionUID?: number;
-
+  /** 业务类型（必填） */
   businessType?: string;
-
+  /** 业务 ID（必填） */
   businessId?: string;
-
+  /** 操作：PASS/REJECT/TRANSFER/DELEGATE/URGE/WITHDRAW */
   action?: string;
-
+  /** 操作人 ID（必填） */
   userId?: string;
-
+  /** 操作人姓名 */
   userName?: string;
-
+  /** 审批意见 */
   comment?: string;
-
+  /** 审批意见分类 */
   commentType?: string;
-
+  /** 转办/委派目标人 ID（TRANSFER/DELEGATE 时使用） */
   targetUserId?: string;
-
+  /** 转办/委派目标人姓名 */
   targetUserName?: string;
-
-  variables?: Record<string, unknown>;
-
+  /** 流程变量 */
+  variables?: Record<string, Record<string, unknown>>;
+  /** 租户 ID */
   tenantId?: string;
 }
 
+/**
+ * 自建工作流引擎 - 启动流程 DTO
+ *
+ * 复用现有 StartProcessDTO 的核心字段，新增 ydsz_flow_* 引擎所需字段。
+ */
 export interface FlowStartProcessDTO {
   serialVersionUID?: number;
-
+  /** 流程编码（必填，如 project_initiation） */
   flowCode?: string;
-
+  /** 流程版本（不填则取最新已发布） */
   version?: string;
-
+  /** 业务类型（必填） */
   businessType?: string;
-
+  /** 业务单据 ID（必填） */
   businessId?: string;
-
+  /** 业务单据编号 */
   businessNo?: string;
-
+  /** 流程标题 */
   title?: string;
-
+  /** 发起人 ID */
   initiatorId?: string;
-
+  /** 发起人姓名 */
   initiatorName?: string;
-
-  variables?: Record<string, unknown>;
-
+  /** 流程变量（用于 SpEL 条件/办理人解析） */
+  variables?: Record<string, Record<string, unknown>>;
+  /** 指定下一个节点编码（可选，缺省走开始节点） */
   startNodeCode?: string;
-
+  /** 多办理人列表（会签场景：可在启动时预指定） */
   assignees?: FlowAssigneeDTO[];
-
+  /** 租户 ID（不填则取当前用户租户） */
   tenantId?: string;
-
+  /** 链路追踪 ID */
   providerTraceId?: string;
-
+  /** P1-3: 父流程实例 ID（子流程场景，可空） */
   parentInstanceId?: string;
-
+  /** P1-3: 父流程中触发子流程的节点编码（可空） */
   parentNodeCode?: string;
-
-  nodeAssignees?: Record<string, unknown>;
+  /** GAP-P2: 发起人自选审批人 — key=nodeCode, value=审批人ID列表 */
+  nodeAssignees?: Record<string, number[]>;
 }
 
+/**
+ * 办理人 DTO
+ */
 export interface FlowAssigneeDTO {
   serialVersionUID?: number;
-
+  /** 用户类型：USER/ROLE/DEPT */
   userType?: string;
-
+  /** 用户/角色/部门 ID */
   userId?: string;
-
+  /** 姓名 */
   userName?: string;
 }
 
+/**
+ * 保存流程草稿 DTO
+ *
+ * 借鉴 Flowlong 的「暂存待审」概念，允许用户保存已填写的表单数据为草稿，
+ * 后续可修改后重新提交。草稿不触发流程流转，仅保存变量数据。
+ * 使用场景：
+ * 用户填写复杂审批表单时临时保存
+ * 用户需要补充材料后再提交
+ * 多步骤表单的分步保存
+ */
 export interface FlowSaveDraftDTO {
   serialVersionUID?: number;
-
+  /** 流程编码（必填） */
   flowCode?: string;
-
+  /** 流程版本（不填则取最新已发布） */
   version?: string;
-
+  /** 业务类型（必填） */
   businessType?: string;
-
+  /** 业务单据 ID（必填） */
   businessId?: string;
-
+  /** 业务单据编号 */
   businessNo?: string;
-
+  /** 流程标题 */
   title?: string;
-
+  /** 发起人 ID */
   initiatorId?: string;
-
+  /** 发起人姓名 */
   initiatorName?: string;
-
-  draftData?: Record<string, unknown>;
-
+  /** 草稿表单数据（流程变量） */
+  draftData?: Record<string, Record<string, unknown>>;
+  /** 租户 ID（不填则取当前用户租户） */
   tenantId?: string;
-
+  /** 链路追踪 ID */
   providerTraceId?: string;
 }
 
+/**
+ * 提交流程草稿 DTO
+ *
+ * 将已有草稿正式提交，触发流程流转。提交后实例状态从 DRAFT → RUNNING，
+ * 等同于正常启动流程。
+ * 使用场景：
+ * 用户完成草稿填写后正式提交审批
+ * 系统自动提交到期草稿（cronjob 触发）
+ */
 export interface FlowSubmitDraftDTO {
   serialVersionUID?: number;
-
+  /** 草稿实例 ID（必填） */
   instanceId?: string;
-
-  draftData?: Record<string, unknown>;
-
+  /** 更新后的表单数据（可选，不传则使用草稿数据） */
+  draftData?: Record<string, Record<string, unknown>>;
+  /** 操作人 ID */
   operatorId?: string;
-
+  /** 链路追踪 ID */
   providerTraceId?: string;
 }
 
+/**
+ * 流程实例变量批量写入 DTO
+ *
+ * P1-10: 由原 Map body 改造为强类型 DTO + JSR-303 校验。 variables 保持 Map 类型（动态流程变量）。
+ */
 export interface FlowInstanceVariablesDTO {
   serialVersionUID?: number;
-
-  variables?: Record<string, unknown>;
+  /** 流程变量（动态键值对，保持 Map 类型） */
+  variables?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 流程实例迁移 DTO
+ *
+ * 当流程定义更新（新版本部署）后，运行中的实例可能需要迁移到新版本。 本 DTO 封装迁移所需参数，包括源/目标定义 ID、租户、节点映射及是否试运行。
+ */
 export interface InstanceMigrationDTO {
   serialVersionUID?: number;
-
+  /** 源流程定义 ID（旧版本） */
   sourceDefinitionId?: string;
-
+  /** 目标流程定义 ID（新版本） */
   targetDefinitionId?: string;
-
+  /** 租户 ID（可选，默认从上下文获取） */
   tenantId?: string;
-
-  nodeMapping?: Record<string, unknown>;
-
+  /**
+   * 节点映射：旧节点编码 -> 新节点编码。
+   * 当新旧版本节点编码不一致时，通过此映射指定对应关系。 编码相同的节点无需显式映射（自动按编码匹配）。
+   */
+  nodeMapping?: Record<string, string>;
+  /**
+   * 是否试运行（dry run）。
+   * true 表示仅模拟迁移并返回报告，不实际更新数据库； false 或 null 表示执行实际迁移。
+   */
   dryRun?: boolean;
 }
 
+/**
+ * 流程自动触发规则创建请求体 DTO
+ *
+ * 用于 `/workflow/trigger` 接口，创建流程实例完成时的自动触发规则。
+ */
 export interface FlowAutoTriggerCreateDTO {
+  /** 源流程编码（流程实例完成时触发） */
   sourceFlowCode?: string;
-
+  /** 目标流程编码（自动启动的流程） */
   targetFlowCode?: string;
-
+  /** 触发条件表达式（可选，为空表示无条件触发） */
   conditionExpression?: string;
-
+  /** 触发规则描述（可选） */
   description?: string;
 }
 
+/**
+ * 自建工作流引擎 - 任务操作 DTO
+ */
 export interface FlowTaskOperateDTO {
   serialVersionUID?: number;
-
+  /** 任务 ID（必填） */
   taskId?: string;
-
+  /** 操作人 ID */
   userId?: string;
-
+  /** 操作人姓名 */
   userName?: string;
-
+  /** 操作：PASS/REJECT/CLAIM/DELEGATE/TRANSFER/CC */
   action?: string;
-
+  /** 审批意见 */
   comment?: string;
-
+  /** P2-42: 审批意见分类：AGREE/DISAGREE/SUGGEST/INQUIRE（可选） */
   commentType?: string;
-
+  /** P1-6: 审批时提交的附件列表（图片/文档/视频等） */
   attachments?: FlowAttachmentDTO[];
-
-  variables?: Record<string, unknown>;
-
+  /** 流程变量 */
+  variables?: Record<string, Record<string, unknown>>;
+  /**
+   * 目标节点编码
+   * 多场景复用：
+   * REJECT：单节点退回（向后兼容）
+   * GAP-P2-9 自由流（JUMP）：运行时动态指定下一节点编码，目标节点必须存在于当前流程定义中， 且目标节点的 {@code
+   * ext.freeJump=true}（节点级白名单）才允许跳转
+   */
   targetNodeCode?: string;
-
+  /**
+   * GAP-P0-2: 退回多节点同退目标节点编码列表（仅 REJECT 时使用）
+   * 对标飞书"退回多节点同退"：勾选多个前序节点均重新审批。 非空时优先于 #targetNodeCode；为空时降级到单节点退回（向后兼容）。
+   */
   targetNodeCodes?: string[];
-
+  /**
+   * P1-2: 退回到发起人快捷方式（仅 REJECT 时使用）
+   * 对标钉钉/飞书"退回到发起人"：将流程退回到开始节点后的第一个审批节点， 让发起人重新修改表单后再次提交。
+   * 为 true 时优先于 #targetNodeCode / #targetNodeCodes； 为 false 或 null
+   * 时走原有退回逻辑（向后兼容）。
+   */
   rejectToInitiator?: boolean;
-
+  /**
+   * GAP-P2-9: 自由流（JUMP）运行时指定目标节点办理人列表
+   * 对标钉钉/飞书"自由流"能力：跳转时可显式指定目标节点的办理人（用户 ID 字符串列表， 如 `["1001","1002"]`）。非空时覆盖目标节点 {@code
+   * permissionFlag} 解析出的默认办理人； 为空时回退到节点配置的办理人解析逻辑。
+   * 仅 `action=JUMP` 时生效，其他操作忽略该字段。
+   */
   targetAssignees?: string[];
-
+  /** 转办/委派目标人 */
   targetUserId?: string;
-
+  /** 转办/委派目标人姓名 */
   targetUserName?: string;
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 链路追踪 ID */
   providerTraceId?: string;
-
+  /**
+   * P2-1: 穿越时空（补录审批）。
+   * 当为 `true` 时，表示该审批是"补录"的，可将任务完成时间向前追溯至 #effectiveTime。
+   * `null` 或 `false` 表示即时审批，按当前系统时间处理。
+   */
   backdated?: boolean;
-
+  /**
+   * P2-1: 补录生效时间。
+   * 当 #backdated 为 `true` 时，该字段指定补录的目标时间（过去时间）。
+   * 引擎将在归档时将此任务的 `effectiveTime` 设置为该值，影响后续查询排序。
+   * 为空则使用当前系统时间作为生效时间。
+   */
   effectiveTime?: string;
 }
 
+/**
+ * 自建工作流引擎 - 审批附件 DTO
+ *
+ * P1-6 (GAP-51): 审批时由前端提交的附件信息，序列化为 JSON 传入后端。 字段与 {@link
+ * com.njydsz.workflow.infra.entity.FlowAttachment} 对齐， 仅保留业务可见字段，不暴露内部版本号/审计字段。
+ */
 export interface FlowAttachmentDTO {
   serialVersionUID?: number;
-
+  /** 原始文件名 */
   fileName?: string;
-
+  /** 文件扩展名（jpg/pdf/docx...，可空时由 fileName 推断） */
   fileExt?: string;
-
+  /** 文件大小（字节） */
   fileSize?: number;
-
+  /** MIME 类型 */
   contentType?: string;
-
+  /** 存储 key（OSS / COS / MinIO 对象 key，或本地相对路径） */
   storageKey?: string;
-
+  /** 存储类型: OSS / MINIO / LOCAL（默认 OSS） */
   storageType?: string;
-
+  /** 临时下载地址（可选，由前端在文件上传后填入） */
   downloadUrl?: string;
-
+  /** 文件 MD5（去重/校验） */
   md5?: string;
 }
 
+/**
+ * 通用字符串包装视图对象（VO）。
+ *
+ * 用于接口返回单个字符串结果（如合并组 ID、用户 ID 列表等）， 避免直接返回裸 String 导致 JSON 反序列化歧义。
+ */
 export interface StringVO {
+  /** 包装的字符串值 */
   value?: string;
 }
 
+/**
+ * FlowAttachment 视图对象。
+ */
 export interface FlowAttachmentVO {
   serialVersionUID?: number;
-
   id?: string;
-
   instanceId?: string;
-
   taskId?: string;
-
   nodeCode?: string;
-
   bizType?: string;
-
   fileName?: string;
-
   fileExt?: string;
-
   fileSize?: number;
-
   contentType?: string;
-
   storageKey?: string;
-
   storageType?: string;
-
   uploaderId?: string;
-
   uploaderName?: string;
-
   downloadUrl?: string;
-
   md5?: string;
-
   providerTraceId?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
   deleted?: number;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
-export interface FlowAttachmentPreviewVO {
+/**
+ * P2-3: 附件在线预览 VO
+ *
+ * 根据文件类型返回不同的预览策略：
+ * `previewType=IMAGE/PDF/VIDEO/TEXT` → `previewUrl` 即 `downloadUrl`，
+ * 前端原生标签（img/iframe/video/pre）直接渲染
+ * `previewType=OFFICE` → `previewUrl` 为外部预览服务 URL （kkFileView/Office Online），需配置
+ * `workflow.attachment.preview-server-url`
+ * `previewType=UNSUPPORTED` → 不支持在线预览，前端引导下载
+ */
+export interface FlowAttachmentPreviewDTO {
   serialVersionUID?: number;
-
+  /** 附件 ID */
   attachmentId?: string;
-
+  /** 原始文件名 */
   fileName?: string;
-
+  /** 文件扩展名（小写，无点号） */
   fileExt?: string;
-
+  /** MIME 类型 */
   contentType?: string;
-
+  /** 预览类型：IMAGE / PDF / VIDEO / TEXT / OFFICE / UNSUPPORTED */
   previewType?: string;
-
+  /** 预览 URL（IMAGE/PDF/VIDEO/TEXT 即 downloadUrl；OFFICE 为外部预览服务 URL；UNSUPPORTED 为 downloadUrl） */
   previewUrl?: string;
-
+  /** 下载 URL（始终提供，前端可降级为下载） */
   downloadUrl?: string;
-
+  /** 是否支持在线预览（false 时前端应引导下载） */
   previewable?: boolean;
 }
 
+/**
+ * FlowCategory 视图对象。
+ */
 export interface FlowCategoryVO {
   serialVersionUID?: number;
-
   id?: string;
-
   categoryCode?: string;
-
   categoryName?: string;
-
   parentId?: string;
-
   sortNum?: number;
-
   icon?: string;
-
   remark?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
   deleted?: number;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
+/**
+ * 流程分类树形 VO，用于前端设计器左侧导航树渲染。
+ *
+ * 由 com.njydsz.workflow.server.service.impl.FlowCategoryServiceImpl#tree(String) 使用 {@link
+ * com.njydsz.common.domain.tree.TreeBuilder#buildSimple} 构建，自动填充 `level`/`path` 元数据。
+ * 与 FlowCategoryVO 的区别：
+ * `children` — 子节点列表（递归嵌套）
+ * `level` — 层级深度（根节点=1，逐层+1）
+ * `path` — 节点路径（如 "/1/5/12/"）
+ */
 export interface FlowCategoryTreeVO {
+  /** 分类唯一标识 */
   id?: string;
-
+  /** 父分类 ID（顶级分类为 "0" 或 null） */
   parentId?: string;
-
+  /** 子分类列表 */
   children?: FlowCategoryTreeVO[];
-
+  /** 层级深度（根节点=1，由 TreeBuilder 自动填充） */
   level?: number;
-
+  /** 节点路径（如 "/1/5/12/"，由 TreeBuilder 自动填充） */
   path?: string;
-
+  /** 分类编码（唯一，业务语义，如 "HR"、"FINANCE"） */
   categoryCode?: string;
-
+  /** 分类名称（前端展示） */
   categoryName?: string;
-
+  /** 排序号（越小越靠前） */
   sortNum?: number;
-
+  /** 图标（前端展示用，如 Element Plus icon 名称） */
   icon?: string;
-
+  /** 备注（说明分类的业务用途） */
   remark?: string;
 }
 
+/**
+ * FlowCc 视图对象。
+ */
 export interface FlowCcVO {
   serialVersionUID?: number;
-
   id?: string;
-
   instanceId?: string;
-
   taskId?: string;
-
   nodeCode?: string;
-
   nodeName?: string;
-
   flowCode?: string;
-
   flowName?: string;
-
   businessKey?: string;
-
   ccUserId?: string;
-
   ccUserName?: string;
-
   ccType?: string;
-
   triggerUserId?: string;
-
   triggerUserName?: string;
-
   title?: string;
-
   content?: string;
-
   readStatus?: string;
-
   readAt?: string;
-
   providerTraceId?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
+/**
+ * FlowComment 视图对象。
+ */
 export interface FlowCommentVO {
   serialVersionUID?: number;
-
   id?: string;
-
   instanceId?: string;
-
   taskId?: string;
-
   nodeCode?: string;
-
   userId?: string;
-
   userName?: string;
-
   content?: string;
-
   type?: string;
-
   parentCommentId?: string;
-
   replyToUserId?: string;
-
   replyToUserName?: string;
-
   providerTraceId?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
   deleted?: number;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
+/**
+ * FlowQuickComment 视图对象。
+ */
 export interface FlowQuickCommentVO {
   serialVersionUID?: number;
-
   id?: string;
-
   userId?: string;
-
   content?: string;
-
   commentType?: string;
-
   sortNum?: number;
-
   useCount?: number;
-
   isSystem?: number;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
   deleted?: number;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
+/**
+ * 批量部署流程结果视图对象。
+ *
+ * 用于返回批量部署流程定义操作的成功与失败统计信息。
+ */
 export interface FlowBatchDeployResultVO {
   serialVersionUID?: number;
-
+  /** 成功部署的数量 */
   successCount?: number;
-
+  /** 部署失败的数量 */
   failedCount?: number;
-
+  /** 成功部署的定义 ID 列表 */
   definitionIds?: string[];
-
+  /** 部署失败的条目列表 */
   failedItems?: Record<string, unknown>[];
-
+  /** 文件名 */
   fileName?: string;
-
+  /** 失败原因 */
   reason?: string;
 }
 
+/**
+ * 流程定义视图对象
+ *
+ * 用于 Controller 层返回流程定义数据，对应实体 com.njydsz.workflow.infra.entity.FlowDefinition。
+ */
 export interface FlowDefinitionVO {
   serialVersionUID?: number;
-
+  /** 主键 ID */
   id?: string;
-
+  /** 流程编码（业务语义，如 project_initiation） */
   flowCode?: string;
-
+  /** 流程名称 */
   flowName?: string;
-
+  /** 流程分类 */
   category?: string;
-
+  /** 流程版本号（如 v1、v2） */
   flowVersion?: string;
-
+  /** 设计器模型（CLASSICS 经典 / MIMIC 纵向审批） */
   modelValue?: string;
-
+  /** 审批表单是否自定义（Y/N） */
   formCustom?: string;
-
+  /** 表单路径 */
   formPath?: string;
-
+  /** 激活状态（0=挂起 / 1=激活） */
   activityStatus?: number;
-
+  /** 发布状态（0=未发布 / 1=已发布 / 9=失效） */
   isPublish?: number;
-
+  /** 监听器类型 */
   listenerType?: string;
-
+  /** 监听器路径（Spring Bean 路径） */
   listenerPath?: string;
-
+  /** 扩展字段（JSON） */
   ext?: string;
-
+  /** 流程描述 */
   description?: string;
-
+  /** 外部追踪 ID */
   providerTraceId?: string;
-
+  /** 灰度发布百分比 */
   canaryPercent?: number;
-
+  /** 灰度状态 */
   canaryStatus?: string;
-
+  /** 灰度策略 */
   canaryStrategy?: string;
-
+  /** 灰度发布日志 */
   canaryRolloutLog?: string;
-
+  /** 锁定人 */
   lockedBy?: string;
-
+  /** 锁定时间 */
   lockedAt?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
   deleted?: number;
-
+  /** 乐观锁版本号（对齐实体继承链 MpBaseEntity.revision） */
   revision?: number;
-
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 流程定义详情视图对象。
+ *
+ * 聚合流程定义、节点列表、跳转条件和只读标识，用于流程设计器初始化加载。
+ */
 export interface FlowDefinitionDetailVO {
   serialVersionUID?: number;
-
+  /** 流程定义基本信息 */
   definition?: FlowDefinitionVO;
-
+  /** 节点列表 */
   nodes?: FlowNodeVO[];
-
+  /** 跳转条件列表 */
   skips?: FlowSkipVO[];
-
+  /** 是否只读（如发布后不可直接编辑） */
   readOnly?: boolean;
 }
 
+/**
+ * FlowNode 视图对象。
+ *
+ * 提供 ext JSON 的懒解析 getter 方法，避免调用方重复编写解析逻辑。
+ * 解析结果缓存在 `parsedExt` 中，同一 VO 多次调用只解析一次。
+ */
 export interface FlowNodeVO {
   serialVersionUID?: number;
-
   id?: string;
-
   definitionId?: string;
-
   flowCode?: string;
-
   nodeType?: number;
-
   nodeCode?: string;
-
   nodeName?: string;
-
   permissionFlag?: string;
-
   skipAnyNode?: string;
-
   coordinate?: string;
-
   skipList?: string;
-
   ext?: string;
-
   formFieldsConfig?: string;
-
   slaConfig?: string;
-
   providerTraceId?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
-
+  /** ext JSON 懒解析缓存（不参与序列化）。 */
   parsedExt?: Record<string, unknown>;
-
+  /** SLA 配置懒解析缓存（不参与序列化）。 */
   parsedSlaConfig?: Record<string, unknown>;
-
+  /** 服务节点配置懒解析缓存（不参与序列化）。 */
   parsedServiceNodeConfig?: Record<string, unknown>;
-
+  /** 会签配置懒解析缓存（不参与序列化）。 */
   parsedCountersignConfig?: Record<string, unknown>;
-
+  /** 办理人配置懒解析缓存（不参与序列化）。 */
   parsedAssigneeConfig?: Record<string, unknown>;
-
+  /** AI 审批节点配置懒解析缓存（不参与序列化）。 */
   parsedAiAgentNodeConfig?: Record<string, unknown>;
-
+  /** 驳回策略配置懒解析缓存（不参与序列化）。 */
   parsedRejectStrategyConfig?: Record<string, unknown>;
-
+  /** 催办通道配置懒解析缓存（不参与序列化）。 */
   parsedUrgeChannelConfig?: Record<string, unknown>;
-
   extMap?: string;
-
   slaConfigJson?: string;
-
   serviceNodeConfig?: string;
-
   countersignConfig?: string;
-
   assigneeConfig?: string;
-
   aiAgentNodeConfig?: string;
-
   rejectStrategyConfig?: string;
-
   urgeChannelConfig?: string;
-
   defaultFlowId?: string;
-
   serviceType?: string;
-
   serviceUrl?: string;
-
   serviceMethod?: string;
-
   serviceScript?: string;
-
   emptyStrategy?: string;
-
   adminUserId?: string;
-
   specifiedUserId?: string;
-
   autoDedup?: string;
-
   formSchemaJson?: string;
-
   priority?: string;
-
   escalateUser?: string;
-
   timeoutStrategy?: string;
-
   timeoutMinutes?: string;
-
   eventType?: string;
-
   attachedToRef?: string;
-
   errorRef?: string;
 }
 
+/**
+ * FlowSkip 视图对象。
+ *
+ * 提供 ext JSON 的懒解析 getter 方法，避免调用方重复编写解析逻辑。
+ * 解析结果缓存在 `parsedExt` 中，同一 VO 多次调用只解析一次。
+ */
 export interface FlowSkipVO {
   serialVersionUID?: number;
-
   id?: string;
-
   definitionId?: string;
-
   flowCode?: string;
-
   skipName?: string;
-
   skipType?: string;
-
   coordinate?: string;
-
   skipCondition?: string;
-
   nextNodeCode?: string;
-
   nextNodeType?: number;
-
   sourceNodeCode?: string;
-
   coordinateNext?: string;
-
   skipList?: string;
-
   ext?: string;
-
   providerTraceId?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
-
+  /** ext JSON 懒解析缓存（不参与序列化）。 */
   parsedExt?: Record<string, unknown>;
-
   extMap?: string;
-
   sourceRef?: string;
-
   sequenceFlowId?: string;
 }
 
+/**
+ * 流程定义版本视图对象。
+ *
+ * 记录某一流程定义的版本信息，用于版本管理和发布记录。
+ */
 export interface FlowDefinitionVersionVO {
   serialVersionUID?: number;
-
+  /** 版本记录主键 ID */
   id?: string;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 版本号 */
   version?: number;
-
+  /** 流程名称 */
   flowName?: string;
-
+  /** 状态 */
   status?: string;
-
+  /** 发布人 */
   publishedBy?: string;
-
+  /** 发布时间 */
   publishedAt?: string;
 }
 
+/**
+ * 流程定义版本差异视图对象。
+ *
+ * 记录两个版本之间节点和跳转条件的变化详情，用于版本对比功能。
+ */
 export interface FlowDefinitionDiffVO {
   serialVersionUID?: number;
-
+  /** 第一个版本号 */
   v1?: number;
-
+  /** 第二个版本号 */
   v2?: number;
-
-  nodeChanges?: Record<string, unknown>[];
-
-  skipChanges?: Record<string, unknown>[];
+  /** 节点变更列表 */
+  nodeChanges?: Record<string, Record<string, unknown>>[];
+  /** 跳转条件变更列表 */
+  skipChanges?: Record<string, Record<string, unknown>>[];
 }
 
+/**
+ * 流程回滚结果视图对象。
+ *
+ * 用于返回流程版本回滚操作的结果，包含回滚前后的版本信息。
+ */
 export interface FlowRollbackResultVO {
   serialVersionUID?: number;
-
+  /** 是否回滚成功 */
   success?: boolean;
-
+  /** 结果描述信息 */
   message?: string;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 回滚前版本号 */
   fromVersion?: number;
-
+  /** 回滚目标版本号 */
   toVersion?: number;
 }
 
+/**
+ * 流程迁移影响分析视图对象。
+ *
+ * 用于评估流程定义迁移对正在运行实例的影响，提供风险等级和建议。
+ */
 export interface FlowMigrationImpactVO {
   serialVersionUID?: number;
-
+  /** 原流程定义 ID */
   oldDefinitionId?: string;
-
+  /** 目标流程定义 ID */
   newDefinitionId?: string;
-
+  /** 风险等级：HIGH / MEDIUM / LOW / NONE */
   riskLevel?: string;
-
+  /** 正在运行的实例数量 */
   runningInstanceCount?: number;
-
-  affectedInstances?: Record<string, unknown>[];
-
-  blockedNodes?: Record<string, unknown>[];
-
-  affectedNodes?: Record<string, unknown>[];
-
+  /** 受影响的运行实例列表 */
+  affectedInstances?: Record<string, Record<string, unknown>>[];
+  /** 阻塞节点列表（迁移后无法继续执行的节点） */
+  blockedNodes?: Record<string, Record<string, unknown>>[];
+  /** 受影响的节点列表 */
+  affectedNodes?: Record<string, Record<string, unknown>>[];
+  /** 迁移建议 */
   recommendation?: string;
 }
 
+/**
+ * FlowEventSubscription 视图对象。
+ */
 export interface FlowEventSubscriptionVO {
   serialVersionUID?: number;
-
   id?: string;
-
   instanceId?: string;
-
   definitionId?: string;
-
   flowCode?: string;
-
   nodeCode?: string;
-
   nodeName?: string;
-
   eventType?: string;
-
   eventRef?: string;
-
   correlationKey?: string;
-
   boundaryTaskId?: string;
-
   subscriptionStatus?: string;
-
   payload?: string;
-
   triggeredAt?: string;
-
   triggerSource?: string;
-
   cancelReason?: string;
-
   providerTraceId?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
+/**
+ * FlowDelegateAuth 视图对象。
+ */
 export interface FlowDelegateAuthVO {
   serialVersionUID?: number;
-
   id?: string;
-
   ownerUserId?: string;
-
   ownerUserName?: string;
-
   delegateUserId?: string;
-
   delegateUserName?: string;
-
   scopeType?: string;
-
   flowCode?: string;
-
   nodeCode?: string;
-
   roleCode?: string;
-
   startTime?: string;
-
   endTime?: string;
-
   authStatus?: string;
-
   reason?: string;
-
   providerTraceId?: string;
-
+  /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
+/**
+ * P2-2 嵌入式审批面板 DTO
+ *
+ * 业务页（项目立项/合同/工时/采购等）通过嵌入式审批面板一次性获取流程信息， 避免业务页需要单独查询流程定义/任务/历史轨迹再组装。
+ * 结构：
+ * <pre>
+ * {
+ * "instance": { ...流程实例信息... },
+ * "diagram":  { ...流程图数据，含高亮当前节点... },
+ * "currentTasks": [ ...当前待办，含是否我可操作... ],
+ * "history": [ ...审批轨迹时间线... ],
+ * "myRole": "INITIATOR/APPROVER/OBSERVER",
+ * "actions": [ "PASS","REJECT","TRANSFER","WITHDRAW","URGE" ],
+ * "canRecall": true
+ * }
+ * </pre>
+ */
 export interface EmbeddedApprovalViewDTO {
   serialVersionUID?: number;
-
+  /** 业务类型 */
   businessType?: string;
-
+  /** 业务 ID */
   businessId?: string;
-
+  /** 流程实例视图（null 表示未发起流程） */
   instance?: FlowInstanceViewDTO;
-
-  diagram?: Record<string, unknown>;
-
+  /** 流程图（definition / nodes / skips），未发起时为 null */
+  diagram?: Record<string, Record<string, unknown>>;
+  /** 当前待办任务视图（空列表表示流程已结束或未发起） */
   currentTasks?: Record<string, unknown>[];
-
-  history?: Record<string, unknown>[];
-
+  /** 审批轨迹时间线（发起 → 通过/驳回 → 结束） */
+  history?: Record<string, Record<string, unknown>>[];
+  /** 当前用户在流程中的角色 */
   myRole?: string;
-
+  /** 当前用户可执行的快捷操作（PASS/REJECT/TRANSFER/WITHDRAW/URGE/SUBMIT） */
   actions?: string[];
-
+  /** 是否可撤回（仅发起人 + 流程运行中） */
   canRecall?: boolean;
-
+  /** 流程是否已结束 */
   finished?: boolean;
-
+  /** 友好提示（如"未发起流程"/"流程已结束"） */
   message?: string;
-
+  /** 任务 ID */
   taskId?: string;
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 节点类型 */
   nodeType?: number;
-
+  /** 办理人类型 */
   assigneeType?: string;
-
+  /** 办理人 ID */
   assigneeId?: string;
-
+  /** 办理人姓名 */
   assigneeName?: string;
-
+  /** 会签类型 */
   performType?: string;
-
+  /** 任务状态 */
   taskStatus?: string;
-
+  /** 创建时间 */
   createAt?: string;
-
+  /** 截止时间 */
   dueAt?: string;
-
+  /** 是否当前用户可操作 */
   mine?: boolean;
 }
 
+/**
+ * 流程实例视图 DTO（Feign 友好，姓名字段已标注 SensitiveData 脱敏）
+ */
 export interface FlowInstanceViewDTO {
   serialVersionUID?: number;
-
+  /** 实例 ID */
   id?: string;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 流程名称 */
   flowName?: string;
-
+  /** 流程版本 */
   version?: string;
-
+  /** 业务类型 */
   businessType?: string;
-
+  /** 业务单据 ID */
   businessId?: string;
-
+  /** 业务单据编号 */
   businessNo?: string;
-
+  /** 流程标题 */
   title?: string;
-
+  /** 发起人 ID */
   initiatorId?: string;
-
+  /** 发起人姓名 */
   initiatorName?: string;
-
+  /** 当前节点编码 */
   currentNodeCode?: string;
-
+  /** 当前节点名称 */
   currentNodeName?: string;
-
+  /** 实例状态（FlowInstanceStatus.name） */
   flowStatus?: string;
-
+  /** 激活状态：0 挂起 / 1 激活 */
   activityStatus?: number;
-
+  /** 启动时间 */
   startAt?: string;
-
+  /** 结束时间 */
   endAt?: string;
-
+  /** 耗时（毫秒） */
   durationMs?: number;
-
+  /** 流程变量 JSON */
   variable?: string;
-
+  /** 当前待办任务列表 */
   currentTasks?: Record<string, unknown>[];
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 节点类型（FlowNodeType.code） */
   nodeType?: number;
-
+  /** 办理人类型 */
   assigneeType?: string;
-
+  /** 办理人 ID */
   assigneeId?: string;
-
+  /** 办理人姓名 */
   assigneeName?: string;
-
+  /** 会签类型 */
   performType?: string;
-
+  /** 任务状态 */
   taskStatus?: string;
-
+  /** 审批意见 */
   comment?: string;
-
+  /** 创建时间 */
   createAt?: string;
-
+  /** 签收时间 */
   claimAt?: string;
-
+  /** 完成时间 */
   finishAt?: string;
-
+  /** 截止时间 */
   dueAt?: string;
-
+  /** P1-1: 任务优先级（1-100，默认 50） */
   priority?: number;
 }
 
+/**
+ * 批量启动流程结果视图对象。
+ *
+ * 用于返回批量启动流程实例操作的成功与失败统计信息。
+ */
 export interface FlowBatchStartResultVO {
   serialVersionUID?: number;
-
+  /** 成功启动的数量 */
   successCount?: number;
-
+  /** 启动失败的数量 */
   failedCount?: number;
-
+  /** 成功创建的实例 ID 列表 */
   instanceIds?: string[];
-
+  /** 启动失败的条目列表 */
   failedItems?: Record<string, unknown>[];
-
+  /** 条目序号 */
   index?: number;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 失败原因 */
   reason?: string;
 }
 
+/**
+ * 可撤回节点视图对象。
+ *
+ * 标识流程中可以执行撤回操作的已完成节点，用于撤回功能的可选节点展示。
+ */
 export interface FlowRecallableNodeVO {
   serialVersionUID?: number;
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 节点完成时间 */
   completedAt?: string;
-
+  /** 完成该节点的操作人 */
   completedBy?: string;
 }
 
+/**
+ * 流程审计轨迹视图对象。
+ *
+ * 记录流程实例中每个节点的审批操作历史，包含操作人、操作动作、时间等信息。
+ */
 export interface FlowAuditTrailVO {
   serialVersionUID?: number;
-
+  /** 审计记录主键 ID */
   id?: string;
-
+  /** 流程实例 ID */
   instanceId?: string;
-
+  /** 任务 ID */
   taskId?: string;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 业务类型 */
   businessType?: string;
-
+  /** 业务主键 ID */
   businessId?: string;
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 操作动作（通过/驳回/撤回等） */
   action?: string;
-
+  /** 操作人 ID */
   operatorId?: string;
-
+  /** 操作人姓名 */
   operatorName?: string;
-
+  /** 目标处理人 ID */
   targetId?: string;
-
+  /** 审批意见 */
   comment?: string;
-
+  /** 操作时间 */
   operatedAt?: string;
 }
 
+/**
+ * 流程时间线视图对象。
+ *
+ * 聚合流程实例的历史任务、审计日志和当前任务，按时间顺序展示流程执行全过程。
+ */
 export interface FlowTimelineVO {
   serialVersionUID?: number;
-
+  /** 事件类型：HIS_TASK（历史任务）/ AUDIT_LOG（审计日志）/ CURRENT_TASK（当前任务） */
   type?: string;
-
+  /** 事件发生时间戳 */
   timestamp?: string;
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 处理人 ID */
   assigneeId?: string;
-
+  /** 处理人姓名 */
   assigneeName?: string;
-
+  /** 操作动作 */
   action?: string;
-
+  /** 审批意见 */
   comment?: string;
-
+  /** 任务状态 */
   taskStatus?: string;
 }
 
+/**
+ * 流程图视图对象。
+ *
+ * 用于流程图查询接口（高亮当前节点），包含流程定义、节点列表和跳转列表。
+ * 替代 `Map<String, Object>` 返回值，提供编译期类型安全。
+ * 架构合规说明（1.0.0 DDD 分层规范）：视图对象置于 `domain/vo/` 包下，
+ * 以 `VO` 结尾（符合 §34.2.1 表格：vo/ 视图对象）。
+ */
 export interface FlowDiagramVO {
   serialVersionUID?: number;
-
+  /** 流程定义基本信息 */
   definition?: FlowDefinitionVO;
-
+  /** 节点列表（每个节点带 active 标记） */
   nodes?: Record<string, unknown>[];
-
+  /** 跳转列表 */
   skips?: FlowSkipVO[];
-
+  /** 是否为当前激活节点（前端高亮） */
   active?: boolean;
-
+  /** 节点状态（RUNNING / COMPLETED / PENDING / SKIPPED） */
   nodeState?: string;
 }
 
+/**
+ * 流程回放步骤视图对象。
+ *
+ * 用于流程回放功能，记录每一步的执行状态、处理人、耗时等信息。
+ */
 export interface FlowReplayStepVO {
   serialVersionUID?: number;
-
+  /** 步骤序号 */
   stepIndex?: number;
-
+  /** 步骤类型：HIS_TASK / AUDIT_LOG / CURRENT_TASK / START / END */
   type?: string;
-
+  /** 步骤发生时间 */
   timestamp?: string;
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 执行人标识 */
   actor?: string;
-
+  /** 执行人姓名 */
   actorName?: string;
-
+  /** 操作动作 */
   action?: string;
-
+  /** 审批意见 */
   comment?: string;
-
+  /** 节点状态：ENTERED / PASSED / REJECTED / ACTIVE / SKIPPED / FINISHED */
   nodeState?: string;
-
+  /** 该步骤耗时（毫秒） */
   durationMs?: number;
-
-  coordinate?: Record<string, unknown>;
+  /** 节点坐标信息（含 x、y 等设计器定位数据） */
+  coordinate?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * 流程实例视图对象
+ *
+ * 用于 Controller 层返回流程实例数据。
+ */
 export interface FlowInstanceVO {
   serialVersionUID?: number;
-
+  /** 主键 ID */
   id?: string;
-
+  /** 租户标识 */
   tenantId?: string;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 流程名称 */
   flowName?: string;
-
+  /** 流程定义 ID */
   definitionId?: string;
-
+  /** 流程版本号 */
   flowVersion?: string;
-
+  /** 业务类型 */
   businessType?: string;
-
+  /** 业务单据 ID */
   businessId?: string;
-
+  /** 业务单据编号 */
   businessNo?: string;
-
+  /** 流程标题 */
   title?: string;
-
+  /** 发起人 ID */
   initiatorId?: string;
-
+  /** 发起人名称（冗余） */
   initiatorName?: string;
-
+  /** 当前节点编码 */
   currentNodeCode?: string;
-
+  /** 当前节点名称 */
   currentNodeName?: string;
-
+  /** 流程变量（JSON） */
   variable?: string;
-
+  /** 流程状态 */
   flowStatus?: string;
-
+  /** 激活状态（0=挂起 / 1=激活） */
   activityStatus?: number;
-
+  /** 开始时间 */
   startAt?: string;
-
+  /** 结束时间 */
   endAt?: string;
-
+  /** 耗时（毫秒） */
   durationMs?: number;
-
+  /** 父流程实例 ID（子流程场景） */
   parentInstanceId?: string;
-
+  /** 父流程节点编码 */
   parentNodeCode?: string;
-
+  /** 外部追踪 ID */
   providerTraceId?: string;
-
+  /** 期望完成时间（SLA 超期时间） */
   dueAt?: string;
-
+  /** 驳回原因 */
   rejectReason?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }
 
+/**
+ * 流程实例迁移结果 DTO
+ *
+ * 封装迁移执行的统计信息与逐实例明细，供前端展示迁移报告。
+ */
 export interface InstanceMigrationResultDTO {
   serialVersionUID?: number;
-
+  /** 符合迁移条件的实例总数 */
   totalInstances?: number;
-
+  /** 成功迁移实例数 */
   migratedCount?: number;
-
+  /** 跳过实例数（如节点不兼容且无映射） */
   skippedCount?: number;
-
+  /** 失败实例数（迁移过程中异常） */
   failedCount?: number;
-
+  /** 逐实例迁移明细 */
   details?: Record<string, unknown>[];
-
-  nodeMappingApplied?: Record<string, unknown>;
-
+  /** 实际生效的节点映射（旧节点编码 -> 新节点编码） */
+  nodeMappingApplied?: Record<string, string>;
+  /** 实例 ID */
   instanceId?: string;
-
+  /** 实例标题 */
   instanceTitle?: string;
-
+  /** 迁移前节点编码 */
   oldNodeCode?: string;
-
+  /** 迁移后节点编码 */
   newNodeCode?: string;
-
+  /** 迁移状态：MIGRATED / SKIPPED / FAILED */
   status?: string;
-
+  /** 状态说明 / 跳过或失败原因 */
   reason?: string;
 }
 
+/**
+ * FlowAutoTrigger 视图对象。
+ */
 export interface FlowAutoTriggerVO {
   serialVersionUID?: number;
-
   id?: string;
-
   sourceFlowCode?: string;
-
   targetFlowCode?: string;
-
   conditionExpression?: string;
-
   description?: string;
-
   enabled?: number;
-
   sortOrder?: number;
-
   createdBy?: string;
-
   createdAt?: string;
-
   updatedBy?: string;
-
   updatedAt?: string;
 }
 
+/**
+ * 流程效率统计视图对象
+ *
+ * 用于展示审批流程的整体效率指标，包括任务总数、平均耗时、代理率及逾期率。
+ */
 export interface FlowEfficiencyStatsVO {
   serialVersionUID?: number;
-
+  /** 任务总数 */
   totalCount?: number;
-
+  /** 平均耗时（毫秒） */
   avgDurationMs?: number;
-
+  /** 代理率（0~1） */
   proxyRate?: number;
-
+  /** 逾期率（0~1） */
   overdueRate?: number;
 }
 
+/**
+ * 瓶颈节点视图对象
+ *
+ * 用于标识审批流程中耗时较长、处理数量较多的瓶颈节点，帮助定位流程优化点。
+ */
 export interface FlowBottleneckVO {
   serialVersionUID?: number;
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 平均耗时（毫秒） */
   avgDurationMs?: number;
-
+  /** 处理数量 */
   count?: number;
 }
 
+/**
+ * 办理人效率统计视图对象
+ *
+ * 用于展示指定办理人的审批效率数据，包括完成数量、平均耗时及累计耗时。
+ */
 export interface FlowApproverEfficiencyVO {
   serialVersionUID?: number;
-
+  /** 办理人用户 ID */
   userId?: string;
-
+  /** 办理人姓名 */
   userName?: string;
-
+  /** 已完成审批数量 */
   completedCount?: number;
-
+  /** 平均审批耗时（毫秒） */
   avgDurationMs?: number;
-
+  /** 累计审批耗时（毫秒） */
   totalDurationMs?: number;
 }
 
+/**
+ * 流程趋势数据视图对象
+ *
+ * 用于按时间维度展示审批流程的数量与耗时变化趋势，适用于折线图等可视化场景。
+ */
 export interface FlowTrendVO {
   serialVersionUID?: number;
-
+  /** 时间标签（如 "2024-01"、"2024-W03"） */
   timeLabel?: string;
-
+  /** 该时间段内的任务数量 */
   count?: number;
-
+  /** 该时间段内的平均耗时（毫秒） */
   avgDurationMs?: number;
 }
 
+/**
+ * 批量催办结果视图对象。
+ *
+ * 用于返回批量催办操作的结果统计和详细分发信息。
+ */
 export interface FlowBatchUrgeResultVO {
   serialVersionUID?: number;
-
+  /** 催办总数 */
   totalCount?: number;
-
+  /** 催办成功数量 */
   successCount?: number;
-
+  /** 催办失败数量 */
   failedCount?: number;
-
-  urgedByInstance?: Record<string, unknown>;
+  /** 按实例分组的催办结果（实例 ID → 被催办任务 ID 列表） */
+  urgedByInstance?: Record<string, string[]>;
 }
 
+/**
+ * 流程任务视图对象
+ *
+ * 用于 Controller 层返回待办/已办任务数据，对应实体 com.njydsz.workflow.infra.entity.FlowRunTask。
+ */
 export interface FlowRunTaskVO {
   serialVersionUID?: number;
-
+  /** 主键 ID */
   id?: string;
-
+  /** 流程实例 ID */
   instanceId?: string;
-
+  /** 流程编码 */
   flowCode?: string;
-
+  /** 流程定义 ID */
   definitionId?: string;
-
+  /** 节点编码 */
   nodeCode?: string;
-
+  /** 节点名称 */
   nodeName?: string;
-
+  /** 节点类型 */
   nodeType?: number;
-
+  /** 业务类型 */
   businessType?: string;
-
+  /** 业务单据 ID */
   businessId?: string;
-
+  /** 业务单据编号 */
   businessNo?: string;
-
+  /** 流程名称 */
   flowName?: string;
-
+  /** 流程标题 */
   title?: string;
-
+  /** 分配人 ID */
   assignorId?: string;
-
+  /** 分配人名称 */
   assignorName?: string;
-
+  /** 审批人类型 */
   assigneeType?: string;
-
+  /** 审批人 ID */
   assigneeId?: string;
-
+  /** 审批人名称 */
   assigneeName?: string;
-
+  /** 权限标识 */
   permissionFlag?: string;
-
+  /** 办理方式（会签/或签） */
   performType?: string;
-
+  /** 审批总数 */
   approveCount?: number;
-
+  /** 已完成审批数 */
   approveFinished?: number;
-
+  /** 投票通过率 */
   votePassRate?: number;
-
+  /** 任务状态 */
   taskStatus?: string;
-
+  /** 审批意见 */
   comment?: string;
-
+  /** 签收时间 */
   claimAt?: string;
-
+  /** 完成时间 */
   finishAt?: string;
-
+  /** 耗时（毫秒） */
   durationMs?: number;
-
+  /** 期望完成时间（SLA 超期时间） */
   dueAt?: string;
-
+  /** 优先级 */
   priority?: number;
-
+  /** 催办次数 */
   urgeCount?: number;
-
+  /** 最后催办时间 */
   lastUrgedAt?: string;
-
+  /** SLA 动作 */
   slaAction?: string;
-
+  /** SLA 是否已升级 */
   slaEscalated?: number;
-
+  /** 迭代变量 */
   iterVar?: string;
-
+  /** 租户 ID */
   tenantId?: string;
-
+  /** 当前办理人的权重值（票签模式） */
   userWeight?: number;
-
+  /** 累计已通过权重（票签模式） */
   approveWeight?: number;
-
+  /** 节点总权重（票签模式） */
   totalWeight?: number;
-
+  /** 生效时间（P2-1 穿越时空/补录审批） */
   effectiveTime?: string;
-
+  /** 完成时间（驳回场景使用） */
   completedAt?: string;
-
+  /** 外部追踪 ID */
   providerTraceId?: string;
-
+  /** 创建人 */
   createdBy?: string;
-
+  /** 创建时间 */
   createdAt?: string;
-
+  /** 更新人 */
   updatedBy?: string;
-
+  /** 更新时间 */
   updatedAt?: string;
 }

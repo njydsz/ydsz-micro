@@ -1,5 +1,8 @@
 /**
- * accessible 模块
+ * 异步路由与菜单生成器，支持前后端两种权限管控模式。
+ *
+ * 基于 AccessModeType 选择纯前端角色过滤、纯后端下发或混合策略，
+ * 生成可注册到 Vue Router 的可访问路由列表与导航菜单树。
  *
  * @path comm\effects\access\src\accessible.ts
  * @author ydsz-team
@@ -25,6 +28,13 @@ import {
   mapTree,
 } from '@ydsz/utils';
 
+/**
+ * 根据权限模式生成可注册的路由与菜单，并写回 router 实例。
+ *
+ * @param mode - 权限管控模式：'frontend'（前端角色）/ 'backend'（后端下发）/ 'mixed'（混合）
+ * @param options - 路由生成选项，包含 router 实例、角色列表、原始路由配置等
+ * @returns 生成的菜单树与路由记录
+ */
 async function generateAccessible(
   mode: AccessModeType,
   options: GenerateMenuAndRoutesOptions,
@@ -79,9 +89,11 @@ async function generateAccessible(
 }
 
 /**
- * Generate routes
- * @param mode
- * @param options
+ * 按权限模式生成路由列表，并统一处理 redirect 与 keep-alive 相关逻辑。
+ *
+ * @param mode - 权限管控模式
+ * @param options - 路由生成选项
+ * @returns 处理后的路由记录数组
  */
 async function generateRoutes(
   mode: AccessModeType,

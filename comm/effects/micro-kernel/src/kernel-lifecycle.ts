@@ -89,7 +89,7 @@ export function createSwitchToApp(
     config: MicroAppConfig,
     options?: StartOptions,
   ): Promise<void> {
-    state.getAbortController?.().abort();
+    state.getAbortController?.()?.abort();
     const controller = new AbortController();
     state.setAbortController(controller);
     const signal = controller.signal;
@@ -151,7 +151,11 @@ export function createSwitchToApp(
     try {
       const globalStateBridge: GlobalStateBridge = {
         getGlobalState: () => deps.globalStateAPI.getGlobalState(),
-        setGlobalState: (patch: unknown) => deps.globalStateAPI.setGlobalState(patch),
+        // patch 经 iframe 跨 realm 通道透传，运行时按 Partial<State> 收窄
+        setGlobalState: (patch: unknown) =>
+          deps.globalStateAPI.setGlobalState(
+            patch as Partial<Record<string, unknown>>,
+          ),
         onGlobalStateChange: (listener, fireImmediately) =>
           deps.globalStateAPI.onGlobalStateChange(listener, fireImmediately),
       };

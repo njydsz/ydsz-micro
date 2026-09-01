@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * iframe 嵌入视图组件导出（iframe 内容页 + 路由视图适配）
  *
  * @path comm\effects\layouts\src\iframe\index.ts
  * @author ydsz-team

@@ -1,9 +1,7 @@
 /**
- * 骨架屏注册表模块
+ * 骨架屏注册表 —— 管理按类型区分的骨架屏组件映射与动态加载
  *
- * 管理页面级骨架屏组件的注册和获取，支持按类型动态加载骨架屏。
- *
- * @path main/src/views/_core/subapp/skeletons/skeleton-registry.ts
+ * @path main\src\views\_core\subapp\skeletons\skeleton-registry.ts
  * @author ydsz-team
  * @since 1.0.0
  */

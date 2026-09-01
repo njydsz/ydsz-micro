@@ -1,5 +1,5 @@
 /**
- * merge-route-modules 工具函数模块
+ * 合并动态路由模块的默认导出数组，将多个 Vue Router 模块展平为统一路由配置。
  *
  * @path comm\utils\src\helpers\merge-route-modules.ts
  * @author ydsz-team
@@ -7,15 +7,16 @@
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-// 定义模块类型
+/** 动态路由模块结构：每个模块通过 default 导出 RouteRecordRaw 数组 */
 interface RouteModuleType {
   default: RouteRecordRaw[];
 }
 
 /**
- * 合并动态路由模块的默认导出
- * @param routeModules 动态导入的路由模块对象
- * @returns 合并后的路由配置数组
+ * 合并多个动态路由模块的默认导出数组。
+ *
+ * @param routeModules - 动态导入的路由模块对象（键为模块路径，值为模块）
+ * @returns 展平合并后的路由配置数组
  */
 function mergeRouteModules(
   routeModules: Record<string, unknown>,

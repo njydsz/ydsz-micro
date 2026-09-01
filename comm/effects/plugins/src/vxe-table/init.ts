@@ -1,5 +1,8 @@
 /**
- * init 模块
+ * VXe Table 在项目中的完整初始化入口，按需注册组件并同步主题 / 语言。
+ *
+ * 应在应用启动阶段调用一次：注册 vxe-table / vxe-pc-ui 组件、
+ * 绑定表单实现、监听主题与语言变化，最后执行应用层的自定义配置。
  *
  * @path comm\effects\plugins\src\vxe-table\init.ts
  * @author ydsz-team

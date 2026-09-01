@@ -68,4 +68,7 @@ const config = {
   ],
 };
 
+/**
+ * YDSZ 共享 Prettier 配置对象。
+ */
 export default config;

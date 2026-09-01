@@ -6,7 +6,7 @@
  *
  * <p>前置条件：执行 `pnpm mock:init` 在 public/ 下生成 mockServiceWorker.js。
  *
- * @path apps/message-web/src/mock/index.ts
+ * @path apps\message-web\src\mock\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

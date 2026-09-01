@@ -1,5 +1,8 @@
 /**
- * use-echarts 模块
+ * ECharts 图表的响应式渲染与自适应组合式函数。
+ *
+ * 封装 echarts 实例的创建、主题切换、尺寸自适应与渲染重试逻辑，
+ * 返回 renderEcharts / resize 与获取实例的方法，供模板组件调用。
  *
  * @path comm\effects\plugins\src\echarts\use-echarts.ts
  * @author ydsz-team
@@ -33,6 +36,12 @@ type EchartsUIType = typeof EchartsUI | undefined;
 
 type EchartsThemeType = 'dark' | 'light' | null;
 
+/**
+ * ECharts 响应式渲染组合式函数。
+ *
+ * @param chartRef - 指向 EchartsUI 组件实例的模板 ref
+ * @returns `renderEcharts` / `resize` / `getChartInstance` 三个方法
+ */
 function useEcharts(chartRef: Ref<EchartsUIType>) {
   let chartInstance: echarts.ECharts | null = null;
   let cacheOptions: EChartsOption = {};
@@ -55,6 +64,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     };
   });
 
+  /** 初始化 ECharts 实例（如果尚未创建） */
   const initCharts = (t?: EchartsThemeType) => {
     const el = chartRef?.value?.$el;
     if (!el) {
@@ -102,6 +112,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
     });
   };
 
+  /** 触发表格尺寸自适应（带动画） */
   function resize() {
     chartInstance?.resize({
       animation: {

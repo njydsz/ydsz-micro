@@ -1,5 +1,5 @@
 /**
- * types 模块
+ * 缓存层类型契约定义，约束存储管理器的接口形态。
  *
  * @path comm\@core\base\shared\src\cache\types.ts
  * @author ydsz-team

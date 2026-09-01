@@ -17,16 +17,19 @@ import type { MsgAggregateVO, PageQuery } from './models';
 /**
  * page: GET /api/v1/message/aggregate/page
  */
-export function page(params: { query?: PageQuery }): Promise<PageResponse<MsgAggregateVO[]>> {
-  return requestClient.get<PageResponse<MsgAggregateVO[]>>(`/api/v1/message/aggregate/page`, {
-    params,
-  });
+export function page(params: {
+    query?: PageQuery;
+  }): Promise<PageResponse<MsgAggregateVO[]>> {
+  return requestClient.get<PageResponse<MsgAggregateVO[]>>(`/api/v1/message/aggregate/page`, { params });
 }
 
 /**
  * flushByGroup: POST /api/v1/message/aggregate/flush
  */
-export function flushByGroup(params: { group?: string; receiver?: string }): Promise<number> {
+export function flushByGroup(params: {
+    group?: string;
+    receiver?: string;
+  }): Promise<number> {
   return requestClient.post<number>(`/api/v1/message/aggregate/flush`, { params });
 }
 

@@ -1,17 +1,17 @@
 /**
- * subapps 路由模块
+ * 子应用路由自动生成 —— 从注册表 MICRO_APPS 批量生成 catch-all 路由，新增应用零路由改动
  *
- * 由注册表 MICRO_APPS 自动生成子应用路由，新增应用零路由改动。
  * v3.3: 透传 skeletonType 到 catch-all 路由 meta，供 SubAppContainer 读取。
  *
- * @path main/src/router/routes/modules/subapps.ts
+ * @path main\src\router\routes\modules\subapps.ts
  * @author ydsz-team
  * @since 1.0.0
  */
 
 import type { RouteRecordRaw } from 'vue-router';
 
-import { MICRO_APPS } from '@ydsz/vite-config';
+// v4.4.1 A3: 注册表迁至 @ydsz/constants（运行时单源），不再依赖构建配置包
+import { MICRO_APPS } from '@ydsz/constants';
 
 const SubAppContainer = () => import('#/views/_core/subapp/index.vue');
 
@@ -49,4 +49,5 @@ const routes: RouteRecordRaw[] = MICRO_APPS.map((app) => ({
   ],
 }));
 
+/** Subapps 子应用路由配置（子应用内部路由表） */
 export default routes;

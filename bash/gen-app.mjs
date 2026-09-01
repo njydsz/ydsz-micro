@@ -17,7 +17,7 @@
  * @example
  *   pnpm gen:app report-web 数据报表 /YDSZ-report 5611
  *
- * @path bash/gen-app.mjs
+ * @path bash\gen-app.mjs
  * @author ydsz-team
  * @since 3.0.0
  */
@@ -261,6 +261,7 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
   guard: createRouterGuard,
   async onSetup(app) {
     await initComponentAdapter();
+    /** 初始化 YDSZ 表单适配器（绑定组件类型映射与校验规则）。 */
     await initSetupYDSZForm();
     await setupI18n(app);
   },
@@ -557,7 +558,7 @@ fs.writeFileSync(path.join(appDir, 'src', 'views', 'fallback', 'not-found.vue'),
 // ==================== 注册表提示 ====================
 
 console.info(`\n✅ 子应用 ${name} 已生成！`);
-console.info(`\n请手动在 conf/vite-config/src/micro-apps.config.ts 的 MICRO_APPS 数组中追加：`);
+console.info(`\n请手动在 comm/constants/src/micro-apps.ts 的 MICRO_APPS 数组中追加：`);
 console.info(`\n  {`);
 console.info(`    name: '${name}',`);
 console.info(`    packageName: '${packageName}',`);

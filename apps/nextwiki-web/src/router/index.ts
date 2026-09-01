@@ -1,10 +1,11 @@
-/**
+﻿/**
  * 路由实例入口
  * <p>创建并导出 Vue Router 实例，初始化 history 模式（hash / web history）。
  * <p>注册路由守卫、动态路由、滚动行为等。
  * <p>供 {@code main.ts} 注入到 Vue App 使用。
  *
  * @author ydsz-team
+ * @path apps\nextwiki-web\src\router\index.ts
  * @since 1.0.0
  */
 import {

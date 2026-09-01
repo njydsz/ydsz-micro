@@ -136,4 +136,108 @@ config.push({
   },
 });
 
+// =====================================================================
+// Monorepo 包层级约束（2026-09-01 P1-6）
+// --------------------------------------------------------------------
+//  目标：防止循环依赖、逆向依赖，确保 DDD-like 分层稳定。
+//
+//  层级（从底到顶）：
+//    L0 comm/@core/*        基础层（UI kit / composables / feature-flags）
+//    L1 comm/{constants,stores,styles,types,utils,icons,locales,preferences}
+//    L2 comm/effects/*      效果层（request / access / shared-auth / shared-business ...）
+//    L3 apps/*              应用层（system-web / userinfo-web / ...）
+//
+//  约束规则：
+//    - L0 不允许 import L1/L2/L3
+//    - L1 不允许 import L2/L3
+//    - L2 不允许 import L3
+//    - L3 不允许横向 import 其他 apps/*
+//
+// =====================================================================
+
+// L0: comm/@core/* — 基础层，禁止引用效果层和应用层
+config.push({
+  files: ['comm/@core/**/*.{ts,tsx,vue}'],
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['@ydsz/effects/*', '@ydsz/*-web/*', 'comm/effects/*', 'apps/*'],
+            message:
+              '基础层 (comm/@core) 禁止引用效果层 (comm/effects) 或应用层 (apps)。若确需跨层，请在 @ydsz/eslint-config 申请豁免。',
+          },
+        ],
+      },
+    ],
+  },
+});
+
+// L0b: comm/{constants,stores,styles,types,utils,icons,locales,preferences} — 公共工具层
+config.push({
+  files: [
+    'comm/constants/**/*.{ts,tsx,vue}',
+    'comm/stores/**/*.{ts,tsx,vue}',
+    'comm/styles/**/*.{ts,tsx,vue}',
+    'comm/types/**/*.{ts,tsx,vue}',
+    'comm/utils/**/*.{ts,tsx,vue}',
+    'comm/icons/**/*.{ts,tsx,vue}',
+    'comm/locales/**/*.{ts,tsx,vue}',
+    'comm/preferences/**/*.{ts,tsx,vue}',
+  ],
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['@ydsz/effects/*', 'comm/effects/*', 'apps/*'],
+            message:
+              '公共工具层禁止引用效果层 (comm/effects) 或应用层 (apps)。',
+          },
+        ],
+      },
+    ],
+  },
+});
+
+// L2: comm/effects/* — 效果层，禁止引用应用层
+config.push({
+  files: ['comm/effects/**/*.{ts,tsx,vue}'],
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['apps/*', '@ydsz/*-web/*'],
+            message:
+              '效果层 (comm/effects) 禁止引用应用层 (apps)。若需跨应用共享能力，请提升至 comm/effects 或 @core。',
+          },
+        ],
+      },
+    ],
+  },
+});
+
+// L3: apps/* — 应用层，禁止横向引用其他 apps/*
+config.push({
+  files: ['apps/**/*.{ts,tsx,vue}'],
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['apps/*'],
+            message:
+              '应用层 (apps) 禁止横向引用其他子应用。跨应用共享能力必须下沉至 comm/ 层。',
+          },
+        ],
+      },
+    ],
+  },
+});
+
 export default config;

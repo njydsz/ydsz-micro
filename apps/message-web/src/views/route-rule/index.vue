@@ -24,7 +24,7 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { deleteApi, page } from '#/api/route-rule';
+import { deleteApi, page } from '#/api/routeRule';
 import type { MsgRouteRuleVO } from '#/api/models';
 
 import RouteRuleForm from './route-rule-form.vue';

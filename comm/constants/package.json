@@ -10,6 +10,9 @@
   },
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
   "sideEffects": [
     "**/*.css"
   ],
@@ -21,5 +24,8 @@
   },
   "dependencies": {
     "@YDSZ-core/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@ydsz/tsconfig": "workspace:*"
   }
 }

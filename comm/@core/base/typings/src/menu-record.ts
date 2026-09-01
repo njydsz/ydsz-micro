@@ -1,5 +1,5 @@
 /**
- * menu-record 模块
+ * 菜单记录与扩展路由类型，承载后端菜单原始数据与前端路由的映射关系。
  *
  * @path comm\@core\base\typings\src\menu-record.ts
  * @author ydsz-team

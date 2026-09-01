@@ -1,5 +1,8 @@
 /**
- * types 模块
+ * VXe Table 增强插件使用的扩展类型定义。
+ *
+ * 在 vxe-table 原生类型基础上扩展了分页信息、分隔条配置、
+ * 组合组件 Props 与初始化适配参数等本项目特有契约。
  *
  * @path comm\effects\plugins\src\vxe-table\types.ts
  * @author ydsz-team
@@ -45,7 +48,7 @@ interface ToolbarConfigOptions extends VxeGridPropTypes.ToolbarConfig {
 export interface VxeTableGridOptions<
   T extends Record<string, unknown> = Record<string, unknown>,
 > extends VxeTableGridProps<T> {
-  /** 工具栏配置 */
+  /** 工具栏配置（含搜索按钮开关） */
   toolbarConfig?: ToolbarConfigOptions;
 }
 
@@ -79,42 +82,23 @@ export interface VxeGridProps<
   T extends Record<string, unknown> = Record<string, unknown>,
   D extends BaseFormComponentType = BaseFormComponentType,
 > {
-  /**
-   * 标题
-   */
+  /** 表格标题 */
   tableTitle?: string;
-  /**
-   * 标题帮助
-   */
+  /** 标题帮助信息 */
   tableTitleHelp?: string;
-  /**
-   * 组件class
-   */
+  /** 组件根元素 class */
   class?: ClassType;
-  /**
-   * vxe-grid class
-   */
+  /** vxe-grid 元素 class */
   gridClass?: ClassType;
-  /**
-   * vxe-grid 配置
-   */
+  /** vxe-grid 配置（DeepPartial，支持局部覆盖） */
   gridOptions?: DeepPartial<VxeTableGridOptions<T>>;
-  /**
-   * vxe-grid 事件
-   */
+  /** vxe-grid 事件监听器 */
   gridEvents?: DeepPartial<VxeGridListeners<T>>;
-  /**
-   * 表单配置
-   */
+  /** 搜索表单配置 */
   formOptions?: YDSZFormProps<D>;
-  /**
-   * 显示搜索表单
-   * @default true
-   */
+  /** 是否显示搜索表单，默认 true */
   showSearchForm?: boolean;
-  /**
-   * 搜索表单与表格主体之间的分隔条
-   */
+  /** 搜索表单与表格主体之间的分隔条（bool 控制显隐，对象可设背景色） */
   separator?: boolean | SeparatorOptions;
 }
 

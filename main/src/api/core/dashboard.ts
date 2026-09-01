@@ -1,5 +1,5 @@
 /**
- * dashboard API 接口定义 — 概览统计 / 工作台数据
+ * Dashboard API —— 概览统计项与工作台聚合数据接口定义
  *
  * @path main\src\api\core\dashboard.ts
  * @author ydsz-team

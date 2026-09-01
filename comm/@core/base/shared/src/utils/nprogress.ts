@@ -1,5 +1,5 @@
 /**
- * nprogress 工具函数模块
+ * 顶部进度条工具，动态加载 n进度 库并提供 start/stop 语义化接口。
  *
  * @path comm\@core\base\shared\src\utils\nprogress.ts
  * @author ydsz-team

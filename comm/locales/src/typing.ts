@@ -1,5 +1,5 @@
 /**
- * typing 国际化语言包
+ * i18n 相关类型定义 — 支持的语言标识、动态加载函数签名及加载配置接口。
  *
  * @path comm\locales\src\typing.ts
  * @author ydsz-team

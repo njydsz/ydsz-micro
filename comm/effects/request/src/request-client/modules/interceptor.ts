@@ -1,5 +1,13 @@
 /**
- * interceptor 模块
+ * 拦截器的增删管理：给 axios 原生拦截器补上「可移除」这一环。
+ *
+ * axios 的 `interceptors.*.use()` 会返回 ID，但业务侧常随手丢弃，
+ * 导致多实例 / HMR / 测试场景下拦截器被重复注册（同一条鉴权逻辑执行多次、
+ * 错误提示弹两遍）。这里统一保管 ID 并暴露成对的方法，
+ * 使「谁注册谁负责移除」成为可执行的约定。
+ *
+ * 另提供默认配置：只传 `fulfilled` 时，`rejected` 自动补为
+ * 直接 reject，避免业务方漏传后错误被静默吞掉。
  *
  * @path comm\effects\request\src\request-client\modules\interceptor.ts
  * @author ydsz-team

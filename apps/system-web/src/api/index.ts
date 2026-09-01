@@ -3,6 +3,7 @@
  * <p>统一导出 YDSZ-system 服务的全部前端 API 模块。
  * <p>供业务代码统一 import { ... } from '#/api' 使用。
  *
+ * @path apps\system-web\src\api\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

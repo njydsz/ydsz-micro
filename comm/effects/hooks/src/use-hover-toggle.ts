@@ -1,5 +1,8 @@
 /**
- * use-hover-toggle 组合式函数
+ * 鼠标悬停状态监听组合式函数，支持多元素与延迟响应。
+ *
+ * 监测一组 DOM 元素中是否有任意一个处于 hover 状态，返回带延迟的布尔值 ref
+ * 与控制监听器的 enable/disable 方法，适用于侧边栏折叠菜单等场景。
  *
  * @path comm\effects\hooks\src\use-hover-toggle.ts
  * @author ydsz-team
@@ -150,9 +153,11 @@ export function useHoverToggle(
   );
 
   const controller = {
+    /** 恢复 hover 监听（watch 恢复运行） */
     enable() {
       hoverWatcher.resume();
     },
+    /** 暂停 hover 监听（watch 暂停运行，定时器不会进入回调） */
     disable() {
       hoverWatcher.pause();
     },

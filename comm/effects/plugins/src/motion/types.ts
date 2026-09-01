@@ -1,5 +1,8 @@
 /**
- * types 模块
+ * 入场动画预设常量与类型定义。
+ *
+ * 定义项目内置的 26 种动画名称（如 fade / roll / pop / slide 系列），
+ * 并导出对应字符串字面量联合类型，供模板与 TS 类型约束使用。
  *
  * @path comm\effects\plugins\src\motion\types.ts
  * @author ydsz-team

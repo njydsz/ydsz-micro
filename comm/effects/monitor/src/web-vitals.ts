@@ -202,7 +202,12 @@ export function setupWebVitals() {
     let clsValue = 0;
     new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        const layoutShift = entry as LayoutShift;
+        // LayoutShift 为较新的 PerformanceEntry 子类型，
+        // 当前 TS DOM lib 未内置，按结构收窄
+        const layoutShift = entry as unknown as {
+          hadRecentInput: boolean;
+          value: number;
+        };
         if (!layoutShift.hadRecentInput) {
           clsValue += layoutShift.value;
         }
@@ -233,8 +238,9 @@ export function setupWebVitals() {
   try {
     new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      if (entries.length > 0) {
-        reportWebVital('FCP', entries[0].startTime);
+      const firstEntry = entries[0];
+      if (firstEntry) {
+        reportWebVital('FCP', firstEntry.startTime);
       }
     }).observe({ buffered: true, type: 'paint' });
   } catch {

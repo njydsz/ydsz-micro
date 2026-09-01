@@ -1,5 +1,8 @@
 /**
- * extends 模块
+ * VXe Table 代理配置与单元格格式化器的扩展增强模块。
+ *
+ * 为 proxyConfig.ajax 各钩子自动注入搜索表单当前值，
+ * 并注册全局日期 / 日期时间格式化器，减少业务侧样板代码。
  *
  * @path comm\effects\plugins\src\vxe-table\extends.ts
  * @author ydsz-team
@@ -51,6 +54,15 @@ export function extendProxyOptions(
   });
 }
 
+/**
+ * 包装单个 proxyConfig.ajax 钩子，注入搜索表单参数。
+ *
+ * @param key - 钩子名称
+ * @param api - 表格 API 句柄
+ * @param options - 原始 grid 配置
+ * @param getFormValues - 取表单当前值的函数
+ * @returns 当钩子存在时返回包装后的 grid 配置
+ */
 function extendProxyOption(
   key: string,
   api: VxeGridApi,

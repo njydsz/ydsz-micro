@@ -1,5 +1,3 @@
-import { createLogger } from '@YDSZ-core/shared/utils';
-const logger = createLogger('storage-utils');
 /**
  * storage-utils.ts — localStorage 统一抽象层
  *
@@ -23,6 +21,9 @@ const logger = createLogger('storage-utils');
  * @author ydsz-team
  * @since 4.2.0
  */
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('storage-utils');
 
 /**
  * 统一命名空间前缀，防止与业务方/其他库冲突

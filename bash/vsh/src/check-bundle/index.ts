@@ -13,7 +13,7 @@
  *    （from"dep" / from'dep' / import("dep") / import('dep')）
  * 4. 应用声明了依赖但产物零证据 → 判定为误打包，报错退出
  *
- * @path bash/vsh/src/check-bundle/index.ts
+ * @path bash\vsh\src\check-bundle\index.ts
  * @author ydsz-team
  * @since 4.4.0
  */

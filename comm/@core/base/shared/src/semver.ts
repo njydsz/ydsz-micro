@@ -5,17 +5,30 @@
  * 从 @ydsz/micro-runtime/semver 下沉到 @YDSZ-core/shared，消除 micro-runtime
  * 对非业务模块的依赖。
  *
- * @path comm/@core/base/shared/src/semver.ts
+ * @path comm\@core\base\shared\src\semver.ts
  * @since 5.6.0
  */
 export interface SemVer { major: number; minor: number; patch: number; prerelease?: string }
 
+/**
+ * 解析语义化版本字符串为结构化对象（major.minor.patch + 可选 prerelease）。
+ *
+ * @param v - 版本字符串，如 `'1.2.3-beta.1'`
+ * @returns 解析成功返回 SemVer 对象；格式不匹配返回 null
+ */
 export function parseVersion(v: string): SemVer | null {
   const m = v.match(/^(\d+)\.(\d+)\.(\d+)(?:-([a-zA-Z0-9.-]+))?$/);
   if (!m) return null;
   return { major: Number(m[1]), minor: Number(m[2]), patch: Number(m[3]), prerelease: m[4] };
 }
 
+/**
+ * 比较两个 SemVer 的大小，正值表示 a > b，负值表示 a < b，0 表示相等。
+ *
+ * @param a - 待比较版本 a
+ * @param b - 待比较版本 b
+ * @returns 正值 a > b；负值 a < b；0 表示相等
+ */
 export function compareVersion(a: SemVer, b: SemVer): number {
   if (a.major !== b.major) return a.major - b.major;
   if (a.minor !== b.minor) return a.minor - b.minor;
@@ -26,6 +39,13 @@ export function compareVersion(a: SemVer, b: SemVer): number {
   return 0;
 }
 
+/**
+ * 判断版本是否满足范围表达式（支持 `>=`、`>`、`<=`、`<`、`=`、`^`、`~`、区间与 `*`）。
+ *
+ * @param version - 待判定版本字符串
+ * @param range - 范围表达式，如 `'^1.2.0'`、`'>=1.0.0 <2.0.0'`
+ * @returns 满足返回 `true`
+ */
 export function satisfiesVersion(version: string, range: string): boolean {
   const v = parseVersion(version);
   if (!v) return false;

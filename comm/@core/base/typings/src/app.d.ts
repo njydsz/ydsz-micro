@@ -1,5 +1,5 @@
 /**
- * app.d 模块
+ * 应用级类型常量定义：布局、主题、导航等 UI 模型的原子类型。
  *
  * @path comm\@core\base\typings\src\app.d.ts
  * @author ydsz-team

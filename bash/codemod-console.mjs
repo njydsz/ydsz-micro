@@ -1,6 +1,10 @@
 /**
  * codemod-console.mjs — 将生产代码中的 console.* 收敛到统一 logger（云顶规范 §14.5）
  *
+ * @path bash\codemod-console.mjs
+ * @author ydsz-team
+ * @since 1.0.0
+ *
  * 策略（安全优先，避免引入导入环 / 未用变量）：
  * 1. 仅改写「真实代码行」中的 `console.<method>(` 前缀为 `logger.<method>(`；
  *    跳过注释行（行注释 / JSDoc ` *` / 块注释）、字符串字面量内的文本。

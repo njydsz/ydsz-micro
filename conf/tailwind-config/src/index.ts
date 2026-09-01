@@ -199,6 +199,9 @@ const statusColors = {
   error: createColorsPalette("destructive"),
 };
 
+/**
+ * Tailwind CSS 共享配置。
+ */
 export default {
   content: [
     "./index.html",

@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 布局底部栏组件（LayoutFooter）导出
  *
  * @path comm\effects\layouts\src\basic\footer\index.ts
  * @author ydsz-team

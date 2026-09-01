@@ -19,6 +19,7 @@
 import type { Plugin } from 'vite';
 import type { VitePWAOptions } from 'vite-plugin-pwa';
 
+/** Service Worker 插件配置选项 */
 export interface SWPluginOptions {
   /** 应用名（用于缓存前缀隔离） */
   appName: string;
@@ -148,6 +149,12 @@ export function cleanupOutdatedSubAppCaches(currentVersion: string): void {
   });
 }
 
+/**
+ * 获取当前子应用 Service Worker 版本标识。
+ *
+ * @param appName 子应用名称
+ * @returns 格式为 "appName@version" 的版本字符串
+ */
 export function currentSubAppSWVersion(appName: string): string {
   return `${appName}@${import.meta.env.VITE_APP_VERSION || 'dev'}`;
 }

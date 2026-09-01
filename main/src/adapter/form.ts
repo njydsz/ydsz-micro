@@ -1,5 +1,5 @@
 /**
- * form 适配器模块
+ * 表单适配器 —— 初始化 YDSZ-form 组件类型映射与校验规则
  *
  * @path main\src\adapter\form.ts
  * @author ydsz-team

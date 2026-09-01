@@ -1,18 +1,17 @@
 /**
- * use-vxe-grid 插槽处理辅助函数
+ * YDSZVxeGrid 表格插槽渲染相关的响应式计算模块。
  *
- * @path comm\effects\plugins\src\vxe-table\composables\use-vxe-grid-slots.ts
- * @author ydsz-team
- * @since 1.0.0
- *
- * @remarks
- * 从 use-vxe-grid-logic 拆分出的表格插槽渲染职责：
+ * 从 use-vxe-grid-logic 拆分出表格插槽处理职责：
  * - 工具栏插槽（toolbar-actions / toolbar-tools）与搜索按钮合并；
  * - 表格标题插槽（table-title）的显示判断；
  * - 搜索表单插槽（form- 前缀）与委派插槽名列表的计算。
  *
  * 通过 {@link useVxeGridSlotComputeds} 以参数传值的方式接收主 composable
  * 的响应式依赖，不持有任何模块级可变状态。
+ *
+ * @path comm\effects\plugins\src\vxe-table\composables\use-vxe-grid-slots.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 import type { VxeGridPropTypes, VxeToolbarPropTypes } from 'vxe-table';

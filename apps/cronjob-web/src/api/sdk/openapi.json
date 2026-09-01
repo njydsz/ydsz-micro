@@ -3654,38 +3654,63 @@
       "format": "int64"
      },
      "code": {
-      "type": "string"
+      "type": "string",
+      "description": "返回编码"
      },
      "msg": {
-      "type": "string"
+      "type": "string",
+      "description": "返回信息"
      },
      "data": {
-      "type": "object"
+      "type": "object",
+      "description": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。"
      },
      "traceId": {
-      "type": "object"
+      "type": "object",
+      "description": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。"
      },
      "requestId": {
-      "type": "object"
+      "type": "object",
+      "description": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。"
      },
      "spanId": {
-      "type": "object"
+      "type": "object",
+      "description": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。"
      },
      "timestamp": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "时间戳"
      },
      "extensions": {
       "type": "object",
       "additionalProperties": {
        "type": "object"
-      }
+      },
+      "description": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
      },
      "RESOLVER": {
-      "type": "object"
+      "type": "object",
+      "description": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。"
      }
     },
-    "description": "class YdszResponse"
+    "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
+    "x-field-docs": {
+     "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
+     "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
+     "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。",
+     "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。",
+     "code": "返回编码",
+     "msg": "返回信息",
+     "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
+     "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
+     "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
+     "spanId": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。",
+     "timestamp": "时间戳",
+     "extensions": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
+     "RESOLVER": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。",
+     "tid": "ensure traceId resolved first so we know if it's present"
+    }
    },
    "AlertRulePostDTO": {
     "type": "object",
@@ -3732,7 +3757,8 @@
       "format": "int32"
      }
     },
-    "description": "class AlertRulePostDTO"
+    "description": "AlertRule 新增请求 DTO。",
+    "x-field-docs": {}
    },
    "AlertRulePutDTO": {
     "type": "object",
@@ -3782,7 +3808,8 @@
       "format": "int32"
      }
     },
-    "description": "class AlertRulePutDTO"
+    "description": "AlertRule 修改请求 DTO。",
+    "x-field-docs": {}
    },
    "JobClusterMigrationDTO": {
     "type": "object",
@@ -3801,7 +3828,8 @@
       "type": "string"
      }
     },
-    "description": "class JobClusterMigrationDTO"
+    "description": "任务集群漂移 DTO（P2-5）。\n\n将一个或多个任务从当前集群迁移到目标集群。迁移流程：\n\n<ol>\n校验目标集群可达性\n逐任务：注销本机调度器 → 调用目标集群注册接口 → 更新 DB cluster 字段\n单条失败不影响其他任务\n</ol>",
+    "x-field-docs": {}
    },
    "ConnectorConfigPostDTO": {
     "type": "object",
@@ -3811,43 +3839,65 @@
       "format": "int64"
      },
      "endpoint": {
-      "type": "string"
+      "type": "string",
+      "description": "外部系统端点 URL"
      },
      "authType": {
-      "type": "string"
+      "type": "string",
+      "description": "认证类型: BASIC / TOKEN / AK_SK / NONE"
      },
      "username": {
-      "type": "string"
+      "type": "string",
+      "description": "用户名"
      },
      "password": {
-      "type": "string"
+      "type": "string",
+      "description": "密码/Token"
      },
      "accessKey": {
-      "type": "string"
+      "type": "string",
+      "description": "Access Key"
      },
      "secretKey": {
-      "type": "string"
+      "type": "string",
+      "description": "Secret Key"
      },
      "extraProps": {
       "type": "object",
       "additionalProperties": {
        "type": "string"
-      }
+      },
+      "description": "额外配置属性"
      },
      "DEFAULT_READ_TIMEOUT_SECONDS": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "默认读取超时（秒），与 ConnectorConfig 默认值保持一致"
      },
      "connectTimeoutSeconds": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "连接超时（秒）"
      },
      "readTimeoutSeconds": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "读取超时（秒）"
      }
     },
-    "description": "class ConnectorConfigPostDTO"
+    "description": "连接器配置新增请求 DTO。",
+    "x-field-docs": {
+     "endpoint": "外部系统端点 URL",
+     "authType": "认证类型: BASIC / TOKEN / AK_SK / NONE",
+     "username": "用户名",
+     "password": "密码/Token",
+     "accessKey": "Access Key",
+     "secretKey": "Secret Key",
+     "extraProps": "额外配置属性",
+     "DEFAULT_READ_TIMEOUT_SECONDS": "默认读取超时（秒），与 ConnectorConfig 默认值保持一致",
+     "connectTimeoutSeconds": "连接超时（秒）",
+     "readTimeoutSeconds": "读取超时（秒）"
+    }
    },
    "JobDagPostDTO": {
     "type": "object",
@@ -3885,7 +3935,8 @@
       "type": "string"
      }
     },
-    "description": "class JobDagPostDTO"
+    "description": "JobDag 新增请求 DTO。",
+    "x-field-docs": {}
    },
    "JobDagPutDTO": {
     "type": "object",
@@ -3923,7 +3974,8 @@
       "type": "string"
      }
     },
-    "description": "class JobDagPutDTO"
+    "description": "JobDag 修改请求 DTO。",
+    "x-field-docs": {}
    },
    "JobDagTriggerDTO": {
     "type": "object",
@@ -3939,7 +3991,8 @@
       "type": "string"
      }
     },
-    "description": "class JobDagTriggerDTO"
+    "description": "DAG 工作流手动触发 DTO（P2 DAG 增强）。",
+    "x-field-docs": {}
    },
    "JobVO": {
     "type": "object",
@@ -3949,155 +4002,241 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "主键 ID"
      },
      "jobName": {
-      "type": "string"
+      "type": "string",
+      "description": "任务名称"
      },
      "jobGroup": {
-      "type": "string"
+      "type": "string",
+      "description": "任务分组"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "任务状态（NORMAL/PAUSED/AUTO_PAUSED/STOPPED/ERROR/DELETED，见 CronjobConstants）"
      },
      "jobKey": {
-      "type": "string"
+      "type": "string",
+      "description": "任务唯一标识"
      },
      "handler": {
-      "type": "string"
+      "type": "string",
+      "description": "处理器类全限定名"
      },
      "cronExpression": {
-      "type": "string"
+      "type": "string",
+      "description": "Cron 表达式"
      },
      "scheduleType": {
-      "type": "string"
+      "type": "string",
+      "description": "调度类型（CRON/FIXED_RATE/FIXED_DELAY）"
      },
      "fixedRateMs": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "固定频率间隔（毫秒）"
      },
      "fixedDelayMs": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "固定延迟间隔（毫秒）"
      },
      "paramsJson": {
-      "type": "string"
+      "type": "string",
+      "description": "任务参数（JSON）"
      },
      "jobRemark": {
-      "type": "string"
+      "type": "string",
+      "description": "任务备注"
      },
      "nextFireTime": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "下次触发时间"
      },
      "lastFireTime": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "上次触发时间"
      },
      "fireCount": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "触发总次数"
      },
      "successCount": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "成功次数"
      },
      "failCount": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "失败次数"
      },
      "lockTtlMs": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "分布式锁 TTL（毫秒）"
      },
      "timeoutMs": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "超时时间（毫秒）"
      },
      "slaMs": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "SLA 达标阈值（毫秒）"
      },
      "slowThresholdMs": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "慢任务阈值（毫秒）"
      },
      "misfirePolicy": {
-      "type": "string"
+      "type": "string",
+      "description": "Misfire 策略"
      },
      "shardTotal": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "分片总数"
      },
      "jobType": {
-      "type": "string"
+      "type": "string",
+      "description": "任务类型"
      },
      "maxRetries": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "最大重试次数"
      },
      "retryIntervalMs": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "重试间隔（毫秒）"
      },
      "retryBackoff": {
-      "type": "string"
+      "type": "string",
+      "description": "重试退避策略"
      },
      "blockStrategy": {
-      "type": "string"
+      "type": "string",
+      "description": "阻塞策略"
      },
      "consecutiveFailCount": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "连续失败次数"
      },
      "maxConsecutiveFails": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "最大连续失败次数"
      },
      "autoResumeAfterMinutes": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "自动恢复延迟（分钟）"
      },
      "priority": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "优先级"
      },
      "version": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "版本号"
      },
      "timezone": {
-      "type": "string"
+      "type": "string",
+      "description": "时区"
      },
      "cluster": {
-      "type": "string"
+      "type": "string",
+      "description": "集群"
      },
      "canaryRatio": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "灰度比例"
      },
      "canaryHandler": {
-      "type": "string"
+      "type": "string",
+      "description": "灰度处理器"
      },
      "createdBy": {
-      "type": "string"
+      "type": "string",
+      "description": "创建人"
      },
      "createdAt": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "创建时间"
      },
      "updatedBy": {
-      "type": "string"
+      "type": "string",
+      "description": "更新人"
      },
      "updatedAt": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "更新时间"
      },
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID（多租户隔离）"
      }
     },
-    "description": "class JobVO"
+    "description": "定时任务视图对象\n\n用于 Controller 层返回任务调度数据，对应实体 com.njydsz.cronjob.domain.entity.job.Job。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "jobName": "任务名称",
+     "jobGroup": "任务分组",
+     "status": "任务状态（NORMAL/PAUSED/AUTO_PAUSED/STOPPED/ERROR/DELETED，见 CronjobConstants）",
+     "jobKey": "任务唯一标识",
+     "handler": "处理器类全限定名",
+     "cronExpression": "Cron 表达式",
+     "scheduleType": "调度类型（CRON/FIXED_RATE/FIXED_DELAY）",
+     "fixedRateMs": "固定频率间隔（毫秒）",
+     "fixedDelayMs": "固定延迟间隔（毫秒）",
+     "paramsJson": "任务参数（JSON）",
+     "jobRemark": "任务备注",
+     "nextFireTime": "下次触发时间",
+     "lastFireTime": "上次触发时间",
+     "fireCount": "触发总次数",
+     "successCount": "成功次数",
+     "failCount": "失败次数",
+     "lockTtlMs": "分布式锁 TTL（毫秒）",
+     "timeoutMs": "超时时间（毫秒）",
+     "slaMs": "SLA 达标阈值（毫秒）",
+     "slowThresholdMs": "慢任务阈值（毫秒）",
+     "misfirePolicy": "Misfire 策略",
+     "shardTotal": "分片总数",
+     "jobType": "任务类型",
+     "maxRetries": "最大重试次数",
+     "retryIntervalMs": "重试间隔（毫秒）",
+     "retryBackoff": "重试退避策略",
+     "blockStrategy": "阻塞策略",
+     "consecutiveFailCount": "连续失败次数",
+     "maxConsecutiveFails": "最大连续失败次数",
+     "autoResumeAfterMinutes": "自动恢复延迟（分钟）",
+     "priority": "优先级",
+     "version": "版本号",
+     "timezone": "时区",
+     "cluster": "集群",
+     "canaryRatio": "灰度比例",
+     "canaryHandler": "灰度处理器",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间",
+     "tenantId": "租户 ID（多租户隔离）"
+    }
    },
    "RemoteTaskRequest": {
     "type": "object",
@@ -4110,21 +4249,32 @@
       "$ref": "#/components/schemas/JobVO"
      },
      "triggerType": {
-      "type": "string"
+      "type": "string",
+      "description": "触发类型: CRON / MANUAL / RETRY / MISFIRED / DEPENDENT"
      },
      "shardIndex": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "分片索引（-1 表示非分片任务）"
      },
      "shardTotal": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "分片总数（1 表示非分片任务）"
      },
      "traceId": {
-      "type": "string"
+      "type": "string",
+      "description": "链路追踪 ID（从 Leader MDC 传递）"
      }
     },
-    "description": "class RemoteTaskRequest"
+    "description": "远程派发请求 DTO（P1-4）。\n\nLeader 节点将此对象序列化为 JSON，通过 HTTP POST 发送到执行器节点的 `/cronjob/internal/execute`\n接口。执行器节点反序列化后调用 TaskDispatcher#executeLocally(Job, String, int, int) 在本地执行。\n\n<h3>字段说明</h3>\n\n\n`job`: 任务定义（含 handler、paramsJson、cronExpression 等）\n`triggerType`: 触发类型（CRON/MANUAL/RETRY/MISFIRED/DEPENDENT）\n`shardIndex`: 分片索引（-1 表示非分片任务）\n`shardTotal`: 分片总数（1 表示非分片任务）\n`traceId`: 链路追踪 ID（从 Leader MDC 传递，保证全链路 traceId 串联）",
+    "x-field-docs": {
+     "job": "任务定义",
+     "triggerType": "触发类型: CRON / MANUAL / RETRY / MISFIRED / DEPENDENT",
+     "shardIndex": "分片索引（-1 表示非分片任务）",
+     "shardTotal": "分片总数（1 表示非分片任务）",
+     "traceId": "链路追踪 ID（从 Leader MDC 传递）"
+    }
    },
    "RemoteSubTaskRequest": {
     "type": "object",
@@ -4134,28 +4284,44 @@
       "format": "int64"
      },
      "jobId": {
-      "type": "string"
+      "type": "string",
+      "description": "任务 ID"
      },
      "logId": {
-      "type": "string"
+      "type": "string",
+      "description": "执行日志 ID"
      },
      "jobKey": {
-      "type": "string"
+      "type": "string",
+      "description": "任务 KEY"
      },
      "handler": {
-      "type": "string"
+      "type": "string",
+      "description": "MapProcessor Bean 名称"
      },
      "taskName": {
-      "type": "string"
+      "type": "string",
+      "description": "子任务名称"
      },
      "taskParams": {
-      "type": "string"
+      "type": "string",
+      "description": "子任务参数 JSON"
      },
      "traceId": {
-      "type": "string"
+      "type": "string",
+      "description": "链路追踪 ID"
      }
     },
-    "description": "class RemoteSubTaskRequest"
+    "description": "MapReduce 子任务远程派发请求 DTO（P0-1 分布式并行执行）。\n\nLeader 节点将此对象序列化为 JSON，通过 HTTP POST 发送到执行器节点的 `/cronjob/internal/execute-sub-task`\n接口。执行器节点反序列化后 在本地执行子任务并返回结果。\n\n<h3>字段说明</h3>\n\n\n`jobId`: 任务 ID（关联 ydsz_job.id）\n`logId`: 执行日志 ID（关联 ydsz_job_log.id）\n`jobKey`: 任务 KEY\n`handler`: MapProcessor Bean 名称\n`taskName`: 子任务名称\n`taskParams`: 子任务参数 JSON\n`traceId`: 链路追踪 ID",
+    "x-field-docs": {
+     "jobId": "任务 ID",
+     "logId": "执行日志 ID",
+     "jobKey": "任务 KEY",
+     "handler": "MapProcessor Bean 名称",
+     "taskName": "子任务名称",
+     "taskParams": "子任务参数 JSON",
+     "traceId": "链路追踪 ID"
+    }
    },
    "JobPostDTO": {
     "type": "object",
@@ -4268,7 +4434,8 @@
       "type": "string"
      }
     },
-    "description": "class JobPostDTO"
+    "description": "Job 新增请求 DTO。",
+    "x-field-docs": {}
    },
    "JobPutDTO": {
     "type": "object",
@@ -4381,7 +4548,8 @@
       "type": "string"
      }
     },
-    "description": "class JobPutDTO"
+    "description": "Job 修改请求 DTO。",
+    "x-field-docs": {}
    },
    "JobBatchDTO": {
     "type": "object",
@@ -4397,7 +4565,8 @@
       }
      }
     },
-    "description": "class JobBatchDTO"
+    "description": "任务批量操作 DTO\n\n用于批量暂停/恢复/触发/删除任务的请求参数。",
+    "x-field-docs": {}
    },
    "JobBatchUpdateDTO": {
     "type": "object",
@@ -4419,7 +4588,8 @@
       "type": "string"
      }
     },
-    "description": "class JobBatchUpdateDTO"
+    "description": "任务批量修改 DTO（P1-13）。\n\n支持批量修改任务的分组、Cron 表达式。字段为可选，仅修改非空字段（null 表示不修改）。\n\n当 `cronExpression` 非空时，自动校验 Cron 表达式合法性并重新注册调度器。",
+    "x-field-docs": {}
    },
    "JobWebhookPostDTO": {
     "type": "object",
@@ -4456,7 +4626,8 @@
       "type": "string"
      }
     },
-    "description": "class JobWebhookPostDTO"
+    "description": "JobWebhook 新增请求 DTO。",
+    "x-field-docs": {}
    },
    "JobWebhookPutDTO": {
     "type": "object",
@@ -4496,7 +4667,8 @@
       "type": "string"
      }
     },
-    "description": "class JobWebhookPutDTO"
+    "description": "JobWebhook 修改请求 DTO。",
+    "x-field-docs": {}
    }
   }
  }

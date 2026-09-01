@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 通知中心挂件组件导出（Notification + NotificationItem 类型）
  *
  * @path comm\effects\layouts\src\widgets\notification\index.ts
  * @author ydsz-team

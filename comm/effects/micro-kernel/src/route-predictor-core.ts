@@ -73,6 +73,9 @@ export function saveCore(
       const age = now - pairLastSeen;
       const decayFactor = 0.5 ** (age / DECAY_HALFLIFE_MS);
       const decayedCount = count * decayFactor;
+      // 0.01 是「有效证据」下限：衰减到这个量级的转移对在下一次加载时
+      // 也会被 continue 丢弃，提前剔除可省下 localStorage 的写入字节数。
+      // 衰减是指数级的，不会线性趋零，因此需要一个显式截断而非等它等于 0
       if (decayedCount > 0.01) {
         allPairs.push({
           from,
@@ -88,6 +91,8 @@ export function saveCore(
   if (allPairs.length > MAX_TRANSITION_ENTRIES) {
     allPairs.sort((a, b) => b.count - a.count);
     const evicted = allPairs.length - MAX_TRANSITION_ENTRIES;
+    // 直接截 length 而非 splice：已在排序后，尾部即最低频的转移对，
+    // 淘汰它们对预测准确率的影响最小
     allPairs.length = MAX_TRANSITION_ENTRIES;
     logger.debug(
       `RoutePredictor: evicted ${evicted} low-count pairs (limit=${MAX_TRANSITION_ENTRIES})`,
@@ -100,6 +105,9 @@ export function saveCore(
     transitions: allPairs.map((p) => ({
       from: p.from,
       to: p.to,
+      // 兜底为 1：衰减后的计数可能是 0.02 这样的小数，落盘时若存 0
+      // 会让这条转移对在下次加载时被 <0.01 判断直接丢弃，等于白白丢失
+      // 一条真实发生过的导航。存 1 保留「发生过」这一事实，权重交给后续衰减调节
       count: Math.max(1, Math.round(p.count)),
       timestamp: p.timestamp,
     })),
@@ -152,7 +160,11 @@ function loadV1Core(predictor: RoutePredictorLike): void {
     }
 
     const existingCount = toMap.get(record.to) || 0;
+    // 取 max 而非累加：v1 数据可能来自多个 Tab 的重复写入，累加会虚增计数，
+    // 让一条偶然路径在迁移后被误判为高频路径
     toMap.set(record.to, Math.max(existingCount, record.count));
+    // v1 没有 per-pair 的 lastSeen，统一按当前时间入账：
+    // 相当于给历史数据「续命」，否则迁移瞬间就会被半衰期判定为过期
     seenMap.set(record.to, now);
 
     const existingTotal = predictor.totals.get(record.from) || 0;
@@ -160,6 +172,8 @@ function loadV1Core(predictor: RoutePredictorLike): void {
   }
 
   predictor.dirty = true;
+  // 立即以 v2 格式落盘，再删除 v1 key：顺序不可颠倒，
+  // 否则迁移中途崩溃（关标签页/清缓存）会同时丢掉两个版本的数据
   saveCore(predictor);
   removeStorage("ydsz_route_predictions");
 }
@@ -216,6 +230,9 @@ function loadV2Core(predictor: RoutePredictorLike): boolean {
  * 每次调用重置定时器，确保高频路由跳转仅触发一次写入。
  */
 export function schedulePersistCore(predictor: RoutePredictorLike): void {
+  // 有未触发的定时器就直接返回：这是节流而非防抖，写入时刻以「首次变更」
+  // 为基准向后推 PERSIST_THROTTLE_MS。若改成防抖（每次重置定时器），
+  // 连续跳转场景下写入会被无限推迟，页面关闭时数据全丢
   if (predictor.persistTimer !== null) return;
   predictor.persistTimer = setTimeout(() => {
     predictor.persistTimer = null;
@@ -242,6 +259,9 @@ export function getGlobalTopAppsCore(
   topN: number,
   excludeApp?: string,
 ): Array<{ appName: string; probability: number; sampleSize: number }> {
+  // 统计「入度」而非「出度」：冷启动 fallback 要回答的是「用户接下来最可能去哪个应用」，
+  // 所以按被导航到的次数排序。出度反映的是「从哪离开」，与该问题无关；
+  // 也正因如此这里无法直接复用 predictor.totals（那是按 from 聚合的）
   const inboundCounts = new Map<string, number>();
   for (const [, toMap] of predictor.transitions) {
     for (const [to, count] of toMap) {

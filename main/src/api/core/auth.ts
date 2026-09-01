@@ -1,5 +1,5 @@
 /**
- * auth API 接口定义
+ * 认证 API —— 登录、登出、刷新令牌与权限码查询接口定义
  *
  * @path main\src\api\core\auth.ts
  * @author ydsz-team

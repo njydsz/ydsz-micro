@@ -95,7 +95,7 @@ export function createStopFunction(ctx: ShutdownContext) {
     ctx.setMetricsCleanup(null);
 
     // v4.2.1 P0-N2: 中止未完成的切换异步链路
-    ctx.getAbortController?.().abort();
+    ctx.getAbortController?.()?.abort();
     ctx.setAbortController(null);
 
     for (const instance of getAllInstances()) {

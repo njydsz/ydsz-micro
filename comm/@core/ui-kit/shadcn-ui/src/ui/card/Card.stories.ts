@@ -23,6 +23,18 @@ const meta: Meta = {
   },
 };
 
+/**
+ * Card 组件示例集的 Storybook 元信息。
+ *
+ * 覆盖的状态（本组件是组合式结构，示例以「区域搭配」而非 props 为主）：
+ *  - `Default`：Header + Content + Footer 全区域齐备的标准卡片；
+ *  - `WithTitle`：仅标题 + 内容，用于内容极简的场景；
+ *  - `FullCard`：带真实业务数据的完整卡片，展示 Footer 里并置多个操作按钮时的排布；
+ *  - `CardGrid`：多卡片在响应式网格中的布局，验证卡片在容器宽度变化下的自适应。
+ *
+ * 因为 Card 本身无 props 面板，meta 未绑定 `component` 与 `argTypes` ——
+ * 这里要验证的是插槽组合与间距，而非参数化状态。
+ */
 export default meta;
 type Story = StoryObj;
 

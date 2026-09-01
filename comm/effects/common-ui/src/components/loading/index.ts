@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 加载指示器组件导出（Loading、Spinner 及其自定义指令）
  *
  * @path comm\effects\common-ui\src\components\loading\index.ts
  * @author ydsz-team

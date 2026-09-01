@@ -38,6 +38,7 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
+    "vite": "catalog:",
     "unplugin-element-plus": "catalog:"
   },
   "license": "MIT"

@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 认证页组件导出（登录、注册、验证码登录、二维码登录、忘记密码等）
  *
  * @path comm\effects\common-ui\src\ui\authentication\index.ts
  * @author ydsz-team

@@ -133,4 +133,5 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
+/** Userinfo 用户管理路由配置（子应用内部路由表） */
 export default routes;

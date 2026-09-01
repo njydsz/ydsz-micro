@@ -31,6 +31,7 @@ function generateMockUsers(count = 20) {
 
 const mockUsers = generateMockUsers(50);
 
+/** 用户管理相关 Mock 处理器集合（列表 / 详情 / 创建 / 更新 / 删除） */
 export const mockUserHandlers: MockHandler[] = [
   // 用户列表
   {

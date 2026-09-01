@@ -1,6 +1,16 @@
 /**
- * 更新 CSS 变量的函数
- * @param variables 要更新的 CSS 变量与其新值的映射
+ * 动态创建或复用 `:root` 内联样式表，批量写入 CSS 变量声明。
+ *
+ * @path comm\@core\base\shared\src\utils\update-css-variables.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
+ * 更新文档根节点的 CSS 变量（已存在则复用现有样式表，避免重复创建）。
+ *
+ * @param variables - 变量名到新值的映射，键名应带 `--` 前缀
+ * @param id - 内联样式表 DOM id，默认 `'__ydsz-styles__'`
  */
 function updateCSSVariables(
   variables: { [key: string]: string },

@@ -1,5 +1,5 @@
 /**
- * index 组合式函数
+ * Vue 组合式函数统一导出入口，聚合所有 composable 能力。
  *
  * @path comm\@core\composables\src\index.ts
  * @author ydsz-team

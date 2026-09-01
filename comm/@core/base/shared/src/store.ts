@@ -1,5 +1,5 @@
 /**
- * store 模块
+ * 响应式状态管理统一入口，透出 @tanstack/vue-store 的全部能力。
  *
  * @path comm\@core\base\shared\src\store.ts
  * @author ydsz-team

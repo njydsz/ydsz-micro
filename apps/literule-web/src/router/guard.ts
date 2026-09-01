@@ -1,10 +1,11 @@
-/**
+﻿/**
  * 路由守卫 — 统一通过 shared-auth 包提供的标准化守卫注册。
  *
  * 子应用无需重复实现 commonGuard / authGuard / permissionGuard / initRoutes，
  * 直接传入本应用的 accessRoutes 即可。
  *
  * @author ydsz-team
+ * @path apps\literule-web\src\router\guard.ts
  * @since 2.0.0
  */
 import type { Router } from 'vue-router';

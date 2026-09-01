@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 分析页组件导出（图表卡片、图表标签页、数据概览）
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\index.ts
  * @author ydsz-team

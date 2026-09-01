@@ -11,7 +11,7 @@
  *   "apps": [{ "name": "...", "entry": "...", "activeRule": "...", ... }]
  * }
  *
- * @path comm/effects/micro-kernel/src/registry-adapter.ts
+ * @path comm\effects\micro-kernel\src\registry-adapter.ts
  * @author ydsz-team
  * @since 3.7.0
  */
@@ -42,7 +42,11 @@ export function setStaticRegistry(entries: MicroAppEntry[]): void {
   logger.info(`Static registry injected: ${entries.length} apps`);
 }
 
-/** 获取当前静态注册表（内部使用） */
+/**
+ * 获取当前静态注册表副本。
+ *
+ * 返回副本以避免外部修改内核内部状态。
+ */
 export function getStaticRegistry(): MicroAppEntry[] {
   return [...staticRegistry];
 }
@@ -59,7 +63,11 @@ const REGISTRY_CACHE_KEY = 'ydsz_micro_apps_registry';
 /** 注册表缓存有效期（ms），默认 10 分钟 */
 const REGISTRY_CACHE_TTL = 10 * 60 * 1_000;
 
-/** 注册表响应结构 */
+/**
+ * 远端注册表 JSON 响应结构。
+ *
+ * 由服务端 /api/micro-apps/registry.json 返回，内核据此解析并缓存。
+ */
 interface RegistryResponse {
   /** 注册表生成时间（ISO 8601），用于缓存校验 */
   version: string;
@@ -67,11 +75,16 @@ interface RegistryResponse {
   apps: MicroAppEntry[];
 }
 
-/** 缓存结构 */
+/**
+ * localStorage 注册表缓存结构。
+ *
+ * 远端拉取成功后写入，按 TTL 过期淘汰；远端不可达时作为兜底，
+ * 保障弱网 / 离线场景下子应用仍可注册。
+ */
 interface RegistryCache {
-  /** 远端返回的 version */
+  /** 远端返回的 version（用于日志诊断） */
   remoteVersion: string;
-  /** 缓存写入时间戳 */
+  /** 缓存写入时间戳（用于 TTL 判断） */
   cachedAt: number;
   /** 解析后的应用配置数组 */
   apps: MicroAppEntry[];

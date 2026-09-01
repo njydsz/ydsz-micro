@@ -1,3 +1,11 @@
+/**
+ * 全局 CSS 变量名与 DOM 元素 ID 常量集合，统一避免硬编码散落到业务代码中。
+ *
+ * @path comm\@core\base\shared\src\constants\globals.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
 /** layout content 组件的高度 */
 export const CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT = `--YDSZ-content-height`;
 /** layout content 组件的宽度 */

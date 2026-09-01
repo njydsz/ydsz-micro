@@ -29,8 +29,10 @@ export interface PreloadManagerLike {
   preloadCache: Set<string>;
   hoverListeners: Map<string, () => void>;
   visibilityListener: (() => void) | null;
+  permissionChecker: ((codes: string[]) => boolean) | null;
   strategies: Map<string, PreloadStrategyOptions>;
-  triggerPreload(appName: string): Promise<void>;
+  /** 预加载执行入口（PreloadManager.triggerPreload 注入） */
+  triggerPreload?: (appName: string) => Promise<void>;
   stats: {
     preloadCount: number;
     consumedCount: number;
@@ -59,7 +61,7 @@ export function setupHoverListener(
   _options: PreloadStrategyOptions,
 ): void {
   const listener = () => {
-    void manager.triggerPreload(appName);
+    void manager.triggerPreload?.(appName);
   };
 
   // 查找所有可能触发该应用的元素
@@ -118,7 +120,7 @@ export function setupVisibilityListener(manager: PreloadManagerLike): void {
       // 页面可见时，预加载所有 visibility 策略的应用
       for (const [appName, strategy] of manager.strategies) {
         if (strategy.strategy === "visibility") {
-          void manager.triggerPreload(appName);
+          void manager.triggerPreload?.(appName);
         }
       }
     }
@@ -314,7 +316,8 @@ export async function executePreloadHelper(
 ): Promise<void> {
   try {
     manager.preloadCache.add(appName);
-    await strategy.onPreload(appName);
+    // onPreload 为可选配置：策略仅声明元数据（如 permissionCodes）时跳过执行
+    await strategy.onPreload?.(appName);
     logger.debug(`Preloaded ${appName} via ${strategy.strategy} strategy`);
   } catch (error) {
     logger.warn(`Failed to preload ${appName}:`, error);

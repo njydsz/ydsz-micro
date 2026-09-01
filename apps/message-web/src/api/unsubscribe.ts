@@ -17,37 +17,37 @@ import type { MsgSubscriptionVO, UnsubscribeQueryDTO, UnsubscribeTokenPayload } 
 /**
  * oneClick: POST /api/v1/message/unsubscribe/oneClick
  */
-export function oneClick(params: { token?: string }): Promise<MsgSubscriptionVO> {
+export function oneClick(params: {
+    token?: string;
+  }): Promise<MsgSubscriptionVO> {
   return requestClient.post<MsgSubscriptionVO>(`/api/v1/message/unsubscribe/oneClick`, { params });
 }
 
 /**
  * preview: GET /api/v1/message/unsubscribe/preview
  */
-export function preview(params: { token?: string }): Promise<UnsubscribeTokenPayload> {
-  return requestClient.get<UnsubscribeTokenPayload>(`/api/v1/message/unsubscribe/preview`, {
-    params,
-  });
+export function preview(params: {
+    token?: string;
+  }): Promise<UnsubscribeTokenPayload> {
+  return requestClient.get<UnsubscribeTokenPayload>(`/api/v1/message/unsubscribe/preview`, { params });
 }
 
 /**
  * page: GET /api/v1/message/unsubscribe/page
  */
 export function page(params: {
-  query?: UnsubscribeQueryDTO;
-}): Promise<PageResponse<MsgSubscriptionVO[]>> {
-  return requestClient.get<PageResponse<MsgSubscriptionVO[]>>(`/api/v1/message/unsubscribe/page`, {
-    params,
-  });
+    query?: UnsubscribeQueryDTO;
+  }): Promise<PageResponse<MsgSubscriptionVO[]>> {
+  return requestClient.get<PageResponse<MsgSubscriptionVO[]>>(`/api/v1/message/unsubscribe/page`, { params });
 }
 
 /**
  * resubscribe: POST /api/v1/message/unsubscribe/resubscribe
  */
 export function resubscribe(params: {
-  userId?: string;
-  topicCode?: string;
-  channel?: string;
-}): Promise<void> {
+    userId?: string;
+    topicCode?: string;
+    channel?: string;
+  }): Promise<void> {
   return requestClient.post<void>(`/api/v1/message/unsubscribe/resubscribe`, { params });
 }

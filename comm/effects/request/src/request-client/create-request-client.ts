@@ -1,5 +1,14 @@
 /**
- * create-request-client 模块
+ * 请求客户端的成对创建工厂。
+ *
+ * 一次调用返回**两个**客户端实例，这是本模块存在的唯一理由：
+ * - `requestClient` —— 业务主链路，各应用在其上注册鉴权、错误提示、401 跳转等拦截器；
+ * - `baseRequestClient` —— 不挂任何业务拦截器的「干净」实例。
+ *
+  * 拆成两个是为了打破循环依赖：刷新 token、拉取字典、上报日志这类请求
+ * 本身属于拦截器链路的一部分，若复用 `requestClient`，一旦 token 过期就会
+ * 触发拦截器再次尝试刷新，形成递归。`baseRequestClient` 提供了一条
+ * 不经过业务拦截器的逃生通道。
  *
  * @path comm\effects\request\src\request-client\create-request-client.ts
  * @author ydsz-team

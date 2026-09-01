@@ -1,5 +1,5 @@
 /**
- * load 模块
+ * SVG 图标注册模块 — 构建时将 SVG 原始文件注入 Iconify 全局图标池。
  *
  * @path comm\icons\src\svg\load.ts
  * @author ydsz-team
@@ -15,6 +15,12 @@ if (!loaded) {
   loaded = true;
 }
 
+/**
+ * 解析 SVG 原始字符串为 Iconify 图标结构体。
+ *
+ * @param svgData - SVG 文件原始文本
+ * @returns Iconify 图标结构（body + 尺寸/偏移属性）
+ */
 function parseSvg(svgData: string): IconifyIconStructure {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(svgData, 'image/svg+xml');
@@ -41,9 +47,9 @@ function parseSvg(svgData: string): IconifyIconStructure {
 }
 
 /**
- * 自定义的svg图片转化为组件
- * @example ./svg/avatar.svg
- * <Icon icon="svg:avatar"></Icon>
+ * 通过 import.meta.glob 加载所有 SVG 文件并逐一注册到 Iconify。
+ *
+ * @example ./svg/avatar.svg → <Icon icon="svg:avatar" />
  */
 async function loadSvgIcons() {
   const svgEagers = import.meta.glob('./icons/**', {

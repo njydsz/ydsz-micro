@@ -1,5 +1,13 @@
 /**
- * icons 模块
+ * 图标选择器的图标数据源：从 Iconify 拉取图标集并按前缀缓存。
+ *
+ * 存在的意义是把「图标数据获取」从选择器组件中剥离，顺带解决两个问题：
+ * - **并发去重**：页面上常有多个图标选择器同时指向同一图标集，
+ *   用 PENDING_REQUESTS 缓存 Promise 本身（而非结果），让并发调用共享一次网络请求；
+ * - **跨实例共享**：ICONS_MAP 是模块级缓存，一次会话内同一前缀只拉一次，
+ *   重复开关选择器不再走网络。
+ *
+ * 本模块不感知 Vue，可独立于 UI 层替换为本地图标清单或内网图标服务。
  *
  * @path comm\effects\common-ui\src\components\icon-picker\icons.ts
  * @author ydsz-team

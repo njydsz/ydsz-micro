@@ -1,5 +1,5 @@
 /**
- * 国际化配置入口
+ * 国际化（i18n）对外导出入口，包含延迟绑定的翻译函数与语言包加载工具。
  *
  * @path comm\locales\src\index.ts
  * @author ydsz-team
@@ -17,11 +17,17 @@ import {
 } from "./i18n";
 
 /**
- * 延迟绑定的翻译函数 - 重载签名。
+ * 延迟绑定的翻译函数（重载签名）。
  *
- * @description 避免模块顶层直接绑定 i18n.global.t，确保 i18n 初始化后才调用。
- *   使用显式重载替代 `Parameters<typeof i18n.global.t>`，
- *   避免 TypeScript 将最后一个重载的必填参数误作全签名必填参数。
+ * @remarks
+ * 避免模块顶层直接绑定 i18n.global.t，确保 i18n 初始化后才调用。
+ * 使用显式重载替代 `Parameters<typeof i18n.global.t>`，
+ * 避免 TypeScript 将最后一个重载的必填参数误作全签名必填参数。
+ *
+ * @param key - 翻译键名
+ * @param locale - 目标语言标识（可选）
+ * @param values - 插值参数：命名对象或位置数组（可选）
+ * @returns 翻译后的文本
  */
 
 /** 简单键值翻译（无插值） */
@@ -43,7 +49,10 @@ function $t(...args: unknown[]): string {
 }
 
 /**
- * 检查键是否存在。
+ * 检查指定 key 在当前语言的词条表中是否存在。
+ *
+ * @param key - 翻译键名
+ * @returns 是否存在对应词条
  */
 function $te(key: string): boolean {
   return i18n.global.te(key);

@@ -12,14 +12,7 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type {
-  BroadcastRequestDTO,
-  MessageResult,
-  MsgNotificationVO,
-  NotificationQueryDTO,
-  NotificationSendDTO,
-  PushRealtimeRequestDTO,
-} from './models';
+import type { BroadcastRequestDTO, MessageResult, MsgNotificationVO, NotificationQueryDTO, NotificationSendDTO, PushRealtimeRequestDTO } from './models';
 
 /**
  * send: POST /api/v1/message/notifications/send
@@ -32,12 +25,9 @@ export function send(data: NotificationSendDTO): Promise<number> {
  * inbox: GET /api/v1/message/notifications/inbox
  */
 export function inbox(params: {
-  query?: NotificationQueryDTO;
-}): Promise<PageResponse<MsgNotificationVO[]>> {
-  return requestClient.get<PageResponse<MsgNotificationVO[]>>(
-    `/api/v1/message/notifications/inbox`,
-    { params },
-  );
+    query?: NotificationQueryDTO;
+  }): Promise<PageResponse<MsgNotificationVO[]>> {
+  return requestClient.get<PageResponse<MsgNotificationVO[]>>(`/api/v1/message/notifications/inbox`, { params });
 }
 
 /**
@@ -50,7 +40,9 @@ export function countUnread(): Promise<number> {
 /**
  * markRead: POST /api/v1/message/notifications/{id}/read
  */
-export function markRead({ id }: { id: string }): Promise<boolean> {
+export function markRead({ id }: {
+    id: string;
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/notifications/${id}/read`);
 }
 
@@ -71,21 +63,20 @@ export function deleteApi(data: string[]): Promise<void> {
 /**
  * recall: POST /api/v1/message/notifications/{id}/recall
  */
-export function recall({ id }: { id: string }): Promise<boolean> {
+export function recall({ id }: {
+    id: string;
+  }): Promise<boolean> {
   return requestClient.post<boolean>(`/api/v1/message/notifications/${id}/recall`);
 }
 
 /**
  * push: POST /api/v1/message/notifications/push
  */
-export function push(
-  params: {
+export function push(params: {
     userId?: string;
     type?: string;
-  },
-  data: PushRealtimeRequestDTO,
-): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/v1/message/notifications/push`, data, { params });
+  }, data: PushRealtimeRequestDTO): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/v1/message/notifications/push`, data, { params });
 }
 
 /**

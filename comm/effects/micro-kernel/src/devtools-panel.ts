@@ -25,6 +25,7 @@ import { clearKernelMarks } from "./performance-utils";
 import { refreshRegistry } from "./registry-adapter";
 import {
   clearCustomTabs,
+  getRegisteredTabs,
   renderTabButton,
   renderTabContent,
   setActiveTab,
@@ -92,7 +93,7 @@ function bindPanelEvents(el: HTMLDivElement): void {
     const tabId = target.dataset.tab;
     if (tabId) {
       const tabs = getRegisteredTabs();
-      if (tabs.some((t) => t.id === tabId)) {
+      if (tabs.some((tab: { id: string }) => tab.id === tabId)) {
         setActiveTab(tabId);
         refreshPanel(el);
         return;

@@ -31,9 +31,10 @@ import {
 const _logger = createLogger('Tabbar');
 
 /**
- * @zh_CN 固定标签页
- * @param ctx
- * @param tab
+ * 将标签页固定到标签栏前端（带 affix 标记并按 affixTabOrder 排序）。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 待固定的标签页
  */
 export async function pinTab(ctx: TabbarStoreContext, tab: TabDefinition) {
   const index = ctx.tabs.value.findIndex((item) => equalTab(item, tab));
@@ -53,9 +54,10 @@ export async function pinTab(ctx: TabbarStoreContext, tab: TabDefinition) {
 }
 
 /**
- * @zh_CN 取消固定标签页
- * @param ctx
- * @param tab
+ * 取消标签页的固定状态，将其移回常规标签区域末尾。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 待取消固定的标签页
  */
 export async function unpinTab(ctx: TabbarStoreContext, tab: TabDefinition) {
   const index = ctx.tabs.value.findIndex((item) => equalTab(item, tab));
@@ -75,9 +77,10 @@ export async function unpinTab(ctx: TabbarStoreContext, tab: TabDefinition) {
 }
 
 /**
- * @zh_CN 切换固定标签页
- * @param ctx
- * @param tab
+ * 切换标签页的固定/非固定状态。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 目标标签页
  */
 export async function toggleTabPin(
   ctx: TabbarStoreContext,
@@ -89,9 +92,10 @@ export async function toggleTabPin(
 }
 
 /**
- * @zh_CN 重置标签页标题
- * @param ctx
- * @param tab
+ * 重置标签页标题为路由元信息中的原标题（清除 newTabTitle）。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 目标标签页
  */
 export async function resetTabTitle(
   ctx: TabbarStoreContext,
@@ -108,9 +112,10 @@ export async function resetTabTitle(
 }
 
 /**
- * 设置固定标签页
- * @param ctx
- * @param routeTabs
+ * 批量标记路由为固定标签页并添加到标签栏。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param routeTabs - 需固定的路由记录数组
  */
 export function setAffixTabs(
   ctx: TabbarStoreContext,

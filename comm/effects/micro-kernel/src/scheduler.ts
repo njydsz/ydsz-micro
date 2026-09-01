@@ -9,7 +9,7 @@
  * 本模块为向后兼容的统一入口，所有导出均可从本模块直接导入。
  * 新功能建议直接引用子模块。
  *
- * @path comm/effects/micro-kernel/src/scheduler.ts
+ * @path comm\effects\micro-kernel\src\scheduler.ts
  * @author ydsz-team
  * @since 3.0.0
  */

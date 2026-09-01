@@ -1,5 +1,5 @@
 /**
- * merge 工具函数模块
+ * 基于 defu 构建的深合并工具集，支持数组整体替换语义。
  *
  * @path comm\@core\base\shared\src\utils\merge.ts
  * @author ydsz-team

@@ -137,21 +137,24 @@ export const useTabbarStore = defineStore(
     // ─── 保持内联的极简动作（仅一行委托，无需独立文件） ───
 
     /**
-     * @zh_CN 新窗口打开标签页
-     * @param tab
+     * 在新浏览器窗口中打开标签页对应路由。
+     *
+     * @param tab - 目标标签页
      */
     async function openTabInNewWindow(tab: TabDefinition) {
       openRouteInNewWindow(tab.fullPath || tab.path);
     }
 
     /**
-     * @zh_CN 更新菜单列表
-     * @param list
+     * 更新标签右键菜单项列表。
+     *
+     * @param list - 菜单项标识数组（如 ['close', 'reload']）
      */
     function setMenuList(list: string[]) {
       menuList.value = list;
     }
 
+    /** 触发 watchers 重新执行的时间戳更新（用于性能敏感场景替代 deep watch）。 */
     function setUpdateTime() {
       updateTime.value = Date.now();
     }

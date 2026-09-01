@@ -1,5 +1,17 @@
 /**
- * directive 模块
+ * `v-loading` / `v-spinning` 两个遮罩指令的实现。
+ *
+ * 为什么用指令而不是组件：遮罩的诉求是「给任意已有元素盖一层 loading」，
+ * 用组件需要业务方在模板里额外包一层并自己维护 v-if；指令则直接在宿主元素上
+ * 叠加，不侵入 DOM 结构，也不要求宿主是组件。
+ *
+ * 实现要点：
+ * - 用 `h()` + `render()` 手动把遮罩组件挂载到宿主元素，因此指令与具体组件解耦，
+ *   两个指令分别对应 YDSZLoading（全屏/区域遮罩）与 YDSZSpinner（行内小图标）；
+ * - 实例句柄存在元素的 Symbol 属性上，`unmounted` 时 `render(null, el)` 卸载，
+ *   避免指令卸载后组件残留；
+ * - 宿主元素会被加上 `spinner-parent--relative`，因为遮罩是绝对定位，
+ *   宿主若非定位上下文，遮罩会溢出到最近的定位祖先。
  *
  * @path comm\effects\common-ui\src\components\loading\directive.ts
  * @author ydsz-team

@@ -6,7 +6,7 @@
  *   2. 应用入口注册开关定义 defineFeatureFlags([...])
  *   3. 组件中 useFeatureFlag('new-dashboard') 读取响应式状态
  *
- * @path comm/@core/feature-flags/src/index.ts
+ * @path comm\@core\feature-flags\src\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -5,6 +5,8 @@
  * @description 检查项目架构规范，确保模块依赖方向正确（分层约束）。
  *              2026-08-24 重构：修复 glob 匹配退化问题，基于「源文件目录前缀 + import specifier 前缀」双层判定，
  *              并默认递归收集 main/apps/comm 下全部源码文件。
+ *
+ * @path bash\vsh\src\check-arch\index.ts
  */
 
 import { readFileSync } from 'node:fs';

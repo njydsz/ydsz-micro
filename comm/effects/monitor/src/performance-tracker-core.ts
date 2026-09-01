@@ -122,8 +122,6 @@ export function trackAppLoadEnd(appName: string, _fromCache = false): void {
   measure(`load:${appName}`, `load_${appName}_start`, `load_${appName}_end`);
 
   if (checkEnabled()) {
-    const _startMark = `${MARK_PREFIX}load_${appName}_start`;
-    const _endMark = `${MARK_PREFIX}load_${appName}_end`;
     try {
       const measures = performance.getEntriesByName(`${MARK_PREFIX}load:${appName}`);
       const lastMeasure = measures[measures.length - 1];

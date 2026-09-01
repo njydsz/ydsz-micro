@@ -33,7 +33,7 @@
       "persistent": true
     },
     "type-check": {
-      "dependsOn": ["^build"],
+      "dependsOn": [],
       "outputs": []
     }
   }

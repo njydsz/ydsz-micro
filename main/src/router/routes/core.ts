@@ -1,5 +1,5 @@
 /**
- * 核心路由配置（根路由 + 404 兜底）
+ * 核心路由定义 —— 根路由、认证页子路由与全局 404 兜底路由
  *
  * @path main\src\router\routes\core.ts
  * @author ydsz-team

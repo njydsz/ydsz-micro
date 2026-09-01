@@ -19,7 +19,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect, ElSlider } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
-import { createDag, updateDag, validateDag } from '#/api/job-dag';
+import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
 
 interface Props {

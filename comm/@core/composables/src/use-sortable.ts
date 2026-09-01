@@ -1,5 +1,5 @@
 /**
- * use-sortable 组合式函数
+ * 基于 sortablejs 的拖拽排序组合式函数，动态加载依赖以优化首屏体积。
  *
  * @path comm\@core\composables\src\use-sortable.ts
  * @author ydsz-team

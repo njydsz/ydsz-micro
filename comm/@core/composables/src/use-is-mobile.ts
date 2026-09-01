@@ -1,5 +1,5 @@
 /**
- * use-is-mobile 组合式函数
+ * 响应式移动端视口判定组合式函数。
  *
  * @path comm\@core\composables\src\use-is-mobile.ts
  * @author ydsz-team

@@ -1,5 +1,5 @@
 /**
- * 子应用双模式入口工厂（P2-1 独立运行模式产品化）
+ * 子应用双模式入口工厂（已废弃）。
  *
  * 提供统一的子应用定义入口，自动检测运行环境并选择合适的启动方式：
  *
@@ -13,26 +13,7 @@
  *      `defineSubApp` 自动检测微内核不存在并自启动（bootstrap + mount）
  *    - 使用独立路由（`/` 而非 `/YDSZ-xxx/`），注入 Mock 数据层
  *
- * 使用方式：
- * ```ts
- * // apps/your-app/src/main.ts
- * import { defineSubApp } from '@ydsz/micro-runtime/define-sub-app';
- *
- * export const { bootstrap, mount, unmount, update } = defineSubApp({
- *   appName: 'your-app',
- *   basename: '/YDSZ-your',
- *   autoBootstrap: true, // 允许独立运行时自启动
- *   onSetup: async (app) => {
- *     // 自定义初始化
- *   },
- * });
- * ```
- *
- * 工作原理：
- * - 检测 `window.__MICRO_KERNEL__.getAppInstance('your-app')` 是否存在
- * - 存在 → 微前端模式，仅导出 lifecycle hooks
- * - 不存在 + `autoBootstrap=true` → 独立模式，直接创建 Vue app 挂载
- *
+ * @deprecated 统一迁移至 `@ydsz/shared-auth` 的 `createSubApp`（唯一子应用入口工厂）
  * @path comm/effects/micro-runtime/src/define-sub-app.ts
  * @author ydsz-team
  * @since 4.0.0
@@ -115,6 +96,24 @@ export function isMicroFrontendEnvironment(appName: string): boolean {
 /**
  * 子应用双模式入口工厂。
  *
+ * ::: danger 已废弃 :::
+ *
+ * 本工厂的微前端模式 lifecycle 为**空壳实现**（mount/unmount 无实际逻辑），
+ * 与 `@ydsz/shared-auth` 的 `createSubApp` 职责重叠且会造成误用——
+ * 两个入口工厂并存曾导致「新子应用误用空壳工厂后 kernel 挂载无效」的隐患。
+ *
+ * **请迁移至统一入口 `@ydsz/shared-auth` 的 `createSubApp`**：
+ * ```ts
+ * import { createSubApp } from '@ydsz/shared-auth';
+ * export const { bootstrap, mount, unmount, update } = createSubApp({
+ *   appName: 'my-app', basename: '/YDSZ-my', routes, rootComponent,
+ * });
+ * ```
+ * 独立运行自启动能力 `createSubApp` 已内建（非微前端环境自动挂载）。
+ * 本函数将在下一个大版本移除。
+ *
+ * :::
+ *
  * 当运行在微前端容器内时，仅导出 lifecycle hooks 供 kernel 调用。
  *
  * 当 `autoBootstrap=true` 且不在微前端容器内时，
@@ -123,6 +122,7 @@ export function isMicroFrontendEnvironment(appName: string): boolean {
  *
  * @param options - 配置选项
  * @returns 子应用生命周期钩子（bootstrap / mount / unmount / update）
+ * @deprecated 迁移至 `@ydsz/shared-auth` 的 `createSubApp`（唯一子应用入口工厂）
  *
  * @example
  * ```ts

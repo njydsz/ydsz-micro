@@ -40,17 +40,16 @@ export type {
 export {
   MICRO_PROPS_KEY,
   provideMicroProps,
-  useGlobalStateEnhanced,
   useMessageBus,
   useMicroProps,
   useNamespace,
-  useNamespaceState,
   useSubAppContext,
 } from "./use-micro-props";
 
 // v3.7: 直接导出 MicroAppEntry 避免外部从 conf/vite-config 反向依赖
 export type { MicroAppEntry } from "./types";
 
-// v4.0 P2-1: 子应用双模式入口工厂（微前端模式导出 + 独立运行自启动）
+// v4.0 P2-1: 子应用双模式入口工厂（已废弃 — 统一迁移至 @ydsz/shared-auth 的 createSubApp，
+// 该工厂的微前端 lifecycle 为空壳实现，与 shared-auth 的真实工厂职责重叠，下个大版本移除）
 export { defineSubApp, isMicroFrontendEnvironment } from "./define-sub-app";
 export type { SubAppLifecycle, DefineSubAppOptions } from "./define-sub-app";

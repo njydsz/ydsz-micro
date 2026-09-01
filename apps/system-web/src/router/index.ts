@@ -4,6 +4,7 @@
  * <p>注册路由守卫、动态路由、滚动行为等。
  * <p>供 {@code main.ts} 注入到 Vue App 使用。
  *
+ * @path apps\system-web\src\router\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

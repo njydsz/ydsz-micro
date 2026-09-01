@@ -17,10 +17,10 @@ import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from './model
  * loadPanel: GET /api/v1/workflow/embedded/panel
  */
 export function loadPanel(params: {
-  businessType?: string;
-  businessId?: string;
-  userId?: string;
-}): Promise<EmbeddedApprovalViewDTO> {
+    businessType?: string;
+    businessId?: string;
+    userId?: string;
+  }): Promise<EmbeddedApprovalViewDTO> {
   return requestClient.get<EmbeddedApprovalViewDTO>(`/api/v1/workflow/embedded/panel`, { params });
 }
 
@@ -34,18 +34,9 @@ export function quickAction(data: EmbeddedApprovalActionDTO): Promise<void> {
 /**
  * quickActionByPath: POST /api/v1/workflow/embedded/{businessType}/{businessId}/action
  */
-export function quickActionByPath(
-  {
-    businessType,
-    businessId,
-  }: {
+export function quickActionByPath({ businessType, businessId }: {
     businessType: string;
     businessId: string;
-  },
-  data: EmbeddedApprovalActionDTO,
-): Promise<void> {
-  return requestClient.post<void>(
-    `/api/v1/workflow/embedded/${businessType}/${businessId}/action`,
-    data,
-  );
+  }, data: EmbeddedApprovalActionDTO): Promise<void> {
+  return requestClient.post<void>(`/api/v1/workflow/embedded/${businessType}/${businessId}/action`, data);
 }

@@ -65,7 +65,7 @@ function prunePerformanceEntries(): void {
       // 按时间戳升序排列，删除最旧的
       kernelMarks.sort((a, b) => a.startTime - b.startTime);
       for (let i = 0; i < overflow; i++) {
-        performance.clearMarks(kernelMarks[i].name);
+        performance.clearMarks(kernelMarks[i]?.name);
       }
     }
 
@@ -75,7 +75,7 @@ function prunePerformanceEntries(): void {
       const overflow = kernelMeasures.length - MAX_MEASURE_ENTRIES;
       kernelMeasures.sort((a, b) => a.startTime - b.startTime);
       for (let i = 0; i < overflow; i++) {
-        performance.clearMeasures(kernelMeasures[i].name);
+        performance.clearMeasures(kernelMeasures[i]?.name);
       }
     }
   } catch {

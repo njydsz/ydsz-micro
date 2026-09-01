@@ -80,4 +80,5 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
+/** Literule 规则引擎路由配置（子应用内部路由表） */
 export default routes;

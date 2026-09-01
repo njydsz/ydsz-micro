@@ -1,5 +1,5 @@
 /**
- * vue-router.d 模块
+ * 路由元信息、路由记录与菜单路由生成选项类型定义。
  *
  * @path comm\@core\base\typings\src\vue-router.d.ts
  * @author ydsz-team

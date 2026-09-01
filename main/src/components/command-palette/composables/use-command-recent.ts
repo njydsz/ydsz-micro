@@ -1,9 +1,7 @@
 /**
- * use-command-recent.ts — 最近访问记录管理
+ * 最近访问记录管理 —— 基于 localStorage 持久化命令面板最近访问项
  *
- * 提供最近访问项的加载、保存、记录功能。
- *
- * @path main/src/components/command-palette/composables/use-command-recent.ts
+ * @path main\src\components\command-palette\composables\use-command-recent.ts
  * @author ydsz-team
  * @since 4.1.0
  */

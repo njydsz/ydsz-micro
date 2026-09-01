@@ -4,6 +4,7 @@
  * 子应用无需重复实现 commonGuard / authGuard / permissionGuard / initRoutes，
  * 直接传入本应用的 accessRoutes 即可。
  *
+ * @path apps\system-web\src\router\guard.ts
  * @author ydsz-team
  * @since 2.0.0
  */

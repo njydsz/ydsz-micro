@@ -1,5 +1,8 @@
 /**
- * use-watermark 组合式函数
+ * 基于 watermark-js-plus 的水印组合式函数，支持独立实例化管理。
+ *
+ * 每次调用创建独立的水印实例，通过 updateWatermark 动态修改配置，
+ * 组件卸载时自动销毁，避免多组件共享实例导致的冲突。
  *
  * @path comm\effects\hooks\src\use-watermark.ts
  * @author ydsz-team
@@ -42,8 +45,18 @@ const DEFAULT_OPTIONS: Partial<WatermarkOptions> = {
 };
 
 /**
- * 水印组合式函数
- * @description 每次调用创建独立的水印实例，避免多组件冲突
+ * 水印组合式函数。
+ *
+ * @returns
+ * - `watermark` —— 只读的水印实例 ref
+ * - `updateWatermark` —— 创建或更新水印配置
+ * - `destroyWatermark` —— 销毁当前水印实例
+ *
+ * @example
+ * ```ts
+ * const { watermark, updateWatermark } = useWatermark();
+ * await updateWatermark({ content: '公司名称' });
+ * ```
  */
 export function useWatermark() {
   const watermark = ref<Watermark>();

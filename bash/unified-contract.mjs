@@ -2,13 +2,18 @@
  * 统一契约生成入口
  *
  * <p>合并 gen-api.mjs 与 gen-contract.py 为单一入口，消除双轨制漂移风险。
- * 优先使用运行时 OpenAPI spec（后端服务运行中），降级使用静态提取。
+ * 默认读取后端构建产物（target/openapi/*.json），无需后端服务运行。
+ * 可选 --live 模式从运行时 /v3/api-docs 拉取（对应开发联调场景）。
  *
  * <p>使用方式:
- *   pnpm gen:api              # 生成全部 SDK
+ *   pnpm gen:api              # 默认模式：从后端构建产物读取 spec，生成全部 SDK
  *   pnpm gen:api workflow     # 仅生成 workflow-web 的 SDK
  *   pnpm gen:api --check      # CI 模式：仅检查（有漂移则失败）
- *   pnpm gen:api --static     # 强制使用静态提取（不依赖后端运行）
+ *   pnpm gen:api --live       # 运行时模式：从运行中的后端服务拉取 spec
+ *   pnpm gen:api --static     # 强制静态提取（从 Java 源码解析，降级兜底）
+ *
+ * <p>环境变量:
+ *   YDSZ_OPENAPI_ROOT  后端仓库根目录（CI 注入；默认本机 D:\Code\open\ydsz-cloud）
  *
  * <p>产出:
  *   1. apps/{app}/src/api/sdk/schema.d.ts      —— 完整类型定义（paths + components + operations）
@@ -16,10 +21,11 @@
  *   3. apps/{app}/src/api/sdk/types-export.ts  —— 命名类型别名导出
  *   4. apps/{app}/src/api/sdk/.api-contract.lock —— 契约 hash 快照
  *
- * @path bash/unified-contract.mjs
+ * @path bash\unified-contract.mjs
  * @author ydsz-team
  * @since 4.0.0
  * @see docs/云顶编码规范.md 第 6 章 API 请求规范
+ * @see docs/OPENAPI_SPEC_GUIDE.md 后端构建期 spec 生成指南
  */
 
 import { execSync } from 'node:child_process';
@@ -31,26 +37,60 @@ import { createHash } from 'node:crypto';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
+/** 后端仓库根目录（静态模式读取 target/openapi/*.json） */
+const CLOUD_ROOT = process.env.YDSZ_OPENAPI_ROOT || 'D:\\Code\\open\\ydsz-cloud';
+
 /**
  * 后端微服务 → 前端子应用 映射表。
  *
  * <p>key:   子应用名（与 apps/ 和 MICRO_APPS 注册名一致）
- * <p>spec:  后端 OpenAPI 规范地址（运行时）
+ * <p>live:   运行时 OpenAPI 规范地址（--live 模式使用）
+ * <p>local:  构建产物路径（默认模式，相对于 CLOUD_ROOT）
  * <p>output: SDK 产物输出目录（相对于项目根）
  */
 const SERVICE_MAP = {
-  userinfo: { spec: 'http://localhost:9002/v3/api-docs', output: 'apps/userinfo-web/src/api/sdk' },
-  system: { spec: 'http://localhost:9001/v3/api-docs', output: 'apps/system-web/src/api/sdk' },
-  message: { spec: 'http://localhost:9004/v3/api-docs', output: 'apps/message-web/src/api/sdk' },
-  cronjob: { spec: 'http://localhost:9006/v3/api-docs', output: 'apps/cronjob-web/src/api/sdk' },
-  workflow: { spec: 'http://localhost:9005/v3/api-docs', output: 'apps/workflow-web/src/api/sdk' },
-  nextwiki: { spec: 'http://localhost:9003/v3/api-docs', output: 'apps/nextwiki-web/src/api/sdk' },
-  literule: { spec: 'http://localhost:9007/v3/api-docs', output: 'apps/literule-web/src/api/sdk' },
-  agent: { spec: 'http://localhost:9008/v3/api-docs', output: 'apps/agent-web/src/api/sdk' },
+  userinfo: {
+    live: 'http://localhost:9002/v3/api-docs',
+    local: 'ydsz-userinfo/ydsz-userinfo-web/target/openapi/openapi.json',
+    output: 'apps/userinfo-web/src/api/sdk',
+  },
+  system: {
+    live: 'http://localhost:9001/v3/api-docs',
+    local: 'ydsz-system/ydsz-system-web/target/openapi/openapi.json',
+    output: 'apps/system-web/src/api/sdk',
+  },
+  message: {
+    live: 'http://localhost:9004/v3/api-docs',
+    local: 'ydsz-message/ydsz-message-web/target/openapi/openapi.json',
+    output: 'apps/message-web/src/api/sdk',
+  },
+  cronjob: {
+    live: 'http://localhost:9006/v3/api-docs',
+    local: 'ydsz-cronjob/ydsz-cronjob-web/target/openapi/openapi.json',
+    output: 'apps/cronjob-web/src/api/sdk',
+  },
+  workflow: {
+    live: 'http://localhost:9005/v3/api-docs',
+    local: 'ydsz-workflow/ydsz-workflow-web/target/openapi/openapi.json',
+    output: 'apps/workflow-web/src/api/sdk',
+  },
+  nextwiki: {
+    live: 'http://localhost:9003/v3/api-docs',
+    local: 'ydsz-nextwiki/ydsz-nextwiki-web/target/openapi/openapi.json',
+    output: 'apps/nextwiki-web/src/api/sdk',
+  },
+  literule: {
+    live: 'http://localhost:9007/v3/api-docs',
+    local: 'ydsz-literule/ydsz-literule-web/target/openapi/openapi.json',
+    output: 'apps/literule-web/src/api/sdk',
+  },
+  agent: {
+    live: 'http://localhost:9008/v3/api-docs',
+    local: 'ydsz-agent/ydsz-agent-web/target/openapi/openapi.json',
+    output: 'apps/agent-web/src/api/sdk',
+  },
 };
 
-/** 后端仓库根目录（静态提取模式使用） */
-const CLOUD_ROOT = process.env.YDSZ_CLOUD_ROOT || 'D:\\Code\\open\\ydsz-cloud';
 
 /**
  * 为生成的 SDK 计算稳定 hash，输出到 .api-contract.lock
@@ -307,6 +347,7 @@ async function main() {
   const args = process.argv.slice(2);
   const isCheck = args.includes('--check');
   const isStatic = args.includes('--static');
+  const isLive = args.includes('--live');
   const targetName = args.find((a) => !a.startsWith('--'));
 
   const targets = targetName
@@ -318,58 +359,80 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(
-    `[gen:api] ${isCheck ? 'CI 契约检查模式' : '生成 SDK 模式'}，共 ${targets.length} 个服务\n`,
-  );
+  const modeLabel = isLive ? '运行时模式 (--live)' : isStatic ? '静态提取模式 (--static)' : '构建产物模式 (默认)';
+  console.log(`[gen:api] ${isCheck ? 'CI 契约检查' : '生成 SDK'} — ${modeLabel}，共 ${targets.length} 个服务\n`);
 
   let hasChanges = false;
   let hasErrors = false;
 
-  for (const [name, { spec, output }] of targets) {
+  for (const [name, { live, local, output }] of targets) {
     const outDir = join(ROOT, output);
     const oldHash = readLockHash(output);
 
-    console.log(`[${name}] ${spec}`);
+    console.log(`[${name}] ${isLive ? live : local}`);
 
     let success = false;
+    let specData = '';
 
-    // 1. 尝试运行时获取 OpenAPI spec
-    if (!isStatic) {
-      try {
-        const resp = await fetch(spec, { signal: AbortSignal.timeout(15000) });
-        if (resp.ok) {
-          const specData = await resp.text();
+    // 1. 默认模式：从后端构建产物 target/openapi/ 读取
+    if (!isLive && !isStatic) {
+      const localPath = join(CLOUD_ROOT, local);
+      if (existsSync(localPath)) {
+        try {
+          specData = readFileSync(localPath, 'utf-8');
           mkdirSync(outDir, { recursive: true });
-
-          // 写入 spec 原始文件
-          const specPath = join(outDir, 'openapi.json');
-          writeFileSync(specPath, specData);
-
-          // 使用 openapi-typescript 生成类型
-          const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-          execSync(
-            `${npxCmd} openapi-typescript "${specPath}" --output "${join(outDir, 'schema.d.ts')}" --export-type`,
-            {
-              cwd: ROOT,
-              stdio: 'pipe',
-            },
-          );
-
-          // 追加 eslint-disable 头
-          const schemaPath = join(outDir, 'schema.d.ts');
-          let schema = readFileSync(schemaPath, 'utf-8');
-          schema = `/* eslint-disable */\n/* auto-generated by pnpm gen:api — DO NOT EDIT */\n${schema}`;
-          writeFileSync(schemaPath, schema);
-
           success = true;
-          console.log(`  ✓ schema.d.ts (runtime)`);
+          console.log(`  ← 读取构建产物: ${localPath}`);
+        } catch (err) {
+          console.log(`  ! 读取构建产物失败: ${err.message}`);
         }
-      } catch {
-        console.log(`  ! 运行时获取失败，尝试静态提取...`);
+      } else {
+        console.log(`  ! 构建产物不存在: ${localPath}`);
+        console.log(`  ! 提示: 请先在 ydsz-cloud 执行 mvn compile -P openapi-spec 生成 spec`);
       }
     }
 
-    // 2. 降级使用静态提取
+    // 2. --live 模式：运行时 HTTP 获取
+    if (!success && isLive) {
+      try {
+        const resp = await fetch(live, { signal: AbortSignal.timeout(15000) });
+        if (resp.ok) {
+          specData = await resp.text();
+          mkdirSync(outDir, { recursive: true });
+          success = true;
+          console.log(`  ← 运行时获取: ${live}`);
+        }
+      } catch {
+        console.log(`  ! 运行时获取失败: ${live}`);
+      }
+    }
+
+    // 3. 写入 openapi.json + openapi-typescript 生成 schema
+    if (success) {
+      try {
+        const specPath = join(outDir, 'openapi.json');
+        writeFileSync(specPath, specData);
+
+        const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+        execSync(
+          `${npxCmd} openapi-typescript "${specPath}" --output "${join(outDir, 'schema.d.ts')}" --export-type`,
+          { cwd: ROOT, stdio: 'pipe' },
+        );
+
+        // 追加 eslint-disable 头
+        const schemaPath = join(outDir, 'schema.d.ts');
+        let schema = readFileSync(schemaPath, 'utf-8');
+        schema = `/* eslint-disable */\n/* auto-generated by pnpm gen:api — DO NOT EDIT */\n${schema}`;
+        writeFileSync(schemaPath, schema);
+
+        console.log(`  ✓ schema.d.ts`);
+      } catch (err) {
+        console.error(`  ✗ openapi-typescript 转换失败: ${err.message}`);
+        success = false;
+      }
+    }
+
+    // 4. 降级使用静态提取（从 Java 源码解析）
     if (!success) {
       success = useStaticExtraction(name);
     }
@@ -380,19 +443,19 @@ async function main() {
       continue;
     }
 
-    // 3. 生成命名类型别名导出
+    // 5. 生成命名类型别名导出
     generateTypesExport(outDir, name);
 
-    // 4. 生成 SDK 客户端入口
+    // 6. 生成 SDK 客户端入口
     generateSdkIndex(outDir, name);
 
-    // 5. 生成 models.ts
+    // 7. 生成 models.ts
     generateModels(outDir, name);
 
-    // 6. 写入 lock 文件
+    // 8. 写入 lock 文件
     writeLockFile(name, output);
 
-    // 7. CI 模式：检查是否有变更
+    // 9. CI 模式：检查是否有变更
     if (isCheck) {
       const newHash = readLockHash(output);
       if (oldHash !== newHash && oldHash) {

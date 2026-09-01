@@ -1,5 +1,13 @@
 /**
- * use-extra-menu 模块
+ * 侧边「双列菜单」的展开与选中状态管理。
+ *
+ * 服务于这样一种布局：侧边栏收窄时只显示一级菜单图标，悬浮或点击后
+ * 在旁侧浮出该一级菜单的子菜单（extra menu）。这里负责维护
+ * 「当前浮出的是哪一列」「高亮哪一项」「离开后是否收起」这组联动状态。
+ *
+ * 与 `use-mixed-menu` 的区别：本模块处理侧边栏内部的二级浮出，
+ * `use-mixed-menu` 处理顶部一级 + 侧边二级的混合导航，**不共用状态**——
+ * 两种布局下 `parentLevel` 的取值不同（见下），合并会导致高亮错位。
  *
  * @path comm\effects\layouts\src\basic\menu\use-extra-menu.ts
  * @author ydsz-team

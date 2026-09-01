@@ -6,6 +6,8 @@
  *
  * 退出码：0 = 通过；1 = 存在违规；2 = 执行异常。
  * 零外部依赖，使用 Node 原生 API + 项目内共享解析工具（与 check-circular 复用同一套别名/导入解析）。
+ *
+ * @path bash\vsh\src\check-dep\index.ts
  */
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';

@@ -11,173 +11,32 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
+import type { MsgTraceVO } from './models';
 
 /**
  * getByMsgId: GET /api/v1/message/trace/msg/{msgId}
  */
-export function getByMsgId({
-  msgId,
-}: {
-  msgId: string;
-}): Promise<
-  | 'RECEIVED'
-  | 'CHANNEL_CHECK'
-  | 'ROUTE_MATCHED'
-  | 'CANARY_HIT'
-  | 'SUBSCRIPTION_CHECK'
-  | 'PREFERENCE_CHECK'
-  | 'DEDUP_CHECK'
-  | 'RATE_LIMIT_CHECK'
-  | 'TEMPLATE_LOADED'
-  | 'TEMPLATE_RENDERED'
-  | 'SENSITIVE_FILTERED'
-  | 'PERSISTED'
-  | 'SCHEDULED'
-  | 'AGGREGATED'
-  | 'DISPATCH_START'
-  | 'DISPATCH_SUCCESS'
-  | 'FALLBACK'
-  | 'RETRY'
-  | 'SEND_FAILED'
-  | 'RECEIPT_RECEIVED'
-  | 'RECALLED'
-  | 'CASCADE_SENT'[]
-> {
-  return requestClient.get<
-    | 'RECEIVED'
-    | 'CHANNEL_CHECK'
-    | 'ROUTE_MATCHED'
-    | 'CANARY_HIT'
-    | 'SUBSCRIPTION_CHECK'
-    | 'PREFERENCE_CHECK'
-    | 'DEDUP_CHECK'
-    | 'RATE_LIMIT_CHECK'
-    | 'TEMPLATE_LOADED'
-    | 'TEMPLATE_RENDERED'
-    | 'SENSITIVE_FILTERED'
-    | 'PERSISTED'
-    | 'SCHEDULED'
-    | 'AGGREGATED'
-    | 'DISPATCH_START'
-    | 'DISPATCH_SUCCESS'
-    | 'FALLBACK'
-    | 'RETRY'
-    | 'SEND_FAILED'
-    | 'RECEIPT_RECEIVED'
-    | 'RECALLED'
-    | 'CASCADE_SENT'[]
-  >(`/api/v1/message/trace/msg/${msgId}`);
+export function getByMsgId({ msgId }: {
+    msgId: string;
+  }): Promise<MsgTraceVO[]> {
+  return requestClient.get<MsgTraceVO[]>(`/api/v1/message/trace/msg/${msgId}`);
 }
 
 /**
  * getByTraceId: GET /api/v1/message/trace/trace/{traceId}
  */
-export function getByTraceId({
-  traceId,
-}: {
-  traceId: string;
-}): Promise<
-  | 'RECEIVED'
-  | 'CHANNEL_CHECK'
-  | 'ROUTE_MATCHED'
-  | 'CANARY_HIT'
-  | 'SUBSCRIPTION_CHECK'
-  | 'PREFERENCE_CHECK'
-  | 'DEDUP_CHECK'
-  | 'RATE_LIMIT_CHECK'
-  | 'TEMPLATE_LOADED'
-  | 'TEMPLATE_RENDERED'
-  | 'SENSITIVE_FILTERED'
-  | 'PERSISTED'
-  | 'SCHEDULED'
-  | 'AGGREGATED'
-  | 'DISPATCH_START'
-  | 'DISPATCH_SUCCESS'
-  | 'FALLBACK'
-  | 'RETRY'
-  | 'SEND_FAILED'
-  | 'RECEIPT_RECEIVED'
-  | 'RECALLED'
-  | 'CASCADE_SENT'[]
-> {
-  return requestClient.get<
-    | 'RECEIVED'
-    | 'CHANNEL_CHECK'
-    | 'ROUTE_MATCHED'
-    | 'CANARY_HIT'
-    | 'SUBSCRIPTION_CHECK'
-    | 'PREFERENCE_CHECK'
-    | 'DEDUP_CHECK'
-    | 'RATE_LIMIT_CHECK'
-    | 'TEMPLATE_LOADED'
-    | 'TEMPLATE_RENDERED'
-    | 'SENSITIVE_FILTERED'
-    | 'PERSISTED'
-    | 'SCHEDULED'
-    | 'AGGREGATED'
-    | 'DISPATCH_START'
-    | 'DISPATCH_SUCCESS'
-    | 'FALLBACK'
-    | 'RETRY'
-    | 'SEND_FAILED'
-    | 'RECEIPT_RECEIVED'
-    | 'RECALLED'
-    | 'CASCADE_SENT'[]
-  >(`/api/v1/message/trace/trace/${traceId}`);
+export function getByTraceId({ traceId }: {
+    traceId: string;
+  }): Promise<MsgTraceVO[]> {
+  return requestClient.get<MsgTraceVO[]>(`/api/v1/message/trace/trace/${traceId}`);
 }
 
 /**
  * getByBiz: GET /api/v1/message/trace/biz
  */
 export function getByBiz(params: {
-  bizType?: string;
-  bizId?: string;
-}): Promise<
-  | 'RECEIVED'
-  | 'CHANNEL_CHECK'
-  | 'ROUTE_MATCHED'
-  | 'CANARY_HIT'
-  | 'SUBSCRIPTION_CHECK'
-  | 'PREFERENCE_CHECK'
-  | 'DEDUP_CHECK'
-  | 'RATE_LIMIT_CHECK'
-  | 'TEMPLATE_LOADED'
-  | 'TEMPLATE_RENDERED'
-  | 'SENSITIVE_FILTERED'
-  | 'PERSISTED'
-  | 'SCHEDULED'
-  | 'AGGREGATED'
-  | 'DISPATCH_START'
-  | 'DISPATCH_SUCCESS'
-  | 'FALLBACK'
-  | 'RETRY'
-  | 'SEND_FAILED'
-  | 'RECEIPT_RECEIVED'
-  | 'RECALLED'
-  | 'CASCADE_SENT'[]
-> {
-  return requestClient.get<
-    | 'RECEIVED'
-    | 'CHANNEL_CHECK'
-    | 'ROUTE_MATCHED'
-    | 'CANARY_HIT'
-    | 'SUBSCRIPTION_CHECK'
-    | 'PREFERENCE_CHECK'
-    | 'DEDUP_CHECK'
-    | 'RATE_LIMIT_CHECK'
-    | 'TEMPLATE_LOADED'
-    | 'TEMPLATE_RENDERED'
-    | 'SENSITIVE_FILTERED'
-    | 'PERSISTED'
-    | 'SCHEDULED'
-    | 'AGGREGATED'
-    | 'DISPATCH_START'
-    | 'DISPATCH_SUCCESS'
-    | 'FALLBACK'
-    | 'RETRY'
-    | 'SEND_FAILED'
-    | 'RECEIPT_RECEIVED'
-    | 'RECALLED'
-    | 'CASCADE_SENT'[]
-  >(`/api/v1/message/trace/biz`, { params });
+    bizType?: string;
+    bizId?: string;
+  }): Promise<MsgTraceVO[]> {
+  return requestClient.get<MsgTraceVO[]>(`/api/v1/message/trace/biz`, { params });
 }

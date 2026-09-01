@@ -15,6 +15,10 @@
  * - §15.3 函数行数 ≤50 行
  *
  * 用法：pnpm vsh:check-standard
+ *
+ * @path bash\vsh\src\check-standard\index.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 import { readFileSync, readdirSync, statSync } from 'node:fs';

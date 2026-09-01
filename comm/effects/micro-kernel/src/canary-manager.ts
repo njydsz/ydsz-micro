@@ -14,7 +14,8 @@
  *
  * 本文件保留 CanaryManager 类定义与公开 API，并重新导出类型以保持向后兼容。
  *
- * @path comm/effects/micro-kernel/src/canary-manager.ts
+ * @path comm\effects\micro-kernel\src\canary-manager.ts
+ * @author ydsz-team
  * @since 4.0.0
  */
 

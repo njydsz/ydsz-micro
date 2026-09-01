@@ -88,8 +88,9 @@ export function getMemoryTrend(): MemorySample[] {
  * 设置 keep-alive 实例数（由 scheduler 调用）
  */
 export function setKeepAliveCount(count: number): void {
-  if (memorySamples.length > 0) {
-    memorySamples[memorySamples.length - 1].keepAliveCount = count;
+  const latest = memorySamples[memorySamples.length - 1];
+  if (latest) {
+    latest.keepAliveCount = count;
   }
 }
 

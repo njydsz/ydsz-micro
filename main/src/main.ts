@@ -1,5 +1,5 @@
 /**
- * 应用入口文件，创建并挂载 Vue 实例
+ * 应用入口 —— 负责偏好设置初始化、Vue 实例创建与 Service Worker 注册
  *
  * @path main\src\main.ts
  * @author ydsz-team

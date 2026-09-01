@@ -1,12 +1,7 @@
 /**
- * use-command-keyboard.ts — 命令面板键盘事件管理
+ * 命令面板键盘事件管理 —— 注册 ⌘K/⌘⇧P/Esc 快捷键并分发到对应回调
  *
- * 提供命令面板的键盘快捷键注册与处理功能：
- * - ⌘K / Ctrl+K 打开搜索模式
- * - ⌘⇧P / Ctrl+Shift+P 打开命令模式
- * - Esc 关闭面板
- *
- * @path main/src/components/command-palette/composables/use-command-keyboard.ts
+ * @path main\src\components\command-palette\composables\use-command-keyboard.ts
  * @author ydsz-team
  * @since 4.1.0
  */

@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * 布局内容区组件导出（内容容器 + 加载动画）
  *
  * @path comm\effects\layouts\src\basic\content\index.ts
  * @author ydsz-team

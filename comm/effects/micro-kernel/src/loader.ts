@@ -8,7 +8,7 @@
  *   build 模式：fetch manifest → 注入 CSS → dynamic import ESM entry → 断言生命周期。
  *   dev 模式（M4 修复）：跳过 manifest，直接 dynamic import 子应用 dev server 入口。
  *
- * @path comm/effects/micro-kernel/src/loader.ts
+ * @path comm\effects\micro-kernel\src\loader.ts
  * @author ydsz-team
  * @since 3.0.0
  */
@@ -253,9 +253,10 @@ export async function loadApp(
  * 带超时与指数退避重试的 dynamic import。
  *
  * 使用统一的重试策略（含 jitter），避免惊群效应。
+ * 不支持外部 AbortSignal 透传（调用方应在更高层中止）。
  *
  * @param url - ESM 模块 URL
- * @param opts - 超时/重试配置
+ * @param opts - 超时/重试配置（外部 AbortSignal 叠加于内部超时之上）
  * @returns 导入的模块对象
  */
 async function importWithRetry(
@@ -301,9 +302,14 @@ async function importWithRetry(
 }
 
 /**
- * 带重试的 fetch 包装。
+ * 带重试的 fetch/manifest 拉取包装。
  *
  * 使用统一的重试策略（含 jitter），避免惊群效应。
+ * 仅重试网络级错误（HTTP 4xx/5xx 不重试，视为确定性失败）。
+ *
+ * @param fn - 实际拉取函数
+ * @param opts - 超时/重试配置
+ * @param label - 用于日志的标识字符串
  */
 async function fetchWithRetry<T>(
   fn: () => Promise<T>,
@@ -347,7 +353,7 @@ export function setCspNonce(nonce?: string): void {
   cspNonce = nonce || undefined;
 }
 
-/** 获取当前 CSP nonce（内部使用） */
+/** 获取当前 CSP nonce（loader 内部使用） */
 function getCspNonce(): string | undefined {
   return cspNonce;
 }
@@ -474,7 +480,14 @@ async function verifyEntryIntegrity(manifest: Manifest, signal?: AbortSignal): P
   logger.debug(`Strict integrity verified for ${manifest.entry}`);
 }
 
-/** 断言模块导出 mount 方法（必需）和 unmount（必需） */
+/**
+ * 断言 ESM 模块导出 mount 与 unmount 生命周期钩子（均为必需）。
+ *
+ * 缺失任一方法时抛出 LIFECYCLE_MISSING，由 error-boundary 兜底降级。
+ *
+ * @param module - dynamic import 解析后的模块对象
+ * @param appName - 子应用名（用于错误信息）
+ */
 function assertLifecycle(module: Record<string, unknown>, appName: string): void {
   if (typeof module.mount !== 'function') {
     throw new KernelError(

@@ -1,5 +1,5 @@
 /**
- * message API 接口定义 — 消息送达回执 / 模板版本历史（ydsz-message）
+ * 消息 API —— 消息送达回执与模板版本历史接口定义（ydsz-message）
  *
  * 对齐后端 ydsz-message 模块的接口：
  * - GET  /api/v1/message/receipt/{logId}                      按日志ID查询送达回执（ReceiptController）

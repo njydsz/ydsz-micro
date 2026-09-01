@@ -1,5 +1,5 @@
 /**
- * menu API 接口定义
+ * 菜单 API —— 获取用户可访问菜单树与全量菜单树接口定义
  *
  * @path main\src\api\core\menu.ts
  * @author ydsz-team

@@ -35,7 +35,7 @@ type KeyChangeListener<K, V> = (value: V, prevValue: V, key: K) => void;
  *
  * @since 4.4.1
  */
-export type GlobalStateAPI<T = Record<string, unknown>> = ReturnType<
+export type GlobalStateAPI<T extends Record<string, unknown> = Record<string, unknown>> = ReturnType<
   typeof createGlobalStateAPI<T>
 >;
 
@@ -62,7 +62,7 @@ export type GlobalStateAPI<T = Record<string, unknown>> = ReturnType<
  * ```
  */
 export function createGlobalStateAPI<
-  T = Record<string, unknown>,
+  T extends Record<string, unknown> = Record<string, unknown>,
 >(): RawGlobalStateAPI<T> & {
   onKeyChange<K extends keyof T & string>(
     key: K,

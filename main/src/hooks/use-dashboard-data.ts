@@ -1,12 +1,10 @@
 /**
- * Dashboard 数据加载 composable — API 优先，失败/空数据回退到本地默认值
+ * Dashboard 数据加载 composable —— API 优先，失败/空数据回退到本地默认值，确保页面不白屏
  *
- * 设计目标：后端统计接口就绪前页面不白屏、不报错；
  * 后端就绪后自动切换到真实数据（无需改页面代码）。
- * 类型上接受 UI 组件类型（如 AnalysisOverviewItem / WorkbenchProjectItem），
- * 后端字段与 UI 字段通过字段名对齐（title/totalValue/value 等）。
+ * 类型上接受 UI 组件类型，后端字段与 UI 字段通过字段名对齐。
  *
- * @path main/src/hooks/use-dashboard-data.ts
+ * @path main\src\hooks\use-dashboard-data.ts
  * @author ydsz-team
  * @since 4.1.0
  */

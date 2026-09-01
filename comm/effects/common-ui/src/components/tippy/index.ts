@@ -1,5 +1,8 @@
 /**
- * index 模块
+ * Tippy 文字提示组件封装与 v-tippy 指令注册入口
+ *
+ * 提供暗色主题自适应的 Tippy 组件、全局默认配置初始化与指令注册，
+ * 封装 tippy.js 实例管理以适配项目主题切换需求。
  *
  * @path comm\effects\common-ui\src\components\tippy\index.ts
  * @author ydsz-team

@@ -1,5 +1,5 @@
 /**
- * use-priority-value 组合式函数
+ * 可覆盖属性优先级组合式函数：按 插槽 > attrs > props > state 顺序取值。
  *
  * @path comm\@core\composables\src\use-priority-value.ts
  * @author ydsz-team
@@ -36,18 +36,18 @@ export function usePriorityValue<
 
     const standardRawProps = {} as T;
 
-    for (const [key, value] of Object.entries(rawProps)) {
-      standardRawProps[kebabToCamelCase(key) as K] = value;
+    for (const [propKey, propValue] of Object.entries(rawProps)) {
+      standardRawProps[kebabToCamelCase(propKey) as K] = propValue as T[K];
     }
     const propsKey =
       standardRawProps?.[key] === undefined ? undefined : props[key];
 
-    // slot可以关闭
+    // slot可以关闭（slot/attrs/state 均为运行时透传来源，按 unknown 收窄后统一裁决）
     return getFirstNonNullOrUndefined(
-      slots[key as string],
-      attrs[key],
-      propsKey,
-      state?.value?.[key as keyof S],
+      slots[key as string] as unknown,
+      attrs[key] as unknown,
+      propsKey as unknown,
+      state?.value?.[key as unknown as keyof S] as unknown,
     ) as T[K];
   });
 
@@ -94,7 +94,10 @@ export function useForwardPriorityValues<
   return computed(() => {
     const unwrapResult: Record<string, unknown> = {};
     Object.keys(props).forEach((key) => {
-      unwrapResult[key] = unref(computedResult[key]);
+      // 索引收窄：key 来自 props 自身键集合，computedResult 必含对应条目
+      unwrapResult[key] = unref(
+        computedResult[key as keyof typeof computedResult],
+      );
     });
     return unwrapResult as { [K in keyof T]: T[K] };
   });

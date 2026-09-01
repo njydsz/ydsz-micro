@@ -22,7 +22,7 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { page, remove } from '#/api/dict-item';
+import { page, remove } from '#/api/dictItem';
 import type { DictItemPageQuery, DictItemVO, PageQuery } from '#/api/models';
 
 import DictItemForm from './dict-item-form.vue';

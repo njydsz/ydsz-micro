@@ -1,5 +1,14 @@
 /**
- * directive 模块
+ * `v-tippy` 文字提示指令的工厂。
+ *
+ * 存在的理由：tippy.js 是命令式库（需要拿到 DOM 元素后手动 new 实例并在卸载时
+ * destroy），直接在组件里用会散落大量 onMounted / onUnmounted 样板。指令把
+ * 这段生命周期收拢成一处，业务侧写 `v-tippy="'提示文案'"` 即可。
+ *
+ * 与直接引入 tippy 的差异在于本指令额外做了三件适配：
+ * - 修饰符转配置（`v-tippy.top.arrow` → `{ placement: 'top', arrow: true }`）；
+ * - `content` 缺省时回退读取元素的 `title` / `content` 属性；
+ * - 跟随主题切换（由 `isDark` 驱动）。
  *
  * @path comm\effects\common-ui\src\components\tippy\directive.ts
  * @author ydsz-team
