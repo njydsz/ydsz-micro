@@ -10,7 +10,7 @@ import type { ApplicationPluginOptions } from '../typing';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { fs } from '@ydsz/node-utils';
+import { fs, logger } from '@ydsz/node-utils';
 
 import dotenv from 'dotenv';
 
@@ -64,7 +64,7 @@ async function loadEnv<T = Record<string, string>>(
         envConfig = { ...envConfig, ...env };
       }
     } catch (error) {
-      console.error(`Error while parsing ${confFile}`, error);
+      logger.error(`Error while parsing ${confFile}`, error);
     }
   }
   const reg = new RegExp(`^(${match})`);

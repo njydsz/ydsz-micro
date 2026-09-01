@@ -1,5 +1,10 @@
 <!--
- * popover 通用组件
+ * Popover 的一体化封装：把 radix-vue 的 PopoverRoot / Trigger / Content 三段合成单个组件，
+ * 调用方只需给 trigger 与默认两个插槽即可得到定位与样式完备的浮层。
+ *
+ * props 分流设计：class / contentClass / triggerClass / contentProps 属于本项目的样式与配置入口，
+ * 先从 props 中摘出，其余属性原样透传给 PopoverRoot —— 既保留 radix 的全部原生能力，
+ * 又避免调用方的 class 越过 cn() 直接落到浮层容器上、覆盖掉定位所需的原子类。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\popover\popover.vue
  * @author ydsz-team

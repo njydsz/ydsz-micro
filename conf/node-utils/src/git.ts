@@ -7,6 +7,7 @@
  */
 import path from 'node:path';
 
+import { consola as logger } from 'consola';
 import { execa } from 'execa';
 
 export * from '@changesets/git';
@@ -39,7 +40,7 @@ async function getStagedFiles(): Promise<string[]> {
     changedSet.delete('');
     return [...changedSet];
   } catch (error) {
-    console.error('Failed to get staged files:', error);
+    logger.error('Failed to get staged files:', error);
     return [];
   }
 }

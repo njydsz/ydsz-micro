@@ -13,11 +13,14 @@
  *   plugins: [await swPlugin({ appName: 'workflow-web' })]
  *
  * @path conf/vite-config/src/plugin-sw.ts
+ * @author ydsz-team
  * @since 4.0.0
  */
 
 import type { Plugin } from 'vite';
 import type { VitePWAOptions } from 'vite-plugin-pwa';
+
+import { consola as logger } from 'consola';
 
 /** Service Worker 插件配置选项 */
 export interface SWPluginOptions {
@@ -125,7 +128,7 @@ export async function swPlugin(options: SWPluginOptions): Promise<Plugin[]> {
     };
     return [VitePWA(pwaOptions) as Plugin];
   } catch {
-    console.warn(`[sw-plugin] vite-plugin-pwa not installed for ${appName}, skipping SW.`);
+    logger.warn(`vite-plugin-pwa 未安装在 ${appName}，跳过 SW 注册。`);
     return [];
   }
 }

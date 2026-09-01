@@ -12,6 +12,7 @@ import type { DefineApplicationOptions } from '../typing';
 import path, { relative } from 'node:path';
 import { readFileSync } from 'node:fs';
 
+import { consola as logger } from 'consola';
 import { findMonorepoRoot } from '@ydsz/node-utils';
 
 import { NodePackageImporter } from 'sass';
@@ -48,7 +49,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
     const appName = readSubAppName();
     const shareStrategy = readSubAppShareStrategy();
     const sharedDeps = [...getSharedDeps(shareStrategy)];
-    console.info(`[ViteConfig] ImportMap strategy for ${appName || 'unknown'}: ${shareStrategy} (${sharedDeps.length} deps)`);
+    logger.info(`ImportMap strategy for ${appName || 'unknown'}: ${shareStrategy} (${sharedDeps.length} deps)`);
 
     const plugins = await loadApplicationPlugins({
       appTitle,
@@ -102,7 +103,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       try {
         const { viteManifestPlugin } = await import('@ydsz/micro-kernel');
         plugins.push(viteManifestPlugin({ name: subAppName }));
-        console.info(`[ViteConfig] Manifest plugin injected for ${subAppName}`);
+        logger.info(`Manifest plugin 已注入到 ${subAppName}`);
       } catch {
         // micro-kernel 不可用时跳过
       }
@@ -199,7 +200,7 @@ function createCssOptions(injectGlobalScss = true, appName?: string): CSSOptions
     result.postcss = {
       plugins: [microScopedPostcssPlugin({ appName })],
     };
-    console.info(`[ViteConfig] CSS scoping enabled for ${appName}`);
+    logger.info(`CSS 作用域已启用: ${appName}`);
   }
 
   return result;
@@ -305,9 +306,9 @@ function readSubAppShareStrategy(): ShareStrategy {
       return strategy;
     }
     if (strategy !== undefined) {
-      console.warn(
-        `[ViteConfig] Invalid shareStrategy "${strategy}" in package.json; ` +
-        `expected one of ${getAvailableStrategies().join(', ')}. Falling back to 'all'.`,
+      logger.warn(
+        `package.json 中 shareStrategy "${strategy}" 无效；` +
+        `应为 ${getAvailableStrategies().join(', ')} 之一。回退到 'all'。`,
       );
     }
   } catch {

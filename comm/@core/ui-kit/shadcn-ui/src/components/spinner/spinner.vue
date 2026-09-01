@@ -1,5 +1,11 @@
 <!--
- * spinner 通用组件
+ * 全屏级加载指示器：铺满父容器并加背景模糊，用于页面或大区块的整体加载态。
+ *
+ * 与 loading 共用同一套延迟策略：spinning 变为 true 后先等 minLoadingTime（默认 50ms），
+ * 避免快速请求引起的闪屏；关闭时立即隐藏并清掉定时器，
+ * 再由 transitionend 决定是否卸载 DOM，防止动画被中途截断。
+ *
+ * 与 loading 的区别只在呈现层：本组件无文案、带 backdrop-blur，适合盖住整块内容。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\spinner\spinner.vue
  * @author ydsz-team

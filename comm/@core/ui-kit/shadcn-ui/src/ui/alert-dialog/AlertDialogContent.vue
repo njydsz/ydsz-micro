@@ -1,5 +1,12 @@
 <!--
- * AlertDialogContent Vue 组件
+ * 确认对话框的内容容器：负责 Portal 挂载、遮罩、进出场动画与 opened / closed / close 事件。
+ *
+ * modal（默认 true）决定遮罩是否渲染，也决定是否锁滚动；
+ * zIndex 与 overlayBlur 以内联 style 下发，用于叠加多个对话框时逐层抬高、逐层加深背景虚化。
+ *
+ * opened / closed 只在内容容器自身的动画结束时派发（比对 event.target），
+ * 以避免子元素（如按钮）的动画提前触发关闭回调；
+ * centered 为空时走「从顶部滑入」的变体，用于内容较长的确认表单。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\AlertDialogContent.vue
  * @author ydsz-team

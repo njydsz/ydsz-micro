@@ -1,5 +1,9 @@
 <!--
- * select 通用组件
+ * 开箱即用的下拉选择器：在 radix Select 之上补齐本项目最常用的三项能力 ——
+ * options 数组直接渲染（省去逐条手写 SelectItem）、v-model 双向绑定、allowClear 一键清空。
+ *
+ * 清空把 modelValue 置为 undefined 而不是空字符串，
+ * 便于表单校验区分「未选择」与「选中了空值」两种状态。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\select\select.vue
  * @author ydsz-team

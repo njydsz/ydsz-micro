@@ -29,7 +29,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -102,7 +102,15 @@ async function main() {
 
   // 2. jspm generator 解析完整依赖图（存在锁文件时按精确版本安装）
   // 惰性导入：--check 模式不联网也不依赖该包
-  const { Generator } = await import('@jspm/generator');
+  // v4.4.1: @jspm/generator 声明在 @ydsz/vite-config 依赖中，
+  // 从 vite-config 包路径解析导入（bash/ 脚本自身不声明该依赖）
+  const generatorModulePath = path.join(
+    root,
+    'conf/vite-config/node_modules/@jspm/generator/dist/generator.js',
+  );
+  const { Generator } = await import(
+    /* webpackIgnore: true */ pathToFileURL(generatorModulePath).href
+  );
   const lock = readLock();
   if (lock?.deps) {
     console.info(`[sync-shared-deps] 检测到版本锁，按锁定版本安装（--refresh 可重解析）`);

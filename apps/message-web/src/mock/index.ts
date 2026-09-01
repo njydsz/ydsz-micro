@@ -18,6 +18,7 @@ import {
   generateMockHandlers,
   createCrudHandlers,
 } from '@ydsz/mock-service';
+import type { OpenAPISpec } from '@ydsz/mock-service';
 import { createLogger } from '@YDSZ-core/shared/utils';
 import spec from '../api/sdk/openapi.json';
 
@@ -37,7 +38,7 @@ const MESSAGE_STATUSES = ['PENDING', 'SENT', 'DELIVERED', 'FAILED'] as const;
  */
 export async function initMessageMockServer(): Promise<void> {
   // 1. 从 OpenAPI spec 自动生成基础 handlers（覆盖 /api/v1/message/** 92 个端点）
-  const autoHandlers = generateMockHandlers(spec as object, {
+  const autoHandlers = generateMockHandlers(spec as OpenAPISpec, {
     enableDelay: true,
     listSize: 10,
     seed: 12345, // 固定种子，确保可重复

@@ -1,5 +1,8 @@
 <!--
- * AccordionItem Vue 组件
+ * 手风琴的单条目：转发 radix AccordionItem 的 value / disabled 等属性，并统一加下分隔线。
+ *
+ * 分隔线固定在条目底部（border-b）而非顶部，
+ * 这样最后一个条目下方也有一条线，视觉上与紧随其后的内容分区。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\accordion\AccordionItem.vue
  * @author ydsz-team

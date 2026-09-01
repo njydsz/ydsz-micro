@@ -15,6 +15,8 @@
  */
 import type { Plugin } from 'rollup';
 
+import { consola as logger } from 'consola';
+
 /** Bundle Budget 配置选项 */
 export interface BundleBudgetOptions {
   /** 单个 JS chunk 体积上限（字节，gzip 前），默认 512KB */
@@ -123,9 +125,9 @@ export function bundleBudgetPlugin(options: BundleBudgetOptions = {}): Plugin {
       }
 
       if (hasViolation) {
-        console.warn('\n📦 Bundle Budget 校验失败:');
-        console.warn(violations.join('\n'));
-        console.warn(
+        logger.warn('\n📦 Bundle Budget 校验失败:');
+        logger.warn(violations.join('\n'));
+        logger.warn(
           `\n  JS total: ${formatBytes(totalJs)} | CSS total: ${formatBytes(totalCss)}\n`,
         );
 
@@ -134,7 +136,7 @@ export function bundleBudgetPlugin(options: BundleBudgetOptions = {}): Plugin {
           this.error('Bundle budget exceeded — see warnings above.');
         }
       } else {
-        console.info(
+        logger.info(
           `\n📦 Bundle Budget 通过: JS ${formatBytes(totalJs)} | CSS ${formatBytes(totalCss)} | Total ${formatBytes(total)}\n`,
         );
       }

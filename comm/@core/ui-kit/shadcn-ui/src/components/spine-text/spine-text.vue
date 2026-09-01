@@ -1,5 +1,9 @@
 <!--
- * spine-text 通用组件
+ * 流光文字：用径向渐变背景配合 shine 关键帧做扫光，
+ * 再借 bg-clip-text + text-transparent 把渐变裁剪到字形上，用于强调品牌名或关键数值。
+ *
+ * 动画时长与循环次数以内联 style 下发而非写死在 CSS 里，
+ * 让同一套样式可以按不同节奏复用；默认无限循环，纯装饰效果、不承载语义信息。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\spine-text\spine-text.vue
  * @author ydsz-team

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@tanstack/vue-virtual": "catalog:",
+    "@vueuse/core": "catalog:",
     "@YDSZ-core/shared": "workspace:*",
     "@ydsz/common-ui": "workspace:*",
     "@ydsz/locales": "workspace:*",

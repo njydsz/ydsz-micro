@@ -1,5 +1,10 @@
 <!--
- * loading 通用组件
+ * 面板级加载遮罩：绝对定位铺满父容器，用于卡片、表格等局部区域，并支持在转圈下方显示文案。
+ *
+ * minLoadingTime 是本组件的关键设计 —— 请求过快时遮罩一闪而过反而造成视觉抖动，
+ * 因此延迟 minLoadingTime（默认 50ms）后才置 showSpinner；
+ * showSpinner 与 renderSpinner 分为两个状态：先挂载再淡入，
+ * 并按 transitionend 才真正卸载，保证淡出动画能完整播放。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\spinner\loading.vue
  * @author ydsz-team

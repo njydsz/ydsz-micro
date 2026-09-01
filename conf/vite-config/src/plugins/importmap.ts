@@ -21,6 +21,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { Generator } from '@jspm/generator';
+import { consola as logger } from 'consola';
 import { minify } from 'html-minifier-terser';
 
 import {
@@ -95,15 +96,15 @@ async function viteImportMapPlugin(
     if (existsSync(importmapFile)) {
       try {
         selfHostedImportMap = JSON.parse(readFileSync(importmapFile, 'utf-8'));
-        console.debug(`[ImportMap] 使用预生成 importmap: ${importmapFile}`);
+        logger.debug(`使用预生成 importmap: ${importmapFile}`);
       } catch {
         selfHostedImportMap = buildSelfHostedImportMap(importmap || [], selfHostBase);
-        console.warn(`[ImportMap] importmap.json 解析失败，回退到简易映射`);
+        logger.warn(`importmap.json 解析失败，回退到简易映射`);
       }
     } else {
       selfHostedImportMap = buildSelfHostedImportMap(importmap || [], selfHostBase);
-      console.warn(
-        `[ImportMap] 未找到 ${importmapFile}，使用简易映射。运行 \`pnpm sync:shared-deps\` 获取完整依赖图。`,
+      logger.warn(
+        `未找到 ${importmapFile}，使用简易映射。运行 \`pnpm sync:shared-deps\` 获取完整依赖图。`,
       );
     }
   }
@@ -117,7 +118,7 @@ async function viteImportMapPlugin(
     if (cached) {
       resolvedImportMap = cached;
       installed = true; // 标记为已安装，跳过 install hook 的在线安装
-      console.debug(`[ImportMap] Cache hit for key ${cacheKey}, skipping CDN install`);
+      logger.debug(`Cache hit for key ${cacheKey}, skipping CDN install`);
     }
   }
 
@@ -186,8 +187,8 @@ async function viteImportMapPlugin(
         // 自托管模式无需公网安装
         if (selfHostBase) {
           installed = true;
-          console.debug(
-            `[ImportMap] Self-hosted mode → ${selfHostBase} (${importmap?.length ?? 0} deps). Run \`pnpm sync:shared-deps\` to populate.`,
+          logger.debug(
+            `Self-hosted mode → ${selfHostBase} (${importmap?.length ?? 0} deps). Run \`pnpm sync:shared-deps\` to populate.`,
           );
           return null;
         }
@@ -215,7 +216,7 @@ async function viteImportMapPlugin(
         // 未生成importmap时，抛出错误，防止被turbo缓存
         if (!installed && !isSSR) {
           if (installError) {
-            console.error(installError);
+            logger.error(installError);
           }
           throw new Error('Importmap installation failed.');
         }

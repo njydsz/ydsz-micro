@@ -1,5 +1,10 @@
 <!--
- * segmented 通用组件
+ * 分段控制器：基于 Tabs 语义实现单选切换，而不是普通按钮组 ——
+ * 这样能直接获得 tablist / tab 的无障碍语义与键盘左右切换能力。
+ *
+ * 等宽布局由内联 grid-template-columns 按 tabs.length 均分，指示器宽度同为 100/n%，
+ * 分段数量变化时无需改动任何样式；defaultValue 缺省时回退到第一个分段，
+ * 保证组件始终有选中项，避免出现「无高亮」的中间态。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\segmented\segmented.vue
  * @author ydsz-team

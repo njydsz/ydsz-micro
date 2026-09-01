@@ -1,5 +1,10 @@
 <!--
- * tabs-indicator 通用组件
+ * 分段控制器中随选中项滑动的指示块：位置直接消费 radix Tabs 暴露的
+ * --radix-tabs-indicator-position 变量做 translate，宽度默认 w-1/2，
+ * 由父级 segmented 按分段数量以内联 style 覆盖。
+ *
+ * class 先从 props 中剥离再转发，使 absolute / left-0 / translate 等定位原子类
+ * 与调用方自定义样式经 cn() 合并，而不是被整体替换掉。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\segmented\tabs-indicator.vue
  * @author ydsz-team

@@ -16,6 +16,7 @@ import {
   generateMockHandlers,
   createCrudHandlers,
 } from '@ydsz/mock-service';
+import type { OpenAPISpec } from '@ydsz/mock-service';
 import { createLogger } from '@YDSZ-core/shared/utils';
 import spec from '../api/sdk/openapi.json';
 
@@ -29,7 +30,7 @@ const logger = createLogger('SystemMock');
  */
 export async function initSystemMockServer(): Promise<void> {
   // 1. 从 OpenAPI spec 自动生成基础 handlers
-  const autoHandlers = generateMockHandlers(spec as object, {
+  const autoHandlers = generateMockHandlers(spec as OpenAPISpec, {
     enableDelay: true,
     listSize: 10,
     seed: 12345, // 固定种子，确保可重复

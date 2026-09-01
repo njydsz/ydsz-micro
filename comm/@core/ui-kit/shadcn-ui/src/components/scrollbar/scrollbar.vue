@@ -1,5 +1,11 @@
 <!--
- * scrollbar 通用组件
+ * 带滚动边界阴影的滚动容器：在 ScrollArea 之上叠加四边渐变阴影，
+ * 用视觉暗示「还有内容可滚」，避免用户误以为列表已经到底。
+ *
+ * 阴影显隐由 handleScroll 计算出的 isAtTop / isAtBottom 驱动，
+ * 因此默认只开启上下两侧（shadowTop / shadowBottom 为 true），左右默认关闭 ——
+ * 横向溢出在本项目中属于少数场景，默认不付这层渲染成本。
+ * shadowBorder 决定是否在阴影边缘补一条 1px 边框，用于与卡片边界对齐。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\scrollbar\scrollbar.vue
  * @author ydsz-team

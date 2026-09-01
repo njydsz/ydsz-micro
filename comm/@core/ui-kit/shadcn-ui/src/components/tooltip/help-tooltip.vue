@@ -1,5 +1,10 @@
 <!--
- * help-tooltip 通用组件
+ * 「帮助说明」场景的固化用法：默认渲染一个 CircleHelp 问号图标作为触发器，
+ * 外部可通过 trigger 插槽替换为任意元素。
+ *
+ * 关闭 inheritAttrs 是刻意为之 —— 避免上层透传的属性落到 tooltip 内容上，
+ * 造成触发区与浮层样式互相污染。延迟固定为 300ms、方向固定为 right，
+ * 让全站的帮助提示保持一致的手感。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\tooltip\help-tooltip.vue
  * @author ydsz-team

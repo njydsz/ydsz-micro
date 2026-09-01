@@ -13,7 +13,7 @@ import { faker } from '@faker-js/faker';
 import { http, HttpResponse, delay } from 'msw';
 import type { RequestHandler } from 'msw';
 import { createMockDataFactory } from './factory';
-import type { MockFactoryOptions } from './types';
+import type { MockFactoryOptions, OpenAPISpec } from './types';
 
 /**
  * 处理器生成选项
@@ -32,23 +32,23 @@ export interface HandlerGeneratorOptions extends MockFactoryOptions {
  *
  * <p>解析 OpenAPI paths 对象，为每个端点生成对应的 MSW handler。
  *
- * @param spec - OpenAPI spec 对象
+ * @param spec - OpenAPI 3.x 规范对象（至少需包含 paths）
  * @param options - 生成选项
  * @returns MSW RequestHandler 列表
  *
  * @example
  * ```ts
  * import spec from './sdk/openapi.json';
- * import { generateMockHandlers } from '@ydsz/mock-service';
+ * import { generateMockHandlers, OpenAPISpec } from '@ydsz/mock-service';
  *
- * const handlers = generateMockHandlers(spec as any, {
+ * const handlers = generateMockHandlers(spec as OpenAPISpec, {
  *   enableDelay: true,
  *   listSize: 5,
  * });
  * ```
  */
 export function generateMockHandlers(
-  spec: Record<string, unknown>,
+  spec: OpenAPISpec,
   options: HandlerGeneratorOptions = {},
 ): RequestHandler[] {
   const factory = createMockDataFactory(options);

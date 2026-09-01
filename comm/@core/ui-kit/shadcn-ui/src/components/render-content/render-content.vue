@@ -1,15 +1,15 @@
 <!--
- * render-content 通用组件
+ * 把「内容」这一概念收敛成统一入口：content 同时接受组件、渲染函数与普通字符串，
+ * 让上层（表格列、菜单项、提示文案）不必各自判断类型再分支渲染。
+ *
+ * renderBr 服务于纯文本场景：把字符串中的换行符渲染成段落，
+ * 使运营文案可以直接写多行文本而不必在内容里拼 HTML。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\render-content\render-content.vue
  * @author ydsz-team
  * @since 1.0.0
- *
  * @remarks
- * 通用内容渲染组件，支持渲染字符串、组件或函数。
- * - 字符串内容：直接渲染，支持换行符转段落
- * - 组件/函数：使用 h() 渲染为 VNode
- */
+-->
 <script setup lang="ts">
 import type { Component } from 'vue';
 

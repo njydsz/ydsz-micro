@@ -10,6 +10,8 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
+import { consola as logger } from 'consola';
+
 import type { pluginOptions } from './importmap';
 
 /** 默认 CDN 供应商，未显式指定时使用 */
@@ -58,12 +60,12 @@ export function readCachedImportMap(cacheKey: string): unknown | null {
     };
     const ttl = Number(process.env.IMPORTMAP_CACHE_TTL) || DEFAULT_CACHE_TTL_MS;
     if (Date.now() - raw.cachedAt > ttl) {
-      console.debug(`[ImportMap] Cache expired for key ${cacheKey}`);
+      logger.debug(`Cache expired for key ${cacheKey}`);
       return null;
     }
     return raw.importmap;
   } catch (err) {
-    console.warn(`[ImportMap] Failed to read cache:`, err);
+      logger.warn(`Failed to read cache:`, err);
     return null;
   }
 }
@@ -84,9 +86,9 @@ export function writeCachedImportMap(cacheKey: string, importmap: unknown): void
       cacheFile,
       JSON.stringify({ cachedAt: Date.now(), importmap }, null, 2),
     );
-    console.debug(`[ImportMap] Cache written: ${cacheFile}`);
+    logger.debug(`Cache written: ${cacheFile}`);
   } catch (err) {
-    console.warn(`[ImportMap] Failed to write cache:`, err);
+    logger.warn(`Failed to write cache:`, err);
   }
 }
 
