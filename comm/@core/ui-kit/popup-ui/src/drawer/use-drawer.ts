@@ -121,7 +121,6 @@ export function useYDSZDrawer<
             slots,
           );
       },
-      // eslint-disable-next-line vue/one-component-per-file
       {
         name: 'YDSZParentDrawer',
         inheritAttrs: false,
@@ -167,7 +166,6 @@ export function useYDSZDrawer<
       return () =>
         h(YDSZDrawer, { ...props, ...attrs, drawerApi: extendedApi }, slots);
     },
-    // eslint-disable-next-line vue/one-component-per-file
     {
       name: 'YDSZDrawer',
       inheritAttrs: false,

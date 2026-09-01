@@ -1,7 +1,7 @@
 // v4.3.1 修复循环自引用：包内模块改相对导入，避免经包名绕回 index 形成环
 import { createLogger } from '../utils/logger';
 const logger = createLogger('broadcast-channel');
-﻿/**
+/**
  * 跨标签页状态同步管理器
  *
  * 基于 BroadcastChannel API（优先）+ storage event 兜底，实现：

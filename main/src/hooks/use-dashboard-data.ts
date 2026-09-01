@@ -12,7 +12,7 @@
  */
 import { ref } from 'vue';
 
-import type { DashboardApi } from '#/api/core/dashboard';
+import type { OverviewItem, WorkspaceData } from '#/api/core/dashboard';
 import {
   getOverviewStatsApi,
   getWorkspaceDataApi,
@@ -24,7 +24,7 @@ import {
  * 优先从后端 API 获取真实数据，后端不可用或返回空时静默回退到 fallback 默认值，
  * 确保页面不白屏、不报错。后端就绪后自动切换到真实数据。
  *
- * @typeParam T - 统计项类型，需继承自 DashboardApi.OverviewItem
+ * @typeParam T - 统计项类型，需继承自 OverviewItem
  * @param fallback - 后端不可用/返回空时的默认数据（类型为 UI 组件类型）
  * @returns 概览统计数据与加载状态
  * @returns items - 统计项列表（Ref），初始值为 fallback
@@ -43,7 +43,7 @@ import {
  *
  * @since 4.1.0
  */
-export function useOverviewStats<T extends DashboardApi.OverviewItem>(
+export function useOverviewStats<T extends OverviewItem>(
   fallback: T[],
 ) {
   const items = ref<T[]>(fallback);
@@ -80,7 +80,7 @@ export function useOverviewStats<T extends DashboardApi.OverviewItem>(
  * 后端不可用或返回空时静默回退到 fallback 默认值，按字段粒度合并确保页面不白屏。
  *
  * @typeParam T - 工作台数据类型
- * @param fallback - 后端不可用/返回空时的默认数据（与 DashboardApi.WorkspaceData 字段对齐）
+ * @param fallback - 后端不可用/返回空时的默认数据（与 WorkspaceData 字段对齐）
  * @returns 工作台数据与加载状态
  * @returns data - 工作台数据（Ref），初始值为 fallback
  * @returns loading - 加载中状态（Ref）
@@ -106,7 +106,7 @@ export function useWorkspaceData<T extends object>(fallback: T) {
     loading.value = true;
     try {
       const res = await getWorkspaceDataApi();
-      const fallbackData = fallback as DashboardApi.WorkspaceData;
+      const fallbackData = fallback as WorkspaceData;
       if (
         res &&
         (res.projects?.length || res.todos?.length || res.quickNavs?.length)

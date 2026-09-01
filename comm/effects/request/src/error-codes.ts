@@ -3,7 +3,8 @@
  *
  * <p>错误码常量由 bash/gen-error-codes.mjs 从后端 ydsz-cloud 静态提取生成
  * （error-codes.generated.ts，单一事实源），本文件仅承载运行时语义层：
- * HTTP 状态推断、重试判定、错误级别与 BusinessError 构造。
+ * HTTP 状态推断、重试判定与错误级别。BusinessError 统一由
+ * request-client/business-error.ts 提供（经 request-client 桶文件导出）。
  *
  * <p>后端新增/修改错误码后运行 pnpm gen:error-codes 重新生成；
  * CI 通过 gen:error-codes:check 门禁拦截漂移。禁止在本文件手抄错误码常量。
@@ -68,20 +69,20 @@ const PLATFORM_HTTP_STATUS_OVERRIDES: Record<string, number> = {
 /**
  * 平台通用码的可重试语义补充
  *
- * <p>同上：YdszResultCode 未携带 retryable 标记，按语义补充基础设施类可重试错误。
+ * <p>同上：YdszResultCode 未携带 retryable 标记，按基础设施语义补充；
+ * 业务模块码以生成元信息中后端声明的 retryable 为准，不在此覆盖。
  */
 const PLATFORM_RETRYABLE_OVERRIDES: ReadonlySet<string> = new Set([
-  ErrorCode.SYSTEM_BUSY,
   ErrorCode.TOO_MANY_REQUESTS,
+  ErrorCode.REQUEST_TIMEOUT,
   ErrorCode.INTERNAL_ERROR,
   ErrorCode.SERVICE_UNAVAILABLE,
-  ErrorCode.RPC_ERROR,
-  ErrorCode.DB_ERROR,
+  ErrorCode.DATABASE_ERROR,
   ErrorCode.CACHE_ERROR,
 ]);
 
-/** 错误级别与码段/元信息的映射兜底 */
-type ErrorLevel = 'info' | 'warn' | 'error';
+/** 错误级别 */
+export type ErrorLevel = 'info' | 'warn' | 'error';
 
 /**
  * 组装完整元信息视图：生成元信息 + 平台语义补充
@@ -131,48 +132,18 @@ export function isRetryableError(code: string): boolean {
 }
 
 /**
- * 判断错误级别：成功为 info，客户端错误为 warn，服务端错误为 error
+ * 判断错误级别：成功为 info，服务端错误为 error，其余为 warn
  *
  * @param code 错误码
  * @returns 错误级别
  */
 export function getErrorLevel(code: string): ErrorLevel {
+  if (code === ErrorCode.SUCCESS) {
+    return 'info';
+  }
   const meta = resolveMeta(code);
-  if (meta) {
-    return code === ErrorCode.SUCCESS ? 'info' : meta.httpStatus && meta.httpStatus >= 500 ? 'error' : 'warn';
+  if (meta?.httpStatus && meta.httpStatus >= 500) {
+    return 'error';
   }
-  return 'error';
-}
-
-/**
- * 业务错误类
- */
-export class BusinessError extends Error {
-  /** 错误码 */
-  public readonly code: string;
-  /** 错误详情 */
-  public readonly details?: Record<string, unknown>;
-  /** HTTP 状态码 */
-  public readonly httpStatus?: number;
-  /** 是否可重试 */
-  public readonly retryable: boolean;
-
-  constructor(code: string, message?: string, details?: Record<string, unknown>) {
-    super(message || getErrorMessage(code));
-    this.name = 'BusinessError';
-    this.code = code;
-    this.details = details;
-    this.httpStatus = getErrorMeta(code)?.httpStatus;
-    this.retryable = isRetryableError(code);
-  }
-}
-
-/**
- * 判断是否为业务错误
- *
- * @param error 错误对象
- * @returns 是否为业务错误
- */
-export function isBusinessError(error: unknown): error is BusinessError {
-  return error instanceof BusinessError;
+  return 'warn';
 }

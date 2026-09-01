@@ -9,7 +9,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// eslint-disable-next-line vue/prefer-import-from-vue
 import { isFunction, isObject, isString } from '@vue/shared';
 
 /**

@@ -1,5 +1,8 @@
 /* Popup —— 快速触达面板：显示概览 + 触发 DevTools */
 ;(function () {
+  /* mini 选择器：此前 $ 未定义，popup 打开即 ReferenceError（2026-09-01 P0-3 修复） */
+  var $ = function (sel) { return document.querySelector(sel); };
+
   /* 查询当前 tab 的快照状态 */
   function queryActiveTab() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {

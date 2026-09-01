@@ -18,7 +18,7 @@ import type { ClassType, DeepPartial } from '@ydsz/types';
 
 import type { BaseFormComponentType, YDSZFormProps } from '@YDSZ-core/form-ui';
 
-import { useYDSZForm } from '@YDSZ-core/form-ui';
+import { type useYDSZForm } from '@YDSZ-core/form-ui';
 
 /**
  * 表格分页信息，用于在自定义 `proxyConfig.ajax.query` 中接收分页参数。

@@ -6,7 +6,6 @@
 import type { Component } from 'vue';
 
 import type { BaseFormComponentType } from '@ydsz/common-ui';
-import type { Recordable } from '@ydsz/types';
 
 import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
 

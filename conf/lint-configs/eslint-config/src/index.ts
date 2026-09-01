@@ -190,9 +190,14 @@ export function defineConfig(): Linter.Config[] {
         'no-console': 'off',
       },
     },
-    // 子应用独立运行入口（standalone-main）与 mock 初始化：开发辅助输出，不属于生产业务路径
+    // 子应用独立运行入口（standalone-main）、mock 初始化与 mock-service 基础库：
+    // 开发辅助输出，不属于生产业务路径
     {
-      files: ['**/src/standalone-main.ts', '**/src/mock/**/*.ts'],
+      files: [
+        '**/src/standalone-main.ts',
+        '**/src/mock/**/*.ts',
+        '**/effects/mock-service/**/*.ts',
+      ],
       rules: {
         'no-console': 'off',
       },

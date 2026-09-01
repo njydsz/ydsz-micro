@@ -98,4 +98,42 @@ config.unshift({
   },
 });
 
+// 注意：扁平配置中后出现的条目优先级更高，项目级覆盖必须 push 到末尾，
+// 否则会被 @ydsz/eslint-config 的同名规则覆盖（unshift 无效，2026-09-01 修正）。
+
+// @ydsz/monitor 的面包屑机制需拦截 console.warn/error 作为事件源，
+// 属基础设施职责而非业务日志（规范 §14.5 针对"生产环境打印日志"的场景豁免）。
+config.push({
+  files: ['comm/effects/monitor/src/**/*.ts'],
+  rules: {
+    'no-console': 'off',
+  },
+});
+
+// TS 函数重载 / interface 声明合并（如 ydszAlert、$t 的多签名）是合法 TS 模式，
+// no-redeclare 不理解 TS 语义；类型正确性由 tsc 保证，故对 TS/Vue 关闭。
+config.push({
+  files: ['**/*.{ts,tsx,vue,mts,cts}'],
+  rules: {
+    'no-redeclare': 'off',
+  },
+});
+
+// 游离于全部 tsconfig project 之外的文件（allowDefaultProject 不支持 ** 通配，
+// 无法覆盖子目录），关闭 projectService 以回退为无类型感知解析：
+// - comm/@core/base/design/vite.config.mts：design 包构建期配置
+// - comm/effects/mock-service/src/handlers.ts：mock 契约（依赖运行时 spec 泛型）
+config.push({
+  files: [
+    'comm/@core/base/design/vite.config.mts',
+    'comm/effects/mock-service/src/handlers.ts',
+  ],
+  languageOptions: {
+    parserOptions: {
+      projectService: false,
+      allowDefaultProject: [],
+    },
+  },
+});
+
 export default config;

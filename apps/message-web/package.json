@@ -7,6 +7,7 @@
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
+    "mock:init": "msw init public/",
     "preview": "vite preview"
   },
   "imports": {
@@ -22,6 +23,7 @@
     "@ydsz/layouts": "workspace:*",
     "@ydsz/locales": "workspace:*",
     "@ydsz/monitor": "workspace:*",
+    "@ydsz/mock-service": "workspace:*",
     "@ydsz/plugins": "workspace:*",
     "@ydsz/preferences": "workspace:*",
     "@ydsz/request": "workspace:*",
@@ -38,7 +40,14 @@
     "vue-router": "catalog:"
   },
   "devDependencies": {
+    "@faker-js/faker": "catalog:",
+    "msw": "catalog:",
     "unplugin-element-plus": "catalog:"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }

@@ -7,7 +7,6 @@
 -->
 <script lang="ts" setup>
 import type { YDSZFormSchema } from '@ydsz/common-ui';
-import type { Recordable } from '@ydsz/types';
 
 import { computed, ref } from 'vue';
 

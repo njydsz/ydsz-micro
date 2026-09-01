@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   verify:
-    name: 质量门禁（lint + 类型 + 单测 + 架构守护）
+    name: 质量门禁（lint + 类型 + 架构守护）
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,8 +49,7 @@ jobs:
       - name: 依赖合规检查
         run: pnpm vsh:check-dep
 
-      - name: 单元测试
-        run: pnpm test
+      # 测试代码已按云顶编码规范 15.10 全量移除，`pnpm test` 脚本不存在（2026-09-01）
 
       - name: 国际化 key 一致性校验
         run: pnpm check:i18n

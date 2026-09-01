@@ -316,7 +316,7 @@ export function createCrudHandlers(
     }),
 
     // 删除
-    http.delete(`${basePath}/:id', async ({ params }) => {
+    http.delete(`${basePath}/:id`, async ({ params }) => {
       if (options.enableDelay) await delay(faker.number.int({ min: 0, max: 300 }));
       const { id } = params;
       const index = items.findIndex(i => i.id === id);

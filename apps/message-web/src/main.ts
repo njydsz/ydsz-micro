@@ -22,10 +22,16 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
   basename: '/YDSZ-msg',
   routes,
   rootComponent: RootApp,
-  preferencesOverrides,
+  preferencesOverrides: overridesPreferences,
   initRoutes,
   guard: createRouterGuard,
   async onSetup(app) {
+    // MSW Mock Server（开发环境且启用 Mock 时启动）
+    if (import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === 'true') {
+      const { initMessageMockServer } = await import('./mock');
+      await initMessageMockServer();
+    }
+
     await initComponentAdapter();
     await initSetupYDSZForm();
     await setupI18n(app);

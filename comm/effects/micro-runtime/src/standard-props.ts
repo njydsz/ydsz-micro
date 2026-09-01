@@ -186,7 +186,7 @@ export function buildStandardMountProps(
       // 命名空间能力由 createNamespacedGlobalStateWrapper 在 kernel 侧注入
       useNamespace: (scope: string) => {
         // 延迟导入避免循环依赖
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+         
         const { createNamespacedState } = require('./namespaced-state');
         return createNamespacedState(ctx.rawGlobalState, scope);
       },

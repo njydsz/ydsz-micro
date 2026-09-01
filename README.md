@@ -65,7 +65,7 @@
 | 表格组件    | VXE Table 4                                                                            |
 | 国际化      | Vue I18n 11                                                                            |
 | Mock 服务   | Nitro                                                                                  |
-| 测试        | Vitest + happy-dom（单元）、Playwright（E2E/a11y/视觉回归）、Lighthouse CI（性能预算） |
+| 测试        | 按云顶编码规范 15.10 本仓库不包含测试代码；质量由 lint / stylelint / type-check / vsh 门禁保障 |
 | 代码规范    | ESLint 9 + Prettier + Stylelint + Commitlint + Lefthook（git hooks）                   |
 
 ## 架构设计
@@ -168,7 +168,6 @@ ydsz-micro/
 │   ├── turbo-run/                    # Turbo 并行运行
 │   └── vsh/                          # 项目运维工具（lint/check-dep/check-circular…）
 ├── chrome/                            # micro-kernel DevTools（Manifest V3 扩展）
-├── e2e/                               # Playwright E2E / a11y / 视觉回归
 ├── docs/                              # 决策记录（ADR）等
 ├── pnpm-workspace.yaml
 ├── turbo.json
@@ -306,24 +305,28 @@ server: {
 | 格式化     | —（待接入）                   | Prettier 经 `lint:fix` 集成，独立 `format` 脚本未落地 |
 | 拼写检查   | —（待接入）                   | `cspell` 配置未落地，`check:cspell` 脚本缺失  |
 
-Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push` 执行单元测试、类型检查与 `pnpm audit` 安全审计；`commit-msg` 执行 Commitlint；`post-merge` 自动 `pnpm install`。
+Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push` 全量执行类型检查、vsh 三件套（check-dep / check-arch / check-circular）与契约/错误码漂移校验；`commit-msg` 执行 Commitlint；`post-merge` 自动 `pnpm install`。
 
-CI（GitHub Actions，v4.4.0 起落地）：`verify` job（lint / stylelint / test / check-circular / check-dep / check:i18n / sync:shared-deps:check）PR 必跑；`contract` job（`gen-contract.py --check`，经 `YDSZ_CLOUD_ROOT` 检出后端）push main 必跑；`e2e-smoke` job（build + check:size + check-bundle + Playwright 冒烟）手动触发。
+CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-circular / check-dep / check:i18n / sync:shared-deps:check）PR 必跑；`contract` job（`gen-contract.py --check`，经 `YDSZ_CLOUD_ROOT` 检出后端）push main 必跑；另有依赖安全审计与密钥扫描 job。
 
 ## 测试体系
 
-| 层级       | 命令                          | 覆盖范围                                                                                 | 状态 |
-| ---------- | ----------------------------- | ---------------------------------------------------------------------------------------- | ---- |
-| 单元测试   | `pnpm test` / `pnpm test:coverage` | Vitest + happy-dom（micro-kernel / request / shared-auth 等包自持配置），覆盖率门槛已在根配置声明（branches/functions 70% / lines 80%） | ✅ 已落地 |
-| 契约测试   | `pnpm gen:contract:check`     | API 契约对齐（静态提取基线 `--check` 校验漂移）                                          | ✅ 已落地 |
-| E2E 冒烟   | `pnpm test:e2e`               | Playwright：主应用启动/路由可达/无致命异常（`e2e/specs/main-smoke.spec.ts`，v4.4.0）     | ✅ 已落地（CI 手动触发） |
-| 可访问性   | `pnpm test:e2e`（同一套件）   | 登录页 axe 扫描（wcag2a/wcag21a，critical=0 基线，见 ADR-005）                           | ✅ 基线落地 |
-| 视觉回归   | —（待接入）                   | `e2e/visual-regression.spec.ts` 尚未创建                                                 | ⚠️ 待接入 |
-| 性能预算   | `pnpm test:perf`              | Lighthouse CI（lighthouserc.json，3 次采样，desktop preset）；另有产物级 `check:size`   | ✅ 已落地 |
+> 按云顶编码规范 §15.10，本仓库**禁止包含测试代码**（单元/E2E/视觉回归等均不落地）。
+> 原 Vitest / Playwright / Lighthouse CI 相关脚本与配置已全量移除，质量保障由
+> 「ESLint + Stylelint + type-check + vsh 三件套 + 契约/错误码漂移校验」五类静态门禁承担：
+
+| 门禁         | 命令                          | 覆盖范围                                                                     | 状态 |
+| ------------ | ----------------------------- | ---------------------------------------------------------------------------- | ---- |
+| 代码规范     | `pnpm lint` / `pnpm stylelint` | ESLint + Stylelint 零告警                                                    | ✅ 已落地 |
+| 类型检查     | `pnpm type-check`             | 全仓 TypeScript 类型检查（含 SFC 声明生成链）                                | ✅ 已落地 |
+| 架构守护     | `pnpm vsh:check-arch` 等      | 依赖合规 / 循环依赖 / 产物预算（vsh 三件套）                                 | ✅ 已落地 |
+| 契约对齐     | `pnpm gen:contract:check`     | API 契约对齐（静态提取基线 `--check` 校验漂移）                              | ✅ 已落地 |
+| 国际化一致性 | `pnpm check:i18n`             | i18n key 一致性校验                                                          | ✅ 已落地 |
 
 ## 性能预算
 
-> 由 `pnpm test:perf`（Lighthouse CI，3 次采样，desktop preset，`lighthouserc.json`）执行；产物级预算由 `pnpm check:size` 与构建期 bundle-budget 插件兜底。预算目标如下：
+> 产物级预算由 `pnpm check:size` 与构建期 bundle-budget 插件兜底（原 Lighthouse CI
+> 运行时性能采样已随 §15.10 移除）。预算目标如下：
 
 - **错误级**：Accessibility ≥ 0.9
 - **警告级**：Performance ≥ 0.9；FCP ≤ 2000ms、LCP ≤ 2500ms、TTI ≤ 3800ms、TBT ≤ 300ms、CLS ≤ 0.1、SI ≤ 3400ms
@@ -357,7 +360,7 @@ CI（GitHub Actions，v4.4.0 起落地）：`verify` job（lint / stylelint / te
   - [ADR-001: 微前端运行时选型](docs/decisions/adr-001-micro-kernel-vs-qiankun.md)（自研 ESM 内核 vs qiankun）
   - [ADR-002: Monorepo 工具链](docs/decisions/adr-002-monorepo-toolchain.md)（pnpm + turbo + vsh）
   - [ADR-003: SSR / Pre-rendering 评估](docs/decisions/adr-003-ssr-pre-rendering.md)
-  - [ADR-005: 可访问性基线](docs/decisions/adr-005-accessibility.md)（axe E2E）
+  - [ADR-005: 可访问性基线](docs/decisions/adr-005-accessibility.md)
   - [ADR-006: 可观测性体系](docs/decisions/adr-006-observability.md)（错误/性能/预加载指标）
   - [ADR-007: 三沙箱支持矩阵](docs/decisions/adr-007-sandbox-matrix.md)（iframe 沙箱为 experimental）
 
@@ -373,7 +376,7 @@ YDSZ 微前端中后台底座的对标竞品均为 Gitee 上的 Java/Spring 系�
 | **SpringBlade** | 商业级微服务 SaaS（Vue/React 双前端） | https://gitee.com/smallc/SpringBlade |
 | **JeecgBoot** | 企业级 AI 低代码平台（低代码 + 零代码双模式） | https://gitee.com/jeecg/JeecgBoot |
 
-**差异化要点**：上述竞品普遍为「后端全家桶 + 单体/微服务」形态，YDSZ 的核心差异在 **Vue 3 微前端架构**（`micro-kernel` + 8 个独立部署子应用）、**agent-web AI Agent 原生**、**可观测性**（火焰图 / 时间线 / 内存趋势，ADR-006）与 **可访问性**（屏幕阅读器测试，ADR-005）；**信创适配**（国密、达梦 / 人大金仓等国产库）为对标中普遍具备、YDSZ 尚待补齐的能力。
+**差异化要点**：上述竞品普遍为「后端全家桶 + 单体/微服务」形态，YDSZ 的核心差异在 **Vue 3 微前端架构**（`micro-kernel` + 8 个独立部署子应用）、**agent-web AI Agent 原生**、**可观测性**（火焰图 / 时间线 / 内存趋势，ADR-006）与 **可访问性**（可访问性基线，ADR-005）；**信创适配**（国密、达梦 / 人大金仓等国产库）为对标中普遍具备、YDSZ 尚待补齐的能力。
 
 ## Roadmap
 

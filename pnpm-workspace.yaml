@@ -28,8 +28,9 @@ catalog:
   "@pnpm/workspace.read-manifest": ^2.2.0
   "@tailwindcss/nesting": 0.0.0-insiders.565cd3e
   "@tailwindcss/typography": ^0.5.16
-  "@tanstack/vue-query": ^5.81.5
   "@tanstack/vue-store": ^0.7.1
+  # @tanstack/vue-query 已于 2026-09-01 从 catalog 移除（对标清理）：
+  # 声明未消费（0 个 package.json 引用），数据请求层由 pinia + @ydsz/effects 承担。
   # 3.13.36 依赖的 @tanstack/virtual-core@3.17.8 已被上游从 registry 撤下，
   # 钉到 3.13.35（依赖 3.17.7，可用）；待上游修复后恢复 ^
   "@tanstack/vue-virtual": 3.13.35
@@ -84,6 +85,7 @@ catalog:
   element-plus: ^2.10.2
   "@faker-js/faker": ^9.0.0
   msw: ^2.7.0
+  eslint: ^9.39.5
   eslint-config-prettier: ^10.1.5
   eslint-plugin-vue: ^10.0.0
   execa: ^9.6.0
@@ -102,6 +104,7 @@ catalog:
   nitropack: ^2.11.13
   nprogress: ^0.2.0
   openapi-fetch: ^0.17.0
+  openapi-typescript: ^7.13.0
   ora: ^8.2.0
   pinia: ^3.0.3
   pinia-plugin-persistedstate: ^4.4.1
@@ -122,6 +125,7 @@ catalog:
   sass: ^1.89.2
   secure-ls: ^2.0.0
   sortablejs: ^1.15.6
+  stylelint: ^16.26.1
   tailwind-merge: ^2.6.0
   tailwindcss: ^3.4.17
   tailwindcss-animate: ^1.0.7
@@ -147,6 +151,8 @@ catalog:
   vue-json-viewer: ^3.0.4
   vue-router: ^4.5.1
   vue-tippy: ^6.7.1
+  vue-tsc: ^3.0.7
+  vue-sfc-transformer: ^0.3.0
   vxe-pc-ui: ^4.7.12
   vxe-table: ^4.14.4
   watermark-js-plus: ^1.6.2

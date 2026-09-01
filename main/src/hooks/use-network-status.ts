@@ -14,7 +14,7 @@
  * @path main/src/hooks/use-network-status.ts
  * @since 4.0.0
  */
-import { ref, readonly, onMounted, onUnmounted } from 'vue';
+import { ref, readonly, onUnmounted } from 'vue';
 
 /**
  * 网络连接有效类型

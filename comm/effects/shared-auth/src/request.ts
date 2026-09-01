@@ -14,6 +14,7 @@ import { useAppConfig } from '@ydsz/hooks';
 import { preferences } from '@ydsz/preferences';
 import {
   authenticateResponseInterceptor,
+  deprecationNoticeInterceptor,
   defaultResponseInterceptor,
   errorMessageResponseInterceptor,
   RequestClient,
@@ -156,6 +157,10 @@ export function createSharedRequestClient(
   });
 
   // 处理返回的响应数据格式（对齐后端 BaseResponse: 业务响应码 code="A00000" 为成功，注意区分 HTTP 状态码 200）
+  // P1-版本协商闭环（2026-09-01）：退役提示拦截器必须先于 defaultResponseInterceptor 注册，
+  // 否则响应被剥离为纯 data 后 Deprecation/Sunset 头即丢失
+  client.addResponseInterceptor(deprecationNoticeInterceptor());
+
   client.addResponseInterceptor(
     defaultResponseInterceptor({
       codeField: 'code',

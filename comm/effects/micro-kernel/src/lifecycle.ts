@@ -20,7 +20,7 @@ import { recordLoadDuration } from "./health-check";
 import { loadApp, removeStylesheets } from "./loader";
 import { mark, measure } from "./performance-utils";
 import { applyRuntimeCssScope, removeRuntimeCssScope } from "./runtime-css-scope";
-import { createSandboxStrategy, IframeSandboxStrategy, ProxySandboxStrategy } from "./sandbox-strategy";
+import { createSandboxStrategy, type IframeSandboxStrategy, type ProxySandboxStrategy } from "./sandbox-strategy";
 import { getContext } from "./app-state";
 import { evictKeepAliveIfNeeded } from "./task-queue";
 

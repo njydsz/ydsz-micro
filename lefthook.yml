@@ -1,7 +1,7 @@
 # lefthook.yml — 云顶编码规范质量门禁
 # 触发时机：
 #   pre-commit  并行执行 ESLint / Prettier / Stylelint（仅检查暂存文件，保证增量速度）
-#   pre-push    全量执行 类型检查 / 单元测试 / vsh 三件套 / 契约漂移校验
+#   pre-push    全量执行 类型检查 / vsh 三件套 / 契约与错误码漂移校验
 #   commit-msg  Conventional Commits 校验（commitlint）
 #   post-merge  自动同步依赖
 #

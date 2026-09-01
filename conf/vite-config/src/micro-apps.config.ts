@@ -68,8 +68,8 @@ export interface MicroAppEntry {
 /**
  * 微应用注册表。
  *
- * 9 个微应用分别对应后端 9 个微服务，顺序与菜单显示一致。
- * 变更流程：修改此处 → 重启基座 dev server → 验证菜单与路由。
+ * 8 个微应用分别对应后端 8 个业务微服务（网关/公共模块不对应前端应用），
+ * 顺序与菜单显示一致。变更流程：修改此处 → 重启基座 dev server → 验证菜单与路由。
  */
 export const MICRO_APPS: readonly MicroAppEntry[] = [
   {

@@ -182,7 +182,7 @@ export async function closeTab(
     closeTabInternal(ctx, tab);
     await goToTab(before, router);
   } else {
-    // eslint-disable-next-line no-console
+     
     logger.error('Failed to close the tab; only one tab remains open.');
   }
 }

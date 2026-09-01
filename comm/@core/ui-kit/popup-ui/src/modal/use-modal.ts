@@ -117,7 +117,6 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
             slots,
           );
       },
-      // eslint-disable-next-line vue/one-component-per-file
       {
         name: 'YDSZParentModal',
         inheritAttrs: false,
@@ -172,7 +171,6 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
           slots,
         );
     },
-    // eslint-disable-next-line vue/one-component-per-file
     {
       name: 'YDSZModal',
       inheritAttrs: false,

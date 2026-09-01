@@ -7,51 +7,49 @@
  */
 import { baseRequestClient, requestClient } from '#/api/request';
 
-export namespace AuthApi {
-  /** 登录接口参数 */
-  export interface LoginParams {
-    username?: string;
-    password?: string;
-    captcha?: string;
-    captchaKey?: string;
-  }
+/** 登录接口参数 */
+export interface LoginParams {
+  username?: string;
+  password?: string;
+  captcha?: string;
+  captchaKey?: string;
+}
 
-  /** 登录接口返回值（对齐后端 LoginVO） */
-  export interface LoginResult {
-    accessToken: string;
-    refreshToken: string;
-    tokenType: string;
-    expiresIn: number;
-    scope: string;
-    userInfo: UserInfoVO;
-  }
+/** 登录接口返回值（对齐后端 LoginVO） */
+export interface LoginResult {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+  expiresIn: number;
+  scope: string;
+  userInfo: UserInfoVO;
+}
 
-  /** 用户信息（对齐后端 LoginVO.UserInfoVO） */
-  export interface UserInfoVO {
-    userId: string;
-    username: string;
-    realName: string;
-    roleCode?: string;
-    roleName?: string;
-    tenantId?: string;
-    avatar?: string;
-    email?: string;
-    phone?: string;
-    deptId?: string;
-    deptName?: string;
-    roles?: string[];
-    permissions?: string[];
-  }
+/** 用户信息（对齐后端 LoginVO.UserInfoVO） */
+export interface UserInfoVO {
+  userId: string;
+  username: string;
+  realName: string;
+  roleCode?: string;
+  roleName?: string;
+  tenantId?: string;
+  avatar?: string;
+  email?: string;
+  phone?: string;
+  deptId?: string;
+  deptName?: string;
+  roles?: string[];
+  permissions?: string[];
+}
 
-  /**
-   * 刷新令牌接口返回结果。
-   */
-  export interface RefreshTokenResult {
-    accessToken: string;
-    refreshToken: string;
-    tokenType: string;
-    expiresIn: number;
-  }
+/**
+ * 刷新令牌接口返回结果。
+ */
+export interface RefreshTokenResult {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+  expiresIn: number;
 }
 
 /**
@@ -60,8 +58,8 @@ export namespace AuthApi {
  * @param data - 登录参数（用户名、密码、验证码等）
  * @returns 登录结果，含 accessToken / refreshToken 与用户信息
  */
-export async function loginApi(data: AuthApi.LoginParams) {
-  return requestClient.post<AuthApi.LoginResult>('/api/v1/auth/login', data);
+export async function loginApi(data: LoginParams) {
+  return requestClient.post<LoginResult>('/api/v1/auth/login', data);
 }
 
 /**
@@ -71,7 +69,7 @@ export async function loginApi(data: AuthApi.LoginParams) {
  * @returns 新的令牌信息（accessToken / refreshToken / 过期时间）
  */
 export async function refreshTokenApi(refreshToken: string) {
-  return baseRequestClient.post<AuthApi.RefreshTokenResult>(
+  return baseRequestClient.post<RefreshTokenResult>(
     '/api/v1/auth/refresh',
     { refreshToken },
   );
