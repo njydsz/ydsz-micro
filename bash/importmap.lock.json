@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "syncedAt": "2026-09-01T06:21:36.309Z",
+  "deps": {
+    "vue": {
+      "url": "https://esm.sh/*vue@3.5.42/dist/vue.runtime.esm-bundler.js",
+      "version": "3.5.42"
+    },
+    "vue-router": {
+      "url": "https://esm.sh/*vue-router@5.3.0/dist/vue-router.js",
+      "version": "5.3.0"
+    },
+    "pinia": {
+      "url": "https://esm.sh/*pinia@4.0.3/dist/pinia.js",
+      "version": "4.0.3"
+    },
+    "element-plus": {
+      "url": "https://esm.sh/*element-plus@2.14.5/es/index.mjs",
+      "version": "2.14.5"
+    },
+    "@element-plus/icons-vue": {
+      "url": "https://esm.sh/*@element-plus/icons-vue@2.3.2/dist/index.js",
+      "version": "2.3.2"
+    },
+    "vxe-table": {
+      "url": "https://esm.sh/*vxe-table@4.21.3/es/index.esm.js",
+      "version": "4.21.3"
+    },
+    "vxe-pc-ui": {
+      "url": "https://esm.sh/*vxe-pc-ui@4.17.23/es/index.esm.js",
+      "version": "4.17.23"
+    },
+    "echarts": {
+      "url": "https://esm.sh/*echarts@6.1.0/index.js",
+      "version": "6.1.0"
+    },
+    "dayjs": {
+      "url": "https://esm.sh/*dayjs@1.11.23/dayjs.min.js",
+      "version": "1.11.23"
+    },
+    "vue-demi": {
+      "url": "https://esm.sh/*vue-demi@0.14.10/lib/index.mjs",
+      "version": "0.14.10"
+    }
+  }
+}

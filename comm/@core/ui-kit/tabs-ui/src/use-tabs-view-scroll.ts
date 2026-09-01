@@ -1,5 +1,13 @@
 /**
- * use-tabs-view-scroll 模块
+ * 标签栏的横向滚动与左右翻页按钮显隐管理。
+ *
+ * 目标是「溢出时才出现翻页按钮，并始终让激活项可见」，而不是接管滚动本身。
+ *
+ * 实现依赖 Radix 滚动容器的内部结构（data-radix-scroll-area-viewport）
+ * 与每条 tab 上的 data-tab-item、.is-active 选择器，模板改动这些属性会静默失效；
+ * 用 ResizeObserver + MutationObserver（均 100ms 防抖）分别监听视口尺寸与 tab 增删；
+ * 每次翻页滚动 scrollbarWidth - 150 像素，确保一次翻页不会越过整屏；
+ * 纵向滚轮 deltaY 乘以 3 转成横向滚动，以贴合触控板的实际手感。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\use-tabs-view-scroll.ts
  * @author ydsz-team

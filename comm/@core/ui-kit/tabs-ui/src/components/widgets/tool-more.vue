@@ -1,5 +1,8 @@
 <!--
- * tool-more 通用组件
+ * 标签栏溢出时的「更多」下拉入口。
+ *
+ * modal 固定传 false：菜单打开时若加遮罩，会挡住标签栏本身，
+ * 用户无法在菜单展开状态下对照其它标签。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\widgets\tool-more.vue
  * @author ydsz-team

@@ -1,5 +1,13 @@
 /**
- * use-tabs-drag 模块
+ * 基于 SortableJS 的标签拖拽排序：只负责「拖拽 → 抛出排序结果」，不维护顺序。
+ *
+ * 真正的数组重排交由父组件监听 sortTabs 完成，
+ * 避免组件与数据源双向耦合导致顺序出现两个真相。
+ *
+ * 几处隐式约定：移动端跳过初始化，触屏由原生滚动替代；
+ * 依赖 .group / .draggable / .affix-tab 等类名定位节点，重命名需同步；
+ * onMove 禁止在固定页与普通页之间互拖，保证 affix 区顺序稳定；
+ * styleType 变化会销毁并重建实例以适配不同容器结构。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\use-tabs-drag.ts
  * @author ydsz-team

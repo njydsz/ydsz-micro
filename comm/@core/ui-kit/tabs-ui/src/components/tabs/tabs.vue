@@ -1,5 +1,9 @@
 <!--
- * tabs 通用组件
+ * 常规风格标签栏：按 styleType（plain / card / brisk）切换条目外观。
+ *
+ * 三种风格的样式以映射表集中定义而非散在模板里，
+ * 因为同一套结构要在三套外观间切换，散写会造成大量重复的 v-if。
+ * 关闭 inheritAttrs 是为了让 attrs 落到标签容器而不是外层包裹节点上。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\tabs\tabs.vue
  * @author ydsz-team

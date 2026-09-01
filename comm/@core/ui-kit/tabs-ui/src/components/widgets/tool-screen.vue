@@ -1,5 +1,8 @@
 <!--
- * tool-screen 通用组件
+ * 内容区的全屏/退出全屏切换按钮，图标在 Fullscreen 与 Minimize2 之间切换。
+ *
+ * 只负责切换布尔状态，真正的全屏动作（requestFullscreen 或布局调整）由父级执行 ——
+ * 浏览器全屏 API 需要用户手势与错误处理，放在父级更可控。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\widgets\tool-screen.vue
  * @author ydsz-team

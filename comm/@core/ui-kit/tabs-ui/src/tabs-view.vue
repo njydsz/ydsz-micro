@@ -1,5 +1,10 @@
 <!--
- * tabs-view Vue 组件
+ * 标签页视图的组装层：按 styleType 选用标签栏，并接上横向滚动与拖拽排序。
+ *
+ * 滚动与拖拽都以组合式函数接入而非写在模板里，
+ * 因为两者都强依赖 DOM 结构与定时器/observer 的生命周期管理。
+ * 滚轮事件只在 wheelable 为真时接管并阻止冒泡，
+ * 否则会连带滚动页面内容区。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\tabs-view.vue
  * @author ydsz-team

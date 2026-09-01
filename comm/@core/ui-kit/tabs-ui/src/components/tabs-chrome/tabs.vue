@@ -1,5 +1,10 @@
 <!--
- * tabs 通用组件
+ * 浏览器标签风格标签栏：条目带斜切外形与重叠间距，需要手动计算宽度。
+ *
+ * 间距以 CSS 变量 --gap 下发，宽度由组件自行计算 ——
+ * chrome 风格的斜切边无法靠普通间距实现，只能算出每条的实际占位。
+ * 关闭按钮的可关闭性用 Reflect.has 判断 meta 中是否显式声明 tabClosable，
+ * 未声明时默认可关，这样才能区分「未配置」与「显式禁止关闭」。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\components\tabs-chrome\tabs.vue
  * @author ydsz-team

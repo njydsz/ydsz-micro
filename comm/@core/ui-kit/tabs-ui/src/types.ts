@@ -1,5 +1,10 @@
 /**
- * types 模块
+ * 标签页组件的类型契约：事件声明与 props。
+ *
+ * 注意 gap / maxWidth / minWidth 等属性仅在 chrome 风格下生效 ——
+ * 只有该风格需要手动计算条目间距与宽度，其余风格由滚动容器自适应。
+ * contentClass 除了作为样式钩子，还被 useTabsDrag 用来定位可排序容器，
+ * 改默认值时必须同步拖拽逻辑。
  *
  * @path comm\@core\ui-kit\tabs-ui\src\types.ts
  * @author ydsz-team

@@ -13,6 +13,7 @@ import type { AppInstance, SchedulerContext } from "./app-state";
 import { getContext } from "./app-state";
 import { createLogger } from "@YDSZ-core/shared/utils";
 import { removeStylesheets } from "./loader";
+import type { ExtendedPerformance, MemoryInfo } from "./performance-memory";
 
 /** 模块级日志器（任务调度队列） */
 const logger = createLogger("MicroKernel:TaskQueue");
@@ -67,7 +68,7 @@ function getAdaptiveMaxKeepAlive(): number {
 }
 
 /**
- * v4.3.0: 安全读取 performance.memory（非标准 Chromium API）。
+ * v4.4.1: 安全读取 performance.memory（非标准 Chromium API），使用预声明的 ExtendedPerformance 类型。
  *
  * 返回 null 表示环境不支持（Safari / Firefox / 未启用），调用方应退化为
  * 计数启发式（保活实例数量）而非静默跳过。
@@ -75,18 +76,9 @@ function getAdaptiveMaxKeepAlive(): number {
  * v4.4.0 标注：该 API 已被 W3C 废弃，仅作为 performance.measureMemory()
  * 不可用时的同步回退路径保留，见 getMemoryUsageMB()。
  */
-function getJsHeapInfo(): {
-  jsHeapSizeLimit?: number;
-  usedJSHeapSize?: number;
-} | null {
+function getJsHeapInfo(): Partial<MemoryInfo> | null {
   try {
-    const perf = (
-      window as unknown as {
-        performance?: {
-          memory?: { jsHeapSizeLimit?: number; usedJSHeapSize?: number };
-        };
-      }
-    ).performance;
+    const perf = (window as unknown as { performance?: ExtendedPerformance }).performance;
     const memory = perf?.memory;
     if (!memory) return null;
     return {
@@ -99,7 +91,8 @@ function getJsHeapInfo(): {
 }
 
 /**
- * v4.4.0: 获取当前 JS 堆占用（MB），优先标准 API。
+ * v4.4.1: 获取当前 JS 堆占用（MB），优先标准 API。
+ * 使用预声明的 ExtendedPerformance 类型替代内联 any 双重断言。
  *
  * 优先级：
  * 1. `performance.measureMemory()` —— W3C 标准提案，Chrome 128+ 可用，
@@ -109,11 +102,8 @@ function getJsHeapInfo(): {
  */
 async function getMemoryUsageMB(): Promise<number | null> {
   // 标准路径：performance.measureMemory()（feature-detect，勿假设存在）
-  const measure = (
-    window.performance as unknown as {
-      measureMemory?: (o?: { attribution?: boolean }) => Promise<{ bytes?: number }>;
-    }
-  )?.measureMemory?.bind(window.performance);
+  const perf = (window as unknown as { performance?: ExtendedPerformance }).performance;
+  const measure = perf?.measureMemory?.bind(window.performance);
   if (typeof measure === "function") {
     try {
       const result = await measure({ attribution: false });
