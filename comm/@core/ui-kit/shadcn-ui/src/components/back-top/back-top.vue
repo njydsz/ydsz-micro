@@ -1,5 +1,9 @@
 <!--
- * back-top 通用组件
+ * 回到顶部悬浮按钮：滚动超过阈值后出现，点击平滑滚回顶部。
+ *
+ * 显隐与滚动行为全部委托给 useBackTop，本组件只负责定位与呈现，
+ * 便于在自定义容器（非 body 滚动）中复用同一套逻辑。
+ * 定位由 bottom / right 控制；处于悬浮按钮组（isGroup）时改由外层容器统一排布。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\back-top.vue
  * @author ydsz-team
@@ -49,3 +53,4 @@ const { handleClick, visible } = useBackTop(props);
     </YDSZButton>
   </transition>
 </template>
+

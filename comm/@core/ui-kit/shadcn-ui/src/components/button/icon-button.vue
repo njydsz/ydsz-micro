@@ -1,5 +1,8 @@
 <!--
- * icon-button 通用组件
+ * 图标按钮：只放图标的方形按钮，可选附带 tooltip。
+ *
+ * 图标按钮没有可见文案，必须给出无障碍名称；因此提供了 tooltip 插槽，
+ * 未传 tooltip 时调用方应自行补 aria-label，否则读屏只会读出一个空按钮。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\icon-button.vue
  * @author ydsz-team
@@ -73,3 +76,4 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
     </template>
   </YDSZTooltip>
 </template>
+

@@ -1,5 +1,8 @@
 <!--
- * button 通用组件
+ * 通用按钮：在基础 Button 之上补充 loading、图标与自定义渲染能力。
+ *
+ * 内容由默认插槽承载，因此图标与文案的排布交给调用方，组件只保证内边距、
+ * 尺寸与 disabled / loading 期间不可点击的行为一致。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button.vue
  * @author ydsz-team
@@ -51,3 +54,4 @@ const isDisabled = computed(() => {
     <slot></slot>
   </Primitive>
 </template>
+

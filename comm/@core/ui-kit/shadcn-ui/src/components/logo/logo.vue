@@ -1,5 +1,8 @@
 <!--
- * logo 通用组件
+ * 品牌标识：展示站点 Logo，并支持在侧栏折叠时只保留图形。
+ *
+ * 折叠态通过 collapsed 控制，只隐藏文字部分（text 插槽）而不缩放整个 Logo，
+ * 避免窄侧栏里图形被压得无法辨认。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\logo\logo.vue
  * @author ydsz-team
@@ -79,3 +82,4 @@ withDefaults(defineProps<Props>(), {
     </a>
   </div>
 </template>
+

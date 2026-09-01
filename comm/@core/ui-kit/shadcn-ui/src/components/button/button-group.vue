@@ -1,5 +1,8 @@
 <!--
- * button-group 通用组件
+ * 按钮组容器：为一组按钮提供统一的间距与圆角衔接。
+ *
+ * 相邻按钮共享边框（除首尾外去掉内侧圆角与重复边线），使一组操作在视觉上连成整体；
+ * 具体按钮由默认插槽注入，容器不关心按钮类型。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button-group.vue
  * @author ydsz-team
@@ -103,3 +106,4 @@ withDefaults(
   }
 }
 </style>
+

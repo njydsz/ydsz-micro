@@ -1,5 +1,8 @@
 <!--
- * breadcrumb-background 通用组件
+ * 带背景容器的面包屑变体：在普通面包屑外套一层背景与圆角。
+ *
+ * 与 breadcrumb.vue 共用同一份 BreadcrumbProps，只是呈现形态不同，
+ * 由 breadcrumb-view.vue 依据样式配置在两者间切换，使用方无需感知差异。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\breadcrumb-background.vue
  * @author ydsz-team
@@ -114,3 +117,4 @@ li:not(:last-child) a:hover::after {
   @apply border-l-accent-hover;
 }
 </style>
+

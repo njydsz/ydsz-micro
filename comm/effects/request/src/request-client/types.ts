@@ -33,6 +33,8 @@ type ExtendOptions<T = unknown> = {
    * - data: 解构响应的BODY数据，只返回其中的data节点数据（会检查status和code是否为成功状态）。
    */
   responseReturn?: 'body' | 'data' | 'raw';
+  /** 请求去重控制（P1-7：in-flight request dedup） */
+  dedup?: boolean;
   /** 重试配置 */
   retry?: {
     /** 最大重试次数，默认 0（不重试） */

@@ -1,5 +1,10 @@
 <!--
- * breadcrumb-view 通用组件
+ * 面包屑视图：按样式配置在普通形态与带背景形态之间切换。
+ *
+ * 作为对外使用的入口组件，它把样式分支收敛在一处，业务侧只传 breadcrumbs 数据
+ * 与 styleType，不必自行判断该渲染哪个变体。
+ * 通过 useForwardPropsEmits 把 props 与 select 事件透传给具体变体，
+ * 避免中间层逐个声明再转发的样板代码。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\breadcrumb-view.vue
  * @author ydsz-team
@@ -44,3 +49,4 @@ const forward = useForwardPropsEmits(props, emit);
   }
 }
 </style>
+

@@ -1,5 +1,12 @@
 /**
- * use-backtop 模块
+ * 回到顶部的滚动逻辑：判定按钮显隐并执行平滑滚动。
+ *
+ * 滚动监听走 300ms 节流（首次立即执行），在滚动流畅度与显隐及时性之间取平衡。
+ * 挂载后会主动执行一次判定，否则刷新页面停留在中段时按钮不会出现。
+ *
+ * 两点容易踩的行为：target 选择器查不到元素时**直接抛错**（发生在 onMounted 内，
+ * 会中断挂载），而非降级为监听全局；且 target 只在挂载时读取一次，
+ * 运行中修改不会重新绑定。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\use-backtop.ts
  * @author ydsz-team
@@ -71,3 +78,4 @@ export const useBackTop = (props: BacktopProps) => {
     visible,
   };
 };
+

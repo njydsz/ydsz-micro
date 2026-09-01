@@ -1,5 +1,9 @@
 <!--
- * input 通用组件
+ * 定长验证码输入：分格输入并在填满后一次性抛出完整值。
+ *
+ * 用于短信 / 邮箱验证码这类定长码场景；分格呈现比单个长输入框更易核对，
+ * 且能自动处理粘贴整串验证码的拆分。
+ * 完成与变更分别以事件抛出，便于上层区分「填满」与「正在输入」两种时机。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\pin-input\input.vue
  * @author ydsz-team
@@ -133,3 +137,4 @@ const id = useId();
     </div>
   </PinInput>
 </template>
+

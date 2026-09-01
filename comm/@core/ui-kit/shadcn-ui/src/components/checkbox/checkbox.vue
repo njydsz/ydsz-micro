@@ -1,5 +1,8 @@
 <!--
- * checkbox 通用组件
+ * 复选框：在 radix CheckboxRoot 之上补充 indeterminate 半选态。
+ *
+ * 半选态用于「父级勾选框」表达子项部分选中的状态，原生 checkbox 只能通过 JS
+ * 设置且不同浏览器表现不一，这里统一为受控属性以便树形选择场景复用。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\checkbox\checkbox.vue
  * @author ydsz-team
@@ -36,3 +39,4 @@ const id = useId();
     <label :for="id" class="ml-2 cursor-pointer text-sm"> <slot></slot> </label>
   </div>
 </template>
+

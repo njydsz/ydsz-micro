@@ -1,5 +1,9 @@
 <!--
- * input-password 通用组件
+ * 密码输入框：在普通输入框上补充明文切换与强度提示。
+ *
+ * 强度提示默认关闭，仅在 passwordStrength 为真时渲染 —— 校验规则本身由业务定义，
+ * 组件只负责展示，避免把密码策略固化在组件里。
+ * 强度文案通过 strengthText 插槽暴露，便于按业务要求改写措辞。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\input-password\input-password.vue
  * @author ydsz-team
@@ -69,3 +73,4 @@ const show = ref(false);
     </div>
   </div>
 </template>
+

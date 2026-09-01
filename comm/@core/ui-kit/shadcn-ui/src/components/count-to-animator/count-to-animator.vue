@@ -1,5 +1,9 @@
 <!--
- * count-to-animator 通用组件
+ * 数字滚动动画：让数值在指定时长内从起始值过渡到目标值。
+ *
+ * 基于 VueUse 的 useTransition 实现缓动，用于仪表盘等指标卡，避免数字突变
+ * 显得生硬；可通过 prefix / suffix / separator / decimals 控制展示格式。
+ * autoplay 为 false 时需由外部触发，便于让多个指标同步起跳。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\count-to-animator\count-to-animator.vue
  * @author ydsz-team
@@ -123,3 +127,4 @@ defineExpose({ reset });
     {{ value }}
   </span>
 </template>
+

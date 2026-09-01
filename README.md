@@ -178,10 +178,10 @@ ydsz-micro/
 
 ### 环境要求
 
-| 依赖    | 版本                                |
-| ------- | ----------------------------------- |
-| Node.js | >= 20.10.0                          |
-| pnpm    | >= 9.12.0（推荐通过 corepack 管理） |
+| 依赖    | 版本                                 |
+| ------- | ------------------------------------ |
+| Node.js | >= 22.6.0（vsh 依赖 `--experimental-strip-types`，CI 已固定 Node 22） |
+| pnpm    | >= 9.12.0（推荐通过 corepack 管理）  |
 
 ### 安装与启动
 
@@ -293,7 +293,7 @@ server: {
 | 检查项     | 命令                          | 说明                                          |
 | ---------- | ----------------------------- | --------------------------------------------- |
 | Lint       | `pnpm lint` / `pnpm lint:fix` | ESLint + Stylelint（含 Stylelint 自动修复）   |
-| 类型检查   | `pnpm type-check`             | turbo 编排（⚠️ 各包 `type-check` 脚本尚未接线，当前执行 0 任务；存量类型错误清理后逐包接线） |
+| 类型检查   | `pnpm type-check`             | turbo 编排（✅ v4.4.1 基础设施包已接线：micro-kernel / micro-runtime / monitor / constants，存量 108 处类型错误已清零；业务包按包清零后逐包接线） |
 | 循环依赖   | `pnpm vsh:check-circular`     | `vsh check-circular`（零循环依赖守护）        |
 | 依赖合法性 | `pnpm vsh:check-dep`          | `vsh check-dep`（依赖合规）                   |
 | 产物依赖   | `pnpm vsh:check-bundle`       | 共享依赖外置证据检测（防 importmap 依赖被误打包致双实例，v4.4.0） |

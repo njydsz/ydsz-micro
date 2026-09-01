@@ -1,8 +1,9 @@
 /**
- * index 模块
+ * 可展开箭头的出口：导出 YDSZExpandableArrow。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\expandable-arrow\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */
 export { default as YDSZExpandableArrow } from './expandable-arrow.vue';
+

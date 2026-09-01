@@ -1,5 +1,8 @@
 <!--
- * hover-card 通用组件
+ * 悬停卡片：鼠标悬停触发器时浮出详情卡片。
+ *
+ * 用于「补充说明但不打断当前操作」的场景（如用户名悬停展示资料），
+ * 与 tooltip 的区别是内容可交互 —— 卡片内可以放链接与按钮，因此未加延迟销毁。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\hover-card\hover-card.vue
  * @author ydsz-team
@@ -61,3 +64,4 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     </HoverCardContent>
   </HoverCard>
 </template>
+

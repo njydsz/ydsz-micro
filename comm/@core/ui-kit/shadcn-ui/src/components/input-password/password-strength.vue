@@ -1,5 +1,8 @@
 <!--
- * password-strength 通用组件
+ * 密码强度条：按强度等级渲染五段色条。
+ *
+ * 强度判定内置于组件内（长度、字符种类等启发式规则），仅用于即时反馈，
+ * 不能替代服务端校验；等级与颜色的映射表集中在组件顶部，便于统一调整。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\input-password\password-strength.vue
  * @author ydsz-team
@@ -71,3 +74,4 @@ function checkPasswordStrength(password: string) {
     </template>
   </div>
 </template>
+

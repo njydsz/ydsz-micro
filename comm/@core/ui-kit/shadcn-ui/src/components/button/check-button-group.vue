@@ -1,5 +1,9 @@
 <!--
- * check-button-group 通用组件
+ * 可勾选按钮组：把一组按钮当作单选/多选控件使用。
+ *
+ * 适用于筛选器等「选项少、需要一眼看全」的场景，比下拉少一次点击。
+ * 每项都可用 option 插槽自定义内容，选择结果以 btnClick 事件抛出，
+ * 组件自身不持有选中状态，便于与外部的筛选条件保持单一数据源。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\check-button-group.vue
  * @author ydsz-team
@@ -201,3 +205,4 @@ async function onBtnClick(value: ValueType) {
   }
 }
 </style>
+

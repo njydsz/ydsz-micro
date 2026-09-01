@@ -1,5 +1,9 @@
 /**
- * button 模块
+ * 按钮相关类型：按钮 props、按钮组 props 与通用渲染类型。
+ *
+ * CustomRenderType 允许字符串或渲染函数，用于按钮文案这类既可能静态也可能需
+ * 动态生成的内容，避免为此再拆一个组件。
+ * 按钮组 props 通过 Pick 从按钮 props 上选取公共项，保证两者不会各自漂移。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button.ts
  * @author ydsz-team
@@ -91,3 +95,4 @@ export interface YDSZButtonGroupProps extends Pick<
   /** 尺寸 */
   size?: 'large' | 'middle' | 'small';
 }
+

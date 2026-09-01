@@ -1,5 +1,10 @@
 <!--
- * expandable-arrow 通用组件
+ * 可展开箭头：点击切换展开态并旋转指示箭头，用于展开/收起区域。
+ *
+ * 用 div + role="button" 而非 button 元素，是为了能自由承载任意行内内容而不
+ * 受 button 内部元素限制；代价是必须自行补齐 tabindex 与 Enter / Space 键盘处理，
+ * 这里已一并实现，并用 aria-expanded 向辅助技术暴露当前状态。
+ * 图标区留有 icon 插槽，默认插槽则透出 is-expanded 供文案联动。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\expandable-arrow\expandable-arrow.vue
  * @author ydsz-team
@@ -41,3 +46,4 @@ const collapsed = defineModel({ default: false });
     </div>
   </div>
 </template>
+

@@ -1,5 +1,8 @@
 /**
- * types 模块
+ * 面包屑的类型契约：单个面包屑项的结构与组件 props。
+ *
+ * IBreadcrumb 描述数据项（标题、路径、图标、子项），BreadcrumbProps 描述渲染配置，
+ * 两者分离使同一份数据可在不同样式下复用。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\types.ts
  * @author ydsz-team
@@ -59,3 +62,4 @@ export interface BreadcrumbProps {
   /** 展示风格（如普通/背景块样式），取值由全局主题类型定义 */
   styleType?: BreadcrumbStyleType;
 }
+

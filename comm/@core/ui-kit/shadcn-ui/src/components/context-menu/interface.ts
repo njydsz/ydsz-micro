@@ -1,5 +1,8 @@
 /**
- * interface 模块
+ * 右键菜单项的数据结构定义。
+ *
+ * 单独成文件是因为菜单数据常由路由或权限配置生成，业务侧需要在不引入组件
+ * （及其 radix 依赖）的前提下引用该类型。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\context-menu\interface.ts
  * @author ydsz-team
@@ -43,3 +46,4 @@ interface IContextMenuItem {
   text: string;
 }
 export type { IContextMenuItem };
+

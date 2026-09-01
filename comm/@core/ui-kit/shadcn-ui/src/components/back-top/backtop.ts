@@ -1,5 +1,8 @@
 /**
- * backtop 模块
+ * 回到顶部按钮的 props 声明：运行时定义与 TS 接口两套并存。
+ *
+ * backtopProps 供 Vue 做运行时校验与默认值填充，BacktopProps 供 TS 与 hook 使用；
+ * 二者需手动保持同步 —— 接口中多出的 isGroup 仅作为类型标记，不参与运行时校验。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\backtop.ts
  * @author ydsz-team
@@ -62,3 +65,4 @@ export interface BacktopProps {
   /** 滚动距离超过该值（px）后按钮才显示，默认 200，避免短页面出现无意义的按钮 */
   visibilityHeight?: number;
 }
+

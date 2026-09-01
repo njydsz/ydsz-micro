@@ -1,5 +1,7 @@
 /**
- * types 模块
+ * 验证码输入的 props 类型定义。
+ *
+ * 独立成文件，供业务在封装自己的验证码表单时引用，无需引入组件实现。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\pin-input\types.ts
  * @author ydsz-team
@@ -35,3 +37,4 @@ interface PinInputProps {
 }
 
 export type { PinInputProps };
+
