@@ -70,6 +70,16 @@ export interface Manifest {
     /** js URL → SRI hash（v4.4.0，供 strictIntegrity 模式） */
     js?: Record<string, string>;
   };
+  /**
+   * v4.4.1 F3: mount props 契约指纹（可选）。
+   *
+   * 构建期由 vite-plugin-manifest 写入（消费 props 键集合的规范化哈希），
+   * 宿主在激活前调用 verifyPropsContract 比对——灰度场景下运行时加载的
+   * 旧版本子应用若与宿主契约不匹配，提前走分级降级而非运行时静默失败。
+   *
+   * @since 4.4.1
+   */
+  propsContract?: string;
 }
 
 /** 加载配置 */
@@ -90,6 +100,14 @@ export interface LoadOptions {
    * 代价：入口多一次网络往返（命中 HTTP 缓存时可接受）。
    */
   strictIntegrity?: boolean;
+  /**
+   * v4.4.1 F3: 宿主侧 mount props 契约指纹（可选）。
+   *
+   * 传入后与 manifest.propsContract 比对，不一致抛 LOAD_MANIFEST_INVALID
+   * （灰度场景旧版本子应用与宿主新代码契约漂移时提前降级）。
+   * 任一侧未声明契约则静默放行（向后兼容）。
+   */
+  hostPropsContract?: null | string;
 }
 
 /** 加载结果 */
@@ -236,6 +254,9 @@ export async function loadApp(
   if (options.strictIntegrity) {
     await verifyEntryIntegrity(manifest, extSignal);
   }
+
+  // v4.4.1 F3: props 契约校验（可选）—— 灰度场景旧版本子应用提前降级
+  verifyPropsContract(manifest, options.hostPropsContract ?? null);
 
   const mod = await importWithRetry(manifest.entry, { timeout, retries, retryBaseDelay, extSignal });
   assertLifecycle(mod, config.name);
@@ -501,4 +522,38 @@ function assertLifecycle(module: Record<string, unknown>, appName: string): void
       `[MicroKernel] App "${appName}" must export "unmount" function. Found: ${Object.keys(module).join(', ')}`,
     );
   }
+}
+
+/**
+ * v4.4.1 F3: mount props 契约校验。
+ *
+ * 比对宿主侧契约指纹与 manifest.propsContract：
+ * - manifest 未声明契约（旧构建产物）→ 静默放行（向后兼容）
+ * - 双方均声明且一致 → 放行
+ * - 双方均声明且不一致 → 抛 LOAD_MANIFEST_INVALID（灰度场景下旧版本子应用
+ *   与宿主新代码契约漂移，提前降级而非运行时静默失败）
+ *
+ * 契约指纹推荐生成方式（宿主侧与 vite-plugin-manifest 保持同一算法）：
+ * 消费的 props 键集合排序拼接后取 sha256（base64）：
+ * `sha256-${btoa(sortedKeys.join('|'))}` 的规范哈希由调用方计算。
+ *
+ * @param manifest - 子应用构建产出的 manifest
+ * @param hostContract - 宿主侧契约指纹（null 表示宿主未启用契约校验）
+ * @since 4.4.1
+ */
+export function verifyPropsContract(
+  manifest: Manifest,
+  hostContract: null | string,
+): void {
+  const declared = manifest.propsContract;
+  if (!declared || !hostContract) return;
+  if (declared === hostContract) {
+    logger.debug(`Props contract verified for ${manifest.name}`);
+    return;
+  }
+  throw new KernelError(
+    KernelErrorCode.LOAD_MANIFEST_INVALID,
+    `[MicroKernel] Props contract mismatch for "${manifest.name}": manifest declares ${declared}, host expects ${hostContract}. ` +
+      'The sub-app build predates a host props change — rebuild/redeploy the sub-app or roll back the host.',
+  );
 }

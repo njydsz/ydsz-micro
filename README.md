@@ -299,11 +299,11 @@ server: {
 | 产物依赖   | `pnpm vsh:check-bundle`       | 共享依赖外置证据检测（防 importmap 依赖被误打包致双实例，v4.4.0） |
 | 产物体积   | `pnpm check:size`             | 构建产物 gzip 预算断言（主应用 512KB / 子应用 384KB，v4.4.0） |
 | i18n 校验  | `pnpm check:i18n`             | 全仓 zh-CN / en-US key 集合一致性校验（v4.4.0） |
-| importmap  | `pnpm sync:shared-deps:check` | 版本锁（`bash/importmap.lock.json`）与 vendor 产物一致性校验（v4.4.0） |
+| importmap  | `pnpm sync:shared-deps:check` | 版本锁（`bash/importmap.lock.json`）与 vendor 产物一致性校验（v4.4.0 机制，v4.4.1 首次执行生成锁文件并修复 Windows `*` 路径与 axios esm.sh 解析问题） |
 | 契约校验   | `pnpm gen:contract:check`     | 静态契约基线漂移检查；`pnpm gen:api:check` 为运行时契约（后端运行后） |
 | 发布校验   | `pnpm vsh:publint`            | 共享包发布规范校验                            |
-| 格式化     | —（待接入）                   | Prettier 经 `lint:fix` 集成，独立 `format` 脚本未落地 |
-| 拼写检查   | —（待接入）                   | `cspell` 配置未落地，`check:cspell` 脚本缺失  |
+| 格式化     | `pnpm format` / `pnpm format:check` | Prettier 全仓格式化（v4.4.1 接入，`--cache` 加速） |
+| 拼写检查   | `pnpm check:cspell`           | cspell 全仓拼写检查（v4.4.1 接入，词库见 `cspell.json`） |
 
 Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push` 全量执行类型检查、vsh 三件套（check-dep / check-arch / check-circular）与契约/错误码漂移校验；`commit-msg` 执行 Commitlint；`post-merge` 自动 `pnpm install`。
 

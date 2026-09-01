@@ -267,12 +267,15 @@ function checkVendorArtifacts() {
       }
     }
 
-    // 2. 顶层依赖版本提取（bare 名 key；/vendor/ 路径保留 host 结构，版本仍可提取）
+    // 2. 顶层依赖版本提取（bare 名 key）
+    // v4.4.1: importmap 已改写为 /vendor/ 同源路径，版本号从锁定记录
+    // （lock.deps）比对而非从 URL 提取（/vendor/ 路径无协议，extractVersion 不适用）
     for (const dep of ALL_SHARED_DEPS) {
       const url = map.imports?.[dep.name];
-      if (!url) continue;
-      const version = extractVersion(url);
-      if (version) versions.set(dep.name, version);
+      if (!url || !url.startsWith('/vendor/')) continue;
+      // /vendor/esm.sh/_starvue@3.5.42/... → 提取 name@version 段
+      const atMatch = url.match(/\/@?[^/@_]+(?:_star)?@(\d+\.\d+\.\d+(?:-[\w.]+)?)/);
+      if (atMatch) versions.set(dep.name, atMatch[1]);
     }
     seen.set(app, versions);
   }

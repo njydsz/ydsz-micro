@@ -49,6 +49,21 @@ export interface ManifestPluginOptions {
   /** 子应用版本（建议取 package.json version + build hash） */
   version?: string;
   /**
+   * v4.4.1 F3: mount props 契约指纹（可选）。
+   *
+   * 子应用对宿主注入 props 的消费面声明（如生命周期钩子集合的规范化
+   * 签名串）。构建期写入 manifest.propsContract，kernel 在激活前比对
+   * 宿主侧契约与子应用声明——灰度（canary）场景下运行时可能加载旧版本
+   * 子应用，props 契约与宿主新代码不匹配时提前降级，替代事后 semver 断言。
+   *
+   * 推荐取值：子应用消费的 props 键集合排序拼接后哈希，
+   * 如 `sha256(container|basename|globalState|messageBus)`。
+   *
+   * @example
+   *   propsContract: 'sha256-aW5zdGFuY2U='
+   */
+  propsContract?: string;
+  /**
    * 路由级骨架屏配置（v3.3 新增，可选）。
    *
    * 子应用按自身路由前缀声明骨架屏类型，构建期写入 manifest.json，
@@ -137,6 +152,11 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
       // v3.3: 透传路由级骨架屏配置（可选）
       if (Array.isArray(options.routes) && options.routes.length > 0) {
         manifest.routes = options.routes;
+      }
+
+      // v4.4.1 F3: 透传 mount props 契约指纹（可选，供 kernel 激活前灰度校验）
+      if (options.propsContract) {
+        manifest.propsContract = options.propsContract;
       }
 
       // 追加 manifest.json 到产物（loader.ts 对应 fetch manifest.json）

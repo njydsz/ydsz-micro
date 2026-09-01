@@ -139,6 +139,8 @@ export type {
 } from "./loader";
 // v4.2.1 L2: CSP nonce 配置（SRI 兼容）
 export { setCspNonce } from "./loader";
+// v4.4.1 F3: mount props 契约校验（灰度场景旧版本子应用提前降级）
+export { verifyPropsContract } from "./loader";
 // v4.1 P0-A1: 管理器注册表 + 统一生命周期工厂
 export { createManagerRegistry } from "./manager-registry";
 export type { DisposableManager } from "./manager-registry";
