@@ -16,7 +16,7 @@ import { $t } from "@ydsz/locales";
 
 import { YDSZButton } from "@YDSZ-core/shadcn-ui";
 
-interface Props extends FallbackProps {}
+type Props = FallbackProps;
 
 defineOptions({
   name: "Fallback",
@@ -40,7 +40,6 @@ const IconHello = defineAsyncComponent(
 const IconOffline = defineAsyncComponent(
   () => import("./icons/icon-offline.vue"),
 );
-const IconEmpty = defineAsyncComponent(() => import("./icons/icon-empty.vue"));
 
 const titleText = computed(() => {
   if (props.title) {

@@ -17,7 +17,7 @@ import { findMenuByPath } from '@ydsz/utils';
 
 import { NormalMenu } from '@YDSZ-core/menu-ui';
 
-interface Props extends NormalMenuProps {}
+type Props = NormalMenuProps;
 
 const props = defineProps<Props>();
 

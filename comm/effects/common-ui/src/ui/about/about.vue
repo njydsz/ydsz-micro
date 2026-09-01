@@ -20,7 +20,7 @@ import { YDSZRenderContent } from '@YDSZ-core/shadcn-ui';
 
 import { Page } from '../../components';
 
-interface Props extends AboutProps {}
+type Props = AboutProps;
 
 defineOptions({
   name: 'AboutUI',

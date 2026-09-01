@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElOption, ElSelect, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
 import type { GlueCodeVO } from '#/api/models';
@@ -187,7 +187,7 @@ async function handleRollback(version: GlueCodeVO): Promise<void> {
 async function handleDiff(versionA: number, versionB: number): Promise<void> {
   if (!props.jobId) return;
   try {
-    const result = await diff({ jobId: props.jobId, versionA, versionB });
+    await diff({ jobId: props.jobId, versionA, versionB });
     ElMessage.info('差异对比功能开发中');
   } catch {
     // 错误提示由请求拦截器统一处理
