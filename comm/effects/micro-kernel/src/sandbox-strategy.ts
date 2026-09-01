@@ -205,7 +205,7 @@ export class IframeSandboxStrategy implements SandboxStrategy {
    */
   attachGlobalStateBridge(
     bridge: GlobalStateBridge,
-    mountPropsProxy: {
+    _mountPropsProxy: {
       getGlobalState: () => Record<string, unknown>;
       setGlobalState: (patch: Record<string, unknown>) => void;
       onGlobalStateChange: (listener: (state: Record<string, unknown>) => void, fireImmediately?: boolean) => () => void;

@@ -17,10 +17,6 @@ import type {
 } from "@ydsz/micro-runtime";
 import type { Manifest } from "./loader";
 import type { SandboxStrategy } from "./sandbox-strategy";
-import { createLogger } from "@YDSZ-core/shared/utils";
-
-const logger = createLogger("MicroKernel:AppState");
-
 // ==================== 状态类型 ====================
 
 /** 子应用生命周期状态：未加载 / 加载中 / 已加载 / 已挂载 / 已卸载 */

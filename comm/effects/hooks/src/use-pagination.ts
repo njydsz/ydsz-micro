@@ -17,7 +17,7 @@ import { computed, ref, unref } from 'vue';
  * @returns Paginated array slice
  * @throws {Error} If pageNo or pageSize are invalid
  */
-function pagination<T = any>(list: T[], pageNo: number, pageSize: number): T[] {
+function pagination<T>(list: T[], pageNo: number, pageSize: number): T[] {
   if (pageNo < 1) throw new Error('Page number must be positive');
   if (pageSize < 1) throw new Error('Page size must be positive');
 
@@ -59,7 +59,7 @@ function pagination<T = any>(list: T[], pageNo: number, pageSize: number): T[] {
  * setCurrentPage(2); // paginationList.value === [3, 4]
  * ```
  */
-export function usePagination<T = any>(list: Ref<T[]>, pageSize: number) {
+export function usePagination<T>(list: Ref<T[]>, pageSize: number) {
   const currentPage = ref(1);
   const pageSizeRef = ref(pageSize);
 

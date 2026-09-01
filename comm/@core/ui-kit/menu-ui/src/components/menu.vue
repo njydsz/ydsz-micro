@@ -17,7 +17,7 @@ import { useMenuStyle } from '../hooks';
 import { useMenuLogic } from '../composables/use-menu-logic';
 import SubMenu from './sub-menu.vue';
 
-interface Props extends MenuProps {}
+type Props = MenuProps;
 
 defineOptions({ name: 'Menu' });
 

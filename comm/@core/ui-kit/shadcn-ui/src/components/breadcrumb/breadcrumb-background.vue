@@ -10,7 +10,7 @@ import type { BreadcrumbProps } from './types';
 
 import { YDSZIcon } from '../icon';
 
-interface Props extends BreadcrumbProps {}
+type Props = BreadcrumbProps;
 
 defineOptions({ name: 'Breadcrumb' });
 const { breadcrumbs, showIcon } = defineProps<Props>();

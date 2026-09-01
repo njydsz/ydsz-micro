@@ -23,6 +23,8 @@
  * @since 1.0.0
  */
 
+import type { DisposableManager } from "./manager-registry";
+import type { PreloadManagerLike } from "./preload-manager-helpers";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
 import { UsageStatsStore } from "./preload-usage-stats";
@@ -31,11 +33,8 @@ import type {
   PermissionChecker,
   PreloadStrategyOptions,
 } from "./preload-types";
-import { shouldPrefetchByStrategy } from "./network-utils";
 
 import {
-  setupHoverListener,
-  setupVisibilityListener,
   recordPreloadConsumedHelper,
   debugInfoHelper,
   destroyHelper,
@@ -46,12 +45,10 @@ import {
   recordPreloadTriggerHelper,
   executePreloadHelper,
   __registerPreloadManager,
-  getPreloadManager,
-  resetPreloadManager,
   createPreloadManagerLifecycle,
 } from "./preload-manager-helpers";
 
-type PM = import("./preload-manager-helpers").PreloadManagerLike;
+type PM = PreloadManagerLike;
 
 // 重新导出策略工厂函数，保持向后兼容
 export {
@@ -275,6 +272,6 @@ __registerPreloadManager(
  *
  * @since 4.1.0
  */
-export function createPreloadManager(): import("./manager-registry").DisposableManager {
+export function createPreloadManager(): DisposableManager {
   return createPreloadManagerLifecycle();
 }

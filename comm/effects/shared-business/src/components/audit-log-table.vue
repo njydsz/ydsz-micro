@@ -11,7 +11,7 @@
  */
 import { onMounted } from 'vue';
 
-import { ElButton, ElDatePicker, ElInput, ElPagination, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElInput, ElPagination, ElTable, ElTableColumn, ElTag } from 'element-plus';
 
 import { useAuditLog, type AuditLogFetcher, type AuditLogItem } from '../composables/use-audit-log';
 

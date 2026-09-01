@@ -12,6 +12,7 @@
  * @since 1.0.0
  */
 
+import type { DisposableManager } from "./manager-registry";
 import type { Manifest } from "./loader";
 
 import { createLogger } from "@YDSZ-core/shared/utils";
@@ -382,7 +383,7 @@ export function resetVersionManager(): void {
  *
  * @since 4.1.0
  */
-export function createVersionManager(): import("./manager-registry").DisposableManager {
+export function createVersionManager(): DisposableManager {
   return {
     name: "version-manager",
     dispose(): void {

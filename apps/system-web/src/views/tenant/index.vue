@@ -18,10 +18,10 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
-import { h, reactive, ref } from 'vue';
+import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { page, remove, save, update } from '#/api/tenant';
-import type { TenantDTO, TenantVO } from '#/api/models';
+import { page, remove } from '#/api/tenant';
+import type { TenantVO } from '#/api/models';
 import TenantForm from './tenant-form.vue';
 
 defineOptions({ name: 'TenantManagement' });

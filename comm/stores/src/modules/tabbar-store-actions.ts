@@ -185,14 +185,14 @@ export function addTab(
       const index = ctx.tabs.value.findIndex(
         (item) => item.name === routeTab.name,
       );
-      index !== -1 && ctx.tabs.value.splice(index, 1);
+      if (index !== -1) ctx.tabs.value.splice(index, 1);
     } else if (maxCount > 0 && ctx.tabs.value.length >= maxCount) {
       // 关闭第一个
       const index = ctx.tabs.value.findIndex(
         (item) =>
           !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab,
       );
-      index !== -1 && ctx.tabs.value.splice(index, 1);
+      if (index !== -1) ctx.tabs.value.splice(index, 1);
     }
     ctx.tabs.value.push(tab);
   } else {

@@ -22,7 +22,7 @@ import {
 } from './components';
 import { useLayoutState } from './composables/use-layout-state';
 
-interface Props extends YDSZLayoutProps {}
+type Props = YDSZLayoutProps;
 
 defineOptions({
   name: 'YDSZLayout',
@@ -75,18 +75,14 @@ const sidebarEnable = defineModel<boolean>('sidebarEnable', { default: true });
 
 const {
   sidebarExpandOnHovering,
-  headerIsHidden,
   contentRef,
   scrollY,
-  isHeaderAutoMode,
-  headerWrapperHeight,
   getSideCollapseWidth,
   sidebarEnableState,
   sidebarMarginTop,
   getSidebarWidth,
   sidebarExtraWidth,
   isSideMode,
-  headerFixed,
   showSidebar,
   maskVisible,
   mainStyle,
@@ -99,10 +95,8 @@ const {
   maskStyle,
   showHeaderToggleButton,
   showHeaderLogo,
-  currentLayout,
   isFullContent,
   isHeaderMixedNav,
-  isHeaderNav,
   isMixedNav,
   isSidebarMixedNav,
   handleClickMask,

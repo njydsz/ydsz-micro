@@ -81,7 +81,7 @@ export type AlertProps = {
 };
 
 /** Prompt属性 */
-export type PromptProps<T = any> = {
+export type PromptProps<T = unknown> = {
   /** 关闭前的回调，如果返回false，则终止关闭 */
   beforeClose?: (scope: {
     isConfirm: boolean;

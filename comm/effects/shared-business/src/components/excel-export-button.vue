@@ -16,7 +16,7 @@ import {
   type ExcelExportColumn,
 } from '../composables/use-excel-export';
 
-interface Props<T = any> {
+interface Props<T = unknown> {
   /** 导出列定义 */
   columns: ExcelExportColumn<T>[];
   /** 导出数据 */

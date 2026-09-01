@@ -90,7 +90,7 @@ export class FormScrollHelper {
    * 滚动到第一个错误字段
    * @param errors 验证错误对象或字段名
    */
-  scrollToFirstError(errors: Record<string, any> | string) {
+  scrollToFirstError(errors: Record<string, unknown> | string) {
     const firstErrorFieldName =
       typeof errors === 'string' ? errors : Object.keys(errors)[0];
 

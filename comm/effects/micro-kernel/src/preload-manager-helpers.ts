@@ -13,6 +13,8 @@
  * @since 4.1.0
  */
 
+import type { DisposableManager } from "./manager-registry";
+import type { PreloadManager } from "./preload-strategy";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
 import type { PreloadStrategyOptions } from "./preload-types";
@@ -326,7 +328,7 @@ export async function executePreloadHelper(
 
 // ==================== 单例管理（通过注册模式避免循环依赖） ====================
 
-type PreloadManagerInterface = import("./preload-strategy").PreloadManager;
+type PreloadManagerInterface = PreloadManager;
 
 /** 单例获取函数（由 preload-strategy.ts 注册） */
 let instanceGetter: (() => PreloadManagerInterface) | null = null;
@@ -371,7 +373,7 @@ export function resetPreloadManager(): void {
  *
  * @since 4.1.0
  */
-export function createPreloadManagerLifecycle(): import("./manager-registry").DisposableManager {
+export function createPreloadManagerLifecycle(): DisposableManager {
   return {
     name: "preload-strategy",
     dispose(): void {

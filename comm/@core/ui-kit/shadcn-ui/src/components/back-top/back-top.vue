@@ -15,7 +15,7 @@ import { ArrowUpToLine } from '@YDSZ-core/icons';
 import { YDSZButton } from '../button';
 import { useBackTop } from './use-backtop';
 
-interface Props extends BacktopProps {}
+type Props = BacktopProps;
 
 defineOptions({ name: 'BackTop' });
 

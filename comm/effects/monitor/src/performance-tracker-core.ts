@@ -117,13 +117,13 @@ export function trackAppLoadStart(appName: string): void {
 }
 
 /** 子应用加载结束 */
-export function trackAppLoadEnd(appName: string, fromCache = false): void {
+export function trackAppLoadEnd(appName: string, _fromCache = false): void {
   mark(`load_${appName}_end`);
   measure(`load:${appName}`, `load_${appName}_start`, `load_${appName}_end`);
 
   if (checkEnabled()) {
-    const startMark = `${MARK_PREFIX}load_${appName}_start`;
-    const endMark = `${MARK_PREFIX}load_${appName}_end`;
+    const _startMark = `${MARK_PREFIX}load_${appName}_start`;
+    const _endMark = `${MARK_PREFIX}load_${appName}_end`;
     try {
       const measures = performance.getEntriesByName(`${MARK_PREFIX}load:${appName}`);
       const lastMeasure = measures[measures.length - 1];
@@ -210,7 +210,7 @@ export function trackPreload(appName: string, triggerType: string): void {
 }
 
 /** 消息通信 */
-export function trackMessage(type: string, sourceApp: string, targetApp?: string): void {
+export function trackMessage(type: string, sourceApp: string, _targetApp?: string): void {
   if (checkEnabled()) {
     recordTimeline({
       name: `message:${type}`,

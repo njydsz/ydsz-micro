@@ -20,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from '../../ui';
 
-interface Props extends DropdownMenuProps {}
+type Props = DropdownMenuProps;
 
 defineOptions({ name: 'DropdownMenu' });
 const props = withDefaults(defineProps<Props>(), {});

@@ -23,7 +23,7 @@ import { ElAlert, ElButton } from 'element-plus';
 
 defineOptions({ name: 'NetworkStatus' });
 
-const props = withDefaults(
+const _props = withDefaults(
   defineProps<{
     /** 离线提示文案 */
     offlineMessage?: string;

@@ -18,19 +18,16 @@
  * @since 3.7.0
  */
 
+import type { DisposableManager } from "./manager-registry";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
 import { clearKernelMarks } from "./performance-utils";
 import { refreshRegistry } from "./registry-adapter";
 import {
-  activeTabId,
   clearCustomTabs,
-  getRegisteredTabs,
-  registerDevToolsTab,
   renderTabButton,
   renderTabContent,
   setActiveTab,
-  unregisterDevToolsTab,
 } from "./devtools-tabs";
 
 // 重新导出 Tab 相关 API，保持向后兼容
@@ -257,7 +254,7 @@ export function destroyMicroDevTools(): void {
  *
  * @since 4.1.0
  */
-export function createDevToolsManager(): import("./manager-registry").DisposableManager {
+export function createDevToolsManager(): DisposableManager {
   return {
     name: "devtools-panel",
     dispose(): void {

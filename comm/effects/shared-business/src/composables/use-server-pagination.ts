@@ -9,7 +9,7 @@
  * 管理服务端分页状态（pageNum/pageSize/total），提供查询参数合并。
  * 相比 @ydsz/hooks 的 usePagination（仅前端切片），本 Hook 面向服务端分页场景。
  */
-import { computed, reactive, ref, unref, type Ref } from 'vue';
+import { computed, ref, unref, type Ref } from 'vue';
 
 /**
  * 分页查询函数类型

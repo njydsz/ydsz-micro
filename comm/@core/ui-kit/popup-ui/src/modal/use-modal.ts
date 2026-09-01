@@ -181,7 +181,7 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
   return [Modal, extendedApi] as const;
 }
 
-async function checkProps(api: ExtendedModalApi, attrs: Record<string, any>) {
+async function checkProps(api: ExtendedModalApi, attrs: Record<string, unknown>) {
   if (!attrs || Object.keys(attrs).length === 0) {
     return;
   }

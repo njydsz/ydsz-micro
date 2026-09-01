@@ -13,18 +13,14 @@
 import {
   computed,
   getCurrentInstance,
-  nextTick,
   onBeforeUnmount,
   onMounted,
   ref,
   toRefs,
-  watch,
 } from 'vue';
 
 import {
   bodyDown,
-  bodyMove,
-  bodyUp,
   calcDragLimitation,
   calcResizeLimits,
   createPositionStyle,
@@ -34,15 +30,11 @@ import {
   move,
   saveDimensionsBeforeMove,
   stickDown,
-  stickMove,
-  stickUp,
   up,
 } from './composables/use-resize';
 import type {
   DimensionsBeforeMove,
   Limits,
-  Rect,
-  ResizeState,
 } from './composables/use-resize';
 
 import { addEvents, removeEvents } from './composables/use-resize-events';
@@ -125,27 +117,17 @@ const {
   parentScaleX,
   parentScaleY,
   isActive,
-  preventActiveBehavior,
-  isDraggable,
   isResizable,
-  aspectRatio,
-  parentLimitation,
-  snapToGrid,
-  gridX,
-  gridY,
   parentW,
   parentH,
   w,
   h,
-  minw,
-  minh,
   x,
   y,
   z,
   dragHandle,
   dragCancel,
   sticks,
-  axis,
   contentClass,
 } = toRefs(props);
 

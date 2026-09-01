@@ -94,7 +94,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
             const instance = initCharts();
             if (!instance) return;
           }
-          clear && chartInstance?.clear();
+          if (clear) chartInstance?.clear();
           chartInstance?.setOption(currentOptions);
           resolve(chartInstance);
         }, 30);

@@ -275,6 +275,9 @@ watch(visible, (isOpen) => {
     });
   }
 });
+
+/** 暴露 open/close 供父组件通过模板 ref 调用 */
+defineExpose({ open, close });
 </script>
 
 <template>

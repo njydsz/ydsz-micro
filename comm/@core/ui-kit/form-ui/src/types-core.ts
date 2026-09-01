@@ -17,9 +17,7 @@
 import type { FieldOptions, FormContext, GenericObject } from 'vee-validate';
 import type { ZodTypeAny } from 'zod';
 
-import type { Component, HtmlHTMLAttributes, Ref } from 'vue';
-
-import type { ClassType, MaybeComputedRef } from '@YDSZ-core/typings';
+import type { Component, HtmlHTMLAttributes } from 'vue';
 
 /**
  * 表单项的标签排布方式。

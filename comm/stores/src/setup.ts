@@ -42,7 +42,7 @@ const registeredStores: Set<ReturnType<Pinia['_s']['get']>> = new Set();
  * 在 Cookie 模式下，SecureLS 仍用于非敏感 UI 状态的加密持久化，
  * 但不再存储 accessToken / refreshToken / expiresAt。
  */
-const isHttpOnlyCookieMode: boolean =
+const _isHttpOnlyCookieMode: boolean =
   import.meta.env.VITE_APP_AUTH_TOKEN_STORAGE === 'httpOnlyCookie';
 
 /**

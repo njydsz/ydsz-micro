@@ -52,9 +52,15 @@ interface Props {
   /** 每次`visibleEvent`事件发生时都重新请求数据 */
   alwaysLoad?: boolean;
   /** 在api请求之前的回调函数 */
-  beforeFetch?: AnyPromiseFunction<any, any>;
+  beforeFetch?: AnyPromiseFunction<
+    [params: Record<string, unknown>],
+    Record<string, unknown> | undefined
+  >;
   /** 在api请求之后的回调函数 */
-  afterFetch?: AnyPromiseFunction<any, any>;
+  afterFetch?: AnyPromiseFunction<
+    [result: OptionsItem[] | Record<string, unknown>],
+    OptionsItem[] | Record<string, unknown> | undefined
+  >;
   /** 直接传入选项数据，也作为api返回空数据时的后备数据 */
   options?: OptionsItem[];
   /** 组件的插槽名称，用来显示一个"加载中"的图标 */
@@ -273,9 +279,9 @@ defineExpose({
   /** 获取当前值 */
   getValue: () => unref(modelValue),
   /** 获取被包装的组件实例 */
-  getComponentRef: <T = any,>() => componentRef.value as T,
+  getComponentRef: <T = unknown,>() => componentRef.value as T,
   /** 更新Api参数 */
-  updateParam(newParams: Record<string, any>) {
+  updateParam(newParams: Record<string, unknown>) {
     innerParams.value = newParams;
   },
 });

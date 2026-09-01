@@ -24,31 +24,16 @@
  * @since 4.0.0
  */
 
-import type { TimelineEntry, FlameNode, MemorySample } from './performance-tracker-types';
-import { getFlameData } from './performance-tracker-flame';
+import type { TimelineEntry } from './performance-tracker-types';
 import {
   startMemorySampling,
   stopMemorySampling,
   getMemoryTrend,
-  setKeepAliveCount,
   clearMemorySamples,
 } from './performance-tracker-memory';
 
 import {
-  checkEnabled,
   setTrackingEnabledCore,
-  trackAppLoadStart,
-  trackAppLoadEnd,
-  trackAppMountStart,
-  trackAppMountEnd,
-  trackAppUnmountStart,
-  trackAppUnmountEnd,
-  trackKeepAliveActivate,
-  trackKeepAliveDeactivate,
-  trackPreload,
-  trackMessage,
-  trackStateChange,
-  trackRouteChange,
   getTimelineCore,
   clearTimelineCore,
   isTrackingCore,

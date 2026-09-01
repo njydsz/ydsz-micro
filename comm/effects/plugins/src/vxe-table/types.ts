@@ -12,8 +12,6 @@ import type {
   VxeUIExport,
 } from 'vxe-table';
 
-import type { Ref } from 'vue';
-
 import type { ClassType, DeepPartial } from '@ydsz/types';
 
 import type { BaseFormComponentType, YDSZFormProps } from '@YDSZ-core/form-ui';
@@ -44,7 +42,9 @@ interface ToolbarConfigOptions extends VxeGridPropTypes.ToolbarConfig {
  * 在 vxe-table 原生 `VxeGridProps` 基础上，仅扩展了工具栏配置，
  * 用于支持「搜索表单折叠按钮」这一本项目特有的能力，其余字段与官方一致。
  */
-export interface VxeTableGridOptions<T = any> extends VxeTableGridProps<T> {
+export interface VxeTableGridOptions<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> extends VxeTableGridProps<T> {
   /** 工具栏配置 */
   toolbarConfig?: ToolbarConfigOptions;
 }
@@ -76,7 +76,7 @@ export interface SeparatorOptions {
  * @typeParam D - 搜索表单所使用的组件库适配类型
  */
 export interface VxeGridProps<
-  T extends Record<string, any> = any,
+  T extends Record<string, unknown> = Record<string, unknown>,
   D extends BaseFormComponentType = BaseFormComponentType,
 > {
   /**

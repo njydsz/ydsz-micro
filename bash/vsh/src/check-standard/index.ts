@@ -26,9 +26,6 @@ import { join, relative, sep } from 'node:path';
 
 const ROOT = process.cwd();
 
-/** 扫描根目录（只扫源码，不扫 node_modules / dist / coverage / 构建产物） */
-const SCAN_DIRS = ['apps', 'comm', 'main'];
-
 /** 跳过这些路径片段 */
 const SKIP_SEGMENTS = new Set([
   'node_modules',
@@ -420,7 +417,7 @@ const SECRET_PATTERNS: Array<{ re: RegExp; label: string }> = [
   { re: /\bsk-[A-Za-z0-9]{16,}/g, label: '疑似 OpenAI/LLM API Key' },
   { re: /\b(AKIA|ASIA)[0-9A-Z]{16}\b/g, label: '疑似 AWS Access Key' },
   { re: /(?:password|passwd|pwd)\s*[:=]\s*['"][^'"]{6,}['"]/gi, label: '疑似硬编码密码' },
-  { re: /(?:secret|apiKey|api_key|token)\s*[:=]\s*['"][A-Za-z0-9_\-]{16,}['"]/gi, label: '疑似硬编码密钥/Token' },
+  { re: /(?:secret|apiKey|api_key|token)\s*[:=]\s*['"][A-Za-z0-9_-]{16,}['"]/gi, label: '疑似硬编码密钥/Token' },
 ];
 
 function checkSecrets(): void {

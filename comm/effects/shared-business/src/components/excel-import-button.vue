@@ -21,7 +21,7 @@ import {
   type ExcelImportResult,
 } from '../composables/use-excel-import';
 
-interface Props<T = any> {
+interface Props<T = unknown> {
   /** 列映射配置 */
   columns: ExcelImportColumn[];
   /** 解析成功回调 */

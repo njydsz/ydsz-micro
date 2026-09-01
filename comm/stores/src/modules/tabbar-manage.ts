@@ -28,7 +28,7 @@ import {
 } from './tabbar-store-actions';
 
 /** 模块级日志器 */
-const logger = createLogger('Tabbar');
+const _logger = createLogger('Tabbar');
 
 /**
  * @zh_CN 固定标签页

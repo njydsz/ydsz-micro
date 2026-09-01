@@ -176,7 +176,7 @@ export interface ModalState extends ModalProps {
    * 打开方向弹窗内容组件传值的通道。**关闭后不会自动清空**，
    * 新增/编辑复用同一弹窗时必须每次显式设置，否则会读到上一次的残留值。
    */
-  sharedData?: Record<string, any>;
+  sharedData?: Record<string, unknown>;
 }
 
 /**

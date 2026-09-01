@@ -15,11 +15,7 @@
  * @since 1.0.0
  */
 
-import type { GenericObject } from 'vee-validate';
-
 import type { Component } from 'vue';
-
-import type { YDSZButtonProps } from '@YDSZ-core/shadcn-ui';
 
 import type {
   BaseFormComponentType,

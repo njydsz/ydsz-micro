@@ -16,7 +16,7 @@ import { Tabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';
 import { useTabsViewScroll } from './use-tabs-view-scroll';
 
-interface Props extends TabsProps {}
+type Props = TabsProps;
 
 defineOptions({
   name: 'TabsView',

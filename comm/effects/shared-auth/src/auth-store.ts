@@ -122,11 +122,13 @@ export function createSharedAuthStore(
           if (tokenStore.loginExpired) {
             tokenStore.setLoginExpired(false);
           } else {
-            onSuccess
-              ? await onSuccess?.()
-              : await router.push(
-                  userInfo.homePath || preferences.app.defaultHomePath,
-                );
+            if (onSuccess) {
+              await onSuccess?.();
+            } else {
+              await router.push(
+                userInfo.homePath || preferences.app.defaultHomePath,
+              );
+            }
           }
 
           if (userInfo?.realName) {

@@ -17,7 +17,7 @@ import { Primitive } from 'radix-vue';
 
 import { buttonVariants } from '../../ui';
 
-interface Props extends YDSZButtonProps {}
+type Props = YDSZButtonProps;
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'button',

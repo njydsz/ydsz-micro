@@ -14,6 +14,8 @@
  * @since 4.1.0
  */
 
+import type { DisposableManager } from "./manager-registry";
+import type { RoutePredictor } from "./route-predictor";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
 import { getStorage, removeStorage, setStorage } from "./storage-utils";
@@ -123,13 +125,13 @@ function loadV1Core(predictor: RoutePredictorLike): void {
     version: 1;
   };
   const data = getStorage<null | V1Data>(
-    "ydsz_route_predictions" as StorageKey,
+    "ydsz_route_predictions",
     null,
   );
   if (!data) return;
   if (data.version !== 1) return;
   if (Date.now() - data.lastUpdated > MAX_RETENTION_MS) {
-    removeStorage("ydsz_route_predictions" as StorageKey);
+    removeStorage("ydsz_route_predictions");
     return;
   }
 
@@ -159,7 +161,7 @@ function loadV1Core(predictor: RoutePredictorLike): void {
 
   predictor.dirty = true;
   saveCore(predictor);
-  removeStorage("ydsz_route_predictions" as StorageKey);
+  removeStorage("ydsz_route_predictions");
 }
 
 /** 加载 v2 格式数据 */
@@ -300,7 +302,7 @@ export function getSummaryCore(
 
 // ==================== 单例管理 ====================
 
-type RoutePredictorInterface = import("./route-predictor").RoutePredictor;
+type RoutePredictorInterface = RoutePredictor;
 
 let instanceGetter: (() => RoutePredictorInterface) | null = null;
 let instanceDestroyer: (() => void) | null = null;
@@ -340,7 +342,7 @@ export function resetRoutePredictor(): void {
  *
  * @since 4.1.0
  */
-export function createRoutePredictorManagerLifecycle(): import("./manager-registry").DisposableManager {
+export function createRoutePredictorManagerLifecycle(): DisposableManager {
   return {
     name: "route-predictor",
     dispose(): void {

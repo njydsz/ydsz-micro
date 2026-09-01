@@ -40,7 +40,7 @@ export interface ErrorReport {
   release?: string;
   /** v3.4: 错误发生前的用户行为面包屑 */
   breadcrumbs?: Breadcrumb[];
-  extra?: Record<string, any>;
+  extra?: Record<string, unknown>;
 }
 
 /** 监控配置选项 */

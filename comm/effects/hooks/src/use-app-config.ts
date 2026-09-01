@@ -14,7 +14,7 @@ import type {
  * 由 vite-inject-app-config 注入的全局配置
  */
 export function useAppConfig(
-  env: Record<string, any>,
+  env: Record<string, string>,
   isProduction: boolean,
 ): ApplicationConfig {
   // 生产环境下，直接使用 window._YDSZ_ADMIN_PRO_APP_CONF_ 全局变量

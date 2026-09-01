@@ -191,7 +191,7 @@ export function stopCleanupTimer(): void {
  *
  * @since 4.1.0
  */
-export function createPerformanceManager(): import('./manager-registry').DisposableManager {
+export function createPerformanceManager(): DisposableManager {
   return {
     name: 'performance-utils',
     dispose(): void {
@@ -199,4 +199,5 @@ export function createPerformanceManager(): import('./manager-registry').Disposa
       clearKernelMarks();
     },
   };
-}
+}import type { DisposableManager } from "./manager-registry";
+

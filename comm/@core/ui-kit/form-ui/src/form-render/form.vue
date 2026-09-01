@@ -13,9 +13,11 @@ import type { ZodTypeAny } from 'zod';
 
 import type {
   FormCommonConfig,
+  FormFieldOptions,
   FormRenderProps,
   FormSchema,
   FormShape,
+  MaybeComponentProps,
 } from '../types';
 
 import { computed } from 'vue';
@@ -33,7 +35,7 @@ import { useExpandable } from './expandable';
 import FormField from './form-field.vue';
 import { getBaseRules, getDefaultValueInZodStack } from './helper';
 
-interface Props extends FormRenderProps {}
+type Props = FormRenderProps;
 
 const props = withDefaults(
   defineProps<Props & { globalCommonConfig?: FormCommonConfig }>(),
@@ -105,8 +107,8 @@ const formCollapsed = computed(() => {
 
 const computedSchema = computed(
   (): (Omit<FormSchema, 'formFieldProps'> & {
-    commonComponentProps: Record<string, any>;
-    formFieldProps: Record<string, any>;
+    commonComponentProps: MaybeComponentProps;
+    formFieldProps: FormFieldOptions;
   })[] => {
     const {
       colon = false,

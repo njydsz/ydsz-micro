@@ -35,7 +35,16 @@ import useDependencies from './dependencies';
 import FormLabel from './form-label.vue';
 import { isEventObjectLike } from './helper';
 
-interface Props extends FormSchema {}
+type Props = FormSchema;
+
+type ComponentFieldSlotProps = {
+  componentField: {
+    modelValue?: unknown;
+    'onUpdate:modelValue'?: (value: unknown) => void;
+    onChange?: (...args: unknown[]) => unknown;
+    [key: string]: unknown;
+  };
+};
 
 const {
   colon,
@@ -208,11 +217,11 @@ const fieldProps = computed(() => {
     keepValue: true,
     label: isString(label) ? label : '',
     ...(rules ? { rules } : {}),
-    ...(formFieldProps as Record<string, any>),
+    ...(formFieldProps as Record<string, unknown>),
   };
 });
 
-function fieldBindEvent(slotProps: Record<string, any>) {
+function fieldBindEvent(slotProps: ComponentFieldSlotProps) {
   const modelValue = slotProps.componentField.modelValue;
   const handler = slotProps.componentField['onUpdate:modelValue'];
 
@@ -224,8 +233,11 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   // antd design 的一些组件会传递一个 event 对象
   if (modelValue && isObject(modelValue) && bindEventField) {
     value = isEventObjectLike(modelValue)
-      ? modelValue?.target?.[bindEventField]
-      : (modelValue?.[bindEventField] ?? modelValue);
+      ? (modelValue as { target?: Record<string, unknown> }).target?.[
+          bindEventField
+        ]
+      : ((modelValue as Record<string, unknown>)?.[bindEventField] ??
+        modelValue);
   }
 
   if (bindEventField) {
@@ -234,14 +246,18 @@ function fieldBindEvent(slotProps: Record<string, any>) {
       [bindEventField]: value === undefined ? emptyStateValue : value,
       onChange: disabledOnChangeListener
         ? undefined
-        : (e: Record<string, any>) => {
+        : (e: unknown) => {
             const shouldUnwrap = isEventObjectLike(e);
             const onChange = slotProps?.componentField?.onChange;
             if (!shouldUnwrap) {
               return onChange?.(e);
             }
 
-            return onChange?.(e?.target?.[bindEventField] ?? e);
+            return onChange?.(
+              (e as { target?: Record<string, unknown> })?.target?.[
+                bindEventField
+              ] ?? e,
+            );
           },
       ...(disabledOnInputListener ? { onInput: undefined } : {}),
     };
@@ -252,7 +268,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
   };
 }
 
-function createComponentProps(slotProps: Record<string, any>) {
+function createComponentProps(slotProps: ComponentFieldSlotProps) {
   const bindEvents = fieldBindEvent(slotProps);
 
   const binds = {

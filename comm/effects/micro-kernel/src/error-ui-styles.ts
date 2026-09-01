@@ -20,9 +20,6 @@
 /** 样式注入标记（防重复） */
 let injected = false;
 
-/** 自定义样式回调注册表 */
-const customizers = new Set<string>();
-
 /**
  * 默认 CSS 变量（可通过 injectErrorStyles 的 variables 参数覆盖）
  */
@@ -299,12 +296,11 @@ ${Object.entries(resolved)
 
   const injectTarget = target || document.head;
   if (injectTarget && "head" in injectTarget) {
-    (
-      injectTarget as unknown as { head: { appendChild: (n: Node) => Node } }
-    ).head.append(styleEl);
+    // Document 类型：注入到 head（appendChild 与 append 等价，取兼容面更广的 API）
+    (injectTarget as unknown as Document).head.appendChild(styleEl);
   } else {
     // ShadowRoot 或普通元素
-    injectTarget.append(styleEl);
+    (injectTarget as Node).appendChild(styleEl);
   }
 
   if (!target) injected = true;

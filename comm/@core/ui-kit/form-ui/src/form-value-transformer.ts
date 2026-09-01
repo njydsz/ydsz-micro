@@ -5,7 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { formatDate, isDate, isDayjsObject, isFunction } from '@YDSZ-core/shared/utils';
+import { formatDate, isFunction } from '@YDSZ-core/shared/utils';
 
 import type { YDSZFormProps } from './types';
 
@@ -27,7 +27,7 @@ export class FormValueTransformer {
    * @param originValues 原始表单值
    * @returns 处理后的表单值
    */
-  handleRangeTimeValue(originValues: Record<string, any>) {
+  handleRangeTimeValue(originValues: Record<string, unknown>) {
     const values = { ...originValues };
     const fieldMappingTime = this.getState()?.fieldMappingTime;
 
@@ -49,7 +49,7 @@ export class FormValueTransformer {
           return;
         }
 
-        const [startTime, endTime] = values[field];
+        const [startTime, endTime] = values[field] as unknown[];
         if (format === null) {
           values[startTimeKey] = startTime;
           values[endTimeKey] = endTime;
@@ -62,10 +62,10 @@ export class FormValueTransformer {
             : [format, format];
 
           values[startTimeKey] = startTime
-            ? formatDate(startTime, startTimeFormat)
+            ? formatDate(startTime as string, startTimeFormat)
             : undefined;
           values[endTimeKey] = endTime
-            ? formatDate(endTime, endTimeFormat)
+            ? formatDate(endTime as string, endTimeFormat)
             : undefined;
         }
         Reflect.deleteProperty(values, field);
@@ -78,7 +78,7 @@ export class FormValueTransformer {
    * 将数组字段转换为字符串
    * @param originValues 原始表单值
    */
-  handleArrayToStringFields(originValues: Record<string, any>) {
+  handleArrayToStringFields(originValues: Record<string, unknown>) {
     const arrayToStringFields = this.getState()?.arrayToStringFields;
     if (!arrayToStringFields || !Array.isArray(arrayToStringFields)) {
       return;
@@ -120,7 +120,7 @@ export class FormValueTransformer {
    * 将字符串字段转换为数组
    * @param originValues 原始表单值
    */
-  handleStringToArrayFields(originValues: Record<string, any>) {
+  handleStringToArrayFields(originValues: Record<string, unknown>) {
     const arrayToStringFields = this.getState()?.arrayToStringFields;
     if (!arrayToStringFields || !Array.isArray(arrayToStringFields)) {
       return;

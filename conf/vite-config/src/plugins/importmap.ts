@@ -214,7 +214,9 @@ async function viteImportMapPlugin(
       buildEnd() {
         // 未生成importmap时，抛出错误，防止被turbo缓存
         if (!installed && !isSSR) {
-          installError && console.error(installError);
+          if (installError) {
+            console.error(installError);
+          }
           throw new Error('Importmap installation failed.');
         }
       },

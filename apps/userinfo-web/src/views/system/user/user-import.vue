@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElMessage, ElProgress, ElUpload, type UploadRequestOptions } from 'element-plus';
+import { ElMessage, ElProgress, ElUpload } from 'element-plus';
 import { ref } from 'vue';
 import { importUsers } from '#/api/userAccount';
 import type { UserImportResultDTO } from '#/api/models';

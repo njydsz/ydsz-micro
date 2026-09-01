@@ -15,7 +15,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElProgress, ElUpload, type UploadRequestOptions } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElMessage, ElProgress, ElUpload } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { initChunkUpload, uploadChunk, completeChunkUpload, abortChunkUpload, getUploadedChunks } from '#/api/fileChunk';
 import { upload } from '#/api/file';

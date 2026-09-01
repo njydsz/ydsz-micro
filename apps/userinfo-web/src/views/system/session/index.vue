@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElStatistic, ElTag } from 'element-plus';
+import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -25,7 +25,6 @@ import {
   forceLogout,
   getAllActiveSessions,
   getSessionStatistics,
-  unbanUser,
 } from '#/api/adminSession';
 import type { UserSessionStatistics, UserSessionVO } from '#/api/models';
 
@@ -107,16 +106,6 @@ async function handleBanUser(row: UserSessionVO) {
     );
     await banUser({ userId: row.username }, { banType: 'MANUAL', banReason: '管理员手动封禁' });
     ElMessage.success('封禁成功');
-    gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
-}
-
-/** 解封用户 */
-async function handleUnbanUser(row: UserSessionVO) {
-  if (!row.username) return;
-  try {
-    await unbanUser({ userId: row.username });
-    ElMessage.success('解封成功');
     gridApi.query();
   } catch { /* 错误提示由请求拦截器统一处理 */ }
 }

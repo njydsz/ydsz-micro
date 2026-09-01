@@ -13,7 +13,7 @@ import type { NormalMenuProps } from './normal-menu';
 import { useNamespace } from '@YDSZ-core/composables';
 import { YDSZIcon } from '@YDSZ-core/shadcn-ui';
 
-interface Props extends NormalMenuProps {}
+type Props = NormalMenuProps;
 
 defineOptions({
   name: 'NormalMenu',

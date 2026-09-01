@@ -15,7 +15,7 @@ import { computed } from 'vue';
 import { Pin, X } from '@YDSZ-core/icons';
 import { YDSZContextMenu, YDSZIcon } from '@YDSZ-core/shadcn-ui';
 
-interface Props extends TabsProps {}
+type Props = TabsProps;
 
 defineOptions({
   name: 'YDSZTabs',
@@ -96,7 +96,7 @@ function handleKeydown(e: KeyboardEvent, index: number) {
   }
 
   if (newIndex >= 0 && tabs[newIndex]) {
-    active = tabs[newIndex].key;
+    active.value = tabs[newIndex].key;
   }
 }
 

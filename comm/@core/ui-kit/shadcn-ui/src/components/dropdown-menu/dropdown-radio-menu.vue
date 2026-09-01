@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '../../ui';
 
-interface Props extends DropdownMenuProps {}
+type Props = DropdownMenuProps;
 
 defineOptions({ name: 'DropdownRadioMenu' });
 withDefaults(defineProps<Props>(), {});

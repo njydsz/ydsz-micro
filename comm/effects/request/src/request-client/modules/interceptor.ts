@@ -44,7 +44,7 @@ class InterceptorManager {
    * 添加响应拦截器
    * @returns 拦截器 ID，可用于后续移除
    */
-  addResponseInterceptor<T = any>({
+  addResponseInterceptor<T = unknown>({
     fulfilled,
     rejected,
   }: ResponseInterceptorConfig<T> = defaultResponseInterceptorConfig): number {

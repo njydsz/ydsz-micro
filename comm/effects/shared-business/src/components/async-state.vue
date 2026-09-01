@@ -17,7 +17,7 @@
  * </AsyncState>
  * ```
  */
-import { ElSkeleton, ElSkeletonItem } from 'element-plus';
+import { ElSkeleton } from 'element-plus';
 
 interface Props {
   /** 是否加载中 */
@@ -32,7 +32,7 @@ interface Props {
   errorTitle?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const _props = withDefaults(defineProps<Props>(), {
   loading: false,
   error: null,
   empty: false,

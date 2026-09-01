@@ -13,7 +13,7 @@ import type { AppStatus } from "./scheduler";
 import { getPreloadManager } from "./preload-strategy";
 import { getRoutePredictor } from "./route-predictor";
 import { getAllInstances } from "./scheduler";
-import { clearKernelMarks, getPerfStats } from "./performance-utils";
+import { getPerfStats } from "./performance-utils";
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 const logger = createLogger('devtools-tabs');

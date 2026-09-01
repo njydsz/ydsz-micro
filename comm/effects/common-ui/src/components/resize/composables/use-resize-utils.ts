@@ -8,7 +8,6 @@
 import type { Ref } from 'vue';
 import type {
   Limits,
-  Rect,
   RectCorrectionInput,
 } from './use-resize-types';
 

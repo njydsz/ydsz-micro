@@ -29,6 +29,8 @@ export interface PopupApiCallbacks {
 export interface PopupApiOptions<State extends Record<string, unknown>>
   extends PopupApiCallbacks {
   connectedComponent?: Component;
+  /** 引用泛型 State，便于子接口扩展状态相关选项 */
+  state?: Partial<State>;
   [key: string]: unknown;
 }
 

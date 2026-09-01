@@ -7,6 +7,11 @@
  * P0-E1 修复：所有动态值经 escapeHtml 转义后再注入 innerHTML，
  * 防止 config.name / config.entry / config.activeRule 含恶意字符导致 XSS。
  *
+ * 职责拆分（行为不变，本文件保留错误类型定义与降级 UI 渲染）：
+ * - error-utils.ts               locale 读取 / HTML 转义 / id 净化工具
+ * - error-fallback-messages.ts   降级 UI i18n 消息与全局语言状态
+ * - error-degradation.ts         会话级降级标记 / 重试计数 / 三级降级决策
+ *
  * @path comm/effects/micro-kernel/src/error-boundary.ts
  * @author ydsz-team
  * @since 3.0.0
@@ -14,12 +19,49 @@
 
 import type { MicroAppConfig } from "@ydsz/micro-runtime";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
-
+import {
+  type ErrorFallbackMessages,
+  getGlobalErrorFallbackMessages,
+  getPresetFallbackMessages,
+  resolveEffectiveLocale,
+} from "./error-fallback-messages";
+import {
+  getRetryCount,
+  MAX_MICRO_RETRIES,
+  setRetryCount,
+  unmarkDegraded,
+} from "./error-degradation";
 import { ERROR_UI_CLASSES, injectErrorStyles } from "./error-ui-styles";
+import { escapeHtml, sanitizeId } from "./error-utils";
 
-/** 模块级日志器 */
-const logger = createLogger("MicroKernel");
+// ---------------------------------------------------------------------------
+// 向后兼容 re-export：全部移出符号经本模块透出，外部消费方零改动
+// ---------------------------------------------------------------------------
+export {
+  getLocaleFromStorage,
+  escapeHtml,
+  sanitizeId,
+} from "./error-utils";
+export {
+  type ErrorFallbackMessages,
+  setErrorFallbackMessages,
+  setCurrentLocale,
+  getCurrentLocale,
+  resolveEffectiveLocale,
+  getErrorFallbackMessagesByLocale,
+} from "./error-fallback-messages";
+export {
+  markDegraded,
+  isDegraded,
+  clearDegraded,
+  resetRetryCount,
+  getRetryCount,
+  setRetryCount,
+  MAX_MICRO_RETRIES,
+  createErrorBoundaryManager,
+  decideDegradationLevel,
+  getNextAutoRetryDelay,
+} from "./error-degradation";
 
 /**
  * P1-8: 内核错误码枚举。
@@ -69,299 +111,6 @@ export class KernelError extends Error {
 }
 
 /**
- * P0-3: 从 localStorage 中读取用户语言偏好，作为 i18n 后备。
- *
- * bootstrap.ts 在 watchEffect 中调用 setErrorFallbackMessages 初始化全局消息，
- * 但当 error boundary 在 preferences 初始化之前触发错误时（如首屏子应用加载失败），
- * globalMessages 默认为中文。通过读取 localStorage 可提前对齐用户偏好。
- *
- * @returns 'zh-CN' | 'en-US'
- *
- * @since 4.0.1
- */
-export function getLocaleFromStorage(): string {
-  try {
-    // 与 main/src/preferences 中 localStorage key 约定对齐
-    const stored = localStorage.getItem("YDSZ:preferences");
-    if (stored) {
-      const prefs = JSON.parse(stored);
-      if (prefs?.app?.locale) return prefs.app.locale;
-    }
-    // 兜底到 navigator.language
-    if (typeof navigator !== "undefined" && navigator.language) {
-      return navigator.language;
-    }
-  } catch {
-    // 静默
-  }
-  return "zh-CN";
-}
-
-/**
- * v4.2.1 N12: 获取当前生效的语言标识（内部使用）。
- *
- * 优先读取显式设置的 currentLocale，其次 localStorage 偏好。
- * 保留导出以兼容旧调用方（renderErrorFallback 等内部使用）。
- *
- * @since 4.0.1
- */
-export function resolveEffectiveLocale(): string {
-  return getCurrentLocale();
-}
-
-/**
- * P0-E1: 转义 HTML 特殊字符，防止 XSS。
- *
- * 将 &, <, >, ", ' 转义为对应的 HTML 实体，
- * 确保动态值安全地注入 innerHTML。
- */
-export function escapeHtml(str: string): string {
-  return str
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-/**
- * P0-E1: 将应用名净化为合法的 HTML id。
- *
- * HTML id 不允许空格和特殊字符，将非字母数字字符替换为 `-`。
- */
-export function sanitizeId(appName: string): string {
-  return appName.replaceAll(/[^\w-]/g, "-");
-}
-
-/**
- * 错误降级 UI 消息配置，支持 i18n。
- *
- * @remarks
- * 默认提供中英文消息，业务方可通过 {@link setErrorFallbackMessages} 注入自定义消息，
- * 或通过 MicroAppConfig 传入自定义消息覆盖全局配置。
- */
-export interface ErrorFallbackMessages {
-  /** 错误标题 */
-  title: string;
-  /** 错误描述 */
-  description: string;
-  /** 剩余重试次数提示 */
-  retriesLeft: string;
-  /** 重试按钮文案 */
-  retry: string;
-  /** 返回首页按钮文案 */
-  goHome: string;
-  /** 技术详情折叠标题 */
-  technicalDetails: string;
-  /** 技术详情 - 应用名称 */
-  appName: string;
-  /** 技术详情 - 入口地址 */
-  entry: string;
-  /** 技术详情 - 激活规则 */
-  activeRule: string;
-  /** 技术详情 - 重试次数 */
-  retryCount: string;
-  /** 重新加载中提示 */
-  reloading: string;
-  /** 三级降级：前往子应用独立部署地址按钮（v3.7 新增） */
-  goToSubAppUrl?: string;
-}
-
-/** 默认中文消息 */
-const zhCNMessages: ErrorFallbackMessages = {
-  title: "应用加载失败",
-  description: "子应用可能正在发版或网络异常，请稍后重试。",
-  retriesLeft: "剩余重试次数：",
-  retry: "重试加载",
-  goHome: "返回首页",
-  technicalDetails: "技术详情",
-  appName: "应用名称：",
-  entry: "入口地址：",
-  activeRule: "激活规则：",
-  retryCount: "重试次数：",
-  reloading: "重新加载中...",
-  goToSubAppUrl: "前往子应用独立页",
-};
-
-/** 默认英文消息 */
-const enUSMessages: ErrorFallbackMessages = {
-  title: "Failed to Load Application",
-  description:
-    "The sub-application may be deploying or experiencing network issues. Please try again later.",
-  retriesLeft: "Retries left: ",
-  retry: "Retry",
-  goHome: "Go Home",
-  technicalDetails: "Technical Details",
-  appName: "App Name: ",
-  entry: "Entry: ",
-  activeRule: "Active Rule: ",
-  retryCount: "Retry Count: ",
-  reloading: "Reloading...",
-  goToSubAppUrl: "Open Sub-App Page",
-};
-
-/** 当前全局消息配置 */
-let globalMessages: ErrorFallbackMessages = zhCNMessages;
-
-/**
- * v4.2.1 N12: 显式当前语言状态。
- *
- * 替代此前通过 `globalMessages.title === zhCNMessages.title` 的字符串比较
- * 推断语言（脆弱：默认文案任何微调都会破坏推断）。
- */
-let currentLocale: string = "zh-CN";
-
-/**
- * 设置全局错误降级 UI 消息。
- *
- * v4.2.1 N12: 同时根据消息内容推断并同步 currentLocale。
- *
- * @param messages - 消息配置对象
- */
-export function setErrorFallbackMessages(
-  messages: ErrorFallbackMessages,
-): void {
-  globalMessages = messages;
-  // 推断语言：与内置文案匹配时更新 currentLocale
-  if (messages.title === enUSMessages.title) {
-    currentLocale = "en-US";
-  } else if (messages.title === zhCNMessages.title) {
-    currentLocale = "zh-CN";
-  }
-}
-
-/**
- * v4.2.1 N12: 显式设置当前语言（推荐由主应用在语言切换时调用）。
- *
- * @param locale - 语言标识，如 'zh-CN' / 'en-US'
- * @since 4.2.1
- */
-export function setCurrentLocale(locale: string): void {
-  currentLocale = locale;
-}
-
-/**
- * v4.2.1 N12: 获取当前生效的语言标识。
- *
- * 优先级：显式设置的 currentLocale > localStorage 偏好 > navigator.language。
- *
- * @since 4.2.1
- */
-export function getCurrentLocale(): string {
-  if (currentLocale) return currentLocale;
-  return getLocaleFromStorage();
-}
-
-/**
- * 根据语言标识获取预置消息。
- *
- * @param locale - 语言标识，如 'zh-CN'、'en-US'
- * @returns 消息配置对象
- */
-export function getErrorFallbackMessagesByLocale(
-  locale: string,
-): ErrorFallbackMessages {
-  if (locale.startsWith("en")) {
-    return enUSMessages;
-  }
-  return zhCNMessages;
-}
-
-/** 本次会话应用降级 set（key = app.name，该应用不再尝试微前端加载，走整页跳转） */
-const degradedApps = new Set<string>();
-
-/** 将指定子应用标记为本次会话降级，后续不再尝试微前端加载，直接整页跳转 */
-export function markDegraded(appName: string): void {
-  degradedApps.add(appName);
-  logger.warn(`${appName} degraded to full-page navigation`);
-}
-
-/** 判断指定子应用是否已被标记为本会话降级状态 */
-export function isDegraded(appName: string): boolean {
-  return degradedApps.has(appName);
-}
-
-/** 清空本次会话的全部子应用降级标记 */
-export function clearDegraded(): void {
-  degradedApps.clear();
-}
-
-/** 每个应用的微前端重试计数器（达到上限后回退整页跳转） */
-const retryCounters = new Map<string, number>();
-/** 用户可见的 micro 重试上限：-1 表示不自动重试（直接走占位 UI） */
-const MAX_MICRO_RETRIES = 3;
-/** 静默自动重试上限：首次失败后静默重试 N 次（不展示 UI，应对 CDN 偶发抖动） */
-const MAX_AUTO_RETRIES = 1;
-
-/** 重置指定应用的重试计数 */
-export function resetRetryCount(appName: string): void {
-  retryCounters.delete(appName);
-}
-
-/** v3.7.0: 读取应用重试计数（内部用） */
-export function getRetryCount(appName: string): number {
-  return retryCounters.get(appName) ?? 0;
-}
-
-/** v3.7.0: 设置应用重试计数 */
-export function setRetryCount(appName: string, count: number): void {
-  retryCounters.set(appName, count);
-}
-
-/**
- * P0-A1: 创建 error-boundary 生命周期管理器。
- *
- * 清空降级集合 + 重试计数器。
- *
- * @since 4.1.0
- */
-export function createErrorBoundaryManager(): import("./manager-registry").DisposableManager {
-  return {
-    name: "error-boundary",
-    dispose(): void {
-      degradedApps.clear();
-      retryCounters.clear();
-    },
-  };
-}
-
-/**
- * 获取自动重试退避延迟（ms）。
- *
- * 第 n 次退避：baseDelay * 2^n + jitter，用于 CDN 偶发故障恢复。
- */
-function getAutoRetryDelay(attempt: number): number {
-  const base = 500;
-  const jitter = Math.random() * 200;
-  return base * 2 ** attempt + jitter;
-}
-
-/**
- * 三级降级决策：自动静默重试 → 占位 UI（允许手动重试）→ 整页跳转
- *
- * - attempt < MAX_AUTO_RETRIES → 静默自动重试（不展示 UI）
- * - MAX_AUTO_RETRIES <= attempt < MAX_MICRO_RETRIES → 展示占位 UI 允许手动重试
- * - attempt >= MAX_MICRO_RETRIES → 标记降级 + 整页跳转
- *
- * @param appName - 应用名
- * @returns 'auto-retry' | 'show-ui' | 'full-page'
- */
-export function decideDegradationLevel(
-  appName: string,
-): "auto-retry" | "full-page" | "show-ui" {
-  const count = retryCounters.get(appName) ?? 0;
-  if (count < MAX_AUTO_RETRIES) return "auto-retry";
-  if (count < MAX_MICRO_RETRIES) return "show-ui";
-  return "full-page";
-}
-
-/** 获取下次自动重试延迟（仅 auto-retry 级别有意义） */
-export function getNextAutoRetryDelay(appName: string): number {
-  const count = retryCounters.get(appName) ?? 0;
-  return getAutoRetryDelay(count);
-}
-
-/**
  * 渲染错误降级 UI。
  *
  * v3.1: onRetry 回调优先于整页刷新。
@@ -398,14 +147,14 @@ export function renderErrorFallback(
   const el = container;
   if (!el) return;
 
-  const retryCount = retryCounters.get(config.name) ?? 0;
+  const retryCount = getRetryCount(config.name);
   const canRetry = onRetry && retryCount < MAX_MICRO_RETRIES;
   // P0-3 + v4.2.1 N12: 未显式提供消息时，优先使用 setErrorFallbackMessages 注入的
   // 全局消息（自定义文案真正生效）；全局消息未被覆盖时回退到 locale 内置文案。
   const msg =
     messages ??
-    globalMessages ??
-    (resolveEffectiveLocale().startsWith("en") ? enUSMessages : zhCNMessages);
+    getGlobalErrorFallbackMessages() ??
+    getPresetFallbackMessages(resolveEffectiveLocale());
 
   // P0-E1: 转义所有动态值，防止 XSS
   const escName = escapeHtml(config.name);
@@ -498,10 +247,10 @@ export function renderErrorFallback(
   document.getElementById(retryBtnId)?.addEventListener("click", () => {
     if (!onRetry) return;
 
-    retryCounters.set(config.name, retryCount + 1);
+    setRetryCount(config.name, retryCount + 1);
 
     // 微前端级重试：清除降级标记 → 重新激活
-    degradedApps.delete(config.name);
+    unmarkDegraded(config.name);
     el.innerHTML =
       `<div role="status" aria-live="polite" style="display:flex;flex-direction:column;align-items:center;justify-content:center;` +
       `height:100%;font-family:var(--font-sans, sans-serif)">` +

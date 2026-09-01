@@ -60,7 +60,9 @@ function getDefaultState(): VxeGridProps {
  * gridApi.setLoading(true);
  * ```
  */
-export class VxeGridApi<T extends Record<string, any> = any> {
+export class VxeGridApi<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
   /** 搜索表单的操作句柄；挂载前为空对象占位 */
   public formApi = {} as ExtendedFormApi;
 
@@ -125,7 +127,7 @@ export class VxeGridApi<T extends Record<string, any> = any> {
    *
    * @param params - 附加到本次请求的额外参数；会先 `toRaw` 脱去响应式代理再提交
    */
-  async query(params: Record<string, any> = {}) {
+  async query(params: Record<string, unknown> = {}) {
     try {
       await this.grid.commitProxy('query', toRaw(params));
     } catch (error) {
@@ -142,7 +144,7 @@ export class VxeGridApi<T extends Record<string, any> = any> {
    *
    * @param params - 附加到本次请求的额外参数
    */
-  async reload(params: Record<string, any> = {}) {
+  async reload(params: Record<string, unknown> = {}) {
     try {
       await this.grid.commitProxy('reload', toRaw(params));
     } catch (error) {

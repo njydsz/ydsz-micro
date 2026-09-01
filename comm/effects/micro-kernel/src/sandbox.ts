@@ -103,7 +103,7 @@ const sandboxStack: SandboxInstance[] = [];
 
 /** 获取当前栈顶沙箱（无激活时返回 null） */
 function topSandbox(): SandboxInstance | null {
-  return sandboxStack.length > 0 ? sandboxStack[sandboxStack.length - 1] : null;
+  return sandboxStack.at(-1) ?? null;
 }
 
 /**
@@ -114,8 +114,10 @@ function topSandbox(): SandboxInstance | null {
 export function enterSandbox(): SandboxInstance {
   const snapshot = new Set(Object.keys(window));
   const valueSnapshot = new Map<string, unknown>();
+  // window 索引收窄：键集合来自 Object.keys，运行时按 Record 读写
+  const windowRecord = window as unknown as Record<string, unknown>;
   for (const key of snapshot) {
-    valueSnapshot.set(key, (window as Record<string, unknown>)[key]);
+    valueSnapshot.set(key, windowRecord[key]);
   }
 
   const sandbox: SandboxInstance = {
@@ -166,15 +168,17 @@ export function exitSandbox(sandbox: SandboxInstance): void {
 
   // 3. 恢复 window
   const currentKeys = new Set(Object.keys(window));
+  // window 索引收窄：键集合来自 Object.keys，运行时按 Record 读写
+  const windowRecord = window as unknown as Record<string, unknown>;
   for (const key of currentKeys) {
     if (!sandbox.windowSnapshot.has(key)) {
       // 子应用新增的全局变量 → 删除
-      delete (window as Record<string, unknown>)[key];
+      delete windowRecord[key];
     } else {
       // 子应用修改过的 → 还原
       const original = sandbox.valueSnapshot.get(key);
-      if ((window as Record<string, unknown>)[key] !== original) {
-        (window as Record<string, unknown>)[key] = original;
+      if (windowRecord[key] !== original) {
+        windowRecord[key] = original;
       }
     }
   }

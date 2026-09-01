@@ -81,7 +81,7 @@ function handleClick(event: MouseEvent) {
 }
 
 // 支持显示 bigint 数据，如较长的订单号
-const jsonData = computed<Record<string, any>>(() => {
+const jsonData = computed<Record<string, unknown>>(() => {
   if (typeof props.value !== 'string') {
     return props.value || {};
   }

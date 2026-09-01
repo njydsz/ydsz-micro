@@ -55,7 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  submit: [Record<string, any>];
+  submit: [Record<string, unknown>];
 }>();
 
 const [Form, formApi] = useYDSZForm(

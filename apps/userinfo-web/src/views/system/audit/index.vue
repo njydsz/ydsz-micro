@@ -41,19 +41,6 @@ const ALERT_TYPE_MAP: Record<string, { label: string; type: string }> = {
   PASSWORD_SPRAY: { label: '密码喷洒', type: 'danger' },
 };
 
-/** 告警类型颜色映射 */
-function getAlertTypeColor(type: string): string {
-  const colorMap: Record<string, string> = {
-    ACCOUNT_LOCKED: '#f56c6c',
-    ACCOUNT_BANNED: '#f56c6c',
-    MFA_FAILED: '#e6a23c',
-    BRUTE_FORCE: '#f56c6c',
-    ANOMALOUS_LOGIN: '#e6a23c',
-    PASSWORD_SPRAY: '#f56c6c',
-  };
-  return colorMap[type] ?? '#909399';
-}
-
 /** 待处理告警数量 */
 const pendingCount = ref(0);
 

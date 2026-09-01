@@ -17,9 +17,9 @@ class FileUploader {
     this.client = client;
   }
 
-  public async upload<T = any>(
+  public async upload<T = unknown>(
     url: string,
-    data: Record<string, any> & { file: Blob | File },
+    data: Record<string, unknown> & { file: Blob | File },
     config?: RequestClientConfig,
   ): Promise<T> {
     const formData = new FormData();
@@ -27,10 +27,10 @@ class FileUploader {
     Object.entries(data).forEach(([key, value]) => {
       if (Array.isArray(value)) {
         value.forEach((item, index) => {
-          !isUndefined(item) && formData.append(`${key}[${index}]`, item);
+          if (!isUndefined(item)) formData.append(`${key}[${index}]`, item);
         });
       } else {
-        !isUndefined(value) && formData.append(key, value);
+        if (!isUndefined(value)) formData.append(key, value);
       }
     });
 

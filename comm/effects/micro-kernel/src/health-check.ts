@@ -17,6 +17,7 @@
  * @since 4.2.0
  */
 
+import type { DisposableManager } from "./manager-registry";
 import type { AppStatus } from "./scheduler";
 
 import { createLogger } from "@YDSZ-core/shared/utils";
@@ -182,7 +183,7 @@ export function getMemoryEstimate(): MemoryEstimate | null {
  * @returns 探测结果
  */
 async function pingApp(
-  appName: string,
+  _appName: string,
   entryUrl: string,
 ): Promise<{ latencyMs: number; reachable: boolean }> {
   // 对 ESM 入口 URL 做 HEAD 请求，提取 origin 而非完整路径（避免 404）
@@ -331,7 +332,7 @@ export function resetHealthCheck(): void {
  *
  * @since 4.2.0
  */
-export function createHealthCheckerManager(): import("./manager-registry").DisposableManager {
+export function createHealthCheckerManager(): DisposableManager {
   return {
     name: "health-checker",
     dispose(): void {

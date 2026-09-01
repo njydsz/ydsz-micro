@@ -175,7 +175,7 @@ export function useYDSZDrawer<
   return [Drawer, extendedApi] as const;
 }
 
-async function checkProps(api: ExtendedDrawerApi, attrs: Record<string, any>) {
+async function checkProps(api: ExtendedDrawerApi, attrs: Record<string, unknown>) {
   if (!attrs || Object.keys(attrs).length === 0) {
     return;
   }

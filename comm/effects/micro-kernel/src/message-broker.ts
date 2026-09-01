@@ -11,6 +11,7 @@
  * @since 3.7.0
  */
 
+import type { DisposableManager } from "./manager-registry";
 import { createLogger } from '@YDSZ-core/shared/utils';
 import { mark } from './performance-utils';
 
@@ -297,7 +298,7 @@ export function clearPendingRequests(): void {
  *
  * @since 4.1.0
  */
-export function createMessageBrokerManager(): import('../manager-registry').DisposableManager {
+export function createMessageBrokerManager(): DisposableManager {
   return {
     name: 'message-broker',
     dispose(): void {

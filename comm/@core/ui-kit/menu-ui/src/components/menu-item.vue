@@ -17,7 +17,7 @@ import { MenuBadge } from '../menu-badge.vue';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
 import { getPreloadAdapter } from '../preload-adapter';
 
-interface Props extends MenuItemProps {}
+type Props = MenuItemProps;
 
 defineOptions({ name: 'MenuItem' });
 

@@ -190,7 +190,6 @@ export function useLocaleSync(
   const {
     i18n,
     initialLocale,
-    fallbackToLocal = true,
     providerReadyTimeout = 2000,
   } = options;
 

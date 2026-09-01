@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 /**
  * 订阅表单
  * <p>支持选择用户、主题、通道，配置订阅状态。

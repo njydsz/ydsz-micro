@@ -57,7 +57,7 @@ type FilteredSlots<T> = {
  * ```
  */
 export function useYDSZVxeGrid<
-  T extends Record<string, any> = any,
+  T extends Record<string, unknown> = Record<string, unknown>,
   D extends BaseFormComponentType = BaseFormComponentType,
 >(options: VxeGridProps<T, D>) {
   // const IS_REACTIVE = isReactive(options);

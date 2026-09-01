@@ -24,15 +24,12 @@
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 
-import type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-types';
+import type { ErrorReport, MonitorConfig } from './error-monitor-types';
 import {
-  setSentryForwarding,
   enableSentryForwarding,
   ensureSessionId,
   enqueueError,
-  flushQueue,
   restoreOfflineCache,
-  reportError,
   getCurrentRoute,
   __setMonitorConfig,
   __onBeforeUnload,

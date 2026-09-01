@@ -12,10 +12,9 @@
  * @since 4.1.0
  */
 
-import { satisfiesVersion } from "@YDSZ-core/shared/semver";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
-import { getStorage, setStorage, STORAGE_KEYS } from "./storage-utils";
+import { setStorage, STORAGE_KEYS } from "./storage-utils";
 import type {
   CanaryAppConfig,
   CanaryGlobalConfig,
@@ -24,8 +23,9 @@ import type {
   CanaryResolutionCallback,
   CanaryResolutionEvent,
   CanaryUserContext,
-  CanaryVersion,
 } from "./canary-types";
+import type { CanaryManager } from "./canary-manager";
+import type { DisposableManager } from "./manager-registry";
 import { DEFAULT_CONFIG } from "./canary-types";
 import { hashToPercentage } from "./canary-hash";
 
@@ -44,9 +44,11 @@ export interface CanaryManagerLike {
 
 /**
  * 默认稳定版决策
+ *
+ * @param _manager - 保留 manager 形参以对齐核心函数签名约定（当前决策不依赖实例状态）
  */
 export function defaultStableResolution(
-  manager: CanaryManagerLike,
+  _manager: CanaryManagerLike,
   appName: string,
   cfg?: CanaryAppConfig,
 ): CanaryResolution {
@@ -381,7 +383,7 @@ export function resetAutoRefreshCore(manager: CanaryManagerLike): void {
 
 // ==================== 单例管理 ====================
 
-type CanaryManagerInterface = import("./canary-manager").CanaryManager;
+type CanaryManagerInterface = CanaryManager;
 
 let instanceGetter: (() => CanaryManagerInterface) | null = null;
 let instanceDestroyer: (() => void) | null = null;
@@ -421,7 +423,7 @@ export function resetCanaryManager(): void {
  *
  * @since 4.1.0
  */
-export function createCanaryManagerLifecycle(): import("./manager-registry").DisposableManager {
+export function createCanaryManagerLifecycle(): DisposableManager {
   return {
     name: "canary-manager",
     dispose(): void {

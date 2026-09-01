@@ -10,7 +10,7 @@
  * 缓存命名：v4:subapp-{appName}-{version} —— 版本切换时自动清理旧缓存
  *
  * 使用方式：在子应用 vite.config.ts 中：
- *   plugins: [swPlugin({ appName: 'workflow-web' })]
+ *   plugins: [await swPlugin({ appName: 'workflow-web' })]
  *
  * @path conf/vite-config/src/plugin-sw.ts
  * @since 4.0.0
@@ -36,7 +36,7 @@ export interface SWPluginOptions {
  * 每个子应用注册自己的 SW，作用域限定在 activeRule 下，
  * 避免主子应用 SW 互相干扰。
  */
-export function swPlugin(options: SWPluginOptions): Plugin[] {
+export async function swPlugin(options: SWPluginOptions): Promise<Plugin[]> {
   const { appName, scope, enabled } = options;
   const isProd = process.env.NODE_ENV === 'production';
 
@@ -46,7 +46,7 @@ export function swPlugin(options: SWPluginOptions): Plugin[] {
 
   // 动态导入，避免 dev 环境无 vite-plugin-pwa 时抛出
   try {
-    const { VitePWA } = require('vite-plugin-pwa');
+    const { VitePWA } = await import('vite-plugin-pwa');
     const pwaOptions: Partial<VitePWAOptions> = {
       // 子应用注册在 activeRule 子路径下，避免与主应用 SW 冲突
       scope: scope ?? `/YDSZ-${appName.replace('-web', '')}/`,
@@ -123,7 +123,7 @@ export function swPlugin(options: SWPluginOptions): Plugin[] {
       devOptions: { enabled: false },
     };
     return [VitePWA(pwaOptions) as Plugin];
-  } catch (err) {
+  } catch {
     console.warn(`[sw-plugin] vite-plugin-pwa not installed for ${appName}, skipping SW.`);
     return [];
   }

@@ -27,7 +27,7 @@ import { readPackageJSON } from '@ydsz/node-utils';
  */
 async function viteInjectAppLoadingPlugin(
   isBuild: boolean,
-  env: Record<string, any> = {},
+  env: Record<string, string | undefined> = {},
   loadingTemplate = 'loading.html',
 ): Promise<PluginOption | undefined> {
   const loadingHtml = await getLoadingRawByHtmlTemplate(loadingTemplate);

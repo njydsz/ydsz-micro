@@ -22,9 +22,8 @@
  * @since 4.0.0
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
-
-import type { PersistedData, TransitionRecord } from "./route-predictor-types";
+import type { DisposableManager } from "./manager-registry";
+import type { RoutePredictorLike } from "./route-predictor-core";
 
 import { removeStorage } from "./storage-utils";
 import { STORAGE_KEY } from "./route-predictor-types";
@@ -36,8 +35,6 @@ import {
   getGlobalTopAppsCore,
   getSummaryCore,
   __registerRoutePredictor,
-  getRoutePredictor,
-  resetRoutePredictor,
   createRoutePredictorManagerLifecycle,
 } from "./route-predictor-core";
 
@@ -51,8 +48,6 @@ export {
   resetRoutePredictor,
 } from "./route-predictor-core";
 
-const logger = createLogger("RoutePredictor");
-
 /**
  * 路由预测器
  *
@@ -62,8 +57,13 @@ const logger = createLogger("RoutePredictor");
  * 衰减计算基于各转移对自身的年龄。
  */
 export class RoutePredictor {
-  /** P1-1: 待持久化标记 */
-  private dirty = false;
+  /**
+   * P1-1: 待持久化标记。
+   *
+   * 经 route-predictor-core 的 RoutePredictorLike 接口跨模块读写，
+   * 故声明为公开字段（单例包内部协作约定，非对外 API 承诺）。
+   */
+  dirty = false;
   /** 各转移对最近一次发生时间：from → (to → timestamp) */
   private lastSeen: Map<string, Map<string, number>> = new Map();
   /** P1-1: 持久化节流定时器 */
@@ -74,7 +74,7 @@ export class RoutePredictor {
   private transitions: Map<string, Map<string, number>> = new Map();
 
   constructor() {
-    loadCore(this as unknown as import("./route-predictor-core").RoutePredictorLike);
+    loadCore(this as unknown as RoutePredictorLike);
   }
 
   /**
@@ -105,7 +105,7 @@ export class RoutePredictor {
    * @since 4.0.1
    */
   getGlobalTopApps(topN: number, excludeApp?: string) {
-    return getGlobalTopAppsCore(this as unknown as import("./route-predictor-core").RoutePredictorLike, topN, excludeApp);
+    return getGlobalTopAppsCore(this as unknown as RoutePredictorLike, topN, excludeApp);
   }
 
   /**
@@ -119,7 +119,7 @@ export class RoutePredictor {
    * 获取数据摘要（用于 DevTools 面板展示）。
    */
   getSummary() {
-    return getSummaryCore(this as unknown as import("./route-predictor-core").RoutePredictorLike);
+    return getSummaryCore(this as unknown as RoutePredictorLike);
   }
 
   /**
@@ -206,7 +206,7 @@ export class RoutePredictor {
     seenMap.set(to, now);
 
     this.dirty = true;
-    schedulePersistCore(this as unknown as import("./route-predictor-core").RoutePredictorLike);
+    schedulePersistCore(this as unknown as RoutePredictorLike);
   }
 
   /**
@@ -215,34 +215,7 @@ export class RoutePredictor {
    * @param force - 是否跳过 dirty 检查强制写入
    */
   save(force = false): void {
-    saveCore(this as unknown as import("./route-predictor-core").RoutePredictorLike, force);
-  }
-
-  // ==================== 持久化（委托给 core） ====================
-
-  /** 从 localStorage 加载（兼容 v1 和 v2 格式） */
-  private load(): void {
-    loadCore(this as unknown as import("./route-predictor-core").RoutePredictorLike);
-  }
-
-  /** 加载 v1 格式数据 */
-  private loadV1(): void {
-    // 委托给 core 内部的 loadV1Core
-    loadCore(this as unknown as import("./route-predictor-core").RoutePredictorLike);
-  }
-
-  /** 加载 v2 格式数据 */
-  private loadV2(): boolean {
-    // 委托给 core 内部的 loadV2Core
-    loadCore(this as unknown as import("./route-predictor-core").RoutePredictorLike);
-    return true;
-  }
-
-  /**
-   * P1-1: 调度持久化（节流）。
-   */
-  private schedulePersist(): void {
-    schedulePersistCore(this as unknown as import("./route-predictor-core").RoutePredictorLike);
+    saveCore(this as unknown as RoutePredictorLike, force);
   }
 }
 
@@ -276,6 +249,6 @@ __registerRoutePredictor(
  *
  * @since 4.1.0
  */
-export function createRoutePredictorManager(): import("./manager-registry").DisposableManager {
+export function createRoutePredictorManager(): DisposableManager {
   return createRoutePredictorManagerLifecycle();
 }

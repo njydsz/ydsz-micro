@@ -55,8 +55,10 @@ function getDynamicMemoryThreshold(defaultMB = 500): number {
 function getAdaptiveMaxKeepAlive(): number {
   const base = getContext().maxKeepAliveApps;
   const mem = getJsHeapInfo();
-  if (!mem || mem.jsHeapSizeLimit <= 0) return base;
-  const ratio = mem.usedJSHeapSize / mem.jsHeapSizeLimit;
+  if (!mem) return base;
+  const { jsHeapSizeLimit, usedJSHeapSize } = mem;
+  if (!jsHeapSizeLimit || jsHeapSizeLimit <= 0 || !usedJSHeapSize) return base;
+  const ratio = usedJSHeapSize / jsHeapSizeLimit;
   if (ratio > 0.9) return Math.min(base, 1);
   if (ratio > 0.7) return Math.min(base, 3);
   return base;

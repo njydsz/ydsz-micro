@@ -23,7 +23,6 @@ import { createLogger } from "@YDSZ-core/shared/utils";
 
 import type { PageCachePolicy, PageCacheRecord, ScrollPosition } from "./page-cache-types";
 import {
-  CACHE_REGISTRY_KEY,
   DEFAULT_POLICY,
   NAMESPACE_PREFIX,
 } from "./page-cache-types";
@@ -33,7 +32,6 @@ import {
 } from "./page-cache-scroll";
 
 import {
-  __setPageCachePolicy,
   persistPageCacheStorage,
   hasPersistedPageCacheStorage,
   clearPageCacheForAppStorage,
@@ -63,9 +61,6 @@ const logger = createLogger("PageCacheManager");
 
 let _policy: PageCachePolicy = { ...DEFAULT_POLICY };
 
-// 同步策略到存储模块
-__setPageCachePolicy(_policy);
-
 /**
  * 更新全局缓存策略。
  *
@@ -73,7 +68,6 @@ __setPageCachePolicy(_policy);
  */
 export function configurePageCache(partial: Partial<PageCachePolicy>): void {
   _policy = { ..._policy, ...partial };
-  __setPageCachePolicy(_policy);
 }
 
 /**
@@ -84,11 +78,10 @@ export function getPageCachePolicy(): PageCachePolicy {
 }
 
 /**
- * 重置策略为默认值（供测试使用）。
+ * 重置策略为默认值。
  */
 export function resetPageCachePolicy(): void {
   _policy = { ...DEFAULT_POLICY };
-  __setPageCachePolicy(_policy);
 }
 
 // ==================== 滚动位置捕获/恢复（委托给 page-cache-scroll.ts） ====================

@@ -21,32 +21,26 @@
 import { satisfiesVersion } from "@YDSZ-core/shared/semver";
 import { createLogger } from "@YDSZ-core/shared/utils";
 
-import { getStorage, setStorage, STORAGE_KEYS } from "./storage-utils";
+import { getStorage, STORAGE_KEYS } from "./storage-utils";
 import type {
-  CanaryAppConfig,
   CanaryGlobalConfig,
   CanaryMode,
   CanaryResolution,
   CanaryResolutionCallback,
-  CanaryResolutionEvent,
-  CanaryTag,
   CanaryUserContext,
   CanaryVersion,
 } from "./canary-types";
 import { DEFAULT_CONFIG } from "./canary-types";
-import { hashToPercentage } from "./canary-hash";
 
 import {
   resolveVersionCore,
-  emitResolutionEvent,
-  defaultStableResolution,
   refreshFromRemoteCore,
   resetAutoRefreshCore,
   __registerCanaryManager,
-  getCanaryManager,
-  resetCanaryManager,
   createCanaryManagerLifecycle,
 } from "./canary-manager-core";
+import type { CanaryManagerLike } from "./canary-manager-core";
+import type { DisposableManager } from "./manager-registry";
 
 // 重新导出类型，保持向后兼容
 export type {
@@ -73,11 +67,13 @@ const logger = createLogger("Canary");
  * 灰度管理器单例
  */
 export class CanaryManager {
-  private cacheTimestamp = 0;
+  // 以下字段经 canary-manager-core 的 CanaryManagerLike 接口跨模块读写，
+  // 故声明为公开字段（单例包内部协作约定，非对外 API 承诺）。
+  cacheTimestamp = 0;
   private config: CanaryGlobalConfig = DEFAULT_CONFIG;
-  private fetchPromise: null | Promise<void> = null;
+  fetchPromise: null | Promise<void> = null;
   /** P0-1: 远端配置自动刷新定时器 ID，供 resetAutoRefresh 清理 */
-  private refreshTimerId: null | ReturnType<typeof setInterval> = null;
+  refreshTimerId: null | ReturnType<typeof setInterval> = null;
   /** P3-5: 分流决策回调列表（遥测/分析用） */
   private resolutionCallbacks: CanaryResolutionCallback[] = [];
 
@@ -147,7 +143,7 @@ export class CanaryManager {
     }
 
     if (options?.remoteUrl || this.config.remoteUrl) {
-      await refreshFromRemoteCore(this as unknown as import("./canary-manager-core").CanaryManagerLike);
+      await refreshFromRemoteCore(this as unknown as CanaryManagerLike);
       this.startAutoRefresh();
     }
 
@@ -168,14 +164,14 @@ export class CanaryManager {
    * 刷新远端配置
    */
   async refreshFromRemote(): Promise<void> {
-    await refreshFromRemoteCore(this as unknown as import("./canary-manager-core").CanaryManagerLike);
+    await refreshFromRemoteCore(this as unknown as CanaryManagerLike);
   }
 
   /**
    * P0-1: 停止远端配置自动刷新定时器。
    */
   resetAutoRefresh(): void {
-    resetAutoRefreshCore(this as unknown as import("./canary-manager-core").CanaryManagerLike);
+    resetAutoRefreshCore(this as unknown as CanaryManagerLike);
   }
 
   /**
@@ -186,14 +182,7 @@ export class CanaryManager {
    * @returns 分流决策结果
    */
   resolveVersion(appName: string, user?: CanaryUserContext): CanaryResolution {
-    return resolveVersionCore(this as unknown as import("./canary-manager-core").CanaryManagerLike, appName, user);
-  }
-
-  /**
-   * P3-5: 触发所有分流决策回调。
-   */
-  private emitResolutionEvent(event: CanaryResolutionEvent): void {
-    emitResolutionEvent(this as unknown as import("./canary-manager-core").CanaryManagerLike, event);
+    return resolveVersionCore(this as unknown as CanaryManagerLike, appName, user);
   }
 
   /**
@@ -213,16 +202,6 @@ export class CanaryManager {
     this.resetAutoRefresh();
     const ttl = this.config.cacheTtl ?? 60_000;
     this.refreshTimerId = setInterval(() => void this.refreshFromRemote(), ttl);
-  }
-
-  /**
-   * 默认稳定版决策
-   */
-  private defaultStableResolution(
-    appName: string,
-    cfg?: CanaryAppConfig,
-  ): CanaryResolution {
-    return defaultStableResolution(this as unknown as import("./canary-manager-core").CanaryManagerLike, appName, cfg);
   }
 }
 
@@ -248,6 +227,6 @@ __registerCanaryManager(
  *
  * @since 4.1.0
  */
-export function createCanaryManager(): import("./manager-registry").DisposableManager {
+export function createCanaryManager(): DisposableManager {
   return createCanaryManagerLifecycle();
 }

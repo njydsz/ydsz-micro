@@ -9,6 +9,7 @@
  * 将 use-vxe-grid.vue 中的表格核心逻辑（CRUD 操作、分页管理、数据加载、列配置处理、
  * 工具栏/表单/插槽等响应式计算与生命周期）抽取为独立 composable，
  * 使 Vue 单文件组件保持在 400 行以内。
+ * 插槽相关职责（工具栏/标题/表单插槽）已进一步拆分至 use-vxe-grid-slots.ts。
  *
  * 使用方式：
  * ```ts
@@ -22,9 +23,7 @@ import type {
   VxeGridDefines,
   VxeGridInstance,
   VxeGridListeners,
-  VxeGridPropTypes,
   VxeGridProps as VxeTableGridProps,
-  VxeToolbarPropTypes,
 } from 'vxe-table';
 
 import type { Component, ComputedRef, Ref, SetupContext } from 'vue';
@@ -61,18 +60,20 @@ import { extendProxyOptions } from '../extends';
 import { useTableForm } from '../init';
 
 import { createLogger } from '@YDSZ-core/shared/utils';
+
+import {
+  FORM_SLOT_PREFIX,
+  useVxeGridSlotComputeds,
+} from './use-vxe-grid-slots';
+
+export {
+  FORM_SLOT_PREFIX,
+  TABLE_TITLE,
+  TOOLBAR_ACTIONS,
+  TOOLBAR_TOOLS,
+} from './use-vxe-grid-slots';
+
 const logger = createLogger('use-vxe-grid-logic');
-/** 表单插槽前缀 */
-const FORM_SLOT_PREFIX = 'form-';
-
-/** 工具栏左侧操作插槽名 */
-const TOOLBAR_ACTIONS = 'toolbar-actions';
-
-/** 工具栏右侧工具插槽名 */
-const TOOLBAR_TOOLS = 'toolbar-tools';
-
-/** 表格标题插槽名 */
-const TABLE_TITLE = 'table-title';
 
 /**
  * use-vxe-grid 组合式函数的 Props 类型。
@@ -133,7 +134,7 @@ export interface UseVxeGridLogicReturn {
   /** 是否显示默认空状态 */
   showDefaultEmpty: ComputedRef<boolean>;
   /** 类名合并工具函数 */
-  cn: (typeof import('@ydsz/utils'))['cn'];
+  cn: typeof cn;
   /** 组件根元素 class */
   className: ComputedRef<string>;
   /** vxe-grid 元素 class */
@@ -238,56 +239,20 @@ export function useVxeGridLogic(
     wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
   });
 
-  // ---------- 工具栏 ----------
+  // ---------- 工具栏 / 插槽 ----------
 
-  const showTableTitle = computed(() => {
-    return !!slots[TABLE_TITLE]?.() || tableTitle.value;
-  });
-
-  const showToolbar = computed(() => {
-    return (
-      !!slots[TOOLBAR_ACTIONS]?.() ||
-      !!slots[TOOLBAR_TOOLS]?.() ||
-      showTableTitle.value
-    );
-  });
-
-  const toolbarOptions = computed(() => {
-    const slotActions = slots[TOOLBAR_ACTIONS]?.();
-    const slotTools = slots[TOOLBAR_TOOLS]?.();
-    const searchBtn: VxeToolbarPropTypes.ToolConfig = {
-      code: 'search',
-      icon: 'vxe-icon-search',
-      circle: true,
-      status: showSearchForm.value ? 'primary' : undefined,
-      title: showSearchForm.value
-        ? $t('common.hideSearchPanel')
-        : $t('common.showSearchPanel'),
-    };
-    // 将搜索按钮合并到用户配置的toolbarConfig.tools中
-    const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
-      tools: (gridOptions.value?.toolbarConfig?.tools ??
-        []) as VxeToolbarPropTypes.ToolConfig[],
-    };
-    if (gridOptions.value?.toolbarConfig?.search && !!formOptions.value) {
-      toolbarConfig.tools = Array.isArray(toolbarConfig.tools)
-        ? [...toolbarConfig.tools, searchBtn]
-        : [searchBtn];
-    }
-
-    if (!showToolbar.value) {
-      return { toolbarConfig };
-    }
-
-    // 强制使用固定的toolbar配置，不允许用户自定义
-    // 减少配置的复杂度，以及后续维护的成本
-    toolbarConfig.slots = {
-      ...(slotActions || showTableTitle.value
-        ? { buttons: TOOLBAR_ACTIONS }
-        : {}),
-      ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
-    };
-    return { toolbarConfig };
+  const {
+    delegatedFormSlots,
+    delegatedSlots,
+    showTableTitle,
+    showToolbar,
+    toolbarOptions,
+  } = useVxeGridSlotComputeds({
+    formOptions,
+    gridOptions,
+    showSearchForm,
+    slots,
+    tableTitle,
   });
 
   // ---------- 合并后的 vxe-grid 配置 ----------
@@ -367,34 +332,6 @@ export function useVxeGridLogic(
       ...gridEvents.value,
       toolbarToolClick: onToolbarToolClick,
     };
-  });
-
-  // ---------- 插槽委派 ----------
-
-  const delegatedSlots = computed(() => {
-    const resultSlots: string[] = [];
-
-    for (const key of Object.keys(slots)) {
-      if (
-        !['empty', 'form', 'loading', TOOLBAR_ACTIONS, TOOLBAR_TOOLS].includes(
-          key,
-        )
-      ) {
-        resultSlots.push(key);
-      }
-    }
-    return resultSlots;
-  });
-
-  const delegatedFormSlots = computed(() => {
-    const resultSlots: string[] = [];
-
-    for (const key of Object.keys(slots)) {
-      if (key.startsWith(FORM_SLOT_PREFIX)) {
-        resultSlots.push(key);
-      }
-    }
-    return resultSlots.map((key) => key.replace(FORM_SLOT_PREFIX, ''));
   });
 
   // ---------- 空状态 ----------

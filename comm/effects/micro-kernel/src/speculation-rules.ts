@@ -13,6 +13,7 @@
  * @since 3.7.0
  */
 
+import type { DisposableManager } from "./manager-registry";
 import type { MicroAppEntry } from '@ydsz/micro-runtime';
 import type { PrefetchStrategy } from './preload-strategy';
 import { createLogger } from '@YDSZ-core/shared/utils';
@@ -143,7 +144,7 @@ export function removeSpeculationRules(): void {
  *
  * @since 4.1.0
  */
-export function createSpeculationRulesManager(): import('./manager-registry').DisposableManager {
+export function createSpeculationRulesManager(): DisposableManager {
   return {
     name: 'speculation-rules',
     dispose(): void {

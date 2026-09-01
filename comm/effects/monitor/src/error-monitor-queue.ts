@@ -19,8 +19,6 @@ import { getErrorEndpoint } from './monitor-endpoints';
 import type { ErrorReport, MonitorConfig } from './error-monitor-types';
 import {
   cacheForOffline,
-  loadOfflineCache,
-  clearOfflineCache,
   restoreOfflineCache as restoreOfflineCacheBase,
 } from './error-monitor-offline';
 

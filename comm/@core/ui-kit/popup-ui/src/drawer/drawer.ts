@@ -179,7 +179,7 @@ export interface DrawerState extends DrawerProps {
    * 若下次打开时未重新赋值，会读到上一次的残留数据，
    * 编辑/新增复用同一抽屉时尤其容易出现串数据。
    */
-  sharedData?: Record<string, any>;
+  sharedData?: Record<string, unknown>;
 }
 
 /**

@@ -17,7 +17,6 @@ import {
   bodyUp,
   calcDragLimitation,
   type calcResizeLimits,
-  deselect,
   saveDimensionsBeforeMove,
   stickMove,
   stickUp,

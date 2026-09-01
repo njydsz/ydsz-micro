@@ -158,15 +158,6 @@ function handleDeleteNode(nodeId: string): void {
   }
 }
 
-/** 添加连线 */
-function handleAddEdge(from: string, to: string): void {
-  // 检查是否已存在
-  const exists = edgeList.value.some((e) => e.from === from && e.to === to);
-  if (!exists) {
-    edgeList.value.push({ from, to });
-  }
-}
-
 /** 删除连线 */
 function handleDeleteEdge(index: number): void {
   edgeList.value.splice(index, 1);

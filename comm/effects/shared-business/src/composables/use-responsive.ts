@@ -26,7 +26,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
  * @typeParam T - 数据行类型
  * @since 1.1.0
  */
-export interface ResponsiveColumn<T = unknown> {
+export interface ResponsiveColumn<_T = unknown> {
   /** 列属性（对应 vxe-table column field） */
   key: string;
   /** 列标题 */

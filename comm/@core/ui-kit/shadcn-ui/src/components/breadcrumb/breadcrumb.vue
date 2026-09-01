@@ -24,7 +24,7 @@ import {
 } from '../../ui';
 import { YDSZIcon } from '../icon';
 
-interface Props extends BreadcrumbProps {}
+type Props = BreadcrumbProps;
 
 defineOptions({ name: 'Breadcrumb' });
 withDefaults(defineProps<Props>(), {

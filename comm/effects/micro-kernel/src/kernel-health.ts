@@ -10,13 +10,10 @@
  * @since 4.2.1
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
 
 import { getAllInstances } from "./scheduler";
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel:Health");
-
 /**
  * 健康检查所需的依赖。
  */

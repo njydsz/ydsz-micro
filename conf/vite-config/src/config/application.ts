@@ -17,7 +17,7 @@ import { findMonorepoRoot } from '@ydsz/node-utils';
 import { NodePackageImporter } from 'sass';
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
-import { ALL_SHARED_DEPS, getSharedDeps, isValidStrategy, type ShareStrategy } from '../micro-shared-deps';
+import { getSharedDeps, isValidStrategy, type ShareStrategy } from '../micro-shared-deps';
 import { getDefaultPwaOptions } from '../options';
 import { loadApplicationPlugins } from '../plugins';
 import { microScopedPostcssPlugin } from '../plugins/micro-scoped-postcss';
@@ -106,8 +106,6 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
         // micro-kernel 不可用时跳过
       }
     }
-    const { build: buildConf } = vite;
-
     const applicationConfig: UserConfig = {
       base,
       build: {

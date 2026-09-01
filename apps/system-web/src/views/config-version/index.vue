@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElInput, ElMessage, ElMessageBox } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { listByResourceKey, rollback } from '#/api/configVersion';

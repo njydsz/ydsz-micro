@@ -45,7 +45,6 @@ import {
   downloadImportTemplate,
   exportUsers,
   getUserRoles,
-  importUsers,
   page,
   remove,
   resetPassword,

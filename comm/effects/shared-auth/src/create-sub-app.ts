@@ -27,7 +27,7 @@ import { ElLoading } from 'element-plus';
 import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { setupSharedAuth } from './setup-shared-auth';
-import { provideMicroProps, MICRO_PROPS_KEY } from '@ydsz/micro-runtime/use-micro-props';
+import { provideMicroProps } from '@ydsz/micro-runtime/use-micro-props';
 import type { StandardMicroProps } from '@ydsz/micro-runtime/standard-props';
 
 const logger = createLogger('SubApp');

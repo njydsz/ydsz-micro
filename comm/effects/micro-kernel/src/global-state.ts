@@ -28,6 +28,18 @@ type ChangeListener<T> = (state: T, prev: T) => void;
 type KeyChangeListener<K, V> = (value: V, prevValue: V, key: K) => void;
 
 /**
+ * 全局状态 API 完整类型（createGlobalStateAPI 返回值的具名导出）。
+ *
+ * kernel-lifecycle / kernel-shutdown 等拆分模块以此类型声明依赖，
+ * 避免逐字段内联重复定义。
+ *
+ * @since 4.4.1
+ */
+export type GlobalStateAPI<T = Record<string, unknown>> = ReturnType<
+  typeof createGlobalStateAPI<T>
+>;
+
+/**
  * 创建全局状态 API 实例。
  *
  * 每次调用返回独立状态，供 createKernel 闭包持有。
@@ -128,23 +140,26 @@ export function createGlobalStateAPI<
       const prev = { ..._globalState };
       const changedKeys = new Set<keyof T & string>();
 
+      // 泛型索引收窄：状态与补丁统一按 Record<string, unknown> 读写
+      const stateRecord = _globalState as Record<string, unknown>;
+      const patchRecord = patch as Record<string, unknown>;
+
       // 应用变更并记录实际变化的 keys
-      for (const key in patch as object) {
-        if (Object.prototype.hasOwnProperty.call(patch, key)) {
-          const newValue = (patch as T)[key];
-          const oldValue = _globalState[key];
-          if (newValue !== oldValue) {
-            (_globalState as Record<string, unknown>)[key as string] = newValue;
-            changedKeys.add(key);
-            // === P0-3: 键级通知 — 仅通知订阅了该 key 的监听器 ===
-            const listeners = _keyListeners.get(key);
-            if (listeners) {
-              for (const listener of listeners) {
-                try {
-                  listener(newValue as unknown, oldValue as unknown, key);
-                } catch {
-                  /* 静默 */
-                }
+      for (const key of Object.keys(patchRecord)) {
+        const newValue = patchRecord[key];
+        const oldValue = stateRecord[key];
+        if (newValue !== oldValue) {
+          stateRecord[key] = newValue;
+          const typedKey = key as keyof T & string;
+          changedKeys.add(typedKey);
+          // === P0-3: 键级通知 — 仅通知订阅了该 key 的监听器 ===
+          const listeners = _keyListeners.get(typedKey);
+          if (listeners) {
+            for (const listener of listeners) {
+              try {
+                listener(newValue, oldValue, typedKey);
+              } catch {
+                /* 静默 */
               }
             }
           }
@@ -177,7 +192,8 @@ export function createGlobalStateAPI<
      * 避免 getGlobalState() 在热路径中返回完整浅拷贝。
      */
     getState<K extends string>(key: K): T[K] {
-      return _globalState[key as unknown as keyof T];
+      // 泛型索引收窄：运行时按 Record<string, unknown> 读取
+      return (_globalState as Record<string, unknown>)[key] as T[K];
     },
 
     reset() {
