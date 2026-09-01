@@ -316,11 +316,17 @@ function checkVendorArtifacts() {
 /**
  * 下载单个 URL 到 vendor 目录，返回同源路径。
  * URL 结构保留 host + pathname 作为目录层级，避免文件名冲突。
+ *
+ * v4.4.1 修复：Windows 下 esm.sh URL 中的 `*`（如 `*memoize-one@6.0.0`）
+ * 是非法文件名字符（NTFS 保留），mkdir 报 ENOENT。本地落盘时将 `*` 归一化为
+ * `_star`，返回的同源路径与 importmap 改写保持一致。
  */
 async function downloadToVendor(url, vendorDir, vendorBase) {
   const parsed = new URL(url);
-  // host/pathname 作为子路径，去除协议
-  const relPath = path.posix.join(parsed.host, parsed.pathname);
+  // host/pathname 作为子路径，去除协议；`*` 归一化以兼容 Windows 文件系统
+  const safeHost = parsed.host.replaceAll('*', '_star');
+  const safePath = parsed.pathname.replaceAll('*', '_star');
+  const relPath = path.posix.join(safeHost, safePath);
   // 以 .js 结尾直接作为文件；否则视为目录，追加 index.js
   const isFile = /\.(js|mjs)$/.test(relPath);
   const filePath = isFile
