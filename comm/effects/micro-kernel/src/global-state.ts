@@ -113,8 +113,10 @@ export function createGlobalStateAPI<
 
       if (fireImmediately) {
         try {
+          // 泛型索引收窄：运行时按 Record<string, unknown> 读取
+          const current = (_globalState as Record<string, unknown>)[key];
           (listener as KeyChangeListener<keyof T & string, unknown>)(
-            _globalState[key],
+            current,
             undefined as unknown as T[K],
             key,
           );
