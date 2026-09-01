@@ -46,6 +46,23 @@ export interface ErrorFallbackMessages {
   reloading: string;
   /** 三级降级：前往子应用独立部署地址按钮（v3.7 新增） */
   goToSubAppUrl?: string;
+  /** v4.4.1 E1: 复制诊断信息按钮文案（可选，缺省隐藏该按钮） */
+  copyDiagnostics?: string;
+  /** v4.4.1 E1: 诊断信息已复制提示（可选） */
+  diagnosticsCopied?: string;
+}
+
+/**
+ * v4.4.1 E1: 内核错误分类信息。
+ *
+ * 按 KernelErrorCode 分组给出面向用户的类别与处置提示，
+ * 降级 UI 据此展示分类徽标与建议动作，替代笼统的"加载失败"。
+ */
+export interface ErrorCategoryInfo {
+  /** 错误类别（如"网络加载失败"） */
+  label: string;
+  /** 处置建议（面向用户的一句话） */
+  hint: string;
 }
 
 /** 默认中文消息 */
@@ -62,6 +79,8 @@ const zhCNMessages: ErrorFallbackMessages = {
   retryCount: "重试次数：",
   reloading: "重新加载中...",
   goToSubAppUrl: "前往子应用独立页",
+  copyDiagnostics: "复制诊断信息",
+  diagnosticsCopied: "已复制",
 };
 
 /** 默认英文消息 */
@@ -179,4 +198,107 @@ export function getPresetFallbackMessages(
   locale: string,
 ): ErrorFallbackMessages {
   return locale.startsWith("en") ? enUSMessages : zhCNMessages;
+}
+
+// ==================== v4.4.1 E1: 错误分类（KernelErrorCode 分组） ====================
+
+/** 错误分类预置文案（zh-CN） */
+const zhCNCategories: Record<string, ErrorCategoryInfo> = {
+  LIFECYCLE_MISSING: {
+    label: "子应用构建异常",
+    hint: "子应用产物缺少生命周期导出，通常为构建配置问题，请联系开发人员。",
+  },
+  MOUNT_ERROR: {
+    label: "子应用挂载失败",
+    hint: "子应用初始化阶段出错，可能是版本不兼容，建议重试或稍后再试。",
+  },
+  UNMOUNT_ERROR: {
+    label: "子应用卸载异常",
+    hint: "子应用退出清理出错，功能已恢复，可继续使用其他应用。",
+  },
+  SANDBOX_ERROR: {
+    label: "运行环境冲突",
+    hint: "子应用运行环境初始化失败，建议刷新页面重试。",
+  },
+  REGISTRY_STATIC_EMPTY: {
+    label: "应用注册表未就绪",
+    hint: "主应用配置未加载完成，建议刷新页面重试。",
+  },
+  LOAD_TIMEOUT: {
+    label: "网络加载超时",
+    hint: "子应用响应过慢，请检查网络后重试；若持续超时可能正在发版。",
+  },
+  LOAD_ESM_IMPORT: {
+    label: "网络加载失败",
+    hint: "子应用资源加载失败，可能是网络波动或正在发版，请稍后重试。",
+  },
+  LOAD_MANIFEST_FETCH: {
+    label: "网络加载失败",
+    hint: "子应用描述文件获取失败，请检查网络后重试。",
+  },
+  LOAD_MANIFEST_INVALID: {
+    label: "子应用版本异常",
+    hint: "子应用产物校验失败，可能正在灰度发版，请稍后重试。",
+  },
+};
+
+/** 错误分类预置文案（en-US） */
+const enUSCategories: Record<string, ErrorCategoryInfo> = {
+  LIFECYCLE_MISSING: {
+    label: "Sub-App Build Issue",
+    hint: "The sub-app bundle is missing lifecycle exports. Please contact the development team.",
+  },
+  MOUNT_ERROR: {
+    label: "Sub-App Mount Failed",
+    hint: "The sub-app failed during initialization. Retry or try again later.",
+  },
+  UNMOUNT_ERROR: {
+    label: "Sub-App Unmount Issue",
+    hint: "Cleanup on exit failed, but the system has recovered. Other apps remain usable.",
+  },
+  SANDBOX_ERROR: {
+    label: "Runtime Conflict",
+    hint: "Failed to initialize the sub-app runtime. Refresh the page to retry.",
+  },
+  REGISTRY_STATIC_EMPTY: {
+    label: "Registry Not Ready",
+    hint: "Host configuration is not loaded yet. Refresh the page to retry.",
+  },
+  LOAD_TIMEOUT: {
+    label: "Network Timeout",
+    hint: "The sub-app responded too slowly. Check your network and retry; it may be deploying.",
+  },
+  LOAD_ESM_IMPORT: {
+    label: "Network Failure",
+    hint: "Failed to load sub-app resources. Possible network fluctuation or deployment in progress.",
+  },
+  LOAD_MANIFEST_FETCH: {
+    label: "Network Failure",
+    hint: "Failed to fetch the sub-app manifest. Check your network and retry.",
+  },
+  LOAD_MANIFEST_INVALID: {
+    label: "Version Mismatch",
+    hint: "Sub-app bundle verification failed. A canary rollout may be in progress, please retry later.",
+  },
+};
+
+/** 分类映射回退值（未知错误码） */
+const UNKNOWN_CATEGORY: Record<string, ErrorCategoryInfo> = {
+  "zh-CN": { label: "加载失败", hint: "发生未知错误，请稍后重试。" },
+  "en-US": { label: "Load Failed", hint: "An unknown error occurred. Please try again later." },
+};
+
+/**
+ * v4.4.1 E1: 按内核错误码获取面向用户的分类信息。
+ *
+ * @param code - KernelErrorCode 枚举值（字符串）
+ * @param locale - 语言标识（zh-CN / en-US，其他回退 zh-CN）
+ * @returns 分类标签与处置建议；未知错误码返回通用回退文案
+ */
+export function getErrorCategoryInfo(
+  code: string,
+  locale: string,
+): ErrorCategoryInfo {
+  const table = locale.startsWith("en") ? enUSCategories : zhCNCategories;
+  return table[code] ?? UNKNOWN_CATEGORY[locale.startsWith("en") ? "en-US" : "zh-CN"];
 }
