@@ -178,7 +178,6 @@ export function useCommandSearch(options: UseCommandSearchOptions): UseCommandSe
     commands,
     recentItems,
     activeIndex,
-    appNameLabels,
     searchProviderCount,
     searchProviderNames,
     close,
@@ -196,7 +195,6 @@ export function useCommandSearch(options: UseCommandSearchOptions): UseCommandSe
         const titleIdx = item.title.toLowerCase().indexOf(q);
         const descIdx = item.description?.toLowerCase().indexOf(q) ?? -1;
         if (titleIdx === -1 && descIdx < 0) return null;
-        const qIdx = titleIdx === -1 ? descIdx : titleIdx;
         const highlightedTitle = highlightMatch(item.title, q);
         return { ...item, highlightedTitle, _kind: "search" as const };
       })

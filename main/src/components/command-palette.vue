@@ -22,6 +22,7 @@
 import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 import { useSearchProviderStatus } from "#/hooks/use-global-search";
+import type { SearchItem } from "#/hooks/use-global-search";
 
 import {
   useCommandSearch,
@@ -35,7 +36,7 @@ import { useCommandKeyboard } from "./command-palette/composables/use-command-ke
 // Props & Model
 const props = defineProps<{
   appNameLabels?: Record<string, string>;
-  items: import("#/hooks/use-global-search").SearchItem[];
+  items: SearchItem[];
 }>();
 
 const visible = defineModel<boolean>("visible", { default: false });

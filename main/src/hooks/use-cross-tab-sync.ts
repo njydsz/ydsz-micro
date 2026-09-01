@@ -4,7 +4,7 @@
  * 监听关键状态变更（登出/会话失效/token 刷新）并广播到同源其它标签页，
  * 同时订阅远端事件执行本地联动。
  *
- * 防回环：远端事件触发的本地操作不再广播（通过 isHandlingRemote 标志位）。
+ * 防回环：远端事件触发的本地操作不再广播（通过 _isHandlingRemote 标志位）。
  *
  * D4: 新增 TOKEN_REFRESHED 事件订阅 — 其它标签页刷新 token 后，
  *     本标签页同步更新 tokenStore，避免各自独立刷新导致 refreshToken 竞态。
@@ -25,7 +25,7 @@ import {
 import { useTokenStore } from '@ydsz/stores';
 
 /** 防回环标志：正在处理远端事件时为 true */
-let isHandlingRemote = false;
+let _isHandlingRemote = false;
 
 /**
  * 广播跨标签页事件（供本地主动操作调用）。
@@ -43,7 +43,7 @@ export { CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS };
  * 监听关键状态变更（登出/会话失效/token 刷新）并广播到同源其它标签页，
  * 同时订阅远端事件执行本地联动。
  *
- * 防回环机制：远端事件触发的本地操作不再广播（通过 isHandlingRemote 标志位）。
+ * 防回环机制：远端事件触发的本地操作不再广播（通过 _isHandlingRemote 标志位）。
  *
  * 当前集成：
  * - 登出同步：任一标签页登出 -> 所有标签页同步登出
@@ -63,7 +63,7 @@ export { CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS };
 export function useCrossTabSync(): void {
   // 订阅远端登出事件
   useCrossTabEvent(CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS.LOGOUT, async () => {
-    isHandlingRemote = true;
+    _isHandlingRemote = true;
     try {
       // 延迟引用避免 auth ↔ cross-tab-sync 初始化期循环依赖
       const { useAuthStore } = await import('#/store/auth');
@@ -71,7 +71,7 @@ export function useCrossTabSync(): void {
       // 远端登出不跳转（已在其它标签页完成跳转），仅清理本地状态
       void authStore.logout(false);
     } finally {
-      isHandlingRemote = false;
+      _isHandlingRemote = false;
     }
   });
 
@@ -80,14 +80,14 @@ export function useCrossTabSync(): void {
     CROSS_TAB_CHANNEL,
     CROSS_TAB_EVENTS.SESSION_EXPIRED,
     async () => {
-      isHandlingRemote = true;
+      _isHandlingRemote = true;
       try {
         // 延迟引用避免 auth ↔ cross-tab-sync 初始化期循环依赖
         const { useAuthStore } = await import('#/store/auth');
         const authStore = useAuthStore();
         void authStore.logout(false);
       } finally {
-        isHandlingRemote = false;
+        _isHandlingRemote = false;
       }
     },
   );
@@ -97,7 +97,7 @@ export function useCrossTabSync(): void {
     CROSS_TAB_CHANNEL,
     CROSS_TAB_EVENTS.TOKEN_REFRESHED,
     (payload: TokenRefreshedPayload) => {
-      isHandlingRemote = true;
+      _isHandlingRemote = true;
       try {
         const tokenStore = useTokenStore();
         if (payload.accessToken) {
@@ -107,7 +107,7 @@ export function useCrossTabSync(): void {
           tokenStore.setExpiresAt(payload.expiresAt);
         }
       } finally {
-        isHandlingRemote = false;
+        _isHandlingRemote = false;
       }
     },
   );
