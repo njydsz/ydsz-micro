@@ -1,5 +1,8 @@
 <!--
- * SelectScrollDownButton Vue 组件
+ * 选项列表底部的滚动按钮：列表可继续向下滚动时由 radix 自动显示。
+ *
+ * 显隐完全由 radix 判断溢出状态，调用方既不需要传参也不需要控制显示，
+ * 因此不要试图用 v-if 自行控制它的出现时机。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectScrollDownButton.vue
  * @author ydsz-team

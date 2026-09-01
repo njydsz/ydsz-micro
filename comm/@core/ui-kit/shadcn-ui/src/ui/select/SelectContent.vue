@@ -1,5 +1,9 @@
 <!--
- * SelectContent Vue 组件
+ * 选择器的下拉面板：经 Portal 挂到 body，默认 position=popper。
+ *
+ * 用 popper 而非 item-aligned，是因为面板需要相对触发器定位并可翻转避让；
+ * item-aligned 会把面板对齐到当前选中项，在长列表里会跳到让人找不到的位置。
+ * 关闭 inheritAttrs 同理于 PopoverContent：让 attrs 落到真实的面板节点上。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectContent.vue
  * @author ydsz-team

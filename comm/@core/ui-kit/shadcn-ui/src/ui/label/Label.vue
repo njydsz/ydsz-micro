@@ -1,5 +1,8 @@
 <!--
- * Label Vue 组件
+ * 通用标签：转发 radix Label 的 props，并统一字号、行高与禁用态表现。
+ *
+ * peer-disabled 类让标签能感知同级控件的禁用状态；
+ * 这依赖 Tailwind 的 peer 机制，故标签必须与控件同级相邻，不可再包一层容器。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\label\Label.vue
  * @author ydsz-team

@@ -1,5 +1,8 @@
 <!--
- * BreadcrumbList Vue 组件
+ * 面包屑的层级列表：渲染为 ol 而非 ul，因为面包屑的先后顺序代表层级由浅到深。
+ *
+ * 允许换行（flex-wrap + break-words）是必要的 ——
+ * 深层级路径在窄屏下会横向溢出，截断比换行更容易让用户丢失当前位置。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\BreadcrumbList.vue
  * @author ydsz-team

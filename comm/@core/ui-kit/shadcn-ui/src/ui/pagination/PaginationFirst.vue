@@ -1,5 +1,8 @@
 <!--
- * PaginationFirst Vue 组件
+ * 分页器的「回到首页」按钮：默认开启 asChild，把 radix 的行为套到 Button 上。
+ *
+ * asChild 默认为 true 是这里的关键 —— 若渲染成 radix 自带的 button，
+ * 就会同时套上两套按钮样式；本项目统一由 Button 提供外观，radix 只负责行为与禁用态。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\PaginationFirst.vue
  * @author ydsz-team

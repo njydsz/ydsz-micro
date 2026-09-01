@@ -1,5 +1,9 @@
 <!--
- * ResizablePanelGroup Vue 组件
+ * 可拖拽分栏的容器：转发 radix SplitterGroup 的 props 与 emits。
+ *
+ * 方向由 data-panel-group-direction 决定（横排 / 竖排），
+ * 而不是由组件自己接一个 direction prop —— 面板尺寸状态归 radix 管，
+ * 组件若再存一份就会与它不同步。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\resizable\ResizablePanelGroup.vue
  * @author ydsz-team

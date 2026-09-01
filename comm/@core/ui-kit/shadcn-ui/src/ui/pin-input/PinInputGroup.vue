@@ -1,5 +1,8 @@
 <!--
- * PinInputGroup Vue 组件
+ * 验证码输入的分格容器：把 PinInputInput 组织成一组。
+ *
+ * 基于 Primitive 而非固定 div，是为了在需要给整组加语义（如 role=group）
+ * 或用 asChild 换成 fieldset 时不必改组件。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\pin-input\PinInputGroup.vue
  * @author ydsz-team

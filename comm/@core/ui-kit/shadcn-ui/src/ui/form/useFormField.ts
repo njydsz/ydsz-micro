@@ -1,5 +1,10 @@
 /**
- * useFormField 模块
+ * 读取当前字段上下文的组合式函数：把 vee-validate 的字段状态与本项目的表单项 id 合并成一份上下文。
+ *
+ * 同时注入 FieldContextKey 与 FORM_ITEM_INJECTION_KEY 两个键：
+ * 前者提供 name 与校验状态，后者提供 aria 所需的 id 前缀，
+ * 缺任一都无法完整拼出 aria-describedby，故在脱离 FormField 时直接抛错而不是静默降级 ——
+ * 静默降级只会产出一个看似正常、实则无无障碍关联的控件。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\useFormField.ts
  * @author ydsz-team

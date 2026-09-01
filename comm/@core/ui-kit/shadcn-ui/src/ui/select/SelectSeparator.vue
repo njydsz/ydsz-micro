@@ -1,5 +1,8 @@
 <!--
- * SelectSeparator Vue 组件
+ * 选项之间的分隔线：用于区分不同性质的选项（如「常用」与「全部」）。
+ *
+ * 左右各取 -mx-1 的负外边距，让分隔线铺满面板的内容宽度，
+ * 而不是被 SelectContent 的内边距截断成一小段。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectSeparator.vue
  * @author ydsz-team

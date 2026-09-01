@@ -1908,6 +1908,9 @@ importers:
       '@tanstack/vue-virtual':
         specifier: 'catalog:'
         version: 3.13.35(vue@3.5.40(typescript@5.9.3))
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.9.0(vue@3.5.40(typescript@5.9.3))
       '@ydsz/common-ui':
         specifier: workspace:*
         version: link:../common-ui

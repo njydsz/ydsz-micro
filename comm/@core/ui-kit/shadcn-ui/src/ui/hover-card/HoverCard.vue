@@ -1,5 +1,8 @@
 <!--
- * HoverCard Vue 组件
+ * 悬停卡片的容器：转发 radix HoverCardRoot 的全部 props 与 emits。
+ *
+ * 与 Tooltip 的取舍：HoverCard 的浮层可以承载可交互内容（链接、按钮），
+ * 鼠标可以移入浮层而不消失；Tooltip 只能放纯文本，且移入即消失。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\HoverCard.vue
  * @author ydsz-team

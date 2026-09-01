@@ -1,5 +1,8 @@
 <!--
- * SelectGroup Vue 组件
+ * 选择器中的选项分组：与 SelectLabel 配合使用，把长列表按语义切成若干段。
+ *
+ * radix 会把分组与标签做 aria 关联，因此标签必须放在分组内部，
+ * 放在外面则读屏用户听不到「这一组是什么」。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectGroup.vue
  * @author ydsz-team

@@ -14,6 +14,7 @@ import fsp from 'node:fs/promises';
 import { join } from 'node:path';
 
 import archiver from 'archiver';
+import { consola as logger } from 'consola';
 
 /**
  * 构建完成后将 dist 目录压缩为 zip 归档的 Vite 插件。
@@ -48,7 +49,7 @@ export const viteArchiverPlugin = (
             await zipFolder(folderToZip, zipOutputPath);
             process.stdout.write(`Folder has been zipped to: ${zipOutputPath}\n`);
           } catch (error) {
-            console.error('Error zipping folder:', error);
+            logger.error('Error zipping folder:', error);
           }
         }, 0);
       },

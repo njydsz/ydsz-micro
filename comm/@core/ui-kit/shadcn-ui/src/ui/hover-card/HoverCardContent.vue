@@ -1,5 +1,9 @@
 <!--
- * HoverCardContent Vue 组件
+ * 悬停卡片的浮层内容：经 Portal 挂到 body，避免被父级的 overflow 裁剪。
+ *
+ * sideOffset 默认 4px —— 触发器与浮层之间需要留出间隙，
+ * 否则鼠标从触发器移向浮层时会经过一段「两者都不命中」的空隙导致提前关闭。
+ * 固定宽度 w-64，让卡片在任意触发器宽度下都保持一致的阅读宽度。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\HoverCardContent.vue
  * @author ydsz-team

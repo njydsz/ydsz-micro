@@ -1,5 +1,8 @@
 <!--
- * NumberFieldInput Vue 组件
+ * 数字输入框本体：文本居中对齐，因为左右已被增减按钮占据，居左会显得偏向一侧。
+ *
+ * 打上 data-slot="input" 供 NumberFieldContent 定位内边距；
+ * 值的变化与步进逻辑全部由 radix NumberFieldRoot 托管，本组件不自行处理键盘输入。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\NumberFieldInput.vue
  * @author ydsz-team

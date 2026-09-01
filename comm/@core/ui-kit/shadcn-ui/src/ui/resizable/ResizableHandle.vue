@@ -1,5 +1,10 @@
 <!--
- * ResizableHandle Vue 组件
+ * 可拖拽的分栏手柄：转发 radix SplitterResizeHandle 的 props 与 emits。
+ *
+ * 命中区域比可见线条宽得多（after 伪元素左右各扩 1px 之外的宽度），
+ * 因为 1px 的分隔线根本点不中；可见线仍是 1px，命中区与视觉分离是这里的权衡。
+ * withHandle 用于在竖排时显示一个可抓握的提示条，提示用户「这里能拖」。
+ * orientation 由 radix 通过 data-orientation 注入，故样式必须写在该属性选择器下。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\resizable\ResizableHandle.vue
  * @author ydsz-team

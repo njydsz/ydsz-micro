@@ -1,5 +1,8 @@
 <!--
- * DropdownMenuSubTrigger Vue 组件
+ * 子菜单的入口项：点击或悬停后展开二级菜单，右侧固定带一个 ChevronRight 箭头。
+ *
+ * 箭头写死在组件内而非交给插槽，是为了保证全站「有下级」的视觉提示一致；
+ * 需要更换图标时应改这里，而不是在每个调用处各写一遍。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\DropdownMenuSubTrigger.vue
  * @author ydsz-team

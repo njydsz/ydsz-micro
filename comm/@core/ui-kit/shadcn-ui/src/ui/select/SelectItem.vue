@@ -1,5 +1,9 @@
 <!--
- * SelectItem Vue 组件
+ * 选择器中的单个选项：内部固定渲染 SelectItemText 与 SelectItemIndicator。
+ *
+ * 右侧预留 pr-8 给选中标记，避免长文本被图标压住；
+ * 禁用态用 data-[disabled] 而非 :disabled，因为 radix 在选项上写的是 data 属性，
+ * 用伪类选择器会完全不生效 —— 这是接入 radix 组件时最常见的坑。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectItem.vue
  * @author ydsz-team

@@ -1,5 +1,9 @@
 <!--
- * DropdownMenuSubContent Vue 组件
+ * 下拉菜单的子菜单面板：承载二级菜单的浮层容器与进出场动画。
+ *
+ * 动画类名按 data-side 分别定义四个方向的滑入偏移，
+ * 因为子菜单总是从父级侧边展开，用同一套位移会导致上下方向出现反向滑动。
+ * class 先从 props 中剥离再合并，保证浮层定位与动画类不被调用方覆盖掉。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\DropdownMenuSubContent.vue
  * @author ydsz-team

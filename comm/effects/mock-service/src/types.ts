@@ -45,3 +45,47 @@ export interface OpenAPISpec {
   /** 元信息 */
   info?: Record<string, unknown>;
 }
+
+/**
+ * OpenAPI Path Item Object 的宽松表示。
+ *
+ * 包含 GET/POST/PUT/DELETE/PATCH 等操作方法，
+ * 每个操作的内部结构由 `OpenAPIOperation` 描述。
+ */
+export interface OpenAPIPathItem {
+  get?: OpenAPIOperation;
+  post?: OpenAPIOperation;
+  put?: OpenAPIOperation;
+  delete?: OpenAPIOperation;
+  patch?: OpenAPIOperation;
+  /** 预留其余可能的键（如 parameters、$ref 等） */
+  [key: string]: unknown;
+}
+
+/**
+ * OpenAPI Operation Object 的宽松表示。
+ *
+ * 仅提取 Mock 生成所需的 `responses` / `requestBody` /
+ * `operationId` 字段；其余字段保持 `unknown` 透传。
+ */
+export interface OpenAPIOperation {
+  /** 操作唯一标识（用于覆盖路由匹配） */
+  operationId?: string;
+  /** 响应对象，键为 HTTP 状态码 */
+  responses?: Record<string, unknown>;
+  /** 请求体描述 */
+  requestBody?: Record<string, unknown>;
+  /** 预留其余可能的键 */
+  [key: string]: unknown;
+}
+
+/**
+ * OpenAPI Response Object 中提取的 Content 结构。
+ *
+ * 以 MIME 类型（如 `application/json`）为键，
+ * 值为包含可选 schema 的对象。
+ */
+export type OpenAPIResponseContent = Record<
+  string,
+  { schema?: Record<string, unknown> } | undefined
+>;

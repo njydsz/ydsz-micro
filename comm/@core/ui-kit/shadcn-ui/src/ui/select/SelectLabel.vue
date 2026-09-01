@@ -1,5 +1,8 @@
 <!--
- * SelectLabel Vue 组件
+ * 选项分组的标题：作为分组的无障碍名称，通常为弱化小字。
+ *
+ * 必须放在 SelectGroup 内部才能被 radix 正确关联；
+ * 它不是可选项，也不能被键盘聚焦。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectLabel.vue
  * @author ydsz-team

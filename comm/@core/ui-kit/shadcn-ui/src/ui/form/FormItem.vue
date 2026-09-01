@@ -1,5 +1,9 @@
 <!--
- * FormItem Vue 组件
+ * 单个字段的上下文提供者：生成唯一 id 并通过 FORM_ITEM_INJECTION_KEY 向下注入。
+ *
+ * 用 useId() 而不是自己递增计数器，是为了在 SSR 下服务端与客户端得到一致的 id，
+ * 避免出现 hydration 不匹配；内部组件（Label / Control / Message）都从这个 id 派生各自的 aria id，
+ * 因此一个字段内不需要调用方手动指定任何 id。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\FormItem.vue
  * @author ydsz-team

@@ -1,5 +1,9 @@
 <!--
- * RadioGroupItem Vue 组件
+ * 单选按钮本体：内部固定渲染 RadioGroupIndicator 作为选中标记。
+ *
+ * 外观用 aspect-square + h-4 w-4 定尺而不是靠内容撑开，
+ * 保证与 Label 的基线对齐稳定；选中态由 radix 的 data-state 驱动，
+ * 不通过 v-model 传递，因此多个选项之间不会出现「两个都选中」的中间态。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\radio-group\RadioGroupItem.vue
  * @author ydsz-team

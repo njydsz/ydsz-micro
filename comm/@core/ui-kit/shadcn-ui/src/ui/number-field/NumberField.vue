@@ -1,5 +1,8 @@
 <!--
- * NumberField Vue 组件
+ * 数字输入框的容器：转发 radix NumberFieldRoot 的 props 与 emits（值、步进、格式化等）。
+ *
+ * 用 grid gap-1.5 统一内部间距，让「标签 + 输入区 + 提示」的纵向节奏与表单其它字段对齐；
+ * 具体的增减按钮与输入框由子组件组合，本组件不限制内部排布。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\NumberField.vue
  * @author ydsz-team

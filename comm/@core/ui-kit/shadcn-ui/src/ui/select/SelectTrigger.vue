@@ -1,5 +1,9 @@
 <!--
- * SelectTrigger Vue 组件
+ * 选择器的触发器：展示当前选中项文本，右侧固定带下拉箭头。
+ *
+ * [&>span]:line-clamp-1 是必要的 —— 长选项会把触发器撑高，
+ * 导致表单行高忽大忽小；单行截断后高度恒定，完整文本仍可在下拉面板里读到。
+ * 箭头用 SelectIcon 包一层，由 radix 控制展开时的旋转状态。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectTrigger.vue
  * @author ydsz-team

@@ -1,5 +1,8 @@
 <!--
- * PinInputInput Vue 组件
+ * 验证码输入的单个格子：只接受一位字符，宽度固定、文本居中。
+ *
+ * 相邻格子共享边框（border-y + border-r + first:border-l）而不是各自画一圈，
+ * 否则中间线会是 2px；聚焦时提升 z-index 并补 ring，避免ring 被相邻格子盖住一半。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\pin-input\PinInputInput.vue
  * @author ydsz-team

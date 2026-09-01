@@ -1,5 +1,8 @@
 <!--
- * BreadcrumbSeparator Vue 组件
+ * 面包屑的分隔符：渲染为 li 并标记 aria-hidden，默认图标为 ChevronRight。
+ *
+ * 对辅助技术隐藏是因为分隔符纯属视觉装饰，若参与播报，
+ * 读屏会在每一级之间插入无意义的内容，让路径变得难以听懂。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\BreadcrumbSeparator.vue
  * @author ydsz-team

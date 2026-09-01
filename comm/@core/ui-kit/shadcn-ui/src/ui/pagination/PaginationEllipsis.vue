@@ -1,5 +1,8 @@
 <!--
- * PaginationEllipsis Vue 组件
+ * 分页器中的页码省略占位：代表被折叠的页码区间，不可点击。
+ *
+ * 固定为 32px 见方（size-8），与相邻页码按钮保持等高，
+ * 否则页码行会出现纵向跳动；默认图标 MoreHorizontal 可用插槽替换。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\PaginationEllipsis.vue
  * @author ydsz-team

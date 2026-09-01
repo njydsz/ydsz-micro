@@ -1,5 +1,8 @@
 <!--
- * PaginationLast Vue 组件
+ * 分页器的「跳到末页」按钮：默认开启 asChild，把 radix 的行为套到 Button 上。
+ *
+ * 与首页按钮同理：外观交给 Button，radix 只提供行为与到达边界后的禁用态，
+ * 避免两套按钮样式互相覆盖。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\PaginationLast.vue
  * @author ydsz-team

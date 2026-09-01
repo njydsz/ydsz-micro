@@ -1,5 +1,8 @@
 <!--
- * NumberFieldIncrement Vue 组件
+ * 数字输入框的增大按钮：绝对定位在输入区右侧，默认图标为 Plus。
+ *
+ * 与减小按钮成对出现是常态，但两者独立可用：
+ * 只保留一个时另一侧的内边距会被 NumberFieldContent 自动收回。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\NumberFieldIncrement.vue
  * @author ydsz-team

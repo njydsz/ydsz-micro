@@ -1,5 +1,8 @@
 <!--
- * NumberFieldDecrement Vue 组件
+ * 数字输入框的减小按钮：绝对定位在输入区左侧，默认图标为 Minus。
+ *
+ * 打上 data-slot="decrement" 是给 NumberFieldContent 的选择器用的 ——
+ * 父级据此判断要不要给输入框让出左边距，因此更换图标时该属性必须保留。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\NumberFieldDecrement.vue
  * @author ydsz-team

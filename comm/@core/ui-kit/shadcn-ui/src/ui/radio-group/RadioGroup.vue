@@ -1,5 +1,8 @@
 <!--
- * RadioGroup Vue 组件
+ * 单选组的容器：转发 radix RadioGroupRoot 的 props 与 emits。
+ *
+ * 用 grid gap-2 固定组内间距，使选项在表单中与其它字段的纵向节奏一致；
+ * 键盘上下切换与 aria 关联由 radix 负责，本组件不自行管理选中项。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\radio-group\RadioGroup.vue
  * @author ydsz-team

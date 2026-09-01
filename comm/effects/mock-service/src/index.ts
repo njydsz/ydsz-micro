@@ -16,7 +16,7 @@ export {
 export type { HandlerGeneratorOptions } from './handlers';
 export { createMockDataFactory } from './factory';
 export type { MockDataFactory } from './factory';
-export type { MockFactoryOptions, MockSchema, OpenAPISpec } from './types';
+export type { MockFactoryOptions, MockSchema, OpenAPISpec, OpenAPIPathItem, OpenAPIOperation, OpenAPIResponseContent } from './types';
 
 export {
   setupMockServer,
