@@ -9,7 +9,7 @@
 /** JSON 值类型（递归） */
 export type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
 interface JsonObject { [key: string]: JsonValue }
-interface JsonArray extends Array<JsonValue> {}
+type JsonArray = JsonValue[];
 
 export interface JsonViewerProps {
   /** 要展示的结构数据 */

@@ -102,7 +102,7 @@ const gridOptions: VxeTableGridOptions<PromptTemplateVO> = {
           ),
       },
     },
-    { field: 'description', title: '描述', min-width: 180 },
+    { field: 'description', title: '描述', minWidth: 180 },
     { field: 'updatedAt', title: '更新时间', width: 160 },
     {
       field: 'action',

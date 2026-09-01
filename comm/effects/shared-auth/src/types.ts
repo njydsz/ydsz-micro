@@ -2,47 +2,45 @@
  * 认证相关类型定义（对齐后端 LoginVO）
  */
 
-export namespace AuthApi {
-  /** 登录接口参数 */
-  export interface LoginParams {
-    username?: string;
-    password?: string;
-    captcha?: string;
-    captchaKey?: string;
-  }
+/** 登录接口参数 */
+export interface AuthApiLoginParams {
+  username?: string;
+  password?: string;
+  captcha?: string;
+  captchaKey?: string;
+}
 
-  /** 登录接口返回值（对齐后端 LoginVO） */
-  export interface LoginResult {
-    accessToken: string;
-    refreshToken: string;
-    tokenType: string;
-    expiresIn: number;
-    scope: string;
-    userInfo: UserInfoVO;
-  }
+/** 登录接口返回值（对齐后端 LoginVO） */
+export interface AuthApiLoginResult {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+  expiresIn: number;
+  scope: string;
+  userInfo: AuthApiUserInfoVO;
+}
 
-  /** 用户信息（对齐后端 LoginVO.UserInfoVO） */
-  export interface UserInfoVO {
-    userId: string;
-    username: string;
-    realName: string;
-    roleCode?: string;
-    roleName?: string;
-    tenantId?: string;
-    avatar?: string;
-    email?: string;
-    phone?: string;
-    deptId?: string;
-    deptName?: string;
-    roles?: string[];
-    permissions?: string[];
-  }
+/** 用户信息（对齐后端 LoginVO.UserInfoVO） */
+export interface AuthApiUserInfoVO {
+  userId: string;
+  username: string;
+  realName: string;
+  roleCode?: string;
+  roleName?: string;
+  tenantId?: string;
+  avatar?: string;
+  email?: string;
+  phone?: string;
+  deptId?: string;
+  deptName?: string;
+  roles?: string[];
+  permissions?: string[];
+}
 
-  /** 刷新 token 的返回值结构（对齐后端刷新接口） */
-  export interface RefreshTokenResult {
-    accessToken: string;
-    refreshToken: string;
-    tokenType: string;
-    expiresIn: number;
-  }
+/** 刷新 token 的返回值结构（对齐后端刷新接口） */
+export interface AuthApiRefreshTokenResult {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+  expiresIn: number;
 }

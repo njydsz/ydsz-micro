@@ -18,7 +18,7 @@
  * @author ydsz-team
  * @since 4.2.0
  */
-import { openSseRequest, safeParseSseJson } from '@ydsz/shared-auth';
+import { openSseRequest } from '@ydsz/shared-auth';
 
 /** 流式分片数据（对应后端 sent {@code chunk} 事件负载） */
 export interface AgentStreamChunk {

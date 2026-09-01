@@ -30,14 +30,14 @@ function traverseTreeValues<T, V>(
   const dfs = (treeNode: T) => {
     const value = getValue(treeNode);
     result.push(value);
-    const children = (treeNode as Record<string, any>)?.[childProps];
+    const children = (treeNode as Record<string, unknown>)?.[childProps] as
+      | T[]
+      | undefined;
     if (!children) {
       return;
     }
-    if (children.length > 0) {
-      for (const child of children) {
-        dfs(child);
-      }
+    for (const child of children) {
+      dfs(child);
     }
   };
 
@@ -54,7 +54,7 @@ function traverseTreeValues<T, V>(
  * @param options 作为子节点数组的可选属性名称。
  * @returns 包含所有匹配节点的数组。
  */
-function filterTree<T extends Record<string, any>>(
+function filterTree<T>(
   tree: T[],
   filter: (node: T) => boolean,
   options?: TreeConfigOptions,
@@ -64,10 +64,11 @@ function filterTree<T extends Record<string, any>>(
   };
 
   const _filterTree = (nodes: T[]): T[] => {
-    return nodes.filter((node: Record<string, any>) => {
-      if (filter(node as T)) {
-        if (node[childProps]) {
-          node[childProps] = _filterTree(node[childProps]);
+    return nodes.filter((node) => {
+      if (filter(node)) {
+        const record = node as Record<string, unknown>;
+        if (record[childProps]) {
+          record[childProps] = _filterTree(record[childProps] as T[]);
         }
         return true;
       }
@@ -84,7 +85,7 @@ function filterTree<T extends Record<string, any>>(
  * @param mapper 用于map每个节点的条件。
  * @param options 作为子节点数组的可选属性名称。
  */
-function mapTree<T, V extends Record<string, any>>(
+function mapTree<T, V>(
   tree: T[],
   mapper: (node: T) => V,
   options?: TreeConfigOptions,
@@ -93,9 +94,13 @@ function mapTree<T, V extends Record<string, any>>(
     childProps: 'children',
   };
   return tree.map((node) => {
-    const mapperNode: Record<string, any> = mapper(node);
+    const mapperNode = mapper(node) as Record<string, unknown>;
     if (mapperNode[childProps]) {
-      mapperNode[childProps] = mapTree(mapperNode[childProps], mapper, options);
+      mapperNode[childProps] = mapTree(
+        mapperNode[childProps] as V[],
+        mapper,
+        options,
+      );
     }
     return mapperNode as V;
   });

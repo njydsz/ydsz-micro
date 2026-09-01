@@ -1,6 +1,6 @@
 import { createLogger } from '@YDSZ-core/shared/utils';
 const logger = createLogger('global-state');
-﻿/**
+/**
  * 类型安全的全局状态。
  *
  * 替代 qiankun initGlobalState（any 广播），提供类型化 get/set/subscribe。

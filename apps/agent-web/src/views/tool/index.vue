@@ -123,8 +123,8 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
           h(ElTag, { type: getToolTypeTagType(row.toolType) }, () => getToolTypeLabel(row.toolType)),
       },
     },
-    { field: 'description', title: '描述', min-width: 180 },
-    { field: 'endpoint', title: '端点', min-width: 200 },
+    { field: 'description', title: '描述', minWidth: 180 },
+    { field: 'endpoint', title: '端点', minWidth: 200 },
     { field: 'method', title: '方法', width: 80 },
     {
       field: 'enabled',

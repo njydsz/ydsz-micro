@@ -26,7 +26,7 @@ import {
   ElSwitch,
   ElTag,
 } from 'element-plus';
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, reactive, watch } from 'vue';
 
 defineOptions({ name: 'PromptForm' });
 

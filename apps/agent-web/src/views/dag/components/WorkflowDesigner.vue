@@ -281,7 +281,6 @@ function generateDsl(): string {
   dsl += `  description: "${workflowDescription.value}"\n\n`;
   
   nodes.value.forEach((node) => {
-    const config = getNodeConfig(node.type);
     dsl += `  node ${node.id} {\n`;
     dsl += `    type: ${node.type}\n`;
     dsl += `    label: "${node.label}"\n`;

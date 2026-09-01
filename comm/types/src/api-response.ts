@@ -26,7 +26,7 @@ export interface BaseResponse<T = unknown> {
 }
 
 /** 分页返回结果 — 与 PageResponse 对齐 */
-export interface PageResponse<T = unknown> extends BaseResponse<PageData<T>> {}
+export type PageResponse<T = unknown> = BaseResponse<PageData<T>>;
 
 /** 分页数据 */
 export interface PageData<T = unknown> {

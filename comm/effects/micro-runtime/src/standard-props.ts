@@ -21,6 +21,7 @@
 import type { MountProps, MicroAppConfig, SandboxType } from './types';
 import type { RawGlobalStateAPI } from './global-state';
 import type { NamespacedGlobalStateAPI } from './namespaced-state';
+import { createNamespacedState } from './namespaced-state';
 
 // ==================== 全局状态句柄（注入子应用） ====================
 
@@ -185,9 +186,6 @@ export function buildStandardMountProps(
       getGlobalState: ctx.rawGlobalState.getGlobalState,
       // 命名空间能力由 createNamespacedGlobalStateWrapper 在 kernel 侧注入
       useNamespace: (scope: string) => {
-        // 延迟导入避免循环依赖
-         
-        const { createNamespacedState } = require('./namespaced-state');
         return createNamespacedState(ctx.rawGlobalState, scope);
       },
     },
