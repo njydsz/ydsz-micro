@@ -1,6 +1,18 @@
 /**
- * 通用组件共同的使用的基础组件，原先放在 adapter/form 内部，限制了使用范围，这里提取出来，方便其他地方使用
- * 可用于 YDSZ-form、YDSZ-modal、YDSZ-drawer 等组件使用,
+ * 通用异步组件注册表 —— 表单/弹窗/抽屉共享的 UI 组件统一装配层
+ *
+ * 将原先写在 adapter/form 内部的基础组件提取为独立模块，使其可被
+ * YDSZ-form、YDSZ-modal、YDSZ-drawer 等多个业务组件复用。
+ *
+ * 职责：
+ *   - 通过 createElAsyncComponent() 工厂统一创建 Element Plus 异步组件（并行加载逻辑 + 样式）
+ *   - 使用 withDefaultPlaceholder() 高阶函数为业务组件注入本地化占位符和方法透传
+ *   - ComponentType 联合类型统一定义表单/弹窗支持的组件集合
+ *   - initComponentAdapter() 将装配好的组件注册到 globalShareState，并定义全局消息提示
+ *
+ * @path main/src/adapter/component/index.ts
+ * @author ydsz-team
+ * @since 3.0.0
  */
 
 import type { Component } from 'vue';

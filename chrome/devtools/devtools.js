@@ -1,4 +1,23 @@
-/* DevTools 入口 —— 在 Chrome DevTools 中创建名为 "Micro Kernel" 的自定义面板 */
+/**
+ * DevTools Entry —— Chrome DevTools 自定义面板注册入口
+ *
+ * 在 Chrome DevTools 中创建名为 "Micro Kernel" 的自定义面板，承载 panel.html。
+ * 面板（panel.js）独立运行在此 sandbox 中，通过 chrome.runtime 与 background 通信。
+ *
+ * 职责：
+ *   - 注册面板并定义图标（panel.html）
+ *   - 监听后台推送给 devtools target 的消息
+ *   - 在面板显示/隐藏时触发后台的 subscribe / lost-focus 事件
+ *
+ * 消息流（简化）：
+ *   background ──► devtools.js runtime.onMessage ──► postMessage ──► inspectedWindow.eval ──► panel.js
+ *
+ * 注意：DevTools Panel 与 background 隔离，消息必须经过 inspectedWindow.eval 转发。
+ *
+ * @path chrome/devtools/devtools.js
+ * @author ydsz-team
+ * @since 4.0.0
+ */
 chrome.devtools.panels.create(
   'Micro Kernel',
   '',

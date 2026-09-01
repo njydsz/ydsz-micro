@@ -1,4 +1,22 @@
-/* Popup —— 快速触达面板：显示概览 + 触发 DevTools */
+/**
+ * Popup —— 微前端 DevTools 扩展的快速触达入口
+ *
+ * 点击扩展图标时弹出的微型面板，提供概览信息和跳转入口。
+ * 与 DevTools Panel 相比，Popup 无需打开 DevTools 即可查看运行时摘要。
+ *
+ * 功能：
+ *   - 查询当前 active tab 并请求 micro-kernel 状态快照
+ *   - 显示：连接状态、活跃应用、Keep-Alive 数、总应用数、内存占用
+ *   - "打开面板"按钮：引导用户按 F12 打开 DevTools（Chrome 安全限制下无法自动打开）
+ *
+ * 技术约束：
+ *   - Popup 在关闭时销毁，不能保持长连接，仅拉取一次快照
+ *   - 选择器 `$` 必须在此作用域内定义（2026-09-01 P0-3 修复 `$` 未定义错误）
+ *
+ * @path chrome/popup/popup.js
+ * @author ydsz-team
+ * @since 4.0.0
+ */
 ;(function () {
   /* mini 选择器：此前 $ 未定义，popup 打开即 ReferenceError（2026-09-01 P0-3 修复） */
   var $ = function (sel) { return document.querySelector(sel); };

@@ -1,4 +1,25 @@
-/* Background Service Worker: 状态缓存 + 命令路由 */
+/**
+ * Background Service Worker（MV3）
+ *
+ * 微前端 DevTools 扩展的后台核心，职责：
+ * 1. 维护已注入 content-script 的 tab 连接池（conns Map）
+ * 2. 缓存来自页面的 micro-kernel 运行时状态快照（cache Map，TTL 30s）
+ * 3. 接收 content-script 转发来的诊断事件，统一广播到所有已连接的 DevTools 面板
+ * 4. 路由 DevTools 面板下发的命令到指定 tab 的 content-script
+ *
+ * 消息协议（统一通道 "__YDSZ_MICRO_KERNEL__CHANNEL"）：
+ *   page  ──► content-script ──► background ──► DevTools panel
+ *   DevTools ──► background ──► content-script ──► page
+ *
+ * 关键事件：
+ *   - content-script:content-script:ready: content-script 注入完成
+ *   - kernel:state:response / kernel:event: 运行时状态与生命周期事件
+ *   - devtools:command: 用户从面板触发的操作（卸载/重载/清缓存/健康检查）
+ *
+ * @path chrome/background.js
+ * @author ydsz-team
+ * @since 4.0.0
+ */
 var conns = new Map();
 var cache = new Map();
 

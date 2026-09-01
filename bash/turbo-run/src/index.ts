@@ -1,7 +1,17 @@
 /**
- * index 模块
+ * turbo-run CLI 入口 —— 交互式 turbo script 运行器
  *
- * @path bash\turbo-run\src\index.ts
+ * 提供 `turbo-run <script>` 命令，在交互式终端中选择要执行的 pnpm script。
+ * 功能：
+ *   - 通过 cac 库解析命令行参数
+ *   - 代理 run() 函数执行交互式脚本选择
+ *   - 捕获并格式化错误，非零退出码退出进程
+ *
+ * 用法：
+ *   pnpm turbo-run dev          # 运行开发模式
+ *   pnpm turbo-run build --all  # 运行所有子应用的构建
+ *
+ * @path bash/turbo-run/src/index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

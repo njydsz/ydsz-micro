@@ -31,18 +31,6 @@ export interface CacheRegistry {
 }
 
 /**
- * 全局策略引用（由 page-cache-manager.ts 设置）
- */
-let _policy: PageCachePolicy | null = null;
-
-/**
- * 设置全局策略引用
- */
-export function __setPageCachePolicy(policy: PageCachePolicy): void {
-  _policy = policy;
-}
-
-/**
  * 生成单条缓存的存储 key（按路由 path 区分）
  */
 function buildCacheKey(appName: string, routePath: string): string {
@@ -55,7 +43,7 @@ function buildCacheKey(appName: string, routePath: string): string {
  */
 export function readRegistry(): CacheRegistry {
   try {
-    return getStorage<CacheRegistry>(CACHE_REGISTRY_KEY) || {};
+    return getStorage<null | CacheRegistry>(CACHE_REGISTRY_KEY, null) || {};
   } catch {
     return {};
   }
@@ -144,7 +132,7 @@ export function hasPersistedPageCacheStorage(
 ): boolean {
   try {
     const cacheKey = buildCacheKey(appName, routePath);
-    const record = getStorage<PageCacheRecord>(cacheKey);
+    const record = getStorage<null | PageCacheRecord>(cacheKey, null);
     if (!record) return false;
     const age = Date.now() - record.createdAt;
     if (age > policy.ttlMs) {
@@ -250,7 +238,7 @@ export function saveAppStateStorage(appName: string, key: string, value: unknown
 export function loadAppStateStorage<T>(appName: string, key: string, defaultValue: T): T {
   try {
     const stateKey = `${NAMESPACE_PREFIX}app-state:${appName}:${key}`;
-    const record = getStorage<{ value: T; savedAt: number }>(stateKey);
+    const record = getStorage<null | { value: T; savedAt: number }>(stateKey, null);
     if (record && record.value !== undefined) {
       return record.value;
     }

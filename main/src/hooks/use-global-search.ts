@@ -10,6 +10,8 @@
  *   - 搜索面板可监听事件更新状态栏（"已加载 N 个数据源"）
  *   - 与 command-palette 的 `YDSZ:register-commands` 事件对齐
  *
+ * @path main/src/hooks/use-global-search.ts
+ * @author ydsz-team
  * @since 4.0.0
  */
 

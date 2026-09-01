@@ -1,9 +1,17 @@
 /**
- * RequestClient — 主应用复用 @ydsz/shared-auth 的共享请求客户端
+ * RequestClient —— 主应用复用 @ydsz/shared-auth 的共享请求客户端
  *
  * P2-3: 消除主应用与 shared-auth 的重复代码。
  * 主应用只需提供 doReAuthenticate 和 doRefreshToken 回调，
  * 其余拦截器配置（successCode="A00000" + Bearer Token + refreshToken）由 shared-auth 统一管理。
+ *
+ * 导出两个客户端：
+ *   - requestClient: 携带鉴权拦截器（自动注入 Bearer Token + 401 自动刷新）
+ *   - baseRequestClient: 不含鉴权拦截器，用于登录、刷新令牌等公共接口
+ *
+ * @path main/src/api/request.ts
+ * @author ydsz-team
+ * @since 4.0.0
  */
 import type { RequestClientOptions } from '@ydsz/request';
 

@@ -12,6 +12,7 @@
  * 用法：在 NetworkAlert 组件或任意 setup 内 useNetworkStatus()
  *
  * @path main/src/hooks/use-network-status.ts
+ * @author ydsz-team
  * @since 4.0.0
  */
 import { ref, readonly, onUnmounted } from 'vue';

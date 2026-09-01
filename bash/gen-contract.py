@@ -235,6 +235,8 @@ class JavaSource:
         self._record_fields: Optional[List[Tuple[str, str]]] = None
         self._class_fields: Optional[List[Tuple[str, str, List[str]]]] = None
         self._enum_values: Optional[List[str]] = None
+        self._class_doc: Optional[str] = None
+        self._field_docs: Optional[Dict[str, str]] = None
 
     @classmethod
     def load(cls, simple_name: str, hint_pkg: Optional[str] = None) -> Optional["JavaSource"]:
@@ -333,6 +335,93 @@ class JavaSource:
     def is_record(self) -> bool:
         return bool(re.search(r"\brecord\s+\w+", self.src))
 
+    # ---- Java 注释提取（用于生成 TS 契约的 TSDoc，实现「契约即文档」）----
+    @staticmethod
+    def clean_javadoc(raw: str) -> str:
+        """Javadoc / 行注释 -> 纯文本：去 '*' 前缀、去 @tag 行、<p> 转空行、{@code x} 转 `x`"""
+        lines = []
+        for ln in raw.splitlines():
+            ln = ln.strip()
+            # 先去尾部结束标记，再去各行前缀，避免单行注释残留 '*/'
+            ln = re.sub(r"\*/\s*$", "", ln)
+            if ln.startswith("/**"):
+                ln = ln[3:]
+            elif ln.startswith("*"):
+                ln = ln[1:]
+            elif ln.startswith("//"):
+                ln = ln[2:]
+            lines.append(ln.strip())
+        while lines and not lines[0]:
+            lines.pop(0)
+        while lines and not lines[-1]:
+            lines.pop()
+        out = []
+        for ln in lines:
+            # 剥离 @author/@since/@see 等与前端无关的标签行
+            if re.match(r"^@(author|since|version|date|see|deprecated|serial)\b", ln):
+                continue
+            ln = re.sub(r"</?p>|</?br\s*/?>", "", ln)
+            ln = re.sub(r"\{@code\s+([^}]*)\}", r"`\1`", ln)
+            ln = re.sub(r"\{@link\s+([^}]*)\}", r"\1", ln)
+            ln = re.sub(r"</?(b|i|em|strong|code|ul|li)>", "", ln)
+            out.append(ln.strip())
+        return "\n".join(out).strip()
+
+    def doc_before(self, pos: int) -> str:
+        """向上回溯提取紧邻 pos 的注释（允许间隔注解行与空行）"""
+        head = self.src[:pos]
+        # 1) Javadoc 块：与声明之间只允许注解 / 空行，出现其它声明语句则视为非紧邻
+        blocks = list(re.finditer(r"/\*\*(.*?)\*/", head, re.S))
+        if blocks:
+            blk = blocks[-1]
+            between = head[blk.end():]
+            if not re.search(r"\b(private|public|protected|class|record|enum|interface|void|return|if|for|static)\b", between):
+                return self.clean_javadoc(blk.group(0))
+        # 2) 连续行注释（可穿插注解行）
+        src_lines = head.splitlines()
+        i = len(src_lines) - 1
+        while i >= 0 and not src_lines[i].strip():
+            i -= 1
+        buf = []
+        while i >= 0:
+            t = src_lines[i].strip()
+            if t.startswith("//"):
+                buf.insert(0, t)
+            elif not t or t.startswith("@") or t.endswith(")"):
+                pass  # 空行与注解行：继续上溯
+            else:
+                break
+            i -= 1
+        return self.clean_javadoc("\n".join(buf)) if buf else ""
+
+    @property
+    def class_doc(self) -> str:
+        """类 / record / enum 声明之上的 Javadoc"""
+        if self._class_doc is None:
+            m = re.search(
+                r"\b(?:public\s+)?(?:final\s+)?(?:abstract\s+)?(?:class|record|enum|interface)\s+"
+                + re.escape(self.cls_name) + r"\b", self.src)
+            self._class_doc = self.doc_before(m.start()) if m else ""
+        return self._class_doc
+
+    @property
+    def field_docs(self) -> Dict[str, str]:
+        """字段名 -> 字段注释（源自字段之上的 Javadoc 或行注释）"""
+        if self._field_docs is None:
+            docs: Dict[str, str] = {}
+            pat = re.compile(
+                r"^[ \t]*(?:(?:private|public|protected)\s+)?(?:final\s+|static\s+final\s+|transient\s+)*"
+                r"(?:@\w+(?:\([^)]*\))?\s*)*([\w.$<>?,\s\[\]]+?)\s+(\w+)\s*(?:=|;)", re.M)
+            for m in pat.finditer(self.src):
+                fname = m.group(2)
+                if fname in docs:
+                    continue
+                d = self.doc_before(m.start())
+                if d:
+                    docs[fname] = d
+            self._field_docs = docs
+        return self._field_docs
+
 
 def resolve_import(src: JavaSource, simple: str) -> str:
     """把简单类名解析为完整限定名（用于 schema 引用去重）"""
@@ -374,7 +463,8 @@ class SchemaBuilder:
         # 枚举
         src = JavaSource.load(name, owner.pkg if owner else None)
         if src and src.is_enum:
-            return {"type": "string", "enum": src.enum_values, "description": f"枚举 {name}"}
+            return {"type": "string", "enum": src.enum_values,
+                    "description": src.class_doc or f"枚举 {name}"}
         # 自定义类 -> $ref（先占位防循环引用）
         if src:
             ref_name = name
@@ -386,20 +476,32 @@ class SchemaBuilder:
         return {"type": "object"}
 
     def _build_object_schema(self, src: JavaSource) -> Dict[str, Any]:
+        # 类级 Javadoc 作为 interface 的 TSDoc；字段级注释经 x-field-docs 透出
+        # （OpenAPI 允许 x- 前缀扩展字段，$ref 同级 description 在 3.0 会被忽略，故不用它承载字段注释）
+        cdoc = src.class_doc
+        fdocs = src.field_docs
         if src.is_record:
             props = OrderedDict()
             required = []
             for fname, ftype in src.record_fields:
                 jt = parse_type(ftype)
-                props[fname] = self.convert(jt, src)
+                sch = self.convert(jt, src)
+                if fdocs.get(fname) and "$ref" not in sch:
+                    sch = dict(sch, description=fdocs[fname])
+                props[fname] = sch
                 required.append(fname)
             return {"type": "object", "properties": props, "required": required,
-                    "description": f"record {src.cls_name}"}
+                    "description": cdoc or f"record {src.cls_name}",
+                    "x-field-docs": fdocs}
         props = OrderedDict()
         for fname, ftype, _ann in src.class_fields:
             jt = parse_type(ftype)
-            props[fname] = self.convert(jt, src)
-        return {"type": "object", "properties": props, "description": f"class {src.cls_name}"}
+            sch = self.convert(jt, src)
+            if fdocs.get(fname) and "$ref" not in sch:
+                sch = dict(sch, description=fdocs[fname])
+            props[fname] = sch
+        return {"type": "object", "properties": props, "description": cdoc or f"class {src.cls_name}",
+                "x-field-docs": fdocs}
 
 
 # ======================================================================
@@ -624,6 +726,63 @@ def java_to_ts(jschema: Dict[str, Any], builder: SchemaBuilder, depth: int = 0) 
     return "unknown"
 
 
+# 占位描述（生成器早期写入的英文标记），出现时视为「后端无注释」
+_PLACEHOLDER_DOC = re.compile(r"^(class|record|building|enum)\s+\w+$")
+
+# 类型名后缀 -> 中文语义（后端未提供类注释时用于中性说明，避免产出裸类型）
+_SUFFIX_DOC = (
+    ("PageQuery", "分页查询条件"),
+    ("PageVO", "分页视图对象"),
+    ("DTO", "数据传输对象"),
+    ("VO", "视图对象"),
+    ("BO", "业务对象"),
+    ("DO", "数据对象"),
+    ("Query", "查询条件"),
+    ("Request", "请求参数"),
+    ("Response", "响应结果"),
+    ("Entity", "实体"),
+    ("Event", "事件"),
+    ("Config", "配置"),
+    ("Enum", "枚举"),
+    ("Item", "条目"),
+)
+
+
+def infer_type_doc(name: str) -> str:
+    """后端未提供类注释时的中性说明：只标注类型语义，不臆测业务含义"""
+    for suf, zh in _SUFFIX_DOC:
+        if name.endswith(suf) and len(name) > len(suf):
+            return f"{name}（{zh}）：后端未提供类注释，建议在 Java 侧补充 Javadoc"
+    return f"{name}：后端未提供类注释，建议在 Java 侧补充 Javadoc"
+
+
+def tsdoc_lines(doc: str) -> List[str]:
+    """文档文本 -> TSDoc 行（首行为概要，其余归入详情段）"""
+    body = [ln.rstrip() for ln in doc.splitlines() if ln.strip()]
+    if not body:
+        return ["/**", " * TODO(ydsz-team): 补充类型说明", " */"]
+    if len(body) == 1:
+        return ["", "/**", f" * {body[0]}", " */"]
+    out = ["", "/**", f" * {body[0]}", " *"]
+    for ln in body[1:]:
+        out.append(f" * {ln}".rstrip())
+    out.append(" */")
+    return out
+
+
+def tsdoc_field_lines(doc: str) -> List[str]:
+    """字段文档 -> 缩进 2 空格的 TSDoc 行；单行时压缩为一行块注释"""
+    body = [ln.rstrip() for ln in doc.splitlines() if ln.strip()]
+    if not body:
+        return []
+    if len(body) == 1:
+        return [f"  /** {body[0]} */"]
+    out = ["  /**"]
+    out.extend(f"   * {ln}".rstrip() for ln in body)
+    out.append("   */")
+    return out
+
+
 def build_ts_models(builder: SchemaBuilder) -> str:
     """为 components/schemas 生成 TS interface 定义（跳过前端已内置的基础响应类型）"""
     lines = []
@@ -632,14 +791,23 @@ def build_ts_models(builder: SchemaBuilder) -> str:
         if name in skip_names:
             continue
         props = sch.get("properties", {})
+        doc = (sch.get("description") or "").strip()
+        if _PLACEHOLDER_DOC.match(doc):
+            doc = ""
+        lines.extend(tsdoc_lines(doc or infer_type_doc(name)))
         if not props:
             lines.append(f"export interface {name} {{}}")
+            lines.append("")
             continue
+        fdocs = sch.get("x-field-docs", {})
         lines.append(f"export interface {name} {{")
         for fname, fs in props.items():
             fname_ts = fname if re.match(r"^[A-Za-z_$][\w$]*$", fname) else json.dumps(fname)
             ts_type = java_to_ts(fs, builder)
-            lines.append(f"  /** {fs.get('description','')} */".rstrip() if fs.get("description") else "")
+            # 字段注释优先取 x-field-docs（$ref 字段无法挂在同级 description 上）
+            fdoc = (fdocs.get(fname) or fs.get("description") or "").strip()
+            if fdoc and not _PLACEHOLDER_DOC.match(fdoc):
+                lines.extend(tsdoc_field_lines(fdoc))
             lines.append(f"  {fname_ts}?: {ts_type};")
         lines.append("}")
         lines.append("")

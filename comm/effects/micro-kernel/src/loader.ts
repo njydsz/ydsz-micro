@@ -205,7 +205,8 @@ export async function loadApp(
     const mod = await importWithRetry(entryUrl, { timeout, retries, retryBaseDelay, extSignal });
     assertLifecycle(mod, config.name);
     return {
-      exports: mod as LifecycleExports,
+      // 动态 import 的模块对象收窄为生命周期契约（已通过 assertLifecycle 断言）
+      exports: mod as unknown as LifecycleExports,
       manifest: null,
       duration: performance.now() - startTime,
       fromCache: false,
@@ -225,7 +226,11 @@ export async function loadApp(
 
   // 注入样式（标记 data-micro-kernel-app，卸载时一键移除）
   // v4.2.1 L2: 附加 SRI integrity + CSP nonce
-  injectStylesheets(manifest.css, manifest.name, manifest.integrity?.css);
+  // v4.4.1 P1: 等待全部样式表加载完成后再进入 dynamic import / mount，
+  //            消除"mount 渲染时 CSS 仍在途"导致的首帧无样式闪变（FOUC）。
+  //            单表 3s 超时兜底（弱网/CDN 故障时降级为无样式挂载并告警，
+  //            不阻塞子应用激活——JS 层错误仍由 error-boundary 兜底）。
+  await injectStylesheets(manifest.css, manifest.name, manifest.integrity?.css);
 
   // v4.4.0: 严格完整性校验（可选）—— 在 dynamic import 前验签 JS 入口
   if (options.strictIntegrity) {
@@ -236,7 +241,8 @@ export async function loadApp(
   assertLifecycle(mod, config.name);
 
   return {
-    exports: mod as LifecycleExports,
+    // 动态 import 的模块对象收窄为生命周期契约（已通过 assertLifecycle 断言）
+    exports: mod as unknown as LifecycleExports,
     manifest,
     duration: performance.now() - startTime,
     fromCache: manifestCache.has(`${config.entry.replace(/\/$/, '')}/manifest.json`),
@@ -285,7 +291,7 @@ async function importWithRetry(
       baseDelay: opts.retryBaseDelay,
       backoff: 'exponential',
       jitter: 0.25,
-      onRetry: (error, attempt, delay) => {
+      onRetry: (_error, attempt, delay) => {
         logger.debug(
           `Import failed (attempt ${attempt + 1}/${opts.retries + 1}): ${url}. Retrying in ${delay}ms...`,
         );
@@ -309,7 +315,7 @@ async function fetchWithRetry<T>(
     baseDelay: opts.retryBaseDelay,
     backoff: 'exponential',
     jitter: 0.25,
-    onRetry: (error, attempt, delay) => {
+    onRetry: (_error, attempt, delay) => {
       logger.debug(
         `Fetch failed (attempt ${attempt + 1}/${opts.retries + 1}): ${label}. Retrying in ${delay}ms...`,
       );
@@ -347,17 +353,28 @@ function getCspNonce(): string | undefined {
 }
 
 /**
- * 注入子应用样式表。
+ * 等待单个样式表加载完成的超时兜底（毫秒）。
+ *
+ * v4.4.1 P1：超时后按"已加载"放行并告警，避免弱网下激活链路被单张
+ * 样式表卡死；JS 层失败仍由 error-boundary 分级降级兜底。
+ */
+const CSS_LOAD_TIMEOUT_MS = 3_000;
+
+/**
+ * 注入子应用样式表，并等待全部样式表加载完成（v4.4.1 P1 FOUC 修复）。
  *
  * v4.2.1 L2: 附加 SRI integrity（manifest.integrity.css）+ crossorigin，
  * 以及 CSP nonce（style-src 策略兼容）。
+ *
+ * 返回时机：全部 link 触发 load、或触发 error（告警放行）、或超时兜底。
  */
-function injectStylesheets(
+async function injectStylesheets(
   cssUrls: string[],
   appName: string,
   integrity?: Record<string, string>,
-): void {
+): Promise<void> {
   const nonce = getCspNonce();
+  const pending: Array<Promise<void>> = [];
   for (const href of cssUrls) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -374,7 +391,34 @@ function injectStylesheets(
       link.setAttribute('nonce', nonce);
     }
     document.head.appendChild(link);
+    pending.push(awaitStylesheetLoad(link, href));
   }
+  await Promise.all(pending);
+}
+
+/**
+ * 等待单个样式表 load/error 事件，附超时兜底。
+ *
+ * v4.4.1 P1：加载失败或超时不抛错（不阻塞激活），仅记录告警日志，
+ * 由调用方决定是否需要进一步处理。
+ */
+function awaitStylesheetLoad(link: HTMLLinkElement, href: string): Promise<void> {
+  return new Promise<void>((resolve) => {
+    let settled = false;
+    const finish = (reason: 'error' | 'loaded' | 'timeout'): void => {
+      if (settled) return;
+      settled = true;
+      if (reason !== 'loaded') {
+        logger.warn(
+          `[MicroKernel] Stylesheet "${href}" not loaded (${reason}), mounting without it`,
+        );
+      }
+      resolve();
+    };
+    link.addEventListener('load', () => finish('loaded'), { once: true });
+    link.addEventListener('error', () => finish('error'), { once: true });
+    setTimeout(() => finish('timeout'), CSS_LOAD_TIMEOUT_MS);
+  });
 }
 
 /** 移除指定应用注入的样式表 */
@@ -408,7 +452,9 @@ async function verifyEntryIntegrity(manifest: Manifest, signal?: AbortSignal): P
   if (!expected) return; // 清单未生成（旧构建产物）时静默放行，保持兼容
 
   // @infra-fetch 基础设施层直用：安全验签通道（复用 manifest URL 上下文），云顶规范 §6.1 例外条款。
-  const response = await fetch(manifest.entry, { signal });
+  // v4.4.1 P2: force-cache 优先命中 HTTP 缓存，避免与随后的 dynamic import
+  //            构成同一 URL 的双网络往返（仅缓存缺失时真正发起请求）。
+  const response = await fetch(manifest.entry, { signal, cache: 'force-cache' });
   if (!response.ok) {
     throw new KernelError(
       KernelErrorCode.LOAD_MANIFEST_FETCH,

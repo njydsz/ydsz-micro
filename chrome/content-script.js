@@ -1,4 +1,23 @@
-/* Content Script: page <-> background 之间的消息中转 + bridge 注入 */
+/**
+ * Content Script —— 微前端 DevTools 扩展的页面注入层
+ *
+ * 在匹配的 tab 页面中注入，承担两项职责：
+ *
+ * 1. Bridge 注入：向主文档注入 kernel-bridge.js，使页面侧 micro-kernel
+ *    能够通过 `window.__sendToExtension()` 主动推送事件到扩展。
+ *
+ * 2. 双向消息中转（event page <-> extension page）：
+ *    - page -> background：监听满足 channel 条件的 window message，转发到 chrome.runtime
+ *    - background -> page：监听 chrome.runtime 消息，通过 window.postMessage 下发到页面
+ *
+ * 安全约束（内容脚本沙箱）：
+ *    - 与页面 JS 隔离运行，仅能通过 DOM/CustomEvent 与页面交互
+ *    - 无法直接访问页面闭包内的变量，因此需要 bridge 桥接
+ *
+ * @path chrome/content-script.js
+ * @author ydsz-team
+ * @since 4.0.0
+ */
 ;(function () {
   /* 1. 主文档注入 kernel-bridge.js（让页面侧微内核可以主动推送事件到 Extension） */
   function injectBridge() {

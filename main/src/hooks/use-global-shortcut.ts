@@ -10,6 +10,8 @@
  *
  *   stop() —— 取消注册
  *
+ * @path main/src/hooks/use-global-shortcut.ts
+ * @author ydsz-team
  * @since 4.0.0
  */
 

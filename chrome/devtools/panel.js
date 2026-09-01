@@ -1,4 +1,24 @@
-/* DevTools Panel 主逻辑 —— 数据渲染 + 命令下发 */
+/**
+ * DevTools Panel —— 微前端运行时诊断面板主逻辑
+ *
+ * 负责在 Chrome DevTools "Micro Kernel" 面板中渲染 micro-kernel 的实时状态，
+ * 并提供命令下发入口（卸载/重载/清缓存/刷新注册表/健康检查）。
+ *
+ * 功能模块：
+ *   - render(): 渲染总览指标（活跃应用、Keep-Alive 数、总应用数、内存、内核版本、健康状态）
+ *   - renderApps(): 渲染每个子应用卡片（状态点、沙盒类型、加载耗时、卸载按钮）
+ *   - renderLog(): 渲染最近事件 + 错误日志（环形缓冲，最多 50 条）
+ *   - 命令按钮交互：向 background 发送 devtools:command 并在回调中刷新面板
+ *
+ * 数据更新机制：
+ *   - 面板初始化时从 port 接收快照
+ *   - 后台通过 chrome.runtime 主动推送（事件驱动）
+ *   - 用户操作触发命令后，等待后台广播最新状态再重渲染
+ *
+ * @path chrome/devtools/panel.js
+ * @author ydsz-team
+ * @since 4.0.0
+ */
 ;(function () {
   'use strict';
 

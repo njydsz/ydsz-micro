@@ -5984,38 +5984,63 @@
       "format": "int64"
      },
      "code": {
-      "type": "string"
+      "type": "string",
+      "description": "返回编码 */"
      },
      "msg": {
-      "type": "string"
+      "type": "string",
+      "description": "返回信息 */"
      },
      "data": {
-      "type": "object"
+      "type": "object",
+      "description": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。"
      },
      "traceId": {
-      "type": "object"
+      "type": "object",
+      "description": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。"
      },
      "requestId": {
-      "type": "object"
+      "type": "object",
+      "description": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。"
      },
      "spanId": {
-      "type": "object"
+      "type": "object",
+      "description": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。"
      },
      "timestamp": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "时间戳 */"
      },
      "extensions": {
       "type": "object",
       "additionalProperties": {
        "type": "object"
-      }
+      },
+      "description": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
      },
      "RESOLVER": {
-      "type": "object"
+      "type": "object",
+      "description": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。"
      }
     },
-    "description": "class YdszResponse"
+    "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
+    "x-field-docs": {
+     "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
+     "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
+     "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。 */",
+     "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。 */",
+     "code": "返回编码 */",
+     "msg": "返回信息 */",
+     "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
+     "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
+     "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
+     "spanId": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。",
+     "timestamp": "时间戳 */",
+     "extensions": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
+     "RESOLVER": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。",
+     "tid": "ensure traceId resolved first so we know if it's present"
+    }
    },
    "UserBanRequestDTO": {
     "type": "object",
@@ -6025,17 +6050,25 @@
       "format": "int64"
      },
      "banType": {
-      "type": "string"
+      "type": "string",
+      "description": "封禁类型（TEMPORARY/PERMANENT），必填 */"
      },
      "banReason": {
-      "type": "string"
+      "type": "string",
+      "description": "封禁原因，必填 */"
      },
      "banExpireAt": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "封禁到期时间（临时封禁必填，永久封禁不填） */"
      }
     },
-    "description": "class UserBanRequestDTO"
+    "description": "用户封禁请求 DTO。\n\n用于管理员封禁用户账号，支持临时封禁（指定到期时间）和永久封禁。",
+    "x-field-docs": {
+     "banType": "封禁类型（TEMPORARY/PERMANENT），必填 */",
+     "banReason": "封禁原因，必填 */",
+     "banExpireAt": "封禁到期时间（临时封禁必填，永久封禁不填） */"
+    }
    },
    "SendVerifyCodeDTO": {
     "type": "object",
@@ -6045,19 +6078,24 @@
       "format": "int64"
      },
      "type": {
-      "type": "string"
+      "type": "string",
+      "description": "发送类型：REGISTER（注册）/ FORGOT_PASSWORD（找回密码）/ UNLOCK（账号解锁） */"
      },
      "targetType": {
-      "type": "string"
+      "type": "string",
+      "description": "验证码目标类型：PHONE（手机）/ EMAIL（邮箱） */"
      },
      "target": {
-      "type": "string"
+      "type": "string",
+      "description": "目标标识（手机号或邮箱地址） */"
      },
      "captchaKey": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/v1/captcha 获取） */"
      },
      "captcha": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码用户输入（P0-5：防短信轰炸） */"
      },
      "phone": {
       "type": "string"
@@ -6066,7 +6104,14 @@
       "type": "string"
      }
     },
-    "description": "class SendVerifyCodeDTO"
+    "description": "发送验证码请求 DTO。\n\n用于自助注册/找回密码流程中，向用户手机或邮箱发送验证码。\n\n使用方式：\n\n\n手机验证：`target` 填手机号，`targetType` 为 `PHONE`\n邮箱验证：`target` 填邮箱地址，`targetType` 为 `EMAIL`",
+    "x-field-docs": {
+     "type": "发送类型：REGISTER（注册）/ FORGOT_PASSWORD（找回密码）/ UNLOCK（账号解锁） */",
+     "targetType": "验证码目标类型：PHONE（手机）/ EMAIL（邮箱） */",
+     "target": "目标标识（手机号或邮箱地址） */",
+     "captchaKey": "图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/v1/captcha 获取） */",
+     "captcha": "图形验证码用户输入（P0-5：防短信轰炸） */"
+    }
    },
    "LoginDTO": {
     "type": "object",
@@ -6076,59 +6121,88 @@
       "format": "int64"
      },
      "username": {
-      "type": "string"
+      "type": "string",
+      "description": "登录用户名（全局唯一） */"
      },
      "password": {
-      "type": "string"
+      "type": "string",
+      "description": "登录密码（明文，传输层由 HTTPS 保护，服务端 BCrypt 比对） */"
      },
      "captchaKey": {
-      "type": "string"
+      "type": "string",
+      "description": "验证码 Redis Key（由 `GET /api/v1/auth/captcha` 返回，开启验证码时必填） */"
      },
      "captcha": {
-      "type": "string"
+      "type": "string",
+      "description": "用户输入的图形验证码（不区分大小写，开启验证码时必填） */"
      },
      "mfaCode": {
-      "type": "string"
+      "type": "string",
+      "description": "双因素认证动态码（TOTP 或短信验证码，登录风险为 HIGH 时必填） */"
      },
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID（多租户场景下指定登录归属租户，单租户模式可不传） */"
      },
      "loginIp": {
-      "type": "string"
+      "type": "string",
+      "description": "客户端 IP（由 Controller 从 HttpServletRequest 提取并填充，用于登录历史记录与 IP 封禁） */"
      },
      "userAgent": {
-      "type": "string"
+      "type": "string",
+      "description": "User-Agent（由 Controller 从请求头提取，用于登录历史审计） */"
      },
      "platform": {
-      "type": "string"
+      "type": "string",
+      "description": "X-Platform 请求头（由 Controller 从请求头提取，用于分端会话控制）。\n\n可选值：`web` / `app` / `api`。\n未传时从 #userAgent 推断设备类型。"
      },
      "rememberMe": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否开启「记住我」功能，默认 false。\n\n开启后每次访问自动续期 Token TTL（滑动过期），关闭浏览器则按原 Cookie 有效期失效。\n开启时服务端会签发 Remember-Me Cookie（存储加密后的用户 ID）。"
      }
     },
-    "description": "class LoginDTO"
+    "description": "登录请求 DTO。\n\n用于 `Post /api/v1/auth/login` 接口，支持用户名+密码登录， 可选携带图形验证码进行人机校验。\n\n校验规则：\n\n\n`username` — 必填，登录用户名\n`password` — 必填，明文密码（传输层由 HTTPS 保护，服务端 BCrypt 比对）\n`captchaKey` / `captcha` — 可选，当系统开启验证码或登录风险为 MEDIUM 及以上时必填\n`mfaCode` — 可选，当登录风险为 HIGH 时必填（TOTP 动态码或短信验证码）",
+    "x-field-docs": {
+     "username": "登录用户名（全局唯一） */",
+     "password": "登录密码（明文，传输层由 HTTPS 保护，服务端 BCrypt 比对） */",
+     "captchaKey": "验证码 Redis Key（由 `GET /api/v1/auth/captcha` 返回，开启验证码时必填） */",
+     "captcha": "用户输入的图形验证码（不区分大小写，开启验证码时必填） */",
+     "mfaCode": "双因素认证动态码（TOTP 或短信验证码，登录风险为 HIGH 时必填） */",
+     "tenantId": "租户 ID（多租户场景下指定登录归属租户，单租户模式可不传） */",
+     "loginIp": "客户端 IP（由 Controller 从 HttpServletRequest 提取并填充，用于登录历史记录与 IP 封禁） */",
+     "userAgent": "User-Agent（由 Controller 从请求头提取，用于登录历史审计） */",
+     "platform": "X-Platform 请求头（由 Controller 从请求头提取，用于分端会话控制）。\n\n可选值：`web` / `app` / `api`。\n未传时从 #userAgent 推断设备类型。",
+     "rememberMe": "是否开启「记住我」功能，默认 false。\n\n开启后每次访问自动续期 Token TTL（滑动过期），关闭浏览器则按原 Cookie 有效期失效。\n开启时服务端会签发 Remember-Me Cookie（存储加密后的用户 ID）。"
+    }
    },
    "RefreshRequest": {
     "type": "object",
     "properties": {
      "refreshToken": {
-      "type": "string"
+      "type": "string",
+      "description": "刷新令牌（来自上一次登录或上一次 refresh 响应） */"
      }
     },
-    "description": "class RefreshRequest"
+    "description": "刷新 Token 请求体\n\n封装 refreshToken 字段，避免与 com.njydsz.userinfo.domain.dto.LoginDTO 耦合。\n\n由 com.njydsz.userinfo.web.controller.AuthController#refresh(RefreshRequest) 使用。",
+    "x-field-docs": {
+     "refreshToken": "刷新令牌（来自上一次登录或上一次 refresh 响应） */"
+    }
    },
    "SecondaryAuthRequest": {
     "type": "object",
     "properties": {
      "password": {
-      "type": "string"
+      "type": "string",
+      "description": "当前登录用户的明文密码。\n\n用于验证用户身份，验证通过后写入场景化安全标记。"
      },
      "scene": {
-      "type": "string"
+      "type": "string",
+      "description": "场景标识（scene）。\n\n用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。\n常用值：`password_change`、`role_assign`、`data_export`、`tenant_config`"
      },
      "ttlSeconds": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "二级认证有效期（秒）。\n\n默认 300 秒（5 分钟）。CRITICAL 级别会自动缩短为 40%。"
      },
      "level": {
       "type": "string",
@@ -6137,64 +6211,100 @@
        "HIGH",
        "CRITICAL"
       ],
-      "description": "枚举 SensitiveLevel"
+      "description": "敏感操作等级。\n\n默认 HIGH。CRITICAL 级别使用更短的验证窗口（TTL 的 40%，最小 60 秒）。"
      }
     },
-    "description": "class SecondaryAuthRequest"
+    "description": "场景化二级认证请求体（P0-2 标准化）。\n\n前端调用 `Post /api/v1/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。",
+    "x-field-docs": {
+     "password": "当前登录用户的明文密码。\n\n用于验证用户身份，验证通过后写入场景化安全标记。",
+     "scene": "场景标识（scene）。\n\n用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。\n常用值：`password_change`、`role_assign`、`data_export`、`tenant_config`",
+     "ttlSeconds": "二级认证有效期（秒）。\n\n默认 300 秒（5 分钟）。CRITICAL 级别会自动缩短为 40%。",
+     "level": "敏感操作等级。\n\n默认 HIGH。CRITICAL 级别使用更短的验证窗口（TTL 的 40%，最小 60 秒）。"
+    }
    },
    "AuthPolicyPageQuery": {
     "type": "object",
     "properties": {
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID */"
      },
      "name": {
-      "type": "string"
+      "type": "string",
+      "description": "策略名称（模糊查询） */"
      }
     },
-    "description": "class AuthPolicyPageQuery"
+    "description": "认证策略分页查询参数（P3-1）。",
+    "x-field-docs": {
+     "tenantId": "租户 ID */",
+     "name": "策略名称（模糊查询） */"
+    }
    },
    "AuthPolicyDTO": {
     "type": "object",
     "properties": {
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID（为空表示全局默认策略） */"
      },
      "name": {
-      "type": "string"
+      "type": "string",
+      "description": "策略名称 */"
      },
      "passwordMinLength": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "密码最小长度（≥ 6） */"
      },
      "passwordRequireUppercase": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "密码必须包含大写字母 */"
      },
      "passwordRequireDigit": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "密码必须包含数字 */"
      },
      "mfaEnabled": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "密码是否启用双因素认证 */"
      },
      "captchaEnabled": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "登录是否启用图形验证码 */"
      },
      "allowedIdentityProviders": {
-      "type": "string"
+      "type": "string",
+      "description": "允许的身份提供者类型（逗号分隔，如 \"LDAP,SAML,OAUTH2\"） */"
      },
      "maxSessionsPerUser": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "最大会话数（每个用户同时在线的最大会话数） */"
      },
      "sessionTimeoutSeconds": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "会话超时时间（秒） */"
      },
      "remark": {
-      "type": "string"
+      "type": "string",
+      "description": "备注说明 */"
      }
     },
-    "description": "class AuthPolicyDTO"
+    "description": "认证策略统一 DTO（P3-1 多租户认证域隔离）。\n\n同时用于创建和更新场景：创建时 `tenantId` 可不传（为空表示全局默认策略），\n更新时 `tenantId` 必填。",
+    "x-field-docs": {
+     "tenantId": "租户 ID（为空表示全局默认策略） */",
+     "name": "策略名称 */",
+     "passwordMinLength": "密码最小长度（≥ 6） */",
+     "passwordRequireUppercase": "密码必须包含大写字母 */",
+     "passwordRequireDigit": "密码必须包含数字 */",
+     "mfaEnabled": "密码是否启用双因素认证 */",
+     "captchaEnabled": "登录是否启用图形验证码 */",
+     "allowedIdentityProviders": "允许的身份提供者类型（逗号分隔，如 \"LDAP,SAML,OAUTH2\"） */",
+     "maxSessionsPerUser": "最大会话数（每个用户同时在线的最大会话数） */",
+     "sessionTimeoutSeconds": "会话超时时间（秒） */",
+     "remark": "备注说明 */"
+    }
    },
    "CompanyDTO": {
     "type": "object",
@@ -6204,31 +6314,49 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "公司 ID（更新时必填） */"
      },
      "companyName": {
-      "type": "string"
+      "type": "string",
+      "description": "公司名称 */"
      },
      "companyCode": {
-      "type": "string"
+      "type": "string",
+      "description": "公司编码（全局唯一，建议格式 `COMP_XXX`） */"
      },
      "parentId": {
-      "type": "string"
+      "type": "string",
+      "description": "上级公司 ID（`\"0\"` 表示顶级公司） */"
      },
      "contactPerson": {
-      "type": "string"
+      "type": "string",
+      "description": "联系人姓名 */"
      },
      "contactPhone": {
-      "type": "string"
+      "type": "string",
+      "description": "联系电话 */"
      },
      "address": {
-      "type": "string"
+      "type": "string",
+      "description": "公司地址 */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
      }
     },
-    "description": "class CompanyDTO"
+    "description": "公司请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "x-field-docs": {
+     "id": "公司 ID（更新时必填） */",
+     "companyName": "公司名称 */",
+     "companyCode": "公司编码（全局唯一，建议格式 `COMP_XXX`） */",
+     "parentId": "上级公司 ID（`\"0\"` 表示顶级公司） */",
+     "contactPerson": "联系人姓名 */",
+     "contactPhone": "联系电话 */",
+     "address": "公司地址 */",
+     "status": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
+    }
    },
    "DepartmentDTO": {
     "type": "object",
@@ -6238,47 +6366,73 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "部门 ID（更新时必填） */"
      },
      "deptCode": {
-      "type": "string"
+      "type": "string",
+      "description": "部门编码（全局唯一，建议格式 `DEPT_XXX`） */"
      },
      "deptName": {
-      "type": "string"
+      "type": "string",
+      "description": "部门名称（前端展示） */"
      },
      "parentId": {
-      "type": "string"
+      "type": "string",
+      "description": "父部门 ID（`\"0\"` 表示根部门） */"
      },
      "description": {
-      "type": "string"
+      "type": "string",
+      "description": "部门描述 */"
      },
      "sortOrder": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "同级排序序号（升序） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
      },
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID */"
      }
     },
-    "description": "class DepartmentDTO"
+    "description": "部门请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "x-field-docs": {
+     "id": "部门 ID（更新时必填） */",
+     "deptCode": "部门编码（全局唯一，建议格式 `DEPT_XXX`） */",
+     "deptName": "部门名称（前端展示） */",
+     "parentId": "父部门 ID（`\"0\"` 表示根部门） */",
+     "description": "部门描述 */",
+     "sortOrder": "同级排序序号（升序） */",
+     "status": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */",
+     "tenantId": "租户 ID */"
+    }
    },
    "LanguagePageQuery": {
     "type": "object",
     "properties": {
      "languageCode": {
-      "type": "string"
+      "type": "string",
+      "description": "语言编码，如 zh-CN */"
      },
      "languageName": {
-      "type": "string"
+      "type": "string",
+      "description": "语言名称 */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "状态过滤：ENABLE/DISABLE */"
      }
     },
-    "description": "class LanguagePageQuery"
+    "description": "语言分页查询参数，继承 PageQuery 提供分页基础字段。",
+    "x-field-docs": {
+     "languageCode": "语言编码，如 zh-CN */",
+     "languageName": "语言名称 */",
+     "status": "状态过滤：ENABLE/DISABLE */"
+    }
    },
    "LanguageDTO": {
     "type": "object",
@@ -6288,27 +6442,41 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "语言 ID（更新时必填） */"
      },
      "languageCode": {
-      "type": "string"
+      "type": "string",
+      "description": "语言编码（ISO 639-1 + ISO 3166-1，如 `zh-CN` / `en-US`） */"
      },
      "languageName": {
-      "type": "string"
+      "type": "string",
+      "description": "语言名称（前端展示，如「简体中文」/「English」） */"
      },
      "isDefault": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "是否默认语言（`1=是`，全局仅允许一个默认语言） */"
      },
      "sortOrder": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "排序序号（升序，决定语言切换器展示顺序） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
      }
     },
-    "description": "class LanguageDTO"
+    "description": "语言请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "x-field-docs": {
+     "id": "语言 ID（更新时必填） */",
+     "languageCode": "语言编码（ISO 639-1 + ISO 3166-1，如 `zh-CN` / `en-US`） */",
+     "languageName": "语言名称（前端展示，如「简体中文」/「English」） */",
+     "isDefault": "是否默认语言（`1=是`，全局仅允许一个默认语言） */",
+     "sortOrder": "排序序号（升序，决定语言切换器展示顺序） */",
+     "status": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
+    }
    },
    "MenuDTO": {
     "type": "object",
@@ -6318,51 +6486,80 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "菜单 ID（更新时必填） */"
      },
      "parentId": {
-      "type": "string"
+      "type": "string",
+      "description": "父菜单 ID（`\"0\"` 表示根节点） */"
      },
      "menuName": {
-      "type": "string"
+      "type": "string",
+      "description": "菜单名称（前端展示） */"
      },
      "menuCode": {
-      "type": "string"
+      "type": "string",
+      "description": "菜单编码（全局唯一） */"
      },
      "menuType": {
-      "type": "string"
+      "type": "string",
+      "description": "菜单类型（DIR=目录 / Menu=菜单 / BUTTON=按钮） */"
      },
      "path": {
-      "type": "string"
+      "type": "string",
+      "description": "前端路由路径（menuType=Menu 时必填） */"
      },
      "component": {
-      "type": "string"
+      "type": "string",
+      "description": "前端组件路径（menuType=Menu 时必填，如 `\"system/user/index\"`） */"
      },
      "icon": {
-      "type": "string"
+      "type": "string",
+      "description": "菜单图标（Iconify / Element Plus 图标名） */"
      },
      "sortOrder": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "同级排序序号（升序） */"
      },
      "permissionCode": {
-      "type": "string"
+      "type": "string",
+      "description": "权限码（`\"system:user:create\"` 格式） */"
      },
      "visible": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "是否前端可见（0=隐藏，1=可见） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
      }
     },
-    "description": "class MenuDTO"
+    "description": "菜单请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "x-field-docs": {
+     "id": "菜单 ID（更新时必填） */",
+     "parentId": "父菜单 ID（`\"0\"` 表示根节点） */",
+     "menuName": "菜单名称（前端展示） */",
+     "menuCode": "菜单编码（全局唯一） */",
+     "menuType": "菜单类型（DIR=目录 / Menu=菜单 / BUTTON=按钮） */",
+     "path": "前端路由路径（menuType=Menu 时必填） */",
+     "component": "前端组件路径（menuType=Menu 时必填，如 `\"system/user/index\"`） */",
+     "icon": "菜单图标（Iconify / Element Plus 图标名） */",
+     "sortOrder": "同级排序序号（升序） */",
+     "permissionCode": "权限码（`\"system:user:create\"` 格式） */",
+     "visible": "是否前端可见（0=隐藏，1=可见） */",
+     "status": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
+    }
    },
    "OAuth2AuthorizeRequest": {
     "type": "object",
     "properties": {},
     "required": [],
-    "description": "record OAuth2AuthorizeRequest"
+    "description": "OAuth2 授权端点请求参数值对象。\n\n封装 `GET /authorize` 端点的全部请求参数，避免方法参数数量超限（云顶编码规范 5.4 节）。\n通过组件级绑定注解映射到 HTTP 请求。\n\n@param authorization Authorization 请求头（Bearer access_token）\n@param clientId 客户端 ID（必须已注册）\n@param redirectUri 回调地址（必须在 clientId 的白名单中）\n@param state 客户端防 CSRF 随机串（服务端存储并校验）\n@param scope 授权范围（可选，OIDC 流程需包含 `openid`）\n@param nonce OIDC nonce（可选，用于防重放攻击）\n@param codeChallenge PKCE 码挑战值（可选，用于公共客户端）\n@param codeChallengeMethod PKCE 码挑战方法（可选，仅支持 S256）",
+    "x-field-docs": {
+     "BEARER_PREFIX_LENGTH": "\"Bearer \" 前缀长度。 */"
+    }
    },
    "OAuth2TokenRequest": {
     "type": "object",
@@ -6378,7 +6575,8 @@
      "grantType",
      "false"
     ],
-    "description": "record OAuth2TokenRequest"
+    "description": "OAuth2 token 端点请求参数值对象。\n\n封装 `POST /token` 端点的全部表单参数，避免方法参数数量超限（云顶编码规范 5.4 节）。\n\n@param grantType 授权类型（authorization_code / refresh_token）\n@param code 授权码（authorization_code 必填）\n@param refreshToken 刷新令牌（refresh_token 必填）\n@param clientId 客户端 ID\n@param clientSecret 客户端密钥（confidential 客户端必填）\n@param codeVerifier PKCE 码验证器（public 客户端 authorization_code 必填）\n@param state OAuth2 CSRF 防护 state 参数（可选）",
+    "x-field-docs": {}
    },
    "PostDTO": {
     "type": "object",
@@ -6388,44 +6586,68 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "岗位 ID（更新时必填） */"
      },
      "postName": {
-      "type": "string"
+      "type": "string",
+      "description": "岗位名称（前端展示，如「项目经理」「后端开发工程师」） */"
      },
      "postCode": {
-      "type": "string"
+      "type": "string",
+      "description": "岗位编码（全局唯一，建议使用英文枚举值如 `PM` / `DEV`） */"
      },
      "description": {
-      "type": "string"
+      "type": "string",
+      "description": "岗位描述 */"
      },
      "sortOrder": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "同级排序序号（升序） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
      }
     },
-    "description": "class PostDTO"
+    "description": "岗位请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "x-field-docs": {
+     "id": "岗位 ID（更新时必填） */",
+     "postName": "岗位名称（前端展示，如「项目经理」「后端开发工程师」） */",
+     "postCode": "岗位编码（全局唯一，建议使用英文枚举值如 `PM` / `DEV`） */",
+     "description": "岗位描述 */",
+     "sortOrder": "同级排序序号（升序） */",
+     "status": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
+    }
    },
    "RolePageQuery": {
     "type": "object",
     "properties": {
      "roleCode": {
-      "type": "string"
+      "type": "string",
+      "description": "角色编码，模糊查询 */"
      },
      "roleName": {
-      "type": "string"
+      "type": "string",
+      "description": "角色名称，模糊查询 */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "状态过滤：ENABLE/DISABLE */"
      },
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID */"
      }
     },
-    "description": "class RolePageQuery"
+    "description": "角色分页查询参数，继承 PageQuery 提供分页基础字段。",
+    "x-field-docs": {
+     "roleCode": "角色编码，模糊查询 */",
+     "roleName": "角色名称，模糊查询 */",
+     "status": "状态过滤：ENABLE/DISABLE */",
+     "tenantId": "租户 ID */"
+    }
    },
    "RoleDTO": {
     "type": "object",
@@ -6435,35 +6657,55 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "角色 ID（更新时必填） */"
      },
      "roleCode": {
-      "type": "string"
+      "type": "string",
+      "description": "角色编码（全局唯一，建议格式 `ROLE_XXX`） */"
      },
      "roleName": {
-      "type": "string"
+      "type": "string",
+      "description": "角色名称（前端展示） */"
      },
      "description": {
-      "type": "string"
+      "type": "string",
+      "description": "角色描述 */"
      },
      "sortOrder": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "同级排序序号（升序） */"
      },
      "dataScope": {
-      "type": "string"
+      "type": "string",
+      "description": "数据权限范围（ALL / DEPT_AND_CHILD / DEPT / SELF / CUSTOM） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */"
      },
      "builtIn": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否内置角色（`true` 时禁止删除与修改编码） */"
      },
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID（`\"0\"` = 平台级角色） */"
      }
     },
-    "description": "class RoleDTO"
+    "description": "角色请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "x-field-docs": {
+     "id": "角色 ID（更新时必填） */",
+     "roleCode": "角色编码（全局唯一，建议格式 `ROLE_XXX`） */",
+     "roleName": "角色名称（前端展示） */",
+     "description": "角色描述 */",
+     "sortOrder": "同级排序序号（升序） */",
+     "dataScope": "数据权限范围（ALL / DEPT_AND_CHILD / DEPT / SELF / CUSTOM） */",
+     "status": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`） */",
+     "builtIn": "是否内置角色（`true` 时禁止删除与修改编码） */",
+     "tenantId": "租户 ID（`\"0\"` = 平台级角色） */"
+    }
    },
    "AssignPermissionsDTO": {
     "type": "object",
@@ -6476,56 +6718,86 @@
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "权限 ID 列表（全量覆盖，空列表表示清除所有权限） */"
      }
     },
-    "description": "class AssignPermissionsDTO"
+    "description": "分配角色权限请求 DTO。\n\n用于 `Post /api/v1/Role/{roleId`/permissions} 接口，为指定角色分配权限。 采用全量覆盖策略：传入的权限 ID\n列表将完全替换角色原有权限关联。\n\n注意事项：\n\n\n传入空列表表示清除角色所有权限\n权限 ID 必须为系统中已存在的有效权限（菜单/按钮/API）",
+    "x-field-docs": {
+     "permissionIds": "权限 ID 列表（全量覆盖，空列表表示清除所有权限） */"
+    }
    },
    "SamlIdpPageQuery": {
     "type": "object",
     "properties": {
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "状态过滤：ENABLED / DISABLED */"
      },
      "name": {
-      "type": "string"
+      "type": "string",
+      "description": "IdP 显示名称（模糊查询） */"
      }
     },
-    "description": "class SamlIdpPageQuery"
+    "description": "SAML 身份提供者配置分页查询参数（P2-1）。",
+    "x-field-docs": {
+     "status": "状态过滤：ENABLED / DISABLED */",
+     "name": "IdP 显示名称（模糊查询） */"
+    }
    },
    "SamlIdpDTO": {
     "type": "object",
     "properties": {
      "entityId": {
-      "type": "string"
+      "type": "string",
+      "description": "IdP Entity ID（唯一标识） */"
      },
      "name": {
-      "type": "string"
+      "type": "string",
+      "description": "IdP 显示名称（如 \"企业微信 SAML\"、\"飞书 SAML\"） */"
      },
      "ssoUrl": {
-      "type": "string"
+      "type": "string",
+      "description": "IdP SSO 端点 URL */"
      },
      "certificate": {
-      "type": "string"
+      "type": "string",
+      "description": "IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名） */"
      },
      "emailAttribute": {
-      "type": "string"
+      "type": "string",
+      "description": "用户邮箱对应的 SAML Attribute 名称（默认 email） */"
      },
      "displayNameAttribute": {
-      "type": "string"
+      "type": "string",
+      "description": "用户显示名称对应的 SAML Attribute 名称（默认 displayName） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "状态：ENABLED / DISABLED */"
      },
      "sortOrder": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "排序权重 */"
      },
      "remark": {
-      "type": "string"
+      "type": "string",
+      "description": "备注说明 */"
      }
     },
-    "description": "class SamlIdpDTO"
+    "description": "SAML 身份提供者配置统一 DTO（P2-1 CUD 入参）。\n\n同时用于创建和更新场景：创建时 `entityId` 必填，更新时 `entityId` 必填。",
+    "x-field-docs": {
+     "entityId": "IdP Entity ID（唯一标识） */",
+     "name": "IdP 显示名称（如 \"企业微信 SAML\"、\"飞书 SAML\"） */",
+     "ssoUrl": "IdP SSO 端点 URL */",
+     "certificate": "IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名） */",
+     "emailAttribute": "用户邮箱对应的 SAML Attribute 名称（默认 email） */",
+     "displayNameAttribute": "用户显示名称对应的 SAML Attribute 名称（默认 displayName） */",
+     "status": "状态：ENABLED / DISABLED */",
+     "sortOrder": "排序权重 */",
+     "remark": "备注说明 */"
+    }
    },
    "ScimUser": {
     "type": "object",
@@ -6534,103 +6806,155 @@
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "SCIM Schema 标识（固定值）。 */"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "SCIM 资源唯一标识（对应 ydsz 用户 ID）。 */"
      },
      "externalId": {
-      "type": "string"
+      "type": "string",
+      "description": "外部系统标识（如 HR 系统员工编号）。 */"
      },
      "userName": {
-      "type": "string"
+      "type": "string",
+      "description": "登录用户名（唯一）。 */"
      },
      "name": {
       "$ref": "#/components/schemas/ScimName"
      },
      "displayName": {
-      "type": "string"
+      "type": "string",
+      "description": "显示名称。 */"
      },
      "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "账号是否启用。 */"
      },
      "emails": {
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/ScimEmail"
-      }
+      },
+      "description": "电子邮箱列表。 */"
      },
      "phoneNumbers": {
       "type": "array",
       "items": {
        "$ref": "#/components/schemas/ScimPhone"
-      }
+      },
+      "description": "电话号码列表。 */"
      },
      "meta": {
       "$ref": "#/components/schemas/ScimMeta"
      }
     },
-    "description": "class ScimUser"
+    "description": "SCIM 2.0 User 资源表示。\n\n遵循 RFC 7643 Section 4.1 Core User Schema（`urn:ietf:params:scim:schemas:core:2.0:User`），\n是 SCIM 协议中最核心的资源类型，用于 HR 系统与身份管理系统之间的用户数据同步。\n\n字段映射：\n\n\n`userName` → ydsz `username`（登录名）\n`externalId` → HR 系统员工编号等外部标识\n`name.formatted` → ydsz `realName`（真实姓名）\n`emails[0].value` → ydsz `email`\n`phoneNumbers[0].value` → ydsz `phone`\n`active` → ydsz 启用/禁用状态反推",
+    "x-field-docs": {
+     "schemas": "SCIM Schema 标识（固定值）。 */",
+     "id": "SCIM 资源唯一标识（对应 ydsz 用户 ID）。 */",
+     "externalId": "外部系统标识（如 HR 系统员工编号）。 */",
+     "userName": "登录用户名（唯一）。 */",
+     "name": "姓名组件。 */",
+     "displayName": "显示名称。 */",
+     "active": "账号是否启用。 */",
+     "emails": "电子邮箱列表。 */",
+     "phoneNumbers": "电话号码列表。 */",
+     "meta": "资源元数据。 */"
+    }
    },
    "ScimName": {
     "type": "object",
     "properties": {
      "formatted": {
-      "type": "string"
+      "type": "string",
+      "description": "完整格式化姓名（如 \"张三\" 或 \"Dr. John Jonas, Jr.\"）。 */"
      },
      "familyName": {
-      "type": "string"
+      "type": "string",
+      "description": "姓氏（family name / surname）。 */"
      },
      "givenName": {
-      "type": "string"
+      "type": "string",
+      "description": "名字（given name / first name）。 */"
      }
     },
-    "description": "class ScimName"
+    "description": "SCIM 用户姓名组件（name 子属性）。\n\n对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `name` 属性，\n遵循 RFC 7643 Section 4.1.1。",
+    "x-field-docs": {
+     "formatted": "完整格式化姓名（如 \"张三\" 或 \"Dr. John Jonas, Jr.\"）。 */",
+     "familyName": "姓氏（family name / surname）。 */",
+     "givenName": "名字（given name / first name）。 */"
+    }
    },
    "ScimEmail": {
     "type": "object",
     "properties": {
      "value": {
-      "type": "string"
+      "type": "string",
+      "description": "电子邮箱地址。 */"
      },
      "display": {
-      "type": "string"
+      "type": "string",
+      "description": "显示名称（可选）。 */"
      },
      "primary": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否为主邮箱。 */"
      }
     },
-    "description": "class ScimEmail"
+    "description": "SCIM 电子邮箱子属性。\n\n对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `emails`\n属性元素，遵循 RFC 7643 Section 4.1.1。",
+    "x-field-docs": {
+     "value": "电子邮箱地址。 */",
+     "display": "显示名称（可选）。 */",
+     "primary": "是否为主邮箱。 */"
+    }
    },
    "ScimPhone": {
     "type": "object",
     "properties": {
      "value": {
-      "type": "string"
+      "type": "string",
+      "description": "电话号码。 */"
      },
      "display": {
-      "type": "string"
+      "type": "string",
+      "description": "显示名称（可选）。 */"
      },
      "primary": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "是否为主要电话号码。 */"
      }
     },
-    "description": "class ScimPhone"
+    "description": "SCIM 电话号码子属性。\n\n对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `phoneNumbers`\n属性元素，遵循 RFC 7643 Section 4.1.1。",
+    "x-field-docs": {
+     "value": "电话号码。 */",
+     "display": "显示名称（可选）。 */",
+     "primary": "是否为主要电话号码。 */"
+    }
    },
    "ScimMeta": {
     "type": "object",
     "properties": {
      "resourceType": {
-      "type": "string"
+      "type": "string",
+      "description": "资源类型（如 \"User\"、\"Group\"）。 */"
      },
      "created": {
-      "type": "string"
+      "type": "string",
+      "description": "资源创建时间（ISO 8601 格式）。 */"
      },
      "lastModified": {
-      "type": "string"
+      "type": "string",
+      "description": "资源最后修改时间（ISO 8601 格式）。 */"
      }
     },
-    "description": "class ScimMeta"
+    "description": "SCIM 资源元数据。\n\n对应 SCIM Core Schema 的 `meta` 属性，记录资源类型、创建时间和最后修改时间，\n遵循 RFC 7643 Section 3.1。",
+    "x-field-docs": {
+     "resourceType": "资源类型（如 \"User\"、\"Group\"）。 */",
+     "created": "资源创建时间（ISO 8601 格式）。 */",
+     "lastModified": "资源最后修改时间（ISO 8601 格式）。 */"
+    }
    },
    "ScimPatchOp": {
     "type": "object",
@@ -6642,150 +6966,230 @@
       }
      },
      "op": {
-      "type": "string"
+      "type": "string",
+      "description": "操作类型。\n\n可选值：add、remove、replace（大小写不敏感）。"
      },
      "path": {
-      "type": "string"
+      "type": "string",
+      "description": "目标属性路径（可选）。\n\n支持 SCIM 标准路径语法，如 `displayName`、`emails`、\n`emails[value eq \"xxx\"].value`。为 null 时表示操作整个资源。"
      },
      "value": {
-      "type": "object"
+      "type": "object",
+      "description": "操作值（可选）。\n\n用于 add/replace 操作。当 op 为 remove 时，value 应为 null。"
      },
      "PATCH_OP_SCHEMA": {
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "PATCH 操作 Schema 标识。 */"
      },
      "schemas": {
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "Schema 标识（固定值）。 */"
      },
      "operations": {
       "type": "array",
       "items": {
        "type": "object"
-      }
+      },
+      "description": "PATCH 操作列表（按顺序执行）。 */"
      }
     },
-    "description": "class ScimPatchOp"
+    "description": "SCIM 2.0 PATCH 操作请求体。\n\n遵循 RFC 7644 Section 3.5.2（PATCH），支持对资源的部分更新。\n\n操作类型：\n\n\n`add` — 添加属性值（不存在则创建，存在则替换）\n`remove` — 移除属性值（指定 path 时移除对应属性，否则报错）\n`replace` — 替换属性值（不存在则报错）\n\n\n示例：\n\n<pre>\n{\n\"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:PatchOp\"],\n\"Operations\": [\n{\"op\": \"replace\", \"path\": \"displayName\", \"value\": \"张三\"},\n{\"op\": \"replace\", \"path\": \"emails[value eq \\\"old@test.com\\\"].value\", \"value\": \"new@test.com\"},\n{\"op\": \"add\", \"path\": \"phoneNumbers\", \"value\": \"1*********0\"},\n{\"op\": \"remove\", \"path\": \"phoneNumbers[value eq \\\"1*********0\\\"]\"}\n]\n}\n</pre>",
+    "x-field-docs": {
+     "PATCH_OP_SCHEMA": "PATCH 操作 Schema 标识。 */",
+     "schemas": "Schema 标识（固定值）。 */",
+     "operations": "PATCH 操作列表（按顺序执行）。 */",
+     "op": "操作类型。\n\n可选值：add、remove、replace（大小写不敏感）。",
+     "path": "目标属性路径（可选）。\n\n支持 SCIM 标准路径语法，如 `displayName`、`emails`、\n`emails[value eq \"xxx\"].value`。为 null 时表示操作整个资源。",
+     "value": "操作值（可选）。\n\n用于 add/replace 操作。当 op 为 remove 时，value 应为 null。"
+    }
    },
    "SecurityAlertPageQuery": {
     "type": "object",
     "properties": {
      "alertStatus": {
-      "type": "object"
+      "type": "object",
+      "description": "告警状态过滤（可为 null 表示不过滤） */"
      },
      "riskLevel": {
-      "type": "object"
+      "type": "object",
+      "description": "风险等级过滤（可为 null 表示不过滤） */"
      },
      "start": {
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "description": "起始日期过滤（可为 null，自动转换为当天 00:00:00） */"
      },
      "end": {
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "description": "结束日期过滤（可为 null，自动转换为当天 23:59:59.999） */"
      },
      "startTime": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "起始时间过滤（可为 null，优先于 #start 使用） */"
      },
      "endTime": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "结束时间过滤（可为 null，优先于 #end 使用） */"
      }
     },
-    "description": "class SecurityAlertPageQuery"
+    "description": "安全告警分页查询参数。\n\n用于安全告警分页查询接口，封装过滤条件与分页参数。 所有过滤条件均为可选，未设置则不作为筛选条件。",
+    "x-field-docs": {
+     "alertStatus": "告警状态过滤（可为 null 表示不过滤） */",
+     "riskLevel": "风险等级过滤（可为 null 表示不过滤） */",
+     "start": "起始日期过滤（可为 null，自动转换为当天 00:00:00） */",
+     "end": "结束日期过滤（可为 null，自动转换为当天 23:59:59.999） */",
+     "startTime": "起始时间过滤（可为 null，优先于 #start 使用） */",
+     "endTime": "结束时间过滤（可为 null，优先于 #end 使用） */"
+    }
    },
    "SocialClientPageQuery": {
     "type": "object",
     "properties": {
      "platform": {
-      "type": "string"
+      "type": "string",
+      "description": "平台标识（精确匹配） */"
      },
      "platformName": {
-      "type": "string"
+      "type": "string",
+      "description": "平台显示名称（模糊查询） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "状态过滤：ENABLED / DISABLED */"
      }
     },
-    "description": "class SocialClientPageQuery"
+    "description": "社交平台客户端配置分页查询参数（P1-1）。",
+    "x-field-docs": {
+     "platform": "平台标识（精确匹配） */",
+     "platformName": "平台显示名称（模糊查询） */",
+     "status": "状态过滤：ENABLED / DISABLED */"
+    }
    },
    "SocialClientDTO": {
     "type": "object",
     "properties": {
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "平台 ID（更新时必填） */"
      },
      "platform": {
-      "type": "string"
+      "type": "string",
+      "description": "平台标识（如 GITHUB/DINGTALK/ENTERPRISE_WECHAT/FEISHU） */"
      },
      "platformName": {
-      "type": "string"
+      "type": "string",
+      "description": "平台显示名称 */"
      },
      "appId": {
-      "type": "string"
+      "type": "string",
+      "description": "应用 ID */"
      },
      "appSecret": {
-      "type": "string"
+      "type": "string",
+      "description": "应用明文密钥（BCrypt 加密后存储） */"
      },
      "scope": {
-      "type": "string"
+      "type": "string",
+      "description": "OAuth2 授权范围（scope） */"
      },
      "redirectUri": {
-      "type": "string"
+      "type": "string",
+      "description": "回调地址（redirectUri），可为 null */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "状态：ENABLED / DISABLED */"
      },
      "sortOrder": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "排序权重 */"
      },
      "remark": {
-      "type": "string"
+      "type": "string",
+      "description": "备注说明 */"
      }
     },
-    "description": "class SocialClientDTO"
+    "description": "社交平台客户端配置统一 DTO（P1-1 CUD 入参）。\n\n同时用于创建和更新场景：创建时 `platform` 必填，更新时 `id` 必填。",
+    "x-field-docs": {
+     "id": "平台 ID（更新时必填） */",
+     "platform": "平台标识（如 GITHUB/DINGTALK/ENTERPRISE_WECHAT/FEISHU） */",
+     "platformName": "平台显示名称 */",
+     "appId": "应用 ID */",
+     "appSecret": "应用明文密钥（BCrypt 加密后存储） */",
+     "scope": "OAuth2 授权范围（scope） */",
+     "redirectUri": "回调地址（redirectUri），可为 null */",
+     "status": "状态：ENABLED / DISABLED */",
+     "sortOrder": "排序权重 */",
+     "remark": "备注说明 */"
+    }
    },
    "UserAccountPageQuery": {
     "type": "object",
     "properties": {
      "username": {
-      "type": "string"
+      "type": "string",
+      "description": "登录用户名（模糊查询） */"
      },
      "realName": {
-      "type": "string"
+      "type": "string",
+      "description": "真实姓名（模糊查询） */"
      },
      "phone": {
-      "type": "string"
+      "type": "string",
+      "description": "手机号（模糊查询） */"
      },
      "email": {
-      "type": "string"
+      "type": "string",
+      "description": "邮箱（模糊查询） */"
      },
      "status": {
-      "type": "string"
+      "type": "string",
+      "description": "账号状态（`\"ENABLED\"`=启用 / `\"DISABLED\"`=禁用，继承自 BaseQuery） */"
      },
      "userType": {
-      "type": "string"
+      "type": "string",
+      "description": "用户类型（精确匹配，如 PLATFORM/TENANT_ADMIN/REGULAR） */"
      },
      "companyId": {
-      "type": "string"
+      "type": "string",
+      "description": "所属公司 ID（精确匹配） */"
      },
      "deptId": {
-      "type": "string"
+      "type": "string",
+      "description": "所属部门 ID（精确匹配） */"
      },
      "leaderId": {
-      "type": "string"
+      "type": "string",
+      "description": "直属上级用户 ID（精确匹配） */"
      },
      "positionCode": {
-      "type": "string"
+      "type": "string",
+      "description": "岗位编码（精确匹配，如 PM/DEV/QA/SA） */"
      }
     },
-    "description": "class UserAccountPageQuery"
+    "description": "用户分页查询参数。\n\n用于 `GET /api/v1/user/page` 接口，支持多条件组合筛选用户列表。 继承 PageQuery 获取分页参数（`pageNum`\n/ `pageSize`）。\n\n筛选条件：所有字段均为可选，未传则不作为筛选条件。",
+    "x-field-docs": {
+     "username": "登录用户名（模糊查询） */",
+     "realName": "真实姓名（模糊查询） */",
+     "phone": "手机号（模糊查询） */",
+     "email": "邮箱（模糊查询） */",
+     "status": "账号状态（`\"ENABLED\"`=启用 / `\"DISABLED\"`=禁用，继承自 BaseQuery） */",
+     "userType": "用户类型（精确匹配，如 PLATFORM/TENANT_ADMIN/REGULAR） */",
+     "companyId": "所属公司 ID（精确匹配） */",
+     "deptId": "所属部门 ID（精确匹配） */",
+     "leaderId": "直属上级用户 ID（精确匹配） */",
+     "positionCode": "岗位编码（精确匹配，如 PM/DEV/QA/SA） */"
+    }
    },
    "UserAccountDTO": {
     "type": "object",
@@ -6795,67 +7199,104 @@
       "format": "int64"
      },
      "id": {
-      "type": "string"
+      "type": "string",
+      "description": "用户 ID（更新时必填，指定更新的目标用户） */"
      },
      "username": {
-      "type": "string"
+      "type": "string",
+      "description": "登录用户名（全局唯一，创建时必填，创建后不可修改） */"
      },
      "userName": {
-      "type": "string"
+      "type": "string",
+      "description": "用户名（SCIM 兼容字段，与 username 同义） */"
      },
      "externalId": {
-      "type": "string"
+      "type": "string",
+      "description": "外部系统标识（SCIM externalId，用于与 HR 系统关联） */"
      },
      "password": {
-      "type": "string"
+      "type": "string",
+      "description": "登录密码（明文传入，服务端 BCrypt 加密存储，创建时必填） */"
      },
      "realName": {
-      "type": "string"
+      "type": "string",
+      "description": "真实姓名（用于展示和审批人显示） */"
      },
      "phone": {
-      "type": "string"
+      "type": "string",
+      "description": "手机号（用于短信验证/找回密码） */"
      },
      "email": {
-      "type": "string"
+      "type": "string",
+      "description": "邮箱（用于邮件通知/找回密码） */"
      },
      "avatar": {
-      "type": "string"
+      "type": "string",
+      "description": "头像 URL */"
      },
      "status": {
       "type": "string",
       "enum": [],
-      "description": "枚举 EnableStatusEnum"
+      "description": "账号状态（EnableStatusEnum#ENABLED=启用 / EnableStatusEnum#DISABLED=禁用） */"
      },
      "userType": {
-      "type": "string"
+      "type": "string",
+      "description": "用户类型（`PLATFORM`=平台用户 / `TENANT_ADMIN`=租户管理员 / `REGULAR`=普通用户） */"
      },
      "companyId": {
-      "type": "string"
+      "type": "string",
+      "description": "所属公司 ID（关联 `ydsz_org_company.id`） */"
      },
      "deptId": {
-      "type": "string"
+      "type": "string",
+      "description": "所属部门 ID（关联 `ydsz_org_department.id`，支持审批人展开） */"
      },
      "leaderId": {
-      "type": "string"
+      "type": "string",
+      "description": "直属上级用户 ID（关联 `ydsz_acct_user.id`，支持 leader: 审批人展开） */"
      },
      "positionCode": {
-      "type": "string"
+      "type": "string",
+      "description": "岗位编码（如 PM/DEV/QA/SA，支持 position: 审批人展开） */"
      },
      "roleIds": {
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "角色 ID 列表（创建时一次性分配角色，可空表示暂不分配） */"
      },
      "tenantId": {
-      "type": "string"
+      "type": "string",
+      "description": "租户 ID（多租户场景下指定归属租户，通常由系统自动填充） */"
      },
      "revision": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "乐观锁版本号（P1-6）。\n\n由前端在编辑页面携带（从查询响应获取），更新时用于乐观锁冲突检测。\n为 null 时保持原行为（由 Service 层填充当前版本）；携带后若与 DB 当前版本不一致，\n更新将被拒绝并提示\"数据已被他人修改\"。"
      }
     },
-    "description": "class UserAccountDTO"
+    "description": "用户账号统一 DTO（P1-1 CUD 入参）。\n\n同时用于创建和更新场景：创建时 `username`/`password` 必填，更新时 `id` 必填。\n\n不可更新字段：`username`（登录名创建后不可修改）、`password`（请使用专用修改密码接口）。",
+    "x-field-docs": {
+     "id": "用户 ID（更新时必填，指定更新的目标用户） */",
+     "username": "登录用户名（全局唯一，创建时必填，创建后不可修改） */",
+     "userName": "用户名（SCIM 兼容字段，与 username 同义） */",
+     "externalId": "外部系统标识（SCIM externalId，用于与 HR 系统关联） */",
+     "password": "登录密码（明文传入，服务端 BCrypt 加密存储，创建时必填） */",
+     "realName": "真实姓名（用于展示和审批人显示） */",
+     "phone": "手机号（用于短信验证/找回密码） */",
+     "email": "邮箱（用于邮件通知/找回密码） */",
+     "avatar": "头像 URL */",
+     "status": "账号状态（EnableStatusEnum#ENABLED=启用 / EnableStatusEnum#DISABLED=禁用） */",
+     "userType": "用户类型（`PLATFORM`=平台用户 / `TENANT_ADMIN`=租户管理员 / `REGULAR`=普通用户） */",
+     "companyId": "所属公司 ID（关联 `ydsz_org_company.id`） */",
+     "deptId": "所属部门 ID（关联 `ydsz_org_department.id`，支持审批人展开） */",
+     "leaderId": "直属上级用户 ID（关联 `ydsz_acct_user.id`，支持 leader: 审批人展开） */",
+     "positionCode": "岗位编码（如 PM/DEV/QA/SA，支持 position: 审批人展开） */",
+     "roleIds": "角色 ID 列表（创建时一次性分配角色，可空表示暂不分配） */",
+     "tenantId": "租户 ID（多租户场景下指定归属租户，通常由系统自动填充） */",
+     "revision": "乐观锁版本号（P1-6）。\n\n由前端在编辑页面携带（从查询响应获取），更新时用于乐观锁冲突检测。\n为 null 时保持原行为（由 Service 层填充当前版本）；携带后若与 DB 当前版本不一致，\n更新将被拒绝并提示\"数据已被他人修改\"。"
+    }
    },
    "ChangePasswordDTO": {
     "type": "object",
@@ -6865,16 +7306,24 @@
       "format": "int64"
      },
      "userId": {
-      "type": "string"
+      "type": "string",
+      "description": "用户 ID（指定修改密码的目标用户） */"
      },
      "oldPassword": {
-      "type": "string"
+      "type": "string",
+      "description": "旧密码（明文传入，服务端 BCrypt 比对验证） */"
      },
      "newPassword": {
-      "type": "string"
+      "type": "string",
+      "description": "新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */"
      }
     },
-    "description": "class ChangePasswordDTO"
+    "description": "修改密码请求 DTO（用户自助修改）。\n\n用于 `Post /api/v1/user/change-password` 接口，用户自行修改登录密码。 服务端会校验旧密码是否正确，新密码须符合密码策略（长度+复杂度）。\n\n安全说明：修改密码成功后，当前会话 Token 不会被撤销， 如需强制下线请调用管理员重置密码接口。",
+    "x-field-docs": {
+     "userId": "用户 ID（指定修改密码的目标用户） */",
+     "oldPassword": "旧密码（明文传入，服务端 BCrypt 比对验证） */",
+     "newPassword": "新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */"
+    }
    },
    "ResetPasswordDTO": {
     "type": "object",
@@ -6884,16 +7333,24 @@
       "format": "int64"
      },
      "userId": {
-      "type": "string"
+      "type": "string",
+      "description": "用户 ID（指定重置密码的目标用户） */"
      },
      "newPassword": {
-      "type": "string"
+      "type": "string",
+      "description": "新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */"
      },
      "notifyChannel": {
-      "type": "string"
+      "type": "string",
+      "description": "通知渠道（重置后通知用户，如 `SMS` / `EMAIL`，不传则不通知） */"
      }
     },
-    "description": "class ResetPasswordDTO"
+    "description": "重置密码请求 DTO（管理员操作）。\n\n用于 `Post /api/v1/user/reset-password` 接口，管理员重置指定用户的密码。 无需提供旧密码，重置后可选择通过指定通道通知用户。\n\n安全说明：重置密码成功后，目标用户的所有活跃会话将被撤销， 须使用新密码重新登录。该接口需要管理员权限。",
+    "x-field-docs": {
+     "userId": "用户 ID（指定重置密码的目标用户） */",
+     "newPassword": "新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */",
+     "notifyChannel": "通知渠道（重置后通知用户，如 `SMS` / `EMAIL`，不传则不通知） */"
+    }
    },
    "AssignRolesDTO": {
     "type": "object",
@@ -6906,10 +7363,14 @@
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "角色 ID 列表（全量覆盖，空列表表示清除所有角色） */"
      }
     },
-    "description": "class AssignRolesDTO"
+    "description": "分配用户角色请求 DTO。\n\n用于 `Post /api/v1/user/{userId`/roles} 接口，为指定用户分配角色。 采用全量覆盖策略：传入的角色 ID\n列表将完全替换用户原有角色关联。\n\n注意事项：\n\n\n传入空列表表示清除用户所有角色\n角色 ID 必须为系统中已存在的有效角色",
+    "x-field-docs": {
+     "roleIds": "角色 ID 列表（全量覆盖，空列表表示清除所有角色） */"
+    }
    },
    "BatchUserStatusDTO": {
     "type": "object",
@@ -6922,10 +7383,14 @@
       "type": "array",
       "items": {
        "type": "string"
-      }
+      },
+      "description": "用户 ID 列表 */"
      }
     },
-    "description": "class BatchUserStatusDTO"
+    "description": "批量用户状态操作 DTO。\n\n用于批量启用/禁用/删除用户账号。",
+    "x-field-docs": {
+     "ids": "用户 ID 列表 */"
+    }
    },
    "SensitiveVerifyDTO": {
     "type": "object",
@@ -6935,35 +7400,51 @@
       "format": "int64"
      },
      "password": {
-      "type": "string"
+      "type": "string",
+      "description": "当前登录用户的明文密码（用于身份校验） */"
      }
     },
-    "description": "class SensitiveVerifyDTO"
+    "description": "敏感操作二次认证请求 DTO。\n\n用于 `Post /api/v1/user/sensitive-verify` 接口，管理员在执行敏感操作前 通过密码确认身份。验证通过后，后端在 Redis 写入一条短期有效（5 分钟）的标记。\n\n安全说明：\n\n\n密码仅用于身份校验，不做任何持久化\n验证标记存储在 Redis，TTL 5 分钟，过期后需重新验证\n标记以当前登录用户 ID 为 Key，不跨用户共享",
+    "x-field-docs": {
+     "password": "当前登录用户的明文密码（用于身份校验） */"
+    }
    },
    "UserSearchQuery": {
     "type": "object",
     "properties": {
      "DEFAULT_PAGE": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "默认页码 */"
      },
      "DEFAULT_PAGE_SIZE": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "默认每页条数 */"
      },
      "keyword": {
-      "type": "string"
+      "type": "string",
+      "description": "搜索关键字（必填） */"
      },
      "page": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "页码（默认 1） */"
      },
      "pageSize": {
       "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "description": "每页条数（默认 20） */"
      }
     },
-    "description": "class UserSearchQuery"
+    "description": "用户搜索查询参数。\n\n封装用户搜索接口的查询参数（keyword / 分页），请求头中的用户上下文通过\njavax.servlet.http.HttpServletRequest 读取。",
+    "x-field-docs": {
+     "DEFAULT_PAGE": "默认页码 */",
+     "DEFAULT_PAGE_SIZE": "默认每页条数 */",
+     "keyword": "搜索关键字（必填） */",
+     "page": "页码（默认 1） */",
+     "pageSize": "每页条数（默认 20） */"
+    }
    },
    "UserProfileUpdateDTO": {
     "type": "object",
@@ -6973,19 +7454,29 @@
       "format": "int64"
      },
      "realName": {
-      "type": "string"
+      "type": "string",
+      "description": "真实姓名 */"
      },
      "phone": {
-      "type": "string"
+      "type": "string",
+      "description": "手机号 */"
      },
      "email": {
-      "type": "string"
+      "type": "string",
+      "description": "邮箱 */"
      },
      "avatar": {
-      "type": "string"
+      "type": "string",
+      "description": "头像 URL */"
      }
     },
-    "description": "class UserProfileUpdateDTO"
+    "description": "用户资料更新 DTO（当前登录用户修改自己的资料）。\n\n与 com.njydsz.userinfo.domain.dto.UserAccountDTO 不同，此 DTO 不包含状态、角色等管理字段，仅包含用户可自助修改的基本信息。",
+    "x-field-docs": {
+     "realName": "真实姓名 */",
+     "phone": "手机号 */",
+     "email": "邮箱 */",
+     "avatar": "头像 URL */"
+    }
    },
    "MfaOperationDTO": {
     "type": "object",
@@ -6995,10 +7486,14 @@
       "format": "int64"
      },
      "code": {
-      "type": "string"
+      "type": "string",
+      "description": "TOTP 动态码（6 位数字，由 Authenticator 应用生成） */"
      }
     },
-    "description": "class MfaOperationDTO"
+    "description": "MFA 动态码操作 DTO。\n\n用于 MFA 绑定激活/解除场景，携带用户输入的一次性动态码（Authenticator 应用生成）。",
+    "x-field-docs": {
+     "code": "TOTP 动态码（6 位数字，由 Authenticator 应用生成） */"
+    }
    },
    "SelfRegisterDTO": {
     "type": "object",
@@ -7008,31 +7503,49 @@
       "format": "int64"
      },
      "username": {
-      "type": "string"
+      "type": "string",
+      "description": "用户名（全局唯一） */"
      },
      "realName": {
-      "type": "string"
+      "type": "string",
+      "description": "真实姓名 */"
      },
      "password": {
-      "type": "string"
+      "type": "string",
+      "description": "密码（明文，须符合密码策略） */"
      },
      "phone": {
-      "type": "string"
+      "type": "string",
+      "description": "手机号 */"
      },
      "email": {
-      "type": "string"
+      "type": "string",
+      "description": "邮箱 */"
      },
      "verifyCode": {
-      "type": "string"
+      "type": "string",
+      "description": "手机/邮箱验证码 */"
      },
      "captchaKey": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码 key（P0-5：防批量注册，前端先调用 /api/v1/captcha 获取） */"
      },
      "captcha": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码用户输入（P0-5：防批量注册） */"
      }
     },
-    "description": "class SelfRegisterDTO"
+    "description": "自助注册请求 DTO。\n\n用户通过前端注册页面提交注册申请，包含基本信息和验证码。 注册成功后账号状态为\"待审核\"或\"已启用\"（取决于配置）。",
+    "x-field-docs": {
+     "username": "用户名（全局唯一） */",
+     "realName": "真实姓名 */",
+     "password": "密码（明文，须符合密码策略） */",
+     "phone": "手机号 */",
+     "email": "邮箱 */",
+     "verifyCode": "手机/邮箱验证码 */",
+     "captchaKey": "图形验证码 key（P0-5：防批量注册，前端先调用 /api/v1/captcha 获取） */",
+     "captcha": "图形验证码用户输入（P0-5：防批量注册） */"
+    }
    },
    "ForgotPasswordDTO": {
     "type": "object",
@@ -7042,25 +7555,39 @@
       "format": "int64"
      },
      "username": {
-      "type": "string"
+      "type": "string",
+      "description": "用户名 */"
      },
      "phone": {
-      "type": "string"
+      "type": "string",
+      "description": "手机号（用于验证身份） */"
      },
      "verifyCode": {
-      "type": "string"
+      "type": "string",
+      "description": "手机验证码 */"
      },
      "newPassword": {
-      "type": "string"
+      "type": "string",
+      "description": "新密码（明文，须符合密码策略） */"
      },
      "captchaKey": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/v1/captcha 获取） */"
      },
      "captcha": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码用户输入（P0-5：防撞库找回密码） */"
      }
     },
-    "description": "class ForgotPasswordDTO"
+    "description": "找回密码请求 DTO。\n\n用户通过手机号 + 验证码验证身份后，设置新密码。",
+    "x-field-docs": {
+     "username": "用户名 */",
+     "phone": "手机号（用于验证身份） */",
+     "verifyCode": "手机验证码 */",
+     "newPassword": "新密码（明文，须符合密码策略） */",
+     "captchaKey": "图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/v1/captcha 获取） */",
+     "captcha": "图形验证码用户输入（P0-5：防撞库找回密码） */"
+    }
    },
    "AccountUnlockDTO": {
     "type": "object",
@@ -7070,25 +7597,39 @@
       "format": "int64"
      },
      "username": {
-      "type": "string"
+      "type": "string",
+      "description": "用户名（需与验证方式绑定的用户匹配） */"
      },
      "targetType": {
-      "type": "string"
+      "type": "string",
+      "description": "验证目标类型：PHONE（手机）/ EMAIL（邮箱） */"
      },
      "target": {
-      "type": "string"
+      "type": "string",
+      "description": "验证目标（手机号或邮箱地址） */"
      },
      "verifyCode": {
-      "type": "string"
+      "type": "string",
+      "description": "验证码 */"
      },
      "captchaKey": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码 key（防暴力破解，前端先调用 /api/v1/captcha 获取） */"
      },
      "captcha": {
-      "type": "string"
+      "type": "string",
+      "description": "图形验证码用户输入 */"
      }
     },
-    "description": "class AccountUnlockDTO"
+    "description": "账号解锁请求 DTO。\n\n用户自助解锁被锁定的账号，支持手机验证码/邮箱验证码两种身份验证方式。\n\n使用方式：\n\n\n手机验证：`target` 填手机号，`targetType` 为 `PHONE`\n邮箱验证：`target` 填邮箱地址，`targetType` 为 `EMAIL`",
+    "x-field-docs": {
+     "username": "用户名（需与验证方式绑定的用户匹配） */",
+     "targetType": "验证目标类型：PHONE（手机）/ EMAIL（邮箱） */",
+     "target": "验证目标（手机号或邮箱地址） */",
+     "verifyCode": "验证码 */",
+     "captchaKey": "图形验证码 key（防暴力破解，前端先调用 /api/v1/captcha 获取） */",
+     "captcha": "图形验证码用户输入 */"
+    }
    }
   }
  }
