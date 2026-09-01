@@ -1,5 +1,12 @@
 /**
- * download 工具函数模块
+ * 浏览器端文件下载工具集，覆盖 URL / Base64 / Blob / 图片四类数据源。
+ *
+ * 统一收敛到「创建临时 a 标签并触发点击」这一种实现，而不是各业务自行拼标签：
+ * objectURL 必须在下载后主动 revoke，否则大文件会一直占用内存直到页面卸载。
+ *
+ * 含 UA 分支：命中 Chrome / Safari 时直接触发下载，其余浏览器改为新开窗口并
+ * 追加 `?download` 参数；iOS（UA 含 iP）直接放弃并记日志，因为该平台对
+ * download 属性的支持不完整，静默失败比抛错更难排查。
  *
  * @path comm\@core\base\shared\src\utils\download.ts
  * @author ydsz-team
@@ -170,3 +177,4 @@ export function triggerDownload(
 function resolveFileName(url: string, fileName?: string): string {
   return fileName || url.slice(url.lastIndexOf('/') + 1) || DEFAULT_FILENAME;
 }
+

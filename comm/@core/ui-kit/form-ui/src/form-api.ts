@@ -1,5 +1,12 @@
 /**
- * form-api 模块
+ * 表单的命令式门面（FormApi）：在组件之外读写表单值、触发校验与提交。
+ *
+ * 做成类而非组合式函数，是为了让父组件、抽屉乃至非组件环境都能持有同一份句柄；
+ * 内部用 Store 承载状态，并通过 Proxy 把自身未实现的方法透传给底层
+ * vee-validate 实例，从而在保留本包语义的同时不丢失底层能力。
+ *
+ * 值在读写时会经 FormValueTransformer 做一次归一化（日期格式化、数组与字符串
+ * 互转、范围时间拆分），保证对外暴露的结构与后端契约一致。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-api.ts
  * @author ydsz-team
@@ -461,3 +468,4 @@ export class FormApi {
     }
   }
 }
+

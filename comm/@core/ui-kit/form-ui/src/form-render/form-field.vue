@@ -1,5 +1,10 @@
 <!--
- * form-field Vue 组件
+ * 单个表单项的渲染器：按 Schema 选择控件、套上标签与错误提示。
+ *
+ * 控件经 componentMap 动态解析（component :is），使 Schema 只需声明字符串型的
+ * 组件名，便于配置下发与后端驱动。
+ * 同时按字段名开放同名插槽：业务侧可只覆盖某一个字段的渲染，其余字段仍走
+ * Schema 默认行为，避免为改一个字段就复制整份表单配置。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\form-field.vue
  * @author ydsz-team
@@ -422,3 +427,4 @@ onUnmounted(() => {
     </FormItem>
   </FormField>
 </template>
+

@@ -1,5 +1,9 @@
 /**
- * 功能开关类型定义
+ * 功能开关的类型契约：开关取值、定义项、初始化选项与变更监听器签名。
+ *
+ * FeatureFlagValue 同时接受布尔与 'on' / 'off' 字符串，是为了兼容环境变量与
+ * 远程配置里最常见的字符串写法（如 VITE_FEATURE_XXX=on），读取时统一归一化为布尔，
+ * 避免每个调用点各写一套解析。
  *
  * @path comm/@core/feature-flags/src/types.ts
  * @author ydsz-team
@@ -65,3 +69,4 @@ export type FeatureFlagsChangeListener = (
   name: string,
   value: boolean,
 ) => void;
+

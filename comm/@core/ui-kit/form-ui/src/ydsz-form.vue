@@ -1,5 +1,10 @@
 <!--
- * YDSZ-form Vue 组件
+ * 声明式表单组件：接收 Schema 与配置，在内部自行持有并管理表单状态。
+ *
+ * 适合 Schema 固定、无需在父组件里操作表单的场景；若需要在外部驱动
+ * （弹窗提交、分步表单），请改用 useYDSZForm 组合式用法。
+ * 所有字段级插槽按字段名透出，默认插槽的插槽属性一并向下传递，
+ * 业务可只覆盖个别字段而保留其余字段的默认渲染。
  *
  * @path comm\@core\ui-kit\form-ui\src\YDSZ-form.vue
  * @author ydsz-team
@@ -82,3 +87,4 @@ watchEffect(() => {
     </template>
   </Form>
 </template>
+

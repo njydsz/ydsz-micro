@@ -1,5 +1,10 @@
 /**
- * context 模块
+ * 表单渲染上下文：用 provide/inject 向下传递渲染配置及其派生状态。
+ *
+ * 表单项嵌套层级不固定（分组、栅格、自定义插槽都可能再包一层），逐层透传 props
+ * 会迫使中间组件接收并转发大量与自身无关的属性；改为注入后中间层可完全不感知。
+ * useFormContext 另外集中导出几个派生计算属性（是否纵向、组件映射、事件映射等），
+ * 让子组件不必各自重复从 props 推导同一份结论。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\context.ts
  * @author ydsz-team
@@ -44,3 +49,4 @@ export const useFormContext = () => {
     isVertical,
   };
 };
+

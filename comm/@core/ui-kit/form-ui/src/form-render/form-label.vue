@@ -1,5 +1,10 @@
 <!--
- * form-label Vue 组件
+ * 表单项标签：渲染必填星号、冒号与帮助提示，并支持标签内容自定义。
+ *
+ * 独立成组件是因为必填标记、冒号与帮助气泡在各表单间的表现必须一致；
+ * 集中一处便于统一维护无障碍语义（标签与控件的关联关系）。
+ * label 与 help 均为 CustomRenderType，支持传字符串或渲染函数，
+ * 冒号仅在同时存在 label 时渲染，避免空标签后残留孤立标点。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\form-label.vue
  * @author ydsz-team
@@ -36,3 +41,4 @@ const props = defineProps<Props>();
     <span v-if="colon && label" class="ml-[2px]">:</span>
   </FormLabel>
 </template>
+

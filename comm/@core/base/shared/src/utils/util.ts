@@ -1,5 +1,11 @@
 /**
- * util 工具函数模块
+ * 两个通用对象操作原语：原型方法绑定与路径取值。
+ *
+ * bindMethods 把类原型上的方法逐个绑到实例，用于支持 `const { reset } = formApi`
+ * 这类解构调用（解构会丢失 this）；代价是每个实例多出一份函数引用，
+ * 因此只用于生命周期长的单例对象，不用于频繁创建的实例。
+ * getNestedValue 按 'a.b.c' 路径取值，供表格列绑定与表单字段读取使用；
+ * 分隔符固定为 '.'，故字段名本身含 '.' 时不可用。
  *
  * @path comm\@core\base\shared\src\utils\util.ts
  * @author ydsz-team
@@ -49,3 +55,4 @@ export function getNestedValue<T>(obj: T, path: string): unknown {
 
   return current;
 }
+

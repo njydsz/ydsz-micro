@@ -1,5 +1,9 @@
 /**
- * form-scroll-helper 模块
+ * 表单滚动助手：校验失败后把首个错误字段滚动到可视区域。
+ *
+ * 抽成独立类而非写在组件里，是因为它需要持续持有并更新「字段名 → 组件实例」
+ * 映射表；这份表由渲染层填充、由 FormApi 消费，放在任一侧都会造成职责外溢。
+ * 映射以 ref 形式传入，故组件实例本身可能是 ref 包装，取值前需先解包。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-scroll-helper.ts
  * @author ydsz-team
@@ -118,3 +122,4 @@ export class FormScrollHelper {
     }
   }
 }
+

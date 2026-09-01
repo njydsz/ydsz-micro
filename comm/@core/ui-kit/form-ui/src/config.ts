@@ -1,5 +1,11 @@
 /**
- * config 模块
+ * 表单的组件注册表与全局默认配置中心。
+ *
+ * COMPONENT_MAP 把 Schema 里声明的抽象组件类型映射到具体 Vue 组件，
+ * COMPONENT_BIND_EVENT_MAP 声明各组件用哪个事件回写值（多数是 update:modelValue，
+ * 第三方组件可能不同），因此接入新控件只需在此登记，渲染器无需改动。
+ * setupYDSZForm 供应用启动时一次性注入全局配置与自定义校验规则，
+ * 避免每个表单重复声明同一套默认值。
  *
  * @path comm\@core\ui-kit\form-ui\src\config.ts
  * @author ydsz-team
@@ -119,3 +125,4 @@ export function setupYDSZForm<
     }
   }
 }
+

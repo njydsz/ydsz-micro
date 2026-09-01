@@ -118,6 +118,7 @@ async function loadApplicationPlugins(
   const env = options.env;
 
   const {
+    appTitle,
     archiver,
     archiverPluginOptions,
     compress,
@@ -294,7 +295,16 @@ async function loadApplicationPlugins(
     },
     {
       condition: !!html,
-      plugins: () => [viteHtmlPlugin({ minify: true })],
+      plugins: () => [
+        viteHtmlPlugin({
+          inject: {
+            // index.html 通过 ejs 变量 VITE_APP_TITLE 渲染 <title>，
+            // 与 utils/env.ts loadAndConvertEnv 的兜底值保持一致
+            data: { VITE_APP_TITLE: appTitle ?? 'YDSZ Admin' },
+          },
+          minify: true,
+        }),
+      ],
     },
     {
       condition: isBuild && importmap,

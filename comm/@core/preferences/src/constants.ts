@@ -1,5 +1,9 @@
 /**
- * 内置主题色彩预设与偏好配置常量定义。
+ * 内置主题色预设：为主题切换面板提供可选色板。
+ *
+ * COLOR_PRESETS 只取前 7 个预设（slice(0, 7)）：色板在偏好面板中单行平铺，
+ * 再多会换行挤压同行的其他控件。完整预设仍以 BUILT_IN_THEME_PRESETS 提供，
+ * 供自定义主题入口等需要全量色值的场景使用。
  *
  * @path comm\@core\preferences\src\constants.ts
  * @author ydsz-team
@@ -94,3 +98,4 @@ export const COLOR_PRESETS = [...BUILT_IN_THEME_PRESETS].slice(0, 7);
 export { BUILT_IN_THEME_PRESETS };
 
 export type { BuiltinThemePreset };
+

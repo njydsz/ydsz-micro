@@ -1,5 +1,10 @@
 <!--
- * form-actions 通用组件
+ * 表单底部操作区：渲染提交 / 重置 / 展开收起按钮，并在每个按钮前后开放插槽。
+ *
+ * 按钮顺序由 actionButtonsReverse 控制（确认在右为默认，部分业务要求确认在左）。
+ * 这里用两组 v-if 分支而非 CSS order 反转：order 只改变视觉顺序，Tab 焦点与
+ * 读屏仍按 DOM 顺序，会造成「看到的」与「操作到的」不一致。
+ * 各按钮前后均留具名插槽，便于不改组件就插入自定义操作（如「保存并继续」）。
  *
  * @path comm\@core\ui-kit\form-ui\src\components\form-actions.vue
  * @author ydsz-team
@@ -193,3 +198,4 @@ defineExpose({
     <slot name="expand-after"></slot>
   </div>
 </template>
+

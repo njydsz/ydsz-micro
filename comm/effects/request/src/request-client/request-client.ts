@@ -24,6 +24,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 import { BusinessError } from './business-error';
+import { dedupRequest } from './request-dedup';
 import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
@@ -146,14 +147,18 @@ class RequestClient {
     url: string,
     config?: RequestClientConfig,
   ): Promise<T> {
-    return this.request<T>(url, { ...config, method: 'DELETE' });
+    return dedupRequest<T>('DELETE', url, config, (u, c) =>
+      this.request<T>(u, { ...c, method: 'DELETE' }),
+    );
   }
 
   /**
    * GET请求方法
    */
   public get<T = unknown>(url: string, config?: RequestClientConfig): Promise<T> {
-    return this.request<T>(url, { ...config, method: 'GET' });
+    return dedupRequest<T>('GET', url, config, (u, c) =>
+      this.request<T>(u, { ...c, method: 'GET' }),
+    );
   }
 
   /**
@@ -167,7 +172,9 @@ class RequestClient {
     data?: unknown,
     config?: RequestClientConfig,
   ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: 'POST' });
+    return dedupRequest<T>('POST', url, config, (u, c) =>
+      this.request<T>(u, { ...c, data, method: 'POST' }),
+    );
   }
 
   /**
@@ -180,7 +187,9 @@ class RequestClient {
     data?: unknown,
     config?: RequestClientConfig,
   ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: 'PUT' });
+    return dedupRequest<T>('PUT', url, config, (u, c) =>
+      this.request<T>(u, { ...c, data, method: 'PUT' }),
+    );
   }
 
   /**
@@ -194,7 +203,9 @@ class RequestClient {
     data?: unknown,
     config?: RequestClientConfig,
   ): Promise<T> {
-    return this.request<T>(url, { ...config, data, method: 'PATCH' });
+    return dedupRequest<T>('PATCH', url, config, (u, c) =>
+      this.request<T>(u, { ...c, data, method: 'PATCH' }),
+    );
   }
 
   /**

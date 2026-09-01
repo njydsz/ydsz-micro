@@ -1,5 +1,10 @@
 /**
- * use-form-context 模块
+ * 表单实例级上下文：向下传递表单 props、组件实例映射与初始值。
+ *
+ * 与 form-render/context.ts 分属不同层级：这里承载表单实例级数据（FormApi 句柄、
+ * 组件 ref 映射表），渲染层承载单次渲染的配置，两者生命周期与更新频率不同，
+ * 合并会让 ref 表在重渲染时被意外重建。
+ * 组件 ref 映射用于滚动定位（FormScrollHelper）与按字段名取实例两种场景。
  *
  * @path comm\@core\ui-kit\form-ui\src\use-form-context.ts
  * @author ydsz-team
@@ -140,3 +145,4 @@ export function useFormInitial(
     form,
   };
 }
+

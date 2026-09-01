@@ -1,5 +1,10 @@
 /**
- * dependencies 模块
+ * 表单项联动：依据依赖字段的值动态决定显示、禁用、必填与组件属性。
+ *
+ * 联动结果写入独立的响应式 ref，而不是在渲染期现算：依赖值可能来自未受控的
+ * 外部状态，用 watch 能确保只在实际变化时触发，规避渲染期计算引发的更新循环。
+ * 且只监听 dependencies.triggerFields 中显式声明的字段而非整个表单值 ——
+ * 全量监听在长表单上会带来可感知的输入延迟。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\dependencies.ts
  * @author ydsz-team
@@ -140,3 +145,4 @@ export default function useDependencies(getDependencies: () => FormItemDependenc
     isShow,
   };
 }
+

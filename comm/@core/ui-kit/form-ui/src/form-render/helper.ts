@@ -1,5 +1,10 @@
 /**
- * helper 模块
+ * Schema 解析辅助函数：提取 zod 校验规则、推导默认值、识别事件对象。
+ *
+ * getDefaultValueInZodStack 需要逐层剥开 ZodOptional / ZodDefault / ZodEffects 等
+ * 包装类型才能取到最内层默认值 —— 这属于 zod 内部结构细节，集中在此隔离，
+ * 避免解析逻辑散落到渲染器各处、随上游版本变动而难以收敛。
+ * isEventObjectLike 用于把 v-model 收到的事件对象与真实值区分开。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\helper.ts
  * @author ydsz-team
@@ -84,3 +89,4 @@ export function isEventObjectLike(obj: unknown) {
   }
   return Reflect.has(obj, 'target') && Reflect.has(obj, 'stopPropagation');
 }
+

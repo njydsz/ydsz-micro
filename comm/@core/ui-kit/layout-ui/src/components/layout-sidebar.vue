@@ -1,5 +1,10 @@
 <!--
- * layout-sidebar 通用组件
+ * 布局侧边栏容器：支持折叠、悬浮展开与混合侧栏（双栏）三种形态。
+ *
+ * 折叠态下额外渲染一个同宽占位 div，用于撑住布局不被压缩，同时保持宽度过渡动画。
+ * 混合侧栏（isSidebarMixed）会渲染第二栏承载 extra 内容，两栏各有独立的
+ * 折叠状态与开合按钮；鼠标移出时通过 emit('leave') 通知上层收起悬浮态。
+ * 内容区由 YDSZScrollbar 包裹，保证菜单超长时滚动而不撑破布局。
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-sidebar.vue
  * @author ydsz-team
@@ -349,3 +354,4 @@ function handleMouseleave() {
     </YDSZScrollbar>
   </div>
 </template>
+

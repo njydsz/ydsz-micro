@@ -1,5 +1,10 @@
 <!--
- * layout-header 通用组件
+ * 布局顶栏容器：提供 logo 与侧栏开合按钮的专用插槽。
+ *
+ * logo 插槽仅在其有内容时才渲染外层容器（v-if="slots.logo"），
+ * 避免无 logo 时留下一个仍占宽度的空节点。
+ * 容器宽度通过 logoStyle 的最小宽度与侧栏宽度对齐，使顶栏内容与下方主体左边缘
+ * 保持同一基线；收起时用负 marginTop 移出视野而非销毁，保持与页脚一致的行为。
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-header.vue
  * @author ydsz-team
@@ -82,3 +87,4 @@ const logoStyle = computed((): CSSProperties => {
     <slot></slot>
   </header>
 </template>
+

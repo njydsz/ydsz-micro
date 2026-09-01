@@ -1,5 +1,10 @@
 /**
- * 对象差异比较与数组相等判断工具。
+ * 对象浅差异比较与数组相等判定工具。
+ *
+ * 只做一层浅比较：目标场景是表单「是否有改动」与 PATCH 请求体的构造，
+ * 深层递归在嵌套结构上开销不可控，且引用比较已能覆盖多数用例。
+ * diff 返回 Partial 结果、未变化字段不出现在结果中，调用方直接拿它做增量提交，
+ * 避免把未修改字段一并回写。
  *
  * @path comm\@core\base\shared\src\utils\diff.ts
  * @author ydsz-team
@@ -86,3 +91,4 @@ function diff<T extends Record<string, unknown>>(
 }
 
 export { arraysEqual, diff };
+

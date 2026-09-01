@@ -1,5 +1,11 @@
 <!--
- * YDSZ-use-form Vue 组件
+ * 受控表单组件：表单状态由外部 useYDSZForm 提供，本组件只负责渲染与事件转发。
+ *
+ * 状态外置后，父组件可在任意时机触发校验、取值或重置，适用于需要在组件之外
+ * 驱动表单的场景（弹窗提交、分步流转、跨组件联动）。
+ * 除字段级插槽外，还开放 reset-before / submit-before / expand-before 等
+ * 动作区插槽；各插槽均回传对应的上下文（如校验状态、提交处理函数），
+ * 便于在按钮前后插入自定义操作。
  *
  * @path comm\@core\ui-kit\form-ui\src\YDSZ-use-form.vue
  * @author ydsz-team
@@ -153,3 +159,4 @@ onMounted(async () => {
     </template>
   </Form>
 </template>
+

@@ -1,5 +1,10 @@
 /**
- * 字符串大小写转换与键名拼接工具集。
+ * 字符串大小写转换与键名拼接工具集，服务于组件名与字段名的双向映射。
+ *
+ * concatKeyWithParent 与 kebabToCamelCase 用于把表单的 'a.b.c' 路径式字段名
+ * 转成嵌套结构所需的键，是 Schema 驱动表单在提交时还原嵌套对象的基础工具。
+ * 自行实现而非引入 lodash 的 camelCase：这里只需覆盖 kebab 一种输入形态，
+ * 且要保留首字母大小写语义（toLowerCaseFirstLetter 与 capitalizeFirstLetter 并存）。
  *
  * @path comm\@core\base\shared\src\utils\letter.ts
  * @author ydsz-team
@@ -63,3 +68,4 @@ export {
   kebabToCamelCase,
   toLowerCaseFirstLetter,
 };
+

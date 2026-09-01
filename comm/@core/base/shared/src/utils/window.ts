@@ -1,5 +1,10 @@
 /**
- * window 工具函数模块
+ * 新窗口打开工具，默认施加 noopener / noreferrer 安全约束。
+ *
+ * 两个选项默认开启而非可选：新窗口可通过 window.opener 反向操作源页面
+ * （反向标签钓鱼），关掉它们是安全基线。
+ * openRouteInNewWindow 会把 path 拼到 `${origin}/#${path}`，仅适用于 hash 路由；
+ * history 模式请直接调用 openWindow 传入完整 URL。
  *
  * @path comm\@core\base\shared\src\utils\window.ts
  * @author ydsz-team
@@ -42,3 +47,4 @@ function openRouteInNewWindow(path: string) {
 }
 
 export { openRouteInNewWindow, openWindow };
+

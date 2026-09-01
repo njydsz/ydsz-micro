@@ -1,5 +1,8 @@
 /**
- * 功能开关 Vue 组合式 API
+ * 功能开关的 Vue 组合式封装：把开关值变成组件可直接消费的响应式数据。
+ *
+ * useFeatureFlag(name) 返回随开关变更而更新的响应式值，模板无需手动订阅与退订；
+ * useAllFeatureFlags 供调试面板一次性展示全部开关状态，不用于业务判断。
  *
  * @path comm\@core\feature-flags\src\use-feature-flag.ts
  * @author ydsz-team
@@ -27,3 +30,4 @@ export function useFeatureFlag(name: string) {
 export function useAllFeatureFlags() {
   return computed(() => featureFlagsManager.getAll());
 }
+

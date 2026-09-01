@@ -51,6 +51,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
     console.info(`[ViteConfig] ImportMap strategy for ${appName || 'unknown'}: ${shareStrategy} (${sharedDeps.length} deps)`);
 
     const plugins = await loadApplicationPlugins({
+      appTitle,
       archiver: env.VITE_ARCHIVER === 'true',
       archiverPluginOptions: {},
       compress: true,

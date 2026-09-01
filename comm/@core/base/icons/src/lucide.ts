@@ -1,5 +1,9 @@
 /**
- * lucide 模块
+ * Lucide 图标的显式白名单再导出表。
+ *
+ * 刻意不用 `export *`：lucide-vue-next 全量导出上千个图标，透传会让消费端的
+ * IDE 补全列表与依赖图失控，也让 tree-shaking 的实际效果难以核对。
+ * 新增图标需在此显式登记，相当于一道轻量的人工准入。
  *
  * @path comm\@core\base\icons\src\lucide.ts
  * @author ydsz-team
@@ -73,3 +77,4 @@ export {
   UserRoundPen,
   X,
 } from 'lucide-vue-next';
+

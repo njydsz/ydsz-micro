@@ -1,5 +1,11 @@
 /**
- * use-scroll-lock 组合式函数
+ * 页面滚动锁定：锁定 body 滚动并补偿滚动条宽度与 fixed 元素位移。
+ *
+ * 单纯设置 overflow:hidden 会让滚动条消失、页面因可用宽度变大而横向跳动，
+ * 因此锁定期间需补上等宽内边距。
+ * 此外会单独处理布局内的 fixed 元素：body 转为 fixed 定位后会成为新的包含块，
+ * 原本相对视口定位的子元素会整体偏移，故对这批节点追加 SCROLL_FIXED_CLASS
+ * 做位置补偿，解锁时一并还原。
  *
  * @path comm\@core\composables\src\use-scroll-lock.ts
  * @author ydsz-team
@@ -83,3 +89,4 @@ export function useScrollLock() {
     document.body.style.paddingRight = '';
   });
 }
+

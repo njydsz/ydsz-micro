@@ -1,5 +1,11 @@
 /**
- * use-layout-style 组合式函数
+ * 布局尺寸同步：把 header / content / footer 的实测尺寸写回 CSS 变量。
+ *
+ * 存在的原因是布局各区块高度互相依赖（content 高度 = 视口 − header − footer），
+ * 而各区块内容又由业务决定，纯 CSS 无法表达这种循环依赖；因此改为测量 DOM 后
+ * 写入 CSS 变量，样式层只需消费变量，不必参与计算。
+ * 测量与写入均做了防抖：resize 期间的高频回调若直接读写几何属性，
+ * 会强制同步重排并造成明显的拖动卡顿。
  *
  * @path comm\@core\composables\src\use-layout-style.ts
  * @author ydsz-team
@@ -119,3 +125,4 @@ export function useLayoutFooterStyle() {
     },
   };
 }
+

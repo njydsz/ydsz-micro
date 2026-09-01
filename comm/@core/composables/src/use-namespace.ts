@@ -1,5 +1,9 @@
 /**
- * use-namespace 组合式函数
+ * BEM 类名生成工具：按 `namespace-block__element--modifier` 规则拼装类名。
+ *
+ * 组件库所有类名统一经此生成，保证命名空间一致（默认 YDSZ），业务侧的样式覆盖
+ * 才能稳定命中而不依赖内部实现细节。
+ * 状态类固定以 `is-` 前缀与结构类区分，便于按前缀批量增删状态而不误伤结构类名。
  *
  * @path comm\@core\composables\src\use-namespace.ts
  * @author ydsz-team
@@ -105,3 +109,4 @@ type UseNamespaceReturn = ReturnType<typeof useNamespace>;
 
 export type { UseNamespaceReturn };
 export { useNamespace };
+

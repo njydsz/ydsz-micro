@@ -1,5 +1,9 @@
 /**
- * date 工具函数模块
+ * 基于 dayjs 的日期格式化与日期值类型判定工具。
+ *
+ * 统一走 dayjs 而非各业务自写格式化，避免同一时间在不同页面呈现不同形态。
+ * 配套的 isDate / isDayjsObject 守卫用于序列化前的类型分流：dayjs 实例与原生
+ * Date 不能直接进请求体，调用方据此先归一化再提交。
  *
  * @path comm\@core\base\shared\src\utils\date.ts
  * @author ydsz-team
@@ -95,3 +99,4 @@ export function isDate(value: unknown): value is Date {
 export function isDayjsObject(value: unknown): value is dayjs.Dayjs {
   return dayjs.isDayjs(value);
 }
+

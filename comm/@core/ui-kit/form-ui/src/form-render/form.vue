@@ -1,5 +1,10 @@
 <!--
- * form Vue 组件
+ * 表单渲染主组件：把 Schema 数组渲染成完整表单，并按字段名开放插槽覆盖。
+ *
+ * 渲染前先把 Schema 计算为 computedSchema，把联动结果、默认值与组件映射提前
+ * 解析好，模板中只做遍历，避免在模板内执行重逻辑导致的重复计算。
+ * 每个字段都开放同名插槽，兜底插槽则透出 shapes（表单形态信息），
+ * 供业务在需要完全自定义布局时使用。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\form.vue
  * @author ydsz-team
@@ -200,3 +205,4 @@ const computedSchema = computed(
     </div>
   </component>
 </template>
+

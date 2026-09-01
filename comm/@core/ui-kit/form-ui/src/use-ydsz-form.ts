@@ -1,5 +1,10 @@
 /**
- * use-YDSZ-form 模块
+ * 表单的主组合式入口：创建 FormApi 并返回 [Form 组件, 扩展 API] 二元组。
+ *
+ * 返回的 Form 是预绑定了 FormApi 的组件，业务既可把它当普通组件直接渲染，
+ * 也能通过第二个返回值在任意时机校验、取值或重置，两种用法共享同一份状态。
+ * 若传入的 options 是 reactive 对象，会额外 watch schema 并同步到 API，
+ * 使外部动态改 Schema 时表单能跟随更新；普通对象不建立该监听。
  *
  * @path comm\@core\ui-kit\form-ui\src\use-YDSZ-form.ts
  * @author ydsz-team
@@ -84,3 +89,4 @@ export function useYDSZForm<
 
   return [Form, extendedApi] as const;
 }
+

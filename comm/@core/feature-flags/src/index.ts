@@ -1,10 +1,9 @@
 /**
- * 功能开关系统入口
+ * 功能开关系统对外入口：声明开关清单、驱动初始化、并透出类型契约。
  *
- * 使用方式：
- *   1. bootstrap 中 initFeatureFlags({ namespace, remoteLoader })
- *   2. 应用入口注册开关定义 defineFeatureFlags([...])
- *   3. 组件中 useFeatureFlag('new-dashboard') 读取响应式状态
+ * 标准接入顺序是启动时 defineFeatureFlags(...) 声明开关，再 await
+ * initFeatureFlags() 完成远程拉取与本地覆盖合并，之后组件侧用 useFeatureFlag 读取。
+ * FeatureFlagsManager 一并导出，供测试等需要多实例隔离的场景构造独立开关容器。
  *
  * @path comm\@core\feature-flags\src\index.ts
  * @author ydsz-team
@@ -48,3 +47,4 @@ export type {
   FeatureFlagValue,
 } from './types';
 export { FeatureFlagsManager } from './feature-flags';
+

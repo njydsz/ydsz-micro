@@ -1,5 +1,11 @@
 /**
- * expandable 模块
+ * 表单展开 / 收起：计算收起状态下应保留到第几个表单项。
+ *
+ * 表单项按栅格自动换行，每行的项数随视口宽度变化，因此「收起 N 行」无法在
+ * 编译期确定，只能在挂载后测量各子元素的 offsetTop 建立「行号 → 项索引」映射，
+ * 再据此推算折叠断点。
+ * 测量依赖元素可见性（useElementVisibility），故在隐藏容器中挂载时不会触发计算，
+ * isCalculated 保持 false，直到容器真正可见。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-render\expandable.ts
  * @author ydsz-team
@@ -110,3 +116,4 @@ export function useExpandable(props: FormRenderProps) {
 
   return { isCalculated, keepFormItemIndex, wrapperRef };
 }
+

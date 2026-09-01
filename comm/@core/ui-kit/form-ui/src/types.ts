@@ -1,6 +1,4 @@
 /**
- * types 模块
- *
  * form-ui 的类型定义统一入口。
  *
  * 为控制单文件行数，类型定义已按职责拆分为：
@@ -49,3 +47,4 @@ export type {
   YDSZFormAdapterOptions,
   YDSZFormProps,
 } from './types-components';
+

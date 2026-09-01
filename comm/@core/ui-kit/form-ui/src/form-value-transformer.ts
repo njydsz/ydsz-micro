@@ -1,5 +1,12 @@
 /**
- * form-value-transformer 模块
+ * 表单值转换器：在提交前对值做归一化，抹平表单结构与后端契约的差异。
+ *
+ * 负责三类转换：范围时间字段拆分为开始 / 结束两个键、数组与字符串按配置互转、
+ * 以及按 fieldMappingTime 声明的格式对时间值做格式化。
+ * 转换集中在门面层完成，让业务拿到的始终是与接口一致的结构，
+ * 而不必在每个提交处各写一遍扁平化与格式化逻辑。
+ *
+ * 范围字段为空时会主动删除对应的起止键，避免把 null 一并提交覆盖服务端已有值。
  *
  * @path comm\@core\ui-kit\form-ui\src\form-value-transformer.ts
  * @author ydsz-team
@@ -197,3 +204,4 @@ export class FormValueTransformer {
     });
   }
 }
+

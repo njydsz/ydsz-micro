@@ -198,6 +198,11 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
    */
   font?: boolean;
   /**
+   * 应用标题，注入 HTML 模板（ejs 变量 VITE_APP_TITLE）与 PWA manifest
+   * @default 'YDSZ Admin'
+   */
+  appTitle?: string;
+  /**
    * 是否开启 HTML 插件
    * @default true
    */
