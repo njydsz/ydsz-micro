@@ -120,6 +120,11 @@ async function main() {
     baseUrl: root,
     env: ['production', 'browser', 'module'],
     defaultProvider: 'esm.sh',
+    // v4.4.1: axios 的 esm.sh 产物缺少 ./lib/adapters/xhr 子路径导出声明，
+    // jspm 解析 axios 深层引用（vxe-pc-ui 依赖链）时按 exports map 严格校验失败。
+    // commonJS 转换模式让 jspm 以 CJS 互操作方式解析 axios，
+    // 避开其 ESM exports map 的子路径缺失问题。
+    commonJS: true,
   });
 
   for (const dep of ALL_SHARED_DEPS) {
