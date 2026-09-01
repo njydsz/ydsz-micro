@@ -61,3 +61,37 @@ export function escapeHtml(str: string): string {
 export function sanitizeId(appName: string): string {
   return appName.replaceAll(/[^\w-]/g, "-");
 }
+
+/**
+ * v4.4.1 E1: 复制诊断信息到剪贴板（含旧浏览器 execCommand 回退）。
+ *
+ * @param diagnostics - 诊断字段集合（appName / errorCode / timestamp 等）
+ * @returns 复制成功返回 true；剪贴板不可用或写入失败返回 false
+ */
+export async function copyDiagnosticsToClipboard(
+  diagnostics: Record<string, unknown>,
+): Promise<boolean> {
+  const text = JSON.stringify(diagnostics, null, 2);
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    // 剪贴板 API 失败（权限拒绝 / 非安全上下文）走 execCommand 回退
+  }
+  try {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    const ok = document.execCommand("copy");
+    textarea.remove();
+    return ok;
+  } catch {
+    return false;
+  }
+}

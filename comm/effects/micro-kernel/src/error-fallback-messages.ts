@@ -98,6 +98,8 @@ const enUSMessages: ErrorFallbackMessages = {
   retryCount: "Retry Count: ",
   reloading: "Reloading...",
   goToSubAppUrl: "Open Sub-App Page",
+  copyDiagnostics: "Copy Diagnostics",
+  diagnosticsCopied: "Copied",
 };
 
 /** 当前全局消息配置 */
