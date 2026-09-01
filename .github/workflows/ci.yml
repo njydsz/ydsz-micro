@@ -82,6 +82,12 @@ jobs:
         run: |
           python3 bash/gen-contract.py --check
 
+      - name: 错误码契约校验（后端错误码变更必须已同步）
+        env:
+          YDSZ_CLOUD_ROOT: ${{ github.workspace }}/ydsz-cloud
+        run: |
+          node bash/gen-error-codes.mjs --check
+
   security:
     name: 安全扫描（依赖 + 密钥）
     runs-on: ubuntu-latest

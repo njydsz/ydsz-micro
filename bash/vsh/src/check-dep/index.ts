@@ -78,6 +78,8 @@ const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', '.git', 'coverage', 
 /**
  * 解析某个直接依赖的真实许可证（读取其 package.json）。
  * 优先查包本地 node_modules，再回退到根 node_modules（pnpm 提升）。
+ * 返回 license；`unknown` 表示包已安装但未声明 license 字段，
+ * `missing` 表示包在 node_modules 中完全未找到（安装不完整）。
  */
 function resolveLicense(name: string, pkgDir: string, rootDir: string): string {
   const candidates = [
@@ -97,8 +99,10 @@ function resolveLicense(name: string, pkgDir: string, rootDir: string): string {
     } catch {
       /* 解析失败忽略，回退 unknown */
     }
+    // package.json 存在但无 license 字段：上游包元数据缺失（非安装问题）
+    return 'unknown';
   }
-  return 'unknown';
+  return 'missing';
 }
 
 /**
@@ -158,6 +162,15 @@ function checkPackageJson(
           package: name,
           version: v,
           license,
+          reason: '包已安装但未在 package.json 声明 license 字段（上游元数据缺失）',
+          file: packagePath,
+          severity: 'warn',
+        });
+      } else if (license === 'missing') {
+        violations.push({
+          package: name,
+          version: v,
+          license: 'unknown',
           reason: '无法解析许可证（node_modules 中未找到），请确认依赖已安装',
           file: packagePath,
           severity: 'warn',

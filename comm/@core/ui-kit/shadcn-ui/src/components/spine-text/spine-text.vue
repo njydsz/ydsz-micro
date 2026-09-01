@@ -29,19 +29,21 @@ const style = computed(() => {
 </template>
 <style>
 .YDSZ-spine-text {
-  background:
-    radial-gradient(circle at center, rgb(255 255 255 / 80%), #f000) -200% 50% /
-      200% 100% no-repeat,
-    #000;
+  background-color: #000;
+  background-image: radial-gradient(circle at center, rgb(255 255 255 / 80%), #f000);
+  background-position: -200% 50%;
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
 
   /* animation: shine 3s linear infinite; */
 }
 
 .dark .YDSZ-spine-text {
-  background:
-    radial-gradient(circle at center, rgb(24 24 26 / 80%), transparent) -200% 50% /
-      200% 100% no-repeat,
-    #f4f4f4;
+  background-color: #f4f4f4;
+  background-image: radial-gradient(circle at center, rgb(24 24 26 / 80%), transparent);
+  background-position: -200% 50%;
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
 }
 
 @keyframes shine {

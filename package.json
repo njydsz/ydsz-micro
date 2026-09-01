@@ -52,6 +52,8 @@
     "gen:app": "node ./bash/gen-app.mjs",
     "gen:contract": "python ./bash/gen-contract.py",
     "gen:contract:check": "python ./bash/gen-contract.py --check",
+    "gen:error-codes": "node ./bash/gen-error-codes.mjs",
+    "gen:error-codes:check": "node ./bash/gen-error-codes.mjs --check",
     "gen:nginx": "node ./bash/gen-nginx-conf.mjs",
     "gen:nginx:check": "node ./bash/gen-nginx-conf.mjs --check",
     "gen:registry": "node ./bash/gen-registry.mjs",

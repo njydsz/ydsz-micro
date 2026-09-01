@@ -7,4 +7,5 @@
  */
 export * from './request-client';
 export * from './cache-adapter';
+export * from './error-codes';
 export * from 'axios';

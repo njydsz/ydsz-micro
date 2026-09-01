@@ -26,16 +26,12 @@ pre-commit:
     prettier:
       glob: "*.{ts,tsx,vue,js,mjs,cjs,json,md,scss,css,html,yml,yaml}"
       run: pnpm exec prettier --check {staged_files}
-    # stylelint 暂未启用（依赖尚未链接完成，启用会导致每次提交报错）。
-    # 根因：stylelint 与 @ydsz/stylelint-config 此前都没有在根 package.json 声明，
-    #       仅作为传递依赖存在于 .pnpm store，pnpm 严格模式下根级无法解析（幻影依赖）。
-    #       现已在根 package.json 补声明二者。
-    # 阻塞：当前 pnpm install 在 @pact-foundation/pact 的传递依赖 underscore 上失败
-    #       （D:\.pnpm-store EPERM），依赖未链接完成。
-    # 恢复：pnpm install 成功后，取消下面三行注释即可启用。
-    # stylelint:
-    #   glob: "*.{vue,scss,css}"
-    #   run: pnpm exec stylelint {staged_files} --max-warnings=0
+    # stylelint 门禁（2026-09-01 P0-1 修复后启用）：
+    # 根因已消除——postcss-html / postcss-scss 已通过 catalog 声明并链接
+    # （@ydsz/stylelint-config + 根 package.json），stylelint 全量检查 exit=0。
+    stylelint:
+      glob: "*.{vue,scss,css}"
+      run: pnpm exec stylelint {staged_files} --max-warnings=0
 
 pre-push:
   parallel: true
@@ -55,6 +51,9 @@ pre-push:
     # 注意: --check 已修为纯只读（此前会改写 api/*.ts 并归档文件，污染工作区）
     gen-contract-check:
       run: pnpm gen:contract:check
+    # P0-3: 错误码漂移门禁 — 后端错误码注册表变更后未重新生成则阻断推送（2026-09-01）
+    gen-error-codes-check:
+      run: pnpm gen:error-codes:check
     # 临时禁用：私有 npm 仓库（npmmirror）不支持 audit 端点，属环境限制
     # audit:
     #   run: pnpm audit --audit-level=high
