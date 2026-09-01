@@ -28,6 +28,7 @@
     "@ydsz/types": "workspace:*",
     "element-plus": "^2.7.0",
     "vue": "^3.4.0",
+    "vue-i18n": "catalog:",
     "xlsx": "catalog:"
   },
   "devDependencies": {

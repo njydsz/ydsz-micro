@@ -1,5 +1,9 @@
 <!--
- * Switch Vue 组件
+ * 开关：转发 radix SwitchRoot 的 props 与 emits，内部固定渲染 SwitchThumb 作为滑块。
+ *
+ * 状态色由 data-state=checked / unchecked 驱动，而不是绑定 v-model 后手动切换类 ——
+ * radix 维护的才是唯一状态源，另存一份就会出现点击后颜色不同步的问题。
+ * 带 peer 类是刻意的：让同级相邻的 Label 能跟随禁用与选中态变化。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\switch\Switch.vue
  * @author ydsz-team

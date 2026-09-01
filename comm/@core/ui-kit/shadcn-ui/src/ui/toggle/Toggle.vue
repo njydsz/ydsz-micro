@@ -1,5 +1,9 @@
 <!--
- * Toggle Vue 组件
+ * 切换按钮：在 radix Toggle 之上套用 toggleVariants 的 variant / size 变体。
+ *
+ * size 与 variant 要从 props 中单独摘出再转发，
+ * 否则这两个非 DOM 属性会被透传到原生按钮上，最终出现在 HTML 里成为无效属性；
+ * 其余 props 原样转发给 radix，保留其开合语义与键盘行为。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle\Toggle.vue
  * @author ydsz-team

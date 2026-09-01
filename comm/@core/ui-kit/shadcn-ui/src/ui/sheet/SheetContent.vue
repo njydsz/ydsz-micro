@@ -1,5 +1,11 @@
 <!--
- * SheetContent Vue 组件
+ * 抽屉的内容区：负责挂载位置、遮罩、方位动画与 opened / closed / close 事件。
+ *
+ * appendTo 默认 body 而不是当前 DOM 位置，避免被父级的 overflow / transform 裁剪；
+ * 但挂到 body 后也会脱离父级上下文，因此需要在抽屉内使用 provide 的数据时要特别留意。
+ * zIndex 与 overlayBlur 以内联 style 下发，用于多层抽屉叠加时逐层抬高与加深背景虚化；
+ * opened / closed 只在内容区自身的动画结束时派发，避免子元素动画提前触发回调。
+ * 关闭 inheritAttrs 是为了让 attrs 落到真实的内容节点上，而不是多出来的根片段。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\SheetContent.vue
  * @author ydsz-team

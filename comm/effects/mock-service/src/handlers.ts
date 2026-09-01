@@ -13,7 +13,13 @@ import { faker } from '@faker-js/faker';
 import { http, HttpResponse, delay } from 'msw';
 import type { RequestHandler } from 'msw';
 import { createMockDataFactory } from './factory';
-import type { MockFactoryOptions, OpenAPISpec } from './types';
+import type {
+  HandlerGeneratorOptions,
+  MockFactoryOptions,
+  OpenAPIOperation,
+  OpenAPIPathItem,
+  OpenAPISpec,
+} from './types';
 
 /**
  * 处理器生成选项
@@ -53,7 +59,7 @@ export function generateMockHandlers(
 ): RequestHandler[] {
   const factory = createMockDataFactory(options);
   const handlers: RequestHandler[] = [];
-  const paths = (spec.paths || {}) as Record<string, Record<string, Record<string, unknown>>>;
+  const paths = (spec.paths || {}) as Record<string, OpenAPIPathItem>;
 
   for (const [pathTemplate, pathItem] of Object.entries(paths)) {
     for (const [method, operation] of Object.entries(pathItem)) {
@@ -79,12 +85,42 @@ export function generateMockHandlers(
 }
 
 /**
+ * 从 OpenAPI operation 中提取 schema（200/201 → content → application/json → schema）。
+ *
+ * @param operation - OpenAPI 操作对象
+ * @returns schema 对象，未找到时返回 undefined
+ */
+function extractResponseSchema(operation: OpenAPIOperation): Record<string, unknown> | undefined {
+  const responses = operation.responses;
+  if (!responses) return undefined;
+  const successResponse = (responses['200'] ?? responses['201']) as
+    | { content?: OpenAPIResponseContent }
+    | undefined;
+  const jsonContent = successResponse?.content?.['application/json'];
+  return jsonContent?.schema;
+}
+
+/**
+ * 从 OpenAPI operation 中提取请求体 schema。
+ *
+ * @param operation - OpenAPI 操作对象
+ * @returns schema 对象，未找到时返回 undefined
+ */
+function extractRequestSchema(operation: OpenAPIOperation): Record<string, unknown> | undefined {
+  const requestBody = operation.requestBody as
+    | { content?: OpenAPIResponseContent }
+    | undefined;
+  const jsonContent = requestBody?.content?.['application/json'];
+  return jsonContent?.schema;
+}
+
+/**
  * 为单个 OpenAPI 操作创建 MSW handler
  */
 function createHandlerForOperation(
   pathTemplate: string,
   method: string,
-  operation: Record<string, unknown>,
+  operation: OpenAPIOperation,
   factory: ReturnType<typeof createMockDataFactory>,
   options: HandlerGeneratorOptions,
 ): RequestHandler | null {
@@ -93,13 +129,10 @@ function createHandlerForOperation(
   const mswPath = pathTemplate.replace(/\{([^}]+)\}/g, ':$1');
 
   // 解析响应 schema
-  const responses = (operation.responses || {}) as Record<string, Record<string, unknown>>;
-  const successResponse = responses['200'] || responses['201'];
-  const responseSchema = successResponse?.content?.['application/json']?.schema as Record<string, unknown>;
+  const responseSchema = extractResponseSchema(operation);
 
   // 解析请求体 schema（用于 POST/PUT）
-  const requestBody = operation.requestBody as Record<string, unknown> | undefined;
-  const requestSchema = requestBody?.content?.['application/json']?.schema as Record<string, unknown> | undefined;
+  const requestSchema = extractRequestSchema(operation);
 
   // 构建 handler
   const httpMethod = http[method as keyof typeof http] as typeof http.get;

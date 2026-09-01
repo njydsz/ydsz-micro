@@ -1,5 +1,8 @@
 <!--
- * SheetDescription Vue 组件
+ * 抽屉的说明文字：会被 radix 注册为 aria-describedby 的目标。
+ *
+ * 抽屉常用于承载表单或详情，说明文字是读屏用户进入后的第一段有效信息，
+ * 因此即使视觉上可省略也建议提供。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\SheetDescription.vue
  * @author ydsz-team

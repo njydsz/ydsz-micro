@@ -14,6 +14,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@YDSZ-core/shared": "workspace:*",
     "@vueuse/core": "catalog:",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",
@@ -34,6 +35,7 @@
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",
     "dayjs": "catalog:",
+    "echarts": "catalog:",
     "element-plus": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",

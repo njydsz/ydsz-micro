@@ -1,5 +1,9 @@
 <!--
- * Tooltip Vue 组件
+ * 文字提示的容器：转发 radix TooltipRoot 的 props 与 emits。
+ *
+ * 延迟与方位分别在 TooltipProvider 与 TooltipContent 上配置，本组件只承载开合状态；
+ * 它必须位于 TooltipProvider 之内，否则不会显示 ——
+ * 这是接入 radix Tooltip 时最常见的疏漏。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\Tooltip.vue
  * @author ydsz-team

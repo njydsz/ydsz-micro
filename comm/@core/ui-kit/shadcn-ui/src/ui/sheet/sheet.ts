@@ -1,5 +1,10 @@
 /**
- * sheet 模块
+ * 侧边面板的 cva 样式变体：按 side（滑出方位）产出定位与进出场动画类名，默认从右侧滑出。
+ *
+ * 四个方位各自绑定成对的 slide-in / slide-out 类：
+ * 少了 out 方向，关闭时面板会直接消失，看起来像是被卸载而不是滑走。
+ * 左右两侧宽度取 3/4、上下两侧铺满横向，是移动端抽屉的常见配比；
+ * 关闭动画比打开动画快（300ms vs 500ms），因为用户对「让它消失」的等待更不耐烦。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\sheet.ts
  * @author ydsz-team

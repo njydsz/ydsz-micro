@@ -1,5 +1,11 @@
 <!--
- * Textarea Vue 组件
+ * 多行输入框：通过 useVModel 建立双向绑定，默认最小高度 60px。
+ *
+ * passive: true 让组件不主动把 props.modelValue 同步回父级，
+ * 只在用户真正输入时派发 update:modelValue ——
+ * 否则配合表单库使用时会出现「父级回写 → 子级再派发」的循环。
+ * 高度随内容增长需调用方自行处理，这里只保证最小高度，
+ * 因为自动增高在受控受值来回同步时极易产生抖动。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\textarea\Textarea.vue
  * @author ydsz-team

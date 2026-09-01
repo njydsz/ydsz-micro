@@ -1,5 +1,10 @@
 /**
- * types 模块
+ * 树形组件的类型契约：节点结构相关的 props（TreeProps）与扁平化后的行数据结构。
+ *
+ * 字段名全部以 *Field 形式开放配置，类型上不固定任何业务字段，
+ * 这是组件能直接吃后端原始数据的前提；
+ * 选中行为由 multiple / checkStrictly / autoCheckParent 三者组合决定，
+ * 组合含义见各字段上的说明，不要凭字面猜测。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\tree\types.ts
  * @author ydsz-team

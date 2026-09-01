@@ -14,6 +14,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@YDSZ-core/shared": "workspace:*",
     "@vueuse/core": "catalog:",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",

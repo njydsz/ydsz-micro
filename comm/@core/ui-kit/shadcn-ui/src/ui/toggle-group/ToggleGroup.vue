@@ -1,5 +1,9 @@
 <!--
- * ToggleGroup Vue 组件
+ * 切换按钮组的容器：把 variant / size 通过 provide 下发给组内所有项。
+ *
+ * 走 provide 而不是逐个 prop 传递，是为了让调用方只在组上写一次尺寸与外观，
+ * 组内项自动继承；个别项仍可用自己的 props 覆盖。
+ * 单选与多选由 radix 的 type 决定，本组件不自行管理选中集合。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle-group\ToggleGroup.vue
  * @author ydsz-team

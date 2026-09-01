@@ -1,5 +1,9 @@
 <!--
- * Separator Vue 组件
+ * 分隔线：按 orientation 切换横竖两种尺寸，可选在中间带一段文字。
+ *
+ * 带文字时以相对定位叠加一个居中块并留出左右内边距，
+ * 而不是用 flex 三段式布局 —— 后者在竖排方向无法复用，会多出一倍的分支样式。
+ * shrink-0 是必需的：放进 flex 容器时分隔线会被压缩成 0 而不可见。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\separator\Separator.vue
  * @author ydsz-team

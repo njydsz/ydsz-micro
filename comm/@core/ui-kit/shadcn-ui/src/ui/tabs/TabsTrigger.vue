@@ -1,5 +1,9 @@
 <!--
- * TabsTrigger Vue 组件
+ * 标签页的切换按钮：激活态由 radix 的 data-state=active 驱动。
+ *
+ * whitespace-nowrap 是必要的 —— 标签文字换行会把标签栏撑高，
+ * 切换时出现整条标签栏跳动；禁用态用 disabled 属性选择器，
+ * 因为 radix 会把它透传到原生按钮上。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\tabs\TabsTrigger.vue
  * @author ydsz-team

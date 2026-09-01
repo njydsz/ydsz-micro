@@ -34,6 +34,7 @@
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",
     "dayjs": "catalog:",
+    "echarts": "catalog:",
     "element-plus": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",

@@ -1,5 +1,10 @@
 /**
- * toggle 模块
+ * 切换按钮的 cva 样式变体：提供 variant（default / outline）与 size（sm / default / lg）两个维度。
+ *
+ * 按下态用 data-[state=on] 而不是 class 绑定：
+ * radix 在 Toggle 上写的是 data 属性，用伪类选择器会完全不生效。
+ * outline 变体补了边框与阴影，用于在工具栏中与常规按钮区分；
+ * 尺寸只改高度与横向内边距，保持与 Button 的视觉节奏一致。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle\toggle.ts
  * @author ydsz-team

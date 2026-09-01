@@ -16,6 +16,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "catalog:",
     "@vueuse/core": "catalog:",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",

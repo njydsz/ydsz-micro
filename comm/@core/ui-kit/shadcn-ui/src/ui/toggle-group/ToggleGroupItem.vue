@@ -1,5 +1,9 @@
 <!--
- * ToggleGroupItem Vue 组件
+ * 切换按钮组中的一项：从 toggleGroup 上下文取 variant / size，自身 props 优先。
+ *
+ * 变体取值先从 inject 的上下文中取、再与本地 props 合并，
+ * 这样既支持整组统一样式，也允许单独强调某一项；
+ * 注入缺失时降级为 undefined，由 cva 的 defaultVariants 兜底，不会报错。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle-group\ToggleGroupItem.vue
  * @author ydsz-team
