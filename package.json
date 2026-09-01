@@ -101,6 +101,8 @@
     "lefthook": "catalog:",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
+    "postcss-html": "catalog:",
+    "postcss-scss": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
     "rimraf": "catalog:",

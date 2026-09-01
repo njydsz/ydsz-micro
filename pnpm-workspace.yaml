@@ -108,8 +108,10 @@ catalog:
   pkg-types: ^2.2.0
   postcss: ^8.5.6
   postcss-antd-fixes: ^0.2.0
+  postcss-html: ^1.0.0
   postcss-import: ^16.1.1
   postcss-preset-env: ^10.2.4
+  postcss-scss: ^4.0.9
   qrcode: ^1.5.4
   qs: ^6.14.0
   radix-vue: ^1.9.17

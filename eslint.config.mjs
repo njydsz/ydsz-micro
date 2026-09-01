@@ -62,4 +62,40 @@ config.unshift({
   },
 });
 
+// chrome/ DevTools 扩展（MV3）运行于扩展宿主与页面环境，与 bash/ 同理：
+// 显式枚举 chrome.* API 与浏览器全局量而非引入 globals 依赖，契合「最小化外部依赖」原则。
+// （v4.4.1 修复：此前未注入导致 chrome/ 下 59 处 no-undef 误报）
+const chromeGlobals = {
+  ...nodeGlobals,
+  // 浏览器 / 页面全局量
+  CustomEvent: 'readonly',
+  DOMParser: 'readonly',
+  document: 'readonly',
+  Element: 'readonly',
+  Event: 'readonly',
+  EventTarget: 'readonly',
+  location: 'readonly',
+  MessageChannel: 'readonly',
+  MessagePort: 'readonly',
+  MutationObserver: 'readonly',
+  navigator: 'readonly',
+  Node: 'readonly',
+  requestAnimationFrame: 'readonly',
+  cancelAnimationFrame: 'readonly',
+  self: 'writable',
+  sessionStorage: 'readonly',
+  localStorage: 'readonly',
+  window: 'writable',
+  XMLHttpRequest: 'readonly',
+  // Chrome 扩展（MV3）命名空间与 DevTools API
+  chrome: 'writable',
+};
+
+config.unshift({
+  files: ['chrome/**/*.js'],
+  languageOptions: {
+    globals: chromeGlobals,
+  },
+});
+
 export default config;

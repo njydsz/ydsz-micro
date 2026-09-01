@@ -42,8 +42,8 @@ pre-push:
   commands:
     type-check:
       run: pnpm type-check
-    test:
-      run: pnpm test
+    # 测试代码已按云顶编码规范 15.10 全量移除（提交 dc5472f4a），
+    # `pnpm test` 脚本已不存在，此处引用会导致 pre-push 整组门禁失效（2026-09-01 P0-2 修复）。
     vsh-check-dep:
       run: node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-dep
     vsh-check-arch:
