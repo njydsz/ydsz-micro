@@ -33,6 +33,8 @@ import {
 } from '@YDSZ/shared-auth/sse';
 import { useTokenStore } from '@ydsz/stores';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import {
   useNotificationStore,
 } from './notification-store';
@@ -41,6 +43,8 @@ import {
   NotificationType,
   type SseEventType,
 } from './notification-types';
+
+const logger = createLogger('sse-notification-bridge');
 
 /** SSE 端点（与 v1 auth.events 复用同一连接） */
 const SSE_NOTIFICATION_ENDPOINT = '/api/v1/auth/events';
@@ -191,8 +195,7 @@ export function setupSseNotificationBridge(): () => void {
       } catch (err) {
         if (!isRunning) return;
         // 记录错误（非阻塞，下一循环重试）
-        // eslint-disable-next-line no-console -- SSE 网络异常，需保留诊断日志
-        console.warn('[SSE-Notification] connection error:', err);
+        logger.warn('[SSE-Notification] connection error:', err);
       }
 
       // 退避重连

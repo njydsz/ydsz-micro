@@ -20,22 +20,25 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { h } from 'vue';
 import { ElButton } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useI18n } from 'vue-i18n';
 import { listPending } from '#/api/humanApproval';
 import ApprovalForm from './approval-form.vue';
 
 defineOptions({ name: 'ApprovalManagement' });
 
+const { t } = useI18n();
+
 const gridOptions: VxeTableGridOptions<Record<string, unknown>> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'id', title: '审批ID', width: 200, showOverflow: true },
     { field: 'title', title: '标题', width: 180, showOverflow: true },
     { field: 'agentId', title: 'Agent ID', width: 150, showOverflow: true },
     { field: 'approver', title: '发起人', width: 120 },
-    { field: 'status', title: '状态', width: 100 },
+    { field: 'status', title: t('common.status'), width: 100 },
     { field: 'createTime', title: '创建时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 140, fixed: 'right',
+      field: 'action', title: t('common.actions'), width: 140, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
         h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleOpen(row, 'approve') }, () => '通过'),
         h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleOpen(row, 'reject') }, () => '驳回'),

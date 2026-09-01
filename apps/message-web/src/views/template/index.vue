@@ -32,6 +32,7 @@ import {
   ElTag,
 } from 'element-plus';
 import { h, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { audit, deleteApi, page } from '#/api/template';
@@ -41,6 +42,8 @@ import type { MsgTemplateVO, MsgTemplateVersion } from '#/api/models';
 import TemplateForm from './template-form.vue';
 
 defineOptions({ name: 'TemplateManagement' });
+
+const { t } = useI18n();
 
 /** 审核状态列 Tag 类型映射（未知值按 info 展示） */
 function getAuditStatusType(auditStatus?: string): 'success' | 'danger' | 'warning' | 'info' {
@@ -53,14 +56,14 @@ function getAuditStatusType(auditStatus?: string): 'success' | 'danger' | 'warni
 
 const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'templateCode', title: '模板编码', width: 160 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'templateCode', title: t('templateCode'), width: 160 },
     { field: 'channel', title: '通道', width: 100 },
-    { field: 'category', title: '分类', width: 100 },
+    { field: 'category', title: t('category'), width: 100 },
     { field: 'sceneCode', title: '场景编码', width: 120 },
     { field: 'subject', title: '主题', width: 180 },
     { field: 'provider', title: '供应商', width: 110 },
-    { field: 'version', title: '版本', width: 80 },
+    { field: 'version', title: t('version'), width: 80 },
     {
       field: 'auditStatus',
       title: '审核状态',
@@ -72,7 +75,7 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
     },
     {
       field: 'status',
-      title: '状态',
+      title: t('common.status'),
       width: 90,
       slots: {
         default: ({ row }) =>
@@ -83,10 +86,10 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
           ),
       },
     },
-    { field: 'createdAt', title: '创建时间', width: 170 },
+    { field: 'createdAt', title: t('common.createTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 200,
       fixed: 'right',
       slots: {
@@ -95,12 +98,12 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('common.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleVersion(row) },
-              () => '版本',
+              () => t('version'),
             ),
             h(
               ElButton,
@@ -120,7 +123,7 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('common.delete'),
             ),
           ]),
       },
@@ -142,8 +145,8 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
     items: [
       {
         field: 'templateCode',
-        title: '模板编码',
-        itemRender: { name: 'Input', props: { placeholder: '模板编码' } },
+        title: t('templateCode'),
+        itemRender: { name: 'Input', props: { placeholder: t('templateCode') } },
       },
       {
         field: 'channel',
@@ -190,11 +193,11 @@ async function handleAudit(row: MsgTemplateVO) {
 async function handleDelete(row: MsgTemplateVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除模板「${row.templateCode}」吗？`, '删除确认', {
+      await ElMessageBox.confirm(`确定删除模板「${row.templateCode}」吗？`, t('deleteConfirmTitle'), {
       type: 'warning',
     });
     await deleteApi({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -294,7 +297,7 @@ async function executeTestSend(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="模板管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
       </template>
     </Grid>
     <TemplateFormModal @success="gridApi.query()" />
@@ -344,7 +347,7 @@ async function executeTestSend(): Promise<void> {
         </ElFormItem>
       </ElForm>
       <template #footer>
-        <ElButton @click="testSendVisible = false">取消</ElButton>
+        <ElButton @click="testSendVisible = false">{{ t('common.cancel') }}</ElButton>
         <ElButton type="primary" @click="executeTestSend">发送</ElButton>
       </template>
     </ElDialog>

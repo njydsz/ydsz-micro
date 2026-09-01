@@ -27,10 +27,13 @@ import {
   ElSwitch,
 } from 'element-plus';
 import { computed, reactive, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { upsert } from '#/api/subscription';
 
 defineOptions({ name: 'SubscriptionForm' });
+
+const { t } = useI18n();
 
 interface Props {
   record?: Record<string, unknown> | null;
@@ -163,8 +166,8 @@ watch(
           v-model="formData.status"
           active-value="ACTIVE"
           inactive-value="UNSUBSCRIBED"
-          active-text="启用"
-          inactive-text="停用"
+          :active-text="t('common.enabled')"
+          :inactive-text="t('common.disabled')"
         />
       </ElFormItem>
       <ElFormItem label="备注">
@@ -173,7 +176,7 @@ watch(
     </ElForm>
 
     <template #footer>
-      <ElButton @click="modalApi.close()">取消</ElButton>
+      <ElButton @click="modalApi.close()">{{ t('common.cancel') }}</ElButton>
       <ElButton type="primary" @click="handleSubmit">保存</ElButton>
     </template>
   </Modal>

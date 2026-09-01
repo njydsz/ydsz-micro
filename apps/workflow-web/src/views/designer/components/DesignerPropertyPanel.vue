@@ -16,6 +16,7 @@
  * @since 1.0.0
  */
 import { computed, reactive, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import {
   ElForm,
   ElFormItem,
@@ -29,6 +30,8 @@ import {
 } from 'element-plus';
 import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
+
+const { t } = useI18n();
 
 interface Props {
   /** 当前选中的节点 ID */
@@ -105,134 +108,134 @@ function handleFormChange() {
 <template>
   <div class="designer-property-panel">
     <div v-if="!hasSelection" class="empty-tip">
-      <span>请选择一个节点进行配置</span>
+      <span>{{ t('wf.designerPanel.selectNodeHint') }}</span>
     </div>
     <ElTabs v-else class="property-tabs" type="border-card">
-      <ElTabPane label="基础">
+      <ElTabPane :label="t('wf.basicInfo')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="节点编码">
+          <ElFormItem :label="t('wf.designerPanel.nodeCode')">
             <ElInput
               v-model="form.nodeCode"
-              placeholder="节点唯一编码"
+              :placeholder="t('wf.designerPanel.nodeCodePlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
-          <ElFormItem label="节点名称">
+          <ElFormItem :label="t('wf.designerPanel.nodeName')">
             <ElInput
               v-model="form.nodeName"
-              placeholder="节点显示名称"
+              :placeholder="t('wf.designerPanel.nodeNamePlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
         </ElForm>
       </ElTabPane>
-      <ElTabPane label="办理人">
+      <ElTabPane :label="t('wf.designerPanel.assignee')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="办理人类型">
+          <ElFormItem :label="t('wf.designerPanel.assigneeType')">
             <ElSelect
               v-model="form.assigneeType"
-              placeholder="选择办理人类型"
+              :placeholder="t('wf.designerPanel.assigneeTypePlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption label="指定人员" value="USER" />
-              <ElOption label="指定角色" value="ROLE" />
-              <ElOption label="发起人" value="INITIATOR" />
-              <ElOption label="发起人上级" value="INITIATOR_LEADER" />
-              <ElOption label="表达式" value="EXPR" />
+              <ElOption :label="t('wf.designerPanel.user')" value="USER" />
+              <ElOption :label="t('wf.designerPanel.role')" value="ROLE" />
+              <ElOption :label="t('wf.designerPanel.initiator')" value="INITIATOR" />
+              <ElOption :label="t('wf.designerPanel.initiatorLeader')" value="INITIATOR_LEADER" />
+              <ElOption :label="t('wf.designerPanel.expr')" value="EXPR" />
             </ElSelect>
           </ElFormItem>
-          <ElFormItem label="办理人值">
+          <ElFormItem :label="t('wf.designerPanel.assigneeValue')">
             <ElInput
               v-model="form.assigneeValue"
-              placeholder="人员 ID / 角色编码 / 表达式"
+              :placeholder="t('wf.designerPanel.assigneeValuePlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
         </ElForm>
       </ElTabPane>
-      <ElTabPane label="表单">
+      <ElTabPane :label="t('wf.formConfig')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="表单配置">
+          <ElFormItem :label="t('wf.designerPanel.formConfig')">
             <ElInput
               v-model="form.formConfig"
               type="textarea"
               :rows="6"
-              placeholder="表单 JSON 配置"
+              :placeholder="t('wf.designerPanel.formConfigPlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
         </ElForm>
       </ElTabPane>
-      <ElTabPane label="SLA">
+      <ElTabPane :label="t('wf.slaConfig')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="SLA 配置">
+          <ElFormItem :label="t('wf.designerPanel.slaConfig')">
             <ElInput
               v-model="form.slaConfig"
               type="textarea"
               :rows="6"
-              placeholder="SLA JSON 配置"
+              :placeholder="t('wf.designerPanel.slaConfigPlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
         </ElForm>
       </ElTabPane>
-      <ElTabPane label="监听器">
+      <ElTabPane :label="t('wf.listenerConfig')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="监听器">
+          <ElFormItem :label="t('wf.designerPanel.listener')">
             <ElInput
               v-model="form.listenerConfig"
               type="textarea"
               :rows="6"
-              placeholder="监听器 JSON 配置"
+              :placeholder="t('wf.designerPanel.listenerPlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
         </ElForm>
       </ElTabPane>
       <!-- AI Agent 配置（仅 AI Agent 节点显示） -->
-      <ElTabPane v-if="isAiAgentNode" label="AI Agent">
+      <ElTabPane v-if="isAiAgentNode" :label="t('wf.designerPanel.aiAgent')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="Agent ID">
+          <ElFormItem :label="t('wf.designerPanel.agentId')">
             <ElInput
               v-model="form.agentId"
-              placeholder="由 ydsz-agent 模块创建的 Agent ID"
+              :placeholder="t('wf.designerPanel.agentIdPlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
-          <ElFormItem label="提示词模板">
+          <ElFormItem :label="t('wf.designerPanel.promptTemplate')">
             <ElInput
               v-model="form.promptTemplate"
               type="textarea"
               :rows="4"
-              placeholder="支持 ${variable} 占位符，如：请判断是否通过审批，申请人=${applicant}"
+              :placeholder="t('wf.designerPanel.promptTemplatePlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
-          <ElFormItem label="输出 Schema">
+          <ElFormItem :label="t('wf.designerPanel.outputSchema')">
             <ElInput
               v-model="form.outputSchema"
               type="textarea"
               :rows="3"
-              placeholder='{"type":"object","properties":{"approve":{"type":"boolean"},"reason":{"type":"string"}}}'
+              :placeholder="t('wf.designerPanel.outputSchemaPlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
-          <ElFormItem label="兜底策略">
+          <ElFormItem :label="t('wf.designerPanel.fallback')">
             <ElSelect
               v-model="form.fallbackStrategy"
-              placeholder="Agent 超时/异常时的处理方式"
+              :placeholder="t('wf.designerPanel.fallbackPlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption label="自动通过" value="AUTO_PASS" />
-              <ElOption label="自动驳回" value="AUTO_REJECT" />
-              <ElOption label="转交管理员" value="TRANSFER_ADMIN" />
-              <ElOption label="重试" value="RETRY" />
+              <ElOption :label="t('wf.designerPanel.autoPass')" value="AUTO_PASS" />
+              <ElOption :label="t('wf.designerPanel.autoReject')" value="AUTO_REJECT" />
+              <ElOption :label="t('wf.designerPanel.transferAdmin')" value="TRANSFER_ADMIN" />
+              <ElOption :label="t('wf.designerPanel.retry')" value="RETRY" />
             </ElSelect>
           </ElFormItem>
-          <ElFormItem label="最大重试">
+          <ElFormItem :label="t('wf.designerPanel.retryMax')">
             <ElInputNumber v-model="form.retryMax" :min="0" :max="5" @change="handleFormChange" />
           </ElFormItem>
-          <ElFormItem label="超时(ms)">
+          <ElFormItem :label="t('wf.designerPanel.timeoutMs')">
             <ElInputNumber
               v-model="form.timeoutMs"
               :min="5000"
@@ -244,62 +247,62 @@ function handleFormChange() {
         </ElForm>
       </ElTabPane>
       <!-- 驳回策略配置（审批节点和 AI Agent 节点显示） -->
-      <ElTabPane v-if="isApproveNode" label="驳回策略">
+      <ElTabPane v-if="isApproveNode" :label="t('wf.designerPanel.rejectStrategy')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="默认策略">
+          <ElFormItem :label="t('wf.designerPanel.defaultStrategy')">
             <ElSelect
               v-model="form.rejectStrategy"
-              placeholder="选择默认驳回策略"
+              :placeholder="t('wf.designerPanel.defaultStrategyPlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption label="回上一节点" value="PREVIOUS" />
-              <ElOption label="回发起人" value="INITIATOR" />
-              <ElOption label="回任意节点" value="ANY_NODE" />
-              <ElOption label="回指定节点" value="CUSTOM" />
+              <ElOption :label="t('wf.designerPanel.prevNode')" value="PREVIOUS" />
+              <ElOption :label="t('wf.designerPanel.returnInitiator')" value="INITIATOR" />
+              <ElOption :label="t('wf.designerPanel.anyNode')" value="ANY_NODE" />
+              <ElOption :label="t('wf.designerPanel.customNode')" value="CUSTOM" />
             </ElSelect>
           </ElFormItem>
-          <ElFormItem v-if="form.rejectStrategy === 'CUSTOM'" label="目标节点">
+          <ElFormItem v-if="form.rejectStrategy === 'CUSTOM'" :label="t('wf.designerPanel.customTarget')">
             <ElInput
               v-model="form.customTarget"
-              placeholder="目标节点编码"
+              :placeholder="t('wf.designerPanel.customTargetPlaceholder')"
               @change="handleFormChange"
             />
           </ElFormItem>
-          <ElFormItem label="重执行模式">
+          <ElFormItem :label="t('wf.designerPanel.reExecuteMode')">
             <ElSelect
               v-model="form.reExecuteMode"
-              placeholder="驳回后重执行方式"
+              :placeholder="t('wf.designerPanel.reExecuteModePlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption label="继续（跳过已执行自动节点）" value="CONTINUE" />
-              <ElOption label="返回（重新执行全部节点）" value="RETURN" />
+              <ElOption :label="t('wf.designerPanel.continueSkipAuto')" value="CONTINUE" />
+              <ElOption :label="t('wf.designerPanel.returnRedoAll')" value="RETURN" />
             </ElSelect>
           </ElFormItem>
         </ElForm>
       </ElTabPane>
       <!-- 催办配置（审批节点和 AI Agent 节点显示） -->
-      <ElTabPane v-if="isApproveNode" label="催办">
+      <ElTabPane v-if="isApproveNode" :label="t('wf.designerPanel.urge')">
         <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem label="启用催办">
+          <ElFormItem :label="t('wf.designerPanel.urgeEnabled')">
             <ElSwitch v-model="form.urgeEnabled" @change="handleFormChange" />
           </ElFormItem>
-          <ElFormItem label="催办通道">
+          <ElFormItem :label="t('wf.designerPanel.urgeChannel')">
             <ElSelect
               v-model="form.urgeChannels"
               multiple
-              placeholder="选择催办通知通道"
+              :placeholder="t('wf.designerPanel.urgeChannelPlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption label="站内信" value="INAPP" />
-              <ElOption label="邮件" value="EMAIL" />
-              <ElOption label="Webhook" value="WEBHOOK" />
-              <ElOption label="短信" value="SMS" />
-              <ElOption label="企业微信" value="WECOM" />
-              <ElOption label="钉钉" value="DINGTALK" />
-              <ElOption label="飞书" value="FEISHU" />
+              <ElOption :label="t('wf.designerPanel.inapp')" value="INAPP" />
+              <ElOption :label="t('wf.designerPanel.email')" value="EMAIL" />
+              <ElOption :label="t('wf.designerPanel.webhook')" value="WEBHOOK" />
+              <ElOption :label="t('wf.designerPanel.sms')" value="SMS" />
+              <ElOption :label="t('wf.designerPanel.wecom')" value="WECOM" />
+              <ElOption :label="t('wf.designerPanel.dingtalk')" value="DINGTALK" />
+              <ElOption :label="t('wf.designerPanel.feishu')" value="FEISHU" />
             </ElSelect>
           </ElFormItem>
-          <ElFormItem label="间隔(分钟)">
+          <ElFormItem :label="t('wf.designerPanel.urgeInterval')">
             <ElInputNumber
               v-model="form.urgeIntervalMinutes"
               :min="5"
@@ -308,7 +311,7 @@ function handleFormChange() {
               @change="handleFormChange"
             />
           </ElFormItem>
-          <ElFormItem label="最大次数">
+          <ElFormItem :label="t('wf.designerPanel.urgeMaxCount')">
             <ElInputNumber
               v-model="form.urgeMaxCount"
               :min="1"

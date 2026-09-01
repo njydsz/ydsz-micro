@@ -17,10 +17,12 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { ingest } from '#/api/rag';
 import type { DocumentIngestDTO } from '#/api/models';
 /** 导入成功后触发，通知父级刷新统计 */
 const emit = defineEmits<{ success: [] }>();
+const { t } = useI18n();
 const formRef = ref();
 const formData = reactive<DocumentIngestDTO>({
   documentId: '',

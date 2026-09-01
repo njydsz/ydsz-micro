@@ -7,8 +7,14 @@
   "typeName": "类型名称",
   "itemCode": "项编码",
   "itemValue": "项值",
-  "variableName": "变量名",
-  "variableValue": "变量值",
+  "variable": {
+    "title": "系统变量",
+    "key": "变量键",
+    "value": "变量值",
+    "valueType": "值类型",
+    "description": "描述",
+    "deleteConfirm": "确定删除「{key}」吗？"
+  },
   "appKey": "应用Key",
   "appName": "应用名称",
   "appType": "应用类型",

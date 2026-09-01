@@ -20,6 +20,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/config';
@@ -28,6 +29,8 @@ import type { ConfigPageQuery, ConfigVO, PageQuery } from '#/api/models';
 import ConfigForm from './config-form.vue';
 
 defineOptions({ name: 'ConfigManagement' });
+
+const { t } = useI18n();
 
 /** 行类型：真实契约 ConfigVO（字段以 models.ts 为准） */
 type ConfigRow = ConfigVO;
@@ -43,14 +46,14 @@ function isEnabled(status?: string): boolean {
 const gridOptions: VxeTableGridOptions<ConfigRow> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
-    { field: 'configKey', title: '配置键', width: 180 },
-    { field: 'configValue', title: '配置值', width: 200 },
-    { field: 'configGroup', title: '配置分组', width: 130 },
+    { field: 'configKey', title: t('configKey'), width: 180 },
+    { field: 'configValue', title: t('configValue'), width: 200 },
+    { field: 'configGroup', title: t('configGroup'), width: 130 },
     { field: 'valueType', title: '值类型', width: 100 },
     { field: 'isPublic', title: '公开', width: 70 },
     {
       field: 'status',
-      title: '状态',
+      title: t('status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -63,18 +66,18 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
         },
       },
     },
-    { field: 'description', title: '描述', width: 180 },
+    { field: 'description', title: t('description'), width: 180 },
     {
       field: 'action',
-      title: '操作',
+      title: t('action'),
       width: 140,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const config = row as ConfigRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(config) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(config) }, () => '删除'),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(config) }, () => t('edit')),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(config) }, () => t('delete')),
           ]);
         },
       },
@@ -99,8 +102,8 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'configKey', title: '配置键', itemRender: { name: 'Input', props: { placeholder: '配置键' } } },
-      { field: 'configGroup', title: '配置分组', itemRender: { name: 'Input', props: { placeholder: '配置分组' } } },
+      { field: 'configKey', title: t('configKey'), itemRender: { name: 'Input', props: { placeholder: t('configKey') } } },
+      { field: 'configGroup', title: t('configGroup'), itemRender: { name: 'Input', props: { placeholder: t('configGroup') } } },
     ],
   },
 };
@@ -122,7 +125,7 @@ async function handleDelete(row: ConfigRow) {
   try {
     await ElMessageBox.confirm(`确定删除「${row.configKey ?? ''}」吗？`, '删除确认', { type: 'warning' });
     if (row.id) await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('operationSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -134,7 +137,7 @@ async function handleDelete(row: ConfigRow) {
   <Page auto-content-height>
     <Grid table-title="系统配置">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>
     </Grid>
     <ConfigFormModal @success="gridApi.query()" />

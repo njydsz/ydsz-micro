@@ -19,9 +19,12 @@
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTag } from 'element-plus';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { getByBiz, getByMsgId, getByTraceId } from '#/api/messageTrace';
 
 defineOptions({ name: 'MessageTrace' });
+
+const { t } = useI18n();
 
 /** 查询类型 */
 const queryType = ref<'msgId' | 'traceId' | 'biz'>('msgId');
@@ -146,7 +149,7 @@ function getStepConfig(step: string): { label: string; type: string; description
             clearable
             @keyup.enter="handleQuery"
           />
-          <ElButton type="primary" :loading="loading" @click="handleQuery">查询</ElButton>
+          <ElButton type="primary" :loading="loading" @click="handleQuery">{{ t('common.search') }}</ElButton>
         </div>
       </div>
 

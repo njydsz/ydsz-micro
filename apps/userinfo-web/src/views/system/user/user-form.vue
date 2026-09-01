@@ -18,6 +18,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { useI18n } from 'vue-i18n';
 
 import {
   ElForm,
@@ -41,6 +42,8 @@ import type {
   UserAccountDTO,
   UserAccountVO,
 } from '#/api/models';
+
+const { t } = useI18n();
 
 const emit = defineEmits<{ success: [] }>();
 
@@ -83,9 +86,9 @@ const formData = reactive<UserFormState>({
 });
 
 const rules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-  realName: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
+  username: [{ required: true, message: t('user.usernamePlaceholder'), trigger: 'blur' }],
+  password: [{ required: true, message: t('user.passwordPlaceholder'), trigger: 'blur' }],
+  realName: [{ required: true, message: t('user.realNamePlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -156,10 +159,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        ElMessage.success('更新成功');
+        ElMessage.success(t('user.updateSuccess'));
       } else {
         await create({ ...payload, password: formData.password });
-        ElMessage.success('创建成功');
+        ElMessage.success(t('user.createSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -169,7 +172,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑用户' : '新增用户'));
+const title = computed(() => (isEdit.value ? t('user.editUser') : t('user.createUser')));
 </script>
 
 <template>
@@ -181,34 +184,34 @@ const title = computed(() => (isEdit.value ? '编辑用户' : '新增用户'));
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="用户名" prop="username">
+      <ElFormItem :label="t('user.username')" prop="username">
         <ElInput
           v-model="formData.username"
-          placeholder="请输入用户名"
+          :placeholder="t('user.usernamePlaceholder')"
           :disabled="isEdit"
         />
       </ElFormItem>
-      <ElFormItem v-if="!isEdit" label="密码" prop="password">
+      <ElFormItem v-if="!isEdit" :label="t('user.password')" prop="password">
         <ElInput
           v-model="formData.password"
           type="password"
-          placeholder="请输入密码"
+          :placeholder="t('user.passwordPlaceholder')"
           show-password
         />
       </ElFormItem>
-      <ElFormItem label="真实姓名" prop="realName">
-        <ElInput v-model="formData.realName" placeholder="请输入真实姓名" />
+      <ElFormItem :label="t('user.realName')" prop="realName">
+        <ElInput v-model="formData.realName" :placeholder="t('user.realNamePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="手机号">
-        <ElInput v-model="formData.phone" placeholder="请输入手机号" />
+      <ElFormItem :label="t('user.phone')">
+        <ElInput v-model="formData.phone" :placeholder="t('user.phonePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="邮箱">
-        <ElInput v-model="formData.email" placeholder="请输入邮箱" />
+      <ElFormItem :label="t('user.email')">
+        <ElInput v-model="formData.email" :placeholder="t('user.emailPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="公司">
+      <ElFormItem :label="t('user.company')">
         <ElSelect
           v-model="formData.companyId"
-          placeholder="请选择公司"
+          :placeholder="t('user.companyPlaceholder')"
           clearable
           class="w-full"
         >
@@ -220,7 +223,7 @@ const title = computed(() => (isEdit.value ? '编辑用户' : '新增用户'));
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem label="部门">
+      <ElFormItem :label="t('user.dept')">
         <ElTreeSelect
           v-model="formData.deptId"
           :data="deptTreeData"
@@ -228,14 +231,14 @@ const title = computed(() => (isEdit.value ? '编辑用户' : '新增用户'));
           node-key="id"
           check-strictly
           clearable
-          placeholder="请选择部门"
+          :placeholder="t('user.deptPlaceholder')"
           class="w-full"
         />
       </ElFormItem>
-      <ElFormItem label="岗位">
+      <ElFormItem :label="t('user.position')">
         <ElSelect
           v-model="formData.positionCode"
-          placeholder="请选择岗位"
+          :placeholder="t('user.positionPlaceholder')"
           clearable
           class="w-full"
         >
@@ -247,11 +250,11 @@ const title = computed(() => (isEdit.value ? '编辑用户' : '新增用户'));
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem label="角色">
+      <ElFormItem :label="t('user.role')">
         <ElSelect
           v-model="formData.roleIds"
           multiple
-          placeholder="请选择角色"
+          :placeholder="t('user.rolePlaceholder')"
           clearable
           class="w-full"
         >
@@ -263,10 +266,10 @@ const title = computed(() => (isEdit.value ? '编辑用户' : '新增用户'));
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem label="状态">
+      <ElFormItem :label="t('user.status')">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
+          <ElRadio value="1">{{ t('user.enabled') }}</ElRadio>
+          <ElRadio value="0">{{ t('user.disabled') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

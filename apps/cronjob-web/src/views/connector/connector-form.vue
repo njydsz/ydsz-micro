@@ -17,11 +17,13 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { testConnection } from '#/api/connector';
 import type { ConnectorConfigPostDTO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+const { t } = useI18n();
 
 const formRef = ref();
 
@@ -111,12 +113,12 @@ const title = computed(() => '连接测试');
 <template>
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="连接器类型" prop="type">
+      <ElFormItem :label="t('business.connectorType')" prop="type">
         <ElSelect v-model="formData.type" placeholder="请选择连接器类型" filterable allow-create>
           <ElOption v-for="item in connectorTypes" :key="item" :label="item" :value="item" />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem label="端点" prop="endpoint">
+      <ElFormItem :label="t('business.connectorUrl')" prop="endpoint">
         <ElInput v-model="formData.endpoint" placeholder="请输入连接端点" />
       </ElFormItem>
       <ElFormItem label="认证方式" prop="authType">

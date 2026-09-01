@@ -22,6 +22,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, page } from '#/api/routeRule';
@@ -31,9 +32,11 @@ import RouteRuleForm from './route-rule-form.vue';
 
 defineOptions({ name: 'RouteRuleManagement' });
 
+const { t } = useI18n();
+
 const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'ruleCode', title: '规则编码', width: 150 },
     { field: 'ruleName', title: '规则名称', width: 180 },
     { field: 'bizType', title: '业务类型', width: 110 },
@@ -43,7 +46,7 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
     { field: 'priority', title: '优先级', width: 80 },
     {
       field: 'status',
-      title: '状态',
+      title: t('common.status'),
       width: 90,
       slots: {
         default: ({ row }) =>
@@ -54,10 +57,10 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
           ),
       },
     },
-    { field: 'createdAt', title: '创建时间', width: 170 },
+    { field: 'createdAt', title: t('common.createTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 140,
       fixed: 'right',
       slots: {
@@ -66,12 +69,12 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('common.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('common.delete'),
             ),
           ]),
       },
@@ -103,8 +106,8 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
       },
       {
         field: 'status',
-        title: '状态',
-        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+        title: t('common.status'),
+        itemRender: { name: 'Input', props: { placeholder: t('common.status') } },
       },
     ],
   },
@@ -126,11 +129,11 @@ function handleEdit(row: MsgRouteRuleVO) {
 async function handleDelete(row: MsgRouteRuleVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除路由规则「${row.ruleName}」吗？`, '删除确认', {
+    await ElMessageBox.confirm(`确定删除路由规则「${row.ruleName}」吗？`, t('deleteConfirmTitle'), {
       type: 'warning',
     });
     await deleteApi({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -141,7 +144,7 @@ async function handleDelete(row: MsgRouteRuleVO) {
   <Page auto-content-height>
     <Grid table-title="路由规则">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
       </template>
     </Grid>
     <RouteRuleFormModal @success="gridApi.query()" />

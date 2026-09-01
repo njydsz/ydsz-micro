@@ -31,6 +31,7 @@ import {
   ElTooltip,
 } from 'element-plus';
 import { computed, onBeforeUnmount, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { clearHistory, history as fetchHistory } from '#/api/agent';
 import { openAgentStream } from '#/utils/sse-client';
@@ -38,6 +39,8 @@ import { openAgentStream } from '#/utils/sse-client';
 import ConversationShare from './components/ConversationShare.vue';
 
 defineOptions({ name: 'AgentChatConsole' });
+
+const { t } = useI18n();
 
 /** 会话消息（role + 增量 content） */
 interface ChatMessage {

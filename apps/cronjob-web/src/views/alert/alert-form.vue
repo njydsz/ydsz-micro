@@ -18,11 +18,13 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { createRule, updateRule } from '#/api/alert';
 import type { JobAlertRuleVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+const { t } = useI18n();
 
 const formRef = ref();
 const isEdit = ref(false);
@@ -154,7 +156,7 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
       <ElFormItem label="告警类型" prop="alertType">
         <ElInput v-model="formData.alertType" placeholder="请输入告警类型" />
       </ElFormItem>
-      <ElFormItem label="告警级别" prop="alertLevel">
+      <ElFormItem :label="t('business.alertLevel')" prop="alertLevel">
         <ElInput v-model="formData.alertLevel" placeholder="请输入告警级别" />
       </ElFormItem>
       <ElFormItem label="阈值" prop="threshold">
@@ -172,7 +174,7 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
       <ElFormItem label="冷却时长(分)" prop="cooldownMinutes">
         <ElInputNumber v-model="formData.cooldownMinutes" :min="0" />
       </ElFormItem>
-      <ElFormItem label="状态">
+      <ElFormItem :label="t('common.status')">
         <ElRadioGroup v-model="formData.enabled">
           <ElRadio :value="1">启用</ElRadio>
           <ElRadio :value="0">停用</ElRadio>

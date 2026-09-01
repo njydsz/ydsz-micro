@@ -29,11 +29,13 @@ import {
   ElSelect,
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { create, update, validateCron } from '#/api/job';
 import type { JobVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+const { t } = useI18n();
 
 const formRef = ref();
 const isEdit = ref(false);
@@ -261,13 +263,13 @@ async function handleValidateCron() {
       label-width="110px"
       label-position="right"
     >
-      <ElFormItem label="任务名称" prop="jobName">
+      <ElFormItem :label="t('business.jobName')" prop="jobName">
         <ElInput v-model="formData.jobName" placeholder="请输入任务名称" />
       </ElFormItem>
       <ElFormItem label="任务标识" prop="jobKey">
         <ElInput v-model="formData.jobKey" placeholder="请输入任务标识" />
       </ElFormItem>
-      <ElFormItem label="任务分组" prop="jobGroup">
+      <ElFormItem :label="t('business.jobGroup')" prop="jobGroup">
         <ElInput v-model="formData.jobGroup" placeholder="请输入任务分组" />
       </ElFormItem>
       <ElFormItem label="执行器" prop="handler">
@@ -281,7 +283,7 @@ async function handleValidateCron() {
           <ElOption label="仅手动触发" value="API" />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem v-if="formData.scheduleType === 'CRON'" label="Cron表达式" prop="cronExpression">
+      <ElFormItem v-if="formData.scheduleType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
         <div class="flex w-full gap-2">
           <ElInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
           <ElButton @click="handleValidateCron">校验</ElButton>

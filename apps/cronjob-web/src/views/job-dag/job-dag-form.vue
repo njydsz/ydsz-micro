@@ -18,11 +18,13 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+const { t } = useI18n();
 
 const formRef = ref();
 const isEdit = ref(false);
@@ -147,7 +149,7 @@ async function handleValidateDag() {
       <ElFormItem label="DAG标识" prop="dagKey">
         <ElInput v-model="formData.dagKey" placeholder="请输入DAG标识" />
       </ElFormItem>
-      <ElFormItem label="DAG名称" prop="dagName">
+      <ElFormItem :label="t('business.dagName')" prop="dagName">
         <ElInput v-model="formData.dagName" placeholder="请输入DAG名称" />
       </ElFormItem>
       <ElFormItem label="DSL定义" prop="dagDefinition">
@@ -162,7 +164,7 @@ async function handleValidateDag() {
           <ElOption label="Cron" value="CRON" />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem v-if="formData.triggerType === 'CRON'" label="Cron表达式" prop="cronExpression">
+      <ElFormItem v-if="formData.triggerType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
         <ElInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
       </ElFormItem>
       <ElFormItem label="最大并发数" prop="maxConcurrentInstances">

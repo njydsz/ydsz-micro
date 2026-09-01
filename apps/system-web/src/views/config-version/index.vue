@@ -18,11 +18,14 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElInput, ElMessage, ElMessageBox } from 'element-plus';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { listByResourceKey, rollback } from '#/api/configVersion';
 import type { EntityVersionVO } from '#/api/models';
 
 defineOptions({ name: 'ConfigVersionManagement' });
+
+const { t } = useI18n();
 
 /** 资源Key输入 */
 const resourceKey = ref('');
@@ -41,7 +44,7 @@ const gridOptions: VxeGridProps<EntityVersionVO> = {
     { field: 'changeLog', title: '变更说明', minWidth: 200 },
     { field: 'effectiveDate', title: '生效时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 120, fixed: 'right',
+      field: 'action', title: t('action'), width: 120, fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
@@ -89,7 +92,7 @@ async function handleRollback(row: EntityVersionVO): Promise<void> {
       { type: 'warning' },
     );
     await rollback({ resourceKey: resourceKey.value }, { targetVersion: row.version });
-    ElMessage.success('回滚成功');
+    ElMessage.success(t('operationSuccess'));
     await handleQuery();
   } catch { /* 错误提示由请求拦截器统一处理 */ }
 }
@@ -106,12 +109,12 @@ async function handleRollback(row: EntityVersionVO): Promise<void> {
         class="w-80"
         @keyup.enter="handleQuery"
       />
-      <ElButton type="primary" :loading="loading" @click="handleQuery">查询版本历史</ElButton>
+        <ElButton type="primary" :loading="loading" @click="handleQuery">查询版本历史</ElButton>
     </div>
 
     <Grid table-title="配置版本历史">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleQuery">刷新</ElButton>
+        <ElButton type="primary" @click="handleQuery">{{ t('refresh') }}</ElButton>
       </template>
     </Grid>
   </Page>

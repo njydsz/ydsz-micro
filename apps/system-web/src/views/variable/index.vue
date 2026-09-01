@@ -20,6 +20,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/variable';
@@ -28,6 +29,8 @@ import type { PageQuery, VariablePageQuery, VariableVO } from '#/api/models';
 import VariableForm from './variable-form.vue';
 
 defineOptions({ name: 'VariableManagement' });
+
+const { t } = useI18n();
 
 /** 请求控制器，用于取消未完成的请求 */
 const abortController = new AbortController();
@@ -45,13 +48,13 @@ function isEnabled(status?: string): boolean {
 
 const gridOptions: VxeTableGridOptions<VariableRow> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'variableKey', title: '变量键', width: 180 },
-    { field: 'variableValue', title: '变量值', width: 200 },
-    { field: 'valueType', title: '值类型', width: 100 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'variableKey', title: t('variable.key'), width: 180 },
+    { field: 'variableValue', title: t('variable.value'), width: 200 },
+    { field: 'valueType', title: t('variable.valueType'), width: 100 },
     {
       field: 'status',
-      title: '状态',
+      title: t('common.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -59,23 +62,23 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
           return h(
             ElTag,
             { type: isEnabled(variable.status) ? 'success' : 'info' },
-            () => (isEnabled(variable.status) ? '启用' : '禁用'),
+            () => (isEnabled(variable.status) ? t('common.enabled') : t('common.disabled')),
           );
         },
       },
     },
-    { field: 'description', title: '描述', width: 200 },
+    { field: 'description', title: t('variable.description'), width: 200 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 140,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const variable = row as VariableRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(variable) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(variable) }, () => '删除'),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(variable) }, () => t('common.edit')),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(variable) }, () => t('common.delete')),
           ]);
         },
       },
@@ -100,7 +103,7 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'variableKey', title: '变量键', itemRender: { name: 'Input', props: { placeholder: '变量键' } } },
+      { field: 'variableKey', title: t('variable.key'), itemRender: { name: 'Input', props: { placeholder: t('variable.key') } } },
     ],
   },
 };
@@ -120,9 +123,9 @@ function handleEdit(row: VariableRow) {
 
 async function handleDelete(row: VariableRow) {
   try {
-    await ElMessageBox.confirm(`确定删除「${row.variableKey ?? ''}」吗？`, '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('variable.deleteConfirm', { key: row.variableKey ?? '' }), t('crud.deleteConfirmTitle'), { type: 'warning' });
     if (row.id) await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('crud.deleteSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -137,9 +140,9 @@ onUnmounted(() => {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="系统变量">
+    <Grid :table-title="t('variable.title')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
       </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />

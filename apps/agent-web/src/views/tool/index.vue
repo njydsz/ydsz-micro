@@ -20,10 +20,13 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { useI18n } from 'vue-i18n';
 
 import ToolForm from './tool-form.vue';
 
 defineOptions({ name: 'ToolManagement' });
+
+const { t } = useI18n();
 
 /** 工具类型标签颜色 */
 function getToolTypeTagType(type?: string): 'success' | 'warning' | 'info' | 'danger' | 'primary' {
@@ -111,7 +114,7 @@ const toolList = ref<ToolVO[]>([
 
 const gridOptions: VxeTableGridOptions<ToolVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'toolCode', title: '工具编码', width: 150 },
     { field: 'toolName', title: '工具名称', width: 150 },
     {
@@ -128,12 +131,12 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
     { field: 'method', title: '方法', width: 80 },
     {
       field: 'enabled',
-      title: '状态',
+      title: t('common.status'),
       width: 80,
       slots: {
         default: ({ row }) =>
           h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
-            row.enabled ? '启用' : '停用',
+            row.enabled ? t('common.enabled') : '停用',
           ),
       },
     },
@@ -141,7 +144,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
     { field: 'createdAt', title: '创建时间', width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 250,
       fixed: 'right',
       slots: {
@@ -150,7 +153,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('common.edit'),
             ),
             h(
               ElButton,
@@ -165,12 +168,12 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
                 type: row.enabled ? 'warning' : 'success',
                 onClick: () => handleToggle(row),
               },
-              () => (row.enabled ? '停用' : '启用'),
+              () => (row.enabled ? '停用' : t('common.enabled')),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('common.delete'),
             ),
           ]),
       },

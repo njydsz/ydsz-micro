@@ -21,6 +21,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { exportTasks, importTasks, listRemoteTasks, types } from '#/api/connector';
@@ -29,6 +30,7 @@ import type { ConnectorConfigPostDTO, ConnectorTaskInfo } from '#/api/models';
 import ConnectorForm from './connector-form.vue';
 
 defineOptions({ name: 'ConnectorManagement' });
+const { t } = useI18n();
 
 /** 支持的连接器类型（types() 返回） */
 const connectorTypes = ref<string[]>([]);
@@ -68,9 +70,9 @@ function toConnectorConfig(): ConnectorConfigPostDTO {
 
 const taskGridOptions: VxeGridProps<ConnectorTaskInfo> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'externalTaskId', title: '远程任务ID', width: 150 },
-    { field: 'jobName', title: '任务名称', width: 170 },
+    { field: 'jobName', title: t('business.jobName'), width: 170 },
     { field: 'jobGroup', title: '分组', width: 110 },
     { field: 'cronExpression', title: 'Cron', width: 150 },
     { field: 'jobType', title: '类型', width: 100 },
@@ -156,7 +158,7 @@ async function handleExport() {
     <div class="mb-2 flex flex-wrap items-center gap-2">
       <span class="text-sm text-gray-500">支持的连接器类型：</span>
       <ElTag v-for="item in connectorTypes" :key="item" type="info">{{ item }}</ElTag>
-      <ElTag v-if="connectorTypes.length === 0" type="info">暂无数据</ElTag>
+      <ElTag v-if="connectorTypes.length === 0" type="info">{{ t('common.noData') }}</ElTag>
     </div>
     <ElForm inline class="rounded border border-gray-200 p-2">
       <ElFormItem label="类型">
@@ -186,7 +188,7 @@ async function handleExport() {
         <ElButton type="primary" @click="handleTest">测试连接</ElButton>
         <ElButton type="warning" plain @click="handleImport">导入任务</ElButton>
         <ElButton type="success" plain @click="handleExport">导出任务</ElButton>
-        <ElButton @click="taskGridApi.query()">查询</ElButton>
+        <ElButton @click="taskGridApi.query()">{{ t('common.search') }}</ElButton>
       </template>
     </TaskGrid>
     <ConnectorFormModal @success="taskGridApi.query()" />

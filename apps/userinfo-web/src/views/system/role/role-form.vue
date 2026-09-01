@@ -30,6 +30,9 @@ import {
   ElSwitch,
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 import { create, update } from '#/api/role';
 import type { RoleDTO, RoleVO } from '#/api/models';
@@ -137,7 +140,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑角色' : '新增角色'));
+const title = computed(() => (isEdit.value ? `${t('page.edit')}角色` : `${t('page.create')}角色`));
 </script>
 
 <template>
@@ -149,10 +152,10 @@ const title = computed(() => (isEdit.value ? '编辑角色' : '新增角色'));
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="角色名称" prop="roleName">
+      <ElFormItem :label="t('page.roleName')" prop="roleName">
         <ElInput v-model="formData.roleName" placeholder="请输入角色名称" />
       </ElFormItem>
-      <ElFormItem label="角色编码" prop="roleCode">
+      <ElFormItem :label="t('page.roleCode')" prop="roleCode">
         <ElInput v-model="formData.roleCode" placeholder="请输入角色编码" :disabled="isEdit" />
       </ElFormItem>
       <ElFormItem label="数据范围">
@@ -165,16 +168,16 @@ const title = computed(() => (isEdit.value ? '编辑角色' : '新增角色'));
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem label="排序">
+      <ElFormItem :label="t('page.sortOrder')">
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
       </ElFormItem>
       <ElFormItem label="内置角色">
         <ElSwitch v-model="formData.builtIn" :active-value="true" :inactive-value="false" />
       </ElFormItem>
-      <ElFormItem label="状态">
+      <ElFormItem :label="t('page.status')">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
+          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
+          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
       <ElFormItem label="描述">

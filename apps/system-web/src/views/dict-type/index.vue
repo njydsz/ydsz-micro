@@ -20,6 +20,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/dict';
@@ -28,6 +29,8 @@ import type { DictPageQuery, DictTypeVO, PageQuery } from '#/api/models';
 import DictTypeForm from './dict-type-form.vue';
 
 defineOptions({ name: 'DictTypeManagement' });
+
+const { t } = useI18n();
 
 /** 请求控制器，用于取消未完成的请求 */
 const abortController = new AbortController();
@@ -46,12 +49,12 @@ function isEnabled(status?: string): boolean {
 const gridOptions: VxeTableGridOptions<DictTypeRow> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
-    { field: 'typeCode', title: '类型编码', width: 150 },
-    { field: 'typeName', title: '类型名称', width: 150 },
-    { field: 'description', title: '描述', width: 220 },
+    { field: 'typeCode', title: t('typeCode'), width: 150 },
+    { field: 'typeName', title: t('typeName'), width: 150 },
+    { field: 'description', title: t('description'), width: 220 },
     {
       field: 'status',
-      title: '状态',
+      title: t('status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -66,15 +69,15 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('action'),
       width: 140,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const dictType = row as DictTypeRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dictType) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dictType) }, () => '删除'),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dictType) }, () => t('edit')),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dictType) }, () => t('delete')),
           ]);
         },
       },
@@ -99,8 +102,8 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'typeName', title: '类型名称', itemRender: { name: 'Input', props: { placeholder: '类型名称' } } },
-      { field: 'typeCode', title: '类型编码', itemRender: { name: 'Input', props: { placeholder: '类型编码' } } },
+      { field: 'typeName', title: t('typeName'), itemRender: { name: 'Input', props: { placeholder: t('typeName') } } },
+      { field: 'typeCode', title: t('typeCode'), itemRender: { name: 'Input', props: { placeholder: t('typeCode') } } },
     ],
   },
 };
@@ -122,7 +125,7 @@ async function handleDelete(row: DictTypeRow) {
   try {
     await ElMessageBox.confirm(`确定删除「${row.typeName ?? row.typeCode ?? ''}」吗？`, '删除确认', { type: 'warning' });
     if (row.id) await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('operationSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -139,7 +142,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid table-title="字典类型">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>
     </Grid>
     <DictTypeFormModal @success="gridApi.query()" />

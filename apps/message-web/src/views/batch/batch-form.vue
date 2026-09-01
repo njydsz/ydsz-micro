@@ -19,11 +19,14 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import { reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { submitBatch } from '#/api/batch';
 import type { BatchSendRequestDTO, MsgBatchVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [batch: MsgBatchVO] }>();
+
+const { t } = useI18n();
 
 const formRef = ref();
 
@@ -116,8 +119,8 @@ const [Modal, modalApi] = useYDSZModal({
       <ElFormItem label="通道" prop="channel">
         <ElInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
-      <ElFormItem label="模板编码" prop="templateCode">
-        <ElInput v-model="formData.templateCode" placeholder="请输入模板编码（可为空）" />
+      <ElFormItem :label="t('templateCode')" prop="templateCode">
+        <ElInput v-model="formData.templateCode" :placeholder="t('templateCode')" />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
         <ElInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />

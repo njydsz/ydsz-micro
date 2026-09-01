@@ -21,6 +21,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteRule, listRules, queryAlertLogs, toggleRule } from '#/api/alert';
@@ -29,20 +30,21 @@ import type { JobAlertLogVO, JobAlertRuleVO } from '#/api/models';
 import AlertForm from './alert-form.vue';
 
 defineOptions({ name: 'AlertManagement' });
+const { t } = useI18n();
 
 const gridOptions: VxeGridProps<JobAlertRuleVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'ruleName', title: '规则名称', width: 180 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'ruleName', title: t('business.alertRule'), width: 180 },
     { field: 'jobKey', title: '任务标识', width: 140 },
     { field: 'alertType', title: '告警类型', width: 110 },
-    { field: 'alertLevel', title: '级别', width: 90 },
+    { field: 'alertLevel', title: t('business.alertLevel'), width: 90 },
     { field: 'threshold', title: '阈值', width: 90 },
     { field: 'timeWindowMinutes', title: '时间窗口(分)', width: 110 },
     { field: 'channels', title: '通知通道', width: 160 },
     {
       field: 'enabled',
-      title: '状态',
+      title: t('common.status'),
       width: 90,
       slots: {
         default: ({ row }) => {
@@ -55,20 +57,20 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
         },
       },
     },
-    { field: 'createdAt', title: '创建时间', width: 160 },
+    { field: 'createdAt', title: t('common.createTime'), width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 220,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(rule) }, () => '编辑'),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(rule) }, () => t('common.edit')),
             h(ElButton, { size: 'small', link: true, type: rule.enabled === 1 ? 'warning' : 'success', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleLogs(rule) }, () => '日志'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(rule) }, () => '删除'),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(rule) }, () => t('common.delete')),
           ]);
         },
       },
@@ -144,25 +146,25 @@ async function handleLogs(row: JobAlertRuleVO) {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="告警管理">
+    <Grid :table-title="t('page.alert')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
       </template>
     </Grid>
     <AlertFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="logsDrawerVisible" title="告警日志" size="60%">
+    <ElDrawer v-model="logsDrawerVisible" :title="t('page.alertRule')" size="60%">
       <ElTable :data="alertLogs" border>
         <ElTableColumn prop="alertCode" label="告警编码" width="130" />
-        <ElTableColumn prop="ruleName" label="规则名称" width="150" />
+        <ElTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
         <ElTableColumn prop="jobKey" label="任务标识" width="140" />
         <ElTableColumn prop="alertType" label="类型" width="100" />
-        <ElTableColumn prop="alertLevel" label="级别" width="90" />
+        <ElTableColumn prop="alertLevel" :label="t('business.alertLevel')" width="90" />
         <ElTableColumn prop="triggerValue" label="触发值" width="110" />
-        <ElTableColumn prop="alertStatus" label="状态" width="90" />
+        <ElTableColumn prop="alertStatus" :label="t('common.status')" width="90" />
         <ElTableColumn prop="errorMessage" label="错误信息" min-width="140" />
-        <ElTableColumn prop="createdAt" label="创建时间" width="170" />
+        <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
       </ElTable>
-      <ElEmpty v-if="alertLogs.length === 0" description="暂无告警日志" />
+      <ElEmpty v-if="alertLogs.length === 0" :description="t('common.noData')" />
     </ElDrawer>
   </Page>
 </template>

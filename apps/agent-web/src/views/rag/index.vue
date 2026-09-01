@@ -21,11 +21,14 @@ import {
   ElMessage, ElMessageBox, ElStatistic, ElTable, ElTableColumn,
 } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { deleteDocument, search, stats } from '#/api/rag';
 import type { RagQueryDTO } from '#/api/models';
 import RagForm from './rag-form.vue';
 
 defineOptions({ name: 'RagManagement' });
+
+const { t } = useI18n();
 
 /** 知识库统计（后端返回结构不确定） */
 const statsData = ref<Record<string, unknown>>({});
@@ -144,9 +147,9 @@ onMounted(() => { handleLoadStats(); });
       <ElTableColumn prop="content" label="内容" min-width="320" show-overflow-tooltip />
       <ElTableColumn prop="score" label="得分" width="100" />
       <ElTableColumn prop="source" label="来源" min-width="140" show-overflow-tooltip />
-      <ElTableColumn label="操作" width="100" fixed="right">
+      <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
         <template #default="{ row }">
-          <ElButton size="small" link type="danger" @click="handleDelete(row)">删除</ElButton>
+          <ElButton size="small" link type="danger" @click="handleDelete(row)">{{ t('common.delete') }}</ElButton>
         </template>
       </ElTableColumn>
     </ElTable>

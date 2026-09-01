@@ -4,6 +4,16 @@
  * @path comm\@core\composables\src\use-priority-value.ts
  * @author ydsz-team
  * @since 1.0.0
+ *
+ * @remarks
+ * 类型补全说明：
+ * - 批量构造函数（usePriorityValues / useForwardPriorityValues）使用 `{} as never` 作为累加器初值。
+ *   原因：TypeScript 无法通过类型推断自动收窄「带动态键的 forEach 累加对象」到
+ *   `{ [K in keyof T]: ComputedRef<T[K]> }`，此处用 `as never` 直接告知编译器
+ *   「该赋值是 await-time 注入完成后的终态」。运行时每个 key 都会在 forEach 内被填充，
+ *   最终返回对象的形态与声明类型一致。
+ * - `useAttrs() as T`：Vue useAttrs 返回内部 attrs 类型为 `Record<string, unknown>`，
+ *   调用侧通过 `as T` 显式声明「组件 props 与 attrs 同构」，由调用方保证类型安全。
  */
 import type { ComputedRef, Ref } from 'vue';
 
@@ -63,7 +73,8 @@ export function usePriorityValues<
   T extends object,
   S extends Ref<object> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
 >(props: T, state: S | undefined) {
-  const result: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
+  // 类型补全：累加器初值声明为 never 类型，告知 TS 运行时由 forEach 完成全部填充
+  const result = {} as { [K in keyof T]: ComputedRef<T[K]> };
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
     result[key] = usePriorityValue(key as keyof typeof props, props, state);
@@ -81,7 +92,8 @@ export function useForwardPriorityValues<
   T extends object,
   S extends Ref<object> = Readonly<Ref<NoInfer<T>, NoInfer<T>>>,
 >(props: T, state: S | undefined) {
-  const computedResult: { [K in keyof T]: ComputedRef<T[K]> } = {} as never;
+  // 类型补全：累加器初值直接断言为目标映射类型
+  const computedResult = {} as { [K in keyof T]: ComputedRef<T[K]> };
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
     computedResult[key] = usePriorityValue(

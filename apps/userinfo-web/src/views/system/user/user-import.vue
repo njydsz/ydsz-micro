@@ -17,6 +17,9 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElMessage, ElProgress, ElUpload } from 'element-plus';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 import { importUsers } from '#/api/userAccount';
 import type { UserImportResultDTO } from '#/api/models';
 

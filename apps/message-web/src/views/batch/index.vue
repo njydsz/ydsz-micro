@@ -33,6 +33,7 @@ import {
   ElTag,
 } from 'element-plus';
 import { h, onBeforeUnmount, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getProgress } from '#/api/batch';
@@ -43,6 +44,8 @@ import type { SseEventHandlers } from '#/utils/sse-client';
 import BatchForm from './batch-form.vue';
 
 defineOptions({ name: 'BatchManagement' });
+
+const { t } = useI18n();
 
 /** 状态列 Tag 类型映射（未知值按 info 展示） */
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
@@ -63,15 +66,15 @@ const batchRows = ref<MsgBatchVO[]>([]);
 
 const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'batchId', title: '批次ID', width: 220 },
     { field: 'batchName', title: '批次名称', width: 160 },
     { field: 'channel', title: '通道', width: 100 },
-    { field: 'templateCode', title: '模板编码', width: 140 },
+    { field: 'templateCode', title: t('templateCode'), width: 140 },
     { field: 'bizType', title: '业务类型', width: 110 },
     {
       field: 'status',
-      title: '状态',
+      title: t('common.status'),
       width: 100,
       slots: {
         default: ({ row }) =>
@@ -80,7 +83,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 100,
       fixed: 'right',
       slots: {
@@ -242,14 +245,14 @@ onBeforeUnmount(() => {
   <Page auto-content-height>
     <Grid table-title="批量发送">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新建批量</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
       </template>
     </Grid>
     <BatchFormModal @success="handleBatchCreated" />
     <ElDrawer v-model="progressVisible" title="批次进度" :size="440" v-loading="progressLoading">
       <template #header>
         <div class="flex w-full items-center justify-between pr-2">
-          <span>批次进度</span>
+          <span>{{ t('page.batchSend') }}</span>
           <span class="flex items-center gap-2">
             <ElTag
               :type="sseState === 'live' ? 'success' : sseState === 'error' ? 'danger' : 'info'"
@@ -264,7 +267,7 @@ onBeforeUnmount(() => {
               :disabled="!subscribedBatchId"
               @click="refreshProgressSnapshot"
             >
-              刷新快照
+              {{ t('common.refresh') }}
             </ElButton>
           </span>
         </div>
@@ -275,10 +278,10 @@ onBeforeUnmount(() => {
           progressData.batchName ?? '-'
         }}</ElDescriptionsItem>
         <ElDescriptionsItem label="通道">{{ progressData.channel ?? '-' }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="模板编码">{{
+        <ElDescriptionsItem :label="t('templateCode')">{{
           progressData.templateCode ?? '-'
         }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="状态">{{ progressData.status ?? '-' }}</ElDescriptionsItem>
+        <ElDescriptionsItem :label="t('common.status')">{{ progressData.status ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem label="进度">
           <ElProgress
             :percentage="Math.min(100, Number(progressData.progressPercent ?? 0))"

@@ -32,6 +32,9 @@ import {
   ElTreeSelect,
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 import { create, update } from '#/api/menu';
 import type { MenuDTO, MenuTreeVO } from '#/api/models';
@@ -180,7 +183,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'));
+const title = computed(() => (isEdit.value ? `${t('page.edit')}菜单` : `${t('page.create')}菜单`));
 </script>
 
 <template>
@@ -204,13 +207,13 @@ const title = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'));
           class="w-full"
         />
       </ElFormItem>
-      <ElFormItem label="菜单名称" prop="menuName">
+      <ElFormItem :label="t('page.menuName')" prop="menuName">
         <ElInput v-model="formData.menuName" placeholder="请输入菜单名称" />
       </ElFormItem>
       <ElFormItem label="菜单编码" prop="menuCode">
         <ElInput v-model="formData.menuCode" placeholder="请输入菜单编码" />
       </ElFormItem>
-      <ElFormItem label="菜单类型" prop="menuType">
+      <ElFormItem :label="t('page.menuType')" prop="menuType">
         <ElSelect v-model="formData.menuType" placeholder="请选择菜单类型" class="w-full">
           <ElOption
             v-for="opt in MENU_TYPE_OPTIONS"
@@ -220,22 +223,22 @@ const title = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'));
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem label="路由路径">
+      <ElFormItem :label="t('page.menuPath')">
         <ElInput v-model="formData.path" placeholder="请输入路由路径（如 /system/menu）" />
       </ElFormItem>
-      <ElFormItem label="组件路径">
+      <ElFormItem :label="t('page.component')">
         <ElInput v-model="formData.component" placeholder="请输入组件路径" />
       </ElFormItem>
-      <ElFormItem label="图标">
+      <ElFormItem :label="t('page.icon')">
         <div class="flex w-full gap-2">
           <ElInput v-model="formData.icon" placeholder="请输入图标名称或点击选择" readonly @click="openIconPicker" />
           <ElButton @click="openIconPicker">选择图标</ElButton>
         </div>
       </ElFormItem>
-      <ElFormItem label="权限标识">
+      <ElFormItem :label="t('page.permission')">
         <ElInput v-model="formData.permissionCode" placeholder="请输入权限标识（如 system:menu:add）" />
       </ElFormItem>
-      <ElFormItem label="排序">
+      <ElFormItem :label="t('page.sortOrder')">
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
       </ElFormItem>
       <ElFormItem label="可见">
@@ -244,10 +247,10 @@ const title = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'));
           <ElRadio :value="0">隐藏</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
-      <ElFormItem label="状态">
+      <ElFormItem :label="t('page.status')">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
+          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
+          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

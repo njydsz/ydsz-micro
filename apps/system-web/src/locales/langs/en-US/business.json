@@ -7,8 +7,14 @@
   "typeName": "Type Name",
   "itemCode": "Item Code",
   "itemValue": "Item Value",
-  "variableName": "Variable",
-  "variableValue": "Value",
+  "variable": {
+    "title": "System Variable",
+    "key": "Variable Key",
+    "value": "Variable Value",
+    "valueType": "Value Type",
+    "description": "Description",
+    "deleteConfirm": "Delete variable \"{key}\" ?"
+  },
   "appKey": "App Key",
   "appName": "App Name",
   "appType": "App Type",

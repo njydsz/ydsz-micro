@@ -18,10 +18,12 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { approve, getApproval, reject } from '#/api/humanApproval';
 
 /** 审批处理成功后触发，通知父级刷新列表 */
 const emit = defineEmits<{ success: [] }>();
+const { t } = useI18n();
 /** 当前审批单 ID（由父级 setData({ record }) 传入） */
 const approvalId = ref('');
 /** 审批意见 */

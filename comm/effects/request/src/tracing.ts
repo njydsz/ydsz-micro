@@ -4,6 +4,8 @@
  * <p>前端 TraceID 生成、Web Vitals 监控、请求耗时拆解。
  * <p>符合云顶编码规范 §14 错误处理与日志规范。
  *
+ * <p>日志统一使用 {@link createLogger}，禁止业务代码直接调用 console（§14.5）。
+ *
  * <p>使用方式:
  * <pre>{@code
  *   import { generateTraceId, reportWebVitals, traceRequest } from '@ydsz/request';
@@ -23,6 +25,10 @@
  * @since 4.0.0
  * @see docs/云顶编码规范.md
  */
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('tracing');
 
 /**
  * 生成 TraceID（UUID v7 格式，时间排序友好）
@@ -152,10 +158,9 @@ export function reportWebVitals(callback?: WebVitalsCallback): void {
  * @param vitals Web Vitals 指标
  */
 async function defaultWebVitalsReporter(vitals: WebVitals): Promise<void> {
-  // 输出到控制台（开发环境）
+  // 输出到日志（开发环境）
   if (import.meta.env.DEV) {
-    // eslint-disable-next-line no-console
-    console.log('[Web Vitals]', vitals);
+    logger.debug('[Web Vitals]', vitals);
   }
 
   // 上报到监控系统

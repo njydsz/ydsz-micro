@@ -121,13 +121,18 @@ export function setupBreadcrumbAutoCapture(): () => void {
   window.addEventListener('popstate', onNavigation);
   window.addEventListener('hashchange', onNavigation);
 
-  // 3. console.warn / console.error
+  // 3. console.warn / console.error（拦截注入面包屑，对标 Sentry request interceptor）
+  // 该文件是监控拦截器实现层，需要覆写 console 方法进行诊断采集，属于 §14.5 豁免场景
+  // eslint-disable-next-line no-console -- 监控拦截器需要覆写 console.warn/console.error 进行采集
   const originalWarn = console.warn;
+  // eslint-disable-next-line no-console
   const originalError = console.error;
+  // eslint-disable-next-line no-console
   console.warn = (...args: unknown[]): void => {
     addBreadcrumb('console', args.map(String).join(' '), { level: 'warning' });
     originalWarn.apply(console, args);
   };
+  // eslint-disable-next-line no-console
   console.error = (...args: unknown[]): void => {
     addBreadcrumb('console', args.map(String).join(' '), { level: 'error' });
     originalError.apply(console, args);
@@ -138,7 +143,9 @@ export function setupBreadcrumbAutoCapture(): () => void {
     window.removeEventListener('click', onClick, { capture: true } as EventListenerOptions);
     window.removeEventListener('popstate', onNavigation);
     window.removeEventListener('hashchange', onNavigation);
+    // eslint-disable-next-line no-console -- 还原被拦截的 console 方法
     console.warn = originalWarn;
+    // eslint-disable-next-line no-console
     console.error = originalError;
   };
 }

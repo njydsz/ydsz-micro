@@ -19,6 +19,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { create, update } from '#/api/template';
 import type { MsgTemplateVO } from '#/api/models';
@@ -143,6 +144,8 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
+const { t } = useI18n();
+
 const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
 </script>
 <template>
@@ -154,13 +157,13 @@ const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="模板编码" prop="templateCode">
-        <ElInput v-model="formData.templateCode" placeholder="请输入模板编码" :disabled="isEdit" />
+      <ElFormItem :label="t('templateCode')" prop="templateCode">
+        <ElInput v-model="formData.templateCode" :placeholder="t('templateCode')" :disabled="isEdit" />
       </ElFormItem>
       <ElFormItem label="通道" prop="channel">
         <ElInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
-      <ElFormItem label="分类" prop="category">
+      <ElFormItem :label="t('category')" prop="category">
         <ElInput v-model="formData.category" placeholder="请输入分类（可为空）" />
       </ElFormItem>
       <ElFormItem label="场景编码" prop="sceneCode">
@@ -189,7 +192,7 @@ const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
       <ElFormItem label="语言" prop="locale">
         <ElInput v-model="formData.locale" placeholder="请输入语言（可为空）" />
       </ElFormItem>
-      <ElFormItem label="版本" prop="version">
+      <ElFormItem :label="t('version')" prop="version">
         <ElInput v-model="formData.version" placeholder="请输入版本（可为空）" />
       </ElFormItem>
       <ElFormItem label="描述" prop="description">

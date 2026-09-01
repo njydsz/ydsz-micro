@@ -21,6 +21,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -41,6 +42,7 @@ import JobForm from './job-form.vue';
 defineOptions({ name: 'JobManagement' });
 
 const router = useRouter();
+const { t } = useI18n();
 
 /** 行类型：以真实契约 JobVO 为基础，status 由后端响应附带（契约模型未声明该字段） */
 type JobRow = JobVO & { status?: string };
@@ -54,16 +56,16 @@ function isPaused(row: JobRow): boolean {
 const gridOptions: VxeTableGridOptions<JobRow> = {
   columns: [
     { type: 'checkbox', width: 50 },
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'jobName', title: '任务名称', width: 180 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'jobName', title: t('business.jobName'), width: 180 },
     { field: 'jobKey', title: '任务标识', width: 140 },
     { field: 'jobGroup', title: '分组', width: 100 },
     { field: 'cronExpression', title: 'Cron', width: 160 },
     { field: 'handler', title: '执行器', width: 140 },
-    { field: 'jobType', title: '类型', width: 100 },
+    { field: 'jobType', title: t('business.jobType'), width: 100 },
     {
       field: 'status',
-      title: '状态',
+      title: t('common.status'),
       width: 90,
       slots: {
         default: ({ row }) => {
@@ -87,10 +89,10 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
       width: 170,
       formatter: ({ cellValue }) => (cellValue ? String(cellValue).replace('T', ' ') : '-'),
     },
-    { field: 'createdAt', title: '创建时间', width: 160 },
+    { field: 'createdAt', title: t('common.createTime'), width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 300,
       fixed: 'right',
       slots: {
@@ -100,7 +102,7 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(job) },
-              () => '编辑',
+              () => t('common.edit'),
             ),
             isPaused(job)
               ? h(
@@ -126,7 +128,7 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(job) },
-              () => '删除',
+              () => t('common.delete'),
             ),
           ]);
         },
@@ -164,7 +166,7 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
       },
       {
         field: 'status',
-        title: '状态',
+        title: t('common.status'),
         itemRender: {
           name: 'Select',
           props: {
@@ -297,9 +299,9 @@ async function handleBatchDelete() {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="任务管理">
+    <Grid :table-title="t('page.task')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
         <ElButton type="warning" plain @click="handleBatchPause">批量暂停</ElButton>
         <ElButton type="success" plain @click="handleBatchResume">批量恢复</ElButton>
         <ElButton type="danger" plain @click="handleBatchDelete">批量删除</ElButton>

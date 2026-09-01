@@ -22,6 +22,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -38,6 +39,7 @@ import type { JobDagVO, JobDagVersionVO } from '#/api/models';
 import JobDagForm from './job-dag-form.vue';
 
 defineOptions({ name: 'JobDagManagement' });
+const { t } = useI18n();
 
 /** 判断 DAG 是否为启用状态（兼容字符串/数字取值，未知值按启用处理） */
 function isDagEnabled(dag: JobDagVO): boolean {
@@ -47,12 +49,12 @@ function isDagEnabled(dag: JobDagVO): boolean {
 
 const gridOptions: VxeGridProps<JobDagVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'dagName', title: 'DAG名称', width: 180 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'dagName', title: t('business.dagName'), width: 180 },
     { field: 'dagKey', title: 'DAG标识', width: 150 },
     {
       field: 'dagStatus',
-      title: '状态',
+      title: t('common.status'),
       width: 90,
       slots: {
         default: ({ row }) => {
@@ -66,26 +68,26 @@ const gridOptions: VxeGridProps<JobDagVO> = {
       },
     },
     { field: 'triggerType', title: '触发类型', width: 110 },
-    { field: 'cronExpression', title: 'Cron', width: 150 },
+    { field: 'cronExpression', title: t('business.cronExpression'), width: 150 },
     { field: 'version', title: '版本', width: 80 },
     { field: 'description', title: '描述', width: 160 },
-    { field: 'createdAt', title: '创建时间', width: 160 },
+    { field: 'createdAt', title: t('common.createTime'), width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 300,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const dag = row as JobDagVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dag) }, () => '编辑'),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dag) }, () => t('common.edit')),
             isDagEnabled(dag)
               ? h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleDisable(dag) }, () => '停用')
               : h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleEnable(dag) }, () => '启用'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleTrigger(dag) }, () => '触发'),
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleVersions(dag) }, () => '版本'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dag) }, () => '删除'),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dag) }, () => t('common.delete')),
           ]);
         },
       },
@@ -196,22 +198,22 @@ async function handleRollback(versionRow: JobDagVersionVO) {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="DAG管理">
+    <Grid :table-title="t('page.dag')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
       </template>
     </Grid>
     <JobDagFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="versionsDrawerVisible" title="DAG 版本记录" size="60%">
+    <ElDrawer v-model="versionsDrawerVisible" :title="t('page.dagList')" size="60%">
       <ElTable :data="versions" border>
         <ElTableColumn prop="version" label="版本" width="80" />
-        <ElTableColumn prop="dagName" label="名称" width="160" />
+        <ElTableColumn prop="dagName" :label="t('business.dagName')" width="160" />
         <ElTableColumn prop="dagKey" label="标识" width="160" />
         <ElTableColumn prop="triggerType" label="触发类型" width="120" />
         <ElTableColumn prop="cronExpression" label="Cron" width="140" />
         <ElTableColumn prop="remark" label="备注" min-width="120" />
-        <ElTableColumn prop="createdAt" label="创建时间" width="170" />
-        <ElTableColumn label="操作" width="100" fixed="right">
+        <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
+        <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
           <template #default="{ row }">
             <ElButton size="small" link type="primary" @click="handleRollback(row as JobDagVersionVO)">
               回滚
@@ -219,7 +221,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
           </template>
         </ElTableColumn>
       </ElTable>
-      <ElEmpty v-if="versions.length === 0" description="暂无版本记录" />
+      <ElEmpty v-if="versions.length === 0" :description="t('common.noData')" />
     </ElDrawer>
   </Page>
 </template>

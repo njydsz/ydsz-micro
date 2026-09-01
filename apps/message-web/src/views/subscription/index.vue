@@ -31,6 +31,7 @@ import {
   ElTag,
 } from 'element-plus';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { listByTopic, listByUser, unsubscribe } from '#/api/subscription';
@@ -39,6 +40,8 @@ import type { MsgSubscriptionVO } from '#/api/models';
 import SubscriptionForm from './subscription-form.vue';
 
 defineOptions({ name: 'SubscriptionManagement' });
+
+const { t } = useI18n();
 
 /** 当前激活的标签页 */
 const activeTab = ref('user');
@@ -73,14 +76,14 @@ function getSubscriptionStatusLabel(status?: string): string {
 
 const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'userId', title: '用户ID', width: 140 },
     { field: 'topicCode', title: '主题编码', width: 150 },
     { field: 'topicName', title: '主题名称', width: 160 },
     { field: 'channel', title: '通道', width: 100 },
     {
       field: 'status',
-      title: '状态',
+      title: t('common.status'),
       width: 100,
       slots: {
         default: ({ row }) =>
@@ -90,10 +93,10 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       },
     },
     { field: 'createdAt', label: '订阅时间', width: 170 },
-    { field: 'updatedAt', title: '更新时间', width: 170 },
+    { field: 'updatedAt', title: t('updateTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 200,
       fixed: 'right',
       slots: {
@@ -102,7 +105,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('common.edit'),
             ),
             h(
               ElButton,
@@ -193,14 +196,14 @@ function handleQueryByTopic(): void {
   <Page auto-content-height>
     <Grid table-title="订阅管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增订阅</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
       </template>
       <template #toolbar-tools-after>
         <ElTabs v-model="activeTab" class="mt-2">
           <ElTabPane label="按用户查询" name="user">
             <div class="flex gap-2 py-2">
               <ElInput v-model="currentUserId" placeholder="请输入用户ID" class="w-64" clearable />
-              <ElButton type="primary" @click="handleQueryByUser">查询</ElButton>
+              <ElButton type="primary" @click="handleQueryByUser">{{ t('common.search') }}</ElButton>
             </div>
           </ElTabPane>
           <ElTabPane label="按主题查询" name="topic">
@@ -217,7 +220,7 @@ function handleQueryByTopic(): void {
                 <ElOption label="站内信" value="INBOX" />
                 <ElOption label="Webhook" value="WEBHOOK" />
               </ElSelect>
-              <ElButton type="primary" @click="handleQueryByTopic">查询</ElButton>
+              <ElButton type="primary" @click="handleQueryByTopic">{{ t('common.search') }}</ElButton>
             </div>
           </ElTabPane>
         </ElTabs>

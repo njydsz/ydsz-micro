@@ -19,7 +19,8 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus';
-import { h, ref } from 'vue';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   cloneTemplate,
@@ -32,6 +33,8 @@ import {
 import TemplateForm from './template-form.vue';
 
 defineOptions({ name: 'TemplateManagement' });
+
+const { t } = useI18n();
 
 /** 行类型：后端契约未声明模板 VO，使用 Record<string, unknown> 兼容（可选链收窄取值） */
 type TemplateRow = Record<string, unknown>;
@@ -50,43 +53,18 @@ function num(row: TemplateRow, key: string): number {
 
 const gridOptions: VxeGridProps<TemplateRow> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'templateCode', title: '模板编码', width: 150 },
-    { field: 'templateName', title: '模板名称', width: 200 },
-    { field: 'category', title: '分类', width: 100 },
-    { field: 'version', title: '版本', width: 80 },
-    { field: 'status', title: '状态', width: 80 },
-    { field: 'updatedAt', title: '更新时间', width: 170 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'templateCode', title: t('wf.templateCode'), width: 150 },
+    { field: 'templateName', title: t('wf.templateName'), width: 200 },
+    { field: 'category', title: t('wf.categoryName'), width: 100 },
+    { field: 'version', title: t('wf.version'), width: 80 },
+    { field: 'status', title: t('wf.status'), width: 80 },
+    { field: 'updatedAt', title: t('wf.updateTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('wf.action'),
       width: 220,
       fixed: 'right',
-      slots: {
-        default: ({ row }) =>
-          h('div', { class: 'flex gap-1' }, [
-            h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleImport(row) },
-              () => '导入',
-            ),
-            h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleClone(row) },
-              () => '克隆',
-            ),
-            h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleNewVersion(row) },
-              () => '新建版本',
-            ),
-            h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => openVersions(row) },
-              () => '版本',
-            ),
-          ]),
-      },
     },
   ],
   height: 'auto',
@@ -108,8 +86,8 @@ const gridOptions: VxeGridProps<TemplateRow> = {
     items: [
       {
         field: 'category',
-        title: '分类',
-        itemRender: { name: 'Input', props: { placeholder: '分类' } },
+        title: t('wf.categoryName'),
+        itemRender: { name: 'Input', props: { placeholder: t('wf.categoryName') } },
       },
     ],
   },
@@ -122,7 +100,7 @@ const [TemplateFormModal, templateFormApi] = useYDSZModal({ connectedComponent: 
 function getTemplateCode(row: TemplateRow): string | undefined {
   const code = str(row, 'templateCode');
   if (!code) {
-    ElMessage.warning('该模板缺少 templateCode，无法操作');
+    ElMessage.warning(t('wf.missingTemplateCode'));
     return undefined;
   }
   return code;
@@ -134,15 +112,15 @@ async function handleImport(row: TemplateRow) {
   if (!templateCode) return;
   try {
     const { value: flowName } = await ElMessageBox.prompt(
-      '请输入导入后的流程名称（可选）',
-      '导入模板',
+      t('wf.importFlowNamePlaceholder'),
+      t('wf.templateImport'),
       {
         inputPlaceholder: 'flowName',
-        inputValidator: (value) => (value ? true : '流程名称不能为空'),
+        inputValidator: (value) => (value ? true : t('wf.importValidator')),
       },
     );
     await importTemplate({ templateCode }, { flowName });
-    ElMessage.success('导入成功');
+    ElMessage.success(t('wf.importSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -154,12 +132,12 @@ async function handleClone(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
   try {
-    const { value: newTemplateName } = await ElMessageBox.prompt('请输入新模板名称', '克隆模板', {
+    const { value: newTemplateName } = await ElMessageBox.prompt(t('wf.confirmClone'), t('wf.cloneTemplate'), {
       inputPlaceholder: 'newTemplateName',
-      inputValidator: (value) => (value ? true : '新模板名称不能为空'),
+      inputValidator: (value) => (value ? true : t('wf.cloneValidator')),
     });
     await cloneTemplate({ templateCode }, { newTemplateName });
-    ElMessage.success('克隆成功');
+    ElMessage.success(t('wf.cloneSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -172,14 +150,14 @@ async function handleNewVersion(row: TemplateRow) {
   if (!templateCode) return;
   try {
     const { value: versionLabel } = await ElMessageBox.prompt(
-      '请输入版本标签（可选）',
-      '新建版本',
+      t('wf.confirmNewVersion'),
+      t('wf.newVersionTitle'),
       {
-        inputPlaceholder: 'versionLabel（如 v2.0）',
+        inputPlaceholder: 'versionLabel',
       },
     );
     await createNewVersion({ templateCode }, { versionLabel: versionLabel || undefined });
-    ElMessage.success('已创建新版本');
+    ElMessage.success(t('wf.newVersionSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -218,14 +196,14 @@ async function handleVersionDetail(versionItem: TemplateRow) {
   if (!currentTemplateCode.value) return;
   const version = num(versionItem, 'version') || Number(str(versionItem, 'version'));
   if (!version && !str(versionItem, 'version')) {
-    ElMessage.warning('该版本缺少 version 信息');
+    ElMessage.warning(t('wf.missingVersion'));
     return;
   }
   try {
     const detail = await getTemplateVersion({ templateCode: currentTemplateCode.value, version });
     ElMessageBox.alert(
       `<pre class="text-left text-xs max-h-64 overflow-auto">${JSON.stringify(detail, null, 2)}</pre>`,
-      `版本详情 ${version}`,
+      `${t('wf.versionDetail')} ${version}`,
       {
         dangerouslyUseHTMLString: true,
       },
@@ -237,30 +215,46 @@ async function handleVersionDetail(versionItem: TemplateRow) {
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="流程模板">
+    <Grid :table-title="t('template')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="templateFormApi.open()">模板导入</ElButton>
+        <ElButton type="primary" @click="templateFormApi.open()">{{ t('wf.import') }}</ElButton>
+      </template>
+      <template #col-action="{ row }">
+        <div class="flex gap-1">
+          <ElButton size="small" link type="primary" @click="handleImport(row as TemplateRow)">{{
+            t('wf.import')
+          }}</ElButton>
+          <ElButton size="small" link type="primary" @click="handleClone(row as TemplateRow)">{{
+            t('wf.clone')
+          }}</ElButton>
+          <ElButton size="small" link type="primary" @click="handleNewVersion(row as TemplateRow)">{{
+            t('wf.newVersion')
+          }}</ElButton>
+          <ElButton size="small" link type="primary" @click="openVersions(row as TemplateRow)">{{
+            t('wf.version')
+          }}</ElButton>
+        </div>
       </template>
     </Grid>
     <TemplateFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="versionsVisible" title="模板版本历史" :size="540">
+    <ElDrawer v-model="versionsVisible" :title="t('wf.versionHistory')" :size="540">
       <div class="mb-2 flex justify-end">
-        <ElButton size="small" @click="loadVersions">刷新</ElButton>
+        <ElButton size="small" @click="loadVersions">{{ t('common.refresh') }}</ElButton>
       </div>
       <ElTable :data="versionRows" border size="small" v-loading="versionsLoading">
-        <ElTableColumn prop="version" label="版本" width="90" />
-        <ElTableColumn prop="versionLabel" label="版本标签" width="120" />
-        <ElTableColumn prop="templateName" label="模板名称" min-width="120" show-overflow-tooltip />
-        <ElTableColumn prop="status" label="状态" width="90" />
-        <ElTableColumn prop="updatedAt" label="更新时间" width="170" />
-        <ElTableColumn label="操作" width="90" fixed="right">
+        <ElTableColumn prop="version" :label="t('wf.version')" width="90" />
+        <ElTableColumn prop="versionLabel" :label="t('wf.versionLabel')" width="120" />
+        <ElTableColumn prop="templateName" :label="t('wf.templateName')" min-width="120" show-overflow-tooltip />
+        <ElTableColumn prop="status" :label="t('wf.status')" width="90" />
+        <ElTableColumn prop="updatedAt" :label="t('wf.updateTime')" width="170" />
+        <ElTableColumn :label="t('wf.action')" width="90" fixed="right">
           <template #default="{ row }">
             <ElButton
               link
               type="primary"
               size="small"
               @click="handleVersionDetail(row as TemplateRow)"
-              >查看</ElButton
+              >{{ t('wf.detail') }}</ElButton
             >
           </template>
         </ElTableColumn>

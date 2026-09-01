@@ -20,6 +20,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/dictItem';
@@ -28,6 +29,8 @@ import type { DictItemPageQuery, DictItemVO, PageQuery } from '#/api/models';
 import DictItemForm from './dict-item-form.vue';
 
 defineOptions({ name: 'DictItemManagement' });
+
+const { t } = useI18n();
 
 /** 请求控制器，用于取消未完成的请求 */
 const abortController = new AbortController();
@@ -52,7 +55,7 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
     { field: 'sortOrder', title: '排序', width: 80 },
     {
       field: 'status',
-      title: '状态',
+      title: t('status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -65,18 +68,18 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
         },
       },
     },
-    { field: 'description', title: '描述', width: 200 },
+    { field: 'description', title: t('description'), width: 200 },
     {
       field: 'action',
-      title: '操作',
+      title: t('action'),
       width: 140,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const item = row as DictItemRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(item) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(item) }, () => '删除'),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(item) }, () => t('edit')),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(item) }, () => t('delete')),
           ]);
         },
       },
@@ -124,7 +127,7 @@ async function handleDelete(row: DictItemRow) {
   try {
     await ElMessageBox.confirm(`确定删除「${row.itemCode ?? row.itemValue ?? ''}」吗？`, '删除确认', { type: 'warning' });
     if (row.id) await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('operationSuccess'));
     gridApi.query();
   } catch {
     // 用户取消或请求失败
@@ -141,7 +144,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid table-title="字典项">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>
     </Grid>
     <DictItemFormModal @success="gridApi.query()" />
