@@ -1,5 +1,10 @@
 <!--
- * menu-item 通用组件
+ * 菜单中的一个可点击项：负责激活态判定、图标切换、折叠态提示与自身注册。
+ *
+ * 激活态用 path 与根菜单的 activePath 比对得出，而不是靠父级逐层下发 ——
+ * 菜单支持路由驱动的高亮，路径是唯一稳定的标识。
+ * 折叠且无标题时改用 tooltip 展示标题，因此 showTooltip 只在纵向 + 折叠 + 有 title 插槽时为真。
+ * 组件挂载后把自己注册到父级（MenuItemRegistered），供键盘导航与 scrollToActive 使用。
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu-item.vue
  * @author ydsz-team

@@ -22,6 +22,7 @@
   "dependencies": {
     "@YDSZ-core/shared": "workspace:*",
     "@ydsz/locales": "workspace:*",
+    "@ydsz/monitor": "workspace:*",
     "@ydsz/utils": "workspace:*",
     "axios": "catalog:",
     "qs": "catalog:"

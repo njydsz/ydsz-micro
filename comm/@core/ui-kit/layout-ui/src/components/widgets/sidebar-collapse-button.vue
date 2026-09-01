@@ -1,5 +1,9 @@
 <!--
- * sidebar-collapse-button 通用组件
+ * 侧边栏的折叠拉手：贴在侧边栏右缘中点，点击切换折叠状态。
+ *
+ * 定位放在侧边栏之外（-right-4 + translateY(-50%)），因此不占侧边栏内部宽度、
+ * 折叠前后位置固定不变；点击事件加 .stop 是必须的 ——
+ * 侧边栏自身有悬停展开逻辑，冒泡上去会立刻把刚折叠的状态又展开。
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\widgets\sidebar-collapse-button.vue
  * @author ydsz-team

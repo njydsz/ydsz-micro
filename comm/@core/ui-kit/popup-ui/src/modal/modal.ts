@@ -1,5 +1,8 @@
 /**
- * modal 模块
+ * 弹窗的展示层类型契约：动画类型、居中、全屏、拖拽等能力开关。
+ *
+ * 与抽屉配置高度相似却刻意不做类型复用 ——
+ * 两边能力集不同（弹窗多了居中/全屏/拖拽），复用会迫使任一侧的新能力污染另一侧。
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\modal.ts
  * @author ydsz-team

@@ -1,5 +1,8 @@
 <!--
- * sidebar-fixed-button 通用组件
+ * 侧边栏的「固定/取消固定」按钮：切换悬停即展开（expandOnHover）行为。
+ *
+ * 未固定时侧边栏以折叠态常驻、鼠标悬停才展开，适合内容区需要最大宽度的场景；
+ * 固定后则常驻展开。图标在 Pin / PinOff 之间切换，让状态在视觉上自解释。
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\widgets\sidebar-fixed-button.vue
  * @author ydsz-team

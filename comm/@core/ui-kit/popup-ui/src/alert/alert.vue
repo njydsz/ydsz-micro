@@ -1,5 +1,9 @@
 <!--
- * alert Vue 组件
+ * 提示弹窗的渲染实现：把配置映射为 AlertDialog 的结构，并处理确认/取消两条关闭路径。
+ *
+ * 内部用 isConfirm 标记记录本次关闭的来源，closed 事件把它一并抛出、随后立即复位；
+ * Esc 关闭时显式置为 false，避免沿用上一次的残留值导致误判为用户确认。
+ * 按钮文案走国际化，因此本组件依赖全局的 i18n 上下文。
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\alert.vue
  * @author ydsz-team

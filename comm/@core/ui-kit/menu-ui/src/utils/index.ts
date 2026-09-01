@@ -1,5 +1,10 @@
 /**
- * index 工具函数模块
+ * 菜单实现所需的组件树工具：向上查找指定名称的父组件，以及扁平化 VNode 插槽内容。
+ *
+ * findComponentUpward 依赖组件的 name 选项匹配，
+ * 因此 Menu / SubMenu 必须显式声明 name，改成匿名组件会让层级查找全部失效。
+ * flattedChildren 用于在插槽里遍历出实际的菜单项 VNode，
+ * 因为插槽内容可能被 Fragment 或数组层层包裹，直接遍历只能拿到最外层。
  *
  * @path comm\@core\ui-kit\menu-ui\src\utils\index.ts
  * @author ydsz-team

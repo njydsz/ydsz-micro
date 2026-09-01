@@ -1,5 +1,13 @@
 /**
- * use-menu-scroll 组合式函数
+ * 菜单激活项的自动滚动定位组合式函数：在选中项变化时把它滚入可视区域。
+ *
+ * 存在的意义是长菜单下的定位问题：刷新或跨模块跳转后，
+ * 当前路由对应的菜单项常常在滚动区域之外，用户看不到自己在哪。
+ *
+ * 实现上有几处需要留意：通过 aside li[role=menuitem].is-active 选择器全局查找，
+ * 属于跨组件的隐式耦合，容器标签或选中态类名变更会静默失效；
+ * 默认 320ms 防抖是为了等展开/折叠动画结束，过早滚动会滚到错误位置；
+ * watch 未设 immediate，首屏定位需自行在 onMounted 中调用 scrollToActiveItem。
  *
  * @path comm\@core\ui-kit\menu-ui\src\hooks\use-menu-scroll.ts
  * @author ydsz-team

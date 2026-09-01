@@ -1,5 +1,8 @@
 /**
- * drawer 模块
+ * 抽屉的展示层类型契约：方位、关闭按钮位置与各类外观开关。
+ *
+ * 只描述外观与能否关闭，不含打开状态与业务数据 —— 后者归 DrawerState。
+ * 这样拆分是为了让纯展示配置可以被静态复用（例如作为全局默认值）。
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\drawer.ts
  * @author ydsz-team

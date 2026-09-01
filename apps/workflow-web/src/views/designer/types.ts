@@ -99,3 +99,21 @@ export interface PaletteItem {
   /** 节点默认配置 */
   defaultConfig?: Partial<DesignerNodeConfig>;
 }
+
+/**
+ * LogicFlow 图节点结构（裁剪业务所需的最小字段集）。
+ *
+ * 用于画布对齐/分布操作中对节点坐标和尺寸的只读访问。
+ *
+ * @since 4.4.1
+ */
+export interface LfGraphNode {
+  id: string;
+  isSelected: boolean;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  type?: string;
+  text?: string;
+}

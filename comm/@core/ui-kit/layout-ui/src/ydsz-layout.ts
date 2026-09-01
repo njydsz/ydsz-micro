@@ -1,5 +1,8 @@
 /**
- * YDSZ-layout 模块
+ * YDSZLayout 组件 props 的类型契约。
+ *
+ * 每个字段都标注默认值并与组件的 withDefaults 保持一致：
+ * 布局类参数的组合非常多，缺了默认值说明调用方就只能去读实现才能确定行为。
  *
  * @path comm\@core\ui-kit\layout-ui\src\YDSZ-layout.ts
  * @author ydsz-team

@@ -1,5 +1,9 @@
 /**
- * modal-api 模块
+ * 弹窗的命令式状态管理：在通用弹窗基类之上补一份弹窗默认状态。
+ *
+ * 默认 destroyOnClose 为 true 而抽屉为 false：
+ * 弹窗常承载需要重置的表单，销毁更省事；抽屉中的内容（如滚动位置、展开的节点）
+ * 往往希望保留，故默认不销毁。
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\modal-api.ts
  * @author ydsz-team

@@ -1,5 +1,11 @@
 /**
- * AlertBuilder 模块
+ * 命令式提示弹窗的构造器：把弹窗组件动态挂载到容器上，并提供多种参数重载。
+ *
+ * 提供重载是为了覆盖真实调用习惯：
+ * 完整配置、只给文案、文案加标题三种形态，省去每次都写一整个对象。
+ * 返回的 Promise 在确认时 resolve、取消时 reject，
+ * 因此调用方必须处理 reject，否则取消操作会产生未捕获的 Promise 异常。
+ * 所有实例登记在模块级 alerts 数组里，便于统一卸载。
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\AlertBuilder.ts
  * @author ydsz-team

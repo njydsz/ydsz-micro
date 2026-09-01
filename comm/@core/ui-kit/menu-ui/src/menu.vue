@@ -1,5 +1,8 @@
 <!--
- * menu Vue 组件
+ * 数据驱动的菜单入口：接收 menus 数组，递归渲染出整棵树。
+ *
+ * 本组件只做「数据 → 组件树」的映射，具体渲染细节（图标、徽标、折叠态）
+ * 由 SubMenuUi 与 MenuItem 承担，因此新增菜单字段只需改后者。
  *
  * @path comm\@core\ui-kit\menu-ui\src\menu.vue
  * @author ydsz-team

@@ -1,5 +1,9 @@
 <!--
- * menu-badge 通用组件
+ * 菜单项徽标：按 badgeType 在「圆点」与「文字徽标」两种形态间切换。
+ *
+ * 配色采用「预设语义名 → Tailwind 类」的映射，映射未命中时把该值直接当类名用，
+ * 再退一步用 isValidColor 判定后走内联 style ——
+ * 三级降级是为了同时支持语义色（primary）、Tailwind 类（bg-green-500）与任意色值（#f00）。
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu-badge.vue
  * @author ydsz-team

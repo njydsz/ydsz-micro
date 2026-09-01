@@ -1,8 +1,8 @@
 /**
- * use-menu-logic 组合式函数
+ * Menu 组件的核心逻辑：状态管理、展开/折叠、菜单项注册、上下文注入、滚动定位与横向模式截断。
  *
- * 封装 Menu 组件的核心逻辑：状态管理、展开/折叠、菜单项注册、
- * 上下文注入、滚动定位、水平模式自适应截断等。
+ * 抽离成组合式函数是为了让菜单的行为可以脱离渲染层被测试与复用；
+ * SFC 只保留模板与类名拼装。
  *
  * @path comm\@core\ui-kit\menu-ui\src\composables\use-menu-logic.ts
  * @author ydsz-team

@@ -1,5 +1,10 @@
 <!--
- * sub-menu Vue 组件
+ * 递归菜单树的节点：有子节点时渲染为子菜单，否则渲染为菜单项。
+ *
+ * 用 Reflect.has 加长度判断来识别子节点，而不是仅判空数组 ——
+ * 后端返回的树里 children 常常是 null 或空数组，两种都要按叶子处理。
+ * 递归终止依赖数据本身，因此数据中一旦出现循环引用会直接栈溢出，
+ * 上游构造菜单树时需自行保证无环。
  *
  * @path comm\@core\ui-kit\menu-ui\src\sub-menu.vue
  * @author ydsz-team

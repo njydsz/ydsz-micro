@@ -1,5 +1,9 @@
 <!--
- * drawer Vue 组件
+ * 抽屉的渲染实现：把 DrawerProps 与命令式 API 的状态合并后映射为 Sheet 结构。
+ *
+ * props 与 API 状态的合并走 usePriorityValues，API 优先 ——
+ * 命令式调用（api.setState）需要能覆盖模板上写死的初始值，否则无法在运行中改配置。
+ * 移动端下由 useIsMobile 调整呈现，因此在窄屏上部分配置（如固定宽度）会被覆盖。
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\drawer.vue
  * @author ydsz-team

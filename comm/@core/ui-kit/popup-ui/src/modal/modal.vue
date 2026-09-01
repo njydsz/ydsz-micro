@@ -1,5 +1,9 @@
 <!--
- * modal Vue 组件
+ * 弹窗的渲染实现：合并 props 与命令式 API 状态后映射为 Dialog 结构，并接入拖拽与全屏。
+ *
+ * 优先级与抽屉一致：全局默认 → 父级注入 → 本次 options → API 运行时状态，后者覆盖前者，
+ * 这样命令式调用才能在打开后继续改配置。
+ * 内容区引用 contentRef 供拖拽与全屏切换时测量尺寸。
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\modal.vue
  * @author ydsz-team

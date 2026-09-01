@@ -1,5 +1,8 @@
 /**
- * drawer-api 模块
+ * 抽屉的命令式状态管理：在通用弹窗基类之上补一份抽屉默认状态。
+ *
+ * 默认关闭 openAutoFocus：抽屉常承载表单，自动聚焦到第一个控件会打断阅读；
+ * 默认开启 modal 与点击遮罩关闭，符合「抽屉是临时层」的惯常预期。
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\drawer-api.ts
  * @author ydsz-team

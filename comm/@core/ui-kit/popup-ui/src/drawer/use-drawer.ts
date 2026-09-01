@@ -1,5 +1,9 @@
 /**
- * use-drawer 模块
+ * 抽屉的创建入口：返回「组件 + 命令式 API」一对，并支持设置全局默认配置。
+ *
+ * 全局默认值是模块级单例，用 Object.assign 原地累加覆盖，
+ * 因此应在应用启动阶段调用一次，且只对之后创建的抽屉生效 ——
+ * 运行中调用不会改变已存在实例，也不会清除此前设置过的其它键。
  *
  * @path comm\@core\ui-kit\popup-ui\src\drawer\use-drawer.ts
  * @author ydsz-team

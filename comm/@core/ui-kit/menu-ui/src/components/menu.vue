@@ -1,7 +1,9 @@
 <!--
- * menu 通用组件
+ * 菜单容器：渲染为 ul 并带上 role=menu，承载模式（横/纵）、主题、折叠与手风琴等行为。
  *
- * 样式已提取至 menu-styles.scss，本文件专注于模板渲染与逻辑组织。
+ * 状态与交互逻辑全部委托给 useMenuLogic，本组件只做类名拼装与 DOM 渲染 ——
+ * 菜单的展开、选中、滚动逻辑相当长，与模板混在一起将无法单测。
+ * 样式变量由 useMenuStyle 计算后以内联 style 下发，便于按主题切换配色。
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\menu.vue
  * @author ydsz-team

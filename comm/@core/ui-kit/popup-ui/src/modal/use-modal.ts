@@ -1,5 +1,10 @@
 /**
- * use-modal 模块
+ * 弹窗的创建入口：返回「组件 + 命令式 API」一对，并支持设置全局默认配置。
+ *
+ * 依据是否传入 connectedComponent 分两条分支：
+ * 未传时为内联模式，直接在当前组件里创建 API 与渲染组件；
+ * 传入时则为独立组件模式，通过注入把外部组件接进来。
+ * 配置合并顺序为全局默认 → 父级注入 → 本次 options，后者优先。
  *
  * @path comm\@core\ui-kit\popup-ui\src\modal\use-modal.ts
  * @author ydsz-team

@@ -1,5 +1,10 @@
 <!--
- * collapse-transition 通用组件
+ * 菜单展开/收起的高度过渡：手写的一套 JS 过渡钩子，而非 CSS transition。
+ *
+ * 原因是内容高度未知：CSS 无法从 height:0 过渡到 auto，
+ * 只能在 beforeEnter 里先记录并清零 padding/margin、再以 max-height 做动画，
+ * afterEnter 时把内联样式还原 —— 若不还原，内部嵌套的二级菜单将永远被限制在旧高度。
+ * 旧值暂存在 dataset 上而不是组件变量里，因为同一时刻可能有多个子菜单在做动画。
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\collapse-transition.vue
  * @author ydsz-team

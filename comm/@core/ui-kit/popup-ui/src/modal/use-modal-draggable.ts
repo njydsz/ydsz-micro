@@ -1,6 +1,18 @@
 /**
- * @copy https://github.com/element-plus/element-plus/blob/dev/comm/hooks/use-draggable/index.ts
- * 调整部分细节
+ * 弹窗拖拽：以 transform 位移实现，并把移动范围限制在容器（默认视口）之内。
+ *
+ * 用 transform 而非 left/top，是因为前者不触发重排、由合成器处理，
+ * 拖拽更流畅，也不会破坏弹窗原有的居中定位方式。
+ *
+ * 边界在 mousedown 时一次性算好，拖拽过程只做钳制：
+ * 代价是拖拽期间窗口尺寸或弹窗大小变化后边界不会更新，可能拖出可视区域。
+ * mousemove / mouseup 绑在 document 上，鼠标移出弹窗或移动过快仍能跟随，松开即解绑。
+ * 关闭 draggable 只会解绑监听、不复位位移，需在弹窗关闭时显式调用 resetPosition。
+ * 实现改写自 Element Plus 的 use-draggable。
+ *
+ * @path ui-kit\popup-ui\src\modal\use-modal-draggable.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 import type { ComputedRef, Ref } from 'vue';

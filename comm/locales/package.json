@@ -22,6 +22,7 @@
   "dependencies": {
     "@intlify/core-base": "catalog:",
     "@YDSZ-core/composables": "workspace:*",
+    "@YDSZ-core/shared": "workspace:*",
     "vue": "catalog:",
     "vue-i18n": "catalog:"
   }

@@ -1,5 +1,8 @@
 /**
- * use-layout 组合式函数
+ * 把布局模式枚举展开成一组语义化布尔标记，供模板按需渲染各区域。
+ *
+ * 集中判断而非在模板里散落字符串比较，新增布局模式时只需改这一处；
+ * 全部返回 computed，本 hook 无副作用。
  *
  * @path comm\@core\ui-kit\layout-ui\src\hooks\use-layout.ts
  * @author ydsz-team

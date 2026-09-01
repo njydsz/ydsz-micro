@@ -1,5 +1,8 @@
 /**
- * alert 模块
+ * 提示弹窗的类型契约：图标语义、关闭前回调上下文与完整配置项。
+ *
+ * beforeClose 的入参带 isConfirm 是为了区分「点了确认」与「取消/遮罩/Esc」，
+ * 让同一个回调能对两条退出路径做差异处理（例如只在确认时提交数据）。
  *
  * @path comm\@core\ui-kit\popup-ui\src\alert\alert.ts
  * @author ydsz-team

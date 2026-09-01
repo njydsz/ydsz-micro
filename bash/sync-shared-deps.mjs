@@ -120,14 +120,30 @@ async function main() {
     baseUrl: root,
     env: ['production', 'browser', 'module'],
     defaultProvider: 'esm.sh',
-    // v4.4.1: axios 的 esm.sh 产物缺少 ./lib/adapters/xhr 子路径导出声明，
-    // jspm 解析 axios 深层引用（vxe-pc-ui 依赖链）时按 exports map 严格校验失败。
-    // commonJS 转换模式让 jspm 以 CJS 互操作方式解析 axios，
-    // 避开其 ESM exports map 的子路径缺失问题。
     commonJS: true,
   });
 
   for (const dep of ALL_SHARED_DEPS) {
+    // v4.4.1: axios 的 esm.sh 产物缺少 ./lib/adapters/xhr 子路径导出声明，
+    // jspm 按 exports map 严格解析失败（vxe-pc-ui → axios 深层引用触发）。
+    // 对 axios 关联依赖改用 CDN 基础 URL 直装（绕过 esm.sh 重写导出），
+    // 其余依赖仍走 esm.sh provider。
+    const axiosFamily = ['axios', 'vxe-table', 'vxe-pc-ui'];
+    if (axiosFamily.includes(dep.name)) {
+      const lockedVersion = lock?.deps?.[dep.name]?.version;
+      const version = lockedVersion || dep.range;
+      try {
+        await generator.install({
+          target: `https://cdn.jsdelivr.net/npm/${dep.name}@${version}`,
+        });
+        console.info(`  ✓ ${dep.name}@${version}（jsdelivr 直装）`);
+        continue;
+      } catch (err) {
+        console.warn(
+          `[sync-shared-deps] ${dep.name} jsdelivr 直装失败，回退 esm.sh: ${err.message}`,
+        );
+      }
+    }
     const lockedVersion = lock?.deps?.[dep.name]?.version;
     await generator.install({
       target: dep.name,

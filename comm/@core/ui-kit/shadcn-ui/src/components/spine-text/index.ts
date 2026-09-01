@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * YDSZSpineText 的出口：流光文字效果。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\spine-text\index.ts
  * @author ydsz-team

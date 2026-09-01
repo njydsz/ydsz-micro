@@ -1,8 +1,11 @@
 /**
- * use-layout-state 组合式函数
+ * 把 YDSZLayout 的全部布局状态与联动逻辑抽离出来的组合式函数。
  *
- * 管理 YDSZLayout 的布局状态：header/footer/sidebar 的展开收起状态、
- * 相关的计算属性、滚动/鼠标追踪及联动的 watchers。
+ * 拆分的动因：布局组件要同时管理 header / footer / sidebar / 侧边扩展区四组开合状态，
+ * 外加滚动与鼠标追踪，全部堆在 SFC 里会让模板难以维护。
+ *
+ * 入参刻意采用「对象 + 若干个 model ref」的形式而不是散开的多个参数：
+ * 双向绑定项较多且会继续增加，对象形式下新增一项不会破坏既有调用点。
  *
  * @path comm\@core\ui-kit\layout-ui\src\composables\use-layout-state.ts
  * @author ydsz-team

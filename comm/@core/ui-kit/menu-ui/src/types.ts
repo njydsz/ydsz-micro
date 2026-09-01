@@ -1,5 +1,9 @@
 /**
- * types 模块
+ * 菜单的类型契约：组件 props、菜单项结构、父/子菜单上下文与徽标配置。
+ *
+ * 菜单项结构（MenuRecordRaw）刻意开放 children 递归嵌套，
+ * 以便直接消费后端返回的树形数据；徽标三种配置（badge / badgeType / badgeVariants）
+ * 分别对应文本、形态与配色，组合含义见各字段说明。
  *
  * @path comm\@core\ui-kit\menu-ui\src\types.ts
  * @author ydsz-team

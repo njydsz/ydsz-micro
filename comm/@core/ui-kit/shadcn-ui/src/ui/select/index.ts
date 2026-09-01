@@ -1,5 +1,8 @@
 /**
- * index 模块
+ * 选择器全部子组件的出口：容器、触发器、值、内容、分组、标签、选项与滚动按钮。
+ *
+ * 拆分粒度对应 radix 的插槽结构，缺一不可 ——
+ * 尤其是 SelectItemText 与 SelectValue，漏掉会分别导致触发器空白与选项无文本。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\index.ts
  * @author ydsz-team

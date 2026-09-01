@@ -1,5 +1,9 @@
 <!--
- * YDSZ-layout Vue 组件
+ * 后台管理布局的根组件：按 layout 模式组合 header / sidebar / tabbar / content / footer 五个区域。
+ *
+ * 所有区域开关都有默认值且默认关闭（footerEnable 等），
+ * 因此未配置时只渲染最简结构，不会凭空多出空区域占位。
+ * 各区域的开合判断统一来自 useLayout 与 useLayoutState，本组件只负责拼装。
  *
  * @path comm\@core\ui-kit\layout-ui\src\YDSZ-layout.vue
  * @author ydsz-team

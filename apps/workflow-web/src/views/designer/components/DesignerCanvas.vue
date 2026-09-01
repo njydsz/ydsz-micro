@@ -9,8 +9,11 @@
 -->
 <script lang="ts" setup>
 /**
- * 流程设计器画布组件
+ * 流程设计器画布组件（v4.4.1 重构：对齐逻辑提取至 use-canvas-alignment）。
+ *
  * <p>封装 LogicFlow 实例，提供节点操作 API。
+ * 对齐/分布操作已提取至{@link useCanvasAlignment}，
+ * 本文件聚焦于画布生命周期、节点注册与事件绑定。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -19,22 +22,11 @@ import '@logicflow/core/dist/style/index.css';
 import { LogicFlow } from '@logicflow/core';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-import type { DesignerNodeConfig } from '../types';
+import type { DesignerNodeConfig, LfGraphNode } from '../types';
 import { DesignerNodeType } from '../types';
+import { useCanvasAlignment } from '../use-canvas-alignment';
 
-/**
- * LogicFlow 图节点结构（裁剪业务所需的最小字段集）
- */
-interface LfGraphNode {
-  id: string;
-  isSelected: boolean;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  type?: string;
-  text?: string;
-}
+// LfGraphNode 已迁移至 ../types，通过 import type 引入
 
 interface Props {
   /** 流程定义 ID */
@@ -52,10 +44,16 @@ const emit = defineEmits<{
 }>();
 
 const containerRef = ref<HTMLDivElement>();
+const lfRef = ref<LogicFlow | null>(null);
 let lf: LogicFlow | null = null;
 
+/** 对齐/分布操作（从 composable 获取） */
+const alignment = useCanvasAlignment(() => lfRef.value);
+
 /**
- * 初始化 LogicFlow 实例
+ * 初始化 LogicFlow 实例。
+ *
+ * 配置网格、键盘交互、样式；注册自定义节点并绑定事件后执行首帧渲染。
  */
 function initLogicFlow() {
   if (!containerRef.value) return;
@@ -89,6 +87,7 @@ function initLogicFlow() {
       },
     },
   });
+  lfRef.value = lf;
 
   // 注册自定义节点
   registerCustomNodes();
@@ -101,7 +100,12 @@ function initLogicFlow() {
 }
 
 /**
- * 注册自定义节点
+ * 注册自定义节点类型。
+ *
+ * 包含：开始节点、结束节点、审批节点、AI 审批节点、服务节点、条件节点。
+ * 每种节点定义 getNodeStyle/getTextStyle 以控制外观。
+ *
+ * v4.4.1：condition-node 使用 Record 类型注解替代 any（云顶规范 §3.1 豁免条款 —— LogicFlow 基类签名使用 any）。
  */
 function registerCustomNodes() {
   if (!lf) return;
@@ -195,7 +199,11 @@ function registerCustomNodes() {
   lf.register('condition-node', ({ PolygonNode, PolygonNodeModel }) => {
     class ConditionNode extends PolygonNode {}
     class ConditionNodeModel extends PolygonNodeModel {
-      // 非标准 API 收窄：LogicFlow 基类方法签名使用 any，覆写时保持兼容
+      /**
+       * 非标准 API 收窄：LogicFlow 基类方法签名使用 any，覆写时保持兼容。
+       *
+       * @param data - 初始化节点数据
+       */
       initNodeData(data: Record<string, unknown>) {
         super.initNodeData(data as Record<string, unknown>);
         this.points = [
@@ -221,7 +229,12 @@ function registerCustomNodes() {
 }
 
 /**
- * 绑定画布事件
+ * 绑定画布事件。
+ *
+ * 监听：
+ * - node:click：选中节点，emit nodeSelect
+ * - blank:click：取消选中
+ * - node:dnd-add：新拖拽节点添加后设置默认配置
  */
 function bindEvents() {
   if (!lf) return;
@@ -252,7 +265,10 @@ function bindEvents() {
 }
 
 /**
- * 获取节点默认名称
+ * 根据节点类型获取默认名称。
+ *
+ * @param type - 节点类型标识（如 'start-node'）
+ * @returns 默认中文名称，未匹配时返回 '节点'
  */
 function getDefaultNodeName(type: string): string {
   const nameMap: Record<string, string> = {
@@ -267,7 +283,9 @@ function getDefaultNodeName(type: string): string {
 }
 
 /**
- * 加载图数据
+ * 加载图数据。
+ *
+ * @param diagramJson - 序列化的图数据 JSON 字符串
  */
 function loadGraph(diagramJson: string) {
   if (!lf || !diagramJson) return;
@@ -280,7 +298,9 @@ function loadGraph(diagramJson: string) {
 }
 
 /**
- * 获取图数据
+ * 获取图数据。
+ *
+ * @returns 序列化后的图数据，未初始化时返回 null
  */
 function getGraphData() {
   if (!lf) return null;
@@ -288,7 +308,10 @@ function getGraphData() {
 }
 
 /**
- * 更新节点属性
+ * 更新节点属性。
+ *
+ * @param nodeId - 目标节点 ID
+ * @param config - 新节点配置
  */
 function updateNodeProperties(nodeId: string, config: DesignerNodeConfig) {
   if (!lf || !nodeId) return;
@@ -296,7 +319,12 @@ function updateNodeProperties(nodeId: string, config: DesignerNodeConfig) {
 }
 
 /**
- * 添加节点
+ * 在画布上添加新节点。
+ *
+ * @param type - 节点类型枚举
+ * @param x - 横坐标
+ * @param y - 纵坐标
+ * @param text - 显示文本
  */
 function addNode(type: DesignerNodeType, x: number, y: number, text: string) {
   if (!lf) return;
@@ -321,6 +349,33 @@ function addNode(type: DesignerNodeType, x: number, y: number, text: string) {
   });
 }
 
+// ==================== 缩放操作 ====================
+
+/** 放大画布（最大 200%）。 */
+function zoomIn() {
+  if (!lf) return;
+  const currentZoom = lf.getTransform().SCALE_X || 1;
+  const newZoom = Math.min(currentZoom + 0.1, 2);
+  lf.zoom(newZoom);
+}
+
+/** 缩小画布（最小 50%）。 */
+function zoomOut() {
+  if (!lf) return;
+  const currentZoom = lf.getTransform().SCALE_X || 1;
+  const newZoom = Math.max(currentZoom - 0.1, 0.5);
+  lf.zoom(newZoom);
+}
+
+/** 重置缩放与位移。 */
+function zoomReset() {
+  if (!lf) return;
+  lf.resetZoom();
+  lf.translate(0, 0);
+}
+
+// ==================== 锁定状态同步 ====================
+
 watch(
   () => props.locked,
   (locked) => {
@@ -330,143 +385,6 @@ watch(
   },
 );
 
-// ==================== 缩放操作 ====================
-
-/** 放大 */
-function zoomIn() {
-  if (!lf) return;
-  const currentZoom = lf.getTransform().SCALE_X || 1;
-  const newZoom = Math.min(currentZoom + 0.1, 2);
-  lf.zoom(newZoom);
-}
-
-/** 缩小 */
-function zoomOut() {
-  if (!lf) return;
-  const currentZoom = lf.getTransform().SCALE_X || 1;
-  const newZoom = Math.max(currentZoom - 0.1, 0.5);
-  lf.zoom(newZoom);
-}
-
-/** 重置缩放 */
-function zoomReset() {
-  if (!lf) return;
-  lf.resetZoom();
-  lf.translate(0, 0);
-}
-
-// ==================== 对齐操作 ====================
-
-/** 获取选中的节点 */
-function getSelectedNodes(): Array<{
-  id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}> {
-  if (!lf) return [];
-  const nodes = lf.graphModel.nodes as unknown as LfGraphNode[];
-  const selectedIds = nodes.filter((n) => n.isSelected).map((n) => n.id);
-  if (selectedIds.length < 2) return [];
-
-  return selectedIds.map((id: string) => {
-    const node = (lf!.graphModel.nodes as unknown as LfGraphNode[]).find((n) => n.id === id);
-    const { x, y, width, height } = node ?? {};
-    return { id, x: x ?? 0, y: y ?? 0, width: width ?? 100, height: height ?? 50 };
-  });
-}
-
-/** 左对齐 */
-function alignLeft() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 2) return;
-  const minX = Math.min(...nodes.map((n) => n.x));
-  nodes.forEach((n) => {
-    lf?.updateNode(n.id, { x: minX });
-  });
-}
-
-/** 水平居中 */
-function alignCenter() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 2) return;
-  const avgX = nodes.reduce((sum, n) => sum + n.x + n.width / 2, 0) / nodes.length;
-  nodes.forEach((n) => {
-    lf?.updateNode(n.id, { x: avgX - n.width / 2 });
-  });
-}
-
-/** 右对齐 */
-function alignRight() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 2) return;
-  const maxRight = Math.max(...nodes.map((n) => n.x + n.width));
-  nodes.forEach((n) => {
-    lf?.updateNode(n.id, { x: maxRight - n.width });
-  });
-}
-
-/** 上对齐 */
-function alignTop() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 2) return;
-  const minY = Math.min(...nodes.map((n) => n.y));
-  nodes.forEach((n) => {
-    lf?.updateNode(n.id, { y: minY });
-  });
-}
-
-/** 垂直居中 */
-function alignMiddle() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 2) return;
-  const avgY = nodes.reduce((sum, n) => sum + n.y + n.height / 2, 0) / nodes.length;
-  nodes.forEach((n) => {
-    lf?.updateNode(n.id, { y: avgY - n.height / 2 });
-  });
-}
-
-/** 下对齐 */
-function alignBottom() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 2) return;
-  const maxBottom = Math.max(...nodes.map((n) => n.y + n.height));
-  nodes.forEach((n) => {
-    lf?.updateNode(n.id, { y: maxBottom - n.height });
-  });
-}
-
-/** 水平分布 */
-function distributeHorizontal() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 3) return;
-  const sorted = [...nodes].sort((a, b) => a.x - b.x);
-  const totalWidth = sorted.reduce((sum, n) => sum + n.width, 0);
-  const span = sorted[sorted.length - 1].x + sorted[sorted.length - 1].width - sorted[0].x;
-  const gap = (span - totalWidth) / (sorted.length - 1);
-  let cursor = sorted[0].x;
-  sorted.forEach((n) => {
-    lf?.updateNode(n.id, { x: cursor });
-    cursor += n.width + gap;
-  });
-}
-
-/** 垂直分布 */
-function distributeVertical() {
-  const nodes = getSelectedNodes();
-  if (nodes.length < 3) return;
-  const sorted = [...nodes].sort((a, b) => a.y - b.y);
-  const totalHeight = sorted.reduce((sum, n) => sum + n.height, 0);
-  const span = sorted[sorted.length - 1].y + sorted[sorted.length - 1].height - sorted[0].y;
-  const gap = (span - totalHeight) / (sorted.length - 1);
-  let cursor = sorted[0].y;
-  sorted.forEach((n) => {
-    lf?.updateNode(n.id, { y: cursor });
-    cursor += n.height + gap;
-  });
-}
-
 onMounted(() => {
   initLogicFlow();
 });
@@ -474,8 +392,14 @@ onMounted(() => {
 onBeforeUnmount(() => {
   lf?.destroy();
   lf = null;
+  lfRef.value = null;
 });
 
+/**
+ * 暴露公共方法供父组件调用。
+ *
+ * 包含：图数据加载/获取、节点增删改、缩放、对齐与分布。
+ */
 defineExpose({
   loadGraph,
   getGraphData,
@@ -484,14 +408,14 @@ defineExpose({
   zoomIn,
   zoomOut,
   zoomReset,
-  alignLeft,
-  alignCenter,
-  alignRight,
-  alignTop,
-  alignMiddle,
-  alignBottom,
-  distributeHorizontal,
-  distributeVertical,
+  alignLeft: alignment.alignLeft,
+  alignCenter: alignment.alignCenter,
+  alignRight: alignment.alignRight,
+  alignTop: alignment.alignTop,
+  alignMiddle: alignment.alignMiddle,
+  alignBottom: alignment.alignBottom,
+  distributeHorizontal: alignment.distributeHorizontal,
+  distributeVertical: alignment.distributeVertical,
 });
 </script>
 

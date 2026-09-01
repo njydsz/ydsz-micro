@@ -1,5 +1,10 @@
 <!--
- * sub-menu 通用组件
+ * 子菜单：维护自身的展开态、子项与子菜单注册表，并向下提供子菜单上下文。
+ *
+ * 层级由父级上下文的 level + 1 得出而不是数 DOM 层数，
+ * 这样即使中间插入包装组件，缩进层级依然正确。
+ * mouseInChild 与 timer 用于横向模式下的悬停展开延迟：
+ * 鼠标从父项移向子面板会短暂离开两者，没有延迟会立刻收起。
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\sub-menu.vue
  * @author ydsz-team

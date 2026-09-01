@@ -1,5 +1,10 @@
 /**
- * use-menu-context 组合式函数
+ * 菜单的跨层级上下文：根菜单用固定 Symbol 键，子菜单按父实例 uid 生成键。
+ *
+ * 子菜单键必须带 uid：菜单是递归结构，若所有子菜单共用一个键，
+ * 深层子菜单会读到最近一次 provide 的值，也就是兄弟节点的数据。
+ * 取值时不能只靠 inject —— 需要先向上找到父级实例才能拼出正确的键，
+ * 这是 useSubMenuContext 里 findComponentUpward 存在的原因。
  *
  * @path comm\@core\ui-kit\menu-ui\src\hooks\use-menu-context.ts
  * @author ydsz-team

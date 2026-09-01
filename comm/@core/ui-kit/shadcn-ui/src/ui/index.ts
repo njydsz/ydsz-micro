@@ -1,5 +1,8 @@
 /**
- * index 模块
+ * ui 目录下全部组件目录的聚合出口，是 shadcn-ui 组件层的唯一登记处。
+ *
+ * 新增组件目录后必须在此登记，否则组件不会对外暴露 ——
+ * 这是本目录最容易漏掉的一步，也是「组件写完了却引不到」的常见原因。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\index.ts
  * @author ydsz-team

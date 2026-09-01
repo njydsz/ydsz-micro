@@ -1,5 +1,5 @@
 /**
- * index 模块
+ * YDSZSelect 的出口：options 驱动的开箱即用下拉选择器。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\select\index.ts
  * @author ydsz-team

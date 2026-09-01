@@ -1,5 +1,9 @@
 <!--
- * sub-menu-content 通用组件
+ * 子菜单的标题内容区：渲染图标、标题、箭头与徽标，并决定折叠态下的呈现方式。
+ *
+ * 箭头在非折叠的一级菜单与横向模式下才显示 —— 折叠时标题已隐藏，箭头没有指向对象；
+ * 是否显示标题由 collapseShowTitle 与层级共同决定，只对一级生效，
+ * 否则折叠态下多级标题会挤在一起。
  *
  * @path comm\@core\ui-kit\menu-ui\src\components\sub-menu-content.vue
  * @author ydsz-team
