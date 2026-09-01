@@ -604,11 +604,11 @@ defineExpose({ open, close });
 }
 
 .workflow-node:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 }
 
 .workflow-node.selected {
-  box-shadow: 0 0 0 2px #409eff, 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 0 2px #409eff, 0 4px 12px rgb(0 0 0 / 15%);
 }
 
 .workflow-node.connecting-target {

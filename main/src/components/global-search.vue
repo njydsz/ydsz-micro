@@ -158,16 +158,18 @@ function close() {
   align-items: flex-start;
   justify-content: center;
   padding-top: 15vh;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgb(0 0 0 / 40%);
 }
+
 .gs-panel {
   width: 560px;
   max-width: 90vw;
   background: var(--el-bg-color, #fff);
   border-radius: 12px;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 16px 48px rgb(0 0 0 / 18%);
   overflow: hidden;
 }
+
 .gs-input-wrap {
   display: flex;
   align-items: center;
@@ -175,9 +177,11 @@ function close() {
   padding: 14px 16px;
   border-bottom: 1px solid var(--el-border-color-lighter);
 }
+
 .gs-icon {
   color: var(--el-text-color-placeholder);
 }
+
 .gs-input {
   flex: 1;
   border: none;
@@ -186,6 +190,7 @@ function close() {
   background: transparent;
   color: var(--el-text-color-primary);
 }
+
 .gs-kbd {
   padding: 2px 6px;
   font-size: 11px;
@@ -194,11 +199,13 @@ function close() {
   border-radius: 4px;
   border: 1px solid var(--el-border-color);
 }
+
 .gs-results {
   max-height: 420px;
   overflow-y: auto;
   padding: 8px 0;
 }
+
 .gs-item {
   display: flex;
   align-items: center;
@@ -211,16 +218,20 @@ function close() {
   text-align: left;
   border-bottom: 1px solid var(--el-border-color-extra-light);
 }
+
 .gs-item:last-child {
   border-bottom: none;
 }
+
 .gs-item.is-active,
 .gs-item:hover {
   background: var(--el-fill-color-light);
 }
+
 .gs-item-icon {
   color: var(--el-text-color-placeholder);
 }
+
 .gs-item-body {
   flex: 1;
   display: flex;
@@ -228,6 +239,7 @@ function close() {
   gap: 2px;
   min-width: 0;
 }
+
 .gs-item-title {
   font-size: 13px;
   color: var(--el-text-color-primary);
@@ -235,16 +247,19 @@ function close() {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .gs-item-title :deep(mark) {
   background: var(--el-color-primary-light-8);
   color: var(--el-color-primary);
   border-radius: 2px;
   padding: 0 2px;
 }
+
 .gs-item-desc {
   font-size: 11px;
   color: var(--el-text-color-secondary);
 }
+
 .gs-app-badge {
   padding: 2px 8px;
   border-radius: 10px;
@@ -253,6 +268,7 @@ function close() {
   color: var(--el-text-color-regular);
   white-space: nowrap;
 }
+
 .gs-empty,
 .gs-tips {
   text-align: center;
@@ -260,15 +276,18 @@ function close() {
   font-size: 12px;
   color: var(--el-text-color-placeholder);
 }
+
 .gs-tips {
   display: flex;
   gap: 16px;
   justify-content: center;
 }
+
 .search-modal-enter-active,
 .search-modal-leave-active {
   transition: opacity 0.15s ease;
 }
+
 .search-modal-enter-from,
 .search-modal-leave-to {
   opacity: 0;

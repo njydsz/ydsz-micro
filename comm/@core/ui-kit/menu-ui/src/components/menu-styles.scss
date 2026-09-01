@@ -1,4 +1,4 @@
-$namespace: YDSZ;
+$namespace: ydsz;
 
 @mixin menu-item-active {
   color: var(--menu-item-active-color);
@@ -14,8 +14,7 @@ $namespace: YDSZ;
   align-items: center;
   height: var(--menu-item-height);
   padding: var(--menu-item-padding-y) var(--menu-item-padding-x);
-  margin: 0 var(--menu-item-margin-x) var(--menu-item-margin-y)
-    var(--menu-item-margin-x);
+  margin: 0 var(--menu-item-margin-x) var(--menu-item-margin-y) var(--menu-item-margin-x);
   font-size: var(--menu-font-size);
   color: var(--menu-item-color);
   white-space: nowrap;
@@ -79,12 +78,12 @@ $namespace: YDSZ;
   --menu-item-popup-padding-y: 20px;
   --menu-item-popup-padding-x: 12px;
   --menu-item-margin-y: 2px;
-  --menu-item-margin-x: 0px;
+  --menu-item-margin-x: 0;
   --menu-item-collapse-padding-y: 23.5px;
-  --menu-item-collapse-padding-x: 0px;
+  --menu-item-collapse-padding-x: 0;
   --menu-item-collapse-margin-y: 4px;
-  --menu-item-collapse-margin-x: 0px;
-  --menu-item-radius: 0px;
+  --menu-item-collapse-margin-x: 0;
+  --menu-item-radius: 0;
   --menu-item-indent: 16px;
   --menu-font-size: 14px;
 
@@ -139,9 +138,9 @@ $namespace: YDSZ;
 
   // .YDSZ-menu__popup,
   &.is-horizontal {
-    --menu-item-padding-y: 0px;
+    --menu-item-padding-y: 0;
     --menu-item-padding-x: 10px;
-    --menu-item-margin-y: 0px;
+    --menu-item-margin-y: 0;
     --menu-item-margin-x: 1px;
     --menu-background-color: transparent;
 
@@ -183,9 +182,7 @@ $namespace: YDSZ;
       & .#{$namespace}-menu-item,
       & .#{$namespace}-sub-menu-content,
       & .#{$namespace}-menu-item-group__title {
-        padding-left: calc(
-          var(--menu-item-indent) + var(--menu-level) * var(--menu-item-indent)
-        );
+        padding-left: calc(var(--menu-item-indent) + var(--menu-level) * var(--menu-item-indent));
         white-space: nowrap;
       }
 
@@ -193,8 +190,7 @@ $namespace: YDSZ;
         & > .#{$namespace}-menu {
           & > .#{$namespace}-menu-item {
             padding-left: calc(
-              0px + var(--menu-item-indent) + var(--menu-level) *
-                var(--menu-item-indent)
+              0px + var(--menu-item-indent) + var(--menu-level) * var(--menu-item-indent)
             );
           }
         }
@@ -290,10 +286,8 @@ $namespace: YDSZ;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: var(--menu-item-collapse-padding-y)
-        var(--menu-item-collapse-padding-x);
-      margin: var(--menu-item-collapse-margin-y)
-        var(--menu-item-collapse-margin-x);
+      padding: var(--menu-item-collapse-padding-y) var(--menu-item-collapse-padding-x);
+      margin: var(--menu-item-collapse-margin-y) var(--menu-item-collapse-margin-x);
       transition: all 0.3s;
 
       &.is-active {

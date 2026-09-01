@@ -51,15 +51,18 @@ withDefaults(defineProps<Props>(), {
   padding: 40px 16px;
   color: #909399;
 }
+
 .empty-state__icon {
   width: 64px;
   height: 64px;
   margin-bottom: 12px;
 }
+
 .empty-state__text {
   font-size: 14px;
   line-height: 1.5;
 }
+
 .empty-state__action {
   margin-top: 12px;
 }

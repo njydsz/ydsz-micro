@@ -157,12 +157,12 @@ onUnmounted(() => {
   height: 100%;
   background: linear-gradient(90deg, #409eff 0%, #67c23a 100%);
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 6px rgba(64, 158, 255, 0.4);
+  box-shadow: 0 0 6px rgb(64 158 255 / 40%);
 }
 
 .is-error .bar {
   background: linear-gradient(90deg, #ff4d4f 0%, #ff7875 100%);
-  box-shadow: 0 0 6px rgba(255, 77, 79, 0.4);
+  box-shadow: 0 0 6px rgb(255 77 79 / 40%);
 }
 
 .label {
@@ -178,7 +178,7 @@ onUnmounted(() => {
   background: #fff;
   border: 1px solid #d9ecff;
   border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 6%);
   white-space: nowrap;
 }
 
@@ -200,6 +200,7 @@ onUnmounted(() => {
 /* 淡入淡出 */
 .subapp-progress-enter-active { transition: opacity 0.2s ease; }
 .subapp-progress-leave-active { transition: opacity 0.3s ease; }
+
 .subapp-progress-enter-from,
 .subapp-progress-leave-to { opacity: 0; }
 </style>

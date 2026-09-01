@@ -293,7 +293,7 @@ onMounted(() => {
   width: 100%;
   min-height: 350px;
   padding: 12px;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
   font-size: 13px;
   line-height: 1.5;
   border: none;

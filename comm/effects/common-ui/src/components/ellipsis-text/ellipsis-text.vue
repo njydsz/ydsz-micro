@@ -214,7 +214,7 @@ function handleExpand() {
           :class="{
             '!cursor-pointer': expand,
             ['block truncate']: line === 1,
-            [$style.ellipsisMultiLine]: line > 1,
+            [$style['ellipsis-multi-line']]: line > 1,
           }"
           :style="{
             '-webkit-line-clamp': isExpand ? '' : line,
@@ -232,7 +232,7 @@ function handleExpand() {
 </template>
 
 <style module>
-.ellipsisMultiLine {
+.ellipsis-multi-line {
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }

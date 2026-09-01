@@ -46,6 +46,7 @@ const displayName = computed(() => {
   position: relative;
   display: inline-flex;
 }
+
 .online-dot {
   position: absolute;
   bottom: 0;

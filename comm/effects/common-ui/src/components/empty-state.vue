@@ -59,15 +59,18 @@ withDefaults(
   padding: 48px 24px;
   text-align: center;
 }
+
 .empty-icon {
   color: var(--el-text-color-placeholder);
   margin-bottom: 16px;
 }
+
 .empty-description {
   color: var(--el-text-color-secondary);
   font-size: 14px;
   margin: 0 0 20px;
 }
+
 .empty-actions {
   display: flex;
   gap: 12px;

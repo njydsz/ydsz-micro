@@ -78,11 +78,13 @@ defineEmits<{
   justify-content: center;
   min-height: 200px;
 }
+
 .async-state__error,
 .async-state__empty {
   text-align: center;
   color: #909399;
 }
+
 .async-state__icon {
   width: 48px;
   height: 48px;
@@ -96,10 +98,12 @@ defineEmits<{
   align-items: center;
   justify-content: center;
 }
+
 .async-state__msg {
   font-size: 12px;
   margin: 4px 0 12px;
 }
+
 .async-state__empty {
   padding: 24px 0;
 }

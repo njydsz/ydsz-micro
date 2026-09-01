@@ -395,7 +395,7 @@ watch(
   border: 1px solid var(--el-border-color);
   border-radius: 4px;
   overflow: hidden;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, monospace;
   font-size: 13px;
   line-height: 20px;
 }
@@ -470,7 +470,7 @@ watch(
   background: white;
   border: 1px solid var(--el-border-color);
   border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 }
 
 .completion-item {

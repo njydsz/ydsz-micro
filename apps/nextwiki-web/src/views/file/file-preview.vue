@@ -217,6 +217,7 @@ onMounted(async () => {
 .file-preview {
   min-height: 500px;
 }
+
 .preview-content {
   max-height: 700px;
   overflow: auto;

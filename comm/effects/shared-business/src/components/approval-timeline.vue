@@ -75,16 +75,19 @@ function actionMeta(action: string): {
 .approval-timeline__item {
   padding-bottom: 4px;
 }
+
 .approval-timeline__head {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 4px;
 }
+
 .approval-timeline__operator {
   font-weight: 600;
   font-size: 14px;
 }
+
 .approval-timeline__comment {
   margin: 0;
   font-size: 13px;
@@ -93,6 +96,7 @@ function actionMeta(action: string): {
   padding: 8px 12px;
   border-radius: 4px;
 }
+
 .approval-timeline__empty {
   text-align: center;
   color: #909399;

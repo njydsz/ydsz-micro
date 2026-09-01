@@ -154,7 +154,7 @@ onUnmounted(() => {
 .retry,
 .close {
   padding: 2px 10px;
-  border: 1px solid currentColor;
+  border: 1px solid currentcolor;
   border-radius: 4px;
   background: transparent;
   cursor: pointer;
@@ -163,16 +163,16 @@ onUnmounted(() => {
   transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.retry:hover,
-.close:hover {
-  opacity: 0.7;
-}
-
 .close {
   border: none;
   font-size: 18px;
   line-height: 1;
   padding: 0 4px;
+}
+
+.retry:hover,
+.close:hover {
+  opacity: 0.7;
 }
 
 .network-alert-enter-active,

@@ -88,10 +88,12 @@ onBeforeUnmount(() => {
   padding: 8px 4px;
   border-bottom: 1px solid #f0f0f0;
 }
+
 .keyboard-help__label {
   font-size: 14px;
   color: #303133;
 }
+
 .keyboard-help__empty {
   text-align: center;
   color: #909399;

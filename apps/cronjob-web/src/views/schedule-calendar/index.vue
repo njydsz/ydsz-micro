@@ -238,12 +238,15 @@ onMounted(() => {
 .dot-primary {
   background-color: var(--el-color-primary);
 }
+
 .dot-success {
   background-color: var(--el-color-success);
 }
+
 .dot-warning {
   background-color: var(--el-color-warning);
 }
+
 .dot-danger {
   background-color: var(--el-color-danger);
 }

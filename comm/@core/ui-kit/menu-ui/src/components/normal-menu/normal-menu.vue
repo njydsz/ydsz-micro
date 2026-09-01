@@ -65,14 +65,14 @@ function menuIcon(menu: MenuRecordRaw) {
   </ul>
 </template>
 <style lang="scss" scoped>
-$namespace: YDSZ;
+$namespace: ydsz;
 
 .#{$namespace}-normal-menu {
   --menu-item-margin-y: 4px;
-  --menu-item-margin-x: 0px;
+  --menu-item-margin-x: 0;
   --menu-item-padding-y: 9px;
-  --menu-item-padding-x: 0px;
-  --menu-item-radius: 0px;
+  --menu-item-padding-x: 0;
+  --menu-item-radius: 0;
 
   height: calc(100% - 4px);
 

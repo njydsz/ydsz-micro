@@ -27,22 +27,19 @@ const config = {
         ignoreAtRules: ['tailwind', 'apply', 'layer', 'config'],
       },
     ],
-    // 选择器命名 (kebab-case)
+    // 选择器命名 (kebab-case / BEM；YDSZ- 为组件库命名空间前缀，同 en-US 目录属惯例豁免)
     'selector-class-pattern': [
-      '^[a-z]([a-z0-9-]+)?(__[a-z0-9-]+)?(--[a-z0-9-]+)?$',
+      '^(YDSZ-[a-z]([a-z0-9-]+)?|[a-z]([a-z0-9-]+)?(__[a-z0-9-]+)?(--[a-z0-9-]+)?)$',
       {
-        message: 'Expected class name to be kebab-case or BEM',
+        message: 'Expected class name to be kebab-case, BEM or YDSZ- namespaced',
       },
     ],
     'selector-id-pattern': '^[a-z][a-zA-Z0-9]*$',
     // 颜色格式
     'color-hex-length': 'short',
-    // 缩进
-    indentation: 2,
-    // 最大空行数
-    'max-empty-lines': 2,
-    // 无前导零
-    'number-leading-zero': 'always',
+    // 注：indentation / max-empty-lines / number-leading-zero / string-quotes
+    // 已在 stylelint 16 中移除，格式类职责统一交由 Prettier（stylelint-prettier）接管，
+    // 此处不再声明（2026-09-01 P0-1 配套修复，消除 104 文件 × 4 的 Unknown rule 误报）。
     // 属性顺序 (由 recess-order 处理)
     'order/properties-order': [],
     // 允许的伪类
@@ -60,14 +57,9 @@ const config = {
       },
     ],
     // 允许的 Vue 深度选择器
-    'selector-no-vendor-prefix': [
-      true,
-      {
-        ignoreSelectorTags: ['v-deep', 'v-global', 'v-slotted', 'v-placeholder'],
-      },
-    ],
-    // 引号
-    'string-quotes': 'single',
+    // 注：selector-no-vendor-prefix 已在 stylelint 15 中移除，不再声明
+    // （2026-09-01 P0-1 配套修复：其 ignoreSelectorTags 选项导致 Invalid Option 中断检查）。
+    // 引号（由 Prettier 接管，规则已随 stylelint 16 移除）
     // 单位
     'length-zero-no-unit': true,
     // 字体族名称引号

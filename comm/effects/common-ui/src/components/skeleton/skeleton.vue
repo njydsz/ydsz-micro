@@ -60,15 +60,27 @@ const skeletonClasses = computed(() => {
     <!-- Dashboard 骨架屏 -->
     <div v-if="type === 'dashboard'" class="skeleton-dashboard">
       <div class="skeleton-row">
-        <div class="skeleton-card" style="--delay: 0ms" />
-        <div class="skeleton-card" style="--delay: 100ms" />
-        <div class="skeleton-card" style="--delay: 200ms" />
-        <div class="skeleton-card" style="--delay: 300ms" />
+        <div class="skeleton-card" style="
+
+--delay: 0ms" />
+        <div class="skeleton-card" style="
+
+--delay: 100ms" />
+        <div class="skeleton-card" style="
+
+--delay: 200ms" />
+        <div class="skeleton-card" style="
+
+--delay: 300ms" />
       </div>
       <div class="skeleton-chart" />
       <div class="skeleton-row">
-        <div class="skeleton-table" style="--delay: 400ms" />
-        <div class="skeleton-list" style="--delay: 500ms" />
+        <div class="skeleton-table" style="
+
+--delay: 400ms" />
+        <div class="skeleton-list" style="
+
+--delay: 500ms" />
       </div>
     </div>
 
@@ -145,24 +157,14 @@ const skeletonClasses = computed(() => {
   padding: 16px;
 }
 
-.skeleton-animated .skeleton-card,
-.skeleton-animated .skeleton-chart,
-.skeleton-animated .skeleton-table,
-.skeleton-animated .skeleton-list,
-.skeleton-animated .skeleton-line,
-.skeleton-animated .skeleton-avatar,
-.skeleton-animated .skeleton-input,
-.skeleton-animated .skeleton-button,
-.skeleton-animated .skeleton-list-item {
-  animation: skeleton-pulse 1.5s ease-in-out infinite;
-  animation-delay: var(--delay, 0ms);
-}
-
+/* 动画组合器规则统一置于单类规则之后（no-descending-specificity，
+   两组规则属性不相交，移动位置不影响渲染结果） */
 @keyframes skeleton-pulse {
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.4;
   }
@@ -349,8 +351,21 @@ const skeletonClasses = computed(() => {
   flex: 1;
 }
 
+.skeleton-animated .skeleton-card,
+.skeleton-animated .skeleton-chart,
+.skeleton-animated .skeleton-table,
+.skeleton-animated .skeleton-list,
+.skeleton-animated .skeleton-line,
+.skeleton-animated .skeleton-avatar,
+.skeleton-animated .skeleton-input,
+.skeleton-animated .skeleton-button,
+.skeleton-animated .skeleton-list-item {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  animation-delay: var(--delay, 0ms);
+}
+
 /* Responsive */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .skeleton-row {
     grid-template-columns: repeat(2, 1fr);
   }

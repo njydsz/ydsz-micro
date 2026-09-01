@@ -7,7 +7,7 @@
   align-items: flex-start;
   justify-content: center;
   padding-top: 12vh;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgb(0 0 0 / 45%);
   backdrop-filter: blur(2px);
 }
 
@@ -18,7 +18,7 @@
   background: var(--el-bg-color, #fff);
   border-radius: 14px;
   box-shadow:
-    0 24px 64px rgba(0, 0, 0, 0.2),
+    0 24px 64px rgb(0 0 0 / 20%),
     0 0 0 1px var(--el-border-color-extra-light);
   overflow: hidden;
   display: flex;
@@ -34,6 +34,7 @@
   background: var(--el-fill-color-extra-light);
   border-bottom: 1px solid var(--el-border-color-lighter);
 }
+
 .cp-tab {
   display: flex;
   align-items: center;
@@ -46,18 +47,22 @@
   border-radius: 6px 6px 0 0;
   cursor: pointer;
 }
+
 .cp-tab:hover {
   background: var(--el-fill-color-light);
   color: var(--el-text-color-primary);
 }
+
 .cp-tab.is-active {
   background: var(--el-bg-color);
   color: var(--el-color-primary);
   font-weight: 500;
 }
+
 .cp-tab-icon {
   font-size: 14px;
 }
+
 .cp-tab kbd {
   font-size: 10px;
   padding: 1px 4px;
@@ -74,10 +79,12 @@
   padding: 14px 16px;
   border-bottom: 1px solid var(--el-border-color-lighter);
 }
+
 .cp-input-icon {
   font-size: 18px;
   color: var(--el-text-color-placeholder);
 }
+
 .cp-input {
   flex: 1;
   border: none;
@@ -86,9 +93,11 @@
   background: transparent;
   color: var(--el-text-color-primary);
 }
+
 .cp-input::placeholder {
   color: var(--el-text-color-placeholder);
 }
+
 .cp-mode-btn {
   font-size: 11px;
   padding: 3px 8px;
@@ -98,6 +107,7 @@
   color: var(--el-text-color-regular);
   cursor: pointer;
 }
+
 .cp-mode-btn:hover {
   border-color: var(--el-color-primary);
   color: var(--el-color-primary);
@@ -131,22 +141,27 @@
   text-align: left;
   transition: background 0.1s;
 }
+
 .cp-item:last-child {
   border-bottom: none;
 }
+
 .cp-item.is-active,
 .cp-item:hover {
   background: var(--el-fill-color-light);
 }
+
 .cp-item-icon {
   width: 18px;
   text-align: center;
   font-size: 14px;
   opacity: 0.7;
 }
+
 .cp-item-icon-recent {
   font-size: 13px;
 }
+
 .cp-item-body {
   flex: 1;
   display: flex;
@@ -154,6 +169,7 @@
   gap: 2px;
   min-width: 0;
 }
+
 .cp-item-title {
   font-size: 13px;
   color: var(--el-text-color-primary);
@@ -161,16 +177,19 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .cp-item-title :deep(mark) {
   background: var(--el-color-primary-light-8);
   color: var(--el-color-primary);
   border-radius: 2px;
   padding: 0 2px;
 }
+
 .cp-item-desc {
   font-size: 11px;
   color: var(--el-text-color-secondary);
 }
+
 .cp-app-badge {
   padding: 2px 8px;
   border-radius: 10px;
@@ -179,6 +198,7 @@
   color: var(--el-text-color-regular);
   white-space: nowrap;
 }
+
 .cp-shortcut {
   padding: 2px 6px;
   font-size: 11px;
@@ -194,10 +214,12 @@
   padding: 24px 16px;
   color: var(--el-text-color-placeholder);
 }
+
 .cp-empty span {
   display: block;
   font-size: 13px;
 }
+
 .cp-empty-hint {
   font-size: 11px !important;
   margin-top: 4px;
@@ -212,6 +234,7 @@
   font-size: 11px;
   color: var(--el-text-color-placeholder);
 }
+
 .cp-tips kbd {
   padding: 1px 4px;
   font-size: 10px;
@@ -219,6 +242,7 @@
   border: 1px solid var(--el-border-color);
   border-radius: 3px;
 }
+
 .cp-tips-sep {
   opacity: 0.5;
 }
@@ -233,10 +257,12 @@
   border-top: 1px solid var(--el-border-color-extra-light);
   background: var(--el-fill-color-extra-light);
 }
+
 .cp-footer-hint {
   font-size: 10px;
   color: var(--el-text-color-placeholder);
 }
+
 /* P2-2: 搜索提供者状态指示 */
 .cp-footer-provider-status {
   display: inline-flex;
@@ -246,6 +272,7 @@
   color: var(--el-text-color-placeholder);
   white-space: nowrap;
 }
+
 .cp-footer-dot {
   width: 6px;
   height: 6px;
@@ -253,9 +280,11 @@
   background: var(--el-color-warning);
   flex-shrink: 0;
 }
+
 .cp-footer-provider-status.is-ready .cp-footer-dot {
   background: var(--el-color-success);
 }
+
 .cp-footer-provider-status.is-ready {
   color: var(--el-text-color-regular);
 }
@@ -265,6 +294,7 @@
 .palette-modal-leave-active {
   transition: opacity 0.15s ease;
 }
+
 .palette-modal-enter-from,
 .palette-modal-leave-to {
   opacity: 0;

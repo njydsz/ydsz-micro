@@ -117,6 +117,7 @@ onMounted(() => {
   gap: 8px;
   margin-bottom: 12px;
 }
+
 .audit-log-table__pagination {
   display: flex;
   justify-content: flex-end;

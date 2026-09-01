@@ -374,7 +374,7 @@ function handleNodeNameChange(name: string): void {
 
 .dag-node.selected {
   border-color: #409eff;
-  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+  box-shadow: 0 0 0 2px rgb(64 158 255 / 20%);
 }
 
 .node-header {

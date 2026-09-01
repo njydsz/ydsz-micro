@@ -67,16 +67,19 @@ const emit = defineEmits<{
   padding: 48px 24px;
   text-align: center;
 }
+
 .error-icon {
   color: var(--el-color-warning);
   margin-bottom: 16px;
 }
+
 .error-message {
   color: var(--el-text-color-secondary);
   font-size: 14px;
   margin: 0 0 20px;
   max-width: 360px;
 }
+
 .error-actions {
   display: flex;
   gap: 12px;

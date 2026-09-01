@@ -180,7 +180,7 @@ function handleBack() {
   padding: 12px;
   background: var(--el-bg-color, #fff);
   border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: Consolas, Monaco, monospace;
   font-size: 11px;
   line-height: 1.6;
   color: var(--el-text-color-regular, #606266);

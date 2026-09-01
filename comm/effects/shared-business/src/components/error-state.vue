@@ -77,6 +77,7 @@ function handleBack() {
   padding: 48px 16px;
   text-align: center;
 }
+
 .error-state__icon {
   display: flex;
   align-items: center;
@@ -90,30 +91,36 @@ function handleBack() {
   font-weight: 700;
   margin-bottom: 16px;
 }
+
 .error-state--warning .error-state__icon {
   background: #fdf6ec;
   color: #e6a23c;
 }
+
 .error-state--info .error-state__icon {
   background: #f4f4f5;
   color: #909399;
 }
+
 .error-state__title {
   font-size: 16px;
   font-weight: 600;
   color: #303133;
   margin: 0 0 8px;
 }
+
 .error-state__desc {
   font-size: 13px;
   color: #909399;
   margin: 0 0 16px;
   max-width: 320px;
 }
+
 .error-state__actions {
   display: flex;
   gap: 8px;
 }
+
 .error-state__extra {
   margin-top: 12px;
 }

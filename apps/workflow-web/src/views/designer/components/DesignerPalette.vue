@@ -97,7 +97,7 @@ function handleDragStart(event: DragEvent, item: PaletteItem) {
         @dragstart="handleDragStart($event, item)"
       >
         <div class="item-icon">
-          <span class="node-preview" :class="`node-preview--${item.type}`" />
+          <span class="node-preview" :class="`node-preview--${item.type.replace(/_/g, '-')}`" />
         </div>
         <span class="item-label">{{ item.label }}</span>
       </div>
@@ -203,7 +203,7 @@ function handleDragStart(event: DragEvent, item: PaletteItem) {
   background: #f4f4f5;
 }
 
-.node-preview--sub_process {
+.node-preview--sub-process {
   width: 28px;
   height: 18px;
   border-radius: 4px;
@@ -212,7 +212,7 @@ function handleDragStart(event: DragEvent, item: PaletteItem) {
   box-shadow: inset 2px 2px 0 #409eff;
 }
 
-.node-preview--ai_agent {
+.node-preview--ai-agent {
   width: 28px;
   height: 18px;
   border-radius: 4px;

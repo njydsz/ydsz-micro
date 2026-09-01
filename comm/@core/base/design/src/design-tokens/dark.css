@@ -1,6 +1,6 @@
 .dark,
-.dark[data-theme="custom"],
-.dark[data-theme="default"] {
+.dark[data-theme='custom'],
+.dark[data-theme='default'] {
   /* ============================================================
    * 中性色阶 (Dark Mode Neutral)
    * ============================================================ */
@@ -35,12 +35,10 @@
   --success-100: 145 30% 28%;
   --success-500: 144 57% 55%;
   --success-600: 144 57% 62%;
-
   --warning-50: 42 40% 20%;
   --warning-100: 42 45% 30%;
   --warning-500: 42 84% 62%;
   --warning-600: 42 84% 68%;
-
   --destructive-50: 359 35% 20%;
   --destructive-100: 359 40% 30%;
   --destructive-500: 359 80% 62%;
@@ -145,20 +143,9 @@
   --warning: var(--warning-500);
   --warning-foreground: 222 10% 8%;
 
-  /* Legacy palette vars */
-  --destructive-50: var(--destructive-50);
-  --destructive-100: var(--destructive-100);
-  --destructive-500: var(--destructive-500);
-  --destructive-600: var(--destructive-600);
-  --success-50: var(--success-50);
-  --success-100: var(--success-100);
-  --success-500: var(--success-500);
-  --success-600: var(--success-600);
-  --warning-50: var(--warning-50);
-  --warning-100: var(--warning-100);
-  --warning-500: var(--warning-500);
-  --warning-600: var(--warning-600);
-
+  /* Legacy palette vars：
+     已删除（2026-09-01 stylelint 治理）——原块为同名变量自引用（循环引用），
+     会将上方状态色基础色板的真实色值置为 invalid，dark 模式继承 default.css 定义。 */
   --info: var(--neutral-100);
   --info-foreground: var(--neutral-500);
 
@@ -175,17 +162,13 @@
    * Shadow Tokens (Dark Mode - 使用更深的阴影)
    * ============================================================ */
   --shadow-color: 0 0% 0%;
-  --shadow-raised-100: 0 1px 2px oklch(0 0 0 / 0.2);
-  --shadow-raised-200:
-    0 1px 2px oklch(0 0 0 / 0.2), 0 2px 8px oklch(0 0 0 / 0.25);
-  --shadow-raised-300:
-    0 2px 4px oklch(0 0 0 / 0.2), 0 8px 16px oklch(0 0 0 / 0.3);
-  --shadow-overlay-100:
-    0 4px 12px oklch(0 0 0 / 0.35), 0 2px 6px oklch(0 0 0 / 0.25);
-  --shadow-overlay-200:
-    0 8px 24px oklch(0 0 0 / 0.4), 0 4px 12px oklch(0 0 0 / 0.3);
-  --shadow-direction-left: -4px 0 16px oklch(0 0 0 / 0.3);
-  --shadow-direction-right: 4px 0 16px oklch(0 0 0 / 0.3);
+  --shadow-raised-100: 0 1px 2px oklch(0% 0 0deg / 20%);
+  --shadow-raised-200: 0 1px 2px oklch(0% 0 0deg / 20%), 0 2px 8px oklch(0% 0 0deg / 25%);
+  --shadow-raised-300: 0 2px 4px oklch(0% 0 0deg / 20%), 0 8px 16px oklch(0% 0 0deg / 30%);
+  --shadow-overlay-100: 0 4px 12px oklch(0% 0 0deg / 35%), 0 2px 6px oklch(0% 0 0deg / 25%);
+  --shadow-overlay-200: 0 8px 24px oklch(0% 0 0deg / 40%), 0 4px 12px oklch(0% 0 0deg / 30%);
+  --shadow-direction-left: -4px 0 16px oklch(0% 0 0deg / 30%);
+  --shadow-direction-right: 4px 0 16px oklch(0% 0 0deg / 30%);
 
   /* Legacy shadow */
   --shadow-float: var(--shadow-overlay-100);
@@ -202,7 +185,6 @@
   --sidebar: var(--bg-surface-2);
   --sidebar-deep: var(--bg-canvas);
   --menu: var(--sidebar);
-
   --header: var(--bg-surface-2);
   --header-foreground: var(--neutral-800);
 
@@ -213,8 +195,8 @@
  * Theme Variants Dark (preserved from original)
  * ============================================================ */
 
-.dark[data-theme="violet"],
-[data-theme="violet"] .dark {
+.dark[data-theme='violet'],
+[data-theme='violet'] .dark {
   --background: 224 71.4% 4.1%;
   --background-deep: var(--background);
   --foreground: 210 20% 98%;
@@ -240,8 +222,8 @@
   --header-foreground: 210 20% 98%;
 }
 
-.dark[data-theme="pink"],
-[data-theme="pink"] .dark {
+.dark[data-theme='pink'],
+[data-theme='pink'] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
@@ -267,8 +249,8 @@
   --header-foreground: 0 0% 95%;
 }
 
-.dark[data-theme="rose"],
-[data-theme="rose"] .dark {
+.dark[data-theme='rose'],
+[data-theme='rose'] .dark {
   --background: 0 0% 3.9%;
   --background-deep: var(--background);
   --foreground: 0 0% 98%;
@@ -294,8 +276,8 @@
   --header-foreground: 0 0% 98%;
 }
 
-.dark[data-theme="sky-blue"],
-[data-theme="sky-blue"] .dark {
+.dark[data-theme='sky-blue'],
+[data-theme='sky-blue'] .dark {
   --background: 222.2 84% 4.9%;
   --background-deep: var(--background);
   --foreground: 210 40% 98%;
@@ -321,8 +303,8 @@
   --header-foreground: 210 40% 98%;
 }
 
-.dark[data-theme="deep-blue"],
-[data-theme="deep-blue"] .dark {
+.dark[data-theme='deep-blue'],
+[data-theme='deep-blue'] .dark {
   --background: 222.2 84% 4.9%;
   --background-deep: var(--background);
   --foreground: 210 40% 98%;
@@ -348,8 +330,8 @@
   --header-foreground: 210 40% 98%;
 }
 
-.dark[data-theme="green"],
-[data-theme="green"] .dark {
+.dark[data-theme='green'],
+[data-theme='green'] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
@@ -375,8 +357,8 @@
   --header-foreground: 0 0% 95%;
 }
 
-.dark[data-theme="deep-green"],
-[data-theme="deep-green"] .dark {
+.dark[data-theme='deep-green'],
+[data-theme='deep-green'] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 0 0% 95%;
@@ -402,8 +384,8 @@
   --header-foreground: 60 9.1% 97.8%;
 }
 
-.dark[data-theme="orange"],
-[data-theme="orange"] .dark {
+.dark[data-theme='orange'],
+[data-theme='orange'] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 60 9.1% 97.8%;
@@ -429,8 +411,8 @@
   --header-foreground: 60 9.1% 97.8%;
 }
 
-.dark[data-theme="yellow"],
-[data-theme="yellow"] .dark {
+.dark[data-theme='yellow'],
+[data-theme='yellow'] .dark {
   --background: 20 14.3% 4.1%;
   --background-deep: var(--background);
   --foreground: 60 9.1% 97.8%;
@@ -455,8 +437,8 @@
   --header: 20 14.3% 4.1%;
 }
 
-.dark[data-theme="zinc"],
-[data-theme="zinc"] .dark {
+.dark[data-theme='zinc'],
+[data-theme='zinc'] .dark {
   --background: 240 10% 3.9%;
   --background-deep: var(--background);
   --foreground: 0 0% 98%;
@@ -482,8 +464,8 @@
   --header-foreground: 0 0% 98%;
 }
 
-.dark[data-theme="neutral"],
-[data-theme="neutral"] .dark {
+.dark[data-theme='neutral'],
+[data-theme='neutral'] .dark {
   --background: 0 0% 3.9%;
   --background-deep: var(--background);
   --foreground: 0 0% 98%;
@@ -509,8 +491,8 @@
   --header-foreground: 0 0% 98%;
 }
 
-.dark[data-theme="slate"],
-[data-theme="slate"] .dark {
+.dark[data-theme='slate'],
+[data-theme='slate'] .dark {
   --background: 222.2 84% 4.9%;
   --background-deep: var(--background);
   --foreground: 210 40% 98%;
@@ -536,8 +518,8 @@
   --header-foreground: 210 40% 98%;
 }
 
-.dark[data-theme="gray"],
-[data-theme="gray"] .dark {
+.dark[data-theme='gray'],
+[data-theme='gray'] .dark {
   --background: 224 71.4% 4.1%;
   --background-deep: var(--background);
   --foreground: 210 20% 98%;
