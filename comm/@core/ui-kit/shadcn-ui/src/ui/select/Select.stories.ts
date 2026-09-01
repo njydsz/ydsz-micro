@@ -34,6 +34,18 @@ const meta: Meta = {
   },
 };
 
+/**
+ * Select 组件示例集的 Storybook 元信息。
+ *
+ * 覆盖的状态：
+ *  - `Default`：扁平选项列表的基础选择器；
+ *  - `WithGroups`：用 `SelectGroup` + `SelectLabel` + `SelectSeparator` 做分组与分隔，
+ *    验证长列表下的分组标题吸附与滚动区域高度；
+ *  - `Disabled`：整控件禁用，验证 Trigger 的禁用样式与下拉不可展开；
+ *  - `WithDefaultValue`：预设选中值，验证 `SelectValue` 在未选择时显示 placeholder、
+ *    已选择时回显选中项文案的两种渲染分支；
+ *  - `MultipleSelects`：多个选择器并置，用于暴露 z-index 与浮层定位在相邻控件间的遮挡问题。
+ */
 export default meta;
 type Story = StoryObj;
 

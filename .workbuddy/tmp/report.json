@@ -34,52 +34,9 @@
   "ui-kit": {
     "files": 356,
     "headerPct": 100,
-    "exportPct": 95.7,
+    "exportPct": 100,
     "missingHeader": [],
     "misplacedHeader": [],
-    "missingExportDoc": [
-      {
-        "file": "ui-kit\\shadcn-ui\\src\\ui\\button\\Button.stories.ts",
-        "symbols": [
-          "default"
-        ]
-      },
-      {
-        "file": "ui-kit\\shadcn-ui\\src\\ui\\card\\Card.stories.ts",
-        "symbols": [
-          "default"
-        ]
-      },
-      {
-        "file": "ui-kit\\shadcn-ui\\src\\ui\\dialog\\Dialog.stories.ts",
-        "symbols": [
-          "default"
-        ]
-      },
-      {
-        "file": "ui-kit\\shadcn-ui\\src\\ui\\form\\Form.stories.ts",
-        "symbols": [
-          "default"
-        ]
-      },
-      {
-        "file": "ui-kit\\shadcn-ui\\src\\ui\\input\\Input.stories.ts",
-        "symbols": [
-          "default"
-        ]
-      },
-      {
-        "file": "ui-kit\\shadcn-ui\\src\\ui\\select\\Select.stories.ts",
-        "symbols": [
-          "default"
-        ]
-      },
-      {
-        "file": "ui-kit\\shadcn-ui\\src\\ui\\tabs\\Tabs.stories.ts",
-        "symbols": [
-          "default"
-        ]
-      }
-    ]
+    "missingExportDoc": []
   }
 }

@@ -43,6 +43,19 @@ const meta: Meta<typeof Input> = {
   },
 };
 
+/**
+ * Input 组件示例集的 Storybook 元信息。
+ *
+ * 覆盖的状态：
+ *  - 类型维度：`Default`(text) / `Password` / `Email` / `Number` / `Search`；
+ *    其中 `password`、`email`、`number` 依赖原生 input 的 type 行为与校验提示，
+ *    是最容易因 `v-bind` 顺序被覆盖而失效的一组，因此单独成 story；
+ *  - 交互状态：`Disabled` 禁用态、`WithValue` 受控有值态；
+ *  - `AllTypes`：全部 type 同屏对照，用于快速核对各类型下的边框与内边距是否一致。
+ *
+ * meta 提供了 `type` / `placeholder` / `disabled` / `modelValue` 四个控件，
+ * 可在面板中直接组合验证，无需为每种组合各写一个 story。
+ */
 export default meta;
 type Story = StoryObj<typeof Input>;
 

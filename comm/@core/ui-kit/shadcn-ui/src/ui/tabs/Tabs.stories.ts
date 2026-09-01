@@ -23,6 +23,17 @@ const meta: Meta = {
   },
 };
 
+/**
+ * Tabs 组件示例集的 Storybook 元信息。
+ *
+ * 覆盖的状态：
+ *  - `Default`：无预设值的基础标签页，验证首项默认激活与键盘左右方向键切换；
+ *  - `WithDefaultTab`：通过 `default-value` 指定初始激活项，验证非首项激活时
+ *    指示器的初始位置计算；
+ *  - `WithDisabledTab`：存在禁用项，验证禁用项不可聚焦、且方向键导航会跳过它；
+ *  - `WithComplexContent`：面板内放复杂内容（表格/表单），用于观察切换时
+ *    内容高度突变导致的容器抖动。
+ */
 export default meta;
 type Story = StoryObj;
 

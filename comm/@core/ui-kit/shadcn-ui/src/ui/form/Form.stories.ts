@@ -39,6 +39,20 @@ const meta: Meta = {
   },
 };
 
+/**
+ * Form 组件示例集的 Storybook 元信息。
+ *
+ * 覆盖的状态：
+ *  - `LoginForm`：登录场景，最小字段集 + 提交处理；
+ *  - `RegistrationForm`：注册场景，字段更多，展示多字段纵向间距与标签对齐；
+ *  - `SearchForm`：搜索场景，单行紧凑布局（标签与控件同行）；
+ *  - `FormWithErrors`：校验失败态，展示 `FormMessage` 的错误文案与错误态样式，
+ *    这是验证 `aria-invalid` / `aria-describedby` 可达性链路是否接上的关键示例。
+ *
+ * 各 story 统一走 FormField → FormControl → FormMessage 的嵌套结构：
+ * 字段级校验上下文由 FormField 提供，控件必须包在 FormControl 内才能拿到
+ * `id` 与 `aria-describedby`，直接把 Input 放进 FormItem 会导致错误提示读屏不可达。
+ */
 export default meta;
 type Story = StoryObj;
 

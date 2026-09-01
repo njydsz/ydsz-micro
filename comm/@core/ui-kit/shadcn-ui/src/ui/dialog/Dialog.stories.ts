@@ -33,6 +33,18 @@ const meta: Meta = {
   },
 };
 
+/**
+ * Dialog 组件示例集的 Storybook 元信息。
+ *
+ * 覆盖的状态：
+ *  - `Default`：确认类对话框（危险操作二次确认），展示 Header + Footer 的标准结构；
+ *  - `FormDialog`：内嵌表单的对话框，验证 DialogContent 在表单撑高后的最大宽度与滚动；
+ *  - `InfoDialog`：纯信息展示，无破坏性操作，Footer 只有一个「我知道了」。
+ *
+ * 三个 story 统一用 `v-model:open` 受控 + `DialogTrigger as-child` 包裹原生 button，
+ * 这是本组件的正确用法示例：`as-child` 让触发器复用宿主元素的样式与语义，
+ * 若直接写 `<DialogTrigger>` 会多套一层 button 导致嵌套按钮与样式错乱。
+ */
 export default meta;
 type Story = StoryObj;
 
