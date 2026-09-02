@@ -6399,7 +6399,7 @@
       "description": "租户 ID"
      }
     },
-    "description": "部门请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "description": "部门请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。\n部门通过 parentId 自关联形成树形组织架构，\"0\" 表示根节点。\n\n字段语义：\n\n\n`deptCode` — 部门编码（全局唯一，建议格式 DEPT_XXX），业务侧引用\n`parentId` — 父部门 ID（\"0\" 表示根部门）\n`tenantId` — 租户 ID（多租户场景下区分归属租户）",
     "x-field-docs": {
      "id": "部门 ID（更新时必填）",
      "deptCode": "部门编码（全局唯一，建议格式 `DEPT_XXX`）",
@@ -6468,7 +6468,7 @@
       "description": "启用状态（`\"ENABLED\"` / `\"DISABLED\"`）"
      }
     },
-    "description": "语言请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "description": "语言配置请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。\n\n字段语义：\n\n\n`languageCode` — 语言编码（ISO 639-1 + ISO 3166-1，如 zh-CN / en-US）\n`isDefault` — 是否默认语言（1=是，全局仅允许一个默认语言）\n`status` — 启用状态（ENABLED/DISABLED），禁用后该语言不在用户切换器中显示",
     "x-field-docs": {
      "id": "语言 ID（更新时必填）",
      "languageCode": "语言编码（ISO 639-1 + ISO 3166-1，如 `zh-CN` / `en-US`）",
@@ -6694,7 +6694,7 @@
       "description": "租户 ID（`\"0\"` = 平台级角色）"
      }
     },
-    "description": "角色请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。",
+    "description": "角色请求 DTO。\n\n同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。\n\n字段语义：\n\n\n`roleCode` — 角色编码（全局唯一，建议格式 ROLE_XXX），用于权限匹配\n`dataScope` — 数据权限范围（ALL/DEPT_AND_CHILD/DEPT/SELF/CUSTOM），控制角色可见数据范围\n`builtIn` — 是否内置角色（true 时禁止删除与修改编码）\n`tenantId` — 租户 ID（\"0\" = 平台级角色，跨租户可见）",
     "x-field-docs": {
      "id": "角色 ID（更新时必填）",
      "roleCode": "角色编码（全局唯一，建议格式 `ROLE_XXX`）",
@@ -6786,7 +6786,7 @@
       "description": "备注说明"
      }
     },
-    "description": "SAML 身份提供者配置统一 DTO（P2-1 CUD 入参）。\n\n同时用于创建和更新场景：创建时 `entityId` 必填，更新时 `entityId` 必填。",
+    "description": "SAML 2.0 身份提供者（IdP）配置统一 DTO（P2-1 CUD 入参）。\n\n同时用于创建和更新场景：创建时 `entityId` 必填，更新时 `entityId` 必填。\n\n字段语义：\n\n\n`entityId` — IdP Entity ID（唯一标识 URI，作为主键）\n`ssoUrl` — IdP SSO 端点 URL（SP 重定向用户至此发起 SSO）\n`certificate` — IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）\n`emailAttribute` — SAML Assertion 中邮箱属性名（默认 emailAddress）\n`displayNameAttribute` — SAML Assertion 中显示名称属性名（默认 displayName）\n`status` — 状态（ENABLED/DISABLED），禁用后该 IdP 不可登录",
     "x-field-docs": {
      "entityId": "IdP Entity ID（唯一标识）",
      "name": "IdP 显示名称（如 \"企业微信 SAML\"、\"飞书 SAML\"）",
@@ -7119,7 +7119,7 @@
       "description": "备注说明"
      }
     },
-    "description": "社交平台客户端配置统一 DTO（P1-1 CUD 入参）。\n\n同时用于创建和更新场景：创建时 `platform` 必填，更新时 `id` 必填。",
+    "description": "社交平台客户端配置统一 DTO（P1-1 CUD 入参）。\n\n同时用于创建和更新场景：创建时 `platform` 必填，更新时 `id` 必填。\n\n安全注意：appSecret 明文仅在创建/更新请求中传输（由 HTTPS 保护），服务端接收后\n通过 BCrypt 加密存储。更新时如果 appSecret 为空则保留原值（不修改密钥）。",
     "x-field-docs": {
      "id": "平台 ID（更新时必填）",
      "platform": "平台标识（如 GITHUB/DINGTALK/ENTERPRISE_WECHAT/FEISHU）",
@@ -7387,7 +7387,7 @@
       "description": "用户 ID 列表"
      }
     },
-    "description": "批量用户状态操作 DTO。\n\n用于批量启用/禁用/删除用户账号。",
+    "description": "批量用户状态操作 DTO。\n\n用于批量启用/禁用/删除用户账号。单次操作用户数量受 `ydsz.userinfo.batch-size-limit` 限制\n（默认 500），超出时需分批调用。",
     "x-field-docs": {
      "ids": "用户 ID 列表"
     }

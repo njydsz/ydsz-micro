@@ -7266,7 +7266,7 @@
       "description": "抄送用户ID（合并自 FlowCcQueryDTO）"
      }
     },
-    "description": "抄送查询参数。\n\nP0-3: 抄送中心查询参数。 P1-7a: 继承 PageQuery 复用分页安全校验（@Min/@Max/@Pattern + safeOrderBy）。\n\n命名合规说明（1.0.0 DDD 分层规范）：查询请求参数置于 `query/` 包下、以 `Query` 结尾\n（符合 §34.2.1 表格：query/ 查询请求参数 以 Query 结尾）。",
+    "description": "抄送查询参数。\n\nP0-3: 抄送中心查询参数。 P1-7a: 继承 PageQuery 复用分页安全校验（@Min/@Max/@Pattern + safeOrderBy）。\n\n命名合规说明（26.09.01 DDD 分层规范）：查询请求参数置于 `query/` 包下、以 `Query` 结尾\n（符合 §34.2.1 表格：query/ 查询请求参数 以 Query 结尾）。",
     "x-field-docs": {
      "readStatus": "已读状态：UNREAD / READ / null=全部",
      "flowCode": "流程编码过滤",

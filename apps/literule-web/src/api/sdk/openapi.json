@@ -4526,7 +4526,7 @@
       "type": "string"
      }
     },
-    "description": "分页响应信封（YdszResponse 的子类型）。\n\n将分页元信息（total / pageNum / pageSize）收口到专用的分页响应类型中， 使 YdszResponse\n不再承担分页职责，同时提供类型明确的返回对象， 便于 Controller 声明 `PageResponse<UserVO>` 或 {@code\nYdszResponse<PageResponse<UserVO>>}。\n\n本类是 API 响应信封，用于 Controller 层返回分页数据。 新代码请直接返回 `PageResponse<T>`。\n\n迁移提示：YdszResponse 上的分页字段与 `successPage()/emptyPage()` 方法已于 1.0.0\n移除。新代码请直接返回 `PageResponse<T>`。\n\n@param <T> 数据元素的类型",
+    "description": "分页响应信封（YdszResponse 的子类型）。\n\n将分页元信息（total / pageNum / pageSize）收口到专用的分页响应类型中， 使 YdszResponse\n不再承担分页职责，同时提供类型明确的返回对象， 便于 Controller 声明 `PageResponse<UserVO>` 或 {@code\nYdszResponse<PageResponse<UserVO>>}。\n\n本类是 API 响应信封，用于 Controller 层返回分页数据。 新代码请直接返回 `PageResponse<T>`。\n\n迁移提示：YdszResponse 上的分页字段与 `successPage()/emptyPage()` 方法已于 26.09.01\n移除。新代码请直接返回 `PageResponse<T>`。\n\n@param <T> 数据元素的类型",
     "x-field-docs": {
      "total": "总记录数。",
      "pageNum": "当前页码（从 1 开始）。",
@@ -5029,7 +5029,7 @@
      },
      "version": {
       "type": "string",
-      "description": "画布版本号（语义化版本，如 1.0.0、1.0.0-SNAPSHOT）"
+      "description": "画布版本号（语义化版本，如 26.09.01、26.09.01-SNAPSHOT）"
      },
      "status": {
       "type": "string",
@@ -5096,7 +5096,7 @@
      "description": "画布描述",
      "scenario": "适用场景（与 RuleContextVO.scenario 对应）",
      "tenantId": "租户 ID（多租户隔离，P1-3）",
-     "version": "画布版本号（语义化版本，如 1.0.0、1.0.0-SNAPSHOT）",
+     "version": "画布版本号（语义化版本，如 26.09.01、26.09.01-SNAPSHOT）",
      "status": "画布状态：DRAFT / PUBLISHED / ARCHIVED（与 RuleStatus 对齐）",
      "nodes": "节点列表",
      "edges": "连线列表",

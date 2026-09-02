@@ -1005,6 +1005,9 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     is_check = "--check" in sys.argv[1:]
+    # P0-1（2026-09-02）：--spec-only 仅产出 openapi.json 契约基线，不重写旧轨 .ts 封装。
+    # 供 unified-contract.mjs 降级链路转换为 schema.d.ts，实现新旧轨道解耦。
+    is_spec_only = "--spec-only" in sys.argv[1:]
     targets = args if args else list(SERVICE_MAP.keys())
     for svc in targets:
         if svc not in SERVICE_MAP:
@@ -1056,6 +1059,14 @@ def main():
                 spec_path = os.path.join(out_sdk, "openapi.json")
                 with open(spec_path, "w", encoding="utf-8") as f:
                     json.dump(spec, f, ensure_ascii=False, indent=1)
+                # P0-1：--spec-only 模式到此即完成，跳过旧轨 .ts 封装与 index.ts 改写
+                if is_spec_only:
+                    print(
+                        f"[gen-contract] {svc:10s} -> {app:16s} "
+                        f"controllers={len(controllers):3d} endpoints={len(all_eps):4d} "
+                        f"schemas={len(builder.components)} (--spec-only)"
+                    )
+                    continue
                 # 业务 API 文件直接落在 api/ 根目录
                 api_dir = os.path.join(MICRO_ROOT, "apps", app, "src", "api")
                 os.makedirs(api_dir, exist_ok=True)

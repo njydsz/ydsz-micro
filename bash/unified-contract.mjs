@@ -28,7 +28,7 @@
  * @see docs/OPENAPI_SPEC_GUIDE.md 后端构建期 spec 生成指南
  */
 
-import { execSync } from 'node:child_process';
+import { execFileSync, execSync } from 'node:child_process';
 import { existsSync, globSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -132,27 +132,46 @@ function readLockHash(outputDir) {
  */
 function generateTypesExport(outDir, serviceName) {
   const schemaPath = join(outDir, 'schema.d.ts');
+  // P0-1 修复：schema.d.ts 缺失时跳过，避免产出引用空源的坏文件
   if (!existsSync(schemaPath)) return;
 
   const schemaContent = readFileSync(schemaPath, 'utf-8');
 
-  // 提取 components.schemas 中的类型名
+  // P0-1 修复：--export-type 模式下命名类型位于 components.schemas 块内
+  // （形如 `        AppInfoDTO: {`），而非顶层 `export interface X {}`；
+  // 此前正则匹配不到任何类型导致 types-export.ts 被静默跳过
   const typeNames = [];
-  const interfaceRegex = /export\s+interface\s+([A-Z][A-Za-z0-9_]*)\s*\{/g;
-  let match = interfaceRegex.exec(schemaContent);
-  while (match) {
-    const typeName = match[1];
-    // 跳过基础类型
-    if (!['Paths', 'Operations', 'Components', 'Webhooks'].includes(typeName)) {
-      typeNames.push(typeName);
+  const schemaLines = schemaContent.split('\n');
+  let inSchemas = false;
+  let schemasIndent = -1;
+  for (const line of schemaLines) {
+    if (!inSchemas) {
+      const schemasMatch = line.match(/^(\s*)schemas: \{$/);
+      if (schemasMatch) {
+        inSchemas = true;
+        schemasIndent = schemasMatch[1].length;
+      }
+      continue;
     }
-    match = interfaceRegex.exec(schemaContent);
+    // schemas 块结束：出现缩进不大于 schemas 本身的非空行（如闭合的 `    }`）
+    const indentMatch = line.match(/^(\s*)\S/);
+    if (line.trim() && indentMatch && indentMatch[1].length <= schemasIndent) {
+      break;
+    }
+    const entryMatch = line.match(
+      new RegExp(`^\\s{${schemasIndent + 4}}([A-Z][A-Za-z0-9_]*): \\{`),
+    );
+    if (entryMatch) {
+      typeNames.push(entryMatch[1]);
+    }
   }
 
   if (typeNames.length === 0) return;
 
-  // 去重并排序
-  const uniqueTypeNames = [...new Set(typeNames)].sort();
+  // 去重并排序；排除与 ../models 重导出同名的通用类型（models.ts 泛型版本
+  // 带 T 参数与文档注释，优于 schema 中的未参数化包装），避免 TS2484 导出冲突
+  const excluded = new Set(['PageResponse', 'YdszResponse']);
+  const uniqueTypeNames = [...new Set(typeNames)].filter((t) => !excluded.has(t)).sort();
 
   const lines = [
     '/**',
@@ -176,7 +195,9 @@ function generateTypesExport(outDir, serviceName) {
 
   lines.push('');
   lines.push('// 常用响应类型别名');
-  lines.push("export type { PageResponse, YdszResponse } from './models';");
+  // P0-1 修复：models.ts 位于 sdk/ 上级目录（api/models.ts），此前 './models' 解析到
+  // 不存在的 sdk/models.ts 导致悬空导入
+  lines.push("export type { PageResponse, YdszResponse } from '../models';");
   lines.push('');
 
   const exportPath = join(outDir, 'types-export.ts');
@@ -192,6 +213,12 @@ function generateTypesExport(outDir, serviceName) {
  */
 function generateSdkIndex(outDir, serviceName) {
   const indexPath = join(outDir, 'index.ts');
+
+  // P0-1 修复：schema.d.ts 缺失时跳过生成，避免产出引用不存在模块的坏 index.ts
+  if (!existsSync(join(outDir, 'schema.d.ts'))) {
+    console.log(`  · index.ts (跳过：schema.d.ts 缺失)`);
+    return;
+  }
 
   // 如果已存在且非自动生成，保留手动扩展
   if (existsSync(indexPath)) {
@@ -232,7 +259,9 @@ import type { paths } from './schema';
  * \`\`\`
  */
 export const apiClient = createOpenApiClient<paths>({
-  baseUrl: '/api/${serviceName}',
+  // P0-1 修复：spec 中 paths 为完整路径（/api/v1/**），baseUrl 必须为空串；
+  // 此前 '/api/${serviceName}' 会拼出 /api/system/api/v1/** 错误地址
+  baseUrl: '',
 });
 
 // 导出完整类型供业务代码使用
@@ -255,13 +284,13 @@ export * from './types-export';
 function generateModels(outDir, serviceName) {
   const modelsPath = join(outDir, '..', 'models.ts');
 
-  // 如果已存在且包含手动添加的类型，保留
+  // P0-1 加固（2026-09-02）：models.ts 存在即保留，不做内容嗅探式判定——
+  // 既有文件归属 gen-contract.py（含全量 DTO 与 requestClient 解包说明，优于本模板），
+  // 任何模式（含 --check）都不得覆盖；unified-contract 仅在文件缺失时做首次初始化。
+  // 此前基于内容标记的守卫在实测中出现过一次覆盖（标记判定失效），故收紧为存在性判定。
   if (existsSync(modelsPath)) {
-    const content = readFileSync(modelsPath, 'utf-8');
-    if (content.includes('手动添加的类型')) {
-      console.log(`  · models.ts (保留手动类型)`);
-      return;
-    }
+    console.log(`  · models.ts (已存在，保留)`);
+    return;
   }
 
   const content = `/**
@@ -316,6 +345,10 @@ export interface PageQuery {
 /**
  * 使用静态提取作为降级方案
  *
+ * <p>P0-1 修复（2026-09-02）：调用 gen-contract.py --spec-only 仅产出 openapi.json
+ * 契约基线（写入 outDir），不重写旧轨 .ts 封装——新旧轨道解耦，
+ * 转换为 schema.d.ts 由 {@link generateSchemaFromSpec} 统一完成。
+ *
  * @param serviceName 服务名
  * @returns 是否成功
  */
@@ -326,16 +359,70 @@ function useStaticExtraction(serviceName) {
     return false;
   }
 
-  // 调用 gen-contract.py 进行静态提取
+  // 调用 gen-contract.py 进行静态提取（--spec-only：仅产出 openapi.json）
+  // P0-1 修复：execFileSync 免 shell 直调 python，规避 ComSpec 缺失环境（Git Bash/沙箱）下
+  // execSync 默认 shell cmd.exe ENOENT 问题
   try {
     const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
-    execSync(`${pythonCmd} bash/gen-contract.py ${serviceName}`, {
+    execFileSync(pythonCmd, ['bash/gen-contract.py', serviceName, '--spec-only'], {
       cwd: ROOT,
       stdio: 'pipe',
     });
     return true;
   } catch (err) {
     console.log(`  ! 静态提取失败: ${err.message}`);
+    return false;
+  }
+}
+
+/**
+ * 将 outDir/openapi.json 转换为 schema.d.ts（类型安全 SDK 的核心产物）
+ *
+ * <p>P0-1 修复（2026-09-02）：抽取为独立函数，构建产物 / 运行时 / 静态提取
+ * 三种来源的 spec 统一经此转换为 schema.d.ts——此前静态降级链路缺失此步，
+ * 导致 schema.d.ts 永远无法落地、index.ts 引用不存在的模块。
+ *
+ * @param outDir SDK 输出目录（openapi.json 已存在于其中）
+ * @returns 转换是否成功
+ */
+function generateSchemaFromSpec(outDir) {
+  const specPath = join(outDir, 'openapi.json');
+  if (!existsSync(specPath)) {
+    console.log('  ! openapi.json 缺失，跳过 schema 转换');
+    return false;
+  }
+  try {
+    // P0-1 修复：shell 环境自愈——受限环境（Git Bash 沙箱等）ComSpec 未设置时，
+    // 显式注入标准 cmd.exe 路径，保证 npx.cmd 可执行；常规 Windows 环境行为不变
+    const childEnv = { ...process.env };
+    if (process.platform === 'win32' && !childEnv.ComSpec) {
+      const defaultCmd = 'C:\\Windows\\System32\\cmd.exe';
+      if (existsSync(defaultCmd)) {
+        childEnv.ComSpec = defaultCmd;
+        childEnv.PATH = `${process.env.PATH || ''};C:\\Windows\\System32`;
+      }
+    }
+    const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    execSync(
+      `${npxCmd} openapi-typescript "${specPath}" --output "${join(outDir, 'schema.d.ts')}" --export-type`,
+      {
+        cwd: ROOT,
+        stdio: 'pipe',
+        env: childEnv,
+        shell: process.platform === 'win32' ? (childEnv.ComSpec || 'cmd.exe') : undefined,
+      },
+    );
+
+    // 追加 eslint-disable 头
+    const schemaPath = join(outDir, 'schema.d.ts');
+    let schema = readFileSync(schemaPath, 'utf-8');
+    schema = `/* eslint-disable */\n/* auto-generated by pnpm gen:api — DO NOT EDIT */\n${schema}`;
+    writeFileSync(schemaPath, schema);
+
+    console.log(`  ✓ schema.d.ts`);
+    return true;
+  } catch (err) {
+    console.error(`  ✗ openapi-typescript 转换失败: ${err.message}`);
     return false;
   }
 }
@@ -409,32 +496,18 @@ async function main() {
 
     // 3. 写入 openapi.json + openapi-typescript 生成 schema
     if (success) {
-      try {
-        const specPath = join(outDir, 'openapi.json');
-        writeFileSync(specPath, specData);
-
-        const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-        execSync(
-          `${npxCmd} openapi-typescript "${specPath}" --output "${join(outDir, 'schema.d.ts')}" --export-type`,
-          { cwd: ROOT, stdio: 'pipe' },
-        );
-
-        // 追加 eslint-disable 头
-        const schemaPath = join(outDir, 'schema.d.ts');
-        let schema = readFileSync(schemaPath, 'utf-8');
-        schema = `/* eslint-disable */\n/* auto-generated by pnpm gen:api — DO NOT EDIT */\n${schema}`;
-        writeFileSync(schemaPath, schema);
-
-        console.log(`  ✓ schema.d.ts`);
-      } catch (err) {
-        console.error(`  ✗ openapi-typescript 转换失败: ${err.message}`);
-        success = false;
-      }
+      const specPath = join(outDir, 'openapi.json');
+      writeFileSync(specPath, specData);
+      success = generateSchemaFromSpec(outDir);
     }
 
-    // 4. 降级使用静态提取（从 Java 源码解析）
+    // 4. 降级使用静态提取（gen-contract.py --spec-only 产出 openapi.json）
     if (!success) {
       success = useStaticExtraction(name);
+      // P0-1 修复：静态产物同样转换为 schema.d.ts，补齐类型安全 SDK 输出
+      if (success) {
+        success = generateSchemaFromSpec(outDir);
+      }
     }
 
     if (!success) {

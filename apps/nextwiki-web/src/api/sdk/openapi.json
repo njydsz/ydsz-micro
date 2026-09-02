@@ -4212,7 +4212,7 @@
         "LTE",
         "BETWEEN"
        ],
-       "description": "搜索过滤条件"
+       "description": "搜索过滤条件\n\n封装单个字段的多值过滤规则，用于构建搜索引擎（如 Elasticsearch）的 Query DSL。\n同一字段下多个值以 OR 关系组合，不同 Filter 之间以 AND 关系组合。\n\n支持的过滤操作符详见 Operator，支持 EQ、IN、BETWEEN 等多种语义。"
       },
       "description": "过滤条件（字段名 → 值列表）"
      },
