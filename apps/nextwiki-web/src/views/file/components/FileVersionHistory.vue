@@ -145,18 +145,24 @@ async function handleDownloadVersion(version: FileVersionVO): Promise<void> {
 
 /** 回滚到指定版本 */
 async function handleRollback(version: FileVersionVO): Promise<void> {
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       `确定回滚到版本 v${version.version} 吗？当前版本将被覆盖。`,
       '回滚确认',
       { type: 'warning' },
     );
+  } catch {
+    return; // 用户主动取消回滚操作
+  }
+  // 步骤2：执行回滚操作
+  try {
     // TODO: 调用后端 API 回滚版本
     ElMessage.success(`已回滚到版本 v${version.version}`);
     emit('success');
     modalApi.close();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

@@ -110,8 +110,10 @@ function getTemplateCode(row: TemplateRow): string | undefined {
 async function handleImport(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
+  let flowName: string;
+  // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value: flowName } = await ElMessageBox.prompt(
+    const { value } = await ElMessageBox.prompt(
       t('wf.importFlowNamePlaceholder'),
       t('wf.templateImport'),
       {
@@ -119,11 +121,17 @@ async function handleImport(row: TemplateRow) {
         inputValidator: (value) => (value ? true : t('wf.importValidator')),
       },
     );
+    flowName = value;
+  } catch {
+    return; // 用户主动取消导入操作
+  }
+  // 步骤2：执行导入 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await importTemplate({ templateCode }, { flowName });
     ElMessage.success(t('wf.importSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
@@ -131,16 +139,24 @@ async function handleImport(row: TemplateRow) {
 async function handleClone(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
+  let newTemplateName: string;
+  // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value: newTemplateName } = await ElMessageBox.prompt(t('wf.confirmClone'), t('wf.cloneTemplate'), {
+    const { value } = await ElMessageBox.prompt(t('wf.confirmClone'), t('wf.cloneTemplate'), {
       inputPlaceholder: 'newTemplateName',
       inputValidator: (value) => (value ? true : t('wf.cloneValidator')),
     });
+    newTemplateName = value;
+  } catch {
+    return; // 用户主动取消克隆操作
+  }
+  // 步骤2：执行克隆 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await cloneTemplate({ templateCode }, { newTemplateName });
     ElMessage.success(t('wf.cloneSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
@@ -148,19 +164,27 @@ async function handleClone(row: TemplateRow) {
 async function handleNewVersion(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
+  let versionLabel: string | undefined;
+  // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value: versionLabel } = await ElMessageBox.prompt(
+    const { value } = await ElMessageBox.prompt(
       t('wf.confirmNewVersion'),
       t('wf.newVersionTitle'),
       {
         inputPlaceholder: 'versionLabel',
       },
     );
-    await createNewVersion({ templateCode }, { versionLabel: versionLabel || undefined });
+    versionLabel = value || undefined;
+  } catch {
+    return; // 用户主动取消创建版本操作
+  }
+  // 步骤2：执行创建版本 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
+    await createNewVersion({ templateCode }, { versionLabel });
     ElMessage.success(t('wf.newVersionSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

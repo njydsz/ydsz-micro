@@ -104,12 +104,20 @@ function normalizeRows(res: unknown): Record<string, unknown>[] {
 /** 删除文档（deleteDocument({ documentId })） */
 async function handleDelete(row: Record<string, unknown>) {
   const documentId = typeof row?.documentId === 'string' ? row.documentId : '';
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, '删除确认', { type: 'warning' });
+  } catch {
+    return; // 用户主动取消删除操作
+  }
+  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await deleteDocument({ documentId });
     ElMessage.success('删除成功');
     handleLoadStats();
-  } catch { /* 用户取消或请求失败，保持现状 */ }
+  } catch {
+    /* 错误已由请求拦截器展示，无需重复处理 */
+  }
 }
 
 onMounted(() => { handleLoadStats(); });

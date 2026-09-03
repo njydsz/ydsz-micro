@@ -35,8 +35,19 @@ defineOptions({ name: 'SubscriptionForm' });
 
 const { t } = useI18n();
 
+/** 订阅表单数据形状 */
+interface SubscriptionFormData {
+  id?: string;
+  userId?: string;
+  topicCode?: string;
+  topicName?: string;
+  channel?: string;
+  status?: string;
+  remark?: string;
+}
+
 interface Props {
-  record?: Record<string, unknown> | null;
+  record?: SubscriptionFormData | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {

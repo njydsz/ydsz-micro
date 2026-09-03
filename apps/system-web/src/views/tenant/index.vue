@@ -90,12 +90,20 @@ function handleEdit(row: TenantVO) {
 
 async function handleDelete(row: TenantVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定删除租户「${row.tenantName}」吗？删除后不可恢复。`, '删除确认', { type: 'warning' });
+  } catch {
+    return; // 用户主动取消删除操作
+  }
+  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await remove({ id: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误已由请求拦截器展示，无需重复处理 */
+  }
 }
 </script>
 

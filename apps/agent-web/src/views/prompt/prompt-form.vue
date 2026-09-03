@@ -30,8 +30,20 @@ import { computed, reactive, watch } from 'vue';
 
 defineOptions({ name: 'PromptForm' });
 
+/** 提示词模板表单数据形状 */
+interface PromptFormData {
+  id?: string;
+  templateCode?: string;
+  templateName?: string;
+  category?: string;
+  content?: string;
+  variables?: string[];
+  enabled?: boolean;
+  description?: string;
+}
+
 interface Props {
-  record?: Record<string, unknown> | null;
+  record?: PromptFormData | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {

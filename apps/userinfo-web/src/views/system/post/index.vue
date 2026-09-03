@@ -145,7 +145,7 @@ async function handleDelete(row: PostVO) {
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 </script>

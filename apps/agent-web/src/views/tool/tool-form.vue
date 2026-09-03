@@ -29,14 +29,28 @@ import {
   ElTabs,
 } from 'element-plus';
 import { computed, reactive, ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
 
 defineOptions({ name: 'ToolForm' });
 
-const { t } = useI18n();
+/** 工具表单数据形状 */
+interface ToolFormData {
+  id?: string;
+  toolCode?: string;
+  toolName?: string;
+  toolType?: string;
+  description?: string;
+  endpoint?: string;
+  method?: string;
+  headers?: string;
+  timeout?: number;
+  retryCount?: number;
+  enabled?: boolean;
+  inputSchema?: string;
+  outputSchema?: string;
+}
 
 interface Props {
-  record?: Record<string, unknown> | null;
+  record?: ToolFormData | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {

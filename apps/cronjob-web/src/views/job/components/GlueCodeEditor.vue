@@ -169,8 +169,14 @@ async function handleTest(): Promise<void> {
 /** 版本回滚 */
 async function handleRollback(version: GlueCodeVO): Promise<void> {
   if (!props.jobId || !version.version) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定回滚到版本 ${version.version} 吗？`, '回滚确认', { type: 'warning' });
+  } catch {
+    return; // 用户主动取消回滚操作
+  }
+  // 步骤2：执行回滚 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await rollback({
       jobId: props.jobId,
       version: version.version,
@@ -179,7 +185,7 @@ async function handleRollback(version: GlueCodeVO): Promise<void> {
     await loadLatest();
     await loadVersions();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

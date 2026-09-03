@@ -149,8 +149,10 @@ function handleAdd() {
 /** 终止实例（需填写终止原因） */
 async function handleTerminate(row: FlowInstanceVO) {
   if (!row.id) return;
+  let reason: string;
+  // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value: reason } = await ElMessageBox.prompt(
+    const { value } = await ElMessageBox.prompt(
       $t('wf.inputTerminateReason'),
       $t('wf.terminateTitle'),
       {
@@ -158,17 +160,24 @@ async function handleTerminate(row: FlowInstanceVO) {
         inputValidator: (value) => (value ? true : $t('wf.terminateReasonRequired')),
       },
     );
+    reason = value;
+  } catch {
+    return; // 用户主动取消终止操作
+  }
+  // 步骤2：执行终止 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await terminate({ id: row.id }, { reason });
     ElMessage.success($t('wf.terminatedSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
 /** 挂起实例 */
 async function handleSuspend(row: FlowInstanceVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       $t('wf.confirmSuspend', { name: row.flowName }),
@@ -177,17 +186,23 @@ async function handleSuspend(row: FlowInstanceVO) {
         type: 'warning',
       },
     );
+  } catch {
+    return; // 用户主动取消挂起操作
+  }
+  // 步骤2：执行挂起 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await suspend({ id: row.id });
     ElMessage.success($t('wf.suspendedSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
 /** 恢复（激活）实例 */
 async function handleActivate(row: FlowInstanceVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       $t('wf.confirmActivate', { name: row.flowName }),
@@ -196,17 +211,23 @@ async function handleActivate(row: FlowInstanceVO) {
         type: 'warning',
       },
     );
+  } catch {
+    return; // 用户主动取消恢复操作
+  }
+  // 步骤2：执行恢复 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await activate({ id: row.id });
     ElMessage.success($t('wf.activatedSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
 /** 撤回实例 */
 async function handleRecall(row: FlowInstanceVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       $t('wf.confirmRecall', { name: row.flowName }),
@@ -215,11 +236,16 @@ async function handleRecall(row: FlowInstanceVO) {
         type: 'warning',
       },
     );
+  } catch {
+    return; // 用户主动取消撤回操作
+  }
+  // 步骤2：执行撤回 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await recall({ id: row.id }, {});
     ElMessage.success($t('wf.recalledSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

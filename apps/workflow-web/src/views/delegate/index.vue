@@ -204,32 +204,44 @@ async function handleCreate() {
 async function handleToggle(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   const next = isEnabled(row) ? 'DISABLED' : 'ENABLED';
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       `确定${next === 'DISABLED' ? '停用' : '启用'}该委托授权吗？`,
       '确认',
       { type: 'warning' },
     );
+  } catch {
+    return; // 用户主动取消操作
+  }
+  // 步骤2：执行状态切换 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await updateDelegateAuthStatus({ id: row.id }, { status: next });
     ElMessage.success('操作成功');
     myGridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
 /** 撤销委托授权 */
 async function handleRevoke(row: FlowDelegateAuthVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定撤销给「${row.delegateUserName}」的委托授权吗？`, '撤销确认', {
       type: 'warning',
     });
+  } catch {
+    return; // 用户主动取消撤销操作
+  }
+  // 步骤2：执行撤销 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await revokeDelegateAuth({ id: row.id });
     ElMessage.success('已撤销');
     myGridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 </script>

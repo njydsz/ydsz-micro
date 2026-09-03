@@ -164,17 +164,23 @@ function handleEdit(row: LanguageVO) {
 // ========== 删除 ==========
 async function handleDelete(row: LanguageVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       `确定删除语言「${row.languageName ?? ''}」吗？`,
       '删除确认',
       { type: 'warning' },
     );
+  } catch {
+    return; // 用户主动取消删除操作
+  }
+  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await remove({ id: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 </script>

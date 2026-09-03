@@ -155,12 +155,18 @@ function handleEdit(row: MsgSubscriptionVO): void {
 
 /** 退订 */
 async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       `确定要退订主题「${row.topicName ?? row.topicCode}」的${row.channel ?? ''}通知吗？`,
       '退订确认',
       { type: 'warning' },
     );
+  } catch {
+    return; // 用户主动取消退订操作
+  }
+  // 步骤2：执行退订 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await unsubscribe({
       userId: row.userId,
       topicCode: row.topicCode,
@@ -169,7 +175,7 @@ async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
     ElMessage.success('退订成功');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

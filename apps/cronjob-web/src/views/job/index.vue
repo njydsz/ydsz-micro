@@ -230,13 +230,19 @@ async function handleTrigger(row: JobRow) {
 }
 
 async function handleDelete(row: JobRow) {
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定删除「${row.jobName}」吗？`, '删除确认', { type: 'warning' });
+  } catch {
+    return; // 用户主动取消删除操作
+  }
+  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     if (row.id) await deleteApi({ id: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
@@ -284,15 +290,21 @@ async function handleBatchResume() {
 async function handleBatchDelete() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, '批量删除确认', {
       type: 'warning',
     });
+  } catch {
+    return; // 用户主动取消批量删除
+  }
+  // 步骤2：执行批量删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await batchDelete({ jobIds: ids } satisfies JobBatchDTO);
     ElMessage.success('批量删除成功');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 </script>

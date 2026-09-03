@@ -343,6 +343,8 @@ async function handleAssignRoles(row: UserAccountVO) {
 // ========== 重置密码 ==========
 async function handleResetPassword(row: UserAccountVO) {
   if (!row.id) return;
+  let newPassword: string;
+  // 步骤1：输入弹窗（用户取消直接返回）
   try {
     const { value } = await ElMessageBox.prompt(
       `请输入用户「${row.username ?? ''}」的新密码`,
@@ -354,27 +356,39 @@ async function handleResetPassword(row: UserAccountVO) {
         inputErrorMessage: '密码至少6位',
       },
     );
-    await resetPassword({ userId: row.id, newPassword: value });
+    newPassword = value;
+  } catch {
+    return; // 用户主动取消重置密码
+  }
+  // 步骤2：执行重置密码 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
+    await resetPassword({ userId: row.id, newPassword });
     ElMessage.success('密码重置成功');
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
 // ========== 删除 ==========
 async function handleDelete(row: UserAccountVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       `确定删除用户「${row.username ?? ''}」吗？`,
       '删除确认',
       { type: 'warning' },
     );
+  } catch {
+    return; // 用户主动取消删除操作
+  }
+  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await remove({ id: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 </script>

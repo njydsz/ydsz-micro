@@ -137,12 +137,18 @@ async function handleResumeGroup(row: GroupStatsRow) {
 async function handleTriggerGroup(row: GroupStatsRow) {
   const jobGroup = getGroupName(row);
   if (!jobGroup) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定立即触发分组「${jobGroup}」下全部任务吗？`, '触发确认', { type: 'warning' });
+  } catch {
+    return; // 用户主动取消触发操作
+  }
+  // 步骤2：执行触发 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await triggerByGroup({ jobGroup });
     ElMessage.success('分组触发成功');
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

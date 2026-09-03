@@ -184,15 +184,21 @@ async function handleResume(row: JobDagInstanceVO) {
 
 async function handleCancel(row: JobDagInstanceVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, '取消确认', {
       type: 'warning',
     });
+  } catch {
+    return; // 用户主动取消操作
+  }
+  // 步骤2：执行取消 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await cancel({ instanceId: row.id });
     ElMessage.success('已取消');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

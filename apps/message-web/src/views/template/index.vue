@@ -177,30 +177,44 @@ function handleEdit(row: MsgTemplateVO) {
 
 async function handleAudit(row: MsgTemplateVO) {
   if (!row.id) return;
+  let remark: string | undefined;
+  // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value: remark } = await ElMessageBox.prompt('请输入审核备注（可为空）', '审核通过', {
+    const { value } = await ElMessageBox.prompt('请输入审核备注（可为空）', '审核通过', {
       type: 'warning',
       inputPlaceholder: '审核备注',
     });
-    await audit({ id: row.id }, { auditStatus: 'APPROVED', auditRemark: remark ?? undefined });
+    remark = value ?? undefined;
+  } catch {
+    return; // 用户主动取消审核操作
+  }
+  // 步骤2：执行审核 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
+    await audit({ id: row.id }, { auditStatus: 'APPROVED', auditRemark: remark });
     ElMessage.success('审核通过');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
 async function handleDelete(row: MsgTemplateVO) {
   if (!row.id) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
-      await ElMessageBox.confirm(`确定删除模板「${row.templateCode}」吗？`, t('deleteConfirmTitle'), {
+    await ElMessageBox.confirm(`确定删除模板「${row.templateCode}」吗？`, t('deleteConfirmTitle'), {
       type: 'warning',
     });
+  } catch {
+    return; // 用户主动取消删除操作
+  }
+  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await deleteApi({ id: row.id });
     ElMessage.success(t('deleteSuccess'));
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
@@ -228,15 +242,21 @@ async function handleVersion(row: MsgTemplateVO) {
 /** 版本回滚 */
 async function handleRollback(version: MsgTemplateVersion) {
   if (!version.version) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定回滚到版本 ${version.version} 吗？`, '回滚确认', {
       type: 'warning',
     });
+  } catch {
+    return; // 用户主动取消回滚操作
+  }
+  // 步骤2：执行回滚 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await rollback({ templateCode: currentTemplateCode.value, version: version.version });
     ElMessage.success('回滚成功');
     await handleVersion({ templateCode: currentTemplateCode.value });
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 

@@ -142,23 +142,35 @@ async function handleDisable(row: JobDagVO) {
 
 async function handleTrigger(row: JobDagVO) {
   if (!row.dagKey) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定立即触发DAG「${row.dagName}」吗？`, '触发确认', { type: 'warning' });
+  } catch {
+    return; // 用户主动取消触发操作
+  }
+  // 步骤2：执行触发 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await triggerDag({ dagKey: row.dagKey, triggerBy: 'console' });
     ElMessage.success('触发成功');
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
 async function handleDelete(row: JobDagVO) {
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定删除DAG「${row.dagName}」吗？`, '删除确认', { type: 'warning' });
+  } catch {
+    return; // 用户主动取消删除操作
+  }
+  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     if (row.id) await deleteDag({ dagId: row.id });
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
@@ -180,18 +192,24 @@ async function handleVersions(row: JobDagVO) {
 }
 
 async function handleRollback(versionRow: JobDagVersionVO) {
+  // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
       `确定将DAG回滚到版本 v${versionRow.version ?? ''} 吗？`,
       '回滚确认',
       { type: 'warning' },
     );
+  } catch {
+    return; // 用户主动取消回滚操作
+  }
+  // 步骤2：执行回滚 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
     await rollbackDag({ dagId: currentDagId.value }, { version: versionRow.version });
     ElMessage.success('回滚成功');
     versionsDrawerVisible.value = false;
     gridApi.query();
   } catch {
-    // 用户取消或请求失败
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 </script>
