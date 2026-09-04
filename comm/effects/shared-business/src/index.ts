@@ -92,12 +92,27 @@ export {
   type ServerPaginationOptions,
 } from './composables/use-server-pagination';
 
+// 字典变更事件总线（CRUD 成功后广播，消费组件监听自动刷新）
+export {
+  emitDictChange,
+  onDictChange,
+  type DictChangeEventDetail,
+} from './composables/use-dict-event';
+
 // 通用 CRUD 列表 composable
 export {
   useCrudTable,
   type CrudTableOptions,
   type DeleteFetcher,
 } from './composables/use-crud-table';
+
+// 多租户上下文 composable
+export {
+  setTenantFetcher,
+  useTenant,
+  type TenantFetcher,
+  type TenantInfo,
+} from './composables/use-tenant';
 
 // 大数据量下拉选择器
 export { default as VirtualSelect } from './components/virtual-select.vue';

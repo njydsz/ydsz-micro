@@ -19,6 +19,7 @@ export {
   ArrowUpToLine,
   Bell,
   BookOpenText,
+  Building2,
   Check,
   ChevronDown,
   ChevronLeft,

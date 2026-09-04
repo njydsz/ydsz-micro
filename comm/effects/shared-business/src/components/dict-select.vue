@@ -1,6 +1,9 @@
 <!--
  * dict-select 通用组件
  *
+ * <p>从全局字典缓存获取数据，支持数据权限过滤。
+ * 监听字典变更事件（{@link emitDictChange}），自动刷新缓存。
+ *
  * @path comm\effects\shared-business\src\components\dict-select.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -9,10 +12,11 @@
 /**
  * 字典选择器组件 — 从全局字典缓存获取数据
  */
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted, onUnmounted, watch } from 'vue';
 
 import { ElOption, ElSelect } from 'element-plus';
 
+import { onDictChange } from '../composables/use-dict-event';
 import { useDictStore } from '@ydsz/stores';
 
 interface Props {
@@ -55,8 +59,12 @@ const options = computed(() => {
 });
 
 /** 保证字典加载 */
-onMounted(() => {
+function ensureLoadDict() {
   dictStore.ensureLoaded(props.dictType);
+}
+
+onMounted(() => {
+  ensureLoadDict();
 });
 
 watch(
@@ -66,6 +74,19 @@ watch(
   },
   { immediate: true },
 );
+
+// 字典变更监听：当其他页面修改字典后，自动刷新当前组件的字典数据
+const offDictChange = onDictChange((detail) => {
+  // typeCode 未指定（字典类型变更）或 typeCode 与当前组件匹配时才刷新
+  if (!detail.typeCode || detail.typeCode === props.dictType) {
+    dictStore.invalidate(props.dictType);
+    ensureLoadDict();
+  }
+});
+
+onUnmounted(() => {
+  offDictChange();
+});
 
 function handleChange(value: string | number) {
   emit('update:modelValue', value);

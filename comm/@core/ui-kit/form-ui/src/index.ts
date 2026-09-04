@@ -23,3 +23,17 @@ export * from './use-YDSZ-form';
 // export { default as YDSZForm } from './YDSZ-form.vue';
 export * as z from 'zod';
 
+// OpenAPI Schema → 表单组件类型映射（P1-1）
+export {
+  openApiSchemaToComponentType,
+  openApiSchemaToFormFields,
+  type ComponentFieldConfig,
+  type ComponentMappingOptions,
+} from './validation/openapi-to-component';
+export {
+  toFormItemRules,
+  toFormRules,
+  type OpenApiValidationMeta,
+  type ToRulesOptions,
+} from './validation/openapi-to-rules';
+

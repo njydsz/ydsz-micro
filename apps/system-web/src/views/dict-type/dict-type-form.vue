@@ -18,6 +18,8 @@ import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
+import { emitDictChange } from '@ydsz/shared-business';
+
 import { save, update } from '#/api/dict';
 import type { DictTypeVO } from '#/api/models';
 
@@ -87,6 +89,8 @@ const [Modal, modalApi] = useYDSZModal({
         await save(formData);
         ElMessage.success('创建成功');
       }
+      // 广播字典类型变更事件，通知 DictSelect/DictTag 等组件自动刷新
+      emitDictChange(formData.typeCode);
       emit('success');
       modalApi.close();
     } finally {

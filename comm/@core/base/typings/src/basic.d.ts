@@ -28,6 +28,10 @@ interface BasicUserInfo {
    */
   roles?: string[];
   /**
+   * 租户 ID（多租户场景下标识所属租户，单租户模式可不传）
+   */
+  tenantId?: string;
+  /**
    * 用户id
    */
   userId: string;

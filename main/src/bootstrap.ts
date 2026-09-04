@@ -14,6 +14,7 @@ import { initLogger } from "@YDSZ-core/shared/utils";
 
 import { featureFlagsOptions, registerApplicationFlags } from "./feature-flags";
 import { setupApp } from "./setup/app";
+import { initTenant } from "./setup/tenant";
 import { microRuntime, registerMicroRuntime } from "./setup/micro-runtime";
 import {
   initCanaryManager,
@@ -73,6 +74,9 @@ async function bootstrap(namespace: string) {
 
   // E2/F6: 会话超时预警 + 跨标签页状态同步（必须在 initStores 之后、app 挂载之后调用）
   setupSessionSync();
+
+  // P0-1: 初始化多租户上下文（注入租户加载器，使顶栏租户切换器可用）
+  initTenant();
 
   return app;
 }

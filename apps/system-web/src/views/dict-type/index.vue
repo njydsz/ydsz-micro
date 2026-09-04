@@ -23,6 +23,7 @@ import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { emitDictChange } from '@ydsz/shared-business';
 import { page, remove } from '#/api/dict';
 import type { DictPageQuery, DictTypeVO, PageQuery } from '#/api/models';
 
@@ -132,6 +133,8 @@ async function handleDelete(row: DictTypeRow) {
   try {
     if (row.id) await remove({ id: row.id });
     ElMessage.success(t('operationSuccess'));
+    // 广播字典类型删除事件，通知所有消费组件刷新缓存
+    emitDictChange(row.typeCode);
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理

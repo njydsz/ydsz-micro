@@ -28,6 +28,8 @@ import {
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
+import { emitDictChange } from '@ydsz/shared-business';
+
 import { listAll } from '#/api/dict';
 import { save, update } from '#/api/dictItem';
 import type { DictItemVO, DictTypeVO } from '#/api/models';
@@ -118,6 +120,10 @@ const [Modal, modalApi] = useYDSZModal({
       } else {
         await save(formData);
         ElMessage.success('创建成功');
+      }
+      // 广播字典项变更事件，通知 DictSelect/DictTag 等组件自动刷新
+      if (formData.typeCode) {
+        emitDictChange(formData.typeCode);
       }
       emit('success');
       modalApi.close();

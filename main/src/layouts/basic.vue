@@ -19,6 +19,7 @@ import {
   BasicLayout,
   LockScreen,
   Notification,
+  TenantContext,
   UserDropdown,
 } from "@ydsz/layouts";
 import { preferences } from "@ydsz/preferences";
@@ -130,6 +131,9 @@ onUnmounted(() => {
         @clear="handleNoticeClear"
         @make-all="handleMakeAll"
       />
+    </template>
+    <template #header-right-110>
+      <TenantContext class="mr-1" />
     </template>
     <template #extra>
       <AuthenticationLoginExpiredModal
