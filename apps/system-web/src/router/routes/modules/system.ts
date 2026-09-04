@@ -100,6 +100,40 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: {
+      icon: 'lucide:activity',
+      order: 5,
+      title: '运维监控',
+    },
+    name: 'Monitor',
+    path: '/monitor',
+    children: [
+      {
+        name: 'MonitorDashboard',
+        path: 'dashboard',
+        component: () => import('#/views/monitor/index.vue'),
+        meta: { icon: 'lucide:activity', title: '监控面板' },
+      },
+    ],
+  },
+  {
+    meta: {
+      icon: 'lucide:code',
+      order: 6,
+      title: '开发平台',
+    },
+    name: 'DevPlatform',
+    path: '/dev-platform',
+    children: [
+      {
+        name: 'CodeGenerator',
+        path: 'code-generator',
+        component: () => import('#/views/dev-platform/index.vue'),
+        meta: { icon: 'lucide:code', title: '代码生成器' },
+      },
+    ],
+  },
 ];
 
 /** System 系统管理路由配置（子应用内部路由表） */
