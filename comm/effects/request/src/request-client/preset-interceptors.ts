@@ -26,6 +26,8 @@ import type { RequestResponse } from './types';
 
 import { BusinessError } from './business-error';
 
+import type { ExceptionSeverity } from './types';
+
 import { createLogger } from '@YDSZ-core/shared/utils';
 const logger = createLogger('preset-interceptors');
 
@@ -91,11 +93,15 @@ export const defaultResponseInterceptor = ({
           return result as unknown as RequestResponse;
         }
       }
+      const responseLevel = responseData?.level as
+        | ExceptionSeverity
+        | undefined;
       throw new BusinessError(
         (responseData?.message as string) || '业务请求失败',
         {
           code: responseData?.[codeField] as string | undefined,
           data: responseData,
+          level: responseLevel,
           statusCode: status,
         },
       );
@@ -243,6 +249,12 @@ export const errorMessageResponseInterceptor = (
         return Promise.reject(axiosError);
       }
 
+      // 提取异常级别（INFO / WARN / ERROR / FATAL），默认 ERROR
+      let errorLevel: ExceptionSeverity = 'ERROR';
+      if (axiosError instanceof BusinessError && axiosError.level) {
+        errorLevel = axiosError.level;
+      }
+
       const err: string = axiosError?.toString?.() ?? '';
       let errMsg = '';
       if (err?.includes('Network Error')) {
@@ -251,7 +263,7 @@ export const errorMessageResponseInterceptor = (
         errMsg = $t('ui.fallback.http.requestTimeout');
       }
       if (errMsg) {
-        makeErrorMessage?.(errMsg, axiosError);
+        makeErrorMessage?.(errMsg, axiosError, errorLevel);
         return Promise.reject(axiosError);
       }
 
@@ -297,7 +309,13 @@ export const errorMessageResponseInterceptor = (
           break;
         }
       }
-      makeErrorMessage?.(errorMessage, axiosError);
+      // 5xx 服务端瞬时错误映射为 ERROR，4xx 客户端错误映射为 WARN
+      if (status && status >= 500) {
+        errorLevel = 'ERROR';
+      } else if (status && status >= 400) {
+        errorLevel = 'WARN';
+      }
+      makeErrorMessage?.(errorMessage, axiosError, errorLevel);
       return Promise.reject(axiosError);
     },
   };

@@ -79,7 +79,20 @@ interface ResponseInterceptorConfig<T = unknown> {
   rejected?: (error: unknown) => unknown;
 }
 
-type MakeErrorMessageFn = (message: string, error: unknown) => void;
+type MakeErrorMessageFn = (message: string, error: unknown, level?: ExceptionSeverity) => void;
+
+/**
+ * 异常级别（驱动前端差异化展示）
+ *
+ * <p>与后端 {@code com.njydsz.common.exception.enums.ExceptionLevel} 对齐：
+ * <ul>
+ *   <li>INFO — 静默处理，不展示 toast</li>
+ *   <li>WARN — 轻量 toast（auto-close 3s）</li>
+ *   <li>ERROR — toast 需用户点击关闭（默认）</li>
+ *   <li>FATAL — Modal 弹窗阻断操作</li>
+ * </ul>
+ */
+type ExceptionSeverity = 'INFO' | 'WARN' | 'ERROR' | 'FATAL';
 
 interface HttpResponse<T = unknown> {
   /**
@@ -89,9 +102,12 @@ interface HttpResponse<T = unknown> {
   code: number;
   data: T;
   message: string;
+  /** 异常级别（INFO/WARN/ERROR/FATAL），由后端 ExceptionCode.getLevel() 驱动 */
+  level?: ExceptionSeverity;
 }
 
 export type {
+  ExceptionSeverity,
   HttpResponse,
   MakeErrorMessageFn,
   RequestClientConfig,
