@@ -1,5 +1,23 @@
 {
   "page": {
     "title": "代码生成器"
+  },
+  "generator": {
+    "history": {
+      "title": "生成历史记录",
+      "empty": "暂无历史记录",
+      "viewDiff": "Diff 预览",
+      "files": "个文件",
+      "tables": "张表",
+      "rollback": "回滚",
+      "viewFiles": "文件明细"
+    },
+    "diff": {
+      "addLines": "新增 {count} 行",
+      "deleteLines": "删除 {count} 行",
+      "noChanges": "无变更",
+      "leftPanel": "旧版本",
+      "rightPanel": "新版本"
+    }
   }
 }

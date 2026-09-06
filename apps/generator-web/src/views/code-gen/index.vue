@@ -2,16 +2,18 @@
  * 代码生成（主面板）
  *
  * <p>选择数据源、模板分组和表名，预览代码、单表生成、全量生成。
+ * 新增：历史记录侧栏 Drawer，支持 Diff 预览。
  *
  * @path apps/generator-web/src/views/code-gen/index.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 /**
  * 代码生成主面板。
  *
  * <p>选择数据源 → 模板分组 → 表名 → 预览 → 正式生成，支持全量模式。
+ * 新增历史记录侧栏，可查看历史版本并 Diff 对比。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -23,8 +25,11 @@ import { useRoute } from 'vue-router';
 import {
   ElButton,
   ElCard,
+  ElDrawer,
+  ElEmpty,
   ElForm,
   ElFormItem,
+  ElIcon,
   ElInput,
   ElMessage,
   ElOption,
@@ -33,15 +38,20 @@ import {
   ElSelect,
   ElTabPane,
   ElTabs,
+  ElTag,
 } from 'element-plus';
+import { Clock, Document } from '@element-plus/icons-vue';
 
 import { generate, generateAll, preview } from '#/api/code-gen';
 import { listDatasources } from '#/api/datasource';
-import type { GenDatasourceRespVO } from '#/api/models';
+import type { GenDatasourceRespVO, GenHistory } from '#/api/models';
 import { getActiveGroup, listGroups } from '#/api/template';
 import type { GenTemplateGroup } from '#/api/models';
 import { listTables } from '#/api/table-meta';
 import type { CodePreviewVO, GenResultVO } from '#/api/models';
+
+import { CodeDiffViewer } from '#/components/code-diff-viewer/index.vue';
+import { useHistoryRollback } from '#/composables/use-history-rollback';
 
 import CodePreviewDialog from './code-preview-dialog.vue';
 
@@ -84,6 +94,22 @@ const activeTab = ref('config');
 
 const batchGenerating = ref(false);
 const batchResult = ref<GenResultVO | null>(null);
+
+// ══════ 历史记录侧栏 ══════
+
+const historyDrawerVisible = ref(false);
+const diffModalVisible = ref(false);
+const currentDiffFileName = ref('');
+const currentDiffOldCode = ref('');
+const currentDiffNewCode = ref('');
+
+const {
+  histories,
+  loading: historyLoading,
+  fetchHistories,
+  showDiffPreview,
+  diffFiles,
+} = useHistoryRollback();
 
 // ══════ 数据加载 ══════
 
@@ -233,6 +259,68 @@ function validateSelection(): boolean {
   }
   return true;
 }
+
+// ══════ 历史记录侧栏操作 ══════
+
+/** 打开历史侧栏并加载数据 */
+async function handleOpenHistoryDrawer() {
+  historyDrawerVisible.value = true;
+  await fetchHistories(20);
+}
+
+/** 查看历史版本的 Diff */
+async function handleViewHistoryDiff(record: GenHistory) {
+  if (!record.id) return;
+  await showDiffPreview(record.id);
+  // 如果只有一个文件则直接打开 modal，否则在 Drawer 中展示列表
+  if (diffFiles.value.length === 1) {
+    const file = diffFiles.value[0];
+    if (file) {
+      currentDiffFileName.value = file.fileName;
+      currentDiffOldCode.value = file.oldCode;
+      currentDiffNewCode.value = file.newCode;
+      diffModalVisible.value = true;
+    }
+  }
+}
+
+/** 在 Diff Modal 中打开指定文件 */
+function handleDiffFileSelect(fileName: string, oldCode: string, newCode: string) {
+  currentDiffFileName.value = fileName;
+  currentDiffOldCode.value = oldCode;
+  currentDiffNewCode.value = newCode;
+  diffModalVisible.value = true;
+}
+
+/** 获取状态标签类型 */
+function getStatusType(status: string): 'success' | 'warning' | 'danger' | 'info' {
+  switch (status) {
+    case 'SUCCESS':
+      return 'success';
+    case 'PARTIAL':
+      return 'warning';
+    case 'FAILED':
+      return 'danger';
+    default:
+      return 'info';
+  }
+}
+
+/** 获取状态文案 */
+function getStatusLabel(status: string): string {
+  switch (status) {
+    case 'SUCCESS':
+      return '成功';
+    case 'PARTIAL':
+      return '部分成功';
+    case 'FAILED':
+      return '失败';
+    case 'RUNNING':
+      return '执行中';
+    default:
+      return status;
+  }
+}
 </script>
 
 <template>
@@ -242,8 +330,17 @@ function validateSelection(): boolean {
       <ElTabPane label="生成配置" name="config">
         <ElCard class="mt-4" shadow="hover">
           <template #header>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center justify-between">
               <span class="font-medium">数据源与模板</span>
+              <ElButton
+                type="primary"
+                size="small"
+                link
+                :icon="Clock"
+                @click="handleOpenHistoryDrawer"
+              >
+                历史记录
+              </ElButton>
             </div>
           </template>
           <ElForm label-width="120px">
@@ -382,16 +479,110 @@ function validateSelection(): boolean {
       </ElTabPane>
     </ElTabs>
 
+    <!-- 代码预览对话框 -->
     <CodePreviewDialog
       v-if="previewDialogVisible"
       v-model:visible="previewDialogVisible"
       :preview-list="previewData"
     />
+
+    <!-- 历史记录侧栏 Drawer -->
+    <ElDrawer
+      v-model="historyDrawerVisible"
+      title="生成历史记录"
+      direction="rtl"
+      size="480px"
+    >
+      <div v-loading="historyLoading">
+        <!-- 历史列表 -->
+        <div v-if="histories.length > 0" class="space-y-3">
+          <div
+            v-for="record in histories"
+            :key="record.id"
+            class="history-card border rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+            @click="handleViewHistoryDiff(record)"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-medium text-sm">
+                #{{ record.id }} {{ record.moduleName ?? '生成任务' }}
+              </span>
+              <ElTag :type="getStatusType(record.status ?? '')" size="small">
+                {{ getStatusLabel(record.status ?? '') }}
+              </ElTag>
+            </div>
+            <div class="text-xs text-gray-500 flex gap-3 flex-wrap">
+              <span v-if="record.triggeredBy">操作者: {{ record.triggeredBy }}</span>
+              <span v-if="record.fileCount">{{ record.fileCount }} 个文件</span>
+              <span v-if="record.tableCount">{{ record.tableCount }} 张表</span>
+            </div>
+            <div class="text-xs text-gray-400 mt-1">
+              {{ record.startedAt ? String(record.startedAt).replace('T', ' ') : '-' }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Diff 文件列表（选中历史后） -->
+        <div v-if="diffFiles.length > 0" class="mt-4">
+          <div class="text-sm font-medium text-gray-700 mb-2">变更文件列表</div>
+          <div class="space-y-1">
+            <div
+              v-for="(file, idx) in diffFiles"
+              :key="idx"
+              class="flex items-center gap-2 px-2 py-2 rounded text-sm hover:bg-gray-100 cursor-pointer"
+              @click="handleDiffFileSelect(file.fileName, file.oldCode, file.newCode)"
+            >
+              <ElIcon class="text-gray-400">
+                <Document />
+              </ElIcon>
+              <span class="truncate flex-1 text-xs">{{ file.fileName }}</span>
+              <span class="text-blue-500 text-xs">diff</span>
+            </div>
+          </div>
+        </div>
+
+        <ElEmpty v-if="histories.length === 0 && !historyLoading" description="暂无历史记录" />
+      </div>
+    </ElDrawer>
+
+    <!-- Diff 预览对话框 -->
+    <ElDialog
+      v-model="diffModalVisible"
+      :title="currentDiffFileName"
+      width="85%"
+      top="5vh"
+      append-to-body
+    >
+      <div style="height: 65vh; overflow-y: auto">
+        <CodeDiffViewer
+          v-if="currentDiffOldCode"
+          :old-code="currentDiffOldCode"
+          :new-code="currentDiffNewCode"
+          :file-name="currentDiffFileName"
+          :show-inline="false"
+        />
+        <CodeDiffViewer
+          v-else
+          :new-code="currentDiffNewCode"
+          :file-name="currentDiffFileName"
+          :show-inline="false"
+        />
+      </div>
+    </ElDialog>
   </div>
 </template>
 
 <style scoped>
 .code-gen {
   max-width: 1000px;
+}
+
+.history-card {
+  border-color: #e5e7eb;
+  background: #fafafa;
+}
+
+.history-card:hover {
+  border-color: #93c5fd;
+  background: #f0f9ff;
 }
 </style>
