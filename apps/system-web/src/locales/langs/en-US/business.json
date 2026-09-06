@@ -55,5 +55,27 @@
   "datasourceKey": "Datasource",
   "tenantNamePlaceholder": "Enter tenant name",
   "tenantCodePlaceholder": "Enter tenant code",
-  "tenantDeleteTitle": "Confirm Delete"
+  "tenantDeleteTitle": "Confirm Delete",
+  "configVersion": {
+    "history": "Version History",
+    "historyTitle": "Version History - {0}",
+    "version": "Version",
+    "changeLog": "Change Log",
+    "effectiveDate": "Effective Date",
+    "viewSnapshot": "View Snapshot",
+    "snapshotDetail": "Snapshot Detail - {0}",
+    "rollback": "Rollback",
+    "rollbackTitle": "Rollback Confirm",
+    "rollbackConfirm": "Rollback to version \"{version}\"?\nChange: {changeLog}\nCurrent config will be overwritten.",
+    "compareVersions": "Compare Selected",
+    "diffTitle": "Version Diff: {versionA} vs {versionB}",
+    "leftVersion": "Version A: {0}",
+    "rightVersion": "Version B: {0}",
+    "diffRemoved": "Removed",
+    "diffAdded": "Added"
+  },
+  "common": {
+    "close": "Close",
+    "noData": "No Data"
+  }
 }

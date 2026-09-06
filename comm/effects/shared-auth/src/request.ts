@@ -204,7 +204,9 @@ export function createSharedRequestClient(
 
       // P1-10: 优先通过业务错误码匹配 i18n 映射，实现「后端改码文案，前端无需发版」
       const errorCode = isBusinessError(error) ? error.code : undefined;
-      const i18nMessage = errorCode ? resolveErrorMessage(errorCode) : undefined;
+      const i18nMessage = errorCode
+        ? resolveErrorMessage(errorCode, preferences.app.locale)
+        : undefined;
       // 消息优先级：i18n 映射 > 后端 serverMessage > HTTP 兜底文案(msg)
       const displayMessage = i18nMessage || serverMessage || msg;
 

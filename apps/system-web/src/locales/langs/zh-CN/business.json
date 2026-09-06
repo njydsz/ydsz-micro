@@ -55,5 +55,27 @@
   "datasourceKey": "数据源",
   "tenantNamePlaceholder": "请输入租户名称",
   "tenantCodePlaceholder": "请输入租户编码",
-  "tenantDeleteTitle": "删除确认"
+  "tenantDeleteTitle": "删除确认",
+  "configVersion": {
+    "history": "版本历史",
+    "historyTitle": "版本历史 - {0}",
+    "version": "版本号",
+    "changeLog": "变更说明",
+    "effectiveDate": "生效时间",
+    "viewSnapshot": "查看快照",
+    "snapshotDetail": "快照详情 - {0}",
+    "rollback": "回滚",
+    "rollbackTitle": "回滚确认",
+    "rollbackConfirm": "确定回滚到版本「{version}」吗？\n变更说明：{changeLog}\n回滚后当前配置将被覆盖。",
+    "compareVersions": "对比选中版本",
+    "diffTitle": "版本对比: {versionA} vs {versionB}",
+    "leftVersion": "版本 A: {0}",
+    "rightVersion": "版本 B: {0}",
+    "diffRemoved": "删除行",
+    "diffAdded": "新增行"
+  },
+  "common": {
+    "close": "关闭",
+    "noData": "暂无数据"
+  }
 }

@@ -20,7 +20,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
-import { h } from 'vue';
+import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -28,6 +28,7 @@ import { page, remove } from '#/api/config';
 import type { ConfigPageQuery, ConfigVO, PageQuery } from '#/api/models';
 
 import ConfigForm from './config-form.vue';
+import ConfigHistoryDialog from './config-history-dialog.vue';
 
 defineOptions({ name: 'ConfigManagement' });
 
@@ -72,12 +73,13 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
     {
       field: 'action',
       title: t('action'),
-      width: 140,
+      width: 220,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           return h('div', { class: 'flex gap-1' }, [
             h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')),
             h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => t('delete')),
           ]);
         },
@@ -113,6 +115,9 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [ConfigFormModal, configFormApi] = useYDSZModal({ connectedComponent: ConfigForm });
 
+/** 版本历史抽屉引用 */
+const historyDialogRef = ref<InstanceType<typeof ConfigHistoryDialog>>();
+
 function handleAdd() {
   configFormApi.open();
 }
@@ -120,6 +125,10 @@ function handleAdd() {
 function handleEdit(row: ConfigRow) {
   configFormApi.setData({ record: row });
   configFormApi.open();
+}
+
+function handleVersionHistory(row: ConfigRow) {
+  historyDialogRef.value?.open(row.configKey ?? '');
 }
 
 async function handleDelete(row: ConfigRow) {
@@ -150,5 +159,6 @@ async function handleDelete(row: ConfigRow) {
       </template>
     </Grid>
     <ConfigFormModal @success="gridApi.query()" />
+    <ConfigHistoryDialog ref="historyDialogRef" @success="gridApi.query()" />
   </Page>
 </template>
