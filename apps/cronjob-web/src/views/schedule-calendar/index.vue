@@ -22,6 +22,10 @@ import { ref, computed, onMounted } from 'vue';
 
 import { getScheduleCalendar } from '#/api/scheduleCalendar';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('cronjob-job');
+
 defineOptions({ name: 'ScheduleCalendar' });
 
 // ==================== 类型 ====================
@@ -131,6 +135,7 @@ async function fetchScheduleData() {
       ElMessage.success(`已加载 ${scheduleItems.value.length} 条调度记录`);
     }
   } catch {
+    logger.warn('加载调度日历数据失败');
     // 错误提示由请求拦截器统一处理
   }
 }

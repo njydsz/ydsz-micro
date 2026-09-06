@@ -15,9 +15,13 @@
  */
 import type { VariableDefinitionVO } from '#/api/models';
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { save } from '#/api/ruleVariableAdmin';
+const logger = createLogger('literule-variable');
+const { t } = useI18n();
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 const isEdit = ref(false);
@@ -37,7 +41,7 @@ const formData = reactive<VariableFormData>({
   required: false,
 });
 const rules = {
-  name: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
+  name: [{ required: true, message: () => t('variableNamePlaceholder'), trigger: 'blur' }],
 };
 const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
@@ -66,13 +70,14 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.debug("表单校验未通过: {}", error);
       return;
     }
     modalApi.lock();
     try {
       await save(formData);
-      ElMessage.success(isEdit.value ? '更新成功' : '创建成功');
+      ElMessage.success(isEdit.value ? t('updateSuccess') : t('createSuccess'));
       emit('success');
       modalApi.close();
     } finally {
@@ -80,7 +85,7 @@ const [Modal, modalApi] = useYDSZModal({
     }
   },
 });
-const title = computed(() => (isEdit.value ? '编辑规则变量' : '新增规则变量'));
+const title = computed(() => (isEdit.value ? t('editVariableTitle') : t('createVariableTitle')));
 </script>
 <template>
   <Modal :title="title">
@@ -91,24 +96,24 @@ const title = computed(() => (isEdit.value ? '编辑规则变量' : '新增规�
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="变量名称" prop="name">
-        <ElInput v-model="formData.name" placeholder="请输入变量名称" :disabled="isEdit" />
+      <ElFormItem :label="t('variableNameColumn')" prop="name">
+        <ElInput v-model="formData.name" :placeholder="t('variableNamePlaceholder')" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="变量类型">
-        <ElInput v-model="formData.type" placeholder="请输入变量类型（如 String/Number/Boolean）" />
+      <ElFormItem :label="t('variableType')">
+        <ElInput v-model="formData.type" :placeholder="t('variableTypePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="分类">
-        <ElInput v-model="formData.category" placeholder="请输入分类" />
+      <ElFormItem :label="t('categoryColumn')">
+        <ElInput v-model="formData.category" :placeholder="t('variableCategoryPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="描述">
+      <ElFormItem :label="t('descriptionColumn')">
         <ElInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
-          placeholder="请输入描述"
+          :placeholder="t('variableDescriptionPlaceholder')"
         />
       </ElFormItem>
-      <ElFormItem label="必填">
+      <ElFormItem :label="t('required')">
         <ElSwitch v-model="formData.required" />
       </ElFormItem>
     </ElForm>

@@ -20,6 +20,11 @@ import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-p
 import { computed, reactive, ref } from 'vue';
 import { createQuickComment, updateQuickComment } from '#/api/flowComment';
 import type { FlowQuickCommentDTO, FlowQuickCommentVO } from '#/api/models';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+
+const logger = createLogger('workflow-quick-comment');
+const { t } = useI18n();
 
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
@@ -41,7 +46,7 @@ const formData = reactive<QuickCommentFormState>({
 });
 
 const rules = {
-  content: [{ required: true, message: '请输入评语内容', trigger: 'blur' }],
+  content: [{ required: true, message: t('quickComment.content.required'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -69,7 +74,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('快捷评语表单验证失败', error);
       return;
     }
     modalApi.lock();
@@ -82,10 +88,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await updateQuickComment(payload);
-        ElMessage.success('更新成功');
+        ElMessage.success(t('quickComment.update.success'));
       } else {
         await createQuickComment(payload);
-        ElMessage.success('创建成功');
+        ElMessage.success(t('quickComment.create.success'));
       }
       emit('success');
       modalApi.close();
@@ -95,7 +101,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑快捷评语' : '新增快捷评语'));
+const title = computed(() => (isEdit.value ? t('quickComment.edit.title') : t('quickComment.add.title')));
 </script>
 
 <template>
@@ -107,18 +113,18 @@ const title = computed(() => (isEdit.value ? '编辑快捷评语' : '新增快�
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="评语内容" prop="content">
+      <ElFormItem :label="t('quickComment.content.label')" prop="content">
         <ElInput
           v-model="formData.content"
           type="textarea"
           :rows="3"
-          placeholder="请输入评语内容"
+          :placeholder="t('quickComment.content.placeholder')"
         />
       </ElFormItem>
-      <ElFormItem label="意见类型">
-        <ElInput v-model="formData.commentType" placeholder="如 APPROVE/REJECT（可选）" />
+      <ElFormItem :label="t('quickComment.type.label')">
+        <ElInput v-model="formData.commentType" :placeholder="t('quickComment.type.placeholder')" />
       </ElFormItem>
-      <ElFormItem label="排序">
+      <ElFormItem :label="t('quickComment.sort.label')">
         <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />
       </ElFormItem>
     </ElForm>

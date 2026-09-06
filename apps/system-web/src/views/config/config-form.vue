@@ -25,9 +25,15 @@ import {
   ElRadioGroup,
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { save, update } from '#/api/config';
 import type { ConfigVO } from '#/api/models';
+
+const logger = createLogger('system-config-form');
+
+const { t } = useI18n();
 
 const emit = defineEmits<{ success: [] }>();
 
@@ -62,8 +68,8 @@ const formData = reactive<ConfigFormState>({
 });
 
 const rules = {
-  configKey: [{ required: true, message: '请输入配置键', trigger: 'blur' }],
-  configGroup: [{ required: true, message: '请输入配置分组', trigger: 'blur' }],
+  configKey: [{ required: true, message: t('configKeyPlaceholder'), trigger: 'blur' }],
+  configGroup: [{ required: true, message: t('configGroupPlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -103,17 +109,18 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.debug('表单校验未通过', error);
       return;
     }
     modalApi.lock();
     try {
       if (isEdit.value) {
         await update(formData);
-        ElMessage.success('更新成功');
+        ElMessage.success(t('configUpdateSuccess'));
       } else {
         await save(formData);
-        ElMessage.success('创建成功');
+        ElMessage.success(t('configCreateSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -123,43 +130,43 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑系统配置' : '新增系统配置'));
+const title = computed(() => (isEdit.value ? t('editConfig') : t('createConfig')));
 </script>
 
 <template>
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="配置键" prop="configKey">
-        <ElInput v-model="formData.configKey" placeholder="请输入配置键" :disabled="isEdit" />
+      <ElFormItem :label="t('configKey')" prop="configKey">
+        <ElInput v-model="formData.configKey" :placeholder="t('configKeyPlaceholder')" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="配置分组" prop="configGroup">
-        <ElInput v-model="formData.configGroup" placeholder="请输入配置分组" />
+      <ElFormItem :label="t('configGroup')" prop="configGroup">
+        <ElInput v-model="formData.configGroup" :placeholder="t('configGroupPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="值类型" prop="valueType">
-        <ElInput v-model="formData.valueType" placeholder="请输入值类型（String/Number/Boolean）" />
+      <ElFormItem :label="t('variable.valueType')" prop="valueType">
+        <ElInput v-model="formData.valueType" :placeholder="t('valueTypePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="配置值" prop="configValue">
-        <ElInput v-model="formData.configValue" type="textarea" :rows="2" placeholder="请输入配置值" />
+      <ElFormItem :label="t('configValue')" prop="configValue">
+        <ElInput v-model="formData.configValue" type="textarea" :rows="2" :placeholder="t('configValuePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="默认值" prop="defaultValue">
-        <ElInput v-model="formData.defaultValue" type="textarea" :rows="2" placeholder="请输入默认值" />
+      <ElFormItem :label="t('defaultValue')" prop="defaultValue">
+        <ElInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('defaultValuePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="排序" prop="sortOrder">
+      <ElFormItem :label="t('sortOrder')" prop="sortOrder">
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
       </ElFormItem>
-      <ElFormItem label="是否公开" prop="isPublic">
+      <ElFormItem :label="t('isPublic')" prop="isPublic">
         <ElRadioGroup v-model="formData.isPublic">
-          <ElRadio :value="1">公开</ElRadio>
-          <ElRadio :value="0">私有</ElRadio>
+          <ElRadio :value="1">{{ t('isPublic') }}</ElRadio>
+          <ElRadio :value="0">{{ t('isPrivate') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      <ElFormItem :label="t('description')">
+        <ElInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="状态" prop="status">
+      <ElFormItem :label="t('status')" prop="status">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
+          <ElRadio value="1">{{ t('enabled') }}</ElRadio>
+          <ElRadio value="0">{{ t('disabled') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

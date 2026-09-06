@@ -20,6 +20,8 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import {
   ElForm,
   ElFormItem,
@@ -44,6 +46,7 @@ import type {
 } from '#/api/models';
 
 const { t } = useI18n();
+const logger = createLogger('userinfo-user');
 
 const emit = defineEmits<{ success: [] }>();
 
@@ -141,7 +144,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('表单校验失败: {}', error);
       return;
     }
     modalApi.lock();

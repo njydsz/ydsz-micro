@@ -37,7 +37,10 @@ import {
 } from '#/api/job';
 import type { JobBatchDTO, JobVO } from '#/api/models';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
 import JobForm from './job-form.vue';
+
+const logger = createLogger('cronjob-job');
 
 defineOptions({ name: 'JobManagement' });
 
@@ -204,6 +207,7 @@ async function handlePause(row: JobRow) {
     ElMessage.success('已暂停');
     gridApi.query();
   } catch {
+    logger.warn('暂停任务失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -215,6 +219,7 @@ async function handleResume(row: JobRow) {
     ElMessage.success('已恢复');
     gridApi.query();
   } catch {
+    logger.warn('恢复任务失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -225,6 +230,7 @@ async function handleTrigger(row: JobRow) {
     await trigger({ id: row.id }, {});
     ElMessage.success('触发成功');
   } catch {
+    logger.warn('触发任务失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -234,6 +240,7 @@ async function handleDelete(row: JobRow) {
   try {
     await ElMessageBox.confirm(`确定删除「${row.jobName}」吗？`, '删除确认', { type: 'warning' });
   } catch {
+    logger.warn('用户取消删除任务', row.id);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -242,6 +249,7 @@ async function handleDelete(row: JobRow) {
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
+    logger.warn('删除任务失败', row.id);
     // 错误已由请求拦截器展示，无需重复处理
   }
 }
@@ -270,6 +278,7 @@ async function handleBatchPause() {
     ElMessage.success('批量暂停成功');
     gridApi.query();
   } catch {
+    logger.warn('批量暂停失败', ids);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -283,6 +292,7 @@ async function handleBatchResume() {
     ElMessage.success('批量恢复成功');
     gridApi.query();
   } catch {
+    logger.warn('批量恢复失败', ids);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -296,6 +306,7 @@ async function handleBatchDelete() {
       type: 'warning',
     });
   } catch {
+    logger.warn('用户取消批量删除', ids);
     return; // 用户主动取消批量删除
   }
   // 步骤2：执行批量删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -304,6 +315,7 @@ async function handleBatchDelete() {
     ElMessage.success('批量删除成功');
     gridApi.query();
   } catch {
+    logger.warn('批量删除失败', ids);
     // 错误已由请求拦截器展示，无需重复处理
   }
 }

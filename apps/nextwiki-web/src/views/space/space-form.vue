@@ -14,7 +14,11 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+const logger = createLogger('nextwiki-space');
+const { t } = useI18n();
 import { reactive, ref } from 'vue';
 import { createSpace } from '#/api/space';
 
@@ -37,7 +41,7 @@ const formData = reactive<SpaceFormData>({
 });
 
 const rules = {
-  name: [{ required: true, message: '请输入空间名称', trigger: 'blur' }],
+  name: [{ required: true, message: () => t('spaceNamePlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -48,7 +52,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.debug("表单校验未通过: {}", error);
       return;
     }
     modalApi.lock();

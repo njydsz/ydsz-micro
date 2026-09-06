@@ -34,6 +34,10 @@ import { useI18n } from 'vue-i18n';
 import { create, update, validateCron } from '#/api/job';
 import type { JobVO } from '#/api/models';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('cronjob-job');
+
 const emit = defineEmits<{ success: [] }>();
 const { t } = useI18n();
 
@@ -189,6 +193,7 @@ const [Modal, modalApi] = useYDSZModal({
     try {
       await formRef.value?.validate();
     } catch {
+      logger.warn('表单校验未通过');
       return;
     }
     modalApi.lock();
@@ -249,6 +254,7 @@ async function handleValidateCron() {
     await validateCron({ expr: formData.cronExpression });
     ElMessage.success('Cron 表达式校验通过');
   } catch {
+    logger.warn('Cron 表达式校验失败', formData.cronExpression);
     ElMessage.error('Cron 表达式无效');
   }
 }

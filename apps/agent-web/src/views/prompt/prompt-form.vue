@@ -26,7 +26,10 @@ import {
   ElSwitch,
   ElTag,
 } from 'element-plus';
+import { createLogger } from '@ydsz/utils';
 import { computed, reactive, watch } from 'vue';
+
+const logger = createLogger('agent-prompt');
 
 defineOptions({ name: 'PromptForm' });
 
@@ -115,8 +118,9 @@ async function handleSubmit(): Promise<void> {
     ElMessage.success(isEditMode.value ? '更新成功' : '创建成功');
     emit('success');
     modalApi.close();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('保存 Prompt 模板失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 

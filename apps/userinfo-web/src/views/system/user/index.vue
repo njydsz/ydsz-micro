@@ -30,7 +30,13 @@ import {
   ElTag,
   ElTreeSelect,
 } from 'element-plus';
+import { useI18n } from 'vue-i18n';
 import { h, onMounted, reactive, ref } from 'vue';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('userinfo-user');
+const { t } = useI18n();
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { list as companyList } from '#/api/company';
@@ -104,8 +110,8 @@ async function loadOptions() {
         postNameMap.set(post.postCode, post.postName);
       }
     });
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载下拉选项失败: {}', error);
   }
 }
 
@@ -129,14 +135,14 @@ function handleReset() {
 
 const gridOptions: VxeTableGridOptions<UserAccountVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'username', title: '用户名', width: 120 },
-    { field: 'realName', title: '真实姓名', width: 100 },
-    { field: 'phone', title: '手机号', width: 130 },
-    { field: 'email', title: '邮箱', minWidth: 150 },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
+    { field: 'username', title: t('page.username'), width: 120 },
+    { field: 'realName', title: t('page.realName'), width: 100 },
+    { field: 'phone', title: t('page.phone'), width: 130 },
+    { field: 'email', title: t('page.email'), minWidth: 150 },
     {
       field: 'companyId',
-      title: '公司',
+      title: t('user.company'),
       width: 120,
       slots: {
         default: ({ row }) =>
@@ -149,7 +155,7 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
     },
     {
       field: 'deptId',
-      title: '部门',
+      title: t('user.dept'),
       width: 120,
       slots: {
         default: ({ row }) => h('span', null, deptNameMap.get(row.deptId ?? '') || '-'),
@@ -157,7 +163,7 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
     },
     {
       field: 'positionCode',
-      title: '岗位',
+      title: t('user.position'),
       width: 100,
       slots: {
         default: ({ row }) =>
@@ -166,7 +172,7 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
     },
     {
       field: 'status',
-      title: '状态',
+      title: t('page.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -174,16 +180,16 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
           return h(
             ElTag,
             { type: enable ? 'success' : 'danger', size: 'small' },
-            () => (enable ? '启用' : '禁用'),
+            () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
       },
     },
-    { field: 'lastLoginAt', title: '最后登录', width: 160 },
-    { field: 'createdAt', title: '创建时间', width: 160 },
+    { field: 'lastLoginAt', title: t('page.lastLogin'), width: 160 },
+    { field: 'createdAt', title: t('page.createTime'), width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('page.operation'),
       width: 260,
       fixed: 'right',
       slots: {
@@ -192,22 +198,22 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('page.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleAssignRoles(row) },
-              () => '分配角色',
+              () => t('page.roleAssign'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'info', onClick: () => handleResetPassword(row) },
-              () => '重置密码',
+              () => t('page.passwordReset'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('page.delete'),
             ),
           ]),
       },
@@ -232,41 +238,41 @@ const [Grid, gridApi] = useYDSZVxeGrid({
     schema: [
       {
         component: 'Input',
-        componentProps: { placeholder: '用户名' },
+        componentProps: { placeholder: t('page.username') },
         fieldName: 'username',
-        label: '用户名',
+        label: t('page.username'),
       },
       {
         component: 'Input',
-        componentProps: { placeholder: '真实姓名' },
+        componentProps: { placeholder: t('page.realName') },
         fieldName: 'realName',
-        label: '真实姓名',
+        label: t('page.realName'),
       },
       {
         component: 'Input',
-        componentProps: { placeholder: '手机号' },
+        componentProps: { placeholder: t('page.phone') },
         fieldName: 'phone',
-        label: '手机号',
+        label: t('page.phone'),
       },
       {
         component: 'Select',
         componentProps: {
-          placeholder: '状态',
+          placeholder: t('page.status'),
           options: [
-            { label: '启用', value: '1' },
-            { label: '禁用', value: '0' },
+            { label: t('page.enabled'), value: '1' },
+            { label: t('page.disabled'), value: '0' },
           ],
         },
         fieldName: 'status',
-        label: '状态',
+        label: t('page.status'),
       },
     ],
     submitOnChange: false,
     collapsed: false,
     collapseTriggerResize: true,
     showCollapseButton: true,
-    submitButtonOptions: { content: '搜索' },
-    resetButtonOptions: { content: '重置' },
+    submitButtonOptions: { content: t('page.search') },
+    resetButtonOptions: { content: t('page.reset') },
   },
 });
 
@@ -294,18 +300,18 @@ function handleImport() {
 async function handleExport() {
   try {
     await exportUsers({});
-    ElMessage.success('导出成功');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+    ElMessage.success(t('page.exportSuccess'));
+  } catch (error) {
+    logger.warn('导出用户失败: {}', error);
   }
 }
 
 async function handleDownloadTemplate() {
   try {
     await downloadImportTemplate({});
-    ElMessage.success('模板下载成功');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+    ElMessage.success(t('page.templateDownloadSuccess'));
+  } catch (error) {
+    logger.warn('下载模板失败: {}', error);
   }
 }
 
@@ -328,8 +334,8 @@ async function handleAssignRoles(row: UserAccountVO) {
   let selectedRoleIds: string[] = [];
   try {
     selectedRoleIds = (await getUserRoles({ userId: row.id })) ?? [];
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('获取用户角色失败: {}', error);
   }
   roleAssignApi.setData({
     userId: row.id,
@@ -347,25 +353,26 @@ async function handleResetPassword(row: UserAccountVO) {
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
     const { value } = await ElMessageBox.prompt(
-      `请输入用户「${row.username ?? ''}」的新密码`,
-      '重置密码',
+      t('user.resetPasswordPrompt', { username: row.username ?? '' }),
+      t('page.passwordReset'),
       {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        confirmButtonText: t('page.confirm'),
+        cancelButtonText: t('page.cancel'),
         inputPattern: /.{6,}/,
-        inputErrorMessage: '密码至少6位',
+        inputErrorMessage: t('user.passwordMinLength'),
       },
     );
     newPassword = value;
   } catch {
-    return; // 用户主动取消重置密码
+    // 用户主动取消重置密码
+    return;
   }
   // 步骤2：执行重置密码 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await resetPassword({ userId: row.id, newPassword });
-    ElMessage.success('密码重置成功');
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+    ElMessage.success(t('page.passwordResetSuccess'));
+  } catch (error) {
+    logger.warn('重置密码失败: {}', error);
   }
 }
 
@@ -375,20 +382,21 @@ async function handleDelete(row: UserAccountVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除用户「${row.username ?? ''}」吗？`,
-      '删除确认',
+      t('user.deleteUserConfirm', { username: row.username ?? '' }),
+      t('page.confirmDelete'),
       { type: 'warning' },
     );
   } catch {
-    return; // 用户主动取消删除操作
+    // 用户主动取消删除
+    return;
   }
-  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  // 步骤2：执行删除 API
   try {
     await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('page.deleteSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除用户失败: {}', error);
   }
 }
 </script>
@@ -396,10 +404,10 @@ async function handleDelete(row: UserAccountVO) {
 <template>
   <Page auto-content-height>
     <div class="flex flex-wrap items-center gap-2 px-4 pt-3">
-      <span class="text-sm text-gray-500">更多筛选：</span>
+      <span class="text-sm text-gray-500">{{ t('user.moreFilter') }}</span>
       <ElSelect
         v-model="searchForm.companyId"
-        placeholder="公司"
+        :placeholder="t('user.company')"
         clearable
         class="w-44"
       >
@@ -416,13 +424,13 @@ async function handleDelete(row: UserAccountVO) {
         :props="{ label: 'deptName', children: 'children' }"
         node-key="id"
         check-strictly
-        placeholder="部门"
+        :placeholder="t('user.dept')"
         clearable
         class="w-44"
       />
       <ElSelect
         v-model="searchForm.positionCode"
-        placeholder="岗位"
+        :placeholder="t('user.position')"
         clearable
         class="w-44"
       >
@@ -433,15 +441,15 @@ async function handleDelete(row: UserAccountVO) {
           :value="item.postCode ?? ''"
         />
       </ElSelect>
-      <ElButton type="primary" @click="handleSearch">查询</ElButton>
-      <ElButton @click="handleReset">重置</ElButton>
+      <ElButton type="primary" @click="handleSearch">{{ t('page.query') }}</ElButton>
+      <ElButton @click="handleReset">{{ t('page.reset') }}</ElButton>
     </div>
-    <Grid table-title="用户管理">
+    <Grid :table-title="t('user.userManagement')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增用户</ElButton>
-        <ElButton type="success" @click="handleImport">导入用户</ElButton>
-        <ElButton type="warning" @click="handleExport">导出用户</ElButton>
-        <ElButton @click="handleDownloadTemplate">下载模板</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('user.createUser') }}</ElButton>
+        <ElButton type="success" @click="handleImport">{{ t('user.importUser') }}</ElButton>
+        <ElButton type="warning" @click="handleExport">{{ t('user.exportUser') }}</ElButton>
+        <ElButton @click="handleDownloadTemplate">{{ t('user.downloadTemplate') }}</ElButton>
       </template>
     </Grid>
     <UserFormModal @success="gridApi.query()" />

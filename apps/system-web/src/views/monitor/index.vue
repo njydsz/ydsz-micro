@@ -21,7 +21,7 @@
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { ElCard, ElProgress, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { ElCard, ElProgress, ElTag, ElTimeline, ElTimelineItem, ElButton } from 'element-plus';
 
 /** 服务健康项 */
 interface ServiceHealth {
@@ -51,6 +51,9 @@ const loading = ref(false);
 const services = ref<ServiceHealth[]>([]);
 const circuitBreakers = ref<CircuitBreakerState[]>([]);
 const cacheMetrics = ref<CacheMetrics[]>([]);
+
+/** SkyWalking UI 链接（优先取环境变量，默认 localhost:8080） */
+const skywalkingUiUrl = ref<string>(import.meta.env?.VITE_SKYWALKING_UI_URL || 'http://localhost:8080');
 
 /** 网关流量 QPS（当前为 mock 数据，对接 Prometheus 后替换） */
 const gatewayQps = ref(0);
@@ -233,6 +236,49 @@ const healthRatio = computed(() => {
         </ElTimeline>
       </ElCard>
     </div>
+
+    <!-- 链路追踪入口 -->
+    <ElCard>
+      <template #header>
+        <div class="flex items-center justify-between">
+          <span class="font-medium">链路追踪</span>
+          <ElTag size="small" type="info">SkyWalking</ElTag>
+        </div>
+      </template>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-sm text-gray-500">SkyWalking UI</div>
+            <div class="text-lg font-medium mt-1">{{ skywalkingUiUrl }}</div>
+            <div class="text-xs text-gray-400 mt-1">查看拓扑 / 调用链 / 日志关联</div>
+          </div>
+          <div class="flex gap-2">
+            <ElButton
+              type="primary"
+              size="small"
+              tag="a"
+              :href="skywalkingUiUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              打开 SkyWalking
+            </ElButton>
+            <ElButton
+              size="small"
+              tag="a"
+              :href="`${skywalkingUiUrl}/trace`"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              链路列表
+            </ElButton>
+          </div>
+        </div>
+        <div class="text-xs text-gray-400 bg-gray-50 dark:bg-gray-800 rounded p-2 font-mono break-all">
+          配置：VITE_SKYWALKING_UI_URL={{ skywalkingUiUrl }}
+        </div>
+      </div>
+    </ElCard>
 
     <!-- 缓存指标 -->
     <ElCard>

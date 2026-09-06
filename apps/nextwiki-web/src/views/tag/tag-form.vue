@@ -14,7 +14,11 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+const logger = createLogger('nextwiki-tag');
+const { t } = useI18n();
 import { reactive, ref } from 'vue';
 import { createTag } from '#/api/tag';
 
@@ -27,7 +31,7 @@ interface TagFormData {
 }
 const formData = reactive<TagFormData>({ name: '', color: '' });
 const rules = {
-  name: [{ required: true, message: '请输入标签名称', trigger: 'blur' }],
+  name: [{ required: true, message: () => t('tagNameRequired'), trigger: 'blur' }],
 };
 const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
@@ -35,7 +39,7 @@ const [Modal, modalApi] = useYDSZModal({
     Object.assign(formData, { name: '', color: '' });
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try { await formRef.value?.validate(); } catch (error) { logger.debug("表单校验未通过: {}", error); return; }
     modalApi.lock();
     try {
       await createTag({ ...formData });
@@ -47,7 +51,7 @@ const [Modal, modalApi] = useYDSZModal({
 });
 </script>
 <template>
-  <Modal title="新增标签">
+  <Modal :title="t('newTag')">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem label="标签名称" prop="name">
         <ElInput v-model="formData.name" placeholder="请输入标签名称" />

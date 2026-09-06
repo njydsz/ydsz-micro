@@ -15,7 +15,11 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElProgress, ElUpload } from 'element-plus';
+const logger = createLogger('nextwiki-file');
+const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';
 import { initChunkUpload, uploadChunk, completeChunkUpload, abortChunkUpload, getUploadedChunks } from '#/api/fileChunk';
 import { upload } from '#/api/file';
@@ -38,17 +42,18 @@ const [Modal, modalApi] = useYDSZModal({
   },
   onConfirm: async () => {
     if (!selectedFile.value) {
-      ElMessage.warning('请选择要上传的文件');
+      ElMessage.warning(t('selectFilePrompt'));
       return;
     }
     modalApi.lock();
     try {
       const result = await performUpload(selectedFile.value);
-      ElMessage.success('上传成功');
+      ElMessage.success(t('uploadSuccess'));
       emit('success', result);
       modalApi.close();
-    } catch {
-      // 错误提示由请求拦截器统一处理
+    } catch (error) {
+      logger.warn('文件上传失败: {}', error);
+      // 用户提示由请求拦截器统一处理
     } finally {
       modalApi.unlock();
     }
@@ -148,7 +153,8 @@ async function performChunkUpload(file: File): Promise<FileNodeVO> {
   let uploadedChunks: number[] = [];
   try {
     uploadedChunks = await getUploadedChunks({ uploadId: currentUploadId });
-  } catch {
+  } catch (error) {
+    logger.debug('查询已上传分片失败，忽略断点续传: {}', error);
     uploadedChunks = [];
   }
 
@@ -190,8 +196,8 @@ async function handleCancel(): Promise<void> {
   if (currentUploadId && useChunkUpload.value) {
     try {
       await abortChunkUpload({ uploadId: currentUploadId });
-    } catch {
-      // 忽略取消时的错误
+    } catch (error) {
+      logger.debug('取消分片上传失败（可忽略）: {}', error);
     }
   }
   resetUploadState();

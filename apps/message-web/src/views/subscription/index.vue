@@ -34,6 +34,9 @@ import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('message-subscription');
 import { listByTopic, listByUser, unsubscribe } from '#/api/subscription';
 import type { MsgSubscriptionVO } from '#/api/models';
 
@@ -66,10 +69,10 @@ function getSubscriptionStatusType(status?: string): 'success' | 'info' | 'warni
 /** 订阅状态标签文本 */
 function getSubscriptionStatusLabel(status?: string): string {
   const labels: Record<string, string> = {
-    ACTIVE: '已订阅',
-    SUBSCRIBED: '已订阅',
-    PENDING: '待确认',
-    UNSUBSCRIBED: '已退订',
+    ACTIVE: t('subscription.status.active'),
+    SUBSCRIBED: t('subscription.status.subscribed'),
+    PENDING: t('subscription.status.pending'),
+    UNSUBSCRIBED: t('subscription.status.unsubscribed'),
   };
   return labels[(status ?? '').toUpperCase()] ?? status ?? '-';
 }
@@ -77,10 +80,10 @@ function getSubscriptionStatusLabel(status?: string): string {
 const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
   columns: [
     { type: 'seq', width: 50, title: t('common.seq') },
-    { field: 'userId', title: '用户ID', width: 140 },
-    { field: 'topicCode', title: '主题编码', width: 150 },
-    { field: 'topicName', title: '主题名称', width: 160 },
-    { field: 'channel', title: '通道', width: 100 },
+    { field: 'userId', title: t('subscription.userId'), width: 140 },
+    { field: 'topicCode', title: t('subscription.topicCode'), width: 150 },
+    { field: 'topicName', title: t('subscription.topicName'), width: 160 },
+    { field: 'channel', title: t('subscription.channel'), width: 100 },
     {
       field: 'status',
       title: t('common.status'),
@@ -110,7 +113,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleUnsubscribe(row) },
-              () => '退订',
+              () => t('subscription.unsubscribe'),
             ),
           ]),
       },
@@ -158,12 +161,13 @@ async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定要退订主题「${row.topicName ?? row.topicCode}」的${row.channel ?? ''}通知吗？`,
-      '退订确认',
+      t('subscription.unsubscribeConfirm', { topic: row.topicName ?? row.topicCode, channel: row.channel ?? '' }),
+      t('subscription.unsubscribeConfirmTitle'),
       { type: 'warning' },
     );
   } catch {
-    return; // 用户主动取消退订操作
+    logger.debug('用户取消退订操作');
+    return;
   }
   // 步骤2：执行退订 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
@@ -172,10 +176,11 @@ async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
       topicCode: row.topicCode,
       channel: row.channel,
     });
-    ElMessage.success('退订成功');
+    ElMessage.success(t('subscription.unsubscribeSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('退订失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 

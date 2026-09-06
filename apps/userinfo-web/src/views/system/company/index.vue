@@ -22,6 +22,9 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag, ElTree } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { list, remove, tree } from '#/api/company';
@@ -30,6 +33,9 @@ import type { CompanyTreeVO, CompanyVO } from '#/api/models';
 import CompanyForm from './company-form.vue';
 
 defineOptions({ name: 'CompanyManagement' });
+
+const logger = createLogger('userinfo-company');
+const { t } = useI18n();
 
 /** 判断公司状态是否启用（兼容字符串 '1'/'ENABLED' 等取值） */
 function isEnabled(status?: string): boolean {
@@ -45,8 +51,8 @@ const filterParentId = ref('');
 async function loadTree() {
   try {
     companyTree.value = (await tree()) ?? [];
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载组织树失败: {}', error);
   }
 }
 
@@ -54,15 +60,15 @@ onMounted(loadTree);
 
 const gridOptions: VxeTableGridOptions<CompanyVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'companyName', title: '公司名称', minWidth: 180 },
-    { field: 'companyCode', title: '公司编码', width: 140 },
-    { field: 'contactPerson', title: '联系人', width: 100 },
-    { field: 'contactPhone', title: '联系电话', width: 130 },
-    { field: 'address', title: '地址', minWidth: 200 },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
+    { field: 'companyName', title: t('page.companyName'), minWidth: 180 },
+    { field: 'companyCode', title: t('page.companyCode'), width: 140 },
+    { field: 'contactPerson', title: t('company.contactPerson'), width: 100 },
+    { field: 'contactPhone', title: t('company.contactPhone'), width: 130 },
+    { field: 'address', title: t('company.address'), minWidth: 200 },
     {
       field: 'status',
-      title: '状态',
+      title: t('page.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -70,14 +76,14 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
           return h(
             ElTag,
             { type: enable ? 'success' : 'danger', size: 'small' },
-            () => (enable ? '启用' : '禁用'),
+            () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
       },
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('page.operation'),
       width: 160,
       fixed: 'right',
       slots: {
@@ -86,12 +92,12 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('page.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('page.delete'),
             ),
           ]);
         },
@@ -145,8 +151,8 @@ async function handleDelete(row: CompanyVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除公司「${row.companyName ?? ''}」吗？`,
-      '删除确认',
+      t('company.deleteCompanyConfirm', { companyName: row.companyName ?? '' }),
+      t('page.confirmDelete'),
       { type: 'warning' },
     );
   } catch {
@@ -155,11 +161,11 @@ async function handleDelete(row: CompanyVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('page.deleteSuccess'));
     gridApi.query();
     loadTree();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除公司失败: {}', error);
   }
 }
 </script>
@@ -169,8 +175,8 @@ async function handleDelete(row: CompanyVO) {
     <div class="flex gap-4 p-4">
       <div class="w-60 shrink-0">
         <div class="mb-2 flex items-center justify-between">
-          <span class="text-sm font-semibold">公司组织</span>
-          <ElButton link type="primary" size="small" @click="handleTreeClear">全部</ElButton>
+          <span class="text-sm font-semibold">{{ t('company.orgStructure') }}</span>
+          <ElButton link type="primary" size="small" @click="handleTreeClear">{{ t('company.all') }}</ElButton>
         </div>
         <ElTree
           :data="companyTree"
@@ -182,9 +188,9 @@ async function handleDelete(row: CompanyVO) {
         />
       </div>
       <div class="min-w-0 flex-1">
-        <Grid table-title="公司管理">
+        <Grid :table-title="t('company.companyManagement')">
           <template #toolbar-tools>
-            <ElButton type="primary" @click="handleAdd">新增公司</ElButton>
+            <ElButton type="primary" @click="handleAdd">{{ t('company.createCompany') }}</ElButton>
           </template>
         </Grid>
       </div>

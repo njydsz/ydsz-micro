@@ -34,6 +34,20 @@ import type { YDSZFormSchema } from '@ydsz/common-ui';
 
 import type { JsonSchema, JsonSchemaProperty } from './types';
 
+/** 选项数组元素类型（Select 组件的 options 项） */
+interface ComponentOption {
+  label: string;
+  value: string;
+}
+
+/**
+ * 扩展字段属性，消除模板中的 as any 断言。
+ * <p>仅用于类型收窄——运行时 componentProps 仍是 MaybeComponentProps。
+ */
+interface ExtendedComponentProps {
+  options?: ComponentOption[];
+}
+
 interface Props {
   /** 表单设计器输出的 JSON Schema 对象 */
   schema?: JsonSchema;
@@ -157,10 +171,10 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
           @change="emit('update:formData', formModel)"
         >
           <el-option
-            v-for="opt in (field.componentProps?.options as any[])"
-            :key="(opt as any).value"
-            :label="(opt as any).label as string"
-            :value="(opt as any).value as string"
+            v-for="opt in (field.componentProps as ExtendedComponentProps | undefined)?.options"
+            :key="opt.value"
+            :label="opt.label"
+            :value="opt.value"
           />
         </el-select>
 

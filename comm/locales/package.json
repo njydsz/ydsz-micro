@@ -17,6 +17,10 @@
     ".": {
       "types": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./errors": {
+      "types": "./src/errors/index.ts",
+      "default": "./src/errors/index.ts"
     }
   },
   "dependencies": {

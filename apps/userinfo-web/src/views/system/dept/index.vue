@@ -27,6 +27,9 @@ import {
   ElTag,
 } from 'element-plus';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { remove, tree } from '#/api/department';
 import type { DepartmentTreeVO } from '#/api/models';
@@ -34,6 +37,9 @@ import type { DepartmentTreeVO } from '#/api/models';
 import DeptForm from './dept-form.vue';
 
 defineOptions({ name: 'DeptManagement' });
+
+const logger = createLogger('userinfo-dept');
+const { t } = useI18n();
 
 /** 判断部门状态是否启用（契约 status 为字符串 '1'/'0'） */
 function isEnabled(status?: string): boolean {
@@ -81,8 +87,8 @@ async function handleDelete(row: DepartmentTreeVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除部门「${row.deptName ?? ''}」吗？`,
-      '删除确认',
+      t('dept.deleteDeptConfirm', { deptName: row.deptName ?? '' }),
+      t('page.confirmDelete'),
       { type: 'warning' },
     );
   } catch {
@@ -91,10 +97,10 @@ async function handleDelete(row: DepartmentTreeVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('page.deleteSuccess'));
     loadData();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除部门失败: {}', error);
   }
 }
 </script>
@@ -103,10 +109,10 @@ async function handleDelete(row: DepartmentTreeVO) {
   <Page auto-content-height>
     <div class="p-4">
       <div class="mb-4 flex items-center justify-between">
-        <h3 class="text-lg font-semibold">部门管理</h3>
+        <h3 class="text-lg font-semibold">{{ t('dept.deptManagement') }}</h3>
         <div class="flex gap-2">
-          <ElButton @click="loadData">刷新</ElButton>
-          <ElButton type="primary" @click="handleAdd()">新增顶级部门</ElButton>
+          <ElButton @click="loadData">{{ t('page.refresh') }}</ElButton>
+          <ElButton type="primary" @click="handleAdd()">{{ t('dept.addTopDept') }}</ElButton>
         </div>
       </div>
       <ElTable
@@ -117,27 +123,27 @@ async function handleDelete(row: DepartmentTreeVO) {
         default-expand-all
         :tree-props="{ children: 'children' }"
       >
-        <ElTableColumn prop="deptName" label="部门名称" min-width="200" />
-        <ElTableColumn prop="deptCode" label="部门编码" width="140" />
-        <ElTableColumn prop="description" label="描述" min-width="180" />
-        <ElTableColumn prop="sortOrder" label="排序" width="80" align="center" />
-        <ElTableColumn label="状态" width="80" align="center">
+        <ElTableColumn prop="deptName" :label="t('page.deptName')" min-width="200" />
+        <ElTableColumn prop="deptCode" :label="t('dept.deptCode')" width="140" />
+        <ElTableColumn prop="description" :label="t('page.description')" min-width="180" />
+        <ElTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
+        <ElTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
             <ElTag :type="isEnabled(row.status) ? 'success' : 'danger'" size="small">
-              {{ isEnabled(row.status) ? '启用' : '禁用' }}
+              {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="操作" width="240" fixed="right">
+        <ElTableColumn :label="t('page.operation')" width="240" fixed="right">
           <template #default="{ row }">
             <ElButton size="small" link type="primary" @click="handleAdd(row.id)">
-              新增子部门
+              {{ t('dept.addSubDept') }}
             </ElButton>
             <ElButton size="small" link type="primary" @click="handleEdit(row)">
-              编辑
+              {{ t('page.edit') }}
             </ElButton>
             <ElButton size="small" link type="danger" @click="handleDelete(row)">
-              删除
+              {{ t('page.delete') }}
             </ElButton>
           </template>
         </ElTableColumn>

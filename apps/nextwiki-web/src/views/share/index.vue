@@ -20,7 +20,11 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+const logger = createLogger('nextwiki-share');
+const { t } = useI18n();
 import { getAccessLogs, getReceivedShares, getRecipients, myShares, revoke } from '#/api/share';
 import type { ShareAccessLogVO, ShareLinkVO, ShareRecipientVO } from '#/api/models';
 import ShareForm from './share-form.vue';
@@ -149,11 +153,11 @@ async function loadRecipients() {
 async function handleRevoke(row: ShareLinkVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定撤销分享「${row.title || row.fileName}」吗？`, '撤销确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('revokeConfirm', [row.title || row.fileName]), t('revokeConf'), { type: 'warning' });
     await revoke({ shareId: row.id });
-    ElMessage.success('撤销成功');
+    ElMessage.success(t('revokeSuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('撤销分享失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

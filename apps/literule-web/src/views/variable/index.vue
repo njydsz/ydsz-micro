@@ -19,8 +19,12 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { deleteApi, list, refresh } from '#/api/ruleVariableAdmin';
+const logger = createLogger('literule-variable');
+const { t } = useI18n();
 import { formatJsonResult } from '#/utils/format';
 import VariableForm from './variable-form.vue';
 defineOptions({ name: 'VariableManagement' });
@@ -91,40 +95,44 @@ async function handleDelete(row: VariableDefinitionVO) {
   if (!row.name) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除变量「${row.name}」吗？`, '删除确认', { type: 'warning' });
-  } catch {
+    await ElMessageBox.confirm(t('confirmDeleteVariable', [row.name]), t('deleteConf'), { type: 'warning' });
+  } catch (error) {
+    logger.debug('用户取消删除变量: {}', error);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ varName: row.name });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch {
-    /* 错误已由请求拦截器展示，无需重复处理 */
+  } catch (error) {
+    logger.warn('删除变量失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 /** 手动刷新变量定义 */
 async function handleRefresh() {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm('确定重新加载后端变量定义吗？', '刷新确认', { type: 'warning' });
-  } catch {
+    await ElMessageBox.confirm(t('confirmRefreshVariable'), t('refreshConf'), { type: 'warning' });
+  } catch (error) {
+    logger.debug('用户取消刷新变量: {}', error);
     return; // 用户主动取消刷新操作
   }
   // 步骤2：执行刷新 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await refresh();
-    ElMessage.success('刷新成功');
+    ElMessage.success(t('refreshSuccess'));
     gridApi.query();
-  } catch {
-    /* 错误已由请求拦截器展示，无需重复处理 */
+  } catch (error) {
+    logger.warn('刷新变量失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="规则变量">
+    <Grid :table-title="t('variable')">
       <template #toolbar-tools>
         <ElButton type="primary" @click="handleAdd">新增</ElButton>
         <ElButton @click="handleRefresh">刷新</ElButton>

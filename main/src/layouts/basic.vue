@@ -19,13 +19,13 @@ import {
   BasicLayout,
   LockScreen,
   Notification,
-  TenantContext,
   UserDropdown,
 } from "@ydsz/layouts";
 import { preferences } from "@ydsz/preferences";
 import { useAccessStore, useUserStore } from "@ydsz/stores";
 
 import { useTabbarMicroSync } from "#/hooks/use-tabbar-micro-sync";
+import TenantSwitcher from "#/components/tenant-switcher.vue";
 import { useAuthStore } from "#/store";
 import { useNotificationStore } from "#/store/notification";
 import LoginForm from "#/views/_core/authentication/login.vue";
@@ -133,7 +133,7 @@ onUnmounted(() => {
       />
     </template>
     <template #header-right-110>
-      <TenantContext class="mr-1" />
+      <TenantSwitcher class="mr-1" />
     </template>
     <template #extra>
       <AuthenticationLoginExpiredModal

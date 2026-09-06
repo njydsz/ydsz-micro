@@ -26,7 +26,11 @@ import { Page } from '@ydsz/common-ui';
 import { ElCard, ElCol, ElRow, ElStatistic } from 'element-plus';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+const logger = createLogger('literule-dashboard');
+const { t } = useI18n();
 import type {
   RuleDashboardDistributionVO,
   RuleDashboardOverviewVO,
@@ -261,8 +265,9 @@ async function loadDashboard(): Promise<void> {
     topRuleList.value = Array.isArray(top) ? top : [];
     hotRuleList.value = Array.isArray(hot) ? hot : [];
     slowRuleList.value = Array.isArray(slow) ? slow : [];
-  } catch {
-    // 错误提示由请求拦截器统一处理，指标保持最近一次快照
+  } catch (error) {
+    logger.warn('加载看板数据失败: {}', error);
+    // 指标保持最近一次快照，用户提示由请求拦截器统一处理
   } finally {
     loading.value = false;
   }

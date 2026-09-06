@@ -22,7 +22,9 @@ import { reactive, ref } from 'vue';
 import { saveDraft, startProcess } from '#/api/flowInstance';
 import type { FlowSaveDraftDTO, FlowStartProcessDTO } from '#/api/models';
 import { $t } from '#/locales';
+import { createLogger } from '@YDSZ-core/shared/utils';
 
+const logger = createLogger('workflow-instance');
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 
@@ -67,7 +69,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('发起流程表单验证失败', error);
       return;
     }
     modalApi.lock();
@@ -117,7 +120,7 @@ async function handleSaveDraft(): Promise<void> {
       },
     };
     const draftId = await saveDraft(payload);
-    ElMessage.success(`草稿保存成功（ID: ${draftId.slice(0, 8)}...）`);
+    ElMessage.success(`${$t('wf.draftSuccess')}（ID: ${draftId.slice(0, 8)}...）`);
     emit('success');
     modalApi.close();
   } finally {
@@ -156,7 +159,7 @@ async function handleSaveDraft(): Promise<void> {
     </ElForm>
     <!-- 草稿保存按钮（置于弹窗底部操作区左侧） -->
     <template #footer>
-      <ElButton :loading="savingDraft" @click="handleSaveDraft"> 保存草稿 </ElButton>
+      <ElButton :loading="savingDraft" @click="handleSaveDraft"> {{ $t('wf.saveDraft') }} </ElButton>
     </template>
   </Modal>
 </template>

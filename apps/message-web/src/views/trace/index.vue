@@ -18,7 +18,10 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTag } from 'element-plus';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { computed, ref } from 'vue';
+
+const logger = createLogger('message-trace');
 import { useI18n } from 'vue-i18n';
 import { getByBiz, getByMsgId, getByTraceId } from '#/api/messageTrace';
 
@@ -46,9 +49,9 @@ const loading = ref(false);
 
 /** 查询类型选项 */
 const queryTypeOptions = [
-  { label: '消息ID', value: 'msgId' },
-  { label: '追踪ID', value: 'traceId' },
-  { label: '业务ID', value: 'biz' },
+  { label: t('trace.type.msgId'), value: 'msgId' },
+  { label: t('trace.type.traceId'), value: 'traceId' },
+  { label: t('trace.type.biz'), value: 'biz' },
 ];
 
 /** 轨迹节点状态映射 */
@@ -109,7 +112,8 @@ async function handleQuery(): Promise<void> {
       result = await getByBiz({ bizType: bizType.value, bizId: bizId.value.trim() });
     }
     traceSteps.value = result;
-  } catch {
+  } catch (error) {
+    logger.warn('查询消息轨迹失败: {}', error);
     traceSteps.value = [];
   } finally {
     loading.value = false;

@@ -22,6 +22,9 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { list, remove } from '#/api/post';
@@ -31,6 +34,9 @@ import PostForm from './post-form.vue';
 
 defineOptions({ name: 'PostManagement' });
 
+const logger = createLogger('userinfo-post');
+const { t } = useI18n();
+
 /** 判断岗位状态是否启用（契约 status 为字符串 '1'/'0'） */
 function isEnabled(status?: string): boolean {
   return status === '1';
@@ -38,14 +44,14 @@ function isEnabled(status?: string): boolean {
 
 const gridOptions: VxeTableGridOptions<PostVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'postName', title: '岗位名称', minWidth: 150 },
-    { field: 'postCode', title: '岗位编码', width: 150 },
-    { field: 'description', title: '描述', minWidth: 180 },
-    { field: 'sortOrder', title: '排序', width: 80, align: 'center' },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
+    { field: 'postName', title: t('page.postName'), minWidth: 150 },
+    { field: 'postCode', title: t('page.postCode'), width: 150 },
+    { field: 'description', title: t('page.description'), minWidth: 180 },
+    { field: 'sortOrder', title: t('page.sortOrder'), width: 80, align: 'center' },
     {
       field: 'status',
-      title: '状态',
+      title: t('page.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -53,14 +59,14 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
           return h(
             ElTag,
             { type: enable ? 'success' : 'danger', size: 'small' },
-            () => (enable ? '启用' : '禁用'),
+            () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
       },
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('page.operation'),
       width: 140,
       fixed: 'right',
       slots: {
@@ -69,12 +75,12 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('page.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('page.delete'),
             ),
           ]),
       },
@@ -106,17 +112,17 @@ const [Grid, gridApi] = useYDSZVxeGrid({
     schema: [
       {
         component: 'Input',
-        componentProps: { placeholder: '岗位名称/编码' },
+        componentProps: { placeholder: t('post.keywordPlaceholder') },
         fieldName: 'keyword',
-        label: '关键词',
+        label: t('post.keyword'),
       },
     ],
     submitOnChange: false,
     collapsed: false,
     collapseTriggerResize: true,
     showCollapseButton: true,
-    submitButtonOptions: { content: '搜索' },
-    resetButtonOptions: { content: '重置' },
+    submitButtonOptions: { content: t('page.search') },
+    resetButtonOptions: { content: t('page.reset') },
   },
 });
 
@@ -137,24 +143,24 @@ async function handleDelete(row: PostVO) {
   if (!row.id) return;
   try {
     await ElMessageBox.confirm(
-      `确定删除岗位「${row.postName ?? ''}」吗？`,
-      '删除确认',
+      t('post.deletePostConfirm', { postName: row.postName ?? '' }),
+      t('page.confirmDelete'),
       { type: 'warning' },
     );
     await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('page.deleteSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除岗位失败: {}', error);
   }
 }
 </script>
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="岗位管理">
+    <Grid :table-title="t('post.postManagement')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增岗位</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('post.createPost') }}</ElButton>
       </template>
     </Grid>
     <PostFormModal @success="gridApi.query()" />

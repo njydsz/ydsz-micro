@@ -36,7 +36,10 @@ import {
 } from '#/api/jobDag';
 import type { JobDagVO, JobDagVersionVO } from '#/api/models';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
 import JobDagForm from './job-dag-form.vue';
+
+const logger = createLogger('cronjob-job');
 
 defineOptions({ name: 'JobDagManagement' });
 const { t } = useI18n();
@@ -125,6 +128,7 @@ async function handleEnable(row: JobDagVO) {
     ElMessage.success('已启用');
     gridApi.query();
   } catch {
+    logger.warn('启用DAG失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -136,6 +140,7 @@ async function handleDisable(row: JobDagVO) {
     ElMessage.success('已停用');
     gridApi.query();
   } catch {
+    logger.warn('停用DAG失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -146,6 +151,7 @@ async function handleTrigger(row: JobDagVO) {
   try {
     await ElMessageBox.confirm(`确定立即触发DAG「${row.dagName}」吗？`, '触发确认', { type: 'warning' });
   } catch {
+    logger.warn('用户取消触发DAG', row.dagKey);
     return; // 用户主动取消触发操作
   }
   // 步骤2：执行触发 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -153,6 +159,7 @@ async function handleTrigger(row: JobDagVO) {
     await triggerDag({ dagKey: row.dagKey, triggerBy: 'console' });
     ElMessage.success('触发成功');
   } catch {
+    logger.warn('触发DAG失败', row.dagKey);
     // 错误已由请求拦截器展示，无需重复处理
   }
 }
@@ -162,6 +169,7 @@ async function handleDelete(row: JobDagVO) {
   try {
     await ElMessageBox.confirm(`确定删除DAG「${row.dagName}」吗？`, '删除确认', { type: 'warning' });
   } catch {
+    logger.warn('用户取消删除DAG', row.id);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -170,6 +178,7 @@ async function handleDelete(row: JobDagVO) {
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
+    logger.warn('删除DAG失败', row.id);
     // 错误已由请求拦截器展示，无需重复处理
   }
 }
@@ -186,6 +195,7 @@ async function handleVersions(row: JobDagVO) {
   try {
     versions.value = await listDagVersions({ dagId: row.id });
   } catch {
+    logger.warn('加载DAG版本记录失败', row.id);
     versions.value = [];
     // 错误提示由请求拦截器统一处理
   }
@@ -200,6 +210,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
       { type: 'warning' },
     );
   } catch {
+    logger.warn('用户取消回滚DAG', currentDagId.value);
     return; // 用户主动取消回滚操作
   }
   // 步骤2：执行回滚 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -209,6 +220,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
     versionsDrawerVisible.value = false;
     gridApi.query();
   } catch {
+    logger.warn('回滚DAG失败', currentDagId.value);
     // 错误已由请求拦截器展示，无需重复处理
   }
 }

@@ -15,9 +15,13 @@
  */
 import type { RuleDefinitionVO } from '#/api/models';
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { save } from '#/api/ruleAdmin';
+const logger = createLogger('literule-rule');
+const { t } = useI18n();
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 const isEdit = ref(false);
@@ -41,7 +45,7 @@ const formData = reactive<RuleFormData>({
   enabled: true,
 });
 const rules = {
-  name: [{ required: true, message: '请输入规则名称', trigger: 'blur' }],
+  name: [{ required: true, message: () => t('ruleNamePlaceholder'), trigger: 'blur' }],
 };
 const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
@@ -74,13 +78,14 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.debug("表单校验未通过: {}", error);
       return;
     }
     modalApi.lock();
     try {
-      await save({ changeDesc: isEdit.value ? '更新规则' : '创建规则' }, formData);
-      ElMessage.success(isEdit.value ? '更新成功' : '创建成功');
+      await save({ changeDesc: isEdit.value ? t('updateRuleDesc') : t('createRuleDesc') }, formData);
+      ElMessage.success(isEdit.value ? t('updateSuccess') : t('createSuccess'));
       emit('success');
       modalApi.close();
     } finally {
@@ -88,7 +93,7 @@ const [Modal, modalApi] = useYDSZModal({
     }
   },
 });
-const title = computed(() => (isEdit.value ? '编辑规则' : '新增规则'));
+const title = computed(() => (isEdit.value ? t('editRuleTitle') : t('createRuleTitle')));
 </script>
 <template>
   <Modal :title="title">
@@ -99,35 +104,35 @@ const title = computed(() => (isEdit.value ? '编辑规则' : '新增规则'));
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="规则编码" prop="code">
-        <ElInput v-model="formData.code" placeholder="请输入规则编码" :disabled="isEdit" />
+      <ElFormItem :label="t('ruleCodeColumn')" prop="code">
+        <ElInput v-model="formData.code" :placeholder="t('ruleCodePlaceholder')" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="规则名称" prop="name">
-        <ElInput v-model="formData.name" placeholder="请输入规则名称" />
+      <ElFormItem :label="t('ruleNameColumn')" prop="name">
+        <ElInput v-model="formData.name" :placeholder="t('ruleNamePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="分类" prop="category">
-        <ElInput v-model="formData.category" placeholder="请输入分类" />
+      <ElFormItem :label="t('categoryColumn')" prop="category">
+        <ElInput v-model="formData.category" :placeholder="t('categoryPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="优先级">
+      <ElFormItem :label="t('priorityColumn')">
         <ElInputNumber v-model="formData.priority" :min="0" :max="999" />
       </ElFormItem>
-      <ElFormItem label="条件表达式">
+      <ElFormItem :label="t('conditionExpression')">
         <ElInput
           v-model="formData.conditionExpression"
           type="textarea"
           :rows="3"
-          placeholder="请输入条件表达式"
+          :placeholder="t('conditionExpressionPlaceholder')"
         />
       </ElFormItem>
-      <ElFormItem label="描述">
+      <ElFormItem :label="t('descriptionColumn')">
         <ElInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
-          placeholder="请输入描述"
+          :placeholder="t('descriptionPlaceholder')"
         />
       </ElFormItem>
-      <ElFormItem label="启用">
+      <ElFormItem :label="t('enabledColumn')">
         <ElSwitch v-model="formData.enabled" />
       </ElFormItem>
     </ElForm>

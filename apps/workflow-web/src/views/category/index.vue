@@ -22,19 +22,24 @@ import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/flowCategory';
 import type { FlowCategoryVO } from '#/api/models';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import CategoryForm from './category-form.vue';
+
+const logger = createLogger('workflow-category');
+const { t } = useI18n();
 defineOptions({ name: 'CategoryManagement' });
 const gridOptions: VxeGridProps<FlowCategoryVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'categoryCode', title: '编码', width: 160 },
-    { field: 'categoryName', title: '名称', width: 200 },
-    { field: 'parentId', title: '父分类ID', width: 160 },
-    { field: 'sortNum', title: '排序', width: 80 },
-    { field: 'updatedAt', title: '更新时间', width: 170 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'categoryCode', title: t('category.code'), width: 160 },
+    { field: 'categoryName', title: t('category.name'), width: 200 },
+    { field: 'parentId', title: t('category.parentId'), width: 160 },
+    { field: 'sortNum', title: t('common.sort'), width: 80 },
+    { field: 'updatedAt', title: t('common.updateTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.action'),
       width: 160,
       fixed: 'right',
       slots: {
@@ -43,12 +48,12 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('common.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('common.delete'),
             ),
           ]),
       },
@@ -81,28 +86,30 @@ async function handleDelete(row: FlowCategoryVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除「${row.categoryName ?? row.categoryCode}」吗？`,
-      '删除确认',
+      t('category.delete.confirm', { name: row.categoryName ?? row.categoryCode }),
+      t('common.delete.confirmTitle'),
       { type: 'warning' },
     );
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消删除流程分类操作', error);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('category.delete.success'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('流程分类删除失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="流程分类">
+    <Grid :table-title="t('category.list.title')">
       <template #toolbar-tools
-        ><ElButton type="primary" @click="handleAdd">新增</ElButton></template
+        ><ElButton type="primary" @click="handleAdd">{{ t('common.add') }}</ElButton></template
       >
     </Grid>
     <CategoryFormModal @success="gridApi.query()" />

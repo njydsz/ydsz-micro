@@ -77,8 +77,9 @@ async function handleEvaluate(): Promise<void> {
       variables: { ...variableValues },
     });
     ElMessage.success('评估完成');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('Prompt 评估失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   } finally {
     evaluating.value = false;
   }

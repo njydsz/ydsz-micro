@@ -42,7 +42,11 @@ import {
   updateDelegateAuthStatus,
 } from '#/api/flowTask';
 import type { FlowDelegateAuthPostDTO, FlowDelegateAuthVO } from '#/api/models';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 
+const logger = createLogger('workflow-delegate');
+const { t } = useI18n();
 defineOptions({ name: 'DelegateManagement' });
 
 /** 授权状态是否启用（兼容字符串/数字取值，未知值按启用处理） */
@@ -54,29 +58,29 @@ function isEnabled(row: FlowDelegateAuthVO): boolean {
 /** 授权状态标签 */
 function statusTag(row: FlowDelegateAuthVO) {
   return isEnabled(row)
-    ? h(ElTag, { type: 'success' }, () => '启用中')
-    : h(ElTag, { type: 'info' }, () => '已停用');
+    ? h(ElTag, { type: 'success' }, () => t('delegate.enabled'))
+    : h(ElTag, { type: 'info' }, () => t('delegate.disabled'));
 }
 
 const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'delegateUserName', title: '被委托人', width: 110 },
-    { field: 'scopeType', title: '范围类型', width: 100 },
-    { field: 'flowCode', title: '流程编码', width: 120 },
-    { field: 'nodeCode', title: '节点编码', width: 110 },
-    { field: 'startTime', title: '开始时间', width: 160 },
-    { field: 'endTime', title: '结束时间', width: 160 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'delegateUserName', title: t('delegate.targetUser'), width: 110 },
+    { field: 'scopeType', title: t('delegate.scopeType'), width: 100 },
+    { field: 'flowCode', title: t('wf.flowCode'), width: 120 },
+    { field: 'nodeCode', title: t('delegate.nodeCode'), width: 110 },
+    { field: 'startTime', title: t('delegate.startTime'), width: 160 },
+    { field: 'endTime', title: t('delegate.endTime'), width: 160 },
     {
       field: 'authStatus',
-      title: '状态',
+      title: t('common.status'),
       width: 90,
       slots: { default: ({ row }) => statusTag(row) },
     },
-    { field: 'reason', title: '委托原因', width: 140, showOverflow: 'title' },
+    { field: 'reason', title: t('delegate.reason'), width: 140, showOverflow: 'title' },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.action'),
       width: 150,
       fixed: 'right',
       slots: {
@@ -90,12 +94,12 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
                 type: isEnabled(row) ? 'warning' : 'success',
                 onClick: () => handleToggle(row),
               },
-              () => (isEnabled(row) ? '停用' : '启用'),
+              () => (isEnabled(row) ? t('common.disable') : t('common.enable')),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleRevoke(row) },
-              () => '撤销',
+              () => t('common.revoke'),
             ),
           ]),
       },
@@ -117,20 +121,20 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
 
 const asDelegateGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'ownerUserName', title: '委托人', width: 110 },
-    { field: 'scopeType', title: '范围类型', width: 100 },
-    { field: 'flowCode', title: '流程编码', width: 120 },
-    { field: 'nodeCode', title: '节点编码', width: 110 },
-    { field: 'startTime', title: '开始时间', width: 160 },
-    { field: 'endTime', title: '结束时间', width: 160 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'ownerUserName', title: t('delegate.ownerUser'), width: 110 },
+    { field: 'scopeType', title: t('delegate.scopeType'), width: 100 },
+    { field: 'flowCode', title: t('wf.flowCode'), width: 120 },
+    { field: 'nodeCode', title: t('delegate.nodeCode'), width: 110 },
+    { field: 'startTime', title: t('delegate.startTime'), width: 160 },
+    { field: 'endTime', title: t('delegate.endTime'), width: 160 },
     {
       field: 'authStatus',
-      title: '状态',
+      title: t('common.status'),
       width: 90,
       slots: { default: ({ row }) => statusTag(row) },
     },
-    { field: 'reason', title: '委托原因', width: 140, showOverflow: 'title' },
+    { field: 'reason', title: t('delegate.reason'), width: 140, showOverflow: 'title' },
   ],
   height: 'auto',
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
@@ -164,8 +168,8 @@ const createForm = reactive<FlowDelegateAuthPostDTO>({
 });
 
 const createRules = {
-  delegateUserId: [{ required: true, message: '请输入被委托人ID', trigger: 'blur' }],
-  delegateUserName: [{ required: true, message: '请输入被委托人姓名', trigger: 'blur' }],
+  delegateUserId: [{ required: true, message: t('delegate.targetUserId.required'), trigger: 'blur' }],
+  delegateUserName: [{ required: true, message: t('delegate.targetUserName.required'), trigger: 'blur' }],
 };
 
 /** 打开新增委托弹窗 */
@@ -186,13 +190,14 @@ function handleAdd() {
 async function handleCreate() {
   try {
     await createFormRef.value?.validate();
-  } catch {
+  } catch (error) {
+    logger.warn('委托授权表单验证失败', error);
     return;
   }
   creating.value = true;
   try {
     await createDelegateAuth(createForm);
-    ElMessage.success('委托授权创建成功');
+    ElMessage.success(t('delegate.create.success'));
     createVisible.value = false;
     myGridApi.query();
   } finally {
@@ -207,20 +212,22 @@ async function handleToggle(row: FlowDelegateAuthVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定${next === 'DISABLED' ? '停用' : '启用'}该委托授权吗？`,
-      '确认',
+      t('delegate.toggle.confirm', { action: next === 'DISABLED' ? t('common.disable') : t('common.enable') }),
+      t('common.confirmTitle'),
       { type: 'warning' },
     );
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消切换委托授权状态操作', error);
     return; // 用户主动取消操作
   }
   // 步骤2：执行状态切换 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await updateDelegateAuthStatus({ id: row.id }, { status: next });
-    ElMessage.success('操作成功');
+    ElMessage.success(t('common.operationSuccess'));
     myGridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('切换委托授权状态失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -229,37 +236,39 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定撤销给「${row.delegateUserName}」的委托授权吗？`, '撤销确认', {
+    await ElMessageBox.confirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revoke.confirmTitle'), {
       type: 'warning',
     });
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消撤销委托授权操作', error);
     return; // 用户主动取消撤销操作
   }
   // 步骤2：执行撤销 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await revokeDelegateAuth({ id: row.id });
-    ElMessage.success('已撤销');
+    ElMessage.success(t('delegate.revoke.success'));
     myGridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('撤销委托授权失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>
 <template>
   <Page auto-content-height>
     <ElTabs class="px-4 pt-2">
-      <ElTabPane label="我的委托授权" name="mine">
-        <MyGrid table-title="我的委托授权">
+      <ElTabPane :label="t('delegate.myAuths')" name="mine">
+        <MyGrid :table-title="t('delegate.myAuths')">
           <template #toolbar-tools>
-            <ElButton type="primary" @click="handleAdd">新增委托</ElButton>
+            <ElButton type="primary" @click="handleAdd">{{ t('delegate.add') }}</ElButton>
           </template>
         </MyGrid>
       </ElTabPane>
-      <ElTabPane label="作为被委托人" name="as-delegate">
-        <AsDelegateGrid table-title="作为被委托人" />
+      <ElTabPane :label="t('delegate.asDelegate')" name="as-delegate">
+        <AsDelegateGrid :table-title="t('delegate.asDelegate')" />
       </ElTabPane>
     </ElTabs>
-    <ElDialog v-model="createVisible" title="新增委托授权" width="520px">
+    <ElDialog v-model="createVisible" :title="t('delegate.add.title')" width="520px">
       <ElForm
         ref="createFormRef"
         :model="createForm"
@@ -267,55 +276,55 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
         label-width="110px"
         label-position="right"
       >
-        <ElFormItem label="被委托人ID" prop="delegateUserId">
-          <ElInput v-model="createForm.delegateUserId" placeholder="请输入被委托人用户 ID" />
+        <ElFormItem :label="t('delegate.targetUserId.label')" prop="delegateUserId">
+          <ElInput v-model="createForm.delegateUserId" :placeholder="t('delegate.targetUserId.placeholder')" />
         </ElFormItem>
-        <ElFormItem label="被委托人姓名" prop="delegateUserName">
-          <ElInput v-model="createForm.delegateUserName" placeholder="请输入被委托人姓名" />
+        <ElFormItem :label="t('delegate.targetUserName.label')" prop="delegateUserName">
+          <ElInput v-model="createForm.delegateUserName" :placeholder="t('delegate.targetUserName.placeholder')" />
         </ElFormItem>
-        <ElFormItem label="范围类型">
-          <ElSelect v-model="createForm.scopeType" placeholder="请选择授权范围">
-            <ElOption label="全部流程" value="ALL" />
-            <ElOption label="指定流程" value="FLOW" />
-            <ElOption label="指定节点" value="NODE" />
+        <ElFormItem :label="t('delegate.scopeType.label')">
+          <ElSelect v-model="createForm.scopeType" :placeholder="t('delegate.scopeType.placeholder')">
+            <ElOption :label="t('delegate.scopeType.all')" value="ALL" />
+            <ElOption :label="t('delegate.scopeType.flow')" value="FLOW" />
+            <ElOption :label="t('delegate.scopeType.node')" value="NODE" />
           </ElSelect>
         </ElFormItem>
-        <ElFormItem label="流程编码">
+        <ElFormItem :label="t('wf.flowCode')">
           <ElInput
             v-model="createForm.flowCode"
-            placeholder="范围类型为 FLOW/NODE 时填写（可选）"
+            :placeholder="t('delegate.flowCode.placeholder')"
           />
         </ElFormItem>
-        <ElFormItem label="开始时间">
+        <ElFormItem :label="t('delegate.startTime.label')">
           <ElDatePicker
             v-model="createForm.startTime"
             type="date"
             value-format="YYYY-MM-DD"
-            placeholder="委托开始日期（可选）"
+            :placeholder="t('delegate.startTime.placeholder')"
             style="width: 100%"
           />
         </ElFormItem>
-        <ElFormItem label="结束时间">
+        <ElFormItem :label="t('delegate.endTime.label')">
           <ElDatePicker
             v-model="createForm.endTime"
             type="date"
             value-format="YYYY-MM-DD"
-            placeholder="委托结束日期（可选）"
+            :placeholder="t('delegate.endTime.placeholder')"
             style="width: 100%"
           />
         </ElFormItem>
-        <ElFormItem label="委托原因">
+        <ElFormItem :label="t('delegate.reason.label')">
           <ElInput
             v-model="createForm.reason"
             type="textarea"
             :rows="2"
-            placeholder="请输入委托原因（可选）"
+            :placeholder="t('delegate.reason.placeholder')"
           />
         </ElFormItem>
       </ElForm>
       <template #footer>
-        <ElButton @click="createVisible = false">取消</ElButton>
-        <ElButton type="primary" :loading="creating" @click="handleCreate">确定</ElButton>
+        <ElButton @click="createVisible = false">{{ t('common.cancel') }}</ElButton>
+        <ElButton type="primary" :loading="creating" @click="handleCreate">{{ t('common.confirm') }}</ElButton>
       </template>
     </ElDialog>
   </Page>

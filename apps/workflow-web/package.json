@@ -13,8 +13,8 @@
     "#/*": "./src/*"
   },
   "dependencies": {
-    "@logicflow/core": "^1.2.27",
-    "@logicflow/extension": "^1.2.27",
+    "@logicflow/core": "catalog:",
+    "@logicflow/extension": "catalog:",
     "@vueuse/core": "catalog:",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",

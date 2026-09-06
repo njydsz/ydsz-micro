@@ -21,7 +21,10 @@ import {
   ElMessage, ElMessageBox, ElStatistic, ElTable, ElTableColumn,
 } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
+import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';
+
+const logger = createLogger('agent-rag');
 import { deleteDocument, search, stats } from '#/api/rag';
 import type { RagQueryDTO } from '#/api/models';
 import RagForm from './rag-form.vue';
@@ -108,15 +111,17 @@ async function handleDelete(row: Record<string, unknown>) {
   try {
     await ElMessageBox.confirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, '删除确认', { type: 'warning' });
   } catch {
-    return; // 用户主动取消删除操作
+    logger.debug('用户取消删除文档操作');
+    return;
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteDocument({ documentId });
     ElMessage.success('删除成功');
     handleLoadStats();
-  } catch {
-    /* 错误已由请求拦截器展示，无需重复处理 */
+  } catch (error) {
+    logger.warn('删除文档失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 

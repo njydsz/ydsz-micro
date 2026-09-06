@@ -32,7 +32,10 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 const { t } = useI18n();
+const logger = createLogger('userinfo-role');
 
 import { create, update } from '#/api/role';
 import type { RoleDTO, RoleVO } from '#/api/models';
@@ -44,11 +47,11 @@ const isEdit = ref(false);
 
 /** 数据范围选项（契约 dataScope 为字符串 '1'~'5'） */
 const DATA_SCOPE_OPTIONS = [
-  { label: '全部数据', value: '1' },
-  { label: '自定义数据', value: '2' },
-  { label: '本部门', value: '3' },
-  { label: '本部门及以下', value: '4' },
-  { label: '仅本人', value: '5' },
+  { label: t('role.dataScopeAll'), value: '1' },
+  { label: t('role.dataScopeCustom'), value: '2' },
+  { label: t('role.dataScopeDept'), value: '3' },
+  { label: t('role.dataScopeDeptBelow'), value: '4' },
+  { label: t('role.dataScopeSelf'), value: '5' },
 ];
 
 /** 表单状态（字段对应 RoleDTO） */
@@ -111,7 +114,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('表单校验失败: {}', error);
       return;
     }
     modalApi.lock();
@@ -140,7 +144,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}角色` : `${t('page.create')}角色`));
+const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.roleBase')}` : `${t('page.create')}${t('page.roleBase')}`));
 </script>
 
 <template>
@@ -153,13 +157,13 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}角色` : `${t('p
       label-position="right"
     >
       <ElFormItem :label="t('page.roleName')" prop="roleName">
-        <ElInput v-model="formData.roleName" placeholder="请输入角色名称" />
+        <ElInput v-model="formData.roleName" :placeholder="t('role.roleNamePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('page.roleCode')" prop="roleCode">
-        <ElInput v-model="formData.roleCode" placeholder="请输入角色编码" :disabled="isEdit" />
+        <ElInput v-model="formData.roleCode" :placeholder="t('role.roleCodePlaceholder')" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="数据范围">
-        <ElSelect v-model="formData.dataScope" placeholder="请选择数据范围" class="w-full">
+      <ElFormItem :label="t('role.dataScope')">
+        <ElSelect v-model="formData.dataScope" :placeholder="t('role.dataScopePlaceholder')" class="w-full">
           <ElOption
             v-for="opt in DATA_SCOPE_OPTIONS"
             :key="opt.value"

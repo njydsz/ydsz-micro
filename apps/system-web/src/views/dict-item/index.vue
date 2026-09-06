@@ -18,6 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -30,6 +31,8 @@ import type { DictItemPageQuery, DictItemVO, PageQuery } from '#/api/models';
 import DictItemForm from './dict-item-form.vue';
 
 defineOptions({ name: 'DictItemManagement' });
+
+const logger = createLogger('system-dict-item');
 
 const { t } = useI18n();
 
@@ -59,14 +62,12 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       title: t('status'),
       width: 80,
       slots: {
-        default: ({ row }) => {
-          const item = row as DictItemRow;
-          return h(
+        default: ({ row }) =>
+          h(
             ElTag,
-            { type: isEnabled(item.status) ? 'success' : 'info' },
-            () => (isEnabled(item.status) ? '启用' : '禁用'),
-          );
-        },
+            { type: isEnabled(row.status) ? 'success' : 'info' },
+            () => (isEnabled(row.status) ? t('enabled') : t('disabled')),
+          ),
       },
     },
     { field: 'description', title: t('description'), width: 200 },
@@ -76,13 +77,11 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       width: 140,
       fixed: 'right',
       slots: {
-        default: ({ row }) => {
-          const item = row as DictItemRow;
-          return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(item) }, () => t('edit')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(item) }, () => t('delete')),
-          ]);
-        },
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => t('delete')),
+          ]),
       },
     },
   ],
@@ -127,8 +126,9 @@ function handleEdit(row: DictItemRow) {
 async function handleDelete(row: DictItemRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除「${row.itemCode ?? row.itemValue ?? ''}」吗？`, '删除确认', { type: 'warning' });
-  } catch {
+    await ElMessageBox.confirm(t('confirmDeleteName', [row.itemCode ?? row.itemValue ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+  } catch (error) {
+    logger.warn('用户取消删除字典项', error);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -140,8 +140,9 @@ async function handleDelete(row: DictItemRow) {
       emitDictChange(row.typeCode);
     }
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除字典项失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -153,7 +154,7 @@ onUnmounted(() => {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="字典项">
+    <Grid :table-title="t('dictItem')">
       <template #toolbar-tools>
         <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>

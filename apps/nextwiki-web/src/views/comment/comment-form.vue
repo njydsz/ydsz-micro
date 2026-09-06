@@ -16,7 +16,11 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+const logger = createLogger('nextwiki-comment');
+const { t } = useI18n();
 import { reactive, ref } from 'vue';
 import { addComment } from '#/api/fileComment';
 import { searchUsers } from '#/api/userSearch';
@@ -50,6 +54,7 @@ async function remoteSearchMention(keyword: string): Promise<void> {
     const res = await searchUsers({ keyword, page: 1, pageSize: 50 });
     mentionOptions.value = res.hits ?? [];
   } catch {
+    logger.debug('搜索提及用户失败: {}', error);
     mentionOptions.value = [];
   } finally {
     mentionLoading.value = false;
@@ -57,8 +62,8 @@ async function remoteSearchMention(keyword: string): Promise<void> {
 }
 
 const rules = {
-  fileNodeId: [{ required: true, message: '请输入文件节点ID', trigger: 'blur' }],
-  content: [{ required: true, message: '请输入评论内容', trigger: 'blur' }],
+  fileNodeId: [{ required: true, message: () => t('fileNodeIdInputPlaceholder'), trigger: 'blur' }],
+  content: [{ required: true, message: () => t('commentContentPlaceholder'), trigger: 'blur' }],
 };
 const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
@@ -67,14 +72,14 @@ const [Modal, modalApi] = useYDSZModal({
     mentionOptions.value = [];
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try { await formRef.value?.validate(); } catch (error) { logger.debug("表单校验未通过: {}", error); return; }
     modalApi.lock();
     try {
       await addComment({
         ...formData,
         mentions: formData.mentionIds.length ? formData.mentionIds : undefined,
       });
-      ElMessage.success('评论成功');
+      ElMessage.success(t('createSuccess'));
       emit('success');
       modalApi.close();
     } finally { modalApi.unlock(); }

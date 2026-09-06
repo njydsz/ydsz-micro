@@ -22,12 +22,16 @@ import { Page } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import {
   deleteDecisionTable,
   downloadDecisionTableExcelTemplate,
   exportDecisionTableExcel,
   listDecisionTables,
 } from '#/api/ruleDecisionTable';
+const logger = createLogger('literule-decision-table');
+const { t } = useI18n();
 import type { DecisionTableVO } from '#/api/models';
 
 import DecisionTableDesigner from './components/DecisionTableDesigner.vue';
@@ -147,9 +151,10 @@ async function handleExport(row: DecisionTableVO): Promise<void> {
       { tableCode: row.tableCode },
       { response: {} },
     );
-    ElMessage.success('导出成功');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+    ElMessage.success(t('exportSuccess'));
+  } catch (error) {
+    logger.warn('导出决策表失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -159,20 +164,22 @@ async function handleDelete(row: DecisionTableVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除决策表「${row.tableName}」吗？`,
-      '删除确认',
+      t('confirmDeleteTable', [row.tableName]),
+      t('deleteConf'),
       { type: 'warning' },
     );
-  } catch {
+  } catch (error) {
+    logger.debug('用户取消删除决策表: {}', error);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteDecisionTable({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除决策表失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -180,9 +187,10 @@ async function handleDelete(row: DecisionTableVO): Promise<void> {
 async function handleDownloadTemplate(): Promise<void> {
   try {
     await downloadDecisionTableExcelTemplate({ response: {} });
-    ElMessage.success('下载成功');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+    ElMessage.success(t('downloadSuccess'));
+  } catch (error) {
+    logger.warn('下载决策表模板失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>

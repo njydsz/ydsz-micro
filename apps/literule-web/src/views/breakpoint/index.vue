@@ -17,7 +17,9 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+const logger = createLogger('literule-breakpoint');
 import {
   addBreakpoint,
   createSession,
@@ -82,34 +84,36 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 新增断点（规则编码） */
 async function handleAddBreakpoint() {
   try {
-    const { value } = await ElMessageBox.prompt('请输入规则编码', '新增断点', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const { value } = await ElMessageBox.prompt(t('createBreakpointPrompt'), t('addBreakpoint'), {
+      confirmButtonText: t('confirmBtn'),
+      cancelButtonText: t('cancelBtn'),
       inputPlaceholder: 'ruleCode',
       inputPattern: /\S+/,
-      inputErrorMessage: '规则编码不能为空',
+      inputErrorMessage: t('ruleCodeEmptyError'),
     });
     await addBreakpoint({ ruleCode: value.trim() });
-    ElMessage.success('断点新增成功');
+    ElMessage.success(t('breakpointAddSuccess'));
     gridApi.query();
-  } catch {
-    /* 错误提示由请求拦截器统一处理 */
+  } catch (error) {
+    logger.warn('新增断点失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 /** 删除断点 */
 async function handleRemoveBreakpoint(row: DebugRow) {
   const breakpointId = String(row.breakpointId ?? row.id ?? '');
   if (!breakpointId) {
-    ElMessage.warning('断点 ID 缺失，无法删除');
+    ElMessage.warning(t('breakpointIdMissing'));
     return;
   }
   try {
-    await ElMessageBox.confirm('确定删除该断点吗？', '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('confirmDeleteBreakpoint'), t('deleteConf'), { type: 'warning' });
     await removeBreakpoint({ breakpointId });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch {
-    /* 错误提示由请求拦截器统一处理 */
+  } catch (error) {
+    logger.warn('删除断点失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 /** 调试会话列表 */
@@ -129,19 +133,20 @@ async function loadSessions() {
 async function handleCreateSession() {
   try {
     const { value } = await ElMessageBox.prompt(
-      '请输入会话关联的规则编码（可留空）',
-      '创建调试会话',
+      t('createSessionPrompt'),
+      t('createSession'),
       {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        confirmButtonText: t('confirmBtn'),
+        cancelButtonText: t('cancelBtn'),
         inputPlaceholder: 'ruleCode',
       },
     );
     await createSession(value?.trim() ? { ruleCode: value.trim() } : {});
-    ElMessage.success('会话创建成功');
+    ElMessage.success(t('sessionCreateSuccess'));
     await loadSessions();
-  } catch {
-    /* 错误提示由请求拦截器统一处理 */
+  } catch (error) {
+    logger.warn('创建调试会话失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 /** 选择会话 */
@@ -152,19 +157,20 @@ function handleSelectSession(row: DebugRow) {
 async function handleTerminateSession(row?: DebugRow) {
   const sessionId = row ? String(row.sessionId ?? row.id ?? '') : selectedSessionId.value;
   if (!sessionId) {
-    ElMessage.warning('请先选择会话');
+    ElMessage.warning(t('selectSessionFirst'));
     return;
   }
   try {
-    await ElMessageBox.confirm('确定结束该调试会话吗？', '结束会话', { type: 'warning' });
+    await ElMessageBox.confirm(t('endSessionConfirm'), t('endSession'), { type: 'warning' });
     await terminateSession({ sessionId });
-    ElMessage.success('会话已结束');
+    ElMessage.success(t('sessionEndSuccess'));
     if (!row) {
       selectedSessionId.value = '';
     }
     await loadSessions();
-  } catch {
-    /* 错误提示由请求拦截器统一处理 */
+  } catch (error) {
+    logger.warn('结束调试会话失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 /** 向选中会话提交调试命令 */
@@ -174,7 +180,7 @@ async function handleSubmitCommand() {
     return;
   }
   if (!commandText.value.trim()) {
-    ElMessage.warning('请输入调试命令');
+    ElMessage.warning(t('inputDebugCommand'));
     return;
   }
   const data = await submitCommand(

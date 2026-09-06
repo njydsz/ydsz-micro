@@ -18,7 +18,11 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDialog, ElDrawer, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+const logger = createLogger('nextwiki-file');
+const { t } = useI18n();
 import { copy, deleteApi, listFiles, move, rename } from '#/api/file';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
@@ -161,8 +165,8 @@ async function handleDownload(row: FileNodeVO) {
   if (row.nodeType === 'FOLDER' || !row.id) return;
   try {
     await download({ nodeId: row.id }, {});
-    ElMessage.success('下载已开始');
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+    ElMessage.success(t('downloadStarted'));
+  } catch (error) { logger.warn('下载文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
 /** 重命名弹窗状态 */
@@ -174,13 +178,13 @@ function handleRename(row: FileNodeVO) {
   renameVisible.value = true;
 }
 async function confirmRename() {
-  if (!renameForm.name) { ElMessage.warning('请输入新名称'); return; }
+  if (!renameForm.name) { ElMessage.warning(t('renameNameRequired')); return; }
   try {
     await rename({ nodeId: renameForm.nodeId }, { name: renameForm.name });
-    ElMessage.success('重命名成功');
+    ElMessage.success(t('renameSuccess'));
     renameVisible.value = false;
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('重命名文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
 /** 移动弹窗状态（简化：输入目标父目录 ID） */
@@ -194,30 +198,30 @@ function handleMove(row: FileNodeVO) {
 async function confirmMove() {
   try {
     await move({ nodeId: moveForm.nodeId }, { parentId: moveForm.parentId });
-    ElMessage.success('移动成功');
+    ElMessage.success(t('moveSuccess'));
     moveVisible.value = false;
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('移动文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
 async function handleCopy(row: FileNodeVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定复制「${row.name}」吗？`, '复制确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('confirmCopy', [row.name]), t('copy'), { type: 'warning' });
     await copy({ nodeId: row.id }, {});
-    ElMessage.success('复制成功');
+    ElMessage.success(t('copySuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('复制文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
 async function handleDelete(row: FileNodeVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除「${row.name}」吗？删除后不可恢复。`, '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('confirmDeleteFile', [row.name]), t('deleteConf'), { type: 'warning' });
     await deleteApi({ nodeId: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('删除文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

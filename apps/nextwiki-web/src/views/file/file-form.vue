@@ -14,7 +14,11 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+const logger = createLogger('nextwiki-file');
+const { t } = useI18n();
 import { reactive, ref } from 'vue';
 import { createFolder } from '#/api/file';
 
@@ -27,7 +31,7 @@ interface FolderFormData {
 }
 const formData = reactive<FolderFormData>({ name: '', parentId: '' });
 const rules = {
-  name: [{ required: true, message: '请输入文件夹名称', trigger: 'blur' }],
+  name: [{ required: true, message: () => t('folderNamePlaceholder'), trigger: 'blur' }],
 };
 const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
@@ -35,7 +39,7 @@ const [Modal, modalApi] = useYDSZModal({
     Object.assign(formData, { name: '', parentId: '' });
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try { await formRef.value?.validate(); } catch (error) { logger.debug("表单校验未通过: {}", error); return; }
     modalApi.lock();
     try {
       await createFolder({ ...formData });
@@ -47,13 +51,13 @@ const [Modal, modalApi] = useYDSZModal({
 });
 </script>
 <template>
-  <Modal title="新建文件夹">
+  <Modal :title="t('newFolderTitle')">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="文件夹名称" prop="name">
-        <ElInput v-model="formData.name" placeholder="请输入文件夹名称" />
+      <ElFormItem :label="t('folderName')" prop="name">
+        <ElInput v-model="formData.name" :placeholder="t('folderNamePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="父目录ID" prop="parentId">
-        <ElInput v-model="formData.parentId" placeholder="请输入父目录ID（留空表示根目录）" />
+      <ElFormItem :label="t('parentId')" prop="parentId">
+        <ElInput v-model="formData.parentId" :placeholder="t('parentIdPlaceholder')" />
       </ElFormItem>
     </ElForm>
   </Modal>

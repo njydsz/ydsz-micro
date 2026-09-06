@@ -31,7 +31,10 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
 import type { FlowInstanceVO, FlowTimelineVO } from '#/api/models';
 import { $t } from '#/locales';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import FlowDiagramViewer from './components/FlowDiagramViewer.vue';
+
+const logger = createLogger('workflow-instance');
 import InstanceForm from './instance-form.vue';
 defineOptions({ name: 'InstanceManagement' });
 
@@ -161,7 +164,8 @@ async function handleTerminate(row: FlowInstanceVO) {
       },
     );
     reason = value;
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消终止流程实例操作', error);
     return; // 用户主动取消终止操作
   }
   // 步骤2：执行终止 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -169,8 +173,9 @@ async function handleTerminate(row: FlowInstanceVO) {
     await terminate({ id: row.id }, { reason });
     ElMessage.success($t('wf.terminatedSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('终止流程实例失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -186,7 +191,8 @@ async function handleSuspend(row: FlowInstanceVO) {
         type: 'warning',
       },
     );
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消挂起流程实例操作', error);
     return; // 用户主动取消挂起操作
   }
   // 步骤2：执行挂起 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -194,8 +200,9 @@ async function handleSuspend(row: FlowInstanceVO) {
     await suspend({ id: row.id });
     ElMessage.success($t('wf.suspendedSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('挂起流程实例失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -211,7 +218,8 @@ async function handleActivate(row: FlowInstanceVO) {
         type: 'warning',
       },
     );
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消恢复流程实例操作', error);
     return; // 用户主动取消恢复操作
   }
   // 步骤2：执行恢复 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -219,8 +227,9 @@ async function handleActivate(row: FlowInstanceVO) {
     await activate({ id: row.id });
     ElMessage.success($t('wf.activatedSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('恢复流程实例失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -236,7 +245,8 @@ async function handleRecall(row: FlowInstanceVO) {
         type: 'warning',
       },
     );
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消撤回流程实例操作', error);
     return; // 用户主动取消撤回操作
   }
   // 步骤2：执行撤回 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -244,8 +254,9 @@ async function handleRecall(row: FlowInstanceVO) {
     await recall({ id: row.id }, {});
     ElMessage.success($t('wf.recalledSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('撤回流程实例失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 

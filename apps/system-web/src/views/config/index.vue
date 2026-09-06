@@ -18,6 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -29,6 +30,8 @@ import type { ConfigPageQuery, ConfigVO, PageQuery } from '#/api/models';
 import ConfigForm from './config-form.vue';
 
 defineOptions({ name: 'ConfigManagement' });
+
+const logger = createLogger('system-config');
 
 const { t } = useI18n();
 
@@ -45,23 +48,22 @@ function isEnabled(status?: string): boolean {
 
 const gridOptions: VxeTableGridOptions<ConfigRow> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'configKey', title: t('configKey'), width: 180 },
     { field: 'configValue', title: t('configValue'), width: 200 },
     { field: 'configGroup', title: t('configGroup'), width: 130 },
-    { field: 'valueType', title: '值类型', width: 100 },
-    { field: 'isPublic', title: '公开', width: 70 },
+    { field: 'valueType', title: t('variable.valueType'), width: 100 },
+    { field: 'isPublic', title: t('isPublic'), width: 70 },
     {
       field: 'status',
       title: t('status'),
       width: 80,
       slots: {
         default: ({ row }) => {
-          const config = row as ConfigRow;
           return h(
             ElTag,
-            { type: isEnabled(config.status) ? 'success' : 'info' },
-            () => (isEnabled(config.status) ? '启用' : '禁用'),
+            { type: isEnabled(row.status) ? 'success' : 'info' },
+            () => (isEnabled(row.status) ? t('enabled') : t('disabled')),
           );
         },
       },
@@ -74,10 +76,9 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => {
-          const config = row as ConfigRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(config) }, () => t('edit')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(config) }, () => t('delete')),
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => t('delete')),
           ]);
         },
       },
@@ -124,8 +125,9 @@ function handleEdit(row: ConfigRow) {
 async function handleDelete(row: ConfigRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除「${row.configKey ?? ''}」吗？`, '删除确认', { type: 'warning' });
-  } catch {
+    await ElMessageBox.confirm(t('confirmDeleteName', [row.configKey ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+  } catch (error) {
+    logger.warn('用户取消删除系统配置', error);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -133,15 +135,16 @@ async function handleDelete(row: ConfigRow) {
     if (row.id) await remove({ id: row.id });
     ElMessage.success(t('operationSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除系统配置失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="系统配置">
+    <Grid :table-title="t('config')">
       <template #toolbar-tools>
         <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>

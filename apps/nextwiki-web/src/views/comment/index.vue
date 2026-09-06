@@ -19,7 +19,11 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+const logger = createLogger('nextwiki-comment');
+const { t } = useI18n();
 import { deleteComment, listComments, resolveComment } from '#/api/fileComment';
 import type { FileCommentVO } from '#/api/models';
 import CommentForm from './comment-form.vue';
@@ -75,7 +79,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [CommentFormModal, commentFormApi] = useYDSZModal({ connectedComponent: CommentForm });
 
 function handleQuery() {
-  if (!fileNodeId.value) { ElMessage.warning('请先输入文件节点ID'); return; }
+  if (!fileNodeId.value) { ElMessage.warning(t('fileNodeIdRequired')); return; }
   gridApi.query();
 }
 function handleAdd() { commentFormApi.open(); }
@@ -83,18 +87,18 @@ async function handleResolve(row: FileCommentVO) {
   if (!row.id) return;
   try {
     await resolveComment({ commentId: row.id });
-    ElMessage.success('已标记为解决');
+    ElMessage.success(t('resolvedSuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('解决评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 async function handleDelete(row: FileCommentVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除该评论吗？`, '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('commentDeleteConf'), t('deleteConf'), { type: 'warning' });
     await deleteComment({ commentId: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('删除评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 </script>
 <template>

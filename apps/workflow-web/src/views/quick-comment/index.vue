@@ -22,33 +22,38 @@ import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickComment, incrementUseCount, listQuickComments } from '#/api/flowComment';
 import type { FlowQuickCommentVO } from '#/api/models';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+
+const logger = createLogger('workflow-quick-comment');
+const { t } = useI18n();
 import QuickCommentForm from './quick-comment-form.vue';
 defineOptions({ name: 'QuickCommentManagement' });
 
 /** 系统预置标识标签 */
 function systemTag(isSystem: number | undefined) {
   return isSystem
-    ? h(ElTag, { type: 'warning' }, () => '系统')
-    : h(ElTag, { type: 'info' }, () => '个人');
+    ? h(ElTag, { type: 'warning' }, () => t('quickComment.system'))
+    : h(ElTag, { type: 'info' }, () => t('quickComment.personal'));
 }
 
 const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'content', title: '评语内容', width: 320, showOverflow: 'title' },
-    { field: 'commentType', title: '类型', width: 100 },
-    { field: 'sortNum', title: '排序', width: 80 },
-    { field: 'useCount', title: '使用次数', width: 90 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'content', title: t('quickComment.content.label'), width: 320, showOverflow: 'title' },
+    { field: 'commentType', title: t('quickComment.type.label'), width: 100 },
+    { field: 'sortNum', title: t('quickComment.sort.label'), width: 80 },
+    { field: 'useCount', title: t('quickComment.useCount.label'), width: 90 },
     {
       field: 'isSystem',
-      title: '来源',
+      title: t('quickComment.source.label'),
       width: 90,
       slots: { default: ({ row }) => systemTag(row.isSystem) },
     },
-    { field: 'updatedAt', title: '更新时间', width: 170 },
+    { field: 'updatedAt', title: t('common.updateTime'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.action'),
       width: 170,
       fixed: 'right',
       slots: {
@@ -57,17 +62,17 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('common.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleUse(row) },
-              () => '使用',
+              () => t('common.use'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('common.delete'),
             ),
           ]),
       },
@@ -104,10 +109,11 @@ async function handleUse(row: FlowQuickCommentVO) {
   if (!row.id) return;
   try {
     await incrementUseCount({ id: row.id });
-    ElMessage.success('已使用');
+    ElMessage.success(t('quickComment.use.success'));
     gridApi.query();
-  } catch {
-    // 请求失败提示由拦截器统一处理
+  } catch (error) {
+    logger.warn('快捷评语使用失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -115,25 +121,27 @@ async function handleDelete(row: FlowQuickCommentVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除「${row.content}」吗？`, '删除确认', { type: 'warning' });
-  } catch {
+    await ElMessageBox.confirm(t('quickComment.delete.confirm', { content: row.content }), t('common.delete.confirmTitle'), { type: 'warning' });
+  } catch (error) {
+    logger.warn('用户取消删除快捷评语操作', error);
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteQuickComment({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('quickComment.delete.success'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('快捷评语删除失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="快捷评语">
+    <Grid :table-title="t('quickComment.list.title')">
       <template #toolbar-tools
-        ><ElButton type="primary" @click="handleAdd">新增</ElButton></template
+        ><ElButton type="primary" @click="handleAdd">{{ t('common.add') }}</ElButton></template
       >
     </Grid>
     <QuickCommentFormModal @success="gridApi.query()" />

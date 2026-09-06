@@ -28,6 +28,9 @@ import {
 } from 'element-plus';
 import type { TagProps } from 'element-plus';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { remove, tree } from '#/api/menu';
 import type { MenuTreeVO } from '#/api/models';
@@ -36,14 +39,17 @@ import MenuForm from './menu-form.vue';
 
 defineOptions({ name: 'MenuManagement' });
 
+const logger = createLogger('userinfo-menu');
+const { t } = useI18n();
+
 /** 菜单类型映射（契约 menuType 为字符串，兼容 'DIRECTORY'/'MENU'/'BUTTON' 与 '0'/'1'/'2'） */
 const MENU_TYPE_MAP: Record<string, { label: string; type: TagProps['type'] }> = {
-  DIRECTORY: { label: '目录', type: 'primary' },
-  MENU: { label: '菜单', type: 'success' },
-  BUTTON: { label: '按钮', type: 'warning' },
-  '0': { label: '目录', type: 'primary' },
-  '1': { label: '菜单', type: 'success' },
-  '2': { label: '按钮', type: 'warning' },
+  DIRECTORY: { label: 'menuType.directory', type: 'primary' },
+  MENU: { label: 'menuType.menu', type: 'success' },
+  BUTTON: { label: 'menuType.button', type: 'warning' },
+  '0': { label: 'menuType.directory', type: 'primary' },
+  '1': { label: 'menuType.menu', type: 'success' },
+  '2': { label: 'menuType.button', type: 'warning' },
 };
 
 /** 判断菜单状态是否启用（契约 status 为字符串 '1'/'0'） */
@@ -89,8 +95,8 @@ async function handleDelete(row: MenuTreeVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除菜单「${row.menuName ?? ''}」吗？`,
-      '删除确认',
+      t('menu.deleteMenuConfirm', { menuName: row.menuName ?? '' }),
+      t('page.confirmDelete'),
       { type: 'warning' },
     );
   } catch {
@@ -99,10 +105,10 @@ async function handleDelete(row: MenuTreeVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('page.deleteSuccess'));
     loadData();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除菜单失败: {}', error);
   }
 }
 </script>
@@ -111,10 +117,10 @@ async function handleDelete(row: MenuTreeVO) {
   <Page auto-content-height>
     <div class="p-4">
       <div class="mb-4 flex items-center justify-between">
-        <h3 class="text-lg font-semibold">菜单管理</h3>
+        <h3 class="text-lg font-semibold">{{ t('menu.menuManagement') }}</h3>
         <div class="flex gap-2">
-          <ElButton @click="loadData">刷新</ElButton>
-          <ElButton type="primary" @click="handleAdd()">新增顶级菜单</ElButton>
+          <ElButton @click="loadData">{{ t('page.refresh') }}</ElButton>
+          <ElButton type="primary" @click="handleAdd()">{{ t('menu.addTopMenu') }}</ElButton>
         </div>
       </div>
       <ElTable
@@ -125,47 +131,47 @@ async function handleDelete(row: MenuTreeVO) {
         default-expand-all
         :tree-props="{ children: 'children' }"
       >
-        <ElTableColumn prop="menuName" label="菜单名称" min-width="180" />
-        <ElTableColumn label="类型" width="80" align="center">
+        <ElTableColumn prop="menuName" :label="t('page.menuName')" min-width="180" />
+        <ElTableColumn :label="t('page.menuType')" width="80" align="center">
           <template #default="{ row }">
             <ElTag
               :type="MENU_TYPE_MAP[row.menuType]?.type || 'info'"
               size="small"
             >
-              {{ MENU_TYPE_MAP[row.menuType]?.label || '未知' }}
+              {{ t(MENU_TYPE_MAP[row.menuType]?.label || 'page.unknown') }}
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn prop="menuCode" label="菜单编码" width="120" />
-        <ElTableColumn prop="path" label="路由路径" width="160" />
-        <ElTableColumn prop="component" label="组件路径" width="200" />
-        <ElTableColumn prop="permissionCode" label="权限标识" width="160" />
-        <ElTableColumn prop="icon" label="图标" width="80" align="center" />
-        <ElTableColumn prop="sortOrder" label="排序" width="80" align="center" />
-        <ElTableColumn label="可见" width="80" align="center">
+        <ElTableColumn prop="menuCode" :label="t('menu.menuCode')" width="120" />
+        <ElTableColumn prop="path" :label="t('page.menuPath')" width="160" />
+        <ElTableColumn prop="component" :label="t('page.component')" width="200" />
+        <ElTableColumn prop="permissionCode" :label="t('page.permission')" width="160" />
+        <ElTableColumn prop="icon" :label="t('page.icon')" width="80" align="center" />
+        <ElTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
+        <ElTableColumn :label="t('menu.visible')" width="80" align="center">
           <template #default="{ row }">
             <ElTag :type="isVisible(row.visible) ? 'success' : 'info'" size="small">
-              {{ isVisible(row.visible) ? '显示' : '隐藏' }}
+              {{ isVisible(row.visible) ? t('menu.show') : t('menu.hide') }}
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="状态" width="80" align="center">
+        <ElTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
             <ElTag :type="isEnabled(row.status) ? 'success' : 'danger'" size="small">
-              {{ isEnabled(row.status) ? '启用' : '禁用' }}
+              {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="操作" width="220" fixed="right">
+        <ElTableColumn :label="t('page.operation')" width="220" fixed="right">
           <template #default="{ row }">
             <ElButton size="small" link type="primary" @click="handleAdd(row.id)">
-              新增子菜单
+              {{ t('menu.addSubMenu') }}
             </ElButton>
             <ElButton size="small" link type="primary" @click="handleEdit(row)">
-              编辑
+              {{ t('page.edit') }}
             </ElButton>
             <ElButton size="small" link type="danger" @click="handleDelete(row)">
-              删除
+              {{ t('page.delete') }}
             </ElButton>
           </template>
         </ElTableColumn>

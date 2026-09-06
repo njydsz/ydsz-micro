@@ -17,8 +17,11 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@ydsz/utils';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+
+const logger = createLogger('agent-tool');
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { useI18n } from 'vue-i18n';
 
@@ -244,7 +247,7 @@ async function handleDelete(row: ToolVO): Promise<void> {
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
-    // 用户取消
+    logger.debug('用户取消删除工具操作');
   }
 }
 </script>

@@ -24,6 +24,9 @@
 import { Page } from '@ydsz/common-ui';
 import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 import {
   type ActiveUserVO,
   type AnomalySessionVO,
@@ -50,6 +53,9 @@ import {
 } from '#/api/securityDashboard';
 
 defineOptions({ name: 'SecurityDashboard' });
+
+const logger = createLogger('userinfo-security');
+const { t } = useI18n();
 
 /** 仪表盘总览数据 */
 const dashboardData = ref<SecurityDashboardVO>({});
@@ -128,8 +134,8 @@ async function loadDashboardData(): Promise<void> {
     anomalySessions.value = anomalies;
     mfaCoverage.value = mfa;
     loginFailDistribution.value = failDist;
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载安全仪表盘数据失败: {}', error);
   } finally {
     loading.value = false;
   }
@@ -163,7 +169,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">总用户数</p>
+              <p class="text-sm text-gray-500">{{ t('security.totalUsers') }}</p>
               <p class="mt-1 text-2xl font-bold">{{ dashboardData.totalUsers ?? 0 }}</p>
             </div>
             <div class="rounded-full bg-blue-50 p-3">
@@ -175,7 +181,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">在线用户</p>
+              <p class="text-sm text-gray-500">{{ t('security.onlineUsers') }}</p>
               <p class="mt-1 text-2xl font-bold text-green-600">{{ dashboardData.onlineUsers ?? 0 }}</p>
             </div>
             <div class="rounded-full bg-green-50 p-3">
@@ -187,7 +193,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">今日登录</p>
+              <p class="text-sm text-gray-500">{{ t('security.todayLogin') }}</p>
               <p class="mt-1 text-2xl font-bold">{{ dashboardData.todayLoginCount ?? 0 }}</p>
             </div>
             <div class="rounded-full bg-purple-50 p-3">
@@ -199,7 +205,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">登录成功率</p>
+              <p class="text-sm text-gray-500">{{ t('security.loginSuccessRate') }}</p>
               <p class="mt-1 text-2xl font-bold text-blue-600">
                 {{ formatPercent(dashboardData.todayLoginSuccessRate) }}
               </p>
@@ -213,7 +219,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">MFA覆盖率</p>
+              <p class="text-sm text-gray-500">{{ t('security.mfaCoverage') }}</p>
               <p class="mt-1 text-2xl font-bold">{{ formatPercent(mfaCoverage.coverageRate) }}</p>
             </div>
             <div class="rounded-full bg-cyan-50 p-3">
@@ -230,7 +236,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">锁定用户</p>
+              <p class="text-sm text-gray-500">{{ t('security.lockedUsers') }}</p>
               <p class="mt-1 text-2xl font-bold text-orange-600">{{ dashboardData.lockedUsers ?? 0 }}</p>
             </div>
             <div class="rounded-full bg-orange-50 p-3">
@@ -242,7 +248,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">封禁用户</p>
+              <p class="text-sm text-gray-500">{{ t('security.bannedUsers') }}</p>
               <p class="mt-1 text-2xl font-bold text-red-600">{{ dashboardData.bannedUsers ?? 0 }}</p>
             </div>
             <div class="rounded-full bg-red-50 p-3">
@@ -254,7 +260,7 @@ onMounted(() => {
         <ElCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">平均风险分</p>
+              <p class="text-sm text-gray-500">{{ t('security.riskScoreAvg') }}</p>
               <p class="mt-1 text-2xl font-bold" :class="(dashboardData.riskScoreAverage ?? 0) > 70 ? 'text-red-600' : 'text-green-600'">
                 {{ (dashboardData.riskScoreAverage ?? 0).toFixed(1) }}
               </p>
@@ -271,11 +277,11 @@ onMounted(() => {
         <!-- 风险等级分布 -->
         <ElCard>
           <template #header>
-            <span class="font-medium">风险等级分布</span>
+            <span class="font-medium">{{ t('security.riskDistribution') }}</span>
           </template>
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">高风险</span>
+              <span class="text-sm text-gray-600">{{ t('security.highRisk') }}</span>
               <div class="flex items-center gap-2">
                 <ElProgress
                   :percentage="((riskDistribution.highRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
@@ -287,7 +293,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">中风险</span>
+              <span class="text-sm text-gray-600">{{ t('security.mediumRisk') }}</span>
               <div class="flex items-center gap-2">
                 <ElProgress
                   :percentage="((riskDistribution.mediumRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
@@ -299,7 +305,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">低风险</span>
+              <span class="text-sm text-gray-600">{{ t('security.lowRisk') }}</span>
               <div class="flex items-center gap-2">
                 <ElProgress
                   :percentage="((riskDistribution.lowRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
@@ -316,20 +322,20 @@ onMounted(() => {
         <!-- 会话活跃度 -->
         <ElCard>
           <template #header>
-            <span class="font-medium">会话活跃度</span>
+            <span class="font-medium">{{ t('security.sessionActivity') }}</span>
           </template>
           <div class="grid grid-cols-3 gap-4 text-center">
             <div>
               <p class="text-2xl font-bold text-blue-600">{{ sessionActivity.totalActiveSessions ?? 0 }}</p>
-              <p class="mt-1 text-xs text-gray-500">活跃会话</p>
+              <p class="mt-1 text-xs text-gray-500">{{ t('security.activeSessions') }}</p>
             </div>
             <div>
               <p class="text-2xl font-bold text-green-600">{{ sessionActivity.activeUserCount ?? 0 }}</p>
-              <p class="mt-1 text-xs text-gray-500">活跃用户</p>
+              <p class="mt-1 text-xs text-gray-500">{{ t('security.activeUsers') }}</p>
             </div>
             <div>
               <p class="text-2xl font-bold text-purple-600">{{ sessionActivity.avgSessionDuration ?? 0 }}m</p>
-              <p class="mt-1 text-xs text-gray-500">平均时长</p>
+              <p class="mt-1 text-xs text-gray-500">{{ t('security.avgDuration') }}</p>
             </div>
           </div>
         </ElCard>
@@ -340,13 +346,13 @@ onMounted(() => {
         <!-- 异常会话 -->
         <ElCard>
           <template #header>
-            <span class="font-medium">异常会话检测</span>
+            <span class="font-medium">{{ t('security.anomalySessions') }}</span>
           </template>
           <ElTable :data="anomalySessions" border max-height="300">
-            <ElTableColumn prop="username" label="用户" width="120" />
-            <ElTableColumn prop="anomalyType" label="异常类型" width="120" />
-            <ElTableColumn prop="description" label="描述" min-width="150" />
-            <ElTableColumn prop="riskLevel" label="风险" width="80">
+            <ElTableColumn prop="username" :label="t('page.username')" width="120" />
+            <ElTableColumn prop="anomalyType" :label="t('security.anomalyType')" width="120" />
+            <ElTableColumn prop="description" :label="t('page.description')" min-width="150" />
+            <ElTableColumn prop="riskLevel" :label="t('security.riskLevel')" width="80">
               <template #default="{ row }">
                 <ElTag :type="getRiskLevelTagType(row.riskLevel ?? '')">
                   {{ row.riskLevel ?? '-' }}
@@ -354,37 +360,37 @@ onMounted(() => {
               </template>
             </ElTableColumn>
           </ElTable>
-          <ElEmpty v-if="anomalySessions.length === 0" description="暂无异常会话" :image-size="60" />
+          <ElEmpty v-if="anomalySessions.length === 0" :description="t('security.noAnomalySessions')" :image-size="60" />
         </ElCard>
 
         <!-- 最近安全事件 -->
         <ElCard>
           <template #header>
-            <span class="font-medium">最近安全事件</span>
+            <span class="font-medium">{{ t('security.recentEvents') }}</span>
           </template>
           <ElTable :data="recentEvents" border max-height="300">
-            <ElTableColumn prop="eventType" label="事件类型" width="120" />
-            <ElTableColumn prop="username" label="用户" width="100" />
-            <ElTableColumn prop="ip" label="IP" width="130" />
-            <ElTableColumn prop="description" label="描述" min-width="150" />
-            <ElTableColumn prop="timestamp" label="时间" width="160" />
+          <ElTableColumn prop="eventType" :label="t('security.eventType')" width="120" />
+          <ElTableColumn prop="username" :label="t('page.username')" width="100" />
+          <ElTableColumn prop="ip" label="IP" width="130" />
+          <ElTableColumn prop="description" :label="t('page.description')" min-width="150" />
+          <ElTableColumn prop="timestamp" :label="t('security.timestamp')" width="160" />
           </ElTable>
-          <ElEmpty v-if="recentEvents.length === 0" description="暂无安全事件" :image-size="60" />
+          <ElEmpty v-if="recentEvents.length === 0" :description="t('security.noSecurityEvents')" :image-size="60" />
         </ElCard>
       </div>
 
       <!-- 活跃用户排行 -->
       <ElCard>
         <template #header>
-          <span class="font-medium">活跃用户排行（Top 10）</span>
+          <span class="font-medium">{{ t('security.activeUserRanking') }}</span>
         </template>
         <ElTable :data="activeUserRanking" border>
-          <ElTableColumn type="index" label="排名" width="80" />
-          <ElTableColumn prop="username" label="用户名" width="150" />
-          <ElTableColumn prop="loginCount" label="登录次数" width="120" />
-          <ElTableColumn prop="lastLoginTime" label="最后登录" width="180" />
+        <ElTableColumn type="index" :label="t('security.rank')" width="80" />
+        <ElTableColumn prop="username" :label="t('page.username')" width="150" />
+        <ElTableColumn prop="loginCount" :label="t('security.loginCount')" width="120" />
+        <ElTableColumn prop="lastLoginTime" :label="t('page.lastLogin')" width="180" />
         </ElTable>
-        <ElEmpty v-if="activeUserRanking.length === 0" description="暂无数据" :image-size="60" />
+        <ElEmpty v-if="activeUserRanking.length === 0" :description="t('security.noData')" :image-size="60" />
       </ElCard>
     </div>
   </Page>

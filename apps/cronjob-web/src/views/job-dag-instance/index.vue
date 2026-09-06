@@ -40,6 +40,10 @@ import { cancel, pause, resume, retryNode } from '#/api/dagInstanceControl';
 import { listByStatus, listNodes, getMermaidDiagram } from '#/api/jobDagInstance';
 import type { JobDagInstanceVO, JobDagNodeInstanceVO } from '#/api/models';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('cronjob-job');
+
 defineOptions({ name: 'JobDagInstanceManagement' });
 
 /** 实例状态 → Tag 类型映射 */
@@ -167,6 +171,7 @@ async function handlePause(row: JobDagInstanceVO) {
     ElMessage.success('已暂停');
     gridApi.query();
   } catch {
+    logger.warn('暂停DAG实例失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -178,6 +183,7 @@ async function handleResume(row: JobDagInstanceVO) {
     ElMessage.success('已恢复');
     gridApi.query();
   } catch {
+    logger.warn('恢复DAG实例失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -190,6 +196,7 @@ async function handleCancel(row: JobDagInstanceVO) {
       type: 'warning',
     });
   } catch {
+    logger.warn('用户取消DAG实例', row.id);
     return; // 用户主动取消操作
   }
   // 步骤2：执行取消 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -198,6 +205,7 @@ async function handleCancel(row: JobDagInstanceVO) {
     ElMessage.success('已取消');
     gridApi.query();
   } catch {
+    logger.warn('取消DAG实例失败', row.id);
     // 错误已由请求拦截器展示，无需重复处理
   }
 }
@@ -223,6 +231,7 @@ async function handleViewDetail(row: JobDagInstanceVO) {
     nodes.value = nodeList ?? [];
     mermaidText.value = typeof mermaid === 'string' ? mermaid : '';
   } catch {
+    logger.warn('加载DAG实例详情失败', row.id);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -233,6 +242,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
     await retryNode({ instanceId: detailLog.value.id, nodeInstanceId: node.id });
     ElMessage.success('节点重试已触发');
   } catch {
+    logger.warn('重试DAG节点失败', node.id);
     // 错误提示由请求拦截器统一处理
   }
 }

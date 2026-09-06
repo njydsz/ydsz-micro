@@ -28,11 +28,17 @@ import {
   ElTreeSelect,
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { create, update } from '#/api/department';
 import type { DepartmentDTO, DepartmentTreeVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+
+const logger = createLogger('userinfo-dept');
+const { t } = useI18n();
 
 const formRef = ref();
 const isEdit = ref(false);
@@ -62,7 +68,7 @@ const formData = reactive<DeptFormState>({
 });
 
 const rules = {
-  deptName: [{ required: true, message: '请输入部门名称', trigger: 'blur' }],
+  deptName: [{ required: true, message: t('dept.deptNamePlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -102,7 +108,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('表单校验失败: {}', error);
       return;
     }
     modalApi.lock();
@@ -117,10 +124,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        ElMessage.success('更新成功');
+        ElMessage.success(t('page.updateSuccess'));
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        ElMessage.success(t('page.createSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -130,7 +137,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑部门' : '新增部门'));
+const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.deptBase')}` : `${t('page.create')}${t('page.deptBase')}`));
 </script>
 
 <template>
@@ -142,39 +149,39 @@ const title = computed(() => (isEdit.value ? '编辑部门' : '新增部门'));
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="上级部门" prop="parentId">
+      <ElFormItem :label="t('page.parentDept')" prop="parentId">
         <ElTreeSelect
           v-model="formData.parentId"
-          :data="[{ id: '', label: '顶级部门', children: treeData }]"
+          :data="[{ id: '', label: t('dept.topDept'), children: treeData }]"
           :props="{ label: 'label', children: 'children' }"
           node-key="id"
           check-strictly
           clearable
-          placeholder="请选择上级部门"
+          :placeholder="t('dept.parentDeptPlaceholder')"
           class="w-full"
         />
       </ElFormItem>
-      <ElFormItem label="部门名称" prop="deptName">
-        <ElInput v-model="formData.deptName" placeholder="请输入部门名称" />
+      <ElFormItem :label="t('page.deptName')" prop="deptName">
+        <ElInput v-model="formData.deptName" :placeholder="t('dept.deptNamePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="部门编码" prop="deptCode">
-        <ElInput v-model="formData.deptCode" placeholder="请输入部门编码" />
+      <ElFormItem :label="t('dept.deptCode')" prop="deptCode">
+        <ElInput v-model="formData.deptCode" :placeholder="t('dept.deptCodePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="描述">
+      <ElFormItem :label="t('page.description')">
         <ElInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
-          placeholder="请输入描述"
+          :placeholder="t('page.descriptionPlaceholder')"
         />
       </ElFormItem>
-      <ElFormItem label="排序">
+      <ElFormItem :label="t('page.sortOrder')">
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
       </ElFormItem>
-      <ElFormItem label="状态">
+      <ElFormItem :label="t('page.status')">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
+          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
+          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

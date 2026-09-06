@@ -16,6 +16,9 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('message-subscription');
 import {
   ElButton,
   ElForm,
@@ -26,7 +29,7 @@ import {
   ElSelect,
   ElSwitch,
 } from 'element-plus';
-import { computed, reactive, watch } from 'vue';
+import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { upsert } from '#/api/subscription';
@@ -62,6 +65,14 @@ const [Modal, modalApi] = useYDSZModal({
   onOpenChange: (isOpen: boolean) => {
     if (isOpen && props.record) {
       Object.assign(formData, props.record);
+    } else {
+      formData.id = '';
+      formData.userId = '';
+      formData.topicCode = '';
+      formData.topicName = '';
+      formData.channel = 'EMAIL';
+      formData.status = 'ACTIVE';
+      formData.remark = '';
     }
   },
 });
@@ -82,12 +93,12 @@ const formData = reactive({
 
 /** 通道选项 */
 const channelOptions = [
-  { label: '邮件', value: 'EMAIL' },
-  { label: '短信', value: 'SMS' },
-  { label: '站内信', value: 'INBOX' },
+  { label: t('channel.email'), value: 'EMAIL' },
+  { label: t('channel.sms'), value: 'SMS' },
+  { label: t('channel.inbox'), value: 'INBOX' },
   { label: 'Webhook', value: 'WEBHOOK' },
-  { label: '企业微信', value: 'WECHAT_WORK' },
-  { label: '钉钉', value: 'DINGTALK' },
+  { label: t('channel.wechatWork'), value: 'WECHAT_WORK' },
+  { label: t('channel.dingtalk'), value: 'DINGTALK' },
 ];
 
 /**
@@ -115,31 +126,15 @@ async function handleSubmit(): Promise<void> {
       status: formData.status,
       remark: formData.remark,
     });
-    ElMessage.success(isEditMode.value ? '更新成功' : '订阅成功');
+    ElMessage.success(isEditMode.value ? t('common.updateSuccess') : t('subscription.subscribeSuccess'));
     emit('success');
     modalApi.close();
-  } catch {
+  } catch (error) {
+    logger.warn('提交订阅表单失败: {}', error);
     // 错误提示由请求拦截器统一处理
   }
 }
 
-watch(
-  () => props.record,
-  (val) => {
-    if (val) {
-      Object.assign(formData, val);
-    } else {
-      formData.id = '';
-      formData.userId = '';
-      formData.topicCode = '';
-      formData.topicName = '';
-      formData.channel = 'EMAIL';
-      formData.status = 'ACTIVE';
-      formData.remark = '';
-    }
-  },
-  { immediate: true },
-);
 </script>
 
 <template>

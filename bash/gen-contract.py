@@ -280,9 +280,17 @@ class JavaSource:
     # ---- class fields (Lombok @Data/@Getter 或手写 getter) ----
     @property
     def class_fields(self) -> List[Tuple[str, str, List[str]]]:
-        """返回 (fieldName, javaType, annotations) 列表"""
+        """返回 (fieldName, javaType, annotations) 列表.
+
+        annotations 包含 JSR-303/380 校验注解的原始字符串，例如:
+        ["@NotBlank", "@Size(min = 1, max = 64)", "@Pattern(regexp = \"^[A-Z_]+$\")"].
+        SchemaBuilder 根据这些注解在 openapi.json 中写入 minLength / maxLength / pattern 等约束。
+        """
         if self._class_fields is None:
-            fields = []
+            fields: List[Tuple[str, str, List[str]]] = []
+            # 收集字段位置（用于后续从源码中提取 JSR-303/380 注解）
+            field_positions: Dict[str, int] = {}
+
             # 1) @JsonProperty("x") private Type name; —— 属性名以注解为准
             jp_pat = re.compile(
                 r'@JsonProperty\(\s*"([\w-]+)"\s*\)\s*\n?\s*(?:public\s+|private\s+)?(?:final\s+)?([\w.$<>?,\s]+?)\s+(\w+)\s*(?:=|;)',
@@ -291,7 +299,9 @@ class JavaSource:
             for m in jp_pat.finditer(self.src):
                 fname, ftype = m.group(1), m.group(2).strip()
                 if ftype:
-                    fields.append((fname, ftype, ["JsonProperty"]))
+                    anns = self._extract_field_annotations(m.start())
+                    fields.append((fname, ftype, anns))
+                    field_positions[fname] = m.start()
             # 2) private [final] Type name;
             pat = re.compile(
                 r"\bprivate\s+(?:final\s+|static\s+final\s+|transient\s+)*([\w.$<>?,\s]+?)\s+(\w+)\s*(?:=|;)",
@@ -304,14 +314,66 @@ class JavaSource:
                     continue
                 if any(f[0] == fname for f in fields):
                     continue
-                fields.append((fname, ftype, []))
+                anns = self._extract_field_annotations(m.start())
+                fields.append((fname, ftype, anns))
+                field_positions[fname] = m.start()
             # 3) getter 推导（Lombok @Data/@Getter 场景补充）
             for m in re.finditer(r"public\s+[\w.$<>?,\s]+\s+get(\w+)\s*\(\)", self.src):
                 fname = m.group(1)[0].lower() + m.group(1)[1:]
                 if not any(f[0] == fname for f in fields):
                     fields.append((fname, "String", []))
             self._class_fields = fields
+            self._field_positions = field_positions
         return self._class_fields
+
+    def _extract_field_annotations(self, field_pos: int) -> List[str]:
+        """从字段声明处向上回溯，提取 JSR-303/380 注解字符串.
+
+        支持的注解:
+        @NotNull @NotBlank @NotEmpty @Null @AssertTrue @AssertFalse
+        @Size @Length @Min @Max @DecimalMin @DecimalMax @Digits
+        @Pattern @Email @URL @Future @Past @Negative @Positive
+        @Range @SafeHtml
+        """
+        head = self.src[:field_pos]
+        # 从字段声明位置向上扫描，收集连续的注解行（含 @ 开头的行）
+        lines = head.splitlines()
+        i = len(lines) - 1
+        annotations: List[str] = []
+        # 跳过字段声明前的空行
+        while i >= 0 and not lines[i].strip():
+            i -= 1
+        # 如果上一行是字段声明本身，继续向上扫描注解块
+        while i >= 0:
+            t = lines[i].strip()
+            if t.startswith("@"):
+                # 处理带参数的注解: @Size(min = 1, max = 64)
+                annot_line = t
+                # 如果注解行包含 ( 但不在同一行结束，需要向上一行合并
+                if "(" in t and ")" not in t:
+                    # 跨行注解参数: 向上合并直到遇到匹配的 )
+                    j = i - 1
+                    while j >= 0:
+                        prev = lines[j].strip()
+                        annot_line = prev + " " + annot_line
+                        if ")" in prev:
+                            break
+                        j -= 1
+                annot_line = re.sub(r"\s+", " ", annot_line).strip()
+                annotations.insert(0, annot_line)
+                i -= 1
+            elif not t:
+                i -= 1
+            else:
+                break
+        # 过滤仅保留 JSR-303/380 和 Jackson 相关注解
+        jsr303_prefixes = (
+            "@NotNull", "@NotBlank", "@NotEmpty", "@Null", "@AssertTrue", "@AssertFalse",
+            "@Size", "@Length", "@Min", "@Max", "@DecimalMin", "@DecimalMax", "@Digits",
+            "@Pattern", "@Email", "@URL", "@Future", "@Past", "@Negative", "@Positive",
+            "@Range", "@SafeHtml", "@JsonProperty",
+        )
+        return [a for a in annotations if any(a.startswith(p) for p in jsr303_prefixes)]
 
     @property
     def enum_values(self) -> List[str]:
@@ -481,6 +543,81 @@ class SchemaBuilder:
         # （OpenAPI 允许 x- 前缀扩展字段，$ref 同级 description 在 3.0 会被忽略，故不用它承载字段注释）
         cdoc = src.class_doc
         fdocs = src.field_docs
+
+        def _apply_jsrs(sch: Dict[str, Any], annotations: List[str]) -> Dict[str, Any]:
+            """将 JSR-303/380 注解文本写入 OpenAPI schema 约束字段.
+
+            支持的映射:
+            - @NotNull / @NotBlank / @NotEmpty -> 标记字段为必填（写入 required 数组）
+            - @Size(min, max) / @Length(min, max) -> minLength / maxLength
+            - @Min(value) / @DecimalMin(value) -> minimum
+            - @Max(value) / @DecimalMax(value) -> maximum
+            - @Pattern(regexp) -> pattern
+            - @Email -> format: email
+            - @URL -> format: uri
+            - @Digits(integer, fraction) -> 记录 precision 扩展
+            - @Range(min, max) -> minimum + maximum
+            """
+            s = dict(sch)
+            for annot in annotations:
+                # @NotBlank / @NotEmpty / @Null / @AssertTrue
+                if annot.startswith("@NotBlank") or annot.startswith("@NotEmpty"):
+                    s["x-required"] = True
+                elif annot.startswith("@NotNull"):
+                    if s.get("type") != "object":
+                        s["x-required"] = True
+                # @Size(min = x, max = y) 或 @Size(min=x, max=y)
+                elif annot.startswith("@Size") or annot.startswith("@Length"):
+                    m_min = re.search(r"(?:min|MIN)\s*=\s*(\d+)", annot)
+                    m_max = re.search(r"(?:max|MAX)\s*=\s*(\d+)", annot)
+                    if m_min:
+                        s["minLength"] = int(m_min.group(1))
+                    if m_max:
+                        s["maxLength"] = int(m_max.group(1))
+                # @Min(value) / @DecimalMin(value)
+                elif annot.startswith("@Min") or annot.startswith("@DecimalMin"):
+                    m = re.search(r"@\w+\s*\(\s*(?:value\s*=\s*)?(-?\d[\d.]*)\s*\)", annot)
+                    if m:
+                        val = m.group(1)
+                        s["minimum"] = int(val) if "." not in val else float(val)
+                # @Max(value) / @DecimalMax(value)
+                elif annot.startswith("@Max") or annot.startswith("@DecimalMax"):
+                    m = re.search(r"@\w+\(\s*(?:value\s*=\s*)?(-?\d[\d.]*)\s*\)", annot)
+                    if m:
+                        val = m.group(1)
+                        s["maximum"] = int(val) if "." not in val else float(val)
+                # @Pattern(regexp = "...")
+                elif annot.startswith("@Pattern"):
+                    m = re.search(r"regexp\s*=\s*\"([^\"]+)\"", annot)
+                    if m:
+                        s["pattern"] = m.group(1)
+                # @Email
+                elif annot.startswith("@Email"):
+                    s["format"] = "email"
+                # @URL
+                elif annot.startswith("@URL"):
+                    s["format"] = "uri"
+                # @Digits(integer = x, fraction = y)
+                elif annot.startswith("@Digits"):
+                    m_int = re.search(r"integer\s*=\s*(\d+)", annot)
+                    m_frac = re.search(r"fraction\s*=\s*(\d+)", annot)
+                    digits_info = {}
+                    if m_int:
+                        digits_info["integer"] = int(m_int.group(1))
+                    if m_frac:
+                        digits_info["fraction"] = int(m_frac.group(1))
+                    if digits_info:
+                        s["x-digits"] = digits_info
+                # @Range(min, max)
+                elif annot.startswith("@Range"):
+                    m_min = re.search(r"min\s*=\s*(\d+)", annot)
+                    m_max = re.search(r"max\s*=\s*(\d+)", annot)
+                    if m_min:
+                        s["minimum"] = int(m_min.group(1))
+                    if m_max:
+                        s["maximum"] = int(m_max.group(1))
+            return s
+
         if src.is_record:
             props = OrderedDict()
             required = []
@@ -495,14 +632,24 @@ class SchemaBuilder:
                     "description": cdoc or f"record {src.cls_name}",
                     "x-field-docs": fdocs}
         props = OrderedDict()
-        for fname, ftype, _ann in src.class_fields:
+        required: List[str] = []
+        for fname, ftype, annotations in src.class_fields:
             jt = parse_type(ftype)
             sch = self.convert(jt, src)
             if fdocs.get(fname) and "$ref" not in sch:
                 sch = dict(sch, description=fdocs[fname])
+            # 应用 JSR-303/380 注解约束
+            sch = _apply_jsrs(sch, annotations)
             props[fname] = sch
-        return {"type": "object", "properties": props, "description": cdoc or f"class {src.cls_name}",
-                "x-field-docs": fdocs}
+            # 若字段被标记为必填，自动加入 required 数组
+            if sch.pop("x-required", False):
+                required.append(fname)
+        schema: Dict[str, Any] = {"type": "object", "properties": props,
+                                   "description": cdoc or f"class {src.cls_name}",
+                                   "x-field-docs": fdocs}
+        if required:
+            schema["required"] = required
+        return schema
 
 
 # ======================================================================

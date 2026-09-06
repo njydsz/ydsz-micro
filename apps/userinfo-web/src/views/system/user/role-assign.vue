@@ -20,6 +20,9 @@ import { useYDSZModal } from '@ydsz/common-ui';
 
 import { ElMessage, ElTransfer } from 'element-plus';
 import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 import type { RoleVO } from '#/api/models';
 import { assignRoles } from '#/api/userAccount';
@@ -49,7 +52,7 @@ const [Modal, modalApi] = useYDSZModal({
     modalApi.lock();
     try {
       await assignRoles({ userId: userId.value }, { roleIds: selectedRoleIds.value });
-      ElMessage.success('角色分配成功');
+      ElMessage.success(t('user.roleAssignSuccess'));
       emit('success');
       modalApi.close();
     } finally {
@@ -76,14 +79,14 @@ watch(
 </script>
 
 <template>
-  <Modal :title="`分配角色 - ${username}`" class="w-[600px]">
+  <Modal :title="t('user.assignRoles') + ' - ' + username" class="w-[600px]">
     <div class="py-4">
       <ElTransfer
         v-model="selectedRoleIds"
         :data="transferData"
-        :titles="['可选角色', '已分配角色']"
+        :titles="[t('user.optionalRole'), t('user.assignedRole')]"
         filterable
-        filter-placeholder="搜索角色"
+        :filter-placeholder="t('user.searchRole')"
       />
     </div>
   </Modal>

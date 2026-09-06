@@ -18,6 +18,10 @@ import { ElButton, ElMessage, ElSkeleton, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { generatePreview, getPreviewType, isSupported } from '#/api/preview';
 import { download } from '#/api/download';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+const logger = createLogger('nextwiki-file');
+const { t } = useI18n();
 import { requestClient } from '#/api/request';
 import type { FileNodeVO } from '#/api/models';
 
@@ -66,7 +70,8 @@ async function checkPreviewSupport(): Promise<void> {
     if (previewSupported.value) {
       previewType.value = await getPreviewType({ suffix: fileSuffix.value }) ?? '';
     }
-  } catch {
+  } catch (error) {
+    logger.warn('检查预览支持状态失败: {}', error);
     previewSupported.value = false;
   } finally {
     loading.value = false;
@@ -79,9 +84,10 @@ async function handleGeneratePreview(): Promise<void> {
   generating.value = true;
   try {
     await generatePreview({ fileNodeId: props.fileNode.id });
-    ElMessage.success('预览生成成功，请刷新查看');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+    ElMessage.success(t('previewGenerated'));
+  } catch (error) {
+    logger.warn('生成预览失败: {}', error);
+    // 用户提示由请求拦截器统一处理
   } finally {
     generating.value = false;
   }
@@ -92,9 +98,10 @@ async function handleDownload(): Promise<void> {
   if (!props.fileNode?.id) return;
   try {
     await download({ nodeId: props.fileNode.id }, {});
-    ElMessage.success('下载已开始');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+    ElMessage.success(t('downloadStarted'));
+  } catch (error) {
+    logger.warn('下载文件失败: {}', error);
+    // 用户提示由请求拦截器统一处理
   }
 }
 
@@ -115,8 +122,9 @@ async function loadPreviewContent(): Promise<void> {
     try {
       const resp = await requestClient.get<string>(`/api/v1/nextwiki/download/${props.fileNode.id}`);
       previewContent.value = typeof resp === 'string' ? resp : JSON.stringify(resp);
-    } catch {
-      previewContent.value = '加载文本内容失败';
+    } catch (error) {
+      logger.warn('加载文本预览内容失败: {}', error);
+      previewContent.value = t('textLoadFailed');
     }
     return;
   }

@@ -36,6 +36,9 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+const logger = createLogger('userinfo-menu');
+
 import { create, update } from '#/api/menu';
 import type { MenuDTO, MenuTreeVO } from '#/api/models';
 
@@ -62,9 +65,9 @@ const treeData = ref<MenuTreeVO[]>([]);
 
 /** 菜单类型选项（契约 menuType 为字符串，兼容 'DIRECTORY'/'MENU'/'BUTTON' 与 '0'/'1'/'2'） */
 const MENU_TYPE_OPTIONS = [
-  { label: '目录', value: 'DIRECTORY' },
-  { label: '菜单', value: 'MENU' },
-  { label: '按钮', value: 'BUTTON' },
+  { label: t('menuType.directory'), value: 'DIRECTORY' },
+  { label: t('menuType.menu'), value: 'MENU' },
+  { label: t('menuType.button'), value: 'BUTTON' },
 ];
 
 /** 表单状态（字段对应 MenuDTO） */
@@ -99,8 +102,8 @@ const formData = reactive<MenuFormState>({
 });
 
 const rules = {
-  menuName: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
-  menuType: [{ required: true, message: '请选择菜单类型', trigger: 'change' }],
+  menuName: [{ required: true, message: t('menu.menuNamePlaceholder'), trigger: 'blur' }],
+  menuType: [{ required: true, message: t('menu.menuTypePlaceholder'), trigger: 'change' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -150,7 +153,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('表单校验失败: {}', error);
       return;
     }
     modalApi.lock();
@@ -183,7 +187,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}菜单` : `${t('page.create')}菜单`));
+const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBase')}` : `${t('page.create')}${t('page.menuBase')}`));
 </script>
 
 <template>
@@ -195,26 +199,26 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}菜单` : `${t('p
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="上级菜单" prop="parentId">
+      <ElFormItem :label="t('menu.parentMenu')" prop="parentId">
         <ElTreeSelect
           v-model="formData.parentId"
-          :data="[{ id: '', label: '顶级菜单', children: treeData }]"
+          :data="[{ id: '', label: t('menu.topMenu'), children: treeData }]"
           :props="{ label: 'label', children: 'children' }"
           node-key="id"
           check-strictly
           clearable
-          placeholder="请选择上级菜单"
+          :placeholder="t('menu.parentMenuPlaceholder')"
           class="w-full"
         />
       </ElFormItem>
       <ElFormItem :label="t('page.menuName')" prop="menuName">
-        <ElInput v-model="formData.menuName" placeholder="请输入菜单名称" />
+        <ElInput v-model="formData.menuName" :placeholder="t('menu.menuNamePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="菜单编码" prop="menuCode">
-        <ElInput v-model="formData.menuCode" placeholder="请输入菜单编码" />
+      <ElFormItem :label="t('menu.menuCode')" prop="menuCode">
+        <ElInput v-model="formData.menuCode" :placeholder="t('menu.menuCodePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('page.menuType')" prop="menuType">
-        <ElSelect v-model="formData.menuType" placeholder="请选择菜单类型" class="w-full">
+        <ElSelect v-model="formData.menuType" :placeholder="t('menu.menuTypePlaceholder')" class="w-full">
           <ElOption
             v-for="opt in MENU_TYPE_OPTIONS"
             :key="opt.value"
@@ -224,27 +228,27 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}菜单` : `${t('p
         </ElSelect>
       </ElFormItem>
       <ElFormItem :label="t('page.menuPath')">
-        <ElInput v-model="formData.path" placeholder="请输入路由路径（如 /system/menu）" />
+        <ElInput v-model="formData.path" :placeholder="t('menu.pathPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('page.component')">
-        <ElInput v-model="formData.component" placeholder="请输入组件路径" />
+        <ElInput v-model="formData.component" :placeholder="t('menu.componentPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('page.icon')">
         <div class="flex w-full gap-2">
-          <ElInput v-model="formData.icon" placeholder="请输入图标名称或点击选择" readonly @click="openIconPicker" />
-          <ElButton @click="openIconPicker">选择图标</ElButton>
+          <ElInput v-model="formData.icon" :placeholder="t('menu.iconPlaceholder')" readonly @click="openIconPicker" />
+          <ElButton @click="openIconPicker">{{ t('menu.selectIcon') }}</ElButton>
         </div>
       </ElFormItem>
       <ElFormItem :label="t('page.permission')">
-        <ElInput v-model="formData.permissionCode" placeholder="请输入权限标识（如 system:menu:add）" />
+        <ElInput v-model="formData.permissionCode" :placeholder="t('menu.permissionPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('page.sortOrder')">
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
       </ElFormItem>
-      <ElFormItem label="可见">
+      <ElFormItem :label="t('menu.visible')">
         <ElRadioGroup v-model="formData.visible">
-          <ElRadio :value="1">显示</ElRadio>
-          <ElRadio :value="0">隐藏</ElRadio>
+          <ElRadio :value="1">{{ t('menu.show') }}</ElRadio>
+          <ElRadio :value="0">{{ t('menu.hide') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
       <ElFormItem :label="t('page.status')">

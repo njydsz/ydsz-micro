@@ -21,7 +21,10 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+
+const logger = createLogger('workflow-template');
 import {
   cloneTemplate,
   createNewVersion,
@@ -122,7 +125,8 @@ async function handleImport(row: TemplateRow) {
       },
     );
     flowName = value;
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消模板导入操作', error);
     return; // 用户主动取消导入操作
   }
   // 步骤2：执行导入 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -130,8 +134,9 @@ async function handleImport(row: TemplateRow) {
     await importTemplate({ templateCode }, { flowName });
     ElMessage.success(t('wf.importSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('模板导入失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -147,7 +152,8 @@ async function handleClone(row: TemplateRow) {
       inputValidator: (value) => (value ? true : t('wf.cloneValidator')),
     });
     newTemplateName = value;
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消模板克隆操作', error);
     return; // 用户主动取消克隆操作
   }
   // 步骤2：执行克隆 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -155,8 +161,9 @@ async function handleClone(row: TemplateRow) {
     await cloneTemplate({ templateCode }, { newTemplateName });
     ElMessage.success(t('wf.cloneSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('模板克隆失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -175,7 +182,8 @@ async function handleNewVersion(row: TemplateRow) {
       },
     );
     versionLabel = value || undefined;
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消创建模板新版本操作', error);
     return; // 用户主动取消创建版本操作
   }
   // 步骤2：执行创建版本 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -183,8 +191,9 @@ async function handleNewVersion(row: TemplateRow) {
     await createNewVersion({ templateCode }, { versionLabel });
     ElMessage.success(t('wf.newVersionSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('创建模板新版本失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -232,8 +241,9 @@ async function handleVersionDetail(versionItem: TemplateRow) {
         dangerouslyUseHTMLString: true,
       },
     );
-  } catch {
-    // 请求失败提示由拦截器统一处理
+  } catch (error) {
+    logger.warn('获取模板版本详情失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>

@@ -14,7 +14,11 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { ElButton, ElMessage, ElTag } from 'element-plus';
+const logger = createLogger('literule-dsl');
+const { t } = useI18n();
 import { ref } from 'vue';
 import { parse, preview, validate } from '#/api/ruleDsl';
 import { formatJsonResult } from '#/utils/format';
@@ -28,7 +32,7 @@ const running = ref(false);
 /** 执行一次 DSL 动作并展示返回结果 */
 async function runAction(fn: () => Promise<unknown>, label: string) {
   if (!dslText.value.trim()) {
-    ElMessage.warning('请先输入 DSL 内容');
+    ElMessage.warning(t('dslWarning'));
     return;
   }
   running.value = true;

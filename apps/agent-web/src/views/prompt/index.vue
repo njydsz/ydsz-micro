@@ -19,7 +19,10 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+
+const logger = createLogger('agent-prompt');
 
 import PromptForm from './prompt-form.vue';
 import PromptTest from './prompt-test.vue';
@@ -204,7 +207,7 @@ async function handleDelete(row: PromptTemplateVO): Promise<void> {
     ElMessage.success('删除成功');
     gridApi.query();
   } catch {
-    // 用户取消
+    logger.debug('用户取消删除 Prompt 模板操作');
   }
 }
 </script>

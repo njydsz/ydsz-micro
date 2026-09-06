@@ -21,8 +21,11 @@ import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { create, update } from '#/api/template';
 import type { MsgTemplateVO } from '#/api/models';
+
+const logger = createLogger('message-template');
 
 const emit = defineEmits<{ success: [] }>();
 
@@ -63,8 +66,8 @@ const formData = reactive<TemplateFormState>({
 });
 
 const rules = {
-  templateCode: [{ required: true, message: '请输入模板编码', trigger: 'blur' }],
-  content: [{ required: true, message: '请输入模板内容', trigger: 'blur' }],
+  templateCode: [{ required: true, message: t('template.codeRequired'), trigger: 'blur' }],
+  content: [{ required: true, message: t('template.contentRequired'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -110,7 +113,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.debug('表单模板校验失败: {}', error);
       return;
     }
     modalApi.lock();

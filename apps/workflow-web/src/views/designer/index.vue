@@ -43,7 +43,9 @@ import {
   unlockDefinition,
 } from '#/api/flowDesigner';
 import { $t } from '#/locales';
+import { createLogger } from '@YDSZ-core/shared/utils';
 
+const logger = createLogger('workflow-designer');
 const route = useRoute();
 const definitionId = ref<string>('');
 const isLoading = ref(false);
@@ -80,8 +82,9 @@ async function loadDesignerData() {
       pushHistory(data.diagramJson);
     }
     ElMessage.success($t('wf.designer.loadSuccess'));
-  } catch {
-    ElMessage.error($t('wf.designer.loadFailed'));
+  } catch (error) {
+    logger.warn('流程设计器数据加载失败', error);
+    ElMessage.warning($t('wf.designer.loadFailed'));
   } finally {
     isLoading.value = false;
   }
@@ -99,8 +102,9 @@ async function handleSave() {
     const graphData = canvasRef.value?.getGraphData();
     await saveDesignerData({ id: definitionId.value }, { designerData: JSON.stringify(graphData) });
     ElMessage.success($t('wf.designer.saveSuccess'));
-  } catch {
-    ElMessage.error($t('wf.designer.saveFailed'));
+  } catch (error) {
+    logger.warn('流程设计器数据保存失败', error);
+    ElMessage.warning($t('wf.designer.saveFailed'));
   } finally {
     isSaving.value = false;
   }
@@ -119,8 +123,9 @@ async function acquireLock() {
     } else {
       ElMessage.warning($t('wf.designer.lockFailed'));
     }
-  } catch {
-    ElMessage.error($t('wf.designer.lockError'));
+  } catch (error) {
+    logger.warn('获取流程定义锁失败', error);
+    ElMessage.warning($t('wf.designer.lockError'));
   }
 }
 
@@ -132,7 +137,8 @@ async function releaseLock() {
   try {
     await unlockDefinition({ id: definitionId.value });
     isLocked.value = false;
-  } catch {
+  } catch (error) {
+    logger.warn('释放流程定义锁失败', error);
     // 忽略释放锁失败
   }
 }
@@ -257,7 +263,7 @@ function handleDistributeVertical(): void {
 }
 
 onMounted(async () => {
-  definitionId.value = (route.query.id as string) || '';
+  definitionId.value = route.query.id ?? '';
   if (definitionId.value) {
     await acquireLock();
     await loadDesignerData();

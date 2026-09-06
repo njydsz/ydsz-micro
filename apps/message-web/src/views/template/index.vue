@@ -35,6 +35,9 @@ import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('message-template');
 import { audit, deleteApi, page } from '#/api/template';
 import { listVersions, preview, rollback, testSend } from '#/api/templateVersion';
 import type { MsgTemplateVO, MsgTemplateVersion } from '#/api/models';
@@ -58,15 +61,15 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
   columns: [
     { type: 'seq', width: 50, title: t('common.seq') },
     { field: 'templateCode', title: t('templateCode'), width: 160 },
-    { field: 'channel', title: '通道', width: 100 },
+    { field: 'channel', title: t('template.channel'), width: 100 },
     { field: 'category', title: t('category'), width: 100 },
-    { field: 'sceneCode', title: '场景编码', width: 120 },
-    { field: 'subject', title: '主题', width: 180 },
-    { field: 'provider', title: '供应商', width: 110 },
+    { field: 'sceneCode', title: t('template.sceneCode'), width: 120 },
+    { field: 'subject', title: t('template.subject'), width: 180 },
+    { field: 'provider', title: t('template.provider'), width: 110 },
     { field: 'version', title: t('version'), width: 80 },
     {
       field: 'auditStatus',
-      title: '审核状态',
+      title: t('template.auditStatus'),
       width: 100,
       slots: {
         default: ({ row }) =>
@@ -108,17 +111,17 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'success', onClick: () => handlePreview(row) },
-              () => '预览',
+              () => t('template.preview'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleTestSend(row) },
-              () => '测试',
+              () => t('template.test'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleAudit(row) },
-              () => '审核',
+              () => t('template.audit'),
             ),
             h(
               ElButton,
@@ -180,21 +183,23 @@ async function handleAudit(row: MsgTemplateVO) {
   let remark: string | undefined;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value } = await ElMessageBox.prompt('请输入审核备注（可为空）', '审核通过', {
+    const { value } = await ElMessageBox.prompt(t('template.auditRemarkPrompt'), t('template.auditPassTitle'), {
       type: 'warning',
-      inputPlaceholder: '审核备注',
+      inputPlaceholder: t('template.auditRemark'),
     });
     remark = value ?? undefined;
   } catch {
-    return; // 用户主动取消审核操作
+    logger.debug('用户取消审核操作');
+    return;
   }
   // 步骤2：执行审核 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await audit({ id: row.id }, { auditStatus: 'APPROVED', auditRemark: remark });
-    ElMessage.success('审核通过');
+    ElMessage.success(t('template.auditPassSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('审核模板失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -206,15 +211,17 @@ async function handleDelete(row: MsgTemplateVO) {
       type: 'warning',
     });
   } catch {
-    return; // 用户主动取消删除操作
+    logger.debug('用户取消删除操作');
+    return;
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id });
     ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除模板失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -232,7 +239,8 @@ async function handleVersion(row: MsgTemplateVO) {
   versionLoading.value = true;
   try {
     versionList.value = await listVersions({ templateCode: row.templateCode });
-  } catch {
+  } catch (error) {
+    logger.warn('加载模板版本列表失败: {}', error);
     versionList.value = [];
   } finally {
     versionLoading.value = false;
@@ -248,15 +256,17 @@ async function handleRollback(version: MsgTemplateVersion) {
       type: 'warning',
     });
   } catch {
-    return; // 用户主动取消回滚操作
+    logger.debug('用户取消回滚操作');
+    return;
   }
   // 步骤2：执行回滚 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await rollback({ templateCode: currentTemplateCode.value, version: version.version });
     ElMessage.success('回滚成功');
     await handleVersion({ templateCode: currentTemplateCode.value });
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('回滚模板版本失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -276,7 +286,8 @@ async function handlePreview(row: MsgTemplateVO) {
       variables: {},
     });
     previewContent.value = result ?? '';
-  } catch {
+  } catch (error) {
+    logger.warn('模板预览失败: {}', error);
     previewContent.value = '预览生成失败';
   } finally {
     previewLoading.value = false;
@@ -308,8 +319,9 @@ async function executeTestSend(): Promise<void> {
     });
     ElMessage.success('测试发送成功');
     testSendVisible.value = false;
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('测试发送失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>

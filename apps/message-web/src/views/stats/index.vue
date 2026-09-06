@@ -18,7 +18,10 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { ElCard, ElMessage, ElOption, ElSelect, ElStatistic } from 'element-plus';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { computed, onMounted, ref, watch } from 'vue';
+
+const logger = createLogger('message-stats');
 import * as echarts from 'echarts';
 import { channelStats, cost, funnel, overview } from '#/api/messageStats';
 import type { MessageStatsVO } from '#/api/models';
@@ -71,7 +74,8 @@ async function loadOverview(): Promise<void> {
   try {
     const { start, end } = getDateRange();
     overviewData.value = await overview({ start, end });
-  } catch {
+  } catch (error) {
+    logger.warn('加载概览数据失败: {}', error);
     ElMessage.error('加载概览数据失败');
   }
 }
@@ -88,8 +92,9 @@ async function loadChannelStats(): Promise<void> {
       fail: (item.fail as number) ?? 0,
     }));
     renderChannelChart();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载渠道统计数据失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -105,8 +110,9 @@ async function loadFunnel(): Promise<void> {
       clicked: (result.clicked as number) ?? 0,
     };
     renderFunnelChart();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载漏斗数据失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -119,8 +125,9 @@ async function loadCost(): Promise<void> {
       totalCost: (result.totalCost as number) ?? 0,
       costPerMsg: (result.costPerMsg as number) ?? 0,
     };
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载成本数据失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 

@@ -23,6 +23,10 @@ import { useI18n } from 'vue-i18n';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagVO } from '#/api/models';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('cronjob-job');
+
 const emit = defineEmits<{ success: [] }>();
 const { t } = useI18n();
 
@@ -92,6 +96,7 @@ const [Modal, modalApi] = useYDSZModal({
     try {
       await formRef.value?.validate();
     } catch {
+      logger.warn('DAG表单校验未通过');
       return;
     }
     modalApi.lock();
@@ -138,6 +143,7 @@ async function handleValidateDag() {
       ElMessage.error('DSL 校验失败');
     }
   } catch {
+    logger.warn('DSL校验请求失败', formData.dagKey);
     ElMessage.error('DSL 校验失败');
   }
 }

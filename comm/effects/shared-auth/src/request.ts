@@ -12,11 +12,13 @@ import type { RequestClientOptions } from '@ydsz/request';
 
 import { useAppConfig } from '@ydsz/hooks';
 import { preferences } from '@ydsz/preferences';
+import { resolveErrorMessage } from '@ydsz/locales/errors';
 import {
   authenticateResponseInterceptor,
   deprecationNoticeInterceptor,
   defaultResponseInterceptor,
   errorMessageResponseInterceptor,
+  isBusinessError,
   RequestClient,
 } from '@ydsz/request';
 import { useTokenStore } from '@ydsz/stores';
@@ -187,6 +189,9 @@ export function createSharedRequestClient(
   //   - 401 已由 authenticateResponseInterceptor 处理，此处跳过避免重复弹窗
   //   - 5xx 错误附带 traceId 便于用户报障
   //   - 网络错误/超时给出可操作的中文提示
+  // P1-10: 错误码 i18n 映射 — 优先通过 errorCode 匹配 comm/locales/errors 映射表
+  //   - 命中 i18n 映射则使用翻译后的提示
+  //   - 未命中则降级使用后端返回的 serverMessage（兼容老接口 / 未知错误码）
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
       const status = error?.response?.status;
@@ -197,9 +202,15 @@ export function createSharedRequestClient(
       const serverMessage = responseData?.error ?? responseData?.message ?? '';
       const traceId = error?.config?.headers?.['X-Trace-Id'] as string | undefined;
 
+      // P1-10: 优先通过业务错误码匹配 i18n 映射，实现「后端改码文案，前端无需发版」
+      const errorCode = isBusinessError(error) ? error.code : undefined;
+      const i18nMessage = errorCode ? resolveErrorMessage(errorCode) : undefined;
+      // 消息优先级：i18n 映射 > 后端 serverMessage > HTTP 兜底文案(msg)
+      const displayMessage = i18nMessage || serverMessage || msg;
+
       // 5xx 服务端错误：附带 traceId 便于报障
       if (status && status >= 500) {
-        const tip = serverMessage || msg;
+        const tip = displayMessage;
         const trace = traceId ? `\n追踪号: ${traceId}` : '';
         ElMessage.error({
           message: `${tip}${trace}`,
@@ -208,8 +219,8 @@ export function createSharedRequestClient(
         return;
       }
 
-      // 其他错误：优先服务端消息，其次本地化 msg
-      ElMessage.error(serverMessage || msg);
+      // 其他错误：优先 i18n 映射，其次后端消息，最后本地化 msg
+      ElMessage.error(displayMessage);
     }),
   );
 

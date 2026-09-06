@@ -24,7 +24,10 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, done, todo } from '#/api/flowTask';
 import type { FlowRunTaskVO } from '#/api/models';
 import { $t } from '#/locales';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import TaskForm from './task-form.vue';
+
+const logger = createLogger('workflow-task');
 import TaskOperationDialog from './components/TaskOperationDialog.vue';
 defineOptions({ name: 'TaskManagement' });
 
@@ -172,7 +175,8 @@ async function handleBatchPass() {
         type: 'warning',
       },
     );
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消批量通过操作', error);
     return; // 用户主动取消批量通过
   }
   // 步骤2：执行批量通过 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -180,8 +184,9 @@ async function handleBatchPass() {
     await batchPass(ids);
     ElMessage.success($t('wf.batchPassSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('批量通过失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -200,7 +205,8 @@ async function handleBatchReject() {
         cancelButtonText: $t('wf.cancel'),
       },
     );
-  } catch {
+  } catch (error) {
+    logger.warn('用户取消批量驳回操作', error);
     return; // 用户主动取消批量驳回
   }
   // 步骤2：执行批量驳回 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -208,8 +214,9 @@ async function handleBatchReject() {
     await batchReject(ids.map((taskId) => ({ taskId })));
     ElMessage.success($t('wf.batchRejectSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('批量驳回失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>

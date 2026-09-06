@@ -20,6 +20,11 @@ import { ElCascader, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } fro
 import { computed, reactive, ref } from 'vue';
 import { create, tree, update } from '#/api/flowCategory';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from '#/api/models';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+
+const logger = createLogger('workflow-category');
+const { t } = useI18n();
 
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
@@ -54,8 +59,8 @@ const formData = reactive<CategoryFormState>({
 });
 
 const rules = {
-  categoryCode: [{ required: true, message: '请输入分类编码', trigger: 'blur' }],
-  categoryName: [{ required: true, message: '请输入分类名称', trigger: 'blur' }],
+  categoryCode: [{ required: true, message: t('category.code.required'), trigger: 'blur' }],
+  categoryName: [{ required: true, message: t('category.name.required'), trigger: 'blur' }],
 };
 
 const parentOptions = ref<CategoryOption[]>([]);
@@ -74,7 +79,8 @@ async function loadParentTree() {
   try {
     const nodes = (await tree()) ?? [];
     parentOptions.value = toCascaderOptions(nodes);
-  } catch {
+  } catch (error) {
+    logger.warn('加载父分类树失败', error);
     parentOptions.value = [];
   }
 }
@@ -115,7 +121,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('流程分类表单验证失败', error);
       return;
     }
     modalApi.lock();
@@ -131,10 +138,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update(payload);
-        ElMessage.success('更新成功');
+        ElMessage.success(t('category.update.success'));
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        ElMessage.success(t('category.create.success'));
       }
       emit('success');
       modalApi.close();
@@ -144,7 +151,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑流程分类' : '新增流程分类'));
+const title = computed(() => (isEdit.value ? t('category.edit.title') : t('category.add.title')));
 </script>
 
 <template>
@@ -156,29 +163,29 @@ const title = computed(() => (isEdit.value ? '编辑流程分类' : '新增流�
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="分类编码" prop="categoryCode">
-        <ElInput v-model="formData.categoryCode" placeholder="请输入分类编码" :disabled="isEdit" />
+      <ElFormItem :label="t('category.code.label')" prop="categoryCode">
+        <ElInput v-model="formData.categoryCode" :placeholder="t('category.code.placeholder')" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="分类名称" prop="categoryName">
-        <ElInput v-model="formData.categoryName" placeholder="请输入分类名称" />
+      <ElFormItem :label="t('category.name.label')" prop="categoryName">
+        <ElInput v-model="formData.categoryName" :placeholder="t('category.name.placeholder')" />
       </ElFormItem>
-      <ElFormItem label="父分类">
+      <ElFormItem :label="t('category.parent.label')">
         <ElCascader
           v-model="formData.parentId"
           :options="parentOptions"
           :props="{ emitPath: false, checkStrictly: true }"
-          placeholder="请选择父分类（可选）"
+          :placeholder="t('category.parent.placeholder')"
           clearable
         />
       </ElFormItem>
-      <ElFormItem label="排序">
+      <ElFormItem :label="t('common.sort.label')">
         <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />
       </ElFormItem>
-      <ElFormItem label="图标">
-        <ElInput v-model="formData.icon" placeholder="请输入图标标识（可选）" />
+      <ElFormItem :label="t('category.icon.label')">
+        <ElInput v-model="formData.icon" :placeholder="t('category.icon.placeholder')" />
       </ElFormItem>
-      <ElFormItem label="备注">
-        <ElInput v-model="formData.remark" type="textarea" :rows="2" placeholder="请输入备注" />
+      <ElFormItem :label="t('common.remark.label')">
+        <ElInput v-model="formData.remark" type="textarea" :rows="2" :placeholder="t('common.remark.placeholder')" />
       </ElFormItem>
     </ElForm>
   </Modal>

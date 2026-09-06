@@ -27,6 +27,10 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/jobGroup';
 import type { JobVO } from '#/api/models';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
+const logger = createLogger('cronjob-job');
+
 defineOptions({ name: 'JobGroupManagement' });
 
 /** 分组统计行类型：字段由后端返回，取值需兼容（jobGroup / total / running / paused 等） */
@@ -118,6 +122,7 @@ async function handlePauseGroup(row: GroupStatsRow) {
     ElMessage.success('分组已暂停');
     statsGridApi.query();
   } catch {
+    logger.warn('暂停分组失败', jobGroup);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -130,6 +135,7 @@ async function handleResumeGroup(row: GroupStatsRow) {
     ElMessage.success('分组已恢复');
     statsGridApi.query();
   } catch {
+    logger.warn('恢复分组失败', jobGroup);
     // 错误提示由请求拦截器统一处理
   }
 }
@@ -141,6 +147,7 @@ async function handleTriggerGroup(row: GroupStatsRow) {
   try {
     await ElMessageBox.confirm(`确定立即触发分组「${jobGroup}」下全部任务吗？`, '触发确认', { type: 'warning' });
   } catch {
+    logger.warn('用户取消触发分组', jobGroup);
     return; // 用户主动取消触发操作
   }
   // 步骤2：执行触发 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -148,6 +155,7 @@ async function handleTriggerGroup(row: GroupStatsRow) {
     await triggerByGroup({ jobGroup });
     ElMessage.success('分组触发成功');
   } catch {
+    logger.warn('触发分组失败', jobGroup);
     // 错误已由请求拦截器展示，无需重复处理
   }
 }

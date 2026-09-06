@@ -17,7 +17,10 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { reactive, ref } from 'vue';
+import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';
+
+const logger = createLogger('agent-rag');
 import { ingest } from '#/api/rag';
 import type { DocumentIngestDTO } from '#/api/models';
 /** 导入成功后触发，通知父级刷新统计 */
@@ -39,7 +42,12 @@ const [Modal, modalApi] = useYDSZModal({
     Object.assign(formData, { documentId: '', content: '', documentTitle: '', source: '' });
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch (error) {
+      logger.debug('文档导入表单校验失败: {}', error);
+      return;
+    }
     modalApi.lock();
     try {
       await ingest({ ...formData });

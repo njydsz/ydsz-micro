@@ -27,11 +27,17 @@ import {
   ElRadioGroup,
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { create, update } from '#/api/language';
 import type { LanguageDTO, LanguageVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+
+const logger = createLogger('userinfo-language');
+const { t } = useI18n();
 
 const formRef = ref();
 const isEdit = ref(false);
@@ -56,8 +62,8 @@ const formData = reactive<LanguageFormState>({
 });
 
 const rules = {
-  languageCode: [{ required: true, message: '请输入语言编码', trigger: 'blur' }],
-  languageName: [{ required: true, message: '请输入语言名称', trigger: 'blur' }],
+  languageCode: [{ required: true, message: t('language.languageCodePlaceholder'), trigger: 'blur' }],
+  languageName: [{ required: true, message: t('language.languageNamePlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -89,7 +95,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('表单校验失败: {}', error);
       return;
     }
     modalApi.lock();
@@ -103,10 +110,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        ElMessage.success('更新成功');
+        ElMessage.success(t('page.updateSuccess'));
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        ElMessage.success(t('page.createSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -116,7 +123,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑语言' : '新增语言'));
+const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.languageBase')}` : `${t('page.create')}${t('page.languageBase')}`));
 </script>
 
 <template>
@@ -128,25 +135,25 @@ const title = computed(() => (isEdit.value ? '编辑语言' : '新增语言'));
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="语言编码" prop="languageCode">
-        <ElInput v-model="formData.languageCode" placeholder="如: zh-CN" :disabled="isEdit" />
+      <ElFormItem :label="t('page.languageCode')" prop="languageCode">
+        <ElInput v-model="formData.languageCode" :placeholder="t('language.languageCodePlaceholder')" :disabled="isEdit" />
       </ElFormItem>
-      <ElFormItem label="语言名称" prop="languageName">
-        <ElInput v-model="formData.languageName" placeholder="如: 简体中文" />
+      <ElFormItem :label="t('page.languageName')" prop="languageName">
+        <ElInput v-model="formData.languageName" :placeholder="t('language.languageNamePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="默认语言">
+      <ElFormItem :label="t('language.defaultLanguage')">
         <ElRadioGroup v-model="formData.isDefault">
-          <ElRadio :value="1">默认</ElRadio>
-          <ElRadio :value="0">非默认</ElRadio>
+          <ElRadio :value="1">{{ t('language.yesDefault') }}</ElRadio>
+          <ElRadio :value="0">{{ t('language.noDefault') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
-      <ElFormItem label="排序">
+      <ElFormItem :label="t('page.sortOrder')">
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
       </ElFormItem>
-      <ElFormItem label="状态">
+      <ElFormItem :label="t('page.status')">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
+          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
+          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

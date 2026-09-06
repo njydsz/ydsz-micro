@@ -31,6 +31,9 @@ import {
   ElTransfer,
 } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { tree as menuTree } from '#/api/menu';
@@ -43,6 +46,9 @@ import RoleForm from './role-form.vue';
 
 defineOptions({ name: 'RoleManagement' });
 
+const logger = createLogger('userinfo-role');
+const { t } = useI18n();
+
 /** 判断角色状态是否启用（契约 status 为字符串 '1'/'0'） */
 function isEnabled(status?: string): boolean {
   return status === '1';
@@ -50,22 +56,22 @@ function isEnabled(status?: string): boolean {
 
 const gridOptions: VxeTableGridOptions<RoleVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'roleName', title: '角色名称', width: 150 },
-    { field: 'roleCode', title: '角色编码', width: 150 },
-    { field: 'sortOrder', title: '排序', width: 80, align: 'center' },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
+    { field: 'roleName', title: t('page.roleName'), width: 150 },
+    { field: 'roleCode', title: t('page.roleCode'), width: 150 },
+    { field: 'sortOrder', title: t('page.sortOrder'), width: 80, align: 'center' },
     {
       field: 'builtIn',
-      title: '内置',
+      title: t('role.builtIn'),
       width: 80,
       slots: {
         default: ({ row }) =>
-          row.builtIn ? h(ElTag, { type: 'info', size: 'small' }, () => '内置') : h('span', null, '自定义'),
+          row.builtIn ? h(ElTag, { type: 'info', size: 'small' }, () => t('role.yesBuiltIn')) : h('span', null, t('role.noBuiltIn')),
       },
     },
     {
       field: 'status',
-      title: '状态',
+      title: t('page.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -73,15 +79,15 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
           return h(
             ElTag,
             { type: enable ? 'success' : 'danger', size: 'small' },
-            () => (enable ? '启用' : '禁用'),
+            () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
       },
     },
-    { field: 'description', title: '描述', minWidth: 160 },
+    { field: 'description', title: t('page.description'), minWidth: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('page.operation'),
       width: 320,
       fixed: 'right',
       slots: {
@@ -90,27 +96,27 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('page.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleAssignPermissions(row) },
-              () => '分配权限',
+              () => t('role.assignPermissions'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'info', onClick: () => handleCopyRole(row) },
-              () => '复制',
+              () => t('role.copy'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'success', onClick: () => handleViewUsers(row) },
-              () => '用户',
+              () => t('role.viewUsers'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('page.delete'),
             ),
           ]),
       },
@@ -135,35 +141,35 @@ const [Grid, gridApi] = useYDSZVxeGrid({
     schema: [
       {
         component: 'Input',
-        componentProps: { placeholder: '角色名称' },
+        componentProps: { placeholder: t('page.roleName') },
         fieldName: 'roleName',
-        label: '角色名称',
+        label: t('page.roleName'),
       },
       {
         component: 'Input',
-        componentProps: { placeholder: '角色编码' },
+        componentProps: { placeholder: t('page.roleCode') },
         fieldName: 'roleCode',
-        label: '角色编码',
+        label: t('page.roleCode'),
       },
       {
         component: 'Select',
         componentProps: {
-          placeholder: '状态',
+          placeholder: t('page.status'),
           options: [
-            { label: '启用', value: '1' },
-            { label: '禁用', value: '0' },
+            { label: t('page.enabled'), value: '1' },
+            { label: t('page.disabled'), value: '0' },
           ],
         },
         fieldName: 'status',
-        label: '状态',
+        label: t('page.status'),
       },
     ],
     submitOnChange: false,
     collapsed: false,
     collapseTriggerResize: true,
     showCollapseButton: true,
-    submitButtonOptions: { content: '搜索' },
-    resetButtonOptions: { content: '重置' },
+    submitButtonOptions: { content: t('page.search') },
+    resetButtonOptions: { content: t('page.reset') },
   },
 });
 
@@ -208,8 +214,8 @@ const menuTreeData = ref<MenuTreeVO[]>([]);
 async function loadMenuTree() {
   try {
     menuTreeData.value = (await menuTree()) ?? [];
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载菜单树失败: {}', error);
   }
 }
 
@@ -222,8 +228,8 @@ async function handleAssignPermissions(row: RoleVO) {
   permTransferData.value = flattenMenuTree(menuTreeData.value);
   try {
     selectedPermIds.value = (await getRolePermissions({ roleId: row.id })) ?? [];
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('获取角色权限失败: {}', error);
   }
   permDialogVisible.value = true;
 }
@@ -234,10 +240,10 @@ async function confirmPermissionAssign() {
       { roleId: currentRoleId.value },
       { permissionIds: selectedPermIds.value },
     );
-    ElMessage.success('权限分配成功');
+    ElMessage.success(t('role.permissionAssignSuccess'));
     permDialogVisible.value = false;
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('分配权限失败: {}', error);
   }
 }
 
@@ -247,20 +253,21 @@ async function handleDelete(row: RoleVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除角色「${row.roleName ?? ''}」吗？`,
-      '删除确认',
+      t('role.deleteRoleConfirm', { roleName: row.roleName ?? '' }),
+      t('page.confirmDelete'),
       { type: 'warning' },
     );
   } catch {
-    return; // 用户主动取消删除操作
+    // 用户主动取消删除
+    return;
   }
-  // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  // 步骤2：执行删除 API
   try {
     await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('page.deleteSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除角色失败: {}', error);
   }
 }
 
@@ -285,10 +292,10 @@ async function handleCopyRole(row: RoleVO): Promise<void> {
     if (permissions.length > 0 && newRoleId) {
       await assignPermissions({ roleId: newRoleId }, { permissionIds: permissions });
     }
-    ElMessage.success('角色复制成功');
+    ElMessage.success(t('role.copySuccess'));
     gridApi.query();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('复制角色失败: {}', error);
   }
 }
 
@@ -306,7 +313,8 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
       query: { roleIds: row.id },
     });
     roleUserList.value = res.data ?? [];
-  } catch {
+  } catch (error) {
+    logger.warn('获取角色用户失败: {}', error);
     roleUserList.value = [];
   }
 }
@@ -314,54 +322,54 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="角色管理">
+    <Grid :table-title="t('role.roleManagement')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增角色</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('role.createRole') }}</ElButton>
       </template>
     </Grid>
     <RoleFormModal @success="gridApi.query()" />
 
     <ElDialog
       v-model="permDialogVisible"
-      :title="`分配权限 - ${currentRoleName}`"
+      :title="t('role.assignPermissions') + ' - ' + currentRoleName"
       width="600px"
     >
       <ElTransfer
         v-model="selectedPermIds"
         :data="permTransferData"
-        :titles="['可选权限', '已分配权限']"
+        :titles="[t('role.optionalPermission'), t('role.assignedPermission')]"
         filterable
-        filter-placeholder="搜索权限"
+        :filter-placeholder="t('role.searchPermission')"
       />
       <template #footer>
-        <ElButton @click="permDialogVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="confirmPermissionAssign">确定</ElButton>
+        <ElButton @click="permDialogVisible = false">{{ t('page.cancel') }}</ElButton>
+        <ElButton type="primary" @click="confirmPermissionAssign">{{ t('page.confirm') }}</ElButton>
       </template>
     </ElDialog>
 
     <!-- 角色用户列表弹窗 -->
     <ElDialog
       v-model="userListDialogVisible"
-      :title="`角色用户 - ${currentViewRoleName}`"
+      :title="t('role.roleUsers') + ' - ' + currentViewRoleName"
       width="800px"
     >
       <ElTable :data="roleUserList" border max-height="400">
-        <ElTableColumn type="index" label="序号" width="60" />
-        <ElTableColumn prop="username" label="用户名" width="120" />
-        <ElTableColumn prop="realName" label="姓名" width="120" />
-        <ElTableColumn prop="phone" label="手机号" width="130" />
-        <ElTableColumn prop="email" label="邮箱" width="180" />
-        <ElTableColumn prop="status" label="状态" width="80">
+        <ElTableColumn type="index" :label="t('page.rowIndex')" width="60" />
+        <ElTableColumn prop="username" :label="t('page.username')" width="120" />
+        <ElTableColumn prop="realName" :label="t('page.realName')" width="120" />
+        <ElTableColumn prop="phone" :label="t('page.phone')" width="130" />
+        <ElTableColumn prop="email" :label="t('page.email')" width="180" />
+        <ElTableColumn prop="status" :label="t('page.status')" width="80">
           <template #default="{ row }">
             <ElTag :type="row.status === 1 ? 'success' : 'danger'" size="small">
-              {{ row.status === 1 ? '启用' : '禁用' }}
+              {{ row.status === 1 ? t('page.enabled') : t('page.disabled') }}
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn prop="createdAt" label="创建时间" width="170" />
+        <ElTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
       </ElTable>
       <template #footer>
-        <ElButton @click="userListDialogVisible = false">关闭</ElButton>
+        <ElButton @click="userListDialogVisible = false">{{ t('page.close') }}</ElButton>
       </template>
     </ElDialog>
   </Page>

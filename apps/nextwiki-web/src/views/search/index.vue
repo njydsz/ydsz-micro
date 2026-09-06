@@ -16,6 +16,10 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+const logger = createLogger('nextwiki-search');
+const { t } = useI18n();
 import { ElButton, ElEmpty, ElInput, ElOption, ElPagination, ElSelect, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import {
@@ -92,8 +96,9 @@ async function handleSearch(): Promise<void> {
     searchResult.value = result;
     searchTookMs.value = result.tookMs ?? 0;
     await loadSearchHistory();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('执行搜索失败: {}', error);
+    // 用户提示由请求拦截器统一处理
   } finally {
     loading.value = false;
   }
@@ -125,8 +130,9 @@ async function executeSearch(): Promise<void> {
     const result = await search(request);
     searchResult.value = result;
     searchTookMs.value = result.tookMs ?? 0;
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('翻页搜索失败: {}', error);
+    // 用户提示由请求拦截器统一处理
   } finally {
     loading.value = false;
   }
@@ -140,7 +146,8 @@ async function handleSuggest(prefix: string): Promise<void> {
   }
   try {
     suggestions.value = await suggest({ prefix: prefix.trim() });
-  } catch {
+  } catch (error) {
+    logger.debug('加载搜索建议失败: {}', error);
     suggestions.value = [];
   }
 }
@@ -153,7 +160,8 @@ async function loadDidYouMean(): Promise<void> {
   }
   try {
     corrections.value = await didYouMean({ keyword: keyword.value.trim() });
-  } catch {
+  } catch (error) {
+    logger.debug('加载拼写纠错失败: {}', error);
     corrections.value = [];
   }
 }
@@ -162,7 +170,8 @@ async function loadDidYouMean(): Promise<void> {
 async function loadSearchHistory(): Promise<void> {
   try {
     searchHistory.value = await getSearchHistory();
-  } catch {
+  } catch (error) {
+    logger.debug('加载搜索历史失败: {}', error);
     searchHistory.value = [];
   }
 }
@@ -175,7 +184,8 @@ async function loadHotSearches(): Promise<void> {
       keyword: (item.keyword as string) ?? '',
       count: (item.count as number) ?? 0,
     }));
-  } catch {
+  } catch (error) {
+    logger.debug('加载热门搜索失败: {}', error);
     hotSearches.value = [];
   }
 }
@@ -185,8 +195,9 @@ async function handleClearHistory(): Promise<void> {
   try {
     await clearSearchHistory();
     searchHistory.value = [];
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('清空搜索历史失败: {}', error);
+    // 用户提示由请求拦截器统一处理
   }
 }
 
@@ -219,8 +230,9 @@ async function handleAdvancedSearch(): Promise<void> {
       pageSize: pageSize.value,
     });
     searchResult.value = result;
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('高级搜索失败: {}', error);
+    // 用户提示由请求拦截器统一处理
   } finally {
     loading.value = false;
   }

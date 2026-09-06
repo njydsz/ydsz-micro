@@ -19,6 +19,10 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   banUser,
@@ -29,6 +33,9 @@ import {
 import type { UserSessionStatistics, UserSessionVO } from '#/api/models';
 
 defineOptions({ name: 'SessionManagement' });
+
+const logger = createLogger('userinfo-session');
+const { t } = useI18n();
 
 /** 会话统计数据 */
 const statistics = ref<UserSessionStatistics>({});
@@ -46,20 +53,20 @@ async function loadStatistics(): Promise<void> {
 
 const gridOptions: VxeGridProps<UserSessionVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'username', title: '用户名', minWidth: 120 },
-    { field: 'loginIp', title: '登录IP', width: 140 },
-    { field: 'device', title: '设备', width: 120 },
-    { field: 'userAgent', title: 'User-Agent', minWidth: 200 },
-    { field: 'loginTime', title: '登录时间', width: 170 },
-    { field: 'expireTime', title: '过期时间', width: 170 },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
+    { field: 'username', title: t('page.username'), minWidth: 120 },
+    { field: 'loginIp', title: t('session.loginIp'), width: 140 },
+    { field: 'device', title: t('session.device'), width: 120 },
+    { field: 'userAgent', title: t('session.userAgent'), minWidth: 200 },
+    { field: 'loginTime', title: t('session.loginTime'), width: 170 },
+    { field: 'expireTime', title: t('session.expireTime'), width: 170 },
     {
-      field: 'action', title: '操作', width: 180, fixed: 'right',
+      field: 'action', title: t('page.operation'), width: 180, fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleForceLogout(row) }, () => '强制下线'),
-            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleBanUser(row) }, () => '封禁用户'),
+            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleForceLogout(row) }, () => t('session.forceLogout')),
+            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleBanUser(row) }, () => t('session.banUser')),
           ]),
       },
     },
@@ -83,16 +90,18 @@ async function handleForceLogout(row: UserSessionVO) {
   if (!row.accessToken || !row.username) return;
   try {
     await ElMessageBox.confirm(
-      `确定强制用户「${row.username}」下线吗？该用户将被立即登出。`,
-      '强制下线确认',
+      t('session.forceLogoutConfirm', { username: row.username }),
+      t('session.forceLogoutTitle'),
       { type: 'warning' },
     );
     // 使用 accessToken 的前8位作为 userId 标识（实际应从会话中获取 userId）
     await forceLogout({ userId: row.username, accessToken: row.accessToken });
-    ElMessage.success('强制下线成功');
+    ElMessage.success(t('session.forceLogoutSuccess'));
     gridApi.query();
     loadStatistics();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('强制下线失败: {}', error);
+  }
 }
 
 /** 封禁用户 */
@@ -100,14 +109,16 @@ async function handleBanUser(row: UserSessionVO) {
   if (!row.username) return;
   try {
     await ElMessageBox.confirm(
-      `确定封禁用户「${row.username}」吗？封禁后该用户将无法登录。`,
-      '封禁确认',
+      t('session.banConfirm', { username: row.username }),
+      t('session.banTitle'),
       { type: 'warning' },
     );
-    await banUser({ userId: row.username }, { banType: 'MANUAL', banReason: '管理员手动封禁' });
-    ElMessage.success('封禁成功');
+    await banUser({ userId: row.username }, { banType: 'MANUAL', banReason: t('session.banReason') });
+    ElMessage.success(t('session.banSuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('封禁用户失败: {}', error);
+  }
 }
 
 onMounted(() => {
@@ -120,28 +131,28 @@ onMounted(() => {
     <!-- 统计卡片 -->
     <div class="mb-4 grid grid-cols-3 gap-4 px-4 pt-3">
       <div class="rounded-lg border bg-gradient-to-r from-blue-50 to-blue-100 p-4">
-        <div class="text-sm text-gray-600">活跃会话数</div>
+        <div class="text-sm text-gray-600">{{ t('session.activeSessions') }}</div>
         <div class="mt-1 text-2xl font-bold text-blue-600">
           {{ statistics.totalActiveSessions ?? 0 }}
         </div>
       </div>
       <div class="rounded-lg border bg-gradient-to-r from-green-50 to-green-100 p-4">
-        <div class="text-sm text-gray-600">在线用户数</div>
+        <div class="text-sm text-gray-600">{{ t('session.onlineUsers') }}</div>
         <div class="mt-1 text-2xl font-bold text-green-600">
           {{ statistics.activeUserCount ?? 0 }}
         </div>
       </div>
       <div class="rounded-lg border bg-gradient-to-r from-orange-50 to-orange-100 p-4">
-        <div class="text-sm text-gray-600">设备类型数</div>
+        <div class="text-sm text-gray-600">{{ t('session.deviceTypes') }}</div>
         <div class="mt-1 text-2xl font-bold text-orange-600">
           {{ Object.keys(statistics.sessionsPerDevice ?? {}).length }}
         </div>
       </div>
     </div>
 
-    <Grid table-title="在线用户">
+    <Grid :table-title="t('session.onlineUserMgmt')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="() => { gridApi.query(); loadStatistics(); }">刷新</ElButton>
+        <ElButton type="primary" @click="() => { gridApi.query(); loadStatistics(); }">{{ t('page.refresh') }}</ElButton>
       </template>
     </Grid>
   </Page>

@@ -19,9 +19,13 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+import { createLogger } from '@YDSZ-core/shared/utils';
 import { list, listVersions, rollback, toggle } from '#/api/ruleAdmin';
 import { deleteRule } from '#/api/ruleBatch';
+const logger = createLogger('literule-rule');
+const { t } = useI18n();
 import RuleForm from './rule-form.vue';
 import RuleChainDesigner from './components/RuleChainDesigner.vue';
 defineOptions({ name: 'RuleManagement' });
@@ -155,28 +159,30 @@ async function handleToggle(row: RuleDefinitionVO) {
   if (!row.ruleCode) return;
   try {
     await ElMessageBox.confirm(
-      `确定${row.enabled ? '停用' : '启用'}规则「${row.ruleName}」吗？`,
-      '确认',
+      t('confirmToggleRule', [row.enabled ? t('disabled') : t('enabled'), row.ruleName]),
+      t('confirm'),
       { type: 'warning' },
     );
     await toggle({ ruleCode: row.ruleCode }, { enabled: !row.enabled });
-    ElMessage.success('操作成功');
+    ElMessage.success(t('operationSuccess'));
     gridApi.query();
-  } catch {
-    /* 错误提示由请求拦截器统一处理 */
+  } catch (error) {
+    logger.warn('启停规则失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 async function handleDelete(row: RuleDefinitionVO) {
   if (!row.ruleCode) return;
   try {
-    await ElMessageBox.confirm(`确定删除规则「${row.ruleName}」吗？`, '删除确认', {
+    await ElMessageBox.confirm(t('confirmDeleteRule', [row.ruleName]), t('deleteConf'), {
       type: 'warning',
     });
     await deleteRule({ ruleCode: row.ruleCode });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch {
-    /* 错误提示由请求拦截器统一处理 */
+  } catch (error) {
+    logger.warn('删除规则失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 /** 版本历史状态 */
@@ -217,16 +223,17 @@ async function handleRollback(versionItem: RuleVersionVO) {
   if (!rule?.ruleCode || versionItem.version === undefined) return;
   try {
     await ElMessageBox.confirm(
-      `确定将规则「${rule.ruleName}」回滚到版本 ${versionItem.version} 吗？`,
-      '回滚确认',
+      t('confirmRollback', [rule.ruleName, versionItem.version]),
+      t('rollbackConf'),
       { type: 'warning' },
     );
     await rollback({ ruleCode: rule.ruleCode }, { version: versionItem.version });
-    ElMessage.success('回滚成功');
+    ElMessage.success(t('rollbackSuccess'));
     gridApi.query();
     await loadVersions();
-  } catch {
-    /* 错误提示由请求拦截器统一处理 */
+  } catch (error) {
+    logger.warn('回滚规则失败: {}', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 </script>

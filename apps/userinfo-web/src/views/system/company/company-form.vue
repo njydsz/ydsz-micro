@@ -27,11 +27,17 @@ import {
   ElTreeSelect,
 } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { create, update } from '#/api/company';
 import type { CompanyDTO, CompanyTreeVO, CompanyVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+
+const logger = createLogger('userinfo-company');
+const { t } = useI18n();
 
 const formRef = ref();
 const isEdit = ref(false);
@@ -62,8 +68,8 @@ const formData = reactive<CompanyFormState>({
 });
 
 const rules = {
-  companyName: [{ required: true, message: '请输入公司名称', trigger: 'blur' }],
-  companyCode: [{ required: true, message: '请输入公司编码', trigger: 'blur' }],
+  companyName: [{ required: true, message: t('company.companyNamePlaceholder'), trigger: 'blur' }],
+  companyCode: [{ required: true, message: t('company.companyCodePlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYDSZModal({
@@ -101,7 +107,8 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     try {
       await formRef.value?.validate();
-    } catch {
+    } catch (error) {
+      logger.warn('表单校验失败: {}', error);
       return;
     }
     modalApi.lock();
@@ -117,10 +124,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        ElMessage.success('更新成功');
+        ElMessage.success(t('page.updateSuccess'));
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        ElMessage.success(t('page.createSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -130,7 +137,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑公司' : '新增公司'));
+const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.companyBase')}` : `${t('page.create')}${t('page.companyBase')}`));
 </script>
 
 <template>
@@ -142,7 +149,7 @@ const title = computed(() => (isEdit.value ? '编辑公司' : '新增公司'));
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="上级公司">
+      <ElFormItem :label="t('company.parentCompany')">
         <ElTreeSelect
           v-model="formData.parentId"
           :data="treeData"
@@ -150,29 +157,29 @@ const title = computed(() => (isEdit.value ? '编辑公司' : '新增公司'));
           node-key="id"
           check-strictly
           clearable
-          placeholder="请选择上级公司（留空为顶级）"
+          :placeholder="t('company.parentCompanyPlaceholder')"
           class="w-full"
         />
       </ElFormItem>
-      <ElFormItem label="公司名称" prop="companyName">
-        <ElInput v-model="formData.companyName" placeholder="请输入公司名称" />
+      <ElFormItem :label="t('page.companyName')" prop="companyName">
+        <ElInput v-model="formData.companyName" :placeholder="t('company.companyNamePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="公司编码" prop="companyCode">
-        <ElInput v-model="formData.companyCode" placeholder="请输入公司编码" />
+      <ElFormItem :label="t('page.companyCode')" prop="companyCode">
+        <ElInput v-model="formData.companyCode" :placeholder="t('company.companyCodePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="联系人">
-        <ElInput v-model="formData.contactPerson" placeholder="请输入联系人" />
+      <ElFormItem :label="t('company.contactPerson')">
+        <ElInput v-model="formData.contactPerson" :placeholder="t('company.contactPersonPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="联系电话">
-        <ElInput v-model="formData.contactPhone" placeholder="请输入联系电话" />
+      <ElFormItem :label="t('company.contactPhone')">
+        <ElInput v-model="formData.contactPhone" :placeholder="t('company.contactPhonePlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="地址">
-        <ElInput v-model="formData.address" type="textarea" :rows="2" placeholder="请输入地址" />
+      <ElFormItem :label="t('company.address')">
+        <ElInput v-model="formData.address" type="textarea" :rows="2" :placeholder="t('company.addressPlaceholder')" />
       </ElFormItem>
-      <ElFormItem label="状态">
+      <ElFormItem :label="t('page.status')">
         <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
+          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
+          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>

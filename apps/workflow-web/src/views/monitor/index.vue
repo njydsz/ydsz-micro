@@ -36,6 +36,11 @@ import {
   monitorOverview,
 } from '#/api/flowMonitorDashboard';
 import type { FlowMonitorOverviewVO } from '#/api/models';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+
+const logger = createLogger('workflow-monitor');
+const { t } = useI18n();
 
 defineOptions({ name: 'WorkflowMonitor' });
 
@@ -63,17 +68,18 @@ const healthScoreData = ref<{ score: number; level: string }>({ score: 0, level:
 
 /** 时间范围选项 */
 const timeRangeOptions = [
-  { label: '近7天', value: '7' },
-  { label: '近30天', value: '30' },
-  { label: '近90天', value: '90' },
+  { label: t('monitor.timeRange.7d'), value: '7' },
+  { label: t('monitor.timeRange.30d'), value: '30' },
+  { label: t('monitor.timeRange.90d'), value: '90' },
 ];
 
 /** 加载概览数据 */
 async function loadOverview(): Promise<void> {
   try {
     overview.value = await monitorOverview();
-  } catch {
-    ElMessage.error('加载概览数据失败');
+  } catch (error) {
+    logger.warn('加载监控概览数据失败', error);
+    ElMessage.warning(t('monitor.loadOverviewFailed'));
   }
 }
 
@@ -86,8 +92,9 @@ async function loadTrend(): Promise<void> {
       count: (item.count as number) ?? 0,
     }));
     renderTrendChart();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载流程实例趋势数据失败', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -102,8 +109,9 @@ async function loadFlowTypeDistribution(): Promise<void> {
       }));
     }
     renderFlowTypeChart();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载流程类型分布数据失败', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -117,8 +125,9 @@ async function loadApproverEfficiency(): Promise<void> {
       count: (item.taskCount as number) ?? 0,
     }));
     renderApproverChart();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载审批人效率数据失败', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -131,8 +140,9 @@ async function loadBottleneck(): Promise<void> {
       avgDuration: (item.avgDuration as number) ?? 0,
     }));
     renderBottleneckChart();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载流程瓶颈排行数据失败', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -144,8 +154,9 @@ async function loadHealthScore(): Promise<void> {
       score: (result.score as number) ?? 0,
       level: (result.level as string) ?? 'UNKNOWN',
     };
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载健康评分数据失败', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
@@ -174,7 +185,7 @@ function renderTrendChart(): void {
   if (!chartDom) return;
   const chart = echarts.init(chartDom);
   chart.setOption({
-    title: { text: '流程实例趋势', left: 'center' },
+    title: { text: t('monitor.trendChart.title'), left: 'center' },
     tooltip: { trigger: 'axis' },
     xAxis: {
       type: 'category',
@@ -183,7 +194,7 @@ function renderTrendChart(): void {
     yAxis: { type: 'value' },
     series: [
       {
-        name: '实例数',
+        name: t('monitor.trendChart.seriesName'),
         type: 'line',
         smooth: true,
         data: trendData.value.map((d) => d.count),
@@ -200,12 +211,12 @@ function renderFlowTypeChart(): void {
   if (!chartDom) return;
   const chart = echarts.init(chartDom);
   chart.setOption({
-    title: { text: '流程类型分布', left: 'center' },
+    title: { text: t('monitor.flowTypeChart.title'), left: 'center' },
     tooltip: { trigger: 'item' },
     legend: { bottom: '0%' },
     series: [
       {
-        name: '流程类型',
+        name: t('monitor.flowTypeChart.seriesName'),
         type: 'pie',
         radius: ['40%', '70%'],
         avoidLabelOverlap: false,
@@ -234,7 +245,7 @@ function renderApproverChart(): void {
   if (!chartDom) return;
   const chart = echarts.init(chartDom);
   chart.setOption({
-    title: { text: '审批人效率排行（平均处理时间/小时）', left: 'center' },
+    title: { text: t('monitor.approverChart.title'), left: 'center' },
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
     grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
     xAxis: { type: 'value' },
@@ -244,7 +255,7 @@ function renderApproverChart(): void {
     },
     series: [
       {
-        name: '平均处理时间',
+        name: t('monitor.approverChart.seriesName'),
         type: 'bar',
         data: approverEfficiencyData.value.map((d) => d.avgTime).reverse(),
         itemStyle: { color: '#67c23a' },
@@ -259,7 +270,7 @@ function renderBottleneckChart(): void {
   if (!chartDom) return;
   const chart = echarts.init(chartDom);
   chart.setOption({
-    title: { text: '流程瓶颈排行（平均耗时/小时）', left: 'center' },
+    title: { text: t('monitor.bottleneckChart.title'), left: 'center' },
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
     grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
     xAxis: { type: 'value' },
@@ -269,7 +280,7 @@ function renderBottleneckChart(): void {
     },
     series: [
       {
-        name: '平均耗时',
+        name: t('monitor.bottleneckChart.seriesName'),
         type: 'bar',
         data: bottleneckData.value.map((d) => d.avgDuration).reverse(),
         itemStyle: { color: '#e6a23c' },
@@ -299,9 +310,9 @@ onMounted(() => {
   <Page auto-content-height>
     <!-- 顶部控制栏 -->
     <div class="mb-4 flex items-center justify-between px-4 pt-3">
-      <h1 class="text-xl font-bold text-gray-800">流程监控仪表盘</h1>
+      <h1 class="text-xl font-bold text-gray-800">{{ t('monitor.title') }}</h1>
       <div class="flex items-center gap-3">
-        <ElSelect v-model="timeRange" placeholder="时间范围" class="w-32">
+        <ElSelect v-model="timeRange" :placeholder="t('monitor.timeRangePlaceholder')" class="w-32">
           <ElOption
             v-for="opt in timeRangeOptions"
             :key="opt.value"
@@ -309,25 +320,25 @@ onMounted(() => {
             :value="opt.value"
           />
         </ElSelect>
-        <ElButton type="primary" :loading="loading" @click="loadAllData">刷新</ElButton>
+        <ElButton type="primary" :loading="loading" @click="loadAllData">{{ t('common.refresh') }}</ElButton>
       </div>
     </div>
 
     <!-- 概览卡片 -->
     <div class="mb-4 grid grid-cols-4 gap-4 px-4">
       <ElCard shadow="hover">
-        <ElStatistic title="运行中实例" :value="overview.runningInstanceCount ?? 0" />
+        <ElStatistic :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
       </ElCard>
       <ElCard shadow="hover">
-        <ElStatistic title="今日新增" :value="overview.todayInstanceCount ?? 0" />
+        <ElStatistic :title="t('monitor.todayInstanceCount')" :value="overview.todayInstanceCount ?? 0" />
       </ElCard>
       <ElCard shadow="hover">
-        <ElStatistic title="待办任务" :value="overview.pendingTaskCount ?? 0" />
+        <ElStatistic :title="t('monitor.pendingTaskCount')" :value="overview.pendingTaskCount ?? 0" />
       </ElCard>
       <ElCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
-            <div class="text-sm text-gray-500">健康评分</div>
+            <div class="text-sm text-gray-500">{{ t('monitor.healthScore') }}</div>
             <div class="text-2xl font-bold" :style="{ color: healthScoreColor }">
               {{ healthScoreData.score }}
             </div>

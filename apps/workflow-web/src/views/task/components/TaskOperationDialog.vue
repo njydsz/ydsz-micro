@@ -32,6 +32,11 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { communicate, freeJump, jump, saveDraft } from '#/api/flowTask';
 import type { FlowRunTaskVO, FlowTaskOperateDTO } from '#/api/models';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+
+const logger = createLogger('workflow-task');
+const { t } = useI18n();
 
 interface Props {
   /** 当前任务 */
@@ -91,9 +96,9 @@ const submitting = ref(false);
 /** 操作标题 */
 const operationTitle = computed(() => {
   const titles: Record<string, string> = {
-    jump: '任务跳转',
-    communicate: '任务沟通',
-    draft: '保存草稿',
+    jump: t('task.jump.title'),
+    communicate: t('task.communicate.title'),
+    draft: t('task.draft.title'),
   };
   return titles[activeOperation.value] || '任务操作';
 });
@@ -102,7 +107,7 @@ const operationTitle = computed(() => {
 async function handleJump(): Promise<void> {
   if (!props.task?.id) return;
   if (jumpForm.mode === 'designated' && !jumpForm.targetNodeCode) {
-    ElMessage.warning('请选择目标节点');
+    ElMessage.warning(t('task.jump.selectNodeRequired'));
     return;
   }
   submitting.value = true;
@@ -117,11 +122,12 @@ async function handleJump(): Promise<void> {
     } else {
       await jump(dto);
     }
-    ElMessage.success('跳转成功');
+    ElMessage.success(t('task.jump.success'));
     emit('success');
     modalApi.close();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('任务跳转失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   } finally {
     submitting.value = false;
   }
@@ -130,7 +136,7 @@ async function handleJump(): Promise<void> {
 /** 执行沟通 */
 async function handleCommunicate(): Promise<void> {
   if (!props.task?.id || !communicateForm.content.trim()) {
-    ElMessage.warning('请输入沟通内容');
+    ElMessage.warning(t('task.communicate.contentRequired'));
     return;
   }
   submitting.value = true;
@@ -141,11 +147,12 @@ async function handleCommunicate(): Promise<void> {
       targetUserIds: communicateForm.targetUserIds,
     };
     await communicate(dto);
-    ElMessage.success('沟通消息已发送');
+    ElMessage.success(t('task.communicate.success'));
     emit('success');
     modalApi.close();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('任务沟通失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   } finally {
     submitting.value = false;
   }
@@ -161,11 +168,12 @@ async function handleSaveDraft(): Promise<void> {
       comment: draftForm.comment,
     };
     await saveDraft(dto);
-    ElMessage.success('草稿保存成功');
+    ElMessage.success(t('task.draft.success'));
     emit('success');
     modalApi.close();
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('草稿保存失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
   } finally {
     submitting.value = false;
   }
@@ -189,18 +197,18 @@ function handleSubmit(): void {
   <Modal :title="operationTitle" width="560px">
     <ElTabs v-model="activeOperation" class="operation-tabs">
       <!-- 任务跳转 -->
-      <ElTabPane label="任务跳转" name="jump">
+      <ElTabPane :label="t('task.jump.title')" name="jump">
         <ElForm :model="jumpForm" label-width="100px" class="mt-4">
-          <ElFormItem label="跳转模式">
+          <ElFormItem :label="t('task.jump.mode.label')">
             <ElRadioGroup v-model="jumpForm.mode">
-              <ElRadioButton value="designated">指定节点跳转</ElRadioButton>
-              <ElRadioButton value="free">自由跳转</ElRadioButton>
+              <ElRadioButton value="designated">{{ t('task.jump.mode.designated') }}</ElRadioButton>
+              <ElRadioButton value="free">{{ t('task.jump.mode.free') }}</ElRadioButton>
             </ElRadioGroup>
           </ElFormItem>
-          <ElFormItem v-if="jumpForm.mode === 'designated'" label="目标节点">
+          <ElFormItem v-if="jumpForm.mode === 'designated'" :label="t('task.jump.targetNode.label')">
             <ElSelect
               v-model="jumpForm.targetNodeCode"
-              placeholder="选择目标节点"
+              :placeholder="t('task.jump.targetNode.placeholder')"
               filterable
               class="w-full"
             >
@@ -212,57 +220,57 @@ function handleSubmit(): void {
               />
             </ElSelect>
           </ElFormItem>
-          <ElFormItem label="跳转原因">
+          <ElFormItem :label="t('task.jump.reason.label')">
             <ElInput
               v-model="jumpForm.comment"
               type="textarea"
               :rows="3"
-              placeholder="请输入跳转原因（选填）"
+              :placeholder="t('task.jump.reason.placeholder')"
             />
           </ElFormItem>
         </ElForm>
       </ElTabPane>
 
       <!-- 任务沟通 -->
-      <ElTabPane label="任务沟通" name="communicate">
+      <ElTabPane :label="t('task.communicate.title')" name="communicate">
         <ElForm :model="communicateForm" label-width="100px" class="mt-4">
-          <ElFormItem label="沟通内容">
+          <ElFormItem :label="t('task.communicate.content.label')">
             <ElInput
               v-model="communicateForm.content"
               type="textarea"
               :rows="4"
-              placeholder="请输入沟通内容"
+              :placeholder="t('task.communicate.content.placeholder')"
             />
           </ElFormItem>
-          <ElFormItem label="沟通对象">
+          <ElFormItem :label="t('task.communicate.target.label')">
             <ElSelect
               v-model="communicateForm.targetUserIds"
               multiple
-              placeholder="选择沟通对象（选填，留空则通知所有相关人员）"
+              :placeholder="t('task.communicate.target.placeholder')"
               filterable
               class="w-full"
             >
-              <ElOption label="发起人" value="initiator" />
-              <ElOption label="上一节点处理人" value="prevAssignee" />
+              <ElOption :label="t('task.communicate.target.initiator')" value="initiator" />
+              <ElOption :label="t('task.communicate.target.prevAssignee')" value="prevAssignee" />
             </ElSelect>
           </ElFormItem>
         </ElForm>
       </ElTabPane>
 
       <!-- 保存草稿 -->
-      <ElTabPane label="保存草稿" name="draft">
+      <ElTabPane :label="t('task.draft.title')" name="draft">
         <ElForm :model="draftForm" label-width="100px" class="mt-4">
-          <ElFormItem label="草稿备注">
+          <ElFormItem :label="t('task.draft.comment.label')">
             <ElInput
               v-model="draftForm.comment"
               type="textarea"
               :rows="4"
-              placeholder="请输入草稿备注（选填）"
+              :placeholder="t('task.draft.comment.placeholder')"
             />
           </ElFormItem>
-          <ElFormItem label="提示">
+          <ElFormItem :label="t('task.draft.tips.label')">
             <p class="text-xs text-gray-400">
-              保存草稿后，当前任务的审批意见将被暂存，不会提交审批结果。
+              {{ t('task.draft.tips.content') }}
             </p>
           </ElFormItem>
         </ElForm>
@@ -270,8 +278,8 @@ function handleSubmit(): void {
     </ElTabs>
 
     <template #footer>
-      <ElButton @click="modalApi.close()">取消</ElButton>
-      <ElButton type="primary" :loading="submitting" @click="handleSubmit">确定</ElButton>
+      <ElButton @click="modalApi.close()">{{ t('common.cancel') }}</ElButton>
+      <ElButton type="primary" :loading="submitting" @click="handleSubmit">{{ t('common.confirm') }}</ElButton>
     </template>
   </Modal>
 </template>

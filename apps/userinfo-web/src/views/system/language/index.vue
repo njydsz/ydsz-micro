@@ -21,6 +21,9 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { createLogger } from '@YDSZ-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/language';
@@ -29,6 +32,9 @@ import type { LanguageVO } from '#/api/models';
 import LanguageForm from './language-form.vue';
 
 defineOptions({ name: 'LanguageManagement' });
+
+const logger = createLogger('userinfo-language');
+const { t } = useI18n();
 
 /** 判断语言状态是否启用（契约 status 为字符串 '1'/'0'） */
 function isEnabled(status?: string): boolean {
@@ -42,12 +48,12 @@ function isDefaultLanguage(isDefault?: number): boolean {
 
 const gridOptions: VxeTableGridOptions<LanguageVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'languageCode', title: '语言编码', width: 140 },
-    { field: 'languageName', title: '语言名称', width: 160 },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
+    { field: 'languageCode', title: t('page.languageCode'), width: 140 },
+    { field: 'languageName', title: t('page.languageName'), width: 160 },
     {
       field: 'isDefault',
-      title: '默认语言',
+      title: t('language.defaultLanguage'),
       width: 100,
       slots: {
         default: ({ row }) => {
@@ -55,15 +61,15 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
           return h(
             ElTag,
             { type: def ? 'success' : 'info', size: 'small' },
-            () => (def ? '默认' : '非默认'),
+            () => (def ? t('language.yesDefault') : t('language.noDefault')),
           );
         },
       },
     },
-    { field: 'sortOrder', title: '排序', width: 80, align: 'center' },
+    { field: 'sortOrder', title: t('page.sortOrder'), width: 80, align: 'center' },
     {
       field: 'status',
-      title: '状态',
+      title: t('page.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -71,14 +77,14 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
           return h(
             ElTag,
             { type: enable ? 'success' : 'danger', size: 'small' },
-            () => (enable ? '启用' : '禁用'),
+            () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
       },
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('page.operation'),
       width: 140,
       fixed: 'right',
       slots: {
@@ -87,12 +93,12 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
             h(
               ElButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('page.edit'),
             ),
             h(
               ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('page.delete'),
             ),
           ]),
       },
@@ -117,35 +123,35 @@ const [Grid, gridApi] = useYDSZVxeGrid({
     schema: [
       {
         component: 'Input',
-        componentProps: { placeholder: '语言名称' },
+        componentProps: { placeholder: t('page.languageName') },
         fieldName: 'languageName',
-        label: '语言名称',
+        label: t('page.languageName'),
       },
       {
         component: 'Input',
-        componentProps: { placeholder: '语言编码' },
+        componentProps: { placeholder: t('page.languageCode') },
         fieldName: 'languageCode',
-        label: '语言编码',
+        label: t('page.languageCode'),
       },
       {
         component: 'Select',
         componentProps: {
-          placeholder: '状态',
+          placeholder: t('page.status'),
           options: [
-            { label: '启用', value: '1' },
-            { label: '禁用', value: '0' },
+            { label: t('page.enabled'), value: '1' },
+            { label: t('page.disabled'), value: '0' },
           ],
         },
         fieldName: 'status',
-        label: '状态',
+        label: t('page.status'),
       },
     ],
     submitOnChange: false,
     collapsed: false,
     collapseTriggerResize: true,
     showCollapseButton: true,
-    submitButtonOptions: { content: '搜索' },
-    resetButtonOptions: { content: '重置' },
+    submitButtonOptions: { content: t('page.search') },
+    resetButtonOptions: { content: t('page.reset') },
   },
 });
 
@@ -167,8 +173,8 @@ async function handleDelete(row: LanguageVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(
-      `确定删除语言「${row.languageName ?? ''}」吗？`,
-      '删除确认',
+      t('language.deleteLanguageConfirm', { languageName: row.languageName ?? '' }),
+      t('page.confirmDelete'),
       { type: 'warning' },
     );
   } catch {
@@ -177,19 +183,19 @@ async function handleDelete(row: LanguageVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await remove({ id: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('page.deleteSuccess'));
     gridApi.query();
-  } catch {
-    // 错误已由请求拦截器展示，无需重复处理
+  } catch (error) {
+    logger.warn('删除语言失败: {}', error);
   }
 }
 </script>
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="语言管理">
+    <Grid :table-title="t('language.languageManagement')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增语言</ElButton>
+        <ElButton type="primary" @click="handleAdd">{{ t('language.createLanguage') }}</ElButton>
       </template>
     </Grid>
     <LanguageFormModal @success="gridApi.query()" />

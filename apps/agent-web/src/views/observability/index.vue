@@ -18,7 +18,10 @@
 */
 import { Page } from '@ydsz/common-ui';
 import { ElCard, ElEmpty, ElInput, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
+
+const logger = createLogger('agent-observability');
 import { getModelUsage, getOverview } from '#/api/observability';
 
 defineOptions({ name: 'ObservabilityManagement' });
@@ -99,8 +102,8 @@ async function loadOverview(): Promise<void> {
   loading.value = true;
   try {
     overviewData.value = (await getOverview()) as Record<string, unknown>;
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载可观测性概览数据失败: {}', error);
   } finally {
     loading.value = false;
   }
@@ -110,8 +113,8 @@ async function loadOverview(): Promise<void> {
 async function loadModelUsage(): Promise<void> {
   try {
     modelUsageData.value = await getModelUsage({ days: 7 });
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('加载模型使用数据失败: {}', error);
   }
 }
 

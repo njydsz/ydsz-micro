@@ -19,7 +19,10 @@ import { ElMessage, ElProgress, ElUpload } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { createLogger } from '@YDSZ-core/shared/utils';
+
 const { t } = useI18n();
+const logger = createLogger('userinfo-user');
 import { importUsers } from '#/api/userAccount';
 import type { UserImportResultDTO } from '#/api/models';
 
@@ -41,8 +44,8 @@ const [Modal, modalApi] = useYDSZModal({
     modalApi.lock();
     try {
       await performImport(selectedFile.value);
-    } catch {
-      // 错误提示由请求拦截器统一处理
+    } catch (error) {
+      logger.warn('导入执行失败: {}', error);
     } finally {
       modalApi.unlock();
     }
@@ -90,8 +93,8 @@ async function performImport(file: File): Promise<void> {
     importProgress.value = 100;
     ElMessage.success(`导入完成：成功 ${result.successCount ?? 0} 条，失败 ${result.failureCount ?? 0} 条`);
     emit('success');
-  } catch {
-    // 错误提示由请求拦截器统一处理
+  } catch (error) {
+    logger.warn('导入用户文件失败: {}', error);
   } finally {
     clearInterval(progressTimer);
     importing.value = false;
@@ -106,7 +109,7 @@ function handleClose(): void {
 </script>
 
 <template>
-  <Modal title="导入用户">
+  <Modal :title="t('user.importUser')">
     <div class="space-y-4">
       <!-- 上传区域 -->
       <ElUpload
@@ -115,52 +118,52 @@ function handleClose(): void {
         :limit="1"
         accept=".xlsx,.xls,.csv"
         :on-change="handleFileChange"
-        :on-exceed="() => ElMessage.warning('一次只能导入一个文件')"
+        :on-exceed="() => ElMessage.warning(t('user.importFileLimit'))"
         drag
       >
         <div class="py-6">
-          <p class="text-sm text-gray-500">点击或拖拽 Excel/CSV 文件到此处</p>
-          <p class="mt-1 text-xs text-gray-400">支持 .xlsx / .xls / .csv 格式</p>
+          <p class="text-sm text-gray-500">{{ t('user.importDragText') }}</p>
+          <p class="mt-1 text-xs text-gray-400">{{ t('user.importFormatText') }}</p>
         </div>
       </ElUpload>
 
       <!-- 导入进度 -->
       <div v-if="importing">
         <ElProgress :percentage="importProgress" :status="importProgress === 100 ? 'success' : ''" />
-        <p class="mt-1 text-xs text-gray-500">正在导入中，请稍候...</p>
+        <p class="mt-1 text-xs text-gray-500">{{ t('user.importingText') }}</p>
       </div>
 
       <!-- 导入结果 -->
       <div v-if="importResult" class="rounded border bg-gray-50 p-4">
-        <h4 class="mb-2 text-sm font-medium">导入结果</h4>
+        <h4 class="mb-2 text-sm font-medium">{{ t('user.importResult') }}</h4>
         <div class="grid grid-cols-3 gap-4 text-center">
           <div>
             <p class="text-2xl font-bold text-blue-600">{{ importResult.total ?? 0 }}</p>
-            <p class="text-xs text-gray-500">总计</p>
+            <p class="text-xs text-gray-500">{{ t('user.importTotal') }}</p>
           </div>
           <div>
             <p class="text-2xl font-bold text-green-600">{{ importResult.successCount ?? 0 }}</p>
-            <p class="text-xs text-gray-500">成功</p>
+            <p class="text-xs text-gray-500">{{ t('page.operationSuccess') }}</p>
           </div>
           <div>
             <p class="text-2xl font-bold text-red-600">{{ importResult.failureCount ?? 0 }}</p>
-            <p class="text-xs text-gray-500">失败</p>
+            <p class="text-xs text-gray-500">{{ t('page.operationFailed') }}</p>
           </div>
         </div>
         <!-- 失败详情 -->
         <div v-if="importResult.details && importResult.details.length > 0" class="mt-3">
-          <p class="mb-1 text-xs font-medium text-gray-600">失败详情：</p>
+          <p class="mb-1 text-xs font-medium text-gray-600">{{ t('user.importFailureDetail') }}</p>
           <div class="max-h-32 overflow-auto rounded bg-white p-2">
             <p v-for="(detail, index) in importResult.details" :key="detail.rowIndex ?? detail.field ?? index" class="text-xs text-red-500">
-              {{ detail.error || '导入失败' }}
+              {{ detail.error || t('user.importFailed') }}
             </p>
           </div>
         </div>
       </div>
     </div>
     <template #footer>
-      <ElButton @click="handleClose">关闭</ElButton>
-      <ElButton type="primary" :loading="importing" :disabled="!selectedFile">导入</ElButton>
+      <ElButton @click="handleClose">{{ t('page.close') }}</ElButton>
+      <ElButton type="primary" :loading="importing" :disabled="!selectedFile">{{ t('user.importUser') }}</ElButton>
     </template>
   </Modal>
 </template>

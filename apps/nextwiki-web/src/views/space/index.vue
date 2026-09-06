@@ -20,7 +20,11 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDialog, ElDrawer, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
+import { createLogger } from '@YDSZ-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+const logger = createLogger('nextwiki-space');
+const { t } = useI18n();
 import {
   addMember,
   archiveSpace,
@@ -131,11 +135,11 @@ function handleEdit(row: SpaceVO) {
   editVisible.value = true;
 }
 async function confirmEdit() {
-  if (!editForm.name) { ElMessage.warning('请输入空间名称'); return; }
+  if (!editForm.name) { ElMessage.warning(t('spaceNamePlaceholder')); return; }
   try {
     if (editForm.id) {
       await updateSpace({ spaceId: editForm.id }, { name: editForm.name, description: editForm.description, visibility: editForm.visibility });
-      ElMessage.success('更新成功');
+      ElMessage.success(t('updateSuccess'));
     } else {
       spaceFormApi.open();
       editVisible.value = false;
@@ -143,7 +147,7 @@ async function confirmEdit() {
     }
     editVisible.value = false;
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('编辑/新建空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
 /** 成员管理抽屉 */
@@ -168,44 +172,44 @@ async function loadMembers(): Promise<void> {
   }
 }
 async function handleAddMember(): Promise<void> {
-  if (!addMemberForm.userId) { ElMessage.warning('请输入用户ID'); return; }
+  if (!addMemberForm.userId) { ElMessage.warning(t('userIdRequired')); return; }
   try {
     await addMember({ spaceId: currentSpaceId.value }, { userId: addMemberForm.userId, role: addMemberForm.role });
-    ElMessage.success('添加成员成功');
+    ElMessage.success(t('addMemberSuccess'));
     addMemberForm.userId = '';
     await loadMembers();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('添加成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 async function handleRemoveMember(row: SpaceMemberDTO): Promise<void> {
   if (!row.userId) return;
   try {
-    await ElMessageBox.confirm('确定移除该成员吗？', '移除确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('removeMemberConfirm'), t('removeMember'), { type: 'warning' });
     await removeMember({ spaceId: currentSpaceId.value, targetUserId: row.userId });
-    ElMessage.success('移除成功');
+    ElMessage.success(t('removeSuccess'));
     await loadMembers();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('移除成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
 /** 归档空间 */
 async function handleArchive(row: SpaceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定归档空间「${row.name}」吗？归档后空间将变为只读。`, '归档确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('archiveConfirm', [row.name]), t('archiveConf'), { type: 'warning' });
     await archiveSpace({ spaceId: row.id });
-    ElMessage.success('归档成功');
+    ElMessage.success(t('archiveSuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('归档空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
 /** 删除空间 */
 async function handleDelete(row: SpaceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除空间「${row.name}」吗？删除后不可恢复。`, '删除确认', { type: 'warning' });
+    await ElMessageBox.confirm(t('deleteSpaceConfirm', [row.name]), t('deleteConf'), { type: 'warning' });
     await deleteSpace({ spaceId: row.id });
-    ElMessage.success('删除成功');
+    ElMessage.success(t('deleteSuccess'));
     gridApi.query();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch (error) { logger.warn('删除空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 </script>
 
