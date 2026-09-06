@@ -120,6 +120,16 @@ function vueConfig(): Linter.Config {
       'vue/component-api-style': ['error', ['script-setup']],
       // §4.4 组件多词命名
       'vue/multi-word-component-names': 'off',
+      // =====================================================================
+      // 可访问性（a11y）静态扫描 — P2-1（2026-09-06）
+      // --------------------------------------------------------------------
+      //  在 lint 阶段拦截 WCAG 2.1 Level AA 常见违规：
+      //  - error：img 缺失 alt
+      //  - 注：更细粒度 a11y 规则（label-has-for / click-events-have-key-events
+      //    等）需安装 eslint-plugin-vuejs-accessibility 后启用
+      // =====================================================================
+      // <img> 必须有 alt（缺失 alt 阻断 CI）
+      'vue/require-img-alt': 'error',
     },
   };
 }

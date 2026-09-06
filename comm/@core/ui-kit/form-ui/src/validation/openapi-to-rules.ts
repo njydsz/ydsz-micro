@@ -53,6 +53,16 @@ export interface OpenApiValidationMeta {
   description?: string;
   /** 类型 */
   type?: 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object';
+  /**
+   * 依赖字段列表（字段名数组）。
+   *
+   * <p>当依赖字段值变化时，目标字段需触发 re-validation。对应 JSON Schema
+   * 的 {@code if/then/else} 与 {@code dependentRequired} 语义；
+   * 后端通过自定义注解或 OpenAPI {@code dependentRequired} 标注并由契约生成本字段。
+   *
+   * @since 1.2.0 (P1-5)
+   */
+  dependencies?: string[];
 }
 
 /** 转换选项 */
@@ -225,6 +235,45 @@ export function toFormRules(
     }
   }
   return result;
+}
+
+/**
+ * 构建「依赖触发 re-validation」映射表。
+ *
+ * <p>扫描所有 fields 的 {@link OpenApiValidationMeta.dependencies} 字段，
+ * 输出「依赖字段 → 需 re-validate 的目标字段集合」映射，
+ * 便于表单在字段变更时 rerun 关联校验。
+ *
+ * @param metas 全量 OpenAPI 校验元信息
+ * @returns 依赖字段名到目标字段集合的映射
+ *
+ * @example
+ * ```ts
+ * const metas = [
+ *   { field: 'type', ... },
+ *   { field: 'subType', dependencies: ['type'], ... },
+ *   { field: 'amount', dependencies: ['type', 'subType'], ... },
+ * ];
+ * buildDependencyMap(metas);
+ * // => { 'type': Set(['subType', 'amount']), 'subType': Set(['amount']) }
+ * ```
+ *
+ * @since 1.2.0 (P1-5)
+ */
+export function buildDependencyMap(
+  metas: OpenApiValidationMeta[],
+): Record<string, Set<string>> {
+  const dependencyMap: Record<string, Set<string>> = {};
+  for (const meta of metas) {
+    if (!meta.dependencies || meta.dependencies.length === 0) continue;
+    for (const dep of meta.dependencies) {
+      if (!dependencyMap[dep]) {
+        dependencyMap[dep] = new Set();
+      }
+      dependencyMap[dep].add(meta.field);
+    }
+  }
+  return dependencyMap;
 }
 
 /**
