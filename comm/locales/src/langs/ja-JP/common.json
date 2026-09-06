@@ -40,5 +40,15 @@
     "batchDeleteConfirm": "選択した {count} 件のレコードを削除してもよろしいですか？",
     "batchDeleteTitle": "一括削除確認",
     "batchDeleteSuccess": "一括削除が完了しました"
+  },
+  "secondaryAuth": {
+    "title": "二次認証",
+    "password": "ログインパスワード",
+    "passwordPlaceholder": "現在のログインパスワードを入力してください",
+    "hint": "この操作を確認するためパスワードを入力してください",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "errorInvalid": "パスワード検証に失敗しました。再入力してください",
+    "errorEmpty": "パスワードを入力してください"
   }
 }

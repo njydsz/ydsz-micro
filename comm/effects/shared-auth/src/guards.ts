@@ -17,6 +17,7 @@
 import type { RouteRecordRaw, Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@ydsz/constants';
+import { openSecondaryAuthModal } from '@ydsz/shared-business';
 import { preferences } from '@ydsz/preferences';
 import { useAccessStore } from '@ydsz/stores';
 import { startProgress, stopProgress } from '@ydsz/utils';
@@ -156,4 +157,36 @@ export function createSubAppRouterGuard(
   setupCommonGuard(router);
   setupAuthGuard(router, whiteList);
   setupPermissionGuard(router, presetRoutes);
+}
+
+/**
+ * 二级认证守卫 —— 为路由动作包裹二次认证流程。
+ *
+ * <p>调用方可将敏感操作封装为 action 回调，在执行前弹出二次身份验证弹窗。
+ * 用户输入密码并确认后执行 action；用户取消则不执行任何操作。
+ *
+ * @example
+ * ```ts
+ * const success = await withSecondaryAuth(
+ *   async (password) => {
+ *     await secondaryAuthApi({ password, scene: 'config-edit' });
+ *   },
+ *   { hint: '请输入密码确认此操作', scene: 'config-edit' },
+ * );
+ * if (success) { /&#42;&#42; 继续后续逻辑 &#42;&#47; }
+ * ```
+ *
+ * @param action - 认证通过后执行的回调
+ * @param options.hint - 弹窗提示文案
+ * @param options.scene - 认证场景（用于后端审计，仅作为参考信息传递给 action）
+ * @returns Promise<boolean> — 用户完整走完认证流程且 action 成功返回 true，取消返回 false
+ */
+export async function withSecondaryAuth(
+  action: (password: string) => Promise<void>,
+  options?: { hint?: string; scene?: string },
+): Promise<boolean> {
+  const password = await openSecondaryAuthModal(options?.hint);
+  if (!password) return false;
+  await action(password);
+  return true;
 }

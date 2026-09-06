@@ -96,3 +96,9 @@ export {
   useResponsive,
   type ResponsiveColumn,
 } from './use-responsive';
+
+// —— 二次身份验证 ——
+export {
+  useSecondaryAuth,
+  openSecondaryAuthModal,
+} from './use-secondary-auth';

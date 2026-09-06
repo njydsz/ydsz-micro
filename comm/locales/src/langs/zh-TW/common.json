@@ -40,5 +40,15 @@
     "batchDeleteConfirm": "確定要刪除選取的 {count} 筆記錄嗎？",
     "batchDeleteTitle": "批次刪除確認",
     "batchDeleteSuccess": "批次刪除成功"
+  },
+  "secondaryAuth": {
+    "title": "二次身份驗證",
+    "password": "登入密碼",
+    "passwordPlaceholder": "請輸入目前登入密碼",
+    "hint": "請輸入密碼確認此操作",
+    "cancel": "取消",
+    "confirm": "確認",
+    "errorInvalid": "密碼驗證失敗，請重新輸入",
+    "errorEmpty": "密碼不能為空"
   }
 }

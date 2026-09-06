@@ -77,6 +77,7 @@ export {
   setupAuthGuard,
   setupCommonGuard,
   setupPermissionGuard,
+  withSecondaryAuth,
 } from './guards';
 
 export {

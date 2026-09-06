@@ -40,5 +40,15 @@
     "batchDeleteConfirm": "Are you sure you want to delete the selected {count} records?",
     "batchDeleteTitle": "Batch Delete Confirm",
     "batchDeleteSuccess": "Batch delete successful"
+  },
+  "secondaryAuth": {
+    "title": "Secondary Authentication",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your current login password",
+    "hint": "Enter your password to confirm this operation",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "errorInvalid": "Password verification failed, please retry",
+    "errorEmpty": "Password cannot be empty"
   }
 }

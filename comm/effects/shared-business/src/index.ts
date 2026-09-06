@@ -157,6 +157,15 @@ export {
   type FlowNode,
 } from './composables/use-flow-designer';
 
+// 二次身份验证弹窗组件 — 程序化弹窗（createApp 挂载），安全约束完善（禁用 ESC/遮罩点击）
+export { default as SecondaryAuthModal } from './components/secondary-auth-modal/index.vue';
+
+// 二次身份验证 composable 与 imperative API
+export {
+  useSecondaryAuth,
+  openSecondaryAuthModal,
+} from './composables/use-secondary-auth';
+
 // ===== 统一适配器（消除 9 个子应用的重复代码） =====
 export {
   initSetupYDSZForm,

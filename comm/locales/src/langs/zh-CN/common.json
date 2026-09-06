@@ -40,5 +40,15 @@
     "batchDeleteConfirm": "确定要删除选中的 {count} 条记录吗？",
     "batchDeleteTitle": "批量删除确认",
     "batchDeleteSuccess": "批量删除成功"
+  },
+  "secondaryAuth": {
+    "title": "二次身份验证",
+    "password": "登录密码",
+    "passwordPlaceholder": "请输入当前登录密码",
+    "hint": "请输入密码确认此操作",
+    "cancel": "取消",
+    "confirm": "确认",
+    "errorInvalid": "密码验证失败，请重新输入",
+    "errorEmpty": "密码不能为空"
   }
 }
