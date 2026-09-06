@@ -34,15 +34,24 @@ export { default as ExcelImportButton } from './components/excel-import-button.v
 // Excel 导入导出 composable
 export {
   useExcelExport,
+  type ExcelColumn,
+  type ExcelColumnDataType,
   type ExcelExportColumn,
+  type ExcelExportParams,
+  type ExcelExportProgressCallback,
+  type ExcelExportCompleteCallback,
+  type ExcelExportErrorCallback,
   type ExcelExportOptions,
 } from './composables/use-excel-export';
 export {
   useExcelImport,
-  type ExcelImportColumn,
   type ExcelImportResult,
+  type ImportError,
   type ExcelImportOptions,
 } from './composables/use-excel-import';
+
+/** @deprecated 导入侧的列定义与导出侧统一为 {@link ExcelColumn} */
+export type { ExcelColumn as ExcelImportColumn } from './composables/use-excel-import';
 
 // 统一空状态组件
 export { default as EmptyState } from './components/empty-state.vue';
