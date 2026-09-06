@@ -134,6 +134,23 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: {
+      icon: 'lucide:settings',
+      order: 7,
+      title: '个人设置',
+    },
+    name: 'Preference',
+    path: '/system',
+    children: [
+      {
+        name: 'UserPreference',
+        path: 'preference',
+        component: () => import('#/views/preference/index.vue'),
+        meta: { icon: 'lucide:settings', title: '个人设置', hidden: false },
+      },
+    ],
+  },
 ];
 
 /** System 系统管理路由配置（子应用内部路由表） */

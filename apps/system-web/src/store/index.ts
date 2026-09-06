@@ -8,3 +8,4 @@
  * @since 1.0.0
  */
 export * from './auth';
+export * from './notification';
