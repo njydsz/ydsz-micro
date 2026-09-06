@@ -1,0 +1,18 @@
+{
+  "business": {
+    "tableName": "Table Name",
+    "tableComment": "Table Comment",
+    "moduleName": "Module Name",
+    "datasourceName": "Datasource",
+    "templateGroup": "Template Group",
+    "generate": "Generate",
+    "preview": "Preview",
+    "generateAll": "Generate All",
+    "history": "History",
+    "rollback": "Rollback",
+    "datasource": "Datasource",
+    "template": "Template",
+    "importExport": "Import/Export",
+    "tableMeta": "Table Metadata"
+  }
+}

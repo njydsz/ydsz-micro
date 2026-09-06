@@ -1,0 +1,18 @@
+{
+  "business": {
+    "tableName": "表名",
+    "tableComment": "表注释",
+    "moduleName": "模块名称",
+    "datasourceName": "数据源",
+    "templateGroup": "模板分组",
+    "generate": "生成代码",
+    "preview": "预览代码",
+    "generateAll": "全量生成",
+    "history": "生成历史",
+    "rollback": "回滚",
+    "datasource": "数据源管理",
+    "template": "模板管理",
+    "importExport": "导入导出",
+    "tableMeta": "表元数据"
+  }
+}
