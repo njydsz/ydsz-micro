@@ -173,7 +173,7 @@
     "markAllSuccess": "All marked as read",
     "markAllFailed": "Failed to mark all read"
   },
-  "偏好": {
+  "preferences": {
     "saveSuccess": "Preferences saved",
     "saveFailed": "Failed to save preferences, please try again later",
     "loadSuccess": "Preferences loaded",

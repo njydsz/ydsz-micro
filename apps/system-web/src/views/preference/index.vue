@@ -53,42 +53,42 @@ const themeColors = [
 
 /** 默认首页选项 */
 const defaultIndexOptions = [
-  { label: '偏好.dashboard', value: '/system/monitor/dashboard' },
-  { label: '偏好.auditLog', value: '/audit/log' },
-  { label: '偏好.configManagement', value: '/system/config' },
-  { label: '偏好.dictType', value: '/system/dict-type' },
-  { label: '偏好.variable', value: '/system/variable' },
-  { label: '偏好.appManagement', value: '/system/app' },
+  { label: 'preferences.dashboard', value: '/system/monitor/dashboard' },
+  { label: 'preferences.auditLog', value: '/audit/log' },
+  { label: 'preferences.configManagement', value: '/system/config' },
+  { label: 'preferences.dictType', value: '/system/dict-type' },
+  { label: 'preferences.variable', value: '/system/variable' },
+  { label: 'preferences.appManagement', value: '/system/app' },
 ];
 
 const languageOptions = [
-  { label: '偏好.zhCN', value: 'zh-CN' },
-  { label: '偏好.enUS', value: 'en-US' },
+  { label: 'preferences.zhCN', value: 'zh-CN' },
+  { label: 'preferences.enUS', value: 'en-US' },
 ];
 
 /** 主题模式选项 */
 const themeModeOptions = [
-  { label: '偏好.themeLight', value: 'light' },
-  { label: '偏好.themeDark', value: 'dark' },
-  { label: '偏好.themeAuto', value: 'auto' },
+  { label: 'preferences.themeLight', value: 'light' },
+  { label: 'preferences.themeDark', value: 'dark' },
+  { label: 'preferences.themeAuto', value: 'auto' },
 ];
 
 const menuLayoutOptions = [
-  { label: '偏好.sideMenu', value: 'side' },
-  { label: '偏好.topMenu', value: 'top' },
-  { label: '偏好.mixMenu', value: 'mix' },
+  { label: 'preferences.sideMenu', value: 'side' },
+  { label: 'preferences.topMenu', value: 'top' },
+  { label: 'preferences.mixMenu', value: 'mix' },
 ];
 
 const tableSizeOptions = [
-  { label: '偏好.sizeDefault', value: 'default' },
-  { label: '偏好.sizeCompact', value: 'compact' },
-  { label: '偏好.sizeLoose', value: 'loose' },
+  { label: 'preferences.sizeDefault', value: 'default' },
+  { label: 'preferences.sizeCompact', value: 'compact' },
+  { label: 'preferences.sizeLoose', value: 'loose' },
 ];
 
 const fontSizeOptions = [
-  { label: '偏好.fontSmall', value: 'small' },
-  { label: '偏好.fontMedium', value: 'medium' },
-  { label: '偏好.fontLarge', value: 'large' },
+  { label: 'preferences.fontSmall', value: 'small' },
+  { label: 'preferences.fontMedium', value: 'medium' },
+  { label: 'preferences.fontLarge', value: 'large' },
 ];
 
 /** 表格密度与 VxeTable size 映射 */
@@ -272,12 +272,12 @@ async function handleSave(): Promise<void> {
       tableSize: localPrefs.tableSize,
       fontSize: localPrefs.fontSize,
     });
-    ElMessage.success(t('偏好.saveSuccess'));
+    ElMessage.success(t('preferences.saveSuccess'));
     logger.info('用户偏好保存成功');
   } catch (error) {
     logger.warn('保存用户偏好失败', error);
     // 错误提示由 errorMessageResponseInterceptor 统一处理
-    ElMessage.warning(t('偏好.saveFailed'));
+    ElMessage.warning(t('preferences.saveFailed'));
   } finally {
     saving.value = false;
   }
@@ -302,11 +302,11 @@ async function handleLoadFromBackend(): Promise<void> {
       localPrefs.tableSize = remote.tableSize as typeof localPrefs.tableSize;
     if (remote.fontSize)
       localPrefs.fontSize = remote.fontSize as typeof localPrefs.fontSize;
-    ElMessage.success(t('偏好.loadSuccess'));
+    ElMessage.success(t('preferences.loadSuccess'));
     logger.info('用户偏好从后端加载成功');
   } catch (error) {
     logger.warn('从后端加载用户偏好失败，使用本地缓存', error);
-    ElMessage.warning(t('偏好.loadFailed'));
+    ElMessage.warning(t('preferences.loadFailed'));
   } finally {
     loading.value = false;
   }
@@ -334,7 +334,7 @@ function handleReset(): void {
   localStorage.removeItem('pref_language');
   localStorage.removeItem('pref_default_index');
 
-  ElMessage.success(t('偏好.resetSuccess'));
+  ElMessage.success(t('preferences.resetSuccess'));
 }
 
 onMounted(() => {
@@ -357,14 +357,14 @@ onMounted(() => {
       <ElCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
-            <span class="card-title">{{ t('偏好.theme') }}</span>
-            <span class="card-desc">{{ t('偏好.themeDesc') }}</span>
+            <span class="card-title">{{ t('preferences.theme') }}</span>
+            <span class="card-desc">{{ t('preferences.themeDesc') }}</span>
           </div>
         </template>
 
         <!-- 主题模式 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.themeMode') }}</div>
+          <div class="form-row-label">{{ t('preferences.themeMode') }}</div>
           <el-radio-group v-model="localPrefs.theme">
             <el-radio-button
               v-for="opt in themeModeOptions"
@@ -380,7 +380,7 @@ onMounted(() => {
 
         <!-- 主题色 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.themeColor') }}</div>
+          <div class="form-row-label">{{ t('preferences.themeColor') }}</div>
           <div class="color-swatches">
             <div
               v-for="color in themeColors"
@@ -388,7 +388,7 @@ onMounted(() => {
               class="color-swatch"
               :class="{ 'is-active': localPrefs.themeColor === color.value }"
               :style="{ backgroundColor: color.value }"
-              :title="t(`偏好.colorLabel.${color.label}`)"
+              :title="t(`preferences.colorLabel.${color.label}`)"
               @click="localPrefs.themeColor = color.value"
             >
               <el-icon
@@ -416,14 +416,14 @@ onMounted(() => {
       <ElCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
-            <span class="card-title">{{ t('偏好.layout') }}</span>
-            <span class="card-desc">{{ t('偏好.layoutDesc') }}</span>
+            <span class="card-title">{{ t('preferences.layout') }}</span>
+            <span class="card-desc">{{ t('preferences.layoutDesc') }}</span>
           </div>
         </template>
 
         <!-- 菜单布局 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.menuLayout') }}</div>
+          <div class="form-row-label">{{ t('preferences.menuLayout') }}</div>
           <el-radio-group v-model="localPrefs.menuLayout">
             <el-radio-button
               v-for="opt in menuLayoutOptions"
@@ -439,11 +439,11 @@ onMounted(() => {
 
         <!-- 手风琴菜单 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.accordionMenu') }}</div>
+          <div class="form-row-label">{{ t('preferences.accordionMenu') }}</div>
           <el-switch
             v-model="localPrefs.accordionMenu"
-            :active-text="t('偏好.on')"
-            :inactive-text="t('偏好.off')"
+            :active-text="t('preferences.on')"
+            :inactive-text="t('preferences.off')"
           />
         </div>
       </ElCard>
@@ -452,14 +452,14 @@ onMounted(() => {
       <ElCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
-            <span class="card-title">{{ t('偏好.table') }}</span>
-            <span class="card-desc">{{ t('偏好.tableDesc') }}</span>
+            <span class="card-title">{{ t('preferences.table') }}</span>
+            <span class="card-desc">{{ t('preferences.tableDesc') }}</span>
           </div>
         </template>
 
         <!-- 表格密度 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.tableSize') }}</div>
+          <div class="form-row-label">{{ t('preferences.tableSize') }}</div>
           <el-radio-group v-model="localPrefs.tableSize">
             <el-radio-button
               v-for="opt in tableSizeOptions"
@@ -476,14 +476,14 @@ onMounted(() => {
       <ElCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
-            <span class="card-title">{{ t('偏好.visual') }}</span>
-            <span class="card-desc">{{ t('偏好.visualDesc') }}</span>
+            <span class="card-title">{{ t('preferences.visual') }}</span>
+            <span class="card-desc">{{ t('preferences.visualDesc') }}</span>
           </div>
         </template>
 
         <!-- 字体大小 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.fontSize') }}</div>
+          <div class="form-row-label">{{ t('preferences.fontSize') }}</div>
           <el-radio-group v-model="localPrefs.fontSize">
             <el-radio-button
               v-for="opt in fontSizeOptions"
@@ -500,14 +500,14 @@ onMounted(() => {
       <ElCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
-            <span class="card-title">{{ t('偏好.general') }}</span>
-            <span class="card-desc">{{ t('偏好.generalDesc') }}</span>
+            <span class="card-title">{{ t('preferences.general') }}</span>
+            <span class="card-desc">{{ t('preferences.generalDesc') }}</span>
           </div>
         </template>
 
         <!-- 默认首页 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.defaultIndex') }}</div>
+          <div class="form-row-label">{{ t('preferences.defaultIndex') }}</div>
           <el-select v-model="userPrefs.defaultIndex" style="width: 260px">
             <el-option
               v-for="opt in defaultIndexOptions"
@@ -522,7 +522,7 @@ onMounted(() => {
 
         <!-- 语言设置 -->
         <div class="form-row">
-          <div class="form-row-label">{{ t('偏好.language') }}</div>
+          <div class="form-row-label">{{ t('preferences.language') }}</div>
           <el-radio-group v-model="userPrefs.language">
             <el-radio-button
               v-for="opt in languageOptions"
@@ -538,13 +538,13 @@ onMounted(() => {
       <!-- 底部操作栏 -->
       <div class="action-bar">
         <ElButton :loading="loading" plain @click="handleLoadFromBackend">
-          {{ t('偏好.loadFromBackend') }}
+          {{ t('preferences.loadFromBackend') }}
         </ElButton>
         <ElButton plain @click="handleReset">
-          {{ t('偏好.reset') }}
+          {{ t('preferences.reset') }}
         </ElButton>
         <ElButton :loading="saving" type="primary" @click="handleSave">
-          {{ t('偏好.save') }}
+          {{ t('preferences.save') }}
         </ElButton>
       </div>
     </ElForm>

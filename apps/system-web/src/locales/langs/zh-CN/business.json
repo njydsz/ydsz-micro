@@ -173,7 +173,7 @@
     "markAllSuccess": "已全部标记已读",
     "markAllFailed": "标记已读失败"
   },
-  "偏好": {
+  "preferences": {
     "saveSuccess": "偏好保存成功",
     "saveFailed": "偏好保存失败，请稍后重试",
     "loadSuccess": "偏好加载成功",
