@@ -102,6 +102,17 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
     skeletonType: 'form',
   },
   {
+    name: 'generator-web',
+    packageName: '@ydsz/generator-web',
+    activeRule: '/YDSZ-gen',
+    redirect: '/YDSZ-gen/table-meta/list',
+    title: '代码生成器',
+    icon: 'lucide:code',
+    order: 102,
+    devPort: 5609,
+    skeletonType: 'list',
+  },
+  {
     name: 'message-web',
     packageName: '@ydsz/message-web',
     activeRule: '/YDSZ-msg',

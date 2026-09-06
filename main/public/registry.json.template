@@ -25,6 +25,18 @@
       "devPort": 5602,
       "entry": "/ydsz-system-web/",
       "skeletonType": "form"
+    },
+    {
+      "name": "generator-web",
+      "packageName": "@ydsz/generator-web",
+      "activeRule": "/YDSZ-gen",
+      "redirect": "/YDSZ-gen/table-meta/list",
+      "title": "代码生成器",
+      "icon": "lucide:code",
+      "order": 102,
+      "devPort": 5609,
+      "entry": "/ydsz-generator-web/",
+      "skeletonType": "list"
     }
   ]
 }
