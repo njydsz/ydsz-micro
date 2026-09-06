@@ -49,6 +49,7 @@ Desktop.ini
 .stylelintcache
 *.tsbuildinfo
 .cache/
+__pycache__/
 
 # ---- IDE / 工具临时文件 ----
 .git-commit-msg.tmp
