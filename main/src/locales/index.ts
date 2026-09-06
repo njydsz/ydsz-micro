@@ -25,7 +25,9 @@ import { preferences } from '@ydsz/preferences';
 
 import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';
+import jaLocale from 'element-plus/es/locale/lang/ja';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
+import zhTwLocale from 'element-plus/es/locale/lang/zh-tw';
 
 /** 模块级日志器 */
 const logger = createLogger('Locales');
@@ -62,6 +64,14 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
       locale = await import('dayjs/locale/zh-cn');
       break;
     }
+    case 'ja-JP': {
+      locale = await import('dayjs/locale/ja');
+      break;
+    }
+    case 'zh-TW': {
+      locale = await import('dayjs/locale/zh-tw');
+      break;
+    }
     default: {
       locale = await import('dayjs/locale/en');
     }
@@ -81,6 +91,14 @@ async function loadElementLocale(lang: SupportedLanguagesType) {
     }
     case 'zh-CN': {
       elementLocale.value = defaultLocale;
+      break;
+    }
+    case 'ja-JP': {
+      elementLocale.value = jaLocale;
+      break;
+    }
+    case 'zh-TW': {
+      elementLocale.value = zhTwLocale;
       break;
     }
   }

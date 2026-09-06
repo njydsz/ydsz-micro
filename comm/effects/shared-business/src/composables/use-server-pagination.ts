@@ -8,6 +8,11 @@
  * @remarks
  * 管理服务端分页状态（pageNum/pageSize/total），提供查询参数合并。
  * 相比 @ydsz/hooks 的 usePagination（仅前端切片），本 Hook 面向服务端分页场景。
+ *
+ * <p>P1-1（2026-09-06）：引入 AbortController 机制消除快速翻页时的竞态问题 ——
+ * 先发的后响应不再覆盖后发的先响应。当 fetcher 支持 AbortSignal 时（如 fetch API），
+ * 旧请求会被主动中止；不支持时退化为序列号（requestSeq）校验，
+ * 仅最新一次请求会更新 items / total。
  */
 import { computed, ref, unref, type Ref } from 'vue';
 

@@ -1,0 +1,110 @@
+{
+  "formRules": {
+    "required": "{0}を入力してください",
+    "selectRequired": "{0}を選択してください",
+    "minLength": "{0}は少なくとも{1}文字必要です",
+    "maxLength": "{0}は最大{1}文字までです",
+    "length": "{0}は{1}文字でなければなりません",
+    "alreadyExists": "{0} `{1}` は既に存在します",
+    "startWith": "{0}は `{1}` で始まる必要があります",
+    "invalidURL": "有効なURLを入力してください"
+  },
+  "actionTitle": {
+    "edit": "{0}を編集",
+    "create": "{0}を新規作成",
+    "delete": "{0}を削除",
+    "view": "{0}を表示"
+  },
+  "actionMessage": {
+    "deleteConfirm": "{0}を削除してもよろしいですか？",
+    "deleting": "{0}を削除中...",
+    "deleteSuccess": "{0}を削除しました",
+    "operationSuccess": "操作が成功しました",
+    "operationFailed": "操作に失敗しました"
+  },
+  "placeholder": {
+    "input": "入力してください",
+    "select": "選択してください"
+  },
+  "captcha": {
+    "title": "セキュリティ認証を完了してください",
+    "sliderSuccessText": "認証成功",
+    "sliderDefaultText": "スライダーをドラッグしてください",
+    "alt": "imgタグのsrc属性値をサポート",
+    "sliderRotateDefaultTip": "画像をクリックしてリフレッシュ",
+    "sliderTranslateDefaultTip": "画像をクリックしてリフレッシュ",
+    "sliderRotateFailTip": "検証失敗",
+    "sliderRotateSuccessTip": "検証成功、所要時間{0}秒",
+    "sliderTranslateFailTip": "検証失敗",
+    "sliderTranslateSuccessTip": "検証成功、所要時間{0}秒",
+    "refreshAriaLabel": "認証コードをリフレッシュ",
+    "confirmAriaLabel": "選択を確認",
+    "confirm": "確認",
+    "pointAriaLabel": "クリックポイント",
+    "clickInOrder": "順番にクリックしてください"
+  },
+  "iconPicker": {
+    "placeholder": "アイコンを選択",
+    "search": "アイコンを検索..."
+  },
+  "jsonViewer": {
+    "copy": "コピー",
+    "copied": "コピーしました"
+  },
+  "fallback": {
+    "pageNotFound": "ページが見つかりません",
+    "pageNotFoundDesc": "お探しのページが見つかりませんでした。",
+    "forbidden": "アクセスが拒否されました",
+    "forbiddenDesc": "このページにアクセスする権限がありません。",
+    "internalError": "エラーが発生しました",
+    "internalErrorDesc": "サーバーでエラーが発生しました。",
+    "offline": "オフラインページ",
+    "offlineError": "ネットワークエラー",
+    "offlineErrorDesc": "インターネットに接続できません。接続を確認してもう一度お試しください。",
+    "comingSoon": "近日公開",
+    "http": {
+      "requestTimeout": "リクエストがタイムアウトしました。後でもう一度お試しください。",
+      "networkError": "ネットワークエラーが発生しました。インターネット接続を確認して再試行してください。",
+      "badRequest": "不正なリクエストです。入力内容を確認してもう一度お試しください。",
+      "unauthorized": "認証の有効期限が切れました。再ログインして続行してください。",
+      "forbidden": "アクセスが禁止されています。このリソースにアクセスする権限がありません。",
+      "notFound": "リソースが見つかりません。",
+      "badGateway": "ゲートウェイエラー。サーバーが無効な応答を受信しました。",
+      "serviceUnavailable": "サービス利用不可。サーバーが一時的にリクエストを処理できません。",
+      "gatewayTimeout": "ゲートウェイタイムアウト。サーバーが間に合う応答を受信できませんでした。",
+      "internalServerError": "サーバーエラー。後でもう一度お試しください。"
+    }
+  },
+  "widgets": {
+    "document": "ドキュメント",
+    "qa": "Q&A",
+    "setting": "設定",
+    "logoutTip": "ログアウトしますか？",
+    "viewAll": "すべてのメッセージを表示",
+    "notifications": "通知",
+    "markAllAsRead": "すべて既読にする",
+    "clearNotifications": "クリア",
+    "checkUpdatesTitle": "新しいバージョンが利用可能",
+    "checkUpdatesDescription": "クリックしてリフレッシュし、最新バージョンを取得",
+    "search": {
+      "title": "検索",
+      "searchNavigate": "ナビゲーションを検索",
+      "select": "選択",
+      "navigate": "ナビゲート",
+      "close": "閉じる",
+      "noResults": "検索結果が見つかりません",
+      "noRecent": "検索履歴がありません",
+      "recent": "検索履歴"
+    },
+    "lockScreen": {
+      "title": "画面ロック",
+      "screenButton": "ロック中",
+      "password": "パスワード",
+      "placeholder": "ロックパスワードを入力してください",
+      "unlock": "クリックしてロック解除",
+      "errorPasswordTip": "パスワードが間違っています。再入力してください",
+      "backToLogin": "ログインに戻る",
+      "entry": "システムに入室"
+    }
+  }
+}

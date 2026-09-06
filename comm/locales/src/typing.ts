@@ -5,7 +5,17 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export type SupportedLanguagesType = 'en-US' | 'zh-CN';
+/**
+ * 支持的语种标识。
+ *
+ * <p>新增语种需同步：
+ * <ol>
+ *   <li>在 comm/locales/src/langs/ 下新增对应目录及 JSON 文件（common / authentication / preferences / ui）</li>
+ *   <li>在 main/src/setup/app.ts 的 localeOptions 中补充 label</li>
+ *   <li>在 preferences.ts 的 localeOptions 中补充 label</li>
+ * </ol>
+ */
+export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'ja-JP' | 'zh-TW';
 
 /**
  * 语言包的动态导入函数。
