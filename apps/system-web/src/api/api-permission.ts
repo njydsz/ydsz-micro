@@ -29,6 +29,7 @@ export interface ApiPermissionVO {
 
 /** 接口权限分页查询参数 */
 export interface ApiPermissionPageQuery {
+  serialVersionUID?: number;
   apiCode?: string;
   apiName?: string;
   controllerClass?: string;

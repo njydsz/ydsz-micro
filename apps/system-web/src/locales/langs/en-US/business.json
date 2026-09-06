@@ -16,6 +16,23 @@
     "description": "Description",
     "deleteConfirm": "Delete variable \"{key}\" ?"
   },
+  "apiPermission": {
+    "title": "API Permission Management",
+    "apiCode": "API Code",
+    "apiName": "API Name",
+    "httpMethod": "HTTP Method",
+    "urlPattern": "URL Pattern",
+    "controllerClass": "Controller Class",
+    "methodName": "Method Name",
+    "apiCodePlaceholder": "Enter API code",
+    "apiNamePlaceholder": "Enter API name",
+    "controllerClassPlaceholder": "Enter controller class name",
+    "triggerScan": "Trigger Scan",
+    "scanSuccess": "Scan complete, {count} APIs registered",
+    "enableConfirm": "Enable API \"{0}\"?",
+    "disableConfirm": "Disable API \"{0}\"?",
+    "deleteConfirm": "Delete API \"{0}\"? This action cannot be undone."
+  },
   "appKey": "App Key",
   "appName": "App Name",
   "appType": "App Type",

@@ -61,7 +61,11 @@ const tablesLoading = ref(false);
 
 // ══════ 生成参数 ══════
 
-const genForm = reactive({
+const genForm = reactive<{
+  outputDir: string;
+  conflictStrategy: 'SKIP' | 'OVERRIDE' | 'MERGE';
+  triggeredBy: string;
+}>({
   outputDir: 'D:/Code/open/ydsz-cloud',
   conflictStrategy: 'SKIP',
   triggeredBy: '',

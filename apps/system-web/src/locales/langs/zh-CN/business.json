@@ -16,6 +16,23 @@
     "description": "描述",
     "deleteConfirm": "确定删除「{key}」吗？"
   },
+  "apiPermission": {
+    "title": "接口权限管理",
+    "apiCode": "接口编码",
+    "apiName": "接口名称",
+    "httpMethod": "请求方法",
+    "urlPattern": "URL模式",
+    "controllerClass": "控制器类",
+    "methodName": "方法名",
+    "apiCodePlaceholder": "请输入接口编码",
+    "apiNamePlaceholder": "请输入接口名称",
+    "controllerClassPlaceholder": "请输入控制器类名",
+    "triggerScan": "触发扫描",
+    "scanSuccess": "扫描完成，共注册 {count} 个接口",
+    "enableConfirm": "确定启用接口「{0}」吗？",
+    "disableConfirm": "确定禁用接口「{0}」吗？",
+    "deleteConfirm": "确定删除接口「{0}」吗？删除后不可恢复。"
+  },
   "appKey": "应用Key",
   "appName": "应用名称",
   "appType": "应用类型",

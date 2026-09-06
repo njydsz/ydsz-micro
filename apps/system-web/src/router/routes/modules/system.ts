@@ -47,6 +47,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/app/index.vue'),
         meta: { icon: 'lucide:app-window', title: '应用注册' },
       },
+      {
+        name: 'ApiPermissionManagement',
+        path: 'api-permission',
+        component: () => import('#/views/api-permission/index.vue'),
+        meta: { icon: 'lucide:shield-check', title: '接口权限管理' },
+      },
     ],
   },
   {
