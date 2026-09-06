@@ -26,6 +26,7 @@
 | ---- | -------- |
 | Gitee | https://gitee.com/njydsz/ydsz-cloud |
 | GitHub | https://github.com/njydsz/ydsz-cloud |
+| 官方文档 | https://www.yuque.com/marvin-lee/ydsz-org |
 
 ---
 
@@ -47,53 +48,11 @@
 | **国际化**     | 8 子应用 × zh-CN/en-US 双语 + 业务字段翻译 + Element Plus/dayjs 语言包                                   |
 | **调试工具**   | 配套 Chrome MV3 DevTools 扩展（chrome/），实时查看内核连接、沙箱状态、事件日志                           |
 
-## 技术栈
+## 系统架构
 
-| 类别        | 技术                                                                                   |
-| ----------- | -------------------------------------------------------------------------------------- |
-| 框架        | Vue 3 + TypeScript                                                                     |
-| 构建工具    | Vite 6                                                                                 |
-| 包管理      | pnpm 10 + Turbo (Monorepo)                                                             |
-| 微前端      | micro-kernel（自研 ESM 原生微前端运行时）+ micro-runtime（接口层）                     |
-| UI 组件库   | Element Plus 2.10                                                                      |
-| 状态管理    | Pinia 3 + pinia-plugin-persistedstate                                                  |
-| 路由        | Vue Router 4                                                                           |
-| 样式        | Tailwind CSS 3 + SCSS                                                                  |
-| HTTP 客户端 | Axios                                                                                  |
-| 表单验证    | Vee-validate + Zod                                                                     |
-| 图表        | ECharts 5                                                                              |
-| 表格组件    | VXE Table 4                                                                            |
-| 国际化      | Vue I18n 11                                                                            |
-| Mock 服务   | Nitro                                                                                  |
-| 测试        | 按云顶编码规范 15.10 本仓库不包含测试代码；质量由 lint / stylelint / type-check / vsh 门禁保障 |
-| 代码规范    | ESLint 9 + Prettier + Stylelint + Commitlint + Lefthook（git hooks）                   |
+YDSZ 是一套前后端分离的全栈微服务架构。前端 [ydsz-micro](https://gitee.com/njydsz/ydsz-micro) 采用 pnpm + turbo monorepo，以自研 micro-kernel 微前端内核（manifest + 原生 ESM dynamic import + importmap，ADR-001 明确否决 qiankun）整合 8 个 Vue 3 子应用，并基于后端 OpenAPI 契约自动生成类型安全 SDK 与错误码，用 CI 漂移门禁守住前后端边界。后端 [ydsz-cloud](https://gitee.com/njydsz/ydsz-cloud) 基于 JDK 21 + Spring Boot 4.1.0，由 ydsz-gateway（12 个全局过滤器、Nacos 动态路由）统一入口，按六层 DDD 同构拆分 8 个业务服务，共享 30 个 ydsz-common 公共子模块，底层依托 Nacos、PostgreSQL、Redis、RocketMQ 与 MinIO，并以 SkyWalking、ELK 与 Prometheus/Grafana 构建可观测体系。
 
-## 架构设计
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│                    main-web（主应用/宿主）                      │
-│         端口 5600  │  认证/布局/全局状态/路由分发/micro-kernel Host       │
-│  ┌──────────┐  ┌───────────┐  ┌──────────────────────────┐    │
-│  │ lite-    │  │ Vue Router │  │ 全局 Store / 偏好 / i18n  │    │
-│  │ kernel   │  │ (主路由)   │  │                          │    │
-│  │ Host     │  │           │  │                          │    │
-│  └────┬─────┘  └─────┬─────┘  └──────────────────────────┘    │
-│  ┌────▼───────────────▼───────────────────────────────────┐   │
-│  │            子应用挂载容器 (#subapp-container)              │   │
-│  └────────────────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────────────────┘
-    │           │          │          │          │          │          │          │
- ┌──▼──┐    ┌──▼──┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐
- │user │    │sys  │   │msg   │   │cron  │   │flow  │   │wiki  │   │rule  │   │agent │
- │center│   │admin│   │center│   │job   │   │design│   │drive │   │engine│   │assist│
- │5601 │    │5602 │   │5604  │   │5605  │   │5606  │   │5607  │   │5608  │   │5610  │
- └─────┘    └─────┘   └──────┘   └──────┘   └──────┘   └──────┘   └──────┘   └──────┘
-    │           │          │          │          │          │          │          │
- ┌──▼──┐    ┌──▼──┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐   ┌──▼───┐
- │:9002│    │:9001│   │:9004 │   │:9006 │   │:9005 │   │:9003 │   │:9007 │   │:9008 │
- └─────┘    └─────┘   └──────┘   └──────┘   └──────┘   └──────┘   └──────┘   └──────┘
-```
+![Ydsz Cloud 架构图](docs/ydsz-architecture.png)
 
 ### 微前端运行时
 
