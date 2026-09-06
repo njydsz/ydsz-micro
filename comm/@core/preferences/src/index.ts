@@ -7,7 +7,7 @@
  */
 import type { Preferences } from './types';
 
-import { preferencesManager } from './preferences';
+import { preferencesManager, type PreferencesScope } from './preferences';
 
 // 偏好设置（带有层级关系）
 const preferences: Preferences =
@@ -28,15 +28,26 @@ const clearPreferencesCache =
 const initPreferences =
   preferencesManager.initPreferences.bind(preferencesManager);
 
+// 设置持久化作用域（用户/租户隔离）
+const setPreferencesScope =
+  preferencesManager.setScope.bind(preferencesManager);
+
+// 获取当前持久化作用域
+const getPreferencesScope =
+  preferencesManager.getScope.bind(preferencesManager);
+
 export {
   clearPreferencesCache,
+  getPreferencesScope,
   initPreferences,
   preferences,
   preferencesManager,
   resetPreferences,
+  setPreferencesScope,
   updatePreferences,
 };
 
 export * from './constants';
 export type * from './types';
+export type { PreferencesScope };
 export * from './use-preferences';

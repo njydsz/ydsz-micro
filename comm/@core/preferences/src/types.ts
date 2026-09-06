@@ -22,8 +22,7 @@ import type {
   TabsStyleType,
   ThemeModeType,
 } from '@YDSZ-core/typings';
-
-type SupportedLanguagesType = 'en-US' | 'zh-CN';
+import type { SupportedLanguagesType } from '@ydsz/locales';
 
 interface AppPreferences {
   /** 权限模式 */

@@ -27,6 +27,19 @@ const STORAGE_KEY = 'preferences';
 const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`;
 const STORAGE_KEY_THEME = `${STORAGE_KEY}-theme`;
 
+/**
+ * 存储作用域定义 — 用于多租户/多用户下的偏好隔离。
+ *
+ * <p>localStorage key 结构为 `{namespace}:{scope.userId}:preferences`，
+ * 当 userId 为空时退化为 `{namespace}:preferences`，保持向后兼容。
+ *
+ * @since 1.2.0
+ */
+interface PreferencesScope {
+  /** 用户 ID；为空时不含用户维度，所有用户共享同份偏好 */
+  userId?: string | number;
+}
+
 class PreferenceManager {
   private cache: null | StorageManager = null;
   // private flattenedState: Flatten<Preferences>;
@@ -36,6 +49,11 @@ class PreferenceManager {
   private state: Preferences = reactive<Preferences>({
     ...this.loadPreferences(),
   });
+  /** 当前存储作用域，用于多租户/多用户下的偏好隔离 */
+  private scope: PreferencesScope = {};
+  /** 基础命名空间（与 micro-runtime 的 namespace 一致） */
+  private namespace = '';
+
   constructor() {
     this.cache = new StorageManager();
 
@@ -44,6 +62,61 @@ class PreferenceManager {
       (preference: Preferences) => this._savePreferences(preference),
       150,
     );
+  }
+
+  /**
+   * 设置持久化作用域。
+   *
+   * <p>在以下场景需要调用：
+   * <ul>
+   *   <li>用户登录后 —— 将偏好绑定到当前 userId</li>
+   *   <li>租户切换时 —— 将偏好切换到目标租户的 userId 维度</li>
+   *   <li>用户登出时 —— 传入空 {@link PreferencesScope} 恢复默认作用域</li>
+   * </ul>
+   *
+   * <p>注意：切换作用域后，{@link state} 不会被自动清空 ——
+   * 应用应在适当时机调用 {@link resetPreferences} 或 {@link updatePreferences} 同步新作用域的值。
+   *
+   * @param scope - 作用域对象；不传 userId 时恢复默认作用域（所有用户共享）
+   *
+   * @since 1.2.0
+   */
+  setScope(scope: PreferencesScope = {}): void {
+    this.scope = scope;
+    // 重建 StorageManager 以应用新的前缀
+    this.cache = new StorageManager({
+      prefix: this.buildStoragePrefix(),
+    });
+  }
+
+  /**
+   * 获取当前存储作用域。
+   *
+   * @returns 当前作用域（只读副本）
+   *
+   * @since 1.2.0
+   */
+  getScope(): Readonly<PreferencesScope> {
+    return { ...this.scope };
+  }
+
+  /**
+   * 构建存储前缀。
+   *
+   * <p>格式：`{namespace}` 或 `{namespace}:u-{userId}`（userId 非空时）。
+   * StorageManager 内部会再拼接上 Storage key，最终形如：
+   * `ydsz:prefs:u-123-preferences`。
+   *
+   * @returns 存储前缀字符串
+   *
+   * @since 1.2.0
+   */
+  private buildStoragePrefix(): string {
+    const userId = this.scope.userId;
+    if (userId !== undefined && userId !== null && userId !== '') {
+      return `${this.namespace}:u-${userId}`;
+    }
+    return this.namespace;
   }
 
   clearCache() {
@@ -70,8 +143,9 @@ class PreferenceManager {
     if (this.isInitialized) {
       return;
     }
+    this.namespace = namespace;
     // 初始化存储管理器
-    this.cache = new StorageManager({ prefix: namespace });
+    this.cache = new StorageManager({ prefix: this.buildStoragePrefix() });
     // 合并初始偏好设置
     this.initialPreferences = merge({}, overrides, defaultPreferences);
 
