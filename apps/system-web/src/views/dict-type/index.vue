@@ -22,6 +22,8 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { useAccess } from '@ydsz/access';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { emitDictChange } from '@ydsz/shared-business';
 import { page, remove } from '#/api/dict';
@@ -30,6 +32,9 @@ import type { DictPageQuery, DictTypeVO, PageQuery } from '#/api/models';
 import DictTypeForm from './dict-type-form.vue';
 
 defineOptions({ name: 'DictTypeManagement' });
+
+/** 按钮级权限判断 */
+const { hasAccessByCodesAll } = useAccess();
 
 const { t } = useI18n();
 
@@ -76,10 +81,16 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
       slots: {
         default: ({ row }) => {
           const dictType = row as DictTypeRow;
-          return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dictType) }, () => t('edit')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dictType) }, () => t('delete')),
-          ]);
+          const buttons = [];
+          // 编辑按钮 — 需要 sys:dict:edit 权限
+          if (hasAccessByCodesAll(['sys:dict:edit'])) {
+            buttons.push(h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dictType) }, () => t('edit')));
+          }
+          // 删除按钮 — 需要 sys:dict:delete 权限
+          if (hasAccessByCodesAll(['sys:dict:delete'])) {
+            buttons.push(h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dictType) }, () => t('delete')));
+          }
+          return h('div', { class: 'flex gap-1' }, buttons);
         },
       },
     },
@@ -151,7 +162,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid table-title="字典类型">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
+        <ElButton v-permission="'sys:dict:add'" type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>
     </Grid>
     <DictTypeFormModal @success="gridApi.query()" />

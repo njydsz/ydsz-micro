@@ -23,6 +23,8 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { useAccess } from '@ydsz/access';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/config';
 import type { ConfigPageQuery, ConfigVO, PageQuery } from '#/api/models';
@@ -31,6 +33,9 @@ import ConfigForm from './config-form.vue';
 import ConfigHistoryDialog from './config-history-dialog.vue';
 
 defineOptions({ name: 'ConfigManagement' });
+
+/** 按钮级权限判断 */
+const { hasAccessByCodesAll } = useAccess();
 
 const logger = createLogger('system-config');
 
@@ -77,11 +82,20 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => {
-          return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => t('delete')),
-          ]);
+          const buttons = [];
+          // 编辑按钮 — 需要 sys:config:edit 权限
+          if (hasAccessByCodesAll(['sys:config:edit'])) {
+            buttons.push(h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('edit')));
+          }
+          // 版本历史按钮 — 需要 sys:config:edit 权限
+          if (hasAccessByCodesAll(['sys:config:edit'])) {
+            buttons.push(h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')));
+          }
+          // 删除按钮 — 需要 sys:config:delete 权限
+          if (hasAccessByCodesAll(['sys:config:delete'])) {
+            buttons.push(h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => t('delete')));
+          }
+          return h('div', { class: 'flex gap-1' }, buttons);
         },
       },
     },
@@ -155,7 +169,7 @@ async function handleDelete(row: ConfigRow) {
   <Page auto-content-height>
     <Grid :table-title="t('config')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
+        <ElButton v-permission="'sys:config:add'" type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>
     </Grid>
     <ConfigFormModal @success="gridApi.query()" />

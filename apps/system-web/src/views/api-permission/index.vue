@@ -23,12 +23,17 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { useAccess } from '@ydsz/access';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { disable, enable, page, remove, scan } from '#/api/api-permission';
 import type { ApiPermissionPageQuery, ApiPermissionVO } from '#/api/api-permission';
 import type { PageQuery } from '#/api/models';
 
 defineOptions({ name: 'ApiPermissionManagement' });
+
+/** 按钮级权限判断 */
+const { hasAccessByCodesAll } = useAccess();
 
 const logger = createLogger('api-permission');
 
@@ -120,23 +125,35 @@ const gridOptions = {
       width: 180,
       fixed: 'right',
       slots: {
-        default: ({ row }: { row: ApiPermissionRow }) => h('div', { class: 'flex gap-1' }, [
-          h(
-            ElButton,
-            {
-              size: 'small',
-              link: true,
-              type: isEnabled(row.status) ? 'warning' : 'success',
-              onClick: () => handleToggleStatus(row),
-            },
-            () => (isEnabled(row.status) ? t('common.disabled') : t('common.enabled')),
-          ),
-          h(
-            ElButton,
-            { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-            () => t('common.delete'),
-          ),
-        ]);
+        default: ({ row }: { row: ApiPermissionRow }) => {
+          const buttons = [];
+          // 启用/禁用按钮 — 需要 sys:permission:api-edit 权限
+          if (hasAccessByCodesAll(['sys:permission:api-edit'])) {
+            buttons.push(
+              h(
+                ElButton,
+                {
+                  size: 'small',
+                  link: true,
+                  type: isEnabled(row.status) ? 'warning' : 'success',
+                  onClick: () => handleToggleStatus(row),
+                },
+                () => (isEnabled(row.status) ? t('common.disabled') : t('common.enabled')),
+              ),
+            );
+          }
+          // 删除按钮 — 需要 sys:permission:api-delete 权限
+          if (hasAccessByCodesAll(['sys:permission:api-delete'])) {
+            buttons.push(
+              h(
+                ElButton,
+                { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+                () => t('common.delete'),
+              ),
+            );
+          }
+          return h('div', { class: 'flex gap-1' }, buttons);
+        },
       },
     },
   ],
@@ -241,7 +258,7 @@ async function handleDelete(row: ApiPermissionRow) {
   <Page auto-content-height>
     <Grid :table-title="t('apiPermission.title')">
       <template #toolbar-tools>
-        <ElButton :loading="scanning" type="success" @click="handleScan">
+        <ElButton v-permission="'sys:permission:api-scan'" :loading="scanning" type="success" @click="handleScan">
           {{ t('apiPermission.triggerScan') }}
         </ElButton>
       </template>
