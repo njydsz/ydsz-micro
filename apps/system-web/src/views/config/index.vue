@@ -20,7 +20,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { createLogger } from '@YDSZ-core/shared/utils';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
-import { h, ref } from 'vue';
+import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useAccess } from '@ydsz/access';
@@ -34,12 +34,31 @@ import ConfigHistoryDialog from './config-history-dialog.vue';
 
 defineOptions({ name: 'ConfigManagement' });
 
-/** 按钮级权限判断 */
-const { hasAccessByCodesAll } = useAccess();
+/** 按钮级权限判断 + 数据范围（行级权限） */
+const { hasAccessByCodesAll, getDataScope } = useAccess();
 
 const logger = createLogger('system-config');
 
 const { t } = useI18n();
+
+/**
+ * 数据范围（行级数据权限）。
+ * - 资源类型标识: 'system:config'（系统配置）
+ * - 返回值语义:
+ *   - undefined: 未受限，可访问全部数据
+ *   - 非空数组/对象: 受限，仅可访问指定范围
+ * 由后端登录接口注入，当前仅做前端展示（后端 dataScope 过滤 TODO）。
+ */
+const dataScope = ref<unknown>(getDataScope('system:config'));
+
+/** 数据范围展示标签（无约束时不渲染） */
+const dataScopeLabel = computed(() => {
+  const scope = dataScope.value;
+  if (scope === undefined || scope === null) return '';
+  if (Array.isArray(scope)) return `数据范围: 限定 ${scope.length} 项`;
+  if (typeof scope === 'object') return '数据范围: 自定义约束';
+  return `数据范围: ${String(scope)}`;
+});
 
 /** 行类型：真实契约 ConfigVO（字段以 models.ts 为准） */
 type ConfigRow = ConfigVO;
@@ -169,6 +188,9 @@ async function handleDelete(row: ConfigRow) {
   <Page auto-content-height>
     <Grid :table-title="t('config')">
       <template #toolbar-tools>
+        <ElTag v-if="dataScopeLabel" type="warning" size="small" style="margin-right: 8px">
+          {{ dataScopeLabel }}
+        </ElTag>
         <ElButton v-permission="'sys:config:add'" type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
       </template>
     </Grid>

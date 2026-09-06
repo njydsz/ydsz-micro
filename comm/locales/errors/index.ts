@@ -16,10 +16,13 @@
 import type { ErrorCode } from './types';
 import { ZH_CN_MESSAGES, getZhCnMessage } from './zh-CN';
 import { EN_US_MESSAGES, getEnUsMessage } from './en-US';
+import { JA_JP_MESSAGES, getJaJpMessage } from './ja-JP';
+import { ZH_TW_MESSAGES, getZhTwMessage } from './zh-TW';
 import type { SupportedLanguagesType } from '../typing';
 
 // Re-export for direct use by tests or external tooling
-export { ZH_CN_MESSAGES, EN_US_MESSAGES, getZhCnMessage, getEnUsMessage };
+export { ZH_CN_MESSAGES, EN_US_MESSAGES, JA_JP_MESSAGES, ZH_TW_MESSAGES,
+  getZhCnMessage, getEnUsMessage, getJaJpMessage, getZhTwMessage };
 export type { ErrorCode } from './types';
 
 /**
@@ -31,6 +34,8 @@ export type { ErrorCode } from './types';
 const LOCALE_MESSAGE_MAP: Record<SupportedLanguagesType, Readonly<Partial<Record<ErrorCode, string>>>> = {
   'zh-CN': ZH_CN_MESSAGES,
   'en-US': EN_US_MESSAGES,
+  'ja-JP': JA_JP_MESSAGES,
+  'zh-TW': ZH_TW_MESSAGES,
 };
 
 /**

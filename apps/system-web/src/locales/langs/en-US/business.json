@@ -104,7 +104,60 @@
     "reasonLabel": "Reason",
     "rejectionReasonLabel": "Rejection Reason",
     "placeholder": "Enter {0}",
-    "allTab": "All"
+    "allTab": "All",
+    "columns": {
+      "seq": "#"
+    },
+    "buttons": {
+      "search": "Search",
+      "reset": "Reset",
+      "refresh": "Refresh",
+      "export": "Export"
+    }
+  },
+  "audit": {
+    "title": "Audit Log",
+    "columns": {
+      "id": "Log ID",
+      "module": "Module",
+      "action": "Action Type",
+      "operator": "Operator",
+      "operatorId": "Operator ID",
+      "time": "Operation Time",
+      "ip": "IP Address",
+      "traceId": "Trace ID",
+      "detail": "Detail",
+      "content": "Content",
+      "status": "Status",
+      "businessNo": "Business No"
+    },
+    "action": {
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "query": "Query",
+      "export": "Export",
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "buttons": {
+      "viewDetail": "View Detail"
+    },
+    "detail": {
+      "title": "Audit Detail",
+      "before": "Before",
+      "after": "After"
+    },
+    "status": {
+      "success": "Success",
+      "failed": "Failed"
+    },
+    "placeholder": {
+      "operatorId": "Operator ID",
+      "actionType": "Action Type",
+      "startTime": "Start Time",
+      "endTime": "End Time"
+    }
   },
   "secondaryAuth": {
     "title": "Secondary Authentication",

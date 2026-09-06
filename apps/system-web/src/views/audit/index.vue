@@ -19,11 +19,15 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElDatePicker, ElInput, ElOption, ElSelect, ElTag } from 'element-plus';
 import { h, reactive } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { queryByTimeRange } from '#/api/auditAdmin';
 import type { AuditLog } from '#/api/models';
+import { queryByTimeRange } from '#/api/auditAdmin';
 
 defineOptions({ name: 'AuditLogManagement' });
+
+const { t } = useI18n();
 
 /** 搜索表单 */
 const searchForm = reactive({
@@ -36,59 +40,66 @@ const searchForm = reactive({
 
 /** 操作类型选项 */
 const actionOptions = [
-  { label: '全部', value: '' },
-  { label: '新增', value: '1' },
-  { label: '修改', value: '2' },
-  { label: '删除', value: '3' },
-  { label: '查询', value: '4' },
-  { label: '导出', value: '5' },
-  { label: '登录', value: '6' },
-  { label: '登出', value: '7' },
+  { label: t('common.allTab'), value: '' },
+  { label: t('audit.action.create'), value: '1' },
+  { label: t('audit.action.update'), value: '2' },
+  { label: t('audit.action.delete'), value: '3' },
+  { label: t('audit.action.query'), value: '4' },
+  { label: t('audit.action.export'), value: '5' },
+  { label: t('audit.action.login'), value: '6' },
+  { label: t('audit.action.logout'), value: '7' },
 ];
 
-const gridOptions: VxeGridProps<AuditLog> = {
+/** 操作类型标签映射（tagName 仅做样式标记，label 由 i18n 在模板层处理） */
+const actionTagMap: Record<number, { i18nKey: string; type: string }> = {
+  1: { i18nKey: 'audit.action.create', type: 'success' },
+  2: { i18nKey: 'audit.action.update', type: 'primary' },
+  3: { i18nKey: 'audit.action.delete', type: 'danger' },
+  4: { i18nKey: 'audit.action.query', type: 'info' },
+  5: { i18nKey: 'audit.action.export', type: 'warning' },
+  6: { i18nKey: 'audit.action.login', type: 'success' },
+  7: { i18nKey: 'audit.action.logout', type: 'info' },
+};
+
+const gridOptions = reactive<VxeGridProps<AuditLog>>({
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'id', title: '日志ID', width: 200 },
-    { field: 'module', title: '模块', width: 120 },
+    { type: 'seq', width: 50, title: t('common.columns.seq') },
+    { field: 'id', title: t('audit.columns.id'), width: 200 },
+    { field: 'module', title: t('audit.columns.module'), width: 120 },
     {
       field: 'action',
-      title: '操作类型',
+      title: t('audit.columns.action'),
       width: 100,
       slots: {
         default: ({ row }) => {
-          const actionMap: Record<number, { label: string; type: string }> = {
-            1: { label: '新增', type: 'success' },
-            2: { label: '修改', type: 'primary' },
-            3: { label: '删除', type: 'danger' },
-            4: { label: '查询', type: 'info' },
-            5: { label: '导出', type: 'warning' },
-            6: { label: '登录', type: 'success' },
-            7: { label: '登出', type: 'info' },
-          };
           const action = row.action ?? 0;
-          const config = actionMap[action] ?? { label: '未知', type: 'info' };
-          return h(ElTag, { type: config.type, size: 'small' }, () => config.label);
+          const config = actionTagMap[action] ?? { i18nKey: 'audit.action.query', type: 'info' };
+          return h(ElTag, { type: config.type, size: 'small' }, () => t(config.i18nKey));
         },
       },
     },
-    { field: 'content', title: '操作内容', minWidth: 200 },
-    { field: 'operatorName', title: '操作人', width: 120 },
-    { field: 'operatorId', title: '操作人ID', width: 120 },
+    { field: 'content', title: t('audit.columns.content'), minWidth: 200 },
+    { field: 'operatorName', title: t('audit.columns.operator'), width: 120 },
+    { field: 'operatorId', title: t('audit.columns.operatorId'), width: 120 },
     {
       field: 'status',
-      title: '状态',
+      title: t('audit.columns.status'),
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 1 ? 'success' : 'danger', size: 'small' }, () => (row.status === 1 ? '成功' : '失败')),
+          h(ElTag, { type: row.status === 1 ? 'success' : 'danger', size: 'small' }, () =>
+            row.status === 1 ? t('audit.status.success') : t('audit.status.failed'),
+          ),
       },
     },
-    { field: 'businessNo', title: '业务单号', width: 160 },
-    { field: 'createdAt', title: '操作时间', width: 170 },
+    { field: 'businessNo', title: t('audit.columns.businessNo'), width: 160 },
+    { field: 'createdAt', title: t('audit.columns.time'), width: 170 },
   ],
   height: 'auto',
-  pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
+  pagerConfig: {
+    pageSize: 20,
+    pageSizes: [10, 20, 50, 100],
+  },
   proxyConfig: {
     ajax: {
       query: async ({ page }) => {
@@ -100,13 +111,14 @@ const gridOptions: VxeGridProps<AuditLog> = {
         if (searchForm.endTime) params.endTime = searchForm.endTime;
         if (searchForm.operatorId) params.operatorId = searchForm.operatorId;
         if (searchForm.action) params.action = searchForm.action;
-        const items = await queryByTimeRange(params);
-        return { items, total: items.length };
+        /** 后端返回 YdszResponse<PageResult<AuditLogVO>>，response 拦截器已解包至 .data */
+        const res = (await queryByTimeRange(params)) as unknown as { items: AuditLog[]; total: number };
+        return { items: res.items ?? [], total: res.total ?? 0 };
       },
     },
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
-};
+});
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 /** 搜索 */
@@ -132,26 +144,26 @@ function handleReset(): void {
       <ElDatePicker
         v-model="searchForm.startTime"
         type="datetime"
-        placeholder="开始时间"
+        :placeholder="t('audit.placeholder.startTime')"
         class="w-48"
       />
       <ElDatePicker
         v-model="searchForm.endTime"
         type="datetime"
-        placeholder="结束时间"
+        :placeholder="t('audit.placeholder.endTime')"
         class="w-48"
       />
-      <ElInput v-model="searchForm.operatorId" placeholder="操作人ID" clearable class="w-40" />
-      <ElSelect v-model="searchForm.action" placeholder="操作类型" clearable class="w-32">
+      <ElInput v-model="searchForm.operatorId" :placeholder="t('audit.placeholder.operatorId')" clearable class="w-40" />
+      <ElSelect v-model="searchForm.action" :placeholder="t('audit.placeholder.actionType')" clearable class="w-32">
         <ElOption v-for="opt in actionOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
       </ElSelect>
-      <ElButton type="primary" @click="handleSearch">搜索</ElButton>
-      <ElButton @click="handleReset">重置</ElButton>
+      <ElButton type="primary" @click="handleSearch">{{ t('common.buttons.search') }}</ElButton>
+      <ElButton @click="handleReset">{{ t('common.buttons.reset') }}</ElButton>
     </div>
 
-    <Grid table-title="审计日志">
+    <Grid :table-title="t('audit.title')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="gridApi.query()">刷新</ElButton>
+        <ElButton @click="gridApi.query()">{{ t('common.buttons.refresh') }}</ElButton>
       </template>
     </Grid>
   </Page>
