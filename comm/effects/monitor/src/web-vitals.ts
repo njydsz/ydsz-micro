@@ -115,7 +115,144 @@ function enqueueVital(report: WebVitalReport): void {
 }
 
 /**
- * 评分阈值（Google 标准）
+ * 告警阈值配置（与 Google 标准对齐，可按业务 tightened）。
+ *
+ * <p>各指标阈值含义：
+ * <ul>
+ *   <li>LCP &le; 2.5s good / &le; 4.0s needs-improvement / &gt; 4.0s poor</li>
+ *   <li>FID &le; 100ms good / &le; 300ms ni / &gt; 300ms poor</li>
+ *   <li>CLS &le; 0.1 good / &le; 0.25 ni / &gt; 0.25 poor</li>
+ *   <li>INP &le; 200ms good / &le; 500ms ni / &gt; 500ms poor</li>
+ *   <li>FCP &le; 1.8s good / &le; 3.0s ni / &gt; 3.0s poor</li>
+ *   <li>TTFB &le; 800ms good / &le; 1.8s ni / &gt; 1.8s poor</li>
+ * </ul>
+ *
+ * @since 1.2.0 (P1-4)
+ */
+export interface WebVitalAlertThresholds {
+  CLS?: number;   // 默认 0.25 (poor 阈值)
+  FCP?: number;   // 默认 3000ms
+  FID?: number;   // 默认 300ms
+  INP?: number;   // 默认 500ms
+  LCP?: number;   // 默认 4000ms
+  TTFB?: number;  // 默认 1800ms
+}
+
+/** 默认告警阈值（取 Google "poor" 临界值） */
+const DEFAULT_ALERT_THRESHOLDS: Required<WebVitalAlertThresholds> = {
+  CLS: 0.25,
+  FCP: 3000,
+  FID: 300,
+  INP: 500,
+  LCP: 4000,
+  TTFB: 1800,
+};
+
+/** 当前生效的告警阈值（由 customizeAlertThresholds 覆盖） */
+let alertThresholds: Required<WebVitalAlertThresholds> = { ...DEFAULT_ALERT_THRESHOLDS };
+
+/** 已触发的告警 key 集合（同一页面同指标不重复告警） */
+const alertedMetrics = new Set<string>();
+
+/**
+ * 自定义告警阈值。
+ *
+ * <p>在 setupWebVitals 前调用无效（会在安装时被覆盖），应在 setupMonitor 之前设置。
+ *
+ * @param thresholds - 部分或全部指标的告警阈值（未传入项使用默认值）
+ *
+ * @since 1.2.0 (P1-4)
+ */
+export function customizeAlertThresholds(thresholds: WebVitalAlertThresholds): void {
+  alertThresholds = { ...alertThresholds, ...thresholds };
+}
+
+/**
+ * 获取当前生效的告警阈值（只读副本）。
+ *
+ * @returns 当前阈值配置
+ *
+ * @since 1.2.0 (P1-4)
+ */
+export function getAlertThresholds(): Readonly<Required<WebVitalAlertThresholds>> {
+  return { ...alertThresholds };
+}
+
+/**
+ * 判断指标值是否触发告警阈值。
+ *
+ * @param name - 指标名称（LT / RT 无阈值，恒为 false）
+ * @param value - 指标值
+ * @returns 是否超出告警阈值
+ */
+function isAlertTriggered(name: WebVitalName, value: number): boolean {
+  switch (name) {
+    case 'CLS':
+      return value > alertThresholds.CLS;
+    case 'FCP':
+      return value > alertThresholds.FCP;
+    case 'FID':
+      return value > alertThresholds.FID;
+    case 'INP':
+      return value > alertThresholds.INP;
+    case 'LCP':
+      return value > alertThresholds.LCP;
+    case 'TTFB':
+      return value > alertThresholds.TTFB;
+    default:
+      return false;
+  }
+}
+
+/**
+ * 主动上报告警事件。
+ *
+ * <p>通过 sendBeacon（或降级 fetch）向专用告警端点 POST 告警数据，
+ * 后端对接的企业 IM / 邮件通知由服务端处理。
+ *
+ * @param report - 触发的 Web Vital 告警数据
+ */
+function sendAlert(report: WebVitalReport): void {
+  const alertPayload = JSON.stringify({
+    alert: true,
+    metric: report,
+    page: report.page,
+    timestamp: report.timestamp,
+    userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+    url: typeof window !== 'undefined' ? window.location.href : '',
+  });
+
+  try {
+    const endpoint = getWebVitalsAlertEndpoint();
+    if (navigator.sendBeacon) {
+      const blob = new Blob([alertPayload], { type: 'application/json' });
+      const sent = navigator.sendBeacon(endpoint, blob);
+      if (!sent) {
+        fetch(endpoint, {
+          body: alertPayload,
+          headers: { 'Content-Type': 'application/json' },
+          keepalive: true,
+          method: 'POST',
+        }).catch(() => {});
+      }
+    } else {
+      fetch(endpoint, {
+        body: alertPayload,
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        method: 'POST',
+      }).catch(() => {});
+    }
+  } catch {
+    // 静默
+  }
+}
+
+/** 评分阈值（Google 标准）
+ *
+ * @param name - 指标名称
+ * @param value - 指标值
+ * @returns 评级：'good' | 'needs-improvement' | 'poor'
  */
 function getRating(name: WebVitalName, value: number): WebVitalReport['rating'] {
   const thresholds: Record<string, [number, number]> = {
@@ -136,6 +273,7 @@ function getRating(name: WebVitalName, value: number): WebVitalReport['rating'] 
  * 上报单个 Web Vital 指标
  *
  * v3.4: 改为加入缓冲队列批量上报，不再逐条 sendBeacon
+ * v1.2: 集成阈值告警，当 rating 为 'poor' 时主动向告警端点发送即时告警
  */
 export function reportWebVital(
   name: WebVitalName,
@@ -157,6 +295,19 @@ export function reportWebVital(
   };
 
   enqueueVital(report);
+
+  // P1-4: 阈值告警检测（poor 级指标立即上报）
+  if (name !== 'LT' && name !== 'RT' && isAlertTriggered(name, report.value)) {
+    const alertKey = `${name}@${report.page}`;
+    if (!alertedMetrics.has(alertKey)) {
+      alertedMetrics.add(alertKey);
+      // 开发环境打印告警
+      if (!import.meta.env.PROD) {
+        logger.warn(`[Web Vitals ALERT] ${name}: ${report.value} exceeds threshold (${String(getAlertThresholds()[name as keyof WebVitalAlertThresholds])})`);
+      }
+      sendAlert(report);
+    }
+  }
 
   // 开发环境打印
   if (!import.meta.env.PROD) {
