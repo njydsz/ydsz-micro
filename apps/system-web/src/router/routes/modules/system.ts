@@ -53,6 +53,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/api-permission/index.vue'),
         meta: { icon: 'lucide:shield-check', title: '接口权限管理' },
       },
+      {
+        name: 'ConfigApprovalManagement',
+        path: 'config-approval',
+        component: () => import('#/views/config-approval/index.vue'),
+        meta: { icon: 'lucide:file-badge', title: '配置审批' },
+      },
     ],
   },
   {

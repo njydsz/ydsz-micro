@@ -12,6 +12,7 @@ import '@ydsz/styles/ele';
 import { initComponentAdapter } from './adapter/component';
 import { initSetupYDSZForm } from './adapter/form';
 import RootApp from './app.vue';
+import { registerSecondaryAuthInterceptor } from './api/interceptors';
 import { setupI18n } from './locales';
 import { overridesPreferences } from './preferences';
 import { createRouterGuard, initRoutes } from './router/guard';
@@ -35,5 +36,8 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
     await initComponentAdapter();
     await initSetupYDSZForm();
     await setupI18n(app);
+
+    // 注册二次认证响应拦截器（必须在 initSharedRequest 之后执行）
+    registerSecondaryAuthInterceptor();
   },
 });
