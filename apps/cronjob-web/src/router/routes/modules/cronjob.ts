@@ -104,6 +104,25 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: { icon: 'lucide:monitor', order: 10, title: '运维监控' },
+    name: 'OpsMonitor',
+    path: '/ops',
+    children: [
+      {
+        name: 'CronjobTopology',
+        path: 'topology',
+        component: () => import('#/views/topology/index.vue'),
+        meta: { icon: 'lucide:share-2', title: '拓扑可视化' },
+      },
+      {
+        name: 'CronjobJobDiagnosis',
+        path: 'diagnosis',
+        component: () => import('#/views/job-diagnosis/index.vue'),
+        meta: { icon: 'lucide:stethoscope', title: '任务诊断' },
+      },
+    ],
+  },
 ];
 
 /** Cronjob 定时任务路由配置（子应用内部路由表） */

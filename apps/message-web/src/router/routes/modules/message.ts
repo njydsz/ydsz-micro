@@ -73,6 +73,25 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    meta: { icon: 'lucide:chart-line', order: 4.5, title: '数据统计' },
+    name: 'MessageAnalytics',
+    path: '/analytics',
+    children: [
+      {
+        name: 'MessageStatsManagement',
+        path: 'stats',
+        component: () => import('#/views/stats/index.vue'),
+        meta: { icon: 'lucide:bar-chart-3', title: '统计看板' },
+      },
+      {
+        name: 'MessageTraceManagement',
+        path: 'trace',
+        component: () => import('#/views/trace/index.vue'),
+        meta: { icon: 'lucide:route', title: '消息轨迹' },
+      },
+    ],
+  },
+  {
     meta: { icon: 'lucide:settings', order: 5, title: '偏好设置' },
     name: 'PreferenceMgmt',
     path: '/preference',
@@ -95,6 +114,62 @@ const routes: RouteRecordRaw[] = [
         path: 'list',
         component: () => import('#/views/subscription/index.vue'),
         meta: { icon: 'lucide:bookmark', title: '订阅列表' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:settings-2', order: 8, title: '高级管理' },
+    name: 'AdvancedMsgMgmt',
+    path: '/advanced',
+    children: [
+      {
+        name: 'UserChannelBindingManagement',
+        path: 'channel-binding',
+        component: () => import('#/views/user-channel-binding/index.vue'),
+        meta: { icon: 'lucide:link', title: '渠道绑定' },
+      },
+      {
+        name: 'FeedbackManagement',
+        path: 'feedback',
+        component: () => import('#/views/feedback/index.vue'),
+        meta: { icon: 'lucide:thumbs-up', title: '反馈管理' },
+      },
+      {
+        name: 'CanaryManagement',
+        path: 'canary',
+        component: () => import('#/views/canary/index.vue'),
+        meta: { icon: 'lucide:flask-conical', title: '灰度实验' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:settings', order: 9, title: '运维管理' },
+    name: 'OpsManagement',
+    path: '/ops',
+    children: [
+      {
+        name: 'RetryPreviewManagement',
+        path: 'retry-preview',
+        component: () => import('#/views/retry-preview/index.vue'),
+        meta: { icon: 'lucide:rotate-ccw', title: '重试预览' },
+      },
+      {
+        name: 'OpsCacheManagement',
+        path: 'cache',
+        component: () => import('#/views/ops/index.vue'),
+        meta: { icon: 'lucide:database', title: '缓存管理' },
+      },
+      {
+        name: 'RecallManagement',
+        path: 'recall',
+        component: () => import('#/views/recall/index.vue'),
+        meta: { icon: 'lucide:corner-up-left', title: '消息召回' },
+      },
+      {
+        name: 'ReadReceiptManagement',
+        path: 'read-receipt',
+        component: () => import('#/views/read-receipt/index.vue'),
+        meta: { icon: 'lucide:check-check', title: '已读回执' },
       },
     ],
   },

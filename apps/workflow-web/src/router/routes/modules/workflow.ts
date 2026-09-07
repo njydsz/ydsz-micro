@@ -77,6 +77,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/monitor/index.vue'),
         meta: { icon: 'lucide:activity', title: '监控概览' },
       },
+      {
+        name: 'SimulationManagement',
+        path: 'simulation',
+        component: () => import('#/views/simulation/index.vue'),
+        meta: { icon: 'lucide:flask-conical', title: '流程仿真' },
+      },
     ],
   },
   {

@@ -44,6 +44,18 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/decision-table/index.vue'),
         meta: { icon: 'lucide:table', title: '决策表' },
       },
+      {
+        name: 'RulePackManagement',
+        path: 'pack',
+        component: () => import('#/views/rule-pack/index.vue'),
+        meta: { icon: 'lucide:package', title: '规则包' },
+      },
+      {
+        name: 'RuleLifecycleManagement',
+        path: 'lifecycle',
+        component: () => import('#/views/rule-lifecycle/index.vue'),
+        meta: { icon: 'lucide:git-pull-request', title: '审批中心' },
+      },
     ],
   },
   {
@@ -63,6 +75,24 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/breakpoint/index.vue'),
         meta: { icon: 'lucide:bug', title: '断点调试' },
       },
+      {
+        name: 'RuleTemplateManagement',
+        path: 'template',
+        component: () => import('#/views/rule-template/index.vue'),
+        meta: { icon: 'lucide:scroll-text', title: '规则模板' },
+      },
+      {
+        name: 'RuleConflictManagement',
+        path: 'conflict',
+        component: () => import('#/views/rule-conflict/index.vue'),
+        meta: { icon: 'lucide:alert-triangle', title: '冲突检测' },
+      },
+      {
+        name: 'RuleDependencyManagement',
+        path: 'dependency',
+        component: () => import('#/views/rule-dependency/index.vue'),
+        meta: { icon: 'lucide:git-merge', title: '依赖拓扑' },
+      },
     ],
   },
   {
@@ -75,6 +105,12 @@ const routes: RouteRecordRaw[] = [
         path: 'log',
         component: () => import('#/views/audit-log/index.vue'),
         meta: { icon: 'lucide:file-text', title: '审计日志' },
+      },
+      {
+        name: 'RuleTraceManagement',
+        path: 'trace',
+        component: () => import('#/views/rule-trace/index.vue'),
+        meta: { icon: 'lucide:route', title: '执行追踪' },
       },
     ],
   },

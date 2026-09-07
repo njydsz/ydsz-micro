@@ -25,6 +25,18 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/comment/index.vue'),
         meta: { icon: 'lucide:message-circle', title: '文件评论' },
       },
+      {
+        name: 'FavoriteManagement',
+        path: 'favorites',
+        component: () => import('#/views/favorites/index.vue'),
+        meta: { icon: 'lucide:star', title: '收藏夹' },
+      },
+      {
+        name: 'RecentManagement',
+        path: 'recent',
+        component: () => import('#/views/recent/index.vue'),
+        meta: { icon: 'lucide:clock', title: '最近访问' },
+      },
     ],
   },
   {
@@ -89,6 +101,19 @@ const routes: RouteRecordRaw[] = [
         path: 'quota',
         component: () => import('#/views/quota/index.vue'),
         meta: { icon: 'lucide:hard-drive', title: '存储配额' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:trash-2', order: 7, title: '回收站' },
+    name: 'TrashMgmt',
+    path: '/trash',
+    children: [
+      {
+        name: 'TrashManagement',
+        path: 'list',
+        component: () => import('#/views/trash/index.vue'),
+        meta: { icon: 'lucide:trash-2', title: '回收站' },
       },
     ],
   },
