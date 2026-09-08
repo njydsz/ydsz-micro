@@ -2102,7 +2102,7 @@ export type components = {
              */
             priority?: number;
             /** @description 是否启用 */
-            enabled?: boolean;
+            isEnabled?: boolean;
             /** @description 影响范围 */
             scope?: string;
             /**
@@ -2218,7 +2218,7 @@ export type components = {
             /** @description 规则编码列表 */
             ruleCodes?: string[];
             /** @description 是否启用（true=启用，false=停用） */
-            enabled?: boolean;
+            isEnabled?: boolean;
         };
         /**
          * @description 规则批量优先级调整请求体 DTO
@@ -2285,7 +2285,7 @@ export type components = {
             /** @description 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/ANY/RULE_ORDER） */
             hitPolicy?: string;
             /** @description 是否启用 */
-            enabled?: boolean;
+            isEnabled?: boolean;
             /**
              * Format: int32
              * @description 优先级，数值越小优先级越高
@@ -2592,7 +2592,7 @@ export type components = {
             /** @description 评分（0~5） */
             rating?: number;
             /** @description 是否启用 */
-            enabled?: boolean;
+            isEnabled?: boolean;
             /** @description 是否为官方包 */
             official?: boolean;
             /** @description 创建人 */
@@ -2666,7 +2666,7 @@ export type components = {
             /** @description 变量来源类别（如 EVM / PROJECT / FINANCE / BENCH 等） */
             category?: string;
             /** @description 是否必填（前端编辑器可标记必填变量） */
-            required?: boolean;
+            isRequired?: boolean;
             simpleType?: string;
         };
     };
@@ -2897,7 +2897,7 @@ export interface operations {
     toggle: {
         parameters: {
             query?: {
-                enabled?: boolean;
+                isEnabled?: boolean;
             };
             header?: {
                 operator?: string;

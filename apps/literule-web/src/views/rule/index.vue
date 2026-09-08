@@ -47,13 +47,13 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
       },
     },
     {
-      field: 'enabled',
+      field: 'isEnabled',
       title: '启用',
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
-            row.enabled ? '启用' : '停用',
+          h(ElTag, { type: row.isEnabled ? 'success' : 'info' }, () =>
+            row.isEnabled ? '启用' : '停用',
           ),
       },
     },
@@ -81,10 +81,10 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
               {
                 size: 'small',
                 link: true,
-                type: row.enabled ? 'warning' : 'success',
+                type: row.isEnabled ? 'warning' : 'success',
                 onClick: () => handleToggle(row),
               },
-              () => (row.enabled ? '停用' : '启用'),
+              () => (row.isEnabled ? '停用' : '启用'),
             ),
             h(
               ElButton,
@@ -159,11 +159,11 @@ async function handleToggle(row: RuleDefinitionVO) {
   if (!row.ruleCode) return;
   try {
     await ElMessageBox.confirm(
-      t('confirmToggleRule', [row.enabled ? t('disabled') : t('enabled'), row.ruleName]),
+      t('confirmToggleRule', [row.isEnabled ? t('disabled') : t('enabled'), row.ruleName]),
       t('confirm'),
       { type: 'warning' },
     );
-    await toggle({ ruleCode: row.ruleCode }, { enabled: !row.enabled });
+    await toggle({ ruleCode: row.ruleCode }, { isEnabled: !row.isEnabled });
     ElMessage.success(t('operationSuccess'));
     gridApi.query();
   } catch (error) {

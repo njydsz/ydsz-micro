@@ -108,7 +108,7 @@ function handleEditGroup(group: GenTemplateGroup) {
 
 async function handleDeleteGroup(group: GenTemplateGroup) {
   if (!group.id) return;
-  if (group.system) {
+  if (group.isSystem) {
     ElMessage.warning('系统分组不可删除');
     return;
   }
@@ -137,7 +137,7 @@ async function handleGroupFormSubmit(data: { name: string; description: string; 
     name: data.name,
     description: data.description,
     sortOrder: data.sortOrder ?? 0,
-    system: false,
+    isSystem: false,
   });
   ElMessage.success('创建分组成功');
   await loadGroups();
@@ -210,10 +210,10 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <span class="font-medium">{{ group.name }}</span>
-              <ElTag v-if="group.active" type="success" size="small" class="ml-2">
+              <ElTag v-if="group.isActive" type="success" size="small" class="ml-2">
                 使用中
               </ElTag>
-              <ElTag v-if="group.system" type="info" size="small" class="ml-2">
+              <ElTag v-if="group.isSystem" type="info" size="small" class="ml-2">
                 系统
               </ElTag>
             </div>
@@ -223,7 +223,7 @@ onMounted(() => {
           </div>
           <div class="mt-2 flex gap-1">
             <ElButton
-              v-if="!group.active"
+              v-if="!group.isActive"
               size="small"
               link
               type="success"
@@ -232,7 +232,7 @@ onMounted(() => {
               激活
             </ElButton>
             <ElButton
-              v-if="!group.system"
+              v-if="!group.isSystem"
               size="small"
               link
               type="danger"
@@ -273,7 +273,7 @@ onMounted(() => {
           >
             <div class="flex items-center justify-between">
               <span class="font-medium text-sm break-all">{{ tpl.fileName }}</span>
-              <ElTag v-if="!tpl.active" type="info" size="small">禁用</ElTag>
+              <ElTag v-if="!tpl.isActive" type="info" size="small">禁用</ElTag>
             </div>
             <div class="text-xs text-gray-500 mt-1">
               {{ tpl.description || '无描述' }}

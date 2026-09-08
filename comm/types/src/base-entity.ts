@@ -22,6 +22,8 @@ export interface BaseEntity {
   updateBy?: string;
   /** 逻辑删除标记（0=未删除，1=已删除） */
   deleted?: number | boolean;
+  /** 是否已删除（is 前缀格式，与后端 YDIZ-OOP-006 对齐） */
+  isDeleted?: boolean;
 }
 
 /** 带租户 ID 的基础实体 */

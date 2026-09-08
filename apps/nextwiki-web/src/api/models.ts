@@ -191,14 +191,13 @@ export interface FileVersionVO {
   mimeType?: string;
   remark?: string;
   changeType?: string;
-  active?: boolean;
+  isActive?: boolean;
   createdBy?: string;
   createdAt?: string;
 }
 
 /**
- * 文件评论 VO
- */
+ * 文件评论 VO */
 export interface FileCommentVO {
   serialVersionUID?: number;
   id?: string;

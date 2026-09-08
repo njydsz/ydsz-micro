@@ -33,7 +33,7 @@ interface RuleFormData {
   description: string;
   conditionExpression: string;
   priority: number;
-  enabled: boolean;
+  isEnabled: boolean;
 }
 const formData = reactive<RuleFormData>({
   code: '',
@@ -42,7 +42,7 @@ const formData = reactive<RuleFormData>({
   description: '',
   conditionExpression: '',
   priority: 0,
-  enabled: true,
+  isEnabled: true,
 });
 const rules = {
   name: [{ required: true, message: () => t('ruleNamePlaceholder'), trigger: 'blur' }],
@@ -60,7 +60,7 @@ const [Modal, modalApi] = useYDSZModal({
         description: data.record.description ?? '',
         conditionExpression: data.record.conditionExpression ?? '',
         priority: data.record.priority ?? 0,
-        enabled: data.record.enabled ?? true,
+        isEnabled: data.record.isEnabled ?? true,
       });
     } else {
       isEdit.value = false;
@@ -71,7 +71,7 @@ const [Modal, modalApi] = useYDSZModal({
         description: '',
         conditionExpression: '',
         priority: 0,
-        enabled: true,
+        isEnabled: true,
       });
     }
   },
@@ -133,7 +133,7 @@ const title = computed(() => (isEdit.value ? t('editRuleTitle') : t('createRuleT
         />
       </ElFormItem>
       <ElFormItem :label="t('enabledColumn')">
-        <ElSwitch v-model="formData.enabled" />
+        <ElSwitch v-model="formData.isEnabled" />
       </ElFormItem>
     </ElForm>
   </Modal>

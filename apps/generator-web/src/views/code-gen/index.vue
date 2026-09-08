@@ -394,7 +394,7 @@ function getStatusLabel(status: string): string {
                 <ElOption
                   v-for="group in groupList"
                   :key="group.id"
-                  :label="`${group.name}${group.active ? ' (当前激活)' : ''}`"
+                  :label="`${group.name}${group.isActive ? ' (当前激活)' : ''}`"
                   :value="group.id"
                 />
               </ElSelect>

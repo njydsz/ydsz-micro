@@ -48,7 +48,7 @@ export function save(params: {
 export function toggle({ ruleCode }: {
     ruleCode: string;
   }, params: {
-    enabled?: boolean;
+    isEnabled?: boolean;
   }): Promise<void> {
   return requestClient.put<void>(`/api/literule/rules/${ruleCode}/toggle`, { params });
 }

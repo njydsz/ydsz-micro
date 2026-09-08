@@ -791,7 +791,7 @@ export interface FlowDefinitionDetailVO {
   /** 跳转条件列表 */
   skips?: FlowSkipVO[];
   /** 是否只读（如发布后不可直接编辑） */
-  readOnly?: boolean;
+  isReadonly?: boolean;
 }
 
 /**

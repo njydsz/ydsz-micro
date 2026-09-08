@@ -115,7 +115,7 @@ export interface RuleDefinitionDTO {
   /** 优先级（数值越小越先执行） */
   priority?: number;
   /** 是否启用 */
-  enabled?: boolean;
+  isEnabled?: boolean;
   /** 影响范围 */
   scope?: string;
   /**
@@ -210,7 +210,7 @@ export interface RuleBatchToggleDTO {
   /** 规则编码列表 */
   ruleCodes?: string[];
   /** 是否启用（true=启用，false=停用） */
-  enabled?: boolean;
+  isEnabled?: boolean;
 }
 
 /**
@@ -265,7 +265,7 @@ export interface DecisionTableDTO {
   /** 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/ANY/RULE_ORDER） */
   hitPolicy?: string;
   /** 是否启用 */
-  enabled?: boolean;
+  isEnabled?: boolean;
   /** 优先级，数值越小优先级越高 */
   priority?: number;
   /** 版本号 */
@@ -534,7 +534,7 @@ export interface RulePackVO {
   /** 评分（0~5） */
   rating?: number;
   /** 是否启用 */
-  enabled?: boolean;
+  isEnabled?: boolean;
   /** 是否为官方包 */
   official?: boolean;
   /** 创建人 */
@@ -600,7 +600,7 @@ export interface VariableDefinition {
   /** 变量来源类别（如 EVM / PROJECT / FINANCE / BENCH 等） */
   category?: string;
   /** 是否必填（前端编辑器可标记必填变量） */
-  required?: boolean;
+  isRequired?: boolean;
   simpleType?: string;
 }
 
@@ -754,7 +754,7 @@ export interface RuleDefinitionVO {
   /** 优先级，数值越小优先级越高 */
   priority?: number;
   /** 是否启用 */
-  enabled?: boolean;
+  isEnabled?: boolean;
   /** 适用范围 */
   scope?: string;
   /** 互斥组，同组规则仅命中一条 */
@@ -1124,7 +1124,7 @@ export interface RuleDashboardTopRuleVO {
   /** 责任人 */
   owner?: string;
   /** 是否启用 */
-  enabled?: boolean;
+  isEnabled?: boolean;
   /** 默认严重度 */
   defaultSeverity?: string;
   /** 评估次数 */
@@ -1192,7 +1192,7 @@ export interface DecisionTableVO {
   /** 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/RULE_ORDER） */
   hitPolicy?: string;
   /** 是否启用 */
-  enabled?: boolean;
+  isEnabled?: boolean;
   /** 优先级，数值越小优先级越高 */
   priority?: number;
   /** 版本号 */
@@ -1404,7 +1404,7 @@ export interface ApprovalFlowVO {
   /** 审批步骤列表（按审批顺序，每项为一个步骤配置对象） */
   steps?: Record<string, unknown>[];
   /** 是否启用（true=启用并参与审批，false=停用） */
-  enabled?: boolean;
+  isEnabled?: boolean;
 }
 
 /**

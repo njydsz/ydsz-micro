@@ -15,7 +15,7 @@
  * <p>汇聚服务注册、Redis 缓存、JVM 运行时三大类运维指标。
  *
  * @author ydsz-team
- * @since 1.0.0
+ * @since 26.09.08
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
@@ -85,7 +85,12 @@ const loading = ref(false);
 const loadError = ref<string | null>(null);
 const dashboardData = ref<DashboardData | null>(null);
 
-/** 加载运维仪表盘数据 */
+/**
+ * 加载运维仪表盘数据
+ *
+ * <p>调用后端 {@code GET /api/system/metrics/dashboard} 获取聚合指标。
+ * 请求失败时保留结构空态，前端展示错误提示但页面不崩溃。
+ */
 async function loadDashboard() {
   loading.value = true;
   loadError.value = null;
@@ -103,7 +108,7 @@ async function loadDashboard() {
   } catch (error) {
     const msg = error instanceof Error ? error.message : '运维指标接口请求失败';
     loadError.value = msg;
-    // 请求失败时降级展示空态（保留各卡片结构）
+    // 请求失败时清空数据，前端展示错误提示
     dashboardData.value = null;
   } finally {
     loading.value = false;
@@ -143,6 +148,11 @@ const runtimeInfo = computed<RuntimeInfo | null>(() => {
   return dashboardData.value?.runtime ?? null;
 });
 
+/** JVM 内存指标（从运行时信息中取出） */
+const memory = computed<MemoryMetrics | null>(() => {
+  return dashboardData.value?.runtime?.memory ?? null;
+});
+
 /** 采集时间 */
 const collectedAt = computed<string>(() => {
   return dashboardData.value?.collectedAt ?? '-';
@@ -176,14 +186,14 @@ const formatNumber = (value: number | undefined): string => {
     <!-- 顶部关键指标卡片 -->
     <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
       <ElCard shadow="hover">
-        <div class="metric-card text-center p-2">
+        <div class="text-center p-2">
           <div class="text-sm text-gray-500">注册服务数</div>
           <div class="text-2xl font-bold mt-1">{{ summary.totalServices }}</div>
           <div class="text-xs text-gray-400 mt-1">Nacos 实时</div>
         </div>
       </ElCard>
       <ElCard shadow="hover">
-        <div class="metric-card text-center p-2">
+        <div class="text-center p-2">
           <div class="text-sm text-gray-500">服务健康度</div>
           <ElProgress
             :percentage="healthRatio"
@@ -196,7 +206,7 @@ const formatNumber = (value: number | undefined): string => {
         </div>
       </ElCard>
       <ElCard shadow="hover">
-        <div class="metric-card text-center p-2">
+        <div class="text-center p-2">
           <div class="text-sm text-gray-500">Redis 命中率</div>
           <div
             v-if="redisMetrics?.available"
@@ -213,18 +223,18 @@ const formatNumber = (value: number | undefined): string => {
         </div>
       </ElCard>
       <ElCard shadow="hover">
-        <div class="metric-card text-center p-2">
+        <div class="text-center p-2">
           <div class="text-sm text-gray-500">JVM 内存使用</div>
           <ElProgress
-            v-if="runtimeInfo"
+            v-if="memory"
             :percentage="Math.round(memory.usagePercent)"
             :status="memory.usagePercent >= 80 ? 'warning' : 'success'"
             class="mt-2"
           />
-          <div v-if="runtimeInfo" class="text-xs text-gray-400 mt-1">
+          <div v-if="memory" class="text-xs text-gray-400 mt-1">
             {{ memory.usedMb }}MB / {{ memory.maxMb }}MB
           </div>
-          <el-tag v-else type="info" size="small" class="mt-2">-</el-tag>
+          <ElTag v-else type="info" size="small" class="mt-2">-</ElTag>
         </div>
       </ElCard>
     </div>
@@ -313,7 +323,7 @@ const formatNumber = (value: number | undefined): string => {
           <!-- JVM 内存详情 -->
           <div class="border-t pt-3">
             <div class="text-xs text-gray-500 mb-2">JVM 堆内存</div>
-            <div class="text-sm">
+            <div v-if="memory" class="text-sm">
               <div class="flex justify-between mb-1">
                 <span>已用 {{ memory.usedMb }}MB / 提交 {{ memory.totalMb }}MB</span>
                 <span class="text-gray-500">最大 {{ memory.maxMb }}MB</span>
@@ -336,24 +346,24 @@ const formatNumber = (value: number | undefined): string => {
         <span class="font-medium">Redis 缓存指标</span>
       </template>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div class="cache-metric p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
           <div class="text-sm text-gray-500">总命令数</div>
           <div class="text-xl font-bold mt-1">{{ formatNumber(redisMetrics.totalCommands) }}</div>
-          <div class="text-xs mt-1">total_commands_processed</div>
+          <div class="text-xs text-gray-400 mt-1">total_commands_processed</div>
         </div>
-        <div class="cache-metric p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
           <div class="text-sm text-gray-500">命中次数</div>
           <div class="text-xl font-bold mt-1" style="color: #67c23a">
             {{ formatNumber(redisMetrics.keyspaceHits) }}
           </div>
-          <div class="text-xs mt-1">keyspace_hits</div>
+          <div class="text-xs text-gray-400 mt-1">keyspace_hits</div>
         </div>
-        <div class="cache-metric p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
           <div class="text-sm text-gray-500">未命中数</div>
           <div class="text-xl font-bold mt-1" style="color: #f56c6c">
             {{ formatNumber(redisMetrics.keyspaceMisses) }}
           </div>
-          <div class="text-xs mt-1">keyspace_misses</div>
+          <div class="text-xs text-gray-400 mt-1">keyspace_misses</div>
         </div>
       </div>
     </ElCard>
@@ -362,8 +372,7 @@ const formatNumber = (value: number | undefined): string => {
     <div class="flex items-center justify-between text-xs text-gray-400 px-1">
       <div>
         最后采集时间：<span class="font-mono">{{ collectedAt }}</span>
-        <span class="ml-2">|</span>
-        <span class="ml-2">每 30s 自动刷新</span>
+        <span class="ml-4">每 30s 自动刷新</span>
       </div>
       <ElButton size="small" :loading="loading" @click="loadDashboard">
         手动刷新
@@ -371,11 +380,3 @@ const formatNumber = (value: number | undefined): string => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.cache-metric {
-  padding: 12px;
-  border-radius: 6px;
-  background-color: hsl(var(--muted) / 0.3);
-}
-</style>

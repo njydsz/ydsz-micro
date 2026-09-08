@@ -168,6 +168,15 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
+        name: 'LoginLogManagement',
+        path: 'login-log',
+        component: () => import('#/views/system/login-log/index.vue'),
+        meta: {
+          icon: 'lucide:log-in',
+          title: '登录日志',
+        },
+      },
+      {
         name: 'AuditLogManagement',
         path: 'audit',
         component: () => import('#/views/system/audit/index.vue'),

@@ -157,13 +157,13 @@ const flowGridOptions: VxeTableGridOptions<ApprovalFlowVO> = {
       },
     },
     {
-      field: 'enabled',
+      field: 'isEnabled',
       title: '状态',
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
-            row.enabled ? '启用' : '停用',
+          h(ElTag, { type: row.isEnabled ? 'success' : 'info' }, () =>
+            row.isEnabled ? '启用' : '停用',
           ),
       },
     },

@@ -127,6 +127,6 @@ export function revokeKeys(ids: number[]): Promise<number> {
  * @param id - 主键 ID
  * @param enabled - 启用/禁用
  */
-export function updateEnabled(id: number, enabled: boolean): Promise<void> {
-  return requestClient.put<void>(`/api/apikey/${id}/enabled?enabled=${enabled}`);
+export function updateEnabled(id: number, isEnabled: boolean): Promise<void> {
+  return requestClient.put<void>(`/api/apikey/${id}/enabled?isEnabled=${isEnabled}`);
 }

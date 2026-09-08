@@ -37,7 +37,7 @@ interface FormField {
   key: string;
   label: string;
   type: string;
-  required: boolean;
+  isRequired: boolean;
   placeholder: string;
   defaultValue: string;
   options: string[];
@@ -86,7 +86,7 @@ function addField(type: string): void {
     key: generateKey(type),
     label: meta?.label ?? type,
     type,
-    required: false,
+    isRequired: false,
     placeholder: `请输入${meta?.label ?? ''}`,
     defaultValue: '',
     options: type === 'select' ? ['选项一', '选项二'] : [],
@@ -134,7 +134,7 @@ function buildSchema(): Record<string, unknown> {
       ...(field.placeholder ? { description: field.placeholder } : {}),
       ...(field.options.length > 0 ? { enum: field.options } : {}),
     };
-    if (field.required) requiredList.push(field.key);
+    if (field.isRequired) requiredList.push(field.key);
   });
   return {
     type: 'object',
@@ -175,7 +175,7 @@ async function loadFormConfig(): Promise<void> {
         : String(prop.type ?? 'input') === 'number'
           ? 'number'
           : String(prop.type ?? 'input'),
-      required: requiredList.includes(key),
+      isRequired: requiredList.includes(key),
       placeholder: String(prop.description ?? ''),
       defaultValue: '',
       options: prop.enum ? (prop.enum as unknown[]).map(String) : [],
@@ -255,7 +255,7 @@ async function handleSave(): Promise<void> {
             <span class="w-20 shrink-0 text-xs text-gray-400">{{ index + 1 }}.</span>
             <span class="flex-1 truncate text-sm">{{ field.label }}</span>
             <ElTag size="small" type="info">{{ field.type }}</ElTag>
-            <ElTag v-if="field.required" size="small" type="danger">必填</ElTag>
+            <ElTag v-if="field.isRequired" size="small" type="danger">必填</ElTag>
             <ElButton size="small" link @click.stop="moveUp(index)">↑</ElButton>
             <ElButton size="small" link @click.stop="moveDown(index)">↓</ElButton>
             <ElButton size="small" link type="danger" @click.stop="removeField(field)"
@@ -276,7 +276,7 @@ async function handleSave(): Promise<void> {
                 <ElInput v-model="selectedField.key" disabled />
               </ElFormItem>
               <ElFormItem label="是否必填">
-                <ElSwitch v-model="selectedField.required" />
+                <ElSwitch v-model="selectedField.isRequired" />
               </ElFormItem>
               <ElFormItem label="占位提示">
                 <ElInput v-model="selectedField.placeholder" />

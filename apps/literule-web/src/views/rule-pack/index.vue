@@ -279,7 +279,7 @@ async function loadInstalled(): Promise<void> {
   try {
     // 已安装包：由 listPacks 过滤 enable=true 状态（此处全量展示，实际可增加 installed 字段过滤）
     const allPacks = await listPacks();
-    installedPacks.value = allPacks.filter((p) => p.enabled === true);
+    installedPacks.value = allPacks.filter((p) => p.isEnabled === true);
     statInstalled.value = installedPacks.value.length;
   } catch (error) {
     logger.warn('加载已安装包失败: {}', error);

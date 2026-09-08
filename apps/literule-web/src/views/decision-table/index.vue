@@ -50,13 +50,13 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
     { field: 'category', title: '分类', width: 110 },
     { field: 'hitPolicy', title: '命中策略', width: 100 },
     {
-      field: 'enabled',
+      field: 'isEnabled',
       title: '状态',
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
-            row.enabled ? '启用' : '停用',
+          h(ElTag, { type: row.isEnabled ? 'success' : 'info' }, () =>
+            row.isEnabled ? '启用' : '停用',
           ),
       },
     },

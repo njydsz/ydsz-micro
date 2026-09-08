@@ -119,9 +119,9 @@ export interface GenTemplateGroup {
   id?: number;
   name: string;
   description?: string;
-  system?: boolean;
+  isSystem?: boolean;
   sortOrder?: number;
-  active?: boolean;
+  isActive?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -135,11 +135,11 @@ export interface GenTemplate {
   fileName: string;
   description?: string;
   content?: string;
-  folder?: boolean;
+  isFolder?: boolean;
   parentPath?: string;
   version?: number;
   hash?: string;
-  active?: boolean;
+  isActive?: boolean;
   fileType?: string;
   createdAt?: string;
   updatedAt?: string;

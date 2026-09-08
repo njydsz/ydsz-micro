@@ -489,7 +489,7 @@ export interface ScimUser {
   /** 显示名称。 */
   displayName?: string;
   /** 账号是否启用。 */
-  active?: boolean;
+  isActive?: boolean;
   /** 电子邮箱列表。 */
   emails?: ScimEmail[];
   /** 电话号码列表。 */

@@ -31,14 +31,14 @@ interface VariableFormData {
   type: string;
   category: string;
   description: string;
-  required: boolean;
+  isRequired: boolean;
 }
 const formData = reactive<VariableFormData>({
   name: '',
   type: '',
   category: '',
   description: '',
-  required: false,
+  isRequired: false,
 });
 const rules = {
   name: [{ required: true, message: () => t('variableNamePlaceholder'), trigger: 'blur' }],
@@ -54,7 +54,7 @@ const [Modal, modalApi] = useYDSZModal({
         type: data.record.type ?? '',
         category: data.record.category ?? '',
         description: data.record.description ?? '',
-        required: false,
+        isRequired: false,
       });
     } else {
       isEdit.value = false;
@@ -63,7 +63,7 @@ const [Modal, modalApi] = useYDSZModal({
         type: '',
         category: '',
         description: '',
-        required: false,
+        isRequired: false,
       });
     }
   },
@@ -114,7 +114,7 @@ const title = computed(() => (isEdit.value ? t('editVariableTitle') : t('createV
         />
       </ElFormItem>
       <ElFormItem :label="t('required')">
-        <ElSwitch v-model="formData.required" />
+        <ElSwitch v-model="formData.isRequired" />
       </ElFormItem>
     </ElForm>
   </Modal>
