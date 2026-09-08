@@ -15,12 +15,12 @@
  */
 import { watch } from 'vue';
 
-import type { TenantFetcher, TenantInfo } from '@ydsz/shared-business';
+import type { TenantFetcher, TenantInfo, TenantSwitcher } from '@ydsz/shared-business';
 
-import { setTenantFetcher, useTenant } from '@ydsz/shared-business';
-import { useUserStore } from '@ydsz/stores';
+import { setTenantFetcher, setTenantSwitcher, useTenant } from '@ydsz/shared-business';
+import { useTokenStore, useUserStore } from '@ydsz/stores';
 
-import { getAccessibleTenantsApi } from '#/api/core/tenant';
+import { getAccessibleTenantsApi, switchTenantApi } from '#/api/core/tenant';
 
 /** 加载器是否已注入（避免重复执行） */
 let _initialized = false;
@@ -28,7 +28,7 @@ let _initialized = false;
 /**
  * 初始化多租户上下文。
  *
- * <p>{@link setTenantFetcher} 幂等（多次调用仅第一次生效）。
+ * <p>{@link setTenantFetcher} / {@link setTenantSwitcher} 幂等（多次调用仅第一次生效）。
  * 该函数同样幂等——多次调用不会重复创建监听器。
  */
 export function initTenant(): void {
@@ -49,6 +49,16 @@ export function initTenant(): void {
     );
   };
   setTenantFetcher(fetcher);
+
+  // 2. 注入远程租户切换器：调用后端切换端点（签发目标租户 token 对并吊销旧 token），
+  //    成功后写回 token store；失败向上抛出，由调用方提示且不更新本地租户上下文
+  const switcher: TenantSwitcher = async (tenantId) => {
+    const result = await switchTenantApi(tenantId);
+    const tokenStore = useTokenStore();
+    tokenStore.setAccessToken(result.accessToken);
+    tokenStore.setRefreshToken(result.refreshToken);
+  };
+  setTenantSwitcher(switcher);
 
   // 2. 监听用户信息变化，自动将 tenantId 同步到租户上下文
   //    适用于：登录成功、token 恢复后 fetchUserInfo、SSO 回调等场景

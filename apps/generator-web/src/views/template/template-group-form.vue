@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 /**
  * 模板分组表单组件。
  *

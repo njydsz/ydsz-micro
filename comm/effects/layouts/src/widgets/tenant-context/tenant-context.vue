@@ -65,16 +65,23 @@ const visible = computed(() => {
 /**
  * 处理租户切换。
  *
- * <p>切换成功后刷新页面，使各模块重新加载对应租户数据。
+ * <p>switchTenant 内部先执行远程切换（后端签发目标租户 token 对并吊销旧 token），
+ * 成功后更新本地上下文；再刷新页面以加载新租户的完整上下文。
+ * 远程切换失败时保持当前租户，不做刷新。
  *
  * @param tenant - 目标租户
  */
-function handleSwitchTenant(tenant: TenantInfo): void {
+async function handleSwitchTenant(tenant: TenantInfo): Promise<void> {
   if (tenant.id === activeTenantId.value) {
     return;
   }
-  switchTenant(tenant.id, tenant.tenantName);
-  // 切换后刷新页面以加载新租户的完整上下文（token 失效需重新登录的场景由后端拦截器处理）
+  try {
+    await switchTenant(tenant.id, tenant.tenantName);
+  } catch {
+    // 远程切换失败（租户不可访问/网络异常等）：保持当前租户上下文，不刷新
+    return;
+  }
+  // 切换后刷新页面以加载新租户的完整上下文
   window.location.reload();
 }
 

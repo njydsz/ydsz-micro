@@ -105,10 +105,14 @@ export function useWorkspaceData<T extends object>(fallback: T) {
     try {
       const res = await getWorkspaceDataApi();
       const fallbackData = fallback as WorkspaceData;
-      if (
+      const hasListData = Boolean(
         res &&
-        (res.projects?.length || res.todos?.length || res.quickNavs?.length)
-      ) {
+          (res.projects?.length ||
+            res.todos?.length ||
+            res.quickNavs?.length ||
+            res.trends?.length),
+      );
+      if (res && (hasListData || res.greeting)) {
         // 按字段粒度合并：后端只返回部分字段时，缺失字段沿用 fallback
         data.value = {
           ...fallbackData,

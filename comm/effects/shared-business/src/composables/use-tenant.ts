@@ -35,7 +35,13 @@ export interface TenantInfo {
 /** 租户加载器函数签名 */
 export type TenantFetcher = () => Promise<TenantInfo[]>;
 
+/** 租户切换器函数签名（应用层注入，调用后端切换端点并更新令牌） */
+export type TenantSwitcher = (tenantId: string) => Promise<void>;
+
 let _fetcher: TenantFetcher | null = null;
+
+/** 远程租户切换器（未注入时退化为纯前端上下文切换） */
+let _switcher: TenantSwitcher | null = null;
 
 /**
  * 注入租户加载器（应用启动时调用一次）。
@@ -44,6 +50,20 @@ let _fetcher: TenantFetcher | null = null;
  */
 export function setTenantFetcher(fetcher: TenantFetcher): void {
   _fetcher = fetcher;
+}
+
+/**
+ * 注入远程租户切换器（应用启动时调用一次）。
+ *
+ * <p>切换器由应用层提供（需 requestClient 与 token store，受包边界约束
+ * 本包不直接依赖）：调用后端 {@code POST /api/auth/tenant/switch} 签发目标租户的
+ * 新 token 对并写回 token store。注入后 {@link useTenant} 的 {@code switchTenant}
+ * 会先执行远程切换，失败时中断本地上下文变更，保证两端一致。
+ *
+ * @param switcher - 执行远程租户切换的异步函数（失败时应抛出异常）
+ */
+export function setTenantSwitcher(switcher: TenantSwitcher): void {
+  _switcher = switcher;
 }
 
 /**
@@ -97,25 +117,32 @@ export function useTenant() {
   /**
    * 切换到指定租户。
    *
-   * <p>更新 localStorage → 请求拦截器自动注入 X-Tenant-Id 头 → 广播子应用刷新 → 失效字典缓存。
-   * 切换后建议刷新页面或重新拉取当前页面数据以确保数据一致性。
+   * <p>优先执行远程切换（已注入 {@link setTenantSwitcher} 时）：调用后端切换端点
+   * 签发目标租户的 token 对并写回 token store；远程切换失败时抛出异常且不更新本地上下文。
+   * 远程成功后再更新本地：localStorage → 请求拦截器注入 X-Tenant-Id → 广播子应用 →
+   * 失效字典缓存。切换后由调用方刷新页面以加载新租户上下文。
    *
    * @param tenantId - 目标租户 ID
    * @param tenantName - 目标租户名称（可选，展示用）
    */
-  function switchTenant(tenantId: string, tenantName?: string): void {
+  async function switchTenant(tenantId: string, tenantName?: string): Promise<void> {
     const previousTenantId = tenantStore.activeTenantId;
     if (previousTenantId === tenantId) {
       return;
     }
 
-    // 1. 更新 store + localStorage
+    // 1. 远程切换（后端签发目标租户 token 对；失败则保持原租户上下文）
+    if (_switcher) {
+      await _switcher(tenantId);
+    }
+
+    // 2. 更新 store + localStorage
     tenantStore.setActiveTenant(tenantId, tenantName);
 
-    // 2. 失效字典缓存（不同租户的字典数据可能不同）
+    // 3. 失效字典缓存（不同租户的字典数据可能不同）
     dictStore.invalidate();
 
-    // 3. 广播租户变更事件到所有子应用
+    // 4. 广播租户变更事件到所有子应用
     broadcastTenantChange(tenantId, previousTenantId);
   }
 

@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 /**
  * 历史文件明细对话框组件。
  *

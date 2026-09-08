@@ -118,9 +118,11 @@ export {
 // 多租户上下文 composable
 export {
   setTenantFetcher,
+  setTenantSwitcher,
   useTenant,
   type TenantFetcher,
   type TenantInfo,
+  type TenantSwitcher,
 } from './composables/use-tenant';
 
 // 大数据量下拉选择器

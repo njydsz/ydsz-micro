@@ -62,9 +62,11 @@ export {
 // —— 多租户 ——
 export {
   setTenantFetcher,
+  setTenantSwitcher,
   useTenant,
   type TenantFetcher,
   type TenantInfo,
+  type TenantSwitcher,
 } from './use-tenant';
 
 // —— 审批日志 ——

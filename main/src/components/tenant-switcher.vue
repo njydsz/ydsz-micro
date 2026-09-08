@@ -89,11 +89,12 @@ const visible = computed(() => {
 /**
  * 处理租户切换。
  *
- * <p>调用 switchTenant 更新 store 和 localStorage，然后刷新页面以加载新租户上下文。
+ * <p>调用 switchTenant（含远程切换：后端签发目标租户 token 对并吊销旧 token），
+ * 成功后刷新页面以加载新租户上下文；失败则提示且保持当前租户。
  *
  * @param tenantId - 选中的目标租户 ID
  */
-function handleTenantChange(tenantId: string): void {
+async function handleTenantChange(tenantId: string): Promise<void> {
   if (tenantId === activeTenantId.value) {
     return;
   }
@@ -102,7 +103,12 @@ function handleTenantChange(tenantId: string): void {
     ElMessage.warning('未找到目标租户信息');
     return;
   }
-  switchTenant(target.id, target.tenantName);
+  try {
+    await switchTenant(target.id, target.tenantName);
+  } catch {
+    ElMessage.error(`切换至「${target.tenantName}」失败，请稍后重试`);
+    return;
+  }
   ElMessage.success(
     `已切换至「${target.tenantName}」(${target.tenantCode})，正在刷新...`,
   );
