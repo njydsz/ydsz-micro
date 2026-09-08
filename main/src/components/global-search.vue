@@ -218,14 +218,16 @@ function close() {
 .gs-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
+  gap: var(--space-inline);
+  padding: var(--space-inline) 16px;
   cursor: pointer;
   border: none;
   background: transparent;
   width: 100%;
   text-align: left;
-  border-bottom: 1px solid var(--el-border-color-extra-light);
+  border-bottom: 1px solid hsl(var(--border-subtle));
+  border-left: 2px solid transparent;
+  transition: var(--transition-colors);
 }
 
 .gs-item:last-child {
@@ -255,51 +257,60 @@ function close() {
 }
 
 .gs-item-title {
-  font-size: 13px;
-  color: var(--el-text-color-primary);
+  font-size: var(--text-13);
+  color: hsl(var(--txt-primary));
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .gs-item-title :deep(mark) {
-  background: var(--el-color-primary-light-8);
-  color: var(--el-color-primary);
-  border-radius: 2px;
-  padding: 0 2px;
+  background: hsl(var(--primary-subtle));
+  color: hsl(var(--primary));
+  border-radius: var(--radius-xs);
+  padding: 0 var(--space-tight);
 }
 
 .gs-item-desc {
-  font-size: 11px;
-  color: var(--el-text-color-secondary);
+  font-size: var(--text-11);
+  color: hsl(var(--txt-secondary));
 }
 
 .gs-app-badge {
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 10px;
-  background: var(--el-fill-color-light);
-  color: var(--el-text-color-regular);
+  padding: var(--space-tight) var(--space-inline);
+  border-radius: var(--radius-full);
+  font-size: var(--text-10);
+  background: hsl(var(--bg-surface-3));
+  color: hsl(var(--txt-secondary));
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .gs-empty,
 .gs-tips {
   text-align: center;
-  padding: 20px;
-  font-size: 12px;
-  color: var(--el-text-color-placeholder);
+  padding: var(--space-section) var(--space-group);
+  font-size: var(--text-12);
+  color: hsl(var(--txt-tertiary));
 }
 
 .gs-tips {
   display: flex;
-  gap: 16px;
+  gap: var(--space-group);
   justify-content: center;
 }
 
-.search-modal-enter-active,
+.search-modal-enter-active {
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.search-modal-enter-active .gs-panel {
+  animation: fade-in-down var(--duration-default) var(--ease-spring) forwards;
+}
+
 .search-modal-leave-active {
-  transition: opacity 0.15s ease;
+  transition: opacity var(--duration-fast) var(--ease-in);
+  animation: fade-out var(--duration-fast) var(--ease-in) forwards;
 }
 
 .search-modal-enter-from,
