@@ -158,46 +158,55 @@ function close() {
   align-items: flex-start;
   justify-content: center;
   padding-top: 15vh;
-  background: rgb(0 0 0 / 40%);
+  background: hsl(var(--bg-overlay));
 }
 
 .gs-panel {
   width: 560px;
   max-width: 90vw;
-  background: var(--el-bg-color, #fff);
-  border-radius: 12px;
-  box-shadow: 0 16px 48px rgb(0 0 0 / 18%);
+  background: hsl(var(--bg-glass));
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid hsl(var(--glass-border));
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-overlay-200);
   overflow: hidden;
+  animation: fade-in-down var(--duration-default) var(--ease-out) forwards;
 }
 
 .gs-input-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-inline);
   padding: 14px 16px;
-  border-bottom: 1px solid var(--el-border-color-lighter);
+  border-bottom: 1px solid hsl(var(--border-subtle));
 }
 
 .gs-icon {
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-tertiary));
+  flex-shrink: 0;
 }
 
 .gs-input {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: var(--text-15);
   background: transparent;
-  color: var(--el-text-color-primary);
+  color: hsl(var(--txt-primary));
+}
+
+.gs-input::placeholder {
+  color: hsl(var(--txt-tertiary));
 }
 
 .gs-kbd {
-  padding: 2px 6px;
-  font-size: 11px;
-  color: var(--el-text-color-placeholder);
-  background: var(--el-fill-color-light);
-  border-radius: 4px;
-  border: 1px solid var(--el-border-color);
+  padding: var(--space-tight) var(--space-inline);
+  font-size: var(--text-11);
+  color: hsl(var(--txt-tertiary));
+  background: hsl(var(--bg-surface-3));
+  border-radius: var(--radius-xs);
+  border: 1px solid hsl(var(--border-default));
+  flex-shrink: 0;
 }
 
 .gs-results {
@@ -223,9 +232,14 @@ function close() {
   border-bottom: none;
 }
 
-.gs-item.is-active,
+.gs-item.is-active {
+  background: hsl(var(--row-active-bg));
+  border-left: 2px solid hsl(var(--row-active-border));
+}
+
 .gs-item:hover {
-  background: var(--el-fill-color-light);
+  background: hsl(var(--row-hover-bg));
+  border-left-color: transparent;
 }
 
 .gs-item-icon {
