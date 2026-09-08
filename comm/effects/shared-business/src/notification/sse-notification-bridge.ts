@@ -16,7 +16,7 @@
  *   <li>{@code notification.audit} → 安全事件（异常登录、权限变更即时生效）</li>
  * </ul>
  *
- * <p>同一连接复用：减少服务端连接数，与 v1 共享 {@code /api/v1/auth/events} 端点，
+ * <p>同一连接复用：减少服务端连接数，与 v1 共享 {@code /api/auth/events} 端点，
  * 后端按事件类型投递到不同 event 通道。
  *
  * <p>在本应用 bootstrap 中调用一次 {@link setupSseNotificationBridge} 启动。
@@ -47,7 +47,7 @@ import {
 const logger = createLogger('sse-notification-bridge');
 
 /** SSE 端点（与 v1 auth.events 复用同一连接） */
-const SSE_NOTIFICATION_ENDPOINT = '/api/v1/auth/events';
+const SSE_NOTIFICATION_ENDPOINT = '/api/auth/events';
 
 /** 重连基础延迟（ms），指数退避上限 */
 const RECONNECT_BASE_DELAY = 3000;

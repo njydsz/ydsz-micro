@@ -134,7 +134,7 @@ pnpm build:message
 ## API 调用
 
 API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端
-`/api/v1/message/*` 端点：
+`/api/message/*` 端点：
 
 ```typescript
 // 消息发送记录（src/api/message.ts）
@@ -146,11 +146,11 @@ export function getMessagePageApi(params: MessageApi.MessagePageQuery) {
     current: number;
     size: number;
     items: MessageApi.MessageVO[];
-  }>(`/api/v1/message/page`, { params });
+  }>(`/api/message/page`, { params });
 }
 
 export function createMessageApi(data: MessageApi.MessageDTO) {
-  return requestClient.post<string>(`/api/v1/message`, data);
+  return requestClient.post<string>(`/api/message`, data);
 }
 ```
 

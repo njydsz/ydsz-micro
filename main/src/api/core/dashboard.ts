@@ -69,7 +69,7 @@ export interface WorkspaceData {
  * 后端未就绪时返回空数组，由调用方回退到本地默认值。
  */
 export function getOverviewStatsApi() {
-  return requestClient.get<OverviewItem[]>('/api/v1/dashboard/overview');
+  return requestClient.get<OverviewItem[]>('/api/dashboard/overview');
 }
 
 /**
@@ -77,5 +77,5 @@ export function getOverviewStatsApi() {
  * 后端未就绪时返回空对象，由调用方回退到本地默认值。
  */
 export function getWorkspaceDataApi() {
-  return requestClient.get<WorkspaceData>('/api/v1/dashboard/workspace');
+  return requestClient.get<WorkspaceData>('/api/dashboard/workspace');
 }

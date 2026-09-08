@@ -13,9 +13,9 @@
 
 /** 可配置的上报端点集合 */
 export interface MonitorEndpoints {
-  /** 错误上报端点，默认 `/api/v1/monitor/error` */
+  /** 错误上报端点，默认 `/api/monitor/error` */
   error?: string;
-  /** Web Vitals 上报端点，默认 `/api/v1/monitor/web-vitals` */
+  /** Web Vitals 上报端点，默认 `/api/monitor/web-vitals` */
   webVitals?: string;
   /**
    * 性能告警端点（超出阈值时主动上报）。
@@ -27,10 +27,10 @@ export interface MonitorEndpoints {
 }
 
 /** 默认错误上报端点 */
-const DEFAULT_ERROR_ENDPOINT = '/api/v1/monitor/error';
+const DEFAULT_ERROR_ENDPOINT = '/api/monitor/error';
 
 /** 默认 Web Vitals 上报端点 */
-const DEFAULT_WEB_VITALS_ENDPOINT = '/api/v1/monitor/web-vitals';
+const DEFAULT_WEB_VITALS_ENDPOINT = '/api/monitor/web-vitals';
 
 /** 默认 Web Vitals 告警上报端点（未配置时使用 webVitals 端点） */
 const DEFAULT_WEB_VITALS_ALERT_ENDPOINT = '';
@@ -45,8 +45,8 @@ let webVitalsAlertEndpoint: string = DEFAULT_WEB_VITALS_ALERT_ENDPOINT;
  *
  * ```ts
  * configureMonitorEndpoints({
- *   error: 'https://collector.example.com/api/v1/monitor/error',
- *   webVitalsAlert: 'https://collector.example.com/api/v1/monitor/web-vitals/alert',
+ *   error: 'https://collector.example.com/api/monitor/error',
+ *   webVitalsAlert: 'https://collector.example.com/api/monitor/web-vitals/alert',
  * });
  * ```
  *

@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/agent/execute": {
+    "/api/agent/execute": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/execute/stream": {
+    "/api/agent/execute/stream": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/chat": {
+    "/api/agent/chat": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/chat/stream": {
+    "/api/agent/chat/stream": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/chat/batch": {
+    "/api/agent/chat/batch": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/history": {
+    "/api/agent/history": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/definitions": {
+    "/api/agent/definitions": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/definitions/{id}": {
+    "/api/agent/definitions/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/definitions/code/{code}": {
+    "/api/agent/definitions/code/{code}": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/models": {
+    "/api/agent/models": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/tools": {
+    "/api/agent/tools": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/dag/execute": {
+    "/api/agent/dag/execute": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/dag/checkpoint/{executionId}": {
+    "/api/agent/dag/checkpoint/{executionId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/dag/validate": {
+    "/api/agent/dag/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/debug/traces": {
+    "/api/agent/debug/traces": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/debug/trace/{traceId}": {
+    "/api/agent/debug/trace/{traceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/debug/trace/{traceId}/replay": {
+    "/api/agent/debug/trace/{traceId}/replay": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/approvals/pending": {
+    "/api/agent/approvals/pending": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/approvals/{id}": {
+    "/api/agent/approvals/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/approvals/{id}/approve": {
+    "/api/agent/approvals/{id}/approve": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/approvals/{id}/reject": {
+    "/api/agent/approvals/{id}/reject": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/observability/overview": {
+    "/api/agent/observability/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -358,7 +358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/observability/model-usage": {
+    "/api/agent/observability/model-usage": {
         parameters: {
             query?: never;
             header?: never;
@@ -374,7 +374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/prompt/evaluate": {
+    "/api/agent/prompt/evaluate": {
         parameters: {
             query?: never;
             header?: never;
@@ -390,7 +390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/prompt/compare": {
+    "/api/agent/prompt/compare": {
         parameters: {
             query?: never;
             header?: never;
@@ -406,7 +406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/rag/ingest": {
+    "/api/agent/rag/ingest": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/rag/search": {
+    "/api/agent/rag/search": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/rag/documents/{documentId}": {
+    "/api/agent/rag/documents/{documentId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/rag/stats": {
+    "/api/agent/rag/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/runtime/sessions/active": {
+    "/api/agent/runtime/sessions/active": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/runtime/sessions/recent": {
+    "/api/agent/runtime/sessions/recent": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/runtime/sessions/{executionId}": {
+    "/api/agent/runtime/sessions/{executionId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/runtime/overview": {
+    "/api/agent/runtime/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/teamruns": {
+    "/api/agent/teamruns": {
         parameters: {
             query?: never;
             header?: never;
@@ -550,7 +550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/teamruns/{teamRunId}/members": {
+    "/api/agent/teamruns/{teamRunId}/members": {
         parameters: {
             query?: never;
             header?: never;
@@ -566,7 +566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/teamruns/{teamRunId}/start": {
+    "/api/agent/teamruns/{teamRunId}/start": {
         parameters: {
             query?: never;
             header?: never;
@@ -582,7 +582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/teamruns/{teamRunId}/cancel": {
+    "/api/agent/teamruns/{teamRunId}/cancel": {
         parameters: {
             query?: never;
             header?: never;
@@ -598,7 +598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/teamruns/{teamRunId}": {
+    "/api/agent/teamruns/{teamRunId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -614,7 +614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/triggers": {
+    "/api/agent/triggers": {
         parameters: {
             query?: never;
             header?: never;
@@ -630,7 +630,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/triggers/{triggerId}": {
+    "/api/agent/triggers/{triggerId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -646,7 +646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/triggers/{triggerId}/enable": {
+    "/api/agent/triggers/{triggerId}/enable": {
         parameters: {
             query?: never;
             header?: never;
@@ -662,7 +662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/agent/triggers/{triggerId}/disable": {
+    "/api/agent/triggers/{triggerId}/disable": {
         parameters: {
             query?: never;
             header?: never;

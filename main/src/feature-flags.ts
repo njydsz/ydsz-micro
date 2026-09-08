@@ -51,14 +51,14 @@ export function registerApplicationFlags(): void {
 /**
  * 远程开关配置加载器。
  *
- * 调用 `/api/v1/feature-flags/me`，返回当前用户可见的开关映射。
+ * 调用 `/api/feature-flags/me`，返回当前用户可见的开关映射。
  * 失败时由 FeatureFlagsManager 内部捕获并降级到默认值，此处不再额外处理。
  */
 async function remoteFeatureFlagsLoader(): Promise<
   Record<string, FeatureFlagValue>
 > {
   const resp = await requestClient.get<Record<string, FeatureFlagValue>>(
-    "/api/v1/feature-flags/me",
+    "/api/feature-flags/me",
   );
   return resp ?? {};
 }

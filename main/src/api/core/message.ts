@@ -2,8 +2,8 @@
  * 消息 API —— 消息送达回执与模板版本历史接口定义（ydsz-message）
  *
  * 对齐后端 ydsz-message 模块的接口：
- * - GET  /api/v1/message/receipt/{logId}                      按日志ID查询送达回执（ReceiptController）
- * - GET  /api/v1/message/template/version/list/{templateCode}  查询模板版本历史（TemplateVersionController）
+ * - GET  /api/message/receipt/{logId}                      按日志ID查询送达回执（ReceiptController）
+ * - GET  /api/message/template/version/list/{templateCode}  查询模板版本历史（TemplateVersionController）
  *
  * @path main\src\api\core\message.ts
  * @author ydsz-team
@@ -63,7 +63,7 @@ export interface TemplateVersionItem {
  */
 export function getReceiptsByLogIdApi(logId: string) {
   return requestClient.get<ReceiptItem[]>(
-    `/api/v1/message/receipt/${logId}`,
+    `/api/message/receipt/${logId}`,
   );
 }
 
@@ -75,6 +75,6 @@ export function getReceiptsByLogIdApi(logId: string) {
  */
 export function getTemplateVersionListApi(templateCode: string) {
   return requestClient.get<TemplateVersionItem[]>(
-    `/api/v1/message/template/version/list/${templateCode}`,
+    `/api/message/template/version/list/${templateCode}`,
   );
 }

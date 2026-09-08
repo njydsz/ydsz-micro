@@ -6,7 +6,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { baseRequestClient } from './request';
+import { requestClient } from './request';
 
 /** 二次认证请求 DTO */
 export interface SecondaryAuthDTO {
@@ -27,8 +27,7 @@ export interface SecondaryAuthVO {
 /**
  * 发起二次身份验证
  *
- * <p>POST /api/v1/auth/secondary-auth
- * 使用 baseRequestClient 避免进入业务拦截器链形成递归。
+ * <p>POST /api/auth/secondary-auth
  *
  * @param data - 二次认证请求数据
  * @returns 认证令牌
@@ -36,9 +35,8 @@ export interface SecondaryAuthVO {
 export async function secondaryAuthApi(
   data: SecondaryAuthDTO,
 ): Promise<SecondaryAuthVO> {
-  // TODO: 对接真实 API —— 后端 SecondaryAuthController 实现后替换为 requestClient
-  return baseRequestClient.post<SecondaryAuthVO>(
-    '/api/v1/auth/secondary-auth',
+  return requestClient.post<SecondaryAuthVO>(
+    '/api/auth/secondary-auth',
     data,
   );
 }

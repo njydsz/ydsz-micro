@@ -25,8 +25,8 @@ import { useDebounceFn } from '@vueuse/core';
 import { systemClient } from '@ydsz/system-api';
 
 /** 搜索接口路径 */
-const SEARCH_API = '/api/v1/search/unified';
-const SUGGEST_API = '/api/v1/search/suggest';
+const SEARCH_API = '/api/search/unified';
+const SUGGEST_API = '/api/search/suggest';
 
 /** 搜索历史 localStorage key */
 const HISTORY_KEY = 'global-search-history';

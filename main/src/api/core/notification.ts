@@ -1,9 +1,9 @@
 /**
  * 站内通知 API —— 收件箱分页/未读数/标记已读/批量删除接口（对齐后端 NotificationController）
  *
- * <p>后端契约：{@code NotificationController} 映射于 {@code /api/v1/message/notifications}，
+ * <p>后端契约：{@code NotificationController} 映射于 {@code /api/message/notifications}，
  * 提供 收件箱分页(inbox) / 未读数(unreadCount) / 标记已读({id}/read) / 全部已读(readAll) / 批量删除(delete)。
- * 此前主应用误用 {@code /api/v1/notification/*}（后端不存在该路径），已在 P5 对齐。
+ * 此前主应用误用 {@code /api/notification/*}（后端不存在该路径），已在 P5 对齐。
  *
  * <p>本模块为主应用侧的类型化封装：后端 VO（MsgNotificationVO）在此映射为 UI 所需结构
  * （{@link NotificationItem}），收件箱分页响应映射为 {@link NotificationPageResult}。
@@ -133,7 +133,7 @@ export async function getNotificationsApi(
   if (params.level) query.level = params.level;
 
   const res = await requestClient.get<PageResponse<MsgNotificationVO[]>>(
-    '/api/v1/message/notifications/inbox',
+    '/api/message/notifications/inbox',
     { params: query },
   );
   return {
@@ -150,7 +150,7 @@ export async function getNotificationsApi(
  * @returns 未读通知总数（用于导航角标展示）
  */
 export function getUnreadCountApi() {
-  return requestClient.get<number>('/api/v1/message/notifications/unreadCount');
+  return requestClient.get<number>('/api/message/notifications/unreadCount');
 }
 
 /**
@@ -161,7 +161,7 @@ export function getUnreadCountApi() {
  */
 export function markAsReadApi(id: string) {
   return requestClient.post<boolean>(
-    `/api/v1/message/notifications/${id}/read`,
+    `/api/message/notifications/${id}/read`,
   );
 }
 
@@ -171,7 +171,7 @@ export function markAsReadApi(id: string) {
  * @returns 本次成功标记的条数
  */
 export function markAllAsReadApi() {
-  return requestClient.post<number>('/api/v1/message/notifications/readAll');
+  return requestClient.post<number>('/api/message/notifications/readAll');
 }
 
 /**
@@ -181,7 +181,7 @@ export function markAllAsReadApi() {
  * @returns 空响应（无业务数据）
  */
 export function deleteNotificationsApi(ids: string[]) {
-  return requestClient.delete<void>('/api/v1/message/notifications', {
+  return requestClient.delete<void>('/api/message/notifications', {
     data: ids,
   });
 }

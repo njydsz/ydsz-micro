@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/cronjob/alert/rule": {
+    "/api/cronjob/alert/rule": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/alert/rule/{id}": {
+    "/api/cronjob/alert/rule/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/alert/rules": {
+    "/api/cronjob/alert/rules": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/alert/rule/{id}/toggle": {
+    "/api/cronjob/alert/rule/{id}/toggle": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/alert/logs/{jobId}": {
+    "/api/cronjob/alert/logs/{jobId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/audit/page": {
+    "/api/cronjob/audit/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/cluster/migrate": {
+    "/api/cronjob/cluster/migrate": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/cluster/list": {
+    "/api/cronjob/cluster/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/cluster/enabled": {
+    "/api/cronjob/cluster/enabled": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/connector/types": {
+    "/api/cronjob/connector/types": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/connector/test": {
+    "/api/cronjob/connector/test": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/connector/remote-tasks": {
+    "/api/cronjob/connector/remote-tasks": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/connector/import": {
+    "/api/cronjob/connector/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/connector/export": {
+    "/api/cronjob/connector/export": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/pause": {
+    "/api/cronjob/dag/instance/{instanceId}/pause": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/resume": {
+    "/api/cronjob/dag/instance/{instanceId}/resume": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/cancel": {
+    "/api/cronjob/dag/instance/{instanceId}/cancel": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/retryNode": {
+    "/api/cronjob/dag/instance/{instanceId}/retryNode": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag": {
+    "/api/cronjob/dag": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/{dagId}": {
+    "/api/cronjob/dag/{dagId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/{dagId}/enable": {
+    "/api/cronjob/dag/{dagId}/enable": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/{dagId}/disable": {
+    "/api/cronjob/dag/{dagId}/disable": {
         parameters: {
             query?: never;
             header?: never;
@@ -358,7 +358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/key/{dagKey}": {
+    "/api/cronjob/dag/key/{dagKey}": {
         parameters: {
             query?: never;
             header?: never;
@@ -374,7 +374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/enabled": {
+    "/api/cronjob/dag/enabled": {
         parameters: {
             query?: never;
             header?: never;
@@ -390,7 +390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/trigger": {
+    "/api/cronjob/dag/trigger": {
         parameters: {
             query?: never;
             header?: never;
@@ -406,7 +406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/validate": {
+    "/api/cronjob/dag/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/{dagId}/versions": {
+    "/api/cronjob/dag/{dagId}/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/{dagId}/rollback": {
+    "/api/cronjob/dag/{dagId}/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}": {
+    "/api/cronjob/dag/instance/{instanceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/dag/{dagId}": {
+    "/api/cronjob/dag/instance/dag/{dagId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/status/{status}": {
+    "/api/cronjob/dag/instance/status/{status}": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/nodes": {
+    "/api/cronjob/dag/instance/{instanceId}/nodes": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/visualization": {
+    "/api/cronjob/dag/instance/{instanceId}/visualization": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/mermaid": {
+    "/api/cronjob/dag/instance/{instanceId}/mermaid": {
         parameters: {
             query?: never;
             header?: never;
@@ -550,7 +550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/instance/{instanceId}/context": {
+    "/api/cronjob/dag/instance/{instanceId}/context": {
         parameters: {
             query?: never;
             header?: never;
@@ -566,7 +566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/topology/dagInstance/{dagInstanceId}": {
+    "/api/cronjob/topology/dagInstance/{dagInstanceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -582,7 +582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape": {
+    "/api/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape": {
         parameters: {
             query?: never;
             header?: never;
@@ -598,7 +598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/topology/jobHistory/{jobKey}": {
+    "/api/cronjob/topology/jobHistory/{jobKey}": {
         parameters: {
             query?: never;
             header?: never;
@@ -614,7 +614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dashboard/overview": {
+    "/api/cronjob/dashboard/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -646,7 +646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dashboard/health": {
+    "/api/cronjob/dashboard/health": {
         parameters: {
             query?: never;
             header?: never;
@@ -662,7 +662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/dag/save": {
+    "/api/cronjob/dag/save": {
         parameters: {
             query?: never;
             header?: never;
@@ -694,7 +694,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/events/job/{jobId}": {
+    "/api/cronjob/events/job/{jobId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -710,7 +710,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/events/page": {
+    "/api/cronjob/events/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -726,7 +726,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/save": {
+    "/api/cronjob/glue/save": {
         parameters: {
             query?: never;
             header?: never;
@@ -742,7 +742,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/validate": {
+    "/api/cronjob/glue/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -774,7 +774,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/internal/migrate/register": {
+    "/api/cronjob/internal/migrate/register": {
         parameters: {
             query?: never;
             header?: never;
@@ -790,7 +790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/internal/migrate/unregister": {
+    "/api/cronjob/internal/migrate/unregister": {
         parameters: {
             query?: never;
             header?: never;
@@ -806,7 +806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/internal/execute": {
+    "/api/cronjob/internal/execute": {
         parameters: {
             query?: never;
             header?: never;
@@ -822,7 +822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/internal/executeSubTask": {
+    "/api/cronjob/internal/executeSubTask": {
         parameters: {
             query?: never;
             header?: never;
@@ -838,7 +838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/internal/executeBatch": {
+    "/api/cronjob/internal/executeBatch": {
         parameters: {
             query?: never;
             header?: never;
@@ -854,7 +854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob": {
+    "/api/cronjob": {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/cron/validate": {
+    "/api/cronjob/cron/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/batch/delete": {
+    "/api/cronjob/batch/delete": {
         parameters: {
             query?: never;
             header?: never;
@@ -902,7 +902,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/{id}": {
+    "/api/cronjob/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -918,7 +918,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/{id}/pause": {
+    "/api/cronjob/{id}/pause": {
         parameters: {
             query?: never;
             header?: never;
@@ -934,7 +934,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/{id}/resume": {
+    "/api/cronjob/{id}/resume": {
         parameters: {
             query?: never;
             header?: never;
@@ -950,7 +950,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/{id}/trigger": {
+    "/api/cronjob/{id}/trigger": {
         parameters: {
             query?: never;
             header?: never;
@@ -966,7 +966,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/batch/pause": {
+    "/api/cronjob/batch/pause": {
         parameters: {
             query?: never;
             header?: never;
@@ -982,7 +982,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/batch/resume": {
+    "/api/cronjob/batch/resume": {
         parameters: {
             query?: never;
             header?: never;
@@ -998,7 +998,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/batch/trigger": {
+    "/api/cronjob/batch/trigger": {
         parameters: {
             query?: never;
             header?: never;
@@ -1014,7 +1014,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/batch/updateGroup": {
+    "/api/cronjob/batch/updateGroup": {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,7 +1030,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/batch/updateCron": {
+    "/api/cronjob/batch/updateCron": {
         parameters: {
             query?: never;
             header?: never;
@@ -1046,7 +1046,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/page": {
+    "/api/cronjob/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1062,7 +1062,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/log/page": {
+    "/api/cronjob/log/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1078,7 +1078,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/reload": {
+    "/api/cronjob/reload": {
         parameters: {
             query?: never;
             header?: never;
@@ -1094,7 +1094,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/group/{jobGroup}/page": {
+    "/api/cronjob/group/{jobGroup}/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1110,7 +1110,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/group/{jobGroup}/pause": {
+    "/api/cronjob/group/{jobGroup}/pause": {
         parameters: {
             query?: never;
             header?: never;
@@ -1126,7 +1126,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/group/{jobGroup}/resume": {
+    "/api/cronjob/group/{jobGroup}/resume": {
         parameters: {
             query?: never;
             header?: never;
@@ -1142,7 +1142,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/group/{jobGroup}/trigger": {
+    "/api/cronjob/group/{jobGroup}/trigger": {
         parameters: {
             query?: never;
             header?: never;
@@ -1158,7 +1158,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/group/stats": {
+    "/api/cronjob/group/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -1174,7 +1174,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/history/versions": {
+    "/api/cronjob/history/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -1190,7 +1190,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/history/detail": {
+    "/api/cronjob/history/detail": {
         parameters: {
             query?: never;
             header?: never;
@@ -1206,7 +1206,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/history/rollback": {
+    "/api/cronjob/history/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -1222,7 +1222,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/history/compare": {
+    "/api/cronjob/history/compare": {
         parameters: {
             query?: never;
             header?: never;
@@ -1238,7 +1238,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/log/stream/{logId}": {
+    "/api/cronjob/log/stream/{logId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1254,7 +1254,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/stats/daily": {
+    "/api/cronjob/stats/daily": {
         parameters: {
             query?: never;
             header?: never;
@@ -1270,7 +1270,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/stats/summary": {
+    "/api/cronjob/stats/summary": {
         parameters: {
             query?: never;
             header?: never;
@@ -1286,7 +1286,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/stats/dashboard": {
+    "/api/cronjob/stats/dashboard": {
         parameters: {
             query?: never;
             header?: never;
@@ -1302,7 +1302,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/stats/recent-failures": {
+    "/api/cronjob/stats/recent-failures": {
         parameters: {
             query?: never;
             header?: never;
@@ -1318,7 +1318,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/stats/heatmap": {
+    "/api/cronjob/stats/heatmap": {
         parameters: {
             query?: never;
             header?: never;
@@ -1334,7 +1334,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/task/list": {
+    "/api/cronjob/task/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -1350,7 +1350,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/task/page": {
+    "/api/cronjob/task/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1366,7 +1366,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/task/progress": {
+    "/api/cronjob/task/progress": {
         parameters: {
             query?: never;
             header?: never;
@@ -1382,7 +1382,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/webhook": {
+    "/api/cronjob/webhook": {
         parameters: {
             query?: never;
             header?: never;
@@ -1398,7 +1398,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/webhook/{id}": {
+    "/api/cronjob/webhook/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1414,7 +1414,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/webhook/page": {
+    "/api/cronjob/webhook/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1430,7 +1430,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/webhook/{id}/test": {
+    "/api/cronjob/webhook/{id}/test": {
         parameters: {
             query?: never;
             header?: never;
@@ -1446,7 +1446,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/monitor/diagnosis/{jobKey}": {
+    "/api/cronjob/monitor/diagnosis/{jobKey}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1462,7 +1462,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/queue/status": {
+    "/api/cronjob/queue/status": {
         parameters: {
             query?: never;
             header?: never;
@@ -1478,7 +1478,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/latest": {
+    "/api/cronjob/glue/latest": {
         parameters: {
             query?: never;
             header?: never;
@@ -1494,7 +1494,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/versions": {
+    "/api/cronjob/glue/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -1510,7 +1510,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/rollback": {
+    "/api/cronjob/glue/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -1526,7 +1526,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/test": {
+    "/api/cronjob/glue/test": {
         parameters: {
             query?: never;
             header?: never;
@@ -1542,7 +1542,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/template": {
+    "/api/cronjob/glue/template": {
         parameters: {
             query?: never;
             header?: never;
@@ -1558,7 +1558,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/glue/diff": {
+    "/api/cronjob/glue/diff": {
         parameters: {
             query?: never;
             header?: never;
@@ -1574,7 +1574,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/calendar/fireTimes": {
+    "/api/cronjob/calendar/fireTimes": {
         parameters: {
             query?: never;
             header?: never;
@@ -1590,7 +1590,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/calendar/schedule": {
+    "/api/cronjob/calendar/schedule": {
         parameters: {
             query?: never;
             header?: never;
@@ -1606,7 +1606,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/cronjob/topology/global": {
+    "/api/cronjob/topology/global": {
         parameters: {
             query?: never;
             header?: never;

@@ -144,20 +144,20 @@ pnpm build:main
 // 登录（src/api/core/auth.ts）
 import { requestClient } from '#/api/request';
 export async function loginApi(data: AuthApi.LoginParams) {
-  return requestClient.post<AuthApi.LoginResult>('/api/v1/auth/login', data);
+  return requestClient.post<AuthApi.LoginResult>('/api/auth/login', data);
 }
 
 // 刷新 token
 export async function refreshTokenApi(refreshToken: string) {
   return baseRequestClient.post<AuthApi.RefreshTokenResult>(
-    '/api/v1/auth/refresh',
+    '/api/auth/refresh',
     { refreshToken },
   );
 }
 
 // 获取权限码
 export async function getAccessCodesApi() {
-  return requestClient.get<string[]>('/api/v1/auth/codes');
+  return requestClient.get<string[]>('/api/auth/codes');
 }
 ```
 

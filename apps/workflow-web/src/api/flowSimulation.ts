@@ -15,5 +15,5 @@ import type { FlowSimulationResultVO } from './models';
  * 运行流程仿真（不持久化，仅模拟执行并返回预测路径）
  */
 export function runSimulation(data: Record<string, unknown>): Promise<FlowSimulationResultVO> {
-  return requestClient.post<FlowSimulationResultVO>('/api/v1/workflow/simulation/run', data);
+  return requestClient.post<FlowSimulationResultVO>('/api/workflow/simulation/run', data);
 }

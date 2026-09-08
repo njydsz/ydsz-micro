@@ -1,5 +1,5 @@
 /**
- * 系统管理路由模块 — 定义组织架构相关路由（部门、岗位、公司、菜单、角色、用户、国际化、会话、审计）
+ * 系统管理路由模块 — 定义组织架构相关路由（部门、岗位、公司、菜单、角色、用户、国际化、安全集成、会话、审计）
  *
  * @path apps\userinfo-web\src\router\routes\modules\system.ts
  * @author ydsz-team
@@ -95,8 +95,64 @@ const routes: RouteRecordRaw[] = [
   },
   {
     meta: {
-      icon: 'lucide:monitor',
+      icon: 'lucide:shield',
       order: 3,
+      title: '安全集成',
+    },
+    name: 'SecurityIntegration',
+    path: '/security',
+    children: [
+      {
+        name: 'OAuth2Management',
+        path: 'oauth2',
+        component: () => import('#/views/oauth2/index.vue'),
+        meta: {
+          icon: 'lucide:key',
+          title: 'OAuth2应用',
+        },
+      },
+      {
+        name: 'SamlIdpManagement',
+        path: 'saml-idp',
+        component: () => import('#/views/saml-idp/index.vue'),
+        meta: {
+          icon: 'lucide:building-2',
+          title: 'SAML配置',
+        },
+      },
+      {
+        name: 'WebAuthnManagement',
+        path: 'webauthn',
+        component: () => import('#/views/webauthn/index.vue'),
+        meta: {
+          icon: 'lucide:fingerprint',
+          title: 'Passkey',
+        },
+      },
+      {
+        name: 'SocialClientManagement',
+        path: 'social-client',
+        component: () => import('#/views/social-client/index.vue'),
+        meta: {
+          icon: 'lucide:message-circle',
+          title: '社交登录',
+        },
+      },
+      {
+        name: 'ApiKeyManagement',
+        path: 'apikey',
+        component: () => import('#/views/system/api-key/index.vue'),
+        meta: {
+          icon: 'lucide:key-round',
+          title: 'API Key',
+        },
+      },
+    ],
+  },
+  {
+    meta: {
+      icon: 'lucide:monitor',
+      order: 4,
       title: '安全审计',
     },
     name: 'SecurityAudit',

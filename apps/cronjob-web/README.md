@@ -128,7 +128,7 @@ pnpm build:cronjob
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/cronjob/*` 端点：
+API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/cronjob/*` 端点：
 
 ```typescript
 // 任务管理（src/api/job.ts）
@@ -138,11 +138,11 @@ export function getJobPageApi(params: JobApi.JobPageQuery) {
   return requestClient.get<{
     total: number; current: number; size: number;
     items: JobApi.JobVO[];
-  }>(`/api/v1/cronjob/page`, { params });
+  }>(`/api/cronjob/page`, { params });
 }
 
 export function createJobApi(data: JobApi.JobDTO) {
-  return requestClient.post<string>(`/api/v1/cronjob`, data);
+  return requestClient.post<string>(`/api/cronjob`, data);
 }
 ```
 

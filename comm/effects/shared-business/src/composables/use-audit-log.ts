@@ -6,7 +6,7 @@
  * @since 1.1.0
  *
  * @remarks
- * 封装审计日志查询逻辑，对接后端 /api/v1/audit/log/page 端点。
+ * 封装审计日志查询逻辑，对接后端 /api/audit/log/page 端点。
  * 各子应用可复用统一组件与查询 Hook，避免重复实现。
  */
 import { computed, ref } from 'vue';
@@ -63,7 +63,7 @@ export type AuditLogFetcher = (query: AuditLogQuery) => Promise<AuditLogPageResu
  * @example
  * ```ts
  * const audit = useAuditLog((query) =>
- *   requestClient.get('/api/v1/audit/log/page', { params: query }),
+ *   requestClient.get('/api/audit/log/page', { params: query }),
  * );
  * ```
  */

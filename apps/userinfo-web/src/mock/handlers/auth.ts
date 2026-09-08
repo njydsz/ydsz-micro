@@ -58,22 +58,22 @@ const mockMenuResponse = {
 export const mockAuthHandlers: MockHandler[] = [
   // 登录
   {
-    test: (url, method) => url.includes('/api/v1/auth/login') && method === 'POST',
+    test: (url, method) => url.includes('/api/auth/login') && method === 'POST',
     handle: async () => mockLoginResponse,
   },
   // 获取用户信息
   {
-    test: (url, method) => url.includes('/api/v1/auth/userinfo') && method === 'GET',
+    test: (url, method) => url.includes('/api/auth/userinfo') && method === 'GET',
     handle: async () => ({ code: 'A00000', data: mockUser, message: 'success' }),
   },
   // 登出
   {
-    test: (url, method) => url.includes('/api/v1/auth/logout') && method === 'POST',
+    test: (url, method) => url.includes('/api/auth/logout') && method === 'POST',
     handle: async () => ({ code: 'A00000', data: null, message: 'success' }),
   },
   // 刷新 Token
   {
-    test: (url, method) => url.includes('/api/v1/auth/refresh') && method === 'POST',
+    test: (url, method) => url.includes('/api/auth/refresh') && method === 'POST',
     handle: async () => ({
       code: 'A00000',
       data: {
@@ -86,7 +86,7 @@ export const mockAuthHandlers: MockHandler[] = [
   },
   // 获取菜单
   {
-    test: (url, method) => url.includes('/api/v1/menu') && method === 'GET',
+    test: (url, method) => url.includes('/api/menu') && method === 'GET',
     handle: async () => mockMenuResponse,
   },
 ];

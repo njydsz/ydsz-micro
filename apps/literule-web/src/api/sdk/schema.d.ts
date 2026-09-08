@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/literule/rules/{ruleCode}/ab-policy": {
+    "/api/literule/rules/{ruleCode}/ab-policy": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/ab-rollbacks": {
+    "/api/literule/rules/{ruleCode}/ab-rollbacks": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/ab-evaluate": {
+    "/api/literule/rules/{ruleCode}/ab-evaluate": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/ab-rollback": {
+    "/api/literule/rules/{ruleCode}/ab-rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules": {
+    "/api/literule/rules": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}": {
+    "/api/literule/rules/{ruleCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/toggle": {
+    "/api/literule/rules/{ruleCode}/toggle": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/versions": {
+    "/api/literule/rules/{ruleCode}/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/version-diff": {
+    "/api/literule/rules/{ruleCode}/version-diff": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/rollback": {
+    "/api/literule/rules/{ruleCode}/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/dry-run": {
+    "/api/literule/rules/dry-run": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/validate": {
+    "/api/literule/rules/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/evaluate": {
+    "/api/literule/rules/evaluate": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/expr-trace": {
+    "/api/literule/rules/expr-trace": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/validate-expression": {
+    "/api/literule/rules/validate-expression": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/validate-batch": {
+    "/api/literule/rules/validate-batch": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/ab-test": {
+    "/api/literule/rules/{ruleCode}/ab-test": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/stats": {
+    "/api/literule/rules/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/batch-toggle": {
+    "/api/literule/rules/batch-toggle": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/batch-priority": {
+    "/api/literule/rules/batch-priority": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/batch-category": {
+    "/api/literule/rules/batch-category": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/category-tree": {
+    "/api/literule/rules/category-tree": {
         parameters: {
             query?: never;
             header?: never;
@@ -358,7 +358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/by-category-path": {
+    "/api/literule/rules/by-category-path": {
         parameters: {
             query?: never;
             header?: never;
@@ -374,7 +374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/by-owner": {
+    "/api/literule/rules/by-owner": {
         parameters: {
             query?: never;
             header?: never;
@@ -390,7 +390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/owner": {
+    "/api/literule/rules/{ruleCode}/owner": {
         parameters: {
             query?: never;
             header?: never;
@@ -406,7 +406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/category-path": {
+    "/api/literule/rules/{ruleCode}/category-path": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/conflicts": {
+    "/api/literule/rules/conflicts": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/debug/breakpoints": {
+    "/api/literule/debug/breakpoints": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/debug/breakpoints/{breakpointId}": {
+    "/api/literule/debug/breakpoints/{breakpointId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/debug/sessions": {
+    "/api/literule/debug/sessions": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/debug/sessions/{sessionId}": {
+    "/api/literule/debug/sessions/{sessionId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/debug/sessions/{sessionId}/command": {
+    "/api/literule/debug/sessions/{sessionId}/command": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/decision-tables": {
+    "/api/literule/rules/decision-tables": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/decision-tables/{tableCode}": {
+    "/api/literule/rules/decision-tables/{tableCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -550,7 +550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/decision-tables/{id}": {
+    "/api/literule/rules/decision-tables/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -566,7 +566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/decision-tables/{tableCode}/evaluate": {
+    "/api/literule/rules/decision-tables/{tableCode}/evaluate": {
         parameters: {
             query?: never;
             header?: never;
@@ -582,7 +582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/decision-tables/{tableCode}/export-excel": {
+    "/api/literule/rules/decision-tables/{tableCode}/export-excel": {
         parameters: {
             query?: never;
             header?: never;
@@ -598,7 +598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/decision-tables/import-excel": {
+    "/api/literule/rules/decision-tables/import-excel": {
         parameters: {
             query?: never;
             header?: never;
@@ -614,7 +614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/decision-tables/excel-template": {
+    "/api/literule/rules/decision-tables/excel-template": {
         parameters: {
             query?: never;
             header?: never;
@@ -630,7 +630,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/dependencies": {
+    "/api/literule/rules/{ruleCode}/dependencies": {
         parameters: {
             query?: never;
             header?: never;
@@ -646,7 +646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}": {
+    "/api/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -662,7 +662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/dependents": {
+    "/api/literule/rules/{ruleCode}/dependents": {
         parameters: {
             query?: never;
             header?: never;
@@ -678,7 +678,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/cascading-disable": {
+    "/api/literule/rules/{ruleCode}/cascading-disable": {
         parameters: {
             query?: never;
             header?: never;
@@ -694,7 +694,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/graph": {
+    "/api/literule/rules/{ruleCode}/graph": {
         parameters: {
             query?: never;
             header?: never;
@@ -710,7 +710,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/graph/validate": {
+    "/api/literule/rules/{ruleCode}/graph/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -726,7 +726,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/expression-preview": {
+    "/api/literule/rules/expression-preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -742,7 +742,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/graph/dry-run": {
+    "/api/literule/rules/{ruleCode}/graph/dry-run": {
         parameters: {
             query?: never;
             header?: never;
@@ -758,7 +758,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/graph/invalid-refs": {
+    "/api/literule/rules/{ruleCode}/graph/invalid-refs": {
         parameters: {
             query?: never;
             header?: never;
@@ -774,7 +774,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/expression-functions": {
+    "/api/literule/rules/expression-functions": {
         parameters: {
             query?: never;
             header?: never;
@@ -790,7 +790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/export": {
+    "/api/literule/rules/export": {
         parameters: {
             query?: never;
             header?: never;
@@ -806,7 +806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/export.yaml": {
+    "/api/literule/rules/export.yaml": {
         parameters: {
             query?: never;
             header?: never;
@@ -822,7 +822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/import": {
+    "/api/literule/rules/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -838,7 +838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/status": {
+    "/api/literule/rules/{ruleCode}/status": {
         parameters: {
             query?: never;
             header?: never;
@@ -854,7 +854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/approve": {
+    "/api/literule/rules/{ruleCode}/approve": {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/reject": {
+    "/api/literule/rules/{ruleCode}/reject": {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/submit-review": {
+    "/api/literule/rules/{ruleCode}/submit-review": {
         parameters: {
             query?: never;
             header?: never;
@@ -902,7 +902,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/approve-level": {
+    "/api/literule/rules/{ruleCode}/approve-level": {
         parameters: {
             query?: never;
             header?: never;
@@ -918,7 +918,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/reject-level": {
+    "/api/literule/rules/{ruleCode}/reject-level": {
         parameters: {
             query?: never;
             header?: never;
@@ -934,7 +934,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/delegate": {
+    "/api/literule/rules/{ruleCode}/delegate": {
         parameters: {
             query?: never;
             header?: never;
@@ -950,7 +950,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/approval-status": {
+    "/api/literule/rules/{ruleCode}/approval-status": {
         parameters: {
             query?: never;
             header?: never;
@@ -966,7 +966,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/pending-approvals": {
+    "/api/literule/rules/pending-approvals": {
         parameters: {
             query?: never;
             header?: never;
@@ -982,7 +982,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/cancel-review": {
+    "/api/literule/rules/{ruleCode}/cancel-review": {
         parameters: {
             query?: never;
             header?: never;
@@ -998,7 +998,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/approval-flows": {
+    "/api/literule/rules/approval-flows": {
         parameters: {
             query?: never;
             header?: never;
@@ -1014,7 +1014,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs": {
+    "/api/literule/rules/packs": {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,7 +1030,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/search": {
+    "/api/literule/rules/packs/search": {
         parameters: {
             query?: never;
             header?: never;
@@ -1046,7 +1046,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{packCode}/latest": {
+    "/api/literule/rules/packs/{packCode}/latest": {
         parameters: {
             query?: never;
             header?: never;
@@ -1062,7 +1062,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{packCode}/versions": {
+    "/api/literule/rules/packs/{packCode}/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -1078,7 +1078,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{packCode}/versions/{version}": {
+    "/api/literule/rules/packs/{packCode}/versions/{version}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1094,7 +1094,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{packCode}/rollback": {
+    "/api/literule/rules/packs/{packCode}/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -1110,7 +1110,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{packCode}/diff": {
+    "/api/literule/rules/packs/{packCode}/diff": {
         parameters: {
             query?: never;
             header?: never;
@@ -1126,7 +1126,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{packCode}/install": {
+    "/api/literule/rules/packs/{packCode}/install": {
         parameters: {
             query?: never;
             header?: never;
@@ -1142,7 +1142,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{id}": {
+    "/api/literule/rules/packs/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1158,7 +1158,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{id}/official": {
+    "/api/literule/rules/packs/{id}/official": {
         parameters: {
             query?: never;
             header?: never;
@@ -1174,7 +1174,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/{id}/rate": {
+    "/api/literule/rules/packs/{id}/rate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1190,7 +1190,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/stress-test": {
+    "/api/literule/rules/stress-test": {
         parameters: {
             query?: never;
             header?: never;
@@ -1206,7 +1206,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/update-check": {
+    "/api/literule/rules/packs/update-check": {
         parameters: {
             query?: never;
             header?: never;
@@ -1222,7 +1222,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/packs/batch-update": {
+    "/api/literule/rules/packs/batch-update": {
         parameters: {
             query?: never;
             header?: never;
@@ -1238,7 +1238,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/templates": {
+    "/api/literule/rules/templates": {
         parameters: {
             query?: never;
             header?: never;
@@ -1254,7 +1254,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/templates/category/{category}": {
+    "/api/literule/rules/templates/category/{category}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1270,7 +1270,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/templates/industry/{industry}": {
+    "/api/literule/rules/templates/industry/{industry}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1286,7 +1286,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/templates/{templateCode}/import": {
+    "/api/literule/rules/templates/{templateCode}/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -1302,7 +1302,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/traces/{traceId}": {
+    "/api/literule/rules/traces/{traceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1318,7 +1318,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/traces/rule/{ruleCode}": {
+    "/api/literule/rules/traces/rule/{ruleCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1334,7 +1334,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/traces/{traceId}/replay": {
+    "/api/literule/rules/traces/{traceId}/replay": {
         parameters: {
             query?: never;
             header?: never;
@@ -1350,7 +1350,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/traces/batch-replay": {
+    "/api/literule/rules/traces/batch-replay": {
         parameters: {
             query?: never;
             header?: never;
@@ -1366,7 +1366,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/{ruleCode}/impact-preview": {
+    "/api/literule/rules/{ruleCode}/impact-preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -1382,7 +1382,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/rules/traces": {
+    "/api/literule/rules/traces": {
         parameters: {
             query?: never;
             header?: never;
@@ -1398,7 +1398,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/cep/patterns": {
+    "/api/literule/cep/patterns": {
         parameters: {
             query?: never;
             header?: never;
@@ -1414,7 +1414,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/cep/patterns/{pattern-id}": {
+    "/api/literule/cep/patterns/{pattern-id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1430,7 +1430,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/cep/events": {
+    "/api/literule/cep/events": {
         parameters: {
             query?: never;
             header?: never;
@@ -1446,7 +1446,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/cep/events/batch": {
+    "/api/literule/cep/events/batch": {
         parameters: {
             query?: never;
             header?: never;
@@ -1462,7 +1462,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/cep/hits": {
+    "/api/literule/cep/hits": {
         parameters: {
             query?: never;
             header?: never;
@@ -1478,7 +1478,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/cep/stats": {
+    "/api/literule/cep/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -1494,7 +1494,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/audit/recent": {
+    "/api/literule/audit/recent": {
         parameters: {
             query?: never;
             header?: never;
@@ -1510,7 +1510,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/audit/by-rule/{ruleCode}": {
+    "/api/literule/audit/by-rule/{ruleCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1526,7 +1526,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/audit/by-operator": {
+    "/api/literule/audit/by-operator": {
         parameters: {
             query?: never;
             header?: never;
@@ -1542,7 +1542,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/audit/by-action": {
+    "/api/literule/audit/by-action": {
         parameters: {
             query?: never;
             header?: never;
@@ -1558,7 +1558,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/audit/by-time-range": {
+    "/api/literule/audit/by-time-range": {
         parameters: {
             query?: never;
             header?: never;
@@ -1574,7 +1574,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dashboard/overview": {
+    "/api/literule/dashboard/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -1590,7 +1590,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dashboard/trends": {
+    "/api/literule/dashboard/trends": {
         parameters: {
             query?: never;
             header?: never;
@@ -1606,7 +1606,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dashboard/distribution": {
+    "/api/literule/dashboard/distribution": {
         parameters: {
             query?: never;
             header?: never;
@@ -1622,7 +1622,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dashboard/top-rules": {
+    "/api/literule/dashboard/top-rules": {
         parameters: {
             query?: never;
             header?: never;
@@ -1638,7 +1638,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dashboard/realtime": {
+    "/api/literule/dashboard/realtime": {
         parameters: {
             query?: never;
             header?: never;
@@ -1654,7 +1654,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dashboard/slow-rules": {
+    "/api/literule/dashboard/slow-rules": {
         parameters: {
             query?: never;
             header?: never;
@@ -1670,7 +1670,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dashboard/hot-rules": {
+    "/api/literule/dashboard/hot-rules": {
         parameters: {
             query?: never;
             header?: never;
@@ -1686,7 +1686,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dsl/validate": {
+    "/api/literule/dsl/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1702,7 +1702,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dsl/parse": {
+    "/api/literule/dsl/parse": {
         parameters: {
             query?: never;
             header?: never;
@@ -1718,7 +1718,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dsl/preview": {
+    "/api/literule/dsl/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -1734,7 +1734,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dsl/import": {
+    "/api/literule/dsl/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -1750,7 +1750,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dsl/export": {
+    "/api/literule/dsl/export": {
         parameters: {
             query?: never;
             header?: never;
@@ -1766,7 +1766,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/dsl/export/{ruleCode}": {
+    "/api/literule/dsl/export/{ruleCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1782,7 +1782,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/variables": {
+    "/api/literule/variables": {
         parameters: {
             query?: never;
             header?: never;
@@ -1798,7 +1798,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/variables/{varName}": {
+    "/api/literule/variables/{varName}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1814,7 +1814,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/variables/refresh": {
+    "/api/literule/variables/refresh": {
         parameters: {
             query?: never;
             header?: never;
@@ -1830,7 +1830,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/literule/variables/available": {
+    "/api/literule/variables/available": {
         parameters: {
             query?: never;
             header?: never;

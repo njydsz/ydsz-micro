@@ -1,7 +1,7 @@
 /**
  * ReverseController API 封装。
  *
- * <p>对应后端 {@code ReverseController}，路径前缀 /api/v1/generator/reverse。
+ * <p>对应后端 {@code ReverseController}，路径前缀 /api/generator/reverse。
  * <p>提供实体类反向生成功能。
  *
  * @author ydsz-team
@@ -21,7 +21,7 @@ export function analyzeReverse(params: {
   templateGroupId: number;
   outputDir: string;
 }): Promise<string> {
-  return requestClient.post<string>(`/api/v1/generator/reverse/analyze`, { params });
+  return requestClient.post<string>(`/api/generator/reverse/analyze`, { params });
 }
 
 /**
@@ -35,5 +35,5 @@ export function analyzeBatchReverse(params: {
   templateGroupId: number;
   outputDir: string;
 }): Promise<string[]> {
-  return requestClient.post<string[]>(`/api/v1/generator/reverse/analyze-batch`, { params });
+  return requestClient.post<string[]>(`/api/generator/reverse/analyze-batch`, { params });
 }

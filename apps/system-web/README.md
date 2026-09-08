@@ -126,7 +126,7 @@ pnpm build:system
 ## API 调用
 
 API 模块位于 `src/api/`，由 `bash/gen-contract.py` 生成（带 auto-generated banner，勿手动修改），
-使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/*` 端点，成功码统一为 `code === 'A00000'`：
+使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/*` 端点，成功码统一为 `code === 'A00000'`：
 
 ```typescript
 // 系统配置（src/api/config.ts，auto-generated）
@@ -135,11 +135,11 @@ import type { PageResponse } from './models';
 import type { ConfigDTO, ConfigPageQuery, ConfigVO } from './models';
 
 export function page(params: { query?: ConfigPageQuery }): Promise<PageResponse<ConfigVO[]>> {
-  return requestClient.get<PageResponse<ConfigVO[]>>('/api/v1/config/page', { params });
+  return requestClient.get<PageResponse<ConfigVO[]>>('/api/config/page', { params });
 }
 
 export function save(data: ConfigDTO): Promise<string> {
-  return requestClient.post<string>('/api/v1/config', data);
+  return requestClient.post<string>('/api/config', data);
 }
 ```
 

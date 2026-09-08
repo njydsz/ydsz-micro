@@ -37,7 +37,7 @@ export async function initSystemMockServer(): Promise<void> {
   });
 
   // 2. 自定义特定业务的 handlers（覆盖自动生成）
-  const customHandlers = createCrudHandlers('/api/v1/config', {
+  const customHandlers = createCrudHandlers('/api/config', {
     generateItem: () => ({
       id: faker.string.uuid(),
       configGroup: faker.helpers.arrayElement(['SYSTEM', 'BUSINESS', 'SECURITY']),
@@ -59,7 +59,7 @@ export async function initSystemMockServer(): Promise<void> {
   // 3. 认证相关 Mock
   const authHandlers = [
     // 登录
-    http.post('/api/v1/auth/login', async () => {
+    http.post('/api/auth/login', async () => {
       await delay(faker.number.int({ min: 100, max: 500 }));
       return HttpResponse.json({
         code: 'A00000',
@@ -86,7 +86,7 @@ export async function initSystemMockServer(): Promise<void> {
     }),
 
     // 获取用户信息
-    http.get('/api/v1/auth/userinfo', async () => {
+    http.get('/api/auth/userinfo', async () => {
       await delay(faker.number.int({ min: 50, max: 200 }));
       return HttpResponse.json({
         code: 'A00000',
@@ -105,7 +105,7 @@ export async function initSystemMockServer(): Promise<void> {
     }),
 
     // 登出
-    http.post('/api/v1/auth/logout', async () => {
+    http.post('/api/auth/logout', async () => {
       await delay(faker.number.int({ min: 50, max: 200 }));
       return HttpResponse.json({
         code: 'A00000',

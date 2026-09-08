@@ -12,7 +12,7 @@
  * 纯只读「执行日志」页：分页查询 + 按任务标识/状态筛选。
  *
  * <p>P1-日志体验：行「详情」打开抽屉 —— 基本信息（ElDescriptions）+ 实时日志
- * （SSE GET /api/v1/cronjob/log/stream/{logId}，EventSource 拉取历史+实时内容，自动滚底）。
+ * （SSE GET /api/cronjob/log/stream/{logId}，EventSource 拉取历史+实时内容，自动滚底）。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -68,7 +68,7 @@ function handleViewDetail(log: JobLogVO) {
   if (!log.id) return;
   // 鉴权走 HttpOnly Cookie（同源），EventSource 无需自定义头
   const baseUrl = import.meta.env.VITE_GLOB_API_URL ?? '/api';
-  sseSource = new EventSource(`${baseUrl}/api/v1/cronjob/log/stream/${log.id}`);
+  sseSource = new EventSource(`${baseUrl}/api/cronjob/log/stream/${log.id}`);
   sseSource.onopen = () => {
     sseConnected.value = true;
   };

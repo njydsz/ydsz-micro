@@ -6,7 +6,7 @@
  * 2. Web Vitals 性能监控：LCP / FID / CLS / INP / FCP / TTFB
  * 3. 面包屑：用户行为轨迹，错误上报时附带
  *
- * 上报方式：通过 navigator.sendBeacon 批量发送到后端 /api/v1/monitor/*
+ * 上报方式：通过 navigator.sendBeacon 批量发送到后端 /api/monitor/*
  */
 
 export {

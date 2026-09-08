@@ -146,12 +146,14 @@ const permissionDirective: Directive = {
 };
 
 /**
- * 同时注册 v-access 和 v-permission 两条全局指令。
+ * 同时注册 v-access、v-permission、v-hasPermi、v-hasRole 四条全局指令。
  *
  * <p>注册后可在模板中使用：
  * <ul>
  *   <li>{@code v-access:code="'sys:dict:add'"} — OR 语义：拥有 sys:dict:add 即放行</li>
  *   <li>{@code v-permission="['sys:dict:add', 'sys:dict:edit']"} — AND 语义：同时拥有两者才放行</li>
+ *   <li>{@code v-hasPermi="['sys:dict:add', 'sys:dict:edit']"} — 兼容 RuoYi：OR 语义，拥有任一权限即放行</li>
+ *   <li>{@code v-hasRole="['admin', 'super_admin']"} — 兼容 RuoYi：OR 语义，拥有任一角色即放行</li>
  * </ul>
  *
  * @param app - 需要注册指令的 Vue 应用实例，通常在应用启动阶段调用一次
@@ -159,4 +161,24 @@ const permissionDirective: Directive = {
 export function registerAccessDirective(app: App) {
   app.directive('access', authDirective);
   app.directive('permission', permissionDirective);
+  app.directive('hasPermi', authDirective);
+  app.directive('hasRole', {
+    mounted(el: Element, binding: DirectiveBinding<string | string[]>) {
+      const mockBinding = { ...binding, arg: 'role' as const };
+      if (!checkAccess(el, mockBinding)) {
+        hideElement(el);
+      }
+    },
+    updated(el: Element, binding: DirectiveBinding<string | string[]>) {
+      if (!document.contains(el)) return;
+      const mockBinding = { ...binding, arg: 'role' as const };
+      const hasAccess = checkAccess(el, mockBinding);
+      const wasHidden = el.hasAttribute(HIDDEN_ATTR);
+      if (!hasAccess && !wasHidden) {
+        hideElement(el);
+      } else if (hasAccess && wasHidden) {
+        showElement(el);
+      }
+    },
+  });
 }

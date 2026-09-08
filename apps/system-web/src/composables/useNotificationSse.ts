@@ -13,7 +13,7 @@
  *
  * <p>SSE 端点优先级：
  * <ol>
- *   <li>{@code /api/v1/message/notifications/stream}（主通知流，text/event-stream）</ *   <li>轮询 {@code /api/v1/message/notifications/unread-count} 每 30 秒一次（备选）
+ *   <li>{@code /api/message/notifications/stream}（主通知流，text/event-stream）</ *   <li>轮询 {@code /api/message/notifications/unread-count} 每 30 秒一次（备选）
  * </ol>
  *
  * @path apps\system-web\src\composables\useNotificationSse.ts
@@ -40,7 +40,7 @@ import { useNotificationStore } from '#/store/notification';
 const logger = createLogger('useNotificationSse');
 
 /** SSE 主通知流端点 */
-const SSE_NOTIFICATION_ENDPOINT = '/api/v1/message/notifications/stream';
+const SSE_NOTIFICATION_ENDPOINT = '/api/message/notifications/stream';
 /** 重连基础延迟（ms） */
 const RECONNECT_BASE_DELAY = 1000;
 /** 重连最大延迟（ms） */

@@ -1,8 +1,6 @@
 /**
  * 配置变更审批 API 模块（前端）
  * <p>封装配置/字典/变量变更审批流程相关接口。
- * <p>注意：以下 API 路径基于后端 Swagger 命名约定，后端实现前后前端先用 mock 数据搭建 UI。
- * <p>对接真实 API 后替换各函数内的 baseRequestClient 调用为 requestClient。
  *
  * @path apps\system-web\src\api\config-approval.ts
  * @author ydsz-team
@@ -10,7 +8,7 @@
  */
 import type { PageResponse } from './models';
 
-import { baseRequestClient, requestClient } from './request';
+import { requestClient } from './request';
 
 import type {
   ConfigApprovalRecord,
@@ -59,15 +57,14 @@ export interface ConfigApprovalDetail extends ConfigApprovalRecord {
 /**
  * 分页查询「待当前用户审批」的审批单。
  *
- * <p>TODO: 对接真实 API —— GET /api/v1/config/approval/pending
- * 当前使用 requestClient（后被 Mock MSW 拦截，或后端实现后由后端服务）。
+ * <p>GET /api/config/approval/pending
  *
  * @param query - 分页 + 状态筛选参数
  * @returns 分页审批记录
  */
 export function listPendingApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
   return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/api/v1/config/approval/pending',
+    '/api/config/approval/pending',
     { params: query },
   );
 }
@@ -75,14 +72,14 @@ export function listPendingApprovalApi(query: ConfigApprovalListQuery): Promise<
 /**
  * 分页查询「当前用户已发起」的审批单。
  *
- * <p>TODO: 对接真实 API —— GET /api/v1/config/approval/submitted
+ * <p>GET /api/config/approval/submitted
  *
  * @param query - 分页 + 状态筛选参数
  * @returns 分页审批记录
  */
 export function listSubmittedApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
   return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/api/v1/config/approval/submitted',
+    '/api/config/approval/submitted',
     { params: query },
   );
 }
@@ -90,14 +87,14 @@ export function listSubmittedApprovalApi(query: ConfigApprovalListQuery): Promis
 /**
  * 分页查询所有审批单（超管视角 / 审批中心）。
  *
- * <p>TODO: 对接真实 API —— GET /api/v1/config/approval/list
+ * <p>GET /api/config/approval/list
  *
  * @param query - 分页 + 状态筛选参数
  * @returns 分页审批记录
  */
 export function listAllApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
   return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/api/v1/config/approval/list',
+    '/api/config/approval/list',
     { params: query },
   );
 }
@@ -109,48 +106,48 @@ export function listAllApprovalApi(query: ConfigApprovalListQuery): Promise<Page
 /**
  * 通过审批单。
  *
- * <p>TODO: 对接真实 API —— POST /api/v1/config/approval/{id}/approve
+ * <p>POST /api/config/approval/{id}/approve
  *
  * @param id - 审批单 ID
  * @param comment - 审批意见（可选）
  */
 export function approveApprovalApi(id: string, comment?: string): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/v1/config/approval/${id}/approve`, { comment });
+  return requestClient.post<boolean>(`/api/config/approval/${id}/approve`, { comment });
 }
 
 /**
  * 拒绝审批单。
  *
- * <p>TODO: 对接真实 API —— POST /api/v1/config/approval/{id}/reject
+ * <p>POST /api/config/approval/{id}/reject
  *
  * @param id - 审批单 ID
  * @param reason - 拒绝原因（必填）
  */
 export function rejectApprovalApi(id: string, reason: string): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/v1/config/approval/${id}/reject`, { reason });
+  return requestClient.post<boolean>(`/api/config/approval/${id}/reject`, { reason });
 }
 
 /**
  * 撤消审批单。
  *
  * <p>仅审批单状态为「待审批」且当前用户为发起人时可撤回。
- * <p>TODO: 对接真实 API —— POST /api/v1/config/approval/{id}/withdraw
+ * <p>POST /api/config/approval/{id}/withdraw
  *
  * @param id - 审批单 ID
  */
 export function withdrawApprovalApi(id: string): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/v1/config/approval/${id}/withdraw`);
+  return requestClient.post<boolean>(`/api/config/approval/${id}/withdraw`);
 }
 
 /**
  * 获取审批单详情（含审计日志时间线）。
  *
- * <p>TODO: 对接真实 API —— GET /api/v1/config/approval/{id}
+ * <p>GET /api/config/approval/{id}
  *
  * @param id - 审批单 ID
  */
 export function getApprovalDetailApi(id: string): Promise<ConfigApprovalDetail> {
-  return requestClient.get<ConfigApprovalDetail>(`/api/v1/config/approval/${id}`);
+  return requestClient.get<ConfigApprovalDetail>(`/api/config/approval/${id}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -161,10 +158,10 @@ export function getApprovalDetailApi(id: string): Promise<ConfigApprovalDetail> 
  * 提交配置变更并发起审批流。
  *
  * <p>配置管理页面「保存」操作时，若配置启用审批开关，则调用此接口提交审批。
- * <p>TODO: 对接真实 API —— POST /api/v1/config/approval/submit
+ * <p>POST /api/config/approval/submit
  *
  * @param data - 配置变更请求 DTO
  */
 export function submitConfigChangeApi(data: SubmitConfigChangeDTO): Promise<{ approvalId: string }> {
-  return requestClient.post<{ approvalId: string }>('/api/v1/config/approval/submit', data);
+  return requestClient.post<{ approvalId: string }>('/api/config/approval/submit', data);
 }

@@ -59,7 +59,7 @@ export interface RefreshTokenResult {
  * @returns 登录结果，含 accessToken / refreshToken 与用户信息
  */
 export async function loginApi(data: LoginParams) {
-  return requestClient.post<LoginResult>('/api/v1/auth/login', data);
+  return requestClient.post<LoginResult>('/api/auth/login', data);
 }
 
 /**
@@ -70,7 +70,7 @@ export async function loginApi(data: LoginParams) {
  */
 export async function refreshTokenApi(refreshToken: string) {
   return baseRequestClient.post<RefreshTokenResult>(
-    '/api/v1/auth/refresh',
+    '/api/auth/refresh',
     { refreshToken },
   );
 }
@@ -81,7 +81,7 @@ export async function refreshTokenApi(refreshToken: string) {
  * @returns 请求响应
  */
 export async function logoutApi() {
-  return baseRequestClient.post('/api/v1/auth/logout', {});
+  return baseRequestClient.post('/api/auth/logout', {});
 }
 
 /**
@@ -90,5 +90,5 @@ export async function logoutApi() {
  * @returns 权限码字符串数组
  */
 export async function getAccessCodesApi() {
-  return requestClient.get<string[]>('/api/v1/auth/codes');
+  return requestClient.get<string[]>('/api/auth/codes');
 }

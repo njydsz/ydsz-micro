@@ -98,7 +98,7 @@ await setupMockServer(handlers);
 import { createMockHandler, setupMockServer } from '@ydsz/mock-service';
 
 const handlers = [
-  createMockHandler('get', '/api/v1/config', () => ({
+  createMockHandler('get', '/api/config', () => ({
     code: 'A00000',
     data: [
       { id: '1', configKey: 'site_name', configValue: 'YDSZ' },
@@ -115,7 +115,7 @@ await setupMockServer(handlers);
 import { faker } from '@faker-js/faker';
 import { createCrudHandlers, setupMockServer } from '@ydsz/mock-service';
 
-const handlers = createCrudHandlers('/api/v1/config', {
+const handlers = createCrudHandlers('/api/config', {
   generateItem: () => ({
     id: faker.string.uuid(),
     configKey: faker.commerce.productName(),
@@ -137,7 +137,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { setupMockWorker, closeMockWorker } from '@ydsz/mock-service';
 import { createCrudHandlers } from '@ydsz/mock-service';
 
-const handlers = createCrudHandlers('/api/v1/config', {
+const handlers = createCrudHandlers('/api/config', {
   generateItem: () => ({ id: '1', name: 'Test Config' }),
 });
 
@@ -145,7 +145,7 @@ beforeAll(() => setupMockWorker(handlers));
 afterAll(() => closeMockWorker());
 
 it('should fetch config list', async () => {
-  const res = await fetch('/api/v1/config');
+  const res = await fetch('/api/config');
   const data = await res.json();
   expect(data.code).toBe('A00000');
 });

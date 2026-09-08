@@ -28,8 +28,8 @@ import type { paths } from './schema';
  * ```
  */
 export const apiClient = createOpenApiClient<paths>({
-  // P0-1 修复：spec 中 paths 为完整路径（/api/v1/**），baseUrl 必须为空串；
-  // 此前 '/api/message' 会拼出 /api/system/api/v1/** 错误地址
+  // P0-1 修复：spec 中 paths 为完整路径（/api/**），baseUrl 必须为空串；
+  // 此前 '/api/message' 会拼出 /api/system/api/** 错误地址
   baseUrl: '',
 });
 

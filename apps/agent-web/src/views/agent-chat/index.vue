@@ -10,9 +10,9 @@
  * Agent 对话调试台
  * <p>消费后端契约 AgentController 的流式对话能力：
  * <ul>
- *   <li>{@code POST /api/v1/agent/chat/stream}（sse-client.ts）逐 token 流式输出；</li>
- *   <li>{@code GET /api/v1/agent/history} 按会话加载历史；</li>
- *   <li>{@code DELETE /api/v1/agent/history} 清空会话历史。</li>
+ *   <li>{@code POST /api/agent/chat/stream}（sse-client.ts）逐 token 流式输出；</li>
+ *   <li>{@code GET /api/agent/history} 按会话加载历史；</li>
+ *   <li>{@code DELETE /api/agent/history} 清空会话历史。</li>
  * </ul>
  * 支持会话ID（conversationId）维度隔离、流式过程中的停止生成与组件卸载自动断开。
  *
@@ -104,7 +104,7 @@ async function sendMessage(): Promise<void> {
   scrollToBottom();
 
   closeStream = openAgentStream(
-    '/api/v1/agent/chat/stream',
+    '/api/agent/chat/stream',
     {
       message: text,
       conversationId: conversationId.value || undefined,

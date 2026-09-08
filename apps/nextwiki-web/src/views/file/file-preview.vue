@@ -113,14 +113,14 @@ async function loadPreviewContent(): Promise<void> {
 
   if (isImage.value) {
     // 图片直接使用 URL 预览
-    previewUrl.value = `/api/v1/nextwiki/download/${props.fileNode.id}`;
+    previewUrl.value = `/api/nextwiki/download/${props.fileNode.id}`;
     return;
   }
 
   if (isText.value) {
     // 文本文件通过 requestClient 获取内容
     try {
-      const resp = await requestClient.get<string>(`/api/v1/nextwiki/download/${props.fileNode.id}`);
+      const resp = await requestClient.get<string>(`/api/nextwiki/download/${props.fileNode.id}`);
       previewContent.value = typeof resp === 'string' ? resp : JSON.stringify(resp);
     } catch (error) {
       logger.warn('加载文本预览内容失败: {}', error);
@@ -130,7 +130,7 @@ async function loadPreviewContent(): Promise<void> {
   }
 
   if (isPdf.value) {
-    previewUrl.value = `/api/v1/nextwiki/download/${props.fileNode.id}`;
+    previewUrl.value = `/api/nextwiki/download/${props.fileNode.id}`;
     return;
   }
 }
@@ -204,7 +204,7 @@ onMounted(async () => {
         <!-- 已生成预览 -->
         <div v-else-if="fileNode.previewReady && fileNode.thumbnailKey">
           <img
-            :src="`/api/v1/nextwiki/preview/${fileNode.id}`"
+            :src="`/api/nextwiki/preview/${fileNode.id}`"
             :alt="fileNode.name"
             class="max-h-[600px] max-w-full object-contain"
           />

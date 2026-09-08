@@ -1,7 +1,7 @@
 /**
  * Auth API — 封装登录、登出、Token 刷新、权限码获取等后端认证接口
  *
- * 对齐后端 /api/v1/auth/*，提供类型安全的异步函数供子应用直接调用，
+ * 对齐后端 /api/auth/*，提供类型安全的异步函数供子应用直接调用，
  * 消除各子应用重复实现的身份认证请求逻辑。
  *
  * @path comm\effects\shared-auth\src\auth-api.ts
@@ -26,7 +26,7 @@ export { baseRequestClient, requestClient };
  */
 export async function loginApi(data: AuthApiLoginParams) {
   return requestClient.post<AuthApiLoginResult>(
-    '/api/v1/auth/login',
+    '/api/auth/login',
     data,
   );
 }
@@ -39,7 +39,7 @@ export async function loginApi(data: AuthApiLoginParams) {
  */
 export async function refreshTokenApi(refreshToken: string) {
   return baseRequestClient.post<AuthApiRefreshTokenResult>(
-    '/api/v1/auth/refresh',
+    '/api/auth/refresh',
     { refreshToken },
   );
 }
@@ -50,7 +50,7 @@ export async function refreshTokenApi(refreshToken: string) {
  * @returns 登出响应
  */
 export async function logoutApi() {
-  return baseRequestClient.post('/api/v1/auth/logout', {});
+  return baseRequestClient.post('/api/auth/logout', {});
 }
 
 /**
@@ -59,5 +59,5 @@ export async function logoutApi() {
  * @returns 权限码字符串数组
  */
 export async function getAccessCodesApi() {
-  return requestClient.get<string[]>('/api/v1/auth/codes');
+  return requestClient.get<string[]>('/api/auth/codes');
 }

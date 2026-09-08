@@ -169,6 +169,19 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: { icon: 'lucide:file-bar-chart', order: 12, title: '洞察报告' },
+    name: 'InsightReportMgmt',
+    path: '/insight',
+    children: [
+      {
+        name: 'InsightReportManagement',
+        path: 'list',
+        component: () => import('#/views/insight/index.vue'),
+        meta: { icon: 'lucide:file-bar-chart', title: '报告列表' },
+      },
+    ],
+  },
 ];
 
 /** Agent 路由配置（子应用内部路由表） */

@@ -131,7 +131,7 @@ pnpm build:literule
 ## API 调用
 
 API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端
-`/api/v1/literule/*` 端点：
+`/api/literule/*` 端点：
 
 ```typescript
 // 规则管理（src/api/rule.ts）
@@ -143,11 +143,11 @@ export function getRulePageApi(params: RuleApi.RulePageQuery) {
     current: number;
     size: number;
     items: RuleApi.RuleVO[];
-  }>(`/api/v1/literule/rules/page`, { params });
+  }>(`/api/literule/rules/page`, { params });
 }
 
 export function createRuleApi(data: RuleApi.RuleDTO) {
-  return requestClient.post<string>(`/api/v1/literule/rules`, data);
+  return requestClient.post<string>(`/api/literule/rules`, data);
 }
 ```
 
@@ -156,7 +156,7 @@ export function createRuleApi(data: RuleApi.RuleDTO) {
 
 ## 注意事项
 
-1. **规则端点路径**：规则 API 路径为 `/api/v1/literule/rules/*`（注意 `rules`
+1. **规则端点路径**：规则 API 路径为 `/api/literule/rules/*`（注意 `rules`
    为复数），与后端 Controller `@RequestMapping` 对齐，修改时勿遗漏层级。
 2. **规则版本管理**：规则支持多版本，编辑时需注意版本号递增，避免覆盖已上线版本，发布前建议在断点调试中回放验证。
 3. **CEP 模式复杂度**：CEP 复杂事件模式配置较复杂，表单页需对事件窗口、匹配条件做前端校验，避免提交不可执行的模式。

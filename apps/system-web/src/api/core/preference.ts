@@ -2,7 +2,7 @@
  * 用户偏好 API —— 后端持久化用户偏好配置
  *
  * <p>用户级偏好（默认首页/语言）使用 backend API + localStorage 缓存。
- * 后端契约：{@code UserPreferenceController} 映射于 {@code /api/v1/user/preferences}。
+ * 后端契约：{@code UserPreferenceController} 映射于 {@code /api/user/preferences}。
  *
  * @path apps\system-web\src\api\core\preference.ts
  * @author ydsz-team
@@ -36,7 +36,7 @@ export interface UserPreferenceDTO {
  * @returns 用户偏好配置
  */
 export async function getUserPreferenceApi(): Promise<UserPreferenceDTO> {
-  return requestClient.get<UserPreferenceDTO>('/api/v1/user/preferences');
+  return requestClient.get<UserPreferenceDTO>('/api/user/preferences');
 }
 
 /**
@@ -48,7 +48,7 @@ export async function getUserPreferenceApi(): Promise<UserPreferenceDTO> {
 export async function saveUserPreferenceApi(
   preference: UserPreferenceDTO,
 ): Promise<void> {
-  await requestClient.put<void>('/api/v1/user/preferences', preference);
+  await requestClient.put<void>('/api/user/preferences', preference);
 }
 
 /**
@@ -58,6 +58,6 @@ export async function saveUserPreferenceApi(
  */
 export async function resetUserPreferenceApi(): Promise<UserPreferenceDTO> {
   return requestClient.post<UserPreferenceDTO>(
-    '/api/v1/user/preferences/reset',
+    '/api/user/preferences/reset',
   );
 }

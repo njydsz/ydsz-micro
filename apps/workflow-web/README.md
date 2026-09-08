@@ -155,7 +155,7 @@ export function listTemplates(params: {
   category?: string;
 }): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(
-    `/api/v1/workflow/template/list`,
+    `/api/workflow/template/list`,
     { params },
   );
 }

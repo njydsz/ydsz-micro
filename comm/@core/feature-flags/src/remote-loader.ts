@@ -6,7 +6,7 @@
  *
  * <p>提供的远程加载器：
  * <ul>
- *   <li>{@link createApiFeatureLoader} — 从后端 `/api/v1/feature` 端点拉取版本绑定的开关配置</li>
+ *   <li>{@link createApiFeatureLoader} — 从后端 `/api/feature` 端点拉取版本绑定的开关配置</li>
  * </ul>
  *
  * <p>后端契约（{@code YdszResponse<FeatureFlagApiResponse>}）：
@@ -142,7 +142,7 @@ function compareSemver(
  *
  * <p>工作流：
  * <ol>
- *   <li>向后端 {@code /api/v1/feature} 发起 GET 请求（自动去重）</li>
+ *   <li>向后端 {@code /api/feature} 发起 GET 请求（自动去重）</li>
  *   <li>解析响应，按当前客户端版本过滤 {@code requireClientVersion}</li>
  *   <li>归一化为插件内部 {@code Record<string, FeatureFlagValue>} 格式</li>
  * </ol>
@@ -172,7 +172,7 @@ export function createApiFeatureLoader(
   options: CreateApiFeatureLoaderOptions = {},
 ): () => Promise<Record<string, FeatureFlagValue>> {
   const {
-    endpoint = '/api/v1/feature',
+    endpoint = '/api/feature',
     clientVersion,
     dedup = true,
     timeout = 5000,

@@ -125,7 +125,7 @@ pnpm build:agent
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/agent/*` 端点：
+API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/agent/*` 端点：
 
 ```typescript
 // Agent 管理（src/api/agent.ts）
@@ -135,11 +135,11 @@ export function getAgentPageApi(params: AgentApi.AgentPageQuery) {
   return requestClient.get<{
     total: number; current: number; size: number;
     items: AgentApi.AgentVO[];
-  }>(`/api/v1/agent/page`, { params });
+  }>(`/api/agent/page`, { params });
 }
 
 export function createAgentApi(data: AgentApi.AgentDTO) {
-  return requestClient.post<string>(`/api/v1/agent`, data);
+  return requestClient.post<string>(`/api/agent`, data);
 }
 ```
 

@@ -173,6 +173,19 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: { icon: 'lucide:zap', order: 10, title: '响应式推送' },
+    name: 'ReactiveMgmt',
+    path: '/reactive',
+    children: [
+      {
+        name: 'ReactiveNotificationManagement',
+        path: 'monitor',
+        component: () => import('#/views/reactive/index.vue'),
+        meta: { icon: 'lucide:activity', title: '响应式监控' },
+      },
+    ],
+  },
 ];
 
 /** Message 消息中心路由配置（子应用内部路由表） */

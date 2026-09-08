@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/workflow/advanced/report/weekly": {
+    "/api/workflow/advanced/report/weekly": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/report/monthly": {
+    "/api/workflow/advanced/report/monthly": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/report/weekly/send": {
+    "/api/workflow/advanced/report/weekly/send": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/report/monthly/send": {
+    "/api/workflow/advanced/report/monthly/send": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/merge": {
+    "/api/workflow/advanced/merge": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/merge/{mergeGroupId}": {
+    "/api/workflow/advanced/merge/{mergeGroupId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/merge/{mergeGroupId}/pass": {
+    "/api/workflow/advanced/merge/{mergeGroupId}/pass": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/merge/{mergeGroupId}/reject": {
+    "/api/workflow/advanced/merge/{mergeGroupId}/reject": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/mergeable": {
+    "/api/workflow/advanced/mergeable": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/countersign/{taskId}/votePassRate": {
+    "/api/workflow/advanced/countersign/{taskId}/votePassRate": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/countersign/{taskId}/approveCount": {
+    "/api/workflow/advanced/countersign/{taskId}/approveCount": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/dedup/{instanceId}/check/{userId}": {
+    "/api/workflow/advanced/dedup/{instanceId}/check/{userId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/dedup/{instanceId}/approvedUsers": {
+    "/api/workflow/advanced/dedup/{instanceId}/approvedUsers": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/urge/cooldown/{instanceId}": {
+    "/api/workflow/advanced/urge/cooldown/{instanceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/offlineForward/auto": {
+    "/api/workflow/advanced/offlineForward/auto": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/advanced/offlineForward/manual": {
+    "/api/workflow/advanced/offlineForward/manual": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/overview": {
+    "/api/workflow/analytics/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/approverEfficiency": {
+    "/api/workflow/analytics/approverEfficiency": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/flowEfficiency": {
+    "/api/workflow/analytics/flowEfficiency": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/nodeDuration": {
+    "/api/workflow/analytics/nodeDuration": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/approvalTrend": {
+    "/api/workflow/analytics/approvalTrend": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/history/config": {
+    "/api/workflow/analytics/history/config": {
         parameters: {
             query?: never;
             header?: never;
@@ -358,7 +358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/history/archive": {
+    "/api/workflow/analytics/history/archive": {
         parameters: {
             query?: never;
             header?: never;
@@ -374,7 +374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/history/purge": {
+    "/api/workflow/analytics/history/purge": {
         parameters: {
             query?: never;
             header?: never;
@@ -390,7 +390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/i18n/enum/{enumType}": {
+    "/api/workflow/analytics/i18n/enum/{enumType}": {
         parameters: {
             query?: never;
             header?: never;
@@ -406,7 +406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/i18n/enum/{enumType}/{enumName}": {
+    "/api/workflow/analytics/i18n/enum/{enumType}/{enumName}": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/analytics/i18n/locales": {
+    "/api/workflow/analytics/i18n/locales": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/attachment/task/{taskId}": {
+    "/api/workflow/engine/attachment/task/{taskId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/attachment/instance/{instanceId}": {
+    "/api/workflow/engine/attachment/instance/{instanceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/attachment/{attachmentId}": {
+    "/api/workflow/engine/attachment/{attachmentId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/attachment/{attachmentId}/preview": {
+    "/api/workflow/engine/attachment/{attachmentId}/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/categories": {
+    "/api/workflow/categories": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/categories/tree": {
+    "/api/workflow/categories/tree": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/categories/{id}": {
+    "/api/workflow/categories/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -550,7 +550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/cc/page": {
+    "/api/workflow/engine/cc/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -566,7 +566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/cc/unreadCount": {
+    "/api/workflow/engine/cc/unreadCount": {
         parameters: {
             query?: never;
             header?: never;
@@ -582,7 +582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/cc/{id}/read": {
+    "/api/workflow/engine/cc/{id}/read": {
         parameters: {
             query?: never;
             header?: never;
@@ -598,7 +598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/cc/readAll": {
+    "/api/workflow/engine/cc/readAll": {
         parameters: {
             query?: never;
             header?: never;
@@ -614,7 +614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment": {
+    "/api/workflow/comment": {
         parameters: {
             query?: never;
             header?: never;
@@ -630,7 +630,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment/instance/{instanceId}": {
+    "/api/workflow/comment/instance/{instanceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -646,7 +646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment/root/{instanceId}": {
+    "/api/workflow/comment/root/{instanceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -662,7 +662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment/replies/{parentCommentId}": {
+    "/api/workflow/comment/replies/{parentCommentId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -678,7 +678,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment/{commentId}": {
+    "/api/workflow/comment/{commentId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -694,7 +694,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment/quick": {
+    "/api/workflow/comment/quick": {
         parameters: {
             query?: never;
             header?: never;
@@ -710,7 +710,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment/quick/{id}": {
+    "/api/workflow/comment/quick/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -726,7 +726,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/comment/quick/{id}/use": {
+    "/api/workflow/comment/quick/{id}/use": {
         parameters: {
             query?: never;
             header?: never;
@@ -742,7 +742,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/deploy": {
+    "/api/workflow/engine/definition/deploy": {
         parameters: {
             query?: never;
             header?: never;
@@ -758,7 +758,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/batchDeployZip": {
+    "/api/workflow/engine/definition/batchDeployZip": {
         parameters: {
             query?: never;
             header?: never;
@@ -774,7 +774,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/publish": {
+    "/api/workflow/engine/definition/{id}/publish": {
         parameters: {
             query?: never;
             header?: never;
@@ -790,7 +790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/deprecate": {
+    "/api/workflow/engine/definition/{id}/deprecate": {
         parameters: {
             query?: never;
             header?: never;
@@ -806,7 +806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/code/{code}": {
+    "/api/workflow/engine/definition/code/{code}": {
         parameters: {
             query?: never;
             header?: never;
@@ -822,7 +822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/page": {
+    "/api/workflow/engine/definition/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -838,7 +838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}": {
+    "/api/workflow/engine/definition/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -854,7 +854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/preview": {
+    "/api/workflow/engine/definition/{id}/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{code}/switchVersion": {
+    "/api/workflow/engine/definition/{code}/switchVersion": {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/enable": {
+    "/api/workflow/engine/definition/{id}/enable": {
         parameters: {
             query?: never;
             header?: never;
@@ -902,7 +902,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/disable": {
+    "/api/workflow/engine/definition/{id}/disable": {
         parameters: {
             query?: never;
             header?: never;
@@ -918,7 +918,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/versions": {
+    "/api/workflow/engine/definition/{id}/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -934,7 +934,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/diff": {
+    "/api/workflow/engine/definition/{id}/diff": {
         parameters: {
             query?: never;
             header?: never;
@@ -950,7 +950,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/rollback": {
+    "/api/workflow/engine/definition/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -966,7 +966,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/node/{nodeCode}/coordinate": {
+    "/api/workflow/engine/definition/{id}/node/{nodeCode}/coordinate": {
         parameters: {
             query?: never;
             header?: never;
@@ -982,7 +982,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/export": {
+    "/api/workflow/engine/definition/{id}/export": {
         parameters: {
             query?: never;
             header?: never;
@@ -998,7 +998,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/import": {
+    "/api/workflow/engine/definition/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -1014,7 +1014,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/migrationImpact": {
+    "/api/workflow/engine/definition/migrationImpact": {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,7 +1030,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/info": {
+    "/api/workflow/engine/info": {
         parameters: {
             query?: never;
             header?: never;
@@ -1046,7 +1046,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/event/correlateMessage": {
+    "/api/workflow/engine/event/correlateMessage": {
         parameters: {
             query?: never;
             header?: never;
@@ -1062,7 +1062,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/event/throwError": {
+    "/api/workflow/engine/event/throwError": {
         parameters: {
             query?: never;
             header?: never;
@@ -1078,7 +1078,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{instanceId}/eventSubscriptions": {
+    "/api/workflow/engine/instance/{instanceId}/eventSubscriptions": {
         parameters: {
             query?: never;
             header?: never;
@@ -1094,7 +1094,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/sla/scan": {
+    "/api/workflow/engine/sla/scan": {
         parameters: {
             query?: never;
             header?: never;
@@ -1110,7 +1110,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/sla/process/{taskId}": {
+    "/api/workflow/engine/sla/process/{taskId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1126,7 +1126,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/build": {
+    "/api/workflow/engine/definition/conditionExpr/build": {
         parameters: {
             query?: never;
             header?: never;
@@ -1142,7 +1142,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/parse": {
+    "/api/workflow/engine/definition/conditionExpr/parse": {
         parameters: {
             query?: never;
             header?: never;
@@ -1158,7 +1158,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/validate": {
+    "/api/workflow/engine/definition/conditionExpr/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1174,7 +1174,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/operators": {
+    "/api/workflow/engine/definition/conditionExpr/operators": {
         parameters: {
             query?: never;
             header?: never;
@@ -1190,7 +1190,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/valueTypes": {
+    "/api/workflow/engine/definition/conditionExpr/valueTypes": {
         parameters: {
             query?: never;
             header?: never;
@@ -1206,7 +1206,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/variables/{id}": {
+    "/api/workflow/engine/definition/conditionExpr/variables/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1222,7 +1222,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/preview": {
+    "/api/workflow/engine/definition/conditionExpr/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -1238,7 +1238,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/conditionExpr/templates": {
+    "/api/workflow/engine/definition/conditionExpr/templates": {
         parameters: {
             query?: never;
             header?: never;
@@ -1254,7 +1254,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/customButtons": {
+    "/api/workflow/engine/definition/customButtons": {
         parameters: {
             query?: never;
             header?: never;
@@ -1270,7 +1270,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/customButtons/execute": {
+    "/api/workflow/engine/definition/customButtons/execute": {
         parameters: {
             query?: never;
             header?: never;
@@ -1286,7 +1286,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/delegateAuth/create": {
+    "/api/workflow/engine/delegateAuth/create": {
         parameters: {
             query?: never;
             header?: never;
@@ -1302,7 +1302,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/delegateAuth/{id}/revoke": {
+    "/api/workflow/engine/delegateAuth/{id}/revoke": {
         parameters: {
             query?: never;
             header?: never;
@@ -1318,7 +1318,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/delegateAuth/{id}/status": {
+    "/api/workflow/engine/delegateAuth/{id}/status": {
         parameters: {
             query?: never;
             header?: never;
@@ -1334,7 +1334,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/delegateAuth/mine": {
+    "/api/workflow/engine/delegateAuth/mine": {
         parameters: {
             query?: never;
             header?: never;
@@ -1350,7 +1350,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/delegateAuth/asDelegate": {
+    "/api/workflow/engine/delegateAuth/asDelegate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1366,7 +1366,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/designer": {
+    "/api/workflow/engine/definition/{id}/designer": {
         parameters: {
             query?: never;
             header?: never;
@@ -1382,7 +1382,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/lock": {
+    "/api/workflow/engine/definition/{id}/lock": {
         parameters: {
             query?: never;
             header?: never;
@@ -1398,7 +1398,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/unlock": {
+    "/api/workflow/engine/definition/{id}/unlock": {
         parameters: {
             query?: never;
             header?: never;
@@ -1414,7 +1414,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/lockStatus": {
+    "/api/workflow/engine/definition/{id}/lockStatus": {
         parameters: {
             query?: never;
             header?: never;
@@ -1430,7 +1430,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}": {
+    "/api/workflow/engine/definition/{id}/formConfig/{nodeCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1446,7 +1446,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}": {
+    "/api/workflow/engine/definition/{id}/slaConfig/{nodeCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1462,7 +1462,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/assignee/types": {
+    "/api/workflow/engine/assignee/types": {
         parameters: {
             query?: never;
             header?: never;
@@ -1478,7 +1478,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/listener/plugins": {
+    "/api/workflow/engine/listener/plugins": {
         parameters: {
             query?: never;
             header?: never;
@@ -1494,7 +1494,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/listener/eventTypes": {
+    "/api/workflow/engine/listener/eventTypes": {
         parameters: {
             query?: never;
             header?: never;
@@ -1510,7 +1510,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/template/list": {
+    "/api/workflow/engine/template/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -1526,7 +1526,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/template/{templateCode}/import": {
+    "/api/workflow/engine/template/{templateCode}/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -1542,7 +1542,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/template/{templateCode}": {
+    "/api/workflow/engine/template/{templateCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1558,7 +1558,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/embedded/panel": {
+    "/api/workflow/embedded/panel": {
         parameters: {
             query?: never;
             header?: never;
@@ -1574,7 +1574,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/embedded/action": {
+    "/api/workflow/embedded/action": {
         parameters: {
             query?: never;
             header?: never;
@@ -1590,7 +1590,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/embedded/{businessType}/{businessId}/action": {
+    "/api/workflow/embedded/{businessType}/{businessId}/action": {
         parameters: {
             query?: never;
             header?: never;
@@ -1606,7 +1606,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/start": {
+    "/api/workflow/engine/instance/start": {
         parameters: {
             query?: never;
             header?: never;
@@ -1622,7 +1622,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/batchStart": {
+    "/api/workflow/engine/instance/batchStart": {
         parameters: {
             query?: never;
             header?: never;
@@ -1638,7 +1638,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/draft/save": {
+    "/api/workflow/engine/instance/draft/save": {
         parameters: {
             query?: never;
             header?: never;
@@ -1654,7 +1654,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/draft/submit": {
+    "/api/workflow/engine/instance/draft/submit": {
         parameters: {
             query?: never;
             header?: never;
@@ -1670,7 +1670,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/draft/cancel": {
+    "/api/workflow/engine/instance/{id}/draft/cancel": {
         parameters: {
             query?: never;
             header?: never;
@@ -1686,7 +1686,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/byBusiness": {
+    "/api/workflow/engine/instance/byBusiness": {
         parameters: {
             query?: never;
             header?: never;
@@ -1702,7 +1702,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/terminate": {
+    "/api/workflow/engine/instance/{id}/terminate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1718,7 +1718,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/suspend": {
+    "/api/workflow/engine/instance/{id}/suspend": {
         parameters: {
             query?: never;
             header?: never;
@@ -1734,7 +1734,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/activate": {
+    "/api/workflow/engine/instance/{id}/activate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1750,7 +1750,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/recall": {
+    "/api/workflow/engine/instance/{id}/recall": {
         parameters: {
             query?: never;
             header?: never;
@@ -1766,7 +1766,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/recallableNodes": {
+    "/api/workflow/engine/instance/{id}/recallableNodes": {
         parameters: {
             query?: never;
             header?: never;
@@ -1782,7 +1782,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/rollback": {
+    "/api/workflow/engine/instance/{id}/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -1798,7 +1798,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/resubmit": {
+    "/api/workflow/engine/instance/{id}/resubmit": {
         parameters: {
             query?: never;
             header?: never;
@@ -1814,7 +1814,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/auditTrail": {
+    "/api/workflow/engine/instance/{id}/auditTrail": {
         parameters: {
             query?: never;
             header?: never;
@@ -1830,7 +1830,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/timeline": {
+    "/api/workflow/engine/instance/{id}/timeline": {
         parameters: {
             query?: never;
             header?: never;
@@ -1846,7 +1846,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/diagram": {
+    "/api/workflow/engine/instance/{id}/diagram": {
         parameters: {
             query?: never;
             header?: never;
@@ -1862,7 +1862,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/replay": {
+    "/api/workflow/engine/instance/{id}/replay": {
         parameters: {
             query?: never;
             header?: never;
@@ -1878,7 +1878,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/page": {
+    "/api/workflow/engine/instance/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1894,7 +1894,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/my": {
+    "/api/workflow/engine/instance/my": {
         parameters: {
             query?: never;
             header?: never;
@@ -1910,7 +1910,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/all": {
+    "/api/workflow/engine/instance/all": {
         parameters: {
             query?: never;
             header?: never;
@@ -1926,7 +1926,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/variables": {
+    "/api/workflow/engine/instance/{id}/variables": {
         parameters: {
             query?: never;
             header?: never;
@@ -1942,7 +1942,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/urge": {
+    "/api/workflow/engine/instance/{id}/urge": {
         parameters: {
             query?: never;
             header?: never;
@@ -1958,7 +1958,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/urge/node": {
+    "/api/workflow/engine/instance/{id}/urge/node": {
         parameters: {
             query?: never;
             header?: never;
@@ -1974,7 +1974,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/{id}/formRender": {
+    "/api/workflow/engine/instance/{id}/formRender": {
         parameters: {
             query?: never;
             header?: never;
@@ -1990,7 +1990,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/migrate": {
+    "/api/workflow/engine/instance/migrate": {
         parameters: {
             query?: never;
             header?: never;
@@ -2006,7 +2006,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/migrate/preview": {
+    "/api/workflow/engine/instance/migrate/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -2022,7 +2022,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/migrate/autoMap": {
+    "/api/workflow/engine/instance/migrate/autoMap": {
         parameters: {
             query?: never;
             header?: never;
@@ -2038,7 +2038,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/trigger/list": {
+    "/api/workflow/engine/instance/trigger/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -2054,7 +2054,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/trigger": {
+    "/api/workflow/engine/instance/trigger": {
         parameters: {
             query?: never;
             header?: never;
@@ -2070,7 +2070,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/trigger/{id}": {
+    "/api/workflow/engine/instance/trigger/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2086,7 +2086,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/trigger/{id}/toggle": {
+    "/api/workflow/engine/instance/trigger/{id}/toggle": {
         parameters: {
             query?: never;
             header?: never;
@@ -2102,7 +2102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/overview": {
+    "/api/workflow/engine/monitor/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -2118,7 +2118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/anomaly": {
+    "/api/workflow/engine/monitor/anomaly": {
         parameters: {
             query?: never;
             header?: never;
@@ -2134,7 +2134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/instanceTrend": {
+    "/api/workflow/engine/monitor/instanceTrend": {
         parameters: {
             query?: never;
             header?: never;
@@ -2150,7 +2150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/approverEfficiency": {
+    "/api/workflow/engine/monitor/approverEfficiency": {
         parameters: {
             query?: never;
             header?: never;
@@ -2166,7 +2166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/flowTypeDistribution": {
+    "/api/workflow/engine/monitor/flowTypeDistribution": {
         parameters: {
             query?: never;
             header?: never;
@@ -2182,7 +2182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/dashboard": {
+    "/api/workflow/engine/monitor/dashboard": {
         parameters: {
             query?: never;
             header?: never;
@@ -2198,7 +2198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/overdueTasks": {
+    "/api/workflow/engine/monitor/overdueTasks": {
         parameters: {
             query?: never;
             header?: never;
@@ -2214,7 +2214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/approverWorkload": {
+    "/api/workflow/engine/monitor/approverWorkload": {
         parameters: {
             query?: never;
             header?: never;
@@ -2230,7 +2230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/monitor/flowEfficiencyComparison": {
+    "/api/workflow/engine/monitor/flowEfficiencyComparison": {
         parameters: {
             query?: never;
             header?: never;
@@ -2246,7 +2246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/efficiency/stats": {
+    "/api/workflow/engine/efficiency/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -2262,7 +2262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/efficiency/bottleneck": {
+    "/api/workflow/engine/efficiency/bottleneck": {
         parameters: {
             query?: never;
             header?: never;
@@ -2278,7 +2278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/efficiency/approverRanking": {
+    "/api/workflow/engine/efficiency/approverRanking": {
         parameters: {
             query?: never;
             header?: never;
@@ -2294,7 +2294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/efficiency/trend": {
+    "/api/workflow/engine/efficiency/trend": {
         parameters: {
             query?: never;
             header?: never;
@@ -2310,7 +2310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/efficiency/healthScore": {
+    "/api/workflow/engine/efficiency/healthScore": {
         parameters: {
             query?: never;
             header?: never;
@@ -2326,7 +2326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/{taskId}": {
+    "/api/workflow/engine/task/{taskId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2342,7 +2342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/claim": {
+    "/api/workflow/engine/task/claim": {
         parameters: {
             query?: never;
             header?: never;
@@ -2358,7 +2358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/pass": {
+    "/api/workflow/engine/task/pass": {
         parameters: {
             query?: never;
             header?: never;
@@ -2374,7 +2374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/reject": {
+    "/api/workflow/engine/task/reject": {
         parameters: {
             query?: never;
             header?: never;
@@ -2390,7 +2390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/{taskId}/rejectableNodes": {
+    "/api/workflow/engine/task/{taskId}/rejectableNodes": {
         parameters: {
             query?: never;
             header?: never;
@@ -2406,7 +2406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/transfer": {
+    "/api/workflow/engine/task/transfer": {
         parameters: {
             query?: never;
             header?: never;
@@ -2422,7 +2422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/delegate": {
+    "/api/workflow/engine/task/delegate": {
         parameters: {
             query?: never;
             header?: never;
@@ -2438,7 +2438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/countersignBefore": {
+    "/api/workflow/engine/task/countersignBefore": {
         parameters: {
             query?: never;
             header?: never;
@@ -2454,7 +2454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/countersignAfter": {
+    "/api/workflow/engine/task/countersignAfter": {
         parameters: {
             query?: never;
             header?: never;
@@ -2470,7 +2470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/countersignParallel": {
+    "/api/workflow/engine/task/countersignParallel": {
         parameters: {
             query?: never;
             header?: never;
@@ -2486,7 +2486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/jump": {
+    "/api/workflow/engine/task/jump": {
         parameters: {
             query?: never;
             header?: never;
@@ -2502,7 +2502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/freeJump": {
+    "/api/workflow/engine/task/freeJump": {
         parameters: {
             query?: never;
             header?: never;
@@ -2518,7 +2518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/batchPass": {
+    "/api/workflow/engine/task/batchPass": {
         parameters: {
             query?: never;
             header?: never;
@@ -2534,7 +2534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/batchReject": {
+    "/api/workflow/engine/task/batchReject": {
         parameters: {
             query?: never;
             header?: never;
@@ -2550,7 +2550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/batchTransfer": {
+    "/api/workflow/engine/task/batchTransfer": {
         parameters: {
             query?: never;
             header?: never;
@@ -2566,7 +2566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/instance/batchUrge": {
+    "/api/workflow/engine/instance/batchUrge": {
         parameters: {
             query?: never;
             header?: never;
@@ -2582,7 +2582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/passAll": {
+    "/api/workflow/engine/task/passAll": {
         parameters: {
             query?: never;
             header?: never;
@@ -2598,7 +2598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/todo": {
+    "/api/workflow/engine/task/todo": {
         parameters: {
             query?: never;
             header?: never;
@@ -2614,7 +2614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/todo/cursor": {
+    "/api/workflow/engine/task/todo/cursor": {
         parameters: {
             query?: never;
             header?: never;
@@ -2630,7 +2630,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/done": {
+    "/api/workflow/engine/task/done": {
         parameters: {
             query?: never;
             header?: never;
@@ -2646,7 +2646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/overdue": {
+    "/api/workflow/engine/task/overdue": {
         parameters: {
             query?: never;
             header?: never;
@@ -2662,7 +2662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/done/search": {
+    "/api/workflow/engine/task/done/search": {
         parameters: {
             query?: never;
             header?: never;
@@ -2678,7 +2678,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/stats/nodeDuration": {
+    "/api/workflow/engine/stats/nodeDuration": {
         parameters: {
             query?: never;
             header?: never;
@@ -2694,7 +2694,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/stats/overdue": {
+    "/api/workflow/engine/stats/overdue": {
         parameters: {
             query?: never;
             header?: never;
@@ -2710,7 +2710,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/countersignRemove": {
+    "/api/workflow/engine/task/countersignRemove": {
         parameters: {
             query?: never;
             header?: never;
@@ -2726,7 +2726,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/{taskId}/read": {
+    "/api/workflow/engine/task/{taskId}/read": {
         parameters: {
             query?: never;
             header?: never;
@@ -2742,7 +2742,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/communicate": {
+    "/api/workflow/engine/task/communicate": {
         parameters: {
             query?: never;
             header?: never;
@@ -2758,7 +2758,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/saveDraft": {
+    "/api/workflow/engine/task/saveDraft": {
         parameters: {
             query?: never;
             header?: never;
@@ -2774,7 +2774,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/addApprover": {
+    "/api/workflow/engine/task/addApprover": {
         parameters: {
             query?: never;
             header?: never;
@@ -2790,7 +2790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/{taskId}/retract": {
+    "/api/workflow/engine/task/{taskId}/retract": {
         parameters: {
             query?: never;
             header?: never;
@@ -2806,7 +2806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/{taskId}/suspend": {
+    "/api/workflow/engine/task/{taskId}/suspend": {
         parameters: {
             query?: never;
             header?: never;
@@ -2822,7 +2822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/task/{taskId}/activate": {
+    "/api/workflow/engine/task/{taskId}/activate": {
         parameters: {
             query?: never;
             header?: never;
@@ -2838,7 +2838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/todo/count": {
+    "/api/workflow/engine/todo/count": {
         parameters: {
             query?: never;
             header?: never;
@@ -2854,7 +2854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/todo/pushMine": {
+    "/api/workflow/engine/todo/pushMine": {
         parameters: {
             query?: never;
             header?: never;
@@ -2870,7 +2870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/countersign/instance/{instanceId}": {
+    "/api/workflow/engine/countersign/instance/{instanceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2886,7 +2886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/engine/countersign/task/{taskId}": {
+    "/api/workflow/engine/countersign/task/{taskId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2902,7 +2902,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/list": {
+    "/api/workflow/template/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -2918,7 +2918,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{templateCode}": {
+    "/api/workflow/template/{templateCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2934,7 +2934,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{templateCode}/import": {
+    "/api/workflow/template/{templateCode}/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -2950,7 +2950,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/export/{definitionId}": {
+    "/api/workflow/template/export/{definitionId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2966,7 +2966,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{templateCode}/versions": {
+    "/api/workflow/template/{templateCode}/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -2982,7 +2982,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{templateCode}/versions/{version}": {
+    "/api/workflow/template/{templateCode}/versions/{version}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2998,7 +2998,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{templateCode}/newVersion": {
+    "/api/workflow/template/{templateCode}/newVersion": {
         parameters: {
             query?: never;
             header?: never;
@@ -3014,7 +3014,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{templateCode}/clone": {
+    "/api/workflow/template/{templateCode}/clone": {
         parameters: {
             query?: never;
             header?: never;
@@ -3030,7 +3030,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{parentTemplateCode}/inherit": {
+    "/api/workflow/template/{parentTemplateCode}/inherit": {
         parameters: {
             query?: never;
             header?: never;
@@ -3046,7 +3046,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{parentTemplateCode}/inherited": {
+    "/api/workflow/template/{parentTemplateCode}/inherited": {
         parameters: {
             query?: never;
             header?: never;
@@ -3062,7 +3062,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/{childTemplateCode}/sync": {
+    "/api/workflow/template/{childTemplateCode}/sync": {
         parameters: {
             query?: never;
             header?: never;
@@ -3078,7 +3078,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/recommend": {
+    "/api/workflow/template/recommend": {
         parameters: {
             query?: never;
             header?: never;
@@ -3094,7 +3094,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/template/recommend/byBusinessType": {
+    "/api/workflow/template/recommend/byBusinessType": {
         parameters: {
             query?: never;
             header?: never;

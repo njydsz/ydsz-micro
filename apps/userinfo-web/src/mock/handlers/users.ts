@@ -35,7 +35,7 @@ const mockUsers = generateMockUsers(50);
 export const mockUserHandlers: MockHandler[] = [
   // 用户列表
   {
-    test: (url, method) => url.includes('/api/v1/users') && method === 'GET',
+    test: (url, method) => url.includes('/api/users') && method === 'GET',
     handle: async () => {
       // 模拟分页
       return {
@@ -61,7 +61,7 @@ export const mockUserHandlers: MockHandler[] = [
   },
   // 创建用户
   {
-    test: (url, method) => url.includes('/api/v1/users') && method === 'POST',
+    test: (url, method) => url.includes('/api/users') && method === 'POST',
     handle: async (_url, init) => {
       const body = init?.body ? JSON.parse(init.body as string) : {};
       const newUser = {

@@ -63,6 +63,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/job-log/index.vue'),
         meta: { icon: 'lucide:file-text', title: '执行日志' },
       },
+      {
+        name: 'JobLogStreamManagement',
+        path: 'stream',
+        component: () => import('#/views/job-log-stream/index.vue'),
+        meta: { icon: 'lucide:terminal', title: '实时日志' },
+      },
     ],
   },
   {

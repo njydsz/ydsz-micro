@@ -22,5 +22,5 @@ export interface TenantSimpleVO {
  * @returns 可访问租户列表
  */
 export async function getAccessibleTenantsApi(): Promise<TenantSimpleVO[]> {
-  return requestClient.get<TenantSimpleVO[]>('/api/v1/tenant/accessible');
+  return requestClient.get<TenantSimpleVO[]>('/api/tenant/accessible');
 }

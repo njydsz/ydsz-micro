@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/app/page": {
+    "/api/app/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/app/{id}": {
+    "/api/app/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/app": {
+    "/api/app": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/audit/logs": {
+    "/api/admin/audit/logs": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/audit/operator/{operatorId}": {
+    "/api/admin/audit/operator/{operatorId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/audit/action/{action}": {
+    "/api/admin/audit/action/{action}": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/audit/trace/{traceId}": {
+    "/api/admin/audit/trace/{traceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/audit/{id}": {
+    "/api/admin/audit/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/page": {
+    "/api/config/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/cursor": {
+    "/api/config/cursor": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/{id}": {
+    "/api/config/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config": {
+    "/api/config": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/batch": {
+    "/api/config/batch": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/key/{configKey}": {
+    "/api/config/key/{configKey}": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/group/{configGroup}": {
+    "/api/config/group/{configGroup}": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/public": {
+    "/api/config/public": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/export": {
+    "/api/config/export": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/import": {
+    "/api/config/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/version/{resourceKey}": {
+    "/api/config/version/{resourceKey}": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/config/version/{resourceKey}/rollback": {
+    "/api/config/version/{resourceKey}/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/type/page": {
+    "/api/dict/type/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/type/{id}": {
+    "/api/dict/type/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -358,7 +358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/type": {
+    "/api/dict/type": {
         parameters: {
             query?: never;
             header?: never;
@@ -374,7 +374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/type/all": {
+    "/api/dict/type/all": {
         parameters: {
             query?: never;
             header?: never;
@@ -390,7 +390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item/page": {
+    "/api/dict/item/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -406,7 +406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item/{id}": {
+    "/api/dict/item/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item/lookup": {
+    "/api/dict/item/lookup": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item/type/{typeCode}": {
+    "/api/dict/item/type/{typeCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item/children/{parentId}": {
+    "/api/dict/item/children/{parentId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item/tree/{typeCode}": {
+    "/api/dict/item/tree/{typeCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item": {
+    "/api/dict/item": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/item/batch": {
+    "/api/dict/item/batch": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/version/{typeCode}": {
+    "/api/dict/version/{typeCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/version/page": {
+    "/api/dict/version/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -550,7 +550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dict/version/{typeCode}/rollback": {
+    "/api/dict/version/{typeCode}/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -566,7 +566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/system/init": {
+    "/api/system/init": {
         parameters: {
             query?: never;
             header?: never;
@@ -582,7 +582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/system/init/dicts": {
+    "/api/system/init/dicts": {
         parameters: {
             query?: never;
             header?: never;
@@ -662,7 +662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant/page": {
+    "/api/tenant/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -678,7 +678,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant/{id}": {
+    "/api/tenant/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -694,7 +694,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant": {
+    "/api/tenant": {
         parameters: {
             query?: never;
             header?: never;
@@ -710,7 +710,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant-plan/page": {
+    "/api/tenant-plan/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -726,7 +726,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant-plan/list": {
+    "/api/tenant-plan/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -742,7 +742,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant-plan/{id}": {
+    "/api/tenant-plan/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -758,7 +758,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant-plan": {
+    "/api/tenant-plan": {
         parameters: {
             query?: never;
             header?: never;
@@ -774,7 +774,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant-plan/{planId}/menus": {
+    "/api/tenant-plan/{planId}/menus": {
         parameters: {
             query?: never;
             header?: never;
@@ -790,7 +790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/tenant-plan/menus": {
+    "/api/tenant-plan/menus": {
         parameters: {
             query?: never;
             header?: never;
@@ -806,7 +806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/variable/page": {
+    "/api/variable/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -822,7 +822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/variable/{id}": {
+    "/api/variable/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -838,7 +838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/variable/key/{variableKey}": {
+    "/api/variable/key/{variableKey}": {
         parameters: {
             query?: never;
             header?: never;
@@ -854,7 +854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/variable": {
+    "/api/variable": {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/variable/version/{resourceKey}": {
+    "/api/variable/version/{resourceKey}": {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/variable/version/{resourceKey}/rollback": {
+    "/api/variable/version/{resourceKey}/rollback": {
         parameters: {
             query?: never;
             header?: never;

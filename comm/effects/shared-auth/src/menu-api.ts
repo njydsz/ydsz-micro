@@ -19,7 +19,7 @@ import { requestClient } from './request-setup';
  */
 export async function getAllMenusApi() {
   return requestClient.get<RouteRecordStringComponent[]>(
-    '/api/v1/menu/routes',
+    '/api/menu/routes',
   );
 }
 
@@ -30,6 +30,6 @@ export async function getAllMenusApi() {
  */
 export async function getMenuTreeApi() {
   return requestClient.get<RouteRecordStringComponent[]>(
-    '/api/v1/menu/tree',
+    '/api/menu/tree',
   );
 }

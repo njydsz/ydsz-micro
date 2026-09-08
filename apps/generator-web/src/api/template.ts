@@ -1,7 +1,7 @@
 /**
  * TemplateController API 封装。
  *
- * <p>对应后端 {@code TemplateController}，路径前缀 /api/v1/generator。
+ * <p>对应后端 {@code TemplateController}，路径前缀 /api/generator。
  * <p>提供模板分组管理与模板 CRUD 功能。
  *
  * @author ydsz-team
@@ -19,7 +19,7 @@ import type { GenTemplate, GenTemplateGroup } from './models';
  * @returns 分组列表
  */
 export function listGroups(): Promise<GenTemplateGroup[]> {
-  return requestClient.get<GenTemplateGroup[]>(`/api/v1/generator/groups`);
+  return requestClient.get<GenTemplateGroup[]>(`/api/generator/groups`);
 }
 
 /**
@@ -28,7 +28,7 @@ export function listGroups(): Promise<GenTemplateGroup[]> {
  * @returns 激活分组
  */
 export function getActiveGroup(): Promise<GenTemplateGroup> {
-  return requestClient.get<GenTemplateGroup>(`/api/v1/generator/groups/active`);
+  return requestClient.get<GenTemplateGroup>(`/api/generator/groups/active`);
 }
 
 /**
@@ -37,7 +37,7 @@ export function getActiveGroup(): Promise<GenTemplateGroup> {
  * @param id 分组 ID
  */
 export function activateGroup({ id }: { id: number }): Promise<void> {
-  return requestClient.post<void>(`/api/v1/generator/groups/${id}/activate`);
+  return requestClient.post<void>(`/api/generator/groups/${id}/activate`);
 }
 
 /**
@@ -47,7 +47,7 @@ export function activateGroup({ id }: { id: number }): Promise<void> {
  * @returns 持久化后实体
  */
 export function createGroup(group: GenTemplateGroup): Promise<GenTemplateGroup> {
-  return requestClient.post<GenTemplateGroup>(`/api/v1/generator/groups`, group);
+  return requestClient.post<GenTemplateGroup>(`/api/generator/groups`, group);
 }
 
 /**
@@ -56,7 +56,7 @@ export function createGroup(group: GenTemplateGroup): Promise<GenTemplateGroup> 
  * @param id 分组 ID
  */
 export function deleteGroup({ id }: { id: number }): Promise<void> {
-  return requestClient.delete<void>(`/api/v1/generator/groups/${id}`);
+  return requestClient.delete<void>(`/api/generator/groups/${id}`);
 }
 
 // ══════════════ 模板管理 ══════════════
@@ -68,7 +68,7 @@ export function deleteGroup({ id }: { id: number }): Promise<void> {
  * @returns 模板列表
  */
 export function listTemplates(params: { groupId: number }): Promise<GenTemplate[]> {
-  return requestClient.get<GenTemplate[]>(`/api/v1/generator/templates`, { params });
+  return requestClient.get<GenTemplate[]>(`/api/generator/templates`, { params });
 }
 
 /**
@@ -78,7 +78,7 @@ export function listTemplates(params: { groupId: number }): Promise<GenTemplate[
  * @returns 模板实体
  */
 export function getTemplate({ id }: { id: number }): Promise<GenTemplate> {
-  return requestClient.get<GenTemplate>(`/api/v1/generator/templates/${id}`);
+  return requestClient.get<GenTemplate>(`/api/generator/templates/${id}`);
 }
 
 /**
@@ -88,7 +88,7 @@ export function getTemplate({ id }: { id: number }): Promise<GenTemplate> {
  * @returns 更新后实体
  */
 export function updateTemplate(template: GenTemplate): Promise<GenTemplate> {
-  return requestClient.post<GenTemplate>(`/api/v1/generator/templates/update`, template);
+  return requestClient.post<GenTemplate>(`/api/generator/templates/update`, template);
 }
 
 /**
@@ -98,5 +98,5 @@ export function updateTemplate(template: GenTemplate): Promise<GenTemplate> {
  * @returns 匹配结果
  */
 export function searchTemplates(params: { groupId: number; keyword: string }): Promise<GenTemplate[]> {
-  return requestClient.get<GenTemplate[]>(`/api/v1/generator/templates/search`, { params });
+  return requestClient.get<GenTemplate[]>(`/api/generator/templates/search`, { params });
 }

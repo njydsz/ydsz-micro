@@ -68,7 +68,7 @@ def load_snapshot(app):
     return s
 
 
-# 前端 api 层调用：requestClient.get(`/api/v1/xxx`) 或 requestClient.post('/api/..')
+# 前端 api 层调用：requestClient.get(`/api/xxx`) 或 requestClient.post('/api/..')
 CALL_RE = re.compile(
     r"requestClient\s*\.\s*(get|post|put|delete|patch|request)\s*<[^>]*>\s*\(\s*[`'\"]"
     r"(?P<url>/[^`'\"]*)[`'\"]",

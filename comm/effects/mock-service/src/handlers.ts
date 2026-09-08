@@ -125,7 +125,7 @@ function createHandlerForOperation(
   options: HandlerGeneratorOptions,
 ): RequestHandler | null {
   // 转换 OpenAPI 路径模板为 MSW 路径格式
-  // OpenAPI: /api/v1/config/{id} -> MSW: /api/v1/config/:id
+  // OpenAPI: /api/config/{id} -> MSW: /api/config/:id
   const mswPath = pathTemplate.replace(/\{([^}]+)\}/g, ':$1');
 
   // 解析响应 schema
@@ -244,7 +244,7 @@ function unwrapDataSchema(schema: Record<string, unknown>): Record<string, unkno
  * ```ts
  * import { createMockHandler } from '@ydsz/mock-service';
  *
- * const handler = createMockHandler('get', '/api/v1/config', () => ({
+ * const handler = createMockHandler('get', '/api/config', () => ({
  *   code: 'A00000',
  *   data: [{ id: '1', name: 'test' }],
  * }));
@@ -278,7 +278,7 @@ export function createMockHandler(
  * ```ts
  * import { createCrudHandlers } from '@ydsz/mock-service';
  *
- * const handlers = createCrudHandlers('/api/v1/config', {
+ * const handlers = createCrudHandlers('/api/config', {
  *   generateItem: () => ({ id: faker.string.uuid(), name: faker.commerce.productName() }),
  *   listSize: 10,
  * });

@@ -1,8 +1,8 @@
 /**
  * Agent SSE 客户端工具 — @ydsz/shared-auth openSseRequest 的 Agent 业务分发层
  *
- * <p>用于消费后端 AgentController 的流式接口（{@code POST /api/v1/agent/chat/stream}、
- * {@code POST /api/v1/agent/execute/stream}）。后端 SseExecutor 统一推送三种事件：
+ * <p>用于消费后端 AgentController 的流式接口（{@code POST /api/agent/chat/stream}、
+ * {@code POST /api/agent/execute/stream}）。后端 SseExecutor 统一推送三种事件：
  * <ul>
  *   <li>{@code chunk}：data 形如 {@code {content, finished, finishReason?, toolCalls?}}</li>
  *   <li>{@code done}：data 形如 {@code {content: '', finished: true}}</li>
@@ -54,7 +54,7 @@ export interface AgentStreamOptions {
  * <p>鉴权、帧解析与生命周期由共享层承担；返回关闭函数（幂等），
  * 配合外部 signal 供「停止生成」与组件卸载时断开连接。
  *
- * @param url 相对路径（如 /api/v1/agent/chat/stream）
+ * @param url 相对路径（如 /api/agent/chat/stream）
  * @param body 请求体（ChatRequestDTO / AgentExecutionRequestDTO，弱类型直传）
  * @param handlers 事件回调 + 流选项
  * @returns 关闭连接函数

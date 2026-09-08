@@ -8,8 +8,8 @@
   - 结果命中关键词高亮（highlight 字段优先）
 
   依赖的搜索 API：
-  - GET /api/v1/search/unified?keyword=xxx（跨模块聚合搜索）
-  - GET /api/v1/search/suggest?keyword=xxx（输入建议）
+  - GET /api/search/unified?keyword=xxx（跨模块聚合搜索）
+  - GET /api/search/suggest?keyword=xxx（输入建议）
 
 @path comm/@core/ui-kit/shadcn-ui/src/components/search/global-search-panel.vue
 @author ydsz-team

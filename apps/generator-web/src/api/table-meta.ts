@@ -1,7 +1,7 @@
 /**
  * TableMetaController API 封装。
  *
- * <p>对应后端 {@code TableMetaController}，路径前缀 /api/v1/generator/tables。
+ * <p>对应后端 {@code TableMetaController}，路径前缀 /api/generator/tables。
  * <p>提供表元数据查询与列元数据管理功能。
  *
  * @author ydsz-team
@@ -18,7 +18,7 @@ import type { GenColumnMeta, GenTableMeta } from './models';
  * @returns 表元数据列表
  */
 export function listTables(params: { datasourceId: number }): Promise<GenTableMeta[]> {
-  return requestClient.get<GenTableMeta[]>(`/api/v1/generator/tables`, { params });
+  return requestClient.get<GenTableMeta[]>(`/api/generator/tables`, { params });
 }
 
 /**
@@ -28,7 +28,7 @@ export function listTables(params: { datasourceId: number }): Promise<GenTableMe
  * @returns 刷新后列表
  */
 export function refreshTables(params: { datasourceId: number }): Promise<GenTableMeta[]> {
-  return requestClient.post<GenTableMeta[]>(`/api/v1/generator/tables/refresh`, { params });
+  return requestClient.post<GenTableMeta[]>(`/api/generator/tables/refresh`, { params });
 }
 
 /**
@@ -38,7 +38,7 @@ export function refreshTables(params: { datasourceId: number }): Promise<GenTabl
  * @returns 列元数据列表
  */
 export function getColumns(params: { tableMetaId: number }): Promise<GenColumnMeta[]> {
-  return requestClient.get<GenColumnMeta[]>(`/api/v1/generator/tables/columns`, { params });
+  return requestClient.get<GenColumnMeta[]>(`/api/generator/tables/columns`, { params });
 }
 
 /**
@@ -51,5 +51,5 @@ export function refreshColumns(params: {
   datasourceId: number;
   tableName: string;
 }): Promise<GenColumnMeta[]> {
-  return requestClient.post<GenColumnMeta[]>(`/api/v1/generator/tables/columns/refresh`, { params });
+  return requestClient.post<GenColumnMeta[]>(`/api/generator/tables/columns/refresh`, { params });
 }

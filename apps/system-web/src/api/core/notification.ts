@@ -1,7 +1,7 @@
 /**
  * 站内通知 API —— 收件箱分页/未读数/标记已读/全部已读接口（对齐后端 NotificationController）
  *
- * <p>后端契约：{@code NotificationController} 映射于 {@code /api/v1/message/notifications}。
+ * <p>后端契约：{@code NotificationController} 映射于 {@code /api/message/notifications}。
  *
  * <p>本模块为 system-web 子应用侧的类型化封装，字段与主应用侧 main/src/api/core/notification.ts
  * 保持同名对齐，避免重复实现。
@@ -94,7 +94,7 @@ export async function getNotificationsApi(
   if (params.level) query.level = params.level;
 
   const res = await requestClient.get<PageResponse<MsgNotificationVO[]>>(
-    '/api/v1/message/notifications/inbox',
+    '/api/message/notifications/inbox',
     { params: query },
   );
   return {
@@ -110,7 +110,7 @@ export async function getNotificationsApi(
  */
 export function getUnreadCountApi(): Promise<number> {
   return requestClient.get<number>(
-    '/api/v1/message/notifications/unreadCount',
+    '/api/message/notifications/unreadCount',
   );
 }
 
@@ -119,7 +119,7 @@ export function getUnreadCountApi(): Promise<number> {
  */
 export function markAsReadApi(id: string): Promise<boolean> {
   return requestClient.post<boolean>(
-    `/api/v1/message/notifications/${id}/read`,
+    `/api/message/notifications/${id}/read`,
   );
 }
 
@@ -127,14 +127,14 @@ export function markAsReadApi(id: string): Promise<boolean> {
  * 将当前用户全部通知标记为已读。
  */
 export function markAllAsReadApi(): Promise<number> {
-  return requestClient.post<number>('/api/v1/message/notifications/readAll');
+  return requestClient.post<number>('/api/message/notifications/readAll');
 }
 
 /**
  * 批量删除当前用户的通知。
  */
 export function deleteNotificationsApi(ids: string[]): Promise<void> {
-  return requestClient.delete<void>('/api/v1/message/notifications', {
+  return requestClient.delete<void>('/api/message/notifications', {
     data: ids,
   });
 }

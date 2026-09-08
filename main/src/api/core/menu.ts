@@ -16,7 +16,7 @@ import { requestClient } from '#/api/request';
  */
 export async function getAllMenusApi() {
   return requestClient.get<RouteRecordStringComponent[]>(
-    '/api/v1/menu/routes',
+    '/api/menu/routes',
   );
 }
 
@@ -26,5 +26,5 @@ export async function getAllMenusApi() {
  * @returns 完整菜单树数组
  */
 export async function getMenuTreeApi() {
-  return requestClient.get<RouteRecordStringComponent[]>('/api/v1/menu/tree');
+  return requestClient.get<RouteRecordStringComponent[]>('/api/menu/tree');
 }

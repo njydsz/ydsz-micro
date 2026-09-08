@@ -3,7 +3,7 @@
  *
  * <p>文件评论场景需要「按关键字搜索用户」以支撑 @提及选择器：提交时把选中用户 ID
  * 写入 addComment 请求体的 mentions（List&lt;String&gt;）。
- * 后端能力位于 userinfo 服务（GET /api/v1/userinfo/search），经统一网关调用；
+ * 后端能力位于 userinfo 服务（GET /api/userinfo/search），经统一网关调用；
  * 本文件为手写封装（非 bash/gen-contract.py 生成，勿覆盖）。
  *
  * @path apps/nextwiki-web/src/api/userSearch.ts
@@ -41,5 +41,5 @@ export function searchUsers(params: {
   page?: number;
   pageSize?: number;
 }): Promise<UserSearchResult> {
-  return requestClient.get<UserSearchResult>(`/api/v1/userinfo/search`, { params });
+  return requestClient.get<UserSearchResult>(`/api/userinfo/search`, { params });
 }

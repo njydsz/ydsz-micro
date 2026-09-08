@@ -3,8 +3,8 @@
  *
  * <p>支持后端 SSE（Server-Sent Events）与增量流式响应，用于：
  * <ul>
- *   <li>agent 对话流：{@code POST /api/v1/agent/chat/stream}、{@code /execute/stream}</li>
- *   <li>auth 事件推送：{@code GET /api/v1/auth/events}（SSE）</li>
+ *   <li>agent 对话流：{@code POST /api/agent/chat/stream}、{@code /execute/stream}</li>
+ *   <li>auth 事件推送：{@code GET /api/auth/events}（SSE）</li>
  * </ul>
  *
  * <p><b>设计说明：</b>
@@ -98,7 +98,7 @@ export function parseSseChunk(buffer: string): { events: SseEvent[]; rest: strin
  * ```ts
  * const ac = new AbortController();
  * await streamRequest({
- *   url: '/api/v1/agent/chat/stream',
+ *   url: '/api/agent/chat/stream',
  *   method: 'POST',
  *   data: { message: '你好' },
  *   onEvent: ({ data }) => appendToChat(data),
@@ -206,7 +206,7 @@ export interface StreamAsyncOptions {
  *
  * @example
  * ```ts
- * const stream = streamRequestAsync<ChatChunk>({ url: '/api/v1/agent/chat/stream', data: req });
+ * const stream = streamRequestAsync<ChatChunk>({ url: '/api/agent/chat/stream', data: req });
  * for await (const evt of stream) {
  *   // evt.data 为字符串，调用方 parse: evt.data as ChatChunk
  *   appendToChat(JSON.parse(evt.data));

@@ -37,7 +37,7 @@ const MESSAGE_STATUSES = ['PENDING', 'SENT', 'DELIVERED', 'FAILED'] as const;
  * <p>在 main.ts 中调用，需要配合环境变量 VITE_USE_MOCK=true 使用。
  */
 export async function initMessageMockServer(): Promise<void> {
-  // 1. 从 OpenAPI spec 自动生成基础 handlers（覆盖 /api/v1/message/** 92 个端点）
+  // 1. 从 OpenAPI spec 自动生成基础 handlers（覆盖 /api/message/** 92 个端点）
   const autoHandlers = generateMockHandlers(spec as OpenAPISpec, {
     enableDelay: true,
     listSize: 10,
@@ -45,7 +45,7 @@ export async function initMessageMockServer(): Promise<void> {
   });
 
   // 2. 自定义消息记录 CRUD（覆盖自动生成，字段与业务模型对齐）
-  const customHandlers = createCrudHandlers('/api/v1/message/log', {
+  const customHandlers = createCrudHandlers('/api/message/log', {
     generateItem: () => ({
       logId: faker.string.uuid(),
       messageId: faker.string.uuid(),
@@ -70,7 +70,7 @@ export async function initMessageMockServer(): Promise<void> {
   // 3. 认证相关 Mock（子应用独立调试时使用，与主应用联调时被真实接口接管）
   const authHandlers = [
     // 登录
-    http.post('/api/v1/auth/login', async () => {
+    http.post('/api/auth/login', async () => {
       await delay(faker.number.int({ min: 100, max: 500 }));
       return HttpResponse.json({
         code: 'A00000',
@@ -97,7 +97,7 @@ export async function initMessageMockServer(): Promise<void> {
     }),
 
     // 获取用户信息
-    http.get('/api/v1/auth/userinfo', async () => {
+    http.get('/api/auth/userinfo', async () => {
       await delay(faker.number.int({ min: 50, max: 200 }));
       return HttpResponse.json({
         code: 'A00000',
@@ -116,7 +116,7 @@ export async function initMessageMockServer(): Promise<void> {
     }),
 
     // 登出
-    http.post('/api/v1/auth/logout', async () => {
+    http.post('/api/auth/logout', async () => {
       await delay(faker.number.int({ min: 50, max: 200 }));
       return HttpResponse.json({
         code: 'A00000',

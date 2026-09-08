@@ -19,7 +19,7 @@ import { getSummaryCore, type RoutePredictorLike } from "./route-predictor-core"
 const logger = createLogger("MicroKernel");
 
 /** 默认上报端点（可通过 setupPreloadMetricsReporting 覆盖） */
-let reportEndpoint = "/api/v1/monitor/preload-metrics";
+let reportEndpoint = "/api/monitor/preload-metrics";
 
 /** 预加载指标快照（与 debugInfoHelper 字段对齐） */
 export interface PreloadMetricsSnapshot {
@@ -42,7 +42,7 @@ export interface PreloadMetricsSnapshot {
 }
 
 /**
- * 覆盖上报端点（默认 `/api/v1/monitor/preload-metrics`）。
+ * 覆盖上报端点（默认 `/api/monitor/preload-metrics`）。
  *
  * @param endpoint - 上报端点 URL
  */

@@ -36,7 +36,7 @@ export type MockSchema = Record<string, unknown>;
  * 类型声明，保持了从 JSON 导入的灵活性。
  */
 export interface OpenAPISpec {
-  /** API 路径集合，键为路径模板（如 /api/v1/user/{id}） */
+  /** API 路径集合，键为路径模板（如 /api/user/{id}） */
   paths?: Record<string, unknown>;
   /** 组件定义（$ref 引用目标，可选） */
   components?: Record<string, unknown>;

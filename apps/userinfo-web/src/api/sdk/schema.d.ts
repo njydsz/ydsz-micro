@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/admin/users/{userId}/ban": {
+    "/api/admin/users/{userId}/ban": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/users/{userId}/unban": {
+    "/api/admin/users/{userId}/unban": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/users/{userId}/ban-info": {
+    "/api/admin/users/{userId}/ban-info": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/users/{userId}/sessions": {
+    "/api/admin/users/{userId}/sessions": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/users/{userId}/sessions/{accessToken}": {
+    "/api/admin/users/{userId}/sessions/{accessToken}": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/sessions": {
+    "/api/admin/sessions": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/sessions/statistics": {
+    "/api/admin/sessions/statistics": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/mfa/send-code": {
+    "/api/auth/mfa/send-code": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/mfa/send-email-code": {
+    "/api/auth/mfa/send-email-code": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/login": {
+    "/api/auth/login": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/logout": {
+    "/api/auth/logout": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/refresh": {
+    "/api/auth/refresh": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/sso/device-code": {
+    "/api/auth/sso/device-code": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/sso/device-exchange": {
+    "/api/auth/sso/device-exchange": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/sessions": {
+    "/api/auth/sessions": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/sessions/{token}": {
+    "/api/auth/sessions/{token}": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/secondary-auth": {
+    "/api/auth/secondary-auth": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth-policy/page": {
+    "/api/auth-policy/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth-policy/{tenantId}": {
+    "/api/auth-policy/{tenantId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth-policy": {
+    "/api/auth-policy": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/captcha/generate": {
+    "/api/captcha/generate": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/captcha/validate": {
+    "/api/captcha/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/company/list": {
+    "/api/company/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/company/tree": {
+    "/api/company/tree": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/company/{id}": {
+    "/api/company/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/company": {
+    "/api/company": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dept/list": {
+    "/api/dept/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dept/tree": {
+    "/api/dept/tree": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dept/{id}": {
+    "/api/dept/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/dept": {
+    "/api/dept": {
         parameters: {
             query?: never;
             header?: never;
@@ -790,7 +790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/language/page": {
+    "/api/language/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -806,7 +806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/language/{id}": {
+    "/api/language/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -822,7 +822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/language/list": {
+    "/api/language/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -838,7 +838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/language": {
+    "/api/language": {
         parameters: {
             query?: never;
             header?: never;
@@ -854,7 +854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/ldap/sync": {
+    "/api/admin/ldap/sync": {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/ldap/sync/status": {
+    "/api/admin/ldap/sync/status": {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/ldap/sync/logs": {
+    "/api/admin/ldap/sync/logs": {
         parameters: {
             query?: never;
             header?: never;
@@ -902,7 +902,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/menu/list": {
+    "/api/menu/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -918,7 +918,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/menu/tree": {
+    "/api/menu/tree": {
         parameters: {
             query?: never;
             header?: never;
@@ -934,7 +934,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/menu/{id}": {
+    "/api/menu/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -950,7 +950,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/menu": {
+    "/api/menu": {
         parameters: {
             query?: never;
             header?: never;
@@ -966,7 +966,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/oauth2/applications": {
+    "/api/admin/oauth2/applications": {
         parameters: {
             query?: never;
             header?: never;
@@ -982,7 +982,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/oauth2/applications/{id}": {
+    "/api/admin/oauth2/applications/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -998,7 +998,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/oauth2/applications/{id}/reset-secret": {
+    "/api/admin/oauth2/applications/{id}/reset-secret": {
         parameters: {
             query?: never;
             header?: never;
@@ -1014,7 +1014,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/oauth2/authorize": {
+    "/api/oauth2/authorize": {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,7 +1030,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/oauth2/consent": {
+    "/api/oauth2/consent": {
         parameters: {
             query?: never;
             header?: never;
@@ -1046,7 +1046,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/oauth2/token": {
+    "/api/oauth2/token": {
         parameters: {
             query?: never;
             header?: never;
@@ -1062,7 +1062,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/oauth2/revoke": {
+    "/api/oauth2/revoke": {
         parameters: {
             query?: never;
             header?: never;
@@ -1078,7 +1078,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/oauth2/introspect": {
+    "/api/oauth2/introspect": {
         parameters: {
             query?: never;
             header?: never;
@@ -1094,7 +1094,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/oauth2/userinfo": {
+    "/api/oauth2/userinfo": {
         parameters: {
             query?: never;
             header?: never;
@@ -1142,7 +1142,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/post/list": {
+    "/api/post/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -1158,7 +1158,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/post/{id}": {
+    "/api/post/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1174,7 +1174,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/post": {
+    "/api/post": {
         parameters: {
             query?: never;
             header?: never;
@@ -1190,7 +1190,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/role/page": {
+    "/api/role/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1206,7 +1206,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/role/list": {
+    "/api/role/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -1222,7 +1222,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/role/{id}": {
+    "/api/role/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1238,7 +1238,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/role": {
+    "/api/role": {
         parameters: {
             query?: never;
             header?: never;
@@ -1254,7 +1254,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/role/{roleId}/permissions": {
+    "/api/role/{roleId}/permissions": {
         parameters: {
             query?: never;
             header?: never;
@@ -1366,7 +1366,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/saml-idp-config/page": {
+    "/api/saml-idp-config/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1382,7 +1382,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/saml-idp-config/enabled": {
+    "/api/saml-idp-config/enabled": {
         parameters: {
             query?: never;
             header?: never;
@@ -1398,7 +1398,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/saml-idp-config": {
+    "/api/saml-idp-config": {
         parameters: {
             query?: never;
             header?: never;
@@ -1414,7 +1414,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/saml-idp-config/{entityId}": {
+    "/api/saml-idp-config/{entityId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1526,7 +1526,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/alerts": {
+    "/api/admin/security/alerts": {
         parameters: {
             query?: never;
             header?: never;
@@ -1542,7 +1542,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/alerts/pending": {
+    "/api/admin/security/alerts/pending": {
         parameters: {
             query?: never;
             header?: never;
@@ -1558,7 +1558,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/alerts/{id}/acknowledge": {
+    "/api/admin/security/alerts/{id}/acknowledge": {
         parameters: {
             query?: never;
             header?: never;
@@ -1574,7 +1574,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/alerts/{id}/resolve": {
+    "/api/admin/security/alerts/{id}/resolve": {
         parameters: {
             query?: never;
             header?: never;
@@ -1590,7 +1590,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/alerts/{id}/ignore": {
+    "/api/admin/security/alerts/{id}/ignore": {
         parameters: {
             query?: never;
             header?: never;
@@ -1606,7 +1606,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/dashboard": {
+    "/api/admin/security/dashboard": {
         parameters: {
             query?: never;
             header?: never;
@@ -1622,7 +1622,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/login-success-rate": {
+    "/api/admin/security/login-success-rate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1638,7 +1638,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/login-fail-distribution": {
+    "/api/admin/security/login-fail-distribution": {
         parameters: {
             query?: never;
             header?: never;
@@ -1654,7 +1654,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/mfa-coverage": {
+    "/api/admin/security/mfa-coverage": {
         parameters: {
             query?: never;
             header?: never;
@@ -1670,7 +1670,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/risk-distribution": {
+    "/api/admin/security/risk-distribution": {
         parameters: {
             query?: never;
             header?: never;
@@ -1686,7 +1686,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/recent-events": {
+    "/api/admin/security/recent-events": {
         parameters: {
             query?: never;
             header?: never;
@@ -1702,7 +1702,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/session-activity": {
+    "/api/admin/security/session-activity": {
         parameters: {
             query?: never;
             header?: never;
@@ -1718,7 +1718,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/active-user-ranking": {
+    "/api/admin/security/active-user-ranking": {
         parameters: {
             query?: never;
             header?: never;
@@ -1734,7 +1734,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/session-trend": {
+    "/api/admin/security/session-trend": {
         parameters: {
             query?: never;
             header?: never;
@@ -1750,7 +1750,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/device-distribution": {
+    "/api/admin/security/device-distribution": {
         parameters: {
             query?: never;
             header?: never;
@@ -1766,7 +1766,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/security/anomaly-sessions": {
+    "/api/admin/security/anomaly-sessions": {
         parameters: {
             query?: never;
             header?: never;
@@ -1782,7 +1782,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/social/bindings": {
+    "/api/profile/social/bindings": {
         parameters: {
             query?: never;
             header?: never;
@@ -1798,7 +1798,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/social/platforms": {
+    "/api/profile/social/platforms": {
         parameters: {
             query?: never;
             header?: never;
@@ -1814,7 +1814,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/social/bindings/{platform}": {
+    "/api/profile/social/bindings/{platform}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1830,7 +1830,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/social-client-config/page": {
+    "/api/social-client-config/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1846,7 +1846,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/social-client-config/enabled": {
+    "/api/social-client-config/enabled": {
         parameters: {
             query?: never;
             header?: never;
@@ -1862,7 +1862,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/social-client-config": {
+    "/api/social-client-config": {
         parameters: {
             query?: never;
             header?: never;
@@ -1878,7 +1878,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/social-client-config/{platform}": {
+    "/api/social-client-config/{platform}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1894,7 +1894,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/sso/metrics/overview": {
+    "/api/sso/metrics/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -1910,7 +1910,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/sso/token-exchange": {
+    "/api/sso/token-exchange": {
         parameters: {
             query?: never;
             header?: never;
@@ -1926,7 +1926,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/sso/validate": {
+    "/api/sso/validate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1942,7 +1942,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/sso/logout-notify": {
+    "/api/sso/logout-notify": {
         parameters: {
             query?: never;
             header?: never;
@@ -1958,7 +1958,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/page": {
+    "/api/user/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1974,7 +1974,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/list": {
+    "/api/user/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -1990,7 +1990,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{id}": {
+    "/api/user/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2006,7 +2006,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user": {
+    "/api/user": {
         parameters: {
             query?: never;
             header?: never;
@@ -2022,7 +2022,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/change-password": {
+    "/api/user/change-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -2038,7 +2038,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/reset-password": {
+    "/api/user/reset-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -2054,7 +2054,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{userId}/roles": {
+    "/api/user/{userId}/roles": {
         parameters: {
             query?: never;
             header?: never;
@@ -2070,7 +2070,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/import": {
+    "/api/user/import": {
         parameters: {
             query?: never;
             header?: never;
@@ -2086,7 +2086,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/import-template": {
+    "/api/user/import-template": {
         parameters: {
             query?: never;
             header?: never;
@@ -2102,7 +2102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/export": {
+    "/api/user/export": {
         parameters: {
             query?: never;
             header?: never;
@@ -2118,7 +2118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{userId}/login-history": {
+    "/api/user/{userId}/login-history": {
         parameters: {
             query?: never;
             header?: never;
@@ -2134,7 +2134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/batch-remove": {
+    "/api/user/batch-remove": {
         parameters: {
             query?: never;
             header?: never;
@@ -2150,7 +2150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/batch-enable": {
+    "/api/user/batch-enable": {
         parameters: {
             query?: never;
             header?: never;
@@ -2166,7 +2166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/batch-disable": {
+    "/api/user/batch-disable": {
         parameters: {
             query?: never;
             header?: never;
@@ -2182,7 +2182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{userId}/lifecycle/suspend": {
+    "/api/user/{userId}/lifecycle/suspend": {
         parameters: {
             query?: never;
             header?: never;
@@ -2198,7 +2198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{userId}/lifecycle/resume": {
+    "/api/user/{userId}/lifecycle/resume": {
         parameters: {
             query?: never;
             header?: never;
@@ -2214,7 +2214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{userId}/lifecycle/disable": {
+    "/api/user/{userId}/lifecycle/disable": {
         parameters: {
             query?: never;
             header?: never;
@@ -2230,7 +2230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{userId}/lifecycle/enable": {
+    "/api/user/{userId}/lifecycle/enable": {
         parameters: {
             query?: never;
             header?: never;
@@ -2246,7 +2246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/{userId}/lifecycle/resign": {
+    "/api/user/{userId}/lifecycle/resign": {
         parameters: {
             query?: never;
             header?: never;
@@ -2262,7 +2262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/user/sensitive-verify": {
+    "/api/user/sensitive-verify": {
         parameters: {
             query?: never;
             header?: never;
@@ -2278,7 +2278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/userinfo/search": {
+    "/api/userinfo/search": {
         parameters: {
             query?: never;
             header?: never;
@@ -2294,7 +2294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/userinfo/search/rebuild": {
+    "/api/userinfo/search/rebuild": {
         parameters: {
             query?: never;
             header?: never;
@@ -2310,7 +2310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/me": {
+    "/api/profile/me": {
         parameters: {
             query?: never;
             header?: never;
@@ -2326,7 +2326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/password": {
+    "/api/profile/password": {
         parameters: {
             query?: never;
             header?: never;
@@ -2342,7 +2342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/avatar": {
+    "/api/profile/avatar": {
         parameters: {
             query?: never;
             header?: never;
@@ -2358,7 +2358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/mfa/status": {
+    "/api/profile/mfa/status": {
         parameters: {
             query?: never;
             header?: never;
@@ -2374,7 +2374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/mfa/setup": {
+    "/api/profile/mfa/setup": {
         parameters: {
             query?: never;
             header?: never;
@@ -2390,7 +2390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/mfa/activate": {
+    "/api/profile/mfa/activate": {
         parameters: {
             query?: never;
             header?: never;
@@ -2406,7 +2406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profile/mfa/disable": {
+    "/api/profile/mfa/disable": {
         parameters: {
             query?: never;
             header?: never;
@@ -2422,7 +2422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/passkey/registration/options": {
+    "/api/webauthn/passkey/registration/options": {
         parameters: {
             query?: never;
             header?: never;
@@ -2438,7 +2438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/passkey/options": {
+    "/api/webauthn/passkey/options": {
         parameters: {
             query?: never;
             header?: never;
@@ -2454,7 +2454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/passkey/verify": {
+    "/api/webauthn/passkey/verify": {
         parameters: {
             query?: never;
             header?: never;
@@ -2470,7 +2470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/registration/options": {
+    "/api/webauthn/registration/options": {
         parameters: {
             query?: never;
             header?: never;
@@ -2486,7 +2486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/registration/verify": {
+    "/api/webauthn/registration/verify": {
         parameters: {
             query?: never;
             header?: never;
@@ -2502,7 +2502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/authentication/options": {
+    "/api/webauthn/authentication/options": {
         parameters: {
             query?: never;
             header?: never;
@@ -2518,7 +2518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/authentication/verify": {
+    "/api/webauthn/authentication/verify": {
         parameters: {
             query?: never;
             header?: never;
@@ -2534,7 +2534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/credentials": {
+    "/api/webauthn/credentials": {
         parameters: {
             query?: never;
             header?: never;
@@ -2550,7 +2550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/webauthn/credentials/{credentialId}": {
+    "/api/webauthn/credentials/{credentialId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2566,7 +2566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/devices": {
+    "/api/devices": {
         parameters: {
             query?: never;
             header?: never;
@@ -2582,7 +2582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/devices/{sessionId}": {
+    "/api/devices/{sessionId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -2598,7 +2598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/self-service/send-verify-code": {
+    "/api/self-service/send-verify-code": {
         parameters: {
             query?: never;
             header?: never;
@@ -2614,7 +2614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/self-service/register": {
+    "/api/self-service/register": {
         parameters: {
             query?: never;
             header?: never;
@@ -2630,7 +2630,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/self-service/forgot-password": {
+    "/api/self-service/forgot-password": {
         parameters: {
             query?: never;
             header?: never;
@@ -2646,7 +2646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/self-service/unlock": {
+    "/api/self-service/unlock": {
         parameters: {
             query?: never;
             header?: never;
@@ -2662,7 +2662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/events/stream": {
+    "/api/auth/events/stream": {
         parameters: {
             query?: never;
             header?: never;
@@ -2798,7 +2798,7 @@ export type components = {
             targetType?: string;
             /** @description 目标标识（手机号或邮箱地址） */
             target?: string;
-            /** @description 图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/v1/captcha 获取） */
+            /** @description 图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/captcha 获取） */
             captchaKey?: string;
             /** @description 图形验证码用户输入（P0-5：防短信轰炸） */
             captcha?: string;
@@ -2808,7 +2808,7 @@ export type components = {
         /**
          * @description 登录请求 DTO。
          *
-         *     用于 `Post /api/v1/auth/login` 接口，支持用户名+密码登录， 可选携带图形验证码进行人机校验。
+         *     用于 `Post /api/auth/login` 接口，支持用户名+密码登录， 可选携带图形验证码进行人机校验。
          *
          *     校验规则：
          *
@@ -2825,7 +2825,7 @@ export type components = {
             username?: string;
             /** @description 登录密码（明文，传输层由 HTTPS 保护，服务端 BCrypt 比对） */
             password?: string;
-            /** @description 验证码 Redis Key（由 `GET /api/v1/auth/captcha` 返回，开启验证码时必填） */
+            /** @description 验证码 Redis Key（由 `GET /api/auth/captcha` 返回，开启验证码时必填） */
             captchaKey?: string;
             /** @description 用户输入的图形验证码（不区分大小写，开启验证码时必填） */
             captcha?: string;
@@ -2866,7 +2866,7 @@ export type components = {
         /**
          * @description 场景化二级认证请求体（P0-2 标准化）。
          *
-         *     前端调用 `Post /api/v1/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
+         *     前端调用 `Post /api/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
          */
         SecondaryAuthRequest: {
             /**
@@ -3195,7 +3195,7 @@ export type components = {
         /**
          * @description 分配角色权限请求 DTO。
          *
-         *     用于 `Post /api/v1/Role/{roleId`/permissions} 接口，为指定角色分配权限。 采用全量覆盖策略：传入的权限 ID
+         *     用于 `Post /api/Role/{roleId`/permissions} 接口，为指定角色分配权限。 采用全量覆盖策略：传入的权限 ID
          *     列表将完全替换角色原有权限关联。
          *
          *     注意事项：
@@ -3478,7 +3478,7 @@ export type components = {
         /**
          * @description 用户分页查询参数。
          *
-         *     用于 `GET /api/v1/user/page` 接口，支持多条件组合筛选用户列表。 继承 PageQuery 获取分页参数（`pageNum`
+         *     用于 `GET /api/user/page` 接口，支持多条件组合筛选用户列表。 继承 PageQuery 获取分页参数（`pageNum`
          *     / `pageSize`）。
          *
          *     筛选条件：所有字段均为可选，未传则不作为筛选条件。
@@ -3565,7 +3565,7 @@ export type components = {
         /**
          * @description 修改密码请求 DTO（用户自助修改）。
          *
-         *     用于 `Post /api/v1/user/change-password` 接口，用户自行修改登录密码。 服务端会校验旧密码是否正确，新密码须符合密码策略（长度+复杂度）。
+         *     用于 `Post /api/user/change-password` 接口，用户自行修改登录密码。 服务端会校验旧密码是否正确，新密码须符合密码策略（长度+复杂度）。
          *
          *     安全说明：修改密码成功后，当前会话 Token 不会被撤销， 如需强制下线请调用管理员重置密码接口。
          */
@@ -3582,7 +3582,7 @@ export type components = {
         /**
          * @description 重置密码请求 DTO（管理员操作）。
          *
-         *     用于 `Post /api/v1/user/reset-password` 接口，管理员重置指定用户的密码。 无需提供旧密码，重置后可选择通过指定通道通知用户。
+         *     用于 `Post /api/user/reset-password` 接口，管理员重置指定用户的密码。 无需提供旧密码，重置后可选择通过指定通道通知用户。
          *
          *     安全说明：重置密码成功后，目标用户的所有活跃会话将被撤销， 须使用新密码重新登录。该接口需要管理员权限。
          */
@@ -3599,7 +3599,7 @@ export type components = {
         /**
          * @description 分配用户角色请求 DTO。
          *
-         *     用于 `Post /api/v1/user/{userId`/roles} 接口，为指定用户分配角色。 采用全量覆盖策略：传入的角色 ID
+         *     用于 `Post /api/user/{userId`/roles} 接口，为指定用户分配角色。 采用全量覆盖策略：传入的角色 ID
          *     列表将完全替换用户原有角色关联。
          *
          *     注意事项：
@@ -3629,7 +3629,7 @@ export type components = {
         /**
          * @description 敏感操作二次认证请求 DTO。
          *
-         *     用于 `Post /api/v1/user/sensitive-verify` 接口，管理员在执行敏感操作前 通过密码确认身份。验证通过后，后端在 Redis 写入一条短期有效（5 分钟）的标记。
+         *     用于 `Post /api/user/sensitive-verify` 接口，管理员在执行敏感操作前 通过密码确认身份。验证通过后，后端在 Redis 写入一条短期有效（5 分钟）的标记。
          *
          *     安全说明：
          *
@@ -3722,7 +3722,7 @@ export type components = {
             email?: string;
             /** @description 手机/邮箱验证码 */
             verifyCode?: string;
-            /** @description 图形验证码 key（P0-5：防批量注册，前端先调用 /api/v1/captcha 获取） */
+            /** @description 图形验证码 key（P0-5：防批量注册，前端先调用 /api/captcha 获取） */
             captchaKey?: string;
             /** @description 图形验证码用户输入（P0-5：防批量注册） */
             captcha?: string;
@@ -3743,7 +3743,7 @@ export type components = {
             verifyCode?: string;
             /** @description 新密码（明文，须符合密码策略） */
             newPassword?: string;
-            /** @description 图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/v1/captcha 获取） */
+            /** @description 图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/captcha 获取） */
             captchaKey?: string;
             /** @description 图形验证码用户输入（P0-5：防撞库找回密码） */
             captcha?: string;
@@ -3770,7 +3770,7 @@ export type components = {
             target?: string;
             /** @description 验证码 */
             verifyCode?: string;
-            /** @description 图形验证码 key（防暴力破解，前端先调用 /api/v1/captcha 获取） */
+            /** @description 图形验证码 key（防暴力破解，前端先调用 /api/captcha 获取） */
             captchaKey?: string;
             /** @description 图形验证码用户输入 */
             captcha?: string;

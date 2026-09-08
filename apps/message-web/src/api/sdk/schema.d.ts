@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/message/aggregate/page": {
+    "/api/message/aggregate/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/aggregate/flush": {
+    "/api/message/aggregate/flush": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/aggregate/flushDue": {
+    "/api/message/aggregate/flushDue": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/batch/send": {
+    "/api/message/batch/send": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/batch/progress/{batchId}": {
+    "/api/message/batch/progress/{batchId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/batch/progress/{batchId}/sse": {
+    "/api/message/batch/progress/{batchId}/sse": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/canary/experiment": {
+    "/api/message/canary/experiment": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/canary/assign": {
+    "/api/message/canary/assign": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/dead-letter/page": {
+    "/api/message/dead-letter/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/dead-letter/{logId}/resend": {
+    "/api/message/dead-letter/{logId}/resend": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/archive/search": {
+    "/api/message/archive/search": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/send": {
+    "/api/message/send": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/log/page": {
+    "/api/message/log/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/cancelScheduled": {
+    "/api/message/cancelScheduled": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/batch/{batchId}/progress": {
+    "/api/message/batch/{batchId}/progress": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/feedback": {
+    "/api/message/feedback": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/feedback/rating": {
+    "/api/message/feedback/rating": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/feedback/page": {
+    "/api/message/feedback/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/feedback/shouldReduceFreq": {
+    "/api/message/feedback/shouldReduceFreq": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/stats/overview": {
+    "/api/message/stats/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/stats/channel": {
+    "/api/message/stats/channel": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/stats/receipt": {
+    "/api/message/stats/receipt": {
         parameters: {
             query?: never;
             header?: never;
@@ -358,7 +358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/stats/funnel": {
+    "/api/message/stats/funnel": {
         parameters: {
             query?: never;
             header?: never;
@@ -374,7 +374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/stats/cost": {
+    "/api/message/stats/cost": {
         parameters: {
             query?: never;
             header?: never;
@@ -390,7 +390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/trace/msg/{msgId}": {
+    "/api/message/trace/msg/{msgId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -406,7 +406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/trace/trace/{traceId}": {
+    "/api/message/trace/trace/{traceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/trace/biz": {
+    "/api/message/trace/biz": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/send": {
+    "/api/message/notifications/send": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/inbox": {
+    "/api/message/notifications/inbox": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/unreadCount": {
+    "/api/message/notifications/unreadCount": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/{id}/read": {
+    "/api/message/notifications/{id}/read": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/readAll": {
+    "/api/message/notifications/readAll": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications": {
+    "/api/message/notifications": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/{id}/recall": {
+    "/api/message/notifications/{id}/recall": {
         parameters: {
             query?: never;
             header?: never;
@@ -550,7 +550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/push": {
+    "/api/message/notifications/push": {
         parameters: {
             query?: never;
             header?: never;
@@ -566,7 +566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/broadcast": {
+    "/api/message/notifications/broadcast": {
         parameters: {
             query?: never;
             header?: never;
@@ -582,7 +582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/notifications/push-realtime": {
+    "/api/message/notifications/push-realtime": {
         parameters: {
             query?: never;
             header?: never;
@@ -598,7 +598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/ops/template-cache/stats": {
+    "/api/message/ops/template-cache/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -614,7 +614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/ops/template-cache": {
+    "/api/message/ops/template-cache": {
         parameters: {
             query?: never;
             header?: never;
@@ -630,7 +630,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/ops/template-cache/all": {
+    "/api/message/ops/template-cache/all": {
         parameters: {
             query?: never;
             header?: never;
@@ -646,7 +646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/ops/bloomfilter/stats": {
+    "/api/message/ops/bloomfilter/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -662,7 +662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/preference": {
+    "/api/message/preference": {
         parameters: {
             query?: never;
             header?: never;
@@ -678,7 +678,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/preference/{userId}": {
+    "/api/message/preference/{userId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -694,7 +694,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/preference/{userId}/{channel}/{bizType}": {
+    "/api/message/preference/{userId}/{channel}/{bizType}": {
         parameters: {
             query?: never;
             header?: never;
@@ -710,7 +710,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/preference/{id}": {
+    "/api/message/preference/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -726,7 +726,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/read-receipt/s/{shortCode}": {
+    "/api/message/read-receipt/s/{shortCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -742,7 +742,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/read-status/read/{msgId}": {
+    "/api/message/read-status/read/{msgId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -758,7 +758,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/read-status/readBatch": {
+    "/api/message/read-status/readBatch": {
         parameters: {
             query?: never;
             header?: never;
@@ -774,7 +774,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/read-status/notification/{notificationId}": {
+    "/api/message/read-status/notification/{notificationId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -790,7 +790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/read-status/notification/readAll": {
+    "/api/message/read-status/notification/readAll": {
         parameters: {
             query?: never;
             header?: never;
@@ -806,7 +806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/read-status/unreadCount": {
+    "/api/message/read-status/unreadCount": {
         parameters: {
             query?: never;
             header?: never;
@@ -822,7 +822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/recall/notification": {
+    "/api/message/recall/notification": {
         parameters: {
             query?: never;
             header?: never;
@@ -838,7 +838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/recall/message/{logId}": {
+    "/api/message/recall/message/{logId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -854,7 +854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/recall/msg/{msgId}": {
+    "/api/message/recall/msg/{msgId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/recall/batch": {
+    "/api/message/recall/batch": {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/receipt/callback": {
+    "/api/message/receipt/callback": {
         parameters: {
             query?: never;
             header?: never;
@@ -902,7 +902,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/receipt/{logId}": {
+    "/api/message/receipt/{logId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -918,7 +918,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/retry/preview": {
+    "/api/message/retry/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -934,7 +934,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/retry/preview/all": {
+    "/api/message/retry/preview/all": {
         parameters: {
             query?: never;
             header?: never;
@@ -950,7 +950,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/retry/presets": {
+    "/api/message/retry/presets": {
         parameters: {
             query?: never;
             header?: never;
@@ -966,7 +966,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/route-rule": {
+    "/api/message/route-rule": {
         parameters: {
             query?: never;
             header?: never;
@@ -982,7 +982,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/route-rule/{id}": {
+    "/api/message/route-rule/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -998,7 +998,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/route-rule/page": {
+    "/api/message/route-rule/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1014,7 +1014,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/route-rule/enabled": {
+    "/api/message/route-rule/enabled": {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,7 +1030,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/subscription": {
+    "/api/message/subscription": {
         parameters: {
             query?: never;
             header?: never;
@@ -1046,7 +1046,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/subscription/user/{userId}": {
+    "/api/message/subscription/user/{userId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1062,7 +1062,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/subscription/topic/{topicCode}/{channel}": {
+    "/api/message/subscription/topic/{topicCode}/{channel}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1078,7 +1078,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/subscription/unsubscribe": {
+    "/api/message/subscription/unsubscribe": {
         parameters: {
             query?: never;
             header?: never;
@@ -1094,7 +1094,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/health": {
+    "/api/message/health": {
         parameters: {
             query?: never;
             header?: never;
@@ -1110,7 +1110,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/health/channels": {
+    "/api/message/health/channels": {
         parameters: {
             query?: never;
             header?: never;
@@ -1126,7 +1126,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template": {
+    "/api/message/template": {
         parameters: {
             query?: never;
             header?: never;
@@ -1142,7 +1142,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/{id}": {
+    "/api/message/template/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1158,7 +1158,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/page": {
+    "/api/message/template/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1174,7 +1174,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/{id}/audit": {
+    "/api/message/template/{id}/audit": {
         parameters: {
             query?: never;
             header?: never;
@@ -1190,7 +1190,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/preview/by-code": {
+    "/api/message/template/preview/by-code": {
         parameters: {
             query?: never;
             header?: never;
@@ -1206,7 +1206,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/preview/raw": {
+    "/api/message/template/preview/raw": {
         parameters: {
             query?: never;
             header?: never;
@@ -1222,7 +1222,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/version/list/{templateCode}": {
+    "/api/message/template/version/list/{templateCode}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1238,7 +1238,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/version/rollback": {
+    "/api/message/template/version/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -1254,7 +1254,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/version/preview": {
+    "/api/message/template/version/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -1270,7 +1270,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/template/version/testSend": {
+    "/api/message/template/version/testSend": {
         parameters: {
             query?: never;
             header?: never;
@@ -1286,7 +1286,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/unsubscribe/oneClick": {
+    "/api/message/unsubscribe/oneClick": {
         parameters: {
             query?: never;
             header?: never;
@@ -1302,7 +1302,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/unsubscribe/preview": {
+    "/api/message/unsubscribe/preview": {
         parameters: {
             query?: never;
             header?: never;
@@ -1318,7 +1318,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/unsubscribe/page": {
+    "/api/message/unsubscribe/page": {
         parameters: {
             query?: never;
             header?: never;
@@ -1334,7 +1334,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/unsubscribe/resubscribe": {
+    "/api/message/unsubscribe/resubscribe": {
         parameters: {
             query?: never;
             header?: never;
@@ -1350,7 +1350,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/user-channels": {
+    "/api/message/user-channels": {
         parameters: {
             query?: never;
             header?: never;
@@ -1366,7 +1366,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/user-channels/mine": {
+    "/api/message/user-channels/mine": {
         parameters: {
             query?: never;
             header?: never;
@@ -1382,7 +1382,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/user-channels/user/{userId}": {
+    "/api/message/user-channels/user/{userId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1398,7 +1398,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/message/user-channels/{id}": {
+    "/api/message/user-channels/{id}": {
         parameters: {
             query?: never;
             header?: never;

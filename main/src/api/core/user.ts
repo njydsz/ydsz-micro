@@ -15,5 +15,5 @@ import { requestClient } from '#/api/request';
  * @returns 当前用户的基础信息
  */
 export async function getUserInfoApi() {
-  return requestClient.get<UserInfo>('/api/v1/auth/userinfo');
+  return requestClient.get<UserInfo>('/api/auth/userinfo');
 }

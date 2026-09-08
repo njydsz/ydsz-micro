@@ -43,7 +43,7 @@
 | **公共认证包** | `@ydsz/shared-auth` 统一 RequestClient + Auth API + Auth Store，消除多份重复代码                         |
 | **前端监控**   | `@ydsz/monitor` 错误捕获（Vue/window/Promise/资源）+ Web Vitals（LCP/FID/CLS/INP/FCP/TTFB）              |
 | **主题切换**   | auto/light/dark 暗黑模式 + Element Plus 主题适配 + 系统偏好跟随                                          |
-| **API 对齐**   | 统一 `/api/v1/*` 路径 + `successCode="A00000"` + LoginVO 类型 + refreshToken 自动刷新                    |
+| **API 对齐**   | 统一 `/api/*` 路径 + `successCode="A00000"` + LoginVO 类型 + refreshToken 自动刷新                    |
 | **构建优化**   | Vite manualChunks 分割（vue-vendor/element-vendor/vxe-vendor）+ chunk hash 缓存                          |
 | **国际化**     | 8 子应用 × zh-CN/en-US 双语 + 业务字段翻译 + Element Plus/dayjs 语言包                                   |
 | **调试工具**   | 配套 Chrome MV3 DevTools 扩展（chrome/），实时查看内核连接、沙箱状态、事件日志                           |
@@ -238,7 +238,7 @@ server: {
 
 全仓 API 契约统一对齐：
 
-- 路径统一为 `/api/v1/{service}/{resource}`（kebab-case），成功码统一为 `successCode = "A00000"`
+- 路径统一为 `/api/{service}/{resource}`（kebab-case），成功码统一为 `successCode = "A00000"`
 - 登录响应统一为 `LoginVO` 类型，`refreshToken` 自动刷新与重放
 - **契约门禁**（CI 防漂移）：
   - `pnpm gen:contract`：从 `ydsz-cloud` 源码静态提取 8 个服务全部端点，生成 `apps/*/src/api/` 下的类型化 API 封装（`models.ts` 含全部 DTO/VO 类型）与 `sdk/openapi.json` 契约基线，产物扁平落于 `api/` 根目录（遵循云顶编码规范 6.2）

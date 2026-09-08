@@ -69,7 +69,7 @@ export interface SendVerifyCodeDTO {
   targetType?: string;
   /** 目标标识（手机号或邮箱地址） */
   target?: string;
-  /** 图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/v1/captcha 获取） */
+  /** 图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/captcha 获取） */
   captchaKey?: string;
   /** 图形验证码用户输入（P0-5：防短信轰炸） */
   captcha?: string;
@@ -80,7 +80,7 @@ export interface SendVerifyCodeDTO {
 /**
  * 登录请求 DTO。
  *
- * 用于 `Post /api/v1/auth/login` 接口，支持用户名+密码登录， 可选携带图形验证码进行人机校验。
+ * 用于 `Post /api/auth/login` 接口，支持用户名+密码登录， 可选携带图形验证码进行人机校验。
  * 校验规则：
  * `username` — 必填，登录用户名
  * `password` — 必填，明文密码（传输层由 HTTPS 保护，服务端 BCrypt 比对）
@@ -93,7 +93,7 @@ export interface LoginDTO {
   username?: string;
   /** 登录密码（明文，传输层由 HTTPS 保护，服务端 BCrypt 比对） */
   password?: string;
-  /** 验证码 Redis Key（由 `GET /api/v1/auth/captcha` 返回，开启验证码时必填） */
+  /** 验证码 Redis Key（由 `GET /api/auth/captcha` 返回，开启验证码时必填） */
   captchaKey?: string;
   /** 用户输入的图形验证码（不区分大小写，开启验证码时必填） */
   captcha?: string;
@@ -133,7 +133,7 @@ export interface RefreshRequest {
 /**
  * 场景化二级认证请求体（P0-2 标准化）。
  *
- * 前端调用 `Post /api/v1/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
+ * 前端调用 `Post /api/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
  */
 export interface SecondaryAuthRequest {
   /**
@@ -414,7 +414,7 @@ export interface RoleDTO {
 /**
  * 分配角色权限请求 DTO。
  *
- * 用于 `Post /api/v1/Role/{roleId`/permissions} 接口，为指定角色分配权限。 采用全量覆盖策略：传入的权限 ID
+ * 用于 `Post /api/Role/{roleId`/permissions} 接口，为指定角色分配权限。 采用全量覆盖策略：传入的权限 ID
  * 列表将完全替换角色原有权限关联。
  * 注意事项：
  * 传入空列表表示清除角色所有权限
@@ -668,7 +668,7 @@ export interface SocialClientDTO {
 /**
  * 用户分页查询参数。
  *
- * 用于 `GET /api/v1/user/page` 接口，支持多条件组合筛选用户列表。 继承 PageQuery 获取分页参数（`pageNum`
+ * 用于 `GET /api/user/page` 接口，支持多条件组合筛选用户列表。 继承 PageQuery 获取分页参数（`pageNum`
  * / `pageSize`）。
  * 筛选条件：所有字段均为可选，未传则不作为筛选条件。
  */
@@ -749,7 +749,7 @@ export interface UserAccountDTO {
 /**
  * 修改密码请求 DTO（用户自助修改）。
  *
- * 用于 `Post /api/v1/user/change-password` 接口，用户自行修改登录密码。 服务端会校验旧密码是否正确，新密码须符合密码策略（长度+复杂度）。
+ * 用于 `Post /api/user/change-password` 接口，用户自行修改登录密码。 服务端会校验旧密码是否正确，新密码须符合密码策略（长度+复杂度）。
  * 安全说明：修改密码成功后，当前会话 Token 不会被撤销， 如需强制下线请调用管理员重置密码接口。
  */
 export interface ChangePasswordDTO {
@@ -765,7 +765,7 @@ export interface ChangePasswordDTO {
 /**
  * 重置密码请求 DTO（管理员操作）。
  *
- * 用于 `Post /api/v1/user/reset-password` 接口，管理员重置指定用户的密码。 无需提供旧密码，重置后可选择通过指定通道通知用户。
+ * 用于 `Post /api/user/reset-password` 接口，管理员重置指定用户的密码。 无需提供旧密码，重置后可选择通过指定通道通知用户。
  * 安全说明：重置密码成功后，目标用户的所有活跃会话将被撤销， 须使用新密码重新登录。该接口需要管理员权限。
  */
 export interface ResetPasswordDTO {
@@ -781,7 +781,7 @@ export interface ResetPasswordDTO {
 /**
  * 分配用户角色请求 DTO。
  *
- * 用于 `Post /api/v1/user/{userId`/roles} 接口，为指定用户分配角色。 采用全量覆盖策略：传入的角色 ID
+ * 用于 `Post /api/user/{userId`/roles} 接口，为指定用户分配角色。 采用全量覆盖策略：传入的角色 ID
  * 列表将完全替换用户原有角色关联。
  * 注意事项：
  * 传入空列表表示清除用户所有角色
@@ -807,7 +807,7 @@ export interface BatchUserStatusDTO {
 /**
  * 敏感操作二次认证请求 DTO。
  *
- * 用于 `Post /api/v1/user/sensitive-verify` 接口，管理员在执行敏感操作前 通过密码确认身份。验证通过后，后端在 Redis 写入一条短期有效（5 分钟）的标记。
+ * 用于 `Post /api/user/sensitive-verify` 接口，管理员在执行敏感操作前 通过密码确认身份。验证通过后，后端在 Redis 写入一条短期有效（5 分钟）的标记。
  * 安全说明：
  * 密码仅用于身份校验，不做任何持久化
  * 验证标记存储在 Redis，TTL 5 分钟，过期后需重新验证
@@ -885,7 +885,7 @@ export interface SelfRegisterDTO {
   email?: string;
   /** 手机/邮箱验证码 */
   verifyCode?: string;
-  /** 图形验证码 key（P0-5：防批量注册，前端先调用 /api/v1/captcha 获取） */
+  /** 图形验证码 key（P0-5：防批量注册，前端先调用 /api/captcha 获取） */
   captchaKey?: string;
   /** 图形验证码用户输入（P0-5：防批量注册） */
   captcha?: string;
@@ -906,7 +906,7 @@ export interface ForgotPasswordDTO {
   verifyCode?: string;
   /** 新密码（明文，须符合密码策略） */
   newPassword?: string;
-  /** 图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/v1/captcha 获取） */
+  /** 图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/captcha 获取） */
   captchaKey?: string;
   /** 图形验证码用户输入（P0-5：防撞库找回密码） */
   captcha?: string;
@@ -930,7 +930,7 @@ export interface AccountUnlockDTO {
   target?: string;
   /** 验证码 */
   verifyCode?: string;
-  /** 图形验证码 key（防暴力破解，前端先调用 /api/v1/captcha 获取） */
+  /** 图形验证码 key（防暴力破解，前端先调用 /api/captcha 获取） */
   captchaKey?: string;
   /** 图形验证码用户输入 */
   captcha?: string;

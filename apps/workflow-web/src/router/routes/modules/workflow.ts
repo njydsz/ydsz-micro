@@ -102,6 +102,25 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/quick-comment/index.vue'),
         meta: { icon: 'lucide:message-square', title: '快捷评语' },
       },
+      {
+        name: 'AdvancedApprovalManagement',
+        path: 'advanced',
+        component: () => import('#/views/advanced/index.vue'),
+        meta: { icon: 'lucide:layers', title: '高级审批' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:link', order: 5, title: '系统集成' },
+    name: 'SystemIntegration',
+    path: '/integration',
+    children: [
+      {
+        name: 'MessageEventManagement',
+        path: 'message-event',
+        component: () => import('#/views/message-event/index.vue'),
+        meta: { icon: 'lucide:send', title: '消息事件发布' },
+      },
     ],
   },
 ];

@@ -44,10 +44,10 @@ print(f"网关路由条目: {len(routes)}  路径 pattern 段: {len(patterns)}")
 def covered(path: str) -> tuple[bool, str]:
     """判断后端端点路径是否被任一 pattern 覆盖"""
     for rid, uri, pat in patterns:
-        # Spring Path pattern: /api/v1/role/**  -> 前缀匹配
+        # Spring Path pattern: /api/role/**  -> 前缀匹配
         if pat.endswith("/**"):
             if path.startswith(pat[:-3]) or path + "/" == pat[:-3]:
-                # 端点路径去掉尾部 id 段再比对：/api/v1/role/{id} -> /api/v1/role/
+                # 端点路径去掉尾部 id 段再比对：/api/role/{id} -> /api/role/
                 return True, f"{rid}"
         if pat.endswith("**"):
             if path.startswith(pat[:-2]):
@@ -57,7 +57,7 @@ def covered(path: str) -> tuple[bool, str]:
     return False, ""
 
 
-# 规范化：把 /api/v1/role/{id} 归约成前缀 /api/v1/role/
+# 规范化：把 /api/role/{id} 归约成前缀 /api/role/
 def prefix_of(path: str) -> str:
     parts = [p for p in path.split("/") if p]
     if not parts:

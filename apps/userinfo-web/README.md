@@ -131,7 +131,7 @@ pnpm build:userinfo
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/*` 端点：
+API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/*` 端点：
 
 ```typescript
 // 用户管理（src/api/user.ts）
@@ -141,15 +141,15 @@ export function getUserPageApi(params: UserApi.UserAccountPageQuery) {
   return requestClient.get<{
     total: number; current: number; size: number;
     items: UserApi.UserAccountVO[];
-  }>('/api/v1/user/page', { params });
+  }>('/api/user/page', { params });
 }
 
 export function assignUserRolesApi(userId: string, roleIds: string[]) {
-  return requestClient.post<boolean>(`/api/v1/user/${userId}/roles`, { roleIds });
+  return requestClient.post<boolean>(`/api/user/${userId}/roles`, { roleIds });
 }
 
 export function resetPasswordApi(data: UserApi.ResetPasswordDTO) {
-  return requestClient.post<boolean>('/api/v1/user/reset-password', data);
+  return requestClient.post<boolean>('/api/user/reset-password', data);
 }
 ```
 

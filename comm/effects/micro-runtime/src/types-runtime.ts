@@ -93,7 +93,7 @@ export interface StartOptions {
    * 是否启用预加载命中率指标回环上报（v4.4.0）。
    *
    * 周期采样 preloadCount / consumedCount / hitRate 与马尔可夫转移样本量，
-   * 经 sendBeacon 上报 `/api/v1/monitor/preload-metrics`，
+   * 经 sendBeacon 上报 `/api/monitor/preload-metrics`，
    * 用于数据驱动验证 route/markov 预测相对 frequency 的增益。
    * 默认 true（启用）。
    *

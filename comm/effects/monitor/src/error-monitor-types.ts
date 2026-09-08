@@ -74,8 +74,8 @@ export interface MonitorConfig {
    * 自定义上报端点（可选）。
    *
    * v4.4.0: 端点不再硬编码，可按部署环境覆盖：
-   * - `error`：错误上报端点，默认 `/api/v1/monitor/error`
-   * - `webVitals`：Web Vitals 上报端点，默认 `/api/v1/monitor/web-vitals`
+   * - `error`：错误上报端点，默认 `/api/monitor/error`
+   * - `webVitals`：Web Vitals 上报端点，默认 `/api/monitor/web-vitals`
    *
    * @since 4.4.0
    */

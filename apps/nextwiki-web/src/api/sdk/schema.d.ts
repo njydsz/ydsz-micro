@@ -6,7 +6,7 @@
  */
 
 export type paths = {
-    "/api/v1/nextwiki/analysis/overview": {
+    "/api/nextwiki/analysis/overview": {
         parameters: {
             query?: never;
             header?: never;
@@ -22,7 +22,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/analysis/by-type": {
+    "/api/nextwiki/analysis/by-type": {
         parameters: {
             query?: never;
             header?: never;
@@ -38,7 +38,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/analysis/top-large-files": {
+    "/api/nextwiki/analysis/top-large-files": {
         parameters: {
             query?: never;
             header?: never;
@@ -54,7 +54,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/analysis/summary": {
+    "/api/nextwiki/analysis/summary": {
         parameters: {
             query?: never;
             header?: never;
@@ -70,7 +70,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/import/batch-upload": {
+    "/api/nextwiki/import/batch-upload": {
         parameters: {
             query?: never;
             header?: never;
@@ -86,7 +86,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/import/zip": {
+    "/api/nextwiki/import/zip": {
         parameters: {
             query?: never;
             header?: never;
@@ -102,7 +102,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/download/folder/{folderId}": {
+    "/api/nextwiki/download/folder/{folderId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -118,7 +118,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/download/{nodeId}": {
+    "/api/nextwiki/download/{nodeId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -134,7 +134,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/download/{nodeId}/signed-url": {
+    "/api/nextwiki/download/{nodeId}/signed-url": {
         parameters: {
             query?: never;
             header?: never;
@@ -150,7 +150,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/download/signed/{sign}": {
+    "/api/nextwiki/download/signed/{sign}": {
         parameters: {
             query?: never;
             header?: never;
@@ -166,7 +166,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/batch/delete": {
+    "/api/nextwiki/files/batch/delete": {
         parameters: {
             query?: never;
             header?: never;
@@ -182,7 +182,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/batch/move": {
+    "/api/nextwiki/files/batch/move": {
         parameters: {
             query?: never;
             header?: never;
@@ -198,7 +198,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/versions": {
+    "/api/nextwiki/files/{nodeId}/versions": {
         parameters: {
             query?: never;
             header?: never;
@@ -214,7 +214,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/versions/{version}/rollback": {
+    "/api/nextwiki/files/{nodeId}/versions/{version}/rollback": {
         parameters: {
             query?: never;
             header?: never;
@@ -230,7 +230,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/versions/diff": {
+    "/api/nextwiki/files/{nodeId}/versions/diff": {
         parameters: {
             query?: never;
             header?: never;
@@ -246,7 +246,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/batch/async-delete": {
+    "/api/nextwiki/files/batch/async-delete": {
         parameters: {
             query?: never;
             header?: never;
@@ -262,7 +262,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/batch/async-move": {
+    "/api/nextwiki/files/batch/async-move": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +278,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/batch/task/{taskId}": {
+    "/api/nextwiki/files/batch/task/{taskId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -294,7 +294,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/star": {
+    "/api/nextwiki/files/{nodeId}/star": {
         parameters: {
             query?: never;
             header?: never;
@@ -310,7 +310,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/chunk/init": {
+    "/api/nextwiki/files/chunk/init": {
         parameters: {
             query?: never;
             header?: never;
@@ -326,7 +326,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
+    "/api/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
         parameters: {
             query?: never;
             header?: never;
@@ -342,7 +342,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/chunk/{uploadId}/complete": {
+    "/api/nextwiki/files/chunk/{uploadId}/complete": {
         parameters: {
             query?: never;
             header?: never;
@@ -358,7 +358,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/chunk/{uploadId}": {
+    "/api/nextwiki/files/chunk/{uploadId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -374,7 +374,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
+    "/api/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
         parameters: {
             query?: never;
             header?: never;
@@ -390,7 +390,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/comments/file/{fileNodeId}": {
+    "/api/nextwiki/comments/file/{fileNodeId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -406,7 +406,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/comments": {
+    "/api/nextwiki/comments": {
         parameters: {
             query?: never;
             header?: never;
@@ -422,7 +422,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/comments/{commentId}": {
+    "/api/nextwiki/comments/{commentId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -438,7 +438,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/comments/{commentId}/resolve": {
+    "/api/nextwiki/comments/{commentId}/resolve": {
         parameters: {
             query?: never;
             header?: never;
@@ -454,7 +454,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/upload": {
+    "/api/nextwiki/files/upload": {
         parameters: {
             query?: never;
             header?: never;
@@ -470,7 +470,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/folders": {
+    "/api/nextwiki/files/folders": {
         parameters: {
             query?: never;
             header?: never;
@@ -486,7 +486,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/list": {
+    "/api/nextwiki/files/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -502,7 +502,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/move": {
+    "/api/nextwiki/files/{nodeId}/move": {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +518,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/rename": {
+    "/api/nextwiki/files/{nodeId}/rename": {
         parameters: {
             query?: never;
             header?: never;
@@ -534,7 +534,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}": {
+    "/api/nextwiki/files/{nodeId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -550,7 +550,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/copy": {
+    "/api/nextwiki/files/{nodeId}/copy": {
         parameters: {
             query?: never;
             header?: never;
@@ -566,7 +566,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/sort": {
+    "/api/nextwiki/files/sort": {
         parameters: {
             query?: never;
             header?: never;
@@ -582,7 +582,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/lock": {
+    "/api/nextwiki/files/{nodeId}/lock": {
         parameters: {
             query?: never;
             header?: never;
@@ -598,7 +598,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/files/{nodeId}/unlock": {
+    "/api/nextwiki/files/{nodeId}/unlock": {
         parameters: {
             query?: never;
             header?: never;
@@ -614,7 +614,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/preview/{fileNodeId}/generate": {
+    "/api/nextwiki/preview/{fileNodeId}/generate": {
         parameters: {
             query?: never;
             header?: never;
@@ -630,7 +630,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/preview/supported": {
+    "/api/nextwiki/preview/supported": {
         parameters: {
             query?: never;
             header?: never;
@@ -646,7 +646,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/preview/type": {
+    "/api/nextwiki/preview/type": {
         parameters: {
             query?: never;
             header?: never;
@@ -662,7 +662,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/quota/info": {
+    "/api/nextwiki/quota/info": {
         parameters: {
             query?: never;
             header?: never;
@@ -678,7 +678,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/quota/set": {
+    "/api/nextwiki/quota/set": {
         parameters: {
             query?: never;
             header?: never;
@@ -694,7 +694,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/search": {
+    "/api/nextwiki/search": {
         parameters: {
             query?: never;
             header?: never;
@@ -710,7 +710,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/search/suggest": {
+    "/api/nextwiki/search/suggest": {
         parameters: {
             query?: never;
             header?: never;
@@ -726,7 +726,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/search/did-you-mean": {
+    "/api/nextwiki/search/did-you-mean": {
         parameters: {
             query?: never;
             header?: never;
@@ -742,7 +742,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/search/rebuild": {
+    "/api/nextwiki/search/rebuild": {
         parameters: {
             query?: never;
             header?: never;
@@ -758,7 +758,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/search/history": {
+    "/api/nextwiki/search/history": {
         parameters: {
             query?: never;
             header?: never;
@@ -774,7 +774,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/search/hot": {
+    "/api/nextwiki/search/hot": {
         parameters: {
             query?: never;
             header?: never;
@@ -790,7 +790,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/search/advanced": {
+    "/api/nextwiki/search/advanced": {
         parameters: {
             query?: never;
             header?: never;
@@ -806,7 +806,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/shares": {
+    "/api/nextwiki/shares": {
         parameters: {
             query?: never;
             header?: never;
@@ -822,7 +822,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/shares/verify": {
+    "/api/nextwiki/shares/verify": {
         parameters: {
             query?: never;
             header?: never;
@@ -838,7 +838,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/shares/{shareId}": {
+    "/api/nextwiki/shares/{shareId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -854,7 +854,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/shares/my": {
+    "/api/nextwiki/shares/my": {
         parameters: {
             query?: never;
             header?: never;
@@ -870,7 +870,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/shares/{shareId}/logs": {
+    "/api/nextwiki/shares/{shareId}/logs": {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +886,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/shares/{shareId}/recipients": {
+    "/api/nextwiki/shares/{shareId}/recipients": {
         parameters: {
             query?: never;
             header?: never;
@@ -902,7 +902,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/shares/received": {
+    "/api/nextwiki/shares/received": {
         parameters: {
             query?: never;
             header?: never;
@@ -918,7 +918,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/spaces": {
+    "/api/nextwiki/spaces": {
         parameters: {
             query?: never;
             header?: never;
@@ -934,7 +934,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/spaces/{spaceId}": {
+    "/api/nextwiki/spaces/{spaceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -950,7 +950,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/spaces/{spaceId}/archive": {
+    "/api/nextwiki/spaces/{spaceId}/archive": {
         parameters: {
             query?: never;
             header?: never;
@@ -966,7 +966,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/spaces/{spaceId}/members": {
+    "/api/nextwiki/spaces/{spaceId}/members": {
         parameters: {
             query?: never;
             header?: never;
@@ -982,7 +982,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
+    "/api/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -998,7 +998,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/templates": {
+    "/api/nextwiki/templates": {
         parameters: {
             query?: never;
             header?: never;
@@ -1014,7 +1014,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/templates/{templateId}": {
+    "/api/nextwiki/templates/{templateId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,7 +1030,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/templates/{templateId}/use": {
+    "/api/nextwiki/templates/{templateId}/use": {
         parameters: {
             query?: never;
             header?: never;
@@ -1046,7 +1046,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/tags": {
+    "/api/nextwiki/tags": {
         parameters: {
             query?: never;
             header?: never;
@@ -1062,7 +1062,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/tags/bind": {
+    "/api/nextwiki/tags/bind": {
         parameters: {
             query?: never;
             header?: never;
@@ -1078,7 +1078,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/tags/file/{fileNodeId}": {
+    "/api/nextwiki/tags/file/{fileNodeId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1094,7 +1094,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/tags/recommend/{fileNodeId}": {
+    "/api/nextwiki/tags/recommend/{fileNodeId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1110,7 +1110,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/trash/list": {
+    "/api/nextwiki/trash/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -1126,7 +1126,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/trash/{trashItemId}/restore": {
+    "/api/nextwiki/trash/{trashItemId}/restore": {
         parameters: {
             query?: never;
             header?: never;
@@ -1142,7 +1142,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/trash/batch-restore": {
+    "/api/nextwiki/trash/batch-restore": {
         parameters: {
             query?: never;
             header?: never;
@@ -1158,7 +1158,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/trash/{trashItemId}": {
+    "/api/nextwiki/trash/{trashItemId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1174,7 +1174,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/trash/empty": {
+    "/api/nextwiki/trash/empty": {
         parameters: {
             query?: never;
             header?: never;
@@ -1190,7 +1190,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/favorites": {
+    "/api/nextwiki/favorites": {
         parameters: {
             query?: never;
             header?: never;
@@ -1206,7 +1206,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/favorites/{nodeId}": {
+    "/api/nextwiki/favorites/{nodeId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1222,7 +1222,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/favorites/{nodeId}/is-favorited": {
+    "/api/nextwiki/favorites/{nodeId}/is-favorited": {
         parameters: {
             query?: never;
             header?: never;
@@ -1238,7 +1238,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/favorites/{nodeId}/sort": {
+    "/api/nextwiki/favorites/{nodeId}/sort": {
         parameters: {
             query?: never;
             header?: never;
@@ -1254,7 +1254,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/favorites/count": {
+    "/api/nextwiki/favorites/count": {
         parameters: {
             query?: never;
             header?: never;
@@ -1270,7 +1270,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/recent": {
+    "/api/nextwiki/recent": {
         parameters: {
             query?: never;
             header?: never;
@@ -1286,7 +1286,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/recent/{nodeId}": {
+    "/api/nextwiki/recent/{nodeId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1302,7 +1302,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/recent/count": {
+    "/api/nextwiki/recent/count": {
         parameters: {
             query?: never;
             header?: never;
@@ -1318,7 +1318,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/wopi/files/{fileId}": {
+    "/api/nextwiki/wopi/files/{fileId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1334,7 +1334,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/wopi/files/{fileId}/contents": {
+    "/api/nextwiki/wopi/files/{fileId}/contents": {
         parameters: {
             query?: never;
             header?: never;
@@ -1350,7 +1350,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/wopi/files/{fileId}/lock": {
+    "/api/nextwiki/wopi/files/{fileId}/lock": {
         parameters: {
             query?: never;
             header?: never;
@@ -1366,7 +1366,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/wopi/files/{fileId}/unlock": {
+    "/api/nextwiki/wopi/files/{fileId}/unlock": {
         parameters: {
             query?: never;
             header?: never;
@@ -1382,7 +1382,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/ai/summary": {
+    "/api/nextwiki/ai/summary": {
         parameters: {
             query?: never;
             header?: never;
@@ -1398,7 +1398,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/ai/status": {
+    "/api/nextwiki/ai/status": {
         parameters: {
             query?: never;
             header?: never;
@@ -1414,7 +1414,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/storage/presigned-upload": {
+    "/api/nextwiki/storage/presigned-upload": {
         parameters: {
             query?: never;
             header?: never;
@@ -1430,7 +1430,7 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/nextwiki/storage/presigned-download": {
+    "/api/nextwiki/storage/presigned-download": {
         parameters: {
             query?: never;
             header?: never;

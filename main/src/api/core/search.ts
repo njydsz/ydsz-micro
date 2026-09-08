@@ -60,7 +60,7 @@ export interface SearchResponse {
  * @returns 搜索结果分页与建议词
  */
 export function globalSearchApi(data: SearchRequest) {
-  return requestClient.post<SearchResponse>('/api/v1/search', data);
+  return requestClient.post<SearchResponse>('/api/search', data);
 }
 
 /**
@@ -70,7 +70,7 @@ export function globalSearchApi(data: SearchRequest) {
  * @returns 建议词数组
  */
 export function searchSuggestApi(keyword: string) {
-  return requestClient.get<string[]>('/api/v1/search/suggest', {
+  return requestClient.get<string[]>('/api/search/suggest', {
     params: { keyword },
   });
 }

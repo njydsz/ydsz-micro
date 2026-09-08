@@ -63,7 +63,7 @@ async function handleGenerateSingle() {
   generating.value = true;
   resultFiles.value = [];
   try {
-    const response = await fetch('/api/v1/generate', {
+    const response = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tableName: singleTableName.value.trim() }),
@@ -95,7 +95,7 @@ async function handleGenerateAll() {
   generating.value = true;
   resultFiles.value = [];
   try {
-    const response = await fetch('/api/v1/generate/all', {
+    const response = await fetch('/api/generate/all', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     });

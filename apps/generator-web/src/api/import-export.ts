@@ -1,7 +1,7 @@
 /**
  * ImportExportController API 封装。
  *
- * <p>对应后端 {@code ImportExportController}，路径前缀 /api/v1/generator/import-export。
+ * <p>对应后端 {@code ImportExportController}，路径前缀 /api/generator/import-export。
  * <p>提供模板分组导入导出功能。
  *
  * @author ydsz-team
@@ -17,7 +17,7 @@ import { requestClient } from '#/api/request';
  * @returns zip 二进制 Blob
  */
 export function exportTemplates(params: { groupId: number }): Promise<Blob> {
-  return requestClient.get<Blob>(`/api/v1/generator/import-export/export`, {
+  return requestClient.get<Blob>(`/api/generator/import-export/export`, {
     params,
     responseType: 'blob',
   });
@@ -30,5 +30,5 @@ export function exportTemplates(params: { groupId: number }): Promise<Blob> {
  * @returns 导入数量
  */
 export function importTemplates(formData: FormData): Promise<number> {
-  return requestClient.post<number>(`/api/v1/generator/import-export/import`, formData);
+  return requestClient.post<number>(`/api/generator/import-export/import`, formData);
 }

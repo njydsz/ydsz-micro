@@ -1,7 +1,7 @@
 /**
  * User API — 获取当前登录用户信息
  *
- * 封装后端 /api/v1/auth/userinfo 接口，供登录后拉取用户资料使用，
+ * 封装后端 /api/auth/userinfo 接口，供登录后拉取用户资料使用，
  * 消除各子应用重复实现的用户信息查询逻辑。
  *
  * @path comm\effects\shared-auth\src\user-api.ts
@@ -18,5 +18,5 @@ import { requestClient } from './request-setup';
  * @returns 用户基本信息（UserInfo）
  */
 export async function getUserInfoApi() {
-  return requestClient.get<UserInfo>('/api/v1/auth/userinfo');
+  return requestClient.get<UserInfo>('/api/auth/userinfo');
 }

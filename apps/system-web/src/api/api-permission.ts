@@ -2,7 +2,7 @@
  * ApiPermissionController API 封装
  *
  * <p>对应后端 {@code ApiPermissionController}，共 6 个端点。
- * <p>路径规范: /api/v1/permission/api/**，成功码统一为 code === 'A00000'。
+ * <p>路径规范: /api/permission/api/**，成功码统一为 code === 'A00000'。
  *
  * @path apps\system-web\src\api\api-permission.ts
  * @author ydsz-team
@@ -37,55 +37,55 @@ export interface ApiPermissionPageQuery {
 }
 
 /**
- * 分页查询接口权限: GET /api/v1/permission/api/page
+ * 分页查询接口权限: GET /api/permission/api/page
  */
 export function page(params: {
     query?: ApiPermissionPageQuery;
     pageNum?: number;
     pageSize?: number;
   }): Promise<PageResponse<ApiPermissionVO[]>> {
-  return requestClient.get<PageResponse<ApiPermissionVO[]>>(`/api/v1/permission/api/page`, { params });
+  return requestClient.get<PageResponse<ApiPermissionVO[]>>(`/api/permission/api/page`, { params });
 }
 
 /**
- * 查询详情: GET /api/v1/permission/api/{id}
+ * 查询详情: GET /api/permission/api/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<ApiPermissionVO> {
-  return requestClient.get<ApiPermissionVO>(`/api/v1/permission/api/${id}`);
+  return requestClient.get<ApiPermissionVO>(`/api/permission/api/${id}`);
 }
 
 /**
- * 触发扫描注册: POST /api/v1/permission/api/scan
+ * 触发扫描注册: POST /api/permission/api/scan
  */
 export function scan(): Promise<number> {
-  return requestClient.post<number>(`/api/v1/permission/api/scan`);
+  return requestClient.post<number>(`/api/permission/api/scan`);
 }
 
 /**
- * 启用: POST /api/v1/permission/api/{id}/enable
+ * 启用: POST /api/permission/api/{id}/enable
  */
 export function enable({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/v1/permission/api/${id}/enable`);
+  return requestClient.post<boolean>(`/api/permission/api/${id}/enable`);
 }
 
 /**
- * 禁用: POST /api/v1/permission/api/{id}/disable
+ * 禁用: POST /api/permission/api/{id}/disable
  */
 export function disable({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/v1/permission/api/${id}/disable`);
+  return requestClient.post<boolean>(`/api/permission/api/${id}/disable`);
 }
 
 /**
- * 删除: DELETE /api/v1/permission/api/{id}
+ * 删除: DELETE /api/permission/api/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/v1/permission/api/${id}`);
+  return requestClient.delete<boolean>(`/api/permission/api/${id}`);
 }

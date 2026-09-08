@@ -3,7 +3,7 @@
  * 用户搜索 API 封装
  *
  * <p>对应后端 {@code UserinfoSearchController}，提供用户全文检索能力。
- * <p>路径规范: /api/v1/userinfo/search（kebab-case），成功码统一为 code === 'A00000'。
+ * <p>路径规范: /api/userinfo/search（kebab-case），成功码统一为 code === 'A00000'。
  *
  * @author ydsz-team
  * @auto-generated 请勿手动修改；后端契约变更后执行 {@code python bash/gen-contract.py workflow} 重新生成
@@ -39,5 +39,5 @@ export function searchUsers(params: {
     page?: number;
     pageSize?: number;
   }): Promise<FlowUserSearchResponse> {
-  return requestClient.get<FlowUserSearchResponse>(`/api/v1/userinfo/search`, { params });
+  return requestClient.get<FlowUserSearchResponse>(`/api/userinfo/search`, { params });
 }

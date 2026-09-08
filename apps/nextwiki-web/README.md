@@ -125,7 +125,7 @@ pnpm build:nextwiki
 
 ## API 调用
 
-API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/v1/nextwiki/*` 端点：
+API 模块位于 `src/api/`，使用 `@ydsz/request` 的 `requestClient`，对应后端 `/api/nextwiki/*` 端点：
 
 ```typescript
 // 文件管理（src/api/file.ts）
@@ -135,11 +135,11 @@ export function getFilePageApi(params: FileApi.FilePageQuery) {
   return requestClient.get<{
     total: number; current: number; size: number;
     items: FileApi.FileVO[];
-  }>(`/api/v1/nextwiki/files/page`, { params });
+  }>(`/api/nextwiki/files/page`, { params });
 }
 
 export function createFileApi(data: FileApi.FileDTO) {
-  return requestClient.post<string>(`/api/v1/nextwiki/files`, data);
+  return requestClient.post<string>(`/api/nextwiki/files`, data);
 }
 ```
 
@@ -147,7 +147,7 @@ export function createFileApi(data: FileApi.FileDTO) {
 
 ## 注意事项
 
-1. **文件端点路径**：文件 API 路径为 `/api/v1/nextwiki/files/*`（注意 `files` 为复数），与后端 Controller `@RequestMapping` 对齐，修改时勿遗漏层级。
+1. **文件端点路径**：文件 API 路径为 `/api/nextwiki/files/*`（注意 `files` 为复数），与后端 Controller `@RequestMapping` 对齐，修改时勿遗漏层级。
 2. **节点类型区分**：文件节点支持目录/文件/快捷方式三种类型，表单页需按节点类型动态渲染字段，目录无文件大小，快捷方式需指向目标节点。
 3. **分享权限控制**：分享链接需配置有效期与访问权限（预览/下载/编辑），过期链接应在前端拦截并提示。
 4. **配额校验**：上传文件前需校验用户剩余配额，超限应在前端拦截并提示，避免上传后端再拒绝。

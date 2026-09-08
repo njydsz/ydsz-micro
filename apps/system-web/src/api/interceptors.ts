@@ -64,7 +64,7 @@ function isSecondaryAuthError(error: unknown): {
  *
  * <p>处理流程：
  * 1. 判断业务错误码是否为 SECONDARY_AUTH_REQUIRED（A20123）
- *    — 是 → 弹出二次认证弹窗，用户输入密码后调 API /api/v1/auth/secondary-auth
+ *    — 是 → 弹出二次认证弹窗，用户输入密码后调 API /api/auth/secondary-auth
  *           → 获取 token 后在原请求 header 注入 X-Secondary-Auth 并重放请求
  *    — 否 → 原样抛出，由后续拦截器处理
  *
