@@ -189,6 +189,53 @@
   --header-foreground: var(--neutral-800);
 
   color-scheme: dark;
+
+  /* ============================================================
+   * 层级间距 Tokens (Dark Mode) — 间距与亮色模式一致
+   * ============================================================ */
+  --space-section: 1.5rem;
+  --space-group: 1rem;
+  --space-inline: 0.5rem;
+  --space-tight: 0.25rem;
+
+  /* ============================================================
+   * Focus Ring 系统 (Dark Mode) — 品牌色偏亮以保持可见性
+   * ============================================================ */
+  --focus-ring-width: 2px;
+  --focus-ring-color: var(--brand-500);
+  --focus-ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--focus-ring-offset) var(--bg-surface-2),
+    0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
+
+  /* ============================================================
+   * 玻璃态 Tokens (Dark Mode) — 暗色模式尤为精致
+   * ============================================================ */
+  --bg-glass: 222 10% 16% / 85%;
+  --backdrop-blur: blur(16px) saturate(180%);
+  --glass-border: var(--border-subtle) / 40%;
+
+  /* ============================================================
+   * 过渡变量别名 (Dark Mode)
+   * ============================================================ */
+  --transition-colors: color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-default) var(--ease-spring);
+  --transition-shadow: box-shadow var(--duration-default) var(--ease-out);
+  --transition-all: all var(--duration-default) var(--ease-out);
+
+  /* ============================================================
+   * 选择高亮色 (Dark Mode)
+   * ============================================================ */
+  --selection-bg: var(--brand-200);
+  --selection-foreground: var(--brand-50);
+
+  /* ============================================================
+   * 列表悬停/激活 (Dark Mode) — 品牌色暗色色板
+   * ============================================================ */
+  --row-hover-bg: var(--brand-100);
+  --row-active-bg: var(--brand-200);
+  --row-active-border: var(--brand-300);
 }
 
 /* ============================================================

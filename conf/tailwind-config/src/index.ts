@@ -235,12 +235,15 @@ export default {
         float: "float 5s linear 0ms infinite",
         "fade-in": "fade-in 0.2s var(--ease-out)",
         "fade-out": "fade-out 0.15s var(--ease-in)",
+        "fade-in-down": "fade-in-down 0.15s var(--ease-out)",
+        "fade-in-up": "fade-in-up 0.2s var(--ease-spring)",
         "slide-up": "slide-up 0.2s var(--ease-spring)",
         "slide-down": "slide-down 0.2s var(--ease-spring)",
         "scale-in": "scale-in 0.15s var(--ease-out)",
         "scale-out": "scale-out 0.1s var(--ease-in)",
         "lock-bounce": "lock-bounce 0.3s var(--ease-spring)",
         shimmer: "shimmer 2s linear infinite",
+        "pulse-subtle": "pulse-subtle 2s var(--ease-in-out) infinite",
       },
 
       animationDuration: {
@@ -341,12 +344,39 @@ export default {
         wide: "var(--tracking-wide)",
       },
 
-      // 间距
+      // 间距 — 参考 VS Code 层级化垂直节奏
       spacing: {
         header: "var(--height-header)",
         sidebar: "var(--width-sidebar)",
         "sidebar-collapsed": "var(--width-sidebar-collapsed)",
         "card-padding": "var(--padding-card)",
+        section: "var(--space-section)",
+        group: "var(--space-group)",
+        inline: "var(--space-inline)",
+        tight: "var(--space-tight)",
+      },
+
+      // 过渡时长
+      transitionDuration: {
+        fast: "var(--duration-fast)",
+        default: "var(--duration-default)",
+        slow: "var(--duration-slow)",
+        slower: "var(--duration-slower)",
+      },
+
+      // 过渡缓动
+      transitionTimingFunction: {
+        "in-out": "var(--ease-in-out)",
+        "out": "var(--ease-out)",
+        "in": "var(--ease-in)",
+        spring: "var(--ease-spring)",
+      },
+
+      // 过渡属性
+      transitionProperty: {
+        colors: "color, background-color, border-color",
+        shadow: "box-shadow",
+        transform: "transform",
       },
 
       // 关键帧
@@ -405,6 +435,18 @@ export default {
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
+        },
+        "fade-in-down": {
+          "0%": { opacity: "0", transform: "translateY(-4px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in-up": {
+          "0%": { opacity: "0", transform: "translateY(4px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.6" },
         },
       },
 

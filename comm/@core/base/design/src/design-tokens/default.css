@@ -294,6 +294,56 @@
 
   accent-color: var(--primary);
   color-scheme: light;
+
+  /* ============================================================
+   * 层级间距 Tokens (Spacing Scale)
+   * 参考 VS Code 设计语言 — 用垂直节奏管理信息密度
+   * ============================================================ */
+  --space-section: 1.5rem;
+  --space-group: 1rem;
+  --space-inline: 0.5rem;
+  --space-tight: 0.25rem;
+
+  /* ============================================================
+   * Focus Ring 系统 (焦点环)
+   * 参考 VS Code Tab 切换的蓝色聚焦反馈
+   * ============================================================ */
+  --focus-ring-width: 2px;
+  --focus-ring-color: var(--brand-500);
+  --focus-ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--focus-ring-offset) var(--bg-surface-2),
+    0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
+
+  /* ============================================================
+   * 玻璃态 Tokens (Glassmorphism)
+   * 用于命令面板、浮层等 — 暗色模式尤为精致
+   * ============================================================ */
+  --bg-glass: 0 0% 100% / 75%;
+  --backdrop-blur: blur(16px) saturate(180%);
+  --glass-border: var(--border-subtle) / 60%;
+
+  /* ============================================================
+   * 过渡变量别名 (引用已有 duration/ease)
+   * ============================================================ */
+  --transition-colors: color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-default) var(--ease-spring);
+  --transition-shadow: box-shadow var(--duration-default) var(--ease-out);
+  --transition-all: all var(--duration-default) var(--ease-out);
+
+  /* ============================================================
+   * 选择高亮色
+   * ============================================================ */
+  --selection-bg: var(--brand-200);
+  --selection-foreground: var(--brand-700);
+
+  /* ============================================================
+   * 列表悬停/激活 — 统一品牌色高亮
+   * ============================================================ */
+  --row-hover-bg: var(--brand-50);
+  --row-active-bg: var(--brand-100);
+  --row-active-border: var(--brand-400);
 }
 
 /* ============================================================
