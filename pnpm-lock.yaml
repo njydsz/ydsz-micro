@@ -538,6 +538,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -623,6 +626,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -799,6 +805,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -978,6 +987,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1248,6 +1260,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access

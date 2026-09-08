@@ -34,6 +34,7 @@
     "@ydsz/stores": "workspace:*",
     "@ydsz/styles": "workspace:*",
     "@ydsz/types": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/utils": "workspace:*",
     "dayjs": "catalog:",
     "element-plus": "catalog:",
