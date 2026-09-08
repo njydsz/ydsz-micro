@@ -345,7 +345,7 @@ defineExpose({ open, close });
             <!-- 条件列 -->
             <ElTableColumn
               v-for="(col, colIndex) in conditionColumns"
-              :key="`cond_${col.colCode as string`}"
+              :key="`cond_${col.colCode as string}`"
               min-width="150"
             >
               <template #header>
