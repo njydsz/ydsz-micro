@@ -175,6 +175,12 @@ child.on('exit', (code) => {
 });
 
 // 优雅退出处理
+
+/**
+ * 将接收到的系统信号转发给子进程（Vite dev server），实现优雅退出。
+ *
+ * @param signal 系统信号名（如 'SIGINT' / 'SIGTERM'）
+ */
 const handleSignal = (signal) => {
   console.info(`\n[Standalone] 收到 ${signal}，正在停止...`);
   child.kill(signal);

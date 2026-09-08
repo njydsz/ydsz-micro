@@ -1,3 +1,13 @@
+<!--
+ * 全局搜索面板组件 — 提供菜单、功能、操作的模糊搜索与键盘导航
+ *
+ * 基于 use-global-search composable 获取所有已注册的搜索项，
+ * 支持高亮关键词、键盘上下导航、回车跳转等交互。
+ *
+ * @path main\src\components\global-search.vue
+ * @author ydsz-team
+ * @since 4.0.0
+-->
 <script setup lang="ts">
 import type { SearchItem } from "#/hooks/use-global-search";
 

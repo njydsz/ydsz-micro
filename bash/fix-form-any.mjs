@@ -4,7 +4,8 @@
  * 模式：`updateXxxApi(formData as any)` / `createXxxApi(formData as any)`
  * 修复：替换为 API 模块中声明的 DTO 类型（如 `ApprovalApi.ApprovalDTO`）
  *
- * 用法：node bash/fix-form-any.mjs
+ * @usage
+ *   node bash/fix-form-any.mjs
  *
  * @path bash\fix-form-any.mjs
  * @author ydsz-team

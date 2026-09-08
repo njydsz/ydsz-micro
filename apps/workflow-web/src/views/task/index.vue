@@ -162,7 +162,9 @@ function getSelectedIds(): string[] {
   return ids;
 }
 
-/** 批量通过 */
+/**
+ * 批量通过勾选的任务。
+ */
 async function handleBatchPass() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
@@ -190,7 +192,9 @@ async function handleBatchPass() {
   }
 }
 
-/** 批量驳回 */
+/**
+ * 批量驳回勾选的任务。
+ */
 async function handleBatchReject() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;

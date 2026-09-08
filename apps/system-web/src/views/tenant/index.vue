@@ -84,16 +84,35 @@ const gridOptions: VxeGridProps<TenantVO> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [TenantFormModal, tenantFormApi] = useYDSZModal({ connectedComponent: TenantForm });
 
+/**
+ * 新增租户。
+ *
+ * <p>设置表单为创建模式并打开租户表单弹窗。
+ */
 function handleAdd() {
   tenantFormApi.setData({ mode: 'create' });
   tenantFormApi.open();
 }
 
+/**
+ * 编辑租户。
+ *
+ * <p>设置表单为编辑模式并绑定当前行数据，打开租户表单弹窗。
+ *
+ * @param row - 待编辑的租户行
+ */
 function handleEdit(row: TenantVO) {
   tenantFormApi.setData({ mode: 'edit', record: row });
   tenantFormApi.open();
 }
 
+/**
+ * 删除租户。
+ *
+ * <p>弹出二次确认对话框，确认后调用后端删除接口，成功后刷新列表。
+ *
+ * @param row - 待删除的租户行
+ */
 async function handleDelete(row: TenantVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）

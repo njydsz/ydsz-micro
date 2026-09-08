@@ -43,6 +43,12 @@ export function collectSourceFiles(
   return files;
 }
 
+/**
+ * 递归遍历目录，将匹配 SOURCE_EXTS 扩展名的文件路径累加到 files 数组。
+ *
+ * @param dir   当前遍历目录
+ * @param files 累加器数组
+ */
 function walk(dir: string, files: string[]): void {
   if (!existsSync(dir)) return;
   let entries;
@@ -74,7 +80,11 @@ export function loadPathMapping(rootDir: string): Record<string, string[]> {
 }
 
 /**
- * 向上查找文件所属 package 根目录（用于 #/ 别名解析到「当前包 src」）。
+ * 从文件路径逐级向上查找所属 package 根目录（含 package.json 的目录）。
+ * 用于 #/ 包内别名解析到「当前包的 src」目录。
+ *
+ * @param filePath 当前文件绝对路径
+ * @return package 根目录路径，未找到返回 null
  */
 function findPackageRoot(filePath: string): string | null {
   let dir = dirname(filePath);
@@ -88,7 +98,11 @@ function findPackageRoot(filePath: string): string | null {
 }
 
 /**
- * 为无扩展名解析结果补全扩展名 / index 入口。
+ * 为无扩展名的路径依次尝试补全 SOURCE_EXTS 中的扩展名，
+ * 或尝试 index.<ext> 入口文件。
+ *
+ * @param base 无扩展名的绝对路径
+ * @return 首个存在的文件路径，未找到返回 null
  */
 function resolveWithExt(base: string): string | null {
   if (existsSync(base) && statSync(base).isFile()) return base;
@@ -103,7 +117,13 @@ function resolveWithExt(base: string): string | null {
 }
 
 /**
- * 匹配 tsconfig paths 中的键（支持 * 通配），返回解析后的绝对路径。
+ * 匹配 tsconfig paths 中的键（支持末尾 * 通配），返回解析后的绝对路径。
+ *
+ * @param key     paths 键（如 '@ydsz/*'）
+ * @param targets paths 值数组（如 ['comm/*']）
+ * @param spec    import specifier（如 '@ydzs/request'）
+ * @param rootDir 项目根
+ * @return 解析后的绝对路径，未匹配返回 null
  */
 function matchTsPath(key: string, targets: string[], spec: string, rootDir: string): string | null {
   if (key.endsWith('/*')) {

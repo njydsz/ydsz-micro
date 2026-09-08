@@ -114,15 +114,34 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [DictItemFormModal, dictItemFormApi] = useYDSZModal({ connectedComponent: DictItemForm });
 
+/**
+ * 新增字典项。
+ *
+ * <p>打开字典项表单弹窗。
+ */
 function handleAdd() {
   dictItemFormApi.open();
 }
 
+/**
+ * 编辑字典项。
+ *
+ * <p>将当前行数据绑定到表单并打开字典项编辑弹窗。
+ *
+ * @param row - 待编辑的字典项行
+ */
 function handleEdit(row: DictItemRow) {
   dictItemFormApi.setData({ record: row });
   dictItemFormApi.open();
 }
 
+/**
+ * 删除字典项。
+ *
+ * <p>弹出二次确认对话框，确认后调用后端删除接口，成功后刷新列表并广播字典变更事件。
+ *
+ * @param row - 待删除的字典项行
+ */
 async function handleDelete(row: DictItemRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {

@@ -4,7 +4,7 @@
  * 构建后运行，将 dist/ 下的 .map 文件上传到后端监控服务做 stack trace 符号化，
  * 上传后从产物删除 .map（避免随静态资源部署泄露源码）。
  *
- * 使用方式：
+ * @usage
  *   VITE_APP_RELEASE=v1.0.0-abc123 pnpm upload:sourcemaps
  *   node bash/upload-sourcemaps.mjs --dist=apps/agent-web/dist --release=v1.0.0
  *
@@ -21,6 +21,12 @@ const root = path.resolve(__dirname, '..');
 
 // ==================== 参数解析 ====================
 const args = process.argv.slice(2);
+/**
+ * 从命令行参数中提取 --<name>=<value> 形式的值，不存在时返回 fallback。
+ *
+ * @name 参数名（不含 -- 前缀）
+ * @fallback 未找到时的默认值
+ */
 function getArg(name, fallback) {
   const found = args.find((a) => a.startsWith(`--${name}=`));
   return found ? found.slice(name.length + 3) : fallback;
@@ -36,6 +42,14 @@ const keep = args.includes('--keep'); // 调试：不删除已上传的 .map
 const MAX_RETRIES = 3;
 const BASE_DELAY_MS = 1000;
 
+/**
+ * 带指数退避重试的单文件 sourcemap 上传。
+ *
+ * 最多重试 3 次（间隔 1s / 2s / 4s），全部失败则返回错误信息。
+ *
+ * @param filePath 待上传的 .map 文件绝对路径
+ * @return 上传结果（ok / relativePath / error）
+ */
 async function uploadWithRetry(filePath) {
   let lastError;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
@@ -58,7 +72,13 @@ if (!release) {
 
 // ==================== 主流程 ====================
 
-/** 递归收集 .map 文件 */
+/**
+ * 递归收集目录树中所有 .map 文件。
+ *
+ * @param dir 起始目录
+ * @param acc 累加器数组
+ * @return .map 文件的绝对路径列表
+ */
 function collectMapFiles(dir, acc = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
@@ -71,6 +91,12 @@ function collectMapFiles(dir, acc = []) {
   return acc;
 }
 
+/**
+ * 将单个 .map 文件上传到后端监控服务。
+ *
+ * @param filePath 待上传的 .map 文件绝对路径
+ * @return 上传结果（ok / relativePath / error）
+ */
 async function uploadOne(filePath) {
   const relativePath = path.relative(distDir, filePath).replace(/\\/g, '/');
   const body = fs.readFileSync(filePath);

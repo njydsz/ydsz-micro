@@ -48,7 +48,14 @@ const SERVICE_MAP = {
   agent:    { spec: 'http://localhost:9008/v3/api-docs', output: 'apps/agent-web/src/api/sdk' },
 };
 
-/** 为生成的 SDK 计算稳定 hash，输出到 .api-contract.lock */
+/**
+ * 为生成的 SDK 计算稳定 hash，输出到 .api-contract.lock。
+ *
+ * 对输出目录下所有 .ts 文件内容做 SHA-256，写入 lock 文件供 CI 漂移检测。
+ *
+ * @param serviceName 服务名（仅用于日志输出）
+ * @param outputDir   SDK 输出目录（相对于项目根）
+ */
 function writeLockFile(serviceName, outputDir) {
   const lockPath = join(ROOT, outputDir, '.api-contract.lock');
   const hash = createHash('sha256');

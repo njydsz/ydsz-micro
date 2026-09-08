@@ -361,6 +361,52 @@
     background: hsl(var(--bg-surface-3) / 80%);
     border: 1px solid hsl(var(--border-strong) / 40%);
   }
+
+  /* ============================================================
+   * 路由切换过渡 — 类 VS Code 编辑器 Tab 切换的轻量感
+   * ============================================================ */
+
+  /* 淡入+微上滑 */
+  .route-fade-enter-active {
+    animation: fade-in-up var(--duration-default) var(--ease-spring);
+  }
+
+  .route-fade-leave-active {
+    animation: fade-out var(--duration-fast) var(--ease-in);
+    position: absolute;
+    width: 100%;
+  }
+
+  .route-fade-enter-from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .route-fade-leave-to {
+    opacity: 0;
+  }
+
+  /* 侧边栏折叠过渡增强 */
+  .sidebar-collapse-enter-active,
+  .sidebar-collapse-leave-active {
+    transition: flex var(--duration-default) var(--ease-spring),
+      opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .sidebar-collapse-enter-from,
+  .sidebar-collapse-leave-to {
+    flex: 0 0 var(--width-sidebar-collapsed);
+    opacity: 0.8;
+  }
+
+  /* Tab 关闭缩小动画 */
+  .tab-close-enter-active {
+    animation: scale-in var(--duration-fast) var(--ease-out);
+  }
+
+  .tab-close-leave-active {
+    animation: scale-out var(--duration-fast) var(--ease-in) forwards;
+  }
 }
 
 html.invert-mode {

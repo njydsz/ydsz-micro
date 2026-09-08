@@ -74,13 +74,32 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [CategoryFormModal, categoryFormApi] = useYDSZModal({ connectedComponent: CategoryForm });
+/**
+ * 新增流程分类。
+ *
+ * <p>打开分类表单弹窗。
+ */
 function handleAdd() {
   categoryFormApi.open();
 }
+/**
+ * 编辑流程分类。
+ *
+ * <p>将当前行数据绑定到表单并打开分类编辑弹窗。
+ *
+ * @param row - 待编辑的分类数据
+ */
 function handleEdit(row: FlowCategoryVO) {
   categoryFormApi.setData({ record: row });
   categoryFormApi.open();
 }
+/**
+ * 删除流程分类。
+ *
+ * <p>弹出二次确认对话框，确认后调用后端删除接口，成功后刷新列表。
+ *
+ * @param row - 待删除的分类数据
+ */
 async function handleDelete(row: FlowCategoryVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）

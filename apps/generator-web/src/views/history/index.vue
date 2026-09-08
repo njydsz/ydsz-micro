@@ -173,12 +173,26 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
+/**
+ * 查看任务文件明细。
+ *
+ * <p>根据任务 ID 打开文件明细弹窗，展示本次生成任务的文件列表。
+ *
+ * @param row - 当前任务数据行
+ */
 function handleViewFiles(row: GenHistory) {
   if (!row.id) return;
   selectedHistoryId.value = row.id;
   fileDialogVisible.value = true;
 }
 
+/**
+ * 回滚任务。
+ *
+ * <p>弹出二次确认对话框，确认后调用后端回滚接口恢复或删除该任务生成的文件，成功后刷新列表。
+ *
+ * @param row - 待回滚的任务数据行
+ */
 async function handleRollback(row: GenHistory) {
   if (!row.id) return;
   try {
@@ -199,6 +213,13 @@ async function handleRollback(row: GenHistory) {
   }
 }
 
+/**
+ * 删除任务记录。
+ *
+ * <p>弹出二次确认对话框，确认后调用后端删除接口，成功后刷新列表。
+ *
+ * @param row - 待删除的任务数据行
+ */
 async function handleDelete(row: GenHistory) {
   if (!row.id) return;
   try {

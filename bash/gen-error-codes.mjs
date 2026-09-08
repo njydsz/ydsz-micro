@@ -299,11 +299,21 @@ function renderTypeScript(entries, modules) {
   return lines.join('\n');
 }
 
-/** 内容哈希（lock 基线） */
+/**
+ * 计算内容的 SHA-256 哈希，作为 lock 基线快照。
+ *
+ * @param content 待哈希的字符串内容
+ * @return 十六进制 SHA-256 哈希值
+ */
 function hashContent(content) {
   return createHash('sha256').update(content, 'utf8').digest('hex');
 }
 
+/**
+ * 主流程：扫描后端错误码 → 去重消解 → 生成 TS 常量文件 + lock 基线。
+ *
+ * --check 模式：仅校验生成内容与 lock 是否漂移（CI 门禁）。
+ */
 function main() {
   const checkMode = process.argv.includes('--check');
   const { entries, modules, files } = scanBackendCodes();

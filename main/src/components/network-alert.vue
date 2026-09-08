@@ -7,6 +7,7 @@
  * - 网络恢复：绿色提示（3s 后自动消失）
  *
  * @path main/src/components/network-alert.vue
+ * @author ydsz-team
  * @since 4.0.0
 -->
 <template>

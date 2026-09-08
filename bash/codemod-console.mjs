@@ -16,7 +16,9 @@
  * 3. 豁免文件：logger.ts 实现层、shadcn-ui 生成件、Node 工具（bash/conf）、
  *    standalone/mock、测试、chrome 扩展、service-worker。
  *
- * 运行：node bash/codemod-console.mjs [rootDir]
+ * @usage
+ *   node bash/codemod-console.mjs [rootDir]
+ *
  * 幂等：重复运行不会产生重复导入 / 重复 logger。
  */
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
@@ -47,6 +49,12 @@ const SKIP = new Set(['node_modules', 'dist', 'build', '.git', 'coverage', '.tur
 
 const changed = [];
 
+/**
+ * 递归遍历目录，对匹配的 .ts/.vue 文件执行 console → logger 改写。
+ *
+ * @param dir   当前遍历目录
+ * @param depth 当前递归深度（最大 10 层，防止极端嵌套）
+ */
 function walk(dir, depth) {
   if (depth > 10) return;
   let entries;
@@ -69,6 +77,12 @@ function walk(dir, depth) {
   }
 }
 
+/**
+ * 从文件名推导 logger 模块名（如 user-info-web → user-info-web）。
+ *
+ * @param file 文件绝对路径或相对路径
+ * @return 短横线连接的模块标识符（最长 40 字符）
+ */
 function moduleName(file) {
   const base = basename(file).replace(/\.(ts|mts|cts|vue)$/, '');
   return base
@@ -77,6 +91,15 @@ function moduleName(file) {
     .slice(0, 40);
 }
 
+/**
+ * 将单行代码中的 `console.<method>(` 替换为 `logger.<method>(`。
+ *
+ * 仅处理真实代码段（跳过行内注释之后的部分），
+ * 返回新行与是否发生替换的标记。
+ *
+ * @param line 原始代码行
+ * @return `{ line: string, hit: boolean }` 替换后的行及命中标记
+ */
 function replaceConsole(line) {
   // 行内注释之后的 console 跳过
   const cIdx = line.indexOf('//');
@@ -98,6 +121,14 @@ function replaceConsole(line) {
   return { line: mutated, hit: false };
 }
 
+/**
+ * 处理单个文件：扫描 console 调用 → 替换为 logger → 注入 import 与 const logger 声明。
+ *
+ * 仅当文件存在真实 console 调用且不在豁免列表时才执行注入，
+ * 避免引入未用变量或重复注入。
+ *
+ * @param file 文件的绝对路径
+ */
 function processFile(file) {
   if (isExempt(file)) return;
   let text;

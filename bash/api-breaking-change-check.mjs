@@ -205,6 +205,12 @@ function diffSpecs(oldSpec, newSpec) {
 // 主流程
 // =====================================================================
 
+/**
+ * 主流程：加载当前 spec 与 baseline spec，执行破坏性变更检测。
+ *
+ * 通过 --baseline / --current 参数指定新旧 spec 路径，
+ * 发现破坏性变更（B1-B7）时以退出码 1 终止（CI 阻断）。
+ */
 async function main() {
   const args = process.argv.slice(2);
   const baselineArg = args.find((a, i) => a === '--baseline' && args[i + 1]);

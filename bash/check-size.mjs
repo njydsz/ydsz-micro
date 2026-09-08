@@ -9,7 +9,7 @@
  * 设计契合「最小化外部依赖、绝对可控」原则：零第三方依赖，原生 Node 实现
  * （glob 以受限通配符表达，见 toMatcher）。
  *
- * 用法:
+ * @usage
  *   node bash/check-size.mjs                     # 校验全部预算
  *   node bash/check-size.mjs --list              # 仅列出扫描结果
  *
@@ -43,7 +43,12 @@ const BUDGETS = [
     })),
 ];
 
-/** 将受限通配符（`*` 与 `**`）转为可用的匹配函数，足够目录扫描场景 */
+/**
+ * 将受限通配符（`*` 与 `**`）转为匹配函数，用于目录扫描场景。
+ *
+ * @param dirPattern 通配符模式（如 'main/dist/assets/**'）
+ * @return 匹配函数 (path: string) => boolean
+ */
 function makeMatch(dirPattern) {
   const regex = new RegExp(
     `^${dirPattern.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*\*/g, '::DSTAR::').replace(/\*/g, '[^/]*').replace(/::DSTAR::\//g, '(?:.*/)?')}$`,
@@ -51,7 +56,12 @@ function makeMatch(dirPattern) {
   return (p) => regex.test(p);
 }
 
-/** 递归收集目录下的相对文件路径 */
+/**
+ * 递归收集目录树下所有文件的绝对路径。
+ *
+ * @param dirPath 起始目录
+ * @return 文件绝对路径列表
+ */
 function walk(dirPath) {
   if (!statSync(dirPath, { throwIfNoEntry: false })) return [];
   const out = [];

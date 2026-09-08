@@ -145,6 +145,11 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [InstanceFormModal, instanceFormApi] = useYDSZModal({ connectedComponent: InstanceForm });
 
+/**
+ * 发起流程实例。
+ *
+ * <p>打开流程实例表单弹窗。
+ */
 function handleAdd() {
   instanceFormApi.open();
 }

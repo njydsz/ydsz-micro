@@ -96,16 +96,35 @@ async function handleActivateGroup(group: GenTemplateGroup) {
   }
 }
 
+/**
+ * 新建模板分组。
+ *
+ * <p>清空编辑对象并打开分组表单弹窗。
+ */
 function handleAddGroup() {
   editingGroup.value = null;
   groupFormVisible.value = true;
 }
 
+/**
+ * 编辑模板分组。
+ *
+ * <p>将当前分组数据绑定到表单并打开弹窗。
+ *
+ * @param group - 待编辑的分组数据
+ */
 function handleEditGroup(group: GenTemplateGroup) {
   editingGroup.value = group;
   groupFormVisible.value = true;
 }
 
+/**
+ * 删除模板分组。
+ *
+ * <p>弹出二次确认对话框（系统分组不可删除），确认后调用后端删除接口，成功后刷新列表。
+ *
+ * @param group - 待删除的分组数据
+ */
 async function handleDeleteGroup(group: GenTemplateGroup) {
   if (!group.id) return;
   if (group.isSystem) {
@@ -163,6 +182,13 @@ async function loadTemplates() {
   }
 }
 
+/**
+ * 编辑模板内容。
+ *
+ * <p>将模板数据复制到编辑对象并打开模板编辑弹窗。
+ *
+ * @param template - 待编辑的模板数据
+ */
 function handleEditTemplate(template: GenTemplate) {
   editingTemplate.value = { ...template };
   templateFormVisible.value = true;

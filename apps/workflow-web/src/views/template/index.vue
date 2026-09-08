@@ -140,7 +140,9 @@ async function handleImport(row: TemplateRow) {
   }
 }
 
-/** 克隆模板（可填写新模板名称） */
+/**
+ * 克隆模板。
+ */
 async function handleClone(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
@@ -167,7 +169,9 @@ async function handleClone(row: TemplateRow) {
   }
 }
 
-/** 基于现有模板创建新版本 */
+/**
+ * 基于现有模板创建新版本。
+ */
 async function handleNewVersion(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
@@ -203,7 +207,11 @@ const versionsLoading = ref(false);
 const versionRows = ref<TemplateRow[]>([]);
 const currentTemplateCode = ref('');
 
-/** 打开版本历史抽屉 */
+/**
+ * 打开版本历史抽屉。
+ *
+ * @param row - 当前模板数据行
+ */
 async function openVersions(row: TemplateRow) {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
@@ -224,7 +232,11 @@ async function loadVersions() {
   }
 }
 
-/** 查看版本详情（getTemplateVersion，响应结构未知，以格式化 JSON 展示） */
+/**
+ * 查看版本详情（以 JSON 格式展示）。
+ *
+ * @param versionItem - 当前版本数据
+ */
 async function handleVersionDetail(versionItem: TemplateRow) {
   if (!currentTemplateCode.value) return;
   const version = num(versionItem, 'version') || Number(str(versionItem, 'version'));

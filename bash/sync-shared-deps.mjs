@@ -60,13 +60,22 @@ const positionals = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const isCheck = flags.includes('--check');
 const isRefresh = flags.includes('--refresh');
 
-/** 从 esm.sh 类 URL 中提取精确版本号，失败返回 null */
+/**
+ * 从 esm.sh 类 URL 中提取精确版本号，失败返回 null。
+ *
+ * @param url 依赖包的 CDN URL（如 https://esm.sh/vue@3.5.13）
+ * @return 精确版本号（如 '3.5.13'），提取失败返回 null
+ */
 function extractVersion(url) {
   const match = new URL(url).pathname.match(/\/@?[^/@]+@(\d+\.\d+\.\d+(?:-[\w.]+)?)/);
   return match ? match[1] : null;
 }
 
-/** 读取版本锁文件，不存在或解析失败返回 null */
+/**
+ * 读取版本锁文件（bash/importmap.lock.json），不存在或解析失败返回 null。
+ *
+ * @return 锁文件内容（含 deps / syncedAt 等字段），读取失败返回 null
+ */
 function readLock() {
   if (isRefresh || !fs.existsSync(LOCK_FILE)) return null;
   try {

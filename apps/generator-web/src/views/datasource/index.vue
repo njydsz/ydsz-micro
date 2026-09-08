@@ -124,11 +124,23 @@ const [DatasourceFormModal, datasourceFormApi] = useYDSZModal({
   connectedComponent: DatasourceForm,
 });
 
+/**
+ * 新增数据源。
+ *
+ * <p>重置表单数据并打开数据源新增弹窗。
+ */
 function handleAdd() {
   datasourceFormApi.setData({ record: null });
   datasourceFormApi.open();
 }
 
+/**
+ * 编辑数据源。
+ *
+ * <p>将当前行数据填充到表单并打开数据源编辑弹窗。
+ *
+ * @param row - 待编辑的数据源行
+ */
 function handleEdit(row: GenDatasourceRespVO) {
   const record: GenDatasource = {
     id: row.id,
@@ -168,6 +180,13 @@ async function handleTestConnection(row: GenDatasourceRespVO) {
   }
 }
 
+/**
+ * 删除数据源。
+ *
+ * <p>弹出二次确认对话框，确认后调用后端删除接口，成功后刷新列表。
+ *
+ * @param row - 待删除的数据源行
+ */
 async function handleDelete(row: GenDatasourceRespVO) {
   if (!row.id) return;
   try {

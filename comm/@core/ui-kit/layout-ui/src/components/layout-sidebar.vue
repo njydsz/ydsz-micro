@@ -317,7 +317,8 @@ function handleMouseleave() {
       },
     ]"
     :style="asideStyle"
-    class="fixed left-0 top-0 h-full"
+    class="fixed left-0 top-0 h-full overflow-hidden"
+    :data-collapsed="collapse"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >

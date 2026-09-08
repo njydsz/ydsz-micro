@@ -112,15 +112,34 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [VariableFormModal, variableFormApi] = useYDSZModal({ connectedComponent: VariableForm });
 
+/**
+ * 新增系统变量。
+ *
+ * <p>打开系统变量表单弹窗。
+ */
 function handleAdd() {
   variableFormApi.open();
 }
 
+/**
+ * 编辑系统变量。
+ *
+ * <p>将当前行数据绑定到表单并打开系统变量编辑弹窗。
+ *
+ * @param row - 待编辑的系统变量行
+ */
 function handleEdit(row: VariableRow) {
   variableFormApi.setData({ record: row });
   variableFormApi.open();
 }
 
+/**
+ * 删除系统变量。
+ *
+ * <p>弹出二次确认对话框，确认后调用后端删除接口，成功后刷新列表。
+ *
+ * @param row - 待删除的系统变量行
+ */
 async function handleDelete(row: VariableRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {

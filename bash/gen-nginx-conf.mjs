@@ -116,6 +116,12 @@ function generateNginxSnippet(apps) {
   ].join('\n');
 }
 
+/**
+ * 主流程：解析 MICRO_APPS 注册表，生成 nginx location 片段。
+ *
+ * --check 模式：校验现有 nginx-sub-apps.conf 与注册表一致，不一致则退出码 1；
+ * 默认模式：直接覆盖写入 bash/deploy/nginx-sub-apps.conf。
+ */
 function main() {
   const apps = parseMicroApps();
   const snippet = generateNginxSnippet(apps);

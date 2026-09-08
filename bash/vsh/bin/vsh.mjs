@@ -17,7 +17,12 @@ const args = process.argv.slice(2);
 const command = args[0];
 const rest = args.slice(1);
 
-/** 解析位置参数与选项（-o/--output） */
+/**
+ * 解析位置参数与选项（-o/--output）。
+ *
+ * @param items 原始参数数组
+ * @return `{ opts, positional }` 解析后的选项与位置参数
+ */
 function parseArgs(items) {
   const opts = {};
   const positional = [];
@@ -134,6 +139,13 @@ async function main() {
   }
 }
 
+/**
+ * 计算 target 相对于 base 的相对路径，失败时回退返回原始 target。
+ *
+ * @param base   基准目录
+ * @param target 目标路径
+ * @return 相对路径或原始 target
+ */
 function relativePath(base, target) {
   try {
     return relative(base, target);

@@ -9,7 +9,7 @@
  * 设计契合「最小化外部依赖、绝对可控」原则：零第三方依赖，原生 Node 实现。
  * 配套脚本：`pnpm check:i18n`；CI 门禁见 .github/workflows/ci.yml。
  *
- * 用法:
+ * @usage
  *   node bash/check-locales.mjs          # 校验，有差异退出码 1
  *
  * @path bash\check-locales.mjs

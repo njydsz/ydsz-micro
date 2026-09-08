@@ -45,12 +45,22 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const CLOUD_ROOT = process.env.YDSZ_OPENAPI_ROOT || 'D:\\Code\\open\\ydsz-cloud';
 
-/** 将蛇形命名转驼峰大端（user_name → UserName） */
+/**
+ * 将蛇形命名转驼峰大端（user_name → UserName）。
+ *
+ * @param s 蛇形命名字符串
+ * @return PascalCase 形式字符串
+ */
 function toPascalCase(s) {
   return s.replace(/(?:^|_)(\w)/g, (_, c) => c.toUpperCase());
 }
 
-/** 将蛇形命名转驼峰小端（user_name → userName） */
+/**
+ * 将蛇形命名转驼峰小端（user_name → userName）。
+ *
+ * @param s 蛇形命名字符串
+ * @return camelCase 形式字符串
+ */
 function toCamelCase(s) {
   const p = toPascalCase(s);
   return p.charAt(0).toLowerCase() + p.slice(1);
