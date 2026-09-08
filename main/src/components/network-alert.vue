@@ -109,19 +109,21 @@ onUnmounted(() => {
 <style scoped>
 .network-alert {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: var(--space-inline);
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: var(--space-inline);
+  padding: var(--space-inline) var(--space-group);
   font-size: var(--text-13);
   font-weight: 500;
-  border-width: 0 0 1px;
-  border-style: solid;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-overlay-100);
+  backdrop-filter: var(--backdrop-blur);
+  max-width: 90vw;
 }
 
 .network-alert.is-error {
@@ -175,9 +177,14 @@ onUnmounted(() => {
   opacity: 0.7;
 }
 
-.network-alert-enter-active,
-.network-alert-leave-active {
+.network-alert-enter-active {
   transition: all var(--duration-default) var(--ease-spring);
+  animation: fade-in-down var(--duration-default) var(--ease-spring) forwards;
+}
+
+.network-alert-leave-active {
+  transition: all var(--duration-fast) var(--ease-in);
+  animation: fade-out var(--duration-fast) var(--ease-in) forwards;
 }
 
 .network-alert-enter-from,
