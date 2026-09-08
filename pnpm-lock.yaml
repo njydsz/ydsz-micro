@@ -708,6 +708,9 @@ importers:
 
   apps/generator-web:
     dependencies:
+      '@element-plus/icons-vue':
+        specifier: 'catalog:'
+        version: 2.3.2(vue@3.5.40(typescript@5.9.3))
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
@@ -1465,6 +1468,9 @@ importers:
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../base/shared
+      '@ydsz/request':
+        specifier: workspace:*
+        version: link:../../effects/request
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)

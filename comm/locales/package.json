@@ -21,6 +21,10 @@
     "./errors": {
       "types": "./errors/index.ts",
       "default": "./errors/index.ts"
+    },
+    "./errors/*": {
+      "types": "./errors/*",
+      "default": "./errors/*"
     }
   },
   "dependencies": {
