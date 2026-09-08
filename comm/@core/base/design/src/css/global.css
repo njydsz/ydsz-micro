@@ -130,9 +130,28 @@
     @apply m-0 appearance-none;
   }
 
-  /* 焦点可见样式 */
+  /* ============================================================
+   * 焦点环系统 — 参考 VS Code 蓝色聚焦反馈
+   * ============================================================ */
+
+  /* 全局默认焦点环 */
   :focus-visible {
-    @apply outline-ring outline-2 outline-offset-2;
+    outline: var(--focus-ring-width) solid hsl(var(--focus-ring-color));
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* 增强型焦点环 — 用于按钮、卡片等高亮交互元素 */
+  .focus-ring-enhanced:focus-visible {
+    box-shadow: var(--focus-ring);
+    outline: none;
+  }
+
+  /* 焦点时轻微上浮 — 用于可点击卡片 */
+  .focus-ring-lift:focus-visible {
+    outline: var(--focus-ring-width) solid hsl(var(--focus-ring-color));
+    outline-offset: var(--focus-ring-offset);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-raised-200);
   }
 
   /* 平滑过渡 - 对颜色和变换 */
@@ -141,12 +160,18 @@
   input,
   select,
   textarea {
-    transition:
-      color var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
+    transition: var(--transition-colors), var(--transition-shadow), var(--transition-transform);
+  }
+
+  /* 文本选中样式 */
+  ::selection {
+    background-color: hsl(var(--selection-bg));
+    color: hsl(var(--selection-foreground));
+  }
+
+  ::-moz-selection {
+    background-color: hsl(var(--selection-bg));
+    color: hsl(var(--selection-foreground));
   }
 }
 
@@ -208,15 +233,14 @@
     animation: slide-up var(--duration-slow) var(--ease-spring) forwards;
   }
 
-  /* 玻璃质感效果 */
+  /* 玻璃质感效果 — 参考 VS Code 命令面板的通透感 */
   .glass {
-    @apply backdrop-blur-md;
-
-    background: hsl(var(--bg-surface-2) / 80%);
-    border: 1px solid hsl(var(--border-subtle) / 60%);
+    backdrop-filter: var(--backdrop-blur);
+    background: hsl(var(--bg-glass));
+    border: 1px solid hsl(var(--glass-border));
   }
 
-  /* 悬浮卡片效果 */
+  /* 悬浮卡片效果 — hover 时优雅上浮 */
   .hover-card {
     @apply transition-all duration-200;
 
@@ -228,14 +252,39 @@
     transform: translateY(-1px);
   }
 
-  /* 微妙渐变背景 */
-  .gradient-subtle {
-    background: linear-gradient(135deg, hsl(var(--bg-canvas)) 0%, hsl(var(--bg-surface-1)) 100%);
+  /* ============================================================
+   * 列表行悬停与激活 — 统一品牌色高亮
+   * ============================================================ */
+  .list-row {
+    @apply relative transition-colors duration-fast;
+
+    border-left: 2px solid transparent;
+  }
+
+  .list-row:hover {
+    background: hsl(var(--row-hover-bg));
+  }
+
+  .list-row.is-active {
+    background: hsl(var(--row-active-bg));
+    border-left-color: hsl(var(--row-active-border));
+  }
+
+  /* 行右侧操作按钮 — 默认透明，hover 时浮现 */
+  .list-row-actions {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-fast;
+  }
+
+  .list-row:hover .list-row-actions,
+  .list-row.is-active .list-row-actions {
+    @apply opacity-100;
   }
 
   /* 骨架屏占位 */
   .skeleton {
-    @apply bg-muted relative overflow-hidden rounded-md;
+    @apply relative overflow-hidden;
+
+    background: hsl(var(--muted));
   }
 
   .skeleton::after {
@@ -291,6 +340,26 @@
 
   .transition-spring {
     transition: all var(--duration-slow) var(--ease-spring);
+  }
+
+  /* 渐入动画类 — 下拉面板/弹窗弹出 */
+  .animate-fade-in-down {
+    animation: fade-in-down var(--duration-default) var(--ease-out) forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up var(--duration-default) var(--ease-spring) forwards;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2s var(--ease-in-out) infinite;
+  }
+
+  /* 玻璃质感深色变体 */
+  .glass-dark {
+    backdrop-filter: var(--backdrop-blur);
+    background: hsl(var(--bg-surface-3) / 80%);
+    border: 1px solid hsl(var(--border-strong) / 40%);
   }
 }
 
