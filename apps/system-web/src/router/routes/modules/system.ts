@@ -131,8 +131,25 @@ const routes: RouteRecordRaw[] = [
   },
   {
     meta: {
-      icon: 'lucide:code',
+      icon: 'lucide:alert-circle',
       order: 6,
+      title: '错误码管理',
+    },
+    name: 'ErrorCode',
+    path: '/error-code',
+    children: [
+      {
+        name: 'ErrorCodeViewer',
+        path: 'viewer',
+        component: () => import('#/views/error-code/index.vue'),
+        meta: { icon: 'lucide:alert-circle', title: '错误码查看器' },
+      },
+    ],
+  },
+  {
+    meta: {
+      icon: 'lucide:code',
+      order: 7,
       title: '开发平台',
     },
     name: 'DevPlatform',
@@ -149,7 +166,7 @@ const routes: RouteRecordRaw[] = [
   {
     meta: {
       icon: 'lucide:settings',
-      order: 7,
+      order: 8,
       title: '个人设置',
     },
     name: 'Preference',
