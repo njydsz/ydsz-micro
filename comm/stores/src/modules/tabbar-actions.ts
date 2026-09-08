@@ -56,9 +56,10 @@ export async function bulkCloseByKeys(
 }
 
 /**
- * @zh_CN 关闭所有标签页
- * @param ctx
- * @param router
+ * 关闭所有标签页，仅保留已固定的 affix 标签页。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param router - Vue Router 实例，用于跳转
  */
 export async function closeAllTabs(
   ctx: TabbarStoreContext,
@@ -71,9 +72,10 @@ export async function closeAllTabs(
 }
 
 /**
- * @zh_CN 关闭左侧标签页
- * @param ctx
- * @param tab
+ * 关闭当前标签页左侧所有非固定标签页。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 参考标签页（关闭其左侧标签）
  */
 export async function closeLeftTabs(
   ctx: TabbarStoreContext,
@@ -97,9 +99,10 @@ export async function closeLeftTabs(
 }
 
 /**
- * @zh_CN 关闭其他标签页
- * @param ctx
- * @param tab
+ * 关闭除当前标签页外的所有非固定标签页。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 需要保留的标签页
  */
 export async function closeOtherTabs(
   ctx: TabbarStoreContext,
@@ -126,9 +129,10 @@ export async function closeOtherTabs(
 }
 
 /**
- * @zh_CN 关闭右侧标签页
- * @param ctx
- * @param tab
+ * 关闭当前标签页右侧所有非固定标签页。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 参考标签页（关闭其右侧标签）
  */
 export async function closeRightTabs(
   ctx: TabbarStoreContext,
@@ -150,10 +154,11 @@ export async function closeRightTabs(
 }
 
 /**
- * @zh_CN 关闭标签页
- * @param ctx
- * @param tab
- * @param router
+ * 关闭指定标签页；若关闭当前激活标签页，自动跳转至相邻标签。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param tab - 待关闭的标签页
+ * @param router - Vue Router 实例，用于跳转
  */
 export async function closeTab(
   ctx: TabbarStoreContext,
@@ -189,10 +194,11 @@ export async function closeTab(
 }
 
 /**
- * @zh_CN 通过key关闭标签页
- * @param ctx
- * @param key
- * @param router
+ * 通过标签页 key 关闭指定标签页。
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param key - 标签页唯一 key（URL 编码）
+ * @param router - Vue Router 实例，用于跳转
  */
 export async function closeTabByKey(
   ctx: TabbarStoreContext,
@@ -214,9 +220,16 @@ export async function closeTabByKey(
 }
 
 /**
- * 刷新标签页
- * @param ctx
- * @param router
+ * 刷新标签页。
+ *
+ * <p>两种调用方式：
+ * <ul>
+ *   <li>传入 Router 实例 — 刷新当前路由对应标签页</li>
+ *   <li>传入 string（路由名）— 定向刷新指定名称的标签页</li>
+ * </ul>
+ *
+ * @param ctx - Tabbar store 上下文
+ * @param router - Vue Router 实例或路由名
  */
 export async function refresh(
   ctx: TabbarStoreContext,

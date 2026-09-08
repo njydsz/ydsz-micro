@@ -9,7 +9,13 @@
 -->
 <script lang="ts" setup>
 /**
- * API Key 创建表单
+ * API Key 创建表单弹窗。
+ *
+ * <p>提供 API Key 的创建向导，包括名称、授权范围、过期天数、限流配置。
+ * 创建成功后一次性展示明文 apiKey（仅此一次可见，需用户手动保存）。
+ *
+ * @author ydsz-team
+ * @since 1.0.0
  */
 import type { FormInstance } from 'element-plus';
 import { ElAlert, ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';

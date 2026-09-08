@@ -162,6 +162,21 @@ const style = computed((): CSSProperties => {
   };
 });
 
+/**
+ * 非混合侧栏使用微妙边框+方向阴影替代硬边框，
+ * 参考 VS Code 侧边栏去线化设计语言。
+ */
+const asideStyle = computed((): CSSProperties => {
+  if (props.isSidebarMixed) {
+    return style.value;
+  }
+  return {
+    ...style.value,
+    boxShadow:
+      '1px 0 0 0 hsl(var(--border-subtle)), var(--shadow-direction-right)',
+  };
+});
+
 const extraStyle = computed((): CSSProperties => {
   const { extraWidth, show, width, zIndex } = props;
 
@@ -298,11 +313,11 @@ function handleMouseleave() {
       theme,
       {
         'bg-sidebar-deep': isSidebarMixed,
-        'bg-sidebar border-border border-r': !isSidebarMixed,
+        'bg-sidebar': !isSidebarMixed,
       },
     ]"
-    :style="style"
-    class="fixed left-0 top-0 h-full transition-all duration-150"
+    :style="asideStyle"
+    class="fixed left-0 top-0 h-full"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -326,12 +341,8 @@ function handleMouseleave() {
   <div
     v-if="isSidebarMixed"
     ref="asideRef"
-    :class="{
-      'border-l': extraVisible,
-    }"
     :style="extraStyle"
-    class="border-border bg-sidebar fixed top-0 h-full overflow-hidden border-r transition-all duration-200"
-  >
+    class="bg-sidebar fixed top-0 h-full overflow-hidden"
     <SidebarCollapseButton
       v-if="isSidebarMixed && expandOnHover"
       v-model:collapsed="extraCollapse"

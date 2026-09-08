@@ -42,3 +42,94 @@
 html .el-loading-mask {
   z-index: 1000;
 }
+
+/* ============================================================
+ * Element Plus 表格 — 品牌色悬停高亮
+ * 参考 VS Code 文件树 hover 视觉反馈
+ * ============================================================ */
+.el-table {
+  --el-table-row-hover-bg-color: hsl(var(--row-hover-bg)) !important;
+  --el-table-current-row-bg-color: hsl(var(--row-active-bg)) !important;
+  --el-table-tr-bg-color: hsl(var(--bg-surface-2));
+  --el-table-bg-color: hsl(var(--bg-surface-2));
+  --el-table-header-bg-color: hsl(var(--bg-surface-3));
+  --el-table-border-color: hsl(var(--border-subtle));
+  --el-table-header-text-color: hsl(var(--txt-secondary));
+  --el-table-text-color: hsl(var(--txt-primary));
+  --el-table-row-hover-transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.el-table .el-table__body tr:hover > td.el-table__cell {
+  background-color: hsl(var(--row-hover-bg)) !important;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.el-table .el-table__body tr.current-row > td.el-table__cell {
+  background-color: hsl(var(--row-active-bg)) !important;
+}
+
+/* 行悬停时操作按钮浮现 */
+.el-table .el-table__body tr .row-actions {
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.el-table .el-table__body tr:hover .row-actions,
+.el-table .el-table__body tr.current-row .row-actions {
+  opacity: 1;
+}
+
+/* ============================================================
+ * Element Plus 列表/菜单项悬停
+ * ============================================================ */
+.el-menu {
+  --el-menu-hover-bg-color: hsl(var(--row-hover-bg)) !important;
+  --el-menu-active-color: hsl(var(--primary)) !important;
+  --el-menu-hover-text-color: hsl(var(--txt-primary)) !important;
+  --el-menu-bg-color: hsl(var(--sidebar)) !important;
+  --el-menu-text-color: hsl(var(--txt-secondary)) !important;
+  --el-menu-border-color: transparent !important;
+  border-right: none !important;
+}
+
+.el-menu--vertical {
+  border-right: none !important;
+}
+
+.el-menu-item,
+.el-sub-menu__title {
+  transition: var(--transition-colors) !important;
+  border-radius: var(--radius-sm);
+  margin: var(--space-tight) var(--space-inline);
+}
+
+.el-menu-item.is-active {
+  background-color: hsl(var(--row-active-bg)) !important;
+  border-left: 2px solid hsl(var(--row-active-border));
+}
+
+/* ============================================================
+ * Element Plus Dropdown / Select — 统一品牌色
+ * ============================================================ */
+.el-dropdown-menu {
+  --el-dropdown-menuItem-hover-fill: hsl(var(--row-hover-bg)) !important;
+  --el-dropdown-menuItem-hover-color: hsl(var(--txt-primary)) !important;
+}
+
+.el-select-dropdown__item.selected {
+  color: hsl(var(--primary)) !important;
+  background-color: hsl(var(--row-active-bg)) !important;
+}
+
+/* ============================================================
+ * Element Plus Button — 焦点环优化
+ * ============================================================ */
+.el-button:focus-visible {
+  outline: var(--focus-ring-width) solid hsl(var(--focus-ring-color));
+  outline-offset: var(--focus-ring-offset);
+}
+
+.el-button--primary:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}

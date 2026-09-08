@@ -51,27 +51,17 @@ import {
   unpinTab,
 } from './tabbar-manage';
 
-/**
- * @zh_CN 访问权限相关
- */
-export const useTabbarStore = defineStore(
+    /** Tabbar Pinia store 定义 —— 多页签状态管理入口 */
+    export const useTabbarStore = defineStore(
   'core-tabbar',
   () => {
-    /**
-     * @zh_CN 当前打开的标签页列表缓存（使用数组避免 Set 序列化隐患）
-     */
+    /** 已缓存标签页的 name 集合（使用数组避免 Set 序列化隐患） */
     const cachedTabs = ref<string[]>([]);
-    /**
-     * @zh_CN 拖拽结束的索引
-     */
+    /** 标签页拖拽操作结束时的目标索引 */
     const dragEndIndex = ref(0);
-    /**
-     * @zh_CN 需要排除缓存的标签页（使用数组避免 Set 序列化隐患）
-     */
+    /** 刷新时需排除 keep-alive 缓存的标签页 name 集合 */
     const excludeCachedTabs = ref<string[]>([]);
-    /**
-     * @zh_CN 标签右键菜单列表
-     */
+    /** 标签页右键菜单项标识列表 */
     const menuList = ref<string[]>([
       'close',
       'affix',
@@ -83,17 +73,11 @@ export const useTabbarStore = defineStore(
       'close-other',
       'close-all',
     ]);
-    /**
-     * @zh_CN 是否刷新
-     */
+    /** 是否渲染路由视图（用于 keep-alive 刷新时的挂载/卸载切换） */
     const renderRouteView = ref(true);
-    /**
-     * @zh_CN 当前打开的标签页列表
-     */
+    /** 当前已打开的标签页列表 */
     const tabs = ref<TabDefinition[]>([]);
-    /**
-     * @zh_CN 更新时间，用于一些更新场景，使用watch深度监听的话，会损耗性能
-     */
+    "updateTime": "触发 watchers 重新执行的时间戳（替代 deep watch 的性能敏感场景）",
     const updateTime = ref(Date.now());
 
     /** 固定标签页（按 affixTabOrder 排序） */
@@ -229,7 +213,7 @@ export const useTabbarStore = defineStore(
   },
   {
     persist: [
-      // tabs不需要保存在localStorage
+      // tabs 持久化到 sessionStorage（不需要在 localStorage 保存）
       {
         pick: ['tabs'],
         storage: sessionStorage,
@@ -238,7 +222,7 @@ export const useTabbarStore = defineStore(
   },
 );
 
-// 解决热更新问题
+// HMR 热更新：保持 store 状态在编辑时存活
 const hot = import.meta.hot;
 if (hot) {
   hot.accept(acceptHMRUpdate(useTabbarStore, hot));

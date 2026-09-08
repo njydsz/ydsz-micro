@@ -1,9 +1,17 @@
 /**
- * 监控模块统一安装入口
+ * 监控模块统一安装入口。
  *
- * 在 app.mount() 之前调用 setupMonitor(app, config) 即可同时启用错误监控和 Web Vitals。
- * v3.1: config 支持 release / sampleRate / beforeSend / getUserId，用于全链路追踪与采样。
- * v3.4: 集成面包屑自动采集（click / navigation / console）。
+ * <p>在 app.mount() 之前调用 setupMonitor(app, config) 即可同时启用错误监控和 Web Vitals。
+ *
+ * <p>版本演进：
+ * <ul>
+ *   <li>v3.1: config 支持 release / sampleRate / beforeSend / getUserId，用于全链路追踪与采样</li>
+ *   <li>v3.4: 集成面包屑自动采集（click / navigation / console）</li>
+ * </ul>
+ *
+ * @path comm/effects/monitor/src/setup.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 import type { App } from 'vue';
 import type { MonitorConfig } from './error-monitor';

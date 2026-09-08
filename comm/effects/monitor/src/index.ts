@@ -1,12 +1,18 @@
 /**
  * @ydsz/monitor — 前端监控公共模块
  *
- * 包含三大能力：
- * 1. 错误监控：Vue errorHandler + window.onerror + unhandledrejection + 资源加载错误
- * 2. Web Vitals 性能监控：LCP / FID / CLS / INP / FCP / TTFB
- * 3. 面包屑：用户行为轨迹，错误上报时附带
+ * <p>包含三大能力：
+ * <ol>
+ *   <li>错误监控：Vue errorHandler + window.onerror + unhandledrejection + 资源加载错误</li>
+ *   <li>Web Vitals 性能监控：LCP / FID / CLS / INP / FCP / TTFB</li>
+ *   <li>面包屑：用户行为轨迹，错误上报时附带</li>
+ * </ol>
  *
- * 上报方式：通过 navigator.sendBeacon 批量发送到后端 /api/monitor/*
+ * <p>上报方式：通过 navigator.sendBeacon 批量发送到后端 /api/monitor/*。
+ *
+ * @path comm/effects/monitor/src/index.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 export {

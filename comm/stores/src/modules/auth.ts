@@ -32,7 +32,13 @@ const isHttpOnlyCookieMode = authTokenStorage === 'httpOnlyCookie';
 type AuthToken = null | string;
 
 /**
- * 对密码进行简单哈希处理（SHA-256）
+ * 对密码进行 SHA-256 哈希处理。
+ *
+ * <p>使用 Web Crypto API 计算 SHA-256 摘要，返回 64 位十六进制字符串。
+ * 用于锁屏密码等无需盐值的轻量哈希场景。
+ *
+ * @param password - 明文密码
+ * @returns SHA-256 哈希值（64 位十六进制字符串）
  */
 async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder();
@@ -42,6 +48,13 @@ async function hashPassword(password: string): Promise<string> {
   return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
+/**
+ * 验证明文密码是否与已存储的 SHA-256 哈希值匹配。
+ *
+ * @param password - 明文密码
+ * @param storedHash - 已存储的 SHA-256 哈希值
+ * @returns 密码是否匹配
+ */
 async function verifyPassword(password: string, storedHash: string): Promise<boolean> {
   const hash = await hashPassword(password);
   return hash === storedHash;

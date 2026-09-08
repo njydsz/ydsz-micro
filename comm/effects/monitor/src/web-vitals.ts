@@ -1,8 +1,12 @@
 ﻿/**
- * Web Vitals 性能监控 — LCP / FID / CLS / INP / FCP / TTFB
+ * Web Vitals 性能监控 — LCP / FID / CLS / INP / FCP / TTFB。
  *
- * 使用浏览器原生 PerformanceObserver API 采集 Core Web Vitals 指标。
+ * <p>使用浏览器原生 PerformanceObserver API 采集 Core Web Vitals 指标。
  * 对标 Google Web Vitals 标准 + Sentry Performance + 阿里 ARMS。
+ *
+ * @path comm/effects/monitor/src/web-vitals.ts
+ * @author ydsz-team
+ * @since 1.0.0
  */
 
 import { createLogger } from '@ydsz-core/shared/utils';
