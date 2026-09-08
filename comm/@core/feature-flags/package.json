@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ydsz-core/shared": "workspace:*",
+    "@ydsz/request": "workspace:*",
     "vue": "catalog:"
   },
   "license": "MIT"

@@ -56,8 +56,5 @@ export { default as AppTour } from './app-tour.vue';
 export { default as ApprovalTimeline } from './approval-timeline.vue';
 export type { ApprovalRecord } from './approval-timeline.vue';
 
-// —— 审计日志表格组件 ——
-export { default as AuditLogTable } from './audit-log-table.vue';
-
 // —— 二次身份验证弹窗组件 — 程序化弹窗，安全约束完善 ——
 export { default as SecondaryAuthModal } from './secondary-auth-modal/index.vue';

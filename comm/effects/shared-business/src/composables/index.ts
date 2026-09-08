@@ -69,15 +69,6 @@ export {
   type TenantSwitcher,
 } from './use-tenant';
 
-// —— 审批日志 ——
-export {
-  useAuditLog,
-  type AuditLogFetcher,
-  type AuditLogItem,
-  type AuditLogQuery,
-  type AuditLogPageResult,
-} from './use-audit-log';
-
 // —— 工作流设计器 ——
 export {
   useFlowDesigner,
