@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "@ydsz/shared-auth",
   "version": "1.0.0",
   "private": true,
@@ -25,6 +25,7 @@
     "@ydsz/preferences": "workspace:*",
     "@ydsz/plugins": "workspace:*",
     "@ydsz/request": "workspace:*",
+    "@ydsz/shared-business": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",

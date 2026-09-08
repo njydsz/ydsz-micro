@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "@ydsz/system-web",
   "version": "1.0.0",
   "private": true,
@@ -34,6 +34,7 @@
     "@ydsz/styles": "workspace:*",
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",
+    "axios": "catalog:",
     "dayjs": "catalog:",
     "element-plus": "catalog:",
     "pinia": "catalog:",

@@ -344,6 +344,7 @@ function handleMouseleave() {
     ref="asideRef"
     :style="extraStyle"
     class="bg-sidebar fixed top-0 h-full overflow-hidden"
+  >
     <SidebarCollapseButton
       v-if="isSidebarMixed && expandOnHover"
       v-model:collapsed="extraCollapse"

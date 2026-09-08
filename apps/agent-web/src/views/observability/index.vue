@@ -277,7 +277,7 @@ onMounted(() => {
 
     <!-- Trace 详情弹窗 -->
     <ElDialog
-      v-model="selectedTrace !== null"
+      :model-value="selectedTrace !== null"
       title="Trace 详情"
       width="700px"
       @close="selectedTrace = null"
