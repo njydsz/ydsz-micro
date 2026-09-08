@@ -1,12 +1,12 @@
 {
-  "name": "@YDSZ-core/typings",
+  "name": "@ydsz-core/typings",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@YDSZ-core/base/typings"
+    "directory": "comm/@ydsz-core/base/typings"
   },
   "license": "MIT",
   "type": "module",

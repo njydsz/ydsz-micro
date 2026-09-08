@@ -1,5 +1,5 @@
 {
-  "name": "@YDSZ-core/shadcn-ui",
+  "name": "@ydsz-core/shadcn-ui",
   "version": "5.5.9",
   "#main": "./dist/index.mjs",
   "#module": "./dist/index.mjs",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@YDSZ-core/uikit/shadcn-ui"
+    "directory": "comm/@ydsz-core/uikit/shadcn-ui"
   },
   "license": "MIT",
   "type": "module",
@@ -48,10 +48,10 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/composables": "workspace:*",
-    "@YDSZ-core/icons": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*",
-    "@YDSZ-core/typings": "workspace:*",
+    "@ydsz-core/composables": "workspace:*",
+    "@ydsz-core/icons": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
+    "@ydsz-core/typings": "workspace:*",
     "@vueuse/core": "catalog:",
     "class-variance-authority": "catalog:",
     "lucide-vue-next": "catalog:",

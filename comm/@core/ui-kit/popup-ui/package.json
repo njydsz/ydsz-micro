@@ -1,12 +1,12 @@
 {
-  "name": "@YDSZ-core/popup-ui",
+  "name": "@ydsz-core/popup-ui",
   "version": "5.2.1",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@YDSZ-core/uikit/popup-ui"
+    "directory": "comm/@ydsz-core/uikit/popup-ui"
   },
   "license": "MIT",
   "type": "module",
@@ -37,11 +37,11 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/composables": "workspace:*",
-    "@YDSZ-core/icons": "workspace:*",
-    "@YDSZ-core/shadcn-ui": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*",
-    "@YDSZ-core/typings": "workspace:*",
+    "@ydsz-core/composables": "workspace:*",
+    "@ydsz-core/icons": "workspace:*",
+    "@ydsz-core/shadcn-ui": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
+    "@ydsz-core/typings": "workspace:*",
     "@vueuse/core": "catalog:",
     "vue": "catalog:"
   }

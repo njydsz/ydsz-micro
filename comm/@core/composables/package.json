@@ -1,5 +1,5 @@
 {
-  "name": "@YDSZ-core/composables",
+  "name": "@ydsz-core/composables",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
@@ -35,7 +35,7 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@vueuse/core": "catalog:",
     "radix-vue": "catalog:",
     "sortablejs": "catalog:",

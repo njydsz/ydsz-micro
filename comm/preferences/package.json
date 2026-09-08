@@ -20,7 +20,7 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/preferences": "workspace:*",
-    "@YDSZ-core/typings": "workspace:*"
+    "@ydsz-core/preferences": "workspace:*",
+    "@ydsz-core/typings": "workspace:*"
   }
 }

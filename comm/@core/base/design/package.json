@@ -1,12 +1,12 @@
 {
-  "name": "@YDSZ-core/design",
+  "name": "@ydsz-core/design",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@YDSZ-core/base/design"
+    "directory": "comm/@ydsz-core/base/design"
   },
   "license": "MIT",
   "type": "module",

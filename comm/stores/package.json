@@ -20,9 +20,9 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/preferences": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*",
-    "@YDSZ-core/typings": "workspace:*",
+    "@ydsz-core/preferences": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
+    "@ydsz-core/typings": "workspace:*",
     "pinia": "catalog:",
     "pinia-plugin-persistedstate": "catalog:",
     "secure-ls": "catalog:",

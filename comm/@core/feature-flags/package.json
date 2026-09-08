@@ -1,5 +1,5 @@
 {
-  "name": "@YDSZ-core/feature-flags",
+  "name": "@ydsz-core/feature-flags",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "vue": "catalog:"
   },
   "license": "MIT"

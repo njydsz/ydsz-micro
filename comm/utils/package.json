@@ -20,8 +20,8 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/shared": "workspace:*",
-    "@YDSZ-core/typings": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
+    "@ydsz-core/typings": "workspace:*",
     "vue-router": "catalog:"
   },
   "devDependencies": {}

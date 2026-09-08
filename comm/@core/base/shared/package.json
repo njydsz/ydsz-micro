@@ -1,12 +1,12 @@
 {
-  "name": "@YDSZ-core/shared",
+  "name": "@ydsz-core/shared",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@YDSZ-core/base/shared"
+    "directory": "comm/@ydsz-core/base/shared"
   },
   "license": "MIT",
   "type": "module",

@@ -23,6 +23,6 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/design": "workspace:*"
+    "@ydsz-core/design": "workspace:*"
   }
 }

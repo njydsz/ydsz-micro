@@ -1,12 +1,12 @@
 {
-  "name": "@YDSZ-core/tiptap",
+  "name": "@ydsz-core/tiptap",
   "version": "1.0.0",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@YDSZ-core/uikit/tiptap"
+    "directory": "comm/@ydsz-core/uikit/tiptap"
   },
   "license": "MIT",
   "type": "module",
@@ -53,7 +53,7 @@
     "@tiptap/extension-underline": "^2.6.0",
     "@tiptap/pm": "^2.6.0",
     "@tiptap/vue-3": "^2.6.0",
-    "@YDSZ-core/icons": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*"
+    "@ydsz-core/icons": "workspace:*",
+    "@ydsz-core/shared": "workspace:*"
   }
 }

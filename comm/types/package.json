@@ -20,7 +20,7 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/typings": "workspace:*",
+    "@ydsz-core/typings": "workspace:*",
     "vue": "catalog:",
     "vue-router": "catalog:"
   }
