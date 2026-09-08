@@ -82,18 +82,6 @@ export {
   type RealtimeStatus,
 } from './realtime';
 
-// 审计日志表格组件
-export { default as AuditLogTable } from './components/audit-log-table.vue';
-
-// 审计日志查询 composable
-export {
-  useAuditLog,
-  type AuditLogFetcher,
-  type AuditLogItem,
-  type AuditLogQuery,
-  type AuditLogPageResult,
-} from './composables/use-audit-log';
-
 // 服务端分页 composable
 export {
   useServerPagination,

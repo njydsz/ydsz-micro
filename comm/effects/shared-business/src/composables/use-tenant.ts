@@ -7,7 +7,8 @@
  *
  * <p>切换租户的核心链路：
  * <ol>
- *   <li>调用 {@link switchTenant} 设置活跃租户 ID</li>
+ *   <li>调用 {@link switchTenant} 优先执行远程切换（后端签发目标租户 token 对，
+ *       通过 {@link setTenantSwitcher} 注入实现）</li>
  *   <li>{@link useTenantStore} 同步写入 localStorage['X-Tenant-Id']</li>
  *   <li>后续请求由请求拦截器自动读取 localStorage 注入 X-Tenant-Id 头</li>
  *   <li>广播租户变更事件到所有子应用</li>

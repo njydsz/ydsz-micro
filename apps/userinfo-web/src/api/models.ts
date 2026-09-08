@@ -54,6 +54,41 @@ export interface UserBanRequestDTO {
 }
 
 /**
+ * 创建 API Key 请求体。
+ */
+export interface ApiKeyCreateDTO {
+  /** Key 名称（用于标识用途，如 "jenkins-deploy", "datadog-monitor"） */
+  keyName?: string;
+  /**
+   * 授权范围（逗号分隔）。
+   * 预定义值：`read`、`write`、`admin`、`user:read`、`user:write` 等。
+   */
+  scopes?: string;
+  /** 过期时间（天数），为空表示永不过期 */
+  expireDays?: number;
+  /** 每分钟请求限流阈值，为空表示使用默认配置 */
+  rateLimit?: number;
+}
+
+/**
+ * API Key 分页查询。
+ */
+export interface ApiKeyPageQuery {
+  /** 默认每页大小 */
+  DEFAULT_PAGE_SIZE?: number;
+  /** 页码（从 1 开始） */
+  pageNum?: number;
+  /** 每页大小 */
+  pageSize?: number;
+  /** Key 名称模糊搜索 */
+  keyName?: string;
+  /** 按用户 ID 筛选 */
+  userId?: string;
+  /** 按启用状态筛选 */
+  isEnabled?: boolean;
+}
+
+/**
  * 发送验证码请求 DTO。
  *
  * 用于自助注册/找回密码流程中，向用户手机或邮箱发送验证码。
@@ -116,7 +151,7 @@ export interface LoginDTO {
    * 开启后每次访问自动续期 Token TTL（滑动过期），关闭浏览器则按原 Cookie 有效期失效。
    * 开启时服务端会签发 Remember-Me Cookie（存储加密后的用户 ID）。
    */
-  rememberMe?: boolean;
+  isRememberMe?: boolean;
 }
 
 /**
@@ -160,6 +195,37 @@ export interface SecondaryAuthRequest {
 }
 
 /**
+ * WebAuthn 二级认证请求体。
+ *
+ * 前端在完成 WebAuthn 通行钥断言后，调用 `POST /api/auth/secondary-auth/webauthn` 提交验证结果。
+ * 流程：
+ * <ol>
+ * 前端请求 `/secondary-auth/webauthn/challenge` 获取 WebAuthn 挑战码
+ * 浏览器调用 `navigator.credentials.get()` 完成通行钥断言
+ * 前端将断言结果提交到此 DTO，调用 `/secondary-auth/webauthn` 完成二级认证
+ * </ol>
+ */
+export interface WebAuthnSecondaryAuthDTO {
+  /**
+   * 场景标识（scene）。
+   * 用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。
+   */
+  scene?: string;
+  /** WebAuthn 认证挑战码（由 challenge 端点获取）。 */
+  challenge?: string;
+  /** 凭证 ID（Base64URL 编码）。 */
+  credentialId?: string;
+  /** 客户端数据 JSON（Base64URL 编码）。 */
+  clientDataJSON?: string;
+  /** 认证器数据（Base64URL 编码）。 */
+  authenticatorData?: string;
+  /** 签名（Base64URL 编码）。 */
+  signature?: string;
+  /** 二级认证有效期（秒）。默认 300 秒（5 分钟）。 */
+  ttlSeconds?: number;
+}
+
+/**
  * 认证策略分页查询参数（P3-1）。
  */
 export interface AuthPolicyPageQuery {
@@ -183,13 +249,13 @@ export interface AuthPolicyDTO {
   /** 密码最小长度（≥ 6） */
   passwordMinLength?: number;
   /** 密码必须包含大写字母 */
-  passwordRequireUppercase?: boolean;
+  isPasswordRequireUppercase?: boolean;
   /** 密码必须包含数字 */
-  passwordRequireDigit?: boolean;
+  isPasswordRequireDigit?: boolean;
   /** 密码是否启用双因素认证 */
-  mfaEnabled?: boolean;
+  isMfaEnabled?: boolean;
   /** 登录是否启用图形验证码 */
-  captchaEnabled?: boolean;
+  isCaptchaEnabled?: boolean;
   /** 允许的身份提供者类型（逗号分隔，如 "LDAP,SAML,OAUTH2"） */
   allowedIdentityProviders?: string;
   /** 最大会话数（每个用户同时在线的最大会话数） */
@@ -229,6 +295,11 @@ export interface CompanyDTO {
  * 部门请求 DTO。
  *
  * 同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+ * 部门通过 parentId 自关联形成树形组织架构，"0" 表示根节点。
+ * 字段语义：
+ * `deptCode` — 部门编码（全局唯一，建议格式 DEPT_XXX），业务侧引用
+ * `parentId` — 父部门 ID（"0" 表示根部门）
+ * `tenantId` — 租户 ID（多租户场景下区分归属租户）
  */
 export interface DepartmentDTO {
   serialVersionUID?: number;
@@ -243,7 +314,7 @@ export interface DepartmentDTO {
   /** 部门描述 */
   description?: string;
   /** 同级排序序号（升序） */
-  sortOrder?: number;
+  sort?: number;
   /** 启用状态（`"ENABLED"` / `"DISABLED"`） */
   status?: string;
   /** 租户 ID */
@@ -263,9 +334,13 @@ export interface LanguagePageQuery {
 }
 
 /**
- * 语言请求 DTO。
+ * 语言配置请求 DTO。
  *
  * 同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+ * 字段语义：
+ * `languageCode` — 语言编码（ISO 639-1 + ISO 3166-1，如 zh-CN / en-US）
+ * `isDefault` — 是否默认语言（1=是，全局仅允许一个默认语言）
+ * `status` — 启用状态（ENABLED/DISABLED），禁用后该语言不在用户切换器中显示
  */
 export interface LanguageDTO {
   serialVersionUID?: number;
@@ -278,7 +353,7 @@ export interface LanguageDTO {
   /** 是否默认语言（`1=是`，全局仅允许一个默认语言） */
   isDefault?: number;
   /** 排序序号（升序，决定语言切换器展示顺序） */
-  sortOrder?: number;
+  sort?: number;
   /** 启用状态（`"ENABLED"` / `"DISABLED"`） */
   status?: string;
 }
@@ -307,7 +382,7 @@ export interface MenuDTO {
   /** 菜单图标（Iconify / Element Plus 图标名） */
   icon?: string;
   /** 同级排序序号（升序） */
-  sortOrder?: number;
+  sort?: number;
   /** 权限码（`"system:user:create"` 格式） */
   permissionCode?: string;
   /** 是否前端可见（0=隐藏，1=可见） */
@@ -365,7 +440,7 @@ export interface PostDTO {
   /** 岗位描述 */
   description?: string;
   /** 同级排序序号（升序） */
-  sortOrder?: number;
+  sort?: number;
   /** 启用状态（`"ENABLED"` / `"DISABLED"`） */
   status?: string;
 }
@@ -388,6 +463,11 @@ export interface RolePageQuery {
  * 角色请求 DTO。
  *
  * 同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+ * 字段语义：
+ * `roleCode` — 角色编码（全局唯一，建议格式 ROLE_XXX），用于权限匹配
+ * `dataScope` — 数据权限范围（ALL/DEPT_AND_CHILD/DEPT/SELF/CUSTOM），控制角色可见数据范围
+ * `isBuiltIn` — 是否内置角色（true 时禁止删除与修改编码）
+ * `tenantId` — 租户 ID（"0" = 平台级角色，跨租户可见）
  */
 export interface RoleDTO {
   serialVersionUID?: number;
@@ -400,13 +480,13 @@ export interface RoleDTO {
   /** 角色描述 */
   description?: string;
   /** 同级排序序号（升序） */
-  sortOrder?: number;
+  sort?: number;
   /** 数据权限范围（ALL / DEPT_AND_CHILD / DEPT / SELF / CUSTOM） */
   dataScope?: string;
   /** 启用状态（`"ENABLED"` / `"DISABLED"`） */
   status?: string;
   /** 是否内置角色（`true` 时禁止删除与修改编码） */
-  builtIn?: boolean;
+  isBuiltIn?: boolean;
   /** 租户 ID（`"0"` = 平台级角色） */
   tenantId?: string;
 }
@@ -437,9 +517,16 @@ export interface SamlIdpPageQuery {
 }
 
 /**
- * SAML 身份提供者配置统一 DTO（P2-1 CUD 入参）。
+ * SAML 2.0 身份提供者（IdP）配置统一 DTO（P2-1 CUD 入参）。
  *
  * 同时用于创建和更新场景：创建时 `entityId` 必填，更新时 `entityId` 必填。
+ * 字段语义：
+ * `entityId` — IdP Entity ID（唯一标识 URI，作为主键）
+ * `ssoUrl` — IdP SSO 端点 URL（SP 重定向用户至此发起 SSO）
+ * `certificate` — IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）
+ * `emailAttribute` — SAML Assertion 中邮箱属性名（默认 emailAddress）
+ * `displayNameAttribute` — SAML Assertion 中显示名称属性名（默认 displayName）
+ * `status` — 状态（ENABLED/DISABLED），禁用后该 IdP 不可登录
  */
 export interface SamlIdpDTO {
   /** IdP Entity ID（唯一标识） */
@@ -457,7 +544,7 @@ export interface SamlIdpDTO {
   /** 状态：ENABLED / DISABLED */
   status?: string;
   /** 排序权重 */
-  sortOrder?: number;
+  sort?: number;
   /** 备注说明 */
   remark?: string;
 }
@@ -488,14 +575,15 @@ export interface ScimUser {
   name?: ScimName;
   /** 显示名称。 */
   displayName?: string;
-  /** 账号是否启用。 */
-  isActive?: boolean;
+  active?: boolean;
   /** 电子邮箱列表。 */
   emails?: ScimEmail[];
   /** 电话号码列表。 */
   phoneNumbers?: ScimPhone[];
   /** 资源元数据。 */
   meta?: ScimMeta;
+  /** 账号是否启用。 */
+  isActive?: boolean;
 }
 
 /**
@@ -524,8 +612,9 @@ export interface ScimEmail {
   value?: string;
   /** 显示名称（可选）。 */
   display?: string;
-  /** 是否为主邮箱。 */
   primary?: boolean;
+  /** 是否为主邮箱。 */
+  isPrimary?: boolean;
 }
 
 /**
@@ -539,8 +628,9 @@ export interface ScimPhone {
   value?: string;
   /** 显示名称（可选）。 */
   display?: string;
-  /** 是否为主要电话号码。 */
   primary?: boolean;
+  /** 是否为主要电话号码。 */
+  isPrimary?: boolean;
 }
 
 /**
@@ -641,6 +731,8 @@ export interface SocialClientPageQuery {
  * 社交平台客户端配置统一 DTO（P1-1 CUD 入参）。
  *
  * 同时用于创建和更新场景：创建时 `platform` 必填，更新时 `id` 必填。
+ * 安全注意：appSecret 明文仅在创建/更新请求中传输（由 HTTPS 保护），服务端接收后
+ * 通过 BCrypt 加密存储。更新时如果 appSecret 为空则保留原值（不修改密钥）。
  */
 export interface SocialClientDTO {
   /** 平台 ID（更新时必填） */
@@ -660,7 +752,7 @@ export interface SocialClientDTO {
   /** 状态：ENABLED / DISABLED */
   status?: string;
   /** 排序权重 */
-  sortOrder?: number;
+  sort?: number;
   /** 备注说明 */
   remark?: string;
 }
@@ -721,7 +813,7 @@ export interface UserAccountDTO {
   email?: string;
   /** 头像 URL */
   avatar?: string;
-  /** 账号状态（EnableStatusEnum#ENABLED=启用 / EnableStatusEnum#DISABLED=禁用） */
+  /** 账号状态（UserLifecycleStatusEnum#ENABLED=启用 / UserLifecycleStatusEnum#DISABLED=禁用） */
   status?: string;
   /** 用户类型（`PLATFORM`=平台用户 / `TENANT_ADMIN`=租户管理员 / `REGULAR`=普通用户） */
   userType?: string;
@@ -796,7 +888,8 @@ export interface AssignRolesDTO {
 /**
  * 批量用户状态操作 DTO。
  *
- * 用于批量启用/禁用/删除用户账号。
+ * 用于批量启用/禁用/删除用户账号。单次操作用户数量受 `ydsz.userinfo.batch-size-limit` 限制
+ * （默认 500），超出时需分批调用。
  */
 export interface BatchUserStatusDTO {
   serialVersionUID?: number;
@@ -836,6 +929,32 @@ export interface UserSearchQuery {
   page?: number;
   /** 每页条数（默认 20） */
   pageSize?: number;
+}
+
+/**
+ * 用户偏好保存 DTO
+ *
+ * 前端用户偏好（默认首页/语言/主题/布局等）的写入载体，
+ * 对齐前端 `UserPreferenceDTO` 契约。字段全部可选，
+ * 后端整体覆盖式保存（PUT 语义）。
+ */
+export interface UserPreferenceDTO {
+  /** 默认首页路径 */
+  defaultIndex?: string;
+  /** 语言设置（如 zh-CN / en-US） */
+  language?: string;
+  /** 主题模式（light / dark / auto） */
+  theme?: string;
+  /** 主题色 */
+  themeColor?: string;
+  /** 菜单布局 */
+  menuLayout?: string;
+  /** 菜单手风琴 */
+  accordionMenu?: boolean;
+  /** 表格密度 */
+  tableSize?: string;
+  /** 字体大小 */
+  fontSize?: string;
 }
 
 /**
@@ -951,7 +1070,7 @@ export interface AccountUnlockDTO {
 export interface BanInfoVO {
   serialVersionUID?: number;
   /** 当前是否处于封禁状态 */
-  banned?: boolean;
+  isBanned?: boolean;
   /** 封禁类型（TEMPORARY/PERMANENT），未封禁时为 null */
   banType?: string;
   /** 封禁原因 */
@@ -988,12 +1107,50 @@ export interface UserSessionVO {
 }
 
 /**
- * UserSessionStatisticsVO（视图对象）：后端未提供类注释，建议在 Java 侧补充 Javadoc
+ * 会话统计信息。
+ *
+ * 封装平台级会话统计数据，用于管理员仪表盘展示。
+ * 字段语义：
+ * `totalActiveSessions`：当前活跃会话总数
+ * `activeUserCount`：当前活跃用户数（去重）
+ * `sessionsPerDevice`：分端会话统计（key=deviceType, value=会话数）
+ * @param totalActiveSessions 当前活跃会话总数
+ * @param activeUserCount 当前活跃用户数（去重）
+ * @param sessionsPerDevice 分端会话统计
  */
 export interface UserSessionStatisticsVO {
   totalActiveSessions?: number;
   activeUserCount?: number;
   sessionsPerDevice?: Record<string, Record<string, unknown>>;
+}
+
+/**
+ * API Key 视图对象（列表查询返回）。
+ *
+ * 注意：出于安全考虑，`apiKey` 字段仅在创建时返回明文，列表/详情均为 null。
+ */
+export interface ApiKeyVO {
+  serialVersionUID?: number;
+  /** 主键 ID */
+  id?: number;
+  /** API Key 明文（仅创建时返回，其余场景为 null） */
+  apiKey?: string;
+  /** API Key 前缀（用于识别） */
+  apiKeyPrefix?: string;
+  /** Key 名称 */
+  keyName?: string;
+  /** 授权范围 */
+  scopes?: string;
+  /** 过期时间 */
+  expireAt?: string;
+  /** 最后使用时间 */
+  lastUsedAt?: string;
+  /** 每分钟限流阈值 */
+  rateLimit?: number;
+  /** 是否启用 */
+  isEnabled?: boolean;
+  /** 创建时间 */
+  createdAt?: string;
 }
 
 /**
@@ -1031,7 +1188,42 @@ export interface LoginVO {
 }
 
 /**
- * 认证策略视图出参（P3-1 查询返回值）。
+ * 当前登录用户信息 VO
+ *
+ * 供 `GET /api/auth/userinfo` 返回，对齐前端 `BasicUserInfo`
+ * 所需最小字段集：登录后拉取用户资料、渲染头像/昵称、进行角色级路由判断。
+ * 注意：`roles` 为角色编码数组（区别于登录响应 `LoginVO.UserInfoVO.roleCode`
+ * 的逗号拼接字符串），由前端权限库直接消费。
+ */
+export interface CurrentUserInfoVO {
+  /** 用户唯一标识 */
+  userId?: string;
+  /** 登录用户名 */
+  username?: string;
+  /** 用户真实姓名 */
+  realName?: string;
+  /** 用户头像 URL */
+  avatar?: string;
+  /** 用户角色编码列表（用于前端权限路由判断） */
+  roles?: string[];
+  /** 租户 ID，多租户场景下标识所属租户 */
+  tenantId?: string;
+}
+
+/**
+ * 认证策略视图对象（P3-1 多租户认证域隔离）。
+ *
+ * 封装租户级认证策略配置，供管理端查询接口返回。每个租户最多一条策略，未配置时回退到全局默认策略。
+ * 关键字段说明：
+ * `tenantId` — 租户 ID（为空表示全局默认策略）
+ * `passwordMinLength` — 密码最小长度（>= 6）
+ * `isPasswordRequireUppercase` — 密码必须包含大写字母
+ * `isPasswordRequireDigit` — 密码必须包含数字
+ * `isMfaEnabled` — 是否启用双因素认证
+ * `isCaptchaEnabled` — 登录是否启用图形验证码
+ * `allowedIdentityProviders` — 允许的身份提供者类型（如 LOCAL,LDAP,SAML）
+ * `maxSessionsPerUser` — 单用户最大并发会话数
+ * `sessionTimeoutSeconds` — 会话超时时间（秒）
  */
 export interface AuthPolicyVO {
   /** 策略 ID */
@@ -1043,13 +1235,13 @@ export interface AuthPolicyVO {
   /** 密码最小长度 */
   passwordMinLength?: number;
   /** 密码必须包含大写字母 */
-  passwordRequireUppercase?: boolean;
+  isPasswordRequireUppercase?: boolean;
   /** 密码必须包含数字 */
-  passwordRequireDigit?: boolean;
+  isPasswordRequireDigit?: boolean;
   /** 是否启用双因素认证 */
-  mfaEnabled?: boolean;
+  isMfaEnabled?: boolean;
   /** 登录是否启用图形验证码 */
-  captchaEnabled?: boolean;
+  isCaptchaEnabled?: boolean;
   /** 允许的身份提供者类型 */
   allowedIdentityProviders?: string;
   /** 最大会话数 */
@@ -1065,7 +1257,15 @@ export interface AuthPolicyVO {
 }
 
 /**
- * 公司 VO，用于 Controller 返回，不包含 deleted、createdBy 等内部维护字段。
+ * 公司视图对象。
+ *
+ * 表示组织架构中的公司/子公司节点。公司采用树形结构（通过 parentId 自关联），
+ * 支持集团-子公司多层嵌套。不包含 deleted、createdBy 等内部维护字段。
+ * 字段语义：
+ * `companyCode` — 公司编码（全局唯一，业务侧引用）
+ * `parentId` — 上一级公司 ID（顶级公司为 null）
+ * `contactPerson` — 公司联系人
+ * `status` — 状态（ENABLE-启用、DISABLE-禁用）
  */
 export interface CompanyVO {
   /** 公司唯一标识 */
@@ -1089,7 +1289,7 @@ export interface CompanyVO {
 /**
  * 公司树形 VO，用于前端集团-子公司组织架构树渲染。
  *
- * 由 com.njydsz.userinfo.server.service.impl.CompanyServiceImpl#tree() 使用 {@link
+ * 由 impl.CompanyServiceImpl#tree() 使用 {@link
  * com.njydsz.common.domain.tree.TreeBuilder#buildSimple} 构建，自动填充 `level`/`path` 元数据。
  * 与 CompanyVO 的区别：
  * `children` — 子公司节点列表（递归嵌套）
@@ -1124,9 +1324,12 @@ export interface CompanyTreeVO {
 }
 
 /**
- * 部门 VO，扁平结构，用于 Controller 列表返回。
+ * 部门视图对象（扁平结构）。
  *
- * 不包含 deleted、createdBy 等内部维护字段。 树形结构请使用 DepartmentTreeVO。
+ * 用于 Controller 列表查询接口。部门通过 parentId 自关联形成树形组织架构，
+ * 支持多级嵌套（如 集团 → 事业部 → 部门 → 小组）。
+ * 不包含 deleted、createdBy 等内部维护字段。
+ * 树形结构请使用 DepartmentTreeVO。
  */
 export interface DepartmentVO {
   /** 部门唯一标识 */
@@ -1140,7 +1343,7 @@ export interface DepartmentVO {
   /** 部门描述 */
   description?: string;
   /** 排序序号 */
-  sortOrder?: number;
+  sort?: number;
   /** 状态：ENABLE-启用、DISABLE-禁用 */
   status?: string;
   /** 部门负责人用户 ID */
@@ -1153,6 +1356,8 @@ export interface DepartmentVO {
  * 由 `DepartmentServiceImpl.buildDeptTree()` 构建递归树， 包含部门路径 `deptPath` 用于快速查询子树。
  */
 export interface DepartmentTreeVO {
+  /** 子部门列表初始容量 */
+  CHILDREN_CAPACITY?: number;
   /** 部门唯一标识 */
   id?: string;
   /** 父部门 ID */
@@ -1164,7 +1369,7 @@ export interface DepartmentTreeVO {
   /** 部门全路径，如 /1/2/3/，用于快速查询子树 */
   deptPath?: string;
   /** 排序序号 */
-  sortOrder?: number;
+  sort?: number;
   /** 状态：ENABLE-启用、DISABLE-禁用 */
   status?: string;
   /** 子部门列表 */
@@ -1263,7 +1468,16 @@ export interface UserAccountVO {
 }
 
 /**
- * 语言 VO，用于 Controller 返回，不包含 deleted、createdBy 等内部维护字段。
+ * 语言配置视图对象。
+ *
+ * 管理多语言支持的启用的语言列表，供用户选择语言偏好和前端 i18n 加载。
+ * 不包含 deleted、createdBy 等内部维护字段。
+ * 字段语义：
+ * `languageCode` — 语言编码（如 zh-CN、en-US、ja-JP）
+ * `languageName` — 语言名称（如"简体中文"、"English"）
+ * `isDefault` — 是否默认语言（1=是、0=否，用户未指定语言偏好时回退）
+ * `sort` — 排序序号（越小越靠前）
+ * `status` — 状态（ENABLE-启用、DISABLE-禁用）
  */
 export interface LanguageVO {
   /** 语言唯一标识 */
@@ -1275,7 +1489,7 @@ export interface LanguageVO {
   /** 是否默认语言：1-是、0-否 */
   isDefault?: number;
   /** 排序序号 */
-  sortOrder?: number;
+  sort?: number;
   /** 状态：ENABLE-启用、DISABLE-禁用 */
   status?: string;
 }
@@ -1303,7 +1517,7 @@ export interface MenuVO {
   /** 菜单图标 */
   icon?: string;
   /** 排序序号，越小越靠前 */
-  sortOrder?: number;
+  sort?: number;
   /** 权限标识，用于按钮级权限控制 */
   permissionCode?: string;
   /** 是否可见：1-可见、0-隐藏 */
@@ -1335,7 +1549,7 @@ export interface MenuTreeVO {
   /** 菜单图标 */
   icon?: string;
   /** 排序序号 */
-  sortOrder?: number;
+  sort?: number;
   /** 权限标识 */
   permissionCode?: string;
   /** 是否可见：1-可见、0-隐藏 */
@@ -1347,40 +1561,52 @@ export interface MenuTreeVO {
 }
 
 /**
- * OAuth2 应用实体。
+ * 前端动态路由 VO（vben 路由形态）
  *
- * 对应数据库表 `ydsz_idp_oauth2_application`，存储 OAuth2 客户端应用注册信息。
- * 索引设计：
- * `uk_client_id` — clientId 唯一索引
- * `idx_status` — 状态索引
+ * 当前用户可访问菜单转换为前端路由配置：`component` 为字符串组件标识
+ * （布局组件名如 `BasicLayout`，或视图路径如 `system/user/index`），
+ * 由前端 `generateAccessible` 通过 `pageMap/layoutMap` 解析为真实组件。
+ * 映射规则（`MenuVO` → `MenuRouteVO`）：
+ * `name` ← `menuCode`（路由唯一标识；为空时回退 `menu-{id`}）
+ * `path` / `component` ← 同名字段直传
+ * `meta.title` ← `menuName`，`meta.icon` ← `icon`
+ * `meta.order` ← `sort`，`meta.hideInMenu` ← `visible == 0`
+ * `children` ← 按 `parentId` 递归构建，按 `sort` 升序
  */
-export interface OAuth2Application {
-  /** 客户端 ID（唯一标识） */
-  clientId?: string;
-  /** 应用名称 */
-  clientName?: string;
-  /** 客户端密钥（BCrypt 加密存储） */
-  clientSecret?: string;
-  /** 客户端类型（CONFIDENTIAL/PUBLIC） */
-  clientType?: string;
-  /** 授权回调地址白名单（JSON 数组） */
-  redirectUris?: string[];
-  /** 允许申请的权限范围（JSON 数组） */
-  allowedScopes?: string[];
-  /** 允许的受众（资源服务，JSON 数组） */
-  allowedAudiences?: string[];
-  /** 应用状态（ENABLED/DISABLED） */
-  status?: string;
-  /** 应用描述 */
-  description?: string;
-  /** 应用图标 URL */
-  iconUrl?: string;
-  /** 创建者用户 ID */
-  createdBy?: string;
+export interface MenuRouteVO {
+  /** 路由名称（唯一标识，取 menuCode，为空时回退 menu-{id}） */
+  name?: string;
+  /** 路由路径 */
+  path?: string;
+  /** 组件标识（字符串）：布局组件名或视图路径 */
+  component?: string;
+  /** 重定向路径（可选，目录节点使用） */
+  redirect?: string;
+  /** 路由元信息 */
+  meta?: Record<string, unknown>;
+  /** 子路由 */
+  children?: MenuRouteVO[];
+  /** 菜单标题（取 menuName） */
+  title?: string;
+  /** 菜单图标 */
+  icon?: string;
+  /** 排序权重（取 sort，前端据此排序菜单） */
+  order?: number;
+  /** 是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问） */
+  hideInMenu?: boolean;
 }
 
 /**
- * 岗位 VO，用于 Controller 返回，不包含 deleted、createdBy 等内部维护字段。
+ * 岗位视图对象。
+ *
+ * 岗位是组织架构中的职位分类（如产品经理/开发工程师/测试工程师），用于审批人展开与用户标记。
+ * 不包含 deleted、createdBy 等内部维护字段。
+ * 字段语义：
+ * `postCode` — 岗位编码（全局唯一，如 PM/DEV/QA/SA），支持 position: 审批人展开
+ * `postName` — 岗位名称（如"产品经理"、"开发工程师"）
+ * `description` — 岗位描述
+ * `sort` — 排序序号（越小越靠前）
+ * `status` — 状态（ENABLE-启用、DISABLE-禁用）
  */
 export interface PostVO {
   /** 岗位唯一标识 */
@@ -1392,7 +1618,7 @@ export interface PostVO {
   /** 岗位描述 */
   description?: string;
   /** 排序序号，越小越靠前 */
-  sortOrder?: number;
+  sort?: number;
   /** 状态：ENABLE-启用、DISABLE-禁用 */
   status?: string;
 }
@@ -1412,15 +1638,25 @@ export interface RoleVO {
   /** 角色描述 */
   description?: string;
   /** 排序序号，越小越靠前 */
-  sortOrder?: number;
+  sort?: number;
   /** 状态：ENABLE-启用、DISABLE-禁用 */
   status?: string;
   /** 是否内置角色，内置角色不允许删除 */
-  builtIn?: boolean;
+  isBuiltIn?: boolean;
 }
 
 /**
- * SAML 身份提供者配置视图出参（P2-1 查询返回值）。
+ * SAML 2.0 身份提供者（IdP）配置视图对象（P2-1）。
+ *
+ * 展示已配置的外部 SAML IdP 信息，供管理端 IdP 配置管理界面展示和编辑。
+ * 字段语义：
+ * `name` — IdP 显示名称（如"公司 ADFS"、"Okta"）
+ * `entityId` — IdP Entity ID（唯一标识 URI）
+ * `ssoUrl` — IdP SSO 端点 URL（SP 重定向用户至此发起 SSO）
+ * `certificate` — IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）
+ * `emailAttribute` — SAML Assertion 中邮箱属性名（如 emailAddress）
+ * `displayNameAttribute` — SAML Assertion 中显示名称属性名（如 displayName）
+ * `status` — 状态（ENABLED/DISABLED），禁用后该 IdP 不可登录
  */
 export interface SamlIdpConfigVO {
   /** 配置 ID */
@@ -1440,7 +1676,7 @@ export interface SamlIdpConfigVO {
   /** 状态：ENABLED / DISABLED */
   status?: string;
   /** 排序权重 */
-  sortOrder?: number;
+  sort?: number;
   /** 备注说明 */
   remark?: string;
   /** 创建时间 */
@@ -1449,39 +1685,6 @@ export interface SamlIdpConfigVO {
   updatedAt?: string;
   /** 创建者用户 ID */
   createdBy?: string;
-}
-
-/**
- * 安全告警实体。
- *
- * 对应数据库表 `ydsz_idp_security_alert`，存储安全告警事件记录。
- * 索引设计：
- * `idx_status_risk` — 状态+风险等级复合索引（待处理告警查询）
- * `idx_type_time` — 告警类型+创建时间复合索引（告警去重统计）
- * `idx_user_id` — 用户 ID 索引（按用户查询告警历史）
- * `idx_source_ip` — 来源 IP 索引（IP 维度告警统计）
- */
-export interface SecurityAlert {
-  /** 告警类型（ACCOUNT_LOCKED/ACCOUNT_BANNED/MFA_FAILED/BRUTE_FORCE/ANOMALOUS_LOGIN/PASSWORD_SPRAY） */
-  alertType?: string;
-  /** 风险等级（LOW/MEDIUM/HIGH/CRITICAL） */
-  riskLevel?: string;
-  /** 关联用户 ID */
-  userId?: string;
-  /** 关联用户名 */
-  username?: string;
-  /** 来源 IP */
-  sourceIp?: string;
-  /** 告警标题 */
-  title?: string;
-  /** 告警内容 */
-  content?: string;
-  /** 告警状态（PENDING/ACKNOWLEDGED/RESOLVED/IGNORED） */
-  status?: string;
-  /** 处理时间 */
-  handledAt?: string;
-  /** 处理备注 */
-  handlerNote?: string;
 }
 
 /**
@@ -1714,7 +1917,17 @@ export interface SocialAccountVO {
 }
 
 /**
- * 社交平台客户端配置视图出参（P1-1 查询返回值）。
+ * 社交平台客户端配置视图对象（P1-1 社交认证配置管理）。
+ *
+ * 展示第三方社交平台（企业微信、钉钉、飞书等）的 OAuth2 客户端配置信息，
+ * 供管理端配置管理界面展示和编辑。
+ * 字段语义：
+ * `platform` — 平台标识（如 ENTERPRISE_WECHAT/DINGTALK/FEISHU）
+ * `platformName` — 平台显示名称（如"企业微信"、"钉钉"）
+ * `appId` — 平台分配的应用 ID
+ * `scope` — OAuth2 授权范围
+ * `redirectUri` — 授权回调地址（必须与平台管理后台注册一致）
+ * `status` — 状态（ENABLED/DISABLED），禁用后该平台不可登录
  */
 export interface SocialClientVO {
   /** 客户端配置 ID */
@@ -1732,7 +1945,7 @@ export interface SocialClientVO {
   /** 状态：ENABLED / DISABLED */
   status?: string;
   /** 排序权重 */
-  sortOrder?: number;
+  sort?: number;
   /** 备注说明 */
   remark?: string;
   /** 创建时间 */
@@ -1744,23 +1957,28 @@ export interface SocialClientVO {
 }
 
 /**
- * 用户批量导入结果 DTO
+ * 用户批量导入结果 DTO。
  *
- * 封装批量导入的执行结果，包含成功数、失败数、失败明细等详细信息。
+ * 封装批量导入的执行结果，继承通用 ExcelImportResult 基类。
  */
 export interface UserImportResultDTO {
-  /** 导入总数 */
-  totalCount?: number;
-  /** 成功导入数 */
-  successCount?: number;
-  /** 失败数 */
-  failCount?: number;
   /** 失败明细列表（行号 + 原因） */
   failDetails?: string;
 }
 
 /**
- * 用户登录历史 VO，用于 Controller 返回。
+ * 用户登录历史视图对象。
+ *
+ * 记录用户的每次登录尝试（成功/失败），用于登录审计和安全分析。
+ * 敏感信息（密码、Token）不包含在返回字段中。
+ * 字段语义：
+ * `userId` — 用户 ID
+ * `username` — 登录用户名
+ * `loginIp` — 登录来源 IP 地址
+ * `loginResult` — 登录结果（SUCCESS/FAILED）
+ * `failReason` — 失败原因（成功时为 null，如 PASSWORD_INCORRECT/ACCOUNT_LOCKED）
+ * `userAgent` — 浏览器/设备信息
+ * `createdAt` — 登录时间
  */
 export interface UserLoginHistoryVO {
   /** 记录唯一标识 */
@@ -1779,6 +1997,32 @@ export interface UserLoginHistoryVO {
   userAgent?: string;
   /** 登录时间 */
   createdAt?: string;
+}
+
+/**
+ * 用户偏好 VO
+ *
+ * 供 `GET /api/user/preferences` 与 `POST /api/user/preferences/reset`
+ * 返回，字段与 com.njydsz.userinfo.domain.dto.UserPreferenceDTO 对齐。
+ * 重置场景返回全默认值的空 VO（前端按缺省字段回退本地默认）。
+ */
+export interface UserPreferenceVO {
+  /** 默认首页路径 */
+  defaultIndex?: string;
+  /** 语言设置（如 zh-CN / en-US） */
+  language?: string;
+  /** 主题模式（light / dark / auto） */
+  theme?: string;
+  /** 主题色 */
+  themeColor?: string;
+  /** 菜单布局 */
+  menuLayout?: string;
+  /** 菜单手风琴 */
+  accordionMenu?: boolean;
+  /** 表格密度 */
+  tableSize?: string;
+  /** 字体大小 */
+  fontSize?: string;
 }
 
 /**
@@ -1859,6 +2103,11 @@ export interface SearchHit {
 
 /**
  * 搜索聚合/分面结果
+ *
+ * 封装搜索引擎返回的聚合数据，用于前端分面导航（Faceted Search）。
+ * 每个聚合对象对应一个 `field`，包含多个 Bucket（桶），
+ * 每个桶表示一个分面值及其命中数（doc count）。
+ * 典型用途：商品搜索的分类筛选、标签汇总、价格区间分布等。
  */
 export interface SearchAggregation {
   serialVersionUID?: number;
