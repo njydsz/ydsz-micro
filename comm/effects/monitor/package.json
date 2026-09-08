@@ -17,7 +17,6 @@
     "@ydsz-core/shared": "workspace:*",
     "@ydsz/hooks": "workspace:*",
     "@ydsz/preferences": "workspace:*",
-    "@ydsz/request": "workspace:*",
     "vue": "catalog:"
   },
   "license": "MIT",

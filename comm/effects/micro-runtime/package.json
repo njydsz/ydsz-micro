@@ -35,7 +35,6 @@
   "dependencies": {
     "@ydsz-core/shared": "workspace:*",
     "@ydsz/constants": "workspace:*",
-    "@ydsz/shared-auth": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "vue": "catalog:"
   },
