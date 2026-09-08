@@ -2,10 +2,10 @@
  * 运维监控面板
  *
  * <p>展示网关流量、服务健康、断路器状态、缓存命中率等核心指标。
- * 数据源：后端 Prometheus / Actuator /metrics（Micrometer 格式）。
+ * 数据源：后端 Prometheus / Micrometer 指标聚合端点（规划中，当前 mock 兜底）。
  *
- * <p><b>对接方式：</b>后端暴露 {@code /actuator/prometheus} 端点，
- * Nginx 代理到 {@code /api/metrics}，前端请求该端点解析关键指标。
+ * <p><b>对接方式：</b>后端暴露 {@code /api/monitor/overview} 等结构化指标端点，
+ * Nginx 代理到 {@code /api/monitor/**}；端点未上线时自动返回 mock 数据。
  *
  * @path apps/system-web/src/views/monitor/index.vue
  * @author ydsz-team
@@ -23,122 +23,124 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import { ElCard, ElProgress, ElTag, ElTimeline, ElTimelineItem, ElButton } from 'element-plus';
 
-/** 服务健康项 */
-interface ServiceHealth {
-  name: string;
-  status: 'UP' | 'DOWN' | 'DEGRADED';
-  uptime: string;
-  version: string;
-}
+import { createLogger } from '@YDSZ-core/shared/utils';
 
-/** 断路器状态 */
-interface CircuitBreakerState {
-  name: string;
-  state: 'CLOSED' | 'OPEN' | 'HALF_OPEN';
-  failureRate: number;
-  slowCallRate: number;
-}
+import {
+  loadMonitorCacheMetrics,
+  loadMonitorCircuitBreakers,
+  loadMonitorOverview,
+  loadMonitorServices,
+} from '#/api/monitor';
+import type {
+  CacheMetricsVO,
+  CircuitBreakerStateVO,
+  MonitorOverviewVO,
+  ServiceHealthVO,
+} from '#/api/monitor-types';
 
-/** 缓存指标 */
-interface CacheMetrics {
-  name: string;
-  hitRate: number;
-  size: number;
-  evictions: number;
-}
+/** 模块级日志器 */
+const logger = createLogger('system-monitor');
 
+/** 加载状态 */
 const loading = ref(false);
-const services = ref<ServiceHealth[]>([]);
-const circuitBreakers = ref<CircuitBreakerState[]>([]);
-const cacheMetrics = ref<CacheMetrics[]>([]);
+
+/** 服务健康列表 */
+const services = ref<ServiceHealthVO[]>([]);
+
+/** 断路器状态列表 */
+const circuitBreakers = ref<CircuitBreakerStateVO[]>([]);
+
+/** 缓存指标列表 */
+const cacheMetrics = ref<CacheMetricsVO[]>([]);
+
+/** 监控概览 */
+const overview = ref<MonitorOverviewVO>({
+  gatewayQps: 0,
+  gatewayAvgLatencyMs: 0,
+  gatewayP99LatencyMs: 0,
+  healthRatio: 0,
+  cacheAvgHitRate: 0,
+});
 
 /** SkyWalking UI 链接（优先取环境变量，默认 localhost:8080） */
 const skywalkingUiUrl = ref<string>(import.meta.env?.VITE_SKYWALKING_UI_URL || 'http://localhost:8080');
 
-/** 网关流量 QPS（当前为 mock 数据，对接 Prometheus 后替换） */
-const gatewayQps = ref(0);
-const gatewayAvgLatency = ref(0);
-
 /**
- * 加载监控数据
+ * 加载全部监控数据
  *
- * <p>实际部署时替换为真实 Prometheus API 调用：
- * {@code requestClient.get('/api/metrics/gateway')}，返回结构化指标。
+ * <p>并行请求概览/服务/断路器/缓存四类指标。
+ * 当后端端点不可用时，API 客户端自动返回结构化 mock 数据（字段与真实指标一一对应）。
  */
-async function loadMetrics() {
+async function loadMetrics(): Promise<void> {
   loading.value = true;
   try {
-    // TODO: 对接真实 Prometheus/Actuator 端点后替换为 requestClient.get('/api/metrics/gateway')
-    // 当前展示结构化的 mock 数据（字段含义与后端 Micrometer 指标一一对应）
-    services.value = [
-      { name: 'API Gateway', status: 'UP', uptime: '15d 3h 22m', version: '26.09.01' },
-      { name: '系统服务 (System)', status: 'UP', uptime: '12d 8h 11m', version: '26.09.01' },
-      { name: '用户服务 (UserInfo)', status: 'UP', uptime: '15d 3h 20m', version: '26.09.01' },
-      { name: '工作流服务 (Workflow)', status: 'UP', uptime: '10d 1h 05m', version: '26.09.01' },
-      { name: '消息服务 (Message)', status: 'DEGRADED', uptime: '8d 12h 44m', version: '26.09.01' },
-      { name: '调度服务 (Cronjob)', status: 'UP', uptime: '15d 3h 18m', version: '26.09.01' },
-      { name: '规则引擎 (Literule)', status: 'UP', uptime: '7d 6h 30m', version: '26.09.01' },
-      { name: '知识库 (NextWiki)', status: 'UP', uptime: '5d 9h 50m', version: '26.09.01' },
-      { name: 'AI Agent', status: 'DOWN', uptime: '-', version: '26.09.01' },
-    ];
-
-    circuitBreakers.value = [
-      { name: 'feign.UserInfoClient', state: 'CLOSED', failureRate: 0.02, slowCallRate: 0.05 },
-      { name: 'feign.WorkflowClient', state: 'CLOSED', failureRate: 0.01, slowCallRate: 0.12 },
-      { name: 'feign.MessageClient', state: 'HALF_OPEN', failureRate: 0.35, slowCallRate: 0.08 },
-      { name: 'redis.CacheCircuitBreaker', state: 'CLOSED', failureRate: 0.0, slowCallRate: 0.01 },
-    ];
-
-    cacheMetrics.value = [
-      { name: '本地缓存 (W-TinyLFU)', hitRate: 94.2, size: 18432, evictions: 1205 },
-      { name: 'Redis 缓存', hitRate: 87.5, size: 524288, evictions: 8921 },
-      { name: '字典缓存', hitRate: 99.1, size: 1024, evictions: 0 },
-    ];
-
-    gatewayQps.value = 1247;
-    gatewayAvgLatency.value = 23;
+    const [overviewData, serviceData, breakerData, cacheData] = await Promise.all([
+      loadMonitorOverview(),
+      loadMonitorServices(),
+      loadMonitorCircuitBreakers(),
+      loadMonitorCacheMetrics(),
+    ]);
+    overview.value = overviewData;
+    services.value = serviceData;
+    circuitBreakers.value = breakerData;
+    cacheMetrics.value = cacheData;
+  } catch (error) {
+    // API 客户端内部已做兜底；此处仅记录极端异常（如全部端点不可用）
+    logger.error('[Monitor] 加载监控数据失败: {}', error);
   } finally {
     loading.value = false;
   }
 }
 
+/** 自动刷新定时器 */
 let timer: ReturnType<typeof setInterval> | undefined;
 
 onMounted(() => {
-  loadMetrics();
-  timer = setInterval(loadMetrics, 30000);
+  void loadMetrics();
+  timer = setInterval(() => {
+    void loadMetrics();
+  }, 30_000);
 });
 
 onUnmounted(() => {
   if (timer) clearInterval(timer);
 });
 
-/** 状态标签类型 */
-const statusTagType = (status: string) => {
+/**
+ * 状态标签类型
+ *
+ * @param status - 服务状态字符串
+ * @returns Element Plus Tag 类型
+ */
+function statusTagType(status: string): 'success' | 'warning' | 'danger' | 'info' {
   switch (status) {
     case 'UP': return 'success';
     case 'DEGRADED': return 'warning';
     case 'DOWN': return 'danger';
     default: return 'info';
   }
-};
+}
 
-/** 断路器状态颜色 */
-const circuitBreakerColor = (state: string) => {
+/**
+ * 断路器状态颜色
+ *
+ * @param state - 断路器状态字符串
+ * @returns 十六进制颜色值
+ */
+function circuitBreakerColor(state: string): string {
   switch (state) {
     case 'CLOSED': return '#67C236';
     case 'HALF_OPEN': return '#E6A23C';
     case 'OPEN': return '#F56C6C';
     default: return '#909399';
   }
-};
+}
 
-/** 健康服务比例 */
-const healthRatio = computed(() => {
-  if (services.value.length === 0) return 0;
-  const healthy = services.value.filter((s) => s.status === 'UP').length;
-  return Math.round((healthy / services.value.length) * 100);
-});
+/** 健康服务比例（从概览数据直接取，与后台 Micrometer 健康检查同步） */
+const healthRatio = computed(() => overview.value.healthRatio);
+
+/** 缓存平均命中率（从概览数据直接取） */
+const avgHitRate = computed(() => overview.value.cacheAvgHitRate);
 </script>
 
 <template>
@@ -148,15 +150,15 @@ const healthRatio = computed(() => {
       <ElCard shadow="hover">
         <div class="metric-card">
           <div class="text-sm text-gray-500">网关 QPS</div>
-          <div class="text-2xl font-bold mt-1">{{ gatewayQps.toLocaleString() }}</div>
+          <div class="text-2xl font-bold mt-1">{{ overview.gatewayQps.toLocaleString() }}</div>
           <div class="text-xs text-gray-400 mt-1">请求 / 秒</div>
         </div>
       </ElCard>
       <ElCard shadow="hover">
         <div class="metric-card">
           <div class="text-sm text-gray-500">平均延迟</div>
-          <div class="text-2xl font-bold mt-1">{{ gatewayAvgLatency }}ms</div>
-          <div class="text-xs text-gray-400 mt-1">P99: 87ms</div>
+          <div class="text-2xl font-bold mt-1">{{ overview.gatewayAvgLatencyMs }}ms</div>
+          <div class="text-xs text-gray-400 mt-1">P99: {{ overview.gatewayP99LatencyMs }}ms</div>
         </div>
       </ElCard>
       <ElCard shadow="hover">
@@ -172,9 +174,7 @@ const healthRatio = computed(() => {
       <ElCard shadow="hover">
         <div class="metric-card">
           <div class="text-sm text-gray-500">缓存平均命中率</div>
-          <div class="text-2xl font-bold mt-1">
-            {{ (cacheMetrics.length ? cacheMetrics.reduce((s, m) => s + m.hitRate, 0) / cacheMetrics.length).toFixed(1) }}%
-          </div>
+          <div class="text-2xl font-bold mt-1">{{ avgHitRate.toFixed(1) }}%</div>
           <div class="text-xs text-gray-400 mt-1">{{ cacheMetrics.length }} 个缓存池</div>
         </div>
       </ElCard>
