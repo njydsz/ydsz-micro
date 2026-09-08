@@ -457,6 +457,9 @@ importers:
       '@ydsz/tailwind-config':
         specifier: workspace:*
         version: link:conf/tailwind-config
+      '@ydsz/tsconfig':
+        specifier: workspace:*
+        version: link:conf/tsconfig
       '@ydsz/turbo-run':
         specifier: workspace:*
         version: link:bash/turbo-run

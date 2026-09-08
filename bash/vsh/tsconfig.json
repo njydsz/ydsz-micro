@@ -1,6 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@ydsz/tsconfig/node.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "verbatimModuleSyntax": false
+  },
   "include": ["src"],
   "exclude": ["node_modules"]
 }

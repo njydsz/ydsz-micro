@@ -97,6 +97,7 @@
     "@ydsz/stylelint-config": "workspace:*",
     "@ydsz/tailwind-config": "workspace:*",
     "@ydsz/turbo-run": "workspace:*",
+    "@ydsz/tsconfig": "workspace:*",
     "@ydsz/vite-config": "workspace:*",
     "autoprefixer": "catalog:",
     "cross-env": "catalog:",
