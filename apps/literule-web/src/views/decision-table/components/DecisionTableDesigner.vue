@@ -381,7 +381,7 @@ defineExpose({ open, close });
             <!-- 动作列 -->
             <ElTableColumn
               v-for="(col, colIndex) in actionColumns"
-              :key="`act_${col.colCode as string`}"
+              :key="`act_${col.colCode as string}`"
               min-width="150"
             >
               <template #header>

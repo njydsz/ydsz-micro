@@ -21,6 +21,11 @@ import { evaluate } from '#/api/prompt';
 
 defineOptions({ name: 'PromptTest' });
 
+/** 模板变量占位符前缀 */
+const prefix = '{{';
+/** 模板变量占位符后缀 */
+const suffix = '}}';
+
 /** 测试中的模板 */
 interface TestTemplate {
   id: string;
@@ -99,7 +104,7 @@ defineExpose({ open, close });
       <div>
         <p class="mb-2 text-sm font-medium">变量填写</p>
         <div v-for="(value, key) in variableValues" :key="key" class="mb-2 flex items-center gap-2">
-          <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{ '{{' }}{{ key }}{{ '}}' }}</span>
+          <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{ `${prefix}${key}${suffix}` }}</span>
           <ElInput v-model="variableValues[key]" size="small" placeholder="输入变量值" />
         </div>
         <p v-if="Object.keys(variableValues).length === 0" class="text-xs text-gray-400">该模板没有变量</p>

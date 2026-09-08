@@ -77,7 +77,7 @@ import {
     const renderRouteView = ref(true);
     /** 当前已打开的标签页列表 */
     const tabs = ref<TabDefinition[]>([]);
-    "updateTime": "触发 watchers 重新执行的时间戳（替代 deep watch 的性能敏感场景）",
+    /** 触发 watchers 重新执行的时间戳（替代 deep watch 的性能敏感场景） */
     const updateTime = ref(Date.now());
 
     /** 固定标签页（按 affixTabOrder 排序） */

@@ -8,16 +8,15 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup>
+<script lang="ts">
 /**
- * Diff 预览组件。
+ * Diff 预览组件 — 公共导出。
  *
- * <p>纯 CSS 实现的 inline diff 查看器，不依赖第三方库。
+ * <p>提供 {@link DiffLine} 与 {@link diffLines} 供外部模块复用。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import { computed } from 'vue';
 
 // ══════ 类型定义 ══════
 
@@ -35,32 +34,7 @@ export interface DiffLine {
   content: string;
 }
 
-/**
- * 组件 Props。
- */
-interface Props {
-  /** 旧代码（可选，仅用于对比） */
-  oldCode?: string;
-  /** 新代码（必填） */
-  newCode: string;
-  /** 代码语言（默认 'typescript'） */
-  language?: string;
-  /** 是否 inline 对比（默认 false，使用左右分栏） */
-  showInline?: boolean;
-  /** 文件名（可选展示） */
-  fileName?: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  oldCode: '',
-  language: 'typescript',
-  showInline: false,
-  fileName: '',
-});
-
-defineOptions({ name: 'CodeDiffViewer' });
-
-// ══════ Diff 算法 ══════
+// ══════ 内部算法 ══════
 
 /**
  * 计算最长公共子序列（LCS）。
@@ -182,6 +156,43 @@ function hasFutureLCSMatch(lcs: boolean[][], row: number, col: number, rows: num
   }
   return false;
 }
+</script>
+
+<script lang="ts" setup>
+/**
+ * Diff 预览组件。
+ *
+ * <p>纯 CSS 实现的 inline diff 查看器，不依赖第三方库。
+ *
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+import { computed } from 'vue';
+
+/**
+ * 组件 Props。
+ */
+interface Props {
+  /** 旧代码（可选，仅用于对比） */
+  oldCode?: string;
+  /** 新代码（必填） */
+  newCode: string;
+  /** 代码语言（默认 'typescript'） */
+  language?: string;
+  /** 是否 inline 对比（默认 false，使用左右分栏） */
+  showInline?: boolean;
+  /** 文件名（可选展示） */
+  fileName?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  oldCode: '',
+  language: 'typescript',
+  showInline: false,
+  fileName: '',
+});
+
+defineOptions({ name: 'CodeDiffViewer' });
 
 // ══════ 计算属性 ══════
 
