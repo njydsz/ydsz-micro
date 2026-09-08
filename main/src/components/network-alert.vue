@@ -155,9 +155,9 @@ onUnmounted(() => {
 
 .retry,
 .close {
-  padding: 2px 10px;
+  padding: var(--space-tight) var(--space-inline);
   border: 1px solid currentcolor;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: transparent;
   cursor: pointer;
   color: inherit;
@@ -167,9 +167,9 @@ onUnmounted(() => {
 
 .close {
   border: none;
-  font-size: 18px;
+  font-size: var(--text-18);
   line-height: 1;
-  padding: 0 4px;
+  padding: 0 var(--space-tight);
 }
 
 .retry:hover,
