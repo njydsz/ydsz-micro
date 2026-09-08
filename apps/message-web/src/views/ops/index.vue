@@ -58,7 +58,7 @@ const bloomStats = ref<BloomFilterStatsVO>({});
 const evictDialogVisible = ref(false);
 
 /** 清理表单 */
-const evictForm = ref({ template: '});
+const evictForm = ref({ template: '' });
 
 /** 缓存命中率百分比 */
 const hitRatePercent = ref(0);

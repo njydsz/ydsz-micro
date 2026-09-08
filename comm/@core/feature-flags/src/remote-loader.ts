@@ -32,7 +32,7 @@
 import type { FeatureFlagValue } from './types';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { dedupRequest } from '@ydsz/request/request-client';
+import { dedupRequest } from '@ydsz/request';
 
 /** 远程 Feature Flag API 响应结构 */
 export interface FeatureFlagApiResponse {

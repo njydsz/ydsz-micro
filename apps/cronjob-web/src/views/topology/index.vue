@@ -6,6 +6,7 @@
  * @since 1.0.0
  */
 
+<script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
 import { ElCard, ElEmpty, ElInput, ElTabPane, ElTabs } from 'element-plus';
