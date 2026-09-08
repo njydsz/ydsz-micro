@@ -1,11 +1,9 @@
 <!--
  * 运维监控面板
  *
- * <p>展示网关流量、服务健康、断路器状态、缓存命中率等核心指标。
- * 数据源：后端 Prometheus / Micrometer 指标聚合端点（规划中，当前 mock 兜底）。
- *
- * <p><b>对接方式：</b>后端暴露 {@code /api/monitor/overview} 等结构化指标端点，
- * Nginx 代理到 {@code /api/monitor/**}；端点未上线时自动返回 mock 数据。
+ * <p>展示 Nacos 服务注册状态、Redis 缓存命中率、JVM 运行时内存等核心运维指标。
+ * 数据来源：后端 {@code GET /api/system/metrics/dashboard}（Nacos DiscoveryClient
+ * + Redis INFO + Environment 聚合），30s 自动刷新。
  *
  * @path apps/system-web/src/views/monitor/index.vue
  * @author ydsz-team
@@ -14,303 +12,367 @@
 <script lang="ts" setup>
 /**
  * 运维监控面板
- * <p>汇聚网关流量、服务健康、断路器、缓存命中率四类核心运维指标。
+ * <p>汇聚服务注册、Redis 缓存、JVM 运行时三大类运维指标。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { ElCard, ElProgress, ElTag, ElTimeline, ElTimelineItem, ElButton } from 'element-plus';
-
-import { createLogger } from '@YDSZ-core/shared/utils';
-
 import {
-  loadMonitorCacheMetrics,
-  loadMonitorCircuitBreakers,
-  loadMonitorOverview,
-  loadMonitorServices,
-} from '#/api/monitor';
-import type {
-  CacheMetricsVO,
-  CircuitBreakerStateVO,
-  MonitorOverviewVO,
-  ServiceHealthVO,
-} from '#/api/monitor-types';
+  ElButton,
+  ElCard,
+  ElEmpty,
+  ElProgress,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+} from 'element-plus';
 
-/** 模块级日志器 */
-const logger = createLogger('system-monitor');
+/** 服务注册信息项 */
+interface ServiceInstance {
+  serviceId: string;
+  status: string;
+  instanceCount: number;
+  host?: string;
+  port?: number;
+}
 
-/** 加载状态 */
+/** Redis 指标 */
+interface RedisMetrics {
+  totalCommands: number;
+  keyspaceHits: number;
+  keyspaceMisses: number;
+  hitRate: number;
+  available: boolean;
+  reason?: string;
+}
+
+/** JVM 内存指标 */
+interface MemoryMetrics {
+  usedMb: number;
+  totalMb: number;
+  maxMb: number;
+  usagePercent: number;
+}
+
+/** 运行时信息 */
+interface RuntimeInfo {
+  applicationName: string;
+  serverPort: string;
+  springBootVersion: string;
+  javaVersion: string;
+  javaVendor: string;
+  osName: string;
+  availableCores: number;
+  memory: MemoryMetrics;
+}
+
+/** 仪表盘聚合数据 */
+interface DashboardData {
+  services: ServiceInstance[];
+  redis: RedisMetrics | null;
+  runtime: RuntimeInfo;
+  summary: {
+    totalServices: number;
+    upServices: number;
+    downServices: number;
+  };
+  collectedAt: string;
+}
+
 const loading = ref(false);
+const loadError = ref<string | null>(null);
+const dashboardData = ref<DashboardData | null>(null);
 
-/** 服务健康列表 */
-const services = ref<ServiceHealthVO[]>([]);
-
-/** 断路器状态列表 */
-const circuitBreakers = ref<CircuitBreakerStateVO[]>([]);
-
-/** 缓存指标列表 */
-const cacheMetrics = ref<CacheMetricsVO[]>([]);
-
-/** 监控概览 */
-const overview = ref<MonitorOverviewVO>({
-  gatewayQps: 0,
-  gatewayAvgLatencyMs: 0,
-  gatewayP99LatencyMs: 0,
-  healthRatio: 0,
-  cacheAvgHitRate: 0,
-});
-
-/** SkyWalking UI 链接（优先取环境变量，默认 localhost:8080） */
-const skywalkingUiUrl = ref<string>(import.meta.env?.VITE_SKYWALKING_UI_URL || 'http://localhost:8080');
-
-/**
- * 加载全部监控数据
- *
- * <p>并行请求概览/服务/断路器/缓存四类指标。
- * 当后端端点不可用时，API 客户端自动返回结构化 mock 数据（字段与真实指标一一对应）。
- */
-async function loadMetrics(): Promise<void> {
+/** 加载运维仪表盘数据 */
+async function loadDashboard() {
   loading.value = true;
+  loadError.value = null;
   try {
-    const [overviewData, serviceData, breakerData, cacheData] = await Promise.all([
-      loadMonitorOverview(),
-      loadMonitorServices(),
-      loadMonitorCircuitBreakers(),
-      loadMonitorCacheMetrics(),
-    ]);
-    overview.value = overviewData;
-    services.value = serviceData;
-    circuitBreakers.value = breakerData;
-    cacheMetrics.value = cacheData;
+    const response = await fetch('/system/api/metrics/dashboard');
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    const result = await response.json();
+    if (result && result.code === 'A00000') {
+      dashboardData.value = result.data as DashboardData;
+    } else {
+      throw new Error(result?.msg || '数据加载失败');
+    }
   } catch (error) {
-    // API 客户端内部已做兜底；此处仅记录极端异常（如全部端点不可用）
-    logger.error('[Monitor] 加载监控数据失败: {}', error);
+    const msg = error instanceof Error ? error.message : '运维指标接口请求失败';
+    loadError.value = msg;
+    // 请求失败时降级展示空态（保留各卡片结构）
+    dashboardData.value = null;
   } finally {
     loading.value = false;
   }
 }
 
-/** 自动刷新定时器 */
 let timer: ReturnType<typeof setInterval> | undefined;
 
 onMounted(() => {
-  void loadMetrics();
-  timer = setInterval(() => {
-    void loadMetrics();
-  }, 30_000);
+  loadDashboard();
+  timer = setInterval(loadDashboard, 30000);
 });
 
 onUnmounted(() => {
-  if (timer) clearInterval(timer);
+  if (timer) {
+    clearInterval(timer);
+  }
 });
 
-/**
- * 状态标签类型
- *
- * @param status - 服务状态字符串
- * @returns Element Plus Tag 类型
- */
-function statusTagType(status: string): 'success' | 'warning' | 'danger' | 'info' {
+/** 服务列表（空态兜底） */
+const services = computed<ServiceInstance[]>(() => {
+  return dashboardData.value?.services ?? [];
+});
+
+/** 汇总计数 */
+const summary = computed(() => {
+  return dashboardData.value?.summary ?? { totalServices: 0, upServices: 0, downServices: 0 };
+});
+
+/** Redis 指标 */
+const redisMetrics = computed<RedisMetrics | null>(() => {
+  return dashboardData.value?.redis ?? null;
+});
+
+/** 运行时信息 */
+const runtimeInfo = computed<RuntimeInfo | null>(() => {
+  return dashboardData.value?.runtime ?? null;
+});
+
+/** 采集时间 */
+const collectedAt = computed<string>(() => {
+  return dashboardData.value?.collectedAt ?? '-';
+});
+
+/** 健康服务比例 */
+const healthRatio = computed(() => {
+  if (summary.value.totalServices === 0) return 0;
+  return Math.round((summary.value.upServices / summary.value.totalServices) * 100);
+});
+
+/** 状态标签类型 */
+const statusTagType = (status: string): 'success' | 'warning' | 'danger' | 'info' => {
   switch (status) {
     case 'UP': return 'success';
     case 'DEGRADED': return 'warning';
     case 'DOWN': return 'danger';
     default: return 'info';
   }
-}
+};
 
-/**
- * 断路器状态颜色
- *
- * @param state - 断路器状态字符串
- * @returns 十六进制颜色值
- */
-function circuitBreakerColor(state: string): string {
-  switch (state) {
-    case 'CLOSED': return '#67C236';
-    case 'HALF_OPEN': return '#E6A23C';
-    case 'OPEN': return '#F56C6C';
-    default: return '#909399';
-  }
-}
-
-/** 健康服务比例（从概览数据直接取，与后台 Micrometer 健康检查同步） */
-const healthRatio = computed(() => overview.value.healthRatio);
-
-/** 缓存平均命中率（从概览数据直接取） */
-const avgHitRate = computed(() => overview.value.cacheAvgHitRate);
+/** 大数字格式化（千位分隔符） */
+const formatNumber = (value: number | undefined): string => {
+  if (value == null) return '-';
+  return value.toLocaleString();
+};
 </script>
 
 <template>
   <div class="monitor-dashboard p-4 space-y-6">
-    <!-- 顶部关键指标 -->
+    <!-- 顶部关键指标卡片 -->
     <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
       <ElCard shadow="hover">
-        <div class="metric-card">
-          <div class="text-sm text-gray-500">网关 QPS</div>
-          <div class="text-2xl font-bold mt-1">{{ overview.gatewayQps.toLocaleString() }}</div>
-          <div class="text-xs text-gray-400 mt-1">请求 / 秒</div>
+        <div class="metric-card text-center p-2">
+          <div class="text-sm text-gray-500">注册服务数</div>
+          <div class="text-2xl font-bold mt-1">{{ summary.totalServices }}</div>
+          <div class="text-xs text-gray-400 mt-1">Nacos 实时</div>
         </div>
       </ElCard>
       <ElCard shadow="hover">
-        <div class="metric-card">
-          <div class="text-sm text-gray-500">平均延迟</div>
-          <div class="text-2xl font-bold mt-1">{{ overview.gatewayAvgLatencyMs }}ms</div>
-          <div class="text-xs text-gray-400 mt-1">P99: {{ overview.gatewayP99LatencyMs }}ms</div>
-        </div>
-      </ElCard>
-      <ElCard shadow="hover">
-        <div class="metric-card">
+        <div class="metric-card text-center p-2">
           <div class="text-sm text-gray-500">服务健康度</div>
           <ElProgress
             :percentage="healthRatio"
             :status="healthRatio >= 90 ? 'success' : healthRatio >= 70 ? 'warning' : 'exception'"
             class="mt-2"
           />
+          <div class="text-xs text-gray-400 mt-1">
+            {{ summary.upServices }}/{{ summary.totalServices }} 正常
+          </div>
         </div>
       </ElCard>
       <ElCard shadow="hover">
-        <div class="metric-card">
-          <div class="text-sm text-gray-500">缓存平均命中率</div>
-          <div class="text-2xl font-bold mt-1">{{ avgHitRate.toFixed(1) }}%</div>
-          <div class="text-xs text-gray-400 mt-1">{{ cacheMetrics.length }} 个缓存池</div>
-        </div>
-      </ElCard>
-    </div>
-
-    <!-- 服务健康 & 断路器 -->
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <ElCard>
-        <template #header>
-          <div class="flex items-center justify-between">
-            <span class="font-medium">服务健康状态</span>
-            <ElTag size="small" :type="healthRatio >= 90 ? 'success' : 'warning'">
-              {{ services.filter(s => s.status === 'UP').length }}/{{ services.length }} 正常
-            </ElTag>
-          </div>
-        </template>
-        <div class="space-y-2">
+        <div class="metric-card text-center p-2">
+          <div class="text-sm text-gray-500">Redis 命中率</div>
           <div
-            v-for="svc in services"
-            :key="svc.name"
-            class="flex items-center justify-between py-2 border-b border-dashed last:border-b-0"
+            v-if="redisMetrics?.available"
+            class="text-2xl font-bold mt-1"
+            style="color: #67c23a"
           >
-            <div class="flex items-center gap-2">
-              <ElTag :type="statusTagType(svc.status)" size="small">{{ svc.status }}</ElTag>
-              <span class="text-sm">{{ svc.name }}</span>
-            </div>
-            <div class="text-xs text-gray-400">运行 {{ svc.uptime }} | {{ svc.version }}</div>
+            {{ redisMetrics.hitRate }}%
+          </div>
+          <ElTag v-else type="info" size="small" class="mt-2">Redis 未装配</ElTag>
+          <div v-if="redisMetrics?.available" class="text-xs text-gray-400 mt-1">
+            {{ formatNumber(redisMetrics.keyspaceHits) }} 命中 /
+            {{ formatNumber(redisMetrics.keyspaceMisses) }} 未命中
           </div>
         </div>
       </ElCard>
-
-      <ElCard>
-        <template #header>
-          <div class="flex items-center justify-between">
-            <span class="font-medium">断路器状态</span>
-            <ElTag
-              v-if="circuitBreakers.some(cb => cb.state === 'OPEN')"
-              type="danger"
-              size="small"
-            >
-              {{ circuitBreakers.filter(cb => cb.state === 'OPEN').length }} 个断开
-            </ElTag>
+      <ElCard shadow="hover">
+        <div class="metric-card text-center p-2">
+          <div class="text-sm text-gray-500">JVM 内存使用</div>
+          <ElProgress
+            v-if="runtimeInfo"
+            :percentage="Math.round(memory.usagePercent)"
+            :status="memory.usagePercent >= 80 ? 'warning' : 'success'"
+            class="mt-2"
+          />
+          <div v-if="runtimeInfo" class="text-xs text-gray-400 mt-1">
+            {{ memory.usedMb }}MB / {{ memory.maxMb }}MB
           </div>
-        </template>
-        <ElTimeline>
-          <ElTimelineItem
-            v-for="cb in circuitBreakers"
-            :key="cb.name"
-            :color="circuitBreakerColor(cb.state)"
-          >
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium">{{ cb.name }}</span>
-              <ElTag size="small">{{ cb.state }}</ElTag>
-            </div>
-            <div class="text-xs text-gray-400 mt-1">
-              失败率 {{ (cb.failureRate * 100).toFixed(1) }}% | 慢调用 {{ (cb.slowCallRate * 100).toFixed(1) }}%
-            </div>
-          </ElTimelineItem>
-        </ElTimeline>
+          <el-tag v-else type="info" size="small" class="mt-2">-</el-tag>
+        </div>
       </ElCard>
     </div>
 
-    <!-- 链路追踪入口 -->
-    <ElCard>
-      <template #header>
-        <div class="flex items-center justify-between">
-          <span class="font-medium">链路追踪</span>
-          <ElTag size="small" type="info">SkyWalking</ElTag>
-        </div>
-      </template>
-      <div class="space-y-3">
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm text-gray-500">SkyWalking UI</div>
-            <div class="text-lg font-medium mt-1">{{ skywalkingUiUrl }}</div>
-            <div class="text-xs text-gray-400 mt-1">查看拓扑 / 调用链 / 日志关联</div>
-          </div>
-          <div class="flex gap-2">
-            <ElButton
-              type="primary"
+    <!-- 服务健康 + 运行时信息 -->
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <!-- 服务注册表 -->
+      <ElCard>
+        <template #header>
+          <div class="flex items-center justify-between">
+            <span class="font-medium">服务注册状态</span>
+            <ElTag
+              v-if="services.length > 0"
               size="small"
-              tag="a"
-              :href="skywalkingUiUrl"
-              target="_blank"
-              rel="noopener noreferrer"
+              :type="summary.downServices === 0 ? 'success' : 'warning'"
             >
-              打开 SkyWalking
-            </ElButton>
-            <ElButton
-              size="small"
-              tag="a"
-              :href="`${skywalkingUiUrl}/trace`"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              链路列表
-            </ElButton>
+              {{ summary.upServices }}/{{ summary.totalServices }} 正常
+            </ElTag>
           </div>
-        </div>
-        <div class="text-xs text-gray-400 bg-gray-50 dark:bg-gray-800 rounded p-2 font-mono break-all">
-          配置：VITE_SKYWALKING_UI_URL={{ skywalkingUiUrl }}
-        </div>
-      </div>
-    </ElCard>
+        </template>
+        <ElTable
+          v-if="services.length > 0"
+          :data="services"
+          size="small"
+          stripe
+          max-height="400"
+        >
+          <ElTableColumn prop="serviceId" label="服务 ID" min-width="180" />
+          <ElTableColumn label="状态" width="90">
+            <template #default="{ row }">
+              <ElTag :type="statusTagType(row.status)" size="small">{{ row.status }}</ElTag>
+            </template>
+          </ElTableColumn>
+          <ElTableColumn prop="instanceCount" label="实例数" width="80" />
+          <ElTableColumn label="地址" min-width="160">
+            <template #default="{ row }">
+              <span class="text-xs font-mono">
+                {{ row.host ?? '-' }}:{{ row.port ?? '-' }}
+              </span>
+            </template>
+          </ElTableColumn>
+        </ElTable>
+        <ElEmpty
+          v-else-if="!loading && loadError"
+          :description="'加载失败：' + loadError"
+        />
+        <ElEmpty v-else-if="!loading" description="暂无注册服务数据" />
+      </ElCard>
 
-    <!-- 缓存指标 -->
-    <ElCard>
+      <!-- JVM 运行时信息 -->
+      <ElCard>
+        <template #header>
+          <span class="font-medium">运行时信息</span>
+        </template>
+        <div v-if="runtimeInfo" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <div>
+              <span class="text-gray-500">应用名：</span>
+              <span>{{ runtimeInfo.applicationName }}</span>
+            </div>
+            <div>
+              <span class="text-gray-500">端口：</span>
+              <span>{{ runtimeInfo.serverPort }}</span>
+            </div>
+            <div>
+              <span class="text-gray-500">Spring Boot：</span>
+              <span>{{ runtimeInfo.springBootVersion }}</span>
+            </div>
+            <div>
+              <span class="text-gray-500">Java 版本：</span>
+              <span>{{ runtimeInfo.javaVersion }}</span>
+            </div>
+            <div>
+              <span class="text-gray-500">Java 厂商：</span>
+              <span>{{ runtimeInfo.javaVendor }}</span>
+            </div>
+            <div>
+              <span class="text-gray-500">操作系统：</span>
+              <span>{{ runtimeInfo.osName }}</span>
+            </div>
+            <div>
+              <span class="text-gray-500">可用核心：</span>
+              <span>{{ runtimeInfo.availableCores }} 核</span>
+            </div>
+          </div>
+          <!-- JVM 内存详情 -->
+          <div class="border-t pt-3">
+            <div class="text-xs text-gray-500 mb-2">JVM 堆内存</div>
+            <div class="text-sm">
+              <div class="flex justify-between mb-1">
+                <span>已用 {{ memory.usedMb }}MB / 提交 {{ memory.totalMb }}MB</span>
+                <span class="text-gray-500">最大 {{ memory.maxMb }}MB</span>
+              </div>
+              <ElProgress
+                :percentage="Math.round(memory.usagePercent)"
+                :stroke-width="10"
+                :status="memory.usagePercent >= 80 ? 'warning' : 'success'"
+              />
+            </div>
+          </div>
+        </div>
+        <ElEmpty v-else description="运行时信息加载中..." />
+      </ElCard>
+    </div>
+
+    <!-- Redis 指标详情（仅当 Redis 可用时展示） -->
+    <ElCard v-if="redisMetrics?.available">
       <template #header>
-        <span class="font-medium">缓存指标</span>
+        <span class="font-medium">Redis 缓存指标</span>
       </template>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div v-for="cache in cacheMetrics" :key="cache.name" class="cache-metric">
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-sm">{{ cache.name }}</span>
-            <span class="text-xl font-bold" style="color: #67c23a">{{ cache.hitRate }}%</span>
+        <div class="cache-metric p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+          <div class="text-sm text-gray-500">总命令数</div>
+          <div class="text-xl font-bold mt-1">{{ formatNumber(redisMetrics.totalCommands) }}</div>
+          <div class="text-xs mt-1">total_commands_processed</div>
+        </div>
+        <div class="cache-metric p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+          <div class="text-sm text-gray-500">命中次数</div>
+          <div class="text-xl font-bold mt-1" style="color: #67c23a">
+            {{ formatNumber(redisMetrics.keyspaceHits) }}
           </div>
-          <ElProgress
-            :percentage="Math.round(cache.hitRate)"
-            :stroke-width="8"
-            :status="cache.hitRate >= 90 ? 'success' : 'warning'"
-          />
-          <div class="text-xs text-gray-400 mt-1">
-            条目 {{ cache.size.toLocaleString() }} | 淘汰 {{ cache.evictions.toLocaleString() }}
+          <div class="text-xs mt-1">keyspace_hits</div>
+        </div>
+        <div class="cache-metric p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+          <div class="text-sm text-gray-500">未命中数</div>
+          <div class="text-xl font-bold mt-1" style="color: #f56c6c">
+            {{ formatNumber(redisMetrics.keyspaceMisses) }}
           </div>
+          <div class="text-xs mt-1">keyspace_misses</div>
         </div>
       </div>
     </ElCard>
+
+    <!-- 底部：采集时间 & 操作 -->
+    <div class="flex items-center justify-between text-xs text-gray-400 px-1">
+      <div>
+        最后采集时间：<span class="font-mono">{{ collectedAt }}</span>
+        <span class="ml-2">|</span>
+        <span class="ml-2">每 30s 自动刷新</span>
+      </div>
+      <ElButton size="small" :loading="loading" @click="loadDashboard">
+        手动刷新
+      </ElButton>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.metric-card {
-  text-align: center;
-  padding: 8px 0;
-}
-
 .cache-metric {
   padding: 12px;
   border-radius: 6px;
