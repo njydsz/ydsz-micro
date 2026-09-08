@@ -21,7 +21,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 
 const logger = createLogger('workflow-template');

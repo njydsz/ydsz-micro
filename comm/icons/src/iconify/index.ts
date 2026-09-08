@@ -1,13 +1,13 @@
-/**
+﻿/**
  * Iconify 图标快捷导出 — 声明 MDI/RDI 常用的第三方品牌或功能图标组件。
  *
  * @path comm\icons\src\iconify\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */
-import { createIconifyIcon } from '@YDSZ-core/icons';
+import { createIconifyIcon } from '@ydsz-core/icons';
 
-export * from '@YDSZ-core/icons';
+export * from '@ydsz-core/icons';
 
 /** 键盘 Esc 键图标（mdi:keyboard-esc） */
 export const MdiKeyboardEsc = createIconifyIcon('mdi:keyboard-esc');

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * search-panel 布局组件
  *
  * @path comm\effects\layouts\src\widgets\global-search\search-panel.vue
@@ -15,8 +15,8 @@ import { SearchX, X } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 import { mapTree, traverseTreeValues, uniqueByField } from '@ydsz/utils';
 
-import { YDSZIcon, YDSZScrollbar } from '@YDSZ-core/shadcn-ui';
-import { isHttpUrl } from '@YDSZ-core/shared/utils';
+import { YDSZIcon, YDSZScrollbar } from '@ydsz-core/shadcn-ui';
+import { isHttpUrl } from '@ydsz-core/shared/utils';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
 

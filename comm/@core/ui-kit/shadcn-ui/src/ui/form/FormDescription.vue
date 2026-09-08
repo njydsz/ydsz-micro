@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 字段说明文字：渲染为 p 并带上由 useFormField 生成的 formDescriptionId。
  *
  * 这个 id 是 aria-describedby 的拼图之一，组件本身不负责关联，
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { useFormField } from './useFormField';
 

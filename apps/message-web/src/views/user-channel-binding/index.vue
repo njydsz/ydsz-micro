@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 渠道绑定管理页面
  *
  * <p>管理用户-通知渠道绑定关系，支持查看当前用户的渠道绑定列表、新增绑定、删除绑定。
@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { ElButton, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 

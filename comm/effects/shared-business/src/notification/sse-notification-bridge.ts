@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SSE 通知多路复用桥接器 —— 将后端多类型 SSE 事件分派到通知 store。
  *
  * <p>演进说明：
@@ -33,7 +33,7 @@ import {
 } from '@YDSZ/shared-auth/sse';
 import { useTokenStore } from '@ydsz/stores';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   useNotificationStore,

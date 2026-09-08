@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 运维缓存管理页面
  *
  * <p>管理消息模板缓存和 BloomFilter，展示缓存命中率、填充率等运维指标，
@@ -20,7 +20,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElCard,

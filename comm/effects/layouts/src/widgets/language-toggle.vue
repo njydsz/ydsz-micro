@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * language-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\language-toggle.vue
@@ -13,7 +13,7 @@ import { Languages } from '@ydsz/icons';
 import { loadLocaleMessages } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 
-import { YDSZDropdownRadioMenu, YDSZIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZDropdownRadioMenu, YDSZIconButton } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'LanguageToggle',

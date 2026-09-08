@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 内容区的全屏/退出全屏切换按钮，图标在 Fullscreen 与 Minimize2 之间切换。
  *
  * 只负责切换布尔状态，真正的全屏动作（requestFullscreen 或布局调整）由父级执行 ——
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Fullscreen, Minimize2 } from '@YDSZ-core/icons';
+import { Fullscreen, Minimize2 } from '@ydsz-core/icons';
 
 const screen = defineModel<boolean>('screen');
 

@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 export type * from './user';
-export type * from '@YDSZ-core/typings';
+export type * from '@ydsz-core/typings';
 
 // P0-1: 后端 API 类型全量对齐
 export type * from './api-response';

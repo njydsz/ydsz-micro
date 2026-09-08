@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则定义编辑表单组件
  *
  * @path apps\literule-web\src\views\rule\rule-form.vue
@@ -15,7 +15,7 @@
  */
 import type { RuleDefinitionVO } from '#/api/models';
 import { useYDSZModal } from '@ydsz/common-ui';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

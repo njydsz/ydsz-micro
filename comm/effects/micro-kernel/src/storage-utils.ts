@@ -1,4 +1,4 @@
-/**
+﻿/**
  * storage-utils.ts — localStorage 统一抽象层
  *
  * P0-4: 解决当前 localStorage 使用碎片化问题：
@@ -22,7 +22,7 @@
  * @since 4.2.0
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('storage-utils');
 
 /**

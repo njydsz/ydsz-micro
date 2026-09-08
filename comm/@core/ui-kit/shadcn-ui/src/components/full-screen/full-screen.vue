@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 全屏切换按钮：请求进入 / 退出浏览器全屏，并在图标上反映当前状态。
  *
  * 挂载时会重新读取一次全屏状态（含 webkit / moz / ms 前缀）：通过 F11 等方式
@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Maximize, Minimize } from '@YDSZ-core/icons';
+import { Maximize, Minimize } from '@ydsz-core/icons';
 
 import { useFullscreen } from '@vueuse/core';
 

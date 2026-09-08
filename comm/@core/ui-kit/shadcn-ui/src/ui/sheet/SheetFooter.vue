@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 抽屉底部的操作区：按钮右对齐，窄屏时反向竖排。
  *
  * flex-row + flex-col-reverse 的组合让「次要 / 主要」按 DOM 顺序书写、
@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 const props = defineProps<{ class?: any }>();
 </script>

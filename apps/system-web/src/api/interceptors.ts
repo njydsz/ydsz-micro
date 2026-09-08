@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 系统管理 Web 子应用 —— 请求 / 响应拦截器扩展
  *
  * <p>响应错误拦截器职责：捕获 SECONDARY_AUTH_REQUIRED 业务错误码时，
@@ -17,7 +17,7 @@ import { isBusinessError, requestClient } from '@ydsz/request';
 import axios from 'axios';
 import type { AxiosError, AxiosResponse } from 'axios';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { secondaryAuthApi } from './secondary-auth';
 import { openSecondaryAuthModal } from '#/composables/useSecondaryAuth';

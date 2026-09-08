@@ -24,7 +24,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, done, todo } from '#/api/flowTask';
 import type { FlowRunTaskVO } from '#/api/models';
 import { $t } from '#/locales';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import TaskForm from './task-form.vue';
 
 const logger = createLogger('workflow-task');

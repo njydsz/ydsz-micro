@@ -24,7 +24,7 @@ import {
   notifyCrossTab,
 } from '@ydsz/shared-auth';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useAuthStore } from '#/store/auth';
 

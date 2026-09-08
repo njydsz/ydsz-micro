@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 把「内容」这一概念收敛成统一入口：content 同时接受组件、渲染函数与普通字符串，
  * 让上层（表格列、菜单项、提示文案）不必各自判断类型再分支渲染。
  *
@@ -15,7 +15,7 @@ import type { Component } from 'vue';
 
 import { h } from 'vue';
 
-import { isFunction, isObject, isString } from '@YDSZ-core/shared/utils';
+import { isFunction, isObject, isString } from '@ydsz-core/shared/utils';
 
 defineOptions({
   name: 'RenderContent',

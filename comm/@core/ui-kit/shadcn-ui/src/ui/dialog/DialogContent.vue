@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * DialogContent Vue 组件 - 现代化弹窗样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\DialogContent.vue
@@ -8,11 +8,11 @@
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from "radix-vue";
 
-import type { ClassType } from "@YDSZ-core/typings";
+import type { ClassType } from "@ydsz-core/typings";
 
 import { computed, ref } from "vue";
 
-import { cn } from "@YDSZ-core/shared/utils";
+import { cn } from "@ydsz-core/shared/utils";
 
 import { X } from "lucide-vue-next";
 import {

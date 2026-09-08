@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 标签栏溢出时的「更多」下拉入口。
  *
  * modal 固定传 false：菜单打开时若加遮罩，会挡住标签栏本身，
@@ -9,10 +9,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { DropdownMenuProps } from '@YDSZ-core/shadcn-ui';
+import type { DropdownMenuProps } from '@ydsz-core/shadcn-ui';
 
-import { ChevronDown } from '@YDSZ-core/icons';
-import { YDSZDropdownMenu } from '@YDSZ-core/shadcn-ui';
+import { ChevronDown } from '@ydsz-core/icons';
+import { YDSZDropdownMenu } from '@ydsz-core/shadcn-ui';
 
 defineProps<DropdownMenuProps>();
 </script>

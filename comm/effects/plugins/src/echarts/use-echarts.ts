@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ECharts 图表的响应式渲染与自适应组合式函数。
  *
  * 封装 echarts 实例的创建、主题切换、尺寸自适应与渲染重试逻辑，
@@ -30,7 +30,7 @@ import {
 
 import echarts from './echarts';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-echarts');
 type EchartsUIType = typeof EchartsUI | undefined;
 

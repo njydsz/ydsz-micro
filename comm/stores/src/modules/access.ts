@@ -12,7 +12,7 @@
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import type { MenuRecordRaw } from '@YDSZ-core/typings';
+import type { MenuRecordRaw } from '@ydsz-core/typings';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { ref } from 'vue';

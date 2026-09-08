@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 偏好设置类型契约定义，覆盖应用外观、交互、快捷键等全部配置项。
  *
  * @path comm\@core\preferences\src\types.ts
@@ -21,7 +21,7 @@ import type {
   PreferencesButtonPositionType,
   TabsStyleType,
   ThemeModeType,
-} from '@YDSZ-core/typings';
+} from '@ydsz-core/typings';
 import type { SupportedLanguagesType } from '@ydsz/locales';
 
 interface AppPreferences {

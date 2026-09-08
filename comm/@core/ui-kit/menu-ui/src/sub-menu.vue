@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 递归菜单树的节点：有子节点时渲染为子菜单，否则渲染为菜单项。
  *
  * 用 Reflect.has 加长度判断来识别子节点，而不是仅判空数组 ——
@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@YDSZ-core/typings';
+import type { MenuRecordRaw } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 

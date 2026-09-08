@@ -35,7 +35,7 @@ import {
 } from 'element-plus';
 import { computed, ref } from 'vue';
 import { runSimulation } from '#/api/flowSimulation';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('workflow-simulation');
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 可拖拽分栏的容器：转发 radix SplitterGroup 的 props 与 emits。
  *
  * 方向由 data-panel-group-direction 决定（横排 / 竖排），
@@ -16,7 +16,7 @@ import type { HTMLAttributes } from 'vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { SplitterGroup, useForwardPropsEmits } from 'radix-vue';
 

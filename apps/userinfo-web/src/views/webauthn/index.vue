@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * WebAuthn/Passkey 管理页面 — 用户端生物识别凭证管理
  *
  * @path apps\userinfo-web\src\views\webauthn\index.vue
@@ -36,7 +36,7 @@ import {
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { deleteCredential, listCredentials } from '#/api/webAuthn';
 import type { WebAuthnCredentialVO } from '#/api/models';

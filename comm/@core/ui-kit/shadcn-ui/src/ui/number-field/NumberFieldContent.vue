@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 数字输入框的定位容器：为绝对定位的增减按钮提供 relative 参照系，并按按钮存在与否调整输入框内边距。
  *
  * 内边距用 has-[[data-slot=decrement]] / has-[[data-slot=increment]] 选择器判定，
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 const props = defineProps<{
   class?: any;

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 对话框底部操作区：排布对话框的操作按钮。
  *
  * 窄屏下改为纵向反向排列（flex-col-reverse），让主操作位于最下方、更贴近拇指；
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

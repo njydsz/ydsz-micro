@@ -5,7 +5,7 @@
  * @description 检测项目中的循环依赖，确保模块依赖图无环。
  *              2026-08-24 重构：
  *                - 移除对 @typescript-eslint/typescript-estree 的硬编码依赖（改为正则提取 specifier，零第三方依赖）；
- *                - 复用 tsconfig.paths.json 解析 @ydsz/@YDSZ-core 别名，并支持 #/ 包内别名；
+ *                - 复用 tsconfig.paths.json 解析 @ydsz/@ydsz-core 别名，并支持 #/ 包内别名；
  *                - 修复原 resolveImport 对 #/ 直接 return null、@ 前缀错误拼接导致的「主路径循环检测失明」问题；
  *                - 默认递归收集 main/apps/comm 全部源码文件参与构图。
  *

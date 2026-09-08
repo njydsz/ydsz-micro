@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * checkbox-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\checkbox-item.vue
@@ -12,7 +12,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { YDSZCheckButtonGroup, YDSZTooltip } from '@YDSZ-core/shadcn-ui';
+import { YDSZCheckButtonGroup, YDSZTooltip } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceCheckboxItem',

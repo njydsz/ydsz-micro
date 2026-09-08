@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 单选按钮本体：内部固定渲染 RadioGroupIndicator 作为选中标记。
  *
  * 外观用 aspect-square + h-4 w-4 定尺而不是靠内容撑开，
@@ -14,7 +14,7 @@ import type { RadioGroupItemProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Circle } from 'lucide-vue-next';
 import {

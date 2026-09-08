@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * user-dropdown 布局组件
  *
  * @path comm\effects\layouts\src\widgets\user-dropdown\user-dropdown.vue
@@ -19,7 +19,7 @@ import { preferences, usePreferences } from '@ydsz/preferences';
 import { useTokenStore } from '@ydsz/stores';
 import { isWindowsOs } from '@ydsz/utils';
 
-import { useYDSZModal } from '@YDSZ-core/popup-ui';
+import { useYDSZModal } from '@ydsz-core/popup-ui';
 import {
   Badge,
   DropdownMenu,
@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
   YDSZAvatar,
   YDSZIcon,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 

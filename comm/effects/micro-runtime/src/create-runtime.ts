@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 运行时工厂 + 内核注册机制
  *
  * 内核实现（qiankun / micro-kernel）通过 registerKernel 注册，
@@ -14,7 +14,7 @@
 
 import type { MicroRuntime } from './types';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('create-runtime');
 /** 已知内核名称 */
 export type KernelName = 'micro-kernel' | 'qiankun' | string;

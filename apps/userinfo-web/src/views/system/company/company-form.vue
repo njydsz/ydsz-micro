@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 公司表单组件 — 支持新增/编辑公司信息（公司编码、名称、上级公司、联系人、状态）
  *
  * @path apps\userinfo-web\src\views\system\company\company-form.vue
@@ -29,7 +29,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { create, update } from '#/api/company';
 import type { CompanyDTO, CompanyTreeVO, CompanyVO } from '#/api/models';

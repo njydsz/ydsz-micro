@@ -20,7 +20,7 @@ import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-p
 import { computed, reactive, ref } from 'vue';
 import { createQuickComment, updateQuickComment } from '#/api/flowComment';
 import type { FlowQuickCommentDTO, FlowQuickCommentVO } from '#/api/models';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('workflow-quick-comment');

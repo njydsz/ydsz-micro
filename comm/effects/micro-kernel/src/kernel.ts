@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 自研轻内核 — 实现 MicroRuntime 接口（v4.x ESM 原生运行时）
  *
  * 适合同一团队、统一构建链的同源子应用集群。能力覆盖：
@@ -31,7 +31,7 @@ import type { ManagerRegistry } from "./manager-registry";
 import type { Manifest } from "./loader";
 import type { KeepAliveConfig } from "./scheduler";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { createGlobalStateAPI } from "./global-state";
 import { clearRegistryCache, getStaticRegistry, resolveAppEntry, resolveRegistry } from "./registry-adapter";

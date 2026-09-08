@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 提示弹窗的类型契约：图标语义、关闭前回调上下文与完整配置项。
  *
  * beforeClose 的入参带 isConfirm 是为了区分「点了确认」与「取消/遮罩/Esc」，
@@ -10,9 +10,9 @@
  */
 import type { Component, VNode, VNodeArrayChildren } from 'vue';
 
-import type { Recordable } from '@YDSZ-core/typings';
+import type { Recordable } from '@ydsz-core/typings';
 
-import { createContext } from '@YDSZ-core/shadcn-ui';
+import { createContext } from '@ydsz-core/shadcn-ui';
 
 /**
  * 弹窗内置图标的语义类型。

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 布局尺寸同步：把 header / content / footer 的实测尺寸写回 CSS 变量。
  *
  * 存在的原因是布局各区块高度互相依赖（content 高度 = 视口 − header − footer），
@@ -13,7 +13,7 @@
  */
 import type { CSSProperties } from 'vue';
 
-import type { VisibleDomRect } from '@YDSZ-core/shared/utils';
+import type { VisibleDomRect } from '@ydsz-core/shared/utils';
 
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
@@ -22,8 +22,8 @@ import {
   CSS_VARIABLE_LAYOUT_CONTENT_WIDTH,
   CSS_VARIABLE_LAYOUT_FOOTER_HEIGHT,
   CSS_VARIABLE_LAYOUT_HEADER_HEIGHT,
-} from '@YDSZ-core/shared/constants';
-import { getElementVisibleRect } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shared/constants';
+import { getElementVisibleRect } from '@ydsz-core/shared/utils';
 
 import { useCssVar, useDebounceFn } from '@vueuse/core';
 

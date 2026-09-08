@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 微内核管理器注册表
  *
  * P0-A1: 将分散在各模块的可变状态（scheduler 实例集 / keepalive 参数 /
@@ -21,7 +21,7 @@
  * @since 4.0.1
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('manager-registry');
 
 /**

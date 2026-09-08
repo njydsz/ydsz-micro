@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * global-search 布局组件
  *
  * @path comm\effects\layouts\src\widgets\global-search\global-search.vue
@@ -20,7 +20,7 @@ import {
 import { $t } from '@ydsz/locales';
 import { isWindowsOs } from '@ydsz/utils';
 
-import { useYDSZModal } from '@YDSZ-core/popup-ui';
+import { useYDSZModal } from '@ydsz-core/popup-ui';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 

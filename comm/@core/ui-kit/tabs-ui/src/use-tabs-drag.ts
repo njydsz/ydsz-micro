@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 基于 SortableJS 的标签拖拽排序：只负责「拖拽 → 抛出排序结果」，不维护顺序。
  *
  * 真正的数组重排交由父组件监听 sortTabs 完成，
@@ -13,16 +13,16 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { Sortable } from '@YDSZ-core/composables';
-import type { EmitType } from '@YDSZ-core/typings';
+import type { Sortable } from '@ydsz-core/composables';
+import type { EmitType } from '@ydsz-core/typings';
 
 import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { useIsMobile, useSortable } from '@YDSZ-core/composables';
+import { useIsMobile, useSortable } from '@ydsz-core/composables';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-tabs-drag');
 // 可能会找到拖拽的子元素，这里需要确保拖拽的dom时tab元素
 function findParentElement(element: HTMLElement) {

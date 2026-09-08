@@ -17,9 +17,9 @@ import type {
   FeatureFlagDef,
   FeatureFlagsOptions,
   FeatureFlagValue,
-} from "@YDSZ-core/feature-flags";
+} from "@ydsz-core/feature-flags";
 
-import { defineFeatureFlags } from "@YDSZ-core/feature-flags";
+import { defineFeatureFlags } from "@ydsz-core/feature-flags";
 
 import { requestClient } from "#/api/request";
 

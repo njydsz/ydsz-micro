@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 可展开箭头：点击切换展开态并旋转指示箭头，用于展开/收起区域。
  *
  * 用 div + role="button" 而非 button 元素，是为了能自由承载任意行内内容而不
@@ -11,8 +11,8 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { ChevronDown } from '@YDSZ-core/icons';
-import { cn } from '@YDSZ-core/shared/utils';
+import { ChevronDown } from '@ydsz-core/icons';
+import { cn } from '@ydsz-core/shared/utils';
 
 const props = defineProps<{
   class?: string;

@@ -31,7 +31,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
 import type { FlowInstanceVO, FlowTimelineVO } from '#/api/models';
 import { $t } from '#/locales';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import FlowDiagramViewer from './components/FlowDiagramViewer.vue';
 
 const logger = createLogger('workflow-instance');

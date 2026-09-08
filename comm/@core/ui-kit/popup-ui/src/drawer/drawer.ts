@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 抽屉的展示层类型契约：方位、关闭按钮位置与各类外观开关。
  *
  * 只描述外观与能否关闭，不含打开状态与业务数据 —— 后者归 DrawerState。
@@ -10,7 +10,7 @@
  */
 import type { Component, Ref } from 'vue';
 
-import type { ClassType, MaybePromise } from '@YDSZ-core/typings';
+import type { ClassType, MaybePromise } from '@ydsz-core/typings';
 
 import type { DrawerApi } from './drawer-api';
 

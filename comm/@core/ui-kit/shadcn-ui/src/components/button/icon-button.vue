@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 图标按钮：只放图标的方形按钮，可选附带 tooltip。
  *
  * 图标按钮没有可见文案，必须给出无障碍名称；因此提供了 tooltip 插槽，
@@ -14,7 +14,7 @@ import type { YDSZButtonProps } from './button';
 
 import { computed, useSlots } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { YDSZTooltip } from '../tooltip';
 import YDSZButton from './button.vue';

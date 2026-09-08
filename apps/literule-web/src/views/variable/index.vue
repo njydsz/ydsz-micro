@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则变量管理列表页面
  *
  * @path apps\literule-web\src\views\variable\index.vue
@@ -21,7 +21,7 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { deleteApi, list, refresh } from '#/api/ruleVariableAdmin';
 const logger = createLogger('literule-variable');
 const { t } = useI18n();

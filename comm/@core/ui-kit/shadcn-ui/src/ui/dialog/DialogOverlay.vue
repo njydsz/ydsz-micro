@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 对话框遮罩：铺满视口的半透明遮罩层。
  *
  * 带 data-dismissable-modal 标记（值为菜单 id），供外部的点击关闭逻辑识别
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 
-import { useScrollLock } from '@YDSZ-core/composables';
+import { useScrollLock } from '@ydsz-core/composables';
 
 useScrollLock();
 const id = inject('DISMISSABLE_MODAL_ID');

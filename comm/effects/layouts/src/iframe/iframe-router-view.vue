@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * iframe-router-view 布局组件
  *
  * @path comm\effects\layouts\src\iframe\iframe-router-view.vue
@@ -14,7 +14,7 @@ import { useRoute } from 'vue-router';
 import { preferences } from '@ydsz/preferences';
 import { useTabbarStore } from '@ydsz/stores';
 
-import { YDSZSpinner } from '@YDSZ-core/shadcn-ui';
+import { YDSZSpinner } from '@ydsz-core/shadcn-ui';
 
 defineOptions({ name: 'IFrameRouterView' });
 

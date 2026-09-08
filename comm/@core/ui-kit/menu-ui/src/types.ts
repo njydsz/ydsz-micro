@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 菜单的类型契约：组件 props、菜单项结构、父/子菜单上下文与徽标配置。
  *
  * 菜单项结构（MenuRecordRaw）刻意开放 children 递归嵌套，
@@ -11,7 +11,7 @@
  */
 import type { Component, Ref } from 'vue';
 
-import type { MenuRecordBadgeRaw, ThemeModeType } from '@YDSZ-core/typings';
+import type { MenuRecordBadgeRaw, ThemeModeType } from '@ydsz-core/typings';
 
 interface MenuProps {
   /**

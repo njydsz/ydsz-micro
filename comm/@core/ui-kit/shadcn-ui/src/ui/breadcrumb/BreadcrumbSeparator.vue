@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 面包屑的分隔符：渲染为 li 并标记 aria-hidden，默认图标为 ChevronRight。
  *
  * 对辅助技术隐藏是因为分隔符纯属视觉装饰，若参与播报，
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * color-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\color-toggle.vue
@@ -15,7 +15,7 @@ import {
   updatePreferences,
 } from '@ydsz/preferences';
 
-import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationColorToggle',

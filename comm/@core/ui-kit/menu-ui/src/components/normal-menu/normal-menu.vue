@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 普通菜单：只渲染一层，按 menus 数组平铺，不做递归子菜单。
  *
  * 与递归版 Menu 的取舍：递归版支持任意层级但每级都是组件实例，
@@ -10,12 +10,12 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@YDSZ-core/typings';
+import type { MenuRecordRaw } from '@ydsz-core/typings';
 
 import type { NormalMenuProps } from './normal-menu';
 
-import { useNamespace } from '@YDSZ-core/composables';
-import { YDSZIcon } from '@YDSZ-core/shadcn-ui';
+import { useNamespace } from '@ydsz-core/composables';
+import { YDSZIcon } from '@ydsz-core/shadcn-ui';
 
 type Props = NormalMenuProps;
 

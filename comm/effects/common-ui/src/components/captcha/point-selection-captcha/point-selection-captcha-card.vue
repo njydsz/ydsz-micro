@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * point-selection-captcha-card 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\point-selection-captcha\point-selection-captcha-card.vue
@@ -18,7 +18,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   height: '220px',

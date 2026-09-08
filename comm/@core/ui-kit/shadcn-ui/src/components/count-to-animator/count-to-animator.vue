@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 数字滚动动画：让数值在指定时长内从起始值过渡到目标值。
  *
  * 基于 VueUse 的 useTransition 实现缓动，用于仪表盘等指标卡，避免数字突变
@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref, unref, watch, watchEffect } from 'vue';
 
-import { isNumber } from '@YDSZ-core/shared/utils';
+import { isNumber } from '@ydsz-core/shared/utils';
 
 import { TransitionPresets, useTransition } from '@vueuse/core';
 

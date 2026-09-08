@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 配置审批管理页面 — 审批单列表（Tab + VxeTable）
  *
  * <p>三个 Tab：待我审批 / 我已发起 / 全部。
@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElMessage,

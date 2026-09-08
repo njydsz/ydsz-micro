@@ -2,7 +2,7 @@
  * @file vsh shared - 文件系统与路径别名解析工具
  * @author YDSZ Team
  * @since 2026-08-24
- * @description 供 check-arch / check-circular 复用：递归收集源码文件、解析 #/ 与 @ydsz/@YDSZ-core 别名。
+ * @description 供 check-arch / check-circular 复用：递归收集源码文件、解析 #/ 与 @ydsz/@ydsz-core 别名。
  *              纯 Node 内置模块实现，零第三方依赖，契合「最小化外部依赖、绝对可控」原则。
  *
  * @path bash\vsh\src\shared\fs-path.ts
@@ -62,7 +62,7 @@ function walk(dir: string, files: string[]): void {
 }
 
 /**
- * 加载 tsconfig.paths.json 的 paths 映射（用于 @ydsz/*、@YDSZ-core/* 别名解析）。
+ * 加载 tsconfig.paths.json 的 paths 映射（用于 @ydsz/*、@ydsz-core/* 别名解析）。
  */
 export function loadPathMapping(rootDir: string): Record<string, string[]> {
   try {
@@ -151,7 +151,7 @@ export function resolveSpecifier(
     const pkgRoot = findPackageRoot(importer) || rootDir;
     return resolveWithExt(resolve(pkgRoot, 'src', spec.slice(2)));
   }
-  // 工作区别名 @ydsz/* / @YDSZ-core/*
+  // 工作区别名 @ydsz/* / @ydsz-core/*
   if (spec.startsWith('@')) {
     for (const [key, targets] of Object.entries(paths)) {
       const hit = matchTsPath(key, targets, spec, rootDir);

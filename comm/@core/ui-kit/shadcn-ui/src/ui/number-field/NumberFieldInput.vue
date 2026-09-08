@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 数字输入框本体：文本居中对齐，因为左右已被增减按钮占据，居左会显得偏向一侧。
  *
  * 打上 data-slot="input" 供 NumberFieldContent 定位内边距；
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { NumberFieldInput } from 'radix-vue';
 </script>

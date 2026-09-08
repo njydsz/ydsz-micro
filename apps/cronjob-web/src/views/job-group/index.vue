@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 任务分组（列表页）
  *
  * @path apps\cronjob-web\src\views\job-group\index.vue
@@ -27,7 +27,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/jobGroup';
 import type { JobVO } from '#/api/models';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('cronjob-job');
 

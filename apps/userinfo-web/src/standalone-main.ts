@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用独立运行入口 — 用于脱离主应用独立开发调试
  *
  * 通过 `pnpm dev:standalone` 启动，特点：
@@ -25,7 +25,7 @@ import '@ydsz/styles/ele';
 import { setupMonitor } from '@ydsz/monitor';
 import { initPreferences } from '@ydsz/preferences';
 import { initStores } from '@ydsz/stores';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { ElLoading } from 'element-plus';
 

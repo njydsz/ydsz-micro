@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * SAML IdP 配置管理页面 — 管理 SAML 身份提供商配置
  *
  * @path apps\userinfo-web\src\views\saml-idp\index.vue
@@ -34,7 +34,7 @@ import {
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { create, deleteApi, page, update } from '#/api/samlIdpConfig';

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 偏好设置 Composable —— 统一管理用户偏好（localStorage 即时生效 + 后端异步持久化）
  *
  * <p>设计：
@@ -14,7 +14,7 @@
 
 import { computed, ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { preferences } from '@ydsz/preferences';
 
 /** 模块日志器 */

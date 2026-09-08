@@ -1,4 +1,4 @@
-/**
+﻿/**
  * form-ui 类型定义 — 组件配置与渲染
  *
  * 从 types.ts 提取，避免单文件超过 300 行。
@@ -16,9 +16,9 @@
 
 import type { FormContext, GenericObject } from 'vee-validate';
 
-import type { ClassType, MaybeComputedRef } from '@YDSZ-core/typings';
+import type { ClassType, MaybeComputedRef } from '@ydsz-core/typings';
 
-import type { YDSZButtonProps } from '@YDSZ-core/shadcn-ui';
+import type { YDSZButtonProps } from '@ydsz-core/shadcn-ui';
 
 import type {
   ArrayToStringFields,

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 面包屑的折叠占位：层级过深时代表被省略的中间层。
  *
  * 整体标记 aria-hidden 与 role=presentation，因为省略号本身不携带信息；
@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { MoreHorizontal } from 'lucide-vue-next';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * icon-picker 通用组件
  *
  * @path comm\effects\common-ui\src\components\icon-picker\icon-picker.vue
@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('icon-picker');
 import type { VNode } from 'vue';
 
@@ -30,8 +30,8 @@ import {
   YDSZIcon,
   YDSZIconButton,
   YDSZPopover,
-} from '@YDSZ-core/shadcn-ui';
-import { isFunction } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shadcn-ui';
+import { isFunction } from '@ydsz-core/shared/utils';
 
 import { objectOmit, refDebounced, watchDebounced } from '@vueuse/core';
 

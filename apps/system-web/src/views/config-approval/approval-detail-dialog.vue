@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 审批详情弹窗 —— 展示变更前后值、审批时间线，
  * 并在当前用户为待审批人时显示通过/拒绝表单。
  *
@@ -36,7 +36,7 @@ import {
   ElTimelineItem,
 } from 'element-plus';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import type {
   ConfigApprovalChangeType,

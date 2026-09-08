@@ -1,5 +1,5 @@
-/**
- * @YDSZ-core/tiptap 包出口
+﻿/**
+ * @ydsz-core/tiptap 包出口
  *
  * <p>提供 TipTap 富文本编辑器组件、工具栏、扩展集：
  * <ul>

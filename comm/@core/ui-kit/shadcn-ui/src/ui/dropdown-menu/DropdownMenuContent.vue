@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单内容浮层：定义浮层的定位、动画与外观。
  *
  * 经 Portal 挂到 body 渲染，避免被父级 overflow 裁剪；
@@ -16,7 +16,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import {
   DropdownMenuContent,

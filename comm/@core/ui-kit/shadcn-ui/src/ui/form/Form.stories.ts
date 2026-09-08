@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Form 组件 Storybook Stories
  *
  * P1-2.3: 组件文档化 — Form 组件交互式文档
@@ -13,7 +13,7 @@ import { ref } from 'vue';
 
 import { Button } from '../button';
 import { Input } from '../input';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('FormStories');
 

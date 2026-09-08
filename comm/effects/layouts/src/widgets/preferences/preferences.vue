@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * preferences 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences.vue
@@ -13,8 +13,8 @@ import { $t, loadLocaleMessages } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 import { capitalizeFirstLetter } from '@ydsz/utils';
 
-import { useYDSZDrawer } from '@YDSZ-core/popup-ui';
-import { YDSZButton } from '@YDSZ-core/shadcn-ui';
+import { useYDSZDrawer } from '@ydsz-core/popup-ui';
+import { YDSZButton } from '@ydsz-core/shadcn-ui';
 
 import PreferencesDrawer from './preferences-drawer.vue';
 

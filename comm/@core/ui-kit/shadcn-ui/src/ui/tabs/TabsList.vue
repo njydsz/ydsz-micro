@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 标签栏：承载一组 TabsTrigger，并提供底部灰色轨道作为未激活态的背景。
  *
  * 固定高度 h-9 与内边距 p-1，让激活项的高亮块比轨道略小一圈，
@@ -14,7 +14,7 @@ import type { TabsListProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { TabsList } from 'radix-vue';
 

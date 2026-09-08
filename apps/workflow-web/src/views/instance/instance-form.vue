@@ -22,7 +22,7 @@ import { reactive, ref } from 'vue';
 import { saveDraft, startProcess } from '#/api/flowInstance';
 import type { FlowSaveDraftDTO, FlowStartProcessDTO } from '#/api/models';
 import { $t } from '#/locales';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('workflow-instance');
 const emit = defineEmits<{ success: [] }>();

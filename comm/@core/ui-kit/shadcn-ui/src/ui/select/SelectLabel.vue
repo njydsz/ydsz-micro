@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 选项分组的标题：作为分组的无障碍名称，通常为弱化小字。
  *
  * 必须放在 SelectGroup 内部才能被 radix 正确关联；
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import type { SelectLabelProps } from 'radix-vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { SelectLabel } from 'radix-vue';
 

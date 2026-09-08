@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 灰度版本分流管理器（v4.0 Canary）
  *
  * 在 VersionManager 基础上扩展灰度能力：
@@ -19,8 +19,8 @@
  * @since 4.0.0
  */
 
-import { satisfiesVersion } from "@YDSZ-core/shared/semver";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { satisfiesVersion } from "@ydsz-core/shared/semver";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { getStorage, STORAGE_KEYS } from "./storage-utils";
 import type {

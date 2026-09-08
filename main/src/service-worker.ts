@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('ServiceWorker');
 

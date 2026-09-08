@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 全局错误边界组件 — 捕获子组件树中的未处理错误，提供友好的降级 UI
  *
  * 对标 React Error Boundary 模式，在 Vue 3 中通过 onErrorCaptured 实现。
@@ -15,7 +15,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('error-boundary');
 import type { ErrorInfo } from 'vue';
 

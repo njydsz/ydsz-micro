@@ -1,5 +1,5 @@
-/**
- * @YDSZ-core/shared 包的 unbuild 构建配置：多入口拆分打包，与 exports 子路径一一对应。
+﻿/**
+ * @ydsz-core/shared 包的 unbuild 构建配置：多入口拆分打包，与 exports 子路径一一对应。
  *
  * @path comm\@core\base\shared\build.config.ts
  * @author ydsz-team

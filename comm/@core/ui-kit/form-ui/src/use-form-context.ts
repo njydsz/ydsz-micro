@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单实例级上下文：向下传递表单 props、组件实例映射与初始值。
  *
  * 与 form-render/context.ts 分属不同层级：这里承载表单实例级数据（FormApi 句柄、
@@ -18,8 +18,8 @@ import type { ExtendedFormApi, FormActions, YDSZFormProps } from './types';
 
 import { computed, unref, useSlots } from 'vue';
 
-import { createContext } from '@YDSZ-core/shadcn-ui';
-import { isString, mergeWithArrayOverride, set } from '@YDSZ-core/shared/utils';
+import { createContext } from '@ydsz-core/shadcn-ui';
+import { isString, mergeWithArrayOverride, set } from '@ydsz-core/shared/utils';
 
 import { useForm } from 'vee-validate';
 import { object, ZodIntersection, ZodNumber, ZodObject, ZodString } from 'zod';

@@ -13,9 +13,9 @@
 import type { ComputedRef, Ref } from 'vue';
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 
-import type { TabDefinition } from '@YDSZ-core/typings';
+import type { TabDefinition } from '@ydsz-core/typings';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('Tabbar');

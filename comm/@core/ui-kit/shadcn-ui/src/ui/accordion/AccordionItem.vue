@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 手风琴的单条目：转发 radix AccordionItem 的 value / disabled 等属性，并统一加下分隔线。
  *
  * 分隔线固定在条目底部（border-b）而非顶部，
@@ -13,7 +13,7 @@ import type { AccordionItemProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { AccordionItem, useForwardProps } from 'radix-vue';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 抽屉的渲染实现：把 DrawerProps 与命令式 API 的状态合并后映射为 Sheet 结构。
  *
  * props 与 API 状态的合并走 usePriorityValues，API 优先 ——
@@ -26,8 +26,8 @@ import {
   useIsMobile,
   usePriorityValues,
   useSimpleLocale,
-} from '@YDSZ-core/composables';
-import { X } from '@YDSZ-core/icons';
+} from '@ydsz-core/composables';
+import { X } from '@ydsz-core/icons';
 import {
   YDSZButton,
   YDSZHelpTooltip,
@@ -42,10 +42,10 @@ import {
   SheetHeader,
   SheetTitle,
   VisuallyHidden,
-} from '@YDSZ-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@YDSZ-core/shared/constants';
-import { globalShareState } from '@YDSZ-core/shared/global-state';
-import { cn } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
+import { globalShareState } from '@ydsz-core/shared/global-state';
+import { cn } from '@ydsz-core/shared/utils';
 
 interface Props extends DrawerProps {
   drawerApi?: ExtendedDrawerApi;

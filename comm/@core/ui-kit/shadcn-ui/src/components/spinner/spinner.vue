@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 全屏级加载指示器：铺满父容器并加背景模糊，用于页面或大区块的整体加载态。
  *
  * 与 loading 共用同一套延迟策略：spinning 变为 true 后先等 minLoadingTime（默认 50ms），
@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {
   class?: string;

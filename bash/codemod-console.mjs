@@ -10,7 +10,7 @@
  *    跳过注释行（行注释 / JSDoc ` *` / 块注释）、字符串字面量内的文本。
  * 2. 仅当文件存在真实 console 调用时才注入 logger：
  *    - 若已存在 `createLogger` 导入与 `logger` 实例，直接复用（不重复注入）；
- *    - 否则注入 `import { createLogger } from '@YDSZ-core/shared/utils';`
+ *    - 否则注入 `import { createLogger } from '@ydsz-core/shared/utils';`
  *      与 `const logger = createLogger('<Module>');`
  *      （.ts 置于最后一个顶层 import 之后；.vue 置于 <script> 开标签之后）。
  * 3. 豁免文件：logger.ts 实现层、shadcn-ui 生成件、Node 工具（bash/conf）、
@@ -109,8 +109,8 @@ function processFile(file) {
   const isVue = /\.vue$/.test(file);
 
   const hasCreateLoggerImport =
-    /createLogger\s+from\s+['"]@YDSZ-core\/shared\/utils['"]/.test(text) ||
-    (/from\s+['"]@YDSZ-core\/shared\/utils['"]/.test(text) && /createLogger/.test(text));
+    /createLogger\s+from\s+['"]@ydsz-core\/shared\/utils['"]/.test(text) ||
+    (/from\s+['"]@ydsz-core\/shared\/utils['"]/.test(text) && /createLogger/.test(text));
   const hasLoggerConst = /(const|let|var)\s+logger\s*=/.test(text);
 
   const lines = text.split('\n');
@@ -157,7 +157,7 @@ function processFile(file) {
   if (!hasLoggerConst) {
     const mod = moduleName(file);
     const loggerDecl = `const logger = createLogger('${mod}');`;
-    const importLine = `import { createLogger } from '@YDSZ-core/shared/utils';`;
+    const importLine = `import { createLogger } from '@ydsz-core/shared/utils';`;
 
     if (isVue) {
       // 注入到 <script> 开标签之后

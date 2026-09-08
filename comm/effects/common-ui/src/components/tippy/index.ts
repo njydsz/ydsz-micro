@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Tippy 文字提示组件封装与 v-tippy 指令注册入口
  *
  * 提供暗色主题自适应的 Tippy 组件、全局默认配置初始化与指令注册，
@@ -15,7 +15,7 @@ import type { App, SetupContext } from 'vue';
 import { h, watchEffect } from 'vue';
 import { setDefaultProps, Tippy as TippyComponent } from 'vue-tippy';
 
-import { usePreferences } from '@YDSZ-core/preferences';
+import { usePreferences } from '@ydsz-core/preferences';
 
 import useTippyDirective from './directive';
 

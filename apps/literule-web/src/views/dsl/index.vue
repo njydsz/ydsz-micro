@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则 DSL 工具页面
  *
  * @path apps\literule-web\src\views\dsl\index.vue
@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { ElButton, ElMessage, ElTag } from 'element-plus';
 const logger = createLogger('literule-dsl');

@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/message-web",
   "version": "1.0.0",
   "private": true,
@@ -14,7 +14,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@vueuse/core": "catalog:",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",

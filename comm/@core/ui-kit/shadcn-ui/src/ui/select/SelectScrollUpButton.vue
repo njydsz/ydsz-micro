@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 选项列表顶部的滚动按钮：列表上方还有内容时由 radix 自动显示。
  *
  * 与向下按钮成对提供，用于在有限高度的面板里提示「还有更多选项」；
@@ -13,7 +13,7 @@ import type { SelectScrollUpButtonProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronUp } from 'lucide-vue-next';
 import { SelectScrollUpButton, useForwardProps } from 'radix-vue';

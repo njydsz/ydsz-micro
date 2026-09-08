@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 布局侧边栏容器：支持折叠、悬浮展开与混合侧栏（双栏）三种形态。
  *
  * 折叠态下额外渲染一个同宽占位 div，用于撑住布局不被压缩，同时保持宽度过渡动画。
@@ -15,7 +15,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
-import { YDSZScrollbar } from '@YDSZ-core/shadcn-ui';
+import { YDSZScrollbar } from '@ydsz-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
 

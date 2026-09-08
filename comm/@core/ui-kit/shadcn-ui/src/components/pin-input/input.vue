@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 定长验证码输入：分格输入并在填满后一次性抛出完整值。
  *
  * 用于短信 / 邮箱验证码这类定长码场景；分格呈现比单个长输入框更易核对，
@@ -14,7 +14,7 @@ import type { PinInputProps } from './types';
 
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
 import { YDSZButton } from '../button';

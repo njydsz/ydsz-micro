@@ -7,9 +7,9 @@
  */
 import type { Router, RouteRecordName, RouteRecordRaw } from 'vue-router';
 
-import { traverseTreeValues } from '@YDSZ-core/shared/utils';
+import { traverseTreeValues } from '@ydsz-core/shared/utils';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('reset-routes');
 /**
  * 重置路由器，移除所有非静态白名单路由。

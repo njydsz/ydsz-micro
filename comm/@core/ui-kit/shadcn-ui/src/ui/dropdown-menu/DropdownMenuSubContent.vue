@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单的子菜单面板：承载二级菜单的浮层容器与进出场动画。
  *
  * 动画类名按 data-side 分别定义四个方向的滑入偏移，
@@ -17,7 +17,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DropdownMenuSubContent, useForwardPropsEmits } from 'radix-vue';
 

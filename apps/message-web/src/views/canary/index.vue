@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 灰度实验管理页面
  *
  * <p>消息通道灰度发布实验管理，支持创建实验、编辑、查看分桶分配、停止实验等操作。
@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElDialog,

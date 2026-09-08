@@ -1,10 +1,10 @@
-{
+﻿{
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@ydsz/tsconfig/web.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@YDSZ-core/shadcn-ui/*": ["./src/*"]
+      "@ydsz-core/shadcn-ui/*": ["./src/*"]
     }
   },
   "include": ["src"],

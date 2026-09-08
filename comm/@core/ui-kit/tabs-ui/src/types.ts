@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 标签页组件的类型契约：事件声明与 props。
  *
  * 注意 gap / maxWidth / minWidth 等属性仅在 chrome 风格下生效 ——
@@ -10,8 +10,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { IContextMenuItem } from '@YDSZ-core/shadcn-ui';
-import type { TabDefinition, TabsStyleType } from '@YDSZ-core/typings';
+import type { IContextMenuItem } from '@ydsz-core/shadcn-ui';
+import type { TabDefinition, TabsStyleType } from '@ydsz-core/typings';
 
 /**
  * 标签页组件的自定义事件声明。

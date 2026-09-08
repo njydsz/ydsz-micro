@@ -1,4 +1,4 @@
-/**
+﻿/**
  * tabs-ui 的包出口：TabsView 组件、右侧工具按钮，以及右键菜单项的类型。
  *
  * IContextMenuItem 从 shadcn-ui 转出而非重新定义，
@@ -10,4 +10,4 @@
  */
 export * from './components/widgets';
 export { default as TabsView } from './tabs-view.vue';
-export type { IContextMenuItem } from '@YDSZ-core/shadcn-ui';
+export type { IContextMenuItem } from '@ydsz-core/shadcn-ui';

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 「帮助说明」场景的固化用法：默认渲染一个 CircleHelp 问号图标作为触发器，
  * 外部可通过 trigger 插槽替换为任意元素。
  *
@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { CircleHelp } from 'lucide-vue-next';
 

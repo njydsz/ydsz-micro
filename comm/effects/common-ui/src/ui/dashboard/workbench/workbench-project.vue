@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * workbench-project Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-project.vue
@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
   YDSZIcon,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchProjectItem[];

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\login.vue
@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { Recordable } from '@ydsz/types';
 
-import type { YDSZFormSchema } from '@YDSZ-core/form-ui';
+import type { YDSZFormSchema } from '@ydsz-core/form-ui';
 
 import type { AuthenticationProps } from './types';
 
@@ -17,8 +17,8 @@ import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZForm } from '@YDSZ-core/form-ui';
-import { YDSZButton, YDSZCheckbox } from '@YDSZ-core/shadcn-ui';
+import { useYDSZForm } from '@ydsz-core/form-ui';
+import { YDSZButton, YDSZCheckbox } from '@ydsz-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 import ThirdPartyLogin from './third-party-login.vue';

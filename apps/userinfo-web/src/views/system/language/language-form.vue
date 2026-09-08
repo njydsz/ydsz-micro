@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 国际化语言表单组件 — 支持新增/编辑语言（语言编码、名称、默认标识、排序、状态）
  *
  * @path apps\userinfo-web\src\views\system\language\language-form.vue
@@ -29,7 +29,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { create, update } from '#/api/language';
 import type { LanguageDTO, LanguageVO } from '#/api/models';

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 运行时 CSS 作用域隔离（v4.2.1 N5 短期方案）
  *
  * 背景：构建期 micro-scoped-postcss 插件已为自有子应用 CSS 加
@@ -22,7 +22,7 @@
  * @since 4.2.1
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 const logger = createLogger("MicroKernel");
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 文件预览组件
  *
  * @path apps\nextwiki-web\src\views\file\file-preview.vue
@@ -16,13 +16,12 @@
 */
 import { ElButton, ElMessage, ElSkeleton, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
+import { download, generateSignedUrl } from '#/api/download';
 import { generatePreview, getPreviewType, isSupported } from '#/api/preview';
-import { download } from '#/api/download';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
-import { requestClient } from '#/api/request';
 import type { FileNodeVO } from '#/api/models';
 
 defineOptions({ name: 'FilePreview' });
@@ -105,32 +104,53 @@ async function handleDownload(): Promise<void> {
   }
 }
 
+/**
+ * 解析文件签名预览 URL（两步流程）。
+ *
+ * <p>贯通审计 P1（2026-09-08）：后端下载端点仅暴露 POST
+ * （{@code POST /api/nextwiki/download/{nodeId}}），而 {@code <img>}/<iframe> 只能
+ * 发起 GET，直接拼下载路径会得到 405。统一改走签名 URL 流程：
+ * 先 {@code POST /{nodeId}/signed-url} 换取带时效与 IP 绑定的 GET 签名链接，
+ * 再由浏览器以 GET 拉取资源。
+ *
+ * @param nodeId 文件节点 ID
+ * @returns 签名下载 URL（相对路径，含 expires 参数）
+ */
+async function resolveSignedPreviewUrl(nodeId: string): Promise<string> {
+  return generateSignedUrl({ nodeId }, {});
+}
+
 /** 加载预览内容 */
 async function loadPreviewContent(): Promise<void> {
   if (!props.fileNode) return;
   previewContent.value = '';
   previewUrl.value = '';
 
-  if (isImage.value) {
-    // 图片直接使用 URL 预览
-    previewUrl.value = `/api/nextwiki/download/${props.fileNode.id}`;
-    return;
-  }
-
-  if (isText.value) {
-    // 文本文件通过 requestClient 获取内容
+  if (isImage.value || isPdf.value) {
+    // 图片 / PDF：浏览器以 GET 拉取资源，走签名 URL 两步流程
     try {
-      const resp = await requestClient.get<string>(`/api/nextwiki/download/${props.fileNode.id}`);
-      previewContent.value = typeof resp === 'string' ? resp : JSON.stringify(resp);
+      previewUrl.value = await resolveSignedPreviewUrl(props.fileNode.id);
     } catch (error) {
-      logger.warn('加载文本预览内容失败: {}', error);
-      previewContent.value = t('textLoadFailed');
+      logger.warn('生成签名预览 URL 失败: {}', error);
+      // 错误提示由请求拦截器统一处理；预览区保持空白由"不支持预览"兜底
     }
     return;
   }
 
-  if (isPdf.value) {
-    previewUrl.value = `/api/nextwiki/download/${props.fileNode.id}`;
+  if (isText.value) {
+    // 文本文件：签名 URL + 原生 fetch（响应为 octet-stream 附件流，
+    // 不能走 requestClient 的 JSON 响应解包拦截器）
+    try {
+      const signedUrl = await resolveSignedPreviewUrl(props.fileNode.id);
+      const resp = await fetch(signedUrl);
+      if (!resp.ok) {
+        throw new Error(`HTTP ${String(resp.status)}`);
+      }
+      previewContent.value = await resp.text();
+    } catch (error) {
+      logger.warn('加载文本预览内容失败: {}', error);
+      previewContent.value = t('textLoadFailed');
+    }
     return;
   }
 }

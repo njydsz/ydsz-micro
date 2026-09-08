@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 数字输入框的减小按钮：绝对定位在输入区左侧，默认图标为 Minus。
  *
  * 打上 data-slot="decrement" 是给 NumberFieldContent 的选择器用的 ——
@@ -13,7 +13,7 @@ import type { NumberFieldDecrementProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Minus } from 'lucide-vue-next';
 import { NumberFieldDecrement, useForwardProps } from 'radix-vue';

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 表单项标签：渲染必填星号、冒号与帮助提示，并支持标签内容自定义。
  *
  * 独立成组件是因为必填标记、冒号与帮助气泡在各表单间的表现必须一致；
@@ -17,8 +17,8 @@ import {
   FormLabel,
   YDSZHelpTooltip,
   YDSZRenderContent,
-} from '@YDSZ-core/shadcn-ui';
-import { cn } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shadcn-ui';
+import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {
   class?: string;

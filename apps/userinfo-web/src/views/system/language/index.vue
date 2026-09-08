@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 国际化语言管理页面 — 展示语言条目列表，支持新增/编辑/删除
  *
  * @path apps\userinfo-web\src\views\system\language\index.vue
@@ -23,7 +23,7 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/language';

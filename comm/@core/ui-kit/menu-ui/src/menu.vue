@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 数据驱动的菜单入口：接收 menus 数组，递归渲染出整棵树。
  *
  * 本组件只做「数据 → 组件树」的映射，具体渲染细节（图标、徽标、折叠态）
@@ -9,11 +9,11 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@YDSZ-core/typings';
+import type { MenuRecordRaw } from '@ydsz-core/typings';
 
 import type { MenuProps } from './types';
 
-import { useForwardProps } from '@YDSZ-core/composables';
+import { useForwardProps } from '@ydsz-core/composables';
 
 import { Menu } from './components';
 import SubMenu from './sub-menu.vue';

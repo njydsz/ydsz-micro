@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 菜单容器：渲染为 ul 并带上 role=menu，承载模式（横/纵）、主题、折叠与手风琴等行为。
  *
  * 状态与交互逻辑全部委托给 useMenuLogic，本组件只做类名拼装与 DOM 渲染 ——
@@ -12,8 +12,8 @@
 <script lang="ts" setup>
 import type { MenuProps } from '../types';
 
-import { useNamespace } from '@YDSZ-core/composables';
-import { Ellipsis } from '@YDSZ-core/icons';
+import { useNamespace } from '@ydsz-core/composables';
+import { Ellipsis } from '@ydsz-core/icons';
 
 import { useMenuStyle } from '../hooks';
 import { useMenuLogic } from '../composables/use-menu-logic';

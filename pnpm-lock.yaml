@@ -441,10 +441,10 @@ importers:
         version: 22.20.1
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
-        version: 5.2.4(vite@6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))
+        version: 5.2.4(vite@6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))
       '@vitejs/plugin-vue-jsx':
         specifier: 'catalog:'
-        version: 4.2.0(vite@6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))
+        version: 4.2.0(vite@6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))
       '@ydsz/eslint-config':
         specifier: workspace:*
         version: link:conf/lint-configs/eslint-config
@@ -474,7 +474,7 @@ importers:
         version: 9.8.0
       eslint:
         specifier: 'catalog:'
-        version: 9.39.5(jiti@1.21.7)
+        version: 9.39.5(jiti@2.7.0)
       is-ci:
         specifier: 'catalog:'
         version: 4.1.0
@@ -519,7 +519,7 @@ importers:
         version: 3.6.1(sass@1.102.0)(typescript@5.9.3)(vue-sfc-transformer@0.3.0(@volar/typescript@2.4.28)(@vue/compiler-core@3.5.40)(@vue/language-core@3.3.11)(esbuild@0.25.3)(typescript@5.9.3)(vue@3.5.40(typescript@5.9.3)))(vue-tsc@3.3.11(typescript@5.9.3))(vue@3.5.40(typescript@5.9.3))
       vite:
         specifier: 'catalog:'
-        version: 6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
+        version: 6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -699,12 +699,12 @@ importers:
 
   apps/generator-web:
     dependencies:
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../comm/@core/base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -875,12 +875,12 @@ importers:
 
   apps/message-web:
     dependencies:
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../comm/@core/base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1054,12 +1054,12 @@ importers:
 
   apps/system-web:
     dependencies:
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../comm/@core/base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1148,12 +1148,12 @@ importers:
 
   apps/userinfo-web:
     dependencies:
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../comm/@core/base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1419,12 +1419,12 @@ importers:
 
   comm/@core/composables:
     dependencies:
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../base/shared
       radix-vue:
         specifier: 'catalog:'
         version: 1.9.17(vue@3.5.40(typescript@5.9.3))
@@ -1441,7 +1441,7 @@ importers:
 
   comm/@core/feature-flags:
     dependencies:
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../base/shared
       vue:
@@ -1450,42 +1450,42 @@ importers:
 
   comm/@core/preferences:
     dependencies:
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../base/shared
-      '@YDSZ-core/typings':
-        specifier: workspace:*
-        version: link:../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../base/typings
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
   comm/@core/ui-kit/form-ui:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../composables
-      '@YDSZ-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
-      '@YDSZ-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
       '@vee-validate/zod':
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.40(typescript@5.9.3))(zod@3.25.76)
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       vee-validate:
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.40(typescript@5.9.3))
@@ -1501,93 +1501,93 @@ importers:
 
   comm/@core/ui-kit/layout-ui:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../composables
-      '@YDSZ-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
-      '@YDSZ-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
   comm/@core/ui-kit/menu-ui:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../composables
-      '@YDSZ-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
-      '@YDSZ-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
   comm/@core/ui-kit/popup-ui:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../composables
-      '@YDSZ-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
-      '@YDSZ-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
   comm/@core/ui-kit/shadcn-ui:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../composables
-      '@YDSZ-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
-      '@YDSZ-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -1606,36 +1606,30 @@ importers:
 
   comm/@core/ui-kit/tabs-ui:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../composables
-      '@YDSZ-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
-      '@YDSZ-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
   comm/@core/ui-kit/tiptap:
     dependencies:
-      '@YDSZ-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
       '@tiptap/core':
         specifier: ^2.6.0
         version: 2.27.3(@tiptap/pm@2.27.3)
@@ -1720,13 +1714,19 @@ importers:
       '@tiptap/vue-3':
         specifier: ^2.6.0
         version: 2.27.3(@tiptap/core@2.27.3(@tiptap/pm@2.27.3))(@tiptap/pm@2.27.3)(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
   comm/constants:
     dependencies:
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
     devDependencies:
@@ -1754,27 +1754,27 @@ importers:
 
   comm/effects/common-ui:
     dependencies:
-      '@YDSZ-core/form-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/form-ui
-      '@YDSZ-core/popup-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/popup-ui
-      '@YDSZ-core/preferences':
-        specifier: workspace:*
-        version: link:../../@core/preferences
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../@core/base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
       '@vueuse/integrations':
         specifier: 'catalog:'
         version: 13.9.0(async-validator@4.2.5)(axios@1.19.0)(change-case@5.4.4)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.7)(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/form-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/form-ui
+      '@ydsz-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/popup-ui
+      '@ydsz-core/preferences':
+        specifier: workspace:*
+        version: link:../../@core/preferences
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -1827,12 +1827,12 @@ importers:
 
   comm/effects/hooks:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../@core/composables
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../@core/composables
       '@ydsz/preferences':
         specifier: workspace:*
         version: link:../../preferences
@@ -1857,33 +1857,33 @@ importers:
 
   comm/effects/layouts:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../../@core/composables
-      '@YDSZ-core/form-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/form-ui
-      '@YDSZ-core/layout-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/layout-ui
-      '@YDSZ-core/menu-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/menu-ui
-      '@YDSZ-core/popup-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/popup-ui
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../@core/base/shared
-      '@YDSZ-core/tabs-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/tabs-ui
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../@core/composables
+      '@ydsz-core/form-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/form-ui
+      '@ydsz-core/layout-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/layout-ui
+      '@ydsz-core/menu-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/menu-ui
+      '@ydsz-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/popup-ui
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
+      '@ydsz-core/tabs-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/tabs-ui
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -1917,10 +1917,10 @@ importers:
 
   comm/effects/micro-kernel:
     dependencies:
-      '@YDSZ-core/composables':
+      '@ydsz-core/composables':
         specifier: workspace:*
         version: link:../../@core/composables
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
       '@ydsz/micro-runtime':
@@ -1939,7 +1939,7 @@ importers:
 
   comm/effects/micro-runtime:
     dependencies:
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
       '@ydsz/constants':
@@ -1970,7 +1970,7 @@ importers:
 
   comm/effects/monitor:
     dependencies:
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
       '@ydsz/hooks':
@@ -1990,23 +1990,35 @@ importers:
         specifier: workspace:*
         version: link:../../../conf/tsconfig
 
+  comm/effects/notification:
+    dependencies:
+      '@ydsz/request':
+        specifier: workspace:*
+        version: link:../request
+      element-plus:
+        specifier: '*'
+        version: 2.14.3(vue@3.5.40(typescript@5.9.3))
+      vue:
+        specifier: ^3.5.17
+        version: 3.5.40(typescript@5.9.3)
+
   comm/effects/plugins:
     dependencies:
-      '@YDSZ-core/form-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/form-ui
-      '@YDSZ-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../@core/base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
       '@vueuse/motion':
         specifier: 'catalog:'
         version: 3.0.3(magicast@0.5.4)(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/form-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/form-ui
+      '@ydsz-core/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
       '@ydsz/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -2040,7 +2052,7 @@ importers:
 
   comm/effects/request:
     dependencies:
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
       '@ydsz/locales':
@@ -2068,7 +2080,7 @@ importers:
 
   comm/effects/shared-auth:
     dependencies:
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
       '@ydsz/access':
@@ -2131,15 +2143,15 @@ importers:
 
   comm/effects/shared-business:
     dependencies:
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../../@core/base/shared
       '@tanstack/vue-virtual':
         specifier: 'catalog:'
         version: 3.13.35(vue@3.5.40(typescript@5.9.3))
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
       '@ydsz/common-ui':
         specifier: workspace:*
         version: link:../common-ui
@@ -2174,21 +2186,21 @@ importers:
 
   comm/icons:
     dependencies:
-      '@YDSZ-core/icons':
+      '@ydsz-core/icons':
         specifier: workspace:*
         version: link:../@core/base/icons
 
   comm/locales:
     dependencies:
-      '@YDSZ-core/composables':
-        specifier: workspace:*
-        version: link:../@core/composables
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../@core/base/shared
       '@intlify/core-base':
         specifier: 'catalog:'
         version: 11.4.8
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../@core/composables
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../@core/base/shared
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -2198,22 +2210,22 @@ importers:
 
   comm/preferences:
     dependencies:
-      '@YDSZ-core/preferences':
+      '@ydsz-core/preferences':
         specifier: workspace:*
         version: link:../@core/preferences
-      '@YDSZ-core/typings':
+      '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
 
   comm/stores:
     dependencies:
-      '@YDSZ-core/preferences':
+      '@ydsz-core/preferences':
         specifier: workspace:*
         version: link:../@core/preferences
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
-      '@YDSZ-core/typings':
+      '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
       pinia:
@@ -2234,13 +2246,13 @@ importers:
 
   comm/styles:
     dependencies:
-      '@YDSZ-core/design':
+      '@ydsz-core/design':
         specifier: workspace:*
         version: link:../@core/base/design
 
   comm/types:
     dependencies:
-      '@YDSZ-core/typings':
+      '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
       vue:
@@ -2252,10 +2264,10 @@ importers:
 
   comm/utils:
     dependencies:
-      '@YDSZ-core/shared':
+      '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../@core/base/shared
-      '@YDSZ-core/typings':
+      '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
       vue-router:
@@ -2513,18 +2525,18 @@ importers:
 
   main:
     dependencies:
-      '@YDSZ-core/feature-flags':
-        specifier: workspace:*
-        version: link:../comm/@core/feature-flags
-      '@YDSZ-core/menu-ui':
-        specifier: workspace:*
-        version: link:../comm/@core/ui-kit/menu-ui
-      '@YDSZ-core/shared':
-        specifier: workspace:*
-        version: link:../comm/@core/base/shared
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/feature-flags':
+        specifier: workspace:*
+        version: link:../comm/@core/feature-flags
+      '@ydsz-core/menu-ui':
+        specifier: workspace:*
+        version: link:../comm/@core/ui-kit/menu-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../comm/@core/base/shared
       '@ydsz/access':
         specifier: workspace:*
         version: link:../comm/effects/access
@@ -13915,11 +13927,6 @@ snapshots:
   '@esbuild/win32-x64@0.25.3':
     optional: true
 
-  '@eslint-community/eslint-utils@4.10.1(eslint@9.39.5(jiti@1.21.7))':
-    dependencies:
-      eslint: 9.39.5(jiti@1.21.7)
-      eslint-visitor-keys: 3.4.3
-
   '@eslint-community/eslint-utils@4.10.1(eslint@9.39.5(jiti@2.7.0))':
     dependencies:
       eslint: 9.39.5(jiti@2.7.0)
@@ -15456,13 +15463,13 @@ snapshots:
       - rollup
       - supports-color
 
-  '@vitejs/plugin-vue-jsx@4.2.0(vite@6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))':
+  '@vitejs/plugin-vue-jsx@4.2.0(vite@6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7)
       '@rolldown/pluginutils': 1.0.1
       '@vue/babel-plugin-jsx': 1.5.0(@babel/core@7.29.7)
-      vite: 6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
+      vite: 6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
       vue: 3.5.40(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
@@ -15478,9 +15485,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue@5.2.4(vite@6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))':
+  '@vitejs/plugin-vue@5.2.4(vite@6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))':
     dependencies:
-      vite: 6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
+      vite: 6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
       vue: 3.5.40(typescript@5.9.3)
 
   '@vitejs/plugin-vue@5.2.4(vite@6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))':
@@ -17375,47 +17382,6 @@ snapshots:
   eslint-visitor-keys@4.2.1: {}
 
   eslint-visitor-keys@5.0.1: {}
-
-  eslint@9.39.5(jiti@1.21.7):
-    dependencies:
-      '@eslint-community/eslint-utils': 4.10.1(eslint@9.39.5(jiti@1.21.7))
-      '@eslint-community/regexpp': 4.12.2
-      '@eslint/config-array': 0.21.2
-      '@eslint/config-helpers': 0.4.2
-      '@eslint/core': 0.17.0
-      '@eslint/eslintrc': 3.3.6
-      '@eslint/js': 9.39.5
-      '@eslint/plugin-kit': 0.4.1
-      '@humanfs/node': 0.16.8
-      '@humanwhocodes/module-importer': 1.0.1
-      '@humanwhocodes/retry': 0.4.3
-      '@types/estree': 1.0.9
-      ajv: 6.15.0
-      chalk: 4.1.2
-      cross-spawn: 7.0.6
-      debug: 4.4.3(supports-color@10.2.2)
-      escape-string-regexp: 4.0.0
-      eslint-scope: 8.4.0
-      eslint-visitor-keys: 4.2.1
-      espree: 10.4.0
-      esquery: 1.7.0
-      esutils: 2.0.3
-      fast-deep-equal: 3.1.3
-      file-entry-cache: 8.0.0
-      find-up: 5.0.0
-      glob-parent: 6.0.2
-      ignore: 5.3.2
-      imurmurhash: 0.1.4
-      is-glob: 4.0.3
-      json-stable-stringify-without-jsonify: 1.0.1
-      lodash.merge: 4.6.2
-      minimatch: 3.1.5
-      natural-compare: 1.4.0
-      optionator: 0.9.4
-    optionalDependencies:
-      jiti: 1.21.7
-    transitivePeerDependencies:
-      - supports-color
 
   eslint@9.39.5(jiti@2.7.0):
     dependencies:
@@ -22600,7 +22566,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite@6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0):
+  vite@6.4.3(@types/node@22.20.1)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0):
     dependencies:
       esbuild: 0.25.3
       fdir: 6.5.0(picomatch@4.0.5)
@@ -22611,7 +22577,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.20.1
       fsevents: 2.3.3
-      jiti: 1.21.7
+      jiti: 2.7.0
       sass: 1.102.0
       stylus: 0.57.0
       terser: 5.49.0

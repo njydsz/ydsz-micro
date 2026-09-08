@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 公共组件统一出口 — 聚合全部基础 UI 组件与第三方适配层
  *
  * 集中导出表单、表格、弹窗、验证码、骨架屏、水印等复用组件，
@@ -28,8 +28,8 @@ export * from './safe-html';
 export * from './skeleton';
 export * from './tippy';
 export * from './watermark';
-export * from '@YDSZ-core/form-ui';
-export * from '@YDSZ-core/popup-ui';
+export * from '@ydsz-core/form-ui';
+export * from '@ydsz-core/popup-ui';
 
 // 给文档用
 export {
@@ -47,7 +47,7 @@ export {
   YDSZSelect,
   YDSZSpinner,
   YDSZTree,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
-export type { FlattenedItem } from '@YDSZ-core/shadcn-ui';
-export { globalShareState } from '@YDSZ-core/shared/global-state';
+export type { FlattenedItem } from '@ydsz-core/shadcn-ui';
+export { globalShareState } from '@ydsz-core/shared/global-state';

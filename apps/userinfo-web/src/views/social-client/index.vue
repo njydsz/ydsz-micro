@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 社交客户端配置管理页面 — 管理社交登录客户端配置
  *
  * @path apps\userinfo-web\src\views\social-client\index.vue
@@ -36,7 +36,7 @@ import {
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { create, deleteApi, page, update } from '#/api/socialClientConfig';

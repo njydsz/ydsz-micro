@@ -10,7 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { initLogger } from "@YDSZ-core/shared/utils";
+import { initLogger } from "@ydsz-core/shared/utils";
 
 import { featureFlagsOptions, registerApplicationFlags } from "./feature-flags";
 import { setupApp } from "./setup/app";
@@ -46,7 +46,7 @@ async function bootstrap(namespace: string) {
   // 功能开关：在 Pinia 之前注册定义，保证默认值尽早生效；
   // init 不阻塞（远程加载在内部异步进行，失败降级到默认值）
   registerApplicationFlags();
-  const { initFeatureFlags } = await import("@YDSZ-core/feature-flags");
+  const { initFeatureFlags } = await import("@ydsz-core/feature-flags");
   await initFeatureFlags(featureFlagsOptions());
 
   // 创建并装配 Vue 应用（不阻塞后续微前端运行时注册）

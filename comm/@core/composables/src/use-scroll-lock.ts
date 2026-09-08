@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 页面滚动锁定：锁定 body 滚动并补偿滚动条宽度与 fixed 元素位移。
  *
  * 单纯设置 overflow:hidden 会让滚动条消失、页面因可用宽度变大而横向跳动，
@@ -11,7 +11,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { getScrollbarWidth, needsScrollbar } from '@YDSZ-core/shared/utils';
+import { getScrollbarWidth, needsScrollbar } from '@ydsz-core/shared/utils';
 
 import {
   useScrollLock as _useScrollLock,

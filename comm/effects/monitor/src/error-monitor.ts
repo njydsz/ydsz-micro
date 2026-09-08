@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 错误监控 — Vue + window + Promise + 资源加载错误捕获
  *
  * v3.1 增强：
@@ -22,7 +22,7 @@
  * @since 3.0.0
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import type { ErrorReport, MonitorConfig } from './error-monitor-types';
 import {

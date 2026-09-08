@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 面包屑中的一级：渲染为 li，保证外层 BreadcrumbList 的有序列表语义成立。
  *
  * 注意分隔符（BreadcrumbSeparator）本身也是一个 li，
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

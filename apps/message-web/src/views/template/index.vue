@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 消息模板列表页组件
  *
  * @path apps/message-web/src/views/template/index.vue
@@ -35,7 +35,7 @@ import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('message-template');
 import { audit, deleteApi, page } from '#/api/template';

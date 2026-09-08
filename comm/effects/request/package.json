@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/request",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
@@ -20,7 +20,7 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/locales": "workspace:*",
     "@ydsz/monitor": "workspace:*",
     "@ydsz/utils": "workspace:*",

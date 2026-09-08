@@ -1,18 +1,18 @@
-/**
+﻿/**
  * 偏好配置管理器，提供响应式偏好设置的读写、持久化与变更监听。
  *
  * @path comm\@core\preferences\src\preferences.ts
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { DeepPartial } from '@YDSZ-core/typings';
+import type { DeepPartial } from '@ydsz-core/typings';
 
 import type { InitialOptions, Preferences } from './types';
 
 import { markRaw, reactive, readonly, watch } from 'vue';
 
-import { StorageManager } from '@YDSZ-core/shared/cache';
-import { isMacOs, merge } from '@YDSZ-core/shared/utils';
+import { StorageManager } from '@ydsz-core/shared/cache';
+import { isMacOs, merge } from '@ydsz-core/shared/utils';
 
 import {
   breakpointsTailwind,

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 面包屑的层级列表：渲染为 ol 而非 ul，因为面包屑的先后顺序代表层级由浅到深。
  *
  * 允许换行（flex-wrap + break-words）是必要的 ——
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

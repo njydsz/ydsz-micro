@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 公司管理页面 — 展示公司列表（左侧组织树导航 + 右侧列表），支持新增/编辑/删除公司信息
  *
  * @path apps\userinfo-web\src\views\system\company\index.vue
@@ -24,7 +24,7 @@ import { ElButton, ElMessage, ElMessageBox, ElTag, ElTree } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { list, remove, tree } from '#/api/company';

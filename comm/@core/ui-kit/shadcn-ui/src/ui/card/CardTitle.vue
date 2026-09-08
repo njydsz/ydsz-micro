@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 卡片标题：以 h3 渲染的区块标题。
  *
  * 固定为 h3 而非可配置层级：卡片通常嵌在已有 h2 的页面区块内，固定层级可避免
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 抽屉的内容区：负责挂载位置、遮罩、方位动画与 opened / closed / close 事件。
  *
  * appendTo 默认 body 而不是当前 DOM 位置，避免被父级的 overflow / transform 裁剪；
@@ -18,7 +18,7 @@ import type { SheetVariants } from './sheet';
 
 import { computed, ref } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DialogContent, DialogPortal, useForwardPropsEmits } from 'radix-vue';
 

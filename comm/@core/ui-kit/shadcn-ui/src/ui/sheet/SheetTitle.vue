@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 抽屉的标题：radix 会将其注册为 aria-labelledby 的目标。
  *
  * 不可省略 —— 缺少标题的抽屉在读屏里只会播报「对话框」，
@@ -14,7 +14,7 @@ import type { DialogTitleProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DialogTitle } from 'radix-vue';
 

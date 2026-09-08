@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 消息召回管理页面
  *
  * <p>消息/通知的撤回记录管理，支持按通知ID或消息ID执行召回操作。
@@ -20,7 +20,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElCard,

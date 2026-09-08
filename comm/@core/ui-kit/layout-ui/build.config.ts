@@ -1,5 +1,5 @@
-/**
- * @YDSZ-core/layout-ui 包的 unbuild 构建配置：以 mkdist 逐文件转译，不打包。
+﻿/**
+ * @ydsz-core/layout-ui 包的 unbuild 构建配置：以 mkdist 逐文件转译，不打包。
  *
  * @path comm\@core\ui-kit\layout-ui\build.config.ts
  * @author ydsz-team
@@ -15,7 +15,7 @@ import { defineBuildConfig } from 'unbuild';
  * 需要的那一个，而不必拉起整棵布局树。
  *
  * externals 处理：mkdist 不解析依赖，天然不内联任何 import。`vue` 与
- * `@YDSZ-core/*` 全部外部化，保证布局里用到的 shared 单例（偏好、断点状态）
+ * `@ydsz-core/*` 全部外部化，保证布局里用到的 shared 单例（偏好、断点状态）
  * 与宿主应用是同一份，否则会出现侧栏折叠状态不同步。
  *
  * 两段 entries 的分工：`loaders: ['vue']` 负责 SFC，`loaders: ['js']` + `format: 'esm'`

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 角色管理页面 — 展示角色列表，支持新增/编辑/删除角色及权限分配
  *
  * @path apps\userinfo-web\src\views\system\role\index.vue
@@ -33,7 +33,7 @@ import {
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { tree as menuTree } from '#/api/menu';

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 复选框：包装 radix CheckboxRoot，并补充 indeterminate 半选态与自定义指示器。
  *
  * 半选态用于「全选」这类表达「子项部分选中」的场景，原生 checkbox 只能通过脚本
@@ -15,7 +15,7 @@ import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Check, Minus } from 'lucide-vue-next';
 import {

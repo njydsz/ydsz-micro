@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 表单渲染主组件：把 Schema 数组渲染成完整表单，并按字段名开放插槽覆盖。
  *
  * 渲染前先把 Schema 计算为 computedSchema，把联动结果、默认值与组件映射提前
@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('form');
 import type { GenericObject } from 'vee-validate';
 import type { ZodTypeAny } from 'zod';
@@ -27,13 +27,13 @@ import type {
 
 import { computed } from 'vue';
 
-import { Form } from '@YDSZ-core/shadcn-ui';
+import { Form } from '@ydsz-core/shadcn-ui';
 import {
   cn,
   isFunction,
   isString,
   mergeWithArrayOverride,
-} from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shared/utils';
 
 import { provideFormRenderProps } from './context';
 import { useExpandable } from './expandable';

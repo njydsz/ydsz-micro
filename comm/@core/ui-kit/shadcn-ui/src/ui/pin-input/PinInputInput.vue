@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 验证码输入的单个格子：只接受一位字符，宽度固定、文本居中。
  *
  * 相邻格子共享边框（border-y + border-r + first:border-l）而不是各自画一圈，
@@ -13,7 +13,7 @@ import type { PinInputInputProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { PinInputInput, useForwardProps } from 'radix-vue';
 

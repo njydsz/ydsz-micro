@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 悬停卡片的浮层内容：经 Portal 挂到 body，避免被父级的 overflow 裁剪。
  *
  * sideOffset 默认 4px —— 触发器与浮层之间需要留出间隙，
@@ -14,7 +14,7 @@ import type { HoverCardContentProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { HoverCardContent, HoverCardPortal, useForwardProps } from 'radix-vue';
 

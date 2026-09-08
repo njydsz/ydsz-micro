@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 轻量级日志工具 — 控制台噪音收敛
  *
  * 设计目标：
@@ -8,7 +8,7 @@
  *   4. API 与 console 对齐，迁移成本低
  *
  * 使用方式：
- *   import { createLogger } from '@YDSZ-core/shared/utils';
+ *   import { createLogger } from '@ydsz-core/shared/utils';
  *   const logger = createLogger('MicroKernel');
  *   logger.info('Started with', apps.length, 'apps');  // 开发环境输出
  *   logger.warn('Already started');                    // 始终输出

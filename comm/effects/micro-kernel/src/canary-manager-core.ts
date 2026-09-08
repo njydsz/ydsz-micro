@@ -1,4 +1,4 @@
-/**
+﻿/**
  * canary-manager-core.ts — CanaryManager 核心分流逻辑
  *
  * 从 canary-manager.ts 提取的核心分流决策逻辑，包含：
@@ -12,7 +12,7 @@
  * @since 4.1.0
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { setStorage, STORAGE_KEYS } from "./storage-utils";
 import type {

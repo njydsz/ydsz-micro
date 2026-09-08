@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 密码输入框：在普通输入框上补充明文切换与强度提示。
  *
  * 强度提示默认关闭，仅在 passwordStrength 为真时渲染 —— 校验规则本身由业务定义，
@@ -12,8 +12,8 @@
 <script setup lang="ts">
 import { ref, useSlots } from 'vue';
 
-import { Eye, EyeOff } from '@YDSZ-core/icons';
-import { cn } from '@YDSZ-core/shared/utils';
+import { Eye, EyeOff } from '@ydsz-core/icons';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Input } from '../../ui';
 import PasswordStrength from './password-strength.vue';

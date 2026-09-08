@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 卡片容器：提供统一的圆角、边框、阴影与背景。
  *
  * 纯展示容器，不包装 radix 组件；hoverable 开启时叠加悬停反馈，用于可点击的卡片。
@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from "@YDSZ-core/shared/utils";
+import { cn } from "@ydsz-core/shared/utils";
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

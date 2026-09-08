@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 通用图标渲染器：按传入值的类型自动选择渲染方式。
  *
  * 同一组件兼容四种输入——Vue 组件直接渲染、http(s) 链接渲染为 img、
@@ -18,13 +18,13 @@ import type { Component } from 'vue';
 
 import { computed } from 'vue';
 
-import { IconDefault, IconifyIcon } from '@YDSZ-core/icons';
+import { IconDefault, IconifyIcon } from '@ydsz-core/icons';
 import {
   isFunction,
   isHttpUrl,
   isObject,
   isString,
-} from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shared/utils';
 
 const props = defineProps<{
   // 没有是否显示默认图标

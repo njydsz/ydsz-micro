@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 标签页的内容面板：与 TabsTrigger 通过 value 配对，只有激活项被渲染。
  *
  * mt-2 的间距写在这里而不是面板内部，是为了让内容与标签栏的距离在不同面板间保持一致；
@@ -14,7 +14,7 @@ import type { TabsContentProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { TabsContent } from 'radix-vue';
 

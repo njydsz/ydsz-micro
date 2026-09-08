@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 系统配置表单组件 — 支持新增/编辑系统参数
  *
  * @path apps\system-web\src\views\config\config-form.vue
@@ -27,7 +27,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { save, update } from '#/api/config';
 import type { ConfigVO } from '#/api/models';
 

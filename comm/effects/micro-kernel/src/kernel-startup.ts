@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 内核启动逻辑 — start() 方法体
  *
  * 从 kernel.ts 提取的内核启动流程，包含预加载策略初始化、
@@ -11,7 +11,7 @@
 
 import type { MicroAppConfig, MicroAppEntry, StartOptions } from "@ydsz/micro-runtime";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { runWithConcurrency, scheduleIdle, shouldSkipPrefetchDueToNetwork } from "./kernel-helpers";
 import { loadApp } from "./loader";

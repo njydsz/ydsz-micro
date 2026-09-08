@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则生命周期审批页面
  *
  * @path apps\literule-web\src\views\rule-lifecycle\index.vue
@@ -38,7 +38,7 @@ import {
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import type { ApprovalFlowVO, ApprovalRecordVO } from '#/api/models';
 import {

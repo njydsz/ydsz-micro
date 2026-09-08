@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 对话框标题：作为无障碍标题关联到对话框本体。
  *
  * 会被 radix 用作 aria-labelledby 的目标，缺失会导致对话框对读屏「无标题」，
@@ -13,7 +13,7 @@ import type { DialogTitleProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DialogTitle, useForwardProps } from 'radix-vue';
 

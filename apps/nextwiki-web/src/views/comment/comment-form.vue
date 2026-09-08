@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 文件评论（表单组件）
  *
  * @path apps\nextwiki-web\src\views\comment\comment-form.vue
@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
 const logger = createLogger('nextwiki-comment');

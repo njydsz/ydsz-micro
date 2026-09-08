@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 接口权限管理页面 — 接口权限的分页列表、搜索、启用/禁用、删除、触发扫描
  *
  * @path apps\system-web\src\views\api-permission\index.vue
@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

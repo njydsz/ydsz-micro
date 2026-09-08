@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 面包屑的当前页：渲染为 span 并标记 aria-current="page"，不是链接。
  *
  * 使用弱化主色而非高亮色，让视觉焦点落在其祖先层级上；
@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

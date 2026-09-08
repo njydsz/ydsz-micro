@@ -21,9 +21,9 @@ import type {
 import { unref } from 'vue';
 import { createI18n } from 'vue-i18n';
 
-import { useSimpleLocale } from '@YDSZ-core/composables';
+import { useSimpleLocale } from '@ydsz-core/composables';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('i18n');
 const i18n = createI18n({
   globalInjection: true,

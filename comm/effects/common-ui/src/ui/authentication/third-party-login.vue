@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * third-party-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\third-party-login.vue
@@ -10,7 +10,7 @@ import { useAppConfig } from '@ydsz/hooks';
 import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
 
 import DingdingLogin from './dingding-login.vue';
 

@@ -32,7 +32,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { communicate, freeJump, jump, saveDraft } from '#/api/flowTask';
 import type { FlowRunTaskVO, FlowTaskOperateDTO } from '#/api/models';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('workflow-task');

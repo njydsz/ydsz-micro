@@ -39,7 +39,7 @@ import {
 import { listQuickComments, incrementUseCount } from '#/api/flowComment';
 import type { FlowRunTaskVO, FlowTaskOperateDTO, FlowQuickCommentVO } from '#/api/models';
 import { $t } from '#/locales';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('workflow-task');
 import FlowUserSelector from '#/components/FlowUserSelector.vue';

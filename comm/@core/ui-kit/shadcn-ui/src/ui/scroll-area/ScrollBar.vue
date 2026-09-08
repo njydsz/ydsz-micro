@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 滚动区域的滚动条：默认纵向，通过 orientation 切换横竖两套尺寸与内边距。
  *
  * 加 touch-none 是移动端的关键 —— 否则浏览器会把滚动条上的触摸判定为页面滚动手势，
@@ -13,7 +13,7 @@ import type { ScrollAreaScrollbarProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ScrollAreaScrollbar, ScrollAreaThumb } from 'radix-vue';
 

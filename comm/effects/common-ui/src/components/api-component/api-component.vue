@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * api-component 通用组件
  *
  * @path comm\effects\common-ui\src\components\api-component\api-component.vue
@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('api-component');
 import type { Component } from 'vue';
 
@@ -16,7 +16,7 @@ import { computed, nextTick, ref, unref, useAttrs, watch } from 'vue';
 
 import { LoaderCircle } from '@ydsz/icons';
 
-import { cloneDeep, get, isEqual, isFunction } from '@YDSZ-core/shared/utils';
+import { cloneDeep, get, isEqual, isFunction } from '@ydsz-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 

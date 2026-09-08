@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单项：包装 radix DropdownMenuItem，补充 inset 对齐选项。
  *
  * inset 用于与带图标或勾选标记的项保持左对齐；这些标记占用固定前置宽度，
@@ -13,7 +13,7 @@ import type { DropdownMenuItemProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DropdownMenuItem, useForwardProps } from 'radix-vue';
 

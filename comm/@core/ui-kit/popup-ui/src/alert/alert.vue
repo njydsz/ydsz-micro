@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 提示弹窗的渲染实现：把配置映射为 AlertDialog 的结构，并处理确认/取消两条关闭路径。
  *
  * 内部用 isConfirm 标记记录本次关闭的来源，closed 事件把它一并抛出、随后立即复位；
@@ -16,7 +16,7 @@ import type { AlertProps } from './alert';
 
 import { computed, h, nextTick, ref } from 'vue';
 
-import { useSimpleLocale } from '@YDSZ-core/composables';
+import { useSimpleLocale } from '@ydsz-core/composables';
 import {
   CircleAlert,
   CircleCheckBig,
@@ -24,7 +24,7 @@ import {
   CircleX,
   Info,
   X,
-} from '@YDSZ-core/icons';
+} from '@ydsz-core/icons';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,9 +35,9 @@ import {
   YDSZButton,
   YDSZLoading,
   YDSZRenderContent,
-} from '@YDSZ-core/shadcn-ui';
-import { globalShareState } from '@YDSZ-core/shared/global-state';
-import { cn } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shadcn-ui';
+import { globalShareState } from '@ydsz-core/shared/global-state';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { provideAlertContext } from './alert';
 

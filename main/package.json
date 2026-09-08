@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/main-web",
   "version": "1.0.0",
   "homepage": "https://YDSZ.com",
@@ -29,9 +29,9 @@
   },
   "dependencies": {
     "@vueuse/core": "catalog:",
-    "@YDSZ-core/feature-flags": "workspace:*",
-    "@YDSZ-core/menu-ui": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/feature-flags": "workspace:*",
+    "@ydsz-core/menu-ui": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",
     "@ydsz/constants": "workspace:*",

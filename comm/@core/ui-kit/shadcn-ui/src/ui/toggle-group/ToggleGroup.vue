@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 切换按钮组的容器：把 variant / size 通过 provide 下发给组内所有项。
  *
  * 走 provide 而不是逐个 prop 传递，是为了让调用方只在组上写一次尺寸与外观，
@@ -17,7 +17,7 @@ import type { toggleVariants } from '../toggle';
 
 import { computed, provide } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ToggleGroupRoot, useForwardPropsEmits } from 'radix-vue';
 

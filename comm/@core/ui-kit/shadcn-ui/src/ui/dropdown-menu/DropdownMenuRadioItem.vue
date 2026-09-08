@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单单选项：在单选组内表示互斥选项之一。
  *
  * 必须置于 DropdownMenuRadioGroup 内，否则拿不到互斥上下文，会退化为普通项。
@@ -15,7 +15,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Circle } from 'lucide-vue-next';
 import {

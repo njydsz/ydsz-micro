@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单的勾选菜单项：用于可切换的开关型操作。
  *
  * 勾选状态由 radix 以 menuitemcheckbox 语义维护，读屏会播报选中与否；
@@ -16,7 +16,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {

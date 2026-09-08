@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 可滚动对话框内容区：内容超高时内部滚动，而不是让整页滚动。
  *
  * 额外开放 zIndex（默认 1000）：对话框常与其它浮层（抽屉、下拉）叠加，
@@ -14,7 +14,7 @@ import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { X } from 'lucide-vue-next';
 import {

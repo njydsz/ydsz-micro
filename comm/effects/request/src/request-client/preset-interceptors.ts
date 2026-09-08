@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 与后端响应契约对齐的预置拦截器。
  *
  * 承载四套应用共用的响应处理约定，业务侧无需重复实现：
@@ -28,7 +28,7 @@ import { BusinessError } from './business-error';
 
 import type { ExceptionSeverity } from './types';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('preset-interceptors');
 
 /** 响应数据类型（未知结构） */

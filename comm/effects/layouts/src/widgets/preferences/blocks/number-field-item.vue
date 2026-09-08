@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * number-field-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\number-field-item.vue
@@ -19,7 +19,7 @@ import {
   NumberFieldIncrement,
   NumberFieldInput,
   YDSZTooltip,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',

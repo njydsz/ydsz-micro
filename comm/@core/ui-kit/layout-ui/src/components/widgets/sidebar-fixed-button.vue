@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 侧边栏的「固定/取消固定」按钮：切换悬停即展开（expandOnHover）行为。
  *
  * 未固定时侧边栏以折叠态常驻、鼠标悬停才展开，适合内容区需要最大宽度的场景；
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { Pin, PinOff } from '@YDSZ-core/icons';
+import { Pin, PinOff } from '@ydsz-core/icons';
 
 const expandOnHover = defineModel<boolean>('expandOnHover');
 

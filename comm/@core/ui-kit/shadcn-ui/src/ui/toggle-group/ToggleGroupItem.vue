@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 切换按钮组中的一项：从 toggleGroup 上下文取 variant / size，自身 props 优先。
  *
  * 变体取值先从 inject 的上下文中取、再与本地 props 合并，
@@ -15,7 +15,7 @@ import type { ToggleGroupItemProps } from 'radix-vue';
 
 import { computed, inject } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ToggleGroupItem, useForwardProps } from 'radix-vue';
 

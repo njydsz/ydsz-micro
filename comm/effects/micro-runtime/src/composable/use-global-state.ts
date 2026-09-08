@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Vue 组合式 API — 子应用侧使用全局状态
  *
  * 子应用无需关心底层是 qiankun 还是 micro-kernel，
@@ -18,7 +18,7 @@ import type { Ref } from 'vue';
 import { computed, onScopeDispose, ref } from 'vue';
 import type { GlobalStateHandle } from '../global-state';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-global-state');
 /** 全局状态单例（由主应用/子应用 bootstrap 时注入） */
 let globalStateHandle: null | GlobalStateHandle<Record<string, unknown>> = null;

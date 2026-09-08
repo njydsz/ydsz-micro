@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * col-page 通用组件
  *
  * @path comm\effects\common-ui\src\components\col-page\col-page.vue
@@ -14,7 +14,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 import Page from '../page/page.vue';
 

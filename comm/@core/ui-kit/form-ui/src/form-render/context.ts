@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单渲染上下文：用 provide/inject 向下传递渲染配置及其派生状态。
  *
  * 表单项嵌套层级不固定（分组、栅格、自定义插槽都可能再包一层），逐层透传 props
@@ -14,7 +14,7 @@ import type { FormRenderProps } from '../types';
 
 import { computed } from 'vue';
 
-import { createContext } from '@YDSZ-core/shadcn-ui';
+import { createContext } from '@ydsz-core/shadcn-ui';
 
 export const [injectRenderFormProps, provideFormRenderProps] =
   createContext<FormRenderProps>('FormRenderProps');

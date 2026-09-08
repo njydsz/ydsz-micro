@@ -11,11 +11,11 @@ import type {
   ComponentRecordType,
   GenerateMenuAndRoutesOptions,
   RouteRecordStringComponent,
-} from '@YDSZ-core/typings';
+} from '@ydsz-core/typings';
 
-import { mapTree } from '@YDSZ-core/shared/utils';
+import { mapTree } from '@ydsz-core/shared/utils';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('generate-routes-backend');
 /**
  * 根据后端菜单接口数据动态生成路由配置（后端鉴权模式）。

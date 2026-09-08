@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 以组合式函数方式创建 YDSZVxeGrid 表格组件与操作句柄。
  *
  * 将 vxe-grid 的配置、渲染与命令式 API 封装为 useYDSZVxeGrid(options) 调用，
@@ -12,13 +12,13 @@ import type { VxeGridSlots, VxeGridSlotTypes } from 'vxe-table';
 
 import type { SlotsType } from 'vue';
 
-import type { BaseFormComponentType } from '@YDSZ-core/form-ui';
+import type { BaseFormComponentType } from '@ydsz-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
 import { defineComponent, h, onBeforeUnmount } from 'vue';
 
-import { useStore } from '@YDSZ-core/shared/store';
+import { useStore } from '@ydsz-core/shared/store';
 
 import { VxeGridApi } from './api';
 import VxeGrid from './use-vxe-grid.vue';

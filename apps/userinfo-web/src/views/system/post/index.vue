@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 岗位管理页面 — 展示岗位列表，支持新增/编辑/删除岗位
  *
  * @path apps\userinfo-web\src\views\system\post\index.vue
@@ -24,7 +24,7 @@ import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { list, remove } from '#/api/post';

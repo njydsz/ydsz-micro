@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 统一导出 — @ydsz/micro-kernel
  *
  * @path comm/effects/micro-kernel/src/index.ts
@@ -274,4 +274,4 @@ export {
   compareVersion,
   parseVersion,
   satisfiesVersion,
-} from "@YDSZ-core/shared/semver";
+} from "@ydsz-core/shared/semver";

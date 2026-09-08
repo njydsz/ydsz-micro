@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 在线用户管理（会话管理）
  *
  * @path apps\userinfo-web\src\views\system\session\index.vue
@@ -21,7 +21,7 @@ import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {

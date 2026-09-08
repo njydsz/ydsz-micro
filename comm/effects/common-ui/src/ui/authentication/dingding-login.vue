@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * dingding-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\dingding-login.vue
@@ -11,9 +11,9 @@ import { useRoute } from 'vue-router';
 import { RiDingding } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { alert, useYDSZModal } from '@YDSZ-core/popup-ui';
-import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
-import { loadScript } from '@YDSZ-core/shared/utils';
+import { alert, useYDSZModal } from '@ydsz-core/popup-ui';
+import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { loadScript } from '@ydsz-core/shared/utils';
 
 interface Props {
   clientId: string;

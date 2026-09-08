@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 存储配额（展示页）
  *
  * @path apps\nextwiki-web\src\views\quota\index.vue
@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 const logger = createLogger('nextwiki-quota');
 const { t } = useI18n();

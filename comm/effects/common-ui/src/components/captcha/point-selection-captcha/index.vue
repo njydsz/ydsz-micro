@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\point-selection-captcha\index.vue
@@ -6,14 +6,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('index');
 import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 
 import { RotateCw } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YDSZButton, YDSZIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZButton, YDSZIconButton } from '@ydsz-core/shadcn-ui';
 
 import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
 import CaptchaCard from './point-selection-captcha-card.vue';

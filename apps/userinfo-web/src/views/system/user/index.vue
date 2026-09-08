@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 用户账号管理页面 — 展示用户列表，支持新增/编辑/删除、角色分配、重置密码及多条件检索
  *
  * @path apps\userinfo-web\src\views\system\user\index.vue
@@ -33,7 +33,7 @@ import {
 import { useI18n } from 'vue-i18n';
 import { h, onMounted, reactive, ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('userinfo-user');
 const { t } = useI18n();

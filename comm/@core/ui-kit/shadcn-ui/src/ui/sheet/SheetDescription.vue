@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 抽屉的说明文字：会被 radix 注册为 aria-describedby 的目标。
  *
  * 抽屉常用于承载表单或详情，说明文字是读屏用户进入后的第一段有效信息，
@@ -13,7 +13,7 @@ import type { DialogDescriptionProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DialogDescription } from 'radix-vue';
 

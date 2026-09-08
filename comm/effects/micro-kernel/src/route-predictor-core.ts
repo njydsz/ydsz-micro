@@ -1,4 +1,4 @@
-/**
+﻿/**
  * route-predictor-core.ts — RoutePredictor 持久化核心逻辑
  *
  * 从 route-predictor.ts 提取的持久化逻辑，包含：
@@ -16,7 +16,7 @@
 
 import type { DisposableManager } from "./manager-registry";
 import type { RoutePredictor } from "./route-predictor";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { getStorage, removeStorage, setStorage } from "./storage-utils";
 import type { PersistedData, TransitionRecord } from "./route-predictor-types";

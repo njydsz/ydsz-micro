@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 错误码管理面板
  *
  * <p>展示后端全部业务错误码（A00~C99 体系），支持按模块、按关键词搜索。
@@ -33,7 +33,7 @@ import {
 } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('system-error-code');

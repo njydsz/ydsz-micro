@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单的主组合式入口：创建 FormApi 并返回 [Form 组件, 扩展 API] 二元组。
  *
  * 返回的 Form 是预绑定了 FormApi 的组件，业务既可把它当普通组件直接渲染，
@@ -18,7 +18,7 @@ import type {
 
 import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 
-import { useStore } from '@YDSZ-core/shared/store';
+import { useStore } from '@ydsz-core/shared/store';
 
 import { FormApi } from './form-api';
 import YDSZUseForm from './YDSZ-use-form.vue';

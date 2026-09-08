@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-captcha\index.vue
@@ -16,7 +16,7 @@ import { reactive, unref, useTemplateRef, watch, watchEffect } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { useTimeoutFn } from '@vueuse/core';
 

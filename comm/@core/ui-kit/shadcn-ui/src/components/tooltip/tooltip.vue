@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * Tooltip 的组合封装：内部自带 TooltipProvider，因此调用方不必再手动包一层 Provider。
  *
  * 对外只暴露高频的四个入口：trigger 插槽承载触发元素、默认插槽承载浮层内容，
@@ -17,7 +17,7 @@ import type { TooltipContentProps } from 'radix-vue';
 
 import type { StyleValue } from 'vue';
 
-import type { ClassType } from '@YDSZ-core/typings';
+import type { ClassType } from '@ydsz-core/typings';
 
 import {
   Tooltip,

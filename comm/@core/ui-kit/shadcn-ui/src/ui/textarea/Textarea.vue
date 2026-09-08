@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 多行输入框：通过 useVModel 建立双向绑定，默认最小高度 60px。
  *
  * passive: true 让组件不主动把 props.modelValue 同步回父级，
@@ -12,7 +12,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { useVModel } from '@vueuse/core';
 

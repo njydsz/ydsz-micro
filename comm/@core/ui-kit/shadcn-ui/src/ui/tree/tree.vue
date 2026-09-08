@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 树形选择组件：在扁平化后的节点列表上做渲染，支持单选/多选、复选框、搜索与展开动画。
  *
  * 先把树压平成一维数组再渲染，是为了用虚拟滚动和下标定位代替递归组件：
@@ -14,14 +14,14 @@
 import type { Arrayable } from '@vueuse/core';
 import type { FlattenedItem } from 'radix-vue';
 
-import type { ClassType, Recordable } from '@YDSZ-core/typings';
+import type { ClassType, Recordable } from '@ydsz-core/typings';
 
 import type { TreeProps } from './types';
 
 import { onMounted, ref, watchEffect } from 'vue';
 
-import { ChevronRight, IconifyIcon } from '@YDSZ-core/icons';
-import { cn, get } from '@YDSZ-core/shared/utils';
+import { ChevronRight, IconifyIcon } from '@ydsz-core/icons';
+import { cn, get } from '@ydsz-core/shared/utils';
 
 import { TreeItem, TreeRoot } from 'radix-vue';
 

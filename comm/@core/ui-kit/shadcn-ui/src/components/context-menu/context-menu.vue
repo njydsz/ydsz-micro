@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 右键菜单：接收菜单数据并在触发区域内渲染上下文菜单。
  *
  * 以数据驱动（menus）而非插槽逐个声明，便于与路由、权限配置对接；
@@ -16,7 +16,7 @@ import type {
   ContextMenuRootProps,
 } from 'radix-vue';
 
-import type { ClassType } from '@YDSZ-core/typings';
+import type { ClassType } from '@ydsz-core/typings';
 
 import type { IContextMenuItem } from './interface';
 

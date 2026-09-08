@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则模板管理页面
  *
  * @path apps\literule-web\src\views\rule-template\index.vue
@@ -38,7 +38,7 @@ import {
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import type { RuleDefinitionVO, RuleTemplateVO } from '#/api/models';
 import {

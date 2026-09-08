@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * theme-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-toggle.vue
@@ -20,7 +20,7 @@ import {
   YDSZTooltip,
   ToggleGroup,
   ToggleGroupItem,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 import ThemeButton from './theme-button.vue';
 

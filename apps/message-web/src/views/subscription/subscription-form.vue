@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 订阅表单组件
  *
  * <p>用于新增和编辑消息订阅关系。
@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('message-subscription');
 import {

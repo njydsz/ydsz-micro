@@ -20,7 +20,7 @@ import { ElCascader, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } fro
 import { computed, reactive, ref } from 'vue';
 import { create, tree, update } from '#/api/flowCategory';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from '#/api/models';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('workflow-category');

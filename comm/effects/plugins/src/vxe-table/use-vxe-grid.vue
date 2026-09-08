@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * use-vxe-grid Vue 组件
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.vue
@@ -24,7 +24,7 @@ import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
 import { cn } from '@ydsz/utils';
 
-import { YDSZHelpTooltip, YDSZLoading } from '@YDSZ-core/shadcn-ui';
+import { YDSZHelpTooltip, YDSZLoading } from '@ydsz-core/shadcn-ui';
 
 import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid } from 'vxe-table';

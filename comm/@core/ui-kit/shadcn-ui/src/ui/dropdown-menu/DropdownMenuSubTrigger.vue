@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 子菜单的入口项：点击或悬停后展开二级菜单，右侧固定带一个 ChevronRight 箭头。
  *
  * 箭头写死在组件内而非交给插槽，是为了保证全站「有下级」的视觉提示一致；
@@ -13,7 +13,7 @@ import type { DropdownMenuSubTriggerProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
 import { DropdownMenuSubTrigger, useForwardProps } from 'radix-vue';

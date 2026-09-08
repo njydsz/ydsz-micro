@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单快捷键提示：右对齐展示组合键文案。
  *
  * 只做展示、不绑定键盘事件；实际快捷键需由调用方自行注册。
@@ -8,7 +8,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

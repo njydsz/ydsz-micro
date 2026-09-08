@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 字段标签：自动把 for 指向本字段控件的 id，从而无需手写 for / id 配对。
  *
  * peer-disabled 相关类名让标签能跟随相邻控件的禁用态变灰 ——
@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import type { LabelProps } from 'radix-vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Label } from '../label';
 import { useFormField } from './useFormField';

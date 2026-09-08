@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单的命令式门面（FormApi）：在组件之外读写表单值、触发校验与提交。
  *
  * 做成类而非组合式函数，是为了让父组件、抽屉乃至非组件环境都能持有同一份句柄；
@@ -19,13 +19,13 @@ import type {
   ValidationOptions,
 } from 'vee-validate';
 
-import type { Recordable } from '@YDSZ-core/typings';
+import type { Recordable } from '@ydsz-core/typings';
 
 import type { FormActions, FormSchema, YDSZFormProps } from './types';
 
 import { toRaw } from 'vue';
 
-import { Store } from '@YDSZ-core/shared/store';
+import { Store } from '@ydsz-core/shared/store';
 import {
   bindMethods,
   createMerge,
@@ -35,12 +35,12 @@ import {
   isObject,
   mergeWithArrayOverride,
   StateHandler,
-} from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shared/utils';
 
 import { FormScrollHelper } from './form-scroll-helper';
 import { FormValueTransformer } from './form-value-transformer';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('form-api');
 function getDefaultState(): YDSZFormProps {
   return {

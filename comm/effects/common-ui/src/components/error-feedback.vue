@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 错误反馈组件 — 集成 Sentry 用户反馈弹窗
  *
  * 在错误页面（500/未捕获异常）中展示，允许用户附加描述后提交反馈到 Sentry。
@@ -9,7 +9,7 @@
  * @since 4.0.0
 -->
 <script lang="ts" setup>
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('error-feedback');
 import { computed, ref } from "vue";
 
@@ -22,7 +22,7 @@ import {
 } from "@ydsz/icons";
 import { isSentryInitialized } from "@ydsz/monitor/sentry";
 
-import { YDSZButton } from "@YDSZ-core/shadcn-ui";
+import { YDSZButton } from "@ydsz-core/shadcn-ui";
 import {
   Dialog,
   DialogContent,
@@ -31,8 +31,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@YDSZ-core/shadcn-ui/ui/dialog";
-import { Textarea } from "@YDSZ-core/shadcn-ui/ui/textarea";
+} from "@ydsz-core/shadcn-ui/ui/dialog";
+import { Textarea } from "@ydsz-core/shadcn-ui/ui/textarea";
 
 /**
  * 组件属性

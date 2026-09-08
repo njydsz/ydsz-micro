@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 安全仪表盘
  *
  * <p>展示系统安全态势总览，包括用户统计、登录趋势、风险分布、异常会话等。
@@ -26,7 +26,7 @@ import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn, ElTag } from 'elem
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   type ActiveUserVO,
   type AnomalySessionVO,

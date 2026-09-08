@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 把布局模式枚举展开成一组语义化布尔标记，供模板按需渲染各区域。
  *
  * 集中判断而非在模板里散落字符串比较，新增布局模式时只需改这一处；
@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { LayoutType } from '@YDSZ-core/typings';
+import type { LayoutType } from '@ydsz-core/typings';
 
 import type { YDSZLayoutProps } from '../YDSZ-layout';
 

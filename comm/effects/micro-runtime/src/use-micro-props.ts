@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用侧标准化 Props 访问器（v4.0 P1-2）
  *
  * 为子应用提供类型化的 mountProps 访问能力，消除手工解构的样板代码。
@@ -43,7 +43,7 @@ import type {
 } from './standard-props';
 import type { NamespacedGlobalStateAPI } from './namespaced-state';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-micro-props');
 // ==================== 注入 key ====================
 

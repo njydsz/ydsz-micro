@@ -26,7 +26,7 @@ import {
 } from '@ydsz/common-ui';
 import { preferences } from '@ydsz/preferences';
 import { useUserStore } from '@ydsz/stores';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { openWindow } from '@ydsz/utils';
 
 /** 模块级日志器 */

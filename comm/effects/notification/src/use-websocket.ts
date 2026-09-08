@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WebSocket 实时连接 Composable
  *
  * <p>提供类型安全的 WebSocket 连接管理：
@@ -29,7 +29,7 @@
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('useWebSocket');

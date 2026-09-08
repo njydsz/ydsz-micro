@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * OAuth2 应用管理页面 — 管理 OAuth2 客户端应用注册信息
  *
  * @path apps\userinfo-web\src\views\oauth2\index.vue
@@ -34,7 +34,7 @@ import {
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import type { OAuth2Application } from '#/api/models';

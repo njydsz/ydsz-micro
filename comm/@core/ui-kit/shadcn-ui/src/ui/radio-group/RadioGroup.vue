@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 单选组的容器：转发 radix RadioGroupRoot 的 props 与 emits。
  *
  * 用 grid gap-2 固定组内间距，使选项在表单中与其它字段的纵向节奏一致；
@@ -13,7 +13,7 @@ import type { RadioGroupRootEmits, RadioGroupRootProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { RadioGroupRoot, useForwardPropsEmits } from 'radix-vue';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 可勾选按钮组：把一组按钮当作单选/多选控件使用。
  *
  * 适用于筛选器等「选项少、需要一眼看全」的场景，比下拉少一次点击。
@@ -16,8 +16,8 @@ import type { YDSZButtonGroupProps, ValueType } from './button';
 
 import { computed, ref, watch } from 'vue';
 
-import { Circle, CircleCheckBig, LoaderCircle } from '@YDSZ-core/icons';
-import { cn, isFunction } from '@YDSZ-core/shared/utils';
+import { Circle, CircleCheckBig, LoaderCircle } from '@ydsz-core/icons';
+import { cn, isFunction } from '@ydsz-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 

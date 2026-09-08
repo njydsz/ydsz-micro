@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * index 通用组件
  *
  * @path comm\effects\common-ui\src\components\json-viewer\index.vue
@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('index');
 import type { SetupContext } from 'vue';
 
@@ -25,7 +25,7 @@ import VueJsonViewer from 'vue-json-viewer';
 
 import { $t } from '@ydsz/locales';
 
-import { isBoolean } from '@YDSZ-core/shared/utils';
+import { isBoolean } from '@ydsz-core/shared/utils';
 
 // @ts-ignore
 import JsonBigint from 'json-bigint';

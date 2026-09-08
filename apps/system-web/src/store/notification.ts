@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 通知 Pinia Store —— 通知列表与未读计数管理
  *
  * <p>基于 SSE 长连接接收实时通知，同时通过 HTTP API 同步数据。
@@ -11,7 +11,7 @@
 
 import { computed, ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';
 

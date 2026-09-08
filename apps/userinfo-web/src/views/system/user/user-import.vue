@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 用户导入组件
  *
  * @path apps\userinfo-web\src\views\system\user\user-import.vue
@@ -19,7 +19,7 @@ import { ElMessage, ElProgress, ElUpload } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const { t } = useI18n();
 const logger = createLogger('userinfo-user');

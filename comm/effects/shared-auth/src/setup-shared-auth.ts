@@ -1,4 +1,4 @@
-/**
+﻿/**
  * setup-shared-auth — 子应用共享请求客户端统一装配入口
  *
  * 封装 initSharedRequest 调用与 reAuthenticate/refreshToken 回调注入，
@@ -24,7 +24,7 @@ import { CROSS_TAB_EVENTS, notifyCrossTab } from './cross-tab';
 import { refreshTokenApi } from './auth-api';
 import { initSharedRequest } from './request-setup';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('setup-shared-auth');
 /**
  * P0-F2: 认证令牌存储模式（构建期常量，与 request.ts 保持一致）。

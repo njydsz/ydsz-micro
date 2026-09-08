@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 预加载策略工厂函数
  *
  * 提供多种预加载策略的工厂创建函数：
@@ -15,7 +15,7 @@
  */
 
 import type { MicroAppConfig } from "@ydsz/micro-runtime";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { getRoutePredictor, type Prediction } from "./route-predictor";
 

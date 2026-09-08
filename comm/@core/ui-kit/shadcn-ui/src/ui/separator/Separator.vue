@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 分隔线：按 orientation 切换横竖两种尺寸，可选在中间带一段文字。
  *
  * 带文字时以相对定位叠加一个居中块并留出左右内边距，
@@ -14,7 +14,7 @@ import type { SeparatorProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Separator } from 'radix-vue';
 

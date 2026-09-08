@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 定时任务（表单组件）
  *
  * @path apps\cronjob-web\src\views\job\job-form.vue
@@ -34,7 +34,7 @@ import { useI18n } from 'vue-i18n';
 import { create, update, validateCron } from '#/api/job';
 import type { JobVO } from '#/api/models';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('cronjob-job');
 

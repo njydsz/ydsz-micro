@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 树形组件的类型契约：节点结构相关的 props（TreeProps）与扁平化后的行数据结构。
  *
  * 字段名全部以 *Field 形式开放配置，类型上不固定任何业务字段，
@@ -13,7 +13,7 @@
 import type { Arrayable } from '@vueuse/core';
 import type { FlattenedItem } from 'radix-vue';
 
-import type { Recordable } from '@YDSZ-core/typings';
+import type { Recordable } from '@ydsz-core/typings';
 
 /**
  * 树形选择组件的 props。

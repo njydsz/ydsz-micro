@@ -1,4 +1,4 @@
-/**
+﻿/**
  * YDSZLayout 组件 props 的类型契约。
  *
  * 每个字段都标注默认值并与组件的 withDefaults 保持一致：
@@ -13,7 +13,7 @@ import type {
   LayoutHeaderModeType,
   LayoutType,
   ThemeModeType,
-} from '@YDSZ-core/typings';
+} from '@ydsz-core/typings';
 
 interface YDSZLayoutProps {
   /**

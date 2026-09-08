@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 按钮组容器：为一组按钮提供统一的间距与圆角衔接。
  *
  * 相邻按钮共享边框（除首尾外去掉内侧圆角与重复边线），使一组操作在视觉上连成整体；
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'YDSZButtonGroup' });
 

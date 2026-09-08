@@ -1,4 +1,4 @@
-/**
+﻿/**
  * `v-loading` / `v-spinning` 两个遮罩指令的实现。
  *
  * 为什么用指令而不是组件：遮罩的诉求是「给任意已有元素盖一层 loading」，
@@ -21,10 +21,10 @@ import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { h, render } from 'vue';
 
-import { YDSZLoading, YDSZSpinner } from '@YDSZ-core/shadcn-ui';
-import { isString } from '@YDSZ-core/shared/utils';
+import { YDSZLoading, YDSZSpinner } from '@ydsz-core/shadcn-ui';
+import { isString } from '@ydsz-core/shared/utils';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('directive');
 const LOADING_INSTANCE_KEY = Symbol('loading');
 const SPINNER_INSTANCE_KEY = Symbol('spinner');

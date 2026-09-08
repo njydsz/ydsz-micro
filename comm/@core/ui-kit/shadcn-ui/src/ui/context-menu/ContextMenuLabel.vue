@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 右键菜单分组标题：为一组菜单项提供说明性标题。
  *
  * 纯展示元素、不可聚焦，因此不参与键盘导航序列；
@@ -13,7 +13,7 @@ import type { ContextMenuLabelProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ContextMenuLabel } from 'radix-vue';
 

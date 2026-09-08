@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 带滚动边界阴影的滚动容器：在 ScrollArea 之上叠加四边渐变阴影，
  * 用视觉暗示「还有内容可滚」，避免用户误以为列表已经到底。
  *
@@ -12,11 +12,11 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ClassType } from '@YDSZ-core/typings';
+import type { ClassType } from '@ydsz-core/typings';
 
 import { computed, ref } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ScrollArea, ScrollBar } from '../../ui';
 

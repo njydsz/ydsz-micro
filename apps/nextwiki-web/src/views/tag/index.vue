@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 文件标签（列表页）
  *
  * @path apps\nextwiki-web\src\views\tag\index.vue
@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDialog, ElInput, ElMessage, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-tag');

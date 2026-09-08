@@ -42,7 +42,7 @@ import {
   updateDelegateAuthStatus,
 } from '#/api/flowTask';
 import type { FlowDelegateAuthPostDTO, FlowDelegateAuthVO } from '#/api/models';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('workflow-delegate');

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * System Web Mock 配置
  *
  * <p>基于 @ydsz/mock-service 提供类型安全的 API Mock。
@@ -17,7 +17,7 @@ import {
   createCrudHandlers,
 } from '@ydsz/mock-service';
 import type { OpenAPISpec } from '@ydsz/mock-service';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import spec from '../api/sdk/openapi.json';
 
 /** 模块级日志器 */

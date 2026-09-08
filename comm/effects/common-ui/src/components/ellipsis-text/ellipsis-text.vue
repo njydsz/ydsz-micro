@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * ellipsis-text 通用组件
  *
  * @path comm\effects\common-ui\src\components\ellipsis-text\ellipsis-text.vue
@@ -17,7 +17,7 @@ import {
   watchEffect,
 } from 'vue';
 
-import { YDSZTooltip } from '@YDSZ-core/shadcn-ui';
+import { YDSZTooltip } from '@ydsz-core/shadcn-ui';
 
 import { useElementSize } from '@vueuse/core';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 布局主内容区容器：承载页面内容并提供 overlay 遮罩层。
  *
  * 尺寸与内边距由 props 计算，元素引用交给 useLayoutContentStyle 测量后写入
@@ -13,12 +13,12 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import type { ContentCompactType } from '@YDSZ-core/typings';
+import type { ContentCompactType } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 
-import { useLayoutContentStyle } from '@YDSZ-core/composables';
-import { Slot } from '@YDSZ-core/shadcn-ui';
+import { useLayoutContentStyle } from '@ydsz-core/composables';
+import { Slot } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   /**

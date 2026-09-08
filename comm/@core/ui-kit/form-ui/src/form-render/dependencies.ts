@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单项联动：依据依赖字段的值动态决定显示、禁用、必填与组件属性。
  *
  * 联动结果写入独立的响应式 ref，而不是在渲染期现算：依赖值可能来自未受控的
@@ -14,7 +14,7 @@ import type { FormItemDependencies, FormSchemaRuleType, MaybeComponentProps } fr
 
 import { computed, ref, watch } from 'vue';
 
-import { isBoolean, isFunction } from '@YDSZ-core/shared/utils';
+import { isBoolean, isFunction } from '@ydsz-core/shared/utils';
 
 import { useFormValues } from 'vee-validate';
 

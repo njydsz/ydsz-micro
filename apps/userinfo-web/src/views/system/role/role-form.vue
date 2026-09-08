@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 角色表单组件 — 支持新增/编辑角色信息（角色编码、名称、数据范围、排序、状态、内置标识、描述）
  *
  * @path apps\userinfo-web\src\views\system\role\role-form.vue
@@ -32,7 +32,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const { t } = useI18n();
 const logger = createLogger('userinfo-role');

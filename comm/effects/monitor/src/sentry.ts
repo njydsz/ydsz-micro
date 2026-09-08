@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sentry 上报适配层（P0-3）
  *
  * 设计目标：
@@ -34,7 +34,7 @@
 
 import type { ErrorReport } from "./error-monitor";
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('sentry');
 
 /** Sentry SDK 模块接口（动态导入，软依赖） */

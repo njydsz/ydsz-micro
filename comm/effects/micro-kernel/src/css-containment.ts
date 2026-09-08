@@ -1,4 +1,4 @@
-/**
+﻿/**
  * css-containment.ts — CSS Containment 样式隔离增强 (P4-2)
  *
  * 在 v4.2.1 N5 runtime-css-scope 之上，补充 CSS Containment 属性，
@@ -31,7 +31,7 @@
  * @since 4.2.2
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 const logger = createLogger("MicroKernel:CssContainment");
 

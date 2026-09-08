@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单值转换器：在提交前对值做归一化，抹平表单结构与后端契约的差异。
  *
  * 负责三类转换：范围时间字段拆分为开始 / 结束两个键、数组与字符串按配置互转、
@@ -12,11 +12,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { formatDate, isFunction } from '@YDSZ-core/shared/utils';
+import { formatDate, isFunction } from '@ydsz-core/shared/utils';
 
 import type { YDSZFormProps } from './types';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('form-value-transformer');
 /**
  * 表单值转换器

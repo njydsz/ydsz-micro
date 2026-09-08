@@ -10,7 +10,7 @@ import type { NotificationItem } from "#/api/core/notification";
 import { ref } from "vue";
 
 import { useTokenStore } from "@ydsz/stores";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { ElNotification } from "element-plus";
 import { defineStore } from "pinia";

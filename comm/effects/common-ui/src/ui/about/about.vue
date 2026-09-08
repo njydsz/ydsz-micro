@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * about Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\about\about.vue
@@ -16,7 +16,7 @@ import {
   YDSZ_PREVIEW_URL,
 } from '@ydsz/constants';
 
-import { YDSZRenderContent } from '@YDSZ-core/shadcn-ui';
+import { YDSZRenderContent } from '@ydsz-core/shadcn-ui';
 
 import { Page } from '../../components';
 

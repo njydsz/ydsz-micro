@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 右键菜单项：包装 radix ContextMenuItem，补充 inset 对齐选项。
  *
  * inset 用于让本项与带图标/勾选标记的项左对齐 —— 这些标记会占用固定的前置宽度，
@@ -14,7 +14,7 @@ import type { ContextMenuItemEmits, ContextMenuItemProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ContextMenuItem, useForwardPropsEmits } from 'radix-vue';
 

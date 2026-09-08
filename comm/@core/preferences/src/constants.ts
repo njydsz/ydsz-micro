@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 内置主题色预设：为主题切换面板提供可选色板。
  *
  * COLOR_PRESETS 只取前 7 个预设（slice(0, 7)）：色板在偏好面板中单行平铺，
@@ -9,7 +9,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { BuiltinThemeType } from '@YDSZ-core/typings';
+import type { BuiltinThemeType } from '@ydsz-core/typings';
 
 interface BuiltinThemePreset {
   color: string;

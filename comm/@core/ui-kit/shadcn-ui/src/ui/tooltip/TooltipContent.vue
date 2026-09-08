@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * TooltipContent Vue 组件 - 现代化提示样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\TooltipContent.vue
@@ -10,7 +10,7 @@ import type { TooltipContentEmits, TooltipContentProps } from "radix-vue";
 
 import { computed } from "vue";
 
-import { cn } from "@YDSZ-core/shared/utils";
+import { cn } from "@ydsz-core/shared/utils";
 
 import { TooltipContent, TooltipPortal, useForwardPropsEmits } from "radix-vue";
 

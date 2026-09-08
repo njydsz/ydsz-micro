@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { BasicUserInfo } from '@YDSZ-core/typings';
+import type { BasicUserInfo } from '@ydsz-core/typings';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { ref } from 'vue';

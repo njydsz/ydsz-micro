@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * breadcrumb 布局组件
  *
  * @path comm\effects\layouts\src\widgets\breadcrumb.vue
@@ -8,14 +8,14 @@
 <script lang="ts" setup>
 import type { BreadcrumbStyleType } from '@ydsz/types';
 
-import type { IBreadcrumb } from '@YDSZ-core/shadcn-ui';
+import type { IBreadcrumb } from '@ydsz-core/shadcn-ui';
 
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { YDSZBreadcrumbView } from '@YDSZ-core/shadcn-ui';
+import { YDSZBreadcrumbView } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   hideWhenOnlyOne?: boolean;

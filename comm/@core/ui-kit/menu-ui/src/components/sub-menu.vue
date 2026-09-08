@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 子菜单：维护自身的展开态、子项与子菜单注册表，并向下提供子菜单上下文。
  *
  * 层级由父级上下文的 level + 1 得出而不是数 DOM 层数，
@@ -11,14 +11,14 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { HoverCardContentProps } from '@YDSZ-core/shadcn-ui';
+import type { HoverCardContentProps } from '@ydsz-core/shadcn-ui';
 
 import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
-import { useNamespace } from '@YDSZ-core/composables';
-import { YDSZHoverCard } from '@YDSZ-core/shadcn-ui';
+import { useNamespace } from '@ydsz-core/composables';
+import { YDSZHoverCard } from '@ydsz-core/shadcn-ui';
 
 import {
   createSubMenuContext,

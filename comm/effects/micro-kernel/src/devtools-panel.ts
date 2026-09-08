@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 微前端 DevTools 管理面板（开发态）
  *
  * 通过 Alt+Shift+M 切换面板，可视化展示：
@@ -19,7 +19,7 @@
  */
 
 import type { DisposableManager } from "./manager-registry";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { clearKernelMarks } from "./performance-utils";
 import { refreshRegistry } from "./registry-adapter";

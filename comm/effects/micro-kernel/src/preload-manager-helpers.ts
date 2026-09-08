@@ -1,4 +1,4 @@
-/**
+﻿/**
  * preload-manager-helpers.ts — PreloadManager 辅助函数
  *
  * 从 preload-strategy.ts 提取的辅助函数，包含：
@@ -15,7 +15,7 @@
 
 import type { DisposableManager } from "./manager-registry";
 import type { PreloadManager } from "./preload-strategy";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import type { PreloadStrategyOptions } from "./preload-types";
 

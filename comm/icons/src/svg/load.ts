@@ -1,13 +1,13 @@
-/**
+﻿/**
  * SVG 图标注册模块 — 构建时将 SVG 原始文件注入 Iconify 全局图标池。
  *
  * @path comm\icons\src\svg\load.ts
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { IconifyIconStructure } from '@YDSZ-core/icons';
+import type { IconifyIconStructure } from '@ydsz-core/icons';
 
-import { addIcon } from '@YDSZ-core/icons';
+import { addIcon } from '@ydsz-core/icons';
 
 let loaded = false;
 if (!loaded) {

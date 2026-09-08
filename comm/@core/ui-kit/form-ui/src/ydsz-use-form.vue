@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 受控表单组件：表单状态由外部 useYDSZForm 提供，本组件只负责渲染与事件转发。
  *
  * 状态外置后，父组件可在任意时机触发校验、取值或重置，适用于需要在组件之外
@@ -12,15 +12,15 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { Recordable } from '@YDSZ-core/typings';
+import type { Recordable } from '@ydsz-core/typings';
 
 import type { ExtendedFormApi, YDSZFormProps } from './types';
 
 // import { toRaw, watch } from 'vue';
 import { nextTick, onMounted, watch } from 'vue';
 
-import { useForwardPriorityValues } from '@YDSZ-core/composables';
-import { cloneDeep, get, isEqual, set } from '@YDSZ-core/shared/utils';
+import { useForwardPriorityValues } from '@ydsz-core/composables';
+import { cloneDeep, get, isEqual, set } from '@ydsz-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
 

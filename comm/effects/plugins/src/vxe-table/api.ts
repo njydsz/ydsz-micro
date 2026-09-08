@@ -1,4 +1,4 @@
-/**
+﻿/**
  * VxeGrid 表格的命令式操作句柄类，封装配置状态与表格实例的生命周期。
  *
  * 通过 Store 模式解耦配置与组件实例，业务侧持有 API 对象即可调用 reload /
@@ -10,14 +10,14 @@
  */
 import type { VxeGridInstance } from 'vxe-table';
 
-import type { ExtendedFormApi } from '@YDSZ-core/form-ui';
+import type { ExtendedFormApi } from '@ydsz-core/form-ui';
 
 import type { VxeGridProps } from './types';
 
 import { toRaw } from 'vue';
 
-import { Store } from '@YDSZ-core/shared/store';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { Store } from '@ydsz-core/shared/store';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('api');
 import {
   bindMethods,
@@ -25,7 +25,7 @@ import {
   isFunction,
   mergeWithArrayOverride,
   StateHandler,
-} from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shared/utils';
 
 /** 返回默认的表格初始配置 */
 function getDefaultState(): VxeGridProps {

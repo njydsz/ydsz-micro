@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 定时任务（列表页）
  *
  * @path apps\cronjob-web\src\views\job\index.vue
@@ -37,7 +37,7 @@ import {
 } from '#/api/job';
 import type { JobBatchDTO, JobVO } from '#/api/models';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import JobForm from './job-form.vue';
 
 const logger = createLogger('cronjob-job');

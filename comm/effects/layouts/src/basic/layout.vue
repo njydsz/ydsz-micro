@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * layout 布局组件
  *
  * @path comm\effects\layouts\src\basic\layout.vue
@@ -24,8 +24,8 @@ import {
 import { useAccessStore } from '@ydsz/stores';
 import { cloneDeep, mapTree } from '@ydsz/utils';
 
-import { YDSZAdminLayout } from '@YDSZ-core/layout-ui';
-import { YDSZLogo } from '@YDSZ-core/shadcn-ui';
+import { YDSZAdminLayout } from '@ydsz-core/layout-ui';
+import { YDSZLogo } from '@ydsz-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';

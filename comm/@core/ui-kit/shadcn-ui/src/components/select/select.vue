@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 开箱即用的下拉选择器：在 radix Select 之上补齐本项目最常用的三项能力 ——
  * options 数组直接渲染（省去逐条手写 SelectItem）、v-model 双向绑定、allowClear 一键清空。
  *
@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { CircleX } from '@YDSZ-core/icons';
+import { CircleX } from '@ydsz-core/icons';
 
 import {
   Select,

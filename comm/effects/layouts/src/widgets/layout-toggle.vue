@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * layout-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\layout-toggle.vue
@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { AuthPageLayoutType } from '@ydsz/types';
 
-import type { YDSZDropdownMenuItem } from '@YDSZ-core/shadcn-ui';
+import type { YDSZDropdownMenuItem } from '@ydsz-core/shadcn-ui';
 
 import { computed } from 'vue';
 
@@ -20,7 +20,7 @@ import {
   usePreferences,
 } from '@ydsz/preferences';
 
-import { YDSZDropdownRadioMenu, YDSZIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZDropdownRadioMenu, YDSZIconButton } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationLayoutToggle',

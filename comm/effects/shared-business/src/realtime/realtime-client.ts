@@ -1,4 +1,4 @@
-/**
+﻿/**
  * realtime 客户端 — WebSocket/SSE 统一实时通信封装
  *
  * @path comm\effects\shared-business\src\realtime\realtime-client.ts
@@ -14,7 +14,7 @@
  * - 跨 Tab 去重由业务层通过 globalState 处理
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('realtime-client');
 
 /** 重连配置 */

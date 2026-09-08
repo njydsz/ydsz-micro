@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 把 YDSZLayout 的全部布局状态与联动逻辑抽离出来的组合式函数。
  *
  * 拆分的动因：布局组件要同时管理 header / footer / sidebar / 侧边扩展区四组开合状态，
@@ -20,7 +20,7 @@ import { computed, ref, watch } from 'vue';
 import {
   useLayoutFooterStyle,
   useLayoutHeaderStyle,
-} from '@YDSZ-core/composables';
+} from '@ydsz-core/composables';
 
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
 

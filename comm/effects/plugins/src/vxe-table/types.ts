@@ -1,4 +1,4 @@
-/**
+﻿/**
  * VXe Table 增强插件使用的扩展类型定义。
  *
  * 在 vxe-table 原生类型基础上扩展了分页信息、分隔条配置、
@@ -17,9 +17,9 @@ import type {
 
 import type { ClassType, DeepPartial } from '@ydsz/types';
 
-import type { BaseFormComponentType, YDSZFormProps } from '@YDSZ-core/form-ui';
+import type { BaseFormComponentType, YDSZFormProps } from '@ydsz-core/form-ui';
 
-import { type useYDSZForm } from '@YDSZ-core/form-ui';
+import { type useYDSZForm } from '@ydsz-core/form-ui';
 
 /**
  * 表格分页信息，用于在自定义 `proxyConfig.ajax.query` 中接收分页参数。

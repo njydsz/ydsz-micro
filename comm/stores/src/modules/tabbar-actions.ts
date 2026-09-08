@@ -11,13 +11,13 @@
  */
 import type { Router } from 'vue-router';
 
-import type { TabDefinition } from '@YDSZ-core/typings';
+import type { TabDefinition } from '@ydsz-core/typings';
 
 import {
   startProgress,
   stopProgress,
-} from '@YDSZ-core/shared/utils';
-import { createLogger } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   equalTab,

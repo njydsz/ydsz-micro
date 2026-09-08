@@ -13,9 +13,9 @@
 import type { ComputedRef } from 'vue';
 import type { Router } from 'vue-router';
 import type { RouteRecordNormalized } from 'vue-router';
-import type { TabDefinition } from '@YDSZ-core/typings';
+import type { TabDefinition } from '@ydsz-core/typings';
 
-import { openRouteInNewWindow } from '@YDSZ-core/shared/utils';
+import { openRouteInNewWindow } from '@ydsz-core/shared/utils';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { computed, ref } from 'vue';

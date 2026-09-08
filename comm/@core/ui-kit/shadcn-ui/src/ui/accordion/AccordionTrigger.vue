@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 手风琴标题按钮：内部固定包一层 AccordionHeader，
  * 因为 radix 要求触发器必须位于 heading 之内，否则标题层级语义不成立。
  *
@@ -14,7 +14,7 @@ import type { AccordionTriggerProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
 import { AccordionHeader, AccordionTrigger } from 'radix-vue';

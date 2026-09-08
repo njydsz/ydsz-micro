@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用点对点通信（请求-响应模型）
  *
  * 在现有 globalState pub/sub 基础上，提供 request/response 式的点对点通信：
@@ -12,7 +12,7 @@
  */
 
 import type { DisposableManager } from "./manager-registry";
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { mark } from './performance-utils';
 
 const logger = createLogger('MicroKernel');

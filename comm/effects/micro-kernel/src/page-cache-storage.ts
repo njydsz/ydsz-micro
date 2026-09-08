@@ -1,4 +1,4 @@
-/**
+﻿/**
  * page-cache-storage.ts — Page Cache 存储与 Registry 管理
  *
  * 从 page-cache-manager.ts 提取的存储逻辑，包含：
@@ -12,7 +12,7 @@
  * @since 4.1.0
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { getStorage, setStorage, removeStorage } from "./storage-utils";
 import type { PageCachePolicy, PageCacheRecord } from "./page-cache-types";

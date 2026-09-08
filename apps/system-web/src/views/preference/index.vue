@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 个人设置页面 —— 用户偏好配置（主题/布局/表格/语言等）
  *
  * @path apps\system-web\src\views\preference\index.vue
@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { ElButton, ElCard, ElDivider, ElForm, ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 

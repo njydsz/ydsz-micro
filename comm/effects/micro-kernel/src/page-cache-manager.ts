@@ -1,4 +1,4 @@
-/**
+﻿/**
  * page-cache-manager.ts — 子应用 Page Cache 状态记忆机制 (P3-4)
  *
  * 在 v4.2.1 N6（serialize/hydrate 基础设施）之上，补充：
@@ -19,7 +19,7 @@
  * @since 4.2.2
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import type { PageCachePolicy, PageCacheRecord, ScrollPosition } from "./page-cache-types";
 import {

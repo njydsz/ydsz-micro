@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 全链路追踪增强
  *
  * <p>前端 TraceID 生成、Web Vitals 监控、请求耗时拆解。
@@ -26,7 +26,7 @@
  * @see docs/云顶编码规范.md
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('tracing');
 

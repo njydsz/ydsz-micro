@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 声明式表单组件：接收 Schema 与配置，在内部自行持有并管理表单状态。
  *
  * 适合 Schema 固定、无需在父组件里操作表单的场景；若需要在外部驱动
@@ -15,7 +15,7 @@ import type { YDSZFormProps } from './types';
 
 import { ref, watchEffect } from 'vue';
 
-import { useForwardPropsEmits } from '@YDSZ-core/composables';
+import { useForwardPropsEmits } from '@ydsz-core/composables';
 
 import FormActions from './components/form-actions.vue';
 import {

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * iframe 沙箱 — 基于 iframe contentWindow 的强隔离兜底方案
  *
  * **设计定位**：
@@ -52,7 +52,7 @@ import {
 } from "./iframe-types";
 import { injectBridgeScript } from "./iframe-bridge";
 import { createIframeRpc } from "./iframe-rpc";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 // 重新导出类型，保持向后兼容
 export type {

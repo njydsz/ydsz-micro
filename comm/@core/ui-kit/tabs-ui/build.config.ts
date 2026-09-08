@@ -1,5 +1,5 @@
-/**
- * @YDSZ-core/tabs-ui 包的 unbuild 构建配置：mkdist 逐文件转译，不打包。
+﻿/**
+ * @ydsz-core/tabs-ui 包的 unbuild 构建配置：mkdist 逐文件转译，不打包。
  *
  * @path comm\@core\ui-kit\tabs-ui\build.config.ts
  * @author ydsz-team
@@ -15,7 +15,7 @@ import { defineBuildConfig } from 'unbuild';
  * 隔离在真正用到的文件里，不随整包进入消费端。
  *
  * externals 处理：mkdist 不解析依赖，import 原样保留。注意本包依赖
- * `@YDSZ-core/composables` 提供的拖拽能力，而后者又依赖 `@YDSZ-core/shared`；
+ * `@ydsz-core/composables` 提供的拖拽能力，而后者又依赖 `@ydsz-core/shared`；
  * 全部外部化才能保证 keep-alive 的缓存表与宿主应用共用一份。
  *
  * @returns unbuild 构建配置

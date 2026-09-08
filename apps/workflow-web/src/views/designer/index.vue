@@ -43,7 +43,7 @@ import {
   unlockDefinition,
 } from '#/api/flowDesigner';
 import { $t } from '#/locales';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('workflow-designer');
 const route = useRoute();

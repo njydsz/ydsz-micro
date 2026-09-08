@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则定义管理列表页面
  *
  * @path apps\literule-web\src\views\rule\index.vue
@@ -21,7 +21,7 @@ import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTag } from 'element-plus
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { list, listVersions, rollback, toggle } from '#/api/ruleAdmin';
 import { deleteRule } from '#/api/ruleBatch';
 const logger = createLogger('literule-rule');

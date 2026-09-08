@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 右键菜单的勾选菜单项：带勾选标记的菜单项。
  *
  * 用于可切换的开关型操作，menuitemcheckbox 语义由 radix 保证，
@@ -16,7 +16,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {

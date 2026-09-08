@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 多标签页（tabbar）的视图层逻辑：标签数据、激活态与右键菜单的组装。
  *
  * 分层上属于「渲染适配层」——真正的标签增删、固定、批量关闭等状态操作
@@ -17,7 +17,7 @@ import type { RouteLocationNormalizedGeneric } from 'vue-router';
 
 import type { TabDefinition } from '@ydsz/types';
 
-import type { IContextMenuItem } from '@YDSZ-core/tabs-ui';
+import type { IContextMenuItem } from '@ydsz-core/tabs-ui';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';

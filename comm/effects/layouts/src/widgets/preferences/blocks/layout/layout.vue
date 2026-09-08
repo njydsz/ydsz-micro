@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * layout 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\layout\layout.vue
@@ -15,7 +15,7 @@ import { computed } from 'vue';
 import { CircleHelp } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YDSZTooltip } from '@YDSZ-core/shadcn-ui';
+import { YDSZTooltip } from '@ydsz-core/shadcn-ui';
 
 import {
   FullContent,

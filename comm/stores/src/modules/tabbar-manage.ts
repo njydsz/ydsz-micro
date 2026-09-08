@@ -11,9 +11,9 @@
 import type { ComputedRef } from 'vue';
 import type { RouteRecordNormalized } from 'vue-router';
 
-import type { TabDefinition } from '@YDSZ-core/typings';
+import type { TabDefinition } from '@ydsz-core/typings';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   equalTab,

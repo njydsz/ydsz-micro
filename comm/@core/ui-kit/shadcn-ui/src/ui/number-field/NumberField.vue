@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 数字输入框的容器：转发 radix NumberFieldRoot 的 props 与 emits（值、步进、格式化等）。
  *
  * 用 grid gap-1.5 统一内部间距，让「标签 + 输入区 + 提示」的纵向节奏与表单其它字段对齐；
@@ -13,7 +13,7 @@ import type { NumberFieldRootEmits, NumberFieldRootProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { NumberFieldRoot, useForwardPropsEmits } from 'radix-vue';
 

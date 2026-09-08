@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 通用按钮：在基础 Button 之上补充 loading、图标与自定义渲染能力。
  *
  * 内容由默认插槽承载，因此图标与文案的排布交给调用方，组件只保证内边距、
@@ -13,8 +13,8 @@ import type { YDSZButtonProps } from './button';
 
 import { computed } from 'vue';
 
-import { LoaderCircle } from '@YDSZ-core/icons';
-import { cn } from '@YDSZ-core/shared/utils';
+import { LoaderCircle } from '@ydsz-core/icons';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Primitive } from 'radix-vue';
 

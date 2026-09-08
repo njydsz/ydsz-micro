@@ -1,4 +1,4 @@
-/**
+﻿/**
  * YDSZVxeGrid 表格插槽渲染相关的响应式计算模块。
  *
  * 从 use-vxe-grid-logic 拆分出表格插槽处理职责：
@@ -18,7 +18,7 @@ import type { VxeGridPropTypes, VxeToolbarPropTypes } from 'vxe-table';
 
 import type { ComputedRef, SetupContext } from 'vue';
 
-import type { YDSZFormProps } from '@YDSZ-core/form-ui';
+import type { YDSZFormProps } from '@ydsz-core/form-ui';
 
 import type { VxeGridProps } from '../types';
 

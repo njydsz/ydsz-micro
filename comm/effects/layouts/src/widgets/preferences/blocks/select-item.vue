@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * select-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\select-item.vue
@@ -19,7 +19,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',

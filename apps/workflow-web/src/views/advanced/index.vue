@@ -52,7 +52,7 @@ import {
   urgeCooldown,
   weeklyReport,
 } from '#/api/flowAdvanced';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('workflow-advanced');
 defineOptions({ name: 'AdvancedApprovalManagement' });

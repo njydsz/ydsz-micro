@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * lock-screen 布局组件
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\lock-screen.vue
@@ -12,9 +12,9 @@ import { LockKeyhole } from '@ydsz/icons';
 import { $t, useI18n } from '@ydsz/locales';
 import { storeToRefs, useTokenStore } from '@ydsz/stores';
 
-import { useScrollLock } from '@YDSZ-core/composables';
-import { useYDSZForm, z } from '@YDSZ-core/form-ui';
-import { YDSZAvatar, YDSZButton } from '@YDSZ-core/shadcn-ui';
+import { useScrollLock } from '@ydsz-core/composables';
+import { useYDSZForm, z } from '@ydsz-core/form-ui';
+import { YDSZAvatar, YDSZButton } from '@ydsz-core/shadcn-ui';
 
 import { useDateFormat, useNow } from '@vueuse/core';
 

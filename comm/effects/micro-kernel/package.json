@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/micro-kernel",
   "version": "1.0.0",
   "private": true,
@@ -13,8 +13,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@YDSZ-core/composables": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/composables": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/micro-runtime": "workspace:*",
     "vue": "catalog:",
     "vue-i18n": "catalog:"

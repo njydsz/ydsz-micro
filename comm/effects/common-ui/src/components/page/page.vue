@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * page 通用组件
  *
  * @path comm\effects\common-ui\src\components\page\page.vue
@@ -12,8 +12,8 @@ import type { PageProps } from './types';
 
 import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
 
-import { CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT } from '@YDSZ-core/shared/constants';
-import { cn } from '@YDSZ-core/shared/utils';
+import { CSS_VARIABLE_LAYOUT_CONTENT_HEIGHT } from '@ydsz-core/shared/constants';
+import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({
   name: 'Page',

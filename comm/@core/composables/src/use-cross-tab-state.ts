@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Vue 组合式 API — 跨标签页状态同步
  *
  * 使用方式：
@@ -21,7 +21,7 @@ import { onScopeDispose, ref } from 'vue';
 import {
   BroadcastChannelManager,
   type BroadcastListener,
-} from '@YDSZ-core/shared/cache';
+} from '@ydsz-core/shared/cache';
 
 /** 已初始化的通道注册表：channelName → BroadcastChannelManager */
 const channelMap = new Map<string, BroadcastChannelManager>();

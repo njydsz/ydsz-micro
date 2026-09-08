@@ -1,5 +1,5 @@
-/**
- * @YDSZ-core/form-ui 包的 unbuild 构建配置：以 mkdist 逐文件转译，不打包。
+﻿/**
+ * @ydsz-core/form-ui 包的 unbuild 构建配置：以 mkdist 逐文件转译，不打包。
  *
  * @path comm\@core\ui-kit\form-ui\build.config.ts
  * @author ydsz-team
@@ -17,7 +17,7 @@ import { defineBuildConfig } from 'unbuild';
  *  2. 样式与模板的对应关系随文件保留，便于排查样式覆盖顺序问题。
  *
  * externals 处理：mkdist 只做转译、不解析依赖，因此**天然不会内联**任何依赖，
- * `vue`、`vee-validate`、`zod` 以及各 `@YDSZ-core/*` workspace 包全部保持 import 原样。
+ * `vue`、`vee-validate`、`zod` 以及各 `@ydsz-core/*` workspace 包全部保持 import 原样。
  * 这也是本包能安全使用 workspace 依赖单例（如 shared 的广播通道）的前提。
  *
  * `loaders: ['js']` 处理 `.ts`：只剥离类型、不做类型检查也不生成声明合并，

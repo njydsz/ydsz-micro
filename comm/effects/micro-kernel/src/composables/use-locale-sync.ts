@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 主子应用国际化运行时同步 composable
  *
  * 解决微前端场景下主应用切换语言后子应用 i18n 不同步的问题。
@@ -35,7 +35,7 @@ import type { Composer } from "vue-i18n";
 
 import { onUnmounted, ref, watch } from "vue";
 
-import { useSimpleLocale } from "@YDSZ-core/composables";
+import { useSimpleLocale } from "@ydsz-core/composables";
 
 // ==================== 模块级共享状态 ====================
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 可拖拽的分栏手柄：转发 radix SplitterResizeHandle 的 props 与 emits。
  *
  * 命中区域比可见线条宽得多（after 伪元素左右各扩 1px 之外的宽度），
@@ -20,8 +20,8 @@ import type { HTMLAttributes } from 'vue';
 
 import { computed } from 'vue';
 
-import { GripVertical } from '@YDSZ-core/icons';
-import { cn } from '@YDSZ-core/shared/utils';
+import { GripVertical } from '@ydsz-core/icons';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { SplitterResizeHandle, useForwardPropsEmits } from 'radix-vue';
 

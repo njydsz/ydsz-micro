@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 选择器的触发器：展示当前选中项文本，右侧固定带下拉箭头。
  *
  * [&>span]:line-clamp-1 是必要的 —— 长选项会把触发器撑高，
@@ -14,7 +14,7 @@ import type { SelectTriggerProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
 import { SelectIcon, SelectTrigger, useForwardProps } from 'radix-vue';

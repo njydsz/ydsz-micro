@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 降级与重试状态管理
  *
  * 从 error-boundary.ts 拆出（仅移动，无行为变更）：
@@ -15,7 +15,7 @@
 
 import type { DisposableManager } from "./manager-registry";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 /** 模块级日志器 */
 const logger = createLogger("MicroKernel");

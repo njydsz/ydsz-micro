@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 子菜单的标题内容区：渲染图标、标题、箭头与徽标，并决定折叠态下的呈现方式。
  *
  * 箭头在非折叠的一级菜单与横向模式下才显示 —— 折叠时标题已隐藏，箭头没有指向对象；
@@ -14,9 +14,9 @@ import type { MenuItemProps } from '../types';
 
 import { computed } from 'vue';
 
-import { useNamespace } from '@YDSZ-core/composables';
-import { ChevronDown, ChevronRight } from '@YDSZ-core/icons';
-import { YDSZIcon } from '@YDSZ-core/shadcn-ui';
+import { useNamespace } from '@ydsz-core/composables';
+import { ChevronDown, ChevronRight } from '@ydsz-core/icons';
+import { YDSZIcon } from '@ydsz-core/shadcn-ui';
 
 import { useMenuContext } from '../hooks';
 

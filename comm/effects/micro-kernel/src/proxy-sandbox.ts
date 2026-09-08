@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Proxy 沙箱 — 基于 fakeWindow 的数据隔离层
  *
  * **ESM 边界声明（重要）**：
@@ -29,7 +29,7 @@
  * @since 3.2.0
  */
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 const logger = createLogger("MicroKernel:ProxySandbox");
 

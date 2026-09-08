@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 登录日志（只读列表）
  *
  * <p>展示用户登录历史：登录时间、IP 地址、设备/浏览器、登录状态（成功/失败）。
@@ -23,7 +23,7 @@ import { ElInput, ElOption, ElSelect, ElTag } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
 import { h, ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 

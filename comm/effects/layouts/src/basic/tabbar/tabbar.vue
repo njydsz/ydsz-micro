@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * tabbar 布局组件
  *
  * @path comm\effects\layouts\src\basic\tabbar\tabbar.vue
@@ -13,7 +13,7 @@ import { useContentMaximize, useTabs } from '@ydsz/hooks';
 import { preferences } from '@ydsz/preferences';
 import { useTabbarStore } from '@ydsz/stores';
 
-import { TabsToolMore, TabsToolScreen, TabsView } from '@YDSZ-core/tabs-ui';
+import { TabsToolMore, TabsToolScreen, TabsView } from '@ydsz-core/tabs-ui';
 
 import { useTabbar } from './use-tabbar';
 

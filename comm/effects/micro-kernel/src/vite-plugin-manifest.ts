@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Vite 插件：构建时生成 manifest.json 供 micro-kernel 加载。
  *
  * 约定：子应用必须输出 manifest.json（含 entry、css、版本号），
@@ -17,7 +17,7 @@
 import type { Plugin } from 'vite';
 import { createHash } from 'node:crypto';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('MicroKernel:ManifestPlugin');
 

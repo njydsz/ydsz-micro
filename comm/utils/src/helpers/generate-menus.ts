@@ -11,9 +11,9 @@ import type {
   ExRouteRecordRaw,
   MenuRecordRaw,
   RouteMeta,
-} from '@YDSZ-core/typings';
+} from '@ydsz-core/typings';
 
-import { filterTree, mapTree } from '@YDSZ-core/shared/utils';
+import { filterTree, mapTree } from '@ydsz-core/shared/utils';
 
 /**
  * 根据路由配置生成侧边栏菜单列表。

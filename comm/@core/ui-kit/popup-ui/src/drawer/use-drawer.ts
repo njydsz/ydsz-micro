@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 抽屉的创建入口：返回「组件 + 命令式 API」一对，并支持设置全局默认配置。
  *
  * 全局默认值是模块级单例，用 Object.assign 原地累加覆盖，
@@ -25,12 +25,12 @@ import {
   ref,
 } from 'vue';
 
-import { useStore } from '@YDSZ-core/shared/store';
+import { useStore } from '@ydsz-core/shared/store';
 
 import { DrawerApi } from './drawer-api';
 import YDSZDrawer from './drawer.vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-drawer');
 const USER_DRAWER_INJECT_KEY = Symbol('YDSZ_DRAWER_INJECT');
 

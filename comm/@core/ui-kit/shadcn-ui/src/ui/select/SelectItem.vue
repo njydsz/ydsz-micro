@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 选择器中的单个选项：内部固定渲染 SelectItemText 与 SelectItemIndicator。
  *
  * 右侧预留 pr-8 给选中标记，避免长文本被图标压住；
@@ -14,7 +14,7 @@ import type { SelectItemProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {

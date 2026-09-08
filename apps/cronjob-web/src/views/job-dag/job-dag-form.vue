@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 任务 DAG（表单组件）
  *
  * @path apps\cronjob-web\src\views\jobDag\jobDag-form.vue
@@ -23,7 +23,7 @@ import { useI18n } from 'vue-i18n';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagVO } from '#/api/models';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('cronjob-job');
 

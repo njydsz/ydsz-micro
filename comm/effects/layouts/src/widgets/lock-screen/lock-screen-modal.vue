@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * lock-screen-modal 布局组件
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\lock-screen-modal.vue
@@ -12,9 +12,9 @@ import { computed, reactive } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZForm, z } from '@YDSZ-core/form-ui';
-import { useYDSZModal } from '@YDSZ-core/popup-ui';
-import { YDSZAvatar, YDSZButton } from '@YDSZ-core/shadcn-ui';
+import { useYDSZForm, z } from '@ydsz-core/form-ui';
+import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { YDSZAvatar, YDSZButton } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   avatar?: string;

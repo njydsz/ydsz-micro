@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 选择器的下拉面板：经 Portal 挂到 body，默认 position=popper。
  *
  * 用 popper 而非 item-aligned，是因为面板需要相对触发器定位并可翻转避让；
@@ -14,7 +14,7 @@ import type { SelectContentEmits, SelectContentProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import {
   SelectContent,

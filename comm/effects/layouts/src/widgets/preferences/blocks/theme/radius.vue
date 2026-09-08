@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * radius 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\theme\radius.vue
@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { ToggleGroup, ToggleGroupItem } from '@YDSZ-core/shadcn-ui';
+import { ToggleGroup, ToggleGroupItem } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceColorMode',

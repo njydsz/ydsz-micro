@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 调度日历（可视化调度任务时间分布）
  *
  * @path apps\cronjob-web\src\views\schedule-calendar\index.vue
@@ -22,7 +22,7 @@ import { ref, computed, onMounted } from 'vue';
 
 import { getScheduleCalendar } from '#/api/scheduleCalendar';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('cronjob-job');
 

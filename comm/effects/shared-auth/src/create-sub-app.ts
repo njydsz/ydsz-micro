@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用启动工厂 — 消除各子应用 main.ts 中重复的 bootstrap/mount/unmount 样板代码。
  *
  * v3.0: 对接 micro-kernel ESM 原生微前端运行时。
@@ -24,7 +24,7 @@ import { initStores } from '@ydsz/stores';
 
 import { ElLoading } from 'element-plus';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { setupSharedAuth } from './setup-shared-auth';
 import { provideMicroProps } from '@ydsz/micro-runtime/use-micro-props';

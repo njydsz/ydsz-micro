@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * TenantContext 布局组件 — 顶栏租户切换器
  *
  * <p>展示当前活跃租户名称（含租户编码徽章），点击下拉可切换至其他可访问的租户。
@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
   YDSZIcon,
   Badge,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 import { useTenant, type TenantInfo } from '@ydsz/shared-business';
 

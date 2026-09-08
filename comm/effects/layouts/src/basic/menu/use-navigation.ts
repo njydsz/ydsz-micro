@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 菜单点击的统一导航入口。
  *
  * 菜单项的目标有三类（站内路由、外链、需在新窗口打开的站内页），
@@ -19,7 +19,7 @@ import { useRouter } from 'vue-router';
 
 import { isHttpUrl, openRouteInNewWindow, openWindow } from '@ydsz/utils';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-navigation');
 function useNavigation() {
   const router = useRouter();

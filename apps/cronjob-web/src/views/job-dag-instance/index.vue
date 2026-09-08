@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * DAG 运行实例（列表 + 控制 + 详情）
  *
  * @path apps\cronjob-web\src\views\job-dag-instance\index.vue
@@ -40,7 +40,7 @@ import { cancel, pause, resume, retryNode } from '#/api/dagInstanceControl';
 import { listByStatus, listNodes, getMermaidDiagram } from '#/api/jobDagInstance';
 import type { JobDagInstanceVO, JobDagNodeInstanceVO } from '#/api/models';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('cronjob-job');
 

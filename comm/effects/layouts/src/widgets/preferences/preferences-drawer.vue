@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * preferences-drawer 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences-drawer.vue
@@ -19,7 +19,7 @@ import type {
   ThemeModeType,
 } from '@ydsz/types';
 
-import type { SegmentedItem } from '@YDSZ-core/shadcn-ui';
+import type { SegmentedItem } from '@ydsz-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
 
@@ -32,13 +32,13 @@ import {
   usePreferences,
 } from '@ydsz/preferences';
 
-import { useYDSZDrawer } from '@YDSZ-core/popup-ui';
+import { useYDSZDrawer } from '@ydsz-core/popup-ui';
 import {
   YDSZButton,
   YDSZIconButton,
   YDSZSegmented,
-} from '@YDSZ-core/shadcn-ui';
-import { globalShareState } from '@YDSZ-core/shared/global-state';
+} from '@ydsz-core/shadcn-ui';
+import { globalShareState } from '@ydsz-core/shared/global-state';
 
 import { useClipboard } from '@vueuse/core';
 

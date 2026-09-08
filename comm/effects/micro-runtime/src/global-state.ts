@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 类型安全的全局状态。
  *
  * 替代 qiankun initGlobalState（any 广播），提供类型化 get/set/subscribe。
@@ -14,7 +14,7 @@
  * @since 3.0.0
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('global-state');
 
 /** 全局状态的版本化包装，结构变更时递增 version，跨版本不兼容直接报错 */

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * check-updates 布局组件
  *
  * @path comm\effects\layouts\src\widgets\check-updates\check-updates.vue
@@ -6,13 +6,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('check-updates');
 import { onMounted, onUnmounted, ref } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZModal } from '@YDSZ-core/popup-ui';
+import { useYDSZModal } from '@ydsz-core/popup-ui';
 
 interface Props {
   // 轮询时间，分钟

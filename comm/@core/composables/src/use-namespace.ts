@@ -1,4 +1,4 @@
-/**
+﻿/**
  * BEM 类名生成工具：按 `namespace-block__element--modifier` 规则拼装类名。
  *
  * 组件库所有类名统一经此生成，保证命名空间一致（默认 YDSZ），业务侧的样式覆盖
@@ -9,7 +9,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { DEFAULT_NAMESPACE } from '@YDSZ-core/shared/constants';
+import { DEFAULT_NAMESPACE } from '@ydsz-core/shared/constants';
 
 /**
  * @see copy https://github.com/element-plus/element-plus/blob/dev/comm/hooks/use-namespace/index.ts

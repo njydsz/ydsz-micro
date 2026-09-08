@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 用户账号表单组件 — 支持新增/编辑用户账号（账号、密码、姓名、公司/部门/岗位、角色）
  *
  * @path apps\userinfo-web\src\views\system\user\user-form.vue
@@ -20,7 +20,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   ElForm,

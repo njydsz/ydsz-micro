@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/shared-business",
   "version": "1.0.0",
   "description": "YDSZ shared business components — cross-micro-app reusable business UI components",
@@ -20,7 +20,7 @@
   "dependencies": {
     "@tanstack/vue-virtual": "catalog:",
     "@vueuse/core": "catalog:",
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/common-ui": "workspace:*",
     "@ydsz/locales": "workspace:*",
     "@ydsz/plugins": "workspace:*",

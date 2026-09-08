@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 岗位表单组件 — 支持新增/编辑岗位信息（岗位名称、编码、描述、排序、状态）
  *
  * @path apps\userinfo-web\src\views\system\post\post-form.vue
@@ -29,7 +29,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { create, update } from '#/api/post';
 import type { PostDTO, PostVO } from '#/api/models';

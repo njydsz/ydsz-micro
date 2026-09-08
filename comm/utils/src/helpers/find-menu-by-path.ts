@@ -5,7 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { MenuRecordRaw } from '@YDSZ-core/typings';
+import type { MenuRecordRaw } from '@ydsz-core/typings';
 
 /**
  * 在菜单树中递归查找匹配路径的菜单项。

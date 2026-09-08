@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则冲突检测页面
  *
  * <p>展示规则间的冲突检测结果，帮助识别规则集中存在冗余、矛盾、重叠或遮蔽的规则对。
@@ -31,7 +31,7 @@ import {
 } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { detectConflicts } from '#/api/ruleConflict';
 import type { RuleConflictInfoVO } from '#/api/models';

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 回到顶部悬浮按钮：滚动超过阈值后出现，点击平滑滚回顶部。
  *
  * 显隐与滚动行为全部委托给 useBackTop，本组件只负责定位与呈现，
@@ -14,7 +14,7 @@ import type { BacktopProps } from './backtop';
 
 import { computed } from 'vue';
 
-import { ArrowUpToLine } from '@YDSZ-core/icons';
+import { ArrowUpToLine } from '@ydsz-core/icons';
 
 import { YDSZButton } from '../button';
 import { useBackTop } from './use-backtop';

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 重试预览管理页面
  *
  * <p>展示消息重试计划和预设配置，支持查看重试调度详情。
@@ -19,7 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElCard,

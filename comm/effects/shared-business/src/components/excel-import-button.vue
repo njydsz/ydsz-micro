@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * excel-import-button 通用组件
  *
  * @path comm\effects\shared-business\src\components\excel-import-button.vue
@@ -6,7 +6,7 @@
  * @since 1.1.0
 -->
 <script lang="ts" setup>
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('excel-import-button');
 /**
  * Excel 导入按钮 — 隐藏 file input + 解析回调

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 后台管理布局的根组件：按 layout 模式组合 header / sidebar / tabbar / content / footer 五个区域。
  *
  * 所有区域开关都有默认值且默认关闭（footerEnable 等），
@@ -12,10 +12,10 @@
 <script setup lang="ts">
 import type { YDSZLayoutProps } from './YDSZ-layout';
 
-import { SCROLL_FIXED_CLASS } from '@YDSZ-core/composables';
-import { Menu } from '@YDSZ-core/icons';
-import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@YDSZ-core/shared/constants';
+import { SCROLL_FIXED_CLASS } from '@ydsz-core/composables';
+import { Menu } from '@ydsz-core/icons';
+import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
 
 import {
   LayoutContent,

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 标签页的切换按钮：激活态由 radix 的 data-state=active 驱动。
  *
  * whitespace-nowrap 是必要的 —— 标签文字换行会把标签栏撑高，
@@ -14,7 +14,7 @@ import type { TabsTriggerProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { TabsTrigger, useForwardProps } from 'radix-vue';
 

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 全局常量导出入口 — 聚合业务常量与 shared 共享常量。
  *
  * @path comm\constants\src\index.ts
@@ -7,4 +7,4 @@
  */
 export * from './core';
 export * from './micro-apps';
-export * from '@YDSZ-core/shared/constants';
+export * from '@ydsz-core/shared/constants';

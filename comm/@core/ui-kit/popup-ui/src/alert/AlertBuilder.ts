@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 命令式提示弹窗的构造器：把弹窗组件动态挂载到容器上，并提供多种参数重载。
  *
  * 提供重载是为了覆盖真实调用习惯：
@@ -13,15 +13,15 @@
  */
 import type { Component, VNode } from 'vue';
 
-import type { Recordable } from '@YDSZ-core/typings';
+import type { Recordable } from '@ydsz-core/typings';
 
 import type { AlertProps, BeforeCloseScope, PromptProps } from './alert';
 
 import { h, nextTick, ref, render } from 'vue';
 
-import { useSimpleLocale } from '@YDSZ-core/composables';
-import { Input, YDSZRenderContent } from '@YDSZ-core/shadcn-ui';
-import { isFunction, isString } from '@YDSZ-core/shared/utils';
+import { useSimpleLocale } from '@ydsz-core/composables';
+import { Input, YDSZRenderContent } from '@ydsz-core/shadcn-ui';
+import { isFunction, isString } from '@ydsz-core/shared/utils';
 
 import Alert from './alert.vue';
 

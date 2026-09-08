@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * qrcode-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\qrcode-login.vue
@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { YDSZButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZButton } from '@ydsz-core/shadcn-ui';
 
 import { useQRCode } from '@vueuse/integrations/useQRCode';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 悬停卡片：鼠标悬停触发器时浮出详情卡片。
  *
  * 用于「补充说明但不打断当前操作」的场景（如用户名悬停展示资料），
@@ -15,7 +15,7 @@ import type {
   HoverCardRootProps,
 } from 'radix-vue';
 
-import type { ClassType } from '@YDSZ-core/typings';
+import type { ClassType } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 

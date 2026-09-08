@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 子菜单内容浮层：定义子菜单展开后的面板外观。
  *
  * 内容类型复用 DropdownMenuSubContent 的 props：两者的内容区配置完全一致，
@@ -16,7 +16,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ContextMenuSubContent, useForwardPropsEmits } from 'radix-vue';
 

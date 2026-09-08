@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 常规风格标签栏：按 styleType（plain / card / brisk）切换条目外观。
  *
  * 三种风格的样式以映射表集中定义而非散在模板里，
@@ -10,14 +10,14 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { TabDefinition } from '@YDSZ-core/typings';
+import type { TabDefinition } from '@ydsz-core/typings';
 
 import type { TabConfig, TabsProps } from '../../types';
 
 import { computed } from 'vue';
 
-import { Pin, X } from '@YDSZ-core/icons';
-import { YDSZContextMenu, YDSZIcon } from '@YDSZ-core/shadcn-ui';
+import { Pin, X } from '@ydsz-core/icons';
+import { YDSZContextMenu, YDSZIcon } from '@ydsz-core/shadcn-ui';
 
 type Props = TabsProps;
 

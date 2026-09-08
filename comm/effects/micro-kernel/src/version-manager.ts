@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用版本管理器
  *
  * 负责：
@@ -15,7 +15,7 @@
 import type { DisposableManager } from "./manager-registry";
 import type { Manifest } from "./loader";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { clearManifestCache } from "./loader";
 import { getStorage, setStorage, STORAGE_KEYS } from "./storage-utils";

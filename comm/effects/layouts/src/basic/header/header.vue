@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * header 布局组件
  *
  * @path comm\effects\layouts\src\basic\header\header.vue
@@ -13,7 +13,7 @@ import { RotateCw } from '@ydsz/icons';
 import { preferences, usePreferences } from '@ydsz/preferences';
 import { useAccessStore } from '@ydsz/stores';
 
-import { YDSZFullScreen, YDSZIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZFullScreen, YDSZIconButton } from '@ydsz-core/shadcn-ui';
 
 import {
   GlobalSearch,

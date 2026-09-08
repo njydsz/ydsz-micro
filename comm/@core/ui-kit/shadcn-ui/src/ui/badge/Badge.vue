@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 状态标签：按语义 variant 取 cva 变体类名，用于标注状态、计数与分类。
  *
  * 刻意不提供 size 维度 —— 标签需要跟随所在文本的行高，
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import type { BadgeVariants } from './badge';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { badgeVariants } from './badge';
 

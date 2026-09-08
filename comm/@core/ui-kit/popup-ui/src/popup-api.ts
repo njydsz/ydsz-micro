@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 弹窗与抽屉共用的命令式基类：统一管理开关状态、回调与跨组件数据。
  *
  * 抽基类的动因是弹窗与抽屉的状态机几乎一致（打开中/已打开/关闭中/已关闭 与确认/取消两条路径），
@@ -11,11 +11,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { MaybePromise } from '@YDSZ-core/typings';
+import type { MaybePromise } from '@ydsz-core/typings';
 
 import type { Component } from 'vue';
-import { Store } from '@YDSZ-core/shared/store';
-import { bindMethods, isFunction } from '@YDSZ-core/shared/utils';
+import { Store } from '@ydsz-core/shared/store';
+import { bindMethods, isFunction } from '@ydsz-core/shared/utils';
 
 /**
  * 弹窗通用回调接口

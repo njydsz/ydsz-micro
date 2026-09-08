@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 通用组合式函数（hooks）的统一导出入口。
  *
  * 汇集应用配置、最大化切换、主题设计令牌、鼠标悬停、前端分页、标签栏、
@@ -16,4 +16,4 @@ export * from './use-pagination';
 export * from './use-refresh';
 export * from './use-tabs';
 export * from './use-watermark';
-export * from '@YDSZ-core/composables';
+export * from '@ydsz-core/composables';

@@ -13,7 +13,7 @@ import type {
   UnmountResult,
 } from "@ydsz/micro-runtime";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 const logger = createLogger("DevToolsBridge");
 

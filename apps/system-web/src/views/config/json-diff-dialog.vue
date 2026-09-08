@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * JSON 版本对比对话框 — 左右分栏展示两个版本快照的差异，高亮显示差异行
  *
  * @path apps\system-web\src\views\config\json-diff-dialog.vue
@@ -17,7 +17,7 @@ import { ElButton, ElDialog } from 'element-plus';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('json-diff-dialog');
 

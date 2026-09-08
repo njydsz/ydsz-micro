@@ -9,7 +9,7 @@
 import { onTabClosed } from "@ydsz/stores";
 // v4.4.1 A3: 注册表迁至 @ydsz/constants（运行时单源），不再依赖构建配置包
 import { PATH_TO_APP_MAP } from "@ydsz/constants";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import type { microRuntime } from "#/bootstrap";
 

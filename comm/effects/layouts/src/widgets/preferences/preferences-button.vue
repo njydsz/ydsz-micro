@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * preferences-button 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\preferences-button.vue
@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { Settings } from '@ydsz/icons';
 
-import { YDSZIconButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
 
 import Preferences from './preferences.vue';
 

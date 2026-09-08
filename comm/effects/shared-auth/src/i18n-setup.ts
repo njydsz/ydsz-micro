@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用 i18n 装配工厂 — 消除各子应用 locales/index.ts 中重复的样板代码。
  *
  * v3.5 (A6/B6): 将 dayjs / element-plus / app langs 的加载逻辑收敛至 shared-auth，
@@ -33,7 +33,7 @@ import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('i18n-setup');
 /** 默认 locale → file 正则（与子应用既有约定一致） */
 const DEFAULT_LANG_PATTERN = /\.\/langs\/([^/]+)\/(.*)\.json$/;

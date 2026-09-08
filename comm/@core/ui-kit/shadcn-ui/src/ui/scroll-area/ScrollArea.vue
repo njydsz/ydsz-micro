@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 自定义滚动区域的容器：组合 Root / Viewport / Corner，并对外暴露滚动事件。
  *
  * 同时提供 onScroll 与 viewportProps 两个入口：
@@ -15,7 +15,7 @@ import type { ScrollAreaRootProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import {
   ScrollAreaCorner,

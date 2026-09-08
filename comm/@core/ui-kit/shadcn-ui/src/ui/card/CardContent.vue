@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 卡片内容区：承载正文的容器。
  *
  * 上内边距置 0（p-6 pt-0）是因为它通常紧跟在 CardHeader 之后，
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

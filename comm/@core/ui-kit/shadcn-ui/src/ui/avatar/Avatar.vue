@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 头像容器：按 shape / size 两个维度从 cva 变体中取类名，默认圆形小号。
  *
  * 尺寸与圆角全部由 avatarVariant 统一产出，外部若要覆盖必须走 cn()，
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import type { AvatarVariants } from './avatar';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { AvatarRoot } from 'radix-vue';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * Agent 链路调试面板
  *
  * <p>展示 Agent 执行 Trace 列表，支持查看调用链详情和执行重放。
@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElCard,

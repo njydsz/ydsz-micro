@@ -13,7 +13,7 @@ import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
 
 import { ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   $t,

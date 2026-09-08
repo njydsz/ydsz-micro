@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 子应用双模式入口工厂（已废弃）。
  *
  * 提供统一的子应用定义入口，自动检测运行环境并选择合适的启动方式：
@@ -21,7 +21,7 @@
 
 import type { App as VueApp } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('SubApp');

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 对话框头部区：排布标题与描述。
  *
  * 窄屏居中、宽屏左对齐：移动端标题居中更符合阅读习惯，宽屏左对齐与正文基线一致。
@@ -8,7 +8,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 const props = defineProps<{
   class?: any;

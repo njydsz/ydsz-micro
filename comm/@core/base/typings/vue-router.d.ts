@@ -1,9 +1,9 @@
-/**
+﻿/**
  * vue-router 类型增强声明，把项目自定义的 `RouteMeta` 合并进路由元信息。
  *
  * @remarks
  * 通过 TypeScript 的模块声明合并（declaration merging），让全局任意位置访问
- * `route.meta.xxx` 时都能获得 `@YDSZ-core/typings` 中定义的字段提示，
+ * `route.meta.xxx` 时都能获得 `@ydsz-core/typings` 中定义的字段提示，
  * 而无需在每个页面手动断言类型。
  *
  * 使用约束：
@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 /* eslint-disable no-restricted-imports */
-import type { RouteMeta as IRouteMeta } from '@YDSZ-core/typings';
+import type { RouteMeta as IRouteMeta } from '@ydsz-core/typings';
 
 import 'vue-router';
 

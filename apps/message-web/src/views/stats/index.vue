@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 消息统计看板
  *
  * <p>基于 ECharts 的消息统计看板，提供消息发送趋势、渠道分布、漏斗分析等可视化图表。
@@ -18,7 +18,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { ElCard, ElMessage, ElOption, ElSelect, ElStatistic } from 'element-plus';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref, watch } from 'vue';
 
 const logger = createLogger('message-stats');

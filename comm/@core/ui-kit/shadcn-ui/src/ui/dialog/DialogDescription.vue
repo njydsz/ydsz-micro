@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 对话框描述：为对话框提供补充说明，并关联到无障碍描述。
  *
  * 会被 radix 用作 aria-describedby 的目标，建议始终提供；缺省时读屏只播报标题，
@@ -13,7 +13,7 @@ import type { DialogDescriptionProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DialogDescription, useForwardProps } from 'radix-vue';
 

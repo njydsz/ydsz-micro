@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 图标选择器的图标数据源：从 Iconify 拉取图标集并按前缀缓存。
  *
  * 存在的意义是把「图标数据获取」从选择器组件中剥离，顺带解决两个问题：
@@ -15,7 +15,7 @@
  */
 import type { Recordable } from '@ydsz/types';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('icons');
 /**
  * 一个缓存对象，在不刷新页面时，无需重复请求远程接口

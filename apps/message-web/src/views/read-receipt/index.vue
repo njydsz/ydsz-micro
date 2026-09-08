@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 已读回执管理页面
  *
  * <p>管理消息已读回执记录，支持通过短码查询回执详情。
@@ -19,7 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElCard,

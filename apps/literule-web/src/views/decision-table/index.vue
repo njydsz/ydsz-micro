@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 决策表管理列表页面
  *
  * @path apps\literule-web\src\views\decision-table\index.vue
@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import {
   deleteDecisionTable,

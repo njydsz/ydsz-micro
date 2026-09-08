@@ -7,7 +7,7 @@
  */
 import type { RouteRecordRaw } from 'vue-router';
 
-import { filterTree, mapTree } from '@YDSZ-core/shared/utils';
+import { filterTree, mapTree } from '@ydsz-core/shared/utils';
 
 /**
  * 根据角色权限过滤路由配置（前端鉴权模式）。

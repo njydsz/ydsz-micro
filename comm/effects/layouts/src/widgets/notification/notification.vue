@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * notification 布局组件
  *
  * @path comm\effects\layouts\src\widgets\notification\notification.vue
@@ -16,7 +16,7 @@ import {
   YDSZIconButton,
   YDSZPopover,
   YDSZScrollbar,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 import { useToggle } from '@vueuse/core';
 

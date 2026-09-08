@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 弹窗的创建入口：返回「组件 + 命令式 API」一对，并支持设置全局默认配置。
  *
  * 依据是否传入 connectedComponent 分两条分支：
@@ -22,12 +22,12 @@ import {
   ref,
 } from 'vue';
 
-import { useStore } from '@YDSZ-core/shared/store';
+import { useStore } from '@ydsz-core/shared/store';
 
 import { ModalApi } from './modal-api';
 import YDSZModal from './modal.vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-modal');
 const USER_MODAL_INJECT_KEY = Symbol('YDSZ_MODAL_INJECT');
 

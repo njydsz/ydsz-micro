@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ESM Manifest 加载器
  *
  * 约定：子应用由统一 vite-config 构建，输出 manifest.json：
@@ -14,7 +14,7 @@
  */
 
 import type { LifecycleExports, MicroAppConfig } from '@ydsz/micro-runtime';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { retryOperation } from './retry';
 import { injectModulePreload, preloadAppAssets } from './link-hints';
 import { KernelError, KernelErrorCode } from './error-boundary';

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 内核路由同步 — 路由监听 + activeRule 匹配 + 应用激活
  *
  * 从 kernel.ts 提取的路由同步逻辑，覆盖 popstate（浏览器前进/后退）+
@@ -18,7 +18,7 @@
 
 import type { MicroAppConfig, StartOptions } from "@ydsz/micro-runtime";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { isDegraded } from "./error-boundary";
 import { matchActiveRule, patchHistory, ROUTE_CHANGE_EVENT } from "./kernel-helpers";

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * theme-button 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-button.vue
@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
 
-import { YDSZButton } from '@YDSZ-core/shadcn-ui';
+import { YDSZButton } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   /**

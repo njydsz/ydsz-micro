@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则追踪页面
  *
  * @path apps\literule-web\src\views\rule-trace\index.vue
@@ -34,7 +34,7 @@ import {
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import type { RuleExecutionTraceVO } from '#/api/models';
 import {

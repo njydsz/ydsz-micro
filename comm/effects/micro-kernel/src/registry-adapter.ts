@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 远程注册表适配器
  *
  * 支持从远程 JSON（/api/micro-apps/registry.json）拉取子应用注册表，
@@ -17,7 +17,7 @@
  */
 
 import type { MicroAppEntry } from '@ydsz/micro-runtime';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('MicroKernel');

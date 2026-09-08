@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 菜单管理页面 — 树形表格展示菜单层级，支持新增（顶级/子级）/编辑/删除菜单项
  *
  * @path apps\userinfo-web\src\views\system\menu\index.vue
@@ -30,7 +30,7 @@ import type { TagProps } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { remove, tree } from '#/api/menu';
 import type { MenuTreeVO } from '#/api/models';

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 子菜单触发器：渲染带展开指示的菜单项，悬停或右方向键展开子菜单。
  *
  * 展开与收起的延迟由 radix 处理，避免鼠标斜向移动时误收起子菜单。
@@ -12,7 +12,7 @@ import type { ContextMenuSubTriggerProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
 import { ContextMenuSubTrigger, useForwardProps } from 'radix-vue';

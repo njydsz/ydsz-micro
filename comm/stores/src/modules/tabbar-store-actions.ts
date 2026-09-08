@@ -10,11 +10,11 @@
  */
 import type { Router } from 'vue-router';
 
-import type { TabDefinition } from '@YDSZ-core/typings';
+import type { TabDefinition } from '@ydsz-core/typings';
 
 import { toRaw } from 'vue';
 
-import { preferences } from '@YDSZ-core/preferences';
+import { preferences } from '@ydsz-core/preferences';
 
 import {
   cloneTab,

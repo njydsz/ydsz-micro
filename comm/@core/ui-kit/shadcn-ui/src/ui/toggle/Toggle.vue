@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 切换按钮：在 radix Toggle 之上套用 toggleVariants 的 variant / size 变体。
  *
  * size 与 variant 要从 props 中单独摘出再转发，
@@ -16,7 +16,7 @@ import type { ToggleVariants } from './toggle';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Toggle, useForwardPropsEmits } from 'radix-vue';
 

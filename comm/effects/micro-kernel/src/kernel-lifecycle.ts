@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 内核生命周期管理 — 子应用 mount/unmount/更新 逻辑
  *
  * 从 kernel.ts 提取的应用切换核心逻辑，消除 createKernel 闭包内的超长函数。
@@ -20,7 +20,7 @@ import type { GlobalStateAPI } from "./global-state";
 
 import { createNamespacedGlobalStateWrapper } from "@ydsz/micro-runtime/namespaced-state";
 import { buildStandardMountProps } from "@ydsz/micro-runtime/standard-props";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import {
   decideDegradationLevel,

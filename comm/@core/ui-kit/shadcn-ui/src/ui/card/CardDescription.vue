@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 卡片描述文本：弱化显示的辅助说明。
  *
  * 使用 p 标签而非 div：描述属于正文内容，需要正确的段落语义，
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

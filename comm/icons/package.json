@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/icons",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
@@ -17,6 +17,6 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/icons": "workspace:*"
+    "@ydsz-core/icons": "workspace:*"
   }
 }

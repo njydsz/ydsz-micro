@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 普通菜单组件的 props 类型契约。
  *
  * 与 Menu 的 props 刻意不复用：普通菜单只消费扁平的 menus 数组，
@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { MenuRecordRaw } from '@YDSZ-core/typings';
+import type { MenuRecordRaw } from '@ydsz-core/typings';
 
 interface NormalMenuProps {
   /**

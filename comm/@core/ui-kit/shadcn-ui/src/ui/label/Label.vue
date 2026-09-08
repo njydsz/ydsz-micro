@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 通用标签：转发 radix Label 的 props，并统一字号、行高与禁用态表现。
  *
  * peer-disabled 类让标签能感知同级控件的禁用状态；
@@ -13,7 +13,7 @@ import type { LabelProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Label } from 'radix-vue';
 

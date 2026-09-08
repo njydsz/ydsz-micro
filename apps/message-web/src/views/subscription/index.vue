@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 消息订阅管理列表页面
  *
  * <p>管理用户的消息订阅关系，支持按用户/主题查询、订阅/退订操作。
@@ -34,7 +34,7 @@ import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('message-subscription');
 import { listByTopic, listByUser, unsubscribe } from '#/api/subscription';

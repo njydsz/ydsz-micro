@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 头像容器：融合 radix 的 AvatarRoot / AvatarImage / AvatarFallback 三态。
  *
  * 合在一个组件里是为了让调用方只传 src 与 alt：加载成功显示图片、失败或加载中
@@ -17,7 +17,7 @@ import type {
 
 import type { CSSProperties } from 'vue';
 
-import type { ClassType } from '@YDSZ-core/typings';
+import type { ClassType } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 

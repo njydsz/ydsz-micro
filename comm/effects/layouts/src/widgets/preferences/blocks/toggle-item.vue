@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * toggle-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\toggle-item.vue
@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { SelectOption } from '@ydsz/types';
 
-import { ToggleGroup, ToggleGroupItem } from '@YDSZ-core/shadcn-ui';
+import { ToggleGroup, ToggleGroupItem } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceToggleItem',

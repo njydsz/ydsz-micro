@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SSE 通知客户端 Composable —— 基于 EventSource API 订阅后端 SSE 端点
  *
  * <p>功能：
@@ -13,7 +13,8 @@
  *
  * <p>SSE 端点优先级：
  * <ol>
- *   <li>{@code /api/message/notifications/stream}（主通知流，text/event-stream）</ *   <li>轮询 {@code /api/message/notifications/unread-count} 每 30 秒一次（备选）
+ *   <li>{@code /api/message/reactive/stream}（主通知流，text/event-stream）</li>
+ *   <li>轮询 {@code /api/message/notifications/unread-count} 每 30 秒一次（备选）</li>
  * </ol>
  *
  * @path apps\system-web\src\composables\useNotificationSse.ts
@@ -25,7 +26,7 @@ import type { NotificationItem } from '#/store/notification';
 
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   getNotificationsApi,
@@ -39,8 +40,8 @@ import { useNotificationStore } from '#/store/notification';
 /** 模块级日志器 */
 const logger = createLogger('useNotificationSse');
 
-/** SSE 主通知流端点 */
-const SSE_NOTIFICATION_ENDPOINT = '/api/message/notifications/stream';
+/** SSE 主通知流端点（对齐后端 ReactiveNotificationController#streamEvents，贯通审计 P0-B） */
+const SSE_NOTIFICATION_ENDPOINT = '/api/message/reactive/stream';
 /** 重连基础延迟（ms） */
 const RECONNECT_BASE_DELAY = 1000;
 /** 重连最大延迟（ms） */

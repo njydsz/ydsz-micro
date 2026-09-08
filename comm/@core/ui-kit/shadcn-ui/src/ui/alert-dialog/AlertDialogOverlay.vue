@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 确认对话框的遮罩层：铺满视口并按 z-popup 层级盖住页面内容，点击即触发 close。
  *
  * 挂载期间通过 useScrollLock 锁定 body 滚动 ——
@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { useScrollLock } from '@YDSZ-core/composables';
+import { useScrollLock } from '@ydsz-core/composables';
 
 useScrollLock();
 </script>

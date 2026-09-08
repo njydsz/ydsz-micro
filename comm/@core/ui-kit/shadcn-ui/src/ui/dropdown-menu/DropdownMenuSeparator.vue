@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单分隔线：在菜单项之间绘制视觉分组线。
  *
  * 纯装饰元素，对辅助技术不可见；语义分组请用 DropdownMenuGroup 表达。
@@ -12,7 +12,7 @@ import type { DropdownMenuSeparatorProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DropdownMenuSeparator } from 'radix-vue';
 

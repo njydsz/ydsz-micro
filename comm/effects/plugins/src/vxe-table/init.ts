@@ -1,4 +1,4 @@
-/**
+﻿/**
  * VXe Table 在项目中的完整初始化入口，按需注册组件并同步主题 / 语言。
  *
  * 应在应用启动阶段调用一次：注册 vxe-table / vxe-pc-ui 组件、
@@ -14,7 +14,7 @@ import { defineComponent, watch } from 'vue';
 
 import { usePreferences } from '@ydsz/preferences';
 
-import { type useYDSZForm } from '@YDSZ-core/form-ui';
+import { type useYDSZForm } from '@ydsz-core/form-ui';
 
 import {
   VxeButton,

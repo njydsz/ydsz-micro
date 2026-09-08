@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 内核应用注册 — registerAppsInternal / addAppInternal
  *
  * 从 kernel.ts 提取的应用注册辅助函数，处理应用去重、
@@ -11,7 +11,7 @@
 
 import type { MicroAppConfig } from "@ydsz/micro-runtime";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { getAppInstance, createAppInstance } from "./scheduler";
 

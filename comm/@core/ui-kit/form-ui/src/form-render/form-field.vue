@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 单个表单项的渲染器：按 Schema 选择控件、套上标签与错误提示。
  *
  * 控件经 componentMap 动态解析（component :is），使 Schema 只需声明字符串型的
@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('form-field');
 import type { ZodType } from 'zod';
 
@@ -19,7 +19,7 @@ import type { FormSchema, MaybeComponentProps } from '../types';
 
 import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
-import { CircleAlert } from '@YDSZ-core/icons';
+import { CircleAlert } from '@ydsz-core/icons';
 import {
   FormControl,
   FormDescription,
@@ -28,8 +28,8 @@ import {
   FormMessage,
   YDSZRenderContent,
   YDSZTooltip,
-} from '@YDSZ-core/shadcn-ui';
-import { cn, isFunction, isObject, isString } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shadcn-ui';
+import { cn, isFunction, isObject, isString } from '@ydsz-core/shared/utils';
 
 import { toTypedSchema } from '@vee-validate/zod';
 import { useFieldError, useFormValues } from 'vee-validate';

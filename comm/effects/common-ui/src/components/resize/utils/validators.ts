@@ -1,4 +1,4 @@
-/**
+﻿/**
  * validators 属性验证工具函数
  *
  * @path comm\effects\common-ui\src\components\resize\utils\validators.ts
@@ -8,7 +8,7 @@
 
 import { watch } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('validators');
 /**
  * 创建属性验证监听器

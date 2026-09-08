@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CSS 变量写入工具，根据偏好配置动态设置主题色、圆角、明暗等全局样式。
  *
  * @path comm\@core\preferences\src\update-css-variables.ts
@@ -7,8 +7,8 @@
  */
 import type { Preferences } from './types';
 
-import { generatorColorVariables } from '@YDSZ-core/shared/color';
-import { updateCSSVariables as executeUpdateCSSVariables } from '@YDSZ-core/shared/utils';
+import { generatorColorVariables } from '@ydsz-core/shared/color';
+import { updateCSSVariables as executeUpdateCSSVariables } from '@ydsz-core/shared/utils';
 
 import { BUILT_IN_THEME_PRESETS } from './constants';
 

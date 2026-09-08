@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * switch-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\switch-item.vue
@@ -10,7 +10,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { YDSZTooltip, Switch } from '@YDSZ-core/shadcn-ui';
+import { YDSZTooltip, Switch } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSwitchItem',

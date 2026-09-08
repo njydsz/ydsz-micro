@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * extra-menu 布局组件
  *
  * @path comm\effects\layouts\src\basic\menu\extra-menu.vue
@@ -8,11 +8,11 @@
 <script lang="ts" setup>
 import type { MenuRecordRaw } from '@ydsz/types';
 
-import type { MenuProps } from '@YDSZ-core/menu-ui';
+import type { MenuProps } from '@ydsz-core/menu-ui';
 
 import { useRoute } from 'vue-router';
 
-import { Menu } from '@YDSZ-core/menu-ui';
+import { Menu } from '@ydsz-core/menu-ui';
 
 import { useNavigation } from './use-navigation';
 

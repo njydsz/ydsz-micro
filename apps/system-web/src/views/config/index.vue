@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 系统配置管理页面 — 参数配置的分页列表、搜索、新增、编辑、删除
  *
  * @path apps\system-web\src\views\config\index.vue
@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

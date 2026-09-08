@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 弹窗的渲染实现：合并 props 与命令式 API 状态后映射为 Dialog 结构，并接入拖拽与全屏。
  *
  * 优先级与抽屉一致：全局默认 → 父级注入 → 本次 options → API 运行时状态，后者覆盖前者，
@@ -27,8 +27,8 @@ import {
   useIsMobile,
   usePriorityValues,
   useSimpleLocale,
-} from '@YDSZ-core/composables';
-import { Expand, Shrink } from '@YDSZ-core/icons';
+} from '@ydsz-core/composables';
+import { Expand, Shrink } from '@ydsz-core/icons';
 import {
   Dialog,
   DialogContent,
@@ -41,10 +41,10 @@ import {
   YDSZIconButton,
   YDSZLoading,
   VisuallyHidden,
-} from '@YDSZ-core/shadcn-ui';
-import { ELEMENT_ID_MAIN_CONTENT } from '@YDSZ-core/shared/constants';
-import { globalShareState } from '@YDSZ-core/shared/global-state';
-import { cn } from '@YDSZ-core/shared/utils';
+} from '@ydsz-core/shadcn-ui';
+import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
+import { globalShareState } from '@ydsz-core/shared/global-state';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { useModalDraggable } from './use-modal-draggable';
 

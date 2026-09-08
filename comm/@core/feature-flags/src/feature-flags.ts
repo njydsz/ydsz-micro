@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 功能开关管理器
  *
  * 三层优先级（高 → 低）：
@@ -22,10 +22,10 @@ import type {
 
 import { reactive, readonly } from 'vue';
 
-import { StorageManager } from '@YDSZ-core/shared/cache';
+import { StorageManager } from '@ydsz-core/shared/cache';
 import { createApiFeatureLoader } from './remote-loader';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('feature-flags');
 /** localStorage 子键（挂在 namespace 之下） */
 const STORAGE_KEY = 'feature-flags';

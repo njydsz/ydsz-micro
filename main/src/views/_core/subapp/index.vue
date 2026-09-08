@@ -21,7 +21,7 @@ import { useRoute } from "vue-router";
 
 import type { MicroAppConfig } from "@ydsz/micro-runtime";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { microRuntime } from "#/bootstrap";
 import { $t } from "#/locales";

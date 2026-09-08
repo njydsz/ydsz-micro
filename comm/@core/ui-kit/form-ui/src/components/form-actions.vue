@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 表单底部操作区：渲染提交 / 重置 / 展开收起按钮，并在每个按钮前后开放插槽。
  *
  * 按钮顺序由 actionButtonsReverse 控制（确认在右为默认，部分业务要求确认在左）。
@@ -13,9 +13,9 @@
 <script setup lang="ts">
 import { computed, toRaw, unref, watch } from 'vue';
 
-import { useSimpleLocale } from '@YDSZ-core/composables';
-import { YDSZExpandableArrow } from '@YDSZ-core/shadcn-ui';
-import { cn, isFunction, triggerWindowResize } from '@YDSZ-core/shared/utils';
+import { useSimpleLocale } from '@ydsz-core/composables';
+import { YDSZExpandableArrow } from '@ydsz-core/shadcn-ui';
+import { cn, isFunction, triggerWindowResize } from '@ydsz-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';
 import { injectFormProps } from '../use-form-context';

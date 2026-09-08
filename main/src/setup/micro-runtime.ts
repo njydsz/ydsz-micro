@@ -21,13 +21,13 @@ import {
   setErrorFallbackMessages,
   setStaticRegistry,
 } from "@ydsz/micro-kernel";
-import { registerPreloadAdapter } from "@YDSZ-core/menu-ui";
+import { registerPreloadAdapter } from "@ydsz-core/menu-ui";
 import { getProdEntry, MICRO_APPS, PATH_TO_APP_MAP } from "@ydsz/constants";
 import { createRuntime, registerKernel, type MicroAppConfig } from "@ydsz/micro-runtime";
 import { preferences } from "@ydsz/preferences";
 import { startProgress, stopProgress } from "@ydsz/utils";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { recordSubAppTabOpened } from "#/hooks/use-tabbar-micro-sync";
 import { router } from "#/router";
@@ -89,7 +89,7 @@ export function registerMicroRuntime() {
   microRuntime = createRuntime({ kernel: "micro-kernel" });
   runtimeLogger.info("Initialized with kernel: micro-kernel");
 
-  // 2.1 接线：菜单 hover 预加载适配器（依赖反转，见 @YDSZ-core/menu-ui preload-adapter）
+  // 2.1 接线：菜单 hover 预加载适配器（依赖反转，见 @ydsz-core/menu-ui preload-adapter）
   //     底层 UI 组件不直接依赖 micro-kernel，由主应用在此组装二者。
   registerPreloadAdapter({
     triggerPreload: (appName) => getPreloadManager().triggerPreload(appName),

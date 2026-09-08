@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 抽屉顶部的标题区：纵向排布标题与说明，窄屏居中、宽屏左对齐。
  *
  * 居中到左对齐的断点与抽屉宽度（3/4 屏）相配合：
@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

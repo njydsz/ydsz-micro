@@ -1,4 +1,4 @@
-/**
+﻿/**
  * YDSZVxeGrid 表格核心逻辑的组合式函数封装。
  *
  * 将 use-vxe-grid.vue 中的 CRUD、分页、数据加载、列配置、工具栏/表单/插槽
@@ -19,7 +19,7 @@ import type {
 
 import type { Component, ComputedRef, Ref, SetupContext } from 'vue';
 
-import type { YDSZFormProps } from '@YDSZ-core/form-ui';
+import type { YDSZFormProps } from '@ydsz-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from '../types';
 
@@ -50,7 +50,7 @@ import { VxeUI } from 'vxe-table';
 import { extendProxyOptions } from '../extends';
 import { useTableForm } from '../init';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   FORM_SLOT_PREFIX,

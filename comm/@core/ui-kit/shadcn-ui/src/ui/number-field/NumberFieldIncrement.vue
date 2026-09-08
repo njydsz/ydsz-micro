@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 数字输入框的增大按钮：绝对定位在输入区右侧，默认图标为 Plus。
  *
  * 与减小按钮成对出现是常态，但两者独立可用：
@@ -13,7 +13,7 @@ import type { NumberFieldIncrementProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Plus } from 'lucide-vue-next';
 import { NumberFieldIncrement, useForwardProps } from 'radix-vue';

@@ -5,7 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { RouteMeta as IRouteMeta } from '@YDSZ-core/typings';
+import type { RouteMeta as IRouteMeta } from '@ydsz-core/typings';
 import type { MicroRuntime } from '@ydsz/micro-runtime';
 
 import 'vue-router';

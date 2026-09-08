@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 标签页视图的组装层：按 styleType 选用标签栏，并接上横向滚动与拖拽排序。
  *
  * 滚动与拖拽都以组合式函数接入而非写在模板里，
@@ -13,9 +13,9 @@
 <script setup lang="ts">
 import type { TabsEmits, TabsProps } from './types';
 
-import { useForwardPropsEmits } from '@YDSZ-core/composables';
-import { ChevronLeft, ChevronRight } from '@YDSZ-core/icons';
-import { YDSZScrollbar } from '@YDSZ-core/shadcn-ui';
+import { useForwardPropsEmits } from '@ydsz-core/composables';
+import { ChevronLeft, ChevronRight } from '@ydsz-core/icons';
+import { YDSZScrollbar } from '@ydsz-core/shadcn-ui';
 
 import { Tabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';

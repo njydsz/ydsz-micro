@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 文件上传组件（支持分片上传）
  *
  * @path apps\nextwiki-web\src\views\file\file-upload.vue
@@ -15,7 +15,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElInput, ElMessage, ElProgress, ElUpload } from 'element-plus';
 const logger = createLogger('nextwiki-file');

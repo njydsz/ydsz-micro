@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * workbench-todo Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-todo.vue
@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
   YDSZCheckbox,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 interface Props {
   items?: WorkbenchTodoItem[];

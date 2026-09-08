@@ -1,5 +1,5 @@
-/**
- * @YDSZ-core/menu-ui 包的 unbuild 构建配置：mkdist 全量转译 + 资源原样拷贝。
+﻿/**
+ * @ydsz-core/menu-ui 包的 unbuild 构建配置：mkdist 全量转译 + 资源原样拷贝。
  *
  * @path comm\@core\ui-kit\menu-ui\build.config.ts
  * @author ydsz-team
@@ -19,7 +19,7 @@ import { defineBuildConfig } from 'unbuild';
  * 属于 mkdist 的常见写法而非冗余。
  *
  * externals 处理：mkdist 不解析依赖，全部 import 原样保留。菜单递归渲染依赖
- * `@YDSZ-core/shared` 的路由工具与单例状态，外部化是递归菜单能与宿主路由保持
+ * `@ydsz-core/shared` 的路由工具与单例状态，外部化是递归菜单能与宿主路由保持
  * 同一份数据的前提。
  *
  * @returns unbuild 构建配置

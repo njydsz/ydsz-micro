@@ -19,7 +19,7 @@ import { useYDSZModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { importTemplate } from '#/api/flowTemplate';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('workflow-template');

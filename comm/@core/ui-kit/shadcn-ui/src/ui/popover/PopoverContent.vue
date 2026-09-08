@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 浮层内容：经 Portal 挂到 body，默认居中对齐、与触发器保持 4px 间距。
  *
  * 关闭 inheritAttrs 并手动把 $attrs 展开到 PopoverContent 上，
@@ -15,7 +15,7 @@ import type { PopoverContentEmits, PopoverContentProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { PopoverContent, PopoverPortal, useForwardPropsEmits } from 'radix-vue';
 

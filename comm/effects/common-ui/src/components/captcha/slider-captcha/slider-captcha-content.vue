@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * slider-captcha-content 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\slider-captcha\slider-captcha-content.vue
@@ -10,7 +10,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, useTemplateRef } from 'vue';
 
-import { YDSZSpineText } from '@YDSZ-core/shadcn-ui';
+import { YDSZSpineText } from '@ydsz-core/shadcn-ui';
 
 const props = defineProps<{
   contentStyle: CSSProperties;

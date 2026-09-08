@@ -5,14 +5,14 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { Preferences } from '@YDSZ-core/preferences';
-import type { DeepPartial } from '@YDSZ-core/typings';
+import type { Preferences } from '@ydsz-core/preferences';
+import type { DeepPartial } from '@ydsz-core/typings';
 
 /**
  * 定义应用级偏好配置覆写，返回修改后的偏好对象。
  *
  * @remarks
- * 所有 app 需要相同默认偏好时在此统一定义，避免修改 @YDSZ-core/preferences 内部默认值。
+ * 所有 app 需要相同默认偏好时在此统一定义，避免修改 @ydsz-core/preferences 内部默认值。
  *
  * @param preferences - 需要覆写的偏好配置（DeepPartial 允许部分字段）
  * @returns 合并后的偏好配置对象
@@ -25,4 +25,4 @@ function defineOverridesPreferences(
 
 export { defineOverridesPreferences };
 
-export * from '@YDSZ-core/preferences';
+export * from '@ydsz-core/preferences';

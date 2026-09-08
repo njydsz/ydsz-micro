@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 确认对话框的标题：radix 会将其注册为对话框的 aria-labelledby，
  * 因此本组件不可省略，否则读屏用户会听到一个无标题的对话框。
  *
@@ -14,7 +14,7 @@ import type { AlertDialogTitleProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { AlertDialogTitle, useForwardProps } from 'radix-vue';
 

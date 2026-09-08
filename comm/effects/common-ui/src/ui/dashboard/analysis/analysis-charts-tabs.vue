@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * analysis-charts-tabs Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\analysis-charts-tabs.vue
@@ -10,7 +10,7 @@ import type { TabOption } from '@ydsz/types';
 
 import { computed } from 'vue';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@YDSZ-core/shadcn-ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   tabs?: TabOption[];

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 菜单中的一个可点击项：负责激活态判定、图标切换、折叠态提示与自身注册。
  *
  * 激活态用 path 与根菜单的 activePath 比对得出，而不是靠父级逐层下发 ——
@@ -15,8 +15,8 @@ import type { MenuItemProps, MenuItemRegistered } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
-import { useNamespace } from '@YDSZ-core/composables';
-import { YDSZIcon, YDSZTooltip } from '@YDSZ-core/shadcn-ui';
+import { useNamespace } from '@ydsz-core/composables';
+import { YDSZIcon, YDSZTooltip } from '@ydsz-core/shadcn-ui';
 
 import { MenuBadge } from '../menu-badge.vue';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';

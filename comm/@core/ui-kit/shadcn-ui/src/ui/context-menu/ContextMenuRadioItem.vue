@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 右键菜单单选项：在单选组内表示互斥选项之一。
  *
  * 必须置于 ContextMenuRadioGroup 内使用，否则拿不到互斥上下文，
@@ -16,7 +16,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Circle } from 'lucide-vue-next';
 import {

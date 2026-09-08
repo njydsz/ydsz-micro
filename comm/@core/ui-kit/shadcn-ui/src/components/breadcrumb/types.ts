@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 面包屑的类型契约：单个面包屑项的结构与组件 props。
  *
  * IBreadcrumb 描述数据项（标题、路径、图标、子项），BreadcrumbProps 描述渲染配置，
@@ -10,7 +10,7 @@
  */
 import type { Component } from 'vue';
 
-import type { BreadcrumbStyleType } from '@YDSZ-core/typings';
+import type { BreadcrumbStyleType } from '@ydsz-core/typings';
 
 /**
  * 面包屑中的单个节点，支持通过 `items` 递归嵌套形成下拉分支。

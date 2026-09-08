@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单的组件注册表与全局默认配置中心。
  *
  * COMPONENT_MAP 把 Schema 里声明的抽象组件类型映射到具体 Vue 组件，
@@ -28,8 +28,8 @@ import {
   YDSZInputPassword,
   YDSZPinInput,
   YDSZSelect,
-} from '@YDSZ-core/shadcn-ui';
-import { globalShareState } from '@YDSZ-core/shared/global-state';
+} from '@ydsz-core/shadcn-ui';
+import { globalShareState } from '@ydsz-core/shared/global-state';
 
 import { defineRule } from 'vee-validate';
 

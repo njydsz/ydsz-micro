@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * forget-password Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\forget-password.vue
@@ -6,15 +6,15 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YDSZFormSchema } from '@YDSZ-core/form-ui';
+import type { YDSZFormSchema } from '@ydsz-core/form-ui';
 
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZForm } from '@YDSZ-core/form-ui';
-import { YDSZButton } from '@YDSZ-core/shadcn-ui';
+import { useYDSZForm } from '@ydsz-core/form-ui';
+import { YDSZButton } from '@ydsz-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 

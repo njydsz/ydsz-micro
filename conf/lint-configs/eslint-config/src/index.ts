@@ -24,7 +24,7 @@ import tsParser from '@typescript-eslint/parser';
  * 云顶编码规范强制规则集。
  *
  * 说明：
- * - `no-console` 全面禁止（error）：业务代码一律使用 `createLogger`（@YDSZ-core/shared/utils）
+ * - `no-console` 全面禁止（error）：业务代码一律使用 `createLogger`（@ydsz-core/shared/utils）
  *   统一日志，禁止在生产路径直接调用 console.*（§14.5）。
  * - 过渡期允许的 warn/error 已在 comm 组件 codemod 完成后收紧（见仓库 codemod 记录）。
  * - logger.ts 是统一日志模块的实现文件，豁免 no-console。

@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/layouts",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
@@ -20,14 +20,14 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/composables": "workspace:*",
-    "@YDSZ-core/form-ui": "workspace:*",
-    "@YDSZ-core/layout-ui": "workspace:*",
-    "@YDSZ-core/menu-ui": "workspace:*",
-    "@YDSZ-core/popup-ui": "workspace:*",
-    "@YDSZ-core/shadcn-ui": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*",
-    "@YDSZ-core/tabs-ui": "workspace:*",
+    "@ydsz-core/composables": "workspace:*",
+    "@ydsz-core/form-ui": "workspace:*",
+    "@ydsz-core/layout-ui": "workspace:*",
+    "@ydsz-core/menu-ui": "workspace:*",
+    "@ydsz-core/popup-ui": "workspace:*",
+    "@ydsz-core/shadcn-ui": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
+    "@ydsz-core/tabs-ui": "workspace:*",
     "@ydsz/constants": "workspace:*",
     "@ydsz/hooks": "workspace:*",
     "@ydsz/icons": "workspace:*",

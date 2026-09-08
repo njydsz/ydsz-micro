@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 预加载策略增强
  *
  * 提供多种预加载策略：
@@ -25,7 +25,7 @@
 
 import type { DisposableManager } from "./manager-registry";
 import type { PreloadManagerLike } from "./preload-manager-helpers";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { UsageStatsStore } from "./preload-usage-stats";
 

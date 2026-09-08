@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 消息反馈管理页面
  *
  * <p>展示和管理用户对消息的反馈，包含平均评分、反馈总数、正面反馈比例等指标，
@@ -20,7 +20,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   ElButton,
   ElCard,

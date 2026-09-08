@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * input-item 布局组件
  *
  * @path comm\effects\layouts\src\widgets\preferences\blocks\input-item.vue
@@ -12,7 +12,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { Input, YDSZTooltip } from '@YDSZ-core/shadcn-ui';
+import { Input, YDSZTooltip } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',

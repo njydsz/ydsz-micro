@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * Input Vue 组件 - 现代化输入框样式
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\input\Input.vue
@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from "@YDSZ-core/shared/utils";
+import { cn } from "@ydsz-core/shared/utils";
 
 import { useVModel } from "@vueuse/core";
 

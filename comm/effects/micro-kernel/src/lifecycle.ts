@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 生命周期调度器 + 保活控制 + 沙箱策略集成
  *
  * 核心 activate/deactivate 调度逻辑 + 沙箱 mount/unmount。
@@ -14,7 +14,7 @@ import type { LoadOptions, LoadResult } from "./loader";
 import type { SandboxStrategy } from "./sandbox-strategy";
 import type { AppInstance, DeactivateResult, GlobalStateBridge } from "./app-state";
 import { createGlobalStateProxy } from "./app-state";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 import { KernelError, KernelErrorCode } from "./error-boundary";
 import { recordLoadDuration } from "./health-check";
 import { loadApp, removeStylesheets } from "./loader";

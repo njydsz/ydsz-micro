@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * fallback Vue 组件 - 现代化缺省页
  *
  * @path comm\effects\common-ui\src\ui\fallback\fallback.vue
@@ -14,7 +14,7 @@ import { useRouter } from "vue-router";
 import { ArrowLeft, RotateCw } from "@ydsz/icons";
 import { $t } from "@ydsz/locales";
 
-import { YDSZButton } from "@YDSZ-core/shadcn-ui";
+import { YDSZButton } from "@ydsz-core/shadcn-ui";
 
 type Props = FallbackProps;
 

@@ -1,5 +1,5 @@
-/**
- * @YDSZ-core/icons 包的 unbuild 构建配置：单入口打包为 ESM + CJS 双格式。
+﻿/**
+ * @ydsz-core/icons 包的 unbuild 构建配置：单入口打包为 ESM + CJS 双格式。
  *
  * @path comm\@core\base\icons\build.config.ts
  * @author ydsz-team
@@ -12,7 +12,7 @@ import { defineBuildConfig } from 'unbuild';
  *
  * 产物形态：`dist/index.mjs`（ESM）+ `dist/index.cjs`（CJS）+ `dist/index.d.ts`。
  * 选 rollup 而非 mkdist，是因为本包对外只有一个聚合入口，消费方总是
- * `import { XxxIcon } from '@YDSZ-core/icons'`，整体打包比逐文件转译更利于消费端 tree-shaking。
+ * `import { XxxIcon } from '@ydsz-core/icons'`，整体打包比逐文件转译更利于消费端 tree-shaking。
  *
  * externals 处理：这里**不显式声明** `externals`，交由 unbuild 从 `package.json`
  * 的 `dependencies` / `peerDependencies` 自动推导。因此 `vue`、`@iconify/vue`、

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则引擎实时监控看板（新页面）
  *
  * @path apps/literule-web/src/views/dashboard/index.vue
@@ -26,7 +26,7 @@ import { Page } from '@ydsz/common-ui';
 import { ElCard, ElCol, ElRow, ElStatistic } from 'element-plus';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('literule-dashboard');

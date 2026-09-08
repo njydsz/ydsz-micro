@@ -7,6 +7,6 @@
  */
 export * from './helpers';
 export * from './retry';
-export * from '@YDSZ-core/shared/cache';
-export * from '@YDSZ-core/shared/color';
-export * from '@YDSZ-core/shared/utils';
+export * from '@ydsz-core/shared/cache';
+export * from '@ydsz-core/shared/color';
+export * from '@ydsz-core/shared/utils';

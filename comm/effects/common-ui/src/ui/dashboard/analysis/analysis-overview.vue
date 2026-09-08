@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * analysis-overview Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\analysis-overview.vue
@@ -16,7 +16,7 @@ import {
   CardTitle,
   YDSZCountToAnimator,
   YDSZIcon,
-} from '@YDSZ-core/shadcn-ui';
+} from '@ydsz-core/shadcn-ui';
 
 interface Props {
   items?: AnalysisOverviewItem[];

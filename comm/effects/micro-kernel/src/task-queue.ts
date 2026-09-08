@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 任务调度队列与优先级管理模块
  *
  * LRU 淘汰 (v4.2.1 L3 线性扫描)、TTL 过期检测、内存压力感知的自动释放
@@ -11,7 +11,7 @@
 
 import type { AppInstance, SchedulerContext } from "./app-state";
 import { getContext } from "./app-state";
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 import { removeStylesheets } from "./loader";
 import type { ExtendedPerformance, MemoryInfo } from "./performance-memory";
 

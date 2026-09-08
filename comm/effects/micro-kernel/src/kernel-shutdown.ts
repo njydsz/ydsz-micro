@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 内核关闭逻辑 — _stop() 方法体
  *
  * 从 kernel.ts 提取的内核停止/清理流程，用于 HMR / 测试环境重启。
@@ -20,7 +20,7 @@ import type { ManagerRegistry } from "./manager-registry";
 import type { GlobalStateAPI } from "./global-state";
 import type { LifecycleHookRegistry } from "./lifecycle-hooks";
 
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import {
   createCanaryManager,

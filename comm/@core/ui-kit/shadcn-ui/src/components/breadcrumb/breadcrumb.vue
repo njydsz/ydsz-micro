@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 基础面包屑：渲染层级路径，支持图标与末级下拉。
  *
  * 末级带下拉是为了在层级很深时展示被折叠的中间节点，避免路径过长撑破顶栏。
@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import type { BreadcrumbProps } from './types';
 
-import { ChevronDown } from '@YDSZ-core/icons';
+import { ChevronDown } from '@ydsz-core/icons';
 
 import {
   Breadcrumb,

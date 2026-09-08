@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Speculation Rules API 集成（Chrome 108+）
  *
  * 利用浏览器原生的 <script type="speculationrules"> 声明式预取子应用 ESM 模块，
@@ -16,7 +16,7 @@
 import type { DisposableManager } from "./manager-registry";
 import type { MicroAppEntry } from '@ydsz/micro-runtime';
 import type { PrefetchStrategy } from './preload-strategy';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('MicroKernel');
 

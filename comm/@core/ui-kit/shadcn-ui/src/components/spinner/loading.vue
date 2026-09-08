@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 面板级加载遮罩：绝对定位铺满父容器，用于卡片、表格等局部区域，并支持在转圈下方显示文案。
  *
  * minLoadingTime 是本组件的关键设计 —— 请求过快时遮罩一闪而过反而造成视觉抖动，
@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {
   class?: string;

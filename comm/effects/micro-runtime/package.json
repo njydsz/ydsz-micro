@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/micro-runtime",
   "version": "1.0.0",
   "private": true,
@@ -33,7 +33,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/constants": "workspace:*",
     "@ydsz/shared-auth": "workspace:*",
     "@ydsz/stores": "workspace:*",

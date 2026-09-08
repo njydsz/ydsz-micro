@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DevTools 可插拔 Tab 注册表与内置 Tab 实现
  *
  * 从 devtools-panel.ts 提取，避免单文件超过 300 行。
@@ -15,7 +15,7 @@ import { getRoutePredictor } from "./route-predictor";
 import { getAllInstances } from "./scheduler";
 import { getPerfStats } from "./performance-utils";
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('devtools-tabs');
 // ==================== Tab 接口与注册表 ====================
 

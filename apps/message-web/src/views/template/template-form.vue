@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 消息模板表单组件
  *
  * @path apps/message-web/src/views/template/template-form.vue
@@ -21,7 +21,7 @@ import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { create, update } from '#/api/template';
 import type { MsgTemplateVO } from '#/api/models';
 

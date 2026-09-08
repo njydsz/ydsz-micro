@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 部门管理页面 — 树形表格展示部门层级，支持新增（顶级/子级）/编辑/删除部门
  *
  * @path apps\userinfo-web\src\views\system\dept\index.vue
@@ -29,7 +29,7 @@ import {
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { remove, tree } from '#/api/department';
 import type { DepartmentTreeVO } from '#/api/models';

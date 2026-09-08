@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 菜单项徽标：按 badgeType 在「圆点」与「文字徽标」两种形态间切换。
  *
  * 配色采用「预设语义名 → Tailwind 类」的映射，映射未命中时把该值直接当类名用，
@@ -10,11 +10,11 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { MenuRecordBadgeRaw } from '@YDSZ-core/typings';
+import type { MenuRecordBadgeRaw } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 
-import { isValidColor } from '@YDSZ-core/shared/color';
+import { isValidColor } from '@ydsz-core/shared/color';
 
 import BadgeDot from './menu-badge-dot.vue';
 

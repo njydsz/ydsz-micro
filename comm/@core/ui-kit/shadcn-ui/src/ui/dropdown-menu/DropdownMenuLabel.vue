@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 下拉菜单分组标题：为一组菜单项提供说明性标题。
  *
  * 不可聚焦、不参与键盘导航；需要可交互请改用 DropdownMenuItem。
@@ -12,7 +12,7 @@ import type { DropdownMenuLabelProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { DropdownMenuLabel, useForwardProps } from 'radix-vue';
 

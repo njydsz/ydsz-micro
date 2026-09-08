@@ -1,11 +1,11 @@
-/**
+﻿/**
  * SVG 图标组件导出声明，以 `svg:` 命名空间注册供 Iconify 组件引用。
  *
  * @path comm\icons\src\svg\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */
-import { createIconifyIcon } from '@YDSZ-core/icons';
+import { createIconifyIcon } from '@ydsz-core/icons';
 
 import './load.js';
 

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * login-expired-modal Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\login-expired-modal.vue
@@ -12,8 +12,8 @@ import { computed, watch } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZModal } from '@YDSZ-core/popup-ui';
-import { YDSZAvatar, Slot } from '@YDSZ-core/shadcn-ui';
+import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { YDSZAvatar, Slot } from '@ydsz-core/shadcn-ui';
 
 interface Props extends AuthenticationProps {
   avatar?: string;

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 验证码输入的分格容器：把 PinInputInput 组织成一组。
  *
  * 基于 Primitive 而非固定 div，是为了在需要给整组加语义（如 role=group）
@@ -13,7 +13,7 @@ import type { PrimitiveProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { Primitive, useForwardProps } from 'radix-vue';
 

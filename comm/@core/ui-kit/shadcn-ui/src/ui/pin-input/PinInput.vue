@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 验证码/口令输入的容器：转发 radix PinInputRoot 的 props 与 emits。
  *
  * 自动聚焦、退格回跳、粘贴分发等键盘行为全部由 radix 托管，
@@ -13,7 +13,7 @@ import type { PinInputRootEmits, PinInputRootProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { PinInputRoot, useForwardPropsEmits } from 'radix-vue';
 

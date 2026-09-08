@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 浏览器标签风格标签栏：条目带斜切外形与重叠间距，需要手动计算宽度。
  *
  * 间距以 CSS 变量 --gap 下发，宽度由组件自行计算 ——
@@ -11,14 +11,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TabDefinition } from '@YDSZ-core/typings';
+import type { TabDefinition } from '@ydsz-core/typings';
 
 import type { TabConfig, TabsProps } from '../../types';
 
 import { computed, ref } from 'vue';
 
-import { Pin, X } from '@YDSZ-core/icons';
-import { YDSZContextMenu, YDSZIcon } from '@YDSZ-core/shadcn-ui';
+import { Pin, X } from '@ydsz-core/icons';
+import { YDSZContextMenu, YDSZIcon } from '@ydsz-core/shadcn-ui';
 
 type Props = TabsProps;
 

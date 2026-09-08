@@ -16,7 +16,7 @@ import { useUserStore } from "@ydsz/stores";
  * @author ydsz-team
  * @since 4.1.0
  */
-import { createLogger } from "@YDSZ-core/shared/utils";
+import { createLogger } from "@ydsz-core/shared/utils";
 
 import { useCrossTabSync } from "#/hooks/use-cross-tab-sync";
 import { useSessionExpiryWarning } from "#/hooks/use-session-expiry-warning";

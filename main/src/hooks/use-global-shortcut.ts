@@ -6,7 +6,7 @@
  * @since 4.0.0
  */
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 /** 模块级日志器 */
 const logger = createLogger('GlobalShortcut');

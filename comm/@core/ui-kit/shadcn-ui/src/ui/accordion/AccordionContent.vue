@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 手风琴展开区：承载 radix 的展开/收起高度动画，内容再包一层 div 承载内边距。
  *
  * 内边距放在内层 div 而不是内容容器本身，是因为高度动画需要容器高度可从 0 平滑过渡；
@@ -14,7 +14,7 @@ import type { AccordionContentProps } from 'radix-vue';
 
 import { computed } from 'vue';
 
-import { cn } from '@YDSZ-core/shared/utils';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { AccordionContent } from 'radix-vue';
 

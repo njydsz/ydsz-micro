@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@ydsz/plugins",
   "version": "5.5.9",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
@@ -28,9 +28,9 @@
     }
   },
   "dependencies": {
-    "@YDSZ-core/form-ui": "workspace:*",
-    "@YDSZ-core/shadcn-ui": "workspace:*",
-    "@YDSZ-core/shared": "workspace:*",
+    "@ydsz-core/form-ui": "workspace:*",
+    "@ydsz-core/shadcn-ui": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/hooks": "workspace:*",
     "@ydsz/icons": "workspace:*",
     "@ydsz/locales": "workspace:*",

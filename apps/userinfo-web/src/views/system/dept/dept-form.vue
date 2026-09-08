@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 部门表单组件 — 支持新增/编辑部门信息（部门编码、名称、上级部门、描述、排序、状态）
  *
  * @path apps\userinfo-web\src\views\system\dept\dept-form.vue
@@ -30,7 +30,7 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { create, update } from '#/api/department';
 import type { DepartmentDTO, DepartmentTreeVO } from '#/api/models';

@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 消息轨迹查询
  *
  * <p>查询消息的完整生命周期轨迹，展示消息从创建到送达的每个环节。
@@ -18,7 +18,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTag } from 'element-plus';
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
 const logger = createLogger('message-trace');

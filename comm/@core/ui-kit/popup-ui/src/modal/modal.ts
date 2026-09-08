@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 弹窗的展示层类型契约：动画类型、居中、全屏、拖拽等能力开关。
  *
  * 与抽屉配置高度相似却刻意不做类型复用 ——
@@ -10,7 +10,7 @@
  */
 import type { Component, Ref } from 'vue';
 
-import type { MaybePromise } from '@YDSZ-core/typings';
+import type { MaybePromise } from '@ydsz-core/typings';
 
 import type { ModalApi } from './modal-api';
 

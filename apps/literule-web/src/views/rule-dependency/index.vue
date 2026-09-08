@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  * 规则依赖拓扑页面
  *
  * <p>展示规则间的依赖关系图，支持查看规则的被依赖/依赖列表、添加/移除依赖以及级联禁用影响预览。
@@ -40,7 +40,7 @@ import {
 } from 'element-plus';
 import { onMounted, reactive, ref, watch } from 'vue';
 
-import { createLogger } from '@YDSZ-core/shared/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   addDependency,
