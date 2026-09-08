@@ -2,7 +2,7 @@
  * CodeGenController API 封装。
  *
  * <p>对应后端 {@code CodeGenController}，路径前缀 /api/generator/code。
- * <p>提供代码预览、单表生成、全量生成三个端点。
+ * <p>提供代码预览、ZIP 下载、单表生成、全量生成四个端点。
  *
  * @author ydsz-team
  * @path apps/generator-web/src/api/code-gen.ts
@@ -25,6 +25,23 @@ export function preview(params: {
   tableName: string;
 }): Promise<CodePreviewVO[]> {
   return requestClient.get<CodePreviewVO[]>(`/api/generator/code/preview`, { params });
+}
+
+/**
+ * 下载预览代码的 ZIP 包（返回 Blob）。
+ *
+ * @param params 预览参数
+ * @returns ZIP 二进制 Blob
+ */
+export function downloadPreviewZip(params: {
+  datasourceId: number;
+  templateGroupId: number;
+  tableName: string;
+}): Promise<Blob> {
+  return requestClient.get<Blob>(`/api/generator/code/preview/zip`, {
+    params,
+    responseType: 'blob',
+  });
 }
 
 /**

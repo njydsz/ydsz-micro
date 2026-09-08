@@ -42,7 +42,7 @@ import {
 } from 'element-plus';
 import { Clock, Document } from '@element-plus/icons-vue';
 
-import { generate, generateAll, preview } from '#/api/code-gen';
+import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
 import { listDatasources } from '#/api/datasource';
 import type { GenDatasourceRespVO, GenHistory } from '#/api/models';
 import { getActiveGroup, listGroups } from '#/api/template';
@@ -83,6 +83,7 @@ const genForm = reactive<{
 
 const previewData = ref<CodePreviewVO[]>([]);
 const previewLoading = ref(false);
+const zipDownloading = ref(false);
 const previewDialogVisible = ref(false);
 
 const generating = ref(false);
@@ -186,6 +187,32 @@ async function handlePreview() {
     previewDialogVisible.value = true;
   } finally {
     previewLoading.value = false;
+  }
+}
+
+/** 预览并下载 ZIP */
+async function handleDownloadZip() {
+  if (!validateSelection()) return;
+  zipDownloading.value = true;
+  try {
+    const blob = await downloadPreviewZip({
+      datasourceId: selectedDatasourceId.value!,
+      templateGroupId: selectedGroupId.value!,
+      tableName: selectedTableName.value,
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${selectedTableName.value}_${Date.now()}.zip`;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    ElMessage.success('ZIP 下载已开始');
+  } catch {
+    ElMessage.error('下载 ZIP 失败');
+  } finally {
+    zipDownloading.value = false;
   }
 }
 
@@ -424,6 +451,13 @@ function getStatusLabel(status: string): string {
                   @click="handlePreview"
                 >
                   预览代码
+                </ElButton>
+                <ElButton
+                  type="warning"
+                  :loading="zipDownloading"
+                  @click="handleDownloadZip"
+                >
+                  下载代码 ZIP
                 </ElButton>
                 <ElButton
                   type="primary"
