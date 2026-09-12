@@ -23,7 +23,7 @@ const logger = createLogger('Tabbar');
 /**
  * 标签关闭回调注册中心。
  * 主应用布局可注册回调，在标签关闭时通知微前端内核 unmountApp。
- * 回调接收已关闭标签的 path（如 '/YDSZ-proj/execution'）。
+ * 回调接收已关闭标签的 path（如 '/ydsz-proj/execution'）。
  */
 const tabClosedCallbacks = new Set<(path: string) => void>();
 
@@ -34,7 +34,7 @@ const tabClosedCallbacks = new Set<(path: string) => void>();
  * 主应用布局在标签关闭时注册回调，通知微前端内核 unmount 对应子应用；
  * 返回的取消函数可在组件卸载时调用以解除注册，避免回调泄漏。
  *
- * @param callback - 回调函数，接收已关闭标签的 path（如 '/YDSZ-proj/execution'）
+ * @param callback - 回调函数，接收已关闭标签的 path（如 '/ydsz-proj/execution'）
  * @returns 取消注册函数（调用后移除该回调）
  */
 export function onTabClosed(callback: (path: string) => void) {

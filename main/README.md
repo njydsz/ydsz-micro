@@ -109,20 +109,20 @@ pnpm build:main
 | 模块文件       | 路径前缀                    | 说明                          |
 | -------------- | --------------------------- | ----------------------------- |
 | `dashboard.ts` | `/dashboard`                | 数据分析、工作台              |
-| `subapps.ts`   | `/YDSZ-user` `/YDSZ-sys` 等 | 8 个子应用 catch-all 激活路由 |
+| `subapps.ts`   | `/ydsz-user` `/ydsz-sys` 等 | 9 个子应用 catch-all 激活路由 |
 | `demos.ts`     | `/demos`                    | 演示页面                      |
 
 子应用激活规则（路径前缀匹配 → 挂载对应子应用）：
 
 | 路径前缀       | 子应用       | 默认重定向           |
 | -------------- | ------------ | -------------------- |
-| `/YDSZ-user/*` | userinfo-web | /YDSZ-user/users     |
-| `/YDSZ-sys/*`  | system-web   | /YDSZ-sys/configs    |
-| `/YDSZ-msg/*`  | message-web  | /YDSZ-msg/messages   |
-| `/YDSZ-cron/*` | cronjob-web  | /YDSZ-cron/job/list  |
-| `/YDSZ-flow/*` | workflow-web | /YDSZ-flow/templates |
-| `/YDSZ-wiki/*` | nextwiki-web | /YDSZ-wiki/files     |
-| `/YDSZ-rule/*` | literule-web | /YDSZ-rule/rules     |
+| `/ydsz-user/*` | userinfo-web | /ydsz-user/users     |
+| `/ydsz-sys/*`  | system-web   | /ydsz-sys/configs    |
+| `/ydsz-msg/*`  | message-web  | /ydsz-msg/messages   |
+| `/ydsz-cron/*` | cronjob-web  | /ydsz-cron/job/list  |
+| `/ydsz-flow/*` | workflow-web | /ydsz-flow/templates |
+| `/ydsz-wiki/*` | nextwiki-web | /ydsz-wiki/files     |
+| `/ydsz-rule/*` | literule-web | /ydsz-rule/rules     |
 | `/ydsz-ai/*`   | agent-web    | /ydsz-ai/chat        |
 
 ## 关键页面与组件

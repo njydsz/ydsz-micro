@@ -18,8 +18,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'agent-web',
-  basename: '/YDSZ-ai',
+    appName: 'agent-web',
+    basename: '/ydsz-ai',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

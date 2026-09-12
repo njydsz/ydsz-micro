@@ -37,9 +37,9 @@ export interface MicroAppEntry {
   name: string;
   /** Monorepo 内包名（如 @ydsz/workflow-web） */
   packageName: string;
-  /** 路由前缀（如 '/YDSZ-user'），也作为 micro-kernel activeRule */
+  /** 路由前缀（如 '/ydsz-user'），也作为 micro-kernel activeRule */
   activeRule: string;
-  /** 菜单默认重定向路径（如 '/YDSZ-user/users'） */
+  /** 菜单默认重定向路径（如 '/ydsz-user/users'） */
   redirect: string;
   /** 菜单标题 */
   title: string;
@@ -91,8 +91,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'userinfo-web',
     packageName: '@ydsz/userinfo-web',
-    activeRule: '/YDSZ-user',
-    redirect: '/YDSZ-user/users',
+    activeRule: '/ydsz-user',
+    redirect: '/ydsz-user/users',
     title: '用户中心',
     icon: 'lucide:users',
     order: 100,
@@ -102,8 +102,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'system-web',
     packageName: '@ydsz/system-web',
-    activeRule: '/YDSZ-sys',
-    redirect: '/YDSZ-sys/configs',
+    activeRule: '/ydsz-sys',
+    redirect: '/ydsz-sys/configs',
     title: '系统管理',
     icon: 'lucide:settings',
     order: 101,
@@ -113,8 +113,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'generator-web',
     packageName: '@ydsz/generator-web',
-    activeRule: '/YDSZ-gen',
-    redirect: '/YDSZ-gen/table-meta/list',
+    activeRule: '/ydsz-gen',
+    redirect: '/ydsz-gen/table-meta/list',
     title: '代码生成器',
     icon: 'lucide:code',
     order: 102,
@@ -124,8 +124,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'message-web',
     packageName: '@ydsz/message-web',
-    activeRule: '/YDSZ-msg',
-    redirect: '/YDSZ-msg/messages',
+    activeRule: '/ydsz-msg',
+    redirect: '/ydsz-msg/messages',
     title: '消息中心',
     icon: 'lucide:message-square',
     order: 103,
@@ -135,9 +135,9 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'cronjob-web',
     packageName: '@ydsz/cronjob-web',
-    activeRule: '/YDSZ-cron',
+    activeRule: '/ydsz-cron',
     // B2-FIX: 与 cronjob-web 实际路由（/job/list）对齐，此前 /jobs 激活后首跳 404
-    redirect: '/YDSZ-cron/job/list',
+    redirect: '/ydsz-cron/job/list',
     title: '定时任务',
     icon: 'lucide:clock',
     order: 104,
@@ -147,8 +147,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'workflow-web',
     packageName: '@ydsz/workflow-web',
-    activeRule: '/YDSZ-flow',
-    redirect: '/YDSZ-flow/templates',
+    activeRule: '/ydsz-flow',
+    redirect: '/ydsz-flow/templates',
     title: '工作流引擎',
     icon: 'lucide:workflow',
     order: 105,
@@ -158,8 +158,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'nextwiki-web',
     packageName: '@ydsz/nextwiki-web',
-    activeRule: '/YDSZ-wiki',
-    redirect: '/YDSZ-wiki/files',
+    activeRule: '/ydsz-wiki',
+    redirect: '/ydsz-wiki/files',
     title: '网盘知识库',
     icon: 'lucide:folder-open',
     order: 106,
@@ -169,8 +169,8 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'literule-web',
     packageName: '@ydsz/literule-web',
-    activeRule: '/YDSZ-rule',
-    redirect: '/YDSZ-rule/rules',
+    activeRule: '/ydsz-rule',
+    redirect: '/ydsz-rule/rules',
     title: '规则引擎',
     icon: 'lucide:git-branch',
     order: 107,
@@ -180,7 +180,7 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   {
     name: 'agent-web',
     packageName: '@ydsz/agent-web',
-    activeRule: '/YDSZ-ai',
+    activeRule: '/ydsz-ai',
     redirect: '/ydsz-ai/chat',
     title: 'AI 助手',
     icon: 'lucide:bot',
@@ -191,7 +191,7 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
 ];
 
 /**
- * 获取子应用生产环境部署子路径（如 '/YDSZ-userinfo-web/'）。
+ * 获取子应用生产环境部署子路径（如 '/ydsz-userinfo-web/'）。
  *
  * 优先使用注册表中显式声明的 `prodPath`，未声明时回退到 `/YDSZ-${name}/`。
  * 基座 bootstrap、nginx.conf 生成、Docker 部署均应消费此函数，确保三端一致。
@@ -200,7 +200,7 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
  * @since 1.0.0
  */
 export function getProdEntry(app: MicroAppEntry): string {
-  return app.prodPath ?? `/YDSZ-${app.name}/`;
+  return app.prodPath ?? `/ydsz-${app.name}/`;
 }
 
 /** 路由前缀 → 子应用名 映射（供 use-tabbar-micro-sync 等场景快速查找） */

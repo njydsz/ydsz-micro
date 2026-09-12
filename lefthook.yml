@@ -14,7 +14,7 @@ pre-commit:
       # 仅对暂存的脚本类文件做 ESLint --fix
       glob: "*.{ts,tsx,vue,js,mjs,cjs}"
       exclude: "(^|/)node_modules(/|$)|(^|/)dist(/|$)|(^|/)\\.turbo(/|$)|(^|/)coverage(/|$)|(^|/)archived(/|$)|(^|/)api/generated(/|$)|^pnpm-lock\\.yaml$|(^|/)build\\.config\\.ts$|^eslint\\.config\\.mjs$"
-      run: pnpm exec eslint --fix --max-warnings=0 {staged_files}
+      run: NODE_OPTIONS=--max-old-space-size=8192 pnpm exec eslint --fix --max-warnings=0 {staged_files}
     stylelint:
       # 仅对暂存的样式类文件做 Stylelint --fix
       glob: "*.{vue,scss,css}"

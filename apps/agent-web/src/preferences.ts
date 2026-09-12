@@ -11,12 +11,12 @@ import { defineOverridesPreferences } from '@ydsz/preferences';
  * 应用偏好覆盖配置。
  *
  * 在 @ydsz/preferences 默认值基础上按 agent-web 诉求定制：
- * 应用名取自构建期标题、默认首页指向 /YDSZ-ai、隐藏侧边栏，并固定 deep-blue 主题。
+ * 应用名取自构建期标题、默认首页指向 /ydsz-ai、隐藏侧边栏，并固定 deep-blue 主题。
  */
 export const overridesPreferences = defineOverridesPreferences({
   app: {
     name: import.meta.env.VITE_APP_TITLE,
-    defaultHomePath: '/YDSZ-ai',
+    defaultHomePath: '/ydsz-ai',
   },
   sidebar: {
     hidden: true,

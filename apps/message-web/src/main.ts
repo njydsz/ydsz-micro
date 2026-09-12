@@ -18,8 +18,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'message-web',
-  basename: '/YDSZ-msg',
+    appName: 'message-web',
+    basename: '/ydsz-msg',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

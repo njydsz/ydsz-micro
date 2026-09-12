@@ -38,8 +38,8 @@ export interface MicroAppConfig {
   container: HTMLElement | string;
   /**
    * 激活规则，支持三种模式：
-   * - string: 路由前缀匹配（如 '/YDSZ-proj'）
-   * - RegExp: 正则表达式匹配（如 /^\/YDSZ-proj\/.*\/detail$/）
+   * - string: 路由前缀匹配（如 '/ydsz-proj'）
+   * - RegExp: 正则表达式匹配（如 /^\/ydsz-proj\/.*\/detail$/)
    * - function: 自定义匹配函数（如 (path) => path.includes('/special')）
    */
   activeRule: ActiveRule;

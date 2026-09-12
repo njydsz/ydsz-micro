@@ -19,8 +19,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'system-web',
-  basename: '/YDSZ-sys',
+    appName: 'system-web',
+    basename: '/ydsz-sys',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

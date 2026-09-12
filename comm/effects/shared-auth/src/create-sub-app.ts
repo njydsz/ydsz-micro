@@ -36,7 +36,7 @@ const logger = createLogger('SubApp');
 export interface SubAppConfig {
   /** 应用唯一标识（如 'workflow-web'，与微应用注册名一致） */
   appName: string;
-  /** 路由 basename（如 '/YDSZ-proj'） */
+  /** 路由 basename（如 '/ydsz-proj'） */
   basename: string;
   /** 路由表 */
   routes: RouteRecordRaw[];

@@ -18,8 +18,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'nextwiki-web',
-  basename: '/YDSZ-wiki',
+    appName: 'nextwiki-web',
+    basename: '/ydsz-wiki',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

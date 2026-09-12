@@ -57,11 +57,11 @@ let collectTimer: ReturnType<typeof setTimeout> | null = null;
 // ==================== P2-2: 提供者就绪事件广播 ====================
 
 /** 提供者就绪事件名 */
-export const SEARCH_PROVIDER_READY_EVENT = 'YDSZ:search-provider-ready';
+export const SEARCH_PROVIDER_READY_EVENT = 'ydsz:search-provider-ready';
 /** 提供者移除事件名 */
-export const SEARCH_PROVIDER_REMOVED_EVENT = 'YDSZ:search-provider-removed';
+export const SEARCH_PROVIDER_REMOVED_EVENT = 'ydsz:search-provider-removed';
 /** 提供者计数变更事件名 */
-export const SEARCH_PROVIDER_COUNT_EVENT = 'YDSZ:search-provider-count';
+export const SEARCH_PROVIDER_COUNT_EVENT = 'ydsz:search-provider-count';
 
 /**
  * 搜索提供者就绪事件详情
@@ -115,7 +115,7 @@ function broadcastProviderCount(): void {
  *
  * 子应用应在 mount 时调用，传入返回搜索项数组的函数。
  *
- * v4.0 P2-2: 注册成功后广播 `YDSZ:search-provider-ready` 事件，
+ * v4.0 P2-2: 注册成功后广播 `ydsz:search-provider-ready` 事件，
  * 搜索面板可监听此事件更新"已加载数据源"状态指示。
  *
  * @param appName   子应用名
@@ -126,7 +126,7 @@ function broadcastProviderCount(): void {
  * @example
  * onMounted(() => {
  *   registerSearchProvider('workflow-web', () => [
- *     { id: 'proj-list', title: '项目列表', appName: 'workflow-web', path: '/YDSZ-proj/opportunities' },
+ *     { id: 'proj-list', title: '项目列表', appName: 'workflow-web', path: '/ydsz-proj/opportunities' },
  *   ], '项目管理系统');
  * });
  */

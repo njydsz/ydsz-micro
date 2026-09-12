@@ -21,8 +21,8 @@ import { routes } from './router/routes';
  * @since 1.0.0
  */
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'generator-web',
-  basename: '/YDSZ-gen',
+    appName: 'generator-web',
+    basename: '/ydsz-gen',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

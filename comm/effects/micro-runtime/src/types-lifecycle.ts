@@ -109,7 +109,7 @@ export interface MicroAppEntry {
   name: string;
   /** Monorepo 内包名（如 @ydsz/workflow-web） */
   packageName: string;
-  /** 路由前缀（如 '/YDSZ-proj'），也作为 activeRule */
+  /** 路由前缀（如 '/ydsz-proj'），也作为 activeRule */
   activeRule: string;
   /** 菜单默认重定向路径 */
   redirect: string;

@@ -1,6 +1,6 @@
 # agent-web AI 助手
 
-> YDSZ AI 助手子应用，提供 Agent 管理、审批配置、DAG 编排、流程定义与 RAG 知识库管理（对应后端：YDSZ-agent，路由前缀：/YDSZ-ai）
+> YDSZ AI 助手子应用，提供 Agent 管理、审批配置、DAG 编排、流程定义与 RAG 知识库管理（对应后端：YDSZ-agent，路由前缀：/ydsz-ai）
 
 ## 应用定位
 
@@ -11,7 +11,7 @@
 | **对应后端服务** | YDSZ-agent |
 | **前端端口** | 5610 |
 | **后端端口** | 9008 |
-| **路由前缀** | /YDSZ-ai |
+| **路由前缀** | /ydsz-ai |
 | **版本** | 1.0.0 |
 
 agent-web 是 AI 智能体管理的前端载体，承接 Agent 定义与配置、人工审批节点编排、Agent DAG 工作流编排、流程定义管理以及 RAG 检索增强生成知识库管理，为业务场景提供可编排的 AI 能力接入。
@@ -84,7 +84,7 @@ pnpm dev
 pnpm build:agent
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-ai` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-ai` 激活本应用。
 
 ## 环境变量
 
@@ -100,7 +100,7 @@ pnpm build:agent
 
 ## 路由配置
 
-主应用通过 `/YDSZ-ai` 前缀激活本应用，内部路由表（`src/router/routes/modules/agent.ts`）分为四组：
+主应用通过 `/ydsz-ai` 前缀激活本应用，内部路由表（`src/router/routes/modules/agent.ts`）分为四组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|

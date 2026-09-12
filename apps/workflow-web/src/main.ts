@@ -18,8 +18,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'workflow-web',
-  basename: '/YDSZ-flow',
+    appName: 'workflow-web',
+    basename: '/ydsz-flow',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

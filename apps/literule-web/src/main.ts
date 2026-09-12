@@ -18,8 +18,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'literule-web',
-  basename: '/YDSZ-rule',
+    appName: 'literule-web',
+    basename: '/ydsz-rule',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

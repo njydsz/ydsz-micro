@@ -71,7 +71,7 @@ async function remoteFeatureFlagsLoader(): Promise<
  */
 export function featureFlagsOptions(): FeatureFlagsOptions {
   return {
-    namespace: "YDSZ",
+    namespace: "ydsz",
     env: import.meta.env,
     remoteLoader: remoteFeatureFlagsLoader,
     enableLocalOverrideInProd: false,

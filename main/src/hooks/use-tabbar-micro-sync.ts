@@ -84,7 +84,7 @@ function getOrCreateSession(appName: string): SubAppSession {
  * @example
  * ```ts
  * // 在 route guard 或 onTabOpened 回调中
- * recordSubAppTabOpened('/YDSZ-proj/execution/list', 'workflow-web');
+ * recordSubAppTabOpened('/ydsz-proj/execution/list', 'workflow-web');
  * ```
  *
  * @since 3.0.0
@@ -142,7 +142,7 @@ function recordSubAppTabClosed(appName: string, path: string): boolean {
  *
  * @example
  * ```ts
- * getAppFromPath('/YDSZ-proj/execution/list'); // => 'workflow-web'
+ * getAppFromPath('/ydsz-proj/execution/list'); // => 'workflow-web'
  * getAppFromPath('/unknown/path');              // => null
  * ```
  *

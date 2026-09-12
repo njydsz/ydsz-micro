@@ -69,15 +69,15 @@ ESM loader → 生命周期 → 沙箱 → keep-alive → 错误降级 → 路�
 | 应用             | 包名                 | 前端端口 | 后端服务      | 后端端口 | 路由前缀   | 职责                                    |
 | ---------------- | -------------------- | -------- | ------------- | -------- | ---------- | --------------------------------------- |
 | **main-web**     | `@ydsz/main-web`     | 5600     | YDSZ-gateway  | 9000     | /          | 微前端宿主，认证/布局/全局状态/路由分发 |
-| **userinfo-web** | `@ydsz/userinfo-web` | 5601     | YDSZ-userinfo | 9002     | /YDSZ-user | 用户/部门/角色/菜单/岗位/OAuth2         |
-| **system-web**   | `@ydsz/system-web`   | 5602     | YDSZ-system   | 9001     | /YDSZ-sys  | 系统配置/字典/变量/应用注册             |
-| **generator-web** | `@ydsz/generator-web` | 5609    | YDSZ-generator | —       | /YDSZ-gen  | 代码生成器（数据源/表元数据/模板/生成）  |
-| **message-web**  | `@ydsz/message-web`  | 5604     | YDSZ-message  | 9004     | /YDSZ-msg  | 消息/模板/通知/路由/灰度/追踪           |
-| **cronjob-web**  | `@ydsz/cronjob-web`  | 5605     | YDSZ-cronjob  | 9006     | /YDSZ-cron | 任务/DAG/日志/告警/拓扑                 |
-| **workflow-web** | `@ydsz/workflow-web` | 5606     | YDSZ-workflow | 9005     | /YDSZ-flow | 流程模板/设计器/实例/待办/SLA           |
-| **nextwiki-web** | `@ydsz/nextwiki-web` | 5607     | YDSZ-nextwiki | 9003     | /YDSZ-wiki | 文件/预览/搜索/分享/锁定                |
-| **literule-web** | `@ydsz/literule-web` | 5608     | YDSZ-literule | 9007     | /YDSZ-rule | 规则/DSL/变量/CEP/断点                  |
-| **agent-web**    | `@ydsz/agent-web`    | 5610     | YDSZ-agent    | 9008     | /YDSZ-ai   | 对话/Agent/RAG/DAG/审批                 |
+| **userinfo-web** | `@ydsz/userinfo-web` | 5601     | YDSZ-userinfo | 9002     | /ydsz-user | 用户/部门/角色/菜单/岗位/OAuth2         |
+| **system-web**   | `@ydsz/system-web`   | 5602     | YDSZ-system   | 9001     | /ydsz-sys  | 系统配置/字典/变量/应用注册             |
+| **generator-web** | `@ydsz/generator-web` | 5609    | YDSZ-generator | —       | /ydsz-gen  | 代码生成器（数据源/表元数据/模板/生成）  |
+| **message-web**  | `@ydsz/message-web`  | 5604     | YDSZ-message  | 9004     | /ydsz-msg  | 消息/模板/通知/路由/灰度/追踪           |
+| **cronjob-web**  | `@ydsz/cronjob-web`  | 5605     | YDSZ-cronjob  | 9006     | /ydsz-cron | 任务/DAG/日志/告警/拓扑                 |
+| **workflow-web** | `@ydsz/workflow-web` | 5606     | YDSZ-workflow | 9005     | /ydsz-flow | 流程模板/设计器/实例/待办/SLA           |
+| **nextwiki-web** | `@ydsz/nextwiki-web` | 5607     | YDSZ-nextwiki | 9003     | /ydsz-wiki | 文件/预览/搜索/分享/锁定                |
+| **literule-web** | `@ydsz/literule-web` | 5608     | YDSZ-literule | 9007     | /ydsz-rule | 规则/DSL/变量/CEP/断点                  |
+| **agent-web**    | `@ydsz/agent-web`    | 5610     | YDSZ-agent    | 9008     | /ydsz-ai   | 对话/Agent/RAG/DAG/审批                 |
 
 > 注：`project-web` 已在仓库整合中移除（见提交 `c08336552`），其能力并入主应用相关模块；如仍需项目管理界面，请以 Git 历史或独立分支为准。
 
@@ -212,14 +212,14 @@ pnpm clean                   # 清理产物
 
 | 路径前缀       | 子应用       |
 | -------------- | ------------ |
-| `/YDSZ-user/*` | userinfo-web |
-| `/YDSZ-sys/*`  | system-web   |
-| `/YDSZ-gen/*`  | generator-web |
-| `/YDSZ-msg/*`  | message-web  |
-| `/YDSZ-cron/*` | cronjob-web  |
-| `/YDSZ-flow/*` | workflow-web |
-| `/YDSZ-wiki/*` | nextwiki-web |
-| `/YDSZ-rule/*` | literule-web |
+| `/ydsz-user/*` | userinfo-web |
+| `/ydsz-sys/*`  | system-web   |
+| `/ydsz-gen/*`  | generator-web |
+| `/ydsz-msg/*`  | message-web  |
+| `/ydsz-cron/*` | cronjob-web  |
+| `/ydsz-flow/*` | workflow-web |
+| `/ydsz-wiki/*` | nextwiki-web |
+| `/ydsz-rule/*` | literule-web |
 | `/ydsz-ai/*`   | agent-web    |
 
 ## API 代理与对齐

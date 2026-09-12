@@ -1,6 +1,6 @@
 # workflow-web 工作流引擎
 
-> YDSZ 工作流引擎子应用，提供流程模板、流程实例、审批任务、委托授权与快捷意见管理（对应后端：YDSZ-workflow，路由前缀：/YDSZ-flow）
+> YDSZ 工作流引擎子应用，提供流程模板、流程实例、审批任务、委托授权与快捷意见管理（对应后端：YDSZ-workflow，路由前缀：/ydsz-flow）
 
 ## 应用定位
 
@@ -11,7 +11,7 @@
 | **对应后端服务** | YDSZ-workflow      |
 | **前端端口**     | 5606               |
 | **后端端口**     | 9005               |
-| **路由前缀**     | /YDSZ-flow         |
+| **路由前缀**     | /ydsz-flow         |
 | **版本**         | 1.0.0              |
 
 workflow-web 是自研工作流引擎 v2（基于 `ydsz_flow_*` 表与 BPMN
@@ -88,7 +88,7 @@ pnpm dev
 pnpm build:workflow
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-flow`
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-flow`
 激活本应用。
 
 ## 环境变量
@@ -105,7 +105,7 @@ pnpm build:workflow
 
 ## 路由配置
 
-主应用通过 `/YDSZ-flow`
+主应用通过 `/ydsz-flow`
 前缀激活本应用，内部路由表（`src/router/routes/modules/workflow.ts`）分为三组：
 
 | 路由路径                  | 名称     | 说明         |

@@ -18,8 +18,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-  appName: 'cronjob-web',
-  basename: '/YDSZ-cron',
+    appName: 'cronjob-web',
+    basename: '/ydsz-cron',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,
