@@ -51,6 +51,7 @@
     "@ydsz/styles": "workspace:*",
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",
+    "@element-plus/icons-vue": "catalog:",
     "dayjs": "catalog:",
     "element-plus": "catalog:",
     "pinia": "catalog:",

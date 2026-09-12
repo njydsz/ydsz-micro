@@ -10,6 +10,7 @@
  * @since 1.0.0
  */
 export {
+  AlertTriangle,
   ArrowDown,
   ArrowLeft,
   ArrowLeftToLine,
@@ -21,6 +22,7 @@ export {
   BookOpenText,
   Building2,
   Check,
+  CheckCircle2,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -52,6 +54,7 @@ export {
   LogOut,
   MailCheck,
   Maximize,
+  MessageCircle,
   ArrowRightFromLine as LucideMenuClose,
   ArrowLeftFromLine as LucideMenuOpen,
   Menu,
@@ -67,6 +70,7 @@ export {
   RotateCw,
   Search,
   SearchX,
+  Send,
   Settings,
   Shrink,
   Square,
