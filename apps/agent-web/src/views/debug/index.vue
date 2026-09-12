@@ -31,10 +31,6 @@ import {
   ElOption,
   ElSelect,
   ElStatistic,
-  ElStep,
-  ElSteps,
-  ElTable,
-  ElTableColumn,
   ElTag,
   ElTimeline,
   ElTimelineItem,
@@ -252,7 +248,7 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
   proxyConfig: {
     ajax: {
-      // eslint-disable-next-line require-await
+       
       query: async () => ({ items: traceList.value, total: traceList.value.length }),
     },
   },
@@ -260,7 +256,7 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
   toolbarConfig: { refresh: { code: 'query' }, zoom: true },
 };
 
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+const [Grid] = useYDSZVxeGrid({ gridOptions });
 
 onMounted(() => {
   void loadTraces();

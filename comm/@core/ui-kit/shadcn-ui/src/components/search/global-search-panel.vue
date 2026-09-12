@@ -20,7 +20,7 @@ import { ref } from 'vue';
 
 import { onClickOutside } from '@vueuse/core';
 
-import type { SearchHit, SearchSuggestion } from './search-types';
+import type { SearchHit } from './search-types';
 import { MODULE_ICONS, MODULE_LABELS } from './search-types';
 import { useGlobalSearch } from './use-global-search';
 
@@ -219,13 +219,13 @@ defineExpose({ open, close });
           <VbenIcon :icon="moduleIcon(hit.moduleKey)" class="global-search__item-icon" />
           <!-- 内容 -->
           <div class="global-search__item-content">
-            <div class="global-search__item-title" v-html="hit.highlight?.title || hit.title" />
-            <div v-if="hit.description" class="global-search__item-desc" v-html="hit.highlight?.description || hit.description" />
+            <div class="global-search__item-title" v-safe-html="hit.highlight?.title || hit.title" />
+            <div v-if="hit.description" class="global-search__item-desc" v-safe-html="hit.highlight?.description || hit.description" />
             <div v-if="hit.tags && hit.tags.length > 0" class="global-search__item-tags">
               <span v-for="tag in hit.tags" :key="tag" class="global-search__tag">{{ tag }}</span>
             </div>
           </div>
-          <!-- 模块来源标记 |
+          <!-- 模块来源标记 -->
           <span class="global-search__item-meta">{{ moduleLabel(hit.moduleKey || '') }}</span>
         </li>
       </ul>

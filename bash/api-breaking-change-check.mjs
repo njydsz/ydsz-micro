@@ -48,22 +48,6 @@ const ROOT = join(__dirname, '..');
 /** 破坏性变更等级：阻断 (B) 或 警告 (W) */
 const LEVEL = { BLOCK: 'BLOCK', WARN: 'WARN' };
 
-/** 检测结果 */
-const findings = [];
-
-/**
- * pathA 的 keys 在 pathB 中是否存在缺失
- */
-function findMissing(oldItems, newItems, label, level = LEVEL.BLOCK) {
-  const result = [];
-  for (const key of Object.keys(oldItems)) {
-    if (!(key in newItems)) {
-      result.push({ label, key, level });
-    }
-  }
-  return result;
-}
-
 /**
  * 比较两个 schema 的属性，返回破坏性变更列表。
  */

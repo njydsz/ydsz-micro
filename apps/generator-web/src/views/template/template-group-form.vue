@@ -20,7 +20,7 @@ import { ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-pl
 
 defineOptions({ name: 'TemplateGroupForm' });
 
-const props = defineProps<{
+defineProps<{
   visible: boolean;
 }>();
 

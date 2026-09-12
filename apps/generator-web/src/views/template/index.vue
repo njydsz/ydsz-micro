@@ -24,7 +24,6 @@ import {
   ElMessage,
   ElMessageBox,
   ElTag,
-  ElTree,
 } from 'element-plus';
 
 import {
@@ -52,7 +51,6 @@ const groupList = ref<GenTemplateGroup[]>([]);
 const selectedGroupId = ref<number | undefined>(undefined);
 const selectedGroupName = ref('');
 const groupFormVisible = ref(false);
-const editingGroup = ref<GenTemplateGroup | null>(null);
 
 // ══════ 模板管理 ══════
 
@@ -102,19 +100,6 @@ async function handleActivateGroup(group: GenTemplateGroup) {
  * <p>清空编辑对象并打开分组表单弹窗。
  */
 function handleAddGroup() {
-  editingGroup.value = null;
-  groupFormVisible.value = true;
-}
-
-/**
- * 编辑模板分组。
- *
- * <p>将当前分组数据绑定到表单并打开弹窗。
- *
- * @param group - 待编辑的分组数据
- */
-function handleEditGroup(group: GenTemplateGroup) {
-  editingGroup.value = group;
   groupFormVisible.value = true;
 }
 

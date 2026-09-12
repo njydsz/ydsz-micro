@@ -117,13 +117,6 @@ onBeforeUnmount(() => {
   editor.value?.destroy();
 });
 
-/** 导出 Markdown（简单转换） */
-const exportMarkdown = computed(() => {
-  if (!editor.value) return '';
-  // TipTap 原生输出 HTML，Markdown 需要自行转换（或使用 @tiptap/extension-markdown）
-  return editor.value.getHTML();
-});
-
 /** 容器样式 */
 const containerStyle = computed(() => ({
   minHeight: `${props.minHeight}px`,
@@ -151,12 +144,12 @@ defineExpose({
 
 <style scoped>
 .tiptap-editor-wrapper {
-  --_ring-color: hsl(var(--primary) / 0.3);
+  --ring-color: hsl(var(--primary) / 30%);
 }
 
 .tiptap-editor-wrapper:focus-within {
-  border-color: var(--_ring-color);
-  box-shadow: 0 0 0 2px var(--_ring-color);
+  border-color: var(--ring-color);
+  box-shadow: 0 0 0 2px var(--ring-color);
 }
 
 .tiptap-content :deep(.tiptap) {

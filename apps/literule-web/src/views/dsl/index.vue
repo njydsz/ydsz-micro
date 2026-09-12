@@ -14,17 +14,19 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { ElButton, ElMessage, ElTag } from 'element-plus';
-const logger = createLogger('literule-dsl');
-const { t } = useI18n();
 import { ref } from 'vue';
+
 import { parse, preview, validate } from '#/api/ruleDsl';
 import { formatJsonResult } from '#/utils/format';
 
 import DslEditor from './components/DslEditor.vue';
+
+const { t } = useI18n();
+
 defineOptions({ name: 'DslManagement' });
+
 const dslText = ref('');
 const resultText = ref('');
 const actionLabel = ref('');

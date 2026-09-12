@@ -15,4 +15,5 @@
 export * from './request-client';
 export * from './cache-adapter';
 export * from './error-codes';
+export { getRequestClient, getBaseRequestClient, initSharedRequest, requestClient } from './shared-client';
 export * from 'axios';

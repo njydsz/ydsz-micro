@@ -22,8 +22,6 @@ import {
   ElDialog,
   ElEmpty,
   ElIcon,
-  ElTabPane,
-  ElTabs,
   ElTag,
 } from 'element-plus';
 import { Warning } from '@element-plus/icons-vue';

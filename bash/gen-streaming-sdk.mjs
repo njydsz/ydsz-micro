@@ -81,7 +81,6 @@ function parseSimpleYaml(text) {
   const lines = text.split(/\r?\n/);
   const root = {};
   const stack = [{ obj: root, indent: -1 }];
-  let currentList = null;
 
   for (let i = 0; i < lines.length; i++) {
     const raw = lines[i];
@@ -94,7 +93,6 @@ function parseSimpleYaml(text) {
     // 退出更深层的嵌套
     while (stack.length > 1 && indent <= stack[stack.length - 1].indent) {
       stack.pop();
-      currentList = null;
     }
 
     const top = stack[stack.length - 1];
@@ -136,7 +134,6 @@ function parseSimpleYaml(text) {
         // 空值 → 可能是后续子 map 或列表
         top.obj[key] = [];
         stack.push({ obj: top.obj[key], indent: indent + 2 });
-        currentList = top.obj[key];
       } else {
         top.obj[key] = parseYamlScalar(value);
       }
@@ -292,7 +289,7 @@ export const stream = {
     footer,
     '',
     `/** 流式 contract hash（CI 漂移门禁用，由 lock 文件携带） */
-export const STREAMING_CONTRACT_VERSION = 'gen-streaming@${Date.now()}';',
+export const STREAMING_CONTRACT_VERSION = 'gen-streaming@${Date.now()}';`,
     '',
   ].join('\n');
 }

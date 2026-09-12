@@ -19,13 +19,10 @@
  */
 import type { FormInstance } from 'element-plus';
 import { ElAlert, ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
-import { createLogger } from '@ydsz/utils';
-import { nextTick, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { createKey } from '#/api/apiKey';
 
 defineOptions({ name: 'ApiKeyForm' });
-
-const logger = createLogger('userinfo-apikey-form');
 
 /** 弹窗显示控制 */
 const visible = ref(false);

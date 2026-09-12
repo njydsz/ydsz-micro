@@ -28,8 +28,6 @@ import {
   ElFormItem,
   ElInput,
   ElMessage,
-  ElTable,
-  ElTableColumn,
   ElTag,
 } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';

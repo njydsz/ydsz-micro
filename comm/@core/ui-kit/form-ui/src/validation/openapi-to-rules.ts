@@ -102,7 +102,6 @@ export function toFormItemRules(
   const { blankMessage = false, i18nPrefix = '' } = options;
   const rules: FormItemRule[] = [];
   const baseMessageField = i18nPrefix ? `${i18nPrefix}.${meta.field}` : meta.field;
-  const description = meta.description || meta.field;
 
   // 1. 必填
   if (meta.required) {

@@ -14,7 +14,7 @@ export * from './col-page';
 export * from './count-to';
 export * from './ellipsis-text';
 export * from './empty-state.vue';
-export * from './error-boundary.vue';
+export { default as ErrorBoundary } from './error-boundary.vue';
 export * from './error-feedback.vue';
 export * from './error-state.vue';
 export * from './icon-picker';

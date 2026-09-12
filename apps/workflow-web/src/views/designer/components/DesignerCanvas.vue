@@ -22,7 +22,7 @@ import '@logicflow/core/dist/style/index.css';
 import { LogicFlow } from '@logicflow/core';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-import type { DesignerNodeConfig, LfGraphNode } from '../types';
+import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
 import { useCanvasAlignment } from '../use-canvas-alignment';
 

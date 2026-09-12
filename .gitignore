@@ -55,5 +55,5 @@ __pycache__/
 .git-commit-msg.tmp
 
 # ---- WorkBuddy 本地助手记录（不纳入版本库） ----
-.workbuddy/memory/
+.workbuddy/
 .meituan-catpaw/

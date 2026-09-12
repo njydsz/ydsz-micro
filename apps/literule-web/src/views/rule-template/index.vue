@@ -149,7 +149,7 @@ const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 
-const [TemplateGrid, templateGridApi] = useYDSZVxeGrid({ gridOptions: templateGridOptions });
+const [TemplateGrid] = useYDSZVxeGrid({ gridOptions: templateGridOptions });
 
 /** ========== 数据加载 ========== */
 async function loadTemplates(): Promise<void> {

@@ -19,7 +19,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
-import { h, ref } from 'vue';
+import { h } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

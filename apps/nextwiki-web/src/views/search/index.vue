@@ -17,9 +17,6 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { useI18n } from 'vue-i18n';
-const logger = createLogger('nextwiki-search');
-const { t } = useI18n();
 import { ElButton, ElEmpty, ElInput, ElOption, ElPagination, ElSelect, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import {
@@ -32,6 +29,8 @@ import {
   suggest,
 } from '#/api/search';
 import type { SearchRequest, SearchResultVO } from '#/api/models';
+
+const logger = createLogger('nextwiki-search');
 
 defineOptions({ name: 'FullTextSearch' });
 

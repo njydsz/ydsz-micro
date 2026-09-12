@@ -1932,6 +1932,9 @@ importers:
       '@ydsz/preferences':
         specifier: workspace:*
         version: link:../../preferences
+      '@ydsz/shared-business':
+        specifier: workspace:*
+        version: link:../shared-business
       '@ydsz/stores':
         specifier: workspace:*
         version: link:../../stores

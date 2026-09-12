@@ -27,10 +27,10 @@ import { ElCard, ElCol, ElRow, ElStatistic } from 'element-plus';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { useI18n } from 'vue-i18n';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
+
 const logger = createLogger('literule-dashboard');
-const { t } = useI18n();
 import type {
   RuleDashboardDistributionVO,
   RuleDashboardOverviewVO,

@@ -17,14 +17,16 @@
  */
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { useI18n } from 'vue-i18n';
-const logger = createLogger('nextwiki-quota');
-const { t } = useI18n();
 import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElMessage, ElProgress } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
+
 import { getQuota } from '#/api/quota';
 import type { StorageQuotaVO } from '#/api/models';
+
 import QuotaForm from './quota-form.vue';
+
+const logger = createLogger('nextwiki-quota');
+
 defineOptions({ name: 'QuotaManagement' });
 
 /** 查询条件（scopeType/scopeId 均可选，缺省查全局配额） */

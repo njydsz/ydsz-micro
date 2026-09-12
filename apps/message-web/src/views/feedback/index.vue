@@ -27,7 +27,6 @@ import {
   ElDialog,
   ElEmpty,
   ElInput,
-  ElInputNumber,
   ElOption,
   ElRate,
   ElSelect,
@@ -37,7 +36,7 @@ import {
 } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
-import { getAverageRating, pageFeedback, shouldReduceFrequency } from '#/api/messageFeedback';
+import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 import type { MsgFeedbackVO } from '#/api/models';
 
 defineOptions({ name: 'FeedbackManagement' });

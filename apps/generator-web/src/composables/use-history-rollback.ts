@@ -11,7 +11,7 @@ import { ref } from 'vue';
 
 import { ElMessage, ElMessageBox } from 'element-plus';
 
-import { deleteHistory, listHistoryFiles, listRecentHistory, rollbackHistory } from '#/api/history';
+import { deleteHistory, listHistoryFiles, listRecentHistory } from '#/api/history';
 
 import type { GenHistory, GenHistoryFile } from '#/api/models';
 

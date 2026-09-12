@@ -98,7 +98,7 @@ const doSearch = useDebounceFn(async (kw: string) => {
     activeTab.value = '_all';
   } catch (err) {
     // 失败时清空搜索结果并保留上一次（避免界面闪烁）
-    // eslint-disable-next-line no-console -- 网络异常由监控捕获
+     
     console.warn('[GlobalSearch] search failed:', err);
   } finally {
     loading.value = false;

@@ -18,7 +18,7 @@
  * @since 1.0.0
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page } from '@ydsz/common-ui';
 import { ElButton, ElCard, ElDialog, ElEmpty, ElMessageBox, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';

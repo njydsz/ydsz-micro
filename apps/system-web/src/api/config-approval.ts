@@ -13,7 +13,6 @@ import { requestClient } from './request';
 import type {
   ConfigApprovalRecord,
   ConfigApprovalStatus,
-  ConfigChangeRequestDTO,
   SubmitConfigChangeDTO,
 } from './types/config-approval';
 

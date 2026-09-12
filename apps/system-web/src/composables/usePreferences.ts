@@ -15,7 +15,6 @@
 import { computed, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { preferences } from '@ydsz/preferences';
 
 /** 模块日志器 */
 const logger = createLogger('usePreferences');

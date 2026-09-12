@@ -61,7 +61,7 @@ function httpMethodType(method?: string) {
   }
 }
 
-const gridOptions = {
+const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
   columns: [
     { type: 'seq', width: 50, title: t('common.seq') },
     {
@@ -117,7 +117,7 @@ const gridOptions = {
       field: 'createdAt',
       title: t('common.createTime'),
       width: 160,
-      formatter: ({ cellValue }: { cellValue: any }) => cellValue || '-',
+      formatter: ({ cellValue }: { cellValue: string }) => cellValue || '-',
     },
     {
       field: 'action',
@@ -161,7 +161,7 @@ const gridOptions = {
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
   proxyConfig: {
     ajax: {
-      query: async ({ page: pageInfo }: any, formValues: any) => {
+      query: async ({ page: pageInfo }: { page: { currentPage: number; pageSize: number } }, formValues: Record<string, string>) => {
         const query: ApiPermissionQueryParams = {
           pageNum: pageInfo.currentPage,
           pageSize: pageInfo.pageSize,
@@ -183,7 +183,7 @@ const gridOptions = {
   },
 };
 
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions } as any);
+const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 /** 是否正在扫描 */
 const scanning = ref(false);

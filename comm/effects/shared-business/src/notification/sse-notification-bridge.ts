@@ -27,7 +27,6 @@
  */
 
 import {
-  parseSseChunk,
   streamRequestAsync,
   type SseEvent,
 } from '@YDSZ/shared-auth/sse';
@@ -39,7 +38,7 @@ import {
   useNotificationStore,
 } from './notification-store';
 import {
-  NotificationItem,
+  type NotificationItem,
   NotificationType,
   type SseEventType,
 } from './notification-types';

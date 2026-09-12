@@ -18,7 +18,7 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { ElDialog, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElDialog, ElTable, ElTableColumn, ElTag } from 'element-plus';
 
 import { listHistoryFiles } from '#/api/history';
 import type { GenHistoryFile } from '#/api/models';

@@ -58,6 +58,15 @@ const logger = createLogger('literule-rule-pack');
 
 defineOptions({ name: 'RulePackManagement' });
 
+/**
+ * 市场规则包行类型。
+ *
+ * <p>契约 RulePackVO 未声明 publishTime，而市场列表需按发布时间展示，
+ * 故以扩展类型收窄取值（替代 as any 断言）。待后端 DTO 补齐该字段并执行
+ * `pnpm gen:contract` 重新生成契约后，本类型应随之移除。
+ */
+type MarketPackRow = RulePackVO & { publishTime?: string };
+
 /** ========== 状态 ========== */
 const activeTab = ref('market');
 const loading = ref(false);
@@ -89,7 +98,7 @@ const statInstalled = ref(0);
 const statUpdatable = ref(0);
 
 /** ========== 包市场（Tab 1） ========== */
-const marketGridOptions: VxeTableGridOptions<RulePackVO> = {
+const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
   columns: [
     { type: 'seq', width: 50, title: '#' },
     { field: 'packCode', title: '包编码', width: 140 },
@@ -128,7 +137,7 @@ const marketGridOptions: VxeTableGridOptions<RulePackVO> = {
       title: '发布时间',
       width: 160,
       slots: {
-        default: ({ row }) => h('span', {}, (row as any).publishTime ?? '-'),
+        default: ({ row }) => h('span', {}, row.publishTime ?? '-'),
       },
     },
     {
@@ -392,7 +401,7 @@ async function handleDiff(row: RulePackVO): Promise<void> {
   }
 }
 
-async function handleDiffVersions(fromVersion: string, toVersion: string): Promise<void> {
+async function _handleDiffVersions(fromVersion: string, toVersion: string): Promise<void> {
   if (!currentPackCode.value) return;
   try {
     diffData.value = await diffPack(
@@ -487,7 +496,7 @@ const versionGridOptions: VxeTableGridOptions<RulePackVO> = {
     },
   },
 };
-const [VersionGrid, versionGridApi] = useYDSZVxeGrid({ gridOptions: versionGridOptions });
+const [VersionGrid] = useYDSZVxeGrid({ gridOptions: versionGridOptions });
 
 /** ========== Tab 切换 ========== */
 function handleTabChange(tabName: string): void {

@@ -63,16 +63,6 @@ const displayName = computed(() => {
 });
 
 /**
- * 当前租户编码（用于 tooltip 展示）。
- */
-const displayCode = computed(() => {
-  const matched = accessibleTenants.value.find(
-    (t) => t.id === activeTenantId.value,
-  );
-  return matched?.tenantCode || '';
-});
-
-/**
  * 是否显示切换器。
  *
  * <p>满足以下任一条件时显示：

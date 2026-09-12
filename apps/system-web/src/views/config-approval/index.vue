@@ -29,7 +29,7 @@ import {
   ElTabs,
   ElTag,
 } from 'element-plus';
-import { computed, h, ref } from 'vue';
+import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import type {

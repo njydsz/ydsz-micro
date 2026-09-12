@@ -181,7 +181,7 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
         <!-- Number -->
         <el-input-number
           v-else-if="field.component === 'InputNumber'"
-          v-model="formModel[field.fieldName] as any"
+          v-model="formModel[field.fieldName] as number | undefined"
           :disabled="disabled"
           class="w-full"
           @change="emit('update:formData', formModel)"

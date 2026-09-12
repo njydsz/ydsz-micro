@@ -17,9 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import {
@@ -37,7 +35,7 @@ import {
   ElTableColumn,
   ElTag,
 } from 'element-plus';
-import { h, onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 import { assignBucket, createExperiment } from '#/api/canary';
 
@@ -65,12 +63,6 @@ const quickCreateVisible = ref(false);
 
 /** 分桶分配结果弹窗可见性 */
 const bucketVisible = ref(false);
-
-/** 当前查询的实验 ID */
-const bucketExperimentId = ref('');
-
-/** 当前查询的请求键 */
-const bucketRequestKey = ref('');
 
 /** 分桶分配结果 */
 const bucketResult = ref('');

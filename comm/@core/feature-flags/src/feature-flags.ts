@@ -23,7 +23,6 @@ import type {
 import { reactive, readonly } from 'vue';
 
 import { StorageManager } from '@ydsz-core/shared/cache';
-import { createApiFeatureLoader } from './remote-loader';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('feature-flags');

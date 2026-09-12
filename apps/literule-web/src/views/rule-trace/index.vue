@@ -148,7 +148,7 @@ const traceGridOptions: VxeTableGridOptions<RuleExecutionTraceVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 
-const [TraceGrid, traceGridApi] = useYDSZVxeGrid({ gridOptions: traceGridOptions });
+const [TraceGrid] = useYDSZVxeGrid({ gridOptions: traceGridOptions });
 
 /** ========== 工具函数 ========== */
 function severityTagType(severity?: string): 'danger' | 'warning' | 'info' | 'success' {

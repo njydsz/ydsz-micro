@@ -45,16 +45,29 @@ import {
   approvalFlows,
   approvalStatus,
   approve,
-  approveLevel,
   cancelReview,
   pendingApprovals,
   reject,
-  rejectLevel,
 } from '#/api/ruleLifecycle';
 
 const logger = createLogger('literule-rule-lifecycle');
 
 defineOptions({ name: 'RuleLifecycleManagement' });
+
+/** 审批时间线步骤（approval-status 返回的时间线扩展字段） */
+interface ApprovalTimelineStep {
+  /** 发生时间 */
+  timestamp?: string;
+  /** 步骤状态（APPROVED / REJECTED / PENDING） */
+  status?: string;
+  /** 步骤名称 */
+  label?: string;
+  /** 审批人（未分配时为空） */
+  approver?: string;
+}
+
+/** 审批状态记录：契约 ApprovalRecordVO 叠加时间线步骤扩展字段 */
+type ApprovalStatusRecord = ApprovalRecordVO & { steps?: ApprovalTimelineStep[] };
 
 /** ========== 状态 ========== */
 const activeTab = ref('pending');
@@ -64,9 +77,8 @@ const flowList = ref<ApprovalFlowVO[]>([]);
 const rejectDialogVisible = ref(false);
 const statusDialogVisible = ref(false);
 const currentRuleCode = ref('');
-const currentStatusRecord = ref<ApprovalRecordVO | null>(null);
+const currentStatusRecord = ref<ApprovalStatusRecord | null>(null);
 const rejectReason = ref('');
-const rejectType = ref<'reject' | 'rejectLevel'>('reject');
 const rejectComment = ref('');
 
 /** ========== 待我审批 Tab ========== */
@@ -101,7 +113,7 @@ const pendingGridOptions: VxeTableGridOptions<ApprovalRecordVO> = {
       width: 280,
       fixed: 'right',
       slots: {
-        default: ({ row }) =>
+        default: ({ row }: { row: ApprovalRecordVO }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
               ElButton,
@@ -173,7 +185,7 @@ const flowGridOptions: VxeTableGridOptions<ApprovalFlowVO> = {
       width: 220,
       fixed: 'right',
       slots: {
-        default: ({ row }) =>
+        default: ({ row }: { row: ApprovalFlowVO }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
               ElButton,
@@ -187,7 +199,7 @@ const flowGridOptions: VxeTableGridOptions<ApprovalFlowVO> = {
             ),
             h(
               ElButton,
-              { size: 'small', link: true, type: 'info', onClick: () => handleViewStatus(row as any) },
+              { size: 'small', link: true, type: 'info', onClick: () => handleViewStatus(row) },
               () => '查看详情',
             ),
           ]),
@@ -204,8 +216,8 @@ const flowGridOptions: VxeTableGridOptions<ApprovalFlowVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 
-const [PendingGrid, pendingGridApi] = useYDSZVxeGrid({ gridOptions: pendingGridOptions });
-const [FlowGrid, flowGridApi] = useYDSZVxeGrid({ gridOptions: flowGridOptions });
+const [PendingGrid] = useYDSZVxeGrid({ gridOptions: pendingGridOptions });
+const [FlowGrid] = useYDSZVxeGrid({ gridOptions: flowGridOptions });
 
 /** ========== 工具函数 ========== */
 function statusTagType(status?: string): 'success' | 'warning' | 'danger' | 'info' {
@@ -286,8 +298,16 @@ async function handleRejectSubmit(): Promise<void> {
   }
 }
 
-async function handleViewStatus(row: ApprovalRecordVO): Promise<void> {
-  if (!row.ruleCode) return;
+/**
+ * 查看规则审批状态详情。
+ *
+ * <p>仅审批记录（ApprovalRecordVO）带 ruleCode；审批流模板（ApprovalFlowVO）无该字段，
+ * 此时直接返回（审批流 Tab 的详情入口需产品确认后续按 flowCode 实现）。
+ *
+ * @param row 审批记录或审批流行数据
+ */
+async function handleViewStatus(row: ApprovalFlowVO | ApprovalRecordVO): Promise<void> {
+  if (!('ruleCode' in row) || !row.ruleCode) return;
   currentRuleCode.value = row.ruleCode;
   try {
     currentStatusRecord.value = await approvalStatus({ ruleCode: row.ruleCode });
@@ -432,12 +452,12 @@ onMounted(() => {
           </ElRow>
           <ElTimeline>
             <ElTimelineItem
-              v-for="(step, idx) in (currentStatusRecord as any)?.steps || []"
-              :key="idx"
+              v-for="step in currentStatusRecord?.steps || []"
+              :key="step.timestamp ?? step.label ?? ''"
               :timestamp="step.timestamp"
-              :type="(step as any).status === 'APPROVED' ? 'success' : ((step as any).status === 'REJECTED' ? 'danger' : 'primary')"
+              :type="step.status === 'APPROVED' ? 'success' : (step.status === 'REJECTED' ? 'danger' : 'primary')"
             >
-              {{ (step as any).label }} - {{ (step as any).approver ?? '待分配' }}
+              {{ step.label }} - {{ step.approver ?? '待分配' }}
             </ElTimelineItem>
           </ElTimeline>
         </div>

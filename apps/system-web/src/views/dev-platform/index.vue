@@ -65,12 +65,6 @@ interface ColumnMeta {
   nullable?: boolean;
 }
 
-/** 预览文件结果 */
-interface PreviewFile {
-  filePath: string;
-  fileName: string;
-}
-
 const datasources = ref<Datasource[]>([]);
 const tables = ref<TableMeta[]>([]);
 const columns = ref<ColumnMeta[]>([]);

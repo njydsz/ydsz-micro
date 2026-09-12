@@ -19,7 +19,7 @@
  * @since 4.1.0 (P2-10)
  */
 
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -158,14 +158,6 @@ function extractSchemaRules(schemaName, schemaDef) {
   }
 
   return metas;
-}
-
-/**
- * 解析 $ref 指针（如 '#/components/schemas/SaveDeptDto'）
- */
-function resolveRef(ref) {
-  const match = ref.match(/^#\/components\/schemas\/(.+)$/);
-  return match ? match[1] : null;
 }
 
 // =====================================================================

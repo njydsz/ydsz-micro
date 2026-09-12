@@ -34,7 +34,7 @@ interface Props {
   showConnectionStatus?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   maxHeight: 400,
   showConnectionStatus: true,
 });
@@ -489,6 +489,7 @@ onMounted(() => {
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.4;
   }

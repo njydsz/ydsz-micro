@@ -16,7 +16,6 @@
  */
 
 import { ref } from 'vue';
-import type { Ref } from 'vue';
 
 import { ElNotification } from 'element-plus';
 import { useI18n } from 'vue-i18n';

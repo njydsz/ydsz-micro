@@ -107,7 +107,7 @@ function generateEntity(config, fields) {
     ` * @since 4.1.0`,
     ` */`,
     `@Data`,
-    `@EqualsAndHashCode(callSuper = false)",
+    `@EqualsAndHashCode(callSuper = false)`,
     `@TableName("${config.tableName}")`,
     `public class ${className} implements Serializable {`,
     '',
@@ -194,7 +194,7 @@ function generateDto(config, fields, suffix = 'Save') {
 /**
  * 生成前端 API 模块文件（typed api functions）。
  */
-function generateFrontendApi(config, fields) {
+function generateFrontendApi(config) {
   const moduleName = config.module;
   const className = toPascalCase(config.tableName.replace(/^ydsz_/u, ''));
   const filePath = `apps/${config.module}-web/src/api/modules/${className}.ts`;
@@ -338,7 +338,7 @@ async function main() {
   }
 
   // 3. 前端 API 模块
-  const apiCode = generateFrontendApi(config, fields);
+  const apiCode = generateFrontendApi(config);
   outputs.push({ target: join(ROOT, apiCode.filePath), content: apiCode.content });
 
   // 4. 前端模型

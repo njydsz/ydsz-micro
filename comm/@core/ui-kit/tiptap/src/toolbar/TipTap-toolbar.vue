@@ -4,8 +4,8 @@
  */
 import { computed, ref } from 'vue';
 
-import { Editor } from '@tiptap/vue-3';
-import { ElInput, ElPopover, ElTooltip, ElMessage } from 'element-plus';
+import { type Editor } from '@tiptap/vue-3';
+import { ElInput, ElPopover, ElTooltip } from 'element-plus';
 
 interface Props {
   /** TipTap 编辑器实例 */
@@ -229,7 +229,7 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
       </template>
       <div class="flex flex-col gap-2 p-2">
         <ElInput v-model="linkUrl" placeholder="输入 URL..." size="small" />
-        <button class="toolbar_confirm-btn" @click="setLink">
+        <button class="toolbar-confirm-btn" @click="setLink">
           确认
         </button>
       </div>
@@ -253,7 +253,7 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
 
 <style scoped>
 .tiptap-toolbar {
-  background-color: hsl(var(--muted) / 0.3);
+  background-color: hsl(var(--muted) / 30%);
 }
 
 .toolbar-btn {
@@ -272,18 +272,18 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
   transition: background-color 0.15s;
 }
 
+.toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .toolbar-btn:hover:not(:disabled) {
   background-color: hsl(var(--accent));
 }
 
 .toolbar-btn.active {
-  background-color: hsl(var(--primary) / 0.15);
+  background-color: hsl(var(--primary) / 15%);
   color: hsl(var(--primary));
-}
-
-.toolbar-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 
 .toolbar-divider {
@@ -293,7 +293,7 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
   background-color: hsl(var(--border));
 }
 
-.toolbar_confirm-btn {
+.toolbar-confirm-btn {
   width: 100%;
   padding: 4px 0;
   border: none;

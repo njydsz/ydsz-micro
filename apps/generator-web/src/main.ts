@@ -4,7 +4,7 @@ import '@ydsz/styles';
 import '@ydsz/styles/ele';
 
 import { initComponentAdapter } from './adapter/component';
-import { initSetupYDSZForm } from './adapter/form';
+import { initGeneratorFormAdapter } from './adapter/form';
 import RootApp from './app.vue';
 import { setupI18n } from './locales';
 import { overridesPreferences } from './preferences';
@@ -31,7 +31,7 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
   async onSetup(app) {
     await initComponentAdapter();
     /** 初始化 YDSZ 表单适配器（绑定组件类型映射与校验规则）。 */
-    await initSetupYDSZForm();
+    await initGeneratorFormAdapter();
     await setupI18n(app);
   },
 });

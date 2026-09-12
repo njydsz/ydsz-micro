@@ -19,6 +19,12 @@ config.unshift({
     'eslint.config.mjs',
     // 构建期配置（bundlelib），未纳入任何 tsconfig project
     '**/build.config.ts',
+    // 第三方 vendor 产物（importmap 离线回退资源，非本仓源码）：
+    // main/public/vendor 下为 cdn.jsdelivr.net 的 axios / vxe-pc-ui 等原生 ESM 副本，
+    // 由 bug 修复或升级时整包替换，不遵循本仓编码规范，故不参与 lint。
+    '**/public/vendor/**',
+    // 智能体工作区：临时脚本与一次性校验工具，生命周期短于任何规范约束周期
+    '.workbuddy/**',
   ],
 });
 
@@ -105,6 +111,16 @@ config.unshift({
 // 属基础设施职责而非业务日志（规范 §14.5 针对"生产环境打印日志"的场景豁免）。
 config.push({
   files: ['comm/effects/monitor/src/**/*.ts'],
+  rules: {
+    'no-console': 'off',
+  },
+});
+
+// Vite 构建期配置（vite.config.*.mts）运行于 Node 构建进程而非浏览器运行时，
+// console 是构建期诊断（如 trace 插件输出模块解析链）的合理通道，
+// 不适用规范 §14.5「生产环境禁止打印日志」条款。
+config.push({
+  files: ['**/vite.config.*.mts'],
   rules: {
     'no-console': 'off',
   },
