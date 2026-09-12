@@ -1,6 +1,6 @@
 # nextwiki-web 网盘知识库
 
-> YDSZ 网盘知识库子应用，提供文件管理、分享管理、标签管理、配额管理与评论管理（对应后端：YDSZ-nextwiki，路由前缀：/YDSZ-wiki）
+> YDSZ 网盘知识库子应用，提供文件管理、分享管理、标签管理、配额管理与评论管理（对应后端：YDSZ-nextwiki，路由前缀：/ydsz-wiki）
 
 ## 应用定位
 
@@ -11,7 +11,7 @@
 | **对应后端服务** | YDSZ-nextwiki |
 | **前端端口** | 5607 |
 | **后端端口** | 9003 |
-| **路由前缀** | /YDSZ-wiki |
+| **路由前缀** | /ydsz-wiki |
 | **版本** | 1.0.0 |
 
 nextwiki-web 是网盘与知识库的前端载体，承接文件节点（目录/文件/快捷方式）管理、文件分享、标签体系、存储配额与文件评论等能力，为团队提供统一的文档协作与知识沉淀平台。
@@ -84,7 +84,7 @@ pnpm dev
 pnpm build:nextwiki
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-wiki` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-wiki` 激活本应用。
 
 ## 环境变量
 
@@ -100,7 +100,7 @@ pnpm build:nextwiki
 
 ## 路由配置
 
-主应用通过 `/YDSZ-wiki` 前缀激活本应用，内部路由表（`src/router/routes/modules/nextwiki.ts`）分为四组：
+主应用通过 `/ydsz-wiki` 前缀激活本应用，内部路由表（`src/router/routes/modules/nextwiki.ts`）分为四组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|

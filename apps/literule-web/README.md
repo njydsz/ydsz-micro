@@ -1,6 +1,6 @@
 # literule-web 规则引擎
 
-> YDSZ 规则引擎子应用，提供规则管理、DSL 管理、变量管理、CEP 复杂事件、断点调试与审计日志（对应后端：YDSZ-literule，路由前缀：/YDSZ-rule）
+> YDSZ 规则引擎子应用，提供规则管理、DSL 管理、变量管理、CEP 复杂事件、断点调试与审计日志（对应后端：YDSZ-literule，路由前缀：/ydsz-rule）
 
 ## 应用定位
 
@@ -11,7 +11,7 @@
 | **对应后端服务** | YDSZ-literule      |
 | **前端端口**     | 5608               |
 | **后端端口**     | 9007               |
-| **路由前缀**     | /YDSZ-rule         |
+| **路由前缀**     | /ydsz-rule         |
 | **版本**         | 1.0.0              |
 
 literule-web 是轻量规则引擎的前端载体，承接规则定义（决策表/决策树/评分卡/脚本/复合）、DSL 表达式管理、规则变量、CEP 复杂事件处理、断点调试与审计日志查询，为业务提供可可视化编排与可追溯的规则执行能力。
@@ -86,7 +86,7 @@ pnpm dev
 pnpm build:literule
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-rule`
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-rule`
 激活本应用。
 
 ## 环境变量
@@ -103,7 +103,7 @@ pnpm build:literule
 
 ## 路由配置
 
-主应用通过 `/YDSZ-rule`
+主应用通过 `/ydsz-rule`
 前缀激活本应用，内部路由表（`src/router/routes/modules/literule.ts`）分为三组：
 
 | 路由路径               | 名称         | 说明       |

@@ -1,6 +1,6 @@
 # userinfo-web 用户中心
 
-> YDSZ 用户中心子应用，提供用户、角色、菜单、部门、公司、岗位与语言管理（对应后端：YDSZ-userinfo，路由前缀：/YDSZ-user）
+> YDSZ 用户中心子应用，提供用户、角色、菜单、部门、公司、岗位与语言管理（对应后端：YDSZ-userinfo，路由前缀：/ydsz-user）
 
 ## 应用定位
 
@@ -11,7 +11,7 @@
 | **对应后端服务** | YDSZ-userinfo |
 | **前端端口** | 5601 |
 | **后端端口** | 9002 |
-| **路由前缀** | /YDSZ-user |
+| **路由前缀** | /ydsz-user |
 | **版本** | 1.0.0 |
 
 userinfo-web 是组织与权限管理的前端载体，承接用户账号、部门、角色、岗位、公司、菜单权限树与多语言管理等核心 RBAC 能力，为全平台提供统一的身份与权限数据基础。
@@ -88,7 +88,7 @@ pnpm dev
 pnpm build:userinfo
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-user` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-user` 激活本应用。
 
 ## 环境变量
 
@@ -104,7 +104,7 @@ pnpm build:userinfo
 
 ## 路由配置
 
-主应用通过 `/YDSZ-user` 前缀激活本应用，内部路由表（`src/router/routes/modules/system.ts`）分为两组：
+主应用通过 `/ydsz-user` 前缀激活本应用，内部路由表（`src/router/routes/modules/system.ts`）分为两组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|

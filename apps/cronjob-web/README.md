@@ -1,6 +1,6 @@
 # cronjob-web 定时任务
 
-> YDSZ 定时任务子应用，提供任务管理、任务分组、DAG 管理、执行日志、告警管理与连接器配置（对应后端：YDSZ-cronjob，路由前缀：/YDSZ-cron）
+> YDSZ 定时任务子应用，提供任务管理、任务分组、DAG 管理、执行日志、告警管理与连接器配置（对应后端：YDSZ-cronjob，路由前缀：/ydsz-cron）
 
 ## 应用定位
 
@@ -11,7 +11,7 @@
 | **对应后端服务** | YDSZ-cronjob |
 | **前端端口** | 5605 |
 | **后端端口** | 9006 |
-| **路由前缀** | /YDSZ-cron |
+| **路由前缀** | /ydsz-cron |
 | **版本** | 1.0.0 |
 
 cronjob-web 是分布式任务调度的前端载体，承接定时任务管理、任务分组、DAG 有向无环图编排、执行日志查询、告警规则配置与连接器（数据源/执行器）管理，为全平台提供统一的任务调度与监控能力。
@@ -86,7 +86,7 @@ pnpm dev
 pnpm build:cronjob
 ```
 
-子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/YDSZ-cron` 激活本应用。
+子应用需配合主应用（main-web，5600）一起访问，主应用通过路径前缀 `/ydsz-cron` 激活本应用。
 
 ## 环境变量
 
@@ -102,7 +102,7 @@ pnpm build:cronjob
 
 ## 路由配置
 
-主应用通过 `/YDSZ-cron` 前缀激活本应用，内部路由表（`src/router/routes/modules/cronjob.ts`）分为五组：
+主应用通过 `/ydsz-cron` 前缀激活本应用，内部路由表（`src/router/routes/modules/cronjob.ts`）分为五组：
 
 | 路由路径 | 名称 | 说明 |
 |---|---|---|

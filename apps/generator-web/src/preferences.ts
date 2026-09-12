@@ -10,7 +10,7 @@ import { defineOverridesPreferences } from '@ydsz/preferences';
  */
 export const overridesPreferences = defineOverridesPreferences({
   app: {
-    defaultHomePath: '/YDSZ-gen',
+    defaultHomePath: '/ydsz-gen',
     name: '代码生成器',
   },
   theme: {
