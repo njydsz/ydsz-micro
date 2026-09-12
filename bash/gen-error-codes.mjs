@@ -232,7 +232,7 @@ function renderTypeScript(entries, modules) {
   const moduleList = [...modules.entries()].map(([m, d]) => `${m}(${d})`).join('、');
 
   lines.push('/**');
-  lines.push(' * 错误码常量（自动生成，禁止手改）');
+  lines.push(' * 错误码常量（auto-generated 自动生成，禁止手改）');
   lines.push(' *');
   lines.push(` * <p>由 bash/gen-error-codes.mjs 于 ${generatedAt} 从后端 ydsz-cloud 静态提取生成，`);
   lines.push(' * 共 ' + entries.length + ' 个错误码，来源模块：' + moduleList + '。');

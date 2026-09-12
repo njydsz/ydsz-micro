@@ -180,6 +180,7 @@ export {
   refreshRegistry,
   resolveAppEntry,
   resolveRegistry,
+  setStaticRegistry,
 } from "./registry-adapter";
 // v4.0 P1-2: 路由预测引擎（马尔可夫链转移概率模型）
 export { getRoutePredictor, resetRoutePredictor } from "./route-predictor";

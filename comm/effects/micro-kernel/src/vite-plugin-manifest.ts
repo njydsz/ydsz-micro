@@ -15,7 +15,6 @@
  */
 
 import type { Plugin } from 'vite';
-import { createHash } from 'node:crypto';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -30,8 +29,17 @@ const logger = createLogger('MicroKernel:ManifestPlugin');
  * integrity 属性，该清单供 strictIntegrity 加载模式（loader 先取文本
  * 验签再 import）与未来 Service Worker 校验使用。
  */
-function sha256Sri(content: string | Uint8Array): string {
-  return `sha256-${createHash('sha256').update(content).digest('base64')}`;
+async function sha256Sri(content: string | Uint8Array): Promise<string> {
+  const crypto = globalThis.crypto;
+  const bytes =
+    typeof content === 'string' ? new TextEncoder().encode(content) : content;
+  // TS 5.7 起 Uint8Array<ArrayBufferLike> 不能直接赋给 BufferSource，
+  // 复制到独立 ArrayBuffer 完成泛型收窄（单文件级开销可忽略）。
+  const data = new Uint8Array(bytes).buffer;
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashBase64 = btoa(String.fromCharCode(...hashArray));
+  return `sha256-${hashBase64}`;
 }
 
 /** 子应用 manifest.json 中声明的路由级骨架屏配置（与 loader.ts ManifestRoute 对齐） */
@@ -96,7 +104,7 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
       base = config.base;
     },
 
-    generateBundle(_options, bundle) {
+    async generateBundle(_options, bundle) {
       // 找到入口 chunk
       const entryChunk = Object.values(bundle).find(
         (chunk) => chunk.type === 'chunk' && chunk.isEntry,
@@ -138,11 +146,11 @@ export function viteManifestPlugin(options: ManifestPluginOptions): Plugin {
         const integrity: Record<string, Record<string, string>> = {};
         const cssIntegrity: Record<string, string> = {};
         for (const asset of cssAssets) {
-          cssIntegrity[`${base}${asset.fileName}`] = sha256Sri(asset.source ?? '');
+          cssIntegrity[`${base}${asset.fileName}`] = await sha256Sri(asset.source ?? '');
         }
         const jsIntegrity: Record<string, string> = {};
         for (const chunk of jsChunks) {
-          jsIntegrity[`${base}${chunk.fileName}`] = sha256Sri(chunk.code ?? '');
+          jsIntegrity[`${base}${chunk.fileName}`] = await sha256Sri(chunk.code ?? '');
         }
         if (Object.keys(cssIntegrity).length > 0) integrity.css = cssIntegrity;
         if (Object.keys(jsIntegrity).length > 0) integrity.js = jsIntegrity;

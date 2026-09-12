@@ -15,5 +15,9 @@
 export * from './request-client';
 export * from './cache-adapter';
 export * from './error-codes';
+export { fetchRaw } from './raw-fetch';
 export { getRequestClient, getBaseRequestClient, initSharedRequest, requestClient } from './shared-client';
 export * from 'axios';
+// 命名转出 axios 默认实例：拦截器重放原请求（axios.request(config)）等
+// 确需原始实例的场景使用；业务代码仍须从本包导入，不得直接依赖 axios 包。
+export { default as axios } from 'axios';

@@ -248,7 +248,7 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
   proxyConfig: {
     ajax: {
-       
+
       query: async () => ({ items: traceList.value, total: traceList.value.length }),
     },
   },
@@ -343,7 +343,7 @@ onMounted(() => {
             <ElTimeline>
               <ElTimelineItem
                 v-for="(step, idx) in detailData.steps"
-                :key="idx"
+                :key="step.stepName ?? `step-${idx}`"
                 :timestamp="step.duration ? `${step.duration}ms` : undefined"
                 placement="top"
               >

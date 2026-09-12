@@ -92,7 +92,7 @@ watch(
         </div>
         <div
           v-for="(item, idx) in previewList"
-          :key="idx"
+          :key="item.filePath ?? idx"
           class="cursor-pointer px-2 py-2 rounded text-sm hover:bg-gray-100 mb-1"
           :class="{ 'bg-blue-50 text-blue-600': idx === activeFileIndex }"
           @click="handleFileSelect(idx)"

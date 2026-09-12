@@ -18,5 +18,5 @@ defineProps<{ alt?: string }>();
 </script>
 
 <template>
-  <img :src="sloganUrl" :alt="alt ?? 'slogan'" />
+  <img :src="sloganUrl" :alt="alt ?? 'slogan'"  loading="lazy"/>
 </template>

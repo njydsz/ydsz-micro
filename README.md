@@ -71,6 +71,7 @@ ESM loader → 生命周期 → 沙箱 → keep-alive → 错误降级 → 路�
 | **main-web**     | `@ydsz/main-web`     | 5600     | YDSZ-gateway  | 9000     | /          | 微前端宿主，认证/布局/全局状态/路由分发 |
 | **userinfo-web** | `@ydsz/userinfo-web` | 5601     | YDSZ-userinfo | 9002     | /YDSZ-user | 用户/部门/角色/菜单/岗位/OAuth2         |
 | **system-web**   | `@ydsz/system-web`   | 5602     | YDSZ-system   | 9001     | /YDSZ-sys  | 系统配置/字典/变量/应用注册             |
+| **generator-web** | `@ydsz/generator-web` | 5609    | YDSZ-generator | —       | /YDSZ-gen  | 代码生成器（数据源/表元数据/模板/生成）  |
 | **message-web**  | `@ydsz/message-web`  | 5604     | YDSZ-message  | 9004     | /YDSZ-msg  | 消息/模板/通知/路由/灰度/追踪           |
 | **cronjob-web**  | `@ydsz/cronjob-web`  | 5605     | YDSZ-cronjob  | 9006     | /YDSZ-cron | 任务/DAG/日志/告警/拓扑                 |
 | **workflow-web** | `@ydsz/workflow-web` | 5606     | YDSZ-workflow | 9005     | /YDSZ-flow | 流程模板/设计器/实例/待办/SLA           |
@@ -160,6 +161,7 @@ pnpm dev:userinfo    # 用户中心（端口 5601）
 pnpm dev:system      # 系统管理（端口 5602）
 pnpm dev:message     # 消息中心（端口 5604）
 pnpm dev:cronjob     # 定时任务（端口 5605）
+pnpm dev:generator   # 代码生成器（端口 5609）
 pnpm dev:workflow    # 工作流引擎（端口 5606）
 pnpm dev:nextwiki    # 网盘知识库（端口 5607）
 pnpm dev:literule    # 规则引擎（端口 5608）
@@ -175,6 +177,7 @@ pnpm build:userinfo          # 用户中心
 pnpm build:system            # 系统管理
 pnpm build:message           # 消息中心
 pnpm build:cronjob           # 定时任务
+pnpm build:generator         # 代码生成器
 pnpm build:workflow          # 工作流引擎
 pnpm build:nextwiki          # 网盘知识库
 pnpm build:literule          # 规则引擎
@@ -211,6 +214,7 @@ pnpm clean                   # 清理产物
 | -------------- | ------------ |
 | `/YDSZ-user/*` | userinfo-web |
 | `/YDSZ-sys/*`  | system-web   |
+| `/YDSZ-gen/*`  | generator-web |
 | `/YDSZ-msg/*`  | message-web  |
 | `/YDSZ-cron/*` | cronjob-web  |
 | `/YDSZ-flow/*` | workflow-web |

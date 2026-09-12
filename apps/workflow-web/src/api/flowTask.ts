@@ -330,3 +330,46 @@ export function countersignByTaskId({ taskId }: {
   }): Promise<Record<string, Record<string, unknown>>[]> {
   return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/workflow/engine/countersign/task/${taskId}`, { params });
 }
+
+// ══════ 流程委托接口（手动补充 —— 自动生成脚本未覆盖） ══════
+
+/**
+ * listMyDelegateAuths: GET /api/workflow/engine/delegate/my-auths
+ */
+export function listMyDelegateAuths(params: {
+    page?: number;
+    size?: number;
+  }): Promise<PageResponse<Record<string, unknown>>> {
+  return requestClient.get<PageResponse<Record<string, unknown>>>(`/api/workflow/engine/delegate/my-auths`, { params });
+}
+
+/**
+ * listAsDelegate: GET /api/workflow/engine/delegate/as-delegate
+ */
+export function listAsDelegate(params: {
+    page?: number;
+    size?: number;
+  }): Promise<PageResponse<Record<string, unknown>>> {
+  return requestClient.get<PageResponse<Record<string, unknown>>>(`/api/workflow/engine/delegate/as-delegate`, { params });
+}
+
+/**
+ * createDelegateAuth: POST /api/workflow/engine/delegate/auth
+ */
+export function createDelegateAuth(data: Record<string, unknown>): Promise<Record<string, unknown>> {
+  return requestClient.post<Record<string, unknown>>(`/api/workflow/engine/delegate/auth`, data);
+}
+
+/**
+ * revokeDelegateAuth: DELETE /api/workflow/engine/delegate/auth/{id}
+ */
+export function revokeDelegateAuth({ id }: { id: string }): Promise<void> {
+  return requestClient.delete<void>(`/api/workflow/engine/delegate/auth/${id}`);
+}
+
+/**
+ * updateDelegateAuthStatus: PUT /api/workflow/engine/delegate/auth/{id}/status
+ */
+export function updateDelegateAuthStatus({ id }: { id: string }, data: { enabled: boolean }): Promise<void> {
+  return requestClient.put<void>(`/api/workflow/engine/delegate/auth/${id}/status`, data);
+}

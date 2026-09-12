@@ -22,7 +22,11 @@ import { computed, ref, watch } from 'vue';
 
 import { useDebounceFn } from '@vueuse/core';
 
+import { createLogger } from '@ydsz-core/shared/utils';
 import { systemClient } from '@ydsz/system-api';
+
+/** 模块级日志器 */
+const logger = createLogger('GlobalSearch');
 
 /** 搜索接口路径 */
 const SEARCH_API = '/api/search/unified';
@@ -98,8 +102,8 @@ const doSearch = useDebounceFn(async (kw: string) => {
     activeTab.value = '_all';
   } catch (err) {
     // 失败时清空搜索结果并保留上一次（避免界面闪烁）
-     
-    console.warn('[GlobalSearch] search failed:', err);
+    logger.warn('全局搜索失败: {}', err);
+    results.value = [];
   } finally {
     loading.value = false;
   }

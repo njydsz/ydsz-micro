@@ -10,32 +10,6 @@
  * @author ydsz-team
  * @since 4.0.0
 -->
-<template>
-  <Transition name="network-alert">
-    <div
-      v-if="visible"
-      :class="['network-alert', `is-${severity}`]"
-      role="alert"
-      aria-live="assertive"
-      :aria-label="text"
-    >
-      <LucideIcon :name="iconName" :size="16" class="icon" />
-      <span class="text">{{ text }}</span>
-      <button v-if="severity === 'error'" class="retry" @click="handleRetry">
-        重试
-      </button>
-      <button
-        v-else
-        class="close"
-        aria-label="关闭"
-        @click="justRecovered = false"
-      >
-        ×
-      </button>
-    </div>
-  </Transition>
-</template>
-
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from "vue";
 import { useNetworkStatus } from "#/hooks/use-network-status";
@@ -106,6 +80,32 @@ onUnmounted(() => {
   clearTimeout(recoveryTimer);
 });
 </script>
+
+<template>
+  <Transition name="network-alert">
+    <div
+      v-if="visible"
+      :class="['network-alert', `is-${severity}`]"
+      role="alert"
+      aria-live="assertive"
+      :aria-label="text"
+    >
+      <LucideIcon :name="iconName" :size="16" class="icon" />
+      <span class="text">{{ text }}</span>
+      <button v-if="severity === 'error'" class="retry" @click="handleRetry">
+        重试
+      </button>
+      <button
+        v-else
+        class="close"
+        aria-label="关闭"
+        @click="justRecovered = false"
+      >
+        ×
+      </button>
+    </div>
+  </Transition>
+</template>
 
 <style scoped>
 .network-alert {

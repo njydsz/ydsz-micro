@@ -89,6 +89,7 @@ html .el-loading-mask {
   --el-menu-bg-color: hsl(var(--sidebar)) !important;
   --el-menu-text-color: hsl(var(--txt-secondary)) !important;
   --el-menu-border-color: transparent !important;
+
   border-right: none !important;
 }
 
@@ -112,7 +113,13 @@ html .el-loading-mask {
  * Element Plus Dropdown / Select — 统一品牌色
  * ============================================================ */
 .el-dropdown-menu {
+  /*
+   * 以下两个变量名沿用 Element Plus 上游的 camelCase 拼写（menuItem），
+   * 改为 kebab-case 将无法覆盖 EP 内部引用，故豁免命名规范。
+   */
+  /* stylelint-disable-next-line custom-property-pattern */
   --el-dropdown-menuItem-hover-fill: hsl(var(--row-hover-bg)) !important;
+  /* stylelint-disable-next-line custom-property-pattern */
   --el-dropdown-menuItem-hover-color: hsl(var(--txt-primary)) !important;
 }
 

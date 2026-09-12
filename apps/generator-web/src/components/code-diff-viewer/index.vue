@@ -272,7 +272,7 @@ const rightLines = computed(() => {
     <div v-if="isPlainText" class="diff-plain">
       <div
         v-for="(line, idx) in diffResult"
-        :key="idx"
+        :key="line.newLineNum ?? idx"
         class="diff-line diff-line-equal"
       >
         <span class="diff-line-num">{{ line.newLineNum }}</span>
@@ -284,7 +284,7 @@ const rightLines = computed(() => {
     <div v-else-if="showInline" class="diff-inline">
       <div
         v-for="(line, idx) in diffResult"
-        :key="idx"
+        :key="`${line.oldLineNum ?? 'o'}-${line.newLineNum ?? 'n'}-${idx}`"
         class="diff-line"
         :class="{
           'diff-line-add': line.type === 'add',
@@ -306,7 +306,7 @@ const rightLines = computed(() => {
         <div class="diff-panel-body">
           <div
             v-for="(line, idx) in leftLines"
-            :key="idx"
+            :key="line.lineNum ?? idx"
             class="diff-line"
             :class="{
               'diff-line-delete': line.type === 'delete',
@@ -323,7 +323,7 @@ const rightLines = computed(() => {
         <div class="diff-panel-body">
           <div
             v-for="(line, idx) in rightLines"
-            :key="idx"
+            :key="line.lineNum ?? idx"
             class="diff-line"
             :class="{
               'diff-line-add': line.type === 'add',
@@ -344,7 +344,7 @@ const rightLines = computed(() => {
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   overflow: hidden;
-  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-family: Menlo, Monaco, 'Courier New', monospace;
   font-size: 12px;
   line-height: 1.6;
   background: #fff;

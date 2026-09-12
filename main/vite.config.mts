@@ -23,6 +23,8 @@ export default defineConfig(async () => {
         workbox: {
           // 预缓存 HTML 入口
           globPatterns: ['**/*.{html,js,css}'],
+          // vendor.js 通常 2-3MB（Element Plus + VxeTable），默认 2 MiB 限制不够
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MiB
         },
         manifest: {
           name: 'YDSZ',

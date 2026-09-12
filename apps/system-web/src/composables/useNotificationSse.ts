@@ -34,7 +34,7 @@ import {
   markAllAsReadApi,
   markAsReadApi,
 } from '#/api/core/notification';
-import { useAuthStore } from '#/store';
+import { useAuthStore } from '#/store/auth';
 import { useNotificationStore } from '#/store/notification';
 
 /** 模块级日志器 */

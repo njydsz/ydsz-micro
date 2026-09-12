@@ -13,9 +13,8 @@
  */
 import type { RequestClientConfig, ResponseInterceptorConfig } from '@ydsz/request';
 
-import { isBusinessError, requestClient } from '@ydsz/request';
-import axios from 'axios';
-import type { AxiosError } from 'axios';
+import { axios, isBusinessError, requestClient } from '@ydsz/request';
+import type { AxiosError } from '@ydsz/request';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 

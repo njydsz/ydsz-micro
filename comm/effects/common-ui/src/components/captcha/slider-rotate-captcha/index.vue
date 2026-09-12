@@ -186,7 +186,7 @@ defineExpose({
         class="w-full rounded-full"
         @click="resume"
         @load="handleImgOnLoad"
-      />
+       loading="lazy"/>
       <div
         class="absolute bottom-3 left-0 z-10 block h-7 w-full text-center text-xs leading-[30px] text-white"
       >

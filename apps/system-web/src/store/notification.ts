@@ -16,13 +16,11 @@ import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';
 
 import {
+  getNotificationsApi,
+  getUnreadCountApi,
   markAllAsReadApi,
   markAsReadApi,
 } from '#/api/core/notification';
-import {
-  getNotificationsApi,
-  getUnreadCountApi,
-} from '../composables/useNotificationSse';
 
 /** 模块级日志器 */
 const logger = createLogger('NotificationStore');

@@ -22,6 +22,7 @@
     "build:system": "pnpm run build --filter=@ydsz/system-web",
     "build:message": "pnpm run build --filter=@ydsz/message-web",
     "build:cronjob": "pnpm run build --filter=@ydsz/cronjob-web",
+    "build:generator": "pnpm run build --filter=@ydsz/generator-web",
     "build:workflow": "pnpm run build --filter=@ydsz/workflow-web",
     "build:nextwiki": "pnpm run build --filter=@ydsz/nextwiki-web",
     "build:literule": "pnpm run build --filter=@ydsz/literule-web",
@@ -39,6 +40,7 @@
     "dev:system": "pnpm -F @ydsz/system-web run dev",
     "dev:message": "pnpm -F @ydsz/message-web run dev",
     "dev:cronjob": "pnpm -F @ydsz/cronjob-web run dev",
+    "dev:generator": "pnpm -F @ydsz/generator-web run dev",
     "dev:workflow": "pnpm -F @ydsz/workflow-web run dev",
     "dev:nextwiki": "pnpm -F @ydsz/nextwiki-web run dev",
     "dev:literule": "pnpm -F @ydsz/literule-web run dev",
@@ -81,6 +83,7 @@
     "vsh:check-bundle": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-bundle",
     "vsh:check-circular": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-circular",
     "vsh:check-dep": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-dep",
+    "vsh:check-standard": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-standard",
     "vsh:code-workspace": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs code-workspace",
     "vsh:publint": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs publint"
   },

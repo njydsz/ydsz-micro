@@ -455,7 +455,10 @@ defineExpose({ open, close });
             :key="index"
             class="mb-2 rounded border bg-gray-50 p-3"
           >
-            <!-- @data-file 评估结果可能缺少稳定 ID，index 作为兜底 key -->
+            <!--
+              @index-key 评估结果为任意结构 JSON 快照（无稳定业务 ID），
+              列表为只读展示且不做重排，index 作为兜底 key 不引发复用错位。
+            -->
             <pre class="whitespace-pre-wrap text-xs">{{ JSON.stringify(result, null, 2) }}</pre>
           </div>
         </div>

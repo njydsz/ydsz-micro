@@ -80,7 +80,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
         <div
           class="text-text-primary lg:text-text-primary ml-6 mt-6 flex flex-1 items-center sm:left-8 sm:top-8"
         >
-          <img v-if="logo" :alt="appName" :src="logo" class="size-10" />
+          <img v-if="logo" :alt="appName" :src="logo" class="size-10"  loading="lazy"/>
           <p
             v-if="appName"
             class="ml-3 m-0 text-xl font-semibold tracking-tight"
@@ -114,7 +114,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
               :alt="appName"
               :src="sloganImage"
               class="animate-float h-64 w-2/5"
-            />
+             loading="lazy"/>
           </template>
           <SloganIcon v-else :alt="appName" class="animate-float h-64 w-2/5" />
           <div

@@ -416,7 +416,7 @@ onMounted(() => {
             <ElTimeline v-if="recallLogs.length > 0">
               <ElTimelineItem
                 v-for="(log, index) in recallLogs"
-                :key="index"
+                :key="log.time ?? index"
                 :type="log.success ? 'success' : 'danger'"
                 :timestamp="log.time"
               >

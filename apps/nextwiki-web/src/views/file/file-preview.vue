@@ -16,6 +16,7 @@
 */
 import { ElButton, ElMessage, ElSkeleton, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
+import { fetchRaw } from '@ydsz/request';
 import { download, generateSignedUrl } from '#/api/download';
 import { generatePreview, getPreviewType, isSupported } from '#/api/preview';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -138,11 +139,11 @@ async function loadPreviewContent(): Promise<void> {
   }
 
   if (isText.value) {
-    // 文本文件：签名 URL + 原生 fetch（响应为 octet-stream 附件流，
-    // 不能走 requestClient 的 JSON 响应解包拦截器）
+    // 文本文件：签名 URL + 基础设施层 fetchRaw 封装（响应为 octet-stream 附件流，
+    // 且为跨域对象存储预签名 URL，统一客户端的 baseURL/鉴权头/JSON 解包均不适用）
     try {
       const signedUrl = await resolveSignedPreviewUrl(props.fileNode.id);
-      const resp = await fetch(signedUrl);
+      const resp = await fetchRaw(signedUrl);
       if (!resp.ok) {
         throw new Error(`HTTP ${String(resp.status)}`);
       }
@@ -227,7 +228,7 @@ onMounted(async () => {
             :src="`/api/nextwiki/preview/${fileNode.id}`"
             :alt="fileNode.name"
             class="max-h-[600px] max-w-full object-contain"
-          />
+           loading="lazy"/>
         </div>
 
         <!-- 不支持预览 -->

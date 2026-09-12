@@ -75,8 +75,17 @@ export interface MicroAppEntry {
 /**
  * 微应用注册表。
  *
- * 8 个微应用分别对应后端 8 个业务微服务（网关/公共模块不对应前端应用），
+ * 9 个微应用分别对应后端 9 个业务微服务（网关/公共模块不对应前端应用），
  * 顺序与菜单显示一致。变更流程：修改此处 → 重启基座 dev server → 验证菜单与路由。
+ *
+ * <p>新增子应用准入清单（缺一会导致门禁红/文档漂移）：
+ * <ol>
+ *   <li>本注册表新增 entry（name/activeRule/devPort/redirect 等）</li>
+ *   <li>根 package.json 补 dev/build 脚本</li>
+ *   <li>`pnpm gen:nginx` 重新生成部署路由并提交</li>
+ *   <li>README 应用清单与路由规则表同步登记</li>
+ *   <li>子应用包具备 tsconfig.json（含 references）与文件头注释</li>
+ * </ol>
  */
 export const MICRO_APPS: readonly MicroAppEntry[] = [
   {

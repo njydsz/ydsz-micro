@@ -633,7 +633,7 @@ onMounted(() => {
   padding: 24px 0;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .form-row {
     flex-direction: column;
     align-items: flex-start;

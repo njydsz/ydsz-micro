@@ -162,6 +162,7 @@ const skeletonClasses = computed(() => {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -172,6 +173,7 @@ const skeletonClasses = computed(() => {
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.4;
   }

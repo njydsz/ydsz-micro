@@ -29,6 +29,8 @@ import {
   ElTag,
 } from 'element-plus';
 
+import { requestClient } from '#/api/request';
+
 /** 服务注册信息项 */
 interface ServiceInstance {
   serviceId: string;
@@ -95,16 +97,11 @@ async function loadDashboard() {
   loading.value = true;
   loadError.value = null;
   try {
-    const response = await fetch('/system/api/metrics/dashboard');
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-    const result = await response.json();
-    if (result && result.code === 'A00000') {
-      dashboardData.value = result.data as DashboardData;
-    } else {
-      throw new Error(result?.msg || '数据加载失败');
-    }
+    // 统一请求客户端（规范 §6.1）：路径对齐契约 /api/{service}/**，
+    // 业务信封（code === 'A00000'）与鉴权头由拦截器统一处理。
+    dashboardData.value = await requestClient.get<DashboardData>(
+      '/api/system/metrics/dashboard',
+    );
   } catch (error) {
     const msg = error instanceof Error ? error.message : '运维指标接口请求失败';
     loadError.value = msg;

@@ -304,7 +304,7 @@ defineExpose({ close, open });
         <ElTimeline>
           <ElTimelineItem
             v-for="(item, idx) in timeline"
-            :key="idx"
+            :key="item.actionTime ?? idx"
             :timestamp="item.actionTime"
             :type="item.status === 'done' ? 'primary' : 'warning'"
             placement="top"

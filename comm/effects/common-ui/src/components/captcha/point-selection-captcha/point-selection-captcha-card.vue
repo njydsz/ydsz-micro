@@ -79,7 +79,7 @@ function handleClick(e: MouseEvent) {
         :style="captchaStyles"
         class="relative z-10"
         @click="handleClick"
-      />
+       loading="lazy"/>
       <div class="absolute inset-0">
         <slot></slot>
       </div>

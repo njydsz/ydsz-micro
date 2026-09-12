@@ -1,8 +1,8 @@
 /**
- * 错误码常量（自动生成，禁止手改）
+ * 错误码常量（auto-generated 自动生成，禁止手改）
  *
- * <p>由 bash/gen-error-codes.mjs 于 2026-09-01 从后端 ydsz-cloud 静态提取生成，
- * 共 438 个错误码，来源模块：agent(AI Agent)、core(平台通用结果码)、docs(文档管理)、ratelimit(限流模块限流熔断降级异常码)、security(安全模块认证授权异常码)、workflow(工作流)、file(文件存储)、jdbc(JDBC 模块数据访问异常码)、lock(分布式锁)、cronjob(定时任务)、literule(规则引擎)、message(消息中心)、nextwiki(知识库)、system(系统管理)、userinfo(用户中心)。
+ * <p>由 bash/gen-error-codes.mjs 于 2026-09-12 从后端 ydsz-cloud 静态提取生成，
+ * 共 443 个错误码，来源模块：agent(AI Agent)、core(平台通用结果码)、docs(文档管理)、ratelimit(限流模块限流熔断降级异常码)、security(安全模块认证授权异常码)、workflow(工作流)、file(文件存储)、jdbc(JDBC 模块数据访问异常码)、lock(分布式锁)、cronjob(定时任务)、literule(规则引擎)、message(消息中心)、nextwiki(知识库)、system(系统管理)、userinfo(用户中心)。
  * 后端新增/修改错误码后运行 pnpm gen:error-codes 重新生成；
  * CI 通过 gen:error-codes:check 门禁拦截手改与漂移。
  *
@@ -410,6 +410,16 @@ export const GeneratedErrorCode = {
   WEBAUTHN_CREDENTIAL_NOT_BELONG_TO_USER: 'B39009',
   /** WebAuthn 凭证数已达上限 */
   WEBAUTHN_CREDENTIAL_LIMIT_REACHED: 'B39010',
+  /** API Key 无效 */
+  API_KEY_INVALID: 'B40001',
+  /** API Key 已过期 */
+  API_KEY_EXPIRED: 'B40002',
+  /** API Key 已被禁用 */
+  API_KEY_DISABLED: 'B40003',
+  /** 超出 API Key 最大数量限制 */
+  API_KEY_LIMIT_EXCEEDED: 'B40004',
+  /** API Key 不存在 */
+  API_KEY_NOT_FOUND: 'B40005',
   /** Template not found */
   WORKFLOW_TEMPLATE_NOT_FOUND: 'B70001',
   /** Template code duplicate */
@@ -606,47 +616,47 @@ export const GeneratedErrorCode = {
   VARIABLE_DEF_NOT_FOUND: 'B93303',
   /** 模型调用错误 */
   MODEL_INVOCATION_ERROR: 'B93401',
-  /** agent.not.found */
+  /** Agent 不存在 */
   AGENT_NOT_FOUND: 'B94001',
-  /** agent.code.duplicate */
+  /** Agent 编码重复 */
   AGENT_CODE_DUPLICATE: 'B94002',
-  /** agent.type.not.supported */
+  /** Agent 类型不支持 */
   AGENT_TYPE_NOT_SUPPORTED: 'B94003',
-  /** agent.execution.failed */
+  /** Agent 执行失败 */
   AGENT_EXECUTION_FAILED: 'B94004',
-  /** agent.dag.cycle.detected */
+  /** DAG 编排存在环引用 */
   AGENT_DAG_CYCLE_DETECTED: 'B94005',
-  /** agent.conversation.not.found */
+  /** 会话不存在 */
   CONVERSATION_NOT_FOUND: 'B94101',
-  /** agent.memory.overflow */
+  /** 记忆容量超限 */
   MEMORY_OVERFLOW: 'B94102',
-  /** agent.llm.call.failed */
+  /** LLM 调用失败 */
   LLM_CALL_FAILED: 'B94201',
-  /** agent.llm.response.invalid */
+  /** LLM 响应无效 */
   LLM_RESPONSE_INVALID: 'B94202',
-  /** agent.llm.token.exceeded */
+  /** Token 用量超限 */
   LLM_TOKEN_EXCEEDED: 'B94203',
-  /** agent.llm.provider.not.configured */
+  /** LLM 提供方未配置 */
   LLM_PROVIDER_NOT_CONFIGURED: 'B94204',
-  /** agent.quota.daily.token.exceeded */
+  /** 日 Token 配额超限 */
   QUOTA_DAILY_TOKEN_EXCEEDED: 'B94251',
-  /** agent.quota.monthly.budget.exceeded */
+  /** 月度预算超限 */
   QUOTA_MONTHLY_BUDGET_EXCEEDED: 'B94252',
-  /** agent.rag.retrieval.failed */
+  /** RAG 检索失败 */
   RAG_RETRIEVAL_FAILED: 'B94301',
-  /** agent.tool.not.found */
+  /** 工具不存在 */
   TOOL_NOT_FOUND: 'B94302',
-  /** agent.tool.execution.failed */
+  /** 工具执行失败 */
   TOOL_EXECUTION_FAILED: 'B94303',
-  /** agent.prompt.template.not.found */
+  /** Prompt 模板不存在 */
   PROMPT_TEMPLATE_NOT_FOUND: 'B94304',
-  /** agent.prompt.template.duplicate */
+  /** Prompt 模板重复 */
   PROMPT_TEMPLATE_DUPLICATE: 'B94305',
-  /** agent.guardrail.rejected */
+  /** 护栏校验拒绝 */
   GUARDRAIL_REJECTED: 'B94306',
-  /** agent.trace.not.found */
+  /** 追踪记录不存在 */
   TRACE_NOT_FOUND: 'B94401',
-  /** agent.trace.empty */
+  /** 追踪记录为空 */
   TRACE_EMPTY: 'B94402',
   /** TENANT_PLAN_NOT_FOUND */
   TENANT_PLAN_NOT_FOUND: 'B95001',
@@ -1120,6 +1130,11 @@ export const GENERATED_ERROR_CODE_META: Record<string, GeneratedErrorCodeMeta> =
   WEBAUTHN_CREDENTIAL_EXISTS: { code: 'B39008', message: 'WebAuthn 凭证已存在', i18nKey: 'userinfo.webauthn.credential.exists', module: 'userinfo', enumName: 'WEBAUTHN_CREDENTIAL_EXISTS' },
   WEBAUTHN_CREDENTIAL_NOT_BELONG_TO_USER: { code: 'B39009', message: 'WebAuthn 凭证不属于当前用户', i18nKey: 'userinfo.webauthn.credential.not.belong.to.user', module: 'userinfo', enumName: 'WEBAUTHN_CREDENTIAL_NOT_BELONG_TO_USER' },
   WEBAUTHN_CREDENTIAL_LIMIT_REACHED: { code: 'B39010', message: 'WebAuthn 凭证数已达上限', i18nKey: 'userinfo.webauthn.credential.limit.reached', module: 'userinfo', enumName: 'WEBAUTHN_CREDENTIAL_LIMIT_REACHED' },
+  API_KEY_INVALID: { code: 'B40001', message: 'API Key 无效', i18nKey: 'userinfo.apikey.invalid', module: 'userinfo', enumName: 'API_KEY_INVALID', httpStatus: 401 },
+  API_KEY_EXPIRED: { code: 'B40002', message: 'API Key 已过期', i18nKey: 'userinfo.apikey.expired', module: 'userinfo', enumName: 'API_KEY_EXPIRED', httpStatus: 401 },
+  API_KEY_DISABLED: { code: 'B40003', message: 'API Key 已被禁用', i18nKey: 'userinfo.apikey.disabled', module: 'userinfo', enumName: 'API_KEY_DISABLED', httpStatus: 403 },
+  API_KEY_LIMIT_EXCEEDED: { code: 'B40004', message: '超出 API Key 最大数量限制', i18nKey: 'userinfo.apikey.limit.exceeded', module: 'userinfo', enumName: 'API_KEY_LIMIT_EXCEEDED', httpStatus: 400 },
+  API_KEY_NOT_FOUND: { code: 'B40005', message: 'API Key 不存在', i18nKey: 'userinfo.apikey.not.found', module: 'userinfo', enumName: 'API_KEY_NOT_FOUND', httpStatus: 404 },
   WORKFLOW_TEMPLATE_NOT_FOUND: { code: 'B70001', message: 'Template not found', i18nKey: 'workflow.template.not.found', module: 'workflow', enumName: 'TEMPLATE_NOT_FOUND', httpStatus: 404 },
   WORKFLOW_TEMPLATE_CODE_DUPLICATE: { code: 'B70002', message: 'Template code duplicate', i18nKey: 'workflow.template.code.duplicate', module: 'workflow', enumName: 'TEMPLATE_CODE_DUPLICATE' },
   TEMPLATE_DEPLOYED_CANNOT_DELETE: { code: 'B70003', message: 'Template deployed cannot delete', i18nKey: 'workflow.template.deployed.cannot.delete', module: 'workflow', enumName: 'TEMPLATE_DEPLOYED_CANNOT_DELETE' },
@@ -1218,27 +1233,27 @@ export const GENERATED_ERROR_CODE_META: Record<string, GeneratedErrorCodeMeta> =
   DSL_PARSE_ERROR: { code: 'B93302', message: 'DSL 解析错误', i18nKey: 'literule.dsl.parse.error', module: 'literule', enumName: 'DSL_PARSE_ERROR' },
   VARIABLE_DEF_NOT_FOUND: { code: 'B93303', message: '变量定义不存在', i18nKey: 'literule.variable.def.not.found', module: 'literule', enumName: 'VARIABLE_DEF_NOT_FOUND', httpStatus: 404 },
   MODEL_INVOCATION_ERROR: { code: 'B93401', message: '模型调用错误', i18nKey: 'literule.model.invocation.error', module: 'literule', enumName: 'MODEL_INVOCATION_ERROR' },
-  AGENT_NOT_FOUND: { code: 'B94001', message: 'agent.not.found', i18nKey: 'agent.not.found', module: 'agent', enumName: 'AGENT_NOT_FOUND', httpStatus: 404 },
-  AGENT_CODE_DUPLICATE: { code: 'B94002', message: 'agent.code.duplicate', i18nKey: 'agent.code.duplicate', module: 'agent', enumName: 'AGENT_CODE_DUPLICATE' },
-  AGENT_TYPE_NOT_SUPPORTED: { code: 'B94003', message: 'agent.type.not.supported', i18nKey: 'agent.type.not.supported', module: 'agent', enumName: 'AGENT_TYPE_NOT_SUPPORTED' },
-  AGENT_EXECUTION_FAILED: { code: 'B94004', message: 'agent.execution.failed', i18nKey: 'agent.execution.failed', module: 'agent', enumName: 'AGENT_EXECUTION_FAILED', httpStatus: 500 },
-  AGENT_DAG_CYCLE_DETECTED: { code: 'B94005', message: 'agent.dag.cycle.detected', i18nKey: 'agent.dag.cycle.detected', module: 'agent', enumName: 'AGENT_DAG_CYCLE_DETECTED' },
-  CONVERSATION_NOT_FOUND: { code: 'B94101', message: 'agent.conversation.not.found', i18nKey: 'agent.conversation.not.found', module: 'agent', enumName: 'CONVERSATION_NOT_FOUND', httpStatus: 404 },
-  MEMORY_OVERFLOW: { code: 'B94102', message: 'agent.memory.overflow', i18nKey: 'agent.memory.overflow', module: 'agent', enumName: 'MEMORY_OVERFLOW' },
-  LLM_CALL_FAILED: { code: 'B94201', message: 'agent.llm.call.failed', i18nKey: 'agent.llm.call.failed', module: 'agent', enumName: 'LLM_CALL_FAILED', httpStatus: 502 },
-  LLM_RESPONSE_INVALID: { code: 'B94202', message: 'agent.llm.response.invalid', i18nKey: 'agent.llm.response.invalid', module: 'agent', enumName: 'LLM_RESPONSE_INVALID' },
-  LLM_TOKEN_EXCEEDED: { code: 'B94203', message: 'agent.llm.token.exceeded', i18nKey: 'agent.llm.token.exceeded', module: 'agent', enumName: 'LLM_TOKEN_EXCEEDED' },
-  LLM_PROVIDER_NOT_CONFIGURED: { code: 'B94204', message: 'agent.llm.provider.not.configured', i18nKey: 'agent.llm.provider.not.configured', module: 'agent', enumName: 'LLM_PROVIDER_NOT_CONFIGURED' },
-  QUOTA_DAILY_TOKEN_EXCEEDED: { code: 'B94251', message: 'agent.quota.daily.token.exceeded', i18nKey: 'agent.quota.daily.token.exceeded', module: 'agent', enumName: 'QUOTA_DAILY_TOKEN_EXCEEDED', httpStatus: 429 },
-  QUOTA_MONTHLY_BUDGET_EXCEEDED: { code: 'B94252', message: 'agent.quota.monthly.budget.exceeded', i18nKey: 'agent.quota.monthly.budget.exceeded', module: 'agent', enumName: 'QUOTA_MONTHLY_BUDGET_EXCEEDED', httpStatus: 429 },
-  RAG_RETRIEVAL_FAILED: { code: 'B94301', message: 'agent.rag.retrieval.failed', i18nKey: 'agent.rag.retrieval.failed', module: 'agent', enumName: 'RAG_RETRIEVAL_FAILED', httpStatus: 500 },
-  TOOL_NOT_FOUND: { code: 'B94302', message: 'agent.tool.not.found', i18nKey: 'agent.tool.not.found', module: 'agent', enumName: 'TOOL_NOT_FOUND', httpStatus: 404 },
-  TOOL_EXECUTION_FAILED: { code: 'B94303', message: 'agent.tool.execution.failed', i18nKey: 'agent.tool.execution.failed', module: 'agent', enumName: 'TOOL_EXECUTION_FAILED', httpStatus: 500 },
-  PROMPT_TEMPLATE_NOT_FOUND: { code: 'B94304', message: 'agent.prompt.template.not.found', i18nKey: 'agent.prompt.template.not.found', module: 'agent', enumName: 'PROMPT_TEMPLATE_NOT_FOUND', httpStatus: 404 },
-  PROMPT_TEMPLATE_DUPLICATE: { code: 'B94305', message: 'agent.prompt.template.duplicate', i18nKey: 'agent.prompt.template.duplicate', module: 'agent', enumName: 'PROMPT_TEMPLATE_DUPLICATE' },
-  GUARDRAIL_REJECTED: { code: 'B94306', message: 'agent.guardrail.rejected', i18nKey: 'agent.guardrail.rejected', module: 'agent', enumName: 'GUARDRAIL_REJECTED', httpStatus: 403 },
-  TRACE_NOT_FOUND: { code: 'B94401', message: 'agent.trace.not.found', i18nKey: 'agent.trace.not.found', module: 'agent', enumName: 'TRACE_NOT_FOUND', httpStatus: 404 },
-  TRACE_EMPTY: { code: 'B94402', message: 'agent.trace.empty', i18nKey: 'agent.trace.empty', module: 'agent', enumName: 'TRACE_EMPTY', httpStatus: 400 },
+  AGENT_NOT_FOUND: { code: 'B94001', message: 'Agent 不存在', i18nKey: 'agent.not.found', module: 'agent', enumName: 'AGENT_NOT_FOUND', httpStatus: 404 },
+  AGENT_CODE_DUPLICATE: { code: 'B94002', message: 'Agent 编码重复', i18nKey: 'agent.code.duplicate', module: 'agent', enumName: 'AGENT_CODE_DUPLICATE' },
+  AGENT_TYPE_NOT_SUPPORTED: { code: 'B94003', message: 'Agent 类型不支持', i18nKey: 'agent.type.not.supported', module: 'agent', enumName: 'AGENT_TYPE_NOT_SUPPORTED' },
+  AGENT_EXECUTION_FAILED: { code: 'B94004', message: 'Agent 执行失败', i18nKey: 'agent.execution.failed', module: 'agent', enumName: 'AGENT_EXECUTION_FAILED', httpStatus: 500 },
+  AGENT_DAG_CYCLE_DETECTED: { code: 'B94005', message: 'DAG 编排存在环引用', i18nKey: 'agent.dag.cycle.detected', module: 'agent', enumName: 'AGENT_DAG_CYCLE_DETECTED' },
+  CONVERSATION_NOT_FOUND: { code: 'B94101', message: '会话不存在', i18nKey: 'agent.conversation.not.found', module: 'agent', enumName: 'CONVERSATION_NOT_FOUND', httpStatus: 404 },
+  MEMORY_OVERFLOW: { code: 'B94102', message: '记忆容量超限', i18nKey: 'agent.memory.overflow', module: 'agent', enumName: 'MEMORY_OVERFLOW' },
+  LLM_CALL_FAILED: { code: 'B94201', message: 'LLM 调用失败', i18nKey: 'agent.llm.call.failed', module: 'agent', enumName: 'LLM_CALL_FAILED', httpStatus: 502 },
+  LLM_RESPONSE_INVALID: { code: 'B94202', message: 'LLM 响应无效', i18nKey: 'agent.llm.response.invalid', module: 'agent', enumName: 'LLM_RESPONSE_INVALID' },
+  LLM_TOKEN_EXCEEDED: { code: 'B94203', message: 'Token 用量超限', i18nKey: 'agent.llm.token.exceeded', module: 'agent', enumName: 'LLM_TOKEN_EXCEEDED' },
+  LLM_PROVIDER_NOT_CONFIGURED: { code: 'B94204', message: 'LLM 提供方未配置', i18nKey: 'agent.llm.provider.not.configured', module: 'agent', enumName: 'LLM_PROVIDER_NOT_CONFIGURED' },
+  QUOTA_DAILY_TOKEN_EXCEEDED: { code: 'B94251', message: '日 Token 配额超限', i18nKey: 'agent.quota.daily.token.exceeded', module: 'agent', enumName: 'QUOTA_DAILY_TOKEN_EXCEEDED', httpStatus: 429 },
+  QUOTA_MONTHLY_BUDGET_EXCEEDED: { code: 'B94252', message: '月度预算超限', i18nKey: 'agent.quota.monthly.budget.exceeded', module: 'agent', enumName: 'QUOTA_MONTHLY_BUDGET_EXCEEDED', httpStatus: 429 },
+  RAG_RETRIEVAL_FAILED: { code: 'B94301', message: 'RAG 检索失败', i18nKey: 'agent.rag.retrieval.failed', module: 'agent', enumName: 'RAG_RETRIEVAL_FAILED', httpStatus: 500 },
+  TOOL_NOT_FOUND: { code: 'B94302', message: '工具不存在', i18nKey: 'agent.tool.not.found', module: 'agent', enumName: 'TOOL_NOT_FOUND', httpStatus: 404 },
+  TOOL_EXECUTION_FAILED: { code: 'B94303', message: '工具执行失败', i18nKey: 'agent.tool.execution.failed', module: 'agent', enumName: 'TOOL_EXECUTION_FAILED', httpStatus: 500 },
+  PROMPT_TEMPLATE_NOT_FOUND: { code: 'B94304', message: 'Prompt 模板不存在', i18nKey: 'agent.prompt.template.not.found', module: 'agent', enumName: 'PROMPT_TEMPLATE_NOT_FOUND', httpStatus: 404 },
+  PROMPT_TEMPLATE_DUPLICATE: { code: 'B94305', message: 'Prompt 模板重复', i18nKey: 'agent.prompt.template.duplicate', module: 'agent', enumName: 'PROMPT_TEMPLATE_DUPLICATE' },
+  GUARDRAIL_REJECTED: { code: 'B94306', message: '护栏校验拒绝', i18nKey: 'agent.guardrail.rejected', module: 'agent', enumName: 'GUARDRAIL_REJECTED', httpStatus: 403 },
+  TRACE_NOT_FOUND: { code: 'B94401', message: '追踪记录不存在', i18nKey: 'agent.trace.not.found', module: 'agent', enumName: 'TRACE_NOT_FOUND', httpStatus: 404 },
+  TRACE_EMPTY: { code: 'B94402', message: '追踪记录为空', i18nKey: 'agent.trace.empty', module: 'agent', enumName: 'TRACE_EMPTY', httpStatus: 400 },
   TENANT_PLAN_NOT_FOUND: { code: 'B95001', message: 'TENANT_PLAN_NOT_FOUND', i18nKey: 'system.tenant.plan.not.found', module: 'system', enumName: 'TENANT_PLAN_NOT_FOUND', httpStatus: 404 },
   TENANT_PLAN_CODE_DUPLICATE: { code: 'B95002', message: 'TENANT_PLAN_CODE_DUPLICATE', i18nKey: 'system.tenant.plan.code.duplicate', module: 'system', enumName: 'TENANT_PLAN_CODE_DUPLICATE' },
   ENTITY_VERSION_NOT_FOUND: { code: 'B96001', message: 'ENTITY_VERSION_NOT_FOUND', i18nKey: 'system.entity.version.not.found', module: 'system', enumName: 'ENTITY_VERSION_NOT_FOUND', httpStatus: 404 },

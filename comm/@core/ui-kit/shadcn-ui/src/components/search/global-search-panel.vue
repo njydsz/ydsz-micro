@@ -170,7 +170,7 @@ defineExpose({ open, close });
     <ul v-if="suggestions.length > 0 && !results" class="global-search__suggestions">
       <li
         v-for="(item, idx) in suggestions"
-        :key="idx"
+        :key="`${item.type ?? 'history'}-${item.text}`"
         class="global-search__suggestion-item"
         @click="selectSuggestion(item)"
       >

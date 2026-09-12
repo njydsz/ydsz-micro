@@ -448,7 +448,7 @@ onMounted(() => {
           <div class="flex flex-wrap gap-2">
             <ElTag
               v-for="(code, idx) in cascadingPreview"
-              :key="idx"
+              :key="code"
               type="warning"
               effect="dark"
             >

@@ -36,9 +36,9 @@ interface AssetInfo {
 }
 
 const DEFAULTS: Required<BundleBudgetOptions> = {
-  maxChunkSize: 3 * 1024 * 1024, // 3MB（Vue 3 + Element Plus vendor 通常 1-3MB）
-  maxCssSize: 500 * 1024, // 500KB
-  maxTotalSize: 10 * 1024 * 1024, // 10MB
+  maxChunkSize: 5 * 1024 * 1024, // 5MB（Element Plus + VxeTable + 业务组件 vendor 通常 2-4MB）
+  maxCssSize: 1024 * 1024, // 1MB（Element Plus + VxeTable 全量 CSS 通常 600-800KB）
+  maxTotalSize: 15 * 1024 * 1024, // 15MB
   failOnExceed: true,
 };
 

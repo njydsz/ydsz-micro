@@ -268,7 +268,7 @@ function handleClose() {
 .diff-line {
   min-height: 22px;
   padding: 2px 8px;
-  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-family: 'Fira Code', Monaco, Consolas, monospace;
   font-size: 12px;
   line-height: 22px;
   white-space: pre-wrap;

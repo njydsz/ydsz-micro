@@ -232,7 +232,7 @@ function handleReset(): void {
               >
                 <ElStep
                   v-for="(node, index) in predictedNodes"
-                  :key="index"
+                  :key="(node.nodeName as string) ?? (node.nodeCode as string) ?? `node-${index}`"
                   :title="(node.nodeName as string) ?? (node.nodeCode as string) ?? `节点 ${index + 1}`"
                 >
                   <template #description>
@@ -274,7 +274,7 @@ function handleReset(): void {
                 <tbody>
                   <tr
                     v-for="(node, index) in predictedNodes"
-                    :key="index"
+                    :key="(node.nodeName as string) ?? (node.nodeCode as string) ?? `row-${index}`"
                     class="border-b border-gray-100 hover:bg-gray-50"
                   >
                     <td class="px-4 py-2 text-gray-500">{{ index + 1 }}</td>

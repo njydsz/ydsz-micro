@@ -168,11 +168,6 @@
     background-color: hsl(var(--selection-bg));
     color: hsl(var(--selection-foreground));
   }
-
-  ::-moz-selection {
-    background-color: hsl(var(--selection-bg));
-    color: hsl(var(--selection-foreground));
-  }
 }
 
 @layer components {
@@ -256,7 +251,7 @@
    * 列表行悬停与激活 — 统一品牌色高亮
    * ============================================================ */
   .list-row {
-    @apply relative transition-colors duration-fast;
+    @apply duration-fast relative transition-colors;
 
     border-left: 2px solid transparent;
   }
@@ -272,7 +267,7 @@
 
   /* 行右侧操作按钮 — 默认透明，hover 时浮现 */
   .list-row-actions {
-    @apply absolute right-2 top-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-fast;
+    @apply duration-fast absolute right-2 top-1/2 -translate-y-1/2 opacity-0 transition-opacity;
   }
 
   .list-row:hover .list-row-actions,
@@ -389,7 +384,8 @@
   /* 侧边栏折叠过渡增强 */
   .sidebar-collapse-enter-active,
   .sidebar-collapse-leave-active {
-    transition: flex var(--duration-default) var(--ease-spring),
+    transition:
+      flex var(--duration-default) var(--ease-spring),
       opacity var(--duration-fast) var(--ease-out);
   }
 

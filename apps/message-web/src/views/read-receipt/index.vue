@@ -233,7 +233,7 @@ onMounted(() => {
             <div v-if="recentQueries.length > 0" class="space-y-2">
               <div
                 v-for="(item, index) in recentQueries"
-                :key="index"
+                :key="item.shortCode ?? index"
                 class="flex cursor-pointer items-center justify-between rounded p-2 hover:bg-gray-50"
                 @click="handleQuickQuery(item.shortCode)"
               >

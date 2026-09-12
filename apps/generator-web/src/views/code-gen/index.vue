@@ -50,7 +50,7 @@ import type { GenTemplateGroup } from '#/api/models';
 import { listTables } from '#/api/table-meta';
 import type { CodePreviewVO, GenResultVO } from '#/api/models';
 
-import { CodeDiffViewer } from '#/components/code-diff-viewer/index.vue';
+import CodeDiffViewer from '#/components/code-diff-viewer/index.vue';
 import { useHistoryRollback } from '#/composables/use-history-rollback';
 
 import CodePreviewDialog from './code-preview-dialog.vue';
@@ -561,7 +561,7 @@ function getStatusLabel(status: string): string {
           <div class="space-y-1">
             <div
               v-for="(file, idx) in diffFiles"
-              :key="idx"
+              :key="file.fileName ?? idx"
               class="flex items-center gap-2 px-2 py-2 rounded text-sm hover:bg-gray-100 cursor-pointer"
               @click="handleDiffFileSelect(file.fileName, file.oldCode, file.newCode)"
             >

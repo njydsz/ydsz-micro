@@ -49,6 +49,10 @@ jobs:
       - name: 依赖合规检查
         run: pnpm vsh:check-dep
 
+      # 云顶编码规范合规扫描（§15.8，v1.0.3 接线）：P0/P1 计入失败，P2 仅提示
+      - name: 编码规范合规扫描
+        run: pnpm vsh:check-standard
+
       # 测试代码已按云顶编码规范 15.10 全量移除，`pnpm test` 脚本不存在（2026-09-01）
 
       - name: 国际化 key 一致性校验

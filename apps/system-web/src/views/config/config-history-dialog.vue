@@ -277,7 +277,7 @@ defineExpose({
   background-color: #f8f9fa;
   border: 1px solid #ebeef5;
   border-radius: 4px;
-  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-family: 'Fira Code', Monaco, Consolas, monospace;
   font-size: 13px;
   line-height: 1.6;
   white-space: pre-wrap;

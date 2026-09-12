@@ -17,6 +17,7 @@ import type { LifecycleExports, MicroAppConfig } from '@ydsz/micro-runtime';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { retryOperation } from './retry';
 import { injectModulePreload, preloadAppAssets } from './link-hints';
+import { injectStylesheets } from './loader-stylesheets';
 import { KernelError, KernelErrorCode } from './error-boundary';
 
 /** 模块级日志器（重试等运维信息走 debug，避免生产噪音） */
@@ -248,7 +249,12 @@ export async function loadApp(
   //            消除"mount 渲染时 CSS 仍在途"导致的首帧无样式闪变（FOUC）。
   //            单表 3s 超时兜底（弱网/CDN 故障时降级为无样式挂载并告警，
   //            不阻塞子应用激活——JS 层错误仍由 error-boundary 兜底）。
-  await injectStylesheets(manifest.css, manifest.name, manifest.integrity?.css);
+  await injectStylesheets(
+    manifest.css,
+    manifest.name,
+    manifest.integrity?.css,
+    getCspNonce(),
+  );
 
   // v4.4.0: 严格完整性校验（可选）—— 在 dynamic import 前验签 JS 入口
   if (options.strictIntegrity) {
@@ -379,82 +385,9 @@ function getCspNonce(): string | undefined {
   return cspNonce;
 }
 
-/**
- * 等待单个样式表加载完成的超时兜底（毫秒）。
- *
- * v4.4.1 P1：超时后按"已加载"放行并告警，避免弱网下激活链路被单张
- * 样式表卡死；JS 层失败仍由 error-boundary 分级降级兜底。
- */
-const CSS_LOAD_TIMEOUT_MS = 3_000;
-
-/**
- * 注入子应用样式表，并等待全部样式表加载完成（v4.4.1 P1 FOUC 修复）。
- *
- * v4.2.1 L2: 附加 SRI integrity（manifest.integrity.css）+ crossorigin，
- * 以及 CSP nonce（style-src 策略兼容）。
- *
- * 返回时机：全部 link 触发 load、或触发 error（告警放行）、或超时兜底。
- */
-async function injectStylesheets(
-  cssUrls: string[],
-  appName: string,
-  integrity?: Record<string, string>,
-): Promise<void> {
-  const nonce = getCspNonce();
-  const pending: Array<Promise<void>> = [];
-  for (const href of cssUrls) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    link.setAttribute('data-micro-kernel-app', appName);
-    // L2: SRI 校验（manifest 提供 hash 时）
-    const hash = integrity?.[href];
-    if (hash) {
-      link.integrity = hash;
-      link.crossOrigin = 'anonymous';
-    }
-    // L2: CSP nonce 兼容
-    if (nonce) {
-      link.setAttribute('nonce', nonce);
-    }
-    document.head.appendChild(link);
-    pending.push(awaitStylesheetLoad(link, href));
-  }
-  await Promise.all(pending);
-}
-
-/**
- * 等待单个样式表 load/error 事件，附超时兜底。
- *
- * v4.4.1 P1：加载失败或超时不抛错（不阻塞激活），仅记录告警日志，
- * 由调用方决定是否需要进一步处理。
- */
-function awaitStylesheetLoad(link: HTMLLinkElement, href: string): Promise<void> {
-  return new Promise<void>((resolve) => {
-    let settled = false;
-    const finish = (reason: 'error' | 'loaded' | 'timeout'): void => {
-      if (settled) return;
-      settled = true;
-      if (reason !== 'loaded') {
-        logger.warn(
-          `[MicroKernel] Stylesheet "${href}" not loaded (${reason}), mounting without it`,
-        );
-      }
-      resolve();
-    };
-    link.addEventListener('load', () => finish('loaded'), { once: true });
-    link.addEventListener('error', () => finish('error'), { once: true });
-    setTimeout(() => finish('timeout'), CSS_LOAD_TIMEOUT_MS);
-  });
-}
 
 /** 移除指定应用注入的样式表 */
-export function removeStylesheets(appName: string): void {
-  const links = document.querySelectorAll(`link[data-micro-kernel-app="${appName}"]`);
-  for (const link of links) {
-    link.remove();
-  }
-}
+export { removeStylesheets } from './loader-stylesheets';
 
 /**
  * 清空 manifest 缓存。

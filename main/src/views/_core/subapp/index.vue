@@ -217,7 +217,7 @@ onUnmounted(() => {
 }
 
 /* P1-4: 骨架屏渐显 — 子应用内容从骨架屏切换到已渲染状态时应用淡入 */
-.subapp-container:not(.is-loading):not(.has-error) {
+.subapp-container:not(.is-loading, .has-error) {
   animation: subapp-fade-in 0.2s ease-out;
 }
 
@@ -225,6 +225,7 @@ onUnmounted(() => {
   from {
     opacity: 0.4;
   }
+
   to {
     opacity: 1;
   }

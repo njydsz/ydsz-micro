@@ -38,6 +38,8 @@ import {
   ElTag,
 } from 'element-plus';
 
+import { requestClient } from '#/api/request';
+
 /** 数据源 */
 interface Datasource {
   id: number;
@@ -65,6 +67,12 @@ interface ColumnMeta {
   nullable?: boolean;
 }
 
+/** 代码生成结果（契约 GenResultVO 的本地视图，仅消费生成文件列表） */
+interface GenerateResult {
+  /** 生成的文件相对路径列表 */
+  generatedFiles?: string[];
+}
+
 const datasources = ref<Datasource[]>([]);
 const tables = ref<TableMeta[]>([]);
 const columns = ref<ColumnMeta[]>([]);
@@ -90,16 +98,15 @@ const configForm = reactive({
  */
 async function loadDatasources() {
   try {
-    const response = await fetch('/generator/api/generator/datasources');
-    const data = await response.json();
-    if (data && data.code === 'A00000') {
-      datasources.value = data.data;
-      const defaultDs = datasources.value.find((ds) => ds.isDefault);
-      if (defaultDs) {
-        selectedDatasourceId.value = defaultDs.id;
-      } else if (datasources.value.length > 0) {
-        selectedDatasourceId.value = datasources.value[0].id;
-      }
+    // 统一请求客户端（规范 §6.1），路径对齐契约 /api/generator/datasources
+    datasources.value = await requestClient.get<Datasource[]>(
+      '/api/generator/datasources',
+    );
+    const defaultDs = datasources.value.find((ds) => ds.isDefault);
+    if (defaultDs) {
+      selectedDatasourceId.value = defaultDs.id;
+    } else if (datasources.value.length > 0) {
+      selectedDatasourceId.value = datasources.value[0].id;
     }
   } catch {
     // 数据源加载失败时展示空列表
@@ -120,15 +127,9 @@ async function loadTables() {
   selectedTableId.value = null;
   selectedTableName.value = '';
   try {
-    const response = await fetch(
-      `/generator/api/generator/tables?datasourceId=${selectedDatasourceId.value}`,
-    );
-    const data = await response.json();
-    if (data && data.code === 'A00000') {
-      tables.value = data.data;
-    } else {
-      tables.value = [];
-    }
+    tables.value = await requestClient.get<TableMeta[]>('/api/generator/tables', {
+      params: { datasourceId: selectedDatasourceId.value },
+    });
   } catch {
     tables.value = [];
   } finally {
@@ -144,15 +145,10 @@ async function onTableSelect(tableId: number) {
   const table = tables.value.find((t) => t.id === tableId);
   selectedTableName.value = table?.tableName ?? '';
   try {
-    const response = await fetch(
-      `/generator/api/generator/tables/columns?tableMetaId=${tableId}`,
+    columns.value = await requestClient.get<ColumnMeta[]>(
+      '/api/generator/tables/columns',
+      { params: { tableMetaId: tableId } },
     );
-    const data = await response.json();
-    if (data && data.code === 'A00000') {
-      columns.value = data.data;
-    } else {
-      columns.value = [];
-    }
   } catch {
     columns.value = [];
   } finally {
@@ -171,25 +167,23 @@ async function handleGenerate() {
   generating.value = true;
   resultFiles.value = [];
   try {
-    const response = await fetch('/generator/api/generator/code/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    const result = await requestClient.post<GenerateResult>(
+      '/api/generator/code/generate',
+      {
         datasourceId: selectedDatasourceId.value,
         templateGroupId: 1,
         tableName: selectedTableName.value.trim(),
         outputDir: configForm.outputDir,
         conflictStrategy: configForm.conflictStrategy,
         triggeredBy: configForm.author,
-      }),
-    });
-    const data = await response.json();
-    if (data && data.code === 'A00000' && data.data) {
-      resultFiles.value = data.data.generatedFiles ?? [];
+      },
+    );
+    if (result) {
+      resultFiles.value = result.generatedFiles ?? [];
       ElMessage.success(`代码生成完成，共 ${resultFiles.value.length} 个文件`);
       activeTab.value = 'result';
     } else {
-      ElMessage.error(data?.msg || '代码生成失败');
+      ElMessage.error('代码生成失败');
     }
   } catch (error) {
     const msg = error instanceof Error ? error.message : '代码生成请求失败';
@@ -327,7 +321,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
       <div class="space-y-1 max-h-96 overflow-y-auto">
         <div
           v-for="(file, idx) in resultFiles"
-          :key="idx"
+          :key="file ?? idx"
           class="flex items-center gap-2 text-sm py-1 border-b border-dashed last:border-b-0"
         >
           <ElTag type="success" size="small">✓</ElTag>

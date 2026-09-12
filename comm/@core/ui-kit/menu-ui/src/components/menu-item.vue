@@ -18,7 +18,7 @@ import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 import { useNamespace } from '@ydsz-core/composables';
 import { YDSZIcon, YDSZTooltip } from '@ydsz-core/shadcn-ui';
 
-import { MenuBadge } from './menu-badge.vue';
+import MenuBadge from './menu-badge.vue';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
 import { getPreloadAdapter } from '../preload-adapter';
 

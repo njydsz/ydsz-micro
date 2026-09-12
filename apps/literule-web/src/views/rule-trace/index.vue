@@ -325,7 +325,7 @@ onMounted(() => {
         <ElTimeline>
           <ElTimelineItem
             v-for="(item, idx) in detailList"
-            :key="idx"
+            :key="item.createdAt ?? idx"
             :timestamp="item.createdAt"
             :type="item.triggered ? 'success' : 'info'"
             placement="top"

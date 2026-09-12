@@ -131,12 +131,75 @@ async function main() {
       }
       process.exit(1);
     }
+    case 'check-standard': {
+      const { checkStandard, reportStandard } = await import(
+        '../src/check-standard/index.ts'
+      );
+      const violations = checkStandard({ rootDir });
+      reportStandard(violations, await countScanFiles(rootDir));
+      // 退出策略：P0（阻断）/ P1（严重）计入失败，P2 仅提示不阻断
+      const blocking = violations.filter(
+        (v) => v.severity === 'P0' || v.severity === 'P1',
+      );
+      if (blocking.length === 0) {
+        console.log('✅ 规范合规检查通过（P0/P1 零违规）');
+        process.exit(0);
+      }
+      console.error(`❌ 发现 ${blocking.length} 项 P0/P1 规范违规`);
+      process.exit(1);
+    }
     default: {
       console.error(`未知命令: ${command ?? '(空)'}`);
-      console.error('可用命令: check-arch, check-bundle, check-circular, check-dep, code-workspace, publint');
+      console.error('可用命令: check-arch, check-bundle, check-circular, check-dep, check-standard, code-workspace, publint');
       process.exit(2);
     }
   }
+}
+
+/**
+ * 统计参与规范扫描的源码文件数（与 check-standard 的 SKIP 规则一致）。
+ *
+ * @param rootDir 仓库根目录
+ * @return TS 与 Vue 文件数量（Promise）
+ */
+async function countScanFiles(rootDir) {
+  const { readdirSync, statSync } = await import('node:fs');
+  const { join } = await import('node:path');
+  const skip = new Set([
+    'node_modules', 'dist', 'coverage', '.turbo', '.git',
+    'build', '.output', 'public', 'vendor',
+  ]);
+  const counts = { ts: 0, vue: 0 };
+  /**
+   * 递归统计指定目录下匹配扩展名的文件数。
+   *
+   * @param dir 当前目录
+   */
+  function walkCount(dir) {
+    let entries;
+    try {
+      entries = readdirSync(dir);
+    } catch {
+      return;
+    }
+    for (const name of entries) {
+      if (skip.has(name)) continue;
+      const full = join(dir, name);
+      let st;
+      try {
+        st = statSync(full);
+      } catch {
+        continue;
+      }
+      if (st.isDirectory()) walkCount(full);
+      else if (name.endsWith('.ts')) counts.ts++;
+      else if (name.endsWith('.vue')) counts.vue++;
+    }
+  }
+  for (const base of ['apps', 'comm', 'main']) {
+    walkCount(join(rootDir, base));
+  }
+  return counts;
 }
 
 /**

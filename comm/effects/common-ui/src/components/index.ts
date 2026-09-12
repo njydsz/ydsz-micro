@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 公共组件统一出口 — 聚合全部基础 UI 组件与第三方适配层
  *
  * 集中导出表单、表格、弹窗、验证码、骨架屏、水印等复用组件，
@@ -13,14 +13,14 @@ export * from './captcha';
 export * from './col-page';
 export * from './count-to';
 export * from './ellipsis-text';
-export * from './empty-state.vue';
+export { default as EmptyState } from './empty-state.vue';
 export { default as ErrorBoundary } from './error-boundary.vue';
-export * from './error-feedback.vue';
-export * from './error-state.vue';
+export { default as ErrorFeedback } from './error-feedback.vue';
+export { default as ErrorState } from './error-state.vue';
 export * from './icon-picker';
 export * from './json-viewer';
 export * from './loading';
-export * from './network-status.vue';
+export { default as NetworkStatus } from './network-status.vue';
 export * from './page';
 export * from './page-status';
 export * from './resize';

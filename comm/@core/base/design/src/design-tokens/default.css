@@ -311,7 +311,8 @@
   --focus-ring-width: 2px;
   --focus-ring-color: var(--brand-500);
   --focus-ring-offset: 2px;
-  --focus-ring: 0 0 0 var(--focus-ring-offset) var(--bg-surface-2),
+  --focus-ring:
+    0 0 0 var(--focus-ring-offset) var(--bg-surface-2),
     0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 
   /* ============================================================
@@ -325,7 +326,8 @@
   /* ============================================================
    * 过渡变量别名 (引用已有 duration/ease)
    * ============================================================ */
-  --transition-colors: color var(--duration-fast) var(--ease-out),
+  --transition-colors:
+    color var(--duration-fast) var(--ease-out),
     background-color var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out);
   --transition-transform: transform var(--duration-default) var(--ease-spring);

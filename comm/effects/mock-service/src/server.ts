@@ -38,6 +38,8 @@ export async function setupMockServer(
     });
     activeWorker = worker;
   } catch (error) {
+    // 开发期 mock 引导失败提示：此时应用日志器尚未接线，console 是唯一可靠
+    // 通道（@console-allow —— 规范 §14.5 生产日志条款之外的开发期基础设施豁免）
     console.warn(
       '[Mock Service] MSW Worker 启动失败（检查是否已执行 `pnpm mock:init` 生成 public/mockServiceWorker.js），已降级为直连模式。',
       error,

@@ -17,26 +17,6 @@
  * @path main/src/components/subapp-progress.vue
  * @since 4.0.0
 -->
-<template>
-  <Transition name="subapp-progress">
-    <div
-      v-if="visible"
-      class="subapp-progress"
-      :class="{ 'is-error': hasError }"
-      role="progressbar"
-      :aria-valuenow="progress"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      :aria-label="`${appName} 加载中 ${progress}%`"
-    >
-      <div class="bar" :style="{ width: `${progress}%` }" />
-      <span v-if="showLabel" class="label">
-        <LucideIcon :name="hasError ? 'lucide:alert-circle' : 'lucide:loader-2'" :size="12" class="icon" :class="{ spinning: !hasError }" />
-        {{ labelText }}
-      </span>
-    </div>
-  </Transition>
-</template>
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
@@ -141,6 +121,26 @@ onUnmounted(() => {
 });
 </script>
 
+<template>
+  <Transition name="subapp-progress">
+    <div
+      v-if="visible"
+      class="subapp-progress"
+      :class="{ 'is-error': hasError }"
+      role="progressbar"
+      :aria-valuenow="progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      :aria-label="`${appName} 加载中 ${progress}%`"
+    >
+      <div class="bar" :style="{ width: `${progress}%` }" />
+      <span v-if="showLabel" class="label">
+        <LucideIcon :name="hasError ? 'lucide:alert-circle' : 'lucide:loader-2'" :size="12" class="icon" :class="{ spinning: !hasError }" />
+        {{ labelText }}
+      </span>
+    </div>
+  </Transition>
+</template>
 <style scoped>
 .subapp-progress {
   position: fixed;

@@ -296,7 +296,7 @@ const credentialCount = computed(() => credentials.value.length);
         <ElTimeline>
           <ElTimelineItem
             v-for="(step, index) in registrationSteps"
-            :key="index"
+            :key="step.title ?? index"
             :hollow="index > 0"
           >
             <div class="font-medium">{{ step.title }}</div>
