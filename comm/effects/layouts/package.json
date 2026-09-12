@@ -33,6 +33,7 @@
     "@ydsz/icons": "workspace:*",
     "@ydsz/locales": "workspace:*",
     "@ydsz/preferences": "workspace:*",
+    "@ydsz/shared-business": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",
