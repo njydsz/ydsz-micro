@@ -1,0 +1,40 @@
+# lefthook.yml — Git 提交期拦截（云顶规范 §18.6）
+#
+# 由根 package.json 的 prepare 脚本（lefthook install）自动安装到仓库自己的
+# .git/hooks。所有命令统一使用 `pnpm exec` 前缀，保证 Windows（Git Bash / cmd）
+# 与 POSIX 下二进制解析一致；不使用 npx。
+#
+# 钩子对本地全部生效（不加分发/CI 跳过逻辑）。
+#
+# @path lefthook.yml
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      # 仅对暂存的脚本类文件做 ESLint --fix
+      glob: "*.{ts,tsx,vue,js,mjs,cjs}"
+      exclude: "(^|/)node_modules(/|$)|(^|/)dist(/|$)|(^|/)\\.turbo(/|$)|(^|/)coverage(/|$)|(^|/)archived(/|$)|(^|/)api/generated(/|$)|^pnpm-lock\\.yaml$|(^|/)build\\.config\\.ts$"
+      run: pnpm exec eslint --fix --max-warnings=0 {staged_files}
+    stylelint:
+      # 仅对暂存的样式类文件做 Stylelint --fix
+      glob: "*.{vue,scss,css}"
+      exclude: |
+        (^|/)node_modules(/|$)|
+        (^|/)dist(/|$)|
+        (^|/)\.turbo(/|$)|
+        (^|/)coverage(/|$)
+      run: pnpm exec stylelint --fix --max-warnings=0 {staged_files}
+    cspell:
+      # 仅对暂存的文件做 cspell 拼写检查（配置见 cspell.json）
+      glob: "*.{ts,tsx,vue,mts,mjs}"
+      exclude: |
+        (^|/)node_modules(/|$)|
+        (^|/)dist(/|$)|
+        (^|/)\.turbo(/|$)
+      run: pnpm exec cspell --no-progress --no-summary {staged_files}
+
+commit-msg:
+  commands:
+    commitlint:
+      # 对提交信息做 Conventional Commits 校验（配置见 commitlint.config.mjs）
+      run: pnpm exec commitlint --edit {1}

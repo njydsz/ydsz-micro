@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz-core/menu-ui 包的 unbuild 构建配置：mkdist 全量转译 + 资源原样拷贝。
  *
  * @path comm\@core\ui-kit\menu-ui\build.config.ts
@@ -6,6 +6,57 @@
  * @since 1.0.0
  */
 import { defineBuildConfig } from 'unbuild';
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * 递归遍历目录下的所有 .vue 文件
+ */
+function walkVueFiles(dir: string, callback: (filePath: string) => void): void {
+  let entries: string[];
+  try {
+    entries = readdirSync(dir);
+  } catch {
+    return;
+  }
+  for (const entry of entries) {
+    const fullPath = join(dir, entry);
+    let st: ReturnType<typeof statSync>;
+    try {
+      st = statSync(fullPath);
+    } catch {
+      continue;
+    }
+    if (st.isDirectory()) {
+      walkVueFiles(fullPath, callback);
+    } else if (entry.endsWith('.vue')) {
+      callback(fullPath);
+    }
+  }
+}
+
+/** 将 dist/vue 中 <style src="*.scss"> 替换为引用同目录下的编译产物 *.css */
+function rewriteStyleSrcToCss(outDir: string): void {
+  walkVueFiles(outDir, (vueFile) => {
+    const raw = readFileSync(vueFile, 'utf-8');
+    const match = raw.match(/<style\b[^>]*\bsrc\s*=\s*["']([^"']+\.scss)["']/i);
+    if (!match) return;
+    const scssPath = match[1];
+    const cssPath = scssPath.replace(/\.scss$/, '.css');
+    const cssFullPath = resolve(dirname(vueFile), cssPath);
+    if (!existsSync(cssFullPath)) return;
+    const rewritten = raw.replace(
+      /<style\b[^>]*\bsrc\s*=\s*["']([^"']+\.scss)["']/i,
+      `<style lang="scss" src="${cssPath}"`,
+    );
+    if (rewritten !== raw) {
+      writeFileSync(vueFile, rewritten, 'utf-8');
+    }
+  });
+}
 
 /**
  * 菜单 UI 包的构建配置：三段 mkdist entries，覆盖资源、SFC 与 TS。
@@ -48,4 +99,10 @@ export default defineBuildConfig({
       pattern: ['**/*.ts'],
     },
   ],
+  hooks: {
+    'mkdist:done'(ctx) {
+      const outDir = ctx.options.outDir ?? 'dist';
+      rewriteStyleSrcToCss(resolve(__dirname, outDir));
+    },
+  },
 });

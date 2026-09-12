@@ -302,5 +302,6 @@ export function getErrorCategoryInfo(
   locale: string,
 ): ErrorCategoryInfo {
   const table = locale.startsWith("en") ? enUSCategories : zhCNCategories;
-  return table[code] ?? UNKNOWN_CATEGORY[locale.startsWith("en") ? "en-US" : "zh-CN"];
+  const fallbackKey = (locale.startsWith("en") ? "en-US" : "zh-CN") as "en-US" | "zh-CN";
+  return table[code] ?? UNKNOWN_CATEGORY[fallbackKey]!;
 }

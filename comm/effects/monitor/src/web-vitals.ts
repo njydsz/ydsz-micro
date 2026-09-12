@@ -11,7 +11,7 @@
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { getWebVitalsEndpoint } from './monitor-endpoints';
+import { getWebVitalsAlertEndpoint, getWebVitalsEndpoint } from './monitor-endpoints';
 
 const logger = createLogger('Monitor:WebVitals');
 

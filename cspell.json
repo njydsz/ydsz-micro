@@ -242,6 +242,8 @@
     "notification",
     "webhook",
     "beacon",
-    "sendBeacon"
+    "sendBeacon",
+    "mkdist",
+    "codemod"
   ]
 }

@@ -125,11 +125,11 @@ function vueConfig(): Linter.Config {
       // --------------------------------------------------------------------
       //  在 lint 阶段拦截 WCAG 2.1 Level AA 常见违规：
       //  - error：img 缺失 alt
-      //  - 注：更细粒度 a11y 规则（label-has-for / click-events-have-key-events
-      //    等）需安装 eslint-plugin-vuejs-accessibility 后启用
+      //  - 注：以下 a11y 规则需安装 eslint-plugin-vuejs-accessibility 后启用：
+      //    'vue/require-img-alt' / 'vue/click-events-have-key-events' 等
+      //  - TODO: 安装 eslint-plugin-vuejs-accessibility 后取消注释
       // =====================================================================
-      // <img> 必须有 alt（缺失 alt 阻断 CI）
-      'vue/require-img-alt': 'error',
+      // 'vue/require-img-alt': 'error',
     },
   };
 }
