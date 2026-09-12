@@ -40,7 +40,7 @@ import {
   listMyDelegateAuths,
   revokeDelegateAuth,
   updateDelegateAuthStatus,
-} from '#/api/flowTask';
+} from '#/api/flowDelegateAuth';
 import type { FlowDelegateAuthPostDTO, FlowDelegateAuthVO } from '#/api/models';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';

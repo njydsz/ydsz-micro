@@ -62,7 +62,7 @@ export interface BatchSendRequestDTO {
   /** 接收人列表（receiverList 模式） */
   receiverList?: string[];
   /** 是否异步发送（默认 true；false 时同步返回结果） */
-  async?: boolean;
+  isAsync?: boolean;
   /** 触发发送的用户 ID */
   senderId?: string;
   /** 直接传入的请求列表（requests 模式，优先于 receiverList） */
@@ -152,7 +152,7 @@ export interface MessageLogQueryDTO {
   /** 游标 ID（searchAfter 分页）：上一页最后一条记录的 ID */
   searchAfterId?: string;
   /** 是否启用 searchAfter 游标分页（true 时优先使用游标分页，忽略 pageNum） */
-  useSearchAfter?: boolean;
+  isUseSearchAfter?: boolean;
 }
 
 /**
@@ -368,6 +368,43 @@ export interface PreferenceUpsertDTO {
 }
 
 /**
+ * 响应式事件数据。
+ *
+ * 作为 WebFlux SSE 推送的统一事件结构，ReactiveSseRegistry 通过 `Sinks.Many<ReactiveEvent>` 管理事件流，
+ * com.njydsz.message.web.controller.ReactiveNotificationController 负责将事件推送到订阅者。
+ * 字段说明：
+ * `eventId` — 事件唯一标识，用于 SSE 的 `id` 字段和客户端去重
+ * `eventType` — 事件类型（如 notification / heartbeat / system），用于 SSE 的 `event` 字段
+ * `targetUserId` — 目标用户 ID（null 表示广播）
+ * `title` / `content` — 事件标题与正文
+ * `level` — 事件级别（INFO / WARN / ERROR / CRITICAL）
+ * `data` — 扩展数据 Map，携带业务自定义 KV
+ * `timestamp` — 事件生成时间戳（UTC 瞬时时间）
+ */
+export interface ReactiveEvent {
+  serialVersionUID?: number;
+  /** 事件唯一标识 */
+  eventId?: string;
+  /** 事件类型（notification / heartbeat / system 等） */
+  eventType?: string;
+  /**
+   * 目标用户 ID。
+   * `null` 表示广播事件，所有订阅者均可接收。
+   */
+  targetUserId?: string;
+  /** 事件标题 */
+  title?: string;
+  /** 事件正文 */
+  content?: string;
+  /** 事件级别（INFO / WARN / ERROR / CRITICAL） */
+  level?: string;
+  /** 扩展业务数据 */
+  data?: Record<string, Record<string, unknown>>;
+  /** 事件生成时间戳 */
+  timestamp?: string;
+}
+
+/**
  * 消息撤回请求 DTO
  */
 export interface RecallRequestDTO {
@@ -424,7 +461,7 @@ export interface RouteRuleUpsertDTO {
   /** 描述说明 */
   description?: string;
   /** 排序序号 */
-  sortOrder?: number;
+  sort?: number;
 }
 
 /**
@@ -794,7 +831,7 @@ export interface MsgLogVO {
 }
 
 /**
- * 消息发送结果 DTO（兼容旧 com.njydsz.common.feign.MessageResult）。
+ * 消息发送结果 DTO（兼容旧 com.njydsz.common.feign.MessageResult）。 *
  *
  * 错误消息分层：
  * #userMessage — 用户友好消息，走 i18n 解析，前端直接展示
@@ -1125,7 +1162,7 @@ export interface BloomFilterStatsVO {
   /** 当前误判率 */
   fpp?: number;
   /** 当前窗口是否为主窗口（true=活跃写入窗口） */
-  primary?: boolean;
+  isPrimary?: boolean;
   /** 当前窗口已运行秒数 */
   windowAgeSeconds?: number;
 }
@@ -1240,7 +1277,7 @@ export interface MsgRouteRuleVO {
   /** 描述说明 */
   description?: string;
   /** 排序序号 */
-  sortOrder?: number;
+  sort?: number;
   /** 状态（ENABLED/DISABLED） */
   status?: string;
   /** 创建人 */
@@ -1321,7 +1358,7 @@ export interface ChannelHealthVO {
   /** 通道名称（大写，如 SMS/EMAIL/PUSH） */
   channel?: string;
   /** 通道是否启用 */
-  enabled?: boolean;
+  isEnabled?: boolean;
   /** 熔断器状态：CLOSED / OPEN / HALF_OPEN */
   circuitBreakerState?: string;
   /** 滑动窗口内失败次数 */

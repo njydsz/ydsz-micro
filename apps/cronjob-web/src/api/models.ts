@@ -598,7 +598,7 @@ export interface BatchResultDTO {
   /** 操作项标识 */
   item?: Record<string, unknown>;
   /** 是否成功 */
-  success?: boolean;
+  isSuccess?: boolean;
   /** 失败原因（成功时为 null） */
   error?: string;
 }
@@ -645,6 +645,8 @@ export interface ConnectorTaskInfo {
  * 连接器导出结果（P2-3）。
  */
 export interface ConnectorExportResult {
+  /** 错误列表初始容量 */
+  ERRORS_CAPACITY?: number;
   /** 总任务数 */
   total?: number;
   /** 成功数 */
@@ -691,7 +693,7 @@ export interface GlueCodeVO {
  */
 export interface ProcessResult {
   /** 是否成功 */
-  success?: boolean;
+  isSuccess?: boolean;
   /** 结果数据（JSON 字符串） */
   result?: string;
   /** 错误信息 */
@@ -735,14 +737,14 @@ export interface JobLogVO {
   execThreadId?: number;
   /** 执行状态: RUNNING / SUCCESS / FAILED / TIMEOUT */
   status?: string;
-  /** 删除标记: 0=未删 / 1=已删 */
-  deleted?: number;
+  /** 删除标记：false=未删 / true=已删 */
+  isDeleted?: boolean;
   /** 分片索引（0-based，非分片任务为 null） */
   shardIndex?: number;
   /** 分片总数（非分片任务为 null） */
   shardTotal?: number;
   /** 慢任务标记（0=非慢 / 1=慢） */
-  isSlow?: number;
+  slow?: number;
   /** 慢任务阈值快照（毫秒） */
   slowThresholdMs?: number;
   /** 入队时间（任务被扫描并入队的时刻） */
@@ -980,7 +982,6 @@ export interface DagInstanceVisualizationVO {
  * {"jobKey":"a","jobId":"1","label":"抽取","x":100,"y":200,"paramsJson":"{}"},
  * {"jobKey":"b","jobId":"2","label":"清洗","x":300,"y":200},
  * {"jobKey":"c","jobId":null,"label":"条件","nodeType":"CONDITION","conditionExpression":"${a.result=='success'}"},
- * {"jobKey":"d","jobId":null,"label":"循环","nodeType":"LOOP","loopCount":3},
  * {"jobKey":"e","jobId":null,"label":"并行","nodeType":"PARALLEL_GATEWAY","parallelBranches":2}
  * ],
  * "edges": [

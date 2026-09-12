@@ -39,6 +39,30 @@ export interface PageQuery {
 }
 
 /**
+ * 接口权限分页查询参数
+ *
+ * 对应 `ydsz_sys_api_permission` 表的分页查询条件，由 Controller 接收并透传给 `ApiPermissionService.page()`。
+ * 继承自 PageQuery，自带 `pageNum` / `pageSize` / `orderBy` / `sort` 等通用分页参数。
+ * 字段语义：
+ * `apiCode` — 权限码模糊匹配（`LIKE %xxx%`）
+ * `apiName` — 接口名称模糊匹配
+ * `controllerClass` — Controller 类名模糊匹配
+ * `status` — 启用状态精确匹配（`=`），可空
+ * 多租户：租户过滤由 MyBatis 拦截器自动注入。
+ */
+export interface ApiPermissionQuery {
+  serialVersionUID?: number;
+  /** 权限码模糊匹配 */
+  apiCode?: string;
+  /** 接口名称模糊匹配 */
+  apiName?: string;
+  /** Controller 类名模糊匹配 */
+  controllerClass?: string;
+  /** 状态精确匹配 */
+  status?: string;
+}
+
+/**
  * 应用信息分页查询参数
  *
  * 对应 `ydsz_sys_app_info` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
@@ -85,6 +109,50 @@ export interface AppInfoDTO {
 }
 
 /**
+ * 配置变更审批单据查询参数。
+ *
+ * 支持分页、状态筛选和资源类型筛选。
+ */
+export interface ConfigApprovalQuery {
+  /** 默认每页大小 */
+  DEFAULT_PAGE_SIZE?: number;
+  /** 页码（从 1 开始） */
+  pageNum?: number;
+  /** 每页大小 */
+  pageSize?: number;
+  /** 审批状态筛选（PENDING / APPROVED / REJECTED / WITHDRAWN，为空表示全部） */
+  status?: string;
+  /** 资源类型筛选（CONFIG / DICT / VARIABLE，为空表示全部） */
+  resourceType?: string;
+  /** 按发起人 ID 筛选（查询「我已发起的」时使用） */
+  submitterId?: string;
+  /** 按当前审批人 ID 筛选（查询「待我审批的」时使用） */
+  approverId?: string;
+}
+
+/**
+ * 配置变更提交审批请求 DTO。
+ *
+ * 前端在配置管理页面发起审批流时提交，包含资源标识、变更前后值和原因。
+ */
+export interface ConfigApprovalSubmitDTO {
+  /** 资源类型（CONFIG / DICT / VARIABLE） */
+  resourceType?: string;
+  /** 资源唯一标识（如配置键、字典类型编码、变量键） */
+  resourceKey?: string;
+  /** 资源分组（仅 CONFIG 类型有值） */
+  resourceGroup?: string;
+  /** 变更操作类型（CREATE / UPDATE / DELETE） */
+  changeType?: string;
+  /** 变更前的 JSON 值（CREATE 时为空） */
+  beforeJson?: string;
+  /** 变更后的 JSON 值（DELETE 时为空） */
+  afterJson?: string;
+  /** 变更原因 */
+  reason?: string;
+}
+
+/**
  * 系统配置分页查询参数
  *
  * 对应 `ydsz_sys_config` 表的分页查询条件，由 Controller 接收并透传给 `ConfigService.page()`。继承自 {@link
@@ -118,8 +186,8 @@ export interface ConfigPageQuery {
  * `configValue` — 配置值
  * `valueType` — 值类型: STRING/NUMBER/BOOLEAN/JSON
  * `defaultValue` — 默认值（配置未设置时使用）
- * `isPublic` — 是否对前端公开: 1 公开 / 0 仅后端
- * `sortOrder` — 排序序号
+ * `public` — 是否对前端公开: true 公开 / false 仅后端
+ * `sort` — 排序序号
  * `status` — 启用状态: ENABLED/DISABLED
  */
 export interface ConfigDTO {
@@ -130,8 +198,8 @@ export interface ConfigDTO {
   valueType?: string;
   defaultValue?: string;
   description?: string;
-  isPublic?: number;
-  sortOrder?: number;
+  isPublic?: boolean;
+  sort?: number;
   status?: string;
 }
 
@@ -148,13 +216,13 @@ export interface ConfigBatchDTO {
  * 系统配置 VO（视图对象）
  *
  * 对应 `ydsz_sys_config` 表的展示视图，是「系统配置中心」列表 / 详情接口的响应载体。
- * 由 com.njydsz.system.infra.converter.SystemConverter 从 {@link
- * com.njydsz.system.infra.entity.Config} 实体转换而来。
+ * 由 SystemConverter 从 {@link
+ * Config} 实体转换而来。
  * 字段语义：
  * `configValue` — 配置值，序列化时按 `valueType` 转换： `STRING` 原样输出；{@code NUMBER /
  * BOOLEAN / JSON} 解析为对应类型
  * `defaultValue` — 默认值（`configValue` 为空时回退）
- * `isPublic` — 是否对前端公开：`1` 公开 / `0` 仅后端； 前端「公开配置」接口仅返回 `isPublic=1`
+ * `isPublic` — 是否对前端公开：`true` 公开 / `false` 仅后端； 前端「公开配置」接口仅返回 `isPublic=true`
  * 的项
  * 使用场景：
  * 配置中心列表 / 详情 / 编辑回显
@@ -173,8 +241,8 @@ export interface ConfigVO {
   valueType?: string;
   defaultValue?: string;
   description?: string;
-  isPublic?: number;
-  sortOrder?: number;
+  isPublic?: boolean;
+  sort?: number;
   status?: string;
 }
 
@@ -244,7 +312,7 @@ export interface DictItemPageQuery {
  * `itemCode` — 字典项编码
  * `itemValue` — 字典项展示值
  * `parentId` — 父级 ID
- * `sortOrder` — 排序号
+ * `sort` — 排序号
  * `description` — 字典项业务说明
  * `extJson` — 扩展属性 JSON
  * `status` — 启用状态: ENABLED/DISABLED
@@ -255,7 +323,7 @@ export interface DictItemDTO {
   typeCode?: string;
   itemCode?: string;
   itemValue?: string;
-  sortOrder?: number;
+  sort?: number;
   description?: string;
   extJson?: string;
   status?: string;
@@ -282,7 +350,7 @@ export interface DictItemBatchDTO {
  * `itemCode` — 字典项编码（业务存储值，`<el-option :value="...">`）
  * `itemValue` — 字典项展示值（前端展示文本）
  * `parentId` — 父级 ID（`0` = 根），支持「省 / 市 / 区县」三级级联
- * `sortOrder` — 同类型内排序号（升序），直接作为 TreeBuilder 排序字段
+ * `sort` — 同类型内排序号（升序），直接作为 TreeBuilder 排序字段
  * `extJson` — 扩展属性 JSON（如地区码、颜色值、图标等），前端按需解析
  * 使用场景：
  * 字典中心列表 / 详情
@@ -308,7 +376,7 @@ export interface DictItemVO {
   itemCode?: string;
   itemValue?: string;
   /** 排序号（同类型内升序），直接作为 TreeBuilder 排序字段 */
-  sortOrder?: number;
+  sort?: number;
   description?: string;
   extJson?: string;
   status?: string;
@@ -376,6 +444,35 @@ export interface AppValidateRequest {
 }
 
 /**
+ * 场景化二级认证请求体（P0-2 标准化）。
+ *
+ * 前端调用 `Post /api/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
+ */
+export interface SecondaryAuthRequest {
+  /**
+   * 当前登录用户的明文密码。
+   * 用于验证用户身份，验证通过后写入场景化安全标记。
+   */
+  password?: string;
+  /**
+   * 场景标识（scene）。
+   * 用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。
+   * 常用值：`password_change`、`role_assign`、`data_export`、`tenant_config`
+   */
+  scene?: string;
+  /**
+   * 二级认证有效期（秒）。
+   * 默认 300 秒（5 分钟）。CRITICAL 级别会自动缩短为 40%。
+   */
+  ttlSeconds?: number;
+  /**
+   * 敏感操作等级。
+   * 默认 HIGH。CRITICAL 级别使用更短的验证窗口（TTL 的 40%，最小 60 秒）。
+   */
+  level?: 'MEDIUM' | 'HIGH' | 'CRITICAL';
+}
+
+/**
  * 租户分页查询参数
  *
  * 对应 `ydsz_sys_tenant` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
@@ -436,14 +533,14 @@ export interface TenantPlanPageQuery {
  * 创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
  * 字段语义：
  * `planCode` — 套餐编码，全局唯一标识
- * `sortOrder` — 排序号（升序，影响前端套餐选择器顺序）
+ * `sort` — 排序号（升序，影响前端套餐选择器顺序）
  */
 export interface TenantPlanDTO {
   id?: string;
   planCode?: string;
   planName?: string;
   description?: string;
-  sortOrder?: number;
+  sort?: number;
   quotaJson?: string;
   featureJson?: string;
   status?: string;
@@ -492,6 +589,34 @@ export interface VariableDTO {
   valueType?: string;
   description?: string;
   status?: string;
+}
+
+/**
+ * 接口权限 VO（视图对象）
+ *
+ * 对应 `ydsz_sys_api_permission` 表的展示视图，是「接口权限注册中心」列表 / 详情接口的响应载体。
+ * 字段语义：
+ * `apiCode` — 权限码（如 sys:config:list）
+ * `httpMethod` — HTTP 方法
+ * `urlPattern` — URL 模式
+ * `controllerClass` — Controller 完全限定名
+ * `methodName` — Controller 方法名
+ * `status` — 启用状态: ENABLED/DISABLED
+ */
+export interface ApiPermissionVO {
+  id?: string;
+  apiCode?: string;
+  apiName?: string;
+  httpMethod?: string;
+  urlPattern?: string;
+  controllerClass?: string;
+  methodName?: string;
+  description?: string;
+  status?: string;
+  createdBy?: string;
+  createdAt?: string;
+  updatedBy?: string;
+  updatedAt?: string;
 }
 
 /**
@@ -565,6 +690,18 @@ export interface AuditLog {
   requestParams?: string;
   /** 响应结果（已脱敏/截断；默认不记录） */
   responseResult?: string;
+  /**
+   * 变更前快照（JSON）。
+   * 仅当 com.njydsz.common.audit.annotation.Audit#recordDiff() = true 时
+   * 在方法执行前由切面查询记录。用于 diff 追溯（如：更新前的用户信息）。
+   */
+  diffBeforeSnapshot?: string;
+  /**
+   * 变更后快照（JSON）。
+   * 方法执行后由切面捕获（含方法返回值）。与 #diffBeforeSnapshot 配合
+   * 记录完整的变更 diff。
+   */
+  diffAfterSnapshot?: string;
   /** 错误信息（业务方法抛异常时记录） */
   errorMessage?: string;
   /** 执行耗时（毫秒） */
@@ -580,21 +717,52 @@ export interface AuditLog {
 }
 
 /**
- * 导入结果 VO
+ * 配置变更审批单视图对象（返回前端）。
  *
- * 封装 Excel 导入的结果统计信息。
+ * 封装审批单的完整展示信息，包括审计日志时间线（JSON 解析后填充）。
+ */
+export interface ConfigApprovalVO {
+  serialVersionUID?: number;
+  /** 审批单唯一 ID */
+  id?: string;
+  /** 审批标题 */
+  title?: string;
+  /** 资源类型（CONFIG / DICT / VARIABLE） */
+  resourceType?: string;
+  /** 资源唯一标识 */
+  resourceKey?: string;
+  /** 资源分组 */
+  resourceGroup?: string;
+  /** 变更操作类型（CREATE / UPDATE / DELETE） */
+  changeType?: string;
+  /** 变更前的 JSON 值 */
+  beforeJson?: string;
+  /** 变更后的 JSON 值 */
+  afterJson?: string;
+  /** 审批状态（PENDING / APPROVED / REJECTED / WITHDRAWN） */
+  status?: string;
+  /** 发起人 ID */
+  submitterId?: string;
+  /** 发起人姓名 */
+  submitterName?: string;
+  /** 发起时间 */
+  submittedAt?: string;
+  /** 当前审批人姓名 */
+  currentApproverName?: string;
+  /** 变更原因 */
+  reason?: string;
+  /** 拒绝原因 */
+  rejectionReason?: string;
+  /** 审批单关闭时间 */
+  closedAt?: string;
+}
+
+/**
+ * 导入结果 VO（系统模块）。
+ *
+ * 封装 Excel 导入的结果统计信息，继承通用 ExcelImportResult 基类。
  */
 export interface ImportResultVO {
-  /** 总行数 */
-  totalCount?: number;
-  /** 成功数 */
-  successCount?: number;
-  /** 失败数 */
-  failCount?: number;
-  /** 跳过的行数（重复或无效数据） */
-  skipCount?: number;
-  /** 错误信息列表 */
-  errors?: string[];
   /** 导入结果消息 */
   message?: string;
 }
@@ -613,6 +781,36 @@ export interface EntityVersionVO {
   changeLog?: string;
   effectiveDate?: string;
   snapshotJson?: string;
+}
+
+/**
+ * 工作台概览统计项 VO
+ *
+ * 供 `GET /api/dashboard/overview` 返回，对齐前端
+ * `OverviewItem` 契约（analytics 页顶部统计卡片）。
+ */
+export interface DashboardOverviewItemVO {
+  /** 统计项标题（如「租户总数」） */
+  title?: string;
+  /** 累计总值标题（如「累计租户」） */
+  totalTitle?: string;
+  /** 累计总值 */
+  totalValue?: number;
+  /** 今日/增量值 */
+  value?: number;
+}
+
+/**
+ * 工作台聚合数据 VO
+ *
+ * 供 `GET /api/dashboard/workspace` 返回，对齐前端 `WorkspaceData` 契约。
+ * 当前版本提供后端可真实计算的「时段化问候语」；项目/待办/动态等列表字段由前端
+ * 按字段粒度回退本地默认值（前端 useWorkspaceData 已内置该合并逻辑），
+ * 待各业务模块沉淀出真实的待办/动态聚合能力后再逐字段接入。
+ */
+export interface DashboardWorkspaceVO {
+  /** 问候文案（按时段 + 当前用户名生成，如「下午好，admin」） */
+  greeting?: string;
 }
 
 /**
@@ -692,7 +890,7 @@ export interface TenantVO {
  * 对应 `ydsz_sys_tenant_plan` 表的展示视图，是「套餐管理」列表 / 详情接口的响应载体。
  * 字段语义：
  * `planCode` — 套餐编码，全局唯一标识
- * `sortOrder` — 排序号（升序，影响前端套餐选择器顺序）
+ * `sort` — 排序号（升序，影响前端套餐选择器顺序）
  * 注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
  * com.njydsz.system.domain.dto.TenantPlanDTO} 负责。
  */
@@ -701,7 +899,7 @@ export interface TenantPlanVO {
   planCode?: string;
   planName?: string;
   description?: string;
-  sortOrder?: number;
+  sort?: number;
   quotaJson?: string;
   featureJson?: string;
 }

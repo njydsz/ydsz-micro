@@ -21,10 +21,11 @@ export function register(data: Record<string, unknown>): Promise<'CONFIDENTIAL' 
 }
 
 /**
- * create: POST /api/admin/oauth2/applications（register 别名）
+ * create: POST /api/admin/oauth2/applications
+ * <p>{@link register} 的别名，供视图层统一使用 create 命名。
  */
 export function create(data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/admin/oauth2/applications`, data);
+  return register(data);
 }
 
 /**

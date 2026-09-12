@@ -49,13 +49,15 @@ export interface SearchRequest {
   keyword?: string;
   /** 搜索范围（实体类型列表），为空表示搜索全部 */
   types?: string[];
-  /** 页码（从 1 开始） */
+  /** 当前页码（从 1 开始） */
   page?: number;
   /** 每页大小 */
   pageSize?: number;
+  /** 偏移量（跳过的记录数） */
+  offset?: number;
   /** 排序字段 */
   sortBy?: string;
-  /** 是否升序 */
+  /** 是否升序（默认 false 降序） */
   ascending?: boolean;
   /** 是否启用高亮 */
   highlight?: boolean;
@@ -67,27 +69,67 @@ export interface SearchRequest {
   highlightFragmentSize?: number;
   /** 是否启用模糊匹配 */
   fuzzy?: boolean;
-  /** 模糊匹配最小相似度（0~1） */
+  /** 模糊匹配最小相似度 */
   fuzzyMinSimilarity?: number;
-  /** 过滤条件（字段名 → 值列表） */
+  /** 过滤条件列表（跨字段 AND，同字段内 OR） */
   filters?: 'EQ' | 'NE' | 'IN' | 'NOT_IN' | 'GT' | 'LT' | 'GTE' | 'LTE' | 'BETWEEN'[];
-  /** 聚合字段列表（用于分面统计） */
-  aggregations?: string[];
-  /** 租户 ID（权限隔离） */
+  /** 聚合/分面配置列表 */
+  aggregations?: SearchAggregation[];
+  /** 租户 ID（用于多租户隔离） */
   tenantId?: string;
-  /** 操作人 ID（权限过滤） */
+  /** 用户 ID（用于数据权限过滤） */
   userId?: string;
-  /** 操作人角色列表（权限过滤） */
+  /** 用户角色列表（用于权限过滤） */
   roles?: string[];
-  /** 操作人部门 ID（权限过滤） */
+  /** 部门 ID（用于权限过滤） */
   deptId?: string;
-  /** 是否管理员（跳过权限过滤） */
+  /** 是否管理员（跳过数据权限过滤） */
   admin?: boolean;
-  /** 是否仅搜索标题字段（不含内容） */
+  /** 是否仅搜索标题 */
   titleOnly?: boolean;
-  /** P3-21: 游标分页 cursor（base64 编码，为空表示从头开始） */
+  /** 游标（用于 keyset 分页） */
   cursor?: string;
-  offset?: string;
+}
+
+/**
+ * 搜索聚合/分面结果
+ *
+ * 封装搜索引擎返回的聚合数据，用于前端分面导航（Faceted Search）。
+ * 每个聚合对象对应一个 `field`，包含多个 Bucket（桶），
+ * 每个桶表示一个分面值及其命中数（doc count）。
+ * 典型用途：商品搜索的分类筛选、标签汇总、价格区间分布等。
+ */
+export interface SearchAggregation {
+  serialVersionUID?: number;
+  /** 聚合字段名 */
+  field?: string;
+  /** 聚合标签（如"类型"、"标签"） */
+  label?: string;
+  /** 聚合桶列表 */
+  buckets?: Record<string, unknown>[];
+  /** 桶键值 */
+  key?: string;
+  /** 桶文档数 */
+  count?: number;
+}
+
+/**
+ * AI 摘要结果 VO。
+ *
+ * 定义 AI 生成的摘要结果数据结构，供 server 层和 api 层共享使用。
+ */
+export interface SummaryResult {
+  serialVersionUID?: number;
+  /** 文件节点ID */
+  fileNodeId?: string;
+  /** 摘要内容 */
+  summary?: string;
+  /** 摘要类型 */
+  summaryType?: string;
+  /** 内容字数 */
+  wordCount?: number;
+  /** 生成时间 */
+  generatedAt?: string;
 }
 
 /**
@@ -128,8 +170,8 @@ export interface FileNodeVO {
   sort?: number;
   currentVersion?: number;
   thumbnailKey?: string;
-  previewReady?: boolean;
-  starred?: boolean;
+  isPreviewReady?: boolean;
+  isStarred?: boolean;
   status?: string;
   shareStatus?: string;
   tenantId?: string;
@@ -172,7 +214,7 @@ export interface BatchResultDTO {
   /** 操作项标识 */
   item?: Record<string, unknown>;
   /** 是否成功 */
-  success?: boolean;
+  isSuccess?: boolean;
   /** 失败原因（成功时为 null） */
   error?: string;
 }
@@ -197,18 +239,43 @@ export interface FileVersionVO {
 }
 
 /**
- * 文件评论 VO */
+ * 文件评论 VO
+ */
 export interface FileCommentVO {
   serialVersionUID?: number;
   id?: string;
   fileNodeId?: string;
   content?: string;
   parentCommentId?: string;
-  resolved?: boolean;
+  isResolved?: boolean;
   position?: string;
-  edited?: boolean;
+  isEdited?: boolean;
   createdBy?: string;
   createdAt?: string;
+}
+
+/**
+ * 知识库空间视图对象
+ *
+ * 返回给前端的空间信息。
+ */
+export interface SpaceVO {
+  serialVersionUID?: number;
+  id?: string;
+  name?: string;
+  description?: string;
+  iconUrl?: string;
+  coverUrl?: string;
+  ownerId?: string;
+  status?: string;
+  visibility?: string;
+  sort?: number;
+  memberCount?: number;
+  nodeCount?: number;
+  quotaLimit?: number;
+  quotaUsed?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 /**
@@ -228,7 +295,7 @@ export interface StorageQuotaVO {
   updatedBy?: string;
   updatedAt?: string;
   revision?: number;
-  deleted?: number;
+  isDeleted?: boolean;
 }
 
 /**
@@ -271,9 +338,9 @@ export interface ShareLinkVO {
   status?: string;
   shareTargetType?: string;
   password?: string;
-  reminderSent?: boolean;
+  isReminderSent?: boolean;
   title?: string;
-  hasPassword?: boolean;
+  isHasPassword?: boolean;
   shareUrl?: string;
   createdBy?: string;
   updatedBy?: string;
@@ -302,7 +369,7 @@ export interface ShareAccessLogVO {
   updatedBy?: string;
   updatedAt?: string;
   revision?: number;
-  deleted?: number;
+  isDeleted?: boolean;
 }
 
 /**
@@ -319,30 +386,6 @@ export interface ShareRecipientVO {
   viewedAt?: string;
   createdBy?: string;
   createdAt?: string;
-}
-
-/**
- * 知识库空间视图对象
- *
- * 返回给前端的空间信息。
- */
-export interface SpaceVO {
-  serialVersionUID?: number;
-  id?: string;
-  name?: string;
-  description?: string;
-  iconUrl?: string;
-  coverUrl?: string;
-  ownerId?: string;
-  status?: string;
-  visibility?: string;
-  sortOrder?: number;
-  memberCount?: number;
-  nodeCount?: number;
-  quotaLimit?: number;
-  quotaUsed?: number;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 /**
@@ -372,10 +415,10 @@ export interface SpaceTemplateDTO {
   category?: string;
   iconUrl?: string;
   tenantId?: string;
-  systemFlag?: boolean;
-  publicAccess?: boolean;
+  isSystem?: boolean;
+  isPublicAccess?: boolean;
   structureJson?: string;
-  sortOrder?: number;
+  sort?: number;
   usageCount?: number;
   createdAt?: string;
   createdBy?: string;
@@ -450,8 +493,8 @@ export interface UserFavoriteVO {
   size?: number;
   path?: string;
   thumbnailKey?: string;
-  sortOrder?: number;
-  starred?: boolean;
+  sort?: number;
+  isStarred?: boolean;
   updatedAt?: string;
   favoritedAt?: string;
 }

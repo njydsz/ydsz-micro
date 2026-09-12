@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud nextwiki"
  },
  "paths": {
-  "/api/v1/nextwiki/analysis/overview": {
+  "/api/nextwiki/analysis/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -36,7 +36,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/analysis/by-type": {
+  "/api/nextwiki/analysis/by-type": {
    "get": {
     "operationId": "statsByType",
     "tags": [
@@ -66,7 +66,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/analysis/top-large-files": {
+  "/api/nextwiki/analysis/top-large-files": {
    "get": {
     "operationId": "topLargeFiles",
     "tags": [
@@ -105,7 +105,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/analysis/summary": {
+  "/api/nextwiki/analysis/summary": {
    "post": {
     "operationId": "analyze",
     "tags": [
@@ -135,7 +135,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/import/batch-upload": {
+  "/api/nextwiki/import/batch-upload": {
    "post": {
     "operationId": "batchUpload",
     "tags": [
@@ -184,7 +184,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/import/zip": {
+  "/api/nextwiki/import/zip": {
    "post": {
     "operationId": "importZip",
     "tags": [
@@ -230,7 +230,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/download/folder/{folderId}": {
+  "/api/nextwiki/download/folder/{folderId}": {
    "post": {
     "operationId": "downloadFolder",
     "tags": [
@@ -277,7 +277,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/download/{nodeId}": {
+  "/api/nextwiki/download/{nodeId}": {
    "post": {
     "operationId": "download",
     "tags": [
@@ -332,7 +332,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/download/{nodeId}/signed-url": {
+  "/api/nextwiki/download/{nodeId}/signed-url": {
    "post": {
     "operationId": "generateSignedUrl",
     "tags": [
@@ -378,7 +378,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/download/signed/{sign}": {
+  "/api/nextwiki/download/signed/{sign}": {
    "get": {
     "operationId": "downloadBySignedUrl",
     "tags": [
@@ -434,7 +434,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/batch/delete": {
+  "/api/nextwiki/files/batch/delete": {
    "post": {
     "operationId": "batchDelete",
     "tags": [
@@ -477,7 +477,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/batch/move": {
+  "/api/nextwiki/files/batch/move": {
    "post": {
     "operationId": "batchMove",
     "tags": [
@@ -517,7 +517,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/versions": {
+  "/api/nextwiki/files/{nodeId}/versions": {
    "get": {
     "operationId": "getVersionHistory",
     "tags": [
@@ -547,7 +547,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/versions/{version}/rollback": {
+  "/api/nextwiki/files/{nodeId}/versions/{version}/rollback": {
    "post": {
     "operationId": "rollbackVersion",
     "tags": [
@@ -594,7 +594,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/versions/diff": {
+  "/api/nextwiki/files/{nodeId}/versions/diff": {
    "get": {
     "operationId": "diffVersions",
     "tags": [
@@ -642,7 +642,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/batch/async-delete": {
+  "/api/nextwiki/files/batch/async-delete": {
    "post": {
     "operationId": "asyncBatchDelete",
     "tags": [
@@ -685,7 +685,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/batch/async-move": {
+  "/api/nextwiki/files/batch/async-move": {
    "post": {
     "operationId": "asyncBatchMove",
     "tags": [
@@ -725,7 +725,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/batch/task/{taskId}": {
+  "/api/nextwiki/files/batch/task/{taskId}": {
    "get": {
     "operationId": "getBatchTaskStatus",
     "tags": [
@@ -755,7 +755,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/star": {
+  "/api/nextwiki/files/{nodeId}/star": {
    "put": {
     "operationId": "toggleStar",
     "tags": [
@@ -793,7 +793,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/chunk/init": {
+  "/api/nextwiki/files/chunk/init": {
    "post": {
     "operationId": "initChunkUpload",
     "tags": [
@@ -857,7 +857,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
+  "/api/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
    "post": {
     "operationId": "uploadChunk",
     "tags": [
@@ -912,7 +912,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/chunk/{uploadId}/complete": {
+  "/api/nextwiki/files/chunk/{uploadId}/complete": {
    "post": {
     "operationId": "completeChunkUpload",
     "tags": [
@@ -950,7 +950,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/chunk/{uploadId}": {
+  "/api/nextwiki/files/chunk/{uploadId}": {
    "delete": {
     "operationId": "abortChunkUpload",
     "tags": [
@@ -980,7 +980,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
+  "/api/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
    "get": {
     "operationId": "getUploadedChunks",
     "tags": [
@@ -1010,7 +1010,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/comments/file/{fileNodeId}": {
+  "/api/nextwiki/comments/file/{fileNodeId}": {
    "get": {
     "operationId": "listComments",
     "tags": [
@@ -1040,7 +1040,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/comments": {
+  "/api/nextwiki/comments": {
    "post": {
     "operationId": "addComment",
     "tags": [
@@ -1088,7 +1088,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/comments/{commentId}": {
+  "/api/nextwiki/comments/{commentId}": {
    "delete": {
     "operationId": "deleteComment",
     "tags": [
@@ -1126,7 +1126,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/comments/{commentId}/resolve": {
+  "/api/nextwiki/comments/{commentId}/resolve": {
    "post": {
     "operationId": "resolveComment",
     "tags": [
@@ -1164,7 +1164,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/upload": {
+  "/api/nextwiki/files/upload": {
    "post": {
     "operationId": "upload",
     "tags": [
@@ -1226,7 +1226,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/folders": {
+  "/api/nextwiki/files/folders": {
    "post": {
     "operationId": "createFolder",
     "tags": [
@@ -1266,7 +1266,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/list": {
+  "/api/nextwiki/files/list": {
    "get": {
     "operationId": "listFiles",
     "tags": [
@@ -1346,7 +1346,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/move": {
+  "/api/nextwiki/files/{nodeId}/move": {
    "put": {
     "operationId": "move",
     "tags": [
@@ -1394,7 +1394,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/rename": {
+  "/api/nextwiki/files/{nodeId}/rename": {
    "put": {
     "operationId": "rename",
     "tags": [
@@ -1442,7 +1442,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}": {
+  "/api/nextwiki/files/{nodeId}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -1480,7 +1480,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/copy": {
+  "/api/nextwiki/files/{nodeId}/copy": {
    "post": {
     "operationId": "copy",
     "tags": [
@@ -1526,7 +1526,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/sort": {
+  "/api/nextwiki/files/sort": {
    "put": {
     "operationId": "batchSort",
     "tags": [
@@ -1566,7 +1566,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/lock": {
+  "/api/nextwiki/files/{nodeId}/lock": {
    "post": {
     "operationId": "lock",
     "tags": [
@@ -1604,7 +1604,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/files/{nodeId}/unlock": {
+  "/api/nextwiki/files/{nodeId}/unlock": {
    "post": {
     "operationId": "unlock",
     "tags": [
@@ -1642,7 +1642,130 @@
     ]
    }
   },
-  "/api/v1/nextwiki/preview/{fileNodeId}/generate": {
+  "/api/internal/space/get": {
+   "get": {
+    "operationId": "getSpaceById",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/space/batch": {
+   "post": {
+    "operationId": "batchGetSpaces",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/quota/get-by-tenant": {
+   "get": {
+    "operationId": "getQuotaByTenantId",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "tenantId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/quota/get-by-space": {
+   "get": {
+    "operationId": "getQuotaBySpaceId",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "spaceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/nextwiki/preview/{fileNodeId}/generate": {
    "post": {
     "operationId": "generatePreview",
     "tags": [
@@ -1672,7 +1795,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/preview/supported": {
+  "/api/nextwiki/preview/supported": {
    "get": {
     "operationId": "isSupported",
     "tags": [
@@ -1702,7 +1825,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/preview/type": {
+  "/api/nextwiki/preview/type": {
    "get": {
     "operationId": "getPreviewType",
     "tags": [
@@ -1732,7 +1855,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/quota/info": {
+  "/api/nextwiki/quota/info": {
    "get": {
     "operationId": "getQuota",
     "tags": [
@@ -1770,7 +1893,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/quota/set": {
+  "/api/nextwiki/quota/set": {
    "post": {
     "operationId": "setQuota",
     "tags": [
@@ -1810,7 +1933,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/search": {
+  "/api/nextwiki/search": {
    "post": {
     "operationId": "search",
     "tags": [
@@ -1850,7 +1973,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/search/suggest": {
+  "/api/nextwiki/search/suggest": {
    "get": {
     "operationId": "suggest",
     "tags": [
@@ -1880,7 +2003,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/search/did-you-mean": {
+  "/api/nextwiki/search/did-you-mean": {
    "get": {
     "operationId": "didYouMean",
     "tags": [
@@ -1910,7 +2033,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/search/rebuild": {
+  "/api/nextwiki/search/rebuild": {
    "post": {
     "operationId": "rebuildIndices",
     "tags": [
@@ -1940,7 +2063,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/search/history": {
+  "/api/nextwiki/search/history": {
    "get": {
     "operationId": "getSearchHistory",
     "tags": [
@@ -1998,7 +2121,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/search/hot": {
+  "/api/nextwiki/search/hot": {
    "get": {
     "operationId": "getHotSearches",
     "tags": [
@@ -2018,7 +2141,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/search/advanced": {
+  "/api/nextwiki/search/advanced": {
    "get": {
     "operationId": "advancedSearch",
     "tags": [
@@ -2082,7 +2205,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/shares": {
+  "/api/nextwiki/shares": {
    "post": {
     "operationId": "createShare",
     "tags": [
@@ -2122,7 +2245,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/shares/verify": {
+  "/api/nextwiki/shares/verify": {
    "post": {
     "operationId": "verifyAccess",
     "tags": [
@@ -2162,7 +2285,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/shares/{shareId}": {
+  "/api/nextwiki/shares/{shareId}": {
    "delete": {
     "operationId": "revoke",
     "tags": [
@@ -2200,7 +2323,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/shares/my": {
+  "/api/nextwiki/shares/my": {
    "get": {
     "operationId": "myShares",
     "tags": [
@@ -2230,7 +2353,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/shares/{shareId}/logs": {
+  "/api/nextwiki/shares/{shareId}/logs": {
    "get": {
     "operationId": "getAccessLogs",
     "tags": [
@@ -2277,7 +2400,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/shares/{shareId}/recipients": {
+  "/api/nextwiki/shares/{shareId}/recipients": {
    "get": {
     "operationId": "getRecipients",
     "tags": [
@@ -2315,7 +2438,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/shares/received": {
+  "/api/nextwiki/shares/received": {
    "get": {
     "operationId": "getReceivedShares",
     "tags": [
@@ -2345,7 +2468,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/spaces": {
+  "/api/nextwiki/spaces": {
    "get": {
     "operationId": "listSpaces",
     "tags": [
@@ -2413,7 +2536,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/spaces/{spaceId}": {
+  "/api/nextwiki/spaces/{spaceId}": {
    "get": {
     "operationId": "getSpace",
     "tags": [
@@ -2533,7 +2656,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/spaces/{spaceId}/archive": {
+  "/api/nextwiki/spaces/{spaceId}/archive": {
    "post": {
     "operationId": "archiveSpace",
     "tags": [
@@ -2571,7 +2694,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/spaces/{spaceId}/members": {
+  "/api/nextwiki/spaces/{spaceId}/members": {
    "post": {
     "operationId": "addMember",
     "tags": [
@@ -2655,7 +2778,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
+  "/api/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
    "delete": {
     "operationId": "removeMember",
     "tags": [
@@ -2701,7 +2824,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/templates": {
+  "/api/nextwiki/templates": {
    "get": {
     "operationId": "listTemplates",
     "tags": [
@@ -2769,7 +2892,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/templates/{templateId}": {
+  "/api/nextwiki/templates/{templateId}": {
    "get": {
     "operationId": "getTemplate",
     "tags": [
@@ -2881,7 +3004,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/templates/{templateId}/use": {
+  "/api/nextwiki/templates/{templateId}/use": {
    "post": {
     "operationId": "useTemplate",
     "tags": [
@@ -2929,7 +3052,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/tags": {
+  "/api/nextwiki/tags": {
    "post": {
     "operationId": "createTag",
     "tags": [
@@ -2987,7 +3110,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/tags/bind": {
+  "/api/nextwiki/tags/bind": {
    "post": {
     "operationId": "bindTag",
     "tags": [
@@ -3027,7 +3150,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/tags/file/{fileNodeId}": {
+  "/api/nextwiki/tags/file/{fileNodeId}": {
    "get": {
     "operationId": "getFileTags",
     "tags": [
@@ -3057,7 +3180,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/tags/recommend/{fileNodeId}": {
+  "/api/nextwiki/tags/recommend/{fileNodeId}": {
    "get": {
     "operationId": "recommendTags",
     "tags": [
@@ -3087,7 +3210,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/trash/list": {
+  "/api/nextwiki/trash/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -3117,7 +3240,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/trash/{trashItemId}/restore": {
+  "/api/nextwiki/trash/{trashItemId}/restore": {
    "post": {
     "operationId": "restore",
     "tags": [
@@ -3155,7 +3278,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/trash/batch-restore": {
+  "/api/nextwiki/trash/batch-restore": {
    "post": {
     "operationId": "batchRestore",
     "tags": [
@@ -3198,7 +3321,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/trash/{trashItemId}": {
+  "/api/nextwiki/trash/{trashItemId}": {
    "delete": {
     "operationId": "purge",
     "tags": [
@@ -3236,7 +3359,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/trash/empty": {
+  "/api/nextwiki/trash/empty": {
    "delete": {
     "operationId": "emptyTrash",
     "tags": [
@@ -3266,7 +3389,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/favorites": {
+  "/api/nextwiki/favorites": {
    "get": {
     "operationId": "listFavorites",
     "tags": [
@@ -3305,7 +3428,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/favorites/{nodeId}": {
+  "/api/nextwiki/favorites/{nodeId}": {
    "post": {
     "operationId": "addFavorite",
     "tags": [
@@ -3379,7 +3502,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/favorites/{nodeId}/is-favorited": {
+  "/api/nextwiki/favorites/{nodeId}/is-favorited": {
    "get": {
     "operationId": "isFavorited",
     "tags": [
@@ -3417,9 +3540,9 @@
     ]
    }
   },
-  "/api/v1/nextwiki/favorites/{nodeId}/sort": {
+  "/api/nextwiki/favorites/{nodeId}/sort": {
    "post": {
-    "operationId": "updateSortOrder",
+    "operationId": "updatesort",
     "tags": [
      "nextwiki"
     ],
@@ -3445,7 +3568,7 @@
       }
      },
      {
-      "name": "sortOrder",
+      "name": "sort",
       "in": "query",
       "required": false,
       "schema": {
@@ -3464,7 +3587,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/favorites/count": {
+  "/api/nextwiki/favorites/count": {
    "get": {
     "operationId": "getFavoriteCount",
     "tags": [
@@ -3494,7 +3617,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/recent": {
+  "/api/nextwiki/recent": {
    "get": {
     "operationId": "listRecent",
     "tags": [
@@ -3561,7 +3684,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/recent/{nodeId}": {
+  "/api/nextwiki/recent/{nodeId}": {
    "post": {
     "operationId": "recordAccess",
     "tags": [
@@ -3643,7 +3766,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/recent/count": {
+  "/api/nextwiki/recent/count": {
    "get": {
     "operationId": "getRecentCount",
     "tags": [
@@ -3673,7 +3796,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/wopi/files/{fileId}": {
+  "/api/nextwiki/wopi/files/{fileId}": {
    "get": {
     "operationId": "checkFileInfo",
     "tags": [
@@ -3719,7 +3842,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/wopi/files/{fileId}/contents": {
+  "/api/nextwiki/wopi/files/{fileId}/contents": {
    "get": {
     "operationId": "getFileContents",
     "tags": [
@@ -3827,7 +3950,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/wopi/files/{fileId}/lock": {
+  "/api/nextwiki/wopi/files/{fileId}/lock": {
    "post": {
     "operationId": "lockFile",
     "tags": [
@@ -3881,7 +4004,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/wopi/files/{fileId}/unlock": {
+  "/api/nextwiki/wopi/files/{fileId}/unlock": {
    "post": {
     "operationId": "unlockFile",
     "tags": [
@@ -3927,7 +4050,7 @@
     ]
    }
   },
-  "/api/v1/nextwiki/ai/summary": {
+  "/api/nextwiki/ai/summary": {
    "post": {
     "operationId": "generateSummary",
     "tags": [
@@ -3967,7 +4090,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/ai/status": {
+  "/api/nextwiki/ai/status": {
    "get": {
     "operationId": "getStatus",
     "tags": [
@@ -3987,7 +4110,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/storage/presigned-upload": {
+  "/api/nextwiki/storage/presigned-upload": {
    "post": {
     "operationId": "generateUploadUrl",
     "tags": [
@@ -4027,7 +4150,7 @@
     }
    }
   },
-  "/api/v1/nextwiki/storage/presigned-download": {
+  "/api/nextwiki/storage/presigned-download": {
    "post": {
     "operationId": "generateDownloadUrl",
     "tags": [
@@ -4075,7 +4198,8 @@
     "properties": {
      "serialVersionUID": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。"
      },
      "code": {
       "type": "string",
@@ -4084,6 +4208,10 @@
      "msg": {
       "type": "string",
       "description": "返回信息"
+     },
+     "level": {
+      "type": "string",
+      "description": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
      },
      "data": {
       "type": "object",
@@ -4120,12 +4248,14 @@
     },
     "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
     "x-field-docs": {
+     "serialVersionUID": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。",
      "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
      "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
      "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。",
      "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。",
      "code": "返回编码",
      "msg": "返回信息",
+     "level": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
      "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
      "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
      "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
@@ -4157,12 +4287,20 @@
      "page": {
       "type": "integer",
       "format": "int32",
-      "description": "页码（从 1 开始）"
+      "description": "当前页码（从 1 开始）",
+      "minimum": 1
      },
      "pageSize": {
       "type": "integer",
       "format": "int32",
-      "description": "每页大小"
+      "description": "每页大小",
+      "minimum": 1
+     },
+     "offset": {
+      "type": "integer",
+      "format": "int32",
+      "description": "偏移量（跳过的记录数）",
+      "minimum": 0
      },
      "sortBy": {
       "type": "string",
@@ -4170,7 +4308,7 @@
      },
      "ascending": {
       "type": "boolean",
-      "description": "是否升序"
+      "description": "是否升序（默认 false 降序）"
      },
      "highlight": {
       "type": "boolean",
@@ -4195,7 +4333,7 @@
      },
      "fuzzyMinSimilarity": {
       "type": "number",
-      "description": "模糊匹配最小相似度（0~1）"
+      "description": "模糊匹配最小相似度"
      },
      "filters": {
       "type": "array",
@@ -4214,73 +4352,112 @@
        ],
        "description": "搜索过滤条件\n\n封装单个字段的多值过滤规则，用于构建搜索引擎（如 Elasticsearch）的 Query DSL。\n同一字段下多个值以 OR 关系组合，不同 Filter 之间以 AND 关系组合。\n\n支持的过滤操作符详见 Operator，支持 EQ、IN、BETWEEN 等多种语义。"
       },
-      "description": "过滤条件（字段名 → 值列表）"
+      "description": "过滤条件列表（跨字段 AND，同字段内 OR）"
      },
      "aggregations": {
       "type": "array",
       "items": {
-       "type": "string"
+       "$ref": "#/components/schemas/SearchAggregation"
       },
-      "description": "聚合字段列表（用于分面统计）"
+      "description": "聚合/分面配置列表"
      },
      "tenantId": {
       "type": "string",
-      "description": "租户 ID（权限隔离）"
+      "description": "租户 ID（用于多租户隔离）"
      },
      "userId": {
       "type": "string",
-      "description": "操作人 ID（权限过滤）"
+      "description": "用户 ID（用于数据权限过滤）"
      },
      "roles": {
       "type": "array",
       "items": {
        "type": "string"
       },
-      "description": "操作人角色列表（权限过滤）"
+      "description": "用户角色列表（用于权限过滤）"
      },
      "deptId": {
       "type": "string",
-      "description": "操作人部门 ID（权限过滤）"
+      "description": "部门 ID（用于权限过滤）"
      },
      "admin": {
       "type": "boolean",
-      "description": "是否管理员（跳过权限过滤）"
+      "description": "是否管理员（跳过数据权限过滤）"
      },
      "titleOnly": {
       "type": "boolean",
-      "description": "是否仅搜索标题字段（不含内容）"
+      "description": "是否仅搜索标题"
      },
      "cursor": {
       "type": "string",
-      "description": "P3-21: 游标分页 cursor（base64 编码，为空表示从头开始）"
-     },
-     "offset": {
-      "type": "string"
+      "description": "游标（用于 keyset 分页）"
      }
     },
     "description": "统一搜索请求\n\n封装所有搜索引擎通用的搜索参数，包括关键词、分页、排序、过滤、高亮等。 各业务模块通过 `SearchProvider` 补充特定于实体的搜索逻辑。",
     "x-field-docs": {
      "keyword": "搜索关键词",
      "types": "搜索范围（实体类型列表），为空表示搜索全部",
-     "page": "页码（从 1 开始）",
+     "page": "当前页码（从 1 开始）",
      "pageSize": "每页大小",
+     "offset": "偏移量（跳过的记录数）",
      "sortBy": "排序字段",
-     "ascending": "是否升序",
+     "ascending": "是否升序（默认 false 降序）",
      "highlight": "是否启用高亮",
      "highlightPreTag": "高亮前置标签",
      "highlightPostTag": "高亮后置标签",
      "highlightFragmentSize": "高亮片段最大长度",
      "fuzzy": "是否启用模糊匹配",
-     "fuzzyMinSimilarity": "模糊匹配最小相似度（0~1）",
-     "filters": "过滤条件（字段名 → 值列表）",
-     "aggregations": "聚合字段列表（用于分面统计）",
-     "tenantId": "租户 ID（权限隔离）",
-     "userId": "操作人 ID（权限过滤）",
-     "roles": "操作人角色列表（权限过滤）",
-     "deptId": "操作人部门 ID（权限过滤）",
-     "admin": "是否管理员（跳过权限过滤）",
-     "titleOnly": "是否仅搜索标题字段（不含内容）",
-     "cursor": "P3-21: 游标分页 cursor（base64 编码，为空表示从头开始）"
+     "fuzzyMinSimilarity": "模糊匹配最小相似度",
+     "filters": "过滤条件列表（跨字段 AND，同字段内 OR）",
+     "aggregations": "聚合/分面配置列表",
+     "tenantId": "租户 ID（用于多租户隔离）",
+     "userId": "用户 ID（用于数据权限过滤）",
+     "roles": "用户角色列表（用于权限过滤）",
+     "deptId": "部门 ID（用于权限过滤）",
+     "admin": "是否管理员（跳过数据权限过滤）",
+     "titleOnly": "是否仅搜索标题",
+     "cursor": "游标（用于 keyset 分页）"
+    }
+   },
+   "SearchAggregation": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "field": {
+      "type": "string",
+      "description": "聚合字段名"
+     },
+     "label": {
+      "type": "string",
+      "description": "聚合标签（如\"类型\"、\"标签\"）"
+     },
+     "buckets": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      },
+      "description": "聚合桶列表"
+     },
+     "key": {
+      "type": "string",
+      "description": "桶键值"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int64",
+      "description": "桶文档数"
+     }
+    },
+    "description": "搜索聚合/分面结果\n\n封装搜索引擎返回的聚合数据，用于前端分面导航（Faceted Search）。\n每个聚合对象对应一个 `field`，包含多个 Bucket（桶），\n每个桶表示一个分面值及其命中数（doc count）。\n\n典型用途：商品搜索的分类筛选、标签汇总、价格区间分布等。",
+    "x-field-docs": {
+     "field": "聚合字段名",
+     "label": "聚合标签（如\"类型\"、\"标签\"）",
+     "buckets": "聚合桶列表",
+     "key": "桶键值",
+     "count": "桶文档数"
     }
    }
   }

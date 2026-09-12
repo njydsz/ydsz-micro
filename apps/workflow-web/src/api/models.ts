@@ -50,14 +50,14 @@ export interface FlowCategoryDTO {
   icon?: string;
   remark?: string;
   tenantId?: string;
-  deleted?: number;
+  isDeleted?: boolean;
 }
 
 /**
  * 抄送查询参数。
  *
  * P0-3: 抄送中心查询参数。 P1-7a: 继承 PageQuery 复用分页安全校验（@Min/@Max/@Pattern + safeOrderBy）。
- * 命名合规说明（1.0.0 DDD 分层规范）：查询请求参数置于 `query/` 包下、以 `Query` 结尾
+ * 命名合规说明（26.09.01 DDD 分层规范）：查询请求参数置于 `query/` 包下、以 `Query` 结尾
  * （符合 §34.2.1 表格：query/ 查询请求参数 以 Query 结尾）。
  */
 export interface FlowCcQuery {
@@ -370,7 +370,7 @@ export interface InstanceMigrationDTO {
    * 是否试运行（dry run）。
    * true 表示仅模拟迁移并返回报告，不实际更新数据库； false 或 null 表示执行实际迁移。
    */
-  dryRun?: boolean;
+  isDryRun?: boolean;
 }
 
 /**
@@ -429,7 +429,7 @@ export interface FlowTaskOperateDTO {
    * 为 true 时优先于 #targetNodeCode / #targetNodeCodes； 为 false 或 null
    * 时走原有退回逻辑（向后兼容）。
    */
-  rejectToInitiator?: boolean;
+  isRejectToInitiator?: boolean;
   /**
    * GAP-P2-9: 自由流（JUMP）运行时指定目标节点办理人列表
    * 对标钉钉/飞书"自由流"能力：跳转时可显式指定目标节点的办理人（用户 ID 字符串列表， 如 `["1001","1002"]`）。非空时覆盖目标节点 {@code
@@ -450,10 +450,10 @@ export interface FlowTaskOperateDTO {
    * 当为 `true` 时，表示该审批是"补录"的，可将任务完成时间向前追溯至 #effectiveTime。
    * `null` 或 `false` 表示即时审批，按当前系统时间处理。
    */
-  backdated?: boolean;
+  isBackdated?: boolean;
   /**
    * P2-1: 补录生效时间。
-   * 当 #backdated 为 `true` 时，该字段指定补录的目标时间（过去时间）。
+   * 当 #isBackdated 为 `true` 时，该字段指定补录的目标时间（过去时间）。
    * 引擎将在归档时将此任务的 `effectiveTime` 设置为该值，影响后续查询排序。
    * 为空则使用当前系统时间作为生效时间。
    */
@@ -464,7 +464,7 @@ export interface FlowTaskOperateDTO {
  * 自建工作流引擎 - 审批附件 DTO
  *
  * P1-6 (GAP-51): 审批时由前端提交的附件信息，序列化为 JSON 传入后端。 字段与 {@link
- * com.njydsz.workflow.infra.entity.FlowAttachment} 对齐， 仅保留业务可见字段，不暴露内部版本号/审计字段。
+ * FlowAttachment} 对齐， 仅保留业务可见字段，不暴露内部版本号/审计字段。
  */
 export interface FlowAttachmentDTO {
   serialVersionUID?: number;
@@ -519,8 +519,8 @@ export interface FlowAttachmentVO {
   providerTraceId?: string;
   /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
-  deleted?: number;
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted） */
+  isDeleted?: boolean;
   createdBy?: string;
   createdAt?: string;
   updatedBy?: string;
@@ -554,7 +554,7 @@ export interface FlowAttachmentPreviewDTO {
   /** 下载 URL（始终提供，前端可降级为下载） */
   downloadUrl?: string;
   /** 是否支持在线预览（false 时前端应引导下载） */
-  previewable?: boolean;
+  isPreviewable?: boolean;
 }
 
 /**
@@ -571,8 +571,8 @@ export interface FlowCategoryVO {
   remark?: string;
   /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
-  deleted?: number;
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted） */
+  isDeleted?: boolean;
   createdBy?: string;
   createdAt?: string;
   updatedBy?: string;
@@ -582,7 +582,7 @@ export interface FlowCategoryVO {
 /**
  * 流程分类树形 VO，用于前端设计器左侧导航树渲染。
  *
- * 由 com.njydsz.workflow.server.service.impl.FlowCategoryServiceImpl#tree(String) 使用 {@link
+ * 由 impl.FlowCategoryServiceImpl#tree(String) 使用 {@link
  * com.njydsz.common.domain.tree.TreeBuilder#buildSimple} 构建，自动填充 `level`/`path` 元数据。
  * 与 FlowCategoryVO 的区别：
  * `children` — 子节点列表（递归嵌套）
@@ -662,8 +662,8 @@ export interface FlowCommentVO {
   providerTraceId?: string;
   /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
-  deleted?: number;
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted） */
+  isDeleted?: boolean;
   createdBy?: string;
   createdAt?: string;
   updatedBy?: string;
@@ -684,8 +684,8 @@ export interface FlowQuickCommentVO {
   isSystem?: number;
   /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
-  deleted?: number;
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted） */
+  isDeleted?: boolean;
   createdBy?: string;
   createdAt?: string;
   updatedBy?: string;
@@ -716,7 +716,7 @@ export interface FlowBatchDeployResultVO {
 /**
  * 流程定义视图对象
  *
- * 用于 Controller 层返回流程定义数据，对应实体 com.njydsz.workflow.infra.entity.FlowDefinition。
+ * 用于 Controller 层返回流程定义数据，对应实体 FlowDefinition。
  */
 export interface FlowDefinitionVO {
   serialVersionUID?: number;
@@ -739,7 +739,7 @@ export interface FlowDefinitionVO {
   /** 激活状态（0=挂起 / 1=激活） */
   activityStatus?: number;
   /** 发布状态（0=未发布 / 1=已发布 / 9=失效） */
-  isPublish?: number;
+  publishStatus?: number;
   /** 监听器类型 */
   listenerType?: string;
   /** 监听器路径（Spring Bean 路径） */
@@ -764,8 +764,8 @@ export interface FlowDefinitionVO {
   lockedAt?: string;
   /** 租户标识（对齐实体继承链 MpBaseEntity.tenantId） */
   tenantId?: string;
-  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.deleted） */
-  deleted?: number;
+  /** 逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted） */
+  isDeleted?: boolean;
   /** 乐观锁版本号（对齐实体继承链 MpBaseEntity.revision） */
   revision?: number;
   createdBy?: string;
@@ -798,7 +798,9 @@ export interface FlowDefinitionDetailVO {
  * FlowNode 视图对象。
  *
  * 提供 ext JSON 的懒解析 getter 方法，避免调用方重复编写解析逻辑。
- * 解析结果缓存在 `parsedExt` 中，同一 VO 多次调用只解析一次。
+ * 解析结果缓存在 transient volatile 字段中，同一 VO 多次调用只解析一次。
+ * 线程安全使用 ReentrantLock 替代 `synchronized` 关键字，
+ * 提供等价的互斥语义同时避免内置锁的局限性。
  */
 export interface FlowNodeVO {
   serialVersionUID?: number;
@@ -838,6 +840,8 @@ export interface FlowNodeVO {
   parsedRejectStrategyConfig?: Record<string, unknown>;
   /** 催办通道配置懒解析缓存（不参与序列化）。 */
   parsedUrgeChannelConfig?: Record<string, unknown>;
+  /** 实例级可重入锁，用于懒解析 double-check（不参与序列化）。 */
+  parseLock?: Record<string, unknown>;
   extMap?: string;
   slaConfigJson?: string;
   serviceNodeConfig?: string;
@@ -847,19 +851,9 @@ export interface FlowNodeVO {
   rejectStrategyConfig?: string;
   urgeChannelConfig?: string;
   defaultFlowId?: string;
-  serviceType?: string;
-  serviceUrl?: string;
-  serviceMethod?: string;
-  serviceScript?: string;
-  emptyStrategy?: string;
-  adminUserId?: string;
-  specifiedUserId?: string;
   autoDedup?: string;
   formSchemaJson?: string;
   priority?: string;
-  escalateUser?: string;
-  timeoutStrategy?: string;
-  timeoutMinutes?: string;
   eventType?: string;
   attachedToRef?: string;
   errorRef?: string;
@@ -948,7 +942,7 @@ export interface FlowDefinitionDiffVO {
 export interface FlowRollbackResultVO {
   serialVersionUID?: number;
   /** 是否回滚成功 */
-  success?: boolean;
+  isSuccess?: boolean;
   /** 结果描述信息 */
   message?: string;
   /** 流程编码 */
@@ -1053,7 +1047,7 @@ export interface FlowDelegateAuthVO {
  * "history": [ ...审批轨迹时间线... ],
  * "myRole": "INITIATOR/APPROVER/OBSERVER",
  * "actions": [ "PASS","REJECT","TRANSFER","WITHDRAW","URGE" ],
- * "canRecall": true
+ * "isCanRecall": true
  * }
  * </pre>
  */
@@ -1076,9 +1070,9 @@ export interface EmbeddedApprovalViewDTO {
   /** 当前用户可执行的快捷操作（PASS/REJECT/TRANSFER/WITHDRAW/URGE/SUBMIT） */
   actions?: string[];
   /** 是否可撤回（仅发起人 + 流程运行中） */
-  canRecall?: boolean;
+  isCanRecall?: boolean;
   /** 流程是否已结束 */
-  finished?: boolean;
+  isFinished?: boolean;
   /** 友好提示（如"未发起流程"/"流程已结束"） */
   message?: string;
   /** 任务 ID */
@@ -1104,7 +1098,7 @@ export interface EmbeddedApprovalViewDTO {
   /** 截止时间 */
   dueAt?: string;
   /** 是否当前用户可操作 */
-  mine?: boolean;
+  isMine?: boolean;
 }
 
 /**
@@ -1289,7 +1283,7 @@ export interface FlowTimelineVO {
  *
  * 用于流程图查询接口（高亮当前节点），包含流程定义、节点列表和跳转列表。
  * 替代 `Map<String, Object>` 返回值，提供编译期类型安全。
- * 架构合规说明（1.0.0 DDD 分层规范）：视图对象置于 `domain/vo/` 包下，
+ * 架构合规说明（26.09.01 DDD 分层规范）：视图对象置于 `domain/vo/` 包下，
  * 以 `VO` 结尾（符合 §34.2.1 表格：vo/ 视图对象）。
  */
 export interface FlowDiagramVO {
@@ -1301,7 +1295,7 @@ export interface FlowDiagramVO {
   /** 跳转列表 */
   skips?: FlowSkipVO[];
   /** 是否为当前激活节点（前端高亮） */
-  active?: boolean;
+  isActive?: boolean;
   /** 节点状态（RUNNING / COMPLETED / PENDING / SKIPPED） */
   nodeState?: string;
 }
@@ -1450,7 +1444,7 @@ export interface FlowAutoTriggerVO {
   conditionExpression?: string;
   description?: string;
   enabled?: number;
-  sortOrder?: number;
+  sort?: number;
   createdBy?: string;
   createdAt?: string;
   updatedBy?: string;
@@ -1526,6 +1520,46 @@ export interface FlowTrendVO {
 }
 
 /**
+ * 流程模拟结果
+ *
+ * 包含模拟执行路径和分析结果。
+ */
+export interface SimulationResult {
+  serialVersionUID?: number;
+  /** 模拟步骤序列 */
+  steps?: SimulationStep[];
+  /** 访问的节点列表 */
+  visitedNodes?: string[];
+  /** 结束节点编码 */
+  endNode?: string;
+  /** 是否到达结束节点 */
+  reachedEnd?: boolean;
+  /** 警告信息列表（如条件永远不满足） */
+  warnings?: string[];
+}
+
+/**
+ * 模拟步骤
+ *
+ * 记录流程模拟执行过程中的单个步骤信息。
+ */
+export interface SimulationStep {
+  serialVersionUID?: number;
+  /** 步骤序号 */
+  stepIndex?: number;
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 节点类型 */
+  nodeType?: string;
+  /** 步骤描述 */
+  description?: string;
+  /** 跳转条件（如有） */
+  condition?: string;
+}
+
+/**
  * 批量催办结果视图对象。
  *
  * 用于返回批量催办操作的结果统计和详细分发信息。
@@ -1545,7 +1579,7 @@ export interface FlowBatchUrgeResultVO {
 /**
  * 流程任务视图对象
  *
- * 用于 Controller 层返回待办/已办任务数据，对应实体 com.njydsz.workflow.infra.entity.FlowRunTask。
+ * 用于 Controller 层返回待办/已办任务数据，对应实体 FlowRunTask。
  */
 export interface FlowRunTaskVO {
   serialVersionUID?: number;

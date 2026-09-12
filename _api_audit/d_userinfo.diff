@@ -1,0 +1,18 @@
+diff --git a/apps/userinfo-web/src/api/oAuth2Application.ts b/apps/userinfo-web/src/api/oAuth2Application.ts
+index b1deb68d0..c0548d313 100644
+--- a/apps/userinfo-web/src/api/oAuth2Application.ts
++++ b/apps/userinfo-web/src/api/oAuth2Application.ts
+@@ -20,13 +20,6 @@ export function register(data: Record<string, unknown>): Promise<'CONFIDENTIAL'
+   return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/admin/oauth2/applications`, data);
+ }
+ 
+-/**
+- * create: POST /api/admin/oauth2/applications（register 别名）
+- */
+-export function create(data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+-  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/admin/oauth2/applications`, data);
+-}
+-
+ /**
+  * page: GET /api/admin/oauth2/applications
+  */

@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud agent"
  },
  "paths": {
-  "/api/v1/agent/execute": {
+  "/api/agent/execute": {
    "post": {
     "operationId": "execute",
     "tags": [
@@ -36,7 +36,7 @@
     }
    }
   },
-  "/api/v1/agent/execute/stream": {
+  "/api/agent/execute/stream": {
    "post": {
     "operationId": "executeStream",
     "tags": [
@@ -66,7 +66,7 @@
     }
    }
   },
-  "/api/v1/agent/chat": {
+  "/api/agent/chat": {
    "post": {
     "operationId": "chat",
     "tags": [
@@ -96,7 +96,7 @@
     }
    }
   },
-  "/api/v1/agent/chat/stream": {
+  "/api/agent/chat/stream": {
    "post": {
     "operationId": "chatStream",
     "tags": [
@@ -126,7 +126,7 @@
     }
    }
   },
-  "/api/v1/agent/chat/batch": {
+  "/api/agent/chat/batch": {
    "post": {
     "operationId": "batchChat",
     "tags": [
@@ -156,7 +156,7 @@
     }
    }
   },
-  "/api/v1/agent/history": {
+  "/api/agent/history": {
    "get": {
     "operationId": "history",
     "tags": [
@@ -222,7 +222,7 @@
     ]
    }
   },
-  "/api/v1/agent/definitions": {
+  "/api/agent/definitions": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -298,7 +298,7 @@
     }
    }
   },
-  "/api/v1/agent/definitions/{id}": {
+  "/api/agent/definitions/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -356,7 +356,7 @@
     ]
    }
   },
-  "/api/v1/agent/definitions/code/{code}": {
+  "/api/agent/definitions/code/{code}": {
    "get": {
     "operationId": "getByCode",
     "tags": [
@@ -386,7 +386,7 @@
     ]
    }
   },
-  "/api/v1/agent/models": {
+  "/api/agent/models": {
    "get": {
     "operationId": "models",
     "tags": [
@@ -406,7 +406,7 @@
     }
    }
   },
-  "/api/v1/agent/tools": {
+  "/api/agent/tools": {
    "get": {
     "operationId": "tools",
     "tags": [
@@ -426,7 +426,7 @@
     }
    }
   },
-  "/api/v1/agent/dag/execute": {
+  "/api/agent/dag/execute": {
    "post": {
     "operationId": "execute",
     "tags": [
@@ -456,7 +456,7 @@
     }
    }
   },
-  "/api/v1/agent/dag/checkpoint/{executionId}": {
+  "/api/agent/dag/checkpoint/{executionId}": {
    "get": {
     "operationId": "getCheckpoint",
     "tags": [
@@ -486,7 +486,7 @@
     ]
    }
   },
-  "/api/v1/agent/dag/validate": {
+  "/api/agent/dag/validate": {
    "post": {
     "operationId": "validate",
     "tags": [
@@ -516,7 +516,7 @@
     }
    }
   },
-  "/api/v1/agent/debug/traces": {
+  "/api/agent/debug/traces": {
    "get": {
     "operationId": "listTraces",
     "tags": [
@@ -547,7 +547,7 @@
     ]
    }
   },
-  "/api/v1/agent/debug/trace/{traceId}": {
+  "/api/agent/debug/trace/{traceId}": {
    "get": {
     "operationId": "getTrace",
     "tags": [
@@ -577,7 +577,7 @@
     ]
    }
   },
-  "/api/v1/agent/debug/trace/{traceId}/replay": {
+  "/api/agent/debug/trace/{traceId}/replay": {
    "post": {
     "operationId": "replayTrace",
     "tags": [
@@ -607,7 +607,7 @@
     ]
    }
   },
-  "/api/v1/agent/approvals/pending": {
+  "/api/agent/approvals/pending": {
    "get": {
     "operationId": "listPending",
     "tags": [
@@ -627,7 +627,7 @@
     }
    }
   },
-  "/api/v1/agent/approvals/{id}": {
+  "/api/agent/approvals/{id}": {
    "get": {
     "operationId": "getApproval",
     "tags": [
@@ -657,7 +657,7 @@
     ]
    }
   },
-  "/api/v1/agent/approvals/{id}/approve": {
+  "/api/agent/approvals/{id}/approve": {
    "post": {
     "operationId": "approve",
     "tags": [
@@ -703,7 +703,7 @@
     ]
    }
   },
-  "/api/v1/agent/approvals/{id}/reject": {
+  "/api/agent/approvals/{id}/reject": {
    "post": {
     "operationId": "reject",
     "tags": [
@@ -749,7 +749,164 @@
     ]
    }
   },
-  "/api/v1/agent/observability/overview": {
+  "/api/agent/insight/report": {
+   "post": {
+    "operationId": "generateReport",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InsightReportRequest"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/agent/insight/report/{reportId}": {
+   "get": {
+    "operationId": "getReport",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "reportId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "deleteReport",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "reportId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/agent/insight/report/{reportId}/html": {
+   "get": {
+    "operationId": "exportHtml",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "reportId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/agent/insight/reports": {
+   "get": {
+    "operationId": "listRecentReports",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/api/agent/observability/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -769,7 +926,7 @@
     }
    }
   },
-  "/api/v1/agent/observability/model-usage": {
+  "/api/agent/observability/model-usage": {
    "get": {
     "operationId": "getModelUsage",
     "tags": [
@@ -800,7 +957,7 @@
     ]
    }
   },
-  "/api/v1/agent/prompt/evaluate": {
+  "/api/agent/prompt/evaluate": {
    "post": {
     "operationId": "evaluate",
     "tags": [
@@ -830,7 +987,7 @@
     }
    }
   },
-  "/api/v1/agent/prompt/compare": {
+  "/api/agent/prompt/compare": {
    "post": {
     "operationId": "compare",
     "tags": [
@@ -860,7 +1017,7 @@
     }
    }
   },
-  "/api/v1/agent/rag/ingest": {
+  "/api/agent/rag/ingest": {
    "post": {
     "operationId": "ingest",
     "tags": [
@@ -890,7 +1047,7 @@
     }
    }
   },
-  "/api/v1/agent/rag/search": {
+  "/api/agent/rag/search": {
    "post": {
     "operationId": "search",
     "tags": [
@@ -920,7 +1077,7 @@
     }
    }
   },
-  "/api/v1/agent/rag/documents/{documentId}": {
+  "/api/agent/rag/documents/{documentId}": {
    "delete": {
     "operationId": "deleteDocument",
     "tags": [
@@ -950,7 +1107,7 @@
     ]
    }
   },
-  "/api/v1/agent/rag/stats": {
+  "/api/agent/rag/stats": {
    "get": {
     "operationId": "stats",
     "tags": [
@@ -970,7 +1127,7 @@
     }
    }
   },
-  "/api/v1/agent/runtime/sessions/active": {
+  "/api/agent/runtime/sessions/active": {
    "get": {
     "operationId": "getActiveSessions",
     "tags": [
@@ -1000,7 +1157,7 @@
     ]
    }
   },
-  "/api/v1/agent/runtime/sessions/recent": {
+  "/api/agent/runtime/sessions/recent": {
    "get": {
     "operationId": "getRecentSessions",
     "tags": [
@@ -1031,7 +1188,7 @@
     ]
    }
   },
-  "/api/v1/agent/runtime/sessions/{executionId}": {
+  "/api/agent/runtime/sessions/{executionId}": {
    "get": {
     "operationId": "getSession",
     "tags": [
@@ -1089,7 +1246,7 @@
     ]
    }
   },
-  "/api/v1/agent/runtime/overview": {
+  "/api/agent/runtime/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -1109,7 +1266,7 @@
     }
    }
   },
-  "/api/v1/agent/teamruns": {
+  "/api/agent/teamruns": {
    "post": {
     "operationId": "createTeamRun",
     "tags": [
@@ -1177,7 +1334,7 @@
     ]
    }
   },
-  "/api/v1/agent/teamruns/{teamRunId}/members": {
+  "/api/agent/teamruns/{teamRunId}/members": {
    "post": {
     "operationId": "addMember",
     "tags": [
@@ -1225,7 +1382,7 @@
     }
    }
   },
-  "/api/v1/agent/teamruns/{teamRunId}/start": {
+  "/api/agent/teamruns/{teamRunId}/start": {
    "post": {
     "operationId": "startTeamRun",
     "tags": [
@@ -1263,7 +1420,7 @@
     ]
    }
   },
-  "/api/v1/agent/teamruns/{teamRunId}/cancel": {
+  "/api/agent/teamruns/{teamRunId}/cancel": {
    "post": {
     "operationId": "cancelTeamRun",
     "tags": [
@@ -1301,7 +1458,7 @@
     ]
    }
   },
-  "/api/v1/agent/teamruns/{teamRunId}": {
+  "/api/agent/teamruns/{teamRunId}": {
    "get": {
     "operationId": "getTeamRun",
     "tags": [
@@ -1339,7 +1496,7 @@
     ]
    }
   },
-  "/api/v1/agent/triggers": {
+  "/api/agent/triggers": {
    "post": {
     "operationId": "createTrigger",
     "tags": [
@@ -1407,7 +1564,7 @@
     ]
    }
   },
-  "/api/v1/agent/triggers/{triggerId}": {
+  "/api/agent/triggers/{triggerId}": {
    "put": {
     "operationId": "updateTrigger",
     "tags": [
@@ -1527,7 +1684,7 @@
     ]
    }
   },
-  "/api/v1/agent/triggers/{triggerId}/enable": {
+  "/api/agent/triggers/{triggerId}/enable": {
    "post": {
     "operationId": "enableTrigger",
     "tags": [
@@ -1565,7 +1722,7 @@
     ]
    }
   },
-  "/api/v1/agent/triggers/{triggerId}/disable": {
+  "/api/agent/triggers/{triggerId}/disable": {
    "post": {
     "operationId": "disableTrigger",
     "tags": [
@@ -1611,7 +1768,8 @@
     "properties": {
      "serialVersionUID": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。"
      },
      "code": {
       "type": "string",
@@ -1620,6 +1778,10 @@
      "msg": {
       "type": "string",
       "description": "返回信息"
+     },
+     "level": {
+      "type": "string",
+      "description": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
      },
      "data": {
       "type": "object",
@@ -1656,12 +1818,14 @@
     },
     "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
     "x-field-docs": {
+     "serialVersionUID": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。",
      "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
      "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
      "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。",
      "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。",
      "code": "返回编码",
      "msg": "返回信息",
+     "level": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
      "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
      "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
      "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
@@ -1711,7 +1875,7 @@
       },
       "description": "启用的工具列表（可选，为空则使用 Agent 默认工具配置）"
      },
-     "stream": {
+     "isStream": {
       "type": "boolean",
       "description": "是否流式输出（true 时通过 SSE 逐块返回结果）"
      }
@@ -1725,8 +1889,11 @@
      "systemPrompt": "系统提示词（可选，覆盖 Agent 默认配置）",
      "maxIterations": "最大迭代次数（ReAct 模式下生效，默认 10）",
      "enabledTools": "启用的工具列表（可选，为空则使用 Agent 默认工具配置）",
-     "stream": "是否流式输出（true 时通过 SSE 逐块返回结果）"
-    }
+     "isStream": "是否流式输出（true 时通过 SSE 逐块返回结果）"
+    },
+    "required": [
+     "userInput"
+    ]
    },
    "ChatRequestDTO": {
     "type": "object",
@@ -1797,7 +1964,10 @@
      "type": "内容类型（text / image_url）",
      "text": "文本内容（type=text 时有效）",
      "imageUrl": "图片 URL（type=image_url 时有效，支持 http(s):// 或 data:image/... 内联格式）"
-    }
+    },
+    "required": [
+     "message"
+    ]
    },
    "BatchChatRequestDTO": {
     "type": "object",
@@ -1815,7 +1985,9 @@
       "items": {
        "type": "object"
       },
-      "description": "批量对话条目列表（至少 1 条，最多 50 条）"
+      "description": "批量对话条目列表（至少 1 条，最多 50 条）",
+      "minLength": 1,
+      "maxLength": 50
      },
      "model": {
       "type": "string",
@@ -1866,7 +2038,10 @@
      "conversationId": "对话 ID（null 则新建）",
      "message": "用户消息（纯文本，与 multimodalContent 二选一）",
      "multimodalContent": "多模态内容段落（Vision 模型，与 message 二选一）"
-    }
+    },
+    "required": [
+     "items"
+    ]
    },
    "AgentDefinitionDTO": {
     "type": "object",
@@ -1956,7 +2131,54 @@
      "dsl": "YAML DSL 内容，定义 DAG 节点和边（必填）",
      "userInput": "用户输入内容（必填）",
      "resumeExecutionId": "续跑的执行 ID（可选）。\n\n传入时尝试从已有检查点恢复，跳过已成功的节点，仅重试失败及未执行的节点。 为空时按全新编排执行。"
-    }
+    },
+    "required": [
+     "userInput"
+    ]
+   },
+   "InsightReportRequest": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string"
+     },
+     "conversationId": {
+      "type": "string"
+     },
+     "reportTitle": {
+      "type": "string"
+     },
+     "query": {
+      "type": "string"
+     },
+     "dataSourceType": {
+      "type": "string"
+     },
+     "dataJson": {
+      "type": "string"
+     },
+     "reportFormat": {
+      "type": "string"
+     },
+     "extraParams": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     }
+    },
+    "required": [
+     "userId",
+     "conversationId",
+     "reportTitle",
+     "query",
+     "dataSourceType",
+     "dataJson",
+     "reportFormat",
+     "extraParams"
+    ],
+    "description": "洞察报告生成请求值对象（不可变 record）。\n\n封装用户触发的 BI 洞察报告生成所需的全部输入参数，包括原始分析查询、数据分析结果、\n期望输出格式等。作为 InsightReportService#generateReport 的入参。\n\n@param userId 触发用户\n@param conversationId 关联对话 ID（可选）\n@param reportTitle 报告标题\n@param query 原始分析查询\n@param dataSourceType 数据源类型（sql / python / mixed）\n@param dataJson 原始数据分析结果的 JSON 字符串\n@param reportFormat 报告格式（html / pdf / markdown）\n@param extraParams 额外参数",
+    "x-field-docs": {}
    },
    "DocumentIngestDTO": {
     "type": "object",
@@ -1988,7 +2210,11 @@
      "content": "文档文本内容（必填，将被分块、向量化和索引）",
      "documentTitle": "文档标题（可选，用于展示和检索）",
      "source": "文档来源（nextwiki/project/contract，用于来源过滤）"
-    }
+    },
+    "required": [
+     "documentId",
+     "content"
+    ]
    },
    "RagQueryDTO": {
     "type": "object",
@@ -2010,7 +2236,7 @@
       "type": "number",
       "description": "最小相似度阈值（0-1，默认 0.7，低于此值的结果将被过滤）"
      },
-     "includeContext": {
+     "isIncludeContext": {
       "type": "boolean",
       "description": "是否包含上下文文本（默认 true，false 时仅返回元数据）"
      }
@@ -2020,8 +2246,11 @@
      "query": "查询文本（必填，将向量化后进行相似度检索）",
      "topK": "返回前 K 条结果（默认 5）",
      "minScore": "最小相似度阈值（0-1，默认 0.7，低于此值的结果将被过滤）",
-     "includeContext": "是否包含上下文文本（默认 true，false 时仅返回元数据）"
-    }
+     "isIncludeContext": "是否包含上下文文本（默认 true，false 时仅返回元数据）"
+    },
+    "required": [
+     "query"
+    ]
    }
   }
  }

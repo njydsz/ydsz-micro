@@ -50,7 +50,7 @@ export interface RuleABPolicyDTO {
   /** 关联的规则编码 */
   ruleCode?: string;
   /** 是否启用自动回滚 */
-  autoRollbackEnabled?: boolean;
+  isAutoRollbackEnabled?: boolean;
   /** 回滚动作（AUTO/NOTIFY） */
   rollbackAction?: string;
   /** 错误率阈值，超过此值触发自动回滚 */
@@ -124,13 +124,13 @@ export interface RuleDefinitionDTO {
    */
   mutexGroup?: string;
   /** 是否可下钻 */
-  drilldownAvailable?: boolean;
+  isDrilldownAvailable?: boolean;
   /** 当前版本号 */
   version?: number;
   /**
    * 租户 ID
    * 多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link
-   * com.njydsz.literule.server.core.DefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link
+   * DefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link
    * RuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。
    */
   tenantId?: string;
@@ -283,7 +283,7 @@ export interface RuleDependencyAddDTO {
   /** 依赖类型：EXECUTE / DATA，默认 EXECUTE */
   dependencyType?: string;
   /** 被依赖规则禁用时是否级联禁用本规则，默认 false */
-  cascadeOnDisable?: boolean;
+  isCascadeOnDisable?: boolean;
   /** 依赖关系描述（可选） */
   description?: string;
 }
@@ -314,6 +314,8 @@ export interface RuleDependencyAddDTO {
  * </pre>
  */
 export interface RuleChainGraph {
+  /** 集合初始容量 */
+  COLLECTION_CAPACITY?: number;
   serialVersionUID?: number;
   /** 画布 ID（全局唯一） */
   graphId?: string;
@@ -327,7 +329,7 @@ export interface RuleChainGraph {
   scenario?: string;
   /** 租户 ID（多租户隔离，P1-3） */
   tenantId?: string;
-  /** 画布版本号（语义化版本，如 1.0.0、1.0.0-SNAPSHOT） */
+  /** 画布版本号（语义化版本，如 26.09.01、26.09.01-SNAPSHOT） */
   version?: string;
   /** 画布状态：DRAFT / PUBLISHED / ARCHIVED（与 RuleStatus 对齐） */
   status?: string;
@@ -536,7 +538,7 @@ export interface RulePackVO {
   /** 是否启用 */
   isEnabled?: boolean;
   /** 是否为官方包 */
-  official?: boolean;
+  isOfficial?: boolean;
   /** 创建人 */
   createdBy?: string;
   /** 创建时间 */
@@ -600,7 +602,7 @@ export interface VariableDefinition {
   /** 变量来源类别（如 EVM / PROJECT / FINANCE / BENCH 等） */
   category?: string;
   /** 是否必填（前端编辑器可标记必填变量） */
-  isRequired?: boolean;
+  required?: boolean;
   simpleType?: string;
 }
 
@@ -649,6 +651,51 @@ export interface CEPHitVO {
 }
 
 /**
+ * 规则评估结果视图对象（VO）。
+ *
+ * 用于前端展示单次规则评估的输出：是否命中、严重级别、生成的告警标题/描述， 以及当前值、阈值、耗时与灰度桶来源，支撑告警展示与问题下钻。
+ */
+export interface RuleResultVO {
+  /** 规则编码 */
+  ruleCode?: string;
+  /** 规则名称（展示用） */
+  ruleName?: string;
+  /** 规则分类 */
+  category?: string;
+  /** 是否命中触发（true=命中并产生告警） */
+  isTriggered?: boolean;
+  /** 命中严重级别（代码，如 HIGH/MEDIUM/LOW/INFO） */
+  severity?: string;
+  /** 命中严重级别枚举（可为 null） */
+  severityEnum?: Record<string, unknown>;
+  /** 告警标题（命中时根据模板生成） */
+  title?: string;
+  /** 告警描述 */
+  description?: string;
+  /** 当前实际值（用于与阈值对比展示） */
+  currentValue?: string;
+  /** 规则设定的判定阈值 */
+  threshold?: string;
+  /** 适用范围 */
+  scope?: string;
+  /** 命中时间 */
+  triggeredAt?: string;
+  /** 是否支持下钻查看命中详情 */
+  isDrilldownAvailable?: boolean;
+  /** 评估耗时（毫秒） */
+  elapsedMs?: number;
+  /** 命中所属桶（如 NORMAL/CANARY，标识来自全量还是灰度） */
+  canaryBucket?: string;
+  /** 是否灰度 */
+  isCanary?: boolean;
+  /** 收集的子结果 */
+  collectedResults?: RuleResultVO[];
+  severityWeight?: string;
+  weight?: string;
+  code?: string;
+}
+
+/**
  * 规则 A/B 测试策略视图对象（VO）。
  *
  * 用于 Controller 层返回 A/B 测试策略的完整信息，包含灰度比例、自动回滚阈值、 评估窗口及通知渠道配置，支撑规则灰度发布的效果评估与安全回滚。
@@ -660,7 +707,7 @@ export interface RuleABPolicyVO {
   /** 关联的规则编码 */
   ruleCode?: string;
   /** 是否启用自动回滚 */
-  autoRollbackEnabled?: boolean;
+  isAutoRollbackEnabled?: boolean;
   /** 回滚动作（ROLLBACK/NOTIFY_ONLY） */
   rollbackAction?: string;
   /** 错误率阈值，超过此值触发自动回滚 */
@@ -705,7 +752,7 @@ export interface RuleABRollbackVO {
   /** 回滚时的样本量 */
   sampleSize?: number;
   /** 是否从灰度版本回滚 */
-  fromCanary?: boolean;
+  isFromCanary?: boolean;
   /** 操作人 */
   operator?: string;
   /** 通知状态（SUCCESS/FAILED/NOT_SENT） */
@@ -760,7 +807,7 @@ export interface RuleDefinitionVO {
   /** 互斥组，同组规则仅命中一条 */
   mutexGroup?: string;
   /** 是否支持下钻查看详情 */
-  drilldownAvailable?: boolean;
+  isDrilldownAvailable?: boolean;
   /** 版本号 */
   version?: number;
   /** 状态（DRAFT/PENDING_REVIEW/APPROVED/PUBLISHED/REJECTED） */
@@ -846,49 +893,13 @@ export interface RuleVersionDiffVO {
 }
 
 /**
- * 规则评估结果视图对象（VO）。
- *
- * 用于前端展示单次规则评估的输出：是否命中、严重级别、生成的告警标题/描述， 以及当前值、阈值、耗时与灰度桶来源，支撑告警展示与问题下钻。
- */
-export interface RuleResultVO {
-  /** 规则编码 */
-  ruleCode?: string;
-  /** 规则名称（展示用） */
-  ruleName?: string;
-  /** 规则分类 */
-  category?: string;
-  /** 是否命中触发（true=命中并产生告警） */
-  triggered?: boolean;
-  /** 命中严重级别（HIGH/MEDIUM/LOW/INFO） */
-  severity?: string;
-  /** 告警标题（命中时根据模板生成） */
-  title?: string;
-  /** 告警描述 */
-  description?: string;
-  /** 当前实际值（用于与阈值对比展示） */
-  currentValue?: string;
-  /** 规则设定的判定阈值 */
-  threshold?: string;
-  /** 适用范围 */
-  scope?: string;
-  /** 命中时间 */
-  triggeredAt?: string;
-  /** 是否支持下钻查看命中详情 */
-  drilldownAvailable?: boolean;
-  /** 评估耗时（毫秒） */
-  elapsedMs?: number;
-  /** 命中所属桶（如 NORMAL/CANARY，标识来自全量还是灰度） */
-  canaryBucket?: string;
-}
-
-/**
  * 表达式校验结果视图对象（VO）。
  *
  * 用于前端展示表达式语法/语义校验结果，包含是否通过、错误类型与精确的位置 （行/列），辅助业务人员定位并修正表达式错误。
  */
 export interface ExpressionValidationResultVO {
   /** 是否校验通过（true=合法可保存） */
-  valid?: boolean;
+  isValid?: boolean;
   /** 错误类型（如 SYNTAX_ERROR / UNDEFINED_VARIABLE / TYPE_MISMATCH） */
   errorType?: string;
   /** 错误描述（中文说明） */
@@ -978,7 +989,7 @@ export interface CategoryNodeVO {
   /** 节点深度（根节点为 0 或 1，逐级递增） */
   depth?: number;
   /** 是否根节点（true=顶层分类） */
-  root?: boolean;
+  isRoot?: boolean;
   /** 该分类下的规则数量（含下级或仅本级，取决于聚合口径） */
   ruleCount?: number;
 }
@@ -1259,7 +1270,7 @@ export interface RuleDependencyVO {
   /** 依赖类型（HARD/SOFT/TRIGGER） */
   dependencyType?: string;
   /** 禁用被依赖规则时是否级联禁用本规则 */
-  cascadeOnDisable?: boolean;
+  isCascadeOnDisable?: boolean;
   /** 依赖描述 */
   description?: string;
   /** 创建人 */
@@ -1342,7 +1353,7 @@ export interface ExpressionPreviewResultVO {
   /** 结果 Java 类型（如 Boolean/BigDecimal/String，用于前端格式化） */
   javaType?: string;
   /** 布尔型求值结果（条件表达式的真假判定） */
-  booleanValue?: boolean;
+  isBooleanValue?: boolean;
   /** 求值耗时（毫秒，用于性能评估） */
   elapsedMs?: number;
   /** 求值错误信息（无错误时为空） */
@@ -1462,7 +1473,7 @@ export interface PackUpdateInfoVO {
   /** 最新可用版本号 */
   latestVersion?: string;
   /** 是否存在可更新版本（true=有新版可升级） */
-  hasUpdate?: boolean;
+  isHasUpdate?: boolean;
   /** 安装时间 */
   installedAt?: string;
   /** 所属行业 */
@@ -1534,7 +1545,7 @@ export interface RuleExecutionTraceVO {
   /** 执行场景标识 */
   scenario?: string;
   /** 是否命中触发 */
-  triggered?: boolean;
+  isTriggered?: boolean;
   /** 命中严重级别（HIGH/MEDIUM/LOW/INFO） */
   severity?: string;
   /** 条件表达式求值结果 */

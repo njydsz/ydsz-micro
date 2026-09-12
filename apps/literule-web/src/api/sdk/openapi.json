@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud literule"
  },
  "paths": {
-  "/api/v1/literule/rules/{ruleCode}/ab-policy": {
+  "/api/literule/rules/{ruleCode}/ab-policy": {
    "get": {
     "operationId": "getABPolicy",
     "tags": [
@@ -82,7 +82,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/ab-rollbacks": {
+  "/api/literule/rules/{ruleCode}/ab-rollbacks": {
    "get": {
     "operationId": "listRollbackHistory",
     "tags": [
@@ -112,7 +112,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/ab-evaluate": {
+  "/api/literule/rules/{ruleCode}/ab-evaluate": {
    "post": {
     "operationId": "evaluateAB",
     "tags": [
@@ -142,7 +142,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/ab-rollback": {
+  "/api/literule/rules/{ruleCode}/ab-rollback": {
    "post": {
     "operationId": "manualRollback",
     "tags": [
@@ -188,7 +188,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules": {
+  "/api/literule/rules": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -264,7 +264,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}": {
+  "/api/literule/rules/{ruleCode}": {
    "get": {
     "operationId": "get",
     "tags": [
@@ -330,7 +330,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/toggle": {
+  "/api/literule/rules/{ruleCode}/toggle": {
    "put": {
     "operationId": "toggle",
     "tags": [
@@ -376,7 +376,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/versions": {
+  "/api/literule/rules/{ruleCode}/versions": {
    "get": {
     "operationId": "listVersions",
     "tags": [
@@ -414,7 +414,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/version-diff": {
+  "/api/literule/rules/{ruleCode}/version-diff": {
    "get": {
     "operationId": "versionDiff",
     "tags": [
@@ -462,7 +462,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/rollback": {
+  "/api/literule/rules/{ruleCode}/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -509,7 +509,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/dry-run": {
+  "/api/literule/rules/dry-run": {
    "post": {
     "operationId": "dryRun",
     "tags": [
@@ -552,7 +552,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/validate": {
+  "/api/literule/rules/validate": {
    "get": {
     "operationId": "validate",
     "tags": [
@@ -582,7 +582,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/evaluate": {
+  "/api/literule/rules/evaluate": {
    "post": {
     "operationId": "evaluate",
     "tags": [
@@ -649,7 +649,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/expr-trace": {
+  "/api/literule/rules/expr-trace": {
    "post": {
     "operationId": "traceExpression",
     "tags": [
@@ -682,7 +682,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/validate-expression": {
+  "/api/literule/rules/validate-expression": {
    "post": {
     "operationId": "validateExpression",
     "tags": [
@@ -712,7 +712,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/validate-batch": {
+  "/api/literule/rules/validate-batch": {
    "post": {
     "operationId": "validateBatch",
     "tags": [
@@ -745,7 +745,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/ab-test": {
+  "/api/literule/rules/{ruleCode}/ab-test": {
    "post": {
     "operationId": "abTest",
     "tags": [
@@ -785,7 +785,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/stats": {
+  "/api/literule/rules/stats": {
    "get": {
     "operationId": "stats",
     "tags": [
@@ -805,7 +805,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/batch-toggle": {
+  "/api/literule/rules/batch-toggle": {
    "post": {
     "operationId": "batchToggle",
     "tags": [
@@ -845,7 +845,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/batch-priority": {
+  "/api/literule/rules/batch-priority": {
    "post": {
     "operationId": "batchPriority",
     "tags": [
@@ -885,7 +885,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/batch-category": {
+  "/api/literule/rules/batch-category": {
    "post": {
     "operationId": "batchCategory",
     "tags": [
@@ -925,7 +925,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/category-tree": {
+  "/api/literule/rules/category-tree": {
    "get": {
     "operationId": "categoryTree",
     "tags": [
@@ -945,7 +945,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/by-category-path": {
+  "/api/literule/rules/by-category-path": {
    "get": {
     "operationId": "listByCategoryPath",
     "tags": [
@@ -975,7 +975,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/by-owner": {
+  "/api/literule/rules/by-owner": {
    "get": {
     "operationId": "listByOwner",
     "tags": [
@@ -1005,7 +1005,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/owner": {
+  "/api/literule/rules/{ruleCode}/owner": {
    "put": {
     "operationId": "setOwner",
     "tags": [
@@ -1051,7 +1051,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/category-path": {
+  "/api/literule/rules/{ruleCode}/category-path": {
    "put": {
     "operationId": "setCategoryPath",
     "tags": [
@@ -1097,7 +1097,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/conflicts": {
+  "/api/literule/rules/conflicts": {
    "get": {
     "operationId": "detectConflicts",
     "tags": [
@@ -1117,7 +1117,7 @@
     }
    }
   },
-  "/api/v1/literule/debug/breakpoints": {
+  "/api/literule/debug/breakpoints": {
    "get": {
     "operationId": "listBreakpoints",
     "tags": [
@@ -1168,7 +1168,7 @@
     }
    }
   },
-  "/api/v1/literule/debug/breakpoints/{breakpointId}": {
+  "/api/literule/debug/breakpoints/{breakpointId}": {
    "delete": {
     "operationId": "removeBreakpoint",
     "tags": [
@@ -1198,7 +1198,7 @@
     ]
    }
   },
-  "/api/v1/literule/debug/sessions": {
+  "/api/literule/debug/sessions": {
    "post": {
     "operationId": "createSession",
     "tags": [
@@ -1249,7 +1249,7 @@
     }
    }
   },
-  "/api/v1/literule/debug/sessions/{sessionId}": {
+  "/api/literule/debug/sessions/{sessionId}": {
    "get": {
     "operationId": "getSession",
     "tags": [
@@ -1307,7 +1307,7 @@
     ]
    }
   },
-  "/api/v1/literule/debug/sessions/{sessionId}/command": {
+  "/api/literule/debug/sessions/{sessionId}/command": {
    "post": {
     "operationId": "submitCommand",
     "tags": [
@@ -1350,7 +1350,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/decision-tables": {
+  "/api/literule/rules/decision-tables": {
    "get": {
     "operationId": "listDecisionTables",
     "tags": [
@@ -1398,7 +1398,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/decision-tables/{tableCode}": {
+  "/api/literule/rules/decision-tables/{tableCode}": {
    "get": {
     "operationId": "getDecisionTable",
     "tags": [
@@ -1428,7 +1428,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/decision-tables/{id}": {
+  "/api/literule/rules/decision-tables/{id}": {
    "delete": {
     "operationId": "deleteDecisionTable",
     "tags": [
@@ -1458,7 +1458,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/decision-tables/{tableCode}/evaluate": {
+  "/api/literule/rules/decision-tables/{tableCode}/evaluate": {
    "post": {
     "operationId": "evaluateDecisionTable",
     "tags": [
@@ -1501,7 +1501,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/decision-tables/{tableCode}/export-excel": {
+  "/api/literule/rules/decision-tables/{tableCode}/export-excel": {
    "get": {
     "operationId": "exportDecisionTableExcel",
     "tags": [
@@ -1540,7 +1540,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/decision-tables/import-excel": {
+  "/api/literule/rules/decision-tables/import-excel": {
    "post": {
     "operationId": "importDecisionTableExcel",
     "tags": [
@@ -1578,7 +1578,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/decision-tables/excel-template": {
+  "/api/literule/rules/decision-tables/excel-template": {
    "get": {
     "operationId": "downloadDecisionTableExcelTemplate",
     "tags": [
@@ -1609,7 +1609,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/dependencies": {
+  "/api/literule/rules/{ruleCode}/dependencies": {
    "post": {
     "operationId": "addDependency",
     "tags": [
@@ -1685,7 +1685,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}": {
+  "/api/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}": {
    "delete": {
     "operationId": "removeDependency",
     "tags": [
@@ -1723,7 +1723,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/dependents": {
+  "/api/literule/rules/{ruleCode}/dependents": {
    "get": {
     "operationId": "listDependents",
     "tags": [
@@ -1753,7 +1753,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/cascading-disable": {
+  "/api/literule/rules/{ruleCode}/cascading-disable": {
    "get": {
     "operationId": "cascadingDisable",
     "tags": [
@@ -1783,7 +1783,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/graph": {
+  "/api/literule/rules/{ruleCode}/graph": {
    "get": {
     "operationId": "getChainGraph",
     "tags": [
@@ -1887,7 +1887,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/graph/validate": {
+  "/api/literule/rules/{ruleCode}/graph/validate": {
    "post": {
     "operationId": "validateChainGraph",
     "tags": [
@@ -1917,7 +1917,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/expression-preview": {
+  "/api/literule/rules/expression-preview": {
    "post": {
     "operationId": "previewExpression",
     "tags": [
@@ -1960,7 +1960,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/graph/dry-run": {
+  "/api/literule/rules/{ruleCode}/graph/dry-run": {
    "post": {
     "operationId": "dryRunGraph",
     "tags": [
@@ -2003,7 +2003,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/graph/invalid-refs": {
+  "/api/literule/rules/{ruleCode}/graph/invalid-refs": {
    "get": {
     "operationId": "invalidGraphRefs",
     "tags": [
@@ -2033,7 +2033,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/expression-functions": {
+  "/api/literule/rules/expression-functions": {
    "get": {
     "operationId": "expressionFunctions",
     "tags": [
@@ -2063,7 +2063,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/export": {
+  "/api/literule/rules/export": {
    "get": {
     "operationId": "exportRules",
     "tags": [
@@ -2083,7 +2083,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/export.yaml": {
+  "/api/literule/rules/export.yaml": {
    "get": {
     "operationId": "exportRulesAsYaml",
     "tags": [
@@ -2103,7 +2103,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/import": {
+  "/api/literule/rules/import": {
    "post": {
     "operationId": "importRules",
     "tags": [
@@ -2143,7 +2143,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/status": {
+  "/api/literule/rules/{ruleCode}/status": {
    "put": {
     "operationId": "changeStatus",
     "tags": [
@@ -2191,7 +2191,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/approve": {
+  "/api/literule/rules/{ruleCode}/approve": {
    "post": {
     "operationId": "approve",
     "tags": [
@@ -2239,7 +2239,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/reject": {
+  "/api/literule/rules/{ruleCode}/reject": {
    "post": {
     "operationId": "reject",
     "tags": [
@@ -2287,7 +2287,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/submit-review": {
+  "/api/literule/rules/{ruleCode}/submit-review": {
    "post": {
     "operationId": "submitReview",
     "tags": [
@@ -2335,7 +2335,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/approve-level": {
+  "/api/literule/rules/{ruleCode}/approve-level": {
    "post": {
     "operationId": "approveLevel",
     "tags": [
@@ -2383,7 +2383,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/reject-level": {
+  "/api/literule/rules/{ruleCode}/reject-level": {
    "post": {
     "operationId": "rejectLevel",
     "tags": [
@@ -2431,7 +2431,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/delegate": {
+  "/api/literule/rules/{ruleCode}/delegate": {
    "post": {
     "operationId": "delegate",
     "tags": [
@@ -2479,7 +2479,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/approval-status": {
+  "/api/literule/rules/{ruleCode}/approval-status": {
    "get": {
     "operationId": "approvalStatus",
     "tags": [
@@ -2509,7 +2509,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/pending-approvals": {
+  "/api/literule/rules/pending-approvals": {
    "get": {
     "operationId": "pendingApprovals",
     "tags": [
@@ -2539,7 +2539,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/cancel-review": {
+  "/api/literule/rules/{ruleCode}/cancel-review": {
    "post": {
     "operationId": "cancelReview",
     "tags": [
@@ -2577,7 +2577,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/approval-flows": {
+  "/api/literule/rules/approval-flows": {
    "get": {
     "operationId": "approvalFlows",
     "tags": [
@@ -2597,7 +2597,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/packs": {
+  "/api/literule/rules/packs": {
    "get": {
     "operationId": "listPacks",
     "tags": [
@@ -2655,7 +2655,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/packs/search": {
+  "/api/literule/rules/packs/search": {
    "get": {
     "operationId": "searchPacks",
     "tags": [
@@ -2685,7 +2685,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{packCode}/latest": {
+  "/api/literule/rules/packs/{packCode}/latest": {
    "get": {
     "operationId": "getLatestPack",
     "tags": [
@@ -2715,7 +2715,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{packCode}/versions": {
+  "/api/literule/rules/packs/{packCode}/versions": {
    "get": {
     "operationId": "listPackVersions",
     "tags": [
@@ -2745,7 +2745,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{packCode}/versions/{version}": {
+  "/api/literule/rules/packs/{packCode}/versions/{version}": {
    "get": {
     "operationId": "getPackVersion",
     "tags": [
@@ -2783,7 +2783,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{packCode}/rollback": {
+  "/api/literule/rules/packs/{packCode}/rollback": {
    "post": {
     "operationId": "rollbackPack",
     "tags": [
@@ -2829,7 +2829,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{packCode}/diff": {
+  "/api/literule/rules/packs/{packCode}/diff": {
    "get": {
     "operationId": "diffPack",
     "tags": [
@@ -2875,7 +2875,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{packCode}/install": {
+  "/api/literule/rules/packs/{packCode}/install": {
    "post": {
     "operationId": "installPack",
     "tags": [
@@ -2921,7 +2921,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{id}": {
+  "/api/literule/rules/packs/{id}": {
    "delete": {
     "operationId": "deletePack",
     "tags": [
@@ -2951,7 +2951,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{id}/official": {
+  "/api/literule/rules/packs/{id}/official": {
    "put": {
     "operationId": "markOfficialPack",
     "tags": [
@@ -2989,7 +2989,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/packs/{id}/rate": {
+  "/api/literule/rules/packs/{id}/rate": {
    "put": {
     "operationId": "ratePack",
     "tags": [
@@ -3027,7 +3027,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/stress-test": {
+  "/api/literule/rules/stress-test": {
    "post": {
     "operationId": "stressTest",
     "tags": [
@@ -3060,7 +3060,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/packs/update-check": {
+  "/api/literule/rules/packs/update-check": {
    "get": {
     "operationId": "checkPackUpdates",
     "tags": [
@@ -3080,7 +3080,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/packs/batch-update": {
+  "/api/literule/rules/packs/batch-update": {
    "post": {
     "operationId": "batchUpdatePacks",
     "tags": [
@@ -3123,7 +3123,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/templates": {
+  "/api/literule/rules/templates": {
    "get": {
     "operationId": "listTemplates",
     "tags": [
@@ -3143,7 +3143,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/templates/category/{category}": {
+  "/api/literule/rules/templates/category/{category}": {
    "get": {
     "operationId": "listTemplatesByCategory",
     "tags": [
@@ -3173,7 +3173,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/templates/industry/{industry}": {
+  "/api/literule/rules/templates/industry/{industry}": {
    "get": {
     "operationId": "listTemplatesByIndustry",
     "tags": [
@@ -3203,7 +3203,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/templates/{templateCode}/import": {
+  "/api/literule/rules/templates/{templateCode}/import": {
    "post": {
     "operationId": "importTemplate",
     "tags": [
@@ -3241,7 +3241,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/traces/{traceId}": {
+  "/api/literule/rules/traces/{traceId}": {
    "get": {
     "operationId": "getTrace",
     "tags": [
@@ -3271,7 +3271,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/traces/rule/{ruleCode}": {
+  "/api/literule/rules/traces/rule/{ruleCode}": {
    "get": {
     "operationId": "getTracesByRule",
     "tags": [
@@ -3310,7 +3310,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/traces/{traceId}/replay": {
+  "/api/literule/rules/traces/{traceId}/replay": {
    "post": {
     "operationId": "replayTrace",
     "tags": [
@@ -3340,7 +3340,7 @@
     ]
    }
   },
-  "/api/v1/literule/rules/traces/batch-replay": {
+  "/api/literule/rules/traces/batch-replay": {
    "post": {
     "operationId": "batchReplayTraces",
     "tags": [
@@ -3373,7 +3373,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/{ruleCode}/impact-preview": {
+  "/api/literule/rules/{ruleCode}/impact-preview": {
    "post": {
     "operationId": "impactPreview",
     "tags": [
@@ -3416,7 +3416,7 @@
     }
    }
   },
-  "/api/v1/literule/rules/traces": {
+  "/api/literule/rules/traces": {
    "get": {
     "operationId": "listRecentTraces",
     "tags": [
@@ -3447,7 +3447,7 @@
     ]
    }
   },
-  "/api/v1/literule/cep/patterns": {
+  "/api/literule/cep/patterns": {
    "get": {
     "operationId": "listPatterns",
     "tags": [
@@ -3495,7 +3495,7 @@
     }
    }
   },
-  "/api/v1/literule/cep/patterns/{pattern-id}": {
+  "/api/literule/cep/patterns/{pattern-id}": {
    "delete": {
     "operationId": "unregisterPattern",
     "tags": [
@@ -3525,7 +3525,7 @@
     ]
    }
   },
-  "/api/v1/literule/cep/events": {
+  "/api/literule/cep/events": {
    "post": {
     "operationId": "feedEvent",
     "tags": [
@@ -3558,7 +3558,7 @@
     }
    }
   },
-  "/api/v1/literule/cep/events/batch": {
+  "/api/literule/cep/events/batch": {
    "post": {
     "operationId": "feedEvents",
     "tags": [
@@ -3594,7 +3594,7 @@
     }
    }
   },
-  "/api/v1/literule/cep/hits": {
+  "/api/literule/cep/hits": {
    "get": {
     "operationId": "recentHits",
     "tags": [
@@ -3614,7 +3614,7 @@
     }
    }
   },
-  "/api/v1/literule/cep/stats": {
+  "/api/literule/cep/stats": {
    "get": {
     "operationId": "stats",
     "tags": [
@@ -3634,7 +3634,7 @@
     }
    }
   },
-  "/api/v1/literule/audit/recent": {
+  "/api/literule/audit/recent": {
    "get": {
     "operationId": "recent",
     "tags": [
@@ -3665,7 +3665,7 @@
     ]
    }
   },
-  "/api/v1/literule/audit/by-rule/{ruleCode}": {
+  "/api/literule/audit/by-rule/{ruleCode}": {
    "get": {
     "operationId": "byRuleCode",
     "tags": [
@@ -3704,7 +3704,7 @@
     ]
    }
   },
-  "/api/v1/literule/audit/by-operator": {
+  "/api/literule/audit/by-operator": {
    "get": {
     "operationId": "byOperator",
     "tags": [
@@ -3743,7 +3743,7 @@
     ]
    }
   },
-  "/api/v1/literule/audit/by-action": {
+  "/api/literule/audit/by-action": {
    "get": {
     "operationId": "byAction",
     "tags": [
@@ -3782,7 +3782,7 @@
     ]
    }
   },
-  "/api/v1/literule/audit/by-time-range": {
+  "/api/literule/audit/by-time-range": {
    "get": {
     "operationId": "byTimeRange",
     "tags": [
@@ -3829,7 +3829,7 @@
     ]
    }
   },
-  "/api/v1/literule/dashboard/overview": {
+  "/api/literule/dashboard/overview": {
    "get": {
     "operationId": "overview",
     "tags": [
@@ -3849,7 +3849,7 @@
     }
    }
   },
-  "/api/v1/literule/dashboard/trends": {
+  "/api/literule/dashboard/trends": {
    "get": {
     "operationId": "trends",
     "tags": [
@@ -3879,7 +3879,7 @@
     ]
    }
   },
-  "/api/v1/literule/dashboard/distribution": {
+  "/api/literule/dashboard/distribution": {
    "get": {
     "operationId": "distribution",
     "tags": [
@@ -3899,7 +3899,7 @@
     }
    }
   },
-  "/api/v1/literule/dashboard/top-rules": {
+  "/api/literule/dashboard/top-rules": {
    "get": {
     "operationId": "topRules",
     "tags": [
@@ -3938,7 +3938,7 @@
     ]
    }
   },
-  "/api/v1/literule/dashboard/realtime": {
+  "/api/literule/dashboard/realtime": {
    "get": {
     "operationId": "realtime",
     "tags": [
@@ -3958,7 +3958,7 @@
     }
    }
   },
-  "/api/v1/literule/dashboard/slow-rules": {
+  "/api/literule/dashboard/slow-rules": {
    "get": {
     "operationId": "slowRules",
     "tags": [
@@ -3989,7 +3989,7 @@
     ]
    }
   },
-  "/api/v1/literule/dashboard/hot-rules": {
+  "/api/literule/dashboard/hot-rules": {
    "get": {
     "operationId": "hotRules",
     "tags": [
@@ -4020,7 +4020,7 @@
     ]
    }
   },
-  "/api/v1/literule/dsl/validate": {
+  "/api/literule/dsl/validate": {
    "post": {
     "operationId": "validate",
     "tags": [
@@ -4053,7 +4053,7 @@
     }
    }
   },
-  "/api/v1/literule/dsl/parse": {
+  "/api/literule/dsl/parse": {
    "post": {
     "operationId": "parse",
     "tags": [
@@ -4086,7 +4086,7 @@
     }
    }
   },
-  "/api/v1/literule/dsl/preview": {
+  "/api/literule/dsl/preview": {
    "post": {
     "operationId": "preview",
     "tags": [
@@ -4119,7 +4119,7 @@
     }
    }
   },
-  "/api/v1/literule/dsl/import": {
+  "/api/literule/dsl/import": {
    "post": {
     "operationId": "importDsl",
     "tags": [
@@ -4152,7 +4152,7 @@
     }
    }
   },
-  "/api/v1/literule/dsl/export": {
+  "/api/literule/dsl/export": {
    "get": {
     "operationId": "exportAll",
     "tags": [
@@ -4182,7 +4182,7 @@
     ]
    }
   },
-  "/api/v1/literule/dsl/export/{ruleCode}": {
+  "/api/literule/dsl/export/{ruleCode}": {
    "get": {
     "operationId": "exportSingle",
     "tags": [
@@ -4212,7 +4212,7 @@
     ]
    }
   },
-  "/api/v1/literule/variables": {
+  "/api/literule/variables": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -4270,7 +4270,7 @@
     }
    }
   },
-  "/api/v1/literule/variables/{varName}": {
+  "/api/literule/variables/{varName}": {
    "get": {
     "operationId": "get",
     "tags": [
@@ -4328,7 +4328,7 @@
     ]
    }
   },
-  "/api/v1/literule/variables/refresh": {
+  "/api/literule/variables/refresh": {
    "post": {
     "operationId": "refresh",
     "tags": [
@@ -4348,7 +4348,7 @@
     }
    }
   },
-  "/api/v1/literule/variables/available": {
+  "/api/literule/variables/available": {
    "get": {
     "operationId": "listAvailable",
     "tags": [
@@ -4367,6 +4367,100 @@
      }
     }
    }
+  },
+  "/api/internal/literule/rules/dry-run": {
+   "post": {
+    "operationId": "dryRun",
+    "tags": [
+     "literule"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "ruleCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/literule/rules/evaluate": {
+   "post": {
+    "operationId": "evaluate",
+    "tags": [
+     "literule"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "ruleCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "scenario",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
   }
  },
  "components": {
@@ -4376,7 +4470,8 @@
     "properties": {
      "serialVersionUID": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。"
      },
      "code": {
       "type": "string",
@@ -4385,6 +4480,10 @@
      "msg": {
       "type": "string",
       "description": "返回信息"
+     },
+     "level": {
+      "type": "string",
+      "description": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
      },
      "data": {
       "type": "object",
@@ -4421,12 +4520,14 @@
     },
     "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
     "x-field-docs": {
+     "serialVersionUID": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。",
      "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
      "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
      "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。",
      "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。",
      "code": "返回编码",
      "msg": "返回信息",
+     "level": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
      "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
      "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
      "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
@@ -4452,7 +4553,7 @@
       "type": "string",
       "description": "关联的规则编码"
      },
-     "autoRollbackEnabled": {
+     "isAutoRollbackEnabled": {
       "type": "boolean",
       "description": "是否启用自动回滚"
      },
@@ -4487,7 +4588,7 @@
     "x-field-docs": {
      "id": "策略唯一标识（主键，更新时传入）",
      "ruleCode": "关联的规则编码",
-     "autoRollbackEnabled": "是否启用自动回滚",
+     "isAutoRollbackEnabled": "是否启用自动回滚",
      "rollbackAction": "回滚动作（AUTO/NOTIFY）",
      "errorRateThreshold": "错误率阈值，超过此值触发自动回滚",
      "minSampleSize": "最小样本量，样本不足时不触发回滚",
@@ -4564,29 +4665,13 @@
       },
       "description": "排序项列表（结构化 OrderItem）。"
      },
-     "cursor": {
-      "type": "string",
-      "description": "游标分页游标值（可选，启用 seek 模式）。\n\n与 offset 分页互斥：当 cursor 非空时，业务层应按 `WHERE id > :cursor` 模式查询，跳过 offset 扫描。"
-     },
-     "orderCount": {
-      "type": "string"
-     },
      "offset": {
       "type": "string"
      },
      "offsetLong": {
       "type": "string"
      },
-     "effectivePageSize": {
-      "type": "string"
-     },
-     "effectivePageNum": {
-      "type": "string"
-     },
-     "startRow": {
-      "type": "string"
-     },
-     "endRow": {
+     "limit": {
       "type": "string"
      }
     },
@@ -4595,9 +4680,12 @@
      "MAX_SEARCH_KEY_LENGTH": "搜索关键字最大长度（仅做截断，不做转义）",
      "pageNum": "当前页码（从1开始）。",
      "pageSize": "每页显示条数。",
-     "orderItems": "排序项列表（结构化 OrderItem）。",
-     "cursor": "游标分页游标值（可选，启用 seek 模式）。\n\n与 offset 分页互斥：当 cursor 非空时，业务层应按 `WHERE id > :cursor` 模式查询，跳过 offset 扫描。"
-    }
+     "orderItems": "排序项列表（结构化 OrderItem）。"
+    },
+    "required": [
+     "pageNum",
+     "pageSize"
+    ]
    },
    "RuleDefinitionDTO": {
     "type": "object",
@@ -4656,7 +4744,7 @@
       "format": "int32",
       "description": "优先级（数值越小越先执行）"
      },
-     "enabled": {
+     "isEnabled": {
       "type": "boolean",
       "description": "是否启用"
      },
@@ -4668,7 +4756,7 @@
       "type": "string",
       "description": "互斥组名称\n\n同组内首个命中的规则执行后，其余规则跳过评估。null 表示无互斥组。"
      },
-     "drilldownAvailable": {
+     "isDrilldownAvailable": {
       "type": "boolean",
       "description": "是否可下钻"
      },
@@ -4679,7 +4767,7 @@
      },
      "tenantId": {
       "type": "string",
-      "description": "租户 ID\n\n多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link\ncom.njydsz.literule.server.core.DefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link\nRuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。"
+      "description": "租户 ID\n\n多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link\nDefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link\nRuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。"
      },
      "environment": {
       "type": "string",
@@ -4746,12 +4834,12 @@
      "titleTemplate": "标题模板（支持 ${var} 占位符）",
      "descriptionTemplate": "描述模板（支持 ${var} 占位符）",
      "priority": "优先级（数值越小越先执行）",
-     "enabled": "是否启用",
+     "isEnabled": "是否启用",
      "scope": "影响范围",
      "mutexGroup": "互斥组名称\n\n同组内首个命中的规则执行后，其余规则跳过评估。null 表示无互斥组。",
-     "drilldownAvailable": "是否可下钻",
+     "isDrilldownAvailable": "是否可下钻",
      "version": "当前版本号",
-     "tenantId": "租户 ID\n\n多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link\ncom.njydsz.literule.server.core.DefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link\nRuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。",
+     "tenantId": "租户 ID\n\n多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link\nDefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link\nRuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。",
      "environment": "环境标识（dev/staging/prod/default）\n\n与 #tenantId 正交，实现多环境规则隔离（P1-5）。\n\n\n`\"default\"`（默认）- 全环境生效，向后兼容\n`\"dev\"` / `\"staging\"` / `\"prod\"` - 仅匹配同环境的上下文\n\n\n过滤规则：规则的 environment 为 `\"default\"` 时匹配任何上下文环境； 非 `\"default\"` 时必须与 {@link\nRuleContextVO#getEnvironment()} 完全匹配。",
      "status": "生命周期状态",
      "effectiveFrom": "生效时间",
@@ -4774,14 +4862,18 @@
      },
      "type": {
       "type": "string",
-      "description": "表达式类型：condition / severity / template，默认 condition"
+      "description": "表达式类型：condition / severity / template，默认 condition",
+      "pattern": "condition|severity|template"
      }
     },
     "description": "表达式校验请求体 DTO\n\n用于 `/rules/validate-expression` 接口，校验条件/严重度/模板表达式。",
     "x-field-docs": {
      "expression": "表达式内容",
      "type": "表达式类型：condition / severity / template，默认 condition"
-    }
+    },
+    "required": [
+     "expression"
+    ]
    },
    "RuleABTestDTO": {
     "type": "object",
@@ -4801,7 +4893,10 @@
     "x-field-docs": {
      "candidate": "候选规则定义（需包含与当前规则相同的 code，服务端强制覆盖）",
      "facts": "测试用事实数据（同一份 facts 分别评估当前规则与候选规则）"
-    }
+    },
+    "required": [
+     "candidate"
+    ]
    },
    "RuleBatchToggleDTO": {
     "type": "object",
@@ -4813,7 +4908,7 @@
       },
       "description": "规则编码列表"
      },
-     "enabled": {
+     "isEnabled": {
       "type": "boolean",
       "description": "是否启用（true=启用，false=停用）"
      }
@@ -4821,8 +4916,12 @@
     "description": "规则批量启停请求体 DTO\n\n用于 `/rules/batch-toggle` 接口，批量启用/停用规则。 启用时校验 status=PUBLISHED，未发布的规则不能启用。",
     "x-field-docs": {
      "ruleCodes": "规则编码列表",
-     "enabled": "是否启用（true=启用，false=停用）"
-    }
+     "isEnabled": "是否启用（true=启用，false=停用）"
+    },
+    "required": [
+     "ruleCodes",
+     "isEnabled"
+    ]
    },
    "RuleBatchPriorityDTO": {
     "type": "object",
@@ -4844,7 +4943,11 @@
     "x-field-docs": {
      "ruleCodes": "规则编码列表",
      "delta": "优先级增量（可为负，最终优先级钳制 0-100）"
-    }
+    },
+    "required": [
+     "ruleCodes",
+     "delta"
+    ]
    },
    "RuleBatchCategoryDTO": {
     "type": "object",
@@ -4865,7 +4968,11 @@
     "x-field-docs": {
      "ruleCodes": "规则编码列表",
      "category": "目标分类"
-    }
+    },
+    "required": [
+     "ruleCodes",
+     "category"
+    ]
    },
    "DecisionTableDTO": {
     "type": "object",
@@ -4936,7 +5043,7 @@
       "type": "string",
       "description": "命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/ANY/RULE_ORDER）"
      },
-     "enabled": {
+     "isEnabled": {
       "type": "boolean",
       "description": "是否启用"
      },
@@ -4963,7 +5070,7 @@
      "rows": "决策行数据列表",
      "defaultActions": "默认动作（无匹配行时执行）",
      "hitPolicy": "命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/ANY/RULE_ORDER）",
-     "enabled": "是否启用",
+     "isEnabled": "是否启用",
      "priority": "优先级，数值越小优先级越高",
      "version": "版本号"
     }
@@ -4979,7 +5086,7 @@
       "type": "string",
       "description": "依赖类型：EXECUTE / DATA，默认 EXECUTE"
      },
-     "cascadeOnDisable": {
+     "isCascadeOnDisable": {
       "type": "boolean",
       "description": "被依赖规则禁用时是否级联禁用本规则，默认 false"
      },
@@ -4992,13 +5099,21 @@
     "x-field-docs": {
      "dependsOnRuleCode": "被依赖的规则编码",
      "dependencyType": "依赖类型：EXECUTE / DATA，默认 EXECUTE",
-     "cascadeOnDisable": "被依赖规则禁用时是否级联禁用本规则，默认 false",
+     "isCascadeOnDisable": "被依赖规则禁用时是否级联禁用本规则，默认 false",
      "description": "依赖关系描述（可选）"
-    }
+    },
+    "required": [
+     "dependsOnRuleCode"
+    ]
    },
    "RuleChainGraph": {
     "type": "object",
     "properties": {
+     "COLLECTION_CAPACITY": {
+      "type": "integer",
+      "format": "int32",
+      "description": "集合初始容量"
+     },
      "serialVersionUID": {
       "type": "integer",
       "format": "int64"
@@ -5090,6 +5205,7 @@
     },
     "description": "可视化规则链编排画布图 DTO（P2-1）\n\n规则链画布的完整元数据模型，由 ChainNodeDTO 节点集合、 ChainEdgeDTO 连线集合以及画布视口元数据组成。\n支撑前端可视化规则编排画布的\"画布持久化\"能力：\n\n\n规则链可视化编辑（拖拽节点、连线、布局自动对齐）\n规则链版本回放（按 graphId 拉取历史画布快照）\n规则链导入导出（导出为 JSON，跨环境同步）\n\n\n该 DTO 与 RuleChain 的关系：\n\n\nRuleChain：运行时执行模型，承载规则编排语义（THEN/WHEN/IF...），不含布局信息\nRuleChainGraph：可视化元数据模型，承载画布节点位置和连线，不参与运行时执行\n\n\n通过 ChainGraphConverter 可在 RuleChain 与 RuleChainGraph 之间双向转换： RuleChain → Graph\n提取结构骨架（不包含位置），Graph → RuleChain 还原可执行编排。\n\n典型用法：\n\n<pre>\nRuleChainGraph graph = RuleChainGraph.builder()\n.graphId(\"graph-1\")\n.name(\"CPI 预警链\")\n.scenario(\"EVM\")\n.nodes(List.of(node1, node2))\n.edges(List.of(edge1))\n.viewport(new RuleChainGraph.Viewport(0, 0, 1.0))\n.build();\n</pre>",
     "x-field-docs": {
+     "COLLECTION_CAPACITY": "集合初始容量",
      "graphId": "画布 ID（全局唯一）",
      "name": "画布名称（如\"CPI 预警链-2024Q1\"）",
      "ruleCode": "关联规则编码（一对一，P0-1 增强：作为画布查询的 key）",
@@ -5106,7 +5222,10 @@
      "updatedAt": "最后更新时间",
      "createdBy": "创建人",
      "updatedBy": "最后更新人"
-    }
+    },
+    "required": [
+     "name"
+    ]
    },
    "ChainNodeDTO": {
     "type": "object",
@@ -5303,7 +5422,10 @@
     "x-field-docs": {
      "targetStatus": "目标状态（RuleStatus 枚举名，如 PUBLISHED / ARCHIVED）",
      "comment": "变更备注（审批意见/驳回理由等，可选）"
-    }
+    },
+    "required": [
+     "targetStatus"
+    ]
    },
    "RuleApproveDTO": {
     "type": "object",
@@ -5329,7 +5451,10 @@
     "description": "规则审批驳回请求体 DTO\n\n用于 `/rules/{ruleCode`/reject} 接口，将规则从 DRAFT/REVIEW/PUBLISHED 状态变更为 ARCHIVED，并记录驳回理由。",
     "x-field-docs": {
      "reason": "驳回理由（必填）"
-    }
+    },
+    "required": [
+     "reason"
+    ]
    },
    "RuleSubmitReviewDTO": {
     "type": "object",
@@ -5360,7 +5485,10 @@
     "x-field-docs": {
      "delegatedTo": "被委托人工号（必填）",
      "comment": "委托说明（可选）"
-    }
+    },
+    "required": [
+     "delegatedTo"
+    ]
    },
    "RulePackVO": {
     "type": "object",
@@ -5422,11 +5550,11 @@
       "type": "number",
       "description": "评分（0~5）"
      },
-     "enabled": {
+     "isEnabled": {
       "type": "boolean",
       "description": "是否启用"
      },
-     "official": {
+     "isOfficial": {
       "type": "boolean",
       "description": "是否为官方包"
      },
@@ -5464,8 +5592,8 @@
      "author": "作者",
      "downloadCount": "下载次数",
      "rating": "评分（0~5）",
-     "enabled": "是否启用",
-     "official": "是否为官方包",
+     "isEnabled": "是否启用",
+     "isOfficial": "是否为官方包",
      "createdBy": "创建人",
      "createdAt": "创建时间",
      "updatedBy": "更新人",

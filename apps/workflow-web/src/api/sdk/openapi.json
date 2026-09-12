@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud workflow"
  },
  "paths": {
-  "/api/v1/workflow/advanced/report/weekly": {
+  "/api/workflow/advanced/report/weekly": {
    "get": {
     "operationId": "weeklyReport",
     "tags": [
@@ -26,7 +26,7 @@
     }
    }
   },
-  "/api/v1/workflow/advanced/report/monthly": {
+  "/api/workflow/advanced/report/monthly": {
    "get": {
     "operationId": "monthlyReport",
     "tags": [
@@ -46,7 +46,7 @@
     }
    }
   },
-  "/api/v1/workflow/advanced/report/weekly/send": {
+  "/api/workflow/advanced/report/weekly/send": {
    "post": {
     "operationId": "sendWeekly",
     "tags": [
@@ -66,7 +66,7 @@
     }
    }
   },
-  "/api/v1/workflow/advanced/report/monthly/send": {
+  "/api/workflow/advanced/report/monthly/send": {
    "post": {
     "operationId": "sendMonthly",
     "tags": [
@@ -86,7 +86,7 @@
     }
    }
   },
-  "/api/v1/workflow/advanced/merge": {
+  "/api/workflow/advanced/merge": {
    "post": {
     "operationId": "merge",
     "tags": [
@@ -119,7 +119,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/merge/{mergeGroupId}": {
+  "/api/workflow/advanced/merge/{mergeGroupId}": {
    "get": {
     "operationId": "getMergeGroup",
     "tags": [
@@ -149,7 +149,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/merge/{mergeGroupId}/pass": {
+  "/api/workflow/advanced/merge/{mergeGroupId}/pass": {
    "post": {
     "operationId": "mergePass",
     "tags": [
@@ -187,7 +187,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/merge/{mergeGroupId}/reject": {
+  "/api/workflow/advanced/merge/{mergeGroupId}/reject": {
    "post": {
     "operationId": "mergeReject",
     "tags": [
@@ -225,7 +225,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/mergeable": {
+  "/api/workflow/advanced/mergeable": {
    "get": {
     "operationId": "mergeable",
     "tags": [
@@ -245,7 +245,7 @@
     }
    }
   },
-  "/api/v1/workflow/advanced/countersign/{taskId}/votePassRate": {
+  "/api/workflow/advanced/countersign/{taskId}/votePassRate": {
    "post": {
     "operationId": "updateVotePassRate",
     "tags": [
@@ -283,7 +283,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/countersign/{taskId}/approveCount": {
+  "/api/workflow/advanced/countersign/{taskId}/approveCount": {
    "post": {
     "operationId": "updateApproveCount",
     "tags": [
@@ -322,7 +322,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/dedup/{instanceId}/check/{userId}": {
+  "/api/workflow/advanced/dedup/{instanceId}/check/{userId}": {
    "get": {
     "operationId": "hasApproved",
     "tags": [
@@ -360,7 +360,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/dedup/{instanceId}/approvedUsers": {
+  "/api/workflow/advanced/dedup/{instanceId}/approvedUsers": {
    "get": {
     "operationId": "approvedUsers",
     "tags": [
@@ -390,7 +390,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/urge/cooldown/{instanceId}": {
+  "/api/workflow/advanced/urge/cooldown/{instanceId}": {
    "get": {
     "operationId": "urgeCooldown",
     "tags": [
@@ -420,7 +420,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/offlineForward/auto": {
+  "/api/workflow/advanced/offlineForward/auto": {
    "post": {
     "operationId": "autoForward",
     "tags": [
@@ -450,7 +450,7 @@
     ]
    }
   },
-  "/api/v1/workflow/advanced/offlineForward/manual": {
+  "/api/workflow/advanced/offlineForward/manual": {
    "post": {
     "operationId": "manualForward",
     "tags": [
@@ -488,7 +488,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/overview": {
+  "/api/workflow/analytics/overview": {
    "get": {
     "operationId": "overview",
     "tags": [
@@ -528,7 +528,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/approverEfficiency": {
+  "/api/workflow/analytics/approverEfficiency": {
    "get": {
     "operationId": "approverEfficiency",
     "tags": [
@@ -577,7 +577,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/flowEfficiency": {
+  "/api/workflow/analytics/flowEfficiency": {
    "get": {
     "operationId": "flowEfficiency",
     "tags": [
@@ -617,7 +617,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/nodeDuration": {
+  "/api/workflow/analytics/nodeDuration": {
    "get": {
     "operationId": "nodeDuration",
     "tags": [
@@ -647,7 +647,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/approvalTrend": {
+  "/api/workflow/analytics/approvalTrend": {
    "get": {
     "operationId": "approvalTrend",
     "tags": [
@@ -695,7 +695,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/history/config": {
+  "/api/workflow/analytics/history/config": {
    "get": {
     "operationId": "getArchiveConfig",
     "tags": [
@@ -715,7 +715,7 @@
     }
    }
   },
-  "/api/v1/workflow/analytics/history/archive": {
+  "/api/workflow/analytics/history/archive": {
    "post": {
     "operationId": "archive",
     "tags": [
@@ -764,7 +764,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/history/purge": {
+  "/api/workflow/analytics/history/purge": {
    "post": {
     "operationId": "purge",
     "tags": [
@@ -795,7 +795,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/i18n/enum/{enumType}": {
+  "/api/workflow/analytics/i18n/enum/{enumType}": {
    "get": {
     "operationId": "enumDescriptions",
     "tags": [
@@ -833,7 +833,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/i18n/enum/{enumType}/{enumName}": {
+  "/api/workflow/analytics/i18n/enum/{enumType}/{enumName}": {
    "get": {
     "operationId": "enumDescription",
     "tags": [
@@ -879,7 +879,7 @@
     ]
    }
   },
-  "/api/v1/workflow/analytics/i18n/locales": {
+  "/api/workflow/analytics/i18n/locales": {
    "get": {
     "operationId": "supportedLocales",
     "tags": [
@@ -899,7 +899,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/attachment/task/{taskId}": {
+  "/api/workflow/engine/attachment/task/{taskId}": {
    "get": {
     "operationId": "listByTask",
     "tags": [
@@ -929,7 +929,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/attachment/instance/{instanceId}": {
+  "/api/workflow/engine/attachment/instance/{instanceId}": {
    "get": {
     "operationId": "listByInstance",
     "tags": [
@@ -959,7 +959,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/attachment/{attachmentId}": {
+  "/api/workflow/engine/attachment/{attachmentId}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -997,7 +997,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/attachment/{attachmentId}/preview": {
+  "/api/workflow/engine/attachment/{attachmentId}/preview": {
    "get": {
     "operationId": "preview",
     "tags": [
@@ -1027,7 +1027,7 @@
     ]
    }
   },
-  "/api/v1/workflow/categories": {
+  "/api/workflow/categories": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -1103,7 +1103,7 @@
     }
    }
   },
-  "/api/v1/workflow/categories/tree": {
+  "/api/workflow/categories/tree": {
    "get": {
     "operationId": "tree",
     "tags": [
@@ -1123,7 +1123,7 @@
     }
    }
   },
-  "/api/v1/workflow/categories/{id}": {
+  "/api/workflow/categories/{id}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -1153,7 +1153,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/cc/page": {
+  "/api/workflow/engine/cc/page": {
    "post": {
     "operationId": "pageCc",
     "tags": [
@@ -1183,7 +1183,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/cc/unreadCount": {
+  "/api/workflow/engine/cc/unreadCount": {
    "get": {
     "operationId": "ccUnreadCount",
     "tags": [
@@ -1203,7 +1203,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/cc/{id}/read": {
+  "/api/workflow/engine/cc/{id}/read": {
    "post": {
     "operationId": "ccMarkRead",
     "tags": [
@@ -1233,7 +1233,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/cc/readAll": {
+  "/api/workflow/engine/cc/readAll": {
    "post": {
     "operationId": "ccMarkAllRead",
     "tags": [
@@ -1253,7 +1253,7 @@
     }
    }
   },
-  "/api/v1/workflow/comment": {
+  "/api/workflow/comment": {
    "post": {
     "operationId": "addComment",
     "tags": [
@@ -1283,7 +1283,7 @@
     }
    }
   },
-  "/api/v1/workflow/comment/instance/{instanceId}": {
+  "/api/workflow/comment/instance/{instanceId}": {
    "get": {
     "operationId": "listByInstance",
     "tags": [
@@ -1313,7 +1313,7 @@
     ]
    }
   },
-  "/api/v1/workflow/comment/root/{instanceId}": {
+  "/api/workflow/comment/root/{instanceId}": {
    "get": {
     "operationId": "listRootComments",
     "tags": [
@@ -1343,7 +1343,7 @@
     ]
    }
   },
-  "/api/v1/workflow/comment/replies/{parentCommentId}": {
+  "/api/workflow/comment/replies/{parentCommentId}": {
    "get": {
     "operationId": "listReplies",
     "tags": [
@@ -1373,7 +1373,7 @@
     ]
    }
   },
-  "/api/v1/workflow/comment/{commentId}": {
+  "/api/workflow/comment/{commentId}": {
    "delete": {
     "operationId": "deleteComment",
     "tags": [
@@ -1403,7 +1403,7 @@
     ]
    }
   },
-  "/api/v1/workflow/comment/quick": {
+  "/api/workflow/comment/quick": {
    "get": {
     "operationId": "listQuickComments",
     "tags": [
@@ -1479,7 +1479,7 @@
     }
    }
   },
-  "/api/v1/workflow/comment/quick/{id}": {
+  "/api/workflow/comment/quick/{id}": {
    "delete": {
     "operationId": "deleteQuickComment",
     "tags": [
@@ -1509,7 +1509,7 @@
     ]
    }
   },
-  "/api/v1/workflow/comment/quick/{id}/use": {
+  "/api/workflow/comment/quick/{id}/use": {
    "post": {
     "operationId": "incrementUseCount",
     "tags": [
@@ -1539,7 +1539,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/deploy": {
+  "/api/workflow/engine/definition/deploy": {
    "post": {
     "operationId": "deploy",
     "tags": [
@@ -1569,7 +1569,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/batchDeployZip": {
+  "/api/workflow/engine/definition/batchDeployZip": {
    "post": {
     "operationId": "batchDeployFromZip",
     "tags": [
@@ -1599,7 +1599,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/publish": {
+  "/api/workflow/engine/definition/{id}/publish": {
    "post": {
     "operationId": "publish",
     "tags": [
@@ -1637,7 +1637,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/deprecate": {
+  "/api/workflow/engine/definition/{id}/deprecate": {
    "post": {
     "operationId": "deprecate",
     "tags": [
@@ -1667,7 +1667,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/code/{code}": {
+  "/api/workflow/engine/definition/code/{code}": {
    "get": {
     "operationId": "getByCode",
     "tags": [
@@ -1713,7 +1713,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/page": {
+  "/api/workflow/engine/definition/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -1769,7 +1769,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}": {
+  "/api/workflow/engine/definition/{id}": {
    "get": {
     "operationId": "getDefinitionDetail",
     "tags": [
@@ -1837,7 +1837,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/preview": {
+  "/api/workflow/engine/definition/{id}/preview": {
    "get": {
     "operationId": "getDefinitionPreview",
     "tags": [
@@ -1867,7 +1867,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{code}/switchVersion": {
+  "/api/workflow/engine/definition/{code}/switchVersion": {
    "post": {
     "operationId": "switchVersion",
     "tags": [
@@ -1913,7 +1913,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/enable": {
+  "/api/workflow/engine/definition/{id}/enable": {
    "post": {
     "operationId": "enable",
     "tags": [
@@ -1943,7 +1943,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/disable": {
+  "/api/workflow/engine/definition/{id}/disable": {
    "post": {
     "operationId": "disable",
     "tags": [
@@ -1973,7 +1973,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/versions": {
+  "/api/workflow/engine/definition/{id}/versions": {
    "get": {
     "operationId": "listVersions",
     "tags": [
@@ -2003,7 +2003,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/diff": {
+  "/api/workflow/engine/definition/{id}/diff": {
    "get": {
     "operationId": "diffVersions",
     "tags": [
@@ -2051,7 +2051,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/rollback": {
+  "/api/workflow/engine/definition/rollback": {
    "post": {
     "operationId": "rollbackDefinition",
     "tags": [
@@ -2081,7 +2081,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/node/{nodeCode}/coordinate": {
+  "/api/workflow/engine/definition/{id}/node/{nodeCode}/coordinate": {
    "post": {
     "operationId": "updateNodeCoordinate",
     "tags": [
@@ -2129,7 +2129,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/export": {
+  "/api/workflow/engine/definition/{id}/export": {
    "get": {
     "operationId": "exportDefinition",
     "tags": [
@@ -2159,7 +2159,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/import": {
+  "/api/workflow/engine/definition/import": {
    "post": {
     "operationId": "importDefinition",
     "tags": [
@@ -2199,7 +2199,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/migrationImpact": {
+  "/api/workflow/engine/definition/migrationImpact": {
    "get": {
     "operationId": "analyzeMigrationImpact",
     "tags": [
@@ -2237,7 +2237,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/info": {
+  "/api/workflow/engine/info": {
    "get": {
     "operationId": "info",
     "tags": [
@@ -2257,7 +2257,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/event/correlateMessage": {
+  "/api/workflow/engine/event/correlateMessage": {
    "post": {
     "operationId": "correlateMessage",
     "tags": [
@@ -2313,7 +2313,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/event/throwError": {
+  "/api/workflow/engine/event/throwError": {
    "post": {
     "operationId": "throwError",
     "tags": [
@@ -2369,7 +2369,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/{instanceId}/eventSubscriptions": {
+  "/api/workflow/engine/instance/{instanceId}/eventSubscriptions": {
    "get": {
     "operationId": "listEventSubscriptions",
     "tags": [
@@ -2399,7 +2399,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/sla/scan": {
+  "/api/workflow/engine/sla/scan": {
    "post": {
     "operationId": "slaScan",
     "tags": [
@@ -2419,7 +2419,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/sla/process/{taskId}": {
+  "/api/workflow/engine/sla/process/{taskId}": {
    "post": {
     "operationId": "slaProcess",
     "tags": [
@@ -2449,7 +2449,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/build": {
+  "/api/workflow/engine/definition/conditionExpr/build": {
    "post": {
     "operationId": "buildExpression",
     "tags": [
@@ -2482,7 +2482,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/parse": {
+  "/api/workflow/engine/definition/conditionExpr/parse": {
    "post": {
     "operationId": "parseExpression",
     "tags": [
@@ -2515,7 +2515,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/validate": {
+  "/api/workflow/engine/definition/conditionExpr/validate": {
    "post": {
     "operationId": "validateExpression",
     "tags": [
@@ -2548,7 +2548,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/operators": {
+  "/api/workflow/engine/definition/conditionExpr/operators": {
    "get": {
     "operationId": "operators",
     "tags": [
@@ -2568,7 +2568,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/valueTypes": {
+  "/api/workflow/engine/definition/conditionExpr/valueTypes": {
    "get": {
     "operationId": "valueTypes",
     "tags": [
@@ -2588,7 +2588,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/variables/{id}": {
+  "/api/workflow/engine/definition/conditionExpr/variables/{id}": {
    "get": {
     "operationId": "variables",
     "tags": [
@@ -2618,7 +2618,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/preview": {
+  "/api/workflow/engine/definition/conditionExpr/preview": {
    "post": {
     "operationId": "previewExpression",
     "tags": [
@@ -2651,7 +2651,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/conditionExpr/templates": {
+  "/api/workflow/engine/definition/conditionExpr/templates": {
    "get": {
     "operationId": "conditionTemplates",
     "tags": [
@@ -2671,7 +2671,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/customButtons": {
+  "/api/workflow/engine/definition/customButtons": {
    "get": {
     "operationId": "listCustomButtons",
     "tags": [
@@ -2761,7 +2761,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/customButtons/execute": {
+  "/api/workflow/engine/definition/customButtons/execute": {
    "post": {
     "operationId": "executeCustomButton",
     "tags": [
@@ -2820,7 +2820,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/delegateAuth/create": {
+  "/api/workflow/engine/delegateAuth/create": {
    "post": {
     "operationId": "createDelegateAuth",
     "tags": [
@@ -2850,7 +2850,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/delegateAuth/{id}/revoke": {
+  "/api/workflow/engine/delegateAuth/{id}/revoke": {
    "post": {
     "operationId": "revokeDelegateAuth",
     "tags": [
@@ -2880,7 +2880,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/delegateAuth/{id}/status": {
+  "/api/workflow/engine/delegateAuth/{id}/status": {
    "post": {
     "operationId": "updateDelegateAuthStatus",
     "tags": [
@@ -2918,7 +2918,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/delegateAuth/mine": {
+  "/api/workflow/engine/delegateAuth/mine": {
    "get": {
     "operationId": "listMyDelegateAuths",
     "tags": [
@@ -2948,7 +2948,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/delegateAuth/asDelegate": {
+  "/api/workflow/engine/delegateAuth/asDelegate": {
    "get": {
     "operationId": "listAsDelegate",
     "tags": [
@@ -2978,7 +2978,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/designer": {
+  "/api/workflow/engine/definition/{id}/designer": {
    "get": {
     "operationId": "getDesignerData",
     "tags": [
@@ -3046,7 +3046,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/lock": {
+  "/api/workflow/engine/definition/{id}/lock": {
    "post": {
     "operationId": "lockDefinition",
     "tags": [
@@ -3076,7 +3076,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/unlock": {
+  "/api/workflow/engine/definition/{id}/unlock": {
    "post": {
     "operationId": "unlockDefinition",
     "tags": [
@@ -3106,7 +3106,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/lockStatus": {
+  "/api/workflow/engine/definition/{id}/lockStatus": {
    "get": {
     "operationId": "getLockStatus",
     "tags": [
@@ -3136,7 +3136,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/formConfig/{nodeCode}": {
+  "/api/workflow/engine/definition/{id}/formConfig/{nodeCode}": {
    "get": {
     "operationId": "getFormConfig",
     "tags": [
@@ -3220,7 +3220,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/definition/{id}/slaConfig/{nodeCode}": {
+  "/api/workflow/engine/definition/{id}/slaConfig/{nodeCode}": {
    "get": {
     "operationId": "getSlaConfig",
     "tags": [
@@ -3307,7 +3307,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/assignee/types": {
+  "/api/workflow/engine/assignee/types": {
    "get": {
     "operationId": "listAssigneeTypes",
     "tags": [
@@ -3327,7 +3327,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/listener/plugins": {
+  "/api/workflow/engine/listener/plugins": {
    "get": {
     "operationId": "listListenerPlugins",
     "tags": [
@@ -3347,7 +3347,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/listener/eventTypes": {
+  "/api/workflow/engine/listener/eventTypes": {
    "get": {
     "operationId": "listListenerEventTypes",
     "tags": [
@@ -3367,7 +3367,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/template/list": {
+  "/api/workflow/engine/template/list": {
    "get": {
     "operationId": "listTemplates",
     "tags": [
@@ -3397,7 +3397,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/template/{templateCode}/import": {
+  "/api/workflow/engine/template/{templateCode}/import": {
    "post": {
     "operationId": "importTemplate",
     "tags": [
@@ -3435,7 +3435,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/template/{templateCode}": {
+  "/api/workflow/engine/template/{templateCode}": {
    "get": {
     "operationId": "getTemplate",
     "tags": [
@@ -3465,7 +3465,7 @@
     ]
    }
   },
-  "/api/v1/workflow/embedded/panel": {
+  "/api/workflow/embedded/panel": {
    "get": {
     "operationId": "loadPanel",
     "tags": [
@@ -3511,7 +3511,7 @@
     ]
    }
   },
-  "/api/v1/workflow/embedded/action": {
+  "/api/workflow/embedded/action": {
    "post": {
     "operationId": "quickAction",
     "tags": [
@@ -3541,7 +3541,7 @@
     }
    }
   },
-  "/api/v1/workflow/embedded/{businessType}/{businessId}/action": {
+  "/api/workflow/embedded/{businessType}/{businessId}/action": {
    "post": {
     "operationId": "quickActionByPath",
     "tags": [
@@ -3589,7 +3589,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/start": {
+  "/api/workflow/engine/instance/start": {
    "post": {
     "operationId": "startProcess",
     "tags": [
@@ -3619,7 +3619,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/batchStart": {
+  "/api/workflow/engine/instance/batchStart": {
    "post": {
     "operationId": "batchStartInstances",
     "tags": [
@@ -3652,7 +3652,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/draft/save": {
+  "/api/workflow/engine/instance/draft/save": {
    "post": {
     "operationId": "saveDraft",
     "tags": [
@@ -3682,7 +3682,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/draft/submit": {
+  "/api/workflow/engine/instance/draft/submit": {
    "post": {
     "operationId": "submitDraft",
     "tags": [
@@ -3712,7 +3712,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/draft/cancel": {
+  "/api/workflow/engine/instance/{id}/draft/cancel": {
    "post": {
     "operationId": "cancelDraft",
     "tags": [
@@ -3742,7 +3742,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/byBusiness": {
+  "/api/workflow/engine/instance/byBusiness": {
    "get": {
     "operationId": "getByBusiness",
     "tags": [
@@ -3780,7 +3780,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/terminate": {
+  "/api/workflow/engine/instance/{id}/terminate": {
    "post": {
     "operationId": "terminate",
     "tags": [
@@ -3818,7 +3818,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/suspend": {
+  "/api/workflow/engine/instance/{id}/suspend": {
    "post": {
     "operationId": "suspend",
     "tags": [
@@ -3848,7 +3848,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/activate": {
+  "/api/workflow/engine/instance/{id}/activate": {
    "post": {
     "operationId": "activate",
     "tags": [
@@ -3878,7 +3878,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/recall": {
+  "/api/workflow/engine/instance/{id}/recall": {
    "post": {
     "operationId": "recall",
     "tags": [
@@ -3916,7 +3916,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/recallableNodes": {
+  "/api/workflow/engine/instance/{id}/recallableNodes": {
    "get": {
     "operationId": "listRecallableNodes",
     "tags": [
@@ -3946,7 +3946,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/rollback": {
+  "/api/workflow/engine/instance/{id}/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -3993,7 +3993,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/resubmit": {
+  "/api/workflow/engine/instance/{id}/resubmit": {
    "post": {
     "operationId": "resubmit",
     "tags": [
@@ -4052,7 +4052,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/auditTrail": {
+  "/api/workflow/engine/instance/{id}/auditTrail": {
    "get": {
     "operationId": "auditTrail",
     "tags": [
@@ -4082,7 +4082,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/timeline": {
+  "/api/workflow/engine/instance/{id}/timeline": {
    "get": {
     "operationId": "timeline",
     "tags": [
@@ -4112,7 +4112,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/diagram": {
+  "/api/workflow/engine/instance/{id}/diagram": {
    "get": {
     "operationId": "diagram",
     "tags": [
@@ -4142,7 +4142,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/replay": {
+  "/api/workflow/engine/instance/{id}/replay": {
    "get": {
     "operationId": "replay",
     "tags": [
@@ -4172,7 +4172,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/page": {
+  "/api/workflow/engine/instance/page": {
    "get": {
     "operationId": "instancePage",
     "tags": [
@@ -4262,7 +4262,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/my": {
+  "/api/workflow/engine/instance/my": {
    "get": {
     "operationId": "instanceMy",
     "tags": [
@@ -4344,7 +4344,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/all": {
+  "/api/workflow/engine/instance/all": {
    "get": {
     "operationId": "instanceAll",
     "tags": [
@@ -4418,7 +4418,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/variables": {
+  "/api/workflow/engine/instance/{id}/variables": {
    "get": {
     "operationId": "getVariables",
     "tags": [
@@ -4486,7 +4486,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/urge": {
+  "/api/workflow/engine/instance/{id}/urge": {
    "post": {
     "operationId": "urge",
     "tags": [
@@ -4524,7 +4524,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/urge/node": {
+  "/api/workflow/engine/instance/{id}/urge/node": {
    "post": {
     "operationId": "urgeByNode",
     "tags": [
@@ -4570,7 +4570,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/{id}/formRender": {
+  "/api/workflow/engine/instance/{id}/formRender": {
    "get": {
     "operationId": "getFormRenderData",
     "tags": [
@@ -4608,7 +4608,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/migrate": {
+  "/api/workflow/engine/instance/migrate": {
    "post": {
     "operationId": "migrateInstances",
     "tags": [
@@ -4638,7 +4638,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/migrate/preview": {
+  "/api/workflow/engine/instance/migrate/preview": {
    "post": {
     "operationId": "previewMigration",
     "tags": [
@@ -4668,7 +4668,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/migrate/autoMap": {
+  "/api/workflow/engine/instance/migrate/autoMap": {
    "get": {
     "operationId": "autoMapNodes",
     "tags": [
@@ -4708,7 +4708,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/trigger/list": {
+  "/api/workflow/engine/instance/trigger/list": {
    "get": {
     "operationId": "listTriggers",
     "tags": [
@@ -4728,7 +4728,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/trigger": {
+  "/api/workflow/engine/instance/trigger": {
    "post": {
     "operationId": "createTrigger",
     "tags": [
@@ -4758,7 +4758,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/trigger/{id}": {
+  "/api/workflow/engine/instance/trigger/{id}": {
    "delete": {
     "operationId": "deleteTrigger",
     "tags": [
@@ -4788,7 +4788,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/instance/trigger/{id}/toggle": {
+  "/api/workflow/engine/instance/trigger/{id}/toggle": {
    "put": {
     "operationId": "toggleTrigger",
     "tags": [
@@ -4818,7 +4818,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/monitor/overview": {
+  "/api/workflow/engine/monitor/overview": {
    "get": {
     "operationId": "monitorOverview",
     "tags": [
@@ -4838,7 +4838,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/monitor/anomaly": {
+  "/api/workflow/engine/monitor/anomaly": {
    "get": {
     "operationId": "monitorAnomaly",
     "tags": [
@@ -4894,7 +4894,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/monitor/instanceTrend": {
+  "/api/workflow/engine/monitor/instanceTrend": {
    "get": {
     "operationId": "monitorInstanceTrend",
     "tags": [
@@ -4925,7 +4925,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/monitor/approverEfficiency": {
+  "/api/workflow/engine/monitor/approverEfficiency": {
    "get": {
     "operationId": "monitorApproverEfficiency",
     "tags": [
@@ -4972,7 +4972,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/monitor/flowTypeDistribution": {
+  "/api/workflow/engine/monitor/flowTypeDistribution": {
    "get": {
     "operationId": "monitorFlowTypeDistribution",
     "tags": [
@@ -5010,7 +5010,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/monitor/dashboard": {
+  "/api/workflow/engine/monitor/dashboard": {
    "get": {
     "operationId": "monitorDashboard",
     "tags": [
@@ -5030,7 +5030,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/monitor/overdueTasks": {
+  "/api/workflow/engine/monitor/overdueTasks": {
    "get": {
     "operationId": "monitorOverdueTasks",
     "tags": [
@@ -5061,7 +5061,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/monitor/approverWorkload": {
+  "/api/workflow/engine/monitor/approverWorkload": {
    "get": {
     "operationId": "monitorApproverWorkload",
     "tags": [
@@ -5092,7 +5092,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/monitor/flowEfficiencyComparison": {
+  "/api/workflow/engine/monitor/flowEfficiencyComparison": {
    "get": {
     "operationId": "monitorFlowEfficiencyComparison",
     "tags": [
@@ -5130,7 +5130,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/efficiency/stats": {
+  "/api/workflow/engine/efficiency/stats": {
    "get": {
     "operationId": "efficiencyStats",
     "tags": [
@@ -5168,7 +5168,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/efficiency/bottleneck": {
+  "/api/workflow/engine/efficiency/bottleneck": {
    "get": {
     "operationId": "bottleneckRanking",
     "tags": [
@@ -5207,7 +5207,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/efficiency/approverRanking": {
+  "/api/workflow/engine/efficiency/approverRanking": {
    "get": {
     "operationId": "approverRanking",
     "tags": [
@@ -5254,7 +5254,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/efficiency/trend": {
+  "/api/workflow/engine/efficiency/trend": {
    "get": {
     "operationId": "approvalTrend",
     "tags": [
@@ -5300,7 +5300,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/efficiency/healthScore": {
+  "/api/workflow/engine/efficiency/healthScore": {
    "get": {
     "operationId": "healthScore",
     "tags": [
@@ -5338,7 +5338,37 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/{taskId}": {
+  "/api/workflow/simulation/run": {
+   "post": {
+    "operationId": "runSimulation",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/workflow/engine/task/{taskId}": {
    "get": {
     "operationId": "taskDetail",
     "tags": [
@@ -5368,7 +5398,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/claim": {
+  "/api/workflow/engine/task/claim": {
    "post": {
     "operationId": "claim",
     "tags": [
@@ -5398,7 +5428,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/pass": {
+  "/api/workflow/engine/task/pass": {
    "post": {
     "operationId": "pass",
     "tags": [
@@ -5428,7 +5458,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/reject": {
+  "/api/workflow/engine/task/reject": {
    "post": {
     "operationId": "reject",
     "tags": [
@@ -5458,7 +5488,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/{taskId}/rejectableNodes": {
+  "/api/workflow/engine/task/{taskId}/rejectableNodes": {
    "get": {
     "operationId": "rejectableNodes",
     "tags": [
@@ -5488,7 +5518,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/transfer": {
+  "/api/workflow/engine/task/transfer": {
    "post": {
     "operationId": "transfer",
     "tags": [
@@ -5518,7 +5548,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/delegate": {
+  "/api/workflow/engine/task/delegate": {
    "post": {
     "operationId": "delegate",
     "tags": [
@@ -5548,7 +5578,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/countersignBefore": {
+  "/api/workflow/engine/task/countersignBefore": {
    "post": {
     "operationId": "countersignBefore",
     "tags": [
@@ -5578,7 +5608,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/countersignAfter": {
+  "/api/workflow/engine/task/countersignAfter": {
    "post": {
     "operationId": "countersignAfter",
     "tags": [
@@ -5608,7 +5638,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/countersignParallel": {
+  "/api/workflow/engine/task/countersignParallel": {
    "post": {
     "operationId": "countersignParallel",
     "tags": [
@@ -5638,7 +5668,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/jump": {
+  "/api/workflow/engine/task/jump": {
    "post": {
     "operationId": "jump",
     "tags": [
@@ -5668,7 +5698,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/freeJump": {
+  "/api/workflow/engine/task/freeJump": {
    "post": {
     "operationId": "freeJump",
     "tags": [
@@ -5698,7 +5728,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/batchPass": {
+  "/api/workflow/engine/task/batchPass": {
    "post": {
     "operationId": "batchPass",
     "tags": [
@@ -5731,7 +5761,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/batchReject": {
+  "/api/workflow/engine/task/batchReject": {
    "post": {
     "operationId": "batchReject",
     "tags": [
@@ -5764,7 +5794,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/batchTransfer": {
+  "/api/workflow/engine/task/batchTransfer": {
    "post": {
     "operationId": "batchTransfer",
     "tags": [
@@ -5797,7 +5827,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/instance/batchUrge": {
+  "/api/workflow/engine/instance/batchUrge": {
    "post": {
     "operationId": "batchUrge",
     "tags": [
@@ -5840,7 +5870,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/passAll": {
+  "/api/workflow/engine/task/passAll": {
    "post": {
     "operationId": "passAll",
     "tags": [
@@ -5860,7 +5890,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/todo": {
+  "/api/workflow/engine/task/todo": {
    "get": {
     "operationId": "todo",
     "tags": [
@@ -5934,7 +5964,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/todo/cursor": {
+  "/api/workflow/engine/task/todo/cursor": {
    "get": {
     "operationId": "todoCursor",
     "tags": [
@@ -5991,7 +6021,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/done": {
+  "/api/workflow/engine/task/done": {
    "get": {
     "operationId": "done",
     "tags": [
@@ -6065,7 +6095,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/overdue": {
+  "/api/workflow/engine/task/overdue": {
    "get": {
     "operationId": "overdue",
     "tags": [
@@ -6096,7 +6126,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/done/search": {
+  "/api/workflow/engine/task/done/search": {
    "get": {
     "operationId": "doneSearch",
     "tags": [
@@ -6178,7 +6208,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/stats/nodeDuration": {
+  "/api/workflow/engine/stats/nodeDuration": {
    "get": {
     "operationId": "nodeDurationStats",
     "tags": [
@@ -6208,7 +6238,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/stats/overdue": {
+  "/api/workflow/engine/stats/overdue": {
    "get": {
     "operationId": "overdueStats",
     "tags": [
@@ -6256,7 +6286,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/countersignRemove": {
+  "/api/workflow/engine/task/countersignRemove": {
    "post": {
     "operationId": "countersignRemove",
     "tags": [
@@ -6286,7 +6316,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/{taskId}/read": {
+  "/api/workflow/engine/task/{taskId}/read": {
    "post": {
     "operationId": "markRead",
     "tags": [
@@ -6316,7 +6346,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/communicate": {
+  "/api/workflow/engine/task/communicate": {
    "post": {
     "operationId": "communicate",
     "tags": [
@@ -6346,7 +6376,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/saveDraft": {
+  "/api/workflow/engine/task/saveDraft": {
    "post": {
     "operationId": "saveDraft",
     "tags": [
@@ -6376,7 +6406,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/addApprover": {
+  "/api/workflow/engine/task/addApprover": {
    "post": {
     "operationId": "addApprover",
     "tags": [
@@ -6406,7 +6436,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/task/{taskId}/retract": {
+  "/api/workflow/engine/task/{taskId}/retract": {
    "post": {
     "operationId": "retract",
     "tags": [
@@ -6444,7 +6474,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/{taskId}/suspend": {
+  "/api/workflow/engine/task/{taskId}/suspend": {
    "post": {
     "operationId": "suspendTask",
     "tags": [
@@ -6482,7 +6512,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/task/{taskId}/activate": {
+  "/api/workflow/engine/task/{taskId}/activate": {
    "post": {
     "operationId": "activateTask",
     "tags": [
@@ -6512,7 +6542,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/todo/count": {
+  "/api/workflow/engine/todo/count": {
    "get": {
     "operationId": "myTodoCount",
     "tags": [
@@ -6532,7 +6562,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/todo/pushMine": {
+  "/api/workflow/engine/todo/pushMine": {
    "post": {
     "operationId": "pushMyTodoCount",
     "tags": [
@@ -6552,7 +6582,7 @@
     }
    }
   },
-  "/api/v1/workflow/engine/countersign/instance/{instanceId}": {
+  "/api/workflow/engine/countersign/instance/{instanceId}": {
    "get": {
     "operationId": "countersignByInstanceId",
     "tags": [
@@ -6600,7 +6630,7 @@
     ]
    }
   },
-  "/api/v1/workflow/engine/countersign/task/{taskId}": {
+  "/api/workflow/engine/countersign/task/{taskId}": {
    "get": {
     "operationId": "countersignByTaskId",
     "tags": [
@@ -6648,7 +6678,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/list": {
+  "/api/workflow/template/list": {
    "get": {
     "operationId": "listTemplates",
     "tags": [
@@ -6678,7 +6708,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{templateCode}": {
+  "/api/workflow/template/{templateCode}": {
    "get": {
     "operationId": "getTemplate",
     "tags": [
@@ -6708,7 +6738,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{templateCode}/import": {
+  "/api/workflow/template/{templateCode}/import": {
    "post": {
     "operationId": "importTemplate",
     "tags": [
@@ -6746,7 +6776,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/export/{definitionId}": {
+  "/api/workflow/template/export/{definitionId}": {
    "post": {
     "operationId": "exportAsTemplate",
     "tags": [
@@ -6792,7 +6822,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{templateCode}/versions": {
+  "/api/workflow/template/{templateCode}/versions": {
    "get": {
     "operationId": "listTemplateVersions",
     "tags": [
@@ -6822,7 +6852,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{templateCode}/versions/{version}": {
+  "/api/workflow/template/{templateCode}/versions/{version}": {
    "get": {
     "operationId": "getTemplateVersion",
     "tags": [
@@ -6861,7 +6891,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{templateCode}/newVersion": {
+  "/api/workflow/template/{templateCode}/newVersion": {
    "post": {
     "operationId": "createNewVersion",
     "tags": [
@@ -6899,7 +6929,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{templateCode}/clone": {
+  "/api/workflow/template/{templateCode}/clone": {
    "post": {
     "operationId": "cloneTemplate",
     "tags": [
@@ -6953,7 +6983,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{parentTemplateCode}/inherit": {
+  "/api/workflow/template/{parentTemplateCode}/inherit": {
    "post": {
     "operationId": "inheritFromParent",
     "tags": [
@@ -7007,7 +7037,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{parentTemplateCode}/inherited": {
+  "/api/workflow/template/{parentTemplateCode}/inherited": {
    "get": {
     "operationId": "listInheritedTemplates",
     "tags": [
@@ -7037,7 +7067,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/{childTemplateCode}/sync": {
+  "/api/workflow/template/{childTemplateCode}/sync": {
    "post": {
     "operationId": "syncFromParent",
     "tags": [
@@ -7067,7 +7097,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/recommend": {
+  "/api/workflow/template/recommend": {
    "get": {
     "operationId": "recommend",
     "tags": [
@@ -7098,7 +7128,7 @@
     ]
    }
   },
-  "/api/v1/workflow/template/recommend/byBusinessType": {
+  "/api/workflow/template/recommend/byBusinessType": {
    "get": {
     "operationId": "recommendByBusinessType",
     "tags": [
@@ -7136,6 +7166,142 @@
      }
     ]
    }
+  },
+  "/api/workflow/message-event/publish": {
+   "post": {
+    "operationId": "publish",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/engine/instance/start": {
+   "post": {
+    "operationId": "startProcess",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FlowStartProcessDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/internal/engine/instance/byBusiness": {
+   "get": {
+    "operationId": "getByBusiness",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "businessType",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "businessId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/api/internal/engine/instance/{id}/terminate": {
+   "post": {
+    "operationId": "terminate",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "reason",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
   }
  },
  "components": {
@@ -7145,7 +7311,8 @@
     "properties": {
      "serialVersionUID": {
       "type": "integer",
-      "format": "int64"
+      "format": "int64",
+      "description": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。"
      },
      "code": {
       "type": "string",
@@ -7154,6 +7321,10 @@
      "msg": {
       "type": "string",
       "description": "返回信息"
+     },
+     "level": {
+      "type": "string",
+      "description": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
      },
      "data": {
       "type": "object",
@@ -7190,12 +7361,14 @@
     },
     "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
     "x-field-docs": {
+     "serialVersionUID": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。",
      "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
      "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
      "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。",
      "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。",
      "code": "返回编码",
      "msg": "返回信息",
+     "level": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
      "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
      "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
      "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
@@ -7213,10 +7386,12 @@
       "type": "string"
      },
      "categoryCode": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 64
      },
      "categoryName": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 128
      },
      "parentId": {
       "type": "string"
@@ -7234,13 +7409,16 @@
      "tenantId": {
       "type": "string"
      },
-     "deleted": {
-      "type": "integer",
-      "format": "int32"
+     "isDeleted": {
+      "type": "boolean"
      }
     },
     "description": "流程分类 DTO",
-    "x-field-docs": {}
+    "x-field-docs": {},
+    "required": [
+     "categoryCode",
+     "categoryName"
+    ]
    },
    "FlowCcQuery": {
     "type": "object",
@@ -7295,7 +7473,8 @@
      },
      "content": {
       "type": "string",
-      "description": "评论内容（必填，最长 2000 字符）"
+      "description": "评论内容（必填，最长 2000 字符）",
+      "maxLength": 2000
      },
      "parentCommentId": {
       "type": "string",
@@ -7319,7 +7498,11 @@
      "parentCommentId": "父评论 ID（可选，一级评论为 null；回复时必填）",
      "replyToUserId": "被回复人 ID（可选，回复某条评论时标记）",
      "replyToUserName": "被回复人姓名（可选）"
-    }
+    },
+    "required": [
+     "instanceId",
+     "content"
+    ]
    },
    "FlowQuickCommentDTO": {
     "type": "object",
@@ -7328,7 +7511,8 @@
       "type": "string"
      },
      "content": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 500
      },
      "commentType": {
       "type": "string"
@@ -7339,7 +7523,10 @@
      }
     },
     "description": "审批常用语 DTO",
-    "x-field-docs": {}
+    "x-field-docs": {},
+    "required": [
+     "content"
+    ]
    },
    "FlowDeployProcessDTO": {
     "type": "object",
@@ -7468,7 +7655,11 @@
      "skipType": "跳转类型：PASS/REJECT",
      "skipCondition": "跳转条件",
      "skipName": "跳转名称（线上标签）"
-    }
+    },
+    "required": [
+     "flowCode",
+     "flowName"
+    ]
    },
    "FlowDelegateAuthPostDTO": {
     "type": "object",
@@ -7514,7 +7705,12 @@
      }
     },
     "description": "FlowDelegateAuth 新增请求 DTO。",
-    "x-field-docs": {}
+    "x-field-docs": {},
+    "required": [
+     "delegateUserId",
+     "startTime",
+     "endTime"
+    ]
    },
    "FlowDesignerDataDTO": {
     "type": "object",
@@ -7531,7 +7727,10 @@
     "description": "流程设计器数据 DTO\n\nP1-10: 由原 Map body 改造为强类型 DTO + JSR-303 校验。 designerData 为前端序列化好的 JSON 字符串，控制器层反序列化为 Map 后转交\nservice。",
     "x-field-docs": {
      "designerData": "设计器数据 JSON 字符串（含 nodes + edges，前端已序列化好）"
-    }
+    },
+    "required": [
+     "designerData"
+    ]
    },
    "EmbeddedApprovalActionDTO": {
     "type": "object",
@@ -7601,7 +7800,13 @@
      "targetUserName": "转办/委派目标人姓名",
      "variables": "流程变量",
      "tenantId": "租户 ID"
-    }
+    },
+    "required": [
+     "businessType",
+     "businessId",
+     "action",
+     "userId"
+    ]
    },
    "FlowStartProcessDTO": {
     "type": "object",
@@ -7706,7 +7911,12 @@
      "parentInstanceId": "P1-3: 父流程实例 ID（子流程场景，可空）",
      "parentNodeCode": "P1-3: 父流程中触发子流程的节点编码（可空）",
      "nodeAssignees": "GAP-P2: 发起人自选审批人 — key=nodeCode, value=审批人ID列表"
-    }
+    },
+    "required": [
+     "flowCode",
+     "businessType",
+     "businessId"
+    ]
    },
    "FlowAssigneeDTO": {
     "type": "object",
@@ -7733,7 +7943,11 @@
      "userType": "用户类型：USER/ROLE/DEPT",
      "userId": "用户/角色/部门 ID",
      "userName": "姓名"
-    }
+    },
+    "required": [
+     "userType",
+     "userId"
+    ]
    },
    "FlowSaveDraftDTO": {
     "type": "object",
@@ -7803,7 +8017,12 @@
      "draftData": "草稿表单数据（流程变量）",
      "tenantId": "租户 ID（不填则取当前用户租户）",
      "providerTraceId": "链路追踪 ID"
-    }
+    },
+    "required": [
+     "flowCode",
+     "businessType",
+     "businessId"
+    ]
    },
    "FlowSubmitDraftDTO": {
     "type": "object",
@@ -7838,7 +8057,10 @@
      "draftData": "更新后的表单数据（可选，不传则使用草稿数据）",
      "operatorId": "操作人 ID",
      "providerTraceId": "链路追踪 ID"
-    }
+    },
+    "required": [
+     "instanceId"
+    ]
    },
    "FlowInstanceVariablesDTO": {
     "type": "object",
@@ -7886,7 +8108,7 @@
       },
       "description": "节点映射：旧节点编码 -> 新节点编码。\n\n当新旧版本节点编码不一致时，通过此映射指定对应关系。 编码相同的节点无需显式映射（自动按编码匹配）。"
      },
-     "dryRun": {
+     "isDryRun": {
       "type": "boolean",
       "description": "是否试运行（dry run）。\n\ntrue 表示仅模拟迁移并返回报告，不实际更新数据库； false 或 null 表示执行实际迁移。"
      }
@@ -7897,7 +8119,7 @@
      "targetDefinitionId": "目标流程定义 ID（新版本）",
      "tenantId": "租户 ID（可选，默认从上下文获取）",
      "nodeMapping": "节点映射：旧节点编码 -> 新节点编码。\n\n当新旧版本节点编码不一致时，通过此映射指定对应关系。 编码相同的节点无需显式映射（自动按编码匹配）。",
-     "dryRun": "是否试运行（dry run）。\n\ntrue 表示仅模拟迁移并返回报告，不实际更新数据库； false 或 null 表示执行实际迁移。"
+     "isDryRun": "是否试运行（dry run）。\n\ntrue 表示仅模拟迁移并返回报告，不实际更新数据库； false 或 null 表示执行实际迁移。"
     }
    },
    "FlowAutoTriggerCreateDTO": {
@@ -7926,7 +8148,11 @@
      "targetFlowCode": "目标流程编码（自动启动的流程）",
      "conditionExpression": "触发条件表达式（可选，为空表示无条件触发）",
      "description": "触发规则描述（可选）"
-    }
+    },
+    "required": [
+     "sourceFlowCode",
+     "targetFlowCode"
+    ]
    },
    "FlowTaskOperateDTO": {
     "type": "object",
@@ -7984,7 +8210,7 @@
       },
       "description": "GAP-P0-2: 退回多节点同退目标节点编码列表（仅 REJECT 时使用）\n\n对标飞书\"退回多节点同退\"：勾选多个前序节点均重新审批。 非空时优先于 #targetNodeCode；为空时降级到单节点退回（向后兼容）。"
      },
-     "rejectToInitiator": {
+     "isRejectToInitiator": {
       "type": "boolean",
       "description": "P1-2: 退回到发起人快捷方式（仅 REJECT 时使用）\n\n对标钉钉/飞书\"退回到发起人\"：将流程退回到开始节点后的第一个审批节点， 让发起人重新修改表单后再次提交。\n\n为 true 时优先于 #targetNodeCode / #targetNodeCodes； 为 false 或 null\n时走原有退回逻辑（向后兼容）。"
      },
@@ -8011,14 +8237,14 @@
       "type": "string",
       "description": "链路追踪 ID"
      },
-     "backdated": {
+     "isBackdated": {
       "type": "boolean",
       "description": "P2-1: 穿越时空（补录审批）。\n\n当为 `true` 时，表示该审批是\"补录\"的，可将任务完成时间向前追溯至 #effectiveTime。\n`null` 或 `false` 表示即时审批，按当前系统时间处理。"
      },
      "effectiveTime": {
       "type": "string",
       "format": "date-time",
-      "description": "P2-1: 补录生效时间。\n\n当 #backdated 为 `true` 时，该字段指定补录的目标时间（过去时间）。\n引擎将在归档时将此任务的 `effectiveTime` 设置为该值，影响后续查询排序。\n为空则使用当前系统时间作为生效时间。"
+      "description": "P2-1: 补录生效时间。\n\n当 #isBackdated 为 `true` 时，该字段指定补录的目标时间（过去时间）。\n引擎将在归档时将此任务的 `effectiveTime` 设置为该值，影响后续查询排序。\n为空则使用当前系统时间作为生效时间。"
      }
     },
     "description": "自建工作流引擎 - 任务操作 DTO",
@@ -8033,15 +8259,19 @@
      "variables": "流程变量",
      "targetNodeCode": "目标节点编码\n\n多场景复用：\n\n\nREJECT：单节点退回（向后兼容）\nGAP-P2-9 自由流（JUMP）：运行时动态指定下一节点编码，目标节点必须存在于当前流程定义中， 且目标节点的 {@code\next.freeJump=true}（节点级白名单）才允许跳转",
      "targetNodeCodes": "GAP-P0-2: 退回多节点同退目标节点编码列表（仅 REJECT 时使用）\n\n对标飞书\"退回多节点同退\"：勾选多个前序节点均重新审批。 非空时优先于 #targetNodeCode；为空时降级到单节点退回（向后兼容）。",
-     "rejectToInitiator": "P1-2: 退回到发起人快捷方式（仅 REJECT 时使用）\n\n对标钉钉/飞书\"退回到发起人\"：将流程退回到开始节点后的第一个审批节点， 让发起人重新修改表单后再次提交。\n\n为 true 时优先于 #targetNodeCode / #targetNodeCodes； 为 false 或 null\n时走原有退回逻辑（向后兼容）。",
+     "isRejectToInitiator": "P1-2: 退回到发起人快捷方式（仅 REJECT 时使用）\n\n对标钉钉/飞书\"退回到发起人\"：将流程退回到开始节点后的第一个审批节点， 让发起人重新修改表单后再次提交。\n\n为 true 时优先于 #targetNodeCode / #targetNodeCodes； 为 false 或 null\n时走原有退回逻辑（向后兼容）。",
      "targetAssignees": "GAP-P2-9: 自由流（JUMP）运行时指定目标节点办理人列表\n\n对标钉钉/飞书\"自由流\"能力：跳转时可显式指定目标节点的办理人（用户 ID 字符串列表， 如 `[\"1001\",\"1002\"]`）。非空时覆盖目标节点 {@code\npermissionFlag} 解析出的默认办理人； 为空时回退到节点配置的办理人解析逻辑。\n\n仅 `action=JUMP` 时生效，其他操作忽略该字段。",
      "targetUserId": "转办/委派目标人",
      "targetUserName": "转办/委派目标人姓名",
      "tenantId": "租户 ID",
      "providerTraceId": "链路追踪 ID",
-     "backdated": "P2-1: 穿越时空（补录审批）。\n\n当为 `true` 时，表示该审批是\"补录\"的，可将任务完成时间向前追溯至 #effectiveTime。\n`null` 或 `false` 表示即时审批，按当前系统时间处理。",
-     "effectiveTime": "P2-1: 补录生效时间。\n\n当 #backdated 为 `true` 时，该字段指定补录的目标时间（过去时间）。\n引擎将在归档时将此任务的 `effectiveTime` 设置为该值，影响后续查询排序。\n为空则使用当前系统时间作为生效时间。"
-    }
+     "isBackdated": "P2-1: 穿越时空（补录审批）。\n\n当为 `true` 时，表示该审批是\"补录\"的，可将任务完成时间向前追溯至 #effectiveTime。\n`null` 或 `false` 表示即时审批，按当前系统时间处理。",
+     "effectiveTime": "P2-1: 补录生效时间。\n\n当 #isBackdated 为 `true` 时，该字段指定补录的目标时间（过去时间）。\n引擎将在归档时将此任务的 `effectiveTime` 设置为该值，影响后续查询排序。\n为空则使用当前系统时间作为生效时间。"
+    },
+    "required": [
+     "taskId",
+     "userId"
+    ]
    },
    "FlowAttachmentDTO": {
     "type": "object",
@@ -8084,7 +8314,7 @@
       "description": "文件 MD5（去重/校验）"
      }
     },
-    "description": "自建工作流引擎 - 审批附件 DTO\n\nP1-6 (GAP-51): 审批时由前端提交的附件信息，序列化为 JSON 传入后端。 字段与 {@link\ncom.njydsz.workflow.infra.entity.FlowAttachment} 对齐， 仅保留业务可见字段，不暴露内部版本号/审计字段。",
+    "description": "自建工作流引擎 - 审批附件 DTO\n\nP1-6 (GAP-51): 审批时由前端提交的附件信息，序列化为 JSON 传入后端。 字段与 {@link\nFlowAttachment} 对齐， 仅保留业务可见字段，不暴露内部版本号/审计字段。",
     "x-field-docs": {
      "fileName": "原始文件名",
      "fileExt": "文件扩展名（jpg/pdf/docx...，可空时由 fileName 推断）",
@@ -8094,7 +8324,11 @@
      "storageType": "存储类型: OSS / MINIO / LOCAL（默认 OSS）",
      "downloadUrl": "临时下载地址（可选，由前端在文件上传后填入）",
      "md5": "文件 MD5（去重/校验）"
-    }
+    },
+    "required": [
+     "fileName",
+     "storageKey"
+    ]
    }
   }
  }

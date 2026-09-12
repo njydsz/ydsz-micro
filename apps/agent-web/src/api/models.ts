@@ -60,7 +60,7 @@ export interface AgentExecutionRequestDTO {
   /** 启用的工具列表（可选，为空则使用 Agent 默认工具配置） */
   enabledTools?: string[];
   /** 是否流式输出（true 时通过 SSE 逐块返回结果） */
-  stream?: boolean;
+  isStream?: boolean;
 }
 
 /**
@@ -192,6 +192,31 @@ export interface DagExecutionDTO {
 }
 
 /**
+ * 洞察报告生成请求值对象（不可变 record）。
+ *
+ * 封装用户触发的 BI 洞察报告生成所需的全部输入参数，包括原始分析查询、数据分析结果、
+ * 期望输出格式等。作为 InsightReportService#generateReport 的入参。
+ * @param userId 触发用户
+ * @param conversationId 关联对话 ID（可选）
+ * @param reportTitle 报告标题
+ * @param query 原始分析查询
+ * @param dataSourceType 数据源类型（sql / python / mixed）
+ * @param dataJson 原始数据分析结果的 JSON 字符串
+ * @param reportFormat 报告格式（html / pdf / markdown）
+ * @param extraParams 额外参数
+ */
+export interface InsightReportRequest {
+  userId?: string;
+  conversationId?: string;
+  reportTitle?: string;
+  query?: string;
+  dataSourceType?: string;
+  dataJson?: string;
+  reportFormat?: string;
+  extraParams?: Record<string, Record<string, unknown>>;
+}
+
+/**
  * 文档摄入请求 DTO
  *
  * 封装将文档内容写入 RAG 知识库的请求参数， 支持来自 nextwiki、project、contract 等不同来源的文档。
@@ -222,7 +247,7 @@ export interface RagQueryDTO {
   /** 最小相似度阈值（0-1，默认 0.7，低于此值的结果将被过滤） */
   minScore?: number;
   /** 是否包含上下文文本（默认 true，false 时仅返回元数据） */
-  includeContext?: boolean;
+  isIncludeContext?: boolean;
 }
 
 /**
@@ -270,7 +295,7 @@ export interface BatchChatResponseDTO {
   /** 条目标识（与请求中 itemId 对应） */
   itemId?: string;
   /** 是否成功 */
-  success?: boolean;
+  isSuccess?: boolean;
   /** 响应内容（成功时非空） */
   content?: string;
   /** 使用模型（成功时非空） */
@@ -307,7 +332,7 @@ export interface AgentDefinitionVO {
   modelConfig?: string;
   /** 工具名称列表 JSON */
   toolNames?: string;
-  /** 温度参数 */
+  /** 温度参数（LLM 采样温度，范围 0~2） */
   temperature?: number;
   /** 最大生成 Token 数 */
   maxTokens?: number;
@@ -417,6 +442,8 @@ export interface RuntimeSession {
  * 借鉴 MateClaw 的 Team Runs 设计，支持顺序、并行、层级、协商等多种协作模式。
  */
 export interface TeamRun {
+  /** 集合初始容量 */
+  COLLECTION_CAPACITY?: number;
   teamRunId?: string;
   tenantId?: string;
   title?: string;
@@ -492,7 +519,7 @@ export interface AgentTrigger {
   cronExpression?: string;
   matchPattern?: string;
   config?: Record<string, Record<string, unknown>>;
-  enabled?: boolean;
+  isEnabled?: boolean;
   maxExecutionsPerHour?: number;
   createdAt?: string;
   lastTriggeredAt?: string;
