@@ -62,12 +62,21 @@ let isPageVisible = true;
 // 对外开放的 API 模块函数（re-export，便于 store/composable 引用）
 // =====================================================================
 
+/** 通知类 API 透传（getNotificationsApi / getUnreadCountApi / markAllAsReadApi / markAsReadApi） */
 export { getNotificationsApi, getUnreadCountApi, markAllAsReadApi, markAsReadApi };
 
 // =====================================================================
 // Composable 实现
 // =====================================================================
 
+/**
+ * SSE 通知客户端 Composable —— 订阅后端 SSE 流，维护通知列表与未读计数。
+ *
+ * <p>基于 EventSource 实现长连接；支持自动鉴权（URL token）、指数退避重连、
+ * <p>页面失焦降频、降级为 HTTP 轮询等能力。
+ *
+ * @returns 响应式状态（unreadCount / notifications / connected 等）+ 控制方法（connect / disconnect 等）
+ */
 export function useNotificationSse() {
   const notificationStore = useNotificationStore();
   const authStore = useAuthStore();

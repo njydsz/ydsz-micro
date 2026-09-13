@@ -12,6 +12,13 @@ import { defineConfig } from '@ydsz/vite-config';
 
 import ElementPlus from 'unplugin-element-plus/vite';
 
+/**
+ * 任务调度子应用 / Vite 构建配置（默认导出）。
+ *
+ * <p>基于 @ydsz/vite-config 共享配置扩展；开发端口 5605，/api 代理至本地 9000。
+ *
+ * @default —— Vite defineConfig 产物
+ */
 export default defineConfig(async () => {
   return {
     application: {},

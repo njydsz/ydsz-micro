@@ -1,7 +1,14 @@
+<!--
+ * TipTap 富文本编辑器工具栏组件。
+ *
+ * <p>基于 TipTap 实例提供常用排版操作：标题、加粗、斜体、对齐、链接、撤销等；
+ * <p>支持只读模式（disabled 时全部按钮置灰）。
+ *
+ * @path comm/@core/ui-kit/tiptap/src/toolbar/TipTap-toolbar.vue
+ * @author ydsz-team
+ * @since 1.0.0
+-->
 <script lang="ts" setup>
-/**
- * TipTapToolbar 工具栏组件
- */
 import { computed, ref } from 'vue';
 
 import { type Editor } from '@tiptap/vue-3';

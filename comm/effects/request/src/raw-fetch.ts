@@ -23,7 +23,15 @@
  * @param init 可选的 fetch 初始化参数
  * @returns 原始 Response 对象
  */
-// @infra-fetch 基础设施层直用，无统一客户端上下文（跨域预签名存储 URL / 二进制流）
+/**
+ * 基础设施层直用通道 —— 统一收口业务侧「无统一请求客户端上下文」的原始 HTTP 拉取场景。
+ *
+ * <p>以原生 fetch 发起请求并返回原始 Response，调用方自行负责状态码检查与响应体解析。
+ *
+ * @param input 请求 URL（完整绝对地址）
+ * @param init 可选的 fetch 初始化参数
+ * @returns 原始 Response 对象
+ */
 export async function fetchRaw(
   input: string | URL,
   init?: RequestInit,

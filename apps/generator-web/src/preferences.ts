@@ -1,12 +1,16 @@
+/**
+ * 代码生成器子应用偏好覆盖配置。
+ *
+ * <p>按 @ydsz/preferences 定义覆盖子应用默认偏好；内容区嵌入基座场景下隐藏侧边栏。
+ *
+ * @path apps/generator-web/src/preferences.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
 import { defineOverridesPreferences } from '@ydsz/preferences';
 
 /**
- * 代码生成器子应用偏好覆盖。
- *
- * 子应用作为内容区嵌入基座，隐藏侧边栏，固定主题。
- *
- * @path apps/generator-web/src/preferences.ts
- * @since 1.0.0
+ * 子应用默认首页 `defaultHomePath: '/ydsz-gen'`，固定侧边栏隐藏 + 固定浅蓝主题。
  */
 export const overridesPreferences = defineOverridesPreferences({
   app: {

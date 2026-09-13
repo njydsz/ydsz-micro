@@ -14,6 +14,18 @@
  */
 import { defineBuildConfig } from 'unbuild';
 
+/**
+ * turbo-run 命令行工具的 unbuild 构建入口（默认导出）。
+ *
+ * 定义 @ydsz/turbo-run 子包的打包行为：
+ *   - clean 构建前清理 dist 目录
+ *   - declaration 生成 .d.ts 类型声明
+ *   - entries 以 src/index 为入口
+ *
+ * 产物：dist/index.mjs（bin 入口），可通过 pnpm 的 bin 字段引用。
+ *
+ * @default —— unbuild 构建配置对象
+ */
 export default defineBuildConfig({
   clean: true,
   declaration: true,

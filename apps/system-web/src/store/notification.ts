@@ -47,6 +47,13 @@ export interface NotificationItem {
   link?: string;
 }
 
+/**
+ * 系统管理子应用 / 通知 Pinia Store。
+ *
+ * <p>管理通知列表与未读计数，整合 REST 分页加载与 SSE/EventSource 实时推送。
+ *
+ * @returns Pinia store 实例，包含响应式状态、计算属性与 actions
+ */
 export const useNotificationStore = defineStore('notification', () => {
   // =====================================================================
   // State

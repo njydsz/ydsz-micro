@@ -21,6 +21,11 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
+/**
+ * 共享依赖误打包违规描述体。
+ *
+ * 由 checkBundle() 返回的每条违规记录，描述某应用产物中未发现指定依赖的 bare import。
+ */
 export interface BundleViolation {
   /** 应用名（目录名） */
   app: string;

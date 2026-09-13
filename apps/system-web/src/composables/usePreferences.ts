@@ -130,6 +130,13 @@ function applyConfigToDOM(config: UserPrefConfig): void {
 const configRef = ref<UserPrefConfig>(loadConfig());
 let backendSyncInit = false;
 
+/**
+ * 系统管理子应用 / 用户偏好 composable（单例 store）。
+ *
+ * <p>以 localStorage 持久化轻量偏好（主题/布局/字体），用户级偏好（首页/语言）异步同步后端。
+ *
+ * @returns 响应式 config、update / set / reset / syncFromBackend / saveToBackend 等方法
+ */
 export function usePreferences() {
   /**
    * 更新偏好（局部更新，立即生效）。   *

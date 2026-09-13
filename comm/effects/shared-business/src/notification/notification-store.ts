@@ -35,6 +35,15 @@ const INITIAL_COUNTS: NotificationUnreadCounts = {
   total: 0,
 };
 
+/**
+ * 跨模块通知中心 Pinia Store（默认单例）。
+ *
+ * <p>聚合 workflow / message / system / audit 等子系统推送的通知，
+ * 提供未读计数、列表筛选、标记已读、清空等能力，
+ * 并通过 SSE bridge 实时接收新通知入栈。
+ *
+ * @returns Pinia store 实例，包含 state / getters / actions
+ */
 export const useNotificationStore = defineStore('notification', () => {
   // =====================================================================
   // State

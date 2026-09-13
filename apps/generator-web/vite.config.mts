@@ -1,12 +1,10 @@
 /**
- * 代码生成器子应用 Vite 构建配置。
+ * 代码生成器子应用 / Vite 构建配置（默认导出）。
  *
- * @remarks
- * 基于 @ydsz/vite-config 统一配置，接入 ElementPlus 插件；
- * 开发服务器固定端口 5609，/api 请求代理至本地 9000 端口。
+ * <p>基于 @ydsz/vite-config 共享配置扩展，接入 ElementPlus 插件；
+ * <p>开发服务器固定端口 5609，api 请求代理到本地 9000。
  *
- * @author ydsz-team
- * @since 1.0.0
+ * @default —— Vite defineConfig 产物
  */
 import { defineConfig } from '@ydsz/vite-config';
 

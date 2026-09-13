@@ -194,6 +194,16 @@ watch(keyword, (kw) => {
 // 导出（响应式状态 + 命令式函数）
 // =====================================================================
 
+/**
+ * 全局搜索 composable 入口 —— 返回关键词、加载态、结果、建议及命令函数。
+ *
+ * <p>消费该 composable 的典型场景：
+ * <pre>
+ * const { keyword, results, loading, executeSearch } = useGlobalSearch();
+ * </pre>
+ *
+ * @returns 包含响应式状态（keyword/loading/results/suggestions 等）、计算属性与命令函数的对象
+ */
 export function useGlobalSearch() {
   return {
     // 状态

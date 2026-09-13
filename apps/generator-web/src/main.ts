@@ -1,3 +1,13 @@
+/**
+ * 代码生成器子应用入口（应用启动与生命周期装配）。
+ *
+ * <p>按 micro-kernel 微前端约定，导出 { bootstrap, mount, unmount, update } 四个钩子。
+ * <p>通过 createSubApp 工厂装配路由、偏好、组件适配器、国际化等能力。
+ *
+ * @path apps/generator-web/src/main.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
 import { createSubApp } from '@ydsz/shared-auth';
 
 import '@ydsz/styles';
@@ -12,13 +22,7 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 /**
- * 代码生成器子应用入口。
- *
- * 导出 micro-kernel 需要的标准生命周期：{ bootstrap, mount, unmount, update }。
- * micro-kernel 通过动态 import 加载此入口并调用 lifecycle 方法。
- *
- * @path apps/generator-web/src/main.ts
- * @since 1.0.0
+ * micro-kernel 需要的标准生命周期导出（由框架动态 import 后调用）。
  */
 export const { bootstrap, mount, unmount, update } = createSubApp({
     appName: 'generator-web',
