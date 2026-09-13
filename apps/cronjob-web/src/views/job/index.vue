@@ -35,6 +35,7 @@ import {
   resume,
   trigger,
 } from '#/api/job';
+import { getJobEventStream } from '#/api/eventStore';
 import type { JobBatchDTO, JobVO } from '#/api/models';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -131,6 +132,11 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
             ),
             h(
               ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleViewEvents(job) },
+              () => '事件流',
+            ),
+            h(
+              ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleWebhookConfig(job) },
               () => 'WebHook',
             ),
@@ -202,10 +208,47 @@ const drawerVisible = ref(false);
 /** 当前选中配置 Webhook 的任务 ID */
 const selectedJobId = ref<string>('');
 
+/** 事件流抽屉可见性 */
+const eventDrawerVisible = ref(false);
+/** 当前查看事件流的任务 ID */
+const selectedEventJobId = ref<string>('');
+/** 事件流数据 */
+const eventStream = ref<string[]>([]);
+const eventLoading = ref(false);
+
 /** 打开任务 Webhook 配置抽屉 */
 function handleWebhookConfig(row: JobRow): void {
   selectedJobId.value = row.id ?? '';
   drawerVisible.value = true;
+}
+
+/** 打开任务事件流抽屉 */
+async function handleViewEvents(row: JobRow): Promise<void> {
+  if (!row.id) return;
+  selectedEventJobId.value = row.id;
+  eventDrawerVisible.value = true;
+  eventLoading.value = true;
+  try {
+    eventStream.value = await getJobEventStream({ jobId: row.id });
+  } catch (e) {
+    logger.warn('加载事件流失败', e);
+    eventStream.value = [];
+  } finally {
+    eventLoading.value = false;
+  }
+}
+
+/** 事件类型中文映射 */
+function translateEventType(type: string): string {
+  const map: Record<string, string> = {
+    CREATED: '创建',
+    UPDATED: '更新',
+    STATUS_CHANGED: '状态变更',
+    TRIGGERED: '触发',
+    DELETED: '删除',
+    MIGRATED: '迁移',
+  };
+  return map[type] ?? type;
 }
 
 function handleAdd() {
@@ -353,6 +396,22 @@ async function handleBatchDelete() {
     <!-- Webhook 配置抽屉 -->
     <ElDrawer v-model="drawerVisible" :title="`任务 WebHook 配置`" direction="rtl" size="600px">
       <WebhookConfigPanel v-if="drawerVisible" :job-id="selectedJobId" />
+    </ElDrawer>
+
+    <!-- 事件流抽屉 -->
+    <ElDrawer v-model="eventDrawerVisible" title="任务事件流" direction="rtl" size="500px">
+      <div v-if="eventLoading" class="flex h-32 items-center justify-center">
+        <ElTag type="info">加载中...</ElTag>
+      </div>
+      <div v-else-if="eventStream.length === 0" class="flex h-32 items-center justify-center text-gray-400">
+        暂无事件记录
+      </div>
+      <div v-else class="space-y-2">
+        <div v-for="(event, idx) in eventStream" :key="idx" class="border-l-4 border-blue-400 pl-3">
+          <div class="text-sm font-medium">{{ translateEventType(event) }}</div>
+          <div class="text-xs text-gray-500">{{ event }}</div>
+        </div>
+      </div>
     </ElDrawer>
   </Page>
 </template>

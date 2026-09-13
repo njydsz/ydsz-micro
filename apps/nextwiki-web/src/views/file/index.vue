@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElDrawer, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElDialog, ElDrawer, ElInput, ElMessage, ElMessageBox, ElTabPane, ElTabs, ElTag, ElUpload } from 'element-plus';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -24,6 +24,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { copy, deleteApi, listFiles, move, rename } from '#/api/file';
+import { batchUpload, importZip } from '#/api/batchImport';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
 import FileForm from './file-form.vue';
@@ -223,12 +224,66 @@ async function handleDelete(row: FileNodeVO) {
     gridApi.query();
   } catch (error) { logger.warn('删除文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
-</script>
+
+/** 批量导入弹窗状态 */
+const batchImportVisible = ref(false);
+const batchImportType = ref<'files' | 'zip'>('files');
+const batchImportLoading = ref(false);
+const batchFileList = ref<File[]>([]);
+const zipFile = ref<File | null>(null);
+
+/** 打开批量导入弹窗 */
+function handleBatchImport(): void {
+  batchImportType.value = 'files';
+  batchFileList.value = [];
+  zipFile.value = null;
+  batchImportVisible.value = true;
+}
+
+/** 执行批量上传 */
+async function executeBatchUpload(): Promise<void> {
+  if (batchFileList.value.length === 0) {
+    ElMessage.warning('请选择要上传的文件');
+    return;
+  }
+  batchImportLoading.value = true;
+  try {
+    const files = batchFileList.value.map((f) => f as unknown as Record<string, unknown>);
+    await batchUpload({ files });
+    ElMessage.success(`批量导入成功，共 ${batchFileList.value.length} 个文件`);
+    batchImportVisible.value = false;
+    gridApi.query();
+  } catch (error) {
+    logger.warn('批量上传失败: {}', error);
+  } finally {
+    batchImportLoading.value = false;
+  }
+}
+
+/** 执行 ZIP 导入 */
+async function executeZipImport(): Promise<void> {
+  if (!zipFile.value) {
+    ElMessage.warning('请选择 ZIP 文件');
+    return;
+  }
+  batchImportLoading.value = true;
+  try {
+    await importZip({ file: zipFile.value as unknown as Record<string, unknown> });
+    ElMessage.success('ZIP 导入成功');
+    batchImportVisible.value = false;
+    gridApi.query();
+  } catch (error) {
+    logger.warn('ZIP 导入失败: {}', error);
+  } finally {
+    batchImportLoading.value = false;
+  }
+}
 <template>
   <Page auto-content-height>
     <Grid table-title="文件管理">
       <template #toolbar-tools>
         <ElButton type="primary" @click="handleUpload">上传文件</ElButton>
+        <ElButton type="success" @click="handleBatchImport">批量导入</ElButton>
         <ElButton type="primary" @click="handleAdd">新建文件夹</ElButton>
       </template>
     </Grid>
@@ -253,5 +308,49 @@ async function handleDelete(row: FileNodeVO) {
     </ElDrawer>
     <FileVersionHistory ref="fileVersionHistoryRef" :file-node="currentNode" />
     <WopiEditor ref="wopiEditorRef" :file-node="currentNode" />
+
+    <!-- 批量导入弹窗 -->
+    <ElDialog v-model="batchImportVisible" title="批量导入" width="560px">
+      <ElTabs v-model="batchImportType">
+        <ElTabPane label="多文件上传" name="files">
+          <ElUpload
+            :auto-upload="false"
+            :file-list="batchFileList as any"
+            :on-change="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
+            :on-remove="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
+            multiple
+            drag
+          >
+            <div class="py-8 text-center text-sm text-gray-500">
+              点击或拖拽多个文件到此处
+            </div>
+          </ElUpload>
+        </ElTabPane>
+        <ElTabPane label="ZIP 导入" name="zip">
+          <ElUpload
+            :auto-upload="false"
+            :limit="1"
+            :on-change="(file: any) => { zipFile.value = file.raw || null; }"
+            :on-remove="() => { zipFile.value = null; }"
+            accept=".zip"
+            drag
+          >
+            <div class="py-8 text-center text-sm text-gray-500">
+              点击或拖拽 ZIP 压缩包到此处
+            </div>
+          </ElUpload>
+        </ElTabPane>
+      </ElTabs>
+      <template #footer>
+        <ElButton @click="batchImportVisible = false">取消</ElButton>
+        <ElButton
+          type="primary"
+          :loading="batchImportLoading"
+          @click="batchImportType === 'files' ? executeBatchUpload() : executeZipImport()"
+        >
+          确定导入
+        </ElButton>
+      </template>
+    </ElDialog>
   </Page>
 </template>

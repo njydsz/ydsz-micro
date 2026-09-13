@@ -14,16 +14,17 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElMessage, ElSkeleton, ElTag } from 'element-plus';
+import { ElButton, ElCard, ElMessage, ElSkeleton, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
+import { generateSummary, getStatus } from '#/api/ai';
 import { download, generateSignedUrl } from '#/api/download';
 import { generatePreview, getPreviewType, isSupported } from '#/api/preview';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
-import type { FileNodeVO } from '#/api/models';
+import type { FileNodeVO, SummaryResult } from '#/api/models';
 
 defineOptions({ name: 'FilePreview' });
 
@@ -44,6 +45,12 @@ const previewType = ref<string>('');
 const previewUrl = ref<string>('');
 const previewContent = ref<string>('');
 const generating = ref(false);
+
+/** AI 摘要功能 */
+const aiSummary = ref<SummaryResult | null>(null);
+const aiLoading = ref(false);
+const aiEnabled = ref(false);
+const aiPanelExpanded = ref(false);
 
 /** 文件后缀 */
 const fileSuffix = computed(() => {
@@ -105,6 +112,35 @@ async function handleDownload(): Promise<void> {
   }
 }
 
+/** 检查 AI 服务可用状态并展示入口 */
+async function checkAiAvailability(): Promise<void> {
+  try {
+    const status = await getStatus();
+    // 后端返回结构可能包含 available 字段
+    const statusObj = status as Record<string, unknown> | null;
+    aiEnabled.value = Boolean(statusObj?.available ?? true);
+  } catch {
+    logger.debug('AI 服务不可用，隐藏摘要入口');
+    aiEnabled.value = false;
+  }
+}
+
+/** 生成文件 AI 摘要 */
+async function handleGenerateSummary(): Promise<void> {
+  if (!props.fileNode?.id) return;
+  aiLoading.value = true;
+  try {
+    const result = await generateSummary({ fileNodeId: props.fileNode.id });
+    aiSummary.value = result;
+    aiPanelExpanded.value = true;
+    ElMessage.success('摘要生成成功');
+  } catch (error) {
+    logger.warn('生成摘要失败: {}', error);
+  } finally {
+    aiLoading.value = false;
+  }
+}
+
 /**
  * 解析文件签名预览 URL（两步流程）。
  *
@@ -159,6 +195,7 @@ async function loadPreviewContent(): Promise<void> {
 watch(() => props.fileNode, async (node) => {
   if (node) {
     await checkPreviewSupport();
+    await checkAiAvailability();
     await loadPreviewContent();
   }
 }, { immediate: true });
@@ -166,6 +203,7 @@ watch(() => props.fileNode, async (node) => {
 onMounted(async () => {
   if (props.fileNode) {
     await checkPreviewSupport();
+    await checkAiAvailability();
     await loadPreviewContent();
   }
 });
@@ -197,6 +235,15 @@ onMounted(async () => {
             @click="handleGeneratePreview"
           >
             生成预览
+          </ElButton>
+          <ElButton
+            v-if="aiEnabled"
+            type="success"
+            size="small"
+            :loading="aiLoading"
+            @click="handleGenerateSummary"
+          >
+            AI 摘要
           </ElButton>
           <ElButton type="primary" size="small" @click="handleDownload">
             下载
@@ -238,6 +285,24 @@ onMounted(async () => {
           <ElButton type="primary" class="mt-4" @click="handleDownload">立即下载</ElButton>
         </div>
       </div>
+
+      <!-- AI 摘要面板 -->
+      <ElCard v-if="aiSummary" class="mt-4" shadow="never">
+        <template #header>
+          <div class="flex items-center justify-between">
+            <span class="font-medium">AI 智能摘要</span>
+            <ElButton link size="small" @click="aiPanelExpanded = !aiPanelExpanded">
+              {{ aiPanelExpanded ? '收起' : '展开' }}
+            </ElButton>
+          </div>
+        </template>
+        <div v-show="aiPanelExpanded" class="text-sm text-gray-700">
+          <p class="whitespace-pre-wrap leading-relaxed">{{ aiSummary.summary }}</p>
+          <p v-if="aiSummary.wordCount" class="mt-3 text-xs text-gray-500">
+            字数统计：{{ aiSummary.wordCount }}
+          </p>
+        </div>
+      </ElCard>
     </div>
   </div>
 </template>

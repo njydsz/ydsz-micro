@@ -63,6 +63,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/space/index.vue'),
         meta: { icon: 'lucide:cloud', title: '空间列表' },
       },
+      {
+        name: 'SpaceTemplateMgmt',
+        path: 'templates',
+        component: () => import('#/views/space/template-manage.vue'),
+        meta: { icon: 'lucide:layout-template', title: '空间模板' },
+      },
     ],
   },
   {
