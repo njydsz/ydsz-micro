@@ -2149,3 +2149,50 @@ export interface WebAuthnCredentialVO {
   /** 最后使用时间 */
   lastUsedAt?: string;
 }
+
+// ==================== 手动补充: 登录日志（login-log）类型定义 ====================
+// 对应后端 LoginLogController (ydsz-userinfo)
+
+/** 登录日志分页查询条件 */
+export interface LoginLogPageQuery {
+  /** 当前页码（从 1 开始） */
+  pageNum?: number;
+  /** 每页记录数 */
+  pageSize?: number;
+  /** 用户名（模糊匹配） */
+  username?: string;
+  /** 登录 IP */
+  loginIp?: string;
+  /** 登录结果（SUCCESS/FAILED/ALL） */
+  status?: string;
+  /** 起始时间 */
+  startTime?: string;
+  /** 结束时间 */
+  endTime?: string;
+}
+
+/** 登录日志视图对象 */
+export interface LoginLogVO {
+  /** 记录唯一 ID */
+  id: string;
+  /** 用户 ID */
+  userId?: string;
+  /** 用户名 */
+  username: string;
+  /** 登录 IP 地址 */
+  loginIp: string;
+  /** 登录结果（SUCCESS / FAILED） */
+  loginResult: string;
+  /** 失败原因 */
+  failReason?: string;
+  /** 浏览器名称（由 UA 解析） */
+  browser: string;
+  /** 操作系统（由 UA 解析） */
+  os: string;
+  /** IP 归属地 */
+  location: string;
+  /** User-Agent 原文 */
+  userAgent: string;
+  /** 登录时间 */
+  loginTime: string;
+}
