@@ -53,6 +53,36 @@ function extractScript(code, file) {
   return m ? m[1] : '';
 }
 
+/**
+ * 剔除模板字符串（backtick）内的内容，避免将模板字面量中的 `export` 行误判为真实导出。
+ * 使用状态机逐字符扫描，跳过反引号包裹的区间（含含转义反引号 \` 与 ${...} 嵌套）。
+ */
+function stripTemplateLiterals(code) {
+  let out = '';
+  let i = 0;
+  const n = code.length;
+  while (i < n) {
+    const ch = code[i];
+    if (ch === '`') {
+      // 跳过一个完整模板字符串（处理嵌套 ${} 与转义）
+      i++; // 跳开头反引号
+      let depth = 0;
+      while (i < n) {
+        const c = code[i];
+        if (c === '\\') { i += 2; continue; } // 转义
+        if (c === '$' && code[i + 1] === '{') { depth++; i += 2; continue; }
+        if (c === '}' && depth > 0) { depth--; i++; continue; }
+        if (c === '`' && depth === 0) { i++; break; }
+        i++;
+      }
+      continue;
+    }
+    out += ch;
+    i++;
+  }
+  return out;
+}
+
 const EXPORT_RE = /^export\s+(?:(?:declare)\s+)?(?:abstract\s+)?(?:(?:async)\s+)?(function\*?|class|interface|type|enum|const|let|var)\s+([A-Za-z_$][\w$]*)/;
 const EXPORT_DEFAULT_RE = /^export\s+default/;
 const CODE_START_RE = /^(import|export|const|let|var|function|class|interface|type|enum|declare|def |from |async |@\w|<\/?(?:template|script|style)[\s>]|if __name__|#\[)/;
@@ -94,7 +124,8 @@ function analyzeFile(file) {
   const header = headerInfo.has;
   const headerMisplaced = headerInfo.misplaced;
 
-  const lines = extractScript(raw, file).split(/\r?\n/);
+  // 抽取 <script> 段 + 剔除模板字符串内容，避免模板字面量中的 export 行被误判为真实导出
+  const lines = stripTemplateLiterals(extractScript(raw, file)).split(/\r?\n/);
 
   let exportTotal = 0;
   let exportDoc = 0;
