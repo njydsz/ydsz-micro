@@ -31,6 +31,24 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/dead-letter/index.vue'),
         meta: { icon: 'lucide:alert-octagon', title: '死信队列' },
       },
+      {
+        name: 'AggregateManagement',
+        path: 'aggregate',
+        component: () => import('#/views/aggregate/index.vue'),
+        meta: { icon: 'lucide:layers', title: '聚合批次' },
+      },
+      {
+        name: 'MessageArchiveManagement',
+        path: 'archive',
+        component: () => import('#/views/archive/index.vue'),
+        meta: { icon: 'lucide:archive', title: '归档搜索' },
+      },
+      {
+        name: 'UnsubscribeRecordManagement',
+        path: 'unsubscribe-records',
+        component: () => import('#/views/unsubscribe-records/index.vue'),
+        meta: { icon: 'lucide:user-minus', title: '退订记录' },
+      },
     ],
   },
   {

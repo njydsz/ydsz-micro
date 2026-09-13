@@ -1,5 +1,5 @@
 /**
- * 系统管理路由模块 — 定义组织架构相关路由（部门、岗位、公司、菜单、角色、用户、国际化、安全集成、会话、审计）
+ * 系统管理路由模块 — 定义组织架构相关路由（部门、岗位、公司、菜单、角色、用户、国际化、安全集成、会话、审计、用户中心）
  *
  * @path apps\userinfo-web\src\router\routes\modules\system.ts
  * @author ydsz-team
@@ -147,6 +147,24 @@ const routes: RouteRecordRaw[] = [
           title: 'API Key',
         },
       },
+      {
+        name: 'AuthPolicyManagement',
+        path: 'auth-policy',
+        component: () => import('#/views/system/auth-policy/index.vue'),
+        meta: {
+          icon: 'lucide:lock',
+          title: '认证策略',
+        },
+      },
+      {
+        name: 'SecurityAlertManagement',
+        path: 'security-alert',
+        component: () => import('#/views/system/security-alert/index.vue'),
+        meta: {
+          icon: 'lucide:shield-alert',
+          title: '安全告警',
+        },
+      },
     ],
   },
   {
@@ -192,6 +210,71 @@ const routes: RouteRecordRaw[] = [
         meta: {
           icon: 'lucide:shield-alert',
           title: '安全仪表盘',
+        },
+      },
+    ],
+  },
+  {
+    meta: {
+      icon: 'lucide:user',
+      order: 5,
+      title: '用户中心',
+    },
+    name: 'UserCenter',
+    path: '/user',
+    children: [
+      {
+        name: 'SocialAccount',
+        path: 'social',
+        component: () => import('#/views/system/social-account/index.vue'),
+        meta: {
+          icon: 'lucide:link',
+          title: '社交账号绑定',
+        },
+      },
+      {
+        name: 'DeviceSession',
+        path: 'devices',
+        component: () => import('#/views/system/device-session/index.vue'),
+        meta: {
+          icon: 'lucide:smartphone',
+          title: '我的设备',
+        },
+      },
+      {
+        name: 'LdapSync',
+        path: 'ldap-sync',
+        component: () => import('#/views/system/ldap-sync/index.vue'),
+        meta: {
+          icon: 'lucide:refresh-cw',
+          title: 'LDAP 同步',
+        },
+      },
+      {
+        name: 'SsoMetrics',
+        path: 'sso-metrics',
+        component: () => import('#/views/system/sso-metrics/index.vue'),
+        meta: {
+          icon: 'lucide:activity',
+          title: 'SSO 监控',
+        },
+      },
+      {
+        name: 'UserProfileManagement',
+        path: 'profile',
+        component: () => import('#/views/system/user-profile/index.vue'),
+        meta: {
+          icon: 'lucide:user-circle',
+          title: '个人中心',
+        },
+      },
+      {
+        name: 'UserPreferenceManagement',
+        path: 'preference',
+        component: () => import('#/views/system/user-preference/index.vue'),
+        meta: {
+          icon: 'lucide:settings',
+          title: '偏好设置',
         },
       },
     ],

@@ -9,5 +9,8 @@
   "alert": "告警管理",
   "alertRule": "告警规则",
   "connector": "连接器",
-  "connectorList": "连接器管理"
+  "connectorList": "连接器管理",
+  "health": "健康仪表盘",
+  "queue": "执行队列",
+  "stats": "统计数据"
 }

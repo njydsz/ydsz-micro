@@ -110,6 +110,23 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: {
+      icon: 'lucide:file-code-2',
+      order: 7,
+      title: '反向生成',
+    },
+    name: 'ReverseMgmt',
+    path: '/reverse',
+    children: [
+      {
+        name: 'ReverseManagement',
+        path: 'index',
+        component: () => import('#/views/reverse/index.vue'),
+        meta: { icon: 'lucide:file-code-2', title: '反向生成' },
+      },
+    ],
+  },
 ];
 
 /** Generator 代码生成器路由配置（子应用内部路由表） */

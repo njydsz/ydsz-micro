@@ -19,6 +19,7 @@ import { Page } from '@ydsz/common-ui';
 import { ElCard, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
+import { getOverview } from '#/api/dashboard';
 import { dashboard, heatmap, recentFailures } from '#/api/jobStats';
 import type { JobLogVO } from '#/api/models';
 
@@ -47,6 +48,8 @@ const todayExec = ref<TodayExec>({});
 const failures = ref<JobLogVO[]>([]);
 /** 24h 热力数据 [{hour, count}] */
 const heatData = ref<{ hour: number; count: number }[]>([]);
+/** DashboardController 总览数据 */
+const overviewData = ref<Record<string, unknown>>({});
 
 /** 热力图最大执行数（用于柱高归一化） */
 const heatMax = computed(() => Math.max(1, ...heatData.value.map((item) => item.count ?? 0)));
@@ -61,20 +64,22 @@ const cards = computed(() => [
 
 async function loadData() {
   try {
-    const [dash, fails, heat] = await Promise.all([
+    const [dash, fails, heat, overview] = await Promise.all([
       dashboard(),
       recentFailures({ limit: 10 }),
       heatmap({}),
+      getOverview().catch(() => ({})),
     ]);
     const dashData = (dash ?? {}) as { taskStats?: TaskStats; todayExec?: TodayExec };
     taskStats.value = dashData.taskStats ?? {};
     todayExec.value = dashData.todayExec ?? {};
     failures.value = fails ?? [];
-    const heatList = (heat ?? []) as { hour: number; count: number }[];
+    const heatList = (heat ?? []) as unknown as { hour: number; count: number }[];
     heatData.value =
       heatList.length === 24
         ? heatList
         : Array.from({ length: 24 }, (_, i) => ({ hour: i, count: 0 }));
+    overviewData.value = (overview ?? {}) as Record<string, unknown>;
   } catch {
     // 错误提示由请求拦截器统一处理
   }

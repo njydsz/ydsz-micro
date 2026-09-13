@@ -256,4 +256,12 @@ config.push({
   },
 });
 
+/**
+ * 仓库根 ESLint 扁平配置（默认导出）。
+ *
+ * 规则定义与项目级覆盖集中在本文件；具体规则实现见 @ydsz/eslint-config。
+ *
+ * @default config —— ESLint 9 扁平配置数组
+ * @path eslint.config.mjs
+ */
 export default config;

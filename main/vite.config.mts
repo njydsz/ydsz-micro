@@ -13,6 +13,14 @@ import { fileURLToPath, URL } from 'node:url';
 
 import ElementPlus from 'unplugin-element-plus/vite';
 
+/**
+ * 微前端基座（main-web）的 Vite 构建配置（默认导出）。
+ *
+ * 启用 CORS、PWA（Service Worker + manifest）、ElementPlus 按需引入；
+ * 开发端口 5600。
+ *
+ * @default —— Vite defineConfig 产物
+ */
 export default defineConfig(async () => {
   return {
     application: {

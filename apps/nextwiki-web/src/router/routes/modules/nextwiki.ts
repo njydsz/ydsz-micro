@@ -123,6 +123,25 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: { icon: 'lucide:bar-chart-2', order: 8, title: '智能分析' },
+    name: 'AnalysisMgmt',
+    path: '/analysis',
+    children: [
+      {
+        name: 'StorageAnalysis',
+        path: 'index',
+        component: () => import('#/views/analysis/index.vue'),
+        meta: { icon: 'lucide:bar-chart-2', title: '存储分析' },
+      },
+      {
+        name: 'AiAssist',
+        path: 'ai-assist',
+        component: () => import('#/views/ai-assist/index.vue'),
+        meta: { icon: 'lucide:sparkles', title: 'AI 助手' },
+      },
+    ],
+  },
 ];
 
 /** Nextwiki 知识库路由配置（子应用内部路由表） */

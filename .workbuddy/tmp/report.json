@@ -1,13 +1,5 @@
 {
-  "base": {
-    "files": 50,
-    "headerPct": 100,
-    "exportPct": 100,
-    "missingHeader": [],
-    "misplacedHeader": [],
-    "missingExportDoc": []
-  },
-  "composables": {
+  ".workbuddy": {
     "files": 11,
     "headerPct": 100,
     "exportPct": 100,
@@ -15,24 +7,957 @@
     "misplacedHeader": [],
     "missingExportDoc": []
   },
-  "feature-flags": {
-    "files": 4,
+  "apps/agent-web": {
+    "files": 82,
+    "headerPct": 98.8,
+    "exportPct": 87.2,
+    "missingHeader": [
+      "apps\\agent-web\\src\\api\\sdk\\schema.d.ts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\agent-web\\src\\api\\.generated-archived\\models.ts",
+        "symbols": [
+          "AgentExecutionRequestDTO",
+          "ChatRequestDTO",
+          "BatchChatRequestDTO",
+          "AgentDefinitionDTO",
+          "DagExecutionDTO",
+          "DocumentIngestDTO",
+          "RagQueryDTO"
+        ]
+      },
+      {
+        "file": "apps\\agent-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\agent-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "AgentDefinitionDTO",
+          "AgentExecutionRequestDTO",
+          "BatchChatRequestDTO",
+          "ChatRequestDTO",
+          "DagExecutionDTO",
+          "DocumentIngestDTO",
+          "RagQueryDTO"
+        ]
+      },
+      {
+        "file": "apps\\agent-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/cronjob-web": {
+    "files": 115,
+    "headerPct": 98.3,
+    "exportPct": 88.8,
+    "missingHeader": [
+      "apps\\cronjob-web\\src\\api\\sdk\\schema.d.ts",
+      "apps\\cronjob-web\\vite.config.trace.mts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\cronjob-web\\src\\api\\.generated-archived\\models.ts",
+        "symbols": [
+          "AlertRulePostDTO",
+          "AlertRulePutDTO",
+          "ConnectorConfigPostDTO",
+          "JobDagPostDTO",
+          "JobDagPutDTO",
+          "JobDagTriggerDTO",
+          "RemoteTaskRequest",
+          "JobVO",
+          "RemoteSubTaskRequest",
+          "JobPostDTO",
+          "JobPutDTO",
+          "JobBatchDTO",
+          "JobWebhookPostDTO",
+          "JobWebhookPutDTO"
+        ]
+      },
+      {
+        "file": "apps\\cronjob-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\cronjob-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "AlertRulePostDTO",
+          "AlertRulePutDTO",
+          "ConnectorConfigPostDTO",
+          "JobBatchDTO",
+          "JobBatchUpdateDTO",
+          "JobClusterMigrationDTO",
+          "JobDagPostDTO",
+          "JobDagPutDTO",
+          "JobDagTriggerDTO",
+          "JobPostDTO",
+          "JobPutDTO",
+          "JobVO",
+          "JobWebhookPostDTO",
+          "JobWebhookPutDTO",
+          "RemoteSubTaskRequest",
+          "RemoteTaskRequest"
+        ]
+      },
+      {
+        "file": "apps\\cronjob-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "apps\\cronjob-web\\vite.config.trace.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/generator-web": {
+    "files": 52,
+    "headerPct": 78.8,
+    "exportPct": 96.7,
+    "missingHeader": [
+      "apps\\generator-web\\postcss.config.mjs",
+      "apps\\generator-web\\src\\api\\core\\auth.ts",
+      "apps\\generator-web\\src\\api\\core\\index.ts",
+      "apps\\generator-web\\src\\api\\core\\menu.ts",
+      "apps\\generator-web\\src\\api\\core\\user.ts",
+      "apps\\generator-web\\src\\composables\\usePreferences.ts",
+      "apps\\generator-web\\src\\layouts\\index.ts",
+      "apps\\generator-web\\src\\router\\guard.ts",
+      "apps\\generator-web\\src\\store\\auth.ts",
+      "apps\\generator-web\\src\\store\\index.ts",
+      "apps\\generator-web\\tailwind.config.mjs"
+    ],
+    "misplacedHeader": [
+      "apps\\generator-web\\src\\main.ts",
+      "apps\\generator-web\\src\\preferences.ts"
+    ],
+    "missingExportDoc": [
+      {
+        "file": "apps\\generator-web\\src\\store\\auth.ts",
+        "symbols": [
+          "useAuthStore"
+        ]
+      },
+      {
+        "file": "apps\\generator-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/literule-web": {
+    "files": 72,
+    "headerPct": 98.6,
+    "exportPct": 88,
+    "missingHeader": [
+      "apps\\literule-web\\src\\api\\sdk\\schema.d.ts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\literule-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\literule-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "CEPPattern",
+          "ChainEdgeDTO",
+          "ChainNodeDTO",
+          "DecisionTableDTO",
+          "ExpressionValidateDTO",
+          "PageQuery",
+          "RuleABPolicyDTO",
+          "RuleABTestDTO",
+          "RuleApproveDTO",
+          "RuleBatchCategoryDTO",
+          "RuleBatchPriorityDTO",
+          "RuleBatchToggleDTO",
+          "RuleChainGraph",
+          "RuleDefinitionDTO",
+          "RuleDelegateDTO",
+          "RuleDependencyAddDTO",
+          "RuleImportDTO",
+          "RulePackVO",
+          "RuleRejectDTO",
+          "RuleStatusChangeDTO",
+          "RuleSubmitReviewDTO",
+          "VariableDefinition"
+        ]
+      },
+      {
+        "file": "apps\\literule-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/message-web": {
+    "files": 120,
+    "headerPct": 98.3,
+    "exportPct": 84.5,
+    "missingHeader": [
+      "apps\\message-web\\public\\mockServiceWorker.js",
+      "apps\\message-web\\src\\api\\sdk\\schema.d.ts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\message-web\\src\\api\\.generated-archived\\models.ts",
+        "symbols": [
+          "PageQuery",
+          "BatchSendRequestDTO",
+          "MessageRequest",
+          "MessageLogQueryDTO",
+          "MessageSendDTO",
+          "MessageFeedbackDTO",
+          "NotificationSendDTO",
+          "NotificationQueryDTO",
+          "PushRealtimeRequestDTO",
+          "BroadcastRequestDTO",
+          "PreferenceUpsertDTO",
+          "RecallRequestDTO",
+          "ReceiptCallbackDTO",
+          "RouteRuleUpsertDTO",
+          "SubscriptionUpsertDTO",
+          "TemplateCreateDTO",
+          "TemplateQueryDTO",
+          "TemplateAuditDTO",
+          "TemplatePreviewDTO",
+          "TemplateTestSendDTO",
+          "UnsubscribeQueryDTO",
+          "UserChannelBindingDTO"
+        ]
+      },
+      {
+        "file": "apps\\message-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\message-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "BatchSendRequestDTO",
+          "BroadcastRequestDTO",
+          "MessageFeedbackDTO",
+          "MessageLogQueryDTO",
+          "MessageRequest",
+          "MessageSendDTO",
+          "NotificationQueryDTO",
+          "NotificationSendDTO",
+          "PageQuery",
+          "PreferenceUpsertDTO",
+          "PushRealtimeRequestDTO",
+          "RecallRequestDTO",
+          "ReceiptCallbackDTO",
+          "RouteRuleUpsertDTO",
+          "SubscriptionUpsertDTO",
+          "TemplateAuditDTO",
+          "TemplateCreateDTO",
+          "TemplatePreviewDTO",
+          "TemplateQueryDTO",
+          "TemplateTestSendDTO",
+          "UnsubscribeQueryDTO",
+          "UserChannelBindingDTO"
+        ]
+      },
+      {
+        "file": "apps\\message-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/nextwiki-web": {
+    "files": 101,
+    "headerPct": 99,
+    "exportPct": 97.2,
+    "missingHeader": [
+      "apps\\nextwiki-web\\src\\api\\sdk\\schema.d.ts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\nextwiki-web\\src\\api\\.generated-archived\\models.ts",
+        "symbols": [
+          "SearchRequest"
+        ]
+      },
+      {
+        "file": "apps\\nextwiki-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\nextwiki-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "SearchRequest"
+        ]
+      },
+      {
+        "file": "apps\\nextwiki-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/system-web": {
+    "files": 106,
+    "headerPct": 98.1,
+    "exportPct": 82.9,
+    "missingHeader": [
+      "apps\\system-web\\public\\mockServiceWorker.js",
+      "apps\\system-web\\src\\api\\sdk\\schema.d.ts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\system-web\\src\\api\\.generated-archived\\models.ts",
+        "symbols": [
+          "AppInfoPageQuery",
+          "AppInfoDTO",
+          "ConfigPageQuery",
+          "ConfigDTO",
+          "ConfigBatchDTO",
+          "ConfigVO",
+          "DictPageQuery",
+          "DictTypeDTO",
+          "DictItemPageQuery",
+          "DictItemDTO",
+          "DictItemBatchDTO",
+          "DictItemVO",
+          "EntityVersionPageQuery",
+          "ConfigGetRequest",
+          "DictItemGetRequest",
+          "DictListRequest",
+          "AppValidateRequest",
+          "TenantPageQuery",
+          "TenantDTO",
+          "TenantPlanPageQuery",
+          "TenantPlanDTO",
+          "TenantPlanMenuDTO",
+          "VariablePageQuery",
+          "VariableDTO"
+        ]
+      },
+      {
+        "file": "apps\\system-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\system-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "AppInfoDTO",
+          "AppInfoPageQuery",
+          "AppValidateRequest",
+          "ConfigBatchDTO",
+          "ConfigDTO",
+          "ConfigGetRequest",
+          "ConfigPageQuery",
+          "ConfigVO",
+          "DictItemBatchDTO",
+          "DictItemDTO",
+          "DictItemGetRequest",
+          "DictItemPageQuery",
+          "DictItemVO",
+          "DictListRequest",
+          "DictPageQuery",
+          "DictTypeDTO",
+          "EntityVersionPageQuery",
+          "TenantDTO",
+          "TenantPageQuery",
+          "TenantPlanDTO",
+          "TenantPlanMenuDTO",
+          "TenantPlanPageQuery",
+          "VariableDTO",
+          "VariablePageQuery"
+        ]
+      },
+      {
+        "file": "apps\\system-web\\src\\composables\\useNotificationSse.ts",
+        "symbols": [
+          "useNotificationSse"
+        ]
+      },
+      {
+        "file": "apps\\system-web\\src\\composables\\usePreferences.ts",
+        "symbols": [
+          "usePreferences"
+        ]
+      },
+      {
+        "file": "apps\\system-web\\src\\store\\notification.ts",
+        "symbols": [
+          "useNotificationStore"
+        ]
+      },
+      {
+        "file": "apps\\system-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/userinfo-web": {
+    "files": 144,
+    "headerPct": 99.3,
+    "exportPct": 84.6,
+    "missingHeader": [
+      "apps\\userinfo-web\\src\\api\\sdk\\schema.d.ts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\userinfo-web\\src\\api\\.generated-archived\\models.ts",
+        "symbols": [
+          "UserBanRequestDTO",
+          "SendVerifyCodeDTO",
+          "LoginDTO",
+          "RefreshRequest",
+          "SecondaryAuthRequest",
+          "AuthPolicyPageQuery",
+          "AuthPolicyDTO",
+          "CompanyDTO",
+          "DepartmentDTO",
+          "LanguagePageQuery",
+          "LanguageDTO",
+          "MenuDTO",
+          "OAuth2AuthorizeRequest",
+          "OAuth2TokenRequest",
+          "PostDTO",
+          "RolePageQuery",
+          "RoleDTO",
+          "AssignPermissionsDTO",
+          "SamlIdpPageQuery",
+          "SamlIdpDTO",
+          "ScimUser",
+          "ScimName",
+          "ScimEmail",
+          "ScimPhone",
+          "ScimMeta",
+          "ScimPatchOp",
+          "SecurityAlertPageQuery",
+          "SocialClientPageQuery",
+          "SocialClientDTO",
+          "UserAccountPageQuery",
+          "UserAccountDTO",
+          "ChangePasswordDTO",
+          "ResetPasswordDTO",
+          "AssignRolesDTO",
+          "BatchUserStatusDTO",
+          "SensitiveVerifyDTO",
+          "UserSearchQuery",
+          "UserProfileUpdateDTO",
+          "MfaOperationDTO",
+          "SelfRegisterDTO",
+          "ForgotPasswordDTO",
+          "AccountUnlockDTO"
+        ]
+      },
+      {
+        "file": "apps\\userinfo-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\userinfo-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "AccountUnlockDTO",
+          "AssignPermissionsDTO",
+          "AssignRolesDTO",
+          "AuthPolicyDTO",
+          "AuthPolicyPageQuery",
+          "BatchUserStatusDTO",
+          "ChangePasswordDTO",
+          "CompanyDTO",
+          "DepartmentDTO",
+          "ForgotPasswordDTO",
+          "LanguageDTO",
+          "LanguagePageQuery",
+          "LoginDTO",
+          "MenuDTO",
+          "MfaOperationDTO",
+          "OAuth2TokenRequest",
+          "PostDTO",
+          "RefreshRequest",
+          "ResetPasswordDTO",
+          "RoleDTO",
+          "RolePageQuery",
+          "SamlIdpDTO",
+          "SamlIdpPageQuery",
+          "ScimEmail",
+          "ScimMeta",
+          "ScimName",
+          "ScimPatchOp",
+          "ScimPhone",
+          "ScimUser",
+          "SecondaryAuthRequest",
+          "SecurityAlertPageQuery",
+          "SelfRegisterDTO",
+          "SendVerifyCodeDTO",
+          "SensitiveVerifyDTO",
+          "SocialClientDTO",
+          "SocialClientPageQuery",
+          "UserAccountDTO",
+          "UserAccountPageQuery",
+          "UserBanRequestDTO",
+          "UserProfileUpdateDTO",
+          "UserSearchQuery"
+        ]
+      },
+      {
+        "file": "apps\\userinfo-web\\src\\views\\system\\ldap-sync\\index.vue",
+        "symbols": [
+          "LdapSyncStatusVo",
+          "isLdapSyncStatusVo",
+          "LdapSyncLogVo",
+          "isLdapSyncLogVo"
+        ]
+      },
+      {
+        "file": "apps\\userinfo-web\\src\\views\\system\\sso-metrics\\index.vue",
+        "symbols": [
+          "SsoMetricsOverviewVo",
+          "isSsoMetricsOverviewVo"
+        ]
+      },
+      {
+        "file": "apps\\userinfo-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "apps/workflow-web": {
+    "files": 96,
+    "headerPct": 99,
+    "exportPct": 95.8,
+    "missingHeader": [
+      "apps\\workflow-web\\src\\api\\sdk\\schema.d.ts"
+    ],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "apps\\workflow-web\\src\\api\\sdk\\schema.d.ts",
+        "symbols": [
+          "webhooks",
+          "components",
+          "$defs",
+          "operations"
+        ]
+      },
+      {
+        "file": "apps\\workflow-web\\src\\api\\sdk\\types-export.ts",
+        "symbols": [
+          "EmbeddedApprovalActionDTO",
+          "FlowAssigneeDTO",
+          "FlowAttachmentDTO",
+          "FlowAutoTriggerCreateDTO",
+          "FlowCategoryDTO",
+          "FlowCcQuery",
+          "FlowCommentCreateDTO",
+          "FlowDelegateAuthPostDTO",
+          "FlowDeployProcessDTO",
+          "FlowDesignerDataDTO",
+          "FlowInstanceVariablesDTO",
+          "FlowQuickCommentDTO",
+          "FlowSaveDraftDTO",
+          "FlowStartProcessDTO",
+          "FlowSubmitDraftDTO",
+          "FlowTaskOperateDTO",
+          "InstanceMigrationDTO"
+        ]
+      },
+      {
+        "file": "apps\\workflow-web\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "bash": {
+    "files": 33,
+    "headerPct": 100,
+    "exportPct": 76.9,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "bash\\gen-app.mjs",
+        "symbols": [
+          "default",
+          "initSetupYDSZForm",
+          "useAuthStore",
+          "accessRoutes",
+          "routes",
+          "coreRoutes",
+          "fallbackNotFoundRoute"
+        ]
+      },
+      {
+        "file": "bash\\turbo-run\\build.config.ts",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "bash\\vsh\\src\\check-bundle\\index.ts",
+        "symbols": [
+          "BundleViolation"
+        ]
+      }
+    ]
+  },
+  "chrome": {
+    "files": 6,
     "headerPct": 100,
     "exportPct": 100,
     "missingHeader": [],
     "misplacedHeader": [],
     "missingExportDoc": []
   },
-  "preferences": {
-    "files": 8,
+  "comm/@core": {
+    "files": 447,
+    "headerPct": 100,
+    "exportPct": 99.6,
+    "missingHeader": [],
+    "misplacedHeader": [
+      "comm\\@core\\ui-kit\\tiptap\\src\\toolbar\\TipTap-toolbar.vue"
+    ],
+    "missingExportDoc": [
+      {
+        "file": "comm\\@core\\ui-kit\\shadcn-ui\\src\\components\\search\\use-global-search.ts",
+        "symbols": [
+          "useGlobalSearch"
+        ]
+      }
+    ]
+  },
+  "comm/constants": {
+    "files": 3,
     "headerPct": 100,
     "exportPct": 100,
     "missingHeader": [],
     "misplacedHeader": [],
     "missingExportDoc": []
   },
-  "ui-kit": {
-    "files": 356,
+  "comm/effects": {
+    "files": 406,
+    "headerPct": 100,
+    "exportPct": 99.7,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "comm\\effects\\request\\src\\raw-fetch.ts",
+        "symbols": [
+          "fetchRaw"
+        ]
+      },
+      {
+        "file": "comm\\effects\\shared-business\\src\\notification\\notification-store.ts",
+        "symbols": [
+          "useNotificationStore"
+        ]
+      }
+    ]
+  },
+  "comm/icons": {
+    "files": 5,
+    "headerPct": 100,
+    "exportPct": 100,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": []
+  },
+  "comm/locales": {
+    "files": 9,
+    "headerPct": 100,
+    "exportPct": 100,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": []
+  },
+  "comm/preferences": {
+    "files": 1,
+    "headerPct": 100,
+    "exportPct": 100,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": []
+  },
+  "comm/stores": {
+    "files": 14,
+    "headerPct": 100,
+    "exportPct": 100,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": []
+  },
+  "comm/styles": {
+    "files": 1,
+    "headerPct": 100,
+    "exportPct": 100,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": []
+  },
+  "comm/types": {
+    "files": 5,
+    "headerPct": 100,
+    "exportPct": 100,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": []
+  },
+  "comm/utils": {
+    "files": 11,
+    "headerPct": 100,
+    "exportPct": 100,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": []
+  },
+  "(root)": {
+    "files": 3,
+    "headerPct": 100,
+    "exportPct": 33.3,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "eslint.config.mjs",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "stylelint.config.mjs",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "conf": {
+    "files": 46,
+    "headerPct": 100,
+    "exportPct": 93.5,
+    "missingHeader": [],
+    "misplacedHeader": [],
+    "missingExportDoc": [
+      {
+        "file": "conf\\tailwind-config\\build.config.ts",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "conf\\tailwind-config\\src\\postcss.config.ts",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "conf\\vite-config\\build.config.ts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "main": {
+    "files": 122,
+    "headerPct": 69.7,
+    "exportPct": 77.1,
+    "missingHeader": [
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\axios@^1.10.0\\index.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\axios@^1.10.0\\lib\\helpers\\null.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\axios@^1.10.0\\lib\\platform\\browser\\index.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\components.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\language\\zh-CN.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\print\\src\\util.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\ui\\src\\dom.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\ui\\src\\log.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-table@^4.14.4\\es\\components.js",
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-table@^4.14.4\\es\\locale\\lang\\zh-CN.js",
+      "main\\public\\vendor\\esm.sh\\_star@vxe-ui\\core@4.4.21\\es\\index.esm.js",
+      "main\\public\\vendor\\esm.sh\\_starasync-validator@4.2.5\\dist-web\\index.js",
+      "main\\public\\vendor\\esm.sh\\_stardayjs@1.11.23\\dayjs.min.js",
+      "main\\public\\vendor\\esm.sh\\_stardom-zindex@1.0.7\\es\\index.esm.js",
+      "main\\public\\vendor\\esm.sh\\_starecharts@6.1.0\\index.js",
+      "main\\public\\vendor\\esm.sh\\_starecharts@6.1.0\\lib\\extension.js",
+      "main\\public\\vendor\\esm.sh\\_starelement-plus@2.14.5\\es\\index.mjs",
+      "main\\public\\vendor\\esm.sh\\_starelement-plus@2.14.5\\index.js",
+      "main\\public\\vendor\\esm.sh\\_starlodash-es@4.18.1\\lodash.js",
+      "main\\public\\vendor\\esm.sh\\_starlodash-unified@1.0.3\\import.js",
+      "main\\public\\vendor\\esm.sh\\_startslib@2.3.0\\tslib.es6.js",
+      "main\\public\\vendor\\esm.sh\\_starvue-demi@0.14.10\\lib\\index.mjs",
+      "main\\public\\vendor\\esm.sh\\_starvxe-pc-ui@4.17.23\\es\\index.esm.js",
+      "main\\public\\vendor\\esm.sh\\_starvxe-table@4.21.3\\es\\index.esm.js",
+      "main\\public\\vendor\\esm.sh\\_starxe-utils@4.0.13\\es\\index.esm.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\index.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\core\\bbox.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\core\\BoundingRect.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\core\\env.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\core\\Transformable.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\core\\util.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\core\\vector.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\graphic\\LinearGradient.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\graphic\\RadialGradient.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\Storage.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\svg\\patch.js",
+      "main\\public\\vendor\\esm.sh\\_starzrender@6.1.0\\lib\\tool\\color.js"
+    ],
+    "misplacedHeader": [
+      "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\upload\\src\\util.js",
+      "main\\src\\setup\\monitoring.ts"
+    ],
+    "missingExportDoc": [
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\axios@^1.10.0\\lib\\helpers\\null.js",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\axios@^1.10.0\\lib\\platform\\browser\\index.js",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\components.js",
+        "symbols": [
+          "install"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\language\\zh-CN.js",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\print\\src\\util.js",
+        "symbols": [
+          "trimHtml",
+          "createPrintFrame",
+          "printHtml",
+          "assemblePageBreak",
+          "destroyPageBreak"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\ui\\src\\dom.js",
+        "symbols": [
+          "initTpImg",
+          "getTpImg",
+          "getPropClass",
+          "isPx",
+          "isScale",
+          "hasClass",
+          "removeClass",
+          "addClass",
+          "hasControlKey",
+          "toCssUnit",
+          "getDomNode",
+          "getAbsolutePos",
+          "getPaddingTopBottomSize",
+          "getPaddingLeftRightSize",
+          "scrollToView",
+          "triggerEvent",
+          "isNodeElement",
+          "getPopupContainer",
+          "getPopupAppendElement"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\ui\\src\\log.js",
+        "symbols": [
+          "createComponentLog",
+          "warnLog",
+          "errLog"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-pc-ui@^4.7.12\\es\\upload\\src\\util.js",
+        "symbols": [
+          "parseFile",
+          "getExportBlobByContent"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-table@^4.14.4\\es\\components.js",
+        "symbols": [
+          "install"
+        ]
+      },
+      {
+        "file": "main\\public\\vendor\\cdn.jsdelivr.net\\npm\\vxe-table@^4.14.4\\es\\locale\\lang\\zh-CN.js",
+        "symbols": [
+          "default"
+        ]
+      },
+      {
+        "file": "main\\vite.config.mts",
+        "symbols": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "_api_audit": {
+    "files": 2,
     "headerPct": 100,
     "exportPct": 100,
     "missingHeader": [],

@@ -1,9 +1,3 @@
-import type { microRuntime } from "#/setup/micro-runtime";
-
-import { enableMicroDevTools, getCanaryManager } from "@ydsz/micro-kernel";
-import { setupMonitor } from "@ydsz/monitor";
-import { useUserStore } from "@ydsz/stores";
-
 /**
  * 监控与运行期增强模块
  *
@@ -16,6 +10,12 @@ import { useUserStore } from "@ydsz/stores";
  * @author ydsz-team
  * @since 4.1.0
  */
+import type { microRuntime } from "#/setup/micro-runtime";
+
+import { enableMicroDevTools, getCanaryManager } from "@ydsz/micro-kernel";
+import { setupMonitor } from "@ydsz/monitor";
+import { useUserStore } from "@ydsz/stores";
+
 import { createLogger } from "@ydsz-core/shared/utils";
 
 import { useCrossTabSync } from "#/hooks/use-cross-tab-sync";

@@ -144,7 +144,20 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:users', order: 10, title: '多Agent协作' },
+    meta: { icon: 'lucide:brain', order: 10, title: '对话记忆' },
+    name: 'MemoryMgmt',
+    path: '/memory',
+    children: [
+      {
+        name: 'MemoryManagement',
+        path: 'list',
+        component: () => import('#/views/memory/index.vue'),
+        meta: { icon: 'lucide:brain', title: '对话记忆' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:users', order: 11, title: '多Agent协作' },
     name: 'TeamRunMgmt',
     path: '/team-run',
     children: [
@@ -157,7 +170,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:clock', order: 11, title: '触发器管理' },
+    meta: { icon: 'lucide:clock', order: 12, title: '触发器管理' },
     name: 'TriggerMgmt',
     path: '/trigger',
     children: [
@@ -170,7 +183,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:file-bar-chart', order: 12, title: '洞察报告' },
+    meta: { icon: 'lucide:file-bar-chart', order: 13, title: '洞察报告' },
     name: 'InsightReportMgmt',
     path: '/insight',
     children: [

@@ -58,5 +58,10 @@
   "postBase": "Position",
   "companyBase": "Company",
   "menuBase": "Menu",
-  "languageBase": "Language"
+  "languageBase": "Language",
+  "socialAccount": "Social Account Binding",
+  "myDevices": "My Devices",
+  "ldapSync": "LDAP Sync",
+  "ssoMetrics": "SSO Metrics",
+  "userCenter": "User Center"
 }

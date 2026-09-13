@@ -85,7 +85,38 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:calendar', order: 6, title: '调度日历' },
+    meta: { icon: 'lucide:history', order: 6, title: '任务历史' },
+    name: 'HistoryMgmt',
+    path: '/cronjob',
+    children: [
+      {
+        name: 'JobHistoryManagement',
+        path: 'history',
+        component: () => import('#/views/job-history/index.vue'),
+        meta: { icon: 'lucide:history', title: '任务历史' },
+      },
+      {
+        name: 'AuditLogManagement',
+        path: 'audit',
+        component: () => import('#/views/audit-log/index.vue'),
+        meta: { icon: 'lucide:file-check', title: '审计日志' },
+      },
+      {
+        name: 'JobTaskManagement',
+        path: 'shard',
+        component: () => import('#/views/job-task/index.vue'),
+        meta: { icon: 'lucide:grid-3x3', title: '任务分片' },
+      },
+      {
+        name: 'ScheduleUpcoming',
+        path: 'upcoming',
+        component: () => import('#/views/schedule-upcoming/index.vue'),
+        meta: { icon: 'lucide:calendar-clock', title: '调度日历' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:calendar', order: 7, title: '调度日历' },
     name: 'ScheduleCalendarMgmt',
     path: '/schedule-calendar',
     children: [
@@ -98,7 +129,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:plug', order: 7, title: '连接器' },
+    meta: { icon: 'lucide:plug', order: 8, title: '连接器' },
     name: 'ConnectorMgmt',
     path: '/connector',
     children: [
@@ -139,6 +170,31 @@ const routes: RouteRecordRaw[] = [
         path: 'diagnosis',
         component: () => import('#/views/job-diagnosis/index.vue'),
         meta: { icon: 'lucide:stethoscope', order: 11, title: '任务诊断' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:heart-pulse', order: 9, title: '系统状态' },
+    name: 'SystemMonitor',
+    path: '/system',
+    children: [
+      {
+        name: 'HealthDashboard',
+        path: 'health',
+        component: () => import('#/views/health/index.vue'),
+        meta: { icon: 'lucide:heart-pulse', order: 12, title: '健康仪表盘' },
+      },
+      {
+        name: 'JobQueueMonitor',
+        path: 'queue',
+        component: () => import('#/views/queue/index.vue'),
+        meta: { icon: 'lucide:list-ordered', order: 13, title: '执行队列' },
+      },
+      {
+        name: 'JobStatsReport',
+        path: 'stats',
+        component: () => import('#/views/stats/index.vue'),
+        meta: { icon: 'lucide:bar-chart', order: 14, title: '统计数据' },
       },
     ],
   },

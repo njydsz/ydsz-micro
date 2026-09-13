@@ -9,5 +9,8 @@
   "alert": "Alert",
   "alertRule": "Alert Rule",
   "connector": "Connector",
-  "connectorList": "Connector List"
+  "connectorList": "Connector List",
+  "health": "Health Dashboard",
+  "queue": "Job Queue",
+  "stats": "Stats Report"
 }

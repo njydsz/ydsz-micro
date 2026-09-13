@@ -58,5 +58,10 @@
   "postBase": "岗位",
   "companyBase": "公司",
   "menuBase": "菜单",
-  "languageBase": "语言"
+  "languageBase": "语言",
+  "socialAccount": "社交账号绑定",
+  "myDevices": "我的设备",
+  "ldapSync": "LDAP 同步",
+  "ssoMetrics": "SSO 监控",
+  "userCenter": "用户中心"
 }

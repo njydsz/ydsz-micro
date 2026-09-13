@@ -7,5 +7,7 @@
   "tag": "Tag",
   "tagList": "Tag List",
   "storage": "Storage",
-  "quota": "Quota"
+  "quota": "Quota",
+  "analysis": "Storage Analysis",
+  "aiAssist": "AI Assist"
 }
