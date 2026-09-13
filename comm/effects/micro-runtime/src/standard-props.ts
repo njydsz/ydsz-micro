@@ -172,11 +172,14 @@ export function buildStandardMountProps(
   config: MicroAppConfig,
   ctx: BuildPropsContext,
 ): StandardMicroProps {
-  return {
+  // 容器可能尚未渲染（Vue 异步路由 + 懒加载组件），此时暂不注入，
+  // 由 kernel-lifecycle.ts 的 waitForContainer 在挂载前补全。
+  const resolvedContainer = resolveContainer(config.container);
+
+  const props: Record<string, unknown> = {
     // 基础信息
     appName: config.name,
     basename: typeof config.activeRule === 'string' ? config.activeRule : `/${config.name}`,
-    container: resolveContainer(config.container),
     sandbox: config.sandbox ?? 'snapshot',
 
     // 跨应用通信
@@ -225,18 +228,25 @@ export function buildStandardMountProps(
     // 合并 config.props 中的自定义字段（向后兼容）
     ...config.props,
   };
+
+  // 容器已解析时注入（不存在时由 kernel-lifecycle.ts 后续补全）
+  if (resolvedContainer) {
+    props.container = resolvedContainer;
+  }
+
+  return props as StandardMicroProps;
 }
 
 /**
- * 解析容器配置为 HTMLElement
+ * 解析容器配置为 HTMLElement。
+ *
+ * 容器不存在时返回 null（而非抛出），以兼容 Vue 异步渲染时序——
+ * kernel-router 可能在 SubAppContainer 懒加载组件渲染前触发 switchToApp。
+ * 调用方应通过 waitForContainer 等待容器就绪。
  */
-function resolveContainer(container: string | HTMLElement): HTMLElement {
+function resolveContainer(container: string | HTMLElement): HTMLElement | null {
   if (typeof container === 'string') {
-    const el = document.querySelector(container);
-    if (!el) {
-      throw new Error(`[StandardProps] Container "${container}" not found`);
-    }
-    return el as HTMLElement;
+    return document.querySelector(container) as HTMLElement | null;
   }
   return container;
 }

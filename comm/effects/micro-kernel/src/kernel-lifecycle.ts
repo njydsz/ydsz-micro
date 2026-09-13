@@ -36,6 +36,69 @@ import { registerAppMessageHandler, sendRequest, sendMessage } from "./message-b
 import { mark, measure } from "./performance-utils";
 import { recordRouteTransition } from "./preload-strategy";
 
+/**
+ * 等待容器 DOM 元素出现（兼容 Vue 异步渲染时序）。
+ *
+ * 子应用容器 #subapp-container 由 Vue 路由懒加载的 SubAppContainer 组件渲染，
+ * kernel-router 的路由同步可能在 Vue 完成初始渲染前触发 switchToApp。
+ * 使用 MutationObserver 监听 DOM 变化，容器出现后立即 resolve。
+ *
+ * @param container - 容器配置（CSS 选择器或 HTMLElement）
+ * @param signal - 用于提前中止等待的 AbortSignal
+ * @param timeout - 超时时间（默认 5000ms）
+ * @returns 容器 HTMLElement 或 null（超时/中止时）
+ */
+async function waitForContainer(
+  container: string | HTMLElement,
+  signal?: AbortSignal,
+  timeout = 5000,
+): Promise<HTMLElement | null> {
+  // HTMLElement 直接返回
+  if (typeof container !== "string") return container;
+
+  // 已存在直接返回
+  const existing = document.querySelector(container);
+  if (existing) return existing as HTMLElement;
+
+  // 等待容器被 Vue 渲染
+  return new Promise<HTMLElement | null>((resolve) => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    const observer = new MutationObserver(() => {
+      const el = document.querySelector(container);
+      if (el) {
+        cleanup();
+        resolve(el as HTMLElement);
+      }
+    });
+
+    function cleanup() {
+      observer.disconnect();
+      clearTimeout(timer);
+    }
+
+    // DOM 监听
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
+
+    // 超时兜底
+    timer = setTimeout(() => {
+      cleanup();
+      resolve(null);
+    }, timeout);
+
+    // 中止信号
+    if (signal) {
+      signal.addEventListener("abort", () => {
+        cleanup();
+        resolve(null);
+      }, { once: true });
+    }
+  });
+}
+
 /** 模块级日志器 */
 const logger = createLogger("MicroKernel:Lifecycle");
 
@@ -139,12 +202,14 @@ export function createSwitchToApp(
     await deps.lifecycleHooks.run("beforeLoad", config);
     if (token !== state.getToken()) return;
 
-    const container = resolveContainer(config.container);
+    // 等待容器就绪（兼容 Vue 异步渲染时序，详见 waitForContainer）
+    const container = await waitForContainer(config.container, signal);
     if (!container) {
-      logger.error(`Container "${config.container}" not found for ${config.name}`);
+      logger.error(`Container "${config.container}" not found for ${config.name} (timeout or aborted)`);
       window.dispatchEvent(
         new CustomEvent("micro-kernel:error", { detail: { appName: config.name, error: "Container not found" } }),
       );
+      await deps.lifecycleHooks.runError(config, new Error(`Container "${config.container}" not found`));
       return;
     }
 

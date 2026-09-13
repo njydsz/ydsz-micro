@@ -33,6 +33,7 @@ import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
 import { vitePrintPlugin } from './print';
 import { viteVxeTableImportsPlugin } from './vxe-table';
+import { hmrGuardPlugin } from './hmr-guard';
 
 /**
  * 过滤并执行条件成立的条件插件，收集其实际插件实例。
@@ -68,6 +69,11 @@ async function loadCommonPlugins(
 ): Promise<ConditionPlugin[]> {
   const { devtools, injectMetadata, isBuild, visualizer } = options;
   return [
+    {
+      // v4.4.2: Vue 3.5.x 微前端共享运行时 HMR 竞态保护（仅 dev serve）
+      condition: !isBuild,
+      plugins: () => [hmrGuardPlugin()],
+    },
     {
       condition: true,
       plugins: () => [
@@ -360,6 +366,7 @@ async function loadLibraryPlugins(
 export {
   loadApplicationPlugins,
   loadLibraryPlugins,
+  hmrGuardPlugin,
   bundleBudgetPlugin,
   viteArchiverPlugin,
   viteCompressPlugin,

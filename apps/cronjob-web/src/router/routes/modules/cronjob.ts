@@ -111,7 +111,20 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:monitor', order: 10, title: '运维监控' },
+    meta: { icon: 'lucide:monitor', order: 5, title: '集群管理' },
+    name: 'ClusterMgmt',
+    path: '/cluster',
+    children: [
+      {
+        name: 'ClusterMigration',
+        path: 'migrate',
+        component: () => import('#/views/cluster/index.vue'),
+        meta: { icon: 'lucide:shuffle', title: '集群迁移' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:monitor', title: '运维监控' },
     name: 'OpsMonitor',
     path: '/ops',
     children: [
@@ -119,13 +132,13 @@ const routes: RouteRecordRaw[] = [
         name: 'CronjobTopology',
         path: 'topology',
         component: () => import('#/views/topology/index.vue'),
-        meta: { icon: 'lucide:share-2', title: '拓扑可视化' },
+        meta: { icon: 'lucide:share-2', order: 10, title: '拓扑可视化' },
       },
       {
         name: 'CronjobJobDiagnosis',
         path: 'diagnosis',
         component: () => import('#/views/job-diagnosis/index.vue'),
-        meta: { icon: 'lucide:stethoscope', title: '任务诊断' },
+        meta: { icon: 'lucide:stethoscope', order: 11, title: '任务诊断' },
       },
     ],
   },

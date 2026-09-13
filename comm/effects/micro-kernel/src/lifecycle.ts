@@ -121,9 +121,10 @@ export async function activateApp(
     }
   }
 
-  // 挂载准备
-  const mountProps: MountProps = { container,
-    basename: typeof config.activeRule === "string" ? config.activeRule : "/", ...config.props };
+  // 挂载准备 — 显式解析的 container 优先于 config.props.container
+  // （config.props 可能由 buildStandardMountProps 在容器未就绪时构建）
+  const mountProps: MountProps = { ...config.props, container,
+    basename: typeof config.activeRule === "string" ? config.activeRule : "/" };
   container.dataset.microApp = config.name;
   if (shouldApplyRuntimeCssScope(config)) applyRuntimeCssScope(config.name);
 

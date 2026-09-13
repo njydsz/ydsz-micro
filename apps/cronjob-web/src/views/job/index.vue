@@ -19,8 +19,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
-import { h } from 'vue';
+import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -39,6 +39,7 @@ import type { JobBatchDTO, JobVO } from '#/api/models';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import JobForm from './job-form.vue';
+import WebhookConfigPanel from './components/WebhookConfigPanel.vue';
 
 const logger = createLogger('cronjob-job');
 
@@ -130,6 +131,11 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
             ),
             h(
               ElButton,
+              { size: 'small', link: true, type: 'warning', onClick: () => handleWebhookConfig(job) },
+              () => 'WebHook',
+            ),
+            h(
+              ElButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(job) },
               () => t('common.delete'),
             ),
@@ -190,6 +196,17 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [JobFormModal, jobFormApi] = useYDSZModal({ connectedComponent: JobForm });
+
+/** Webhook 配置抽屉可见性 */
+const drawerVisible = ref(false);
+/** 当前选中配置 Webhook 的任务 ID */
+const selectedJobId = ref<string>('');
+
+/** 打开任务 Webhook 配置抽屉 */
+function handleWebhookConfig(row: JobRow): void {
+  selectedJobId.value = row.id ?? '';
+  drawerVisible.value = true;
+}
 
 function handleAdd() {
   jobFormApi.open();
@@ -332,5 +349,10 @@ async function handleBatchDelete() {
       </template>
     </Grid>
     <JobFormModal @success="gridApi.query()" />
+
+    <!-- Webhook 配置抽屉 -->
+    <ElDrawer v-model="drawerVisible" :title="`任务 WebHook 配置`" direction="rtl" size="600px">
+      <WebhookConfigPanel v-if="drawerVisible" :job-id="selectedJobId" />
+    </ElDrawer>
   </Page>
 </template>
