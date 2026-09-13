@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts">
+/** LDAP 同步状态视图模型（对应后端 LdapSyncStatusVO） */
 export interface LdapSyncStatusVo {
   status?: string;
   lastSyncTime?: string;
@@ -18,10 +19,12 @@ export interface LdapSyncStatusVo {
   errorMessage?: string;
 }
 
+/** 类型守卫：判定 unknown 是否为 LdapSyncStatusVo */
 export function isLdapSyncStatusVo(value: unknown): value is LdapSyncStatusVo {
   return typeof value === 'object' && value !== null;
 }
 
+/** LDAP 同步日志视图模型（对应后端 LdapSyncLogVO） */
 export interface LdapSyncLogVo {
   id?: string;
   syncTime?: string;
@@ -34,6 +37,7 @@ export interface LdapSyncLogVo {
   errorMessage?: string;
 }
 
+/** 类型守卫：判定 unknown 是否为 LdapSyncLogVo */
 export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
   return typeof value === 'object' && value !== null;
 }

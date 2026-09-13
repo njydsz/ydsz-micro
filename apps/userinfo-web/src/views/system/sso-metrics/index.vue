@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts">
+/** SSO 指标概览视图模型（对应后端 SsoMetricsOverviewVO） */
 export interface SsoMetricsOverviewVo {
   totalLoginCount?: number;
   todayLoginCount?: number;
@@ -19,6 +20,7 @@ export interface SsoMetricsOverviewVo {
   applicationNames?: string[];
 }
 
+/** 类型守卫：判定 unknown 是否为 SsoMetricsOverviewVo */
 export function isSsoMetricsOverviewVo(value: unknown): value is SsoMetricsOverviewVo {
   return typeof value === 'object' && value !== null;
 }
