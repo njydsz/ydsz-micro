@@ -1,6 +1,10 @@
 <!--
  * Agent 定义管理（列表页）
  *
+ * 视图模式：卡片视图（默认）/ 表格视图 可切换。
+ *  - 卡片视图：CardGrid + EntityCard，承载信息密度高的 Agent 展示；
+ *  - 表格视图：VxeTable，保持原有兼容视图。
+ *
  * @path apps/agent-web/src/views/agent/index.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -16,7 +20,17 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { h } from 'vue';
+import { Cards, Grid3x3, MoreVertical } from 'lucide-vue-next';
+import { h, ref } from 'vue';
+import {
+  CardGrid,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  EmptyState,
+  EntityCard,
+} from '@ydsz-core/shadcn-ui';
 import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
@@ -24,6 +38,11 @@ import type { AgentDefinitionVO } from '#/api/models';
 import AgentForm from './agent-form.vue';
 
 defineOptions({ name: 'AgentManagement' });
+
+type ViewMode = 'card' | 'table';
+const viewMode = ref<ViewMode>('card');
+const agentList = ref<AgentDefinitionVO[]>([]);
+const loading = ref<boolean>(false);
 
 const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   columns: [
@@ -58,21 +77,60 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
   formConfig: { enabled: true, items: [
-      { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'Input', props: { placeholder: 'Agent编码' } } },
-      { field: 'agentName', title: 'Agent名称', itemRender: { name: 'Input', props: { placeholder: 'Agent名称' } } },
+    { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'Input', props: { placeholder: 'Agent编码' } } },
+    { field: 'agentName', title: 'Agent名称', itemRender: { name: 'Input', props: { placeholder: 'Agent名称' } } },
   ] },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [AgentFormModal, agentFormApi] = useYDSZModal({ connectedComponent: AgentForm });
 
+/** 加载 Agent 列表数据 */
+async function loadAgentList(): Promise<void> {
+  loading.value = true;
+  try {
+    agentList.value = (await list()) ?? [];
+  } catch {
+    agentList.value = [];
+  } finally {
+    loading.value = false;
+  }
+}
+
+/** 视图模式切换 */
+function handleViewModeChange(mode: ViewMode): void {
+  if (mode === 'card' && agentList.value.length === 0 && !loading.value) {
+    void loadAgentList();
+  }
+  viewMode.value = mode;
+}
+
+/** 卡片视图编辑 */
+function handleCardEdit(row: AgentDefinitionVO): void {
+  handleEdit(row);
+}
+
+/** 卡片视图删除 */
+function handleCardDelete(row: AgentDefinitionVO): void {
+  handleDelete(row);
+}
+
+/** 刷新列表（兼容两个视图） */
+async function handleRefresh(): Promise<void> {
+  if (viewMode.value === 'table') {
+    gridApi.query();
+  } else {
+    await loadAgentList();
+  }
+}
+
 /** 打开新增弹窗 */
-function handleAdd() { agentFormApi.open(); }
+function handleAdd(): void { agentFormApi.open(); }
 
 /** 打开编辑弹窗，回填行数据 */
-function handleEdit(row: AgentDefinitionVO) { agentFormApi.setData({ record: row }); agentFormApi.open(); }
+function handleEdit(row: AgentDefinitionVO): void { agentFormApi.setData({ record: row }); agentFormApi.open(); }
 
 /** 删除定义，二次确认后调用 deleteApi({ id }) */
-async function handleDelete(row: AgentDefinitionVO) {
+async function handleDelete(row: AgentDefinitionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await ElMessageBox.confirm(`确定删除「${row.agentName ?? row.agentCode ?? ''}」吗？`, '删除确认', { type: 'warning' });
@@ -83,17 +141,126 @@ async function handleDelete(row: AgentDefinitionVO) {
   try {
     await deleteApi({ id: row.id ?? '' });
     ElMessage.success('删除成功');
-    gridApi.query();
-  } catch {
+    await handleRefresh();
+  } catch (error) {
     /* 错误已由请求拦截器展示，无需重复处理 */
+    console.warn('[agent] delete failed:', error);
   }
 }
+
+/** 初始加载卡片数据（默认视图为卡片） */
+void loadAgentList();
 </script>
+
 <template>
   <Page auto-content-height>
-    <Grid table-title="Agent定义管理">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
-    </Grid>
-    <AgentFormModal @success="gridApi.query()" />
+    <!-- 视图切换 + 工具栏 -->
+    <div class="mb-4 flex items-center justify-between">
+      <div class="flex items-center gap-1 rounded-lg border border-border-subtle bg-accent/50 p-1">
+        <button
+          class="rounded-md px-2.5 py-1 text-xs transition-colors"
+          :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          @click="handleViewModeChange('card')"
+        >
+          <Cards :size="14" class="me-1 inline" />
+          卡片
+        </button>
+        <button
+          class="rounded-md px-2.5 py-1 text-xs transition-colors"
+          :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          @click="handleViewModeChange('table')"
+        >
+          <Grid3x3 :size="14" class="me-1 inline" />
+          表格
+        </button>
+      </div>
+      <ElButton type="primary" @click="handleAdd">新增</ElButton>
+    </div>
+
+    <!-- 表格视图 -->
+    <Grid
+      v-if="viewMode === 'table'"
+      table-title="Agent定义管理"
+    />
+
+    <!-- 卡片视图 -->
+    <div
+      v-else
+      class="min-h-[400px]"
+    >
+      <CardGrid
+        :empty="agentList.length === 0 && !loading"
+        :loading="loading"
+      >
+        <template #empty>
+          <EmptyState
+            description="创建 Agent 后可在应用中心调用"
+            preset="created"
+            action-text="创建 Agent"
+            title="暂无 Agent"
+            @action="handleAdd"
+          />
+        </template>
+        <EntityCard
+          v-for="item in agentList"
+          :key="item.id"
+          :avatar-text="item.agentName"
+          :avatar-variant="item.agentType === 'CHAT' ? 'primary' : item.agentType === 'WORKFLOW' ? 'purple' : 'blue'"
+          :code="item.agentCode"
+          :description="item.description"
+          class="transition-transform hover:-translate-y-0.5"
+          @click="handleCardEdit(item)"
+        >
+          <template #status-badge>
+            <!-- 暂不映射状态，待后端 isPublished 等字段发布后启用 -->
+          </template>
+
+          <template #meta>
+            <div class="mt-3 grid grid-cols-2 gap-2 text-xs">
+              <div class="rounded-md bg-accent/60 px-2 py-1.5">
+                <span class="text-text-tertiary">模型温度</span>
+                <div class="mt-0.5 font-medium text-text-secondary">{{ item.temperature ?? '-' }}</div>
+              </div>
+              <div class="rounded-md bg-accent/60 px-2 py-1.5">
+                <span class="text-text-tertiary">MaxTokens</span>
+                <div class="mt-0.5 font-medium text-text-secondary">{{ item.maxTokens ?? '-' }}</div>
+              </div>
+            </div>
+          </template>
+
+          <template #footer-left>
+            <span>{{ item.updatedAt ?? item.createdAt ?? '' }}</span>
+          </template>
+
+          <template #actions>
+            <DropdownMenu>
+              <DropdownMenuTrigger as-child>
+                <ElButton
+                  size="small"
+                  link
+                  type="primary"
+                  @click.stop="() => {}"
+                >
+                  <MoreVertical :size="14" />
+                </ElButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem @click.stop="handleCardEdit(item)">
+                  编辑信息
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  class="text-destructive"
+                  @click.stop="handleCardDelete(item)"
+                >
+                  删除定义
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </template>
+        </EntityCard>
+      </CardGrid>
+    </div>
+
+    <AgentFormModal @success="handleRefresh()" />
   </Page>
 </template>
