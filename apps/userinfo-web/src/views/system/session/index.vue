@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 在线用户管理（会话管理）
  *
  * @path apps\userinfo-web\src\views\system\session\index.vue
@@ -10,13 +10,14 @@
  * 在线用户管理（会话管理）
  * <p>消费后端契约 AdminSessionController（apps/userinfo-web/src/api/adminSession.ts）：
  * getAllActiveSessions() 展示全部在线会话，getSessionStatistics() 会话统计，
- * forceLogout() 强制下线，banUser() 封禁用户，unbanUser() 解封用户。
+ * forceLogout() 强制下线，banUser() 封禁用户，unbanUser() 解封用户，
+ * getBanInfo() 查看封禁信息，getUserSessions() 查看用户全部会话。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page } from '@ydsz/common-ui';
+import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -29,8 +30,11 @@ import {
   forceLogout,
   getAllActiveSessions,
   getSessionStatistics,
+  unbanUser,
 } from '#/api/adminSession';
-import type { UserSessionStatistics, UserSessionVO } from '#/api/models';
+import type { UserSessionStatisticsVO, UserSessionVO } from '#/api/models';
+import BanInfoModal from './ban-info-modal.vue';
+import UserSessionsModal from './user-sessions-modal.vue';
 
 defineOptions({ name: 'SessionManagement' });
 
@@ -38,7 +42,7 @@ const logger = createLogger('userinfo-session');
 const { t } = useI18n();
 
 /** 会话统计数据 */
-const statistics = ref<UserSessionStatistics>({});
+const statistics = ref<UserSessionStatisticsVO>({});
 const statisticsLoading = ref(false);
 
 /** 加载统计数据 */
@@ -61,12 +65,15 @@ const gridOptions: VxeGridProps<UserSessionVO> = {
     { field: 'loginTime', title: t('session.loginTime'), width: 170 },
     { field: 'expireTime', title: t('session.expireTime'), width: 170 },
     {
-      field: 'action', title: t('page.operation'), width: 180, fixed: 'right',
+      field: 'action', title: t('page.operation'), width: 280, fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
+            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewBanInfo(row) }, () => t('session.viewBanInfo')),
+            h(ElButton, { size: 'small', link: true, type: 'info', onClick: () => handleViewUserSessions(row) }, () => t('session.viewUserSessions')),
             h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleForceLogout(row) }, () => t('session.forceLogout')),
             h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleBanUser(row) }, () => t('session.banUser')),
+            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleUnbanUser(row) }, () => t('session.unbanUser')),
           ]),
       },
     },
@@ -85,6 +92,12 @@ const gridOptions: VxeGridProps<UserSessionVO> = {
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
+/** 封禁信息弹窗 */
+const [BanInfoModalWrapper, banInfoModalApi] = useYDSZModal({ connectedComponent: BanInfoModal });
+
+/** 用户会话列表弹窗 */
+const [UserSessionsModalWrapper, userSessionsModalApi] = useYDSZModal({ connectedComponent: UserSessionsModal });
+
 /** 强制下线 */
 async function handleForceLogout(row: UserSessionVO) {
   if (!row.accessToken || !row.username) return;
@@ -94,7 +107,6 @@ async function handleForceLogout(row: UserSessionVO) {
       t('session.forceLogoutTitle'),
       { type: 'warning' },
     );
-    // 使用 accessToken 的前8位作为 userId 标识（实际应从会话中获取 userId）
     await forceLogout({ userId: row.username, accessToken: row.accessToken });
     ElMessage.success(t('session.forceLogoutSuccess'));
     gridApi.query();
@@ -118,6 +130,37 @@ async function handleBanUser(row: UserSessionVO) {
     gridApi.query();
   } catch (error) {
     logger.warn('封禁用户失败: {}', error);
+  }
+}
+
+/** 查看封禁信息 */
+function handleViewBanInfo(row: UserSessionVO) {
+  if (!row.username) return;
+  banInfoModalApi.setData({ userId: row.username });
+  banInfoModalApi.open();
+}
+
+/** 查看用户全部会话 */
+function handleViewUserSessions(row: UserSessionVO) {
+  if (!row.username) return;
+  userSessionsModalApi.setData({ userId: row.username });
+  userSessionsModalApi.open();
+}
+
+/** 解封用户 */
+async function handleUnbanUser(row: UserSessionVO) {
+  if (!row.username) return;
+  try {
+    await ElMessageBox.confirm(
+      t('session.unbanConfirm', { username: row.username }),
+      t('session.unbanTitle'),
+      { type: 'warning' },
+    );
+    await unbanUser({ userId: row.username });
+    ElMessage.success(t('session.unbanSuccess'));
+    gridApi.query();
+  } catch (error) {
+    logger.warn('解封用户失败: {}', error);
   }
 }
 
@@ -155,5 +198,8 @@ onMounted(() => {
         <ElButton type="primary" @click="() => { gridApi.query(); loadStatistics(); }">{{ t('page.refresh') }}</ElButton>
       </template>
     </Grid>
+
+    <BanInfoModalWrapper />
+    <UserSessionsModalWrapper />
   </Page>
 </template>

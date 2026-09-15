@@ -21,7 +21,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElMessage, ElMessageBox, ElTabs, ElTabPane, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { batchPass, batchReject, done, todo } from '#/api/flowTask';
+import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';
 import type { FlowRunTaskVO } from '#/api/models';
 import { $t } from '#/locales';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -223,6 +223,86 @@ async function handleBatchReject() {
     // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
+
+/**
+ * 批量转交勾选的任务。
+ * 步骤1：弹窗让用户填写目标用户 ID 和转交意见；步骤2：调用后端 batchTransfer 端点。
+ */
+async function handleBatchTransfer() {
+  const ids = getSelectedIds();
+  if (ids.length === 0) return;
+  // 步骤1：输入弹窗获取目标用户和意见
+  let targetUserId: string;
+  let comment: string;
+  try {
+    const { value: inputUserId } = await ElMessageBox.prompt(
+      $t('wf.targetUser'),
+      $t('wf.batchTransferConfirm'),
+      {
+        inputPlaceholder: $t('wf.targetUserPlaceholder'),
+        inputValidator: (value) => (value ? true : $t('wf.fillTargetUser')),
+        confirmButtonText: $t('wf.confirm'),
+        cancelButtonText: $t('wf.cancel'),
+      },
+    );
+    targetUserId = inputUserId;
+    const { value: inputComment } = await ElMessageBox.prompt(
+      $t('wf.commentPlaceholder'),
+      $t('wf.batchTransferComment'),
+      {
+        inputPlaceholder: $t('wf.commentPlaceholder'),
+        inputType: 'textarea',
+        confirmButtonText: $t('wf.confirm'),
+        cancelButtonText: $t('wf.cancel'),
+      },
+    );
+    comment = inputComment ?? '';
+  } catch (error) {
+    logger.warn('用户取消批量转交操作', error);
+    return; // 用户主动取消批量转交
+  }
+  // 步骤2：执行批量转交 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
+    await batchTransfer(ids.map((taskId) => ({ taskId, targetUserId, comment })));
+    ElMessage.success($t('wf.batchTransferSuccess'));
+    gridApi.query();
+  } catch (error) {
+    logger.warn('批量转交失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
+  }
+}
+
+/**
+ * 批量催办勾选任务的当前办理人。
+ * 步骤1：确认弹窗；步骤2：调用后端 batchUrge 端点（POST /task/batchUrge 对应 FlowController）。
+ */
+async function handleBatchUrge() {
+  const ids = getSelectedIds();
+  if (ids.length === 0) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
+  try {
+    await ElMessageBox.confirm(
+      $t('wf.confirmBatchUrge', { count: ids.length }),
+      $t('wf.batchUrgeConfirm'),
+      {
+        type: 'warning',
+      },
+    );
+  } catch (error) {
+    logger.warn('用户取消批量催办操作', error);
+    return; // 用户主动取消批量催办
+  }
+  // 步骤2：执行批量催办 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
+    const result = await batchUrge({}, ids);
+    const successCount = result?.successCount ?? ids.length;
+    ElMessage.success($t('wf.batchUrgeSuccess', { count: successCount }));
+    gridApi.query();
+  } catch (error) {
+    logger.warn('批量催办失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
+  }
+}
 </script>
 <template>
   <Page auto-content-height>
@@ -238,6 +318,12 @@ async function handleBatchReject() {
           }}</ElButton>
           <ElButton type="danger" plain @click="handleBatchReject">{{
             $t('wf.batchReject')
+          }}</ElButton>
+          <ElButton type="warning" plain @click="handleBatchTransfer">{{
+            $t('wf.batchTransfer')
+          }}</ElButton>
+          <ElButton type="info" plain @click="handleBatchUrge">{{
+            $t('wf.batchUrge')
           }}</ElButton>
         </template>
       </template>

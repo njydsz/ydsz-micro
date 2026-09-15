@@ -12,5 +12,6 @@
   "connectorList": "Connector List",
   "health": "Health Dashboard",
   "queue": "Job Queue",
-  "stats": "Stats Report"
+  "stats": "Stats Report",
+  "webhook": "WebHook Mgmt"
 }

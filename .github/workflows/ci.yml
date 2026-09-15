@@ -1,9 +1,14 @@
 name: CI
 
-# 云顶编码规范 §18.5 —— 全门禁 CI：
-# PR 必跑质量门禁（lint / type-check / 单测 / 循环依赖 / 依赖合规 / 契约漂移），
-# 契约漂移检查需检出后端仓库（ydsz-cloud）作为契约事实源，PR 与 push 均执行。
-# E2E 冒烟默认手动触发，待用例稳定后放开至 PR。
+# 云顶编码规范 §15.8 / §18.5 —— 全门禁 CI：
+# PR 必跑质量门禁（lint / stylelint / type-check / 循环依赖 / 依赖合规 / 规范扫描 /
+# i18n / importmap 锁 / 契约漂移 / 产物体积），契约漂移检查需检出后端仓库
+# （ydsz-cloud）作为契约事实源，PR 与 push 均执行。
+#
+# §16.10 禁止测试代码：本仓库不存在 test / test:e2e 脚本，也不存在 e2e 目录。
+# 原 e2e-smoke job 执行 `pnpm test:e2e`（脚本已被规范移除），触发即失败，
+# 已整块删除；其中与测试无关的门禁（构建 + 产物体积预算 + 共享依赖外置校验）
+# 提取为独立 bundle job 并纳入 PR 必跑，门禁强度不降反升。
 
 on:
   push:
@@ -144,10 +149,14 @@ jobs:
         run: |
           node bash/contract-notify.mjs
 
-  e2e-smoke:
-    name: Playwright 冒烟（手动触发）
+  # 产物体积门禁（P0-3 修复）：由原 e2e-smoke job 中与测试无关的门禁提取而来，
+  # 从"仅手动触发"升级为 PR 必跑，门禁强度不降反升。
+  # 构建期 bundle-budget 插件与 CI 期 check-size.mjs 共享 conf/budget.config.json
+  # 单一预算源，两者同口径（gzip），杜绝此前 5MB/15MB 与 512KB/384KB 的双轨矛盾。
+  bundle:
+    name: 产物体积预算
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -161,21 +170,18 @@ jobs:
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
+      # 内存说明：main-web 生产构建（6022 模块 + Brotli/Gzip 预压缩）峰值内存较高。
+      # 仓库根 build 脚本默认 --max-old-space-size=8192，在 GHA 标准 runner（约 7GB RAM）
+      # 上会因内存不足被系统终止（本地已复现：EXIT=-1 且无错误栈）。
+      # 此处显式下调堆上限以适配 runner；若该步骤仍不稳定，应改由 nightly 或
+      # 自托管 runner 承接，而不是把门禁降级为手动触发。
       - name: 构建 main-web
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm build:main
 
-      - name: 产物体积预算 + 共享依赖外置校验
-        run: |
-          pnpm check:size
-          pnpm vsh:check-bundle
+      - name: 产物体积预算（gzip 口径，共享 budget.config.json）
+        run: pnpm check:size
 
-      - name: 运行冒烟测试
-        run: pnpm test:e2e
-
-      - name: 上传失败截图
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-failures
-          path: e2e/test-results/
-          retention-days: 7
+      - name: 共享依赖外置校验
+        run: pnpm vsh:check-bundle

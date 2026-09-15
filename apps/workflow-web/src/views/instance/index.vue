@@ -29,6 +29,7 @@ import {
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
+import { batchUrge } from '#/api/flowTask';
 import type { FlowInstanceVO, FlowTimelineVO } from '#/api/models';
 import { $t } from '#/locales';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -58,6 +59,7 @@ function statusTag(flowStatus: string | undefined) {
 
 const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
   columns: [
+    { type: 'checkbox', width: 50 },
     { type: 'seq', width: 50, title: $t('wf.seq') },
     { field: 'flowName', title: $t('wf.flowName'), width: 180 },
     { field: 'flowCode', title: $t('wf.flowCode'), width: 140 },
@@ -111,6 +113,7 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
   ],
   height: 'auto',
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
+  checkboxConfig: { highlight: true },
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
@@ -265,6 +268,50 @@ async function handleRecall(row: FlowInstanceVO) {
   }
 }
 
+/**
+ * 收集勾选行的实例 ID，未勾选时提示。
+ */
+function getSelectedInstanceIds(): string[] {
+  const rows = gridApi.grid.getCheckboxRecords() as FlowInstanceVO[];
+  const ids = rows.map((item) => item.id ?? '').filter((id) => id !== '');
+  if (ids.length === 0) {
+    ElMessage.warning($t('wf.selectInstancesFirst'));
+  }
+  return ids;
+}
+
+/**
+ * 批量催办勾选实例的当前办理人。
+ * 步骤1：确认弹窗；步骤2：调用后端 batchUrge 端点（POST /instance/batchUrge）。
+ */
+async function handleBatchUrge() {
+  const ids = getSelectedInstanceIds();
+  if (ids.length === 0) return;
+  // 步骤1：确认弹窗（用户取消直接返回）
+  try {
+    await ElMessageBox.confirm(
+      $t('wf.confirmBatchUrge', { count: ids.length }),
+      $t('wf.batchUrgeConfirm'),
+      {
+        type: 'warning',
+      },
+    );
+  } catch (error) {
+    logger.warn('用户取消批量催办操作', error);
+    return; // 用户主动取消批量催办
+  }
+  // 步骤2：执行批量催办 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
+    const result = await batchUrge({}, ids);
+    const successCount = result?.successCount ?? ids.length;
+    ElMessage.success($t('wf.batchUrgeSuccess', { count: successCount }));
+    gridApi.query();
+  } catch (error) {
+    logger.warn('批量催办失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
+  }
+}
+
 /** 轨迹抽屉状态 */
 const timelineVisible = ref(false);
 const timelineLoading = ref(false);
@@ -287,9 +334,12 @@ async function openTimeline(row: FlowInstanceVO) {
 <template>
   <Page auto-content-height>
     <Grid :table-title="$t('wf.flowInstances')">
-      <template #toolbar-tools
-        ><ElButton type="primary" @click="handleAdd">{{ $t('wf.startFlow') }}</ElButton></template
-      >
+      <template #toolbar-tools>
+        <ElButton type="primary" @click="handleAdd">{{ $t('wf.startFlow') }}</ElButton>
+        <ElButton type="info" plain @click="handleBatchUrge">{{
+          $t('wf.batchUrge')
+        }}</ElButton>
+      </template>
     </Grid>
     <InstanceFormModal @success="gridApi.query()" />
     <ElDrawer v-model="timelineVisible" :title="$t('wf.flowTimeline')" :size="900">

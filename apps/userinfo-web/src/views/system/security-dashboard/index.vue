@@ -39,6 +39,8 @@ import {
   type SecurityEventVO,
   type SessionActivityVO,
   type SessionTrendVO,
+} from '#/api/models';
+import {
   detectAnomalySessions,
   getActiveUserRanking,
   getDashboard,
@@ -392,6 +394,119 @@ onMounted(() => {
         </ElTable>
         <ElEmpty v-if="activeUserRanking.length === 0" :description="t('security.noData')" :image-size="60" />
       </ElCard>
+
+      <!-- 登录与会话趋势 -->
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <!-- 登录成功率趋势 -->
+        <ElCard>
+          <template #header>
+            <span class="font-medium">{{ t('security.loginSuccessRateTrend') }}</span>
+          </template>
+          <div class="space-y-3">
+            <div
+              v-for="item in loginSuccessRateData"
+              :key="item.date"
+              class="flex items-center justify-between"
+            >
+              <span class="w-20 text-sm text-gray-600">{{ item.date ?? '-' }}</span>
+              <div class="mx-3 flex flex-1 items-center gap-2">
+                <ElProgress
+                  :percentage="Number(((item.successRate ?? 0) * 100).toFixed(0))"
+                  :stroke-width="8"
+                  class="flex-1"
+                  :color="Number((item.successRate ?? 0) * 100) >= 90 ? '#67c23a' : '#e6a23c'"
+                />
+              </div>
+              <span class="w-32 text-right text-xs text-gray-500">
+                {{ t('security.success') }}: {{ item.successCount ?? 0 }} / {{ t('security.fail') }}: {{ item.failCount ?? 0 }}
+              </span>
+              <span class="ml-2 w-14 text-right text-sm font-medium text-blue-600">
+                {{ formatPercent(item.successRate) }}
+              </span>
+            </div>
+            <ElEmpty v-if="loginSuccessRateData.length === 0" :description="t('security.noData')" :image-size="60" />
+          </div>
+        </ElCard>
+
+        <!-- 会话趋势 -->
+        <ElCard>
+          <template #header>
+            <span class="font-medium">{{ t('security.sessionTrend') }}</span>
+          </template>
+          <div class="space-y-3">
+            <div
+              v-for="item in sessionTrendData"
+              :key="item.date"
+              class="flex items-center justify-between"
+            >
+              <span class="w-20 text-sm text-gray-600">{{ item.date ?? '-' }}</span>
+              <div class="mx-3 flex flex-1 items-center gap-3">
+                <span class="w-20 text-xs text-blue-500">{{ t('security.newSessions') }}: {{ item.newSessions ?? 0 }}</span>
+                <span class="w-20 text-xs text-green-500">{{ t('security.activeSessions') }}: {{ item.activeSessions ?? 0 }}</span>
+              </div>
+            </div>
+            <ElEmpty v-if="sessionTrendData.length === 0" :description="t('security.noData')" :image-size="60" />
+          </div>
+        </ElCard>
+      </div>
+
+      <!-- 设备分布与登录失败分布 -->
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <!-- 设备分布 -->
+        <ElCard>
+          <template #header>
+            <span class="font-medium">{{ t('security.deviceDistribution') }}</span>
+          </template>
+          <div class="space-y-4">
+            <div
+              v-for="item in deviceDistribution"
+              :key="item.deviceType"
+              class="flex items-center justify-between"
+            >
+              <span class="w-20 text-sm text-gray-600">{{ item.deviceType ?? '-' }}</span>
+              <div class="mx-3 flex flex-1 items-center gap-2">
+                <ElProgress
+                  :percentage="Number(((item.percentage ?? 0) * 100).toFixed(0))"
+                  :stroke-width="10"
+                  class="flex-1"
+                />
+              </div>
+              <span class="w-24 text-right text-sm font-medium">
+                {{ item.count ?? 0 }} ({{ formatPercent(item.percentage) }})
+              </span>
+            </div>
+            <ElEmpty v-if="deviceDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
+          </div>
+        </ElCard>
+
+        <!-- 登录失败分布 -->
+        <ElCard>
+          <template #header>
+            <span class="font-medium">{{ t('security.loginFailDistribution') }}</span>
+          </template>
+          <div class="space-y-4">
+            <div
+              v-for="item in loginFailDistribution"
+              :key="item.reason"
+              class="flex items-center justify-between"
+            >
+              <span class="max-w-32 truncate text-sm text-gray-600">{{ item.reason ?? '-' }}</span>
+              <div class="mx-3 flex flex-1 items-center gap-2">
+                <ElProgress
+                  :percentage="Number(((item.percentage ?? 0) * 100).toFixed(0))"
+                  :stroke-width="10"
+                  class="flex-1"
+                  color="#f56c6c"
+                />
+              </div>
+              <span class="w-20 text-right text-sm font-medium text-red-600">
+                {{ item.count ?? 0 }} ({{ formatPercent(item.percentage) }})
+              </span>
+            </div>
+            <ElEmpty v-if="loginFailDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
+          </div>
+        </ElCard>
+      </div>
     </div>
   </Page>
 </template>

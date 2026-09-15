@@ -93,6 +93,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/rule-dependency/index.vue'),
         meta: { icon: 'lucide:git-merge', title: '依赖拓扑' },
       },
+      {
+        name: 'ABPolicyManagement',
+        path: 'ab-policy',
+        component: () => import('#/views/ab-policy/index.vue'),
+        meta: { icon: 'lucide:flask-conical', title: 'AB测试策略' },
+      },
     ],
   },
   {

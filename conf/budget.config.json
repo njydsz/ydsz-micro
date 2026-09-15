@@ -1,0 +1,25 @@
+{
+  "$comment": "产物性能预算单一事实源 —— 构建期 bundle-budget 插件与 CI bash/check-size.mjs 共同消费，消除此前 5MB/15MB 与 512KB/384KB 的双轨矛盾。口径统一为 gzip（与 nginx Brotli/Gzip 实际传输对齐）。",
+  "version": "26.09.14",
+  "gzip": true,
+  "targets": [
+    {
+      "name": "main-web",
+      "scope": "main",
+      "assetsDirPattern": "main/dist/assets",
+      "maxTotalGzipKB": 512,
+      "maxFiles": 50,
+      "maxChunkGzipKB": 384,
+      "maxCssGzipKB": 128
+    },
+    {
+      "name": "sub-app",
+      "scope": "apps",
+      "assetsDirPattern": "apps/*/dist/assets",
+      "maxTotalGzipKB": 384,
+      "maxFiles": 60,
+      "maxChunkGzipKB": 256,
+      "maxCssGzipKB": 96
+    }
+  ]
+}

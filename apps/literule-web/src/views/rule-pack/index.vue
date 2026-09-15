@@ -52,7 +52,9 @@ import {
   publishPack,
   rollbackPack,
   searchPacks,
+  stressTest,
 } from '#/api/rulePack';
+import { scorePack } from '#/api/rulePackExtend';
 
 const logger = createLogger('literule-rule-pack');
 
@@ -143,7 +145,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
     {
       field: 'action',
       title: '操作',
-      width: 220,
+      width: 300,
       fixed: 'right',
       slots: {
         default: ({ row }) =>
@@ -162,6 +164,11 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
               ElButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleDiff(row) },
               () => '版本对比',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => handleOpenScoreDialog(row) },
+              () => '质量评分',
             ),
           ]),
       },
@@ -469,6 +476,79 @@ async function handleBatchUpdate(): Promise<void> {
   }
 }
 
+/** ========== 压力测试 ========== */
+const stressDialogVisible = ref(false);
+const stressLoading = ref(false);
+const stressPackCode = ref('');
+const stressConcurrency = ref(10);
+const stressDuration = ref(60);
+const stressResultText = ref('');
+
+function handleOpenStressDialog(): void {
+  stressPackCode.value = '';
+  stressConcurrency.value = 10;
+  stressDuration.value = 60;
+  stressResultText.value = '';
+  stressDialogVisible.value = true;
+}
+
+async function handleStressTest(): Promise<void> {
+  if (!stressPackCode.value.trim()) {
+    ElMessageBox.alert('请输入需要压测的包编码', '提示', { type: 'warning' });
+    return;
+  }
+  stressLoading.value = true;
+  try {
+    const result = await stressTest({
+      packCode: stressPackCode.value.trim(),
+      concurrency: stressConcurrency.value,
+      durationSeconds: stressDuration.value,
+    } as unknown as Record<string, Record<string, unknown>>);
+    stressResultText.value = formatUnknown(result);
+  } catch (error) {
+    logger.warn('压力测试失败: {}', error);
+  } finally {
+    stressLoading.value = false;
+  }
+}
+
+function formatUnknown(value: unknown): string {
+  if (value === undefined || value === null) return '';
+  if (typeof value === 'string') return value;
+  try {
+    return JSON.stringify(value, null, 2);
+  } catch {
+    return String(value);
+  }
+}
+
+/** ========== 质量评分面板 ========== */
+const scoreDialogVisible = ref(false);
+const scoreLoading = ref(false);
+const scorePackName = ref('');
+const scoreData = ref<Record<string, unknown> | null>(null);
+
+function handleOpenScoreDialog(row: RulePackVO): void {
+  if (!row.id) return;
+  scorePackName.value = row.packName ?? '';
+  scoreDialogVisible.value = true;
+  scoreData.value = null;
+  void doScore(row.id);
+}
+
+async function doScore(packId: string): Promise<void> {
+  scoreLoading.value = true;
+  try {
+    const result = await scorePack({ id: packId });
+    scoreData.value = (typeof result === 'object' && result !== null) ? (result as Record<string, unknown>) : { result };
+  } catch (error) {
+    logger.warn('质量评分失败: {}', error);
+    scoreData.value = null;
+  } finally {
+    scoreLoading.value = false;
+  }
+}
+
 /** ========== 版本历史弹窗表格 ========== */
 const versionGridOptions: VxeTableGridOptions<RulePackVO> = {
   columns: [
@@ -551,6 +631,7 @@ onMounted(() => {
               />
               <ElButton type="primary" @click="handleSearch">搜索</ElButton>
               <ElButton type="success" @click="handleOpenPublishDialog">发布规则包</ElButton>
+              <ElButton type="warning" @click="handleOpenStressDialog">压力测试</ElButton>
               <ElButton @click="loadMarket">刷新</ElButton>
             </div>
             <MarketGrid />
@@ -652,6 +733,47 @@ onMounted(() => {
           <ElButton @click="publishDialogVisible = false">取消</ElButton>
           <ElButton type="primary" @click="handlePublish">确认发布</ElButton>
         </template>
+      </ElDialog>
+
+      <!-- 压力测试弹窗 -->
+      <ElDialog v-model="stressDialogVisible" title="规则包压力测试" width="520px">
+        <ElForm label-width="100px" label-position="right">
+          <ElFormItem label="包编码" required>
+            <ElInput v-model="stressPackCode" placeholder="请输入需要压测的包编码" />
+          </ElFormItem>
+          <ElFormItem label="并发数">
+            <ElInputNumber v-model="stressConcurrency" :min="1" :max="1000" class="!w-full" />
+          </ElFormItem>
+          <ElFormItem label="持续时长(秒)">
+            <ElInputNumber v-model="stressDuration" :min="1" :max="600" class="!w-full" />
+          </ElFormItem>
+        </ElForm>
+        <pre
+          v-if="stressResultText"
+          class="mt-3 max-h-60 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
+          >{{ stressResultText }}</pre
+        >
+        <template #footer>
+          <ElButton @click="stressDialogVisible = false">关闭</ElButton>
+          <ElButton type="primary" :loading="stressLoading" @click="handleStressTest">开始压测</ElButton>
+        </template>
+      </ElDialog>
+
+      <!-- 质量评分弹窗 -->
+      <ElDialog v-model="scoreDialogVisible" :title="`质量评分 - ${scorePackName}`" width="520px">
+        <div v-loading="scoreLoading">
+          <div v-if="scoreData" class="space-y-3">
+            <div
+              v-for="(value, key) in scoreData"
+              :key="String(key)"
+              class="rounded border border-gray-200 bg-blue-50 p-3"
+            >
+              <div class="text-xs font-medium text-gray-500">{{ key }}</div>
+              <div class="mt-1 text-sm whitespace-pre-wrap">{{ formatUnknown(value) }}</div>
+            </div>
+          </div>
+          <div v-else class="py-8 text-center text-sm text-gray-400">暂无评分数据</div>
+        </div>
       </ElDialog>
     </div>
   </Page>

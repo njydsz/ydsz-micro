@@ -9,5 +9,6 @@
   "storage": "Storage",
   "quota": "Quota",
   "analysis": "Storage Analysis",
-  "aiAssist": "AI Assist"
+  "aiAssist": "AI Assist",
+  "search": "Full Text Search"
 }

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 全文搜索（列表页）
  *
  * @path apps\nextwiki-web\src\views\search\index.vue
@@ -10,27 +10,34 @@
  * 全文搜索（列表页）
  * <p>消费后端契约 SearchController（apps/nextwiki-web/src/api/search.ts）：
  * search() 执行全文搜索，suggest() 搜索建议，didYouMean() 拼写纠错，
- * getSearchHistory() 搜索历史，clearSearchHistory() 清空历史，getHotSearches() 热门搜索。
+ * getSearchHistory() 搜索历史，clearSearchHistory() 清空历史（破坏性操作需 ElMessageBox.confirm），
+ * getHotSearches() 热门搜索，advancedSearch() 高级多条件搜索，rebuildIndices() 重建搜索索引（管理员工具）。
+ * <p>高级搜索通过 advanced-search-form.vue 弹窗收集条件，管理员校验通过 useAccess 钩子控制重建索引按钮可见性。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
+import { useAccess } from '@ydsz/access';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElEmpty, ElInput, ElOption, ElPagination, ElSelect, ElTag } from 'element-plus';
+import { useI18n } from 'vue-i18n';
+import { ElButton, ElEmpty, ElInput, ElMessageBox, ElOption, ElPagination, ElSelect, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import {
-  advancedSearch,
   clearSearchHistory,
   didYouMean,
   getHotSearches,
   getSearchHistory,
+  rebuildIndices,
   search,
   suggest,
 } from '#/api/search';
-import type { SearchRequest, SearchResultVO } from '#/api/models';
+import type { SearchResultVO } from '#/api/models';
+import AdvancedSearchForm from './advanced-search-form.vue';
 
 const logger = createLogger('nextwiki-search');
+const { t } = useI18n();
+const { hasAccessByCodes } = useAccess();
 
 defineOptions({ name: 'FullTextSearch' });
 
@@ -59,18 +66,56 @@ const hasSearched = ref(false);
 /** 搜索耗时 */
 const searchTookMs = ref(0);
 
+/** 是否管理员（控制重建索引按钮可见性） */
+const canRebuildIndex = computed(() => hasAccessByCodes(['search:rebuild-index']));
+
 /** 搜索类型选项 */
 const typeOptions = [
-  { label: '全部', value: '' },
-  { label: '文档', value: 'DOCUMENT' },
-  { label: '图片', value: 'IMAGE' },
-  { label: '视频', value: 'VIDEO' },
-  { label: '音频', value: 'AUDIO' },
-  { label: '其他', value: 'OTHER' },
+  { label: t('searchAll'), value: '' },
+  { label: t('searchDocument'), value: 'DOCUMENT' },
+  { label: t('searchImage'), value: 'IMAGE' },
+  { label: t('searchVideo'), value: 'VIDEO' },
+  { label: t('searchAudio'), value: 'AUDIO' },
+  { label: t('searchOther'), value: 'OTHER' },
 ];
 
 /** 是否有搜索结果 */
 const hasResults = computed(() => (searchResult.value?.total ?? 0) > 0);
+
+/** 构建搜索请求参数 */
+function buildSearchRequest(): {
+  keyword: string;
+  page: number;
+  pageSize: number;
+  highlight: boolean;
+  highlightPreTag: string;
+  highlightPostTag: string;
+  fuzzy: boolean;
+  types?: string[];
+} {
+  const request: {
+    keyword: string;
+    page: number;
+    pageSize: number;
+    highlight: boolean;
+    highlightPreTag: string;
+    highlightPostTag: string;
+    fuzzy: boolean;
+    types?: string[];
+  } = {
+    keyword: keyword.value.trim(),
+    page: currentPage.value,
+    pageSize: pageSize.value,
+    highlight: true,
+    highlightPreTag: '<em class="text-red-500 font-bold">',
+    highlightPostTag: '</em>',
+    fuzzy: true,
+  };
+  if (searchType.value) {
+    request.types = [searchType.value];
+  }
+  return request;
+}
 
 /** 执行搜索 */
 async function handleSearch(): Promise<void> {
@@ -79,18 +124,7 @@ async function handleSearch(): Promise<void> {
   hasSearched.value = true;
   currentPage.value = 1;
   try {
-    const request: SearchRequest = {
-      keyword: keyword.value.trim(),
-      page: currentPage.value,
-      pageSize: pageSize.value,
-      highlight: true,
-      highlightPreTag: '<em class="text-red-500 font-bold">',
-      highlightPostTag: '</em>',
-      fuzzy: true,
-    };
-    if (searchType.value) {
-      request.types = [searchType.value];
-    }
+    const request = buildSearchRequest();
     const result = await search(request);
     searchResult.value = result;
     searchTookMs.value = result.tookMs ?? 0;
@@ -114,19 +148,9 @@ async function executeSearch(): Promise<void> {
   if (!keyword.value.trim()) return;
   loading.value = true;
   try {
-    const request: SearchRequest = {
-      keyword: keyword.value.trim(),
-      page: currentPage.value,
-      pageSize: pageSize.value,
-      highlight: true,
-      highlightPreTag: '<em class="text-red-500 font-bold">',
-      highlightPostTag: '</em>',
-      fuzzy: true,
-    };
-    if (searchType.value) {
-      request.types = [searchType.value];
-    }
-    const result = await search(request);
+    const request = buildSearchRequest();
+    const requestWithPage = { ...request, page: currentPage.value };
+    const result = await search(requestWithPage);
     searchResult.value = result;
     searchTookMs.value = result.tookMs ?? 0;
   } catch (error) {
@@ -189,14 +213,17 @@ async function loadHotSearches(): Promise<void> {
   }
 }
 
-/** 清空搜索历史 */
+/** 清空搜索历史（破坏性操作需二次确认） */
 async function handleClearHistory(): Promise<void> {
   try {
+    await ElMessageBox.confirm(t('searchClearHistoryConfirm'), t('clearHistory'), { type: 'warning' });
     await clearSearchHistory();
     searchHistory.value = [];
   } catch (error) {
-    logger.warn('清空搜索历史失败: {}', error);
-    // 用户提示由请求拦截器统一处理
+    if (error !== 'cancel') {
+      logger.warn('清空搜索历史失败: {}', error);
+      // 用户提示由请求拦截器统一处理
+    }
   }
 }
 
@@ -218,20 +245,24 @@ function handleCorrectionClick(correction: string): void {
   handleSearch();
 }
 
-/** 高级搜索 */
-async function handleAdvancedSearch(): Promise<void> {
-  if (!keyword.value.trim()) return;
-  loading.value = true;
+/** 高级搜索结果回调 */
+function handleAdvancedSearchSuccess(result: SearchResultVO): void {
+  searchResult.value = result;
+  hasSearched.value = true;
+  searchTookMs.value = result.tookMs ?? 0;
+}
+
+/** 重建搜索索引（管理员工具，需二次确认） */
+async function handleRebuildIndices(): Promise<void> {
   try {
-    const result = await advancedSearch({
-      rawInput: keyword.value.trim(),
-      page: currentPage.value,
-      pageSize: pageSize.value,
-    });
-    searchResult.value = result;
+    await ElMessageBox.confirm(t('searchRebuildIndicesConfirm'), t('searchRebuildIndices'), { type: 'error' });
+    loading.value = true;
+    await rebuildIndices();
   } catch (error) {
-    logger.warn('高级搜索失败: {}', error);
-    // 用户提示由请求拦截器统一处理
+    if (error !== 'cancel') {
+      logger.warn('重建搜索索引失败: {}', error);
+      // 用户提示由请求拦截器统一处理
+    }
   } finally {
     loading.value = false;
   }
@@ -273,23 +304,35 @@ onMounted(async () => {
     <div class="search-container mx-auto max-w-5xl p-6">
       <!-- 搜索头部 -->
       <div class="mb-6">
-        <h1 class="mb-4 text-2xl font-bold text-gray-800">全文搜索</h1>
+        <div class="mb-4 flex items-center justify-between">
+          <h1 class="text-2xl font-bold text-gray-800">{{ t('searchTitle') }}</h1>
+          <!-- 管理员工具：重建索引 -->
+          <ElButton
+            v-if="canRebuildIndex"
+            type="danger"
+            size="small"
+            :loading="loading"
+            @click="handleRebuildIndices"
+          >
+            {{ t('searchRebuildIndices') }}
+          </ElButton>
+        </div>
         <div class="flex gap-2">
           <ElInput
             v-model="keyword"
-            placeholder="输入关键字搜索文件..."
+            :placeholder="t('searchInputPlaceholder')"
             size="large"
             clearable
             @keyup.enter="handleSearch"
           >
             <template #append>
-              <ElButton type="primary" :loading="loading" @click="handleSearch">搜索</ElButton>
+              <ElButton type="primary" :loading="loading" @click="handleSearch">{{ t('searchButton') }}</ElButton>
             </template>
           </ElInput>
-          <ElSelect v-model="searchType" placeholder="类型" size="large" class="w-32">
+          <ElSelect v-model="searchType" :placeholder="t('searchType')" size="large" class="w-32">
             <ElOption v-for="opt in typeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
           </ElSelect>
-          <ElButton size="large" @click="handleAdvancedSearch">高级搜索</ElButton>
+          <AdvancedSearchForm @success="handleAdvancedSearchSuccess" />
         </div>
 
         <!-- 搜索建议下拉 -->
@@ -306,7 +349,7 @@ onMounted(async () => {
 
         <!-- 拼写纠错 -->
         <div v-if="corrections.length > 0" class="mt-2 text-sm text-gray-500">
-          您是不是要搜：
+          {{ t('didYouMean') }}
           <span
             v-for="c in corrections"
             :key="c"
@@ -321,7 +364,7 @@ onMounted(async () => {
         <div class="flex-1">
           <!-- 搜索结果统计 -->
           <div v-if="hasSearched && searchResult" class="mb-3 text-sm text-gray-500">
-            找到 {{ searchResult.total ?? 0 }} 条结果（用时 {{ searchTookMs }}ms）
+            {{ t('searchResultCount', { total: searchResult.total ?? 0, ms: searchTookMs }) }}
           </div>
 
           <!-- 搜索结果列表 -->
@@ -360,7 +403,7 @@ onMounted(async () => {
           </div>
 
           <!-- 无结果 -->
-          <ElEmpty v-if="hasSearched && !hasResults" description="未找到匹配的结果" />
+          <ElEmpty v-if="hasSearched && !hasResults" :description="t('noResults')" />
         </div>
 
         <!-- 侧边栏 -->
@@ -368,8 +411,8 @@ onMounted(async () => {
           <!-- 搜索历史 -->
           <div v-if="searchHistory.length > 0" class="mb-6 rounded border bg-white p-4">
             <div class="mb-3 flex items-center justify-between">
-              <h3 class="text-sm font-medium text-gray-700">搜索历史</h3>
-              <ElButton size="small" link type="primary" @click="handleClearHistory">清空</ElButton>
+              <h3 class="text-sm font-medium text-gray-700">{{ t('searchHistory') }}</h3>
+              <ElButton size="small" link type="primary" @click="handleClearHistory">{{ t('clearHistory') }}</ElButton>
             </div>
             <div class="flex flex-wrap gap-2">
               <ElTag
@@ -387,7 +430,7 @@ onMounted(async () => {
 
           <!-- 热门搜索 -->
           <div v-if="hotSearches.length > 0" class="rounded border bg-white p-4">
-            <h3 class="mb-3 text-sm font-medium text-gray-700">热门搜索</h3>
+            <h3 class="mb-3 text-sm font-medium text-gray-700">{{ t('hotSearches') }}</h3>
             <div class="space-y-2">
               <div
                 v-for="(hot, index) in hotSearches"

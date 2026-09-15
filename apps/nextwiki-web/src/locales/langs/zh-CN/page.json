@@ -9,5 +9,6 @@
   "storage": "存储管理",
   "quota": "存储配额",
   "analysis": "存储分析",
-  "aiAssist": "AI 助手"
+  "aiAssist": "AI 助手",
+  "search": "全文搜索"
 }

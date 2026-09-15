@@ -260,7 +260,7 @@ server: {
 | 循环依赖   | `pnpm vsh:check-circular`     | `vsh check-circular`（零循环依赖守护）        |
 | 依赖合法性 | `pnpm vsh:check-dep`          | `vsh check-dep`（依赖合规）                   |
 | 产物依赖   | `pnpm vsh:check-bundle`       | 共享依赖外置证据检测（防 importmap 依赖被误打包致双实例，v4.4.0） |
-| 产物体积   | `pnpm check:size`             | 构建产物 gzip 预算断言（主应用 512KB / 子应用 384KB，v4.4.0） |
+| 产物体积   | `pnpm check:size`             | 构建产物 gzip 预算断言（读 `conf/budget.config.json` 单一事实源，与构建期插件同口径） |
 | i18n 校验  | `pnpm check:i18n`             | 全仓 zh-CN / en-US key 集合一致性校验（v4.4.0） |
 | importmap  | `pnpm sync:shared-deps:check` | 版本锁（`bash/importmap.lock.json`）与 vendor 产物一致性校验（v4.4.0 机制，v4.4.1 首次执行生成锁文件并修复 Windows `*` 路径与 axios esm.sh 解析问题） |
 | 契约校验   | `pnpm gen:contract:check`     | 静态契约基线漂移检查；`pnpm gen:api:check` 为运行时契约（后端运行后） |
@@ -270,11 +270,11 @@ server: {
 
 Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push` 全量执行类型检查、vsh 三件套（check-dep / check-arch / check-circular）与契约/错误码漂移校验；`commit-msg` 执行 Commitlint；`post-merge` 自动 `pnpm install`。
 
-CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-circular / check-dep / check:i18n / sync:shared-deps:check）PR 必跑；`contract` job（`gen-contract.py --check`，经 `YDSZ_CLOUD_ROOT` 检出后端）push main 必跑；另有依赖安全审计与密钥扫描 job。
+CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-circular / check-dep / check-standard / check:i18n / sync:shared-deps:check）PR 必跑；`contract` job（`gen-contract.py --check` + `gen-error-codes.mjs --check`，经 `YDSZ_CLOUD_ROOT` 检出后端）PR 必跑；`bundle` job（构建 main-web + `check:size` + `vsh:check-bundle`，PR 必跑）；另有依赖安全审计与密钥扫描 job。
 
 ## 测试体系
 
-> 按云顶编码规范 §15.10，本仓库**禁止包含测试代码**（单元/E2E/视觉回归等均不落地）。
+> 按云顶编码规范 §16.10，本仓库**禁止包含测试代码**（单元/E2E/视觉回归等均不落地）。
 > 原 Vitest / Playwright / Lighthouse CI 相关脚本与配置已全量移除，质量保障由
 > 「ESLint + Stylelint + type-check + vsh 三件套 + 契约/错误码漂移校验」五类静态门禁承担：
 
@@ -288,12 +288,23 @@ CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-ci
 
 ## 性能预算
 
-> 产物级预算由 `pnpm check:size` 与构建期 bundle-budget 插件兜底（原 Lighthouse CI
-> 运行时性能采样已随 §15.10 移除）。预算目标如下：
+> 产物级预算由 `conf/budget.config.json` **单一事实源**统一管理，构建期
+> bundle-budget 插件与 CI `pnpm check:size` 共同消费，口径统一为 **gzip**
+> （与 nginx Brotli/Gzip 实际传输体积对齐）。原 Lighthouse CI 运行时性能采样
+> 已随 §16.10 移除。
+
+预算目标（gzip 口径）：
+
+| 目标 | 总产出 | JS 文件数 | 单 JS chunk | 单 CSS |
+| ---- | ------ | --------- | ----------- | ------ |
+| main-web | ≤ 512KB | ≤ 50 | ≤ 384KB | ≤ 128KB |
+| 子应用 | ≤ 384KB | ≤ 60 | ≤ 256KB | ≤ 96KB |
+
+参考基线（浏览器运行时体验目标）：
 
 - **错误级**：Accessibility ≥ 0.9
 - **警告级**：Performance ≥ 0.9；FCP ≤ 2000ms、LCP ≤ 2500ms、TTI ≤ 3800ms、TBT ≤ 300ms、CLS ≤ 0.1、SI ≤ 3400ms
-- **资源预算**：JS ≤ 50 个 / 512KB，CSS ≤ 10 个 / 128KB，图片 ≤ 1MB，第三方 ≤ 256KB，DOM 节点 ≤ 1500
+- **资源预算**：图片 ≤ 1MB，第三方 ≤ 256KB，DOM 节点 ≤ 1500
 
 ## 浏览器支持
 
@@ -343,7 +354,7 @@ YDSZ 微前端中后台底座的对标竞品均为 Gitee 上的 Java/Spring 系�
 
 ## Roadmap
 
-- [ ] 接入 CI/CD 流水线（~~已完成主链路~~ v4.4.0：GitHub Actions `verify` / `contract` 已落地，`e2e-smoke` 手动触发；待办：e2e 放开至 PR 必跑、cspell 接入）
+- [ ] 接入 CI/CD 流水线（~~已完成主链路~~ v4.4.0：GitHub Actions `verify` / `contract` / `security` / `notify` 已落地；2026-09-14 按 §16.10 移除违规的 `e2e-smoke` job，其构建与体积门禁升级为 PR 必跑的 `bundle` job；待办：cspell 接入）
 - [x] 补齐 Changesets 发布配置（v4.4.0：`.changeset/` 已初始化）
 - [x] 补全 ADR 决策记录（v4.4.0：ADR-001/002/003/005/006/007 已归档，004 编号跳过）
 - [ ] 共享依赖版本锁推广：`pnpm sync:shared-deps` 生成 `bash/importmap.lock.json` 后提交，各应用 vendor 产物对齐（v4.4.0 机制已落地，待首次执行）

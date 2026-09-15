@@ -8,33 +8,39 @@
 <script lang="ts" setup>
 /**
  * 规则 CEP（复杂事件处理页面）
- * <p>模式管理 + 事件上抛 + 命中记录 + 统计，数据来自后端契约 API（apps/literule-web/src/api/cep.ts）。
+ * <p>模式管理 + 事件上抛 + 命中记录 + 统计 + 模式详情，数据来自后端契约 API（apps/literule-web/src/api/cep.ts、cepExtend.ts）。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { CEPHitVO, CEPPatternVO } from '#/api/models';
-import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import type { CEPPatternVO, CEPHitVO } from '#/api/models';
+import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElMessage, ElMessageBox } from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElTabPane, ElTabs } from 'element-plus';
 import { h, onMounted, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
+  disablePattern,
+  enablePattern,
   feedEvent,
   feedEvents,
+  getPattern,
+  getPatternHits,
+  getPatternStatistics,
   listPatterns,
   recentHits,
   registerPattern,
   stats,
+  testPattern,
   unregisterPattern,
-} from '#/api/cep';
+} from './cep.service';
 import { formatJsonResult, parseJsonArray, parseJsonObject } from '#/utils/format';
 defineOptions({ name: 'CepManagement' });
+
 /** 格式化后端 Duration（ISO-8601 字符串或 {seconds} 对象）为可读文案 */
 function formatWindow(window?: Record<string, unknown> | string): string {
   if (!window) return '-';
   if (typeof window === 'string') {
-    // "PT30M" → "30 分钟"
     const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?$/.exec(window);
     if (m) {
       const h = Number(m[1] ?? 0);
@@ -50,7 +56,9 @@ function formatWindow(window?: Record<string, unknown> | string): string {
   if (typeof sec === 'number') return `${sec} 秒`;
   return JSON.stringify(window);
 }
-const gridOptions: VxeGridProps<CEPPatternVO> = {
+
+/** ==================== 模式列表 ==================== */
+const gridOptions: VxeTableGridOptions<CEPPatternVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'ruleCode', title: '规则编码', width: 150 },
@@ -70,15 +78,42 @@ const gridOptions: VxeGridProps<CEPPatternVO> = {
     {
       field: 'action',
       title: '操作',
-      width: 90,
+      width: 220,
       fixed: 'right',
       slots: {
         default: ({ row }) =>
-          h(
-            ElButton,
-            { size: 'small', link: true, type: 'danger', onClick: () => handleUnregister(row) },
-            () => '注销',
-          ),
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'primary', onClick: () => openDetail(row) },
+              () => '详情',
+            ),
+            h(
+              ElButton,
+              {
+                size: 'small',
+                link: true,
+                type: 'success',
+                onClick: () => handleToggle(row, true),
+              },
+              () => '启用',
+            ),
+            h(
+              ElButton,
+              {
+                size: 'small',
+                link: true,
+                type: 'warning',
+                onClick: () => handleToggle(row, false),
+              },
+              () => '禁用',
+            ),
+            h(
+              ElButton,
+              { size: 'small', link: true, type: 'danger', onClick: () => handleUnregister(row) },
+              () => '注销',
+            ),
+          ]),
       },
     },
   ],
@@ -94,25 +129,23 @@ const gridOptions: VxeGridProps<CEPPatternVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-/** 注册模式弹窗状态 */
+
+/** ==================== 注册模式弹窗 ==================== */
 const registerVisible = ref(false);
 const registering = ref(false);
-/** 模式表单数据（映射 CEPPattern 的可编辑字段，P0-3 补齐 window/filter/eventTypes） */
+
 interface PatternFormData {
   ruleCode: string;
   name: string;
   eventType: string;
-  /** 时间窗口数值 */
   windowValue: number;
-  /** 时间窗口单位：S 秒 / M 分钟 / H 小时 */
   windowUnit: 'S' | 'M' | 'H';
-  /** 事件类型列表（多类型 OR 匹配，可自由输入） */
   eventTypes: string[];
-  /** 过滤条件（LiteExpr 表达式） */
   filter: string;
   threshold: number;
   description: string;
 }
+
 const patternForm = reactive<PatternFormData>({
   ruleCode: '',
   name: '',
@@ -124,7 +157,7 @@ const patternForm = reactive<PatternFormData>({
   threshold: 1,
   description: '',
 });
-/** 打开注册模式弹窗 */
+
 function openRegister() {
   Object.assign(patternForm, {
     ruleCode: '',
@@ -139,12 +172,12 @@ function openRegister() {
   });
   registerVisible.value = true;
 }
-/** 生成 ISO-8601 时长字符串（后端 CEPPattern.window 为 java.time.Duration） */
+
 function toIsoDuration(value: number, unit: PatternFormData['windowUnit']): string {
   const v = Math.max(1, Math.floor(value || 1));
   return unit === 'S' ? `PT${v}S` : unit === 'H' ? `PT${v}H` : `PT${v}M`;
 }
-/** 注册模式 */
+
 async function handleRegister() {
   if (!patternForm.ruleCode.trim() || !patternForm.name.trim()) {
     ElMessage.warning('规则编码与模式名称必填');
@@ -157,7 +190,6 @@ async function handleRegister() {
       ruleCode: patternForm.ruleCode.trim(),
       name: patternForm.name.trim(),
       eventType: patternForm.eventType.trim() || undefined,
-      // window 以 ISO-8601 时长字符串提交（Jackson Duration 反序列化兼容）
       window: toIsoDuration(patternForm.windowValue, patternForm.windowUnit),
       eventTypes: eventTypes.length > 0 ? eventTypes : undefined,
       filter: patternForm.filter.trim() || undefined,
@@ -171,7 +203,7 @@ async function handleRegister() {
     registering.value = false;
   }
 }
-/** 注销模式 */
+
 async function handleUnregister(row: CEPPatternVO) {
   if (!row.id) return;
   try {
@@ -183,10 +215,28 @@ async function handleUnregister(row: CEPPatternVO) {
     /* 错误提示由请求拦截器统一处理 */
   }
 }
-/** 事件上抛 */
+
+/** 启用 / 禁用模式 */
+async function handleToggle(row: CEPPatternVO, enable: boolean) {
+  if (!row.id) return;
+  try {
+    if (enable) {
+      await enablePattern({ id: row.id });
+      ElMessage.success('启用成功');
+    } else {
+      await disablePattern({ id: row.id });
+      ElMessage.success('禁用成功');
+    }
+    gridApi.query();
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
+}
+
+/** ==================== 事件上抛 ==================== */
 const eventText = ref('{\n  "eventType": "example",\n  "amount": 100\n}');
 const eventResult = ref('');
-/** 上抛单个事件 */
+
 async function handleFeedEvent() {
   const payload = parseJsonObject(eventText.value);
   if (!payload) {
@@ -196,7 +246,7 @@ async function handleFeedEvent() {
   const data = await feedEvent(payload);
   eventResult.value = formatJsonResult(data);
 }
-/** 批量上抛事件 */
+
 async function handleFeedEvents() {
   const payload = parseJsonArray(eventText.value);
   if (!payload) {
@@ -206,26 +256,123 @@ async function handleFeedEvents() {
   const data = await feedEvents(payload);
   eventResult.value = formatJsonResult(data);
 }
-/** 最近命中记录 */
+
+/** ==================== 命中记录与全局统计 ==================== */
 const hits = ref<CEPHitVO[]>([]);
 const statText = ref('');
-/** 加载命中记录与统计 */
+
 async function loadHitsAndStats() {
-  hits.value = await recentHits();
+  const hitsResult = await recentHits();
+  hits.value = hitsResult ?? [];
   statText.value = formatJsonResult(await stats());
 }
+
+/** ==================== 模式详情弹窗 ==================== */
+const detailVisible = ref(false);
+const detailLoading = ref(false);
+const currentPatternId = ref('');
+const currentPattern = ref<CEPPatternVO | null>(null);
+
+/** 命中统计数据（率、次数等） */
+const statisticsData = ref<Record<string, unknown> | null>(null);
+const statisticsLoading = ref(false);
+
+/** 命中记录分页 */
+const hitsPageNum = ref(1);
+const hitsPageSize = ref(10);
+const hitsTotal = ref(0);
+const hitsLoading = ref(false);
+const patternHits = ref<Record<string, unknown>[]>([]);
+
+/** 测试事件推送 */
+const testEventText = ref('{\n  "eventType": "example",\n  "amount": 100\n}');
+const testEventLoading = ref(false);
+const testEventResult = ref('');
+
+/** Tab  */
+const detailActiveTab = ref('info');
+
+async function openDetail(row: CEPPatternVO) {
+  if (!row.id) return;
+  currentPatternId.value = row.id;
+  detailActiveTab.value = 'info';
+  detailVisible.value = true;
+  detailLoading.value = true;
+  try {
+    currentPattern.value = await getPattern({ id: row.id });
+  } catch {
+    currentPattern.value = row;
+  } finally {
+    detailLoading.value = false;
+  }
+  await Promise.all([loadPatternStatistics(), loadPatternHits()]);
+}
+
+/** 加载命中统计 */
+async function loadPatternStatistics() {
+  if (!currentPatternId.value) return;
+  statisticsLoading.value = true;
+  try {
+    statisticsData.value = await getPatternStatistics({ id: currentPatternId.value });
+  } catch {
+    statisticsData.value = null;
+  } finally {
+    statisticsLoading.value = false;
+  }
+}
+
+/** 加载命中记录（分页） */
+async function loadPatternHits() {
+  if (!currentPatternId.value) return;
+  hitsLoading.value = true;
+  try {
+    const result = await getPatternHits(
+      { id: currentPatternId.value },
+      { pageNum: hitsPageNum.value, pageSize: hitsPageSize.value },
+    );
+    patternHits.value = (result as unknown as { items?: Record<string, unknown>[] }).items ?? [];
+    hitsTotal.value = ((result as unknown as { total?: number }).total ?? 0) as number;
+  } catch {
+    patternHits.value = [];
+    hitsTotal.value = 0;
+  } finally {
+    hitsLoading.value = false;
+  }
+}
+
+/** 测试模式 */
+async function handleTestPattern() {
+  if (!currentPatternId.value) return;
+  const payload = parseJsonObject(testEventText.value);
+  if (!payload) {
+    ElMessage.warning('事件内容需为合法 JSON 对象');
+    return;
+  }
+  testEventLoading.value = true;
+  try {
+    const result = await testPattern({ id: currentPatternId.value }, payload as unknown as Record<string, Record<string, unknown>>);
+    testEventResult.value = formatJsonResult(result);
+  } finally {
+    testEventLoading.value = false;
+  }
+}
+
 onMounted(() => {
   void loadHitsAndStats();
 });
 </script>
+
 <template>
   <Page auto-content-height>
     <div class="flex flex-col gap-3 p-4">
+      <!-- 模式列表 -->
       <Grid table-title="CEP 模式列表">
-        <template #toolbar-tools
-          ><ElButton type="primary" @click="openRegister">注册模式</ElButton></template
-        >
+        <template #toolbar-tools>
+          <ElButton type="primary" @click="openRegister">注册模式</ElButton>
+        </template>
       </Grid>
+
+      <!-- 事件上抛 + 全局命中 -->
       <div class="grid grid-cols-1 gap-3 xl:grid-cols-2">
         <div class="rounded border border-gray-200 bg-white p-3">
           <div class="mb-2 text-sm font-medium">事件上抛</div>
@@ -236,27 +383,30 @@ onMounted(() => {
           </div>
           <pre
             v-if="eventResult"
-            class="mt-2 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
-            >{{ eventResult }}</pre>
+            class="mt-2 max-h-40 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
+            >{{ eventResult }}</pre
+          >
         </div>
         <div class="rounded border border-gray-200 bg-white p-3">
           <div class="mb-2 flex items-center justify-between">
             <span class="text-sm font-medium">最近命中</span>
             <ElButton size="small" @click="loadHitsAndStats">刷新</ElButton>
           </div>
-          <ElTable :data="hits" border size="small">
+          <ElTable :data="hits" border size="small" :empty-text="'暂无命中记录'">
             <ElTableColumn prop="ruleCode" label="规则编码" min-width="140" />
             <ElTableColumn prop="patternId" label="模式ID" min-width="140" />
             <ElTableColumn prop="metric" label="指标" width="90" />
             <ElTableColumn prop="hitAt" label="命中时间" width="170" />
           </ElTable>
-          <div class="mt-2 text-sm font-medium">统计</div>
-          <pre class="mt-1 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{
+          <div class="mt-3 text-sm font-medium">全局统计</div>
+          <pre class="mt-1 max-h-40 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{
             statText
           }}</pre>
         </div>
       </div>
     </div>
+
+    <!-- 注册模式弹窗 -->
     <ElDialog v-model="registerVisible" title="注册模式" width="480px">
       <ElForm label-width="90px" label-position="right">
         <ElFormItem label="规则编码" required>
@@ -315,6 +465,121 @@ onMounted(() => {
         <ElButton @click="registerVisible = false">取消</ElButton>
         <ElButton type="primary" :loading="registering" @click="handleRegister">确定</ElButton>
       </template>
+    </ElDialog>
+
+    <!-- 模式详情弹窗 -->
+    <ElDialog
+      v-model="detailVisible"
+      :title="`模式详情 - ${currentPattern?.name ?? ''}`"
+      width="780px"
+      top="5vh"
+    >
+      <div v-loading="detailLoading">
+        <ElTabs v-model="detailActiveTab">
+          <!-- 基本信息：输入序列 / 输出条件 / 动作配置 -->
+          <ElTabPane label="模式配置" name="info">
+            <div class="space-y-4 p-2">
+              <div class="rounded border border-gray-200 bg-gray-50 p-3">
+                <div class="mb-2 text-xs font-semibold text-gray-600">输入序列</div>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                  <div><span class="text-gray-500">事件类型：</span>{{ currentPattern?.eventType ?? '-' }}</div>
+                  <div><span class="text-gray-500">过滤条件：</span>{{ currentPattern?.filter ?? '-' }}</div>
+                </div>
+              </div>
+              <div class="rounded border border-gray-200 bg-gray-50 p-3">
+                <div class="mb-2 text-xs font-semibold text-gray-600">输出条件</div>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                  <div><span class="text-gray-500">时间窗口：</span>{{ formatWindow(currentPattern?.window) }}</div>
+                  <div><span class="text-gray-500">触发阈值：</span>{{ currentPattern?.threshold ?? '-' }}</div>
+                </div>
+              </div>
+              <div class="rounded border border-gray-200 bg-gray-50 p-3">
+                <div class="mb-2 text-xs font-semibold text-gray-600">动作配置</div>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                  <div><span class="text-gray-500">关联规则编码：</span>{{ currentPattern?.ruleCode ?? '-' }}</div>
+                  <div><span class="text-gray-500">模式描述：</span>{{ currentPattern?.description ?? '-' }}</div>
+                </div>
+              </div>
+            </div>
+          </ElTabPane>
+
+          <!-- 命中统计面板 -->
+          <ElTabPane label="命中统计" name="statistics">
+            <div v-loading="statisticsLoading" class="p-2">
+              <div v-if="statisticsData" class="grid grid-cols-3 gap-3">
+                <div
+                  v-for="(value, key) in statisticsData"
+                  :key="String(key)"
+                  class="rounded border border-gray-200 bg-blue-50 p-3 text-center"
+                >
+                  <div class="text-xs text-gray-500">{{ key }}</div>
+                  <div class="mt-1 text-lg font-semibold text-blue-700">{{ formatJsonResult(value) }}</div>
+                </div>
+              </div>
+              <div v-else class="py-8 text-center text-sm text-gray-400">暂无统计数据</div>
+            </div>
+          </ElTabPane>
+
+          <!-- 命中记录（分页） -->
+          <ElTabPane label="命中记录" name="hits">
+            <div class="p-2">
+              <div class="mb-2 flex items-center justify-between">
+                <ElButton size="small" @click="loadPatternHits">刷新</ElButton>
+                <ElPagination
+                  v-model:current-page="hitsPageNum"
+                  v-model:page-size="hitsPageSize"
+                  :total="hitsTotal"
+                  :page-sizes="[10, 20, 50]"
+                  layout="total, sizes, prev, pager, next"
+                  small
+                  @size-change="loadPatternHits"
+                  @current-change="loadPatternHits"
+                />
+              </div>
+              <ElTable
+                :data="patternHits"
+                border
+                size="small"
+                :loading="hitsLoading"
+                empty-text="暂无命中记录"
+              >
+                <ElTableColumn type="seq" label="序号" width="60" />
+                <ElTableColumn prop="hitAt" label="命中时间" width="170" />
+                <ElTableColumn prop="metric" label="指标值" width="100" />
+                <ElTableColumn prop="ruleCode" label="规则编码" min-width="140" />
+                <ElTableColumn label="上下文" min-width="200">
+                  <template #default="{ row }">
+                    <span class="text-xs text-gray-500">{{ formatJsonResult(row.context ?? row) }}</span>
+                  </template>
+                </ElTableColumn>
+              </ElTable>
+            </div>
+          </ElTabPane>
+
+          <!-- 测试事件推送 -->
+          <ElTabPane label="测试事件" name="test">
+            <div class="space-y-3 p-2">
+              <ElInput
+                v-model="testEventText"
+                type="textarea"
+                :rows="6"
+                placeholder="填写测试事件 JSON，如 {&quot;eventType&quot;:&quot;LOGIN_FAILED&quot;,&quot;userId&quot;:&quot;U001&quot;}"
+              />
+              <div class="flex gap-2">
+                <ElButton type="primary" :loading="testEventLoading" @click="handleTestPattern">
+                  推送测试
+                </ElButton>
+                <ElButton @click="detailActiveTab = 'statistics'">查看统计</ElButton>
+              </div>
+              <pre
+                v-if="testEventResult"
+                class="max-h-48 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
+                >{{ testEventResult }}</pre
+              >
+            </div>
+          </ElTabPane>
+        </ElTabs>
+      </div>
     </ElDialog>
   </Page>
 </template>

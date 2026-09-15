@@ -12,5 +12,6 @@
   "connectorList": "连接器管理",
   "health": "健康仪表盘",
   "queue": "执行队列",
-  "stats": "统计数据"
+  "stats": "统计数据",
+  "webhook": "WebHook管理"
 }

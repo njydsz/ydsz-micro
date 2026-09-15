@@ -85,6 +85,19 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    meta: { icon: 'lucide:webhook', order: 5, title: 'WebHook' },
+    name: 'WebhookMgmt',
+    path: '/webhook',
+    children: [
+      {
+        name: 'WebhookManagement',
+        path: 'list',
+        component: () => import('#/views/webhook/index.vue'),
+        meta: { icon: 'lucide:webhook', title: 'WebHook管理' },
+      },
+    ],
+  },
+  {
     meta: { icon: 'lucide:history', order: 6, title: '任务历史' },
     name: 'HistoryMgmt',
     path: '/cronjob',
@@ -142,7 +155,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    meta: { icon: 'lucide:monitor', order: 5, title: '集群管理' },
+    meta: { icon: 'lucide:monitor', order: 6, title: '集群管理' },
     name: 'ClusterMgmt',
     path: '/cluster',
     children: [

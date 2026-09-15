@@ -1,17 +1,4 @@
 /* eslint-disable */
-
-/**
- * @fileoverview Mock Service Worker (MSW) Service Worker 脚本。
- *
- * <p>拦截浏览器 fetch 与跨域请求，将匹配规则转向本地 mock 处理逻辑，
- * <p>用于开发期的请求沙箱。
- *
- * <p>版本：v2.15.0；本文件由框架字节码（mswjs）自动生成与维护，
- * <p>请勿直接修改；如需调整拦截规则请参见调用端的 rest handler。
- *
- * @see https://github.com/mswjs/msw
- * @version 2.15.0
- */
 /* tslint:disable */
 
 /**
