@@ -19,19 +19,10 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
+import { CardGrid, EmptyState, EntityCard } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { Cards, Grid3x3, MoreVertical } from 'lucide-vue-next';
 import { h, ref } from 'vue';
-import {
-  CardGrid,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  EmptyState,
-  EntityCard,
-} from '@ydsz-core/shadcn-ui';
-import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
+import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElMessage, ElMessageBox } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -135,16 +126,16 @@ async function handleDelete(row: AgentDefinitionVO): Promise<void> {
   try {
     await ElMessageBox.confirm(`确定删除「${row.agentName ?? row.agentCode ?? ''}」吗？`, '删除确认', { type: 'warning' });
   } catch {
-    return; // 用户主动取消删除操作
+    // 用户主动取消删除操作
+    return;
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id ?? '' });
     ElMessage.success('删除成功');
     await handleRefresh();
-  } catch (error) {
-    /* 错误已由请求拦截器展示，无需重复处理 */
-    console.warn('[agent] delete failed:', error);
+  } catch {
+    // 错误已由请求拦截器展示，无需重复处理
   }
 }
 
@@ -160,17 +151,88 @@ void loadAgentList();
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
           :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          type="button"
           @click="handleViewModeChange('card')"
         >
-          <Cards :size="14" class="me-1 inline" />
+          <svg
+            class="mb-0.5 me-1 inline"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="2.5"
+              y="2.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="12.5"
+              y="2.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="2.5"
+              y="12.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="12.5"
+              y="12.5"
+            />
+          </svg>
           卡片
         </button>
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
           :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          type="button"
           @click="handleViewModeChange('table')"
         >
-          <Grid3x3 :size="14" class="me-1 inline" />
+          <svg
+            class="mb-0.5 me-1 inline"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <line
+              x1="3"
+              x2="21"
+              y1="6.5"
+              y2="6.5"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="12"
+              y2="12"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="17.5"
+              y2="17.5"
+            />
+            <line
+              x1="8.5"
+              x2="8.5"
+              y1="3"
+              y2="21"
+            />
+          </svg>
           表格
         </button>
       </div>
@@ -205,16 +267,12 @@ void loadAgentList();
           v-for="item in agentList"
           :key="item.id"
           :avatar-text="item.agentName"
-          :avatar-variant="item.agentType === 'CHAT' ? 'primary' : item.agentType === 'WORKFLOW' ? 'purple' : 'blue'"
+          :avatar-variant="item.agentType === 'CHAT' ? 'primary' : (item.agentType === 'WORKFLOW' ? 'purple' : 'blue')"
           :code="item.agentCode"
           :description="item.description"
           class="transition-transform hover:-translate-y-0.5"
           @click="handleCardEdit(item)"
         >
-          <template #status-badge>
-            <!-- 暂不映射状态，待后端 isPublished 等字段发布后启用 -->
-          </template>
-
           <template #meta>
             <div class="mt-3 grid grid-cols-2 gap-2 text-xs">
               <div class="rounded-md bg-accent/60 px-2 py-1.5">
@@ -233,29 +291,54 @@ void loadAgentList();
           </template>
 
           <template #actions>
-            <DropdownMenu>
-              <DropdownMenuTrigger as-child>
-                <ElButton
-                  size="small"
-                  link
-                  type="primary"
-                  @click.stop="() => {}"
+            <ElDropdown trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
+              <ElButton
+                size="small"
+                link
+                type="primary"
+                @click.stop
+              >
+                <svg
+                  class="me-1"
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
                 >
-                  <MoreVertical :size="14" />
-                </ElButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem @click.stop="handleCardEdit(item)">
-                  编辑信息
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  class="text-destructive"
-                  @click.stop="handleCardDelete(item)"
-                >
-                  删除定义
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <circle
+                    cx="12"
+                    cy="5"
+                    r="1"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1"
+                  />
+                  <circle
+                    cx="12"
+                    cy="19"
+                    r="1"
+                  />
+                </svg>
+              </ElButton>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem command="edit">
+                    编辑信息
+                  </ElDropdownItem>
+                  <ElDropdownItem
+                    command="delete"
+                    divided
+                  >
+                    <span class="text-destructive">删除定义</span>
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
           </template>
         </EntityCard>
       </CardGrid>
