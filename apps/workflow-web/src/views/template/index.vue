@@ -24,7 +24,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -453,8 +453,8 @@ void loadCardData();
       class="min-h-[400px]"
     >
       <CardGrid
-        :empty="templateList.length === 0 && !cardLoading"
-        :loading="cardLoading"
+        :is-empty="templateList.length === 0 && !cardLoading"
+        :is-loading="cardLoading"
       >
         <template #empty>
           <EmptyState

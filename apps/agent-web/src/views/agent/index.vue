@@ -251,8 +251,8 @@ void loadAgentList();
       class="min-h-[400px]"
     >
       <CardGrid
-        :empty="agentList.length === 0 && !loading"
-        :loading="loading"
+        :is-empty="agentList.length === 0 && !loading"
+        :is-loading="loading"
       >
         <template #empty>
           <EmptyState

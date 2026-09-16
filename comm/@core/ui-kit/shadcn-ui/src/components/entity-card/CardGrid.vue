@@ -19,34 +19,36 @@ defineOptions({
   name: 'CardGrid',
 });
 
-interface Props {
-  /** 自定义间距 class（默认 gap-4） */
-  gap?: string;
-  /** 自定义类名 */
-  class?: string;
-  /** 是否处于加载状态 */
-  loading?: boolean;
-  /** 数据是否为空（用于显示 empty slot） */
-  empty?: boolean;
-  /** 默认最小卡片宽度（px），响应式断点下自动调整列数 */
-  minWidth?: number;
-}
-
-const { empty, gap, loading, minWidth } = withDefaults(defineProps<Props>(), {
-  empty: false,
-  gap: 'gap-4',
-  loading: false,
-  minWidth: 280,
-});
+const props = withDefaults(
+  defineProps<{
+    /** 自定义类名 */
+    className?: string;
+    /** 是否处于加载状态 */
+    isLoading?: boolean;
+    /** 自定义间距 class（默认 gap-4） */
+    gapClass?: string;
+    /** 数据是否为空（用于显示 empty slot） */
+    isEmpty?: boolean;
+    /** 默认最小卡片宽度（px），响应式断点下自动调整列数 */
+    minCardWidth?: number;
+  }>(),
+  {
+    className: '',
+    gapClass: 'gap-4',
+    isLoading: false,
+    isEmpty: false,
+    minCardWidth: 280,
+  },
+);
 </script>
 
 <template>
   <div class="relative">
     <!-- 加载态：栅格骨架 -->
     <div
-      v-if="loading"
-      :class="cn('grid', gap)"
-      :style="{ gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))` }"
+      v-if="props.isLoading"
+      :class="cn('grid', props.gapClass, props.className)"
+      :style="{ gridTemplateColumns: `repeat(auto-fill, minmax(${props.minCardWidth}px, 1fr))` }"
     >
       <div
         v-for="i in 6"
@@ -57,15 +59,15 @@ const { empty, gap, loading, minWidth } = withDefaults(defineProps<Props>(), {
 
     <!-- 空状态 -->
     <slot
-      v-else-if="empty"
+      v-else-if="props.isEmpty"
       name="empty"
     />
 
     <!-- 卡片网格 -->
     <div
       v-else
-      :class="cn('grid', gap)"
-      :style="{ gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))` }"
+      :class="cn('grid', props.gapClass, props.className)"
+      :style="{ gridTemplateColumns: `repeat(auto-fill, minmax(${props.minCardWidth}px, 1fr))` }"
     >
       <slot />
     </div>

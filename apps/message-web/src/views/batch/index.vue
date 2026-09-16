@@ -1,12 +1,13 @@
 <!--
  * 消息批量发送列表页组件
  *
+ * 视图模式：卡片视图（默认）/ 表格视图 可切换。
+ *  - 卡片视图：CardGrid + EntityCard，承载批次可视化展示；
+ *  - 表格视图：VxeTable，保持原有兼容视图。
+ *
  * @path apps/message-web/src/views/batch/index.vue
  * @author ydsz-team
  * @since 1.0.0
- * @modified 4.1.0 由脚手架 CRUD 重写为消费契约 API（submitBatch 提交 + getProgress 进度查询）。
- * @modified 4.2.0 进度抽屉接入 SSE 实时推送（subscribeProgress），打开抽屉后持续订阅 progress/complete 事件；
- *           保留 getProgress 快照作为首屏加载与手动刷新。
 -->
 <script lang="ts" setup>
 /**
@@ -21,9 +22,8 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-
+import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-
 import {
   ElButton,
   ElDescriptions,
@@ -37,7 +37,7 @@ import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getProgress } from '#/api/batch';
-import type { BatchProgressVO, MsgBatchVO } from '#/api/models';
+import type { BatchProgressDTO as BatchProgressVO, MsgBatchVO } from '#/api/models';
 import { openSseStream } from '#/utils/sse-client';
 import type { SseEventHandlers } from '#/utils/sse-client';
 
@@ -47,6 +47,9 @@ defineOptions({ name: 'BatchManagement' });
 
 const { t } = useI18n();
 
+type ViewMode = 'card' | 'table';
+const viewMode = ref<ViewMode>('card');
+
 /** 状态列 Tag 类型映射（未知值按 info 展示） */
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
   const upper = (status ?? '').toUpperCase();
@@ -54,6 +57,15 @@ function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'inf
   if (['FAILED', 'ERROR', 'PARTIAL'].includes(upper)) return 'danger';
   if (['RUNNING', 'PROCESSING', 'PENDING', 'QUEUED'].includes(upper)) return 'warning';
   return 'info';
+}
+
+/** 批次状态 → StatusBadge 语义值 */
+function resolveBatchStatus(status?: string): 'running' | 'success' | 'failed' | 'draft' {
+  const upper = (status ?? '').toUpperCase();
+  if (['SUCCESS', 'COMPLETED', 'DONE'].includes(upper)) return 'success';
+  if (['FAILED', 'ERROR', 'PARTIAL'].includes(upper)) return 'failed';
+  if (['RUNNING', 'PROCESSING', 'PENDING', 'QUEUED'].includes(upper)) return 'running';
+  return 'draft';
 }
 
 /** 是否已进入终态（用于进度条判定） */
@@ -88,11 +100,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) =>
-          h(
-            ElButton,
-            { size: 'small', link: true, type: 'primary', onClick: () => handleProgress(row) },
-            () => '进度',
-          ),
+          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleProgress(row) }, () => '进度'),
       },
     },
   ],
@@ -100,7 +108,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
   proxyConfig: {
     ajax: {
       query: async (_page, formValues) => {
-        const keyword = String(formValues.batchName ?? '').trim();
+        const keyword = String((formValues as Record<string, unknown>)?.batchName ?? '').trim();
         const items = keyword
           ? batchRows.value.filter((row) => (row.batchName ?? '').includes(keyword))
           : batchRows.value;
@@ -112,30 +120,35 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
   formConfig: {
     enabled: true,
     items: [
-      {
-        field: 'batchName',
-        title: '批次名称',
-        itemRender: { name: 'Input', props: { placeholder: '批次名称' } },
-      },
+      { field: 'batchName', title: '批次名称', itemRender: { name: 'Input', props: { placeholder: '批次名称' } } },
     ],
   },
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-
 const [BatchFormModal, batchFormApi] = useYDSZModal({ connectedComponent: BatchForm });
 
-function handleAdd() {
+/** 视图切换 */
+function handleViewModeChange(mode: ViewMode): void {
+  viewMode.value = mode;
+}
+
+/** 刷新列表（兼容两视图） */
+function handleRefresh(): void {
+  gridApi.query();
+}
+
+function handleAdd(): void {
   batchFormApi.open();
 }
 
 /** 提交成功后把批次写入本地列表（按 batchId 去重） */
-function handleBatchCreated(batch: MsgBatchVO) {
+function handleBatchCreated(batch: MsgBatchVO): void {
   if (!batch.batchId) return;
   if (!batchRows.value.some((row) => row.batchId === batch.batchId)) {
     batchRows.value.unshift(batch);
   }
-  gridApi.query();
+  handleRefresh();
 }
 
 /** 进度抽屉状态 */
@@ -150,11 +163,11 @@ let closeSse = (() => undefined) as () => void;
 
 /** SSE 连接状态文案映射 */
 const sseStateText: Record<string, string> = {
-  idle: '未连接',
-  connecting: '连接中…',
-  live: '实时推送中',
   closed: '已结束',
+  connecting: '连接中…',
   error: '连接异常',
+  idle: '未连接',
+  live: '实时推送中',
 };
 
 /** 关闭当前 SSE 流并复位连接状态（已结束/异常时保持终态文案） */
@@ -181,7 +194,7 @@ function subscribeSseProgress(batchId: string): void {
     onOpen: () => {
       sseState.value = 'live';
     },
-    onEvent: (eventName, data) => {
+    onEvent: (eventName: string, data: Record<string, unknown> | null) => {
       if (!data) return;
       if (eventName === 'progress') {
         applyProgressPatch(data);
@@ -214,7 +227,7 @@ async function refreshProgressSnapshot(): Promise<void> {
   }
 }
 
-async function handleProgress(row: MsgBatchVO) {
+async function handleProgress(row: MsgBatchVO): Promise<void> {
   if (!row.batchId) return;
   stopSseStream();
   progressLoading.value = true;
@@ -241,32 +254,172 @@ onBeforeUnmount(() => {
   stopSseStream();
 });
 </script>
+
 <template>
   <Page auto-content-height>
-    <Grid table-title="批量发送">
-      <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
-      </template>
-    </Grid>
-    <BatchFormModal @success="handleBatchCreated" />
-    <ElDrawer v-model="progressVisible" title="批次进度" :size="440" v-loading="progressLoading">
-      <template #header>
-        <div class="flex w-full items-center justify-between pr-2">
-          <span>{{ t('page.batchSend') }}</span>
-          <span class="flex items-center gap-2">
-            <ElTag
-              :type="sseState === 'live' ? 'success' : sseState === 'error' ? 'danger' : 'info'"
-              size="small"
-            >
-              {{ sseStateText[sseState] }}
-            </ElTag>
+    <!-- 视图切换 + 工具栏 -->
+    <div class="mb-4 flex items-center justify-between">
+      <div class="flex items-center gap-1 rounded-lg border border-border-subtle bg-accent/50 p-1">
+        <button
+          class="rounded-md px-2.5 py-1 text-xs transition-colors"
+          :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          type="button"
+          @click="handleViewModeChange('card')"
+        >
+          <svg
+            class="mb-0.5 me-1 inline"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="2.5"
+              y="2.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="12.5"
+              y="2.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="2.5"
+              y="12.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="12.5"
+              y="12.5"
+            />
+          </svg>
+          卡片
+        </button>
+        <button
+          class="rounded-md px-2.5 py-1 text-xs transition-colors"
+          :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          type="button"
+          @click="handleViewModeChange('table')"
+        >
+          <svg
+            class="mb-0.5 me-1 inline"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <line
+              x1="3"
+              x2="21"
+              y1="6.5"
+              y2="6.5"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="12"
+              y2="12"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="17.5"
+              y2="17.5"
+            />
+          </svg>
+          表格
+        </button>
+      </div>
+      <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+    </div>
+
+    <!-- 表格视图 -->
+    <Grid
+      v-if="viewMode === 'table'"
+      table-title="批量发送"
+    />
+
+    <!-- 卡片视图 -->
+    <div
+      v-else
+      class="min-h-[400px]"
+    >
+      <CardGrid
+        :is-empty="batchRows.length === 0"
+        :is-loading="false"
+      >
+        <template #empty>
+          <EmptyState
+            description="创建批量发送任务后可查看发送进度和统计"
+            preset="created"
+            :action-text="t('common.create')"
+            title="暂无批量任务"
+            @action="handleAdd"
+          />
+        </template>
+        <EntityCard
+          v-for="item in batchRows"
+          :key="item.batchId"
+          :avatar-text="item.batchName"
+          :avatar-variant="resolveBatchStatus(item.status) === 'running' ? 'blue' : (resolveBatchStatus(item.status) === 'success' ? 'primary' : 'neutral')"
+          :code="item.batchId ?? undefined"
+          :description="`${item.channel ?? ''} · ${item.templateCode ?? ''}`"
+          class="transition-transform hover:-translate-y-0.5"
+          @click="handleProgress(item)"
+        >
+          <template #status-badge>
+            <StatusBadge
+              :status="resolveBatchStatus(item.status)"
+              :label="item.status ?? '待处理'"
+              class="shrink-0"
+            />
+          </template>
+
+          <template #meta>
+            <div class="mt-3 text-xs text-text-tertiary">
+              <div class="flex items-center justify-between">
+                <span>业务类型: {{ item.bizType ?? '-' }}</span>
+                <span>{{ item.createdAt ?? '' }}</span>
+              </div>
+            </div>
+          </template>
+
+          <template #actions>
             <ElButton
               size="small"
               link
               type="primary"
-              :disabled="!subscribedBatchId"
-              @click="refreshProgressSnapshot"
+              @click.stop="handleProgress(item)"
             >
+              查看进度
+            </ElButton>
+          </template>
+        </EntityCard>
+      </CardGrid>
+    </div>
+
+    <BatchFormModal @success="handleBatchCreated" />
+    <ElDrawer v-model="progressVisible" title="批次进度" :size="440" v-loading="progressLoading">
+      <template #header>
+        <div class="flex w-full items-center justify-between pe-2">
+          <span>{{ t('page.batchSend') }}</span>
+          <span class="flex items-center gap-2">
+            <ElTag :type="sseState === 'live' ? 'success' : sseState === 'error' ? 'danger' : 'info'" size="small">
+              {{ sseStateText[sseState] }}
+            </ElTag>
+            <ElButton size="small" link type="primary" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
               {{ t('common.refresh') }}
             </ElButton>
           </span>
@@ -274,22 +427,14 @@ onBeforeUnmount(() => {
       </template>
       <ElDescriptions v-if="progressData" :column="1" border size="small">
         <ElDescriptionsItem label="批次ID">{{ progressData.batchId ?? '-' }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="批次名称">{{
-          progressData.batchName ?? '-'
-        }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="批次名称">{{ progressData.batchName ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem label="通道">{{ progressData.channel ?? '-' }}</ElDescriptionsItem>
-        <ElDescriptionsItem :label="t('templateCode')">{{
-          progressData.templateCode ?? '-'
-        }}</ElDescriptionsItem>
+        <ElDescriptionsItem :label="t('templateCode')">{{ progressData.templateCode ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem :label="t('common.status')">{{ progressData.status ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem label="进度">
           <ElProgress
             :percentage="Math.min(100, Number(progressData.progressPercent ?? 0))"
-            :status="
-              Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status)
-                ? 'success'
-                : undefined
-            "
+            :status="Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status) ? 'success' : undefined"
             :stroke-width="12"
             class="w-56"
           />
@@ -299,15 +444,9 @@ onBeforeUnmount(() => {
         <ElDescriptionsItem label="成功">{{ progressData.success ?? 0 }}</ElDescriptionsItem>
         <ElDescriptionsItem label="失败">{{ progressData.failed ?? 0 }}</ElDescriptionsItem>
         <ElDescriptionsItem label="跳过">{{ progressData.skipped ?? 0 }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="错误信息">{{
-          progressData.errorMessage ?? '-'
-        }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="开始时间">{{
-          progressData.startedAt ?? '-'
-        }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="完成时间">{{
-          progressData.completedAt ?? '-'
-        }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="错误信息">{{ progressData.errorMessage ?? '-' }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="开始时间">{{ progressData.startedAt ?? '-' }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="完成时间">{{ progressData.completedAt ?? '-' }}</ElDescriptionsItem>
       </ElDescriptions>
     </ElDrawer>
   </Page>
