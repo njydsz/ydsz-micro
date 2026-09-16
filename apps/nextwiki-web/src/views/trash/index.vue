@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 回收站（列表页）
  *
  * @path apps\nextwiki-web\src\views\trash\index.vue
@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -54,7 +54,7 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.nodeType === 'DIRECTORY' ? 'info' : 'primary' }, () =>
+          h(Badge, { variant: row.nodeType === 'DIRECTORY' ? 'secondary' : 'default' }, () =>
             row.nodeType === 'DIRECTORY' ? t('nodeTypeDirectory') : t('nodeTypeFile'),
           ),
       },
@@ -73,13 +73,13 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
       width: 100,
       slots: {
         default: ({ row }) => {
-          const statusMap: Record<string, { label: string; type: 'success' | 'warning' | 'danger' }> = {
-            PENDING: { label: t('trashStatusPending'), type: 'warning' },
-            PURGED: { label: t('trashStatusPurged'), type: 'danger' },
-            RESTORED: { label: t('trashStatusRestored'), type: 'success' },
+          const statusMap: Record<string, { label: string; variant: 'default' | 'destructive' | 'secondary' }> = {
+            PENDING: { label: t('trashStatusPending'), variant: 'destructive' },
+            PURGED: { label: t('trashStatusPurged'), variant: 'secondary' },
+            RESTORED: { label: t('trashStatusRestored'), variant: 'default' },
           };
-          const info = statusMap[row.status ?? ''] ?? { label: row.status ?? '--', type: 'warning' as const };
-          return h(ElTag, { type: info.type }, () => info.label);
+          const info = statusMap[row.status ?? ''] ?? { label: row.status ?? '--', variant: 'destructive' as const };
+          return h(Badge, { variant: info.variant }, () => info.label);
         },
       },
     },
@@ -91,17 +91,15 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, {
-              size: 'small',
-              link: true,
-              type: 'primary',
+            h(Button, {
+              size: 'sm',
+              variant: 'link',
               disabled: row.status !== 'PENDING',
               onClick: () => handleRestore(row),
             }, () => t('trashRestore')),
-            h(ElButton, {
-              size: 'small',
-              link: true,
-              type: 'danger',
+            h(Button, {
+              size: 'sm',
+              variant: 'link',
               disabled: row.status !== 'PENDING',
               onClick: () => handlePurge(row),
             }, () => t('trashPurge')),
@@ -188,8 +186,8 @@ async function handleEmptyTrash() {
   <Page auto-content-height>
     <Grid table-title="回收站">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleBatchRestore">{{ t('trashBatchRestore') }}</ElButton>
-        <ElButton type="danger" @click="handleEmptyTrash">{{ t('trashEmpty') }}</ElButton>
+        <Button @click="handleBatchRestore">{{ t('trashBatchRestore') }}</Button>
+        <Button variant="destructive" @click="handleEmptyTrash">{{ t('trashEmpty') }}</Button>
       </template>
     </Grid>
     <div class="mt-3 rounded bg-amber-50 px-4 py-2 text-sm text-amber-700">

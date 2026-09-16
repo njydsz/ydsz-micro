@@ -20,7 +20,10 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElTag } from 'element-plus';
+import { Badge, Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// SKIP: ElEmpty/ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
+import { ElCard, ElEmpty, ElForm, ElFormItem } from 'element-plus';
+// MIGRATE: ElButton→Button, ElTag→Badge, ElInput→Input (Card 分情况处理)
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';
@@ -145,29 +148,30 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="read-receipt-container p-4">
       <!-- 查询入口 -->
-      <ElCard class="mb-4" shadow="never">
-        <h3 class="mb-4 text-base font-medium">短码查询</h3>
-        <ElForm :model="searchForm" label-width="80px">
-          <ElFormItem label="短码">
-            <div class="flex items-center gap-3">
-              <ElInput
-                v-model="searchForm.shortCode"
-                placeholder="请输入回执短码（shortCode），如：a1b2c3"
-                class="flex-1"
-                clearable
-                @keyup.enter="handleQuery"
-              />
-              <ElButton v-loading="loading" type="primary" @click="handleQuery">查询</ElButton>
-              <ElButton @click="handleReset">重置</ElButton>
-            </div>
-          </ElFormItem>
-        </ElForm>
-      </ElCard>
+      <Card class="mb-4">
+        <CardContent class="pt-4">
+          <h3 class="mb-4 text-base font-medium">短码查询</h3>
+          <ElForm :model="searchForm" label-width="80px">
+            <ElFormItem label="短码">
+              <div class="flex items-center gap-3">
+                <Input
+                  v-model="searchForm.shortCode"
+                  placeholder="请输入回执短码（shortCode），如：a1b2c3"
+                  class="flex-1"
+                  @keyup.enter="handleQuery"
+                />
+                <Button v-loading="loading" @click="handleQuery">查询</Button>
+                <Button variant="outline" @click="handleReset">重置</Button>
+              </div>
+            </ElFormItem>
+          </ElForm>
+        </CardContent>
+      </Card>
 
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <!-- 回执详情区 -->
         <div class="lg:col-span-2">
-          <ElCard shadow="never">
+          <Card>
             <h3 class="mb-4 text-base font-medium">回执详情</h3>
 
             <div v-if="receiptDetail" class="space-y-4">
@@ -199,9 +203,9 @@ onMounted(() => {
                 <div class="rounded bg-gray-50 p-4">
                   <span class="text-xs text-gray-500">回执状态</span>
                   <p class="mt-1">
-                    <ElTag :type="getStatusType(receiptDetail.status)" size="small">
+                    <Badge :variant="getStatusType(receiptDetail.status) === 'success' ? 'default' : getStatusType(receiptDetail.status) === 'warning' ? 'outline' : 'secondary'">
                       {{ getStatusLabel(receiptDetail.status) }}
-                    </ElTag>
+                    </Badge>
                   </p>
                 </div>
                 <div class="rounded bg-gray-50 p-4">
@@ -214,12 +218,12 @@ onMounted(() => {
             </div>
 
             <ElEmpty v-else description="请输入短码进行查询" />
-          </ElCard>
+          </Card>
         </div>
 
         <!-- 最近查询记录 -->
         <div>
-          <ElCard shadow="never">
+          <Card>
             <h3 class="mb-3 text-base font-medium">最近查询</h3>
             <div v-if="recentQueries.length > 0" class="space-y-2">
               <div
@@ -229,9 +233,9 @@ onMounted(() => {
                 @click="handleQuickQuery(item.shortCode)"
               >
                 <div class="flex items-center gap-2">
-                  <ElTag :type="item.found ? 'success' : 'danger'" size="small">
+                  <Badge :variant="item.found ? 'default' : 'destructive'">
                     {{ item.found ? '成功' : '失败' }}
-                  </ElTag>
+                  </Badge>
                   <span class="font-mono text-sm">{{ item.shortCode }}</span>
                 </div>
                 <span class="text-xs text-gray-400">{{ item.time }}</span>
@@ -241,7 +245,7 @@ onMounted(() => {
             <p class="mt-2 text-xs text-gray-400">
               点击记录可快速重新查询
             </p>
-          </ElCard>
+          </Card>
         </div>
       </div>
     </div>

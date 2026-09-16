@@ -17,7 +17,9 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElCard, ElOption, ElSelect, ElStatistic } from 'element-plus';
+import { SelectContent, SelectItem, SelectTrigger, SelectValue, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+// SKIP: ElCard/ElStatistic 不在 shadcn 映射表，保留 EP
+import { ElCard, ElStatistic } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref, watch } from 'vue';
 
@@ -249,15 +251,21 @@ onMounted(() => {
     <div class="mb-4 flex items-center justify-between px-4 pt-3">
       <h1 class="text-xl font-bold text-gray-800">消息统计看板</h1>
       <div class="flex items-center gap-3">
-        <ElSelect v-model="timeRange" placeholder="时间范围" class="w-32">
-          <ElOption
-            v-for="opt in timeRangeOptions"
-            :key="opt.value"
-            :label="opt.label"
-            :value="opt.value"
-          />
-        </ElSelect>
-        <ElButton type="primary" :loading="loading" @click="loadAllData">刷新</ElButton>
+        <Select v-model="timeRange">
+          <SelectTrigger class="w-32">
+            <SelectValue placeholder="时间范围" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              v-for="opt in timeRangeOptions"
+              :key="opt.value"
+              :value="opt.value"
+            >
+              {{ opt.label }}
+            </SelectItem>
+          </SelectContent>
+        </Select>
+        <Button :loading="loading" @click="loadAllData">刷新</Button>
       </div>
     </div>
 

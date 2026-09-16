@@ -16,6 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElInput/ElTabPane/ElTabs 标签页+描述+输入,保留 element-plus SKIP
 import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElTabPane, ElTabs } from 'element-plus';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';

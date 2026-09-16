@@ -24,13 +24,13 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+// SKIP: ElDrawer/ElDescriptions/ElDescriptionsItem/ElProgress 不在 shadcn 映射表，保留 EP
 import {
-  ElButton,
   ElDescriptions,
   ElDescriptionsItem,
   ElDrawer,
   ElProgress,
-  ElTag,
 } from 'element-plus';
 import { h, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -49,6 +49,14 @@ const { t } = useI18n();
 
 type ViewMode = 'card' | 'table';
 const viewMode = ref<ViewMode>('card');
+
+/** Badge variant 映射（EP type → shadcn variant） */
+function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
 
 /** 状态列 Tag 类型映射（未知值按 info 展示） */
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
@@ -90,7 +98,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getStatusType(row.status) }, () => row.status ?? '-'),
+          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     {
@@ -100,7 +108,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) =>
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleProgress(row) }, () => '进度'),
+          h(Button, { size: 'sm', variant: 'link', onClick: () => handleProgress(row) }, () => '进度'),
       },
     },
   ],
@@ -342,7 +350,7 @@ onBeforeUnmount(() => {
           表格
         </button>
       </div>
-      <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+      <Button @click="handleAdd">{{ t('common.create') }}</Button>
     </div>
 
     <!-- 表格视图 -->
@@ -397,14 +405,13 @@ onBeforeUnmount(() => {
           </template>
 
           <template #actions>
-            <ElButton
-              size="small"
-              link
-              type="primary"
+            <Button
+              size="sm"
+              variant="link"
               @click.stop="handleProgress(item)"
             >
               查看进度
-            </ElButton>
+            </Button>
           </template>
         </EntityCard>
       </CardGrid>
@@ -416,12 +423,12 @@ onBeforeUnmount(() => {
         <div class="flex w-full items-center justify-between pe-2">
           <span>{{ t('page.batchSend') }}</span>
           <span class="flex items-center gap-2">
-            <ElTag :type="sseState === 'live' ? 'success' : sseState === 'error' ? 'danger' : 'info'" size="small">
+            <Badge :variant="sseState === 'live' ? 'default' : sseState === 'error' ? 'destructive' : 'secondary'">
               {{ sseStateText[sseState] }}
-            </ElTag>
-            <ElButton size="small" link type="primary" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
+            </Badge>
+            <Button size="sm" variant="link" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
               {{ t('common.refresh') }}
-            </ElButton>
+            </Button>
           </span>
         </div>
       </template>

@@ -293,11 +293,11 @@ void loadAgentList();
           </template>
 
           <template #actions>
+            <!-- TODO: ElDropdown trigger 暂保留 element-plus,Button 仅作视觉替换 SKIP -->
             <ElDropdown trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
-              <ElButton
-                size="small"
-                link
-                type="primary"
+              <Button
+                size="sm"
+                variant="ghost"
                 @click.stop
               >
                 <svg
@@ -326,7 +326,7 @@ void loadAgentList();
                     r="1"
                   />
                 </svg>
-              </ElButton>
+              </Button>
               <template #dropdown>
                 <ElDropdownMenu>
                   <ElDropdownItem command="edit">

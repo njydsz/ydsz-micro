@@ -18,6 +18,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
+// TODO: ElDescriptions/ElDescriptionsItem/ElDrawer 描述+抽屉+输入,保留 element-plus SKIP
 import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElInput } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';

@@ -15,6 +15,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// TODO: ElForm/ElFormItem/ElInput 表单套件复杂+校验逻辑,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';

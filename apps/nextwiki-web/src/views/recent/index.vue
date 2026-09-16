@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 最近访问（列表页）
  *
  * @path apps\nextwiki-web\src\views\recent\index.vue
@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -54,7 +54,7 @@ const gridOptions: VxeGridProps<UserRecentVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.nodeType === 'DIRECTORY' ? 'info' : 'primary' }, () =>
+          h(Badge, { variant: row.nodeType === 'DIRECTORY' ? 'secondary' : 'default' }, () =>
             row.nodeType === 'DIRECTORY' ? t('nodeTypeDirectory') : t('nodeTypeFile'),
           ),
       },
@@ -84,10 +84,9 @@ const gridOptions: VxeGridProps<UserRecentVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, {
-              size: 'small',
-              link: true,
-              type: 'danger',
+            h(Button, {
+              size: 'sm',
+              variant: 'link',
               onClick: () => handleRemove(row),
             }, () => t('recentRemove')),
           ]),
@@ -144,7 +143,7 @@ async function handleClearAll() {
         {{ t('recentTotalLabel') }}
         <span class="ml-1 font-semibold text-blue-600">{{ recentCount }}</span>
       </span>
-      <ElButton type="danger" size="small" @click="handleClearAll">{{ t('recentClearAll') }}</ElButton>
+      <Button variant="destructive" size="sm" @click="handleClearAll">{{ t('recentClearAll') }}</Button>
     </div>
     <Grid table-title="最近访问" />
   </Page>

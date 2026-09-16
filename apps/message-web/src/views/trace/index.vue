@@ -17,8 +17,11 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTag } from 'element-plus';
+import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
+// SKIP: ElStep/ElSteps 不在 shadcn 映射表，保留 EP
+import { ElStep, ElSteps, ElOption, ElSelect } from 'element-plus';
+import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, ref } from 'vue';
 
 const logger = createLogger('message-trace');
@@ -133,27 +136,32 @@ function getStepConfig(step: string): { label: string; type: string; description
       <div class="mb-6">
         <h1 class="mb-4 text-2xl font-bold text-gray-800">消息轨迹查询</h1>
         <div class="flex items-center gap-3">
-          <ElSelect v-model="queryType" placeholder="查询类型" class="w-32">
-            <ElOption
-              v-for="opt in queryTypeOptions"
-              :key="opt.value"
-              :label="opt.label"
-              :value="opt.value"
-            />
-          </ElSelect>
+          <Select v-model="queryType">
+            <SelectTrigger class="w-32">
+              <SelectValue placeholder="查询类型" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem
+                v-for="opt in queryTypeOptions"
+                :key="opt.value"
+                :value="opt.value"
+              >
+                {{ opt.label }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
           <template v-if="queryType === 'biz'">
-            <ElInput v-model="bizType" placeholder="业务类型" class="w-40" />
-            <ElInput v-model="bizId" placeholder="业务ID" class="w-64" />
+            <Input v-model="bizType" placeholder="业务类型" class="w-40" />
+            <Input v-model="bizId" placeholder="业务ID" class="w-64" />
           </template>
-          <ElInput
+          <Input
             v-else
             v-model="queryKey"
             :placeholder="`请输入${queryType === 'msgId' ? '消息ID' : '追踪ID'}`"
             class="w-80"
-            clearable
             @keyup.enter="handleQuery"
           />
-          <ElButton type="primary" :loading="loading" @click="handleQuery">{{ t('common.search') }}</ElButton>
+          <Button :loading="loading" @click="handleQuery">{{ t('common.search') }}</Button>
         </div>
       </div>
 
@@ -176,16 +184,10 @@ function getStepConfig(step: string): { label: string; type: string; description
             "
           >
             <template #icon>
-              <ElTag v-if="getStepConfig(step).type === 'success'" type="success" size="small"
-                >✓</ElTag
-              >
-              <ElTag v-else-if="getStepConfig(step).type === 'danger'" type="danger" size="small"
-                >✗</ElTag
-              >
-              <ElTag v-else-if="getStepConfig(step).type === 'warning'" type="warning" size="small"
-                >!</ElTag
-              >
-              <ElTag v-else type="primary" size="small">{{ index + 1 }}</ElTag>
+              <Badge v-if="getStepConfig(step).type === 'success'" class="h-5 w-5 rounded-full p-0">✓</Badge>
+              <Badge v-else-if="getStepConfig(step).type === 'danger'" variant="destructive" class="h-5 w-5 rounded-full p-0">✗</Badge>
+              <Badge v-else-if="getStepConfig(step).type === 'warning'" variant="outline" class="h-5 w-5 rounded-full p-0">!</Badge>
+              <Badge v-else variant="secondary" class="h-5 w-5 rounded-full p-0">{{ index + 1 }}</Badge>
             </template>
           </ElStep>
         </ElSteps>
