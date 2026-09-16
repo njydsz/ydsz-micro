@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
+import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -59,8 +59,8 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
         default: ({ row }) => {
           const ds = row as GenDatasourceRespVO;
           return ds.defaultFlag
-            ? h(ElTag, { type: 'success', size: 'small' }, () => '是')
-            : h(ElTag, { type: 'info', size: 'small' }, () => '否');
+            ? h(Badge, { variant: 'default' }, () => '是')
+            : h(Badge, { variant: 'secondary' }, () => '否');
         },
       },
     },
@@ -81,24 +81,23 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
           const ds = row as GenDatasourceRespVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
+              Button,
               {
-                size: 'small',
-                link: true,
-                type: 'success',
+                size: 'sm',
+                variant: 'link',
                 loading: testingId.value === ds.id,
                 onClick: () => handleTestConnection(ds),
               },
               () => '测试连接',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(ds) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(ds) },
               () => t('common.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(ds) },
+              Button,
+              { size: 'sm', variant: 'destructive', onClick: () => handleDelete(ds) },
               () => t('common.delete'),
             ),
           ]);
@@ -224,7 +223,7 @@ onMounted(() => {
   <Page auto-content-height>
     <Grid table-title="数据源管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('common.create') }}</Button>
       </template>
     </Grid>
     <DatasourceFormModal @submit="handleFormSubmit" @success="gridApi.query()" />

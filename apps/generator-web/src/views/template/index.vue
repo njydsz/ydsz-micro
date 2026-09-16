@@ -18,7 +18,9 @@
  */
 import { onMounted, ref } from 'vue';
 
-import { ElButton, ElEmpty, ElTag } from 'element-plus';
+import { Button, Badge, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
+import { ElEmpty } from 'element-plus';
 
 import {
   activateGroup,
@@ -197,7 +199,7 @@ onMounted(() => {
     <div class="w-64 flex-shrink-0">
       <div class="mb-3 flex items-center justify-between">
         <span class="font-medium">模板分组</span>
-        <ElButton type="primary" size="small" @click="handleAddGroup">新建</ElButton>
+        <Button size="sm" @click="handleAddGroup">新建</Button>
       </div>
       <div class="space-y-2">
         <div
@@ -213,36 +215,34 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <span class="font-medium">{{ group.name }}</span>
-              <ElTag v-if="group.isActive" type="success" size="small" class="ml-2">
-                使用中
-              </ElTag>
-              <ElTag v-if="group.isSystem" type="info" size="small" class="ml-2">
-                系统
-              </ElTag>
+          <Badge v-if="group.isActive" variant="default" class="ml-2">
+            使用中
+          </Badge>
+          <Badge v-if="group.isSystem" variant="secondary" class="ml-2">
+            系统
+          </Badge>
             </div>
           </div>
           <div v-if="group.description" class="text-xs text-gray-500 mt-1">
             {{ group.description }}
           </div>
           <div class="mt-2 flex gap-1">
-            <ElButton
+            <Button
               v-if="!group.isActive"
-              size="small"
-              link
-              type="success"
+              size="sm"
+              variant="link"
               @click.stop="handleActivateGroup(group)"
             >
               激活
-            </ElButton>
-            <ElButton
+            </Button>
+            <Button
               v-if="!group.isSystem"
-              size="small"
-              link
-              type="danger"
+              size="sm"
+              variant="destructive"
               @click.stop="handleDeleteGroup(group)"
             >
               删除
-            </ElButton>
+            </Button>
           </div>
         </div>
       </div>
@@ -252,15 +252,14 @@ onMounted(() => {
     <div class="flex-1 flex flex-col">
       <div class="mb-3 flex items-center gap-3">
         <span class="font-medium">「{{ selectedGroupName }}」分组模板</span>
-        <ElInput
+        <Input
           v-model="searchKeyword"
           placeholder="搜索文件名..."
           style="width: 200px"
-          clearable
           @clear="handleSearch"
           @keyup.enter="handleSearch"
         />
-        <ElButton @click="handleSearch">搜索</ElButton>
+        <Button variant="secondary" @click="handleSearch">搜索</Button>
       </div>
 
       <div v-loading="templatesLoading" class="flex-1 overflow-auto">
@@ -276,7 +275,7 @@ onMounted(() => {
           >
             <div class="flex items-center justify-between">
               <span class="font-medium text-sm break-all">{{ tpl.fileName }}</span>
-              <ElTag v-if="!tpl.isActive" type="info" size="small">禁用</ElTag>
+              <Badge v-if="!tpl.isActive" variant="secondary">禁用</Badge>
             </div>
             <div class="text-xs text-gray-500 mt-1">
               {{ tpl.description || '无描述' }}

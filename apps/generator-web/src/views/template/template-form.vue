@@ -18,7 +18,14 @@
  */
 import { ref, watch } from 'vue';
 
-import { ElButton, ElDialog } from 'element-plus';
+import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@ydsz-core/ui-kit/shadcn-ui';
 
 import type { GenTemplate } from '#/api/models';
 
@@ -56,25 +63,24 @@ function handleSave() {
 </script>
 
 <template>
-  <ElDialog
-    :model-value="visible"
-    :title="`编辑模板 - ${template?.fileName ?? ''}`"
-    width="70%"
-    top="5vh"
-    @update:model-value="handleClose"
-  >
-    <div class="mb-2 text-xs text-gray-500">
-      文件路径: {{ template?.parentPath || '/' }}{{ template?.fileName }}
-    </div>
-    <textarea
-      v-model="content"
-      class="w-full border rounded p-3 font-mono text-xs"
-      style="height: 60vh; resize: none; tab-size: 2"
-      spellcheck="false"
-    />
-    <template #footer>
-      <ElButton @click="handleClose">取消</ElButton>
-      <ElButton type="primary" @click="handleSave">保存</ElButton>
-    </template>
-  </ElDialog>
+  <Dialog :open="visible" @update:open="handleClose">
+    <DialogContent style="max-width: 70%">
+      <DialogHeader>
+        <DialogTitle>编辑模板 - {{ template?.fileName ?? '' }}</DialogTitle>
+      </DialogHeader>
+      <div class="mb-2 text-xs text-gray-500">
+        文件路径: {{ template?.parentPath || '/' }}{{ template?.fileName }}
+      </div>
+      <textarea
+        v-model="content"
+        class="w-full border rounded p-3 font-mono text-xs"
+        style="height: 60vh; resize: none; tab-size: 2"
+        spellcheck="false"
+      />
+      <DialogFooter>
+        <Button variant="secondary" @click="handleClose">取消</Button>
+        <Button @click="handleSave">保存</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
