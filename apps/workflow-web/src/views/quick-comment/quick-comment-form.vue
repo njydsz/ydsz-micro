@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createQuickComment, updateQuickComment } from '#/api/flowComment';
 import type { FlowQuickCommentDTO, FlowQuickCommentVO } from '#/api/models';
@@ -88,10 +88,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await updateQuickComment(payload);
-        ElMessage.success(t('quickComment.update.success'));
+        showToast.success(t('quickComment.update.success'));
       } else {
         await createQuickComment(payload);
-        ElMessage.success(t('quickComment.create.success'));
+        showToast.success(t('quickComment.create.success'));
       }
       emit('success');
       modalApi.close();

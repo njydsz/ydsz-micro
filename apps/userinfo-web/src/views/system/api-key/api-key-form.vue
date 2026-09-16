@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import type { FormInstance } from 'element-plus';
-import { ElAlert, ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
+import { ElAlert, ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createKey } from '#/api/apiKey';
 
@@ -83,7 +83,7 @@ async function handleSubmit() {
     });
     if (result.apiKey) {
       createdApiKey.value = result.apiKey;
-      ElMessage.success('创建成功，请立即保存下方明文 Key');
+      showToast.success('创建成功，请立即保存下方明文 Key');
     }
   } catch {
     /* 错误由拦截器处理 */

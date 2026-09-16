@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
+import { ElButton } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -102,13 +102,13 @@ const [UserSessionsModalWrapper, userSessionsModalApi] = useYDSZModal({ connecte
 async function handleForceLogout(row: UserSessionVO) {
   if (!row.accessToken || !row.username) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('session.forceLogoutConfirm', { username: row.username }),
       t('session.forceLogoutTitle'),
       { type: 'warning' },
     );
     await forceLogout({ userId: row.username, accessToken: row.accessToken });
-    ElMessage.success(t('session.forceLogoutSuccess'));
+    showToast.success(t('session.forceLogoutSuccess'));
     gridApi.query();
     loadStatistics();
   } catch (error) {
@@ -120,13 +120,13 @@ async function handleForceLogout(row: UserSessionVO) {
 async function handleBanUser(row: UserSessionVO) {
   if (!row.username) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('session.banConfirm', { username: row.username }),
       t('session.banTitle'),
       { type: 'warning' },
     );
     await banUser({ userId: row.username }, { banType: 'MANUAL', banReason: t('session.banReason') });
-    ElMessage.success(t('session.banSuccess'));
+    showToast.success(t('session.banSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('封禁用户失败: {}', error);
@@ -151,13 +151,13 @@ function handleViewUserSessions(row: UserSessionVO) {
 async function handleUnbanUser(row: UserSessionVO) {
   if (!row.username) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('session.unbanConfirm', { username: row.username }),
       t('session.unbanTitle'),
       { type: 'warning' },
     );
     await unbanUser({ userId: row.username });
-    ElMessage.success(t('session.unbanSuccess'));
+    showToast.success(t('session.unbanSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('解封用户失败: {}', error);

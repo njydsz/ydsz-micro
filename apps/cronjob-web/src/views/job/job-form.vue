@@ -16,18 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCollapse,
-  ElCollapseItem,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElOption,
-  ElSelect,
-} from 'element-plus';
+import { ElButton, ElCollapse, ElCollapseItem, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -229,10 +218,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       emit('success');
       modalApi.close();
@@ -247,15 +236,15 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
 /** 校验 Cron 表达式（validateCron 返回 unknown，仅做成功提示与失败提示） */
 async function handleValidateCron() {
   if (!formData.cronExpression) {
-    ElMessage.warning('请先输入Cron表达式');
+    showToast.warning('请先输入Cron表达式');
     return;
   }
   try {
     await validateCron({ expr: formData.cronExpression });
-    ElMessage.success('Cron 表达式校验通过');
+    showToast.success('Cron 表达式校验通过');
   } catch {
     logger.warn('Cron 表达式校验失败', formData.cronExpression);
-    ElMessage.error('Cron 表达式无效');
+    showToast.error('Cron 表达式无效');
   }
 }
 </script>

@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -155,14 +155,14 @@ function handleEdit(row: DictTypeRow) {
 async function handleDelete(row: DictTypeRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除「${row.typeName ?? row.typeCode ?? ''}」吗？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除「${row.typeName ?? row.typeCode ?? ''}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await remove({ id: row.id });
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     // 广播字典类型删除事件，通知所有消费组件刷新缓存
     emitDictChange(row.typeCode);
     gridApi.query();

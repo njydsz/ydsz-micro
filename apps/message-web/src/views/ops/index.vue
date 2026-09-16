@@ -21,16 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import {
-  ElButton,
-  ElCard,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-} from 'element-plus';
+import { ElButton, ElCard, ElDialog, ElForm, ElFormItem, ElInput } from 'element-plus';
 import { onMounted, ref } from 'vue';
 
 import {
@@ -97,11 +88,11 @@ async function loadAllStats(): Promise<void> {
 /** 确认清理单个缓存 */
 async function handleEvictCache(): Promise<void> {
   if (!evictForm.value.template.trim()) {
-    ElMessage.warning('请输入要清理的模板编码');
+    showToast.warning('请输入要清理的模板编码');
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定清理模板「${evictForm.value.template}」的缓存吗？`,
       '清理确认',
       { type: 'warning' },
@@ -112,7 +103,7 @@ async function handleEvictCache(): Promise<void> {
   }
   try {
     await evictTemplateCache({ template: evictForm.value.template.trim() });
-    ElMessage.success('缓存清理成功');
+    showToast.success('缓存清理成功');
     evictDialogVisible.value = false;
     evictForm.value.template = '';
     loadCacheStats();
@@ -124,7 +115,7 @@ async function handleEvictCache(): Promise<void> {
 /** 确认全量清理缓存 */
 async function handleClearAllCache(): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       '确定全量清理模板缓存吗？清理后所有模板将被重新加载，操作不可恢复。',
       '全量清理确认',
       { type: 'warning', confirmButtonText: '确认清理', cancelButtonText: '取消' },
@@ -135,7 +126,7 @@ async function handleClearAllCache(): Promise<void> {
   }
   try {
     await clearTemplateCache();
-    ElMessage.success('全量缓存清理成功');
+    showToast.success('全量缓存清理成功');
     loadCacheStats();
   } catch (error) {
     logger.warn('全量清理缓存失败: {}', error);

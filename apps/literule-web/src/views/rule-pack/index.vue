@@ -19,23 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElCol,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessageBox,
-  ElRate,
-  ElRow,
-  ElStatistic,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-  ElTooltip,
-} from 'element-plus';
+import { ElButton, ElCard, ElCol, ElDialog, ElForm, ElFormItem, ElInput, ElRate, ElRow, ElStatistic, ElTabPane, ElTabs, ElTag, ElTooltip } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -351,9 +335,7 @@ async function handleInstall(row: RulePackVO): Promise<void> {
 async function handleUninstall(row: RulePackVO): Promise<void> {
   if (!row.packCode) return;
   try {
-    await ElMessageBox.confirm(`确认卸载规则包 "${row.packName}"？`, '卸载确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认卸载规则包 "${row.packName}"？`, { title: '卸载确认', type: 'warning', });
   } catch {
     logger.debug('用户取消卸载规则包');
     return;
@@ -377,9 +359,7 @@ async function handleViewVersions(row: RulePackVO): Promise<void> {
 async function handleRollback(version: string): Promise<void> {
   if (!currentPackCode.value) return;
   try {
-    await ElMessageBox.confirm(`确认回滚到版本 ${version}？`, '回滚确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认回滚到版本 ${version}？`, { title: '回滚确认', type: 'warning', });
   } catch {
     logger.debug('用户取消回滚');
     return;

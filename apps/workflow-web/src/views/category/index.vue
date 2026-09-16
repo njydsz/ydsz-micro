@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
+import { ElButton } from 'element-plus';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/flowCategory';
@@ -104,7 +104,7 @@ async function handleDelete(row: FlowCategoryVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('category.delete.confirm', { name: row.categoryName ?? row.categoryCode }),
       t('common.delete.confirmTitle'),
       { type: 'warning' },
@@ -116,7 +116,7 @@ async function handleDelete(row: FlowCategoryVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id });
-    ElMessage.success(t('category.delete.success'));
+    showToast.success(t('category.delete.success'));
     gridApi.query();
   } catch (error) {
     logger.warn('流程分类删除失败，详见拦截器提示', error);

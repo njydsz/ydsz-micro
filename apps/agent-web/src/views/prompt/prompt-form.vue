@@ -16,16 +16,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElSwitch,
-  ElTag,
-} from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTag } from 'element-plus';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, watch } from 'vue';
 
@@ -102,20 +93,20 @@ watch(extractedVariables, (val) => {
 /** 提交表单 */
 async function handleSubmit(): Promise<void> {
   if (!formData.templateCode.trim()) {
-    ElMessage.warning('请输入模板编码');
+    showToast.warning('请输入模板编码');
     return;
   }
   if (!formData.templateName.trim()) {
-    ElMessage.warning('请输入模板名称');
+    showToast.warning('请输入模板名称');
     return;
   }
   if (!formData.content.trim()) {
-    ElMessage.warning('请输入模板内容');
+    showToast.warning('请输入模板内容');
     return;
   }
   try {
     // TODO: 调用后端 API 保存
-    ElMessage.success(isEditMode.value ? '更新成功' : '创建成功');
+    showToast.success(isEditMode.value ? '更新成功' : '创建成功');
     emit('success');
     modalApi.close();
   } catch (error) {

@@ -20,7 +20,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElMessageBox, ElOption, ElSelect, ElSwitch, ElTag } from 'element-plus';
+import { ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -234,7 +234,7 @@ async function handleToggleEnabled(row: AgentTrigger): Promise<void> {
 /** 删除触发器 */
 async function handleDelete(row: AgentTrigger): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除触发器「${row.name ?? row.triggerId ?? ''}」吗?该操作不可撤销。`,
       '删除确认',
       { type: 'warning' },

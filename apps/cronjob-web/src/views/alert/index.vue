@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDrawer, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -106,7 +106,7 @@ async function handleToggle(row: JobAlertRuleVO) {
   const enabled = row.enabled === 1 ? 0 : 1;
   try {
     await toggleRule({ id: row.id }, { enabled });
-    ElMessage.success(enabled === 1 ? '已启用' : '已停用');
+    showToast.success(enabled === 1 ? '已启用' : '已停用');
     gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -116,14 +116,14 @@ async function handleToggle(row: JobAlertRuleVO) {
 async function handleDelete(row: JobAlertRuleVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除告警规则「${row.ruleName}」吗？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除告警规则「${row.ruleName}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await deleteRule({ id: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理
@@ -136,7 +136,7 @@ const alertLogs = ref<JobAlertLogVO[]>([]);
 
 async function handleLogs(row: JobAlertRuleVO) {
   if (!row.jobId) {
-    ElMessage.warning('该规则未关联任务，无法查看告警日志');
+    showToast.warning('该规则未关联任务，无法查看告警日志');
     return;
   }
   logsDrawerVisible.value = true;

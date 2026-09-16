@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDrawer, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -153,9 +153,9 @@ async function loadRecipients() {
 async function handleRevoke(row: ShareLinkVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('revokeConfirm', [row.title || row.fileName]), t('revokeConf'), { type: 'warning' });
+    await ydszConfirm(t('revokeConfirm', [row.title || row.fileName]), t('revokeConf'), { type: 'warning' });
     await revoke({ shareId: row.id });
-    ElMessage.success(t('revokeSuccess'));
+    showToast.success(t('revokeSuccess'));
     gridApi.query();
   } catch (error) { logger.warn('撤销分享失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }

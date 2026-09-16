@@ -6,32 +6,29 @@
  * @since 1.0.0
 -->
 <!--
- * 应用根组件（v4.0 增强）
+ * 应用根组件（v5.0 重构）
  *
- * 新增：
- * - NetworkAlert 网络状态顶部条（断网/慢速/省流量提示）
- * - 快捷键 cmd+k 触发全局搜索（通过 useKeyboard 中枢注册）
+ * 变更（YDIZ-EP-001 Phase 1）：
+ * - 移除 ElConfigProvider（Element Plus 退出基座）
+ * - 移除 useElementPlusDesignTokens()（EP 主题桥接层废弃）
+ * - 挂载 ToastProvider（shadcn-ui 通知系统入口）
+ * - 保留 NetworkAlert / SubAppProgress / GlobalSearch
  *
  * @path main\src\app.vue
- * @since 4.0.0
+ * @since 5.0.0
 -->
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-import { useElementPlusDesignTokens } from '@ydsz/hooks';
-
-import { ElConfigProvider } from 'element-plus';
-import { preferences } from '@ydsz/preferences';
+import { ToastProvider } from '@ydsz/notification';
 
 import GlobalSearch from '#/components/global-search.vue';
 import NetworkAlert from '#/components/network-alert.vue';
 import SubAppProgress from '#/components/subapp-progress.vue';
-import { elementLocale } from '#/locales';
+import { preferences } from '@ydsz/preferences';
 import { registerKeyboard } from '#/hooks/use-global-shortcut';
 
 defineOptions({ name: 'App' });
-
-useElementPlusDesignTokens();
 
 const searchVisible = ref(false);
 
@@ -47,10 +44,9 @@ onUnmounted(() => { stopSearchShortcut?.(); });
 </script>
 
 <template>
-  <ElConfigProvider :locale="elementLocale">
-    <NetworkAlert />
-    <SubAppProgress v-if="preferences.transition.progress" />
-    <RouterView />
-    <GlobalSearch v-model:visible="searchVisible" />
-  </ElConfigProvider>
+  <ToastProvider />
+  <NetworkAlert />
+  <SubAppProgress v-if="preferences.transition.progress" />
+  <RouterView />
+  <GlobalSearch v-model:visible="searchVisible" />
 </template>

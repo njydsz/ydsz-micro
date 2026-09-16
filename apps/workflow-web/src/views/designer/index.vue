@@ -28,7 +28,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElMessage } from 'element-plus';
+;
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DesignerCanvas from './components/DesignerCanvas.vue';
@@ -81,10 +81,10 @@ async function loadDesignerData() {
       // 初始化历史记录
       pushHistory(data.diagramJson);
     }
-    ElMessage.success($t('wf.designer.loadSuccess'));
+    showToast.success($t('wf.designer.loadSuccess'));
   } catch (error) {
     logger.warn('流程设计器数据加载失败', error);
-    ElMessage.warning($t('wf.designer.loadFailed'));
+    showToast.warning($t('wf.designer.loadFailed'));
   } finally {
     isLoading.value = false;
   }
@@ -101,10 +101,10 @@ async function handleSave() {
   try {
     const graphData = canvasRef.value?.getGraphData();
     await saveDesignerData({ id: definitionId.value }, { designerData: JSON.stringify(graphData) });
-    ElMessage.success($t('wf.designer.saveSuccess'));
+    showToast.success($t('wf.designer.saveSuccess'));
   } catch (error) {
     logger.warn('流程设计器数据保存失败', error);
-    ElMessage.warning($t('wf.designer.saveFailed'));
+    showToast.warning($t('wf.designer.saveFailed'));
   } finally {
     isSaving.value = false;
   }
@@ -119,13 +119,13 @@ async function acquireLock() {
     const success = await lockDefinition({ id: definitionId.value });
     if (success) {
       isLocked.value = true;
-      ElMessage.success($t('wf.designer.lockAcquired'));
+      showToast.success($t('wf.designer.lockAcquired'));
     } else {
-      ElMessage.warning($t('wf.designer.lockFailed'));
+      showToast.warning($t('wf.designer.lockFailed'));
     }
   } catch (error) {
     logger.warn('获取流程定义锁失败', error);
-    ElMessage.warning($t('wf.designer.lockError'));
+    showToast.warning($t('wf.designer.lockError'));
   }
 }
 

@@ -19,18 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElMessageBox,
-  ElRadioButton,
-  ElRadioGroup,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup, ElTag } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -299,10 +288,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ id: formData.id }, payload);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       modalApi.close();
       gridApi.query();
@@ -329,7 +318,7 @@ function handleEdit(row: OAuth2Application) {
 async function handleResetSecret(row: OAuth2Application) {
   if (!row.clientId) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认重置应用 "${row.clientName ?? row.clientId}" 的密钥？旧密钥将立即失效。`,
       '重置密钥',
       { type: 'warning' },
@@ -339,7 +328,7 @@ async function handleResetSecret(row: OAuth2Application) {
   }
   try {
     const result = await resetSecret({ id: row.clientId });
-    ElMessage.success(`新密钥：${result.clientSecret}（请立即保存）`);
+    showToast.success(`新密钥：${result.clientSecret}（请立即保存）`);
     gridApi.query();
   } catch (error) {
     logger.warn('重置密钥失败: {}', error);
@@ -349,7 +338,7 @@ async function handleResetSecret(row: OAuth2Application) {
 async function handleDelete(row: OAuth2Application) {
   if (!row.clientId) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认删除应用 "${row.clientName ?? row.clientId}"？此操作不可恢复。`,
       '确认删除',
       { type: 'warning' },
@@ -359,7 +348,7 @@ async function handleDelete(row: OAuth2Application) {
   }
   try {
     await deleteApi({ id: row.clientId });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除 OAuth2 应用失败: {}', error);

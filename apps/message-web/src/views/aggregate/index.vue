@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -122,7 +122,7 @@ async function handleFlushByGroup(row: MsgAggregateVO) {
   if (!row.aggregateGroup) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定刷新聚合组「${row.aggregateGroup}」的批次吗？`,
       '刷新确认',
       { type: 'warning' },
@@ -133,7 +133,7 @@ async function handleFlushByGroup(row: MsgAggregateVO) {
   // 步骤2：执行刷新 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     const count = await flushByGroup({ group: row.aggregateGroup, receiver: row.receiver });
-    ElMessage.success(`刷新完成，共刷新 ${count} 条记录`);
+    showToast.success(`刷新完成，共刷新 ${count} 条记录`);
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理
@@ -144,16 +144,14 @@ async function handleFlushByGroup(row: MsgAggregateVO) {
 async function handleFlushDue() {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm('确定刷新所有到期的聚合批次吗？', '刷新确认', {
-      type: 'warning',
-    });
+    await ydszConfirm('确定刷新所有到期的聚合批次吗？', { title: '刷新确认', type: 'warning', });
   } catch {
     return; // 用户主动取消操作
   }
   // 步骤2：执行刷新 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     const count = await flushDue();
-    ElMessage.success(`刷新完成，共刷新 ${count} 条到期批次`);
+    showToast.success(`刷新完成，共刷新 ${count} 条到期批次`);
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理

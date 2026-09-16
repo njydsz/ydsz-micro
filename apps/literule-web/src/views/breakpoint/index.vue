@@ -15,7 +15,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -92,7 +92,7 @@ async function handleAddBreakpoint() {
       inputErrorMessage: t('ruleCodeEmptyError'),
     });
     await addBreakpoint({ ruleCode: value.trim() });
-    ElMessage.success(t('breakpointAddSuccess'));
+    showToast.success(t('breakpointAddSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('新增断点失败: {}', error);
@@ -103,13 +103,13 @@ async function handleAddBreakpoint() {
 async function handleRemoveBreakpoint(row: DebugRow) {
   const breakpointId = String(row.breakpointId ?? row.id ?? '');
   if (!breakpointId) {
-    ElMessage.warning(t('breakpointIdMissing'));
+    showToast.warning(t('breakpointIdMissing'));
     return;
   }
   try {
-    await ElMessageBox.confirm(t('confirmDeleteBreakpoint'), t('deleteConf'), { type: 'warning' });
+    await ydszConfirm(t('confirmDeleteBreakpoint'), { title: t('deleteConf'), type: 'warning' });
     await removeBreakpoint({ breakpointId });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除断点失败: {}', error);
@@ -142,7 +142,7 @@ async function handleCreateSession() {
       },
     );
     await createSession(value?.trim() ? { ruleCode: value.trim() } : {});
-    ElMessage.success(t('sessionCreateSuccess'));
+    showToast.success(t('sessionCreateSuccess'));
     await loadSessions();
   } catch (error) {
     logger.warn('创建调试会话失败: {}', error);
@@ -157,13 +157,13 @@ function handleSelectSession(row: DebugRow) {
 async function handleTerminateSession(row?: DebugRow) {
   const sessionId = row ? String(row.sessionId ?? row.id ?? '') : selectedSessionId.value;
   if (!sessionId) {
-    ElMessage.warning(t('selectSessionFirst'));
+    showToast.warning(t('selectSessionFirst'));
     return;
   }
   try {
-    await ElMessageBox.confirm(t('endSessionConfirm'), t('endSession'), { type: 'warning' });
+    await ydszConfirm(t('endSessionConfirm'), { title: t('endSession'), type: 'warning' });
     await terminateSession({ sessionId });
-    ElMessage.success(t('sessionEndSuccess'));
+    showToast.success(t('sessionEndSuccess'));
     if (!row) {
       selectedSessionId.value = '';
     }
@@ -176,11 +176,11 @@ async function handleTerminateSession(row?: DebugRow) {
 /** 向选中会话提交调试命令 */
 async function handleSubmitCommand() {
   if (!selectedSessionId.value) {
-    ElMessage.warning('请先选择会话');
+    showToast.warning('请先选择会话');
     return;
   }
   if (!commandText.value.trim()) {
-    ElMessage.warning(t('inputDebugCommand'));
+    showToast.warning(t('inputDebugCommand'));
     return;
   }
   const data = await submitCommand(

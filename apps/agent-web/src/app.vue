@@ -6,19 +6,15 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { useElementPlusDesignTokens } from '@ydsz/hooks';
 
-import { ElConfigProvider } from 'element-plus';
 
-import { elementLocale } from '#/locales';
+import { ToastProvider } from '@ydsz/notification';
 
 defineOptions({ name: 'App' });
 
-useElementPlusDesignTokens();
 </script>
 
 <template>
-  <ElConfigProvider :locale="elementLocale">
-    <RouterView />
-  </ElConfigProvider>
+  <ToastProvider />
+  <RouterView />
 </template>

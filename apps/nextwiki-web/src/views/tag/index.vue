@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElInput, ElMessage, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDialog, ElInput, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -83,10 +83,10 @@ function handleBind(row: TagVO) {
   bindVisible.value = true;
 }
 async function confirmBind() {
-  if (!bindForm.fileNodeId || !bindForm.tagId) { ElMessage.warning(t('bindRequired')); return; }
+  if (!bindForm.fileNodeId || !bindForm.tagId) { showToast.warning(t('bindRequired')); return; }
   try {
     await bindTag({ ...bindForm });
-    ElMessage.success(t('bindSuccess'));
+    showToast.success(t('bindSuccess'));
     bindVisible.value = false;
   } catch (error) { logger.warn('绑定标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
@@ -109,7 +109,7 @@ async function loadFileTags() {
   } catch (error) { logger.warn('查询文件标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 async function loadRecommendedTags() {
-  if (!fileTagsNodeId.value) { ElMessage.warning(t('tagIdRequired')); return; }
+  if (!fileTagsNodeId.value) { showToast.warning(t('tagIdRequired')); return; }
   try {
     recommendTagList.value = await recommendTags({ fileNodeId: fileTagsNodeId.value });
   } catch (error) { logger.warn('推荐标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }

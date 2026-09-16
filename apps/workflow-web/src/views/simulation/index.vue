@@ -17,22 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElOption,
-  ElSelect,
-  ElStep,
-  ElSteps,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-  ElMessage,
-} from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { computed, ref } from 'vue';
 import { runSimulation } from '#/api/flowSimulation';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -92,7 +77,7 @@ const statusTagType = computed(() => {
 /** 运行仿真 */
 async function handleRunSimulation(): Promise<void> {
   if (!selectedFlowCode.value) {
-    ElMessage.warning('请先选择流程定义');
+    showToast.warning('请先选择流程定义');
     return;
   }
 
@@ -101,7 +86,7 @@ async function handleRunSimulation(): Promise<void> {
   try {
     parsedParams = JSON.parse(paramJson.value);
   } catch {
-    ElMessage.error('仿真参数 JSON 格式错误，请检查输入');
+    showToast.error('仿真参数 JSON 格式错误，请检查输入');
     return;
   }
 
@@ -114,10 +99,10 @@ async function handleRunSimulation(): Promise<void> {
     });
     simulationResult.value = result as Record<string, unknown>;
     activeTab.value = 'result';
-    ElMessage.success('仿真运行完成');
+    showToast.success('仿真运行完成');
   } catch (error) {
     logger.warn('流程仿真运行失败', error);
-    ElMessage.error('仿真运行失败，请查看日志');
+    showToast.error('仿真运行失败，请查看日志');
   } finally {
     running.value = false;
   }

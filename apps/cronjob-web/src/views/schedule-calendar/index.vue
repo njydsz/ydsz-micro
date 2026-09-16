@@ -16,7 +16,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCalendar, ElDatePicker, ElDrawer, ElTimeline, ElTimelineItem, ElCard, ElTag, ElEmpty, ElButton, ElRadioGroup, ElRadioButton, ElTooltip, ElMessage } from 'element-plus';
+import { ElCalendar, ElDatePicker, ElDrawer, ElTimeline, ElTimelineItem, ElCard, ElTag, ElEmpty, ElButton, ElRadioGroup, ElRadioButton, ElTooltip } from 'element-plus';
 import { Refresh } from '@element-plus/icons-vue';
 import { ref, computed, onMounted } from 'vue';
 
@@ -132,7 +132,7 @@ async function fetchScheduleData() {
         group: item.group as string | undefined,
         fireTime: item.fireTime ? String(item.fireTime).replace('T', ' ').substring(0, 19) : '',
       }));
-      ElMessage.success(`已加载 ${scheduleItems.value.length} 条调度记录`);
+      showToast.success(`已加载 ${scheduleItems.value.length} 条调度记录`);
     }
   } catch {
     logger.warn('加载调度日历数据失败');

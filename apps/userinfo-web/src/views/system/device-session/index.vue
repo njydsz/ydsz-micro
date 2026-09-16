@@ -17,16 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -80,7 +71,7 @@ async function loadDevices(): Promise<void> {
 async function handleRevoke(row: DeviceSessionVO): Promise<void> {
   if (!row.sessionId) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认吊销设备「${row.deviceTypeDesc ?? row.deviceType ?? row.sessionId}」？该设备将被强制登出。`,
       '确认吊销',
       { type: 'warning' },
@@ -90,7 +81,7 @@ async function handleRevoke(row: DeviceSessionVO): Promise<void> {
   }
   try {
     await revokeDevice({ sessionId: row.sessionId });
-    ElMessage.success('吊销成功');
+    showToast.success('吊销成功');
     await loadDevices();
   } catch (error) {
     logger.warn('吊销设备失败: {}', error);

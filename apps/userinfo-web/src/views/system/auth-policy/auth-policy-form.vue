@@ -19,15 +19,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElSelect,
-  ElSwitch,
-} from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElInputNumber, ElSelect, ElSwitch } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import type { AuthPolicyDTO, AuthPolicyVO } from '#/api/models';
 
@@ -161,11 +153,11 @@ const [Modal, modalApi] = useYDSZModal({
       if (isEdit.value) {
         const { update } = await import('#/api/authPolicy');
         await update({ tenantId: formData.tenantId }, payload);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         const { create: createApi } = await import('#/api/authPolicy');
         await createApi(payload);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       emit('success');
       modalApi.close();

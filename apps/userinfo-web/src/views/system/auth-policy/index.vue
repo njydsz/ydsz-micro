@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -174,7 +174,7 @@ async function handleDelete(row: AuthPolicyVO) {
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除认证策略「${row.name ?? row.tenantId ?? ''}」吗？此操作不可撤销。`,
       '删除确认',
       { type: 'warning' },
@@ -184,7 +184,7 @@ async function handleDelete(row: AuthPolicyVO) {
   }
   try {
     await deleteApi({ tenantId: row.tenantId });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     /* 错误由拦截器处理 */

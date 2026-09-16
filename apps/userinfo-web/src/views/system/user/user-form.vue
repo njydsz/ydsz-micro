@@ -22,17 +22,7 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElRadio,
-  ElRadioGroup,
-  ElSelect,
-  ElTreeSelect,
-} from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElTreeSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
 import { create, update } from '#/api/userAccount';
@@ -163,10 +153,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        ElMessage.success(t('user.updateSuccess'));
+        showToast.success(t('user.updateSuccess'));
       } else {
         await create({ ...payload, password: formData.password });
-        ElMessage.success(t('user.createSuccess'));
+        showToast.success(t('user.createSuccess'));
       }
       emit('success');
       modalApi.close();

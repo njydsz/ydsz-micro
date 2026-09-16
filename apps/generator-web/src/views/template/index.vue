@@ -18,13 +18,7 @@
  */
 import { onMounted, ref } from 'vue';
 
-import {
-  ElButton,
-  ElEmpty,
-  ElMessage,
-  ElMessageBox,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElEmpty, ElTag } from 'element-plus';
 
 import {
   activateGroup,
@@ -87,7 +81,7 @@ async function handleActivateGroup(group: GenTemplateGroup) {
   if (!group.id) return;
   try {
     await activateGroup({ id: group.id });
-    ElMessage.success(`已激活分组「${group.name}」`);
+    showToast.success(`已激活分组「${group.name}」`);
     await loadGroups();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -113,19 +107,17 @@ function handleAddGroup() {
 async function handleDeleteGroup(group: GenTemplateGroup) {
   if (!group.id) return;
   if (group.isSystem) {
-    ElMessage.warning('系统分组不可删除');
+    showToast.warning('系统分组不可删除');
     return;
   }
   try {
-    await ElMessageBox.confirm(`确定删除分组「${group.name}」吗？`, '删除确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确定删除分组「${group.name}」吗？`, { title: '删除确认', type: 'warning', });
   } catch {
     return;
   }
   try {
     await deleteGroup({ id: group.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     if (selectedGroupId.value === group.id) {
       selectedGroupId.value = undefined;
       templateList.value = [];
@@ -143,7 +135,7 @@ async function handleGroupFormSubmit(data: { name: string; description: string; 
     sortOrder: data.sortOrder ?? 0,
     isSystem: false,
   });
-  ElMessage.success('创建分组成功');
+  showToast.success('创建分组成功');
   await loadGroups();
   groupFormVisible.value = false;
 }
@@ -182,7 +174,7 @@ function handleEditTemplate(template: GenTemplate) {
 async function handleSaveTemplate(data: { id: number; content: string }) {
   try {
     await updateTemplate({ id: data.id, content: data.content });
-    ElMessage.success('模板更新成功');
+    showToast.success('模板更新成功');
     await loadTemplates();
     templateFormVisible.value = false;
   } catch {

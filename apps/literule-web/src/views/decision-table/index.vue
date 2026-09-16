@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -151,7 +151,7 @@ async function handleExport(row: DecisionTableVO): Promise<void> {
       { tableCode: row.tableCode },
       { response: {} },
     );
-    ElMessage.success(t('exportSuccess'));
+    showToast.success(t('exportSuccess'));
   } catch (error) {
     logger.warn('导出决策表失败: {}', error);
     // 用户提示由 errorMessageResponseInterceptor 统一处理
@@ -163,7 +163,7 @@ async function handleDelete(row: DecisionTableVO): Promise<void> {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('confirmDeleteTable', [row.tableName]),
       t('deleteConf'),
       { type: 'warning' },
@@ -175,7 +175,7 @@ async function handleDelete(row: DecisionTableVO): Promise<void> {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteDecisionTable({ id: row.id });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除决策表失败: {}', error);
@@ -187,7 +187,7 @@ async function handleDelete(row: DecisionTableVO): Promise<void> {
 async function handleDownloadTemplate(): Promise<void> {
   try {
     await downloadDecisionTableExcelTemplate({ response: {} });
-    ElMessage.success(t('downloadSuccess'));
+    showToast.success(t('downloadSuccess'));
   } catch (error) {
     logger.warn('下载决策表模板失败: {}', error);
     // 用户提示由 errorMessageResponseInterceptor 统一处理

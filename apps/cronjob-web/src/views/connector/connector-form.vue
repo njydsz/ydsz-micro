@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -93,9 +93,9 @@ const [Modal, modalApi] = useYDSZModal({
     try {
       const ok = await testConnection({ type: formData.type }, toConnectorConfig());
       if (ok) {
-        ElMessage.success('连接成功');
+        showToast.success('连接成功');
       } else {
-        ElMessage.error('连接失败，请检查连接参数');
+        showToast.error('连接失败，请检查连接参数');
       }
       emit('success');
       modalApi.close();

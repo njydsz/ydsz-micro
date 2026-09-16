@@ -20,17 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElDialog,
-  ElDrawer,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDialog, ElDrawer, ElForm, ElFormItem, ElInput, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -195,7 +185,7 @@ async function handleAudit(row: MsgTemplateVO) {
   // 步骤2：执行审核 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await audit({ id: row.id }, { auditStatus: 'APPROVED', auditRemark: remark });
-    ElMessage.success(t('template.auditPassSuccess'));
+    showToast.success(t('template.auditPassSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('审核模板失败: {}', error);
@@ -207,9 +197,7 @@ async function handleDelete(row: MsgTemplateVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除模板「${row.templateCode}」吗？`, t('deleteConfirmTitle'), {
-      type: 'warning',
-    });
+    await ydszConfirm(`确定删除模板「${row.templateCode}」吗？`, { title: t('deleteConfirmTitle'), type: 'warning', });
   } catch {
     logger.debug('用户取消删除操作');
     return;
@@ -217,7 +205,7 @@ async function handleDelete(row: MsgTemplateVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除模板失败: {}', error);
@@ -252,9 +240,7 @@ async function handleRollback(version: MsgTemplateVersion) {
   if (!version.version) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定回滚到版本 ${version.version} 吗？`, '回滚确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确定回滚到版本 ${version.version} 吗？`, { title: '回滚确认', type: 'warning', });
   } catch {
     logger.debug('用户取消回滚操作');
     return;
@@ -262,7 +248,7 @@ async function handleRollback(version: MsgTemplateVersion) {
   // 步骤2：执行回滚 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await rollback({ templateCode: currentTemplateCode.value, version: version.version });
-    ElMessage.success('回滚成功');
+    showToast.success('回滚成功');
     await handleVersion({ templateCode: currentTemplateCode.value });
   } catch (error) {
     logger.warn('回滚模板版本失败: {}', error);
@@ -308,7 +294,7 @@ function handleTestSend(_row: MsgTemplateVO) {
 /** 执行测试发送 */
 async function executeTestSend(): Promise<void> {
   if (!testSendForm.receiver.trim()) {
-    ElMessage.warning('请输入接收人');
+    showToast.warning('请输入接收人');
     return;
   }
   try {
@@ -317,7 +303,7 @@ async function executeTestSend(): Promise<void> {
       receiver: testSendForm.receiver,
       variables: {},
     });
-    ElMessage.success('测试发送成功');
+    showToast.success('测试发送成功');
     testSendVisible.value = false;
   } catch (error) {
     logger.warn('测试发送失败: {}', error);

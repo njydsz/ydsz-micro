@@ -19,16 +19,7 @@ import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('message-subscription');
-import {
-  ElButton,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElSwitch,
-} from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch } from 'element-plus';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -106,15 +97,15 @@ const channelOptions = [
  */
 async function handleSubmit(): Promise<void> {
   if (!formData.userId.trim()) {
-    ElMessage.warning('请输入用户ID');
+    showToast.warning('请输入用户ID');
     return;
   }
   if (!formData.topicCode.trim()) {
-    ElMessage.warning('请输入主题编码');
+    showToast.warning('请输入主题编码');
     return;
   }
   if (!formData.topicName.trim()) {
-    ElMessage.warning('请输入主题名称');
+    showToast.warning('请输入主题名称');
     return;
   }
   try {
@@ -126,7 +117,7 @@ async function handleSubmit(): Promise<void> {
       status: formData.status,
       remark: formData.remark,
     });
-    ElMessage.success(isEditMode.value ? t('common.updateSuccess') : t('subscription.subscribeSuccess'));
+    showToast.success(isEditMode.value ? t('common.updateSuccess') : t('subscription.subscribeSuccess'));
     emit('success');
     modalApi.close();
   } catch (error) {

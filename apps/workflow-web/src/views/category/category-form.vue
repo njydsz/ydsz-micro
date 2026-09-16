@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElCascader, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
+import { ElCascader, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { create, tree, update } from '#/api/flowCategory';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from '#/api/models';
@@ -138,10 +138,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update(payload);
-        ElMessage.success(t('category.update.success'));
+        showToast.success(t('category.update.success'));
       } else {
         await create(payload);
-        ElMessage.success(t('category.create.success'));
+        showToast.success(t('category.create.success'));
       }
       emit('success');
       modalApi.close();

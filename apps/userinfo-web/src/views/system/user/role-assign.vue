@@ -18,7 +18,7 @@
  */
 import { useYDSZModal } from '@ydsz/common-ui';
 
-import { ElMessage, ElTransfer } from 'element-plus';
+import { ElTransfer } from 'element-plus';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -52,7 +52,7 @@ const [Modal, modalApi] = useYDSZModal({
     modalApi.lock();
     try {
       await assignRoles({ userId: userId.value }, { roleIds: selectedRoleIds.value });
-      ElMessage.success(t('user.roleAssignSuccess'));
+      showToast.success(t('user.roleAssignSuccess'));
       emit('success');
       modalApi.close();
     } finally {

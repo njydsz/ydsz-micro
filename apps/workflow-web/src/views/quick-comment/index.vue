@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickComment, incrementUseCount, listQuickComments } from '#/api/flowComment';
@@ -109,7 +109,7 @@ async function handleUse(row: FlowQuickCommentVO) {
   if (!row.id) return;
   try {
     await incrementUseCount({ id: row.id });
-    ElMessage.success(t('quickComment.use.success'));
+    showToast.success(t('quickComment.use.success'));
     gridApi.query();
   } catch (error) {
     logger.warn('快捷评语使用失败，详见拦截器提示', error);
@@ -121,7 +121,7 @@ async function handleDelete(row: FlowQuickCommentVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(t('quickComment.delete.confirm', { content: row.content }), t('common.delete.confirmTitle'), { type: 'warning' });
+    await ydszConfirm(t('quickComment.delete.confirm', { content: row.content }), t('common.delete.confirmTitle'), { type: 'warning' });
   } catch (error) {
     logger.warn('用户取消删除快捷评语操作', error);
     return; // 用户主动取消删除操作
@@ -129,7 +129,7 @@ async function handleDelete(row: FlowQuickCommentVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteQuickComment({ id: row.id });
-    ElMessage.success(t('quickComment.delete.success'));
+    showToast.success(t('quickComment.delete.success'));
     gridApi.query();
   } catch (error) {
     logger.warn('快捷评语删除失败，详见拦截器提示', error);

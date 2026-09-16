@@ -18,7 +18,7 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { ElButton, ElDialog, ElMessage, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDialog, ElTable, ElTableColumn, ElTag } from 'element-plus';
 
 import { getColumns, refreshColumns } from '#/api/table-meta';
 import type { GenColumnMeta } from '#/api/models';
@@ -62,7 +62,7 @@ async function handleRefreshColumns() {
       datasourceId: 0,
       tableName: props.tableName,
     });
-    ElMessage.success('刷新列缓存成功');
+    showToast.success('刷新列缓存成功');
   } finally {
     loading.value = false;
   }

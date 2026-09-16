@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElMessage, ElTag } from 'element-plus';
+import { ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO, FlowInstanceVO } from '#/api/models';
@@ -120,7 +120,7 @@ async function loadDiagram(): Promise<void> {
     const data = await diagram({ id: props.instance.id });
     diagramData.value = data ?? null;
   } catch {
-    ElMessage.error('加载流程图失败');
+    showToast.error('加载流程图失败');
   } finally {
     loading.value = false;
   }

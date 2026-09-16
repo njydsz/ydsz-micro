@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElInputNumber, ElMessage, ElMessageBox, ElTag, ElTooltip } from 'element-plus';
+import { ElButton, ElInputNumber, ElTag, ElTooltip } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -196,7 +196,7 @@ function handleViewFiles(row: GenHistory) {
 async function handleRollback(row: GenHistory) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定回滚任务 #${row.id} 吗？这将恢复或删除该任务生成的所有文件。`,
       '回滚确认',
       { type: 'warning' },
@@ -206,7 +206,7 @@ async function handleRollback(row: GenHistory) {
   }
   try {
     await rollbackHistory({ id: row.id });
-    ElMessage.success('回滚成功');
+    showToast.success('回滚成功');
     await gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -223,15 +223,13 @@ async function handleRollback(row: GenHistory) {
 async function handleDelete(row: GenHistory) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除任务记录 #${row.id} 吗？`, '删除确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确定删除任务记录 #${row.id} 吗？`, { title: '删除确认', type: 'warning', });
   } catch {
     return;
   }
   try {
     await deleteHistory({ id: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     await gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理

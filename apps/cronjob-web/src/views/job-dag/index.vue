@@ -20,7 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDrawer, ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDrawer, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -125,7 +125,7 @@ async function handleEnable(row: JobDagVO) {
   if (!row.id) return;
   try {
     await enableDag({ dagId: row.id });
-    ElMessage.success('已启用');
+    showToast.success('已启用');
     gridApi.query();
   } catch {
     logger.warn('启用DAG失败', row.id);
@@ -137,7 +137,7 @@ async function handleDisable(row: JobDagVO) {
   if (!row.id) return;
   try {
     await disableDag({ dagId: row.id });
-    ElMessage.success('已停用');
+    showToast.success('已停用');
     gridApi.query();
   } catch {
     logger.warn('停用DAG失败', row.id);
@@ -149,7 +149,7 @@ async function handleTrigger(row: JobDagVO) {
   if (!row.dagKey) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定立即触发DAG「${row.dagName}」吗？`, '触发确认', { type: 'warning' });
+    await ydszConfirm(`确定立即触发DAG「${row.dagName}」吗？`, { title: '触发确认', type: 'warning' });
   } catch {
     logger.warn('用户取消触发DAG', row.dagKey);
     return; // 用户主动取消触发操作
@@ -157,7 +157,7 @@ async function handleTrigger(row: JobDagVO) {
   // 步骤2：执行触发 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await triggerDag({ dagKey: row.dagKey, triggerBy: 'console' });
-    ElMessage.success('触发成功');
+    showToast.success('触发成功');
   } catch {
     logger.warn('触发DAG失败', row.dagKey);
     // 错误已由请求拦截器展示，无需重复处理
@@ -167,7 +167,7 @@ async function handleTrigger(row: JobDagVO) {
 async function handleDelete(row: JobDagVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除DAG「${row.dagName}」吗？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除DAG「${row.dagName}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     logger.warn('用户取消删除DAG', row.id);
     return; // 用户主动取消删除操作
@@ -175,7 +175,7 @@ async function handleDelete(row: JobDagVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await deleteDag({ dagId: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     logger.warn('删除DAG失败', row.id);
@@ -204,7 +204,7 @@ async function handleVersions(row: JobDagVO) {
 async function handleRollback(versionRow: JobDagVersionVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定将DAG回滚到版本 v${versionRow.version ?? ''} 吗？`,
       '回滚确认',
       { type: 'warning' },
@@ -216,7 +216,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
   // 步骤2：执行回滚 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await rollbackDag({ dagId: currentDagId.value }, { version: versionRow.version });
-    ElMessage.success('回滚成功');
+    showToast.success('回滚成功');
     versionsDrawerVisible.value = false;
     gridApi.query();
   } catch {

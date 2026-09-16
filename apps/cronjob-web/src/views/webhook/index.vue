@@ -18,7 +18,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -109,7 +109,7 @@ async function handleToggle(row: JobWebhookVO) {
   const nextStatus = row.webhookStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
   try {
     await update({ ...row, webhookStatus: nextStatus });
-    ElMessage.success(nextStatus === 'ACTIVE' ? '已启用' : '已停用');
+    showToast.success(nextStatus === 'ACTIVE' ? '已启用' : '已停用');
     gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -120,7 +120,7 @@ async function handleTest(row: JobWebhookVO) {
   if (!row.id) return;
   try {
     await testWebhook({ id: row.id });
-    ElMessage.success('测试推送成功');
+    showToast.success('测试推送成功');
   } catch {
     // 错误提示由请求拦截器统一处理
   }
@@ -129,7 +129,7 @@ async function handleTest(row: JobWebhookVO) {
 async function handleDelete(row: JobWebhookVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `${t('business.webhookConfirmDelete')}「${row.name}」？`,
       t('common.crud.deleteConfirmTitle'),
       { type: 'warning' },
@@ -140,7 +140,7 @@ async function handleDelete(row: JobWebhookVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await deleteApi({ id: row.id });
-    ElMessage.success(t('common.crud.deleteSuccess'));
+    showToast.success(t('common.crud.deleteSuccess'));
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理

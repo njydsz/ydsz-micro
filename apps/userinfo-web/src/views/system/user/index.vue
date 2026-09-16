@@ -21,15 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElTag,
-  ElTreeSelect,
-} from 'element-plus';
+import { ElButton, ElOption, ElSelect, ElTag, ElTreeSelect } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { h, onMounted, reactive, ref } from 'vue';
 
@@ -300,7 +292,7 @@ function handleImport() {
 async function handleExport() {
   try {
     await exportUsers({});
-    ElMessage.success(t('page.exportSuccess'));
+    showToast.success(t('page.exportSuccess'));
   } catch (error) {
     logger.warn('导出用户失败: {}', error);
   }
@@ -309,7 +301,7 @@ async function handleExport() {
 async function handleDownloadTemplate() {
   try {
     await downloadImportTemplate({});
-    ElMessage.success(t('page.templateDownloadSuccess'));
+    showToast.success(t('page.templateDownloadSuccess'));
   } catch (error) {
     logger.warn('下载模板失败: {}', error);
   }
@@ -370,7 +362,7 @@ async function handleResetPassword(row: UserAccountVO) {
   // 步骤2：执行重置密码 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await resetPassword({ userId: row.id, newPassword });
-    ElMessage.success(t('page.passwordResetSuccess'));
+    showToast.success(t('page.passwordResetSuccess'));
   } catch (error) {
     logger.warn('重置密码失败: {}', error);
   }
@@ -381,7 +373,7 @@ async function handleDelete(row: UserAccountVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('user.deleteUserConfirm', { username: row.username ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },
@@ -393,7 +385,7 @@ async function handleDelete(row: UserAccountVO) {
   // 步骤2：执行删除 API
   try {
     await remove({ id: row.id });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除用户失败: {}', error);

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 空间（表单组件）
  *
  * @path apps\nextwiki-web\src\views\space\space-form.vue
@@ -16,7 +16,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus';
 const logger = createLogger('nextwiki-space');
 const { t } = useI18n';
 import { computed, onMounted, reactive, ref } from 'vue';
@@ -94,7 +94,7 @@ const [Modal, modalApi] = useYDSZModal({
   onConfirm: async () => {
     if (!canSubmit.value) {
       if (formData.useTemplateFlag) {
-        ElMessage.warning('请选择空间模板');
+        showToast.warning('请选择空间模板');
       }
       return;
     }
@@ -114,7 +114,7 @@ const [Modal, modalApi] = useYDSZModal({
       } else {
         await createSpace({ name: formData.name, description: formData.description, visibility: formData.visibility });
       }
-      ElMessage.success('创建成功');
+      showToast.success('创建成功');
       emit('success');
       modalApi.close();
     } finally {

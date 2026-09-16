@@ -19,18 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElMessageBox,
-  ElRadioButton,
-  ElRadioGroup,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup, ElTag } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -243,10 +232,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ entityId: formData.entityId }, payload);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       modalApi.close();
       gridApi.query();
@@ -274,7 +263,7 @@ async function handleToggleStatus(row: SamlIdpConfigVO) {
   if (!row.entityId) return;
   const newStatus = isEnabled(row.status) ? 'DISABLED' : 'ENABLED';
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认${isEnabled(row.status) ? '禁用' : '启用'} IdP "${row.name ?? row.entityId}"？`,
       '确认操作',
       { type: 'warning' },
@@ -294,7 +283,7 @@ async function handleToggleStatus(row: SamlIdpConfigVO) {
       sortOrder: row.sortOrder,
       remark: row.remark,
     });
-    ElMessage.success('操作成功');
+    showToast.success('操作成功');
     gridApi.query();
   } catch (error) {
     logger.warn('切换 SAML IdP 状态失败: {}', error);
@@ -304,7 +293,7 @@ async function handleToggleStatus(row: SamlIdpConfigVO) {
 async function handleDelete(row: SamlIdpConfigVO) {
   if (!row.entityId) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认删除 IdP "${row.name ?? row.entityId}"？此操作不可恢复。`,
       '确认删除',
       { type: 'warning' },
@@ -314,7 +303,7 @@ async function handleDelete(row: SamlIdpConfigVO) {
   }
   try {
     await deleteApi({ entityId: row.entityId });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除 SAML IdP 配置失败: {}', error);

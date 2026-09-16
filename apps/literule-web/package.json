@@ -35,6 +35,7 @@
     "@ydsz/types": "workspace:*",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz/utils": "workspace:*",
+    "@ydsz-core/shadcn-ui": "workspace:*",
     "dayjs": "catalog:",
     "element-plus": "catalog:",
     "pinia": "catalog:",

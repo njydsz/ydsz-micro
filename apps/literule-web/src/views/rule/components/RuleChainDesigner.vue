@@ -17,18 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import {
-  ElButton,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElSlider,
-  ElTooltip,
-} from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSlider, ElTooltip } from 'element-plus';
 import { computed, nextTick, ref, watch } from 'vue';
 import { type ChainEdgeDTO, type ChainNodeDTO, type RuleChainGraph } from '#/api/models';
 import { dryRunGraph, getChainGraph, saveChainGraph, validateChainGraph } from '#/api/ruleGraph';
@@ -178,7 +167,7 @@ async function handleSave(): Promise<void> {
         edges: edges.value,
       },
     );
-    ElMessage.success('保存成功');
+    showToast.success('保存成功');
     emit('success');
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -200,9 +189,9 @@ async function handleValidate(): Promise<void> {
       },
     );
     if (result.length === 0) {
-      ElMessage.success('规则链验证通过');
+      showToast.success('规则链验证通过');
     } else {
-      ElMessage.warning(`验证发现 ${result.length} 个问题`);
+      showToast.warning(`验证发现 ${result.length} 个问题`);
     }
   } catch {
     // 错误提示由请求拦截器统一处理

@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -195,7 +195,7 @@ async function handleScan() {
   scanning.value = true;
   try {
     const count = await scan();
-    ElMessage.success(t('apiPermission.scanSuccess', { count: count ?? 0 }));
+    showToast.success(t('apiPermission.scanSuccess', { count: count ?? 0 }));
     gridApi.query();
   } catch (error) {
     logger.warn('触发扫描失败', error);
@@ -214,7 +214,7 @@ async function handleToggleStatus(row: ApiPermissionRow) {
     : t('apiPermission.disableConfirm', [row.apiCode ?? '']);
 
   try {
-    await ElMessageBox.confirm(confirmMessage, t('common.confirm'), { type: 'warning' });
+    await ydszConfirm(confirmMessage, { title: t('common.confirm'), type: 'warning' });
   } catch {
     return;
   }
@@ -227,7 +227,7 @@ async function handleToggleStatus(row: ApiPermissionRow) {
         await disable({ id: row.id });
       }
     }
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('切换接口权限状态失败', error);
@@ -239,14 +239,14 @@ async function handleToggleStatus(row: ApiPermissionRow) {
  */
 async function handleDelete(row: ApiPermissionRow) {
   try {
-    await ElMessageBox.confirm(t('apiPermission.deleteConfirm', [row.apiCode ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+    await ydszConfirm(t('apiPermission.deleteConfirm', [row.apiCode ?? '']), t('common.deleteConfirm'), { type: 'warning' });
   } catch {
     return;
   }
 
   try {
     if (row.id) await remove({ id: row.id });
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除接口权限失败', error);

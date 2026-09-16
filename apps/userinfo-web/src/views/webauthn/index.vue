@@ -19,20 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDialog,
-  ElEmpty,
-  ElIcon,
-  ElMessage,
-  ElMessageBox,
-  ElTag,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElDialog, ElEmpty, ElIcon, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -110,7 +97,7 @@ function handleViewDetail(cred: WebAuthnCredentialVO) {
 async function handleDelete(cred: WebAuthnCredentialVO) {
   if (!cred.credentialId) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       '确认删除该 Passkey 凭证？删除后将无法使用该凭证登录。',
       '确认删除',
       { type: 'warning' },
@@ -120,7 +107,7 @@ async function handleDelete(cred: WebAuthnCredentialVO) {
   }
   try {
     await deleteCredential({ credentialId: cred.credentialId });
-    ElMessage.success('凭证已删除');
+    showToast.success('凭证已删除');
     loadCredentials();
   } catch (error) {
     logger.warn('删除 WebAuthn 凭证失败: {}', error);

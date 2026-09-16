@@ -20,7 +20,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElMessage, ElMessageBox, ElSwitch, ElTag } from 'element-plus';
+import { ElButton, ElInput, ElSwitch, ElTag } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -132,16 +132,16 @@ async function loadEnabledStatus(): Promise<void> {
 async function handleMigrate(): Promise<void> {
   const selection = gridApi.grid?.getCheckboxRecords() ?? [];
   if (selection.length === 0) {
-    ElMessage.warning('请先选择要迁移的任务');
+    showToast.warning('请先选择要迁移的任务');
     return;
   }
   if (!targetCluster.value) {
-    ElMessage.warning('请选择目标集群');
+    showToast.warning('请选择目标集群');
     return;
   }
   const jobIds = selection.map((row) => row.id ?? '').filter(Boolean);
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定将选中的 ${jobIds.length} 个任务迁移到集群「${targetCluster.value}」？`,
       '集群迁移确认',
       { type: 'warning' },
@@ -155,7 +155,7 @@ async function handleMigrate(): Promise<void> {
       jobIds,
       targetCluster: targetCluster.value,
     });
-    ElMessage.success(`迁移成功 ${result.successCount ?? 0} 个，失败 ${result.failCount ?? 0} 个`);
+    showToast.success(`迁移成功 ${result.successCount ?? 0} 个，失败 ${result.failCount ?? 0} 个`);
     gridApi.query();
   } catch (e) {
     logger.warn('集群迁移失败', e);

@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -169,12 +169,12 @@ async function handleTestConnection(row: GenDatasourceRespVO) {
       dialect: row.dialect,
     });
     if (success) {
-      ElMessage.success('连接成功');
+      showToast.success('连接成功');
     } else {
-      ElMessage.error('连接失败，请检查配置');
+      showToast.error('连接失败，请检查配置');
     }
   } catch {
-    ElMessage.error('连接测试请求失败');
+    showToast.error('连接测试请求失败');
   } finally {
     testingId.value = undefined;
   }
@@ -190,15 +190,13 @@ async function handleTestConnection(row: GenDatasourceRespVO) {
 async function handleDelete(row: GenDatasourceRespVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定删除数据源「${row.name}」吗？`, '删除确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确定删除数据源「${row.name}」吗？`, { title: '删除确认', type: 'warning', });
   } catch {
     return;
   }
   try {
     await deleteDatasource({ id: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     await gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -209,10 +207,10 @@ async function handleDelete(row: GenDatasourceRespVO) {
 async function handleFormSubmit(formData: GenDatasource) {
   if (formData.id) {
     await updateDatasource(formData);
-    ElMessage.success('更新成功');
+    showToast.success('更新成功');
   } else {
     await createDatasource(formData);
-    ElMessage.success('创建成功');
+    showToast.success('创建成功');
   }
   await gridApi.query();
 }

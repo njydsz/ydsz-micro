@@ -16,7 +16,7 @@
 import type { CEPPatternVO, CEPHitVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElTabPane, ElTabs } from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElTabPane, ElTabs } from 'element-plus';
 import { h, onMounted, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -180,7 +180,7 @@ function toIsoDuration(value: number, unit: PatternFormData['windowUnit']): stri
 
 async function handleRegister() {
   if (!patternForm.ruleCode.trim() || !patternForm.name.trim()) {
-    ElMessage.warning('规则编码与模式名称必填');
+    showToast.warning('规则编码与模式名称必填');
     return;
   }
   registering.value = true;
@@ -196,7 +196,7 @@ async function handleRegister() {
       threshold: patternForm.threshold,
       description: patternForm.description.trim() || undefined,
     });
-    ElMessage.success('注册成功');
+    showToast.success('注册成功');
     registerVisible.value = false;
     gridApi.query();
   } finally {
@@ -207,9 +207,9 @@ async function handleRegister() {
 async function handleUnregister(row: CEPPatternVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(`确定注销模式「${row.name}」吗？`, '注销确认', { type: 'warning' });
+    await ydszConfirm(`确定注销模式「${row.name}」吗？`, { title: '注销确认', type: 'warning' });
     await unregisterPattern({ patternId: row.id });
-    ElMessage.success('注销成功');
+    showToast.success('注销成功');
     gridApi.query();
   } catch {
     /* 错误提示由请求拦截器统一处理 */
@@ -222,10 +222,10 @@ async function handleToggle(row: CEPPatternVO, enable: boolean) {
   try {
     if (enable) {
       await enablePattern({ id: row.id });
-      ElMessage.success('启用成功');
+      showToast.success('启用成功');
     } else {
       await disablePattern({ id: row.id });
-      ElMessage.success('禁用成功');
+      showToast.success('禁用成功');
     }
     gridApi.query();
   } catch {
@@ -240,7 +240,7 @@ const eventResult = ref('');
 async function handleFeedEvent() {
   const payload = parseJsonObject(eventText.value);
   if (!payload) {
-    ElMessage.warning('事件内容需为合法 JSON 对象');
+    showToast.warning('事件内容需为合法 JSON 对象');
     return;
   }
   const data = await feedEvent(payload);
@@ -250,7 +250,7 @@ async function handleFeedEvent() {
 async function handleFeedEvents() {
   const payload = parseJsonArray(eventText.value);
   if (!payload) {
-    ElMessage.warning('事件内容需为合法 JSON 数组（元素为对象）');
+    showToast.warning('事件内容需为合法 JSON 数组（元素为对象）');
     return;
   }
   const data = await feedEvents(payload);
@@ -345,7 +345,7 @@ async function handleTestPattern() {
   if (!currentPatternId.value) return;
   const payload = parseJsonObject(testEventText.value);
   if (!payload) {
-    ElMessage.warning('事件内容需为合法 JSON 对象');
+    showToast.warning('事件内容需为合法 JSON 对象');
     return;
   }
   testEventLoading.value = true;

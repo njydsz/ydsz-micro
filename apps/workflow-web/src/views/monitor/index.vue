@@ -17,14 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElCard,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElStatistic,
-  ElTag,
-} from 'element-plus';
+import { ElCard, ElOption, ElSelect, ElStatistic, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import {
@@ -79,7 +72,7 @@ async function loadOverview(): Promise<void> {
     overview.value = await monitorOverview();
   } catch (error) {
     logger.warn('加载监控概览数据失败', error);
-    ElMessage.warning(t('monitor.loadOverviewFailed'));
+    showToast.warning(t('monitor.loadOverviewFailed'));
   }
 }
 

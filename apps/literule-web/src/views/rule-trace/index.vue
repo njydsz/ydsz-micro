@@ -19,18 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDialog,
-  ElInput,
-  ElMessageBox,
-  ElTag,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElDialog, ElInput, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -245,7 +234,7 @@ async function handleBatchReplay(): Promise<void> {
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认批量回放 ${selectedTraceIds.value.size} 条Trace记录？`,
       '批量回放确认',
       { type: 'warning' },

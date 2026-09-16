@@ -17,7 +17,7 @@
  */
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElMessage, ElProgress } from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElProgress } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
 import { getQuota } from '#/api/quota';
@@ -54,7 +54,7 @@ async function handleQuery() {
       scopeType: queryForm.scopeType || undefined,
       scopeId: queryForm.scopeId || undefined,
     });
-    ElMessage.success('查询成功');
+    showToast.success('查询成功');
   } catch (error) { logger.warn('查询配额失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 

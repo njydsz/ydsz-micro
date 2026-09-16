@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElDrawer, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElDialog, ElDrawer, ElInput, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -135,11 +135,11 @@ function handleEdit(row: SpaceVO) {
   editVisible.value = true;
 }
 async function confirmEdit() {
-  if (!editForm.name) { ElMessage.warning(t('spaceNamePlaceholder')); return; }
+  if (!editForm.name) { showToast.warning(t('spaceNamePlaceholder')); return; }
   try {
     if (editForm.id) {
       await updateSpace({ spaceId: editForm.id }, { name: editForm.name, description: editForm.description, visibility: editForm.visibility });
-      ElMessage.success(t('updateSuccess'));
+      showToast.success(t('updateSuccess'));
     } else {
       spaceFormApi.open();
       editVisible.value = false;
@@ -172,10 +172,10 @@ async function loadMembers(): Promise<void> {
   }
 }
 async function handleAddMember(): Promise<void> {
-  if (!addMemberForm.userId) { ElMessage.warning(t('userIdRequired')); return; }
+  if (!addMemberForm.userId) { showToast.warning(t('userIdRequired')); return; }
   try {
     await addMember({ spaceId: currentSpaceId.value }, { userId: addMemberForm.userId, role: addMemberForm.role });
-    ElMessage.success(t('addMemberSuccess'));
+    showToast.success(t('addMemberSuccess'));
     addMemberForm.userId = '';
     await loadMembers();
   } catch (error) { logger.warn('添加成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
@@ -183,9 +183,9 @@ async function handleAddMember(): Promise<void> {
 async function handleRemoveMember(row: SpaceMemberDTO): Promise<void> {
   if (!row.userId) return;
   try {
-    await ElMessageBox.confirm(t('removeMemberConfirm'), t('removeMember'), { type: 'warning' });
+    await ydszConfirm(t('removeMemberConfirm'), { title: t('removeMember'), type: 'warning' });
     await removeMember({ spaceId: currentSpaceId.value, targetUserId: row.userId });
-    ElMessage.success(t('removeSuccess'));
+    showToast.success(t('removeSuccess'));
     await loadMembers();
   } catch (error) { logger.warn('移除成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
@@ -194,9 +194,9 @@ async function handleRemoveMember(row: SpaceMemberDTO): Promise<void> {
 async function handleArchive(row: SpaceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('archiveConfirm', [row.name]), t('archiveConf'), { type: 'warning' });
+    await ydszConfirm(t('archiveConfirm', [row.name]), t('archiveConf'), { type: 'warning' });
     await archiveSpace({ spaceId: row.id });
-    ElMessage.success(t('archiveSuccess'));
+    showToast.success(t('archiveSuccess'));
     gridApi.query();
   } catch (error) { logger.warn('归档空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
@@ -205,9 +205,9 @@ async function handleArchive(row: SpaceVO) {
 async function handleDelete(row: SpaceVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('deleteSpaceConfirm', [row.name]), t('deleteConf'), { type: 'warning' });
+    await ydszConfirm(t('deleteSpaceConfirm', [row.name]), t('deleteConf'), { type: 'warning' });
     await deleteSpace({ spaceId: row.id });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     gridApi.query();
   } catch (error) { logger.warn('删除空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }

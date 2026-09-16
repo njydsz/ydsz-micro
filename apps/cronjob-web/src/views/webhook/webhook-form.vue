@@ -16,16 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElRadio,
-  ElRadioGroup,
-  ElSelect,
-} from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -135,10 +126,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        ElMessage.success('修改成功');
+        showToast.success('修改成功');
       } else {
         await create(payload);
-        ElMessage.success('新增成功');
+        showToast.success('新增成功');
       }
       emit('success');
       modalApi.close();

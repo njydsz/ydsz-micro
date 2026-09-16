@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput } from 'element-plus';
 import { computed, ref } from 'vue';
 
 import { approve, getApproval, reject } from '#/api/humanApproval';
@@ -79,10 +79,10 @@ async function handleSubmit(action: 'approve' | 'reject') {
     const params = { comment: comment.value.trim() || undefined };
     if (action === 'approve') {
       await approve({ id: approvalId.value }, params);
-      ElMessage.success('已通过');
+      showToast.success('已通过');
     } else {
       await reject({ id: approvalId.value }, params);
-      ElMessage.success('已驳回');
+      showToast.success('已驳回');
     }
     emit('success');
     modalApi.close();

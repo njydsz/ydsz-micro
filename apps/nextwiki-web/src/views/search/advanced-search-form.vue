@@ -17,7 +17,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElDatePicker, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+import { ElDatePicker, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 import { advancedSearch } from '#/api/search';
 import { listTags } from '#/api/tag';
@@ -97,7 +97,7 @@ const [Modal, modalApi] = useYDSZModal({
         page: 1,
         pageSize: 20,
       });
-      ElMessage.success(t('searchAdvancedSuccess'));
+      showToast.success(t('searchAdvancedSuccess'));
       emit('success', result);
       modalApi.close();
     } catch (error) {

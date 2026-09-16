@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElCard, ElMessage, ElSkeleton, ElTag } from 'element-plus';
+import { ElButton, ElCard, ElSkeleton, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
 import { generateSummary, getStatus } from '#/api/ai';
@@ -91,7 +91,7 @@ async function handleGeneratePreview(): Promise<void> {
   generating.value = true;
   try {
     await generatePreview({ fileNodeId: props.fileNode.id });
-    ElMessage.success(t('previewGenerated'));
+    showToast.success(t('previewGenerated'));
   } catch (error) {
     logger.warn('生成预览失败: {}', error);
     // 用户提示由请求拦截器统一处理
@@ -105,7 +105,7 @@ async function handleDownload(): Promise<void> {
   if (!props.fileNode?.id) return;
   try {
     await download({ nodeId: props.fileNode.id }, {});
-    ElMessage.success(t('downloadStarted'));
+    showToast.success(t('downloadStarted'));
   } catch (error) {
     logger.warn('下载文件失败: {}', error);
     // 用户提示由请求拦截器统一处理
@@ -133,7 +133,7 @@ async function handleGenerateSummary(): Promise<void> {
     const result = await generateSummary({ fileNodeId: props.fileNode.id });
     aiSummary.value = result;
     aiPanelExpanded.value = true;
-    ElMessage.success('摘要生成成功');
+    showToast.success('摘要生成成功');
   } catch (error) {
     logger.warn('生成摘要失败: {}', error);
   } finally {

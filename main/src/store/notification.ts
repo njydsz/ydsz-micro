@@ -12,8 +12,8 @@ import { ref } from "vue";
 import { useTokenStore } from "@ydsz/stores";
 import { createLogger } from "@ydsz-core/shared/utils";
 
-import { ElNotification } from "element-plus";
 import { defineStore } from "pinia";
+import { showToast } from "@ydsz/notification";
 
 import {
   getNotificationsApi,
@@ -136,10 +136,8 @@ export const useNotificationStore = defineStore("notification", () => {
         unreadCount.value++;
 
         // 弹出桌面通知
-        ElNotification({
-          title: notification.title || "新通知",
-          message: notification.message,
-          type: "info",
+        showToast.info(notification.title || "新通知", {
+          description: notification.message,
           duration: 5000,
         });
         break;

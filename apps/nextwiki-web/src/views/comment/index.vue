@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElInput, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -79,7 +79,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [CommentFormModal, commentFormApi] = useYDSZModal({ connectedComponent: CommentForm });
 
 function handleQuery() {
-  if (!fileNodeId.value) { ElMessage.warning(t('fileNodeIdRequired')); return; }
+  if (!fileNodeId.value) { showToast.warning(t('fileNodeIdRequired')); return; }
   gridApi.query();
 }
 function handleAdd() { commentFormApi.open(); }
@@ -87,16 +87,16 @@ async function handleResolve(row: FileCommentVO) {
   if (!row.id) return;
   try {
     await resolveComment({ commentId: row.id });
-    ElMessage.success(t('resolvedSuccess'));
+    showToast.success(t('resolvedSuccess'));
     gridApi.query();
   } catch (error) { logger.warn('解决评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 async function handleDelete(row: FileCommentVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('commentDeleteConf'), t('deleteConf'), { type: 'warning' });
+    await ydszConfirm(t('commentDeleteConf'), { title: t('deleteConf'), type: 'warning' });
     await deleteComment({ commentId: row.id });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     gridApi.query();
   } catch (error) { logger.warn('删除评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }

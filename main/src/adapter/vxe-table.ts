@@ -9,10 +9,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { h } from 'vue';
 
+import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useAccess } from '@ydsz/access';
 import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
-
-import { ElButton, ElImage } from 'element-plus';
 
 import { useYDSZForm } from './form';
 
@@ -51,7 +50,18 @@ setupYDSZVxeTable({
       renderTableDefault(_renderOpts, params) {
         const { column, row } = params;
         const src = row[column.field];
-        return h(ElImage, { src, previewSrcList: [src] });
+        // 使用原生 img 标签 + 点击预览（脱离 Element Plus）
+        return h(
+          'img',
+          {
+            src,
+            alt: '',
+            class: 'h-8 w-8 cursor-pointer rounded object-cover',
+            onClick: () => {
+              if (src) window.open(src, '_blank');
+            },
+          },
+        );
       },
     });
 
@@ -60,8 +70,8 @@ setupYDSZVxeTable({
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
         return h(
-          ElButton,
-          { size: 'small', link: true },
+          Button,
+          { size: 'sm', variant: 'link' },
           { default: () => props?.text },
         );
       },

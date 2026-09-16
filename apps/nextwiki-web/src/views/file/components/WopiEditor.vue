@@ -18,7 +18,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { checkFileInfo, lockFile, unlockFile } from '#/api/wopi';
 import type { FileNodeVO } from '#/api/models';
@@ -90,7 +90,7 @@ async function openEditor(): Promise<void> {
       await lockFile({ fileId: props.fileNode.id });
       isLocked.value = true;
     } catch {
-      ElMessage.warning('文件可能已被其他用户锁定');
+      showToast.warning('文件可能已被其他用户锁定');
     }
 
     // 构建 WOPI 编辑器 URL
@@ -118,7 +118,7 @@ async function handleUnlock(): Promise<void> {
 
 /** 保存文件 */
 function handleSave(): void {
-  ElMessage.success('文档已自动保存');
+  showToast.success('文档已自动保存');
   emit('success');
 }
 

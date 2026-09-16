@@ -13,7 +13,7 @@ import type { ComponentRecordType, GenerateMenuAndRoutesOptions } from '@ydsz/ty
 import { generateAccessible } from '@ydsz/access';
 import { preferences } from '@ydsz/preferences';
 
-import { ElMessage } from 'element-plus';
+;
 
 import { getAllMenusApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
@@ -41,7 +41,7 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   return await generateAccessible(preferences.app.accessMode, {
     ...options,
     fetchMenuListAsync: async () => {
-      ElMessage({
+      showToast({
         duration: 1500,
         message: `${$t('common.loadingMenu')}...`,
       });

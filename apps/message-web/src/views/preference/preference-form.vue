@@ -18,17 +18,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElRadio,
-  ElRadioGroup,
-  ElSelect,
-  ElOption,
-} from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
 import { upsert } from '#/api/preference';
@@ -134,7 +124,7 @@ const [Modal, modalApi] = useYDSZModal({
         digestFrequency: formData.digestFrequency || undefined,
         locale: formData.locale || undefined,
       });
-      ElMessage.success(isEdit.value ? '更新成功' : '保存成功');
+      showToast.success(isEdit.value ? '更新成功' : '保存成功');
       emit('success');
       modalApi.close();
     } finally {

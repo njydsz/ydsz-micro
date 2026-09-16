@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElDialog, ElInput, ElMessage } from 'element-plus';
+import { ElButton, ElDialog, ElInput } from 'element-plus';
 import { computed, reactive, ref, watch } from 'vue';
 import { evaluate } from '#/api/prompt';
 
@@ -81,7 +81,7 @@ async function handleEvaluate(): Promise<void> {
       promptCode: template.value.templateCode,
       variables: { ...variableValues },
     });
-    ElMessage.success('评估完成');
+    showToast.success('评估完成');
   } catch (error) {
     logger.warn('Prompt 评估失败: {}', error);
     // 用户提示由 errorMessageResponseInterceptor 统一处理

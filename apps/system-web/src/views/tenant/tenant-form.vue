@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElDatePicker, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+import { ElDatePicker, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { save, update } from '#/api/tenant';
 import type { TenantDTO, TenantVO } from '#/api/models';
@@ -99,10 +99,10 @@ const [Modal, modalApi] = useYDSZModal({
       const dto: TenantDTO = { ...formData };
       if (formData.id) {
         await update(dto);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await save(dto);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       emit('success');
       modalApi.close();

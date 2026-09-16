@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -117,7 +117,7 @@ async function handleResubscribe(row: MsgSubscriptionVO) {
   if (!row.userId || !row.topicCode || !row.channel) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定恢复用户「${row.userId}」对主题「${row.topicCode}」的订阅吗？`,
       '恢复订阅确认',
       { type: 'warning' },
@@ -128,7 +128,7 @@ async function handleResubscribe(row: MsgSubscriptionVO) {
   // 步骤2：执行恢复订阅 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await resubscribe({ userId: row.userId, topicCode: row.topicCode, channel: row.channel });
-    ElMessage.success('恢复订阅成功');
+    showToast.success('恢复订阅成功');
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理

@@ -11,6 +11,10 @@
     "./guards": {
       "types": "./src/guards.ts",
       "default": "./src/guards.ts"
+    },
+    "./auth-api": {
+      "types": "./src/auth-api.ts",
+      "default": "./src/auth-api.ts"
     }
   },
   "dependencies": {

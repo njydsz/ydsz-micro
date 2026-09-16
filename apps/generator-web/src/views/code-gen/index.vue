@@ -22,24 +22,7 @@ import { onMounted, reactive, ref, watch } from 'vue';
 
 import { useRoute } from 'vue-router';
 
-import {
-  ElButton,
-  ElCard,
-  ElDrawer,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElIcon,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElRadioButton,
-  ElRadioGroup,
-  ElSelect,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElDrawer, ElEmpty, ElForm, ElFormItem, ElIcon, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { Clock, Document } from '@element-plus/icons-vue';
 
 import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
@@ -208,9 +191,9 @@ async function handleDownloadZip() {
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    ElMessage.success('ZIP 下载已开始');
+    showToast.success('ZIP 下载已开始');
   } catch {
-    ElMessage.error('下载 ZIP 失败');
+    showToast.error('下载 ZIP 失败');
   } finally {
     zipDownloading.value = false;
   }
@@ -220,7 +203,7 @@ async function handleDownloadZip() {
 async function handleGenerate() {
   if (!validateSelection()) return;
   if (!genForm.outputDir.trim()) {
-    ElMessage.warning('请配置输出目录');
+    showToast.warning('请配置输出目录');
     return;
   }
   generating.value = true;
@@ -234,7 +217,7 @@ async function handleGenerate() {
       conflictStrategy: genForm.conflictStrategy,
       triggeredBy: genForm.triggeredBy || undefined,
     });
-    ElMessage.success(
+    showToast.success(
       `生成完成！成功 ${genResult.value.successCount ?? 0} 个，跳过 ${genResult.value.skipCount ?? 0} 个，失败 ${genResult.value.failCount ?? 0} 个`,
     );
   } finally {
@@ -245,11 +228,11 @@ async function handleGenerate() {
 /** 全量生成 */
 async function handleGenerateAll() {
   if (!selectedDatasourceId.value || !selectedGroupId.value) {
-    ElMessage.warning('请选择数据源和模板分组');
+    showToast.warning('请选择数据源和模板分组');
     return;
   }
   if (!genForm.outputDir.trim()) {
-    ElMessage.warning('请配置输出目录');
+    showToast.warning('请配置输出目录');
     return;
   }
   batchGenerating.value = true;
@@ -262,7 +245,7 @@ async function handleGenerateAll() {
       conflictStrategy: genForm.conflictStrategy,
       triggeredBy: genForm.triggeredBy || undefined,
     });
-    ElMessage.success(
+    showToast.success(
       `全量生成完成！成功 ${batchResult.value.successCount ?? 0} 个，跳过 ${batchResult.value.skipCount ?? 0} 个，失败 ${batchResult.value.failCount ?? 0} 个`,
     );
   } finally {
@@ -273,15 +256,15 @@ async function handleGenerateAll() {
 /** 校验必要选择 */
 function validateSelection(): boolean {
   if (!selectedDatasourceId.value) {
-    ElMessage.warning('请选择数据源');
+    showToast.warning('请选择数据源');
     return false;
   }
   if (!selectedGroupId.value) {
-    ElMessage.warning('请选择模板分组');
+    showToast.warning('请选择模板分组');
     return false;
   }
   if (!selectedTableName.value.trim()) {
-    ElMessage.warning('请选择或输入表名');
+    showToast.warning('请选择或输入表名');
     return false;
   }
   return true;

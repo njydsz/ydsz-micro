@@ -17,18 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import {
-  ElButton,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-} from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
 import { computed, nextTick, ref, watch } from 'vue';
 import type { DecisionTableVO } from '#/api/models';
 import {
@@ -223,7 +212,7 @@ function removeActionColumn(index: number): void {
 /** 保存决策表 */
 async function handleSave(): Promise<void> {
   if (!tableInfo.value.tableCode || !tableInfo.value.tableName) {
-    ElMessage.warning('请填写决策表编码和名称');
+    showToast.warning('请填写决策表编码和名称');
     return;
   }
   saving.value = true;
@@ -234,7 +223,7 @@ async function handleSave(): Promise<void> {
       actionColumns: actionColumns.value,
       rows: ruleRows.value,
     });
-    ElMessage.success('保存成功');
+    showToast.success('保存成功');
     emit('success');
     close();
   } catch {
@@ -247,7 +236,7 @@ async function handleSave(): Promise<void> {
 /** 评估测试 */
 async function handleEvaluate(): Promise<void> {
   if (!tableInfo.value.tableCode) {
-    ElMessage.warning('请先保存决策表');
+    showToast.warning('请先保存决策表');
     return;
   }
   evaluateDialogVisible.value = true;

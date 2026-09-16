@@ -21,22 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import {
-  ElButton,
-  ElCard,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { ElButton, ElCard, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTabPane, ElTabs, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import { recallBatch, recallByMsgId, recallMessage, recallNotification } from '#/api/recall';
@@ -86,11 +71,11 @@ interface RecallLogItem {
 /** 执行通知召回 */
 async function handleRecallNotification(): Promise<void> {
   if (!notificationForm.id.trim()) {
-    ElMessage.warning('请输入通知ID或业务ID');
+    showToast.warning('请输入通知ID或业务ID');
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定召回通知（ID: ${notificationForm.id}）吗？召回后接收人将无法查看该通知。`,
       '召回确认',
       { type: 'warning' },
@@ -111,10 +96,10 @@ async function handleRecallNotification(): Promise<void> {
       },
     );
     if (success) {
-      ElMessage.success('通知召回成功');
+      showToast.success('通知召回成功');
       addRecallLog('notification', notificationForm.id, true, '召回成功');
     } else {
-      ElMessage.warning('召回请求已发送，但服务返回未完成');
+      showToast.warning('召回请求已发送，但服务返回未完成');
       addRecallLog('notification', notificationForm.id, false, '服务返回未完成');
     }
   } catch (error) {
@@ -128,11 +113,11 @@ async function handleRecallNotification(): Promise<void> {
 /** 执行消息召回（按 logId） */
 async function handleRecallByLogId(): Promise<void> {
   if (!messageForm.logId.trim()) {
-    ElMessage.warning('请输入消息日志ID');
+    showToast.warning('请输入消息日志ID');
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定召回消息（logId: ${messageForm.logId}）吗？`,
       '召回确认',
       { type: 'warning' },
@@ -145,10 +130,10 @@ async function handleRecallByLogId(): Promise<void> {
   try {
     const success = await recallMessage({ logId: messageForm.logId.trim() });
     if (success) {
-      ElMessage.success('消息召回成功');
+      showToast.success('消息召回成功');
       addRecallLog('message', messageForm.logId, true, '按 logId 召回成功');
     } else {
-      ElMessage.warning('召回请求已发送，但服务返回未完成');
+      showToast.warning('召回请求已发送，但服务返回未完成');
       addRecallLog('message', messageForm.logId, false, '服务返回未完成');
     }
   } catch (error) {
@@ -162,11 +147,11 @@ async function handleRecallByLogId(): Promise<void> {
 /** 执行消息召回（按 msgId） */
 async function handleRecallByMsgId(): Promise<void> {
   if (!messageForm.msgId.trim()) {
-    ElMessage.warning('请输入消息ID');
+    showToast.warning('请输入消息ID');
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定召回消息（msgId: ${messageForm.msgId}）吗？`,
       '召回确认',
       { type: 'warning' },
@@ -179,10 +164,10 @@ async function handleRecallByMsgId(): Promise<void> {
   try {
     const success = await recallByMsgId({ msgId: messageForm.msgId.trim() });
     if (success) {
-      ElMessage.success('消息召回成功');
+      showToast.success('消息召回成功');
       addRecallLog('message', messageForm.msgId, true, '按 msgId 召回成功');
     } else {
-      ElMessage.warning('召回请求已发送，但服务返回未完成');
+      showToast.warning('召回请求已发送，但服务返回未完成');
       addRecallLog('message', messageForm.msgId, false, '服务返回未完成');
     }
   } catch (error) {
@@ -197,11 +182,11 @@ async function handleRecallByMsgId(): Promise<void> {
 async function handleRecallBatch(): Promise<void> {
   const currentForm = activeTab.value === 'notification' ? notificationForm : messageForm;
   if (!currentForm.id.trim()) {
-    ElMessage.warning('请输入要召回的ID');
+    showToast.warning('请输入要召回的ID');
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       '确定执行批量召回吗？此操作将召回匹配范围内所有消息，不可撤销。',
       '批量召回确认',
       { type: 'warning', confirmButtonText: '确认召回', cancelButtonText: '取消' },
@@ -218,7 +203,7 @@ async function handleRecallBatch(): Promise<void> {
       bizId: currentForm.bizId.trim() || undefined,
       recallScope: 'BATCH',
     } as RecallRequestDTO);
-    ElMessage.success(`批量召回完成，共召回 ${count} 条记录`);
+    showToast.success(`批量召回完成，共召回 ${count} 条记录`);
     addRecallLog(
       activeTab.value as 'notification' | 'message',
       currentForm.id,

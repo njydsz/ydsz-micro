@@ -23,7 +23,7 @@ import {
 } from '@ydsz/request';
 import { useTokenStore } from '@ydsz/stores';
 
-import { ElMessage } from 'element-plus';
+import { showToast } from '@ydsz/notification';
 
 /**
  * P0-F2: 认证令牌存储模式（构建期常量，与 auth.ts 保持一致）。
@@ -214,15 +214,12 @@ export function createSharedRequestClient(
       if (status && status >= 500) {
         const tip = displayMessage;
         const trace = traceId ? `\n追踪号: ${traceId}` : '';
-        ElMessage.error({
-          message: `${tip}${trace}`,
-          duration: 6000,
-        });
+        showToast.error(`${tip}${trace}`, { duration: 6000 });
         return;
       }
 
       // 其他错误：优先 i18n 映射，其次后端消息，最后本地化 msg
-      ElMessage.error(displayMessage);
+      showToast.error(displayMessage);
     }),
   );
 

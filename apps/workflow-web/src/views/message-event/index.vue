@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElButton, ElCard, ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+import { ElButton, ElCard, ElForm, ElFormItem, ElInput } from 'element-plus';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { reactive, ref } from 'vue';
@@ -41,7 +41,7 @@ const form = reactive({
  */
 async function handlePublish() {
   if (!form.messageName.trim()) {
-    ElMessage.warning('请填写消息名称');
+    showToast.warning('请填写消息名称');
     return;
   }
 
@@ -56,7 +56,7 @@ async function handlePublish() {
       messageName: form.messageName.trim(),
       correlationKeys: Object.keys(correlationKeys).length > 0 ? correlationKeys : undefined,
     });
-    ElMessage.success(result ?? '发布成功');
+    showToast.success(result ?? '发布成功');
     logger.info('消息事件发布成功:', form.messageName);
   } catch {
     /* 错误由拦截器处理 */

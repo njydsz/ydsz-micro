@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect, ElSlider } from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSlider } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
@@ -66,7 +66,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
   onConfirm: async () => {
     if (!formData.dagName || !formData.dagKey) {
-      ElMessage.warning('请填写DAG名称和标识');
+      showToast.warning('请填写DAG名称和标识');
       return;
     }
     modalApi.lock();
@@ -188,16 +188,16 @@ async function handleSave(): Promise<void> {
   // 验证 DAG
   const valid = await validateDag(JSON.stringify(dagData));
   if (!valid) {
-    ElMessage.error('DAG 验证失败，请检查节点和连线配置');
+    showToast.error('DAG 验证失败，请检查节点和连线配置');
     return;
   }
 
   if (props.record?.id) {
     await updateDag({ dagId: props.record.id }, dagData);
-    ElMessage.success('更新成功');
+    showToast.success('更新成功');
   } else {
     await createDag(dagData);
-    ElMessage.success('创建成功');
+    showToast.success('创建成功');
   }
 }
 

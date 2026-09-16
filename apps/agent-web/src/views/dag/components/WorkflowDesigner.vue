@@ -15,21 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import {
-  ElButton,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElSlider,
-  ElTabPane,
-  ElTabs,
-  ElTooltip,
-} from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSlider, ElTabPane, ElTabs, ElTooltip } from 'element-plus';
 import { computed, nextTick, ref } from 'vue';
 
 /** 工作流节点 */
@@ -310,13 +296,13 @@ function generateDsl(): string {
 /** 保存工作流 */
 async function handleSave(): Promise<void> {
   if (!workflowName.value.trim()) {
-    ElMessage.warning('请输入工作流名称');
+    showToast.warning('请输入工作流名称');
     return;
   }
   saving.value = true;
   try {
     // TODO: 调用后端 API 保存工作流
-    ElMessage.success('保存成功');
+    showToast.success('保存成功');
   } catch {
     // 错误提示由请求拦截器统一处理
   } finally {
@@ -328,9 +314,9 @@ async function handleSave(): Promise<void> {
 function handleExportDsl(): void {
   const dsl = generateDsl();
   navigator.clipboard.writeText(dsl).then(() => {
-    ElMessage.success('DSL 已复制到剪贴板');
+    showToast.success('DSL 已复制到剪贴板');
   }).catch(() => {
-    ElMessage.error('复制失败');
+    showToast.error('复制失败');
   });
 }
 

@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElCard, ElMessage, ElOption, ElSelect, ElStatistic } from 'element-plus';
+import { ElCard, ElOption, ElSelect, ElStatistic } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref, watch } from 'vue';
 
@@ -76,7 +76,7 @@ async function loadOverview(): Promise<void> {
     overviewData.value = await overview({ start, end });
   } catch (error) {
     logger.warn('加载概览数据失败: {}', error);
-    ElMessage.error('加载概览数据失败');
+    showToast.error('加载概览数据失败');
   }
 }
 

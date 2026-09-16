@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 
@@ -49,7 +49,7 @@ const [Modal, modalApi] = useYDSZModal({
     modalApi.lock();
     try {
       await ingest({ ...formData });
-      ElMessage.success('导入成功');
+      showToast.success('导入成功');
       emit('success');
       modalApi.close();
     } finally { modalApi.unlock(); }

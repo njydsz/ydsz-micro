@@ -1,8 +1,8 @@
 /**
  * 会话超时预警 —— 到期前 5 分钟提示续期
  *
- * 监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出
- * ElMessageBox 询问用户是否立即续期：
+ * <p>监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出
+ * 确认框询问用户是否立即续期：
  *   - 用户确认 → 调用 refreshTokenApi 续期，更新 accessToken + expiresAt
  *   - 用户取消 → 不打扰，等真正过期时由 401 拦截器走 doReAuthenticate
  *
@@ -16,9 +16,9 @@
  */
 import { getCurrentScope, onScopeDispose, watch } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+import { ydszConfirm } from '@ydsz-core/ui-kit/popup-ui';
 import { useTokenStore } from '@ydsz/stores';
-
-import { ElMessageBox, ElMessage } from 'element-plus';
 
 import { refreshTokenApi } from '#/api/core/auth';
 import {
@@ -35,13 +35,8 @@ const CHECK_INTERVAL_MS = 30 * 1000;
 /**
  * 启动会话超时预警 composable
  *
- * 监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出
- * ElMessageBox 询问用户是否立即续期：
- * - 用户确认 -> 调用 refreshTokenApi 续期，更新 accessToken + expiresAt
- * - 用户取消 -> 不打扰，等真正过期时由 401 拦截器走 doReAuthenticate
- *
- * 同一过期周期只提示一次；expiresAt 变化（登录/续期成功）后重新计时。
- * 仅在主应用安装一次（bootstrap 中调用），子应用共享同一 tokenStore，无需各自重复安装。
+ * <p>监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出确认框询问用户是否续期。
+ * 使用 ydszConfirm（shadcn-ui）替代 ElMessageBox，showToast（shadcn-ui）替代 ElMessage。
  *
  * @remarks 必须在 Pinia 初始化后调用（bootstrap 中 initStores 之后）
  *
@@ -50,8 +45,6 @@ const CHECK_INTERVAL_MS = 30 * 1000;
  * // 在 bootstrap 中
  * useSessionExpiryWarning();
  * ```
- *
- * @since 1.0.0
  */
 export function useSessionExpiryWarning(): void {
   const tokenStore = useTokenStore();
@@ -67,7 +60,7 @@ export function useSessionExpiryWarning(): void {
     if (renewing) return false;
     const refreshToken = tokenStore.refreshToken;
     if (!refreshToken) {
-      ElMessage.warning($t('authentication.renewFailed'));
+      showToast.warning($t('authentication.renewFailed'));
       return false;
     }
     renewing = true;
@@ -91,10 +84,10 @@ export function useSessionExpiryWarning(): void {
           expiresAt: newExpiresAt,
         });
       }
-      ElMessage.success($t('authentication.renewSuccess'));
+      showToast.success($t('authentication.renewSuccess'));
       return true;
     } catch {
-      ElMessage.warning($t('authentication.renewFailed'));
+      showToast.warning($t('authentication.renewFailed'));
       return false;
     } finally {
       renewing = false;
@@ -106,15 +99,12 @@ export function useSessionExpiryWarning(): void {
     if (warnedFor === tokenStore.expiresAt) return;
     warnedFor = tokenStore.expiresAt;
     try {
-      await ElMessageBox.confirm(
-        $t('authentication.sessionExpiringSoon'),
-        $t('authentication.sessionExpiryTitle'),
-        {
-          type: 'warning',
-          confirmButtonText: $t('authentication.renew'),
-          cancelButtonText: $t('common.cancel'),
-        },
-      );
+      // ydszConfirm 取消时 reject，因此 try/catch 捕获
+      await ydszConfirm($t('authentication.sessionExpiringSoon'), {
+        title: $t('authentication.sessionExpiryTitle'),
+        confirmText: $t('authentication.renew'),
+        cancelText: $t('common.cancel'),
+      });
       await renewSession();
     } catch {
       // 用户取消 — 不打扰，等真正过期由 401 拦截器处理

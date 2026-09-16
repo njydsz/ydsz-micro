@@ -17,22 +17,7 @@
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElSwitch,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { formatJsonResult } from '#/utils/format';
@@ -198,10 +183,10 @@ const [Modal, modalApi] = useYDSZModal({
       if (isEdit.value && formData.id) {
         dto.id = formData.id;
         await updateABPolicyById({ id: formData.id }, dto);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await createABPolicy(dto);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       gridApi.query();
       modalApi.close();
@@ -226,13 +211,13 @@ function handleCreate() {
 async function handleDelete(row: RuleABPolicyVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除 AB 策略「${row.ruleCode}」吗？`,
       '删除确认',
       { type: 'warning' },
     );
     await deleteABPolicy({ id: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     /* 错误提示由请求拦截器统一处理 */
@@ -283,11 +268,9 @@ async function handleRollbackHistory(row: RuleABPolicyVO) {
 async function handleManualRollback(): Promise<void> {
   if (!currentABPolicyId.value) return;
   try {
-    await ElMessageBox.confirm('确定手动回滚该策略到 A 版本吗？', '手动回滚', {
-      type: 'warning',
-    });
+    await ydszConfirm('确定手动回滚该策略到 A 版本吗？', { title: '手动回滚', type: 'warning', });
     await manualRollbackABPolicy({ id: currentABPolicyId.value }, { reason: '手动回滚' });
-    ElMessage.success('回滚成功');
+    showToast.success('回滚成功');
     rollbackHistoryLoading.value = true;
     try {
       rollbackHistoryList.value = (await getABRollbackHistory({ id: currentABPolicyId.value })) ?? [];

@@ -19,17 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElInput, ElOption, ElSelect, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -160,7 +150,7 @@ function handleEdit(row: MsgSubscriptionVO): void {
 async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('subscription.unsubscribeConfirm', { topic: row.topicName ?? row.topicCode, channel: row.channel ?? '' }),
       t('subscription.unsubscribeConfirmTitle'),
       { type: 'warning' },
@@ -176,7 +166,7 @@ async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
       topicCode: row.topicCode,
       channel: row.channel,
     });
-    ElMessage.success(t('subscription.unsubscribeSuccess'));
+    showToast.success(t('subscription.unsubscribeSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('退订失败: {}', error);
@@ -187,7 +177,7 @@ async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
 /** 按用户查询 */
 function handleQueryByUser(): void {
   if (!currentUserId.value.trim()) {
-    ElMessage.warning('请输入用户ID');
+    showToast.warning('请输入用户ID');
     return;
   }
   gridApi.query();
@@ -196,7 +186,7 @@ function handleQueryByUser(): void {
 /** 按主题查询 */
 function handleQueryByTopic(): void {
   if (!currentTopicCode.value.trim()) {
-    ElMessage.warning('请输入主题编码');
+    showToast.warning('请输入主题编码');
     return;
   }
   gridApi.query();

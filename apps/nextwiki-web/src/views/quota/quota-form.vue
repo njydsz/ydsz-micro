@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { setQuota } from '#/api/quota';
 
@@ -46,7 +46,7 @@ const [Modal, modalApi] = useYDSZModal({
     modalApi.lock();
     try {
       await setQuota({ ...formData });
-      ElMessage.success('设置成功');
+      showToast.success('设置成功');
       emit('success');
       modalApi.close();
     } finally { modalApi.unlock(); }

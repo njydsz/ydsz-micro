@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElMessage, ElTabPane, ElTabs } from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElTabPane, ElTabs } from 'element-plus';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';
 import type { DagCheckpoint } from '#/api/models';
@@ -69,7 +69,7 @@ function displayValue(value: unknown): string {
 
 /** 校验 DSL 编排（validate） */
 async function handleValidate() {
-  if (!dsl.value.trim()) { ElMessage.warning('请输入 DSL 内容'); return; }
+  if (!dsl.value.trim()) { showToast.warning('请输入 DSL 内容'); return; }
   submitting.value = true;
   try {
     validateResult.value = await validate({ dsl: dsl.value });
@@ -78,7 +78,7 @@ async function handleValidate() {
 
 /** 执行 DAG 编排（execute），结果展示在独立结果区 */
 async function handleExecute() {
-  if (!dsl.value.trim()) { ElMessage.warning('请输入 DSL 内容'); return; }
+  if (!dsl.value.trim()) { showToast.warning('请输入 DSL 内容'); return; }
   submitting.value = true;
   try {
     executeResult.value = await execute({ dsl: dsl.value, userInput: userInput.value || undefined });
@@ -88,7 +88,7 @@ async function handleExecute() {
 /** 按 executionId 查询执行 Checkpoint（getCheckpoint） */
 async function handleQueryCheckpoint() {
   const id = executionId.value.trim();
-  if (!id) { ElMessage.warning('请输入 ExecutionId'); return; }
+  if (!id) { showToast.warning('请输入 ExecutionId'); return; }
   submitting.value = true;
   try {
     checkpointResult.value = await getCheckpoint({ executionId: id });

@@ -17,7 +17,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -191,20 +191,20 @@ function handleTest(row: PromptTemplateVO): void {
 /** 启用/停用 */
 function handleToggle(row: PromptTemplateVO): void {
   row.enabled = !row.enabled;
-  ElMessage.success(`已${row.enabled ? '启用' : '停用'}模板「${row.templateName}」`);
+  showToast.success(`已${row.enabled ? '启用' : '停用'}模板「${row.templateName}」`);
   gridApi.query();
 }
 
 /** 删除模板 */
 async function handleDelete(row: PromptTemplateVO): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除模板「${row.templateName}」吗？`,
       '删除确认',
       { type: 'warning' },
     );
     promptList.value = promptList.value.filter((t) => t.id !== row.id);
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     logger.debug('用户取消删除 Prompt 模板操作');

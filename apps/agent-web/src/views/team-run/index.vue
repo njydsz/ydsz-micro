@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElMessageBox, ElOption, ElSelect, ElTag } from 'element-plus';
+import { ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -217,7 +217,7 @@ async function submitAddMember(): Promise<void> {
 /** 启动 TeamRun */
 async function handleStart(row: TeamRun): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定启动 TeamRun「${row.title ?? row.teamRunId ?? ''}」吗?`,
       '启动确认',
       { type: 'warning' },
@@ -236,7 +236,7 @@ async function handleStart(row: TeamRun): Promise<void> {
 /** 取消 TeamRun */
 async function handleCancel(row: TeamRun): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定取消 TeamRun「${row.title ?? row.teamRunId ?? ''}」吗?`,
       '取消确认',
       { type: 'warning' },

@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElDialog, ElEmpty, ElMessageBox, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { ElButton, ElCard, ElDialog, ElEmpty, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -202,7 +202,7 @@ async function handleViewDetail(row: RuntimeSession): Promise<void> {
 /** 强制回收会话 */
 async function handleForceRecycle(row: RuntimeSession): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定强制回收会话「${row.executionId ?? ''}」吗?该操作不可撤销。`,
       '回收确认',
       { type: 'warning' },

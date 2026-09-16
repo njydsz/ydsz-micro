@@ -29,7 +29,7 @@ import {
   useUserStore,
 } from "@ydsz/stores";
 
-import { ElNotification } from "element-plus";
+import { showToast } from '@ydsz/notification';
 import { defineStore } from "pinia";
 
 import { $t } from "@ydsz/locales";
@@ -139,9 +139,8 @@ export function createSharedAuthStore(
           }
 
           if (userInfo?.realName) {
-            ElNotification.success({
-              title: $t("authentication.loginSuccess"),
-              message: `${$t("authentication.loginSuccessDesc")}: ${userInfo.realName}`,
+            showToast.success($t("authentication.loginSuccess"), {
+              description: `${$t("authentication.loginSuccessDesc")}: ${userInfo.realName}`,
               duration: 3000,
             });
           }

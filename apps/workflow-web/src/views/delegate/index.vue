@@ -17,21 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElDatePicker,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElTabs,
-  ElTabPane,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDatePicker, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTabs, ElTabPane, ElTag } from 'element-plus';
 import { h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -197,7 +183,7 @@ async function handleCreate() {
   creating.value = true;
   try {
     await createDelegateAuth(createForm);
-    ElMessage.success(t('delegate.create.success'));
+    showToast.success(t('delegate.create.success'));
     createVisible.value = false;
     myGridApi.query();
   } finally {
@@ -211,7 +197,7 @@ async function handleToggle(row: FlowDelegateAuthVO) {
   const next = isEnabled(row) ? 'DISABLED' : 'ENABLED';
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('delegate.toggle.confirm', { action: next === 'DISABLED' ? t('common.disable') : t('common.enable') }),
       t('common.confirmTitle'),
       { type: 'warning' },
@@ -223,7 +209,7 @@ async function handleToggle(row: FlowDelegateAuthVO) {
   // 步骤2：执行状态切换 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await updateDelegateAuthStatus({ id: row.id }, { status: next });
-    ElMessage.success(t('common.operationSuccess'));
+    showToast.success(t('common.operationSuccess'));
     myGridApi.query();
   } catch (error) {
     logger.warn('切换委托授权状态失败，详见拦截器提示', error);
@@ -236,7 +222,7 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revoke.confirmTitle'), {
+    await ydszConfirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revoke.confirmTitle'), {
       type: 'warning',
     });
   } catch (error) {
@@ -246,7 +232,7 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
   // 步骤2：执行撤销 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await revokeDelegateAuth({ id: row.id });
-    ElMessage.success(t('delegate.revoke.success'));
+    showToast.success(t('delegate.revoke.success'));
     myGridApi.query();
   } catch (error) {
     logger.warn('撤销委托授权失败，详见拦截器提示', error);

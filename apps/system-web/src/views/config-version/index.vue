@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElMessage, ElMessageBox } from 'element-plus';
+import { ElButton, ElInput } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -68,7 +68,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 查询版本历史 */
 async function handleQuery(): Promise<void> {
   if (!resourceKey.value.trim()) {
-    ElMessage.warning('请输入资源Key');
+    showToast.warning('请输入资源Key');
     return;
   }
   loading.value = true;
@@ -86,13 +86,13 @@ async function handleQuery(): Promise<void> {
 async function handleRollback(row: EntityVersionVO): Promise<void> {
   if (!resourceKey.value || !row.version) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定回滚到版本 ${row.version} 吗？回滚后当前配置将被覆盖。`,
       '回滚确认',
       { type: 'warning' },
     );
     await rollback({ resourceKey: resourceKey.value }, { targetVersion: row.version });
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     await handleQuery();
   } catch { /* 错误提示由请求拦截器统一处理 */ }
 }

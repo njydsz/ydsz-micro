@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElDrawer, ElInput, ElMessage, ElMessageBox, ElTabPane, ElTabs, ElTag, ElUpload } from 'element-plus';
+import { ElButton, ElDialog, ElDrawer, ElInput, ElTabPane, ElTabs, ElTag, ElUpload } from 'element-plus';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -166,7 +166,7 @@ async function handleDownload(row: FileNodeVO) {
   if (row.nodeType === 'FOLDER' || !row.id) return;
   try {
     await download({ nodeId: row.id }, {});
-    ElMessage.success(t('downloadStarted'));
+    showToast.success(t('downloadStarted'));
   } catch (error) { logger.warn('下载文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
@@ -179,10 +179,10 @@ function handleRename(row: FileNodeVO) {
   renameVisible.value = true;
 }
 async function confirmRename() {
-  if (!renameForm.name) { ElMessage.warning(t('renameNameRequired')); return; }
+  if (!renameForm.name) { showToast.warning(t('renameNameRequired')); return; }
   try {
     await rename({ nodeId: renameForm.nodeId }, { name: renameForm.name });
-    ElMessage.success(t('renameSuccess'));
+    showToast.success(t('renameSuccess'));
     renameVisible.value = false;
     gridApi.query();
   } catch (error) { logger.warn('重命名文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
@@ -199,7 +199,7 @@ function handleMove(row: FileNodeVO) {
 async function confirmMove() {
   try {
     await move({ nodeId: moveForm.nodeId }, { parentId: moveForm.parentId });
-    ElMessage.success(t('moveSuccess'));
+    showToast.success(t('moveSuccess'));
     moveVisible.value = false;
     gridApi.query();
   } catch (error) { logger.warn('移动文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
@@ -208,9 +208,9 @@ async function confirmMove() {
 async function handleCopy(row: FileNodeVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('confirmCopy', [row.name]), t('copy'), { type: 'warning' });
+    await ydszConfirm(t('confirmCopy', [row.name]), t('copy'), { type: 'warning' });
     await copy({ nodeId: row.id }, {});
-    ElMessage.success(t('copySuccess'));
+    showToast.success(t('copySuccess'));
     gridApi.query();
   } catch (error) { logger.warn('复制文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
@@ -218,9 +218,9 @@ async function handleCopy(row: FileNodeVO) {
 async function handleDelete(row: FileNodeVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('confirmDeleteFile', [row.name]), t('deleteConf'), { type: 'warning' });
+    await ydszConfirm(t('confirmDeleteFile', [row.name]), t('deleteConf'), { type: 'warning' });
     await deleteApi({ nodeId: row.id });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     gridApi.query();
   } catch (error) { logger.warn('删除文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
@@ -243,14 +243,14 @@ function handleBatchImport(): void {
 /** 执行批量上传 */
 async function executeBatchUpload(): Promise<void> {
   if (batchFileList.value.length === 0) {
-    ElMessage.warning('请选择要上传的文件');
+    showToast.warning('请选择要上传的文件');
     return;
   }
   batchImportLoading.value = true;
   try {
     const files = batchFileList.value.map((f) => f as unknown as Record<string, unknown>);
     await batchUpload({ files });
-    ElMessage.success(`批量导入成功，共 ${batchFileList.value.length} 个文件`);
+    showToast.success(`批量导入成功，共 ${batchFileList.value.length} 个文件`);
     batchImportVisible.value = false;
     gridApi.query();
   } catch (error) {
@@ -263,13 +263,13 @@ async function executeBatchUpload(): Promise<void> {
 /** 执行 ZIP 导入 */
 async function executeZipImport(): Promise<void> {
   if (!zipFile.value) {
-    ElMessage.warning('请选择 ZIP 文件');
+    showToast.warning('请选择 ZIP 文件');
     return;
   }
   batchImportLoading.value = true;
   try {
     await importZip({ file: zipFile.value as unknown as Record<string, unknown> });
-    ElMessage.success('ZIP 导入成功');
+    showToast.success('ZIP 导入成功');
     batchImportVisible.value = false;
     gridApi.query();
   } catch (error) {

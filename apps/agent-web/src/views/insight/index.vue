@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { createLogger } from '@ydsz/utils';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -96,7 +96,7 @@ async function handleExport(row: InsightReportResultVO) {
     return;
   }
   logger.info('导出洞察报告 HTML:', row.reportId);
-  ElMessage.info('导出功能已触发，请在浏览器弹窗中完成下载。');
+  showToast.info('导出功能已触发，请在浏览器弹窗中完成下载。');
 }
 
 /**
@@ -109,7 +109,7 @@ async function handleDelete(row: InsightReportResultVO) {
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除报告「${row.title ?? row.reportId}」吗？`,
       '删除确认',
       { type: 'warning' },
@@ -119,7 +119,7 @@ async function handleDelete(row: InsightReportResultVO) {
   }
   try {
     await deleteReport(row.reportId);
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     /* 错误已由请求拦截器展示，无需重复处理 */

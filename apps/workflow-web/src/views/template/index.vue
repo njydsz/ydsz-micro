@@ -23,7 +23,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus';
+import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElTable, ElTableColumn } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -162,7 +162,7 @@ async function handleRefresh(): Promise<void> {
 function getTemplateCode(row: TemplateRow): string | undefined {
   const code = str(row, 'templateCode');
   if (!code) {
-    ElMessage.warning(t('wf.missingTemplateCode'));
+    showToast.warning(t('wf.missingTemplateCode'));
     return undefined;
   }
   return code;
@@ -191,7 +191,7 @@ async function handleImport(row: TemplateRow): Promise<void> {
   // 步骤2：执行导入 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await importTemplate({ templateCode }, { flowName });
-    ElMessage.success(t('wf.importSuccess'));
+    showToast.success(t('wf.importSuccess'));
     await handleRefresh();
   } catch (error) {
     logger.warn('模板导入失败，详见拦截器提示', error);
@@ -218,7 +218,7 @@ async function handleClone(row: TemplateRow): Promise<void> {
   // 步骤2：执行克隆 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await cloneTemplate({ templateCode }, { newTemplateName });
-    ElMessage.success(t('wf.cloneSuccess'));
+    showToast.success(t('wf.cloneSuccess'));
     await handleRefresh();
   } catch (error) {
     logger.warn('模板克隆失败，详见拦截器提示', error);
@@ -248,7 +248,7 @@ async function handleNewVersion(row: TemplateRow): Promise<void> {
   // 步骤2：执行创建版本 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await createNewVersion({ templateCode }, { versionLabel });
-    ElMessage.success(t('wf.newVersionSuccess'));
+    showToast.success(t('wf.newVersionSuccess'));
     await handleRefresh();
   } catch (error) {
     logger.warn('创建模板新版本失败，详见拦截器提示', error);
@@ -288,7 +288,7 @@ async function handleVersionDetail(versionItem: TemplateRow): Promise<void> {
   if (!currentTemplateCode.value) return;
   const version = num(versionItem, 'version') || Number(str(versionItem, 'version'));
   if (!version && !str(versionItem, 'version')) {
-    ElMessage.warning(t('wf.missingVersion'));
+    showToast.warning(t('wf.missingVersion'));
     return;
   }
   try {

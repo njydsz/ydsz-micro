@@ -17,16 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElSwitch,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElForm, ElFormItem, ElInput, ElSwitch, ElTag } from 'element-plus';
 import { computed, ref } from 'vue';
 import { getFormConfig, saveFormConfig } from '#/api/flowDesigner';
 
@@ -150,7 +141,7 @@ const schemaText = computed(() => JSON.stringify(buildSchema(), null, 2));
 /** 加载已有表单配置 */
 async function loadFormConfig(): Promise<void> {
   if (!definitionId.value.trim() || !nodeCode.value.trim()) {
-    ElMessage.warning('请输入流程定义 ID 与节点编码');
+    showToast.warning('请输入流程定义 ID 与节点编码');
     return;
   }
   loading.value = true;
@@ -158,7 +149,7 @@ async function loadFormConfig(): Promise<void> {
     const raw = await getFormConfig({ id: definitionId.value, nodeCode: nodeCode.value });
     if (!raw) {
       fields.value = [];
-      ElMessage.info('该节点暂无表单配置，可从左侧开始设计');
+      showToast.info('该节点暂无表单配置，可从左侧开始设计');
       return;
     }
     const parsed = typeof raw === 'string' ? JSON.parse(raw) : (raw as unknown);
@@ -180,7 +171,7 @@ async function loadFormConfig(): Promise<void> {
       defaultValue: '',
       options: prop.enum ? (prop.enum as unknown[]).map(String) : [],
     }));
-    ElMessage.success('已加载节点表单配置');
+    showToast.success('已加载节点表单配置');
   } catch {
     // 错误提示由请求拦截器统一处理
   } finally {
@@ -191,13 +182,13 @@ async function loadFormConfig(): Promise<void> {
 /** 保存表单配置 */
 async function handleSave(): Promise<void> {
   if (!definitionId.value.trim() || !nodeCode.value.trim()) {
-    ElMessage.warning('请先填写流程定义 ID 与节点编码');
+    showToast.warning('请先填写流程定义 ID 与节点编码');
     return;
   }
   saving.value = true;
   try {
     await saveFormConfig({ id: definitionId.value, nodeCode: nodeCode.value }, schemaText.value);
-    ElMessage.success('表单配置保存成功');
+    showToast.success('表单配置保存成功');
   } catch {
     // 错误提示由请求拦截器统一处理
   } finally {

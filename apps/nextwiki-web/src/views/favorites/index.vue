@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInputNumber, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElInputNumber, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -127,9 +127,9 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 async function handleRemove(row: UserFavoriteVO) {
   if (!row.nodeId) return;
   try {
-    await ElMessageBox.confirm(t('favoritesRemoveConfirm'), t('favoritesRemove'), { type: 'warning' });
+    await ydszConfirm(t('favoritesRemoveConfirm'), { title: t('favoritesRemove'), type: 'warning' });
     await removeFavorite({ nodeId: row.nodeId });
-    ElMessage.success(t('favoritesRemoveSuccess'));
+    showToast.success(t('favoritesRemoveSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('移除收藏失败: {}', error);
@@ -141,7 +141,7 @@ async function handleSortChange(row: UserFavoriteVO) {
   if (!row.nodeId || row.sortOrder === undefined || row.sortOrder === null) return;
   try {
     await updateSortOrder({ nodeId: row.nodeId }, { sortOrder: row.sortOrder });
-    ElMessage.success(t('favoritesSortSuccess'));
+    showToast.success(t('favoritesSortSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('调整排序失败: {}', error);

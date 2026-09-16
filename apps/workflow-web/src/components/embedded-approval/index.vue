@@ -23,19 +23,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElSpace,
-  ElTag,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElSpace, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';
@@ -91,7 +79,7 @@ async function loadPanelData() {
       userId: props.userId,
     });
   } catch {
-    ElMessage.error('加载审批面板失败');
+    showToast.error('加载审批面板失败');
   } finally {
     loading.value = false;
   }
@@ -112,12 +100,12 @@ async function handleAction() {
       targetUserId: form.targetUserId,
     };
     await quickAction(payload);
-    ElMessage.success($t('wf.processSuccess'));
+    showToast.success($t('wf.processSuccess'));
     emit('actionSuccess', form.action);
     // 重新加载面板
     await loadPanelData();
   } catch {
-    ElMessage.error('操作失败');
+    showToast.error('操作失败');
   } finally {
     submitting.value = false;
   }
@@ -136,11 +124,11 @@ async function handleRecall() {
       action: 'recall',
     };
     await quickAction(payload);
-    ElMessage.success($t('wf.recalledSuccess'));
+    showToast.success($t('wf.recalledSuccess'));
     emit('actionSuccess', 'recall');
     await loadPanelData();
   } catch {
-    ElMessage.error('撤回失败');
+    showToast.error('撤回失败');
   } finally {
     submitting.value = false;
   }

@@ -19,20 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDrawer,
-  ElEmpty,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElEmpty, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -168,7 +155,7 @@ async function handlePause(row: JobDagInstanceVO) {
   if (!row.id) return;
   try {
     await pause({ instanceId: row.id });
-    ElMessage.success('已暂停');
+    showToast.success('已暂停');
     gridApi.query();
   } catch {
     logger.warn('暂停DAG实例失败', row.id);
@@ -180,7 +167,7 @@ async function handleResume(row: JobDagInstanceVO) {
   if (!row.id) return;
   try {
     await resume({ instanceId: row.id });
-    ElMessage.success('已恢复');
+    showToast.success('已恢复');
     gridApi.query();
   } catch {
     logger.warn('恢复DAG实例失败', row.id);
@@ -192,9 +179,7 @@ async function handleCancel(row: JobDagInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, '取消确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, { title: '取消确认', type: 'warning', });
   } catch {
     logger.warn('用户取消DAG实例', row.id);
     return; // 用户主动取消操作
@@ -202,7 +187,7 @@ async function handleCancel(row: JobDagInstanceVO) {
   // 步骤2：执行取消 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await cancel({ instanceId: row.id });
-    ElMessage.success('已取消');
+    showToast.success('已取消');
     gridApi.query();
   } catch {
     logger.warn('取消DAG实例失败', row.id);
@@ -240,7 +225,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
   if (!detailLog.value?.id || !node.id) return;
   try {
     await retryNode({ instanceId: detailLog.value.id, nodeInstanceId: node.id });
-    ElMessage.success('节点重试已触发');
+    showToast.success('节点重试已触发');
   } catch {
     logger.warn('重试DAG节点失败', node.id);
     // 错误提示由请求拦截器统一处理

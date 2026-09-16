@@ -9,7 +9,7 @@
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElCard, ElDivider, ElForm, ElMessage } from 'element-plus';
+import { ElButton, ElCard, ElDivider, ElForm } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 
 import { getUserPreferenceApi, saveUserPreferenceApi } from '#/api/core/preference';
@@ -272,12 +272,12 @@ async function handleSave(): Promise<void> {
       tableSize: localPrefs.tableSize,
       fontSize: localPrefs.fontSize,
     });
-    ElMessage.success(t('preferences.saveSuccess'));
+    showToast.success(t('preferences.saveSuccess'));
     logger.info('用户偏好保存成功');
   } catch (error) {
     logger.warn('保存用户偏好失败', error);
     // 错误提示由 errorMessageResponseInterceptor 统一处理
-    ElMessage.warning(t('preferences.saveFailed'));
+    showToast.warning(t('preferences.saveFailed'));
   } finally {
     saving.value = false;
   }
@@ -302,11 +302,11 @@ async function handleLoadFromBackend(): Promise<void> {
       localPrefs.tableSize = remote.tableSize as typeof localPrefs.tableSize;
     if (remote.fontSize)
       localPrefs.fontSize = remote.fontSize as typeof localPrefs.fontSize;
-    ElMessage.success(t('preferences.loadSuccess'));
+    showToast.success(t('preferences.loadSuccess'));
     logger.info('用户偏好从后端加载成功');
   } catch (error) {
     logger.warn('从后端加载用户偏好失败，使用本地缓存', error);
-    ElMessage.warning(t('preferences.loadFailed'));
+    showToast.warning(t('preferences.loadFailed'));
   } finally {
     loading.value = false;
   }
@@ -334,7 +334,7 @@ function handleReset(): void {
   localStorage.removeItem('pref_language');
   localStorage.removeItem('pref_default_index');
 
-  ElMessage.success(t('preferences.resetSuccess'));
+  showToast.success(t('preferences.resetSuccess'));
 }
 
 onMounted(() => {

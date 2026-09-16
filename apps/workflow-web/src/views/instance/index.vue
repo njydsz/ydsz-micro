@@ -17,15 +17,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElDrawer,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDrawer, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
@@ -179,7 +171,7 @@ async function handleTerminate(row: FlowInstanceVO) {
   // 步骤2：执行终止 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await terminate({ id: row.id }, { reason });
-    ElMessage.success($t('wf.terminatedSuccess'));
+    showToast.success($t('wf.terminatedSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('终止流程实例失败，详见拦截器提示', error);
@@ -192,7 +184,7 @@ async function handleSuspend(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       $t('wf.confirmSuspend', { name: row.flowName }),
       $t('wf.suspendConfirm'),
       {
@@ -206,7 +198,7 @@ async function handleSuspend(row: FlowInstanceVO) {
   // 步骤2：执行挂起 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await suspend({ id: row.id });
-    ElMessage.success($t('wf.suspendedSuccess'));
+    showToast.success($t('wf.suspendedSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('挂起流程实例失败，详见拦截器提示', error);
@@ -219,7 +211,7 @@ async function handleActivate(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       $t('wf.confirmActivate', { name: row.flowName }),
       $t('wf.activateConfirm'),
       {
@@ -233,7 +225,7 @@ async function handleActivate(row: FlowInstanceVO) {
   // 步骤2：执行恢复 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await activate({ id: row.id });
-    ElMessage.success($t('wf.activatedSuccess'));
+    showToast.success($t('wf.activatedSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('恢复流程实例失败，详见拦截器提示', error);
@@ -246,7 +238,7 @@ async function handleRecall(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       $t('wf.confirmRecall', { name: row.flowName }),
       $t('wf.recallConfirm'),
       {
@@ -260,7 +252,7 @@ async function handleRecall(row: FlowInstanceVO) {
   // 步骤2：执行撤回 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await recall({ id: row.id }, {});
-    ElMessage.success($t('wf.recalledSuccess'));
+    showToast.success($t('wf.recalledSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('撤回流程实例失败，详见拦截器提示', error);
@@ -275,7 +267,7 @@ function getSelectedInstanceIds(): string[] {
   const rows = gridApi.grid.getCheckboxRecords() as FlowInstanceVO[];
   const ids = rows.map((item) => item.id ?? '').filter((id) => id !== '');
   if (ids.length === 0) {
-    ElMessage.warning($t('wf.selectInstancesFirst'));
+    showToast.warning($t('wf.selectInstancesFirst'));
   }
   return ids;
 }
@@ -289,7 +281,7 @@ async function handleBatchUrge() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       $t('wf.confirmBatchUrge', { count: ids.length }),
       $t('wf.batchUrgeConfirm'),
       {
@@ -304,7 +296,7 @@ async function handleBatchUrge() {
   try {
     const result = await batchUrge({}, ids);
     const successCount = result?.successCount ?? ids.length;
-    ElMessage.success($t('wf.batchUrgeSuccess', { count: successCount }));
+    showToast.success($t('wf.batchUrgeSuccess', { count: successCount }));
     gridApi.query();
   } catch (error) {
     logger.warn('批量催办失败，详见拦截器提示', error);

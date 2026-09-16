@@ -16,7 +16,7 @@
 import type { VariableDefinitionVO } from '#/api/models';
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElMessage } from 'element-plus';
+;
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { save } from '#/api/ruleVariableAdmin';
@@ -77,7 +77,7 @@ const [Modal, modalApi] = useYDSZModal({
     modalApi.lock();
     try {
       await save(formData);
-      ElMessage.success(isEdit.value ? t('updateSuccess') : t('createSuccess'));
+      showToast.success(isEdit.value ? t('updateSuccess') : t('createSuccess'));
       emit('success');
       modalApi.close();
     } finally {

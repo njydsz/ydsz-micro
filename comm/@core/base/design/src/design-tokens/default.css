@@ -1,6 +1,23 @@
 :root {
-  /** 弹出层的基础层级 **/
-  --popup-z-index: 2000;
+  /* ============================================================
+   * z-index 分层 Token（8 层语义 + 微前端偏移量）
+   * 规范：YDIZ-a11y-002（微前端场景弹层冲突治理）
+   * 微内核挂载子应用时按 app 实例分配区间：baseZIndex + appId * 1000
+   * ============================================================ */
+  --z-base: 0; /* 默认层 */
+  --z-sticky: 100; /* 表头吸顶 */
+  --z-fixed: 200; /* 固定定位元素（Header） */
+  --z-sidebar: 300; /* 侧边栏 */
+  --z-dropdown: 400; /* 下拉菜单 / DropdownMenu */
+  --z-backdrop: 500; /* 模态遮罩 */
+  --z-overlay: 600; /* 模态框 / Drawer / Sheet / Dialog 主体 */
+  --z-popover: 700; /* Popover / HoverCard / ContextMenu */
+  --z-tooltip: 800; /* Tooltip（最高优先级交互浮层） */
+  --z-toast: 1000; /* Toast / Message / Notification */
+  --z-devtools: 9999; /* 开发者工具面板 */
+
+  /* 向后兼容别名（EP 遗留，避免构建期断裂） */
+  --popup-z-index: var(--z-overlay);
 
   /* ============================================================
    * 字体系统
@@ -79,11 +96,18 @@
 
   /* ============================================================
    * 文本颜色 (Text Colors)
+   * 通过 --theme-neutral-* 中间变量，使主题块能覆盖中性色派生
+   * 规范：YDIZ-a11y-003（data-theme 自研扩展 token 跟随修复）
    * ============================================================ */
-  --txt-primary: var(--neutral-900); /* 主文本 */
-  --txt-secondary: var(--neutral-600); /* 次要文本 */
-  --txt-tertiary: var(--neutral-500); /* 辅助文本 */
-  --txt-disabled: var(--neutral-400); /* 禁用文本 */
+  --theme-neutral-900: var(--neutral-900);
+  --theme-neutral-600: var(--neutral-600);
+  --theme-neutral-500: var(--neutral-500);
+  --theme-neutral-400: var(--neutral-400);
+  --theme-neutral-200: var(--neutral-200);
+  --txt-primary: var(--theme-neutral-900); /* 主文本 */
+  --txt-secondary: var(--theme-neutral-600); /* 次要文本 */
+  --txt-tertiary: var(--theme-neutral-500); /* 辅助文本 */
+  --txt-disabled: var(--theme-neutral-400); /* 禁用文本 */
   --txt-inverse: 0 0% 100%; /* 反色文本 */
 
   /* 旧变量兼容 */
@@ -220,6 +244,13 @@
   --height-header: 3.5rem;
   --width-sidebar: 16rem;
   --width-sidebar-collapsed: 3rem;
+  --content-max-width: 1600px; /* 超宽屏可读性约束（P2-7） */
+  /* 响应式断点对齐 Tailwind（仅供文档对齐，CSS 原生不支持 var in @media） */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
 
   /* ============================================================
    * Typography Tokens
@@ -263,15 +294,20 @@
 
   /* ============================================================
    * Animation Tokens
+   * 规范：YDIZ-A11Y-004（P2 动效规范性增强）
    * ============================================================ */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-fast: 150ms;
   --duration-default: 200ms;
   --duration-slow: 300ms;
   --duration-slower: 500ms;
+  /* 页面进出场分离：进入稍慢（柔和），离开稍快（响应） */
+  --duration-enter: 300ms;
+  --duration-leave: 200ms;
 
   /* ============================================================
    * Overlay
@@ -342,10 +378,14 @@
 
   /* ============================================================
    * 列表悬停/激活 — 统一品牌色高亮
+   * 规范：YDIZ-a11y-003（data-theme 自研扩展 token 跟随修复）
    * ============================================================ */
-  --row-hover-bg: var(--brand-50);
-  --row-active-bg: var(--brand-100);
-  --row-active-border: var(--brand-400);
+  --theme-row-hover: var(--brand-50);
+  --theme-row-active: var(--brand-100);
+  --theme-row-active-border: var(--brand-400);
+  --row-hover-bg: var(--theme-row-hover);
+  --row-active-bg: var(--theme-row-active);
+  --row-active-border: var(--theme-row-active-border);
 }
 
 /* ============================================================
@@ -370,6 +410,11 @@
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 262.1 83.3% 57.8%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='pink'] {
@@ -390,6 +435,11 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 346.8 77.2% 49.8%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='rose'] {
@@ -410,6 +460,11 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 346.8 77.2% 49.8%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='sky-blue'] {
@@ -430,6 +485,11 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='deep-blue'] {
@@ -450,6 +510,11 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='green'] {
@@ -470,6 +535,11 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 142.1 76.2% 36.3%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='deep-green'] {
@@ -490,6 +560,11 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 142.1 76.2% 36.3%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='orange'] {
@@ -510,6 +585,11 @@
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
   --ring: 24.6 95% 53.1%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='yellow'] {
@@ -530,6 +610,11 @@
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
   --ring: 20 14.3% 4.1%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='zinc'] {
@@ -550,6 +635,11 @@
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 240 5.9% 10%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='neutral'] {
@@ -570,6 +660,11 @@
   --border: 0 0% 89.8%;
   --input: 0 0% 89.8%;
   --ring: 0 0% 3.9%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='slate'] {
@@ -590,6 +685,54 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 222.2 84% 4.9%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
+}
+
+/* ============================================================
+ * a11y 媒体查询层
+ * 规范：YDIZ-a11y-001（WCAG 2.1 可访问性基线）
+ * ============================================================ */
+
+/**
+ * 减少动效偏好（OS 级"减少动态效果"开启时）
+ * 将所有过渡/动画时长置 0，避免眩晕与注意力干扰
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-default: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+}
+
+/**
+ * 高对比度偏好（OS 级"增加对比度"开启时）
+ * 加深边框与次要文本，提升可视性
+ */
+@media (prefers-contrast: more) {
+  :root {
+    --border-default: var(--neutral-400);
+    --border-strong: var(--neutral-500);
+    --txt-secondary: var(--neutral-800);
+  }
+
+  .dark,
+  .dark[data-theme='custom'],
+  .dark[data-theme='default'] {
+    --border-default: var(--neutral-400);
+    --border-strong: var(--neutral-300);
+    --txt-secondary: var(--neutral-800);
+  }
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }
 
 [data-theme='gray'] {
@@ -610,4 +753,9 @@
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 224 71.4% 4.1%;
+  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
+  --txt-primary: var(--foreground);
+  --txt-secondary: var(--muted-foreground);
+  --txt-disabled: var(--muted);
+
 }

@@ -18,16 +18,7 @@
  */
 import { onMounted, ref } from 'vue';
 
-import {
-  ElCard,
-  ElCheckbox,
-  ElForm,
-  ElFormItem,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElUpload,
-} from 'element-plus';
+import { ElCard, ElCheckbox, ElForm, ElFormItem, ElOption, ElSelect, ElUpload } from 'element-plus';
 import type { UploadRequestOptions } from 'element-plus';
 
 import { exportTemplates, importTemplates } from '#/api/import-export';
@@ -54,7 +45,7 @@ async function loadGroups() {
 /** 导出模板 */
 async function handleExport() {
   if (!exportGroupId.value) {
-    ElMessage.warning('请选择要导出的模板分组');
+    showToast.warning('请选择要导出的模板分组');
     return;
   }
   exporting.value = true;
@@ -70,9 +61,9 @@ async function handleExport() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    ElMessage.success('导出成功');
+    showToast.success('导出成功');
   } catch {
-    ElMessage.error('导出失败');
+    showToast.error('导出失败');
   } finally {
     exporting.value = false;
   }
@@ -81,7 +72,7 @@ async function handleExport() {
 /** 导入模板 */
 async function handleImport(options: UploadRequestOptions) {
   if (!importGroupId.value) {
-    ElMessage.warning('请选择目标模板分组');
+    showToast.warning('请选择目标模板分组');
     return;
   }
   const file = options.file as File;
@@ -91,9 +82,9 @@ async function handleImport(options: UploadRequestOptions) {
   formData.append('file', file);
   try {
     const count = await importTemplates(formData);
-    ElMessage.success(`导入成功，共导入 ${count} 个模板`);
+    showToast.success(`导入成功，共导入 ${count} 个模板`);
   } catch {
-    ElMessage.error('导入失败');
+    showToast.error('导入失败');
   }
 }
 

@@ -20,7 +20,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 import { reactive, ref } from 'vue';
 
 import { send } from '#/api/notification';
@@ -106,7 +106,7 @@ const [Modal, modalApi] = useYDSZModal({
         actionUrl: formData.actionUrl || undefined,
         actionText: formData.actionText || undefined,
       });
-      ElMessage.success('通知发送成功');
+      showToast.success('通知发送成功');
       emit('success');
       modalApi.close();
     } finally {

@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElCard, ElEmpty, ElInput, ElInputNumber, ElMessage, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElInput, ElInputNumber, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, ref } from 'vue';
 
 import { getUpcomingFireTimes } from '#/api/scheduleCalendar';
@@ -117,7 +117,7 @@ const timelineItems = computed(() => {
 /** 查询下次触发时间 */
 async function handleQuery(): Promise<void> {
   if (!jobKey.value) {
-    ElMessage.warning('请输入任务标识');
+    showToast.warning('请输入任务标识');
     return;
   }
   try {
@@ -128,7 +128,7 @@ async function handleQuery(): Promise<void> {
       maxCount: maxCount.value,
     });
     fireTimes.value = result ?? [];
-    ElMessage.success(`查询到 ${fireTimes.value.length} 条触发时间`);
+    showToast.success(`查询到 ${fireTimes.value.length} 条触发时间`);
   } catch {
     logger.warn('查询触发时间失败', jobKey.value);
     fireTimes.value = [];

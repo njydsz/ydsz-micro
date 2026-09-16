@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import type { FormInstance } from 'element-plus';
-import { ElDialog, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+import { ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';
@@ -103,7 +103,7 @@ async function handleSubmit(): Promise<void> {
   await formRef.value.validate(async (isValid: boolean) => {
     if (!isValid) return;
     if (!conversationId.value.trim()) {
-      ElMessage.warning('对话 ID 不能为空');
+      showToast.warning('对话 ID 不能为空');
       return;
     }
 
@@ -117,7 +117,7 @@ async function handleSubmit(): Promise<void> {
           toolCallId: form.toolCallId || undefined,
         },
       });
-      ElMessage.success('记忆写入成功');
+      showToast.success('记忆写入成功');
       handleClose();
     } catch (error) {
       logger.warn('保存记忆失败: {}', error);

@@ -19,7 +19,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElMessage, ElTag, ElInput, ElOption, ElSelect } from 'element-plus';
+import { ElTag, ElInput, ElOption, ElSelect } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
 import { h, ref, onMounted } from 'vue';
 import { ElDatePicker } from 'element-plus';
@@ -83,7 +83,7 @@ async function loadLogList(): Promise<void> {
     logger.debug('加载登录日志: total={}', totalCount.value);
   } catch (error) {
     logger.error('加载登录日志失败: {}', error);
-    ElMessage.error('加载登录日志失败，请稍后重试');
+    showToast.error('加载登录日志失败，请稍后重试');
   } finally {
     isLoading.value = false;
   }

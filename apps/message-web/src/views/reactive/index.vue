@@ -17,7 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
@@ -120,7 +120,7 @@ async function handlePublish() {
       level: publishForm.value.level,
       targetUserId: publishForm.value.targetUserId || undefined,
     });
-    ElMessage.success(result ?? '发布成功');
+    showToast.success(result ?? '发布成功');
   } catch {
     /* 错误由拦截器处理 */
   }

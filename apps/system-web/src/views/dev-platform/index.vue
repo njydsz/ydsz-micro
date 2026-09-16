@@ -23,20 +23,7 @@
  */
 import { computed, reactive, ref, watch } from 'vue';
 
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 
 import { requestClient } from '#/api/request';
 
@@ -161,7 +148,7 @@ async function onTableSelect(tableId: number) {
  */
 async function handleGenerate() {
   if (!selectedDatasourceId.value || !selectedTableName.value.trim()) {
-    ElMessage.warning('请先选择数据源和表名');
+    showToast.warning('请先选择数据源和表名');
     return;
   }
   generating.value = true;
@@ -180,14 +167,14 @@ async function handleGenerate() {
     );
     if (result) {
       resultFiles.value = result.generatedFiles ?? [];
-      ElMessage.success(`代码生成完成，共 ${resultFiles.value.length} 个文件`);
+      showToast.success(`代码生成完成，共 ${resultFiles.value.length} 个文件`);
       activeTab.value = 'result';
     } else {
-      ElMessage.error('代码生成失败');
+      showToast.error('代码生成失败');
     }
   } catch (error) {
     const msg = error instanceof Error ? error.message : '代码生成请求失败';
-    ElMessage.error(msg);
+    showToast.error(msg);
   } finally {
     generating.value = false;
   }

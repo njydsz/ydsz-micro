@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -124,7 +124,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 async function handleAcknowledge(row: AlertRow): Promise<void> {
   try {
     await acknowledgeAlert({ id: row.id }, { note: '管理员确认' });
-    ElMessage.success('确认成功');
+    showToast.success('确认成功');
     gridApi.query();
     loadPendingCount();
   } catch { /* 错误提示由请求拦截器统一处理 */ }
@@ -134,7 +134,7 @@ async function handleAcknowledge(row: AlertRow): Promise<void> {
 async function handleResolve(row: AlertRow): Promise<void> {
   try {
     await resolveAlert({ id: row.id }, { note: '管理员解决' });
-    ElMessage.success('解决成功');
+    showToast.success('解决成功');
     gridApi.query();
     loadPendingCount();
   } catch { /* 错误提示由请求拦截器统一处理 */ }
@@ -144,7 +144,7 @@ async function handleResolve(row: AlertRow): Promise<void> {
 async function handleIgnore(row: AlertRow): Promise<void> {
   try {
     await ignoreAlert({ id: row.id }, { note: '管理员忽略' });
-    ElMessage.success('忽略成功');
+    showToast.success('忽略成功');
     gridApi.query();
     loadPendingCount();
   } catch { /* 错误提示由请求拦截器统一处理 */ }

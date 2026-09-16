@@ -22,8 +22,6 @@ import { setupMonitor } from '@ydsz/monitor';
 import { initPreferences } from '@ydsz/preferences';
 import { initStores } from '@ydsz/stores';
 
-import { ElLoading } from 'element-plus';
-
 import { createLogger } from '@ydsz-core/shared/utils';
 
 import { setupSharedAuth } from './setup-shared-auth';
@@ -95,12 +93,8 @@ export function registerCleanup(cleanup: () => void | Promise<void>): () => void
 
 /** 统一安装基础插件与指令 */
 async function installBasePlugins(vueApp: VueApp, appName: string) {
-  vueApp.directive('loading', ElLoading.directive);
-
-  registerLoadingDirective(vueApp, {
-    loading: false,
-    spinning: 'spinning',
-  });
+  // 注册 v-loading / v-spinning 指令（shadcn-ui 原生，替代 EP ElLoading.directive）
+  registerLoadingDirective(vueApp);
   registerAccessDirective(vueApp);
   registerSafeHtmlDirective(vueApp);
 

@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -95,7 +95,7 @@ const [Modal, modalApi] = useYDSZModal({
         senderId: formData.senderId || undefined,
       };
       const batch = await submitBatch(data);
-      ElMessage.success('批量任务提交成功');
+      showToast.success('批量任务提交成功');
       emit('success', batch);
       modalApi.close();
     } finally {

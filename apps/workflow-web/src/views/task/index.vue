@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTabs, ElTabPane, ElTag } from 'element-plus';
+import { ElButton, ElTabs, ElTabPane, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';
@@ -157,7 +157,7 @@ function getSelectedIds(): string[] {
   const rows = gridApi.grid.getCheckboxRecords() as FlowRunTaskVO[];
   const ids = rows.map((item) => item.id ?? '').filter((id) => id !== '');
   if (ids.length === 0) {
-    ElMessage.warning($t('wf.selectTasksFirst'));
+    showToast.warning($t('wf.selectTasksFirst'));
   }
   return ids;
 }
@@ -170,7 +170,7 @@ async function handleBatchPass() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       $t('wf.confirmBatchPass', { count: ids.length }),
       $t('wf.batchPassConfirm'),
       {
@@ -184,7 +184,7 @@ async function handleBatchPass() {
   // 步骤2：执行批量通过 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await batchPass(ids);
-    ElMessage.success($t('wf.batchPassSuccess'));
+    showToast.success($t('wf.batchPassSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('批量通过失败，详见拦截器提示', error);
@@ -200,7 +200,7 @@ async function handleBatchReject() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       $t('wf.confirmBatchReject', { count: ids.length }),
       $t('wf.batchRejectConfirm'),
       {
@@ -216,7 +216,7 @@ async function handleBatchReject() {
   // 步骤2：执行批量驳回 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await batchReject(ids.map((taskId) => ({ taskId })));
-    ElMessage.success($t('wf.batchRejectSuccess'));
+    showToast.success($t('wf.batchRejectSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('批量驳回失败，详见拦截器提示', error);
@@ -264,7 +264,7 @@ async function handleBatchTransfer() {
   // 步骤2：执行批量转交 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await batchTransfer(ids.map((taskId) => ({ taskId, targetUserId, comment })));
-    ElMessage.success($t('wf.batchTransferSuccess'));
+    showToast.success($t('wf.batchTransferSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('批量转交失败，详见拦截器提示', error);
@@ -281,7 +281,7 @@ async function handleBatchUrge() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       $t('wf.confirmBatchUrge', { count: ids.length }),
       $t('wf.batchUrgeConfirm'),
       {
@@ -296,7 +296,7 @@ async function handleBatchUrge() {
   try {
     const result = await batchUrge({}, ids);
     const successCount = result?.successCount ?? ids.length;
-    ElMessage.success($t('wf.batchUrgeSuccess', { count: successCount }));
+    showToast.success($t('wf.batchUrgeSuccess', { count: successCount }));
     gridApi.query();
   } catch (error) {
     logger.warn('批量催办失败，详见拦截器提示', error);

@@ -19,25 +19,7 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElAlert,
-  ElButton,
-  ElCard,
-  ElDialog,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElSwitch,
-  ElTable,
-  ElTableColumn,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-} from 'element-plus';
+import { ElAlert, ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -185,7 +167,7 @@ async function handleRemoveDependency(row: RuleDependencyVO): Promise<void> {
   if (!row.ruleCode || !row.dependsOnRuleCode) return;
 
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认移除规则 ${row.ruleCode} 对 ${row.dependsOnRuleCode} 的依赖关系？`,
       '移除依赖确认',
       { type: 'warning' },

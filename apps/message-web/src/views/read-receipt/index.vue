@@ -20,16 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';
@@ -91,7 +82,7 @@ function getStatusLabel(status?: string): string {
 /** 查询回执详情 */
 async function handleQuery(): Promise<void> {
   if (!searchForm.shortCode.trim()) {
-    ElMessage.warning('请输入短码（shortCode）');
+    showToast.warning('请输入短码（shortCode）');
     return;
   }
   loading.value = true;
@@ -110,11 +101,11 @@ async function handleQuery(): Promise<void> {
       redirectUrl: `/r/${searchForm.shortCode.trim()}`,
     };
     addRecentQuery(searchForm.shortCode.trim(), true);
-    ElMessage.success('查询成功');
+    showToast.success('查询成功');
   } catch (error) {
     logger.warn('查询回执失败: {}', error);
     addRecentQuery(searchForm.shortCode.trim(), false);
-    ElMessage.error('查询失败，请检查短码是否正确');
+    showToast.error('查询失败，请检查短码是否正确');
   } finally {
     loading.value = false;
   }

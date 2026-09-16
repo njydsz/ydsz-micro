@@ -21,14 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import {
-  ElButton,
-  ElMessage,
-  ElMessageBox,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -154,13 +147,11 @@ function handleViewDetail(row: ConfigApprovalRecord) {
 }
 
 function handleApprove(row: ConfigApprovalRecord) {
-  ElMessageBox.confirm(t('configApproval.approveConfirm'), t('common.confirm'), {
-    type: 'warning',
-  })
+  ydszConfirm(t('configApproval.approveConfirm'), { title: t('common.confirm'), type: 'warning', })
     .then(async () => {
       // TODO: 对接真实 API —— approveApprovalApi(row.id)
       logger.info('[Mock] 通过审批单:', row.id);
-      ElMessage.success(t('configApproval.approveSuccess'));
+      showToast.success(t('configApproval.approveSuccess'));
       gridApi.query();
     })
     .catch(() => {
@@ -174,13 +165,11 @@ function handleReject(row: ConfigApprovalRecord) {
 }
 
 function handleWithdraw(row: ConfigApprovalRecord) {
-  ElMessageBox.confirm(t('common.cancel') + '?', t('common.withdraw'), {
-    type: 'warning',
-  })
+  ydszConfirm(t('common.cancel') + '?', { title: t('common.withdraw'), type: 'warning', })
     .then(async () => {
       // TODO: 对接真实 API —— withdrawApprovalApi(row.id)
       logger.info('[Mock] 撤回审批单:', row.id);
-      ElMessage.success(t('configApproval.withdrawSuccess'));
+      showToast.success(t('configApproval.withdrawSuccess'));
       gridApi.query();
     })
     .catch(() => {

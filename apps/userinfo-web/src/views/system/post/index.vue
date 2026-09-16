@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -142,13 +142,13 @@ function handleEdit(row: PostVO) {
 async function handleDelete(row: PostVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('post.deletePostConfirm', { postName: row.postName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },
     );
     await remove({ id: row.id });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除岗位失败: {}', error);

@@ -19,22 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElCol,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessageBox,
-  ElRow,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { ElButton, ElCard, ElCol, ElDialog, ElForm, ElFormItem, ElInput, ElRow, ElTabPane, ElTabs, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -257,9 +242,7 @@ async function loadAll(): Promise<void> {
 async function handleApprove(row: ApprovalRecordVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ElMessageBox.confirm(`确认通过规则 "${row.ruleCode}" 的审批？`, '审批确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认通过规则 "${row.ruleCode}" 的审批？`, { title: '审批确认', type: 'warning', });
   } catch {
     logger.debug('用户取消审批通过');
     return;
@@ -320,9 +303,7 @@ async function handleViewStatus(row: ApprovalFlowVO | ApprovalRecordVO): Promise
 async function handleCancel(row: ApprovalRecordVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ElMessageBox.confirm(`确认撤销规则 "${row.ruleCode}" 的审批申请？`, '撤销确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认撤销规则 "${row.ruleCode}" 的审批申请？`, { title: '撤销确认', type: 'warning', });
   } catch {
     logger.debug('用户取消撤销审批');
     return;
@@ -340,9 +321,7 @@ async function handleFlowApprove(row: ApprovalFlowVO): Promise<void> {
   if (!row.flowCode) return;
   // 层级通过：需要指定 ruleCode，此处使用流程模板模式先行通过第一级
   try {
-    await ElMessageBox.confirm(`确认触发流程 "${row.name}" 的层级通过？`, '操作确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认触发流程 "${row.name}" 的层级通过？`, { title: '操作确认', type: 'warning', });
   } catch {
     logger.debug('用户取消层级通过');
     return;
@@ -354,9 +333,7 @@ async function handleFlowApprove(row: ApprovalFlowVO): Promise<void> {
 async function handleFlowReject(row: ApprovalFlowVO): Promise<void> {
   if (!row.flowCode) return;
   try {
-    await ElMessageBox.confirm(`确认触发流程 "${row.name}" 的层级驳回？`, '操作确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认触发流程 "${row.name}" 的层级驳回？`, { title: '操作确认', type: 'warning', });
   } catch {
     logger.debug('用户取消层级驳回');
     return;

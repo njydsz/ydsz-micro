@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElTag } from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -127,12 +127,12 @@ function handleTest() {
 
 async function handleImport() {
   if (!config.type || !config.endpoint) {
-    ElMessage.warning('请先填写连接器类型与端点');
+    showToast.warning('请先填写连接器类型与端点');
     return;
   }
   try {
     const res = await importTasks({ type: config.type }, toConnectorConfig());
-    ElMessage.success(`导入成功：${res.length} 个任务`);
+    showToast.success(`导入成功：${res.length} 个任务`);
     taskGridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -141,12 +141,12 @@ async function handleImport() {
 
 async function handleExport() {
   if (!config.type) {
-    ElMessage.warning('请先填写连接器类型');
+    showToast.warning('请先填写连接器类型');
     return;
   }
   try {
     const res = await exportTasks({ type: config.type });
-    ElMessage.success(`导出完成：成功 ${res.success ?? 0}，失败 ${res.failed ?? 0}，跳过 ${res.skipped ?? 0}`);
+    showToast.success(`导出完成：成功 ${res.success ?? 0}，失败 ${res.failed ?? 0}，跳过 ${res.skipped ?? 0}`);
   } catch {
     // 错误提示由请求拦截器统一处理
   }

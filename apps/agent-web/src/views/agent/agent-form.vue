@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { create, update } from '#/api/agentDefinition';
 import type { AgentDefinitionDTO, AgentDefinitionVO } from '#/api/models';
@@ -75,8 +75,8 @@ const [Modal, modalApi] = useYDSZModal({
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
-      if (isEdit.value) { await update({ ...formData }); ElMessage.success('更新成功'); }
-      else { await create({ ...formData }); ElMessage.success('创建成功'); }
+      if (isEdit.value) { await update({ ...formData }); showToast.success('更新成功'); }
+      else { await create({ ...formData }); showToast.success('创建成功'); }
       emit('success'); modalApi.close();
     } finally { modalApi.unlock(); }
   },

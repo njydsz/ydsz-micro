@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -147,7 +147,7 @@ async function handleDelete(row: MsgPreferenceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除「${row.channel} / ${row.bizType ?? '-'}」的偏好设置吗？`,
       '删除确认',
       { type: 'warning' },
@@ -158,7 +158,7 @@ async function handleDelete(row: MsgPreferenceVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理

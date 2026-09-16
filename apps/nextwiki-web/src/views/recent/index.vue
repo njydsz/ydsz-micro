@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -114,9 +114,9 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 async function handleRemove(row: UserRecentVO) {
   if (!row.nodeId) return;
   try {
-    await ElMessageBox.confirm(t('recentRemoveConfirm'), t('recentRemove'), { type: 'warning' });
+    await ydszConfirm(t('recentRemoveConfirm'), { title: t('recentRemove'), type: 'warning' });
     await removeRecent({ nodeId: row.nodeId });
-    ElMessage.success(t('recentRemoveSuccess'));
+    showToast.success(t('recentRemoveSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('移除记录失败: {}', error);
@@ -126,9 +126,9 @@ async function handleRemove(row: UserRecentVO) {
 
 async function handleClearAll() {
   try {
-    await ElMessageBox.confirm(t('recentClearAllConfirm'), t('recentClearAll'), { type: 'error' });
+    await ydszConfirm(t('recentClearAllConfirm'), { title: t('recentClearAll'), type: 'error' });
     await clearAll();
-    ElMessage.success(t('recentClearAllSuccess'));
+    showToast.success(t('recentClearAllSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('清空最近访问失败: {}', error);

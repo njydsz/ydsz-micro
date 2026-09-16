@@ -18,7 +18,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElMessage, ElInput } from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElInput } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -70,10 +70,10 @@ const [Grid] = useYDSZVxeGrid({ gridOptions });
 /** 按 Agent 编码查询定义详情，结果展示在顶部描述区 */
 async function handleQueryByCode() {
   const code = queryCode.value.trim();
-  if (!code) { ElMessage.warning('请输入Agent编码'); return; }
+  if (!code) { showToast.warning('请输入Agent编码'); return; }
   try {
     queryDetail.value = await getByCode({ code });
-    ElMessage.success('查询成功');
+    showToast.success('查询成功');
   } catch {
     queryDetail.value = null;
   }

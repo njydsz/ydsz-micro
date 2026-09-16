@@ -14,18 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import {
-  ElButton,
-  ElDialog,
-  ElDrawer,
-  ElEmpty,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-  ElTooltip,
-} from 'element-plus';
+import { ElButton, ElDialog, ElDrawer, ElEmpty, ElTable, ElTableColumn, ElTag, ElTooltip } from 'element-plus';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -124,7 +113,7 @@ function showSnapshot(row: EntityVersionVO) {
 async function confirmRollback(row: EntityVersionVO) {
   if (!row.version) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('configVersion.rollbackConfirm', {
         version: row.version,
         changeLog: row.changeLog || '-',
@@ -139,7 +128,7 @@ async function confirmRollback(row: EntityVersionVO) {
 
   try {
     await rollback({ resourceKey: configKey.value }, { targetVersion: row.version });
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     emit('success');
     // 回滚成功后刷新列表
     await loadVersions();

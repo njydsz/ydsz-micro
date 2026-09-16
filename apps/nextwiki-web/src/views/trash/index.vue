@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -126,9 +126,9 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 async function handleRestore(row: TrashItemVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('trashRestoreConfirm'), t('trashRestore'), { type: 'warning' });
+    await ydszConfirm(t('trashRestoreConfirm'), { title: t('trashRestore'), type: 'warning' });
     await restore({ trashItemId: row.id });
-    ElMessage.success(t('trashRestoreSuccess'));
+    showToast.success(t('trashRestoreSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('还原失败: {}', error);
@@ -139,9 +139,9 @@ async function handleRestore(row: TrashItemVO) {
 async function handlePurge(row: TrashItemVO) {
   if (!row.id) return;
   try {
-    await ElMessageBox.confirm(t('trashPurgeConfirm'), t('trashPurge'), { type: 'error' });
+    await ydszConfirm(t('trashPurgeConfirm'), { title: t('trashPurge'), type: 'error' });
     await purge({ trashItemId: row.id });
-    ElMessage.success(t('trashPurgeSuccess'));
+    showToast.success(t('trashPurgeSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('永久删除失败: {}', error);
@@ -152,18 +152,18 @@ async function handlePurge(row: TrashItemVO) {
 async function handleBatchRestore() {
   const records = gridApi.getCheckboxRecords();
   if (records.length === 0) {
-    ElMessage.warning(t('trashBatchSelectTip'));
+    showToast.warning(t('trashBatchSelectTip'));
     return;
   }
   const ids = records.filter(r => r.status === 'PENDING').map(r => r.id!).filter(Boolean);
   if (ids.length === 0) {
-    ElMessage.warning(t('trashBatchNoValid'));
+    showToast.warning(t('trashBatchNoValid'));
     return;
   }
   try {
-    await ElMessageBox.confirm(t('trashBatchRestoreConfirm'), t('trashBatchRestore'), { type: 'warning' });
+    await ydszConfirm(t('trashBatchRestoreConfirm'), { title: t('trashBatchRestore'), type: 'warning' });
     await batchRestore(ids);
-    ElMessage.success(t('trashBatchRestoreSuccess'));
+    showToast.success(t('trashBatchRestoreSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('批量还原失败: {}', error);
@@ -173,9 +173,9 @@ async function handleBatchRestore() {
 
 async function handleEmptyTrash() {
   try {
-    await ElMessageBox.confirm(t('trashEmptyConfirm'), t('trashEmpty'), { type: 'error' });
+    await ydszConfirm(t('trashEmptyConfirm'), { title: t('trashEmpty'), type: 'error' });
     await emptyTrash();
-    ElMessage.success(t('trashEmptySuccess'));
+    showToast.success(t('trashEmptySuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('清空回收站失败: {}', error);

@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElMessage } from 'element-plus';
+import { ElButton, ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { saveDraft, startProcess } from '#/api/flowInstance';
 import type { FlowSaveDraftDTO, FlowStartProcessDTO } from '#/api/models';
@@ -84,7 +84,7 @@ const [Modal, modalApi] = useYDSZModal({
         initiatorName: formData.initiatorName || undefined,
       };
       await startProcess(payload);
-      ElMessage.success($t('wf.startSuccess'));
+      showToast.success($t('wf.startSuccess'));
       emit('success');
       modalApi.close();
     } finally {
@@ -101,7 +101,7 @@ const [Modal, modalApi] = useYDSZModal({
  */
 async function handleSaveDraft(): Promise<void> {
   if (!formData.flowCode) {
-    ElMessage.warning($t('wf.inputFlowCode'));
+    showToast.warning($t('wf.inputFlowCode'));
     return;
   }
   savingDraft.value = true;
@@ -120,7 +120,7 @@ async function handleSaveDraft(): Promise<void> {
       },
     };
     const draftId = await saveDraft(payload);
-    ElMessage.success(`${$t('wf.draftSuccess')}（ID: ${draftId.slice(0, 8)}...）`);
+    showToast.success(`${$t('wf.draftSuccess')}（ID: ${draftId.slice(0, 8)}...）`);
     emit('success');
     modalApi.close();
   } finally {

@@ -16,10 +16,7 @@
  * @since 1.0.0
  */
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElInputNumber,
-  ElMessage, ElMessageBox, ElStatistic, ElTable, ElTableColumn,
-} from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElInputNumber, ElStatistic, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';
@@ -79,7 +76,7 @@ function handleOpenIngest() { ragFormApi.open(); }
 /** 语义检索（search()），结果结构不确定，兼容数组与常见列表字段 */
 async function handleSearch() {
   const query = queryForm.value.query?.trim() ?? '';
-  if (!query) { ElMessage.warning('请输入检索内容'); return; }
+  if (!query) { showToast.warning('请输入检索内容'); return; }
   searchLoading.value = true;
   try {
     const res = await search({ ...queryForm.value, query });
@@ -109,7 +106,7 @@ async function handleDelete(row: Record<string, unknown>) {
   const documentId = typeof row?.documentId === 'string' ? row.documentId : '';
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     logger.debug('用户取消删除文档操作');
     return;
@@ -117,7 +114,7 @@ async function handleDelete(row: Record<string, unknown>) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteDocument({ documentId });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     handleLoadStats();
   } catch (error) {
     logger.warn('删除文档失败: {}', error);

@@ -17,7 +17,7 @@
 import type { VariableDefinitionVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -95,7 +95,7 @@ async function handleDelete(row: VariableDefinitionVO) {
   if (!row.name) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(t('confirmDeleteVariable', [row.name]), t('deleteConf'), { type: 'warning' });
+    await ydszConfirm(t('confirmDeleteVariable', [row.name]), t('deleteConf'), { type: 'warning' });
   } catch (error) {
     logger.debug('用户取消删除变量: {}', error);
     return; // 用户主动取消删除操作
@@ -103,7 +103,7 @@ async function handleDelete(row: VariableDefinitionVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ varName: row.name });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除变量失败: {}', error);
@@ -114,7 +114,7 @@ async function handleDelete(row: VariableDefinitionVO) {
 async function handleRefresh() {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(t('confirmRefreshVariable'), t('refreshConf'), { type: 'warning' });
+    await ydszConfirm(t('confirmRefreshVariable'), { title: t('refreshConf'), type: 'warning' });
   } catch (error) {
     logger.debug('用户取消刷新变量: {}', error);
     return; // 用户主动取消刷新操作
@@ -122,7 +122,7 @@ async function handleRefresh() {
   // 步骤2：执行刷新 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await refresh();
-    ElMessage.success(t('refreshSuccess'));
+    showToast.success(t('refreshSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('刷新变量失败: {}', error);

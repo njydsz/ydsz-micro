@@ -20,16 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElDialog,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-  ElTransfer,
-} from 'element-plus';
+import { ElButton, ElDialog, ElTable, ElTableColumn, ElTag, ElTransfer } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -240,7 +231,7 @@ async function confirmPermissionAssign() {
       { roleId: currentRoleId.value },
       { permissionIds: selectedPermIds.value },
     );
-    ElMessage.success(t('role.permissionAssignSuccess'));
+    showToast.success(t('role.permissionAssignSuccess'));
     permDialogVisible.value = false;
   } catch (error) {
     logger.warn('分配权限失败: {}', error);
@@ -252,7 +243,7 @@ async function handleDelete(row: RoleVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('role.deleteRoleConfirm', { roleName: row.roleName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },
@@ -264,7 +255,7 @@ async function handleDelete(row: RoleVO) {
   // 步骤2：执行删除 API
   try {
     await remove({ id: row.id });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除角色失败: {}', error);
@@ -292,7 +283,7 @@ async function handleCopyRole(row: RoleVO): Promise<void> {
     if (permissions.length > 0 && newRoleId) {
       await assignPermissions({ roleId: newRoleId }, { permissionIds: permissions });
     }
-    ElMessage.success(t('role.copySuccess'));
+    showToast.success(t('role.copySuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('复制角色失败: {}', error);

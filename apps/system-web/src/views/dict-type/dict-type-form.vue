@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
 import { emitDictChange } from '@ydsz/shared-business';
@@ -84,10 +84,10 @@ const [Modal, modalApi] = useYDSZModal({
     try {
       if (isEdit.value) {
         await update(formData);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await save(formData);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       // 广播字典类型变更事件，通知 DictSelect/DictTag 等组件自动刷新
       emitDictChange(formData.typeCode);

@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElSwitch } from 'element-plus';
+import { ElButton, ElSwitch } from 'element-plus';
 import { createLogger } from '@ydsz/utils';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -54,7 +54,7 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
           'onUpdate:modelValue': async (val: boolean) => {
             try {
               await updateEnabled(row.id ?? 0, val);
-              ElMessage.success(val ? '已启用' : '已禁用');
+              showToast.success(val ? '已启用' : '已禁用');
               gridApi.query();
             } catch {
               /* 错误由拦截器处理 */
@@ -122,7 +122,7 @@ async function handleRevoke(row: ApiKeyVO) {
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定撤销 API Key「${row.keyName ?? row.apiKeyPrefix ?? ''}」吗？此操作不可撤销。`,
       '撤销确认',
       { type: 'warning' },
@@ -133,7 +133,7 @@ async function handleRevoke(row: ApiKeyVO) {
   try {
     const count = await revokeKeys([row.id]);
     if (count > 0) {
-      ElMessage.success('撤销成功');
+      showToast.success('撤销成功');
       gridApi.query();
     }
   } catch {

@@ -21,15 +21,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCollapse,
-  ElCollapseItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElTooltip,
-} from 'element-plus';
+import { ElButton, ElCollapse, ElCollapseItem, ElInput, ElTooltip } from 'element-plus';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
 import { clearHistory, history as fetchHistory } from '#/api/agent';
@@ -38,7 +30,6 @@ import { openAgentStream } from '#/utils/sse-client';
 import ConversationShare from './components/ConversationShare.vue';
 
 defineOptions({ name: 'AgentChatConsole' });
-
 
 /** 会话消息（role + 增量 content） */
 interface ChatMessage {
@@ -152,7 +143,7 @@ async function loadHistory(): Promise<void> {
         };
       });
     scrollToBottom();
-    ElMessage.success(`已加载 ${messages.value.length} 条历史消息`);
+    showToast.success(`已加载 ${messages.value.length} 条历史消息`);
   } catch {
     // 错误提示由请求拦截器统一处理
   }
@@ -165,10 +156,10 @@ async function handleClearHistory(): Promise<void> {
     return;
   }
   try {
-    await ElMessageBox.confirm('确定清空该会话的全部历史记录吗？', '清空会话', { type: 'warning' });
+    await ydszConfirm('确定清空该会话的全部历史记录吗？', { title: '清空会话', type: 'warning' });
     await clearHistory({ conversationId: conversationId.value });
     messages.value = [];
-    ElMessage.success('会话历史已清空');
+    showToast.success('会话历史已清空');
   } catch {
     // 取消或失败均保留现状
   }

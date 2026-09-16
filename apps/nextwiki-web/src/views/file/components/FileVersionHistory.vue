@@ -16,15 +16,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElDialog,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDialog, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
@@ -129,7 +121,7 @@ function formatSize(size?: number): string {
 
 /** 预览历史版本 */
 function handlePreview(version: FileVersionVO): void {
-  ElMessage.info(`预览版本 v${version.version}`);
+  showToast.info(`预览版本 v${version.version}`);
 }
 
 /** 下载历史版本 */
@@ -137,7 +129,7 @@ async function handleDownloadVersion(version: FileVersionVO): Promise<void> {
   if (!props.fileNode?.id) return;
   try {
     await download({ nodeId: props.fileNode.id }, { version: version.version });
-    ElMessage.success('下载已开始');
+    showToast.success('下载已开始');
   } catch {
     // 错误提示由请求拦截器统一处理
   }
@@ -147,7 +139,7 @@ async function handleDownloadVersion(version: FileVersionVO): Promise<void> {
 async function handleRollback(version: FileVersionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定回滚到版本 v${version.version} 吗？当前版本将被覆盖。`,
       '回滚确认',
       { type: 'warning' },
@@ -158,7 +150,7 @@ async function handleRollback(version: FileVersionVO): Promise<void> {
   // 步骤2：执行回滚操作
   try {
     // TODO: 调用后端 API 回滚版本
-    ElMessage.success(`已回滚到版本 v${version.version}`);
+    showToast.success(`已回滚到版本 v${version.version}`);
     emit('success');
     modalApi.close();
   } catch {

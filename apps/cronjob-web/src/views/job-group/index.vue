@@ -20,7 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElInput } from 'element-plus';
+import { ElButton, ElInput } from 'element-plus';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -119,7 +119,7 @@ async function handlePauseGroup(row: GroupStatsRow) {
   if (!jobGroup) return;
   try {
     await pauseByGroup({ jobGroup });
-    ElMessage.success('分组已暂停');
+    showToast.success('分组已暂停');
     statsGridApi.query();
   } catch {
     logger.warn('暂停分组失败', jobGroup);
@@ -132,7 +132,7 @@ async function handleResumeGroup(row: GroupStatsRow) {
   if (!jobGroup) return;
   try {
     await resumeByGroup({ jobGroup });
-    ElMessage.success('分组已恢复');
+    showToast.success('分组已恢复');
     statsGridApi.query();
   } catch {
     logger.warn('恢复分组失败', jobGroup);
@@ -145,7 +145,7 @@ async function handleTriggerGroup(row: GroupStatsRow) {
   if (!jobGroup) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定立即触发分组「${jobGroup}」下全部任务吗？`, '触发确认', { type: 'warning' });
+    await ydszConfirm(`确定立即触发分组「${jobGroup}」下全部任务吗？`, { title: '触发确认', type: 'warning' });
   } catch {
     logger.warn('用户取消触发分组', jobGroup);
     return; // 用户主动取消触发操作
@@ -153,7 +153,7 @@ async function handleTriggerGroup(row: GroupStatsRow) {
   // 步骤2：执行触发 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await triggerByGroup({ jobGroup });
-    ElMessage.success('分组触发成功');
+    showToast.success('分组触发成功');
   } catch {
     logger.warn('触发分组失败', jobGroup);
     // 错误已由请求拦截器展示，无需重复处理
@@ -170,7 +170,7 @@ function handleViewGroup(row: GroupStatsRow) {
 function handleViewByInput() {
   const jobGroup = viewGroup.value.trim();
   if (!jobGroup) {
-    ElMessage.warning('请输入分组名称');
+    showToast.warning('请输入分组名称');
     return;
   }
   taskGridApi.query();

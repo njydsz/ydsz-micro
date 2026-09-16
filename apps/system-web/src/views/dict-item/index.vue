@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -145,7 +145,7 @@ function handleEdit(row: DictItemRow) {
 async function handleDelete(row: DictItemRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(t('confirmDeleteName', [row.itemCode ?? row.itemValue ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+    await ydszConfirm(t('confirmDeleteName', [row.itemCode ?? row.itemValue ?? '']), t('common.deleteConfirm'), { type: 'warning' });
   } catch (error) {
     logger.warn('用户取消删除字典项', error);
     return; // 用户主动取消删除操作
@@ -153,7 +153,7 @@ async function handleDelete(row: DictItemRow) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await remove({ id: row.id });
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     // 广播字典项删除事件，通知所有消费组件刷新缓存
     if (row.typeCode) {
       emitDictChange(row.typeCode);

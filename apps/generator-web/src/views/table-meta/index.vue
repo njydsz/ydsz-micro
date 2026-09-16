@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElOption, ElSelect } from 'element-plus';
+import { ElButton, ElOption, ElSelect } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -72,12 +72,12 @@ async function handleDatasourceChange() {
 /** 刷新表缓存 */
 async function handleRefreshTables() {
   if (!selectedDatasourceId.value) {
-    ElMessage.warning('请先选择数据源');
+    showToast.warning('请先选择数据源');
     return;
   }
   try {
     await refreshTables({ datasourceId: selectedDatasourceId.value });
-    ElMessage.success('刷新表缓存成功');
+    showToast.success('刷新表缓存成功');
     await gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理

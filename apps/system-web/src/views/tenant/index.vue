@@ -18,7 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -117,7 +117,7 @@ async function handleDelete(row: TenantVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除租户「${row.tenantName}」吗？删除后不可恢复。`, t('tenantDeleteTitle'), { type: 'warning' });
+    await ydszConfirm(`确定删除租户「${row.tenantName}」吗？删除后不可恢复。`, { title: t('tenantDeleteTitle'), type: 'warning' });
   } catch (error) {
     logger.warn('用户取消删除租户', error);
     return; // 用户主动取消删除操作
@@ -125,7 +125,7 @@ async function handleDelete(row: TenantVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await remove({ id: row.id });
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除租户失败，详见拦截器提示', error);

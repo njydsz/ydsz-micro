@@ -18,25 +18,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElSpace,
-  ElStatistic,
-  ElTable,
-  ElTableColumn,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElForm, ElFormItem, ElInput, ElSpace, ElStatistic, ElTable, ElTableColumn, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import {
   approvedUsers,
@@ -76,7 +58,7 @@ const approvedUserList = ref<string[]>([]);
 /** 催办冷却倒计时 -- 查询 */
 async function handleQueryUrgeCooldown() {
   if (!urgeInstanceId.value.trim()) {
-    ElMessage.warning('请输入流程实例 ID');
+    showToast.warning('请输入流程实例 ID');
     return;
   }
   try {
@@ -126,7 +108,7 @@ async function loadMergeable() {
 async function handleViewMergeGroup(item: Record<string, Record<string, unknown>>) {
   const groupId = String(item?.mergeGroupId ?? item?.id ?? item?.groupId ?? '');
   if (!groupId) {
-    ElMessage.warning('未找到合并组 ID');
+    showToast.warning('未找到合并组 ID');
     return;
   }
   try {
@@ -143,16 +125,14 @@ async function handleMergePass(item: Record<string, Record<string, unknown>>) {
   const groupId = String(item?.mergeGroupId ?? item?.id ?? item?.groupId ?? '');
   if (!groupId) return;
   try {
-    await ElMessageBox.confirm(`确认通过合并审批组「${groupId}」？`, '通过确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认通过合并审批组「${groupId}」？`, { title: '通过确认', type: 'warning', });
   } catch {
     logger.warn('用户取消合并通过操作');
     return;
   }
   try {
     await mergePass({ mergeGroupId: groupId }, { comment: mergeComment.value });
-    ElMessage.success('合并审批通过成功');
+    showToast.success('合并审批通过成功');
     mergeComment.value = '';
     loadMergeable();
   } catch (error) {
@@ -165,16 +145,14 @@ async function handleMergeReject(item: Record<string, Record<string, unknown>>) 
   const groupId = String(item?.mergeGroupId ?? item?.id ?? item?.groupId ?? '');
   if (!groupId) return;
   try {
-    await ElMessageBox.confirm(`确认驳回合并审批组「${groupId}」？`, '驳回确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确认驳回合并审批组「${groupId}」？`, { title: '驳回确认', type: 'warning', });
   } catch {
     logger.warn('用户取消合并驳回操作');
     return;
   }
   try {
     await mergeReject({ mergeGroupId: groupId }, { comment: mergeComment.value });
-    ElMessage.success('合并审批驳回成功');
+    showToast.success('合并审批驳回成功');
     mergeComment.value = '';
     loadMergeable();
   } catch (error) {
@@ -185,7 +163,7 @@ async function handleMergeReject(item: Record<string, Record<string, unknown>>) 
 /** 执行合并（手动指定实例 ID） */
 async function handleMerge() {
   if (!mergeInstanceIds.value.trim()) {
-    ElMessage.warning('请输入要合并的实例 ID（逗号分隔）');
+    showToast.warning('请输入要合并的实例 ID（逗号分隔）');
     return;
   }
   const ids = mergeInstanceIds.value
@@ -194,7 +172,7 @@ async function handleMerge() {
     .filter(Boolean);
   try {
     const result = await merge({ instanceIds: ids });
-    ElMessage.success(`合并成功，组 ID: ${result?.value ?? ''}`);
+    showToast.success(`合并成功，组 ID: ${result?.value ?? ''}`);
     mergeInstanceIds.value = '';
     loadMergeable();
   } catch (error) {
@@ -229,12 +207,12 @@ const manualReason = ref('');
 /** 触发自动转办 */
 async function handleAutoForward() {
   if (!autoForwardAuthId.value.trim()) {
-    ElMessage.warning('请输入授权 ID');
+    showToast.warning('请输入授权 ID');
     return;
   }
   try {
     const count = await autoForward({ authId: autoForwardAuthId.value.trim() });
-    ElMessage.success(`自动转办成功，转办 ${count} 条任务`);
+    showToast.success(`自动转办成功，转办 ${count} 条任务`);
     autoForwardAuthId.value = '';
   } catch (error) {
     logger.warn('自动转办失败', error);
@@ -244,7 +222,7 @@ async function handleAutoForward() {
 /** 触发手动转办 */
 async function handleManualForward() {
   if (!manualForwardUserId.value.trim() || !manualForwardDelegateId.value.trim()) {
-    ElMessage.warning('请选择源用户和目标用户');
+    showToast.warning('请选择源用户和目标用户');
     return;
   }
   try {
@@ -252,7 +230,7 @@ async function handleManualForward() {
       userId: manualForwardUserId.value.trim(),
       delegateUserId: manualForwardDelegateId.value.trim(),
     });
-    ElMessage.success(`手动转办成功，转办 ${count} 条任务`);
+    showToast.success(`手动转办成功，转办 ${count} 条任务`);
     manualForwardUserId.value = '';
     manualForwardDelegateId.value = '';
     manualReason.value = '';
@@ -294,7 +272,7 @@ async function loadMonthlyReport() {
 async function handleSendWeekly() {
   try {
     await sendWeekly();
-    ElMessage.success('周报推送已触发');
+    showToast.success('周报推送已触发');
     loadWeeklyReport();
   } catch (error) {
     logger.warn('周报推送失败', error);
@@ -305,7 +283,7 @@ async function handleSendWeekly() {
 async function handleSendMonthly() {
   try {
     await sendMonthly();
-    ElMessage.success('月报推送已触发');
+    showToast.success('月报推送已触发');
     loadMonthlyReport();
   } catch (error) {
     logger.warn('月报推送失败', error);

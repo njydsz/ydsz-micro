@@ -17,7 +17,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElProgress, ElUpload } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElProgress, ElUpload } from 'element-plus';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';
@@ -42,13 +42,13 @@ const [Modal, modalApi] = useYDSZModal({
   },
   onConfirm: async () => {
     if (!selectedFile.value) {
-      ElMessage.warning(t('selectFilePrompt'));
+      showToast.warning(t('selectFilePrompt'));
       return;
     }
     modalApi.lock();
     try {
       const result = await performUpload(selectedFile.value);
-      ElMessage.success(t('uploadSuccess'));
+      showToast.success(t('uploadSuccess'));
       emit('success', result);
       modalApi.close();
     } catch (error) {
@@ -219,7 +219,7 @@ async function handleCancel(): Promise<void> {
           :show-file-list="true"
           :limit="1"
           :on-change="handleFileChange"
-          :on-exceed="() => ElMessage.warning('一次只能上传一个文件')"
+          :on-exceed="() => showToast.warning('一次只能上传一个文件')"
           drag
         >
           <div class="py-6">

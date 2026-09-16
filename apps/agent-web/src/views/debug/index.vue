@@ -21,20 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import {
-  ElButton,
-  ElCard,
-  ElDialog,
-  ElEmpty,
-  ElInput,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElStatistic,
-  ElTag,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { ElButton, ElCard, ElDialog, ElEmpty, ElInput, ElOption, ElSelect, ElStatistic, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, h, onMounted, ref } from 'vue';
 
 import { getTrace, listTraces, replayTrace } from '#/api/debug';
@@ -163,11 +150,11 @@ async function handleViewDetail(row: AgentTraceListDTO): Promise<void> {
 
 async function handleReplay(row: AgentTraceListDTO): Promise<void> {
   const id = row.executionId ?? row.traceId ?? '';
-  ElMessageBox.confirm(`确认重放 Trace「${id}」？`, '重放确认', { type: 'warning' })
+  ydszConfirm(`确认重放 Trace「${id}」？`, { title: '重放确认', type: 'warning' })
     .then(async () => {
       try {
         const newTraceId = await replayTrace({ executionId: id });
-        ElMessage.success(`重放成功，新 Trace ID: ${newTraceId}`);
+        showToast.success(`重放成功，新 Trace ID: ${newTraceId}`);
         await loadTraces();
       } catch (error) {
         logger.warn('重放 Trace 失败: {}', error);
@@ -180,10 +167,10 @@ async function handleReplay(row: AgentTraceListDTO): Promise<void> {
 
 async function handleBatchReplay(): Promise<void> {
   if (selectedTraces.value.length === 0) {
-    ElMessage.warning('请至少选择一个 Trace');
+    showToast.warning('请至少选择一个 Trace');
     return;
   }
-  ElMessageBox.confirm(`确认批量重放选中的 ${selectedTraces.value.length} 条 Trace？`, '批量重放', { type: 'warning' })
+  ydszConfirm(`确认批量重放选中的 ${selectedTraces.value.length} 条 Trace？`, { title: '批量重放', type: 'warning' })
     .then(async () => {
       for (const item of selectedTraces.value) {
         const id = item.executionId ?? item.traceId ?? '';
@@ -191,7 +178,7 @@ async function handleBatchReplay(): Promise<void> {
           await replayTrace({ executionId: id });
         }
       }
-      ElMessage.success('批量重放完成');
+      showToast.success('批量重放完成');
       await loadTraces();
     })
     .catch(() => {

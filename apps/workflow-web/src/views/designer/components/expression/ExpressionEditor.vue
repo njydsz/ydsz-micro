@@ -20,17 +20,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElSelect,
-  ElTabPane,
-  ElTabs,
-} from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, reactive, ref, watch } from 'vue';
 import {
   buildExpression,
@@ -77,7 +67,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
   onConfirm: async () => {
     if (!expressionText.value.trim()) {
-      ElMessage.warning($t('wf.exprEmpty'));
+      showToast.warning($t('wf.exprEmpty'));
       return;
     }
     modalApi.lock();
@@ -282,7 +272,7 @@ function resetBuilder(): void {
 /** 添加条件 */
 function handleAddCondition(): void {
   if (!builderForm.field || !builderForm.operator) {
-    ElMessage.warning($t('wf.exprSelectFieldOp'));
+    showToast.warning($t('wf.exprSelectFieldOp'));
     return;
   }
   conditionList.value.push({ ...builderForm });
@@ -307,7 +297,7 @@ function handleRemoveCondition(index: number): void {
  */
 async function handleBuildExpression(): Promise<void> {
   if (conditionList.value.length === 0) {
-    ElMessage.warning($t('wf.exprAddConditionFirst'));
+    showToast.warning($t('wf.exprAddConditionFirst'));
     return;
   }
   try {
@@ -318,7 +308,7 @@ async function handleBuildExpression(): Promise<void> {
     if (result) {
       expressionText.value = result;
       serverPreview.value = result;
-      ElMessage.success($t('wf.exprBuildSuccess'));
+      showToast.success($t('wf.exprBuildSuccess'));
     }
   } catch (error) {
     logger.warn('构建表达式失败，详见拦截器提示', error);
@@ -334,7 +324,7 @@ async function handleParseExpression(): Promise<void> {
   try {
     const result = await parseExpression({ expression: expressionText.value });
     if (result) {
-      ElMessage.success($t('wf.exprParseSuccess'));
+      showToast.success($t('wf.exprParseSuccess'));
       logger.info('解析结果', result);
     }
   } catch (error) {
@@ -350,7 +340,7 @@ async function handleValidateExpression(): Promise<void> {
   try {
     const result = await validateExpression({ expression: expressionText.value });
     validationResult.value = { valid: true, message: $t('wf.exprValid') };
-    ElMessage.success($t('wf.exprValid'));
+    showToast.success($t('wf.exprValid'));
     logger.info('校验结果', result);
   } catch (error) {
     validationResult.value = { valid: false, message: $t('wf.exprInvalid') };
@@ -370,7 +360,7 @@ async function handlePreviewExpression(): Promise<void> {
       variables: JSON.stringify({}),
     });
     serverPreview.value = JSON.stringify(result ?? {}, null, 2);
-    ElMessage.success($t('wf.exprPreviewSuccess'));
+    showToast.success($t('wf.exprPreviewSuccess'));
   } catch (error) {
     logger.warn('预览表达式失败，详见拦截器提示', error);
   }

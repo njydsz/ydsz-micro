@@ -16,19 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElRadioButton,
-  ElRadioGroup,
-  ElSelect,
-  ElTabPane,
-  ElTabs,
-} from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { communicate, freeJump, jump, saveDraft } from '#/api/flowTask';
 import type { FlowRunTaskVO, FlowTaskOperateDTO } from '#/api/models';
@@ -107,7 +95,7 @@ const operationTitle = computed(() => {
 async function handleJump(): Promise<void> {
   if (!props.task?.id) return;
   if (jumpForm.mode === 'designated' && !jumpForm.targetNodeCode) {
-    ElMessage.warning(t('task.jump.selectNodeRequired'));
+    showToast.warning(t('task.jump.selectNodeRequired'));
     return;
   }
   submitting.value = true;
@@ -122,7 +110,7 @@ async function handleJump(): Promise<void> {
     } else {
       await jump(dto);
     }
-    ElMessage.success(t('task.jump.success'));
+    showToast.success(t('task.jump.success'));
     emit('success');
     modalApi.close();
   } catch (error) {
@@ -136,7 +124,7 @@ async function handleJump(): Promise<void> {
 /** 执行沟通 */
 async function handleCommunicate(): Promise<void> {
   if (!props.task?.id || !communicateForm.content.trim()) {
-    ElMessage.warning(t('task.communicate.contentRequired'));
+    showToast.warning(t('task.communicate.contentRequired'));
     return;
   }
   submitting.value = true;
@@ -147,7 +135,7 @@ async function handleCommunicate(): Promise<void> {
       targetUserIds: communicateForm.targetUserIds,
     };
     await communicate(dto);
-    ElMessage.success(t('task.communicate.success'));
+    showToast.success(t('task.communicate.success'));
     emit('success');
     modalApi.close();
   } catch (error) {
@@ -168,7 +156,7 @@ async function handleSaveDraft(): Promise<void> {
       comment: draftForm.comment,
     };
     await saveDraft(dto);
-    ElMessage.success(t('task.draft.success'));
+    showToast.success(t('task.draft.success'));
     emit('success');
     modalApi.close();
   } catch (error) {

@@ -12,8 +12,7 @@ import type {
 
 import { generateAccessible } from '@ydsz/access';
 import { preferences } from '@ydsz/preferences';
-
-import { ElMessage } from 'element-plus';
+import { showToast } from '@ydsz/notification';
 
 import { getAllMenusApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
@@ -40,7 +39,7 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   return await generateAccessible(preferences.app.accessMode, {
     ...options,
     fetchMenuListAsync: async () => {
-      ElMessage.info(`${$t('common.loadingMenu')}...`);
+      showToast.info(`${$t('common.loadingMenu')}...`);
       return await getAllMenusApi();
     },
     forbiddenComponent,

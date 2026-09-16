@@ -23,8 +23,7 @@ import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
 
 import { ApiComponent, globalShareState, IconPicker } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
-
-import { ElNotification } from 'element-plus';
+import { showToast } from '@ydsz/notification';
 
 /**
  * 创建 Element Plus 异步组件工厂。
@@ -279,13 +278,7 @@ async function initComponentAdapter() {
   globalShareState.defineMessage({
     // 复制成功消息提示
     copyPreferencesSuccess: (title, content) => {
-      ElNotification({
-        title,
-        message: content,
-        position: 'bottom-right',
-        duration: 0,
-        type: 'success',
-      });
+      showToast.success(title, { description: content });
     },
   });
 }

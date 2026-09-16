@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElMessage, ElSelect, ElOption } from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -114,10 +114,10 @@ const [Modal, modalApi] = useYDSZModal({
       if (isEdit.value) {
         const record = modalApi.getData<{ record?: JobDagVO }>().record;
         await updateDag({ dagId: record?.id ?? '' }, payload);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await createDag(payload);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       emit('success');
       modalApi.close();
@@ -132,19 +132,19 @@ const title = computed(() => (isEdit.value ? '编辑DAG' : '新增DAG'));
 /** 校验 DSL 定义（validateDag 返回 boolean，仅做成功/失败提示） */
 async function handleValidateDag() {
   if (!formData.dagDefinition) {
-    ElMessage.warning('请先输入DSL定义');
+    showToast.warning('请先输入DSL定义');
     return;
   }
   try {
     const ok = await validateDag(formData.dagDefinition);
     if (ok) {
-      ElMessage.success('DSL 校验通过');
+      showToast.success('DSL 校验通过');
     } else {
-      ElMessage.error('DSL 校验失败');
+      showToast.error('DSL 校验失败');
     }
   } catch {
     logger.warn('DSL校验请求失败', formData.dagKey);
-    ElMessage.error('DSL 校验失败');
+    showToast.error('DSL 校验失败');
   }
 }
 </script>

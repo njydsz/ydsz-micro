@@ -9,7 +9,7 @@
  */
 import { ref } from 'vue';
 
-import { ElMessage, ElMessageBox } from 'element-plus';
+;
 
 import { deleteHistory, listHistoryFiles, listRecentHistory } from '#/api/history';
 
@@ -94,7 +94,7 @@ export function useHistoryRollback() {
   async function rollbackHistory(record: GenHistory) {
     if (!record.id) return;
     try {
-      await ElMessageBox.confirm(
+      await ydszConfirm(
         `确定回滚任务 #${record.id} 吗？这将恢复或删除该任务生成的所有文件。`,
         '回滚确认',
         { type: 'warning' },
@@ -104,7 +104,7 @@ export function useHistoryRollback() {
     }
     try {
       await rollbackHistory({ id: record.id });
-      ElMessage.success('回滚成功');
+      showToast.success('回滚成功');
       await fetchHistories();
     } catch {
       // 错误提示由请求拦截器统一处理
@@ -119,15 +119,13 @@ export function useHistoryRollback() {
   async function deleteHistoryRecord(record: GenHistory) {
     if (!record.id) return;
     try {
-      await ElMessageBox.confirm(`确定删除任务记录 #${record.id} 吗？`, '删除确认', {
-        type: 'warning',
-      });
+      await ydszConfirm(`确定删除任务记录 #${record.id} 吗？`, { title: '删除确认', type: 'warning', });
     } catch {
       return;
     }
     try {
       await deleteHistory({ id: record.id });
-      ElMessage.success('删除成功');
+      showToast.success('删除成功');
       await fetchHistories();
     } catch {
       // 错误提示由请求拦截器统一处理

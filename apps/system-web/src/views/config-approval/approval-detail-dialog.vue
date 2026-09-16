@@ -22,19 +22,7 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import {
-  ElButton,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDialog,
-  ElDivider,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElDialog, ElDivider, ElForm, ElFormItem, ElInput, ElTimeline, ElTimelineItem } from 'element-plus';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -196,7 +184,7 @@ async function handleApprove() {
     // TODO: 对接真实 API —— await approveApprovalApi(record.value.id)
     logger.info('[Mock] 通过审批单:', record.value.id);
     await new Promise((resolve) => setTimeout(resolve, 300));
-    ElMessage.success(t('configApproval.approveSuccess'));
+    showToast.success(t('configApproval.approveSuccess'));
     emit('approved');
     close();
   } finally {
@@ -207,7 +195,7 @@ async function handleApprove() {
 async function handleReject() {
   if (!record.value) return;
   if (!rejectionReason.value.trim()) {
-    ElMessage.error(t('configApproval.reasonRequired'));
+    showToast.error(t('configApproval.reasonRequired'));
     return;
   }
   submitting.value = true;
@@ -215,7 +203,7 @@ async function handleReject() {
     // TODO: 对接真实 API —— await rejectApprovalApi(record.value.id, rejectionReason.value)
     logger.info('[Mock] 拒绝审批单:', record.value.id, rejectionReason.value);
     await new Promise((resolve) => setTimeout(resolve, 300));
-    ElMessage.success(t('configApproval.rejectSuccess'));
+    showToast.success(t('configApproval.rejectSuccess'));
     emit('rejected');
     close();
   } finally {
@@ -230,7 +218,7 @@ async function handleWithdraw() {
     // TODO: 对接真实 API —— await withdrawApprovalApi(record.value.id)
     logger.info('[Mock] 撤回审批单:', record.value.id);
     await new Promise((resolve) => setTimeout(resolve, 300));
-    ElMessage.success(t('configApproval.withdrawSuccess'));
+    showToast.success(t('configApproval.withdrawSuccess'));
     emit('withdrawn');
     close();
   } finally {

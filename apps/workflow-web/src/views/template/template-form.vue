@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { importTemplate } from '#/api/flowTemplate';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -61,7 +61,7 @@ const [Modal, modalApi] = useYDSZModal({
         { templateCode: formData.templateCode },
         { flowName: formData.flowName || undefined },
       );
-      ElMessage.success(t('template.import.success'));
+      showToast.success(t('template.import.success'));
       emit('success');
       modalApi.close();
     } finally {

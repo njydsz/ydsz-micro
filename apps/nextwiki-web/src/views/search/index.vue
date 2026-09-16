@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 import { useAccess } from '@ydsz/access';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElButton, ElEmpty, ElInput, ElMessageBox, ElOption, ElPagination, ElSelect, ElTag } from 'element-plus';
+import { ElButton, ElEmpty, ElInput, ElOption, ElPagination, ElSelect, ElTag } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import {
   clearSearchHistory,
@@ -216,7 +216,7 @@ async function loadHotSearches(): Promise<void> {
 /** 清空搜索历史（破坏性操作需二次确认） */
 async function handleClearHistory(): Promise<void> {
   try {
-    await ElMessageBox.confirm(t('searchClearHistoryConfirm'), t('clearHistory'), { type: 'warning' });
+    await ydszConfirm(t('searchClearHistoryConfirm'), { title: t('clearHistory'), type: 'warning' });
     await clearSearchHistory();
     searchHistory.value = [];
   } catch (error) {
@@ -255,7 +255,7 @@ function handleAdvancedSearchSuccess(result: SearchResultVO): void {
 /** 重建搜索索引（管理员工具，需二次确认） */
 async function handleRebuildIndices(): Promise<void> {
   try {
-    await ElMessageBox.confirm(t('searchRebuildIndicesConfirm'), t('searchRebuildIndices'), { type: 'error' });
+    await ydszConfirm(t('searchRebuildIndicesConfirm'), { title: t('searchRebuildIndices'), type: 'error' });
     loading.value = true;
     await rebuildIndices();
   } catch (error) {

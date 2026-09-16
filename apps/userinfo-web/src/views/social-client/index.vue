@@ -19,20 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElRadioButton,
-  ElRadioGroup,
-  ElSelect,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadioButton, ElRadioGroup, ElSelect, ElTag } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -302,10 +289,10 @@ const [Modal, modalApi] = useYDSZModal({
       };
       if (isEdit.value) {
         await update({ platform: formData.platform }, payload);
-        ElMessage.success('更新成功');
+        showToast.success('更新成功');
       } else {
         await create(payload);
-        ElMessage.success('创建成功');
+        showToast.success('创建成功');
       }
       modalApi.close();
       gridApi.query();
@@ -333,7 +320,7 @@ async function handleToggleStatus(row: SocialClientVO) {
   if (!row.platform) return;
   const newStatus = isEnabled(row.status) ? 'DISABLED' : 'ENABLED';
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认${isEnabled(row.status) ? '禁用' : '启用'}平台 "${row.platformName ?? row.platform}"？`,
       '确认操作',
       { type: 'warning' },
@@ -353,7 +340,7 @@ async function handleToggleStatus(row: SocialClientVO) {
       sortOrder: row.sortOrder,
       remark: row.remark,
     });
-    ElMessage.success('操作成功');
+    showToast.success('操作成功');
     gridApi.query();
   } catch (error) {
     logger.warn('切换社交客户端状态失败: {}', error);
@@ -363,7 +350,7 @@ async function handleToggleStatus(row: SocialClientVO) {
 async function handleDelete(row: SocialClientVO) {
   if (!row.platform) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认删除平台 "${row.platformName ?? row.platform}" 配置？此操作不可恢复。`,
       '确认删除',
       { type: 'warning' },
@@ -373,7 +360,7 @@ async function handleDelete(row: SocialClientVO) {
   }
   try {
     await deleteApi({ platform: row.platform });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     gridApi.query();
   } catch (error) {
     logger.warn('删除社交客户端配置失败: {}', error);

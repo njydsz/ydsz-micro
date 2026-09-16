@@ -20,19 +20,7 @@
  */
 import { reactive, ref } from 'vue';
 
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElRadioButton,
-  ElRadioGroup,
-  ElSelect,
-} from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus';
 
 import { analyzeReverse, analyzeBatchReverse } from '#/api/reverse';
 import type { GenTemplateGroup } from '#/api/models';
@@ -91,21 +79,21 @@ void loadGroups();
 function validateForm(): boolean {
   if (mode.value === 'single') {
     if (!reverseForm.sourceFilePath.trim()) {
-      ElMessage.warning('请输入源文件路径');
+      showToast.warning('请输入源文件路径');
       return false;
     }
   } else {
     if (!reverseForm.sourceDirPath.trim()) {
-      ElMessage.warning('请输入源目录路径');
+      showToast.warning('请输入源目录路径');
       return false;
     }
   }
   if (!selectedGroupId.value) {
-    ElMessage.warning('请选择模板分组');
+    showToast.warning('请选择模板分组');
     return false;
   }
   if (!reverseForm.outputDir.trim()) {
-    ElMessage.warning('请配置输出目录');
+    showToast.warning('请配置输出目录');
     return false;
   }
   return true;
@@ -125,7 +113,7 @@ async function handleAnalyze() {
         outputDir: reverseForm.outputDir,
       });
       resultContent.value = result;
-      ElMessage.success('分析完成');
+      showToast.success('分析完成');
     } else {
       const results = await analyzeBatchReverse({
         sourceDirPath: reverseForm.sourceDirPath,
@@ -133,12 +121,12 @@ async function handleAnalyze() {
         outputDir: reverseForm.outputDir,
       });
       batchResults.value = results;
-      ElMessage.success(`批量分析完成，共 ${results.length} 条结果`);
+      showToast.success(`批量分析完成，共 ${results.length} 条结果`);
     }
   } catch (error: unknown) {
     const msg =
       error instanceof Error ? error.message : '分析失败，请检查参数与网络';
-    ElMessage.error(msg);
+    showToast.error(msg);
   } finally {
     isAnalyzing.value = false;
   }

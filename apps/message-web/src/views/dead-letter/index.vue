@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -110,7 +110,7 @@ async function handleResend(row: MsgLogVO) {
   if (!row.id) return;
   try {
     await resend({ logId: row.id });
-    ElMessage.success('重发成功');
+    showToast.success('重发成功');
     gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理

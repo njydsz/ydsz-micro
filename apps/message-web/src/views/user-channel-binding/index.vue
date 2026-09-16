@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElInput, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -115,11 +115,11 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 快速新增绑定 */
 async function handleQuickCreate(): Promise<void> {
   if (!quickChannelType.value.trim()) {
-    ElMessage.warning('请输入渠道类型');
+    showToast.warning('请输入渠道类型');
     return;
   }
   if (!quickChannelUserId.value.trim()) {
-    ElMessage.warning('请输入渠道用户标识');
+    showToast.warning('请输入渠道用户标识');
     return;
   }
   try {
@@ -131,7 +131,7 @@ async function handleQuickCreate(): Promise<void> {
       isPrimary: 0,
     };
     await upsert(data);
-    ElMessage.success('新增绑定成功');
+    showToast.success('新增绑定成功');
     quickChannelType.value = '';
     quickChannelUserId.value = '';
     gridApi.query();
@@ -146,7 +146,7 @@ async function handleDelete(row: MsgUserChannelVO): Promise<void> {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除「${row.channelType} / ${row.channelUserId ?? '-'}」的渠道绑定吗？`,
       '删除确认',
       { type: 'warning' },
@@ -158,7 +158,7 @@ async function handleDelete(row: MsgUserChannelVO): Promise<void> {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch (error) {
     logger.warn('删除渠道绑定失败: {}', error);

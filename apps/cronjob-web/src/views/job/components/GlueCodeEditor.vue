@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
+import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
 import type { GlueCodeVO } from '#/api/models';
@@ -124,7 +124,7 @@ async function loadVersions(): Promise<void> {
 async function handleSave(): Promise<void> {
   if (!props.jobId) return;
   if (!codeContent.value.trim()) {
-    ElMessage.warning('请输入代码内容');
+    showToast.warning('请输入代码内容');
     return;
   }
   saving.value = true;
@@ -134,7 +134,7 @@ async function handleSave(): Promise<void> {
       codeContent: codeContent.value,
       language: codeLanguage.value,
     });
-    ElMessage.success('保存成功');
+    showToast.success('保存成功');
     emit('success');
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -146,7 +146,7 @@ async function handleSave(): Promise<void> {
 /** 执行测试 */
 async function handleTest(): Promise<void> {
   if (!props.jobId || !codeContent.value.trim()) {
-    ElMessage.warning('请先输入代码内容');
+    showToast.warning('请先输入代码内容');
     return;
   }
   testing.value = true;
@@ -171,7 +171,7 @@ async function handleRollback(version: GlueCodeVO): Promise<void> {
   if (!props.jobId || !version.version) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定回滚到版本 ${version.version} 吗？`, '回滚确认', { type: 'warning' });
+    await ydszConfirm(`确定回滚到版本 ${version.version} 吗？`, { title: '回滚确认', type: 'warning' });
   } catch {
     return; // 用户主动取消回滚操作
   }
@@ -181,7 +181,7 @@ async function handleRollback(version: GlueCodeVO): Promise<void> {
       jobId: props.jobId,
       version: version.version,
     });
-    ElMessage.success('回滚成功');
+    showToast.success('回滚成功');
     await loadLatest();
     await loadVersions();
   } catch {
@@ -194,7 +194,7 @@ async function handleDiff(versionA: number, versionB: number): Promise<void> {
   if (!props.jobId) return;
   try {
     await diff({ jobId: props.jobId, versionA, versionB });
-    ElMessage.info('差异对比功能开发中');
+    showToast.info('差异对比功能开发中');
   } catch {
     // 错误提示由请求拦截器统一处理
   }

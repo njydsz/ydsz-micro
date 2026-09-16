@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElEmpty, ElInput, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElInput, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -154,7 +154,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 搜索处理 */
 function handleSearch(): void {
   if (!queryConversationId.value.trim()) {
-    ElMessage.warning('请输入对话 ID');
+    showToast.warning('请输入对话 ID');
     return;
   }
   gridApi.query();
@@ -163,11 +163,11 @@ function handleSearch(): void {
 /** 清除全部记忆 */
 async function handleClearAll(): Promise<void> {
   if (!queryConversationId.value.trim()) {
-    ElMessage.warning('请先输入对话 ID');
+    showToast.warning('请先输入对话 ID');
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定清除对话「${queryConversationId.value.trim()}」的全部记忆吗？该操作不可撤销。`,
       '清除确认',
       { type: 'warning' },
@@ -178,7 +178,7 @@ async function handleClearAll(): Promise<void> {
   }
   try {
     await clearMemory({ conversationId: queryConversationId.value.trim() });
-    ElMessage.success('清除成功');
+    showToast.success('清除成功');
     gridApi.query();
   } catch (error) {
     logger.warn('清除记忆失败: {}', error);
@@ -188,11 +188,11 @@ async function handleClearAll(): Promise<void> {
 /** 触发记忆整合 */
 async function handleConsolidate(): Promise<void> {
   if (!queryConversationId.value.trim()) {
-    ElMessage.warning('请先输入对话 ID');
+    showToast.warning('请先输入对话 ID');
     return;
   }
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定对对话「${queryConversationId.value.trim()}」执行记忆整合吗？将提取有价值的事实并刷新用户画像。`,
       '整合确认',
       { type: 'warning' },
@@ -203,7 +203,7 @@ async function handleConsolidate(): Promise<void> {
   }
   try {
     await consolidateMemory({ conversationId: queryConversationId.value.trim() });
-    ElMessage.success('记忆整合任务已触发');
+    showToast.success('记忆整合任务已触发');
   } catch (error) {
     logger.warn('触发记忆整合失败: {}', error);
   }
@@ -218,7 +218,7 @@ function handleViewDetail(row: MemoryVO): void {
 /** 删除单条记忆 */
 async function handleDelete(row: MemoryVO): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定删除消息「${row.id ?? ''}」吗？该操作不可撤销。`,
       '删除确认',
       { type: 'warning' },
@@ -229,7 +229,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
   }
   try {
     await clearMemory({ conversationId: queryConversationId.value.trim() });
-    ElMessage.success('单条记忆删除需清除后重新加载');
+    showToast.success('单条记忆删除需清除后重新加载');
     gridApi.query();
   } catch (error) {
     logger.warn('删除记忆失败: {}', error);

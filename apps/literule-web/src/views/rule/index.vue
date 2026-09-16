@@ -23,7 +23,7 @@ import type { DomainItem } from '@ydsz-core/shadcn-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { CardGrid, DomainFilterPanel, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDrawer, ElDropdown, ElDropdownItem, ElDropdownMenu, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDrawer, ElDropdown, ElDropdownItem, ElDropdownMenu, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -264,13 +264,13 @@ function handleCardAction(command: CardCommand, row: RuleDefinitionVO): void {
 async function handleToggle(row: RuleDefinitionVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('confirmToggleRule', [row.isEnabled ? t('disabled') : t('enabled'), row.ruleName]),
       t('confirm'),
       { type: 'warning' },
     );
     await toggle({ ruleCode: row.ruleCode }, { isEnabled: !row.isEnabled });
-    ElMessage.success(t('operationSuccess'));
+    showToast.success(t('operationSuccess'));
     await handleRefresh();
   } catch (error) {
     logger.warn('启停规则失败: {}', error);
@@ -281,9 +281,9 @@ async function handleToggle(row: RuleDefinitionVO): Promise<void> {
 async function handleDelete(row: RuleDefinitionVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ElMessageBox.confirm(t('confirmDeleteRule', [row.ruleName]), t('deleteConf'), { type: 'warning' });
+    await ydszConfirm(t('confirmDeleteRule', [row.ruleName]), t('deleteConf'), { type: 'warning' });
     await deleteRule({ ruleCode: row.ruleCode });
-    ElMessage.success(t('deleteSuccess'));
+    showToast.success(t('deleteSuccess'));
     await handleRefresh();
   } catch (error) {
     logger.warn('删除规则失败: {}', error);
@@ -331,13 +331,13 @@ async function handleRollback(versionItem: RuleVersionVO): Promise<void> {
   const rule = currentRule.value;
   if (!rule?.ruleCode || versionItem.version === undefined) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('confirmRollback', [rule.ruleName, versionItem.version]),
       t('rollbackConf'),
       { type: 'warning' },
     );
     await rollback({ ruleCode: rule.ruleCode }, { version: versionItem.version });
-    ElMessage.success(t('rollbackSuccess'));
+    showToast.success(t('rollbackSuccess'));
     gridApi.query();
     await loadVersions();
   } catch (error) {

@@ -19,22 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElCol,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDialog,
-  ElEmpty,
-  ElInput,
-  ElMessageBox,
-  ElRow,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-  ElTree,
-} from 'element-plus';
+import { ElButton, ElCard, ElCol, ElDescriptions, ElDescriptionsItem, ElDialog, ElEmpty, ElInput, ElRow, ElTabPane, ElTabs, ElTag, ElTree } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -213,7 +198,7 @@ function handlePreview(row: RuleTemplateVO): void {
 async function handleImport(row: RuleTemplateVO): Promise<void> {
   if (!row.templateCode) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认导入模板 "${row.templateName}"？将基于模板创建新规则。`,
       '导入确认',
       { type: 'warning' },

@@ -15,17 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import {
-  ElButton,
-  ElDatePicker,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElRadio,
-  ElRadioGroup,
-} from 'element-plus';
+import { ElButton, ElDatePicker, ElDialog, ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
 import { reactive, ref } from 'vue';
 
 defineOptions({ name: 'ConversationShare' });
@@ -73,11 +63,11 @@ const permissionLabel: Record<string, string> = {
 /** 执行发布 */
 async function handlePublish(): Promise<void> {
   if (!currentConversationId.value) {
-    ElMessage.warning('请先建立会话后再发布');
+    showToast.warning('请先建立会话后再发布');
     return;
   }
   if (!shareConfig.title.trim()) {
-    ElMessage.warning('请输入分享标题');
+    showToast.warning('请输入分享标题');
     return;
   }
   publishing.value = true;
@@ -87,7 +77,7 @@ async function handlePublish(): Promise<void> {
     shareUrl.value =
       `${window.location.origin}/agent/share/${token}` +
       `?cid=${encodeURIComponent(currentConversationId.value)}&perm=${shareConfig.permission}`;
-    ElMessage.success('发布成功');
+    showToast.success('发布成功');
   } catch {
     // 错误提示由请求拦截器统一处理
   } finally {
@@ -99,9 +89,9 @@ async function handlePublish(): Promise<void> {
 async function copyShareUrl(): Promise<void> {
   try {
     await navigator.clipboard.writeText(shareUrl.value);
-    ElMessage.success('链接已复制到剪贴板');
+    showToast.success('链接已复制到剪贴板');
   } catch {
-    ElMessage.error('复制失败，请手动复制');
+    showToast.error('复制失败，请手动复制');
   }
 }
 

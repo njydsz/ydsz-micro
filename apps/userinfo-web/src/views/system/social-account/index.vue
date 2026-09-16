@@ -17,17 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElImage,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElEmpty, ElImage, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -123,7 +113,7 @@ async function handleUnbind(row: SocialAccountVO): Promise<void> {
   if (!row.platform) return;
   const platformName = row.nickname ?? row.platform;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确认解绑社交账号「${platformName}」？解绑后将无法通过该平台快速登录。`,
       '确认解绑',
       { type: 'warning' },
@@ -133,7 +123,7 @@ async function handleUnbind(row: SocialAccountVO): Promise<void> {
   }
   try {
     await unbind({ platform: row.platform });
-    ElMessage.success('解绑成功');
+    showToast.success('解绑成功');
     await loadBindings();
   } catch (error) {
     logger.warn('解绑社交账号失败: {}', error);

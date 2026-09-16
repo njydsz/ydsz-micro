@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElDialog, ElInput, ElMessage, ElScrollbar } from 'element-plus';
+import { ElDialog, ElInput, ElScrollbar } from 'element-plus';
 import { computed, ref } from 'vue';
 
 defineOptions({ name: 'IconPicker' });
@@ -728,7 +728,7 @@ function close(): void {
 function selectIcon(icon: { name: string; label: string }): void {
   selectedIcon.value = icon.name;
   emit('select', icon.name);
-  ElMessage.success(`已选择图标：${icon.label}`);
+  showToast.success(`已选择图标：${icon.label}`);
   close();
 }
 

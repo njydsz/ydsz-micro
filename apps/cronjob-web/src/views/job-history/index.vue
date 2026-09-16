@@ -19,19 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDrawer,
-  ElForm,
-  ElFormItem,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElForm, ElFormItem, ElOption, ElSelect, ElTag } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -79,7 +67,7 @@ async function handleViewDetail(row: JobHistoryVO): Promise<void> {
 async function handleRollback(row: JobHistoryVO): Promise<void> {
   if (!row.jobId || row.version === undefined) return;
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定回滚「${row.jobName ?? row.jobKey}」到版本 v${row.version} 吗？`,
       '回滚确认',
       { type: 'warning' },
@@ -90,7 +78,7 @@ async function handleRollback(row: JobHistoryVO): Promise<void> {
   }
   try {
     await rollback({ jobId: row.jobId, version: row.version });
-    ElMessage.success('回滚成功');
+    showToast.success('回滚成功');
     gridApi.query();
   } catch {
     logger.warn('回滚失败', row.jobId);
@@ -128,7 +116,7 @@ function openCompareDialog(jobId: string): void {
 /** 执行对比查询 */
 async function handleCompare(): Promise<void> {
   if (!compareJobId.value || compareV1.value === undefined || compareV2.value === undefined) {
-    ElMessage.warning('请选择需要对比的两个版本');
+    showToast.warning('请选择需要对比的两个版本');
     return;
   }
   try {
@@ -138,7 +126,7 @@ async function handleCompare(): Promise<void> {
       v2: compareV2.value,
     });
     compareResult.value = result ?? [];
-    ElMessage.success('对比完成');
+    showToast.success('对比完成');
   } catch {
     logger.warn('版本对比失败', compareJobId.value);
   }

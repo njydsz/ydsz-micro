@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -148,11 +148,11 @@ async function handleSubmit(): Promise<void> {
   if (editingId.value) {
     const putData: JobWebhookPutDTO = { ...payload, id: editingId.value };
     await updateWebhook(putData);
-    ElMessage.success('更新订阅成功');
+    showToast.success('更新订阅成功');
   } else {
     const postData: JobWebhookPostDTO = { ...payload };
     await createWebhook(postData);
-    ElMessage.success('新增订阅成功');
+    showToast.success('新增订阅成功');
   }
   dialogVisible.value = false;
   loadList();
@@ -164,7 +164,7 @@ async function handleDelete(row: JobWebhookVO): Promise<void> {
     return;
   }
   await deleteWebhook(row.id);
-  ElMessage.success('删除订阅成功');
+  showToast.success('删除订阅成功');
   loadList();
 }
 
@@ -174,7 +174,7 @@ async function handleTest(row: JobWebhookVO): Promise<void> {
     return;
   }
   await testWebhook(row.id);
-  ElMessage.success('测试请求已发送');
+  showToast.success('测试请求已发送');
 }
 
 /** 状态变更 */

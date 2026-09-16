@@ -20,21 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import {
-  ElButton,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import { assignBucket, createExperiment } from '#/api/canary';
@@ -115,11 +101,11 @@ function loadExperiments(): void {
 /** 快速创建实验 */
 async function handleQuickCreate(): Promise<void> {
   if (!quickForm.experimentName.trim()) {
-    ElMessage.warning('请输入实验名称');
+    showToast.warning('请输入实验名称');
     return;
   }
   if (!quickForm.channel.trim()) {
-    ElMessage.warning('请选择通道');
+    showToast.warning('请选择通道');
     return;
   }
   try {
@@ -140,7 +126,7 @@ async function handleQuickCreate(): Promise<void> {
       createdAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
     };
     experimentList.value.unshift(newExperiment);
-    ElMessage.success('创建实验成功');
+    showToast.success('创建实验成功');
     quickCreateVisible.value = false;
     resetQuickForm();
   } catch (error) {
@@ -169,11 +155,11 @@ async function handleViewBucket(row: CanaryExperimentRow): Promise<void> {
 /** 执行分桶查询 */
 async function handleAssignBucket(): Promise<void> {
   if (!bucketForm.experimentId.trim()) {
-    ElMessage.warning('请输入实验ID');
+    showToast.warning('请输入实验ID');
     return;
   }
   if (!bucketForm.requestKey.trim()) {
-    ElMessage.warning('请输入请求键');
+    showToast.warning('请输入请求键');
     return;
   }
   try {
@@ -191,7 +177,7 @@ async function handleAssignBucket(): Promise<void> {
 /** 停止实验 */
 async function handleStopExperiment(row: CanaryExperimentRow): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       `确定停止实验「${row.name}」吗？停止后灰度流量将切回主版本。`,
       '停止确认',
       { type: 'warning' },
@@ -205,14 +191,14 @@ async function handleStopExperiment(row: CanaryExperimentRow): Promise<void> {
   if (target) {
     target.status = 'STOPPED';
   }
-  ElMessage.success('实验已停止');
+  showToast.success('实验已停止');
 }
 
 /** 编辑实验 */
 function handleEdit(row: CanaryExperimentRow): void {
   logger.info('编辑实验: id={}', row.id);
   // 合约暂无 updateExperiment 接口，预留扩展
-  ElMessage.info('编辑功能待后端接口支持');
+  showToast.info('编辑功能待后端接口支持');
 }
 
 onMounted(() => {

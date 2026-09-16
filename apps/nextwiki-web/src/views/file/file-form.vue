@@ -16,7 +16,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput } from 'element-plus';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { reactive, ref } from 'vue';
@@ -43,7 +43,7 @@ const [Modal, modalApi] = useYDSZModal({
     modalApi.lock();
     try {
       await createFolder({ ...formData });
-      ElMessage.success('创建成功');
+      showToast.success('创建成功');
       emit('success');
       modalApi.close();
     } finally { modalApi.unlock(); }

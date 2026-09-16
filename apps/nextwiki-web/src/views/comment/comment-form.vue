@@ -18,7 +18,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 const logger = createLogger('nextwiki-comment');
 const { t } = useI18n();
 import { reactive, ref } from 'vue';
@@ -79,7 +79,7 @@ const [Modal, modalApi] = useYDSZModal({
         ...formData,
         mentions: formData.mentionIds.length ? formData.mentionIds : undefined,
       });
-      ElMessage.success(t('createSuccess'));
+      showToast.success(t('createSuccess'));
       emit('success');
       modalApi.close();
     } finally { modalApi.unlock(); }

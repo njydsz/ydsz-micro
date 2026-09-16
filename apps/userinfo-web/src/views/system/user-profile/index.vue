@@ -20,24 +20,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElCol,
-  ElForm,
-  ElFormItem,
-  ElImage,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElRow,
-  ElSwitch,
-  ElTabPane,
-  ElTabs,
-  ElUpload,
-  type FormInstance,
-  type UploadRequestOptions,
-} from 'element-plus';
+import { ElButton, ElCard, ElCol, ElForm, ElFormItem, ElImage, ElInput, ElRow, ElSwitch, ElTabPane, ElTabs, ElUpload, type FormInstance, type UploadRequestOptions } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import {
@@ -111,7 +94,7 @@ async function handleUpdateProfile(): Promise<void> {
       email: profileForm.email,
       avatar: profileForm.avatar,
     });
-    ElMessage.success('资料更新成功');
+    showToast.success('资料更新成功');
   } catch {
     /* 错误由拦截器处理 */
   } finally {
@@ -130,7 +113,7 @@ async function handleAvatarUpload(options: UploadRequestOptions): Promise<unknow
     const url = await uploadAvatar({ file: file as unknown as Record<string, unknown> });
     avatarUrl.value = url;
     profileForm.avatar = url;
-    ElMessage.success('头像上传成功');
+    showToast.success('头像上传成功');
     return url;
   } catch (error) {
     logger.warn('头像上传失败:', error);
@@ -174,7 +157,7 @@ async function handleChangePassword(): Promise<void> {
     return;
   }
   if (!validateConfirmPassword()) {
-    ElMessage.error('两次输入的新密码不一致');
+    showToast.error('两次输入的新密码不一致');
     return;
   }
   isPasswordLoading.value = true;
@@ -183,7 +166,7 @@ async function handleChangePassword(): Promise<void> {
       oldPassword: passwordForm.oldPassword,
       newPassword: passwordForm.newPassword,
     });
-    ElMessage.success('密码修改成功');
+    showToast.success('密码修改成功');
     passwordForm.oldPassword = '';
     passwordForm.newPassword = '';
     passwordForm.confirmPassword = '';
@@ -221,7 +204,7 @@ async function handleSetupMfa(): Promise<void> {
   isMfaLoading.value = true;
   try {
     mfaSetupData.value = await setupMfa();
-    ElMessage.success('MFA密钥已生成，请使用Authenticator应用扫描二维码');
+    showToast.success('MFA密钥已生成，请使用Authenticator应用扫描二维码');
   } catch {
     /* 错误由拦截器处理 */
   } finally {
@@ -243,7 +226,7 @@ async function handleActivateMfa(): Promise<void> {
   }
   try {
     await activateMfa({ code: activateCode.value });
-    ElMessage.success('MFA已激活');
+    showToast.success('MFA已激活');
     isMfaEnabled.value = true;
     mfaSetupData.value = null;
     activateCode.value = '';
@@ -257,13 +240,13 @@ async function handleActivateMfa(): Promise<void> {
  */
 async function handleDisableMfa(): Promise<void> {
   try {
-    await ElMessageBox.confirm('确定禁用MFA双因素认证吗？禁用后账号安全性将降低。', '禁用MFA', { type: 'warning' });
+    await ydszConfirm('确定禁用MFA双因素认证吗？禁用后账号安全性将降低。', { title: '禁用MFA', type: 'warning' });
   } catch {
     return;
   }
   try {
     await disableMfa({ code: '' });
-    ElMessage.success('MFA已禁用');
+    showToast.success('MFA已禁用');
     isMfaEnabled.value = false;
   } catch {
     /* 错误由拦截器处理 */

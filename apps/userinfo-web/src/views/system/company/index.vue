@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag, ElTree } from 'element-plus';
+import { ElButton, ElTag, ElTree } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -150,7 +150,7 @@ async function handleDelete(row: CompanyVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('company.deleteCompanyConfirm', { companyName: row.companyName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },
@@ -161,7 +161,7 @@ async function handleDelete(row: CompanyVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await remove({ id: row.id });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     gridApi.query();
     loadTree();
   } catch (error) {

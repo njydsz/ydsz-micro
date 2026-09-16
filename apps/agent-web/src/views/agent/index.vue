@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { CardGrid, EmptyState, EntityCard } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
-import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElMessage, ElMessageBox } from 'element-plus';
+import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -124,7 +124,7 @@ function handleEdit(row: AgentDefinitionVO): void { agentFormApi.setData({ recor
 async function handleDelete(row: AgentDefinitionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除「${row.agentName ?? row.agentCode ?? ''}」吗？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除「${row.agentName ?? row.agentCode ?? ''}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     // 用户主动取消删除操作
     return;
@@ -132,7 +132,7 @@ async function handleDelete(row: AgentDefinitionVO): Promise<void> {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await deleteApi({ id: row.id ?? '' });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     await handleRefresh();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理

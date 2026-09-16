@@ -18,7 +18,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElMessage, ElMessageBox, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import type { SpaceTemplateDTO } from '#/api/models';
@@ -114,10 +114,10 @@ async function handleSubmit(): Promise<void> {
     };
     if (editingId.value) {
       await updateTemplate({ templateId: editingId.value }, payload);
-      ElMessage.success('更新模板成功');
+      showToast.success('更新模板成功');
     } else {
       await createTemplate(payload);
-      ElMessage.success('创建模板成功');
+      showToast.success('创建模板成功');
     }
     dialogVisible.value = false;
     loadTemplates();
@@ -132,13 +132,13 @@ async function handleSubmit(): Promise<void> {
 async function handleDelete(row: SpaceTemplateDTO): Promise<void> {
   if (!row.id) return;
   if (row.isSystem) {
-    ElMessage.warning('系统模板不可删除');
+    showToast.warning('系统模板不可删除');
     return;
   }
   try {
-    await ElMessageBox.confirm(`确定删除模板「${row.name}」？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除模板「${row.name}」？`, { title: '删除确认', type: 'warning' });
     await deleteTemplate({ templateId: row.id });
-    ElMessage.success('删除模板成功');
+    showToast.success('删除模板成功');
     loadTemplates();
   } catch (error) {
     if (error !== 'cancel') {

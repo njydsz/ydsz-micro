@@ -18,14 +18,7 @@
  */
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import type { TagProps } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -94,7 +87,7 @@ async function handleDelete(row: MenuTreeVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       t('menu.deleteMenuConfirm', { menuName: row.menuName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },
@@ -105,7 +98,7 @@ async function handleDelete(row: MenuTreeVO) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await remove({ id: row.id });
-    ElMessage.success(t('page.deleteSuccess'));
+    showToast.success(t('page.deleteSuccess'));
     loadData();
   } catch (error) {
     logger.warn('删除菜单失败: {}', error);

@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -162,7 +162,7 @@ async function handleMarkRead(row: MsgNotificationVO) {
   if (!row.id) return;
   try {
     await markRead({ id: row.id });
-    ElMessage.success('已标记为已读');
+    showToast.success('已标记为已读');
     gridApi.query();
     await loadUnread();
   } catch {
@@ -173,7 +173,7 @@ async function handleMarkRead(row: MsgNotificationVO) {
 async function handleMarkAllRead() {
   try {
     await markAllRead();
-    ElMessage.success('已全部标记为已读');
+    showToast.success('已全部标记为已读');
     gridApi.query();
     await loadUnread();
   } catch {
@@ -185,14 +185,14 @@ async function handleRecall(row: MsgNotificationVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定撤回通知「${row.title}」吗？`, '撤回确认', { type: 'warning' });
+    await ydszConfirm(`确定撤回通知「${row.title}」吗？`, { title: '撤回确认', type: 'warning' });
   } catch {
     return; // 用户主动取消撤回操作
   }
   // 步骤2：执行撤回 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await recall({ id: row.id });
-    ElMessage.success('撤回成功');
+    showToast.success('撤回成功');
     gridApi.query();
     await loadUnread();
   } catch {
@@ -203,14 +203,14 @@ async function handleRecall(row: MsgNotificationVO) {
 async function handleDelete(row: MsgNotificationVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除通知「${row.title}」吗？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除通知「${row.title}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await deleteApi([row.id]);
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
     await loadUnread();
   } catch {

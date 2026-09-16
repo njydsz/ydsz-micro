@@ -15,7 +15,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
-import { ElButton, ElMessage, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { ref } from 'vue';
 
 import { parse, preview, validate } from '#/api/ruleDsl';
@@ -34,7 +34,7 @@ const running = ref(false);
 /** 执行一次 DSL 动作并展示返回结果 */
 async function runAction(fn: () => Promise<unknown>, label: string) {
   if (!dslText.value.trim()) {
-    ElMessage.warning(t('dslWarning'));
+    showToast.warning(t('dslWarning'));
     return;
   }
   running.value = true;

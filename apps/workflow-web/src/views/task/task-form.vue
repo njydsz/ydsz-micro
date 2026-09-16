@@ -16,16 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElRadio,
-  ElRadioGroup,
-  ElSelect,
-} from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 import {
   countersignAfter,
@@ -132,7 +123,7 @@ const [Modal, modalApi] = useYDSZModal({
       }
     }
     if (!formData.taskId) {
-      ElMessage.warning($t('wf.missingTaskId'));
+      showToast.warning($t('wf.missingTaskId'));
       return;
     }
     modalApi.lock();
@@ -172,7 +163,7 @@ const [Modal, modalApi] = useYDSZModal({
           break;
         }
       }
-      ElMessage.success($t('wf.processSuccess'));
+      showToast.success($t('wf.processSuccess'));
       emit('success');
       modalApi.close();
     } finally {

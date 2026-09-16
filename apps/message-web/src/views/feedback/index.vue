@@ -21,19 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import {
-  ElButton,
-  ElCard,
-  ElDialog,
-  ElEmpty,
-  ElInput,
-  ElOption,
-  ElRate,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElDialog, ElEmpty, ElInput, ElOption, ElRate, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
@@ -155,7 +143,7 @@ function handleViewDetail(row: MsgFeedbackVO): void {
 async function handleHideFeedback(row: MsgFeedbackVO): Promise<void> {
   logger.info('隐藏反馈: id={}', row.id);
   // 契约 API 暂无隐藏接口，预留扩展
-  ElMessage.info('隐藏反馈功能待后端接口支持');
+  showToast.info('隐藏反馈功能待后端接口支持');
 }
 
 /** 重置查询 */

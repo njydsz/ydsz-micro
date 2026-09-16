@@ -17,23 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElCol,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElRadio,
-  ElRadioGroup,
-  ElRow,
-  ElSelect,
-  ElSwitch,
-  type FormInstance,
-} from 'element-plus';
+import { ElButton, ElCard, ElCol, ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElRow, ElSelect, ElSwitch, type FormInstance } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { get, reset, save } from '#/api/userPreference';
@@ -136,7 +120,7 @@ async function handleSave(): Promise<void> {
       tableSize: formData.tableSize,
       fontSize: formData.fontSize,
     });
-    ElMessage.success('偏好设置已保存');
+    showToast.success('偏好设置已保存');
   } catch {
     /* 错误由拦截器处理 */
   } finally {
@@ -149,7 +133,7 @@ async function handleSave(): Promise<void> {
  */
 async function handleReset(): Promise<void> {
   try {
-    await ElMessageBox.confirm('确定重置为默认偏好设置吗？当前自定义设置将被清除。', '重置偏好', { type: 'warning' });
+    await ydszConfirm('确定重置为默认偏好设置吗？当前自定义设置将被清除。', { title: '重置偏好', type: 'warning' });
   } catch {
     return;
   }
@@ -163,7 +147,7 @@ async function handleReset(): Promise<void> {
     formData.accordionMenu = data.accordionMenu ?? true;
     formData.tableSize = data.tableSize ?? 'medium';
     formData.fontSize = data.fontSize ?? 'medium';
-    ElMessage.success('偏好设置已重置');
+    showToast.success('偏好设置已重置');
   } catch {
     /* 错误由拦截器处理 */
   }

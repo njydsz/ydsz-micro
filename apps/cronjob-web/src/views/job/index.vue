@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElDrawer, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -264,7 +264,7 @@ async function handlePause(row: JobRow) {
   if (!row.id) return;
   try {
     await pause({ id: row.id });
-    ElMessage.success('已暂停');
+    showToast.success('已暂停');
     gridApi.query();
   } catch {
     logger.warn('暂停任务失败', row.id);
@@ -276,7 +276,7 @@ async function handleResume(row: JobRow) {
   if (!row.id) return;
   try {
     await resume({ id: row.id });
-    ElMessage.success('已恢复');
+    showToast.success('已恢复');
     gridApi.query();
   } catch {
     logger.warn('恢复任务失败', row.id);
@@ -288,7 +288,7 @@ async function handleTrigger(row: JobRow) {
   if (!row.id) return;
   try {
     await trigger({ id: row.id }, {});
-    ElMessage.success('触发成功');
+    showToast.success('触发成功');
   } catch {
     logger.warn('触发任务失败', row.id);
     // 错误提示由请求拦截器统一处理
@@ -298,7 +298,7 @@ async function handleTrigger(row: JobRow) {
 async function handleDelete(row: JobRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定删除「${row.jobName}」吗？`, '删除确认', { type: 'warning' });
+    await ydszConfirm(`确定删除「${row.jobName}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     logger.warn('用户取消删除任务', row.id);
     return; // 用户主动取消删除操作
@@ -306,7 +306,7 @@ async function handleDelete(row: JobRow) {
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await deleteApi({ id: row.id });
-    ElMessage.success('删除成功');
+    showToast.success('删除成功');
     gridApi.query();
   } catch {
     logger.warn('删除任务失败', row.id);
@@ -324,7 +324,7 @@ function getSelectedIds(): string[] {
   const rows = gridApi.grid.getCheckboxRecords() as JobRow[];
   const ids = rows.map((item) => item.id ?? '').filter((id) => id !== '');
   if (ids.length === 0) {
-    ElMessage.warning('请先勾选需要操作的任务');
+    showToast.warning('请先勾选需要操作的任务');
   }
   return ids;
 }
@@ -335,7 +335,7 @@ async function handleBatchPause() {
   const data: JobBatchDTO = { jobIds: ids };
   try {
     await batchPause(data);
-    ElMessage.success('批量暂停成功');
+    showToast.success('批量暂停成功');
     gridApi.query();
   } catch {
     logger.warn('批量暂停失败', ids);
@@ -349,7 +349,7 @@ async function handleBatchResume() {
   const data: JobBatchDTO = { jobIds: ids };
   try {
     await batchResume(data);
-    ElMessage.success('批量恢复成功');
+    showToast.success('批量恢复成功');
     gridApi.query();
   } catch {
     logger.warn('批量恢复失败', ids);
@@ -362,9 +362,7 @@ async function handleBatchDelete() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ElMessageBox.confirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, '批量删除确认', {
-      type: 'warning',
-    });
+    await ydszConfirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, { title: '批量删除确认', type: 'warning', });
   } catch {
     logger.warn('用户取消批量删除', ids);
     return; // 用户主动取消批量删除
@@ -372,7 +370,7 @@ async function handleBatchDelete() {
   // 步骤2：执行批量删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await batchDelete({ jobIds: ids } satisfies JobBatchDTO);
-    ElMessage.success('批量删除成功');
+    showToast.success('批量删除成功');
     gridApi.query();
   } catch {
     logger.warn('批量删除失败', ids);

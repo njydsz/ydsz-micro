@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElMessage, ElMessageBox, ElTag } from 'element-plus';
+import { ElButton, ElTag } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -180,13 +180,13 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
  */
 async function handleAcknowledge(row: AlertRow): Promise<void> {
   try {
-    await ElMessageBox.confirm('确认该安全告警？', '确认告警', { type: 'warning' });
+    await ydszConfirm('确认该安全告警？', { title: '确认告警', type: 'warning' });
   } catch {
     return;
   }
   try {
     await acknowledgeAlert({ id: row.id }, { note: '管理员确认' });
-    ElMessage.success('确认成功');
+    showToast.success('确认成功');
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -201,13 +201,13 @@ async function handleAcknowledge(row: AlertRow): Promise<void> {
  */
 async function handleResolve(row: AlertRow): Promise<void> {
   try {
-    await ElMessageBox.confirm('将该安全告警标记为已解决？', '解决告警', { type: 'warning' });
+    await ydszConfirm('将该安全告警标记为已解决？', { title: '解决告警', type: 'warning' });
   } catch {
     return;
   }
   try {
     await resolveAlert({ id: row.id }, { note: '管理员解决' });
-    ElMessage.success('解决成功');
+    showToast.success('解决成功');
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -222,13 +222,13 @@ async function handleResolve(row: AlertRow): Promise<void> {
  */
 async function handleIgnore(row: AlertRow): Promise<void> {
   try {
-    await ElMessageBox.confirm('确定忽略该安全告警？', '忽略告警', { type: 'info' });
+    await ydszConfirm('确定忽略该安全告警？', { title: '忽略告警', type: 'info' });
   } catch {
     return;
   }
   try {
     await ignoreAlert({ id: row.id }, { note: '管理员忽略' });
-    ElMessage.success('忽略成功');
+    showToast.success('忽略成功');
     gridApi.query();
     loadPendingCount();
   } catch {

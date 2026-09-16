@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElMessage, ElProgress, ElUpload } from 'element-plus';
+import { ElProgress, ElUpload } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -38,7 +38,7 @@ const [Modal, modalApi] = useYDSZModal({
   },
   onConfirm: async () => {
     if (!selectedFile.value) {
-      ElMessage.warning('请选择要导入的文件');
+      showToast.warning('请选择要导入的文件');
       return;
     }
     modalApi.lock();
@@ -91,7 +91,7 @@ async function performImport(file: File): Promise<void> {
     });
     importResult.value = result;
     importProgress.value = 100;
-    ElMessage.success(`导入完成：成功 ${result.successCount ?? 0} 条，失败 ${result.failureCount ?? 0} 条`);
+    showToast.success(`导入完成：成功 ${result.successCount ?? 0} 条，失败 ${result.failureCount ?? 0} 条`);
     emit('success');
   } catch (error) {
     logger.warn('导入用户文件失败: {}', error);
@@ -118,7 +118,7 @@ function handleClose(): void {
         :limit="1"
         accept=".xlsx,.xls,.csv"
         :on-change="handleFileChange"
-        :on-exceed="() => ElMessage.warning(t('user.importFileLimit'))"
+        :on-exceed="() => showToast.warning(t('user.importFileLimit'))"
         drag
       >
         <div class="py-6">

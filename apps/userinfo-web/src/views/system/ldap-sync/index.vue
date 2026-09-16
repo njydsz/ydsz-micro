@@ -53,18 +53,7 @@ export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElEmpty,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
+import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -124,7 +113,7 @@ async function loadAll(): Promise<void> {
 /** 触发同步 */
 async function handleTriggerSync(): Promise<void> {
   try {
-    await ElMessageBox.confirm(
+    await ydszConfirm(
       '确认触发 LDAP 立即同步？同步过程可能需要几分钟，请耐心等待。',
       '触发同步',
       { type: 'warning' },
@@ -135,7 +124,7 @@ async function handleTriggerSync(): Promise<void> {
   isSyncing.value = true;
   try {
     await triggerSync();
-    ElMessage.success('同步任务已触发');
+    showToast.success('同步任务已触发');
     // 延迟刷新状态（给后端一些时间启动同步）
     window.setTimeout(() => {
       loadAll();
