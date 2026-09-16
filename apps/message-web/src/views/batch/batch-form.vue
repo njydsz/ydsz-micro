@@ -17,6 +17,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// SKIP: batch-form.vue 批量跳过迁移 — ElForm/ElFormItem/ElRadio/ElRadioGroup 不在映射表，表单体系需整体重写
 import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

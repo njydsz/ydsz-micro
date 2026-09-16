@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件夹（表单组件）
  *
  * @path apps\nextwiki-web\src\views\file\file-form.vue
@@ -16,7 +16,8 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
+import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { reactive, ref } from 'vue';
@@ -54,10 +55,10 @@ const [Modal, modalApi] = useYDSZModal({
   <Modal :title="t('newFolderTitle')">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem :label="t('folderName')" prop="name">
-        <ElInput v-model="formData.name" :placeholder="t('folderNamePlaceholder')" />
+        <Input v-model="formData.name" :placeholder="t('folderNamePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('parentId')" prop="parentId">
-        <ElInput v-model="formData.parentId" :placeholder="t('parentIdPlaceholder')" />
+        <Input v-model="formData.parentId" :placeholder="t('parentIdPlaceholder')" />
       </ElFormItem>
     </ElForm>
   </Modal>

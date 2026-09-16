@@ -20,6 +20,8 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+// SKIP: canary/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElForm/ElFormItem/ElInputNumber 等未映射组件，
+// 且表单弹窗和表格操作逻辑与 EP 深度耦合，需整体重写而非简单替换。
 import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 

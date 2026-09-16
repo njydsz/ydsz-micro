@@ -14,14 +14,15 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElCard, ElSkeleton, ElTag } from 'element-plus';
+import { ElSkeleton } from 'element-plus';
+import { Button, Card, CardContent, CardHeader, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
+import { createLogger } from '@ydsz-core/shared/utils';
+import { useI18n } from 'vue-i18n';
 import { generateSummary, getStatus } from '#/api/ai';
 import { download, generateSignedUrl } from '#/api/download';
 import { generatePreview, getPreviewType, isSupported } from '#/api/preview';
-import { createLogger } from '@ydsz-core/shared/utils';
-import { useI18n } from 'vue-i18n';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import type { FileNodeVO, SummaryResult } from '#/api/models';

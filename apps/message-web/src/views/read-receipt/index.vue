@@ -22,8 +22,7 @@ import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { Badge, Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElEmpty/ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
-import { ElCard, ElEmpty, ElForm, ElFormItem } from 'element-plus';
-// MIGRATE: ElButton→Button, ElTag→Badge, ElInput→Input (Card 分情况处理)
+import { ElEmpty, ElForm, ElFormItem } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';

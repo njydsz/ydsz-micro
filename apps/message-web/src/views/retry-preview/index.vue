@@ -20,6 +20,8 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+// SKIP: retry-preview/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElTabs/ElTabPane/ElEmpty 等未映射组件，
+// 双 Tab 结构复杂，需整体重写。
 import {
   ElButton,
   ElCard,

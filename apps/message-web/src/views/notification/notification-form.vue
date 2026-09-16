@@ -20,6 +20,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// SKIP: notification-form.vue 批量跳过迁移 — ElForm/ElFormItem 不在映射表，表单体系需整体重写
 import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 import { reactive, ref } from 'vue';
 

@@ -1,10 +1,9 @@
-﻿<!--
+<!--
  * 文件评论（表单组件）
  *
  * @path apps\nextwiki-web\src\views\comment\comment-form.vue
  * @author ydsz-team
  * @since 1.0.0
- * @modified 4.2.0 接入 @提及：新增「提及用户」远程搜索多选，提交时写入 addComment 的 mentions（List&lt;String&gt;）。
 -->
 <script lang="ts" setup>
 /**
@@ -18,7 +17,8 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
+import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
 const logger = createLogger('nextwiki-comment');
 const { t } = useI18n();
 import { reactive, ref } from 'vue';
@@ -90,10 +90,10 @@ const [Modal, modalApi] = useYDSZModal({
   <Modal title="新增评论">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem label="文件节点ID" prop="fileNodeId">
-        <ElInput v-model="formData.fileNodeId" placeholder="请输入文件节点ID" />
+        <Input v-model="formData.fileNodeId" placeholder="请输入文件节点ID" />
       </ElFormItem>
       <ElFormItem label="评论内容" prop="content">
-        <ElInput v-model="formData.content" type="textarea" :rows="2" placeholder="请输入评论内容" />
+        <Input v-model="formData.content" placeholder="请输入评论内容" />
       </ElFormItem>
       <ElFormItem label="提及用户" prop="mentionIds">
         <ElSelect

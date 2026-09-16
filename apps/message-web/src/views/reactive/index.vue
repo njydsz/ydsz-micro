@@ -17,6 +17,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+// SKIP: reactive/index.vue 批量跳过迁移 — 含 ElTimeline/ElTimelineItem/ElCard/ElEmpty/ElForm/ElFormItem 等未映射组件，
+// 时间线+SSE 监控逻辑与 EP 深度耦合。
 import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';

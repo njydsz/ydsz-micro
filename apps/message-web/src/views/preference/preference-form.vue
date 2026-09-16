@@ -18,6 +18,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// SKIP: preference-form.vue 批量跳过迁移 — ElForm/ElFormItem/ElInputNumber/ElRadio/ElRadioGroup 不在映射表
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup, ElSelect, ElOption } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 

@@ -19,7 +19,9 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElOption, ElSelect, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { Badge, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+// SKIP: ElTabPane/ElTabs 不在 shadcn 映射表，保留 EP
+import { ElTabPane, ElTabs } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -80,7 +82,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getSubscriptionStatusType(row.status) }, () =>
+          h(Badge, { variant: getSubscriptionStatusType(row.status) === 'success' ? 'default' : getSubscriptionStatusType(row.status) === 'warning' ? 'outline' : 'secondary' }, () =>
             getSubscriptionStatusLabel(row.status),
           ),
       },
@@ -96,13 +98,13 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleUnsubscribe(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleUnsubscribe(row) },
               () => t('subscription.unsubscribe'),
             ),
           ]),
@@ -197,31 +199,35 @@ function handleQueryByTopic(): void {
   <Page auto-content-height>
     <Grid table-title="订阅管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('common.create') }}</Button>
       </template>
       <template #toolbar-tools-after>
         <ElTabs v-model="activeTab" class="mt-2">
           <ElTabPane label="按用户查询" name="user">
             <div class="flex gap-2 py-2">
-              <ElInput v-model="currentUserId" placeholder="请输入用户ID" class="w-64" clearable />
-              <ElButton type="primary" @click="handleQueryByUser">{{ t('common.search') }}</ElButton>
+              <Input v-model="currentUserId" placeholder="请输入用户ID" class="w-64" />
+              <Button @click="handleQueryByUser">{{ t('common.search') }}</Button>
             </div>
           </ElTabPane>
           <ElTabPane label="按主题查询" name="topic">
             <div class="flex gap-2 py-2">
-              <ElInput
+              <Input
                 v-model="currentTopicCode"
                 placeholder="请输入主题编码"
                 class="w-48"
-                clearable
               />
-              <ElSelect v-model="currentChannel" class="w-32">
-                <ElOption label="邮件" value="EMAIL" />
-                <ElOption label="短信" value="SMS" />
-                <ElOption label="站内信" value="INBOX" />
-                <ElOption label="Webhook" value="WEBHOOK" />
-              </ElSelect>
-              <ElButton type="primary" @click="handleQueryByTopic">{{ t('common.search') }}</ElButton>
+              <Select v-model="currentChannel">
+                <SelectTrigger class="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="EMAIL">邮件</SelectItem>
+                  <SelectItem value="SMS">短信</SelectItem>
+                  <SelectItem value="INBOX">站内信</SelectItem>
+                  <SelectItem value="WEBHOOK">Webhook</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button @click="handleQueryByTopic">{{ t('common.search') }}</Button>
             </div>
           </ElTabPane>
         </ElTabs>

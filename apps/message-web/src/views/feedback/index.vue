@@ -21,6 +21,8 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+// SKIP: feedback/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElEmpty/ElRate 等未映射组件，
+// 且表格+表单+弹窗混合使用 EP 特性，需整体重写。
 import { ElButton, ElCard, ElDialog, ElEmpty, ElInput, ElOption, ElRate, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 

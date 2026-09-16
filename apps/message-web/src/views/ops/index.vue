@@ -21,7 +21,9 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElCard, ElDialog, ElForm, ElFormItem, ElInput } from 'element-plus';
+import { Button, Card, CardContent, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP（ElCard 已迁移完成，无需保留）
+import { ElForm, ElFormItem } from 'element-plus';
 import { onMounted, ref } from 'vue';
 
 import {
@@ -143,49 +145,50 @@ onMounted(() => {
     <div class="ops-container p-4">
       <!-- 顶部指标卡片区 -->
       <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
-        <ElCard shadow="hover">
-          <div class="flex flex-col items-center">
+        <Card>
+          <CardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">缓存命中率</span>
             <span class="mt-2 text-2xl font-bold text-green-600">{{ hitRatePercent }}%</span>
-          </div>
-        </ElCard>
-        <ElCard shadow="hover">
-          <div class="flex flex-col items-center">
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">缓存条目数</span>
             <span class="mt-2 text-2xl font-bold text-blue-600">{{ cacheStats.size ?? 0 }}</span>
-          </div>
-        </ElCard>
-        <ElCard shadow="hover">
-          <div class="flex flex-col items-center">
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">BF 填充率</span>
             <span class="mt-2 text-2xl font-bold text-purple-600">
               {{ bloomStats.expectedInsertions ?? 0 }}
             </span>
-          </div>
-        </ElCard>
-        <ElCard shadow="hover">
-          <div class="flex flex-col items-center">
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">BF 误判率</span>
             <span class="mt-2 text-2xl font-bold text-red-500">
               {{ ((bloomStats.fpp ?? 0) * 100).toFixed(4) }}%
             </span>
-          </div>
-        </ElCard>
+          </CardContent>
+        </Card>
       </div>
 
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <!-- 模板缓存区 -->
-        <ElCard shadow="never">
+        <Card>
+          <CardContent class="pt-4">
           <div class="mb-4 flex items-center justify-between">
             <h3 class="text-base font-medium">模板缓存统计</h3>
             <div class="flex gap-2">
-              <ElButton size="small" @click="loadCacheStats">刷新</ElButton>
-              <ElButton size="small" type="primary" @click="evictDialogVisible = true">
+              <Button size="sm" variant="outline" @click="loadCacheStats">刷新</Button>
+              <Button size="sm" @click="evictDialogVisible = true">
                 清理单条
-              </ElButton>
-              <ElButton size="small" type="danger" @click="handleClearAllCache">
+              </Button>
+              <Button size="sm" variant="destructive" @click="handleClearAllCache">
                 全量清理
-              </ElButton>
+              </Button>
             </div>
           </div>
 
@@ -212,10 +215,11 @@ onMounted(() => {
         </ElCard>
 
         <!-- BloomFilter 区 -->
-        <ElCard shadow="never">
+        <Card>
+          <CardContent class="pt-4">
           <div class="mb-4 flex items-center justify-between">
             <h3 class="text-base font-medium">BloomFilter 统计</h3>
-            <ElButton size="small" @click="loadBloomStats">刷新</ElButton>
+            <Button size="sm" variant="outline" @click="loadBloomStats">刷新</Button>
           </div>
 
           <div v-loading="loading" class="space-y-4">
@@ -250,21 +254,26 @@ onMounted(() => {
       </div>
 
       <!-- 清理单条缓存弹窗 -->
-      <ElDialog v-model="evictDialogVisible" title="清理单条模板缓存" width="480px">
-        <ElForm :model="evictForm" label-width="100px">
-          <ElFormItem label="模板编码" required>
-            <ElInput
-              v-model="evictForm.template"
-              placeholder="请输入要清理的模板编码"
-              clearable
-            />
-          </ElFormItem>
-        </ElForm>
-        <template #footer>
-          <ElButton @click="evictDialogVisible = false">取消</ElButton>
-          <ElButton type="primary" @click="handleEvictCache">确认清理</ElButton>
-        </template>
-      </ElDialog>
+      <Dialog v-model:open="evictDialogVisible">
+        <DialogContent class="max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle>清理单条模板缓存</DialogTitle>
+            <DialogDescription>输入模板编码清理对应的缓存条目</DialogDescription>
+          </DialogHeader>
+          <ElForm :model="evictForm" label-width="100px">
+            <ElFormItem label="模板编码" required>
+              <Input
+                v-model="evictForm.template"
+                placeholder="请输入要清理的模板编码"
+              />
+            </ElFormItem>
+          </ElForm>
+          <DialogFooter>
+            <Button variant="outline" @click="evictDialogVisible = false">取消</Button>
+            <Button @click="handleEvictCache">确认清理</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   </Page>
 </template>

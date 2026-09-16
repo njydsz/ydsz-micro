@@ -20,7 +20,10 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDialog, ElDrawer, ElForm, ElFormItem, ElInput, ElTag } from 'element-plus';
+import { Badge, Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input, Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
+import { ElForm, ElFormItem } from 'element-plus';
+// NOTE: ElDialog/ElDrawer 已迁移为 Dialog/Sheet
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -37,6 +40,14 @@ import TemplateForm from './template-form.vue';
 defineOptions({ name: 'TemplateManagement' });
 
 const { t } = useI18n();
+
+/** Badge variant 映射（EP type → shadcn variant） */
+function mapAuditVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
 
 /** 审核状态列 Tag 类型映射（未知值按 info 展示） */
 function getAuditStatusType(auditStatus?: string): 'success' | 'danger' | 'warning' | 'info' {
@@ -63,7 +74,7 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getAuditStatusType(row.auditStatus) }, () => row.auditStatus ?? '-'),
+          h(Badge, { variant: mapAuditVariant(getAuditStatusType(row.auditStatus)) }, () => row.auditStatus ?? '-'),
       },
     },
     {
@@ -73,8 +84,8 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElTag,
-            { type: row.status === 'DISABLED' ? 'info' : 'success' },
+            Badge,
+            { variant: row.status === 'DISABLED' ? 'secondary' : 'default' },
             () => row.status ?? '-',
           ),
       },
@@ -89,33 +100,33 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleVersion(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleVersion(row) },
               () => t('version'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handlePreview(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handlePreview(row) },
               () => t('template.preview'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleTestSend(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleTestSend(row) },
               () => t('template.test'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleAudit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleAudit(row) },
               () => t('template.audit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => t('common.delete'),
             ),
           ]),
@@ -315,59 +326,75 @@ async function executeTestSend(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="模板管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('common.create') }}</Button>
       </template>
     </Grid>
     <TemplateFormModal @success="gridApi.query()" />
     <!-- 版本管理抽屉 -->
-    <ElDrawer v-model="versionVisible" title="版本管理" :size="640">
-      <div v-loading="versionLoading">
-        <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">
-          暂无版本记录
-        </div>
-        <div
-          v-for="version in versionList"
-          :key="version.version"
-          class="mb-3 flex items-center justify-between rounded border p-3"
-        >
-          <div>
-            <p class="text-sm font-medium">版本 {{ version.version }}</p>
-            <p class="text-xs text-gray-500">{{ version.createdAt }}</p>
-            <p v-if="version.changeLog" class="mt-1 text-xs text-gray-600">
-              {{ version.changeLog }}
-            </p>
+    <Sheet v-model:open="versionVisible">
+      <SheetContent class="w-[640px] sm:max-w-[640px]">
+        <SheetHeader>
+          <SheetTitle>版本管理</SheetTitle>
+          <SheetDescription>查看和回滚模板版本</SheetDescription>
+        </SheetHeader>
+        <div v-loading="versionLoading" class="space-y-3">
+          <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">
+            暂无版本记录
           </div>
-          <ElButton size="small" type="warning" @click="handleRollback(version)">回滚</ElButton>
+          <div
+            v-for="version in versionList"
+            :key="version.version"
+            class="mb-3 flex items-center justify-between rounded border p-3"
+          >
+            <div>
+              <p class="text-sm font-medium">版本 {{ version.version }}</p>
+              <p class="text-xs text-gray-500">{{ version.createdAt }}</p>
+              <p v-if="version.changeLog" class="mt-1 text-xs text-gray-600">
+                {{ version.changeLog }}
+              </p>
+            </div>
+            <Button size="sm" variant="destructive" @click="handleRollback(version)">回滚</Button>
+          </div>
         </div>
-      </div>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
     <!-- 预览弹窗 -->
-    <ElDialog v-model="previewVisible" title="模板预览" width="600px">
-      <div v-loading="previewLoading" class="min-h-32">
-        <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-4 text-sm">{{
-          previewContent
-        }}</pre>
-      </div>
-    </ElDialog>
+    <Dialog v-model:open="previewVisible">
+      <DialogContent class="max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>模板预览</DialogTitle>
+          <DialogDescription>渲染后的模板内容预览</DialogDescription>
+        </DialogHeader>
+        <div v-loading="previewLoading" class="min-h-32">
+          <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-4 text-sm">{{
+            previewContent
+          }}</pre>
+        </div>
+      </DialogContent>
+    </Dialog>
     <!-- 测试发送弹窗 -->
-    <ElDialog v-model="testSendVisible" title="测试发送" width="480px">
-      <ElForm :model="testSendForm" label-width="80px">
-        <ElFormItem label="接收人" required>
-          <ElInput v-model="testSendForm.receiver" placeholder="请输入接收人邮箱/手机号" />
-        </ElFormItem>
-        <ElFormItem label="变量">
-          <ElInput
-            v-model="testSendForm.variables"
-            placeholder="请输入变量JSON（选填）"
-            type="textarea"
-            :rows="3"
-          />
-        </ElFormItem>
-      </ElForm>
-      <template #footer>
-        <ElButton @click="testSendVisible = false">{{ t('common.cancel') }}</ElButton>
-        <ElButton type="primary" @click="executeTestSend">发送</ElButton>
-      </template>
-    </ElDialog>
+    <Dialog v-model:open="testSendVisible">
+      <DialogContent class="max-w-[480px]">
+        <DialogHeader>
+          <DialogTitle>测试发送</DialogTitle>
+        </DialogHeader>
+        <ElForm :model="testSendForm" label-width="80px">
+          <ElFormItem label="接收人" required>
+            <Input v-model="testSendForm.receiver" placeholder="请输入接收人邮箱/手机号" />
+          </ElFormItem>
+          <ElFormItem label="变量">
+            <Input
+              v-model="testSendForm.variables"
+              placeholder="请输入变量JSON（选填）"
+              :rows="3"
+            />
+          </ElFormItem>
+        </ElForm>
+        <DialogFooter>
+          <Button variant="outline" @click="testSendVisible = false">{{ t('common.cancel') }}</Button>
+          <Button @click="executeTestSend">发送</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </Page>
 </template>

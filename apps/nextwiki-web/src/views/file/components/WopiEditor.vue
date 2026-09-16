@@ -18,7 +18,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { checkFileInfo, lockFile, unlockFile } from '#/api/wopi';
 import type { FileNodeVO } from '#/api/models';
@@ -150,15 +150,15 @@ function handleIframeMessage(event: MessageEvent): void {
     <div v-loading="loading" class="wopi-editor">
       <div class="mb-3 flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <ElTag v-if="isEditable" type="success">可编辑</ElTag>
-          <ElTag v-else type="info">只读预览</ElTag>
+          <Badge v-if="isEditable" variant="default">可编辑</Badge>
+          <Badge v-else variant="secondary">只读预览</Badge>
           <span class="text-sm text-gray-500">
             {{ fileInfo.AuthorCreatedDate ? `创建时间：${fileInfo.AuthorCreatedDate}` : '' }}
           </span>
           <span v-if="isLocked" class="text-sm text-green-600">🔒 已锁定编辑</span>
         </div>
         <div class="flex gap-2">
-          <ElButton size="small" @click="handleClose">关闭</ElButton>
+          <Button size="sm" variant="outline" @click="handleClose">关闭</Button>
         </div>
       </div>
 

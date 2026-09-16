@@ -17,7 +17,8 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInputNumber, ElTag } from 'element-plus';
+import { ElInputNumber } from 'element-plus';
+import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -55,7 +56,7 @@ const gridOptions: VxeGridProps<UserFavoriteVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.nodeType === 'DIRECTORY' ? 'info' : 'primary' }, () =>
+          h(Badge, { variant: row.nodeType === 'DIRECTORY' ? 'secondary' : 'default' }, () =>
             row.nodeType === 'DIRECTORY' ? t('nodeTypeDirectory') : t('nodeTypeFile'),
           ),
       },
@@ -97,10 +98,9 @@ const gridOptions: VxeGridProps<UserFavoriteVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, {
-              size: 'small',
-              link: true,
-              type: 'danger',
+            h(Button, {
+              size: 'sm',
+              variant: 'link',
               onClick: () => handleRemove(row),
             }, () => t('favoritesRemove')),
           ]),

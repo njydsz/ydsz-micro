@@ -17,6 +17,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// SKIP: template-form.vue 批量跳过迁移 — ElForm/ElFormItem 不在映射表，表单体系需整体重写
 import { ElForm, ElFormItem, ElInput } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

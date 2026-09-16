@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件标签（表单组件）
  *
  * @path apps\nextwiki-web\src\views\tag\tag-form.vue
@@ -16,7 +16,8 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
+import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
 const logger = createLogger('nextwiki-tag');
 const { t } = useI18n();
 import { reactive, ref } from 'vue';
@@ -54,10 +55,10 @@ const [Modal, modalApi] = useYDSZModal({
   <Modal :title="t('newTag')">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem label="标签名称" prop="name">
-        <ElInput v-model="formData.name" placeholder="请输入标签名称" />
+        <Input v-model="formData.name" placeholder="请输入标签名称" />
       </ElFormItem>
       <ElFormItem label="标签颜色" prop="color">
-        <ElInput v-model="formData.color" placeholder="如 #409eff（可选）" />
+        <Input v-model="formData.color" placeholder="如 #409eff（可选）" />
       </ElFormItem>
     </ElForm>
   </Modal>

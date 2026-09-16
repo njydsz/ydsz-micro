@@ -17,6 +17,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// SKIP: message-form.vue 批量跳过迁移 — ElForm/ElFormItem/ElRadio/ElRadioGroup 不在映射表，表单体系需整体重写
 import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
 import { reactive, ref } from 'vue';
 

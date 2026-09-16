@@ -17,7 +17,8 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElInput, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
+import { Button, Input, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -52,8 +53,8 @@ const gridOptions: VxeGridProps<TagVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleBind(row) }, () => '绑定'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleFileTags() }, () => '文件标签'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleBind(row) }, () => '绑定'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleFileTags() }, () => '文件标签'),
           ]),
       },
     },
@@ -119,23 +120,23 @@ async function loadRecommendedTags() {
   <Page auto-content-height>
     <Grid table-title="标签管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增标签</ElButton>
+        <Button @click="handleAdd">新增标签</Button>
       </template>
     </Grid>
     <TagFormModal @success="gridApi.query()" />
     <ElDialog v-model="bindVisible" title="绑定标签到文件" width="440px">
-      <ElInput v-model="bindForm.fileNodeId" placeholder="请输入文件节点ID" class="mb-2" />
-      <ElInput v-model="bindForm.tagId" placeholder="请输入标签ID" />
+      <Input v-model="bindForm.fileNodeId" placeholder="请输入文件节点ID" class="mb-2" />
+      <Input v-model="bindForm.tagId" placeholder="请输入标签ID" />
       <template #footer>
-        <ElButton @click="bindVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="confirmBind">确定</ElButton>
+        <Button variant="outline" @click="bindVisible = false">取消</Button>
+        <Button @click="confirmBind">确定</Button>
       </template>
     </ElDialog>
     <ElDialog v-model="fileTagsVisible" title="文件标签查询 / 推荐" width="600px">
       <div class="mb-2 flex items-center gap-2">
-        <ElInput v-model="fileTagsNodeId" placeholder="请输入文件节点ID" clearable @keyup.enter="loadFileTags" />
-        <ElButton type="primary" @click="loadFileTags">查询</ElButton>
-        <ElButton @click="loadRecommendedTags">推荐标签</ElButton>
+        <Input v-model="fileTagsNodeId" placeholder="请输入文件节点ID" clearable @keyup.enter="loadFileTags" />
+        <Button @click="loadFileTags">查询</Button>
+        <Button variant="outline" @click="loadRecommendedTags">推荐标签</Button>
       </div>
       <ElTable :data="fileTags" border size="small" empty-text="该文件暂无标签">
         <ElTableColumn prop="id" label="标签ID" min-width="160" />
@@ -146,7 +147,7 @@ async function loadRecommendedTags() {
       <template v-if="recommendTagList.length > 0">
         <div class="mt-3 mb-1 text-sm font-medium text-gray-600">推荐标签</div>
         <div class="flex flex-wrap gap-1">
-          <ElTag v-for="tag in recommendTagList" :key="tag.id" type="primary">{{ tag.name }}</ElTag>
+          <Badge v-for="tag in recommendTagList" :key="tag.id">{{ tag.name }}</Badge>
         </div>
       </template>
     </ElDialog>

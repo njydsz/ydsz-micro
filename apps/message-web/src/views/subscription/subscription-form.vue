@@ -19,7 +19,9 @@ import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('message-subscription');
-import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch } from 'element-plus';
+import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
+// SKIP: ElForm/ElFormItem/ElInput/ElOption/ElSelect/ElSwitch 不在 shadcn 映射表，保留 EP
+import { ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch } from 'element-plus';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -173,8 +175,8 @@ async function handleSubmit(): Promise<void> {
     </ElForm>
 
     <template #footer>
-      <ElButton @click="modalApi.close()">{{ t('common.cancel') }}</ElButton>
-      <ElButton type="primary" @click="handleSubmit">保存</ElButton>
+      <Button variant="outline" @click="modalApi.close()">{{ t('common.cancel') }}</Button>
+      <Button @click="handleSubmit">保存</Button>
     </template>
   </Modal>
 </template>
