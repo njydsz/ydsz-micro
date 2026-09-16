@@ -17,7 +17,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -100,7 +100,7 @@ const gridOptions: VxeTableGridOptions<PromptTemplateVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
+          h(Badge, { variant: row.enabled ? 'default' : 'outline' }, () =>
             row.enabled ? '启用' : '停用',
           ),
       },
@@ -116,23 +116,23 @@ const gridOptions: VxeTableGridOptions<PromptTemplateVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleTest(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleTest(row) },
               () => '测试',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleToggle(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleToggle(row) },
               () => (row.enabled ? '停用' : '启用'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
           ]),
@@ -216,7 +216,7 @@ async function handleDelete(row: PromptTemplateVO): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="Prompt 模板管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增模板</ElButton>
+        <Button @click="handleAdd">新增模板</Button>
       </template>
     </Grid>
     <PromptFormModal @success="gridApi.query()" />

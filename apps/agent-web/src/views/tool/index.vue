@@ -18,7 +18,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 
 const logger = createLogger('agent-tool');
@@ -126,7 +126,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getToolTypeTagType(row.toolType) }, () => getToolTypeLabel(row.toolType)),
+          h(Badge, { variant: getToolTypeTagType(row.toolType) === 'primary' ? 'default' : getToolTypeTagType(row.toolType) as any }, () => getToolTypeLabel(row.toolType)),
       },
     },
     { field: 'description', title: '描述', minWidth: 180 },
@@ -138,7 +138,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
+          h(Badge, { variant: row.enabled ? 'default' : 'outline' }, () =>
             row.enabled ? t('common.enabled') : '停用',
           ),
       },
@@ -154,28 +154,27 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleTest(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleTest(row) },
               () => '测试',
             ),
             h(
-              ElButton,
+              Button,
               {
-                size: 'small',
-                link: true,
-                type: row.enabled ? 'warning' : 'success',
+                size: 'sm',
+                variant: 'link',
                 onClick: () => handleToggle(row),
               },
               () => (row.enabled ? '停用' : t('common.enabled')),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => t('common.delete'),
             ),
           ]),
@@ -256,7 +255,7 @@ async function handleDelete(row: ToolVO): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="工具管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增工具</ElButton>
+        <Button @click="handleAdd">新增工具</Button>
       </template>
     </Grid>
     <ToolFormModal @success="gridApi.query()" />

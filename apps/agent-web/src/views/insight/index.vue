@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -43,7 +43,7 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
       slots: { default: ({ row }) => {
         const theme = getStatusTheme(row.status);
         const text = getStatusText(row.status);
-        return h(ElTag, { type: theme }, () => text);
+        return h(Badge, { variant: theme === 'primary' ? 'default' : theme }, () => text);
       } },
     },
     { field: 'durationMs', title: '生成耗时(ms)', width: 120 },
@@ -55,8 +55,8 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleExport(row) }, () => '导出'),
-          h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+          h(Button, { size: 'sm', variant: 'link', onClick: () => handleExport(row) }, () => '导出'),
+          h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
       },
     },

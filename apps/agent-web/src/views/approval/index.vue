@@ -15,10 +15,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { h } from 'vue';
-import { ElButton } from 'element-plus';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { useI18n } from 'vue-i18n';
 import { listPending } from '#/api/humanApproval';
@@ -40,8 +40,8 @@ const gridOptions: VxeTableGridOptions<Record<string, unknown>> = {
     {
       field: 'action', title: t('common.actions'), width: 140, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleOpen(row, 'approve') }, () => '通过'),
-        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleOpen(row, 'reject') }, () => '驳回'),
+        h(Button, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'approve') }, () => '通过'),
+        h(Button, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'reject') }, () => '驳回'),
       ]) },
     },
   ],
