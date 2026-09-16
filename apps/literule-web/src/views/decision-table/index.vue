@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -55,7 +55,7 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.isEnabled ? 'success' : 'info' }, () =>
+          h(Badge, { variant: row.isEnabled ? 'default' : 'secondary' }, () =>
             row.isEnabled ? '启用' : '停用',
           ),
       },
@@ -72,23 +72,23 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleDesign(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDesign(row) },
               () => '设计',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleExport(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleExport(row) },
               () => '导出',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
           ]),
@@ -199,8 +199,8 @@ async function handleDownloadTemplate(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="决策表管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
-        <ElButton @click="handleDownloadTemplate">下载模板</ElButton>
+        <Button @click="handleAdd">新增</Button>
+        <Button variant="secondary" @click="handleDownloadTemplate">下载模板</Button>
       </template>
     </Grid>
     <DecisionTableDesigner

@@ -16,7 +16,18 @@
  */
 import { reactive, ref } from 'vue';
 
-import { ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Input,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
+// TODO: ElInputNumber 暂无 shadcn-ui 等效组件，保留 element-plus 导入
+import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 
 defineOptions({ name: 'TemplateGroupForm' });
 
@@ -53,26 +64,26 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <ElDialog
-    :model-value="visible"
-    title="新建模板分组"
-    width="450px"
-    @update:model-value="handleClose"
-  >
-    <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
-      <ElFormItem label="分组名称" prop="name">
-        <ElInput v-model="form.name" placeholder="如 mybatis-plus、mongodb" />
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="form.description" placeholder="分组用途说明" />
-      </ElFormItem>
-      <ElFormItem label="排序">
-        <ElInputNumber v-model="form.sortOrder" :min="0" />
-      </ElFormItem>
-    </ElForm>
-    <template #footer>
-      <ElButton @click="handleClose">取消</ElButton>
-      <ElButton type="primary" @click="handleSubmit">确定</ElButton>
-    </template>
-  </ElDialog>
+  <Dialog :open="visible" @update:open="handleClose">
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>新建模板分组</DialogTitle>
+      </DialogHeader>
+      <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
+        <ElFormItem label="分组名称" prop="name">
+          <Input v-model="form.name" placeholder="如 mybatis-plus、mongodb" />
+        </ElFormItem>
+        <ElFormItem label="描述">
+          <Input v-model="form.description" placeholder="分组用途说明" />
+        </ElFormItem>
+        <ElFormItem label="排序">
+          <ElInputNumber v-model="form.sortOrder" :min="0" />
+        </ElFormItem>
+      </ElForm>
+      <DialogFooter>
+        <Button variant="secondary" @click="handleClose">取消</Button>
+        <Button @click="handleSubmit">确定</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>

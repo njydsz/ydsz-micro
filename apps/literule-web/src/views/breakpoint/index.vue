@@ -15,7 +15,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -45,7 +45,7 @@ const gridOptions: VxeGridProps<DebugRow> = {
       title: '状态',
       width: 90,
       slots: {
-        default: ({ row }) => h(ElTag, { type: 'success' }, () => String(row.status ?? '-')),
+        default: ({ row }) => h(Badge, { variant: 'default' }, () => String(row.status ?? '-')),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 160 },
@@ -57,11 +57,10 @@ const gridOptions: VxeGridProps<DebugRow> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElButton,
+            Button,
             {
-              size: 'small',
-              link: true,
-              type: 'danger',
+              size: 'sm',
+              variant: 'link',
               onClick: () => handleRemoveBreakpoint(row),
             },
             () => '删除',
@@ -195,7 +194,7 @@ async function handleSubmitCommand() {
     <div class="flex flex-col gap-3 p-4">
       <Grid table-title="断点列表">
         <template #toolbar-tools
-          ><ElButton type="primary" @click="handleAddBreakpoint">新增断点</ElButton></template
+          ><Button @click="handleAddBreakpoint">新增断点</Button></template
         >
       </Grid>
       <div class="rounded border border-gray-200 bg-white p-3">
@@ -207,8 +206,8 @@ async function handleSubmitCommand() {
             >
           </div>
           <div class="flex gap-2">
-            <ElButton size="small" type="primary" @click="handleCreateSession">创建会话</ElButton>
-            <ElButton size="small" @click="loadSessions">刷新会话</ElButton>
+            <Button size="sm" @click="handleCreateSession">创建会话</Button>
+            <Button size="sm" variant="secondary" @click="loadSessions">刷新会话</Button>
           </div>
         </div>
         <ElTable :data="sessions" border size="small" class="mb-2">
@@ -218,11 +217,11 @@ async function handleSubmitCommand() {
           <ElTableColumn prop="createdAt" label="创建时间" width="170" />
           <ElTableColumn label="操作" width="160" fixed="right">
             <template #default="{ row }">
-              <ElButton link type="primary" size="small" @click="handleSelectSession(row)"
-                >选择</ElButton
+              <Button variant="link" size="sm" @click="handleSelectSession(row)"
+                >选择</Button
               >
-              <ElButton link type="danger" size="small" @click="handleTerminateSession(row)"
-                >结束</ElButton
+              <Button variant="link" size="sm" @click="handleTerminateSession(row)"
+                >结束</Button
               >
             </template>
           </ElTableColumn>
@@ -235,8 +234,8 @@ async function handleSubmitCommand() {
             placeholder="输入调试命令…"
             class="flex-1"
           />
-          <ElButton type="primary" :disabled="!selectedSessionId" @click="handleSubmitCommand"
-            >提交命令</ElButton
+          <Button :disabled="!selectedSessionId" @click="handleSubmitCommand"
+            >提交命令</Button
           >
         </div>
         <pre

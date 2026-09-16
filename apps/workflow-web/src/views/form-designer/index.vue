@@ -17,6 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
+// TODO: EP → shadcn-ui 迁移待后续批次（表单设计器包含 ElForm/ElFormItem/ElSwitch 等复杂组合）
 import { ElButton, ElCard, ElForm, ElFormItem, ElInput, ElSwitch, ElTag } from 'element-plus';
 import { computed, ref } from 'vue';
 import { getFormConfig, saveFormConfig } from '#/api/flowDesigner';

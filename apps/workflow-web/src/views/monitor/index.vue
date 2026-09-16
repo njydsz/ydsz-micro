@@ -17,7 +17,9 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElCard, ElOption, ElSelect, ElStatistic, ElTag } from 'element-plus';
+// TODO: ElStatistic 暂不迁移，保留 element-plus 导入
+import { ElStatistic } from 'element-plus';
+import { Badge, Button, Card, CardContent, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import {
@@ -305,30 +307,42 @@ onMounted(() => {
     <div class="mb-4 flex items-center justify-between px-4 pt-3">
       <h1 class="text-xl font-bold text-gray-800">{{ t('monitor.title') }}</h1>
       <div class="flex items-center gap-3">
-        <ElSelect v-model="timeRange" :placeholder="t('monitor.timeRangePlaceholder')" class="w-32">
-          <ElOption
-            v-for="opt in timeRangeOptions"
-            :key="opt.value"
-            :label="opt.label"
-            :value="opt.value"
-          />
-        </ElSelect>
-        <ElButton type="primary" :loading="loading" @click="loadAllData">{{ t('common.refresh') }}</ElButton>
+        <Select v-model="timeRange">
+          <SelectTrigger class="w-32">
+            <SelectValue :placeholder="t('monitor.timeRangePlaceholder')" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              v-for="opt in timeRangeOptions"
+              :key="opt.value"
+              :value="opt.value"
+            >
+              {{ opt.label }}
+            </SelectItem>
+          </SelectContent>
+        </Select>
+        <Button :loading="loading" @click="loadAllData">{{ t('common.refresh') }}</Button>
       </div>
     </div>
 
     <!-- 概览卡片 -->
     <div class="mb-4 grid grid-cols-4 gap-4 px-4">
-      <ElCard shadow="hover">
-        <ElStatistic :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
-      </ElCard>
-      <ElCard shadow="hover">
-        <ElStatistic :title="t('monitor.todayInstanceCount')" :value="overview.todayInstanceCount ?? 0" />
-      </ElCard>
-      <ElCard shadow="hover">
-        <ElStatistic :title="t('monitor.pendingTaskCount')" :value="overview.pendingTaskCount ?? 0" />
-      </ElCard>
-      <ElCard shadow="hover">
+      <Card>
+        <CardContent class="pt-6">
+          <ElStatistic :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent class="pt-6">
+          <ElStatistic :title="t('monitor.todayInstanceCount')" :value="overview.todayInstanceCount ?? 0" />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent class="pt-6">
+          <ElStatistic :title="t('monitor.pendingTaskCount')" :value="overview.pendingTaskCount ?? 0" />
+        </CardContent>
+      </Card>
+      <Card>
         <div class="flex items-center justify-between">
           <div>
             <div class="text-sm text-gray-500">{{ t('monitor.healthScore') }}</div>
@@ -336,42 +350,43 @@ onMounted(() => {
               {{ healthScoreData.score }}
             </div>
           </div>
-          <ElTag
-            :type="
+          <Badge
+            :variant="
               healthScoreData.score >= 80
-                ? 'success'
+                ? 'default'
                 : healthScoreData.score >= 60
-                  ? 'warning'
-                  : 'danger'
+                  ? 'destructive'
+                  : 'destructive'
             "
           >
             {{ healthScoreData.level }}
-          </ElTag>
+          </Badge>
         </div>
-      </ElCard>
+        </CardContent>
+      </Card>
     </div>
 
     <!-- 图表区域 -->
     <div class="grid grid-cols-2 gap-4 px-4 pb-4">
       <!-- 实例趋势 -->
-      <ElCard shadow="hover">
-        <div id="trendChart" class="h-80" />
-      </ElCard>
+      <Card>
+        <CardContent class="pt-6"><div id="trendChart" class="h-80" /></CardContent>
+      </Card>
 
       <!-- 流程类型分布 -->
-      <ElCard shadow="hover">
-        <div id="flowTypeChart" class="h-80" />
-      </ElCard>
+      <Card>
+        <CardContent class="pt-6"><div id="flowTypeChart" class="h-80" /></CardContent>
+      </Card>
 
       <!-- 审批人效率 -->
-      <ElCard shadow="hover">
-        <div id="approverChart" class="h-80" />
-      </ElCard>
+      <Card>
+        <CardContent class="pt-6"><div id="approverChart" class="h-80" /></CardContent>
+      </Card>
 
       <!-- 瓶颈排行 -->
-      <ElCard shadow="hover">
-        <div id="bottleneckChart" class="h-80" />
-      </ElCard>
+      <Card>
+        <CardContent class="pt-6"><div id="bottleneckChart" class="h-80" /></CardContent>
+      </Card>
     </div>
   </Page>
 </template>

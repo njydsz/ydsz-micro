@@ -18,8 +18,22 @@
  */
 import { onMounted, ref } from 'vue';
 
-import { ElCard, ElCheckbox, ElForm, ElFormItem, ElOption, ElSelect, ElUpload } from 'element-plus';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
+// TODO: ElCheckbox/ElUpload 暂无对应 shadcn-ui 组件，保留 element-plus 导入
 import type { UploadRequestOptions } from 'element-plus';
+import { ElCheckbox, ElForm, ElFormItem, ElUpload } from 'element-plus';
 
 import { exportTemplates, importTemplates } from '#/api/import-export';
 import { listGroups } from '#/api/template';
@@ -96,84 +110,87 @@ onMounted(() => {
 <template>
   <div class="import-export p-4" style="max-width: 700px">
     <!-- 导出的卡片 -->
-    <ElCard class="mb-4" shadow="hover">
-      <template #header>
-        <div class="flex items-center gap-2">
-          <span class="font-medium">导出模板分组为 ZIP</span>
+    <Card class="mb-4">
+      <CardHeader>
+        <CardTitle>导出模板分组为 ZIP</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ElForm label-width="100px">
+          <ElFormItem label="选择分组">
+            <Select v-model="exportGroupId">
+              <SelectTrigger>
+                <SelectValue placeholder="选择要导出的模板分组" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem
+                  v-for="group in groupList"
+                  :key="group.id"
+                  :value="String(group.id)"
+                >
+                  {{ group.name }} ({{ group.description || '无描述' }})
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </ElFormItem>
+          <ElFormItem>
+            <Button
+              :loading="exporting"
+              @click="handleExport"
+            >
+              导出 ZIP
+            </Button>
+          </ElFormItem>
+        </ElForm>
+        <div class="text-xs text-gray-500 mt-2">
+          导出当前分组的所有 Velocity 模板文件为 ZIP 压缩包，可作为备份或跨环境迁移。
         </div>
-      </template>
-      <ElForm label-width="100px">
-        <ElFormItem label="选择分组">
-          <ElSelect
-            v-model="exportGroupId"
-            placeholder="选择要导出的模板分组"
-            style="width: 100%"
-          >
-            <ElOption
-              v-for="group in groupList"
-              :key="group.id"
-              :label="`${group.name} (${group.description || '无描述'})`"
-              :value="group.id"
-            />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem>
-          <ElButton
-            type="primary"
-            :loading="exporting"
-            @click="handleExport"
-          >
-            导出 ZIP
-          </ElButton>
-        </ElFormItem>
-      </ElForm>
-      <div class="text-xs text-gray-500 mt-2">
-        导出当前分组的所有 Velocity 模板文件为 ZIP 压缩包，可作为备份或跨环境迁移。
-      </div>
-    </ElCard>
+      </CardContent>
+    </Card>
 
     <!-- 导入的卡片 -->
-    <ElCard shadow="hover">
-      <template #header>
-        <div class="flex items-center gap-2">
-          <span class="font-medium">从 ZIP 导入模板</span>
+    <Card>
+      <CardHeader>
+        <CardTitle>从 ZIP 导入模板</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ElForm label-width="100px">
+          <ElFormItem label="目标分组">
+            <Select v-model="importGroupId">
+              <SelectTrigger>
+                <SelectValue placeholder="选择导入到的模板分组" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem
+                  v-for="group in groupList"
+                  :key="group.id"
+                  :value="String(group.id)"
+                >
+                  {{ group.name }} ({{ group.description || '无描述' }})
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </ElFormItem>
+          <ElFormItem label="覆盖模式">
+            <ElCheckbox v-model="overwriteOnImport">
+              覆盖已有模板（不勾选则跳过同名模板）
+            </ElCheckbox>
+          </ElFormItem>
+          <ElFormItem label="ZIP 文件">
+            <ElUpload
+              :auto-upload="true"
+              :show-file-list="true"
+              :http-request="handleImport"
+              accept=".zip"
+              :limit="1"
+            >
+              <Button>选择 ZIP 文件</Button>
+            </ElUpload>
+          </ElFormItem>
+        </ElForm>
+        <div class="text-xs text-gray-500 mt-2">
+          从 ZIP 压缩包导入模板到指定分组。ZIP 文件应包含 Velocity 模板文件。
         </div>
-      </template>
-      <ElForm label-width="100px">
-        <ElFormItem label="目标分组">
-          <ElSelect
-            v-model="importGroupId"
-            placeholder="选择导入到的模板分组"
-            style="width: 100%"
-          >
-            <ElOption
-              v-for="group in groupList"
-              :key="group.id"
-              :label="`${group.name} (${group.description || '无描述'})`"
-              :value="group.id"
-            />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="覆盖模式">
-          <ElCheckbox v-model="overwriteOnImport">
-            覆盖已有模板（不勾选则跳过同名模板）
-          </ElCheckbox>
-        </ElFormItem>
-        <ElFormItem label="ZIP 文件">
-          <ElUpload
-            :auto-upload="true"
-            :show-file-list="true"
-            :http-request="handleImport"
-            accept=".zip"
-            :limit="1"
-          >
-            <ElButton type="primary">选择 ZIP 文件</ElButton>
-          </ElUpload>
-        </ElFormItem>
-      </ElForm>
-      <div class="text-xs text-gray-500 mt-2">
-        从 ZIP 压缩包导入模板到指定分组。ZIP 文件应包含 Velocity 模板文件。
-      </div>
-    </ElCard>
+      </CardContent>
+    </Card>
   </div>
 </template>

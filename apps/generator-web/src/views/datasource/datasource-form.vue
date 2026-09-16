@@ -16,7 +16,23 @@
  */
 import { onMounted, reactive, ref } from 'vue';
 
-import { ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch } from 'element-plus';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
+// TODO: ElSwitch 暂无对应 shadcn-ui 组件，保留 element-plus 导入
+import { ElForm, ElFormItem, ElSwitch } from 'element-plus';
 
 import type { GenDatasource } from '#/api/models';
 
@@ -93,53 +109,58 @@ onMounted(() => {});
 </script>
 
 <template>
-  <ElDialog
-    v-model="dialogVisible"
-    :title="dialogTitle"
-    width="500px"
-    @close="handleClose"
-  >
-    <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
-      <ElFormItem label="名称" prop="name">
-        <ElInput v-model="form.name" placeholder="如 ydsz-cloud-dev" />
-      </ElFormItem>
-      <ElFormItem label="JDBC URL" prop="jdbcUrl">
-        <ElInput
-          v-model="form.jdbcUrl"
-          placeholder="jdbc:mysql://localhost:3306/ydsz_cloud"
-        />
-      </ElFormItem>
-      <ElFormItem label="用户名" prop="username">
-        <ElInput v-model="form.username" placeholder="数据库用户名" />
-      </ElFormItem>
-      <ElFormItem label="密码" prop="password">
-        <ElInput
-          v-model="form.password"
-          type="password"
-          placeholder="数据库密码"
-          show-password
-        />
-      </ElFormItem>
-      <ElFormItem label="方言">
-        <ElSelect v-model="form.dialect" style="width: 100%">
-          <ElOption
-            v-for="opt in dialectOptions"
-            :key="opt.value"
-            :label="opt.label"
-            :value="opt.value"
+  <Dialog :open="dialogVisible" @update:open="handleClose">
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>{{ dialogTitle }}</DialogTitle>
+      </DialogHeader>
+      <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
+        <ElFormItem label="名称" prop="name">
+          <Input v-model="form.name" placeholder="如 ydsz-cloud-dev" />
+        </ElFormItem>
+        <ElFormItem label="JDBC URL" prop="jdbcUrl">
+          <Input
+            v-model="form.jdbcUrl"
+            placeholder="jdbc:mysql://localhost:3306/ydsz_cloud"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem label="默认数据源">
-        <ElSwitch v-model="form.defaultFlag" />
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="form.description" placeholder="可选描述信息" />
-      </ElFormItem>
-    </ElForm>
-    <template #footer>
-      <ElButton @click="handleClose">取消</ElButton>
-      <ElButton type="primary" @click="handleSubmit">确定</ElButton>
-    </template>
-  </ElDialog>
+        </ElFormItem>
+        <ElFormItem label="用户名" prop="username">
+          <Input v-model="form.username" placeholder="数据库用户名" />
+        </ElFormItem>
+        <ElFormItem label="密码" prop="password">
+          <Input
+            v-model="form.password"
+            type="password"
+            placeholder="数据库密码"
+          />
+        </ElFormItem>
+        <ElFormItem label="方言">
+          <Select v-model="form.dialect">
+            <SelectTrigger>
+              <SelectValue placeholder="请选择数据库方言" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem
+                v-for="opt in dialectOptions"
+                :key="opt.value"
+                :value="opt.value"
+              >
+                {{ opt.label }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </ElFormItem>
+        <ElFormItem label="默认数据源">
+          <ElSwitch v-model="form.defaultFlag" />
+        </ElFormItem>
+        <ElFormItem label="描述">
+          <Input v-model="form.description" placeholder="可选描述信息" />
+        </ElFormItem>
+      </ElForm>
+      <DialogFooter>
+        <Button variant="secondary" @click="handleClose">取消</Button>
+        <Button @click="handleSubmit">确定</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>

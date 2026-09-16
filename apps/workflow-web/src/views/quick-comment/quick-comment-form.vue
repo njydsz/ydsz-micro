@@ -16,7 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
+// TODO: ElForm / FormItem / ElInputNumber 暂不迁移，保留 element-plus 导入
+import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
+import { Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, reactive, ref } from 'vue';
 import { createQuickComment, updateQuickComment } from '#/api/flowComment';
 import type { FlowQuickCommentDTO, FlowQuickCommentVO } from '#/api/models';
@@ -114,15 +116,13 @@ const title = computed(() => (isEdit.value ? t('quickComment.edit.title') : t('q
       label-position="right"
     >
       <ElFormItem :label="t('quickComment.content.label')" prop="content">
-        <ElInput
+        <Textarea
           v-model="formData.content"
-          type="textarea"
-          :rows="3"
           :placeholder="t('quickComment.content.placeholder')"
         />
       </ElFormItem>
       <ElFormItem :label="t('quickComment.type.label')">
-        <ElInput v-model="formData.commentType" :placeholder="t('quickComment.type.placeholder')" />
+        <Input v-model="formData.commentType" :placeholder="t('quickComment.type.placeholder')" />
       </ElFormItem>
       <ElFormItem :label="t('quickComment.sort.label')">
         <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />

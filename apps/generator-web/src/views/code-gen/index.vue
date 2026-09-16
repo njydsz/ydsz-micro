@@ -2,7 +2,7 @@
  * 代码生成（主面板）
  *
  * <p>选择数据源、模板分组和表名，预览代码、单表生成、全量生成。
- * 新增：历史记录侧栏 Drawer，支持 Diff 预览。
+ * 新增：历史记录侧栏 Sheet（Drawer），支持 Diff 预览。
  *
  * @path apps/generator-web/src/views/code-gen/index.vue
  * @author ydsz-team
@@ -22,7 +22,29 @@ import { onMounted, reactive, ref, watch } from 'vue';
 
 import { useRoute } from 'vue-router';
 
-import { ElButton, ElCard, ElDrawer, ElEmpty, ElForm, ElFormItem, ElIcon, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Dialog,
+  DialogContent,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Sheet,
+  SheetContent,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
+// TODO: ElRadioButton/ElRadioGroup 暂无对应 shadcn-ui 组件，保留 element-plus 导入
+// TODO: ElEmpty/ElIcon 暂无 shadcn-ui 等效组件，保留 element-plus 导入
+// TODO: ElTabs/ElTabPane 暂无对应 shadcn-ui 组件，保留 element-plus 导入
+import { ElEmpty, ElForm, ElFormItem, ElIcon, ElRadioButton, ElRadioGroup, ElTabPane, ElTabs } from 'element-plus';
 import { Clock, Document } from '@element-plus/icons-vue';
 
 import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
@@ -282,7 +304,7 @@ async function handleOpenHistoryDrawer() {
 async function handleViewHistoryDiff(record: GenHistory) {
   if (!record.id) return;
   await showDiffPreview(record.id);
-  // 如果只有一个文件则直接打开 modal，否则在 Drawer 中展示列表
+  // 如果只有一个文件则直接打开 modal，否则在 Sheet 中展示列表
   if (diffFiles.value.length === 1) {
     const file = diffFiles.value[0];
     if (file) {
@@ -331,6 +353,20 @@ function getStatusLabel(status: string): string {
       return status;
   }
 }
+
+/** 获取 Badge 变体 */
+function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'secondary' {
+  switch (status) {
+    case 'SUCCESS':
+      return 'default';
+    case 'PARTIAL':
+      return 'destructive';
+    case 'FAILED':
+      return 'destructive';
+    default:
+      return 'secondary';
+  }
+}
 </script>
 
 <template>
@@ -338,161 +374,169 @@ function getStatusLabel(status: string): string {
     <ElTabs v-model="activeTab">
       <!-- ═══ 生成配置 Tab ═══ -->
       <ElTabPane label="生成配置" name="config">
-        <ElCard class="mt-4" shadow="hover">
-          <template #header>
+        <Card class="mt-4">
+          <CardHeader>
             <div class="flex items-center justify-between">
-              <span class="font-medium">数据源与模板</span>
-              <ElButton
-                type="primary"
-                size="small"
-                link
-                :icon="Clock"
+              <CardTitle>数据源与模板</CardTitle>
+              <Button
+                size="sm"
+                variant="link"
                 @click="handleOpenHistoryDrawer"
               >
+                <ElIcon class="mr-1">
+                  <Clock />
+                </ElIcon>
                 历史记录
-              </ElButton>
+              </Button>
             </div>
-          </template>
-          <ElForm label-width="120px">
-            <ElFormItem label="数据源">
-              <ElSelect
-                v-model="selectedDatasourceId"
-                placeholder="选择数据源"
-                style="width: 100%"
-              >
-                <ElOption
-                  v-for="ds in datasourceList"
-                  :key="ds.id"
-                  :label="`${ds.name} (${ds.dialect})`"
-                  :value="ds.id"
-                />
-              </ElSelect>
-            </ElFormItem>
-            <ElFormItem label="模板分组">
-              <ElSelect
-                v-model="selectedGroupId"
-                placeholder="选择模板分组"
-                style="width: 100%"
-              >
-                <ElOption
-                  v-for="group in groupList"
-                  :key="group.id"
-                  :label="`${group.name}${group.isActive ? ' (当前激活)' : ''}`"
-                  :value="group.id"
-                />
-              </ElSelect>
-            </ElFormItem>
-            <ElFormItem label="目标表名">
-              <ElSelect
-                v-model="selectedTableName"
-                :loading="tablesLoading"
-                :allow-create="true"
-                :filterable="true"
-                placeholder="选择或输入表名"
-                style="width: 100%"
-              >
-                <ElOption
-                  v-for="t in tableList"
-                  :key="t"
-                  :label="t"
-                  :value="t"
-                />
-              </ElSelect>
-            </ElFormItem>
-          </ElForm>
-        </ElCard>
+          </CardHeader>
+          <CardContent>
+            <ElForm label-width="120px">
+              <ElFormItem label="数据源">
+                <Select v-model="selectedDatasourceId">
+                  <SelectTrigger>
+                    <SelectValue placeholder="选择数据源" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem
+                      v-for="ds in datasourceList"
+                      :key="ds.id"
+                      :value="String(ds.id)"
+                    >
+                      {{ ds.name }} ({{ ds.dialect }})
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </ElFormItem>
+              <ElFormItem label="模板分组">
+                <Select v-model="selectedGroupId">
+                  <SelectTrigger>
+                    <SelectValue placeholder="选择模板分组" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem
+                      v-for="group in groupList"
+                      :key="group.id"
+                      :value="String(group.id)"
+                    >
+                      {{ group.name }}{{ group.isActive ? ' (当前激活)' : '' }}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </ElFormItem>
+              <ElFormItem label="目标表名">
+                <Select v-model="selectedTableName">
+                  <SelectTrigger>
+                    <SelectValue placeholder="选择或输入表名" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem
+                      v-for="t in tableList"
+                      :key="t"
+                      :value="t"
+                    >
+                      {{ t }}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </ElFormItem>
+            </ElForm>
+          </CardContent>
+        </Card>
 
-        <ElCard class="mt-4" shadow="hover">
-          <template #header>
-            <span class="font-medium">生成参数</span>
-          </template>
-          <ElForm label-width="120px">
-            <ElFormItem label="输出目录">
-              <ElInput
-                v-model="genForm.outputDir"
-                placeholder="生成代码的目标目录绝对路径"
-              />
-            </ElFormItem>
-            <ElFormItem label="冲突策略">
-              <ElRadioGroup v-model="genForm.conflictStrategy">
-                <ElRadioButton label="SKIP">跳过（推荐）</ElRadioButton>
-                <ElRadioButton label="OVERRIDE">覆盖并备份</ElRadioButton>
-                <ElRadioButton label="MERGE">智能合并</ElRadioButton>
-              </ElRadioGroup>
-            </ElFormItem>
-            <ElFormItem label="触发人">
-              <ElInput
-                v-model="genForm.triggeredBy"
-                placeholder="可选，记录在生成历史中"
-              />
-            </ElFormItem>
-            <ElFormItem>
-              <div class="flex gap-2">
-                <ElButton
-                  type="info"
-                  :loading="previewLoading"
-                  @click="handlePreview"
-                >
-                  预览代码
-                </ElButton>
-                <ElButton
-                  type="warning"
-                  :loading="zipDownloading"
-                  @click="handleDownloadZip"
-                >
-                  下载代码 ZIP
-                </ElButton>
-                <ElButton
-                  type="primary"
-                  :loading="generating"
-                  @click="handleGenerate"
-                >
-                  生成当前表
-                </ElButton>
-                <ElButton
-                  type="success"
-                  :loading="batchGenerating"
-                  @click="handleGenerateAll"
-                >
-                  全量生成（全部表）
-                </ElButton>
-              </div>
-            </ElFormItem>
-          </ElForm>
-        </ElCard>
+        <Card class="mt-4">
+          <CardHeader>
+            <CardTitle>生成参数</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ElForm label-width="120px">
+              <ElFormItem label="输出目录">
+                <Input
+                  v-model="genForm.outputDir"
+                  placeholder="生成代码的目标目录绝对路径"
+                />
+              </ElFormItem>
+              <ElFormItem label="冲突策略">
+                <ElRadioGroup v-model="genForm.conflictStrategy">
+                  <ElRadioButton label="SKIP">跳过（推荐）</ElRadioButton>
+                  <ElRadioButton label="OVERRIDE">覆盖并备份</ElRadioButton>
+                  <ElRadioButton label="MERGE">智能合并</ElRadioButton>
+                </ElRadioGroup>
+              </ElFormItem>
+              <ElFormItem label="触发人">
+                <Input
+                  v-model="genForm.triggeredBy"
+                  placeholder="可选，记录在生成历史中"
+                />
+              </ElFormItem>
+              <ElFormItem>
+                <div class="flex gap-2">
+                  <Button
+                    variant="secondary"
+                    :loading="previewLoading"
+                    @click="handlePreview"
+                  >
+                    预览代码
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    :loading="zipDownloading"
+                    @click="handleDownloadZip"
+                  >
+                    下载代码 ZIP
+                  </Button>
+                  <Button
+                    :loading="generating"
+                    @click="handleGenerate"
+                  >
+                    生成当前表
+                  </Button>
+                  <Button
+                    :loading="batchGenerating"
+                    @click="handleGenerateAll"
+                  >
+                    全量生成（全部表）
+                  </Button>
+                </div>
+              </ElFormItem>
+            </ElForm>
+          </CardContent>
+        </Card>
 
         <!-- 生成结果展示 -->
-        <ElCard v-if="genResult || batchResult" class="mt-4" shadow="hover">
-          <template #header>
-            <span class="font-medium">生成结果</span>
-          </template>
-          <div class="grid grid-cols-4 gap-4 text-center">
-            <div class="p-3 bg-gray-50 rounded">
-              <div class="text-2xl font-bold text-blue-500">
-                {{ (genResult ?? batchResult)?.fileCount ?? 0 }}
+        <Card v-if="genResult || batchResult" class="mt-4">
+          <CardHeader>
+            <CardTitle>生成结果</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div class="grid grid-cols-4 gap-4 text-center">
+              <div class="p-3 bg-gray-50 rounded">
+                <div class="text-2xl font-bold text-blue-500">
+                  {{ (genResult ?? batchResult)?.fileCount ?? 0 }}
+                </div>
+                <div class="text-sm text-gray-500">总文件数</div>
               </div>
-              <div class="text-sm text-gray-500">总文件数</div>
-            </div>
-            <div class="p-3 bg-gray-50 rounded">
-              <div class="text-2xl font-bold text-green-500">
-                {{ (genResult ?? batchResult)?.successCount ?? 0 }}
+              <div class="p-3 bg-gray-50 rounded">
+                <div class="text-2xl font-bold text-green-500">
+                  {{ (genResult ?? batchResult)?.successCount ?? 0 }}
+                </div>
+                <div class="text-sm text-gray-500">成功</div>
               </div>
-              <div class="text-sm text-gray-500">成功</div>
-            </div>
-            <div class="p-3 bg-gray-50 rounded">
-              <div class="text-2xl font-bold text-yellow-500">
-                {{ (genResult ?? batchResult)?.skipCount ?? 0 }}
+              <div class="p-3 bg-gray-50 rounded">
+                <div class="text-2xl font-bold text-yellow-500">
+                  {{ (genResult ?? batchResult)?.skipCount ?? 0 }}
+                </div>
+                <div class="text-sm text-gray-500">跳过</div>
               </div>
-              <div class="text-sm text-gray-500">跳过</div>
-            </div>
-            <div class="p-3 bg-gray-50 rounded">
-              <div class="text-2xl font-bold text-red-500">
-                {{ (genResult ?? batchResult)?.failCount ?? 0 }}
+              <div class="p-3 bg-gray-50 rounded">
+                <div class="text-2xl font-bold text-red-500">
+                  {{ (genResult ?? batchResult)?.failCount ?? 0 }}
+                </div>
+                <div class="text-sm text-gray-500">失败</div>
               </div>
-              <div class="text-sm text-gray-500">失败</div>
             </div>
-          </div>
-        </ElCard>
+          </CardContent>
+        </Card>
       </ElTabPane>
     </ElTabs>
 
@@ -503,88 +547,81 @@ function getStatusLabel(status: string): string {
       :preview-list="previewData"
     />
 
-    <!-- 历史记录侧栏 Drawer -->
-    <ElDrawer
-      v-model="historyDrawerVisible"
-      title="生成历史记录"
-      direction="rtl"
-      size="480px"
-    >
-      <div v-loading="historyLoading">
-        <!-- 历史列表 -->
-        <div v-if="histories.length > 0" class="space-y-3">
-          <div
-            v-for="record in histories"
-            :key="record.id"
-            class="history-card border rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
-            @click="handleViewHistoryDiff(record)"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-medium text-sm">
-                #{{ record.id }} {{ record.moduleName ?? '生成任务' }}
-              </span>
-              <ElTag :type="getStatusType(record.status ?? '')" size="small">
-                {{ getStatusLabel(record.status ?? '') }}
-              </ElTag>
-            </div>
-            <div class="text-xs text-gray-500 flex gap-3 flex-wrap">
-              <span v-if="record.triggeredBy">操作者: {{ record.triggeredBy }}</span>
-              <span v-if="record.fileCount">{{ record.fileCount }} 个文件</span>
-              <span v-if="record.tableCount">{{ record.tableCount }} 张表</span>
-            </div>
-            <div class="text-xs text-gray-400 mt-1">
-              {{ record.startedAt ? String(record.startedAt).replace('T', ' ') : '-' }}
-            </div>
-          </div>
-        </div>
-
-        <!-- Diff 文件列表（选中历史后） -->
-        <div v-if="diffFiles.length > 0" class="mt-4">
-          <div class="text-sm font-medium text-gray-700 mb-2">变更文件列表</div>
-          <div class="space-y-1">
+    <!-- 历史记录侧栏 Sheet（Drawer） -->
+    <Sheet :open="historyDrawerVisible" @update:open="historyDrawerVisible = $event">
+      <SheetContent>
+        <div v-loading="historyLoading">
+          <!-- 历史列表 -->
+          <div v-if="histories.length > 0" class="space-y-3">
             <div
-              v-for="(file, idx) in diffFiles"
-              :key="file.fileName ?? idx"
-              class="flex items-center gap-2 px-2 py-2 rounded text-sm hover:bg-gray-100 cursor-pointer"
-              @click="handleDiffFileSelect(file.fileName, file.oldCode, file.newCode)"
+              v-for="record in histories"
+              :key="record.id"
+              class="history-card border rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+              @click="handleViewHistoryDiff(record)"
             >
-              <ElIcon class="text-gray-400">
-                <Document />
-              </ElIcon>
-              <span class="truncate flex-1 text-xs">{{ file.fileName }}</span>
-              <span class="text-blue-500 text-xs">diff</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-medium text-sm">
+                  #{{ record.id }} {{ record.moduleName ?? '生成任务' }}
+                </span>
+                <Badge :variant="getStatusBadgeVariant(record.status ?? '')">
+                  {{ getStatusLabel(record.status ?? '') }}
+                </Badge>
+              </div>
+              <div class="text-xs text-gray-500 flex gap-3 flex-wrap">
+                <span v-if="record.triggeredBy">操作者: {{ record.triggeredBy }}</span>
+                <span v-if="record.fileCount">{{ record.fileCount }} 个文件</span>
+                <span v-if="record.tableCount">{{ record.tableCount }} 张表</span>
+              </div>
+              <div class="text-xs text-gray-400 mt-1">
+                {{ record.startedAt ? String(record.startedAt).replace('T', ' ') : '-' }}
+              </div>
             </div>
           </div>
-        </div>
 
-        <ElEmpty v-if="histories.length === 0 && !historyLoading" description="暂无历史记录" />
-      </div>
-    </ElDrawer>
+          <!-- Diff 文件列表（选中历史后） -->
+          <div v-if="diffFiles.length > 0" class="mt-4">
+            <div class="text-sm font-medium text-gray-700 mb-2">变更文件列表</div>
+            <div class="space-y-1">
+              <div
+                v-for="(file, idx) in diffFiles"
+                :key="file.fileName ?? idx"
+                class="flex items-center gap-2 px-2 py-2 rounded text-sm hover:bg-gray-100 cursor-pointer"
+                @click="handleDiffFileSelect(file.fileName, file.oldCode, file.newCode)"
+              >
+                <ElIcon class="text-gray-400">
+                  <Document />
+                </ElIcon>
+                <span class="truncate flex-1 text-xs">{{ file.fileName }}</span>
+                <span class="text-blue-500 text-xs">diff</span>
+              </div>
+            </div>
+          </div>
+
+          <ElEmpty v-if="histories.length === 0 && !historyLoading" description="暂无历史记录" />
+        </div>
+      </SheetContent>
+    </Sheet>
 
     <!-- Diff 预览对话框 -->
-    <ElDialog
-      v-model="diffModalVisible"
-      :title="currentDiffFileName"
-      width="85%"
-      top="5vh"
-      append-to-body
-    >
-      <div style="height: 65vh; overflow-y: auto">
-        <CodeDiffViewer
-          v-if="currentDiffOldCode"
-          :old-code="currentDiffOldCode"
-          :new-code="currentDiffNewCode"
-          :file-name="currentDiffFileName"
-          :show-inline="false"
-        />
-        <CodeDiffViewer
-          v-else
-          :new-code="currentDiffNewCode"
-          :file-name="currentDiffFileName"
-          :show-inline="false"
-        />
-      </div>
-    </ElDialog>
+    <Dialog :open="diffModalVisible" @update:open="diffModalVisible = $event">
+      <DialogContent style="max-width: 85%">
+        <div style="height: 65vh; overflow-y: auto">
+          <CodeDiffViewer
+            v-if="currentDiffOldCode"
+            :old-code="currentDiffOldCode"
+            :new-code="currentDiffNewCode"
+            :file-name="currentDiffFileName"
+            :show-inline="false"
+          />
+          <CodeDiffViewer
+            v-else
+            :new-code="currentDiffNewCode"
+            :file-name="currentDiffFileName"
+            :show-inline="false"
+          />
+        </div>
+      </DialogContent>
+    </Dialog>
   </div>
 </template>
 

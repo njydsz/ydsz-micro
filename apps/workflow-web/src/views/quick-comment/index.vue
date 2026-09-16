@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickComment, incrementUseCount, listQuickComments } from '#/api/flowComment';
@@ -33,8 +33,8 @@ defineOptions({ name: 'QuickCommentManagement' });
 /** 系统预置标识标签 */
 function systemTag(isSystem: number | undefined) {
   return isSystem
-    ? h(ElTag, { type: 'warning' }, () => t('quickComment.system'))
-    : h(ElTag, { type: 'info' }, () => t('quickComment.personal'));
+    ? h(Badge, { variant: 'destructive' }, () => t('quickComment.system'))
+    : h(Badge, { variant: 'secondary' }, () => t('quickComment.personal'));
 }
 
 const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
@@ -60,18 +60,19 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleUse(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleUse(row) },
               () => t('common.use'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link' as const, onClick: () => handleDelete(row),
+                class: 'text-destructive' },
               () => t('common.delete'),
             ),
           ]),
@@ -141,7 +142,7 @@ async function handleDelete(row: FlowQuickCommentVO) {
   <Page auto-content-height>
     <Grid :table-title="t('quickComment.list.title')">
       <template #toolbar-tools
-        ><ElButton type="primary" @click="handleAdd">{{ t('common.add') }}</ElButton></template
+        ><Button @click="handleAdd">{{ t('common.add') }}</Button></template
       >
     </Grid>
     <QuickCommentFormModal @success="gridApi.query()" />

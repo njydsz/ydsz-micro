@@ -18,7 +18,15 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { ElDialog, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 Table 组件）
+import { ElTable, ElTableColumn } from 'element-plus';
 
 import { listHistoryFiles } from '#/api/history';
 import type { GenHistoryFile } from '#/api/models';
@@ -39,16 +47,16 @@ defineOptions({ name: 'HistoryFileDialog' });
 const loading = ref(false);
 const files = ref<GenHistoryFile[]>([]);
 
-function getActionTagType(action: string): 'success' | 'warning' | 'info' | '' {
+function getActionBadgeVariant(action: string): 'default' | 'destructive' | 'secondary' {
   switch (action) {
     case 'CREATED':
-      return 'success';
+      return 'default';
     case 'UPDATED':
-      return 'warning';
+      return 'destructive';
     case 'UNCHANGED':
-      return 'info';
+      return 'secondary';
     default:
-      return '';
+      return 'secondary';
   }
 }
 
@@ -96,26 +104,26 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElDialog
-    :model-value="visible"
-    title="任务文件明细"
-    width="800px"
-    @update:model-value="handleClose"
-  >
-    <div class="mb-2 text-sm text-gray-500">
-      任务 #{{ historyId }} 共 {{ files.length }} 个文件
-    </div>
-    <ElTable v-loading="loading" :data="files" stripe max-height="400">
-      <ElTableColumn type="index" label="#" width="50" />
-      <ElTableColumn prop="filePath" label="文件路径" min-width="300" show-overflow-tooltip />
-      <ElTableColumn label="操作" width="100">
-        <template #default="{ row }">
-          <ElTag :type="getActionTagType(row.action ?? '')" size="small">
-            {{ getActionText(row.action ?? '') }}
-          </ElTag>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn prop="originalBackupPath" label="备份路径" min-width="200" show-overflow-tooltip />
-    </ElTable>
-  </ElDialog>
+  <Dialog :open="visible" @update:open="handleClose">
+    <DialogContent style="max-width: 800px">
+      <DialogHeader>
+        <DialogTitle>任务文件明细</DialogTitle>
+      </DialogHeader>
+      <div class="mb-2 text-sm text-gray-500">
+        任务 #{{ historyId }} 共 {{ files.length }} 个文件
+      </div>
+      <ElTable v-loading="loading" :data="files" stripe max-height="400">
+        <ElTableColumn type="index" label="#" width="50" />
+        <ElTableColumn prop="filePath" label="文件路径" min-width="300" show-overflow-tooltip />
+        <ElTableColumn label="操作" width="100">
+          <template #default="{ row }">
+            <Badge :variant="getActionBadgeVariant(row.action ?? '')">
+              {{ getActionText(row.action ?? '') }}
+            </Badge>
+          </template>
+        </ElTableColumn>
+        <ElTableColumn prop="originalBackupPath" label="备份路径" min-width="200" show-overflow-tooltip />
+      </ElTable>
+    </DialogContent>
+  </Dialog>
 </template>

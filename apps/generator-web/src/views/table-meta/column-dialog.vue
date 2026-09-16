@@ -18,7 +18,15 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { ElButton, ElDialog, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 Table 组件）
+import { ElTable, ElTableColumn } from 'element-plus';
 
 import { getColumns, refreshColumns } from '#/api/table-meta';
 import type { GenColumnMeta } from '#/api/models';
@@ -90,35 +98,35 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElDialog
-    :model-value="visible"
-    :title="`列元数据 - ${tableName}`"
-    width="900px"
-    @update:model-value="handleClose"
-  >
-    <div class="mb-3 flex justify-end">
-      <ElButton type="primary" size="small" @click="handleRefreshColumns">刷新列缓存</ElButton>
-    </div>
-    <ElTable v-loading="loading" :data="columns" stripe max-height="400">
-      <ElTableColumn prop="columnName" label="列名" width="150" />
-      <ElTableColumn prop="dataType" label="数据类型" width="120" />
-      <ElTableColumn prop="columnSize" label="长度" width="80" />
-      <ElTableColumn label="主键" width="70">
-        <template #default="{ row }">
-          <ElTag v-if="row.pk" type="danger" size="small">PK</ElTag>
-          <span v-else>-</span>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn label="可空" width="70">
-        <template #default="{ row }">
-          <ElTag :type="row.nullable ? 'info' : 'warning'" size="small">
-            {{ row.nullable ? '是' : '否' }}
-          </ElTag>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn prop="comment" label="注释" min-width="150" />
-      <ElTableColumn prop="overrideJavaType" label="Java类型" width="120" />
-      <ElTableColumn prop="overrideFieldName" label="字段名" width="120" />
-    </ElTable>
-  </ElDialog>
+  <Dialog :open="visible" @update:open="handleClose">
+    <DialogContent style="max-width: 900px">
+      <DialogHeader>
+        <DialogTitle>列元数据 - {{ tableName }}</DialogTitle>
+      </DialogHeader>
+      <div class="mb-3 flex justify-end">
+        <Button size="sm" @click="handleRefreshColumns">刷新列缓存</Button>
+      </div>
+      <ElTable v-loading="loading" :data="columns" stripe max-height="400">
+        <ElTableColumn prop="columnName" label="列名" width="150" />
+        <ElTableColumn prop="dataType" label="数据类型" width="120" />
+        <ElTableColumn prop="columnSize" label="长度" width="80" />
+        <ElTableColumn label="主键" width="70">
+          <template #default="{ row }">
+            <Badge v-if="row.pk" variant="destructive">PK</Badge>
+            <span v-else>-</span>
+          </template>
+        </ElTableColumn>
+        <ElTableColumn label="可空" width="70">
+          <template #default="{ row }">
+            <Badge :variant="row.nullable ? 'secondary' : 'destructive'">
+              {{ row.nullable ? '是' : '否' }}
+            </Badge>
+          </template>
+        </ElTableColumn>
+        <ElTableColumn prop="comment" label="注释" min-width="150" />
+        <ElTableColumn prop="overrideJavaType" label="Java类型" width="120" />
+        <ElTableColumn prop="overrideFieldName" label="字段名" width="120" />
+      </ElTable>
+    </DialogContent>
+  </Dialog>
 </template>

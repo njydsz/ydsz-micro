@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElOption, ElSelect } from 'element-plus';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 import { ref, watch } from 'vue';
 import { searchUsers } from '#/api/flowUser';
 import type { FlowUserSearchResult } from '#/api/flowUser';
@@ -109,24 +109,22 @@ watch(
 </script>
 
 <template>
-  <ElSelect
+  <Select
     :model-value="modelValue"
-    :remote="true"
-    :remote-method="remoteSearch"
-    :loading="loading"
     :disabled="disabled"
-    :placeholder="placeholder || $t('wf.targetUserPlaceholder')"
-    filterable
-    clearable
-    style="width: 100%"
-    @change="handleChange"
-    @clear="handleClear"
+    @update:model-value="handleChange"
   >
-    <ElOption
-      v-for="item in userList"
-      :key="item.userId"
-      :label="item.userName"
-      :value="item.userId"
-    />
-  </ElSelect>
+    <SelectTrigger class="w-full">
+      <SelectValue :placeholder="placeholder || $t('wf.targetUserPlaceholder')" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem
+        v-for="item in userList"
+        :key="item.userId"
+        :value="item.userId"
+      >
+        {{ item.userName }}
+      </SelectItem>
+    </SelectContent>
+  </Select>
 </template>

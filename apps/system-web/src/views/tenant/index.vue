@@ -18,7 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<TenantVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 'ACTIVE' ? 'success' : 'danger' }, () => (row.status === 'ACTIVE' ? t('enabled') : t('disabled'))),
+          h(Badge, { variant: row.status === 'ACTIVE' ? undefined : 'destructive' }, () => (row.status === 'ACTIVE' ? t('enabled') : t('disabled'))),
       },
     },
     { field: 'expireAt', title: t('expireAt'), width: 170 },
@@ -56,8 +56,8 @@ const gridOptions: VxeGridProps<TenantVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(Button, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
           ]),
       },
     },
@@ -138,7 +138,7 @@ async function handleDelete(row: TenantVO) {
   <Page auto-content-height>
     <Grid :table-title="t('tenant')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('create') }}</Button>
       </template>
     </Grid>
     <TenantFormModal @success="gridApi.query()" />

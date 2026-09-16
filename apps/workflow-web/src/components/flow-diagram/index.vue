@@ -23,7 +23,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElCard, ElEmpty, ElSkeleton } from 'element-plus';
+import { Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElEmpty / ElSkeleton 待后续迁移（shadcn-ui 无直接对应，需替换为空态组件）
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO } from '#/api/models';
@@ -86,20 +87,30 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElCard v-if="bordered" class="flow-diagram" shadow="never">
-    <template #header>
-      <span class="header-title">流程进度</span>
-    </template>
-    <div class="diagram-container">
-      <ElSkeleton v-if="loading" :rows="6" animated />
-      <ElEmpty v-else-if="!hasDiagram" description="暂无流程图" />
-      <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
-    </div>
-  </ElCard>
+  <Card v-if="bordered" class="flow-diagram">
+    <CardHeader>
+      <CardTitle class="text-sm font-semibold">流程进度</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div class="diagram-container">
+        <div v-if="loading" class="animate-pulse space-y-2">
+          <div v-for="n in 6" :key="n" class="h-4 bg-gray-200 rounded" />
+        </div>
+        <div v-else-if="!hasDiagram" class="flex items-center justify-center py-12 text-sm text-gray-400">
+          暂无流程图
+        </div>
+        <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
+      </div>
+    </CardContent>
+  </Card>
   <div v-else class="flow-diagram flow-diagram--borderless">
     <div class="diagram-container">
-      <ElSkeleton v-if="loading" :rows="6" animated />
-      <ElEmpty v-else-if="!hasDiagram" description="暂无流程图" />
+      <div v-if="loading" class="animate-pulse space-y-2">
+        <div v-for="n in 6" :key="n" class="h-4 bg-gray-200 rounded" />
+      </div>
+      <div v-else-if="!hasDiagram" class="flex items-center justify-center py-12 text-sm text-gray-400">
+        暂无流程图
+      </div>
       <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
     </div>
   </div>

@@ -17,6 +17,7 @@
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
+// TODO: EP → shadcn-ui 迁移暂缓（含 Form/Input/Select/Switch/InputNumber/Table 等复杂组件，需人工评估）
 import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

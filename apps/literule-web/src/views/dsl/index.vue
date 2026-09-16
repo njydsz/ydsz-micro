@@ -15,7 +15,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { ref } from 'vue';
 
 import { parse, preview, validate } from '#/api/ruleDsl';
@@ -69,13 +69,13 @@ function handlePreview() {
         <DslEditor v-model="dslText" placeholder="请输入 DSL 内容…" />
       </div>
       <div class="flex gap-2">
-        <ElButton type="primary" :loading="running" @click="handleValidate">校验</ElButton>
-        <ElButton type="success" :loading="running" @click="handleParse">解析</ElButton>
-        <ElButton type="warning" :loading="running" @click="handlePreview">预览</ElButton>
+        <Button :loading="running" @click="handleValidate">校验</Button>
+        <Button :loading="running" @click="handleParse">解析</Button>
+        <Button variant="destructive" :loading="running" @click="handlePreview">预览</Button>
       </div>
       <div class="flex items-center gap-2">
         <span class="text-sm text-gray-500">结果：</span>
-        <ElTag v-if="actionLabel" size="small" type="info">{{ actionLabel }}</ElTag>
+        <Badge v-if="actionLabel" variant="secondary">{{ actionLabel }}</Badge>
       </div>
       <pre
         class="max-h-60 min-h-0 flex-1 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"

@@ -17,7 +17,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem } from 'element-plus';
+// TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
+import { ElForm, ElFormItem } from 'element-plus';
+import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { reactive, ref } from 'vue';
 import { saveDraft, startProcess } from '#/api/flowInstance';
 import type { FlowSaveDraftDTO, FlowStartProcessDTO } from '#/api/models';
@@ -139,27 +141,27 @@ async function handleSaveDraft(): Promise<void> {
       label-position="right"
     >
       <ElFormItem :label="$t('wf.flowCode')" prop="flowCode">
-        <ElInput v-model="formData.flowCode" :placeholder="$t('wf.inputFlowCode')" />
+        <Input v-model="formData.flowCode" :placeholder="$t('wf.inputFlowCode')" />
       </ElFormItem>
       <ElFormItem :label="$t('wf.title')">
-        <ElInput v-model="formData.title" :placeholder="$t('wf.titlePlaceholder')" />
+        <Input v-model="formData.title" :placeholder="$t('wf.titlePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="$t('wf.businessType')">
-        <ElInput v-model="formData.businessType" :placeholder="$t('wf.businessTypePlaceholder')" />
+        <Input v-model="formData.businessType" :placeholder="$t('wf.businessTypePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="$t('wf.businessId')">
-        <ElInput v-model="formData.businessId" :placeholder="$t('wf.businessIdPlaceholder')" />
+        <Input v-model="formData.businessId" :placeholder="$t('wf.businessIdPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="$t('wf.businessNo')">
-        <ElInput v-model="formData.businessNo" :placeholder="$t('wf.businessNoPlaceholder')" />
+        <Input v-model="formData.businessNo" :placeholder="$t('wf.businessNoPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="$t('wf.initiator')">
-        <ElInput v-model="formData.initiatorName" :placeholder="$t('wf.initiatorPlaceholder')" />
+        <Input v-model="formData.initiatorName" :placeholder="$t('wf.initiatorPlaceholder')" />
       </ElFormItem>
     </ElForm>
     <!-- 草稿保存按钮（置于弹窗底部操作区左侧） -->
     <template #footer>
-      <ElButton :loading="savingDraft" @click="handleSaveDraft"> {{ $t('wf.saveDraft') }} </ElButton>
+      <Button :loading="savingDraft" variant="secondary" @click="handleSaveDraft"> {{ $t('wf.saveDraft') }} </Button>
     </template>
   </Modal>
 </template>

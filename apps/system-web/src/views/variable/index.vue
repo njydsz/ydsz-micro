@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -60,8 +60,8 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
         default: ({ row }) => {
           const variable = row as VariableRow;
           return h(
-            ElTag,
-            { type: isEnabled(variable.status) ? 'success' : 'info' },
+            Badge,
+            { variant: isEnabled(variable.status) ? undefined : 'secondary' },
             () => (isEnabled(variable.status) ? t('common.enabled') : t('common.disabled')),
           );
         },
@@ -77,8 +77,8 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
         default: ({ row }) => {
           const variable = row as VariableRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(variable) }, () => t('common.edit')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(variable) }, () => t('common.delete')),
+            h(Button, { size: 'sm', onClick: () => handleEdit(variable) }, () => t('common.edit')),
+            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(variable) }, () => t('common.delete')),
           ]);
         },
       },
@@ -167,7 +167,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid :table-title="t('variable.title')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('common.create') }}</Button>
       </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />

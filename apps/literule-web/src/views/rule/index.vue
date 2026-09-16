@@ -23,6 +23,7 @@ import type { DomainItem } from '@ydsz-core/shadcn-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { CardGrid, DomainFilterPanel, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
+// TODO: EP → shadcn-ui 迁移暂缓（含 Drawer/Dropdown/Table 等复杂组件，需人工评估）
 import { ElButton, ElDrawer, ElDropdown, ElDropdownItem, ElDropdownMenu, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

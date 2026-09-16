@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -55,8 +55,8 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
         default: ({ row }) => {
           const app = row as AppRow;
           return h(
-            ElTag,
-            { type: isEnabled(app.status) ? 'success' : 'info' },
+            Badge,
+            { variant: isEnabled(app.status) ? undefined : 'secondary' },
             () => (isEnabled(app.status) ? '启用' : '禁用'),
           );
         },
@@ -72,8 +72,8 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
         default: ({ row }) => {
           const app = row as AppRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(app) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(app) }, () => '删除'),
+            h(Button, { size: 'sm', onClick: () => handleEdit(app) }, () => '编辑'),
+            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => '删除'),
           ]);
         },
       },
@@ -139,7 +139,7 @@ async function handleDelete(row: AppRow) {
   <Page auto-content-height>
     <Grid table-title="应用注册">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <Button @click="handleAdd">新增</Button>
       </template>
     </Grid>
     <AppFormModal @success="gridApi.query()" />

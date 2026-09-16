@@ -20,7 +20,23 @@
  */
 import { reactive, ref } from 'vue';
 
-import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
+// TODO: ElRadioButton/ElRadioGroup 无对应 shadcn-ui 组件，保留 element-plus 导入
+// TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
+import { ElEmpty, ElForm, ElFormItem, ElRadioButton, ElRadioGroup } from 'element-plus';
 
 import { analyzeReverse, analyzeBatchReverse } from '#/api/reverse';
 import type { GenTemplateGroup } from '#/api/models';
@@ -135,112 +151,117 @@ async function handleAnalyze() {
 
 <template>
   <div class="reverse-gen p-4">
-    <ElCard shadow="hover">
-      <template #header>
-        <span class="font-medium">反向生成配置</span>
-      </template>
-      <ElForm label-width="120px">
-        <ElFormItem label="分析模式">
-          <ElRadioGroup v-model="mode">
-            <ElRadioButton label="single">单文件分析</ElRadioButton>
-            <ElRadioButton label="batch">批量目录分析</ElRadioButton>
-          </ElRadioGroup>
-        </ElFormItem>
+    <Card>
+      <CardHeader>
+        <CardTitle>反向生成配置</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ElForm label-width="120px">
+          <ElFormItem label="分析模式">
+            <ElRadioGroup v-model="mode">
+              <ElRadioButton label="single">单文件分析</ElRadioButton>
+              <ElRadioButton label="batch">批量目录分析</ElRadioButton>
+            </ElRadioGroup>
+          </ElFormItem>
 
-        <ElFormItem v-if="mode === 'single'" label="源文件路径">
-          <ElInput
-            v-model="reverseForm.sourceFilePath"
-            placeholder="Java 源文件绝对路径，如 D:/src/User.java"
-          />
-        </ElFormItem>
-
-        <ElFormItem v-else label="源目录路径">
-          <ElInput
-            v-model="reverseForm.sourceDirPath"
-            placeholder="待分析目录绝对路径，如 D:/src/entity"
-          />
-        </ElFormItem>
-
-        <ElFormItem label="模板分组">
-          <ElSelect
-            v-model="selectedGroupId"
-            placeholder="选择模板分组"
-            style="width: 100%"
-          >
-            <ElOption
-              v-for="group in groupList"
-              :key="group.id"
-              :label="`${group.name}${group.isActive ? ' (当前激活)' : ''}`"
-              :value="group.id"
+          <ElFormItem v-if="mode === 'single'" label="源文件路径">
+            <Input
+              v-model="reverseForm.sourceFilePath"
+              placeholder="Java 源文件绝对路径，如 D:/src/User.java"
             />
-          </ElSelect>
-        </ElFormItem>
+          </ElFormItem>
 
-        <ElFormItem label="输出目录">
-          <ElInput
-            v-model="reverseForm.outputDir"
-            placeholder="分析结果输出目录绝对路径"
-          />
-        </ElFormItem>
+          <ElFormItem v-else label="源目录路径">
+            <Input
+              v-model="reverseForm.sourceDirPath"
+              placeholder="待分析目录绝对路径，如 D:/src/entity"
+            />
+          </ElFormItem>
 
-        <ElFormItem>
-          <ElButton
-            type="primary"
-            :loading="isAnalyzing"
-            @click="handleAnalyze"
-          >
-            开始分析
-          </ElButton>
-        </ElFormItem>
-      </ElForm>
-    </ElCard>
+          <ElFormItem label="模板分组">
+            <Select v-model="selectedGroupId">
+              <SelectTrigger>
+                <SelectValue placeholder="选择模板分组" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem
+                  v-for="group in groupList"
+                  :key="group.id"
+                  :value="String(group.id)"
+                >
+                  {{ group.name }}{{ group.isActive ? ' (当前激活)' : '' }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </ElFormItem>
+
+          <ElFormItem label="输出目录">
+            <Input
+              v-model="reverseForm.outputDir"
+              placeholder="分析结果输出目录绝对路径"
+            />
+          </ElFormItem>
+
+          <ElFormItem>
+            <Button
+              :loading="isAnalyzing"
+              @click="handleAnalyze"
+            >
+              开始分析
+            </Button>
+          </ElFormItem>
+        </ElForm>
+      </CardContent>
+    </Card>
 
     <!-- 分析结果 -->
-    <ElCard class="mt-4" shadow="hover">
-      <template #header>
-        <span class="font-medium">分析结果</span>
-      </template>
+    <Card class="mt-4">
+      <CardHeader>
+        <CardTitle>分析结果</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <!-- 单文件结果 -->
+        <Input
+          v-if="mode === 'single' && resultContent"
+          v-model="resultContent"
+          :rows="20"
+          readonly
+          type="textarea"
+          placeholder="分析结果将在此展示"
+        />
 
-      <!-- 单文件结果 -->
-      <ElInput
-        v-if="mode === 'single' && resultContent"
-        v-model="resultContent"
-        :rows="20"
-        readonly
-        type="textarea"
-        placeholder="分析结果将在此展示"
-      />
+        <!-- 批量结果列表 -->
+        <div v-else-if="mode === 'batch' && batchResults.length > 0" class="space-y-4">
+          <Card
+            v-for="(item, idx) in batchResults"
+            :key="idx"
+            class="batch-result-card"
+          >
+            <CardHeader>
+              <span class="text-sm font-medium">结果 #{{ idx + 1 }}</span>
+            </CardHeader>
+            <CardContent>
+              <Input
+                :model-value="item"
+                :rows="10"
+                readonly
+                type="textarea"
+              />
+            </CardContent>
+          </Card>
+        </div>
 
-      <!-- 批量结果列表 -->
-      <div v-else-if="mode === 'batch' && batchResults.length > 0" class="space-y-4">
-        <ElCard
-          v-for="(item, idx) in batchResults"
-          :key="idx"
-          shadow="never"
-          class="batch-result-card"
-        >
-          <template #header>
-            <span class="text-sm font-medium">结果 #{{ idx + 1 }}</span>
-          </template>
-          <ElInput
-            :model-value="item"
-            :rows="10"
-            readonly
-            type="textarea"
-          />
-        </ElCard>
-      </div>
-
-      <!-- 空状态 -->
-      <ElEmpty
-        v-if="
-          !isAnalyzing
-          && ((mode === 'single' && !resultContent)
-            || (mode === 'batch' && batchResults.length === 0))
-        "
-        description="暂无分析结果"
-      />
-    </ElCard>
+        <!-- 空状态 -->
+        <ElEmpty
+          v-if="
+            !isAnalyzing
+            && ((mode === 'single' && !resultContent)
+              || (mode === 'batch' && batchResults.length === 0))
+          "
+          description="暂无分析结果"
+        />
+      </CardContent>
+    </Card>
   </div>
 </template>
 

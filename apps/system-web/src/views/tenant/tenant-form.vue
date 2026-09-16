@@ -14,6 +14,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// TODO: [shadcn-ui migration pending] ElDatePicker/ElForm/ElFormItem 暂无 shadcn 替代，待 UI Kit 日期选择器/表单方案统一后迁移
 import { ElDatePicker, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { save, update } from '#/api/tenant';

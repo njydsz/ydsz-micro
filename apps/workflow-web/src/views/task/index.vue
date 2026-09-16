@@ -18,7 +18,9 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElTabs, ElTabPane, ElTag } from 'element-plus';
+// TODO: ElTabs / ElTabPane 暂不迁移，保留 element-plus 导入
+import { ElTabPane, ElTabs } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';
@@ -38,18 +40,18 @@ const activeTab = ref<'todo' | 'done'>('todo');
 function statusTag(taskStatus: string | undefined) {
   const status = (taskStatus ?? '').toUpperCase();
   if (status === 'DONE' || status === 'FINISHED' || status === 'COMPLETED' || status === '1') {
-    return h(ElTag, { type: 'success' }, () => $t('wf.statusDone'));
+    return h(Badge, { variant: 'default' }, () => $t('wf.statusDone'));
   }
   if (status === 'REJECTED') {
-    return h(ElTag, { type: 'danger' }, () => $t('wf.statusRejected'));
+    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusRejected'));
   }
   if (status === 'DELEGATED' || status === 'TRANSFERRED') {
-    return h(ElTag, { type: 'warning' }, () => $t('wf.statusTransferred'));
+    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusTransferred'));
   }
   if (status === 'SUSPENDED' || status === 'PAUSED') {
-    return h(ElTag, { type: 'warning' }, () => $t('wf.statusPaused'));
+    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusPaused'));
   }
-  return h(ElTag, { type: 'primary' }, () => taskStatus ?? '-');
+  return h(Badge, { variant: 'default' }, () => taskStatus ?? '-');
 }
 
 const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
@@ -80,13 +82,13 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
           if (activeTab.value !== 'todo') return h('span', { class: 'text-gray-400 text-xs' }, '-');
           return h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleProcess(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleProcess(row) },
               () => $t('wf.process'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleOperation(row) },
+              Button,
+              { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', onClick: () => handleOperation(row) },
               () => '更多',
             ),
           ]);
@@ -313,18 +315,18 @@ async function handleBatchUrge() {
     <Grid :table-title="$t('wf.todoTasks')">
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">
-          <ElButton type="success" plain @click="handleBatchPass">{{
+          <Button variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
             $t('wf.batchPass')
-          }}</ElButton>
-          <ElButton type="danger" plain @click="handleBatchReject">{{
+          }}</Button>
+          <Button variant="destructive" @click="handleBatchReject">{{
             $t('wf.batchReject')
-          }}</ElButton>
-          <ElButton type="warning" plain @click="handleBatchTransfer">{{
+          }}</Button>
+          <Button variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
             $t('wf.batchTransfer')
-          }}</ElButton>
-          <ElButton type="info" plain @click="handleBatchUrge">{{
+          }}</Button>
+          <Button variant="secondary" @click="handleBatchUrge">{{
             $t('wf.batchUrge')
-          }}</ElButton>
+          }}</Button>
         </template>
       </template>
     </Grid>

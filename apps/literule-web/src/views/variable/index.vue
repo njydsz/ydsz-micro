@@ -17,7 +17,7 @@
 import type { VariableDefinitionVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -36,7 +36,7 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
       field: 'type',
       title: '类型',
       width: 110,
-      slots: { default: ({ row }) => h(ElTag, { type: 'primary' }, () => row.type ?? '-') },
+      slots: { default: ({ row }) => h(Badge, { variant: 'default' }, () => row.type ?? '-') },
     },
     { field: 'category', title: '分类', width: 110 },
     {
@@ -58,13 +58,13 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
           ]),
@@ -134,8 +134,8 @@ async function handleRefresh() {
   <Page auto-content-height>
     <Grid :table-title="t('variable')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
-        <ElButton @click="handleRefresh">刷新</ElButton>
+        <Button @click="handleAdd">新增</Button>
+        <Button variant="secondary" @click="handleRefresh">刷新</Button>
       </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />

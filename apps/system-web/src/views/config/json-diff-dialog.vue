@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElButton, ElDialog } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -159,13 +159,11 @@ function handleClose() {
 </script>
 
 <template>
-  <ElDialog
-    :model-value="visible"
-    width="85%"
-    :title="t('configVersion.diffTitle', { versionA, versionB })"
-    :destroy-on-close="true"
-    @update:model-value="emit('update:visible', $event)"
-  >
+  <Dialog :open="visible" @update:open="emit('update:visible', $event)">
+    <DialogContent class="max-w-[85%]">
+      <DialogHeader>
+        <DialogTitle>{{ t('configVersion.diffTitle', { versionA, versionB }) }}</DialogTitle>
+      </DialogHeader>
     <!-- 差异统计 -->
     <div class="mb-3 flex gap-4 text-sm">
       <span class="text-red-500">
@@ -181,9 +179,9 @@ function handleClose() {
       <!-- 左侧面板 -->
       <div class="diff-panel left">
         <div class="diff-panel-header">
-          <ElButton text size="small" type="primary">
+          <Button variant="ghost" size="sm">
             {{ t('configVersion.leftVersion', [versionA]) }}
-          </ElButton>
+          </Button>
         </div>
         <div class="diff-panel-body">
           <div
@@ -204,9 +202,9 @@ function handleClose() {
       <!-- 右侧面板 -->
       <div class="diff-panel right">
         <div class="diff-panel-header">
-          <ElButton text size="small" type="success">
+          <Button variant="ghost" size="sm">
             {{ t('configVersion.rightVersion', [versionB]) }}
-          </ElButton>
+          </Button>
         </div>
         <div class="diff-panel-body">
           <div
@@ -225,10 +223,11 @@ function handleClose() {
       </div>
     </div>
 
-    <template #footer>
-      <ElButton @click="handleClose">{{ t('common.close') }}</ElButton>
-    </template>
-  </ElDialog>
+      <DialogFooter>
+        <Button @click="handleClose">{{ t('common.close') }}</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
 
 <style scoped>

@@ -22,7 +22,9 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElDialog, ElDivider, ElForm, ElFormItem, ElInput, ElTimeline, ElTimelineItem } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDescriptions/ElDivider/ElForm/ElTimeline 暂无 shadcn 映射，保留 element-plus
+import { ElDescriptions, ElDescriptionsItem, ElDivider, ElForm, ElFormItem, ElInput, ElTimeline, ElTimelineItem } from 'element-plus';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -230,7 +232,11 @@ defineExpose({ close, open });
 </script>
 
 <template>
-  <ElDialog v-model="visible" :title="dialogTitle" width="700px" @close="close">
+  <Dialog :open="visible" @update:open="if (!$event) close()">
+    <DialogContent style="max-width: 700px">
+      <DialogHeader>
+        <DialogTitle>{{ dialogTitle }}</DialogTitle>
+      </DialogHeader>
     <div v-if="record" class="approval-detail">
       <!-- 基本信息 -->
       <ElDescriptions :column="2" border>
@@ -247,7 +253,13 @@ defineExpose({ close, open });
           {{ record.submittedAt }}
         </ElDescriptionsItem>
         <ElDescriptionsItem :label="t('configApproval.colStatus')">
-          <ElTag :type="statusTagType(record.status)">{{ statusLabel(record.status) }}</ElTag>
+          <span :class="['inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold',
+            statusTagType(record.status) === 'success' ? 'border-transparent bg-green-100 text-green-800' :
+            statusTagType(record.status) === 'danger' ? 'border-transparent bg-red-100 text-red-800' :
+            statusTagType(record.status) === 'warning' ? 'border-transparent bg-yellow-100 text-yellow-800' :
+            'border-transparent bg-gray-100 text-gray-800']">{{
+            statusLabel(record.status)
+          }}</span>
         </ElDescriptionsItem>
         <ElDescriptionsItem
           v-if="record.currentApproverName"
@@ -321,26 +333,27 @@ defineExpose({ close, open });
       </div>
     </div>
 
-    <template #footer>
-      <ElButton @click="close">{{ t('common.close') }}</ElButton>
-      <template v-if="canOperate">
-        <ElButton type="primary" :loading="submitting" @click="handleApprove">
-          {{ t('common.approve') }}
-        </ElButton>
-        <ElButton type="danger" :loading="submitting" @click="handleReject">
-          {{ t('common.reject') }}
-        </ElButton>
-      </template>
-      <ElButton
-        v-if="canWithdraw"
-        type="warning"
-        :loading="submitting"
-        @click="handleWithdraw"
-      >
-        {{ t('common.withdraw') }}
-      </ElButton>
-    </template>
-  </ElDialog>
+      <DialogFooter>
+        <Button @click="close">{{ t('common.close') }}</Button>
+        <template v-if="canOperate">
+          <Button :loading="submitting" @click="handleApprove">
+            {{ t('common.approve') }}
+          </Button>
+          <Button variant="destructive" :loading="submitting" @click="handleReject">
+            {{ t('common.reject') }}
+          </Button>
+        </template>
+        <Button
+          v-if="canWithdraw"
+          variant="destructive"
+          :loading="submitting"
+          @click="handleWithdraw"
+        >
+          {{ t('common.withdraw') }}
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
 
 <style scoped>

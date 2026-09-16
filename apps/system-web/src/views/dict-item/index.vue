@@ -18,8 +18,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElTag } from 'element-plus';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -64,8 +64,8 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElTag,
-            { type: isEnabled(row.status) ? 'success' : 'info' },
+            Badge,
+            { variant: isEnabled(row.status) ? undefined : 'secondary' },
             () => (isEnabled(row.status) ? t('enabled') : t('disabled')),
           ),
       },
@@ -79,8 +79,8 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(Button, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
           ]),
       },
     },
@@ -175,7 +175,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid :table-title="t('dictItem')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('create') }}</Button>
       </template>
     </Grid>
     <DictItemFormModal @success="gridApi.query()" />

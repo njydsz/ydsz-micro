@@ -23,7 +23,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElSpace, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+// TODO: ElEmpty / ElSpace / ElTimeline / ElTimelineItem 待后续迁移
+// TODO: ElForm / ElFormItem 暂不迁移（表单组件单独批次）
+import { ElEmpty, ElForm, ElFormItem, ElSpace, ElTimeline, ElTimelineItem } from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';
@@ -140,14 +143,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElCard v-loading="loading" class="embedded-approval" shadow="never">
-    <template #header>
-      <div class="header">
-        <span class="title">审批信息</span>
-        <ElTag v-if="panel.myRole" size="small" type="primary">{{ panel.myRole }}</ElTag>
+  <Card v-loading="loading" class="embedded-approval">
+    <CardHeader>
+      <div class="header flex items-center justify-between">
+        <CardTitle class="text-base font-semibold">审批信息</CardTitle>
+        <Badge v-if="panel.myRole" variant="default">{{ panel.myRole }}</Badge>
       </div>
-    </template>
-
+    </CardHeader>
+    <CardContent>
     <ElEmpty v-if="!loading && !availableActions.length" description="暂无待处理任务" />
 
     <div v-else class="content">
@@ -164,51 +167,52 @@ onMounted(() => {
       <ElForm v-if="availableActions.length" :model="form" label-width="80px" size="small">
         <ElFormItem label="操作">
           <ElSpace wrap>
-            <ElButton
+            <div class="flex flex-wrap gap-2">
+            <Button
               v-if="availableActions.includes('pass')"
-              type="primary"
-              size="small"
+              size="sm"
               @click="form.action = 'pass'"
             >
               {{ $t('wf.approve') }}
-            </ElButton>
-            <ElButton
+            </Button>
+            <Button
               v-if="availableActions.includes('reject')"
-              type="danger"
-              size="small"
+              variant="destructive"
+              size="sm"
               @click="form.action = 'reject'"
             >
               {{ $t('wf.reject') }}
-            </ElButton>
-            <ElButton
+            </Button>
+            <Button
               v-if="availableActions.includes('transfer')"
-              size="small"
+              variant="secondary"
+              size="sm"
               @click="form.action = 'transfer'"
             >
               {{ $t('wf.transfer') }}
-            </ElButton>
-            <ElButton
+            </Button>
+            <Button
               v-if="availableActions.includes('delegate')"
-              size="small"
+              variant="secondary"
+              size="sm"
               @click="form.action = 'delegate'"
             >
               {{ $t('wf.delegate') }}
-            </ElButton>
-          </ElSpace>
+            </Button>
+          </div>
         </ElFormItem>
         <ElFormItem label="意见">
-          <ElInput
+          <Input
             v-model="form.comment"
             type="textarea"
-            :rows="2"
             :placeholder="$t('wf.commentPlaceholder')"
           />
         </ElFormItem>
         <ElFormItem>
-          <ElButton type="primary" :loading="submitting" @click="handleAction"> 提交 </ElButton>
-          <ElButton v-if="canRecall" :loading="submitting" @click="handleRecall">
+          <Button :loading="submitting" @click="handleAction"> 提交 </Button>
+          <Button v-if="canRecall" variant="secondary" :loading="submitting" @click="handleRecall">
             {{ $t('wf.recall') }}
-          </ElButton>
+          </Button>
         </ElFormItem>
       </ElForm>
 
@@ -231,7 +235,8 @@ onMounted(() => {
         </ElTimeline>
       </div>
     </div>
-  </ElCard>
+    </CardContent>
+  </Card>
 </template>
 
 <style scoped>

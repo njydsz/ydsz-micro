@@ -18,12 +18,16 @@
  */
 import { computed, ref, watch } from 'vue';
 
+import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import {
-  ElDialog,
-  ElEmpty,
-  ElIcon,
-  ElTag,
-} from 'element-plus';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
+// TODO: ElIcon 为图标容器，暂无对应 shadcn-ui 组件，保留 element-plus 导入
+import { ElEmpty, ElIcon } from 'element-plus';
 import { Warning } from '@element-plus/icons-vue';
 
 import type { CodePreviewVO } from '#/api/models';
@@ -74,22 +78,20 @@ watch(
 </script>
 
 <template>
-  <ElDialog
-    :model-value="visible"
-    title="代码预览"
-    width="80%"
-    top="5vh"
-    @update:model-value="handleClose"
-  >
-    <div v-if="previewList.length > 0" class="flex gap-4" style="height: 70vh">
-      <!-- 文件列表 -->
-      <div class="w-64 overflow-y-auto border-r pr-3">
-        <div class="mb-2 text-sm text-gray-500">
-          共 {{ previewList.length }} 个文件
-          <ElTag v-if="conflictCount > 0" type="warning" size="small" class="ml-2">
-            {{ conflictCount }} 个冲突
-          </ElTag>
-        </div>
+  <Dialog :open="visible" @update:open="handleClose">
+    <DialogContent style="max-width: 80%">
+      <DialogHeader>
+        <DialogTitle>代码预览</DialogTitle>
+      </DialogHeader>
+      <div v-if="previewList.length > 0" class="flex gap-4" style="height: 70vh">
+        <!-- 文件列表 -->
+        <div class="w-64 overflow-y-auto border-r pr-3">
+          <div class="mb-2 text-sm text-gray-500">
+            共 {{ previewList.length }} 个文件
+            <Badge v-if="conflictCount > 0" variant="destructive" class="ml-2">
+              {{ conflictCount }} 个冲突
+            </Badge>
+          </div>
         <div
           v-for="(item, idx) in previewList"
           :key="item.filePath ?? idx"
@@ -115,6 +117,7 @@ watch(
         <pre class="bg-gray-50 p-4 rounded text-xs overflow-auto" style="max-height: 60vh"><code>{{ currentContent }}</code></pre>
       </div>
     </div>
-    <ElEmpty v-else description="暂无预览数据" />
-  </ElDialog>
+      <ElEmpty v-else description="暂无预览数据" />
+    </DialogContent>
+  </Dialog>
 </template>

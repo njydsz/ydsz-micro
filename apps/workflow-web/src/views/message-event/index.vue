@@ -16,7 +16,9 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { ElButton, ElCard, ElForm, ElFormItem, ElInput } from 'element-plus';
+// TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
+import { ElForm, ElFormItem } from 'element-plus';
+import { Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { reactive, ref } from 'vue';
@@ -68,26 +70,28 @@ async function handlePublish() {
 
 <template>
   <Page auto-content-height>
-    <ElCard header="消息事件发布" class="message-event-card">
+    <Card class="message-event-card">
+      <CardContent class="pt-6">
       <p class="text-sm text-gray-600 mb-4">
         此页面用于向订阅了特定消息的等待节点触发流程继续。
         通常由外部系统（如消息队列消费者）通过 API 调用，此处提供手动触发入口用于调试和运维。
       </p>
       <ElForm :model="form" label-width="120px">
         <ElFormItem label="消息名称" required>
-          <ElInput v-model="form.messageName" placeholder="对应流程中消息节点的订阅名称" />
+          <Input v-model="form.messageName" placeholder="对应流程中消息节点的订阅名称" />
         </ElFormItem>
         <ElFormItem label="关联键名">
-          <ElInput v-model="form.correlationKey" placeholder="可选，如 orderId" />
+          <Input v-model="form.correlationKey" placeholder="可选，如 orderId" />
         </ElFormItem>
         <ElFormItem label="关联键值">
-          <ElInput v-model="form.correlationValue" placeholder="可选，如 ORD-20260908-001" />
+          <Input v-model="form.correlationValue" placeholder="可选，如 ORD-20260908-001" />
         </ElFormItem>
         <ElFormItem>
-          <ElButton type="primary" :loading="loading" @click="handlePublish">发布事件</ElButton>
+          <Button :loading="loading" @click="handlePublish">发布事件</Button>
         </ElFormItem>
       </ElForm>
-    </ElCard>
+      </CardContent>
+    </Card>
   </Page>
 </template>
 

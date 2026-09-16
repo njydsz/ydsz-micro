@@ -20,9 +20,11 @@ import { onMounted, ref, watch } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElInputNumber 暂无对应 shadcn-ui 组件，保留 element-plus 导入
+// TODO: ElTooltip 暂无对应 shadcn-ui 组件，保留 element-plus 导入
+import { ElInputNumber, ElTooltip } from 'element-plus';
 import { Page } from '@ydsz/common-ui';
-
-import { ElButton, ElInputNumber, ElTag, ElTooltip } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -43,16 +45,16 @@ const limit = ref(20);
 const fileDialogVisible = ref(false);
 const selectedHistoryId = ref<number | undefined>(undefined);
 
-function getStatusTagType(status: string): 'success' | 'warning' | 'danger' | 'info' {
+function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'secondary' {
   switch (status) {
     case 'SUCCESS':
-      return 'success';
+      return 'default';
     case 'PARTIAL':
-      return 'warning';
+      return 'destructive';
     case 'FAILED':
-      return 'danger';
+      return 'destructive';
     default:
-      return 'info';
+      return 'secondary';
   }
 }
 
@@ -85,7 +87,7 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
       slots: {
         default: ({ row }) => {
           const item = row as GenHistory;
-          return h(ElTag, { type: getStatusTagType(item.status ?? '') }, () =>
+          return h(Badge, { variant: getStatusBadgeVariant(item.status ?? '') }, () =>
             getStatusText(item.status ?? ''),
           );
         },
@@ -133,24 +135,23 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
           const item = row as GenHistory;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleViewFiles(item) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleViewFiles(item) },
               () => '文件明细',
             ),
             h(
-              ElButton,
+              Button,
               {
-                size: 'small',
-                link: true,
-                type: 'warning',
+                size: 'sm',
+                variant: 'link',
                 disabled: item.status === 'RUNNING',
                 onClick: () => handleRollback(item),
               },
               () => '回滚',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(item) },
+              Button,
+              { size: 'sm', variant: 'destructive', onClick: () => handleDelete(item) },
               () => t('common.delete'),
             ),
           ]);
@@ -189,7 +190,7 @@ function handleViewFiles(row: GenHistory) {
 /**
  * 回滚任务。
  *
- * <p>弹出二次确认对话框，确认后调用后端回滚接口恢复或删除该任务生成的文件，成功后刷新列表。
+ * <p>弹出二次确认对话框，确认后调用后端回滚接口恢复或删除该任务生成的所有文件，成功后刷新列表。
  *
  * @param row - 待回滚的任务数据行
  */

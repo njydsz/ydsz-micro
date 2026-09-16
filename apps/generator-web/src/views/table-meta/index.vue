@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElOption, ElSelect } from 'element-plus';
+import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -114,22 +114,20 @@ const gridOptions: VxeTableGridOptions<GenTableMeta> = {
         default: ({ row }) => {
           const table = row as GenTableMeta;
           return h('div', { class: 'flex gap-1' }, [
-            h(
-              ElButton,
+              h(
+              Button,
               {
-                size: 'small',
-                link: true,
-                type: 'primary',
+                size: 'sm',
+                variant: 'link',
                 onClick: () => handleViewColumns(table),
               },
               () => '查看列',
             ),
             h(
-              ElButton,
+              Button,
               {
-                size: 'small',
-                link: true,
-                type: 'success',
+                size: 'sm',
+                variant: 'link',
                 onClick: () => handleGotoCodeGen(table),
               },
               () => '去生成',
@@ -174,19 +172,21 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="mb-4 flex items-center gap-4">
       <span class="text-sm text-gray-600">选择数据源：</span>
-      <ElSelect
-        v-model="selectedDatasourceId"
-        placeholder="请选择数据源"
-        @change="handleDatasourceChange"
-      >
-        <ElOption
-          v-for="ds in datasourceList"
-          :key="ds.id"
-          :label="`${ds.name} (${ds.jdbcUrl})`"
-          :value="ds.id"
-        />
-      </ElSelect>
-      <ElButton type="primary" @click="handleRefreshTables">刷新表缓存</ElButton>
+      <Select v-model="selectedDatasourceId" @update:model-value="handleDatasourceChange">
+        <SelectTrigger>
+          <SelectValue placeholder="请选择数据源" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem
+            v-for="ds in datasourceList"
+            :key="ds.id"
+            :value="String(ds.id)"
+          >
+            {{ ds.name }} ({{ ds.jdbcUrl }})
+          </SelectItem>
+        </SelectContent>
+      </Select>
+      <Button @click="handleRefreshTables">刷新表缓存</Button>
     </div>
     <Grid table-title="表元数据" />
     <ColumnDialog

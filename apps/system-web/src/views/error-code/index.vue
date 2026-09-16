@@ -21,15 +21,15 @@ import { computed, ref } from 'vue';
 
 import type { ErrorCode } from '@YDSZ/locales/errors';
 import { ZH_CN_MESSAGES } from '@YDSZ/locales/errors/zh-CN';
+import { Badge, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: 复杂文件，ElCard/ElEmpty/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（Table）；部分迁移：Input、Tag → shadcn
 import {
   ElCard,
   ElEmpty,
-  ElInput,
   ElOption,
   ElSelect,
   ElTable,
   ElTableColumn,
-  ElTag,
 } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
 
@@ -178,12 +178,11 @@ if (import.meta.env.DEV) {
     <!-- 顶部过滤区 -->
     <ElCard shadow="never">
       <div class="flex flex-wrap items-center gap-4">
-        <ElInput
+        <!-- TODO: prefix-icon 与 clearable 需手动组合 slot（shadcn Input 不内置） -->
+        <Input
           v-model="searchKeyword"
-          :prefix-icon="Search"
           placeholder="搜索错误码 / 关键词"
-          clearable
-          style="width: 260px"
+          class="w-[260px]"
         />
         <ElSelect v-model="moduleFilter" placeholder="选择模块" style="width: 180px">
           <ElOption
@@ -216,12 +215,12 @@ if (import.meta.env.DEV) {
         </ElTableColumn>
         <ElTableColumn prop="module" label="模块" width="140">
           <template #default="{ row }">
-            <ElTag size="small" type="info">{{ row.module }}</ElTag>
+            <Badge variant="secondary">{{ row.module }}</Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="level" label="等级" width="100">
           <template #default="{ row }">
-            <ElTag :type="LEVEL_TAG_TYPE[row.level]" size="small">{{ row.level }}</ElTag>
+            <Badge :variant="LEVEL_TAG_TYPE[row.level] === 'info' ? 'secondary' : 'destructive'">{{ row.level }}</Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="message" label="错误描述" min-width="300" />

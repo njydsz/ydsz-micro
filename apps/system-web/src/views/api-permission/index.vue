@@ -18,8 +18,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -80,7 +80,7 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
       slots: {
         default: ({ row }: { row: ApiPermissionRow }) => {
           if (!row.httpMethod) return h('span', {}, '-');
-          return h(ElTag, { type: httpMethodType(row.httpMethod), size: 'small' }, () => row.httpMethod ?? '');
+          return h(Badge, { variant: httpMethodType(row.httpMethod) === 'danger' || httpMethodType(row.httpMethod) === 'warning' ? 'destructive' : httpMethodType(row.httpMethod) === 'info' ? 'secondary' : undefined }, () => row.httpMethod ?? '');
         },
       },
     },
@@ -107,8 +107,8 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
       width: 90,
       slots: {
         default: ({ row }: { row: ApiPermissionRow }) => h(
-          ElTag,
-          { type: isEnabled(row.status) ? 'success' : 'info', size: 'small' },
+          Badge,
+          { variant: isEnabled(row.status) ? undefined : 'secondary' },
           () => (isEnabled(row.status) ? t('common.enabled') : t('common.disabled')),
         ),
       },
@@ -131,11 +131,10 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
           if (hasAccessByCodesAll(['sys:permission:api-edit'])) {
             buttons.push(
               h(
-                ElButton,
+                Button,
                 {
-                  size: 'small',
-                  link: true,
-                  type: isEnabled(row.status) ? 'warning' : 'success',
+                  size: 'sm',
+                  variant: isEnabled(row.status) ? 'destructive' : undefined,
                   onClick: () => handleToggleStatus(row),
                 },
                 () => (isEnabled(row.status) ? t('common.disabled') : t('common.enabled')),
@@ -146,8 +145,8 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
           if (hasAccessByCodesAll(['sys:permission:api-delete'])) {
             buttons.push(
               h(
-                ElButton,
-                { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+                Button,
+                { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) },
                 () => t('common.delete'),
               ),
             );
@@ -258,9 +257,9 @@ async function handleDelete(row: ApiPermissionRow) {
   <Page auto-content-height>
     <Grid :table-title="t('apiPermission.title')">
       <template #toolbar-tools>
-        <ElButton v-permission="'sys:permission:api-scan'" :loading="scanning" type="success" @click="handleScan">
+        <Button v-permission="'sys:permission:api-scan'" :loading="scanning" @click="handleScan">
           {{ t('apiPermission.triggerScan') }}
-        </ElButton>
+        </Button>
       </template>
     </Grid>
   </Page>

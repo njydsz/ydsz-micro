@@ -16,7 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElCascader, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
+// TODO: ElCascader / ElForm / ElFormItem / ElInputNumber 暂不迁移，保留 element-plus 导入
+import { ElCascader, ElForm, ElFormItem, ElInputNumber } from 'element-plus';
+import { Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, reactive, ref } from 'vue';
 import { create, tree, update } from '#/api/flowCategory';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from '#/api/models';
@@ -164,10 +166,10 @@ const title = computed(() => (isEdit.value ? t('category.edit.title') : t('categ
       label-position="right"
     >
       <ElFormItem :label="t('category.code.label')" prop="categoryCode">
-        <ElInput v-model="formData.categoryCode" :placeholder="t('category.code.placeholder')" :disabled="isEdit" />
+        <Input v-model="formData.categoryCode" :placeholder="t('category.code.placeholder')" :disabled="isEdit" />
       </ElFormItem>
       <ElFormItem :label="t('category.name.label')" prop="categoryName">
-        <ElInput v-model="formData.categoryName" :placeholder="t('category.name.placeholder')" />
+        <Input v-model="formData.categoryName" :placeholder="t('category.name.placeholder')" />
       </ElFormItem>
       <ElFormItem :label="t('category.parent.label')">
         <ElCascader
@@ -182,10 +184,10 @@ const title = computed(() => (isEdit.value ? t('category.edit.title') : t('categ
         <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />
       </ElFormItem>
       <ElFormItem :label="t('category.icon.label')">
-        <ElInput v-model="formData.icon" :placeholder="t('category.icon.placeholder')" />
+        <Input v-model="formData.icon" :placeholder="t('category.icon.placeholder')" />
       </ElFormItem>
       <ElFormItem :label="t('common.remark.label')">
-        <ElInput v-model="formData.remark" type="textarea" :rows="2" :placeholder="t('common.remark.placeholder')" />
+        <Textarea v-model="formData.remark" :placeholder="t('common.remark.placeholder')" />
       </ElFormItem>
     </ElForm>
   </Modal>

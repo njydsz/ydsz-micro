@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -66,8 +66,8 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
         default: ({ row }) => {
           const dictType = row as DictTypeRow;
           return h(
-            ElTag,
-            { type: isEnabled(dictType.status) ? 'success' : 'info' },
+            Badge,
+            { variant: isEnabled(dictType.status) ? undefined : 'secondary' },
             () => (isEnabled(dictType.status) ? '启用' : '禁用'),
           );
         },
@@ -84,11 +84,11 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
           const buttons = [];
           // 编辑按钮 — 需要 sys:dict:edit 权限
           if (hasAccessByCodesAll(['sys:dict:edit'])) {
-            buttons.push(h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dictType) }, () => t('edit')));
+            buttons.push(h(Button, { size: 'sm', onClick: () => handleEdit(dictType) }, () => t('edit')));
           }
           // 删除按钮 — 需要 sys:dict:delete 权限
           if (hasAccessByCodesAll(['sys:dict:delete'])) {
-            buttons.push(h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dictType) }, () => t('delete')));
+            buttons.push(h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(dictType) }, () => t('delete')));
           }
           return h('div', { class: 'flex gap-1' }, buttons);
         },
@@ -181,7 +181,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid table-title="字典类型">
       <template #toolbar-tools>
-        <ElButton v-permission="'sys:dict:add'" type="primary" @click="handleAdd">{{ t('create') }}</ElButton>
+        <Button v-permission="'sys:dict:add'" @click="handleAdd">{{ t('create') }}</Button>
       </template>
     </Grid>
     <DictTypeFormModal @success="gridApi.query()" />

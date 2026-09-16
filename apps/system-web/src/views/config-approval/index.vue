@@ -20,8 +20,10 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTabs/ElTabPane 暂无 shadcn 映射，待 shadcn Tabs 组件就绪后同步迁移
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { ElTabPane, ElTabs } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -208,7 +210,10 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       title: t('configApproval.colStatus'),
       width: 100,
       slots: {
-        default: ({ row }) => h(ElTag, { type: statusTagType(row.status) }, () => statusLabel(row.status)),
+        default: ({ row }) => {
+          const variant = statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary';
+          return h(Badge, { variant }, () => statusLabel(row.status));
+        },
       },
     },
     {
@@ -224,18 +229,18 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
           // 查看详情按钮
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(row) }, () => t('common.viewDetail')),
+          h(Button, { size: 'sm', onClick: () => handleViewDetail(row) }, () => t('common.viewDetail')),
           // 待我审批 Tab：通过 / 拒绝
           ...(activeTab.value === 'pending'
             ? [
-                h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleApprove(row) }, () => t('common.approve')),
-                h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleReject(row) }, () => t('common.reject')),
+                h(Button, { size: 'sm', onClick: () => handleApprove(row) }, () => t('common.approve')),
+                h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleReject(row) }, () => t('common.reject')),
               ]
             : []),
           // 我已发起 Tab：撤回（仅 PENDING 状态）
           ...(activeTab.value === 'submitted' && row.status === 'PENDING'
             ? [
-                h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleWithdraw(row) }, () => t('common.withdraw')),
+                h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleWithdraw(row) }, () => t('common.withdraw')),
               ]
             : []),
         ]),

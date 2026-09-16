@@ -17,6 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
+// TODO: [shadcn-ui migration pending] 文件含 ElDatePicker（不在映射范围）、ElSelect/ElOption（Select 单独迁移）、ElTag 等；整体迁移需人工评估
 import { ElButton, ElDatePicker, ElInput, ElOption, ElSelect, ElTag } from 'element-plus';
 import { h, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';

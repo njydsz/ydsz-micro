@@ -23,7 +23,17 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElTable, ElTableColumn } from 'element-plus';
+// TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
+import { ElTable, ElTableColumn } from 'element-plus';
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  Sheet,
+  SheetContent,
+} from '@ydsz-core/ui-kit/shadcn-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -421,7 +431,7 @@ void loadCardData();
           表格
         </button>
       </div>
-      <ElButton type="primary" @click="templateFormApi.open()">{{ t('wf.import') }}</ElButton>
+      <Button @click="templateFormApi.open()">{{ t('wf.import') }}</Button>
     </div>
 
     <!-- 表格视图 -->
@@ -431,18 +441,18 @@ void loadCardData();
     >
       <template #col-action="{ row }">
         <div class="flex gap-1">
-          <ElButton size="small" link type="primary" @click="handleImport(row as TemplateRow)">{{
+          <Button size="sm" variant="link" @click="handleImport(row as TemplateRow)">{{
             t('wf.import')
-          }}</ElButton>
-          <ElButton size="small" link type="primary" @click="handleClone(row as TemplateRow)">{{
+          }}</Button>
+          <Button size="sm" variant="link" @click="handleClone(row as TemplateRow)">{{
             t('wf.clone')
-          }}</ElButton>
-          <ElButton size="small" link type="primary" @click="handleNewVersion(row as TemplateRow)">{{
+          }}</Button>
+          <Button size="sm" variant="link" @click="handleNewVersion(row as TemplateRow)">{{
             t('wf.newVersion')
-          }}</ElButton>
-          <ElButton size="small" link type="primary" @click="openVersions(row as TemplateRow)">{{
+          }}</Button>
+          <Button size="sm" variant="link" @click="openVersions(row as TemplateRow)">{{
             t('wf.version')
-          }}</ElButton>
+          }}</Button>
         </div>
       </template>
     </Grid>
@@ -492,66 +502,66 @@ void loadCardData();
           </template>
 
           <template #actions>
-            <ElDropdown trigger="click" @command="(cmd: string) => handleCardAction(cmd as CardCommand, item)">
-              <ElButton
-                size="small"
-                link
-                type="primary"
-                @click.stop
-              >
-                <svg
-                  class="mb-0.5 me-1 inline"
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="14"
+            <DropdownMenu>
+              <DropdownMenuTrigger as-child>
+                <Button
+                  size="sm"
+                  variant="link"
+                  @click.stop
                 >
-                  <circle
-                    cx="12"
-                    cy="5"
-                    r="1"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="1"
-                  />
-                  <circle
-                    cx="12"
-                    cy="19"
-                    r="1"
-                  />
-                </svg>
-              </ElButton>
-              <template #dropdown>
-                <ElDropdownMenu>
-                  <ElDropdownItem command="import">
-                    {{ t('wf.import') }}
-                  </ElDropdownItem>
-                  <ElDropdownItem command="clone">
-                    {{ t('wf.clone') }}
-                  </ElDropdownItem>
-                  <ElDropdownItem command="newVersion">
-                    {{ t('wf.newVersion') }}
-                  </ElDropdownItem>
-                  <ElDropdownItem command="version" divided>
-                    {{ t('wf.version') }}
-                  </ElDropdownItem>
-                </ElDropdownMenu>
-              </template>
-            </ElDropdown>
+                  <svg
+                    class="mb-0.5 me-1 inline"
+                    fill="none"
+                    height="14"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="14"
+                  >
+                    <circle
+                      cx="12"
+                      cy="5"
+                      r="1"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="1"
+                    />
+                    <circle
+                      cx="12"
+                      cy="19"
+                      r="1"
+                    />
+                  </svg>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem @click="handleCardAction('import', item)">
+                  {{ t('wf.import') }}
+                </DropdownMenuItem>
+                <DropdownMenuItem @click="handleCardAction('clone', item)">
+                  {{ t('wf.clone') }}
+                </DropdownMenuItem>
+                <DropdownMenuItem @click="handleCardAction('newVersion', item)">
+                  {{ t('wf.newVersion') }}
+                </DropdownMenuItem>
+                <DropdownMenuItem @click="handleCardAction('version', item)">
+                  {{ t('wf.version') }}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </template>
         </EntityCard>
       </CardGrid>
     </div>
 
     <TemplateFormModal @success="handleRefresh()" />
-    <ElDrawer v-model="versionsVisible" :title="t('wf.versionHistory')" :size="540">
-      <div class="mb-2 flex justify-end">
-        <ElButton size="small" @click="loadVersions">{{ t('common.refresh') }}</ElButton>
+    <Sheet :open="versionsVisible" @update:open="versionsVisible = $event">
+      <SheetContent class="!max-w-[540px]">
+        <div class="mb-2 flex justify-end">
+        <Button size="sm" variant="secondary" @click="loadVersions">{{ t('common.refresh') }}</Button>
       </div>
       <ElTable
         :data="versionRows"
@@ -591,15 +601,15 @@ void loadCardData();
           fixed="right"
         >
           <template #default="{ row }">
-            <ElButton
-              link
-              type="primary"
-              size="small"
+            <Button
+              variant="link"
+              size="sm"
               @click="handleVersionDetail(row as TemplateRow)"
-            >{{ t('wf.detail') }}</ElButton>
+            >{{ t('wf.detail') }}</Button>
           </template>
         </ElTableColumn>
       </ElTable>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

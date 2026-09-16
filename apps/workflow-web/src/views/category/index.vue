@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton } from 'element-plus';
+import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/flowCategory';
@@ -46,13 +46,14 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link' as const, onClick: () => handleDelete(row),
+                class: 'text-destructive' },
               () => t('common.delete'),
             ),
           ]),
@@ -128,7 +129,7 @@ async function handleDelete(row: FlowCategoryVO) {
   <Page auto-content-height>
     <Grid :table-title="t('category.list.title')">
       <template #toolbar-tools
-        ><ElButton type="primary" @click="handleAdd">{{ t('common.add') }}</ElButton></template
+        ><Button @click="handleAdd">{{ t('common.add') }}</Button></template
       >
     </Grid>
     <CategoryFormModal @success="gridApi.query()" />
