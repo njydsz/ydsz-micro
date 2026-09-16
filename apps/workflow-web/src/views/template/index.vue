@@ -1,6 +1,10 @@
 <!--
  * 流程模板（列表页）
  *
+ * 视图模式：卡片视图（默认）/ 表格视图 可切换。
+ *  - 卡片视图：CardGrid + EntityCard，承载模板可视化展示；
+ *  - 表格视图：VxeTable，保持原有兼容视图。
+ *
  * @path apps\workflow-web\src\views\template\index.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -17,9 +21,10 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDrawer, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus';
-import { ref } from 'vue';
+import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -42,6 +47,14 @@ const { t } = useI18n();
 /** 行类型：后端契约未声明模板 VO，使用 Record<string, unknown> 兼容（可选链收窄取值） */
 type TemplateRow = Record<string, unknown>;
 
+/** 视图模式类型 */
+type ViewMode = 'card' | 'table';
+const viewMode = ref<ViewMode>('card');
+
+/** 卡片视图数据源 */
+const templateList = ref<TemplateRow[]>([]);
+const cardLoading = ref<boolean>(false);
+
 /** 安全读取字符串字段 */
 function str(row: TemplateRow, key: string): string {
   const value = row[key];
@@ -52,6 +65,23 @@ function str(row: TemplateRow, key: string): string {
 function num(row: TemplateRow, key: string): number {
   const value = row[key];
   return typeof value === 'number' ? value : 0;
+}
+
+/** 模板状态 → StatusBadge 语义值 */
+function resolveTemplateStatus(row: TemplateRow): 'draft' | 'published' | 'offline' {
+  const status = (str(row, 'status') || '').toUpperCase();
+  if (status === 'PUBLISHED' || status === 'ACTIVE' || status === 'RELEASED') {
+    return 'published';
+  }
+  if (status === 'OFFLINE' || status === 'ARCHIVED' || status === 'DISABLED') {
+    return 'offline';
+  }
+  return 'draft';
+}
+
+/** 状态原始文本 */
+function resolveStatusLabel(row: TemplateRow): string {
+  return str(row, 'status') || '草稿';
 }
 
 const gridOptions: VxeGridProps<TemplateRow> = {
@@ -74,7 +104,6 @@ const gridOptions: VxeGridProps<TemplateRow> = {
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
   proxyConfig: {
     ajax: {
-      // listTemplates() 为全量非分页接口：直接返回全部条目，total 取条目数
       query: async (_params, formValues) => {
         const values = (formValues ?? {}) as TemplateRow;
         const items =
@@ -99,6 +128,36 @@ const gridOptions: VxeGridProps<TemplateRow> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [TemplateFormModal, templateFormApi] = useYDSZModal({ connectedComponent: TemplateForm });
 
+/** 加载卡片视图数据 */
+async function loadCardData(): Promise<void> {
+  cardLoading.value = true;
+  try {
+    templateList.value = (await listTemplates({})) ?? [];
+  } catch (error) {
+    logger.warn('加载模板列表失败: {}', error);
+    templateList.value = [];
+  } finally {
+    cardLoading.value = false;
+  }
+}
+
+/** 视图切换 */
+function handleViewModeChange(mode: ViewMode): void {
+  if (mode === 'card' && templateList.value.length === 0 && !cardLoading.value) {
+    void loadCardData();
+  }
+  viewMode.value = mode;
+}
+
+/** 刷新列表（兼容两视图） */
+async function handleRefresh(): Promise<void> {
+  if (viewMode.value === 'table') {
+    gridApi.query();
+  } else {
+    await loadCardData();
+  }
+}
+
 /** 模板编码获取失败时的统一提示 */
 function getTemplateCode(row: TemplateRow): string | undefined {
   const code = str(row, 'templateCode');
@@ -110,7 +169,7 @@ function getTemplateCode(row: TemplateRow): string | undefined {
 }
 
 /** 导入模板（可填写流程名称） */
-async function handleImport(row: TemplateRow) {
+async function handleImport(row: TemplateRow): Promise<void> {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
   let flowName: string;
@@ -121,7 +180,7 @@ async function handleImport(row: TemplateRow) {
       t('wf.templateImport'),
       {
         inputPlaceholder: 'flowName',
-        inputValidator: (value) => (value ? true : t('wf.importValidator')),
+        inputValidator: (inputValue) => (inputValue ? true : t('wf.importValidator')),
       },
     );
     flowName = value;
@@ -133,17 +192,15 @@ async function handleImport(row: TemplateRow) {
   try {
     await importTemplate({ templateCode }, { flowName });
     ElMessage.success(t('wf.importSuccess'));
-    gridApi.query();
+    await handleRefresh();
   } catch (error) {
     logger.warn('模板导入失败，详见拦截器提示', error);
     // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
-/**
- * 克隆模板。
- */
-async function handleClone(row: TemplateRow) {
+/** 克隆模板 */
+async function handleClone(row: TemplateRow): Promise<void> {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
   let newTemplateName: string;
@@ -151,7 +208,7 @@ async function handleClone(row: TemplateRow) {
   try {
     const { value } = await ElMessageBox.prompt(t('wf.confirmClone'), t('wf.cloneTemplate'), {
       inputPlaceholder: 'newTemplateName',
-      inputValidator: (value) => (value ? true : t('wf.cloneValidator')),
+      inputValidator: (inputValue) => (inputValue ? true : t('wf.cloneValidator')),
     });
     newTemplateName = value;
   } catch (error) {
@@ -162,17 +219,15 @@ async function handleClone(row: TemplateRow) {
   try {
     await cloneTemplate({ templateCode }, { newTemplateName });
     ElMessage.success(t('wf.cloneSuccess'));
-    gridApi.query();
+    await handleRefresh();
   } catch (error) {
     logger.warn('模板克隆失败，详见拦截器提示', error);
     // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
 
-/**
- * 基于现有模板创建新版本。
- */
-async function handleNewVersion(row: TemplateRow) {
+/** 基于现有模板创建新版本 */
+async function handleNewVersion(row: TemplateRow): Promise<void> {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
   let versionLabel: string | undefined;
@@ -194,7 +249,7 @@ async function handleNewVersion(row: TemplateRow) {
   try {
     await createNewVersion({ templateCode }, { versionLabel });
     ElMessage.success(t('wf.newVersionSuccess'));
-    gridApi.query();
+    await handleRefresh();
   } catch (error) {
     logger.warn('创建模板新版本失败，详见拦截器提示', error);
     // 用户提示由 errorMessageResponseInterceptor 统一处理
@@ -207,12 +262,8 @@ const versionsLoading = ref(false);
 const versionRows = ref<TemplateRow[]>([]);
 const currentTemplateCode = ref('');
 
-/**
- * 打开版本历史抽屉。
- *
- * @param row - 当前模板数据行
- */
-async function openVersions(row: TemplateRow) {
+/** 打开版本历史抽屉 */
+async function openVersions(row: TemplateRow): Promise<void> {
   const templateCode = getTemplateCode(row);
   if (!templateCode) return;
   currentTemplateCode.value = templateCode;
@@ -221,7 +272,7 @@ async function openVersions(row: TemplateRow) {
 }
 
 /** 加载当前模板的版本列表 */
-async function loadVersions() {
+async function loadVersions(): Promise<void> {
   if (!currentTemplateCode.value) return;
   versionsLoading.value = true;
   try {
@@ -232,12 +283,8 @@ async function loadVersions() {
   }
 }
 
-/**
- * 查看版本详情（以 JSON 格式展示）。
- *
- * @param versionItem - 当前版本数据
- */
-async function handleVersionDetail(versionItem: TemplateRow) {
+/** 查看版本详情（以 JSON 格式展示） */
+async function handleVersionDetail(versionItem: TemplateRow): Promise<void> {
   if (!currentTemplateCode.value) return;
   const version = num(versionItem, 'version') || Number(str(versionItem, 'version'));
   if (!version && !str(versionItem, 'version')) {
@@ -247,7 +294,7 @@ async function handleVersionDetail(versionItem: TemplateRow) {
   try {
     const detail = await getTemplateVersion({ templateCode: currentTemplateCode.value, version });
     ElMessageBox.alert(
-      `<pre class="text-left text-xs max-h-64 overflow-auto">${JSON.stringify(detail, null, 2)}</pre>`,
+      `<pre class="max-h-64 overflow-auto text-left text-xs">${JSON.stringify(detail, null, 2)}</pre>`,
       `${t('wf.versionDetail')} ${version}`,
       {
         dangerouslyUseHTMLString: true,
@@ -258,13 +305,130 @@ async function handleVersionDetail(versionItem: TemplateRow) {
     // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
+
+/** 操作命令处理器 */
+type CardCommand = 'import' | 'clone' | 'version' | 'newVersion';
+function handleCardAction(command: CardCommand, row: TemplateRow): void {
+  const handlerMap: Record<CardCommand, (r: TemplateRow) => Promise<void> | void> = {
+    clone: handleClone,
+    import: handleImport,
+    newVersion: handleNewVersion,
+    version: openVersions,
+  };
+  const handler = handlerMap[command];
+  if (handler) {
+    const result = handler(row);
+    if (result instanceof Promise) {
+      result.catch((error) => logger.warn('卡片操作执行失败: {}', error));
+    }
+  }
+}
+
+/** 默认加载卡片数据 */
+void loadCardData();
 </script>
+
 <template>
   <Page auto-content-height>
-    <Grid :table-title="t('template')">
-      <template #toolbar-tools>
-        <ElButton type="primary" @click="templateFormApi.open()">{{ t('wf.import') }}</ElButton>
-      </template>
+    <!-- 视图切换 + 工具栏 -->
+    <div class="mb-4 flex items-center justify-between">
+      <div class="flex items-center gap-1 rounded-lg border border-border-subtle bg-accent/50 p-1">
+        <button
+          class="rounded-md px-2.5 py-1 text-xs transition-colors"
+          :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          type="button"
+          @click="handleViewModeChange('card')"
+        >
+          <svg
+            class="mb-0.5 me-1 inline"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="2.5"
+              y="2.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="12.5"
+              y="2.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="2.5"
+              y="12.5"
+            />
+            <rect
+              height="9"
+              rx="1.5"
+              width="9"
+              x="12.5"
+              y="12.5"
+            />
+          </svg>
+          卡片
+        </button>
+        <button
+          class="rounded-md px-2.5 py-1 text-xs transition-colors"
+          :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          type="button"
+          @click="handleViewModeChange('table')"
+        >
+          <svg
+            class="mb-0.5 me-1 inline"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <line
+              x1="3"
+              x2="21"
+              y1="6.5"
+              y2="6.5"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="12"
+              y2="12"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="17.5"
+              y2="17.5"
+            />
+            <line
+              x1="8.5"
+              x2="8.5"
+              y1="3"
+              y2="21"
+            />
+          </svg>
+          表格
+        </button>
+      </div>
+      <ElButton type="primary" @click="templateFormApi.open()">{{ t('wf.import') }}</ElButton>
+    </div>
+
+    <!-- 表格视图 -->
+    <Grid
+      v-if="viewMode === 'table'"
+      :table-title="t('template')"
+    >
       <template #col-action="{ row }">
         <div class="flex gap-1">
           <ElButton size="small" link type="primary" @click="handleImport(row as TemplateRow)">{{
@@ -282,26 +446,157 @@ async function handleVersionDetail(versionItem: TemplateRow) {
         </div>
       </template>
     </Grid>
-    <TemplateFormModal @success="gridApi.query()" />
+
+    <!-- 卡片视图 -->
+    <div
+      v-else
+      class="min-h-[400px]"
+    >
+      <CardGrid
+        :empty="templateList.length === 0 && !cardLoading"
+        :loading="cardLoading"
+      >
+        <template #empty>
+          <EmptyState
+            description="导入流程模板后可在多个业务场景中复用"
+            preset="created"
+            :action-text="t('wf.import')"
+            :title="t('wf.templateName')"
+            @action="templateFormApi.open()"
+          />
+        </template>
+        <EntityCard
+          v-for="item in templateList"
+          :key="String(item.templateCode ?? item.templateName)"
+          :avatar-text="String(item.templateName || item.templateCode || '')"
+          :avatar-variant="resolveTemplateStatus(item) === 'published' ? 'primary' : 'neutral'"
+          :code="item.templateCode ? String(item.templateCode) : undefined"
+          :description="`${t('wf.categoryName')}: ${item.category || '-'} · ${t('wf.version')}: ${item.version ?? '-'}`"
+          class="transition-transform hover:-translate-y-0.5"
+          clickable
+          @click="handleImport(item)"
+        >
+          <template #status-badge>
+            <StatusBadge
+              :status="resolveTemplateStatus(item)"
+              :label="resolveStatusLabel(item)"
+              class="shrink-0"
+            />
+          </template>
+
+          <template #meta>
+            <div class="mt-3 flex items-center justify-between text-xs text-text-tertiary">
+              <span>{{ t('wf.version') }} {{ item.version ?? '-' }}</span>
+              <span>{{ item.updatedAt || '-' }}</span>
+            </div>
+          </template>
+
+          <template #actions>
+            <ElDropdown trigger="click" @command="(cmd: string) => handleCardAction(cmd as CardCommand, item)">
+              <ElButton
+                size="small"
+                link
+                type="primary"
+                @click.stop
+              >
+                <svg
+                  class="mb-0.5 me-1 inline"
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
+                >
+                  <circle
+                    cx="12"
+                    cy="5"
+                    r="1"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1"
+                  />
+                  <circle
+                    cx="12"
+                    cy="19"
+                    r="1"
+                  />
+                </svg>
+              </ElButton>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem command="import">
+                    {{ t('wf.import') }}
+                  </ElDropdownItem>
+                  <ElDropdownItem command="clone">
+                    {{ t('wf.clone') }}
+                  </ElDropdownItem>
+                  <ElDropdownItem command="newVersion">
+                    {{ t('wf.newVersion') }}
+                  </ElDropdownItem>
+                  <ElDropdownItem command="version" divided>
+                    {{ t('wf.version') }}
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
+          </template>
+        </EntityCard>
+      </CardGrid>
+    </div>
+
+    <TemplateFormModal @success="handleRefresh()" />
     <ElDrawer v-model="versionsVisible" :title="t('wf.versionHistory')" :size="540">
       <div class="mb-2 flex justify-end">
         <ElButton size="small" @click="loadVersions">{{ t('common.refresh') }}</ElButton>
       </div>
-      <ElTable :data="versionRows" border size="small" v-loading="versionsLoading">
-        <ElTableColumn prop="version" :label="t('wf.version')" width="90" />
-        <ElTableColumn prop="versionLabel" :label="t('wf.versionLabel')" width="120" />
-        <ElTableColumn prop="templateName" :label="t('wf.templateName')" min-width="120" show-overflow-tooltip />
-        <ElTableColumn prop="status" :label="t('wf.status')" width="90" />
-        <ElTableColumn prop="updatedAt" :label="t('wf.updateTime')" width="170" />
-        <ElTableColumn :label="t('wf.action')" width="90" fixed="right">
+      <ElTable
+        :data="versionRows"
+        border
+        size="small"
+        v-loading="versionsLoading"
+      >
+        <ElTableColumn
+          prop="version"
+          :label="t('wf.version')"
+          width="90"
+        />
+        <ElTableColumn
+          prop="versionLabel"
+          :label="t('wf.versionLabel')"
+          width="120"
+        />
+        <ElTableColumn
+          prop="templateName"
+          :label="t('wf.templateName')"
+          min-width="120"
+          show-overflow-tooltip
+        />
+        <ElTableColumn
+          prop="status"
+          :label="t('wf.status')"
+          width="90"
+        />
+        <ElTableColumn
+          prop="updatedAt"
+          :label="t('wf.updateTime')"
+          width="170"
+        />
+        <ElTableColumn
+          :label="t('wf.action')"
+          width="90"
+          fixed="right"
+        >
           <template #default="{ row }">
             <ElButton
               link
               type="primary"
               size="small"
               @click="handleVersionDetail(row as TemplateRow)"
-              >{{ t('wf.detail') }}</ElButton
-            >
+            >{{ t('wf.detail') }}</ElButton>
           </template>
         </ElTableColumn>
       </ElTable>
