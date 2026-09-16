@@ -22,8 +22,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElInput, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
+
+import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listMine, upsert } from '#/api/userChannelBinding';
@@ -43,6 +44,13 @@ const quickChannelType = ref('');
 const quickChannelUserId = ref('');
 
 /** 验证状态标签类型 */
+function mapBadgeVariant(type: 'success' | 'warning' | 'info' | 'danger'): 'default' | 'outline' | 'secondary' | 'destructive' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
+
 function getVerifiedType(verified?: number): 'success' | 'warning' {
   return verified === 1 ? 'success' : 'warning';
 }
@@ -64,7 +72,7 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getVerifiedType(row.verified) }, () =>
+          h(Badge, { variant: mapBadgeVariant(getVerifiedType(row.verified)) }, () =>
             getVerifiedLabel(row.verified),
           ),
       },
@@ -75,7 +83,7 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.isPrimary === 1 ? 'primary' : 'info' }, () =>
+          h(Badge, { variant: row.isPrimary === 1 ? 'default' : 'secondary' }, () =>
             row.isPrimary === 1 ? '是' : '否',
           ),
       },
@@ -89,11 +97,11 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
-              () => '删除',
-            ),
+          h(
+            Button,
+            { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+            () => '删除',
+          ),
           ]),
       },
     },
@@ -172,19 +180,17 @@ async function handleDelete(row: MsgUserChannelVO): Promise<void> {
     <Grid table-title="渠道绑定管理">
       <template #toolbar-tools>
         <div class="flex items-center gap-3">
-          <ElInput
+          <Input
             v-model="quickChannelType"
             placeholder="渠道类型（如 EMAIL/SMS）"
             class="w-44"
-            clearable
           />
-          <ElInput
+          <Input
             v-model="quickChannelUserId"
             placeholder="渠道用户标识"
             class="w-56"
-            clearable
           />
-          <ElButton type="primary" @click="handleQuickCreate">新增绑定</ElButton>
+          <Button @click="handleQuickCreate">新增绑定</Button>
         </div>
       </template>
     </Grid>

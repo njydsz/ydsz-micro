@@ -19,8 +19,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
+
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { pageLog } from '#/api/message';
@@ -31,6 +32,13 @@ import MessageForm from './message-form.vue';
 defineOptions({ name: 'MessageManagement' });
 
 /** 状态列 Tag 类型映射（兼容字符串/数字取值，未知值按 info 展示） */
+function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
+
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
   const upper = (status ?? '').toUpperCase();
   if (['SUCCESS', 'SENT', 'DELIVERED'].includes(upper)) return 'success';
@@ -53,7 +61,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getStatusType(row.status) }, () => row.status ?? '-'),
+          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'priority', title: '优先级', width: 90 },
@@ -110,7 +118,7 @@ function handleSend() {
   <Page auto-content-height>
     <Grid table-title="消息发送日志">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleSend">发送消息</ElButton>
+        <Button @click="handleSend">发送消息</Button>
       </template>
     </Grid>
     <MessageFormModal @success="gridApi.query()" />

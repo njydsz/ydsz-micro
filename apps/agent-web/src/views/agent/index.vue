@@ -22,7 +22,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { CardGrid, EmptyState, EntityCard } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
-import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
+// TODO: ElDropdown/ElDropdownItem/ElDropdownMenu 暂无 shadcn 对应,保留 element-plus SKIP
+import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
+import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -52,8 +54,8 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     {
       field: 'action', title: '操作', width: 140, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+        h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+        h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
       ]) },
     },
   ],
@@ -236,7 +238,7 @@ void loadAgentList();
           表格
         </button>
       </div>
-      <ElButton type="primary" @click="handleAdd">新增</ElButton>
+      <Button @click="handleAdd">新增</Button>
     </div>
 
     <!-- 表格视图 -->

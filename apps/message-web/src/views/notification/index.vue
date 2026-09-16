@@ -21,8 +21,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
+
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { countUnread, deleteApi, inbox, markAllRead, markRead, recall } from '#/api/notification';
@@ -58,7 +59,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.readStatus === 1 ? 'success' : 'info' }, () =>
+          h(Badge, { variant: row.readStatus === 1 ? 'default' : 'secondary' }, () =>
             row.readStatus === 1 ? '已读' : '未读',
           ),
       },
@@ -69,7 +70,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.recallStatus ? 'warning' : 'info' }, () => row.recallStatus ?? '-'),
+          h(Badge, { variant: row.recallStatus ? 'outline' : 'secondary' }, () => row.recallStatus ?? '-'),
       },
     },
     {
@@ -79,7 +80,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       slots: {
         default: ({ row }) =>
           row.mentionUserIds
-            ? h(ElTag, { type: 'warning', effect: 'light' }, () => `@${row.mentionUserIds}`)
+            ? h(Badge, { variant: 'outline' }, () => `@${row.mentionUserIds}`)
             : h('span', { class: 'text-gray-400' }, '-'),
       },
     },
@@ -96,24 +97,23 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
               ? []
               : [
                   h(
-                    ElButton,
+                    Button,
                     {
-                      size: 'small',
-                      link: true,
-                      type: 'primary',
+                      size: 'sm',
+                      variant: 'link',
                       onClick: () => handleMarkRead(row),
                     },
                     () => '已读',
                   ),
                 ]),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleRecall(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleRecall(row) },
               () => '撤回',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
           ]),
@@ -221,12 +221,12 @@ async function handleDelete(row: MsgNotificationVO) {
 <template>
   <Page auto-content-height>
     <div class="mb-3 flex items-center gap-2">
-      <ElTag type="danger" effect="plain">未读：{{ unreadCount }}</ElTag>
-      <ElButton size="small" type="primary" plain @click="handleMarkAllRead">全部已读</ElButton>
+      <Badge variant="destructive">未读：{{ unreadCount }}</Badge>
+      <Button size="sm" @click="handleMarkAllRead">全部已读</Button>
     </div>
     <Grid table-title="收件箱">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleSend">发送通知</ElButton>
+        <Button @click="handleSend">发送通知</Button>
       </template>
     </Grid>
     <NotificationFormModal @success="gridApi.query()" />

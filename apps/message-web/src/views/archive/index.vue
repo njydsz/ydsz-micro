@@ -20,8 +20,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElTag } from 'element-plus';
 import { h } from 'vue';
+
+import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { search } from '#/api/messageArchive';
@@ -29,7 +30,18 @@ import type { MsgLogVO } from '#/api/models';
 
 defineOptions({ name: 'MessageArchiveManagement' });
 
-/** 状态列 Tag 类型映射 */
+/**
+ * 状态列 Tag 类型映射（EP type → shadcn Badge variant）
+ * <p>success→default（绿）, danger→destructive, warning→outline（黄）, info→secondary（灰）
+ */
+function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
+
+/** 状态列原始类型判断 */
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
   const upper = (status ?? '').toUpperCase();
   if (['SUCCESS', 'SENT', 'DELIVERED'].includes(upper)) return 'success';
@@ -53,7 +65,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getStatusType(row.status) }, () => row.status ?? '-'),
+          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },

@@ -20,8 +20,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
+
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, resubscribe } from '#/api/unsubscribe';
@@ -30,6 +31,13 @@ import type { MsgSubscriptionVO } from '#/api/models';
 defineOptions({ name: 'UnsubscribeRecordManagement' });
 
 /** 状态列 Tag 类型映射 */
+function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
+
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
   const upper = (status ?? '').toUpperCase();
   if (['SUBSCRIBED', 'ACTIVE'].includes(upper)) return 'success';
@@ -50,7 +58,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       width: 110,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getStatusType(row.status) }, () => row.status ?? '-'),
+          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'roleScope', title: '角色范围', width: 120 },
@@ -64,11 +72,10 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElButton,
+            Button,
             {
-              size: 'small',
-              link: true,
-              type: 'primary',
+              size: 'sm',
+              variant: 'link',
               disabled: row.status === 'SUBSCRIBED',
               onClick: () => handleResubscribe(row),
             },

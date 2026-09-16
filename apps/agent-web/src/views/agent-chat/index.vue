@@ -21,6 +21,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
+// TODO: ElCollapse/ElCollapseItem/ElTooltip 暂无 shadcn 对应,ElButton/ElInput 已部分迁移 SKIP
 import { ElButton, ElCollapse, ElCollapseItem, ElInput, ElTooltip } from 'element-plus';
 import { computed, onBeforeUnmount, ref } from 'vue';
 

@@ -21,8 +21,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
+
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { flushByGroup, flushDue, page } from '#/api/aggregate';
@@ -31,6 +32,13 @@ import type { MsgAggregateVO } from '#/api/models';
 defineOptions({ name: 'AggregateManagement' });
 
 /** 状态列 Tag 类型映射 */
+function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
+
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
   const upper = (status ?? '').toUpperCase();
   if (['SENT', 'ACTIVE'].includes(upper)) return 'success';
@@ -53,7 +61,7 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       width: 110,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getStatusType(row.batchStatus) }, () => row.batchStatus ?? '-'),
+          h(Badge, { variant: mapTagVariant(getStatusType(row.batchStatus)) }, () => row.batchStatus ?? '-'),
       },
     },
     {
@@ -62,7 +70,7 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getStatusType(row.status) }, () => row.status ?? '-'),
+          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'scheduledSendAt', title: '计划发送时间', width: 170 },
@@ -75,8 +83,8 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElButton,
-            { size: 'small', link: true, type: 'primary', onClick: () => handleFlushByGroup(row) },
+            Button,
+            { size: 'sm', variant: 'link', onClick: () => handleFlushByGroup(row) },
             () => '刷新批次',
           ),
       },
@@ -162,7 +170,7 @@ async function handleFlushDue() {
   <Page auto-content-height>
     <Grid table-title="聚合批次">
       <template #toolbar-tools>
-        <ElButton type="warning" @click="handleFlushDue">刷新所有到期批次</ElButton>
+        <Button variant="destructive" @click="handleFlushDue">刷新所有到期批次</Button>
       </template>
     </Grid>
   </Page>

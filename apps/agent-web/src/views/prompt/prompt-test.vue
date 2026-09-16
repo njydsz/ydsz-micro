@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElDialog, ElInput } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, reactive, ref, watch } from 'vue';
 import { evaluate } from '#/api/prompt';
 
@@ -98,17 +98,21 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <ElDialog v-model="visible" title="Prompt 模板测试" width="700px" :close-on-click-modal="false" @close="close">
-    <div v-if="template" class="space-y-4">
-      <!-- 变量填写 -->
-      <div>
-        <p class="mb-2 text-sm font-medium">变量填写</p>
-        <div v-for="(value, key) in variableValues" :key="key" class="mb-2 flex items-center gap-2">
-          <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{ `${prefix}${key}${suffix}` }}</span>
-          <ElInput v-model="variableValues[key]" size="small" placeholder="输入变量值" />
+  <Dialog :open="visible" @update:open="(v) => { if (!v) close(); }">
+    <DialogContent class="max-w-[700px]">
+      <DialogHeader>
+        <DialogTitle>Prompt 模板测试</DialogTitle>
+      </DialogHeader>
+      <div v-if="template" class="space-y-4">
+        <!-- 变量填写 -->
+        <div>
+          <p class="mb-2 text-sm font-medium">变量填写</p>
+          <div v-for="(value, key) in variableValues" :key="key" class="mb-2 flex items-center gap-2">
+            <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{ `${prefix}${key}${suffix}` }}</span>
+            <Input v-model="variableValues[key]" size="sm" placeholder="输入变量值" />
+          </div>
+          <p v-if="Object.keys(variableValues).length === 0" class="text-xs text-gray-400">该模板没有变量</p>
         </div>
-        <p v-if="Object.keys(variableValues).length === 0" class="text-xs text-gray-400">该模板没有变量</p>
-      </div>
 
       <!-- 渲染结果 -->
       <div>
@@ -123,9 +127,11 @@ defineExpose({ open, close });
       </div>
     </div>
 
-    <template #footer>
-      <ElButton @click="close">关闭</ElButton>
-      <ElButton type="primary" :loading="evaluating" @click="handleEvaluate">执行评估</ElButton>
-    </template>
-  </ElDialog>
+      <DialogFooter>
+        <Button variant="outline" @click="close">关闭</Button>
+        <Button :disabled="evaluating" @click="handleEvaluate">执行评估</Button>
+      </DialogFooter>
+    </div>
+  </DialogContent>
+</Dialog>
 </template>

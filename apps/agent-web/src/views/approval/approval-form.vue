@@ -16,6 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElForm/ElFormItem/ElInput/ElButton 表单套件复杂,保留 element-plus SKIP
 import { ElButton, ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput } from 'element-plus';
 import { computed, ref } from 'vue';
 

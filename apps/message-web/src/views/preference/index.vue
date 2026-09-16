@@ -20,8 +20,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
+
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listByUser } from '#/api/preference';
@@ -46,7 +47,7 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.enabled === 1 ? 'success' : 'info' }, () =>
+          h(Badge, { variant: row.enabled === 1 ? 'default' : 'secondary' }, () =>
             row.enabled === 1 ? '启用' : '停用',
           ),
       },
@@ -57,7 +58,7 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.dndEnabled === 1 ? 'warning' : 'info' }, () =>
+          h(Badge, { variant: row.dndEnabled === 1 ? 'outline' : 'secondary' }, () =>
             row.dndEnabled === 1 ? '开启' : '关闭',
           ),
       },
@@ -73,8 +74,8 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElTag,
-            { type: row.status === 'DISABLED' ? 'info' : 'success' },
+            Badge,
+            { variant: row.status === 'DISABLED' ? 'secondary' : 'default' },
             () => row.status ?? '-',
           ),
       },
@@ -89,13 +90,13 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
           ]),
@@ -169,7 +170,7 @@ async function handleDelete(row: MsgPreferenceVO) {
   <Page auto-content-height>
     <Grid table-title="消息偏好">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新增</ElButton>
+        <Button @click="handleAdd">新增</Button>
       </template>
     </Grid>
     <PreferenceFormModal @success="gridApi.query()" />

@@ -19,8 +19,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
 import { h } from 'vue';
+
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, resend } from '#/api/deadLetter';
@@ -29,6 +30,13 @@ import type { MsgLogVO } from '#/api/models';
 defineOptions({ name: 'DeadLetterManagement' });
 
 /** 状态列 Tag 类型映射（死信多为失败态，未知值按 info 展示） */
+function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
+}
+
 function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
   const upper = (status ?? '').toUpperCase();
   if (['SUCCESS', 'RESENT', 'RECOVERED'].includes(upper)) return 'success';
@@ -52,7 +60,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: getStatusType(row.status) }, () => row.status ?? '-'),
+          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },
@@ -64,8 +72,8 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElButton,
-            { size: 'small', link: true, type: 'primary', onClick: () => handleResend(row) },
+            Button,
+            { size: 'sm', variant: 'link', onClick: () => handleResend(row) },
             () => '重发',
           ),
       },

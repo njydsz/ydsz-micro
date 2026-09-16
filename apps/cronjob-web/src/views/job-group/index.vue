@@ -20,7 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElInput } from 'element-plus';
+import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -57,10 +57,10 @@ const statsGridOptions: VxeGridProps<GroupStatsRow> = {
         default: ({ row }) => {
           const groupRow = row as GroupStatsRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handlePauseGroup(groupRow) }, () => '暂停该组'),
-            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleResumeGroup(groupRow) }, () => '恢复该组'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleTriggerGroup(groupRow) }, () => '触发该组'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewGroup(groupRow) }, () => '查看任务'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handlePauseGroup(groupRow) }, () => '暂停该组'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleResumeGroup(groupRow) }, () => '恢复该组'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleTriggerGroup(groupRow) }, () => '触发该组'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleViewGroup(groupRow) }, () => '查看任务'),
           ]);
         },
       },
@@ -181,14 +181,13 @@ function handleViewByInput() {
   <Page auto-content-height>
     <StatsGrid table-title="分组统计" />
     <div class="mt-4 flex items-center gap-2">
-      <ElInput
+      <Input
         v-model="viewGroup"
         class="w-64"
         placeholder="输入分组名称，查看该组任务"
-        clearable
         @keyup.enter="handleViewByInput"
       />
-      <ElButton type="primary" @click="handleViewByInput">查询</ElButton>
+      <Button @click="handleViewByInput">查询</Button>
     </div>
     <TaskGrid class="mt-4" table-title="分组任务（pageByGroup）" />
   </Page>
