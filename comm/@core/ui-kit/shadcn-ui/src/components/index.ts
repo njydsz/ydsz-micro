@@ -9,6 +9,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+export * from './advanced-filter';
 export * from './avatar';
 export * from './back-top';
 export * from './breadcrumb';
@@ -17,6 +18,7 @@ export * from './checkbox';
 export * from './context-help';
 export * from './context-menu';
 export * from './count-to-animator';
+export * from './dashboard';
 export * from './domain-filter';
 export * from './dropdown-menu';
 export * from './empty-state';
@@ -29,6 +31,7 @@ export * from './input-password';
 export * from './logo';
 export * from './pin-input';
 export * from './popover';
+export * from './quick-create';
 export * from './render-content';
 export * from './scrollbar';
 export * from './segmented';
