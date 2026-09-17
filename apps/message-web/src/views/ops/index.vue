@@ -212,7 +212,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
         <!-- BloomFilter 区 -->
         <YdCard>

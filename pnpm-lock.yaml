@@ -598,6 +598,9 @@ importers:
       '@ydsz/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
+      '@ydsz/notification':
+        specifier: workspace:*
+        version: link:../../comm/effects/notification
       '@ydsz/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
@@ -698,6 +701,9 @@ importers:
       '@ydsz/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
+      '@ydsz/notification':
+        specifier: workspace:*
+        version: link:../../comm/effects/notification
       '@ydsz/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
@@ -789,6 +795,9 @@ importers:
       '@ydsz/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
+      '@ydsz/notification':
+        specifier: workspace:*
+        version: link:../../comm/effects/notification
       '@ydsz/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
@@ -883,6 +892,9 @@ importers:
       '@ydsz/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
+      '@ydsz/notification':
+        specifier: workspace:*
+        version: link:../../comm/effects/notification
       '@ydsz/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
@@ -1074,6 +1086,9 @@ importers:
       '@ydsz/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
+      '@ydsz/notification':
+        specifier: workspace:*
+        version: link:../../comm/effects/notification
       '@ydsz/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
@@ -1365,6 +1380,9 @@ importers:
       '@ydsz/monitor':
         specifier: workspace:*
         version: link:../../comm/effects/monitor
+      '@ydsz/notification':
+        specifier: workspace:*
+        version: link:../../comm/effects/notification
       '@ydsz/plugins':
         specifier: workspace:*
         version: link:../../comm/effects/plugins
@@ -1657,6 +1675,9 @@ importers:
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
+      '@ydsz/notification':
+        specifier: workspace:*
+        version: link:../../../effects/notification
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -2118,6 +2139,9 @@ importers:
       '@ydsz-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../@core/base/shared
       '@ydsz/request':
         specifier: workspace:*
         version: link:../request

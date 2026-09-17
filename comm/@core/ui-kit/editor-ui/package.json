@@ -58,6 +58,7 @@
     "@tiptap/pm": "^2.6.0",
     "@tiptap/vue-3": "^2.6.0",
     "@ydsz-core/icons": "workspace:*",
-    "@ydsz-core/shared": "workspace:*"
+    "@ydsz-core/shared": "workspace:*",
+    "@ydsz/notification": "workspace:*"
   }
 }
