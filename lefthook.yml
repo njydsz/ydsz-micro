@@ -12,8 +12,8 @@ pre-commit:
   commands:
     eslint:
       # 仅对暂存的脚本类文件做 ESLint --fix（v4.1.0 起 bash/*.mts 纳入，移回退 mjs）
-      glob: "*.{ts,tsx,vue,mts}"
-      exclude: "(^|/)node_modules(/|$)|(^|/)dist(/|$)|(^|/)\\.turbo(/|$)|(^|/)coverage(/|$)|(^|/)archived(/|$)|(^|/)api/generated(/|$)|^pnpm-lock\\.yaml$|(^|/)build\\.config\\.ts$|^eslint\\.config\\.mts$|^conf\\.changeset\\.config\\.mjs$|^commitlint\\.config\\.mjs$|^stylelint\\.config\\.mjs$"
+      glob: "*.{ts,tsx,vue,mts,mjs,js}"
+      exclude: "(^|/)node_modules(/|$)|(^|/)dist(/|$)|(^|/)\\.turbo(/|$)|(^|/)coverage(/|$)|(^|/)archived(/|$)|(^|/)api/generated(/|$)|^pnpm-lock\\.yaml$|(^|/)build\\.config\\.ts$|^eslint\\.config\\.mjs$|^commitlint\\.config\\.mjs$|^stylelint\\.config\\.mjs$|^.changeset/config\\.json$"
       run: NODE_OPTIONS=--max-old-space-size=8192 pnpm exec eslint --fix --max-warnings=0 {staged_files}
     stylelint:
       # 仅对暂存的样式类文件做 Stylelint --fix
@@ -47,3 +47,9 @@ pre-push:
       # 仅对 apps/ comm/ main/ 下变更的子项目执行对应测试
       run: pnpm test:unit -- --run
       # 非零退出码阻断推送（默认行为）
+    type-check:
+      # v5.0 全量 TS — pre-push 增量类型检查（turbo 按输入哈希命中缓存，无变更子项目毫秒级跳过）
+      run: pnpm type-check
+    type-check:chrome:
+      # Chrome 扩展独立 type-check（独立 tsconfig，不在 turbo 流水线内）
+      run: pnpm type-check:chrome

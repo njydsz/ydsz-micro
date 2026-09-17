@@ -17,6 +17,9 @@ config.unshift({
     '**/.generated-archived/**',
     'vitest.config.ts',
     'eslint.config.mjs',
+    // 根级工具配置（工具加载器不支持 .mts，不可转 TS）
+    'commitlint.config.mjs',
+    'stylelint.config.mjs',
     // 构建期配置（bundlelib），未纳入任何 tsconfig project
     '**/build.config.ts',
     // 第三方 vendor 产物（importmap 离线回退资源，非本仓源码）：
@@ -311,6 +314,64 @@ config.push({
         ],
       },
     ],
+  },
+});
+
+// =====================================================================
+// TS 门禁：禁止新增 .js / .mjs 回潮（v5.0 全量 TypeScript）
+// --------------------------------------------------------------------
+// 适用范围：apps/ comm/ bash/ main/ 源码目录（排除工具配置、dist 构建产物、vendor）；
+// 已经在 lefthook + ESLint glob 之外，本规则做兜底：防止有人绕过 lefthook 直接
+// commit 新增 .js / .mjs 源文件。
+//
+// 允许的 .mjs 文件（根级工具配置，工具加载器不支持 .mts）：
+//   eslint.config.mjs  commitlint.config.mjs  stylelint.config.mjs
+// 以及 dist/、node_modules/、public/vendor/ 下的编译产物（已在 ignores 列表）。
+// =====================================================================
+
+const noJsPlugin = {
+  rules: {
+    'no-js-or-mjs-source': {
+      meta: {
+        type: 'problem',
+        docs: {
+          description: '禁止在源码目录新增 .js / .mjs 文件，防止 TS 回潮',
+        },
+        messages: {
+          noJsSource:
+            '🚫 禁止 .js / .mjs 回潮："{{name}}" 应使用 .ts / .mts 扩展名。请将文件重命名并补充类型标注。',
+        },
+        schema: [],
+      },
+      create(context) {
+        return {
+          Program(node) {
+            const fp = context.filename;
+            const jsLike = /\.(m)?js$/;
+            if (!jsLike.test(fp)) return;
+            // 根级工具配置：工具加载器（ESLint/commitlint/stylelint CLI）不支持 .mts
+            const toolConfig =
+              /(?:^|[\/])(?:eslint|commitlint|stylelint)\.config\.(m)?js$/;
+            // Babel/Rollup 构建期配置也多为特殊文件
+            const buildConfig = /(?:^|\/)\.babelrc(?:\.js)?$/;
+            if (toolConfig.test(fp) || buildConfig.test(fp)) return;
+            context.report({
+              node,
+              loc: { line: 1, column: 0 },
+              messageId: 'noJsSource',
+              data: { name: fp.replace(context.cwd || process.cwd(), '.') },
+            });
+          },
+        };
+      },
+    },
+  },
+};
+
+config.push({
+  plugins: { 'ts-gate': noJsPlugin },
+  rules: {
+    'ts-gate/no-js-or-mjs-source': 'error',
   },
 });
 

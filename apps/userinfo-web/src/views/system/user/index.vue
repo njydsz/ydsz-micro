@@ -21,8 +21,16 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
-import { ElMessageBox } from '@ydsz/notification/compat';
+import {
+  YdBadge,
+  YdButtonBase,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+} from '@ydsz-core/ydsz-ui';
+import { ydszConfirm, ydszPrompt } from '@ydsz-core/popup-ui';
 import { useI18n } from 'vue-i18n';
 import { h, onMounted, reactive, ref } from 'vue';
 
@@ -345,17 +353,24 @@ async function handleResetPassword(row: UserAccountVO) {
   let newPassword: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value } = await ElMessageBox.prompt(
-      t('user.resetPasswordPrompt', { username: row.username ?? '' }),
-      t('page.passwordReset'),
-      {
-        confirmButtonText: t('page.confirm'),
-        cancelButtonText: t('page.cancel'),
-        inputPattern: /.{6,}/,
-        inputErrorMessage: t('user.passwordMinLength'),
+    const value = await ydszPrompt<string>({
+      content: t('user.resetPasswordPrompt', { username: row.username ?? '' }),
+      confirmText: t('page.confirm'),
+      cancelText: t('page.cancel'),
+      defaultValue: '',
+      componentProps: {
+        type: 'password',
+        autocomplete: 'new-password',
       },
-    );
-    newPassword = value;
+      beforeClose: ({ isConfirm, value: inputValue }) => {
+        if (!isConfirm) return;
+        if (!inputValue || inputValue.length < 6) {
+          showToast.warning(t('user.passwordMinLength'));
+          return false;
+        }
+      },
+    });
+    newPassword = value ?? '';
   } catch {
     // 用户主动取消重置密码
     return;

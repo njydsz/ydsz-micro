@@ -93,6 +93,8 @@
     "opentelemetry",
     "sourcemaps",
     "typecheck",
+    "vitest",
+    "Vitest",
     "runtime",
     "basename",
     "mock",

@@ -10,13 +10,13 @@
  * 对标 Vben Admin useTable 的能力子集，让标准 CRUD 页面少于 200 行。
  * v4.0.1: 内置 i18n 支持，消除硬编码中文。
  *
- * 使用 @ydsz/notification/compat 的 ElMessage / ElMessageBox 兼容导出（el-bridge），
- * 运行时零 element-plus 依赖；P2-1 全量退场评估后统一切换原生 showToast / confirm。
+ * 使用原生 showToast + ydszConfirm（ydsz-ui 通知系统），运行时零 element-plus 依赖。
  */
 import { computed, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+import { ydszConfirm } from '@ydsz-core/popup-ui';
 import { useI18n } from 'vue-i18n';
-import { ElMessage, ElMessageBox } from '@ydsz/notification/compat';
 
 import {
   useServerPagination,
@@ -149,10 +149,10 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
     if (!deleteFetcher) return;
     const msg = deleteMessage?.(row) ?? t('crud.confirmDeleteDefault');
     try {
-      await ElMessageBox.confirm(msg, t('crud.deleteConfirmTitle'), {
-        type: 'warning',
-        confirmButtonText: t('crud.deleteButton'),
-        cancelButtonText: t('common.cancel'),
+      await ydszConfirm(msg, t('crud.deleteConfirmTitle'), {
+        confirmText: t('crud.deleteButton'),
+        cancelText: t('common.cancel'),
+        icon: 'warning',
       });
     } catch {
       return; // 用户取消
@@ -160,7 +160,7 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
 
     try {
       await deleteFetcher(row);
-      ElMessage.success(t('crud.deleteSuccess'));
+      showToast.success(t('crud.deleteSuccess'));
       // 若当前页删空且不是第一页，回退一页
       if (items.value.length === 1 && pagination.value.current > 1) {
         changePage(pagination.value.current - 1);
@@ -168,7 +168,7 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
         await fetchData();
       }
     } catch (error) {
-      ElMessage.error(t('crud.deleteFailed'));
+      showToast.error(t('crud.deleteFailed'));
       throw error;
     }
   }
@@ -177,16 +177,16 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
   async function handleBatchDelete(): Promise<void> {
     if (!deleteFetcher || selectedRows.value.length === 0) return;
     try {
-      await ElMessageBox.confirm(
+      await ydszConfirm(
         t('crud.batchDeleteConfirm', { count: selectedRows.value.length }),
         t('crud.batchDeleteTitle'),
-        { type: 'warning' },
+        { icon: 'warning' },
       );
     } catch {
       return;
     }
     await Promise.all(selectedRows.value.map((row) => deleteFetcher(row)));
-    ElMessage.success(t('crud.batchDeleteSuccess'));
+    showToast.success(t('crud.batchDeleteSuccess'));
     selectedRows.value = [];
     await fetchData();
   }

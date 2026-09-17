@@ -12,7 +12,7 @@
 import { computed, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElNotification } from '@ydsz/notification/compat';
+import { showNotify, showToast } from '@ydsz/notification';
 import { defineStore } from 'pinia';
 
 import {
@@ -107,12 +107,7 @@ export const useNotificationStore = defineStore('notification', () => {
 
     // 弹出桌面通知
     if (!item.isRead) {
-      ElNotification({
-        title: item.title || '新通知',
-        message: item.message,
-        type: 'info',
-        duration: 5000,
-      });
+      showNotify(item.title || '新通知', item.message, 'INFO');
     }
   }
 
