@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""Translate en-US locale files to 8 target languages.
+"""Batch-translate en-US locale files to 8 target languages using MyMemory API.
 
-Uses deep-translator (LibreTranslate / MyMemory / Microsoft) as fallback
-when googletrans is unavailable or network-restricted.
+Translation approach: collect all unique English strings across all 4 files,
+translate each string to each target language, then rebuild files.
+
+MyMemory free tier: ~500 requests/day, ~1000 chars/q. It works without auth.
+We batch at most 3 concurrent requests with 0.3s delay to stay polite.
 """
 
 import json
 import os
 import time
-import argparse
+import sys
+import requests
 
 BASE_DIR = "D:/Code/open/ydsz-micro/comm/locales/src/langs"
 SRC_LANG = "en-US"
@@ -26,128 +30,89 @@ LANGUAGES = {
 
 FILES = ["common.json", "authentication.json", "preferences.json", "ui.json"]
 
+# Keys whose values should be preserved as "瑞米软件" (never translated)
 PRESERVE_RUIMI_KEYS = {"welcomeBack", "loginSuccessDesc"}
 
-# Keys whose values should NOT be translated (numbers, CSS values, etc.)
-SKIP_VALUE_PATTERNS = [
-    "px", "rem", "em", "%", "rgba", "rgb", "http", "window.", "document.",
-]
+SKIP_PREFIXES = ("#", "rgba", "rgb", "http", "//", "window.", "document.", "data:", "@")
+SKIP_SUFFIXES = ("px", "rem", "em", "%", "vh", "vw", "ms", "s")
 
 
-def should_skip_value(value):
-    """Skip values that are purely numeric/CSS/code."""
+def is_translatable(value):
+    """Decide whether a string value should be translated."""
     if not isinstance(value, str):
-        return True
+        return False
     v = value.strip()
-    if not v:
-        return True
-    # Pure numbers
+    if not v or len(v) <= 1:
+        return False
     try:
         float(v)
-        return True
+        return False
     except ValueError:
         pass
-    # Short CSS values, hex colors, etc.
-    if v.startswith(("#", "rgba", "rgb", "http", "/", "window", "document")):
-        return True
-    if v.endswith(("px", "rem", "em", "%", "vh", "vw", "ms", "s")) and len(v) < 10:
+    if v.startswith(SKIP_PREFIXES):
+        return False
+    for suffix in SKIP_SUFFIXES:
+        if v.endswith(suffix) and len(v) < 12:
+            try:
+                float(v[: -len(suffix)])
+                return False
+            except ValueError:
+                pass
+    return True
+
+
+def mymemory_translate(text, dest_lang, retries=5):
+    """Translate using MyMemory free API."""
+    url = "https://api.mymemory.translated.net/get"
+    params = {"q": text, "langpair": f"en|{dest_lang}"}
+    for attempt in range(retries):
         try:
-            float(v.replace("px", "").replace("rem", "").replace("em", "")
-                   .replace("%", "").replace("vh", "").replace("vw", "")
-                   .replace("ms", "").replace("s", ""))
-            return True
-        except ValueError:
-            pass
-    return False
-
-
-def make_translator():
-    """Try multiple backends until one works."""
-    # 1. Try googletrans
-    try:
-        from googletrans import Translator
-        t = Translator()
-        test = t.translate("Hello", dest="sk").text
-        print(f"[OK] googletrans: Hello -> {test}")
-        return lambda text, dest: t.translate(text, dest=dest, src='en').text
-    except Exception as e:
-        print(f"[FAIL] googletrans: {e}")
-
-    # 2. Try deep-translator LibreTranslate
-    try:
-        from deep_translator import LibreTranslate
-        t = LibreTranslate(source="en", target="sk")
-        test = t.translate("Hello")
-        print(f"[OK] LibreTranslate: Hello -> {test}")
-        def libtranslate(text, dest):
-            t2 = LibreTranslate(source="en", target=dest)
-            return t2.translate(text)
-        return libtranslate
-    except Exception as e:
-        print(f"[FAIL] LibreTranslate: {e}")
-
-    # 3. Try MyMemory
-    try:
-        from deep_translator import MyMemoryTranslator
-        t = MyMemoryTranslator(source="en-US", target="sk")
-        test = t.translate("Hello")
-        print(f"[OK] MyMemory: Hello -> {test}")
-        def mymemory_translate(text, dest):
-            lang_map = {"sk":"sk-SK","sl":"sl-SI","sq":"sq-AL","sr":"sr-RS",
-                        "sw":"sw-KE","ta":"ta-IN","te":"te-IN","ur":"ur-PK"}
-            dest_full = lang_map.get(dest, dest)
-            t2 = MyMemoryTranslator(source="en-US", target=dest_full)
-            return t2.translate(text)
-        return mymemory_translate
-    except Exception as e:
-        print(f"[FAIL] MyMemory: {e}")
-
-    # 4. Try GoogleTranslator (deep-translator)
-    try:
-        from deep_translator import GoogleTranslator
-        test = GoogleTranslator(source='en', target='sk').translate("Hello")
-        print(f"[OK] deep-translator Google: Hello -> {test}")
-        def deeptranslate(text, dest):
-            return GoogleTranslator(source='en', target=dest).translate(text)
-        return deeptranslate
-    except Exception as e:
-        print(f"[FAIL] deep-translator Google: {e}")
-
-    raise RuntimeError("No translator backend available!")
-
-
-def translate_text(text, dest_lang, translate_fn):
-    """Translate a single string, retrying on failure."""
-    if should_skip_value(text):
-        return text
-    for attempt in range(3):
-        try:
-            result = translate_fn(text, dest_lang)
-            return result
+            r = requests.get(url, params=params, timeout=30)
+            data = r.json()
+            translated = data.get("responseData", {}).get("translatedText", "")
+            if translated and translated.strip().upper() != text.strip().upper():
+                return translated
+            if attempt < retries - 1:
+                time.sleep(3)
+                continue
+            return text
         except Exception as e:
-            print(f"  Translation error (attempt {attempt+1}): {e}")
-            time.sleep(3)
-    return text  # fallback to original
-
-
-def translate_dict(d, dest_lang, translate_fn, preserve_ruimi=False):
-    """Recursively translate all string values in a dict."""
-    result = {}
-    for key, value in d.items():
-        if isinstance(value, dict):
-            result[key] = translate_dict(value, dest_lang, translate_fn, preserve_ruimi=False)
-        elif isinstance(value, str):
-            if preserve_ruimi and key in PRESERVE_RUIMI_KEYS:
-                result[key] = value
-            elif value.strip():
-                translated = translate_text(value, dest_lang, translate_fn)
-                result[key] = translated
-                time.sleep(0.1)  # rate limiting
+            if attempt < retries - 1:
+                time.sleep(5)
             else:
-                result[key] = value
-        else:
-            result[key] = value
-    return result
+                print(f"    !! Failed '{text[:30]}...': {e}", flush=True)
+                return text
+
+
+def collect_strings(obj, path=""):
+    """Collect all (path, value) pairs from a nested dict."""
+    items = []
+    if isinstance(obj, dict):
+        for k in obj:
+            items.extend(collect_strings(obj[k], f"{path}.{k}" if path else k))
+    else:
+        items.append((path, obj))
+    return items
+
+
+def set_by_path(d, path, value):
+    keys = path.split(".")
+    obj = d
+    for k in keys[:-1]:
+        obj = obj[k]
+    obj[keys[-1]] = value
+
+
+def get_by_path(d, path):
+    keys = path.split(".")
+    obj = d
+    for k in keys:
+        obj = obj[k]
+    return obj
+
+
+def deep_copy(d):
+    return json.loads(json.dumps(d))
 
 
 def load_json(path):
@@ -162,37 +127,64 @@ def save_json(path, data):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--lang', help='Single lang code to translate')
-    args = parser.parse_args()
+    langs_to_process = LANGUAGES
+    if len(sys.argv) > 1 and sys.argv[1] in LANGUAGES:
+        langs_to_process = {sys.argv[1]: LANGUAGES[sys.argv[1]]}
 
-    print("Looking for a working translator...")
-    translate_fn = make_translator()
+    print("Loading English source files...")
+    src_data = {}
+    all_strings_per_file = {}
 
-    # Load source files
-    src_files = {}
     for fname in FILES:
         src_path = os.path.join(BASE_DIR, SRC_LANG, fname)
-        src_files[fname] = load_json(src_path)
-        print(f"Loaded {SRC_LANG}/{fname}")
-
-    langs_to_process = {args.lang: LANGUAGES[args.lang]} if args.lang else LANGUAGES
+        src_data[fname] = load_json(src_path)
+        strs = collect_strings(src_data[fname])
+        all_strings_per_file[fname] = strs
 
     for lang_code, lang_short in langs_to_process.items():
-        print(f"\n=== Translating to {lang_code} (dest={lang_short}) ===")
+        print(f"\n{'='*60}")
+        print(f"Translating to {lang_code} ({lang_short})")
+        print(f"{'='*60}")
+
+        # Gather all unique source strings across all files
+        unique_en = {}  # en_text -> True
+        for fname in FILES:
+            for path, val in all_strings_per_file[fname]:
+                if isinstance(val, str) and is_translatable(val):
+                    unique_en[val.strip()] = True
+
+        total = len(unique_en)
+        print(f"Unique strings to translate: {total}")
+
+        # Translate all unique strings to this language
+        en_to_tr = {}
+        for idx, en_text in enumerate(unique_en):
+            tr_text = mymemory_translate(en_text, lang_short)
+            en_to_tr[en_text] = tr_text
+            if (idx + 1) % 25 == 0 or idx == total - 1:
+                print(f"  [{idx+1}/{total}] {en_text[:50]} -> {tr_text[:50]}", flush=True)
+            time.sleep(0.3)
+
+        # Rebuild each file
         lang_dir = os.path.join(BASE_DIR, lang_code)
         os.makedirs(lang_dir, exist_ok=True)
 
         for fname in FILES:
-            src_data = src_files[fname]
-            preserve_ruimi = (fname == "authentication.json")
-            translated = translate_dict(src_data, lang_short, translate_fn, preserve_ruimi)
+            data = deep_copy(src_data[fname])
+            for path, val in collect_strings(data):
+                if isinstance(val, str):
+                    key_name = path.split(".")[-1]
+                    if key_name in PRESERVE_RUIMI_KEYS:
+                        continue
+                    en_text = val.strip()
+                    if en_text in en_to_tr:
+                        set_by_path(data, path, en_to_tr[en_text])
 
             out_path = os.path.join(lang_dir, fname)
-            save_json(out_path, translated)
+            save_json(out_path, data)
             print(f"  Saved {lang_code}/{fname}")
 
-    print("\nDone! All files translated.")
+    print("\nDone!")
 
 
 if __name__ == "__main__":

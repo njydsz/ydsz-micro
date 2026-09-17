@@ -134,6 +134,7 @@
     "vitest": "catalog:",
     "vitest-axe": "^0.1.0",
     "@axe-core/playwright": "^4.10.1",
+    "axe-core": "^4.10.0",
     "@playwright/test": "catalog:",
     "vue": "catalog:",
     "vue-sfc-transformer": "catalog:",

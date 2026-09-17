@@ -33,16 +33,6 @@ import AxeBuilder from '@axe-core/playwright';
 const BLOCKING_IMPACTS = ['critical', 'serious'] as const;
 
 /**
- * 严重级别排序权重（数字越大越严重，用于过滤比较）。
- */
-const SEVERITY_WEIGHT: Record<string, number> = {
-  minor: 1,
-  moderate: 2,
-  serious: 3,
-  critical: 4,
-};
-
-/**
  * 将 axe 结果中的 violation 过滤出阻断级别项，返回空数组即通过。
  *
  * @param violations - axe-core 返回的 violations 列表

@@ -12,31 +12,24 @@
  * @since 27.01.04
  */
 
-import type { Spec, RunOptions } from 'axe-core';
+import type { RunOptions, Rule } from 'axe-core';
 
 /**
- * axe-core 配置 spec — 启用 WCAG 2.1 AA 全量规则。
+ * 在 axe.configure() 中注入的规则开关列表。
  *
- * <p>规则集覆盖：
- * <ul>
- *   <li>wcag2a  — WCAG 2.0 A 级</li>
- *   <li>wcag2aa — WCAG 2.0 AA 级</li>
- *   <li>wcag21aa — WCAG 2.1 AA 级</li>
- * </ul>
+ * <p>Spec.rules 仅支持在 enable/disable 粒度控制单条规则（axe-core Spec 契约）。
+ * color-contrast 设为 enabled: false 关闭动态主题切换时的对比度误报。
  *
- * <p>color-contrast 单独设为 false：ydsz-ui 动态主题切换时，axe-core 在页面
- * 初瞬态采样颜色可能未稳定，产生误报。对比度问题交由视觉回归 + 设计 token 静态检查。
+ * <p>其余 WCAG 2.1 AA 标准规则全部通过 axe.configure() 默认启用（axe-core 出厂即全开）；
+ * 通过 RunOptions.runOnly 限制扫描范围至 wcag2a/wcag2aa/wcag21aa 三条标准。
  */
-export const axeConfig: Spec = {
-  rules: [
-    // 关掉的规则：color-contrast 会因动态主题切换产生误报
-    { id: 'color-contrast', enabled: false },
-  ],
-  tags: ['wcag2a', 'wcag2aa', 'wcag21aa'],
-};
+export const disabledRules: Pick<Rule, 'id' | 'enabled'>[] = [
+  // 关掉的规则：color-contrast 会因动态主题切换产生误报
+  { id: 'color-contrast', enabled: false },
+];
 
 /**
- * 运行期选项 — 决定结果输出格式与检测边界。
+ * 运行期选项 — wcag2a / wcag2aa / wcag21aa 全量规则扫描。
  *
  * <p>resultTypes: ['violations', 'incomplete'] — 失败报告中保留 incomplete 项
  * 以便在 axe 无法自动判定的场景（如手动核查颜色对比）发现潜在问题。
