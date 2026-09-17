@@ -26,7 +26,7 @@ import { YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
 import { YdCard, YdEmptyState, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';
-import { Search } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
+import { Search } from 'lucide-vue-next';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 

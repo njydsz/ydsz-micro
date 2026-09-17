@@ -26,8 +26,7 @@ import {
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
 import { YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
-// FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
-import { Warning } from '@ydsz/icons';
+import { AlertTriangle as Warning } from 'lucide-vue-next';
 
 import type { CodePreviewVO } from '#/api/models';
 

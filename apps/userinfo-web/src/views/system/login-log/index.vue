@@ -20,7 +20,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdInput, YdSelectItem, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
-import { Search } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
+import { Search } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
