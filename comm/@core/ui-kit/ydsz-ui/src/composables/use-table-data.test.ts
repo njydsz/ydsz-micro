@@ -5,16 +5,16 @@
  * @author ydsz-team
  * @since 5.6.0
  */
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { nextTick, ref } from 'vue';
+import { nextTick } from 'vue';
 
 import {
   useTableData,
   type TableColumnDef,
 } from './use-table-data';
 
-interface TestRow {
+interface TestRow extends Record<string, unknown> {
   id: number;
   name: string;
   age: number;
@@ -33,28 +33,20 @@ const columns: TableColumnDef<TestRow>[] = [
 ];
 
 describe('useTableData', () => {
-  let dataRef: ReturnType<typeof ref<TestRow[]>>;
-
-  beforeEach(() => {
-    dataRef = ref([...sampleData]);
-  });
-
-  afterEach(() => {
-    dataRef.value = [];
-  });
+  const testData: TestRow[] = [...sampleData];
 
   it('应返回全部数据（默认状态）', () => {
-    const table = useTableData({
-      data: () => dataRef.value,
-      columns: () => columns,
+    const table = useTableData<TestRow>({
+      data: testData,
+      columns,
     });
     expect(table.viewRows.value).toHaveLength(3);
   });
 
   it('应按 age 升序排序', async () => {
-    const table = useTableData({
-      data: () => dataRef.value,
-      columns: () => columns,
+    const table = useTableData<TestRow>({
+      data: testData,
+      columns,
     });
     table.toggleSort('age');
     await nextTick();
@@ -63,9 +55,9 @@ describe('useTableData', () => {
   });
 
   it('排序应循环 asc → desc → null', () => {
-    const table = useTableData({
-      data: () => dataRef.value,
-      columns: () => columns,
+    const table = useTableData<TestRow>({
+      data: testData,
+      columns,
     });
     table.toggleSort('age');
     expect(table.sortState.value.order).toBe('asc');
@@ -76,9 +68,9 @@ describe('useTableData', () => {
   });
 
   it('应支持行选择', () => {
-    const table = useTableData({
-      data: () => dataRef.value,
-      columns: () => columns,
+    const table = useTableData<TestRow>({
+      data: testData,
+      columns,
       rowSelection: {
         rowKey: (row) => String(row.id),
       },
@@ -89,9 +81,9 @@ describe('useTableData', () => {
   });
 
   it('全选应添加所有 key', () => {
-    const table = useTableData({
-      data: () => dataRef.value,
-      columns: () => columns,
+    const table = useTableData<TestRow>({
+      data: testData,
+      columns,
       rowSelection: {
         rowKey: (row) => String(row.id),
       },
@@ -108,9 +100,9 @@ describe('useTableData', () => {
         key: 'status',
       },
     ];
-    const table = useTableData({
-      data: () => dataRef.value,
-      columns: () => filterCols,
+    const table = useTableData<TestRow>({
+      data: testData,
+      columns: filterCols,
     });
     table.setFilter('status', ['active']);
     expect(table.viewRows.value).toHaveLength(2);

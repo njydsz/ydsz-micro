@@ -20,7 +20,7 @@
 
 import { computed, ref, toValue } from 'vue';
 
-import type { MaybeRefOrGetter } from 'vue';
+import type { ComputedRef, MaybeRefOrGetter, Ref } from 'vue';
 
 /* ============================================================ */
 /* 类型                                                          */
@@ -117,7 +117,7 @@ export interface UseTableDataReturn<T> {
 export function useTableData<T extends Record<string, unknown>>(
   options: UseTableDataOptions<T>,
 ): UseTableDataReturn<T> {
-  const { data, columns: getColumns, childrenKey = 'children' } = options;
+  const { data, columns: getColumns } = options;
 
   /* ----- 排序状态 ----- */
   const sortState = ref<SortState>({ order: null, prop: null });
@@ -180,14 +180,14 @@ export function useTableData<T extends Record<string, unknown>>(
   }
 
   /* ----- 排序后数据 ----- */
-  const rawRows = computed(() => data());
+  const rawRows = computed(() => toValue(data) ?? []);
 
   const sortedRows = computed<T[]>(() => {
     if (options.isRemote) return rawRows.value;
     const { prop, order } = sortState.value;
     if (!prop || !order) return rawRows.value;
 
-    const colDefs = getColumns?.() ?? [];
+    const colDefs = getColumns ? toValue(getColumns) ?? [] : [];
     const matched = colDefs.find((c) => c.key === prop);
     const compare = matched?.sorter;
 
@@ -205,7 +205,7 @@ export function useTableData<T extends Record<string, unknown>>(
     if (options.isRemote) return sortedRows.value;
     if (filterState.value.size === 0) return sortedRows.value;
 
-    const colDefs = getColumns?.() ?? [];
+    const colDefs = getColumns ? toValue(getColumns) ?? [] : [];
     return sortedRows.value.filter((row) => {
       for (const [colKey, values] of filterState.value) {
         const col = colDefs.find((c) => c.key === colKey);
