@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="7" failures="0" errors="0" time="0.0289512">
-    <testsuite name="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" timestamp="2026-09-17T07:50:35.872Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0289512">
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 应真实挂载宿主席并在 body 渲染消息条目" time="0.0135231">
+<testsuites name="vitest tests" tests="10" failures="0" errors="0" time="0.0130515">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" timestamp="2026-09-17T08:47:10.674Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0130515">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; 应包含全部核心语义色 token" time="0.0025691">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 字符串入参应默认 info 类型并写入注册表" time="0.0029784">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; dark 模式下的 background 应有 darkValue" time="0.0011934">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 对象入参应完整透传配置" time="0.0028317">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; tokensByCategory 应正确分组" time="0.0011986">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; loading 快捷键应常驻（duration=0）" time="0.0013728">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; set 应写入 CSS 变量到根元素" time="0.0028339">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 同内容同类型应去重复用 id，不同类型不去重" time="0.002132">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; get 应返回已设置的值" time="0.0007204">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; sortedMessages 应将 loading 置顶，其余按原序" time="0.0029451">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; 不存在的 token 不应写入并应打印警告" time="0.0007096">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; closeMessage 应在动画后移除并触发回调" time="0.0024237">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; bulk 应批量写入所有 token 且仅对应次数的 DOM 操作" time="0.0005644">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; toggleDark 应切换根元素的 dark class" time="0.0006985">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; reset 应清除所有已覆盖的 token" time="0.0006408">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; overrideCount 应返回已覆盖的数量" time="0.0004558">
         </testcase>
     </testsuite>
 </testsuites>

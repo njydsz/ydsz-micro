@@ -11,16 +11,19 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
+<script lang="ts">
+/** ThemeProvider 注入 key（常规 script 块，供 index.ts 直接 re-export） */
+import type { InjectionKey } from 'vue';
+
+import type { ThemeHandle } from './use-theme';
+
+export const THEME_INJECTION_KEY: InjectionKey<ThemeHandle> = Symbol('ydsz-theme');
+</script>
+
 <script lang="ts" setup="setup">
 import { onBeforeUnmount, onMounted, provide, ref } from 'vue';
 
 import { useTheme } from './use-theme';
-
-import type { InjectionKey } from 'vue';
-import type { ThemeHandle } from './use-theme';
-
-/** ThemeProvider 注入 key */
-export const THEME_INJECTION_KEY: InjectionKey<ThemeHandle> = Symbol('ydsz-theme');
 
 const props = withDefaults(
   defineProps<{

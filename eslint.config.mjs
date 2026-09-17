@@ -276,6 +276,44 @@ config.push({
   },
 });
 
+// =====================================================================
+// EP 退场门禁（v4.2.0）
+// --------------------------------------------------------------------
+// apps/ 与 main/ 禁止新增 from 'element-plus' import。
+// 唯一豁免：comm/effects/notification 的 el-bridge.ts / compat.ts（内部兼容层，计划 v5.0 移除）。
+//
+// 违规即 P0 阻断；业务侧组件替换为 @ydsz-core/ydsz-ui，命令式 API 替换为
+// @ydsz-core/popup-ui (confirm/prompt/alert) 或 @ydsz/notification (showToast)。
+// =====================================================================
+
+config.push({
+  files: ['apps/**/*.{ts,tsx,vue,mts}', 'main/**/*.{ts,tsx,vue,mts}'],
+  rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'element-plus',
+            message:
+              'EP 退场 (v4.2.0)：apps/main 禁止 from "element-plus"。组件请使用 @ydsz-core/ydsz-ui；命令式 API 请使用 @ydsz-core/popup-ui。',
+          },
+          {
+            name: 'element-plus/*',
+            message:
+              'EP 退场 (v4.2.0)：apps/main 禁止 from "element-plus/*"。请使用 @ydsz-core/ydsz-ui 对应模块。',
+          },
+          {
+            name: '@element-plus/icons-vue',
+            message:
+              'EP 退场 (v4.2.0)：apps/main 禁止 @element-plus/icons-vue。请使用 lucide-vue-next 或 @ydsz/icons。',
+          },
+        ],
+      },
+    ],
+  },
+});
+
 /**
  * 仓库根 ESLint 扁平配置（默认导出）。
  *

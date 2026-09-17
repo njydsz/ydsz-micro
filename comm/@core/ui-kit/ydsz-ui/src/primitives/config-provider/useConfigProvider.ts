@@ -15,7 +15,7 @@ import { inject } from 'vue';
 
 import { CONFIG_INJECTION_KEY } from './YdConfigProvider.vue';
 
-import type { ConfigContext } from './YdConfigProvider.vue';
+import type { ConfigContext } from './types';
 
 /**
  * 默认全局配置上下文（无 YdConfigProvider 包裹时的安全回退）。
@@ -37,7 +37,7 @@ const DEFAULT_CONFIG: ConfigContext = {
  * 获取当前全局配置上下文。
  *
  * @param fallbackToDefault - 是否在无注入时回退到 DEFAULT_CONFIG，默认 true
- * @return 配置上下文（响应式引用）
+ * @return 配置上下文
  *
  * @example
  * ```vue

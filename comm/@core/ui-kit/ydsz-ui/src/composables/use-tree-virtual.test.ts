@@ -100,13 +100,12 @@ describe('useTreeVirtual', () => {
       viewportHeight: 56,
     });
 
-    // 模拟滚动到第 2 行
+    // 模拟滚动：scrollTop=56，itemHeight=28 → startIndex=2 → offsetY=56
     const event = { target: { scrollTop: 56 } } as unknown as Event;
     handle.onScroll(event);
     await nextTick();
 
-    // offsetY 应为 1 * 28 = 28
-    expect(handle.offsetY.value).toBe(28);
+    expect(handle.offsetY.value).toBe(56);
   });
 
   it('lazyLoad 回调应能被调用', async () => {
