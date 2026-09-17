@@ -20,7 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { Badge, Button, Card, CardContent, EmptyState, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Card, CardContent, YdEmptyState, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';
@@ -215,7 +215,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <EmptyState
+            <YdEmptyState
               v-else
               description="请输入短码进行查询"
               preset="no-result"
@@ -243,7 +243,7 @@ onMounted(() => {
                 <span class="text-xs text-gray-400">{{ item.time }}</span>
               </div>
             </div>
-            <EmptyState
+            <YdEmptyState
               v-else
               description="暂无查询记录"
               preset="no-data"

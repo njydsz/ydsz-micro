@@ -1,5 +1,5 @@
 <!--
-  EmptyState — 统一空状态展示组件
+  YdEmptyState — 统一空状态展示组件
 
   用于列表无数据、搜索结果为空等场景，提供统一的插画/图标与描述文案。
 
@@ -8,19 +8,19 @@
 -->
 <script setup lang="ts">
 /**
- * EmptyState — 统一空状态展示组件
+ * YdEmptyState — 统一空状态展示组件
  *
  * 用于列表无数据、搜索结果为空等场景。
  *
  * @example
  * ```vue
- * <EmptyState description="暂无项目数据" />
- * <EmptyState description="未找到匹配结果">
+ * <YdEmptyState description="暂无项目数据" />
+ * <YdEmptyState description="未找到匹配结果">
  *   <el-button type="primary">新建项目</el-button>
- * </EmptyState>
+ * </YdEmptyState>
  * ```
  */
-defineOptions({ name: 'EmptyState' });
+defineOptions({ name: 'YdEmptyState' });
 
 withDefaults(
   defineProps<{

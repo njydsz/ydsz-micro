@@ -3,7 +3,7 @@
 
   功能：
   - 铃铛图标 + 未读 badge（totalUnread）
-  - 点击展开 NotificationPanel
+  - 点击展开 YdNotificationPanel
   - SSE 连线状态指示（小圆点：绿=已连，灰=断线）
   - 有新通知时短暂闪烁动画
 
@@ -18,7 +18,7 @@ import { onClickOutside } from '@vueuse/core';
 
 import { useNotificationStore } from '@YDSZ/shared-business/notification';
 
-import NotificationPanel from './notification-panel.vue';
+import YdNotificationPanel from './notification-panel.vue';
 
 const notificationStore = useNotificationStore();
 const panelRef = ref<HTMLElement | null>(null);
@@ -64,7 +64,7 @@ onClickOutside(panelRef, () => {
     </button>
 
     <!-- 通知面板 -->
-    <NotificationPanel v-if="panelVisible" class="notification-bell__panel" @select="handleSelect" />
+    <YdNotificationPanel v-if="panelVisible" class="notification-bell__panel" @select="handleSelect" />
   </div>
 </template>
 

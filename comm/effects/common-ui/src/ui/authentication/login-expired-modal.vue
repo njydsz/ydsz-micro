@@ -13,7 +13,7 @@ import { computed, watch } from 'vue';
 import { $t } from '@ydsz/locales';
 
 import { useYDSZModal } from '@ydsz-core/popup-ui';
-import { YDSZAvatar, Slot } from '@ydsz-core/shadcn-ui';
+import { YdAvatar, Slot } from '@ydsz-core/shadcn-ui';
 
 interface Props extends AuthenticationProps {
   avatar?: string;
@@ -87,7 +87,7 @@ function calcZIndex() {
       :z-index="getZIndex"
       class="border-none px-10 py-6 text-center shadow-xl sm:w-[600px] sm:rounded-2xl md:h-[unset]"
     >
-      <YDSZAvatar :src="avatar" class="mx-auto mb-6 size-20" />
+      <YdAvatar :src="avatar" class="mx-auto mb-6 size-20" />
       <Slot
         :show-forget-password="false"
         :show-register="false"

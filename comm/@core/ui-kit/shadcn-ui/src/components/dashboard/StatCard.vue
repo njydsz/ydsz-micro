@@ -9,7 +9,7 @@
  *
  * 使用场景：各子应用首页仪表盘网格中的指标卡。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\StatCard.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\YdStatCard.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -20,7 +20,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { TrendingDown, TrendingUp } from 'lucide-vue-next';
 
 defineOptions({
-  name: 'StatCard',
+  name: 'YdStatCard',
 });
 
 interface Props {

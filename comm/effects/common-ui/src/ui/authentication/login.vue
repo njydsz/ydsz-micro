@@ -18,7 +18,7 @@ import { useRouter } from 'vue-router';
 import { $t } from '@ydsz/locales';
 
 import { useYDSZForm } from '@ydsz-core/form-ui';
-import { YDSZButton, YDSZCheckbox } from '@ydsz-core/shadcn-ui';
+import { YdButton, YdCheckbox } from '@ydsz-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 import ThirdPartyLogin from './third-party-login.vue';
@@ -122,13 +122,13 @@ defineExpose({
       class="mb-6 flex justify-between"
     >
       <div class="flex-center">
-        <YDSZCheckbox
+        <YdCheckbox
           v-if="showRememberMe"
           v-model:checked="rememberMe"
           name="rememberMe"
         >
           {{ $t('authentication.rememberMe') }}
-        </YDSZCheckbox>
+        </YdCheckbox>
       </div>
 
       <span
@@ -139,7 +139,7 @@ defineExpose({
         {{ $t('authentication.forgetPassword') }}
       </span>
     </div>
-    <YDSZButton
+    <YdButton
       :class="{
         'cursor-wait': loading,
       }"
@@ -149,28 +149,28 @@ defineExpose({
       @click="handleSubmit"
     >
       {{ submitButtonText || $t('common.login') }}
-    </YDSZButton>
+    </YdButton>
 
     <div
       v-if="showCodeLogin || showQrcodeLogin"
       class="mb-2 mt-4 flex items-center justify-between"
     >
-      <YDSZButton
+      <YdButton
         v-if="showCodeLogin"
         class="w-1/2"
         variant="outline"
         @click="handleGo(codeLoginPath)"
       >
         {{ $t('authentication.mobileLogin') }}
-      </YDSZButton>
-      <YDSZButton
+      </YdButton>
+      <YdButton
         v-if="showQrcodeLogin"
         class="ml-4 w-1/2"
         variant="outline"
         @click="handleGo(qrCodeLoginPath)"
       >
         {{ $t('authentication.qrcodeLogin') }}
-      </YDSZButton>
+      </YdButton>
     </div>
 
     <!-- 第三方登录 -->

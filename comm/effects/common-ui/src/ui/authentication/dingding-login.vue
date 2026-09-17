@@ -12,7 +12,7 @@ import { RiDingding } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
 import { alert, useYDSZModal } from '@ydsz-core/popup-ui';
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/shadcn-ui';
 import { loadScript } from '@ydsz-core/shared/utils';
 
 interface Props {
@@ -124,13 +124,13 @@ const handleLogin = () => {
 
 <template>
   <div>
-    <YDSZIconButton
+    <YdIconButton
       @click="handleLogin"
       :tooltip="$t('authentication.dingdingLogin')"
       tooltip-side="top"
     >
       <RiDingding />
-    </YDSZIconButton>
+    </YdIconButton>
     <Modal>
       <div id="dingding_qrcode_login_element"></div>
     </Modal>

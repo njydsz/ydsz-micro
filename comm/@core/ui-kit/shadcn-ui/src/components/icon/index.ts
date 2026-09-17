@@ -1,5 +1,5 @@
 ﻿/**
- * 图标渲染器的出口：导出 YDSZIcon。
+ * 图标渲染器的出口：导出 YdIcon。
  *
  * 注意本组件是「渲染器」而非图标库本身，图标资源来自 @ydsz-core/icons。
  *
@@ -7,5 +7,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YDSZIcon } from './icon.vue';
+export { default as YdIcon } from './icon.vue';
 

@@ -8,7 +8,7 @@
  *
  * 设计取舍：不做 Tooltip、不做坐标轴——仅当「一眼扫趋势」的信息密度足够。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\MiniChart.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\YdMiniChart.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -18,7 +18,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({
-  name: 'MiniChart',
+  name: 'YdMiniChart',
 });
 
 interface Props {

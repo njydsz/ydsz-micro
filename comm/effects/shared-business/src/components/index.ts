@@ -14,13 +14,13 @@
 export { default as AsyncState } from './async-state.vue';
 
 // —— 统一空状态组件 ——
-export { default as EmptyState } from './empty-state.vue';
+export { default as YdEmptyState } from './empty-state.vue';
 
 // —— 统一错误状态组件 ——
 export { default as ErrorState } from './error-state.vue';
 
 // —— 状态徽章组件 — 统一的项目/任务/审批状态展示 ——
-export { default as StatusBadge } from './status-badge.vue';
+export { default as YdStatusBadge } from './status-badge.vue';
 
 // —— 用户头像组件 — 含在线状态、角色标签 ——
 export { default as UserAvatar } from './user-avatar.vue';

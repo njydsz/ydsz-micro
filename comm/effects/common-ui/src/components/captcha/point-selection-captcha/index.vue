@@ -13,7 +13,7 @@ import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 import { RotateCw } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YDSZButton, YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { YdButton, YdIconButton } from '@ydsz-core/shadcn-ui';
 
 import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
 import CaptchaCard from './point-selection-captcha-card.vue';
@@ -135,14 +135,14 @@ function handleConfirm() {
     </template>
 
     <template #extra>
-      <YDSZIconButton
+      <YdIconButton
         :aria-label="$t('ui.captcha.refreshAriaLabel')"
         class="ml-1"
         @click="handleRefresh"
       >
         <RotateCw class="size-5" />
-      </YDSZIconButton>
-      <YDSZButton
+      </YdIconButton>
+      <YdButton
         v-if="showConfirm"
         :aria-label="$t('ui.captcha.confirmAriaLabel')"
         class="ml-2"
@@ -150,7 +150,7 @@ function handleConfirm() {
         @click="handleConfirm"
       >
         {{ $t('ui.captcha.confirm') }}
-      </YDSZButton>
+      </YdButton>
     </template>
 
     <div

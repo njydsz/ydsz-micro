@@ -36,10 +36,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  YDSZButton,
-  YDSZHelpTooltip,
-  YDSZIconButton,
-  YDSZLoading,
+  YdButton,
+  YdHelpTooltip,
+  YdIconButton,
+  YdLoading,
   VisuallyHidden,
 } from '@ydsz-core/shadcn-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
@@ -287,9 +287,9 @@ function handleClosed() {
             {{ title }}
 
             <slot v-if="titleTooltip" name="titleTooltip">
-              <YDSZHelpTooltip trigger-class="pb-1">
+              <YdHelpTooltip trigger-class="pb-1">
                 {{ titleTooltip }}
-              </YDSZHelpTooltip>
+              </YdHelpTooltip>
             </slot>
           </slot>
         </DialogTitle>
@@ -313,15 +313,15 @@ function handleClosed() {
       >
         <slot></slot>
       </div>
-      <YDSZLoading v-if="showLoading || submitting" spinning />
-      <YDSZIconButton
+      <YdLoading v-if="showLoading || submitting" spinning />
+      <YdIconButton
         v-if="fullscreenButton"
         class="hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-10 top-3 hidden size-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none sm:block"
         @click="handleFullscreen"
       >
         <Shrink v-if="fullscreen" class="size-3.5" />
         <Expand v-else class="size-3.5" />
-      </YDSZIconButton>
+      </YdIconButton>
 
       <DialogFooter
         v-if="showFooter"
@@ -339,7 +339,7 @@ function handleClosed() {
         <slot name="prepend-footer"></slot>
         <slot name="footer">
           <component
-            :is="components.DefaultButton || YDSZButton"
+            :is="components.DefaultButton || YdButton"
             v-if="showCancelButton"
             variant="ghost"
             :disabled="submitting"
@@ -351,7 +351,7 @@ function handleClosed() {
           </component>
           <slot name="center-footer"></slot>
           <component
-            :is="components.PrimaryButton || YDSZButton"
+            :is="components.PrimaryButton || YdButton"
             v-if="showConfirmButton"
             :disabled="confirmDisabled"
             :loading="confirmLoading || submitting"

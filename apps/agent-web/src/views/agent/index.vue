@@ -2,7 +2,7 @@
  * Agent 定义管理（列表页）
  *
  * 视图模式：卡片视图（默认）/ 表格视图 可切换。
- *  - 卡片视图：CardGrid + EntityCard，承载信息密度高的 Agent 展示；
+ *  - 卡片视图：YdCardGrid + YdEntityCard，承载信息密度高的 Agent 展示；
  *  - 表格视图：VxeTable，保持原有兼容视图。
  *
  * @path apps/agent-web/src/views/agent/index.vue
@@ -19,7 +19,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { CardGrid, EmptyState, EntityCard } from '@ydsz-core/shadcn-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 // TODO: ElDropdown/ElDropdownItem/ElDropdownMenu 暂无 shadcn 对应,保留 element-plus SKIP
@@ -252,12 +252,12 @@ void loadAgentList();
       v-else
       class="min-h-[400px]"
     >
-      <CardGrid
+      <YdCardGrid
         :is-empty="agentList.length === 0 && !loading"
         :is-loading="loading"
       >
         <template #empty>
-          <EmptyState
+          <YdEmptyState
             description="创建 Agent 后可在应用中心调用"
             preset="created"
             action-text="创建 Agent"
@@ -265,7 +265,7 @@ void loadAgentList();
             @action="handleAdd"
           />
         </template>
-        <EntityCard
+        <YdEntityCard
           v-for="item in agentList"
           :key="item.id"
           :avatar-text="item.agentName"
@@ -342,8 +342,8 @@ void loadAgentList();
               </template>
             </ElDropdown>
           </template>
-        </EntityCard>
-      </CardGrid>
+        </YdEntityCard>
+      </YdCardGrid>
     </div>
 
     <AgentFormModal @success="handleRefresh()" />

@@ -22,12 +22,12 @@ import type {
 import { h } from 'vue';
 
 import {
-  YDSZButton,
-  YDSZCheckbox,
+  YdButton,
+  YdCheckbox,
   Input as YDSZInput,
-  YDSZInputPassword,
-  YDSZPinInput,
-  YDSZSelect,
+  YdInputPassword,
+  YdPinInput,
+  YdSelect,
 } from '@ydsz-core/shadcn-ui';
 import { globalShareState } from '@ydsz-core/shared/global-state';
 
@@ -40,20 +40,20 @@ export const DEFAULT_FORM_COMMON_CONFIG: FormCommonConfig = {};
 
 /** 基础表单控件类型到渲染组件的映射表，可由宿主通过 globalShareState 注册的组件按需覆盖 */
 export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
-  DefaultButton: h(YDSZButton, { size: 'sm', variant: 'outline' }),
-  PrimaryButton: h(YDSZButton, { size: 'sm', variant: 'default' }),
-  YDSZCheckbox,
+  DefaultButton: h(YdButton, { size: 'sm', variant: 'outline' }),
+  PrimaryButton: h(YdButton, { size: 'sm', variant: 'default' }),
+  YdCheckbox,
   YDSZInput,
-  YDSZInputPassword,
-  YDSZPinInput,
-  YDSZSelect,
+  YdInputPassword,
+  YdPinInput,
+  YdSelect,
 };
 
 /** 各表单控件默认绑定的 v-model prop 名映射，如复选框使用 `checked` 而非 `modelValue` */
 export const COMPONENT_BIND_EVENT_MAP: Partial<
   Record<BaseFormComponentType, string>
 > = {
-  YDSZCheckbox: 'checked',
+  YdCheckbox: 'checked',
 };
 
 /**

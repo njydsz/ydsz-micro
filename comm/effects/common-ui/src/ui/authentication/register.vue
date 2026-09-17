@@ -16,7 +16,7 @@ import { useRouter } from 'vue-router';
 import { $t } from '@ydsz/locales';
 
 import { useYDSZForm } from '@ydsz-core/form-ui';
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { YdButton } from '@ydsz-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 
@@ -105,7 +105,7 @@ defineExpose({
     </Title>
     <Form />
 
-    <YDSZButton
+    <YdButton
       :class="{
         'cursor-wait': loading,
       }"
@@ -117,7 +117,7 @@ defineExpose({
       <slot name="submitButtonText">
         {{ submitButtonText || $t('authentication.signUp') }}
       </slot>
-    </YDSZButton>
+    </YdButton>
     <div class="mt-4 text-center text-sm">
       {{ $t('authentication.alreadyHaveAccount') }}
       <span class="YDSZ-link text-sm font-normal" @click="goToLogin()">

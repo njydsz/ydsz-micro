@@ -11,7 +11,7 @@
  */
 
 // 状态徽章组件 — 统一的项目/任务/审批状态展示
-export { default as StatusBadge } from './components/status-badge.vue';
+export { default as YdStatusBadge } from './components/status-badge.vue';
 
 // 用户头像组件 — 含在线状态、角色标签
 export { default as UserAvatar } from './components/user-avatar.vue';
@@ -54,7 +54,7 @@ export {
 export type { ExcelColumn as ExcelImportColumn } from './composables/use-excel-import';
 
 // 统一空状态组件
-export { default as EmptyState } from './components/empty-state.vue';
+export { default as YdEmptyState } from './components/empty-state.vue';
 
 // 统一错误状态组件
 export { default as ErrorState } from './components/error-state.vue';

@@ -13,7 +13,7 @@ export * from './captcha';
 export * from './col-page';
 export * from './count-to';
 export * from './ellipsis-text';
-export { default as EmptyState } from './empty-state.vue';
+export { default as YdEmptyState } from './empty-state.vue';
 export { default as ErrorBoundary } from './error-boundary.vue';
 export { default as ErrorFeedback } from './error-feedback.vue';
 export { default as ErrorState } from './error-state.vue';
@@ -33,19 +33,19 @@ export * from '@ydsz-core/popup-ui';
 
 // 给文档用
 export {
-  YDSZAvatar,
-  YDSZButton,
-  YDSZButtonGroup,
-  YDSZCheckbox,
-  YDSZCheckButtonGroup,
-  YDSZCountToAnimator,
-  YDSZFullScreen,
-  YDSZInputPassword,
-  YDSZLoading,
-  YDSZLogo,
-  YDSZPinInput,
-  YDSZSelect,
-  YDSZSpinner,
+  YdAvatar,
+  YdButton,
+  YdButtonGroup,
+  YdCheckbox,
+  YdCheckButtonGroup,
+  YdCountToAnimator,
+  YdFullScreen,
+  YdInputPassword,
+  YdLoading,
+  YdLogo,
+  YdPinInput,
+  YdSelect,
+  YdSpinner,
   YDSZTree,
 } from '@ydsz-core/shadcn-ui';
 

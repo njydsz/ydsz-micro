@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { useNamespace } from '@ydsz-core/composables';
 import { ChevronDown, ChevronRight } from '@ydsz-core/icons';
-import { YDSZIcon } from '@ydsz-core/shadcn-ui';
+import { YdIcon } from '@ydsz-core/shadcn-ui';
 
 import { useMenuContext } from '../hooks';
 
@@ -93,7 +93,7 @@ const iconArrowStyle = computed(() => {
   >
     <slot></slot>
 
-    <YDSZIcon
+    <YdIcon
       v-if="!isMenuMore"
       :class="nsMenu.e('icon')"
       :icon="icon"

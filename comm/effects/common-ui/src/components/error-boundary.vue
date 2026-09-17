@@ -4,7 +4,7 @@
  * 对标 React Error Boundary 模式，在 Vue 3 中通过 onErrorCaptured 实现。
  * 用于包裹关键业务组件，防止局部错误导致整个应用崩溃。
  *
- * 使用自研 shadcn-ui EmptyState + Button，零 element-plus 依赖。
+ * 使用自研 shadcn-ui YdEmptyState + Button，零 element-plus 依赖。
  *
  * @example
  * ```vue
@@ -23,7 +23,7 @@ import { computed, onErrorCaptured, ref } from 'vue';
 
 import { AlertCircle, AlertTriangle, Info } from 'lucide-vue-next';
 
-import { Button, EmptyState } from '@ydsz-core/shadcn-ui';
+import { Button, YdEmptyState } from '@ydsz-core/shadcn-ui';
 import { reportError } from '@ydsz/monitor';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -63,7 +63,7 @@ const hasError = ref(false);
 const errorMessage = ref('');
 const errorStack = ref<null | string>(null);
 
-/** 根据 status 选取 EmptyState preset 映射 */
+/** 根据 status 选取 YdEmptyState preset 映射 */
 const statusPreset = computed<'error' | 'no-result' | 'no-permission'>(() => {
   const map: Record<'error' | 'info' | 'warning', 'error' | 'no-result' | 'no-permission'> = {
     error: 'error',
@@ -141,7 +141,7 @@ function handleBack(): void {
       class="error-boundary__fallback"
       role="alert"
     >
-      <EmptyState
+      <YdEmptyState
         :preset="statusPreset"
         :title="errorMessage"
         class="error-boundary__empty"
@@ -169,7 +169,7 @@ function handleBack(): void {
             </Button>
           </div>
         </template>
-      </EmptyState>
+      </YdEmptyState>
 
       <!-- 开发环境展示错误堆栈 -->
       <details

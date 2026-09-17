@@ -17,7 +17,7 @@ import type { TabConfig, TabsProps } from '../../types';
 import { computed } from 'vue';
 
 import { Pin, X } from '@ydsz-core/icons';
-import { YDSZContextMenu, YDSZIcon } from '@ydsz-core/shadcn-ui';
+import { YdContextMenu, YdIcon } from '@ydsz-core/shadcn-ui';
 
 type Props = TabsProps;
 
@@ -149,7 +149,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
         @keydown="handleKeydown($event, i)"
         @mousedown="onMouseDown($event, tab)"
       >
-        <YDSZContextMenu
+        <YdContextMenu
           :handler-data="tab"
           :menus="contextMenus"
           :modal="false"
@@ -177,7 +177,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
             <div
               class="text-accent-foreground group-[.is-active]:text-primary dark:group-[.is-active]:text-accent-foreground mx-3 mr-4 flex h-full items-center overflow-hidden rounded-tl-[5px] rounded-tr-[5px] pr-3 transition-all duration-300"
             >
-              <YDSZIcon
+              <YdIcon
                 v-if="showIcon"
                 :icon="tab.icon"
                 class="mr-2 flex size-4 items-center overflow-hidden"
@@ -189,7 +189,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
               </span>
             </div>
           </div>
-        </YDSZContextMenu>
+        </YdContextMenu>
       </div>
     </TransitionGroup>
   </div>

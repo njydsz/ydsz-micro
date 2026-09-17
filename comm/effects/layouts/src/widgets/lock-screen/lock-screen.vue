@@ -14,7 +14,7 @@ import { storeToRefs, useTokenStore } from '@ydsz/stores';
 
 import { useScrollLock } from '@ydsz-core/composables';
 import { useYDSZForm, z } from '@ydsz-core/form-ui';
-import { YDSZAvatar, YDSZButton } from '@ydsz-core/shadcn-ui';
+import { YdAvatar, YdButton } from '@ydsz-core/shadcn-ui';
 
 import { useDateFormat, useNow } from '@vueuse/core';
 
@@ -52,7 +52,7 @@ const [Form, { form, validate }] = useYDSZForm(
     },
     schema: computed(() => [
       {
-        component: 'YDSZInputPassword' as const,
+        component: 'YdInputPassword' as const,
         componentProps: {
           placeholder: $t('ui.widgets.lockScreen.placeholder'),
         },
@@ -129,27 +129,27 @@ useScrollLock();
         @keydown.enter.prevent="handleSubmit"
       >
         <div class="flex-col-center mb-10 w-[90%] max-w-[300px] px-4">
-          <YDSZAvatar :src="avatar" class="enter-x mb-6 size-20" />
+          <YdAvatar :src="avatar" class="enter-x mb-6 size-20" />
           <div class="enter-x mb-2 w-full items-center">
             <Form />
           </div>
-          <YDSZButton class="enter-x w-full" @click="handleSubmit">
+          <YdButton class="enter-x w-full" @click="handleSubmit">
             {{ $t('ui.widgets.lockScreen.entry') }}
-          </YDSZButton>
-          <YDSZButton
+          </YdButton>
+          <YdButton
             class="enter-x my-2 w-full"
             variant="ghost"
             @click="$emit('toLogin')"
           >
             {{ $t('ui.widgets.lockScreen.backToLogin') }}
-          </YDSZButton>
-          <YDSZButton
+          </YdButton>
+          <YdButton
             class="enter-x mr-2 w-full"
             variant="ghost"
             @click="toggleUnlockForm"
           >
             {{ $t('common.back') }}
-          </YDSZButton>
+          </YdButton>
         </div>
       </div>
     </transition>

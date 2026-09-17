@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { Settings } from '@ydsz/icons';
 
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/shadcn-ui';
 
 import Preferences from './preferences.vue';
 
@@ -20,8 +20,8 @@ function clearPreferencesAndLogout() {
 </script>
 <template>
   <Preferences @clear-preferences-and-logout="clearPreferencesAndLogout">
-    <YDSZIconButton>
+    <YdIconButton>
       <Settings class="text-foreground size-4" />
-    </YDSZIconButton>
+    </YdIconButton>
   </Preferences>
 </template>

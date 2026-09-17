@@ -10,7 +10,7 @@
  * 使用方式：
  * ```vue
  * <script setup>
- *   useRenderPerformance('EntityCard', { threshold: 30 });
+ *   useRenderPerformance('YdEntityCard', { threshold: 30 });
  * </script>
  * ```
  *

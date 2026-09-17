@@ -34,7 +34,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'YDSZLoading',
+  name: 'YdLoading',
 });
 
 const props = withDefaults(defineProps<Props>(), {

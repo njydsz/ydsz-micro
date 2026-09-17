@@ -15,7 +15,7 @@ import type { TabsEmits, TabsProps } from './types';
 
 import { useForwardPropsEmits } from '@ydsz-core/composables';
 import { ChevronLeft, ChevronRight } from '@ydsz-core/icons';
-import { YDSZScrollbar } from '@ydsz-core/shadcn-ui';
+import { YdScrollbar } from '@ydsz-core/shadcn-ui';
 
 import { Tabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';
@@ -80,7 +80,7 @@ useTabsDrag(props, emit);
       }"
       class="size-full flex-1 overflow-hidden"
     >
-      <YDSZScrollbar
+      <YdScrollbar
         ref="scrollbarRef"
         :shadow-bottom="false"
         :shadow-top="false"
@@ -99,7 +99,7 @@ useTabsDrag(props, emit);
         />
 
         <Tabs v-else v-bind="{ ...forward, ...$attrs, ...$props }" />
-      </YDSZScrollbar>
+      </YdScrollbar>
     </div>
 
     <!-- 右侧滚动按钮 -->

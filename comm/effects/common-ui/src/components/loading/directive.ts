@@ -7,7 +7,7 @@
  *
  * 实现要点：
  * - 用 `h()` + `render()` 手动把遮罩组件挂载到宿主元素，因此指令与具体组件解耦，
- *   两个指令分别对应 YDSZLoading（全屏/区域遮罩）与 YDSZSpinner（行内小图标）；
+ *   两个指令分别对应 YdLoading（全屏/区域遮罩）与 YdSpinner（行内小图标）；
  * - 实例句柄存在元素的 Symbol 属性上，`unmounted` 时 `render(null, el)` 卸载，
  *   避免指令卸载后组件残留；
  * - 宿主元素会被加上 `spinner-parent--relative`，因为遮罩是绝对定位，
@@ -21,7 +21,7 @@ import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { h, render } from 'vue';
 
-import { YDSZLoading, YDSZSpinner } from '@ydsz-core/shadcn-ui';
+import { YdLoading, YdSpinner } from '@ydsz-core/shadcn-ui';
 import { isString } from '@ydsz-core/shared/utils';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -33,7 +33,7 @@ const CLASS_NAME_RELATIVE = 'spinner-parent--relative';
 
 const loadingDirective: Directive = {
   mounted(el, binding) {
-    const instance = h(YDSZLoading, getOptions(binding));
+    const instance = h(YdLoading, getOptions(binding));
     render(instance, el);
 
     el.classList.add(CLASS_NAME_RELATIVE);
@@ -76,7 +76,7 @@ function getOptions(binding: DirectiveBinding) {
 
 const spinningDirective: Directive = {
   mounted(el, binding) {
-    const instance = h(YDSZSpinner, getOptions(binding));
+    const instance = h(YdSpinner, getOptions(binding));
     render(instance, el);
 
     el.classList.add(CLASS_NAME_RELATIVE);

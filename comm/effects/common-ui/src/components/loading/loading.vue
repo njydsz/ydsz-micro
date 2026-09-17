@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { YDSZLoading } from '@ydsz-core/shadcn-ui';
+import { YdLoading } from '@ydsz-core/shadcn-ui';
 import { cn } from '@ydsz-core/shared/utils';
 
 interface LoadingProps {
@@ -33,7 +33,7 @@ const props = defineProps<LoadingProps>();
 <template>
   <div :class="cn('relative min-h-20', props.class)">
     <slot></slot>
-    <YDSZLoading
+    <YdLoading
       :min-loading-time="props.minLoadingTime"
       :spinning="props.spinning"
       :text="props.text"
@@ -41,6 +41,6 @@ const props = defineProps<LoadingProps>();
       <template v-if="$slots.icon" #icon>
         <slot name="icon"></slot>
       </template>
-    </YDSZLoading>
+    </YdLoading>
   </div>
 </template>

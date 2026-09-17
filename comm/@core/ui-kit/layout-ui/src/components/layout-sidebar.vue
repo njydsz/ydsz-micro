@@ -4,7 +4,7 @@
  * 折叠态下额外渲染一个同宽占位 div，用于撑住布局不被压缩，同时保持宽度过渡动画。
  * 混合侧栏（isSidebarMixed）会渲染第二栏承载 extra 内容，两栏各有独立的
  * 折叠状态与开合按钮；鼠标移出时通过 emit('leave') 通知上层收起悬浮态。
- * 内容区由 YDSZScrollbar 包裹，保证菜单超长时滚动而不撑破布局。
+ * 内容区由 YdScrollbar 包裹，保证菜单超长时滚动而不撑破布局。
  *
  * @path comm\@core\ui-kit\layout-ui\src\components\layout-sidebar.vue
  * @author ydsz-team
@@ -15,7 +15,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
-import { YDSZScrollbar } from '@ydsz-core/shadcn-ui';
+import { YdScrollbar } from '@ydsz-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
 
@@ -329,9 +329,9 @@ function handleMouseleave() {
     <div v-if="slots.logo" :style="headerStyle">
       <slot name="logo"></slot>
     </div>
-    <YDSZScrollbar :style="contentStyle" shadow shadow-border>
+    <YdScrollbar :style="contentStyle" shadow shadow-border>
       <slot></slot>
-    </YDSZScrollbar>
+    </YdScrollbar>
 
     <div :style="collapseStyle"></div>
     <SidebarCollapseButton
@@ -357,14 +357,14 @@ function handleMouseleave() {
     <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
       <slot name="extra-title"></slot>
     </div>
-    <YDSZScrollbar
+    <YdScrollbar
       :style="extraContentStyle"
       class="border-border py-2"
       shadow
       shadow-border
     >
       <slot name="extra"></slot>
-    </YDSZScrollbar>
+    </YdScrollbar>
   </div>
 </template>
 

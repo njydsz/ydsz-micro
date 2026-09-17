@@ -11,7 +11,7 @@
  *  - 按钮带 aria-label；
  *  - 菜单项通过 role="menuitem" 暴露语义。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\settings-float\SettingsFloatButton.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\components\settings-float\YdSettingsFloatButton.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -23,7 +23,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Maximize, Moon, Settings, Sun, X } from 'lucide-vue-next';
 
 defineOptions({
-  name: 'SettingsFloatButton',
+  name: 'YdSettingsFloatButton',
 });
 
 interface MenuAction {

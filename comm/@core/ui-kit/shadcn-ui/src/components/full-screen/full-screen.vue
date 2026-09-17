@@ -15,7 +15,7 @@ import { Maximize, Minimize } from '@ydsz-core/icons';
 
 import { useFullscreen } from '@vueuse/core';
 
-import { YDSZIconButton } from '../button';
+import { YdIconButton } from '../button';
 
 defineOptions({ name: 'FullScreen' });
 
@@ -33,13 +33,13 @@ isFullscreen.value = !!(
 );
 </script>
 <template>
-  <YDSZIconButton
+  <YdIconButton
     :aria-label="isFullscreen ? '退出全屏' : '进入全屏'"
     :aria-pressed="isFullscreen"
     @click="toggle"
   >
     <Minimize v-if="isFullscreen" class="text-foreground size-4" aria-hidden="true" />
     <Maximize v-else class="text-foreground size-4" aria-hidden="true" />
-  </YDSZIconButton>
+  </YdIconButton>
 </template>
 

@@ -14,7 +14,7 @@ import { useRouter } from 'vue-router';
 import { $t } from '@ydsz/locales';
 
 import { useYDSZForm } from '@ydsz-core/form-ui';
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { YdButton } from '@ydsz-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 
@@ -103,7 +103,7 @@ defineExpose({
     <Form />
 
     <div>
-      <YDSZButton
+      <YdButton
         :class="{
           'cursor-wait': loading,
         }"
@@ -114,10 +114,10 @@ defineExpose({
         <slot name="submitButtonText">
           {{ submitButtonText || $t('authentication.sendResetLink') }}
         </slot>
-      </YDSZButton>
-      <YDSZButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
+      </YdButton>
+      <YdButton class="mt-4 w-full" variant="outline" @click="goToLogin()">
         {{ $t('common.back') }}
-      </YDSZButton>
+      </YdButton>
     </div>
   </div>
 </template>

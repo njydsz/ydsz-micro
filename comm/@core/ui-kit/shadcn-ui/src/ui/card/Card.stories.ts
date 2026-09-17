@@ -30,7 +30,7 @@ const meta: Meta = {
  *  - `Default`：Header + Content + Footer 全区域齐备的标准卡片；
  *  - `WithTitle`：仅标题 + 内容，用于内容极简的场景；
  *  - `FullCard`：带真实业务数据的完整卡片，展示 Footer 里并置多个操作按钮时的排布；
- *  - `CardGrid`：多卡片在响应式网格中的布局，验证卡片在容器宽度变化下的自适应。
+ *  - `YdCardGrid`：多卡片在响应式网格中的布局，验证卡片在容器宽度变化下的自适应。
  *
  * 因为 Card 本身无 props 面板，meta 未绑定 `component` 与 `argTypes` ——
  * 这里要验证的是插槽组合与间距，而非参数化状态。
@@ -103,7 +103,7 @@ export const FullCard: Story = {
 };
 
 /** 多卡片布局 */
-export const CardGrid: Story = {
+export const YdCardGrid: Story = {
   render: () => ({
     components: { Card, CardHeader, CardTitle, CardDescription, CardContent },
     template: `

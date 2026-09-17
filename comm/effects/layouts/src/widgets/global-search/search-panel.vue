@@ -15,7 +15,7 @@ import { SearchX, X } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 import { mapTree, traverseTreeValues, uniqueByField } from '@ydsz/utils';
 
-import { YDSZIcon, YDSZScrollbar } from '@ydsz-core/shadcn-ui';
+import { YdIcon, YdScrollbar } from '@ydsz-core/shadcn-ui';
 import { isHttpUrl } from '@ydsz-core/shared/utils';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';
@@ -229,7 +229,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <YDSZScrollbar>
+  <YdScrollbar>
     <div class="!flex h-full justify-center px-2 sm:max-h-[450px]">
       <!-- 无搜索结果 -->
       <div
@@ -275,7 +275,7 @@ onMounted(() => {
           @click="handleEnter"
           @mouseenter="handleMouseenter"
         >
-          <YDSZIcon
+          <YdIcon
             :icon="item.icon"
             class="mr-2 size-5 flex-shrink-0"
             fallback
@@ -291,5 +291,5 @@ onMounted(() => {
         </li>
       </ul>
     </div>
-  </YDSZScrollbar>
+  </YdScrollbar>
 </template>

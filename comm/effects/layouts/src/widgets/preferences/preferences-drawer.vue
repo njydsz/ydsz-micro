@@ -34,9 +34,9 @@ import {
 
 import { useYDSZDrawer } from '@ydsz-core/popup-ui';
 import {
-  YDSZButton,
-  YDSZIconButton,
-  YDSZSegmented,
+  YdButton,
+  YdIconButton,
+  YdSegmented,
 } from '@ydsz-core/shadcn-ui';
 import { globalShareState } from '@ydsz-core/shared/global-state';
 
@@ -251,7 +251,7 @@ async function handleReset() {
     >
       <template #extra>
         <div class="flex items-center">
-          <YDSZIconButton
+          <YdIconButton
             :disabled="!diffPreference"
             :tooltip="$t('preferences.resetTip')"
             class="relative"
@@ -261,12 +261,12 @@ async function handleReset() {
               class="bg-primary absolute right-0.5 top-0.5 h-2 w-2 rounded"
             ></span>
             <RotateCw class="size-4" @click="handleReset" />
-          </YDSZIconButton>
+          </YdIconButton>
         </div>
       </template>
 
       <div class="p-1">
-        <YDSZSegmented v-model="activeTab" :tabs="tabs">
+        <YdSegmented v-model="activeTab" :tabs="tabs">
           <template #general>
             <Block :title="$t('preferences.general')">
               <General
@@ -427,11 +427,11 @@ async function handleReset() {
               />
             </Block>
           </template>
-        </YDSZSegmented>
+        </YdSegmented>
       </div>
 
       <template #footer>
-        <YDSZButton
+        <YdButton
           :disabled="!diffPreference"
           class="mx-4 w-full"
           size="sm"
@@ -440,8 +440,8 @@ async function handleReset() {
         >
           <Copy class="mr-2 size-3" />
           {{ $t('preferences.copyPreferences') }}
-        </YDSZButton>
-        <YDSZButton
+        </YdButton>
+        <YdButton
           :disabled="!diffPreference"
           class="mr-4 w-full"
           size="sm"
@@ -449,7 +449,7 @@ async function handleReset() {
           @click="handleClearCache"
         >
           {{ $t('preferences.clearAndLogout') }}
-        </YDSZButton>
+        </YdButton>
       </template>
     </Drawer>
   </div>

@@ -11,7 +11,7 @@
  *  - 卡片主体可点击（@click），clickable 启用后附 cursor-pointer；
  *  - 多选模式下顶部出现 checkbox。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\entity-card\EntityCard.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\components\entity-card\YdEntityCard.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -22,7 +22,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, 
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({
-  name: 'EntityCard',
+  name: 'YdEntityCard',
 });
 
 interface Props {

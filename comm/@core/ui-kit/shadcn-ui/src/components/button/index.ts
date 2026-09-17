@@ -9,8 +9,8 @@
  * @since 1.0.0
  */
 export type * from './button';
-export { default as YDSZButtonGroup } from './button-group.vue';
-export { default as YDSZButton } from './button.vue';
-export { default as YDSZCheckButtonGroup } from './check-button-group.vue';
-export { default as YDSZIconButton } from './icon-button.vue';
+export { default as YdButtonGroup } from './button-group.vue';
+export { default as YdButton } from './button.vue';
+export { default as YdCheckButtonGroup } from './check-button-group.vue';
+export { default as YdIconButton } from './icon-button.vue';
 

@@ -20,7 +20,7 @@ import type { AlertProps, BeforeCloseScope, PromptProps } from './alert';
 import { h, nextTick, ref, render } from 'vue';
 
 import { useSimpleLocale } from '@ydsz-core/composables';
-import { Input, YDSZRenderContent } from '@ydsz-core/shadcn-ui';
+import { Input, YdRenderContent } from '@ydsz-core/shadcn-ui';
 import { isFunction, isString } from '@ydsz-core/shared/utils';
 
 import Alert from './alert.vue';
@@ -286,7 +286,7 @@ export async function ydszPrompt<T = unknown>(
   const inputComponentRef = ref<null | VNode>(null);
   const staticContents: Component[] = [];
 
-  staticContents.push(h(YDSZRenderContent, { content, renderBr: true }));
+  staticContents.push(h(YdRenderContent, { content, renderBr: true }));
 
   const modelPropName = _modelPropName || 'modelValue';
   const componentProps = { ..._componentProps };

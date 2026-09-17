@@ -2,7 +2,7 @@
  * 消息批量发送列表页组件
  *
  * 视图模式：卡片视图（默认）/ 表格视图 可切换。
- *  - 卡片视图：CardGrid + EntityCard，承载批次可视化展示；
+ *  - 卡片视图：YdCardGrid + YdEntityCard，承载批次可视化展示；
  *  - 表格视图：VxeTable，保持原有兼容视图。
  *
  * @path apps/message-web/src/views/batch/index.vue
@@ -22,7 +22,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElDrawer/ElDescriptions/ElDescriptionsItem/ElProgress 不在 shadcn 映射表，保留 EP
@@ -67,7 +67,7 @@ function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'inf
   return 'info';
 }
 
-/** 批次状态 → StatusBadge 语义值 */
+/** 批次状态 → YdStatusBadge 语义值 */
 function resolveBatchStatus(status?: string): 'running' | 'success' | 'failed' | 'draft' {
   const upper = (status ?? '').toUpperCase();
   if (['SUCCESS', 'COMPLETED', 'DONE'].includes(upper)) return 'success';
@@ -364,12 +364,12 @@ onBeforeUnmount(() => {
       v-else
       class="min-h-[400px]"
     >
-      <CardGrid
+      <YdCardGrid
         :is-empty="batchRows.length === 0"
         :is-loading="false"
       >
         <template #empty>
-          <EmptyState
+          <YdEmptyState
             description="创建批量发送任务后可查看发送进度和统计"
             preset="created"
             :action-text="t('common.create')"
@@ -377,7 +377,7 @@ onBeforeUnmount(() => {
             @action="handleAdd"
           />
         </template>
-        <EntityCard
+        <YdEntityCard
           v-for="item in batchRows"
           :key="item.batchId"
           :avatar-text="item.batchName"
@@ -388,7 +388,7 @@ onBeforeUnmount(() => {
           @click="handleProgress(item)"
         >
           <template #status-badge>
-            <StatusBadge
+            <YdStatusBadge
               :status="resolveBatchStatus(item.status)"
               :label="item.status ?? '待处理'"
               class="shrink-0"
@@ -413,8 +413,8 @@ onBeforeUnmount(() => {
               查看进度
             </Button>
           </template>
-        </EntityCard>
-      </CardGrid>
+        </YdEntityCard>
+      </YdCardGrid>
     </div>
 
     <BatchFormModal @success="handleBatchCreated" />

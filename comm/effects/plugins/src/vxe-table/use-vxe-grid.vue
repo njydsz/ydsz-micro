@@ -24,7 +24,7 @@ import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
 import { cn } from '@ydsz/utils';
 
-import { YDSZHelpTooltip, YDSZLoading } from '@ydsz-core/shadcn-ui';
+import { YdHelpTooltip, YdLoading } from '@ydsz-core/shadcn-ui';
 
 import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid } from 'vxe-table';
@@ -90,9 +90,9 @@ const {
         <slot v-if="showTableTitle" name="table-title">
           <div class="mr-1 pl-1 text-[1rem]">
             {{ tableTitle }}
-            <YDSZHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
+            <YdHelpTooltip v-if="tableTitleHelp" trigger-class="pb-1">
               {{ tableTitleHelp }}
-            </YDSZHelpTooltip>
+            </YdHelpTooltip>
           </div>
         </slot>
         <slot name="toolbar-actions" v-bind="slotProps"> </slot>
@@ -175,7 +175,7 @@ const {
       <!-- loading -->
       <template #loading>
         <slot name="loading">
-          <YDSZLoading :spinning="true" />
+          <YdLoading :spinning="true" />
         </slot>
       </template>
       <!-- 统一控状态 -->

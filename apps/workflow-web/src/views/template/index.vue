@@ -2,7 +2,7 @@
  * 流程模板（列表页）
  *
  * 视图模式：卡片视图（默认）/ 表格视图 可切换。
- *  - 卡片视图：CardGrid + EntityCard，承载模板可视化展示；
+ *  - 卡片视图：YdCardGrid + YdEntityCard，承载模板可视化展示；
  *  - 表格视图：VxeTable，保持原有兼容视图。
  *
  * @path apps\workflow-web\src\views\template\index.vue
@@ -21,7 +21,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { CardGrid, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { ElTable, ElTableColumn } from 'element-plus';
@@ -77,7 +77,7 @@ function num(row: TemplateRow, key: string): number {
   return typeof value === 'number' ? value : 0;
 }
 
-/** 模板状态 → StatusBadge 语义值 */
+/** 模板状态 → YdStatusBadge 语义值 */
 function resolveTemplateStatus(row: TemplateRow): 'draft' | 'published' | 'offline' {
   const status = (str(row, 'status') || '').toUpperCase();
   if (status === 'PUBLISHED' || status === 'ACTIVE' || status === 'RELEASED') {
@@ -462,12 +462,12 @@ void loadCardData();
       v-else
       class="min-h-[400px]"
     >
-      <CardGrid
+      <YdCardGrid
         :is-empty="templateList.length === 0 && !cardLoading"
         :is-loading="cardLoading"
       >
         <template #empty>
-          <EmptyState
+          <YdEmptyState
             description="导入流程模板后可在多个业务场景中复用"
             preset="created"
             :action-text="t('wf.import')"
@@ -475,7 +475,7 @@ void loadCardData();
             @action="templateFormApi.open()"
           />
         </template>
-        <EntityCard
+        <YdEntityCard
           v-for="item in templateList"
           :key="String(item.templateCode ?? item.templateName)"
           :avatar-text="String(item.templateName || item.templateCode || '')"
@@ -487,7 +487,7 @@ void loadCardData();
           @click="handleImport(item)"
         >
           <template #status-badge>
-            <StatusBadge
+            <YdStatusBadge
               :status="resolveTemplateStatus(item)"
               :label="resolveStatusLabel(item)"
               class="shrink-0"
@@ -553,8 +553,8 @@ void loadCardData();
               </DropdownMenuContent>
             </DropdownMenu>
           </template>
-        </EntityCard>
-      </CardGrid>
+        </YdEntityCard>
+      </YdCardGrid>
     </div>
 
     <TemplateFormModal @success="handleRefresh()" />

@@ -15,7 +15,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { YDSZBreadcrumbView } from '@ydsz-core/shadcn-ui';
+import { YdBreadcrumbView } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   hideWhenOnlyOne?: boolean;
@@ -71,7 +71,7 @@ function handleSelect(path: string) {
 }
 </script>
 <template>
-  <YDSZBreadcrumbView
+  <YdBreadcrumbView
     :breadcrumbs="breadcrumbs"
     :show-icon="showIcon"
     :style-type="type"

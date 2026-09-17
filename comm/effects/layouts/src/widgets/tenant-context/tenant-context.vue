@@ -22,7 +22,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  YDSZIcon,
+  YdIcon,
   Badge,
 } from '@ydsz-core/shadcn-ui';
 
@@ -96,7 +96,7 @@ onMounted(async () => {
     <DropdownMenuTrigger
       class="hover:bg-accent ml-1 mr-1 flex cursor-pointer items-center gap-1 rounded-md px-2 py-1.5 transition-colors"
     >
-      <YDSZIcon icon="Building2" class="text-primary size-4" />
+      <YdIcon icon="Building2" class="text-primary size-4" />
       <span class="text-foreground max-w-[120px] truncate text-sm font-medium">
         {{ displayName }}
       </span>

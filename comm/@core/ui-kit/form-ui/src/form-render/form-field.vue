@@ -26,8 +26,8 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  YDSZRenderContent,
-  YDSZTooltip,
+  YdRenderContent,
+  YdTooltip,
 } from '@ydsz-core/shadcn-ui';
 import { cn, isFunction, isObject, isString } from '@ydsz-core/shared/utils';
 
@@ -351,7 +351,7 @@ onUnmounted(() => {
         :style="labelStyle"
       >
         <template v-if="label">
-          <YDSZRenderContent :content="label" />
+          <YdRenderContent :content="label" />
         </template>
       </FormLabel>
       <div class="flex-auto overflow-hidden p-[1px]">
@@ -384,14 +384,14 @@ onUnmounted(() => {
                   :key="name"
                   #[name]="renderSlotProps"
                 >
-                  <YDSZRenderContent
+                  <YdRenderContent
                     :content="customContentRender[name]"
                     v-bind="{ ...renderSlotProps, formContext: slotProps }"
                   />
                 </template>
                 <!-- <slot></slot> -->
               </component>
-              <YDSZTooltip
+              <YdTooltip
                 v-if="compact && isInValid"
                 :delay-duration="300"
                 side="left"
@@ -408,15 +408,15 @@ onUnmounted(() => {
                   </slot>
                 </template>
                 <FormMessage />
-              </YDSZTooltip>
+              </YdTooltip>
             </slot>
           </FormControl>
           <!-- 自定义后缀 -->
           <div v-if="suffix" class="ml-1">
-            <YDSZRenderContent :content="suffix" />
+            <YdRenderContent :content="suffix" />
           </div>
           <FormDescription v-if="description" class="ml-1">
-            <YDSZRenderContent :content="description" />
+            <YdRenderContent :content="description" />
           </FormDescription>
         </div>
 

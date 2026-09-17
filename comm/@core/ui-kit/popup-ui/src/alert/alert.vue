@@ -32,9 +32,9 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
-  YDSZButton,
-  YDSZLoading,
-  YDSZRenderContent,
+  YdButton,
+  YdLoading,
+  YdRenderContent,
 } from '@ydsz-core/shadcn-ui';
 import { globalShareState } from '@ydsz-core/shared/global-state';
 import { cn } from '@ydsz-core/shared/utils';
@@ -172,7 +172,7 @@ async function handleOpenChange(val: boolean) {
             <component :is="getIconRender" class="mr-2" />
             <span class="flex-auto">{{ $t(title) }}</span>
             <AlertDialogCancel v-if="showCancel" as-child>
-              <YDSZButton
+              <YdButton
                 variant="ghost"
                 size="icon"
                 class="rounded-full"
@@ -180,24 +180,24 @@ async function handleOpenChange(val: boolean) {
                 @click="handleCancel"
               >
                 <X class="text-muted-foreground size-4" />
-              </YDSZButton>
+              </YdButton>
             </AlertDialogCancel>
           </div>
         </AlertDialogTitle>
         <AlertDialogDescription>
           <div class="m-4 min-h-[30px]">
-            <YDSZRenderContent :content="content" render-br />
+            <YdRenderContent :content="content" render-br />
           </div>
-          <YDSZLoading v-if="loading && contentMasking" :spinning="loading" />
+          <YdLoading v-if="loading && contentMasking" :spinning="loading" />
         </AlertDialogDescription>
         <div
           class="flex items-center justify-end gap-x-2"
           :class="`justify-${buttonAlign}`"
         >
-          <YDSZRenderContent :content="footer" />
+          <YdRenderContent :content="footer" />
           <AlertDialogCancel v-if="showCancel" as-child>
             <component
-              :is="components.DefaultButton || YDSZButton"
+              :is="components.DefaultButton || YdButton"
               :disabled="loading"
               variant="ghost"
               @click="handleCancel"
@@ -207,7 +207,7 @@ async function handleOpenChange(val: boolean) {
           </AlertDialogCancel>
           <AlertDialogAction as-child>
             <component
-              :is="components.PrimaryButton || YDSZButton"
+              :is="components.PrimaryButton || YdButton"
               :loading="loading"
               @click="handleConfirm"
             >

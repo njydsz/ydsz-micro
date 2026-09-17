@@ -10,7 +10,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { YDSZTooltip, Switch } from '@ydsz-core/shadcn-ui';
+import { YdTooltip, Switch } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSwitchItem',
@@ -41,7 +41,7 @@ function handleClick() {
     <span class="flex items-center text-sm">
       <slot></slot>
 
-      <YDSZTooltip v-if="slots.tip || tip" side="bottom">
+      <YdTooltip v-if="slots.tip || tip" side="bottom">
         <template #trigger>
           <CircleHelp class="ml-1 size-3 cursor-help" />
         </template>
@@ -52,7 +52,7 @@ function handleClick() {
             </p>
           </template>
         </slot>
-      </YDSZTooltip>
+      </YdTooltip>
     </span>
     <span v-if="$slots.shortcut" class="ml-auto mr-2 text-xs opacity-60">
       <slot name="shortcut"></slot>

@@ -10,7 +10,7 @@
  * @since 4.1.0 (P2-13)
  */
 
-export { default as GlobalSearchPanel } from './global-search-panel.vue';
+export { default as YdGlobalSearchPanel } from './global-search-panel.vue';
 export { useGlobalSearch } from './use-global-search';
 export {
   MODULE_ICONS,

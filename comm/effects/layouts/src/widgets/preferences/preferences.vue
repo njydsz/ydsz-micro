@@ -14,7 +14,7 @@ import { preferences, updatePreferences } from '@ydsz/preferences';
 import { capitalizeFirstLetter } from '@ydsz/utils';
 
 import { useYDSZDrawer } from '@ydsz-core/popup-ui';
-import { YDSZButton } from '@ydsz-core/shadcn-ui';
+import { YdButton } from '@ydsz-core/shadcn-ui';
 
 import PreferencesDrawer from './preferences-drawer.vue';
 
@@ -70,12 +70,12 @@ const listen = computed(() => {
 
     <div @click="() => drawerApi.open()">
       <slot>
-        <YDSZButton
+        <YdButton
           :title="$t('preferences.title')"
           class="bg-primary flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none"
         >
           <Settings class="size-5" />
-        </YDSZButton>
+        </YdButton>
       </slot>
     </div>
   </div>

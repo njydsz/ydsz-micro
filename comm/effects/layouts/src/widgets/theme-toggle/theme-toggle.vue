@@ -17,7 +17,7 @@ import {
 } from '@ydsz/preferences';
 
 import {
-  YDSZTooltip,
+  YdTooltip,
   ToggleGroup,
   ToggleGroupItem,
 } from '@ydsz-core/shadcn-ui';
@@ -60,7 +60,7 @@ const PRESETS = [
 </script>
 <template>
   <div>
-    <YDSZTooltip :disabled="!shouldOnHover" side="bottom">
+    <YdTooltip :disabled="!shouldOnHover" side="bottom">
       <template #trigger>
         <ThemeButton
           :model-value="isDark"
@@ -85,6 +85,6 @@ const PRESETS = [
           <component :is="item.icon" class="size-5" />
         </ToggleGroupItem>
       </ToggleGroup>
-    </YDSZTooltip>
+    </YdTooltip>
   </div>
 </template>

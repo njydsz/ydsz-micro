@@ -14,7 +14,7 @@ import { $t } from '@ydsz/locales';
 
 import { useYDSZForm, z } from '@ydsz-core/form-ui';
 import { useYDSZModal } from '@ydsz-core/popup-ui';
-import { YDSZAvatar, YDSZButton } from '@ydsz-core/shadcn-ui';
+import { YdAvatar, YdButton } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   avatar?: string;
@@ -42,7 +42,7 @@ const [Form, { resetForm, validate, getValues }] = useYDSZForm(
     },
     schema: computed(() => [
       {
-        component: 'YDSZInputPassword' as const,
+        component: 'YdInputPassword' as const,
         componentProps: {
           placeholder: $t('ui.widgets.lockScreen.placeholder'),
         },
@@ -90,7 +90,7 @@ async function handleSubmit() {
     >
       <div class="w-full">
         <div class="ml-2 flex w-full flex-col items-center">
-          <YDSZAvatar
+          <YdAvatar
             :src="avatar"
             class="size-20"
             dot-class="bottom-0 right-1 border-2 size-4 bg-green-500"
@@ -100,9 +100,9 @@ async function handleSubmit() {
           </div>
         </div>
         <Form />
-        <YDSZButton class="mt-1 w-full" @click="handleSubmit">
+        <YdButton class="mt-1 w-full" @click="handleSubmit">
           {{ $t('ui.widgets.lockScreen.screenButton') }}
-        </YDSZButton>
+        </YdButton>
       </div>
     </div>
   </Modal>

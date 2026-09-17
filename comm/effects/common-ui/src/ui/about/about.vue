@@ -16,7 +16,7 @@ import {
   YDSZ_PREVIEW_URL,
 } from '@ydsz/constants';
 
-import { YDSZRenderContent } from '@ydsz-core/shadcn-ui';
+import { YdRenderContent } from '@ydsz-core/shadcn-ui';
 
 import { Page } from '../../components';
 
@@ -140,7 +140,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
                 {{ item.title }}
               </dt>
               <dd class="text-foreground mt-1 text-sm leading-6 sm:mt-2">
-                <YDSZRenderContent :content="item.content" />
+                <YdRenderContent :content="item.content" />
               </dd>
             </div>
           </template>
@@ -160,7 +160,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
                 {{ item.title }}
               </dt>
               <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
-                <YDSZRenderContent :content="item.content" />
+                <YdRenderContent :content="item.content" />
               </dd>
             </div>
           </template>
@@ -179,7 +179,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
                 {{ item.title }}
               </dt>
               <dd class="text-foreground/80 mt-1 text-sm sm:mt-2">
-                <YDSZRenderContent :content="item.content" />
+                <YdRenderContent :content="item.content" />
               </dd>
             </div>
           </template>

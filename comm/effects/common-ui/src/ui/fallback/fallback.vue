@@ -14,7 +14,7 @@ import { useRouter } from "vue-router";
 import { ArrowLeft, RotateCw } from "@ydsz/icons";
 import { $t } from "@ydsz/locales";
 
-import { YDSZButton } from "@ydsz-core/shadcn-ui";
+import { YdButton } from "@ydsz-core/shadcn-ui";
 
 type Props = FallbackProps;
 
@@ -186,7 +186,7 @@ function refresh() {
 
       <!-- 操作按钮 -->
       <div class="mt-8 flex items-center gap-3">
-        <YDSZButton
+        <YdButton
           v-if="showBack"
           size="lg"
           @click="back"
@@ -194,8 +194,8 @@ function refresh() {
         >
           <ArrowLeft class="mr-2 size-4" aria-hidden="true" />
           {{ $t("common.backToHome") }}
-        </YDSZButton>
-        <YDSZButton
+        </YdButton>
+        <YdButton
           v-else-if="showRefresh"
           size="lg"
           variant="outline"
@@ -204,7 +204,7 @@ function refresh() {
         >
           <RotateCw class="mr-2 size-4" aria-hidden="true" />
           {{ $t("common.refresh") }}
-        </YDSZButton>
+        </YdButton>
       </div>
     </div>
   </div>

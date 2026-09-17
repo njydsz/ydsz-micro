@@ -30,7 +30,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'YDSZSpinner',
+  name: 'YdSpinner',
 });
 
 const props = withDefaults(defineProps<Props>(), {

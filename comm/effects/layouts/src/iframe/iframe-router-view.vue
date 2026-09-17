@@ -14,7 +14,7 @@ import { useRoute } from 'vue-router';
 import { preferences } from '@ydsz/preferences';
 import { useTabbarStore } from '@ydsz/stores';
 
-import { YDSZSpinner } from '@ydsz-core/shadcn-ui';
+import { YdSpinner } from '@ydsz-core/shadcn-ui';
 
 defineOptions({ name: 'IFrameRouterView' });
 
@@ -81,7 +81,7 @@ function showSpinning(index: number) {
         v-show="routeShow(item)"
         class="relative size-full"
       >
-        <YDSZSpinner :spinning="showSpinning(index)" />
+        <YdSpinner :spinning="showSpinning(index)" />
         <iframe
           :src="item.meta.iframeSrc as string"
           class="size-full"

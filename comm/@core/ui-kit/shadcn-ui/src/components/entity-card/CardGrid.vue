@@ -4,11 +4,11 @@
  * 设计目标：
  *  - 替代 VxeTable 表格布局，将卡片以等宽网格展示；
  *  - 响应式列数：手机 1 列、平板 2 列、桌面 3-4 列；
- *  - 与 EmptyState 配合使用：当 items 为空时展示空状态占位而非留白。
+ *  - 与 YdEmptyState 配合使用：当 items 为空时展示空状态占位而非留白。
  *
- * 使用方式：直接包裹 <EntityCard>；通过 :min-card-width 可调节卡片最小宽度来微调列数。
+ * 使用方式：直接包裹 <YdEntityCard>；通过 :min-card-width 可调节卡片最小宽度来微调列数。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\entity-card\CardGrid.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\components\entity-card\YdCardGrid.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -16,7 +16,7 @@
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({
-  name: 'CardGrid',
+  name: 'YdCardGrid',
 });
 
 const props = withDefaults(

@@ -25,7 +25,7 @@ import {
 } from '../../ui';
 import { useNotificationStore } from '@YDSZ/shared-business/notification';
 import { NotificationType, type NotificationItem } from '@YDSZ/shared-business/notification';
-import { YDSZIcon } from '../icon';
+import { YdIcon } from '../icon';
 
 const emit = defineEmits<{
   (e: 'select', item: NotificationItem): void;
@@ -163,7 +163,7 @@ function confirmMarkAllRead(): void {
 
       <!-- Empty state -->
       <div v-else class="notification-panel__empty">
-        <YDSZIcon icon="lucide:bell-off" :size="32" />
+        <YdIcon icon="lucide:bell-off" :size="32" />
         <p>暂无通知</p>
       </div>
     </div>

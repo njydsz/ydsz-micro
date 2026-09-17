@@ -41,11 +41,11 @@ export type FormLayout = 'horizontal' | 'vertical';
 export type BaseFormComponentType =
   | 'DefaultButton'
   | 'PrimaryButton'
-  | 'YDSZCheckbox'
+  | 'YdCheckbox'
   | 'YDSZInput'
-  | 'YDSZInputPassword'
-  | 'YDSZPinInput'
-  | 'YDSZSelect'
+  | 'YdInputPassword'
+  | 'YdPinInput'
+  | 'YdSelect'
   | (Record<never, never> & string);
 
 type Breakpoints = '2xl:' | '3xl:' | '' | 'lg:' | 'md:' | 'sm:' | 'xl:';

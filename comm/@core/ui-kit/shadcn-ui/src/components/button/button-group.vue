@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { cn } from '@ydsz-core/shared/utils';
 
-defineOptions({ name: 'YDSZButtonGroup' });
+defineOptions({ name: 'YdButtonGroup' });
 
 withDefaults(
   defineProps<{

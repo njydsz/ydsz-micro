@@ -17,7 +17,7 @@ import {
   watchEffect,
 } from 'vue';
 
-import { YDSZTooltip } from '@ydsz-core/shadcn-ui';
+import { YdTooltip } from '@ydsz-core/shadcn-ui';
 
 import { useElementSize } from '@vueuse/core';
 
@@ -191,7 +191,7 @@ function handleExpand() {
 </script>
 <template>
   <div>
-    <YDSZTooltip
+    <YdTooltip
       :content-style="{
         ...tooltipOverlayStyle,
         maxWidth: `${defaultTooltipMaxWidth}px`,
@@ -227,7 +227,7 @@ function handleExpand() {
           <slot></slot>
         </div>
       </template>
-    </YDSZTooltip>
+    </YdTooltip>
   </div>
 </template>
 

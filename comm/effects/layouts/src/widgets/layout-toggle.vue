@@ -20,7 +20,7 @@ import {
   usePreferences,
 } from '@ydsz/preferences';
 
-import { YDSZDropdownRadioMenu, YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { YdDropdownRadioMenu, YdIconButton } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'AuthenticationLayoutToggle',
@@ -57,15 +57,15 @@ function handleUpdate(value: string | undefined) {
 </script>
 
 <template>
-  <YDSZDropdownRadioMenu
+  <YdDropdownRadioMenu
     :menus="menus"
     :model-value="preferences.app.authPageLayout"
     @update:model-value="handleUpdate"
   >
-    <YDSZIconButton>
+    <YdIconButton>
       <PanelRight v-if="authPanelRight" class="size-4" />
       <PanelLeft v-if="authPanelLeft" class="size-4" />
       <InspectionPanel v-if="authPanelCenter" class="size-4" />
-    </YDSZIconButton>
-  </YDSZDropdownRadioMenu>
+    </YdIconButton>
+  </YdDropdownRadioMenu>
 </template>

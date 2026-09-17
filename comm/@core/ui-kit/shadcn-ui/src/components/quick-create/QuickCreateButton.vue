@@ -2,7 +2,7 @@
  * 快捷创建悬浮按钮：仿 ForgeLab forge-admin 全局创建入口。
  *
  * 设计目标：
- *  - 固定悬浮于页面底中偏右（与 SettingsFloatButton 错开）；
+ *  - 固定悬浮于页面底中偏右（与 YdSettingsFloatButton 错开）；
  *  - 点击展开快捷创建菜单（流程模板 / 规则 / Agent / 消息批次...）；
  *  - 菜单项通过 props 注册，支持子应用各自挂载自己的创建入口。
  *
@@ -15,7 +15,7 @@
  *  - 按钮带 aria-label / aria-expanded；
  *  - 菜单项通过 role="menuitem" 暴露语义。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\quick-create\QuickCreateButton.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\components\quick-create\YdQuickCreateButton.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -27,7 +27,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Plus, X } from 'lucide-vue-next';
 
 defineOptions({
-  name: 'QuickCreateButton',
+  name: 'YdQuickCreateButton',
 });
 
 export interface QuickCreateItem {

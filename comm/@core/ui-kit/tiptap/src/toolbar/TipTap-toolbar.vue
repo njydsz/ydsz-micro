@@ -13,7 +13,7 @@ import { computed, ref } from 'vue';
 
 import { type Editor } from '@tiptap/vue-3';
 
-import { Input, Popover, PopoverContent, PopoverTrigger, YDSZTooltip } from '@ydsz-core/shadcn-ui';
+import { Input, Popover, PopoverContent, PopoverTrigger, YdTooltip } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   /** TipTap 编辑器实例 */
@@ -88,7 +88,7 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
     class="tiptap-toolbar flex flex-wrap items-center gap-1 border-b px-2 py-1"
   >
     <!-- 撤销 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -99,10 +99,10 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       撤销
-    </YDSZTooltip>
+    </YdTooltip>
 
     <!-- 重做 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -113,12 +113,12 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       重做
-    </YDSZTooltip>
+    </YdTooltip>
 
     <div class="toolbar-divider" />
 
     <!-- 标题 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -130,7 +130,7 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       正文
-    </YDSZTooltip>
+    </YdTooltip>
     <button
       v-for="level in [1, 2, 3, 4]"
       :key="level"
@@ -145,7 +145,7 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
     <div class="toolbar-divider" />
 
     <!-- 加粗 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -157,10 +157,10 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       加粗 (Ctrl+B)
-    </YDSZTooltip>
+    </YdTooltip>
 
     <!-- 斜体 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -172,10 +172,10 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       斜体 (Ctrl+I)
-    </YDSZTooltip>
+    </YdTooltip>
 
     <!-- 下划线 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -187,10 +187,10 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       下划线 (Ctrl+U)
-    </YDSZTooltip>
+    </YdTooltip>
 
     <!-- 删除行 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -202,12 +202,12 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       删除线
-    </YDSZTooltip>
+    </YdTooltip>
 
     <div class="toolbar-divider" />
 
     <!-- 无序列表 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -219,10 +219,10 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       无序列表
-    </YDSZTooltip>
+    </YdTooltip>
 
     <!-- 有序列表 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -234,10 +234,10 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       有序列表
-    </YDSZTooltip>
+    </YdTooltip>
 
     <!-- 代码块 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button
           class="toolbar-btn"
@@ -249,7 +249,7 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         </button>
       </template>
       代码块
-    </YDSZTooltip>
+    </YdTooltip>
 
     <div class="toolbar-divider" />
 
@@ -276,24 +276,24 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
     </Popover>
 
     <!-- 表格 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button class="toolbar-btn" :disabled="!canEdit" @click="insertTable">
           ⊞
         </button>
       </template>
       插入 3x3 表格
-    </YDSZTooltip>
+    </YdTooltip>
 
     <!-- 水平线 -->
-    <YDSZTooltip side="top">
+    <YdTooltip side="top">
       <template #trigger>
         <button class="toolbar-btn" :disabled="!canEdit" @click="insertHorizontalRule">
           ―
         </button>
       </template>
       水平线
-    </YDSZTooltip>
+    </YdTooltip>
   </div>
 </template>
 

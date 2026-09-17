@@ -2,7 +2,7 @@
  * 规则定义管理列表页面
  *
  * 视图模式：卡片视图（默认）/ 表格视图 可切换。
- *  - 卡片视图：DomainFilterPanel (分类筛选) + CardGrid + EntityCard，承载规则可视化展示；
+ *  - 卡片视图：YdDomainFilterPanel (分类筛选) + YdCardGrid + YdEntityCard，承载规则可视化展示；
  *  - 表格视图：VxeTable，保持原有兼容视图。
  *
  * @path apps\literule-web\src\views\rule\index.vue
@@ -21,7 +21,7 @@
 import type { CategoryNodeVO, RuleDefinitionVO, RuleVersionVO } from '#/api/models';
 import type { DomainItem } from '@ydsz-core/shadcn-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { CardGrid, DomainFilterPanel, EmptyState, EntityCard, StatusBadge } from '@ydsz-core/shadcn-ui';
+import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 // TODO: EP → shadcn-ui 迁移暂缓（含 Drawer/Dropdown/Table 等复杂组件，需人工评估）
 import { ElButton, ElDrawer, ElDropdown, ElDropdownItem, ElDropdownMenu, ElTable, ElTableColumn, ElTag } from 'element-plus';
@@ -51,7 +51,7 @@ const selectedCategory = ref<string>('all');
 /** 分类树（用于左侧面板） */
 const categoryTreeData = ref<CategoryNodeVO>({});
 
-/** 从规则列表提取分类（提取去重后的 categoryPath 顶层作为 DomainFilterPanel 项） */
+/** 从规则列表提取分类（提取去重后的 categoryPath 顶层作为 YdDomainFilterPanel 项） */
 const categoryItems = computed<DomainItem[]>(() => {
   const categoryMap = new Map<string, number>();
   for (const rule of ruleList.value) {
@@ -165,7 +165,7 @@ function statusTagType(status?: string): 'success' | 'warning' | 'info' | 'dange
   }
 }
 
-/** 规则状态 → StatusBadge 语义值 */
+/** 规则状态 → YdStatusBadge 语义值 */
 function resolveRuleStatus(row: RuleDefinitionVO): 'draft' | 'pending' | 'published' | 'offline' | 'running' {
   const status = (row.status ?? '').toUpperCase();
   switch (status) {
@@ -455,7 +455,7 @@ void loadCategoryTree();
     >
       <!-- 左侧分类筛选面板 -->
       <div class="w-52 shrink-0">
-        <DomainFilterPanel
+        <YdDomainFilterPanel
           v-model="selectedCategory"
           :items="categoryItems"
           title="规则分类"
@@ -466,12 +466,12 @@ void loadCategoryTree();
 
       <!-- 右侧卡片网格 -->
       <div class="min-w-0 flex-1">
-        <CardGrid
+        <YdCardGrid
           :is-empty="filteredRules.length === 0 && !cardLoading"
           :is-loading="cardLoading"
         >
           <template #empty>
-            <EmptyState
+            <YdEmptyState
               :description="selectedCategory === 'all' ? '新增规则后可编排到规则链中执行' : '该分类下暂无规则，可切换分类或新建规则'"
               preset="created"
               action-text="新建规则"
@@ -479,7 +479,7 @@ void loadCategoryTree();
               @action="handleAdd"
             />
           </template>
-          <EntityCard
+          <YdEntityCard
             v-for="item in filteredRules"
             :key="item.id ?? item.ruleCode"
             :avatar-text="item.ruleName"
@@ -490,7 +490,7 @@ void loadCategoryTree();
             @click="handleEdit(item)"
           >
             <template #status-badge>
-              <StatusBadge
+              <YdStatusBadge
                 :status="resolveRuleStatus(item)"
                 class="shrink-0"
               />
@@ -574,8 +574,8 @@ void loadCategoryTree();
                 </template>
               </ElDropdown>
             </template>
-          </EntityCard>
-        </CardGrid>
+          </YdEntityCard>
+        </YdCardGrid>
       </div>
     </div>
 

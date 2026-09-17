@@ -25,7 +25,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../ui';
-import { YDSZIcon } from '../icon';
+import { YdIcon } from '../icon';
 
 type Props = BreadcrumbProps;
 
@@ -55,7 +55,7 @@ function handleClick(path?: string) {
             <div v-if="item.items?.length ?? 0 > 0">
               <DropdownMenu>
                 <DropdownMenuTrigger class="flex items-center gap-1" aria-haspopup="menu">
-                  <YDSZIcon v-if="showIcon" :icon="item.icon" class="size-5" aria-hidden="true" />
+                  <YdIcon v-if="showIcon" :icon="item.icon" class="size-5" aria-hidden="true" />
                   {{ item.title }}
                   <ChevronDown class="size-4" aria-hidden="true" />
                 </DropdownMenuTrigger>
@@ -78,7 +78,7 @@ function handleClick(path?: string) {
               @click.stop="handleClick(item.path)"
             >
               <div class="flex-center">
-                <YDSZIcon
+                <YdIcon
                   v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"
@@ -90,7 +90,7 @@ function handleClick(path?: string) {
             </BreadcrumbLink>
             <BreadcrumbPage v-else :aria-current="index === breadcrumbs.length - 1 ? 'page' : undefined">
               <div class="flex-center">
-                <YDSZIcon
+                <YdIcon
                   v-if="showIcon"
                   :class="{ 'size-5': item.isHome }"
                   :icon="item.icon"

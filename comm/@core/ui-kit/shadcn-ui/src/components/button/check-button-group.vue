@@ -21,8 +21,8 @@ import { cn, isFunction } from '@ydsz-core/shared/utils';
 
 import { objectOmit } from '@vueuse/core';
 
-import { YDSZRenderContent } from '../render-content';
-import YDSZButtonGroup from './button-group.vue';
+import { YdRenderContent } from '../render-content';
+import YdButtonGroup from './button-group.vue';
 import Button from './button.vue';
 
 const props = withDefaults(defineProps<YDSZButtonGroupProps>(), {
@@ -116,7 +116,7 @@ async function onBtnClick(value: ValueType) {
 }
 </script>
 <template>
-  <YDSZButtonGroup
+  <YdButtonGroup
     :size="props.size"
     :gap="props.gap"
     class="YDSZ-check-button-group"
@@ -150,10 +150,10 @@ async function onBtnClick(value: ValueType) {
         </slot>
       </div>
       <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
-        <YDSZRenderContent :content="btn.label" />
+        <YdRenderContent :content="btn.label" />
       </slot>
     </Button>
-  </YDSZButtonGroup>
+  </YdButtonGroup>
 </template>
 <style lang="scss" scoped>
 .YDSZ-check-button-group {

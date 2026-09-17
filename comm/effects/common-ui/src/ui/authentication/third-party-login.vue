@@ -10,7 +10,7 @@ import { useAppConfig } from '@ydsz/hooks';
 import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/shadcn-ui';
 
 import DingdingLogin from './dingding-login.vue';
 
@@ -34,34 +34,34 @@ const {
     </div>
 
     <div class="mt-4 flex flex-wrap justify-center">
-      <YDSZIconButton
+      <YdIconButton
         :tooltip="$t('authentication.wechatLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiWechat />
-      </YDSZIconButton>
-      <YDSZIconButton
+      </YdIconButton>
+      <YdIconButton
         :tooltip="$t('authentication.qqLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiQqchat />
-      </YDSZIconButton>
-      <YDSZIconButton
+      </YdIconButton>
+      <YdIconButton
         :tooltip="$t('authentication.githubLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiGithub />
-      </YDSZIconButton>
-      <YDSZIconButton
+      </YdIconButton>
+      <YdIconButton
         :tooltip="$t('authentication.googleLogin')"
         tooltip-side="top"
         class="mb-3"
       >
         <MdiGoogle />
-      </YDSZIconButton>
+      </YdIconButton>
       <DingdingLogin
         v-if="dingdingAuthConfig"
         :corp-id="dingdingAuthConfig.corpId"

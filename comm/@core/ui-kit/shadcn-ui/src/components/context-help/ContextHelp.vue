@@ -11,7 +11,7 @@
  *  - 按钮带 aria-label；
  *  - 装饰性图标 aria-hidden。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\context-help\ContextHelp.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\components\context-help\YdContextHelp.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -22,7 +22,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { HelpCircle, Info, X } from 'lucide-vue-next';
 
 defineOptions({
-  name: 'ContextHelp',
+  name: 'YdContextHelp',
 });
 
 interface Props {

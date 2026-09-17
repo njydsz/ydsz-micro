@@ -16,7 +16,7 @@ import type { MenuItemProps, MenuItemRegistered } from '../types';
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
 import { useNamespace } from '@ydsz-core/composables';
-import { YDSZIcon, YDSZTooltip } from '@ydsz-core/shadcn-ui';
+import { YdIcon, YdTooltip } from '@ydsz-core/shadcn-ui';
 
 import MenuBadge from './menu-badge.vue';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
@@ -143,14 +143,14 @@ onBeforeUnmount(() => {
     @click.stop="handleClick"
     @mouseenter="handleMouseEnter"
   >
-    <YDSZTooltip
+    <YdTooltip
       v-if="showTooltip"
       :content-class="[rootMenu.theme]"
       side="right"
     >
       <template #trigger>
         <div :class="[nsMenu.be('tooltip', 'trigger')]">
-          <YDSZIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
+          <YdIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
           <slot></slot>
           <span v-if="collapseShowTitle" :class="nsMenu.e('name')">
             <slot name="title"></slot>
@@ -158,14 +158,14 @@ onBeforeUnmount(() => {
         </div>
       </template>
       <slot name="title"></slot>
-    </YDSZTooltip>
+    </YdTooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
       <MenuBadge
         v-if="rootMenu.props.mode !== 'horizontal'"
         class="right-2"
         v-bind="props"
       />
-      <YDSZIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
+      <YdIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
       <slot></slot>
       <slot name="title"></slot>
     </div>

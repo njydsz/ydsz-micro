@@ -25,7 +25,7 @@ import { useAccessStore } from '@ydsz/stores';
 import { cloneDeep, mapTree } from '@ydsz/utils';
 
 import { YDSZAdminLayout } from '@ydsz-core/layout-ui';
-import { YDSZLogo } from '@ydsz-core/shadcn-ui';
+import { YdLogo } from '@ydsz-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';
@@ -258,7 +258,7 @@ const headerSlots = computed(() => {
   >
     <!-- logo -->
     <template #logo>
-      <YDSZLogo
+      <YdLogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
         :class="logoClass"
@@ -271,7 +271,7 @@ const headerSlots = computed(() => {
         <template v-if="$slots['logo-text']" #text>
           <slot name="logo-text"></slot>
         </template>
-      </YDSZLogo>
+      </YdLogo>
     </template>
     <!-- 头部区域 -->
     <template #header>
@@ -349,7 +349,7 @@ const headerSlots = computed(() => {
       />
     </template>
     <template #side-extra-title>
-      <YDSZLogo
+      <YdLogo
         v-if="preferences.logo.enable"
         :fit="preferences.logo.fit"
         :text="preferences.app.name"
@@ -358,7 +358,7 @@ const headerSlots = computed(() => {
         <template v-if="$slots['logo-text']" #text>
           <slot name="logo-text"></slot>
         </template>
-      </YDSZLogo>
+      </YdLogo>
     </template>
 
     <template #tabbar>
@@ -405,7 +405,7 @@ const headerSlots = computed(() => {
           @clear-preferences-and-logout="clearPreferencesAndLogout"
         />
       </template>
-      <!-- <YDSZBackTop /> -->
+      <!-- <YdBackTop /> -->
     </template>
   </YDSZAdminLayout>
 </template>

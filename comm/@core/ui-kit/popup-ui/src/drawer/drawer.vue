@@ -29,10 +29,10 @@ import {
 } from '@ydsz-core/composables';
 import { X } from '@ydsz-core/icons';
 import {
-  YDSZButton,
-  YDSZHelpTooltip,
-  YDSZIconButton,
-  YDSZLoading,
+  YdButton,
+  YdHelpTooltip,
+  YdIconButton,
+  YdLoading,
   Separator,
   Sheet,
   SheetClose,
@@ -237,9 +237,9 @@ const getForceMount = computed(() => {
             class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
             <slot name="close-icon">
-              <YDSZIconButton>
+              <YdIconButton>
                 <X class="size-4" />
-              </YDSZIconButton>
+              </YdIconButton>
             </slot>
           </SheetClose>
           <Separator
@@ -252,9 +252,9 @@ const getForceMount = computed(() => {
             <slot name="title">
               {{ title }}
 
-              <YDSZHelpTooltip v-if="titleTooltip" trigger-class="pb-1">
+              <YdHelpTooltip v-if="titleTooltip" trigger-class="pb-1">
                 {{ titleTooltip }}
-              </YDSZHelpTooltip>
+              </YdHelpTooltip>
             </slot>
           </SheetTitle>
           <SheetDescription v-if="description" class="mt-1 text-xs">
@@ -278,9 +278,9 @@ const getForceMount = computed(() => {
             class="data-[state=open]:bg-secondary ml-[2px] cursor-pointer rounded-full opacity-80 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           >
             <slot name="close-icon">
-              <YDSZIconButton>
+              <YdIconButton>
                 <X class="size-4" />
-              </YDSZIconButton>
+              </YdIconButton>
             </slot>
           </SheetClose>
         </div>
@@ -301,7 +301,7 @@ const getForceMount = computed(() => {
       >
         <slot></slot>
       </div>
-      <YDSZLoading v-if="showLoading || submitting" spinning />
+      <YdLoading v-if="showLoading || submitting" spinning />
       <SheetFooter
         v-if="showFooter"
         :class="
@@ -314,7 +314,7 @@ const getForceMount = computed(() => {
         <slot name="prepend-footer"></slot>
         <slot name="footer">
           <component
-            :is="components.DefaultButton || YDSZButton"
+            :is="components.DefaultButton || YdButton"
             v-if="showCancelButton"
             variant="ghost"
             :disabled="submitting"
@@ -326,7 +326,7 @@ const getForceMount = computed(() => {
           </component>
           <slot name="center-footer"></slot>
           <component
-            :is="components.PrimaryButton || YDSZButton"
+            :is="components.PrimaryButton || YdButton"
             v-if="showConfirmButton"
             :loading="confirmLoading || submitting"
             @click="() => drawerApi?.onConfirm()"

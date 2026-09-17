@@ -14,7 +14,7 @@ import type { YDSZLayoutProps } from './YDSZ-layout';
 
 import { SCROLL_FIXED_CLASS } from '@ydsz-core/composables';
 import { Menu } from '@ydsz-core/icons';
-import { YDSZIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/shadcn-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
 
 import {
@@ -195,13 +195,13 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
           </template>
 
           <template #toggle-button>
-            <YDSZIconButton
+            <YdIconButton
               v-if="showHeaderToggleButton"
               class="my-0 mr-1 rounded-md"
               @click="handleHeaderToggle"
             >
               <Menu class="size-4" />
-            </YDSZIconButton>
+            </YdIconButton>
           </template>
           <slot name="header"></slot>
         </LayoutHeader>

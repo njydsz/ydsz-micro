@@ -16,8 +16,8 @@ import { computed, useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YDSZTooltip } from '../tooltip';
-import YDSZButton from './button.vue';
+import { YdTooltip } from '../tooltip';
+import YdButton from './button.vue';
 
 interface Props extends YDSZButtonProps {
   class?: any;
@@ -43,7 +43,7 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
 </script>
 
 <template>
-  <YDSZButton
+  <YdButton
     v-if="!showTooltip"
     :class="cn('rounded-full', props.class)"
     :disabled="disabled"
@@ -52,15 +52,15 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
     @click="onClick"
   >
     <slot></slot>
-  </YDSZButton>
+  </YdButton>
 
-  <YDSZTooltip
+  <YdTooltip
     v-else
     :delay-duration="tooltipDelayDuration"
     :side="tooltipSide"
   >
     <template #trigger>
-      <YDSZButton
+      <YdButton
         :class="cn('rounded-full', props.class)"
         :disabled="disabled"
         :variant="variant"
@@ -68,12 +68,12 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
         @click="onClick"
       >
         <slot></slot>
-      </YDSZButton>
+      </YdButton>
     </template>
     <slot v-if="slots.tooltip" name="tooltip"> </slot>
     <template v-else>
       {{ tooltip }}
     </template>
-  </YDSZTooltip>
+  </YdTooltip>
 </template>
 

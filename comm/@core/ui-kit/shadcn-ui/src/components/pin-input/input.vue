@@ -17,7 +17,7 @@ import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
-import { YDSZButton } from '../button';
+import { YdButton } from '../button';
 
 // 云顶规范 §14.5：统一日志模块，禁止裸 console
 const logger = createLogger('PinInput');
@@ -123,7 +123,7 @@ const id = useId();
           :aria-label="`第 ${index + 1} 位验证码`"
         />
       </PinInputGroup>
-      <YDSZButton
+      <YdButton
         :disabled="disabled"
         :loading="btnLoading"
         class="flex-grow"
@@ -133,7 +133,7 @@ const id = useId();
         @click="handleSend"
       >
         {{ btnText }}
-      </YDSZButton>
+      </YdButton>
     </div>
   </PinInput>
 </template>
