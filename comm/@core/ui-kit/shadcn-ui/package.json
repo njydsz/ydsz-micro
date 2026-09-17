@@ -1,5 +1,5 @@
 {
-  "name": "@ydsz-core/shadcn-ui",
+  "name": "@ydsz-core/ydsz-ui",
   "version": "5.5.9",
   "#main": "./dist/index.mjs",
   "#module": "./dist/index.mjs",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@ydsz-core/uikit/shadcn-ui"
+    "directory": "comm/@core/ui-kit/ydsz-ui"
   },
   "license": "MIT",
   "type": "module",

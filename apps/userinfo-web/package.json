@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@ydsz-core/shared": "workspace:*",
-    "@ydsz-core/shadcn-ui": "workspace:*",
+    "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz/notification": "workspace:*",
     "@vueuse/core": "catalog:",
     "@ydsz/access": "workspace:*",

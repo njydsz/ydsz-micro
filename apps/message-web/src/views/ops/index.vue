@@ -212,6 +212,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
+          </YdCardContent>
         </YdCard>
 
         <!-- BloomFilter 区 -->
@@ -249,8 +250,9 @@ onMounted(() => {
                 </p>
               </div>
             </div>
-          </div>
-        </ElCard>
+
+<longcat_arg_value>          </div>
+        </YdCard>
       </div>
 
       <!-- 清理单条缓存弹窗 -->

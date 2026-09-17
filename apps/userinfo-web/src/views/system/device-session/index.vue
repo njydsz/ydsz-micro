@@ -177,6 +177,6 @@ onMounted(() => {
         </ElTableColumn>
       </ElTable>
       <ElEmpty v-if="devices.length === 0" description="暂无设备记录" :image-size="60" />
-    </ElCard>
+    </YdCard>
   </Page>
 </template>

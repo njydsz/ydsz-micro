@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@ydsz-core/form-ui": "workspace:*",
-    "@ydsz-core/shadcn-ui": "workspace:*",
+    "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz/hooks": "workspace:*",
     "@ydsz/icons": "workspace:*",

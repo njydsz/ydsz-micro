@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export * from './directive';
-export { useWatermark } from './use-watermark';
+export * from './yd-watermark';
+export { useWatermark } from './useYdWatermark';

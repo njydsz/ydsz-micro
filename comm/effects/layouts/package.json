@@ -25,7 +25,7 @@
     "@ydsz-core/layout-ui": "workspace:*",
     "@ydsz-core/menu-ui": "workspace:*",
     "@ydsz-core/popup-ui": "workspace:*",
-    "@ydsz-core/shadcn-ui": "workspace:*",
+    "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/tabs-ui": "workspace:*",
     "@ydsz/constants": "workspace:*",

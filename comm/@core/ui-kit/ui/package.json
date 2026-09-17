@@ -46,7 +46,7 @@
     }
   },
   "dependencies": {
-    "@ydsz-core/shadcn-ui": "workspace:*",
+    "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz-core/form-ui": "workspace:*",
     "@ydsz-core/popup-ui": "workspace:*",
     "@ydsz-core/menu-ui": "workspace:*",

@@ -343,6 +343,7 @@ onMounted(() => {
         </YdCardContent>
       </YdCard>
       <YdCard>
+        <YdCardContent class="pt-6">
         <div class="flex items-center justify-between">
           <div>
             <div class="text-sm text-gray-500">{{ t('monitor.healthScore') }}</div>
