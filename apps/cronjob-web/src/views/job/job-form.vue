@@ -17,7 +17,6 @@
  */
 import { useYDSZModal } from '@ydsz/common-ui';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Loader2 } from 'lucide-vue-next';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -314,8 +313,10 @@ async function handleValidateCron() {
         <Textarea v-model="formData.remark" placeholder="请输入备注" :rows="2" />
       </ElFormItem>
 
-      <ElCollapse class="mt-2">
-        <ElCollapseItem title="高级配置（参数 / 超时 / 重试 / 分片 / 时区）" name="advanced">
+      <Accordion type="single" collapsible class="mt-2 w-full">
+        <AccordionItem value="advanced">
+          <AccordionTrigger>高级配置（参数 / 超时 / 重试 / 分片 / 时区）</AccordionTrigger>
+          <AccordionContent>
           <ElFormItem label="任务参数(JSON)">
             <Textarea
               v-model="formData.paramsJson"
@@ -324,8 +325,9 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="超时时间(ms)">
-            <ElInputNumber
+            <Input
               v-model="formData.timeoutMs"
+              type="number"
               :min="1"
               :step="1000"
               class="w-full"
@@ -333,8 +335,9 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="慢任务阈值(ms)">
-            <ElInputNumber
+            <Input
               v-model="formData.slowThresholdMs"
+              type="number"
               :min="1"
               :step="100"
               class="w-full"
@@ -342,8 +345,9 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="SLA阈值(ms)">
-            <ElInputNumber
+            <Input
               v-model="formData.slaMs"
+              type="number"
               :min="1"
               :step="1000"
               class="w-full"
@@ -351,8 +355,9 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="锁TTL(ms)">
-            <ElInputNumber
+            <Input
               v-model="formData.lockTtlMs"
+              type="number"
               :min="30000"
               :step="60000"
               class="w-full"
@@ -360,28 +365,37 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="Misfire策略">
-            <ElSelect v-model="formData.misfirePolicy" class="w-full">
-              <ElOption
-                v-for="item in MISFIRE_POLICIES"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </ElSelect>
+            <Select v-model="formData.misfirePolicy" class="w-full">
+              <SelectTrigger class="w-full" />
+              <SelectContent>
+                <SelectItem
+                  v-for="item in MISFIRE_POLICIES"
+                  :key="item.value"
+                  :value="item.value"
+                >
+                  {{ item.label }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </ElFormItem>
           <ElFormItem label="阻塞策略">
-            <ElSelect v-model="formData.blockStrategy" class="w-full">
-              <ElOption
-                v-for="item in BLOCK_STRATEGIES"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </ElSelect>
+            <Select v-model="formData.blockStrategy">
+              <SelectTrigger class="w-full" />
+              <SelectContent>
+                <SelectItem
+                  v-for="item in BLOCK_STRATEGIES"
+                  :key="item.value"
+                  :value="item.value"
+                >
+                  {{ item.label }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </ElFormItem>
           <ElFormItem label="最大重试次数">
-            <ElInputNumber
+            <Input
               v-model="formData.maxRetries"
+              type="number"
               :min="0"
               :step="1"
               class="w-full"
@@ -389,26 +403,32 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="重试间隔(ms)">
-            <ElInputNumber
+            <Input
               v-model="formData.retryIntervalMs"
+              type="number"
               :min="1"
               :step="1000"
               class="w-full"
             />
           </ElFormItem>
           <ElFormItem label="重试退避">
-            <ElSelect v-model="formData.retryBackoff" class="w-full">
-              <ElOption
-                v-for="item in RETRY_BACKOFFS"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </ElSelect>
+            <Select v-model="formData.retryBackoff">
+              <SelectTrigger class="w-full" />
+              <SelectContent>
+                <SelectItem
+                  v-for="item in RETRY_BACKOFFS"
+                  :key="item.value"
+                  :value="item.value"
+                >
+                  {{ item.label }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </ElFormItem>
           <ElFormItem label="熔断阈值">
-            <ElInputNumber
+            <Input
               v-model="formData.maxConsecutiveFails"
+              type="number"
               :min="1"
               :step="1"
               class="w-full"
@@ -416,8 +436,9 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="自动恢复(分钟)">
-            <ElInputNumber
+            <Input
               v-model="formData.autoResumeAfterMinutes"
+              type="number"
               :min="1"
               :step="5"
               class="w-full"
@@ -425,8 +446,9 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="优先级">
-            <ElInputNumber
+            <Input
               v-model="formData.priority"
+              type="number"
               :min="0"
               :step="1"
               class="w-full"
@@ -434,8 +456,9 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="分片总数">
-            <ElInputNumber
+            <Input
               v-model="formData.shardTotal"
+              type="number"
               :min="1"
               :step="1"
               class="w-full"
@@ -443,16 +466,22 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="时区">
-            <ElSelect v-model="formData.timezone" class="w-full" filterable allow-create>
-              <ElOption v-for="tz in COMMON_TIMEZONES" :key="tz" :label="tz" :value="tz" />
-            </ElSelect>
+            <Select v-model="formData.timezone">
+              <SelectTrigger class="w-full" placeholder="选择或输入时区" />
+              <SelectContent>
+                <SelectItem v-for="tz in COMMON_TIMEZONES" :key="tz" :value="tz">
+                  {{ tz }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </ElFormItem>
           <ElFormItem label="目标集群">
             <Input v-model="formData.cluster" placeholder="跨集群调度，留空=本地集群" />
           </ElFormItem>
           <ElFormItem label="灰度比例(%)">
-            <ElInputNumber
+            <Input
               v-model="formData.canaryRatio"
+              type="number"
               :min="0"
               :max="100"
               :step="5"
@@ -463,8 +492,9 @@ async function handleValidateCron() {
           <ElFormItem v-if="formData.canaryRatio" label="灰度处理器">
             <Input v-model="formData.canaryHandler" placeholder="canaryRatio>0 时生效" />
           </ElFormItem>
-        </ElCollapseItem>
-      </ElCollapse>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </ElForm>
   </Modal>
 </template>

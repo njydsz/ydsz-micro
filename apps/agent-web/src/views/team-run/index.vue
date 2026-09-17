@@ -259,171 +259,187 @@ async function handleCancel(row: TeamRun): Promise<void> {
   <Page auto-content-height>
     <div class="space-y-4 p-4">
       <!-- 列表 -->
-      <ElCard>
-        <Grid table-title="TeamRun 多Agent协作列表">
-          <template #toolbar-tools>
-            <ElButton type="primary" @click="handleCreate">创建 TeamRun</ElButton>
-          </template>
-        </Grid>
-        <ElEmpty v-if="teamRuns.length === 0" description="暂无 TeamRun 任务" />
-      </ElCard>
+      <Card>
+        <CardContent class="pt-6">
+          <Grid table-title="TeamRun 多Agent协作列表">
+            <template #toolbar-tools>
+              <Button @click="handleCreate">创建 TeamRun</Button>
+            </template>
+          </Grid>
+          <ElEmpty v-if="teamRuns.length === 0" description="暂无 TeamRun 任务" />
+        </CardContent>
+      </Card>
     </div>
 
     <!-- 创建 TeamRun 弹窗 -->
-    <ElDialog v-model="createModalVisible" title="创建 TeamRun" width="500px">
-      <ElForm :model="createForm" label-width="100px">
-        <ElFormItem label="名称" required>
-          <ElInput v-model="createForm.title" placeholder="请输入 TeamRun 名称" />
-        </ElFormItem>
-        <ElFormItem label="描述">
-          <ElInput v-model="createForm.description" type="textarea" :rows="3" placeholder="请输入描述信息" />
-        </ElFormItem>
-        <ElFormItem label="协作模式">
-          <ElSelect v-model="createForm.pattern" class="w-full">
-            <ElOption label="顺序执行" value="SEQUENTIAL" />
-            <ElOption label="并行执行" value="PARALLEL" />
-            <ElOption label="层级执行" value="HIERARCHICAL" />
-            <ElOption label="协商模式" value="NEGOTIATION" />
-          </ElSelect>
-        </ElFormItem>
-      </ElForm>
-      <template #footer>
-        <ElButton @click="createModalVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="submitCreate">确认创建</ElButton>
-      </template>
-    </ElDialog>
+    <Dialog v-model:open="createModalVisible">
+      <DialogContent class="sm:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle>创建 TeamRun</DialogTitle>
+        </DialogHeader>
+        <ElForm :model="createForm" label-width="100px">
+          <ElFormItem label="名称" required>
+            <ElInput v-model="createForm.title" placeholder="请输入 TeamRun 名称" />
+          </ElFormItem>
+          <ElFormItem label="描述">
+            <ElInput v-model="createForm.description" type="textarea" :rows="3" placeholder="请输入描述信息" />
+          </ElFormItem>
+          <ElFormItem label="协作模式">
+            <ElSelect v-model="createForm.pattern" class="w-full">
+              <ElOption label="顺序执行" value="SEQUENTIAL" />
+              <ElOption label="并行执行" value="PARALLEL" />
+              <ElOption label="层级执行" value="HIERARCHICAL" />
+              <ElOption label="协商模式" value="NEGOTIATION" />
+            </ElSelect>
+          </ElFormItem>
+        </ElForm>
+        <DialogFooter>
+          <Button variant="outline" @click="createModalVisible = false">取消</Button>
+          <Button @click="submitCreate">确认创建</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
 
     <!-- 添加成员弹窗 -->
-    <ElDialog v-model="addMemberModalVisible" title="添加成员" width="500px">
-      <ElForm :model="memberForm" label-width="100px">
-        <ElFormItem label="Agent 编码" required>
-          <ElInput v-model="memberForm.agentCode" placeholder="请输入 Agent 编码" />
-        </ElFormItem>
-        <ElFormItem label="角色">
-          <ElInput v-model="memberForm.role" placeholder="请输入角色名称" />
-        </ElFormItem>
-        <ElFormItem label="执行顺序">
-          <ElInput v-model.number="memberForm.executionOrder" type="number" placeholder="执行顺序" />
-        </ElFormItem>
-        <ElFormItem label="输入上下文">
-          <ElInput v-model="memberForm.inputContext" type="textarea" :rows="3" placeholder="请输入输入上下文" />
-        </ElFormItem>
-      </ElForm>
-      <template #footer>
-        <ElButton @click="addMemberModalVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="submitAddMember">确认添加</ElButton>
-      </template>
-    </ElDialog>
+    <Dialog v-model:open="addMemberModalVisible">
+      <DialogContent class="sm:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle>添加成员</DialogTitle>
+        </DialogHeader>
+        <ElForm :model="memberForm" label-width="100px">
+          <ElFormItem label="Agent 编码" required>
+            <ElInput v-model="memberForm.agentCode" placeholder="请输入 Agent 编码" />
+          </ElFormItem>
+          <ElFormItem label="角色">
+            <ElInput v-model="memberForm.role" placeholder="请输入角色名称" />
+          </ElFormItem>
+          <ElFormItem label="执行顺序">
+            <ElInput v-model.number="memberForm.executionOrder" type="number" placeholder="执行顺序" />
+          </ElFormItem>
+          <ElFormItem label="输入上下文">
+            <ElInput v-model="memberForm.inputContext" type="textarea" :rows="3" placeholder="请输入输入上下文" />
+          </ElFormItem>
+        </ElForm>
+        <DialogFooter>
+          <Button variant="outline" @click="addMemberModalVisible = false">取消</Button>
+          <Button @click="submitAddMember">确认添加</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
 
     <!-- TeamRun 详情弹窗 -->
-    <ElDialog
-      v-model="teamRunDetailVisible"
-      title="TeamRun 详情"
-      width="800px"
-      @close="selectedTeamRun = null"
-    >
-      <div v-if="selectedTeamRun">
-        <!-- 基本信息 -->
-        <ElCard class="mb-4">
-          <template #header>
-            <span class="font-medium">基本信息</span>
-          </template>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <span class="text-sm text-gray-500">TeamRun ID:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.teamRunId }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">名称:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.title }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">描述:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.description ?? '-' }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">协作模式:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.pattern ?? '-' }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">状态:</span>
-              <ElTag :type="getStatusTagType(selectedTeamRun.status ?? '')">
-                {{ selectedTeamRun.status }}
-              </ElTag>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">发起人:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.initiatedBy ?? '-' }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">创建时间:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.createdAt }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">启动时间:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.startedAt ?? '-' }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">完成时间:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.completedAt ?? '-' }}</span>
-            </div>
-            <div>
-              <span class="text-sm text-gray-500">最终结果:</span>
-              <span class="text-sm font-medium">{{ selectedTeamRun.finalResult ?? '-' }}</span>
-            </div>
-          </div>
-        </ElCard>
-
-        <!-- 成员列表 -->
-        <ElCard>
-          <template #header>
-            <span class="font-medium">成员列表({{ selectedTeamRun.members?.length ?? 0 }})</span>
-          </template>
-          <div v-if="selectedTeamRun.members && selectedTeamRun.members.length > 0">
-            <div
-              v-for="member in selectedTeamRun.members"
-              :key="member.memberId"
-              class="mb-2 rounded border p-3"
-            >
-              <div class="grid grid-cols-3 gap-2">
+    <Dialog v-model:open="teamRunDetailVisible" @update:open="!$event && (selectedTeamRun = null)">
+      <DialogContent class="sm:max-w-[800px]">
+        <DialogHeader>
+          <DialogTitle>TeamRun 详情</DialogTitle>
+        </DialogHeader>
+        <div v-if="selectedTeamRun">
+          <!-- 基本信息 -->
+          <Card class="mb-4">
+            <CardHeader>
+              <CardTitle class="text-base font-medium">基本信息</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div class="grid grid-cols-2 gap-4">
                 <div>
-                  <span class="text-sm text-gray-500">Agent:</span>
-                  <span class="text-sm font-medium">{{ member.agentCode }} ({{ member.agentName }})</span>
+                  <span class="text-sm text-muted-foreground">TeamRun ID:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.teamRunId }}</span>
                 </div>
                 <div>
-                  <span class="text-sm text-gray-500">角色:</span>
-                  <span class="text-sm font-medium">{{ member.role ?? '-' }}</span>
+                  <span class="text-sm text-muted-foreground">名称:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.title }}</span>
                 </div>
                 <div>
-                  <span class="text-sm text-gray-500">顺序:</span>
-                  <span class="text-sm font-medium">{{ member.executionOrder }}</span>
+                  <span class="text-sm text-muted-foreground">描述:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.description ?? '-' }}</span>
                 </div>
                 <div>
-                  <span class="text-sm text-gray-500">状态:</span>
-                  <ElTag :type="getStatusTagType(member.status ?? '')" size="small">
-                    {{ member.status }}
-                  </ElTag>
+                  <span class="text-sm text-muted-foreground">协作模式:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.pattern ?? '-' }}</span>
                 </div>
                 <div>
-                  <span class="text-sm text-gray-500">开始:</span>
-                  <span class="text-sm font-medium">{{ member.startedAt ?? '-' }}</span>
+                  <span class="text-sm text-muted-foreground">状态:</span>
+                  <Badge :variant="getStatusTagType(selectedTeamRun.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary'">
+                    {{ selectedTeamRun.status }}
+                  </Badge>
                 </div>
                 <div>
-                  <span class="text-sm text-gray-500">完成:</span>
-                  <span class="text-sm font-medium">{{ member.completedAt ?? '-' }}</span>
+                  <span class="text-sm text-muted-foreground">发起人:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.initiatedBy ?? '-' }}</span>
                 </div>
-                <div v-if="member.errorMessage" class="col-span-3">
-                  <span class="text-sm text-red-500">错误: {{ member.errorMessage }}</span>
+                <div>
+                  <span class="text-sm text-muted-foreground">创建时间:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.createdAt }}</span>
+                </div>
+                <div>
+                  <span class="text-sm text-muted-foreground">启动时间:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.startedAt ?? '-' }}</span>
+                </div>
+                <div>
+                  <span class="text-sm text-muted-foreground">完成时间:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.completedAt ?? '-' }}</span>
+                </div>
+                <div>
+                  <span class="text-sm text-muted-foreground">最终结果:</span>
+                  <span class="text-sm font-medium">{{ selectedTeamRun.finalResult ?? '-' }}</span>
                 </div>
               </div>
-            </div>
-          </div>
-          <ElEmpty v-else description="暂无成员" />
-        </ElCard>
-      </div>
-      <template #footer>
-        <ElButton @click="teamRunDetailVisible = false">关闭</ElButton>
-      </template>
-    </ElDialog>
+            </CardContent>
+          </Card>
+
+          <!-- 成员列表 -->
+          <Card>
+            <CardHeader>
+              <CardTitle class="text-base font-medium">成员列表({{ selectedTeamRun.members?.length ?? 0 }})</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div v-if="selectedTeamRun.members && selectedTeamRun.members.length > 0">
+                <div
+                  v-for="member in selectedTeamRun.members"
+                  :key="member.memberId"
+                  class="mb-2 rounded border border-border p-3"
+                >
+                  <div class="grid grid-cols-3 gap-2">
+                    <div>
+                      <span class="text-sm text-muted-foreground">Agent:</span>
+                      <span class="text-sm font-medium">{{ member.agentCode }} ({{ member.agentName }})</span>
+                    </div>
+                    <div>
+                      <span class="text-sm text-muted-foreground">角色:</span>
+                      <span class="text-sm font-medium">{{ member.role ?? '-' }}</span>
+                    </div>
+                    <div>
+                      <span class="text-sm text-muted-foreground">顺序:</span>
+                      <span class="text-sm font-medium">{{ member.executionOrder }}</span>
+                    </div>
+                    <div>
+                      <span class="text-sm text-muted-foreground">状态:</span>
+                      <Badge :variant="getStatusTagType(member.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary'" class="text-xs">
+                        {{ member.status }}
+                      </Badge>
+                    </div>
+                    <div>
+                      <span class="text-sm text-muted-foreground">开始:</span>
+                      <span class="text-sm font-medium">{{ member.startedAt ?? '-' }}</span>
+                    </div>
+                    <div>
+                      <span class="text-sm text-muted-foreground">完成:</span>
+                      <span class="text-sm font-medium">{{ member.completedAt ?? '-' }}</span>
+                    </div>
+                    <div v-if="member.errorMessage" class="col-span-3">
+                      <span class="text-sm text-destructive">错误: {{ member.errorMessage }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ElEmpty v-else description="暂无成员" />
+            </CardContent>
+          </Card>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" @click="teamRunDetailVisible = false">关闭</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </Page>
 </template>

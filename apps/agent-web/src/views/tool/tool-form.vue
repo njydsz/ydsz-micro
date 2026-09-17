@@ -16,8 +16,9 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-// TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSwitch/ElTabPane/ElTabs 表单套件+Tabs,保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch, ElTabPane, ElTabs } from 'element-plus';
+// TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSwitch 表单套件,保留 element-plus SKIP
+import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch } from 'element-plus';
+import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
 
@@ -144,9 +145,13 @@ watch(
 
 <template>
   <Modal :title="isEditMode ? '编辑工具' : '新增工具'" width="700px">
-    <ElTabs v-model="activeTab">
+    <Tabs v-model="activeTab">
+      <TabsList>
+        <TabsTrigger value="basic">基本信息</TabsTrigger>
+        <TabsTrigger value="params">参数配置</TabsTrigger>
+      </TabsList>
       <!-- 基本信息 -->
-      <ElTabPane label="基本信息" name="basic">
+      <TabsContent value="basic">
         <ElForm ref="formRef" label-width="100px" class="mt-3">
           <ElFormItem label="工具编码" required>
             <ElInput
@@ -198,7 +203,7 @@ watch(
       </ElTabPane>
 
       <!-- 参数配置 -->
-      <ElTabPane label="参数配置" name="params">
+      <TabsContent value="params">
         <ElForm label-width="100px" class="mt-3">
           <ElFormItem label="输入 Schema">
             <ElInput
@@ -225,12 +230,12 @@ watch(
             />
           </ElFormItem>
         </ElForm>
-      </ElTabPane>
-    </ElTabs>
+      </TabsContent>
+    </Tabs>
 
     <template #footer>
-      <ElButton @click="modalApi.close()">取消</ElButton>
-      <ElButton type="primary" @click="handleSubmit">保存</ElButton>
+      <Button variant="outline" @click="modalApi.close()">取消</Button>
+      <Button @click="handleSubmit">保存</Button>
     </template>
   </Modal>
 </template>

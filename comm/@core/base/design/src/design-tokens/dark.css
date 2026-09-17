@@ -1,3 +1,17 @@
+/**
+ * 暗色模式 Design Token —— 为 .dark 作用域下的变量赋予暗色值。
+ *
+ * 中性色、语义色、背景层级、文本、边框等基础 token 在暗色模式下整体反转，
+ * 品牌色阶的色相保持不变但亮度提升以适应深色背景。
+ *
+ * 所有主题变体位于文件尾部，仅覆盖 brand-50 ~ brand-700 品牌色板；
+ * 前景 / 背景 / 边框等通过 var(--brand-*) 引用链自动派生。
+ *
+ * @path comm\@core\base\design\src\design-tokens\dark.css
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
 .dark,
 .dark[data-theme='custom'],
 .dark[data-theme='default'] {
@@ -17,7 +31,7 @@
   --neutral-950: 240 4% 98%;
 
   /* ============================================================
-   * 品牌色阶 (Dark Mode Brand)
+   * 品牌色阶 (Dark Mode Brand) —— 色相继承亮色，亮度提升
    * ============================================================ */
   --brand-50: 180 20% 16%;
   --brand-100: 180 25% 24%;
@@ -191,7 +205,7 @@
   color-scheme: dark;
 
   /* ============================================================
-   * 层级间距 Tokens (Dark Mode) — 间距与亮色模式一致
+   * 层级间距 Tokens (Dark Mode) —— 间距与亮色模式一致
    * ============================================================ */
   --space-section: 1.5rem;
   --space-group: 1rem;
@@ -199,7 +213,7 @@
   --space-tight: 0.25rem;
 
   /* ============================================================
-   * Focus Ring 系统 (Dark Mode) — 品牌色偏亮以保持可见性
+   * Focus Ring 系统 (Dark Mode) —— 品牌色偏亮以保持可见性
    * ============================================================ */
   --focus-ring-width: 2px;
   --focus-ring-color: var(--brand-500);
@@ -209,7 +223,7 @@
     0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 
   /* ============================================================
-   * 玻璃态 Tokens (Dark Mode) — 暗色模式尤为精致
+   * 玻璃态 Tokens (Dark Mode) —— 暗色模式尤为精致
    * ============================================================ */
   --bg-glass: 222 10% 16% / 85%;
   --backdrop-blur: blur(16px) saturate(180%);
@@ -233,7 +247,7 @@
   --selection-foreground: var(--brand-50);
 
   /* ============================================================
-   * 列表悬停/激活 (Dark Mode) — 品牌色暗色色板
+   * 列表悬停/激活 (Dark Mode) —— 品牌色暗色色板
    * ============================================================ */
   --row-hover-bg: var(--brand-100);
   --row-active-bg: var(--brand-200);
@@ -241,355 +255,165 @@
 }
 
 /* ============================================================
- * Theme Variants Dark (preserved from original)
+ * Dark Mode Theme Variants —— 仅覆盖品牌色板（brand-50 ~ brand-700）
+ * 规范：YDIZ-a11y-003（data-theme 自研扩展 token 跟随修复）
+ *
+ * 所有暗色主题共享同套中性/语义 token；
+ * 前景 / 背景 / 边框通过 var(--brand-*) 引用链自动派生。
  * ============================================================ */
 
 .dark[data-theme='violet'],
 [data-theme='violet'] .dark {
-  --background: 224 71.4% 4.1%;
-  --background-deep: var(--background);
-  --foreground: 210 20% 98%;
-  --card: 224 71.4% 4.1%;
-  --card-foreground: 210 20% 98%;
-  --popover: 224 71.4% 4.1%;
-  --popover-foreground: 210 20% 98%;
-  --primary-foreground: 210 20% 98%;
-  --secondary: 215 27.9% 16.9%;
-  --secondary-foreground: 210 20% 98%;
-  --muted: 215 27.9% 16.9%;
-  --muted-foreground: 217.9 10.6% 64.9%;
-  --accent: 215 27.9% 16.9%;
-  --accent-foreground: 210 20% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 210 20% 98%;
-  --border: 215 27.9% 16.9%;
-  --input: 215 27.9% 16.9%;
-  --ring: 263.4 70% 50.4%;
-  --sidebar: 224 71.4% 4.1%;
-  --sidebar-deep: 224 71.4% 4.1%;
-  --header: 224 71.4% 4.1%;
-  --header-foreground: 210 20% 98%;
+  --brand-50: 262 25% 18%;
+  --brand-100: 262 30% 26%;
+  --brand-200: 262 35% 38%;
+  --brand-300: 262 45% 52%;
+  --brand-400: 262 55% 62%;
+  --brand-500: 262 83% 68%;
+  --brand-600: 262 83% 74%;
+  --brand-700: 262 83% 82%;
 }
 
 .dark[data-theme='pink'],
 [data-theme='pink'] .dark {
-  --background: 20 14.3% 4.1%;
-  --background-deep: var(--background);
-  --foreground: 0 0% 95%;
-  --card: 0 0% 9%;
-  --card-foreground: 0 0% 95%;
-  --popover: 0 0% 9%;
-  --popover-foreground: 0 0% 95%;
-  --primary-foreground: 355.7 100% 97.3%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 0 85.7% 97.3%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 346.8 77.2% 49.8%;
-  --sidebar: 20 14.3% 4.1%;
-  --sidebar-deep: 20 14.3% 4.1%;
-  --header: 20 14.3% 4.1%;
-  --header-foreground: 0 0% 95%;
+  --brand-50: 347 25% 18%;
+  --brand-100: 347 30% 26%;
+  --brand-200: 347 35% 38%;
+  --brand-300: 347 45% 52%;
+  --brand-400: 347 55% 62%;
+  --brand-500: 347 77% 62%;
+  --brand-600: 347 77% 70%;
+  --brand-700: 347 77% 80%;
 }
 
 .dark[data-theme='rose'],
 [data-theme='rose'] .dark {
-  --background: 0 0% 3.9%;
-  --background-deep: var(--background);
-  --foreground: 0 0% 98%;
-  --card: 0 0% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary-foreground: 0 85.7% 97.3%;
-  --secondary: 0 0% 14.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
-  --accent: 0 0% 14.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 0 72.2% 50.6%;
-  --sidebar: 0 0% 3.9%;
-  --sidebar-deep: 0 0% 3.9%;
-  --header: 0 0% 3.9%;
-  --header-foreground: 0 0% 98%;
+  --brand-50: 355 25% 18%;
+  --brand-100: 355 30% 26%;
+  --brand-200: 355 35% 38%;
+  --brand-300: 355 45% 52%;
+  --brand-400: 355 55% 62%;
+  --brand-500: 355 80% 62%;
+  --brand-600: 355 80% 70%;
+  --brand-700: 355 80% 80%;
 }
 
 .dark[data-theme='sky-blue'],
 [data-theme='sky-blue'] .dark {
-  --background: 222.2 84% 4.9%;
-  --background-deep: var(--background);
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary-foreground: 210 20% 98%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 48%;
-  --sidebar: 222.2 84% 4.9%;
-  --sidebar-deep: 222.2 84% 4.9%;
-  --header: 222.2 84% 4.9%;
-  --header-foreground: 210 40% 98%;
+  --brand-50: 221 25% 18%;
+  --brand-100: 221 30% 26%;
+  --brand-200: 221 35% 38%;
+  --brand-300: 221 45% 52%;
+  --brand-400: 221 55% 62%;
+  --brand-500: 221 83% 68%;
+  --brand-600: 221 83% 74%;
+  --brand-700: 221 83% 82%;
 }
 
 .dark[data-theme='deep-blue'],
 [data-theme='deep-blue'] .dark {
-  --background: 222.2 84% 4.9%;
-  --background-deep: var(--background);
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary-foreground: 210 20% 98%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 48%;
-  --sidebar: 222.2 84% 4.9%;
-  --sidebar-deep: 222.2 84% 4.9%;
-  --header: 222.2 84% 4.9%;
-  --header-foreground: 210 40% 98%;
+  --brand-50: 228 25% 18%;
+  --brand-100: 228 30% 26%;
+  --brand-200: 228 35% 36%;
+  --brand-300: 228 45% 48%;
+  --brand-400: 228 55% 58%;
+  --brand-500: 228 83% 65%;
+  --brand-600: 228 83% 72%;
+  --brand-700: 228 83% 80%;
 }
 
 .dark[data-theme='green'],
 [data-theme='green'] .dark {
-  --background: 20 14.3% 4.1%;
-  --background-deep: var(--background);
-  --foreground: 0 0% 95%;
-  --card: 24 9.8% 6%;
-  --card-foreground: 0 0% 95%;
-  --popover: 0 0% 9%;
-  --popover-foreground: 0 0% 95%;
-  --primary-foreground: 210 20% 98%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 0 85.7% 97.3%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 142.4 71.8% 29.2%;
-  --sidebar: 20 14.3% 4.1%;
-  --sidebar-deep: 20 14.3% 4.1%;
-  --header: 20 14.3% 4.1%;
-  --header-foreground: 0 0% 95%;
+  --brand-50: 142 25% 18%;
+  --brand-100: 142 30% 26%;
+  --brand-200: 142 35% 38%;
+  --brand-300: 142 40% 52%;
+  --brand-400: 142 50% 58%;
+  --brand-500: 142 76% 55%;
+  --brand-600: 142 76% 62%;
+  --brand-700: 142 76% 72%;
 }
 
 .dark[data-theme='deep-green'],
 [data-theme='deep-green'] .dark {
-  --background: 20 14.3% 4.1%;
-  --background-deep: var(--background);
-  --foreground: 0 0% 95%;
-  --card: 24 9.8% 6%;
-  --card-foreground: 0 0% 95%;
-  --popover: 0 0% 9%;
-  --popover-foreground: 0 0% 95%;
-  --primary-foreground: 210 20% 98%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 0 85.7% 97.3%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 142.4 71.8% 29.2%;
-  --sidebar: 20 14.3% 4.1%;
-  --sidebar-deep: 20 14.3% 4.1%;
-  --header: 20 14.3% 4.1%;
-  --header-foreground: 60 9.1% 97.8%;
+  --brand-50: 155 25% 16%;
+  --brand-100: 155 30% 24%;
+  --brand-200: 155 35% 35%;
+  --brand-300: 155 40% 48%;
+  --brand-400: 155 50% 55%;
+  --brand-500: 155 80% 52%;
+  --brand-600: 155 80% 60%;
+  --brand-700: 155 80% 70%;
 }
 
 .dark[data-theme='orange'],
 [data-theme='orange'] .dark {
-  --background: 20 14.3% 4.1%;
-  --background-deep: var(--background);
-  --foreground: 60 9.1% 97.8%;
-  --card: 20 14.3% 4.1%;
-  --card-foreground: 60 9.1% 97.8%;
-  --popover: 20 14.3% 4.1%;
-  --popover-foreground: 60 9.1% 97.8%;
-  --primary-foreground: 60 9.1% 97.8%;
-  --secondary: 12 6.5% 15.1%;
-  --secondary-foreground: 60 9.1% 97.8%;
-  --muted: 12 6.5% 15.1%;
-  --muted-foreground: 24 5.4% 63.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 60 9.1% 97.8%;
-  --destructive: 0 72.2% 50.6%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 12 6.5% 15.1%;
-  --input: 12 6.5% 15.1%;
-  --ring: 20.5 90.2% 48.2%;
-  --sidebar: 20 14.3% 4.1%;
-  --sidebar-deep: 20 14.3% 4.1%;
-  --header: 20 14.3% 4.1%;
-  --header-foreground: 60 9.1% 97.8%;
+  --brand-50: 25 30% 18%;
+  --brand-100: 25 35% 26%;
+  --brand-200: 25 40% 38%;
+  --brand-300: 25 50% 52%;
+  --brand-400: 25 60% 60%;
+  --brand-500: 25 95% 62%;
+  --brand-600: 25 95% 68%;
+  --brand-700: 25 95% 78%;
 }
 
 .dark[data-theme='yellow'],
 [data-theme='yellow'] .dark {
-  --background: 20 14.3% 4.1%;
-  --background-deep: var(--background);
-  --foreground: 60 9.1% 97.8%;
-  --card: 20 14.3% 4.1%;
-  --card-foreground: 60 9.1% 97.8%;
-  --popover: 20 14.3% 4.1%;
-  --popover-foreground: 60 9.1% 97.8%;
-  --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 12 6.5% 15.1%;
-  --secondary-foreground: 60 9.1% 97.8%;
-  --muted: 12 6.5% 15.1%;
-  --muted-foreground: 24 5.4% 63.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 60 9.1% 97.8%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 12 6.5% 15.1%;
-  --input: 12 6.5% 15.1%;
-  --ring: 35.5 91.7% 32.9%;
-  --sidebar: 20 14.3% 4.1%;
-  --sidebar-deep: 20 14.3% 4.1%;
-  --header: 20 14.3% 4.1%;
+  --brand-50: 45 25% 18%;
+  --brand-100: 45 30% 26%;
+  --brand-200: 45 35% 38%;
+  --brand-300: 45 50% 52%;
+  --brand-400: 45 55% 60%;
+  --brand-500: 45 90% 60%;
+  --brand-600: 45 90% 68%;
+  --brand-700: 45 90% 78%;
 }
 
 .dark[data-theme='zinc'],
 [data-theme='zinc'] .dark {
-  --background: 240 10% 3.9%;
-  --background-deep: var(--background);
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary-foreground: 240 5.9% 10%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 4.9% 83.9%;
-  --sidebar: 240 10% 3.9%;
-  --sidebar-deep: 240 10% 3.9%;
-  --header: 240 10% 3.9%;
-  --header-foreground: 0 0% 98%;
+  --brand-50: 240 5% 18%;
+  --brand-100: 240 5% 24%;
+  --brand-200: 240 5% 35%;
+  --brand-300: 240 5% 50%;
+  --brand-400: 240 5% 60%;
+  --brand-500: 240 6% 65%;
+  --brand-600: 240 6% 72%;
+  --brand-700: 240 6% 82%;
 }
 
 .dark[data-theme='neutral'],
 [data-theme='neutral'] .dark {
-  --background: 0 0% 3.9%;
-  --background-deep: var(--background);
-  --foreground: 0 0% 98%;
-  --card: 0 0% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary-foreground: 0 0% 9%;
-  --secondary: 0 0% 14.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
-  --accent: 0 0% 14.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 0 0% 83.1%;
-  --sidebar: 0 0% 3.9%;
-  --sidebar-deep: 0 0% 3.9%;
-  --header: 0 0% 3.9%;
-  --header-foreground: 0 0% 98%;
+  --brand-50: 0 0% 18%;
+  --brand-100: 0 0% 24%;
+  --brand-200: 0 0% 35%;
+  --brand-300: 0 0% 50%;
+  --brand-400: 0 0% 60%;
+  --brand-500: 0 0% 65%;
+  --brand-600: 0 0% 72%;
+  --brand-700: 0 0% 82%;
 }
 
 .dark[data-theme='slate'],
 [data-theme='slate'] .dark {
-  --background: 222.2 84% 4.9%;
-  --background-deep: var(--background);
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 212.7 26.8% 83.9;
-  --sidebar: 222.2 84% 4.9%;
-  --sidebar-deep: 222.2 84% 4.9%;
-  --header: 222.2 84% 4.9%;
-  --header-foreground: 210 40% 98%;
+  --brand-50: 215 10% 18%;
+  --brand-100: 215 10% 24%;
+  --brand-200: 215 12% 35%;
+  --brand-300: 215 12% 50%;
+  --brand-400: 215 14% 58%;
+  --brand-500: 215 20% 62%;
+  --brand-600: 215 20% 70%;
+  --brand-700: 215 20% 80%;
 }
 
 .dark[data-theme='gray'],
 [data-theme='gray'] .dark {
-  --background: 224 71.4% 4.1%;
-  --background-deep: var(--background);
-  --foreground: 210 20% 98%;
-  --card: 224 71.4% 4.1%;
-  --card-foreground: 210 20% 98%;
-  --popover: 224 71.4% 4.1%;
-  --popover-foreground: 210 20% 98%;
-  --primary-foreground: 220.9 39.3% 11%;
-  --secondary: 215 27.9% 16.9%;
-  --secondary-foreground: 210 20% 98%;
-  --muted: 215 27.9% 16.9%;
-  --muted-foreground: 217.9 10.6% 64.9%;
-  --accent: 215 27.9% 16.9%;
-  --accent-foreground: 210 20% 98%;
-  --destructive: 359.21 68.47% 56.47%;
-  --destructive-foreground: 210 20% 98%;
-  --border: 215 27.9% 16.9%;
-  --input: 215 27.9% 16.9%;
-  --ring: 216 12.2% 83.9%;
-  --sidebar: 224 71.4% 4.1%;
-  --sidebar-deep: 224 71.4% 4.1%;
-  --header: 224 71.4% 4.1%;
-  --header-foreground: 210 20% 98%;
+  --brand-50: 220 6% 18%;
+  --brand-100: 220 6% 24%;
+  --brand-200: 220 6% 35%;
+  --brand-300: 220 6% 50%;
+  --brand-400: 220 7% 58%;
+  --brand-500: 220 10% 62%;
+  --brand-600: 220 10% 70%;
+  --brand-700: 220 10% 80%;
 }
