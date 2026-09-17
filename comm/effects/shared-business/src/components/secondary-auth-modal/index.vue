@@ -5,8 +5,10 @@
  * visible / hint / error / loading 由 props 传入，confirm / cancel 由 emit 提交。
  *
  * <p>安全约束：
- * 关闭方式仅限「取消按钮」，遮罩点击与 ESC 已被禁止（close-on-click-modal=false / close-on-press-escape=false），
+ * 关闭方式仅限「取消按钮」，遮罩点击与 ESC 已被禁止（closeOnOverlayClick=false / closeOnEsc=false），
  * 防止用户绕过密码输入直接关闭导致 Promise 永不结算。
+ *
+ * 使用自研 Dialog + InputPassword + AlertBanner + Button，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\secondary-auth-modal\index.vue
  * @author ydsz-team
@@ -21,26 +23,38 @@
  */
 import { onBeforeUnmount, ref, watch } from 'vue';
 
-import {
-  ElAlert,
-  ElButton,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-} from 'element-plus';
 import { useI18n } from 'vue-i18n';
 
-const props = defineProps<{
-  /** 弹窗显隐 */
-  visible: boolean;
-  /** 顶部提示文案 */
-  hint?: string;
-  /** 表单校验错误 */
-  error?: string;
-  /** 按钮 loading 状态 */
-  loading?: boolean;
-}>();
+import {
+  AlertBanner,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  InputPassword,
+} from '@ydsz-core/shadcn-ui';
+
+defineOptions({ name: 'SecondaryAuthModal' });
+
+const props = withDefaults(
+  defineProps<{
+    /** 弹窗显隐 */
+    visible: boolean;
+    /** 顶部提示文案 */
+    hint?: string;
+    /** 表单校验错误 */
+    error?: string;
+    /** 按钮 loading 状态 */
+    loading?: boolean;
+  }>(),
+  {
+    error: '',
+    hint: '',
+    loading: false,
+  },
+);
 
 const emit = defineEmits<{
   (e: 'confirm', password: string): void;
@@ -66,14 +80,14 @@ watch(
 );
 
 /** 处理确认（提交密码） */
-function handleConfirm() {
+function handleConfirm(): void {
   if (!password.value || submitting.value) return;
   submitting.value = true;
   emit('confirm', password.value);
 }
 
 /** 处理取消 */
-function handleCancel() {
+function handleCancel(): void {
   if (submitting.value) return;
   emit('cancel');
 }
@@ -86,36 +100,121 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <ElDialog
-    :model-value="props.visible"
-    :title="t('secondaryAuth.title')"
-    width="400px"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
-    :show-close="false"
-    append-to-body
-    @update:model-value="(val) => { if (!val) handleCancel(); }"
-  >
-    <ElAlert v-if="props.hint" :title="props.hint" type="warning" :closable="false" show-icon style="margin-bottom: 16px" />
-    <ElForm @submit.prevent="handleConfirm">
-      <ElFormItem :error="props.error">
-        <template #label>
-          <span>{{ t('secondaryAuth.password') }}</span>
-        </template>
-        <ElInput
-          v-model="password"
-          type="password"
-          :placeholder="t('secondaryAuth.passwordPlaceholder')"
-          show-password
-          @keyup.enter="handleConfirm"
-        />
-      </ElFormItem>
-    </ElForm>
-    <template #footer>
-      <ElButton @click="handleCancel">{{ t('secondaryAuth.cancel') }}</ElButton>
-      <ElButton type="primary" :loading="props.loading || submitting" @click="handleConfirm">
-        {{ t('secondaryAuth.confirm') }}
-      </ElButton>
-    </template>
-  </ElDialog>
+  <Dialog :open="visible">
+    <DialogContent
+      class="secondary-auth-modal"
+      :close-on-esc="false"
+      :close-on-overlay-click="false"
+      :show-close="false"
+      @update:open="(open) => { if (!open) handleCancel(); }"
+    >
+      <DialogHeader>
+        <DialogTitle>{{ t('secondaryAuth.title') }}</DialogTitle>
+      </DialogHeader>
+
+      <!-- 顶部提示 -->
+      <AlertBanner
+        v-if="props.hint"
+        :closable="false"
+        :show-icon="true"
+        :title="props.hint"
+        class="secondary-auth-modal__hint"
+        type="warning"
+      />
+
+      <!-- 表单区 -->
+      <form
+        class="secondary-auth-modal__form"
+        @submit.prevent="handleConfirm"
+      >
+        <label class="secondary-auth-modal__label">
+          <span class="secondary-auth-modal__label-text">
+            {{ t('secondaryAuth.password') }}
+          </span>
+          <InputPassword
+            v-model="password"
+            :placeholder="t('secondaryAuth.passwordPlaceholder')"
+            class="secondary-auth-modal__input"
+            :aria-invalid="!!props.error"
+            :aria-describedby="props.error ? 'secondary-auth-error' : undefined"
+            @keyup.enter="handleConfirm"
+          />
+        </label>
+        <p
+          v-if="props.error"
+          id="secondary-auth-error"
+          class="secondary-auth-modal__error"
+          role="alert"
+        >
+          {{ props.error }}
+        </p>
+      </form>
+
+      <!-- 操作区 -->
+      <DialogFooter class="secondary-auth-modal__footer">
+        <Button
+          :disabled="submitting"
+          type="button"
+          variant="outline"
+          @click="handleCancel"
+        >
+          {{ t('secondaryAuth.cancel') }}
+        </Button>
+        <Button
+          :loading="props.loading || submitting"
+          type="button"
+          @click="handleConfirm"
+        >
+          {{ t('secondaryAuth.confirm') }}
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
+
+<style scoped>
+.secondary-auth-modal {
+  width: 400px;
+  max-width: calc(100vw - 32px);
+}
+
+.secondary-auth-modal__hint {
+  margin-bottom: 16px;
+}
+
+.secondary-auth-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.secondary-auth-modal__label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.secondary-auth-modal__label-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: hsl(var(--txt-primary, #1f2937));
+}
+
+.secondary-auth-modal__input {
+  width: 100%;
+}
+
+.secondary-auth-modal__error {
+  font-size: 12px;
+  color: hsl(var(--destructive-500, #ef4444));
+  margin: 0;
+  min-height: 18px;
+}
+
+.secondary-auth-modal__footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+</style>

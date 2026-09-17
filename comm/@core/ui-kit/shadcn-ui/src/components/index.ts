@@ -10,6 +10,7 @@
  * @since 1.0.0
  */
 export * from './advanced-filter';
+export * from './alert';
 export * from './avatar';
 export * from './back-top';
 export * from './breadcrumb';

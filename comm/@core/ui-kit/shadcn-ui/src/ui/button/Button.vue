@@ -18,6 +18,7 @@ import type { ButtonVariants, ButtonVariantSize } from './types';
 
 import { cn } from '@ydsz-core/shared/utils';
 
+import { Loader2 } from 'lucide-vue-next';
 import { Primitive } from 'radix-vue';
 
 import { buttonVariants } from './button';
@@ -27,6 +28,8 @@ type ClassValue = string | Record<string, boolean> | (string | Record<string, bo
 
 interface Props extends PrimitiveProps {
   class?: ClassValue;
+  /** 加载中：禁用按钮并在左侧显示旋转动效 */
+  loading?: boolean;
   size?: ButtonVariantSize;
   variant?: ButtonVariants;
 }
@@ -34,15 +37,24 @@ interface Props extends PrimitiveProps {
 const props = withDefaults(defineProps<Props>(), {
   as: 'button',
   class: '',
+  loading: false,
 });
+
 </script>
 
 <template>
   <Primitive
     :as="as"
     :as-child="asChild"
+    :aria-disabled="loading"
     :class="cn(buttonVariants({ variant, size }), props.class)"
+    :disabled="loading"
   >
+    <Loader2
+      v-if="loading"
+      :class="cn('mr-1 size-4 animate-spin')"
+      aria-hidden="true"
+    />
     <slot></slot>
   </Primitive>
 </template>
