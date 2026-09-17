@@ -9,5 +9,5 @@
  * @since 1.0.0
  */
 export type * from './drawer';
-export { default as YdDrawer } from './drawer.vue';
+export { default as YdDrawer } from './YdDrawer.vue';
 export { setDefaultYdDrawerProps, useYdDrawer } from './use-drawer';

@@ -8,5 +8,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export type * from './YDSZ-layout';
-export { default as YdAdminLayout } from './YDSZ-layout.vue';
+export type * from './YdLayout';
+export { default as YdAdminLayout } from './YdLayout.vue';

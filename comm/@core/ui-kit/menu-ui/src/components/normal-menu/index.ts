@@ -9,4 +9,4 @@
  * @since 1.0.0
  */
 export type * from './normal-menu';
-export { default as YdNormalMenu } from './normal-menu.vue';
+export { default as YdNormalMenu } from './YdNormalMenu.vue';

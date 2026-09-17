@@ -1,17 +1,17 @@
 /**
- * 国际化配置入口 —— 配置 i18n、加载第三方库（Element Plus/dayjs）语言包
+ * 国际化配置入口 —— 配置 i18n、加载第三方库（dayjs）语言包
+ *
+ * EP 退场（ep-exit-refactor-plan v3 §P0-2）：移除 Element Plus 语言包装配与
+ * `elementLocale` 导出（ElConfigProvider 已随 EP 退场移除，无下游消费）；
+ * 组件库文案由 shadcn-ui / @ydsz/notification 自持，经 vue-i18n 统一管理。
  *
  * @path main\src\locales\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { Language } from 'element-plus/es/locale';
-
 import type { App } from 'vue';
 
 import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
-
-import { ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -24,15 +24,9 @@ import {
 import { preferences } from '@ydsz/preferences';
 
 import dayjs from 'dayjs';
-import enLocale from 'element-plus/es/locale/lang/en';
-import jaLocale from 'element-plus/es/locale/lang/ja';
-import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
-import zhTwLocale from 'element-plus/es/locale/lang/zh-tw';
 
 /** 模块级日志器 */
 const logger = createLogger('Locales');
-
-const elementLocale = ref<Language>(defaultLocale);
 
 const modules = import.meta.glob('./langs/**/*.json');
 
@@ -44,13 +38,9 @@ const localesMap = loadLocalesMapFromDir(
 async function loadMessages(lang: SupportedLanguagesType) {
   const [appLocaleMessages] = await Promise.all([
     localesMap[lang]?.(),
-    loadThirdPartyMessage(lang),
+    loadDayjsLocale(lang),
   ]);
   return appLocaleMessages?.default;
-}
-
-async function loadThirdPartyMessage(lang: SupportedLanguagesType) {
-  await Promise.all([loadElementLocale(lang), loadDayjsLocale(lang)]);
 }
 
 async function loadDayjsLocale(lang: SupportedLanguagesType) {
@@ -83,27 +73,6 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
   }
 }
 
-async function loadElementLocale(lang: SupportedLanguagesType) {
-  switch (lang) {
-    case 'en-US': {
-      elementLocale.value = enLocale;
-      break;
-    }
-    case 'zh-CN': {
-      elementLocale.value = defaultLocale;
-      break;
-    }
-    case 'ja-JP': {
-      elementLocale.value = jaLocale;
-      break;
-    }
-    case 'zh-TW': {
-      elementLocale.value = zhTwLocale;
-      break;
-    }
-  }
-}
-
 /**
  * 初始化应用国际化（i18n）。
  *
@@ -125,4 +94,4 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   preloadLocaleOnIdle(alternateLocale, localesMap);
 }
 
-export { $t, elementLocale, setupI18n };
+export { $t, setupI18n };

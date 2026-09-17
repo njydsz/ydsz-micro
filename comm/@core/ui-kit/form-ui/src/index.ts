@@ -19,9 +19,9 @@ export type {
   FormSchema as YdFormSchema,
 } from './types';
 
-export * from './use-YDSZ-form';
+export * from './use-Yd-form';
 export * from './use-field-subscription';
-// export { default as YdForm } from './YDSZ-form.vue';
+// export { default as YdForm } from './Yd-form.vue';
 export * as z from 'zod';
 
 // OpenAPI Schema → 表单组件类型映射（P1-1）

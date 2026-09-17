@@ -12,6 +12,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { YdTipTapEditor } from './YDSZ-tiptap-editor.vue';
+export { YdTipTapEditor } from './YdTipTapEditor.vue';
 export { YdTipTapToolbar } from './toolbar';
 export { getYdDefaultExtensions } from './extensions';

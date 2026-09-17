@@ -1,14 +1,19 @@
 /**
- * 通用异步组件注册表 —— 表单/弹窗/抽屉共享的 UI 组件统一装配层
+ * 通用异步组件注册表 —— 表单/弹窗/抽屉共享的 UI 组件统一装配层（基座版）
  *
  * 将原先写在 adapter/form 内部的基础组件提取为独立模块，使其可被
  * YDSZ-form、YDSZ-modal、YDSZ-drawer 等多个业务组件复用。
  *
- * 职责：
- *   - 通过 createElAsyncComponent() 工厂统一创建 Element Plus 异步组件（并行加载逻辑 + 样式）
- *   - 使用 withDefaultPlaceholder() 高阶函数为业务组件注入本地化占位符和方法透传
- *   - ComponentType 联合类型统一定义表单/弹窗支持的组件集合
- *   - initComponentAdapter() 将装配好的组件注册到 globalShareState，并定义全局消息提示
+ * EP 退场（ep-exit-refactor-plan v3 §P0-2）：原 Element Plus 异步组件注册表
+ * 整体切换为 shadcn-ui + form-controls 适配层，与 @ydsz/shared-business 的
+ * 公共注册表共用同一实现（common-ui form-controls）。shadcn kit 为可摇树
+ * ESM，无需 EP 时代的 Promise.all 双 import 异步装配。
+ *
+ * 语义降级登记（P1-1 落地后回补）：
+ * - Select：YDSZSelect 为 options 驱动（value 为字符串），ElSelectV2 的
+ *   大数据虚拟滚动暂以全量渲染承接；
+ * - DatePicker：kit 仅支持 date/datetime，range 型 schema 暂以单值承接；
+ * - TimePicker：由 FormTimePicker（datetime）过渡承接。
  *
  * @path main\src\adapter\component\index.ts
  * @author ydsz-team
@@ -19,56 +24,38 @@ import type { Component } from 'vue';
 
 import type { YdBaseFormComponentType } from '@ydsz/common-ui';
 
-import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 
-import { ApiComponent, globalShareState, IconPicker } from '@ydsz/common-ui';
+import {
+  ApiComponent,
+  FormCheckbox,
+  FormCheckboxGroup,
+  FormInputNumber,
+  FormRadioGroup,
+  FormSpace,
+  FormSwitch,
+  FormTimePicker,
+  FormTreeSelect,
+  FormUpload,
+  globalShareState,
+  IconPicker,
+} from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 import { showToast } from '@ydsz/notification';
+import { DatePicker, Separator, YDSZInput, YDSZSelect } from '@ydsz-core/shadcn-ui';
 
 /**
- * 创建 Element Plus 异步组件工厂。
+ * 为底层组件包裹默认 placeholder 并透传 expose 方法的高阶包装函数。
  *
- * 统一处理组件逻辑与样式 CSS 的并行加载，消除 17 处重复的
- * `Promise.all([import(comp), import(css)]).then(([res]) => res.ElXxx)` 模板。
+ * @remarks
+ * placeholder 取值优先级为 props > attrs > i18n 兜底，保证调用方显式传入时不被覆盖。
+ * 由于 `inheritAttrs: false` 且外层是新的 defineComponent，底层实例方法默认会丢失，
+ * 因此用 Proxy 惰性代理 `innerRef`，使 `formApi` 等调用方仍能拿到 focus/validate 等方法。
  *
- * @param componentName - Element Plus 组件名（kebab-case，如 'button'、'input-number'）
- * @param stylePath - 样式路径后缀（默认与 componentName 相同；如 'checkbox-button' 样式与 'checkbox' 逻辑分开）
- * @returns 异步加载的 Element Plus 组件
- */
-function createElAsyncComponent<T>(componentName: string, stylePath?: string): T {
-  const css = stylePath ?? componentName;
-  return defineAsyncComponent(() =>
-    Promise.all([
-      import(`element-plus/es/components/${componentName}/index`),
-      import(`element-plus/es/components/${css}/style/css`),
-    ]).then(([res]) => (res as { [key: string]: Component })[
-      `El${componentName.replace(/(^|-)([a-z])/g, (_, __, c: string) => c.toUpperCase())}`
-    ]),
-  ) as unknown as T;
-}
-
-const ElButton = createElAsyncComponent<Component>('button');
-const ElCheckbox = createElAsyncComponent<Component>('checkbox');
-const ElCheckboxButton = createElAsyncComponent<Component>('checkbox', 'checkbox-button');
-const ElCheckboxGroup = createElAsyncComponent<Component>('checkbox', 'checkbox-group');
-const ElDatePicker = createElAsyncComponent<Component>('date-picker');
-const ElDivider = createElAsyncComponent<Component>('divider');
-const ElInput = createElAsyncComponent<Component>('input');
-const ElInputNumber = createElAsyncComponent<Component>('input-number');
-const ElRadio = createElAsyncComponent<Component>('radio');
-const ElRadioButton = createElAsyncComponent<Component>('radio', 'radio-button');
-const ElRadioGroup = createElAsyncComponent<Component>('radio', 'radio-group');
-const ElSelectV2 = createElAsyncComponent<Component>('select-v2');
-const ElSpace = createElAsyncComponent<Component>('space');
-const ElSwitch = createElAsyncComponent<Component>('switch');
-const ElTimePicker = createElAsyncComponent<Component>('time-picker');
-const ElTreeSelect = createElAsyncComponent<Component>('tree-select');
-const ElUpload = createElAsyncComponent<Component>('upload');
-
-/**
- * 为业务组件包裹默认占位符与方法透传的高阶包装。
- *
- * 按类型（input/select）注入本地化 placeholder，并通过 Proxy 将内部实例暴露的方法透传给外层。
+ * @param component - 被包裹的底层组件
+ * @param type - 组件语义类型，用于回退到对应的 i18n 占位符（'input' | 'select'）
+ * @param componentProps - 透传给底层组件的默认 props，会被外部 props/attrs 覆盖
+ * @returns 包裹后的新组件，自动注入 placeholder 并透传内部实例方法
  */
 const withDefaultPlaceholder = <T extends Component>(
   component: T,
@@ -129,15 +116,15 @@ export type ComponentType =
   | YdBaseFormComponentType;
 
 /**
- * 初始化组件适配器。
+ * 初始化组件适配器：将表单/表格所需的 shadcn-ui 组件注册到全局共享状态。
  *
- * 将 Element Plus 组件映射为表单/弹窗/抽屉可用的业务组件，并注册全局消息提示到共享状态。
+ * @remarks
+ * 需在应用启动时调用一次，使 YDSZ-form、YDSZ-modal、YDSZ-drawer 能解析 {@link ComponentType}。
+ * DefaultButton / PrimaryButton / YDSZInput / YDSZCheckbox / YDSZSelect 等基础键
+ * 已由 form-ui 的 COMPONENT_MAP 内置 shadcn 实现，此处仅注册扩展键，同名覆盖请保持谨慎。
  */
 async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {
-    // 如果你的组件体积比较大，可以使用异步加载
-    // Button: () =>
-    // import('xxx').then((res) => res.Button),
     ApiSelect: withDefaultPlaceholder(
       {
         ...ApiComponent,
@@ -145,9 +132,8 @@ async function initComponentAdapter() {
       },
       'select',
       {
-        component: ElSelectV2,
-        loadingSlot: 'loading',
-        visibleEvent: 'onVisibleChange',
+        component: YDSZSelect,
+        optionsPropName: 'options',
       },
     ),
     ApiTreeSelect: withDefaultPlaceholder(
@@ -157,118 +143,27 @@ async function initComponentAdapter() {
       },
       'select',
       {
-        component: ElTreeSelect,
-        props: { label: 'label', children: 'children' },
-        nodeKey: 'value',
-        loadingSlot: 'loading',
-        optionsPropName: 'data',
-        visibleEvent: 'onVisibleChange',
+        component: FormTreeSelect,
+        optionsPropName: 'treeData',
       },
     ),
-    Checkbox: ElCheckbox,
-    CheckboxGroup: (props, { attrs, slots }) => {
-      let defaultSlot;
-      if (Reflect.has(slots, 'default')) {
-        defaultSlot = slots.default;
-      } else {
-        const { options, isButton } = attrs;
-        if (Array.isArray(options)) {
-          defaultSlot = () =>
-            options.map((option) =>
-              h(isButton ? ElCheckboxButton : ElCheckbox, option),
-            );
-        }
-      }
-      return h(
-        ElCheckboxGroup,
-        { ...props, ...attrs },
-        { ...slots, default: defaultSlot },
-      );
-    },
-    // 自定义默认按钮
-    DefaultButton: (props, { attrs, slots }) => {
-      return h(ElButton, { ...props, attrs, type: 'info' }, slots);
-    },
-    // 自定义主要按钮
-    PrimaryButton: (props, { attrs, slots }) => {
-      return h(ElButton, { ...props, attrs, type: 'primary' }, slots);
-    },
-    Divider: ElDivider,
+    Checkbox: FormCheckbox,
+    CheckboxGroup: FormCheckboxGroup,
+    DatePicker,
+    Divider: Separator,
     IconPicker: withDefaultPlaceholder(IconPicker, 'select', {
-      iconSlot: 'append',
       modelValueProp: 'model-value',
-      inputComponent: ElInput,
+      inputComponent: YDSZInput,
     }),
-    Input: withDefaultPlaceholder(ElInput, 'input'),
-    InputNumber: withDefaultPlaceholder(ElInputNumber, 'input'),
-    RadioGroup: (props, { attrs, slots }) => {
-      let defaultSlot;
-      if (Reflect.has(slots, 'default')) {
-        defaultSlot = slots.default;
-      } else {
-        const { options } = attrs;
-        if (Array.isArray(options)) {
-          defaultSlot = () =>
-            options.map((option) =>
-              h(attrs.isButton ? ElRadioButton : ElRadio, option),
-            );
-        }
-      }
-      return h(
-        ElRadioGroup,
-        { ...props, ...attrs },
-        { ...slots, default: defaultSlot },
-      );
-    },
-    Select: (props, { attrs, slots }) => {
-      return h(ElSelectV2, { ...props, attrs }, slots);
-    },
-    Space: ElSpace,
-    Switch: ElSwitch,
-    TimePicker: (props, { attrs, slots }) => {
-      const { name, id, isRange } = props;
-      const extraProps: Record<string, unknown> = {};
-      if (isRange) {
-        if (name && !Array.isArray(name)) {
-          extraProps.name = [name, `${name}_end`];
-        }
-        if (id && !Array.isArray(id)) {
-          extraProps.id = [id, `${id}_end`];
-        }
-      }
-      return h(
-        ElTimePicker,
-        {
-          ...props,
-          ...attrs,
-          ...extraProps,
-        },
-        slots,
-      );
-    },
-    DatePicker: (props, { attrs, slots }) => {
-      const { name, id, type } = props;
-      const extraProps: Record<string, unknown> = {};
-      if (type && type.includes('range')) {
-        if (name && !Array.isArray(name)) {
-          extraProps.name = [name, `${name}_end`];
-        }
-        if (id && !Array.isArray(id)) {
-          extraProps.id = [id, `${id}_end`];
-        }
-      }
-      return h(
-        ElDatePicker,
-        {
-          ...props,
-          ...attrs,
-          ...extraProps,
-        },
-        slots,
-      );
-    },
-    TreeSelect: withDefaultPlaceholder(ElTreeSelect, 'select'),
-    Upload: ElUpload,
+    Input: withDefaultPlaceholder(YDSZInput, 'input'),
+    InputNumber: withDefaultPlaceholder(FormInputNumber, 'input'),
+    RadioGroup: FormRadioGroup,
+    Select: YDSZSelect,
+    Space: FormSpace,
+    Switch: FormSwitch,
+    TimePicker: FormTimePicker,
+    TreeSelect: withDefaultPlaceholder(FormTreeSelect, 'select'),
+    Upload: FormUpload,
   };
 
   // 将组件注册到全局共享状态中

@@ -10,6 +10,6 @@
  */
 export { default as YdMenuBadge } from './components/menu-badge.vue';
 export * from './components/normal-menu';
-export { default as YdMenu } from './menu.vue';
+export { default as YdMenu } from './YdMenu.vue';
 export type * from './types';
 export * from './preload-adapter';

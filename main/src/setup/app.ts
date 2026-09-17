@@ -19,10 +19,8 @@ import { registerWatermarkDirective } from "@ydsz/common-ui/es/watermark";
 import { preferences } from "@ydsz/preferences";
 import { initStores } from "@ydsz/stores";
 import "@ydsz/styles";
-import "@ydsz/styles/ele";
 
 import { useTitle } from "@vueuse/core";
-import { ElLoading } from "element-plus";
 
 import { initComponentAdapter } from "#/adapter/component";
 import { initSetupYDSZForm } from "#/adapter/form";
@@ -41,10 +39,9 @@ export async function setupApp(namespace: string) {
 
   const app = createApp(App);
 
-  // v-loading 指令：使用 Element Plus 官方指令（YDSZ 自定义指令关闭）
-  app.directive("loading", ElLoading.directive);
+  // v-loading 指令：EP 退场后统一使用 YDSZ 自研 loading 指令
   registerLoadingDirective(app, {
-    loading: false, // YDSZ提供的v-loading指令和Element Plus提供的v-loading指令二选一即可，此处false表示不注册YDSZ提供的v-loading指令
+    loading: true, // 注册 YDSZ 提供的 v-loading 指令
     spinning: "spinning",
   });
 

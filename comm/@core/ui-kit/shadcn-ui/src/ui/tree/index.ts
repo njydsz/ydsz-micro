@@ -9,4 +9,12 @@
  * @since 1.0.0
  */
 export { default as YdTree } from './tree.vue';
+export { default as VTreeSearch } from './VTreeSearch.vue';
+export { useTreeSearch } from './use-tree-search';
 export type { FlattenedItem } from 'radix-vue';
+export type {
+  FilteredTreeNode,
+  TreeSearchHandle,
+  TreeSearchOptions,
+} from './use-tree-search';
+export type { VTreeSearchProps } from './VTreeSearch.vue';

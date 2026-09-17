@@ -8,5 +8,5 @@
  * @since 1.0.0
  */
 export type * from './modal';
-export { default as YdModal } from './modal.vue';
+export { default as YdModal } from './YdModal.vue';
 export { setDefaultYdModalProps, useYdModal } from './use-modal';

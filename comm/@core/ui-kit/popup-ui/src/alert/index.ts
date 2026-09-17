@@ -15,7 +15,7 @@ export type {
   YdPromptProps,
 } from './alert';
 export { useAlertContext } from './alert';
-export { default as YdAlert } from './alert.vue';
+export { default as YdAlert } from './YdAlert.vue';
 export {
   ydszAlert as alert,
   clearAllAlerts,
