@@ -1,5 +1,7 @@
 <!--
- * status-badge 通用组件
+ * status-badge 通用组件 — 统一的状态展示组件
+ *
+ * 使用自研 Badge 组件 + variant 语义映射，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\status-badge.vue
  * @author ydsz-team
@@ -7,15 +9,36 @@
 -->
 <script lang="ts" setup>
 /**
- * 状态徽章组件 — 统一的状态展示组件
+ * 状态徽章组件 — EP 风格的"颜色名"键升级为 shadcn variant 体系。
  *
- * 支持：项目阶段、任务状态、审批状态等
+ * 基于《UI组件复用规范.md》§3.1 的语义名约定（published / running / draft / offline /
+ * pending / success / failed / dirty / archived），业务方可通过 statusMap 自定义
+ * 键位 -> { variant, label } 的映射。对外保留对旧键名（info/warning/primary/success/danger）
+ * 的兼容，内部归一化到 shadcn Badge variant。
  */
 import { computed } from 'vue';
 
+import { Badge } from '@ydsz-core/shadcn-ui';
+
+type EpColor =
+  | 'info'
+  | 'primary'
+  | 'success'
+  | 'warning'
+  | 'danger';
+
+interface StatusConfig {
+  /** EP 色名（兼容旧 use 场景）；优先使用 variant，color 仅作 fallback */
+  color?: EpColor;
+  /** 显式指定 shadcn Badge variant；优先于 color */
+  variant?: 'default' | 'outline' | 'secondary' | 'destructive';
+  label: string;
+}
+
 interface Props {
   status: string;
-  statusMap?: Record<string, { color: string; label: string }>;
+  /** 状态 -> 显示配置 映射 */
+  statusMap?: Record<string, StatusConfig>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -32,11 +55,29 @@ const props = withDefaults(defineProps<Props>(), {
   }),
 });
 
-const config = computed(() => props.statusMap[props.status] || { color: 'info', label: props.status });
+/** EP color -> shadcn Badge variant 的兼容映射 */
+function colorToVariant(color?: EpColor): 'default' | 'outline' | 'secondary' | 'destructive' {
+  const map: Record<EpColor, 'default' | 'outline' | 'secondary' | 'destructive'> = {
+    info: 'secondary',
+    primary: 'default',
+    success: 'default',
+    warning: 'outline',
+    danger: 'destructive',
+  };
+  return map[color ?? 'info'];
+}
+
+const resolved = computed(() => {
+  const cfg = props.statusMap[props.status] ?? { color: 'info' as EpColor, label: props.status };
+  return {
+    label: cfg.label,
+    variant: cfg.variant ?? colorToVariant(cfg.color),
+  };
+});
 </script>
 
 <template>
-  <el-tag :type="config.color" size="small" effect="light">
-    {{ config.label }}
-  </el-tag>
+  <Badge :variant="resolved.variant">
+    {{ resolved.label }}
+  </Badge>
 </template>

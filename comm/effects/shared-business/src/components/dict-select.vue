@@ -1,8 +1,7 @@
 <!--
- * dict-select 通用组件
+ * 字典选择器组件 — 从全局字典缓存获取数据，支持数据权限过滤。
  *
- * <p>从全局字典缓存获取数据，支持数据权限过滤。
- * 监听字典变更事件（{@link emitDictChange}），自动刷新缓存。
+ * 使用自研 shadcn Select 套件（Select + SelectTrigger + SelectValue + SelectContent + SelectItem）。
  *
  * @path comm\effects\shared-business\src\components\dict-select.vue
  * @author ydsz-team
@@ -14,7 +13,13 @@
  */
 import { computed, onMounted, onUnmounted, watch } from 'vue';
 
-import { ElOption, ElSelect } from 'element-plus';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@ydsz-core/shadcn-ui';
 
 import { onDictChange } from '../composables/use-dict-event';
 import { useDictStore } from '@ydsz/stores';
@@ -29,6 +34,7 @@ interface Props {
   disabled?: boolean;
   clearable?: boolean;
   multiple?: boolean;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -37,6 +43,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   clearable: true,
   multiple: false,
+  loading: false,
   values: undefined,
 });
 
@@ -59,7 +66,7 @@ const options = computed(() => {
 });
 
 /** 保证字典加载 */
-function ensureLoadDict() {
+function ensureLoadDict(): void {
   dictStore.ensureLoaded(props.dictType);
 }
 
@@ -88,27 +95,30 @@ onUnmounted(() => {
   offDictChange();
 });
 
-function handleChange(value: string | number) {
+function handleChange(value: string | number): void {
   emit('update:modelValue', value);
   emit('change', value);
 }
 </script>
 
 <template>
-  <el-select
-    :model-value="modelValue"
-    :placeholder="placeholder"
-    :disabled="disabled"
-    :clearable="clearable"
+  <Select
+    :model-value="multiple ? undefined : (modelValue as string | number | undefined)"
+    :disabled="disabled || loading"
     :multiple="multiple"
-    :loading="dictStore.loadingTypes.has(dictType)"
     @update:model-value="handleChange"
   >
-    <el-option
-      v-for="opt in options"
-      :key="opt.value"
-      :label="opt.label"
-      :value="opt.value"
-    />
-  </el-select>
+    <SelectTrigger class="w-full">
+      <SelectValue :placeholder="placeholder" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem
+        v-for="opt in options"
+        :key="String(opt.value)"
+        :value="String(opt.value)"
+      >
+        {{ opt.label }}
+      </SelectItem>
+    </SelectContent>
+  </Select>
 </template>

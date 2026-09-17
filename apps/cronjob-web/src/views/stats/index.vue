@@ -17,9 +17,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElDatePicker/ElEmpty/ElTable/ElTableColumn 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElCard, ElDatePicker, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { Card, CardContent, CardHeader, CardTitle, DatePicker, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElEmpty/ElTable/ElTableColumn 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { daily, summary } from '#/api/jobStats';
@@ -107,59 +107,60 @@ onMounted(handleQuery);
 <template>
   <Page auto-content-height>
     <!-- 查询条件 -->
-    <ElCard shadow="never" class="mb-3">
-      <template #header>
-        <span class="font-medium">查询条件</span>
-      </template>
-      <div class="flex flex-wrap items-center gap-3">
+    <Card class="mb-3">
+      <CardHeader>
+        <CardTitle>查询条件</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div class="flex flex-wrap items-center gap-3">
         <Input
           v-model="queryForm.jobId"
           placeholder="任务ID（可选）"
           class="!w-56"
         />
-        <ElDatePicker
+        <DatePicker
           v-model="queryForm.startDate"
-          type="date"
           placeholder="开始日期"
-          value-format="YYYY-MM-DD"
           class="!w-40"
         />
-        <ElDatePicker
+        <DatePicker
           v-model="queryForm.endDate"
-          type="date"
           placeholder="结束日期"
-          value-format="YYYY-MM-DD"
           class="!w-40"
         />
-        <button
-          class="rounded bg-blue-500 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-600"
-          @click="handleQuery"
-        >
-          查询
-        </button>
-      </div>
-    </ElCard>
+          <button
+            class="rounded bg-blue-500 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-600"
+            @click="handleQuery"
+          >
+            查询
+          </button>
+        </div>
+      </CardContent>
+    </Card>
 
     <!-- 汇总统计卡片 -->
-    <ElCard shadow="never" class="mb-3">
-      <template #header>
-        <span class="font-medium">汇总统计</span>
-      </template>
-      <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+    <Card class="mb-3">
+      <CardHeader>
+        <CardTitle>汇总统计</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
         <div v-for="card in summaryCards" :key="card.label">
           <div class="text-sm text-gray-500">{{ card.label }}</div>
           <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
         </div>
-      </div>
-    </ElCard>
+        </div>
+      </CardContent>
+    </Card>
 
     <div class="grid grid-cols-1 gap-3 lg:grid-cols-5">
       <!-- 日报趋势图 -->
-      <ElCard shadow="never" class="lg:col-span-2">
-        <template #header>
-          <span class="font-medium">每日触发分布</span>
-        </template>
-        <div v-if="dailyList.length" class="flex h-64 items-end gap-1 px-1">
+      <Card class="lg:col-span-2">
+        <CardHeader>
+          <CardTitle>每日触发分布</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div v-if="dailyList.length" class="flex h-64 items-end gap-1 px-1">
           <div
             v-for="item in dailyList"
             :key="item.statsDate"
@@ -174,15 +175,17 @@ onMounted(handleQuery);
             >
           </div>
         </div>
-        <ElEmpty v-else description="暂无日报数据" :image-size="60" />
-      </ElCard>
+          <ElEmpty v-else description="暂无日报数据" :image-size="60" />
+        </CardContent>
+      </Card>
 
       <!-- 日报明细表格 -->
-      <ElCard shadow="never" class="lg:col-span-3">
-        <template #header>
-          <span class="font-medium">日报明细</span>
-        </template>
-        <ElTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" v-loading="isLoading">
+      <Card class="lg:col-span-3">
+        <CardHeader>
+          <CardTitle>日报明细</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ElTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" v-loading="isLoading">
           <ElTableColumn prop="statsDate" label="日期" width="110" />
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn prop="fireCount" label="触发" width="70" />
@@ -192,8 +195,9 @@ onMounted(handleQuery);
           <ElTableColumn prop="avgDurationMs" label="平均耗时(ms)" width="110" />
           <ElTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
         </ElTable>
-        <ElEmpty v-else description="暂无日报明细" :image-size="60" />
-      </ElCard>
+          <ElEmpty v-else description="暂无日报明细" :image-size="60" />
+        </CardContent>
+      </Card>
     </div>
   </Page>
 </template>

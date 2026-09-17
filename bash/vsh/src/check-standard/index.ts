@@ -16,6 +16,10 @@
  * - §16.1 SFC ≤1000 行 / 逻辑文件 ≤500 行 / 数据文件 ≤1000 行（需 @data-file）
  * - §16.3 函数行数 ≤50 行
  * - §7.3  硬编码敏感信息（mock 数据与占位值自动豁免）
+ * - EP-EXIT Element Plus 退场专项门禁（docs/ep-exit-refactor-plan-2026-09-17-v3.md）：
+ *         三形态引用（单引号/双引号静态 import、动态 import() 含模板字符串）
+ *         + 模板层 <el-*> 标签，注释行豁免。no-restricted-imports 无法覆盖
+ *         模板字符串动态 import，本计数器是动态形态的唯一门禁。
  *
  * 退出策略（CLI 侧执行）：P0/P1 计入失败，P2 仅提示不阻断。
  *
@@ -669,6 +673,79 @@ function checkSecrets(
 }
 
 // ---------------------------------------------------------------------------
+// EP-EXIT Element Plus 退场专项门禁
+// ---------------------------------------------------------------------------
+
+/**
+ * EP 引用探测：覆盖三种形态 ——
+ * 1. 静态 import（单/双引号）：`from 'element-plus'` / `from "@element-plus/icons-vue"`
+ * 2. 动态 import（字符串字面量）：`import('element-plus/es/components/xxx/index')`
+ * 3. 动态 import（模板字符串）：`` import(`element-plus/es/components/${name}/index`) ``
+ *
+ * 模块名必须紧跟引号/反引号，避免误伤 `unplugin-element-plus` 等工具链包名。
+ */
+const EP_MODULE_RE = /['"`](element-plus|@element-plus\/[\w-]+)/g;
+
+/** 模板层 kebab 标签探测（仅 .vue） */
+const EP_TEMPLATE_TAG_RE = /<el-[a-z]/;
+
+/**
+ * EP 退场残留扫描。
+ *
+ * <p>探测口径与验收标准（v3 计划 §三）一致：脚本层三形态 + 模板层 el- 标签，
+ * 纯注释行（//、*、/* 开头）豁免 —— el-bridge/compat 的文档注释中含
+ * `from 'element-plus'` 字面量属说明性文字，不构成运行时引用。
+ *
+ * @param files 参与扫描的 TS/Vue 文件
+ * @param rootDir 仓库根目录
+ * @param violations 违规收集器
+ */
+function checkEpExit(
+  files: string[],
+  rootDir: string,
+  violations: StandardViolation[],
+): void {
+  for (const file of files) {
+    const p = rel(rootDir, file);
+    const content = read(file);
+    if (!content) continue;
+    const lines = content.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i] ?? '';
+      const trimmed = line.trim();
+      // 注释行豁免（文档说明可提及 EP 字面量）
+      if (
+        trimmed.startsWith('//') ||
+        trimmed.startsWith('*') ||
+        trimmed.startsWith('/*')
+      ) {
+        continue;
+      }
+      EP_MODULE_RE.lastIndex = 0;
+      if (EP_MODULE_RE.test(line)) {
+        violations.push({
+          rule: 'EP-EXIT',
+          file: p,
+          line: i + 1,
+          message: `EP 引用残留（应为 shadcn-ui/compat，见 ep-exit-refactor-plan v3）：${trimmed.slice(0, 90)}`,
+          severity: 'P1',
+        });
+        continue;
+      }
+      if (p.endsWith('.vue') && EP_TEMPLATE_TAG_RE.test(line)) {
+        violations.push({
+          rule: 'EP-EXIT',
+          file: p,
+          line: i + 1,
+          message: `模板层 <el-*> 标签残留（应换 shadcn-ui 组件）：${trimmed.slice(0, 90)}`,
+          severity: 'P1',
+        });
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // 主入口
 // ---------------------------------------------------------------------------
 
@@ -705,6 +782,7 @@ export function checkStandard(
   checkFileLength([...tsFiles, ...vueFiles], rootDir, violations);
   checkFunctionLength(tsFiles, rootDir, violations);
   checkSecrets([...tsFiles, ...vueFiles], rootDir, violations);
+  checkEpExit([...tsFiles, ...vueFiles], rootDir, violations);
 
   return violations;
 }

@@ -1,5 +1,7 @@
 <!--
- * error-state 通用组件 — 统一错误状态展示
+ * 统一错误状态组件 — 展示错误信息 + 重试/返回操作
+ *
+ * 使用自研 Button + lucide AlertTriangle/Info/AlertCircle，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\error-state.vue
  * @author ydsz-team
@@ -7,13 +9,17 @@
 -->
 <script lang="ts" setup>
 /**
- * 统一错误状态组件 — 展示错误信息 + 重试/返回操作
+ * 统一错误状态组件 — 提供错误展示 + 重试/返回操作
  *
- * 兼容 common-ui 中既有 error-state 的场景，这里提供更完整的语义化 API：
- * - retry 回调触发重试
- * - 可选返回上一页
+ * 使用自研 Button 组件；三种 type（error/warning/info）对应不同的图标与配色。
  */
-import { ElButton } from 'element-plus';
+import { computed } from 'vue';
+
+import { AlertCircle, AlertTriangle, Info } from 'lucide-vue-next';
+
+import { cn } from '@ydsz-core/shared/utils';
+
+import { Button } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   /** 错误标题 */
@@ -28,7 +34,7 @@ interface Props {
   type?: 'error' | 'warning' | 'info';
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   title: '页面出错了',
   description: '请求失败，请稍后重试',
   showRetry: true,
@@ -41,7 +47,36 @@ const emit = defineEmits<{
   back: [];
 }>();
 
-function handleBack() {
+/** 图标映射 */
+const IconComponent = computed(() => {
+  const map: Record<'error' | 'warning' | 'info', typeof AlertCircle> = {
+    error: AlertCircle,
+    warning: AlertTriangle,
+    info: Info,
+  };
+  return map[props.type];
+});
+
+/** 配色映射 */
+const toneClasses = computed(() => {
+  const map: Record<'error' | 'warning' | 'info', { icon: string; bg: string }> = {
+    error: {
+      bg: 'bg-red-50',
+      icon: 'text-red-600',
+    },
+    warning: {
+      bg: 'bg-amber-50',
+      icon: 'text-amber-600',
+    },
+    info: {
+      bg: 'bg-slate-100',
+      icon: 'text-slate-500',
+    },
+  };
+  return map[props.type];
+});
+
+function handleBack(): void {
   if (window.history.length > 1) {
     window.history.back();
   }
@@ -50,19 +85,46 @@ function handleBack() {
 </script>
 
 <template>
-  <div class="error-state" :class="`error-state--${type}`">
-    <div class="error-state__icon">!</div>
-    <h3 class="error-state__title">{{ title }}</h3>
-    <p v-if="description" class="error-state__desc">{{ description }}</p>
-    <div class="error-state__actions">
-      <el-button v-if="showRetry" type="primary" size="small" @click="emit('retry')">
-        重试
-      </el-button>
-      <el-button v-if="showBack" size="small" @click="handleBack">
-        返回
-      </el-button>
+  <div :class="cn('error-state', `error-state--${type}`)">
+    <div
+      :class="[
+        'error-state__icon',
+        'flex items-center justify-center rounded-full',
+        toneClasses.bg,
+        toneClasses.icon,
+      ]"
+      aria-hidden="true"
+    >
+      <component :is="IconComponent" :size="28" />
     </div>
-    <div v-if="$slots.default" class="error-state__extra">
+    <h3 class="error-state__title">{{ title }}</h3>
+    <p
+      v-if="description"
+      class="error-state__desc"
+    >
+      {{ description }}
+    </p>
+    <div class="error-state__actions">
+      <Button
+        v-if="showRetry"
+        size="sm"
+        @click="emit('retry')"
+      >
+        重试
+      </Button>
+      <Button
+        v-if="showBack"
+        size="sm"
+        variant="outline"
+        @click="handleBack"
+      >
+        返回
+      </Button>
+    </div>
+    <div
+      v-if="$slots.default"
+      class="error-state__extra"
+    >
       <slot />
     </div>
   </div>
@@ -79,39 +141,21 @@ function handleBack() {
 }
 
 .error-state__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 56px;
   height: 56px;
-  border-radius: 50%;
-  background: #fef0f0;
-  color: #f56c6c;
-  font-size: 30px;
-  font-weight: 700;
   margin-bottom: 16px;
-}
-
-.error-state--warning .error-state__icon {
-  background: #fdf6ec;
-  color: #e6a23c;
-}
-
-.error-state--info .error-state__icon {
-  background: #f4f4f5;
-  color: #909399;
 }
 
 .error-state__title {
   font-size: 16px;
   font-weight: 600;
-  color: #303133;
+  color: hsl(var(--txt-primary, #1f2937));
   margin: 0 0 8px;
 }
 
 .error-state__desc {
   font-size: 13px;
-  color: #909399;
+  color: hsl(var(--txt-tertiary, #909399));
   margin: 0 0 16px;
   max-width: 320px;
 }

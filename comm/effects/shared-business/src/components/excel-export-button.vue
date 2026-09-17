@@ -1,5 +1,7 @@
 <!--
- * excel-export-button 通用组件
+ * Excel 导出按钮 — 声明式导出，绑定列定义与数据源即用
+ *
+ * 使用自研 Button + lucide Download 图标，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\excel-export-button.vue
  * @author ydsz-team
@@ -9,12 +11,16 @@
 /**
  * Excel 导出按钮 — 声明式导出，绑定列定义与数据源即用
  */
-import { ElButton } from 'element-plus';
+import { Download } from 'lucide-vue-next';
+
+import { Button } from '@ydsz-core/shadcn-ui';
 
 import {
   useExcelExport,
   type ExcelExportColumn,
 } from '../composables/use-excel-export';
+
+defineOptions({ name: 'ExcelExportButton' });
 
 interface Props<T = unknown> {
   /** 导出列定义 */
@@ -37,7 +43,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { exportExcel } = useExcelExport();
 
-async function handleClick() {
+async function handleClick(): Promise<void> {
   if (props.beforeExport) {
     const canProceed = await props.beforeExport();
     if (!canProceed) return;
@@ -51,7 +57,12 @@ async function handleClick() {
 </script>
 
 <template>
-  <el-button size="small" type="primary" plain @click="handleClick">
+  <Button
+    size="sm"
+    variant="default"
+    @click="handleClick"
+  >
+    <Download :size="14" class="mr-1" />
     {{ text }}
-  </el-button>
+  </Button>
 </template>

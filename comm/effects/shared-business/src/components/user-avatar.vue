@@ -1,15 +1,21 @@
 <!--
- * user-avatar 通用组件
+ * 用户头像组件 — 含在线状态指示
+ *
+ * 使用自研 Avatar 组件栈（Avatar / AvatarImage / AvatarFallback）+ 在线状态点。
  *
  * @path comm\effects\shared-business\src\components\user-avatar.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-/**
- * 用户头像组件 — 含在线状态指示
- */
 import { computed } from 'vue';
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@ydsz-core/shadcn-ui';
+import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {
   name?: string;
@@ -33,18 +39,34 @@ const displayName = computed(() => {
 </script>
 
 <template>
-  <div class="user-avatar" :style="{ '--avatar-size': size + 'px' }">
-    <el-avatar :size="size" :src="avatar || undefined">
-      {{ displayName }}
-    </el-avatar>
-    <span v-if="online" class="online-dot" />
+  <div
+    :class="cn('user-avatar', 'relative inline-flex')"
+    :style="{ '--avatar-size': size + 'px' }"
+  >
+    <Avatar
+      :class="cn('user-avatar__container')"
+      :style="{ width: size + 'px', height: size + 'px' }"
+    >
+      <AvatarImage
+        v-if="avatar"
+        :src="avatar"
+        :alt="props.name || props.userId"
+      />
+      <AvatarFallback>
+        {{ displayName }}
+      </AvatarFallback>
+    </Avatar>
+    <span
+      v-if="online"
+      class="online-dot"
+      aria-label="在线"
+    />
   </div>
 </template>
 
 <style scoped>
-.user-avatar {
-  position: relative;
-  display: inline-flex;
+.user-avatar:hover .user-avatar__container {
+  opacity: 0.9;
 }
 
 .online-dot {
@@ -54,7 +76,7 @@ const displayName = computed(() => {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #67c23a;
-  border: 2px solid #fff;
+  background: hsl(var(--success-500, #22c55e));
+  border: 2px solid hsl(var(--bg-surface-2, #fff));
 }
 </style>

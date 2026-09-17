@@ -1,5 +1,7 @@
 <!--
- * dict-tag 通用组件
+ * 字典标签组件 — 将字典值渲染为带颜色的标签（表格列常用）
+ *
+ * 使用自研 shadcn Badge 组件，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\dict-tag.vue
  * @author ydsz-team
@@ -7,21 +9,26 @@
 -->
 <script lang="ts" setup>
 /**
- * 字典标签组件 — 将字典值渲染为带颜色的标签（表格列常用）
+ * 字典标签组件 — 将字典值渲染为带颜色的标签。
+ *
+ * 基于《UI组件复用规范.md》§3.1 的语义名约定，保留对旧 EP 色名（info/warning/primary/
+ * success/danger）的兼容映射，内部统一归一到 shadcn Badge variant。
  */
 import { computed, onMounted, watch } from 'vue';
 
-import { ElTag } from 'element-plus';
+import { Badge } from '@ydsz-core/shadcn-ui';
 
 import { useDictStore } from '@ydsz/stores';
+
+type EpColor = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 interface Props {
   /** 字典类型编码 */
   dictType: string;
   /** 字典值 */
   value?: string | number;
-  /** 自定义颜色映射（value → el-tag type），不传时按索引轮询 */
-  colorMap?: Record<string, 'primary' | 'success' | 'info' | 'warning' | 'danger'>;
+  /** 自定义颜色映射（value → EP 色名），不传时按索引轮询 */
+  colorMap?: Record<string, EpColor>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -31,7 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const dictStore = useDictStore();
 
-const colorPalette: ('primary' | 'success' | 'info' | 'warning' | 'danger')[] = [
+const colorPalette: EpColor[] = [
   'primary',
   'success',
   'info',
@@ -39,24 +46,37 @@ const colorPalette: ('primary' | 'success' | 'info' | 'warning' | 'danger')[] = 
   'danger',
 ];
 
+/** EP color -> shadcn Badge variant 兼容映射 */
+function colorToVariant(color?: EpColor): 'default' | 'outline' | 'secondary' | 'destructive' {
+  const map: Record<EpColor, 'default' | 'outline' | 'secondary' | 'destructive'> = {
+    info: 'secondary',
+    primary: 'default',
+    success: 'default',
+    warning: 'outline',
+    danger: 'destructive',
+  };
+  return map[color ?? 'info'];
+}
+
 const items = computed(() => dictStore.getItems(props.dictType));
 
 const current = computed(() =>
   items.value.find((item) => String(item.itemValue) === String(props.value)),
 );
 
-const tagType = computed(() => {
+const tagVariant = computed(() => {
   if (props.colorMap?.[String(props.value)]) {
-    return props.colorMap[String(props.value)];
+    return colorToVariant(props.colorMap[String(props.value)]);
   }
   if (!props.value && props.value !== 0) {
-    return 'info';
+    return 'secondary';
   }
   // 按字典项排序位置轮询取色，保证同一值颜色稳定
   const idx = items.value.findIndex(
     (item) => String(item.itemValue) === String(props.value),
   );
-  return colorPalette[idx % colorPalette.length] ?? 'info';
+  const color = colorPalette[idx % colorPalette.length] ?? 'info';
+  return colorToVariant(color);
 });
 
 onMounted(() => {
@@ -73,14 +93,22 @@ watch(
 </script>
 
 <template>
-  <el-tag v-if="current" :type="tagType" size="small" effect="light">
+  <Badge
+    v-if="current"
+    :variant="tagVariant"
+  >
     {{ current.itemText }}
-  </el-tag>
-  <span v-else class="dict-tag--empty">-</span>
+  </Badge>
+  <span
+    v-else
+    class="dict-tag--empty"
+  >
+    -
+  </span>
 </template>
 
 <style scoped>
 .dict-tag--empty {
-  color: #909399;
+  color: hsl(var(--txt-tertiary, #909399));
 }
 </style>

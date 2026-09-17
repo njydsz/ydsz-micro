@@ -1,27 +1,36 @@
-﻿<!--
- * excel-import-button 通用组件
+<!--
+ * Excel 导入按钮 — 隐藏 file input + 解析回调
+ *
+ * 使用自研 Button + lucide Upload 图标，零 element-plus 依赖。
+ * 提示信息改用 @ydsz/notification 的 showToast，与 EP ElMessage 行为兼容。
  *
  * @path comm\effects\shared-business\src\components\excel-import-button.vue
  * @author ydsz-team
  * @since 1.1.0
 -->
 <script lang="ts" setup>
-import { createLogger } from '@ydsz-core/shared/utils';
-const logger = createLogger('excel-import-button');
 /**
  * Excel 导入按钮 — 隐藏 file input + 解析回调
  */
 import { ref } from 'vue';
 
-import { ElButton, ElMessage } from 'element-plus';
+import { Upload } from 'lucide-vue-next';
 
+import { showToast } from '@ydsz/notification';
+import { Button } from '@ydsz-core/shadcn-ui';
+
+import { createLogger } from '@ydsz-core/shared/utils';
 import {
   useExcelImport,
   type ExcelImportColumn,
   type ExcelImportResult,
 } from '../composables/use-excel-import';
 
-interface Props<T = unknown> {
+defineOptions({ name: 'ExcelImportButton' });
+
+const logger = createLogger('excel-import-button');
+
+interface Props<T = Record<string, unknown>> {
   /** 列映射配置 */
   columns: ExcelImportColumn[];
   /** 解析成功回调 */
@@ -42,11 +51,11 @@ const loading = ref(false);
 
 const { parseExcel } = useExcelImport();
 
-function handleChoose() {
+function handleChoose(): void {
   inputRef.value?.click();
 }
 
-async function handleFileChange(event: Event) {
+async function handleFileChange(event: Event): Promise<void> {
   const input = event.target as HTMLInputElement;
   const file = input.files?.[0];
   if (!file) return;
@@ -55,13 +64,13 @@ async function handleFileChange(event: Event) {
   try {
     const result = await parseExcel(file, { columns: props.columns });
     if (result.errors.length > 0) {
-      ElMessage.warning(
+      showToast.warning(
         `共 ${result.total} 行，${result.errors.length} 行有误：${result.errors[0].message}`,
       );
     }
     await props.onSuccess(result);
   } catch (error) {
-    ElMessage.error('文件解析失败，请检查格式');
+    showToast.error('文件解析失败，请检查格式');
     logger.error('[excel-import]', error);
   } finally {
     loading.value = false;
@@ -72,15 +81,15 @@ async function handleFileChange(event: Event) {
 </script>
 
 <template>
-  <el-button
-    size="small"
-    type="success"
-    plain
-    :loading="loading"
+  <Button
+    :disabled="loading"
+    size="sm"
+    variant="outline"
     @click="handleChoose"
   >
+    <Upload :size="14" class="mr-1" />
     {{ text }}
-  </el-button>
+  </Button>
   <input
     ref="inputRef"
     type="file"
