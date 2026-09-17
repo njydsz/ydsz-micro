@@ -77,7 +77,7 @@ const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
       title: '分类',
       width: 100,
       slots: {
-        default: ({ row }) => h(ElTag, { type: 'primary' }, () => row.category ?? '-'),
+        default: ({ row }) => h(YdBadge, { variant: 'primary' }, () => row.category ?? '-'),
       },
     },
     {
@@ -85,7 +85,7 @@ const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
       title: '行业',
       width: 100,
       slots: {
-        default: ({ row }) => h(ElTag, { type: 'success' }, () => row.industry ?? '-'),
+        default: ({ row }) => h(YdBadge, { variant: 'success' }, () => row.industry ?? '-'),
       },
     },
     { field: 'description', title: '描述', minWidth: 160 },

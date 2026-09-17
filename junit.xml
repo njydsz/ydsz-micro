@@ -1,38 +1,784 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="13" failures="0" errors="0" time="0.0741091">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" timestamp="2026-09-17T09:32:42.950Z" hostname="DESKTOP-FIC0TQ3" tests="9" failures="0" errors="0" skipped="0" time="0.0690134">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应包含 class prop" time="0.0054079">
+<testsuites name="vitest tests" tests="246" failures="11" errors="0" time="1.555779">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-chunk-upload.test.ts" timestamp="2026-09-17T09:38:49.469Z" hostname="DESKTOP-FIC0TQ3" tests="5" failures="0" errors="0" skipped="0" time="0.1357769">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; enabled() 应在文件 &gt; chunkSize 时返回 true" time="0.002016">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应注入 FORM_ITEM_INJECTION_KEY" time="0.0396949">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; 应导出默认 chunkSize 常量" time="0.0003976">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应渲染 slot 内容" time="0.0116778">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; httpRequest 应返回 Promise" time="0.0008986">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应接受自定义 class" time="0.007624">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; abort 应无副作用地执行" time="0.0022381">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormLabel 应导出" time="0.0004005">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormControl 应导出" time="0.0002339">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormMessage 应导出" time="0.0001757">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormDescription 应导出" time="0.0001672">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="FORM_ITEM_INJECTION_KEY &gt; 应该是 Symbol 类型的 InjectionKey" time="0.0004601">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; hash 计算应返回稳定的字符串" time="0.1246586">
         </testcase>
     </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" timestamp="2026-09-17T09:32:42.958Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0050957">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="YdForm module exports &gt; FORM_ITEM_INJECTION_KEY 应定义为 symbol" time="0.0009834">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-column-drag.test.ts" timestamp="2026-09-17T09:38:49.518Z" hostname="DESKTOP-FIC0TQ3" tests="5" failures="0" errors="0" skipped="0" time="0.0068276">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-column-drag.test.ts" name="useColumnDrag &gt; 初始化时不应处于拖拽状态" time="0.002578">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="YdForm module exports &gt; useFormField 应定义为函数" time="0.0001357">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-column-drag.test.ts" name="useColumnDrag &gt; 指针按下时应注册事件监听器" time="0.0023195">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="YdForm module exports &gt; useFormField 脱离上下文应抛错" time="0.0016474">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-column-drag.test.ts" name="useColumnDrag &gt; canDrag 返回 false 时应阻止拖拽" time="0.0004624">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-column-drag.test.ts" name="useColumnDrag &gt; columns 为 ref 时应能正确读取初始状态" time="0.0002612">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-column-drag.test.ts" name="useColumnDrag &gt; columns 为 getter 函数时应能正确读取" time="0.000205">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-component-i18n.test.ts" timestamp="2026-09-17T09:38:49.561Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0034001">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-component-i18n.test.ts" name="useComponentI18n &gt; 默认应返回默认语言的翻译" time="0.0015534">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-component-i18n.test.ts" name="useComponentI18n &gt; 切换语言后应返回对应翻译" time="0.0002954">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-component-i18n.test.ts" name="useComponentI18n &gt; 支持嵌套 key 访问" time="0.0001402">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-component-i18n.test.ts" name="useComponentI18n &gt; 支持占位符替换" time="0.0001346">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-component-i18n.test.ts" name="useComponentI18n &gt; key 不存在时应 fallback 到 key 本身" time="0.0000919">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-component-i18n.test.ts" name="useComponentI18n &gt; 切换不存在的 locale 应保持原语言" time="0.0000931">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-drag-sort.test.ts" timestamp="2026-09-17T09:38:49.600Z" hostname="DESKTOP-FIC0TQ3" tests="5" failures="0" errors="0" skipped="0" time="0.0065528">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-drag-sort.test.ts" name="useDragSort &gt; 初始化时不应处于拖拽状态" time="0.0030328">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-drag-sort.test.ts" name="useDragSort &gt; 指针按下应记录初始索引" time="0.0012309">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-drag-sort.test.ts" name="useDragSort &gt; canDrag 返回 false 时不应开始拖拽" time="0.0004676">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-drag-sort.test.ts" name="useDragSort &gt; getItemProps 应返回正确的 data 属性" time="0.0002798">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-drag-sort.test.ts" name="useDragSort &gt; getListProps 应包含正确的 data 属性" time="0.0002564">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" timestamp="2026-09-17T09:38:49.665Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0678495">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; immediate=true 时应立即挂载" time="0.0165296">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; 默认应等待 idle 回调后挂载" time="0.0024265">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; forceMount() 应跳过等待立即挂载" time="0.0039878">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; 应返回 containerRef 引用" time="0.0019134">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; isHydrated 变更应触发响应式更新" time="0.0011508">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" name="useSimpleIdleHydrate &gt; DEV 模式下立即挂载（import.meta.env.DEV=true）" time="0.0337307">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-idle-hydrate.test.ts" name="useSimpleIdleHydrate &gt; 手动 forceMount 后 isHydrated 为 true" time="0.0063465">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-column-storage.test.ts" timestamp="2026-09-17T09:38:49.730Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0062947">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-column-storage.test.ts" name="useTableColumnStorage &gt; loadColumnConfig 在无存储时应返回空数组" time="0.0014927">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-column-storage.test.ts" name="useTableColumnStorage &gt; saveColumnConfig 后应能正确加载" time="0.0012378">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-column-storage.test.ts" name="useTableColumnStorage &gt; clearColumnConfig 应清除存储" time="0.0012373">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-column-storage.test.ts" name="useTableColumnStorage &gt; 版本不匹配时应返回空数组" time="0.0002298">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-column-storage.test.ts" name="useTableColumnStorage &gt; JSON 解析失败时应静默返回空数组" time="0.0001427">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-column-storage.test.ts" name="useTableColumnStorage &gt; localStorage 不可用时 save 应静默降级" time="0.0010236">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-tree-virtual.test.ts" timestamp="2026-09-17T09:38:49.773Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.009746">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-tree-virtual.test.ts" name="useTreeVirtual &gt; 无展开时只应展示根节点" time="0.0036472">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-tree-virtual.test.ts" name="useTreeVirtual &gt; 展开某节点后应包含其子孙" time="0.000308">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-tree-virtual.test.ts" name="useTreeVirtual &gt; totalHeight 应与展开后的节点数匹配" time="0.0002559">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-tree-virtual.test.ts" name="useTreeVirtual &gt; 可见切片长度应不超过视口容量 + overscan" time="0.0003023">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-tree-virtual.test.ts" name="useTreeVirtual &gt; 滚动更新 scrollTop 后应偏移切片" time="0.0003307">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-tree-virtual.test.ts" name="useTreeVirtual &gt; lazyLoad 回调应能被调用" time="0.0027329">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" timestamp="2026-09-17T09:38:49.808Z" hostname="DESKTOP-FIC0TQ3" tests="9" failures="0" errors="0" skipped="0" time="0.0333228">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; 应返回所有可见项（小列表不裁剪）" time="0.0265644">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; totalHeight 应等于 项数 × itemHeight" time="0.000522">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; 滚动后应更新可见项区间" time="0.0015056">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; offsetY 应表示首个可见项的顶部偏移" time="0.0003302">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; measuredHeights 应影响单项高度" time="0.0005281">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; getKey 应生成稳定的 key" time="0.0003147">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; visibleItems 应包含正确的 data 引用" time="0.0011242">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; scrollTop 应响应 onScroll 调用" time="0.0004433">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; 空列表应安全返回空结果" time="0.0002531">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" timestamp="2026-09-17T09:38:49.871Z" hostname="DESKTOP-FIC0TQ3" tests="15" failures="0" errors="0" skipped="0" time="0.0787537">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 table.empty" time="0.001882">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 table.loading" time="0.0002582">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 form.validating" time="0.0011223">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 form.submitting" time="0.000194">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 common.confirm 和 common.cancel" time="0.0113047">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 table.empty" time="0.0003148">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 table.loading" time="0.0004022">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 form.validating" time="0.0002104">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 form.submitting" time="0.0004048">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 common.confirm 和 common.cancel" time="0.0101059">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; 应默认使用 zh-CN" time="0.0141825">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; t 函数应返回对应语种文案" time="0.0004703">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; t 函数 key 不存在时应返回 key 本身" time="0.0002286">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; 应支持自定义消息表" time="0.0002442">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; resolve 应覆盖 en-US 文案" time="0.0060113">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" timestamp="2026-09-17T09:38:49.968Z" hostname="DESKTOP-FIC0TQ3" tests="9" failures="0" errors="0" skipped="0" time="0.006603">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; 小数据量（&lt; threshold）应关闭虚拟滚动" time="0.0019973">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; 大数据量（&gt;= threshold）应开启虚拟滚动" time="0.0002388">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; 单选模式应输出 label 文本" time="0.0003696">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; toggleItem 单选模式应覆盖原值" time="0.0001836">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; toggleItem 单选模式再次点击相同 value 应取消" time="0.0001641">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; toggleItem 多选模式应追加到数组" time="0.001069">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; toggleItem 多选模式再次点击应移除" time="0.0006776">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; isSelected 单选模式应返回布尔" time="0.0002746">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-select-headless.test.ts" name="useSelectHeadless &gt; clearValue 多选应返回空数组" time="0.000346">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" timestamp="2026-09-17T09:38:50.008Z" hostname="DESKTOP-FIC0TQ3" tests="8" failures="0" errors="0" skipped="0" time="0.0051371">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; 默认展开与选中集合应为空" time="0.0017535">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; toggleExpand 应展开节点" time="0.0004987">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; 单选 toggleSelect 应替换选中" time="0.0002974">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; 多选 toggleSelect 应追加/移除" time="0.0002132">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; expandAll 应展开所有有子节点的祖先" time="0.0002322">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; collapseAll 应清空展开集合" time="0.00017">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; clearSelection 应清空选中集合" time="0.0002514">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-headless.test.ts" name="useTreeHeadless &gt; flattenedNodes 应包含所有节点" time="0.0003579">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/accessibility.test.ts" timestamp="2026-09-17T09:38:50.045Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/accessibility.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/accessibility.test.ts" time="0">
+            <failure message="Element is missing end tag." type="SyntaxError">
+SyntaxError: Element is missing end tag.
+30 |  interface Props {
+31 |    /** 行数据数组（列驱动模式必须） */
+32 |    data?: Record&lt;string, unknown&gt;[];
+   |                  ^
+33 |    /** 整个表格的宽度，默认 &apos;100%&apos; */
+34 |    width?: string;
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" timestamp="2026-09-17T09:38:50.061Z" hostname="DESKTOP-FIC0TQ3" tests="11" failures="0" errors="0" skipped="0" time="0.0034149">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialog compound components &gt; YdAlertDialog 应被定义" time="0.0010254">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialog compound components &gt; YdAlertDialogContent 应被定义" time="0.0001614">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialog compound components &gt; YdAlertDialogTitle 应被定义" time="0.0001132">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialog compound components &gt; YdAlertDialogDescription 应被定义" time="0.0001068">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialog compound components &gt; YdAlertDialogAction 应被定义" time="0.0001179">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialog compound components &gt; YdAlertDialogCancel 应被定义" time="0.0001088">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialog compound components &gt; YdAlertDialogTrigger 应被定义" time="0.0000831">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialogContent props &gt; 应包含 centered prop" time="0.000217">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialogContent props &gt; 应包含 overlayBlur prop" time="0.0001333">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialogContent props &gt; 应包含 zIndex prop" time="0.0001069">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/alertDialog.test.ts" name="YdAlertDialogContent props &gt; 应包含 class prop" time="0.000076">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" timestamp="2026-09-17T09:38:50.105Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0168631">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumb compound components &gt; YdBreadcrumb 应被定义" time="0.0115035">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumb compound components &gt; YdBreadcrumbList 应被定义" time="0.0003149">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumb compound components &gt; YdBreadcrumbItem 应被定义" time="0.0001464">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumb compound components &gt; YdBreadcrumbLink 应被定义" time="0.0000977">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumb compound components &gt; YdBreadcrumbPage 应被定义" time="0.0001226">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumb compound components &gt; YdBreadcrumbSeparator 应被定义" time="0.0003879">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumb compound components &gt; YdBreadcrumbEllipsis 应被定义" time="0.0001169">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumbLink props &gt; 应包含 class prop" time="0.0002173">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumbLink props &gt; 应包含 as prop" time="0.000096">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/breadcrumb/breadcrumb.test.ts" name="YdBreadcrumbLink props &gt; as 默认值应为 a" time="0.0009475">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts" timestamp="2026-09-17T09:38:50.154Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts" time="0">
+            <failure message="Failed to resolve import &quot;./YdButtonBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts&quot;. Does the file exist?" type="Error">
+Error: Failed to resolve import &quot;./YdButtonBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts&quot;. Does the file exist?
+  Plugin: vite:import-analysis
+  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts:15:25
+  1  |  import { describe, it, expect } from &quot;vitest&quot;;
+  2  |  import { mount } from &quot;@vue/test-utils&quot;;
+  3  |  import YdButtonBase from &quot;./YdButtonBase.vue&quot;;
+     |                            ^
+  4  |  import { buttonVariants } from &quot;./button&quot;;
+  5  |  describe(&quot;YdButtonBase&quot;, () =&gt; {
+ ❯ TransformPluginContext._formatLog node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41
+ ❯ TransformPluginContext.error node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16
+ ❯ normalizeUrl node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23
+ ❯ node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40753:37
+ ❯ TransformPluginContext.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40680:7
+ ❯ EnvironmentPluginContainer.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42453:18
+ ❯ loadAndTransform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35845:27
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" timestamp="2026-09-17T09:38:50.171Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0053817">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" name="YdConfigProvider exports &gt; YdConfigProvider 组件应被定义" time="0.0013568">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" name="YdConfigProvider exports &gt; CONFIG_INJECTION_KEY 应定义为 symbol" time="0.0001405">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" name="YdConfigProvider exports &gt; CONFIG_INJECTION_KEY 描述应为 ydsz-config" time="0.0000956">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" name="useConfigProvider fallback &gt; 无 provider 包裹时回退到 DEFAULT_CONFIG" time="0.0017455">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" name="useConfigProvider fallback &gt; 禁用 fallback 时返回空对象" time="0.0002309">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" name="useConfigProvider fallback &gt; 返回的配置对象不应为 null 或 undefined" time="0.0002732">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/config-provider/configProvider.test.ts" name="ConfigContext type guards &gt; size 只允许 small / default / large" time="0.0005061">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" timestamp="2026-09-17T09:38:50.206Z" hostname="DESKTOP-FIC0TQ3" tests="17" failures="0" errors="0" skipped="0" time="0.0242712">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenu 应被定义" time="0.0009667">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuContent 应被定义" time="0.0006545">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuItem 应被定义" time="0.0002497">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuTrigger 应被定义" time="0.0002058">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuLabel 应被定义" time="0.0002496">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSeparator 应被定义" time="0.0001357">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuGroup 应被定义" time="0.003421">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioGroup 应被定义" time="0.0048684">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioItem 应被定义" time="0.0038429">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuCheckboxItem 应被定义" time="0.0003792">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSub 应被定义" time="0.0004249">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubTrigger 应被定义" time="0.0002833">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubContent 应被定义" time="0.0001847">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuShortcut 应被定义" time="0.00014">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 class prop" time="0.0004914">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 inset prop" time="0.0001829">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuContent props &gt; 应包含 class prop" time="0.0049197">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" timestamp="2026-09-17T09:38:50.281Z" hostname="DESKTOP-FIC0TQ3" tests="12" failures="0" errors="0" skipped="0" time="0.7241635">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; en-US 语言下默认 placeholder 应为英文词条" time="0.1139435">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; en-US 下 range 模式默认 placeholder 应为英文词条" time="0.0332085">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; 应能挂载并渲染 input 元素" time="0.023616">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; input 应为 readonly" time="0.0178948">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; 应显示 placeholder" time="0.0188585">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; v-model 应回显到 input" time="0.0391151">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; disabled 状态下 input 应禁用" time="0.0579283">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; 自定义 class 应被合并到容器" time="0.0587961">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; 默认 placeholder 应为「选择日期」" time="0.0673953">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; type 默认为 date" time="0.0925179">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; range 模式下 v-model 元组应回显为「开始 ~ 结束」" time="0.0922294">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/date-picker/DatePicker.test.ts" name="YdDatePicker &gt; range 模式两次点击应提交 [start, end] 元组" time="0.10688">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" timestamp="2026-09-17T09:38:50.323Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.01048">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound components &gt; YdDialog 应存在且为根容器" time="0.0012015">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound components &gt; YdDialogContent 应导出并接收 class 属性" time="0.0003201">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound components &gt; YdDialogContent 应包含 showClose 默认 prop" time="0.000531">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound components &gt; YdDialogContent default showClose=true" time="0.000092">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound components &gt; YdDialogContent 应包含 animationType prop" time="0.0002275">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound exports &gt; YdDialogTrigger 应有定义" time="0.0003273">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound exports &gt; YdDialogHeader 应有定义" time="0.0000993">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound exports &gt; YdDialogTitle 应有定义" time="0.0000787">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound exports &gt; YdDialogDescription 应有定义" time="0.0000817">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dialog/dialog.test.ts" name="YdDialog compound exports &gt; YdDialogFooter 应有定义" time="0.0000889">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" timestamp="2026-09-17T09:38:50.360Z" hostname="DESKTOP-FIC0TQ3" tests="21" failures="0" errors="0" skipped="0" time="0.0251341">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenu 应被定义" time="0.0061008">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuContent 应被定义" time="0.0048881">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuItem 应被定义" time="0.0065749">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuTrigger 应被定义" time="0.0001755">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuLabel 应被定义" time="0.0002353">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSeparator 应被定义" time="0.0001887">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuGroup 应被定义" time="0.0000875">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuRadioGroup 应被定义" time="0.0000658">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuRadioItem 应被定义" time="0.0035371">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuCheckboxItem 应被定义" time="0.0001941">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSub 应被定义" time="0.0001061">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSubTrigger 应被定义" time="0.0000682">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSubContent 应被定义" time="0.0000537">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuShortcut 应被定义" time="0.0000573">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuItem props &gt; 应包含 class prop" time="0.0002588">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuItem props &gt; 应包含 inset prop" time="0.0000649">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuContent props &gt; 应包含 class prop" time="0.0000557">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuContent props &gt; 应包含 sideOffset prop" time="0.0000458">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuContent props &gt; sideOffset 默认值应为 4" time="0.0001273">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuLabel props &gt; 应包含 inset prop" time="0.0000649">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuShortcut props &gt; 应包含 class prop" time="0.000063">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" timestamp="2026-09-17T09:38:50.488Z" hostname="DESKTOP-FIC0TQ3" tests="9" failures="0" errors="0" skipped="0" time="0.0909653">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应包含 class prop" time="0.0015129">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应注入 FORM_ITEM_INJECTION_KEY" time="0.0546044">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应渲染 slot 内容" time="0.0196853">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="YdFormItem &gt; 应接受自定义 class" time="0.0105189">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormLabel 应导出" time="0.0002707">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormControl 应导出" time="0.0001441">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormMessage 应导出" time="0.0001015">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="Form related exports &gt; YdFormDescription 应导出" time="0.0000783">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/form-item.test.ts" name="FORM_ITEM_INJECTION_KEY &gt; 应该是 Symbol 类型的 InjectionKey" time="0.0001599">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" timestamp="2026-09-17T09:38:50.532Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0232889">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="YdForm module exports &gt; FORM_ITEM_INJECTION_KEY 应定义为 symbol" time="0.0061164">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="YdForm module exports &gt; useFormField 应定义为函数" time="0.0023551">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="YdForm module exports &gt; useFormField 脱离上下文应抛错" time="0.0081473">
             <system-err>
 [Vue warn]: inject() can only be used inside setup() or functional components.
 [Vue warn]: inject() can only be used inside setup() or functional components.
 
             </system-err>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="ValidateOnMode type &gt; 应支持四档校验时机" time="0.0012313">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/formExports.test.ts" name="ValidateOnMode type &gt; 应支持四档校验时机" time="0.0034089">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/input/input.test.ts" timestamp="2026-09-17T09:38:50.554Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0030869">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/input/input.test.ts" name="YdInput &gt; YdInput 应被定义" time="0.0013316">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/input/input.test.ts" name="YdInput &gt; 应包含 class prop" time="0.0003107">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/input/input.test.ts" name="YdInput &gt; 应包含 modelValue prop" time="0.0001301">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/input/input.test.ts" name="YdInput &gt; 应包含 defaultValue prop" time="0.000115">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/progress/YdProgress.test.ts" timestamp="2026-09-17T09:38:50.573Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/progress/YdProgress.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/progress/YdProgress.test.ts" time="0">
+            <failure message="Attribute name cannot contain U+0022 (&quot;), U+0027 (&apos;), and U+003C (&lt;)." type="SyntaxError">
+SyntaxError: Attribute name cannot contain U+0022 (&quot;), U+0027 (&apos;), and U+003C (&lt;).
+9  |   * @since 1.0.0
+10 |  --&gt;
+11 |  &lt;script lang=&quot;ts&quot; setup&quot;&gt;
+   |                          ^
+12 |  import { computed } from &apos;vue&apos;;
+13 |  
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/select/Select.test.ts" timestamp="2026-09-17T09:38:50.603Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/select/Select.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/select/Select.test.ts" time="0">
+            <failure message="Failed to resolve import &quot;./YdSelectBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/select/Select.test.ts&quot;. Does the file exist?" type="Error">
+Error: Failed to resolve import &quot;./YdSelectBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/select/Select.test.ts&quot;. Does the file exist?
+  Plugin: vite:import-analysis
+  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/select/Select.test.ts:20:25
+  1  |  import { describe, expect, it } from &quot;vitest&quot;;
+  2  |  import { mount } from &quot;@vue/test-utils&quot;;
+  3  |  import YdSelectBase from &quot;./YdSelectBase.vue&quot;;
+     |                            ^
+  4  |  describe(&quot;YdSelectBase&quot;, () =&gt; {
+  5  |    it(&quot;应能挂载并渲染 slot 内容&quot;, () =&gt; {
+ ❯ TransformPluginContext._formatLog node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41
+ ❯ TransformPluginContext.error node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16
+ ❯ normalizeUrl node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23
+ ❯ node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40753:37
+ ❯ TransformPluginContext.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40680:7
+ ❯ EnvironmentPluginContainer.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42453:18
+ ❯ loadAndTransform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35845:27
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/select/VSelect.test.ts" timestamp="2026-09-17T09:38:50.621Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0036381">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/select/VSelect.test.ts" name="YdVSelect &gt; 应能通过通用 helpers 正确生成测试数据" time="0.0020726">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/select/VSelect.test.ts" name="YdVSelect &gt; 小数据量（&lt; virtualThreshold）时应走原生分支" time="0.0002379">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/select/VSelect.test.ts" name="YdVSelect &gt; 大数据量（&gt;= virtualThreshold）时应走虚拟滚动分支" time="0.0002137">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/select/VSelect.test.ts" name="YdVSelect &gt; 处理空数组场景不抛出" time="0.0001638">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" timestamp="2026-09-17T09:38:50.635Z" hostname="DESKTOP-FIC0TQ3" tests="14" failures="0" errors="0" skipped="0" time="0.0399775">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheet 应被定义" time="0.0033818">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetContent 应导出" time="0.000304">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetTitle 应导出" time="0.0001447">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetHeader 应导出" time="0.0001257">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetFooter 应导出" time="0.0001401">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetDescription 应导出" time="0.0001219">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetTrigger 应导出" time="0.0000993">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetClose 应导出" time="0.0000807">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheetContent props &gt; 应包含 side prop 且默认值为 right" time="0.0003374">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheetContent props &gt; 应包含 overlayBlur prop" time="0.0001332">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheetContent props &gt; 应包含 zIndex prop" time="0.0000797">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants 应是函数" time="0.0039891">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; 调用 sheetVariants 应返回字符串" time="0.0064527">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants 接受四种 side 值" time="0.0174274">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" timestamp="2026-09-17T09:38:50.690Z" hostname="DESKTOP-FIC0TQ3" tests="11" failures="0" errors="0" skipped="0" time="0.0049966">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; 应能创建完整 ColumnDef 对象" time="0.0011463">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 left / right / undefined 三种 fixed" time="0.0002191">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 children（多级表头）" time="0.0008907">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 formatter 回调" time="0.0001338">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 type 特殊列" time="0.0001271">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnRegistry injection &gt; YD_TABLE_COLUMN_REGISTRY 应定义为 symbol" time="0.000104">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnRegistry injection &gt; 注册表描述应包含 TABLE 标识" time="0.0001495">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="useVirtualList type shape &gt; UseVirtualListOptions 接口应接受正确的配置" time="0.0000999">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="useVirtualList type shape &gt; UseVirtualListOptions 应支持 getKey 回调" time="0.0004665">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="useVirtualList type shape &gt; VirtualListHandle 应有visibleItems 句柄" time="0.0002285">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef alignment options &gt; 应支持 left / center / right 对齐" time="0.0001631">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.test.ts" timestamp="2026-09-17T09:38:50.747Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="6" errors="0" skipped="0" time="0.1919253">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.test.ts" name="YdTag &gt; renders default variant with text content" time="0.1048001">
+            <system-err>
+[Vue warn]: Property &quot;tagVariants&quot; was accessed during render but is not defined on instance. 
+  at &lt;YdTag ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="_ctx.tagVariants is not a function" type="TypeError">
+TypeError: _ctx.tagVariants is not a function
+ ❯ Proxy._sfc_render comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.vue:48:20
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+ ❯ setupRenderEffect node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6265:5
+ ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6037:7
+ ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
+ ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.test.ts" name="YdTag &gt; renders closable button when closable prop is true" time="0.0248666">
+            <system-err>
+[Vue warn]: Property &quot;tagVariants&quot; was accessed during render but is not defined on instance. 
+  at &lt;YdTag closable=true ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="_ctx.tagVariants is not a function" type="TypeError">
+TypeError: _ctx.tagVariants is not a function
+ ❯ Proxy._sfc_render comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.vue:48:20
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+ ❯ setupRenderEffect node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6265:5
+ ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6037:7
+ ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
+ ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.test.ts" name="YdTag &gt; emits close event when close button is clicked" time="0.0073321">
+            <system-err>
+[Vue warn]: Property &quot;tagVariants&quot; was accessed during render but is not defined on instance. 
+  at &lt;YdTag closable=true ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="_ctx.tagVariants is not a function" type="TypeError">
+TypeError: _ctx.tagVariants is not a function
+ ❯ Proxy._sfc_render comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.vue:48:20
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+ ❯ setupRenderEffect node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6265:5
+ ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6037:7
+ ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
+ ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.test.ts" name="YdTag &gt; does not render close button when closable is false" time="0.0192725">
+            <system-err>
+[Vue warn]: Property &quot;tagVariants&quot; was accessed during render but is not defined on instance. 
+  at &lt;YdTag closable=false ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="_ctx.tagVariants is not a function" type="TypeError">
+TypeError: _ctx.tagVariants is not a function
+ ❯ Proxy._sfc_render comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.vue:48:20
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+ ❯ setupRenderEffect node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6265:5
+ ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6037:7
+ ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
+ ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.test.ts" name="YdTag &gt; applies variant-specific classes" time="0.0074599">
+            <system-err>
+[Vue warn]: Property &quot;tagVariants&quot; was accessed during render but is not defined on instance. 
+  at &lt;YdTag variant=&quot;success&quot; ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="_ctx.tagVariants is not a function" type="TypeError">
+TypeError: _ctx.tagVariants is not a function
+ ❯ Proxy._sfc_render comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.vue:48:20
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+ ❯ setupRenderEffect node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6265:5
+ ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6037:7
+ ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
+ ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.test.ts" name="YdTag &gt; applies custom class via class prop" time="0.0197174">
+            <system-err>
+[Vue warn]: Property &quot;tagVariants&quot; was accessed during render but is not defined on instance. 
+  at &lt;YdTag class=&quot;custom-class&quot; ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="_ctx.tagVariants is not a function" type="TypeError">
+TypeError: _ctx.tagVariants is not a function
+ ❯ Proxy._sfc_render comm/@core/ui-kit/ydsz-ui/src/primitives/tag/YdTag.vue:48:20
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+ ❯ setupRenderEffect node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6265:5
+ ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6037:7
+ ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
+ ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
+ ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tabs/tabs.test.ts" timestamp="2026-09-17T09:38:50.892Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0021063">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tabs/tabs.test.ts" name="YdTabs compound components &gt; YdTabs 应被定义" time="0.0008655">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tabs/tabs.test.ts" name="YdTabs compound components &gt; YdTabsList 应被定义" time="0.0001238">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tabs/tabs.test.ts" name="YdTabs compound components &gt; YdTabsTrigger 应被定义" time="0.0000944">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tabs/tabs.test.ts" name="YdTabs compound components &gt; YdTabsContent 应被定义" time="0.0000886">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" timestamp="2026-09-17T09:38:50.908Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" time="0">
+            <failure message="Failed to resolve import &quot;./YdTooltipBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts&quot;. Does the file exist?" type="Error">
+Error: Failed to resolve import &quot;./YdTooltipBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts&quot;. Does the file exist?
+  Plugin: vite:import-analysis
+  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts:18:26
+  1  |  import { describe, expect, it } from &quot;vitest&quot;;
+  2  |  import { mount } from &quot;@vue/test-utils&quot;;
+  3  |  import YdTooltipBase from &quot;./YdTooltipBase.vue&quot;;
+     |                             ^
+  4  |  import YdTooltipContentBase from &quot;./YdTooltipContentBase.vue&quot;;
+  5  |  import YdTooltipProviderBase from &quot;./YdTooltipProviderBase.vue&quot;;
+ ❯ TransformPluginContext._formatLog node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41
+ ❯ TransformPluginContext.error node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16
+ ❯ normalizeUrl node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23
+ ❯ node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40753:37
+ ❯ TransformPluginContext.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40680:7
+ ❯ EnvironmentPluginContainer.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42453:18
+ ❯ loadAndTransform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35845:27
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/use-tree-search.test.ts" timestamp="2026-09-17T09:38:50.923Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0054433">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 搜索空字符串应返回空结果" time="0.0018673">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 搜索 &quot;前端&quot; 应匹配多个节点" time="0.0009706">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 搜索的 label 区间应正确标注" time="0.0008233">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/use-tree-search.test.ts" name="useTreeSearch &gt; clear 应清空关键字和结果" time="0.0002549">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 无匹配的搜索应返回空节点列表" time="0.0002589">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 无搜索关键字时 expandKeys 应为空" time="0.0001465">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" timestamp="2026-09-17T09:38:50.945Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0203781">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; 应包含全部核心语义色 token" time="0.0053648">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; dark 模式下的 background 应有 darkValue" time="0.0016434">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; tokensByCategory 应正确分组" time="0.0021189">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; set 应写入 CSS 变量到根元素" time="0.0029593">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; get 应返回已设置的值" time="0.0012069">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; 不存在的 token 不应写入并应打印警告" time="0.0009399">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; bulk 应批量写入所有 token 且仅对应次数的 DOM 操作" time="0.0006629">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; toggleDark 应切换根元素的 dark class" time="0.0013559">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; reset 应清除所有已覆盖的 token" time="0.0009918">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; overrideCount 应返回已覆盖的数量" time="0.0006259">
         </testcase>
     </testsuite>
 </testsuites>

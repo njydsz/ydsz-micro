@@ -430,6 +430,10 @@
     "./composables": {
       "types": "./src/composables/index.ts",
       "default": "./src/composables/index.ts"
+    },
+    "./locale": {
+      "types": "./src/locale/index.ts",
+      "default": "./src/locale/index.ts"
     }
   },
   "publishConfig": {

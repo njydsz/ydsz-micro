@@ -88,7 +88,7 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: statusTagType(row.status) }, () => row.status ?? '-'),
+          h(YdBadge, { variant: statusTagType(row.status) }, () => row.status ?? '-'),
       },
     },
     {
@@ -97,7 +97,7 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.isEnabled ? 'success' : 'info' }, () =>
+          h(YdBadge, { variant: row.isEnabled ? 'success' : 'info' }, () =>
             row.isEnabled ? '启用' : '停用',
           ),
       },
@@ -111,14 +111,14 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleDesign(row) }, () => '编排'),
-            h(ElButton, {
-              size: 'small', link: true, type: row.isEnabled ? 'warning' : 'success',
+            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleDesign(row) }, () => '编排'),
+            h(YdButton, {
+              size: 'small', variant: 'link',
               onClick: () => handleToggle(row),
             }, () => (row.isEnabled ? '停用' : '启用')),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => openVersions(row) }, () => '版本'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+            h(YdButton, { size: 'small', variant: 'link', onClick: () => openVersions(row) }, () => '版本'),
+            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },

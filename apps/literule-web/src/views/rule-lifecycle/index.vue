@@ -79,7 +79,7 @@ const pendingGridOptions: VxeTableGridOptions<ApprovalRecordVO> = {
       title: '当前层级',
       width: 90,
       slots: {
-        default: ({ row }) => h(ElTag, { type: 'primary' }, () => `L${row.currentLevel ?? 1}`),
+        default: ({ row }) => h(YdBadge, { variant: 'primary' }, () => `L${row.currentLevel ?? 1}`),
       },
     },
     {
@@ -88,7 +88,7 @@ const pendingGridOptions: VxeTableGridOptions<ApprovalRecordVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: statusTagType(row.currentStatus) }, () => row.currentStatus ?? '-'),
+          h(YdBadge, { variant: statusTagType(row.currentStatus) }, () => row.currentStatus ?? '-'),
       },
     },
     { field: 'createdAt', title: '提交时间', width: 160 },
@@ -102,23 +102,23 @@ const pendingGridOptions: VxeTableGridOptions<ApprovalRecordVO> = {
         default: ({ row }: { row: ApprovalRecordVO }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleApprove(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleApprove(row) },
               () => '通过',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => openRejectDialog(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => openRejectDialog(row) },
               () => '驳回',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'info', onClick: () => handleViewStatus(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleViewStatus(row) },
               () => '审批状态',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleCancel(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleCancel(row) },
               () => '撤销',
             ),
           ]),
@@ -160,7 +160,7 @@ const flowGridOptions: VxeTableGridOptions<ApprovalFlowVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.isEnabled ? 'success' : 'info' }, () =>
+          h(YdBadge, { variant: row.isEnabled ? 'success' : 'info' }, () =>
             row.isEnabled ? '启用' : '停用',
           ),
       },
@@ -174,18 +174,18 @@ const flowGridOptions: VxeTableGridOptions<ApprovalFlowVO> = {
         default: ({ row }: { row: ApprovalFlowVO }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleFlowApprove(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleFlowApprove(row) },
               () => '层级通过',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleFlowReject(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleFlowReject(row) },
               () => '层级驳回',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'info', onClick: () => handleViewStatus(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleViewStatus(row) },
               () => '查看详情',
             ),
           ]),

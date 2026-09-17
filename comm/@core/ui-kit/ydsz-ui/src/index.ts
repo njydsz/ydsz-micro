@@ -17,5 +17,6 @@
 export * from './components';
 export * from './composables';
 export * from './headless';
+export * from './locale';
 export * from './primitives';
 export { createContext, Slot, VisuallyHidden } from 'radix-vue';

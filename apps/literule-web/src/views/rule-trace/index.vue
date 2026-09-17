@@ -74,7 +74,7 @@ const traceGridOptions: VxeTableGridOptions<RuleExecutionTraceVO> = {
       width: 70,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.triggered ? 'success' : 'info' }, () =>
+          h(YdBadge, { variant: row.triggered ? 'success' : 'info' }, () =>
             row.triggered ? '命中' : '未命中',
           ),
       },
@@ -85,7 +85,7 @@ const traceGridOptions: VxeTableGridOptions<RuleExecutionTraceVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: severityTagType(row.severity) }, () => row.severity ?? '-'),
+          h(YdBadge, { variant: severityTagType(row.severity) }, () => row.severity ?? '-'),
       },
     },
     {
