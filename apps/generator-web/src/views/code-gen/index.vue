@@ -46,7 +46,6 @@ import {
   YdTabsList,
   YdTabsTrigger,
 } from '@ydsz-core/ydsz-ui';
-// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 import { YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
 import { Clock, FileText as Document } from 'lucide-vue-next';
 

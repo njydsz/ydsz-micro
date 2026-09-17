@@ -16,7 +16,6 @@
 import type { CEPPatternVO, CEPHitVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-// TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdTabs 等复杂组件，需人工评估）
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

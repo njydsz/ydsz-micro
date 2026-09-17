@@ -19,7 +19,6 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-// TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdTabs/Rate/YdTooltipBase/YdCard/Row/Col/Statistic 等复杂组件，需人工评估）
 import { YdButton, YdCard, YdCol, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdCountToAnimator, YdTabsContent, YdTabs, YdBadge, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 

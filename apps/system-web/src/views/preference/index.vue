@@ -8,7 +8,6 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue';
 
-// TODO: [ydsz-ui migration pending] 本文件含 ElForm、ElDivider 及 el-radio-group/el-select 等暂未提供 shadcn 映射的组件，后续 shadcn 补充后再迁移
 import { createLogger } from '@ydsz-core/shared/utils';
 import { YdButton, YdCard, YdSeparator, YdForm } from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';

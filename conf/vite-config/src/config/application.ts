@@ -29,7 +29,7 @@ import { getCommonConfig } from './common';
  * 构造应用（Web 应用）类型的 Vite 配置。
  *
  * 加载并转换环境配置、装配应用插件集（压缩/归档/PWA/打印等），
- * 并将 vue/element/vxe 等做 vendor 分包以优化缓存；最后依次叠加
+ * 并将 vue/vxe 等做 vendor 分包以优化缓存；最后依次叠加
  * 共用配置与用户自定义 vite 配置，优先级：用户配置 > 应用配置 > 共用配置。
  *
  * @param userConfigPromise - 用户自定义应用配置函数
@@ -117,7 +117,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
             chunkFileNames: 'js/[name]-[hash].js',
             entryFileNames: 'jse/index-[name]-[hash].js',
             // v3.7.0 (P2-3): manualChunks — 将未外部化的第三方依赖拆分为独立缓存块
-            // 注意：vue/vue-router/pinia/element-plus/vxe-table 等已通过 importmap 外部化，
+            // 注意：vue/vue-router/pinia/vxe-table 等已通过 importmap 外部化，
             // 不会进入 chunk 拆分逻辑；此处针对 @vueuse/echarts/lodash-es 等未外置依赖
             manualChunks: createManualChunks(),
           },
@@ -211,12 +211,12 @@ export { defineApplicationConfig };
 /**
  * 生成 Rollup manualChunks 函数，将未外部化的第三方依赖拆分为独立缓存块。
  *
- * importmap 外部化的依赖（vue/vue-router/pinia/element-plus/vxe-table 等）不会进入
+ * importmap 外部化的依赖（vue/vue-router/pinia/vxe-table 等）不会进入
  * 构建产物，因此无需在此重复声明。本函数主要处理未外置的大型库：
  * - @vueuse/*: 工具函数集合，体积大且变动频率与业务代码不同
  * - echarts: 图表库（仅主子应用引用时进入 bundle）
  * - lodash-es / lodash: 工具库
- * - async-validator: 表单校验（element-plus 依赖，但可能被业务直接引用）
+ * - async-validator: 表单校验（但可能被业务直接引用）
  * - @ctrl/*: tinycolor2 / @popperjs 等小型 UI 底座
  * - 其他 node_modules 统一归入 vendor 块
  *

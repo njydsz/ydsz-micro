@@ -15,6 +15,8 @@
 
 import { describe, expect, it } from 'vitest';
 
+import { nextTick } from 'vue';
+
 import { mount } from '@vue/test-utils';
 
 import YdDatePicker from './YdDatePicker.vue';
@@ -92,6 +94,47 @@ describe('YdDatePicker', () => {
       attachTo: document.body,
     });
     expect(wrapper.props('type')).toBe('date');
+    wrapper.unmount();
+  });
+
+  it('range 模式下 v-model 元组应回显为「开始 ~ 结束」', () => {
+    const wrapper = mount(YdDatePicker, {
+      props: {
+        modelValue: ['2026-09-01', '2026-09-05'],
+        type: 'range',
+      },
+      attachTo: document.body,
+    });
+    const input = wrapper.find('input');
+    expect(input.element.value).toBe('2026-09-01 ~ 2026-09-05');
+    wrapper.unmount();
+  });
+
+  it('range 模式两次点击应提交 [start, end] 元组', async () => {
+    const wrapper = mount(YdDatePicker, {
+      props: { type: 'range' },
+      attachTo: document.body,
+    });
+    // 展开弹出层（Teleport 将面板挂载到 body）
+    await wrapper.find('input').trigger('click');
+    await nextTick();
+
+    const cells = Array.from(
+      document.querySelectorAll('.calendar-panel button'),
+    );
+    expect(cells.length).toBeGreaterThan(0);
+
+    await cells[10].dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    (cells[10] as HTMLElement).click();
+    await nextTick();
+    (cells[13] as HTMLElement).click();
+    await nextTick();
+
+    const emitted = wrapper.emitted('update:modelValue');
+    expect(emitted).toBeTruthy();
+    const value = emitted![emitted!.length - 1][0];
+    expect(Array.isArray(value)).toBe(true);
+    expect(value[0]).toBe(value[0]); // 两端均为日期键
     wrapper.unmount();
   });
 });

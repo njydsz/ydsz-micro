@@ -292,7 +292,6 @@ void loadAgentList();
           </template>
 
           <template #actions>
-            <!-- TODO: ElDropdown trigger 暂保留 element-plus,YdButtonBase 仅作视觉替换 SKIP -->
             <YdDropdownMenu trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
               <YdButtonBase
                 size="sm"

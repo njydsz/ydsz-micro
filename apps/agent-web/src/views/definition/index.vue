@@ -19,7 +19,6 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 
-// TODO: ElDescriptions/ElDescriptionsItem/ElDrawer 描述+抽屉+输入,保留 element-plus SKIP
 import { YdDrawer } from '@ydsz-core/ydsz-ui';
 import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';

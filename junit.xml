@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="1" failures="1" errors="0" time="0">
-    <testsuite name="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" timestamp="2026-09-17T07:24:00.587Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
-        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" time="0">
-            <failure message="Attribute name cannot contain U+0022 (&quot;), U+0027 (&apos;), and U+003C (&lt;)." type="SyntaxError">
-SyntaxError: Attribute name cannot contain U+0022 (&quot;), U+0027 (&apos;), and U+003C (&lt;).
-10 |   * @since 1.0.0
-11 |  --&gt;
-12 |  &lt;script lang=&quot;ts&quot; setup&quot;&gt;
-   |                          ^
-13 |  import { onBeforeUnmount, onMounted, ref } from &apos;vue&apos;;
-14 |  
-            </failure>
+<testsuites name="vitest tests" tests="7" failures="0" errors="0" time="0.0376795">
+    <testsuite name="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" timestamp="2026-09-17T07:27:53.950Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0376795">
+        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 应真实挂载宿主席并在 body 渲染消息条目" time="0.0176134">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 字符串入参应默认 info 类型并写入注册表" time="0.0034949">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 对象入参应完整透传配置" time="0.004144">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; loading 快捷键应常驻（duration=0）" time="0.0017561">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; 同内容同类型应去重复用 id，不同类型不去重" time="0.0026489">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; sortedMessages 应将 loading 置顶，其余按原序" time="0.004193">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="message 命令式 API &gt; closeMessage 应在动画后移除并触发回调" time="0.0029183">
         </testcase>
     </testsuite>
 </testsuites>

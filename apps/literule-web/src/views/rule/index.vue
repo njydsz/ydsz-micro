@@ -23,7 +23,6 @@ import type { DomainItem } from '@ydsz-core/ydsz-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
-// TODO: EP → ydsz-ui 迁移暂缓（含 Drawer/Dropdown/YdTable 等复杂组件，需人工评估）
 import { YdButton, YdDrawer, YdDropdownMenu, YdDropdownMenuItem, YdDropdownMenu, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

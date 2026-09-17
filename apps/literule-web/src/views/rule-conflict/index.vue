@@ -19,7 +19,7 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdCard, YdEmptyState, YdProgress, YdCountToAnimator, YdTable, YdBadge, // TODO: EP → ydsz-ui 迁移暂缓（含 YdCard/Empty/Progress/YdTable 等复杂组件，需人工评估） } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdEmptyState, YdProgress, YdCountToAnimator, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';

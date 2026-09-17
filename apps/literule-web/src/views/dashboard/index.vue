@@ -23,7 +23,6 @@ import { EchartsUI, useEcharts } from '@ydsz/plugins/echarts';
 
 import { Page } from '@ydsz/common-ui';
 
-// TODO: EP → ydsz-ui 迁移暂缓（ElCard/ElRow/ElCol/ElStatistic 等布局与统计组件，需人工评估）
 import { YdCard, YdCol, YdRow, YdCountToAnimator } from '@ydsz-core/ydsz-ui';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 

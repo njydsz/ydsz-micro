@@ -16,7 +16,7 @@ import type { Component } from 'vue';
 
 import { computed, h, ref, render } from 'vue';
 
-import { YdMessageHost } from './YdMessageHost.vue';
+import YdMessageHost from './YdMessageHost.vue';
 
 /** 消息类型：决定默认图标与语义配色 */
 export type MessageType = 'error' | 'info' | 'loading' | 'success' | 'warning';
@@ -130,7 +130,10 @@ function scheduleAutoClose(id: string, duration: number) {
     clearTimeout(prev);
   }
   if (duration > 0) {
-    autoCloseTimers.set(id, window.setTimeout(() => closeMessage(id), duration));
+    autoCloseTimers.set(
+      id,
+      window.setTimeout(() => closeMessage(id), duration),
+    );
   } else {
     autoCloseTimers.delete(id);
   }
@@ -232,10 +235,7 @@ export function ydszMessage(
   const existing =
     contentKey &&
     messageList.value.find(
-      (item) =>
-        item.content === contentKey &&
-        (item.type ?? 'info') === type &&
-        !item.leaving,
+      (item) => item.content === contentKey && (item.type ?? 'info') === type && !item.leaving,
     );
   if (existing) {
     const duration = options.duration ?? existing.duration ?? DEFAULT_DURATION;

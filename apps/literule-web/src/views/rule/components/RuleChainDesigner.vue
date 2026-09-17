@@ -17,7 +17,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdSelectBase/Slider/YdTooltipBase 等复杂组件，需人工评估）
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSlider, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
 import { type ChainEdgeDTO, type ChainNodeDTO, type RuleChainGraph } from '#/api/models';

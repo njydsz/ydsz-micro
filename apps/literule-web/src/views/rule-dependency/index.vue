@@ -19,7 +19,6 @@
 
 import { Page } from '@ydsz/common-ui';
 
-// TODO: EP → ydsz-ui 迁移暂缓（含 YdAlert/Form/YdInput/YdSelectBase/YdSwitch/YdTabs/YdTable 等复杂组件，需人工评估）
 import { YdAlertBanner, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

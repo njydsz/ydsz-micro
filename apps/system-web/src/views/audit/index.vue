@@ -17,7 +17,6 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-// TODO: [ydsz-ui migration pending] 文件含 ElDatePicker（不在映射范围）、ElSelect/ElOption（YdSelectBase 单独迁移）、ElTag 等；整体迁移需人工评估
 import { YdButton, YdDatePicker, YdInput, YdSelectItem, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';

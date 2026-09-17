@@ -16,7 +16,6 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElTabPane/ElTabs 标签页+描述,保留 element-plus SKIP
 import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';

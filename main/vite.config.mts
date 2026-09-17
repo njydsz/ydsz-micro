@@ -2,8 +2,7 @@
  * main 基座应用的 Vite 构建配置。
  *
  * @remarks
- * 基于 {@code @ydsz/vite-config} 共享配置扩展：启用 CORS 供微前端子应用跨域访问、
- * 按需引入 Element Plus 组件。
+ * 基于 {@code @ydsz/vite-config} 共享配置扩展：启用 CORS 供微前端子应用跨域访问。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -11,12 +10,10 @@
 import { defineConfig } from '@ydsz/vite-config';
 import { fileURLToPath, URL } from 'node:url';
 
-import ElementPlus from 'unplugin-element-plus/vite';
-
 /**
  * 微前端基座（main-web）的 Vite 构建配置（默认导出）。
  *
- * 启用 CORS、PWA（Service Worker + manifest）、ElementPlus 按需引入；
+ * 启用 CORS、PWA（Service Worker + manifest）；
  * 开发端口 5600。
  *
  * @default —— Vite defineConfig 产物
@@ -63,11 +60,7 @@ export default defineConfig(async () => {
           },
         },
       },
-      plugins: [
-        ElementPlus({
-          format: 'esm',
-        }),
-      ],
+      plugins: [],
     },
   };
 });

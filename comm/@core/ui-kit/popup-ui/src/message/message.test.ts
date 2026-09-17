@@ -10,6 +10,8 @@
  */
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
+import { nextTick } from 'vue';
+
 import { messageList, sortedMessages } from './message';
 import {
   ydszMessage,
@@ -17,16 +19,24 @@ import {
   messageInfo,
   messageLoading,
   messageSuccess,
-  messageWarning,
   closeMessage,
   closeAllMessages,
+  unmountHost,
 } from './message';
 
 describe('message 命令式 API', () => {
   afterEach(() => {
     closeAllMessages();
+    unmountHost();
     vi.restoreAllMocks();
     vi.useRealTimers();
+  });
+
+  it('应真实挂载宿主席并在 body 渲染消息条目', async () => {
+    ydszMessage('已保存', { type: 'success' });
+    await nextTick();
+
+    expect(document.querySelector('[data-message-item]')).toBeTruthy();
   });
 
   it('字符串入参应默认 info 类型并写入注册表', () => {

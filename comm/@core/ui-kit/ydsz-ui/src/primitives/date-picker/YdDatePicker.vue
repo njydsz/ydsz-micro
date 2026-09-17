@@ -1,26 +1,25 @@
 <!--
- * YdDatePicker Vue 组件 —— 基于 YdPopover 的日历命令式选择器。
+ * YdDatePicker Vue 组件 —— 基于 Popover 的日历命令式选择器。
  *
- * 提供与 ElDatePicker 对齐的核心 API：
- * - v-model 双向绑定
- * - placeholder 占位
- * - disabled 禁用
- * - type 支持 date / datetime
+ * 提供与 ElDatePicker 对齐的核心 API：v-model 双向绑定、placeholder、disabled，
+ * type 支持 date / datetime / range。range 模式下 v-model 为 `[开始, 结束]` 元组。
  *
  * 改进（YDIZ-POPUP-001）：
  * - 弹出层使用 Teleport 挂载到 body，避免父级 overflow:hidden 裁切
  * - 添加 click-outside 自动关闭，点击弹出层外部即收起
  * - 动态计算触发器位置，确保弹出层在视口内正确显示
  * - z-index 走 --z-overlay token
+ * - range 模式：首次点击定起点、二次点击定终点，两者之间显示区间高亮，
+ *   结束点未定时随鼠标悬停实时预览区间范围
  *
  * 样式全部使用 Tailwind 设计系统 Token，暗色模式由 CSS 变量驱动。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdDatePicker.vue
  * @author ydsz-team
- * @since 1.0.0
+ * @since 5.3.0
 -->
 <script setup lang="ts">
-import type { DatePickerType } from './types';
+import type { DatePickerType, DatePickerValue } from './types';
 
 import { computed, ref } from 'vue';
 
@@ -30,13 +29,13 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Calendar as CalendarIcon } from 'lucide-vue-next';
 
-import CalendarPanel from './CalendarPanel.vue';
+import YdCalendarPanel from './YdCalendarPanel.vue';
 
 const props = withDefaults(
   defineProps<{
     class?: any;
     disabled?: boolean;
-    modelValue?: string;
+    modelValue?: DatePickerValue;
     placeholder?: string;
     type?: DatePickerType;
   }>(),
@@ -48,8 +47,8 @@ const props = withDefaults(
 );
 
 const emits = defineEmits<{
-  (e: 'update:modelValue', value: string | undefined): void;
-  (e: 'change', value: string | undefined): void;
+  (e: 'update:modelValue', value: DatePickerValue | undefined): void;
+  (e: 'change', value: DatePickerValue | undefined): void;
 }>();
 
 /** 实时同步 v-model */
@@ -65,6 +64,15 @@ const triggerRef = ref<HTMLElement | null>(null);
 
 /** 弹出层容器引用 —— 用于 click-outside 侦听 */
 const popoverRef = ref<HTMLElement | null>(null);
+
+/** range 模式下已确定的起始日期 (YYYY-MM-DD) */
+const rangeStart = ref<string | undefined>(undefined);
+
+/** range 模式下已确定的结束日期 (YYYY-MM-DD) */
+const rangeEnd = ref<string | undefined>(undefined);
+
+/** range 模式下结束点未确定时的悬停预览日期 (YYYY-MM-DD) */
+const rangeHover = ref<string | undefined>(undefined);
 
 /** 触发器的视口边界 —— 用于计算弹出层绝对位置 */
 const triggerBounds = useElementBounding(triggerRef);
@@ -100,16 +108,42 @@ onClickOutside(
   },
 );
 
+/** 是否为 range 模式 */
+const isRange = computed(() => props.type === 'range');
+
+/** 输入框展示值：单模式直接回显，range 模式拼成 `开始 ~ 结束` */
+const displayValue = computed(() => {
+  if (!isRange.value) {
+    return (modelValue.value as string | undefined) ?? '';
+  }
+  const tuple = modelValue.value as readonly [string, string] | undefined;
+  return tuple ? `${tuple[0]} ~ ${tuple[1]}` : '';
+});
+
+/**
+ * 把日期规范化为 'YYYY-MM-DD' 键。
+ *
+ * @param date - 日期对象
+ * @returns 规范日期字符串
+ */
+function toKey(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 /**
  * 计算初始显示月份。
- * 优先使用 modelValue 解析，否则回退到当前月份。
+ * 优先使用 modelValue 解析（range 取起始），否则回退到当前月份。
  *
- * @param modelValueStr - 当前 v-model 值 (YYYY-MM-DD)
+ * @param value - 当前 v-model 值
  * @return 锚定该月 1 号的 Date 对象
  */
-function resolveInitialMonth(modelValueStr?: string): Date {
-  if (modelValueStr) {
-    const parsed = new Date(modelValueStr);
+function resolveInitialMonth(value?: DatePickerValue): Date {
+  const seed = Array.isArray(value) ? value[0] : value;
+  if (seed) {
+    const parsed = new Date(seed);
     if (!Number.isNaN(parsed.getTime())) {
       return new Date(parsed.getFullYear(), parsed.getMonth(), 1);
     }
@@ -141,18 +175,73 @@ function nextMonth(): void {
 }
 
 /**
- * 选择日期。
+ * 设置 range 模式的当前选择并提交。
+ *
+ * @remarks
+ * 处于 range 模式时遵循「三点一套」的状态机：
+ * - 无起点：本次点击作为起点；
+ * - 已有起点无终点：本次点击作为终点，按序归一化后提交 `[start, end]` 并收起；
+ * - 起点终点俱全：视为开始新一轮选择，本次点击作为新起点。
+ * 需要提交两次完整范围后区间内高亮需起点终点同时给定，故实现中起点固定、终点选定即提交。
+ *
+ * @param start - 起始日期键
+ * @param end - 结束日期键
+ */
+function commitRange(start: string, end: string): void {
+  const [lo, hi] = start <= end ? [start, end] : [end, start];
+  const value: [string, string] = [lo, hi];
+  rangeStart.value = lo;
+  rangeEnd.value = hi;
+  emits('update:modelValue', value);
+  emits('change', value);
+  isOpen.value = false;
+}
+
+/**
+ * 选择日期的统一入口。
  *
  * @param date —— 选中的日期对象
  */
 function handleSelect(date: Date): void {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const value = `${year}-${month}-${day}`;
-  emits('update:modelValue', value);
-  emits('change', value);
-  isOpen.value = false;
+  const key = toKey(date);
+  if (!isRange.value) {
+    const value = key;
+    emits('update:modelValue', value);
+    emits('change', value);
+    isOpen.value = false;
+    return;
+  }
+
+  if (!rangeStart.value) {
+    rangeStart.value = key;
+    rangeEnd.value = undefined;
+    rangeHover.value = undefined;
+    return;
+  }
+  if (!rangeEnd.value) {
+    commitRange(rangeStart.value, key);
+    return;
+  }
+  // 已有一组范围：开启新一轮
+  rangeStart.value = key;
+  rangeEnd.value = undefined;
+  rangeHover.value = undefined;
+}
+
+/**
+ * 范围悬停预览：结束点未定时随鼠标更新预览日期，让用户先看到区间。
+ *
+ * @param date —— 悬停的日期对象
+ */
+function handleHover(date: Date): void {
+  if (isRange.value && rangeStart.value && !rangeEnd.value) {
+    rangeHover.value = toKey(date);
+  }
+}
+
+/** 清除悬停预览日期 */
+function handleClearHover(): void {
+  rangeHover.value = undefined;
 }
 
 /** 切换弹出层显隐 */
@@ -161,6 +250,14 @@ function toggle(): void {
     return;
   }
   isOpen.value = !isOpen.value;
+  // 重新打开时，若 modelValue 已有范围则同步到面板高亮
+  if (isOpen.value && isRange.value) {
+    const tuple = modelValue.value as readonly [string, string] | undefined;
+    if (tuple) {
+      rangeStart.value = tuple[0];
+      rangeEnd.value = tuple[1];
+    }
+  }
 }
 </script>
 
@@ -169,7 +266,7 @@ function toggle(): void {
     <!-- 触发器区域 -->
     <div ref="triggerRef" class="relative">
       <input
-        :value="modelValue"
+        :value="displayValue"
         :class="
           cn(
             'border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-[220px] rounded-md border bg-input-background px-3 pr-10 text-sm transition-all',
@@ -179,7 +276,7 @@ function toggle(): void {
           )
         "
         :disabled="disabled"
-        :placeholder="placeholder"
+        :placeholder="isRange ? '开始日期 ~ 结束日期' : placeholder"
         readonly
         type="text"
         @click="toggle"
@@ -235,9 +332,14 @@ function toggle(): void {
           </div>
 
           <!-- 日历网格 -->
-          <CalendarPanel
+          <YdCalendarPanel
             :display-month="displayMonth"
-            :selected="modelValue"
+            :selected="isRange ? undefined : (modelValue as string | undefined)"
+            :range-end="rangeEnd"
+            :range-hover="rangeHover"
+            :range-start="rangeStart"
+            @clear-hover="handleClearHover"
+            @hover="handleHover"
             @select="handleSelect"
           />
         </div>

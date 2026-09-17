@@ -15,14 +15,7 @@ import type { MessageItem, MessageType } from './message';
 
 import { computed } from 'vue';
 
-import {
-  CircleAlert,
-  CircleCheckBig,
-  CircleX,
-  Info,
-  LoaderCircle,
-  X,
-} from '@ydsz-core/icons';
+import { CircleAlert, CircleCheckBig, CircleX, Info, LoaderCircle, X } from '@ydsz-core/icons';
 
 /** 宿主席持有的消息列表（模块级 ref），由 message.ts 注入 */
 const props = defineProps<{ messages: Ref<MessageItem[]> }>();
@@ -43,9 +36,7 @@ const SEMANTIC_ICON: Record<
 };
 
 /** 过滤掉已进入退出动画的消息，避免 done 状态仍参与布局 */
-const visibleMessages = computed(() =>
-  props.messages.value.filter((item) => !item.leaving),
-);
+const visibleMessages = computed(() => props.messages.value.filter((item) => !item.leaving));
 </script>
 <template>
   <div
@@ -63,36 +54,29 @@ const visibleMessages = computed(() =>
       <div
         v-for="item in visibleMessages"
         :key="item.id"
-        class="pointer-events-auto flex items-start gap-2 rounded-[var(--radius)] border bg-background px-3 py-2 shadow-lg"
+        class="bg-background pointer-events-auto flex items-start gap-2 rounded-[var(--radius)] border px-3 py-2 shadow-lg"
         data-message-item
       >
         <LoaderCircle
           v-if="item.type === 'loading'"
-          class="mt-0.5 size-4 shrink-0 animate-spin text-muted-foreground"
+          class="text-muted-foreground mt-0.5 size-4 shrink-0 animate-spin"
         />
         <component
-          :is="
-            item.type && item.type !== 'loading'
-              ? SEMANTIC_ICON[item.type].component
-              : null
-          "
-          v-show="item.showIcon !== false"
-          v-else
+          v-else-if="item.type && item.type !== 'loading' && item.showIcon !== false"
+          :is="SEMANTIC_ICON[item.type].component"
           class="mt-0.5 size-4 shrink-0"
-          :style="
-            item.type && item.type !== 'loading'
-              ? { color: `hsl(var(${SEMANTIC_ICON[item.type].colorVar}))` }
-              : undefined
-          "
+          :style="{ color: `hsl(var(${SEMANTIC_ICON[item.type].colorVar}))` }"
         />
-        <div class="min-w-0 flex-1 text-sm leading-5 text-foreground">
-          <YdRenderContent :content="item.content" />
+        <div class="text-foreground min-w-0 flex-1 text-sm leading-5">
+          <component :is="typeof item.content === 'object' ? item.content : 'span'">
+            {{ typeof item.content === 'string' ? item.content : undefined }}
+          </component>
         </div>
         <button
           v-if="item.closable || item.duration === 0"
           type="button"
           aria-label="关闭消息"
-          class="ml-1 shrink-0 text-muted-foreground opacity-60 transition hover:opacity-100"
+          class="text-muted-foreground ml-1 shrink-0 opacity-60 transition hover:opacity-100"
           @click="emit('closeMessage', item.id)"
         >
           <X class="size-4" />

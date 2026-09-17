@@ -9,7 +9,6 @@
  */
 import { defineConfig } from '@ydsz/vite-config';
 
-
 /**
  * 规则引擎子应用 / Vite 构建配置（默认导出）。
  *
