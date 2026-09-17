@@ -119,9 +119,7 @@ describe('YdDatePicker', () => {
     await wrapper.find('input').trigger('click');
     await nextTick();
 
-    const cells = Array.from(
-      document.querySelectorAll('.calendar-panel button'),
-    );
+    const cells = Array.from(document.querySelectorAll('.calendar-panel button'));
     expect(cells.length).toBeGreaterThan(0);
 
     await cells[10].dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
@@ -132,9 +130,12 @@ describe('YdDatePicker', () => {
 
     const emitted = wrapper.emitted('update:modelValue');
     expect(emitted).toBeTruthy();
-    const value = emitted![emitted!.length - 1][0];
-    expect(Array.isArray(value)).toBe(true);
-    expect(value[0]).toBe(value[0]); // 两端均为日期键
+    const value = emitted![emitted!.length - 1][0] as [string, string];
+    // 两端均为 YYYY-MM-DD 日期键，且开始不晚于结束
+    expect(value).toHaveLength(2);
+    expect(value[0]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(value[1]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(value[0] <= value[1]).toBe(true);
     wrapper.unmount();
   });
 });

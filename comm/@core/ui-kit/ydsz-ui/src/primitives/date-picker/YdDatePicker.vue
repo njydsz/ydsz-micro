@@ -269,8 +269,8 @@ function toggle(): void {
         :value="displayValue"
         :class="
           cn(
-            'border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-[220px] rounded-md border bg-input-background px-3 pr-10 text-sm transition-all',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+            'border-input placeholder:text-muted-foreground focus-visible:ring-ring bg-input-background flex h-10 w-[220px] rounded-md border px-3 pr-10 text-sm transition-all',
+            'focus-visible:ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
             'hover:border-border-strong',
             'disabled:cursor-not-allowed disabled:opacity-50',
           )
@@ -314,7 +314,13 @@ function toggle(): void {
               type="button"
               @click="prevMonth"
             >
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
                 <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
@@ -325,7 +331,13 @@ function toggle(): void {
               type="button"
               @click="nextMonth"
             >
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
                 <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>

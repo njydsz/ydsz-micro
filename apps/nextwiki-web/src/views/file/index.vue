@@ -10,7 +10,6 @@
  * 文件节点（列表页）
  * <p>文件节点的浏览页，支持目录/文件两种类型，数据来自后端契约 API（apps/nextwiki-web/src/api/file.ts）。
  * <p>支持上传、下载、预览、重命名、移动、复制、删除，新建文件夹使用 file-form.vue 提交 createFolder。
- * <p>TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 ydsz-ui。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -335,7 +334,6 @@ async function executeZipImport(): Promise<void> {
           <YdDialogTitle>批量导入</YdDialogTitle>
         </YdDialogHeader>
         <div class="py-4">
-          <!-- TODO: ElTabs / ElTabPane 尚未迁移到 ydsz-ui -->
           <YdTabs v-model="batchImportType">
             <YdTabsContent label="多文件上传" name="files">
               <YdUpload

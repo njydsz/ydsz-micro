@@ -683,11 +683,23 @@ function checkSecrets(
  * 3. 动态 import（模板字符串）：`` import(`element-plus/es/components/${name}/index`) ``
  *
  * 模块名必须紧跟引号/反引号，避免误伤 `unplugin-element-plus` 等工具链包名。
+ *
+ * 退出阶段分级：
+ * - `@element-plus/*` 子包（图标等）：P0 阻断，已全量迁移 lucide-vue-next；
+ * - `element-plus` 主包且仅导入 ElTableColumn：P1 警告，表格族单独演进中（P3-FIXME 标注）；
+ * - `element-plus` 主包含其他组件：P1 阻断（应迁移至 ydsz-ui 对应件）；
+ * - `unplugin-element-plus`：P0 阻断，已在所有 vite.config 中移除。
  */
 const EP_MODULE_RE = /['"`](element-plus|@element-plus\/[\w-]+)/g;
 
 /** 模板层 kebab 标签探测（仅 .vue） */
 const EP_TEMPLATE_TAG_RE = /<el-[a-z]/;
+
+/** ElTableColumn-only 导入的检测正则 */
+const EP_TABLE_COLUMN_ONLY_RE = /import\s*\{\s*(?:type\s+)?ElTableColumn(?:\s*,\s*(?:type\s+)?ElTableColumn)*\s*\}\s*from\s*['"]element-plus['"]/;
+
+/** 退场工具链包名（不应被扫描命中） */
+const EP_TOOLCHAIN_RE = /unplugin-element-plus/;
 
 /**
  * EP 退场残留扫描。
@@ -695,6 +707,13 @@ const EP_TEMPLATE_TAG_RE = /<el-[a-z]/;
  * <p>探测口径与验收标准（v3 计划 §三）一致：脚本层三形态 + 模板层 el- 标签，
  * 纯注释行（//、*、/* 开头）豁免 —— el-bridge/compat 的文档注释中含
  * `from 'element-plus'` 字面量属说明性文字，不构成运行时引用。
+ *
+ * <p>退出阶段分级（2026-09-17 更新）：
+ * - `@element-plus/*` 子包（图标等）：P0 阻断；
+ * - `element-plus` 主包 + 仅 ElTableColumn：P1 警告（表格族 P3-FIXME 标注）；
+ * - `element-plus` 主包 + 其他组件：P1 阻断；
+ * - `unplugin-element-plus`：P0 阻断；
+ * - `<el-*>` 模板标签：P1 阻断。
  *
  * @param files 参与扫描的 TS/Vue 文件
  * @param rootDir 仓库根目录
@@ -721,14 +740,34 @@ function checkEpExit(
       ) {
         continue;
       }
-      EP_MODULE_RE.lastIndex = 0;
-      if (EP_MODULE_RE.test(line)) {
+      // unplugin-element-plus 是工具链元包，单独阻断（P0）
+      if (EP_TOOLCHAIN_RE.test(line)) {
         violations.push({
           rule: 'EP-EXIT',
           file: p,
           line: i + 1,
-          message: `EP 引用残留（应为 ydsz-ui/compat，见 ep-exit-refactor-plan v3）：${trimmed.slice(0, 90)}`,
-          severity: 'P1',
+          message: `EP 工具链包引用残留（unplugin-element-plus 应移除）：${trimmed.slice(0, 90)}`,
+          severity: 'P0',
+        });
+        continue;
+      }
+      EP_MODULE_RE.lastIndex = 0;
+      if (EP_MODULE_RE.test(line)) {
+        // 判断是否为 @element-plus/* 子包或 ElTableColumn-only
+        const isSubPackage = /@element-plus\//.test(line);
+        const isTableColumnOnly = EP_TABLE_COLUMN_ONLY_RE.test(line);
+        violations.push({
+          rule: 'EP-EXIT',
+          file: p,
+          line: i + 1,
+          message: `EP 引用残留${
+            isTableColumnOnly
+              ? '（ElTableColumn 表格族单独演进，P3-FIXME）'
+              : isSubPackage
+                ? '（@element-plus/* 子包应迁移 lucide-vue-next）'
+                : '（应迁移 ydsz-ui 对应件）'
+          }：${trimmed.slice(0, 90)}`,
+          severity: isTableColumnOnly ? 'P1' : 'P0',
         });
         continue;
       }

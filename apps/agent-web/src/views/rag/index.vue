@@ -16,7 +16,6 @@
  * @since 1.0.0
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElInputNumber/ElStatistic/ElTable/ElTableColumn 表单+表格+描述+数值输入+统计,保留 element-plus SKIP
 import { YdNumberFieldInput, YdCountToAnimator } from '@ydsz-core/ydsz-ui';
 import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

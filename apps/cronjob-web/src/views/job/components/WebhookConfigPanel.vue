@@ -17,7 +17,6 @@
  * @since 1.0.0
 */
 import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
-// TODO: ElForm/ElFormItem/ElTable/ElTableColumn 表单与表格组件保留 element-plus（有专门迁移批次）
 import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

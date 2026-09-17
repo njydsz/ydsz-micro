@@ -17,7 +17,6 @@
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-// TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdSelectBase/YdSwitch/InputNumber/YdTable 等复杂组件，需人工评估）
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

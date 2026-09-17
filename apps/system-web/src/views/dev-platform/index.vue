@@ -24,7 +24,6 @@
 import { computed, reactive, ref, watch } from 'vue';
 
 import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
-// TODO: 复杂文件，ElCard/ElEmpty/ElForm/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、YdInput、Tag → shadcn
 import { YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

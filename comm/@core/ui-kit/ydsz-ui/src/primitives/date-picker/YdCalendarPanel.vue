@@ -59,35 +59,37 @@ const firstDayWeekIndex = computed(() => {
 });
 
 /** 日历网格 (6 行 x 7 列，含前置空白)，为每格预计算 key */
-const calendarCells = computed<{ day: number; date: Date; isCurrentMonth: boolean; key: string }[]>(() => {
-  const year = props.displayMonth.getFullYear();
-  const month = props.displayMonth.getMonth();
-  const total = 42; // 6 行 x 7 列
-  const cells: { day: number; date: Date; isCurrentMonth: boolean; key: string }[] = [];
+const calendarCells = computed<{ day: number; date: Date; isCurrentMonth: boolean; key: string }[]>(
+  () => {
+    const year = props.displayMonth.getFullYear();
+    const month = props.displayMonth.getMonth();
+    const total = 42; // 6 行 x 7 列
+    const cells: { day: number; date: Date; isCurrentMonth: boolean; key: string }[] = [];
 
-  // 前置：上月的最后几天
-  const prevMonthDays = new Date(year, month, 0).getDate();
-  for (let rowWeekIndex = 0; rowWeekIndex < firstDayWeekIndex.value; rowWeekIndex++) {
-    const day = prevMonthDays - firstDayWeekIndex.value + rowWeekIndex + 1;
-    const date = new Date(year, month - 1, day);
-    cells.push({ day, date, isCurrentMonth: false, key: toKey(date) });
-  }
+    // 前置：上月的最后几天
+    const prevMonthDays = new Date(year, month, 0).getDate();
+    for (let rowWeekIndex = 0; rowWeekIndex < firstDayWeekIndex.value; rowWeekIndex++) {
+      const day = prevMonthDays - firstDayWeekIndex.value + rowWeekIndex + 1;
+      const date = new Date(year, month - 1, day);
+      cells.push({ day, date, isCurrentMonth: false, key: toKey(date) });
+    }
 
-  // 当月
-  for (let day = 1; day <= daysInMonth.value; day++) {
-    const date = new Date(year, month, day);
-    cells.push({ day, date, isCurrentMonth: true, key: toKey(date) });
-  }
+    // 当月
+    for (let day = 1; day <= daysInMonth.value; day++) {
+      const date = new Date(year, month, day);
+      cells.push({ day, date, isCurrentMonth: true, key: toKey(date) });
+    }
 
-  // 后置：下月的前几天
-  const remaining = total - cells.length;
-  for (let day = 1; day <= remaining; day++) {
-    const date = new Date(year, month + 1, day);
-    cells.push({ day, date, isCurrentMonth: false, key: toKey(date) });
-  }
+    // 后置：下月的前几天
+    const remaining = total - cells.length;
+    for (let day = 1; day <= remaining; day++) {
+      const date = new Date(year, month + 1, day);
+      cells.push({ day, date, isCurrentMonth: false, key: toKey(date) });
+    }
 
-  return cells;
-});
+    return cells;
+  },
+);
 
 /** 判断某一天是否为单日期模式下的选中日 */
 function isSelected(key: string): boolean {
@@ -118,8 +120,7 @@ function rangeRole(key: string): 'end' | 'in' | 'start' | null {
   if (!upper || upper === rangeStart) {
     return null;
   }
-  const [lo, hi] =
-    rangeStart <= upper ? [rangeStart, upper] : [upper, rangeStart];
+  const [lo, hi] = rangeStart <= upper ? [rangeStart, upper] : [upper, rangeStart];
   return key > lo && key < hi ? 'in' : null;
 }
 
@@ -159,17 +160,18 @@ function handleClick(date: Date): void {
         :class="
           cn(
             'hover:bg-accent hover:text-accent-foreground relative flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors',
-            cell.isCurrentMonth
-              ? 'text-foreground'
-              : 'text-muted-foreground/50',
-            isToday(cell.key)
-              && !isSelected(cell.key)
-              && rangeRole(cell.key) === null
-              && 'font-bold text-primary ring-1 ring-inset ring-primary',
-            isSelected(cell.key) && 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
+            cell.isCurrentMonth ? 'text-foreground' : 'text-muted-foreground/50',
+            isToday(cell.key) &&
+              !isSelected(cell.key) &&
+              rangeRole(cell.key) === null &&
+              'text-primary ring-primary font-bold ring-1 ring-inset',
+            isSelected(cell.key) &&
+              'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
             rangeRole(cell.key) === 'in' && 'bg-primary/20 text-foreground rounded-none',
-            rangeRole(cell.key) === 'start' && 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
-            rangeRole(cell.key) === 'end' && 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
+            rangeRole(cell.key) === 'start' &&
+              'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
+            rangeRole(cell.key) === 'end' &&
+              'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground',
           )
         "
         type="button"
