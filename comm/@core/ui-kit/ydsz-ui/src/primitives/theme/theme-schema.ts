@@ -108,6 +108,39 @@ export const themeTokens = {
     defaultValue: '210 40% 98%',
     description: '危险色上的前景色',
   },
+  success: {
+    category: TokenCategory.COLOR,
+    cssVar: 'success',
+    defaultValue: '142.1 76.2% 36.3%',
+    darkValue: '142 70.6% 45.3%',
+    description: '成功操作：保存成功、校验通过',
+  },
+  'success-foreground': {
+    category: TokenCategory.COLOR,
+    cssVar: 'success-foreground',
+    defaultValue: '210 40% 98%',
+    description: '成功色上的前景色',
+  },
+  warning: {
+    category: TokenCategory.COLOR,
+    cssVar: 'warning',
+    defaultValue: '38 92.2% 50.2%',
+    darkValue: '43 96% 56.1%',
+    description: '警告操作：校验提醒、非致命错误',
+  },
+  'warning-foreground': {
+    category: TokenCategory.COLOR,
+    cssVar: 'warning-foreground',
+    defaultValue: '210 40% 98%',
+    description: '警告色上的前景色',
+  },
+  info: {
+    category: TokenCategory.COLOR,
+    cssVar: 'info',
+    defaultValue: '221.2 83.2% 53.3%',
+    darkValue: '217.2 91.2% 59.8%',
+    description: '信息提示：辅助说明、品牌色',
+  },
 
   // ===== 颜色：中性色 =====
   background: {

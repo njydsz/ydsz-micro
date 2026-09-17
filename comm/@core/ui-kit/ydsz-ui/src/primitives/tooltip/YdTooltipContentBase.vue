@@ -1,0 +1,64 @@
+<!--
+ * YdTooltipContentBase —— 文字提示内容区（YdTooltipContent 别名）。
+ *
+ * 带现代化提示样式（圆角、阴影、动画），功能与 YdTooltipContent 完全一致。
+ * 提供「Base」命名导出保持 primitives 命名惯例统一。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tooltip\YdTooltipContentBase.vue
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+<script setup lang="ts">
+import type { TooltipContentEmits, TooltipContentProps } from 'radix-vue';
+
+import { computed } from 'vue';
+
+import { cn } from '@ydsz-core/shared/utils';
+
+import { YdTooltipContent, TooltipPortal, useForwardPropsEmits } from 'radix-vue';
+
+defineOptions({
+  inheritAttrs: false,
+});
+
+type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
+
+const props = withDefaults(
+  defineProps<TooltipContentProps & { class?: ClassValue }>(),
+  {
+    class: '',
+    side: 'top',
+    sideOffset: 5,
+  },
+);
+
+const emits = defineEmits<TooltipContentEmits>();
+
+const delegatedProps = computed(() => {
+  const { class: _, ...delegated } = props;
+  return delegated;
+});
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits);
+</script>
+
+<template>
+  <TooltipPortal>
+    <YdTooltipContent
+      v-bind="{ ...forwarded, ...$attrs }"
+      :class="
+        cn(
+          'z-popup overflow-hidden rounded-md px-3 py-1.5 text-xs',
+          'bg-surface-3 text-text-primary border border-border-subtle shadow-raised-md',
+          'animate-in fade-in-0 zoom-in-95',
+          'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+          'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2',
+          'data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+          props.class,
+        )
+      "
+    >
+      <slot></slot>
+    </YdTooltipContent>
+  </TooltipPortal>
+</template>
