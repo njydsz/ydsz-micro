@@ -1,8 +1,8 @@
 <!--
- * 字段错误提示：渲染 vee-validate 的 ErrorMessage，并带上 formMessageId 供 aria 引用。
+ * YdFormMessage —— 字段错误消息 + 异步校验 loading 态。
  *
- * 错误文案按字段名（name）从校验上下文里取，而不是由父级传入 ——
- * 这样校验规则变化时提示文案自动跟随，不必在多处同步同一句话。
+ * P0-5 增强：当字段处于 isValidating 状态时，显示 loading spinner，
+ * 让用户明确感知「校验中」状态，避免异步校验时用户误以为无响应。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdFormMessage.vue
  * @author ydsz-team
@@ -13,13 +13,28 @@ import { toValue } from 'vue';
 
 import { ErrorMessage } from 'vee-validate';
 
+import { Loader2 } from 'lucide-vue-next';
+
 import { useFormField } from './useFormField';
 
-const { formMessageId, name } = useFormField();
+const { error, formMessageId, isValidating, name } = useFormField();
 </script>
 
 <template>
+  <!-- 异步校验 loading 态 -->
+  <p
+    v-if="isValidating"
+    :id="`${formMessageId}-validating`"
+    class="flex items-center gap-1 text-[0.8rem] text-muted-foreground"
+    aria-live="polite"
+    role="status"
+  >
+    <Loader2 class="size-3 animate-spin" aria-hidden="true" />
+    <span>校验中...</span>
+  </p>
+  <!-- 错误消息 -->
   <ErrorMessage
+    v-else
     :id="formMessageId"
     :name="toValue(name)"
     as="p"
