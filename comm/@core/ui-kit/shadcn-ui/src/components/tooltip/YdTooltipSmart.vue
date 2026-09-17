@@ -41,7 +41,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <YdTooltipProvider :delay-duration="delayDuration">
-    <YdTooltipSmart>
+    <YdTooltip>
       <YdTooltipTrigger as-child>
         <slot name="trigger"></slot>
       </YdTooltipTrigger>
@@ -54,6 +54,6 @@ withDefaults(defineProps<Props>(), {
       >
         <slot></slot>
       </YdTooltipContent>
-    </YdTooltipSmart>
+    </YdTooltip>
   </YdTooltipProvider>
 </template>

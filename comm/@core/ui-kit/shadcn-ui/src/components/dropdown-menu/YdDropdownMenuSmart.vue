@@ -36,7 +36,7 @@ function handleItemClick(menu: IDropdownMenuItem) {
 }
 </script>
 <template>
-  <YdDropdownMenuSmart>
+  <YdDropdownMenu>
     <YdDropdownMenuTrigger class="flex h-full items-center gap-1" aria-haspopup="menu">
       <slot></slot>
     </YdDropdownMenuTrigger>
@@ -57,6 +57,6 @@ function handleItemClick(menu: IDropdownMenuItem) {
         </template>
       </YdDropdownMenuGroup>
     </YdDropdownMenuContent>
-  </YdDropdownMenuSmart>
+  </YdDropdownMenu>
 </template>
 

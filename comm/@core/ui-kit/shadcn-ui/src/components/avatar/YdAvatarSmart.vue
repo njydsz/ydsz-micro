@@ -21,7 +21,7 @@ import type { ClassType } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 
-import { YdAvatarSmart, YdAvatarFallback, YdAvatarImage } from '../../primitives';
+import { YdAvatar, YdAvatarFallback, YdAvatarImage } from '../../primitives';
 
 interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
   alt?: string;
@@ -74,10 +74,10 @@ const rootStyle = computed(() => {
     role="img"
     :aria-label="alt"
   >
-    <YdAvatarSmart :class="props.class" class="size-full">
+    <YdAvatar :class="props.class" class="size-full">
       <YdAvatarImage :alt="alt" :src="src" :style="imageStyle" />
       <YdAvatarFallback aria-hidden="true">{{ text }}</YdAvatarFallback>
-    </YdAvatarSmart>
+    </YdAvatar>
     <span
       v-if="dot"
       :class="dotClass"

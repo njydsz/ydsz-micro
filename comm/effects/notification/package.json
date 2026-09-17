@@ -13,6 +13,7 @@
   "dependencies": {
     "@ydsz-core/composables": "workspace:*",
     "@ydsz-core/popup-ui": "workspace:*",
+    "@ydsz-core/shared": "workspace:*",
     "@ydsz/request": "workspace:*"
   },
   "peerDependencies": {

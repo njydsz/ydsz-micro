@@ -38,7 +38,7 @@ function handleClear() {
 }
 </script>
 <template>
-  <YdSelectSmart v-model="modelValue">
+  <YdSelect v-model="modelValue">
     <YdSelectTrigger :class="props.class" class="flex w-full items-center" aria-label="选择框">
       <YdSelectValue class="flex-auto text-left" :placeholder="placeholder" />
       <CircleX
@@ -57,7 +57,7 @@ function handleClear() {
         <YdSelectItem :value="item.value"> {{ item.label }} </YdSelectItem>
       </template>
     </YdSelectContent>
-  </YdSelectSmart>
+  </YdSelect>
 </template>
 
 <style lang="scss" scoped>

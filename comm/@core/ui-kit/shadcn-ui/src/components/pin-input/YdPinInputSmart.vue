@@ -16,7 +16,7 @@ import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { YdPinInputSmart, YdPinInputGroup, YdPinInputInput } from '../../primitives';
+import { YdPinInput, YdPinInputGroup, YdPinInputInput } from '../../primitives';
 import { YdButtonSmart } from '../button';
 
 // 云顶规范 §14.5：统一日志模块，禁止裸 console
@@ -103,7 +103,7 @@ const id = useId();
 </script>
 
 <template>
-  <YdPinInputSmart
+  <YdPinInput
     :id="id"
     v-model="inputValue"
     :disabled="disabled"
@@ -135,6 +135,6 @@ const id = useId();
         {{ btnText }}
       </YdButtonSmart>
     </div>
-  </YdPinInputSmart>
+  </YdPinInput>
 </template>
 

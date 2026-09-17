@@ -29,6 +29,7 @@
     "@ydsz/preferences": "workspace:*",
     "@ydsz/request": "workspace:*",
     "@ydsz/shared-auth": "workspace:*",
+    "@ydsz/notification": "workspace:*",
     "@ydsz/shared-business": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "@ydsz/styles": "workspace:*",
