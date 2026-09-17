@@ -13,7 +13,7 @@
  *    - 否则注入 `import { createLogger } from '@ydsz-core/shared/utils';`
  *      与 `const logger = createLogger('<Module>');`
  *      （.ts 置于最后一个顶层 import 之后；.vue 置于 <script> 开标签之后）。
- * 3. 豁免文件：logger.ts 实现层、shadcn-ui 生成件、Node 工具（bash/conf）、
+ * 3. 豁免文件：logger.ts 实现层、ydsz-ui 生成件、Node 工具（bash/conf）、
  *    standalone/mock、测试、chrome 扩展、service-worker。
  *
  * @usage
@@ -29,7 +29,7 @@ const METHODS = ['log', 'info', 'warn', 'error', 'debug', 'trace'];
 
 const EXEMPT = [
   /utils\/logger\.ts$/,
-  /@core\/ui-kit\/shadcn-ui\//,
+  /@core\/ui-kit\/ydsz-ui\//,
   /\/__tests__\//,
   /\.spec\.ts$/,
   /\.test\.ts$/,

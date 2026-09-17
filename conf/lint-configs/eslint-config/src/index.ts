@@ -218,11 +218,11 @@ export function defineConfig(): Linter.Config[] {
         'no-console': 'off',
       },
     },
-    // 第三方生成组件库（shadcn-ui）：由 CLI 生成，含受控 any 透传，
+    // 第三方生成组件库（ydsz-ui）：由 CLI 生成，含受控 any 透传，
     // 豁免 no-explicit-any 避免污染红线统计（云顶规范 §3.1 第三方生成件豁免）；
     // stories 演示示例允许 console（§14.5 约束面向浏览器业务代码，不适用于生成件演示）
     {
-      files: ['**/@core/ui-kit/shadcn-ui/**/*.ts', '**/@core/ui-kit/shadcn-ui/**/*.vue'],
+      files: ['**/@core/ui-kit/ydsz-ui/**/*.ts', '**/@core/ui-kit/ydsz-ui/**/*.vue'],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
         'no-console': 'off',

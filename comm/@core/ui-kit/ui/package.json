@@ -16,9 +16,9 @@
       "default": "./src/index.ts"
     },
     "./global-css": "./src/global-css.ts",
-    "./shadcn-ui": {
-      "types": "./src/shadcn-ui.ts",
-      "default": "./src/shadcn-ui.ts"
+    "./ydsz-ui": {
+      "types": "./src/ydsz-ui.ts",
+      "default": "./src/ydsz-ui.ts"
     },
     "./form": {
       "types": "./src/form.ts",

@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ydsz-core/shadcn-ui/*": ["./src/*"]
+      "@ydsz-core/ydsz-ui/*": ["./src/*"]
     }
   },
   "include": ["src"],
