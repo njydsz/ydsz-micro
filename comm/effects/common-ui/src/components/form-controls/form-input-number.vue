@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdNumberField, YdNumberFieldInput } from '@ydsz-core/shadcn-ui';
+import { YdNumberField, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 
 withDefaults(
   defineProps<{

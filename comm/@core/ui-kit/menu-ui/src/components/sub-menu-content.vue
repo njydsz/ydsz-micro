@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { useNamespace } from '@ydsz-core/composables';
 import { ChevronDown, ChevronRight } from '@ydsz-core/icons';
-import { YdIcon } from '@ydsz-core/shadcn-ui';
+import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 import { useMenuContext } from '../hooks';
 

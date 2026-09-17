@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';

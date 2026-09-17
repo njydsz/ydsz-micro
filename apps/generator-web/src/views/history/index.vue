@@ -20,7 +20,7 @@ import { onMounted, ref, watch } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { YdBadge, YdButtonBase, YdInput, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 

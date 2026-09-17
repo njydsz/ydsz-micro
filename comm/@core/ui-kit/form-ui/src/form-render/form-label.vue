@@ -17,7 +17,7 @@ import {
   YdFormLabel,
   YdHelpTooltip,
   YdRenderContent,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {

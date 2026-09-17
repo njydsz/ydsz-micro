@@ -16,7 +16,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDatePicker, YdRadioGroup, YdRadioGroupItem, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDatePicker, YdRadioGroup, YdRadioGroupItem, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 // TODO: ElCalendar/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
 import { ref, computed, onMounted } from 'vue';

@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: ElCard/ElEmpty/ElTag YdCard+空状态+标签 整体布局复杂,保留 element-plus SKIP
 import { ElCard, ElEmpty } from 'element-plus';
-import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

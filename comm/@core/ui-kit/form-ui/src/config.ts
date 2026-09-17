@@ -28,7 +28,7 @@ import {
   YdInputPassword,
   YdPinInput,
   YdSelect,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { globalShareState } from '@ydsz-core/shared/global-state';
 
 import { defineRule } from 'vee-validate';

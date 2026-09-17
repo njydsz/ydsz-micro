@@ -15,7 +15,7 @@
  * @since 1.0.0
 */
 import { ElSkeleton } from 'element-plus';
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
 import { createLogger } from '@ydsz-core/shared/utils';

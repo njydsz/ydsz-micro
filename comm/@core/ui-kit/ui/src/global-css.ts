@@ -5,4 +5,4 @@
  * import '@ydsz-core/ui/global-css';
  * ```
  */
-import '@ydsz-core/shadcn-ui/src/assets/index.css';
+import '@ydsz-core/ydsz-ui/src/assets/index.css';

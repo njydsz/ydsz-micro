@@ -20,10 +20,10 @@ import type { YdAlertProps, BeforeCloseScope, YdPromptProps } from './alert';
 import { h, nextTick, ref, render } from 'vue';
 
 import { useSimpleLocale } from '@ydsz-core/composables';
-import { YdInput, YdRenderContent } from '@ydsz-core/shadcn-ui';
+import { YdInput, YdRenderContent } from '@ydsz-core/ydsz-ui';
 import { isFunction, isString } from '@ydsz-core/shared/utils';
 
-import YdAlert from './alert.vue';
+import YdAlert from './YdAlert.vue';
 
 const alerts = ref<Array<{ container: HTMLElement; instance: Component }>>([]);
 

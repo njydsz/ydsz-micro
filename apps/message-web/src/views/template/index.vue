@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
 import { ElForm, ElFormItem } from 'element-plus';
 import { ElMessageBox } from '@ydsz/notification/compat';

@@ -18,7 +18,7 @@ import type { FormContext, GenericObject } from 'vee-validate';
 
 import type { ClassType, MaybeComputedRef } from '@ydsz-core/typings';
 
-import type { YdButtonProps } from '@ydsz-core/shadcn-ui';
+import type { YdButtonProps } from '@ydsz-core/ydsz-ui';
 
 import type {
   ArrayToStringFields,

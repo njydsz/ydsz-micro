@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdSwitch } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

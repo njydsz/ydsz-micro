@@ -28,7 +28,7 @@ import {
   YdFormMessage,
   YdRenderContent,
   YdTooltip,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { cn, isFunction, isObject, isString } from '@ydsz-core/shared/utils';
 
 import { toTypedSchema } from '@vee-validate/zod';

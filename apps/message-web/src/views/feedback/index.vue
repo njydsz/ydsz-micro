@@ -23,7 +23,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import type { MsgFeedbackVO } from '#/api/models';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { ElEmpty, ElRate, ElTable, ElTableColumn } from 'element-plus';
 import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 

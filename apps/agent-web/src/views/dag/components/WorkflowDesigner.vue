@@ -17,7 +17,7 @@
 */
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSlider 可视化编辑器表单部分,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSlider } from 'element-plus';
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { computed, nextTick, ref } from 'vue';
 

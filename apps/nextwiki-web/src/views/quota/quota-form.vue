@@ -15,7 +15,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
-import { YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { setQuota } from '#/api/quota';
 

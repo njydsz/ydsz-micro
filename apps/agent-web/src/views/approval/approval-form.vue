@@ -18,7 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElForm/ElFormItem/ElInput 表单套件复杂,保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput } from 'element-plus';
-import { YdButtonBase } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 import { approve, getApproval, reject } from '#/api/humanApproval';

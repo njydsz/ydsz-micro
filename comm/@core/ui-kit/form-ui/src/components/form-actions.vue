@@ -14,7 +14,7 @@
 import { computed, toRaw, unref, watch } from 'vue';
 
 import { useSimpleLocale } from '@ydsz-core/composables';
-import { YdExpandableArrow } from '@ydsz-core/shadcn-ui';
+import { YdExpandableArrow } from '@ydsz-core/ydsz-ui';
 import { cn, isFunction, triggerWindowResize } from '@ydsz-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';

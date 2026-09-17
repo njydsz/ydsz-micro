@@ -21,7 +21,7 @@ import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { h, render } from 'vue';
 
-import { YdLoading, YdSpinner } from '@ydsz-core/shadcn-ui';
+import { YdLoading, YdSpinner } from '@ydsz-core/ydsz-ui';
 import { isString } from '@ydsz-core/shared/utils';
 
 import { createLogger } from '@ydsz-core/shared/utils';

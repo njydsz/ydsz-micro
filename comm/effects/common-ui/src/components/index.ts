@@ -48,7 +48,7 @@ export {
   YdSelect,
   YdSpinner,
   YdTree,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
-export type { FlattenedItem } from '@ydsz-core/shadcn-ui';
+export type { FlattenedItem } from '@ydsz-core/ydsz-ui';
 export { globalShareState } from '@ydsz-core/shared/global-state';

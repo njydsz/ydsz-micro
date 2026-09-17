@@ -14,7 +14,7 @@ import type { YdLayoutProps } from './YdLayout';
 
 import { SCROLL_FIXED_CLASS } from '@ydsz-core/composables';
 import { YdMenu } from '@ydsz-core/icons';
-import { YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/ydsz-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
 
 import {

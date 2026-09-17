@@ -18,7 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSwitch 表单套件,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch } from 'element-plus';
-import { YdButtonBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
 

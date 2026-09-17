@@ -18,7 +18,7 @@ import type { YdExtendedFormApi, FormActions, YdFormProps } from './types';
 
 import { computed, unref, useSlots } from 'vue';
 
-import { createContext } from '@ydsz-core/shadcn-ui';
+import { createContext } from '@ydsz-core/ydsz-ui';
 import { isString, mergeWithArrayOverride, set } from '@ydsz-core/shared/utils';
 
 import { useForm } from 'vee-validate';

@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
 // TODO: ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';

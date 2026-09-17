@@ -18,14 +18,14 @@
  */
 import { ref, watch } from 'vue';
 
-import { YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import {
   YdDialog,
   YdDialogContent,
   YdDialogFooter,
   YdDialogHeader,
   YdDialogTitle,
-} from '@ydsz-core/ui-kit/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import type { GenTemplate } from '#/api/models';
 

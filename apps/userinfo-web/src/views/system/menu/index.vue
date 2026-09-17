@@ -18,7 +18,7 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { ElTable, ElTableColumn } from 'element-plus';
 import type { TagProps } from 'element-plus';
 import { onMounted, ref } from 'vue';

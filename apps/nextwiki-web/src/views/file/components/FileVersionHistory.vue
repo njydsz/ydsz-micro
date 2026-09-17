@@ -17,7 +17,7 @@
 */
 import { useYdModal } from '@ydsz/common-ui';
 import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
-import { YdButtonBase, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';

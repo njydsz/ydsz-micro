@@ -36,7 +36,7 @@ export function isSsoMetricsOverviewVo(value: unknown): value is SsoMetricsOverv
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ydsz-ui';
 import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

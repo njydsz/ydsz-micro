@@ -18,13 +18,13 @@
  */
 import { computed, ref, watch } from 'vue';
 
-import { YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ydsz-ui';
 import {
   YdDialog,
   YdDialogContent,
   YdDialogHeader,
   YdDialogTitle,
-} from '@ydsz-core/ui-kit/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 // TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
 // TODO: ElIcon 为图标容器，暂无对应 shadcn-ui 组件，保留 element-plus 导入
 import { ElEmpty, ElIcon } from 'element-plus';

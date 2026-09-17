@@ -10,7 +10,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, useTemplateRef } from 'vue';
 
-import { YdSpineText } from '@ydsz-core/shadcn-ui';
+import { YdSpineText } from '@ydsz-core/ydsz-ui';
 
 const props = defineProps<{
   contentStyle: CSSProperties;

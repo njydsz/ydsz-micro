@@ -21,7 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 // SKIP: ElForm/ElFormItem/ElTabPane/ElTabs/ElTimeline/ElTimelineItem 不在 shadcn 映射表，保留 EP
 import { ElForm, ElFormItem, ElTabPane, ElTabs, ElTimeline, ElTimelineItem } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';

@@ -20,7 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdEmptyState, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdEmptyState, YdInput } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';

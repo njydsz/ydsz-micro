@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdBadge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

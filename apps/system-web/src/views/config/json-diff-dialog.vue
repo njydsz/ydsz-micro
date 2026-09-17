@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 

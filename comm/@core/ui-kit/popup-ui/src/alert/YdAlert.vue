@@ -35,7 +35,7 @@ import {
   YdButton,
   YdLoading,
   YdRenderContent,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { globalShareState } from '@ydsz-core/shared/global-state';
 import { cn } from '@ydsz-core/shared/utils';
 

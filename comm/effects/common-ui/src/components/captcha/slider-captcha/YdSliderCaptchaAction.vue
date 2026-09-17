@@ -12,7 +12,7 @@ import { computed, ref, useTemplateRef } from 'vue';
 
 import { Check, ChevronsRight } from '@ydsz/icons';
 
-import { Slot } from '@ydsz-core/shadcn-ui';
+import { Slot } from '@ydsz-core/ydsz-ui';
 
 const props = defineProps<{
   actionStyle: CSSProperties;

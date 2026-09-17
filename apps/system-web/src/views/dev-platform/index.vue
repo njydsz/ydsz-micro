@@ -23,7 +23,7 @@
  */
 import { computed, reactive, ref, watch } from 'vue';
 
-import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard/ElEmpty/ElForm/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、YdInput、Tag → shadcn
 import { ElCard, ElEmpty, ElForm, ElFormItem, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
 

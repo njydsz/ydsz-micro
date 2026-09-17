@@ -18,13 +18,13 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import {
   YdDialog,
   YdDialogContent,
   YdDialogHeader,
   YdDialogTitle,
-} from '@ydsz-core/ui-kit/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 YdTable 组件）
 import { ElTable, ElTableColumn } from 'element-plus';
 

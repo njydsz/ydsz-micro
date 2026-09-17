@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
 import { evaluate } from '#/api/prompt';
 

@@ -19,7 +19,7 @@
 import { Page } from '@ydsz/common-ui';
 // TODO: ElStatistic 暂不迁移，保留 element-plus 导入
 import { ElStatistic } from 'element-plus';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import {

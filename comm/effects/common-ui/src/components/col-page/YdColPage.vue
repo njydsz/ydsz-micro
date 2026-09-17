@@ -14,7 +14,7 @@ import {
   YdResizableHandle,
   YdResizablePanel,
   YdResizablePanelGroup,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import Page from '../page/page.vue';
 

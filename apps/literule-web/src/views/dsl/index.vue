@@ -15,7 +15,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 
 import { parse, preview, validate } from '#/api/ruleDsl';

@@ -33,7 +33,7 @@
  */
 
 // ===== 基础 + 业务组件（shadcn-ui 风格）=====
-export * from '@ydsz-core/shadcn-ui';
+export * from '@ydsz-core/ydsz-ui';
 
 // ===== 表单引擎 =====
 export { setupYdForm } from '@ydsz-core/form-ui';
@@ -62,4 +62,4 @@ export type { YdLayoutProps } from '@ydsz-core/layout-ui';
 export { YdTipTapEditor, YdTipTapToolbar, getYdDefaultExtensions } from '@ydsz-core/editor-ui';
 
 // ===== 全局 CSS 令牌（可选引入）=====
-import '@ydsz-core/shadcn-ui/src/assets/index.css';
+import '@ydsz-core/ydsz-ui/src/assets/index.css';

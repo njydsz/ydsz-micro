@@ -13,7 +13,7 @@ import type { CaptchaPoint, PointSelectionCaptchaProps } from '../types';
 import { RotateCw } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YdButton, YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdButton, YdIconButton } from '@ydsz-core/ydsz-ui';
 
 import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
 import CaptchaCard from './YdPointSelectionCaptchaCard.vue';

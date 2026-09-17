@@ -18,7 +18,7 @@
 import { Page } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElTabPane/ElTabs 标签页+描述,保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElTabPane, ElTabs } from 'element-plus';
-import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';
 import type { DagCheckpoint } from '#/api/models';

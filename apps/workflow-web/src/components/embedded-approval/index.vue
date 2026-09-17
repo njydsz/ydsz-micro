@@ -26,7 +26,7 @@
 // TODO: ElEmpty / ElSpace / ElTimeline / ElTimelineItem 待后续迁移
 // TODO: ElForm / ElFormItem 暂不迁移（表单组件单独批次）
 import { ElEmpty, ElForm, ElFormItem, ElSpace, ElTimeline, ElTimelineItem } from 'element-plus';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';

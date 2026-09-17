@@ -10,7 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { IContextMenuItem } from '@ydsz-core/shadcn-ui';
+import type { IContextMenuItem } from '@ydsz-core/ydsz-ui';
 import type { TabDefinition, TabsStyleType } from '@ydsz-core/typings';
 
 /**

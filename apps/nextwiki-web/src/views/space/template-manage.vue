@@ -19,7 +19,7 @@
  * @since 1.0.0
 */
 import { ElForm, ElFormItem, ElInput, ElTable, ElTableColumn } from 'element-plus';
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import type { SpaceTemplateDTO } from '#/api/models';

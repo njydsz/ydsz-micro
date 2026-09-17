@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { ElTable, ElTableColumn } from 'element-plus';
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';

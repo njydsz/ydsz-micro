@@ -18,7 +18,7 @@
  */
 // TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
 import { ElForm, ElFormItem } from 'element-plus';
-import { YdButtonBase, YdCard, YdCardContent, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdInput } from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { reactive, ref } from 'vue';

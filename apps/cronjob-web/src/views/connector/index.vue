@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElForm, ElFormItem } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';

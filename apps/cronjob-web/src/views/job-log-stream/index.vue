@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: ElEmpty/ElForm/ElFormItem/ElSpace/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
 import { nextTick, onBeforeUnmount, ref } from 'vue';

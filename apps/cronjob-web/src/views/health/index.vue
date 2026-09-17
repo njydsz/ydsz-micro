@@ -17,7 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElEmpty } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';

@@ -23,7 +23,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 
-import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { send } from '#/api/notification';
 
 const emit = defineEmits<{ success: [] }>();

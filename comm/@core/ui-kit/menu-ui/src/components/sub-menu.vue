@@ -11,14 +11,14 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { HoverCardContentProps } from '@ydsz-core/shadcn-ui';
+import type { HoverCardContentProps } from '@ydsz-core/ydsz-ui';
 
 import type { MenuItemRegistered, MenuProvider, SubMenuProps } from '../types';
 
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
 import { useNamespace } from '@ydsz-core/composables';
-import { YdHoverCard } from '@ydsz-core/shadcn-ui';
+import { YdHoverCard } from '@ydsz-core/ydsz-ui';
 
 import {
   createSubMenuContext,

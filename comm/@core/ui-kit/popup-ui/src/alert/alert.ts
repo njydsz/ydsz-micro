@@ -12,7 +12,7 @@ import type { Component, VNode, VNodeArrayChildren } from 'vue';
 
 import type { Recordable } from '@ydsz-core/typings';
 
-import { createContext } from '@ydsz-core/shadcn-ui';
+import { createContext } from '@ydsz-core/ydsz-ui';
 
 /**
  * 弹窗内置图标的语义类型。

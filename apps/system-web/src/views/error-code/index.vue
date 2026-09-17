@@ -21,7 +21,7 @@ import { computed, ref } from 'vue';
 
 import type { ErrorCode } from '@YDSZ/locales/errors';
 import { ZH_CN_MESSAGES } from '@YDSZ/locales/errors/zh-CN';
-import { YdBadge, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard/ElEmpty/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdInput、Tag → shadcn
 import {
   ElCard,

@@ -17,7 +17,7 @@ import {
   YdPopoverContentBase,
   YdPopoverTriggerBase,
   YdTree,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { ChevronDown, CircleX } from 'lucide-vue-next';
 
 interface TreeNode {

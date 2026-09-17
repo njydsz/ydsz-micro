@@ -24,7 +24,7 @@ import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, ref } from 'vue';
 
-import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listMine, upsert } from '#/api/userChannelBinding';

@@ -21,7 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP（ElCard 已迁移完成，无需保留）
 import { ElForm, ElFormItem } from 'element-plus';
 import { onMounted, ref } from 'vue';

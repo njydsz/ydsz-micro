@@ -17,7 +17,7 @@ import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { type YdScrollbar } from '@ydsz-core/shadcn-ui';
+import { type YdScrollbar } from '@ydsz-core/ydsz-ui';
 
 import { useDebounceFn } from '@vueuse/core';
 

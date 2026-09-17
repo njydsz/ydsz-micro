@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButtonBase } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();

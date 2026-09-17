@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdCheckboxBase } from '@ydsz-core/shadcn-ui';
+import { YdCheckboxBase } from '@ydsz-core/ydsz-ui';
 
 interface CheckboxGroupOption {
   disabled?: boolean;

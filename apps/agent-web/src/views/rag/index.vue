@@ -18,7 +18,7 @@
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElInputNumber/ElStatistic/ElTable/ElTableColumn 表单+表格+描述+数值输入+统计,保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElInputNumber, ElStatistic, ElTable, ElTableColumn } from 'element-plus';
-import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';

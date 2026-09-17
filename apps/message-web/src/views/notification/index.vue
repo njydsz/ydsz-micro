@@ -23,7 +23,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h, onMounted, ref } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { countUnread, deleteApi, inbox, markAllRead, markRead, recall } from '#/api/notification';

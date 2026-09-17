@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import type { FormInstance } from 'element-plus';
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { cn } from '@ydsz-core/shared/utils';
 import { ElAlert, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';

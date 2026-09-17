@@ -21,7 +21,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { upsert } from '#/api/preference';
 import type { MsgPreferenceVO } from '#/api/models';
 

@@ -13,7 +13,7 @@ import { computed, ref } from 'vue';
 
 import { type Editor } from '@tiptap/vue-3';
 
-import { YdInput, YdPopoverBase, YdPopoverContentBase, YdPopoverTriggerBase, YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdInput, YdPopoverBase, YdPopoverContentBase, YdPopoverTriggerBase, YdTooltip } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   /** TipTap 编辑器实例 */

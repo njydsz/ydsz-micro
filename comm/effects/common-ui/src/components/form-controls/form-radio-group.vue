@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdRadioGroup, YdRadioGroupItem } from '@ydsz-core/shadcn-ui';
+import { YdRadioGroup, YdRadioGroupItem } from '@ydsz-core/ydsz-ui';
 
 interface RadioGroupOption {
   disabled?: boolean;

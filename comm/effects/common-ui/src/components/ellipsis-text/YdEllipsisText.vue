@@ -17,7 +17,7 @@ import {
   watchEffect,
 } from 'vue';
 
-import { YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdTooltip } from '@ydsz-core/ydsz-ui';
 
 import { useElementSize } from '@vueuse/core';
 

@@ -15,7 +15,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem } from 'element-plus';
-import { YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createShare } from '#/api/share';
 

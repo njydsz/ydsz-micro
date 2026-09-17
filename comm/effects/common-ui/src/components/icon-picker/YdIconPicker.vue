@@ -30,7 +30,7 @@ import {
   YdIcon,
   YdIconButton,
   YdPopover,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { isFunction } from '@ydsz-core/shared/utils';
 
 import { objectOmit, refDebounced, watchDebounced } from '@vueuse/core';

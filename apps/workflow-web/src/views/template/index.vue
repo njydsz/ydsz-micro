@@ -21,7 +21,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { ElTable, ElTableColumn } from 'element-plus';
@@ -33,7 +33,7 @@ import {
   YdDropdownMenuTriggerBase,
   YdSheet,
   YdSheetContent,
-} from '@ydsz-core/ui-kit/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';

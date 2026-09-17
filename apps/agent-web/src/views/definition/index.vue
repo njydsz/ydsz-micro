@@ -21,7 +21,7 @@ import { h, ref } from 'vue';
 
 // TODO: ElDescriptions/ElDescriptionsItem/ElDrawer 描述+抽屉+输入,保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElDrawer } from 'element-plus';
-import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';

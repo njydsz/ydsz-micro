@@ -15,7 +15,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
-import { YdScrollbar } from '@ydsz-core/shadcn-ui';
+import { YdScrollbar } from '@ydsz-core/ydsz-ui';
 
 import { useScrollLock } from '@vueuse/core';
 

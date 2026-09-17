@@ -21,7 +21,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { create, update } from '#/api/routeRule';
 import type { MsgRouteRuleVO } from '#/api/models';
 

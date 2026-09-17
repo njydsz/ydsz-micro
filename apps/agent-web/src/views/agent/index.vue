@@ -19,12 +19,12 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard } from '@ydsz-core/shadcn-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 // TODO: ElDropdown/ElDropdownItem/ElDropdownMenu 暂无 shadcn 对应,保留 element-plus SKIP
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
-import { YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';

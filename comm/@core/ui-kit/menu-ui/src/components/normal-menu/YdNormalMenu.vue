@@ -15,7 +15,7 @@ import type { MenuRecordRaw } from '@ydsz-core/typings';
 import type { NormalMenuProps } from './normal-menu';
 
 import { useNamespace } from '@ydsz-core/composables';
-import { YdIcon } from '@ydsz-core/shadcn-ui';
+import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 type Props = NormalMenuProps;
 

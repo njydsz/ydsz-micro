@@ -40,7 +40,7 @@ import {
   YdSelectTriggerBase,
   YdSelectValueBase,
   YdTextarea,
-} from '@ydsz-core/ui-kit/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {

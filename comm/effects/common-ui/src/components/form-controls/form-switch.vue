@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdSwitch } from '@ydsz-core/shadcn-ui';
+import { YdSwitch } from '@ydsz-core/ydsz-ui';
 
 const model = defineModel<boolean>();
 </script>

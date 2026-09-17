@@ -22,7 +22,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listByUser } from '#/api/preference';

@@ -9,10 +9,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { DropdownMenuProps } from '@ydsz-core/shadcn-ui';
+import type { DropdownMenuProps } from '@ydsz-core/ydsz-ui';
 
 import { ChevronDown } from '@ydsz-core/icons';
-import { YdDropdownMenu } from '@ydsz-core/shadcn-ui';
+import { YdDropdownMenu } from '@ydsz-core/ydsz-ui';
 
 defineProps<DropdownMenuProps>();
 </script>

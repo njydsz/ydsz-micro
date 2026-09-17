@@ -21,7 +21,7 @@ import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdButtonBase, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { submitBatch } from '#/api/batch';
 import type { BatchSendRequestDTO, MsgBatchVO } from '#/api/models';
 

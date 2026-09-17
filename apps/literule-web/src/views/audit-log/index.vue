@@ -17,7 +17,7 @@
 import type { AuditLogEntryVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { h, reactive } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { byAction, byOperator, byRuleCode, byTimeRange, recent } from '#/api/ruleAuditLog';

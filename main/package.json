@@ -45,6 +45,7 @@
     "@ydsz/monitor": "workspace:*",
     "@ydsz/plugins": "workspace:*",
     "@ydsz/preferences": "workspace:*",
+    "@ydsz-core/popup-ui": "workspace:*",
     "@ydsz/request": "workspace:*",
     "@ydsz/shared-auth": "workspace:*",
     "@ydsz/notification": "workspace:*",

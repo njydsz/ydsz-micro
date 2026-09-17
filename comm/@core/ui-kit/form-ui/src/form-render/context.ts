@@ -14,7 +14,7 @@ import type { FormRenderProps } from '../types';
 
 import { computed } from 'vue';
 
-import { createContext } from '@ydsz-core/shadcn-ui';
+import { createContext } from '@ydsz-core/ydsz-ui';
 
 export const [injectRenderFormProps, provideFormRenderProps] =
   createContext<FormRenderProps>('FormRenderProps');

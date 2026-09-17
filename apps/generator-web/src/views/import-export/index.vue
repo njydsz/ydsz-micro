@@ -31,8 +31,8 @@ import {
   YdSelectTriggerBase,
   YdSelectValueBase,
   YdUpload,
-} from '@ydsz-core/ui-kit/shadcn-ui';
-import type { UploadRequestOptions } from '@ydsz-core/ui-kit/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
+import type { UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 import { ElForm, ElFormItem } from 'element-plus';
 

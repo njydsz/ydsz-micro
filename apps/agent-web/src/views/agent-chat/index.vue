@@ -23,7 +23,7 @@ import { Page } from '@ydsz/common-ui';
 
 // TODO: ElCollapse/ElCollapseItem/ElTooltip 暂无 shadcn 对应 SKIP
 import { ElCollapse, ElCollapseItem, ElTooltip } from 'element-plus';
-import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
 import { clearHistory, history as fetchHistory } from '#/api/agent';

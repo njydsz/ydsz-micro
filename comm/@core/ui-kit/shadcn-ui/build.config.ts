@@ -1,5 +1,5 @@
 ﻿/**
- * @ydsz-core/shadcn-ui 包的 unbuild 构建配置：mkdist 全量转译 + 资源原样拷贝。
+ * @ydsz-core/ydsz-ui 包的 unbuild 构建配置：mkdist 全量转译 + 资源原样拷贝。
  *
  * @path comm\@core\ui-kit\shadcn-ui\build.config.ts
  * @author ydsz-team

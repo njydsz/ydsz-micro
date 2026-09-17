@@ -18,7 +18,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { checkFileInfo, lockFile, unlockFile } from '#/api/wopi';
 import type { FileNodeVO } from '#/api/models';

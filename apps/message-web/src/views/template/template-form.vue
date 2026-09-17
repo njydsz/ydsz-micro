@@ -22,7 +22,7 @@ import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdInput, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { create, update } from '#/api/template';
 import type { MsgTemplateVO } from '#/api/models';
 

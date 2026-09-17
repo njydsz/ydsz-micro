@@ -18,7 +18,7 @@ import {
   YdCardFooter,
   YdCardHeader,
   YdCardTitle,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   height: '220px',

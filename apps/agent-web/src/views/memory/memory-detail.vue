@@ -18,7 +18,7 @@
 // TODO: FormInstance/ElForm/ElFormItem/ElOption/ElSelect 表单套件复杂+FormInstance类型,保留 element-plus SKIP
 import type { FormInstance } from 'element-plus';
 import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';

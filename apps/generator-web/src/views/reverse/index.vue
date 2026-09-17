@@ -34,7 +34,7 @@ import {
   YdSelectItemBase,
   YdSelectTriggerBase,
   YdSelectValueBase,
-} from '@ydsz-core/ui-kit/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 // TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
 import { ElEmpty, ElForm, ElFormItem } from 'element-plus';

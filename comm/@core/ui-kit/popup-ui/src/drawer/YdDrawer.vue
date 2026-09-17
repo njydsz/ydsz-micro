@@ -42,7 +42,7 @@ import {
   YdSheetHeader,
   YdSheetTitle,
   VisuallyHidden,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
 import { globalShareState } from '@ydsz-core/shared/global-state';
 import { cn } from '@ydsz-core/shared/utils';

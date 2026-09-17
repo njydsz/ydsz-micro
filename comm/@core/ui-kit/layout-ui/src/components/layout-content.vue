@@ -18,7 +18,7 @@ import type { ContentCompactType } from '@ydsz-core/typings';
 import { computed } from 'vue';
 
 import { useLayoutContentStyle } from '@ydsz-core/composables';
-import { Slot } from '@ydsz-core/shadcn-ui';
+import { Slot } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   /**

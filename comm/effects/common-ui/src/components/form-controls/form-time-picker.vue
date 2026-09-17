@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdDatePicker } from '@ydsz-core/shadcn-ui';
+import { YdDatePicker } from '@ydsz-core/ydsz-ui';
 
 const model = defineModel<string>();
 </script>

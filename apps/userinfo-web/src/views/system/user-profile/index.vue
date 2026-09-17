@@ -20,7 +20,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { ElForm, ElFormItem, ElInput, ElSwitch, type FormInstance, type UploadRequestOptions } from 'element-plus';
 import { reactive, ref } from 'vue';

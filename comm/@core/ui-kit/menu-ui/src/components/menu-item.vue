@@ -16,7 +16,7 @@ import type { MenuItemProps, MenuItemRegistered } from '../types';
 import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 
 import { useNamespace } from '@ydsz-core/composables';
-import { YdIcon, YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdIcon, YdTooltip } from '@ydsz-core/ydsz-ui';
 
 import YdMenuBadge from './menu-badge.vue';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';

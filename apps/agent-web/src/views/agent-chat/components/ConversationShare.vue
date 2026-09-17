@@ -17,7 +17,7 @@
 */
 // TODO: ElForm/ElFormItem/ElInput/ElDatePicker/ElRadio/ElRadioGroup 表单套件+日期选择,保留 element-plus SKIP
 import { ElDatePicker, ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
 defineOptions({ name: 'ConversationShare' });

@@ -27,7 +27,7 @@ import type {
 
 import { computed } from 'vue';
 
-import { Form } from '@ydsz-core/shadcn-ui';
+import { Form } from '@ydsz-core/ydsz-ui';
 import {
   cn,
   isFunction,

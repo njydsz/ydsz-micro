@@ -18,7 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm / YdFormItem / ElInputNumber 暂不迁移，保留 element-plus 导入
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
-import { YdInput, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { createQuickComment, updateQuickComment } from '#/api/flowComment';
 import type { FlowQuickCommentDTO, FlowQuickCommentVO } from '#/api/models';

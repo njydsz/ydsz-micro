@@ -10,9 +10,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { UploadUserFile } from '@ydsz-core/shadcn-ui';
+import type { UploadUserFile } from '@ydsz-core/ydsz-ui';
 
-import { YdUpload } from '@ydsz-core/shadcn-ui';
+import { YdUpload } from '@ydsz-core/ydsz-ui';
 
 const model = defineModel<UploadUserFile[]>();
 </script>

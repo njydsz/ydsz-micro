@@ -5,4 +5,4 @@
  *
  * @module @ydsz-core/ui/shadcn-ui
  */
-export * from '@ydsz-core/shadcn-ui';
+export * from '@ydsz-core/ydsz-ui';

@@ -18,7 +18,7 @@
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
-import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { getQuota } from '#/api/quota';

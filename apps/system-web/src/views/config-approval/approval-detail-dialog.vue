@@ -22,7 +22,7 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDivider/ElForm/ElTimeline 暂无 shadcn 映射，保留 element-plus
 import { ElDescriptions, ElDescriptionsItem, ElDivider, ElForm, ElFormItem, ElInput, ElTimeline, ElTimelineItem } from 'element-plus';
 

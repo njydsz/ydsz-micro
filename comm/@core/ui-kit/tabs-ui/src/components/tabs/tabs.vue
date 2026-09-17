@@ -17,7 +17,7 @@ import type { TabConfig, TabsProps } from '../../types';
 import { computed } from 'vue';
 
 import { Pin, X } from '@ydsz-core/icons';
-import { YdContextMenu, YdIcon } from '@ydsz-core/shadcn-ui';
+import { YdContextMenu, YdIcon } from '@ydsz-core/ydsz-ui';
 
 type Props = TabsProps;
 

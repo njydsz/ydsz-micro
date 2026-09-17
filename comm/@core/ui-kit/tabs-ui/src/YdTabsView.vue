@@ -15,7 +15,7 @@ import type { TabsEmits, TabsProps } from './types';
 
 import { useForwardPropsEmits } from '@ydsz-core/composables';
 import { ChevronLeft, ChevronRight } from '@ydsz-core/icons';
-import { YdScrollbar } from '@ydsz-core/shadcn-ui';
+import { YdScrollbar } from '@ydsz-core/ydsz-ui';
 
 import { YdTabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';

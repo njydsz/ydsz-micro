@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { search } from '#/api/messageArchive';

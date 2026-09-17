@@ -35,7 +35,7 @@ import {
   YdTooltipContentBase,
   YdTooltipProviderBase,
   YdTooltipTriggerBase,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { useNotificationStore } from '#/store/notification';

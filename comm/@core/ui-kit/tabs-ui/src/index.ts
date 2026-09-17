@@ -10,4 +10,4 @@
  */
 export * from './components/widgets';
 export { default as YdTabsView } from './YdTabsView.vue';
-export type { IContextMenuItem } from '@ydsz-core/shadcn-ui';
+export type { IContextMenuItem } from '@ydsz-core/ydsz-ui';
