@@ -10,6 +10,8 @@
  *   <li>支持「全部标记已读」和「查看更多」</li>
  * </ul>
  *
+ * 使用自研 shadcn-scoped Popover/ScrollArea/Button + lucide 图标，零 element-plus 依赖。
+ *
  * @path comm\@core\components\notification-bell\index.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -21,9 +23,20 @@ import { computed, onMounted, ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 
-import { ElBadge, ElButton, ElIcon, ElPopover, ElScrollbar, ElTooltip } from 'element-plus';
+import { ArrowRight, Bell, CheckCheck, Settings } from 'lucide-vue-next';
 
-import { ArrowRight } from '@element-plus/icons-vue';
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  ScrollArea,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@ydsz-core/shadcn-ui';
+import { cn } from '@ydsz-core/shared/utils';
 
 import { useNotificationStore } from '#/store/notification';
 
@@ -94,7 +107,7 @@ function formatTime(dateStr: string): string {
   }
 }
 
-/** 类型图标 class 映射 */
+/** 类型图标映射 */
 const typeIconClassMap: Record<string, string> = {
   INFO: 'lucide:info',
   WARN: 'lucide:alert-triangle',
@@ -107,7 +120,7 @@ function getTypeIconClass(type: string): string {
 }
 
 /** 点击通知项 */
-function handleClickNotification(item: NotificationItem) {
+function handleClickNotification(item: NotificationItem): void {
   if (!item.isRead) {
     notificationStore.markRead(item.id);
   }
@@ -115,18 +128,18 @@ function handleClickNotification(item: NotificationItem) {
 }
 
 /** 全部标记已读 */
-async function handleMarkAllRead() {
+async function handleMarkAllRead(): Promise<void> {
   await notificationStore.markAllRead();
 }
 
 /** 查看更多 */
-function handleViewAll() {
+function handleViewAll(): void {
   popoverOpen.value = false;
   emit('click-view-all');
 }
 
 /** 打开设置 */
-function handleOpenSettings() {
+function handleOpenSettings(): void {
   popoverOpen.value = false;
   emit('click-settings');
 }
@@ -138,164 +151,155 @@ onMounted(() => {
 
 <template>
   <div class="notification-bell-wrapper">
-    <ElPopover
-      v-model:visible="popoverOpen"
-      :show-arrow="false"
-      :teleported="true"
-      placement="bottom-end"
-      trigger="click"
-      :width="360"
-      popper-class="notification-bell-popover"
-    >
-      <template #reference>
-        <div class="bell-icon-wrapper">
-          <ElBadge :hidden="unreadCount <= 0" :max="99" :value="unreadCount">
-            <div class="bell-button">
-              <ElIcon :size="18" class="bell-svg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                </svg>
-              </ElIcon>
-            </div>
-          </ElBadge>
-        </div>
-      </template>
-
-      <!-- 头部 -->
-      <div class="notification-header">
-        <div class="notification-header-title">
-          <span>{{ t('notification.title') }}</span>
+    <Popover v-model:open="popoverOpen">
+      <PopoverTrigger as-child>
+        <button
+          type="button"
+          class="bell-icon-wrapper"
+          aria-label="通知"
+        >
+          <!-- 角标：自研简化数字徽章 -->
           <span
-            v-if="showConnectionStatus"
-            class="connection-status"
-            :class="connected ? 'is-connected' : 'is-disconnected'"
+            v-if="unreadCount > 0"
+            class="bell-badge"
+            aria-hidden="true"
           >
-            <span
-              class="status-dot"
-              :class="connected ? 'is-active' : 'is-inactive'"
-            />
-            {{
-              connected
-                ? t('notification.connected')
-                : t('notification.disconnected')
-            }}
+            {{ unreadCount > 99 ? '99+' : unreadCount }}
           </span>
-        </div>
-        <ElTooltip :content="t('notification.markAllAsRead')" placement="top">
-          <ElButton
-            :disabled="unreadCount <= 0"
-            size="small"
-            text
-            @click="handleMarkAllRead"
-          >
-            <ElIcon :size="16">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M18 6 7 17l-5-5" />
-                <path d="m22 10-7.5 7.5L13 16" />
-              </svg>
-            </ElIcon>
-          </ElButton>
-        </ElTooltip>
-      </div>
+          <div class="bell-button">
+            <Bell :size="18" class="bell-svg" />
+          </div>
+        </button>
+      </PopoverTrigger>
 
-      <!-- 通知列表 -->
-      <ElScrollbar :max-height="maxHeight">
-        <div v-if="displayNotifications.length > 0" class="notification-list">
-          <div
-            v-for="item in displayNotifications"
-            :key="item.id"
-            class="notification-item"
-            :class="{ 'is-unread': !item.isRead }"
-            @click="handleClickNotification(item)"
-          >
-            <!-- 类型图标 -->
-            <div
-              class="item-type-icon"
-              :class="getTypeColor(item.type)"
+      <PopoverContent
+        align="end"
+        side="bottom"
+        :side-offset="8"
+        class="notification-bell-popover"
+      >
+        <!-- 头部 -->
+        <div class="notification-header">
+          <div class="notification-header-title">
+            <span>{{ t('notification.title') }}</span>
+            <span
+              v-if="showConnectionStatus"
+              :class="[
+                'connection-status',
+                connected ? 'is-connected' : 'is-disconnected',
+              ]"
             >
-              <ElIcon :size="16">
-                <i :class="getTypeIconClass(item.type)" />
-              </ElIcon>
-            </div>
+              <span
+                :class="[
+                  'status-dot',
+                  connected ? 'is-active' : 'is-inactive',
+                ]"
+              />
+              {{
+                connected
+                  ? t('notification.connected')
+                  : t('notification.disconnected')
+              }}
+            </span>
+          </div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger as-child>
+                <Button
+                  :disabled="unreadCount <= 0"
+                  size="sm"
+                  variant="ghost"
+                  class="header-mark-read"
+                  @click="handleMarkAllRead"
+                >
+                  <CheckCheck :size="16" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                {{ t('notification.markAllAsRead') }}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
 
-            <!-- 内容 -->
-            <div class="item-content">
-              <div class="item-title-row">
-                <span class="item-title">{{ item.title }}</span>
-                <span v-if="!item.isRead" class="unread-dot" />
+        <!-- 通知列表 -->
+        <ScrollArea :style="{ maxHeight: maxHeight + 'px' }">
+          <div
+            v-if="displayNotifications.length > 0"
+            class="notification-list"
+          >
+            <div
+              v-for="item in displayNotifications"
+              :key="item.id"
+              :class="[
+                'notification-item',
+                { 'is-unread': !item.isRead },
+              ]"
+              @click="handleClickNotification(item)"
+            >
+              <!-- 类型图标 -->
+              <div
+                :class="[
+                  'item-type-icon',
+                  getTypeColor(item.type),
+                ]"
+                aria-hidden="true"
+              >
+                <i :class="getTypeIconClass(item.type)" />
               </div>
-              <p class="item-message">{{ item.message }}</p>
-              <span class="item-time">{{ formatTime(item.createdAt) }}</span>
+
+              <!-- 内容 -->
+              <div class="item-content">
+                <div class="item-title-row">
+                  <span class="item-title">{{ item.title }}</span>
+                  <span
+                    v-if="!item.isRead"
+                    class="unread-dot"
+                    aria-label="未读"
+                  />
+                </div>
+                <p class="item-message">{{ item.message }}</p>
+                <span class="item-time">{{ formatTime(item.createdAt) }}</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- 空状态 -->
-        <div v-else class="notification-empty">
-          <ElIcon :size="32" class="empty-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-            </svg>
-          </ElIcon>
-          <span class="empty-text">{{ t('notification.noData') }}</span>
-        </div>
-      </ElScrollbar>
+          <!-- 空状态 -->
+          <div
+            v-else
+            class="notification-empty"
+          >
+            <Bell
+              :size="32"
+              class="empty-icon"
+              aria-hidden="true"
+            />
+            <span class="empty-text">{{ t('notification.noData') }}</span>
+          </div>
+        </ScrollArea>
 
-      <!-- 底部操作栏 -->
-      <div class="notification-footer">
-        <ElButton size="small" text @click="handleOpenSettings">
-          <ElIcon :size="14" class="footer-settings-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-          </ElIcon>
-          {{ t('notification.settings') }}
-        </ElButton>
-        <ElButton size="small" type="primary" @click="handleViewAll">
-          {{ t('notification.viewAll') }}
-          <ElIcon :size="14"><ArrowRight /></ElIcon>
-        </ElButton>
-      </div>
-    </ElPopover>
+        <!-- 底部操作栏 -->
+        <div class="notification-footer">
+          <Button
+            size="sm"
+            variant="ghost"
+            class="footer-settings"
+            @click="handleOpenSettings"
+          >
+            <Settings :size="14" class="footer-settings-icon" />
+            {{ t('notification.settings') }}
+          </Button>
+          <Button
+            size="sm"
+            variant="default"
+            @click="handleViewAll"
+          >
+            {{ t('notification.viewAll') }}
+            <ArrowRight :size="14" class="footer-view-all-icon" />
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   </div>
 </template>
 
@@ -306,23 +310,61 @@ onMounted(() => {
   height: 100%;
 }
 
+.bell-icon-wrapper {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: hsl(var(--neutral-100, #f0f0f0));
+  }
+}
+
+.bell-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background-color: hsl(var(--destructive-500, #ef4444));
+  color: #fff;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  padding: 0 5px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
 .bell-button {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: var(--el-fill-color-light);
-  }
 }
 
 .bell-svg {
-  color: var(--el-text-color-regular);
+  color: hsl(var(--txt-secondary, #606266));
+}
+
+.notification-bell-popover {
+  width: 360px;
+  padding: 0 !important;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgb(0 0 0 / 12%);
+  border: 1px solid hsl(var(--border-subtle, #e5e7eb));
+  background-color: hsl(var(--bg-surface-2, #fff));
 }
 
 .notification-header {
@@ -330,7 +372,12 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px 8px;
-  border-bottom: 1px solid var(--el-border-color-lighter);
+  border-bottom: 1px solid hsl(var(--border-subtle, #e5e7eb));
+}
+
+.header-mark-read {
+  padding: 4px;
+  height: auto;
 }
 
 .notification-header-title {
@@ -349,11 +396,11 @@ onMounted(() => {
   font-weight: 400;
 
   &.is-connected {
-    color: var(--el-color-success);
+    color: hsl(var(--success-500, #22c55e));
   }
 
   &.is-disconnected {
-    color: var(--el-color-warning);
+    color: hsl(var(--warning-500, #f59e0b));
   }
 }
 
@@ -364,11 +411,11 @@ onMounted(() => {
   border-radius: 50%;
 
   &.is-active {
-    background-color: var(--el-color-success);
+    background-color: hsl(var(--success-500, #22c55e));
   }
 
   &.is-inactive {
-    background-color: var(--el-color-warning);
+    background-color: hsl(var(--warning-500, #f59e0b));
     animation: pulse 1.5s ease-in-out infinite;
   }
 }
@@ -385,14 +432,14 @@ onMounted(() => {
   transition: background-color 0.15s;
 
   &:hover {
-    background-color: var(--el-fill-color-light);
+    background-color: hsl(var(--neutral-50, #f5f5f5));
   }
 
   &.is-unread {
-    background-color: var(--el-color-primary-light-9);
+    background-color: hsl(var(--brand-50, #eff6ff));
 
     &:hover {
-      background-color: var(--el-color-primary-light-8);
+      background-color: hsl(var(--brand-100, #dbeafe));
     }
   }
 }
@@ -431,7 +478,7 @@ onMounted(() => {
   flex-shrink: 0;
   width: 7px;
   height: 7px;
-  background-color: var(--el-color-danger);
+  background-color: hsl(var(--destructive-500, #ef4444));
   border-radius: 50%;
 }
 
@@ -440,14 +487,14 @@ onMounted(() => {
   margin: 2px 0;
   overflow: hidden;
   font-size: 12px;
-  color: var(--el-text-color-secondary);
+  color: hsl(var(--txt-tertiary, #737373));
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
 .item-time {
   font-size: 11px;
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-disabled, #9ca3af));
 }
 
 .notification-empty {
@@ -460,12 +507,12 @@ onMounted(() => {
 }
 
 .empty-icon {
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-disabled, #9ca3af));
 }
 
 .empty-text {
   font-size: 13px;
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-disabled, #9ca3af));
 }
 
 .notification-footer {
@@ -473,15 +520,19 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 8px 16px;
-  border-top: 1px solid var(--el-border-color-lighter);
+  border-top: 1px solid hsl(var(--border-subtle, #e5e7eb));
+}
+
+.footer-settings {
+  color: hsl(var(--txt-secondary, #606266));
 }
 
 .footer-settings-icon {
   margin-right: 4px;
 }
 
-:global(.notification-bell-popover) {
-  padding: 0 !important;
+.footer-view-all-icon {
+  margin-left: 4px;
 }
 
 @keyframes pulse {

@@ -20,10 +20,7 @@ import { onMounted, ref, watch } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElInputNumber 暂无对应 shadcn-ui 组件，保留 element-plus 导入
-// TODO: ElTooltip 暂无对应 shadcn-ui 组件，保留 element-plus 导入
-import { ElInputNumber, ElTooltip } from 'element-plus';
+import { Badge, Button, Input, Tooltip, TooltipContent, TooltipTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 
@@ -114,13 +111,24 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
         default: ({ row }) => {
           const item = row as GenHistory;
           if (!item.errorMessage) return h('span', { class: 'text-gray-400' }, '-');
-          return h(ElTooltip, { content: item.errorMessage, placement: 'top' }, {
-            default: () =>
+          return h(Tooltip, {}, {
+            default: () => [
               h(
-                'span',
-                { class: 'text-red-500 truncate block max-w-[180px] cursor-help' },
-                item.errorMessage.substring(0, 30) + (item.errorMessage.length > 30 ? '...' : ''),
+                TooltipTrigger,
+                { asChild: true },
+                {
+                  default: () =>
+                    h(
+                      'span',
+                      { class: 'text-red-500 truncate block max-w-[180px] cursor-help' },
+                      item.errorMessage.substring(0, 30) + (item.errorMessage.length > 30 ? '...' : ''),
+                    ),
+                },
               ),
+              h(TooltipContent, { side: 'top' }, {
+                default: () => item.errorMessage,
+              }),
+            ],
           });
         },
       },
@@ -251,7 +259,7 @@ onMounted(() => {});
   <Page auto-content-height>
     <div class="mb-4 flex items-center gap-4">
       <span class="text-sm text-gray-600">显示最近</span>
-      <ElInputNumber v-model="limit" :min="5" :max="100" :step="5" />
+      <Input v-model="limit" type="number" :min="5" :max="100" :step="5" class="w-24" />
       <span class="text-sm text-gray-600">条记录</span>
     </div>
     <Grid table-title="生成历史" />
