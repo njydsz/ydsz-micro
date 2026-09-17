@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdAvatar } from '../avatar';
+import { YdAvatarSmart } from '../avatar';
 
 interface Props {
   /**
@@ -64,7 +64,7 @@ withDefaults(defineProps<Props>(), {
       :aria-label="text"
       class="flex h-full items-center gap-2 overflow-hidden px-3 text-lg leading-normal transition-all duration-500"
     >
-      <YdAvatar
+      <YdAvatarSmart
         v-if="src"
         :alt="text"
         :src="src"

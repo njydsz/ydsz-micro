@@ -4,7 +4,7 @@
  * 本身不渲染任何可见元素，只提供状态上下文；触发器与内容分别由
  * YdContextMenuTrigger / YdContextMenuContent 提供。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuRoot.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenu.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

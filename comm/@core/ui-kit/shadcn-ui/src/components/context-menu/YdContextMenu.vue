@@ -25,7 +25,7 @@ import { computed } from 'vue';
 import { useForwardPropsEmits } from 'radix-vue';
 
 import {
-  YdContextMenuRoot,
+  YdContextMenu,
   YdContextMenuContent,
   YdContextMenuItem,
   YdContextMenuSeparator,
@@ -73,7 +73,7 @@ function handleClick(menu: IContextMenuItem) {
 </script>
 
 <template>
-  <YdContextMenuRoot v-bind="forwarded">
+  <YdContextMenu v-bind="forwarded">
     <YdContextMenuTrigger as-child>
       <slot></slot>
     </YdContextMenuTrigger>
@@ -108,6 +108,6 @@ function handleClick(menu: IContextMenuItem) {
         <YdContextMenuSeparator v-if="menu.separator" role="separator" />
       </template>
     </YdContextMenuContent>
-  </YdContextMenuRoot>
+  </YdContextMenu>
 </template>
 

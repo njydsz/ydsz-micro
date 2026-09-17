@@ -1,7 +1,7 @@
 /**
  * 空闲期延迟挂载 —— 利用 requestIdleCallback 把非关键组件的初始化推迟到浏览器空闲。
  *
- * <p>痛点：首屏渲染时，弹窗内容、Dropdown 面板、YdTooltipRoot 内容即使未打开也会参与 setup 执行，
+ * <p>痛点：首屏渲染时，弹窗内容、Dropdown 面板、YdTooltipSmart 内容即使未打开也会参与 setup 执行，
  * 占用主线程时间。对于卡片列表包裹大量可交互组件（YdEntityCard × 50）场景，
  * 滚动卡顿明显。
  *

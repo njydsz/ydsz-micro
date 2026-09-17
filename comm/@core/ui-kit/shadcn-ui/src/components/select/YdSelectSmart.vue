@@ -1,5 +1,5 @@
 ﻿<!--
- * 开箱即用的下拉选择器：在 radix YdSelectRoot 之上补齐本项目最常用的三项能力 ——
+ * 开箱即用的下拉选择器：在 radix YdSelectSmart 之上补齐本项目最常用的三项能力 ——
  * options 数组直接渲染（省去逐条手写 YdSelectItem）、v-model 双向绑定、allowClear 一键清空。
  *
  * 清空把 modelValue 置为 undefined 而不是空字符串，
@@ -13,7 +13,7 @@
 import { CircleX } from '@ydsz-core/icons';
 
 import {
-  YdSelectRoot,
+  YdSelectSmart,
   YdSelectContent,
   YdSelectItem,
   YdSelectTrigger,
@@ -38,7 +38,7 @@ function handleClear() {
 }
 </script>
 <template>
-  <YdSelectRoot v-model="modelValue">
+  <YdSelectSmart v-model="modelValue">
     <YdSelectTrigger :class="props.class" class="flex w-full items-center" aria-label="选择框">
       <YdSelectValue class="flex-auto text-left" :placeholder="placeholder" />
       <CircleX
@@ -57,7 +57,7 @@ function handleClear() {
         <YdSelectItem :value="item.value"> {{ item.label }} </YdSelectItem>
       </template>
     </YdSelectContent>
-  </YdSelectRoot>
+  </YdSelectSmart>
 </template>
 
 <style lang="scss" scoped>

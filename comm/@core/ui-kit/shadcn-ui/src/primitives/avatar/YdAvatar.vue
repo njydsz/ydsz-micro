@@ -5,7 +5,7 @@
  * 因为默认变体已经带上 h-8 w-8 等具体尺寸类，直接拼字符串会被 tailwind-merge 判为冲突而丢失其一。
  * 图片与兜底内容分别由 YdAvatarImage / YdAvatarFallback 提供，本组件只负责裁剪与定尺。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\avatar\YdAvatarRoot.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\avatar\YdAvatar.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

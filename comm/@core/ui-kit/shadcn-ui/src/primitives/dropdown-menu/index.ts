@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdDropdownMenuRoot } from './YdDropdownMenuRoot.vue';
+export { default as YdDropdownMenu } from './YdDropdownMenu.vue';
 
 export { default as YdDropdownMenuCheckboxItem } from './YdDropdownMenuCheckboxItem.vue';
 export { default as YdDropdownMenuContent } from './YdDropdownMenuContent.vue';

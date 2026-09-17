@@ -7,7 +7,7 @@
  * 样式合并必须走 cn()：默认变体已带 h-9 / px-4 等具体类，
  * 调用方若直接拼字符串，tailwind-merge 无法判定冲突，最终类名顺序将决定谁生效。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\YdButtonRoot.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\YdButton.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

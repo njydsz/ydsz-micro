@@ -20,7 +20,7 @@ import {
   YdBreadcrumbList,
   YdBreadcrumbPage,
   YdBreadcrumbSeparator,
-  YdDropdownMenuRoot,
+  YdDropdownMenuSmart,
   YdDropdownMenuContent,
   YdDropdownMenuItem,
   YdDropdownMenuTrigger,
@@ -53,7 +53,7 @@ function handleClick(path?: string) {
         >
           <YdBreadcrumbItem>
             <div v-if="item.items?.length ?? 0 > 0">
-              <YdDropdownMenuRoot>
+              <YdDropdownMenuSmart>
                 <YdDropdownMenuTrigger class="flex items-center gap-1" aria-haspopup="menu">
                   <YdIcon v-if="showIcon" :icon="item.icon" class="size-5" aria-hidden="true" />
                   {{ item.title }}
@@ -69,7 +69,7 @@ function handleClick(path?: string) {
                     </YdDropdownMenuItem>
                   </template>
                 </YdDropdownMenuContent>
-              </YdDropdownMenuRoot>
+              </YdDropdownMenuSmart>
             </div>
             <YdBreadcrumbLink
               v-else-if="index !== breadcrumbs.length - 1"

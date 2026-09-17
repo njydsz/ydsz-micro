@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle, YdCheckboxRoot } from '../../primitives';
+import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle, YdCheckboxSmart } from '../../primitives';
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({
@@ -108,7 +108,7 @@ function handleSelectChange(checked: boolean): void {
       class="absolute start-3 top-3 z-10 opacity-0 transition-opacity group-hover:opacity-100"
       :class="{ 'opacity-100': selected }"
     >
-      <YdCheckboxRoot
+      <YdCheckboxSmart
         :checked="selected"
         @update:checked="handleSelectChange"
       />

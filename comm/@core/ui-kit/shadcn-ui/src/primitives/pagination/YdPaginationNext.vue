@@ -1,5 +1,5 @@
 ﻿<!--
- * 分页器的「下一页」按钮：默认开启 asChild，外观由 YdButtonRoot 的 outline 变体提供。
+ * 分页器的「下一页」按钮：默认开启 asChild，外观由 YdButton 的 outline 变体提供。
  *
  * 处于末页时由 radix 自动置为 disabled，
  * 因此调用方不需要自行判断页码边界，也就不存在边界判断与渲染不同步的隐患。
@@ -18,7 +18,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { ChevronRight } from 'lucide-vue-next';
 import { YdPaginationNext } from 'radix-vue';
 
-import { YdButtonRoot } from '../button';
+import { YdButton } from '../button';
 
 const props = withDefaults(
   defineProps<PaginationNextProps & { class?: any }>(),
@@ -36,10 +36,10 @@ const delegatedProps = computed(() => {
 
 <template>
   <YdPaginationNext v-bind="delegatedProps">
-    <YdButtonRoot :class="cn('size-8 p-0', props.class)" variant="outline">
+    <YdButton :class="cn('size-8 p-0', props.class)" variant="outline">
       <slot>
         <ChevronRight class="size-4" />
       </slot>
-    </YdButtonRoot>
+    </YdButton>
   </YdPaginationNext>
 </template>

@@ -10,7 +10,7 @@
  */
 export type * from './button';
 export { default as YdButtonGroup } from './YdButtonGroup.vue';
-export { default as YdButton } from './YdButton.vue';
+export { default as YdButtonSmart } from './YdButtonSmart.vue';
 export { default as YdCheckButtonGroup } from './YdCheckButtonGroup.vue';
 export { default as YdIconButton } from './YdIconButton.vue';
 

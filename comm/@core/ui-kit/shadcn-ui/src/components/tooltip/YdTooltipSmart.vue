@@ -1,5 +1,5 @@
 ﻿<!--
- * YdTooltipRoot 的组合封装：内部自带 YdTooltipProvider，因此调用方不必再手动包一层 Provider。
+ * YdTooltipSmart 的组合封装：内部自带 YdTooltipProvider，因此调用方不必再手动包一层 Provider。
  *
  * 对外只暴露高频的四个入口：trigger 插槽承载触发元素、默认插槽承载浮层内容，
  * side 与 delayDuration 控制方位与延迟（默认 right / 0），
@@ -20,7 +20,7 @@ import type { StyleValue } from 'vue';
 import type { ClassType } from '@ydsz-core/typings';
 
 import {
-  YdTooltipRoot,
+  YdTooltipSmart,
   YdTooltipContent,
   YdTooltipProvider,
   YdTooltipTrigger,
@@ -41,7 +41,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <YdTooltipProvider :delay-duration="delayDuration">
-    <YdTooltipRoot>
+    <YdTooltipSmart>
       <YdTooltipTrigger as-child>
         <slot name="trigger"></slot>
       </YdTooltipTrigger>
@@ -54,6 +54,6 @@ withDefaults(defineProps<Props>(), {
       >
         <slot></slot>
       </YdTooltipContent>
-    </YdTooltipRoot>
+    </YdTooltipSmart>
   </YdTooltipProvider>
 </template>

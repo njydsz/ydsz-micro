@@ -13,7 +13,7 @@
 import type { DropdownMenuProps } from './interface';
 
 import {
-  YdDropdownMenuRoot,
+  YdDropdownMenuSmart,
   YdDropdownMenuContent,
   YdDropdownMenuGroup,
   YdDropdownMenuItem,
@@ -32,7 +32,7 @@ function handleItemClick(value: string) {
 }
 </script>
 <template>
-  <YdDropdownMenuRoot>
+  <YdDropdownMenuSmart>
     <YdDropdownMenuTrigger as-child class="flex items-center gap-1">
       <slot></slot>
     </YdDropdownMenuTrigger>
@@ -59,6 +59,6 @@ function handleItemClick(value: string) {
         </template>
       </YdDropdownMenuGroup>
     </YdDropdownMenuContent>
-  </YdDropdownMenuRoot>
+  </YdDropdownMenuSmart>
 </template>
 

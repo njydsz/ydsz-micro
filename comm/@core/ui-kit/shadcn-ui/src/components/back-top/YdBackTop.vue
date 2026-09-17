@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { ArrowUpToLine } from '@ydsz-core/icons';
 
-import { YdButton } from '../button';
+import { YdButtonSmart } from '../button';
 import { useBackTop } from './use-backtop';
 
 type Props = BacktopProps;
@@ -40,7 +40,7 @@ const { handleClick, visible } = useBackTop(props);
 </script>
 <template>
   <transition name="fade-down">
-    <YdButton
+    <YdButtonSmart
       v-if="visible"
       :style="backTopStyle"
       class="dark:bg-accent dark:hover:bg-heavy bg-background hover:bg-heavy data shadow-float z-popup fixed bottom-10 size-10 rounded-full duration-500"
@@ -50,7 +50,7 @@ const { handleClick, visible } = useBackTop(props);
       @click="handleClick"
     >
       <ArrowUpToLine class="size-4" aria-hidden="true" />
-    </YdButton>
+    </YdButtonSmart>
   </transition>
 </template>
 

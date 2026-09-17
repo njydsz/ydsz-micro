@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { YdButtonRoot } from '../../primitives';
+import { YdButtonSmart } from '../../primitives';
 import { cn } from '@ydsz-core/shared/utils';
 import { type CircleOff, FolderOpen, Inbox, SearchX, ShieldAlert } from 'lucide-vue-next';
 
@@ -115,12 +115,12 @@ function handleAction(): void {
     <!-- 默认创建按钮（可覆盖为 actions slot） -->
     <div v-if="actionText">
       <slot name="default-action">
-        <YdButtonRoot
+        <YdButtonSmart
           size="sm"
           @click="handleAction"
         >
           {{ actionText }}
-        </YdButtonRoot>
+        </YdButtonSmart>
       </slot>
     </div>
 

@@ -15,7 +15,7 @@ import type {
 } from './interface';
 
 import {
-  YdDropdownMenuRoot,
+  YdDropdownMenuSmart,
   YdDropdownMenuContent,
   YdDropdownMenuGroup,
   YdDropdownMenuItem,
@@ -25,7 +25,7 @@ import {
 
 type Props = DropdownMenuProps;
 
-defineOptions({ name: 'YdDropdownMenuRoot' });
+defineOptions({ name: 'YdDropdownMenuSmart' });
 const props = withDefaults(defineProps<Props>(), {});
 
 function handleItemClick(menu: IDropdownMenuItem) {
@@ -36,7 +36,7 @@ function handleItemClick(menu: IDropdownMenuItem) {
 }
 </script>
 <template>
-  <YdDropdownMenuRoot>
+  <YdDropdownMenuSmart>
     <YdDropdownMenuTrigger class="flex h-full items-center gap-1" aria-haspopup="menu">
       <slot></slot>
     </YdDropdownMenuTrigger>
@@ -57,6 +57,6 @@ function handleItemClick(menu: IDropdownMenuItem) {
         </template>
       </YdDropdownMenuGroup>
     </YdDropdownMenuContent>
-  </YdDropdownMenuRoot>
+  </YdDropdownMenuSmart>
 </template>
 

@@ -3,9 +3,9 @@
  *
  * 延迟与方位分别在 YdTooltipProvider 与 YdTooltipContent 上配置，本组件只承载开合状态；
  * 它必须位于 YdTooltipProvider 之内，否则不会显示 ——
- * 这是接入 radix YdTooltipRoot 时最常见的疏漏。
+ * 这是接入 radix YdTooltip 时最常见的疏漏。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltipRoot.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltip.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

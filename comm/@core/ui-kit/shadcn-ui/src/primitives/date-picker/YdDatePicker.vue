@@ -1,5 +1,5 @@
 <!--
- * YdDatePicker Vue 组件 —— 基于 YdPopoverRoot 的日历命令式选择器。
+ * YdDatePicker Vue 组件 —— 基于 YdPopover 的日历命令式选择器。
  *
  * 提供与 ElDatePicker 对齐的核心 API：
  * - v-model 双向绑定

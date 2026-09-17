@@ -10,16 +10,16 @@
  *
  * ```ts
  * // 方式一：全量引入（适合中小项目）
- * import { YdButton, YdForm, YdModal, YdMenu } from '@ydsz-core/ui';
+ * import { YdButtonSmart, YdForm, YdModal, YdMenu } from '@ydsz-core/ui';
  *
  * // 方式二：子路径按需引入（推荐，tree-shaking 友好）
- * import { YdButton } from '@ydsz-core/ui/shadcn-ui';
+ * import { YdButtonSmart } from '@ydsz-core/ui/shadcn-ui';
  * import { YdForm } from '@ydsz-core/ui/form';
  * import { YdModal } from '@ydsz-core/ui/popup';
  * ```
  *
  * 子路径一览：
- *  - `@ydsz-core/ui/shadcn-ui` — 业务组件 + primitives (YdButton/YdButtonRoot/YdDialog/...)
+ *  - `@ydsz-core/ui/shadcn-ui` — 业务组件 + primitives (YdButtonSmart/YdButtonSmart/YdDialog/...)
  *  - `@ydsz-core/ui/form`     — 表单引擎 (YdForm, setupYdForm, ...)
  *  - `@ydsz-core/ui/popup`    — 弹窗 + 抽屉 (YdModal, YdDrawer, YdAlert)
  *  - `@ydsz-core/ui/menu`     — 菜单系统 (YdMenu, YdMenuBadge, ...)

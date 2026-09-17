@@ -1,7 +1,7 @@
 <!--
  * 带虚拟滚动的选择器下拉面板：基于 useVirtualList 实现千级选项下的流畅滚动。
  *
- * 痛点：传统 YdSelectRoot 在 options > 500 时全量渲染 DOM，导致面板展开慢、滚动卡顿。
+ * 痛点：传统 YdSelect 在 options > 500 时全量渲染 DOM，导致面板展开慢、滚动卡顿。
  * 与 YdSelectContent 的区别：
  *  - 接收 items 数组而非 slot 注入 YdSelectItem 子项，借此在渲染前拿到总数做切片；
  *  - 仅渲染可视窗口内的 DOM 节点，配合 spacer 撑出总高度保持滚动条比例；

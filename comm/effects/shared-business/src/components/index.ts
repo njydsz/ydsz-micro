@@ -14,10 +14,10 @@
 export { default as YdAsyncState } from './YdAsyncState.vue';
 
 // —— 统一空状态组件 ——
-export { default as YdEmptyState } from './YdCommonEmptyState.vue';
+export { default as YdEmptyState } from './YdCommonEmptyState2.vue';
 
 // —— 统一错误状态组件 ——
-export { default as YdErrorState } from './YdErrorState.vue';
+export { default as YdErrorState } from './YdCommonErrorState.vue';
 
 // —— 状态徽章组件 — 统一的项目/任务/审批状态展示 ——
 export { default as YdStatusBadge } from './YdBizStatusBadge.vue';

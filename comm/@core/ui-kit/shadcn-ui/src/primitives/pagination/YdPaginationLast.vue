@@ -1,7 +1,7 @@
 ﻿<!--
- * 分页器的「跳到末页」按钮：默认开启 asChild，把 radix 的行为套到 YdButtonRoot 上。
+ * 分页器的「跳到末页」按钮：默认开启 asChild，把 radix 的行为套到 YdButton 上。
  *
- * 与首页按钮同理：外观交给 YdButtonRoot，radix 只提供行为与到达边界后的禁用态，
+ * 与首页按钮同理：外观交给 YdButton，radix 只提供行为与到达边界后的禁用态，
  * 避免两套按钮样式互相覆盖。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\YdPaginationLast.vue
@@ -18,7 +18,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { ChevronsRight } from 'lucide-vue-next';
 import { YdPaginationLast } from 'radix-vue';
 
-import { YdButtonRoot } from '../button';
+import { YdButton } from '../button';
 
 const props = withDefaults(
   defineProps<PaginationLastProps & { class?: any }>(),
@@ -36,10 +36,10 @@ const delegatedProps = computed(() => {
 
 <template>
   <YdPaginationLast v-bind="delegatedProps">
-    <YdButtonRoot :class="cn('size-8 p-0', props.class)" variant="outline">
+    <YdButton :class="cn('size-8 p-0', props.class)" variant="outline">
       <slot>
         <ChevronsRight class="size-4" />
       </slot>
-    </YdButtonRoot>
+    </YdButton>
   </YdPaginationLast>
 </template>

@@ -21,7 +21,7 @@ import { computed } from 'vue';
 
 import { useForwardPropsEmits } from 'radix-vue';
 
-import { YdHoverCardRoot, YdHoverCardContent, YdHoverCardTrigger } from '../../primitives';
+import { YdHoverCardSmart, YdHoverCardContent, YdHoverCardTrigger } from '../../primitives';
 
 interface Props extends HoverCardRootProps {
   class?: ClassType;
@@ -48,7 +48,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdHoverCardRoot v-bind="forwarded">
+  <YdHoverCardSmart v-bind="forwarded">
     <YdHoverCardTrigger as-child class="h-full">
       <div class="h-full cursor-pointer">
         <slot name="trigger"></slot>
@@ -62,6 +62,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     >
       <slot></slot>
     </YdHoverCardContent>
-  </YdHoverCardRoot>
+  </YdHoverCardSmart>
 </template>
 

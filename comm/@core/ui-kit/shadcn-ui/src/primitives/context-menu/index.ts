@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdContextMenuRoot } from './YdContextMenuRoot.vue';
+export { default as YdContextMenu } from './YdContextMenu.vue';
 export { default as YdContextMenuCheckboxItem } from './YdContextMenuCheckboxItem.vue';
 export { default as YdContextMenuContent } from './YdContextMenuContent.vue';
 export { default as YdContextMenuGroup } from './YdContextMenuGroup.vue';

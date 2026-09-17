@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdSelectRoot } from './YdSelectRoot.vue';
+export { default as YdSelect } from './YdSelect.vue';
 export { default as YdSelectContent } from './YdSelectContent.vue';
 export { default as YdSelectGroup } from './YdSelectGroup.vue';
 export { default as YdSelectItem } from './YdSelectItem.vue';

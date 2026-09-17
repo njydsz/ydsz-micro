@@ -1,7 +1,7 @@
 /**
  * 虚拟列表 composable —— 纯计算层，不依赖任何 UI 框架。
  *
- * <p>痛点：YdSelectRoot 下拉列表、Tree 深层目录在 1000+ 节点场景下全量渲染，
+ * <p>痛点：YdSelectSmart 下拉列表、Tree 深层目录在 1000+ 节点场景下全量渲染，
  * 导致首帧 DOM 节点过多、滚动帧率下降。
  *
  * <p>本 composable 提供：
@@ -109,7 +109,7 @@ const DEFAULT_OVERSCAN = 5;
  * @param options - 虚拟列表配置
  * @return 虚拟列表句柄
  *
- * @example YdSelectRoot 场景：
+ * @example YdSelectSmart 场景：
  * ```ts
  * const {
  *   visibleItems,

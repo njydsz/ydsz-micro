@@ -1,10 +1,10 @@
 <!--
  * 悬停卡片的容器：转发 radix HoverCardRoot 的全部 props 与 emits。
  *
- * 与 YdTooltipRoot 的取舍：YdHoverCardRoot 的浮层可以承载可交互内容（链接、按钮），
- * 鼠标可以移入浮层而不消失；YdTooltipRoot 只能放纯文本，且移入即消失。
+ * 与 YdTooltip 的取舍：YdHoverCard 的浮层可以承载可交互内容（链接、按钮），
+ * 鼠标可以移入浮层而不消失；YdTooltip 只能放纯文本，且移入即消失。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\YdHoverCardRoot.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\YdHoverCard.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

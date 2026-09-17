@@ -30,6 +30,7 @@
     "@ydsz/plugins": "workspace:*",
     "@ydsz/request": "workspace:*",
     "@ydsz/shared-business": "workspace:*",
+    "@ydsz/notification": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",

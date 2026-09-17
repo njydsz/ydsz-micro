@@ -6,7 +6,7 @@
  *  - 平滑曲线 + 渐变填充 + 最小/最大点高亮；
  *  - 纯 SVG 方案，无外部依赖，暗色模式自动适配。
  *
- * 设计取舍：不做 YdTooltipRoot、不做坐标轴——仅当「一眼扫趋势」的信息密度足够。
+ * 设计取舍：不做 YdTooltipSmart、不做坐标轴——仅当「一眼扫趋势」的信息密度足够。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\YdMiniChart.vue
  * @author ydsz-team
