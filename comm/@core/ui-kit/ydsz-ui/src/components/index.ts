@@ -20,6 +20,7 @@ export * from './context-help';
 export * from './context-menu';
 export * from './count-to-animator';
 export * from './dashboard';
+export * from './data-table';
 export * from './domain-filter';
 export * from './dropdown-menu';
 export * from './empty-state';
