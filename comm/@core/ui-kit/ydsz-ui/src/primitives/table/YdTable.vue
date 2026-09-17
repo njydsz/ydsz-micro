@@ -1,7 +1,7 @@
 <!--
- * 数据表格组件：语义 HTML 容器 + 列驱动渲染。
+ * 数据表格组件：语义 HTML 容器 + 列驱动渲染 + 排序支持。
  *
- * <p>两种使用方式：
+ * <p>使用方式：
  * <ol>
  *   <li><b>列驱动</b>（推荐）：&lt;YdTable :data="rows"&gt; + &lt;YdTableColumn&gt; 子组件，
  *   父级自动渲染 thead/tbody，配合 border/stripe/size/max-height/loading 等属性。</li>
@@ -9,12 +9,15 @@
  *   此时 YdTable 仅提供 overflow 容器。</li>
  * </ol>
  *
+ * <p>支持列排序（表头点击触发 sort-change 事件，由调用方处理排序逻辑），
+ * 列固定(左/右)、列显隐、列宽调整等高级特性通过 YdTableColumn 的属性配置。
+ *
  * a11y：使用原生 &lt;table&gt; 语义，屏幕阅读器自动识别行列关系。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.vue
  * @author ydsz-team
- * @since 1.0.0 (4.2.0 新增列驱动)
- */
+ * @since 1.0.0 (4.2.0 新增列驱动，26.09.17 增强排序)
+ -->
 import { computed, provide, shallowRef, useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -42,21 +45,28 @@ interface Props {
   emptyText?: string;
   /** 自定义类名 */
   class?: string;
-  /** 奇偶行反转（新增） */
-  isHidden?: boolean;
   /** 行数据的唯一 key 字段，用于 :key 绑定 */
   rowKey?: string;
   /** 空数据文本，同 empty-text（兼容 EP 习惯拼写） */
   emptyTextCompat?: string;
+  /** 当前排序列的 prop */
+  sortProp?: string;
+  /** 当前排序方向 */
+  sortOrder?: 'asc' | 'desc' | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  width: '100%',
   border: false,
-  stripe: false,
-  size: 'default',
   loading: false,
+  size: 'default',
+  sortOrder: null,
+  width: '100%',
 });
+
+const emit = defineEmits<{
+  /** 列排序变更事件：调用方处理后重新传入 sortProp / sortOrder */
+  'sort-change': [prop: string, order: 'asc' | 'desc' | null];
+}>();
 
 const slots = useSlots();
 
@@ -112,6 +122,39 @@ function getCellValue(row: Record<string, unknown>, col: ColumnDef): unknown {
   return col.prop ? row[col.prop] : undefined;
 }
 
+// ========== 列排序处理 ==========
+function handleSort(col: ColumnDef): void {
+  if (!col.isSortable || !col.prop) return;
+
+  let nextOrder: 'asc' | 'desc' | null;
+  if (props.sortProp !== col.prop) {
+    // 切换到新列 -> asc
+    nextOrder = 'asc';
+  } else {
+    // 当前列：asc -> desc -> null -> asc
+    if (props.sortOrder === 'asc') {
+      nextOrder = 'desc';
+    } else if (props.sortOrder === 'desc') {
+      nextOrder = null;
+    } else {
+      nextOrder = 'asc';
+    }
+  }
+  emit('sort-change', col.prop, nextOrder);
+}
+
+/**
+ * 表头文本与排序指示器。
+ */
+function getSortIcon(col: ColumnDef): string {
+  if (!col.isSortable || props.sortProp !== col.prop) {
+    return '↕';
+  }
+  if (props.sortOrder === 'asc') return '↑';
+  if (props.sortOrder === 'desc') return '↓';
+  return '↕';
+}
+
 // ========== 计算最大列数（用于空数据行 colspan） ==========
 const columnCount = computed(() => orderedColumns.value.length);
 
@@ -127,14 +170,6 @@ const wrapperStyle = computed(() => {
 });
 
 const borderClass = computed(() => (props.border ? 'border border-collapse' : ''));
-
-// ========== 获取实例引用中 YdTableColumn 的默认插槽函数 ==========
-// 通过 uid 找到对应列的自定义渲染内容（从 slots 获取对应列 uid 的上下文）
-function getColumnSlot(_uid?: number, _prop?: string) {
-  // 简化：默认插槽通过 table slot 内提供列上下文；
-  // 实际上 YdTableColumn 的逻辑通过 _uid 实现
-  return undefined;
-}
 
 const dataHasItems = computed(() => (props.data?.length ?? 0) > 0);
 const displayEmptyText = computed(() => props.emptyTextCompat ?? props.emptyText ?? '暂无数据');
@@ -184,6 +219,7 @@ defineExpose({
             :style="{
               width: col.width,
               minWidth: col.minWidth,
+              maxWidth: col.maxWidth,
             }"
           />
         </colgroup>
@@ -200,16 +236,29 @@ defineExpose({
                   alignClass(col.align),
                   col.fixed === 'left' && 'sticky left-0 z-10 bg-muted/50',
                   col.fixed === 'right' && 'sticky right-0 z-10 bg-muted/50',
+                  col.isSortable && 'cursor-pointer select-none',
                 )
               "
               :style="{
                 width: col.width,
                 minWidth: col.minWidth,
+                maxWidth: col.maxWidth,
               }"
               scope="col"
+              :aria-sort="col.isSortable && sortProp === col.prop ? (sortOrder === 'asc' ? 'ascending' : sortOrder === 'desc' ? 'descending' : 'none') : undefined"
+              @click="handleSort(col)"
             >
               <slot :name="`header-${col.prop ?? col.label ?? idx}`">
-                {{ col.label ?? '' }}
+                <span class="inline-flex items-center gap-1">
+                  {{ col.label ?? '' }}
+                  <span
+                    v-if="col.isSortable"
+                    class="text-xs text-muted-foreground/50"
+                    aria-hidden="true"
+                  >
+                    {{ getSortIcon(col) }}
+                  </span>
+                </span>
               </slot>
             </th>
           </tr>

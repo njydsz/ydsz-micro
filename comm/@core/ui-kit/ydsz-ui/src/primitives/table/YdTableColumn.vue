@@ -1,4 +1,4 @@
-<!--
+/**
  * 表格列声明（语义子组件，无可见渲染）。
  *
  * <p>作为 YdTable 的子组件使用：通过 provide/inject 向父级注册列定义，
@@ -11,7 +11,7 @@
  * <pre>
  *   &lt;YdTable :data="rows" border&gt;
  *     &lt;YdTableColumn type="index" label="#" width="50" /&gt;
- *     &lt;YdTableColumn prop="name" label="姓名" min-width="120" /&gt;
+ *     &lt;YdTableColumn prop="name" label="姓名" min-width="120" is-sortable /&gt;
  *     &lt;YdTableColumn prop="status" label="状态" width="100"&gt;
  *       &lt;template #default="{ row }"&gt;
  *         &lt;YdBadge :variant="row.status ? 'default' : 'destructive'"&gt;
@@ -24,7 +24,7 @@
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableColumn.vue
  * @author ydsz-team
- * @since 4.2.0
+ * @since 4.2.0 (26.09.17 增强：拖拽/显隐/排序)
  */
 import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted } from 'vue';
 
@@ -45,6 +45,8 @@ interface Props {
   width?: string | number;
   /** 最小宽度（当列可伸缩时使用） */
   minWidth?: string | number;
+  /** 最大宽度（可拖拽拉宽场景使用） */
+  maxWidth?: string | number;
   /** 固定列位置（left/right/true 等效 left） */
   fixed?: 'left' | 'right' | boolean;
   /** 单元格对齐方式，默认 'left' */
@@ -52,16 +54,26 @@ interface Props {
   /** 内容超长时省略号+tooltip，默认 false */
   showOverflowTooltip?: boolean;
   /** 自定义格式化函数：(row, column, cellValue, index) → displayText */
-  /** true 启用数据格式化的通用处理 */
   formatter?: (row: any, column: any, cellValue: unknown, index: number) => string;
   /** 是否隐藏该列 */
   isHidden?: boolean;
+  /** 是否允许用户通过列设置面板隐藏，默认 true */
+  hideable?: boolean;
+  /** 是否允许列拖拽排序，默认 true */
+  draggable?: boolean;
+  /** 是否允许通过表头点击排序 */
+  isSortable?: boolean;
+  /** 排序顺序权重（用于持久化恢复） */
+  sort?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   align: 'left',
-  showOverflowTooltip: false,
+  draggable: true,
+  hideable: true,
   isHidden: false,
+  isSortable: false,
+  showOverflowTooltip: false,
 });
 
 // 当没有显式 prop 时，用实例 uid 作为唯一 key
@@ -80,11 +92,16 @@ if (!registry) {
       label: props.label,
       width: props.width != null ? `${props.width}` : undefined,
       minWidth: props.minWidth != null ? `${props.minWidth}` : undefined,
+      maxWidth: props.maxWidth != null ? `${props.maxWidth}` : undefined,
       fixed: props.fixed === true ? 'left' : props.fixed === false ? undefined : props.fixed,
       align: props.align,
       showOverflowTooltip: props.showOverflowTooltip,
       formatter: props.formatter,
       isHidden: props.isHidden,
+      hideable: props.hideable,
+      draggable: props.draggable,
+      isSortable: props.isSortable,
+      sort: props.sort,
       // 通过实例 uid 拿到插槽渲染函数的引用
       _uid: instance?.uid,
     });

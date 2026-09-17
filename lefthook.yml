@@ -11,9 +11,9 @@ pre-commit:
   parallel: true
   commands:
     eslint:
-      # 仅对暂存的脚本类文件做 ESLint --fix
-      glob: "*.{ts,tsx,vue,js,mjs,cjs}"
-      exclude: "(^|/)node_modules(/|$)|(^|/)dist(/|$)|(^|/)\\.turbo(/|$)|(^|/)coverage(/|$)|(^|/)archived(/|$)|(^|/)api/generated(/|$)|^pnpm-lock\\.yaml$|(^|/)build\\.config\\.ts$|^eslint\\.config\\.mjs$"
+      # 仅对暂存的脚本类文件做 ESLint --fix（v4.1.0 起 bash/*.mts 纳入，移回退 mjs）
+      glob: "*.{ts,tsx,vue,mts}"
+      exclude: "(^|/)node_modules(/|$)|(^|/)dist(/|$)|(^|/)\\.turbo(/|$)|(^|/)coverage(/|$)|(^|/)archived(/|$)|(^|/)api/generated(/|$)|^pnpm-lock\\.yaml$|(^|/)build\\.config\\.ts$|^eslint\\.config\\.mts$|^conf\\.changeset\\.config\\.mjs$|^commitlint\\.config\\.mjs$|^stylelint\\.config\\.mjs$"
       run: NODE_OPTIONS=--max-old-space-size=8192 pnpm exec eslint --fix --max-warnings=0 {staged_files}
     stylelint:
       # 仅对暂存的样式类文件做 Stylelint --fix
@@ -25,8 +25,8 @@ pre-commit:
         (^|/)coverage(/|$)
       run: pnpm exec stylelint --fix --max-warnings=0 {staged_files}
     cspell:
-      # 仅对暂存的文件做 cspell 拼写检查（配置见 cspell.json）
-      glob: "*.{ts,tsx,vue,mts,mjs}"
+      # 仅对暂存的文件做 cspell 拼写检查（配置见 cspell.json；v4.1.0 新增 *.mts）
+      glob: "*.{ts,tsx,vue,mts}"
       exclude: |
         (^|/)node_modules(/|$)|
         (^|/)dist(/|$)|

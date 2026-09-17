@@ -5,21 +5,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export {
-  getRenderPerfSnapshot,
-  resetRenderPerf,
-  useRenderPerformance,
-} from './use-render-performance';
+export { getRenderPerfSnapshot, resetRenderPerformance, useRenderPerformance } from './use-render-performance';
 export type { UseRenderPerformanceOptions } from './use-render-performance';
 
-export {
-  useIdleHydrate,
-  useSimpleIdleHydrate,
-} from './use-idle-hydrate';
-export type {
-  IdleHydrateHandle,
-  UseIdleHydrateOptions,
-} from './use-idle-hydrate';
+export { useIdleHydrate, useSimpleIdleHydrate } from './use-idle-hydrate';
+export type { IdleHydrateHandle, UseIdleHydrateOptions } from './use-idle-hydrate';
 
 export { useChunkUpload, DEFAULT_CHUNK_SIZE } from './use-chunk-upload';
 export type {
@@ -37,8 +27,10 @@ export type {
 } from './use-virtual-list';
 
 export { useTreeSearch } from './use-tree-search';
-export type {
-  FilteredTreeNode,
-  TreeSearchHandle,
-  TreeSearchOptions,
-} from './use-tree-search';
+export type { FilteredTreeNode, TreeSearchHandle, TreeSearchOptions } from './use-tree-search';
+
+export { useColumnDrag } from './use-column-drag';
+export type { ColumnDragState, UseColumnDragOptions } from './use-column-drag';
+
+export { useTableColumnStorage } from './use-table-column-storage';
+export type { StoredColumnConfig } from './use-table-column-storage';

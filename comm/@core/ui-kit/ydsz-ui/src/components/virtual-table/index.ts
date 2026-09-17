@@ -3,7 +3,7 @@
  *
  * @module components/virtual-table
  * @author ydsz-team
- * @since 1.0.0
+ * @since 1.0.0 (26.09.17 新增排序事件)
  */
 
 export { default as YdVirtualTable } from './YdVirtualTable.vue';

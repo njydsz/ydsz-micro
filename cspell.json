@@ -3,7 +3,7 @@
   "version": "0.2",
   "language": "en",
   "useGitignore": true,
-  "files": ["**/*.{ts,tsx,vue,mts,mjs}"],
+  "files": ["**/*.{ts,tsx,vue,mts}"],
   "ignorePaths": [
     "node_modules/**",
     "**/dist/**",
@@ -12,6 +12,7 @@
     "**/.generated-archived/**",
     "**/api/generated/**",
     "**/api/sdk/**",
+    "**/public/mockServiceWorker.js",
     "pnpm-lock.yaml",
     "**/*.svg"
   ],

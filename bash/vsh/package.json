@@ -4,7 +4,7 @@
   "description": "YDSZ 工程化工具链",
   "type": "module",
   "bin": {
-    "vsh": "./bin/vsh.mjs"
+    "vsh": "./bin/vsh.mts"
   },
   "files": [
     "bin/",

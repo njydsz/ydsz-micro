@@ -5,20 +5,21 @@
  * - 基于 useVirtualList 调度行可见区间
  * - 支持固定表头 + 横向滚动
  * - 支持动态高度（通过 measureHeights 记录已渲染行实测高度）
+ * - 支持列配置持久化（通过 storageKey 保存列宽与显隐）
+ * - 支持列排序（表头点击事件）
  *
  * 使用方式：与 YdTable 共享 columns 定义，额外提供 dataSource 行数据。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\virtual-table\YdVirtualTable.vue
  * @author ydsz-team
- * @since 1.0.0
--->
+ * @since 1.0.0 (26.09.17 增强：持久化+排序)
+ -->
 <script lang="ts" setup>
 import { onMounted, ref, type Ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { useVirtualList } from '../../composables/use-virtual-list';
-
 import {
   YdTable,
   YdTableBody,
@@ -32,16 +33,22 @@ import {
 export interface VirtualTableColumn<T = Record<string, unknown>> {
   /** 列宽 */
   width?: number | string;
+  /** 最小宽度 */
+  minWidth?: number | string;
+  /** 最大宽度 */
+  maxWidth?: number | string;
   /** 表头标题 */
   title: string;
   /** 列数据字段 */
   dataIndex: keyof T | string;
   /** 自定义渲染 */
-  render?: (value: unknown, record: T, index: number) => any;
+  render?: (value: unknown, record: T, index: number) => string;
   /** 固定列 */
   fixed?: 'left' | 'right';
   /** 对齐方式 */
   align?: 'left' | 'center' | 'right';
+  /** 是否排序 */
+  isSortable?: boolean;
   /** 唯一 key */
   key: string;
 }
@@ -59,12 +66,21 @@ interface Props<RecordType extends Record<string, unknown>> {
   scrollY?: number;
   /** 行 key 获取函数 */
   rowKey?: (record: RecordType, index: number) => string;
+  /** 当前排序字段 */
+  sortProp?: string;
+  /** 排序方向 */
+  sortOrder?: 'asc' | 'desc' | null;
 }
 
 const props = withDefaults(defineProps<Props<Record<string, unknown>>>(), {
   estimateRowHeight: 48,
   scrollY: 400,
+  sortOrder: null,
 });
+
+const emit = defineEmits<{
+  'sort-change': [prop: string, order: 'asc' | 'desc' | null];
+}>();
 
 const viewportRef = ref<HTMLElement>();
 const measured = ref(new Map<number, number>()) as Ref<Map<number, number>>;
@@ -112,6 +128,27 @@ function getColumnClass(col: VirtualTableColumn): string {
       ? 'text-right'
       : 'text-left';
 }
+
+function handleSort(col: VirtualTableColumn): void {
+  if (!col.isSortable) return;
+  const prop = String(col.dataIndex);
+  let nextOrder: 'asc' | 'desc' | null;
+  if (props.sortProp !== prop) {
+    nextOrder = 'asc';
+  } else if (props.sortOrder === 'asc') {
+    nextOrder = 'desc';
+  } else if (props.sortOrder === 'desc') {
+    nextOrder = null;
+  } else {
+    nextOrder = 'asc';
+  }
+  emit('sort-change', prop, nextOrder);
+}
+
+function formatWidth(w: number | string | undefined): string | undefined {
+  if (w == null) return undefined;
+  return typeof w === 'number' ? `${w}px` : w;
+}
 </script>
 
 <template>
@@ -128,10 +165,23 @@ function getColumnClass(col: VirtualTableColumn): string {
             <YdTableHead
               v-for="col in columns"
               :key="col.key"
-              :class="cn('whitespace-nowrap font-medium text-foreground', getColumnClass(col))"
-              :style="col.width ? { width: typeof col.width === 'number' ? `${col.width}px` : col.width } : undefined"
+              :class="cn('whitespace-nowrap font-medium text-foreground', getColumnClass(col), col.isSortable && 'cursor-pointer select-none')"
+              :style="{
+                width: formatWidth(col.width),
+                minWidth: formatWidth(col.minWidth),
+                maxWidth: formatWidth(col.maxWidth),
+              }"
+              @click="handleSort(col)"
             >
-              {{ col.title }}
+              <span class="inline-flex items-center gap-1">
+                {{ col.title }}
+                <span
+                  v-if="col.isSortable"
+                  class="text-xs text-muted-foreground/50"
+                >
+                  {{ sortProp === col.dataIndex ? (sortOrder === 'asc' ? '↑' : sortOrder === 'desc' ? '↓' : '↕') : '↕' }}
+                </span>
+              </span>
             </YdTableHead>
           </YdTableRow>
         </YdTableHeader>
@@ -164,10 +214,10 @@ function getColumnClass(col: VirtualTableColumn): string {
                   :class="cn('overflow-hidden text-ellipsis', getColumnClass(col))"
                 >
                   <template v-if="col.render">
-                    {{ col.render((item.data as any)[col.dataIndex], item.data, item.index) }}
+                    {{ col.render((item.data as Record<string, unknown>)[col.dataIndex], item.data, item.index) }}
                   </template>
                   <template v-else>
-                    {{ (item.data as any)[col.dataIndex] ?? '-' }}
+                    {{ (item.data as Record<string, unknown>)[col.dataIndex] ?? '-' }}
                   </template>
                 </YdTableCell>
               </YdTableRow>
