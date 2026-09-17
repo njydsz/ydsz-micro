@@ -563,7 +563,7 @@ defineExpose({ open, close });
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  border-bottom: 1px solid var(--el-border-color);
+  border-bottom: 1px solid hsl(var(--border-default));
   background: #fafafa;
 }
 
@@ -682,14 +682,14 @@ defineExpose({ open, close });
 
 .property-panel {
   width: 260px;
-  border-left: 1px solid var(--el-border-color);
+  border-left: 1px solid hsl(var(--border-default));
   background: white;
 }
 
 .panel-header {
   padding: 12px;
   font-weight: 500;
-  border-bottom: 1px solid var(--el-border-color);
+  border-bottom: 1px solid hsl(var(--border-default));
 }
 
 .panel-content {

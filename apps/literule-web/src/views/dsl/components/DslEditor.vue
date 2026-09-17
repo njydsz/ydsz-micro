@@ -392,7 +392,7 @@ watch(
   display: flex;
   height: 100%;
   min-height: 300px;
-  border: 1px solid var(--el-border-color);
+  border: 1px solid hsl(var(--border-default));
   border-radius: 4px;
   overflow: hidden;
   font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, monospace;
@@ -405,7 +405,7 @@ watch(
   width: 50px;
   padding: 10px 0;
   background: #f5f7fa;
-  border-right: 1px solid var(--el-border-color);
+  border-right: 1px solid hsl(var(--border-default));
   text-align: right;
   user-select: none;
 }
@@ -468,7 +468,7 @@ watch(
   max-height: 200px;
   overflow-y: auto;
   background: white;
-  border: 1px solid var(--el-border-color);
+  border: 1px solid hsl(var(--border-default));
   border-radius: 4px;
   box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 }

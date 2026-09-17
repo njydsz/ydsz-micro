@@ -466,7 +466,7 @@ defineExpose({ open, close });
 }
 
 .table-editor {
-  border: 1px solid var(--el-border-color);
+  border: 1px solid hsl(var(--border-default));
   border-radius: 4px;
   padding: 12px;
   background: #fafafa;
