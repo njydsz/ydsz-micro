@@ -36,9 +36,9 @@ describe('truncateText', () => {
   });
 
   it('超长文本应截断并追加省略号', () => {
-    const result = truncateText('这是一段很长很长的文本内容', 10);
+    const result = truncateText('这是一段很长很长的文本内容', 8);
     expect(result).toBe('这是一段很...');
-    expect(result.length).toBe(10);
+    expect(result.length).toBe(8);
   });
 
   it('maxLength=0 返回空字符串', () => {

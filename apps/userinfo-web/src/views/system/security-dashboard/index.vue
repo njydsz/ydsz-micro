@@ -22,7 +22,8 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge } from '@ydsz-core/shadcn-ui';
+import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -144,12 +145,12 @@ async function loadDashboardData(): Promise<void> {
 }
 
 /** 风险等级标签类型 */
-function getRiskLevelTagType(level: string): 'danger' | 'warning' | 'success' | 'info' {
+function getRiskLevelTagType(level: string): 'destructive' | 'outline' | 'default' | 'secondary' {
   const upper = (level ?? '').toUpperCase();
-  if (upper === 'HIGH' || upper === 'CRITICAL') return 'danger';
-  if (upper === 'MEDIUM' || upper === 'MODERATE') return 'warning';
-  if (upper === 'LOW') return 'success';
-  return 'info';
+  if (upper === 'HIGH' || upper === 'CRITICAL') return 'destructive';
+  if (upper === 'MEDIUM' || upper === 'MODERATE') return 'outline';
+  if (upper === 'LOW') return 'default';
+  return 'secondary';
 }
 
 /** 格式化百分比 */
@@ -356,9 +357,9 @@ onMounted(() => {
             <ElTableColumn prop="description" :label="t('page.description')" min-width="150" />
             <ElTableColumn prop="riskLevel" :label="t('security.riskLevel')" width="80">
               <template #default="{ row }">
-                <ElTag :type="getRiskLevelTagType(row.riskLevel ?? '')">
+                <Badge :variant="getRiskLevelTagType(row.riskLevel ?? '')" class="text-xs">
                   {{ row.riskLevel ?? '-' }}
-                </ElTag>
+                </Badge>
               </template>
             </ElTableColumn>
           </ElTable>

@@ -17,7 +17,8 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElEmpty, ElImage, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { ElCard, ElEmpty, ElImage, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -145,9 +146,9 @@ onMounted(() => {
       <ElTable :data="bindings" border>
         <ElTableColumn prop="platform" label="平台" width="140">
           <template #default="{ row }">
-            <ElTag :type="getPlatformTagType(row.platform) as never" size="small">
+            <Badge :variant="getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary'" :class="getPlatformTagType(row.platform) === 'warning' ? 'bg-yellow-500 text-white hover:bg-yellow-600' : 'text-xs'">
               {{ row.platform ?? '-' }}
-            </ElTag>
+            </Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn label="头像" width="80">
@@ -167,14 +168,14 @@ onMounted(() => {
         <ElTableColumn prop="createdAt" label="绑定时间" width="170" />
         <ElTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
-            <ElButton
-              size="small"
-              link
-              type="danger"
+            <Button
+              size="sm"
+              variant="link"
+              class="text-destructive"
               @click="handleUnbind(row)"
             >
               解绑
-            </ElButton>
+            </Button>
           </template>
         </ElTableColumn>
       </ElTable>
@@ -198,9 +199,9 @@ onMounted(() => {
           <div class="flex items-center gap-3">
             <span class="text-lg font-medium">{{ String(platform.name ?? platform.code ?? '-') }}</span>
           </div>
-          <ElButton size="small" type="primary" plain disabled>
+          <Button size="sm" variant="outline" disabled>
             绑定
-          </ElButton>
+          </Button>
         </div>
       </div>
       <ElEmpty v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />

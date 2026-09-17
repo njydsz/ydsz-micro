@@ -16,7 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
+import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem/ElInputNumber/ElRadio/ElRadioGroup 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -145,19 +147,19 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
       <ElFormItem label="规则名称" prop="ruleName">
-        <ElInput v-model="formData.ruleName" placeholder="请输入规则名称" />
+        <Input v-model="formData.ruleName" placeholder="请输入规则名称" />
       </ElFormItem>
       <ElFormItem label="任务标识" prop="jobKey">
-        <ElInput v-model="formData.jobKey" placeholder="请输入关联任务标识（jobKey）" />
+        <Input v-model="formData.jobKey" placeholder="请输入关联任务标识（jobKey）" />
       </ElFormItem>
       <ElFormItem label="任务ID" prop="jobId">
-        <ElInput v-model="formData.jobId" placeholder="请输入关联任务ID（jobId）" />
+        <Input v-model="formData.jobId" placeholder="请输入关联任务ID（jobId）" />
       </ElFormItem>
       <ElFormItem label="告警类型" prop="alertType">
-        <ElInput v-model="formData.alertType" placeholder="请输入告警类型" />
+        <Input v-model="formData.alertType" placeholder="请输入告警类型" />
       </ElFormItem>
       <ElFormItem :label="t('business.alertLevel')" prop="alertLevel">
-        <ElInput v-model="formData.alertLevel" placeholder="请输入告警级别" />
+        <Input v-model="formData.alertLevel" placeholder="请输入告警级别" />
       </ElFormItem>
       <ElFormItem label="阈值" prop="threshold">
         <ElInputNumber v-model="formData.threshold" :min="0" :precision="2" />
@@ -166,10 +168,10 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
         <ElInputNumber v-model="formData.timeWindowMinutes" :min="1" />
       </ElFormItem>
       <ElFormItem label="通知通道" prop="channels">
-        <ElInput v-model="formData.channels" placeholder="多个通道用逗号分隔，如 email,wecom,dingtalk" />
+        <Input v-model="formData.channels" placeholder="多个通道用逗号分隔，如 email,wecom,dingtalk" />
       </ElFormItem>
       <ElFormItem label="接收人" prop="receivers">
-        <ElInput v-model="formData.receivers" placeholder="请输入接收人，多个用逗号分隔" />
+        <Input v-model="formData.receivers" placeholder="请输入接收人，多个用逗号分隔" />
       </ElFormItem>
       <ElFormItem label="冷却时长(分)" prop="cooldownMinutes">
         <ElInputNumber v-model="formData.cooldownMinutes" :min="0" />

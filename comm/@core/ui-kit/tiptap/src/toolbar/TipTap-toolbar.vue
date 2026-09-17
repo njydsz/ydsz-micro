@@ -12,7 +12,8 @@
 import { computed, ref } from 'vue';
 
 import { type Editor } from '@tiptap/vue-3';
-import { ElInput, ElPopover, ElTooltip } from 'element-plus';
+
+import { Input, Popover, PopoverContent, PopoverTrigger, YDSZTooltip } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   /** TipTap 编辑器实例 */
@@ -87,40 +88,49 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
     class="tiptap-toolbar flex flex-wrap items-center gap-1 border-b px-2 py-1"
   >
     <!-- 撤销 -->
-    <ElTooltip content="撤销" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :disabled="!editor.can().undo()"
-        @click="editor.chain().focus().undo().run()"
-      >
-        ↶
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :disabled="!editor.can().undo()"
+          @click="editor.chain().focus().undo().run()"
+        >
+          ↶
+        </button>
+      </template>
+      撤销
+    </YDSZTooltip>
 
     <!-- 重做 -->
-    <ElTooltip content="重做" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :disabled="!editor.can().redo()"
-        @click="editor.chain().focus().redo().run()"
-      >
-        ↷
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :disabled="!editor.can().redo()"
+          @click="editor.chain().focus().redo().run()"
+        >
+          ↷
+        </button>
+      </template>
+      重做
+    </YDSZTooltip>
 
     <div class="toolbar-divider" />
 
     <!-- 标题 -->
-    <ElTooltip content="正文" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('paragraph') }"
-        :disabled="!canEdit"
-        @click="setHeading(0)"
-      >
-        正文
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('paragraph') }"
+          :disabled="!canEdit"
+          @click="setHeading(0)"
+        >
+          正文
+        </button>
+      </template>
+      正文
+    </YDSZTooltip>
     <button
       v-for="level in [1, 2, 3, 4]"
       :key="level"
@@ -135,96 +145,117 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
     <div class="toolbar-divider" />
 
     <!-- 加粗 -->
-    <ElTooltip content="加粗 (Ctrl+B)" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('bold') }"
-        :disabled="!canEdit"
-        @click="toggleFormat(() => editor!.chain().focus().toggleBold().run())"
-      >
-        <strong>B</strong>
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('bold') }"
+          :disabled="!canEdit"
+          @click="toggleFormat(() => editor!.chain().focus().toggleBold().run())"
+        >
+          <strong>B</strong>
+        </button>
+      </template>
+      加粗 (Ctrl+B)
+    </YDSZTooltip>
 
     <!-- 斜体 -->
-    <ElTooltip content="斜体 (Ctrl+I)" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('italic') }"
-        :disabled="!canEdit"
-        @click="toggleFormat(() => editor!.chain().focus().toggleItalic().run())"
-      >
-        <em>I</em>
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('italic') }"
+          :disabled="!canEdit"
+          @click="toggleFormat(() => editor!.chain().focus().toggleItalic().run())"
+        >
+          <em>I</em>
+        </button>
+      </template>
+      斜体 (Ctrl+I)
+    </YDSZTooltip>
 
     <!-- 下划线 -->
-    <ElTooltip content="下划线 (Ctrl+U)" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('underline') }"
-        :disabled="!canEdit"
-        @click="toggleFormat(() => editor!.chain().focus().toggleUnderline().run())"
-      >
-        U
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('underline') }"
+          :disabled="!canEdit"
+          @click="toggleFormat(() => editor!.chain().focus().toggleUnderline().run())"
+        >
+          U
+        </button>
+      </template>
+      下划线 (Ctrl+U)
+    </YDSZTooltip>
 
     <!-- 删除行 -->
-    <ElTooltip content="删除线" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('strike') }"
-        :disabled="!canEdit"
-        @click="toggleFormat(() => editor!.chain().focus().toggleStrike().run())"
-      >
-        S
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('strike') }"
+          :disabled="!canEdit"
+          @click="toggleFormat(() => editor!.chain().focus().toggleStrike().run())"
+        >
+          S
+        </button>
+      </template>
+      删除线
+    </YDSZTooltip>
 
     <div class="toolbar-divider" />
 
     <!-- 无序列表 -->
-    <ElTooltip content="无序列表" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('bulletList') }"
-        :disabled="!canEdit"
-        @click="toggleFormat(() => editor!.chain().focus().toggleBulletList().run())"
-      >
-        • 列表
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('bulletList') }"
+          :disabled="!canEdit"
+          @click="toggleFormat(() => editor!.chain().focus().toggleBulletList().run())"
+        >
+          • 列表
+        </button>
+      </template>
+      无序列表
+    </YDSZTooltip>
 
     <!-- 有序列表 -->
-    <ElTooltip content="有序列表" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('orderedList') }"
-        :disabled="!canEdit"
-        @click="toggleFormat(() => editor!.chain().focus().toggleOrderedList().run())"
-      >
-        1. 列表
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('orderedList') }"
+          :disabled="!canEdit"
+          @click="toggleFormat(() => editor!.chain().focus().toggleOrderedList().run())"
+        >
+          1. 列表
+        </button>
+      </template>
+      有序列表
+    </YDSZTooltip>
 
     <!-- 代码块 -->
-    <ElTooltip content="代码块" placement="top" :enterable="false">
-      <button
-        class="toolbar-btn"
-        :class="{ active: isActive('codeBlock') }"
-        :disabled="!canEdit"
-        @click="toggleFormat(() => editor!.chain().focus().toggleCodeBlock().run())"
-      >
-        &lt;/&gt;
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button
+          class="toolbar-btn"
+          :class="{ active: isActive('codeBlock') }"
+          :disabled="!canEdit"
+          @click="toggleFormat(() => editor!.chain().focus().toggleCodeBlock().run())"
+        >
+          &lt;/&gt;
+        </button>
+      </template>
+      代码块
+    </YDSZTooltip>
 
     <div class="toolbar-divider" />
 
     <!-- 链接 -->
-    <ElPopover :visible="linkDialogVisible" placement="bottom" :width="300">
-      <template #reference>
+    <Popover v-model:open="linkDialogVisible">
+      <PopoverTrigger as-child>
         <button
           class="toolbar-btn"
           :class="{ active: isActive('link') }"
@@ -233,28 +264,36 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         >
           🔗
         </button>
-      </template>
-      <div class="flex flex-col gap-2 p-2">
-        <ElInput v-model="linkUrl" placeholder="输入 URL..." size="small" />
-        <button class="toolbar-confirm-btn" @click="setLink">
-          确认
-        </button>
-      </div>
-    </ElPopover>
+      </PopoverTrigger>
+      <PopoverContent class="w-[300px]" side="bottom">
+        <div class="flex flex-col gap-2 p-2">
+          <Input v-model="linkUrl" placeholder="输入 URL..." class="h-8 text-xs" />
+          <button class="toolbar-confirm-btn" @click="setLink">
+            确认
+          </button>
+        </div>
+      </PopoverContent>
+    </Popover>
 
     <!-- 表格 -->
-    <ElTooltip content="插入 3x3 表格" placement="top" :enterable="false">
-      <button class="toolbar-btn" :disabled="!canEdit" @click="insertTable">
-        ⊞
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button class="toolbar-btn" :disabled="!canEdit" @click="insertTable">
+          ⊞
+        </button>
+      </template>
+      插入 3x3 表格
+    </YDSZTooltip>
 
     <!-- 水平线 -->
-    <ElTooltip content="水平线" placement="top" :enterable="false">
-      <button class="toolbar-btn" :disabled="!canEdit" @click="insertHorizontalRule">
-        ―
-      </button>
-    </ElTooltip>
+    <YDSZTooltip side="top">
+      <template #trigger>
+        <button class="toolbar-btn" :disabled="!canEdit" @click="insertHorizontalRule">
+          ―
+        </button>
+      </template>
+      水平线
+    </YDSZTooltip>
   </div>
 </template>
 

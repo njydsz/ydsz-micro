@@ -17,7 +17,9 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
+import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem/ElTabPane/ElTabs/ElSelect/ElOption 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
 import type { GlueCodeVO } from '#/api/models';

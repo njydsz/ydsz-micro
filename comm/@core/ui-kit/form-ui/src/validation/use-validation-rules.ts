@@ -26,8 +26,7 @@
  * @since 4.1.0 (P2-10)
  */
 
-import type { OpenApiValidationMeta } from './openapi-to-rules';
-import type { FormRules } from 'element-plus';
+import type { FormRules, OpenApiValidationMeta } from './openapi-to-rules';
 
 import { reactive } from 'vue';
 

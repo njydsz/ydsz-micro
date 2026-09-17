@@ -15,7 +15,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -119,22 +121,22 @@ const title = computed(() => '连接测试');
         </ElSelect>
       </ElFormItem>
       <ElFormItem :label="t('business.connectorUrl')" prop="endpoint">
-        <ElInput v-model="formData.endpoint" placeholder="请输入连接端点" />
+        <Input v-model="formData.endpoint" placeholder="请输入连接端点" />
       </ElFormItem>
       <ElFormItem label="认证方式" prop="authType">
-        <ElInput v-model="formData.authType" placeholder="如 basic / ak-sk" />
+        <Input v-model="formData.authType" placeholder="如 basic / ak-sk" />
       </ElFormItem>
       <ElFormItem label="用户名" prop="username">
-        <ElInput v-model="formData.username" placeholder="请输入用户名" />
+        <Input v-model="formData.username" placeholder="请输入用户名" />
       </ElFormItem>
       <ElFormItem label="密码" prop="password">
-        <ElInput v-model="formData.password" type="password" show-password placeholder="请输入密码" />
+        <Input v-model="formData.password" type="password" placeholder="请输入密码" />
       </ElFormItem>
       <ElFormItem label="AccessKey" prop="accessKey">
-        <ElInput v-model="formData.accessKey" placeholder="请输入AccessKey" />
+        <Input v-model="formData.accessKey" placeholder="请输入AccessKey" />
       </ElFormItem>
       <ElFormItem label="SecretKey" prop="secretKey">
-        <ElInput v-model="formData.secretKey" type="password" show-password placeholder="请输入SecretKey" />
+        <Input v-model="formData.secretKey" type="password" placeholder="请输入SecretKey" />
       </ElFormItem>
     </ElForm>
   </Modal>

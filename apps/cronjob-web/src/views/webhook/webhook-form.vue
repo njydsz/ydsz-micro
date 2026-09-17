@@ -16,7 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import { Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem/ElRadioGroup/ElRadio/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -146,7 +148,7 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
       <ElFormItem :label="t('business.webhookName')" prop="name">
-        <ElInput v-model="formData.name" :placeholder="t('business.webhookNamePlaceholder')" />
+        <Input v-model="formData.name" :placeholder="t('business.webhookNamePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookEventType')" prop="eventType">
         <ElSelect v-model="formData.eventType" :placeholder="t('business.webhookEventTypePlaceholder')">
@@ -154,13 +156,13 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         </ElSelect>
       </ElFormItem>
       <ElFormItem :label="t('business.webhookJobKey')" prop="jobKey">
-        <ElInput v-model="formData.jobKey" :placeholder="t('business.webhookJobKeyPlaceholder')" />
+        <Input v-model="formData.jobKey" :placeholder="t('business.webhookJobKeyPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookJobGroup')" prop="jobGroup">
-        <ElInput v-model="formData.jobGroup" :placeholder="t('business.webhookJobGroupPlaceholder')" />
+        <Input v-model="formData.jobGroup" :placeholder="t('business.webhookJobGroupPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookCallbackUrl')" prop="callbackUrl">
-        <ElInput v-model="formData.callbackUrl" :placeholder="t('business.webhookCallbackUrlPlaceholder')" />
+        <Input v-model="formData.callbackUrl" :placeholder="t('business.webhookCallbackUrlPlaceholder')" />
       </ElFormItem>
       <ElFormItem label="HTTP Method" prop="httpMethod">
         <ElRadioGroup v-model="formData.httpMethod">
@@ -169,10 +171,10 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         </ElRadioGroup>
       </ElFormItem>
       <ElFormItem :label="t('business.webhookHeaders')" prop="headers">
-        <ElInput v-model="formData.headers" type="textarea" :rows="3" :placeholder="t('business.webhookHeadersPlaceholder')" />
+        <Textarea v-model="formData.headers" :rows="3" :placeholder="t('business.webhookHeadersPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookSecret')" prop="secret">
-        <ElInput v-model="formData.secret" :placeholder="t('business.webhookSecretPlaceholder')" show-password />
+        <Input v-model="formData.secret" :placeholder="t('business.webhookSecretPlaceholder')" type="password" />
       </ElFormItem>
       <ElFormItem :label="t('common.status')">
         <ElRadioGroup v-model="formData.webhookStatus">

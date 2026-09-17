@@ -17,7 +17,9 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSlider } from 'element-plus';
+import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem/ElSlider 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem, ElSlider } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
@@ -215,16 +217,16 @@ function handleNodeNameChange(name: string): void {
     <div class="dag-designer">
       <ElForm :model="formData" label-width="100px" class="dag-form">
         <ElFormItem label="DAG名称" required>
-          <ElInput v-model="formData.dagName" placeholder="请输入DAG名称" />
+          <Input v-model="formData.dagName" placeholder="请输入DAG名称" />
         </ElFormItem>
         <ElFormItem label="DAG标识" required>
-          <ElInput v-model="formData.dagKey" placeholder="请输入DAG标识（唯一）" />
+          <Input v-model="formData.dagKey" placeholder="请输入DAG标识（唯一）" />
         </ElFormItem>
         <ElFormItem label="描述">
-          <ElInput v-model="formData.description" placeholder="请输入描述" type="textarea" :rows="2" />
+          <Textarea v-model="formData.description" placeholder="请输入描述" :rows="2" />
         </ElFormItem>
         <ElFormItem label="Cron表达式">
-          <ElInput v-model="formData.cronExpression" placeholder="请输入Cron表达式（如：0 0 * * *）" />
+          <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式（如：0 0 * * *）" />
         </ElFormItem>
         <ElFormItem label="触发类型">
           <ElSelect v-model="formData.triggerType" placeholder="选择触发类型">

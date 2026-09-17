@@ -21,7 +21,49 @@
  * @since 4.1.0 (P2-10)
  */
 
-import type { FormItemRule, FormRules } from 'element-plus';
+/**
+ * EP（Element Plus）表单规则类型 —— 退场期本地等价声明。
+ *
+ * <p>仅用于类型推导，不引入任何运行时依赖；字段对齐 EP 的 {@code FormItemRule} /
+ * {@code FormRules}，使既有校验逻辑零改动迁移。待 EP 完全移除后，
+ * 随 shadcn 表单校验体系一并删除（EP 规则类型兼容声明，随 EP 退场移除）。
+ *
+ * @since 1.2.0 (P1-5)
+ */
+export interface FormItemRule {
+  /** 是否必填 */
+  required?: boolean;
+  /** 校验未通过时的提示文案 */
+  message?: string;
+  /** 触发校验的时机（blur / change） */
+  trigger?: string | string[];
+  /** 正则校验模式 */
+  pattern?: RegExp | string;
+  /** 数值 / 字符串最小边界 */
+  min?: number;
+  /** 数值 / 字符串最大边界 */
+  max?: number;
+  /** 内置类型校验（string / number / integer / email / url 等） */
+  type?: string;
+  /** 自定义校验函数（异步非阻塞） */
+  validator?: (
+    rule: unknown,
+    value: unknown,
+    callback: (error?: Error) => void,
+  ) => void;
+  /** 其余 EP 透传字段 */
+  [key: string]: unknown;
+}
+
+/**
+ * EP（Element Plus）FormRules —— 退场期本地等价声明。
+ *
+ * <p>字段名 → 单条/多条规则的映射，与原 {@code FormRules} 结构一致。
+ * 不引入任何运行时依赖，随 EP 退场移除（EP 规则类型兼容声明，随 EP 退场移除）。
+ *
+ * @since 1.2.0 (P1-5)
+ */
+export type FormRules = Record<string, FormItemRule | FormItemRule[]>;
 
 /** 从 OpenAPI schema 属性提取的校验元信息 */
 export interface OpenApiValidationMeta {

@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -59,8 +59,8 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         default: ({ row }) => {
           const def = isDefaultLanguage(row.isDefault);
           return h(
-            ElTag,
-            { type: def ? 'success' : 'info', size: 'small' },
+            Badge,
+            { variant: def ? 'default' : 'secondary', class: def ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (def ? t('language.yesDefault') : t('language.noDefault')),
           );
         },
@@ -75,8 +75,8 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            ElTag,
-            { type: enable ? 'success' : 'danger', size: 'small' },
+            Badge,
+            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },

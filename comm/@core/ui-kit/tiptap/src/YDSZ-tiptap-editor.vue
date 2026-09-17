@@ -26,7 +26,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import Placeholder from '@tiptap/extension-placeholder';
-import { ElMessage } from 'element-plus';
+import { showToast } from '@ydsz/notification';
 
 import { getDefaultExtensions } from './extensions';
 import { TipTapToolbar } from './toolbar';
@@ -108,7 +108,7 @@ onMounted(() => {
   // 字符数超限警告
   editor.value?.on('update', ({ editor: ed }) => {
     if (props.maxLength > 0 && ed.getText().length > props.maxLength) {
-      ElMessage.warning(`内容已超过最大字符数限制（${props.maxLength}）`);
+      showToast.warning(`内容已超过最大字符数限制（${props.maxLength}）`);
     }
   });
 });

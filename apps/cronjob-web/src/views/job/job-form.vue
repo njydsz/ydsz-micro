@@ -16,6 +16,8 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem/ElInputNumber/ElCollapse/ElCollapseItem/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElButton, ElCollapse, ElCollapseItem, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -259,16 +261,16 @@ async function handleValidateCron() {
       label-position="right"
     >
       <ElFormItem :label="t('business.jobName')" prop="jobName">
-        <ElInput v-model="formData.jobName" placeholder="请输入任务名称" />
+        <Input v-model="formData.jobName" placeholder="请输入任务名称" />
       </ElFormItem>
       <ElFormItem label="任务标识" prop="jobKey">
-        <ElInput v-model="formData.jobKey" placeholder="请输入任务标识" />
+        <Input v-model="formData.jobKey" placeholder="请输入任务标识" />
       </ElFormItem>
       <ElFormItem :label="t('business.jobGroup')" prop="jobGroup">
-        <ElInput v-model="formData.jobGroup" placeholder="请输入任务分组" />
+        <Input v-model="formData.jobGroup" placeholder="请输入任务分组" />
       </ElFormItem>
       <ElFormItem label="执行器" prop="handler">
-        <ElInput v-model="formData.handler" placeholder="请输入执行器 Handler" />
+        <Input v-model="formData.handler" placeholder="请输入执行器 Handler" />
       </ElFormItem>
       <ElFormItem label="调度类型" prop="scheduleType">
         <ElSelect v-model="formData.scheduleType" placeholder="请选择调度类型" class="w-full">
@@ -280,8 +282,8 @@ async function handleValidateCron() {
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
         <div class="flex w-full gap-2">
-          <ElInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
-          <ElButton @click="handleValidateCron">校验</ElButton>
+          <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
+          <Button variant="outline" @click="handleValidateCron">校验</Button>
         </div>
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'FIXED_RATE'" label="固定速率间隔(ms)">
@@ -303,15 +305,14 @@ async function handleValidateCron() {
         />
       </ElFormItem>
       <ElFormItem label="备注" prop="remark">
-        <ElInput v-model="formData.remark" type="textarea" :rows="2" placeholder="请输入备注" />
+        <Textarea v-model="formData.remark" placeholder="请输入备注" :rows="2" />
       </ElFormItem>
 
       <ElCollapse class="mt-2">
         <ElCollapseItem title="高级配置（参数 / 超时 / 重试 / 分片 / 时区）" name="advanced">
           <ElFormItem label="任务参数(JSON)">
-            <ElInput
+            <Textarea
               v-model="formData.paramsJson"
-              type="textarea"
               :rows="3"
               placeholder='如 {"url":"http://example.com","retry":3}'
             />
@@ -441,7 +442,7 @@ async function handleValidateCron() {
             </ElSelect>
           </ElFormItem>
           <ElFormItem label="目标集群">
-            <ElInput v-model="formData.cluster" placeholder="跨集群调度，留空=本地集群" />
+            <Input v-model="formData.cluster" placeholder="跨集群调度，留空=本地集群" />
           </ElFormItem>
           <ElFormItem label="灰度比例(%)">
             <ElInputNumber
@@ -454,7 +455,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem v-if="formData.canaryRatio" label="灰度处理器">
-            <ElInput v-model="formData.canaryHandler" placeholder="canaryRatio>0 时生效" />
+            <Input v-model="formData.canaryHandler" placeholder="canaryRatio>0 时生效" />
           </ElFormItem>
         </ElCollapseItem>
       </ElCollapse>
