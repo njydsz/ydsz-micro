@@ -1,47 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="11" failures="0" errors="0" time="0.0093673">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" timestamp="2026-09-17T16:01:11.773Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0030154">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应返回默认上下文" time="0.0015277">
+<testsuites name="vitest tests" tests="4" failures="0" errors="0" time="0.0028709">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" timestamp="2026-09-17T16:04:58.531Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0028709">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应返回默认上下文" time="0.0014951">
             <system-err>
 [Vue warn]: provide() can only be used inside setup().
 
             </system-err>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应支持自定义间距字符串" time="0.0002127">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应支持自定义间距字符串" time="0.0001903">
             <system-err>
 [Vue warn]: provide() can only be used inside setup().
 
             </system-err>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 应返回正确的 gridColumn 样式" time="0.0003348">
-            <system-err>
-[Vue warn]: provide() can only be used inside setup().
-[Vue warn]: inject() can only be used inside setup() or functional components.
-
-            </system-err>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 支持偏移" time="0.000181">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 应返回正确的 gridColumn 样式" time="0.0003089">
             <system-err>
 [Vue warn]: provide() can only be used inside setup().
 [Vue warn]: inject() can only be used inside setup() or functional components.
 
             </system-err>
         </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" timestamp="2026-09-17T16:01:11.777Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0063519">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 应推送通知并自增 unreadCount" time="0.0033405">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 标记已读应减少 unreadCount" time="0.0005404">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; markAllAsRead 应全部已读" time="0.0003421">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 应正确移除通知" time="0.0003265">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; clearAll 应清空所有通知" time="0.0002819">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; maxVisible 应限制可见数量" time="0.0002828">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; updatePreferences 应更新偏好设置" time="0.0005151">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 支持偏移" time="0.0001658">
+            <system-err>
+[Vue warn]: provide() can only be used inside setup().
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
         </testcase>
     </testsuite>
 </testsuites>
