@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdCol, YdCountToAnimator, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdTabs, YdTabsContent, YdTooltip } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCol, YdCountToAnimator, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdTabs, YdTabsContent, YdTooltipSmart } from '@ydsz-core/ydsz-ui';
 import { ydszAlert } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
@@ -97,7 +97,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
       width: 160,
       slots: {
         default: ({ row }) =>
-          h(ElRate, {
+          h(YdRate, {
             modelValue: row.rating ?? 0,
             disabled: true,
             'onUpdate:modelValue': () => {},
@@ -112,11 +112,15 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
       minWidth: 160,
       slots: {
         default: ({ row }) =>
-          h(
-            ElTooltip,
-            { content: row.description, placement: 'top' },
-            { default: () => h('span', {}, row.description?.length > 20 ? `${row.description.slice(0, 20)}...` : (row.description ?? '-')) },
-          ),
+          h(YdTooltipSmart, { side: 'top' }, {
+            default: () => h('span', {}, row.description ?? ''),
+            trigger: () =>
+              h(
+                'span',
+                {},
+                row.description?.length > 20 ? `${row.description.slice(0, 20)}...` : (row.description ?? '-'),
+              ),
+          }),
       },
     },
     {

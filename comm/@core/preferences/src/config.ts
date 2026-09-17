@@ -46,7 +46,7 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   copyright: {
-    companyName: '瑞米软件',
+    companyName: '云顶开源',
     companySiteLink: 'https://YDSZ.com.cn',
     date: '2026',
     enable: true,

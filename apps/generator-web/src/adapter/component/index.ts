@@ -6,8 +6,7 @@
  * @since 1.0.0
  */
 import { globalShareState } from '@ydsz/common-ui';
-
-import { ElNotification } from '@ydsz/notification/compat';
+import { showToast } from '@ydsz/notification';
 
 import type { ComponentType } from './component-type';
 
@@ -24,13 +23,7 @@ export async function initComponentAdapter(): Promise<void> {
   // 全局消息提示
   globalShareState.defineMessage({
     copyPreferencesSuccess: (title: string, content: string) => {
-      ElNotification({
-        title,
-        message: content,
-        position: 'bottom-right',
-        duration: 0,
-        type: 'success',
-      });
+      showToast.success(content, { description: title });
     },
   });
 }

@@ -22,7 +22,7 @@ const authStore = useAuthStore();
 
 const MOCK_TENANT_OPTIONS: BasicOption[] = [
   {
-    label: '瑞米软件',
+    label: '云顶开源',
     value: 'YDSZ',
   },
   {
