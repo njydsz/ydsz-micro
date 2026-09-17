@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdNumberFieldInput, YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdNumberField, YdNumberFieldInput, YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -75,17 +75,17 @@ const gridOptions: VxeGridProps<UserFavoriteVO> = {
       width: 140,
       slots: {
         default: ({ row }) =>
-          h(ElInputNumber, {
+          h(YdNumberField, {
             modelValue: row.sortOrder ?? 0,
             min: 0,
             max: 9999,
             step: 1,
-            size: 'small',
-            style: 'width:100px',
             'onUpdate:modelValue': (val: number | string) => {
               row.sortOrder = Number(val);
+              handleSortChange(row);
             },
-            onChange: () => handleSortChange(row),
+          }, {
+            default: () => h(YdNumberFieldInput, { class: 'w-[100px]' }),
           }),
       },
     },

@@ -74,7 +74,7 @@ const gridOptions = reactive<VxeGridProps<AuditLog>>({
         default: ({ row }) => {
           const action = row.action ?? 0;
           const config = actionTagMap[action] ?? { i18nKey: 'audit.action.query', type: 'info' };
-          return h(ElTag, { type: config.type, size: 'small' }, () => t(config.i18nKey));
+          return h(YdBadge, { variant: config.type, size: 'small' }, () => t(config.i18nKey));
         },
       },
     },
@@ -87,7 +87,7 @@ const gridOptions = reactive<VxeGridProps<AuditLog>>({
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 1 ? 'success' : 'danger', size: 'small' }, () =>
+          h(YdBadge, { variant: row.status === 1 ? 'success' : 'danger', size: 'small' }, () =>
             row.status === 1 ? t('audit.status.success') : t('audit.status.failed'),
           ),
       },

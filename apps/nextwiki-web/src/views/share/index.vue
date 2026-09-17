@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<ShareLinkVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 'ACTIVE' ? 'success' : 'info' }, () => row.status ?? '-'),
+          h(YdBadge, { variant: row.status === 'ACTIVE' ? 'success' : 'info' }, () => row.status ?? '-'),
       },
     },
     { field: 'accessCount', title: '访问次数', width: 90 },
@@ -55,9 +55,9 @@ const gridOptions: VxeGridProps<ShareLinkVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => showLogs(row) }, () => '访问日志'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => showRecipients(row) }, () => '接收人'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleRevoke(row) }, () => '撤销'),
+            h(YdButton, { size: 'small', variant: 'link', onClick: () => showLogs(row) }, () => '访问日志'),
+            h(YdButton, { size: 'small', variant: 'link', onClick: () => showRecipients(row) }, () => '接收人'),
+            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleRevoke(row) }, () => '撤销'),
           ]),
       },
     },
@@ -86,7 +86,7 @@ const receivedGridOptions: VxeGridProps<ShareRecipientVO> = {
       field: 'status', title: '状态', width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 'VIEWED' ? 'success' : 'info' }, () => row.status ?? '-'),
+          h(YdBadge, { variant: row.status === 'VIEWED' ? 'success' : 'info' }, () => row.status ?? '-'),
       },
     },
     { field: 'viewedAt', title: '查看时间', width: 170 },

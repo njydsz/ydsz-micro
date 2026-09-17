@@ -25,6 +25,13 @@ export type {
   UseSelectHeadlessOptions,
 } from './use-select-headless';
 
+export { useTreeDrag } from './use-tree-drag';
+export type {
+  TreeDragState,
+  TreeDropPosition,
+  UseTreeDragOptions,
+} from './use-tree-drag';
+
 export { useTreeHeadless } from './use-tree-headless';
 export type {
   TreeHeadlessHandle,

@@ -46,7 +46,7 @@ setupYDSZVxeTable({
       renderTableDefault(_renderOpts, params) {
         const { column, row } = params;
         const src = row[column.field];
-        return h(ElImage, { src, previewSrcList: [src] });
+        return h(YdImage, { src, previewSrcList: [src] });
       },
     });
 

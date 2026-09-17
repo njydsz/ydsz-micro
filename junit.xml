@@ -1,51 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="22" failures="0" errors="0" time="0.0171036">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" timestamp="2026-09-17T09:49:29.929Z" hostname="DESKTOP-FIC0TQ3" tests="11" failures="0" errors="0" skipped="0" time="0.0123849">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 应默认未在拖拽中" time="0.003238">
+<testsuites name="vitest tests" tests="10" failures="0" errors="0" time="0.0068111">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" timestamp="2026-09-17T09:53:50.055Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0068111">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; 初始状态应未在拖拽中" time="0.0022649">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 应默认最小宽度为 60" time="0.0007921">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; startDrag 应更新拖拽状态" time="0.0005214">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 应能设置初始宽度" time="0.0002773">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; startDrag 对 canDrag=false 的节点应无效" time="0.0002458">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 开始拖拽后 isResizing 应为 true" time="0.0018723">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; handleDragOver 应计算 before 位置" time="0.000506">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 开始拖拽后 resizingProp 应为对应列" time="0.0004986">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; handleDragOver 应计算 after 位置" time="0.0002552">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 拖拽移动应更新列宽" time="0.0012403">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; handleDragOver 应计算 inside 位置（有子节点时）" time="0.000332">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 列宽不应低于最小宽度" time="0.0004108">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; 落点不应在被拖拽节点自身上" time="0.0001715">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 拖拽结束应重置状态" time="0.0017309">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; endDrag 应在有有效落点时触发 onReorder" time="0.0007547">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; getColumnWidthStyle 应返回 px 格式" time="0.0003362">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; endDrag 应清理拖拽状态" time="0.0002641">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; getColumnWidthStyle 对未知列应返回 undefined" time="0.0003122">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/columnResize.test.ts" name="useColumnResize &gt; 自定义最小宽度应生效" time="0.0004002">
-        </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" timestamp="2026-09-17T09:49:29.942Z" hostname="DESKTOP-FIC0TQ3" tests="11" failures="0" errors="0" skipped="0" time="0.0047187">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; 应能创建完整 ColumnDef 对象" time="0.00114">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 left / right / undefined 三种 fixed" time="0.0002131">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 children（多级表头）" time="0.0007923">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 formatter 回调" time="0.0001456">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef type system &gt; ColumnDef 应支持 type 特殊列" time="0.0001305">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnRegistry injection &gt; YD_TABLE_COLUMN_REGISTRY 应定义为 symbol" time="0.0001153">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnRegistry injection &gt; 注册表描述应包含 TABLE 标识" time="0.0002121">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="useVirtualList type shape &gt; UseVirtualListOptions 接口应接受正确的配置" time="0.0001125">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="useVirtualList type shape &gt; UseVirtualListOptions 应支持 getKey 回调" time="0.0001308">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="useVirtualList type shape &gt; VirtualListHandle 应有visibleItems 句柄" time="0.0002403">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/table.test.ts" name="ColumnDef alignment options &gt; 应支持 left / center / right 对齐" time="0.0002392">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; 无有效落点时 endDrag 不应触发 onReorder" time="0.0002732">
         </testcase>
     </testsuite>
 </testsuites>

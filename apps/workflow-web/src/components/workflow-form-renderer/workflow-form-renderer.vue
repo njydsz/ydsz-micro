@@ -28,7 +28,7 @@
  */
 import { computed, ref, watch } from 'vue';
 
-import { YdEmptyState, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdInput, YdNumberField, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
 
 import type { YdFormSchema } from '@ydsz/common-ui';
 
@@ -162,30 +162,32 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
       <!-- 根据组件类型动态渲染 -->
       <div class="field-content">
         <!-- YdSelectBase -->
-        <el-select
+        <YdSelect
           v-if="field.component === 'YdSelectBase'"
           v-model="formModel[field.fieldName]"
           :placeholder="`请选择${field.label}`"
           :disabled="disabled"
           class="w-full"
-          @change="emit('update:formData', formModel)"
+          @update:modelValue="emit('update:formData', formModel)"
         >
-          <el-option
+          <YdSelectItem
             v-for="opt in (field.componentProps as ExtendedComponentProps | undefined)?.options"
             :key="opt.value"
             :label="opt.label"
             :value="opt.value"
           />
-        </el-select>
+        </YdSelect>
 
         <!-- Number -->
-        <el-input-number
+        <YdNumberField
           v-else-if="field.component === 'InputNumber'"
           v-model="formModel[field.fieldName] as number | undefined"
           :disabled="disabled"
           class="w-full"
-          @change="emit('update:formData', formModel)"
-        />
+          @update:modelValue="emit('update:formData', formModel)"
+        >
+          <YdNumberFieldInput />
+        </YdNumberField>
 
         <!-- Boolean / YdSwitch -->
         <el-switch
