@@ -1,10 +1,8 @@
 {
   "imports": {
-    "@element-plus/icons-vue": "/vendor/esm.sh/_star@element-plus/icons-vue@2.3.2/dist/index.js",
     "axios": "/vendor/cdn.jsdelivr.net/npm/axios@^1.10.0/index.js",
     "dayjs": "/vendor/esm.sh/_stardayjs@1.11.23/dayjs.min.js",
     "echarts": "/vendor/esm.sh/_starecharts@6.1.0/index.js",
-    "element-plus": "/vendor/esm.sh/_starelement-plus@2.14.5/es/index.mjs",
     "https://cdn.jsdelivr.net/npm/axios@^1.10.0/lib/adapters/http.js": "/vendor/cdn.jsdelivr.net/npm/axios@^1.10.0/lib/helpers/null.js",
     "https://cdn.jsdelivr.net/npm/axios@^1.10.0/lib/platform/node/classes/Buffer.js": "/vendor/cdn.jsdelivr.net/npm/axios@^1.10.0/lib/helpers/null.js",
     "https://cdn.jsdelivr.net/npm/axios@^1.10.0/lib/platform/node/classes/FormData.js": "/vendor/cdn.jsdelivr.net/npm/axios@^1.10.0/lib/helpers/null.js",
@@ -67,7 +65,6 @@
       "zrender/lib/graphic/RadialGradient": "/vendor/esm.sh/_starzrender@6.1.0/lib/graphic/RadialGradient.js",
       "zrender/lib/svg/patch": "/vendor/esm.sh/_starzrender@6.1.0/lib/svg/patch.js",
       "zrender/lib/tool/color": "/vendor/esm.sh/_starzrender@6.1.0/lib/tool/color.js",
-      "element-plus/": "/vendor/esm.sh/_starelement-plus@2.14.5//index.js",
       "vue-router/dist/": "https://esm.sh/*vue-router@5.3.0/dist/",
       "zrender/": "/vendor/esm.sh/_starzrender@6.1.0//index.js"
     }

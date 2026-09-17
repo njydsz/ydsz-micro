@@ -43,3 +43,17 @@ export type {
   TreeVirtualHandle,
   VirtualTreeNode,
 } from './use-tree-virtual';
+
+export { useDragSort } from './use-drag-sort';
+export type {
+  DragSortDirection,
+  DragSortState,
+  UseDragSortOptions,
+  ReorderPayload,
+} from './use-drag-sort';
+
+export { useComponentI18n } from './use-component-i18n';
+export type {
+  UseComponentI18nOptions,
+  ComponentI18nHandle,
+} from './use-component-i18n';
