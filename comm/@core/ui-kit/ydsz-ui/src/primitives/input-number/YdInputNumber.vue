@@ -1,8 +1,15 @@
-<script lang="ts" setup">
+<script lang="ts" setup>
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { Minus, Plus } from 'lucide-vue-next';
+
+import {
+  inputNumberVariants,
+  inputNumberInputVariants,
+  inputNumberBtnVariants,
+  type InputNumberSize,
+} from './input-number';
 
 interface Props {
   class?: any;
@@ -16,11 +23,11 @@ interface Props {
   /** 占位符 */
   placeholder?: string;
   /** 只读 */
-  readonly?: boolean;
+  isReadonly?: boolean;
   /** 单步增减值 */
   step?: number;
   /** 尺寸 */
-  size?: 'default' | 'large' | 'small';
+  size?: InputNumberSize;
   /** 受控值 */
   modelValue?: number;
   /** 变化回调 */
@@ -32,7 +39,7 @@ const props = withDefaults(defineProps<Props>(), {
   max: Number.MAX_SAFE_INTEGER,
   min: Number.MIN_SAFE_INTEGER,
   precision: undefined,
-  readonly: false,
+  isReadonly: false,
   step: 1,
   size: 'default',
 });
@@ -68,7 +75,7 @@ function clampAndPrecision(val: number): number {
 }
 
 function stepUp(): void {
-  if (props.disabled || props.readonly) return;
+  if (props.disabled || props.isReadonly) return;
   const cur = props.modelValue ?? 0;
   const next = clampAndPrecision(cur + props.step);
   emit('update:modelValue', next);
@@ -76,7 +83,7 @@ function stepUp(): void {
 }
 
 function stepDown(): void {
-  if (props.disabled || props.readonly) return;
+  if (props.disabled || props.isReadonly) return;
   const cur = props.modelValue ?? 0;
   const next = clampAndPrecision(cur - props.step);
   emit('update:modelValue', next);
@@ -93,18 +100,19 @@ function handleKeydown(e: KeyboardEvent): void {
   }
 }
 
-const sizeMap: Record<string, string> = {
-  large: 'h-11',
-  default: 'h-9',
-  small: 'h-8 text-sm',
-};
+const btnClass = computed(() =>
+  cn(
+    inputNumberBtnVariants({ size: props.size }),
+    props.disabled ? 'cursor-not-allowed opacity-40' : 'hover:bg-muted',
+  ),
+);
 </script>
 
 <template>
-  <div :class="cn('relative inline-flex items-stretch', props.class)">
+  <div :class="cn(inputNumberVariants({ size }), props.class)">
     <button
       :aria-label="'减少'"
-      :class="cn('flex items-center justify-center rounded-l-md border border-r-0 px-2', sizeMap[props.size], props.disabled ? 'cursor-not-allowed opacity-40' : 'hover:bg-muted')"
+      :class="cn(btnClass, 'rounded-l-md border-r-0')"
       :disabled="props.disabled || (props.modelValue ?? props.min) <= props.min"
       type="button"
       @click="stepDown"
@@ -115,9 +123,8 @@ const sizeMap: Record<string, string> = {
       v-model="displayValue"
       :disabled="props.disabled"
       :placeholder="props.placeholder"
-      :readonly="props.readonly"
-      class="border px-3 text-center outline-none focus:border-primary focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-      :class="sizeMap[props.size]"
+      :readonly="props.isReadonly"
+      :class="inputNumberInputVariants({ size })"
       inputmode="decimal"
       type="text"
       @keydown="handleKeydown"
@@ -125,7 +132,7 @@ const sizeMap: Record<string, string> = {
     />
     <button
       :aria-label="'增加'"
-      :class="cn('flex items-center justify-center rounded-r-md border border-l-0 px-2', sizeMap[props.size], props.disabled ? 'cursor-not-allowed opacity-40' : 'hover:bg-muted')"
+      :class="cn(btnClass, 'rounded-r-md border-l-0')"
       :disabled="props.disabled || (props.modelValue ?? props.max) >= props.max"
       type="button"
       @click="stepUp"
