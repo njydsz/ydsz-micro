@@ -20,7 +20,9 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElInput, ElSwitch, ElTag } from 'element-plus';
+import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElSwitch 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElSwitch } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -184,24 +186,18 @@ onMounted(() => {
               disabled
             />
           </div>
-          <ElInput
+          <Input
             v-model="targetCluster"
             placeholder="请输入目标集群名称"
-            clearable
             class="!w-48"
-          >
-            <template #append>
-              <ElButton :loading="clusterLoading" @click="loadClusters">刷新</ElButton>
-            </template>
-          </ElInput>
-          <ElButton
-            type="primary"
+          />
+          <Button
             :loading="migrating"
             :disabled="!targetCluster"
             @click="handleMigrate"
           >
             执行迁移
-          </ElButton>
+          </Button>
         </div>
       </template>
     </Grid>
@@ -210,7 +206,7 @@ onMounted(() => {
     <div v-if="clusterList.length > 0" class="mt-4 rounded border bg-gray-50 p-3">
       <div class="mb-2 text-xs font-medium text-gray-600">可用目标集群：</div>
       <div class="flex flex-wrap gap-2">
-        <ElTag v-for="cluster in clusterList" :key="cluster" type="info">{{ cluster }}</ElTag>
+        <Badge v-for="cluster in clusterList" :key="cluster" variant="secondary">{{ cluster }}</Badge>
       </div>
     </div>
   </Page>

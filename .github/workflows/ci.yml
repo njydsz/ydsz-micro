@@ -5,10 +5,11 @@ name: CI
 # i18n / importmap 锁 / 契约漂移 / 产物体积），契约漂移检查需检出后端仓库
 # （ydsz-cloud）作为契约事实源，PR 与 push 均执行。
 #
-# §16.10 禁止测试代码：本仓库不存在 test / test:e2e 脚本，也不存在 e2e 目录。
-# 原 e2e-smoke job 执行 `pnpm test:e2e`（脚本已被规范移除），触发即失败，
-# 已整块删除；其中与测试无关的门禁（构建 + 产物体积预算 + 共享依赖外置校验）
-# 提取为独立 bundle job 并纳入 PR 必跑，门禁强度不降反升。
+# §16.10 测试策略：按云顶编码规范分层推行测试体系
+# 第一阶段：高复用组件 + 工具函数（覆盖率 ≥ 60%）—— Vitest 3.x + Vue Test Utils
+# 第二阶段：子应用核心业务组件（覆盖率 ≥ 50%）
+# 第三阶段：页面级集成测试（覆盖率 ≥ 30%）—— Playwright
+# 参考 catpaw-always.md YDIZ-TEST-FE-001: 测试用例必须有明确断言，禁止无断言渲染测试
 
 on:
   push:
@@ -58,7 +59,9 @@ jobs:
       - name: 编码规范合规扫描
         run: pnpm vsh:check-standard
 
-      # 测试代码已按云顶编码规范 15.10 全量移除，`pnpm test` 脚本不存在（2026-09-01）
+      # 云顶编码规范 §16.10 测试门禁：执行 Vitest 单元测试 + 覆盖率报告
+      - name: 单元测试 + 覆盖率（第一阶段：高复用组件 + 工具函数）
+        run: pnpm test:unit
 
       - name: 国际化 key 一致性校验
         run: pnpm check:i18n

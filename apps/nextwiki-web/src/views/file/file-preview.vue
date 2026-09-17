@@ -223,33 +223,31 @@ onMounted(async () => {
           <h3 class="text-base font-medium">{{ fileNode.name }}</h3>
           <p class="mt-1 text-xs text-gray-500">
             {{ fileSuffix.toUpperCase() }} 格式
-            <ElTag v-if="previewSupported" type="success" size="small" class="ml-2">支持预览</ElTag>
-            <ElTag v-else type="warning" size="small" class="ml-2">不支持预览</ElTag>
+            <Badge v-if="previewSupported" variant="default" class="ml-2">支持预览</Badge>
+            <Badge v-else variant="warning" class="ml-2">不支持预览</Badge>
           </p>
         </div>
         <div class="flex gap-2">
-          <ElButton
+          <Button
             v-if="previewSupported && !isImage && !isText && !isPdf"
-            type="primary"
-            size="small"
+            size="sm"
             :loading="generating"
             @click="handleGeneratePreview"
           >
             生成预览
-          </ElButton>
-          <ElButton
+          </Button>
+          <Button
             v-if="aiEnabled"
-            type="success"
-            size="small"
+            size="sm"
             :loading="aiLoading"
             @click="handleGenerateSummary"
           >
             AI 摘要
-          </ElButton>
-          <ElButton type="primary" size="small" @click="handleDownload">
+          </Button>
+          <Button size="sm" @click="handleDownload">
             下载
-          </ElButton>
-          <ElButton size="small" @click="emit('close')">关闭</ElButton>
+          </Button>
+          <Button size="sm" variant="outline" @click="emit('close')">关闭</Button>
         </div>
       </div>
 
@@ -283,27 +281,27 @@ onMounted(async () => {
         <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
           <p class="text-lg">该文件格式暂不支持在线预览</p>
           <p class="mt-2 text-sm">请下载后使用本地应用打开</p>
-          <ElButton type="primary" class="mt-4" @click="handleDownload">立即下载</ElButton>
+          <Button class="mt-4" @click="handleDownload">立即下载</Button>
         </div>
       </div>
 
       <!-- AI 摘要面板 -->
-      <ElCard v-if="aiSummary" class="mt-4" shadow="never">
-        <template #header>
+      <Card v-if="aiSummary" class="mt-4">
+        <CardHeader className="pb-3">
           <div class="flex items-center justify-between">
             <span class="font-medium">AI 智能摘要</span>
-            <ElButton link size="small" @click="aiPanelExpanded = !aiPanelExpanded">
+            <Button variant="ghost" size="sm" @click="aiPanelExpanded = !aiPanelExpanded">
               {{ aiPanelExpanded ? '收起' : '展开' }}
-            </ElButton>
+            </Button>
           </div>
-        </template>
-        <div v-show="aiPanelExpanded" class="text-sm text-gray-700">
+        </CardHeader>
+        <CardContent v-show="aiPanelExpanded" class="text-sm text-gray-700">
           <p class="whitespace-pre-wrap leading-relaxed">{{ aiSummary.summary }}</p>
           <p v-if="aiSummary.wordCount" class="mt-3 text-xs text-gray-500">
             字数统计：{{ aiSummary.wordCount }}
           </p>
-        </div>
-      </ElCard>
+        </CardContent>
+      </Card>
     </div>
   </div>
 </template>

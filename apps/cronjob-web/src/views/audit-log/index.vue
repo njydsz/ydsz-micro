@@ -19,7 +19,10 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElDrawer/ElTable 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -93,7 +96,7 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as AuditLogVO;
-          return h(ElTag, { size: 'small', type: 'info' }, () => translateAuditType(item.auditType));
+          return h(Badge, { size: 'sm', variant: 'secondary' }, () => translateAuditType(item.auditType));
         },
       },
     },
@@ -104,7 +107,7 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as AuditLogVO;
-          return h(ElTag, { size: 'small' }, () => translateAction(item.action));
+          return h(Badge, { size: 'sm' }, () => translateAction(item.action));
         },
       },
     },
@@ -133,8 +136,8 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
         default: ({ row }) => {
           const item = row as AuditLogVO;
           return h(
-            ElButton,
-            { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(item) },
+            Button,
+            { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
             () => '详情',
           );
         },

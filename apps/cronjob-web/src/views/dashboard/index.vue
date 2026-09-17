@@ -16,7 +16,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCard, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getOverview } from '#/api/dashboard';
@@ -141,7 +143,7 @@ onMounted(loadData);
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn label="状态" width="90">
             <template #default="{ row }">
-              <ElTag type="danger" size="small">{{ row.status ?? '-' }}</ElTag>
+              <Badge variant="destructive" size="sm">{{ row.status ?? '-' }}</Badge>
             </template>
           </ElTableColumn>
           <ElTableColumn

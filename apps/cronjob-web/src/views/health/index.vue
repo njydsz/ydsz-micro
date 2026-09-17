@@ -17,7 +17,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElTag } from 'element-plus';
+import { Badge, Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElTag } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getHealth } from '#/api/healthDashboard';
@@ -98,9 +100,9 @@ onMounted(loadHealth);
       <template #header>
         <div class="flex items-center justify-between">
           <span class="font-medium">系统健康状态</span>
-          <ElTag :type="overallStatus.type" size="large" effect="light">
+          <Badge :variant="overallStatus.type" size="lg">
             {{ isLoading ? '检查中...' : overallStatus.label }}
-          </ElTag>
+          </Badge>
         </div>
       </template>
       <div class="flex items-center gap-3">

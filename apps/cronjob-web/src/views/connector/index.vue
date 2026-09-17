@@ -19,7 +19,11 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElForm, ElFormItem, ElInput, ElTag } from 'element-plus';
+import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElSelect/ElOption 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElOption, ElSelect } from 'element-plus';
+// TODO: ElForm/ElFormItem 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -157,30 +161,30 @@ async function handleExport() {
   <Page auto-content-height>
     <div class="mb-2 flex flex-wrap items-center gap-2">
       <span class="text-sm text-gray-500">支持的连接器类型：</span>
-      <ElTag v-for="item in connectorTypes" :key="item" type="info">{{ item }}</ElTag>
-      <ElTag v-if="connectorTypes.length === 0" type="info">{{ t('common.noData') }}</ElTag>
+      <Badge v-for="item in connectorTypes" :key="item" variant="secondary">{{ item }}</Badge>
+      <Badge v-if="connectorTypes.length === 0" variant="secondary">{{ t('common.noData') }}</Badge>
     </div>
     <ElForm inline class="rounded border border-gray-200 p-2">
       <ElFormItem label="类型">
-        <ElInput v-model="config.type" class="w-32" placeholder="连接器类型" />
+        <Input v-model="config.type" class="w-32" placeholder="连接器类型" />
       </ElFormItem>
       <ElFormItem label="端点">
-        <ElInput v-model="config.endpoint" class="w-56" placeholder="连接端点" />
+        <Input v-model="config.endpoint" class="w-56" placeholder="连接端点" />
       </ElFormItem>
       <ElFormItem label="认证方式">
-        <ElInput v-model="config.authType" class="w-28" placeholder="authType" />
+        <Input v-model="config.authType" class="w-28" placeholder="authType" />
       </ElFormItem>
       <ElFormItem label="用户名">
-        <ElInput v-model="config.username" class="w-32" placeholder="用户名" />
+        <Input v-model="config.username" class="w-32" placeholder="用户名" />
       </ElFormItem>
       <ElFormItem label="密码">
-        <ElInput v-model="config.password" class="w-32" type="password" show-password placeholder="密码" />
+        <Input v-model="config.password" class="w-32" type="password" placeholder="密码" />
       </ElFormItem>
       <ElFormItem label="AccessKey">
-        <ElInput v-model="config.accessKey" class="w-36" placeholder="AccessKey" />
+        <Input v-model="config.accessKey" class="w-36" placeholder="AccessKey" />
       </ElFormItem>
       <ElFormItem label="SecretKey">
-        <ElInput v-model="config.secretKey" class="w-36" type="password" show-password placeholder="SecretKey" />
+        <Input v-model="config.secretKey" class="w-36" type="password" placeholder="SecretKey" />
       </ElFormItem>
     </ElForm>
     <TaskGrid class="mt-4" table-title="远程任务">

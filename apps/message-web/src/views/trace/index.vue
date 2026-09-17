@@ -17,11 +17,10 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 // SKIP: ElStep/ElSteps 不在 shadcn 映射表，保留 EP
-import { ElStep, ElSteps, ElOption, ElSelect } from 'element-plus';
-import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { ElStep, ElSteps } from 'element-plus';
 import { computed, ref } from 'vue';
 
 const logger = createLogger('message-trace');

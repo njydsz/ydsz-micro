@@ -85,7 +85,11 @@
     "vsh:check-dep": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-dep",
     "vsh:check-standard": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs check-standard",
     "vsh:code-workspace": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs code-workspace",
-    "vsh:publint": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs publint"
+    "vsh:publint": "node --experimental-strip-types ./bash/vsh/bin/vsh.mjs publint",
+    "test:unit": "vitest run --config vitest.config.ts",
+    "test:unit:watch": "vitest --config vitest.config.ts",
+    "test:coverage": "vitest run --config vitest.config.ts --coverage",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
@@ -123,7 +127,11 @@
     "vite": "catalog:",
     "vue": "catalog:",
     "vue-sfc-transformer": "catalog:",
-    "vue-tsc": "catalog:"
+    "vue-tsc": "catalog:",
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "happy-dom": "catalog:"
   },
   "prettier": "@ydsz/prettier-config",
   "engines": {

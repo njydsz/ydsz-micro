@@ -16,7 +16,8 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
+import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
@@ -185,7 +186,7 @@ onMounted(() => {
         <ElTableColumn label="版本" width="80">
           <template #default="{ row }">
             <span class="font-medium">v{{ row.version }}</span>
-            <ElTag v-if="row.isCurrent" size="small" type="success" class="ml-1">当前</ElTag>
+            <Badge v-if="row.isCurrent" variant="default" class="ml-1">当前</Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="size" label="大小" width="100">
@@ -196,17 +197,16 @@ onMounted(() => {
         <ElTableColumn prop="remark" label="备注" min-width="120" />
         <ElTableColumn label="操作" width="200" fixed="right">
           <template #default="{ row }">
-            <ElButton size="small" link type="primary" @click="handlePreview(row)">预览</ElButton>
-            <ElButton size="small" link type="primary" @click="handleDownloadVersion(row)">下载</ElButton>
-            <ElButton
+            <Button size="sm" variant="link" @click="handlePreview(row)">预览</Button>
+            <Button size="sm" variant="link" @click="handleDownloadVersion(row)">下载</Button>
+            <Button
               v-if="!row.isCurrent"
-              size="small"
-              link
-              type="warning"
+              size="sm"
+              variant="link"
               @click="handleRollback(row)"
             >
               回滚
-            </ElButton>
+            </Button>
           </template>
         </ElTableColumn>
       </ElTable>
@@ -215,7 +215,7 @@ onMounted(() => {
       <ElDialog v-model="comparing" title="版本对比" width="700px">
         <pre class="max-h-96 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs">{{ diffContent }}</pre>
         <template #footer>
-          <ElButton @click="comparing = false">关闭</ElButton>
+          <Button variant="outline" @click="comparing = false">关闭</Button>
         </template>
       </ElDialog>
     </div>

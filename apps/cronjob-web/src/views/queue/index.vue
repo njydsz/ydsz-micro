@@ -17,7 +17,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElProgress } from 'element-plus';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElEmpty/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElProgress } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getQueueStatus } from '#/api/jobQueue';

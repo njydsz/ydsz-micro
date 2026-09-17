@@ -17,7 +17,8 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput, ElProgress, ElUpload } from 'element-plus';
+import { ElForm, ElFormItem, ElProgress, ElUpload } from 'element-plus';
+import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';
@@ -208,10 +209,10 @@ async function handleCancel(): Promise<void> {
   <Modal title="上传文件">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem label="父目录ID" prop="parentId">
-        <ElInput v-model="formData.parentId" placeholder="请输入父目录ID（留空表示根目录）" />
+        <Input v-model="formData.parentId" placeholder="请输入父目录ID（留空表示根目录）" />
       </ElFormItem>
       <ElFormItem label="版本备注" prop="versionRemark">
-        <ElInput v-model="formData.versionRemark" placeholder="请输入版本备注（选填）" type="textarea" :rows="2" />
+        <Input v-model="formData.versionRemark" placeholder="请输入版本备注（选填）" />
       </ElFormItem>
       <ElFormItem label="选择文件">
         <ElUpload

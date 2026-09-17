@@ -19,7 +19,10 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDrawer, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTable/ElTableColumn/ElEmpty/ElDrawer 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

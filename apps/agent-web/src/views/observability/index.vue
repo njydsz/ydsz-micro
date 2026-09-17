@@ -17,8 +17,10 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-// TODO: ElCard/ElEmpty/ElInput/ElOption/ElSelect/ElTable/ElTableColumn/ElTag 表格+复杂布局,保留 element-plus SKIP
-import { ElCard, ElEmpty, ElInput, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
+// TODO: ElCard/ElEmpty/ElOption/ElSelect/ElTable/ElTableColumn 表格+复杂布局+选择器,保留 element-plus SKIP
+import { ElCard, ElEmpty, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
+// TODO: ElAlert 无直接 shadcn 映射 SKIP
+import { Button, Badge, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
 
@@ -193,26 +195,26 @@ onMounted(() => {
       <!-- 标签页 -->
       <ElCard>
         <div class="mb-4 flex gap-2">
-          <ElButton :type="activeTab === 'trace' ? 'primary' : 'default'" size="small" @click="activeTab = 'trace'">
+          <Button :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
             Trace 追踪
-          </ElButton>
-          <ElButton :type="activeTab === 'model' ? 'primary' : 'default'" size="small" @click="activeTab = 'model'">
+          </Button>
+          <Button :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
             模型使用
-          </ElButton>
-          <ElButton :type="activeTab === 'performance' ? 'primary' : 'default'" size="small" @click="activeTab = 'performance'">
+          </Button>
+          <Button :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
             性能监控
-          </ElButton>
+          </Button>
         </div>
 
         <!-- Trace 追踪 -->
         <div v-if="activeTab === 'trace'" class="space-y-4">
           <div class="flex items-center gap-4">
-            <ElInput
+            <Input
               v-model="traceSearchQuery"
               placeholder="搜索 Trace ID、Agent 名称或输入内容..."
               class="max-w-md"
-              clearable
             />
+            <!-- TODO: ElSelect/ElOption SKIP -->
             <ElSelect placeholder="状态筛选" clearable class="w-32">
               <ElOption label="成功" value="SUCCESS" />
               <ElOption label="失败" value="FAILED" />
@@ -229,16 +231,16 @@ onMounted(() => {
             <ElTableColumn prop="tokens" label="Token" width="80" />
             <ElTableColumn label="状态" width="100">
               <template #default="{ row }">
-                <ElTag :type="getStatusTagType(row.status as string)">
+                <Badge :variant="getStatusTagType(row.status as string)">
                   {{ row.status }}
-                </ElTag>
+                </Badge>
               </template>
             </ElTableColumn>
             <ElTableColumn label="操作" width="100" fixed="right">
               <template #default="{ row }">
-                <ElButton size="small" link type="primary" @click="viewTraceDetail(row)">
+                <Button size="sm" variant="link" @click="viewTraceDetail(row)">
                   详情
-                </ElButton>
+                </Button>
               </template>
             </ElTableColumn>
           </ElTable>
@@ -322,7 +324,7 @@ onMounted(() => {
         </div>
       </div>
       <template #footer>
-        <ElButton @click="selectedTrace = null">关闭</ElButton>
+        <Button @click="selectedTrace = null">关闭</Button>
       </template>
     </ElDialog>
   </Page>
