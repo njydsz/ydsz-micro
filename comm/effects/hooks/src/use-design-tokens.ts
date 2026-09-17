@@ -1,7 +1,7 @@
 /**
  * 将项目 CSS 变量映射为各 UI 框架设计令牌的主题适配层。
  *
- * 支持 Antd、Naive UI、Element Plus 三套框架的主题同步，
+ * 支持 Antd、Naive UI 两套框架的主题同步，
  * 运行时监听 preferences.theme 变化自动更新，无需手动刷新。
  *
  * @path comm\effects\hooks\src\use-design-tokens.ts
@@ -10,8 +10,8 @@
  */
 import { reactive, watch } from 'vue';
 
-import { preferences, usePreferences } from '@ydsz/preferences';
-import { convertToRgb, updateCSSVariables } from '@ydsz/utils';
+import { preferences } from '@ydsz/preferences';
+import { convertToRgb } from '@ydsz/utils';
 
 /**
  * 用于适配各个框架的设计系统
@@ -200,182 +200,4 @@ export function useNaiveDesignTokens() {
   return {
     commonTokens,
   };
-}
-
-/**
- * 把项目 CSS 变量映射为 `--el-*` 兼容变量（历史命名），实现主题联动。
- *
- * @remarks
- * 入参：无。返回值：无——与 Antd / Naive 版本不同，本函数**不返回 token 对象**，
- * 而是直接把变量写入文档，Element Plus 组件通过 CSS 变量自动生效。
- *
- * 副作用与生命周期：
- * - 侦听 `preferences.theme`（`immediate: true`，调用即执行一次），
- *   每次变化都调用 `updateCSSVariables` 覆写 id 为 `__ydsz_design_styles__` 的全局 `<style>` 标签，
- *   属于**全局副作用**，多次调用会互相覆盖；
- * - 侦听器未显式停止，应在 `setup` 中调用以便随组件作用域回收；
- * - 依赖 `document.documentElement`，仅浏览器端可用。
- *
- * 明暗适配：Element Plus 的 `light-N` 阶梯在亮色下由浅到深、暗色下需要反转，
- * 因此这里按 `isDark` 分别映射到不同的色阶，保证暗色模式下对比度正确。
- * `--el-mask-color` 单独硬编码，用于修复 ElLoading 遮罩在暗色下过亮的问题。
- */
-export function useLegacyDesignTokens() {
-  const { isDark } = usePreferences();
-  const rootStyles = getComputedStyle(document.documentElement);
-
-  const getCssVariableValueRaw = (variable: string) => {
-    return rootStyles.getPropertyValue(variable);
-  };
-
-  const getCssVariableValue = (variable: string, isColor: boolean = true) => {
-    const value = getCssVariableValueRaw(variable);
-    return isColor ? convertToRgb(`hsl(${value})`) : value;
-  };
-
-  watch(
-    () => preferences.theme,
-    () => {
-      const background = getCssVariableValue('--background');
-      const border = getCssVariableValue('--border');
-      const accent = getCssVariableValue('--accent');
-
-      const variables: Record<string, string> = {
-        '--el-bg-color': background,
-        '--el-bg-color-overlay': getCssVariableValue('--popover'),
-        '--el-bg-color-page': getCssVariableValue('--background-deep'),
-        '--el-border-color': border,
-        '--el-border-color-dark': border,
-        '--el-border-color-extra-light': border,
-        '--el-border-color-hover': accent,
-        '--el-border-color-light': border,
-        '--el-border-color-lighter': border,
-
-        '--el-border-radius-base': getCssVariableValue('--radius', false),
-        '--el-color-danger': getCssVariableValue('--destructive-500'),
-        '--el-color-danger-dark-2': isDark.value
-          ? getCssVariableValue('--destructive-400')
-          : getCssVariableValue('--destructive-600'),
-        '--el-color-danger-light-3': isDark.value
-          ? getCssVariableValue('--destructive-600')
-          : getCssVariableValue('--destructive-400'),
-        '--el-color-danger-light-5': isDark.value
-          ? getCssVariableValue('--destructive-700')
-          : getCssVariableValue('--destructive-300'),
-        '--el-color-danger-light-7': isDark.value
-          ? getCssVariableValue('--destructive-800')
-          : getCssVariableValue('--destructive-200'),
-        '--el-color-danger-light-8': isDark.value
-          ? getCssVariableValue('--destructive-900')
-          : getCssVariableValue('--destructive-100'),
-        '--el-color-danger-light-9': isDark.value
-          ? getCssVariableValue('--destructive-950')
-          : getCssVariableValue('--destructive-50'),
-
-        '--el-color-error': getCssVariableValue('--destructive-500'),
-        '--el-color-error-dark-2': isDark.value
-          ? getCssVariableValue('--destructive-400')
-          : getCssVariableValue('--destructive-600'),
-        '--el-color-error-light-3': isDark.value
-          ? getCssVariableValue('--destructive-600')
-          : getCssVariableValue('--destructive-400'),
-        '--el-color-error-light-5': isDark.value
-          ? getCssVariableValue('--destructive-700')
-          : getCssVariableValue('--destructive-300'),
-        '--el-color-error-light-7': isDark.value
-          ? getCssVariableValue('--destructive-800')
-          : getCssVariableValue('--destructive-200'),
-        '--el-color-error-light-8': isDark.value
-          ? getCssVariableValue('--destructive-900')
-          : getCssVariableValue('--destructive-100'),
-        '--el-color-error-light-9': isDark.value
-          ? getCssVariableValue('--destructive-950')
-          : getCssVariableValue('--destructive-50'),
-
-        '--el-color-info-light-5': border,
-        '--el-color-info-light-8': border,
-        '--el-color-info-light-9': getCssVariableValue('--info'), // getCssVariableValue('--secondary'),
-
-        '--el-color-primary': getCssVariableValue('--primary-500'),
-        '--el-color-primary-dark-2': isDark.value
-          ? getCssVariableValue('--primary-400')
-          : getCssVariableValue('--primary-600'),
-        '--el-color-primary-light-3': isDark.value
-          ? getCssVariableValue('--primary-600')
-          : getCssVariableValue('--primary-400'),
-        '--el-color-primary-light-5': isDark.value
-          ? getCssVariableValue('--primary-700')
-          : getCssVariableValue('--primary-300'),
-        '--el-color-primary-light-7': isDark.value
-          ? getCssVariableValue('--primary-800')
-          : getCssVariableValue('--primary-200'),
-        '--el-color-primary-light-8': isDark.value
-          ? getCssVariableValue('--primary-900')
-          : getCssVariableValue('--primary-100'),
-        '--el-color-primary-light-9': isDark.value
-          ? getCssVariableValue('--primary-950')
-          : getCssVariableValue('--primary-50'),
-
-        '--el-color-success': getCssVariableValue('--success-500'),
-        '--el-color-success-dark-2': isDark.value
-          ? getCssVariableValue('--success-400')
-          : getCssVariableValue('--success-600'),
-        '--el-color-success-light-3': isDark.value
-          ? getCssVariableValue('--success-600')
-          : getCssVariableValue('--success-400'),
-        '--el-color-success-light-5': isDark.value
-          ? getCssVariableValue('--success-700')
-          : getCssVariableValue('--success-300'),
-        '--el-color-success-light-7': isDark.value
-          ? getCssVariableValue('--success-800')
-          : getCssVariableValue('--success-200'),
-        '--el-color-success-light-8': isDark.value
-          ? getCssVariableValue('--success-900')
-          : getCssVariableValue('--success-100'),
-        '--el-color-success-light-9': isDark.value
-          ? getCssVariableValue('--success-950')
-          : getCssVariableValue('--success-50'),
-
-        '--el-color-warning': getCssVariableValue('--warning-500'),
-        '--el-color-warning-dark-2': isDark.value
-          ? getCssVariableValue('--warning-400')
-          : getCssVariableValue('--warning-600'),
-        '--el-color-warning-light-3': isDark.value
-          ? getCssVariableValue('--warning-600')
-          : getCssVariableValue('--warning-400'),
-        '--el-color-warning-light-5': isDark.value
-          ? getCssVariableValue('--warning-700')
-          : getCssVariableValue('--warning-300'),
-        '--el-color-warning-light-7': isDark.value
-          ? getCssVariableValue('--warning-800')
-          : getCssVariableValue('--warning-200'),
-        '--el-color-warning-light-8': isDark.value
-          ? getCssVariableValue('--warning-900')
-          : getCssVariableValue('--warning-100'),
-        '--el-color-warning-light-9': isDark.value
-          ? getCssVariableValue('--warning-950')
-          : getCssVariableValue('--warning-50'),
-
-        '--el-fill-color': getCssVariableValue('--accent'),
-        '--el-fill-color-blank': background,
-        '--el-fill-color-light': getCssVariableValue('--accent'),
-        '--el-fill-color-lighter': getCssVariableValue('--accent-lighter'),
-
-        '--el-fill-color-dark': getCssVariableValue('--accent-dark'),
-        '--el-fill-color-darker': getCssVariableValue('--accent-darker'),
-
-        // 解决ElLoading背景色问题
-        '--el-mask-color': isDark.value
-          ? 'rgba(0,0,0,.8)'
-          : 'rgba(255,255,255,.9)',
-
-        '--el-text-color-primary': getCssVariableValue('--foreground'),
-
-        '--el-text-color-regular': getCssVariableValue('--foreground'),
-      };
-
-      updateCSSVariables(variables, `__ydsz_design_styles__`);
-    },
-    { immediate: true },
-  );
 }

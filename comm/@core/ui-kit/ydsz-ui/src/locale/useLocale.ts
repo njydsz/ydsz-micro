@@ -94,13 +94,16 @@ export function useLocale(options: UseLocaleOptions = {}): {
   /** 合并后的消息表（外部覆写优先） */
   const resolvedMessages = computed<LocaleRegistry>(() => {
     if (hasCustomMessages && messages) {
-      const merged: LocaleRegistry = { 'zh-CN': {}, 'en-US': {} };
-      for (const key of ['zh-CN', 'en-US'] as const) {
-        merged[key] = {
-          ...BUILTIN_MESSAGES[key],
-          ...(messages[key] ?? {}),
-        };
-      }
+      const merged: LocaleRegistry = {
+        'en-US': {
+          ...BUILTIN_MESSAGES['en-US'],
+          ...(messages['en-US'] ?? {}),
+        } as LocaleMessages,
+        'zh-CN': {
+          ...BUILTIN_MESSAGES['zh-CN'],
+          ...(messages['zh-CN'] ?? {}),
+        } as LocaleMessages,
+      };
       return merged;
     }
     return BUILTIN_MESSAGES;

@@ -104,10 +104,10 @@ export function useTheme(options: {
   /** 当前激活的 preset 名 */
   const activePreset = ref<string | null>(null);
 
-  function getStyle(): CSSStyleDeclaration | Record<string, string> {
+  function getStyle(): CSSStyleDeclaration | null {
     const el = currentRoot.value;
     if (!el || !el.style) {
-      return {};
+      return null;
     }
     return el.style as CSSStyleDeclaration;
   }
@@ -118,9 +118,7 @@ export function useTheme(options: {
       return;
     }
     const style = getStyle();
-    if (style.setProperty) {
-      style.setProperty(`--${themeTokens[name].cssVar}`, value);
-    }
+    style?.setProperty(`--${themeTokens[name].cssVar}`, value);
     overrides.value.set(name, value);
   }
 
@@ -130,7 +128,7 @@ export function useTheme(options: {
 
   function bulk(config: ThemeConfig): void {
     const style = getStyle();
-    if (!style.setProperty) return;
+    if (!style) return;
     for (const [name, value] of Object.entries(config)) {
       const tokenName = name as TokenName;
       if (!themeTokens[tokenName]) continue;
