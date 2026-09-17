@@ -67,5 +67,15 @@ export type {
   UseTableDataReturn,
 } from './use-table-data';
 
+export { useNotificationHub } from './use-notification-hub';
+export type {
+  NotificationItem,
+  NotificationLevel,
+  NotificationPlacement,
+  NotificationPreferences,
+  UseNotificationHubOptions,
+  UseNotificationHubReturn,
+} from './use-notification-hub';
+
 export { useOverlayStack } from './use-overlay-stack';
 export type { OverlayStackHandle } from './use-overlay-stack';
