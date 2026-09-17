@@ -17,7 +17,6 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-// TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';
 import { YdBadge, YdButtonBase, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';

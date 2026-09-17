@@ -25,7 +25,6 @@ import {
   YdDialogTitle,
   YdInput,
 } from '@ydsz-core/ydsz-ui';
-// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'TemplateGroupForm' });

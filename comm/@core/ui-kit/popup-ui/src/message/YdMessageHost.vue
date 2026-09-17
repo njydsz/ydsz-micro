@@ -23,7 +23,6 @@ import {
   LoaderCircle,
   X,
 } from '@ydsz-core/icons';
-import { YdRenderContent } from '@ydsz-core/ydsz-ui';
 
 /** 宿主席持有的消息列表（模块级 ref），由 message.ts 注入 */
 const props = defineProps<{ messages: Ref<MessageItem[]> }>();

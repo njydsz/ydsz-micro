@@ -131,8 +131,8 @@ async function handleDelete(row: MenuTreeVO) {
         <ElTableColumn :label="t('page.menuType')" width="80" align="center">
           <template #default="{ row }">
             <YdBadge
-              :variant="MENU_TYPE_MAP[row.menuType]?.type === 'primary' ? 'default' : MENU_TYPE_MAP[row.menuType]?.type === 'success' ? 'outline' : MENU_TYPE_MAP[row.menuType]?.type === 'warning' ? 'outline' : 'secondary'"
-              :class="MENU_TYPE_MAP[row.menuType]?.type === 'success' ? 'border-green-500 text-green-600 dark:text-green-400' : MENU_TYPE_MAP[row.menuType]?.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'"
+              :variant="MENU_TYPE_MAP[row.menuType]?.variant ?? 'secondary'"
+              :class="MENU_TYPE_MAP[row.menuType]?.variant === 'default' ? 'text-xs' : MENU_TYPE_MAP[row.menuType]?.variant === 'outline' ? 'border text-xs' : 'text-xs'"
             >
               {{ t(MENU_TYPE_MAP[row.menuType]?.label || 'page.unknown') }}
             </YdBadge>

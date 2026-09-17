@@ -35,7 +35,6 @@ import {
   YdSelectTriggerBase,
   YdSelectValueBase,
 } from '@ydsz-core/ydsz-ui';
-// TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 import { YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import { analyzeReverse, analyzeBatchReverse } from '#/api/reverse';

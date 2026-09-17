@@ -2,7 +2,6 @@
  * 工作流子应用 Vite 构建配置。
  *
  * @remarks
- * 基于 @ydsz/vite-config 统一配置，接入 ElementPlus 插件；
  * 开发服务器固定端口 5606，/api 请求代理至本地 9000 端口。
  *
  * @author ydsz-team
@@ -10,7 +9,6 @@
  */
 import { defineConfig } from '@ydsz/vite-config';
 
-import ElementPlus from 'unplugin-element-plus/vite';
 
 /**
  * 工作流子应用 / Vite 构建配置（默认导出）。
@@ -25,9 +23,6 @@ export default defineConfig(async () => {
     vite: {
       base: '/',
       plugins: [
-        ElementPlus({
-          format: 'esm',
-        }),
       ],
       server: {
         port: 5606,

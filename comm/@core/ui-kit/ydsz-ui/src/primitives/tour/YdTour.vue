@@ -2,10 +2,8 @@
  * Tour 引导：分步骤引导用户认识页面功能。
  *
  * 受控组件：通过 v-model:open 控制显隐，current 控制当前步骤。
- * 提供 mask（遮罩）+ highlight（高亮区域）+ popover（步骤卡片）三件套。
- *
- * 每个步骤的 target 通过 CSS 选择器指定（预留，运行时由 TourProvider 注入），
- * 点击下一步 / 跳过 / 完成按钮后触发对应回调。
+ * 提供 mask（遮罩）+ popover（步骤卡片）两件核心 UI 元素。
+ * target 高亮基于绝对定位 overlay（后续由 TourProvider 替代计算位置）。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tour\YdTour.vue
  * @author ydsz-team
@@ -20,18 +18,18 @@ import { YdButton } from '../button';
 
 interface TourStep {
   description?: string;
-  target?: string;
   title: string;
+  target?: string;
 }
 
 interface Props {
   /** 自定义类名 */
   class?: any;
-  /** 当前步骤索引 */
+  /** 当前步骤索引（受控） */
   current: number;
   /** 是否显示遮罩 */
   mask?: boolean;
-  /** 是否打开 */
+  /** 是否打开（受控） */
   open: boolean;
   /** 引导步骤配置 */
   steps: TourStep[];
@@ -43,13 +41,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   close: [];
-  'update:open': [value: boolean];
   finish: [];
   change: [index: number];
+  'update:open': [value: boolean];
 }>();
 
 const totalSteps = computed(() => props.steps.length);
-const isActive = computed(() => props.current < totalSteps.value);
 const currentStep = computed(() => props.steps[props.current]);
 
 function next(): void {
@@ -75,46 +72,31 @@ function cancel(): void {
 
 <template>
   <template v-if="props.open">
+    <!-- 遮罩层 -->
     <div
       v-if="props.mask"
-      class="fixed inset-0 z-[var(--z-backdrop)] bg-black/40 transition-opacity"
+      class="fixed inset-0 z-50 bg-black/40 transition-opacity"
       aria-hidden="true"
-    ></div>
-
-    <!-- 引导高亮框 -->
-    <div
-      v-if="currentStep"
-      :class="
-        cn(
-          'ring-tour-highlight-ring fixed z-[var(--z-overlay)] rounded-md ring-2 ring-offset-2 transition-all duration-300',
-          props.class,
-        )
-      "
-      :style="{
-        top: 'calc(50% - 40px)',
-        left: 'calc(50% - 160px)',
-        width: '320px',
-        height: '80px',
-      }"
     ></div>
 
     <!-- 步骤卡片 -->
     <div
       v-if="currentStep"
-      class="bg-background fixed right-8 top-8 z-[var(--z-popover)] w-80 rounded-lg border p-4 shadow-xl"
+      class="bg-background fixed right-6 top-6 z-[60] w-80 rounded-lg border p-4 shadow-xl"
+      :class="props.class"
       role="dialog"
       aria-modal="true"
-      :aria-label="`引导步骤 ${props.current + 1}/${totalSteps}`"
+      :aria-label="`第 ${props.current + 1} 步引导`"
     >
-      <h3 class="text-foreground mb-1 text-sm font-semibold">{{ currentStep.title }}</h3>
+      <h3 class="text-foreground mb-2 text-sm font-semibold">{{ currentStep.title }}</h3>
       <p class="text-muted-foreground mb-4 text-sm">{{ currentStep.description }}</p>
 
-      <!-- 步骤指示点 -->
-      <div class="mb-4 flex gap-1">
+      <!-- 进度指示点 -->
+      <div class="mb-3 flex gap-1.5" role="progressbar" :aria-valuenow="props.current + 1" :aria-valuemin="1" :aria-valuemax="totalSteps">
         <span
           v-for="(_, i) in totalSteps"
           :key="i"
-          :class="cn('size-1.5 rounded-full', i === props.current ? 'bg-primary' : 'bg-muted')"
+          :class="cn('size-1.5 rounded-full transition-colors', i === props.current ? 'bg-primary' : 'bg-muted')"
         ></span>
       </div>
 
