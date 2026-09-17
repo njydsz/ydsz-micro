@@ -16,8 +16,9 @@
  * @since 1.0.0
  */
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElInput/ElInputNumber/ElStatistic/ElTable/ElTableColumn+ElButton 表单+表格+描述,保留 element-plus SKIP
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElInputNumber, ElStatistic, ElTable, ElTableColumn } from 'element-plus';
+// TODO: ElDescriptions/ElDescriptionsItem/ElInputNumber/ElStatistic/ElTable/ElTableColumn 表单+表格+描述+数值输入+统计,保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem, ElInputNumber, ElStatistic, ElTable, ElTableColumn } from 'element-plus';
+import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';
@@ -139,16 +140,16 @@ onMounted(() => { handleLoadStats(); });
       </ElDescriptionsItem>
     </ElDescriptions>
     <div class="mb-3 flex items-center gap-2">
-      <ElButton type="primary" :loading="statsLoading" @click="handleLoadStats">刷新统计</ElButton>
-      <ElButton type="success" @click="handleOpenIngest">导入文档</ElButton>
+      <Button :loading="statsLoading" @click="handleLoadStats">刷新统计</Button>
+      <Button @click="handleOpenIngest">导入文档</Button>
     </div>
     <div class="mb-3 flex flex-wrap items-center gap-2 rounded-md border p-3">
-      <ElInput v-model="queryForm.query" placeholder="输入检索内容" clearable class="w-72" @keyup.enter="handleSearch" />
+      <Input v-model="queryForm.query" placeholder="输入检索内容" class="w-72" @keyup.enter="handleSearch" />
       <span class="text-sm text-gray-500">TopK</span>
       <ElInputNumber v-model="queryForm.topK" :min="1" :max="100" class="w-24" />
       <span class="text-sm text-gray-500">最小得分</span>
       <ElInputNumber v-model="queryForm.minScore" :min="0" :max="1" :step="0.1" class="w-24" />
-      <ElButton type="primary" :loading="searchLoading" @click="handleSearch">检索</ElButton>
+      <Button :loading="searchLoading" @click="handleSearch">检索</Button>
     </div>
     <ElTable :data="searchRows" border stripe height="360">
       <ElTableColumn prop="id" label="ID" min-width="180" show-overflow-tooltip />
@@ -160,7 +161,7 @@ onMounted(() => { handleLoadStats(); });
       <ElTableColumn prop="source" label="来源" min-width="140" show-overflow-tooltip />
       <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
         <template #default="{ row }">
-          <ElButton size="small" link type="danger" @click="handleDelete(row)">{{ t('common.delete') }}</ElButton>
+          <Button size="sm" variant="destructive" @click="handleDelete(row)">{{ t('common.delete') }}</Button>
         </template>
       </ElTableColumn>
     </ElTable>

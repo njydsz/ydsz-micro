@@ -16,8 +16,9 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElInput/ElTabPane/ElTabs 标签页+描述+输入,保留 element-plus SKIP
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElInput, ElTabPane, ElTabs } from 'element-plus';
+// TODO: ElDescriptions/ElDescriptionsItem/ElTabPane/ElTabs 标签页+描述,保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem, ElTabPane, ElTabs } from 'element-plus';
+import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';
 import type { DagCheckpoint } from '#/api/models';
@@ -107,27 +108,27 @@ async function handleQueryCheckpoint() {
           <div class="rounded-md border p-3">
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium">DSL 编排脚本</span>
-              <ElButton size="small" type="primary" @click="openWorkflowDesigner">可视化编排</ElButton>
+              <Button size="sm" @click="openWorkflowDesigner">可视化编排</Button>
             </div>
-            <ElInput v-model="dsl" type="textarea" :rows="16" placeholder="粘贴 DSL 编排脚本" />
+            <Textarea v-model="dsl" placeholder="粘贴 DSL 编排脚本" />
           </div>
           <div class="flex flex-col gap-4">
             <div class="rounded-md border p-3">
               <div class="mb-2 text-sm font-medium">执行参数</div>
               <div class="mb-2">
                 <div class="mb-1 text-sm text-gray-500">用户输入</div>
-                <ElInput v-model="userInput" type="textarea" :rows="3" placeholder="用户输入（可选）" />
+                <Textarea v-model="userInput" placeholder="用户输入（可选）" />
               </div>
               <div class="flex gap-2">
-                <ElButton :loading="submitting" @click="handleValidate">校验</ElButton>
-                <ElButton type="primary" :loading="submitting" @click="handleExecute">执行</ElButton>
+                <Button :loading="submitting" @click="handleValidate">校验</Button>
+                <Button :loading="submitting" @click="handleExecute">执行</Button>
               </div>
             </div>
             <div class="rounded-md border p-3">
               <div class="mb-2 text-sm font-medium">Checkpoint 查询</div>
               <div class="flex gap-2">
-                <ElInput v-model="executionId" placeholder="输入 executionId" clearable />
-                <ElButton :loading="submitting" @click="handleQueryCheckpoint">查询</ElButton>
+                <Input v-model="executionId" placeholder="输入 executionId" />
+                <Button :loading="submitting" @click="handleQueryCheckpoint">查询</Button>
               </div>
             </div>
           </div>
@@ -164,7 +165,7 @@ async function handleQueryCheckpoint() {
       <!-- 可视化编排标签页 -->
       <ElTabPane label="可视化编排" name="visual">
         <div class="p-4">
-          <ElButton type="primary" @click="openWorkflowDesigner">打开可视化工作流设计器</ElButton>
+          <Button @click="openWorkflowDesigner">打开可视化工作流设计器</Button>
           <p class="mt-2 text-sm text-gray-500">使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。</p>
         </div>
       </ElTabPane>

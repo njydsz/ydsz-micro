@@ -189,10 +189,10 @@ async function handleExport() {
     </ElForm>
     <TaskGrid class="mt-4" table-title="远程任务">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleTest">测试连接</ElButton>
-        <ElButton type="warning" plain @click="handleImport">导入任务</ElButton>
-        <ElButton type="success" plain @click="handleExport">导出任务</ElButton>
-        <ElButton @click="taskGridApi.query()">{{ t('common.search') }}</ElButton>
+        <Button @click="handleTest">测试连接</Button>
+        <Button variant="outline" @click="handleImport">导入任务</Button>
+        <Button variant="outline" @click="handleExport">导出任务</Button>
+        <Button variant="outline" @click="taskGridApi.query()">{{ t('common.search') }}</Button>
       </template>
     </TaskGrid>
     <ConnectorFormModal @success="taskGridApi.query()" />
