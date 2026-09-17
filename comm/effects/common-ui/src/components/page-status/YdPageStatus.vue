@@ -134,7 +134,7 @@ const emit = defineEmits<{
 }
 
 .status-text {
-  color: var(--el-text-color-secondary);
+  color: hsl(var(--txt-tertiary));
   font-size: 14px;
   margin: 16px 0 20px;
   max-width: 360px;
@@ -147,19 +147,19 @@ const emit = defineEmits<{
 
 .empty-icon,
 .error-icon {
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-disabled));
   margin-bottom: 4px;
 }
 
 .error-icon {
-  color: var(--el-color-warning);
+  color: hsl(var(--warning-500));
 }
 
 .spinner {
   width: 36px;
   height: 36px;
-  border: 3px solid var(--el-border-color-lighter);
-  border-top-color: var(--el-color-primary);
+  border: 3px solid hsl(var(--border-subtle));
+  border-top-color: hsl(var(--brand-500));
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin-bottom: 4px;

@@ -11,7 +11,6 @@
  */
 import './design-tokens';
 
-import './css/element-bridge.css';
 import './css/global.css';
 import './css/transition.css';
 import './css/nprogress.css';

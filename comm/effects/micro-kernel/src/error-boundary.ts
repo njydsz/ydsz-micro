@@ -254,10 +254,10 @@ export function renderErrorFallback(
     el.innerHTML =
       `<div role="status" aria-live="polite" style="display:flex;flex-direction:column;align-items:center;justify-content:center;` +
       `height:100%;font-family:var(--font-sans, sans-serif)">` +
-      `<div aria-hidden="true" style="width:40px;height:40px;border:3px solid var(--el-border-color-lighter, #ebeef5);` +
-      `border-top-color:var(--el-color-primary, #409eff);border-radius:50%;` +
+      `<div aria-hidden="true" style="width:40px;height:40px;border:3px solid hsl(var(--border-subtle));` +
+      `border-top-color:hsl(var(--brand-500));border-radius:50%;` +
       `animation:spin 0.8s linear infinite"></div>` +
-      `<p style="margin:16px 0 0;font-size:14px;color:var(--el-text-color-secondary, #909399)">${
+      `<p style="margin:16px 0 0;font-size:14px;color:hsl(var(--txt-tertiary))">${
         escReloading
       }</p>` +
       `<style>@keyframes spin { to { transform: rotate(360deg); } }</style>` +

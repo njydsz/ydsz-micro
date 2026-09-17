@@ -1,4 +1,3 @@
-// @data-file 纯数据定义，无业务逻辑
 /**
  * base 层原始色阶 token —— 设计侧维护的原始色阶（primary / neutral 50-950）。
  *
@@ -17,15 +16,15 @@ import type { TokenDefinition } from './theme-schema';
 /**
  * base 层 token 注册表：cssVar → TokenDefinition。
  *
- * @remarks 值为 HSL 通道三元组（不含 hsl() 包装），与 semantic 层颜色 token 的存储格式一致。
+ * HSL 三元组格式，与 semantic 层颜色 token 的存储格式一致。
  */
-export const baseTokens = {
-  // ===== primary 色阶（设计侧维护的原始色阶） =====
+export const baseTokens: Record<string, TokenDefinition> = {
+  // ===== primary 色阶 =====
   'yd-color-primary-50': {
     category: 'color',
     cssVar: 'yd-color-primary-50',
     defaultValue: '222.2 47.4% 97.5%',
-    description: '主色色阶 50：最浅主色底，hover 浅背景等场景的取值来源',
+    description: '主色色阶 50：最浅主底，hover 浅背景取值来源',
     layer: 'base',
   },
   'yd-color-primary-100': {
@@ -60,7 +59,7 @@ export const baseTokens = {
     category: 'color',
     cssVar: 'yd-color-primary-500',
     defaultValue: '222.2 47.4% 52%',
-    description: '主色色阶 500：基准主色，品牌色换肤时的首选替换点',
+    description: '主色色阶 500：基准主色，品牌色换肤首选替换点',
     layer: 'base',
   },
   'yd-color-primary-600': {
@@ -95,11 +94,11 @@ export const baseTokens = {
     category: 'color',
     cssVar: 'yd-color-primary-950',
     defaultValue: '222.2 47.4% 11.2%',
-    description: '主色色阶 950：最深主色，与现行 --primary 值对齐',
+    description: '主色色阶 950：最深主色，与 --primary 对齐',
     layer: 'base',
   },
 
-  // ===== neutral 色阶（设计侧维护的原始色阶） =====
+  // ===== neutral 色阶 =====
   'yd-color-neutral-50': {
     category: 'color',
     cssVar: 'yd-color-neutral-50',
@@ -177,7 +176,7 @@ export const baseTokens = {
     description: '中性色阶 950：最深中性色，暗色页面底',
     layer: 'base',
   },
-} as const satisfies Record<string, TokenDefinition>;
+};
 
 /** base 层 token 名并集 */
 export type BaseTokenName = keyof typeof baseTokens;

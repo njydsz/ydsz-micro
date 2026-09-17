@@ -182,7 +182,7 @@ export function statusColor(status: AppStatus): string {
  */
 export function renderTabButton(tab: DevToolsTab): string {
   const isActive = activeTabId === tab.id;
-  return `<button data-tab="${tab.id}" style="padding:4px 10px;font-size:11px;cursor:pointer;border:none;border-bottom:2px solid ${isActive ? "var(--el-color-primary,#409eff)" : "transparent"};background:transparent;color:${isActive ? "var(--el-color-primary,#409eff)" : "#909399"};font-weight:${isActive ? 600 : 400}">${tab.label}</button>`;
+  return `<button data-tab="${tab.id}" style="padding:4px 10px;font-size:11px;cursor:pointer;border:none;border-bottom:2px solid ${isActive ? "hsl(var(--brand-500))" : "transparent"};background:transparent;color:${isActive ? "hsl(var(--brand-500))" : "#909399"};font-weight:${isActive ? 600 : 400}">${tab.label}</button>`;
 }
 
 /** P2-7: 渲染预加载可视化 Tab 内容 */
@@ -204,7 +204,7 @@ export function renderPreloadContent(): string {
           .map((p) => {
             const pct = Math.round(p.probability * 100);
             return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0">
-            <div style="width:${Math.max(pct, 5)}%;min-width:4px;height:8px;background:var(--el-color-primary,#409eff);border-radius:2px"></div>
+            <div style="width:${Math.max(pct, 5)}%;min-width:4px;height:8px;background:hsl(var(--brand-500));border-radius:2px"></div>
             <span style="flex:1">${p.appName}</span>
             <span style="color:#303133;font-weight:600">${pct}%</span>
             <span style="color:#909399">(${p.sampleSize})</span>

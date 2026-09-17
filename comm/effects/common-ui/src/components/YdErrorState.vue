@@ -71,12 +71,12 @@ const emit = defineEmits<{
 }
 
 .error-icon {
-  color: var(--el-color-warning);
+  color: hsl(var(--warning-500));
   margin-bottom: 16px;
 }
 
 .error-message {
-  color: var(--el-text-color-secondary);
+  color: hsl(var(--txt-tertiary));
   font-size: 14px;
   margin: 0 0 20px;
   max-width: 360px;

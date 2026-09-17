@@ -61,12 +61,12 @@ withDefaults(
 }
 
 .empty-icon {
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-disabled));
   margin-bottom: 16px;
 }
 
 .empty-description {
-  color: var(--el-text-color-secondary);
+  color: hsl(var(--txt-tertiary));
   font-size: 14px;
   margin: 0 0 20px;
 }
