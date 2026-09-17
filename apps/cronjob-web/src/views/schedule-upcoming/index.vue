@@ -20,7 +20,6 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
-// TODO: ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 

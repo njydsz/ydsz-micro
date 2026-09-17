@@ -17,7 +17,6 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
-// TODO: ElEmpty/ElForm/ElFormItem/ElSpace/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdText } from '@ydsz-core/ydsz-ui';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';

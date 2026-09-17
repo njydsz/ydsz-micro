@@ -23,7 +23,6 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';

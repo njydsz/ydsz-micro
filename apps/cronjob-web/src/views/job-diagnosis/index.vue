@@ -10,7 +10,6 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
-// TODO: ElProgress/ElStatistic/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState, YdProgress, YdCountToAnimator, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';

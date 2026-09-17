@@ -20,7 +20,6 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdProgress } from '@ydsz-core/ydsz-ui';
 import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';

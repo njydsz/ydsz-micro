@@ -21,7 +21,6 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-// TODO: ElCollapse/ElCollapseItem/ElTooltip 暂无 shadcn 对应 SKIP
 import { YdAccordion, YdAccordionItem, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';

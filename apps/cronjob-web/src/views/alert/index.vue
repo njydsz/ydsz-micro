@@ -21,7 +21,6 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-// TODO: ElTable/ElTableColumn/ElEmpty/ElDrawer 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

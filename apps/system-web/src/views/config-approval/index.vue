@@ -21,7 +21,6 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-// TODO: ElTabs/ElTabPane 暂无 shadcn 映射，待 shadcn YdTabs 组件就绪后同步迁移
 import { createLogger } from '@ydsz-core/shared/utils';
 import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';

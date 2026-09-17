@@ -18,7 +18,6 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDatePicker, YdInput } from '@ydsz-core/ydsz-ui';
-// TODO: ElEmpty/ElTable/ElTableColumn 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';

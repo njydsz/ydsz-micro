@@ -18,7 +18,6 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElEmpty/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
 import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
