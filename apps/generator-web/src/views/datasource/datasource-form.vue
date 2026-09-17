@@ -29,10 +29,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Switch,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-// TODO: ElSwitch 暂无对应 shadcn-ui 组件，保留 element-plus 导入
-import { ElForm, ElFormItem, ElSwitch } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
 
 import type { GenDatasource } from '#/api/models';
 
@@ -151,7 +151,7 @@ onMounted(() => {});
           </Select>
         </ElFormItem>
         <ElFormItem label="默认数据源">
-          <ElSwitch v-model="form.defaultFlag" />
+          <Switch :checked="form.defaultFlag" @update:checked="form.defaultFlag = $event" />
         </ElFormItem>
         <ElFormItem label="描述">
           <Input v-model="form.description" placeholder="可选描述信息" />

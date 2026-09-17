@@ -16,10 +16,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElCalendar/ElDatePicker/ElRadioGroup/ElRadioButton/ElTimeline/ElTimelineItem/ElEmpty/ElTooltip/ElCard/ElTag 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElDatePicker, ElEmpty, ElRadioGroup, ElRadioButton, ElTimeline, ElTimelineItem, ElTooltip } from 'element-plus';
+import { Badge, Button, Card, CardContent, DatePicker, RadioGroup, RadioGroupItem, Sheet, SheetContent, SheetHeader, SheetTitle, Tooltip, TooltipContent, TooltipTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElCalendar/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
 import { ref, computed, onMounted } from 'vue';
 
 import { getScheduleCalendar } from '#/api/scheduleCalendar';
@@ -154,13 +153,10 @@ onMounted(() => {
     <div class="schedule-calendar-container p-4">
       <!-- 顶部控制栏 -->
       <div class="mb-4 flex items-center gap-3 rounded-lg bg-gray-50 p-3">
-        <ElDatePicker
+        <DatePicker
           v-model="selectedDate"
-          type="date"
           placeholder="选择日期"
-          format="YYYY-MM-DD"
-          value-format="YYYY-MM-DD"
-          @change="handleDateChange"
+          @update:model-value="handleDateChange"
         />
         <Button @click="fetchScheduleData">
           <svg class="me-1.5 inline h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -168,10 +164,18 @@ onMounted(() => {
           </svg>
           刷新
         </Button>
-        <ElRadioGroup v-model="viewMode" size="small" @change="fetchScheduleData">
-          <ElRadioButton label="day">日视图</ElRadioButton>
-          <ElRadioButton label="week">周视图</ElRadioButton>
-        </ElRadioGroup>
+        <RadioGroup v-model="viewMode" @update:model-value="fetchScheduleData">
+          <div class="flex items-center gap-1">
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="view-day" value="day" />
+              <label for="view-day" class="cursor-pointer text-sm">日视图</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="view-week" value="week" />
+              <label for="view-week" class="cursor-pointer text-sm">周视图</label>
+            </div>
+          </div>
+        </RadioGroup>
       </div>
 
       <!-- 日历网格 -->
@@ -183,14 +187,17 @@ onMounted(() => {
               v-if="getTasksForDate(data.day).length > 0"
               class="mt-1 flex flex-wrap items-center justify-center gap-1"
             >
-              <ElTooltip
+              <Tooltip
                 v-for="task in getTasksForDate(data.day).slice(0, 3)"
                 :key="(task.jobKey ?? '') + (task.fireTime ?? '')"
-                :content="`${task.jobName ?? ''} - ${formatTime(task.fireTime)}`"
-                placement="top"
               >
-                <span class="task-dot" :class="getTaskStatusClass(task)"></span>
-              </ElTooltip>
+                <TooltipTrigger as-child>
+                  <span class="task-dot" :class="getTaskStatusClass(task)"></span>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  {{ `${task.jobName ?? ''} - ${formatTime(task.fireTime)}` }}
+                </TooltipContent>
+              </Tooltip>
               <span
                 v-if="getTasksForDate(data.day).length > 3"
                 class="cursor-pointer text-[10px] text-gray-400"
@@ -250,18 +257,18 @@ onMounted(() => {
 }
 
 .dot-primary {
-  background-color: var(--el-color-primary);
+  background-color: hsl(var(--primary));
 }
 
 .dot-success {
-  background-color: var(--el-color-success);
+  background-color: hsl(var(--success, 142 76% 36%));
 }
 
 .dot-warning {
-  background-color: var(--el-color-warning);
+  background-color: hsl(var(--warning, 38 92% 50%));
 }
 
 .dot-danger {
-  background-color: var(--el-color-danger);
+  background-color: hsl(var(--destructive));
 }
 </style>

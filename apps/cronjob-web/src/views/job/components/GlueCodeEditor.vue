@@ -309,7 +309,7 @@ onMounted(() => {
 }
 
 .code-editor-wrapper {
-  border: 1px solid var(--el-border-color);
+  border: 1px solid hsl(var(--border));
   border-radius: 4px;
   overflow: hidden;
 }

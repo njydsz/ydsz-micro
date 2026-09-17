@@ -32,6 +32,8 @@ import {
   Dialog,
   DialogContent,
   Input,
+  RadioGroup,
+  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
@@ -39,12 +41,14 @@ import {
   SelectValue,
   Sheet,
   SheetContent,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-// TODO: ElRadioButton/ElRadioGroup 暂无对应 shadcn-ui 组件，保留 element-plus 导入
 // TODO: ElEmpty/ElIcon 暂无 shadcn-ui 等效组件，保留 element-plus 导入
-// TODO: ElTabs/ElTabPane 暂无对应 shadcn-ui 组件，保留 element-plus 导入
-import { ElEmpty, ElForm, ElFormItem, ElIcon, ElRadioButton, ElRadioGroup, ElTabPane, ElTabs } from 'element-plus';
+import { ElEmpty, ElForm, ElFormItem, ElIcon } from 'element-plus';
 import { Clock, Document } from '@element-plus/icons-vue';
 
 import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
@@ -371,9 +375,12 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
 
 <template>
   <div class="code-gen p-4">
-    <ElTabs v-model="activeTab">
+    <Tabs v-model="activeTab">
+      <TabsList>
+        <TabsTrigger value="config">生成配置</TabsTrigger>
+      </TabsList>
       <!-- ═══ 生成配置 Tab ═══ -->
-      <ElTabPane label="生成配置" name="config">
+      <TabsContent value="config">
         <Card class="mt-4">
           <CardHeader>
             <div class="flex items-center justify-between">
@@ -457,11 +464,22 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                 />
               </ElFormItem>
               <ElFormItem label="冲突策略">
-                <ElRadioGroup v-model="genForm.conflictStrategy">
-                  <ElRadioButton label="SKIP">跳过（推荐）</ElRadioButton>
-                  <ElRadioButton label="OVERRIDE">覆盖并备份</ElRadioButton>
-                  <ElRadioButton label="MERGE">智能合并</ElRadioButton>
-                </ElRadioGroup>
+                <RadioGroup v-model="genForm.conflictStrategy">
+                  <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                      <RadioGroupItem id="conflict-skip" value="SKIP" />
+                      <label for="conflict-skip" class="cursor-pointer text-sm">跳过（推荐）</label>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <RadioGroupItem id="conflict-override" value="OVERRIDE" />
+                      <label for="conflict-override" class="cursor-pointer text-sm">覆盖并备份</label>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <RadioGroupItem id="conflict-merge" value="MERGE" />
+                      <label for="conflict-merge" class="cursor-pointer text-sm">智能合并</label>
+                    </div>
+                  </div>
+                </RadioGroup>
               </ElFormItem>
               <ElFormItem label="触发人">
                 <Input
@@ -537,8 +555,8 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
             </div>
           </CardContent>
         </Card>
-      </ElTabPane>
-    </ElTabs>
+      </TabsContent>
+    </Tabs>
 
     <!-- 代码预览对话框 -->
     <CodePreviewDialog

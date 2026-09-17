@@ -18,7 +18,8 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElTable, ElTableColumn } from 'element-plus';
+import { Badge, Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import type { SpaceTemplateDTO } from '#/api/models';
@@ -156,7 +157,7 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="mb-4 flex items-center justify-between">
       <h2 class="text-lg font-medium">空间模板管理</h2>
-      <ElButton type="primary" @click="handleCreate">新建模板</ElButton>
+      <Button @click="handleCreate">新建模板</Button>
     </div>
 
     <ElTable :data="templateList" :loading="listLoading" border stripe>
@@ -164,54 +165,55 @@ onMounted(() => {
       <ElTableColumn prop="description" label="描述" min-width="200" show-overflow-tooltip />
       <ElTableColumn prop="category" label="分类" width="120">
         <template #default="{ row }">
-          <ElTag v-if="row.category" size="small">{{ row.category }}</ElTag>
-          <span v-else class="text-gray-400">-</span>
+          <Badge v-if="row.category" variant="secondary">{{ row.category }}</Badge>
+          <span v-else class="text-muted-foreground">-</span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="isSystem" label="类型" width="100">
         <template #default="{ row }">
-          <ElTag :type="row.isSystem ? 'warning' : 'info'" size="small">
+          <Badge :variant="row.isSystem ? 'default' : 'outline'">
             {{ row.isSystem ? '系统' : '自定义' }}
-          </ElTag>
+          </Badge>
         </template>
       </ElTableColumn>
       <ElTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
-          <ElButton link size="small" type="primary" @click="handleEdit(row)">编辑</ElButton>
-          <ElButton
-            link
-            size="small"
-            type="danger"
-            :disabled="row.isSystem}"
+          <Button variant="link" size="sm" @click="handleEdit(row)">编辑</Button>
+          <Button
+            variant="link"
+            size="sm"
+            className="text-destructive"
+            :disabled="row.isSystem"
             @click="handleDelete(row)"
           >
             删除
-          </ElButton>
+          </Button>
         </template>
       </ElTableColumn>
     </ElTable>
 
     <!-- 编辑弹窗 -->
-    <ElDialog
-      v-model="dialogVisible"
-      :title="editingId ? '编辑模板' : '新建模板'"
-      width="500px"
-    >
-      <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="80px">
-        <ElFormItem label="名称" prop="name">
-          <ElInput v-model="formData.name" placeholder="请输入模板名称" />
-        </ElFormItem>
-        <ElFormItem label="描述" prop="description">
-          <ElInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入描述" />
-        </ElFormItem>
-        <ElFormItem label="分类" prop="category">
-          <ElInput v-model="formData.category" placeholder="如：项目管理、技术文档" />
-        </ElFormItem>
-      </ElForm>
-      <template #footer>
-        <ElButton @click="dialogVisible = false">取消</ElButton>
-        <ElButton type="primary" :loading="formLoading" @click="handleSubmit">确定</ElButton>
-      </template>
-    </ElDialog>
+    <Dialog v-model:open="dialogVisible">
+      <DialogContent class="sm:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle>{{ editingId ? '编辑模板' : '新建模板' }}</DialogTitle>
+        </DialogHeader>
+        <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="80px">
+          <ElFormItem label="名称" prop="name">
+            <ElInput v-model="formData.name" placeholder="请输入模板名称" />
+          </ElFormItem>
+          <ElFormItem label="描述" prop="description">
+            <ElInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入描述" />
+          </ElFormItem>
+          <ElFormItem label="分类" prop="category">
+            <ElInput v-model="formData.category" placeholder="如：项目管理、技术文档" />
+          </ElFormItem>
+        </ElForm>
+        <DialogFooter>
+          <Button variant="outline" @click="dialogVisible = false">取消</Button>
+          <Button :disabled="formLoading" @click="handleSubmit">确定</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </Page>
 </template>

@@ -20,8 +20,9 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-// TODO: ElForm/ElFormItem/ElOption/ElSelect/ElSwitch/ElCard/ElDialog/ElEmpty 表单套件+SKIP,仅 ElButton/ElInput/ElTag 可迁移但整体复杂
-import { ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTag } from 'element-plus';
+// TODO: ElForm/ElFormItem/ElOption/ElSelect/ElSwitch 表单套件+ElEmpty SKIP,保留 element-plus
+import { ElEmpty, ElForm, ElFormItem, ElOption, ElSelect, ElSwitch } from 'element-plus';
+import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -76,7 +77,7 @@ const gridColumns: VxeTableGridOptions<AgentTrigger>['columns'] = [
     width: 80,
     slots: {
       default: ({ row }) =>
-        h(ElTag, { type: row.enabled ? 'success' : 'info' }, () =>
+        h(Badge, { variant: row.enabled ? 'default' : 'secondary' }, () =>
           row.enabled ? '启用' : '停用',
         ),
     },
@@ -93,13 +94,13 @@ const gridColumns: VxeTableGridOptions<AgentTrigger>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(ElButton, {
-            size: 'small', link: true,
-            type: row.enabled ? 'warning' : 'success',
+          h(Button, {
+            size: 'sm', variant: 'link',
+            className: row.enabled ? 'text-yellow-600' : 'text-green-600',
             onClick: () => handleToggleEnabled(row),
           }, () => (row.enabled ? '禁用' : '启用')),
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-          h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+          h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+          h(Button, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
     },
   },
@@ -256,92 +257,95 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
   <Page auto-content-height>
     <div class="space-y-4 p-4">
       <!-- 搜索区域 -->
-      <ElCard>
-        <div class="flex items-center gap-4">
-          <ElInput
-            v-model="searchForm.name"
-            placeholder="按名称搜索..."
-            clearable
-            class="max-w-xs"
-          />
-          <ElSelect
-            v-model="searchForm.triggerType"
-            placeholder="按类型筛选"
-            clearable
-            class="w-40"
-          >
-            <ElOption label="Cron 定时" value="cron" />
-            <ElOption label="Webhook" value="webhook" />
-            <ElOption label="事件驱动" value="event" />
-            <ElOption label="Agent 生命周期" value="agent_lifecycle" />
-            <ElOption label="内容匹配" value="content_match" />
-            <ElOption label="工作流完成" value="workflow_completion" />
-          </ElSelect>
-          <ElButton type="primary" @click="refreshList">搜索</ElButton>
-          <ElButton @click="searchForm.name = ''; searchForm.triggerType = ''">重置</ElButton>
-        </div>
-      </ElCard>
+      <Card>
+        <CardContent class="pt-6">
+          <div class="flex items-center gap-4">
+            <Input
+              v-model="searchForm.name"
+              placeholder="按名称搜索..."
+              class="max-w-xs"
+            />
+            <Select v-model="searchForm.triggerType">
+              <SelectTrigger class="w-40">
+                <SelectValue placeholder="按类型筛选" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cron">Cron 定时</SelectItem>
+                <SelectItem value="webhook">Webhook</SelectItem>
+                <SelectItem value="event">事件驱动</SelectItem>
+                <SelectItem value="agent_lifecycle">Agent 生命周期</SelectItem>
+                <SelectItem value="content_match">内容匹配</SelectItem>
+                <SelectItem value="workflow_completion">工作流完成</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button @click="refreshList">搜索</Button>
+            <Button variant="outline" @click="searchForm.name = ''; searchForm.triggerType = ''">重置</Button>
+          </div>
+        </CardContent>
+      </Card>
 
       <!-- 列表 -->
-      <ElCard>
-        <Grid table-title="触发器管理">
-          <template #toolbar-tools>
-            <ElButton type="primary" @click="handleCreate">新建触发器</ElButton>
-          </template>
-        </Grid>
-        <ElEmpty v-if="triggers.length === 0" description="暂无触发器" />
-      </ElCard>
+      <Card>
+        <CardContent class="pt-6">
+          <Grid table-title="触发器管理">
+            <template #toolbar-tools>
+              <Button @click="handleCreate">新建触发器</Button>
+            </template>
+          </Grid>
+          <ElEmpty v-if="triggers.length === 0" description="暂无触发器" />
+        </CardContent>
+      </Card>
     </div>
 
     <!-- 新建/编辑弹窗 -->
-    <ElDialog
-      v-model="formModalVisible"
-      :title="isEditMode ? '编辑触发器' : '新建触发器'"
-      width="600px"
-      @close="formModalVisible = false"
-    >
-      <ElForm :model="editForm" label-width="120px">
-        <ElFormItem label="名称" required>
-          <ElInput v-model="editForm.name" placeholder="请输入触发器名称" />
-        </ElFormItem>
-        <ElFormItem label="描述">
-          <ElInput v-model="editForm.description" type="textarea" :rows="2" placeholder="请输入描述信息" />
-        </ElFormItem>
-        <ElFormItem label="触发类型" required>
-          <ElSelect v-model="editForm.triggerType" class="w-full">
-            <ElOption label="Cron 定时" value="cron" />
-            <ElOption label="Webhook" value="webhook" />
-            <ElOption label="事件驱动" value="event" />
-            <ElOption label="Agent 生命周期" value="agent_lifecycle" />
-            <ElOption label="内容匹配" value="content_match" />
-            <ElOption label="工作流完成" value="workflow_completion" />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem
-          v-if="editForm.triggerType === 'cron'"
-          label="Cron 表达式"
-          required
-        >
-          <ElInput v-model="editForm.cronExpression" placeholder="例如: 0 0 * * * (每天零点)" />
-        </ElFormItem>
-        <ElFormItem label="目标 Agent">
-          <ElInput v-model="editForm.targetAgentCode" placeholder="请输入目标 Agent 编码" />
-        </ElFormItem>
-        <ElFormItem label="配置 JSON">
-          <ElInput v-model="editForm.config" type="textarea" :rows="4" placeholder='{"key": "value"}' />
-        </ElFormItem>
-        <ElFormItem label="启用状态">
-          <ElSwitch
-            v-model="editForm.enabled"
-            active-text="启用"
-            inactive-text="停用"
-          />
-        </ElFormItem>
-      </ElForm>
-      <template #footer>
-        <ElButton @click="formModalVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</ElButton>
-      </template>
-    </ElDialog>
+    <Dialog v-model:open="formModalVisible">
+      <DialogContent class="sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>{{ isEditMode ? '编辑触发器' : '新建触发器' }}</DialogTitle>
+        </DialogHeader>
+        <ElForm :model="editForm" label-width="120px">
+          <ElFormItem label="名称" required>
+            <ElInput v-model="editForm.name" placeholder="请输入触发器名称" />
+          </ElFormItem>
+          <ElFormItem label="描述">
+            <ElInput v-model="editForm.description" type="textarea" :rows="2" placeholder="请输入描述信息" />
+          </ElFormItem>
+          <ElFormItem label="触发类型" required>
+            <ElSelect v-model="editForm.triggerType" class="w-full">
+              <ElOption label="Cron 定时" value="cron" />
+              <ElOption label="Webhook" value="webhook" />
+              <ElOption label="事件驱动" value="event" />
+              <ElOption label="Agent 生命周期" value="agent_lifecycle" />
+              <ElOption label="内容匹配" value="content_match" />
+              <ElOption label="工作流完成" value="workflow_completion" />
+            </ElSelect>
+          </ElFormItem>
+          <ElFormItem
+            v-if="editForm.triggerType === 'cron'"
+            label="Cron 表达式"
+            required
+          >
+            <ElInput v-model="editForm.cronExpression" placeholder="例如: 0 0 * * * (每天零点)" />
+          </ElFormItem>
+          <ElFormItem label="目标 Agent">
+            <ElInput v-model="editForm.targetAgentCode" placeholder="请输入目标 Agent 编码" />
+          </ElFormItem>
+          <ElFormItem label="配置 JSON">
+            <ElInput v-model="editForm.config" type="textarea" :rows="4" placeholder='{"key": "value"}' />
+          </ElFormItem>
+          <ElFormItem label="启用状态">
+            <ElSwitch
+              v-model="editForm.enabled"
+              active-text="启用"
+              inactive-text="停用"
+            />
+          </ElFormItem>
+        </ElForm>
+        <DialogFooter>
+          <Button variant="outline" @click="formModalVisible = false">取消</Button>
+          <Button @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </Page>
 </template>

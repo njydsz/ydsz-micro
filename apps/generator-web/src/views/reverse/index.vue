@@ -27,6 +27,8 @@ import {
   CardHeader,
   CardTitle,
   Input,
+  RadioGroup,
+  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
@@ -34,9 +36,8 @@ import {
   SelectValue,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-// TODO: ElRadioButton/ElRadioGroup 无对应 shadcn-ui 组件，保留 element-plus 导入
 // TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
-import { ElEmpty, ElForm, ElFormItem, ElRadioButton, ElRadioGroup } from 'element-plus';
+import { ElEmpty, ElForm, ElFormItem } from 'element-plus';
 
 import { analyzeReverse, analyzeBatchReverse } from '#/api/reverse';
 import type { GenTemplateGroup } from '#/api/models';
@@ -158,10 +159,18 @@ async function handleAnalyze() {
       <CardContent>
         <ElForm label-width="120px">
           <ElFormItem label="分析模式">
-            <ElRadioGroup v-model="mode">
-              <ElRadioButton label="single">单文件分析</ElRadioButton>
-              <ElRadioButton label="batch">批量目录分析</ElRadioButton>
-            </ElRadioGroup>
+            <RadioGroup v-model="mode">
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                  <RadioGroupItem id="mode-single" value="single" />
+                  <label for="mode-single" class="cursor-pointer text-sm">单文件分析</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <RadioGroupItem id="mode-batch" value="batch" />
+                  <label for="mode-batch" class="cursor-pointer text-sm">批量目录分析</label>
+                </div>
+              </div>
+            </RadioGroup>
           </ElFormItem>
 
           <ElFormItem v-if="mode === 'single'" label="源文件路径">

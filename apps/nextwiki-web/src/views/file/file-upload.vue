@@ -18,7 +18,7 @@ import { useYDSZModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElProgress, ElUpload } from 'element-plus';
-import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Button, Input } from '@ydsz-core/shadcn-ui';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';
@@ -247,8 +247,8 @@ async function handleCancel(): Promise<void> {
       </ElFormItem>
     </ElForm>
     <template #footer>
-      <ElButton @click="handleCancel">取消</ElButton>
-      <ElButton type="primary" :loading="uploadStatus === 'uploading'">上传</ElButton>
+      <Button variant="outline" @click="handleCancel">取消</Button>
+      <Button :disabled="uploadStatus === 'uploading'">上传</Button>
     </template>
   </Modal>
 </template>

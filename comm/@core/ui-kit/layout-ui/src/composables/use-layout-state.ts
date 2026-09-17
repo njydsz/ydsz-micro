@@ -283,14 +283,13 @@ export function useLayoutState(options: UseLayoutStateOptions) {
 
   const headerWrapperStyle = computed((): CSSProperties => {
     const fixed = headerFixed.value;
+    /** full-content 非沉浸模式下隐藏 header；沉浸模式下 header 由 headerIsHidden 驱动滑入滑出 */
+    const shouldHideHeader = isFullContent.value && !(isHeaderAutoMode.value);
     return {
-      height: isFullContent.value ? '0' : `${headerWrapperHeight.value}px`,
+      height: shouldHideHeader ? '0' : `${headerWrapperHeight.value}px`,
       left: isMixedNav.value ? 0 : mainStyle.value.sidebarAndExtraWidth,
       position: fixed ? 'fixed' : 'static',
-      top:
-        headerIsHidden.value || isFullContent.value
-          ? `-${headerWrapperHeight.value}px`
-          : 0,
+      top: headerIsHidden.value && !shouldHideHeader ? `-${headerWrapperHeight.value}px` : 0,
       width: mainStyle.value.width,
       'z-index': headerZIndex.value,
     };
@@ -372,6 +371,12 @@ export function useLayoutState(options: UseLayoutStateOptions) {
   );
 
   {
+    /**
+     * 沉浸式顶栏 —— 鼠标移至顶栏高度以下时自动隐藏，
+     * 移回顶部时重新展示。适用于 agent / generator 等需最大化内容区的子应用。
+     *
+     * YDIZ-LAYOUT-006：immersive 模式支持 full-content 布局。
+     */
     const mouseMove = () => {
       if (mouseY.value > headerWrapperHeight.value) {
         headerIsHidden.value = true;
@@ -382,7 +387,7 @@ export function useLayoutState(options: UseLayoutStateOptions) {
     watch(
       [() => props.headerMode, () => mouseY.value],
       () => {
-        if (!isHeaderAutoMode.value || isMixedNav.value || isFullContent.value) {
+        if (!isHeaderAutoMode.value || isMixedNav.value) {
           if (props.headerMode !== 'auto-scroll') {
             headerIsHidden.value = false;
           }

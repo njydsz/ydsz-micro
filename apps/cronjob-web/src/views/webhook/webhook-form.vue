@@ -16,9 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem/ElRadioGroup/ElRadio/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import { Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -151,9 +151,14 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         <Input v-model="formData.name" :placeholder="t('business.webhookNamePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookEventType')" prop="eventType">
-        <ElSelect v-model="formData.eventType" :placeholder="t('business.webhookEventTypePlaceholder')">
-          <ElOption v-for="item in eventTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
-        </ElSelect>
+        <Select v-model="formData.eventType">
+          <SelectTrigger :placeholder="t('business.webhookEventTypePlaceholder')" />
+          <SelectContent>
+            <SelectItem v-for="item in eventTypeOptions" :key="item.value" :value="item.value">
+              {{ item.label }}
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem :label="t('business.webhookJobKey')" prop="jobKey">
         <Input v-model="formData.jobKey" :placeholder="t('business.webhookJobKeyPlaceholder')" />
@@ -165,10 +170,18 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         <Input v-model="formData.callbackUrl" :placeholder="t('business.webhookCallbackUrlPlaceholder')" />
       </ElFormItem>
       <ElFormItem label="HTTP Method" prop="httpMethod">
-        <ElRadioGroup v-model="formData.httpMethod">
-          <ElRadio value="POST">POST</ElRadio>
-          <ElRadio value="PUT">PUT</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.httpMethod">
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="method-post" value="POST" />
+              <label for="method-post" class="cursor-pointer text-sm">POST</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="method-put" value="PUT" />
+              <label for="method-put" class="cursor-pointer text-sm">PUT</label>
+            </div>
+          </div>
+        </RadioGroup>
       </ElFormItem>
       <ElFormItem :label="t('business.webhookHeaders')" prop="headers">
         <Textarea v-model="formData.headers" :rows="3" :placeholder="t('business.webhookHeadersPlaceholder')" />
@@ -177,10 +190,18 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         <Input v-model="formData.secret" :placeholder="t('business.webhookSecretPlaceholder')" type="password" />
       </ElFormItem>
       <ElFormItem :label="t('common.status')">
-        <ElRadioGroup v-model="formData.webhookStatus">
-          <ElRadio value="ACTIVE">{{ t('common.enabled') }}</ElRadio>
-          <ElRadio value="INACTIVE">{{ t('common.disabled') }}</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.webhookStatus">
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="status-active" value="ACTIVE" />
+              <label for="status-active" class="cursor-pointer text-sm">{{ t('common.enabled') }}</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="status-inactive" value="INACTIVE" />
+              <label for="status-inactive" class="cursor-pointer text-sm">{{ t('common.disabled') }}</label>
+            </div>
+          </div>
+        </RadioGroup>
       </ElFormItem>
     </ElForm>
   </Modal>

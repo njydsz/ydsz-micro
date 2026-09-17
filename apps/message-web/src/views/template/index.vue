@@ -23,6 +23,7 @@ import { Page, useYDSZModal } from '@ydsz/common-ui';
 import { Badge, Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input, Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
 import { ElForm, ElFormItem } from 'element-plus';
+import { ElMessageBox } from '@ydsz/notification/compat';
 // NOTE: ElDialog/ElDrawer 已迁移为 Dialog/Sheet
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

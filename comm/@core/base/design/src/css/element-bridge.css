@@ -1,0 +1,165 @@
+/**
+ * Element Plus 桥接层 —— 将 YDSZ Design Token 单点映射到 Element Plus 变量。
+ *
+ * 规范：YDIZ-BRIDGE-001（token → 组件库单点映射）
+ *
+ * 品牌换肤只改 token 层一处（brand-500 / primary / ring 等），
+ * 所有 Element Plus 组件通过此桥的 var() 引用自动同步变化。
+ * 业务应用禁止直接覆盖 --el-* 变量（通过 stylelint 规则约束）。
+ *
+ * 覆盖范围：色板（primary/success/warning/danger/info）、
+ * 文本（color-text-*）、背景（color-bg-*）、边框（color-border-*）、
+ * 填充（color-fill-*）、遮罩（overlay-color）、阴影、圆角、排版等。
+ *
+ * @path comm\@core\base\design\src\css\element-bridge.css
+ * @author ydsz-team
+ * @since 26.09.17
+ */
+
+:root {
+  /* ============================================================
+   * 主色板 —— EP 五级色阶由 brand 色板派生
+   * ============================================================ */
+  --el-color-primary: hsl(var(--brand-500));
+  --el-color-primary-light-3: hsl(var(--brand-300));
+  --el-color-primary-light-5: hsl(var(--brand-200));
+  --el-color-primary-light-7: hsl(var(--brand-100));
+  --el-color-primary-light-8: hsl(var(--brand-50));
+  --el-color-primary-light-9: hsl(var(--brand-50));
+  --el-color-primary-dark-2: hsl(var(--brand-600));
+
+  /* ============================================================
+   * 语义色板
+   * ============================================================ */
+  --el-color-success: hsl(var(--success-500));
+  --el-color-success-light-3: hsl(var(--success-100));
+  --el-color-success-light-5: hsl(var(--success-50));
+  --el-color-success-light-7: hsl(var(--success-50));
+  --el-color-success-light-8: hsl(var(--success-50));
+  --el-color-success-light-9: hsl(var(--success-50));
+  --el-color-success-dark-2: hsl(var(--success-600));
+  --el-color-warning: hsl(var(--warning-500));
+  --el-color-warning-light-3: hsl(var(--warning-100));
+  --el-color-warning-light-5: hsl(var(--warning-50));
+  --el-color-warning-light-7: hsl(var(--warning-50));
+  --el-color-warning-light-8: hsl(var(--warning-50));
+  --el-color-warning-light-9: hsl(var(--warning-50));
+  --el-color-warning-dark-2: hsl(var(--warning-600));
+  --el-color-danger: hsl(var(--destructive-500));
+  --el-color-danger-light-3: hsl(var(--destructive-100));
+  --el-color-danger-light-5: hsl(var(--destructive-50));
+  --el-color-danger-light-7: hsl(var(--destructive-50));
+  --el-color-danger-light-8: hsl(var(--destructive-50));
+  --el-color-danger-light-9: hsl(var(--destructive-50));
+  --el-color-danger-dark-2: hsl(var(--destructive-600));
+  --el-color-error: hsl(var(--destructive-500));
+  --el-color-error-light-3: hsl(var(--destructive-100));
+  --el-color-error-light-5: hsl(var(--destructive-50));
+  --el-color-error-light-7: hsl(var(--destructive-50));
+  --el-color-error-light-8: hsl(var(--destructive-50));
+  --el-color-error-light-9: hsl(var(--destructive-50));
+  --el-color-error-dark-2: hsl(var(--destructive-600));
+  --el-color-info: hsl(var(--neutral-500));
+  --el-color-info-light-3: hsl(var(--neutral-300));
+  --el-color-info-light-5: hsl(var(--neutral-200));
+  --el-color-info-light-7: hsl(var(--neutral-100));
+  --el-color-info-light-8: hsl(var(--neutral-50));
+  --el-color-info-light-9: hsl(var(--neutral-50));
+  --el-color-info-dark-2: hsl(var(--neutral-600));
+
+  /* ============================================================
+   * 文本颜色
+   * ============================================================ */
+  --el-text-color-primary: hsl(var(--txt-primary));
+  --el-text-color-regular: hsl(var(--txt-secondary));
+  --el-text-color-secondary: hsl(var(--txt-tertiary));
+  --el-text-color-placeholder: hsl(var(--txt-disabled));
+  --el-text-color-disabled: hsl(var(--txt-disabled));
+
+  /* ============================================================
+   * 背景与填充
+   * ============================================================ */
+  --el-bg-color: hsl(var(--bg-surface-2));
+  --el-bg-color-page: hsl(var(--bg-canvas));
+  --el-bg-color-overlay: hsl(var(--bg-surface-2));
+  --el-fill-color: hsl(var(--neutral-100));
+  --el-fill-color-light: hsl(var(--neutral-50));
+  --el-fill-color-lighter: hsl(var(--neutral-50));
+  --el-fill-color-extra-light: hsl(var(--neutral-50));
+  --el-fill-color-dark: hsl(var(--neutral-200));
+  --el-fill-color-darker: hsl(var(--neutral-300));
+  --el-fill-color-blank: hsl(var(--bg-surface-2));
+
+  /* ============================================================
+   * 边框
+   * ============================================================ */
+  --el-border-color: hsl(var(--border-default));
+  --el-border-color-light: hsl(var(--border-subtle));
+  --el-border-color-lighter: hsl(var(--border-subtle));
+  --el-border-color-extra-light: hsl(var(--border-subtle));
+  --el-border-color-dark: hsl(var(--border-strong));
+  --el-border-color-darker: hsl(var(--border-strong));
+  --el-border-radius-base: var(--radius-md);
+  --el-border-radius-small: var(--radius-sm);
+  --el-border-radius-round: var(--radius-xl);
+  --el-border-radius-circle: var(--radius-full);
+
+  /* ============================================================
+   * 阴影
+   * ============================================================ */
+  --el-box-shadow: var(--shadow-raised-200);
+  --el-box-shadow-light: var(--shadow-raised-100);
+  --el-box-shadow-lighter: var(--shadow-raised-100);
+  --el-box-shadow-dark: var(--shadow-overlay-200);
+
+  /* ============================================================
+   * 遮罩
+   * ============================================================ */
+  --el-overlay-color: hsl(var(--overlay));
+  --el-overlay-color-lighter: hsl(var(--overlay));
+
+  /* ============================================================
+   * 禁用态
+   * ============================================================ */
+  --el-disabled-bg-color: hsl(var(--neutral-100));
+  --el-disabled-text-color: hsl(var(--txt-disabled));
+  --el-disabled-border-color: hsl(var(--border-subtle));
+}
+
+/* ============================================================
+ * 暗色模式桥接变量
+ * ============================================================ */
+.dark {
+  --el-color-primary: hsl(var(--brand-500));
+  --el-color-primary-light-3: hsl(var(--brand-300));
+  --el-color-primary-light-5: hsl(var(--brand-200));
+  --el-color-primary-light-7: hsl(var(--brand-100));
+  --el-color-primary-light-8: hsl(var(--brand-50));
+  --el-color-primary-light-9: hsl(var(--brand-50));
+  --el-color-primary-dark-2: hsl(var(--brand-600));
+  --el-text-color-primary: hsl(var(--txt-primary));
+  --el-text-color-regular: hsl(var(--txt-secondary));
+  --el-text-color-secondary: hsl(var(--txt-tertiary));
+  --el-text-color-placeholder: hsl(var(--txt-disabled));
+  --el-bg-color: hsl(var(--bg-surface-2));
+  --el-bg-color-page: hsl(var(--bg-canvas));
+  --el-bg-color-overlay: hsl(var(--bg-surface-2));
+  --el-fill-color: hsl(var(--neutral-100));
+  --el-fill-color-light: hsl(var(--neutral-50));
+  --el-fill-color-lighter: hsl(var(--neutral-50));
+  --el-fill-color-extra-light: hsl(var(--neutral-50));
+  --el-fill-color-dark: hsl(var(--neutral-200));
+  --el-fill-color-darker: hsl(var(--neutral-300));
+  --el-fill-color-blank: hsl(var(--bg-surface-2));
+  --el-border-color: hsl(var(--border-default));
+  --el-border-color-light: hsl(var(--border-subtle));
+  --el-border-color-lighter: hsl(var(--border-subtle));
+  --el-border-color-extra-light: hsl(var(--border-subtle));
+  --el-border-color-dark: hsl(var(--border-strong));
+  --el-border-color-darker: hsl(var(--border-strong));
+  --el-overlay-color: hsl(var(--overlay));
+  --el-overlay-color-lighter: hsl(var(--overlay));
+  --el-disabled-bg-color: hsl(var(--neutral-100));
+  --el-disabled-text-color: hsl(var(--txt-disabled));
+  --el-disabled-border-color: hsl(var(--border-subtle));
+}

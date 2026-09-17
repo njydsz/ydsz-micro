@@ -26,8 +26,7 @@ import {
   Input,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-// TODO: ElInputNumber 暂无 shadcn-ui 等效组件，保留 element-plus 导入
-import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
 
 defineOptions({ name: 'TemplateGroupForm' });
 
@@ -77,7 +76,7 @@ async function handleSubmit() {
           <Input v-model="form.description" placeholder="分组用途说明" />
         </ElFormItem>
         <ElFormItem label="排序">
-          <ElInputNumber v-model="form.sortOrder" :min="0" />
+          <Input v-model="form.sortOrder" type="number" :min="0" />
         </ElFormItem>
       </ElForm>
       <DialogFooter>

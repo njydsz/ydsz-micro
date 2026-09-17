@@ -24,16 +24,17 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  Checkbox,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Upload,
 } from '@ydsz-core/ui-kit/shadcn-ui';
+import type { UploadRequestOptions } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-// TODO: ElCheckbox/ElUpload 暂无对应 shadcn-ui 组件，保留 element-plus 导入
-import type { UploadRequestOptions } from 'element-plus';
-import { ElCheckbox, ElForm, ElFormItem, ElUpload } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
 
 import { exportTemplates, importTemplates } from '#/api/import-export';
 import { listGroups } from '#/api/template';
@@ -171,12 +172,16 @@ onMounted(() => {
             </Select>
           </ElFormItem>
           <ElFormItem label="覆盖模式">
-            <ElCheckbox v-model="overwriteOnImport">
-              覆盖已有模板（不勾选则跳过同名模板）
-            </ElCheckbox>
+            <div class="flex items-center gap-2">
+              <Checkbox
+                :checked="overwriteOnImport"
+                @update:checked="overwriteOnImport = $event"
+              />
+              <label class="cursor-pointer text-sm">覆盖已有模板（不勾选则跳过同名模板）</label>
+            </div>
           </ElFormItem>
           <ElFormItem label="ZIP 文件">
-            <ElUpload
+            <Upload
               :auto-upload="true"
               :show-file-list="true"
               :http-request="handleImport"
@@ -184,7 +189,7 @@ onMounted(() => {
               :limit="1"
             >
               <Button>选择 ZIP 文件</Button>
-            </ElUpload>
+            </Upload>
           </ElFormItem>
         </ElForm>
         <div class="text-xs text-gray-500 mt-2">

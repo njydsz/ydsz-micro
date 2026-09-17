@@ -340,7 +340,7 @@ function handleNodeNameChange(name: string): void {
 
 .dag-form {
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--el-border-color-lighter);
+  border-bottom: 1px solid hsl(var(--border) / 50%);
   margin-bottom: 12px;
 }
 
