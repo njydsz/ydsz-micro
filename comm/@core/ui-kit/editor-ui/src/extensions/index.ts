@@ -20,7 +20,9 @@ import BulletList from '@tiptap/extension-bullet-list';
 import Code from '@tiptap/extension-code';
 import CodeBlock from '@tiptap/extension-code-block';
 import Document from '@tiptap/extension-document';
+// cspell:disable-next-line
 import Dropcursor from '@tiptap/extension-dropcursor';
+// cspell:disable-next-line
 import Gapcursor from '@tiptap/extension-gapcursor';
 import HardBreak from '@tiptap/extension-hard-break';
 import Heading from '@tiptap/extension-heading';
@@ -71,7 +73,9 @@ export function getYdDefaultExtensions(): Array<unknown> {
     TableRow,
     TableHeader,
     TableCell,
+    // cspell:disable-next-line
     Dropcursor,
+    // cspell:disable-next-line
     Gapcursor,
   ];
 }

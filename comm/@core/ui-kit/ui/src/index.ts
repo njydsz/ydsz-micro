@@ -59,7 +59,7 @@ export { YdAdminLayout } from '@ydsz-core/layout-ui';
 export type { YdLayoutProps } from '@ydsz-core/layout-ui';
 
 // ===== 富文本编辑器 =====
-export { YdTipTapEditor, YdTipTapToolbar, getYdDefaultExtensions } from '@ydsz-core/tiptap';
+export { YdTipTapEditor, YdTipTapToolbar, getYdDefaultExtensions } from '@ydsz-core/editor-ui';
 
 // ===== 全局 CSS 令牌（可选引入）=====
 import '@ydsz-core/shadcn-ui/src/assets/index.css';

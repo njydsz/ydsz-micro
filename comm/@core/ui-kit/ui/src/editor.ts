@@ -5,4 +5,4 @@
  *
  * @module @ydsz-core/ui/editor
  */
-export { YdTipTapEditor, YdTipTapToolbar, getYdDefaultExtensions } from '@ydsz-core/tiptap';
+export { YdTipTapEditor, YdTipTapToolbar, getYdDefaultExtensions } from '@ydsz-core/editor-ui';

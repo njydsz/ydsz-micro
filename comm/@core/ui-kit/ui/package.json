@@ -52,6 +52,6 @@
     "@ydsz-core/menu-ui": "workspace:*",
     "@ydsz-core/tabs-ui": "workspace:*",
     "@ydsz-core/layout-ui": "workspace:*",
-    "@ydsz-core/tiptap": "workspace:*"
+    "@ydsz-core/editor-ui": "workspace:*"
   }
 }

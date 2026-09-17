@@ -28,3 +28,17 @@ export type {
   ChunkInfo,
   ChunkHttpRequestOptions,
 } from './use-chunk-upload';
+
+export { useVirtualList } from './use-virtual-list';
+export type {
+  UseVirtualListOptions,
+  VirtualListHandle,
+  VisibleItem,
+} from './use-virtual-list';
+
+export { useTreeSearch } from './use-tree-search';
+export type {
+  FilteredTreeNode,
+  TreeSearchHandle,
+  TreeSearchOptions,
+} from './use-tree-search';

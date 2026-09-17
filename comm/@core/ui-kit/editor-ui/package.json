@@ -1,17 +1,21 @@
 {
-  "name": "@ydsz-core/tiptap",
+  "name": "@ydsz-core/editor-ui",
   "version": "1.0.0",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ydsz/vue-ydsz-admin.git",
-    "directory": "comm/@ydsz-core/uikit/tiptap"
+    "directory": "comm/@core/ui-kit/editor-ui"
   },
   "license": "MIT",
   "type": "module",
-  "files": ["dist"],
-  "sideEffects": ["**/*.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "exports": {
