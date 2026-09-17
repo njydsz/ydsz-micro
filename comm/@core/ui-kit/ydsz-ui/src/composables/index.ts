@@ -58,5 +58,14 @@ export type {
   ComponentI18nHandle,
 } from './use-component-i18n';
 
+export { useTableData } from './use-table-data';
+export type {
+  TableColumnDef,
+  SortState,
+  RowSelectionConfig,
+  UseTableDataOptions,
+  UseTableDataReturn,
+} from './use-table-data';
+
 export { useOverlayStack } from './use-overlay-stack';
 export type { OverlayStackHandle } from './use-overlay-stack';

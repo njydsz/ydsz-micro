@@ -37,6 +37,13 @@ export * from './ToggleGroup'
 export * from './Tooltip'
 export * from './Tree'
 
+// composables (ydsz 业务特化)
+export { useControlledState } from './composables/use-controlled-state'
+export type {
+  ControlledStateHandle,
+  UseControlledStateOptions,
+} from './composables/use-controlled-state'
+
 // utilities
 export { Primitive, Slot, type PrimitiveProps, type AsTag } from './Primitive'
 export { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden'
