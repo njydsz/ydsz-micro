@@ -30,6 +30,8 @@ export default defineConfig({
     environment: 'happy-dom',
     include: ['apps/**/*.test.{ts,tsx}', 'comm/**/*.test.{ts,tsx}', 'main/**/*.test.{ts,tsx}'],
     exclude: ['**/node_modules/**', '**/dist/**', '**/e2e/**'],
+    // JUnit XML 供 CI 归档
+    reporters: ['default', ['junit', { outputFolder: 'test-results', outputFile: 'junit.xml' }]],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],

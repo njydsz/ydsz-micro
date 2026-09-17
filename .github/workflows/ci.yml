@@ -63,6 +63,20 @@ jobs:
       - name: 单元测试 + 覆盖率（第一阶段：高复用组件 + 工具函数）
         run: pnpm test:unit
 
+      # 归档 Vitest 测试报告（JUnit XML + 覆盖率）
+      - name: 归档前端测试与覆盖率报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-test-reports-${{ github.run_number }}
+          path: |
+            **/test-results/**/*.xml
+            **/test-results/**/*.json
+            **/coverage/**/lcov.info
+            **/coverage/**/coverage-final.json
+          if-no-files-found: warn
+          retention-days: 30
+
       - name: 国际化 key 一致性校验
         run: pnpm check:i18n
 
