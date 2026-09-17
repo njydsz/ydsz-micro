@@ -18,6 +18,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import { ydszPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
@@ -155,17 +156,25 @@ async function handleTerminate(row: FlowInstanceVO) {
   let reason: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value } = await ElMessageBox.prompt(
-      $t('wf.inputTerminateReason'),
-      $t('wf.terminateTitle'),
-      {
-        inputPlaceholder: $t('wf.inputTerminateReason'),
-        inputValidator: (value) => (value ? true : $t('wf.terminateReasonRequired')),
+    const promptValue = await ydszPrompt<string>({
+      content: $t('wf.inputTerminateReason'),
+      confirmText: $t('wf.confirm'),
+      cancelText: $t('wf.cancel'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: $t('wf.inputTerminateReason'),
       },
-    );
-    reason = value;
-  } catch (error) {
-    logger.warn('用户取消终止流程实例操作', error);
+      beforeClose: ({ isConfirm, value }) => {
+        if (!isConfirm) return;
+        if (!value) {
+          showToast.warning($t('wf.terminateReasonRequired'));
+          return false;
+        }
+      },
+    });
+    reason = promptValue ?? '';
+  } catch {
+    logger.warn('用户取消终止流程实例操作');
     return; // 用户主动取消终止操作
   }
   // 步骤2：执行终止 API（失败提示由 errorMessageResponseInterceptor 统一处理）
