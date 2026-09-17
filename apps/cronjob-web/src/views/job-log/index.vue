@@ -186,8 +186,12 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
   <Page auto-content-height>
     <Grid table-title="执行日志" />
 
-    <ElDrawer v-model="detailVisible" title="执行日志详情" size="720px" @closed="handleCloseDetail">
-      <template v-if="detailLog">
+    <Sheet v-model:open="detailVisible">
+      <SheetContent side="right" class="w-[720px]">
+        <SheetHeader>
+          <SheetTitle>执行日志详情</SheetTitle>
+        </SheetHeader>
+        <template v-if="detailLog">
         <ElDescriptions :column="2" border size="small" class="mb-3">
           <ElDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="状态">
@@ -238,6 +242,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <ElEmpty v-else description="暂无日志内容" :image-size="60" />
         </div>
       </template>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

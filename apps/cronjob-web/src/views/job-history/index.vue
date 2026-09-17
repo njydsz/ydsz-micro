@@ -19,7 +19,10 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElForm, ElFormItem, ElOption, ElSelect, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTable/ElTableColumn/ElForm/ElFormItem/ElOption/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -199,7 +202,7 @@ const gridOptions: VxeTableGridOptions<JobHistoryVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as JobHistoryVO;
-          return h(ElTag, { type: changeTypeTagType(item), size: 'small' }, () =>
+          return h(Badge, { variant: changeTypeTagType(item), size: 'sm' }, () =>
             translateChangeType(item.changeType),
           );
         },
@@ -220,21 +223,20 @@ const gridOptions: VxeTableGridOptions<JobHistoryVO> = {
           const item = row as JobHistoryVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(item) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
               () => '详情',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => openCompareDialog(item.jobId ?? '') },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => openCompareDialog(item.jobId ?? '') },
               () => '对比',
             ),
             h(
-              ElButton,
+              Button,
               {
-                size: 'small',
-                link: true,
-                type: 'danger',
+                size: 'sm',
+                variant: 'link',
                 disabled: isDelete(item),
                 onClick: () => handleRollback(item),
               },

@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -44,8 +44,8 @@ const gridOptions: VxeTableGridOptions = {
       align: 'center',
       slots: {
         default: ({ row }) => h(
-          ElTag,
-          { type: (row as Record<string, unknown>)?.isMfaEnabled ? 'success' : 'info', size: 'small' },
+          Badge,
+          { variant: (row as Record<string, unknown>)?.isMfaEnabled ? 'default' : 'secondary', class: (row as Record<string, unknown>)?.isMfaEnabled ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
           () => ((row as Record<string, unknown>)?.isMfaEnabled ? '已启用' : '未启用'),
         ),
       },
@@ -57,8 +57,8 @@ const gridOptions: VxeTableGridOptions = {
       align: 'center',
       slots: {
         default: ({ row }) => h(
-          ElTag,
-          { type: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'success' : 'info', size: 'small' },
+          Badge,
+          { variant: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'default' : 'secondary', class: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
           () => ((row as Record<string, unknown>)?.isCaptchaEnabled ? '已启用' : '未启用'),
         ),
       },
@@ -95,13 +95,13 @@ const gridOptions: VxeTableGridOptions = {
           const record = row as unknown as AuthPolicyVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(record) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(record) },
               () => '编辑',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(record) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(record) },
               () => '删除',
             ),
           ]);
@@ -195,7 +195,7 @@ async function handleDelete(row: AuthPolicyVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="认证策略管理">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
+      <template #toolbar-tools><Button variant="default" @click="handleAdd">新增</Button></template>
     </Grid>
     <AuthPolicyFormModal @success="gridApi.query()" />
   </Page>

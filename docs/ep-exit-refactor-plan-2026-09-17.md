@@ -21,13 +21,22 @@
 
 ### 1.2 残留清单（按层）
 
+> ⚠️ 勘误（2026-09-17 实测修正）：初版曾判定「模板层 `<el-*>` 标签已全量清零」，
+> 该结论系检索工具对 `<` 字符处理缺陷导致的**假阴性**。经以 kebab-case 标签名
+> （模板用 `el-xxx`、脚本用 `ElXxx`，可精确区分）重新全量复核，模板层与 EP 主题变量层
+> 均仍有残留，实际残留面如下。
+
 | 层 | 残留点 | 证据 |
 |----|--------|------|
-| 应用层 | **~194 个文件**残留 `from 'element-plus'` 导入 | userinfo 39 / cronjob 26 / message 26 / workflow 21 / nextwiki 20 / agent 19 / literule 16 / system 15 / generator 12 |
+| 应用层（脚本导入） | **~194 个文件**残留 `from 'element-plus'` 导入 | userinfo 39 / cronjob 26 / message 26 / workflow 21 / nextwiki 20 / agent 19 / literule 16 / system 15 / generator 12 |
+| 模板层（kebab 标签） | **~28 个 .vue**存在 `el-xxx` 标签，其中约 17 个与脚本导入重叠；**其余 ~11 个文件无 EP import**（依赖不存在的全局注册 → 渲染降级/未知组件告警，属缺陷），如 `common-ui/src/components/page-status.vue`、`common-ui/src/components/error-state.vue`、`common-ui/src/components/empty-state.vue`、`shared-business/src/components/status-badge.vue`、`layouts/.../check-updates.vue`、`layouts/.../user-dropdown.vue`、`main/src/views/_core/subapp/index.vue`、`main/src/components/global-search.vue`、`workflow-web/.../DesignerPalette.vue`、`message-web/src/views/reactive/index.vue` |
+| 主题变量层 | **~29 个文件**使用 `--el-color-* / --el-text-color-*` 等 EP CSS 变量；集中桥接点在 `comm/effects/hooks/src/use-design-tokens.ts`（55 处）、`main/src/components/command-palette/command-palette.css`（42 处）、`comm/styles/src/ele/index.css` | 反证 EP 主题桥的存在：`use-design-tokens.ts:255-374` 把 EP 变量映射到 YDSZ token |
 | 基座 main | EP 异步组件注册表（~20 组件）、ElLoading.directive、`@ydsz/styles/ele`、tenant-switcher | `main/src/adapter/component/index.ts`、`main/src/setup/app.ts:25,45`、`main/src/components/tenant-switcher.vue` |
-| comm 公共包 | **~20 个文件** | `shadcn-ui/notification-panel.vue`（自家用 EP，讽刺点）、`tiptap` 2 文件、`@core/components/notification-bell`、`form-ui/src/validation/*`（仅类型依赖 FormRules）、`shared-business` ~11 文件（virtual-select/dict-tag/dict-select/async-state/approval-timeline/…）、`common-ui` 2 文件（network-status/error-boundary）、`shared-auth/src/i18n-setup.ts`（EP locale 死代码，ElConfigProvider 已从 app.vue 移除） |
+| comm 公共包 | **~20 个文件** | `shadcn-ui/notification-panel.vue`（自家用 EP）、`tiptap` 2 文件、`@core/components/notification-bell`、`form-ui/src/validation/*`（仅类型依赖 FormRules）、`shared-business` ~13 文件、`common-ui` 5 文件、`shared-auth/src/i18n-setup.ts`（EP locale 死代码） |
 | 构建链 | 10 个 vite.config 挂 `unplugin-element-plus`；13 个 package.json 依赖；catalog 3 条（element-plus ^2.10.2 / @element-plus/icons-vue / unplugin-element-plus） | `apps/*/vite.config.mts`、`main/vite.config.mts`、`pnpm-workspace.yaml:19,89,141` |
 | 图标 | `@element-plus/icons-vue` 零散使用 | main、notification-bell 等 → lucide-vue-next 已在 catalog |
+
+**全局注册事实核验**：全仓无 `app.use(ElementPlus)`、无 `unplugin-vue-components` EP resolver（`grep ElementPlusResolver` 仅命中 `globalShareState.setComponents`）。因此「有 kebab 标签但无 import」的文件确属未知组件渲染。
 
 ### 1.3 关键发现：大量 TODO 是「过期标记」
 

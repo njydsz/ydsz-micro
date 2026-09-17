@@ -20,7 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag, ElTree } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { ElTree } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -74,8 +75,8 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            ElTag,
-            { type: enable ? 'success' : 'danger', size: 'small' },
+            Badge,
+            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -90,13 +91,13 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
         default: ({ row }) => {
           return h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
           ]);
@@ -176,7 +177,7 @@ async function handleDelete(row: CompanyVO) {
       <div class="w-60 shrink-0">
         <div class="mb-2 flex items-center justify-between">
           <span class="text-sm font-semibold">{{ t('company.orgStructure') }}</span>
-          <ElButton link type="primary" size="small" @click="handleTreeClear">{{ t('company.all') }}</ElButton>
+          <Button variant="link" size="sm" @click="handleTreeClear">{{ t('company.all') }}</Button>
         </div>
         <ElTree
           :data="companyTree"
@@ -190,7 +191,7 @@ async function handleDelete(row: CompanyVO) {
       <div class="min-w-0 flex-1">
         <Grid :table-title="t('company.companyManagement')">
           <template #toolbar-tools>
-            <ElButton type="primary" @click="handleAdd">{{ t('company.createCompany') }}</ElButton>
+            <Button variant="default" @click="handleAdd">{{ t('company.createCompany') }}</Button>
           </template>
         </Grid>
       </div>

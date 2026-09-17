@@ -16,17 +16,10 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElSpace,
-  ElTag,
-  ElText,
-} from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTimeline/ElTimelineItem/ElEmpty/ElForm/ElFormItem/ElInput/ElSpace/ElTag/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElCard, ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -159,12 +152,12 @@ function statusText(status: ConnectStatus): string {
                 class="inline-block w-2.5 h-2.5 rounded-full"
                 :style="{ backgroundColor: statusColor(connectStatus) }"
               />
-              <ElTag
-                :type="connectStatus === 'connected' ? 'success' : connectStatus === 'connecting' ? 'warning' : 'info'"
-                size="small"
+              <Badge
+                :variant="connectStatus === 'connected' ? 'default' : connectStatus === 'connecting' ? 'outline' : 'secondary'"
+                size="sm"
               >
                 {{ statusText(connectStatus) }}
-              </ElTag>
+              </Badge>
               <ElText v-if="logId && connectStatus === 'connected'" size="small" type="info">
                 Log #{{ logId }}
               </ElText>

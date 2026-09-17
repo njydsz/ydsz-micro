@@ -12,16 +12,27 @@
 @since 4.1.0 (P2-15)
 -->
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
-import { ElMessage, ElMessageBox } from 'element-plus';
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  Button,
+} from '../../ui';
 import { useNotificationStore } from '@YDSZ/shared-business/notification';
 import { NotificationType, type NotificationItem } from '@YDSZ/shared-business/notification';
+import { YDSZIcon } from '../icon';
 
 const emit = defineEmits<{
   (e: 'select', item: NotificationItem): void;
 }>();
+
+/** 「全部已读」确认弹窗开关 */
+const confirmOpen = ref(false);
 
 const notificationStore = useNotificationStore();
 
@@ -72,16 +83,15 @@ function handleItemClick(item: NotificationItem): void {
   emit('select', item);
 }
 
-/** 批量全部已读 */
-async function handleMarkAllRead(): Promise<void> {
-  await ElMessageBox.confirm('是否将所有通知标记为已读？', '确认', { type: 'info' })
-    .then(() => {
-      notificationStore.markAllAsRead();
-      ElMessage.success('已全部标记为已读');
-    })
-    .catch(() => {
-      /* cancelled */
-    });
+/** 打开「全部已读」确认弹窗 */
+function handleMarkAllRead(): void {
+  confirmOpen.value = true;
+}
+
+/** 确认后批量标记已读（列表与未读计数即时刷新，无需额外提示） */
+function confirmMarkAllRead(): void {
+  notificationStore.markAllAsRead();
+  confirmOpen.value = false;
 }
 </script>
 
@@ -153,10 +163,26 @@ async function handleMarkAllRead(): Promise<void> {
 
       <!-- Empty state -->
       <div v-else class="notification-panel__empty">
-        <VbenIcon icon="lucide:bell-off" :size="32" />
+        <YDSZIcon icon="lucide:bell-off" :size="32" />
         <p>暂无通知</p>
       </div>
     </div>
+
+    <!-- 全部已读确认 -->
+    <AlertDialog :open="confirmOpen" @update:open="(val: boolean) => (confirmOpen = val)">
+      <AlertDialogContent :open="confirmOpen" class="w-[360px]">
+        <AlertDialogTitle>确认</AlertDialogTitle>
+        <AlertDialogDescription>是否将所有通知标记为已读？</AlertDialogDescription>
+        <div class="mt-4 flex justify-end gap-2">
+          <AlertDialogCancel as-child>
+            <Button variant="outline" size="sm" @click="confirmOpen = false">取消</Button>
+          </AlertDialogCancel>
+          <AlertDialogAction as-child>
+            <Button size="sm" @click="confirmMarkAllRead">确定</Button>
+          </AlertDialogAction>
+        </div>
+      </AlertDialogContent>
+    </AlertDialog>
   </div>
 </template>
 

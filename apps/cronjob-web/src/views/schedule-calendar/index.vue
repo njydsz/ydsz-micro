@@ -16,7 +16,10 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCalendar, ElDatePicker, ElDrawer, ElTimeline, ElTimelineItem, ElCard, ElTag, ElEmpty, ElButton, ElRadioGroup, ElRadioButton, ElTooltip } from 'element-plus';
+import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElCalendar/ElRadioGroup/ElRadioButton/ElDatePicker/ElDrawer/ElTimeline/ElTimelineItem/ElEmpty/ElTooltip/ElCard/ElTag 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElButton, ElCard, ElDatePicker, ElDrawer, ElEmpty, ElRadioGroup, ElRadioButton, ElTag, ElTimeline, ElTimelineItem, ElTooltip } from 'element-plus';
 import { Refresh } from '@element-plus/icons-vue';
 import { ref, computed, onMounted } from 'vue';
 

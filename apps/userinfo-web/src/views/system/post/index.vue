@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -57,8 +57,8 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            ElTag,
-            { type: enable ? 'success' : 'danger', size: 'small' },
+            Badge,
+            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -73,13 +73,13 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
           ]),
@@ -160,7 +160,7 @@ async function handleDelete(row: PostVO) {
   <Page auto-content-height>
     <Grid :table-title="t('post.postManagement')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('post.createPost') }}</ElButton>
+        <Button variant="default" @click="handleAdd">{{ t('post.createPost') }}</Button>
       </template>
     </Grid>
     <PostFormModal @success="gridApi.query()" />

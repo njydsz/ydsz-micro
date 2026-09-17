@@ -19,7 +19,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -54,8 +55,8 @@ const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            ElTag,
-            { type: enable ? 'success' : 'danger', size: 'small' },
+            Badge,
+            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -71,23 +72,23 @@ const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              ElButton,
+              Button,
               {
-                size: 'small',
-                link: true,
-                type: isEnabled(row.status) ? 'warning' : 'success',
+                size: 'sm',
+                variant: 'link',
+                class: isEnabled(row.status) ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'border-green-500 text-green-600 dark:text-green-400',
                 onClick: () => handleToggleStatus(row),
               },
               () => (isEnabled(row.status) ? '禁用' : '启用'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
           ]),
@@ -315,7 +316,7 @@ async function handleDelete(row: SamlIdpConfigVO) {
   <Page auto-content-height>
     <Grid table-title="SAML IdP 配置管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">创建 IdP 配置</ElButton>
+        <Button variant="default" @click="handleAdd">创建 IdP 配置</Button>
       </template>
     </Grid>
 

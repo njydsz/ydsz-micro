@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { h, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -97,7 +97,7 @@ const gridOptions: VxeTableGridOptions = {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
           const config = ALERT_TYPE_MAP[alertRow.alertType] ?? { label: alertRow.alertType ?? '-', type: 'info' };
-          return h(ElTag, { type: config.type as 'danger' | 'warning' | 'info' | 'success' | 'primary', size: 'small' }, () => config.label);
+          return h(Badge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : config.type === 'primary' ? 'default' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
         },
       },
     },
@@ -109,7 +109,7 @@ const gridOptions: VxeTableGridOptions = {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
           const config = RISK_LEVEL_MAP[alertRow.riskLevel] ?? { label: alertRow.riskLevel ?? '-', type: 'info' };
-          return h(ElTag, { type: config.type as 'danger' | 'warning' | 'info' | 'success' | 'primary', size: 'small' }, () => config.label);
+          return h(Badge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : config.type === 'primary' ? 'default' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
         },
       },
     },
@@ -121,7 +121,7 @@ const gridOptions: VxeTableGridOptions = {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
           const config = ALERT_STATUS_MAP[alertRow.alertStatus] ?? { label: alertRow.alertStatus ?? '-', type: 'info' };
-          return h(ElTag, { type: config.type as 'danger' | 'warning' | 'info' | 'success' | 'primary', size: 'small' }, () => config.label);
+          return h(Badge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : config.type === 'primary' ? 'default' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
         },
       },
     },
@@ -134,9 +134,9 @@ const gridOptions: VxeTableGridOptions = {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleAcknowledge(alertRow) }, () => '确认'),
-            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleResolve(alertRow) }, () => '解决'),
-            h(ElButton, { size: 'small', link: true, type: 'info', onClick: () => handleIgnore(alertRow) }, () => '忽略'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(alertRow) }, () => '确认'),
+            h(Button, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(alertRow) }, () => '解决'),
+            h(Button, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(alertRow) }, () => '忽略'),
           ]);
         },
       },
@@ -254,7 +254,7 @@ onMounted(() => {
 
     <Grid table-title="安全告警管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</ElButton>
+        <Button variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</Button>
       </template>
     </Grid>
   </Page>

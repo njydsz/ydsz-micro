@@ -240,32 +240,35 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
   <Page auto-content-height>
     <Grid table-title="DAG 运行实例">
       <template #toolbar-tools>
-        <ElSelect
-          v-model="statusFilter"
-          placeholder="状态筛选"
-          clearable
-          style="width: 140px"
-          @change="queryInstances"
-        >
-          <ElOption label="待执行" value="PENDING" />
-          <ElOption label="执行中" value="RUNNING" />
-          <ElOption label="已暂停" value="PAUSED" />
-          <ElOption label="成功" value="SUCCESS" />
-          <ElOption label="失败" value="FAILED" />
-          <ElOption label="部分成功" value="PARTIAL_SUCCESS" />
-          <ElOption label="已取消" value="CANCELLED" />
-        </ElSelect>
+        <Select v-model="statusFilter" @update:model-value="queryInstances">
+          <SelectTrigger class="w-[140px]">
+            <SelectValue placeholder="状态筛选" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="PENDING">待执行</SelectItem>
+            <SelectItem value="RUNNING">执行中</SelectItem>
+            <SelectItem value="PAUSED">已暂停</SelectItem>
+            <SelectItem value="SUCCESS">成功</SelectItem>
+            <SelectItem value="FAILED">失败</SelectItem>
+            <SelectItem value="PARTIAL_SUCCESS">部分成功</SelectItem>
+            <SelectItem value="CANCELLED">已取消</SelectItem>
+          </SelectContent>
+        </Select>
       </template>
     </Grid>
 
-    <ElDrawer v-model="detailVisible" title="DAG 实例详情" size="760px">
+    <Sheet v-model:open="detailVisible">
+      <SheetContent side="right" class="w-[760px]">
+        <SheetHeader>
+          <SheetTitle>DAG 实例详情</SheetTitle>
+        </SheetHeader>
       <template v-if="detailLog">
         <ElDescriptions :column="2" border size="small" class="mb-3">
           <ElDescriptionsItem label="DAG标识">{{ detailLog.dagKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="状态">
-            <ElTag :type="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
+            <Badge :variant="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
               detailLog.instanceStatus ?? '-'
-            }}</ElTag>
+            }}</Badge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="触发方式">{{
             detailLog.triggerType ?? '-'
@@ -294,21 +297,20 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn label="状态" width="110">
             <template #default="{ row }">
-              <ElTag :type="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="small">{{
+              <Badge :variant="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="sm">{{
                 row.nodeStatus ?? '-'
-              }}</ElTag>
+              }}</Badge>
             </template>
           </ElTableColumn>
           <ElTableColumn prop="durationMs" label="耗时(ms)" width="90" />
           <ElTableColumn label="操作" width="100">
             <template #default="{ row }">
-              <ElButton
+              <Button
                 v-if="row.nodeStatus === 'FAILED'"
-                size="small"
-                link
-                type="primary"
+                size="sm"
+                variant="link"
                 @click="handleRetryNode(row)"
-                >重试</ElButton
+                >重试</Button
               >
             </template>
           </ElTableColumn>
@@ -322,6 +324,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
           >{{ mermaidText }}</pre>
         <ElEmpty v-else description="暂无拓扑数据" :image-size="60" />
       </template>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

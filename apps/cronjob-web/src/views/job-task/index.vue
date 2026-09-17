@@ -19,15 +19,10 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDrawer,
-  ElProgress,
-  ElTag,
-} from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -157,8 +152,8 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
         default: ({ row }) => {
           const item = row as JobTaskVO;
           return h(
-            ElTag,
-            { size: 'small', type: isRoot(item) ? 'primary' : 'info' },
+            Badge,
+            { size: 'sm', variant: isRoot(item) ? 'default' : 'secondary' },
             () => (isRoot(item) ? '根任务' : '子任务'),
           );
         },
@@ -172,7 +167,7 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as JobTaskVO;
-          return h(ElTag, { type: taskStatusTagType(item), size: 'small' }, () =>
+          return h(Badge, { variant: taskStatusTagType(item), size: 'sm' }, () =>
             translateTaskStatus(item.taskStatus),
           );
         },
@@ -190,8 +185,8 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
         default: ({ row }) => {
           const item = row as JobTaskVO;
           return h(
-            ElButton,
-            { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(item) },
+            Button,
+            { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
             () => '详情',
           );
         },
