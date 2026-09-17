@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle, YdCheckboxSmart } from '../../primitives';
+import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle, YdCheckbox } from '../../primitives';
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({

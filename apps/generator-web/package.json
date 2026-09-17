@@ -25,6 +25,7 @@
     "@ydsz/locales": "workspace:*",
     "@ydsz/monitor": "workspace:*",
     "@ydsz/mock-service": "workspace:*",
+    "@ydsz/notification": "workspace:*",
     "@ydsz/plugins": "workspace:*",
     "@ydsz/preferences": "workspace:*",
     "@ydsz/request": "workspace:*",

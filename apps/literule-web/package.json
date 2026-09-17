@@ -25,6 +25,7 @@
     "@ydsz/layouts": "workspace:*",
     "@ydsz/locales": "workspace:*",
     "@ydsz/monitor": "workspace:*",
+    "@ydsz/notification": "workspace:*",
     "@ydsz/plugins": "workspace:*",
     "@ydsz/preferences": "workspace:*",
     "@ydsz/request": "workspace:*",

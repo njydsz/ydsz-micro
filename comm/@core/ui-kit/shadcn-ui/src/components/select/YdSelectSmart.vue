@@ -13,7 +13,7 @@
 import { CircleX } from '@ydsz-core/icons';
 
 import {
-  YdSelectSmart,
+  YdSelect,
   YdSelectContent,
   YdSelectItem,
   YdSelectTrigger,

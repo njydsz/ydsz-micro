@@ -17,7 +17,7 @@ import { computed, useSlots } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { YdTooltipSmart } from '../tooltip';
-import YdButtonSmart from './button.vue';
+import YdButtonSmart from './YdButtonSmart.vue';
 
 interface Props extends YdButtonProps {
   class?: any;

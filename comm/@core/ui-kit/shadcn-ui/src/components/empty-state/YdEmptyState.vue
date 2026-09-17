@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { YdButtonSmart } from '../../primitives';
+import { YdButton } from '../../primitives';
 import { cn } from '@ydsz-core/shared/utils';
 import { type CircleOff, FolderOpen, Inbox, SearchX, ShieldAlert } from 'lucide-vue-next';
 

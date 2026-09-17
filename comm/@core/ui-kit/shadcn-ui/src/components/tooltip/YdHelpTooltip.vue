@@ -15,7 +15,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { CircleHelp } from 'lucide-vue-next';
 
-import YdTooltipSmart from './tooltip.vue';
+import YdTooltipSmart from './YdTooltipSmart.vue';
 
 defineOptions({
   inheritAttrs: false,

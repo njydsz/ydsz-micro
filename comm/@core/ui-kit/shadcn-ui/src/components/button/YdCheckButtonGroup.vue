@@ -23,7 +23,7 @@ import { objectOmit } from '@vueuse/core';
 
 import { YdRenderContent } from '../render-content';
 import YdButtonGroup from './button-group.vue';
-import YdButtonSmart from './button.vue';
+import YdButtonSmart from './YdButtonSmart.vue';
 
 const props = withDefaults(defineProps<YdButtonGroupProps>(), {
   gap: 0,
