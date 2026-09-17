@@ -1,0 +1,178 @@
+{
+  "formRules": {
+    "required": "กรุณากรอก {0}",
+    "selectRequired": "กรุณาเลือก {0}",
+    "minLength": "{0} ต้องมีอย่างน้อย {1} ตัวอักษร",
+    "maxLength": "{0} ต้องไม่เกิน {1} ตัวอักษร",
+    "length": "{0} ต้องมีความยาว {1} ตัวอักษร",
+    "alreadyExists": "{0} `{1}` มีอยู่แล้ว",
+    "startWith": "{0} ต้องขึ้นต้นด้วย `{1}`",
+    "invalidURL": "กรุณากรอก URL ที่ถูกต้อง"
+  },
+  "actionTitle": {
+    "edit": "แก้ไข {0}",
+    "create": "สร้าง {0}",
+    "delete": "ลบ {0}",
+    "view": "ดู {0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบ {0}?",
+    "deleting": "กำลังลบ {0} ...",
+    "deleteSuccess": "ลบ {0} สำเร็จ",
+    "operationSuccess": "ดำเนินการสำเร็จ",
+    "operationFailed": "ดำเนินการล้มเหลว"
+  },
+  "placeholder": {
+    "input": "กรุณากรอก",
+    "select": "กรุณาเลือก"
+  },
+  "captcha": {
+    "title": "กรุณาทำการยืนยันความปลอดภัยให้เสร็จสิ้น",
+    "sliderSuccessText": "ผ่านการยืนยัน",
+    "sliderDefaultText": "กรุณากดค้างและลากแถบเลื่อน",
+    "alt": "รองรับค่าแอตทริบิวต์ src ของแท็ก img",
+    "sliderRotateDefaultTip": "คลิกที่รูปภาพเพื่อรีเฟรช",
+    "sliderTranslateDefaultTip": "คลิกที่รูปภาพเพื่อรีเฟรช",
+    "sliderRotateFailTip": "การยืนยันล้มเหลว",
+    "sliderRotateSuccessTip": "การยืนยันสำเร็จ ใช้เวลา {0} วินาที",
+    "sliderTranslateFailTip": "การยืนยันล้มเหลว",
+    "sliderTranslateSuccessTip": "การยืนยันสำเร็จ ใช้เวลา {0} วินาที",
+    "refreshAriaLabel": "รีเฟรชรหัสยืนยัน",
+    "confirmAriaLabel": "ยืนยันการเลือก",
+    "confirm": "ยืนยัน",
+    "pointAriaLabel": "คลิกที่จุด",
+    "clickInOrder": "กรุณาคลีกตามลำดับ"
+  },
+  "iconPicker": {
+    "placeholder": "เลือกไอคอน",
+    "search": "ค้นหาไอคอน..."
+  },
+  "jsonViewer": {
+    "copy": "คัดลอก",
+    "copied": "คัดลอกแล้ว"
+  },
+  "fallback": {
+    "pageNotFound": "อุ๊ปส์! ไม่พบหน้า",
+    "pageNotFoundDesc": "ขออภัย เราไม่พบหน้าที่คุณกำลังมองหา",
+    "forbidden": "อุ๊ปส์! การเข้าถึงถูกปฏิเสธ",
+    "forbiddenDesc": "ขออภัย คุณไม่มีสิทธิ์เข้าถึงหน้านี้",
+    "internalError": "อุ๊ปส์! เกิดข้อผิดพลาด",
+    "internalErrorDesc": "ขออภัย เซิร์ฟเวอร์พบข้อผิดพลาด",
+    "offline": "หน้าออฟไลน์",
+    "offlineError": "อุ๊ปส์! ข้อผิดพลาดของเครือข่าย",
+    "offlineErrorDesc": "ขออภัย ไม่สามารถเชื่อมต่ออินเทอร์เน็ตได้ กรุณาตรวจสอบการเชื่อมต่อ",
+    "comingSoon": "เร็วๆ นี้",
+    "http": {
+      "requestTimeout": "การร้องขอหมดเวลา กรุณาลองใหม่อีกครั้งในภายหลัง",
+      "networkError": "เกิดข้อผิดพลาดของเครือข่าย กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตและลองอีกครั้ง",
+      "badRequest": "การร้องขอไม่ถูกต้อง กรุณาตรวจสอบข้อมูลที่กรอกและลองอีกครั้ง",
+      "unauthorized": "ไม่ได้รับอนุญาต กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ",
+      "forbidden": "ต้องห้าม คุณไม่มีสิทธิ์เข้าถึงทรัพยากรนี้",
+      "notFound": "ไม่พบ ไม่พบทรัพยากรที่ร้องขอ",
+      "badGateway": "เกตเวย์ไม่ถูกต้อง เซิร์ฟเวอร์ได้รับการตอบกลับที่ไม่ถูกต้อง",
+      "serviceUnavailable": "บริการไม่พร้อมใช้งาน เซิร์ฟเวอร์ไม่สามารถจัดการการร้องขอได้ชั่วคราว",
+      "gatewayTimeout": "เกตเวย์หมดเวลา เซิร์ฟเวอร์ไม่ได้รับการตอบกลับทันท่วงที",
+      "internalServerError": "ข้อผิดพลาดภายในเซิร์ฟเวอร์ เกิดข้อผิดพลาดจากฝั่งเรา กรุณาลองใหม่อีกครั้งในภายหลัง"
+    }
+  },
+  "widgets": {
+    "document": "เอกสาร",
+    "qa": "คำถามและคำตอบ",
+    "setting": "การตั้งค่า",
+    "logoutTip": "คุณต้องการออกจากระบบหรือไม่?",
+    "viewAll": "ดูข้อความทั้งหมด",
+    "notifications": "การแจ้งเตือน",
+    "markAllAsRead": "ทำเครื่องหมายทั้งหมดว่าอ่านแล้ว",
+    "clearNotifications": "ล้าง",
+    "checkUpdatesTitle": "มีเวอร์ชันใหม่",
+    "checkUpdatesDescription": "คลิกเพื่อรีเฟรชและรับเวอร์ชันล่าสุด",
+    "search": {
+      "title": "ค้นหา",
+      "searchNavigate": "นำทางการค้นหา",
+      "select": "เลือก",
+      "navigate": "นำทาง",
+      "close": "ปิด",
+      "noResults": "ไม่พบผลการค้นหา",
+      "noRecent": "ไม่มีประวัติการค้นหา",
+      "recent": "ประวัติการค้นหา"
+    },
+    "lockScreen": {
+      "title": "ล็อกหน้าจอ",
+      "screenButton": "กำลังล็อก",
+      "password": "รหัสผ่าน",
+      "placeholder": "กรุณากรอกรหัสผ่านล็อกหน้าจอ",
+      "unlock": "คลิกเพื่อปลดล็อก",
+      "errorPasswordTip": "รหัสผ่านไม่ถูกต้อง กรุณากรอกใหม่",
+      "backToLogin": "กลับไปที่การเข้าสู่ระบบ",
+      "entry": "เข้าสู่ระบบ"
+    }
+  },
+  "component": {
+    "transfer": {
+      "title": "ที่ใช้ได้",
+      "selectedTitle": "ที่เลือก",
+      "placeholder": "ค้นหา",
+      "notFoundContent": "ไม่มีข้อมูล"
+    },
+    "steps": {
+      "wait": "กำลังรอ",
+      "process": "กำลังดำเนินการ",
+      "finish": "เสร็จสิ้น",
+      "error": "ข้อผิดพลาด"
+    },
+    "result": {
+      "successTitle": "สำเร็จ",
+      "errorTitle": "ล้มเหลว",
+      "warningTitle": "คำเตือน",
+      "infoTitle": "ข้อมูล"
+    },
+    "empty": {
+      "description": "ไม่มีข้อมูล"
+    },
+    "skeleton": {
+      "loading": "กำลังโหลด"
+    },
+    "autoComplete": {
+      "noMatch": "ไม่พบผลลัพธ์ที่ตรงกัน",
+      "placeholder": "กรุณากรอก"
+    },
+    "slider": {
+      "ariaLabel": "ค่าแถบเลื่อน"
+    },
+    "progress": {
+      "ariaLabel": "ความคืบหน้า"
+    },
+    "rate": {
+      "ariaLabel": "คะแนน"
+    },
+    "anchor": {
+      "ariaLabel": "การนำทางจุดยึด"
+    },
+    "image": {
+      "loadError": "โหลดไม่สำเร็จ"
+    },
+    "tag": {
+      "closeAriaLabel": "ปิดแท็ก"
+    },
+    "tour": {
+      "next": "ถัดไป",
+      "prev": "ก่อนหน้า",
+      "finish": "เสร็จสิ้น",
+      "skip": "ข้าม",
+      "stepIndicator": "ตัวบอกขั้นตอน"
+    },
+    "floatButton": {
+      "ariaLabel": "ปุ่มลอย"
+    },
+    "timeline": {
+      "ariaLabel": "ไทม์ไลน์",
+      "pending": "กำลังโหลด"
+    },
+    "descriptions": {
+      "defaultLabelWidth": "120px"
+    },
+    "statistic": {
+      "loading": "กำลังโหลด"
+    }
+  }
+}

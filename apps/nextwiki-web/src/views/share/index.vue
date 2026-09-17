@@ -18,9 +18,8 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdDrawer, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdButton, YdDrawer, YdTable, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
+
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -176,12 +175,12 @@ async function handleRevoke(row: ShareLinkVO) {
         <YdButton size="small" :loading="logsLoading" @click="loadLogs">刷新</YdButton>
       </div>
       <YdTable :data="accessLogs" border size="small">
-        <ElTableColumn prop="visitorName" label="访问者" min-width="120" />
-        <ElTableColumn prop="visitorIp" label="IP" min-width="140" />
-        <ElTableColumn prop="accessType" label="访问类型" width="110" />
-        <ElTableColumn prop="accessStatus" label="状态" width="100" />
-        <ElTableColumn prop="accessTime" label="访问时间" min-width="170" />
-        <ElTableColumn prop="failReason" label="失败原因" min-width="120" />
+        <YdTableColumn prop="visitorName" label="访问者" min-width="120" />
+        <YdTableColumn prop="visitorIp" label="IP" min-width="140" />
+        <YdTableColumn prop="accessType" label="访问类型" width="110" />
+        <YdTableColumn prop="accessStatus" label="状态" width="100" />
+        <YdTableColumn prop="accessTime" label="访问时间" min-width="170" />
+        <YdTableColumn prop="failReason" label="失败原因" min-width="120" />
       </YdTable>
     </YdDrawer>
     <YdDrawer v-model="recipientsVisible" title="接收人" :size="640">
@@ -189,11 +188,11 @@ async function handleRevoke(row: ShareLinkVO) {
         <YdButton size="small" :loading="recipientsLoading" @click="loadRecipients">刷新</YdButton>
       </div>
       <YdTable :data="recipients" border size="small">
-        <ElTableColumn prop="recipientName" label="接收人" min-width="140" />
-        <ElTableColumn prop="recipientType" label="接收类型" width="110" />
-        <ElTableColumn prop="status" label="状态" width="100" />
-        <ElTableColumn prop="viewedAt" label="查看时间" min-width="170" />
-        <ElTableColumn prop="createdAt" label="创建时间" min-width="170" />
+        <YdTableColumn prop="recipientName" label="接收人" min-width="140" />
+        <YdTableColumn prop="recipientType" label="接收类型" width="110" />
+        <YdTableColumn prop="status" label="状态" width="100" />
+        <YdTableColumn prop="viewedAt" label="查看时间" min-width="170" />
+        <YdTableColumn prop="createdAt" label="创建时间" min-width="170" />
       </YdTable>
     </YdDrawer>
   </Page>

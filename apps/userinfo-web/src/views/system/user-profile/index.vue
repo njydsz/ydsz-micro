@@ -20,9 +20,8 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdForm, YdFormItem, YdInput, YdSwitch, type FormInstance, type UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { YdForm, YdFormItem, YdInput, YdSwitch, type FormInstance, type UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import {

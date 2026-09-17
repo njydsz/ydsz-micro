@@ -19,11 +19,9 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard } from '@ydsz-core/ydsz-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard, YdDropdownMenu, YdDropdownMenuItem, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
-import { YdDropdownMenu, YdDropdownMenuItem, YdDropdownMenu } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';

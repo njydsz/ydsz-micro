@@ -21,11 +21,8 @@
 import type { CategoryNodeVO, RuleDefinitionVO, RuleVersionVO } from '#/api/models';
 import type { DomainItem } from '@ydsz-core/ydsz-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/ydsz-ui';
+import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBadge, YdTable, YdTableColumn, YdButton, YdDrawer, YdDropdownMenu, YdDropdownMenuItem, YdBadge } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdDrawer, YdDropdownMenu, YdDropdownMenuItem, YdDropdownMenu, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -594,29 +591,29 @@ void loadCategoryTree();
         :data="versionRows"
         border
         size="small"
-        v-loading="versionsLoading"
+        loading="versionsLoading"
       >
-        <ElTableColumn
+        <YdTableColumn
           prop="version"
           label="版本"
           width="80"
         />
-        <ElTableColumn
+        <YdTableColumn
           prop="changeDesc"
           label="变更说明"
           min-width="120"
         />
-        <ElTableColumn
+        <YdTableColumn
           prop="operator"
           label="操作人"
           width="100"
         />
-        <ElTableColumn
+        <YdTableColumn
           prop="createdAt"
           label="变更时间"
           width="170"
         />
-        <ElTableColumn
+        <YdTableColumn
           label="操作"
           width="90"
           fixed="right"
@@ -629,7 +626,7 @@ void loadCategoryTree();
               @click="handleRollback(row)"
             >回滚</YdButton>
           </template>
-        </ElTableColumn>
+        </YdTableColumn>
       </YdTable>
     </YdDrawer>
   </Page>

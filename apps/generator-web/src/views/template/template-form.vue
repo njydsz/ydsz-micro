@@ -18,14 +18,7 @@
  */
 import { ref, watch } from 'vue';
 
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
-import {
-  YdDialog,
-  YdDialogContent,
-  YdDialogFooter,
-  YdDialogHeader,
-  YdDialogTitle,
-} from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 
 import type { GenTemplate } from '#/api/models';
 

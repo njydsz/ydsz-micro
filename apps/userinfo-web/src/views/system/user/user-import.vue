@@ -15,9 +15,8 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdUpload } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdUpload, YdProgress } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { YdProgress } from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

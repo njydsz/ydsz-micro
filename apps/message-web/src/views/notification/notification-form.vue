@@ -20,10 +20,9 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
-import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { send } from '#/api/notification';
 
 const emit = defineEmits<{ success: [] }>();

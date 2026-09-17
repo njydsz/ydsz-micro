@@ -17,9 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdEmptyState, YdInput, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdCard, YdEmptyState, YdInput, YdNumberFieldInput, YdTable, YdTableColumn, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { analyze, getOverview, statsByType, topLargeFiles } from '#/api/analysis';
@@ -154,9 +152,9 @@ onMounted(loadAll);
         <span class="font-medium">按类型统计</span>
       </template>
       <YdTable v-if="typeStatsList.length" :data="typeStatsList" border size="small">
-        <ElTableColumn prop="type" label="文件类型" min-width="120" />
-        <ElTableColumn prop="count" label="数量" width="120" />
-        <ElTableColumn prop="sizeLabel" label="占用空间" width="140" />
+        <YdTableColumn prop="type" label="文件类型" min-width="120" />
+        <YdTableColumn prop="count" label="数量" width="120" />
+        <YdTableColumn prop="sizeLabel" label="占用空间" width="140" />
       </YdTable>
       <YdEmptyState v-else description="暂无类型统计数据" :image-size="60" />
     </YdCard>
@@ -178,13 +176,13 @@ onMounted(loadAll);
           </div>
         </template>
         <YdTable v-if="largeFiles.length" :data="largeFiles" border size="small" max-height="380">
-          <ElTableColumn prop="name" label="文件名" min-width="160" show-overflow-tooltip />
-          <ElTableColumn label="大小" width="100">
+          <YdTableColumn prop="name" label="文件名" min-width="160" show-overflow-tooltip />
+          <YdTableColumn label="大小" width="100">
             <template #default="{ row }">
               {{ formatSize(row.size ?? 0) }}
             </template>
-          </ElTableColumn>
-          <ElTableColumn prop="suffix" label="扩展名" width="80" />
+          </YdTableColumn>
+          <YdTableColumn prop="suffix" label="扩展名" width="80" />
         </YdTable>
         <YdEmptyState v-else description="暂无大文件数据" :image-size="60" />
       </YdCard>

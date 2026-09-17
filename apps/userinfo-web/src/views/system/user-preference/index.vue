@@ -17,9 +17,8 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdSwitch, type FormInstance } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdSwitch, type FormInstance } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { get, reset, save } from '#/api/userPreference';

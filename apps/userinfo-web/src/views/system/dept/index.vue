@@ -18,9 +18,7 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -111,25 +109,25 @@ async function handleDelete(row: DepartmentTreeVO) {
         </div>
       </div>
       <YdTable
-        v-loading="loading"
+        loading="loading"
         :data="tableData"
         row-key="id"
         border
         default-expand-all
         :tree-props="{ children: 'children' }"
       >
-        <ElTableColumn prop="deptName" :label="t('page.deptName')" min-width="200" />
-        <ElTableColumn prop="deptCode" :label="t('dept.deptCode')" width="140" />
-        <ElTableColumn prop="description" :label="t('page.description')" min-width="180" />
-        <ElTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
-        <ElTableColumn :label="t('page.status')" width="80" align="center">
+        <YdTableColumn prop="deptName" :label="t('page.deptName')" min-width="200" />
+        <YdTableColumn prop="deptCode" :label="t('dept.deptCode')" width="140" />
+        <YdTableColumn prop="description" :label="t('page.description')" min-width="180" />
+        <YdTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
+        <YdTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
             <YdBadge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : ''" class="text-xs">
               {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn :label="t('page.operation')" width="240" fixed="right">
+        </YdTableColumn>
+        <YdTableColumn :label="t('page.operation')" width="240" fixed="right">
           <template #default="{ row }">
             <YdButtonBase size="sm" variant="link" @click="handleAdd(row.id)">
               {{ t('dept.addSubDept') }}
@@ -141,7 +139,7 @@ async function handleDelete(row: DepartmentTreeVO) {
               {{ t('page.delete') }}
             </YdButtonBase>
           </template>
-        </ElTableColumn>
+        </YdTableColumn>
       </YdTable>
     </div>
     <DeptFormModal @success="loadData" />

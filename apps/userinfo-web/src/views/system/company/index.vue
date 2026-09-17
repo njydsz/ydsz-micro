@@ -20,8 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdTree } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdTree } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

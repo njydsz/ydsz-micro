@@ -22,10 +22,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, reactive, ref } from 'vue';
 
 import { assignBucket, createExperiment } from '#/api/canary';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'CanaryManagement' });
 
@@ -233,28 +230,28 @@ onMounted(() => {
       <!-- 实验列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <YdTable v-loading="loading" :data="experimentList" stripe border style="width: 100%">
-            <ElTableColumn type="index" label="序号" width="60" align="center" />
-            <ElTableColumn prop="name" label="实验名称" min-width="160" />
-            <ElTableColumn prop="channel" label="通道" width="120">
+          <YdTable loading="loading" :data="experimentList" stripe border style="width: 100%">
+            <YdTableColumn type="index" label="序号" width="60" align="center" />
+            <YdTableColumn prop="name" label="实验名称" min-width="160" />
+            <YdTableColumn prop="channel" label="通道" width="120">
               <template #default="{ row }">
                 <YdBadge variant="secondary">{{ row.channel }}</YdBadge>
               </template>
-            </ElTableColumn>
-            <ElTableColumn label="状态" width="100" align="center">
+            </YdTableColumn>
+            <YdTableColumn label="状态" width="100" align="center">
               <template #default="{ row }">
                 <YdBadge :variant="getStatusVariant(row.status)">
                   {{ getStatusLabel(row.status) }}
                 </YdBadge>
               </template>
-            </ElTableColumn>
-            <ElTableColumn label="灰度流量" width="120" align="center">
+            </YdTableColumn>
+            <YdTableColumn label="灰度流量" width="120" align="center">
               <template #default="{ row }">
                 <span class="font-mono text-blue-600">{{ row.trafficPercentage }}%</span>
               </template>
-            </ElTableColumn>
-            <ElTableColumn prop="createdAt" label="创建时间" width="180" />
-            <ElTableColumn label="操作" width="260" fixed="right" align="center">
+            </YdTableColumn>
+            <YdTableColumn prop="createdAt" label="创建时间" width="180" />
+            <YdTableColumn label="操作" width="260" fixed="right" align="center">
               <template #default="{ row }">
                 <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">
                   编辑
@@ -272,7 +269,7 @@ onMounted(() => {
                   停止
                 </YdButtonBase>
               </template>
-            </ElTableColumn>
+            </YdTableColumn>
           </YdTable>
 
           <!-- 空状态提示 -->

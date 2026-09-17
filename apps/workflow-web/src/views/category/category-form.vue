@@ -16,8 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdCascader, YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
-import { YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdCascader, YdForm, YdFormItem, YdNumberFieldInput, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { create, tree, update } from '#/api/flowCategory';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from '#/api/models';

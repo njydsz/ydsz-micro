@@ -18,14 +18,7 @@
  */
 import { computed, ref, watch } from 'vue';
 
-import { YdBadge } from '@ydsz-core/ydsz-ui';
-import {
-  YdDialog,
-  YdDialogContent,
-  YdDialogHeader,
-  YdDialogTitle,
-} from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
 import { AlertTriangle as Warning } from 'lucide-vue-next';
 
 import type { CodePreviewVO } from '#/api/models';

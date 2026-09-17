@@ -17,11 +17,10 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdButtonBase, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdButtonBase, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { submitBatch } from '#/api/batch';
 import type { BatchSendRequestDTO, MsgBatchVO } from '#/api/models';
 

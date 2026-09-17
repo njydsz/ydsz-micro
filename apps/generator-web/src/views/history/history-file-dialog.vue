@@ -18,15 +18,8 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { YdBadge } from '@ydsz-core/ydsz-ui';
-import {
-  YdDialog,
-  YdDialogContent,
-  YdDialogHeader,
-  YdDialogTitle,
-} from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus'; // FIXME-P3-EP-EXIT;
+import { YdBadge, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+// FIXME-P3-EP-EXIT;
 
 import { listHistoryFiles } from '#/api/history';
 import type { GenHistoryFile } from '#/api/models';
@@ -112,17 +105,17 @@ onMounted(() => {
       <div class="mb-2 text-sm text-gray-500">
         任务 #{{ historyId }} 共 {{ files.length }} 个文件
       </div>
-      <YdTable v-loading="loading" :data="files" stripe max-height="400">
-        <ElTableColumn type="index" label="#" width="50" />
-        <ElTableColumn prop="filePath" label="文件路径" min-width="300" show-overflow-tooltip />
-        <ElTableColumn label="操作" width="100">
+      <YdTable loading="loading" :data="files" stripe max-height="400">
+        <YdTableColumn type="index" label="#" width="50" />
+        <YdTableColumn prop="filePath" label="文件路径" min-width="300" show-overflow-tooltip />
+        <YdTableColumn label="操作" width="100">
           <template #default="{ row }">
             <YdBadge :variant="getActionBadgeVariant(row.action ?? '')">
               {{ getActionText(row.action ?? '') }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="originalBackupPath" label="备份路径" min-width="200" show-overflow-tooltip />
+        </YdTableColumn>
+        <YdTableColumn prop="originalBackupPath" label="备份路径" min-width="200" show-overflow-tooltip />
       </YdTable>
     </YdDialogContent>
   </YdDialog>

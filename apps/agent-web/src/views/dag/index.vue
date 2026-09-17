@@ -16,9 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdTabsContent, YdTabs, YdDescriptions, YdDescriptionsItem, YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';
 import type { DagCheckpoint } from '#/api/models';

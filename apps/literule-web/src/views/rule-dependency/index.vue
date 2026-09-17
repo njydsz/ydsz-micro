@@ -19,9 +19,7 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdAlertBanner, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdAlertBanner, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdTabsContent, YdTabs, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -218,7 +216,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class="p-4">
+    <div loading="loading" class="p-4">
       <!-- 搜索区 -->
       <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between">
@@ -265,32 +263,32 @@ onMounted(() => {
               stripe
               border
             >
-              <ElTableColumn type="index" label="#" width="50" />
-              <ElTableColumn label="规则编码" min-width="140">
+              <YdTableColumn type="index" label="#" width="50" />
+              <YdTableColumn label="规则编码" min-width="140">
                 <template #default="{ row }">
                   <span>{{ row.ruleCode ?? '-' }}</span>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="依赖类型" width="120" align="center">
+              </YdTableColumn>
+              <YdTableColumn label="依赖类型" width="120" align="center">
                 <template #default="{ row }">
                   <YdBadge :type="dependencyTypeTagType(row.dependencyType)">
                     {{ dependencyTypeLabel(row.dependencyType) }}
                   </YdBadge>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="级联禁用" width="100" align="center">
+              </YdTableColumn>
+              <YdTableColumn label="级联禁用" width="100" align="center">
                 <template #default="{ row }">
                   <span :class="row.cascadeOnDisable ? 'text-red-500 font-medium' : 'text-gray-400'">
                     {{ row.cascadeOnDisable ? '是' : '否' }}
                   </span>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="描述" min-width="160" show-overflow-tooltip>
+              </YdTableColumn>
+              <YdTableColumn label="描述" min-width="160" show-overflow-tooltip>
                 <template #default="{ row }">
                   <span class="text-gray-600">{{ row.description ?? '-' }}</span>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="操作" width="180" fixed="right" align="center">
+              </YdTableColumn>
+              <YdTableColumn label="操作" width="180" fixed="right" align="center">
                 <template #default="{ row }">
                   <YdButton
                     link
@@ -309,7 +307,7 @@ onMounted(() => {
                     级联预览
                   </YdButton>
                 </template>
-              </ElTableColumn>
+              </YdTableColumn>
             </YdTable>
             <YdEmptyState v-else description="暂无依赖此规则的记录" image-size="100" />
           </YdTabsContent>
@@ -321,32 +319,32 @@ onMounted(() => {
               stripe
               border
             >
-              <ElTableColumn type="index" label="#" width="50" />
-              <ElTableColumn label="被依赖规则编码" min-width="160">
+              <YdTableColumn type="index" label="#" width="50" />
+              <YdTableColumn label="被依赖规则编码" min-width="160">
                 <template #default="{ row }">
                   <span>{{ row.dependsOnRuleCode ?? '-' }}</span>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="依赖类型" width="120" align="center">
+              </YdTableColumn>
+              <YdTableColumn label="依赖类型" width="120" align="center">
                 <template #default="{ row }">
                   <YdBadge :type="dependencyTypeTagType(row.dependencyType)">
                     {{ dependencyTypeLabel(row.dependencyType) }}
                   </YdBadge>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="级联禁用" width="100" align="center">
+              </YdTableColumn>
+              <YdTableColumn label="级联禁用" width="100" align="center">
                 <template #default="{ row }">
                   <span :class="row.cascadeOnDisable ? 'text-red-500 font-medium' : 'text-gray-400'">
                     {{ row.cascadeOnDisable ? '是' : '否' }}
                   </span>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="描述" min-width="160" show-overflow-tooltip>
+              </YdTableColumn>
+              <YdTableColumn label="描述" min-width="160" show-overflow-tooltip>
                 <template #default="{ row }">
                   <span class="text-gray-600">{{ row.description ?? '-' }}</span>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="操作" width="180" fixed="right" align="center">
+              </YdTableColumn>
+              <YdTableColumn label="操作" width="180" fixed="right" align="center">
                 <template #default="{ row }">
                   <YdButton
                     link
@@ -365,7 +363,7 @@ onMounted(() => {
                     级联预览
                   </YdButton>
                 </template>
-              </ElTableColumn>
+              </YdTableColumn>
             </YdTable>
             <YdEmptyState v-else description="暂无此规则依赖的记录" image-size="100" />
           </YdTabsContent>

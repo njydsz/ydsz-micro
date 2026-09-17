@@ -18,8 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdTabsContent, YdTabs, YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';

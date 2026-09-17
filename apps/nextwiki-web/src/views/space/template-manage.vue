@@ -18,10 +18,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdTable, YdTableColumn, YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import type { SpaceTemplateDTO } from '#/api/models';
@@ -163,22 +160,22 @@ onMounted(() => {
     </div>
 
     <YdTable :data="templateList" :loading="listLoading" border stripe>
-      <ElTableColumn prop="name" label="模板名称" min-width="160" />
-      <ElTableColumn prop="description" label="描述" min-width="200" show-overflow-tooltip />
-      <ElTableColumn prop="category" label="分类" width="120">
+      <YdTableColumn prop="name" label="模板名称" min-width="160" />
+      <YdTableColumn prop="description" label="描述" min-width="200" show-overflow-tooltip />
+      <YdTableColumn prop="category" label="分类" width="120">
         <template #default="{ row }">
           <YdBadge v-if="row.category" variant="secondary">{{ row.category }}</YdBadge>
           <span v-else class="text-muted-foreground">-</span>
         </template>
-      </ElTableColumn>
-      <ElTableColumn prop="isSystem" label="类型" width="100">
+      </YdTableColumn>
+      <YdTableColumn prop="isSystem" label="类型" width="100">
         <template #default="{ row }">
           <YdBadge :variant="row.isSystem ? 'default' : 'outline'">
             {{ row.isSystem ? '系统' : '自定义' }}
           </YdBadge>
         </template>
-      </ElTableColumn>
-      <ElTableColumn label="操作" width="160" fixed="right">
+      </YdTableColumn>
+      <YdTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
           <YdButtonBase variant="link" size="sm" @click="handleEdit(row)">编辑</YdButtonBase>
           <YdButtonBase
@@ -191,7 +188,7 @@ onMounted(() => {
             删除
           </YdButtonBase>
         </template>
-      </ElTableColumn>
+      </YdTableColumn>
     </YdTable>
 
     <!-- 编辑弹窗 -->

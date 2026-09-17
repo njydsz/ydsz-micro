@@ -19,6 +19,8 @@
  * @since 4.0.0
  */
 
+export {};
+
 chrome.devtools.panels.create('Micro Kernel', '', 'devtools/panel.html', (panel) => {
   console.log('[YDSZ] Micro Kernel panel created');
 

@@ -20,8 +20,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

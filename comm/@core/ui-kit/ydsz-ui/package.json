@@ -147,6 +147,286 @@
       "types": "./src/primitives/tree/index.ts",
       "default": "./src/primitives/tree/index.ts"
     },
+    "./primitives/accordion": {
+      "types": "./src/primitives/accordion/index.ts",
+      "default": "./src/primitives/accordion/index.ts"
+    },
+    "./primitives/affix": {
+      "types": "./src/primitives/affix/index.ts",
+      "default": "./src/primitives/affix/index.ts"
+    },
+    "./primitives/alert": {
+      "types": "./src/primitives/alert/index.ts",
+      "default": "./src/primitives/alert/index.ts"
+    },
+    "./primitives/anchor": {
+      "types": "./src/primitives/anchor/index.ts",
+      "default": "./src/primitives/anchor/index.ts"
+    },
+    "./primitives/auto-complete": {
+      "types": "./src/primitives/auto-complete/index.ts",
+      "default": "./src/primitives/auto-complete/index.ts"
+    },
+    "./primitives/avatar-group": {
+      "types": "./src/primitives/avatar-group/index.ts",
+      "default": "./src/primitives/avatar-group/index.ts"
+    },
+    "./primitives/back-top": {
+      "types": "./src/primitives/back-top/index.ts",
+      "default": "./src/primitives/back-top/index.ts"
+    },
+    "./primitives/breadcrumb": {
+      "types": "./src/primitives/breadcrumb/index.ts",
+      "default": "./src/primitives/breadcrumb/index.ts"
+    },
+    "./primitives/bulk-actions": {
+      "types": "./src/primitives/bulk-actions/index.ts",
+      "default": "./src/primitives/bulk-actions/index.ts"
+    },
+    "./primitives/calendar": {
+      "types": "./src/primitives/calendar/index.ts",
+      "default": "./src/primitives/calendar/index.ts"
+    },
+    "./primitives/card-list": {
+      "types": "./src/primitives/card-list/index.ts",
+      "default": "./src/primitives/card-list/index.ts"
+    },
+    "./primitives/carousel": {
+      "types": "./src/primitives/carousel/index.ts",
+      "default": "./src/primitives/carousel/index.ts"
+    },
+    "./primitives/cascader": {
+      "types": "./src/primitives/cascader/index.ts",
+      "default": "./src/primitives/cascader/index.ts"
+    },
+    "./primitives/collapse": {
+      "types": "./src/primitives/collapse/index.ts",
+      "default": "./src/primitives/collapse/index.ts"
+    },
+    "./primitives/color-picker": {
+      "types": "./src/primitives/color-picker/index.ts",
+      "default": "./src/primitives/color-picker/index.ts"
+    },
+    "./primitives/config-provider": {
+      "types": "./src/primitives/config-provider/index.ts",
+      "default": "./src/primitives/config-provider/index.ts"
+    },
+    "./primitives/count-tag": {
+      "types": "./src/primitives/count-tag/index.ts",
+      "default": "./src/primitives/count-tag/index.ts"
+    },
+    "./primitives/countdown": {
+      "types": "./src/primitives/countdown/index.ts",
+      "default": "./src/primitives/countdown/index.ts"
+    },
+    "./primitives/descriptions": {
+      "types": "./src/primitives/descriptions/index.ts",
+      "default": "./src/primitives/descriptions/index.ts"
+    },
+    "./primitives/divider": {
+      "types": "./src/primitives/divider/index.ts",
+      "default": "./src/primitives/divider/index.ts"
+    },
+    "./primitives/dropdown": {
+      "types": "./src/primitives/dropdown/index.ts",
+      "default": "./src/primitives/dropdown/index.ts"
+    },
+    "./primitives/empty": {
+      "types": "./src/primitives/empty/index.ts",
+      "default": "./src/primitives/empty/index.ts"
+    },
+    "./primitives/float-button": {
+      "types": "./src/primitives/float-button/index.ts",
+      "default": "./src/primitives/float-button/index.ts"
+    },
+    "./primitives/form": {
+      "types": "./src/primitives/form/index.ts",
+      "default": "./src/primitives/form/index.ts"
+    },
+    "./primitives/hover-card": {
+      "types": "./src/primitives/hover-card/index.ts",
+      "default": "./src/primitives/hover-card/index.ts"
+    },
+    "./primitives/icon-picker": {
+      "types": "./src/primitives/icon-picker/index.ts",
+      "default": "./src/primitives/icon-picker/index.ts"
+    },
+    "./primitives/image": {
+      "types": "./src/primitives/image/index.ts",
+      "default": "./src/primitives/image/index.ts"
+    },
+    "./primitives/input": {
+      "types": "./src/primitives/input/index.ts",
+      "default": "./src/primitives/input/index.ts"
+    },
+    "./primitives/input-number": {
+      "types": "./src/primitives/input-number/index.ts",
+      "default": "./src/primitives/input-number/index.ts"
+    },
+    "./primitives/link": {
+      "types": "./src/primitives/link/index.ts",
+      "default": "./src/primitives/link/index.ts"
+    },
+    "./primitives/list": {
+      "types": "./src/primitives/list/index.ts",
+      "default": "./src/primitives/list/index.ts"
+    },
+    "./primitives/mention": {
+      "types": "./src/primitives/mention/index.ts",
+      "default": "./src/primitives/mention/index.ts"
+    },
+    "./primitives/message": {
+      "types": "./src/primitives/message/index.ts",
+      "default": "./src/primitives/message/index.ts"
+    },
+    "./primitives/notification": {
+      "types": "./src/primitives/notification/index.ts",
+      "default": "./src/primitives/notification/index.ts"
+    },
+    "./primitives/page-header": {
+      "types": "./src/primitives/page-header/index.ts",
+      "default": "./src/primitives/page-header/index.ts"
+    },
+    "./primitives/pagination": {
+      "types": "./src/primitives/pagination/index.ts",
+      "default": "./src/primitives/pagination/index.ts"
+    },
+    "./primitives/pin-input": {
+      "types": "./src/primitives/pin-input/index.ts",
+      "default": "./src/primitives/pin-input/index.ts"
+    },
+    "./primitives/popconfirm": {
+      "types": "./src/primitives/popconfirm/index.ts",
+      "default": "./src/primitives/popconfirm/index.ts"
+    },
+    "./primitives/popover": {
+      "types": "./src/primitives/popover/index.ts",
+      "default": "./src/primitives/popover/index.ts"
+    },
+    "./primitives/progress": {
+      "types": "./src/primitives/progress/index.ts",
+      "default": "./src/primitives/progress/index.ts"
+    },
+    "./primitives/qr-code": {
+      "types": "./src/primitives/qr-code/index.ts",
+      "default": "./src/primitives/qr-code/index.ts"
+    },
+    "./primitives/rate": {
+      "types": "./src/primitives/rate/index.ts",
+      "default": "./src/primitives/rate/index.ts"
+    },
+    "./primitives/resizable": {
+      "types": "./src/primitives/resizable/index.ts",
+      "default": "./src/primitives/resizable/index.ts"
+    },
+    "./primitives/result": {
+      "types": "./src/primitives/result/index.ts",
+      "default": "./src/primitives/result/index.ts"
+    },
+    "./primitives/scroll-area": {
+      "types": "./src/primitives/scroll-area/index.ts",
+      "default": "./src/primitives/scroll-area/index.ts"
+    },
+    "./primitives/segmented": {
+      "types": "./src/primitives/segmented/index.ts",
+      "default": "./src/primitives/segmented/index.ts"
+    },
+    "./primitives/select": {
+      "types": "./src/primitives/select/index.ts",
+      "default": "./src/primitives/select/index.ts"
+    },
+    "./primitives/separator": {
+      "types": "./src/primitives/separator/index.ts",
+      "default": "./src/primitives/separator/index.ts"
+    },
+    "./primitives/sheet": {
+      "types": "./src/primitives/sheet/index.ts",
+      "default": "./src/primitives/sheet/index.ts"
+    },
+    "./primitives/skeleton": {
+      "types": "./src/primitives/skeleton/index.ts",
+      "default": "./src/primitives/skeleton/index.ts"
+    },
+    "./primitives/slider": {
+      "types": "./src/primitives/slider/index.ts",
+      "default": "./src/primitives/slider/index.ts"
+    },
+    "./primitives/space": {
+      "types": "./src/primitives/space/index.ts",
+      "default": "./src/primitives/space/index.ts"
+    },
+    "./primitives/spin": {
+      "types": "./src/primitives/spin/index.ts",
+      "default": "./src/primitives/spin/index.ts"
+    },
+    "./primitives/splitter": {
+      "types": "./src/primitives/splitter/index.ts",
+      "default": "./src/primitives/splitter/index.ts"
+    },
+    "./primitives/statistic": {
+      "types": "./src/primitives/statistic/index.ts",
+      "default": "./src/primitives/statistic/index.ts"
+    },
+    "./primitives/steps": {
+      "types": "./src/primitives/steps/index.ts",
+      "default": "./src/primitives/steps/index.ts"
+    },
+    "./primitives/switch": {
+      "types": "./src/primitives/switch/index.ts",
+      "default": "./src/primitives/switch/index.ts"
+    },
+    "./primitives/tag": {
+      "types": "./src/primitives/tag/index.ts",
+      "default": "./src/primitives/tag/index.ts"
+    },
+    "./primitives/textarea": {
+      "types": "./src/primitives/textarea/index.ts",
+      "default": "./src/primitives/textarea/index.ts"
+    },
+    "./primitives/time-picker": {
+      "types": "./src/primitives/time-picker/index.ts",
+      "default": "./src/primitives/time-picker/index.ts"
+    },
+    "./primitives/timeline": {
+      "types": "./src/primitives/timeline/index.ts",
+      "default": "./src/primitives/timeline/index.ts"
+    },
+    "./primitives/toggle": {
+      "types": "./src/primitives/toggle/index.ts",
+      "default": "./src/primitives/toggle/index.ts"
+    },
+    "./primitives/toolbar": {
+      "types": "./src/primitives/toolbar/index.ts",
+      "default": "./src/primitives/toolbar/index.ts"
+    },
+    "./primitives/tooltip": {
+      "types": "./src/primitives/tooltip/index.ts",
+      "default": "./src/primitives/tooltip/index.ts"
+    },
+    "./primitives/tour": {
+      "types": "./src/primitives/tour/index.ts",
+      "default": "./src/primitives/tour/index.ts"
+    },
+    "./primitives/transfer": {
+      "types": "./src/primitives/transfer/index.ts",
+      "default": "./src/primitives/transfer/index.ts"
+    },
+    "./primitives/tree-select": {
+      "types": "./src/primitives/tree-select/index.ts",
+      "default": "./src/primitives/tree-select/index.ts"
+    },
+    "./primitives/typography": {
+      "types": "./src/primitives/typography/index.ts",
+      "default": "./src/primitives/typography/index.ts"
+    },
+    "./primitives/upload": {
+      "types": "./src/primitives/upload/index.ts",
+      "default": "./src/primitives/upload/index.ts"
+    },
+    "./primitives/watermark": {
+      "types": "./src/primitives/watermark/index.ts",
+      "default": "./src/primitives/watermark/index.ts"
+    },
     "./composables": {
       "types": "./src/composables/index.ts",
       "default": "./src/composables/index.ts"

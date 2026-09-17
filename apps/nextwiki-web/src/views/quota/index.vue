@@ -17,9 +17,7 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdProgress } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdProgress, YdDescriptions, YdDescriptionsItem, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { getQuota } from '#/api/quota';

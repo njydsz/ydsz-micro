@@ -19,9 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-import { YdProgress } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

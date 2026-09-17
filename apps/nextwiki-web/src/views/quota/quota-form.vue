@@ -14,8 +14,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
-import { YdInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdNumberFieldInput, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { setQuota } from '#/api/quota';
 

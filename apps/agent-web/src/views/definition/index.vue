@@ -19,9 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 
-import { YdDrawer } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdDrawer, YdDescriptions, YdDescriptionsItem, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';

@@ -17,10 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdDialog } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
-import { YdButtonBase, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdDialog, YdTable, YdTableColumn, YdButtonBase, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -141,10 +138,10 @@ async function loadRecommendedTags() {
         <YdButtonBase variant="outline" @click="loadRecommendedTags">推荐标签</YdButtonBase>
       </div>
       <YdTable :data="fileTags" border size="small" empty-text="该文件暂无标签">
-        <ElTableColumn prop="id" label="标签ID" min-width="160" />
-        <ElTableColumn prop="name" label="标签名称" min-width="140" />
-        <ElTableColumn prop="color" label="颜色" width="90" />
-        <ElTableColumn prop="usageCount" label="使用次数" width="100" />
+        <YdTableColumn prop="id" label="标签ID" min-width="160" />
+        <YdTableColumn prop="name" label="标签名称" min-width="140" />
+        <YdTableColumn prop="color" label="颜色" width="90" />
+        <YdTableColumn prop="usageCount" label="使用次数" width="100" />
       </YdTable>
       <template v-if="recommendTagList.length > 0">
         <div class="mt-3 mb-1 text-sm font-medium text-gray-600">推荐标签</div>

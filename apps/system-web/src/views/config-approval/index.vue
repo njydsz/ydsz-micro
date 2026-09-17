@@ -20,9 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

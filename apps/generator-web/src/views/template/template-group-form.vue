@@ -16,16 +16,7 @@
  */
 import { reactive, ref } from 'vue';
 
-import {
-  YdButtonBase,
-  YdDialog,
-  YdDialogContent,
-  YdDialogFooter,
-  YdDialogHeader,
-  YdDialogTitle,
-  YdInput,
-} from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'TemplateGroupForm' });
 

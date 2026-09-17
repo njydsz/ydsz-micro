@@ -16,8 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdText } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdForm, YdFormItem, YdSpace, YdText } from '@ydsz-core/ydsz-ui';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 

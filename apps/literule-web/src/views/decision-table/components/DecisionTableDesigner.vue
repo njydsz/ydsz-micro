@@ -17,9 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
 import type { DecisionTableVO } from '#/api/models';
 import {
@@ -280,7 +278,7 @@ defineExpose({ open, close });
     :show-close="true"
     @close="close"
   >
-    <div v-loading="loading" class="designer-container">
+    <div loading="loading" class="designer-container">
       <!-- 基本信息 -->
       <YdForm label-width="100px" class="mb-4">
         <div class="grid grid-cols-2 gap-4">
@@ -331,10 +329,10 @@ defineExpose({ open, close });
 
         <div class="overflow-auto">
           <YdTable :data="ruleRows" border size="small" style="width: 100%">
-            <ElTableColumn type="index" label="#" width="50" />
+            <YdTableColumn type="index" label="#" width="50" />
 
             <!-- 条件列 -->
-            <ElTableColumn
+            <YdTableColumn
               v-for="(col, colIndex) in conditionColumns"
               :key="`cond_${col.colCode as string}`"
               min-width="150"
@@ -367,10 +365,10 @@ defineExpose({ open, close });
                   placeholder="输入条件值"
                 />
               </template>
-            </ElTableColumn>
+            </YdTableColumn>
 
             <!-- 动作列 -->
-            <ElTableColumn
+            <YdTableColumn
               v-for="(col, colIndex) in actionColumns"
               :key="`act_${col.colCode as string}`"
               min-width="150"
@@ -401,16 +399,16 @@ defineExpose({ open, close });
                   placeholder="输入动作值"
                 />
               </template>
-            </ElTableColumn>
+            </YdTableColumn>
 
             <!-- 操作列 -->
-            <ElTableColumn label="操作" width="80" fixed="right">
+            <YdTableColumn label="操作" width="80" fixed="right">
               <template #default="{ $index }">
                 <YdButton size="small" type="danger" link @click="deleteRuleRow($index)">
                   删除
                 </YdButton>
               </template>
-            </ElTableColumn>
+            </YdTableColumn>
           </YdTable>
         </div>
       </div>
@@ -435,7 +433,7 @@ defineExpose({ open, close });
           />
         </YdFormItem>
       </YdForm>
-      <div v-loading="evaluating" class="mt-4">
+      <div loading="evaluating" class="mt-4">
         <p class="mb-2 text-sm font-medium">评估结果：</p>
         <div v-if="evaluateResults.length === 0" class="py-4 text-center text-gray-400">
           暂无结果

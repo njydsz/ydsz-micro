@@ -19,9 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdIcon, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdEmptyState, YdIcon, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

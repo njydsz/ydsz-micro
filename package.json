@@ -27,6 +27,8 @@
     "build:nextwiki": "pnpm run build --filter=@ydsz/nextwiki-web",
     "build:literule": "pnpm run build --filter=@ydsz/literule-web",
     "build:agent": "pnpm run build --filter=@ydsz/agent-web",
+    "build:chrome": "node --experimental-strip-types ./chrome/build.mjs",
+    "type-check:chrome": "node --experimental-strip-types ./node_modules/typescript/bin/tsc -p chrome/tsconfig.json --noEmit",
     "changeset": "changeset",
     "changeset:publish": "changeset publish",
     "changeset:version": "changeset version",

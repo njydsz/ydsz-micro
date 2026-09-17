@@ -19,9 +19,7 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdCard, YdEmptyState, YdProgress, YdCountToAnimator, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdButton, YdCard, YdEmptyState, YdProgress, YdCountToAnimator, YdTable, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -109,7 +107,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class="p-4">
+    <div loading="loading" class="p-4">
       <!-- 顶部统计区 -->
       <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between mb-4">
@@ -150,33 +148,33 @@ onMounted(() => {
       <!-- 冲突列表 -->
       <YdCard shadow="never">
         <YdTable v-if="conflictList.length > 0" :data="conflictList" stripe border>
-          <ElTableColumn type="index" label="#" width="50" />
-          <ElTableColumn label="规则 A" min-width="160">
+          <YdTableColumn type="index" label="#" width="50" />
+          <YdTableColumn label="规则 A" min-width="160">
             <template #default="{ row }">
               <div>{{ row.ruleA ?? '-' }}</div>
               <div class="text-xs text-gray-400">{{ row.ruleAName ?? '' }}</div>
             </template>
-          </ElTableColumn>
-          <ElTableColumn label="规则 B" min-width="160">
+          </YdTableColumn>
+          <YdTableColumn label="规则 B" min-width="160">
             <template #default="{ row }">
               <div>{{ row.ruleB ?? '-' }}</div>
               <div class="text-xs text-gray-400">{{ row.ruleBName ?? '' }}</div>
             </template>
-          </ElTableColumn>
-          <ElTableColumn label="重叠字段" min-width="180">
+          </YdTableColumn>
+          <YdTableColumn label="重叠字段" min-width="180">
             <template #default="{ row }">
               <span :class="row.overlapFields?.length ? 'text-orange-500' : 'text-gray-400'">
                 {{ formatOverlapFields(row.overlapFields) }}
               </span>
             </template>
-          </ElTableColumn>
-          <ElTableColumn label="严重度" width="100" align="center">
+          </YdTableColumn>
+          <YdTableColumn label="严重度" width="100" align="center">
             <template #default="{ row }">
               <YdBadge :type="severityTagType(row.severity)">
                 {{ severityLabel(row.severity) }}
               </YdBadge>
             </template>
-          </ElTableColumn>
+          </YdTableColumn>
         </YdTable>
 
         <YdEmptyState

@@ -21,8 +21,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdAccordion, YdAccordionItem, YdTooltip } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdAccordion, YdAccordionItem, YdTooltip, YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
 import { clearHistory, history as fetchHistory } from '#/api/agent';

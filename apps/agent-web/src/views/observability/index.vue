@@ -17,10 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdTable, YdTableColumn, YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
 
@@ -228,37 +225,37 @@ onMounted(() => {
             </div>
 
             <YdTable :data="traceList" border max-height="400">
-              <ElTableColumn prop="traceId" label="Trace ID" width="120" />
-              <ElTableColumn prop="agentName" label="Agent" width="120" />
-              <ElTableColumn prop="startTime" label="开始时间" width="170" />
-              <ElTableColumn prop="duration" label="耗时(ms)" width="100" />
-              <ElTableColumn prop="model" label="模型" width="100" />
-              <ElTableColumn prop="tokens" label="Token" width="80" />
-              <ElTableColumn label="状态" width="100">
+              <YdTableColumn prop="traceId" label="Trace ID" width="120" />
+              <YdTableColumn prop="agentName" label="Agent" width="120" />
+              <YdTableColumn prop="startTime" label="开始时间" width="170" />
+              <YdTableColumn prop="duration" label="耗时(ms)" width="100" />
+              <YdTableColumn prop="model" label="模型" width="100" />
+              <YdTableColumn prop="tokens" label="Token" width="80" />
+              <YdTableColumn label="状态" width="100">
                 <template #default="{ row }">
                   <YdBadge :variant="getStatusTagType(row.status as string)">
                     {{ row.status }}
                   </YdBadge>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn label="操作" width="100" fixed="right">
+              </YdTableColumn>
+              <YdTableColumn label="操作" width="100" fixed="right">
                 <template #default="{ row }">
                   <YdButtonBase size="sm" variant="link" @click="viewTraceDetail(row)">
                     详情
                   </YdButtonBase>
                 </template>
-              </ElTableColumn>
+              </YdTableColumn>
             </YdTable>
           </div>
 
           <!-- 模型使用 -->
           <div v-if="activeTab === 'model'" class="space-y-4">
             <YdTable :data="modelUsageData" border>
-              <ElTableColumn prop="model" label="模型" width="150" />
-              <ElTableColumn prop="requestCount" label="请求数" width="120" />
-              <ElTableColumn prop="tokenCount" label="Token 数" width="120" />
-              <ElTableColumn prop="avgLatency" label="平均延迟(ms)" width="140" />
-              <ElTableColumn prop="cost" label="费用" width="100" />
+              <YdTableColumn prop="model" label="模型" width="150" />
+              <YdTableColumn prop="requestCount" label="请求数" width="120" />
+              <YdTableColumn prop="tokenCount" label="Token 数" width="120" />
+              <YdTableColumn prop="avgLatency" label="平均延迟(ms)" width="140" />
+              <YdTableColumn prop="cost" label="费用" width="100" />
             </YdTable>
             <YdEmptyState v-if="modelUsageData.length === 0" description="暂无模型使用数据" />
           </div>

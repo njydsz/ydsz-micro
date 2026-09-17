@@ -14,8 +14,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
-import { YdInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createShare } from '#/api/share';
 

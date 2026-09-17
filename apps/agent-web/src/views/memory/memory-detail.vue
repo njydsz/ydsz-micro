@@ -15,8 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdForm, YdFormItem, YdSelectItem, YdSelect, type FormInstance } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdSelectItem, YdSelect, type FormInstance, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';

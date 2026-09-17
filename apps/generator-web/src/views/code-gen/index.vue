@@ -22,31 +22,7 @@ import { onMounted, reactive, ref, watch } from 'vue';
 
 import { useRoute } from 'vue-router';
 
-import {
-  YdBadge,
-  YdButtonBase,
-  YdCard,
-  YdCardContent,
-  YdCardHeader,
-  YdCardTitle,
-  YdDialog,
-  YdDialogContent,
-  YdInput,
-  YdRadioGroup,
-  YdRadioGroupItem,
-  YdSelectBase,
-  YdSelectContentBase,
-  YdSelectItemBase,
-  YdSelectTriggerBase,
-  YdSelectValueBase,
-  YdSheet,
-  YdSheetContent,
-  YdTabs,
-  YdTabsContent,
-  YdTabsList,
-  YdTabsTrigger,
-} from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
 import { Clock, FileText as Document } from 'lucide-vue-next';
 
 import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';

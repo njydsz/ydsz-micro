@@ -1,17 +1,15 @@
 /**
  * 数据表格组件的出口集合。
  *
- * YdTable 在语义化 <table> 基础上提供分层结构（YdTable/Header/Body/Row/Cell/HeaderCell/Caption），
- * 不含数据逻辑（排序、筛选、分页），由上层组件或 @tanstack/vue-table 驱动。
- *
- * <p>拆分粒度：
+ * <p>YdTable 支持两种模式：
  * <ul>
- *   <li>YdTable —— 外层容器，负责 overflow-auto 与 ref 转发</li>
- *   <li>YdTableHeader / YdTableBody / YdTableFooter —— 语义分组</li>
- *   <li>YdTableRow —— 行容器，支持 hover/selected 状态</li>
- *   <li>YdTableCell / YdTableHead —— 单元格，自动处理 padding/对齐/截断</li>
- *   <li>YdTableCaption —— 表格标题/摘要（无障碍 caption）</li>
+ *   <li><b>列驱动</b>：&lt;YdTable :data="..."&gt; + &lt;YdTableColumn&gt; / &lt;YdTableColumnGroup&gt;，
+ *   父级自动根据列定义渲染 thead/tbody。</li>
+ *   <li><b>语义插槽</b>：直接使用 YdTableHeader/YdTableBody/YdTableRow/YdTableCell 等子组件填充。</li>
  * </ul>
+ *
+ * <p>YdTableColumn / YdTableColumnGroup 是逻辑组件（无可见模板），
+ * 仅用于向父级 YdTable 注册列定义。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\index.ts
  * @author ydsz-team
@@ -21,9 +19,13 @@ export { default as YdTable } from './YdTable.vue';
 export { default as YdTableBody } from './YdTableBody.vue';
 export { default as YdTableCaption } from './YdTableCaption.vue';
 export { default as YdTableCell } from './YdTableCell.vue';
+export { default as YdTableColumn } from './YdTableColumn.vue';
+export { default as YdTableColumnGroup } from './YdTableColumnGroup.vue';
 export { default as YdTableEmpty } from './YdTableEmpty.vue';
 export { default as YdTableFooter } from './YdTableFooter.vue';
 export { default as YdTableHead } from './YdTableHead.vue';
 export { default as YdTableHeader } from './YdTableHeader.vue';
 export { default as YdTableRow } from './YdTableRow.vue';
-export type { ColumnDef, TableEmptyProps } from './table.types';
+export type { ColumnDef, HeaderRow } from './ColumnDef';
+export type { ColumnRegistry } from './injectionKeys';
+export { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';

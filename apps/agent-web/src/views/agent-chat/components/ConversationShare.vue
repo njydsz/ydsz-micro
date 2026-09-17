@@ -15,8 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdDatePicker, YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdDatePicker, YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
 defineOptions({ name: 'ConversationShare' });

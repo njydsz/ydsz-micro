@@ -15,8 +15,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

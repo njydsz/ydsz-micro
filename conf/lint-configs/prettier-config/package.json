@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "YDSZ Prettier 配置 - 云顶微前端编码规范",
   "type": "module",
-  "main": "./src/index.js",
+  "main": "./dist/index.mjs",
   "exports": {
-    ".": "./src/index.js"
+    ".": "./dist/index.mjs"
   },
   "files": [
+    "dist/",
     "src/"
   ],
   "scripts": {
-    "format": "prettier --check src/",
-    "format:fix": "prettier --write src/"
+    "build": "node --experimental-strip-types ./build.mjs"
   },
   "dependencies": {},
   "peerDependencies": {

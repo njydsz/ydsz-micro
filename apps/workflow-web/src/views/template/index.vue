@@ -21,19 +21,8 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/ydsz-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge, YdTable, YdTableColumn, YdButtonBase, YdDropdownMenuBase, YdDropdownMenuContentBase, YdDropdownMenuItemBase, YdDropdownMenuTriggerBase, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
-import {
-  YdButtonBase,
-  YdDropdownMenuBase,
-  YdDropdownMenuContentBase,
-  YdDropdownMenuItemBase,
-  YdDropdownMenuTriggerBase,
-  YdSheet,
-  YdSheetContent,
-} from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -567,35 +556,35 @@ void loadCardData();
         :data="versionRows"
         border
         size="small"
-        v-loading="versionsLoading"
+        loading="versionsLoading"
       >
-        <ElTableColumn
+        <YdTableColumn
           prop="version"
           :label="t('wf.version')"
           width="90"
         />
-        <ElTableColumn
+        <YdTableColumn
           prop="versionLabel"
           :label="t('wf.versionLabel')"
           width="120"
         />
-        <ElTableColumn
+        <YdTableColumn
           prop="templateName"
           :label="t('wf.templateName')"
           min-width="120"
           show-overflow-tooltip
         />
-        <ElTableColumn
+        <YdTableColumn
           prop="status"
           :label="t('wf.status')"
           width="90"
         />
-        <ElTableColumn
+        <YdTableColumn
           prop="updatedAt"
           :label="t('wf.updateTime')"
           width="170"
         />
-        <ElTableColumn
+        <YdTableColumn
           :label="t('wf.action')"
           width="90"
           fixed="right"
@@ -607,7 +596,7 @@ void loadCardData();
               @click="handleVersionDetail(row as TemplateRow)"
             >{{ t('wf.detail') }}</YdButtonBase>
           </template>
-        </ElTableColumn>
+        </YdTableColumn>
       </YdTable>
       </YdSheetContent>
     </YdSheet>

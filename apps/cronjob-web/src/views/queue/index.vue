@@ -17,9 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdEmptyState, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { getQueueStatus } from '#/api/jobQueue';

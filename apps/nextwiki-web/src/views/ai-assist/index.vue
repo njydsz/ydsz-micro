@@ -17,8 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdEmptyState, YdInput, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdCard, YdEmptyState, YdInput, YdBadge, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref } from 'vue';
 

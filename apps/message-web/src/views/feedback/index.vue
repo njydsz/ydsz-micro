@@ -23,10 +23,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import type { MsgFeedbackVO } from '#/api/models';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdRate } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTable, YdTableColumn, YdEmptyState, YdRate } from '@ydsz-core/ydsz-ui';
 import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 
 defineOptions({ name: 'FeedbackManagement' });
@@ -226,31 +223,31 @@ onMounted(() => {
       <!-- 反馈列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <YdTable v-loading="loading" :data="feedbackList" stripe border style="width: 100%">
-            <ElTableColumn type="index" label="序号" width="60" align="center" />
-            <ElTableColumn prop="userId" label="用户ID" width="140" />
-            <ElTableColumn prop="msgId" label="消息ID" width="180" />
-            <ElTableColumn label="评分" width="200" align="center">
+          <YdTable loading="loading" :data="feedbackList" stripe border style="width: 100%">
+            <YdTableColumn type="index" label="序号" width="60" align="center" />
+            <YdTableColumn prop="userId" label="用户ID" width="140" />
+            <YdTableColumn prop="msgId" label="消息ID" width="180" />
+            <YdTableColumn label="评分" width="200" align="center">
               <template #default="{ row }">
                 <YdRate :model-value="row.rating ?? 0" disabled allow-half />
               </template>
-            </ElTableColumn>
-            <ElTableColumn prop="content" label="反馈内容" min-width="200" show-overflow-tooltip />
-            <ElTableColumn label="反馈类型" width="110" align="center">
+            </YdTableColumn>
+            <YdTableColumn prop="content" label="反馈内容" min-width="200" show-overflow-tooltip />
+            <YdTableColumn label="反馈类型" width="110" align="center">
               <template #default="{ row }">
                 <YdBadge v-if="row.feedbackType" variant="secondary">{{ row.feedbackType }}</YdBadge>
                 <span v-else>-</span>
               </template>
-            </ElTableColumn>
-            <ElTableColumn label="状态" width="100" align="center">
+            </YdTableColumn>
+            <YdTableColumn label="状态" width="100" align="center">
               <template #default="{ row }">
                 <YdBadge :variant="getStatusVariant(row.status)">
                   {{ getStatusLabel(row.status) }}
                 </YdBadge>
               </template>
-            </ElTableColumn>
-            <ElTableColumn prop="createdAt" label="创建时间" width="170" />
-            <ElTableColumn label="操作" width="160" fixed="right" align="center">
+            </YdTableColumn>
+            <YdTableColumn prop="createdAt" label="创建时间" width="170" />
+            <YdTableColumn label="操作" width="160" fixed="right" align="center">
               <template #default="{ row }">
                 <YdButtonBase size="sm" variant="link" @click="handleViewDetail(row)">
                   查看详情
@@ -259,7 +256,7 @@ onMounted(() => {
                   隐藏
                 </YdButtonBase>
               </template>
-            </ElTableColumn>
+            </YdTableColumn>
             <template #empty>
               <YdEmptyState description="暂无反馈数据" />
             </template>

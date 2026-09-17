@@ -18,9 +18,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSpace, YdCountToAnimator, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSpace, YdCountToAnimator, YdTable, YdTabsContent, YdTabs, YdBadge, YdTableColumn, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import {
   approvedUsers,
@@ -377,11 +375,11 @@ async function handleSendMonthly() {
               </div>
             </template>
             <YdTable :data="mergeableList" stripe border max-height="400">
-              <ElTableColumn prop="mergeGroupId" label="合并组 ID" width="180" />
-              <ElTableColumn prop="flowName" label="流程名称" width="160" />
-              <ElTableColumn prop="count" label="实例数量" width="100" />
-              <ElTableColumn prop="createTime" label="创建时间" width="170" />
-              <ElTableColumn label="操作" width="220" fixed="right">
+              <YdTableColumn prop="mergeGroupId" label="合并组 ID" width="180" />
+              <YdTableColumn prop="flowName" label="流程名称" width="160" />
+              <YdTableColumn prop="count" label="实例数量" width="100" />
+              <YdTableColumn prop="createTime" label="创建时间" width="170" />
+              <YdTableColumn label="操作" width="220" fixed="right">
                 <template #default="{ row }">
                   <YdSpace :size="4">
                     <YdButton size="small" link type="primary" @click="handleViewMergeGroup(row)">
@@ -395,7 +393,7 @@ async function handleSendMonthly() {
                     </YdButton>
                   </YdSpace>
                 </template>
-              </ElTableColumn>
+              </YdTableColumn>
             </YdTable>
             <div class="mt-3">
               <YdInput

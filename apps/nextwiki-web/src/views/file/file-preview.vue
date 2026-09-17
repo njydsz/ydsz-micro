@@ -14,8 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdSkeleton } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdSkeleton, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
 import { createLogger } from '@ydsz-core/shared/utils';

@@ -17,8 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { YdForm, YdFormItem, YdProgress, YdUpload } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdProgress, YdUpload, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';

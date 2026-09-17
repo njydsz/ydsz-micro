@@ -21,10 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 

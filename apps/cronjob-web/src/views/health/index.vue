@@ -17,9 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { getHealth } from '#/api/healthDashboard';

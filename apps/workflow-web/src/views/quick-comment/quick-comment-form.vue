@@ -16,8 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
-import { YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdNumberFieldInput, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { createQuickComment, updateQuickComment } from '#/api/flowComment';
 import type { FlowQuickCommentDTO, FlowQuickCommentVO } from '#/api/models';

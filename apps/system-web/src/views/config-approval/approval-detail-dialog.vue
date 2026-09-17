@@ -22,9 +22,7 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger } from '@ydsz-core/ydsz-ui';
-import { YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger, YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 

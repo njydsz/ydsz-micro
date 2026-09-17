@@ -19,11 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -168,15 +164,15 @@ async function handleLogs(row: JobAlertRuleVO) {
           <YdSheetTitle>{{ t('page.alertRule') }}</YdSheetTitle>
         </YdSheetHeader>
         <YdTable :data="alertLogs" border>
-        <ElTableColumn prop="alertCode" label="告警编码" width="130" />
-        <ElTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
-        <ElTableColumn prop="jobKey" label="任务标识" width="140" />
-        <ElTableColumn prop="alertType" label="类型" width="100" />
-        <ElTableColumn prop="alertLevel" :label="t('business.alertLevel')" width="90" />
-        <ElTableColumn prop="triggerValue" label="触发值" width="110" />
-        <ElTableColumn prop="alertStatus" :label="t('common.status')" width="90" />
-        <ElTableColumn prop="errorMessage" label="错误信息" min-width="140" />
-        <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
+        <YdTableColumn prop="alertCode" label="告警编码" width="130" />
+        <YdTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
+        <YdTableColumn prop="jobKey" label="任务标识" width="140" />
+        <YdTableColumn prop="alertType" label="类型" width="100" />
+        <YdTableColumn prop="alertLevel" :label="t('business.alertLevel')" width="90" />
+        <YdTableColumn prop="triggerValue" label="触发值" width="110" />
+        <YdTableColumn prop="alertStatus" :label="t('common.status')" width="90" />
+        <YdTableColumn prop="errorMessage" label="错误信息" min-width="140" />
+        <YdTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
       </YdTable>
         <YdEmptyState v-if="alertLogs.length === 0" :description="t('common.noData')" />
       </YdSheetContent>

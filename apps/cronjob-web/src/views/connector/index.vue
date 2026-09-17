@@ -19,8 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

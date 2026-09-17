@@ -1,0 +1,178 @@
+{
+  "formRules": {
+    "required": "Proszę wprowadzić {0}",
+    "selectRequired": "Proszę wybrać {0}",
+    "minLength": "{0} musi mieć co najmniej {1} znaków",
+    "maxLength": "{0} może mieć najwyżej {1} znaków",
+    "length": "{0} musi mieć długość {1} znaków",
+    "alreadyExists": "{0} `{1}` już istnieje",
+    "startWith": "{0} musi zaczynać się od `{1}`",
+    "invalidURL": "Proszę wprowadzić prawidłowy adres URL"
+  },
+  "actionTitle": {
+    "edit": "Modyfikuj {0}",
+    "create": "Utwórz {0}",
+    "delete": "Usuń {0}",
+    "view": "Wyświetl {0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "Czy na pewno chcesz usunąć {0}?",
+    "deleting": "Usuwanie {0} ...",
+    "deleteSuccess": "{0} zostało pomyślnie usunięte",
+    "operationSuccess": "Operacja zakończona sukcesem",
+    "operationFailed": "Operacja nie powiodła się"
+  },
+  "placeholder": {
+    "input": "Proszę wprowadzić",
+    "select": "Proszę wybrać"
+  },
+  "captcha": {
+    "title": "Proszę ukończyć weryfikację bezpieczeństwa",
+    "sliderSuccessText": "Zweryfikowano",
+    "sliderDefaultText": "Proszę przytrzymać i przesunąć suwak",
+    "alt": "Obsługuje wartość atrybutu src tagu img",
+    "sliderRotateDefaultTip": "Kliknij obraz, aby odświeżyć",
+    "sliderTranslateDefaultTip": "Kliknij obraz, aby odświeżyć",
+    "sliderRotateFailTip": "Weryfikacja nie powiodła się",
+    "sliderRotateSuccessTip": "Weryfikacja pomyślna, czas {0} sekund",
+    "sliderTranslateFailTip": "Weryfikacja nie powiodła się",
+    "sliderTranslateSuccessTip": "Weryfikacja pomyślna, czas {0} sekund",
+    "refreshAriaLabel": "Odśwież kod weryfikacyjny",
+    "confirmAriaLabel": "Potwierdź wybór",
+    "confirm": "Potwierdź",
+    "pointAriaLabel": "Kliknij punkt",
+    "clickInOrder": "Proszę kliknąć po kolei"
+  },
+  "iconPicker": {
+    "placeholder": "Wybierz ikonę",
+    "search": "Szukaj ikony..."
+  },
+  "jsonViewer": {
+    "copy": "Kopiuj",
+    "copied": "Skopiowano"
+  },
+  "fallback": {
+    "pageNotFound": "Ups! Nie znaleziono strony",
+    "pageNotFoundDesc": "Przepraszamy, nie mogliśmy znaleźć strony, której szukasz.",
+    "forbidden": "Ups! Odmowa dostępu",
+    "forbiddenDesc": "Przepraszamy, ale nie masz uprawnień dostępu do tej strony.",
+    "internalError": "Ups! Coś poszło nie tak",
+    "internalErrorDesc": "Przepraszamy, ale serwer napotkał błąd.",
+    "offline": "Strona offline",
+    "offlineError": "Ups! Błąd sieci",
+    "offlineErrorDesc": "Przepraszamy, nie można połączyć się z internetem. Sprawdź swoje połączenie.",
+    "comingSoon": "Wkrótce dostępne",
+    "http": {
+      "requestTimeout": "Przekroczono limit czasu żądania. Spróbuj ponownie później.",
+      "networkError": "Wystąpił błąd sieci. Sprawdź połączenie internetowe i spróbuj ponownie.",
+      "badRequest": "Nieprawidłowe żądanie. Sprawdź dane wejściowe i spróbuj ponownie.",
+      "unauthorized": "Brak autoryzacji. Zaloguj się, aby kontynuować.",
+      "forbidden": "Zabroniony. Nie masz uprawnień dostępu do tego zasobu.",
+      "notFound": "Nie znaleziono. Żądany zasób nie istnieje.",
+      "badGateway": "Błąd bramki. Serwer otrzymał nieprawidłową odpowiedź.",
+      "serviceUnavailable": "Usługa niedostępna. Serwer tymczasowo nie może przetworzyć żądania.",
+      "gatewayTimeout": "Przekroczono limit czasu bramki. Serwer nie otrzymał odpowiedzi na czas.",
+      "internalServerError": "Wewnętrzny błąd serwera. Coś poszło nie tak po naszej stronie. Spróbuj ponownie później."
+    }
+  },
+  "widgets": {
+    "document": "Dokument",
+    "qa": "Pytania i odpowiedzi",
+    "setting": "Ustawienia",
+    "logoutTip": "Czy chcesz się wylogować?",
+    "viewAll": "Wyświetl wszystkie wiadomości",
+    "notifications": "Powiadomienia",
+    "markAllAsRead": "Oznacz wszystkie jako przeczytane",
+    "clearNotifications": "Wyczyść",
+    "checkUpdatesTitle": "Dostępna nowa wersja",
+    "checkUpdatesDescription": "Kliknij, aby odświeżyć i pobrać najnowszą wersję",
+    "search": {
+      "title": "Szukaj",
+      "searchNavigate": "Nawigacja wyszukiwania",
+      "select": "Wybierz",
+      "navigate": "Nawiguj",
+      "close": "Zamknij",
+      "noResults": "Nie znaleziono wyników wyszukiwania",
+      "noRecent": "Brak historii wyszukiwania",
+      "recent": "Historia wyszukiwania"
+    },
+    "lockScreen": {
+      "title": "Ekran blokady",
+      "screenButton": "Blokowanie",
+      "password": "Hasło",
+      "placeholder": "Proszę wprowadzić hasło blokady",
+      "unlock": "Kliknij, aby odblokować",
+      "errorPasswordTip": "Nieprawidłowe hasło, proszę wprowadzić ponownie",
+      "backToLogin": "Powrót do logowania",
+      "entry": "Wejdź do systemu"
+    }
+  },
+  "component": {
+    "transfer": {
+      "title": "Dostępne",
+      "selectedTitle": "Wybrane",
+      "placeholder": "Szukaj",
+      "notFoundContent": "Brak danych"
+    },
+    "steps": {
+      "wait": "Oczekiwanie",
+      "process": "W toku",
+      "finish": "Zakończono",
+      "error": "Błąd"
+    },
+    "result": {
+      "successTitle": "Sukces",
+      "errorTitle": "Niepowodzenie",
+      "warningTitle": "Ostrzeżenie",
+      "infoTitle": "Informacja"
+    },
+    "empty": {
+      "description": "Brak danych"
+    },
+    "skeleton": {
+      "loading": "Ładowanie"
+    },
+    "autoComplete": {
+      "noMatch": "Brak pasujących wyników",
+      "placeholder": "Proszę wprowadzić"
+    },
+    "slider": {
+      "ariaLabel": "Wartość suwaka"
+    },
+    "progress": {
+      "ariaLabel": "Postęp"
+    },
+    "rate": {
+      "ariaLabel": "Ocena"
+    },
+    "anchor": {
+      "ariaLabel": "Nawigacja zakotwiczeń"
+    },
+    "image": {
+      "loadError": "Ładowanie nie powiodło się"
+    },
+    "tag": {
+      "closeAriaLabel": "Zamknij etykietę"
+    },
+    "tour": {
+      "next": "Dalej",
+      "prev": "Wstecz",
+      "finish": "Zakończ",
+      "skip": "Pomiń",
+      "stepIndicator": "Wskaźnik kroku"
+    },
+    "floatButton": {
+      "ariaLabel": "Pływający przycisk"
+    },
+    "timeline": {
+      "ariaLabel": "Oś czasu",
+      "pending": "Ładowanie"
+    },
+    "descriptions": {
+      "defaultLabelWidth": "120px"
+    },
+    "statistic": {
+      "loading": "Ładowanie"
+    }
+  }
+}

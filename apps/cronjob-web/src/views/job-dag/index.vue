@@ -20,11 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -244,20 +240,20 @@ async function handleRollback(versionRow: JobDagVersionVO) {
           <YdSheetTitle>{{ t('page.dagList') }}</YdSheetTitle>
         </YdSheetHeader>
         <YdTable :data="versions" border>
-          <ElTableColumn prop="version" label="版本" width="80" />
-          <ElTableColumn prop="dagName" :label="t('business.dagName')" width="160" />
-          <ElTableColumn prop="dagKey" label="标识" width="160" />
-          <ElTableColumn prop="triggerType" label="触发类型" width="120" />
-          <ElTableColumn prop="cronExpression" label="Cron" width="140" />
-          <ElTableColumn prop="remark" label="备注" min-width="120" />
-          <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
-          <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
+          <YdTableColumn prop="version" label="版本" width="80" />
+          <YdTableColumn prop="dagName" :label="t('business.dagName')" width="160" />
+          <YdTableColumn prop="dagKey" label="标识" width="160" />
+          <YdTableColumn prop="triggerType" label="触发类型" width="120" />
+          <YdTableColumn prop="cronExpression" label="Cron" width="140" />
+          <YdTableColumn prop="remark" label="备注" min-width="120" />
+          <YdTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
+          <YdTableColumn :label="t('common.actions')" width="100" fixed="right">
             <template #default="{ row }">
               <YdButtonBase size="sm" variant="link" @click="handleRollback(row as JobDagVersionVO)">
                 回滚
               </YdButtonBase>
             </template>
-          </ElTableColumn>
+          </YdTableColumn>
         </YdTable>
         <YdEmptyState v-if="versions.length === 0" :description="t('common.noData')" />
       </YdSheetContent>

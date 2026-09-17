@@ -16,9 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdDescriptions, YdDescriptionsItem, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 import { approve, getApproval, reject } from '#/api/humanApproval';

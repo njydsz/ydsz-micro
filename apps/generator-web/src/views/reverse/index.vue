@@ -20,22 +20,7 @@
  */
 import { reactive, ref } from 'vue';
 
-import {
-  YdButtonBase,
-  YdCard,
-  YdCardContent,
-  YdCardHeader,
-  YdCardTitle,
-  YdInput,
-  YdRadioGroup,
-  YdRadioGroupItem,
-  YdSelectBase,
-  YdSelectContentBase,
-  YdSelectItemBase,
-  YdSelectTriggerBase,
-  YdSelectValueBase,
-} from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import { analyzeReverse, analyzeBatchReverse } from '#/api/reverse';
 import type { GenTemplateGroup } from '#/api/models';

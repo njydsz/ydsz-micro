@@ -18,15 +18,8 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import {
-  YdDialog,
-  YdDialogContent,
-  YdDialogHeader,
-  YdDialogTitle,
-} from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus'; // FIXME-P3-EP-EXIT;
+import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+// FIXME-P3-EP-EXIT;
 
 import { getColumns, refreshColumns } from '#/api/table-meta';
 import type { GenColumnMeta } from '#/api/models';
@@ -106,26 +99,26 @@ onMounted(() => {
       <div class="mb-3 flex justify-end">
         <YdButtonBase size="sm" @click="handleRefreshColumns">刷新列缓存</YdButtonBase>
       </div>
-      <YdTable v-loading="loading" :data="columns" stripe max-height="400">
-        <ElTableColumn prop="columnName" label="列名" width="150" />
-        <ElTableColumn prop="dataType" label="数据类型" width="120" />
-        <ElTableColumn prop="columnSize" label="长度" width="80" />
-        <ElTableColumn label="主键" width="70">
+      <YdTable loading="loading" :data="columns" stripe max-height="400">
+        <YdTableColumn prop="columnName" label="列名" width="150" />
+        <YdTableColumn prop="dataType" label="数据类型" width="120" />
+        <YdTableColumn prop="columnSize" label="长度" width="80" />
+        <YdTableColumn label="主键" width="70">
           <template #default="{ row }">
             <YdBadge v-if="row.pk" variant="destructive">PK</YdBadge>
             <span v-else>-</span>
           </template>
-        </ElTableColumn>
-        <ElTableColumn label="可空" width="70">
+        </YdTableColumn>
+        <YdTableColumn label="可空" width="70">
           <template #default="{ row }">
             <YdBadge :variant="row.nullable ? 'secondary' : 'destructive'">
               {{ row.nullable ? '是' : '否' }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="comment" label="注释" min-width="150" />
-        <ElTableColumn prop="overrideJavaType" label="Java类型" width="120" />
-        <ElTableColumn prop="overrideFieldName" label="字段名" width="120" />
+        </YdTableColumn>
+        <YdTableColumn prop="comment" label="注释" min-width="150" />
+        <YdTableColumn prop="overrideJavaType" label="Java类型" width="120" />
+        <YdTableColumn prop="overrideFieldName" label="字段名" width="120" />
       </YdTable>
     </YdDialogContent>
   </YdDialog>

@@ -20,9 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { ElMessageBox } from '@ydsz/notification/compat';
 // NOTE: ElDialog/ElDrawer 已迁移为 YdDialog/YdSheet
 import { h, reactive, ref } from 'vue';

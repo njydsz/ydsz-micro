@@ -16,9 +16,8 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdEmptyState, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
+
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -49,16 +48,16 @@ const loading = ref(false);
 
 <template>
   <Modal>
-    <div v-loading="loading">
+    <div loading="loading">
       <div class="mb-3 border-b pb-2">
         <span class="text-base font-medium">{{ t('session.userSessions') }}</span>
       </div>
       <YdTable :data="userSessions" border max-height="400">
-        <ElTableColumn prop="username" :label="t('page.username')" width="120" />
-        <ElTableColumn prop="loginIp" :label="t('session.loginIp')" width="140" />
-        <ElTableColumn prop="device" :label="t('session.device')" width="100" />
-        <ElTableColumn prop="loginTime" :label="t('session.loginTime')" width="170" />
-        <ElTableColumn prop="expireTime" :label="t('session.expireTime')" width="170" />
+        <YdTableColumn prop="username" :label="t('page.username')" width="120" />
+        <YdTableColumn prop="loginIp" :label="t('session.loginIp')" width="140" />
+        <YdTableColumn prop="device" :label="t('session.device')" width="100" />
+        <YdTableColumn prop="loginTime" :label="t('session.loginTime')" width="170" />
+        <YdTableColumn prop="expireTime" :label="t('session.expireTime')" width="170" />
       </YdTable>
       <YdEmptyState v-if="userSessions.length === 0 && !loading" :description="t('session.noUserSessions')" :image-size="60" />
     </div>

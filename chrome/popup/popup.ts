@@ -18,6 +18,8 @@
  * @since 4.0.0
  */
 
+export {};
+
 interface PopupState {
   activeApp?: string;
   keepAlive?: number;
@@ -42,12 +44,18 @@ function queryActiveTab(): void {
 }
 
 function pullSnapshot(): void {
-  void chrome.runtime.sendMessage<unknown>(
+  void chrome.runtime.sendMessage(
     { target: 'background', type: 'devtools:subscribe' } as never,
     (res: unknown) => {
       const response = res as { ok?: boolean; cached?: Record<string, PopupState> } | undefined;
       if (!response?.cached) return;
-      const agg = response.cached.aggregate ?? response.cached;
+
+      // aggregate 子树是最终快照；若无则退化为遍历顶层第一个值
+      const cached = response.cached;
+      const agg: PopupState =
+        (cached.aggregate as PopupState | undefined) ??
+        (cached[Object.keys(cached)[0] ?? ''] as PopupState | undefined) ??
+        {};
 
       const vsEl = $('#vs');
       const saEl = $('#sa');

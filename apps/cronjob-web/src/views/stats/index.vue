@@ -17,10 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDatePicker, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDatePicker, YdInput, YdTable, YdTableColumn, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { daily, summary } from '#/api/jobStats';
@@ -186,15 +183,15 @@ onMounted(handleQuery);
           <YdCardTitle>日报明细</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <YdTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" v-loading="isLoading">
-          <ElTableColumn prop="statsDate" label="日期" width="110" />
-          <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-          <ElTableColumn prop="fireCount" label="触发" width="70" />
-          <ElTableColumn prop="successCount" label="成功" width="70" />
-          <ElTableColumn prop="failCount" label="失败" width="70" />
-          <ElTableColumn prop="timeoutCount" label="超时" width="70" />
-          <ElTableColumn prop="avgDurationMs" label="平均耗时(ms)" width="110" />
-          <ElTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
+          <YdTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" loading="isLoading">
+          <YdTableColumn prop="statsDate" label="日期" width="110" />
+          <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
+          <YdTableColumn prop="fireCount" label="触发" width="70" />
+          <YdTableColumn prop="successCount" label="成功" width="70" />
+          <YdTableColumn prop="failCount" label="失败" width="70" />
+          <YdTableColumn prop="timeoutCount" label="超时" width="70" />
+          <YdTableColumn prop="avgDurationMs" label="平均耗时(ms)" width="110" />
+          <YdTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
         </YdTable>
           <YdEmptyState v-else description="暂无日报明细" :image-size="60" />
         </YdCardContent>

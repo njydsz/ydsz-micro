@@ -211,11 +211,11 @@ async function handleSubmitCommand() {
           </div>
         </div>
         <YdTable :data="sessions" border size="small" class="mb-2">
-          <ElTableColumn prop="sessionId" label="会话ID" min-width="180" />
-          <ElTableColumn prop="ruleCode" label="规则编码" width="160" />
-          <ElTableColumn prop="status" label="状态" width="90" />
-          <ElTableColumn prop="createdAt" label="创建时间" width="170" />
-          <ElTableColumn label="操作" width="160" fixed="right">
+          <YdTableColumn prop="sessionId" label="会话ID" min-width="180" />
+          <YdTableColumn prop="ruleCode" label="规则编码" width="160" />
+          <YdTableColumn prop="status" label="状态" width="90" />
+          <YdTableColumn prop="createdAt" label="创建时间" width="170" />
+          <YdTableColumn label="操作" width="160" fixed="right">
             <template #default="{ row }">
               <YdButtonBase variant="link" size="sm" @click="handleSelectSession(row)"
                 >选择</YdButtonBase
@@ -224,7 +224,7 @@ async function handleSubmitCommand() {
                 >结束</YdButtonBase
               >
             </template>
-          </ElTableColumn>
+          </YdTableColumn>
         </YdTable>
         <div class="flex items-start gap-3">
           <YdInput

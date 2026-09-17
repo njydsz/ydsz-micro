@@ -18,10 +18,9 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdNumberFieldInput, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
-import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { upsert } from '#/api/preference';
 import type { MsgPreferenceVO } from '#/api/models';
 

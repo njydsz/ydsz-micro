@@ -23,8 +23,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdTimeline, YdTimelineItem, YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';

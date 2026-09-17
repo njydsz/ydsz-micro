@@ -19,10 +19,7 @@
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { YdBadge, YdButtonBase, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent } from '@ydsz-core/ydsz-ui';
-import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
 
 import { requestClient } from '#/api/request';
 
@@ -253,20 +250,20 @@ const formatNumber = (value: number | undefined): string => {
           stripe
           max-height="400"
         >
-          <ElTableColumn prop="serviceId" label="服务 ID" min-width="180" />
-          <ElTableColumn label="状态" width="90">
+          <YdTableColumn prop="serviceId" label="服务 ID" min-width="180" />
+          <YdTableColumn label="状态" width="90">
             <template #default="{ row }">
               <YdBadge :variant="statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary'">{{ row.status }}</YdBadge>
             </template>
-          </ElTableColumn>
-          <ElTableColumn prop="instanceCount" label="实例数" width="80" />
-          <ElTableColumn label="地址" min-width="160">
+          </YdTableColumn>
+          <YdTableColumn prop="instanceCount" label="实例数" width="80" />
+          <YdTableColumn label="地址" min-width="160">
             <template #default="{ row }">
               <span class="text-xs font-mono">
                 {{ row.host ?? '-' }}:{{ row.port ?? '-' }}
               </span>
             </template>
-          </ElTableColumn>
+          </YdTableColumn>
         </YdTable>
         <YdEmptyState
           v-else-if="!loading && loadError"

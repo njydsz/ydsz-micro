@@ -17,10 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState, YdImage } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdImage } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -139,7 +136,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page v-loading="isLoading" auto-content-height>
+  <Page loading="isLoading" auto-content-height>
     <!-- 已绑定列表 -->
     <YdCard class="mb-4">
       <YdCardHeader>
@@ -147,14 +144,14 @@ onMounted(() => {
       </YdCardHeader>
       <YdCardContent>
       <YdTable :data="bindings" border>
-        <ElTableColumn prop="platform" label="平台" width="140">
+        <YdTableColumn prop="platform" label="平台" width="140">
           <template #default="{ row }">
             <YdBadge :variant="getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary'" :class="getPlatformTagType(row.platform) === 'warning' ? 'bg-yellow-500 text-white hover:bg-yellow-600' : 'text-xs'">
               {{ row.platform ?? '-' }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn label="头像" width="80">
+        </YdTableColumn>
+        <YdTableColumn label="头像" width="80">
           <template #default="{ row }">
             <YdImage
               v-if="row.avatarUrl"
@@ -165,11 +162,11 @@ onMounted(() => {
             />
             <span v-else class="text-gray-400">-</span>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="nickname" label="昵称" minWidth="120" />
-        <ElTableColumn prop="openId" label="Open ID" minWidth="160" />
-        <ElTableColumn prop="createdAt" label="绑定时间" width="170" />
-        <ElTableColumn label="操作" width="100" fixed="right">
+        </YdTableColumn>
+        <YdTableColumn prop="nickname" label="昵称" minWidth="120" />
+        <YdTableColumn prop="openId" label="Open ID" minWidth="160" />
+        <YdTableColumn prop="createdAt" label="绑定时间" width="170" />
+        <YdTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
             <YdButtonBase
               size="sm"
@@ -180,7 +177,7 @@ onMounted(() => {
               解绑
             </YdButtonBase>
           </template>
-        </ElTableColumn>
+        </YdTableColumn>
       </YdTable>
       <YdEmptyState v-if="bindings.length === 0" description="暂无绑定的社交账号" :image-size="60" />
       </YdCardContent>

@@ -16,10 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -202,28 +199,28 @@ onMounted(loadList);
 
     <!-- 订阅列表 -->
     <YdTable :data="webhookList" :loading="loading" border stripe size="small">
-      <ElTableColumn prop="name" label="订阅名称" min-width="140" />
-      <ElTableColumn prop="eventType" label="事件类型" width="120">
+      <YdTableColumn prop="name" label="订阅名称" min-width="140" />
+      <YdTableColumn prop="eventType" label="事件类型" width="120">
         <template #default="{ row }">
           <YdBadge variant="outline">{{ row.eventType }}</YdBadge>
         </template>
-      </ElTableColumn>
-      <ElTableColumn prop="callbackUrl" label="回调 URL" min-width="200" show-overflow-tooltip />
-      <ElTableColumn prop="httpMethod" label="方法" width="80" />
-      <ElTableColumn prop="webhookStatus" label="状态" width="90">
+      </YdTableColumn>
+      <YdTableColumn prop="callbackUrl" label="回调 URL" min-width="200" show-overflow-tooltip />
+      <YdTableColumn prop="httpMethod" label="方法" width="80" />
+      <YdTableColumn prop="webhookStatus" label="状态" width="90">
         <template #default="{ row }">
           <YdBadge :variant="formatStatus(row.webhookStatus).type === 'success' ? 'default' : 'secondary'" size="sm">
             {{ formatStatus(row.webhookStatus).label }}
           </YdBadge>
         </template>
-      </ElTableColumn>
-      <ElTableColumn label="操作" width="160" fixed="right">
+      </YdTableColumn>
+      <YdTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
           <YdButtonBase size="sm" variant="link" @click="handleTest(row)">测试</YdButtonBase>
           <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">编辑</YdButtonBase>
           <YdButtonBase size="sm" variant="link" @click="handleDelete(row)">删除</YdButtonBase>
         </template>
-      </ElTableColumn>
+      </YdTableColumn>
     </YdTable>
 
     <!-- 编辑弹窗 -->

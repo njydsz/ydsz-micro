@@ -21,10 +21,7 @@ import { computed, ref } from 'vue';
 
 import type { ErrorCode } from '@YDSZ/locales/errors';
 import { ZH_CN_MESSAGES } from '@YDSZ/locales/errors/zh-CN';
-import { YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdCard, YdEmptyState, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { Search } from 'lucide-vue-next';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -202,22 +199,22 @@ if (import.meta.env.DEV) {
     <!-- 错误码表格 -->
     <YdCard shadow="never">
       <YdTable :data="filteredErrorCodes" stripe style="width: 100%">
-        <ElTableColumn prop="code" label="错误码" width="120">
+        <YdTableColumn prop="code" label="错误码" width="120">
           <template #default="{ row }">
             <span class="font-mono text-sm">{{ row.code }}</span>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="module" label="模块" width="140">
+        </YdTableColumn>
+        <YdTableColumn prop="module" label="模块" width="140">
           <template #default="{ row }">
             <YdBadge variant="secondary">{{ row.module }}</YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="level" label="等级" width="100">
+        </YdTableColumn>
+        <YdTableColumn prop="level" label="等级" width="100">
           <template #default="{ row }">
             <YdBadge :variant="LEVEL_TAG_TYPE[row.level] === 'info' ? 'secondary' : 'destructive'">{{ row.level }}</YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="message" label="错误描述" min-width="300" />
+        </YdTableColumn>
+        <YdTableColumn prop="message" label="错误描述" min-width="300" />
       </YdTable>
       <YdEmptyState v-if="filteredErrorCodes.length === 0" description="暂无匹配的错误码" />
     </YdCard>

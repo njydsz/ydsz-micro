@@ -25,6 +25,10 @@ config.unshift({
     '**/public/vendor/**',
     // 智能体工作区：临时脚本与一次性校验工具，生命周期短于任何规范约束周期
     '.workbuddy/**',
+    // Chrome 扩展（4.1.0 起 .ts 化），由 chrome-shim.d.ts + chrome/tsconfig.json 独立 type-check，
+    // 不再通过主仓 ESLint 项目 lint（避免 chrome.* no-undef 误报与 any 禁令冲突）。
+    'chrome/**/*.ts',
+    'chrome/dist/**',
   ],
 });
 
@@ -68,9 +72,23 @@ config.unshift({
   },
 });
 
+// chrome/ DevTools 扩展（MV3）已迁移至 TypeScript（chrome/*.ts），
+// 不再纳入主仓 ESLint 项目（类型由 chrome-shim.d.ts 承载，不经过主 tsconfig）。
+// 仅对残留静态资源（.json / .html）放行；所有 .ts 文件通过 chrome/tsconfig.json 独立 type-check。
+config.push({
+  files: ['chrome/**/*.{json,html}'],
+  languageOptions: {
+    globals: {},
+  },
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'off',
+  },
+});
+
 // chrome/ DevTools 扩展（MV3）运行于扩展宿主与页面环境，与 bash/ 同理：
 // 显式枚举 chrome.* API 与浏览器全局量而非引入 globals 依赖，契合「最小化外部依赖」原则。
 // （v4.4.1 修复：此前未注入导致 chrome/ 下 59 处 no-undef 误报）
+// @deprecated 自 4.1.0 .js 迁移至 .ts 后，此规则仅保留以防回潮；一般不再触发。
 const chromeGlobals = {
   ...nodeGlobals,
   // 浏览器 / 页面全局量

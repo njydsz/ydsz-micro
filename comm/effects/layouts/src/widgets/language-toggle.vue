@@ -1,46 +1,23 @@
-﻿<!--
+<!--
  * language-toggle 布局组件
+ *
+ * <p>顶栏/登录页语言切换入口，委托给 language-picker 渲染。
+ * 当偏好设置中关闭语言切换部件时，本组件不渲染。
  *
  * @path comm\effects\layouts\src\widgets\language-toggle.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SupportedLanguagesType } from '@ydsz/locales';
-
-import { SUPPORT_LANGUAGES } from '@ydsz/constants';
-import { Languages } from '@ydsz/icons';
-import { loadLocaleMessages } from '@ydsz/locales';
-import { preferences, updatePreferences } from '@ydsz/preferences';
-
-import { YdDropdownRadioMenu, YdIconButton } from '@ydsz-core/ydsz-ui';
+import LanguagePicker from './language-picker.vue';
 
 defineOptions({
   name: 'LanguageToggle',
 });
-
-async function handleUpdate(value: string | undefined) {
-  if (!value) return;
-  const locale = value as SupportedLanguagesType;
-  updatePreferences({
-    app: {
-      locale,
-    },
-  });
-  await loadLocaleMessages(locale);
-}
 </script>
 
 <template>
   <div>
-    <YdDropdownRadioMenu
-      :menus="SUPPORT_LANGUAGES"
-      :model-value="preferences.app.locale"
-      @update:model-value="handleUpdate"
-    >
-      <YdIconButton>
-        <Languages class="text-foreground size-4" />
-      </YdIconButton>
-    </YdDropdownRadioMenu>
+    <LanguagePicker />
   </div>
 </template>

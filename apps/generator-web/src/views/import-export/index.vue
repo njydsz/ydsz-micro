@@ -18,22 +18,8 @@
  */
 import { onMounted, ref } from 'vue';
 
-import {
-  YdButtonBase,
-  YdCard,
-  YdCardContent,
-  YdCardHeader,
-  YdCardTitle,
-  YdCheckboxBase,
-  YdSelectBase,
-  YdSelectContentBase,
-  YdSelectItemBase,
-  YdSelectTriggerBase,
-  YdSelectValueBase,
-  YdUpload,
-} from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdCheckboxBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdUpload, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import type { UploadRequestOptions } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import { exportTemplates, importTemplates } from '#/api/import-export';
 import { listGroups } from '#/api/template';

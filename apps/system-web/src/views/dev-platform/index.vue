@@ -23,10 +23,7 @@
  */
 import { computed, reactive, ref, watch } from 'vue';
 
-import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 
 import { requestClient } from '#/api/request';
 
@@ -251,20 +248,20 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
         </span>
       </template>
       <YdTable :data="columns" size="small" stripe max-height="300">
-        <ElTableColumn prop="columnName" label="列名" min-width="140" />
-        <ElTableColumn prop="columnType" label="类型" width="120" />
-        <ElTableColumn label="主键" width="60">
+        <YdTableColumn prop="columnName" label="列名" min-width="140" />
+        <YdTableColumn prop="columnType" label="类型" width="120" />
+        <YdTableColumn label="主键" width="60">
           <template #default="{ row }">
             <YdBadge v-if="row.pk" variant="destructive">PK</YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn label="可空" width="60">
+        </YdTableColumn>
+        <YdTableColumn label="可空" width="60">
           <template #default="{ row }">
             <YdBadge v-if="row.nullable" variant="secondary">NULL</YdBadge>
             <YdBadge v-else>NOT NULL</YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="columnComment" label="注释" min-width="160" />
+        </YdTableColumn>
+        <YdTableColumn prop="columnComment" label="注释" min-width="160" />
       </YdTable>
     </YdCard>
 

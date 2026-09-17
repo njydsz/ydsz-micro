@@ -16,8 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

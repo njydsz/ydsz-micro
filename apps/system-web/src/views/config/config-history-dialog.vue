@@ -14,9 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton, YdDialog, YdDrawer, YdEmptyState, YdTable, YdBadge, YdTooltip } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdButton, YdDialog, YdDrawer, YdEmptyState, YdTable, YdBadge, YdTooltip, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -180,33 +178,33 @@ defineExpose({
   >
     <!-- 版本列表表格 -->
     <YdTable
-      v-loading="loading"
+      loading="loading"
       :data="versions"
       stripe
       border
       height="calc(100vh - 180px)"
       @selection-change="handleSelectionChange"
     >
-      <ElTableColumn type="selection" width="40" />
-      <ElTableColumn prop="version" :label="t('configVersion.version')" width="180">
+      <YdTableColumn type="selection" width="40" />
+      <YdTableColumn prop="version" :label="t('configVersion.version')" width="180">
         <template #default="{ row }">
           <YdBadge v-if="row.version" size="small" type="primary">{{ row.version }}</YdBadge>
           <span v-else>-</span>
         </template>
-      </ElTableColumn>
-      <ElTableColumn prop="changeLog" :label="t('configVersion.changeLog')" min-width="200">
+      </YdTableColumn>
+      <YdTableColumn prop="changeLog" :label="t('configVersion.changeLog')" min-width="200">
         <template #default="{ row }">
           <YdTooltip :content="row.changeLog" :disabled="!row.changeLog">
             <span class="truncate">{{ row.changeLog || '-' }}</span>
           </YdTooltip>
         </template>
-      </ElTableColumn>
-      <ElTableColumn prop="effectiveDate" :label="t('configVersion.effectiveDate')" width="180">
+      </YdTableColumn>
+      <YdTableColumn prop="effectiveDate" :label="t('configVersion.effectiveDate')" width="180">
         <template #default="{ row }">
           {{ row.effectiveDate || '-' }}
         </template>
-      </ElTableColumn>
-      <ElTableColumn :label="t('action')" width="200" fixed="right">
+      </YdTableColumn>
+      <YdTableColumn :label="t('action')" width="200" fixed="right">
         <template #default="{ row }">
           <YdButton text type="primary" @click="showSnapshot(row)">
             {{ t('configVersion.viewSnapshot') }}
@@ -215,7 +213,7 @@ defineExpose({
             {{ t('configVersion.rollback') }}
           </YdButton>
         </template>
-      </ElTableColumn>
+      </YdTableColumn>
 
       <!-- 空数据 -->
       <template #empty>

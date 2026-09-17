@@ -19,8 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

@@ -15,8 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdButtonBase, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { computed, nextTick, ref } from 'vue';
 

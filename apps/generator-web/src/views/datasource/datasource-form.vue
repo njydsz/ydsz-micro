@@ -16,22 +16,7 @@
  */
 import { onMounted, reactive, ref } from 'vue';
 
-import {
-  YdButtonBase,
-  YdDialog,
-  YdDialogContent,
-  YdDialogFooter,
-  YdDialogHeader,
-  YdDialogTitle,
-  YdInput,
-  YdSelectBase,
-  YdSelectContentBase,
-  YdSelectItemBase,
-  YdSelectTriggerBase,
-  YdSelectValueBase,
-  YdSwitch,
-} from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import type { GenDatasource } from '#/api/models';
 

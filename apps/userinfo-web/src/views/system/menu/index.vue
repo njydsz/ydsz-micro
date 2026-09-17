@@ -18,9 +18,7 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 
 import type { BadgeVariants } from '@ydsz-core/ydsz-ui';
@@ -120,15 +118,15 @@ async function handleDelete(row: MenuTreeVO) {
         </div>
       </div>
       <YdTable
-        v-loading="loading"
+        loading="loading"
         :data="tableData"
         row-key="id"
         border
         default-expand-all
         :tree-props="{ children: 'children' }"
       >
-        <ElTableColumn prop="menuName" :label="t('page.menuName')" min-width="180" />
-        <ElTableColumn :label="t('page.menuType')" width="80" align="center">
+        <YdTableColumn prop="menuName" :label="t('page.menuName')" min-width="180" />
+        <YdTableColumn :label="t('page.menuType')" width="80" align="center">
           <template #default="{ row }">
             <YdBadge
               :variant="MENU_TYPE_MAP[row.menuType]?.variant ?? 'secondary'"
@@ -137,28 +135,28 @@ async function handleDelete(row: MenuTreeVO) {
               {{ t(MENU_TYPE_MAP[row.menuType]?.label || 'page.unknown') }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="menuCode" :label="t('menu.menuCode')" width="120" />
-        <ElTableColumn prop="path" :label="t('page.menuPath')" width="160" />
-        <ElTableColumn prop="component" :label="t('page.component')" width="200" />
-        <ElTableColumn prop="permissionCode" :label="t('page.permission')" width="160" />
-        <ElTableColumn prop="icon" :label="t('page.icon')" width="80" align="center" />
-        <ElTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
-        <ElTableColumn :label="t('menu.visible')" width="80" align="center">
+        </YdTableColumn>
+        <YdTableColumn prop="menuCode" :label="t('menu.menuCode')" width="120" />
+        <YdTableColumn prop="path" :label="t('page.menuPath')" width="160" />
+        <YdTableColumn prop="component" :label="t('page.component')" width="200" />
+        <YdTableColumn prop="permissionCode" :label="t('page.permission')" width="160" />
+        <YdTableColumn prop="icon" :label="t('page.icon')" width="80" align="center" />
+        <YdTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
+        <YdTableColumn :label="t('menu.visible')" width="80" align="center">
           <template #default="{ row }">
             <YdBadge :variant="isVisible(row.visible) ? 'outline' : 'secondary'" :class="isVisible(row.visible) ? 'border-green-500 text-green-600 dark:text-green-400' : 'text-xs'">
               {{ isVisible(row.visible) ? t('menu.show') : t('menu.hide') }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn :label="t('page.status')" width="80" align="center">
+        </YdTableColumn>
+        <YdTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
             <YdBadge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'">
               {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn :label="t('page.operation')" width="220" fixed="right">
+        </YdTableColumn>
+        <YdTableColumn :label="t('page.operation')" width="220" fixed="right">
           <template #default="{ row }">
             <YdButtonBase size="sm" variant="link" @click="handleAdd(row.id)">
               {{ t('menu.addSubMenu') }}
@@ -170,7 +168,7 @@ async function handleDelete(row: MenuTreeVO) {
               {{ t('page.delete') }}
             </YdButtonBase>
           </template>
-        </ElTableColumn>
+        </YdTableColumn>
       </YdTable>
     </div>
     <MenuFormModal @success="loadData" />

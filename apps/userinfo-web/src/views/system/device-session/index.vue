@@ -17,10 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -97,7 +94,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page v-loading="isLoading" auto-content-height>
+  <Page loading="isLoading" auto-content-height>
     <!-- 统计概览 -->
     <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
       <YdCard class="shadow-sm hover:shadow-md transition-shadow">
@@ -144,26 +141,26 @@ onMounted(() => {
         </YdButtonBase>
       </YdCardHeader>
       <YdTable :data="devices" border>
-        <ElTableColumn prop="sessionId" label="会话ID" width="140" />
-        <ElTableColumn label="设备类型" width="120">
+        <YdTableColumn prop="sessionId" label="会话ID" width="140" />
+        <YdTableColumn label="设备类型" width="120">
           <template #default="{ row }">
             <YdBadge :variant="getDeviceTypeTagType(row.deviceType)" class="text-xs">
               {{ row.deviceTypeDesc ?? row.deviceType ?? '-' }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="loginIp" label="登录IP" width="140" />
-        <ElTableColumn prop="location" label="归属地" width="120" />
-        <ElTableColumn prop="deviceFingerprint" label="设备指纹" minWidth="180" show-overflow-tooltip />
-        <ElTableColumn prop="loginTime" label="登录时间" width="170" />
-        <ElTableColumn prop="lastActiveTime" label="最后活跃" width="170" />
-        <ElTableColumn label="会话状态" width="100" align="center">
+        </YdTableColumn>
+        <YdTableColumn prop="loginIp" label="登录IP" width="140" />
+        <YdTableColumn prop="location" label="归属地" width="120" />
+        <YdTableColumn prop="deviceFingerprint" label="设备指纹" minWidth="180" show-overflow-tooltip />
+        <YdTableColumn prop="loginTime" label="登录时间" width="170" />
+        <YdTableColumn prop="lastActiveTime" label="最后活跃" width="170" />
+        <YdTableColumn label="会话状态" width="100" align="center">
           <template #default="{ row }">
             <YdBadge v-if="row.currentSession" class="bg-green-500 text-white hover:bg-green-600 text-xs">当前会话</YdBadge>
             <YdBadge v-else variant="secondary" class="text-xs">活跃</YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn label="操作" width="100" fixed="right">
+        </YdTableColumn>
+        <YdTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
             <YdButtonBase
               v-if="!row.currentSession"
@@ -176,7 +173,7 @@ onMounted(() => {
             </YdButtonBase>
             <span v-else class="text-xs text-gray-400">-</span>
           </template>
-        </ElTableColumn>
+        </YdTableColumn>
       </YdTable>
       <YdEmptyState v-if="devices.length === 0" description="暂无设备记录" :image-size="60" />
     </YdCard>

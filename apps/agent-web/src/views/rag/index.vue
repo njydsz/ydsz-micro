@@ -16,10 +16,7 @@
  * @since 1.0.0
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdNumberFieldInput, YdCountToAnimator } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
-import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdNumberFieldInput, YdCountToAnimator, YdTable, YdTableColumn, YdDescriptions, YdDescriptionsItem, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';
@@ -153,18 +150,18 @@ onMounted(() => { handleLoadStats(); });
       <YdButtonBase :loading="searchLoading" @click="handleSearch">检索</YdButtonBase>
     </div>
     <YdTable :data="searchRows" border stripe height="360">
-      <ElTableColumn prop="id" label="ID" min-width="180" show-overflow-tooltip />
-      <ElTableColumn prop="documentId" label="文档ID" min-width="180" show-overflow-tooltip />
-      <ElTableColumn prop="documentTitle" label="标题" min-width="180" show-overflow-tooltip />
-      <ElTableColumn prop="title" label="标题(兼容)" min-width="160" show-overflow-tooltip />
-      <ElTableColumn prop="content" label="内容" min-width="320" show-overflow-tooltip />
-      <ElTableColumn prop="score" label="得分" width="100" />
-      <ElTableColumn prop="source" label="来源" min-width="140" show-overflow-tooltip />
-      <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
+      <YdTableColumn prop="id" label="ID" min-width="180" show-overflow-tooltip />
+      <YdTableColumn prop="documentId" label="文档ID" min-width="180" show-overflow-tooltip />
+      <YdTableColumn prop="documentTitle" label="标题" min-width="180" show-overflow-tooltip />
+      <YdTableColumn prop="title" label="标题(兼容)" min-width="160" show-overflow-tooltip />
+      <YdTableColumn prop="content" label="内容" min-width="320" show-overflow-tooltip />
+      <YdTableColumn prop="score" label="得分" width="100" />
+      <YdTableColumn prop="source" label="来源" min-width="140" show-overflow-tooltip />
+      <YdTableColumn :label="t('common.actions')" width="100" fixed="right">
         <template #default="{ row }">
           <YdButtonBase size="sm" variant="destructive" @click="handleDelete(row)">{{ t('common.delete') }}</YdButtonBase>
         </template>
-      </ElTableColumn>
+      </YdTableColumn>
     </YdTable>
     <RagFormModal @success="handleLoadStats" />
   </Page>

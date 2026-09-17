@@ -22,9 +22,7 @@ import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 // SKIP: retry-preview/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElTabs/ElTabPane/ElEmpty 等未映射组件，
 // 双 Tab 结构复杂，需整体重写。
-import { YdButton, YdCard, YdDialog, YdEmptyState, YdSelectItem, YdSelect, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdButton, YdCard, YdDialog, YdEmptyState, YdSelectItem, YdSelect, YdTable, YdTabsContent, YdTabs, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { listPresets, previewAllPresets, previewRetrySchedule } from '#/api/retryPreview';
@@ -178,44 +176,44 @@ onMounted(() => {
         <!-- 重试计划列表 -->
         <YdCard shadow="never">
           <YdTable
-            v-loading="scheduleLoading"
+            loading="scheduleLoading"
             :data="retryScheduleList"
             stripe
             border
             style="width: 100%"
           >
-            <ElTableColumn type="index" label="序号" width="60" align="center" />
-            <ElTableColumn prop="key" label="消息/标识" width="200" show-overflow-tooltip />
-            <ElTableColumn label="通道" width="120">
+            <YdTableColumn type="index" label="序号" width="60" align="center" />
+            <YdTableColumn prop="key" label="消息/标识" width="200" show-overflow-tooltip />
+            <YdTableColumn label="通道" width="120">
               <template #default="{ row }">
                 <YdBadge v-if="row.channel" size="small">{{ row.channel }}</YdBadge>
                 <span v-else>-</span>
               </template>
-            </ElTableColumn>
-            <ElTableColumn prop="failReason" label="失败原因" min-width="180" show-overflow-tooltip />
-            <ElTableColumn label="重试次数" width="100" align="center">
+            </YdTableColumn>
+            <YdTableColumn prop="failReason" label="失败原因" min-width="180" show-overflow-tooltip />
+            <YdTableColumn label="重试次数" width="100" align="center">
               <template #default="{ row }">
                 <span class="font-mono text-orange-600">{{ row.retryCount ?? '-' }}</span>
               </template>
-            </ElTableColumn>
-            <ElTableColumn label="下次重试时间" width="170">
+            </YdTableColumn>
+            <YdTableColumn label="下次重试时间" width="170">
               <template #default="{ row }">
                 {{ row.nextRetryAt ?? '-' }}
               </template>
-            </ElTableColumn>
-            <ElTableColumn label="状态" width="100" align="center">
+            </YdTableColumn>
+            <YdTableColumn label="状态" width="100" align="center">
               <template #default="{ row }">
                 <YdBadge v-if="row.status" size="small">{{ row.status }}</YdBadge>
                 <span v-else>-</span>
               </template>
-            </ElTableColumn>
-            <ElTableColumn label="操作" width="120" fixed="right" align="center">
+            </YdTableColumn>
+            <YdTableColumn label="操作" width="120" fixed="right" align="center">
               <template #default="{ row }">
                 <YdButton size="small" link type="primary" @click="handleViewDetail(row)">
                   查看详情
                 </YdButton>
               </template>
-            </ElTableColumn>
+            </YdTableColumn>
             <template #empty>
               <YdEmptyState description="暂无重试计划数据" />
             </template>
@@ -228,25 +226,25 @@ onMounted(() => {
         <!-- 预设列表 -->
         <YdCard shadow="never">
           <YdTable
-            v-loading="presetLoading"
+            loading="presetLoading"
             :data="presetList"
             stripe
             border
             style="width: 100%"
           >
-            <ElTableColumn type="index" label="序号" width="60" align="center" />
-            <ElTableColumn prop="key" label="预设标识" width="200" show-overflow-tooltip />
-            <ElTableColumn prop="name" label="预设名称" min-width="160" />
-            <ElTableColumn prop="maxRetries" label="最大重试次数" width="130" align="center">
+            <YdTableColumn type="index" label="序号" width="60" align="center" />
+            <YdTableColumn prop="key" label="预设标识" width="200" show-overflow-tooltip />
+            <YdTableColumn prop="name" label="预设名称" min-width="160" />
+            <YdTableColumn prop="maxRetries" label="最大重试次数" width="130" align="center">
               <template #default="{ row }">
                 <span class="font-mono">{{ row.maxRetries ?? '-' }}</span>
               </template>
-            </ElTableColumn>
-            <ElTableColumn prop="backoffMs" label="退避毫秒" width="120" align="center">
+            </YdTableColumn>
+            <YdTableColumn prop="backoffMs" label="退避毫秒" width="120" align="center">
               <template #default="{ row }">
                 <span class="font-mono">{{ row.backoffMs ?? '-' }}</span>
               </template>
-            </ElTableColumn>
+            </YdTableColumn>
             <template #empty>
               <YdEmptyState description="暂无预设配置数据" />
             </template>

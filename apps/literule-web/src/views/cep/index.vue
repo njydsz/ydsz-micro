@@ -393,10 +393,10 @@ onMounted(() => {
             <YdButton size="small" @click="loadHitsAndStats">刷新</YdButton>
           </div>
           <YdTable :data="hits" border size="small" :empty-text="'暂无命中记录'">
-            <ElTableColumn prop="ruleCode" label="规则编码" min-width="140" />
-            <ElTableColumn prop="patternId" label="模式ID" min-width="140" />
-            <ElTableColumn prop="metric" label="指标" width="90" />
-            <ElTableColumn prop="hitAt" label="命中时间" width="170" />
+            <YdTableColumn prop="ruleCode" label="规则编码" min-width="140" />
+            <YdTableColumn prop="patternId" label="模式ID" min-width="140" />
+            <YdTableColumn prop="metric" label="指标" width="90" />
+            <YdTableColumn prop="hitAt" label="命中时间" width="170" />
           </YdTable>
           <div class="mt-3 text-sm font-medium">全局统计</div>
           <pre class="mt-1 max-h-40 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{
@@ -474,7 +474,7 @@ onMounted(() => {
       width="780px"
       top="5vh"
     >
-      <div v-loading="detailLoading">
+      <div loading="detailLoading">
         <YdTabs v-model="detailActiveTab">
           <!-- 基本信息：输入序列 / 输出条件 / 动作配置 -->
           <YdTabsContent label="模式配置" name="info">
@@ -505,7 +505,7 @@ onMounted(() => {
 
           <!-- 命中统计面板 -->
           <YdTabsContent label="命中统计" name="statistics">
-            <div v-loading="statisticsLoading" class="p-2">
+            <div loading="statisticsLoading" class="p-2">
               <div v-if="statisticsData" class="grid grid-cols-3 gap-3">
                 <div
                   v-for="(value, key) in statisticsData"
@@ -543,15 +543,15 @@ onMounted(() => {
                 :loading="hitsLoading"
                 empty-text="暂无命中记录"
               >
-                <ElTableColumn type="seq" label="序号" width="60" />
-                <ElTableColumn prop="hitAt" label="命中时间" width="170" />
-                <ElTableColumn prop="metric" label="指标值" width="100" />
-                <ElTableColumn prop="ruleCode" label="规则编码" min-width="140" />
-                <ElTableColumn label="上下文" min-width="200">
+                <YdTableColumn type="seq" label="序号" width="60" />
+                <YdTableColumn prop="hitAt" label="命中时间" width="170" />
+                <YdTableColumn prop="metric" label="指标值" width="100" />
+                <YdTableColumn prop="ruleCode" label="规则编码" min-width="140" />
+                <YdTableColumn label="上下文" min-width="200">
                   <template #default="{ row }">
                     <span class="text-xs text-gray-500">{{ formatJsonResult(row.context ?? row) }}</span>
                   </template>
-                </ElTableColumn>
+                </YdTableColumn>
               </YdTable>
             </div>
           </YdTabsContent>

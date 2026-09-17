@@ -17,9 +17,7 @@
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { formatJsonResult } from '#/utils/format';
@@ -342,7 +340,7 @@ async function handleManualRollback(): Promise<void> {
       width="640px"
       top="8vh"
     >
-      <div v-loading="evaluateLoading">
+      <div loading="evaluateLoading">
         <div v-if="evaluateResult">
           <div
             v-for="(value, key) in evaluateResult"
@@ -366,19 +364,19 @@ async function handleManualRollback(): Promise<void> {
         :loading="rollbackHistoryLoading"
         empty-text="暂无回滚记录"
       >
-        <ElTableColumn type="seq" label="序号" width="60" />
-        <ElTableColumn prop="triggerReason" label="触发原因" width="140" />
-        <ElTableColumn prop="errorRate" label="回滚时错误率" width="120" />
-        <ElTableColumn prop="sampleSize" label="样本量" width="90" />
-        <ElTableColumn prop="operator" label="操作人" width="100" />
-        <ElTableColumn prop="notifyStatus" label="通知状态" width="100">
+        <YdTableColumn type="seq" label="序号" width="60" />
+        <YdTableColumn prop="triggerReason" label="触发原因" width="140" />
+        <YdTableColumn prop="errorRate" label="回滚时错误率" width="120" />
+        <YdTableColumn prop="sampleSize" label="样本量" width="90" />
+        <YdTableColumn prop="operator" label="操作人" width="100" />
+        <YdTableColumn prop="notifyStatus" label="通知状态" width="100">
           <template #default="{ row }">
             <YdBadge :type="row.notifyStatus === 'SUCCESS' ? 'success' : 'info'">
               {{ row.notifyStatus ?? '-' }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="createdAt" label="操作时间" width="170" />
+        </YdTableColumn>
+        <YdTableColumn prop="createdAt" label="操作时间" width="170" />
       </YdTable>
       <template #footer>
         <YdButton @click="rollbackHistoryVisible = false">关闭</YdButton>

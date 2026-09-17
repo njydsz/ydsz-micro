@@ -9,8 +9,7 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, ref } from 'vue';
 

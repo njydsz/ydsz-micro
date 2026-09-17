@@ -18,8 +18,7 @@
  */
 import { onMounted, ref } from 'vue';
 
-import { YdButtonBase, YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdBadge, YdInput, YdEmptyState } from '@ydsz-core/ydsz-ui';
 
 import {
   activateGroup,

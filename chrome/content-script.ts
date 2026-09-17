@@ -19,6 +19,8 @@
  * @since 4.0.0
  */
 
+export {};
+
 interface KernelMessage {
   channel: string;
   source: string;

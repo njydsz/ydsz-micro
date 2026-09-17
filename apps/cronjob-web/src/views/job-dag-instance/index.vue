@@ -19,12 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
-import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -294,17 +289,17 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
 
         <div class="mb-1 text-sm font-medium">节点执行明细</div>
         <YdTable v-if="nodes.length" :data="nodes" border size="small" class="mb-3">
-          <ElTableColumn prop="nodeId" label="节点ID" min-width="110" show-overflow-tooltip />
-          <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-          <ElTableColumn label="状态" width="110">
+          <YdTableColumn prop="nodeId" label="节点ID" min-width="110" show-overflow-tooltip />
+          <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
+          <YdTableColumn label="状态" width="110">
             <template #default="{ row }">
               <YdBadge :variant="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="sm">{{
                 row.nodeStatus ?? '-'
               }}</YdBadge>
             </template>
-          </ElTableColumn>
-          <ElTableColumn prop="durationMs" label="耗时(ms)" width="90" />
-          <ElTableColumn label="操作" width="100">
+          </YdTableColumn>
+          <YdTableColumn prop="durationMs" label="耗时(ms)" width="90" />
+          <YdTableColumn label="操作" width="100">
             <template #default="{ row }">
               <YdButtonBase
                 v-if="row.nodeStatus === 'FAILED'"
@@ -314,7 +309,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
                 >重试</YdButtonBase
               >
             </template>
-          </ElTableColumn>
+          </YdTableColumn>
         </YdTable>
         <YdEmptyState v-else description="暂无节点明细" :image-size="60" class="mb-3" />
 

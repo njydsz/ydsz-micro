@@ -53,11 +53,8 @@ export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -170,7 +167,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page v-loading="isLoading" auto-content-height>
+  <Page loading="isLoading" auto-content-height>
     <!-- 操作面板：触发同步 -->
     <YdCard class="mb-4">
       <YdCardHeader>
@@ -238,29 +235,29 @@ onMounted(() => {
       </YdCardHeader>
       <YdCardContent>
       <YdTable :data="syncLogs" border max-height="400">
-        <ElTableColumn type="index" label="序号" width="60" />
-        <ElTableColumn prop="syncTime" label="同步时间" width="170" />
-        <ElTableColumn label="状态" width="100">
+        <YdTableColumn type="index" label="序号" width="60" />
+        <YdTableColumn prop="syncTime" label="同步时间" width="170" />
+        <YdTableColumn label="状态" width="100">
           <template #default="{ row }">
             <YdBadge :variant="getStatusTagType(row.status) === 'success' ? 'default' : getStatusTagType(row.status) === 'danger' ? 'destructive' : getStatusTagType(row.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(row.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(row.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
               {{ getStatusText(row.status) }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="totalCount" label="总数" width="80" />
-        <ElTableColumn prop="successCount" label="成功" width="80">
+        </YdTableColumn>
+        <YdTableColumn prop="totalCount" label="总数" width="80" />
+        <YdTableColumn prop="successCount" label="成功" width="80">
           <template #default="{ row }">
             <span class="text-green-600">{{ row.successCount ?? 0 }}</span>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="failCount" label="失败" width="80">
+        </YdTableColumn>
+        <YdTableColumn prop="failCount" label="失败" width="80">
           <template #default="{ row }">
             <span class="text-red-600">{{ row.failCount ?? 0 }}</span>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="duration" label="耗时(ms)" width="100" />
-        <ElTableColumn prop="operator" label="操作人" width="120" />
-        <ElTableColumn prop="errorMessage" label="错误信息" minWidth="150" show-overflow-tooltip />
+        </YdTableColumn>
+        <YdTableColumn prop="duration" label="耗时(ms)" width="100" />
+        <YdTableColumn prop="operator" label="操作人" width="120" />
+        <YdTableColumn prop="errorMessage" label="错误信息" minWidth="150" show-overflow-tooltip />
       </YdTable>
       <YdEmptyState v-if="syncLogs.length === 0" description="暂无同步日志" :image-size="60" />
       </YdCardContent>

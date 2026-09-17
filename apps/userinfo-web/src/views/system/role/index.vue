@@ -20,10 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { YdDialog, YdTable, YdTransfer } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdDialog, YdTransfer } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -348,19 +345,19 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
       width="800px"
     >
       <YdTable :data="roleUserList" border max-height="400">
-        <ElTableColumn type="index" :label="t('page.rowIndex')" width="60" />
-        <ElTableColumn prop="username" :label="t('page.username')" width="120" />
-        <ElTableColumn prop="realName" :label="t('page.realName')" width="120" />
-        <ElTableColumn prop="phone" :label="t('page.phone')" width="130" />
-        <ElTableColumn prop="email" :label="t('page.email')" width="180" />
-        <ElTableColumn prop="status" :label="t('page.status')" width="80">
+        <YdTableColumn type="index" :label="t('page.rowIndex')" width="60" />
+        <YdTableColumn prop="username" :label="t('page.username')" width="120" />
+        <YdTableColumn prop="realName" :label="t('page.realName')" width="120" />
+        <YdTableColumn prop="phone" :label="t('page.phone')" width="130" />
+        <YdTableColumn prop="email" :label="t('page.email')" width="180" />
+        <YdTableColumn prop="status" :label="t('page.status')" width="80">
           <template #default="{ row }">
             <YdBadge :variant="row.status === 1 ? 'default' : 'destructive'" :class="row.status === 1 ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'">
               {{ row.status === 1 ? t('page.enabled') : t('page.disabled') }}
             </YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
+        </YdTableColumn>
+        <YdTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
       </YdTable>
       <template #footer>
         <YdButtonBase variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</YdButtonBase>

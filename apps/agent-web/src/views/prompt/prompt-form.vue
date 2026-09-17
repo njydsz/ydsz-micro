@@ -16,8 +16,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, watch } from 'vue';
 

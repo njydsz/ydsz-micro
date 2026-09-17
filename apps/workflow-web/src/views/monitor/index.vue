@@ -17,8 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdCountToAnimator } from '@ydsz-core/ydsz-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import { YdCountToAnimator, YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import {

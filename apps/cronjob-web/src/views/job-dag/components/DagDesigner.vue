@@ -17,8 +17,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, Slider, YdTextarea } from '@ydsz-core/ydsz-ui';
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, Slider, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';

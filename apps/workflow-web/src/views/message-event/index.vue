@@ -16,8 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdButtonBase, YdCard, YdCardContent, YdInput } from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { reactive, ref } from 'vue';

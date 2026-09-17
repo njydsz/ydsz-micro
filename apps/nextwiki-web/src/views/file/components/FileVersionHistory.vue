@@ -16,10 +16,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdDialog } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
-import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdDialog, YdTable, YdTableColumn, YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
@@ -174,7 +171,7 @@ onMounted(() => {
 
 <template>
   <Modal :title="`版本历史 - ${props.fileNode?.name ?? ''}`" width="900px">
-    <div v-loading="loading">
+    <div loading="loading">
       <div class="mb-3 flex justify-between">
         <span class="text-sm text-gray-500">共 {{ versions.length }} 个版本</span>
         <div class="flex gap-2">
@@ -184,20 +181,20 @@ onMounted(() => {
       </div>
 
       <YdTable :data="versions" border>
-        <ElTableColumn type="index" label="序号" width="60" />
-        <ElTableColumn label="版本" width="80">
+        <YdTableColumn type="index" label="序号" width="60" />
+        <YdTableColumn label="版本" width="80">
           <template #default="{ row }">
             <span class="font-medium">v{{ row.version }}</span>
             <YdBadge v-if="row.isCurrent" variant="default" class="ml-1">当前</YdBadge>
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="size" label="大小" width="100">
+        </YdTableColumn>
+        <YdTableColumn prop="size" label="大小" width="100">
           <template #default="{ row }">{{ formatSize(row.size) }}</template>
-        </ElTableColumn>
-        <ElTableColumn prop="createdBy" label="操作人" width="100" />
-        <ElTableColumn prop="createdAt" label="时间" width="170" />
-        <ElTableColumn prop="remark" label="备注" min-width="120" />
-        <ElTableColumn label="操作" width="200" fixed="right">
+        </YdTableColumn>
+        <YdTableColumn prop="createdBy" label="操作人" width="100" />
+        <YdTableColumn prop="createdAt" label="时间" width="170" />
+        <YdTableColumn prop="remark" label="备注" min-width="120" />
+        <YdTableColumn label="操作" width="200" fixed="right">
           <template #default="{ row }">
             <YdButtonBase size="sm" variant="link" @click="handlePreview(row)">预览</YdButtonBase>
             <YdButtonBase size="sm" variant="link" @click="handleDownloadVersion(row)">下载</YdButtonBase>
@@ -210,7 +207,7 @@ onMounted(() => {
               回滚
             </YdButtonBase>
           </template>
-        </ElTableColumn>
+        </YdTableColumn>
       </YdTable>
 
       <!-- 版本对比结果 -->

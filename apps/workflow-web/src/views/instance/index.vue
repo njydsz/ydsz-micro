@@ -17,9 +17,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
@@ -342,19 +340,19 @@ async function openTimeline(row: FlowInstanceVO) {
         <!-- 流程图高亮 -->
         <FlowDiagramViewer :instance="timelineInstance" />
         <!-- 轨迹表格 -->
-        <YdTable :data="timelineRows" border size="small" v-loading="timelineLoading" class="mt-4">
-          <ElTableColumn prop="type" :label="$t('wf.type')" width="100" />
-          <ElTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
-          <ElTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
-          <ElTableColumn prop="assigneeName" :label="$t('wf.assigneeName')" width="100" />
-          <ElTableColumn prop="action" :label="$t('wf.action')" width="100" />
-          <ElTableColumn
+        <YdTable :data="timelineRows" border size="small" loading="timelineLoading" class="mt-4">
+          <YdTableColumn prop="type" :label="$t('wf.type')" width="100" />
+          <YdTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
+          <YdTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
+          <YdTableColumn prop="assigneeName" :label="$t('wf.assigneeName')" width="100" />
+          <YdTableColumn prop="action" :label="$t('wf.action')" width="100" />
+          <YdTableColumn
             prop="comment"
             :label="$t('wf.comment')"
             min-width="120"
             show-overflow-tooltip
           />
-          <ElTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
+          <YdTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
         </YdTable>
       </div>
       </YdSheetContent>

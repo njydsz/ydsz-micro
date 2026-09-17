@@ -17,23 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdDatePicker, YdForm, YdFormItem, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
-import {
-  YdBadge,
-  YdButtonBase,
-  YdDialog,
-  YdDialogContent,
-  YdDialogFooter,
-  YdDialogHeader,
-  YdDialogTitle,
-  YdInput,
-  YdSelectBase,
-  YdSelectContentBase,
-  YdSelectItemBase,
-  YdSelectTriggerBase,
-  YdSelectValueBase,
-  YdTextarea,
-} from '@ydsz-core/ydsz-ui';
+import { YdDatePicker, YdForm, YdFormItem, YdTabsContent, YdTabs, YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {

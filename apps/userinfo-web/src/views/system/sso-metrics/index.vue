@@ -36,10 +36,7 @@ export function isSsoMetricsOverviewVo(value: unknown): value is SsoMetricsOverv
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge } from '@ydsz-core/ydsz-ui';
-import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
-import { YdTable } from '@ydsz-core/ydsz-ui';
-import { ElTableColumn } from 'element-plus';
+import { YdBadge, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -91,7 +88,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page v-loading="isLoading" auto-content-height>
+  <Page loading="isLoading" auto-content-height>
     <!-- 指标概览卡片 -->
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       <YdCard shadow="hover">
@@ -222,17 +219,17 @@ onMounted(() => {
           border
           max-height="300"
         >
-          <ElTableColumn type="index" label="序号" width="80" />
-          <ElTableColumn label="标签" prop="index" width="120">
+          <YdTableColumn type="index" label="序号" width="80" />
+          <YdTableColumn label="标签" prop="index" width="120">
             <template #default="{ row }">
               <span>时段 {{ row.index }}</span>
             </template>
-          </ElTableColumn>
-          <ElTableColumn label="登录次数" minWidth="120">
+          </YdTableColumn>
+          <YdTableColumn label="登录次数" minWidth="120">
             <template #default="{ row }">
               <span>{{ row.value }}</span>
             </template>
-          </ElTableColumn>
+          </YdTableColumn>
         </YdTable>
         <YdEmptyState v-else description="暂无登录趋势数据" :image-size="60" />
       </YdCard>
