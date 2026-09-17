@@ -1,7 +1,7 @@
 <!--
  * 表尾容器：可选分组，通常用于汇总行。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTableFooter.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableFooter.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

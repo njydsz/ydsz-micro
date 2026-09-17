@@ -12,7 +12,7 @@
  *  - 搜索结果自动选中首个命中的节点；
  *  - 清空搜索恢复原树视图。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tree\YdVTreeSearch.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\YdVTreeSearch.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

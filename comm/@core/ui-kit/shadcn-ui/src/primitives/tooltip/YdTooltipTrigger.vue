@@ -4,7 +4,7 @@
  * 不带样式，触发区形态由调用方决定；
  * 提示文本放在 YdTooltipContent 里而不是这里，避免污染可访问名称。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltipTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tooltip\YdTooltipTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

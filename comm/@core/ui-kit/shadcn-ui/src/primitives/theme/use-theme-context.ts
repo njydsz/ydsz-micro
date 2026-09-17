@@ -6,7 +6,7 @@
  *  - ThemeProvider 存在时使用注入句柄，否则回退到全局默认句柄；
  *  - SSR 安全：globalThis.document 不可用时只返回 set/bulk no-op。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\theme\use-theme-context.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\use-theme-context.ts
  * @author ydsz-team
  * @since 1.0.0
  */

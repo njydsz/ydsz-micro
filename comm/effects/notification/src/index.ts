@@ -3,14 +3,14 @@
  *
  * <p>提供四级 severity 对齐的 toast 与通知工具，过渡期内保留对 ElMessage 风格的兼容式封装：
  * <ul>
- *   <li>{@link showToastCompat} — 常规操作反馈（基于 shadcn-ui ToastProvider，自动关闭）</li>
+ *   <li>{@link showToastCompat} — 常规操作反馈（基于 ydsz-ui ToastProvider，自动关闭）</li>
  *   <li>{@link showNotify} — 桌面通知卡片（长停留）</li>
  *   <li>{@link showAlert} — 阻断式弹窗（FATAL/严重错误，需用户确认，使用 ydszAlert）</li>
  *   <li>{@link handleBusinessError} — 根据 {@link ExceptionSeverity} 自动选择展示方式</li>
  * </ul>
  *
  * <p>迁移进度（YDIZ-EP-001）：ElMessage/ElNotification 已逐步替换为 showToast/showNotify。
- * 长期目标：移除 element-plus peer dependency，完全基于 shadcn-ui 通知系统。
+ * 长期目标：移除 element-plus peer dependency，完全基于 ydsz-ui 通知系统。
  *
  * @path comm/effects/notification/src/index.ts
  * @author ydsz-team
@@ -35,7 +35,7 @@ export { default as ToastProvider } from './ToastProvider.vue';
  *
  * <p>业务侧将原 `from 'element-plus'` 替换为 `from '@ydsz/notification'`，
  * 即可零改动迁移 ElMessage / ElMessageBox / ElNotification 三种调用形式。
- * 底层实现已切换为 shadcn-ui + popup-ui + showToast，
+ * 底层实现已切换为 ydsz-ui + popup-ui + showToast，
  * 待 EP 全量退出后由 P2-1 决策保留或替换为原生 showToast/confirm/ydszAlert。
  */
 export { ElMessage, ElMessageBox, ElNotification } from './el-bridge';
@@ -71,7 +71,7 @@ const LEVEL_TOAST_VARIANT: Record<ExceptionSeverity, 'info' | 'warning' | 'error
  * 常规操作反馈（使用全局 Toast 系统）。
  *
  * <p>自动关闭，非阻塞，适合常规操作成功/失败提示。
- * 内部使用基于 shadcn-ui ToastProvider 的 showToast，替代原 ElMessage。
+ * 内部使用基于 ydsz-ui ToastProvider 的 showToast，替代原 ElMessage。
  *
  * @param message — 提示文案
  * @param level — 严重等级（默认 WARN）

@@ -1,7 +1,7 @@
 <!--
  * 行容器：支持 hover 高亮与 selected 态，实现选中行持久视觉反馈。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTableRow.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableRow.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

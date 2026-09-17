@@ -11,7 +11,7 @@
  *  - Tailwind config 只定义「静态类名 → CSS 变量引用」；
  *  - useTheme 运行时直接修改 CSS 变量的值（影响所有已渲染的组件）。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\theme\use-theme.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\use-theme.ts
  * @author ydsz-team
  * @since 1.0.0
  */

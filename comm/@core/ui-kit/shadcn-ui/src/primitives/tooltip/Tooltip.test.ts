@@ -6,7 +6,7 @@
  * <p>YdTooltipBase 基于 radix-vue，其 TooltipRoot 必须位于 YdTooltipProviderBase 内部
  * （依赖 injection context）。因此测试中需要用 YdTooltipProviderBase 包裹被测组件。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltipBase.test.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tooltip\YdTooltipBase.test.ts
  * @author ydsz-team
  * @since 26.09.17
  */

@@ -3,7 +3,7 @@
  *
  * EP 退场（ep-exit-refactor-plan v3 §P0-2）：移除 Element Plus 语言包装配与
  * `elementLocale` 导出（ElConfigProvider 已随 EP 退场移除，无下游消费）；
- * 组件库文案由 shadcn-ui / @ydsz/notification 自持，经 vue-i18n 统一管理。
+ * 组件库文案由 ydsz-ui / @ydsz/notification 自持，经 vue-i18n 统一管理。
  *
  * @path main\src\locales\index.ts
  * @author ydsz-team

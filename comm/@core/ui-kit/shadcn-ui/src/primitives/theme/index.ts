@@ -9,7 +9,7 @@
  *   <li>ThemeProvider —— Vue 组件包裹器：provide 注入 + 系统 prefers-color-scheme 监听</li>
  * </ul>
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\theme\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

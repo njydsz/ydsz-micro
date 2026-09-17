@@ -5,7 +5,7 @@
  * 组内项自动继承；个别项仍可用自己的 props 覆盖。
  * 单选与多选由 radix 的 type 决定，本组件不自行管理选中集合。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle-group\YdToggleGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\toggle-group\YdToggleGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

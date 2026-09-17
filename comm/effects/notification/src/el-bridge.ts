@@ -2,7 +2,7 @@
  * Element Plus 命令式 API 的语义兼容层 —— EP 退场专用过渡模块。
  *
  * <p>导出与 `element-plus` 同名的 `ElMessage` / `ElMessageBox` / `ElNotification` 对象，
- * 方法签名与返回值契约与 EP 对齐，底层已切换为 shadcn-ui + popup-ui 实现。
+ * 方法签名与返回值契约与 EP 对齐，底层已切换为 ydsz-ui + popup-ui 实现。
  *
  * <p>业务侧将原 `from 'element-plus'` 替换为 `from '@ydsz/notification/compat'`，
  * 逻辑代码可零改动完成迁移。待 EP 全量退出后此模块将随最后一批清理删除。

@@ -5,7 +5,7 @@
  * YDSZ-form、YDSZ-modal、YDSZ-drawer 等多个业务组件复用。
  *
  * EP 退场（ep-exit-refactor-plan v3 §P0-2）：原 Element Plus 异步组件注册表
- * 整体切换为 shadcn-ui + form-controls 适配层，与 @ydsz/shared-business 的
+ * 整体切换为 ydsz-ui + form-controls 适配层，与 @ydsz/shared-business 的
  * 公共注册表共用同一实现（common-ui form-controls）。shadcn kit 为可摇树
  * ESM，无需 EP 时代的 Promise.all 双 import 异步装配。
  *
@@ -116,7 +116,7 @@ export type ComponentType =
   | YdBaseFormComponentType;
 
 /**
- * 初始化组件适配器：将表单/表格所需的 shadcn-ui 组件注册到全局共享状态。
+ * 初始化组件适配器：将表单/表格所需的 ydsz-ui 组件注册到全局共享状态。
  *
  * @remarks
  * 需在应用启动时调用一次，使 YDSZ-form、YDSZ-modal、YDSZ-drawer 能解析 {@link ComponentType}。

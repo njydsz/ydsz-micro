@@ -4,7 +4,7 @@
  * 对标 React Error Boundary 模式，在 Vue 3 中通过 onErrorCaptured 实现。
  * 用于包裹关键业务组件，防止局部错误导致整个应用崩溃。
  *
- * 使用自研 shadcn-ui YdEmptyState + YdButtonBase，零 element-plus 依赖。
+ * 使用自研 ydsz-ui YdEmptyState + YdButtonBase，零 element-plus 依赖。
  *
  * @example
  * ```vue

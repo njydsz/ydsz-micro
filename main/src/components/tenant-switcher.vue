@@ -1,7 +1,7 @@
 <!--
  * TenantSwitcher — 顶栏租户切换器
  *
- * <p>基于自研 shadcn-ui YdSelectBase 原语实现多租户切换功能（EP 退场 v3 §P0-2，
+ * <p>基于自研 ydsz-ui YdSelectBase 原语实现多租户切换功能（EP 退场 v3 §P0-2，
  * 原 Element Plus ElSelect/ElTooltip/ElMessage 全部替换）。
  * 仅当存在多个可访问租户（或当前用户为超级管理员）时显示切换入口。
  * 切换后更新 TenantStore、localStorage 并刷新页面以加载新租户数据。

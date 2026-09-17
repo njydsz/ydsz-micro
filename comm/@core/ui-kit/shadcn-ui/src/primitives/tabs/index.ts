@@ -4,7 +4,7 @@
  * Indicator 用于实现「滑块跟随」型标签栏；
  * 它依赖 radix 暴露的 CSS 变量，只有放在 YdTabsList 内部才有效。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tabs\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tabs\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

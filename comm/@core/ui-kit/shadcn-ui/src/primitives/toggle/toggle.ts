@@ -6,7 +6,7 @@
  * outline 变体补了边框与阴影，用于在工具栏中与常规按钮区分；
  * 尺寸只改高度与横向内边距，保持与 YdButton 的视觉节奏一致。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle\toggle.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\toggle\toggle.ts
  * @author ydsz-team
  * @since 1.0.0
  */

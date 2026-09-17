@@ -7,7 +7,7 @@
  *  - 提供响应式 isDark ref，便于 UI 根据主题切换图标 / 文字；
  *  - 可选侦测系统 prefers-color-scheme。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\theme\ThemeProvider.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\ThemeProvider.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

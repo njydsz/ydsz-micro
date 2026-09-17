@@ -13,7 +13,7 @@
  *  - 字号类：--text-{step}，如 --text-12 / --text-14
  *  - 动效类：--{param}，如 --ease-out / --duration-fast
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\theme\theme-schema.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\theme-schema.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -7,7 +7,7 @@
  * 高度随内容增长需调用方自行处理，这里只保证最小高度，
  * 因为自动增高在受控受值来回同步时极易产生抖动。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\textarea\YdTextarea.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\textarea\YdTextarea.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

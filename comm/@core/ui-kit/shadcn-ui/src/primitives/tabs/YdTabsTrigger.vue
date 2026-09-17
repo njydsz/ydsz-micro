@@ -5,7 +5,7 @@
  * 切换时出现整条标签栏跳动；禁用态用 disabled 属性选择器，
  * 因为 radix 会把它透传到原生按钮上。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tabs\YdTabsTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tabs\YdTabsTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

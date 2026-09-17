@@ -3,7 +3,7 @@
  *
  * P0-2: 带搜索过滤的树选择组件 — Storybook 交互式文档。
  *
- * @path comm\@core\ui-kit\shadcn-ui/src/ui/tree/YdVTreeSearch.stories.ts
+ * @path comm\@core\ui-kit\ydsz-ui/src/ui/tree/YdVTreeSearch.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */

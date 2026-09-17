@@ -3,7 +3,7 @@
  *
  * P1-1: 运行时主题 API — 演示 useTheme / ThemeProvider 用法。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\theme\Theme.stories.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\Theme.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */

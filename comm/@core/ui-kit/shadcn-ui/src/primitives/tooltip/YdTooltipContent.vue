@@ -1,7 +1,7 @@
 ﻿<!--
  * YdTooltipContent Vue 组件 - 现代化提示样式
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltipContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tooltip\YdTooltipContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

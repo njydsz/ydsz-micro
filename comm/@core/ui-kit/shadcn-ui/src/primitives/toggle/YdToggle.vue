@@ -5,7 +5,7 @@
  * 否则这两个非 DOM 属性会被透传到原生按钮上，最终出现在 HTML 里成为无效属性；
  * 其余 props 原样转发给 radix，保留其开合语义与键盘行为。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle\YdToggle.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\toggle\YdToggle.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

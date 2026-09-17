@@ -6,7 +6,7 @@
  * 节点取值、显示文本、子级、禁用态全部通过 *Field 配置字段名，
  * 因此可以直接消费后端返回的原始结构，不必在前端做数据转换。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tree\tree.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\tree.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

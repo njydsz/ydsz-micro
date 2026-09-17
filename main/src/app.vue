@@ -11,7 +11,7 @@
  * 变更（YDIZ-EP-001 Phase 1）：
  * - 移除 ElConfigProvider（Element Plus 退出基座）
  * - 移除 useElementPlusDesignTokens()（EP 主题桥接层废弃）
- * - 挂载 ToastProvider（shadcn-ui 通知系统入口）
+ * - 挂载 ToastProvider（ydsz-ui 通知系统入口）
  * - 保留 NetworkAlert / SubAppProgress / GlobalSearch
  *
  * @path main\src\app.vue

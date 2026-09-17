@@ -5,7 +5,7 @@
  * 它必须位于 YdTooltipProvider 之内，否则不会显示 ——
  * 这是接入 radix YdTooltip 时最常见的疏漏。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltip.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tooltip\YdTooltip.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

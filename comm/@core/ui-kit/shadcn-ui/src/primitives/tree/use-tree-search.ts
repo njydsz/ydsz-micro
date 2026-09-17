@@ -11,7 +11,7 @@
  *   <li>高亮匹配文本片段（返回起止位置，用于前端 mark 标签）</li>
  * </ul>
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tree\use-tree-search.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\use-tree-search.ts
  * @author ydsz-team
  * @since 1.0.0
  */

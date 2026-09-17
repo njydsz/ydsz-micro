@@ -5,7 +5,7 @@
  * 形成「轨道内嵌滑块」的观感；高度写死在标签栏而非触发器上，
  * 可避免各触发器高度不一致导致的抖动。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tabs\YdTabsList.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tabs\YdTabsList.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

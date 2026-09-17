@@ -2,7 +2,7 @@
  * 子应用 i18n 装配工厂 — 消除各子应用 locales/index.ts 中重复的样板代码。
  *
  * v3.6 (EP-EXIT): Element Plus 退场 — 移除 EP locale 装配与 `elementLocale`，
- *               仅保留 dayjs 第三方语言包加载；组件库文案由 shadcn-ui /
+ *               仅保留 dayjs 第三方语言包加载；组件库文案由 ydsz-ui /
  *               @ydsz/notification 自持，经 vue-i18n 统一管理。
  *
  * 设计要点：

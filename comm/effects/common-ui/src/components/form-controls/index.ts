@@ -1,5 +1,5 @@
 /**
- * 表单控件适配层 —— shadcn-ui 原子件与 form-ui 注册表之间的 modelValue 桥。
+ * 表单控件适配层 —— ydsz-ui 原子件与 form-ui 注册表之间的 modelValue 桥。
  *
  * 背景：radix 系原子件沿用 v-model:checked 等根约定，而 form-ui 注册表
  * 统一以 modelValue 绑定（COMPONENT_BIND_EVENT_MAP 仅对个别键特判）。

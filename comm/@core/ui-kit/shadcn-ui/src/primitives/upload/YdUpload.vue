@@ -20,7 +20,7 @@
  * - auto-upload: 是否自动上传，默认 true
  * - list-type: text | picture-card，默认 text
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\upload\YdUpload.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\upload\YdUpload.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

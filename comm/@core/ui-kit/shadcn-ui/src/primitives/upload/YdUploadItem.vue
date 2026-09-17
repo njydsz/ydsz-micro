@@ -3,7 +3,7 @@
  *
  * 展示文件名、状态图标和进度条。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\upload\YdUploadItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\upload\YdUploadItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

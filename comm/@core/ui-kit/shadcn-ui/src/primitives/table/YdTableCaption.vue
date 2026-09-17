@@ -3,7 +3,7 @@
  *
  * 屏幕阅读器会将 caption 作为表格标题朗读；视觉上可作为表头上方说明。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTableCaption.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableCaption.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

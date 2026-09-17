@@ -3,7 +3,7 @@
  *
  * <p>与 ElUpload 的 UploadFile / UploadRequestOptions / UploadUserFile 类型对齐。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\upload\types.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\upload\types.ts
  * @author ydsz-team
  * @since 1.0.0
  */

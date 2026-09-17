@@ -1,7 +1,7 @@
 <!--
  * 表格空数据占位：在 tbody 内独占一行，跨所有列。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTableEmpty.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableEmpty.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

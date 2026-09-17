@@ -5,7 +5,7 @@
  * 未激活面板默认不挂载，因此面板内的组件状态会随切换丢失，
  * 需要保活时应自行加 keep-alive 或用 v-show 替代。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tabs\YdTabsContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tabs\YdTabsContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

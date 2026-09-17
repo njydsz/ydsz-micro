@@ -1,7 +1,7 @@
 <!--
  * 表格单元格：td 语义，支持对齐与文本截断。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTableCell.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableCell.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

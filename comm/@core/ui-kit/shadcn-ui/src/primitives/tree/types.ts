@@ -6,7 +6,7 @@
  * 选中行为由 multiple / checkStrictly / autoCheckParent 三者组合决定，
  * 组合含义见各字段上的说明，不要凭字面猜测。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tree\types.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\types.ts
  * @author ydsz-team
  * @since 1.0.0
  */

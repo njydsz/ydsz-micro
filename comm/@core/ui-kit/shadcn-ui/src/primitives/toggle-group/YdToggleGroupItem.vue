@@ -5,7 +5,7 @@
  * 这样既支持整组统一样式，也允许单独强调某一项；
  * 注入缺失时降级为 undefined，由 cva 的 defaultVariants 兜底，不会报错。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle-group\YdToggleGroupItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\toggle-group\YdToggleGroupItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

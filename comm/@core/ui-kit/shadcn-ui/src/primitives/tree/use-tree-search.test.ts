@@ -3,7 +3,7 @@
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-FE-001：测试用例必须有明确断言。
  *
- * @path comm\@core\ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts
+ * @path comm\@core\ui-kit/ydsz-ui/src/ui/tree/use-tree-search.test.ts
  * @author ydsz-team
  * @since 1.0.0
  */

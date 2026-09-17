@@ -1,7 +1,7 @@
 <!--
  * 表头容器：语义分组 thead，提供 bg-muted/50 背景。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTableHeader.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableHeader.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
