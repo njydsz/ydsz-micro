@@ -1,80 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="39" failures="13" errors="0" time="0.0594866">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" timestamp="2026-09-17T14:29:43.925Z" hostname="DESKTOP-FIC0TQ3" tests="39" failures="13" errors="0" skipped="0" time="0.0594866">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenu 应被定义" time="0.0006292">
+<testsuites name="vitest tests" tests="115" failures="0" errors="0" time="0.2125668">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" timestamp="2026-09-17T14:32:11.596Z" hostname="DESKTOP-FIC0TQ3" tests="40" failures="0" errors="0" skipped="0" time="0.0468893">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenu 应被定义" time="0.0017096">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuContent 应被定义" time="0.0000852">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuContent 应被定义" time="0.0001322">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuItem 应被定义" time="0.0000678">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuItem 应被定义" time="0.0001002">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuTrigger 应被定义" time="0.0000742">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuTrigger 应被定义" time="0.0000822">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuLabel 应被定义" time="0.0000619">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuLabel 应被定义" time="0.0000843">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSeparator 应被定义" time="0.0000659">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSeparator 应被定义" time="0.0001198">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuGroup 应被定义" time="0.0000473">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuGroup 应被定义" time="0.0001592">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioGroup 应被定义" time="0.0000451">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioGroup 应被定义" time="0.0000766">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioItem 应被定义" time="0.0000528">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioItem 应被定义" time="0.0000817">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuCheckboxItem 应被定义" time="0.0000637">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuCheckboxItem 应被定义" time="0.0000979">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSub 应被定义" time="0.0000421">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSub 应被定义" time="0.0000625">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubTrigger 应被定义" time="0.0000319">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubTrigger 应被定义" time="0.0000609">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubContent 应被定义" time="0.0000422">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubContent 应被定义" time="0.0000497">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuShortcut 应被定义" time="0.0000366">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuShortcut 应被定义" time="0.0001252">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuPortal 应被定义" time="0.000028">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuPortal 应被定义" time="0.0001101">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 class prop" time="0.0001082">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 class prop" time="0.000173">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 inset prop" time="0.0000331">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 inset prop" time="0.0000582">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuContent props &gt; 应包含 class prop" time="0.000029">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuContent props &gt; 应包含 class prop" time="0.000048">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuCheckboxItem props &gt; 应包含 checked prop" time="0.0000271">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuCheckboxItem props &gt; 应包含 checked prop" time="0.0000438">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuCheckboxItem props &gt; 应包含 class prop" time="0.0000241">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuCheckboxItem props &gt; 应包含 class prop" time="0.0000364">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioItem props &gt; 应包含 value prop" time="0.0000255">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioItem props &gt; 应包含 value prop" time="0.0000407">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioItem props &gt; 应包含 class prop" time="0.0000391">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioItem props &gt; 应包含 class prop" time="0.0000692">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioGroup props &gt; 应包含 modelValue prop" time="0.0000274">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioGroup props &gt; 应包含 modelValue prop" time="0.0000443">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 右键点击 Trigger 应打开上下文菜单" time="0.022558">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 默认行为 &gt; YdContextMenu 应被定义并可用" time="0.00017">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 默认行为 &gt; YdContextMenu props 应包含 dir 和 modal" time="0.0000828">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 受控 open=true 时菜单内容应正常挂载" time="0.0238801">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
   at &lt;YdContextMenuTrigger class=&quot;flex h-20 w-full items-center justify-center border&quot; data-testid=&quot;ctx-trigger&quot; &gt; 
   at &lt;PopperRoot&gt; 
   at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
-  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
-  at &lt;YdContextMenu&gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
   at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
   at &lt;VTUROOT&gt;
-[Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuContent&gt; 
-  at &lt;PopperRoot&gt; 
-  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
-  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
-  at &lt;YdContextMenu&gt; 
-  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Cannot call trigger on an empty DOMWrapper." type="Error">
-Error: Cannot call trigger on an empty DOMWrapper.
- ❯ Object.get node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:1488:27
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:180:42
-            </failure>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 受控 open=true 时菜单直接渲染" time="0.0051858">
-            <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
   at &lt;YdContextMenuContent&gt; 
   at &lt;PopperRoot&gt; 
@@ -85,42 +71,8 @@ Error: Cannot call trigger on an empty DOMWrapper.
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="expected &apos;&lt;div data-v-app=&quot;&quot;&gt;&lt;!--[object Object…&apos; to contain &apos;受控项&apos;" type="AssertionError">
-AssertionError: expected &apos;&lt;div data-v-app=&quot;&quot;&gt;&lt;!--[object Object…&apos; to contain &apos;受控项&apos;
-
-Expected: &quot;受控项&quot;
-Received: &quot;&lt;div data-v-app=&quot;&quot;&gt;&lt;!--[object Object]--&gt;&lt;/div&gt;&quot;
-
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:214:37
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; Escape 按键应关闭菜单" time="0.0021069">
-            <system-err>
-[Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuTrigger data-testid=&quot;esc-trigger&quot; &gt; 
-  at &lt;PopperRoot&gt; 
-  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
-  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
-  at &lt;YdContextMenu&gt; 
-  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-[Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuContent&gt; 
-  at &lt;PopperRoot&gt; 
-  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
-  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
-  at &lt;YdContextMenu&gt; 
-  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Cannot call trigger on an empty DOMWrapper." type="Error">
-Error: Cannot call trigger on an empty DOMWrapper.
- ❯ Object.get node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:1488:27
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:241:53
-            </failure>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 键盘 Arrow 上下导航应不报错" time="0.0025699">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; Escape 按键不应导致组件崩溃" time="0.0038519">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
   at &lt;YdContextMenuContent&gt; 
@@ -133,7 +85,7 @@ Error: Cannot call trigger on an empty DOMWrapper.
 
             </system-err>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu Submenu 延迟与展开 &gt; Sub + SubTrigger + SubContent 结构应正确挂载" time="0.0027177">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 键盘 Arrow 上下导航应不报错" time="0.0030765">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
   at &lt;YdContextMenuContent&gt; 
@@ -145,12 +97,8 @@ Error: Cannot call trigger on an empty DOMWrapper.
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="expected null not to be null" type="AssertionError">
-AssertionError: expected null not to be null
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:340:11
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu Submenu 延迟与展开 &gt; Submenu 应该包含 ChevronRight 箭头图标" time="0.0018163">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu Submenu 结构 &gt; Sub + SubTrigger + SubContent 结构应正确挂载" time="0.0032567">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
   at &lt;YdContextMenuContent&gt; 
@@ -162,12 +110,10 @@ AssertionError: expected null not to be null
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="expected null not to be null" type="AssertionError">
-AssertionError: expected null not to be null
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:382:26
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu CheckboxItem isChecked 状态 &gt; isChecked=true 的 CheckboxItem 应正确渲染" time="0.0021245">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu Submenu 结构 &gt; Submenu SubTrigger 应接受 inset prop" time="0.0001848">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu CheckboxItem isChecked 状态 &gt; isChecked=true 的 CheckboxItem 应正确渲染（受控 open=true）" time="0.0031349">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
   at &lt;YdContextMenuContent&gt; 
@@ -179,12 +125,10 @@ AssertionError: expected null not to be null
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="expected null not to be null" type="AssertionError">
-AssertionError: expected null not to be null
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:432:11
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu CheckboxItem isChecked 状态 &gt; CheckboxItem 应包含 pl-8 样式用于对齐勾选标记" time="0.001566">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu CheckboxItem isChecked 状态 &gt; CheckboxItem 应包含 class prop" time="0.0001218">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioGroup 内 RadioItem 应正确挂载（受控 open=true）" time="0.0030435">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
   at &lt;YdContextMenuContent&gt; 
@@ -196,102 +140,494 @@ AssertionError: expected null not to be null
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="expected null not to be null" type="AssertionError">
-AssertionError: expected null not to be null
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:465:20
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioGroup 内 RadioItem 应正确渲染且初始选中值为 modelValue" time="0.0017435">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioItem 应包含 class prop" time="0.0001305">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioGroup 应包含 modelValue prop" time="0.000155">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component props &gt; YdContextMenuShortcut 应包含 class prop" time="0.0000582">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component props &gt; YdContextMenuLabel 应包含 inset prop" time="0.0000463">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component props &gt; YdContextMenuSeparator 应包含 class prop" time="0.0000399">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component props &gt; YdContextMenuGroup 应被定义并可用" time="0.0000356">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component props &gt; YdContextMenuPortal 应被定义并可用" time="0.0000515">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" timestamp="2026-09-17T14:32:11.612Z" hostname="DESKTOP-FIC0TQ3" tests="43" failures="0" errors="0" skipped="0" time="0.0812505">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenu 应被定义" time="0.0008457">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuContent 应被定义" time="0.0001191">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuItem 应被定义" time="0.0000985">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuTrigger 应被定义" time="0.0000866">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuLabel 应被定义" time="0.000095">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSeparator 应被定义" time="0.0000837">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuGroup 应被定义" time="0.0000733">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuRadioGroup 应被定义" time="0.0000555">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuRadioItem 应被定义" time="0.0000706">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuCheckboxItem 应被定义" time="0.0000831">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSub 应被定义" time="0.0000688">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSubTrigger 应被定义" time="0.0000512">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuSubContent 应被定义" time="0.000041">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu compound components &gt; YdDropdownMenuShortcut 应被定义" time="0.0000368">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuItem props &gt; 应包含 class prop" time="0.0001564">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuItem props &gt; 应包含 inset prop" time="0.0000479">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuContent props &gt; 应包含 class prop" time="0.0000422">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuContent props &gt; 应包含 sideOffset prop" time="0.0000357">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuContent props &gt; sideOffset 默认值应为 4" time="0.0000971">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuLabel props &gt; 应包含 inset prop" time="0.0000419">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuShortcut props &gt; 应包含 class prop" time="0.0000374">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuCheckboxItem props &gt; 应包含 class prop" time="0.0000552">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuCheckboxItem props &gt; 应包含 checked prop" time="0.000037">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuRadioItem props &gt; 应包含 class prop" time="0.0000679">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuRadioItem props &gt; 应包含 value prop" time="0.0000508">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenuRadioGroup props &gt; 应包含 modelValue prop" time="0.0000392">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; 受控 open=true 时应渲染菜单内容" time="0.0349226">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuContent&gt; 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; Escape 按键不应导致组件崩溃" time="0.0049081">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; disabled 菜单项应在 DOM 中存在" time="0.004887">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; 子菜单结构（Sub + SubTrigger + SubContent）应正确挂载" time="0.0046435">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; CheckboxItem checked 状态应被接受并渲染" time="0.0041298">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; RadioGroup + RadioItem 单选应挂载成功" time="0.0032729">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; Group + Label + Separator 组合应挂载成功" time="0.0031232">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; 键盘 Arrow 上下导航应不报错" time="0.0044873">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 交互行为 &gt; menu 从 false 切换到 true 应正常渲染（受控 isTrigger）" time="0.0123119">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdDropdownMenuTrigger as-child=&quot;&quot; &gt; 
   at &lt;PopperRoot&gt; 
   at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
-  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
-  at &lt;YdContextMenu open=true &gt; 
+  at &lt;DropdownMenuRoot modal=false open=false onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=false onUpdate:open=fn&lt;onUpdate:open&gt; &gt; 
   at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
   at &lt;VTUROOT&gt;
 
-            </system-err>
-            <failure message="expected null not to be null" type="AssertionError">
-AssertionError: expected null not to be null
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:511:11
-            </failure>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioItem 应包含 pl-8 样式用于对齐圆点标记" time="0.001453">
-            <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuContent&gt; 
+  at &lt;Teleport to=undefined disabled=false forceMount=false &gt; 
+  at &lt;MenuPortal disabled=false forceMount=false to=undefined &gt; 
+  at &lt;DropdownMenuPortal&gt; 
+  at &lt;YdDropdownMenuContent&gt; 
   at &lt;PopperRoot&gt; 
-  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
-  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
-  at &lt;YdContextMenu open=true &gt; 
+  at &lt;MenuRoot open=true onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;DropdownMenuRoot modal=false open=true onUpdate:open=fn &gt; 
+  at &lt;YdDropdownMenu open=true onUpdate:open=fn&lt;onUpdate:open&gt; &gt; 
   at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="expected null not to be null" type="AssertionError">
-AssertionError: expected null not to be null
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:548:20
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioItem 包含 Circle 图标作为选中标记" time="0.0022114">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu sub-component class assertion via props &gt; YdDropdownMenuItem 应接受 class prop" time="0.0001413">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu sub-component class assertion via props &gt; YdDropdownMenuItem 应接受 inset prop" time="0.0000722">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu sub-component class assertion via props &gt; YdDropdownMenuLabel 应接受 inset prop" time="0.0000515">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu sub-component class assertion via props &gt; YdDropdownMenuShortcut 应接受 class prop" time="0.0000455">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu sub-component class assertion via props &gt; YdDropdownMenuSeparator 应接受 class prop" time="0.0000432">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu sub-component class assertion via props &gt; YdDropdownMenuSubTrigger 应接受 class prop" time="0.0000395">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 默认行为 &gt; YdDropdownMenu 接受 open prop" time="0.0000425">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/dropdown-menu/dropdownMenu.test.ts" name="YdDropdownMenu 默认行为 &gt; YdDropdownRoot default modal prop 存在" time="0.000046">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" timestamp="2026-09-17T14:32:11.625Z" hostname="DESKTOP-FIC0TQ3" tests="32" failures="0" errors="0" skipped="0" time="0.084427">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheet 应被定义" time="0.0009693">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetContent 应导出" time="0.0001563">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetTitle 应导出" time="0.000132">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetHeader 应导出" time="0.0001097">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetFooter 应导出" time="0.000103">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetDescription 应导出" time="0.000084">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetTrigger 应导出" time="0.0000834">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet compound components &gt; YdSheetClose 应导出" time="0.0000563">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheetContent props &gt; 应包含 side prop 且默认值为 right" time="0.0002243">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheetContent props &gt; 应包含 overlayBlur prop" time="0.0000974">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheetContent props &gt; 应包含 zIndex prop" time="0.0000642">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheetContent props &gt; 应包含 modal prop" time="0.0000538">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants 应是函数" time="0.0001397">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; 调用 sheetVariants 应返回字符串" time="0.0002957">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants 接受四种 side 值且包含 slide 动画类名" time="0.0002995">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants right 应包含 slide-in-from-right" time="0.0000789">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants left 应包含 slide-in-from-left" time="0.0000504">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants top 应包含 slide-in-from-top" time="0.000047">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; sheetVariants bottom 应包含 slide-in-from-bottom" time="0.0000599">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="sheetVariants cva &gt; 不同 side 返回不同的类名" time="0.0004546">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; YdSheet 带 Trigger 和 Content Slot 应能挂载" time="0.034139">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuContent&gt; 
-  at &lt;PopperRoot&gt; 
-  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
-  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
-  at &lt;YdContextMenu open=true &gt; 
+  at &lt;YdSheetTrigger&gt; 
+  at &lt;Anonymous&gt; 
+  at &lt;DialogRoot onUpdate:open=fn &gt; 
+  at &lt;YdSheet ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent&gt; 
+  at &lt;Anonymous&gt; 
+  at &lt;DialogRoot onUpdate:open=fn &gt; 
+  at &lt;YdSheet ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; 受控 open=true 时组件应挂载成功" time="0.0070812">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;right&quot; &gt; 
+  at &lt;DialogRoot open=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true &gt; 
   at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="expected null not to be null" type="AssertionError">
-AssertionError: expected null not to be null
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:581:20
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuItem inset=true 应包含 pl-8" time="0.0063297">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; Escape 按键不应导致组件崩溃" time="0.0041754">
             <system-err>
 [Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuItem inset=true ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string" type="AssertionError">
-AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:600:39
-            </failure>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuLabel inset=true 应包含 pl-8" time="0.0013789">
-            <system-err>
-[Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuLabel inset=true ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string" type="AssertionError">
-AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:609:39
-            </failure>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuShortcut 应包含 ml-auto" time="0.001963">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuSeparator 应包含 h-px" time="0.0009289">
-            <system-err>
-[Vue warn]: Invalid vnode type when creating vnode: undefined. 
-  at &lt;YdContextMenuSeparator&gt; 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;right&quot; &gt; 
+  at &lt;DialogRoot open=true modal=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true modal=true &gt; 
   at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
   at &lt;VTUROOT&gt;
 
             </system-err>
-            <failure message="the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string" type="AssertionError">
-AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:629:39
-            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuSubTrigger inset=true 应包含 pl-8" time="0.0000876">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; 四个位置变体（top/right/bottom/left）应各自挂载成功" time="0.0145856">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;top&quot; &gt; 
+  at &lt;DialogRoot open=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;right&quot; &gt; 
+  at &lt;DialogRoot open=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;bottom&quot; &gt; 
+  at &lt;DialogRoot open=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;left&quot; &gt; 
+  at &lt;DialogRoot open=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; YdSheetClose 子组件应在 open=true 时存在于树中" time="0.0030508">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;right&quot; &gt; 
+  at &lt;DialogRoot open=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; modal=true 时遮罩相关挂载应正常" time="0.0029681">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;right&quot; &gt; 
+  at &lt;DialogRoot open=true modal=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true modal=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; overlay-blur prop 应被接受并挂载" time="0.0035432">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;right&quot; overlay-blur=6 &gt; 
+  at &lt;DialogRoot open=true modal=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true modal=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet 受控 open/close 交互 &gt; z-index prop 应被接受并挂载" time="0.0033088">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;Teleport to=&quot;body&quot; disabled=false forceMount=false &gt; 
+  at &lt;DialogPortal to=&quot;body&quot; &gt; 
+  at &lt;YdSheetContent side=&quot;left&quot; z-index=7777 &gt; 
+  at &lt;DialogRoot open=true onUpdate:open=fn &gt; 
+  at &lt;YdSheet open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet sub-components class names &gt; YdSheetHeader 应包含 flex flex-col 类名" time="0.0022564">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet sub-components class names &gt; YdSheetFooter 应包含 justify-end 类名" time="0.0019591">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet sub-components class names &gt; YdSheetHeader 自定义 class 应合并" time="0.0012296">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/sheet/sheet.test.ts" name="YdSheet sub-components class names &gt; YdSheetFooter 自定义 class 应合并" time="0.0011591">
         </testcase>
     </testsuite>
 </testsuites>
