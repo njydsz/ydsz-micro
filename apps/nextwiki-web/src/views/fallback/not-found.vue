@@ -13,6 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -23,7 +24,7 @@ const router = useRouter();
     <div class="text-center">
       <div class="mb-4 text-6xl font-bold text-gray-300">404</div>
       <div class="mb-6 text-gray-500">页面不存在</div>
-      <ElButton type="primary" @click="router.back()">返回上一页</ElButton>
+      <Button @click="router.back()">返回上一页</Button>
     </div>
   </div>
 </template>

@@ -20,9 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { Badge, Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
-// SKIP: ElEmpty/ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
-import { ElEmpty, ElForm, ElFormItem } from 'element-plus';
+import { Badge, Button, Card, CardContent, EmptyState, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';
@@ -150,20 +148,21 @@ onMounted(() => {
       <Card class="mb-4">
         <CardContent class="pt-4">
           <h3 class="mb-4 text-base font-medium">短码查询</h3>
-          <ElForm :model="searchForm" label-width="80px">
-            <ElFormItem label="短码">
-              <div class="flex items-center gap-3">
+          <form class="space-y-4" @submit.prevent="handleQuery">
+            <div class="flex items-center gap-2">
+              <label class="w-20 shrink-0 text-sm text-gray-500">短码</label>
+              <div class="flex flex-1 items-center gap-3">
                 <Input
                   v-model="searchForm.shortCode"
                   placeholder="请输入回执短码（shortCode），如：a1b2c3"
                   class="flex-1"
                   @keyup.enter="handleQuery"
                 />
-                <Button v-loading="loading" @click="handleQuery">查询</Button>
+                <Button :loading="loading" type="submit">查询</Button>
                 <Button variant="outline" @click="handleReset">重置</Button>
               </div>
-            </ElFormItem>
-          </ElForm>
+            </div>
+          </form>
         </CardContent>
       </Card>
 
@@ -216,7 +215,11 @@ onMounted(() => {
               </div>
             </div>
 
-            <ElEmpty v-else description="请输入短码进行查询" />
+            <EmptyState
+              v-else
+              description="请输入短码进行查询"
+              preset="no-result"
+            />
           </Card>
         </div>
 
@@ -240,7 +243,12 @@ onMounted(() => {
                 <span class="text-xs text-gray-400">{{ item.time }}</span>
               </div>
             </div>
-            <ElEmpty v-else description="暂无查询记录" :image-size="60" />
+            <EmptyState
+              v-else
+              description="暂无查询记录"
+              preset="no-data"
+              title="暂无查询"
+            />
             <p class="mt-2 text-xs text-gray-400">
               点击记录可快速重新查询
             </p>

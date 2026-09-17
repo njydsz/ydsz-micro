@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 空间管理（列表页）
  *
  * @path apps\nextwiki-web\src\views\space\index.vue
@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElDrawer, ElInput, ElTag } from 'element-plus';
+import { Button, Input, Badge, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -65,7 +65,7 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.visibility === 'PUBLIC' ? 'success' : 'info' }, () => (row.visibility === 'PUBLIC' ? '公开' : '私有')),
+          h(Badge, { variant: row.visibility === 'PUBLIC' ? 'success' : 'secondary' }, () => (row.visibility === 'PUBLIC' ? '公开' : '私有')),
       },
     },
     {
@@ -74,7 +74,7 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.status === 'ACTIVE' ? 'success' : 'warning' }, () => (row.status === 'ACTIVE' ? '正常' : '已归档')),
+          h(Badge, { variant: row.status === 'ACTIVE' ? 'success' : 'warning' }, () => (row.status === 'ACTIVE' ? '正常' : '已归档')),
       },
     },
     { field: 'memberCount', title: '成员数', width: 80 },
@@ -91,14 +91,14 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleMembers(row) }, () => '成员'),
-            h(ElButton, {
-              size: 'small', link: true, type: 'warning',
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleMembers(row) }, () => '成员'),
+            h(Button, {
+              size: 'sm', variant: 'link',
               onClick: () => handleArchive(row),
               disabled: row.status === 'ARCHIVED',
             }, () => '归档'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -217,40 +217,49 @@ async function handleDelete(row: SpaceVO) {
   <Page auto-content-height>
     <Grid table-title="空间管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新建空间</ElButton>
+        <Button @click="handleAdd">新建空间</Button>
       </template>
     </Grid>
     <SpaceFormModal @success="gridApi.query()" />
-    <ElDialog v-model="editVisible" :title="editForm.id ? '编辑空间' : '新建空间'" width="480px">
-      <ElInput v-model="editForm.name" placeholder="请输入空间名称" class="mb-3" />
-      <ElInput v-model="editForm.description" placeholder="请输入空间描述" type="textarea" :rows="3" class="mb-3" />
-      <div class="flex items-center gap-2">
-        <span class="text-sm text-gray-600">可见性：</span>
-        <ElTag :type="editForm.visibility === 'PUBLIC' ? 'success' : 'info'">
-          {{ editForm.visibility === 'PUBLIC' ? '公开' : '私有' }}
-        </ElTag>
-      </div>
-      <template #footer>
-        <ElButton @click="editVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="confirmEdit">确定</ElButton>
-      </template>
-    </ElDialog>
-    <ElDrawer v-model="membersVisible" title="空间成员" :size="640">
-      <div class="mb-4 flex items-center gap-2">
-        <ElInput v-model="addMemberForm.userId" placeholder="请输入用户ID" class="flex-1" />
-        <ElInput v-model="addMemberForm.role" placeholder="角色" class="w-24" />
-        <ElButton type="primary" @click="handleAddMember">添加</ElButton>
-      </div>
-      <div v-loading="membersLoading">
-        <div v-if="members.length === 0" class="py-8 text-center text-gray-400">暂无成员</div>
-        <div v-for="member in members" :key="member.id" class="mb-2 flex items-center justify-between rounded border p-3">
-          <div>
-            <p class="text-sm font-medium">{{ member.userId }}</p>
-            <p class="text-xs text-gray-500">角色：{{ member.role }} | 加入时间：{{ member.joinedAt }}</p>
+    <Dialog v-model:open="editVisible">
+      <DialogContent class="sm:max-w-[480px]">
+        <DialogHeader>
+          <DialogTitle>{{ editForm.id ? '编辑空间' : '新建空间' }}</DialogTitle>
+        </DialogHeader>
+        <div class="space-y-3 py-4">
+          <Input v-model="editForm.name" placeholder="请输入空间名称" />
+          <Input v-model="editForm.description" placeholder="请输入空间描述" />
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-gray-600">可见性：</span>
+            <Badge :variant="editForm.visibility === 'PUBLIC' ? 'success' : 'secondary'">
+              {{ editForm.visibility === 'PUBLIC' ? '公开' : '私有' }}
+            </Badge>
           </div>
-          <ElButton size="small" link type="danger" @click="handleRemoveMember(member)">移除</ElButton>
         </div>
-      </div>
-    </ElDrawer>
+        <DialogFooter>
+          <Button variant="outline" @click="editVisible = false">取消</Button>
+          <Button @click="confirmEdit">确定</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    <Sheet v-model:open="membersVisible">
+      <SheetContent side="right" class="w-[640px]">
+        <div class="mb-4 flex items-center gap-2">
+          <Input v-model="addMemberForm.userId" placeholder="请输入用户ID" class="flex-1" />
+          <Input v-model="addMemberForm.role" placeholder="角色" class="w-24" />
+          <Button @click="handleAddMember">添加</Button>
+        </div>
+        <div v-loading="membersLoading">
+          <div v-if="members.length === 0" class="py-8 text-center text-gray-400">暂无成员</div>
+          <div v-for="member in members" :key="member.id" class="mb-2 flex items-center justify-between rounded border p-3">
+            <div>
+              <p class="text-sm font-medium">{{ member.userId }}</p>
+              <p class="text-xs text-gray-500">角色：{{ member.role }} | 加入时间：{{ member.joinedAt }}</p>
+            </div>
+            <Button size="sm" variant="link" @click="handleRemoveMember(member)">移除</Button>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>
