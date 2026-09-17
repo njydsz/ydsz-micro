@@ -50,8 +50,8 @@ describe('useTableData', () => {
     });
     table.toggleSort('age');
     await nextTick();
-    expect(table.viewRows.value[0].age).toBe(25);
-    expect(table.viewRows.value[2].age).toBe(35);
+    expect(table.viewRows.value[0]?.age).toBe(25);
+    expect(table.viewRows.value[2]?.age).toBe(35);
   });
 
   it('排序应循环 asc → desc → null', () => {
