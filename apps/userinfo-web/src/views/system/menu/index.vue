@@ -21,8 +21,9 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdTable } from '@ydsz-core/ydsz-ui';
 import { ElTableColumn } from 'element-plus';
-import type { TagProps } from 'element-plus';
 import { onMounted, ref } from 'vue';
+
+import type { BadgeVariants } from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -38,13 +39,13 @@ const logger = createLogger('userinfo-menu');
 const { t } = useI18n();
 
 /** 菜单类型映射（契约 menuType 为字符串，兼容 'DIRECTORY'/'MENU'/'BUTTON' 与 '0'/'1'/'2'） */
-const MENU_TYPE_MAP: Record<string, { label: string; type: TagProps['type'] }> = {
-  DIRECTORY: { label: 'menuType.directory', type: 'primary' },
-  MENU: { label: 'menuType.menu', type: 'success' },
-  BUTTON: { label: 'menuType.button', type: 'warning' },
-  '0': { label: 'menuType.directory', type: 'primary' },
-  '1': { label: 'menuType.menu', type: 'success' },
-  '2': { label: 'menuType.button', type: 'warning' },
+const MENU_TYPE_MAP: Record<string, { label: string; variant: BadgeVariants['variant'] }> = {
+  DIRECTORY: { label: 'menuType.directory', variant: 'secondary' },
+  MENU: { label: 'menuType.menu', variant: 'default' },
+  BUTTON: { label: 'menuType.button', variant: 'outline' },
+  '0': { label: 'menuType.directory', variant: 'secondary' },
+  '1': { label: 'menuType.menu', variant: 'default' },
+  '2': { label: 'menuType.button', variant: 'outline' },
 };
 
 /** 判断菜单状态是否启用（契约 status 为字符串 '1'/'0'） */

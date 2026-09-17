@@ -16,7 +16,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
 import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdCard, YdCardContent, YdInput } from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';

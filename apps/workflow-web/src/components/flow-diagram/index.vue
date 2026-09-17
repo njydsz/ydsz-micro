@@ -24,7 +24,6 @@
  * @since 1.0.0
  */
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-// TODO: ElEmpty / ElSkeleton 待后续迁移（ydsz-ui 无直接对应，需替换为空态组件）
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO } from '#/api/models';

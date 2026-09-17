@@ -56,14 +56,14 @@ function statusTagType(status: string): 'success' | 'danger' {
 }
 
 /**
- * 创建 ElTag VNode（用于列插槽）
+ * 创建 YdBadge VNode（用于列插槽）
  *
  * @param text - 标签文本
  * @param type - 标签类型
  * @returns VNode
  */
-function hElTag(text: string, type: 'success' | 'danger' | 'warning' | 'info') {
-  return h(ElTag, { type, size: 'small' }, () => text);
+function hStatusBadge(text: string, type: 'success' | 'danger') {
+  return h(YdBadge, { variant: type === 'success' ? 'default' : 'destructive' }, () => text);
 }
 
 // TODO: 替换为真实 API 请求（后端上线 /api/userinfo/login-log/page 后接入）
@@ -108,8 +108,8 @@ const gridOptions: VxeGridProps<LoginLogRow> = {
       title: '状态',
       width: 100,
       slots: {
-        default: ({ row }: { row: LoginLogRow }) =>
-          hElTag(row.status === 'SUCCESS' ? '成功' : '失败', statusTagType(row.status)),
+          default: ({ row }: { row: LoginLogRow }) =>
+            hStatusBadge(row.status === 'SUCCESS' ? '成功' : '失败', statusTagType(row.status)),
       },
     },
     { field: 'loginIp', title: '登录IP', width: 140 },

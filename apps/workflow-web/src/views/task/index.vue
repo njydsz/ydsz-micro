@@ -18,7 +18,6 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-// TODO: ElTabs / ElTabPane 暂不迁移，保留 element-plus 导入
 import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';

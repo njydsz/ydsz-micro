@@ -17,7 +17,6 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-// TODO: EP → ydsz-ui 迁移待后续批次（仿真页面包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElEmpty/ElStep/ElSteps 等复杂组合）
 import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdStep, YdSteps, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { runSimulation } from '#/api/flowSimulation';

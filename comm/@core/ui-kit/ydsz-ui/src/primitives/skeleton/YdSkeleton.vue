@@ -1,10 +1,10 @@
 <!--
  * Skeleton 骨架屏：在内容加载前占位展示。
  *
- * 支持三种基础形态（text / circular / rectangular）与自定义尺寸；
+ * 支持三种基础形态与自定义尺寸；
  * 开启 shimmer 动画后通过伪元素实现从左到右的反光扫过效果。
  *
- * 组件不渲染子内容，仅作占位骨架 —— 加载完成后通过条件渲染切换为真实内容。
+ * 组件不渲染子内容，仅作占位骨架。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeleton.vue
  * @author ydsz-team
@@ -48,9 +48,10 @@ const variantClass: Record<SkeletonVariant, string> = {
     role="status"
     :class="
       cn(
-        'bg-skeleton-bg relative overflow-hidden',
+        'relative overflow-hidden bg-neutral-200 dark:bg-neutral-700',
         variantClass[props.variant],
-        props.shimmer && 'after:absolute after:inset-0 after:animate-shimmer after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent',
+        props.shimmer &&
+          'after:absolute after:inset-0 after:animate-shimmer after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent',
         props.class,
       )
     "

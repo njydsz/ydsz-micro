@@ -4,14 +4,11 @@
  * 两种模式：determinate（有明确 percentage）/ indeterminate（循环动画）。
  * indeterminate 模式下组件通过 aria-valuemin / aria-valuemax 表达「未知进度」语义。
  *
- * 进度指示器宽度通过 style.width 内联样式设置，因为百分比值来自 prop，
- * 无法在 Tailwind 安全列表枚举。使用 :style 而非 class 拼接是 shadcn 标准范式。
- *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\progress\YdProgress.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup>
+<script lang="ts" setup">
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -22,12 +19,12 @@ import {
   type ProgressRootProps,
 } from 'radix-vue';
 
-interface Props extends ProgressRootProps {
+interface Props extends Omit<ProgressRootProps, 'modelValue'> {
   /** 自定义类名 */
   class?: any;
   /** 是否显示为不确定进度（循环动画） */
   indeterminate?: boolean;
-  /** 进度条高度覆盖（tailwind 类，如 h-2） */
+  /** 进度条高度覆盖 */
   barClass?: string;
   /** 当前进度值（0-100），indeterminate 模式下忽略 */
   percentage?: number;
@@ -57,27 +54,18 @@ const safePercentage = computed(() => {
 <template>
   <ProgressRoot
     :as-child="false"
-    :class="
-      cn(
-        'bg-progress-track relative h-2 w-full overflow-hidden rounded-full',
-        props.class,
-      )
-    "
+    :class="cn('relative h-2 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700', props.class)"
     :model-value="safePercentage"
   >
     <ProgressIndicator
       :class="
         cn(
-          'h-full w-full flex-1 rounded-full transition-all duration-300 ease-in-out',
-          props.indeterminate
-            ? 'animate-indeterminate bg-primary'
-            : 'bg-primary',
+          'h-full w-full flex-1 rounded-full bg-primary transition-all duration-300 ease-in-out',
+          props.indeterminate && 'animate-pulse w-1/3',
           props.barClass,
         )
       "
-      :style="
-        props.indeterminate ? undefined : { transform: `translateX(-${100 - safePercentage!}%)` }
-      "
+      :style="props.indeterminate ? undefined : { transform: `translateX(-${100 - (safePercentage ?? 0)}%)` }"
     />
   </ProgressRoot>
 </template>

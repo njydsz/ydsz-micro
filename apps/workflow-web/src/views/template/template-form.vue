@@ -16,7 +16,6 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-// TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
 import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';

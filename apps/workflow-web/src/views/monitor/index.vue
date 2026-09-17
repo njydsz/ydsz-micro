@@ -17,7 +17,6 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-// TODO: ElStatistic 暂不迁移，保留 element-plus 导入
 import { YdCountToAnimator } from '@ydsz-core/ydsz-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';

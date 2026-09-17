@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites name="vitest tests" tests="1" failures="1" errors="0" time="0">
-    <testsuite name="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" timestamp="2026-09-17T07:18:21.196Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+    <testsuite name="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" timestamp="2026-09-17T07:20:01.152Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
         <testcase classname="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" name="comm/@core/ui-kit/popup-ui/src/message/message.test.ts" time="0">
-            <failure message="Failed to resolve import &quot;lucide-vue-next&quot; from &quot;comm/@core/base/icons/src/lucide.ts&quot;. Does the file exist?" type="Error">
-Error: Failed to resolve import &quot;lucide-vue-next&quot; from &quot;comm/@core/base/icons/src/lucide.ts&quot;. Does the file exist?
+            <failure message="Failed to resolve import &quot;radix-vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/index.ts&quot;. Does the file exist?" type="Error">
+Error: Failed to resolve import &quot;radix-vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/index.ts&quot;. Does the file exist?
   Plugin: vite:import-analysis
-  File: D:/Code/open/ydsz-micro/comm/@core/base/icons/src/lucide.ts:84:7
-  71 |    UserRoundPen,
-  72 |    X
-  73 |  } from &quot;lucide-vue-next&quot;;
-     |          ^
-  74 |  
+  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/index.ts:21:52
+  3  |  export * from &quot;./headless&quot;;
+  4  |  export * from &quot;./primitives&quot;;
+  5  |  export { createContext, Slot, VisuallyHidden } from &quot;radix-vue&quot;;
+     |                                                       ^
+  6  |  
  ❯ TransformPluginContext._formatLog node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41
  ❯ TransformPluginContext.error node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16
  ❯ normalizeUrl node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23

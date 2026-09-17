@@ -68,6 +68,9 @@ let seed = 0;
 /** 模块级消息实例注册表：宿主席组件订阅它完成渲染 */
 export const messageList = ref<MessageItem[]>([]);
 
+/** id → 自动关闭计时器句柄，用于去重复用时重置计时 */
+const autoCloseTimers = new Map<string, ReturnType<typeof setTimeout>>();
+
 /**
  * 按类型优先级与弹出先后排序后的消息列表。
  *
@@ -112,6 +115,28 @@ function mountHost() {
 }
 
 /**
+ * 安排（或重新安排）消息的自动关闭计时。
+ *
+ * @remarks
+ * 去重复用时同样走本函数：先清理旧计时再按本次 duration 重新计时，
+ * 从而复用的消息能以「最近一次触发」为起点倒计时，而非沿用首次的旧计时。
+ *
+ * @param id 消息唯一标识
+ * @param duration 自动关闭延迟；`0` 表示常驻，取消已有计时
+ */
+function scheduleAutoClose(id: string, duration: number) {
+  const prev = autoCloseTimers.get(id);
+  if (prev) {
+    clearTimeout(prev);
+  }
+  if (duration > 0) {
+    autoCloseTimers.set(id, window.setTimeout(() => closeMessage(id), duration));
+  } else {
+    autoCloseTimers.delete(id);
+  }
+}
+
+/**
  * 卸载宿主席并清空所有消息（多用于测试重置）。
  */
 export function unmountHost() {
@@ -119,6 +144,8 @@ export function unmountHost() {
     return;
   }
   messageList.value = [];
+  autoCloseTimers.forEach((timer) => clearTimeout(timer));
+  autoCloseTimers.clear();
   render(null, hostContainer);
   hostContainer.remove();
   hostContainer = null;
@@ -139,6 +166,7 @@ export function closeMessage(id: string, onClose?: () => void) {
   target.leaving = true;
   window.setTimeout(() => {
     messageList.value = messageList.value.filter((item) => item.id !== id);
+    autoCloseTimers.delete(id);
     (target.onClose ?? onClose)?.();
   }, 160);
 }
@@ -200,7 +228,7 @@ export function ydszMessage(
   const type = options.type ?? 'info';
   const contentKey = typeof options.content === 'string' ? options.content : '';
 
-  // 同内容同类型去重：复用已有实例并重置其自动关闭计时
+  // 同内容同类型去重：复用已有实例，并把自动关闭计时重置到「最近一次触发」
   const existing =
     contentKey &&
     messageList.value.find(
@@ -210,6 +238,8 @@ export function ydszMessage(
         !item.leaving,
     );
   if (existing) {
+    const duration = options.duration ?? existing.duration ?? DEFAULT_DURATION;
+    scheduleAutoClose(existing.id, duration);
     return existing.id;
   }
 
@@ -223,10 +253,7 @@ export function ydszMessage(
 
   mountHost();
   messageList.value.push(item);
-
-  if (item.duration > 0) {
-    window.setTimeout(() => closeMessage(item.id), item.duration);
-  }
+  scheduleAutoClose(item.id, item.duration);
 
   return item.id;
 }

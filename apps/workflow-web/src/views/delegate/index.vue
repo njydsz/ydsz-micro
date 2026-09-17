@@ -17,7 +17,6 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-// TODO: ElDatePicker / ElForm / ElFormItem / ElTabs / ElTabPane 暂不迁移，保留 element-plus 导入
 import { YdDatePicker, YdForm, YdFormItem, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import {
   YdBadge,
