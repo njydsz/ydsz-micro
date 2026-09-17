@@ -19,7 +19,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdCard, YdDialog, YdInput, YdBadge, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdDescriptions, YdDescriptionsItem, YdDialog, YdInput, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { ydszAlert, ydszConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -230,15 +231,13 @@ async function handleImpact(row: RuleExecutionTraceVO): Promise<void> {
 
 async function handleBatchReplay(): Promise<void> {
   if (selectedTraceIds.value.size === 0) {
-    ElMessageBox.alert('请先选择要回放的Trace记录', '提示', { type: 'warning' });
+    await ydszAlert({ content: '请先选择要回放的Trace记录', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   try {
-    await ydszConfirm(
-      `确认批量回放 ${selectedTraceIds.value.size} 条Trace记录？`,
-      '批量回放确认',
-      { type: 'warning' },
-    );
+    await ydszConfirm(`确认批量回放 ${selectedTraceIds.value.size} 条Trace记录？`, '批量回放确认', {
+      icon: 'warning',
+    });
   } catch {
     logger.debug('用户取消批量回放');
     return;
@@ -249,8 +248,11 @@ async function handleBatchReplay(): Promise<void> {
       payload[id] = { traceId: id };
     });
     await batchReplayTraces(payload);
-    ElMessageBox.alert(`已成功提交 ${selectedTraceIds.value.size} 条回放请求`, '批量回放成功', {
-      type: 'success',
+    await ydszAlert({
+      content: `已成功提交 ${selectedTraceIds.value.size} 条回放请求`,
+      title: '批量回放成功',
+      icon: 'success',
+      confirmText: '确定',
     });
     selectedTraceIds.value.clear();
   } catch (error) {

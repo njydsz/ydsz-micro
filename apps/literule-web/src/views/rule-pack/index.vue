@@ -141,7 +141,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
           h('div', { class: 'flex gap-1' }, [
             h(
               YdButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleInstall(row) },
+              { size: 'small', variant: 'link', onClick: () => handleInstall(row) },
               () => '安装',
             ),
             h(
@@ -151,7 +151,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
             ),
             h(
               YdButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleDiff(row) },
+              { size: 'small', variant: 'link', onClick: () => handleDiff(row) },
               () => '版本对比',
             ),
             h(
@@ -198,12 +198,12 @@ const installedGridOptions: VxeTableGridOptions<RulePackVO> = {
             ),
             h(
               YdButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleDiff(row) },
+              { size: 'small', variant: 'link', onClick: () => handleDiff(row) },
               () => '版本对比',
             ),
             h(
               YdButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleUninstall(row) },
+              { size: 'small', variant: 'link', onClick: () => handleUninstall(row) },
               () => '卸载',
             ),
           ]),
@@ -249,7 +249,7 @@ const updatableGridOptions: VxeTableGridOptions<PackUpdateInfoVO> = {
         default: ({ row }) =>
           h(
             YdButton,
-            { size: 'small', link: true, type: 'success', onClick: () => handleUpdateSingle(row) },
+            { size: 'small', variant: 'link', onClick: () => handleUpdateSingle(row) },
             () => '一键更新',
           ),
       },
@@ -584,7 +584,7 @@ const versionGridOptions: VxeTableGridOptions<RulePackVO> = {
         default: ({ row }) =>
           h(
             YdButton,
-            { size: 'small', link: true, type: 'warning', onClick: () => handleRollback(row.packVersion ?? '') },
+            { size: 'small', variant: 'link', onClick: () => handleRollback(row.packVersion ?? '') },
             () => '回滚',
           ),
       },

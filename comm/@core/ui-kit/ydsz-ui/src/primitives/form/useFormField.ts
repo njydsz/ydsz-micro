@@ -6,6 +6,10 @@
  * 缺任一都无法完整拼出 aria-describedby，故在脱离 FormField 时直接抛错而不是静默降级 ——
  * 静默降级只会产出一个看似正常、实则无无障碍关联的控件。
  *
+ * P0-5 增强：
+ *  - 新增 `isValidating` 字段（来自 vee-validate 的 `useIsFieldValidating`），
+ *    供异步校验时显示 loading 指示器。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\useFormField.ts
  * @author ydsz-team
  * @since 1.0.0
@@ -18,6 +22,7 @@ import {
   useIsFieldDirty,
   useIsFieldTouched,
   useIsFieldValid,
+  useIsFieldValidating,
 } from 'vee-validate';
 
 import { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
@@ -31,8 +36,8 @@ import { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
  * `FieldContextKey` 与本项目 `FORM_ITEM_INJECTION_KEY` 注入拿到字段名与表单项 id，
  * 并组合出 `aria` 所需的 `*-form-item-*` 描述 / 消息 id。
  *
- * @returns 包含 `name`、表单项 `id`，以及 `error` / `isDirty` / `isTouched` / `valid`
- * 等字段状态的只读对象，供 `YdFormItem` / `YdFormMessage` 等组件消费
+ * @returns 包含 `name`、表单项 `id`，以及 `error` / `isDirty` / `isTouched` / `valid` /
+ * `isValidating` 等字段状态的只读对象，供 `YdFormItem` / `YdFormMessage` 等组件消费
  * @throws {Error} 当脱离 `FormField` 上下文调用时
  */
 export function useFormField() {
@@ -48,6 +53,7 @@ export function useFormField() {
   const fieldState = {
     error: useFieldError(name),
     isDirty: useIsFieldDirty(name),
+    isValidating: useIsFieldValidating(name),
     isTouched: useIsFieldTouched(name),
     valid: useIsFieldValid(name),
   };
