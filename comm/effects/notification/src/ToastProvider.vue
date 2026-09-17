@@ -2,7 +2,7 @@
  * ToastProvider —— 全局 Toast 渲染容器。
  *
  * <p>订阅 useToastState 的 toasts 数组，渲染浮层队列。
- * 必须在 App 根组件挂载整个应用才有生效（通常与 ElConfigProvider 平级替代）。
+ * 必须在 App 根组件挂载整个应用才有生效。
  *
  * <p>定位策略：fixed 覆盖视口顶部/右侧，按 --z-toast 层级悬浮。
  * 动效由 Tailwind 工具类 + CSS 变量 --duration-enter / --duration-leave 驱动。

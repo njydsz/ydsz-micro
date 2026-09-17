@@ -93,7 +93,7 @@ export function registerCleanup(cleanup: () => void | Promise<void>): () => void
 
 /** 统一安装基础插件与指令 */
 async function installBasePlugins(vueApp: VueApp, appName: string) {
-  // 注册 v-loading / v-spinning 指令（ydsz-ui 原生，替代 EP ElLoading.directive）
+  // 注册 v-loading / v-spinning 指令（ydsz-ui 原生 loading 指令）
   registerLoadingDirective(vueApp);
   registerAccessDirective(vueApp);
   registerSafeHtmlDirective(vueApp);
