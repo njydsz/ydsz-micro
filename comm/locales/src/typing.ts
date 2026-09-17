@@ -15,7 +15,30 @@
  *   <li>在 preferences.ts 的 localeOptions 中补充 label</li>
  * </ol>
  */
-export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'ja-JP' | 'zh-TW';
+export type SupportedLanguagesType =
+  | 'ar-SA'
+  | 'cs-CZ'
+  | 'de-DE'
+  | 'en-US'
+  | 'es-ES'
+  | 'fr-FR'
+  | 'hi-IN'
+  | 'id-ID'
+  | 'it-IT'
+  | 'ja-JP'
+  | 'ko-KR'
+  | 'nl-NL'
+  | 'pl-PL'
+  | 'pt-BR'
+  | 'pt-PT'
+  | 'ru-RU'
+  | 'sv-SE'
+  | 'th-TH'
+  | 'tr-TR'
+  | 'uk-UA'
+  | 'vi-VN'
+  | 'zh-CN'
+  | 'zh-TW';
 
 /**
  * 语言包的动态导入函数。

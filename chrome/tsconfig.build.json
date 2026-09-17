@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Chrome Extension Build",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
+    "inlineSources": false,
+    "removeComments": false,
+    "isolatedModules": true
+  },
+  "include": [
+    "*.ts",
+    "popup/*.ts",
+    "devtools/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "vendor", "*.mjs", "*.json"]
+}

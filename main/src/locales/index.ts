@@ -43,33 +43,50 @@ async function loadMessages(lang: SupportedLanguagesType) {
   return appLocaleMessages?.default;
 }
 
+/**
+ * 加载 dayjs 语言包。
+ *
+ * <p>基于语种标识动态导入对应的 dayjs locale 模块，覆盖 22 个语种。
+ * 未显式列出的语种回退到 en，保证日期时间格式化始终可用。
+ *
+ * @param lang - 当前激活语种
+ */
 async function loadDayjsLocale(lang: SupportedLanguagesType) {
-  let locale;
-  switch (lang) {
-    case 'en-US': {
-      locale = await import('dayjs/locale/en');
-      break;
-    }
-    case 'zh-CN': {
-      locale = await import('dayjs/locale/zh-cn');
-      break;
-    }
-    case 'ja-JP': {
-      locale = await import('dayjs/locale/ja');
-      break;
-    }
-    case 'zh-TW': {
-      locale = await import('dayjs/locale/zh-tw');
-      break;
-    }
-    default: {
-      locale = await import('dayjs/locale/en');
-    }
-  }
-  if (locale) {
-    dayjs.locale(locale);
-  } else {
-    logger.error(`Failed to load dayjs locale for ${lang}`);
+  const dayjsLocaleMap: Record<SupportedLanguagesType, string> = {
+    'ar-SA': 'ar',
+    'cs-CZ': 'cs',
+    'de-DE': 'de',
+    'en-US': 'en',
+    'es-ES': 'es',
+    'fr-FR': 'fr',
+    'hi-IN': 'hi',
+    'id-ID': 'id',
+    'it-IT': 'it',
+    'ja-JP': 'ja',
+    'ko-KR': 'ko',
+    'nl-NL': 'nl',
+    'pl-PL': 'pl',
+    'pt-BR': 'pt-br',
+    'pt-PT': 'pt',
+    'ru-RU': 'ru',
+    'sv-SE': 'sv',
+    'th-TH': 'th',
+    'tr-TR': 'tr',
+    'uk-UA': 'uk',
+    'vi-VN': 'vi',
+    'zh-CN': 'zh-cn',
+    'zh-TW': 'zh-tw',
+  };
+
+  const dayjsCode = dayjsLocaleMap[lang] ?? 'en';
+  try {
+    const locale = await import(`dayjs/locale/${dayjsCode}`);
+    dayjs.locale(locale.default ?? locale);
+  } catch (error) {
+    logger.warn(`Failed to load dayjs locale '${dayjsCode}' for ${lang}: ${error}`);
+    // 回退到英文
+    const fallback = await import('dayjs/locale/en');
+    dayjs.locale(fallback.default ?? fallback);
   }
 }
 

@@ -129,9 +129,9 @@ declare global {
       onResourceContentCommitted: ChromeEvent<(resource: any, content: string) => void>;
     }
 
-    export function inspectedWindow: InspectedWindow;
+    export const inspectedWindow: InspectedWindow;
 
-    export function panels: {
+    export const panels: {
       create(
         title: string,
         iconPath: string,
