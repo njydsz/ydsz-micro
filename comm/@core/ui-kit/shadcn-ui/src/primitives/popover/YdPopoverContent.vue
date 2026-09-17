@@ -1,12 +1,12 @@
 ﻿<!--
  * 浮层内容：经 Portal 挂到 body，默认居中对齐、与触发器保持 4px 间距。
  *
- * 关闭 inheritAttrs 并手动把 $attrs 展开到 YdPopoverContentBase 上，
+ * 关闭 inheritAttrs 并手动把 $attrs 展开到 YdPopoverContent 上，
  * 是为了让 attrs 落在浮层本身而不是多出来的根片段上 ——
  * 否则样式类会挂到一个没有布局作用的节点，看起来完全不生效。
  * sideOffset 默认 4px：贴得太近会让浮层与触发器在视觉上糊成一块。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\popover\YdPopoverContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\popover\YdPopoverContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -17,7 +17,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdPopoverContentBase, PopoverPortal, useForwardPropsEmits } from 'radix-vue';
+import { YdPopoverContent, PopoverPortal, useForwardPropsEmits } from 'radix-vue';
 
 defineOptions({
   inheritAttrs: false,
@@ -43,7 +43,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <PopoverPortal>
-    <YdPopoverContentBase
+    <YdPopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
@@ -53,6 +53,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdPopoverContentBase>
+    </YdPopoverContent>
   </PopoverPortal>
 </template>

@@ -8,19 +8,19 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdDropdownMenuBase } from './YdDropdownMenuBase.vue';
+export { default as YdDropdownMenuRoot } from './YdDropdownMenuRoot.vue';
 
-export { default as YdDropdownMenuCheckboxItemBase } from './YdDropdownMenuCheckboxItemBase.vue';
-export { default as YdDropdownMenuContentBase } from './YdDropdownMenuContentBase.vue';
-export { default as YdDropdownMenuGroupBase } from './YdDropdownMenuGroupBase.vue';
-export { default as YdDropdownMenuItemBase } from './YdDropdownMenuItemBase.vue';
-export { default as YdDropdownMenuLabelBase } from './YdDropdownMenuLabelBase.vue';
-export { default as YdDropdownMenuRadioGroupBase } from './YdDropdownMenuRadioGroupBase.vue';
-export { default as YdDropdownMenuRadioItemBase } from './YdDropdownMenuRadioItemBase.vue';
-export { default as YdDropdownMenuSeparatorBase } from './YdDropdownMenuSeparatorBase.vue';
-export { default as YdDropdownMenuShortcutBase } from './YdDropdownMenuShortcutBase.vue';
-export { default as YdDropdownMenuSubBase } from './YdDropdownMenuSubBase.vue';
-export { default as YdDropdownMenuSubContentBase } from './YdDropdownMenuSubContentBase.vue';
-export { default as YdDropdownMenuSubTriggerBase } from './YdDropdownMenuSubTriggerBase.vue';
-export { default as YdDropdownMenuTriggerBase } from './YdDropdownMenuTriggerBase.vue';
+export { default as YdDropdownMenuCheckboxItem } from './YdDropdownMenuCheckboxItem.vue';
+export { default as YdDropdownMenuContent } from './YdDropdownMenuContent.vue';
+export { default as YdDropdownMenuGroup } from './YdDropdownMenuGroup.vue';
+export { default as YdDropdownMenuItem } from './YdDropdownMenuItem.vue';
+export { default as YdDropdownMenuLabel } from './YdDropdownMenuLabel.vue';
+export { default as YdDropdownMenuRadioGroup } from './YdDropdownMenuRadioGroup.vue';
+export { default as YdDropdownMenuRadioItem } from './YdDropdownMenuRadioItem.vue';
+export { default as YdDropdownMenuSeparator } from './YdDropdownMenuSeparator.vue';
+export { default as YdDropdownMenuShortcut } from './YdDropdownMenuShortcut.vue';
+export { default as YdDropdownMenuSub } from './YdDropdownMenuSub.vue';
+export { default as YdDropdownMenuSubContent } from './YdDropdownMenuSubContent.vue';
+export { default as YdDropdownMenuSubTrigger } from './YdDropdownMenuSubTrigger.vue';
+export { default as YdDropdownMenuTrigger } from './YdDropdownMenuTrigger.vue';
 export { DropdownMenuPortal } from 'radix-vue';

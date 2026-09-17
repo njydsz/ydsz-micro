@@ -4,7 +4,7 @@
  * 用于可切换的开关型操作，menuitemcheckbox 语义由 radix 保证，
  * 读屏会播报选中状态；包装层只负责勾选标记的位置与高亮样式。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuCheckboxItemBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuCheckboxItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -20,7 +20,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {
-  YdContextMenuCheckboxItemBase,
+  YdContextMenuCheckboxItem,
   ContextMenuItemIndicator,
   useForwardPropsEmits,
 } from 'radix-vue';
@@ -38,7 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdContextMenuCheckboxItemBase
+  <YdContextMenuCheckboxItem
     v-bind="forwarded"
     :class="
       cn(
@@ -53,5 +53,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       </ContextMenuItemIndicator>
     </span>
     <slot></slot>
-  </YdContextMenuCheckboxItemBase>
+  </YdContextMenuCheckboxItem>
 </template>

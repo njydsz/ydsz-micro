@@ -3,7 +3,7 @@
  *
  * 只做展示、不绑定键盘事件；实际快捷键需由调用方自行注册。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuShortcutBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuShortcut.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

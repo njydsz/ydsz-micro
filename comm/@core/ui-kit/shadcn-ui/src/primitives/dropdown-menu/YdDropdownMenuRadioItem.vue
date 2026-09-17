@@ -1,9 +1,9 @@
 ﻿<!--
  * 下拉菜单单选项：在单选组内表示互斥选项之一。
  *
- * 必须置于 YdDropdownMenuRadioGroupBase 内，否则拿不到互斥上下文，会退化为普通项。
+ * 必须置于 YdDropdownMenuRadioGroup 内，否则拿不到互斥上下文，会退化为普通项。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuRadioItemBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuRadioItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -20,7 +20,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Circle } from 'lucide-vue-next';
 import {
   DropdownMenuItemIndicator,
-  YdDropdownMenuRadioItemBase,
+  YdDropdownMenuRadioItem,
   useForwardPropsEmits,
 } from 'radix-vue';
 
@@ -40,7 +40,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdDropdownMenuRadioItemBase
+  <YdDropdownMenuRadioItem
     v-bind="forwarded"
     :class="
       cn(
@@ -55,5 +55,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       </DropdownMenuItemIndicator>
     </span>
     <slot></slot>
-  </YdDropdownMenuRadioItemBase>
+  </YdDropdownMenuRadioItem>
 </template>

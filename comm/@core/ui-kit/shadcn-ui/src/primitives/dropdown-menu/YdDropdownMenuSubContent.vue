@@ -5,7 +5,7 @@
  * 因为子菜单总是从父级侧边展开，用同一套位移会导致上下方向出现反向滑动。
  * class 先从 props 中剥离再合并，保证浮层定位与动画类不被调用方覆盖掉。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSubContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSubContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -19,7 +19,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuSubContentBase, useForwardPropsEmits } from 'radix-vue';
+import { YdDropdownMenuSubContent, useForwardPropsEmits } from 'radix-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -36,7 +36,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdDropdownMenuSubContentBase
+  <YdDropdownMenuSubContent
     v-bind="forwarded"
     :class="
       cn(
@@ -46,5 +46,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     "
   >
     <slot></slot>
-  </YdDropdownMenuSubContentBase>
+  </YdDropdownMenuSubContent>
 </template>

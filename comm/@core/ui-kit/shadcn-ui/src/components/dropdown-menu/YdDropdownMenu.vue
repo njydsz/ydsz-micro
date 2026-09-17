@@ -15,17 +15,17 @@ import type {
 } from './interface';
 
 import {
-  YdDropdownMenuBase,
-  YdDropdownMenuContentBase,
-  YdDropdownMenuGroupBase,
-  YdDropdownMenuItemBase,
-  YdDropdownMenuSeparatorBase,
-  YdDropdownMenuTriggerBase,
-} from '../../ui';
+  YdDropdownMenuRoot,
+  YdDropdownMenuContent,
+  YdDropdownMenuGroup,
+  YdDropdownMenuItem,
+  YdDropdownMenuSeparator,
+  YdDropdownMenuTrigger,
+} from '../../primitives';
 
 type Props = DropdownMenuProps;
 
-defineOptions({ name: 'YdDropdownMenuBase' });
+defineOptions({ name: 'YdDropdownMenuRoot' });
 const props = withDefaults(defineProps<Props>(), {});
 
 function handleItemClick(menu: IDropdownMenuItem) {
@@ -36,14 +36,14 @@ function handleItemClick(menu: IDropdownMenuItem) {
 }
 </script>
 <template>
-  <YdDropdownMenuBase>
-    <YdDropdownMenuTriggerBase class="flex h-full items-center gap-1" aria-haspopup="menu">
+  <YdDropdownMenuRoot>
+    <YdDropdownMenuTrigger class="flex h-full items-center gap-1" aria-haspopup="menu">
       <slot></slot>
-    </YdDropdownMenuTriggerBase>
-    <YdDropdownMenuContentBase align="start" role="menu">
-      <YdDropdownMenuGroupBase>
+    </YdDropdownMenuTrigger>
+    <YdDropdownMenuContent align="start" role="menu">
+      <YdDropdownMenuGroup>
         <template v-for="menu in menus" :key="menu.value">
-          <YdDropdownMenuItemBase
+          <YdDropdownMenuItem
             :disabled="menu.disabled"
             class="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground text-foreground/80 mb-1 cursor-pointer"
             role="menuitem"
@@ -52,11 +52,11 @@ function handleItemClick(menu: IDropdownMenuItem) {
           >
             <component :is="menu.icon" v-if="menu.icon" class="mr-2 size-4" aria-hidden="true" />
             {{ menu.label }}
-          </YdDropdownMenuItemBase>
-          <YdDropdownMenuSeparatorBase v-if="menu.separator" class="bg-border" role="separator" />
+          </YdDropdownMenuItem>
+          <YdDropdownMenuSeparator v-if="menu.separator" class="bg-border" role="separator" />
         </template>
-      </YdDropdownMenuGroupBase>
-    </YdDropdownMenuContentBase>
-  </YdDropdownMenuBase>
+      </YdDropdownMenuGroup>
+    </YdDropdownMenuContent>
+  </YdDropdownMenuRoot>
 </template>
 

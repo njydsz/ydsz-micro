@@ -15,7 +15,7 @@ import { ref, useSlots } from 'vue';
 import { Eye, EyeOff } from '@ydsz-core/icons';
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdInput } from '../../ui';
+import { YdInput } from '../../primitives';
 import PasswordStrength from './password-strength.vue';
 
 interface Props {

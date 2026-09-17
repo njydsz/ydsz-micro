@@ -15,7 +15,7 @@ import { useId } from 'vue';
 
 import { useForwardPropsEmits } from 'radix-vue';
 
-import { YdCheckboxBase } from '../../ui/checkbox';
+import { YdCheckboxRoot } from '../../primitives/checkbox';
 
 const props = defineProps<CheckboxRootProps & { indeterminate?: boolean }>();
 
@@ -30,7 +30,7 @@ const id = useId();
 
 <template>
   <div class="flex items-center">
-    <YdCheckboxBase
+    <YdCheckboxRoot
       v-bind="forwarded"
       :id="id"
       v-model:checked="checked"

@@ -3,7 +3,7 @@
  *
  * 展开与收起的延迟由 radix 处理，避免鼠标斜向移动时误收起子菜单。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuSubTriggerBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuSubTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -15,7 +15,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
-import { YdContextMenuSubTriggerBase, useForwardProps } from 'radix-vue';
+import { YdContextMenuSubTrigger, useForwardProps } from 'radix-vue';
 
 const props = defineProps<
   ContextMenuSubTriggerProps & {
@@ -34,7 +34,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdContextMenuSubTriggerBase
+  <YdContextMenuSubTrigger
     v-bind="forwardedProps"
     :class="
       cn(
@@ -46,5 +46,5 @@ const forwardedProps = useForwardProps(delegatedProps);
   >
     <slot></slot>
     <ChevronRight class="ml-auto h-4 w-4" />
-  </YdContextMenuSubTriggerBase>
+  </YdContextMenuSubTrigger>
 </template>

@@ -1,10 +1,10 @@
 ﻿<!--
- * 下拉菜单项：包装 radix YdDropdownMenuItemBase，补充 inset 对齐选项。
+ * 下拉菜单项：包装 radix YdDropdownMenuItem，补充 inset 对齐选项。
  *
  * inset 用于与带图标或勾选标记的项保持左对齐；这些标记占用固定前置宽度，
  * 混排时未开启 inset 的项会显得缩进不足。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuItemBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuItemBase, useForwardProps } from 'radix-vue';
+import { YdDropdownMenuItem, useForwardProps } from 'radix-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -33,7 +33,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdDropdownMenuItemBase
+  <YdDropdownMenuItem
     v-bind="forwardedProps"
     :class="
       cn(
@@ -44,5 +44,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     "
   >
     <slot></slot>
-  </YdDropdownMenuItemBase>
+  </YdDropdownMenuItem>
 </template>

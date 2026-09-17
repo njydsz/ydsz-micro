@@ -4,7 +4,7 @@
  * 箭头写死在组件内而非交给插槽，是为了保证全站「有下级」的视觉提示一致；
  * 需要更换图标时应改这里，而不是在每个调用处各写一遍。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSubTriggerBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSubTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
-import { YdDropdownMenuSubTriggerBase, useForwardProps } from 'radix-vue';
+import { YdDropdownMenuSubTrigger, useForwardProps } from 'radix-vue';
 
 const props = defineProps<DropdownMenuSubTriggerProps & { class?: any }>();
 
@@ -30,7 +30,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdDropdownMenuSubTriggerBase
+  <YdDropdownMenuSubTrigger
     v-bind="forwardedProps"
     :class="
       cn(
@@ -41,5 +41,5 @@ const forwardedProps = useForwardProps(delegatedProps);
   >
     <slot></slot>
     <ChevronRight class="ml-auto h-4 w-4" />
-  </YdDropdownMenuSubTriggerBase>
+  </YdDropdownMenuSubTrigger>
 </template>

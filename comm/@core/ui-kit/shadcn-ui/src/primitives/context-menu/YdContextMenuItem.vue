@@ -1,11 +1,11 @@
 ﻿<!--
- * 右键菜单项：包装 radix YdContextMenuItemBase，补充 inset 对齐选项。
+ * 右键菜单项：包装 radix YdContextMenuItem，补充 inset 对齐选项。
  *
  * inset 用于让本项与带图标/勾选标记的项左对齐 —— 这些标记会占用固定的前置宽度，
  * 混排时未开启 inset 的项会显得缩进不足。
  * props 中的 class 会先剥离再转发，交由 cn 统一合并，避免重复应用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuItemBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuItemBase, useForwardPropsEmits } from 'radix-vue';
+import { YdContextMenuItem, useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<
   ContextMenuItemProps & { class?: any; inset?: boolean }
@@ -33,7 +33,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdContextMenuItemBase
+  <YdContextMenuItem
     v-bind="forwarded"
     :class="
       cn(
@@ -44,5 +44,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     "
   >
     <slot></slot>
-  </YdContextMenuItemBase>
+  </YdContextMenuItem>
 </template>

@@ -23,7 +23,7 @@ import {
   ScrollAreaViewport,
 } from 'radix-vue';
 
-import YdScrollBarBase from './YdScrollBarBase.vue';
+import YdScrollBarRoot from './YdScrollBarRoot.vue';
 
 const props = withDefaults(
   defineProps<
@@ -56,7 +56,7 @@ const delegatedProps = computed(() => {
     >
       <slot></slot>
     </ScrollAreaViewport>
-    <YdScrollBarBase />
+    <YdScrollBarRoot />
     <ScrollAreaCorner />
   </ScrollAreaRoot>
 </template>

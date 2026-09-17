@@ -1,7 +1,7 @@
 ﻿<!--
- * YdTooltipContentBase Vue 组件 - 现代化提示样式
+ * YdTooltipContent Vue 组件 - 现代化提示样式
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltipContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltipContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -12,7 +12,7 @@ import { computed } from "vue";
 
 import { cn } from "@ydsz-core/shared/utils";
 
-import { YdTooltipContentBase, TooltipPortal, useForwardPropsEmits } from "radix-vue";
+import { YdTooltipContent, TooltipPortal, useForwardPropsEmits } from "radix-vue";
 
 defineOptions({
   inheritAttrs: false,
@@ -42,7 +42,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <TooltipPortal>
-    <YdTooltipContentBase
+    <YdTooltipContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
@@ -57,6 +57,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdTooltipContentBase>
+    </YdTooltipContent>
   </TooltipPortal>
 </template>

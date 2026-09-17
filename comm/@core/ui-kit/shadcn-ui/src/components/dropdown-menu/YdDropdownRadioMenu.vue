@@ -13,12 +13,12 @@
 import type { DropdownMenuProps } from './interface';
 
 import {
-  YdDropdownMenuBase,
-  YdDropdownMenuContentBase,
-  YdDropdownMenuGroupBase,
-  YdDropdownMenuItemBase,
-  YdDropdownMenuTriggerBase,
-} from '../../ui';
+  YdDropdownMenuRoot,
+  YdDropdownMenuContent,
+  YdDropdownMenuGroup,
+  YdDropdownMenuItem,
+  YdDropdownMenuTrigger,
+} from '../../primitives';
 
 type Props = DropdownMenuProps;
 
@@ -32,14 +32,14 @@ function handleItemClick(value: string) {
 }
 </script>
 <template>
-  <YdDropdownMenuBase>
-    <YdDropdownMenuTriggerBase as-child class="flex items-center gap-1">
+  <YdDropdownMenuRoot>
+    <YdDropdownMenuTrigger as-child class="flex items-center gap-1">
       <slot></slot>
-    </YdDropdownMenuTriggerBase>
-    <YdDropdownMenuContentBase align="start">
-      <YdDropdownMenuGroupBase>
+    </YdDropdownMenuTrigger>
+    <YdDropdownMenuContent align="start">
+      <YdDropdownMenuGroup>
         <template v-for="menu in menus" :key="menu.key">
-          <YdDropdownMenuItemBase
+          <YdDropdownMenuItem
             :class="
               menu.value === modelValue
                 ? 'bg-accent text-accent-foreground'
@@ -55,10 +55,10 @@ function handleItemClick(value: string) {
               class="mr-2 size-1.5 rounded-full"
             ></span>
             {{ menu.label }}
-          </YdDropdownMenuItemBase>
+          </YdDropdownMenuItem>
         </template>
-      </YdDropdownMenuGroupBase>
-    </YdDropdownMenuContentBase>
-  </YdDropdownMenuBase>
+      </YdDropdownMenuGroup>
+    </YdDropdownMenuContent>
+  </YdDropdownMenuRoot>
 </template>
 

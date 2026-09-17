@@ -5,7 +5,7 @@
  * 导致表单行高忽大忽小；单行截断后高度恒定，完整文本仍可在下拉面板里读到。
  * 箭头用 SelectIcon 包一层，由 radix 控制展开时的旋转状态。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectTriggerBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -17,7 +17,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
-import { SelectIcon, YdSelectTriggerBase, useForwardProps } from 'radix-vue';
+import { SelectIcon, YdSelectTrigger, useForwardProps } from 'radix-vue';
 
 const props = defineProps<SelectTriggerProps & { class?: any }>();
 
@@ -31,7 +31,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdSelectTriggerBase
+  <YdSelectTrigger
     v-bind="forwardedProps"
     :class="
       cn(
@@ -44,5 +44,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     <SelectIcon as-child>
       <ChevronDown class="h-4 w-4 opacity-50" />
     </SelectIcon>
-  </YdSelectTriggerBase>
+  </YdSelectTrigger>
 </template>

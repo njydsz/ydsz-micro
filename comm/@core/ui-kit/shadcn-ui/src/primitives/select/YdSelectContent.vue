@@ -3,9 +3,9 @@
  *
  * 用 popper 而非 item-aligned，是因为面板需要相对触发器定位并可翻转避让；
  * item-aligned 会把面板对齐到当前选中项，在长列表里会跳到让人找不到的位置。
- * 关闭 inheritAttrs 同理于 YdPopoverContentBase：让 attrs 落到真实的面板节点上。
+ * 关闭 inheritAttrs 同理于 YdPopoverContent：让 attrs 落到真实的面板节点上。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -17,14 +17,14 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdSelectContentBase,
+  YdSelectContent,
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,
 } from 'radix-vue';
 
-import YdSelectScrollDownButtonBase from './YdSelectScrollDownButtonBase.vue';
-import YdSelectScrollUpButtonBase from './YdSelectScrollUpButtonBase.vue';
+import YdSelectScrollDownButton from './YdSelectScrollDownButton.vue';
+import YdSelectScrollUpButton from './YdSelectScrollUpButton.vue';
 
 defineOptions({
   inheritAttrs: false,
@@ -49,7 +49,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <SelectPortal>
-    <YdSelectContentBase
+    <YdSelectContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
@@ -60,7 +60,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         )
       "
     >
-      <YdSelectScrollUpButtonBase />
+      <YdSelectScrollUpButton />
       <SelectViewport
         :class="
           cn(
@@ -72,7 +72,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       >
         <slot></slot>
       </SelectViewport>
-      <YdSelectScrollDownButtonBase />
-    </YdSelectContentBase>
+      <YdSelectScrollDownButton />
+    </YdSelectContent>
   </SelectPortal>
 </template>

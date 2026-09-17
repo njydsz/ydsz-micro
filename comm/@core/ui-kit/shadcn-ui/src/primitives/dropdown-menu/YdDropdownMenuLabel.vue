@@ -1,9 +1,9 @@
 ﻿<!--
  * 下拉菜单分组标题：为一组菜单项提供说明性标题。
  *
- * 不可聚焦、不参与键盘导航；需要可交互请改用 YdDropdownMenuItemBase。
+ * 不可聚焦、不参与键盘导航；需要可交互请改用 YdDropdownMenuItem。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuLabelBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuLabel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuLabelBase, useForwardProps } from 'radix-vue';
+import { YdDropdownMenuLabel, useForwardProps } from 'radix-vue';
 
 const props = defineProps<
   DropdownMenuLabelProps & { class?: any; inset?: boolean }
@@ -30,12 +30,12 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdDropdownMenuLabelBase
+  <YdDropdownMenuLabel
     v-bind="forwardedProps"
     :class="
       cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', props.class)
     "
   >
     <slot></slot>
-  </YdDropdownMenuLabelBase>
+  </YdDropdownMenuLabel>
 </template>

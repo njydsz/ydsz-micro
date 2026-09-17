@@ -4,7 +4,7 @@
  * 勾选状态由 radix 以 menuitemcheckbox 语义维护，读屏会播报选中与否；
  * 包装层仅统一标记位置与高亮样式。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuCheckboxItemBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuCheckboxItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -20,7 +20,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {
-  YdDropdownMenuCheckboxItemBase,
+  YdDropdownMenuCheckboxItem,
   DropdownMenuItemIndicator,
   useForwardPropsEmits,
 } from 'radix-vue';
@@ -40,7 +40,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdDropdownMenuCheckboxItemBase
+  <YdDropdownMenuCheckboxItem
     v-bind="forwarded"
     :class="
       cn(
@@ -55,5 +55,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       </DropdownMenuItemIndicator>
     </span>
     <slot></slot>
-  </YdDropdownMenuCheckboxItemBase>
+  </YdDropdownMenuCheckboxItem>
 </template>

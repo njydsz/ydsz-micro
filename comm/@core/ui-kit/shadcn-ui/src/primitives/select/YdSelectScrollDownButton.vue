@@ -4,7 +4,7 @@
  * 显隐完全由 radix 判断溢出状态，调用方既不需要传参也不需要控制显示，
  * 因此不要试图用 v-if 自行控制它的出现时机。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectScrollDownButtonBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectScrollDownButton.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
-import { YdSelectScrollDownButtonBase, useForwardProps } from 'radix-vue';
+import { YdSelectScrollDownButton, useForwardProps } from 'radix-vue';
 
 const props = defineProps<SelectScrollDownButtonProps & { class?: any }>();
 
@@ -30,7 +30,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdSelectScrollDownButtonBase
+  <YdSelectScrollDownButton
     v-bind="forwardedProps"
     :class="
       cn('flex cursor-default items-center justify-center py-1', props.class)
@@ -39,5 +39,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     <slot>
       <ChevronDown class="h-4 w-4" />
     </slot>
-  </YdSelectScrollDownButtonBase>
+  </YdSelectScrollDownButton>
 </template>

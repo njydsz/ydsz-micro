@@ -1,17 +1,17 @@
 <!--
- * YdVSelect —— 带虚拟滚动的高性能选择器，用于替代原生 YdSelectBase 处理大数据场景。
+ * YdVSelect —— 带虚拟滚动的高性能选择器，用于替代原生 YdSelectRoot 处理大数据场景。
  *
  * 设计目标：
  *  - 应对 500 ~ 10000+ 选项列表，通过虚拟滚动保持渲染节点恒定；
  *  - 对外暴露标准的 v-model 双向绑定 API，降低替换成本；
  *  - 内置清除按钮与单选模式。
  *
- * 与原生 YdSelectBase 的边界：
- *  - YdSelectBase 适合数量少（< 100）且需要 rich slot 自定义项内容的场景；
+ * 与原生 YdSelectRoot 的边界：
+ *  - YdSelectRoot 适合数量少（< 100）且需要 rich slot 自定义项内容的场景；
  *  - YdVSelect 适合纯数据驱动的扁平列表，牺牲部分定制灵活性换取数量级性能。
  *
  * 性能特征：
- *  - items < virtualThreshold（默认 100）时直接走 YdSelectContentBase 分支，避免虚拟滚动开销；
+ *  - items < virtualThreshold（默认 100）时直接走 YdSelectContent 分支，避免虚拟滚动开销；
  *  - items >= virtualThreshold 时启用虚拟滚动，仅渲染可见窗口 + overscan 项。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdVSelect.vue
@@ -186,7 +186,7 @@ function handleItemClick(value: string | number): void {
       :model-value="modelValue"
       @item-click="handleItemClick"
     />
-    <!-- 小数据量回退：使用原生 YdSelectContentBase + YdSelectItemBase slot -->
+    <!-- 小数据量回退：使用原生 YdSelectContent + YdSelectItem slot -->
     <slot v-else />
   </SelectRoot>
 </template>

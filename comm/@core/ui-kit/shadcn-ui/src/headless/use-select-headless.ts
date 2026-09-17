@@ -1,5 +1,5 @@
 /**
- * use-select-headless：纯逻辑层，管理 YdSelectBase 的选择模式、字段解析与虚拟滚动联动。
+ * use-select-headless：纯逻辑层，管理 YdSelectRoot 的选择模式、字段解析与虚拟滚动联动。
  *
  * 设计目标：
  *  - 所有业务逻辑（字段解析、阈值判断、单/多选切换、滚动定位）从 SFC 中抽离；
@@ -18,7 +18,7 @@
 import { computed, type MaybeRefOrGetter } from 'vue';
 
 /**
- * Headless YdSelectBase 的配置项。
+ * Headless YdSelectRoot 的配置项。
  */
 export interface UseSelectHeadlessOptions<T extends Record<string, unknown>> {
   /** 选项数据源（响应式引用或 getter） */
@@ -36,7 +36,7 @@ export interface UseSelectHeadlessOptions<T extends Record<string, unknown>> {
 }
 
 /**
- * Headless YdSelectBase 返回的句柄。
+ * Headless YdSelectRoot 返回的句柄。
  */
 export interface SelectHeadlessHandle<T extends Record<string, unknown>> {
   /** 规范化后的 items 数组（已处理响应式解包） */
@@ -90,7 +90,7 @@ function unwrap<T>(ref: MaybeRefOrGetter<T>): T {
 }
 
 /**
- * useSelectHeadless —— YdSelectBase 纯逻辑管理：字段解析、选择模式、虚拟阈值判断。
+ * useSelectHeadless —— YdSelectRoot 纯逻辑管理：字段解析、选择模式、虚拟阈值判断。
  *
  * @param options - 配置项
  * @return 逻辑句柄

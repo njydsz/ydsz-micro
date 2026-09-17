@@ -1,9 +1,9 @@
 ﻿<!--
  * 下拉菜单分隔线：在菜单项之间绘制视觉分组线。
  *
- * 纯装饰元素，对辅助技术不可见；语义分组请用 YdDropdownMenuGroupBase 表达。
+ * 纯装饰元素，对辅助技术不可见；语义分组请用 YdDropdownMenuGroup 表达。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSeparatorBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSeparator.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuSeparatorBase } from 'radix-vue';
+import { YdDropdownMenuSeparator } from 'radix-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -32,7 +32,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdDropdownMenuSeparatorBase
+  <YdDropdownMenuSeparator
     v-bind="delegatedProps"
     :class="cn('bg-border -mx-1 my-1 h-px', props.class)"
   />

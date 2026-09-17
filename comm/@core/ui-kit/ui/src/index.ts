@@ -19,7 +19,7 @@
  * ```
  *
  * 子路径一览：
- *  - `@ydsz-core/ui/shadcn-ui` — 基础 + 业务组件 (YdButtonBase/YdDialog/Modal/...)
+ *  - `@ydsz-core/ui/shadcn-ui` — 业务组件 + primitives (YdButton/YdButtonRoot/YdDialog/...)
  *  - `@ydsz-core/ui/form`     — 表单引擎 (YdForm, setupYdForm, ...)
  *  - `@ydsz-core/ui/popup`    — 弹窗 + 抽屉 (YdModal, YdDrawer, YdAlert)
  *  - `@ydsz-core/ui/menu`     — 菜单系统 (YdMenu, YdMenuBadge, ...)

@@ -1,5 +1,5 @@
 ﻿<!--
- * 通用按钮：在基础 YdButtonBase 之上补充 loading、图标与自定义渲染能力。
+ * 通用按钮：在基础 YdButtonRoot 之上补充 loading、图标与自定义渲染能力。
  *
  * 内容由默认插槽承载，因此图标与文案的排布交给调用方，组件只保证内边距、
  * 尺寸与 disabled / loading 期间不可点击的行为一致。
@@ -18,7 +18,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Primitive } from 'radix-vue';
 
-import { buttonVariants } from '../../ui';
+import { buttonVariants } from '../../primitives';
 
 type Props = YdButtonProps;
 

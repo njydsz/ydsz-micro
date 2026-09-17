@@ -1,10 +1,10 @@
 ﻿<!--
- * 验证码输入的分格容器：把 YdPinInputInputBase 组织成一组。
+ * 验证码输入的分格容器：把 YdPinInputInput 组织成一组。
  *
  * 基于 Primitive 而非固定 div，是为了在需要给整组加语义（如 role=group）
  * 或用 asChild 换成 fieldset 时不必改组件。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\pin-input\YdPinInputGroupBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\pin-input\YdPinInputGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -1,11 +1,11 @@
 <!--
  * 带虚拟滚动的选择器下拉面板：基于 useVirtualList 实现千级选项下的流畅滚动。
  *
- * 痛点：传统 YdSelectBase 在 options > 500 时全量渲染 DOM，导致面板展开慢、滚动卡顿。
- * 与 YdSelectContentBase 的区别：
- *  - 接收 items 数组而非 slot 注入 YdSelectItemBase 子项，借此在渲染前拿到总数做切片；
+ * 痛点：传统 YdSelectRoot 在 options > 500 时全量渲染 DOM，导致面板展开慢、滚动卡顿。
+ * 与 YdSelectContent 的区别：
+ *  - 接收 items 数组而非 slot 注入 YdSelectItem 子项，借此在渲染前拿到总数做切片；
  *  - 仅渲染可视窗口内的 DOM 节点，配合 spacer 撑出总高度保持滚动条比例；
- *  - 点击选项后需要手动关闭浮层（缺少 YdSelectItemBase 的 rpc 与 Root 通信）。
+ *  - 点击选项后需要手动关闭浮层（缺少 YdSelectItem 的 rpc 与 Root 通信）。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectVirtualContent.vue
  * @author ydsz-team
@@ -19,7 +19,7 @@ import { useVirtualList } from '../../composables';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdSelectContentBase,
+  YdSelectContent,
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,
@@ -141,7 +141,7 @@ defineExpose({
 
 <template>
   <SelectPortal>
-    <YdSelectContentBase
+    <YdSelectContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
@@ -210,6 +210,6 @@ defineExpose({
           </div>
         </div>
       </SelectViewport>
-    </YdSelectContentBase>
+    </YdSelectContent>
   </SelectPortal>
 </template>

@@ -20,7 +20,7 @@ export interface VSelectItem {
  *
  * @param count - 数据条数，默认 100
  * @param prefix - 标签前缀，默认 '标签'
- * @return YdSelectItemBase 数组
+ * @return YdSelectItem 数组
  */
 export function generateTestItems(
   count = 100,

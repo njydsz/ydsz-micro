@@ -1,5 +1,5 @@
 ﻿<!--
- * YdPopoverBase 的一体化封装：把 radix-vue 的 PopoverRoot / Trigger / Content 三段合成单个组件，
+ * YdPopoverRoot 的一体化封装：把 radix-vue 的 PopoverRoot / Trigger / Content 三段合成单个组件，
  * 调用方只需给 trigger 与默认两个插槽即可得到定位与样式完备的浮层。
  *
  * props 分流设计：class / contentClass / triggerClass / contentProps 属于本项目的样式与配置入口，
@@ -24,10 +24,10 @@ import { computed } from 'vue';
 import { useForwardPropsEmits } from 'radix-vue';
 
 import {
-  YdPopoverContentBase,
-  YdPopoverBase as PopoverRoot,
-  YdPopoverTriggerBase,
-} from '../../ui';
+  YdPopoverContent,
+  YdPopoverRoot as PopoverRoot,
+  YdPopoverTrigger,
+} from '../../primitives';
 
 interface Props extends PopoverRootProps {
   class?: ClassType;
@@ -57,17 +57,17 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <PopoverRoot v-bind="forwarded">
-    <YdPopoverTriggerBase :class="triggerClass">
+    <YdPopoverTrigger :class="triggerClass">
       <slot name="trigger"></slot>
 
-      <YdPopoverContentBase
+      <YdPopoverContent
         :class="contentClass"
         class="side-content z-popup"
         role="dialog"
         v-bind="contentProps"
       >
         <slot></slot>
-      </YdPopoverContentBase>
-    </YdPopoverTriggerBase>
+      </YdPopoverContent>
+    </YdPopoverTrigger>
   </PopoverRoot>
 </template>

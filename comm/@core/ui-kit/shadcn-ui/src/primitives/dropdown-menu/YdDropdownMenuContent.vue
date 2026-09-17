@@ -4,7 +4,7 @@
  * 经 Portal 挂到 body 渲染，避免被父级 overflow 裁剪；
  * class 先剥离再转发，由 cn 统一合并以消解 Tailwind 冲突。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -19,7 +19,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdDropdownMenuContentBase,
+  YdDropdownMenuContent,
   DropdownMenuPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
@@ -43,7 +43,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <DropdownMenuPortal>
-    <YdDropdownMenuContentBase
+    <YdDropdownMenuContent
       v-bind="forwarded"
       :class="
         cn(
@@ -53,6 +53,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdDropdownMenuContentBase>
+    </YdDropdownMenuContent>
   </DropdownMenuPortal>
 </template>

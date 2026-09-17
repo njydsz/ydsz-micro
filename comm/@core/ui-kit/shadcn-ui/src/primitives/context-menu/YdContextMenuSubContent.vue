@@ -1,10 +1,10 @@
 ﻿<!--
  * 子菜单内容浮层：定义子菜单展开后的面板外观。
  *
- * 内容类型复用 YdDropdownMenuSubContentBase 的 props：两者的内容区配置完全一致，
+ * 内容类型复用 YdDropdownMenuSubContent 的 props：两者的内容区配置完全一致，
  * 共用一份类型可避免两边各自漂移。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuSubContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuSubContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -18,7 +18,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuSubContentBase, useForwardPropsEmits } from 'radix-vue';
+import { YdContextMenuSubContent, useForwardPropsEmits } from 'radix-vue';
 
 const props = defineProps<DropdownMenuSubContentProps & { class?: any }>();
 const emits = defineEmits<DropdownMenuSubContentEmits>();
@@ -33,7 +33,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdContextMenuSubContentBase
+  <YdContextMenuSubContent
     v-bind="forwarded"
     :class="
       cn(
@@ -43,5 +43,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     "
   >
     <slot></slot>
-  </YdContextMenuSubContentBase>
+  </YdContextMenuSubContent>
 </template>

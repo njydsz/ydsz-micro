@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ButtonVariants } from '../../ui';
+import type { ButtonVariants } from '../../primitives';
 import type { YdButtonProps } from './button';
 
 import { computed, useSlots } from 'vue';

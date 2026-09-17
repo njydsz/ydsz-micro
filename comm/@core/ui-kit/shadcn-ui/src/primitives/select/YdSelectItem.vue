@@ -1,11 +1,11 @@
 ﻿<!--
- * 选择器中的单个选项：内部固定渲染 YdSelectItemTextBase 与 SelectItemIndicator。
+ * 选择器中的单个选项：内部固定渲染 YdSelectItemText 与 SelectItemIndicator。
  *
  * 右侧预留 pr-8 给选中标记，避免长文本被图标压住；
  * 禁用态用 data-[disabled] 而非 :disabled，因为 radix 在选项上写的是 data 属性，
  * 用伪类选择器会完全不生效 —— 这是接入 radix 组件时最常见的坑。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectItemBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -18,9 +18,9 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {
-  YdSelectItemBase,
+  YdSelectItem,
   SelectItemIndicator,
-  YdSelectItemTextBase,
+  YdSelectItemText,
   useForwardProps,
 } from 'radix-vue';
 
@@ -36,7 +36,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdSelectItemBase
+  <YdSelectItem
     v-bind="forwardedProps"
     :class="
       cn(
@@ -51,8 +51,8 @@ const forwardedProps = useForwardProps(delegatedProps);
       </SelectItemIndicator>
     </span>
 
-    <YdSelectItemTextBase>
+    <YdSelectItemText>
       <slot></slot>
-    </YdSelectItemTextBase>
-  </YdSelectItemBase>
+    </YdSelectItemText>
+  </YdSelectItem>
 </template>

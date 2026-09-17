@@ -20,11 +20,11 @@ import {
   YdBreadcrumbList,
   YdBreadcrumbPage,
   YdBreadcrumbSeparator,
-  YdDropdownMenuBase,
-  YdDropdownMenuContentBase,
-  YdDropdownMenuItemBase,
-  YdDropdownMenuTriggerBase,
-} from '../../ui';
+  YdDropdownMenuRoot,
+  YdDropdownMenuContent,
+  YdDropdownMenuItem,
+  YdDropdownMenuTrigger,
+} from '../../primitives';
 import { YdIcon } from '../icon';
 
 type Props = BreadcrumbProps;
@@ -53,23 +53,23 @@ function handleClick(path?: string) {
         >
           <YdBreadcrumbItem>
             <div v-if="item.items?.length ?? 0 > 0">
-              <YdDropdownMenuBase>
-                <YdDropdownMenuTriggerBase class="flex items-center gap-1" aria-haspopup="menu">
+              <YdDropdownMenuRoot>
+                <YdDropdownMenuTrigger class="flex items-center gap-1" aria-haspopup="menu">
                   <YdIcon v-if="showIcon" :icon="item.icon" class="size-5" aria-hidden="true" />
                   {{ item.title }}
                   <ChevronDown class="size-4" aria-hidden="true" />
-                </YdDropdownMenuTriggerBase>
-                <YdDropdownMenuContentBase align="start" role="menu">
+                </YdDropdownMenuTrigger>
+                <YdDropdownMenuContent align="start" role="menu">
                   <template
                     v-for="menuItem in item.items"
                     :key="`sub-${menuItem.path}`"
                   >
-                    <YdDropdownMenuItemBase role="menuitem" @click.stop="handleClick(menuItem.path)">
+                    <YdDropdownMenuItem role="menuitem" @click.stop="handleClick(menuItem.path)">
                       {{ menuItem.title }}
-                    </YdDropdownMenuItemBase>
+                    </YdDropdownMenuItem>
                   </template>
-                </YdDropdownMenuContentBase>
-              </YdDropdownMenuBase>
+                </YdDropdownMenuContent>
+              </YdDropdownMenuRoot>
             </div>
             <YdBreadcrumbLink
               v-else-if="index !== breadcrumbs.length - 1"

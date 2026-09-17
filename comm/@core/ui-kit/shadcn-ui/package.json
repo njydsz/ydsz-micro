@@ -31,69 +31,121 @@
       "default": "./src/index.ts",
       "//default": "./dist/index.mjs"
     },
-    "./ui/dialog": {
-      "types": "./src/ui/dialog/index.ts",
-      "default": "./src/ui/dialog/index.ts"
+    "./primitives/dialog": {
+      "types": "./src/primitives/dialog/index.ts",
+      "default": "./src/primitives/dialog/index.ts"
     },
-    "./ui/textarea": {
-      "types": "./src/ui/textarea/index.ts",
-      "default": "./src/ui/textarea/index.ts"
+    "./primitives/textarea": {
+      "types": "./src/primitives/textarea/index.ts",
+      "default": "./src/primitives/textarea/index.ts"
     },
-    "./ui/button": {
-      "types": "./src/ui/button/index.ts",
-      "default": "./src/ui/button/index.ts"
+    "./primitives/button": {
+      "types": "./src/primitives/button/index.ts",
+      "default": "./src/primitives/button/index.ts"
     },
-    "./ui/input": {
-      "types": "./src/ui/input/index.ts",
-      "default": "./src/ui/input/index.ts"
+    "./primitives/input": {
+      "types": "./src/primitives/input/index.ts",
+      "default": "./src/primitives/input/index.ts"
     },
-    "./ui/select": {
-      "types": "./src/ui/select/index.ts",
-      "default": "./src/ui/select/index.ts"
+    "./primitives/select": {
+      "types": "./src/primitives/select/index.ts",
+      "default": "./src/primitives/select/index.ts"
     },
-    "./ui/checkbox": {
-      "types": "./src/ui/checkbox/index.ts",
-      "default": "./src/ui/checkbox/index.ts"
+    "./primitives/checkbox": {
+      "types": "./src/primitives/checkbox/index.ts",
+      "default": "./src/primitives/checkbox/index.ts"
     },
-    "./ui/tabs": {
-      "types": "./src/ui/tabs/index.ts",
-      "default": "./src/ui/tabs/index.ts"
+    "./primitives/tabs": {
+      "types": "./src/primitives/tabs/index.ts",
+      "default": "./src/primitives/tabs/index.ts"
     },
-    "./ui/form": {
-      "types": "./src/ui/form/index.ts",
-      "default": "./src/ui/form/index.ts"
+    "./primitives/form": {
+      "types": "./src/primitives/form/index.ts",
+      "default": "./src/primitives/form/index.ts"
     },
-    "./ui/tooltip": {
-      "types": "./src/ui/tooltip/index.ts",
-      "default": "./src/ui/tooltip/index.ts"
+    "./primitives/tooltip": {
+      "types": "./src/primitives/tooltip/index.ts",
+      "default": "./src/primitives/tooltip/index.ts"
     },
-    "./ui/avatar": {
-      "types": "./src/ui/avatar/index.ts",
-      "default": "./src/ui/avatar/index.ts"
+    "./primitives/avatar": {
+      "types": "./src/primitives/avatar/index.ts",
+      "default": "./src/primitives/avatar/index.ts"
     },
-    "./ui/badge": {
-      "types": "./src/ui/badge/index.ts",
-      "default": "./src/ui/badge/index.ts"
+    "./primitives/badge": {
+      "types": "./src/primitives/badge/index.ts",
+      "default": "./src/primitives/badge/index.ts"
     },
-    "./ui/card": {
-      "types": "./src/ui/card/index.ts",
-      "default": "./src/ui/card/index.ts"
+    "./primitives/card": {
+      "types": "./src/primitives/card/index.ts",
+      "default": "./src/primitives/card/index.ts"
     },
-    "./ui/popover": {
-      "types": "./src/ui/popover/index.ts",
-      "default": "./src/ui/popover/index.ts"
+    "./primitives/popover": {
+      "types": "./src/primitives/popover/index.ts",
+      "default": "./src/primitives/popover/index.ts"
     },
-    "./ui/dropdown-menu": {
-      "types": "./src/ui/dropdown-menu/index.ts",
-      "default": "./src/ui/dropdown-menu/index.ts"
+    "./primitives/context-menu": {
+      "types": "./src/primitives/context-menu/index.ts",
+      "default": "./src/primitives/context-menu/index.ts"
     },
-    "./ui/scroll-area": {
-      "types": "./src/ui/scroll-area/index.ts",
-      "default": "./src/ui/scroll-area/index.ts"
+    "./primitives/dropdown-menu": {
+      "types": "./src/primitives/dropdown-menu/index.ts",
+      "default": "./src/primitives/dropdown-menu/index.ts"
     },
-    "./ui/date-picker": {
-      "types": "./src/ui/date-picker/index.ts",
-      "default": "./src/ui/date-picker/index.ts"
+    "./primitives/hover-card": {
+      "types": "./src/primitives/hover-card/index.ts",
+      "default": "./src/primitives/hover-card/index.ts"
+    },
+    "./primitives/pin-input": {
+      "types": "./src/primitives/pin-input/index.ts",
+      "default": "./src/primitives/pin-input/index.ts"
+    },
+    "./primitives/scroll-area": {
+      "types": "./src/primitives/scroll-area/index.ts",
+      "default": "./src/primitives/scroll-area/index.ts"
+    },
+    "./primitives/date-picker": {
+      "types": "./src/primitives/date-picker/index.ts",
+      "default": "./src/primitives/date-picker/index.ts"
+    },
+    "./primitives/table": {
+      "types": "./src/primitives/table/index.ts",
+      "default": "./src/primitives/table/index.ts"
+    },
+    "./primitives/separator": {
+      "types": "./src/primitives/separator/index.ts",
+      "default": "./src/primitives/separator/index.ts"
+    },
+    "./primitives/sheet": {
+      "types": "./src/primitives/sheet/index.ts",
+      "default": "./src/primitives/sheet/index.ts"
+    },
+    "./primitives/switch": {
+      "types": "./src/primitives/switch/index.ts",
+      "default": "./src/primitives/switch/index.ts"
+    },
+    "./primitives/toggle": {
+      "types": "./src/primitives/toggle/index.ts",
+      "default": "./src/primitives/toggle/index.ts"
+    },
+    "./primitives/resizable": {
+      "types": "./src/primitives/resizable/index.ts",
+      "default": "./src/primitives/resizable/index.ts"
+    },
+    "./primitives/radio-group": {
+      "types": "./src/primitives/radio-group/index.ts",
+      "default": "./src/primitives/radio-group/index.ts"
+    },
+    "./primitives/number-field": {
+      "types": "./src/primitives/number-field/index.ts",
+      "default": "./src/primitives/number-field/index.ts"
+    },
+    "./primitives/upload": {
+      "types": "./src/primitives/upload/index.ts",
+      "default": "./src/primitives/upload/index.ts"
+    },
+    "./primitives/tree": {
+      "types": "./src/primitives/tree/index.ts",
+      "default": "./src/primitives/tree/index.ts"
     },
     "./composables": {
       "types": "./src/composables/index.ts",

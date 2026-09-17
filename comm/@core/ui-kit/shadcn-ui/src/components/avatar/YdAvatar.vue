@@ -1,5 +1,5 @@
 ﻿<!--
- * 头像容器：融合 radix 的 AvatarRoot / YdAvatarImageBase / YdAvatarFallbackBase 三态。
+ * 头像容器：融合 radix 的 AvatarRoot / YdAvatarImage / YdAvatarFallback 三态。
  *
  * 合在一个组件里是为了让调用方只传 src 与 alt：加载成功显示图片、失败或加载中
  * 自动回落到 fallback 内容，省去每个使用点都手写三件套。
@@ -21,7 +21,7 @@ import type { ClassType } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 
-import { YdAvatarBase, YdAvatarFallbackBase, YdAvatarImageBase } from '../../ui';
+import { YdAvatarRoot, YdAvatarFallback, YdAvatarImage } from '../../primitives';
 
 interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
   alt?: string;
@@ -74,10 +74,10 @@ const rootStyle = computed(() => {
     role="img"
     :aria-label="alt"
   >
-    <YdAvatarBase :class="props.class" class="size-full">
-      <YdAvatarImageBase :alt="alt" :src="src" :style="imageStyle" />
-      <YdAvatarFallbackBase aria-hidden="true">{{ text }}</YdAvatarFallbackBase>
-    </YdAvatarBase>
+    <YdAvatarRoot :class="props.class" class="size-full">
+      <YdAvatarImage :alt="alt" :src="src" :style="imageStyle" />
+      <YdAvatarFallback aria-hidden="true">{{ text }}</YdAvatarFallback>
+    </YdAvatarRoot>
     <span
       v-if="dot"
       :class="dotClass"

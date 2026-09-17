@@ -1,8 +1,8 @@
 <!--
- * YdVSelect 触发器：封装 YdSelectTriggerBase + YdSelectValueBase，统一触发器外观与可清选择。
+ * YdVSelect 触发器：封装 YdSelectTrigger + YdSelectValue，统一触发器外观与可清选择。
  *
  * 设计目标：
- *  - 与原生 YdSelectTriggerBase 保持一致的视觉（圆角、边框、focus ring、disabled 置灰）；
+ *  - 与原生 YdSelectTrigger 保持一致的视觉（圆角、边框、focus ring、disabled 置灰）；
  *  - 右侧集成清除按钮，仅在已选项存在时显示；
  *  - 遵循 @see YdSelect 现有样式约定。
  *
@@ -20,8 +20,8 @@ import { ChevronDown } from 'lucide-vue-next';
 
 import {
   SelectIcon,
-  YdSelectTriggerBase,
-  YdSelectValueBase,
+  YdSelectTrigger,
+  YdSelectValue,
 } from 'radix-vue';
 
 import type { SelectTriggerProps } from 'radix-vue';
@@ -64,7 +64,7 @@ function handleClearClick(event: MouseEvent): void {
 </script>
 
 <template>
-  <YdSelectTriggerBase
+  <YdSelectTrigger
     :class="
       cn(
         'flex h-9 w-full items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background',
@@ -77,12 +77,12 @@ function handleClearClick(event: MouseEvent): void {
     "
     v-bind="$attrs"
   >
-    <YdSelectValueBase
+    <YdSelectValue
       class="flex-auto text-left"
       :placeholder="placeholder"
     >
       <slot />
-    </YdSelectValueBase>
+    </YdSelectValue>
     <div class="flex shrink-0 items-center gap-1">
       <!-- 清除按钮：仅在有值且 allowClear 时显示 -->
       <CircleX
@@ -100,5 +100,5 @@ function handleClearClick(event: MouseEvent): void {
         <ChevronDown />
       </SelectIcon>
     </div>
-  </YdSelectTriggerBase>
+  </YdSelectTrigger>
 </template>

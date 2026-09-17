@@ -25,7 +25,7 @@ import { cn, get } from '@ydsz-core/shared/utils';
 
 import { TreeItem, TreeRoot } from 'radix-vue';
 
-import { YdCheckboxBase } from '../checkbox';
+import { YdCheckboxRoot } from '../checkbox';
 
 const props = withDefaults(defineProps<TreeProps>(), {
   allowClear: false,
@@ -316,7 +316,7 @@ defineExpose({
         <div v-else class="h-4 w-4">
           <!-- <IconifyIcon v-if="item.value.icon" :icon="item.value.icon" /> -->
         </div>
-        <YdCheckboxBase
+        <YdCheckboxRoot
           v-if="multiple"
           :checked="isSelected && !isNodeDisabled(item)"
           :disabled="isNodeDisabled(item)"

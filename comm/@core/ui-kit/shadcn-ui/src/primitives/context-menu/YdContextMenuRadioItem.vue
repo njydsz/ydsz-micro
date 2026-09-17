@@ -1,10 +1,10 @@
 ﻿<!--
  * 右键菜单单选项：在单选组内表示互斥选项之一。
  *
- * 必须置于 YdContextMenuRadioGroupBase 内使用，否则拿不到互斥上下文，
+ * 必须置于 YdContextMenuRadioGroup 内使用，否则拿不到互斥上下文，
  * 会退化为普通菜单项。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuRadioItemBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuRadioItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -21,7 +21,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Circle } from 'lucide-vue-next';
 import {
   ContextMenuItemIndicator,
-  YdContextMenuRadioItemBase,
+  YdContextMenuRadioItem,
   useForwardPropsEmits,
 } from 'radix-vue';
 
@@ -38,7 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdContextMenuRadioItemBase
+  <YdContextMenuRadioItem
     v-bind="forwarded"
     :class="
       cn(
@@ -53,5 +53,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       </ContextMenuItemIndicator>
     </span>
     <slot></slot>
-  </YdContextMenuRadioItemBase>
+  </YdContextMenuRadioItem>
 </template>

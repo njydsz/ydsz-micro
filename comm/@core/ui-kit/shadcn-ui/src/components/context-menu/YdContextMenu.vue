@@ -25,13 +25,13 @@ import { computed } from 'vue';
 import { useForwardPropsEmits } from 'radix-vue';
 
 import {
-  YdContextMenuBase,
-  YdContextMenuContentBase,
-  YdContextMenuItemBase,
-  YdContextMenuSeparatorBase,
-  YdContextMenuShortcutBase,
-  YdContextMenuTriggerBase,
-} from '../../ui/context-menu';
+  YdContextMenuRoot,
+  YdContextMenuContent,
+  YdContextMenuItem,
+  YdContextMenuSeparator,
+  YdContextMenuShortcut,
+  YdContextMenuTrigger,
+} from '../../primitives/context-menu';
 
 const props = defineProps<
   ContextMenuRootProps & {
@@ -73,18 +73,18 @@ function handleClick(menu: IContextMenuItem) {
 </script>
 
 <template>
-  <YdContextMenuBase v-bind="forwarded">
-    <YdContextMenuTriggerBase as-child>
+  <YdContextMenuRoot v-bind="forwarded">
+    <YdContextMenuTrigger as-child>
       <slot></slot>
-    </YdContextMenuTriggerBase>
-    <YdContextMenuContentBase
+    </YdContextMenuTrigger>
+    <YdContextMenuContent
       :class="contentClass"
       v-bind="contentProps"
       class="side-content z-popup"
       role="menu"
     >
       <template v-for="menu in menusView" :key="menu.key">
-        <YdContextMenuItemBase
+        <YdContextMenuItem
           :class="itemClass"
           :disabled="menu.disabled"
           :inset="menu.inset || !menu.icon"
@@ -101,13 +101,13 @@ function handleClick(menu: IContextMenuItem) {
           />
 
           {{ menu.text }}
-          <YdContextMenuShortcutBase v-if="menu.shortcut">
+          <YdContextMenuShortcut v-if="menu.shortcut">
             {{ menu.shortcut }}
-          </YdContextMenuShortcutBase>
-        </YdContextMenuItemBase>
-        <YdContextMenuSeparatorBase v-if="menu.separator" role="separator" />
+          </YdContextMenuShortcut>
+        </YdContextMenuItem>
+        <YdContextMenuSeparator v-if="menu.separator" role="separator" />
       </template>
-    </YdContextMenuContentBase>
-  </YdContextMenuBase>
+    </YdContextMenuContent>
+  </YdContextMenuRoot>
 </template>
 

@@ -2,9 +2,9 @@
  * 右键菜单分组标题：为一组菜单项提供说明性标题。
  *
  * 纯展示元素、不可聚焦，因此不参与键盘导航序列；
- * 需要可点击的标题请改用 YdContextMenuItemBase。
+ * 需要可点击的标题请改用 YdContextMenuItem。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuLabelBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuLabel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuLabelBase } from 'radix-vue';
+import { YdContextMenuLabel } from 'radix-vue';
 
 const props = defineProps<
   ContextMenuLabelProps & { class?: any; inset?: boolean }
@@ -29,7 +29,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdContextMenuLabelBase
+  <YdContextMenuLabel
     v-bind="delegatedProps"
     :class="
       cn(
@@ -40,5 +40,5 @@ const delegatedProps = computed(() => {
     "
   >
     <slot></slot>
-  </YdContextMenuLabelBase>
+  </YdContextMenuLabel>
 </template>

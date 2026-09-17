@@ -21,8 +21,8 @@ import {
   YdAlertDialogContent,
   YdAlertDialogDescription,
   YdAlertDialogTitle,
-  YdButtonBase,
-} from '../../ui';
+  YdButtonRoot,
+} from '../../primitives';
 import { useNotificationStore } from '@YDSZ/shared-business/notification';
 import { NotificationType, type NotificationItem } from '@YDSZ/shared-business/notification';
 import { YdIcon } from '../icon';
@@ -175,10 +175,10 @@ function confirmMarkAllRead(): void {
         <YdAlertDialogDescription>是否将所有通知标记为已读？</YdAlertDialogDescription>
         <div class="mt-4 flex justify-end gap-2">
           <YdAlertDialogCancel as-child>
-            <YdButtonBase variant="outline" size="sm" @click="confirmOpen = false">取消</YdButtonBase>
+            <YdButtonRoot variant="outline" size="sm" @click="confirmOpen = false">取消</YdButtonRoot>
           </YdAlertDialogCancel>
           <YdAlertDialogAction as-child>
-            <YdButtonBase size="sm" @click="confirmMarkAllRead">确定</YdButtonBase>
+            <YdButtonRoot size="sm" @click="confirmMarkAllRead">确定</YdButtonRoot>
           </YdAlertDialogAction>
         </div>
       </YdAlertDialogContent>

@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { YdBadge } from '../../ui/badge';
-import type { BadgeVariants } from '../../ui/badge';
+import { YdBadge } from '../../primitives/badge';
+import type { BadgeVariants } from '../../primitives/badge';
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({

@@ -5,7 +5,7 @@
  * 否则鼠标从触发器移向浮层时会经过一段「两者都不命中」的空隙导致提前关闭。
  * 固定宽度 w-64，让卡片在任意触发器宽度下都保持一致的阅读宽度。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\YdHoverCardContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\YdHoverCardContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdHoverCardContentBase, HoverCardPortal, useForwardProps } from 'radix-vue';
+import { YdHoverCardContent, HoverCardPortal, useForwardProps } from 'radix-vue';
 
 const props = withDefaults(
   defineProps<HoverCardContentProps & { class?: any }>(),
@@ -36,7 +36,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 <template>
   <HoverCardPortal>
-    <YdHoverCardContentBase
+    <YdHoverCardContent
       v-bind="forwardedProps"
       :class="
         cn(
@@ -46,6 +46,6 @@ const forwardedProps = useForwardProps(delegatedProps);
       "
     >
       <slot></slot>
-    </YdHoverCardContentBase>
+    </YdHoverCardContent>
   </HoverCardPortal>
 </template>

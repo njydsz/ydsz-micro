@@ -3,20 +3,20 @@
  *
  * 分组只传达语义、不绘制分隔线，需要视觉分隔请配合 YdSeparator 使用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuGroupBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
 <script setup lang="ts">
 import type { DropdownMenuGroupProps } from 'radix-vue';
 
-import { YdDropdownMenuGroupBase } from 'radix-vue';
+import { YdDropdownMenuGroup } from 'radix-vue';
 
 const props = defineProps<DropdownMenuGroupProps>();
 </script>
 
 <template>
-  <YdDropdownMenuGroupBase v-bind="props">
+  <YdDropdownMenuGroup v-bind="props">
     <slot></slot>
-  </YdDropdownMenuGroupBase>
+  </YdDropdownMenuGroup>
 </template>

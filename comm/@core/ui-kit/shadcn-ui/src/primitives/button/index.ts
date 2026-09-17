@@ -1,5 +1,5 @@
 /**
- * YdButtonBase 原子组件的出口：导出组件本体、变体定义与类型。
+ * YdButtonRoot 原子组件的出口：导出组件本体、变体定义与类型。
  *
  * 变体（button）与类型（types）分开导出，使只想复用变体类名、不渲染组件的场景
  * （如给原生元素套按钮样式）不必引入组件实现。
@@ -10,6 +10,6 @@
  */
 export * from './button';
 
-export { default as YdButtonBase } from './YdButtonBase.vue';
+export { default as YdButtonRoot } from './YdButtonRoot.vue';
 
 export type * from './types';

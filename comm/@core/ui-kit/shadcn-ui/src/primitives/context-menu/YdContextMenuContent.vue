@@ -1,9 +1,9 @@
 ﻿<!--
- * 右键菜单内容浮层：包装 radix YdContextMenuContentBase，定义浮层的定位与外观。
+ * 右键菜单内容浮层：包装 radix YdContextMenuContent，定义浮层的定位与外观。
  *
  * 浮层以 Portal 形式挂到 body，避免被父级 overflow 裁剪或受祖先 z-index 影响。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuContentBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -18,8 +18,8 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdContextMenuContentBase,
-  YdContextMenuPortalBase,
+  YdContextMenuContent,
+  YdContextMenuPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
 
@@ -36,8 +36,8 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdContextMenuPortalBase>
-    <YdContextMenuContentBase
+  <YdContextMenuPortal>
+    <YdContextMenuContent
       v-bind="forwarded"
       :class="
         cn(
@@ -47,6 +47,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdContextMenuContentBase>
-  </YdContextMenuPortalBase>
+    </YdContextMenuContent>
+  </YdContextMenuPortal>
 </template>

@@ -1,10 +1,10 @@
 ﻿<!--
- * 选择器中的选项分组：与 YdSelectLabelBase 配合使用，把长列表按语义切成若干段。
+ * 选择器中的选项分组：与 YdSelectLabel 配合使用，把长列表按语义切成若干段。
  *
  * radix 会把分组与标签做 aria 关联，因此标签必须放在分组内部，
  * 放在外面则读屏用户听不到「这一组是什么」。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectGroupBase.vue
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSelectGroupBase } from 'radix-vue';
+import { YdSelectGroup } from 'radix-vue';
 
 const props = defineProps<SelectGroupProps & { class?: any }>();
 
@@ -27,7 +27,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdSelectGroupBase :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
+  <YdSelectGroup :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
     <slot></slot>
-  </YdSelectGroupBase>
+  </YdSelectGroup>
 </template>

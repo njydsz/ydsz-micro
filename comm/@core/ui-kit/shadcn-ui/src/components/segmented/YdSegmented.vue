@@ -17,7 +17,7 @@ import { computed } from 'vue';
 
 import { YdTabsTrigger } from 'radix-vue';
 
-import { YdTabs, YdTabsContent, YdTabsList } from '../../ui';
+import { YdTabs, YdTabsContent, YdTabsList } from '../../primitives';
 import TabsIndicator from './tabs-indicator.vue';
 
 interface Props {
