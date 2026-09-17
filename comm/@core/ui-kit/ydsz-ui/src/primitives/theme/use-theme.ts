@@ -21,14 +21,17 @@ import type { TokenName } from './theme-schema';
 /** 主题 preset 定义：一组 token 覆盖值的映射 */
 export type ThemePreset = Partial<Record<TokenName, string>>;
 
-/** 主题配置输入 */
-export type ThemeConfig = Partial<Record<TokenName, string>>;
+/** 组件级 token 覆写输入 */
+export type ThemeOverrides = Partial<Record<TokenName, string>>;
+
+/** @deprecated 使用 ThemeOverrides 代替 */
+export type ThemeConfig = ThemeOverrides;
 
 /** useTheme 返回的句柄接口 */
 export interface ThemeHandle {
   set: (name: TokenName, value: string) => void;
   get: (name: TokenName) => string | null;
-  bulk: (config: ThemeConfig) => void;
+  bulk: (config: ThemeOverrides) => void;
   applyPreset: (name: string, preset?: ThemePreset) => void;
   reset: () => void;
   toggleDark: (force?: boolean) => void;
@@ -126,7 +129,7 @@ export function useTheme(options: {
     return overrides.value.get(name) ?? null;
   }
 
-  function bulk(config: ThemeConfig): void {
+  function bulk(config: ThemeOverrides): void {
     const style = getStyle();
     if (!style) return;
     for (const [name, value] of Object.entries(config)) {
@@ -224,5 +227,5 @@ export function registerPreset(name: string, preset: ThemePreset): void {
 
 /** 重新导出类型 */
 export type { TokenName } from './theme-schema';
-export type { ThemePreset, ThemeConfig, ThemeHandle };
+export type { ThemePreset, ThemeOverrides, ThemeHandle };
 /* eslint-enable @typescript-eslint/typedef */

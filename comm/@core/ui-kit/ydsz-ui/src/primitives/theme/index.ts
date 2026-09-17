@@ -32,7 +32,7 @@ export type {
 export { useTheme, getTheme, registerPreset } from './use-theme';
 export type {
   ThemePreset,
-  ThemeConfig,
+  ThemeOverrides,
   ThemeHandle,
   PresetRegistry,
 } from './use-theme';

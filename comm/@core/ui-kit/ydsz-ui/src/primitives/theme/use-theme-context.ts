@@ -46,6 +46,7 @@ export function useThemeContext(fallbackToGlobal = true): ThemeHandle {
   return {
     applyPreset: () => {},
     bulk: () => {},
+    currentPreset: () => null,
     get: () => null,
     isDark: () => false,
     overrideCount: () => 0,
