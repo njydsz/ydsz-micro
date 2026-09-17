@@ -196,7 +196,7 @@ onMounted(loadList);
     <!-- 操作栏 -->
     <div class="mb-3 flex items-center justify-between">
       <span class="text-sm font-medium">WebHook 事件订阅</span>
-      <ElButton type="primary" size="small" @click="handleCreate">新增订阅</ElButton>
+      <Button size="sm" @click="handleCreate">新增订阅</Button>
     </div>
 
     <!-- 订阅列表 -->
@@ -204,23 +204,23 @@ onMounted(loadList);
       <ElTableColumn prop="name" label="订阅名称" min-width="140" />
       <ElTableColumn prop="eventType" label="事件类型" width="120">
         <template #default="{ row }">
-          <ElTag size="small">{{ row.eventType }}</ElTag>
+          <Badge variant="outline">{{ row.eventType }}</Badge>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="callbackUrl" label="回调 URL" min-width="200" show-overflow-tooltip />
       <ElTableColumn prop="httpMethod" label="方法" width="80" />
       <ElTableColumn prop="webhookStatus" label="状态" width="90">
         <template #default="{ row }">
-          <ElTag :type="formatStatus(row.webhookStatus).type" size="small">
+          <Badge :variant="formatStatus(row.webhookStatus).type === 'success' ? 'default' : 'secondary'" size="sm">
             {{ formatStatus(row.webhookStatus).label }}
-          </ElTag>
+          </Badge>
         </template>
       </ElTableColumn>
       <ElTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
-          <ElButton link size="small" type="primary" @click="handleTest(row)">测试</ElButton>
-          <ElButton link size="small" type="primary" @click="handleEdit(row)">编辑</ElButton>
-          <ElButton link size="small" type="danger" @click="handleDelete(row)">删除</ElButton>
+          <Button size="sm" variant="link" @click="handleTest(row)">测试</Button>
+          <Button size="sm" variant="link" @click="handleEdit(row)">编辑</Button>
+          <Button size="sm" variant="link" @click="handleDelete(row)">删除</Button>
         </template>
       </ElTableColumn>
     </ElTable>

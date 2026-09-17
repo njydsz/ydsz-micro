@@ -21,7 +21,6 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { Badge, Button, DatePicker, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/shadcn-ui';
 import { h, onMounted, ref } from 'vue';
-import { Search } from 'lucide-vue-next';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import { pageLoginLog } from '#/api/loginLog';
@@ -191,21 +190,9 @@ onMounted(() => {
           <SelectItem value="FAILED">失败</SelectItem>
         </SelectContent>
       </Select>
-      <ElDatePicker
-        v-model="startTime"
-        type="datetime"
-        placeholder="起始时间"
-        style="width: 180px"
-        @change="applyFilter"
-      />
-      <ElDatePicker
-        v-model="endTime"
-        type="datetime"
-        placeholder="结束时间"
-        style="width: 180px"
-        @change="applyFilter"
-      />
-      <ElButton @click="resetFilter">重置</ElButton>
+      <DatePicker v-model="startTime" placeholder="起始时间" class="w-[180px]" @update:model-value="applyFilter" />
+      <DatePicker v-model="endTime" placeholder="结束时间" class="w-[180px]" @update:model-value="applyFilter" />
+      <Button variant="ghost" @click="resetFilter">重置</Button>
       <div class="ml-auto text-sm text-gray-400">
         共 {{ totalCount }} 条记录
         <span v-if="isLoading" class="ml-2 text-blue-500">加载中...</span>

@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElSwitch } from 'element-plus';
+import { Button, Switch } from '@ydsz-core/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -49,9 +49,9 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
       title: '状态',
       width: 100,
       slots: {
-        default: ({ row }) => h(ElSwitch, {
-          modelValue: row.isEnabled ?? false,
-          'onUpdate:modelValue': async (val: boolean) => {
+        default: ({ row }) => h(Switch, {
+          checked: row.isEnabled ?? false,
+          'onUpdate:checked': async (val: boolean) => {
             try {
               await updateEnabled(row.id ?? 0, val);
               showToast.success(val ? '已启用' : '已禁用');

@@ -88,7 +88,7 @@ describe('watchMultipleFields', () => {
     const callback = vi.fn();
 
     watchMultipleFields(form, ['a', 'b'], callback);
-    form.a = 10;
+    form.values.a = 10;
 
     await nextTick();
     expect(callback).toHaveBeenCalledTimes(1);
@@ -99,7 +99,7 @@ describe('watchMultipleFields', () => {
     const callback = vi.fn();
 
     watchMultipleFields(form, ['a', 'b'], callback);
-    form.c = 99;
+    form.values.c = 99;
 
     await nextTick();
     expect(callback).not.toHaveBeenCalled();

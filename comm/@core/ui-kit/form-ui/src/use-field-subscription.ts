@@ -33,7 +33,7 @@ import {
   type WatchStopHandle,
 } from 'vue';
 
-import { get, isEqual } from '@ydsz-core/shared/utils';
+import { get } from '@ydsz-core/shared/utils';
 
 /** 最小化的 vee-validate 表单接口 —— 只取用实现所必须的形状 */
 interface FieldFormLike {
@@ -115,24 +115,23 @@ export function watchMultipleFields(
   callback: (values: Array<{ field: string; value: unknown }>) => void,
   options: WatchOptions = {},
 ): WatchStopHandle {
+  // 以 JSON 序列化作为 watch 源，确保数组/对象内容变化能被检测到
+  // （Vue 默认 watch 对 getter 返回的引用类型只做浅比较）
   const getter = () =>
-    fieldNames.map((name) => ({
-      field: name,
-      value: get(form.values, name),
-    }));
+    JSON.stringify(
+      fieldNames.map((name) => ({
+        field: name,
+        value: get(form.values, name),
+      })),
+    );
 
-  // 手动对比避免数组引用不等导致的无意义触发
   return watch(
     getter,
-    (newVals, oldVals) => {
-      const hasChange = newVals.some(
-        (item, idx) =>
-          !oldVals ||
-          !isEqual(item.value, oldVals?.[idx]?.value),
-      );
-      if (hasChange) {
-        callback(newVals);
-      }
+    (newJson, oldJson) => {
+      if (newJson === oldJson) return;
+      const parsed: Array<{ field: string; value: unknown }> =
+        JSON.parse(newJson);
+      callback(parsed);
     },
     options,
   );
