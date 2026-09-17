@@ -20,9 +20,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElSwitch 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElSwitch } from 'element-plus';
+import { Badge, Button, Input, Switch } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -178,13 +176,8 @@ onMounted(() => {
       <template #toolbar-tools>
         <div class="flex items-center gap-3">
           <div class="flex items-center gap-2">
-            <ElSwitch
-              v-model="migrationEnabled"
-              :loading="enabledLoading"
-              active-text="漂移已启用"
-              inactive-text="漂移已禁用"
-              disabled
-            />
+            <Switch :checked="migrationEnabled" disabled />
+            <span class="text-sm">{{ migrationEnabled ? '漂移已启用' : '漂移已禁用' }}</span>
           </div>
           <Input
             v-model="targetCluster"

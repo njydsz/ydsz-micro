@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
@@ -269,8 +269,12 @@ onMounted(() => {
 
     <Grid table-title="任务分片管理" />
 
-    <!-- 详情抽屉 -->
-    <ElDrawer v-model="isDetailVisible" title="任务分片详情" size="600px">
+    <!-- 详情 Sheet -->
+    <Sheet v-model:open="isDetailVisible">
+      <SheetContent side="right" class="w-[600px]">
+        <SheetHeader>
+          <SheetTitle>任务分片详情</SheetTitle>
+        </SheetHeader>
       <template v-if="detailRecord">
         <ElDescriptions :column="2" border size="small">
           <ElDescriptionsItem label="分片名称">{{ detailRecord.taskName ?? '-' }}</ElDescriptionsItem>
@@ -300,6 +304,7 @@ onMounted(() => {
           </ElDescriptionsItem>
         </ElDescriptions>
       </template>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

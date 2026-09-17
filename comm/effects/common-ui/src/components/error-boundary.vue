@@ -1,8 +1,10 @@
-﻿<!--
+<!--
  * 全局错误边界组件 — 捕获子组件树中的未处理错误，提供友好的降级 UI
  *
  * 对标 React Error Boundary 模式，在 Vue 3 中通过 onErrorCaptured 实现。
  * 用于包裹关键业务组件，防止局部错误导致整个应用崩溃。
+ *
+ * 使用自研 shadcn-ui EmptyState + Button，零 element-plus 依赖。
  *
  * @example
  * ```vue
@@ -15,17 +17,20 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { createLogger } from '@ydsz-core/shared/utils';
-const logger = createLogger('error-boundary');
 import type { ErrorInfo } from 'vue';
 
 import { computed, onErrorCaptured, ref } from 'vue';
 
+import { AlertCircle, AlertTriangle, Info } from 'lucide-vue-next';
+
+import { Button, EmptyState } from '@ydsz-core/shadcn-ui';
 import { reportError } from '@ydsz/monitor';
 
-import { ElButton, ElResult } from 'element-plus';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'ErrorBoundary' });
+
+const logger = createLogger('error-boundary');
 
 const props = withDefaults(
   defineProps<{
@@ -58,6 +63,26 @@ const hasError = ref(false);
 const errorMessage = ref('');
 const errorStack = ref<null | string>(null);
 
+/** 根据 status 选取 EmptyState preset 映射 */
+const statusPreset = computed<'error' | 'no-result' | 'no-permission'>(() => {
+  const map: Record<'error' | 'info' | 'warning', 'error' | 'no-result' | 'no-permission'> = {
+    error: 'error',
+    info: 'no-result',
+    warning: 'no-permission',
+  };
+  return map[props.status];
+});
+
+/** 根据 status 选取图标组件 */
+const StatusIcon = computed(() => {
+  const map = {
+    error: AlertCircle,
+    info: Info,
+    warning: AlertTriangle,
+  };
+  return map[props.status];
+});
+
 /** 是否展示错误状态 */
 const showError = computed(() => hasError.value);
 
@@ -70,7 +95,7 @@ const showError = computed(() => hasError.value);
 onErrorCaptured((err: Error, _instance, info: ErrorInfo) => {
   hasError.value = true;
   errorMessage.value = err.message || props.errorMessage;
-  errorStack.value = err.stack || null;
+  errorStack.value = err.stack ?? null;
 
   // 上报错误到监控系统
   reportError('vue', err.message, {
@@ -91,7 +116,7 @@ onErrorCaptured((err: Error, _instance, info: ErrorInfo) => {
 });
 
 /** 重试处理 */
-function handleRetry() {
+function handleRetry(): void {
   hasError.value = false;
   errorMessage.value = '';
   errorStack.value = null;
@@ -99,7 +124,7 @@ function handleRetry() {
 }
 
 /** 返回上一页 */
-function handleBack() {
+function handleBack(): void {
   window.history.back();
 }
 </script>
@@ -116,26 +141,44 @@ function handleBack() {
       class="error-boundary__fallback"
       role="alert"
     >
-      <ElResult :icon="status" :title="errorMessage">
-        <template v-if="showRetry || showBack" #extra>
-          <div class="error-boundary__actions">
-            <ElButton v-if="showRetry" type="primary" @click="handleRetry">
-              重试
-            </ElButton>
-            <ElButton v-if="showBack" @click="handleBack">
-              返回上一页
-            </ElButton>
-          </div>
+      <EmptyState
+        :preset="statusPreset"
+        :title="errorMessage"
+        class="error-boundary__empty"
+      >
+        <template #icon>
+          <component :is="StatusIcon" :size="32" aria-hidden="true" />
         </template>
 
-        <!-- 开发环境展示错误堆栈 -->
-        <template v-if="showDetails && errorStack" #footer>
-          <details class="error-boundary__details">
-            <summary>错误详情</summary>
-            <pre class="error-boundary__stack">{{ errorStack }}</pre>
-          </details>
+        <template #extra>
+          <div class="error-boundary__actions">
+            <Button
+              v-if="showRetry"
+              size="sm"
+              @click="handleRetry"
+            >
+              重试
+            </Button>
+            <Button
+              v-if="showBack"
+              size="sm"
+              variant="outline"
+              @click="handleBack"
+            >
+              返回上一页
+            </Button>
+          </div>
         </template>
-      </ElResult>
+      </EmptyState>
+
+      <!-- 开发环境展示错误堆栈 -->
+      <details
+        v-if="showDetails && errorStack"
+        class="error-boundary__details"
+      >
+        <summary>错误详情</summary>
+        <pre class="error-boundary__stack">{{ errorStack }}</pre>
+      </details>
     </div>
   </div>
 </template>
@@ -148,10 +191,15 @@ function handleBack() {
 
 .error-boundary__fallback {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 400px;
   padding: 48px 24px;
+}
+
+.error-boundary__empty {
+  min-height: 260px;
 }
 
 .error-boundary__actions {
@@ -161,16 +209,18 @@ function handleBack() {
 }
 
 .error-boundary__details {
+  width: 100%;
+  max-width: 720px;
   margin-top: 24px;
   padding: 16px;
-  background: var(--el-fill-color-light, #f5f7fa);
+  background-color: hsl(var(--neutral-50, #f5f7fa));
   border-radius: 6px;
   font-size: 12px;
 }
 
 .error-boundary__details summary {
   cursor: pointer;
-  color: var(--el-text-color-secondary, #909399);
+  color: hsl(var(--txt-tertiary, #909399));
   margin-bottom: 8px;
   user-select: none;
 }
@@ -178,12 +228,12 @@ function handleBack() {
 .error-boundary__stack {
   margin: 0;
   padding: 12px;
-  background: var(--el-bg-color, #fff);
+  background-color: hsl(var(--bg-surface-2, #fff));
   border-radius: 4px;
-  font-family: Consolas, Monaco, monospace;
+  font-family: Consolas, Monaco, ui-monospace, monospace;
   font-size: 11px;
   line-height: 1.6;
-  color: var(--el-text-color-regular, #606266);
+  color: hsl(var(--txt-secondary, #606266));
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-all;

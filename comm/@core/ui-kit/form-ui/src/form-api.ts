@@ -39,6 +39,7 @@ import {
 
 import { FormScrollHelper } from './form-scroll-helper';
 import { FormValueTransformer } from './form-value-transformer';
+import { assertValidSchema } from './validation/validate-schema';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('form-api');
@@ -139,6 +140,11 @@ export class FormApi {
     const { ...storeState } = options;
 
     const defaultState = getDefaultState();
+
+    // 开发期 schema 静态校验 —— 捕获 fieldName 缺失、组件未注册、循环依赖等问题
+    if (options.schema && options.schema.length > 0) {
+      assertValidSchema(options.schema);
+    }
 
     this.store = new Store<YDSZFormProps>(
       {
