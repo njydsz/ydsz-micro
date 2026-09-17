@@ -9,16 +9,9 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElInput,
-  ElProgress,
-  ElStatistic,
-  ElTimeline,
-  ElTimelineItem,
-} from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElProgress/ElStatistic/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElCard, ElEmpty, ElProgress, ElStatistic, ElTimeline, ElTimelineItem } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
@@ -135,23 +128,22 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
 
 <template>
   <Page auto-content-height>
-    <ElCard shadow="never" class="mb-3">
-      <template #header>
-        <span class="font-medium">任务诊断</span>
-      </template>
-      <div class="flex items-center gap-3">
-        <ElInput
-          v-model="jobKey"
-          placeholder="请输入 jobKey"
-          clearable
-          class="!w-96"
-          @keyup.enter="handleDiagnose"
-        />
-        <ElButton type="primary" :loading="loading" @click="handleDiagnose">
-          诊断
-        </ElButton>
-      </div>
-    </ElCard>
+    <Card class="mb-3">
+      <CardHeader>
+        <CardTitle>任务诊断</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div class="flex items-center gap-3">
+          <Input
+            v-model="jobKey"
+            placeholder="请输入 jobKey"
+            class="!w-96"
+            @keyup.enter="handleDiagnose"
+          />
+          <Button :loading="loading" @click="handleDiagnose">诊断</Button>
+        </div>
+      </CardContent>
+    </Card>
 
     <!-- 诊断结果区 -->
     <div v-if="diagnosisResult.score !== undefined" class="grid grid-cols-1 gap-3 md:grid-cols-3">

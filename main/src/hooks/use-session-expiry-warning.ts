@@ -17,7 +17,7 @@
 import { getCurrentScope, onScopeDispose, watch } from 'vue';
 
 import { showToast } from '@ydsz/notification';
-import { ydszConfirm } from '@ydsz-core/ui-kit/popup-ui';
+import { ydszConfirm } from '@ydsz-core/popup-ui';
 import { useTokenStore } from '@ydsz/stores';
 
 import { refreshTokenApi } from '#/api/core/auth';

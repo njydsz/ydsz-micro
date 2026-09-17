@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElTag } from 'element-plus';
+import { Badge } from '@ydsz-core/shadcn-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -53,9 +53,9 @@ const loading = ref(false);
       </div>
       <div class="flex items-center">
         <span class="w-24 text-gray-500">{{ t('session.banStatus') }}</span>
-        <ElTag :type="banInfo.isBanned ? 'danger' : 'success'" size="small">
+        <Badge :variant="banInfo.isBanned ? 'destructive' : 'default'" :class="banInfo.isBanned ? '' : 'bg-green-500 text-white hover:bg-green-600'" class="text-xs">
           {{ banInfo.isBanned ? t('session.banned') : t('session.notBanned') }}
-        </ElTag>
+        </Badge>
       </div>
       <div class="flex items-center">
         <span class="w-24 text-gray-500">{{ t('session.banType') }}</span>

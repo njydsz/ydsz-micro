@@ -22,8 +22,8 @@
 
 import type { Component } from 'vue';
 
-import type { IconType } from '@ydsz-core/ui-kit/popup-ui';
-import { alert, confirm, prompt } from '@ydsz-core/ui-kit/popup-ui';
+import type { IconType } from '@ydsz-core/popup-ui';
+import { alert, confirm, prompt } from '@ydsz-core/popup-ui';
 import { useSimpleLocale } from '@ydsz-core/composables';
 
 import { showToast } from './use-toast';

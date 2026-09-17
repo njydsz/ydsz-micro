@@ -17,8 +17,8 @@
  * @since 1.0.0
  */
 
-import type { IconType } from '@ydsz-core/ui-kit/popup-ui';
-import { ydszAlert } from '@ydsz-core/ui-kit/popup-ui';
+import type { IconType } from '@ydsz-core/popup-ui';
+import { ydszAlert } from '@ydsz-core/popup-ui';
 import { useSimpleLocale } from '@ydsz-core/composables';
 
 import type { ExceptionSeverity } from '@ydsz/request';

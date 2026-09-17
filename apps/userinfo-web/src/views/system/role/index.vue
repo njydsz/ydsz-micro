@@ -20,7 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDialog, ElTable, ElTableColumn, ElTag, ElTransfer } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { ElDialog, ElTable, ElTableColumn, ElTransfer } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -57,7 +58,7 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          row.builtIn ? h(ElTag, { type: 'info', size: 'small' }, () => t('role.yesBuiltIn')) : h('span', null, t('role.noBuiltIn')),
+          row.builtIn ? h(Badge, { variant: 'secondary', class: 'text-xs' }, () => t('role.yesBuiltIn')) : h('span', null, t('role.noBuiltIn')),
       },
     },
     {
@@ -68,8 +69,8 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            ElTag,
-            { type: enable ? 'success' : 'danger', size: 'small' },
+            Badge,
+            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -85,28 +86,28 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleAssignPermissions(row) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleAssignPermissions(row) },
               () => t('role.assignPermissions'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'info', onClick: () => handleCopyRole(row) },
+              Button,
+              { size: 'sm', variant: 'ghost', onClick: () => handleCopyRole(row) },
               () => t('role.copy'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleViewUsers(row) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleViewUsers(row) },
               () => t('role.viewUsers'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
           ]),
@@ -315,7 +316,7 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
   <Page auto-content-height>
     <Grid :table-title="t('role.roleManagement')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('role.createRole') }}</ElButton>
+        <Button variant="default" @click="handleAdd">{{ t('role.createRole') }}</Button>
       </template>
     </Grid>
     <RoleFormModal @success="gridApi.query()" />

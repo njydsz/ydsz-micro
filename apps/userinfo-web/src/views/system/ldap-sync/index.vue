@@ -53,7 +53,9 @@ export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
+import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -168,42 +170,42 @@ onMounted(() => {
 <template>
   <Page v-loading="isLoading" auto-content-height>
     <!-- 操作面板：触发同步 -->
-    <ElCard class="mb-4">
-      <template #header>
-        <span class="font-medium">LDAP 同步操作</span>
-      </template>
-      <div class="flex items-center gap-4">
-        <ElButton
-          type="primary"
-          :loading="isSyncing"
+    <Card class="mb-4">
+      <CardHeader>
+        <CardTitle>LDAP 同步操作</CardTitle>
+      </CardHeader>
+      <CardContent class="flex items-center gap-4">
+        <Button
+          variant="default"
+          :disabled="isSyncing"
           @click="handleTriggerSync"
         >
+          <Loader2 v-if="isSyncing" class="mr-2 h-4 w-4 animate-spin" />
           {{ isSyncing ? '同步进行中...' : '立即触发同步' }}
-        </ElButton>
-        <ElButton plain @click="loadAll">
+        </Button>
+        <Button variant="outline" @click="loadAll">
           刷新状态
-        </ElButton>
-        <span class="text-sm text-gray-500">
+        </Button>
+        <span class="text-sm text-muted-foreground">
           上次同步时间：{{ syncStatus.lastSyncTime ?? '-' }}
         </span>
-      </div>
-    </ElCard>
+      </CardContent>
+    </Card>
 
     <!-- 同步状态 -->
-    <ElCard class="mb-4">
-      <template #header>
-        <div class="flex items-center justify-between">
-          <span class="font-medium">同步状态</span>
-          <ElTag :type="getStatusTagType(syncStatus.status)">
-            {{ getStatusText(syncStatus.status) }}
-          </ElTag>
-        </div>
-      </template>
+    <Card class="mb-4">
+      <CardHeader class="flex flex-row items-center justify-between pb-2">
+        <CardTitle>同步状态</CardTitle>
+        <Badge :variant="getStatusTagType(syncStatus.status) === 'success' ? 'default' : getStatusTagType(syncStatus.status) === 'danger' ? 'destructive' : getStatusTagType(syncStatus.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(syncStatus.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(syncStatus.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
+          {{ getStatusText(syncStatus.status) }}
+        </Badge>
+      </CardHeader>
+      <CardContent>
       <ElDescriptions :column="3" border>
         <ElDescriptionsItem label="当前状态">
-          <ElTag :type="getStatusTagType(syncStatus.status)" size="small">
+          <Badge :variant="getStatusTagType(syncStatus.status) === 'success' ? 'default' : getStatusTagType(syncStatus.status) === 'danger' ? 'destructive' : getStatusTagType(syncStatus.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(syncStatus.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(syncStatus.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
             {{ getStatusText(syncStatus.status) }}
-          </ElTag>
+          </Badge>
         </ElDescriptionsItem>
         <ElDescriptionsItem label="上次同步时间">
           {{ syncStatus.lastSyncTime ?? '-' }}
@@ -224,21 +226,23 @@ onMounted(() => {
           <span class="text-red-600">{{ syncStatus.errorMessage }}</span>
         </ElDescriptionsItem>
       </ElDescriptions>
-    </ElCard>
+      </CardContent>
+    </Card>
 
     <!-- 同步日志 -->
-    <ElCard>
-      <template #header>
-        <span class="font-medium">同步日志</span>
-      </template>
+    <Card>
+      <CardHeader>
+        <CardTitle>同步日志</CardTitle>
+      </CardHeader>
+      <CardContent>
       <ElTable :data="syncLogs" border max-height="400">
         <ElTableColumn type="index" label="序号" width="60" />
         <ElTableColumn prop="syncTime" label="同步时间" width="170" />
         <ElTableColumn label="状态" width="100">
           <template #default="{ row }">
-            <ElTag :type="getStatusTagType(row.status)" size="small">
+            <Badge :variant="getStatusTagType(row.status) === 'success' ? 'default' : getStatusTagType(row.status) === 'danger' ? 'destructive' : getStatusTagType(row.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(row.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(row.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
               {{ getStatusText(row.status) }}
-            </ElTag>
+            </Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="totalCount" label="总数" width="80" />
@@ -257,6 +261,7 @@ onMounted(() => {
         <ElTableColumn prop="errorMessage" label="错误信息" minWidth="150" show-overflow-tooltip />
       </ElTable>
       <ElEmpty v-if="syncLogs.length === 0" description="暂无同步日志" :image-size="60" />
-    </ElCard>
+      </CardContent>
+    </Card>
   </Page>
 </template>

@@ -189,10 +189,9 @@ onMounted(() => {
       <!-- ========== 全局拓扑 Tab ========== -->
       <ElTabPane label="全局拓扑" name="global">
         <div class="mb-4">
-          <ElInput
+          <Input
             v-model="searchKeyword"
             placeholder="按 dagId / dagKey 筛选"
-            clearable
             class="!w-80"
             @input="filterGlobalCards"
           />

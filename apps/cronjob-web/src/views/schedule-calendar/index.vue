@@ -16,11 +16,10 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Card, CardContent } from '@yzsz-core/ui-kit/shadcn-ui';
+import { Badge, Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElCalendar/ElDatePicker/ElRadioGroup/ElRadioButton/ElTimeline/ElTimelineItem/ElEmpty/ElTooltip/ElCard/ElTag 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElButton, ElCard, ElDatePicker, ElDrawer, ElEmpty, ElRadioGroup, ElRadioButton, ElTag, ElTimeline, ElTimelineItem, ElTooltip } from 'element-plus';
-import { Refresh } from '@element-plus/icons-vue';
 import { ref, computed, onMounted } from 'vue';
 
 import { getScheduleCalendar } from '#/api/scheduleCalendar';
@@ -163,7 +162,12 @@ onMounted(() => {
           value-format="YYYY-MM-DD"
           @change="handleDateChange"
         />
-        <ElButton type="primary" :icon="Refresh" @click="fetchScheduleData">刷新</ElButton>
+        <Button @click="fetchScheduleData">
+          <svg class="me-1.5 inline h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5M20 20v-5h-5M5.635 19.364A9 9 0 1 0 4.05 10M19.364 4.636A9 9 0 0 1 20.95 14" />
+          </svg>
+          刷新
+        </Button>
         <ElRadioGroup v-model="viewMode" size="small" @change="fetchScheduleData">
           <ElRadioButton label="day">日视图</ElRadioButton>
           <ElRadioButton label="week">周视图</ElRadioButton>
@@ -199,32 +203,34 @@ onMounted(() => {
       </ElCalendar>
 
       <!-- 选中日期的任务详情抽屉 -->
-      <ElDrawer
-        v-model="drawerVisible"
-        :title="`${selectedDateDetail} 调度任务`"
-        direction="rtl"
-        size="400px"
-      >
-        <ElTimeline v-if="selectedDateTasks.length > 0">
-          <ElTimelineItem
-            v-for="task in selectedDateTasks"
-            :key="(task.jobKey ?? '') + (task.fireTime ?? '')"
-            :timestamp="formatTime(task.fireTime)"
-            :type="getTaskType(task)"
-            placement="top"
-          >
-            <ElCard>
-              <template #header>
-                <span class="mr-2 font-semibold">{{ task.jobName }}</span>
-                <ElTag size="small" effect="plain">{{ task.jobKey }}</ElTag>
-              </template>
-              <p><b>Cron 表达式：</b>{{ task.cron }}</p>
-              <p><b>分组：</b>{{ task.group || '默认' }}</p>
-            </ElCard>
-          </ElTimelineItem>
-        </ElTimeline>
-        <ElEmpty v-else description="当日无调度任务" />
-      </ElDrawer>
+      <Sheet v-model:open="drawerVisible">
+        <SheetContent side="right" class="w-[400px]">
+          <SheetHeader>
+            <SheetTitle>{{ `${selectedDateDetail} 调度任务` }}</SheetTitle>
+          </SheetHeader>
+          <ElTimeline v-if="selectedDateTasks.length > 0">
+            <ElTimelineItem
+              v-for="task in selectedDateTasks"
+              :key="(task.jobKey ?? '') + (task.fireTime ?? '')"
+              :timestamp="formatTime(task.fireTime)"
+              :type="getTaskType(task)"
+              placement="top"
+            >
+              <Card>
+                <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <span class="mr-2 font-semibold">{{ task.jobName }}</span>
+                  <Badge variant="outline">{{ task.jobKey }}</Badge>
+                </CardHeader>
+                <CardContent class="pt-0">
+                  <p><b>Cron 表达式：</b>{{ task.cron }}</p>
+                  <p><b>分组：</b>{{ task.group || '默认' }}</p>
+                </CardContent>
+              </Card>
+            </ElTimelineItem>
+          </ElTimeline>
+          <ElEmpty v-else description="当日无调度任务" />
+        </SheetContent>
+      </Sheet>
     </div>
   </Page>
 </template>

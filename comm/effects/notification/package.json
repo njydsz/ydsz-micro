@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@ydsz-core/composables": "workspace:*",
-    "@ydsz-core/ui-kit/popup-ui": "workspace:*",
+    "@ydsz-core/popup-ui": "workspace:*",
     "@ydsz/request": "workspace:*"
   },
   "peerDependencies": {
