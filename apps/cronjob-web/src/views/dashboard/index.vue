@@ -16,7 +16,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
@@ -93,18 +93,21 @@ onMounted(loadData);
 <template>
   <Page auto-content-height>
     <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-      <ElCard v-for="card in cards" :key="card.label" shadow="never">
-        <div class="text-sm text-gray-500">{{ card.label }}</div>
-        <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
-      </ElCard>
+      <Card v-for="card in cards" :key="card.label">
+        <CardContent class="pt-4">
+          <div class="text-sm text-muted-foreground">{{ card.label }}</div>
+          <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
+        </CardContent>
+      </Card>
     </div>
 
     <div class="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-3">
-      <ElCard shadow="never" class="lg:col-span-2">
-        <template #header>
-          <span class="font-medium">今日执行</span>
-        </template>
-        <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+      <Card class="lg:col-span-2">
+        <CardHeader>
+          <CardTitle>今日执行</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div>
             <div class="text-xs text-gray-500">执行总数</div>
             <div class="text-xl font-semibold">{{ todayExec.total ?? 0 }}</div>
@@ -121,25 +124,29 @@ onMounted(loadData);
             <div class="text-xs text-gray-500">成功率</div>
             <div class="text-xl font-semibold">{{ todayExec.successRate ?? 'N/A' }}</div>
           </div>
-        </div>
-      </ElCard>
+          </div>
+        </CardContent>
+      </Card>
 
-      <ElCard shadow="never">
-        <template #header>
-          <span class="font-medium">运行中</span>
-        </template>
-        <div class="flex h-28 items-center justify-center">
-          <span class="text-4xl font-semibold text-blue-500">{{ todayExec.running ?? 0 }}</span>
-        </div>
-      </ElCard>
+      <Card>
+        <CardHeader>
+          <CardTitle>运行中</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="flex h-28 items-center justify-center">
+            <span class="text-4xl font-semibold text-blue-500">{{ todayExec.running ?? 0 }}</span>
+          </div>
+        </CardContent>
+      </Card>
     </div>
 
     <div class="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-5">
-      <ElCard shadow="never" class="lg:col-span-3">
-        <template #header>
-          <span class="font-medium">最近失败（快速定位）</span>
-        </template>
-        <ElTable v-if="failures.length" :data="failures" border size="small" max-height="300">
+      <Card class="lg:col-span-3">
+        <CardHeader>
+          <CardTitle>最近失败（快速定位）</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ElTable v-if="failures.length" :data="failures" border size="small" max-height="300">
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn label="状态" width="90">
             <template #default="{ row }">
@@ -153,15 +160,17 @@ onMounted(loadData);
             show-overflow-tooltip
           />
           <ElTableColumn prop="startTime" label="时间" width="170" />
-        </ElTable>
-        <ElEmpty v-else description="暂无失败记录" :image-size="60" />
-      </ElCard>
+          </ElTable>
+          <ElEmpty v-else description="暂无失败记录" :image-size="60" />
+        </CardContent>
+      </Card>
 
-      <ElCard shadow="never" class="lg:col-span-2">
-        <template #header>
-          <span class="font-medium">24 小时执行分布</span>
-        </template>
-        <div class="flex h-72 items-end gap-1 px-1">
+      <Card class="lg:col-span-2">
+        <CardHeader>
+          <CardTitle>24 小时执行分布</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="flex h-72 items-end gap-1 px-1">
           <div
             v-for="item in heatData"
             :key="item.hour"
@@ -175,14 +184,15 @@ onMounted(loadData);
             >
           </div>
         </div>
-        <div class="mt-1 flex justify-between text-[10px] text-gray-400">
+        <div class="mt-1 flex justify-between text-[10px] text-muted-foreground">
           <span>00:00</span>
           <span>06:00</span>
           <span>12:00</span>
           <span>18:00</span>
           <span>23:00</span>
         </div>
-      </ElCard>
+        </CardContent>
+      </Card>
     </div>
   </Page>
 </template>

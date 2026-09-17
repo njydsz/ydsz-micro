@@ -73,13 +73,18 @@ const triggerBounds = useElementBounding(triggerRef);
  * 计算弹出层的绝对定位样式。
  * 附着在触发器正下方（top = 触发器下边缘 + 4px 间距），
  * 左边缘对齐触发器左边缘。
+ * 触发器未挂载时返回默认位置，避免 computed 求值异常。
  */
-const popoverStyle = computed(() => ({
-  left: `${triggerBounds.left.value}px`,
-  position: 'fixed' as const,
-  top: `${triggerBounds.bottom.value + 4}px`,
-  zIndex: 'var(--z-overlay)',
-}));
+const popoverStyle = computed(() => {
+  const left = triggerBounds.left.value || 0;
+  const top = triggerBounds.bottom.value || 0;
+  return {
+    left: `${left}px`,
+    position: 'fixed' as const,
+    top: `${top + 4}px`,
+    zIndex: 'var(--z-overlay)',
+  };
+});
 
 /**
  * 点击弹出层外部时收起面板。
@@ -95,17 +100,26 @@ onClickOutside(
   },
 );
 
-/** 当前显示的月份（锚定该月 1 号） */
-const displayMonth = ref<Date>(() => {
-  if (modelValue.value) {
-    const parsed = new Date(modelValue.value);
+/**
+ * 计算初始显示月份。
+ * 优先使用 modelValue 解析，否则回退到当前月份。
+ *
+ * @param modelValueStr - 当前 v-model 值 (YYYY-MM-DD)
+ * @return 锚定该月 1 号的 Date 对象
+ */
+function resolveInitialMonth(modelValueStr?: string): Date {
+  if (modelValueStr) {
+    const parsed = new Date(modelValueStr);
     if (!Number.isNaN(parsed.getTime())) {
       return new Date(parsed.getFullYear(), parsed.getMonth(), 1);
     }
   }
   const now = new Date();
   return new Date(now.getFullYear(), now.getMonth(), 1);
-});
+}
+
+/** 当前显示的月份（锚定该月 1 号） */
+const displayMonth = ref<Date>(resolveInitialMonth(props.modelValue));
 
 /** 月份标题 */
 const monthLabel = computed(() => {

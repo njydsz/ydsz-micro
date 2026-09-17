@@ -148,26 +148,29 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
     <!-- 诊断结果区 -->
     <div v-if="diagnosisResult.score !== undefined" class="grid grid-cols-1 gap-3 md:grid-cols-3">
       <!-- 健康评分圆环 -->
-      <ElCard shadow="never" class="flex flex-col items-center justify-center">
-        <template #header>
-          <span class="font-medium">健康评分</span>
-        </template>
-        <ElProgress
-          type="dashboard"
-          :percentage="scorePercentage"
-          :color="scoreColor"
-          :stroke-width="12"
-          class="my-4"
-        />
-        <span class="text-2xl font-semibold" :style="{ color: scoreColor }">{{ scorePercentage }}</span>
-      </ElCard>
+      <Card class="flex flex-col items-center justify-center">
+        <CardHeader>
+          <CardTitle>健康评分</CardTitle>
+        </CardHeader>
+        <CardContent class="flex flex-col items-center justify-center">
+          <ElProgress
+            type="dashboard"
+            :percentage="scorePercentage"
+            :color="scoreColor"
+            :stroke-width="12"
+            class="my-4"
+          />
+          <span class="text-2xl font-semibold" :style="{ color: scoreColor }">{{ scorePercentage }}</span>
+        </CardContent>
+      </Card>
 
       <!-- 最近执行状态 -->
-      <ElCard shadow="never">
-        <template #header>
-          <span class="font-medium">最近执行</span>
-        </template>
-        <div class="flex flex-col gap-3">
+      <Card>
+        <CardHeader>
+          <CardTitle>最近执行</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="flex flex-col gap-3">
           <ElStatistic title="状态" :value="diagnosisResult.lastExecStatus ?? '-'">
             <template #suffix>
               <span
@@ -186,16 +189,18 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
           <ElStatistic title="执行时间" :value="diagnosisResult.lastExecTime ?? '-'" />
           <ElStatistic title="耗时" :value="`${diagnosisResult.lastDurationMs ?? 0} ms`" />
           <ElStatistic title="总执行" :value="`${diagnosisResult.totalRuns ?? 0} 次`" />
-          <ElStatistic title="成功率" :value="diagnosisResult.successRate ?? '-'" />
-        </div>
-      </ElCard>
+            <ElStatistic title="成功率" :value="diagnosisResult.successRate ?? '-'" />
+          </div>
+        </CardContent>
+      </Card>
 
       <!-- 失败原因 + 建议 -->
-      <ElCard shadow="never">
-        <template #header>
-          <span class="font-medium">分析建议</span>
-        </template>
-        <div v-if="diagnosisResult.failReason" class="mb-3">
+      <Card>
+        <CardHeader>
+          <CardTitle>分析建议</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div v-if="diagnosisResult.failReason" class="mb-3">
           <div class="text-xs font-medium text-red-500">失败原因</div>
           <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.failReason }}</div>
         </div>
@@ -207,18 +212,20 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
           <div class="text-xs font-medium text-blue-500">建议操作</div>
           <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.suggestion }}</div>
         </div>
-        <ElEmpty v-else description="暂无建议" :image-size="60" />
-      </ElCard>
+          <ElEmpty v-else description="暂无建议" :image-size="60" />
+        </CardContent>
+      </Card>
     </div>
 
     <ElEmpty v-else description="请输入 jobKey 后点击诊断" :image-size="100" class="mt-12" />
 
     <!-- 历史诊断 -->
-    <ElCard v-if="historyRecords.length" shadow="never" class="mt-3">
-      <template #header>
-        <span class="font-medium">诊断历史</span>
-      </template>
-      <ElTimeline>
+    <Card v-if="historyRecords.length" class="mt-3">
+      <CardHeader>
+        <CardTitle>诊断历史</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ElTimeline>
         <ElTimelineItem
           v-for="record in historyRecords"
           :key="record.id"
@@ -234,7 +241,8 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
             <span>{{ record.status }}</span>
           </div>
         </ElTimelineItem>
-      </ElTimeline>
-    </ElCard>
+        </ElTimeline>
+      </CardContent>
+    </Card>
   </Page>
 </template>

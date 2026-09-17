@@ -1,239 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="12" failures="8" errors="0" time="0.0639811">
-    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" timestamp="2026-09-17T02:58:03.703Z" hostname="DESKTOP-FIC0TQ3" tests="12" failures="8" errors="0" skipped="0" time="0.0639811">
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; 应能挂载并渲染 slot 内容" time="0.0240016">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; 应转发 modelValue prop 到 radix SelectRoot" time="0.0039201">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; disabled 状态下应传递 prop" time="0.0030949">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectTrigger &gt; 应渲染为 button 元素并具有 combobox 角色" time="0.010629">
-            <system-err>
-[Vue warn]: Component is missing template or render function:  {
-  __name: [32m&apos;SelectTrigger&apos;[39m,
-  props: {
-    disabled: { type: [36m[Function: Boolean][39m },
-    asChild: { type: [36m[Function: Boolean][39m },
-    as: { default: [32m&apos;button&apos;[39m }
-  },
-  setup: [36m[Function: setup][39m
-} 
-  at &lt;SelectTrigger class=&quot;border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot; &gt; 
-  at &lt;SelectTrigger ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`" type="Error">
-Error: Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`
- ❯ node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:13:11
- ❯ setup node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:14154:22
- ❯ callWithErrorHandling node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:200:19
- ❯ setupStatefulComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8151:25
- ❯ setupComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8113:36
- ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6023:7
- ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
- ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
- ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
- ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+<testsuites name="vitest tests" tests="8" failures="8" errors="0" time="0.0517919">
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" timestamp="2026-09-17T03:01:58.801Z" hostname="DESKTOP-FIC0TQ3" tests="8" failures="8" errors="0" skipped="0" time="0.0517919">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 应能挂载并渲染 input 元素" time="0.0283638">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectTrigger &gt; 应具有 aria-expanded 属性" time="0.0050067">
-            <system-err>
-[Vue warn]: Component is missing template or render function:  {
-  __name: [32m&apos;SelectTrigger&apos;[39m,
-  props: {
-    disabled: { type: [36m[Function: Boolean][39m },
-    asChild: { type: [36m[Function: Boolean][39m },
-    as: { default: [32m&apos;button&apos;[39m }
-  },
-  setup: [36m[Function: setup][39m
-} 
-  at &lt;SelectTrigger class=&quot;border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot; &gt; 
-  at &lt;SelectTrigger ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`" type="Error">
-Error: Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`
- ❯ node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:13:11
- ❯ setup node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:14154:22
- ❯ callWithErrorHandling node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:200:19
- ❯ setupStatefulComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8151:25
- ❯ setupComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8113:36
- ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6023:7
- ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
- ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
- ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
- ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; input 应为 readonly" time="0.0033822">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectTrigger &gt; 自定义 class 应被合并" time="0.0018332">
-            <system-err>
-[Vue warn]: Component is missing template or render function:  {
-  __name: [32m&apos;SelectTrigger&apos;[39m,
-  props: {
-    disabled: { type: [36m[Function: Boolean][39m },
-    asChild: { type: [36m[Function: Boolean][39m },
-    as: { default: [32m&apos;button&apos;[39m }
-  },
-  setup: [36m[Function: setup][39m
-} 
-  at &lt;SelectTrigger class=&quot;border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1 trigger-custom&quot; &gt; 
-  at &lt;SelectTrigger class=&quot;trigger-custom&quot; ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`" type="Error">
-Error: Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`
- ❯ node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:13:11
- ❯ setup node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:14154:22
- ❯ callWithErrorHandling node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:200:19
- ❯ setupStatefulComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8151:25
- ❯ setupComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8113:36
- ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6023:7
- ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
- ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
- ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
- ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 应显示 placeholder" time="0.002758">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectContent &gt; 应通过 Teleport 挂载（document.body 下出现内容）" time="0.0079442">
-            <failure message="expected false to be true // Object.is equality" type="AssertionError">
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts:99:53
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; v-model 应回显到 input" time="0.0024695">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectContent &gt; popper 模式下应包含定位相关类名" time="0.0012088">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectItem &gt; 应渲染 slot 内容" time="0.0023587">
-            <system-err>
-[Vue warn]: Component is missing template or render function:  {
-  __name: [32m&apos;SelectItem&apos;[39m,
-  props: {
-    value: {},
-    disabled: { type: [36m[Function: Boolean][39m },
-    textValue: {},
-    asChild: { type: [36m[Function: Boolean][39m },
-    as: {}
-  },
-  setup: [36m[Function: setup][39m
-} 
-  at &lt;SelectItem value=&quot;test&quot; class=&quot;focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50&quot; &gt; 
-  at &lt;SelectItem value=&quot;test&quot; ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`" type="Error">
-Error: Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`
- ❯ node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:13:11
- ❯ setup node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:14639:47
- ❯ callWithErrorHandling node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:200:19
- ❯ setupStatefulComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8151:25
- ❯ setupComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8113:36
- ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6023:7
- ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
- ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
- ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
- ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; disabled 状态下 input 应禁用" time="0.0029183">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectItem &gt; 应包含正确的 value 属性" time="0.0012918">
-            <system-err>
-[Vue warn]: Component is missing template or render function:  {
-  __name: [32m&apos;SelectItem&apos;[39m,
-  props: {
-    value: {},
-    disabled: { type: [36m[Function: Boolean][39m },
-    textValue: {},
-    asChild: { type: [36m[Function: Boolean][39m },
-    as: {}
-  },
-  setup: [36m[Function: setup][39m
-} 
-  at &lt;SelectItem value=&quot;unique-value&quot; class=&quot;focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50&quot; &gt; 
-  at &lt;SelectItem value=&quot;unique-value&quot; ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`" type="Error">
-Error: Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`
- ❯ node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:13:11
- ❯ setup node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:14639:47
- ❯ callWithErrorHandling node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:200:19
- ❯ setupStatefulComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8151:25
- ❯ setupComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8113:36
- ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6023:7
- ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
- ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
- ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
- ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 自定义 class 应被合并到容器" time="0.0029136">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectValue &gt; 无 modelValue 时应显示占位文本" time="0.0009294">
-            <system-err>
-[Vue warn]: Component is missing template or render function:  {
-  __name: [32m&apos;SelectValue&apos;[39m,
-  props: {
-    placeholder: { default: [32m&apos;&apos;[39m },
-    asChild: { type: [36m[Function: Boolean][39m },
-    as: { default: [32m&apos;span&apos;[39m }
-  },
-  setup: [36m[Function: setup][39m
-} 
-  at &lt;SelectValue placeholder=&quot;请选择&quot; asChild=false as=undefined &gt; 
-  at &lt;SelectValue placeholder=&quot;请选择&quot; ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`" type="Error">
-Error: Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`
- ❯ node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:13:11
- ❯ setup node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:14983:59
- ❯ callWithErrorHandling node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:200:19
- ❯ setupStatefulComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8151:25
- ❯ setupComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8113:36
- ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6023:7
- ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
- ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
- ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
- ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 默认 placeholder 应为「选择日期」" time="0.00507">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="SelectValue &gt; 有 modelValue 时不显示占位" time="0.0007203">
-            <system-err>
-[Vue warn]: Component is missing template or render function:  {
-  __name: [32m&apos;SelectValue&apos;[39m,
-  props: {
-    placeholder: { default: [32m&apos;&apos;[39m },
-    asChild: { type: [36m[Function: Boolean][39m },
-    as: { default: [32m&apos;span&apos;[39m }
-  },
-  setup: [36m[Function: setup][39m
-} 
-  at &lt;SelectValue placeholder=&quot;请选择&quot; asChild=false as=undefined  ... &gt; 
-  at &lt;SelectValue modelValue=&quot;selected&quot; placeholder=&quot;请选择&quot; ref=&quot;VTU_COMPONENT&quot; &gt; 
-  at &lt;VTUROOT&gt;
-
-            </system-err>
-            <failure message="Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`" type="Error">
-Error: Injection `Symbol(SelectRootContext)` not found. Component must be used within `SelectRoot`
- ❯ node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:13:11
- ❯ setup node_modules/.pnpm/radix-vue@1.9.17_vue@3.5.40_typescript@5.9.3_/node_modules/radix-vue/dist/index.js:14983:59
- ❯ callWithErrorHandling node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:200:19
- ❯ setupStatefulComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8151:25
- ❯ setupComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:8113:36
- ❯ mountComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6023:7
- ❯ processComponent node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5989:9
- ❯ patch node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:5494:11
- ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6137:11
- ❯ ReactiveEffect.run node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:268:19
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; type 默认为 date" time="0.0027267">
+            <failure message="displayMonth.value.getFullYear is not a function" type="TypeError">
+TypeError: displayMonth.value.getFullYear is not a function
+ ❯ ComputedRefImpl.fn comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:117:35
+ ❯ refreshComputed node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:422:28
+ ❯ ComputedRefImpl.get value [as value] node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1743:5
+ ❯ unref node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1568:45
+ ❯ Object.get node_modules/.pnpm/@vue+reactivity@3.5.40/node_modules/@vue/reactivity/dist/reactivity.cjs.js:1574:64
+ ❯ comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.vue:215:50
+ ❯ Proxy.renderFnWithContext node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:700:13
+ ❯ Proxy.&lt;anonymous&gt; node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:8019:63
+ ❯ renderComponentRoot node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:4598:16
+ ❯ ReactiveEffect.componentUpdateFn [as fn] node_modules/.pnpm/@vue+runtime-core@3.5.40/node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:6130:46
             </failure>
         </testcase>
     </testsuite>
