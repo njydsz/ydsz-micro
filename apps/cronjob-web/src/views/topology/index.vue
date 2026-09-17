@@ -9,7 +9,9 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { ElCard, ElEmpty, ElInput, ElTabPane, ElTabs } from 'element-plus';
+import { Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTabPane/ElTabs/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElCard, ElEmpty, ElTabPane, ElTabs } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, ref } from 'vue';
 

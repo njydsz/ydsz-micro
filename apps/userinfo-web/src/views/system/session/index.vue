@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton } from 'element-plus';
+import { Button } from '@ydsz-core/shadcn-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -69,11 +69,11 @@ const gridOptions: VxeGridProps<UserSessionVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewBanInfo(row) }, () => t('session.viewBanInfo')),
-            h(ElButton, { size: 'small', link: true, type: 'info', onClick: () => handleViewUserSessions(row) }, () => t('session.viewUserSessions')),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleForceLogout(row) }, () => t('session.forceLogout')),
-            h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleBanUser(row) }, () => t('session.banUser')),
-            h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleUnbanUser(row) }, () => t('session.unbanUser')),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleViewBanInfo(row) }, () => t('session.viewBanInfo')),
+            h(Button, { size: 'sm', variant: 'ghost', onClick: () => handleViewUserSessions(row) }, () => t('session.viewUserSessions')),
+            h(Button, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleForceLogout(row) }, () => t('session.forceLogout')),
+            h(Button, { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleBanUser(row) }, () => t('session.banUser')),
+            h(Button, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleUnbanUser(row) }, () => t('session.unbanUser')),
           ]),
       },
     },
@@ -195,7 +195,7 @@ onMounted(() => {
 
     <Grid :table-title="t('session.onlineUserMgmt')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="() => { gridApi.query(); loadStatistics(); }">{{ t('page.refresh') }}</ElButton>
+        <Button variant="default" @click="() => { gridApi.query(); loadStatistics(); }">{{ t('page.refresh') }}</Button>
       </template>
     </Grid>
 

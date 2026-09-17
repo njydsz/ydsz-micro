@@ -16,9 +16,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElCalendar/ElRadioGroup/ElRadioButton/ElDatePicker/ElDrawer/ElTimeline/ElTimelineItem/ElEmpty/ElTooltip/ElCard/ElTag 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { Badge, Card, CardContent } from '@yzsz-core/ui-kit/shadcn-ui';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElCalendar/ElDatePicker/ElRadioGroup/ElRadioButton/ElTimeline/ElTimelineItem/ElEmpty/ElTooltip/ElCard/ElTag 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElButton, ElCard, ElDatePicker, ElDrawer, ElEmpty, ElRadioGroup, ElRadioButton, ElTag, ElTimeline, ElTimelineItem, ElTooltip } from 'element-plus';
 import { Refresh } from '@element-plus/icons-vue';
 import { ref, computed, onMounted } from 'vue';

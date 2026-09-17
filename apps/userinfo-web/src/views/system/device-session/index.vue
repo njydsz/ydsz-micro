@@ -17,7 +17,8 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -97,58 +98,56 @@ onMounted(() => {
   <Page v-loading="isLoading" auto-content-height>
     <!-- 统计概览 -->
     <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-      <ElCard shadow="hover">
-        <div class="flex items-center justify-between">
+      <Card class="shadow-sm hover:shadow-md transition-shadow">
+        <CardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-sm text-gray-500">设备总数</p>
+            <p class="text-sm text-muted-foreground">设备总数</p>
             <p class="mt-1 text-2xl font-bold text-blue-600">{{ totalDevices }}</p>
           </div>
-          <div class="rounded-full bg-blue-50 p-3">
+          <div class="rounded-full bg-blue-50 dark:bg-blue-950 p-3">
             <span class="text-2xl text-blue-500">📱</span>
           </div>
-        </div>
-      </ElCard>
-      <ElCard shadow="hover">
-        <div class="flex items-center justify-between">
+        </CardContent>
+      </Card>
+      <Card class="shadow-sm hover:shadow-md transition-shadow">
+        <CardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-sm text-gray-500">当前会话</p>
+            <p class="text-sm text-muted-foreground">当前会话</p>
             <p class="mt-1 truncate text-sm text-green-600">{{ currentSessionId ?? '-' }}</p>
           </div>
-          <div class="rounded-full bg-green-50 p-3">
+          <div class="rounded-full bg-green-50 dark:bg-green-950 p-3">
             <span class="text-2xl text-green-500">🟢</span>
           </div>
-        </div>
-      </ElCard>
-      <ElCard shadow="hover">
-        <div class="flex items-center justify-between">
+        </CardContent>
+      </Card>
+      <Card class="shadow-sm hover:shadow-md transition-shadow">
+        <CardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-sm text-gray-500">设备类型</p>
+            <p class="text-sm text-muted-foreground">设备类型</p>
             <p class="mt-1 text-2xl font-bold text-purple-600">{{ devices.filter((d) => d.deviceType).length }}</p>
           </div>
-          <div class="rounded-full bg-purple-50 p-3">
+          <div class="rounded-full bg-purple-50 dark:bg-purple-950 p-3">
             <span class="text-2xl text-purple-500">💻</span>
           </div>
-        </div>
-      </ElCard>
+        </CardContent>
+      </Card>
     </div>
 
     <!-- 设备列表 -->
-    <ElCard>
-      <template #header>
-        <div class="flex items-center justify-between">
-          <span class="font-medium">我的设备</span>
-          <ElButton size="small" type="primary" plain @click="loadDevices">
-            刷新
-          </ElButton>
-        </div>
-      </template>
+    <Card>
+      <CardHeader class="flex flex-row items-center justify-between">
+        <CardTitle>我的设备</CardTitle>
+        <Button size="sm" variant="outline" @click="loadDevices">
+          刷新
+        </Button>
+      </CardHeader>
       <ElTable :data="devices" border>
         <ElTableColumn prop="sessionId" label="会话ID" width="140" />
         <ElTableColumn label="设备类型" width="120">
           <template #default="{ row }">
-            <ElTag :type="getDeviceTypeTagType(row.deviceType)" size="small">
+            <Badge :variant="getDeviceTypeTagType(row.deviceType)" class="text-xs">
               {{ row.deviceTypeDesc ?? row.deviceType ?? '-' }}
-            </ElTag>
+            </Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="loginIp" label="登录IP" width="140" />
@@ -158,21 +157,21 @@ onMounted(() => {
         <ElTableColumn prop="lastActiveTime" label="最后活跃" width="170" />
         <ElTableColumn label="会话状态" width="100" align="center">
           <template #default="{ row }">
-            <ElTag v-if="row.currentSession" type="success" size="small">当前会话</ElTag>
-            <ElTag v-else type="info" size="small">活跃</ElTag>
+            <Badge v-if="row.currentSession" class="bg-green-500 text-white hover:bg-green-600 text-xs">当前会话</Badge>
+            <Badge v-else variant="secondary" class="text-xs">活跃</Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
-            <ElButton
+            <Button
               v-if="!row.currentSession"
-              size="small"
-              link
-              type="danger"
+              size="sm"
+              variant="link"
+              class="text-destructive"
               @click="handleRevoke(row)"
             >
               吊销
-            </ElButton>
+            </Button>
             <span v-else class="text-xs text-gray-400">-</span>
           </template>
         </ElTableColumn>

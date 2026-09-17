@@ -17,7 +17,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCard, ElDatePicker, ElEmpty, ElInput, ElTable, ElTableColumn } from 'element-plus';
+import { Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDatePicker/ElEmpty/ElTable/ElTableColumn 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElCard, ElDatePicker, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { daily, summary } from '#/api/jobStats';
@@ -110,10 +112,9 @@ onMounted(handleQuery);
         <span class="font-medium">查询条件</span>
       </template>
       <div class="flex flex-wrap items-center gap-3">
-        <ElInput
+        <Input
           v-model="queryForm.jobId"
           placeholder="任务ID（可选）"
-          clearable
           class="!w-56"
         />
         <ElDatePicker

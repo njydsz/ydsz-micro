@@ -19,7 +19,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElCard, ElEmpty, ElInput, ElInputNumber, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { Badge, Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElInputNumber/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElCard, ElEmpty, ElInputNumber, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, ref } from 'vue';
 
 import { getUpcomingFireTimes } from '#/api/scheduleCalendar';
@@ -235,7 +237,7 @@ onMounted(() => {
       <div class="flex flex-wrap items-center gap-3">
         <div class="flex items-center gap-2">
           <label class="whitespace-nowrap text-sm text-gray-600">任务标识：</label>
-          <ElInput v-model="jobKey" placeholder="任务 Key" style="width: 180px" />
+          <Input v-model="jobKey" placeholder="任务 Key" class="w-[180px]" />
         </div>
         <div class="flex items-center gap-2">
           <label class="whitespace-nowrap text-sm text-gray-600">时间范围：</label>
@@ -246,7 +248,7 @@ onMounted(() => {
           <label class="whitespace-nowrap text-sm text-gray-600">最大条数：</label>
           <ElInputNumber v-model="maxCount" :min="1" :max="500" style="width: 100px" />
         </div>
-        <ElButton type="primary" :loading="isLoading" @click="handleSearch">查询</ElButton>
+        <Button :loading="isLoading" @click="handleSearch">查询</Button>
       </div>
     </ElCard>
 
@@ -275,7 +277,7 @@ onMounted(() => {
               placement="top"
             >
               <div class="flex items-center gap-2">
-                <ElTag size="small" :type="item.tagType">{{ item.label }}</ElTag>
+                <Badge size="sm" :variant="item.tagType === 'info' ? 'secondary' : item.tagType">{{ item.label }}</Badge>
                 <span v-if="item.countdown" class="text-xs text-gray-500">{{ item.countdown }}</span>
               </div>
             </ElTimelineItem>
