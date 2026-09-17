@@ -18,7 +18,7 @@
 import { Page } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElTabPane/ElTabs 标签页+描述,保留 element-plus SKIP
 import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';
@@ -146,20 +146,20 @@ async function handleQueryCheckpoint() {
         </div>
         <div v-if="checkpointResult" class="mx-4 mb-4 rounded-md border p-3">
           <div class="mb-2 text-sm font-medium">Checkpoint</div>
-          <ElDescriptions :column="2" border>
-            <ElDescriptionsItem label="ExecutionId">{{ checkpointResult.executionId }}</ElDescriptionsItem>
-            <ElDescriptionsItem label="DAG名称">{{ checkpointResult.dagName }}</ElDescriptionsItem>
-            <ElDescriptionsItem label="用户输入">{{ checkpointResult.userInput }}</ElDescriptionsItem>
-            <ElDescriptionsItem label="快照时间">{{ checkpointResult.snapshotTime }}</ElDescriptionsItem>
-            <ElDescriptionsItem label="已完成节点" :span="2">{{ completedNodesText }}</ElDescriptionsItem>
-            <ElDescriptionsItem label="失败节点" :span="2">{{ failedNodesText }}</ElDescriptionsItem>
-            <ElDescriptionsItem label="DSL" :span="2">
+          <YdDescriptions :column="2" border>
+            <YdDescriptionsItem label="ExecutionId">{{ checkpointResult.executionId }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="DAG名称">{{ checkpointResult.dagName }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="用户输入">{{ checkpointResult.userInput }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="快照时间">{{ checkpointResult.snapshotTime }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="已完成节点" :span="2">{{ completedNodesText }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="失败节点" :span="2">{{ failedNodesText }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="DSL" :span="2">
               <pre class="whitespace-pre-wrap break-all">{{ checkpointResult.dsl }}</pre>
-            </ElDescriptionsItem>
-            <ElDescriptionsItem label="节点结果" :span="2">
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="节点结果" :span="2">
               <pre class="whitespace-pre-wrap break-all">{{ displayValue(checkpointResult.nodeResults) }}</pre>
-            </ElDescriptionsItem>
-          </ElDescriptions>
+            </YdDescriptionsItem>
+          </YdDescriptions>
         </div>
       </YdTabsContent>
 

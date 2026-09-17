@@ -25,7 +25,8 @@ import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBa
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移暂缓（含 Drawer/Dropdown/YdTable 等复杂组件，需人工评估）
 import { YdButton, YdDrawer, YdDropdownMenu, YdDropdownMenuItem, YdDropdownMenu, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -590,7 +591,7 @@ void loadCategoryTree();
       <div class="mb-2 flex justify-end">
         <YdButton size="small" @click="loadVersions">刷新</YdButton>
       </div>
-      <ElTable
+      <YdTable
         :data="versionRows"
         border
         size="small"
@@ -630,7 +631,7 @@ void loadCategoryTree();
             >回滚</YdButton>
           </template>
         </ElTableColumn>
-      </ElTable>
+      </YdTable>
     </YdDrawer>
   </Page>
 </template>

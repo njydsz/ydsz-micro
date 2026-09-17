@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { YdEmptyState, YdIcon, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -306,31 +306,31 @@ const credentialCount = computed(() => credentials.value.length);
           <YdDialogHeader>
             <YdDialogTitle>凭证详情</YdDialogTitle>
           </YdDialogHeader>
-          <ElDescriptions v-if="selectedCredential" :column="1" border>
-            <ElDescriptionsItem label="凭证 ID">
+          <YdDescriptions v-if="selectedCredential" :column="1" border>
+            <YdDescriptionsItem label="凭证 ID">
               <span class="text-xs break-all">{{
                 selectedCredential.credentialId
               }}</span>
-            </ElDescriptionsItem>
-            <ElDescriptionsItem label="显示名称">
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="显示名称">
               {{ selectedCredential.displayName || '-' }}
-            </ElDescriptionsItem>
-            <ElDescriptionsItem label="凭证类型">
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="凭证类型">
               {{ selectedCredential.credentialType || '-' }}
-            </ElDescriptionsItem>
-            <ElDescriptionsItem label="AAGUID">
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="AAGUID">
               <span class="text-xs">{{ selectedCredential.aaguid || '-' }}</span>
-            </ElDescriptionsItem>
-            <ElDescriptionsItem label="签名计数">
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="签名计数">
               {{ selectedCredential.signCount ?? 0 }}
-            </ElDescriptionsItem>
-            <ElDescriptionsItem label="注册时间">
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="注册时间">
               {{ formatDateTime(selectedCredential.registeredAt) }}
-            </ElDescriptionsItem>
-            <ElDescriptionsItem label="最后使用">
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="最后使用">
               {{ formatDateTime(selectedCredential.lastUsedAt) }}
-            </ElDescriptionsItem>
-          </ElDescriptions>
+            </YdDescriptionsItem>
+          </YdDescriptions>
           <YdDialogFooter class="gap-2">
             <YdButtonBase variant="outline" @click="detailDialogVisible = false">{{
               t('page.close')

@@ -23,7 +23,8 @@ import { createLogger } from '@ydsz-core/shared/utils';
 // SKIP: retry-preview/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElTabs/ElTabPane/ElEmpty 等未映射组件，
 // 双 Tab 结构复杂，需整体重写。
 import { YdButton, YdCard, YdDialog, YdEmptyState, YdSelectItem, YdSelect, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import { listPresets, previewAllPresets, previewRetrySchedule } from '#/api/retryPreview';
@@ -176,7 +177,7 @@ onMounted(() => {
 
         <!-- 重试计划列表 -->
         <YdCard shadow="never">
-          <ElTable
+          <YdTable
             v-loading="scheduleLoading"
             :data="retryScheduleList"
             stripe
@@ -218,7 +219,7 @@ onMounted(() => {
             <template #empty>
               <YdEmptyState description="暂无重试计划数据" />
             </template>
-          </ElTable>
+          </YdTable>
         </YdCard>
       </template>
 
@@ -226,7 +227,7 @@ onMounted(() => {
       <template v-else>
         <!-- 预设列表 -->
         <YdCard shadow="never">
-          <ElTable
+          <YdTable
             v-loading="presetLoading"
             :data="presetList"
             stripe
@@ -249,7 +250,7 @@ onMounted(() => {
             <template #empty>
               <YdEmptyState description="暂无预设配置数据" />
             </template>
-          </ElTable>
+          </YdTable>
         </YdCard>
       </template>
 

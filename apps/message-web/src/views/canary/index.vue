@@ -24,7 +24,8 @@ import { onMounted, reactive, ref } from 'vue';
 import { assignBucket, createExperiment } from '#/api/canary';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 
 defineOptions({ name: 'CanaryManagement' });
 
@@ -232,7 +233,7 @@ onMounted(() => {
       <!-- 实验列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <ElTable v-loading="loading" :data="experimentList" stripe border style="width: 100%">
+          <YdTable v-loading="loading" :data="experimentList" stripe border style="width: 100%">
             <ElTableColumn type="index" label="序号" width="60" align="center" />
             <ElTableColumn prop="name" label="实验名称" min-width="160" />
             <ElTableColumn prop="channel" label="通道" width="120">
@@ -272,7 +273,7 @@ onMounted(() => {
                 </YdButtonBase>
               </template>
             </ElTableColumn>
-          </ElTable>
+          </YdTable>
 
           <!-- 空状态提示 -->
           <div

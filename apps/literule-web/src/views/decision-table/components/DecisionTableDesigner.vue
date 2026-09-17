@@ -18,7 +18,8 @@
  * @since 1.0.0
  */
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, nextTick, ref, watch } from 'vue';
 import type { DecisionTableVO } from '#/api/models';
 import {
@@ -329,7 +330,7 @@ defineExpose({ open, close });
         </div>
 
         <div class="overflow-auto">
-          <ElTable :data="ruleRows" border size="small" style="width: 100%">
+          <YdTable :data="ruleRows" border size="small" style="width: 100%">
             <ElTableColumn type="index" label="#" width="50" />
 
             <!-- 条件列 -->
@@ -410,7 +411,7 @@ defineExpose({ open, close });
                 </YdButton>
               </template>
             </ElTableColumn>
-          </ElTable>
+          </YdTable>
         </div>
       </div>
 

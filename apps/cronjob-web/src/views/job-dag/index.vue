@@ -24,7 +24,8 @@ import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -243,7 +244,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
         <YdSheetHeader>
           <YdSheetTitle>{{ t('page.dagList') }}</YdSheetTitle>
         </YdSheetHeader>
-        <ElTable :data="versions" border>
+        <YdTable :data="versions" border>
           <ElTableColumn prop="version" label="版本" width="80" />
           <ElTableColumn prop="dagName" :label="t('business.dagName')" width="160" />
           <ElTableColumn prop="dagKey" label="标识" width="160" />
@@ -258,7 +259,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
               </YdButtonBase>
             </template>
           </ElTableColumn>
-        </ElTable>
+        </YdTable>
         <YdEmptyState v-if="versions.length === 0" :description="t('common.noData')" />
       </YdSheetContent>
     </YdSheet>

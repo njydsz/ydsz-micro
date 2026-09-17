@@ -20,7 +20,8 @@
 import { Page } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（高级审批包含 ElTabs/ElTabPane/ElDescriptions/ElForm/ElFormItem/ElStatistic/ElTable/ElEmpty/ElSpace 等复杂组合）
 import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSpace, YdCountToAnimator, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import {
   approvedUsers,
@@ -376,7 +377,7 @@ async function handleSendMonthly() {
                 <YdButton size="small" @click="loadMergeable">刷新</YdButton>
               </div>
             </template>
-            <ElTable :data="mergeableList" stripe border max-height="400">
+            <YdTable :data="mergeableList" stripe border max-height="400">
               <ElTableColumn prop="mergeGroupId" label="合并组 ID" width="180" />
               <ElTableColumn prop="flowName" label="流程名称" width="160" />
               <ElTableColumn prop="count" label="实例数量" width="100" />
@@ -396,7 +397,7 @@ async function handleSendMonthly() {
                   </YdSpace>
                 </template>
               </ElTableColumn>
-            </ElTable>
+            </YdTable>
             <div class="mt-3">
               <YdInput
                 v-model="mergeComment"
@@ -413,15 +414,15 @@ async function handleSendMonthly() {
             <template #header>
               <span class="text-sm font-medium text-gray-700">合并组详情</span>
             </template>
-            <ElDescriptions :column="2" border size="small">
-              <ElDescriptionsItem
+            <YdDescriptions :column="2" border size="small">
+              <YdDescriptionsItem
                 v-for="(value, key) in mergeGroupDetail"
                 :key="key"
                 :label="key"
               >
                 {{ typeof value === 'object' ? JSON.stringify(value) : String(value ?? '-') }}
-              </ElDescriptionsItem>
-            </ElDescriptions>
+              </YdDescriptionsItem>
+            </YdDescriptions>
           </YdCard>
         </div>
       </YdTabsContent>

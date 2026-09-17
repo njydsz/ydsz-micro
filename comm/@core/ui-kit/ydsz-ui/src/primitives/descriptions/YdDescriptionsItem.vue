@@ -2,12 +2,12 @@
  * 描述列表字段项：承载「标签 — 文本」一对信息，由 YdDescriptions 容器编排网格位置。
  *
  * 与 EP ElDescriptionsItem 的契约对齐：
- * - label 属性渲染在标签列（左侧或上方，由 size / 方向决定）；
- * - span ≥ 1 时横向跨越多个列；
+ * - label 属性渲染在标签列；
+ * - span ≥ 1 时横向跨越多个列（对应 EP 的列合并语义）；
  * - 内容区默认为 default slot，标签区通过具名 label slot 自定义。
  *
  * 注入依赖：从父级 YdDescriptions 获取 column / size / border 配置，
- * 不直接使用 props 传递，避免逐项透传。
+ * 避免逐项透传。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\descriptions\YdDescriptionsItem.vue
  * @author ydsz-team
@@ -43,44 +43,44 @@ const props = withDefaults(
   },
 );
 
-const parentColumn = inject(DESCRIPTIONS_COLUMN, computed(() => 3));
-const parentSize = inject(DESCRIPTIONS_SIZE, computed(() => 'default' as const));
-const parentBorder = inject(DESCRIPTIONS_BORDER, computed(() => false));
+const parentColumn = inject(DESCRIPTIONS_COLUMN, { value: 3 });
+const parentSize = inject(DESCRIPTIONS_SIZE, { value: 'default' as const });
+const parentBorder = inject(DESCRIPTIONS_BORDER, { value: false });
 
-/** 网格列跨度：span 不能超过父级总列数 */
-const gridColumn = computed(
-  () => `span ${Math.min(props.span, parentColumn.value)} / span ${Math.min(props.span, parentColumn.value)}`,
+/** 网格列跨度：span 不能超过父级总列数，CSS Grid span N */
+const resolvedSpan = computed(() =>
+  Math.min(props.span, parentColumn.value || 3),
 );
 
+/** 当前列数下的 style */
+const gridStyle = computed(() => ({
+  gridColumn: `span ${resolvedSpan.value} / span ${resolvedSpan.value}`,
+}));
+
 /** 尺寸 → 单元格 padding map */
-const sizePadding: Record<string, string> = {
+const paddingMap: Record<string, string> = {
   small: 'px-3 py-1.5',
   default: 'px-4 py-2',
   large: 'px-5 py-3',
 };
-
-/** 标签与内容区域公共 padding */
-const cellPadding = computed(() => sizePadding[parentValue(parentSize)] ?? sizePadding.default);
-
-function parentValue<T>(ref: { value: T }): T {
-  return ref.value;
-}
+const cellPadding = computed(() =>
+  paddingMap[parentSize.value ?? 'default'] ?? paddingMap.default,
+);
 </script>
 
 <template>
   <div
     :class="cn(
       'flex flex-col',
-      parentBorder && 'border-t border-border-subtle',
+      parentBorder && 'first:border-t-0',
       props.class,
     )"
-    :style="{ gridColumn }"
+    :style="gridStyle"
   >
     <div
       :class="cn(
         cellPadding,
-        'text-sm font-medium text-text-secondary',
-        'bg-surface-2/50',
+        'text-sm font-medium text-text-secondary bg-surface-2/50',
         props.labelClass,
       )"
     >
@@ -89,7 +89,7 @@ function parentValue<T>(ref: { value: T }): T {
     <div
       :class="cn(
         cellPadding,
-        'text-sm text-text-primary break-words',
+        'text-sm text-text-primary break-words min-h-[1.75rem]',
         props.contentClass,
       )"
     >

@@ -18,7 +18,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdCard, YdEmptyState, YdInput, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref } from 'vue';
 
@@ -117,11 +117,11 @@ onMounted(() => {
               </span>
             </div>
           </template>
-          <ElDescriptions v-if="Object.keys(aiStatus).length" :column="1" border size="small">
-            <ElDescriptionsItem v-for="(val, key) in aiStatus" :key="key" :label="key">
+          <YdDescriptions v-if="Object.keys(aiStatus).length" :column="1" border size="small">
+            <YdDescriptionsItem v-for="(val, key) in aiStatus" :key="key" :label="key">
               {{ String(val) }}
-            </ElDescriptionsItem>
-          </ElDescriptions>
+            </YdDescriptionsItem>
+          </YdDescriptions>
           <YdEmptyState v-else description="暂无状态数据" :image-size="60" />
         </YdCard>
 
@@ -163,15 +163,15 @@ onMounted(() => {
             <span class="font-medium">最新摘要</span>
           </template>
           <div v-if="latestSummary">
-            <ElDescriptions :column="2" border size="small" class="mb-3">
-              <ElDescriptionsItem label="文件节点ID">{{ latestSummary.fileNodeId ?? '-' }}</ElDescriptionsItem>
-              <ElDescriptionsItem label="摘要类型">
+            <YdDescriptions :column="2" border size="small" class="mb-3">
+              <YdDescriptionsItem label="文件节点ID">{{ latestSummary.fileNodeId ?? '-' }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="摘要类型">
                 <YdBadge v-if="latestSummary.summaryType" size="small">{{ latestSummary.summaryType }}</YdBadge>
                 <span v-else>-</span>
-              </ElDescriptionsItem>
-              <ElDescriptionsItem label="字数">{{ latestSummary.wordCount ?? '-' }}</ElDescriptionsItem>
-              <ElDescriptionsItem label="生成时间">{{ latestSummary.generatedAt ?? '-' }}</ElDescriptionsItem>
-            </ElDescriptions>
+              </YdDescriptionsItem>
+              <YdDescriptionsItem label="字数">{{ latestSummary.wordCount ?? '-' }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="生成时间">{{ latestSummary.generatedAt ?? '-' }}</YdDescriptionsItem>
+            </YdDescriptions>
             <div class="rounded bg-gray-50 p-3">
               <p class="whitespace-pre-wrap text-sm leading-relaxed">{{ latestSummary.summary ?? '-' }}</p>
             </div>

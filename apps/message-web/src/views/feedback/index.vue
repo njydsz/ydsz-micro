@@ -25,7 +25,8 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import type { MsgFeedbackVO } from '#/api/models';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { YdEmptyState, YdRate } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 
 defineOptions({ name: 'FeedbackManagement' });
@@ -225,7 +226,7 @@ onMounted(() => {
       <!-- 反馈列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <ElTable v-loading="loading" :data="feedbackList" stripe border style="width: 100%">
+          <YdTable v-loading="loading" :data="feedbackList" stripe border style="width: 100%">
             <ElTableColumn type="index" label="序号" width="60" align="center" />
             <ElTableColumn prop="userId" label="用户ID" width="140" />
             <ElTableColumn prop="msgId" label="消息ID" width="180" />
@@ -262,7 +263,7 @@ onMounted(() => {
             <template #empty>
               <YdEmptyState description="暂无反馈数据" />
             </template>
-          </ElTable>
+          </YdTable>
 
           <!-- 分页 -->
           <div class="mt-4 flex justify-end">

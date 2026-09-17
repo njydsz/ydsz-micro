@@ -26,7 +26,8 @@ import { computed, reactive, ref, watch } from 'vue';
 import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard/ElEmpty/ElForm/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、YdInput、Tag → shadcn
 import { YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 
 import { requestClient } from '#/api/request';
 
@@ -250,7 +251,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           字段预览 — {{ selectedTableName }} ({{ columns.length }} 列)
         </span>
       </template>
-      <ElTable :data="columns" size="small" stripe max-height="300">
+      <YdTable :data="columns" size="small" stripe max-height="300">
         <ElTableColumn prop="columnName" label="列名" min-width="140" />
         <ElTableColumn prop="columnType" label="类型" width="120" />
         <ElTableColumn label="主键" width="60">
@@ -265,7 +266,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           </template>
         </ElTableColumn>
         <ElTableColumn prop="columnComment" label="注释" min-width="160" />
-      </ElTable>
+      </YdTable>
     </YdCard>
 
     <!-- 生成配置 & 操作 -->

@@ -38,7 +38,8 @@ export function isSsoMetricsOverviewVo(value: unknown): value is SsoMetricsOverv
 import { Page } from '@ydsz/common-ui';
 import { YdBadge } from '@ydsz-core/ydsz-ui';
 import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -215,7 +216,7 @@ onMounted(() => {
         <template #header>
           <span class="font-medium">登录趋势</span>
         </template>
-        <ElTable
+        <YdTable
           v-if="overview.loginTrend && overview.loginTrend.length > 0"
           :data="overview.loginTrend.map((value, index) => ({ index: index + 1, value }))"
           border
@@ -232,7 +233,7 @@ onMounted(() => {
               <span>{{ row.value }}</span>
             </template>
           </ElTableColumn>
-        </ElTable>
+        </YdTable>
         <YdEmptyState v-else description="暂无登录趋势数据" :image-size="60" />
       </YdCard>
     </div>

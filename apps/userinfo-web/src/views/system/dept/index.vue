@@ -19,7 +19,8 @@
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -109,7 +110,7 @@ async function handleDelete(row: DepartmentTreeVO) {
           <YdButtonBase variant="default" @click="handleAdd()">{{ t('dept.addTopDept') }}</YdButtonBase>
         </div>
       </div>
-      <ElTable
+      <YdTable
         v-loading="loading"
         :data="tableData"
         row-key="id"
@@ -141,7 +142,7 @@ async function handleDelete(row: DepartmentTreeVO) {
             </YdButtonBase>
           </template>
         </ElTableColumn>
-      </ElTable>
+      </YdTable>
     </div>
     <DeptFormModal @success="loadData" />
   </Page>

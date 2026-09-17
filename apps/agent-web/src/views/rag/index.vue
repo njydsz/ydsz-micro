@@ -18,7 +18,8 @@
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElInputNumber/ElStatistic/ElTable/ElTableColumn 表单+表格+描述+数值输入+统计,保留 element-plus SKIP
 import { YdNumberFieldInput, YdCountToAnimator } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -135,11 +136,11 @@ onMounted(() => { handleLoadStats(); });
         <YdCountToAnimator :value="Number(card.value) || 0" />
       </div>
     </div>
-    <ElDescriptions v-if="statsEntries.length > statCards.length" :column="2" border class="mb-3">
-      <ElDescriptionsItem v-for="[key, value] in statsEntries.slice(statCards.length)" :key="key" :label="key">
+    <YdDescriptions v-if="statsEntries.length > statCards.length" :column="2" border class="mb-3">
+      <YdDescriptionsItem v-for="[key, value] in statsEntries.slice(statCards.length)" :key="key" :label="key">
         {{ displayValue(value) }}
-      </ElDescriptionsItem>
-    </ElDescriptions>
+      </YdDescriptionsItem>
+    </YdDescriptions>
     <div class="mb-3 flex items-center gap-2">
       <YdButtonBase :loading="statsLoading" @click="handleLoadStats">刷新统计</YdButtonBase>
       <YdButtonBase @click="handleOpenIngest">导入文档</YdButtonBase>
@@ -152,7 +153,7 @@ onMounted(() => { handleLoadStats(); });
       <YdNumberFieldInput v-model="queryForm.minScore" :min="0" :max="1" :step="0.1" class="w-24" />
       <YdButtonBase :loading="searchLoading" @click="handleSearch">检索</YdButtonBase>
     </div>
-    <ElTable :data="searchRows" border stripe height="360">
+    <YdTable :data="searchRows" border stripe height="360">
       <ElTableColumn prop="id" label="ID" min-width="180" show-overflow-tooltip />
       <ElTableColumn prop="documentId" label="文档ID" min-width="180" show-overflow-tooltip />
       <ElTableColumn prop="documentTitle" label="标题" min-width="180" show-overflow-tooltip />
@@ -165,7 +166,7 @@ onMounted(() => { handleLoadStats(); });
           <YdButtonBase size="sm" variant="destructive" @click="handleDelete(row)">{{ t('common.delete') }}</YdButtonBase>
         </template>
       </ElTableColumn>
-    </ElTable>
+    </YdTable>
     <RagFormModal @success="handleLoadStats" />
   </Page>
 </template>

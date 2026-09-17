@@ -19,7 +19,8 @@
  * @since 1.0.0
 */
 import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
@@ -161,7 +162,7 @@ onMounted(() => {
       <YdButtonBase @click="handleCreate">新建模板</YdButtonBase>
     </div>
 
-    <ElTable :data="templateList" :loading="listLoading" border stripe>
+    <YdTable :data="templateList" :loading="listLoading" border stripe>
       <ElTableColumn prop="name" label="模板名称" min-width="160" />
       <ElTableColumn prop="description" label="描述" min-width="200" show-overflow-tooltip />
       <ElTableColumn prop="category" label="分类" width="120">
@@ -191,7 +192,7 @@ onMounted(() => {
           </YdButtonBase>
         </template>
       </ElTableColumn>
-    </ElTable>
+    </YdTable>
 
     <!-- 编辑弹窗 -->
     <YdDialog v-model:open="dialogVisible">

@@ -18,7 +18,8 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdCard, YdEmptyState, YdInput, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { analyze, getOverview, statsByType, topLargeFiles } from '#/api/analysis';
@@ -152,11 +153,11 @@ onMounted(loadAll);
       <template #header>
         <span class="font-medium">按类型统计</span>
       </template>
-      <ElTable v-if="typeStatsList.length" :data="typeStatsList" border size="small">
+      <YdTable v-if="typeStatsList.length" :data="typeStatsList" border size="small">
         <ElTableColumn prop="type" label="文件类型" min-width="120" />
         <ElTableColumn prop="count" label="数量" width="120" />
         <ElTableColumn prop="sizeLabel" label="占用空间" width="140" />
-      </ElTable>
+      </YdTable>
       <YdEmptyState v-else description="暂无类型统计数据" :image-size="60" />
     </YdCard>
 
@@ -176,7 +177,7 @@ onMounted(loadAll);
             />
           </div>
         </template>
-        <ElTable v-if="largeFiles.length" :data="largeFiles" border size="small" max-height="380">
+        <YdTable v-if="largeFiles.length" :data="largeFiles" border size="small" max-height="380">
           <ElTableColumn prop="name" label="文件名" min-width="160" show-overflow-tooltip />
           <ElTableColumn label="大小" width="100">
             <template #default="{ row }">
@@ -184,7 +185,7 @@ onMounted(loadAll);
             </template>
           </ElTableColumn>
           <ElTableColumn prop="suffix" label="扩展名" width="80" />
-        </ElTable>
+        </YdTable>
         <YdEmptyState v-else description="暂无大文件数据" :image-size="60" />
       </YdCard>
 
@@ -210,11 +211,11 @@ onMounted(loadAll);
             </button>
           </div>
         </div>
-        <ElDescriptions v-if="Object.keys(analyzeResult).length" :column="1" border size="small">
-          <ElDescriptionsItem label="摘要内容">
+        <YdDescriptions v-if="Object.keys(analyzeResult).length" :column="1" border size="small">
+          <YdDescriptionsItem label="摘要内容">
             <p class="whitespace-pre-wrap text-sm">{{ (analyzeResult as Record<string, unknown>).summary ?? (analyzeResult as Record<string, unknown>).content ?? '--' }}</p>
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
         <YdEmptyState v-else description="摘要尚未生成" :image-size="60" />
       </YdCard>
     </div>

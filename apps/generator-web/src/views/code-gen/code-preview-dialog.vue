@@ -26,7 +26,7 @@ import {
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
 import { YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
-import { Warning } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
+import { Warning } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
 
 import type { CodePreviewVO } from '#/api/models';
 

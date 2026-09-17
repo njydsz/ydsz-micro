@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElDrawer/ElTable 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus' // FIXME-P3-EP-EXIT;
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui'; // FIXME-P3-EP-EXIT;
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -226,25 +226,25 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <YdSheetTitle>审计日志详情</YdSheetTitle>
         </YdSheetHeader>
         <template v-if="detailRecord">
-        <ElDescriptions :column="2" border size="small">
-          <ElDescriptionsItem label="模块">
+        <YdDescriptions :column="2" border size="small">
+          <YdDescriptionsItem label="模块">
             <YdBadge size="sm" variant="secondary">{{ translateAuditType(detailRecord.auditType) }}</YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="操作行为">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="操作行为">
             <YdBadge size="sm">{{ translateAction(detailRecord.action) }}</YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="操作内容" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="操作内容" :span="2">
             {{ detailRecord.content ?? '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="业务流水号">{{ detailRecord.businessNo ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="操作人">{{ detailRecord.operatorName ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="IP 地址">{{ detailRecord.ipAddress ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="操作时间">{{ detailRecord.operationTime ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="执行耗时">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="业务流水号">{{ detailRecord.businessNo ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="操作人">{{ detailRecord.operatorName ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="IP 地址">{{ detailRecord.ipAddress ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="操作时间">{{ detailRecord.operationTime ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="执行耗时">
             {{ formatCostTime(detailRecord.costTime) }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="TraceId">{{ detailRecord.traceId ?? '-' }}</ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="TraceId">{{ detailRecord.traceId ?? '-' }}</YdDescriptionsItem>
+        </YdDescriptions>
       </template>
       </YdSheetContent>
     </YdSheet>

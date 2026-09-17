@@ -102,7 +102,10 @@ function mountHost() {
   hostContainer.setAttribute('aria-live', 'polite');
   document.body.append(hostContainer);
   render(
-    h(YdMessageHost, { messages: messageList }),
+    h(YdMessageHost, {
+      messages: messageList,
+      onCloseMessage: (id: string) => closeMessage(id),
+    }),
     hostContainer,
   );
   hostMounted = true;

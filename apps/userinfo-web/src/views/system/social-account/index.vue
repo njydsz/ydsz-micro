@@ -19,7 +19,8 @@
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 import { YdEmptyState, YdImage } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -145,7 +146,7 @@ onMounted(() => {
         <YdCardTitle class="font-medium text-base">已绑定社交账号</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-      <ElTable :data="bindings" border>
+      <YdTable :data="bindings" border>
         <ElTableColumn prop="platform" label="平台" width="140">
           <template #default="{ row }">
             <YdBadge :variant="getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary'" :class="getPlatformTagType(row.platform) === 'warning' ? 'bg-yellow-500 text-white hover:bg-yellow-600' : 'text-xs'">
@@ -180,7 +181,7 @@ onMounted(() => {
             </YdButtonBase>
           </template>
         </ElTableColumn>
-      </ElTable>
+      </YdTable>
       <YdEmptyState v-if="bindings.length === 0" description="暂无绑定的社交账号" :image-size="60" />
       </YdCardContent>
     </YdCard>

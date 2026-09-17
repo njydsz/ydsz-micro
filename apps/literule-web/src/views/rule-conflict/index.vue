@@ -20,7 +20,8 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdButton, YdCard, YdEmptyState, YdProgress, YdCountToAnimator, YdTable, YdBadge, // TODO: EP → ydsz-ui 迁移暂缓（含 YdCard/Empty/Progress/YdTable 等复杂组件，需人工评估） } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -148,7 +149,7 @@ onMounted(() => {
 
       <!-- 冲突列表 -->
       <YdCard shadow="never">
-        <ElTable v-if="conflictList.length > 0" :data="conflictList" stripe border>
+        <YdTable v-if="conflictList.length > 0" :data="conflictList" stripe border>
           <ElTableColumn type="index" label="#" width="50" />
           <ElTableColumn label="规则 A" min-width="160">
             <template #default="{ row }">
@@ -176,7 +177,7 @@ onMounted(() => {
               </YdBadge>
             </template>
           </ElTableColumn>
-        </ElTable>
+        </YdTable>
 
         <YdEmptyState
           v-else

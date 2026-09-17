@@ -15,7 +15,8 @@
  * @since 1.0.0
  */
 import { YdButton, YdDialog, YdDrawer, YdEmptyState, YdTable, YdBadge, YdTooltip } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -178,7 +179,7 @@ defineExpose({
     @close="close"
   >
     <!-- 版本列表表格 -->
-    <ElTable
+    <YdTable
       v-loading="loading"
       :data="versions"
       stripe
@@ -220,7 +221,7 @@ defineExpose({
       <template #empty>
         <YdEmptyState :description="t('common.noData')" />
       </template>
-    </ElTable>
+    </YdTable>
 
     <!-- 底部工具栏 -->
     <template #footer>

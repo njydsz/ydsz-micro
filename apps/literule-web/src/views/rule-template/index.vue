@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 Descriptions/YdInput/YdTabs/Empty/Tree/YdCard/Row/Col 等复杂组件，需人工评估）
 import { YdButton, YdCard, YdCol, YdDialog, YdEmptyState, YdInput, YdRow, YdTabsContent, YdTabs, YdBadge, YdTree } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -283,30 +283,30 @@ onMounted(() => {
         :title="`模板预览 - ${currentTemplate?.templateName ?? ''}`"
         width="640px"
       >
-        <ElDescriptions v-if="currentTemplate" :column="2" border size="small">
-          <ElDescriptionsItem label="模板编码">{{ currentTemplate.templateCode }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="模板名称">{{ currentTemplate.templateName }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="分类">
+        <YdDescriptions v-if="currentTemplate" :column="2" border size="small">
+          <YdDescriptionsItem label="模板编码">{{ currentTemplate.templateCode }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="模板名称">{{ currentTemplate.templateName }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="分类">
             <YdBadge type="primary">{{ currentTemplate.category ?? '-' }}</YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="行业">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="行业">
             <YdBadge type="success">{{ currentTemplate.industry ?? '-' }}</YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="描述" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="描述" :span="2">
             {{ currentTemplate.description ?? '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="预置条件表达式" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="预置条件表达式" :span="2">
             <code class="text-xs text-gray-600">{{ currentTemplate.conditionExpression ?? '-' }}</code>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="预置严重度表达式" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="预置严重度表达式" :span="2">
             <code class="text-xs text-gray-600">{{ currentTemplate.severityExpression ?? '-' }}</code>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="默认严重度">{{ currentTemplate.defaultSeverity ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="优先级">{{ currentTemplate.priority ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="适用范围" :span="2">{{ currentTemplate.scope ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="标签">{{ currentTemplate.tags ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="创建人">{{ currentTemplate.createdBy ?? '-' }}</ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="默认严重度">{{ currentTemplate.defaultSeverity ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="优先级">{{ currentTemplate.priority ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="适用范围" :span="2">{{ currentTemplate.scope ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="标签">{{ currentTemplate.tags ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="创建人">{{ currentTemplate.createdBy ?? '-' }}</YdDescriptionsItem>
+        </YdDescriptions>
         <YdEmptyState v-else description="暂无模板数据" />
       </YdDialog>
 
@@ -316,13 +316,13 @@ onMounted(() => {
         title="导入结果"
         width="520px"
       >
-        <ElDescriptions v-if="importResult" :column="1" border size="small">
-          <ElDescriptionsItem label="规则编码">{{ importResult.ruleCode }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="规则名称">{{ importResult.ruleName }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="规则ID">{{ importResult.id }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="分类">{{ importResult.category ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="描述" :span="2">{{ importResult.description ?? '-' }}</ElDescriptionsItem>
-        </ElDescriptions>
+        <YdDescriptions v-if="importResult" :column="1" border size="small">
+          <YdDescriptionsItem label="规则编码">{{ importResult.ruleCode }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="规则名称">{{ importResult.ruleName }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="规则ID">{{ importResult.id }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="分类">{{ importResult.category ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="描述" :span="2">{{ importResult.description ?? '-' }}</YdDescriptionsItem>
+        </YdDescriptions>
         <div v-else class="text-center text-gray-400">暂无导入数据</div>
       </YdDialog>
     </div>

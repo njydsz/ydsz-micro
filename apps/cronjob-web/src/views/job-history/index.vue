@@ -293,34 +293,34 @@ onMounted(() => {
     <YdSheet v-model:open="isDetailVisible">
       <YdSheetContent side="right" class="w-[600px]">
       <template v-if="detailRecord">
-        <ElDescriptions :column="2" border size="small">
-          <ElDescriptionsItem label="任务名称">{{ detailRecord.jobName ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="版本号">v{{ detailRecord.version ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="变更类型">
+        <YdDescriptions :column="2" border size="small">
+          <YdDescriptionsItem label="任务名称">{{ detailRecord.jobName ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="版本号">v{{ detailRecord.version ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="变更类型">
             <YdBadge :variant="changeTypeTagType(detailRecord)" size="sm">
               {{ translateChangeType(detailRecord.changeType) }}
             </YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="变更说明" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="变更说明" :span="2">
             {{ detailRecord.changeRemark ?? '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="Cron">{{ detailRecord.cronExpression ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="执行器">{{ detailRecord.handler ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="修改人">{{ detailRecord.changedBy ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="修改时间">{{ detailRecord.changedAt ?? '-' }}</ElDescriptionsItem>
-        </ElDescriptions>
-        <ElDescriptions
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="Cron">{{ detailRecord.cronExpression ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="执行器">{{ detailRecord.handler ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="修改人">{{ detailRecord.changedBy ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="修改时间">{{ detailRecord.changedAt ?? '-' }}</YdDescriptionsItem>
+        </YdDescriptions>
+        <YdDescriptions
           v-if="detailRecord.snapshot"
           :column="1"
           border
           size="small"
           class="mt-3"
         >
-          <ElDescriptionsItem label="版本快照">
+          <YdDescriptionsItem label="版本快照">
             <pre class="max-h-60 overflow-auto whitespace-pre-wrap break-all text-xs">{{ detailRecord.snapshot }}</pre>
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
       </template>
       </YdSheetContent>
     </YdSheet>

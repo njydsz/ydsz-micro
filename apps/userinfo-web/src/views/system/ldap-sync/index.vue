@@ -56,7 +56,8 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -202,31 +203,31 @@ onMounted(() => {
         </YdBadge>
       </YdCardHeader>
       <YdCardContent>
-      <ElDescriptions :column="3" border>
-        <ElDescriptionsItem label="当前状态">
+      <YdDescriptions :column="3" border>
+        <YdDescriptionsItem label="当前状态">
           <YdBadge :variant="getStatusTagType(syncStatus.status) === 'success' ? 'default' : getStatusTagType(syncStatus.status) === 'danger' ? 'destructive' : getStatusTagType(syncStatus.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(syncStatus.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(syncStatus.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
             {{ getStatusText(syncStatus.status) }}
           </YdBadge>
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="上次同步时间">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem label="上次同步时间">
           {{ syncStatus.lastSyncTime ?? '-' }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="下次同步时间">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem label="下次同步时间">
           {{ syncStatus.nextSyncTime ?? '-' }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="累计同步用户">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem label="累计同步用户">
           {{ syncStatus.totalSynced ?? 0 }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="成功数量">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem label="成功数量">
           <span class="text-green-600">{{ syncStatus.successCount ?? 0 }}</span>
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="失败数量">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem label="失败数量">
           <span class="text-red-600">{{ syncStatus.failCount ?? 0 }}</span>
-        </ElDescriptionsItem>
-        <ElDescriptionsItem v-if="syncStatus.errorMessage" label="错误信息" :span="3">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem v-if="syncStatus.errorMessage" label="错误信息" :span="3">
           <span class="text-red-600">{{ syncStatus.errorMessage }}</span>
-        </ElDescriptionsItem>
-      </ElDescriptions>
+        </YdDescriptionsItem>
+      </YdDescriptions>
       </YdCardContent>
     </YdCard>
 
@@ -236,7 +237,7 @@ onMounted(() => {
         <YdCardTitle>同步日志</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-      <ElTable :data="syncLogs" border max-height="400">
+      <YdTable :data="syncLogs" border max-height="400">
         <ElTableColumn type="index" label="序号" width="60" />
         <ElTableColumn prop="syncTime" label="同步时间" width="170" />
         <ElTableColumn label="状态" width="100">
@@ -260,7 +261,7 @@ onMounted(() => {
         <ElTableColumn prop="duration" label="耗时(ms)" width="100" />
         <ElTableColumn prop="operator" label="操作人" width="120" />
         <ElTableColumn prop="errorMessage" label="错误信息" minWidth="150" show-overflow-tooltip />
-      </ElTable>
+      </YdTable>
       <YdEmptyState v-if="syncLogs.length === 0" description="暂无同步日志" :image-size="60" />
       </YdCardContent>
     </YdCard>

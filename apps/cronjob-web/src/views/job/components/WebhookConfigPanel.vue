@@ -19,7 +19,8 @@
 import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem/ElTable/ElTableColumn 表单与表格组件保留 element-plus（有专门迁移批次）
 import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -201,7 +202,7 @@ onMounted(loadList);
     </div>
 
     <!-- 订阅列表 -->
-    <ElTable :data="webhookList" :loading="loading" border stripe size="small">
+    <YdTable :data="webhookList" :loading="loading" border stripe size="small">
       <ElTableColumn prop="name" label="订阅名称" min-width="140" />
       <ElTableColumn prop="eventType" label="事件类型" width="120">
         <template #default="{ row }">
@@ -224,7 +225,7 @@ onMounted(loadList);
           <YdButtonBase size="sm" variant="link" @click="handleDelete(row)">删除</YdButtonBase>
         </template>
       </ElTableColumn>
-    </ElTable>
+    </YdTable>
 
     <!-- 编辑弹窗 -->
     <YdDialog v-model:open="dialogVisible">

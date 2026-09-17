@@ -18,7 +18,7 @@
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { YdProgress } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
@@ -77,16 +77,16 @@ function handleAdjust() { quotaFormApi.open(); }
       <div class="mt-2 mb-1 text-sm text-gray-600">文件数使用（{{ quotaInfo.fileCountUsed ?? 0 }} / {{ quotaInfo.fileCountLimit ?? 0 }}）</div>
       <YdProgress :percentage="fileCountPercent" :stroke-width="14" status="success" />
     </div>
-    <ElDescriptions :column="2" border>
-      <ElDescriptionsItem label="存储范围类型">{{ quotaInfo.scopeType ?? '--' }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="存储范围ID">{{ quotaInfo.scopeId ?? '--' }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="配额上限（字节）">{{ quotaInfo.quotaLimit ?? '--' }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="已用容量（字节）">{{ quotaInfo.quotaUsed ?? '--' }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="文件数上限">{{ quotaInfo.fileCountLimit ?? '--' }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="已用文件数">{{ quotaInfo.fileCountUsed ?? '--' }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="更新时间">{{ quotaInfo.updatedAt ?? '--' }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="更新人">{{ quotaInfo.updatedBy ?? '--' }}</ElDescriptionsItem>
-    </ElDescriptions>
+    <YdDescriptions :column="2" border>
+      <YdDescriptionsItem label="存储范围类型">{{ quotaInfo.scopeType ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="存储范围ID">{{ quotaInfo.scopeId ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="配额上限（字节）">{{ quotaInfo.quotaLimit ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="已用容量（字节）">{{ quotaInfo.quotaUsed ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="文件数上限">{{ quotaInfo.fileCountLimit ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="已用文件数">{{ quotaInfo.fileCountUsed ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="更新时间">{{ quotaInfo.updatedAt ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="更新人">{{ quotaInfo.updatedBy ?? '--' }}</YdDescriptionsItem>
+    </YdDescriptions>
     <QuotaFormModal @success="handleQuery" />
   </Page>
 </template>

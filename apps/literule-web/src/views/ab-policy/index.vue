@@ -19,7 +19,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdSelectBase/YdSwitch/InputNumber/YdTable 等复杂组件，需人工评估）
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { formatJsonResult } from '#/utils/format';
@@ -359,7 +360,7 @@ async function handleManualRollback(): Promise<void> {
 
     <!-- 回滚历史弹窗 -->
     <YdDialog v-model="rollbackHistoryVisible" title="回滚历史" width="720px" top="8vh">
-      <ElTable
+      <YdTable
         :data="rollbackHistoryList"
         border
         size="small"
@@ -379,7 +380,7 @@ async function handleManualRollback(): Promise<void> {
           </template>
         </ElTableColumn>
         <ElTableColumn prop="createdAt" label="操作时间" width="170" />
-      </ElTable>
+      </YdTable>
       <template #footer>
         <YdButton @click="rollbackHistoryVisible = false">关闭</YdButton>
         <YdButton type="warning" @click="handleManualRollback">手动回滚</YdButton>

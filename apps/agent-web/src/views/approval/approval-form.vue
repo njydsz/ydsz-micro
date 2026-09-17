@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
@@ -97,11 +97,11 @@ async function handleSubmit(action: 'approve' | 'reject') {
 <template>
   <Modal title="审批处理">
     <div v-if="detailLoading" class="py-8 text-center text-sm text-gray-400">详情加载中...</div>
-    <ElDescriptions v-else-if="detailEntries.length" :column="1" border class="mb-4">
-      <ElDescriptionsItem v-for="[key, value] in detailEntries" :key="key" :label="key">
+    <YdDescriptions v-else-if="detailEntries.length" :column="1" border class="mb-4">
+      <YdDescriptionsItem v-for="[key, value] in detailEntries" :key="key" :label="key">
         <pre class="whitespace-pre-wrap break-all text-sm">{{ displayValue(value) }}</pre>
-      </ElDescriptionsItem>
-    </ElDescriptions>
+      </YdDescriptionsItem>
+    </YdDescriptions>
     <YdForm label-width="100px" label-position="right">
       <YdFormItem label="审批意见">
         <YdInput v-model="comment" type="textarea" :rows="3" placeholder="请输入审批意见（可选）" />

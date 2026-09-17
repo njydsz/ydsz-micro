@@ -7,5 +7,6 @@
  */
 export * from './alert';
 export * from './drawer';
+export * from './message';
 export * from './modal';
 export type { YdPopupApi, YdPopupApiCallbacks, YdPopupApiOptions } from './popup-api';

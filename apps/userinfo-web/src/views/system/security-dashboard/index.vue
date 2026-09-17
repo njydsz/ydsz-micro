@@ -24,7 +24,8 @@
 import { Page } from '@ydsz/common-ui';
 import { YdBadge } from '@ydsz-core/ydsz-ui';
 import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -352,7 +353,7 @@ onMounted(() => {
           <template #header>
             <span class="font-medium">{{ t('security.anomalySessions') }}</span>
           </template>
-          <ElTable :data="anomalySessions" border max-height="300">
+          <YdTable :data="anomalySessions" border max-height="300">
             <ElTableColumn prop="username" :label="t('page.username')" width="120" />
             <ElTableColumn prop="anomalyType" :label="t('security.anomalyType')" width="120" />
             <ElTableColumn prop="description" :label="t('page.description')" min-width="150" />
@@ -363,7 +364,7 @@ onMounted(() => {
                 </YdBadge>
               </template>
             </ElTableColumn>
-          </ElTable>
+          </YdTable>
           <YdEmptyState v-if="anomalySessions.length === 0" :description="t('security.noAnomalySessions')" :image-size="60" />
         </YdCard>
 
@@ -372,13 +373,13 @@ onMounted(() => {
           <template #header>
             <span class="font-medium">{{ t('security.recentEvents') }}</span>
           </template>
-          <ElTable :data="recentEvents" border max-height="300">
+          <YdTable :data="recentEvents" border max-height="300">
           <ElTableColumn prop="eventType" :label="t('security.eventType')" width="120" />
           <ElTableColumn prop="username" :label="t('page.username')" width="100" />
           <ElTableColumn prop="ip" label="IP" width="130" />
           <ElTableColumn prop="description" :label="t('page.description')" min-width="150" />
           <ElTableColumn prop="timestamp" :label="t('security.timestamp')" width="160" />
-          </ElTable>
+          </YdTable>
           <YdEmptyState v-if="recentEvents.length === 0" :description="t('security.noSecurityEvents')" :image-size="60" />
         </YdCard>
       </div>
@@ -388,12 +389,12 @@ onMounted(() => {
         <template #header>
           <span class="font-medium">{{ t('security.activeUserRanking') }}</span>
         </template>
-        <ElTable :data="activeUserRanking" border>
+        <YdTable :data="activeUserRanking" border>
         <ElTableColumn type="index" :label="t('security.rank')" width="80" />
         <ElTableColumn prop="username" :label="t('page.username')" width="150" />
         <ElTableColumn prop="loginCount" :label="t('security.loginCount')" width="120" />
         <ElTableColumn prop="lastLoginTime" :label="t('page.lastLogin')" width="180" />
-        </ElTable>
+        </YdTable>
         <YdEmptyState v-if="activeUserRanking.length === 0" :description="t('security.noData')" :image-size="60" />
       </YdCard>
 

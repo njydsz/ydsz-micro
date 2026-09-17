@@ -17,7 +17,8 @@
 */
 import { useYdModal } from '@ydsz/common-ui';
 import { YdDialog } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
@@ -182,7 +183,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <ElTable :data="versions" border>
+      <YdTable :data="versions" border>
         <ElTableColumn type="index" label="序号" width="60" />
         <ElTableColumn label="版本" width="80">
           <template #default="{ row }">
@@ -210,7 +211,7 @@ onMounted(() => {
             </YdButtonBase>
           </template>
         </ElTableColumn>
-      </ElTable>
+      </YdTable>
 
       <!-- 版本对比结果 -->
       <YdDialog v-model="comparing" title="版本对比" width="700px">

@@ -24,7 +24,8 @@ import { YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBas
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -264,36 +265,36 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
           <YdSheetTitle>DAG 实例详情</YdSheetTitle>
         </YdSheetHeader>
       <template v-if="detailLog">
-        <ElDescriptions :column="2" border size="small" class="mb-3">
-          <ElDescriptionsItem label="DAG标识">{{ detailLog.dagKey ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="状态">
+        <YdDescriptions :column="2" border size="small" class="mb-3">
+          <YdDescriptionsItem label="DAG标识">{{ detailLog.dagKey ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="状态">
             <YdBadge :variant="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
               detailLog.instanceStatus ?? '-'
             }}</YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="触发方式">{{
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="触发方式">{{
             detailLog.triggerType ?? '-'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="触发人">{{ detailLog.triggerBy ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="开始时间">{{ detailLog.startedAt ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="结束时间">{{
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="触发人">{{ detailLog.triggerBy ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="开始时间">{{ detailLog.startedAt ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="结束时间">{{
             detailLog.finishedAt ?? '-'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="耗时(ms)">{{
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="耗时(ms)">{{
             detailLog.durationMs ?? '-'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="TraceId">{{
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="TraceId">{{
             detailLog.triggerTraceId ?? '-'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
             <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
               detailLog.errorMessage
             }}</pre>
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
 
         <div class="mb-1 text-sm font-medium">节点执行明细</div>
-        <ElTable v-if="nodes.length" :data="nodes" border size="small" class="mb-3">
+        <YdTable v-if="nodes.length" :data="nodes" border size="small" class="mb-3">
           <ElTableColumn prop="nodeId" label="节点ID" min-width="110" show-overflow-tooltip />
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn label="状态" width="110">
@@ -315,7 +316,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
               >
             </template>
           </ElTableColumn>
-        </ElTable>
+        </YdTable>
         <YdEmptyState v-else description="暂无节点明细" :image-size="60" class="mb-3" />
 
         <div class="mb-1 text-sm font-medium">工作流拓扑（mermaid 源码）</div>

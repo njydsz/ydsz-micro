@@ -25,7 +25,7 @@ import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -193,42 +193,42 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <YdSheetTitle>执行日志详情</YdSheetTitle>
         </YdSheetHeader>
         <template v-if="detailLog">
-        <ElDescriptions :column="2" border size="small" class="mb-3">
-          <ElDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="状态">
+        <YdDescriptions :column="2" border size="small" class="mb-3">
+          <YdDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="状态">
             <YdBadge :variant="detailLog.status === 'SUCCESS' ? 'default' : 'destructive'">{{
               detailLog.status ?? '-'
             }}</YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="开始时间">{{ detailLog.startTime ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="结束时间">{{ detailLog.endTime ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="耗时(ms)">{{
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="开始时间">{{ detailLog.startTime ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="结束时间">{{ detailLog.endTime ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="耗时(ms)">{{
             detailLog.durationMs ?? '-'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="触发类型">{{
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="触发类型">{{
             detailLog.triggerType ?? '-'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="执行节点">{{
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="执行节点">{{
             detailLog.execNodeId ?? '-'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="TraceId">{{ detailLog.traceId ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="分片" :span="2">{{
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="TraceId">{{ detailLog.traceId ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="分片" :span="2">{{
             detailLog.shardTotal
               ? `${(detailLog.shardIndex ?? 0) + 1}/${detailLog.shardTotal}`
               : '非分片'
-          }}</ElDescriptionsItem>
-          <ElDescriptionsItem v-if="detailLog.paramsJson" label="任务参数" :span="2">
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem v-if="detailLog.paramsJson" label="任务参数" :span="2">
             <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.paramsJson }}</pre>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem v-if="detailLog.resultJson" label="执行结果" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem v-if="detailLog.resultJson" label="执行结果" :span="2">
             <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.resultJson }}</pre>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
             <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
               detailLog.errorMessage
             }}</pre>
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
 
         <div class="mb-1 flex items-center gap-2 text-xs text-gray-500">
           <span>实时日志</span>

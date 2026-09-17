@@ -393,12 +393,12 @@ onMounted(() => {
             <span class="text-sm font-medium">最近命中</span>
             <YdButton size="small" @click="loadHitsAndStats">刷新</YdButton>
           </div>
-          <ElTable :data="hits" border size="small" :empty-text="'暂无命中记录'">
+          <YdTable :data="hits" border size="small" :empty-text="'暂无命中记录'">
             <ElTableColumn prop="ruleCode" label="规则编码" min-width="140" />
             <ElTableColumn prop="patternId" label="模式ID" min-width="140" />
             <ElTableColumn prop="metric" label="指标" width="90" />
             <ElTableColumn prop="hitAt" label="命中时间" width="170" />
-          </ElTable>
+          </YdTable>
           <div class="mt-3 text-sm font-medium">全局统计</div>
           <pre class="mt-1 max-h-40 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{
             statText
@@ -537,7 +537,7 @@ onMounted(() => {
                   @current-change="loadPatternHits"
                 />
               </div>
-              <ElTable
+              <YdTable
                 :data="patternHits"
                 border
                 size="small"
@@ -553,7 +553,7 @@ onMounted(() => {
                     <span class="text-xs text-gray-500">{{ formatJsonResult(row.context ?? row) }}</span>
                   </template>
                 </ElTableColumn>
-              </ElTable>
+              </YdTable>
             </div>
           </YdTabsContent>
 

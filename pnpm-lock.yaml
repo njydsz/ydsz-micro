@@ -677,6 +677,9 @@ importers:
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1675,6 +1678,9 @@ importers:
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../ydsz-ui
       '@ydsz/notification':
         specifier: workspace:*
         version: link:../../../effects/notification
@@ -1790,39 +1796,6 @@ importers:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
-  comm/@core/ui-kit/ydsz-ui:
-    dependencies:
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/composables':
-        specifier: workspace:*
-        version: link:../../composables
-      '@ydsz-core/icons':
-        specifier: workspace:*
-        version: link:../../base/icons
-      '@ydsz-core/shared':
-        specifier: workspace:*
-        version: link:../../base/shared
-      '@ydsz-core/typings':
-        specifier: workspace:*
-        version: link:../../base/typings
-      class-variance-authority:
-        specifier: 'catalog:'
-        version: 0.7.1
-      lucide-vue-next:
-        specifier: 'catalog:'
-        version: 0.507.0(vue@3.5.40(typescript@5.9.3))
-      radix-vue:
-        specifier: 'catalog:'
-        version: 1.9.17(vue@3.5.40(typescript@5.9.3))
-      vee-validate:
-        specifier: 'catalog:'
-        version: 4.15.1(vue@3.5.40(typescript@5.9.3))
-      vue:
-        specifier: ^3.5.17
-        version: 3.5.40(typescript@5.9.3)
-
   comm/@core/ui-kit/tabs-ui:
     dependencies:
       '@vueuse/core':
@@ -1870,6 +1843,39 @@ importers:
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
         version: link:../ydsz-ui
+
+  comm/@core/ui-kit/ydsz-ui:
+    dependencies:
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/composables':
+        specifier: workspace:*
+        version: link:../../composables
+      '@ydsz-core/icons':
+        specifier: workspace:*
+        version: link:../../base/icons
+      '@ydsz-core/shared':
+        specifier: workspace:*
+        version: link:../../base/shared
+      '@ydsz-core/typings':
+        specifier: workspace:*
+        version: link:../../base/typings
+      class-variance-authority:
+        specifier: 'catalog:'
+        version: 0.7.1
+      lucide-vue-next:
+        specifier: 'catalog:'
+        version: 0.507.0(vue@3.5.40(typescript@5.9.3))
+      radix-vue:
+        specifier: 'catalog:'
+        version: 1.9.17(vue@3.5.40(typescript@5.9.3))
+      vee-validate:
+        specifier: 'catalog:'
+        version: 4.15.1(vue@3.5.40(typescript@5.9.3))
+      vue:
+        specifier: ^3.5.17
+        version: 3.5.40(typescript@5.9.3)
 
   comm/constants:
     dependencies:
@@ -2302,6 +2308,9 @@ importers:
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/ydsz-ui
       '@ydsz/common-ui':
         specifier: workspace:*
         version: link:../common-ui

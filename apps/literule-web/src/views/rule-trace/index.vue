@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 Descriptions/YdInput/Timeline/YdCard 等复杂组件，需人工评估）
 import { YdButton, YdCard, YdDialog, YdInput, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -309,10 +309,10 @@ onMounted(() => {
         :title="`执行链路详情 - ${currentTraceId}`"
         width="780px"
       >
-        <ElDescriptions :column="2" border size="small" class="mb-4">
-          <ElDescriptionsItem label="Trace ID">{{ currentTraceId }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="规则编码">{{ currentRuleCode }}</ElDescriptionsItem>
-        </ElDescriptions>
+        <YdDescriptions :column="2" border size="small" class="mb-4">
+          <YdDescriptionsItem label="Trace ID">{{ currentTraceId }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="规则编码">{{ currentRuleCode }}</YdDescriptionsItem>
+        </YdDescriptions>
         <YdTimeline>
           <YdTimelineItem
             v-for="(item, idx) in detailList"
@@ -321,26 +321,26 @@ onMounted(() => {
             :type="item.triggered ? 'success' : 'info'"
             placement="top"
           >
-            <ElDescriptions :column="2" size="small" border>
-              <ElDescriptionsItem label="规则编码">{{ item.ruleCode }}</ElDescriptionsItem>
-              <ElDescriptionsItem label="规则名称">{{ item.ruleName }}</ElDescriptionsItem>
-              <ElDescriptionsItem label="命中">
+            <YdDescriptions :column="2" size="small" border>
+              <YdDescriptionsItem label="规则编码">{{ item.ruleCode }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="规则名称">{{ item.ruleName }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="命中">
                 <YdBadge :type="item.triggered ? 'success' : 'info'">
                   {{ item.triggered ? '命中' : '未命中' }}
                 </YdBadge>
-              </ElDescriptionsItem>
-              <ElDescriptionsItem label="严重度">
+              </YdDescriptionsItem>
+              <YdDescriptionsItem label="严重度">
                 <YdBadge :type="severityTagType(item.severity)">{{ item.severity ?? '-' }}</YdBadge>
-              </ElDescriptionsItem>
-              <ElDescriptionsItem label="耗时">{{ item.elapsedMs }} ms</ElDescriptionsItem>
-              <ElDescriptionsItem label="场景">{{ item.scenario ?? '-' }}</ElDescriptionsItem>
-              <ElDescriptionsItem label="条件结果" :span="2">
+              </YdDescriptionsItem>
+              <YdDescriptionsItem label="耗时">{{ item.elapsedMs }} ms</YdDescriptionsItem>
+              <YdDescriptionsItem label="场景">{{ item.scenario ?? '-' }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="条件结果" :span="2">
                 {{ item.conditionResult ?? '-' }}
-              </ElDescriptionsItem>
-              <ElDescriptionsItem v-if="item.errorMessage" label="错误" :span="2">
+              </YdDescriptionsItem>
+              <YdDescriptionsItem v-if="item.errorMessage" label="错误" :span="2">
                 <span class="text-red-500">{{ item.errorMessage }}</span>
-              </ElDescriptionsItem>
-            </ElDescriptions>
+              </YdDescriptionsItem>
+            </YdDescriptions>
           </YdTimelineItem>
         </YdTimeline>
       </YdDialog>
@@ -351,15 +351,15 @@ onMounted(() => {
         :title="`回放结果 - ${currentTraceId}`"
         width="560px"
       >
-        <ElDescriptions v-if="replayResult" :column="1" border size="small">
-          <ElDescriptionsItem
+        <YdDescriptions v-if="replayResult" :column="1" border size="small">
+          <YdDescriptionsItem
             v-for="(value, key) in replayResult"
             :key="key"
             :label="key"
           >
             {{ typeof value === 'object' ? JSON.stringify(value) : String(value) }}
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
         <div v-else class="text-center text-gray-400">暂无回放数据</div>
       </YdDialog>
 
@@ -369,15 +369,15 @@ onMounted(() => {
         :title="`影响分析预览 - ${currentRuleCode}`"
         width="560px"
       >
-        <ElDescriptions v-if="impactResult" :column="1" border size="small">
-          <ElDescriptionsItem
+        <YdDescriptions v-if="impactResult" :column="1" border size="small">
+          <YdDescriptionsItem
             v-for="(value, key) in impactResult"
             :key="key"
             :label="key"
           >
             {{ typeof value === 'object' ? JSON.stringify(value) : String(value) }}
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
         <div v-else class="text-center text-gray-400">暂无影响分析数据</div>
       </YdDialog>
     </div>

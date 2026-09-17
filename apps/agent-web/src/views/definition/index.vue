@@ -21,7 +21,7 @@ import { h, ref } from 'vue';
 
 // TODO: ElDescriptions/ElDescriptionsItem/ElDrawer 描述+抽屉+输入,保留 element-plus SKIP
 import { YdDrawer } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
@@ -97,39 +97,39 @@ async function handleView(row: AgentDefinitionVO) {
       <YdInput v-model="queryCode" placeholder="按Agent编码查询" class="w-64" />
       <YdButtonBase @click="handleQueryByCode">查询</YdButtonBase>
     </div>
-    <ElDescriptions v-if="queryDetail" :column="3" border class="mb-3">
-      <ElDescriptionsItem label="Agent编码">{{ queryDetail.agentCode }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="Agent名称">{{ queryDetail.agentName }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="类型">{{ queryDetail.agentType }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="温度">{{ queryDetail.temperature }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="MaxTokens">{{ queryDetail.maxTokens }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="工具列表">{{ queryDetail.toolNames }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="描述" :span="3">{{ queryDetail.description }}</ElDescriptionsItem>
-      <ElDescriptionsItem label="系统提示词" :span="3">
+    <YdDescriptions v-if="queryDetail" :column="3" border class="mb-3">
+      <YdDescriptionsItem label="Agent编码">{{ queryDetail.agentCode }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="Agent名称">{{ queryDetail.agentName }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="类型">{{ queryDetail.agentType }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="温度">{{ queryDetail.temperature }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="MaxTokens">{{ queryDetail.maxTokens }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="工具列表">{{ queryDetail.toolNames }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="描述" :span="3">{{ queryDetail.description }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="系统提示词" :span="3">
         <pre class="whitespace-pre-wrap break-all">{{ queryDetail.systemPrompt }}</pre>
-      </ElDescriptionsItem>
-    </ElDescriptions>
+      </YdDescriptionsItem>
+    </YdDescriptions>
     <Grid table-title="Agent定义列表" />
     <YdDrawer v-model="detailVisible" title="Agent定义详情" size="480px">
-      <ElDescriptions v-if="detail" :column="1" border>
-        <ElDescriptionsItem label="Agent编码">{{ detail.agentCode }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="Agent名称">{{ detail.agentName }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="类型">{{ detail.agentType }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="描述">{{ detail.description }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="系统提示词">
+      <YdDescriptions v-if="detail" :column="1" border>
+        <YdDescriptionsItem label="Agent编码">{{ detail.agentCode }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="Agent名称">{{ detail.agentName }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="类型">{{ detail.agentType }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="描述">{{ detail.description }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="系统提示词">
           <pre class="whitespace-pre-wrap break-all">{{ detail.systemPrompt }}</pre>
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="模型配置">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem label="模型配置">
           <pre class="whitespace-pre-wrap break-all">{{ detail.modelConfig }}</pre>
-        </ElDescriptionsItem>
-        <ElDescriptionsItem label="工具列表">{{ detail.toolNames }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="温度">{{ detail.temperature }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="MaxTokens">{{ detail.maxTokens }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="创建人">{{ detail.createdBy }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="创建时间">{{ detail.createdAt }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="更新人">{{ detail.updatedBy }}</ElDescriptionsItem>
-        <ElDescriptionsItem label="更新时间">{{ detail.updatedAt }}</ElDescriptionsItem>
-      </ElDescriptions>
+        </YdDescriptionsItem>
+        <YdDescriptionsItem label="工具列表">{{ detail.toolNames }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="温度">{{ detail.temperature }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="MaxTokens">{{ detail.maxTokens }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="创建人">{{ detail.createdBy }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="创建时间">{{ detail.createdAt }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="更新人">{{ detail.updatedBy }}</YdDescriptionsItem>
+        <YdDescriptionsItem label="更新时间">{{ detail.updatedAt }}</YdDescriptionsItem>
+      </YdDescriptions>
     </YdDrawer>
   </Page>
 </template>

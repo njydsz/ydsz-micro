@@ -22,7 +22,8 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdDialog, YdTable, YdTransfer } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -346,7 +347,7 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
       :title="t('role.roleUsers') + ' - ' + currentViewRoleName"
       width="800px"
     >
-      <ElTable :data="roleUserList" border max-height="400">
+      <YdTable :data="roleUserList" border max-height="400">
         <ElTableColumn type="index" :label="t('page.rowIndex')" width="60" />
         <ElTableColumn prop="username" :label="t('page.username')" width="120" />
         <ElTableColumn prop="realName" :label="t('page.realName')" width="120" />
@@ -360,7 +361,7 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
           </template>
         </ElTableColumn>
         <ElTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
-      </ElTable>
+      </YdTable>
       <template #footer>
         <YdButtonBase variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</YdButtonBase>
       </template>

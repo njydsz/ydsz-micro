@@ -21,7 +21,8 @@ import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 YdAlert/Form/YdInput/YdSelectBase/YdSwitch/YdTabs/YdTable 等复杂组件，需人工评估）
 import { YdAlertBanner, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -259,7 +260,7 @@ onMounted(() => {
       <YdCard shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <YdTabsContent label="依赖此规则的" name="dependents">
-            <ElTable
+            <YdTable
               v-if="dependentsList.length > 0"
               :data="dependentsList"
               stripe
@@ -310,12 +311,12 @@ onMounted(() => {
                   </YdButton>
                 </template>
               </ElTableColumn>
-            </ElTable>
+            </YdTable>
             <YdEmptyState v-else description="暂无依赖此规则的记录" image-size="100" />
           </YdTabsContent>
 
           <YdTabsContent label="此规则依赖的" name="dependencies">
-            <ElTable
+            <YdTable
               v-if="dependenciesList.length > 0"
               :data="dependenciesList"
               stripe
@@ -366,7 +367,7 @@ onMounted(() => {
                   </YdButton>
                 </template>
               </ElTableColumn>
-            </ElTable>
+            </YdTable>
             <YdEmptyState v-else description="暂无此规则依赖的记录" image-size="100" />
           </YdTabsContent>
         </YdTabs>

@@ -26,7 +26,8 @@ import {
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（ydsz-ui 无内置 YdTable 组件）
-import { ElTable, ElTableColumn } from 'element-plus' // FIXME-P3-EP-EXIT;
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus'; // FIXME-P3-EP-EXIT;
 
 import { listHistoryFiles } from '#/api/history';
 import type { GenHistoryFile } from '#/api/models';
@@ -112,7 +113,7 @@ onMounted(() => {
       <div class="mb-2 text-sm text-gray-500">
         任务 #{{ historyId }} 共 {{ files.length }} 个文件
       </div>
-      <ElTable v-loading="loading" :data="files" stripe max-height="400">
+      <YdTable v-loading="loading" :data="files" stripe max-height="400">
         <ElTableColumn type="index" label="#" width="50" />
         <ElTableColumn prop="filePath" label="文件路径" min-width="300" show-overflow-tooltip />
         <ElTableColumn label="操作" width="100">
@@ -123,7 +124,7 @@ onMounted(() => {
           </template>
         </ElTableColumn>
         <ElTableColumn prop="originalBackupPath" label="备份路径" min-width="200" show-overflow-tooltip />
-      </ElTable>
+      </YdTable>
     </YdDialogContent>
   </YdDialog>
 </template>

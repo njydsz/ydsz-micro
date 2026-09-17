@@ -24,7 +24,7 @@ import { useI18n } from 'vue-i18n';
 
 import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger } from '@ydsz-core/ydsz-ui';
 import { YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -239,20 +239,20 @@ defineExpose({ close, open });
       </YdDialogHeader>
     <div v-if="record" class="approval-detail">
       <!-- 基本信息 -->
-      <ElDescriptions :column="2" border>
-        <ElDescriptionsItem :label="t('configApproval.colResourceType')">
+      <YdDescriptions :column="2" border>
+        <YdDescriptionsItem :label="t('configApproval.colResourceType')">
           {{ resourceTypeLabel(record.resourceType) }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem :label="t('configApproval.colChangeType')">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem :label="t('configApproval.colChangeType')">
           {{ changeTypeLabel(record.changeType) }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem :label="t('configApproval.colSubmitter')">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem :label="t('configApproval.colSubmitter')">
           {{ record.submitterName }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem :label="t('configApproval.colSubmittedAt')">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem :label="t('configApproval.colSubmittedAt')">
           {{ record.submittedAt }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem :label="t('configApproval.colStatus')">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem :label="t('configApproval.colStatus')">
           <span :class="['inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold',
             statusTagType(record.status) === 'success' ? 'border-transparent bg-green-100 text-green-800' :
             statusTagType(record.status) === 'danger' ? 'border-transparent bg-red-100 text-red-800' :
@@ -260,24 +260,24 @@ defineExpose({ close, open });
             'border-transparent bg-gray-100 text-gray-800']">{{
             statusLabel(record.status)
           }}</span>
-        </ElDescriptionsItem>
-        <ElDescriptionsItem
+        </YdDescriptionsItem>
+        <YdDescriptionsItem
           v-if="record.currentApproverName"
           :label="t('configApproval.colCurrentApprover')"
         >
           {{ record.currentApproverName }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem :label="t('common.reasonLabel')" :span="2">
+        </YdDescriptionsItem>
+        <YdDescriptionsItem :label="t('common.reasonLabel')" :span="2">
           {{ record.reason || '-' }}
-        </ElDescriptionsItem>
-        <ElDescriptionsItem
+        </YdDescriptionsItem>
+        <YdDescriptionsItem
           v-if="record.rejectionReason"
           :label="t('common.rejectionReasonLabel')"
           :span="2"
         >
           {{ record.rejectionReason }}
-        </ElDescriptionsItem>
-      </ElDescriptions>
+        </YdDescriptionsItem>
+      </YdDescriptions>
 
       <YdSeparator />
 

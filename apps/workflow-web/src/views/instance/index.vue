@@ -18,7 +18,8 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { YdBadge, YdButtonBase, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -342,7 +343,7 @@ async function openTimeline(row: FlowInstanceVO) {
         <!-- 流程图高亮 -->
         <FlowDiagramViewer :instance="timelineInstance" />
         <!-- 轨迹表格 -->
-        <ElTable :data="timelineRows" border size="small" v-loading="timelineLoading" class="mt-4">
+        <YdTable :data="timelineRows" border size="small" v-loading="timelineLoading" class="mt-4">
           <ElTableColumn prop="type" :label="$t('wf.type')" width="100" />
           <ElTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
           <ElTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
@@ -355,7 +356,7 @@ async function openTimeline(row: FlowInstanceVO) {
             show-overflow-tooltip
           />
           <ElTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
-        </ElTable>
+        </YdTable>
       </div>
       </YdSheetContent>
     </YdSheet>

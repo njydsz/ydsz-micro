@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdProgress } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -277,33 +277,33 @@ onMounted(() => {
           <YdSheetTitle>任务分片详情</YdSheetTitle>
         </YdSheetHeader>
       <template v-if="detailRecord">
-        <ElDescriptions :column="2" border size="small">
-          <ElDescriptionsItem label="分片名称">{{ detailRecord.taskName ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="类型">
+        <YdDescriptions :column="2" border size="small">
+          <YdDescriptionsItem label="分片名称">{{ detailRecord.taskName ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="类型">
             <YdBadge size="sm" :variant="isRoot(detailRecord) ? 'default' : 'secondary'">
               {{ isRoot(detailRecord) ? '根任务' : '子任务' }}
             </YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="状态">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="状态">
             <YdBadge size="sm" :variant="taskStatusTagType(detailRecord)">
               {{ translateTaskStatus(detailRecord.taskStatus) }}
             </YdBadge>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="执行节点">{{ detailRecord.execNodeId ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="重试次数">{{ detailRecord.retryCount ?? 0 }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="创建时间">{{ detailRecord.createdAt ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem label="更新时间">{{ detailRecord.updatedAt ?? '-' }}</ElDescriptionsItem>
-          <ElDescriptionsItem v-if="detailRecord.taskParams" label="任务参数" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="执行节点">{{ detailRecord.execNodeId ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="重试次数">{{ detailRecord.retryCount ?? 0 }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="创建时间">{{ detailRecord.createdAt ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="更新时间">{{ detailRecord.updatedAt ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem v-if="detailRecord.taskParams" label="任务参数" :span="2">
             <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{ detailRecord.taskParams }}</pre>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem v-if="detailRecord.result" label="执行结果" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem v-if="detailRecord.result" label="执行结果" :span="2">
             <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{ detailRecord.result }}</pre>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem v-if="detailRecord.errorMessage" label="错误信息" :span="2">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem v-if="detailRecord.errorMessage" label="错误信息" :span="2">
             <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs text-red-500">{{ detailRecord.errorMessage }}</pre>
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
       </template>
       </YdSheetContent>
     </YdSheet>

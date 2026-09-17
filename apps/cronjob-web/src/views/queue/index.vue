@@ -20,7 +20,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { getQueueStatus } from '#/api/jobQueue';
@@ -128,11 +128,11 @@ onMounted(loadQueue);
           <YdCardTitle>{{ String(name) }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <ElDescriptions v-if="Object.keys(details ?? {}).length" :column="2" size="small" border>
-            <ElDescriptionsItem v-for="(val, key) in (details ?? {})" :key="key" :label="String(key)">
+          <YdDescriptions v-if="Object.keys(details ?? {}).length" :column="2" size="small" border>
+            <YdDescriptionsItem v-for="(val, key) in (details ?? {})" :key="key" :label="String(key)">
               {{ String(val) }}
-            </ElDescriptionsItem>
-          </ElDescriptions>
+            </YdDescriptionsItem>
+          </YdDescriptions>
           <YdEmptyState v-else description="暂无数据" :image-size="60" />
         </YdCardContent>
       </YdCard>

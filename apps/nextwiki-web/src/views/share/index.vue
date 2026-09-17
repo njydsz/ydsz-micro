@@ -19,7 +19,8 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdButton, YdDrawer, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -174,26 +175,26 @@ async function handleRevoke(row: ShareLinkVO) {
       <div class="mb-2 flex justify-end">
         <YdButton size="small" :loading="logsLoading" @click="loadLogs">刷新</YdButton>
       </div>
-      <ElTable :data="accessLogs" border size="small">
+      <YdTable :data="accessLogs" border size="small">
         <ElTableColumn prop="visitorName" label="访问者" min-width="120" />
         <ElTableColumn prop="visitorIp" label="IP" min-width="140" />
         <ElTableColumn prop="accessType" label="访问类型" width="110" />
         <ElTableColumn prop="accessStatus" label="状态" width="100" />
         <ElTableColumn prop="accessTime" label="访问时间" min-width="170" />
         <ElTableColumn prop="failReason" label="失败原因" min-width="120" />
-      </ElTable>
+      </YdTable>
     </YdDrawer>
     <YdDrawer v-model="recipientsVisible" title="接收人" :size="640">
       <div class="mb-2 flex justify-end">
         <YdButton size="small" :loading="recipientsLoading" @click="loadRecipients">刷新</YdButton>
       </div>
-      <ElTable :data="recipients" border size="small">
+      <YdTable :data="recipients" border size="small">
         <ElTableColumn prop="recipientName" label="接收人" min-width="140" />
         <ElTableColumn prop="recipientType" label="接收类型" width="110" />
         <ElTableColumn prop="status" label="状态" width="100" />
         <ElTableColumn prop="viewedAt" label="查看时间" min-width="170" />
         <ElTableColumn prop="createdAt" label="创建时间" min-width="170" />
-      </ElTable>
+      </YdTable>
     </YdDrawer>
   </Page>
 </template>

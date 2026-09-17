@@ -210,7 +210,7 @@ async function handleSubmitCommand() {
             <YdButtonBase size="sm" variant="secondary" @click="loadSessions">刷新会话</YdButtonBase>
           </div>
         </div>
-        <ElTable :data="sessions" border size="small" class="mb-2">
+        <YdTable :data="sessions" border size="small" class="mb-2">
           <ElTableColumn prop="sessionId" label="会话ID" min-width="180" />
           <ElTableColumn prop="ruleCode" label="规则编码" width="160" />
           <ElTableColumn prop="status" label="状态" width="90" />
@@ -225,7 +225,7 @@ async function handleSubmitCommand() {
               >
             </template>
           </ElTableColumn>
-        </ElTable>
+        </YdTable>
         <div class="flex items-start gap-3">
           <YdInput
             v-model="commandText"

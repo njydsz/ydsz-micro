@@ -22,7 +22,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { YdBadge, YdButtonBase, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard 需要手动迁移为 shadcn YdCard 结构；ElProgress/ElEmpty/ElTable 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、Tag → shadcn
 import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 
 import { requestClient } from '#/api/request';
 
@@ -246,7 +247,7 @@ const formatNumber = (value: number | undefined): string => {
             </YdBadge>
           </div>
         </template>
-        <ElTable
+        <YdTable
           v-if="services.length > 0"
           :data="services"
           size="small"
@@ -267,7 +268,7 @@ const formatNumber = (value: number | undefined): string => {
               </span>
             </template>
           </ElTableColumn>
-        </ElTable>
+        </YdTable>
         <YdEmptyState
           v-else-if="!loading && loadError"
           :description="'加载失败：' + loadError"

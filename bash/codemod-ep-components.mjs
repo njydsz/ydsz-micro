@@ -45,6 +45,8 @@ const TAG_MAP = new Map([
   ['ElSwitch', 'YdSwitch'],
   ['ElTooltip', 'YdTooltip'],
   ['ElDatePicker', 'YdDatePicker'],
+  ['ElDescriptions', 'YdDescriptions'],
+  ['ElDescriptionsItem', 'YdDescriptionsItem'],
   ['ElDivider', 'YdSeparator'],
   ['ElIcon', 'YdIcon'],
   ['ElProgress', 'YdProgress'],
@@ -119,8 +121,6 @@ const TAG_MAP_TIER2 = new Map([
 
 // Tier 3：暂无 YDSZ 直接对应——保留 EP，仅打 FIXME，留在后续 phase 人工处理
 const DEFERRED_NAMES = new Set([
-  'ElDescriptions',
-  'ElDescriptionsItem',
   'ElTableColumn',
   'ElMenu',
   'ElMenuItem',

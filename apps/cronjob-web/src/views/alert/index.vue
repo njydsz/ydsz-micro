@@ -23,7 +23,8 @@ import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty/ElDrawer 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -167,7 +168,7 @@ async function handleLogs(row: JobAlertRuleVO) {
         <YdSheetHeader>
           <YdSheetTitle>{{ t('page.alertRule') }}</YdSheetTitle>
         </YdSheetHeader>
-        <ElTable :data="alertLogs" border>
+        <YdTable :data="alertLogs" border>
         <ElTableColumn prop="alertCode" label="告警编码" width="130" />
         <ElTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
         <ElTableColumn prop="jobKey" label="任务标识" width="140" />
@@ -177,7 +178,7 @@ async function handleLogs(row: JobAlertRuleVO) {
         <ElTableColumn prop="alertStatus" :label="t('common.status')" width="90" />
         <ElTableColumn prop="errorMessage" label="错误信息" min-width="140" />
         <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
-      </ElTable>
+      </YdTable>
         <YdEmptyState v-if="alertLogs.length === 0" :description="t('common.noData')" />
       </YdSheetContent>
     </YdSheet>

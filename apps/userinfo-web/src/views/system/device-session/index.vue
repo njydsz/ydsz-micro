@@ -19,7 +19,8 @@
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -142,7 +143,7 @@ onMounted(() => {
           刷新
         </YdButtonBase>
       </YdCardHeader>
-      <ElTable :data="devices" border>
+      <YdTable :data="devices" border>
         <ElTableColumn prop="sessionId" label="会话ID" width="140" />
         <ElTableColumn label="设备类型" width="120">
           <template #default="{ row }">
@@ -176,7 +177,7 @@ onMounted(() => {
             <span v-else class="text-xs text-gray-400">-</span>
           </template>
         </ElTableColumn>
-      </ElTable>
+      </YdTable>
       <YdEmptyState v-if="devices.length === 0" description="暂无设备记录" :image-size="60" />
     </YdCard>
   </Page>

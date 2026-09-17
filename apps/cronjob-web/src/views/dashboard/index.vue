@@ -19,7 +19,8 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getOverview } from '#/api/dashboard';
@@ -147,7 +148,7 @@ onMounted(loadData);
           <YdCardTitle>最近失败（快速定位）</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <ElTable v-if="failures.length" :data="failures" border size="small" max-height="300">
+          <YdTable v-if="failures.length" :data="failures" border size="small" max-height="300">
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn label="状态" width="90">
             <template #default="{ row }">
@@ -161,7 +162,7 @@ onMounted(loadData);
             show-overflow-tooltip
           />
           <ElTableColumn prop="startTime" label="时间" width="170" />
-          </ElTable>
+          </YdTable>
           <YdEmptyState v-else description="暂无失败记录" :image-size="60" />
         </YdCardContent>
       </YdCard>

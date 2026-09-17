@@ -24,8 +24,9 @@ import { ZH_CN_MESSAGES } from '@YDSZ/locales/errors/zh-CN';
 import { YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard/ElEmpty/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdInput、Tag → shadcn
 import { YdCard, YdEmptyState, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
-import { ElTable, ElTableColumn } from 'element-plus';
-import { Search } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
+import { YdTable } from '@ydsz-core/ydsz-ui';
+import { ElTableColumn } from 'element-plus';
+import { Search } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -201,7 +202,7 @@ if (import.meta.env.DEV) {
 
     <!-- 错误码表格 -->
     <YdCard shadow="never">
-      <ElTable :data="filteredErrorCodes" stripe style="width: 100%">
+      <YdTable :data="filteredErrorCodes" stripe style="width: 100%">
         <ElTableColumn prop="code" label="错误码" width="120">
           <template #default="{ row }">
             <span class="font-mono text-sm">{{ row.code }}</span>
@@ -218,7 +219,7 @@ if (import.meta.env.DEV) {
           </template>
         </ElTableColumn>
         <ElTableColumn prop="message" label="错误描述" min-width="300" />
-      </ElTable>
+      </YdTable>
       <YdEmptyState v-if="filteredErrorCodes.length === 0" description="暂无匹配的错误码" />
     </YdCard>
   </div>
