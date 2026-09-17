@@ -35,7 +35,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
         }),
     },
     {
-      component: 'YDSZPinInput',
+      component: 'YdPinInput',
       componentProps: {
         codeLength: CODE_LENGTH,
         createText: (countdown: number) => {

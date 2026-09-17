@@ -38,7 +38,7 @@ const MOCK_TENANT_OPTIONS: BasicOption[] = [
 const formSchema = computed((): YDSZFormSchema[] => {
   return [
     {
-      component: 'YDSZSelect',
+      component: 'YdSelect',
       componentProps: {
         options: MOCK_TENANT_OPTIONS,
         placeholder: '请选择租户',
@@ -61,7 +61,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       rules: z.string().min(1, { message: '请输入账号' }),
     },
     {
-      component: 'YDSZInputPassword',
+      component: 'YdInputPassword',
       componentProps: {
         placeholder: '请输入密码',
       },

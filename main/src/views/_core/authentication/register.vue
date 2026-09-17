@@ -29,7 +29,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
     },
     {
-      component: 'YDSZInputPassword',
+      component: 'YdInputPassword',
       componentProps: {
         passwordStrength: true,
         placeholder: $t('authentication.password'),
@@ -44,7 +44,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
     },
     {
-      component: 'YDSZInputPassword',
+      component: 'YdInputPassword',
       componentProps: {
         placeholder: $t('authentication.confirmPassword'),
       },
@@ -64,7 +64,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
       label: $t('authentication.confirmPassword'),
     },
     {
-      component: 'YDSZCheckbox',
+      component: 'YdCheckbox',
       fieldName: 'agreePolicy',
       renderComponentContent: () => ({
         default: () =>

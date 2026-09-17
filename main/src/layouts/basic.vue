@@ -26,7 +26,7 @@ import { useAccessStore, useUserStore } from "@ydsz/stores";
 
 import { useTabbarMicroSync } from "#/hooks/use-tabbar-micro-sync";
 import TenantSwitcher from "#/components/tenant-switcher.vue";
-import { SettingsFloatButton } from '@ydsz-core/shadcn-ui';
+import { YdSettingsFloatButton } from '@ydsz-core/shadcn-ui';
 import { useAuthStore } from "#/store";
 import { useNotificationStore } from "#/store/notification";
 import LoginForm from "#/views/_core/authentication/login.vue";
@@ -152,5 +152,5 @@ onUnmounted(() => {
   <!-- 全局网络状态监控 -->
   <NetworkStatus />
   <!-- 全局设置悬浮按钮 -->
-  <SettingsFloatButton variant="primary" />
+  <YdSettingsFloatButton variant="primary" />
 </template>
