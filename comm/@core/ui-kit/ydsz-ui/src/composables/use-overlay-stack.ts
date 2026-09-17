@@ -4,8 +4,8 @@
  * <p>解决的问题：当多个 Dialog / Sheet / Drawer 同时打开时，
  * 后打开的应该显示在上层。若各组件自行设置 z-index，嵌套场景下会出现后打开的被先打开的遮挡。
  *
- * <p>原理：全局响应式计数器。每注册一个浮层，深度 +1；
- * 浮层注销时深度 -1。z-index 公式：{@code baseZIndex + depth * step}。
+ * <p>原理：全局单调 position 分配器。每个浮层注册时分配一个递增的位置序号，
+ * 注销时释放。z-index 公式：{@code baseZIndex + (position - 1) * step}。
  *
  * <p>典型用法：
  * <pre>
@@ -19,9 +19,6 @@
  */
 import { computed, onBeforeUnmount, ref } from 'vue';
 
-/** 全局已注册浮层计数 —— 响应式追踪当前栈深度 */
-const globalDepth = ref(0);
-
 /** 浮层注册句柄 */
 export interface OverlayStackHandle {
   /** 当前浮层层级（0 = 未注册） */
@@ -34,6 +31,9 @@ export interface OverlayStackHandle {
   unregister: () => void;
 }
 
+/** 下一个 position 分配器 —— 单调递增，永不回退 */
+let nextPosition = 0;
+
 /**
  * useOverlayStack：嵌套浮层栈管理。
  *
@@ -44,20 +44,21 @@ export function useOverlayStack(options?: { baseZIndex?: number; step?: number }
   const base = options?.baseZIndex ?? 1000;
   const step = options?.step ?? 20;
 
-  let isRegistered = false;
+  const isRegistered = ref(false);
+  const currentPosition = ref(0);
 
   /** 注册浮层 */
   function register(): void {
-    if (isRegistered) return;
-    isRegistered = true;
-    globalDepth.value += 1;
+    if (isRegistered.value) return;
+    isRegistered.value = true;
+    currentPosition.value = ++nextPosition;
   }
 
   /** 注销浮层 */
   function unregister(): void {
-    if (!isRegistered) return;
-    isRegistered = false;
-    globalDepth.value = Math.max(0, globalDepth.value - 1);
+    if (!isRegistered.value) return;
+    isRegistered.value = false;
+    currentPosition.value = 0;
   }
 
   // 组件卸载时自动清理
@@ -65,7 +66,7 @@ export function useOverlayStack(options?: { baseZIndex?: number; step?: number }
     unregister();
   });
 
-  const depth = computed(() => (isRegistered ? globalDepth.value : 0));
+  const depth = computed(() => (isRegistered.value ? currentPosition.value : 0));
   const zIndex = computed(() => {
     const d = depth.value;
     return d > 0 ? base + (d - 1) * step : 0;
@@ -81,4 +82,13 @@ export function useOverlayStack(options?: { baseZIndex?: number; step?: number }
     register,
     unregister,
   };
+}
+
+/**
+ * 重置全局栈状态 —— 仅用于测试隔离。
+ *
+ * <p>生产环境不应调用本函数，否则会破坏 z-index 单调性。
+ */
+export function __resetOverlayStackForTests(): void {
+  nextPosition = 0;
 }

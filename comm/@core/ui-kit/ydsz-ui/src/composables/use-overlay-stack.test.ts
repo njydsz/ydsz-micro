@@ -8,9 +8,24 @@
  * @author ydsz-team
  * @since 26.09.17
  */
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { useOverlayStack } from './use-overlay-stack';
+import { __resetOverlayStackForTests, useOverlayStack } from './use-overlay-stack';
+
+/** 模块-external 状态重置 —— 测试之间必须清理 */
+const registeredHandles: Array<{ unregister: () => void }> = [];
+
+beforeEach(() => {
+  __resetOverlayStackForTests();
+});
+
+afterEach(() => {
+  for (const h of registeredHandles) {
+    h.unregister();
+  }
+  registeredHandles.length = 0;
+  __resetOverlayStackForTests();
+});
 
 describe('useOverlayStack', () => {
   it('未注册时 depth 为 0，zIndex 为 0', () => {
@@ -22,15 +37,17 @@ describe('useOverlayStack', () => {
   it('注册后 depth = 1，zIndex = baseZIndex', () => {
     const handle = useOverlayStack({ baseZIndex: 2000, step: 30 });
     handle.register();
+    registeredHandles.push(handle);
     expect(handle.depth).toBe(1);
     expect(handle.zIndex).toBe(2000);
   });
 
-  it('第二个浮层 depth = 2，zIndex = base + step', () => {
+  it('两个浮层 depth 分别为 1 和 2', () => {
     const h1 = useOverlayStack({ baseZIndex: 1000, step: 20 });
     const h2 = useOverlayStack({ baseZIndex: 1000, step: 20 });
     h1.register();
     h2.register();
+    registeredHandles.push(h1, h2);
     expect(h1.depth).toBe(1);
     expect(h2.depth).toBe(2);
     expect(h1.zIndex).toBe(1000);
@@ -50,6 +67,7 @@ describe('useOverlayStack', () => {
     const handle = useOverlayStack();
     handle.register();
     handle.register();
+    registeredHandles.push(handle);
     expect(handle.depth).toBe(1);
   });
 });
