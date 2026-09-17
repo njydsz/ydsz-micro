@@ -18,9 +18,9 @@
  * @since 5.6.0
  */
 
-import type { ComputedRef, Ref } from 'vue';
+import { computed, ref, toValue } from 'vue';
 
-import { computed, ref } from 'vue';
+import type { MaybeRefOrGetter } from 'vue';
 
 /* ============================================================ */
 /* 类型                                                          */
@@ -66,16 +66,14 @@ export interface RowSelectionConfig<T> {
  * useTableData 参数。
  */
 export interface UseTableDataOptions<T> {
-  /** 原始数据源 */
-  data: () => T[];
+  /** 原始数据源（getter 或数组） */
+  data: MaybeRefOrGetter<T[]>;
   /** 列定义（可选，有列时才做排序/筛选） */
-  columns?: () => TableColumnDef<T>[];
+  columns?: MaybeRefOrGetter<TableColumnDef<T>[]>;
   /** 是否远程模式（true 时关闭本地排序/筛选） */
   isRemote?: boolean;
   /** 行选择配置 */
   rowSelection?: RowSelectionConfig<T>;
-  /** 树形子节点 key 名 */
-  childrenKey?: string;
   /** 默认展开全部 */
   defaultExpandAllRows?: boolean;
 }
