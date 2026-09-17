@@ -1,31 +1,135 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="4" failures="0" errors="0" time="0.0028709">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" timestamp="2026-09-17T16:04:58.531Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0028709">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应返回默认上下文" time="0.0014951">
+<testsuites name="vitest tests" tests="42" failures="0" errors="0" time="0.0393776">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" timestamp="2026-09-17T16:11:52.625Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0042288">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应返回默认上下文" time="0.0019836">
             <system-err>
 [Vue warn]: provide() can only be used inside setup().
 
             </system-err>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应支持自定义间距字符串" time="0.0001903">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应支持自定义间距字符串" time="0.0004083">
             <system-err>
 [Vue warn]: provide() can only be used inside setup().
 
             </system-err>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 应返回正确的 gridColumn 样式" time="0.0003089">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 应返回正确的 gridColumn 样式" time="0.0005342">
             <system-err>
 [Vue warn]: provide() can only be used inside setup().
 [Vue warn]: inject() can only be used inside setup() or functional components.
 
             </system-err>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 支持偏移" time="0.0001658">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 支持偏移" time="0.0002603">
             <system-err>
 [Vue warn]: provide() can only be used inside setup().
 [Vue warn]: inject() can only be used inside setup() or functional components.
 
             </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" timestamp="2026-09-17T16:11:52.631Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0084676">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 应推送通知并自增 unreadCount" time="0.0047346">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 标记已读应减少 unreadCount" time="0.0008674">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; markAllAsRead 应全部已读" time="0.0004129">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 应正确移除通知" time="0.0003432">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; clearAll 应清空所有通知" time="0.0003045">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; maxVisible 应限制可见数量" time="0.0003387">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; updatePreferences 应更新偏好设置" time="0.0006391">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" timestamp="2026-09-17T16:11:52.632Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0109379">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 应返回全部数据（默认状态）" time="0.002101">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 应按 age 升序排序" time="0.0068028">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 排序应循环 asc → desc → null" time="0.0002595">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 应支持行选择" time="0.0001627">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 全选应添加所有 key" time="0.0001608">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 筛选应支持 filterMethod" time="0.0006173">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" timestamp="2026-09-17T16:11:52.634Z" hostname="DESKTOP-FIC0TQ3" tests="15" failures="0" errors="0" skipped="0" time="0.0045402">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 table.empty" time="0.0007292">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 table.loading" time="0.0000977">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 form.validating" time="0.0000766">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 form.submitting" time="0.0000632">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 common.confirm 和 common.cancel" time="0.0000902">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 table.empty" time="0.0000753">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 table.loading" time="0.0000544">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 form.validating" time="0.0000474">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 form.submitting" time="0.0000589">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 common.confirm 和 common.cancel" time="0.0000776">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; 应默认使用 zh-CN" time="0.0015035">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; t 函数应返回对应语种文案" time="0.0002471">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; t 函数 key 不存在时应返回 key 本身" time="0.0001484">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; 应支持自定义消息表" time="0.0001742">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; resolve 应覆盖 en-US 文案" time="0.0001704">
+            <system-err>
+[Vue warn]: inject() can only be used inside setup() or functional components.
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" timestamp="2026-09-17T16:11:52.637Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0112031">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; 应包含全部核心语义色 token" time="0.00207">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; dark 模式下的 background 应有 darkValue" time="0.001823">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; tokensByCategory 应正确分组" time="0.0011699">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; set 应写入 CSS 变量到根元素" time="0.0019565">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; get 应返回已设置的值" time="0.0003854">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; 不存在的 token 不应写入并应打印警告" time="0.0007238">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; bulk 应批量写入所有 token 且仅对应次数的 DOM 操作" time="0.000323">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; toggleDark 应切换根元素的 dark class" time="0.000396">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; reset 应清除所有已覆盖的 token" time="0.0008143">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; overrideCount 应返回已覆盖的数量" time="0.0003599">
         </testcase>
     </testsuite>
 </testsuites>
