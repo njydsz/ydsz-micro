@@ -53,8 +53,8 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
           return h(
-            ElTag,
-            { type: rule.enabled === 1 ? 'success' : 'info' },
+            Badge,
+            { variant: rule.enabled === 1 ? 'default' : 'secondary' },
             () => (rule.enabled === 1 ? '启用' : '停用'),
           );
         },
@@ -70,10 +70,10 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(rule) }, () => t('common.edit')),
-            h(ElButton, { size: 'small', link: true, type: rule.enabled === 1 ? 'warning' : 'success', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleLogs(rule) }, () => '日志'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(rule) }, () => t('common.delete')),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(rule) }, () => t('common.edit')),
+            h(Button, { size: 'sm', variant: rule.enabled === 1 ? 'destructive' : 'link', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleLogs(rule) }, () => '日志'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(rule) }, () => t('common.delete')),
           ]);
         },
       },
@@ -157,12 +157,16 @@ async function handleLogs(row: JobAlertRuleVO) {
   <Page auto-content-height>
     <Grid :table-title="t('page.alert')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('common.create') }}</Button>
       </template>
     </Grid>
     <AlertFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="logsDrawerVisible" :title="t('page.alertRule')" size="60%">
-      <ElTable :data="alertLogs" border>
+    <Sheet v-model:open="logsDrawerVisible">
+      <SheetContent side="right" class="w-[60%]">
+        <SheetHeader>
+          <SheetTitle>{{ t('page.alertRule') }}</SheetTitle>
+        </SheetHeader>
+        <ElTable :data="alertLogs" border>
         <ElTableColumn prop="alertCode" label="告警编码" width="130" />
         <ElTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
         <ElTableColumn prop="jobKey" label="任务标识" width="140" />
@@ -173,7 +177,8 @@ async function handleLogs(row: JobAlertRuleVO) {
         <ElTableColumn prop="errorMessage" label="错误信息" min-width="140" />
         <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
       </ElTable>
-      <ElEmpty v-if="alertLogs.length === 0" :description="t('common.noData')" />
-    </ElDrawer>
+        <ElEmpty v-if="alertLogs.length === 0" :description="t('common.noData')" />
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

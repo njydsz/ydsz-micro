@@ -7,7 +7,8 @@
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "imports": {
     "#/*": "./src/*"
@@ -42,7 +43,10 @@
   },
   "devDependencies": {
     "vite": "catalog:",
-    "unplugin-element-plus": "catalog:"
+    "unplugin-element-plus": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "vitest": "catalog:",
+    "happy-dom": "catalog:"
   },
   "license": "MIT"
 }

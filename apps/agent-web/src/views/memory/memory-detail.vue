@@ -15,9 +15,10 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-// TODO: FormInstance/ElDialog/ElForm/ElFormItem/ElInput/ElOption/ElSelect 表单套件复杂+FormInstance类型,保留 element-plus SKIP
+// TODO: FormInstance/ElDialog/ElForm/ElFormItem/ElOption/ElSelect 表单套件复杂+FormInstance类型,保留 element-plus SKIP
 import type { FormInstance } from 'element-plus';
-import { ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { ElDialog, ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
+import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';
@@ -185,7 +186,7 @@ defineExpose({ open });
       label-width="100px"
     >
       <ElFormItem label="对话 ID">
-        <ElInput v-model="conversationId" placeholder="对话 ID" :disabled="true" />
+        <Input v-model="conversationId" placeholder="对话 ID" :disabled="true" />
       </ElFormItem>
       <ElFormItem label="消息角色" prop="role">
         <ElSelect v-model="form.role" placeholder="请选择消息角色" style="width: 100%">
@@ -198,24 +199,20 @@ defineExpose({ open });
         </ElSelect>
       </ElFormItem>
       <ElFormItem label="消息内容" prop="content">
-        <ElInput
+        <Textarea
           v-model="form.content"
-          type="textarea"
-          :rows="6"
           placeholder="请输入消息内容"
-          maxlength="8000"
-          show-word-limit
         />
       </ElFormItem>
       <ElFormItem label="ToolCall ID">
-        <ElInput v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
+        <Input v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
       </ElFormItem>
     </ElForm>
 
     <template #footer>
-      <ElButton @click="handleClose">取消</ElButton>
-      <ElButton v-if="mode === 'edit'" type="primary" :loading="isSubmitting" @click="handleSubmit">保存</ElButton>
-      <ElButton v-else @click="handleClose">关闭</ElButton>
+      <Button @click="handleClose">取消</Button>
+      <Button v-if="mode === 'edit'" :loading="isSubmitting" @click="handleSubmit">保存</Button>
+      <Button v-else @click="handleClose">关闭</Button>
     </template>
   </ElDialog>
 </template>

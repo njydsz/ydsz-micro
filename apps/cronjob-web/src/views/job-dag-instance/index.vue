@@ -19,7 +19,11 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElEmpty, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -60,8 +64,8 @@ const gridOptions = {
       slots: {
         default: ({ row }: { row: JobDagInstanceVO }) =>
           h(
-            ElTag,
-            { type: STATUS_TAG[row.instanceStatus ?? ''] ?? 'info' },
+            Badge,
+            { variant: STATUS_TAG[row.instanceStatus ?? ''] ?? 'info' },
             () => row.instanceStatus ?? '-',
           ),
       },
@@ -96,23 +100,22 @@ const gridOptions = {
         default: ({ row }: { row: JobDagInstanceVO }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) },
               () => '详情',
             ),
             isRunning(row.instanceStatus)
               ? h(
-                  ElButton,
-                  { size: 'small', link: true, type: 'warning', onClick: () => handlePause(row) },
+                  Button,
+                  { size: 'sm', variant: 'link', onClick: () => handlePause(row) },
                   () => '暂停',
                 )
               : row.instanceStatus === 'PAUSED'
                 ? h(
-                    ElButton,
+                    Button,
                     {
-                      size: 'small',
-                      link: true,
-                      type: 'success',
+                      size: 'sm',
+                      variant: 'link',
                       onClick: () => handleResume(row),
                     },
                     () => '恢复',
@@ -120,8 +123,8 @@ const gridOptions = {
                 : null,
             isRunning(row.instanceStatus) || row.instanceStatus === 'PAUSED'
               ? h(
-                  ElButton,
-                  { size: 'small', link: true, type: 'danger', onClick: () => handleCancel(row) },
+                  Button,
+                  { size: 'sm', variant: 'link', onClick: () => handleCancel(row) },
                   () => '取消',
                 )
               : null,

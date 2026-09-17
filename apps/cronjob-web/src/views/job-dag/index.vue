@@ -20,7 +20,10 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElDrawer, ElEmpty, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -63,8 +66,8 @@ const gridOptions: VxeGridProps<JobDagVO> = {
         default: ({ row }) => {
           const dag = row as JobDagVO;
           return h(
-            ElTag,
-            { type: isDagEnabled(dag) ? 'success' : 'info' },
+            Badge,
+            { variant: isDagEnabled(dag) ? 'default' : 'secondary' },
             () => (isDagEnabled(dag) ? '启用' : '停用'),
           );
         },
@@ -84,13 +87,13 @@ const gridOptions: VxeGridProps<JobDagVO> = {
         default: ({ row }) => {
           const dag = row as JobDagVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(dag) }, () => t('common.edit')),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(dag) }, () => t('common.edit')),
             isDagEnabled(dag)
-              ? h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleDisable(dag) }, () => '停用')
-              : h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleEnable(dag) }, () => '启用'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleTrigger(dag) }, () => '触发'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleVersions(dag) }, () => '版本'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(dag) }, () => t('common.delete')),
+              ? h(Button, { size: 'sm', variant: 'link', onClick: () => handleDisable(dag) }, () => '停用')
+              : h(Button, { size: 'sm', variant: 'link', onClick: () => handleEnable(dag) }, () => '启用'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleTrigger(dag) }, () => '触发'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleVersions(dag) }, () => '版本'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(dag) }, () => t('common.delete')),
           ]);
         },
       },
@@ -230,28 +233,33 @@ async function handleRollback(versionRow: JobDagVersionVO) {
   <Page auto-content-height>
     <Grid :table-title="t('page.dag')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('common.create') }}</ElButton>
+        <Button @click="handleAdd">{{ t('common.create') }}</Button>
       </template>
     </Grid>
     <JobDagFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="versionsDrawerVisible" :title="t('page.dagList')" size="60%">
-      <ElTable :data="versions" border>
-        <ElTableColumn prop="version" label="版本" width="80" />
-        <ElTableColumn prop="dagName" :label="t('business.dagName')" width="160" />
-        <ElTableColumn prop="dagKey" label="标识" width="160" />
-        <ElTableColumn prop="triggerType" label="触发类型" width="120" />
-        <ElTableColumn prop="cronExpression" label="Cron" width="140" />
-        <ElTableColumn prop="remark" label="备注" min-width="120" />
-        <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
-        <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
-          <template #default="{ row }">
-            <ElButton size="small" link type="primary" @click="handleRollback(row as JobDagVersionVO)">
-              回滚
-            </ElButton>
-          </template>
-        </ElTableColumn>
-      </ElTable>
-      <ElEmpty v-if="versions.length === 0" :description="t('common.noData')" />
-    </ElDrawer>
+    <Sheet v-model:open="versionsDrawerVisible">
+      <SheetContent side="right" class="w-[60%]">
+        <SheetHeader>
+          <SheetTitle>{{ t('page.dagList') }}</SheetTitle>
+        </SheetHeader>
+        <ElTable :data="versions" border>
+          <ElTableColumn prop="version" label="版本" width="80" />
+          <ElTableColumn prop="dagName" :label="t('business.dagName')" width="160" />
+          <ElTableColumn prop="dagKey" label="标识" width="160" />
+          <ElTableColumn prop="triggerType" label="触发类型" width="120" />
+          <ElTableColumn prop="cronExpression" label="Cron" width="140" />
+          <ElTableColumn prop="remark" label="备注" min-width="120" />
+          <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
+          <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
+            <template #default="{ row }">
+              <Button size="sm" variant="link" @click="handleRollback(row as JobDagVersionVO)">
+                回滚
+              </Button>
+            </template>
+          </ElTableColumn>
+        </ElTable>
+        <ElEmpty v-if="versions.length === 0" :description="t('common.noData')" />
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

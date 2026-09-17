@@ -24,5 +24,9 @@
     "@ydsz-core/typings": "workspace:*",
     "vue-router": "catalog:"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "vitest": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "happy-dom": "catalog:"
+  }
 }

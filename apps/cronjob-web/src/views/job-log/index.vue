@@ -21,14 +21,10 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDrawer,
-  ElEmpty,
-  ElTag,
-} from 'element-plus';
+import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElDescriptions, ElDescriptionsItem, ElEmpty } from 'element-plus';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -124,7 +120,7 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
         default: ({ row }) => {
           const log = row as JobLogVO;
           const isSuccess = log.status === 'SUCCESS' || log.status === '0';
-          return h(ElTag, { type: isSuccess ? 'success' : 'danger' }, () => log.status ?? '-');
+          return h(Badge, { variant: isSuccess ? 'default' : 'destructive' }, () => log.status ?? '-');
         },
       },
     },
@@ -143,8 +139,8 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
         default: ({ row }) => {
           const log = row as JobLogVO;
           return h(
-            ElButton,
-            { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(log) },
+            Button,
+            { size: 'sm', variant: 'link', onClick: () => handleViewDetail(log) },
             () => '详情',
           );
         },
