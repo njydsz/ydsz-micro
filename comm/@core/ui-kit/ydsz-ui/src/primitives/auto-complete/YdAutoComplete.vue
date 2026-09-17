@@ -21,8 +21,30 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Loader2, X } from 'lucide-vue-next';
 
+import { useComponentI18n } from '../../composables/use-component-i18n';
+
 import { YdInput } from '../input';
 import { YdPopover, YdPopoverContent, YdPopoverTrigger } from '../popover';
+
+/** AutoComplete 组件 i18n 消息定义 */
+const autoCompleteMessages = {
+  zh: {
+    autoComplete: {
+      clearAriaLabel: '清空',
+      emptyText: '暂无匹配项',
+      loadingText: '搜索中...',
+      placeholder: '请输入',
+    },
+  },
+  en: {
+    autoComplete: {
+      clearAriaLabel: 'Clear',
+      emptyText: 'No matching items',
+      loadingText: 'Searching...',
+      placeholder: 'Please input',
+    },
+  },
+};
 
 /** 选项条目 */
 export interface AutoCompleteOption {
@@ -53,18 +75,27 @@ interface Props<T extends AutoCompleteOption = AutoCompleteOption> {
   clearable?: boolean;
   /** 空数据文本 */
   emptyText?: string;
+  /** 当前语言，默认 'zh' */
+  locale?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   clearable: true,
   debounceMs: 300,
-  emptyText: '暂无匹配项',
   isAsync: false,
   isDisabled: false,
+  locale: 'zh',
   options: () => [],
-  placeholder: '请输入',
   value: '',
 });
+
+const { t } = useComponentI18n({
+  defaultLocale: props.locale,
+  messages: autoCompleteMessages,
+});
+
+const resolvedEmptyText = props.emptyText ?? t('autoComplete.emptyText');
+const resolvedPlaceholder = props.placeholder ?? t('autoComplete.placeholder');
 
 const emit = defineEmits<{
   'update:value': [value: string];
@@ -182,7 +213,7 @@ watch(
       <div class="relative">
         <YdInput
           :is-disabled="isDisabled"
-          :placeholder="placeholder"
+          :placeholder="resolvedPlaceholder"
           :value="value"
           autocomplete="off"
           class="w-full"
@@ -201,7 +232,7 @@ watch(
             v-else-if="clearable && value"
             class="text-muted-foreground hover:text-foreground"
             type="button"
-            aria-label="清空"
+            :aria-label="t('autoComplete.clearAriaLabel')"
             @mousedown.prevent="handleClear"
           >
             <X class="size-4" />

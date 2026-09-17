@@ -105,7 +105,6 @@ jobs:
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
-      # antdv disable deps:esbuild 防污染（与主 verify job 行为一致）
       - name: 安装 Playwright Chromium 浏览器
         run: pnpm exec playwright install chromium
 
