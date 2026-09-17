@@ -12,7 +12,7 @@
 import type {
   DropdownMenuContentEmits,
   DropdownMenuContentProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -22,7 +22,7 @@ import {
   YdDropdownMenuContent,
   DropdownMenuPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 const props = withDefaults(
   defineProps<DropdownMenuContentProps & { class?: any }>(),

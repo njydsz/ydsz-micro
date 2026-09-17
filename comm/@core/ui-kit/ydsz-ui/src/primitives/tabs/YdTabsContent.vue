@@ -10,13 +10,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TabsContentProps } from 'radix-vue';
+import type { TabsContentProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdTabsContent } from 'radix-vue';
+import { YdTabsContent } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

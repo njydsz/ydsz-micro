@@ -8,5 +8,5 @@
  * @since 1.0.0
  */
 export { default as YdHoverCardSmart } from './YdHoverCardSmart.vue';
-export type { HoverCardContentProps } from 'radix-vue';
+export type { HoverCardContentProps } from '@ydsz-core/ydsz-vue';
 

@@ -23,4 +23,4 @@ export { default as YdDropdownMenuSub } from './YdDropdownMenuSub.vue';
 export { default as YdDropdownMenuSubContent } from './YdDropdownMenuSubContent.vue';
 export { default as YdDropdownMenuSubTrigger } from './YdDropdownMenuSubTrigger.vue';
 export { default as YdDropdownMenuTrigger } from './YdDropdownMenuTrigger.vue';
-export { DropdownMenuPortal } from 'radix-vue';
+export { DropdownMenuPortal } from '@ydsz-core/ydsz-vue';

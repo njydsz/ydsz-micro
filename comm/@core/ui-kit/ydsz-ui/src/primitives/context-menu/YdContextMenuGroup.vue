@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuGroupProps } from 'radix-vue';
+import type { ContextMenuGroupProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuGroup } from 'radix-vue';
+import { YdContextMenuGroup } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuGroupProps>();
 </script>

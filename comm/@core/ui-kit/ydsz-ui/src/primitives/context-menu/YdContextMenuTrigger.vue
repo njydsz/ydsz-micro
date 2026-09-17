@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuTriggerProps } from 'radix-vue';
+import type { ContextMenuTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuTrigger, useForwardProps } from 'radix-vue';
+import { YdContextMenuTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuTriggerProps>();
 

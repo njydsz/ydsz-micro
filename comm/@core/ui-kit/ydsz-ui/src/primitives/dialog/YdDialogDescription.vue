@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DialogDescriptionProps } from 'radix-vue';
+import type { DialogDescriptionProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogDescription, useForwardProps } from 'radix-vue';
+import { YdDialogDescription, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DialogDescriptionProps & { class?: any }>();
 

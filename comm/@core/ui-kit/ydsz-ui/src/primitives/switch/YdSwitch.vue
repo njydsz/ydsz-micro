@@ -10,13 +10,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SwitchRootEmits, SwitchRootProps } from 'radix-vue';
+import type { SwitchRootEmits, SwitchRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'radix-vue';
+import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

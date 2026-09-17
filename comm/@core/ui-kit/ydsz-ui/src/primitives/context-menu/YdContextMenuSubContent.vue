@@ -12,13 +12,13 @@
 import type {
   DropdownMenuSubContentEmits,
   DropdownMenuSubContentProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuSubContent, useForwardPropsEmits } from 'radix-vue';
+import { YdContextMenuSubContent, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuSubContentProps & { class?: any }>();
 const emits = defineEmits<DropdownMenuSubContentEmits>();

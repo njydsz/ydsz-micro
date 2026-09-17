@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdNumberFieldInput } from 'radix-vue';
+import { YdNumberFieldInput } from '@ydsz-core/ydsz-vue';
 </script>
 
 <template>

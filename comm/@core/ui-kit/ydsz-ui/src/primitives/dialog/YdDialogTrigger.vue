@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DialogTriggerProps } from 'radix-vue';
+import type { DialogTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDialogTrigger } from 'radix-vue';
+import { YdDialogTrigger } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DialogTriggerProps>();
 </script>

@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectContentEmits, SelectContentProps } from 'radix-vue';
+import type { SelectContentEmits, SelectContentProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -21,7 +21,7 @@ import {
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import YdSelectScrollDownButton from './YdSelectScrollDownButton.vue';
 import YdSelectScrollUpButton from './YdSelectScrollUpButton.vue';

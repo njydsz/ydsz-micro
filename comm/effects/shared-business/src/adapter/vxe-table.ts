@@ -4,7 +4,7 @@
  * 由各子应用 @ydsz/shared-business 统一复用，消除 9 份重复代码。
  * 子应用如需扩展自定义 renderer，可在此文件内补充，或复制为应用级 adapter。
  *
- * 使用原生 img/button 标签替代 EP ElImage / ElButton，零 element-plus 依赖。
+ * 使用原生 img/button 标签渲染，零 element-plus 依赖。
  *
  * @path comm/effects/shared-business/src/adapter/vxe-table.ts
  * @author ydsz-team
@@ -72,7 +72,7 @@ setupYDSZVxeTable({
     });
 
     // 表格配置项可以用 cellRender: { name: 'CellLink' },
-    // 使用原生 button（link 样式）替代 EP ElButton
+    // 使用原生 button（link 样式）作为表格操作列按钮
     vxeUI.renderer.add('CellLink', {
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;

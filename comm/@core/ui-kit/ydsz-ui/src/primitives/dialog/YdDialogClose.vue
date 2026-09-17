@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DialogCloseProps } from 'radix-vue';
+import type { DialogCloseProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDialogClose } from 'radix-vue';
+import { YdDialogClose } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DialogCloseProps>();
 </script>

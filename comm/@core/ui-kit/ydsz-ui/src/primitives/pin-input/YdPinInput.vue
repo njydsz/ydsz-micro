@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PinInputRootEmits, PinInputRootProps } from 'radix-vue';
+import type { PinInputRootEmits, PinInputRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { PinInputRoot, useForwardPropsEmits } from 'radix-vue';
+import { PinInputRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PinInputRootProps & { class?: any }>();
 const emits = defineEmits<PinInputRootEmits>();

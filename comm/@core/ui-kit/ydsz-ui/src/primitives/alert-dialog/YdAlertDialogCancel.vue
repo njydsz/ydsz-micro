@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AlertDialogCancelProps } from 'radix-vue';
+import type { AlertDialogCancelProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAlertDialogCancel } from 'radix-vue';
+import { YdAlertDialogCancel } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AlertDialogCancelProps>();
 </script>

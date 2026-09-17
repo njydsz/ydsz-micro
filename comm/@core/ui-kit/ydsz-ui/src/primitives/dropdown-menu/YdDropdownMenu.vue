@@ -8,9 +8,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DropdownMenuRootEmits, DropdownMenuRootProps } from 'radix-vue';
+import type { DropdownMenuRootEmits, DropdownMenuRootProps } from '@ydsz-core/ydsz-vue';
 
-import { DropdownMenuRoot, useForwardPropsEmits } from 'radix-vue';
+import { DropdownMenuRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: false,

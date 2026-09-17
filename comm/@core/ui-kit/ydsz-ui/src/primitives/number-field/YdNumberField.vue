@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { NumberFieldRootEmits, NumberFieldRootProps } from 'radix-vue';
+import type { NumberFieldRootEmits, NumberFieldRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { NumberFieldRoot, useForwardPropsEmits } from 'radix-vue';
+import { NumberFieldRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<NumberFieldRootProps & { class?: any }>();
 const emits = defineEmits<NumberFieldRootEmits>();

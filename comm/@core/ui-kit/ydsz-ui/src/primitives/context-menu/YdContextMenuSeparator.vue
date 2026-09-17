@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuSeparatorProps } from 'radix-vue';
+import type { ContextMenuSeparatorProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuSeparator } from 'radix-vue';
+import { YdContextMenuSeparator } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuSeparatorProps & { class?: any }>();
 

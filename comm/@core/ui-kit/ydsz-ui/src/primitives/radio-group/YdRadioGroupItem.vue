@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { RadioGroupItemProps } from 'radix-vue';
+import type { RadioGroupItemProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -21,7 +21,7 @@ import {
   RadioGroupIndicator,
   YdRadioGroupItem,
   useForwardProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

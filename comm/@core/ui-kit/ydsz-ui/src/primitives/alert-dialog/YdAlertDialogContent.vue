@@ -16,7 +16,7 @@
 import type {
   AlertDialogContentEmits,
   AlertDialogContentProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import type { ClassType } from '@ydsz-core/typings';
 
@@ -28,7 +28,7 @@ import {
   YdAlertDialogContent,
   AlertDialogPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import YdAlertDialogOverlay from './YdAlertDialogOverlay.vue';
 

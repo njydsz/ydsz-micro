@@ -10,13 +10,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SeparatorProps } from 'radix-vue';
+import type { SeparatorProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSeparator } from 'radix-vue';
+import { YdSeparator } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SeparatorProps & { class?: any; label?: string }>();
 

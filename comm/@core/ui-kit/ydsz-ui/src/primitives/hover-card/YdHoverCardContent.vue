@@ -10,13 +10,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { HoverCardContentProps } from 'radix-vue';
+import type { HoverCardContentProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdHoverCardContent, HoverCardPortal, useForwardProps } from 'radix-vue';
+import { YdHoverCardContent, HoverCardPortal, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = withDefaults(
   defineProps<HoverCardContentProps & { class?: any }>(),

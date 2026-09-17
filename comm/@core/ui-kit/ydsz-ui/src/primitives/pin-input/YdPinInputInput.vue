@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PinInputInputProps } from 'radix-vue';
+import type { PinInputInputProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdPinInputInput, useForwardProps } from 'radix-vue';
+import { YdPinInputInput, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PinInputInputProps & { class?: any }>();
 

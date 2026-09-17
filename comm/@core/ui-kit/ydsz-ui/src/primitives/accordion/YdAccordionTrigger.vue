@@ -10,14 +10,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AccordionTriggerProps } from 'radix-vue';
+import type { AccordionTriggerProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
-import { AccordionHeader, YdAccordionTrigger } from 'radix-vue';
+import { AccordionHeader, YdAccordionTrigger } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

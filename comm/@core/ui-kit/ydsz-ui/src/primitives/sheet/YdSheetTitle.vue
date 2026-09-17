@@ -10,13 +10,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DialogTitleProps } from 'radix-vue';
+import type { DialogTitleProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogTitle } from 'radix-vue';
+import { YdDialogTitle } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

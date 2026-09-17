@@ -9,14 +9,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { NumberFieldIncrementProps } from 'radix-vue';
+import type { NumberFieldIncrementProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { Plus } from 'lucide-vue-next';
-import { YdNumberFieldIncrement, useForwardProps } from 'radix-vue';
+import { YdNumberFieldIncrement, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<NumberFieldIncrementProps & { class?: any }>();
 

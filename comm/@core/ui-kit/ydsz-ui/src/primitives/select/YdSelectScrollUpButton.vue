@@ -9,14 +9,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectScrollUpButtonProps } from 'radix-vue';
+import type { SelectScrollUpButtonProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronUp } from 'lucide-vue-next';
-import { YdSelectScrollUpButton, useForwardProps } from 'radix-vue';
+import { YdSelectScrollUpButton, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectScrollUpButtonProps & { class?: any }>();
 

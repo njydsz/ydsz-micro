@@ -9,11 +9,11 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectLabelProps } from 'radix-vue';
+import type { SelectLabelProps } from '@ydsz-core/ydsz-vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSelectLabel } from 'radix-vue';
+import { YdSelectLabel } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectLabelProps & { class?: any }>();
 </script>

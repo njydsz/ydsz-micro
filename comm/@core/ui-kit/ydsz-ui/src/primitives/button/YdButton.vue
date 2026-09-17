@@ -12,14 +12,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PrimitiveProps } from 'radix-vue';
+import type { PrimitiveProps } from '@ydsz-core/ydsz-vue';
 
 import type { ButtonVariants, ButtonVariantSize } from './types';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { Loader2 } from 'lucide-vue-next';
-import { Primitive } from 'radix-vue';
+import { Primitive } from '@ydsz-core/ydsz-vue';
 
 import { buttonVariants } from './button';
 

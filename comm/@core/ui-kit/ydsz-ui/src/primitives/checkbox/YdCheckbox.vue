@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
+import type { CheckboxRootEmits, CheckboxRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -22,7 +22,7 @@ import {
   CheckboxIndicator,
   CheckboxRoot,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

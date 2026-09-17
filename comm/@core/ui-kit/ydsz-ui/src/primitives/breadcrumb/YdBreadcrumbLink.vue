@@ -9,11 +9,11 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { PrimitiveProps } from 'radix-vue';
+import type { PrimitiveProps } from '@ydsz-core/ydsz-vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { Primitive } from 'radix-vue';
+import { Primitive } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

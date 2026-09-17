@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ScrollAreaRootProps } from 'radix-vue';
+import type { ScrollAreaRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -21,7 +21,7 @@ import {
   ScrollAreaCorner,
   ScrollAreaRoot,
   ScrollAreaViewport,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import YdScrollBar from './YdScrollBar.vue';
 

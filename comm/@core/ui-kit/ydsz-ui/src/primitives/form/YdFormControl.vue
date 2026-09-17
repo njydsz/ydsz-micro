@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { Slot } from 'radix-vue';
+import { Slot } from '@ydsz-core/ydsz-vue';
 
 import { useFormField } from './useFormField';
 

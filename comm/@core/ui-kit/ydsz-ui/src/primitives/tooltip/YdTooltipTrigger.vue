@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TooltipTriggerProps } from 'radix-vue';
+import type { TooltipTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { TooltipTrigger } from 'radix-vue';
+import { TooltipTrigger } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<TooltipTriggerProps>();
 </script>

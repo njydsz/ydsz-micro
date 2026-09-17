@@ -23,12 +23,12 @@ import {
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import type {
   SelectContentEmits,
   SelectContentProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 defineOptions({
   inheritAttrs: false,

@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { LabelProps } from 'radix-vue';
+import type { LabelProps } from '@ydsz-core/ydsz-vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 

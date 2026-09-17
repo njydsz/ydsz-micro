@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectRootEmits, SelectRootProps } from 'radix-vue';
+import type { SelectRootEmits, SelectRootProps } from '@ydsz-core/ydsz-vue';
 
-import { SelectRoot, useForwardPropsEmits } from 'radix-vue';
+import { SelectRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectRootProps>();
 const emits = defineEmits<SelectRootEmits>();

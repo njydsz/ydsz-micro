@@ -134,9 +134,10 @@ export function useTheme(options: {
     if (!style) return;
     for (const [name, value] of Object.entries(config)) {
       const tokenName = name as TokenName;
-      if (!themeTokens[tokenName]) continue;
-      style.setProperty(`--${themeTokens[tokenName].cssVar}`, value);
-      overrides.value.set(tokenName, value);
+      const tokenDef = themeTokens[tokenName];
+      if (!tokenDef || value == null) continue;
+      style.setProperty(`--${tokenDef.cssVar}`, value as string);
+      overrides.value.set(tokenName, value as string);
     }
   }
 
@@ -157,9 +158,13 @@ export function useTheme(options: {
 
   function reset(): void {
     const style = getStyle();
-    if (!style.removeProperty) return;
-    for (const name of overrides.value.keys()) {
-      style.removeProperty(`--${themeTokens[name].cssVar}`);
+    if (!style?.removeProperty) return;
+    const cssVars: string[] = [];
+    overrides.value.forEach((_val, key) => {
+      cssVars.push(`--${themeTokens[key].cssVar}`);
+    });
+    for (const cssVar of cssVars) {
+      style.removeProperty(cssVar);
     }
     overrides.value.clear();
     activePreset.value = null;
@@ -225,7 +230,4 @@ export function registerPreset(name: string, preset: ThemePreset): void {
   handle.applyPreset(name, preset);
 }
 
-/** 重新导出类型 */
-export type { TokenName } from './theme-schema';
-export type { ThemePreset, ThemeOverrides, ThemeHandle };
 /* eslint-enable @typescript-eslint/typedef */

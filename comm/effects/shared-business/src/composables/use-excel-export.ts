@@ -9,7 +9,7 @@
  * 基于 SheetJS(xlsx) 实现的客户端 Excel 导出，特性：
  * - 统一的列 schema（key/label/width/formatter/dataType）
  * - 大数据量（> 5000 行）自动切分并使用 Web Worker 生成，避免阻塞主线程
- * - 导出进度通过 showToast 替代原 ElNotification 提示（大文件场景）
+ * - 导出进度通过 showToast 全局轻提示告知用户（大文件场景）
  * - 内置 i18n 错误码支持
  *
  * 超过 10 万行的大批量数据由调用方决定是否使用 Worker，后端导出是更优方案。
@@ -166,8 +166,7 @@ export function useExcelExport() {
   /**
    * showToast 实例引用，用于手动更新与关闭。
    *
-   * <p>showToast 返回的实例提供 `update` 与 `close` 方法，
-   * 与原 ElNotification 实例契约对齐。
+   * <p>showToast 返回的实例提供 `update` 与 `close` 方法，用于进度场景。
    */
   const toastInstance = ref<{
     update: (options: Record<string, unknown>) => void;
@@ -332,7 +331,7 @@ export function useExcelExport() {
     const { useWorker, data } = options;
     const shouldUseWorker = useWorker ?? (data.length > WORKER_THRESHOLD);
 
-    // 大文件场景：通过 showToast 提示进度（替代原 ElNotification）
+    // 大文件场景：通过 showToast 全局轻提示告知用户进度
     if (shouldUseWorker) {
       toastInstance.value = showToast(t('excel.exporting'), {
         description: `${t('excel.preparing')}…`,

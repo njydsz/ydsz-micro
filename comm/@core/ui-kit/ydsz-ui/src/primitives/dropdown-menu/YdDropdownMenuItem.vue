@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DropdownMenuItemProps } from 'radix-vue';
+import type { DropdownMenuItemProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuItem, useForwardProps } from 'radix-vue';
+import { YdDropdownMenuItem, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

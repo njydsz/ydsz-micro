@@ -11,7 +11,7 @@
  * @since 1.0.0
  */
 import type { Arrayable } from '@vueuse/core';
-import type { FlattenedItem } from 'radix-vue';
+import type { FlattenedItem } from '@ydsz-core/ydsz-vue';
 
 import type { Recordable } from '@ydsz-core/typings';
 

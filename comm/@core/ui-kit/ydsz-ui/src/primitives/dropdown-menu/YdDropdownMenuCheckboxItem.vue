@@ -12,7 +12,7 @@
 import type {
   DropdownMenuCheckboxItemEmits,
   DropdownMenuCheckboxItemProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -23,7 +23,7 @@ import {
   YdDropdownMenuCheckboxItem,
   DropdownMenuItemIndicator,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

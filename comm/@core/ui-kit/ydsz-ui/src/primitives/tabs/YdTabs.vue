@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TabsRootEmits, TabsRootProps } from 'radix-vue';
+import type { TabsRootEmits, TabsRootProps } from '@ydsz-core/ydsz-vue';
 
-import { TabsRoot, useForwardPropsEmits } from 'radix-vue';
+import { TabsRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<TabsRootProps>();
 const emits = defineEmits<TabsRootEmits>();

@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import type { BreadcrumbProps } from './types';
 
-import { useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 import BreadcrumbBackground from './breadcrumb-background.vue';
 import YdBreadcrumb from './breadcrumb.vue';

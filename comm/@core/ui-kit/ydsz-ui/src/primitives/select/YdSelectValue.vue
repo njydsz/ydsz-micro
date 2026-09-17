@@ -10,9 +10,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectValueProps } from 'radix-vue';
+import type { SelectValueProps } from '@ydsz-core/ydsz-vue';
 
-import { YdSelectValue } from 'radix-vue';
+import { YdSelectValue } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectValueProps>();
 </script>

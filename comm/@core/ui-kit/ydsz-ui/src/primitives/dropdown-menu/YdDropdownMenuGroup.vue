@@ -8,9 +8,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DropdownMenuGroupProps } from 'radix-vue';
+import type { DropdownMenuGroupProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDropdownMenuGroup } from 'radix-vue';
+import { YdDropdownMenuGroup } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuGroupProps>();
 </script>

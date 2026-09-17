@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PopoverRootEmits, PopoverRootProps } from 'radix-vue';
+import type { PopoverRootEmits, PopoverRootProps } from '@ydsz-core/ydsz-vue';
 
-import { PopoverRoot, useForwardPropsEmits } from 'radix-vue';
+import { PopoverRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PopoverRootProps>();
 const emits = defineEmits<PopoverRootEmits>();

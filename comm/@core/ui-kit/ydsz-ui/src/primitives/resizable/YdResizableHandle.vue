@@ -14,7 +14,7 @@
 import type {
   SplitterResizeHandleEmits,
   SplitterResizeHandleProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import type { HTMLAttributes } from 'vue';
 
@@ -23,7 +23,7 @@ import { computed } from 'vue';
 import { GripVertical } from '@ydsz-core/icons';
 import { cn } from '@ydsz-core/shared/utils';
 
-import { SplitterResizeHandle, useForwardPropsEmits } from 'radix-vue';
+import { SplitterResizeHandle, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<
   SplitterResizeHandleProps & {

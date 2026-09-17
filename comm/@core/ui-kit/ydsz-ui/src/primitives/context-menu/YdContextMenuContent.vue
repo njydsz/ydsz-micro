@@ -11,7 +11,7 @@
 import type {
   ContextMenuContentEmits,
   ContextMenuContentProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -21,7 +21,7 @@ import {
   YdContextMenuContent,
   YdContextMenuPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuContentProps & { class?: any }>();
 const emits = defineEmits<ContextMenuContentEmits>();

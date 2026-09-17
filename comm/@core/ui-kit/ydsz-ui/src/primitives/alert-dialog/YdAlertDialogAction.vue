@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AlertDialogActionProps } from 'radix-vue';
+import type { AlertDialogActionProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAlertDialogAction } from 'radix-vue';
+import { YdAlertDialogAction } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AlertDialogActionProps>();
 </script>

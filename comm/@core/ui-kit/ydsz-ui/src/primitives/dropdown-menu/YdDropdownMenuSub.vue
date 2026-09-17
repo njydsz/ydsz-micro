@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DropdownMenuSubEmits, DropdownMenuSubProps } from 'radix-vue';
+import type { DropdownMenuSubEmits, DropdownMenuSubProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDropdownMenuSub, useForwardPropsEmits } from 'radix-vue';
+import { YdDropdownMenuSub, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuSubProps>();
 const emits = defineEmits<DropdownMenuSubEmits>();

@@ -9,14 +9,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DropdownMenuSubTriggerProps } from 'radix-vue';
+import type { DropdownMenuSubTriggerProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
-import { YdDropdownMenuSubTrigger, useForwardProps } from 'radix-vue';
+import { YdDropdownMenuSubTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuSubTriggerProps & { class?: any }>();
 

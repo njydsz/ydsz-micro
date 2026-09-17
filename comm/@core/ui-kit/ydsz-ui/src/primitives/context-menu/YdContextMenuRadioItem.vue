@@ -12,7 +12,7 @@
 import type {
   ContextMenuRadioItemEmits,
   ContextMenuRadioItemProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -23,7 +23,7 @@ import {
   ContextMenuItemIndicator,
   YdContextMenuRadioItem,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuRadioItemProps & { class?: any }>();
 const emits = defineEmits<ContextMenuRadioItemEmits>();

@@ -13,7 +13,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TooltipContentProps } from 'radix-vue';
+import type { TooltipContentProps } from '@ydsz-core/ydsz-vue';
 
 import type { StyleValue } from 'vue';
 

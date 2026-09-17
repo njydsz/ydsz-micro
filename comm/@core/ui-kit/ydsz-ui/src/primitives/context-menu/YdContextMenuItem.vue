@@ -10,13 +10,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuItemEmits, ContextMenuItemProps } from 'radix-vue';
+import type { ContextMenuItemEmits, ContextMenuItemProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuItem, useForwardPropsEmits } from 'radix-vue';
+import { YdContextMenuItem, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<
   ContextMenuItemProps & { class?: any; inset?: boolean }

@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SliderRootEmits, SliderRootProps } from 'radix-vue';
+import type { SliderRootEmits, SliderRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue';
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '@ydsz-core/ydsz-vue';
 
 interface Props extends SliderRootProps {
   /** 自定义类名 */

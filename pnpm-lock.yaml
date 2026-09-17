@@ -1798,15 +1798,15 @@ importers:
       '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
+      '@ydsz-core/ydsz-vue':
+        specifier: workspace:*
+        version: link:../ydsz-vue
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
       lucide-vue-next:
         specifier: 'catalog:'
         version: 0.507.0(vue@3.5.40(typescript@5.9.3))
-      radix-vue:
-        specifier: 'catalog:'
-        version: 1.9.17(vue@3.5.40(typescript@5.9.3))
       vee-validate:
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.40(typescript@5.9.3))

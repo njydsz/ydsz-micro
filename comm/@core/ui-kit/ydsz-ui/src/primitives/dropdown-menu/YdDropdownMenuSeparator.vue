@@ -8,13 +8,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DropdownMenuSeparatorProps } from 'radix-vue';
+import type { DropdownMenuSeparatorProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuSeparator } from 'radix-vue';
+import { YdDropdownMenuSeparator } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

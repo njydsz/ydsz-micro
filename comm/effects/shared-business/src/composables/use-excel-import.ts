@@ -116,7 +116,7 @@ const WORKER_THRESHOLD = 5000;
  *     validator: (row, idx) => !row.name ? `第 ${idx} 行项目名称为空` : undefined,
  *   });
  *   if (res.errors.length > 0) {
- *     ElMessage.warning(`${res.errors.length} 行校验失败`);
+ *     showToast.warning(`${res.errors.length} 行校验失败`);
  *   }
  *   importData(res.data);
  * }

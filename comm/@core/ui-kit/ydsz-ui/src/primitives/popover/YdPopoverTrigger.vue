@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PopoverTriggerProps } from 'radix-vue';
+import type { PopoverTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdPopoverTrigger } from 'radix-vue';
+import { YdPopoverTrigger } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PopoverTriggerProps>();
 </script>

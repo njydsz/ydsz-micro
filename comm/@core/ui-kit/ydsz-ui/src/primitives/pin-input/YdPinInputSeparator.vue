@@ -9,10 +9,10 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PrimitiveProps } from 'radix-vue';
+import type { PrimitiveProps } from '@ydsz-core/ydsz-vue';
 
 import { Dot } from 'lucide-vue-next';
-import { Primitive, useForwardProps } from 'radix-vue';
+import { Primitive, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PrimitiveProps>();
 const forwardedProps = useForwardProps(props);

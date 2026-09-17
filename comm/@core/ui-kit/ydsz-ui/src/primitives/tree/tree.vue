@@ -12,7 +12,7 @@
 -->
 <script lang="ts" setup>
 import type { Arrayable } from '@vueuse/core';
-import type { FlattenedItem } from 'radix-vue';
+import type { FlattenedItem } from '@ydsz-core/ydsz-vue';
 
 import type { ClassType, Recordable } from '@ydsz-core/typings';
 
@@ -23,7 +23,7 @@ import { onMounted, ref, watchEffect } from 'vue';
 import { ChevronRight, IconifyIcon } from '@ydsz-core/icons';
 import { cn, get } from '@ydsz-core/shared/utils';
 
-import { TreeItem, TreeRoot } from 'radix-vue';
+import { TreeItem, TreeRoot } from '@ydsz-core/ydsz-vue';
 
 import { YdCheckbox } from '../checkbox';
 

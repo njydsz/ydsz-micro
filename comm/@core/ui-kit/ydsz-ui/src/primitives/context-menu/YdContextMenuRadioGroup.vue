@@ -11,9 +11,9 @@
 import type {
   ContextMenuRadioGroupEmits,
   ContextMenuRadioGroupProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuRadioGroup, useForwardPropsEmits } from 'radix-vue';
+import { YdContextMenuRadioGroup, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuRadioGroupProps>();
 const emits = defineEmits<ContextMenuRadioGroupEmits>();

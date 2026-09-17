@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuLabelProps } from 'radix-vue';
+import type { ContextMenuLabelProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuLabel } from 'radix-vue';
+import { YdContextMenuLabel } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<
   ContextMenuLabelProps & { class?: any; inset?: boolean }

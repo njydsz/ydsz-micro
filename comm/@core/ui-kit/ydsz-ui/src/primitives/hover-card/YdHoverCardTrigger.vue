@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { HoverCardTriggerProps } from 'radix-vue';
+import type { HoverCardTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdHoverCardTrigger } from 'radix-vue';
+import { YdHoverCardTrigger } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<HoverCardTriggerProps>();
 </script>

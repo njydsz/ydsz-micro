@@ -13,7 +13,7 @@ import type {
   AvatarFallbackProps,
   AvatarImageProps,
   AvatarRootProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import type { CSSProperties } from 'vue';
 

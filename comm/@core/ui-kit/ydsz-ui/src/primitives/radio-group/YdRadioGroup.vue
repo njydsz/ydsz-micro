@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { RadioGroupRootEmits, RadioGroupRootProps } from 'radix-vue';
+import type { RadioGroupRootEmits, RadioGroupRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { RadioGroupRoot, useForwardPropsEmits } from 'radix-vue';
+import { RadioGroupRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<RadioGroupRootProps & { class?: any }>();
 const emits = defineEmits<RadioGroupRootEmits>();

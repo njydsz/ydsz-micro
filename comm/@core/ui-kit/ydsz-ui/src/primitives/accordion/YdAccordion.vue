@@ -10,9 +10,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AccordionRootEmits, AccordionRootProps } from 'radix-vue';
+import type { AccordionRootEmits, AccordionRootProps } from '@ydsz-core/ydsz-vue';
 
-import { AccordionRoot, useForwardPropsEmits } from 'radix-vue';
+import { AccordionRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AccordionRootProps>();
 const emits = defineEmits<AccordionRootEmits>();

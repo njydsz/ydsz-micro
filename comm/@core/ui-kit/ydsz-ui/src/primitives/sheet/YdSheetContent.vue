@@ -12,7 +12,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
+import type { DialogContentEmits, DialogContentProps } from '@ydsz-core/ydsz-vue';
 
 import type { SheetVariants } from './sheet';
 
@@ -20,7 +20,7 @@ import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogContent, DialogPortal, useForwardPropsEmits } from 'radix-vue';
+import { YdDialogContent, DialogPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 import { sheetVariants } from './sheet';
 import SheetOverlay from './SheetOverlay.vue';

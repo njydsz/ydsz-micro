@@ -9,7 +9,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { AsTag } from 'radix-vue';
+import type { AsTag } from '@ydsz-core/ydsz-vue';
 
 import type { Component } from 'vue';
 

@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { LoaderCircle } from '@ydsz-core/icons';
 import { cn } from '@ydsz-core/shared/utils';
 
-import { Primitive } from 'radix-vue';
+import { Primitive } from '@ydsz-core/ydsz-vue';
 
 import { buttonVariants } from '../../primitives';
 

@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SplitterGroupEmits, SplitterGroupProps } from 'radix-vue';
+import type { SplitterGroupEmits, SplitterGroupProps } from '@ydsz-core/ydsz-vue';
 
 import type { HTMLAttributes } from 'vue';
 
@@ -18,7 +18,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { SplitterGroup, useForwardPropsEmits } from 'radix-vue';
+import { SplitterGroup, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<
   SplitterGroupProps & { class?: HTMLAttributes['class'] }

@@ -14,7 +14,7 @@ import type { AvatarVariants } from './avatar';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { AvatarRoot } from 'radix-vue';
+import { AvatarRoot } from '@ydsz-core/ydsz-vue';
 
 import { avatarVariant } from './avatar';
 

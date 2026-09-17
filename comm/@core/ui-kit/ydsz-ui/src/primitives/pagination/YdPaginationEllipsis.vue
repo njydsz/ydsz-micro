@@ -9,14 +9,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PaginationEllipsisProps } from 'radix-vue';
+import type { PaginationEllipsisProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { MoreHorizontal } from 'lucide-vue-next';
-import { YdPaginationEllipsis } from 'radix-vue';
+import { YdPaginationEllipsis } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PaginationEllipsisProps & { class?: any }>();
 

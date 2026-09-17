@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectSeparatorProps } from 'radix-vue';
+import type { SelectSeparatorProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSelectSeparator } from 'radix-vue';
+import { YdSelectSeparator } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectSeparatorProps & { class?: any }>();
 

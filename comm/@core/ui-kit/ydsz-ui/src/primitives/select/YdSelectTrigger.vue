@@ -10,14 +10,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectTriggerProps } from 'radix-vue';
+import type { SelectTriggerProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
-import { SelectIcon, YdSelectTrigger, useForwardProps } from 'radix-vue';
+import { SelectIcon, YdSelectTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectTriggerProps & { class?: any }>();
 

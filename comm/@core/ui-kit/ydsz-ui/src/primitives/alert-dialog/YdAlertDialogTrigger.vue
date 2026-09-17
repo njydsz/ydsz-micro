@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { AlertDialogTriggerProps } from 'radix-vue';
+import type { AlertDialogTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { AlertDialogTrigger, useForwardProps } from 'radix-vue';
+import { AlertDialogTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AlertDialogTriggerProps>();
 const forwarded = useForwardProps(props);

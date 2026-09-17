@@ -15,4 +15,4 @@ export * from './headless';
 export * from './locale';
 export * from './primitives';
 
-export { createContext, Slot, VisuallyHidden } from 'radix-vue';
+export { createContext, Slot, VisuallyHidden } from '@ydsz-core/ydsz-vue';

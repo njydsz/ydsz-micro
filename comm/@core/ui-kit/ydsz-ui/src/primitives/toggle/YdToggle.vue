@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ToggleEmits, ToggleProps } from 'radix-vue';
+import type { ToggleEmits, ToggleProps } from '@ydsz-core/ydsz-vue';
 
 import type { ToggleVariants } from './toggle';
 
@@ -18,7 +18,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdToggle, useForwardPropsEmits } from 'radix-vue';
+import { YdToggle, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 import { toggleVariants } from './toggle';
 

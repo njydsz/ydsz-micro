@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuSubEmits, ContextMenuSubProps } from 'radix-vue';
+import type { ContextMenuSubEmits, ContextMenuSubProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuSub, useForwardPropsEmits } from 'radix-vue';
+import { YdContextMenuSub, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuSubProps>();
 const emits = defineEmits<ContextMenuSubEmits>();

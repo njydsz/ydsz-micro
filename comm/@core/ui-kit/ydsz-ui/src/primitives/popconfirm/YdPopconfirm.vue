@@ -10,7 +10,7 @@
 -->
 <script lang="ts" setup">
 import { cn } from '@ydsz-core/shared/utils';
-import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue';
+import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '@ydsz-core/ydsz-vue';
 
 import { YdButton } from '../button';
 

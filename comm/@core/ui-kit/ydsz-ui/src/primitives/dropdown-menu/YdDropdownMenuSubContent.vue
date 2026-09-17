@@ -13,13 +13,13 @@
 import type {
   DropdownMenuSubContentEmits,
   DropdownMenuSubContentProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuSubContent, useForwardPropsEmits } from 'radix-vue';
+import { YdDropdownMenuSubContent, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

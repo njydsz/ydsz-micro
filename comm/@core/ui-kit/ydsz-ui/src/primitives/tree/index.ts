@@ -11,7 +11,7 @@
 export { default as YdTree } from './tree.vue';
 export { default as YdVTreeSearch } from './YdVTreeSearch.vue';
 export { useTreeSearch } from './use-tree-search';
-export type { FlattenedItem } from 'radix-vue';
+export type { FlattenedItem } from '@ydsz-core/ydsz-vue';
 export type {
   FilteredTreeNode,
   TreeSearchHandle,

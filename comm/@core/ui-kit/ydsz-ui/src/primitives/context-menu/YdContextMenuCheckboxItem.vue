@@ -12,7 +12,7 @@
 import type {
   ContextMenuCheckboxItemEmits,
   ContextMenuCheckboxItemProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -23,7 +23,7 @@ import {
   YdContextMenuCheckboxItem,
   ContextMenuItemIndicator,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuCheckboxItemProps & { class?: any }>();
 const emits = defineEmits<ContextMenuCheckboxItemEmits>();

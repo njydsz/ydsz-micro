@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { AlertDialogDescriptionProps } from 'radix-vue';
+import type { AlertDialogDescriptionProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdAlertDialogDescription, useForwardProps } from 'radix-vue';
+import { YdAlertDialogDescription, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

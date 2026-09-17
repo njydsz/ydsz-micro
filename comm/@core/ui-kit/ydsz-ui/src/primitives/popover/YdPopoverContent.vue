@@ -11,13 +11,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PopoverContentEmits, PopoverContentProps } from 'radix-vue';
+import type { PopoverContentEmits, PopoverContentProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdPopoverContent, PopoverPortal, useForwardPropsEmits } from 'radix-vue';
+import { YdPopoverContent, PopoverPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 defineOptions({
   inheritAttrs: false,

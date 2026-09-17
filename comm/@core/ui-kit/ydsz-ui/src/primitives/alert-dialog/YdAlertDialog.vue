@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AlertDialogEmits, AlertDialogProps } from 'radix-vue';
+import type { AlertDialogEmits, AlertDialogProps } from '@ydsz-core/ydsz-vue';
 
-import { AlertDialogRoot, useForwardPropsEmits } from 'radix-vue';
+import { AlertDialogRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AlertDialogProps>();
 const emits = defineEmits<AlertDialogEmits>();

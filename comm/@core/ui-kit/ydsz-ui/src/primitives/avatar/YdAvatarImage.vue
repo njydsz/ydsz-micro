@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AvatarImageProps } from 'radix-vue';
+import type { AvatarImageProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAvatarImage } from 'radix-vue';
+import { YdAvatarImage } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AvatarImageProps>();
 </script>

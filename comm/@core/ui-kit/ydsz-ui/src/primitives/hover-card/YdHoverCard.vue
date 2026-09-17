@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { HoverCardRootEmits, HoverCardRootProps } from 'radix-vue';
+import type { HoverCardRootEmits, HoverCardRootProps } from '@ydsz-core/ydsz-vue';
 
-import { HoverCardRoot, useForwardPropsEmits } from 'radix-vue';
+import { HoverCardRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<HoverCardRootProps>();
 const emits = defineEmits<HoverCardRootEmits>();

@@ -9,14 +9,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { PaginationPrevProps } from 'radix-vue';
+import type { PaginationPrevProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronLeft } from 'lucide-vue-next';
-import { YdPaginationPrev } from 'radix-vue';
+import { YdPaginationPrev } from '@ydsz-core/ydsz-vue';
 
 import { YdButton } from '../button';
 

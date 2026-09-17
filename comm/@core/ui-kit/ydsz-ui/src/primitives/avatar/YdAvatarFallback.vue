@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AvatarFallbackProps } from 'radix-vue';
+import type { AvatarFallbackProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAvatarFallback } from 'radix-vue';
+import { YdAvatarFallback } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AvatarFallbackProps>();
 </script>

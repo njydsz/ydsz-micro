@@ -22,9 +22,9 @@ import {
   SelectIcon,
   YdSelectTrigger,
   YdSelectValue,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
-import type { SelectTriggerProps } from 'radix-vue';
+import type { SelectTriggerProps } from '@ydsz-core/ydsz-vue';
 
 defineOptions({
   name: 'YdVSelectTrigger',

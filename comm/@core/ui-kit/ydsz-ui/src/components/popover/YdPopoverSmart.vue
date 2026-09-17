@@ -15,13 +15,13 @@ import type {
   PopoverContentProps,
   PopoverRootEmits,
   PopoverRootProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 import type { ClassType } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 
-import { useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 import {
   YdPopoverContent,

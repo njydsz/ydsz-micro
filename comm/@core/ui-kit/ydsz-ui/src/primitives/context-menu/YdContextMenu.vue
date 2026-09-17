@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuRootEmits, ContextMenuRootProps } from 'radix-vue';
+import type { ContextMenuRootEmits, ContextMenuRootProps } from '@ydsz-core/ydsz-vue';
 
-import { ContextMenuRoot, useForwardPropsEmits } from 'radix-vue';
+import { ContextMenuRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = withDefaults(defineProps<ContextMenuRootProps>(), {
   modal: false,

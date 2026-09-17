@@ -9,14 +9,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { NumberFieldDecrementProps } from 'radix-vue';
+import type { NumberFieldDecrementProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { Minus } from 'lucide-vue-next';
-import { YdNumberFieldDecrement, useForwardProps } from 'radix-vue';
+import { YdNumberFieldDecrement, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<NumberFieldDecrementProps & { class?: any }>();
 

@@ -9,13 +9,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectGroupProps } from 'radix-vue';
+import type { SelectGroupProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSelectGroup } from 'radix-vue';
+import { YdSelectGroup } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectGroupProps & { class?: any }>();
 

@@ -11,13 +11,13 @@
 -->
 <script setup lang="ts">
 import type { VariantProps } from 'class-variance-authority';
-import type { ToggleGroupItemProps } from 'radix-vue';
+import type { ToggleGroupItemProps } from '@ydsz-core/ydsz-vue';
 
 import { computed, inject } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdToggleGroupItem, useForwardProps } from 'radix-vue';
+import { YdToggleGroupItem, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 import { toggleVariants } from '../toggle';
 

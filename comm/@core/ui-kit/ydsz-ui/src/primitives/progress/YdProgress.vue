@@ -17,7 +17,7 @@ import {
   ProgressIndicator,
   ProgressRoot,
   type ProgressRootProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 interface Props extends Omit<ProgressRootProps, 'modelValue'> {
   /** 自定义类名 */

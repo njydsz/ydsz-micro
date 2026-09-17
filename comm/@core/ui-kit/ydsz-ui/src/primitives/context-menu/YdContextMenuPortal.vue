@@ -9,9 +9,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ContextMenuPortalProps } from 'radix-vue';
+import type { ContextMenuPortalProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuPortal } from 'radix-vue';
+import { YdContextMenuPortal } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuPortalProps>();
 </script>

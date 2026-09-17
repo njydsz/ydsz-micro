@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { SelectItemProps } from 'radix-vue';
+import type { SelectItemProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -22,7 +22,7 @@ import {
   SelectItemIndicator,
   YdSelectItemText,
   useForwardProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectItemProps & { class?: any }>();
 

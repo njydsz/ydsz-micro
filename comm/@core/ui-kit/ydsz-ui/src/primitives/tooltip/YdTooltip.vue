@@ -10,9 +10,9 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TooltipRootEmits, TooltipRootProps } from 'radix-vue';
+import type { TooltipRootEmits, TooltipRootProps } from '@ydsz-core/ydsz-vue';
 
-import { TooltipRoot, useForwardPropsEmits } from 'radix-vue';
+import { TooltipRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<TooltipRootProps>();
 const emits = defineEmits<TooltipRootEmits>();

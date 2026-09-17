@@ -9,11 +9,11 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
+import type { CheckboxRootEmits, CheckboxRootProps } from '@ydsz-core/ydsz-vue';
 
 import { useId } from 'vue';
 
-import { useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 import { YdCheckbox } from '../../primitives/checkbox';
 

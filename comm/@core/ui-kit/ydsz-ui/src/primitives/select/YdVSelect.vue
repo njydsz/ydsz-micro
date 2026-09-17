@@ -23,9 +23,9 @@ import { computed, ref } from 'vue';
 
 import { useVModel } from '@vueuse/core';
 
-import { SelectRoot, useForwardPropsEmits } from 'radix-vue';
+import { SelectRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-import type { SelectRootEmits, SelectRootProps } from 'radix-vue';
+import type { SelectRootEmits, SelectRootProps } from '@ydsz-core/ydsz-vue';
 
 import YdSelectVirtualContent from './YdSelectVirtualContent.vue';
 import YdVSelectTrigger from './YdVSelectTrigger.vue';

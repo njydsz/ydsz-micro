@@ -8,13 +8,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { DropdownMenuLabelProps } from 'radix-vue';
+import type { DropdownMenuLabelProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuLabel, useForwardProps } from 'radix-vue';
+import { YdDropdownMenuLabel, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<
   DropdownMenuLabelProps & { class?: any; inset?: boolean }

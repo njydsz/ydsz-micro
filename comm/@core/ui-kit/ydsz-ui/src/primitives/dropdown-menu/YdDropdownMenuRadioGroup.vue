@@ -11,9 +11,9 @@
 import type {
   DropdownMenuRadioGroupEmits,
   DropdownMenuRadioGroupProps,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';
 
-import { YdDropdownMenuRadioGroup, useForwardPropsEmits } from 'radix-vue';
+import { YdDropdownMenuRadioGroup, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuRadioGroupProps>();
 const emits = defineEmits<DropdownMenuRadioGroupEmits>();
