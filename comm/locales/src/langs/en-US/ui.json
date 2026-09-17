@@ -106,5 +106,73 @@
       "backToLogin": "Back to login",
       "entry": "Enter the system"
     }
+  },
+  "component": {
+    "transfer": {
+      "title": "Available",
+      "selectedTitle": "Selected",
+      "placeholder": "Search",
+      "notFoundContent": "No data"
+    },
+    "steps": {
+      "wait": "Waiting",
+      "process": "In Progress",
+      "finish": "Finished",
+      "error": "Error"
+    },
+    "result": {
+      "successTitle": "Success",
+      "errorTitle": "Failed",
+      "warningTitle": "Warning",
+      "infoTitle": "Info"
+    },
+    "empty": {
+      "description": "No Data"
+    },
+    "skeleton": {
+      "loading": "Loading"
+    },
+    "autoComplete": {
+      "noMatch": "No matching results",
+      "placeholder": "Please enter"
+    },
+    "slider": {
+      "ariaLabel": "Slider value"
+    },
+    "progress": {
+      "ariaLabel": "Progress"
+    },
+    "rate": {
+      "ariaLabel": "Rating"
+    },
+    "anchor": {
+      "ariaLabel": "Anchor navigation"
+    },
+    "image": {
+      "loadError": "Load failed"
+    },
+    "tag": {
+      "closeAriaLabel": "Close tag"
+    },
+    "tour": {
+      "next": "Next",
+      "prev": "Previous",
+      "finish": "Finish",
+      "skip": "Skip",
+      "stepIndicator": "Step indicator"
+    },
+    "floatButton": {
+      "ariaLabel": "Float button"
+    },
+    "timeline": {
+      "ariaLabel": "Timeline",
+      "pending": "Loading"
+    },
+    "descriptions": {
+      "defaultLabelWidth": "120px"
+    },
+    "statistic": {
+      "loading": "Loading"
+    }
   }
 }

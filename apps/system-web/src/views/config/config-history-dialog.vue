@@ -14,7 +14,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// TODO: [ydsz-ui migration pending] 本文件含 ElTable（SKIP）、ElDrawer、ElEmpty、ElTooltip 等部分未映射组件，整体迁移需人工评估复杂度高
 import { YdButton, YdDialog, YdDrawer, YdEmptyState, YdTable, YdBadge, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, ref } from 'vue';

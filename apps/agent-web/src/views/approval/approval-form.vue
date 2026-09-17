@@ -16,7 +16,6 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-// TODO: ElDescriptions/ElDescriptionsItem/ElForm/ElFormItem/ElInput 表单套件复杂,保留 element-plus SKIP
 import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { YdButtonBase } from '@ydsz-core/ydsz-ui';

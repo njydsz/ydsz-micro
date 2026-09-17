@@ -106,5 +106,73 @@
       "backToLogin": "返回登录",
       "entry": "进入系统"
     }
+  },
+  "component": {
+    "transfer": {
+      "title": "可选",
+      "selectedTitle": "已选",
+      "placeholder": "搜索",
+      "notFoundContent": "无数据"
+    },
+    "steps": {
+      "wait": "等待中",
+      "process": "进行中",
+      "finish": "已完成",
+      "error": "错误"
+    },
+    "result": {
+      "successTitle": "操作成功",
+      "errorTitle": "操作失败",
+      "warningTitle": "警告",
+      "infoTitle": "提示"
+    },
+    "empty": {
+      "description": "暂无数据"
+    },
+    "skeleton": {
+      "loading": "加载中"
+    },
+    "autoComplete": {
+      "noMatch": "暂无匹配项",
+      "placeholder": "请输入"
+    },
+    "slider": {
+      "ariaLabel": "滑块值"
+    },
+    "progress": {
+      "ariaLabel": "进度"
+    },
+    "rate": {
+      "ariaLabel": "评分"
+    },
+    "anchor": {
+      "ariaLabel": "锚点导航"
+    },
+    "image": {
+      "loadError": "加载失败"
+    },
+    "tag": {
+      "closeAriaLabel": "关闭标签"
+    },
+    "tour": {
+      "next": "下一步",
+      "prev": "上一步",
+      "finish": "完成",
+      "skip": "跳过",
+      "stepIndicator": "步骤指示器"
+    },
+    "floatButton": {
+      "ariaLabel": "悬浮按钮"
+    },
+    "timeline": {
+      "ariaLabel": "时间轴",
+      "pending": "加载中"
+    },
+    "descriptions": {
+      "defaultLabelWidth": "120px"
+    },
+    "statistic": {
+      "loading": "加载中"
+    }
   }
 }

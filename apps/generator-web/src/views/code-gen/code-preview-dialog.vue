@@ -25,7 +25,6 @@ import {
   YdDialogHeader,
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
-// TODO: ElIcon 为图标容器，暂无对应 ydsz-ui 组件，保留 element-plus 导入
 import { YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
 import { Warning } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
 

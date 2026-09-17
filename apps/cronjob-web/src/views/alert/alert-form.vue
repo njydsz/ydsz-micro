@@ -17,7 +17,6 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 import { YdInput, YdRadioGroup, YdRadioGroupItem } from '@ydsz-core/ydsz-ui';
-// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

@@ -15,7 +15,6 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-// TODO: [ydsz-ui migration pending] ElForm/ElFormItem/ElRadio/ElRadioGroup 暂无 shadcn FormField 替代方案，待 UI Kit 表单方案统一后迁移
 import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 

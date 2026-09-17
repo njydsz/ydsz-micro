@@ -15,7 +15,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// TODO: EP → ydsz-ui 迁移待后续批次（设计器工具栏包含 ElButton/ElIcon/ElSlider/ElSpace/ElTooltip 复杂交互）
 import { YdButton, YdIcon, YdSlider, YdSpace, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 

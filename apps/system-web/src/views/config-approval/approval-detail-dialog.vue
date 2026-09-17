@@ -23,7 +23,6 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger } from '@ydsz-core/ydsz-ui';
-// TODO: ElDescriptions/ElDivider/ElForm/ElTimeline 暂无 shadcn 映射，保留 element-plus
 import { YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 

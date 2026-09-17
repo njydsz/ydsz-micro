@@ -17,7 +17,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdSelectBase/YdTable 等复杂组件，需人工评估）
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, nextTick, ref, watch } from 'vue';
