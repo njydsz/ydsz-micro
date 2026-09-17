@@ -17,16 +17,16 @@ import { EmptyIcon, Grip, listIcons } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
 import {
-  Button,
-  Input,
+  YdButtonBase,
+  YdInput,
   Pagination,
-  PaginationEllipsis,
-  PaginationFirst,
-  PaginationLast,
+  YdPaginationEllipsis,
+  YdPaginationFirst,
+  YdPaginationLast,
   PaginationList,
   PaginationListItem,
-  PaginationNext,
-  PaginationPrev,
+  YdPaginationNext,
+  YdPaginationPrev,
   YdIcon,
   YdIconButton,
   YdPopover,
@@ -47,7 +47,7 @@ interface Props {
    * 图标列表
    */
   icons?: string[];
-  /** Input组件 */
+  /** YdInput组件 */
   inputComponent?: VNode;
   /** 图标插槽名，预览图标将被渲染到此插槽中 */
   iconSlot?: string;
@@ -225,7 +225,7 @@ defineExpose({ toggleOpenState, open, close });
           </template>
         </component>
         <div class="relative w-full" v-else>
-          <Input
+          <YdInput
             v-bind="$attrs"
             v-model="currentSelect"
             :placeholder="$t('ui.iconPicker.placeholder')"
@@ -254,7 +254,7 @@ defineExpose({ toggleOpenState, open, close });
         :is="inputComponent"
         v-bind="searchInputProps"
       />
-      <Input
+      <YdInput
         v-else
         class="mx-2 h-8 w-full"
         :placeholder="$t('ui.iconPicker.search')"
@@ -295,8 +295,8 @@ defineExpose({ toggleOpenState, open, close });
             v-slot="{ items }"
             class="flex w-full items-center gap-1"
           >
-            <PaginationFirst class="size-5" />
-            <PaginationPrev class="size-5" />
+            <YdPaginationFirst class="size-5" />
+            <YdPaginationPrev class="size-5" />
             <template v-for="(item, index) in items">
               <PaginationListItem
                 v-if="item.type === 'page'"
@@ -304,22 +304,22 @@ defineExpose({ toggleOpenState, open, close });
                 :value="item.value"
                 as-child
               >
-                <Button
+                <YdButtonBase
                   :variant="item.value === currentPage ? 'default' : 'outline'"
                   class="size-5 p-0 text-sm"
                 >
                   {{ item.value }}
-                </Button>
+                </YdButtonBase>
               </PaginationListItem>
-              <PaginationEllipsis
+              <YdPaginationEllipsis
                 v-else
                 :key="item.type"
                 :index="index"
                 class="size-5"
               />
             </template>
-            <PaginationNext class="size-5" />
-            <PaginationLast class="size-5" />
+            <YdPaginationNext class="size-5" />
+            <YdPaginationLast class="size-5" />
           </PaginationList>
         </Pagination>
       </div>

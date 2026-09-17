@@ -24,7 +24,7 @@ async function initSetupYDSZForm() {
   setupYdForm<ComponentType>({
     config: {
       modelPropNameMap: {
-        Upload: 'fileList',
+        YdUpload: 'fileList',
         CheckboxGroup: 'model-value',
       },
     },

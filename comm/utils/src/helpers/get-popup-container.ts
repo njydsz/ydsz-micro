@@ -6,7 +6,7 @@
  *   2. 否则 → 返回给定节点的 parentNode
  *   3. 节点为空 → 兜底 document.body
  *
- * 用于 Select/DatePicker/Tooltip 等组件的 `getPopupContainer` 属性，
+ * 用于 YdSelectBase/YdDatePicker/YdTooltipBase 等组件的 `getPopupContainer` 属性，
  * 确保弹出层在表单嵌套或滚动容器内正确定位。
  *
  * @param node - 触发弹出层的参考节点

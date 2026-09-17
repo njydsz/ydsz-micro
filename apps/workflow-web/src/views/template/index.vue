@@ -26,13 +26,13 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { ElTable, ElTableColumn } from 'element-plus';
 import {
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  Sheet,
-  SheetContent,
+  YdButtonBase,
+  YdDropdownMenuBase,
+  YdDropdownMenuContentBase,
+  YdDropdownMenuItemBase,
+  YdDropdownMenuTriggerBase,
+  YdSheet,
+  YdSheetContent,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -129,7 +129,7 @@ const gridOptions: VxeGridProps<TemplateRow> = {
       {
         field: 'category',
         title: t('wf.categoryName'),
-        itemRender: { name: 'Input', props: { placeholder: t('wf.categoryName') } },
+        itemRender: { name: 'YdInput', props: { placeholder: t('wf.categoryName') } },
       },
     ],
   },
@@ -431,7 +431,7 @@ void loadCardData();
           表格
         </button>
       </div>
-      <Button @click="templateFormApi.open()">{{ t('wf.import') }}</Button>
+      <YdButtonBase @click="templateFormApi.open()">{{ t('wf.import') }}</YdButtonBase>
     </div>
 
     <!-- 表格视图 -->
@@ -441,18 +441,18 @@ void loadCardData();
     >
       <template #col-action="{ row }">
         <div class="flex gap-1">
-          <Button size="sm" variant="link" @click="handleImport(row as TemplateRow)">{{
+          <YdButtonBase size="sm" variant="link" @click="handleImport(row as TemplateRow)">{{
             t('wf.import')
-          }}</Button>
-          <Button size="sm" variant="link" @click="handleClone(row as TemplateRow)">{{
+          }}</YdButtonBase>
+          <YdButtonBase size="sm" variant="link" @click="handleClone(row as TemplateRow)">{{
             t('wf.clone')
-          }}</Button>
-          <Button size="sm" variant="link" @click="handleNewVersion(row as TemplateRow)">{{
+          }}</YdButtonBase>
+          <YdButtonBase size="sm" variant="link" @click="handleNewVersion(row as TemplateRow)">{{
             t('wf.newVersion')
-          }}</Button>
-          <Button size="sm" variant="link" @click="openVersions(row as TemplateRow)">{{
+          }}</YdButtonBase>
+          <YdButtonBase size="sm" variant="link" @click="openVersions(row as TemplateRow)">{{
             t('wf.version')
-          }}</Button>
+          }}</YdButtonBase>
         </div>
       </template>
     </Grid>
@@ -502,9 +502,9 @@ void loadCardData();
           </template>
 
           <template #actions>
-            <DropdownMenu>
-              <DropdownMenuTrigger as-child>
-                <Button
+            <YdDropdownMenuBase>
+              <YdDropdownMenuTriggerBase as-child>
+                <YdButtonBase
                   size="sm"
                   variant="link"
                   @click.stop
@@ -535,33 +535,33 @@ void loadCardData();
                       r="1"
                     />
                   </svg>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem @click="handleCardAction('import', item)">
+                </YdButtonBase>
+              </YdDropdownMenuTriggerBase>
+              <YdDropdownMenuContentBase>
+                <YdDropdownMenuItemBase @click="handleCardAction('import', item)">
                   {{ t('wf.import') }}
-                </DropdownMenuItem>
-                <DropdownMenuItem @click="handleCardAction('clone', item)">
+                </YdDropdownMenuItemBase>
+                <YdDropdownMenuItemBase @click="handleCardAction('clone', item)">
                   {{ t('wf.clone') }}
-                </DropdownMenuItem>
-                <DropdownMenuItem @click="handleCardAction('newVersion', item)">
+                </YdDropdownMenuItemBase>
+                <YdDropdownMenuItemBase @click="handleCardAction('newVersion', item)">
                   {{ t('wf.newVersion') }}
-                </DropdownMenuItem>
-                <DropdownMenuItem @click="handleCardAction('version', item)">
+                </YdDropdownMenuItemBase>
+                <YdDropdownMenuItemBase @click="handleCardAction('version', item)">
                   {{ t('wf.version') }}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                </YdDropdownMenuItemBase>
+              </YdDropdownMenuContentBase>
+            </YdDropdownMenuBase>
           </template>
         </YdEntityCard>
       </YdCardGrid>
     </div>
 
     <TemplateFormModal @success="handleRefresh()" />
-    <Sheet :open="versionsVisible" @update:open="versionsVisible = $event">
-      <SheetContent class="!max-w-[540px]">
+    <YdSheet :open="versionsVisible" @update:open="versionsVisible = $event">
+      <YdSheetContent class="!max-w-[540px]">
         <div class="mb-2 flex justify-end">
-        <Button size="sm" variant="secondary" @click="loadVersions">{{ t('common.refresh') }}</Button>
+        <YdButtonBase size="sm" variant="secondary" @click="loadVersions">{{ t('common.refresh') }}</YdButtonBase>
       </div>
       <ElTable
         :data="versionRows"
@@ -601,15 +601,15 @@ void loadCardData();
           fixed="right"
         >
           <template #default="{ row }">
-            <Button
+            <YdButtonBase
               variant="link"
               size="sm"
               @click="handleVersionDetail(row as TemplateRow)"
-            >{{ t('wf.detail') }}</Button>
+            >{{ t('wf.detail') }}</YdButtonBase>
           </template>
         </ElTableColumn>
       </ElTable>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

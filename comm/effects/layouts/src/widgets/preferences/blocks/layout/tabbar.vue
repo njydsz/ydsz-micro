@@ -13,7 +13,7 @@ import { computed } from 'vue';
 import { $t } from '@ydsz/locales';
 
 import NumberFieldItem from '../number-field-item.vue';
-import SelectItem from '../select-item.vue';
+import YdSelectItemBase from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
@@ -95,7 +95,7 @@ const styleItems = computed((): SelectOption[] => [
   <SwitchItem v-model="tabbarShowMaximize" :disabled="!tabbarEnable">
     {{ $t('preferences.tabbar.showMaximize') }}
   </SwitchItem>
-  <SelectItem v-model="tabbarStyleType" :items="styleItems">
+  <YdSelectItemBase v-model="tabbarStyleType" :items="styleItems">
     {{ $t('preferences.tabbar.styleType.title') }}
-  </SelectItem>
+  </YdSelectItemBase>
 </template>

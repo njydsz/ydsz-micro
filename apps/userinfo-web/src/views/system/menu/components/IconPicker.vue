@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/shadcn-ui';
 import { computed, ref } from 'vue';
 
 defineOptions({ name: 'YdIconPicker' });
@@ -743,15 +743,15 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <Dialog v-model:open="visible">
-    <DialogContent class="max-w-[700px]">
-      <DialogHeader>
-        <DialogTitle>选择图标</DialogTitle>
-      </DialogHeader>
+  <YdDialog v-model:open="visible">
+    <YdDialogContent class="max-w-[700px]">
+      <YdDialogHeader>
+        <YdDialogTitle>选择图标</YdDialogTitle>
+      </YdDialogHeader>
       <div class="icon-picker">
         <!-- 搜索框 -->
         <div class="mb-4">
-          <Input
+          <YdInput
             v-model="searchKeyword"
             placeholder="搜索图标名称..."
           />
@@ -778,17 +778,17 @@ defineExpose({ open, close });
         </div>
       </div>
 
-      <DialogFooter class="gap-2 sm:justify-between">
+      <YdDialogFooter class="gap-2 sm:justify-between">
         <span class="text-sm text-muted-foreground">
           共 {{ filteredIcons.length }} 个图标
         </span>
         <div class="flex gap-2">
-          <Button size="sm" variant="ghost" @click="clearSelection">清除选择</Button>
-          <Button size="sm" variant="outline" @click="close">取消</Button>
+          <YdButtonBase size="sm" variant="ghost" @click="clearSelection">清除选择</YdButtonBase>
+          <YdButtonBase size="sm" variant="outline" @click="close">取消</YdButtonBase>
         </div>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>
 
 <style scoped>

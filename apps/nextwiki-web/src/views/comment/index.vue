@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Button, Input, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -44,7 +44,7 @@ const gridOptions: VxeGridProps<FileCommentVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.resolved ? 'default' : 'destructive' }, () => (row.resolved ? '已解决' : '未解决')),
+          h(YdBadge, { variant: row.resolved ? 'default' : 'destructive' }, () => (row.resolved ? '已解决' : '未解决')),
       },
     },
     { field: 'createdBy', title: '评论人', width: 110 },
@@ -55,9 +55,9 @@ const gridOptions: VxeGridProps<FileCommentVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             !row.resolved
-              ? h(Button, { size: 'sm', variant: 'link', onClick: () => handleResolve(row) }, () => '解决')
+              ? h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleResolve(row) }, () => '解决')
               : h('span', {}, ''),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -105,9 +105,9 @@ async function handleDelete(row: FileCommentVO) {
 <template>
   <Page auto-content-height>
     <div class="mb-2 flex items-center gap-2">
-      <Input v-model="fileNodeId" placeholder="请输入文件节点ID" class="w-72" clearable @keyup.enter="handleQuery" />
-      <Button @click="handleQuery">查询评论</Button>
-      <Button @click="handleAdd">新增评论</Button>
+      <YdInput v-model="fileNodeId" placeholder="请输入文件节点ID" class="w-72" clearable @keyup.enter="handleQuery" />
+      <YdButtonBase @click="handleQuery">查询评论</YdButtonBase>
+      <YdButtonBase @click="handleAdd">新增评论</YdButtonBase>
     </div>
     <Grid table-title="文件评论" />
     <CommentFormModal @success="gridApi.query()" />

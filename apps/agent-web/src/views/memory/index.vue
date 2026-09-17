@@ -19,9 +19,9 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-// TODO: ElCard/ElEmpty/ElTag Card+空状态+标签 整体布局复杂,保留 element-plus SKIP
+// TODO: ElCard/ElEmpty/ElTag YdCard+空状态+标签 整体布局复杂,保留 element-plus SKIP
 import { ElCard, ElEmpty } from 'element-plus';
-import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -100,8 +100,8 @@ const columns: VxeTableGridOptions<MemoryVO>['columns'] = [
     slots: {
           default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(Button, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => '删除'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
     },
   },
@@ -140,12 +140,12 @@ const gridOptions: VxeTableGridOptions<MemoryVO> = {
       {
         field: 'content',
         title: '内容关键字',
-        itemRender: { name: 'Input', props: { placeholder: '请输入消息内容关键字' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入消息内容关键字' } },
       },
       {
         field: 'role',
         title: '消息角色',
-        itemRender: { name: 'Input', props: { placeholder: '请输入消息角色' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入消息角色' } },
       },
     ],
   },
@@ -246,15 +246,15 @@ async function handleDelete(row: MemoryVO): Promise<void> {
       <ElCard shadow="never">
         <div class="flex items-center gap-4">
           <span class="whitespace-nowrap text-sm font-medium">对话 ID：</span>
-          <Input
+          <YdInput
             v-model="queryConversationId"
             placeholder="请输入对话 Conversation ID"
             style="width: 360px"
             @keyup.enter="handleSearch"
           />
-          <Button :loading="isLoading" @click="handleSearch">查询</Button>
-          <Button variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清除全部</Button>
-          <Button variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">整合记忆</Button>
+          <YdButtonBase :loading="isLoading" @click="handleSearch">查询</YdButtonBase>
+          <YdButtonBase variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清除全部</YdButtonBase>
+          <YdButtonBase variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">整合记忆</YdButtonBase>
         </div>
       </ElCard>
 
@@ -301,7 +301,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
       <ElCard shadow="never">
         <Grid v-if="queryConversationId.trim()" table-title="对话记忆列表">
           <template #toolbar-tools>
-            <Button @click="handleSearch">刷新</Button>
+            <YdButtonBase @click="handleSearch">刷新</YdButtonBase>
           </template>
         </Grid>
         <ElEmpty v-else description="请输入对话 ID 后点击查询" />

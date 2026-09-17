@@ -26,20 +26,20 @@ import {
   ElTabs,
 } from 'element-plus';
 import {
-  Badge,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Textarea,
+  YdBadge,
+  YdButtonBase,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdTextarea,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -67,8 +67,8 @@ function isEnabled(row: FlowDelegateAuthVO): boolean {
 /** 授权状态标签 */
 function statusTag(row: FlowDelegateAuthVO) {
   return isEnabled(row)
-    ? h(Badge, { variant: 'default' }, () => t('delegate.enabled'))
-    : h(Badge, { variant: 'secondary' }, () => t('delegate.disabled'));
+    ? h(YdBadge, { variant: 'default' }, () => t('delegate.enabled'))
+    : h(YdBadge, { variant: 'secondary' }, () => t('delegate.disabled'));
 }
 
 const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
@@ -96,7 +96,7 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link' as const,
@@ -106,7 +106,7 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
               () => (isEnabled(row) ? t('common.disable') : t('common.enable')),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link' as const, class: 'text-destructive', onClick: () => handleRevoke(row) },
               () => t('common.revoke'),
             ),
@@ -269,7 +269,7 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
       <ElTabPane :label="t('delegate.myAuths')" name="mine">
         <MyGrid :table-title="t('delegate.myAuths')">
           <template #toolbar-tools>
-            <Button @click="handleAdd">{{ t('delegate.add') }}</Button>
+            <YdButtonBase @click="handleAdd">{{ t('delegate.add') }}</YdButtonBase>
           </template>
         </MyGrid>
       </ElTabPane>
@@ -277,11 +277,11 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
         <AsDelegateGrid :table-title="t('delegate.asDelegate')" />
       </ElTabPane>
     </ElTabs>
-    <Dialog :open="createVisible" @update:open="createVisible = $event">
-      <DialogContent class="!max-w-[520px]">
-        <DialogHeader>
-          <DialogTitle>{{ t('delegate.add.title') }}</DialogTitle>
-        </DialogHeader>
+    <YdDialog :open="createVisible" @update:open="createVisible = $event">
+      <YdDialogContent class="!max-w-[520px]">
+        <YdDialogHeader>
+          <YdDialogTitle>{{ t('delegate.add.title') }}</YdDialogTitle>
+        </YdDialogHeader>
         <ElForm
           ref="createFormRef"
           :model="createForm"
@@ -290,25 +290,25 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
           label-position="right"
         >
         <ElFormItem :label="t('delegate.targetUserId.label')" prop="delegateUserId">
-          <Input v-model="createForm.delegateUserId" :placeholder="t('delegate.targetUserId.placeholder')" />
+          <YdInput v-model="createForm.delegateUserId" :placeholder="t('delegate.targetUserId.placeholder')" />
         </ElFormItem>
         <ElFormItem :label="t('delegate.targetUserName.label')" prop="delegateUserName">
-          <Input v-model="createForm.delegateUserName" :placeholder="t('delegate.targetUserName.placeholder')" />
+          <YdInput v-model="createForm.delegateUserName" :placeholder="t('delegate.targetUserName.placeholder')" />
         </ElFormItem>
         <ElFormItem :label="t('delegate.scopeType.label')">
-          <Select v-model="createForm.scopeType">
-            <SelectTrigger>
-              <SelectValue :placeholder="t('delegate.scopeType.placeholder')" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ALL">{{ t('delegate.scopeType.all') }}</SelectItem>
-              <SelectItem value="FLOW">{{ t('delegate.scopeType.flow') }}</SelectItem>
-              <SelectItem value="NODE">{{ t('delegate.scopeType.node') }}</SelectItem>
-            </SelectContent>
-          </Select>
+          <YdSelectBase v-model="createForm.scopeType">
+            <YdSelectTriggerBase>
+              <YdSelectValueBase :placeholder="t('delegate.scopeType.placeholder')" />
+            </YdSelectTriggerBase>
+            <YdSelectContentBase>
+              <YdSelectItemBase value="ALL">{{ t('delegate.scopeType.all') }}</YdSelectItemBase>
+              <YdSelectItemBase value="FLOW">{{ t('delegate.scopeType.flow') }}</YdSelectItemBase>
+              <YdSelectItemBase value="NODE">{{ t('delegate.scopeType.node') }}</YdSelectItemBase>
+            </YdSelectContentBase>
+          </YdSelectBase>
         </ElFormItem>
         <ElFormItem :label="t('wf.flowCode')">
-          <Input
+          <YdInput
             v-model="createForm.flowCode"
             :placeholder="t('delegate.flowCode.placeholder')"
           />
@@ -332,17 +332,17 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
           />
         </ElFormItem>
         <ElFormItem :label="t('delegate.reason.label')">
-          <Textarea
+          <YdTextarea
             v-model="createForm.reason"
             :placeholder="t('delegate.reason.placeholder')"
           />
         </ElFormItem>
       </ElForm>
-        <DialogFooter>
-          <Button variant="secondary" @click="createVisible = false">{{ t('common.cancel') }}</Button>
-          <Button :loading="creating" @click="handleCreate">{{ t('common.confirm') }}</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="secondary" @click="createVisible = false">{{ t('common.cancel') }}</YdButtonBase>
+          <YdButtonBase :loading="creating" @click="handleCreate">{{ t('common.confirm') }}</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </Page>
 </template>

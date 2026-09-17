@@ -21,7 +21,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { upsert } from '#/api/preference';
 import type { MsgPreferenceVO } from '#/api/models';
 
@@ -146,31 +146,31 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
       label-position="right"
     >
       <ElFormItem label="用户ID" prop="userId">
-        <Input v-model="formData.userId" placeholder="请输入用户ID" />
+        <YdInput v-model="formData.userId" placeholder="请输入用户ID" />
       </ElFormItem>
       <ElFormItem label="通道" prop="channel">
-        <Input v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
+        <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="启用" prop="enabled">
-        <RadioGroup v-model="formData.enabled">
-          <RadioGroupItem :value="1">启用</RadioGroupItem>
-          <RadioGroupItem :value="0">停用</RadioGroupItem>
-        </RadioGroup>
+        <YdRadioGroup v-model="formData.enabled">
+          <YdRadioGroupItem :value="1">启用</YdRadioGroupItem>
+          <YdRadioGroupItem :value="0">停用</YdRadioGroupItem>
+        </YdRadioGroup>
       </ElFormItem>
       <ElFormItem label="免打扰" prop="dndEnabled">
-        <RadioGroup v-model="formData.dndEnabled">
-          <RadioGroupItem :value="1">开启</RadioGroupItem>
-          <RadioGroupItem :value="0">关闭</RadioGroupItem>
-        </RadioGroup>
+        <YdRadioGroup v-model="formData.dndEnabled">
+          <YdRadioGroupItem :value="1">开启</YdRadioGroupItem>
+          <YdRadioGroupItem :value="0">关闭</YdRadioGroupItem>
+        </YdRadioGroup>
       </ElFormItem>
       <ElFormItem label="免打扰开始" prop="dndStart">
-        <Input v-model="formData.dndStart" placeholder="如 22:00（可为空）" />
+        <YdInput v-model="formData.dndStart" placeholder="如 22:00（可为空）" />
       </ElFormItem>
       <ElFormItem label="免打扰结束" prop="dndEnd">
-        <Input v-model="formData.dndEnd" placeholder="如 08:00（可为空）" />
+        <YdInput v-model="formData.dndEnd" placeholder="如 08:00（可为空）" />
       </ElFormItem>
       <ElFormItem label="每日上限" prop="dailyLimit">
         <ElInputNumber v-model="formData.dailyLimit" :min="0" :max="99999" />
@@ -179,25 +179,25 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
         <ElInputNumber v-model="formData.hourlyLimit" :min="0" :max="9999" />
       </ElFormItem>
       <ElFormItem label="摘要订阅" prop="digestEnabled">
-        <RadioGroup v-model="formData.digestEnabled">
-          <RadioGroupItem :value="1">开启</RadioGroupItem>
-          <RadioGroupItem :value="0">关闭</RadioGroupItem>
-        </RadioGroup>
+        <YdRadioGroup v-model="formData.digestEnabled">
+          <YdRadioGroupItem :value="1">开启</YdRadioGroupItem>
+          <YdRadioGroupItem :value="0">关闭</YdRadioGroupItem>
+        </YdRadioGroup>
       </ElFormItem>
       <ElFormItem label="摘要频率" prop="digestFrequency">
-        <Select v-model="formData.digestFrequency">
-          <SelectTrigger>
-            <SelectValue placeholder="请选择摘要频率（可为空）" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="DAILY">每天</SelectItem>
-            <SelectItem value="WEEKLY">每周</SelectItem>
-            <SelectItem value="MONTHLY">每月</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="formData.digestFrequency">
+          <YdSelectTriggerBase>
+            <YdSelectValueBase placeholder="请选择摘要频率（可为空）" />
+          </YdSelectTriggerBase>
+          <YdSelectContentBase>
+            <YdSelectItemBase value="DAILY">每天</YdSelectItemBase>
+            <YdSelectItemBase value="WEEKLY">每周</YdSelectItemBase>
+            <YdSelectItemBase value="MONTHLY">每月</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem label="语言" prop="locale">
-        <Input v-model="formData.locale" placeholder="请输入语言（可为空）" />
+        <YdInput v-model="formData.locale" placeholder="请输入语言（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>

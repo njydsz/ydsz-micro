@@ -1,7 +1,7 @@
 <!--
  * 用户头像组件 — 含在线状态指示
  *
- * 使用自研 Avatar 组件栈（Avatar / AvatarImage / AvatarFallback）+ 在线状态点。
+ * 使用自研 YdAvatarBase 组件栈（YdAvatarBase / YdAvatarImageBase / YdAvatarFallbackBase）+ 在线状态点。
  *
  * @path comm\effects\shared-business\src\components\user-avatar.vue
  * @author ydsz-team
@@ -11,9 +11,9 @@
 import { computed } from 'vue';
 
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
+  YdAvatarBase,
+  YdAvatarFallbackBase,
+  YdAvatarImageBase,
 } from '@ydsz-core/shadcn-ui';
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -43,19 +43,19 @@ const displayName = computed(() => {
     :class="cn('user-avatar', 'relative inline-flex')"
     :style="{ '--avatar-size': size + 'px' }"
   >
-    <Avatar
+    <YdAvatarBase
       :class="cn('user-avatar__container')"
       :style="{ width: size + 'px', height: size + 'px' }"
     >
-      <AvatarImage
+      <YdAvatarImageBase
         v-if="avatar"
         :src="avatar"
         :alt="props.name || props.userId"
       />
-      <AvatarFallback>
+      <YdAvatarFallbackBase>
         {{ displayName }}
-      </AvatarFallback>
-    </Avatar>
+      </YdAvatarFallbackBase>
+    </YdAvatarBase>
     <span
       v-if="online"
       class="online-dot"

@@ -1,7 +1,7 @@
 <!--
  * TenantSwitcher — 顶栏租户切换器
  *
- * <p>基于自研 shadcn-ui Select 原语实现多租户切换功能（EP 退场 v3 §P0-2，
+ * <p>基于自研 shadcn-ui YdSelectBase 原语实现多租户切换功能（EP 退场 v3 §P0-2，
  * 原 Element Plus ElSelect/ElTooltip/ElMessage 全部替换）。
  * 仅当存在多个可访问租户（或当前用户为超级管理员）时显示切换入口。
  * 切换后更新 TenantStore、localStorage 并刷新页面以加载新租户数据。
@@ -19,15 +19,15 @@ import { useTenant } from '@ydsz/shared-business';
 import { useUserStore, useTenantStore } from '@ydsz/stores';
 import { showToast } from '@ydsz/notification';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdTooltipBase,
+  YdTooltipContentBase,
+  YdTooltipProviderBase,
+  YdTooltipTriggerBase,
 } from '@ydsz-core/shadcn-ui';
 
 /** 引入多租户 composable（提供租户列表加载、切换等能力） */
@@ -148,11 +148,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <TooltipProvider :delay-duration="300">
+  <YdTooltipProviderBase :delay-duration="300">
     <div class="tenant-switcher flex items-center">
       <!-- 加载中状态 -->
-      <Tooltip v-if="loading">
-        <TooltipTrigger as-child>
+      <YdTooltipBase v-if="loading">
+        <YdTooltipTriggerBase as-child>
           <span
             class="tenant-switcher__loading flex items-center gap-1 px-2 py-1 text-xs"
           >
@@ -178,20 +178,20 @@ onMounted(async () => {
             </svg>
             <span>加载租户...</span>
           </span>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">正在加载租户列表...</TooltipContent>
-      </Tooltip>
+        </YdTooltipTriggerBase>
+        <YdTooltipContentBase side="bottom">正在加载租户列表...</YdTooltipContentBase>
+      </YdTooltipBase>
 
       <!-- 切换器主体 -->
-      <Select
+      <YdSelectBase
         v-else-if="visible"
         v-model="selectedTenantId"
         :disabled="loading"
         @update:model-value="handleTenantChange"
       >
-        <Tooltip>
-          <TooltipTrigger as-child>
-            <SelectTrigger
+        <YdTooltipBase>
+          <YdTooltipTriggerBase as-child>
+            <YdSelectTriggerBase
               class="tenant-switcher__select w-[200px]"
               aria-label="切换租户"
             >
@@ -220,15 +220,15 @@ onMounted(async () => {
                   <path d="M15 20v-2" />
                 </svg>
               </span>
-              <SelectValue :placeholder="displayName" />
-            </SelectTrigger>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">切换租户</TooltipContent>
-        </Tooltip>
+              <YdSelectValueBase :placeholder="displayName" />
+            </YdSelectTriggerBase>
+          </YdTooltipTriggerBase>
+          <YdTooltipContentBase side="bottom">切换租户</YdTooltipContentBase>
+        </YdTooltipBase>
 
         <!-- 租户选项列表 -->
-        <SelectContent class="tenant-switcher__popper">
-          <SelectItem
+        <YdSelectContentBase class="tenant-switcher__popper">
+          <YdSelectItemBase
             v-for="tenant in accessibleTenants"
             :key="tenant.id"
             :value="tenant.id"
@@ -253,29 +253,29 @@ onMounted(async () => {
                 {{ tenant.tenantCode }}
               </span>
             </span>
-          </SelectItem>
+          </YdSelectItemBase>
           <template v-if="accessibleTenants.length === 0">
             <div class="px-3 py-2 text-sm text-gray-400">暂无可访问租户</div>
           </template>
-        </SelectContent>
-      </Select>
+        </YdSelectContentBase>
+      </YdSelectBase>
 
       <!-- 错误提示（加载失败但需要展示占位） -->
-      <Tooltip v-else-if="error">
-        <TooltipTrigger as-child>
+      <YdTooltipBase v-else-if="error">
+        <YdTooltipTriggerBase as-child>
           <span
             class="tenant-switcher__error cursor-pointer px-2 py-1 text-xs text-red-500"
             @click="loadAccessibleTenants()"
           >
             {{ displayName }}
           </span>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">
+        </YdTooltipTriggerBase>
+        <YdTooltipContentBase side="bottom">
           {{ `租户加载失败：${error}，点击重试` }}
-        </TooltipContent>
-      </Tooltip>
+        </YdTooltipContentBase>
+      </YdTooltipBase>
     </div>
-  </TooltipProvider>
+  </YdTooltipProviderBase>
 </template>
 
 <style lang="scss" scoped>

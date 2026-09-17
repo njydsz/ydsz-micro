@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, reactive, ref, watch } from 'vue';
 import { evaluate } from '#/api/prompt';
 
@@ -98,18 +98,18 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <Dialog :open="visible" @update:open="(v) => { if (!v) close(); }">
-    <DialogContent class="max-w-[700px]">
-      <DialogHeader>
-        <DialogTitle>Prompt 模板测试</DialogTitle>
-      </DialogHeader>
+  <YdDialog :open="visible" @update:open="(v) => { if (!v) close(); }">
+    <YdDialogContent class="max-w-[700px]">
+      <YdDialogHeader>
+        <YdDialogTitle>Prompt 模板测试</YdDialogTitle>
+      </YdDialogHeader>
       <div v-if="template" class="space-y-4">
         <!-- 变量填写 -->
         <div>
           <p class="mb-2 text-sm font-medium">变量填写</p>
           <div v-for="(value, key) in variableValues" :key="key" class="mb-2 flex items-center gap-2">
             <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{ `${prefix}${key}${suffix}` }}</span>
-            <Input v-model="variableValues[key]" size="sm" placeholder="输入变量值" />
+            <YdInput v-model="variableValues[key]" size="sm" placeholder="输入变量值" />
           </div>
           <p v-if="Object.keys(variableValues).length === 0" class="text-xs text-gray-400">该模板没有变量</p>
         </div>
@@ -127,11 +127,11 @@ defineExpose({ open, close });
       </div>
     </div>
 
-      <DialogFooter>
-        <Button variant="outline" @click="close">关闭</Button>
-        <Button :disabled="evaluating" @click="handleEvaluate">执行评估</Button>
-      </DialogFooter>
+      <YdDialogFooter>
+        <YdButtonBase variant="outline" @click="close">关闭</YdButtonBase>
+        <YdButtonBase :disabled="evaluating" @click="handleEvaluate">执行评估</YdButtonBase>
+      </YdDialogFooter>
     </div>
-  </DialogContent>
-</Dialog>
+  </YdDialogContent>
+</YdDialog>
 </template>

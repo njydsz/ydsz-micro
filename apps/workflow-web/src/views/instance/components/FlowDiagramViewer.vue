@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO, FlowInstanceVO } from '#/api/models';
@@ -162,7 +162,7 @@ onMounted(() => {
       <div v-else-if="diagramSvg && diagramData" class="diagram-content" v-safe-html="diagramSvg" />
       <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
         <p>暂无流程图数据</p>
-        <Button size="sm" variant="secondary" class="mt-2" @click="loadDiagram">重新加载</Button>
+        <YdButtonBase size="sm" variant="secondary" class="mt-2" @click="loadDiagram">重新加载</YdButtonBase>
       </div>
     </div>
 
@@ -184,9 +184,9 @@ onMounted(() => {
             :style="{ backgroundColor: NODE_STATUS_MAP[node.status]?.color ?? '#909399' }"
           />
           <span class="text-sm">{{ node.name }}</span>
-          <Badge :variant="node.status === 'CURRENT' ? 'default' : 'secondary'">
+          <YdBadge :variant="node.status === 'CURRENT' ? 'default' : 'secondary'">
             {{ NODE_STATUS_MAP[node.status]?.label ?? node.status }}
-          </Badge>
+          </YdBadge>
         </div>
       </div>
     </div>

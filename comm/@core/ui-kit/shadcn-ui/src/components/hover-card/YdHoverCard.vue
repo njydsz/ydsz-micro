@@ -21,7 +21,7 @@ import { computed } from 'vue';
 
 import { useForwardPropsEmits } from 'radix-vue';
 
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../ui';
+import { YdHoverCardBase, YdHoverCardContentBase, YdHoverCardTriggerBase } from '../../ui';
 
 interface Props extends HoverCardRootProps {
   class?: ClassType;
@@ -48,20 +48,20 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <HoverCard v-bind="forwarded">
-    <HoverCardTrigger as-child class="h-full">
+  <YdHoverCardBase v-bind="forwarded">
+    <YdHoverCardTriggerBase as-child class="h-full">
       <div class="h-full cursor-pointer">
         <slot name="trigger"></slot>
       </div>
-    </HoverCardTrigger>
-    <HoverCardContent
+    </YdHoverCardTriggerBase>
+    <YdHoverCardContentBase
       :class="contentClass"
       v-bind="contentProps"
       class="side-content z-popup"
       role="tooltip"
     >
       <slot></slot>
-    </HoverCardContent>
-  </HoverCard>
+    </YdHoverCardContentBase>
+  </YdHoverCardBase>
 </template>
 

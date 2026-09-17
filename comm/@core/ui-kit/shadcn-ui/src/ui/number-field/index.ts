@@ -8,8 +8,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as NumberField } from './NumberField.vue';
-export { default as NumberFieldContent } from './NumberFieldContent.vue';
-export { default as NumberFieldDecrement } from './NumberFieldDecrement.vue';
-export { default as NumberFieldIncrement } from './NumberFieldIncrement.vue';
-export { default as NumberFieldInput } from './NumberFieldInput.vue';
+export { default as YdNumberField } from './YdNumberField.vue';
+export { default as YdNumberFieldContent } from './YdNumberFieldContent.vue';
+export { default as YdNumberFieldDecrement } from './YdNumberFieldDecrement.vue';
+export { default as YdNumberFieldIncrement } from './YdNumberFieldIncrement.vue';
+export { default as YdNumberFieldInput } from './YdNumberFieldInput.vue';

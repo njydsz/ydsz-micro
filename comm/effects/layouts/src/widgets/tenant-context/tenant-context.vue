@@ -16,14 +16,14 @@ import { Building2 } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  YdDropdownMenuBase,
+  YdDropdownMenuContentBase,
+  YdDropdownMenuItemBase,
+  YdDropdownMenuLabelBase,
+  YdDropdownMenuSeparatorBase,
+  YdDropdownMenuTriggerBase,
   YdIcon,
-  Badge,
+  YdBadge,
 } from '@ydsz-core/shadcn-ui';
 
 import { useTenant, type TenantInfo } from '@ydsz/shared-business';
@@ -92,31 +92,31 @@ onMounted(async () => {
 </script>
 
 <template>
-  <DropdownMenu v-if="visible">
-    <DropdownMenuTrigger
+  <YdDropdownMenuBase v-if="visible">
+    <YdDropdownMenuTriggerBase
       class="hover:bg-accent ml-1 mr-1 flex cursor-pointer items-center gap-1 rounded-md px-2 py-1.5 transition-colors"
     >
       <YdIcon icon="Building2" class="text-primary size-4" />
       <span class="text-foreground max-w-[120px] truncate text-sm font-medium">
         {{ displayName }}
       </span>
-      <Badge
+      <YdBadge
         v-if="displayCode"
         class="bg-primary/10 text-primary hover:bg-primary/10 ml-0.5 shrink-0 text-[10px]"
         variant="outline"
       >
         {{ displayCode }}
-      </Badge>
+      </YdBadge>
       <ChevronDown class="text-muted-foreground ml-0.5 size-3" />
-    </DropdownMenuTrigger>
+    </YdDropdownMenuTriggerBase>
 
-    <DropdownMenuContent class="w-[240px] p-0 pb-1" align="end">
-      <DropdownMenuLabel class="text-muted-foreground px-3 py-2 text-xs">
+    <YdDropdownMenuContentBase class="w-[240px] p-0 pb-1" align="end">
+      <YdDropdownMenuLabelBase class="text-muted-foreground px-3 py-2 text-xs">
         {{ $t('ui.widgets.tenantContext.title') ?? '切换租户' }}
-      </DropdownMenuLabel>
-      <DropdownMenuSeparator />
+      </YdDropdownMenuLabelBase>
+      <YdDropdownMenuSeparatorBase />
 
-      <DropdownMenuItem
+      <YdDropdownMenuItemBase
         v-for="tenant in accessibleTenants"
         :key="tenant.id"
         :class="[
@@ -140,20 +140,20 @@ onMounted(async () => {
           >
             {{ tenant.tenantName }}
           </span>
-          <Badge
+          <YdBadge
             class="ml-1 shrink-0 text-[10px]"
             :variant="tenant.id === activeTenantId ? 'default' : 'secondary'"
           >
             {{ tenant.tenantCode }}
-          </Badge>
+          </YdBadge>
         </div>
-      </DropdownMenuItem>
+      </YdDropdownMenuItemBase>
 
-      <DropdownMenuItem v-if="loading" disabled class="text-muted-foreground justify-center text-center text-xs">
+      <YdDropdownMenuItemBase v-if="loading" disabled class="text-muted-foreground justify-center text-center text-xs">
         {{ $t('ui.widgets.tenantContext.loading') ?? '加载中...' }}
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
+      </YdDropdownMenuItemBase>
+    </YdDropdownMenuContentBase>
+  </YdDropdownMenuBase>
 
   <!-- 单租户模式仅显示当前租户名称 -->
   <div
@@ -164,12 +164,12 @@ onMounted(async () => {
     <span class="text-foreground max-w-[120px] truncate text-sm font-medium">
       {{ displayName }}
     </span>
-    <Badge
+    <YdBadge
       v-if="displayCode"
       class="bg-primary/10 text-primary hover:bg-primary/10 ml-0.5 shrink-0 text-[10px]"
       variant="outline"
     >
       {{ displayCode }}
-    </Badge>
+    </YdBadge>
   </div>
 </template>

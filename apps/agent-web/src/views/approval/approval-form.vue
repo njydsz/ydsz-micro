@@ -18,7 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElForm/ElFormItem/ElInput 表单套件复杂,保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput } from 'element-plus';
-import { Button } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { computed, ref } from 'vue';
 
 import { approve, getApproval, reject } from '#/api/humanApproval';
@@ -108,8 +108,8 @@ async function handleSubmit(action: 'approve' | 'reject') {
       </ElFormItem>
     </ElForm>
     <div class="mt-2 flex justify-end gap-2">
-      <Button variant="destructive" :disabled="submitting" @click="handleSubmit('reject')">驳回</Button>
-      <Button :disabled="submitting" @click="handleSubmit('approve')">通过</Button>
+      <YdButtonBase variant="destructive" :disabled="submitting" @click="handleSubmit('reject')">驳回</YdButtonBase>
+      <YdButtonBase :disabled="submitting" @click="handleSubmit('approve')">通过</YdButtonBase>
     </div>
   </Modal>
 </template>

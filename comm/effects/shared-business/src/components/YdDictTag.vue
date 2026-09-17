@@ -1,7 +1,7 @@
 <!--
  * 字典标签组件 — 将字典值渲染为带颜色的标签（表格列常用）
  *
- * 使用自研 shadcn Badge 组件，零 element-plus 依赖。
+ * 使用自研 shadcn YdBadge 组件，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\dict-tag.vue
  * @author ydsz-team
@@ -12,11 +12,11 @@
  * 字典标签组件 — 将字典值渲染为带颜色的标签。
  *
  * 基于《UI组件复用规范.md》§3.1 的语义名约定，保留对旧 EP 色名（info/warning/primary/
- * success/danger）的兼容映射，内部统一归一到 shadcn Badge variant。
+ * success/danger）的兼容映射，内部统一归一到 shadcn YdBadge variant。
  */
 import { computed, onMounted, watch } from 'vue';
 
-import { Badge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/shadcn-ui';
 
 import { useDictStore } from '@ydsz/stores';
 
@@ -46,7 +46,7 @@ const colorPalette: EpColor[] = [
   'danger',
 ];
 
-/** EP color -> shadcn Badge variant 兼容映射 */
+/** EP color -> shadcn YdBadge variant 兼容映射 */
 function colorToVariant(color?: EpColor): 'default' | 'outline' | 'secondary' | 'destructive' {
   const map: Record<EpColor, 'default' | 'outline' | 'secondary' | 'destructive'> = {
     info: 'secondary',
@@ -93,12 +93,12 @@ watch(
 </script>
 
 <template>
-  <Badge
+  <YdBadge
     v-if="current"
     :variant="tagVariant"
   >
     {{ current.itemText }}
-  </Badge>
+  </YdBadge>
   <span
     v-else
     class="dict-tag--empty"

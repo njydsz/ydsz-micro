@@ -1,7 +1,7 @@
 <!--
  * async-state 通用容器组件
  *
- * 使用自研 Button + 自绘 skeleton placeholder，零 element-plus 依赖。
+ * 使用自研 YdButtonBase + 自绘 skeleton placeholder，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\async-state.vue
  * @author ydsz-team
@@ -23,7 +23,7 @@ import { computed } from 'vue';
 
 import { AlertCircle } from 'lucide-vue-next';
 
-import { Button } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   /** 是否加载中 */
@@ -87,12 +87,12 @@ const skeletonRowArray = computed<number[]>(() =>
       >
         {{ error }}
       </p>
-      <Button
+      <YdButtonBase
         size="sm"
         @click="$emit('retry')"
       >
         重试
-      </Button>
+      </YdButtonBase>
     </div>
   </div>
 

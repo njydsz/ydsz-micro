@@ -1,5 +1,5 @@
 /**
- * 可拖拽分栏的出口：面板组、拖拽手柄，并把 radix 的 SplitterPanel 以 ResizablePanel 之名透出。
+ * 可拖拽分栏的出口：面板组、拖拽手柄，并把 radix 的 SplitterPanel 以 YdResizablePanel 之名透出。
  *
  * 改名是为了让术语统一在 resizable 这套词汇上：
  * 面板（Panel）、手柄（Handle）、组（PanelGroup），
@@ -9,6 +9,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as ResizableHandle } from './ResizableHandle.vue';
-export { default as ResizablePanelGroup } from './ResizablePanelGroup.vue';
-export { SplitterPanel as ResizablePanel } from 'radix-vue';
+export { default as YdResizableHandle } from './YdResizableHandle.vue';
+export { default as YdResizablePanelGroup } from './YdResizablePanelGroup.vue';
+export { SplitterPanel as YdResizablePanel } from 'radix-vue';

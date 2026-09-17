@@ -11,7 +11,7 @@
  *
  * v4.0 P1-1 新增共享策略分级：
  * - `core`：仅框架核心（Vue / Vue Router / Pinia）—— 最小外置集，适合仅表单/列表等简单子应用
- * - `core-ui`：框架 + UI 库（Element Plus / VXE-Table）—— 标准策略，适合有完整 UI 交互的子应用
+ * - `core-ui`：框架 + UI 库（Element Plus / VXE-YdTable）—— 标准策略，适合有完整 UI 交互的子应用
  * - `all`：框架 + UI + 工具库（Echarts / Dayjs 等）—— 当前默认，适合图表密集的子应用
  *
  * 子应用通过 package.json `YDSZ.shareStrategy` 字段选择策略：
@@ -81,7 +81,7 @@ const STRATEGY_MAP: Record<ShareStrategy, ReadonlyArray<{ name: string; range: s
  *
  * @example
  * getSharedDeps('core')      // 仅 Vue / Vue Router / Pinia
- * getSharedDeps('core-ui')   // 框架 + Element Plus / VXE-Table
+ * getSharedDeps('core-ui')   // 框架 + Element Plus / VXE-YdTable
  * getSharedDeps('all')       // 当前全量
  */
 export function getSharedDeps(strategy: ShareStrategy = 'all') {

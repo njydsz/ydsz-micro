@@ -13,7 +13,7 @@ import { computed, ref } from 'vue';
 
 import { type Editor } from '@tiptap/vue-3';
 
-import { Input, Popover, PopoverContent, PopoverTrigger, YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdInput, YdPopoverBase, YdPopoverContentBase, YdPopoverTriggerBase, YdTooltip } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   /** TipTap 编辑器实例 */
@@ -254,8 +254,8 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
     <div class="toolbar-divider" />
 
     <!-- 链接 -->
-    <Popover v-model:open="linkDialogVisible">
-      <PopoverTrigger as-child>
+    <YdPopoverBase v-model:open="linkDialogVisible">
+      <YdPopoverTriggerBase as-child>
         <button
           class="toolbar-btn"
           :class="{ active: isActive('link') }"
@@ -264,16 +264,16 @@ const isActive = (name: string, attrs?: Record<string, unknown>): boolean => {
         >
           🔗
         </button>
-      </PopoverTrigger>
-      <PopoverContent class="w-[300px]" side="bottom">
+      </YdPopoverTriggerBase>
+      <YdPopoverContentBase class="w-[300px]" side="bottom">
         <div class="flex flex-col gap-2 p-2">
-          <Input v-model="linkUrl" placeholder="输入 URL..." class="h-8 text-xs" />
+          <YdInput v-model="linkUrl" placeholder="输入 URL..." class="h-8 text-xs" />
           <button class="toolbar-confirm-btn" @click="setLink">
             确认
           </button>
         </div>
-      </PopoverContent>
-    </Popover>
+      </YdPopoverContentBase>
+    </YdPopoverBase>
 
     <!-- 表格 -->
     <YdTooltip side="top">

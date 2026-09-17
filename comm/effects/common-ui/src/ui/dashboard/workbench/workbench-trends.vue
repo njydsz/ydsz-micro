@@ -9,10 +9,10 @@
 import type { WorkbenchTrendItem } from '../typing';
 
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
   YdIcon,
 } from '@ydsz-core/shadcn-ui';
 
@@ -31,11 +31,11 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <Card>
-    <CardHeader class="py-4">
-      <CardTitle class="text-lg">{{ title }}</CardTitle>
-    </CardHeader>
-    <CardContent class="flex flex-wrap p-5 pt-0">
+  <YdCard>
+    <YdCardHeader class="py-4">
+      <YdCardTitle class="text-lg">{{ title }}</YdCardTitle>
+    </YdCardHeader>
+    <YdCardContent class="flex flex-wrap p-5 pt-0">
       <ul class="divide-border w-full divide-y" role="list">
         <li
           v-for="item in items"
@@ -65,6 +65,6 @@ withDefaults(defineProps<Props>(), {
           </div>
         </li>
       </ul>
-    </CardContent>
-  </Card>
+    </YdCardContent>
+  </YdCard>
 </template>

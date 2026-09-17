@@ -8,5 +8,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as RadioGroup } from './RadioGroup.vue';
-export { default as RadioGroupItem } from './RadioGroupItem.vue';
+export { default as YdRadioGroup } from './YdRadioGroup.vue';
+export { default as YdRadioGroupItem } from './YdRadioGroupItem.vue';

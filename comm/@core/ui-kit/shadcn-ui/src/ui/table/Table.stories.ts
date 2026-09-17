@@ -1,5 +1,5 @@
 /**
- * Table 组件 Storybook Stories。
+ * YdTable 组件 Storybook Stories。
  *
  * P0-3: 无障碍数据表格 — 语义化表格结构演示。
  *
@@ -9,7 +9,7 @@
  *  - `Empty`：空数据占位；
  *  - `SelectableRows`：可选中行。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\Table.stories.ts
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTable.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -18,26 +18,26 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableEmpty,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
+  YdTable,
+  YdTableBody,
+  YdTableCaption,
+  YdTableCell,
+  YdTableEmpty,
+  YdTableFooter,
+  YdTableHead,
+  YdTableHeader,
+  YdTableRow,
 } from './index';
 
 const meta: Meta = {
-  title: 'Core/Table',
+  title: 'Core/YdTable',
   // cspell:disable-next-line
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          '无障碍语义化表格组件，由 Table / Header / Body / Row / Cell / Head / Caption 组成。',
+          '无障碍语义化表格组件，由 YdTable / Header / Body / Row / Cell / Head / Caption 组成。',
       },
     },
   },
@@ -69,28 +69,28 @@ type Story = StoryObj;
 /** 基础表格 */
 export const Default: Story = {
   render: () => ({
-    components: { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow },
+    components: { YdTable, YdTableBody, YdTableCaption, YdTableCell, YdTableHead, YdTableHeader, YdTableRow },
     setup() {
       return { sampleData };
     },
     template: `
-      <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead width="120px">Status</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead align="right">Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow v-for="row in sampleData" :key="row.id">
-            <TableCell>{{ row.status }}</TableCell>
-            <TableCell>{{ row.email }}</TableCell>
-            <TableCell align="right">{{ row.amount }}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <YdTable>
+        <YdTableCaption>A list of your recent invoices.</YdTableCaption>
+        <YdTableHeader>
+          <YdTableRow>
+            <YdTableHead width="120px">Status</YdTableHead>
+            <YdTableHead>Email</YdTableHead>
+            <YdTableHead align="right">Amount</YdTableHead>
+          </YdTableRow>
+        </YdTableHeader>
+        <YdTableBody>
+          <YdTableRow v-for="row in sampleData" :key="row.id">
+            <YdTableCell>{{ row.status }}</YdTableCell>
+            <YdTableCell>{{ row.email }}</YdTableCell>
+            <YdTableCell align="right">{{ row.amount }}</YdTableCell>
+          </YdTableRow>
+        </YdTableBody>
+      </YdTable>
     `,
   }),
 };
@@ -98,31 +98,31 @@ export const Default: Story = {
 /** 带汇总行的表格 */
 export const WithFooter: Story = {
   render: () => ({
-    components: { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow },
+    components: { YdTable, YdTableBody, YdTableCell, YdTableFooter, YdTableHead, YdTableHeader, YdTableRow },
     setup() {
       return { sampleData };
     },
     template: `
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Email</TableHead>
-            <TableHead align="right">Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow v-for="row in sampleData" :key="row.id">
-            <TableCell>{{ row.email }}</TableCell>
-            <TableCell align="right">{{ row.amount }}</TableCell>
-          </TableRow>
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell>Total</TableCell>
-            <TableCell align="right" class="font-semibold">{{ sampleData.reduce((acc, r) => acc + r.amount, 0) }}</TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
+      <YdTable>
+        <YdTableHeader>
+          <YdTableRow>
+            <YdTableHead>Email</YdTableHead>
+            <YdTableHead align="right">Amount</YdTableHead>
+          </YdTableRow>
+        </YdTableHeader>
+        <YdTableBody>
+          <YdTableRow v-for="row in sampleData" :key="row.id">
+            <YdTableCell>{{ row.email }}</YdTableCell>
+            <YdTableCell align="right">{{ row.amount }}</YdTableCell>
+          </YdTableRow>
+        </YdTableBody>
+        <YdTableFooter>
+          <YdTableRow>
+            <YdTableCell>Total</YdTableCell>
+            <YdTableCell align="right" class="font-semibold">{{ sampleData.reduce((acc, r) => acc + r.amount, 0) }}</YdTableCell>
+          </YdTableRow>
+        </YdTableFooter>
+      </YdTable>
     `,
   }),
 };
@@ -130,20 +130,20 @@ export const WithFooter: Story = {
 /** 空数据 */
 export const Empty: Story = {
   render: () => ({
-    components: { Table, TableBody, TableCell, TableEmpty, TableHead, TableHeader, TableRow },
+    components: { YdTable, YdTableBody, YdTableCell, YdTableEmpty, YdTableHead, YdTableHeader, YdTableRow },
     template: `
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead width="120px">Status</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead align="right">Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableEmpty :colspan="3" />
-        </TableBody>
-      </Table>
+      <YdTable>
+        <YdTableHeader>
+          <YdTableRow>
+            <YdTableHead width="120px">Status</YdTableHead>
+            <YdTableHead>Email</YdTableHead>
+            <YdTableHead align="right">Amount</YdTableHead>
+          </YdTableRow>
+        </YdTableHeader>
+        <YdTableBody>
+          <YdTableEmpty :colspan="3" />
+        </YdTableBody>
+      </YdTable>
     `,
   }),
 };
@@ -151,7 +151,7 @@ export const Empty: Story = {
 /** 可选中行 */
 export const SelectableRows: Story = {
   render: () => ({
-    components: { Table, TableBody, TableCell, TableHead, TableHeader, TableRow },
+    components: { YdTable, YdTableBody, YdTableCell, YdTableHead, YdTableHeader, YdTableRow },
     setup() {
       const selected = ref<string[]>([]);
       function toggle(id: string): void {
@@ -162,27 +162,27 @@ export const SelectableRows: Story = {
       return { sampleData, selected, toggle };
     },
     template: `
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Selected</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead align="right">Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow
+      <YdTable>
+        <YdTableHeader>
+          <YdTableRow>
+            <YdTableHead>Selected</YdTableHead>
+            <YdTableHead>Email</YdTableHead>
+            <YdTableHead align="right">Amount</YdTableHead>
+          </YdTableRow>
+        </YdTableHeader>
+        <YdTableBody>
+          <YdTableRow
             v-for="row in sampleData"
             :key="row.id"
             :selected="selected.includes(row.id)"
             @click="toggle(row.id)"
           >
-            <TableCell>{{ selected.includes(row.id) ? '✓' : '' }}</TableCell>
-            <TableCell>{{ row.email }}</TableCell>
-            <TableCell align="right">{{ row.amount }}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+            <YdTableCell>{{ selected.includes(row.id) ? '✓' : '' }}</YdTableCell>
+            <YdTableCell>{{ row.email }}</YdTableCell>
+            <YdTableCell align="right">{{ row.amount }}</YdTableCell>
+          </YdTableRow>
+        </YdTableBody>
+      </YdTable>
     `,
   }),
 };

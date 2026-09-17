@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -78,7 +78,7 @@ const gridOptions: VxeTableGridOptions<SocialClientVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            Badge,
+            YdBadge,
             { variant: getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary', class: 'text-xs' },
             () => row.platform ?? '-',
           ),
@@ -96,7 +96,7 @@ const gridOptions: VxeTableGridOptions<SocialClientVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -113,12 +113,12 @@ const gridOptions: VxeTableGridOptions<SocialClientVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -128,7 +128,7 @@ const gridOptions: VxeTableGridOptions<SocialClientVO> = {
               () => (isEnabled(row.status) ? '禁用' : '启用'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -160,13 +160,13 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   formOptions: {
     schema: [
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: '平台名称' },
         fieldName: 'platformName',
         label: '平台名称',
       },
       {
-        component: 'Select',
+        component: 'YdSelectBase',
         componentProps: {
           placeholder: '平台',
           options: PLATFORM_OPTIONS,
@@ -175,7 +175,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({
         label: '平台标识',
       },
       {
-        component: 'Select',
+        component: 'YdSelectBase',
         componentProps: {
           placeholder: t('page.status'),
           options: [
@@ -373,7 +373,7 @@ async function handleDelete(row: SocialClientVO) {
   <Page auto-content-height>
     <Grid table-title="社交客户端配置管理">
       <template #toolbar-tools>
-        <Button variant="default" @click="handleAdd">新增配置</Button>
+        <YdButtonBase variant="default" @click="handleAdd">新增配置</YdButtonBase>
       </template>
     </Grid>
 

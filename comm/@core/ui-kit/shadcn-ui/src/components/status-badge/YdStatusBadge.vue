@@ -1,5 +1,5 @@
 <!--
- * 语义状态标签：在 Badge 之上封装业务语义状态。
+ * 语义状态标签：在 YdBadge 之上封装业务语义状态。
  *
  * 设计目标：
  *  - 统一 ForgeLab forge-admin 状态标签配色：草稿(黄)、已发布(绿)、变更未发布(橙)等；
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { Badge } from '../../ui/badge';
+import { YdBadge } from '../../ui/badge';
 import type { BadgeVariants } from '../../ui/badge';
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
   dot: true,
 });
 
-/** 状态 → Badge 变体映射 */
+/** 状态 → YdBadge 变体映射 */
 const variantMap: Record<StatusVariant, BadgeVariants['variant']> = {
   archived: 'secondary',
   dirty: 'warning',
@@ -85,7 +85,7 @@ const dotColor = computed<string>(() => dotColorMap[badgeVariant.value ?? 'defau
 </script>
 
 <template>
-  <Badge
+  <YdBadge
     :class="cn('gap-1.5', props.class)"
     :variant="badgeVariant"
   >
@@ -95,5 +95,5 @@ const dotColor = computed<string>(() => dotColorMap[badgeVariant.value ?? 'defau
       aria-hidden="true"
     />
     <span class="leading-none">{{ displayLabel }}</span>
-  </Badge>
+  </YdBadge>
 </template>

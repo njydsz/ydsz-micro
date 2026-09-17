@@ -1,5 +1,5 @@
 /**
- * FormItem 与 form 相关组件测试 — 验证注入上下文、消息可见性
+ * YdFormItem 与 form 相关组件测试 — 验证注入上下文、消息可见性
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-FE-001：测试用例必须有明确断言。
  *
@@ -12,20 +12,20 @@ import { describe, it, expect } from 'vitest';
 
 import { mount } from '@vue/test-utils';
 
-import FormItem from './FormItem.vue';
-import FormLabel from './FormLabel.vue';
-import FormControl from './FormControl.vue';
-import FormMessage from './FormMessage.vue';
-import FormDescription from './FormDescription.vue';
+import YdFormItem from './YdFormItem.vue';
+import YdFormLabel from './YdFormLabel.vue';
+import YdFormControl from './YdFormControl.vue';
+import YdFormMessage from './YdFormMessage.vue';
+import YdFormDescription from './YdFormDescription.vue';
 import { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
 
-describe('FormItem', () => {
+describe('YdFormItem', () => {
   it('应包含 class prop', () => {
-    expect(FormItem.props).toHaveProperty('class');
+    expect(YdFormItem.props).toHaveProperty('class');
   });
 
   it('应注入 FORM_ITEM_INJECTION_KEY', () => {
-    mount(FormItem, {
+    mount(YdFormItem, {
       slots: {
         default: '<div></div>',
       },
@@ -35,7 +35,7 @@ describe('FormItem', () => {
   });
 
   it('应渲染 slot 内容', () => {
-    const wrapper = mount(FormItem, {
+    const wrapper = mount(YdFormItem, {
       slots: {
         default: '<span data-testid="form-content">hello</span>',
       },
@@ -45,7 +45,7 @@ describe('FormItem', () => {
   });
 
   it('应接受自定义 class', () => {
-    const wrapper = mount(FormItem, {
+    const wrapper = mount(YdFormItem, {
       props: { class: 'custom-form-item-class' },
       slots: {
         default: '<div></div>',
@@ -56,20 +56,20 @@ describe('FormItem', () => {
 });
 
 describe('Form related exports', () => {
-  it('FormLabel 应导出', () => {
-    expect(FormLabel).toBeDefined();
+  it('YdFormLabel 应导出', () => {
+    expect(YdFormLabel).toBeDefined();
   });
 
-  it('FormControl 应导出', () => {
-    expect(FormControl).toBeDefined();
+  it('YdFormControl 应导出', () => {
+    expect(YdFormControl).toBeDefined();
   });
 
-  it('FormMessage 应导出', () => {
-    expect(FormMessage).toBeDefined();
+  it('YdFormMessage 应导出', () => {
+    expect(YdFormMessage).toBeDefined();
   });
 
-  it('FormDescription 应导出', () => {
-    expect(FormDescription).toBeDefined();
+  it('YdFormDescription 应导出', () => {
+    expect(YdFormDescription).toBeDefined();
   });
 });
 

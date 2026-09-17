@@ -18,14 +18,14 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+  YdDialog,
+  YdDialogContent,
+  YdDialogHeader,
+  YdDialogTitle,
 } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 Table 组件）
+// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 YdTable 组件）
 import { ElTable, ElTableColumn } from 'element-plus';
 
 import { listHistoryFiles } from '#/api/history';
@@ -104,11 +104,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <Dialog :open="visible" @update:open="handleClose">
-    <DialogContent style="max-width: 800px">
-      <DialogHeader>
-        <DialogTitle>任务文件明细</DialogTitle>
-      </DialogHeader>
+  <YdDialog :open="visible" @update:open="handleClose">
+    <YdDialogContent style="max-width: 800px">
+      <YdDialogHeader>
+        <YdDialogTitle>任务文件明细</YdDialogTitle>
+      </YdDialogHeader>
       <div class="mb-2 text-sm text-gray-500">
         任务 #{{ historyId }} 共 {{ files.length }} 个文件
       </div>
@@ -117,13 +117,13 @@ onMounted(() => {
         <ElTableColumn prop="filePath" label="文件路径" min-width="300" show-overflow-tooltip />
         <ElTableColumn label="操作" width="100">
           <template #default="{ row }">
-            <Badge :variant="getActionBadgeVariant(row.action ?? '')">
+            <YdBadge :variant="getActionBadgeVariant(row.action ?? '')">
               {{ getActionText(row.action ?? '') }}
-            </Badge>
+            </YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="originalBackupPath" label="备份路径" min-width="200" show-overflow-tooltip />
       </ElTable>
-    </DialogContent>
-  </Dialog>
+    </YdDialogContent>
+  </YdDialog>
 </template>

@@ -47,7 +47,7 @@ type RenderComponentContentType = (
  */
 export interface FormCommonConfig {
   /**
-   * 在Label后显示一个冒号
+   * 在YdLabel后显示一个冒号
    */
   colon?: boolean;
   /**
@@ -281,7 +281,7 @@ export interface FormSchema<
    *
    * @remarks
    * 返回一个「插槽名 → 渲染函数」的对象，用于向控件内部传递具名插槽，
-   * 例如给 Select 定制 option 渲染。返回值在每次表单值变化时重新计算。
+   * 例如给 YdSelectBase 定制 option 渲染。返回值在每次表单值变化时重新计算。
    */
   // 自定义组件内部渲染
   renderComponentContent?: RenderComponentContentType;

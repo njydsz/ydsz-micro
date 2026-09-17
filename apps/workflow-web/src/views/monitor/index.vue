@@ -19,7 +19,7 @@
 import { Page } from '@ydsz/common-ui';
 // TODO: ElStatistic 暂不迁移，保留 element-plus 导入
 import { ElStatistic } from 'element-plus';
-import { Badge, Button, Card, CardContent, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import {
@@ -307,42 +307,42 @@ onMounted(() => {
     <div class="mb-4 flex items-center justify-between px-4 pt-3">
       <h1 class="text-xl font-bold text-gray-800">{{ t('monitor.title') }}</h1>
       <div class="flex items-center gap-3">
-        <Select v-model="timeRange">
-          <SelectTrigger class="w-32">
-            <SelectValue :placeholder="t('monitor.timeRangePlaceholder')" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem
+        <YdSelectBase v-model="timeRange">
+          <YdSelectTriggerBase class="w-32">
+            <YdSelectValueBase :placeholder="t('monitor.timeRangePlaceholder')" />
+          </YdSelectTriggerBase>
+          <YdSelectContentBase>
+            <YdSelectItemBase
               v-for="opt in timeRangeOptions"
               :key="opt.value"
               :value="opt.value"
             >
               {{ opt.label }}
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Button :loading="loading" @click="loadAllData">{{ t('common.refresh') }}</Button>
+            </YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
+        <YdButtonBase :loading="loading" @click="loadAllData">{{ t('common.refresh') }}</YdButtonBase>
       </div>
     </div>
 
     <!-- 概览卡片 -->
     <div class="mb-4 grid grid-cols-4 gap-4 px-4">
-      <Card>
-        <CardContent class="pt-6">
+      <YdCard>
+        <YdCardContent class="pt-6">
           <ElStatistic :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent class="pt-6">
+        </YdCardContent>
+      </YdCard>
+      <YdCard>
+        <YdCardContent class="pt-6">
           <ElStatistic :title="t('monitor.todayInstanceCount')" :value="overview.todayInstanceCount ?? 0" />
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent class="pt-6">
+        </YdCardContent>
+      </YdCard>
+      <YdCard>
+        <YdCardContent class="pt-6">
           <ElStatistic :title="t('monitor.pendingTaskCount')" :value="overview.pendingTaskCount ?? 0" />
-        </CardContent>
-      </Card>
-      <Card>
+        </YdCardContent>
+      </YdCard>
+      <YdCard>
         <div class="flex items-center justify-between">
           <div>
             <div class="text-sm text-gray-500">{{ t('monitor.healthScore') }}</div>
@@ -350,7 +350,7 @@ onMounted(() => {
               {{ healthScoreData.score }}
             </div>
           </div>
-          <Badge
+          <YdBadge
             :variant="
               healthScoreData.score >= 80
                 ? 'default'
@@ -360,33 +360,33 @@ onMounted(() => {
             "
           >
             {{ healthScoreData.level }}
-          </Badge>
+          </YdBadge>
         </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <!-- 图表区域 -->
     <div class="grid grid-cols-2 gap-4 px-4 pb-4">
       <!-- 实例趋势 -->
-      <Card>
-        <CardContent class="pt-6"><div id="trendChart" class="h-80" /></CardContent>
-      </Card>
+      <YdCard>
+        <YdCardContent class="pt-6"><div id="trendChart" class="h-80" /></YdCardContent>
+      </YdCard>
 
       <!-- 流程类型分布 -->
-      <Card>
-        <CardContent class="pt-6"><div id="flowTypeChart" class="h-80" /></CardContent>
-      </Card>
+      <YdCard>
+        <YdCardContent class="pt-6"><div id="flowTypeChart" class="h-80" /></YdCardContent>
+      </YdCard>
 
       <!-- 审批人效率 -->
-      <Card>
-        <CardContent class="pt-6"><div id="approverChart" class="h-80" /></CardContent>
-      </Card>
+      <YdCard>
+        <YdCardContent class="pt-6"><div id="approverChart" class="h-80" /></YdCardContent>
+      </YdCard>
 
       <!-- 瓶颈排行 -->
-      <Card>
-        <CardContent class="pt-6"><div id="bottleneckChart" class="h-80" /></CardContent>
-      </Card>
+      <YdCard>
+        <YdCardContent class="pt-6"><div id="bottleneckChart" class="h-80" /></YdCardContent>
+      </YdCard>
     </div>
   </Page>
 </template>

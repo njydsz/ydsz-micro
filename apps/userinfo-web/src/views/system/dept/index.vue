@@ -18,7 +18,7 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -105,8 +105,8 @@ async function handleDelete(row: DepartmentTreeVO) {
       <div class="mb-4 flex items-center justify-between">
         <h3 class="text-lg font-semibold">{{ t('dept.deptManagement') }}</h3>
         <div class="flex gap-2">
-          <Button variant="ghost" @click="loadData">{{ t('page.refresh') }}</Button>
-          <Button variant="default" @click="handleAdd()">{{ t('dept.addTopDept') }}</Button>
+          <YdButtonBase variant="ghost" @click="loadData">{{ t('page.refresh') }}</YdButtonBase>
+          <YdButtonBase variant="default" @click="handleAdd()">{{ t('dept.addTopDept') }}</YdButtonBase>
         </div>
       </div>
       <ElTable
@@ -123,22 +123,22 @@ async function handleDelete(row: DepartmentTreeVO) {
         <ElTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
         <ElTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
-            <Badge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : ''" class="text-xs">
+            <YdBadge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : ''" class="text-xs">
               {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
-            </Badge>
+            </YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn :label="t('page.operation')" width="240" fixed="right">
           <template #default="{ row }">
-            <Button size="sm" variant="link" @click="handleAdd(row.id)">
+            <YdButtonBase size="sm" variant="link" @click="handleAdd(row.id)">
               {{ t('dept.addSubDept') }}
-            </Button>
-            <Button size="sm" variant="link" @click="handleEdit(row)">
+            </YdButtonBase>
+            <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">
               {{ t('page.edit') }}
-            </Button>
-            <Button size="sm" variant="link" class="text-destructive" @click="handleDelete(row)">
+            </YdButtonBase>
+            <YdButtonBase size="sm" variant="link" class="text-destructive" @click="handleDelete(row)">
               {{ t('page.delete') }}
-            </Button>
+            </YdButtonBase>
           </template>
         </ElTableColumn>
       </ElTable>

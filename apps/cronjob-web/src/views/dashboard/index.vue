@@ -16,7 +16,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
@@ -93,20 +93,20 @@ onMounted(loadData);
 <template>
   <Page auto-content-height>
     <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-      <Card v-for="card in cards" :key="card.label">
-        <CardContent class="pt-4">
+      <YdCard v-for="card in cards" :key="card.label">
+        <YdCardContent class="pt-4">
           <div class="text-sm text-muted-foreground">{{ card.label }}</div>
           <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <div class="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-3">
-      <Card class="lg:col-span-2">
-        <CardHeader>
-          <CardTitle>今日执行</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="lg:col-span-2">
+        <YdCardHeader>
+          <YdCardTitle>今日执行</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div>
             <div class="text-xs text-gray-500">执行总数</div>
@@ -125,32 +125,32 @@ onMounted(loadData);
             <div class="text-xl font-semibold">{{ todayExec.successRate ?? 'N/A' }}</div>
           </div>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>运行中</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard>
+        <YdCardHeader>
+          <YdCardTitle>运行中</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div class="flex h-28 items-center justify-center">
             <span class="text-4xl font-semibold text-blue-500">{{ todayExec.running ?? 0 }}</span>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <div class="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-5">
-      <Card class="lg:col-span-3">
-        <CardHeader>
-          <CardTitle>最近失败（快速定位）</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="lg:col-span-3">
+        <YdCardHeader>
+          <YdCardTitle>最近失败（快速定位）</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <ElTable v-if="failures.length" :data="failures" border size="small" max-height="300">
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn label="状态" width="90">
             <template #default="{ row }">
-              <Badge variant="destructive" size="sm">{{ row.status ?? '-' }}</Badge>
+              <YdBadge variant="destructive" size="sm">{{ row.status ?? '-' }}</YdBadge>
             </template>
           </ElTableColumn>
           <ElTableColumn
@@ -162,14 +162,14 @@ onMounted(loadData);
           <ElTableColumn prop="startTime" label="时间" width="170" />
           </ElTable>
           <ElEmpty v-else description="暂无失败记录" :image-size="60" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
-      <Card class="lg:col-span-2">
-        <CardHeader>
-          <CardTitle>24 小时执行分布</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="lg:col-span-2">
+        <YdCardHeader>
+          <YdCardTitle>24 小时执行分布</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div class="flex h-72 items-end gap-1 px-1">
           <div
             v-for="item in heatData"
@@ -191,8 +191,8 @@ onMounted(loadData);
           <span>18:00</span>
           <span>23:00</span>
         </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
   </Page>
 </template>

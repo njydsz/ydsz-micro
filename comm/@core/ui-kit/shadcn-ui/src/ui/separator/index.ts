@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Separator } from './Separator.vue';
+export { default as YdSeparator } from './YdSeparator.vue';

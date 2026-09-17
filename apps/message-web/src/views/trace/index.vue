@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 // SKIP: ElStep/ElSteps 不在 shadcn 映射表，保留 EP
 import { ElStep, ElSteps } from 'element-plus';
@@ -135,32 +135,32 @@ function getStepConfig(step: string): { label: string; type: string; description
       <div class="mb-6">
         <h1 class="mb-4 text-2xl font-bold text-gray-800">消息轨迹查询</h1>
         <div class="flex items-center gap-3">
-          <Select v-model="queryType">
-            <SelectTrigger class="w-32">
-              <SelectValue placeholder="查询类型" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem
+          <YdSelectBase v-model="queryType">
+            <YdSelectTriggerBase class="w-32">
+              <YdSelectValueBase placeholder="查询类型" />
+            </YdSelectTriggerBase>
+            <YdSelectContentBase>
+              <YdSelectItemBase
                 v-for="opt in queryTypeOptions"
                 :key="opt.value"
                 :value="opt.value"
               >
                 {{ opt.label }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+              </YdSelectItemBase>
+            </YdSelectContentBase>
+          </YdSelectBase>
           <template v-if="queryType === 'biz'">
-            <Input v-model="bizType" placeholder="业务类型" class="w-40" />
-            <Input v-model="bizId" placeholder="业务ID" class="w-64" />
+            <YdInput v-model="bizType" placeholder="业务类型" class="w-40" />
+            <YdInput v-model="bizId" placeholder="业务ID" class="w-64" />
           </template>
-          <Input
+          <YdInput
             v-else
             v-model="queryKey"
             :placeholder="`请输入${queryType === 'msgId' ? '消息ID' : '追踪ID'}`"
             class="w-80"
             @keyup.enter="handleQuery"
           />
-          <Button :loading="loading" @click="handleQuery">{{ t('common.search') }}</Button>
+          <YdButtonBase :loading="loading" @click="handleQuery">{{ t('common.search') }}</YdButtonBase>
         </div>
       </div>
 
@@ -183,10 +183,10 @@ function getStepConfig(step: string): { label: string; type: string; description
             "
           >
             <template #icon>
-              <Badge v-if="getStepConfig(step).type === 'success'" class="h-5 w-5 rounded-full p-0">✓</Badge>
-              <Badge v-else-if="getStepConfig(step).type === 'danger'" variant="destructive" class="h-5 w-5 rounded-full p-0">✗</Badge>
-              <Badge v-else-if="getStepConfig(step).type === 'warning'" variant="outline" class="h-5 w-5 rounded-full p-0">!</Badge>
-              <Badge v-else variant="secondary" class="h-5 w-5 rounded-full p-0">{{ index + 1 }}</Badge>
+              <YdBadge v-if="getStepConfig(step).type === 'success'" class="h-5 w-5 rounded-full p-0">✓</YdBadge>
+              <YdBadge v-else-if="getStepConfig(step).type === 'danger'" variant="destructive" class="h-5 w-5 rounded-full p-0">✗</YdBadge>
+              <YdBadge v-else-if="getStepConfig(step).type === 'warning'" variant="outline" class="h-5 w-5 rounded-full p-0">!</YdBadge>
+              <YdBadge v-else variant="secondary" class="h-5 w-5 rounded-full p-0">{{ index + 1 }}</YdBadge>
             </template>
           </ElStep>
         </ElSteps>

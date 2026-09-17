@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -155,44 +155,44 @@ async function handleValidateDag() {
   <Modal :title="title" width="640px">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem label="DAG标识" prop="dagKey">
-        <Input v-model="formData.dagKey" placeholder="请输入DAG标识" />
+        <YdInput v-model="formData.dagKey" placeholder="请输入DAG标识" />
       </ElFormItem>
       <ElFormItem :label="t('business.dagName')" prop="dagName">
-        <Input v-model="formData.dagName" placeholder="请输入DAG名称" />
+        <YdInput v-model="formData.dagName" placeholder="请输入DAG名称" />
       </ElFormItem>
       <ElFormItem label="DSL定义" prop="dagDefinition">
         <div class="flex w-full gap-2">
-          <Textarea v-model="formData.dagDefinition" :rows="6" placeholder="请输入DAG DSL定义" />
-          <Button class="shrink-0" variant="outline" @click="handleValidateDag">校验</Button>
+          <YdTextarea v-model="formData.dagDefinition" :rows="6" placeholder="请输入DAG DSL定义" />
+          <YdButtonBase class="shrink-0" variant="outline" @click="handleValidateDag">校验</YdButtonBase>
         </div>
       </ElFormItem>
       <ElFormItem label="触发类型" prop="triggerType">
-        <Select v-model="formData.triggerType">
-          <SelectTrigger placeholder="请选择触发类型" />
-          <SelectContent>
-            <SelectItem value="MANUAL">手动</SelectItem>
-            <SelectItem value="CRON">Cron</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="formData.triggerType">
+          <YdSelectTriggerBase placeholder="请选择触发类型" />
+          <YdSelectContentBase>
+            <YdSelectItemBase value="MANUAL">手动</YdSelectItemBase>
+            <YdSelectItemBase value="CRON">Cron</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem v-if="formData.triggerType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
-        <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
+        <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
       </ElFormItem>
       <ElFormItem label="最大并发数" prop="maxConcurrentInstances">
-        <Input v-model="formData.maxConcurrentInstances" type="number" :min="1" :max="100" />
+        <YdInput v-model="formData.maxConcurrentInstances" type="number" :min="1" :max="100" />
       </ElFormItem>
       <ElFormItem label="失败策略" prop="failStrategy">
-        <Select v-model="formData.failStrategy">
-          <SelectTrigger placeholder="请选择失败策略" />
-          <SelectContent>
-            <SelectItem value="FAIL_FAST">快速失败</SelectItem>
-            <SelectItem value="CONTINUE">继续执行</SelectItem>
-            <SelectItem value="COMPENSATE">补偿处理</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="formData.failStrategy">
+          <YdSelectTriggerBase placeholder="请选择失败策略" />
+          <YdSelectContentBase>
+            <YdSelectItemBase value="FAIL_FAST">快速失败</YdSelectItemBase>
+            <YdSelectItemBase value="CONTINUE">继续执行</YdSelectItemBase>
+            <YdSelectItemBase value="COMPENSATE">补偿处理</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem label="描述" prop="description">
-        <Textarea v-model="formData.description" :rows="2" placeholder="请输入描述" />
+        <YdTextarea v-model="formData.description" :rows="2" placeholder="请输入描述" />
       </ElFormItem>
     </ElForm>
   </Modal>

@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -59,7 +59,7 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         default: ({ row }) => {
           const def = isDefaultLanguage(row.isDefault);
           return h(
-            Badge,
+            YdBadge,
             { variant: def ? 'default' : 'secondary', class: def ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (def ? t('language.yesDefault') : t('language.noDefault')),
           );
@@ -75,7 +75,7 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -91,12 +91,12 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -122,19 +122,19 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   formOptions: {
     schema: [
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('page.languageName') },
         fieldName: 'languageName',
         label: t('page.languageName'),
       },
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('page.languageCode') },
         fieldName: 'languageCode',
         label: t('page.languageCode'),
       },
       {
-        component: 'Select',
+        component: 'YdSelectBase',
         componentProps: {
           placeholder: t('page.status'),
           options: [
@@ -195,7 +195,7 @@ async function handleDelete(row: LanguageVO) {
   <Page auto-content-height>
     <Grid :table-title="t('language.languageManagement')">
       <template #toolbar-tools>
-        <Button variant="default" @click="handleAdd">{{ t('language.createLanguage') }}</Button>
+        <YdButtonBase variant="default" @click="handleAdd">{{ t('language.createLanguage') }}</YdButtonBase>
       </template>
     </Grid>
     <LanguageFormModal @success="gridApi.query()" />

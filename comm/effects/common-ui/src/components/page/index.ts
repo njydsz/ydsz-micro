@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Page } from './page.vue';
+export { default as YdPage } from './YdPage.vue';
 export * from './types';

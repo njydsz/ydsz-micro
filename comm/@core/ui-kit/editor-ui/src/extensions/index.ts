@@ -8,7 +8,7 @@
  *   <li>标题：H1-H6</li>
  *   <li>列表：BulletList / OrderedList</li>
  *   <li>块级：CodeBlock / Blockquote</li>
- *   <li>高级：Image / Link / Table / HorizontalRule / Placeholder</li>
+ *   <li>高级：Image / Link / YdTable / HorizontalRule / Placeholder</li>
  * </ul>
  *
  * @path comm/@core/ui-kit/tiptap/src/extensions/index.ts
@@ -35,10 +35,10 @@ import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Strike from '@tiptap/extension-strike';
-import Table from '@tiptap/extension-table';
-import TableCell from '@tiptap/extension-table-cell';
-import TableHeader from '@tiptap/extension-table-header';
-import TableRow from '@tiptap/extension-table-row';
+import YdTable from '@tiptap/extension-table';
+import YdTableCell from '@tiptap/extension-table-cell';
+import YdTableHeader from '@tiptap/extension-table-header';
+import YdTableRow from '@tiptap/extension-table-row';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
 
@@ -69,10 +69,10 @@ export function getYdDefaultExtensions(): Array<unknown> {
     HorizontalRule,
     Image.configure({ inline: true, allowBase64: false }),
     Link.configure({ openOnClick: false, autolink: true }),
-    Table.configure({ resizable: true }),
-    TableRow,
-    TableHeader,
-    TableCell,
+    YdTable.configure({ resizable: true }),
+    YdTableRow,
+    YdTableHeader,
+    YdTableCell,
     // cspell:disable-next-line
     Dropcursor,
     // cspell:disable-next-line

@@ -18,7 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -46,7 +46,7 @@ const gridOptions: VxeGridProps<TenantVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.status === 'ACTIVE' ? undefined : 'destructive' }, () => (row.status === 'ACTIVE' ? t('enabled') : t('disabled'))),
+          h(YdBadge, { variant: row.status === 'ACTIVE' ? undefined : 'destructive' }, () => (row.status === 'ACTIVE' ? t('enabled') : t('disabled'))),
       },
     },
     { field: 'expireAt', title: t('expireAt'), width: 170 },
@@ -56,8 +56,8 @@ const gridOptions: VxeGridProps<TenantVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
           ]),
       },
     },
@@ -76,8 +76,8 @@ const gridOptions: VxeGridProps<TenantVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'tenantName', title: t('tenantName'), itemRender: { name: 'Input', props: { placeholder: t('tenantNamePlaceholder') } } },
-      { field: 'tenantCode', title: t('tenantCode'), itemRender: { name: 'Input', props: { placeholder: t('tenantCodePlaceholder') } } },
+      { field: 'tenantName', title: t('tenantName'), itemRender: { name: 'YdInput', props: { placeholder: t('tenantNamePlaceholder') } } },
+      { field: 'tenantCode', title: t('tenantCode'), itemRender: { name: 'YdInput', props: { placeholder: t('tenantCodePlaceholder') } } },
     ],
   },
 };
@@ -138,7 +138,7 @@ async function handleDelete(row: TenantVO) {
   <Page auto-content-height>
     <Grid :table-title="t('tenant')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('create') }}</YdButtonBase>
       </template>
     </Grid>
     <TenantFormModal @success="gridApi.query()" />

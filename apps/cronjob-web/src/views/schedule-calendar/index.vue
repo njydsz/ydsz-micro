@@ -16,7 +16,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button, Card, CardContent, DatePicker, RadioGroup, RadioGroupItem, Sheet, SheetContent, SheetHeader, SheetTitle, Tooltip, TooltipContent, TooltipTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDatePicker, YdRadioGroup, YdRadioGroupItem, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElCalendar/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
 import { ref, computed, onMounted } from 'vue';
@@ -153,29 +153,29 @@ onMounted(() => {
     <div class="schedule-calendar-container p-4">
       <!-- 顶部控制栏 -->
       <div class="mb-4 flex items-center gap-3 rounded-lg bg-gray-50 p-3">
-        <DatePicker
+        <YdDatePicker
           v-model="selectedDate"
           placeholder="选择日期"
           @update:model-value="handleDateChange"
         />
-        <Button @click="fetchScheduleData">
+        <YdButtonBase @click="fetchScheduleData">
           <svg class="me-1.5 inline h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5M20 20v-5h-5M5.635 19.364A9 9 0 1 0 4.05 10M19.364 4.636A9 9 0 0 1 20.95 14" />
           </svg>
           刷新
-        </Button>
-        <RadioGroup v-model="viewMode" @update:model-value="fetchScheduleData">
+        </YdButtonBase>
+        <YdRadioGroup v-model="viewMode" @update:model-value="fetchScheduleData">
           <div class="flex items-center gap-1">
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="view-day" value="day" />
+              <YdRadioGroupItem id="view-day" value="day" />
               <label for="view-day" class="cursor-pointer text-sm">日视图</label>
             </div>
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="view-week" value="week" />
+              <YdRadioGroupItem id="view-week" value="week" />
               <label for="view-week" class="cursor-pointer text-sm">周视图</label>
             </div>
           </div>
-        </RadioGroup>
+        </YdRadioGroup>
       </div>
 
       <!-- 日历网格 -->
@@ -187,17 +187,17 @@ onMounted(() => {
               v-if="getTasksForDate(data.day).length > 0"
               class="mt-1 flex flex-wrap items-center justify-center gap-1"
             >
-              <Tooltip
+              <YdTooltipBase
                 v-for="task in getTasksForDate(data.day).slice(0, 3)"
                 :key="(task.jobKey ?? '') + (task.fireTime ?? '')"
               >
-                <TooltipTrigger as-child>
+                <YdTooltipTriggerBase as-child>
                   <span class="task-dot" :class="getTaskStatusClass(task)"></span>
-                </TooltipTrigger>
-                <TooltipContent side="top">
+                </YdTooltipTriggerBase>
+                <YdTooltipContentBase side="top">
                   {{ `${task.jobName ?? ''} - ${formatTime(task.fireTime)}` }}
-                </TooltipContent>
-              </Tooltip>
+                </YdTooltipContentBase>
+              </YdTooltipBase>
               <span
                 v-if="getTasksForDate(data.day).length > 3"
                 class="cursor-pointer text-[10px] text-gray-400"
@@ -210,11 +210,11 @@ onMounted(() => {
       </ElCalendar>
 
       <!-- 选中日期的任务详情抽屉 -->
-      <Sheet v-model:open="drawerVisible">
-        <SheetContent side="right" class="w-[400px]">
-          <SheetHeader>
-            <SheetTitle>{{ `${selectedDateDetail} 调度任务` }}</SheetTitle>
-          </SheetHeader>
+      <YdSheet v-model:open="drawerVisible">
+        <YdSheetContent side="right" class="w-[400px]">
+          <YdSheetHeader>
+            <YdSheetTitle>{{ `${selectedDateDetail} 调度任务` }}</YdSheetTitle>
+          </YdSheetHeader>
           <ElTimeline v-if="selectedDateTasks.length > 0">
             <ElTimelineItem
               v-for="task in selectedDateTasks"
@@ -223,21 +223,21 @@ onMounted(() => {
               :type="getTaskType(task)"
               placement="top"
             >
-              <Card>
-                <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+              <YdCard>
+                <YdCardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
                   <span class="mr-2 font-semibold">{{ task.jobName }}</span>
-                  <Badge variant="outline">{{ task.jobKey }}</Badge>
-                </CardHeader>
-                <CardContent class="pt-0">
+                  <YdBadge variant="outline">{{ task.jobKey }}</YdBadge>
+                </YdCardHeader>
+                <YdCardContent class="pt-0">
                   <p><b>Cron 表达式：</b>{{ task.cron }}</p>
                   <p><b>分组：</b>{{ task.group || '默认' }}</p>
-                </CardContent>
-              </Card>
+                </YdCardContent>
+              </YdCard>
             </ElTimelineItem>
           </ElTimeline>
           <ElEmpty v-else description="当日无调度任务" />
-        </SheetContent>
-      </Sheet>
+        </YdSheetContent>
+      </YdSheet>
     </div>
   </Page>
 </template>

@@ -21,7 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { Button, Card, CardContent, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP（ElCard 已迁移完成，无需保留）
 import { ElForm, ElFormItem } from 'element-plus';
 import { onMounted, ref } from 'vue';
@@ -145,50 +145,50 @@ onMounted(() => {
     <div class="ops-container p-4">
       <!-- 顶部指标卡片区 -->
       <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
-        <Card>
-          <CardContent class="flex flex-col items-center pt-4">
+        <YdCard>
+          <YdCardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">缓存命中率</span>
             <span class="mt-2 text-2xl font-bold text-green-600">{{ hitRatePercent }}%</span>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent class="flex flex-col items-center pt-4">
+          </YdCardContent>
+        </YdCard>
+        <YdCard>
+          <YdCardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">缓存条目数</span>
             <span class="mt-2 text-2xl font-bold text-blue-600">{{ cacheStats.size ?? 0 }}</span>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent class="flex flex-col items-center pt-4">
+          </YdCardContent>
+        </YdCard>
+        <YdCard>
+          <YdCardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">BF 填充率</span>
             <span class="mt-2 text-2xl font-bold text-purple-600">
               {{ bloomStats.expectedInsertions ?? 0 }}
             </span>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent class="flex flex-col items-center pt-4">
+          </YdCardContent>
+        </YdCard>
+        <YdCard>
+          <YdCardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">BF 误判率</span>
             <span class="mt-2 text-2xl font-bold text-red-500">
               {{ ((bloomStats.fpp ?? 0) * 100).toFixed(4) }}%
             </span>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
       </div>
 
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <!-- 模板缓存区 -->
-        <Card>
-          <CardContent class="pt-4">
+        <YdCard>
+          <YdCardContent class="pt-4">
           <div class="mb-4 flex items-center justify-between">
             <h3 class="text-base font-medium">模板缓存统计</h3>
             <div class="flex gap-2">
-              <Button size="sm" variant="outline" @click="loadCacheStats">刷新</Button>
-              <Button size="sm" @click="evictDialogVisible = true">
+              <YdButtonBase size="sm" variant="outline" @click="loadCacheStats">刷新</YdButtonBase>
+              <YdButtonBase size="sm" @click="evictDialogVisible = true">
                 清理单条
-              </Button>
-              <Button size="sm" variant="destructive" @click="handleClearAllCache">
+              </YdButtonBase>
+              <YdButtonBase size="sm" variant="destructive" @click="handleClearAllCache">
                 全量清理
-              </Button>
+              </YdButtonBase>
             </div>
           </div>
 
@@ -215,11 +215,11 @@ onMounted(() => {
         </ElCard>
 
         <!-- BloomFilter 区 -->
-        <Card>
-          <CardContent class="pt-4">
+        <YdCard>
+          <YdCardContent class="pt-4">
           <div class="mb-4 flex items-center justify-between">
             <h3 class="text-base font-medium">BloomFilter 统计</h3>
-            <Button size="sm" variant="outline" @click="loadBloomStats">刷新</Button>
+            <YdButtonBase size="sm" variant="outline" @click="loadBloomStats">刷新</YdButtonBase>
           </div>
 
           <div v-loading="loading" class="space-y-4">
@@ -254,26 +254,26 @@ onMounted(() => {
       </div>
 
       <!-- 清理单条缓存弹窗 -->
-      <Dialog v-model:open="evictDialogVisible">
-        <DialogContent class="max-w-[480px]">
-          <DialogHeader>
-            <DialogTitle>清理单条模板缓存</DialogTitle>
-            <DialogDescription>输入模板编码清理对应的缓存条目</DialogDescription>
-          </DialogHeader>
+      <YdDialog v-model:open="evictDialogVisible">
+        <YdDialogContent class="max-w-[480px]">
+          <YdDialogHeader>
+            <YdDialogTitle>清理单条模板缓存</YdDialogTitle>
+            <YdDialogDescription>输入模板编码清理对应的缓存条目</YdDialogDescription>
+          </YdDialogHeader>
           <ElForm :model="evictForm" label-width="100px">
             <ElFormItem label="模板编码" required>
-              <Input
+              <YdInput
                 v-model="evictForm.template"
                 placeholder="请输入要清理的模板编码"
               />
             </ElFormItem>
           </ElForm>
-          <DialogFooter>
-            <Button variant="outline" @click="evictDialogVisible = false">取消</Button>
-            <Button @click="handleEvictCache">确认清理</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          <YdDialogFooter>
+            <YdButtonBase variant="outline" @click="evictDialogVisible = false">取消</YdButtonBase>
+            <YdButtonBase @click="handleEvictCache">确认清理</YdButtonBase>
+          </YdDialogFooter>
+        </YdDialogContent>
+      </YdDialog>
     </div>
   </Page>
 </template>

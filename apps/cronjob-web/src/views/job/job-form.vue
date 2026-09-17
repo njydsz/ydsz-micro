@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -261,36 +261,36 @@ async function handleValidateCron() {
       label-position="right"
     >
       <ElFormItem :label="t('business.jobName')" prop="jobName">
-        <Input v-model="formData.jobName" placeholder="请输入任务名称" />
+        <YdInput v-model="formData.jobName" placeholder="请输入任务名称" />
       </ElFormItem>
       <ElFormItem label="任务标识" prop="jobKey">
-        <Input v-model="formData.jobKey" placeholder="请输入任务标识" />
+        <YdInput v-model="formData.jobKey" placeholder="请输入任务标识" />
       </ElFormItem>
       <ElFormItem :label="t('business.jobGroup')" prop="jobGroup">
-        <Input v-model="formData.jobGroup" placeholder="请输入任务分组" />
+        <YdInput v-model="formData.jobGroup" placeholder="请输入任务分组" />
       </ElFormItem>
       <ElFormItem label="执行器" prop="handler">
-        <Input v-model="formData.handler" placeholder="请输入执行器 Handler" />
+        <YdInput v-model="formData.handler" placeholder="请输入执行器 Handler" />
       </ElFormItem>
       <ElFormItem label="调度类型" prop="scheduleType">
-        <Select v-model="formData.scheduleType">
-          <SelectTrigger placeholder="请选择调度类型" class="w-full" />
-          <SelectContent>
-            <SelectItem value="CRON">Cron</SelectItem>
-            <SelectItem value="FIXED_RATE">固定速率</SelectItem>
-            <SelectItem value="FIXED_DELAY">固定延迟</SelectItem>
-            <SelectItem value="API">仅手动触发</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="formData.scheduleType">
+          <YdSelectTriggerBase placeholder="请选择调度类型" class="w-full" />
+          <YdSelectContentBase>
+            <YdSelectItemBase value="CRON">Cron</YdSelectItemBase>
+            <YdSelectItemBase value="FIXED_RATE">固定速率</YdSelectItemBase>
+            <YdSelectItemBase value="FIXED_DELAY">固定延迟</YdSelectItemBase>
+            <YdSelectItemBase value="API">仅手动触发</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
         <div class="flex w-full gap-2">
-          <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
-          <Button variant="outline" @click="handleValidateCron">校验</Button>
+          <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
+          <YdButtonBase variant="outline" @click="handleValidateCron">校验</YdButtonBase>
         </div>
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'FIXED_RATE'" label="固定速率间隔(ms)">
-        <Input
+        <YdInput
           v-model="formData.fixedRateMs"
           type="number"
           :min="1"
@@ -300,7 +300,7 @@ async function handleValidateCron() {
         />
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'FIXED_DELAY'" label="固定延迟间隔(ms)">
-        <Input
+        <YdInput
           v-model="formData.fixedDelayMs"
           type="number"
           :min="1"
@@ -310,22 +310,22 @@ async function handleValidateCron() {
         />
       </ElFormItem>
       <ElFormItem label="备注" prop="remark">
-        <Textarea v-model="formData.remark" placeholder="请输入备注" :rows="2" />
+        <YdTextarea v-model="formData.remark" placeholder="请输入备注" :rows="2" />
       </ElFormItem>
 
-      <Accordion type="single" collapsible class="mt-2 w-full">
-        <AccordionItem value="advanced">
-          <AccordionTrigger>高级配置（参数 / 超时 / 重试 / 分片 / 时区）</AccordionTrigger>
-          <AccordionContent>
+      <YdAccordion type="single" collapsible class="mt-2 w-full">
+        <YdAccordionItem value="advanced">
+          <YdAccordionTrigger>高级配置（参数 / 超时 / 重试 / 分片 / 时区）</YdAccordionTrigger>
+          <YdAccordionContent>
           <ElFormItem label="任务参数(JSON)">
-            <Textarea
+            <YdTextarea
               v-model="formData.paramsJson"
               :rows="3"
               placeholder='如 {"url":"http://example.com","retry":3}'
             />
           </ElFormItem>
           <ElFormItem label="超时时间(ms)">
-            <Input
+            <YdInput
               v-model="formData.timeoutMs"
               type="number"
               :min="1"
@@ -335,7 +335,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="慢任务阈值(ms)">
-            <Input
+            <YdInput
               v-model="formData.slowThresholdMs"
               type="number"
               :min="1"
@@ -345,7 +345,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="SLA阈值(ms)">
-            <Input
+            <YdInput
               v-model="formData.slaMs"
               type="number"
               :min="1"
@@ -355,7 +355,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="锁TTL(ms)">
-            <Input
+            <YdInput
               v-model="formData.lockTtlMs"
               type="number"
               :min="30000"
@@ -365,35 +365,35 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="Misfire策略">
-            <Select v-model="formData.misfirePolicy" class="w-full">
-              <SelectTrigger class="w-full" />
-              <SelectContent>
-                <SelectItem
+            <YdSelectBase v-model="formData.misfirePolicy" class="w-full">
+              <YdSelectTriggerBase class="w-full" />
+              <YdSelectContentBase>
+                <YdSelectItemBase
                   v-for="item in MISFIRE_POLICIES"
                   :key="item.value"
                   :value="item.value"
                 >
                   {{ item.label }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
           </ElFormItem>
           <ElFormItem label="阻塞策略">
-            <Select v-model="formData.blockStrategy">
-              <SelectTrigger class="w-full" />
-              <SelectContent>
-                <SelectItem
+            <YdSelectBase v-model="formData.blockStrategy">
+              <YdSelectTriggerBase class="w-full" />
+              <YdSelectContentBase>
+                <YdSelectItemBase
                   v-for="item in BLOCK_STRATEGIES"
                   :key="item.value"
                   :value="item.value"
                 >
                   {{ item.label }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
           </ElFormItem>
           <ElFormItem label="最大重试次数">
-            <Input
+            <YdInput
               v-model="formData.maxRetries"
               type="number"
               :min="0"
@@ -403,7 +403,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="重试间隔(ms)">
-            <Input
+            <YdInput
               v-model="formData.retryIntervalMs"
               type="number"
               :min="1"
@@ -412,21 +412,21 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="重试退避">
-            <Select v-model="formData.retryBackoff">
-              <SelectTrigger class="w-full" />
-              <SelectContent>
-                <SelectItem
+            <YdSelectBase v-model="formData.retryBackoff">
+              <YdSelectTriggerBase class="w-full" />
+              <YdSelectContentBase>
+                <YdSelectItemBase
                   v-for="item in RETRY_BACKOFFS"
                   :key="item.value"
                   :value="item.value"
                 >
                   {{ item.label }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
           </ElFormItem>
           <ElFormItem label="熔断阈值">
-            <Input
+            <YdInput
               v-model="formData.maxConsecutiveFails"
               type="number"
               :min="1"
@@ -436,7 +436,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="自动恢复(分钟)">
-            <Input
+            <YdInput
               v-model="formData.autoResumeAfterMinutes"
               type="number"
               :min="1"
@@ -446,7 +446,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="优先级">
-            <Input
+            <YdInput
               v-model="formData.priority"
               type="number"
               :min="0"
@@ -456,7 +456,7 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="分片总数">
-            <Input
+            <YdInput
               v-model="formData.shardTotal"
               type="number"
               :min="1"
@@ -466,20 +466,20 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem label="时区">
-            <Select v-model="formData.timezone">
-              <SelectTrigger class="w-full" placeholder="选择或输入时区" />
-              <SelectContent>
-                <SelectItem v-for="tz in COMMON_TIMEZONES" :key="tz" :value="tz">
+            <YdSelectBase v-model="formData.timezone">
+              <YdSelectTriggerBase class="w-full" placeholder="选择或输入时区" />
+              <YdSelectContentBase>
+                <YdSelectItemBase v-for="tz in COMMON_TIMEZONES" :key="tz" :value="tz">
                   {{ tz }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
           </ElFormItem>
           <ElFormItem label="目标集群">
-            <Input v-model="formData.cluster" placeholder="跨集群调度，留空=本地集群" />
+            <YdInput v-model="formData.cluster" placeholder="跨集群调度，留空=本地集群" />
           </ElFormItem>
           <ElFormItem label="灰度比例(%)">
-            <Input
+            <YdInput
               v-model="formData.canaryRatio"
               type="number"
               :min="0"
@@ -490,11 +490,11 @@ async function handleValidateCron() {
             />
           </ElFormItem>
           <ElFormItem v-if="formData.canaryRatio" label="灰度处理器">
-            <Input v-model="formData.canaryHandler" placeholder="canaryRatio>0 时生效" />
+            <YdInput v-model="formData.canaryHandler" placeholder="canaryRatio>0 时生效" />
           </ElFormItem>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+          </YdAccordionContent>
+        </YdAccordionItem>
+      </YdAccordion>
     </ElForm>
   </Modal>
 </template>

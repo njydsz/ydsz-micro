@@ -27,7 +27,7 @@ import { cloneDeep, mapTree } from '@ydsz/utils';
 import { YdAdminLayout } from '@ydsz-core/layout-ui';
 import { YdLogo } from '@ydsz-core/shadcn-ui';
 
-import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
+import { YdBreadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';
 import { Copyright } from './copyright';
 import { LayoutFooter } from './footer';
@@ -283,7 +283,7 @@ const headerSlots = computed(() => {
           v-if="!showHeaderNav && preferences.breadcrumb.enable"
           #breadcrumb
         >
-          <Breadcrumb
+          <YdBreadcrumb
             :hide-when-only-one="preferences.breadcrumb.hideOnlyOne"
             :show-home="preferences.breadcrumb.showHome"
             :show-icon="preferences.breadcrumb.showIcon"

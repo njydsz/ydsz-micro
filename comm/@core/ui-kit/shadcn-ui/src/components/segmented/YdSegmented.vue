@@ -1,5 +1,5 @@
 <!--
- * 分段控制器：基于 Tabs 语义实现单选切换，而不是普通按钮组 ——
+ * 分段控制器：基于 YdTabs 语义实现单选切换，而不是普通按钮组 ——
  * 这样能直接获得 tablist / tab 的无障碍语义与键盘左右切换能力。
  *
  * 等宽布局由内联 grid-template-columns 按 tabs.length 均分，指示器宽度同为 100/n%，
@@ -15,9 +15,9 @@ import type { SegmentedItem } from './types';
 
 import { computed } from 'vue';
 
-import { TabsTrigger } from 'radix-vue';
+import { YdTabsTrigger } from 'radix-vue';
 
-import { Tabs, TabsContent, TabsList } from '../../ui';
+import { YdTabs, YdTabsContent, YdTabsList } from '../../ui';
 import TabsIndicator from './tabs-indicator.vue';
 
 interface Props {
@@ -50,24 +50,24 @@ const tabsIndicatorStyle = computed(() => {
 </script>
 
 <template>
-  <Tabs v-model="activeTab" :default-value="getDefaultValue">
-    <TabsList :style="tabsStyle" class="bg-accent relative grid w-full" role="tablist">
+  <YdTabs v-model="activeTab" :default-value="getDefaultValue">
+    <YdTabsList :style="tabsStyle" class="bg-accent relative grid w-full" role="tablist">
       <TabsIndicator :style="tabsIndicatorStyle" />
       <template v-for="tab in tabs" :key="tab.value">
-        <TabsTrigger
+        <YdTabsTrigger
           :value="tab.value"
           class="z-20 inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium disabled:pointer-events-none disabled:opacity-50"
           role="tab"
           :aria-label="tab.label"
         >
           {{ tab.label }}
-        </TabsTrigger>
+        </YdTabsTrigger>
       </template>
-    </TabsList>
+    </YdTabsList>
     <template v-for="tab in tabs" :key="tab.value">
-      <TabsContent :value="tab.value">
+      <YdTabsContent :value="tab.value">
         <slot :name="tab.value"></slot>
-      </TabsContent>
+      </YdTabsContent>
     </template>
-  </Tabs>
+  </YdTabs>
 </template>

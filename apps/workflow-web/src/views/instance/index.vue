@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { ElTable, ElTableColumn } from 'element-plus';
-import { Badge, Button, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdSheet, YdSheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
@@ -37,18 +37,18 @@ defineOptions({ name: 'InstanceManagement' });
 function statusTag(flowStatus: string | undefined) {
   const status = (flowStatus ?? '').toUpperCase();
   if (status === 'FINISHED' || status === 'COMPLETED' || status === '1') {
-    return h(Badge, { variant: 'default' }, () => $t('wf.statusDone'));
+    return h(YdBadge, { variant: 'default' }, () => $t('wf.statusDone'));
   }
   if (status === 'SUSPENDED' || status === 'PAUSED') {
-    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusPaused'));
+    return h(YdBadge, { variant: 'destructive' }, () => $t('wf.statusPaused'));
   }
   if (status === 'TERMINATED' || status === 'CANCELED') {
-    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusTerminated'));
+    return h(YdBadge, { variant: 'destructive' }, () => $t('wf.statusTerminated'));
   }
   if (status === 'RUNNING' || status === 'ACTIVE') {
-    return h(Badge, { variant: 'default' }, () => $t('wf.statusRunning'));
+    return h(YdBadge, { variant: 'default' }, () => $t('wf.statusRunning'));
   }
-  return h(Badge, { variant: 'secondary' }, () => flowStatus ?? '-');
+  return h(YdBadge, { variant: 'secondary' }, () => flowStatus ?? '-');
 }
 
 const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
@@ -77,27 +77,27 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link' as const, class: 'text-destructive', onClick: () => handleTerminate(row) },
               () => $t('wf.terminate'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', onClick: () => handleSuspend(row) },
               () => $t('wf.suspend'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link' as const, class: 'text-green-600', onClick: () => handleActivate(row) },
               () => $t('wf.activate'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleRecall(row) },
               () => $t('wf.recall'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => openTimeline(row) },
               () => $t('wf.timeline'),
             ),
@@ -128,12 +128,12 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
       {
         field: 'flowName',
         title: $t('wf.flowName'),
-        itemRender: { name: 'Input', props: { placeholder: $t('wf.flowName') } },
+        itemRender: { name: 'YdInput', props: { placeholder: $t('wf.flowName') } },
       },
       {
         field: 'status',
         title: $t('wf.status'),
-        itemRender: { name: 'Input', props: { placeholder: $t('wf.status') } },
+        itemRender: { name: 'YdInput', props: { placeholder: $t('wf.status') } },
       },
     ],
   },
@@ -329,15 +329,15 @@ async function openTimeline(row: FlowInstanceVO) {
   <Page auto-content-height>
     <Grid :table-title="$t('wf.flowInstances')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ $t('wf.startFlow') }}</Button>
-        <Button variant="secondary" @click="handleBatchUrge">{{
+        <YdButtonBase @click="handleAdd">{{ $t('wf.startFlow') }}</YdButtonBase>
+        <YdButtonBase variant="secondary" @click="handleBatchUrge">{{
           $t('wf.batchUrge')
-        }}</Button>
+        }}</YdButtonBase>
       </template>
     </Grid>
     <InstanceFormModal @success="gridApi.query()" />
-    <Sheet :open="timelineVisible" @update:open="timelineVisible = $event">
-      <SheetContent class="!max-w-[900px]">
+    <YdSheet :open="timelineVisible" @update:open="timelineVisible = $event">
+      <YdSheetContent class="!max-w-[900px]">
       <div class="drawer-content">
         <!-- 流程图高亮 -->
         <FlowDiagramViewer :instance="timelineInstance" />
@@ -357,7 +357,7 @@ async function openTimeline(row: FlowInstanceVO) {
           <ElTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
         </ElTable>
       </div>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

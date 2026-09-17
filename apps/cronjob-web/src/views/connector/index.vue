@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElForm, ElFormItem } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
@@ -159,38 +159,38 @@ async function handleExport() {
   <Page auto-content-height>
     <div class="mb-2 flex flex-wrap items-center gap-2">
       <span class="text-sm text-gray-500">支持的连接器类型：</span>
-      <Badge v-for="item in connectorTypes" :key="item" variant="secondary">{{ item }}</Badge>
-      <Badge v-if="connectorTypes.length === 0" variant="secondary">{{ t('common.noData') }}</Badge>
+      <YdBadge v-for="item in connectorTypes" :key="item" variant="secondary">{{ item }}</YdBadge>
+      <YdBadge v-if="connectorTypes.length === 0" variant="secondary">{{ t('common.noData') }}</YdBadge>
     </div>
     <ElForm inline class="rounded border border-gray-200 p-2">
       <ElFormItem label="类型">
-        <Input v-model="config.type" class="w-32" placeholder="连接器类型" />
+        <YdInput v-model="config.type" class="w-32" placeholder="连接器类型" />
       </ElFormItem>
       <ElFormItem label="端点">
-        <Input v-model="config.endpoint" class="w-56" placeholder="连接端点" />
+        <YdInput v-model="config.endpoint" class="w-56" placeholder="连接端点" />
       </ElFormItem>
       <ElFormItem label="认证方式">
-        <Input v-model="config.authType" class="w-28" placeholder="authType" />
+        <YdInput v-model="config.authType" class="w-28" placeholder="authType" />
       </ElFormItem>
       <ElFormItem label="用户名">
-        <Input v-model="config.username" class="w-32" placeholder="用户名" />
+        <YdInput v-model="config.username" class="w-32" placeholder="用户名" />
       </ElFormItem>
       <ElFormItem label="密码">
-        <Input v-model="config.password" class="w-32" type="password" placeholder="密码" />
+        <YdInput v-model="config.password" class="w-32" type="password" placeholder="密码" />
       </ElFormItem>
       <ElFormItem label="AccessKey">
-        <Input v-model="config.accessKey" class="w-36" placeholder="AccessKey" />
+        <YdInput v-model="config.accessKey" class="w-36" placeholder="AccessKey" />
       </ElFormItem>
       <ElFormItem label="SecretKey">
-        <Input v-model="config.secretKey" class="w-36" type="password" placeholder="SecretKey" />
+        <YdInput v-model="config.secretKey" class="w-36" type="password" placeholder="SecretKey" />
       </ElFormItem>
     </ElForm>
     <TaskGrid class="mt-4" table-title="远程任务">
       <template #toolbar-tools>
-        <Button @click="handleTest">测试连接</Button>
-        <Button variant="outline" @click="handleImport">导入任务</Button>
-        <Button variant="outline" @click="handleExport">导出任务</Button>
-        <Button variant="outline" @click="taskGridApi.query()">{{ t('common.search') }}</Button>
+        <YdButtonBase @click="handleTest">测试连接</YdButtonBase>
+        <YdButtonBase variant="outline" @click="handleImport">导入任务</YdButtonBase>
+        <YdButtonBase variant="outline" @click="handleExport">导出任务</YdButtonBase>
+        <YdButtonBase variant="outline" @click="taskGridApi.query()">{{ t('common.search') }}</YdButtonBase>
       </template>
     </TaskGrid>
     <ConnectorFormModal @success="taskGridApi.query()" />

@@ -14,7 +14,7 @@ import type {
 
 import { $t } from '@ydsz/locales';
 
-import SelectItem from '../select-item.vue';
+import YdSelectItemBase from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
 import ToggleItem from '../toggle-item.vue';
 
@@ -64,13 +64,13 @@ const headerMenuAlignItems: SelectOption[] = [
   <SwitchItem v-model="headerEnable" :disabled="disabled">
     {{ $t('preferences.header.visible') }}
   </SwitchItem>
-  <SelectItem
+  <YdSelectItemBase
     v-model="headerMode"
     :disabled="!headerEnable"
     :items="localeItems"
   >
     {{ $t('preferences.mode') }}
-  </SelectItem>
+  </YdSelectItemBase>
   <ToggleItem
     v-model="headerMenuAlign"
     :disabled="!headerEnable"

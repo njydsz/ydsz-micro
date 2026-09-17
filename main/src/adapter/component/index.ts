@@ -10,9 +10,9 @@
  * ESM，无需 EP 时代的 Promise.all 双 import 异步装配。
  *
  * 语义降级登记（P1-1 落地后回补）：
- * - Select：YDSZSelect 为 options 驱动（value 为字符串），ElSelectV2 的
+ * - YdSelectBase：YDSZSelect 为 options 驱动（value 为字符串），ElSelectV2 的
  *   大数据虚拟滚动暂以全量渲染承接；
- * - DatePicker：kit 仅支持 date/datetime，range 型 schema 暂以单值承接；
+ * - YdDatePicker：kit 仅支持 date/datetime，range 型 schema 暂以单值承接；
  * - TimePicker：由 FormTimePicker（datetime）过渡承接。
  *
  * @path main\src\adapter\component\index.ts
@@ -42,7 +42,7 @@ import {
 } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 import { showToast } from '@ydsz/notification';
-import { DatePicker, Separator, YDSZInput, YDSZSelect } from '@ydsz-core/shadcn-ui';
+import { YdDatePicker, YdSeparator, YDSZInput, YDSZSelect } from '@ydsz-core/shadcn-ui';
 
 /**
  * 为底层组件包裹默认 placeholder 并透传 expose 方法的高阶包装函数。
@@ -99,20 +99,20 @@ const withDefaultPlaceholder = <T extends Component>(
 export type ComponentType =
   | 'ApiSelect'
   | 'ApiTreeSelect'
-  | 'Checkbox'
+  | 'YdCheckboxBase'
   | 'CheckboxGroup'
-  | 'DatePicker'
+  | 'YdDatePicker'
   | 'Divider'
   | 'YdIconPicker'
-  | 'Input'
+  | 'YdInput'
   | 'InputNumber'
-  | 'RadioGroup'
-  | 'Select'
+  | 'YdRadioGroup'
+  | 'YdSelectBase'
   | 'Space'
-  | 'Switch'
+  | 'YdSwitch'
   | 'TimePicker'
   | 'TreeSelect'
-  | 'Upload'
+  | 'YdUpload'
   | YdBaseFormComponentType;
 
 /**
@@ -147,23 +147,23 @@ async function initComponentAdapter() {
         optionsPropName: 'treeData',
       },
     ),
-    Checkbox: FormCheckbox,
+    YdCheckboxBase: FormCheckbox,
     CheckboxGroup: FormCheckboxGroup,
-    DatePicker,
-    Divider: Separator,
+    YdDatePicker,
+    Divider: YdSeparator,
     YdIconPicker: withDefaultPlaceholder(YdIconPicker, 'select', {
       modelValueProp: 'model-value',
       inputComponent: YDSZInput,
     }),
-    Input: withDefaultPlaceholder(YDSZInput, 'input'),
+    YdInput: withDefaultPlaceholder(YDSZInput, 'input'),
     InputNumber: withDefaultPlaceholder(FormInputNumber, 'input'),
-    RadioGroup: FormRadioGroup,
-    Select: YDSZSelect,
+    YdRadioGroup: FormRadioGroup,
+    YdSelectBase: YDSZSelect,
     Space: FormSpace,
-    Switch: FormSwitch,
+    YdSwitch: FormSwitch,
     TimePicker: FormTimePicker,
     TreeSelect: withDefaultPlaceholder(FormTreeSelect, 'select'),
-    Upload: FormUpload,
+    YdUpload: FormUpload,
   };
 
   // 将组件注册到全局共享状态中

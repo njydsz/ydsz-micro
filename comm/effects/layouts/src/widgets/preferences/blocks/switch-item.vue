@@ -10,7 +10,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { YdTooltip, Switch } from '@ydsz-core/shadcn-ui';
+import { YdTooltip, YdSwitch } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSwitchItem',
@@ -57,6 +57,6 @@ function handleClick() {
     <span v-if="$slots.shortcut" class="ml-auto mr-2 text-xs opacity-60">
       <slot name="shortcut"></slot>
     </span>
-    <Switch v-model:checked="checked" @click.stop />
+    <YdSwitch v-model:checked="checked" @click.stop />
   </div>
 </template>

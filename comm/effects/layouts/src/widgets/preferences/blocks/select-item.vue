@@ -14,11 +14,11 @@ import { CircleHelp } from '@ydsz/icons';
 
 import {
   YdTooltip,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
 } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
@@ -61,15 +61,15 @@ const slots = useSlots();
         <slot name="tip"></slot>
       </YdTooltip>
     </span>
-    <Select v-model="selectValue">
-      <SelectTrigger class="h-8 w-[165px]">
-        <SelectValue :placeholder="placeholder" />
-      </SelectTrigger>
-      <SelectContent>
+    <YdSelectBase v-model="selectValue">
+      <YdSelectTriggerBase class="h-8 w-[165px]">
+        <YdSelectValueBase :placeholder="placeholder" />
+      </YdSelectTriggerBase>
+      <YdSelectContentBase>
         <template v-for="item in items" :key="item.value">
-          <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
+          <YdSelectItemBase :value="item.value"> {{ item.label }} </YdSelectItemBase>
         </template>
-      </SelectContent>
-    </Select>
+      </YdSelectContentBase>
+    </YdSelectBase>
   </div>
 </template>

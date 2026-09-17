@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { h, onMounted, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -71,7 +71,7 @@ const gridOptions: VxeGridProps<AlertRow> = {
         default: ({ row }) => {
           const alertType = row.alertType ?? '';
           const config = ALERT_TYPE_MAP[alertType] ?? { label: alertType, type: 'info' };
-          return h(Badge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
+          return h(YdBadge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
         },
       },
     },
@@ -88,9 +88,9 @@ const gridOptions: VxeGridProps<AlertRow> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(row) }, () => '确认'),
-            h(Button, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(row) }, () => '解决'),
-            h(Button, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(row) }, () => '忽略'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(row) }, () => '确认'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(row) }, () => '解决'),
+            h(YdButtonBase, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(row) }, () => '忽略'),
           ]),
       },
     },
@@ -168,7 +168,7 @@ onMounted(() => {
 
     <Grid table-title="操作审计日志">
       <template #toolbar-tools>
-        <Button variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</Button>
+        <YdButtonBase variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</YdButtonBase>
       </template>
     </Grid>
   </Page>

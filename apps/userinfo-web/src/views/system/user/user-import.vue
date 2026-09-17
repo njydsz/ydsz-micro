@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { Button, Upload } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdUpload } from '@ydsz-core/shadcn-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { ElProgress } from 'element-plus';
 import { ref } from 'vue';
@@ -130,7 +130,7 @@ async function handleImport(): Promise<void> {
   <Modal :title="t('user.importUser')">
     <div class="space-y-4">
       <!-- 上传区域 -->
-      <Upload
+      <YdUpload
         :auto-upload="false"
         :show-file-list="true"
         :limit="1"
@@ -143,7 +143,7 @@ async function handleImport(): Promise<void> {
           <p class="text-sm text-muted-foreground">{{ t('user.importDragText') }}</p>
           <p class="mt-1 text-xs text-muted-foreground">{{ t('user.importFormatText') }}</p>
         </div>
-      </Upload>
+      </YdUpload>
 
       <!-- 导入进度 -->
       <div v-if="importing">
@@ -180,11 +180,11 @@ async function handleImport(): Promise<void> {
       </div>
     </div>
     <template #footer>
-      <Button variant="outline" @click="handleClose">{{ t('page.close') }}</Button>
-      <Button :disabled="!selectedFile || importing" @click="handleImport">
+      <YdButtonBase variant="outline" @click="handleClose">{{ t('page.close') }}</YdButtonBase>
+      <YdButtonBase :disabled="!selectedFile || importing" @click="handleImport">
         <Loader2 v-if="importing" class="mr-2 h-4 w-4 animate-spin" />
         {{ t('user.importUser') }}
-      </Button>
+      </YdButtonBase>
     </template>
   </Modal>
 </template>

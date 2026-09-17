@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickComment, incrementUseCount, listQuickComments } from '#/api/flowComment';
@@ -33,8 +33,8 @@ defineOptions({ name: 'QuickCommentManagement' });
 /** 系统预置标识标签 */
 function systemTag(isSystem: number | undefined) {
   return isSystem
-    ? h(Badge, { variant: 'destructive' }, () => t('quickComment.system'))
-    : h(Badge, { variant: 'secondary' }, () => t('quickComment.personal'));
+    ? h(YdBadge, { variant: 'destructive' }, () => t('quickComment.system'))
+    : h(YdBadge, { variant: 'secondary' }, () => t('quickComment.personal'));
 }
 
 const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
@@ -60,17 +60,17 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleUse(row) },
               () => t('common.use'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link' as const, onClick: () => handleDelete(row),
                 class: 'text-destructive' },
               () => t('common.delete'),
@@ -142,7 +142,7 @@ async function handleDelete(row: FlowQuickCommentVO) {
   <Page auto-content-height>
     <Grid :table-title="t('quickComment.list.title')">
       <template #toolbar-tools
-        ><Button @click="handleAdd">{{ t('common.add') }}</Button></template
+        ><YdButtonBase @click="handleAdd">{{ t('common.add') }}</YdButtonBase></template
       >
     </Grid>
     <QuickCommentFormModal @success="gridApi.query()" />

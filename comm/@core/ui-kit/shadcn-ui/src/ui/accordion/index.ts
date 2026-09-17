@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Accordion } from './Accordion.vue';
-export { default as AccordionContent } from './AccordionContent.vue';
-export { default as AccordionItem } from './AccordionItem.vue';
-export { default as AccordionTrigger } from './AccordionTrigger.vue';
+export { default as YdAccordion } from './YdAccordion.vue';
+export { default as YdAccordionContent } from './YdAccordionContent.vue';
+export { default as YdAccordionItem } from './YdAccordionItem.vue';
+export { default as YdAccordionTrigger } from './YdAccordionTrigger.vue';

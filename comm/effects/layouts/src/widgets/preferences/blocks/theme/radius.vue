@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { ToggleGroup, ToggleGroupItem } from '@ydsz-core/shadcn-ui';
+import { YdToggleGroup, YdToggleGroupItem } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceColorMode',
@@ -26,7 +26,7 @@ const items = [
 </script>
 
 <template>
-  <ToggleGroup
+  <YdToggleGroup
     v-model="modelValue"
     class="gap-2"
     size="sm"
@@ -34,12 +34,12 @@ const items = [
     variant="outline"
   >
     <template v-for="item in items" :key="item.value">
-      <ToggleGroupItem
+      <YdToggleGroupItem
         :value="item.value"
         class="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground h-7 w-16 rounded-sm"
       >
         {{ item.label }}
-      </ToggleGroupItem>
+      </YdToggleGroupItem>
     </template>
-  </ToggleGroup>
+  </YdToggleGroup>
 </template>

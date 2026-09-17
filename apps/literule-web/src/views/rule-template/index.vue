@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-// TODO: EP → shadcn-ui 迁移暂缓（含 Descriptions/Input/Tabs/Empty/Tree/Card/Row/Col 等复杂组件，需人工评估）
+// TODO: EP → shadcn-ui 迁移暂缓（含 Descriptions/YdInput/YdTabs/Empty/Tree/YdCard/Row/Col 等复杂组件，需人工评估）
 import { ElButton, ElCard, ElCol, ElDescriptions, ElDescriptionsItem, ElDialog, ElEmpty, ElInput, ElRow, ElTabPane, ElTabs, ElTag, ElTree } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 

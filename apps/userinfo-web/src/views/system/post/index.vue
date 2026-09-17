@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -57,7 +57,7 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -73,12 +73,12 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -111,7 +111,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   formOptions: {
     schema: [
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('post.keywordPlaceholder') },
         fieldName: 'keyword',
         label: t('post.keyword'),
@@ -160,7 +160,7 @@ async function handleDelete(row: PostVO) {
   <Page auto-content-height>
     <Grid :table-title="t('post.postManagement')">
       <template #toolbar-tools>
-        <Button variant="default" @click="handleAdd">{{ t('post.createPost') }}</Button>
+        <YdButtonBase variant="default" @click="handleAdd">{{ t('post.createPost') }}</YdButtonBase>
       </template>
     </Grid>
     <PostFormModal @success="gridApi.query()" />

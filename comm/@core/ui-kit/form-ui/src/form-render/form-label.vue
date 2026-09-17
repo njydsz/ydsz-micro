@@ -14,7 +14,7 @@
 import type { CustomRenderType } from '../types';
 
 import {
-  FormLabel,
+  YdFormLabel,
   YdHelpTooltip,
   YdRenderContent,
 } from '@ydsz-core/shadcn-ui';
@@ -32,13 +32,13 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <FormLabel :class="cn('flex items-center', props.class)">
+  <YdFormLabel :class="cn('flex items-center', props.class)">
     <span v-if="required" class="text-destructive mr-[2px]">*</span>
     <slot></slot>
     <YdHelpTooltip v-if="help" trigger-class="size-3.5 ml-1">
       <YdRenderContent :content="help" />
     </YdHelpTooltip>
     <span v-if="colon && label" class="ml-[2px]">:</span>
-  </FormLabel>
+  </YdFormLabel>
 </template>
 

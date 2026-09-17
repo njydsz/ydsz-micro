@@ -1,7 +1,7 @@
 <!--
  * 字典选择器组件 — 从全局字典缓存获取数据，支持数据权限过滤。
  *
- * 使用自研 shadcn Select 套件（Select + SelectTrigger + SelectValue + SelectContent + SelectItem）。
+ * 使用自研 shadcn YdSelectBase 套件（YdSelectBase + YdSelectTriggerBase + YdSelectValueBase + YdSelectContentBase + YdSelectItemBase）。
  *
  * @path comm\effects\shared-business\src\components\dict-select.vue
  * @author ydsz-team
@@ -14,11 +14,11 @@
 import { computed, onMounted, onUnmounted, watch } from 'vue';
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
 } from '@ydsz-core/shadcn-ui';
 
 import { onDictChange } from '../composables/use-dict-event';
@@ -102,23 +102,23 @@ function handleChange(value: string | number): void {
 </script>
 
 <template>
-  <Select
+  <YdSelectBase
     :model-value="multiple ? undefined : (modelValue as string | number | undefined)"
     :disabled="disabled || loading"
     :multiple="multiple"
     @update:model-value="handleChange"
   >
-    <SelectTrigger class="w-full">
-      <SelectValue :placeholder="placeholder" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem
+    <YdSelectTriggerBase class="w-full">
+      <YdSelectValueBase :placeholder="placeholder" />
+    </YdSelectTriggerBase>
+    <YdSelectContentBase>
+      <YdSelectItemBase
         v-for="opt in options"
         :key="String(opt.value)"
         :value="String(opt.value)"
       >
         {{ opt.label }}
-      </SelectItem>
-    </SelectContent>
-  </Select>
+      </YdSelectItemBase>
+    </YdSelectContentBase>
+  </YdSelectBase>
 </template>

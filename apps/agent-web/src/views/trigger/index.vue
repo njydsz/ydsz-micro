@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElOption/ElSelect/ElSwitch 表单套件+ElEmpty SKIP,保留 element-plus
 import { ElEmpty, ElForm, ElFormItem, ElOption, ElSelect, ElSwitch } from 'element-plus';
-import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -77,7 +77,7 @@ const gridColumns: VxeTableGridOptions<AgentTrigger>['columns'] = [
     width: 80,
     slots: {
       default: ({ row }) =>
-        h(Badge, { variant: row.enabled ? 'default' : 'secondary' }, () =>
+        h(YdBadge, { variant: row.enabled ? 'default' : 'secondary' }, () =>
           row.enabled ? '启用' : '停用',
         ),
     },
@@ -94,13 +94,13 @@ const gridColumns: VxeTableGridOptions<AgentTrigger>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(Button, {
+          h(YdButtonBase, {
             size: 'sm', variant: 'link',
             className: row.enabled ? 'text-yellow-600' : 'text-green-600',
             onClick: () => handleToggleEnabled(row),
           }, () => (row.enabled ? '禁用' : '启用')),
-          h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-          h(Button, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleDelete(row) }, () => '删除'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
     },
   },
@@ -120,12 +120,12 @@ const gridOptions: VxeTableGridOptions<AgentTrigger> = {
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
   formConfig: { enabled: true, items: [
-    { field: 'name', title: '名称', itemRender: { name: 'Input', props: { placeholder: '触发器名称' } } },
+    { field: 'name', title: '名称', itemRender: { name: 'YdInput', props: { placeholder: '触发器名称' } } },
     {
       field: 'triggerType',
       title: '类型',
       itemRender: {
-        name: 'Select',
+        name: 'YdSelectBase',
         options: [
           { label: 'Cron 定时', value: 'cron' },
           { label: 'Webhook', value: 'webhook' },
@@ -257,52 +257,52 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
   <Page auto-content-height>
     <div class="space-y-4 p-4">
       <!-- 搜索区域 -->
-      <Card>
-        <CardContent class="pt-6">
+      <YdCard>
+        <YdCardContent class="pt-6">
           <div class="flex items-center gap-4">
-            <Input
+            <YdInput
               v-model="searchForm.name"
               placeholder="按名称搜索..."
               class="max-w-xs"
             />
-            <Select v-model="searchForm.triggerType">
-              <SelectTrigger class="w-40">
-                <SelectValue placeholder="按类型筛选" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="cron">Cron 定时</SelectItem>
-                <SelectItem value="webhook">Webhook</SelectItem>
-                <SelectItem value="event">事件驱动</SelectItem>
-                <SelectItem value="agent_lifecycle">Agent 生命周期</SelectItem>
-                <SelectItem value="content_match">内容匹配</SelectItem>
-                <SelectItem value="workflow_completion">工作流完成</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button @click="refreshList">搜索</Button>
-            <Button variant="outline" @click="searchForm.name = ''; searchForm.triggerType = ''">重置</Button>
+            <YdSelectBase v-model="searchForm.triggerType">
+              <YdSelectTriggerBase class="w-40">
+                <YdSelectValueBase placeholder="按类型筛选" />
+              </YdSelectTriggerBase>
+              <YdSelectContentBase>
+                <YdSelectItemBase value="cron">Cron 定时</YdSelectItemBase>
+                <YdSelectItemBase value="webhook">Webhook</YdSelectItemBase>
+                <YdSelectItemBase value="event">事件驱动</YdSelectItemBase>
+                <YdSelectItemBase value="agent_lifecycle">Agent 生命周期</YdSelectItemBase>
+                <YdSelectItemBase value="content_match">内容匹配</YdSelectItemBase>
+                <YdSelectItemBase value="workflow_completion">工作流完成</YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
+            <YdButtonBase @click="refreshList">搜索</YdButtonBase>
+            <YdButtonBase variant="outline" @click="searchForm.name = ''; searchForm.triggerType = ''">重置</YdButtonBase>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 列表 -->
-      <Card>
-        <CardContent class="pt-6">
+      <YdCard>
+        <YdCardContent class="pt-6">
           <Grid table-title="触发器管理">
             <template #toolbar-tools>
-              <Button @click="handleCreate">新建触发器</Button>
+              <YdButtonBase @click="handleCreate">新建触发器</YdButtonBase>
             </template>
           </Grid>
           <ElEmpty v-if="triggers.length === 0" description="暂无触发器" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <!-- 新建/编辑弹窗 -->
-    <Dialog v-model:open="formModalVisible">
-      <DialogContent class="sm:max-w-[600px]">
-        <DialogHeader>
-          <DialogTitle>{{ isEditMode ? '编辑触发器' : '新建触发器' }}</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="formModalVisible">
+      <YdDialogContent class="sm:max-w-[600px]">
+        <YdDialogHeader>
+          <YdDialogTitle>{{ isEditMode ? '编辑触发器' : '新建触发器' }}</YdDialogTitle>
+        </YdDialogHeader>
         <ElForm :model="editForm" label-width="120px">
           <ElFormItem label="名称" required>
             <ElInput v-model="editForm.name" placeholder="请输入触发器名称" />
@@ -341,11 +341,11 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
             />
           </ElFormItem>
         </ElForm>
-        <DialogFooter>
-          <Button variant="outline" @click="formModalVisible = false">取消</Button>
-          <Button @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="formModalVisible = false">取消</YdButtonBase>
+          <YdButtonBase @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </Page>
 </template>

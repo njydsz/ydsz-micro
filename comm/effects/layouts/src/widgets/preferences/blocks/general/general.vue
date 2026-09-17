@@ -9,7 +9,7 @@
 import { SUPPORT_LANGUAGES } from '@ydsz/constants';
 import { $t } from '@ydsz/locales';
 
-import SelectItem from '../select-item.vue';
+import YdSelectItemBase from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
@@ -23,9 +23,9 @@ const appEnableCheckUpdates = defineModel<boolean>('appEnableCheckUpdates');
 </script>
 
 <template>
-  <SelectItem v-model="appLocale" :items="SUPPORT_LANGUAGES">
+  <YdSelectItemBase v-model="appLocale" :items="SUPPORT_LANGUAGES">
     {{ $t('preferences.language') }}
-  </SelectItem>
+  </YdSelectItemBase>
   <SwitchItem v-model="appDynamicTitle">
     {{ $t('preferences.dynamicTitle') }}
   </SwitchItem>

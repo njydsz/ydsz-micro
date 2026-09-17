@@ -24,7 +24,7 @@ import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, ref } from 'vue';
 
-import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listMine, upsert } from '#/api/userChannelBinding';
@@ -72,7 +72,7 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapBadgeVariant(getVerifiedType(row.verified)) }, () =>
+          h(YdBadge, { variant: mapBadgeVariant(getVerifiedType(row.verified)) }, () =>
             getVerifiedLabel(row.verified),
           ),
       },
@@ -83,7 +83,7 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.isPrimary === 1 ? 'default' : 'secondary' }, () =>
+          h(YdBadge, { variant: row.isPrimary === 1 ? 'default' : 'secondary' }, () =>
             row.isPrimary === 1 ? '是' : '否',
           ),
       },
@@ -98,7 +98,7 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
           h(
-            Button,
+            YdButtonBase,
             { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
             () => '删除',
           ),
@@ -180,17 +180,17 @@ async function handleDelete(row: MsgUserChannelVO): Promise<void> {
     <Grid table-title="渠道绑定管理">
       <template #toolbar-tools>
         <div class="flex items-center gap-3">
-          <Input
+          <YdInput
             v-model="quickChannelType"
             placeholder="渠道类型（如 EMAIL/SMS）"
             class="w-44"
           />
-          <Input
+          <YdInput
             v-model="quickChannelUserId"
             placeholder="渠道用户标识"
             class="w-56"
           />
-          <Button @click="handleQuickCreate">新增绑定</Button>
+          <YdButtonBase @click="handleQuickCreate">新增绑定</YdButtonBase>
         </div>
       </template>
     </Grid>

@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -60,7 +60,7 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
         default: ({ row }) => {
           const variable = row as VariableRow;
           return h(
-            Badge,
+            YdBadge,
             { variant: isEnabled(variable.status) ? undefined : 'secondary' },
             () => (isEnabled(variable.status) ? t('common.enabled') : t('common.disabled')),
           );
@@ -77,8 +77,8 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
         default: ({ row }) => {
           const variable = row as VariableRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', onClick: () => handleEdit(variable) }, () => t('common.edit')),
-            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(variable) }, () => t('common.delete')),
+            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(variable) }, () => t('common.edit')),
+            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(variable) }, () => t('common.delete')),
           ]);
         },
       },
@@ -103,7 +103,7 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'variableKey', title: t('variable.key'), itemRender: { name: 'Input', props: { placeholder: t('variable.key') } } },
+      { field: 'variableKey', title: t('variable.key'), itemRender: { name: 'YdInput', props: { placeholder: t('variable.key') } } },
     ],
   },
 };
@@ -167,7 +167,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid :table-title="t('variable.title')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />

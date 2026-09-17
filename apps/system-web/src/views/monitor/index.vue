@@ -19,8 +19,8 @@
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { Badge, Button, Card as ShadcnCard, CardContent as ShadcnCardContent } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: 复杂文件，ElCard 需要手动迁移为 shadcn Card 结构；ElProgress/ElEmpty/ElTable 部分未提供 shadcn 或 SKIP（Table）；部分迁移：Button、Tag → shadcn
+import { YdBadge, YdButtonBase, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: 复杂文件，ElCard 需要手动迁移为 shadcn YdCard 结构；ElProgress/ElEmpty/ElTable 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、Tag → shadcn
 import {
   ElCard,
   ElEmpty,
@@ -212,7 +212,7 @@ const formatNumber = (value: number | undefined): string => {
           >
             {{ redisMetrics.hitRate }}%
           </div>
-          <Badge v-else variant="secondary" class="mt-2">Redis 未装配</Badge>
+          <YdBadge v-else variant="secondary" class="mt-2">Redis 未装配</YdBadge>
           <div v-if="redisMetrics?.available" class="text-xs text-gray-400 mt-1">
             {{ formatNumber(redisMetrics.keyspaceHits) }} 命中 /
             {{ formatNumber(redisMetrics.keyspaceMisses) }} 未命中
@@ -231,7 +231,7 @@ const formatNumber = (value: number | undefined): string => {
           <div v-if="memory" class="text-xs text-gray-400 mt-1">
             {{ memory.usedMb }}MB / {{ memory.maxMb }}MB
           </div>
-          <Badge v-else variant="secondary" class="mt-2">-</Badge>
+          <YdBadge v-else variant="secondary" class="mt-2">-</YdBadge>
         </div>
       </ElCard>
     </div>
@@ -243,12 +243,12 @@ const formatNumber = (value: number | undefined): string => {
         <template #header>
           <div class="flex items-center justify-between">
             <span class="font-medium">服务注册状态</span>
-            <Badge
+            <YdBadge
               v-if="services.length > 0"
               :variant="summary.downServices === 0 ? undefined : 'destructive'"
             >
               {{ summary.upServices }}/{{ summary.totalServices }} 正常
-            </Badge>
+            </YdBadge>
           </div>
         </template>
         <ElTable
@@ -261,7 +261,7 @@ const formatNumber = (value: number | undefined): string => {
           <ElTableColumn prop="serviceId" label="服务 ID" min-width="180" />
           <ElTableColumn label="状态" width="90">
             <template #default="{ row }">
-              <Badge :variant="statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary'">{{ row.status }}</Badge>
+              <YdBadge :variant="statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary'">{{ row.status }}</YdBadge>
             </template>
           </ElTableColumn>
           <ElTableColumn prop="instanceCount" label="实例数" width="80" />
@@ -370,9 +370,9 @@ const formatNumber = (value: number | undefined): string => {
         最后采集时间：<span class="font-mono">{{ collectedAt }}</span>
         <span class="ml-4">每 30s 自动刷新</span>
       </div>
-      <Button size="sm" :loading="loading" @click="loadDashboard">
+      <YdButtonBase size="sm" :loading="loading" @click="loadDashboard">
         手动刷新
-      </Button>
+      </YdButtonBase>
     </div>
   </div>
 </template>

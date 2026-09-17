@@ -311,6 +311,10 @@
     "Keyclick",
     "xlink",
     "vnode",
-    "Mbps"
+    "Mbps",
+    "conv",
+    "actioncol",
+    "daterange",
+    "BACKOFFS"
   ]
 }

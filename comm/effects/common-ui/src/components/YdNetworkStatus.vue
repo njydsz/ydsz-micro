@@ -7,7 +7,7 @@
  * - 提供手动重试按钮
  * - 支持自定义提示文案和样式
  *
- * 使用 lucide-vue-next + 自研 Button 组件，零 element-plus 依赖。
+ * 使用 lucide-vue-next + 自研 YdButtonBase 组件，零 element-plus 依赖。
  *
  * @example
  * ```vue
@@ -25,7 +25,7 @@ import { AlertCircle, CheckCircle2, Info, Loader2 } from 'lucide-vue-next';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { Button } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/shadcn-ui';
 
 defineOptions({ name: 'YdNetworkStatus' });
 
@@ -189,7 +189,7 @@ onUnmounted(() => {
 
           <!-- 右侧按钮组 -->
           <div class="flex shrink-0 items-center gap-2">
-            <Button
+            <YdButtonBase
               v-if="showRetry"
               :disabled="isRetrying"
               size="sm"
@@ -202,8 +202,8 @@ onUnmounted(() => {
                 class="mr-1 animate-spin"
               />
               {{ isRetrying ? '重试中…' : '重试连接' }}
-            </Button>
-            <Button
+            </YdButtonBase>
+            <YdButtonBase
               size="sm"
               variant="ghost"
               class="text-text-secondary"
@@ -211,7 +211,7 @@ onUnmounted(() => {
               @click="handleClose"
             >
               <CheckCircle2 :size="14" />
-            </Button>
+            </YdButtonBase>
           </div>
         </div>
       </div>

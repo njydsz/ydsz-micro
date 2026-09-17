@@ -20,7 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { Badge, Button, Card, CardContent, YdEmptyState, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdEmptyState, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';
@@ -145,31 +145,31 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="read-receipt-container p-4">
       <!-- 查询入口 -->
-      <Card class="mb-4">
-        <CardContent class="pt-4">
+      <YdCard class="mb-4">
+        <YdCardContent class="pt-4">
           <h3 class="mb-4 text-base font-medium">短码查询</h3>
           <form class="space-y-4" @submit.prevent="handleQuery">
             <div class="flex items-center gap-2">
               <label class="w-20 shrink-0 text-sm text-gray-500">短码</label>
               <div class="flex flex-1 items-center gap-3">
-                <Input
+                <YdInput
                   v-model="searchForm.shortCode"
                   placeholder="请输入回执短码（shortCode），如：a1b2c3"
                   class="flex-1"
                   @keyup.enter="handleQuery"
                 />
-                <Button :loading="loading" type="submit">查询</Button>
-                <Button variant="outline" @click="handleReset">重置</Button>
+                <YdButtonBase :loading="loading" type="submit">查询</YdButtonBase>
+                <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
               </div>
             </div>
           </form>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <!-- 回执详情区 -->
         <div class="lg:col-span-2">
-          <Card>
+          <YdCard>
             <h3 class="mb-4 text-base font-medium">回执详情</h3>
 
             <div v-if="receiptDetail" class="space-y-4">
@@ -201,9 +201,9 @@ onMounted(() => {
                 <div class="rounded bg-gray-50 p-4">
                   <span class="text-xs text-gray-500">回执状态</span>
                   <p class="mt-1">
-                    <Badge :variant="getStatusType(receiptDetail.status) === 'success' ? 'default' : getStatusType(receiptDetail.status) === 'warning' ? 'outline' : 'secondary'">
+                    <YdBadge :variant="getStatusType(receiptDetail.status) === 'success' ? 'default' : getStatusType(receiptDetail.status) === 'warning' ? 'outline' : 'secondary'">
                       {{ getStatusLabel(receiptDetail.status) }}
-                    </Badge>
+                    </YdBadge>
                   </p>
                 </div>
                 <div class="rounded bg-gray-50 p-4">
@@ -220,12 +220,12 @@ onMounted(() => {
               description="请输入短码进行查询"
               preset="no-result"
             />
-          </Card>
+          </YdCard>
         </div>
 
         <!-- 最近查询记录 -->
         <div>
-          <Card>
+          <YdCard>
             <h3 class="mb-3 text-base font-medium">最近查询</h3>
             <div v-if="recentQueries.length > 0" class="space-y-2">
               <div
@@ -235,9 +235,9 @@ onMounted(() => {
                 @click="handleQuickQuery(item.shortCode)"
               >
                 <div class="flex items-center gap-2">
-                  <Badge :variant="item.found ? 'default' : 'destructive'">
+                  <YdBadge :variant="item.found ? 'default' : 'destructive'">
                     {{ item.found ? '成功' : '失败' }}
-                  </Badge>
+                  </YdBadge>
                   <span class="font-mono text-sm">{{ item.shortCode }}</span>
                 </div>
                 <span class="text-xs text-gray-400">{{ item.time }}</span>
@@ -252,7 +252,7 @@ onMounted(() => {
             <p class="mt-2 text-xs text-gray-400">
               点击记录可快速重新查询
             </p>
-          </Card>
+          </YdCard>
         </div>
       </div>
     </div>

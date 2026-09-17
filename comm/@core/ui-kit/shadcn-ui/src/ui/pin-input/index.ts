@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as PinInput } from './PinInput.vue';
-export { default as PinInputGroup } from './PinInputGroup.vue';
-export { default as PinInputInput } from './PinInputInput.vue';
-export { default as PinInputSeparator } from './PinInputSeparator.vue';
+export { default as YdPinInputBase } from './YdPinInputBase.vue';
+export { default as YdPinInputGroupBase } from './YdPinInputGroupBase.vue';
+export { default as YdPinInputInputBase } from './YdPinInputInputBase.vue';
+export { default as YdPinInputSeparatorBase } from './YdPinInputSeparatorBase.vue';

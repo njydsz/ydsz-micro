@@ -24,7 +24,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElDrawer/ElDescriptions/ElDescriptionsItem/ElProgress 不在 shadcn 映射表，保留 EP
 import {
   ElDescriptions,
@@ -50,7 +50,7 @@ const { t } = useI18n();
 type ViewMode = 'card' | 'table';
 const viewMode = ref<ViewMode>('card');
 
-/** Badge variant 映射（EP type → shadcn variant） */
+/** YdBadge variant 映射（EP type → shadcn variant） */
 function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
@@ -98,7 +98,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     {
@@ -108,7 +108,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) =>
-          h(Button, { size: 'sm', variant: 'link', onClick: () => handleProgress(row) }, () => '进度'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleProgress(row) }, () => '进度'),
       },
     },
   ],
@@ -128,7 +128,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'batchName', title: '批次名称', itemRender: { name: 'Input', props: { placeholder: '批次名称' } } },
+      { field: 'batchName', title: '批次名称', itemRender: { name: 'YdInput', props: { placeholder: '批次名称' } } },
     ],
   },
 };
@@ -350,7 +350,7 @@ onBeforeUnmount(() => {
           表格
         </button>
       </div>
-      <Button @click="handleAdd">{{ t('common.create') }}</Button>
+      <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
     </div>
 
     <!-- 表格视图 -->
@@ -405,13 +405,13 @@ onBeforeUnmount(() => {
           </template>
 
           <template #actions>
-            <Button
+            <YdButtonBase
               size="sm"
               variant="link"
               @click.stop="handleProgress(item)"
             >
               查看进度
-            </Button>
+            </YdButtonBase>
           </template>
         </YdEntityCard>
       </YdCardGrid>
@@ -423,12 +423,12 @@ onBeforeUnmount(() => {
         <div class="flex w-full items-center justify-between pe-2">
           <span>{{ t('page.batchSend') }}</span>
           <span class="flex items-center gap-2">
-            <Badge :variant="sseState === 'live' ? 'default' : sseState === 'error' ? 'destructive' : 'secondary'">
+            <YdBadge :variant="sseState === 'live' ? 'default' : sseState === 'error' ? 'destructive' : 'secondary'">
               {{ sseStateText[sseState] }}
-            </Badge>
-            <Button size="sm" variant="link" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
+            </YdBadge>
+            <YdButtonBase size="sm" variant="link" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
               {{ t('common.refresh') }}
-            </Button>
+            </YdButtonBase>
           </span>
         </div>
       </template>

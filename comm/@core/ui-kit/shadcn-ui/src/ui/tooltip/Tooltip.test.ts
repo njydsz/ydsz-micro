@@ -1,12 +1,12 @@
 /**
- * Tooltip 组件测试 —— 验证 Provider/Trigger/Content 三件套与基础 props
+ * YdTooltipBase 组件测试 —— 验证 Provider/Trigger/Content 三件套与基础 props
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-FE-001：测试用例必须有明确断言。
  *
- * <p>Tooltip 基于 radix-vue，其 TooltipRoot 必须位于 TooltipProvider 内部
- * （依赖 injection context）。因此测试中需要用 TooltipProvider 包裹被测组件。
+ * <p>YdTooltipBase 基于 radix-vue，其 TooltipRoot 必须位于 YdTooltipProviderBase 内部
+ * （依赖 injection context）。因此测试中需要用 YdTooltipProviderBase 包裹被测组件。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\Tooltip.test.ts
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\tooltip\YdTooltipBase.test.ts
  * @author ydsz-team
  * @since 26.09.17
  */
@@ -15,13 +15,13 @@ import { describe, expect, it } from 'vitest';
 
 import { mount } from '@vue/test-utils';
 
-import Tooltip from './Tooltip.vue';
-import TooltipContent from './TooltipContent.vue';
-import TooltipProvider from './TooltipProvider.vue';
-import TooltipTrigger from './TooltipTrigger.vue';
+import YdTooltipBase from './YdTooltipBase.vue';
+import YdTooltipContentBase from './YdTooltipContentBase.vue';
+import YdTooltipProviderBase from './YdTooltipProviderBase.vue';
+import YdTooltipTriggerBase from './YdTooltipTriggerBase.vue';
 
 /**
- * 包裹器：为需要 TooltipProvider context 的组件提供注入环境。
+ * 包裹器：为需要 YdTooltipProviderBase context 的组件提供注入环境。
  *
  * @param component - 要测试的组件
  * @param props - 组件 props
@@ -32,26 +32,26 @@ function mountWithProvider(
   props: Record<string, unknown> = {},
   slots: Record<string, unknown> = {},
 ) {
-  return mount(TooltipProvider, {
+  return mount(YdTooltipProviderBase, {
     props: { delayDuration: 0 },
     slots: {
       default: {
-        template: `<Tooltip><TPL /></Tooltip>`,
-        components: { Tooltip, TPL: component },
+        template: `<YdTooltipBase><TPL /></YdTooltipBase>`,
+        components: { YdTooltipBase, TPL: component },
       },
     },
     attachTo: document.body,
   });
 }
 
-describe('Tooltip (TooltipRoot wrapper)', () => {
+describe('YdTooltipBase (TooltipRoot wrapper)', () => {
   it('应能挂载并渲染默认 slot', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       props: { delayDuration: 0 },
       slots: {
         default: {
-          template: `<Tooltip><button data-testid="tb">hover me</button></Tooltip>`,
-          components: { Tooltip },
+          template: `<YdTooltipBase><button data-testid="tb">hover me</button></YdTooltipBase>`,
+          components: { YdTooltipBase },
         },
       },
     });
@@ -60,12 +60,12 @@ describe('Tooltip (TooltipRoot wrapper)', () => {
   });
 
   it('open prop 应被接受并可用', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       props: { delayDuration: 0 },
       slots: {
         default: {
-          template: `<Tooltip :open="true"><span>child</span></Tooltip>`,
-          components: { Tooltip },
+          template: `<YdTooltipBase :open="true"><span>child</span></YdTooltipBase>`,
+          components: { YdTooltipBase },
         },
       },
     });
@@ -73,12 +73,12 @@ describe('Tooltip (TooltipRoot wrapper)', () => {
   });
 
   it('defaultOpen 属性应可用', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       props: { delayDuration: 0 },
       slots: {
         default: {
-          template: `<Tooltip :defaultOpen="false"><span>child</span></Tooltip>`,
-          components: { Tooltip },
+          template: `<YdTooltipBase :defaultOpen="false"><span>child</span></YdTooltipBase>`,
+          components: { YdTooltipBase },
         },
       },
     });
@@ -86,9 +86,9 @@ describe('Tooltip (TooltipRoot wrapper)', () => {
   });
 });
 
-describe('TooltipProvider', () => {
+describe('YdTooltipProviderBase', () => {
   it('应能挂载并渲染 slot 内容', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       slots: {
         default: '<div data-testid="provider-child">content</div>',
       },
@@ -97,7 +97,7 @@ describe('TooltipProvider', () => {
   });
 
   it('delayDuration 应在合理范围内被接受', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       props: { delayDuration: 500 },
       slots: {
         default: '<span>child</span>',
@@ -107,7 +107,7 @@ describe('TooltipProvider', () => {
   });
 
   it('disableHoverableContent 属性应可用', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       props: { disableHoverableContent: true },
       slots: {
         default: '<span>child</span>',
@@ -117,13 +117,13 @@ describe('TooltipProvider', () => {
   });
 });
 
-describe('TooltipTrigger', () => {
+describe('YdTooltipTriggerBase', () => {
   it('应渲染 slot 内容', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       slots: {
         default: {
-          template: `<Tooltip><TooltipTrigger><button data-testid="trig">触发器</button></TooltipTrigger></Tooltip>`,
-          components: { Tooltip, TooltipTrigger },
+          template: `<YdTooltipBase><YdTooltipTriggerBase><button data-testid="trig">触发器</button></YdTooltipTriggerBase></YdTooltipBase>`,
+          components: { YdTooltipBase, YdTooltipTriggerBase },
         },
       },
       attachTo: document.body,
@@ -133,11 +133,11 @@ describe('TooltipTrigger', () => {
   });
 
   it('asChild 属性应被接受', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       slots: {
         default: {
-          template: `<Tooltip><TooltipTrigger :asChild="true"><a href="#">link</a></TooltipTrigger></Tooltip>`,
-          components: { Tooltip, TooltipTrigger },
+          template: `<YdTooltipBase><YdTooltipTriggerBase :asChild="true"><a href="#">link</a></YdTooltipTriggerBase></YdTooltipBase>`,
+          components: { YdTooltipBase, YdTooltipTriggerBase },
         },
       },
       attachTo: document.body,
@@ -148,13 +148,13 @@ describe('TooltipTrigger', () => {
   });
 });
 
-describe('TooltipContent', () => {
+describe('YdTooltipContentBase', () => {
   it('应能挂载（通过 Provider 包裹）', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       slots: {
         default: {
-          template: `<Tooltip :open="true"><TooltipContent><span data-testid="tc">提示内容</span></TooltipContent></Tooltip>`,
-          components: { Tooltip, TooltipContent },
+          template: `<YdTooltipBase :open="true"><YdTooltipContentBase><span data-testid="tc">提示内容</span></YdTooltipContentBase></YdTooltipBase>`,
+          components: { YdTooltipBase, YdTooltipContentBase },
         },
       },
       attachTo: document.body,
@@ -165,11 +165,11 @@ describe('TooltipContent', () => {
   });
 
   it('side 属性影响定位', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       slots: {
         default: {
-          template: `<Tooltip :open="true"><TooltipContent side="bottom"><span>提示</span></TooltipContent></Tooltip>`,
-          components: { Tooltip, TooltipContent },
+          template: `<YdTooltipBase :open="true"><YdTooltipContentBase side="bottom"><span>提示</span></YdTooltipContentBase></YdTooltipBase>`,
+          components: { YdTooltipBase, YdTooltipContentBase },
         },
       },
       attachTo: document.body,
@@ -179,11 +179,11 @@ describe('TooltipContent', () => {
   });
 
   it('align 属性应可用', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       slots: {
         default: {
-          template: `<Tooltip :open="true"><TooltipContent align="start" side="top"><span>提示</span></TooltipContent></Tooltip>`,
-          components: { Tooltip, TooltipContent },
+          template: `<YdTooltipBase :open="true"><YdTooltipContentBase align="start" side="top"><span>提示</span></YdTooltipContentBase></YdTooltipBase>`,
+          components: { YdTooltipBase, YdTooltipContentBase },
         },
       },
       attachTo: document.body,
@@ -193,16 +193,16 @@ describe('TooltipContent', () => {
   });
 
   it('自定义 class 应被应用', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       slots: {
         default: {
-          template: `<Tooltip :open="true"><TooltipContent class="custom-tooltip-content"><span>提示</span></TooltipContent></Tooltip>`,
-          components: { Tooltip, TooltipContent },
+          template: `<YdTooltipBase :open="true"><YdTooltipContentBase class="custom-tooltip-content"><span>提示</span></YdTooltipContentBase></YdTooltipBase>`,
+          components: { YdTooltipBase, YdTooltipContentBase },
         },
       },
       attachTo: document.body,
     });
-    // 验证组件挂载时不报错；class 合并由 cn() 工具保证（与 Button 等共享逻辑）
+    // 验证组件挂载时不报错；class 合并由 cn() 工具保证（与 YdButtonBase 等共享逻辑）
     const contentEl = document.body.querySelector('.custom-tooltip-content');
     // Teleport 后的内容在 body 上查找
     expect(wrapper.exists()).toBe(true);
@@ -210,23 +210,23 @@ describe('TooltipContent', () => {
   });
 });
 
-describe('Tooltip integration', () => {
+describe('YdTooltipBase integration', () => {
   it('Provider + Trigger + Content 三级结构可组装', () => {
-    const wrapper = mount(TooltipProvider, {
+    const wrapper = mount(YdTooltipProviderBase, {
       props: { delayDuration: 0 },
       slots: {
         default: {
           template: `
-            <Tooltip :open="true">
-              <TooltipTrigger>
+            <YdTooltipBase :open="true">
+              <YdTooltipTriggerBase>
                 <button data-testid="t-btn">按钮</button>
-              </TooltipTrigger>
-              <TooltipContent>
+              </YdTooltipTriggerBase>
+              <YdTooltipContentBase>
                 <span data-testid="t-content">提示内容</span>
-              </TooltipContent>
-            </Tooltip>
+              </YdTooltipContentBase>
+            </YdTooltipBase>
           `,
-          components: { Tooltip, TooltipContent, TooltipTrigger },
+          components: { YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase },
         },
       },
       attachTo: document.body,

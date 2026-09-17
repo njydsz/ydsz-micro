@@ -1,7 +1,7 @@
 <!--
  * 快捷键帮助面板 — 按 `?` 或配置键唤起，展示已注册快捷键
  *
- * 使用自研 shadcn Dialog + Badge，零 element-plus 依赖。
+ * 使用自研 shadcn YdDialog + YdBadge，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\keyboard-help.vue
  * @author ydsz-team
@@ -14,11 +14,11 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import {
-  Badge,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+  YdBadge,
+  YdDialog,
+  YdDialogContent,
+  YdDialogHeader,
+  YdDialogTitle,
 } from '@ydsz-core/shadcn-ui';
 
 import { bindGlobalShortcut, type ShortcutDescriptor } from '../composables/use-keyboard-shortcut';
@@ -73,11 +73,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Dialog v-model:open="visible">
-    <DialogContent class="keyboard-help-modal sm:max-w-md">
-      <DialogHeader>
-        <DialogTitle>键盘快捷键</DialogTitle>
-      </DialogHeader>
+  <YdDialog v-model:open="visible">
+    <YdDialogContent class="keyboard-help-modal sm:max-w-md">
+      <YdDialogHeader>
+        <YdDialogTitle>键盘快捷键</YdDialogTitle>
+      </YdDialogHeader>
 
       <div
         v-if="formatted.length > 0"
@@ -89,9 +89,9 @@ onBeforeUnmount(() => {
           class="keyboard-help__row"
         >
           <span class="keyboard-help__label">{{ item.label }}</span>
-          <Badge variant="outline">
+          <YdBadge variant="outline">
             {{ item.display }}
-          </Badge>
+          </YdBadge>
         </div>
       </div>
       <div
@@ -100,8 +100,8 @@ onBeforeUnmount(() => {
       >
         暂无快捷键配置
       </div>
-    </DialogContent>
-  </Dialog>
+    </YdDialogContent>
+  </YdDialog>
 </template>
 
 <style scoped>

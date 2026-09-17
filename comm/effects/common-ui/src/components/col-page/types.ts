@@ -18,7 +18,7 @@ import type { PageProps } from '../page/types';
  * 左右双栏页面容器 `YdColPage` 的 Props，在 {@link PageProps} 基础上扩展分栏布局配置。
  *
  * @remarks
- * 底层基于 `ResizablePanelGroup` 实现，所有宽度类字段的单位均为**父容器宽度的百分比**（0~100），
+ * 底层基于 `YdResizablePanelGroup` 实现，所有宽度类字段的单位均为**父容器宽度的百分比**（0~100），
  * 而非像素；左右两栏之和建议为 100，否则剩余空间的分配交由面板组自行处理。
  * 组件通过 `defineExpose` 暴露 `expandLeft` / `collapseLeft`，可在父组件用模板 ref 手动折叠左栏。
  */

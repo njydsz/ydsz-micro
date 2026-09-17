@@ -15,7 +15,7 @@
  * @since 1.0.0
 */
 import { ElSkeleton } from 'element-plus';
-import { Button, Card, CardContent, CardHeader, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -223,31 +223,31 @@ onMounted(async () => {
           <h3 class="text-base font-medium">{{ fileNode.name }}</h3>
           <p class="mt-1 text-xs text-gray-500">
             {{ fileSuffix.toUpperCase() }} 格式
-            <Badge v-if="previewSupported" variant="default" class="ml-2">支持预览</Badge>
-            <Badge v-else variant="warning" class="ml-2">不支持预览</Badge>
+            <YdBadge v-if="previewSupported" variant="default" class="ml-2">支持预览</YdBadge>
+            <YdBadge v-else variant="warning" class="ml-2">不支持预览</YdBadge>
           </p>
         </div>
         <div class="flex gap-2">
-          <Button
+          <YdButtonBase
             v-if="previewSupported && !isImage && !isText && !isPdf"
             size="sm"
             :loading="generating"
             @click="handleGeneratePreview"
           >
             生成预览
-          </Button>
-          <Button
+          </YdButtonBase>
+          <YdButtonBase
             v-if="aiEnabled"
             size="sm"
             :loading="aiLoading"
             @click="handleGenerateSummary"
           >
             AI 摘要
-          </Button>
-          <Button size="sm" @click="handleDownload">
+          </YdButtonBase>
+          <YdButtonBase size="sm" @click="handleDownload">
             下载
-          </Button>
-          <Button size="sm" variant="outline" @click="emit('close')">关闭</Button>
+          </YdButtonBase>
+          <YdButtonBase size="sm" variant="outline" @click="emit('close')">关闭</YdButtonBase>
         </div>
       </div>
 
@@ -281,27 +281,27 @@ onMounted(async () => {
         <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
           <p class="text-lg">该文件格式暂不支持在线预览</p>
           <p class="mt-2 text-sm">请下载后使用本地应用打开</p>
-          <Button class="mt-4" @click="handleDownload">立即下载</Button>
+          <YdButtonBase class="mt-4" @click="handleDownload">立即下载</YdButtonBase>
         </div>
       </div>
 
       <!-- AI 摘要面板 -->
-      <Card v-if="aiSummary" class="mt-4">
-        <CardHeader className="pb-3">
+      <YdCard v-if="aiSummary" class="mt-4">
+        <YdCardHeader className="pb-3">
           <div class="flex items-center justify-between">
             <span class="font-medium">AI 智能摘要</span>
-            <Button variant="ghost" size="sm" @click="aiPanelExpanded = !aiPanelExpanded">
+            <YdButtonBase variant="ghost" size="sm" @click="aiPanelExpanded = !aiPanelExpanded">
               {{ aiPanelExpanded ? '收起' : '展开' }}
-            </Button>
+            </YdButtonBase>
           </div>
-        </CardHeader>
-        <CardContent v-show="aiPanelExpanded" class="text-sm text-gray-700">
+        </YdCardHeader>
+        <YdCardContent v-show="aiPanelExpanded" class="text-sm text-gray-700">
           <p class="whitespace-pre-wrap leading-relaxed">{{ aiSummary.summary }}</p>
           <p v-if="aiSummary.wordCount" class="mt-3 text-xs text-gray-500">
             字数统计：{{ aiSummary.wordCount }}
           </p>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
   </div>
 </template>

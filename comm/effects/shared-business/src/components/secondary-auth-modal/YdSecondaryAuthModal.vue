@@ -8,7 +8,7 @@
  * 关闭方式仅限「取消按钮」，遮罩点击与 ESC 已被禁止（closeOnOverlayClick=false / closeOnEsc=false），
  * 防止用户绕过密码输入直接关闭导致 Promise 永不结算。
  *
- * 使用自研 Dialog + InputPassword + YdAlertBanner + Button，零 element-plus 依赖。
+ * 使用自研 YdDialog + InputPassword + YdAlertBanner + YdButtonBase，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\secondary-auth-modal\index.vue
  * @author ydsz-team
@@ -27,12 +27,12 @@ import { useI18n } from 'vue-i18n';
 
 import {
   YdAlertBanner,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+  YdButtonBase,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
   InputPassword,
 } from '@ydsz-core/shadcn-ui';
 
@@ -100,17 +100,17 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Dialog :open="visible">
-    <DialogContent
+  <YdDialog :open="visible">
+    <YdDialogContent
       class="secondary-auth-modal"
       :close-on-esc="false"
       :close-on-overlay-click="false"
       :show-close="false"
       @update:open="(open) => { if (!open) handleCancel(); }"
     >
-      <DialogHeader>
-        <DialogTitle>{{ t('secondaryAuth.title') }}</DialogTitle>
-      </DialogHeader>
+      <YdDialogHeader>
+        <YdDialogTitle>{{ t('secondaryAuth.title') }}</YdDialogTitle>
+      </YdDialogHeader>
 
       <!-- 顶部提示 -->
       <YdAlertBanner
@@ -151,25 +151,25 @@ onBeforeUnmount(() => {
       </form>
 
       <!-- 操作区 -->
-      <DialogFooter class="secondary-auth-modal__footer">
-        <Button
+      <YdDialogFooter class="secondary-auth-modal__footer">
+        <YdButtonBase
           :disabled="submitting"
           type="button"
           variant="outline"
           @click="handleCancel"
         >
           {{ t('secondaryAuth.cancel') }}
-        </Button>
-        <Button
+        </YdButtonBase>
+        <YdButtonBase
           :loading="props.loading || submitting"
           type="button"
           @click="handleConfirm"
         >
           {{ t('secondaryAuth.confirm') }}
-        </Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+        </YdButtonBase>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>
 
 <style scoped>

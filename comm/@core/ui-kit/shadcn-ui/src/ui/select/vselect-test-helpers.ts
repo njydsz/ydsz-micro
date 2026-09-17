@@ -1,5 +1,5 @@
 /**
- * VSelect 测试用的辅助函数。
+ * YdVSelect 测试用的辅助函数。
  *
  * 在多个测试文件间复用数据生成逻辑；放在 helpers 文件而不是 __test__ 目录，
  * 是为了让 stories、benchmark 文件也能直接引用。
@@ -9,18 +9,18 @@
  * @since 1.0.0
  */
 
-/** VSelect 项的字面量类型 */
+/** YdVSelect 项的字面量类型 */
 export interface VSelectItem {
   label: string;
   value: string;
 }
 
 /**
- * 生成 VSelect 测试数据数组。
+ * 生成 YdVSelect 测试数据数组。
  *
  * @param count - 数据条数，默认 100
  * @param prefix - 标签前缀，默认 '标签'
- * @return SelectItem 数组
+ * @return YdSelectItemBase 数组
  */
 export function generateTestItems(
   count = 100,

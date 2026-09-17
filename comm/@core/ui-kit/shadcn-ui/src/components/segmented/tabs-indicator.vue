@@ -1,5 +1,5 @@
 ﻿<!--
- * 分段控制器中随选中项滑动的指示块：位置直接消费 radix Tabs 暴露的
+ * 分段控制器中随选中项滑动的指示块：位置直接消费 radix YdTabs 暴露的
  * --radix-tabs-indicator-position 变量做 translate，宽度默认 w-1/2，
  * 由父级 segmented 按分段数量以内联 style 覆盖。
  *

@@ -1,5 +1,5 @@
 /**
- * 用户行为面包屑（Breadcrumb）— 错误发生前的用户操作轨迹
+ * 用户行为面包屑（YdBreadcrumb）— 错误发生前的用户操作轨迹
  *
  * 记录最近 N 条用户行为（点击、路由跳转、HTTP 请求、自定义事件），
  * 在错误上报时附带，便于复现错误发生路径。对标 Sentry breadcrumb。
@@ -22,7 +22,7 @@ export type BreadcrumbCategory =
 export type BreadcrumbLevel = 'info' | 'warning' | 'error';
 
 /** 单条面包屑记录 */
-export interface Breadcrumb {
+export interface YdBreadcrumb {
   /** 时间戳（ms） */
   timestamp: number;
   /** 类别 */
@@ -39,7 +39,7 @@ export interface Breadcrumb {
 const MAX_BREADCRUMBS = 30;
 
 /** 面包屑环形缓冲队列 */
-const breadcrumbs: Breadcrumb[] = [];
+const breadcrumbs: YdBreadcrumb[] = [];
 
 /**
  * 添加一条面包屑。
@@ -53,7 +53,7 @@ export function addBreadcrumb(
   message: string,
   options: { data?: Record<string, unknown>; level?: BreadcrumbLevel } = {},
 ): void {
-  const crumb: Breadcrumb = {
+  const crumb: YdBreadcrumb = {
     timestamp: Date.now(),
     category,
     level: options.level ?? 'info',
@@ -74,7 +74,7 @@ export function addBreadcrumb(
  *
  * 返回数组副本，避免外部修改内部队列。
  */
-export function getBreadcrumbs(): Breadcrumb[] {
+export function getBreadcrumbs(): YdBreadcrumb[] {
   return [...breadcrumbs];
 }
 

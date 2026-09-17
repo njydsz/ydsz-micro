@@ -1,5 +1,5 @@
 ﻿<!--
- * 弹窗的渲染实现：合并 props 与命令式 API 状态后映射为 Dialog 结构，并接入拖拽与全屏。
+ * 弹窗的渲染实现：合并 props 与命令式 API 状态后映射为 YdDialog 结构，并接入拖拽与全屏。
  *
  * 优先级与抽屉一致：全局默认 → 父级注入 → 本次 options → API 运行时状态，后者覆盖前者，
  * 这样命令式调用才能在打开后继续改配置。
@@ -30,12 +30,12 @@ import {
 } from '@ydsz-core/composables';
 import { Expand, Shrink } from '@ydsz-core/icons';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
   YdButton,
   YdHelpTooltip,
   YdIconButton,
@@ -226,12 +226,12 @@ function handleClosed() {
 }
 </script>
 <template>
-  <Dialog
+  <YdDialog
     :modal="false"
     :open="state?.isOpen"
     @update:open="() => (!submitting ? modalApi?.close() : undefined)"
   >
-    <DialogContent
+    <YdDialogContent
       ref="contentRef"
       :append-to="getAppendTo"
       :class="
@@ -268,7 +268,7 @@ function handleClosed() {
       @opened="() => modalApi?.onOpened()"
       @pointer-down-outside="pointerDownOutside"
     >
-      <DialogHeader
+      <YdDialogHeader
         ref="headerRef"
         :class="
           cn(
@@ -282,7 +282,7 @@ function handleClosed() {
           )
         "
       >
-        <DialogTitle v-if="title" class="text-left">
+        <YdDialogTitle v-if="title" class="text-left">
           <slot name="title">
             {{ title }}
 
@@ -292,17 +292,17 @@ function handleClosed() {
               </YdHelpTooltip>
             </slot>
           </slot>
-        </DialogTitle>
-        <DialogDescription v-if="description">
+        </YdDialogTitle>
+        <YdDialogDescription v-if="description">
           <slot name="description">
             {{ description }}
           </slot>
-        </DialogDescription>
+        </YdDialogDescription>
         <VisuallyHidden v-if="!title || !description">
-          <DialogTitle v-if="!title" />
-          <DialogDescription v-if="!description" />
+          <YdDialogTitle v-if="!title" />
+          <YdDialogDescription v-if="!description" />
         </VisuallyHidden>
-      </DialogHeader>
+      </YdDialogHeader>
       <div
         ref="wrapperRef"
         :class="
@@ -323,7 +323,7 @@ function handleClosed() {
         <Expand v-else class="size-3.5" />
       </YdIconButton>
 
-      <DialogFooter
+      <YdDialogFooter
         v-if="showFooter"
         ref="footerRef"
         :class="
@@ -363,7 +363,7 @@ function handleClosed() {
           </component>
         </slot>
         <slot name="append-footer"></slot>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>

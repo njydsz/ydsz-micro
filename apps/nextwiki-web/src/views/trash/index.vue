@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -54,7 +54,7 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.nodeType === 'DIRECTORY' ? 'secondary' : 'default' }, () =>
+          h(YdBadge, { variant: row.nodeType === 'DIRECTORY' ? 'secondary' : 'default' }, () =>
             row.nodeType === 'DIRECTORY' ? t('nodeTypeDirectory') : t('nodeTypeFile'),
           ),
       },
@@ -79,7 +79,7 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
             RESTORED: { label: t('trashStatusRestored'), variant: 'default' },
           };
           const info = statusMap[row.status ?? ''] ?? { label: row.status ?? '--', variant: 'destructive' as const };
-          return h(Badge, { variant: info.variant }, () => info.label);
+          return h(YdBadge, { variant: info.variant }, () => info.label);
         },
       },
     },
@@ -91,13 +91,13 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(Button, {
+            h(YdButtonBase, {
               size: 'sm',
               variant: 'link',
               disabled: row.status !== 'PENDING',
               onClick: () => handleRestore(row),
             }, () => t('trashRestore')),
-            h(Button, {
+            h(YdButtonBase, {
               size: 'sm',
               variant: 'link',
               disabled: row.status !== 'PENDING',
@@ -186,8 +186,8 @@ async function handleEmptyTrash() {
   <Page auto-content-height>
     <Grid table-title="回收站">
       <template #toolbar-tools>
-        <Button @click="handleBatchRestore">{{ t('trashBatchRestore') }}</Button>
-        <Button variant="destructive" @click="handleEmptyTrash">{{ t('trashEmpty') }}</Button>
+        <YdButtonBase @click="handleBatchRestore">{{ t('trashBatchRestore') }}</YdButtonBase>
+        <YdButtonBase variant="destructive" @click="handleEmptyTrash">{{ t('trashEmpty') }}</YdButtonBase>
       </template>
     </Grid>
     <div class="mt-3 rounded bg-amber-50 px-4 py-2 text-sm text-amber-700">

@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { Checkbox } from '@ydsz-core/shadcn-ui';
+import { YdCheckboxBase } from '@ydsz-core/shadcn-ui';
 
 interface CheckboxGroupOption {
   disabled?: boolean;
@@ -71,7 +71,7 @@ function toggle(option: CheckboxGroupOption): void {
       class="flex items-center gap-2 text-sm"
       @click.prevent="toggle(option)"
     >
-      <Checkbox
+      <YdCheckboxBase
         :aria-hidden="true"
         :checked="isChecked(option.value)"
         :disabled="props.disabled || option.disabled"

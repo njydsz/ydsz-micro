@@ -24,7 +24,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 // TODO: ElDropdown/ElDropdownItem/ElDropdownMenu 暂无 shadcn 对应,保留 element-plus SKIP
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
-import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -54,8 +54,8 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     {
       field: 'action', title: '操作', width: 140, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
       ]) },
     },
   ],
@@ -70,8 +70,8 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
   formConfig: { enabled: true, items: [
-    { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'Input', props: { placeholder: 'Agent编码' } } },
-    { field: 'agentName', title: 'Agent名称', itemRender: { name: 'Input', props: { placeholder: 'Agent名称' } } },
+    { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } } },
+    { field: 'agentName', title: 'Agent名称', itemRender: { name: 'YdInput', props: { placeholder: 'Agent名称' } } },
   ] },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
@@ -238,7 +238,7 @@ void loadAgentList();
           表格
         </button>
       </div>
-      <Button @click="handleAdd">新增</Button>
+      <YdButtonBase @click="handleAdd">新增</YdButtonBase>
     </div>
 
     <!-- 表格视图 -->
@@ -293,9 +293,9 @@ void loadAgentList();
           </template>
 
           <template #actions>
-            <!-- TODO: ElDropdown trigger 暂保留 element-plus,Button 仅作视觉替换 SKIP -->
+            <!-- TODO: ElDropdown trigger 暂保留 element-plus,YdButtonBase 仅作视觉替换 SKIP -->
             <ElDropdown trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
-              <Button
+              <YdButtonBase
                 size="sm"
                 variant="ghost"
                 @click.stop
@@ -326,7 +326,7 @@ void loadAgentList();
                     r="1"
                   />
                 </svg>
-              </Button>
+              </YdButtonBase>
               <template #dropdown>
                 <ElDropdownMenu>
                   <ElDropdownItem command="edit">

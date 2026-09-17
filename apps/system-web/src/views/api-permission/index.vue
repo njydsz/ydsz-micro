@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -80,7 +80,7 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
       slots: {
         default: ({ row }: { row: ApiPermissionRow }) => {
           if (!row.httpMethod) return h('span', {}, '-');
-          return h(Badge, { variant: httpMethodType(row.httpMethod) === 'danger' || httpMethodType(row.httpMethod) === 'warning' ? 'destructive' : httpMethodType(row.httpMethod) === 'info' ? 'secondary' : undefined }, () => row.httpMethod ?? '');
+          return h(YdBadge, { variant: httpMethodType(row.httpMethod) === 'danger' || httpMethodType(row.httpMethod) === 'warning' ? 'destructive' : httpMethodType(row.httpMethod) === 'info' ? 'secondary' : undefined }, () => row.httpMethod ?? '');
         },
       },
     },
@@ -107,7 +107,7 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
       width: 90,
       slots: {
         default: ({ row }: { row: ApiPermissionRow }) => h(
-          Badge,
+          YdBadge,
           { variant: isEnabled(row.status) ? undefined : 'secondary' },
           () => (isEnabled(row.status) ? t('common.enabled') : t('common.disabled')),
         ),
@@ -131,7 +131,7 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
           if (hasAccessByCodesAll(['sys:permission:api-edit'])) {
             buttons.push(
               h(
-                Button,
+                YdButtonBase,
                 {
                   size: 'sm',
                   variant: isEnabled(row.status) ? 'destructive' : undefined,
@@ -145,7 +145,7 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
           if (hasAccessByCodesAll(['sys:permission:api-delete'])) {
             buttons.push(
               h(
-                Button,
+                YdButtonBase,
                 { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) },
                 () => t('common.delete'),
               ),
@@ -175,9 +175,9 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'apiCode', title: t('apiPermission.apiCode'), itemRender: { name: 'Input', props: { placeholder: t('apiPermission.apiCodePlaceholder') } } },
-      { field: 'apiName', title: t('apiPermission.apiName'), itemRender: { name: 'Input', props: { placeholder: t('apiPermission.apiNamePlaceholder') } } },
-      { field: 'controllerClass', title: t('apiPermission.controllerClass'), itemRender: { name: 'Input', props: { placeholder: t('apiPermission.controllerClassPlaceholder') } } },
+      { field: 'apiCode', title: t('apiPermission.apiCode'), itemRender: { name: 'YdInput', props: { placeholder: t('apiPermission.apiCodePlaceholder') } } },
+      { field: 'apiName', title: t('apiPermission.apiName'), itemRender: { name: 'YdInput', props: { placeholder: t('apiPermission.apiNamePlaceholder') } } },
+      { field: 'controllerClass', title: t('apiPermission.controllerClass'), itemRender: { name: 'YdInput', props: { placeholder: t('apiPermission.controllerClassPlaceholder') } } },
     ],
   },
 };
@@ -257,9 +257,9 @@ async function handleDelete(row: ApiPermissionRow) {
   <Page auto-content-height>
     <Grid :table-title="t('apiPermission.title')">
       <template #toolbar-tools>
-        <Button v-permission="'sys:permission:api-scan'" :loading="scanning" @click="handleScan">
+        <YdButtonBase v-permission="'sys:permission:api-scan'" :loading="scanning" @click="handleScan">
           {{ t('apiPermission.triggerScan') }}
-        </Button>
+        </YdButtonBase>
       </template>
     </Grid>
   </Page>

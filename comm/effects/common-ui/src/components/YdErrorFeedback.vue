@@ -24,15 +24,15 @@ import { isSentryInitialized } from "@ydsz/monitor/sentry";
 
 import { YdButton } from "@ydsz-core/shadcn-ui";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdDialogTrigger,
 } from "@ydsz-core/shadcn-ui/ui/dialog";
-import { Textarea } from "@ydsz-core/shadcn-ui/ui/textarea";
+import { YdTextarea } from "@ydsz-core/shadcn-ui/ui/textarea";
 
 /**
  * 组件属性
@@ -178,25 +178,25 @@ defineExpose({ open, close });
     </YdButton>
 
     <!-- 反馈弹窗 -->
-    <Dialog :open="isOpen" @update:open="(val: boolean) => (isOpen = val)">
-      <DialogTrigger as-child>
+    <YdDialog :open="isOpen" @update:open="(val: boolean) => (isOpen = val)">
+      <YdDialogTrigger as-child>
         <!-- 占位，由外部通过 ref 调用 open() -->
-      </DialogTrigger>
-      <DialogContent
+      </YdDialogTrigger>
+      <YdDialogContent
         class="sm:max-w-[500px]"
         role="dialog"
         aria-modal="true"
         :aria-label="t('feedback.title')"
       >
-        <DialogHeader>
-          <DialogTitle class="flex items-center gap-2">
+        <YdDialogHeader>
+          <YdDialogTitle class="flex items-center gap-2">
             <AlertTriangle class="size-5 text-amber-500" aria-hidden="true" />
             {{ t("feedback.title") }}
-          </DialogTitle>
-          <DialogDescription>
+          </YdDialogTitle>
+          <YdDialogDescription>
             {{ t("feedback.description") }}
-          </DialogDescription>
-        </DialogHeader>
+          </YdDialogDescription>
+        </YdDialogHeader>
 
         <!-- 错误信息摘要 -->
         <div
@@ -241,7 +241,7 @@ defineExpose({ open, close });
                 {{ feedback.length }}/500
               </span>
             </div>
-            <Textarea
+            <YdTextarea
               id="feedback-content"
               v-model="feedback"
               :placeholder="t('feedback.placeholder')"
@@ -271,7 +271,7 @@ defineExpose({ open, close });
           </p>
         </div>
 
-        <DialogFooter v-if="submitStatus !== 'success'">
+        <YdDialogFooter v-if="submitStatus !== 'success'">
           <YdButton
             variant="outline"
             @click="close"
@@ -296,7 +296,7 @@ defineExpose({ open, close });
             ></span>
             {{ t("feedback.submit") }}
           </YdButton>
-        </DialogFooter>
+        </YdDialogFooter>
 
         <!-- 关闭按钮 -->
         <button
@@ -306,7 +306,7 @@ defineExpose({ open, close });
         >
           <X class="size-4" />
         </button>
-      </DialogContent>
-    </Dialog>
+      </YdDialogContent>
+    </YdDialog>
   </div>
 </template>

@@ -23,7 +23,7 @@ import { Page } from '@ydsz/common-ui';
 
 // TODO: ElCollapse/ElCollapseItem/ElTooltip 暂无 shadcn 对应 SKIP
 import { ElCollapse, ElCollapseItem, ElTooltip } from 'element-plus';
-import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
 import { clearHistory, history as fetchHistory } from '#/api/agent';
@@ -176,15 +176,15 @@ onBeforeUnmount(() => {
     <div class="flex h-full flex-col p-4">
       <!-- 会话工具栏 -->
       <div class="mb-3 flex flex-wrap items-center gap-2">
-        <Input
+        <YdInput
           v-model="conversationId"
           placeholder="会话ID（为空自动新建）"
           class="w-64"
           @keyup.enter="loadHistory"
         />
-        <Button @click="loadHistory">加载历史</Button>
-        <Button :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)">发布/分享</Button>
-        <Button variant="destructive" @click="handleClearHistory">清空会话</Button>
+        <YdButtonBase @click="loadHistory">加载历史</YdButtonBase>
+        <YdButtonBase :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)">发布/分享</YdButtonBase>
+        <YdButtonBase variant="destructive" @click="handleClearHistory">清空会话</YdButtonBase>
         <ElTooltip :content="`流式状态：${streamStateText[streamState]}`" placement="top">
           <span
             class="text-xs"
@@ -220,19 +220,19 @@ onBeforeUnmount(() => {
       <div class="mt-3">
         <ElCollapse class="mb-2">
           <ElCollapseItem title="高级参数（System Prompt）" name="advanced">
-            <Textarea v-model="systemPrompt" placeholder="可选：自定义系统提示词" />
+            <YdTextarea v-model="systemPrompt" placeholder="可选：自定义系统提示词" />
           </ElCollapseItem>
         </ElCollapse>
         <div class="flex items-start gap-2">
-          <Textarea
+          <YdTextarea
             v-model="inputText"
             :disabled="sending"
             placeholder="输入消息，Enter 发送（Shift+Enter 换行）"
             @keydown.enter.exact.prevent="sendMessage"
           />
           <div class="flex flex-col gap-2">
-            <Button :disabled="!canSend" @click="sendMessage">发送</Button>
-            <Button :disabled="!sending" @click="teardownStream">停止</Button>
+            <YdButtonBase :disabled="!canSend" @click="sendMessage">发送</YdButtonBase>
+            <YdButtonBase :disabled="!sending" @click="teardownStream">停止</YdButtonBase>
           </div>
         </div>
       </div>

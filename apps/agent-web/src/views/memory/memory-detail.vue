@@ -18,7 +18,7 @@
 // TODO: FormInstance/ElForm/ElFormItem/ElOption/ElSelect 表单套件复杂+FormInstance类型,保留 element-plus SKIP
 import type { FormInstance } from 'element-plus';
 import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
-import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Textarea } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';
@@ -139,11 +139,11 @@ defineExpose({ open });
 </script>
 
 <template>
-  <Dialog v-model:open="isVisible">
-    <DialogContent class="sm:max-w-[640px]">
-      <DialogHeader>
-        <DialogTitle>{{ mode === 'view' ? '记忆详情' : '写入记忆' }}</DialogTitle>
-      </DialogHeader>
+  <YdDialog v-model:open="isVisible">
+    <YdDialogContent class="sm:max-w-[640px]">
+      <YdDialogHeader>
+        <YdDialogTitle>{{ mode === 'view' ? '记忆详情' : '写入记忆' }}</YdDialogTitle>
+      </YdDialogHeader>
 
       <!-- 查看模式 -->
       <div v-if="mode === 'view' && memoryData" class="space-y-4">
@@ -186,7 +186,7 @@ defineExpose({ open });
         label-width="100px"
       >
         <ElFormItem label="对话 ID">
-          <Input v-model="conversationId" placeholder="对话 ID" :disabled="true" />
+          <YdInput v-model="conversationId" placeholder="对话 ID" :disabled="true" />
         </ElFormItem>
         <ElFormItem label="消息角色" prop="role">
           <ElSelect v-model="form.role" placeholder="请选择消息角色" style="width: 100%">
@@ -199,21 +199,21 @@ defineExpose({ open });
           </ElSelect>
         </ElFormItem>
         <ElFormItem label="消息内容" prop="content">
-          <Textarea
+          <YdTextarea
             v-model="form.content"
             placeholder="请输入消息内容"
           />
         </ElFormItem>
         <ElFormItem label="ToolCall ID">
-          <Input v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
+          <YdInput v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
         </ElFormItem>
       </ElForm>
 
-      <DialogFooter>
-        <Button variant="outline" @click="handleClose">取消</Button>
-        <Button v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit">保存</Button>
-        <Button v-else variant="outline" @click="handleClose">关闭</Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      <YdDialogFooter>
+        <YdButtonBase variant="outline" @click="handleClose">取消</YdButtonBase>
+        <YdButtonBase v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit">保存</YdButtonBase>
+        <YdButtonBase v-else variant="outline" @click="handleClose">关闭</YdButtonBase>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>

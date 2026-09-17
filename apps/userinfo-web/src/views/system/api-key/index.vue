@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Button, Switch } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdSwitch } from '@ydsz-core/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -49,7 +49,7 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
       title: '状态',
       width: 100,
       slots: {
-        default: ({ row }) => h(Switch, {
+        default: ({ row }) => h(YdSwitch, {
           checked: row.isEnabled ?? false,
           'onUpdate:checked': async (val: boolean) => {
             try {
@@ -70,7 +70,7 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(Button, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleRevoke(row) }, () => '撤销'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleRevoke(row) }, () => '撤销'),
         ]),
       },
     },
@@ -97,7 +97,7 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'keyName', title: 'Key 名称', itemRender: { name: 'Input', props: { placeholder: 'Key 名称' } } },
+      { field: 'keyName', title: 'Key 名称', itemRender: { name: 'YdInput', props: { placeholder: 'Key 名称' } } },
     ],
   },
 };
@@ -145,7 +145,7 @@ async function handleRevoke(row: ApiKeyVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="API Key 管理">
-      <template #toolbar-tools><Button variant="default" @click="handleAdd">新增</Button></template>
+      <template #toolbar-tools><YdButtonBase variant="default" @click="handleAdd">新增</YdButtonBase></template>
     </Grid>
     <ApiKeyFormModal @success="gridApi.query()" />
   </Page>

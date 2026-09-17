@@ -22,7 +22,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, reactive, ref } from 'vue';
 
 import { assignBucket, createExperiment } from '#/api/canary';
-import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { ElForm, ElFormItem, ElInputNumber, ElTable, ElTableColumn } from 'element-plus';
 
 defineOptions({ name: 'CanaryManagement' });
@@ -68,7 +68,7 @@ function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'inf
   return 'info';
 }
 
-/** 实验状态标签 Badge variant */
+/** 实验状态标签 YdBadge variant */
 function getStatusVariant(status?: string): 'default' | 'destructive' | 'outline' | 'secondary' {
   const type = getStatusType(status);
   if (type === 'danger') return 'destructive';
@@ -219,31 +219,31 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="canary-container p-4">
       <!-- 顶部快速创建 -->
-      <Card class="mb-4">
-        <CardContent class="flex items-center justify-between pt-6">
+      <YdCard class="mb-4">
+        <YdCardContent class="flex items-center justify-between pt-6">
           <h3 class="text-base font-medium">灰度实验管理</h3>
-          <Button @click="quickCreateVisible = true">
+          <YdButtonBase @click="quickCreateVisible = true">
             创建实验
-          </Button>
-        </CardContent>
-      </Card>
+          </YdButtonBase>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 实验列表 -->
-      <Card>
-        <CardContent class="pt-6">
+      <YdCard>
+        <YdCardContent class="pt-6">
           <ElTable v-loading="loading" :data="experimentList" stripe border style="width: 100%">
             <ElTableColumn type="index" label="序号" width="60" align="center" />
             <ElTableColumn prop="name" label="实验名称" min-width="160" />
             <ElTableColumn prop="channel" label="通道" width="120">
               <template #default="{ row }">
-                <Badge variant="secondary">{{ row.channel }}</Badge>
+                <YdBadge variant="secondary">{{ row.channel }}</YdBadge>
               </template>
             </ElTableColumn>
             <ElTableColumn label="状态" width="100" align="center">
               <template #default="{ row }">
-                <Badge :variant="getStatusVariant(row.status)">
+                <YdBadge :variant="getStatusVariant(row.status)">
                   {{ getStatusLabel(row.status) }}
-                </Badge>
+                </YdBadge>
               </template>
             </ElTableColumn>
             <ElTableColumn label="灰度流量" width="120" align="center">
@@ -254,13 +254,13 @@ onMounted(() => {
             <ElTableColumn prop="createdAt" label="创建时间" width="180" />
             <ElTableColumn label="操作" width="260" fixed="right" align="center">
               <template #default="{ row }">
-                <Button size="sm" variant="link" @click="handleEdit(row)">
+                <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">
                   编辑
-                </Button>
-                <Button size="sm" variant="link" @click="handleViewBucket(row)">
+                </YdButtonBase>
+                <YdButtonBase size="sm" variant="link" @click="handleViewBucket(row)">
                   查看分配
-                </Button>
-                <Button
+                </YdButtonBase>
+                <YdButtonBase
                   size="sm"
                   variant="link"
                   class="text-destructive"
@@ -268,7 +268,7 @@ onMounted(() => {
                   @click="handleStopExperiment(row)"
                 >
                   停止
-                </Button>
+                </YdButtonBase>
               </template>
             </ElTableColumn>
           </ElTable>
@@ -280,40 +280,40 @@ onMounted(() => {
           >
             暂无灰度实验，点击右上角「创建实验」按钮开始
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 快速创建弹窗 -->
-      <Dialog v-model:open="quickCreateVisible">
-        <DialogContent class="max-w-[520px]">
-          <DialogHeader>
-            <DialogTitle>创建灰度实验</DialogTitle>
-          </DialogHeader>
+      <YdDialog v-model:open="quickCreateVisible">
+        <YdDialogContent class="max-w-[520px]">
+          <YdDialogHeader>
+            <YdDialogTitle>创建灰度实验</YdDialogTitle>
+          </YdDialogHeader>
           <ElForm :model="quickForm" label-width="100px">
             <ElFormItem label="实验名称" required>
-              <Input
+              <YdInput
                 v-model="quickForm.experimentName"
                 placeholder="请输入实验名称"
               />
             </ElFormItem>
             <ElFormItem label="模板编码">
-              <Input
+              <YdInput
                 v-model="quickForm.templateCode"
                 placeholder="关联模板编码（可选）"
               />
             </ElFormItem>
             <ElFormItem label="通道" required>
-              <Select v-model="quickForm.channel">
-                <SelectTrigger class="w-full">
-                  <SelectValue placeholder="请选择通道" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="EMAIL">邮件</SelectItem>
-                  <SelectItem value="SMS">短信</SelectItem>
-                  <SelectItem value="INBOX">站内信</SelectItem>
-                  <SelectItem value="WEBHOOK">Webhook</SelectItem>
-                </SelectContent>
-              </Select>
+              <YdSelectBase v-model="quickForm.channel">
+                <YdSelectTriggerBase class="w-full">
+                  <YdSelectValueBase placeholder="请选择通道" />
+                </YdSelectTriggerBase>
+                <YdSelectContentBase>
+                  <YdSelectItemBase value="EMAIL">邮件</YdSelectItemBase>
+                  <YdSelectItemBase value="SMS">短信</YdSelectItemBase>
+                  <YdSelectItemBase value="INBOX">站内信</YdSelectItemBase>
+                  <YdSelectItemBase value="WEBHOOK">Webhook</YdSelectItemBase>
+                </YdSelectContentBase>
+              </YdSelectBase>
             </ElFormItem>
             <ElFormItem label="灰度比例">
               <div class="flex items-center">
@@ -328,43 +328,43 @@ onMounted(() => {
               </div>
             </ElFormItem>
             <ElFormItem label="目标指标">
-              <Textarea
+              <YdTextarea
                 v-model="quickForm.metricsGoal"
                 placeholder="灰度实验目标指标（可选）"
               />
             </ElFormItem>
           </ElForm>
-          <DialogFooter>
-            <Button variant="outline" @click="quickCreateVisible = false">取消</Button>
-            <Button @click="handleQuickCreate">确认创建</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          <YdDialogFooter>
+            <YdButtonBase variant="outline" @click="quickCreateVisible = false">取消</YdButtonBase>
+            <YdButtonBase @click="handleQuickCreate">确认创建</YdButtonBase>
+          </YdDialogFooter>
+        </YdDialogContent>
+      </YdDialog>
 
       <!-- 分桶分配查询弹窗 -->
-      <Dialog v-model:open="bucketVisible">
-        <DialogContent class="max-w-[520px]">
-          <DialogHeader>
-            <DialogTitle>灰度分桶分配查询</DialogTitle>
-          </DialogHeader>
+      <YdDialog v-model:open="bucketVisible">
+        <YdDialogContent class="max-w-[520px]">
+          <YdDialogHeader>
+            <YdDialogTitle>灰度分桶分配查询</YdDialogTitle>
+          </YdDialogHeader>
           <ElForm :model="bucketForm" label-width="100px">
             <ElFormItem label="实验ID">
-              <Input v-model="bucketForm.experimentId" placeholder="实验ID" />
+              <YdInput v-model="bucketForm.experimentId" placeholder="实验ID" />
             </ElFormItem>
             <ElFormItem label="请求键">
-              <Input v-model="bucketForm.requestKey" placeholder="请求键（用户ID等）" />
+              <YdInput v-model="bucketForm.requestKey" placeholder="请求键（用户ID等）" />
             </ElFormItem>
           </ElForm>
           <div v-if="bucketResult" class="mt-4 rounded bg-muted p-3">
             <span class="text-sm text-muted-foreground">分配结果：</span>
             <span class="ml-2 font-mono font-bold text-blue-600">{{ bucketResult }}</span>
           </div>
-          <DialogFooter>
-            <Button variant="outline" @click="bucketVisible = false">关闭</Button>
-            <Button @click="handleAssignBucket">查询</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          <YdDialogFooter>
+            <YdButtonBase variant="outline" @click="bucketVisible = false">关闭</YdButtonBase>
+            <YdButtonBase @click="handleAssignBucket">查询</YdButtonBase>
+          </YdDialogFooter>
+        </YdDialogContent>
+      </YdDialog>
     </div>
   </Page>
 </template>

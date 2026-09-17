@@ -1,7 +1,7 @@
 <!--
  * virtual-select 通用组件 — 大数据量下拉选择器
  *
- * 当前内部使用 shadcn Select，保留对外 API 兼容（options / modelValue / filterable）。
+ * 当前内部使用 shadcn YdSelectBase，保留对外 API 兼容（options / modelValue / filterable）。
  * 真实虚拟滚动能力待 P1-1 自研 SelectV2 落地后回补；暂以分页 limit 200 兜底。
  *
  * @path comm\effects\shared-business\src\components\virtual-select.vue
@@ -17,11 +17,11 @@
 import { computed, ref, watch } from 'vue';
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
 } from '@ydsz-core/shadcn-ui';
 
 interface Option {
@@ -94,13 +94,13 @@ watch(
 </script>
 
 <template>
-  <Select
+  <YdSelectBase
     :disabled="disabled"
     :multiple="multiple"
     :model-value="multiple ? undefined : (modelValue as string | number | undefined)"
     @update:model-value="handleChange"
   >
-    <SelectTrigger class="w-full">
+    <YdSelectTriggerBase class="w-full">
       <div class="virtual-select__trigger flex w-full items-center gap-1">
         <input
           v-if="filterable"
@@ -110,23 +110,23 @@ watch(
           type="text"
           @input="handleSearchInput"
         />
-        <SelectValue
+        <YdSelectValueBase
           v-else
           :placeholder="placeholder"
           class="flex-1"
         />
       </div>
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem
+    </YdSelectTriggerBase>
+    <YdSelectContentBase>
+      <YdSelectItemBase
         v-for="opt in visibleOptions"
         :key="String(opt.value)"
         :value="String(opt.value)"
       >
         {{ opt.label }}
-      </SelectItem>
-    </SelectContent>
-  </Select>
+      </YdSelectItemBase>
+    </YdSelectContentBase>
+  </YdSelectBase>
 </template>
 
 <style scoped>

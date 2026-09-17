@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Badge, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElTabPane/ElTabs 不在 shadcn 映射表，保留 EP
 import { ElTabPane, ElTabs } from 'element-plus';
 import { h, ref } from 'vue';
@@ -82,7 +82,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: getSubscriptionStatusType(row.status) === 'success' ? 'default' : getSubscriptionStatusType(row.status) === 'warning' ? 'outline' : 'secondary' }, () =>
+          h(YdBadge, { variant: getSubscriptionStatusType(row.status) === 'success' ? 'default' : getSubscriptionStatusType(row.status) === 'warning' ? 'outline' : 'secondary' }, () =>
             getSubscriptionStatusLabel(row.status),
           ),
       },
@@ -98,12 +98,12 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleUnsubscribe(row) },
               () => t('subscription.unsubscribe'),
             ),
@@ -199,35 +199,35 @@ function handleQueryByTopic(): void {
   <Page auto-content-height>
     <Grid table-title="订阅管理">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
       <template #toolbar-tools-after>
         <ElTabs v-model="activeTab" class="mt-2">
           <ElTabPane label="按用户查询" name="user">
             <div class="flex gap-2 py-2">
-              <Input v-model="currentUserId" placeholder="请输入用户ID" class="w-64" />
-              <Button @click="handleQueryByUser">{{ t('common.search') }}</Button>
+              <YdInput v-model="currentUserId" placeholder="请输入用户ID" class="w-64" />
+              <YdButtonBase @click="handleQueryByUser">{{ t('common.search') }}</YdButtonBase>
             </div>
           </ElTabPane>
           <ElTabPane label="按主题查询" name="topic">
             <div class="flex gap-2 py-2">
-              <Input
+              <YdInput
                 v-model="currentTopicCode"
                 placeholder="请输入主题编码"
                 class="w-48"
               />
-              <Select v-model="currentChannel">
-                <SelectTrigger class="w-32">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="EMAIL">邮件</SelectItem>
-                  <SelectItem value="SMS">短信</SelectItem>
-                  <SelectItem value="INBOX">站内信</SelectItem>
-                  <SelectItem value="WEBHOOK">Webhook</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button @click="handleQueryByTopic">{{ t('common.search') }}</Button>
+              <YdSelectBase v-model="currentChannel">
+                <YdSelectTriggerBase class="w-32">
+                  <YdSelectValueBase />
+                </YdSelectTriggerBase>
+                <YdSelectContentBase>
+                  <YdSelectItemBase value="EMAIL">邮件</YdSelectItemBase>
+                  <YdSelectItemBase value="SMS">短信</YdSelectItemBase>
+                  <YdSelectItemBase value="INBOX">站内信</YdSelectItemBase>
+                  <YdSelectItemBase value="WEBHOOK">Webhook</YdSelectItemBase>
+                </YdSelectContentBase>
+              </YdSelectBase>
+              <YdButtonBase @click="handleQueryByTopic">{{ t('common.search') }}</YdButtonBase>
             </div>
           </ElTabPane>
         </ElTabs>

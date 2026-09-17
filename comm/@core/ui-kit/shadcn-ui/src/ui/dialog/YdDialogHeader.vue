@@ -1,0 +1,24 @@
+﻿<!--
+ * 对话框头部区：排布标题与描述。
+ *
+ * 窄屏居中、宽屏左对齐：移动端标题居中更符合阅读习惯，宽屏左对齐与正文基线一致。
+ *
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\YdDialogHeader.vue
+ * @author ydsz-team
+ * @since 1.0.0
+-->
+<script setup lang="ts">
+import { cn } from '@ydsz-core/shared/utils';
+
+const props = defineProps<{
+  class?: any;
+}>();
+</script>
+
+<template>
+  <div
+    :class="cn('flex flex-col gap-y-1.5 text-center sm:text-left', props.class)"
+  >
+    <slot></slot>
+  </div>
+</template>

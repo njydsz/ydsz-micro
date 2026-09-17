@@ -12,7 +12,7 @@ import { computed } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import SelectItem from '../select-item.vue';
+import YdSelectItemBase from '../select-item.vue';
 import SwitchItem from '../switch-item.vue';
 
 defineOptions({
@@ -72,7 +72,7 @@ const positionItems = computed((): SelectOption[] => [
   <SwitchItem v-model="widgetRefresh">
     {{ $t('preferences.widget.refresh') }}
   </SwitchItem>
-  <SelectItem v-model="appPreferencesButtonPosition" :items="positionItems">
+  <YdSelectItemBase v-model="appPreferencesButtonPosition" :items="positionItems">
     {{ $t('preferences.position.title') }}
-  </SelectItem>
+  </YdSelectItemBase>
 </template>

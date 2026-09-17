@@ -20,7 +20,7 @@ import { onMounted, ref, watch } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Badge, Button, Input, Tooltip, TooltipContent, TooltipTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdInput, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 
@@ -84,7 +84,7 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
       slots: {
         default: ({ row }) => {
           const item = row as GenHistory;
-          return h(Badge, { variant: getStatusBadgeVariant(item.status ?? '') }, () =>
+          return h(YdBadge, { variant: getStatusBadgeVariant(item.status ?? '') }, () =>
             getStatusText(item.status ?? ''),
           );
         },
@@ -111,10 +111,10 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
         default: ({ row }) => {
           const item = row as GenHistory;
           if (!item.errorMessage) return h('span', { class: 'text-gray-400' }, '-');
-          return h(Tooltip, {}, {
+          return h(YdTooltipBase, {}, {
             default: () => [
               h(
-                TooltipTrigger,
+                YdTooltipTriggerBase,
                 { asChild: true },
                 {
                   default: () =>
@@ -125,7 +125,7 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
                     ),
                 },
               ),
-              h(TooltipContent, { side: 'top' }, {
+              h(YdTooltipContentBase, { side: 'top' }, {
                 default: () => item.errorMessage,
               }),
             ],
@@ -143,12 +143,12 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
           const item = row as GenHistory;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleViewFiles(item) },
               () => '文件明细',
             ),
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -158,7 +158,7 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
               () => '回滚',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'destructive', onClick: () => handleDelete(item) },
               () => t('common.delete'),
             ),
@@ -259,7 +259,7 @@ onMounted(() => {});
   <Page auto-content-height>
     <div class="mb-4 flex items-center gap-4">
       <span class="text-sm text-gray-600">显示最近</span>
-      <Input v-model="limit" type="number" :min="5" :max="100" :step="5" class="w-24" />
+      <YdInput v-model="limit" type="number" :min="5" :max="100" :step="5" class="w-24" />
       <span class="text-sm text-gray-600">条记录</span>
     </div>
     <Grid table-title="生成历史" />

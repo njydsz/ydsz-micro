@@ -2,7 +2,7 @@
  * 审批历史时间轴组件
  *
  * 为避免自研 Timeline 组件未就绪前阻塞 P0-1 comm 清零，本组件已用纯 HTML 结构 +
- * 自研 Badge + lucide 图标替代原生 EP ElTimeline/ElTimelineItem/ElTag（桥接模式）。
+ * 自研 YdBadge + lucide 图标替代原生 EP ElTimeline/ElTimelineItem/ElTag（桥接模式）。
  * TODO: P1-1 Timeline 组件发布后回补为 <y-timeline><y-timeline-item> 语义化 API。
  *
  * @path comm\effects\shared-business\src\components\approval-timeline.vue
@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { CheckCircle2, Clock, RefreshCw, Send, XCircle } from 'lucide-vue-next';
 
-import { Badge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/shadcn-ui';
 
 /** 审批记录 */
 export interface ApprovalRecord {
@@ -82,9 +82,9 @@ function actionMeta(action: string): ActionMeta {
           <span class="approval-timeline__operator text-sm font-semibold">
             {{ record.operator }}
           </span>
-          <Badge :variant="actionMeta(record.action).variant">
+          <YdBadge :variant="actionMeta(record.action).variant">
             {{ actionMeta(record.action).text }}
-          </Badge>
+          </YdBadge>
           <span class="approval-timeline__time text-xs text-txt-tertiary">
             {{ record.time }}
           </span>

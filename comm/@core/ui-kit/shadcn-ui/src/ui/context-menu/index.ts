@@ -8,17 +8,17 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as ContextMenu } from './ContextMenu.vue';
-export { default as ContextMenuCheckboxItem } from './ContextMenuCheckboxItem.vue';
-export { default as ContextMenuContent } from './ContextMenuContent.vue';
-export { default as ContextMenuGroup } from './ContextMenuGroup.vue';
-export { default as ContextMenuItem } from './ContextMenuItem.vue';
-export { default as ContextMenuLabel } from './ContextMenuLabel.vue';
-export { default as ContextMenuRadioGroup } from './ContextMenuRadioGroup.vue';
-export { default as ContextMenuRadioItem } from './ContextMenuRadioItem.vue';
-export { default as ContextMenuSeparator } from './ContextMenuSeparator.vue';
-export { default as ContextMenuShortcut } from './ContextMenuShortcut.vue';
-export { default as ContextMenuSub } from './ContextMenuSub.vue';
-export { default as ContextMenuSubContent } from './ContextMenuSubContent.vue';
-export { default as ContextMenuSubTrigger } from './ContextMenuSubTrigger.vue';
-export { default as ContextMenuTrigger } from './ContextMenuTrigger.vue';
+export { default as YdContextMenuBase } from './YdContextMenuBase.vue';
+export { default as YdContextMenuCheckboxItemBase } from './YdContextMenuCheckboxItemBase.vue';
+export { default as YdContextMenuContentBase } from './YdContextMenuContentBase.vue';
+export { default as YdContextMenuGroupBase } from './YdContextMenuGroupBase.vue';
+export { default as YdContextMenuItemBase } from './YdContextMenuItemBase.vue';
+export { default as YdContextMenuLabelBase } from './YdContextMenuLabelBase.vue';
+export { default as YdContextMenuRadioGroupBase } from './YdContextMenuRadioGroupBase.vue';
+export { default as YdContextMenuRadioItemBase } from './YdContextMenuRadioItemBase.vue';
+export { default as YdContextMenuSeparatorBase } from './YdContextMenuSeparatorBase.vue';
+export { default as YdContextMenuShortcutBase } from './YdContextMenuShortcutBase.vue';
+export { default as YdContextMenuSubBase } from './YdContextMenuSubBase.vue';
+export { default as YdContextMenuSubContentBase } from './YdContextMenuSubContentBase.vue';
+export { default as YdContextMenuSubTriggerBase } from './YdContextMenuSubTriggerBase.vue';
+export { default as YdContextMenuTriggerBase } from './YdContextMenuTriggerBase.vue';

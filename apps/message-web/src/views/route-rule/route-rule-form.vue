@@ -21,7 +21,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
-import { Input, RadioGroup, RadioGroupItem, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { create, update } from '#/api/routeRule';
 import type { MsgRouteRuleVO } from '#/api/models';
 
@@ -153,32 +153,32 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
       label-position="right"
     >
       <ElFormItem label="规则名称" prop="ruleName">
-        <Input v-model="formData.ruleName" placeholder="请输入规则名称" />
+        <YdInput v-model="formData.ruleName" placeholder="请输入规则名称" />
       </ElFormItem>
       <ElFormItem label="规则编码" prop="ruleCode">
-        <Input
+        <YdInput
           v-model="formData.ruleCode"
           placeholder="请输入规则编码（可为空）"
           :disabled="isEdit"
         />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="触发通道" prop="channel">
-        <Input v-model="formData.channel" placeholder="请输入触发通道（可为空）" />
+        <YdInput v-model="formData.channel" placeholder="请输入触发通道（可为空）" />
       </ElFormItem>
       <ElFormItem label="条件表达式" prop="conditionExpr">
-        <Textarea
+        <YdTextarea
           v-model="formData.conditionExpr"
           placeholder="请输入条件表达式"
         />
       </ElFormItem>
       <ElFormItem label="目标通道" prop="targetChannel">
-        <Input v-model="formData.targetChannel" placeholder="请输入目标通道" />
+        <YdInput v-model="formData.targetChannel" placeholder="请输入目标通道" />
       </ElFormItem>
       <ElFormItem label="兜底通道" prop="fallbackChannel">
-        <Input v-model="formData.fallbackChannel" placeholder="请输入兜底通道（可为空）" />
+        <YdInput v-model="formData.fallbackChannel" placeholder="请输入兜底通道（可为空）" />
       </ElFormItem>
       <ElFormItem label="优先级" prop="priority">
         <ElInputNumber v-model="formData.priority" :min="0" :max="999" />
@@ -187,13 +187,13 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="99999" />
       </ElFormItem>
       <ElFormItem label="状态" prop="status">
-        <RadioGroup v-model="formData.status">
-          <RadioGroupItem value="ENABLED">启用</RadioGroupItem>
-          <RadioGroupItem value="DISABLED">禁用</RadioGroupItem>
-        </RadioGroup>
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="ENABLED">启用</YdRadioGroupItem>
+          <YdRadioGroupItem value="DISABLED">禁用</YdRadioGroupItem>
+        </YdRadioGroup>
       </ElFormItem>
       <ElFormItem label="描述" prop="description">
-        <Textarea
+        <YdTextarea
           v-model="formData.description"
           placeholder="请输入描述（可为空）"
         />

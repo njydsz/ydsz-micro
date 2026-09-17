@@ -10,14 +10,14 @@
  *
  * <p>映射规则：
  * <ul>
- *   <li>{@code enum}（含字典编码引用）→ {@code Select} / {@code RadioGroup}</li>
- *   <li>{@code boolean} → {@code Switch}</li>
- *   <li>{@code string} + {@code date} / {@code date-time} → {@code DatePicker}</li>
+ *   <li>{@code enum}（含字典编码引用）→ {@code YdSelectBase} / {@code YdRadioGroup}</li>
+ *   <li>{@code boolean} → {@code YdSwitch}</li>
+ *   <li>{@code string} + {@code date} / {@code date-time} → {@code YdDatePicker}</li>
  *   <li>{@code string} + {@code time} → {@code TimePicker}</li>
  *   <li>{@code integer} / {@code number} → {@code InputNumber}</li>
- *   <li>{@code string} + {@code textarea} hint → {@code Input} (textarea)</li>
- *   <li>{@code string} + 长文本描述 → {@code Input} (textarea)</li>
- *   <li>其他 → {@code Input}</li>
+ *   <li>{@code string} + {@code textarea} hint → {@code YdInput} (textarea)</li>
+ *   <li>{@code string} + 长文本描述 → {@code YdInput} (textarea)</li>
+ *   <li>其他 → {@code YdInput}</li>
  * </ul>
  *
  * <p>表单 Schema 生成示例：
@@ -51,8 +51,8 @@ export interface ComponentMappingOptions {
   /**
    * 字典类型编码（field name → dict typeCode 映射）。
    *
-   * <p>匹配时使用 RadioGroup 组件，运行时通过 dictStore 获取选项列表。
-   * 未匹配的 enum 使用 Select 组件。
+   * <p>匹配时使用 YdRadioGroup 组件，运行时通过 dictStore 获取选项列表。
+   * 未匹配的 enum 使用 YdSelectBase 组件。
    */
   dictMapping?: Record<string, string>;
   /**
@@ -69,14 +69,14 @@ export interface ComponentMappingOptions {
  * <p>纯函数，便于单测。优先级：
  * <ol>
  *   <li>overrides 显式覆盖</li>
- *   <li>dictMapping 存在的字段 → RadioGroup</li>
- *   <li>enum 存在 → Select</li>
- *   <li>format=date/date-time → DatePicker</li>
+ *   <li>dictMapping 存在的字段 → YdRadioGroup</li>
+ *   <li>enum 存在 → YdSelectBase</li>
+ *   <li>format=date/date-time → YdDatePicker</li>
  *   <li>format=time → TimePicker</li>
- *   <li>type=boolean → Switch</li>
+ *   <li>type=boolean → YdSwitch</li>
  *   <li>type=integer/number → InputNumber</li>
- *   <li>description 超长 → Input(textarea)</li>
- *   <li>兜底 → Input</li>
+ *   <li>description 超长 → YdInput(textarea)</li>
+ *   <li>兜底 → YdInput</li>
  * </ol>
  *
  * @param field - 字段名（Java 驼峰如 {@code tenantName}）
@@ -97,25 +97,25 @@ export function openApiSchemaToComponentType(
   }
   // 2. 字典映射 → 运行时下拉
   if (dictMapping?.[field] || isDictFieldByConvention(field)) {
-    return 'RadioGroup';
+    return 'YdRadioGroup';
   }
   // 3. 枚举 → 静态下拉
   if (meta.enum && meta.enum.length > 0) {
-    return 'Select';
+    return 'YdSelectBase';
   }
   // 4. 日期时间格式
   if (meta.format === 'date' && meta.type === 'string') {
-    return 'DatePicker';
+    return 'YdDatePicker';
   }
   if (meta.format === 'date-time' && meta.type === 'string') {
-    return 'DatePicker';
+    return 'YdDatePicker';
   }
   if (meta.format === 'time' && meta.type === 'string') {
     return 'TimePicker';
   }
   // 5. 布尔 → 开关
   if (meta.type === 'boolean') {
-    return 'Switch';
+    return 'YdSwitch';
   }
   // 6. 数值 → 数字输入
   if (meta.type === 'integer' || meta.type === 'number') {
@@ -123,10 +123,10 @@ export function openApiSchemaToComponentType(
   }
   // 7. 长文本 → 文本域
   if (meta.type === 'string' && meta.description && meta.description.length > textareaThreshold) {
-    return 'Input'; // renderProps.type = 'textarea' 由调用方处理
+    return 'YdInput'; // renderProps.type = 'textarea' 由调用方处理
   }
   // 8. 兜底
-  return 'Input';
+  return 'YdInput';
 }
 
 /**
@@ -158,7 +158,7 @@ export function openApiSchemaToFormFields(
   const fields: ComponentFieldConfig[] = [];
   for (const [field, meta] of Object.entries(properties)) {
     const component = openApiSchemaToComponentType(field, meta, options);
-    const isTextarea = component === 'Input'
+    const isTextarea = component === 'YdInput'
       && meta.type === 'string'
       && !!meta.description
       && meta.description.length > (options.textareaThreshold ?? 256);
@@ -168,10 +168,10 @@ export function openApiSchemaToFormFields(
       fieldName: field,
       label: meta.description || field,
       required: meta.required,
-      ...(component === 'RadioGroup' && dictMappingExists(field, options)
+      ...(component === 'YdRadioGroup' && dictMappingExists(field, options)
         ? { dictType: options.dictMapping![field] || fieldToDictType(field) }
         : {}),
-      ...(component === 'Select' && meta.enum
+      ...(component === 'YdSelectBase' && meta.enum
         ? { options: meta.enum.map((v) => ({ label: String(v), value: String(v) })) }
         : {}),
       ...(isTextarea ? { type: 'textarea' as const, rows: 3 } : {}),
@@ -190,9 +190,9 @@ export interface ComponentFieldConfig {
   label: string;
   /** 是否必填 */
   required?: boolean;
-  /** 字典类型编码（RadioGroup 时使用） */
+  /** 字典类型编码（YdRadioGroup 时使用） */
   dictType?: string;
-  /** 静态选项（Select 时使用） */
+  /** 静态选项（YdSelectBase 时使用） */
   options?: Array<{ label: string; value: string }>;
   /** 文本域模式 */
   type?: 'textarea';

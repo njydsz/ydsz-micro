@@ -1,5 +1,5 @@
 /**
- * 表单字段辅助组件的出口（FormItem / FormLabel / FormControl / FormDescription / FormMessage）。
+ * 表单字段辅助组件的出口（YdFormItem / YdFormLabel / YdFormControl / YdFormDescription / YdFormMessage）。
  *
  * 同时导出 FORM_ITEM_INJECTION_KEY 与 useFormField，
  * 供自定义输入组件接入同一套 id 与 aria 关联逻辑 ——
@@ -9,11 +9,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as FormControl } from './FormControl.vue';
-export { default as FormDescription } from './FormDescription.vue';
-export { default as FormItem } from './FormItem.vue';
-export { default as FormLabel } from './FormLabel.vue';
-export { default as FormMessage } from './FormMessage.vue';
+export { default as YdFormControl } from './YdFormControl.vue';
+export { default as YdFormDescription } from './YdFormDescription.vue';
+export { default as YdFormItem } from './YdFormItem.vue';
+export { default as YdFormLabel } from './YdFormLabel.vue';
+export { default as YdFormMessage } from './YdFormMessage.vue';
 export { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
 export {
   Form,

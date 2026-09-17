@@ -23,7 +23,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h, onMounted, ref } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { countUnread, deleteApi, inbox, markAllRead, markRead, recall } from '#/api/notification';
@@ -59,7 +59,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.readStatus === 1 ? 'default' : 'secondary' }, () =>
+          h(YdBadge, { variant: row.readStatus === 1 ? 'default' : 'secondary' }, () =>
             row.readStatus === 1 ? '已读' : '未读',
           ),
       },
@@ -70,7 +70,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.recallStatus ? 'outline' : 'secondary' }, () => row.recallStatus ?? '-'),
+          h(YdBadge, { variant: row.recallStatus ? 'outline' : 'secondary' }, () => row.recallStatus ?? '-'),
       },
     },
     {
@@ -80,7 +80,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       slots: {
         default: ({ row }) =>
           row.mentionUserIds
-            ? h(Badge, { variant: 'outline' }, () => `@${row.mentionUserIds}`)
+            ? h(YdBadge, { variant: 'outline' }, () => `@${row.mentionUserIds}`)
             : h('span', { class: 'text-gray-400' }, '-'),
       },
     },
@@ -97,7 +97,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
               ? []
               : [
                   h(
-                    Button,
+                    YdButtonBase,
                     {
                       size: 'sm',
                       variant: 'link',
@@ -107,12 +107,12 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
                   ),
                 ]),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleRecall(row) },
               () => '撤回',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -137,12 +137,12 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       {
         field: 'category',
         title: '分类',
-        itemRender: { name: 'Input', props: { placeholder: '分类' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '分类' } },
       },
       {
         field: 'level',
         title: '级别',
-        itemRender: { name: 'Input', props: { placeholder: '级别' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '级别' } },
       },
     ],
   },
@@ -221,12 +221,12 @@ async function handleDelete(row: MsgNotificationVO) {
 <template>
   <Page auto-content-height>
     <div class="mb-3 flex items-center gap-2">
-      <Badge variant="destructive">未读：{{ unreadCount }}</Badge>
-      <Button size="sm" @click="handleMarkAllRead">全部已读</Button>
+      <YdBadge variant="destructive">未读：{{ unreadCount }}</YdBadge>
+      <YdButtonBase size="sm" @click="handleMarkAllRead">全部已读</YdButtonBase>
     </div>
     <Grid table-title="收件箱">
       <template #toolbar-tools>
-        <Button @click="handleSend">发送通知</Button>
+        <YdButtonBase @click="handleSend">发送通知</YdButtonBase>
       </template>
     </Grid>
     <NotificationFormModal @success="gridApi.query()" />

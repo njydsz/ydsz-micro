@@ -36,7 +36,7 @@ export function isSsoMetricsOverviewVo(value: unknown): value is SsoMetricsOverv
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { Badge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/shadcn-ui';
 import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -191,14 +191,14 @@ onMounted(() => {
           v-if="overview.applicationNames && overview.applicationNames.length > 0"
           class="flex flex-wrap justify-center gap-2 border-t pt-4"
         >
-          <Badge
+          <YdBadge
             v-for="appName in overview.applicationNames"
             :key="appName"
             variant="secondary"
             class="text-xs"
           >
             {{ appName }}
-          </Badge>
+          </YdBadge>
         </div>
         <ElEmpty
           v-else

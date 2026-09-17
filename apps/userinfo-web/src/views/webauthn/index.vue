@@ -19,7 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
 import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElIcon, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -146,8 +146,8 @@ const credentialCount = computed(() => credentials.value.length);
   <Page auto-content-height>
     <div class="webauthn-management">
       <!-- 顶部概览卡片 -->
-      <Card shadow="never" class="mb-4">
-        <CardContent class="flex items-center justify-between pt-6">
+      <YdCard shadow="never" class="mb-4">
+        <YdCardContent class="flex items-center justify-between pt-6">
           <div class="flex items-center gap-3">
             <ElIcon :size="24" class="text-blue-500">
               <svg
@@ -169,20 +169,20 @@ const credentialCount = computed(() => credentials.value.length);
             </div>
           </div>
           <div class="flex gap-2">
-            <Button variant="default" @click="registerDialogVisible = true">
+            <YdButtonBase variant="default" @click="registerDialogVisible = true">
               注册 Passkey
-            </Button>
-            <Button variant="ghost" :disabled="loading" @click="loadCredentials">刷新</Button>
+            </YdButtonBase>
+            <YdButtonBase variant="ghost" :disabled="loading" @click="loadCredentials">刷新</YdButtonBase>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 凭证列表 -->
-      <Card shadow="never">
-        <CardHeader>
-          <CardTitle class="font-medium">已注册凭证</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard shadow="never">
+        <YdCardHeader>
+          <YdCardTitle class="font-medium">已注册凭证</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
 
         <!-- 空状态 -->
         <ElEmpty
@@ -190,9 +190,9 @@ const credentialCount = computed(() => credentials.value.length);
           description="尚未注册任何 Passkey 凭证"
           :image-size="100"
         >
-          <Button variant="default" @click="registerDialogVisible = true">
+          <YdButtonBase variant="default" @click="registerDialogVisible = true">
             立即注册
-          </Button>
+          </YdButtonBase>
         </ElEmpty>
 
         <!-- 凭证列表 -->
@@ -222,11 +222,11 @@ const credentialCount = computed(() => credentials.value.length);
                   <span class="font-medium">{{
                     cred.displayName || '未命名凭证'
                   }}</span>
-                  <Badge variant="secondary" class="text-xs">{{
+                  <YdBadge variant="secondary" class="text-xs">{{
                     credentialTypeLabels[cred.credentialType ?? ''] ||
                     cred.credentialType ||
                     '凭证'
-                  }}</Badge>
+                  }}</YdBadge>
                 </div>
                 <div class="text-xs text-gray-400 mt-1">
                   ID: {{ formatCredentialId(cred.credentialId) }}
@@ -241,34 +241,34 @@ const credentialCount = computed(() => credentials.value.length);
                 </div>
               </div>
               <div class="flex gap-1">
-                <Button
+                <YdButtonBase
                   size="sm"
                   variant="link"
                   @click="handleViewDetail(cred)"
                 >
                   详情
-                </Button>
-                <Button
+                </YdButtonBase>
+                <YdButtonBase
                   size="sm"
                   variant="link"
                   class="text-destructive"
                   @click="handleDelete(cred)"
                 >
                   删除
-                </Button>
+                </YdButtonBase>
               </div>
             </div>
           </div>
         </div>
-      </CardContent>
-      </Card>
+      </YdCardContent>
+      </YdCard>
 
       <!-- 注册说明弹窗 -->
-      <Dialog v-model:open="registerDialogVisible">
-        <DialogContent class="max-w-[560px]">
-          <DialogHeader>
-            <DialogTitle>注册 Passkey</DialogTitle>
-          </DialogHeader>
+      <YdDialog v-model:open="registerDialogVisible">
+        <YdDialogContent class="max-w-[560px]">
+          <YdDialogHeader>
+            <YdDialogTitle>注册 Passkey</YdDialogTitle>
+          </YdDialogHeader>
           <div class="mb-4">
             <p class="text-muted-foreground">
               注册 Passkey 后，您可以使用设备的生物识别功能（如 Windows Hello、Apple
@@ -290,21 +290,21 @@ const credentialCount = computed(() => credentials.value.length);
             </ElTimelineItem>
           </ElTimeline>
 
-          <DialogFooter class="gap-2">
-            <Button variant="outline" @click="registerDialogVisible = false">关闭</Button>
-            <Button disabled>
+          <YdDialogFooter class="gap-2">
+            <YdButtonBase variant="outline" @click="registerDialogVisible = false">关闭</YdButtonBase>
+            <YdButtonBase disabled>
               注册 Passkey（需在支持设备上操作）
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+            </YdButtonBase>
+          </YdDialogFooter>
+        </YdDialogContent>
+      </YdDialog>
 
       <!-- 凭证详情弹窗 -->
-      <Dialog v-model:open="detailDialogVisible">
-        <DialogContent class="max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>凭证详情</DialogTitle>
-          </DialogHeader>
+      <YdDialog v-model:open="detailDialogVisible">
+        <YdDialogContent class="max-w-[500px]">
+          <YdDialogHeader>
+            <YdDialogTitle>凭证详情</YdDialogTitle>
+          </YdDialogHeader>
           <ElDescriptions v-if="selectedCredential" :column="1" border>
             <ElDescriptionsItem label="凭证 ID">
               <span class="text-xs break-all">{{
@@ -330,13 +330,13 @@ const credentialCount = computed(() => credentials.value.length);
               {{ formatDateTime(selectedCredential.lastUsedAt) }}
             </ElDescriptionsItem>
           </ElDescriptions>
-          <DialogFooter class="gap-2">
-            <Button variant="outline" @click="detailDialogVisible = false">{{
+          <YdDialogFooter class="gap-2">
+            <YdButtonBase variant="outline" @click="detailDialogVisible = false">{{
               t('page.close')
-            }}</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+            }}</YdButtonBase>
+          </YdDialogFooter>
+        </YdDialogContent>
+      </YdDialog>
     </div>
   </Page>
 </template>

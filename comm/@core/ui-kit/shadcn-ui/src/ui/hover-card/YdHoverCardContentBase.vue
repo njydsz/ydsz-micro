@@ -1,0 +1,51 @@
+﻿<!--
+ * 悬停卡片的浮层内容：经 Portal 挂到 body，避免被父级的 overflow 裁剪。
+ *
+ * sideOffset 默认 4px —— 触发器与浮层之间需要留出间隙，
+ * 否则鼠标从触发器移向浮层时会经过一段「两者都不命中」的空隙导致提前关闭。
+ * 固定宽度 w-64，让卡片在任意触发器宽度下都保持一致的阅读宽度。
+ *
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\YdHoverCardContentBase.vue
+ * @author ydsz-team
+ * @since 1.0.0
+-->
+<script setup lang="ts">
+import type { HoverCardContentProps } from 'radix-vue';
+
+import { computed } from 'vue';
+
+import { cn } from '@ydsz-core/shared/utils';
+
+import { YdHoverCardContentBase, HoverCardPortal, useForwardProps } from 'radix-vue';
+
+const props = withDefaults(
+  defineProps<HoverCardContentProps & { class?: any }>(),
+  {
+    sideOffset: 4,
+  },
+);
+
+const delegatedProps = computed(() => {
+  const { class: _, ...delegated } = props;
+
+  return delegated;
+});
+
+const forwardedProps = useForwardProps(delegatedProps);
+</script>
+
+<template>
+  <HoverCardPortal>
+    <YdHoverCardContentBase
+      v-bind="forwardedProps"
+      :class="
+        cn(
+          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 border-border z-popup w-64 rounded-md border p-4 shadow-md outline-none',
+          props.class,
+        )
+      "
+    >
+      <slot></slot>
+    </YdHoverCardContentBase>
+  </HoverCardPortal>
+</template>

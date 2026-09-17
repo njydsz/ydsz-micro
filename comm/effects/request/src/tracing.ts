@@ -57,7 +57,7 @@ export function generateTraceId(): string {
 export interface WebVitals {
   /** Largest Contentful Paint - 最大内容绘制 */
   lcp?: number;
-  /** First Input Delay - 首次输入延迟 */
+  /** First YdInput Delay - 首次输入延迟 */
   fid?: number;
   /** Cumulative Layout Shift - 累积布局偏移 */
   cls?: number;

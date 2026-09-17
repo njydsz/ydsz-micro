@@ -17,7 +17,7 @@ import { useForwardPropsEmits } from '@ydsz-core/composables';
 import { ChevronLeft, ChevronRight } from '@ydsz-core/icons';
 import { YdScrollbar } from '@ydsz-core/shadcn-ui';
 
-import { Tabs, TabsChrome } from './components';
+import { YdTabs, TabsChrome } from './components';
 import { useTabsDrag } from './use-tabs-drag';
 import { useTabsViewScroll } from './use-tabs-view-scroll';
 
@@ -98,7 +98,7 @@ useTabsDrag(props, emit);
           v-bind="{ ...forward, ...$attrs, ...$props }"
         />
 
-        <Tabs v-else v-bind="{ ...forward, ...$attrs, ...$props }" />
+        <YdTabs v-else v-bind="{ ...forward, ...$attrs, ...$props }" />
       </YdScrollbar>
     </div>
 

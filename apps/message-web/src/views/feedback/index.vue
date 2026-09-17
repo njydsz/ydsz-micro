@@ -23,7 +23,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import type { MsgFeedbackVO } from '#/api/models';
-import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { ElEmpty, ElRate, ElTable, ElTableColumn } from 'element-plus';
 import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 
@@ -78,7 +78,7 @@ function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'inf
   return 'info';
 }
 
-/** 状态标签 Badge variant 映射 */
+/** 状态标签 YdBadge variant 映射 */
 function getStatusVariant(status?: string): 'default' | 'destructive' | 'outline' | 'secondary' {
   const type = getStatusType(status);
   if (type === 'danger') return 'destructive';
@@ -172,58 +172,58 @@ onMounted(() => {
     <div class="feedback-container p-4">
       <!-- 顶部指标卡片区 -->
       <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <Card>
-          <CardContent class="flex flex-col items-center pt-6">
+        <YdCard>
+          <YdCardContent class="flex flex-col items-center pt-6">
             <span class="text-sm text-muted-foreground">平均评分</span>
             <div class="mt-2 flex items-center gap-2">
               <ElRate :model-value="averageRating" disabled allow-half />
               <span class="text-2xl font-bold text-amber-500">{{ averageRating.toFixed(1) }}</span>
             </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent class="flex flex-col items-center pt-6">
+          </YdCardContent>
+        </YdCard>
+        <YdCard>
+          <YdCardContent class="flex flex-col items-center pt-6">
             <span class="text-sm text-muted-foreground">反馈总数</span>
             <span class="mt-2 text-2xl font-bold text-blue-600">{{ totalFeedback }}</span>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent class="flex flex-col items-center pt-6">
+          </YdCardContent>
+        </YdCard>
+        <YdCard>
+          <YdCardContent class="flex flex-col items-center pt-6">
             <span class="text-sm text-muted-foreground">正面反馈比例</span>
             <span class="mt-2 text-2xl font-bold text-green-600">{{ positiveRatio }}%</span>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
       </div>
 
       <!-- 查询区域 -->
-      <Card class="mb-4">
-        <CardContent class="pt-6">
+      <YdCard class="mb-4">
+        <YdCardContent class="pt-6">
           <div class="flex items-center gap-3">
-            <Input
+            <YdInput
               v-model="searchParams.userId"
               placeholder="用户ID"
               class="w-44"
             />
-            <Select v-model="searchParams.channel">
-              <SelectTrigger class="w-36">
-                <SelectValue placeholder="渠道" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="EMAIL">邮件</SelectItem>
-                <SelectItem value="SMS">短信</SelectItem>
-                <SelectItem value="INBOX">站内信</SelectItem>
-                <SelectItem value="WEBHOOK">Webhook</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button @click="handleSearch">查询</Button>
-            <Button variant="outline" @click="handleReset">重置</Button>
+            <YdSelectBase v-model="searchParams.channel">
+              <YdSelectTriggerBase class="w-36">
+                <YdSelectValueBase placeholder="渠道" />
+              </YdSelectTriggerBase>
+              <YdSelectContentBase>
+                <YdSelectItemBase value="EMAIL">邮件</YdSelectItemBase>
+                <YdSelectItemBase value="SMS">短信</YdSelectItemBase>
+                <YdSelectItemBase value="INBOX">站内信</YdSelectItemBase>
+                <YdSelectItemBase value="WEBHOOK">Webhook</YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
+            <YdButtonBase @click="handleSearch">查询</YdButtonBase>
+            <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 反馈列表 -->
-      <Card>
-        <CardContent class="pt-6">
+      <YdCard>
+        <YdCardContent class="pt-6">
           <ElTable v-loading="loading" :data="feedbackList" stripe border style="width: 100%">
             <ElTableColumn type="index" label="序号" width="60" align="center" />
             <ElTableColumn prop="userId" label="用户ID" width="140" />
@@ -236,26 +236,26 @@ onMounted(() => {
             <ElTableColumn prop="content" label="反馈内容" min-width="200" show-overflow-tooltip />
             <ElTableColumn label="反馈类型" width="110" align="center">
               <template #default="{ row }">
-                <Badge v-if="row.feedbackType" variant="secondary">{{ row.feedbackType }}</Badge>
+                <YdBadge v-if="row.feedbackType" variant="secondary">{{ row.feedbackType }}</YdBadge>
                 <span v-else>-</span>
               </template>
             </ElTableColumn>
             <ElTableColumn label="状态" width="100" align="center">
               <template #default="{ row }">
-                <Badge :variant="getStatusVariant(row.status)">
+                <YdBadge :variant="getStatusVariant(row.status)">
                   {{ getStatusLabel(row.status) }}
-                </Badge>
+                </YdBadge>
               </template>
             </ElTableColumn>
             <ElTableColumn prop="createdAt" label="创建时间" width="170" />
             <ElTableColumn label="操作" width="160" fixed="right" align="center">
               <template #default="{ row }">
-                <Button size="sm" variant="link" @click="handleViewDetail(row)">
+                <YdButtonBase size="sm" variant="link" @click="handleViewDetail(row)">
                   查看详情
-                </Button>
-                <Button size="sm" variant="link" class="text-destructive" @click="handleHideFeedback(row)">
+                </YdButtonBase>
+                <YdButtonBase size="sm" variant="link" class="text-destructive" @click="handleHideFeedback(row)">
                   隐藏
-                </Button>
+                </YdButtonBase>
               </template>
             </ElTableColumn>
             <template #empty>
@@ -265,33 +265,33 @@ onMounted(() => {
 
           <!-- 分页 -->
           <div class="mt-4 flex justify-end">
-            <Button
+            <YdButtonBase
               variant="outline"
               :disabled="pageInfo.page <= 1"
               @click="pageInfo.page--; loadFeedback()"
             >
               上一页
-            </Button>
+            </YdButtonBase>
             <span class="mx-4 self-center text-sm text-muted-foreground">
               第 {{ pageInfo.page }} 页，共 {{ Math.ceil(pageInfo.total / pageInfo.size) || 1 }} 页
             </span>
-            <Button
+            <YdButtonBase
               variant="outline"
               :disabled="pageInfo.page * pageInfo.size >= pageInfo.total"
               @click="pageInfo.page++; loadFeedback()"
             >
               下一页
-            </Button>
+            </YdButtonBase>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 详情弹窗 -->
-      <Dialog v-model:open="detailVisible">
-        <DialogContent class="max-w-[520px]">
-          <DialogHeader>
-            <DialogTitle>反馈详情</DialogTitle>
-          </DialogHeader>
+      <YdDialog v-model:open="detailVisible">
+        <YdDialogContent class="max-w-[520px]">
+          <YdDialogHeader>
+            <YdDialogTitle>反馈详情</YdDialogTitle>
+          </YdDialogHeader>
           <div v-if="currentDetail" class="space-y-3">
             <div class="flex">
               <span class="w-24 text-muted-foreground">用户ID：</span>
@@ -311,9 +311,9 @@ onMounted(() => {
             </div>
             <div class="flex">
               <span class="w-24 text-muted-foreground">状态：</span>
-              <Badge :variant="getStatusVariant(currentDetail.status)">
+              <YdBadge :variant="getStatusVariant(currentDetail.status)">
                 {{ getStatusLabel(currentDetail.status) }}
-              </Badge>
+              </YdBadge>
             </div>
             <div class="flex">
               <span class="w-24 text-muted-foreground">创建时间：</span>
@@ -326,8 +326,8 @@ onMounted(() => {
               </p>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+        </YdDialogContent>
+      </YdDialog>
     </div>
   </Page>
 </template>

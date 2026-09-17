@@ -1,5 +1,5 @@
 /**
- * 两种标签栏实现的出口：Tabs（常规）与 TabsChrome（浏览器标签风格）。
+ * 两种标签栏实现的出口：YdTabs（常规）与 TabsChrome（浏览器标签风格）。
  *
  * 两者 props 完全一致、可互换，由 YdTabsView 按 styleType 选择渲染哪一个；
  * 不合并成一个组件是因为两套风格的 DOM 结构与间距计算差异过大，
@@ -10,4 +10,4 @@
  * @since 1.0.0
  */
 export { default as TabsChrome } from './tabs-chrome/tabs.vue';
-export { default as Tabs } from './tabs/tabs.vue';
+export { default as YdTabs } from './tabs/tabs.vue';

@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Breadcrumb } from './breadcrumb.vue';
+export { default as YdBreadcrumb } from './breadcrumb.vue';
 export * from './check-updates';
 export { default as AuthenticationColorToggle } from './color-toggle.vue';
 export * from './global-search';

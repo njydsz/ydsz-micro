@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/shadcn-ui';
 import { ElMessageBox } from '@ydsz/notification/compat';
 import { useI18n } from 'vue-i18n';
 import { h, onMounted, reactive, ref } from 'vue';
@@ -171,7 +171,7 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -189,22 +189,22 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleAssignRoles(row) },
               () => t('page.roleAssign'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'ghost', onClick: () => handleResetPassword(row) },
               () => t('page.passwordReset'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -230,25 +230,25 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   formOptions: {
     schema: [
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('page.username') },
         fieldName: 'username',
         label: t('page.username'),
       },
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('page.realName') },
         fieldName: 'realName',
         label: t('page.realName'),
       },
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('page.phone') },
         fieldName: 'phone',
         label: t('page.phone'),
       },
       {
-        component: 'Select',
+        component: 'YdSelectBase',
         componentProps: {
           placeholder: t('page.status'),
           options: [
@@ -398,20 +398,20 @@ async function handleDelete(row: UserAccountVO) {
   <Page auto-content-height>
     <div class="flex flex-wrap items-center gap-2 px-4 pt-3">
       <span class="text-sm text-gray-500">{{ t('user.moreFilter') }}</span>
-      <Select v-model="searchForm.companyId">
-        <SelectTrigger class="w-44">
-          <SelectValue :placeholder="t('user.company')" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem
+      <YdSelectBase v-model="searchForm.companyId">
+        <YdSelectTriggerBase class="w-44">
+          <YdSelectValueBase :placeholder="t('user.company')" />
+        </YdSelectTriggerBase>
+        <YdSelectContentBase>
+          <YdSelectItemBase
             v-for="item in companyOptions"
             :key="item.id"
             :value="item.id ?? ''"
           >
             {{ item.companyName }}
-          </SelectItem>
-        </SelectContent>
-      </Select>
+          </YdSelectItemBase>
+        </YdSelectContentBase>
+      </YdSelectBase>
       <ElTreeSelect
         v-model="searchForm.deptId"
         :data="deptTreeData"
@@ -422,29 +422,29 @@ async function handleDelete(row: UserAccountVO) {
         clearable
         class="w-44"
       />
-      <Select v-model="searchForm.positionCode">
-        <SelectTrigger class="w-44">
-          <SelectValue :placeholder="t('user.position')" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem
+      <YdSelectBase v-model="searchForm.positionCode">
+        <YdSelectTriggerBase class="w-44">
+          <YdSelectValueBase :placeholder="t('user.position')" />
+        </YdSelectTriggerBase>
+        <YdSelectContentBase>
+          <YdSelectItemBase
             v-for="item in postOptions"
             :key="item.postCode"
             :value="item.postCode ?? ''"
           >
             {{ item.postName }}
-          </SelectItem>
-        </SelectContent>
-      </Select>
-      <Button variant="default" @click="handleSearch">{{ t('page.query') }}</Button>
-      <Button variant="ghost" @click="handleReset">{{ t('page.reset') }}</Button>
+          </YdSelectItemBase>
+        </YdSelectContentBase>
+      </YdSelectBase>
+      <YdButtonBase variant="default" @click="handleSearch">{{ t('page.query') }}</YdButtonBase>
+      <YdButtonBase variant="ghost" @click="handleReset">{{ t('page.reset') }}</YdButtonBase>
     </div>
     <Grid :table-title="t('user.userManagement')">
       <template #toolbar-tools>
-        <Button variant="default" @click="handleAdd">{{ t('user.createUser') }}</Button>
-        <Button variant="outline" @click="handleImport">{{ t('user.importUser') }}</Button>
-        <Button variant="secondary" @click="handleExport">{{ t('user.exportUser') }}</Button>
-        <Button variant="ghost" @click="handleDownloadTemplate">{{ t('user.downloadTemplate') }}</Button>
+        <YdButtonBase variant="default" @click="handleAdd">{{ t('user.createUser') }}</YdButtonBase>
+        <YdButtonBase variant="outline" @click="handleImport">{{ t('user.importUser') }}</YdButtonBase>
+        <YdButtonBase variant="secondary" @click="handleExport">{{ t('user.exportUser') }}</YdButtonBase>
+        <YdButtonBase variant="ghost" @click="handleDownloadTemplate">{{ t('user.downloadTemplate') }}</YdButtonBase>
       </template>
     </Grid>
     <UserFormModal @success="gridApi.query()" />

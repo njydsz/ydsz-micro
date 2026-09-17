@@ -8,10 +8,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Breadcrumb } from './Breadcrumb.vue';
-export { default as BreadcrumbEllipsis } from './BreadcrumbEllipsis.vue';
-export { default as BreadcrumbItem } from './BreadcrumbItem.vue';
-export { default as BreadcrumbLink } from './BreadcrumbLink.vue';
-export { default as BreadcrumbList } from './BreadcrumbList.vue';
-export { default as BreadcrumbPage } from './BreadcrumbPage.vue';
-export { default as BreadcrumbSeparator } from './BreadcrumbSeparator.vue';
+export { default as YdBreadcrumb } from './YdBreadcrumb.vue';
+export { default as YdBreadcrumbEllipsis } from './YdBreadcrumbEllipsis.vue';
+export { default as YdBreadcrumbItem } from './YdBreadcrumbItem.vue';
+export { default as YdBreadcrumbLink } from './YdBreadcrumbLink.vue';
+export { default as YdBreadcrumbList } from './YdBreadcrumbList.vue';
+export { default as YdBreadcrumbPage } from './YdBreadcrumbPage.vue';
+export { default as YdBreadcrumbSeparator } from './YdBreadcrumbSeparator.vue';

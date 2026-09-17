@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -43,7 +43,7 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
       slots: { default: ({ row }) => {
         const theme = getStatusTheme(row.status);
         const text = getStatusText(row.status);
-        return h(Badge, { variant: theme === 'primary' ? 'default' : theme }, () => text);
+        return h(YdBadge, { variant: theme === 'primary' ? 'default' : theme }, () => text);
       } },
     },
     { field: 'durationMs', title: '生成耗时(ms)', width: 120 },
@@ -55,8 +55,8 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(Button, { size: 'sm', variant: 'link', onClick: () => handleExport(row) }, () => '导出'),
-          h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleExport(row) }, () => '导出'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
       },
     },
@@ -79,7 +79,7 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'title', title: '报告标题', itemRender: { name: 'Input', props: { placeholder: '报告标题' } } },
+      { field: 'title', title: '报告标题', itemRender: { name: 'YdInput', props: { placeholder: '报告标题' } } },
     ],
   },
 };

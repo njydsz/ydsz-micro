@@ -19,9 +19,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
@@ -64,7 +64,7 @@ const gridOptions = {
       slots: {
         default: ({ row }: { row: JobDagInstanceVO }) =>
           h(
-            Badge,
+            YdBadge,
             { variant: STATUS_TAG[row.instanceStatus ?? ''] ?? 'info' },
             () => row.instanceStatus ?? '-',
           ),
@@ -100,19 +100,19 @@ const gridOptions = {
         default: ({ row }: { row: JobDagInstanceVO }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) },
               () => '详情',
             ),
             isRunning(row.instanceStatus)
               ? h(
-                  Button,
+                  YdButtonBase,
                   { size: 'sm', variant: 'link', onClick: () => handlePause(row) },
                   () => '暂停',
                 )
               : row.instanceStatus === 'PAUSED'
                 ? h(
-                    Button,
+                    YdButtonBase,
                     {
                       size: 'sm',
                       variant: 'link',
@@ -123,7 +123,7 @@ const gridOptions = {
                 : null,
             isRunning(row.instanceStatus) || row.instanceStatus === 'PAUSED'
               ? h(
-                  Button,
+                  YdButtonBase,
                   { size: 'sm', variant: 'link', onClick: () => handleCancel(row) },
                   () => '取消',
                 )
@@ -240,35 +240,35 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
   <Page auto-content-height>
     <Grid table-title="DAG 运行实例">
       <template #toolbar-tools>
-        <Select v-model="statusFilter" @update:model-value="queryInstances">
-          <SelectTrigger class="w-[140px]">
-            <SelectValue placeholder="状态筛选" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="PENDING">待执行</SelectItem>
-            <SelectItem value="RUNNING">执行中</SelectItem>
-            <SelectItem value="PAUSED">已暂停</SelectItem>
-            <SelectItem value="SUCCESS">成功</SelectItem>
-            <SelectItem value="FAILED">失败</SelectItem>
-            <SelectItem value="PARTIAL_SUCCESS">部分成功</SelectItem>
-            <SelectItem value="CANCELLED">已取消</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="statusFilter" @update:model-value="queryInstances">
+          <YdSelectTriggerBase class="w-[140px]">
+            <YdSelectValueBase placeholder="状态筛选" />
+          </YdSelectTriggerBase>
+          <YdSelectContentBase>
+            <YdSelectItemBase value="PENDING">待执行</YdSelectItemBase>
+            <YdSelectItemBase value="RUNNING">执行中</YdSelectItemBase>
+            <YdSelectItemBase value="PAUSED">已暂停</YdSelectItemBase>
+            <YdSelectItemBase value="SUCCESS">成功</YdSelectItemBase>
+            <YdSelectItemBase value="FAILED">失败</YdSelectItemBase>
+            <YdSelectItemBase value="PARTIAL_SUCCESS">部分成功</YdSelectItemBase>
+            <YdSelectItemBase value="CANCELLED">已取消</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </template>
     </Grid>
 
-    <Sheet v-model:open="detailVisible">
-      <SheetContent side="right" class="w-[760px]">
-        <SheetHeader>
-          <SheetTitle>DAG 实例详情</SheetTitle>
-        </SheetHeader>
+    <YdSheet v-model:open="detailVisible">
+      <YdSheetContent side="right" class="w-[760px]">
+        <YdSheetHeader>
+          <YdSheetTitle>DAG 实例详情</YdSheetTitle>
+        </YdSheetHeader>
       <template v-if="detailLog">
         <ElDescriptions :column="2" border size="small" class="mb-3">
           <ElDescriptionsItem label="DAG标识">{{ detailLog.dagKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="状态">
-            <Badge :variant="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
+            <YdBadge :variant="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
               detailLog.instanceStatus ?? '-'
-            }}</Badge>
+            }}</YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="触发方式">{{
             detailLog.triggerType ?? '-'
@@ -297,20 +297,20 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <ElTableColumn label="状态" width="110">
             <template #default="{ row }">
-              <Badge :variant="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="sm">{{
+              <YdBadge :variant="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="sm">{{
                 row.nodeStatus ?? '-'
-              }}</Badge>
+              }}</YdBadge>
             </template>
           </ElTableColumn>
           <ElTableColumn prop="durationMs" label="耗时(ms)" width="90" />
           <ElTableColumn label="操作" width="100">
             <template #default="{ row }">
-              <Button
+              <YdButtonBase
                 v-if="row.nodeStatus === 'FAILED'"
                 size="sm"
                 variant="link"
                 @click="handleRetryNode(row)"
-                >重试</Button
+                >重试</YdButtonBase
               >
             </template>
           </ElTableColumn>
@@ -324,7 +324,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
           >{{ mermaidText }}</pre>
         <ElEmpty v-else description="暂无拓扑数据" :image-size="60" />
       </template>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

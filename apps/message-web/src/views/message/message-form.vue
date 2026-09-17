@@ -20,7 +20,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 
-import { Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { send } from '#/api/message';
 
 const emit = defineEmits<{ success: [] }>();
@@ -118,48 +118,48 @@ const [Modal, modalApi] = useYdModal({
       label-position="right"
     >
       <ElFormItem label="发送策略" prop="strategy">
-        <RadioGroup v-model="formData.strategy">
-          <RadioGroupItem value="SYNC">同步</RadioGroupItem>
-          <RadioGroupItem value="DIRECT">直发</RadioGroupItem>
-          <RadioGroupItem value="ASYNC">异步</RadioGroupItem>
-          <RadioGroupItem value="TRANSACTIONAL">事务</RadioGroupItem>
-        </RadioGroup>
+        <YdRadioGroup v-model="formData.strategy">
+          <YdRadioGroupItem value="SYNC">同步</YdRadioGroupItem>
+          <YdRadioGroupItem value="DIRECT">直发</YdRadioGroupItem>
+          <YdRadioGroupItem value="ASYNC">异步</YdRadioGroupItem>
+          <YdRadioGroupItem value="TRANSACTIONAL">事务</YdRadioGroupItem>
+        </YdRadioGroup>
       </ElFormItem>
       <ElFormItem label="通道" prop="channel">
-        <Input v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
+        <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
       <ElFormItem label="接收者" prop="receiver">
-        <Input v-model="formData.receiver" placeholder="请输入接收者" />
+        <YdInput v-model="formData.receiver" placeholder="请输入接收者" />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <Input v-model="formData.bizType" placeholder="请输入业务类型" />
+        <YdInput v-model="formData.bizType" placeholder="请输入业务类型" />
       </ElFormItem>
       <ElFormItem label="业务ID" prop="bizId">
-        <Input v-model="formData.bizId" placeholder="请输入业务ID" />
+        <YdInput v-model="formData.bizId" placeholder="请输入业务ID" />
       </ElFormItem>
       <ElFormItem label="模板编码" prop="templateCode">
-        <Input v-model="formData.templateCode" placeholder="请输入模板编码（可为空）" />
+        <YdInput v-model="formData.templateCode" placeholder="请输入模板编码（可为空）" />
       </ElFormItem>
       <ElFormItem label="主题" prop="subject">
-        <Input v-model="formData.subject" placeholder="请输入主题（可为空）" />
+        <YdInput v-model="formData.subject" placeholder="请输入主题（可为空）" />
       </ElFormItem>
       <ElFormItem label="内容" prop="content">
-        <Textarea v-model="formData.content" placeholder="请输入内容" />
+        <YdTextarea v-model="formData.content" placeholder="请输入内容" />
       </ElFormItem>
       <ElFormItem label="优先级" prop="priority">
-        <Select v-model="formData.priority">
-          <SelectTrigger>
-            <SelectValue placeholder="请选择优先级（可为空）" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="HIGH">高</SelectItem>
-            <SelectItem value="MEDIUM">中</SelectItem>
-            <SelectItem value="LOW">低</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="formData.priority">
+          <YdSelectTriggerBase>
+            <YdSelectValueBase placeholder="请选择优先级（可为空）" />
+          </YdSelectTriggerBase>
+          <YdSelectContentBase>
+            <YdSelectItemBase value="HIGH">高</YdSelectItemBase>
+            <YdSelectItemBase value="MEDIUM">中</YdSelectItemBase>
+            <YdSelectItemBase value="LOW">低</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem label="消息组" prop="messageGroup">
-        <Input v-model="formData.messageGroup" placeholder="请输入消息组（可为空）" />
+        <YdInput v-model="formData.messageGroup" placeholder="请输入消息组（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>

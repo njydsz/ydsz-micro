@@ -18,8 +18,8 @@ import {
 
 import {
   YdTooltip,
-  ToggleGroup,
-  ToggleGroupItem,
+  YdToggleGroup,
+  YdToggleGroupItem,
 } from '@ydsz-core/shadcn-ui';
 
 import ThemeButton from './theme-button.vue';
@@ -68,7 +68,7 @@ const PRESETS = [
           @update:model-value="handleChange"
         />
       </template>
-      <ToggleGroup
+      <YdToggleGroup
         :model-value="preferences.theme.mode"
         class="gap-2"
         type="single"
@@ -77,14 +77,14 @@ const PRESETS = [
           (val) => updatePreferences({ theme: { mode: val as ThemeModeType } })
         "
       >
-        <ToggleGroupItem
+        <YdToggleGroupItem
           v-for="item in PRESETS"
           :key="item.name"
           :value="item.name"
         >
           <component :is="item.icon" class="size-5" />
-        </ToggleGroupItem>
-      </ToggleGroup>
+        </YdToggleGroupItem>
+      </YdToggleGroup>
     </YdTooltip>
   </div>
 </template>

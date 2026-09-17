@@ -16,11 +16,11 @@
  * <p>将后端 FlowDesignerController 返回的 formConfig（JSON Schema 格式）转换为 YdForm Schema 渲染。
  * 支持的字段类型映射：
  * <ul>
- *   <li>string → Input / Textarea（根据 format 或 maxLength 判断）</li>
+ *   <li>string → YdInput / YdTextarea（根据 format 或 maxLength 判断）</li>
  *   <li>number / integer → InputNumber</li>
- *   <li>boolean → Switch</li>
- *   <li>enum → Select</li>
- *   <li>date / datetime → DatePicker</li>
+ *   <li>boolean → YdSwitch</li>
+ *   <li>enum → YdSelectBase</li>
+ *   <li>date / datetime → YdDatePicker</li>
  * </ul>
  *
  * @author ydsz-team
@@ -35,7 +35,7 @@ import type { YdFormSchema } from '@ydsz/common-ui';
 
 import type { JsonSchema, JsonSchemaProperty } from './types';
 
-/** 选项数组元素类型（Select 组件的 options 项） */
+/** 选项数组元素类型（YdSelectBase 组件的 options 项） */
 interface ComponentOption {
   label: string;
   value: string;
@@ -98,14 +98,14 @@ const formSchema = computed<YdFormSchema | undefined>(() => {
       fieldName,
       label: prop.title || prop.description || fieldName,
       required: isRequired,
-      ...(componentType === 'Select' && prop.enum
+      ...(componentType === 'YdSelectBase' && prop.enum
         ? {
             componentProps: {
               options: prop.enum.map((v: string) => ({ label: v, value: v })),
             },
           }
         : {}),
-      ...(componentType === 'Input' && prop.maxLength
+      ...(componentType === 'YdInput' && prop.maxLength
         ? { componentProps: { showWordLimit: true, maxlength: prop.maxLength } }
         : {}),
       ...(componentType === 'InputNumber' && prop.minimum !== undefined
@@ -123,21 +123,21 @@ const formSchema = computed<YdFormSchema | undefined>(() => {
  * JSON Schema 属性 → YdForm 组件类型映射
  */
 function mapToComponentType(prop: JsonSchemaProperty): string {
-  if (prop.enum && prop.enum.length > 0) return 'Select';
+  if (prop.enum && prop.enum.length > 0) return 'YdSelectBase';
   switch (prop.type) {
     case 'number':
     case 'integer':
       return 'InputNumber';
     case 'boolean':
-      return 'Switch';
+      return 'YdSwitch';
     case 'string':
-      if (prop.format === 'date' || prop.format === 'date-time') return 'DatePicker';
+      if (prop.format === 'date' || prop.format === 'date-time') return 'YdDatePicker';
       if (prop.format === 'textarea' || (prop.maxLength && prop.maxLength > 256)) {
-        return 'Input'; // renderProps.type = 'textarea' 由调用方配置
+        return 'YdInput'; // renderProps.type = 'textarea' 由调用方配置
       }
-      return 'Input';
+      return 'YdInput';
     default:
-      return 'Input';
+      return 'YdInput';
   }
 }
 </script>
@@ -162,9 +162,9 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
 
       <!-- 根据组件类型动态渲染 -->
       <div class="field-content">
-        <!-- Select -->
+        <!-- YdSelectBase -->
         <el-select
-          v-if="field.component === 'Select'"
+          v-if="field.component === 'YdSelectBase'"
           v-model="formModel[field.fieldName]"
           :placeholder="`请选择${field.label}`"
           :disabled="disabled"
@@ -188,17 +188,17 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
           @change="emit('update:formData', formModel)"
         />
 
-        <!-- Boolean / Switch -->
+        <!-- Boolean / YdSwitch -->
         <el-switch
-          v-else-if="field.component === 'Switch'"
+          v-else-if="field.component === 'YdSwitch'"
           v-model="formModel[field.fieldName] as boolean"
           :disabled="disabled"
           @change="emit('update:formData', formModel)"
         />
 
-        <!-- Textarea (长文本) -->
+        <!-- YdTextarea (长文本) -->
         <el-input
-          v-else-if="field.component === 'Input' && schema?.properties[field.fieldName]?.maxLength && (schema.properties[field.fieldName].maxLength ?? 0) > 256"
+          v-else-if="field.component === 'YdInput' && schema?.properties[field.fieldName]?.maxLength && (schema.properties[field.fieldName].maxLength ?? 0) > 256"
           v-model="formModel[field.fieldName] as string"
           type="textarea"
           :rows="3"
@@ -209,7 +209,7 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
           @blur="emit('update:formData', formModel)"
         />
 
-        <!-- Input (默认) -->
+        <!-- YdInput (默认) -->
         <el-input
           v-else
           v-model="formModel[field.fieldName] as string"

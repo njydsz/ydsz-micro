@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -148,60 +148,60 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
       <ElFormItem :label="t('business.webhookName')" prop="name">
-        <Input v-model="formData.name" :placeholder="t('business.webhookNamePlaceholder')" />
+        <YdInput v-model="formData.name" :placeholder="t('business.webhookNamePlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookEventType')" prop="eventType">
-        <Select v-model="formData.eventType">
-          <SelectTrigger :placeholder="t('business.webhookEventTypePlaceholder')" />
-          <SelectContent>
-            <SelectItem v-for="item in eventTypeOptions" :key="item.value" :value="item.value">
+        <YdSelectBase v-model="formData.eventType">
+          <YdSelectTriggerBase :placeholder="t('business.webhookEventTypePlaceholder')" />
+          <YdSelectContentBase>
+            <YdSelectItemBase v-for="item in eventTypeOptions" :key="item.value" :value="item.value">
               {{ item.label }}
-            </SelectItem>
-          </SelectContent>
-        </Select>
+            </YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem :label="t('business.webhookJobKey')" prop="jobKey">
-        <Input v-model="formData.jobKey" :placeholder="t('business.webhookJobKeyPlaceholder')" />
+        <YdInput v-model="formData.jobKey" :placeholder="t('business.webhookJobKeyPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookJobGroup')" prop="jobGroup">
-        <Input v-model="formData.jobGroup" :placeholder="t('business.webhookJobGroupPlaceholder')" />
+        <YdInput v-model="formData.jobGroup" :placeholder="t('business.webhookJobGroupPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookCallbackUrl')" prop="callbackUrl">
-        <Input v-model="formData.callbackUrl" :placeholder="t('business.webhookCallbackUrlPlaceholder')" />
+        <YdInput v-model="formData.callbackUrl" :placeholder="t('business.webhookCallbackUrlPlaceholder')" />
       </ElFormItem>
       <ElFormItem label="HTTP Method" prop="httpMethod">
-        <RadioGroup v-model="formData.httpMethod">
+        <YdRadioGroup v-model="formData.httpMethod">
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="method-post" value="POST" />
+              <YdRadioGroupItem id="method-post" value="POST" />
               <label for="method-post" class="cursor-pointer text-sm">POST</label>
             </div>
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="method-put" value="PUT" />
+              <YdRadioGroupItem id="method-put" value="PUT" />
               <label for="method-put" class="cursor-pointer text-sm">PUT</label>
             </div>
           </div>
-        </RadioGroup>
+        </YdRadioGroup>
       </ElFormItem>
       <ElFormItem :label="t('business.webhookHeaders')" prop="headers">
-        <Textarea v-model="formData.headers" :rows="3" :placeholder="t('business.webhookHeadersPlaceholder')" />
+        <YdTextarea v-model="formData.headers" :rows="3" :placeholder="t('business.webhookHeadersPlaceholder')" />
       </ElFormItem>
       <ElFormItem :label="t('business.webhookSecret')" prop="secret">
-        <Input v-model="formData.secret" :placeholder="t('business.webhookSecretPlaceholder')" type="password" />
+        <YdInput v-model="formData.secret" :placeholder="t('business.webhookSecretPlaceholder')" type="password" />
       </ElFormItem>
       <ElFormItem :label="t('common.status')">
-        <RadioGroup v-model="formData.webhookStatus">
+        <YdRadioGroup v-model="formData.webhookStatus">
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="status-active" value="ACTIVE" />
+              <YdRadioGroupItem id="status-active" value="ACTIVE" />
               <label for="status-active" class="cursor-pointer text-sm">{{ t('common.enabled') }}</label>
             </div>
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="status-inactive" value="INACTIVE" />
+              <YdRadioGroupItem id="status-inactive" value="INACTIVE" />
               <label for="status-inactive" class="cursor-pointer text-sm">{{ t('common.disabled') }}</label>
             </div>
           </div>
-        </RadioGroup>
+        </YdRadioGroup>
       </ElFormItem>
     </ElForm>
   </Modal>

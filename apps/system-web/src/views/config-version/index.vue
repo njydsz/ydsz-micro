@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -48,7 +48,7 @@ const gridOptions: VxeGridProps<EntityVersionVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleRollback(row) }, () => '回滚'),
+            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleRollback(row) }, () => '回滚'),
           ]),
       },
     },
@@ -102,18 +102,18 @@ async function handleRollback(row: EntityVersionVO): Promise<void> {
   <Page auto-content-height>
     <!-- 搜索头部 -->
     <div class="mb-4 flex items-center gap-3 px-4 pt-3">
-      <Input
+      <YdInput
         v-model="resourceKey"
         placeholder="请输入资源Key（如：system.mail.smtp）"
         class="w-80"
         @keyup.enter="handleQuery"
       />
-        <Button :loading="loading" @click="handleQuery">查询版本历史</Button>
+        <YdButtonBase :loading="loading" @click="handleQuery">查询版本历史</YdButtonBase>
     </div>
 
     <Grid table-title="配置版本历史">
       <template #toolbar-tools>
-        <Button @click="handleQuery">{{ t('refresh') }}</Button>
+        <YdButtonBase @click="handleQuery">{{ t('refresh') }}</YdButtonBase>
       </template>
     </Grid>
   </Page>

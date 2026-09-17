@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Checkbox } from '../../ui';
+import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle, YdCheckboxBase } from '../../ui';
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({
@@ -90,7 +90,7 @@ function handleSelectChange(checked: boolean): void {
 </script>
 
 <template>
-  <Card
+  <YdCard
     :class="
       cn(
         'group relative transition-all duration-200',
@@ -108,13 +108,13 @@ function handleSelectChange(checked: boolean): void {
       class="absolute start-3 top-3 z-10 opacity-0 transition-opacity group-hover:opacity-100"
       :class="{ 'opacity-100': selected }"
     >
-      <Checkbox
+      <YdCheckboxBase
         :checked="selected"
         @update:checked="handleSelectChange"
       />
     </div>
 
-    <CardHeader class="pb-3">
+    <YdCardHeader class="pb-3">
       <div class="flex w-full items-start gap-3">
         <!-- 图标 -->
         <div
@@ -133,23 +133,23 @@ function handleSelectChange(checked: boolean): void {
         <!-- 标题区域 -->
         <div class="min-w-0 flex-1">
           <div class="flex flex-wrap items-center gap-2">
-            <CardTitle class="text-sm leading-tight">
+            <YdCardTitle class="text-sm leading-tight">
               <slot name="title">{{ avatarText }}</slot>
-            </CardTitle>
+            </YdCardTitle>
             <!-- 状态标签插槽 -->
             <slot name="status-badge" />
           </div>
-          <CardDescription
+          <YdCardDescription
             v-if="code || $slots.code"
             class="mt-0.5 text-xs"
           >
             <slot name="code">{{ code }}</slot>
-          </CardDescription>
+          </YdCardDescription>
         </div>
       </div>
-    </CardHeader>
+    </YdCardHeader>
 
-    <CardContent class="pb-3">
+    <YdCardContent class="pb-3">
       <!-- 描述 -->
       <p
         v-if="description"
@@ -160,10 +160,10 @@ function handleSelectChange(checked: boolean): void {
 
       <!-- 自定义字段行（如模型、温度、更新时间等） -->
       <slot name="meta" />
-    </CardContent>
+    </YdCardContent>
 
     <!-- 底部操作区：默认具名 slot，hover 时完全浮现 -->
-    <CardFooter class="flex items-center justify-between pb-3 pt-0 opacity-0 transition-opacity group-hover:opacity-100">
+    <YdCardFooter class="flex items-center justify-between pb-3 pt-0 opacity-0 transition-opacity group-hover:opacity-100">
       <!-- 底部左侧辅助信息 -->
       <div class="text-xs text-text-tertiary">
         <slot name="footer-left" />
@@ -173,6 +173,6 @@ function handleSelectChange(checked: boolean): void {
       <div class="flex items-center gap-1">
         <slot name="actions" />
       </div>
-    </CardFooter>
-  </Card>
+    </YdCardFooter>
+  </YdCard>
 </template>

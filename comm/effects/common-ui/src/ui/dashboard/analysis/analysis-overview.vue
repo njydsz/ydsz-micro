@@ -9,11 +9,11 @@
 import type { AnalysisOverviewItem } from '../typing';
 
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  YdCard,
+  YdCardContent,
+  YdCardFooter,
+  YdCardHeader,
+  YdCardTitle,
   YdCountToAnimator,
   YdIcon,
 } from '@ydsz-core/shadcn-ui';
@@ -34,12 +34,12 @@ withDefaults(defineProps<Props>(), {
 <template>
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
     <template v-for="item in items" :key="item.title">
-      <Card :title="item.title" class="w-full">
-        <CardHeader>
-          <CardTitle class="text-xl">{{ item.title }}</CardTitle>
-        </CardHeader>
+      <YdCard :title="item.title" class="w-full">
+        <YdCardHeader>
+          <YdCardTitle class="text-xl">{{ item.title }}</YdCardTitle>
+        </YdCardHeader>
 
-        <CardContent class="flex items-center justify-between">
+        <YdCardContent class="flex items-center justify-between">
           <YdCountToAnimator
             :end-val="item.value"
             :start-val="1"
@@ -47,16 +47,16 @@ withDefaults(defineProps<Props>(), {
             prefix=""
           />
           <YdIcon :icon="item.icon" class="size-8 flex-shrink-0" />
-        </CardContent>
-        <CardFooter class="justify-between">
+        </YdCardContent>
+        <YdCardFooter class="justify-between">
           <span>{{ item.totalTitle }}</span>
           <YdCountToAnimator
             :end-val="item.totalValue"
             :start-val="1"
             prefix=""
           />
-        </CardFooter>
-      </Card>
+        </YdCardFooter>
+      </YdCard>
     </template>
   </div>
 </template>

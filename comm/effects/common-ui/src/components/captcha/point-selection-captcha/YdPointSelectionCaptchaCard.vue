@@ -13,11 +13,11 @@ import { computed } from 'vue';
 import { $t } from '@ydsz/locales';
 
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  YdCard,
+  YdCardContent,
+  YdCardFooter,
+  YdCardHeader,
+  YdCardTitle,
 } from '@ydsz-core/shadcn-ui';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
@@ -57,9 +57,9 @@ function handleClick(e: MouseEvent) {
 }
 </script>
 <template>
-  <Card :style="rootStyles" aria-labelledby="captcha-title" role="region">
-    <CardHeader class="p-0">
-      <CardTitle id="captcha-title" class="flex items-center justify-between">
+  <YdCard :style="rootStyles" aria-labelledby="captcha-title" role="region">
+    <YdCardHeader class="p-0">
+      <YdCardTitle id="captcha-title" class="flex items-center justify-between">
         <template v-if="$slots.title">
           <slot name="title">{{ $t('ui.captcha.title') }}</slot>
         </template>
@@ -69,9 +69,9 @@ function handleClick(e: MouseEvent) {
         <div class="flex items-center justify-end">
           <slot name="extra"></slot>
         </div>
-      </CardTitle>
-    </CardHeader>
-    <CardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
+      </YdCardTitle>
+    </YdCardHeader>
+    <YdCardContent class="relative mt-2 flex w-full overflow-hidden rounded p-0">
       <img
         v-show="captchaImage"
         :alt="$t('ui.captcha.alt')"
@@ -83,9 +83,9 @@ function handleClick(e: MouseEvent) {
       <div class="absolute inset-0">
         <slot></slot>
       </div>
-    </CardContent>
-    <CardFooter class="mt-2 flex justify-between p-0">
+    </YdCardContent>
+    <YdCardFooter class="mt-2 flex justify-between p-0">
       <slot name="footer"></slot>
-    </CardFooter>
-  </Card>
+    </YdCardFooter>
+  </YdCard>
 </template>

@@ -11,7 +11,7 @@ import { h } from 'vue';
 
 import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
 
-import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElImage 暂无 shadcn-ui 等效组件，保留 element-plus 导入
 import { ElImage } from 'element-plus';
 
@@ -55,7 +55,7 @@ setupYDSZVxeTable({
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
         return h(
-          Button,
+          YdButtonBase,
           { size: 'sm', variant: 'link' },
           { default: () => props?.text },
         );

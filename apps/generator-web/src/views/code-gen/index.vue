@@ -2,7 +2,7 @@
  * 代码生成（主面板）
  *
  * <p>选择数据源、模板分组和表名，预览代码、单表生成、全量生成。
- * 新增：历史记录侧栏 Sheet（Drawer），支持 Diff 预览。
+ * 新增：历史记录侧栏 YdSheet（Drawer），支持 Diff 预览。
  *
  * @path apps/generator-web/src/views/code-gen/index.vue
  * @author ydsz-team
@@ -23,28 +23,28 @@ import { onMounted, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Dialog,
-  DialogContent,
-  Input,
-  RadioGroup,
-  RadioGroupItem,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Sheet,
-  SheetContent,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+  YdBadge,
+  YdButtonBase,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdDialog,
+  YdDialogContent,
+  YdInput,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSheet,
+  YdSheetContent,
+  YdTabs,
+  YdTabsContent,
+  YdTabsList,
+  YdTabsTrigger,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 // TODO: ElEmpty/ElIcon 暂无 shadcn-ui 等效组件，保留 element-plus 导入
@@ -308,7 +308,7 @@ async function handleOpenHistoryDrawer() {
 async function handleViewHistoryDiff(record: GenHistory) {
   if (!record.id) return;
   await showDiffPreview(record.id);
-  // 如果只有一个文件则直接打开 modal，否则在 Sheet 中展示列表
+  // 如果只有一个文件则直接打开 modal，否则在 YdSheet 中展示列表
   if (diffFiles.value.length === 1) {
     const file = diffFiles.value[0];
     if (file) {
@@ -358,7 +358,7 @@ function getStatusLabel(status: string): string {
   }
 }
 
-/** 获取 Badge 变体 */
+/** 获取 YdBadge 变体 */
 function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'secondary' {
   switch (status) {
     case 'SUCCESS':
@@ -375,17 +375,17 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
 
 <template>
   <div class="code-gen p-4">
-    <Tabs v-model="activeTab">
-      <TabsList>
-        <TabsTrigger value="config">生成配置</TabsTrigger>
-      </TabsList>
+    <YdTabs v-model="activeTab">
+      <YdTabsList>
+        <YdTabsTrigger value="config">生成配置</YdTabsTrigger>
+      </YdTabsList>
       <!-- ═══ 生成配置 Tab ═══ -->
-      <TabsContent value="config">
-        <Card class="mt-4">
-          <CardHeader>
+      <YdTabsContent value="config">
+        <YdCard class="mt-4">
+          <YdCardHeader>
             <div class="flex items-center justify-between">
-              <CardTitle>数据源与模板</CardTitle>
-              <Button
+              <YdCardTitle>数据源与模板</YdCardTitle>
+              <YdButtonBase
                 size="sm"
                 variant="link"
                 @click="handleOpenHistoryDrawer"
@@ -394,139 +394,139 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                   <Clock />
                 </ElIcon>
                 历史记录
-              </Button>
+              </YdButtonBase>
             </div>
-          </CardHeader>
-          <CardContent>
+          </YdCardHeader>
+          <YdCardContent>
             <ElForm label-width="120px">
               <ElFormItem label="数据源">
-                <Select v-model="selectedDatasourceId">
-                  <SelectTrigger>
-                    <SelectValue placeholder="选择数据源" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem
+                <YdSelectBase v-model="selectedDatasourceId">
+                  <YdSelectTriggerBase>
+                    <YdSelectValueBase placeholder="选择数据源" />
+                  </YdSelectTriggerBase>
+                  <YdSelectContentBase>
+                    <YdSelectItemBase
                       v-for="ds in datasourceList"
                       :key="ds.id"
                       :value="String(ds.id)"
                     >
                       {{ ds.name }} ({{ ds.dialect }})
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                    </YdSelectItemBase>
+                  </YdSelectContentBase>
+                </YdSelectBase>
               </ElFormItem>
               <ElFormItem label="模板分组">
-                <Select v-model="selectedGroupId">
-                  <SelectTrigger>
-                    <SelectValue placeholder="选择模板分组" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem
+                <YdSelectBase v-model="selectedGroupId">
+                  <YdSelectTriggerBase>
+                    <YdSelectValueBase placeholder="选择模板分组" />
+                  </YdSelectTriggerBase>
+                  <YdSelectContentBase>
+                    <YdSelectItemBase
                       v-for="group in groupList"
                       :key="group.id"
                       :value="String(group.id)"
                     >
                       {{ group.name }}{{ group.isActive ? ' (当前激活)' : '' }}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                    </YdSelectItemBase>
+                  </YdSelectContentBase>
+                </YdSelectBase>
               </ElFormItem>
               <ElFormItem label="目标表名">
-                <Select v-model="selectedTableName">
-                  <SelectTrigger>
-                    <SelectValue placeholder="选择或输入表名" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem
+                <YdSelectBase v-model="selectedTableName">
+                  <YdSelectTriggerBase>
+                    <YdSelectValueBase placeholder="选择或输入表名" />
+                  </YdSelectTriggerBase>
+                  <YdSelectContentBase>
+                    <YdSelectItemBase
                       v-for="t in tableList"
                       :key="t"
                       :value="t"
                     >
                       {{ t }}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                    </YdSelectItemBase>
+                  </YdSelectContentBase>
+                </YdSelectBase>
               </ElFormItem>
             </ElForm>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
 
-        <Card class="mt-4">
-          <CardHeader>
-            <CardTitle>生成参数</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <YdCard class="mt-4">
+          <YdCardHeader>
+            <YdCardTitle>生成参数</YdCardTitle>
+          </YdCardHeader>
+          <YdCardContent>
             <ElForm label-width="120px">
               <ElFormItem label="输出目录">
-                <Input
+                <YdInput
                   v-model="genForm.outputDir"
                   placeholder="生成代码的目标目录绝对路径"
                 />
               </ElFormItem>
               <ElFormItem label="冲突策略">
-                <RadioGroup v-model="genForm.conflictStrategy">
+                <YdRadioGroup v-model="genForm.conflictStrategy">
                   <div class="flex items-center gap-4">
                     <div class="flex items-center gap-2">
-                      <RadioGroupItem id="conflict-skip" value="SKIP" />
+                      <YdRadioGroupItem id="conflict-skip" value="SKIP" />
                       <label for="conflict-skip" class="cursor-pointer text-sm">跳过（推荐）</label>
                     </div>
                     <div class="flex items-center gap-2">
-                      <RadioGroupItem id="conflict-override" value="OVERRIDE" />
+                      <YdRadioGroupItem id="conflict-override" value="OVERRIDE" />
                       <label for="conflict-override" class="cursor-pointer text-sm">覆盖并备份</label>
                     </div>
                     <div class="flex items-center gap-2">
-                      <RadioGroupItem id="conflict-merge" value="MERGE" />
+                      <YdRadioGroupItem id="conflict-merge" value="MERGE" />
                       <label for="conflict-merge" class="cursor-pointer text-sm">智能合并</label>
                     </div>
                   </div>
-                </RadioGroup>
+                </YdRadioGroup>
               </ElFormItem>
               <ElFormItem label="触发人">
-                <Input
+                <YdInput
                   v-model="genForm.triggeredBy"
                   placeholder="可选，记录在生成历史中"
                 />
               </ElFormItem>
               <ElFormItem>
                 <div class="flex gap-2">
-                  <Button
+                  <YdButtonBase
                     variant="secondary"
                     :loading="previewLoading"
                     @click="handlePreview"
                   >
                     预览代码
-                  </Button>
-                  <Button
+                  </YdButtonBase>
+                  <YdButtonBase
                     variant="destructive"
                     :loading="zipDownloading"
                     @click="handleDownloadZip"
                   >
                     下载代码 ZIP
-                  </Button>
-                  <Button
+                  </YdButtonBase>
+                  <YdButtonBase
                     :loading="generating"
                     @click="handleGenerate"
                   >
                     生成当前表
-                  </Button>
-                  <Button
+                  </YdButtonBase>
+                  <YdButtonBase
                     :loading="batchGenerating"
                     @click="handleGenerateAll"
                   >
                     全量生成（全部表）
-                  </Button>
+                  </YdButtonBase>
                 </div>
               </ElFormItem>
             </ElForm>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
 
         <!-- 生成结果展示 -->
-        <Card v-if="genResult || batchResult" class="mt-4">
-          <CardHeader>
-            <CardTitle>生成结果</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <YdCard v-if="genResult || batchResult" class="mt-4">
+          <YdCardHeader>
+            <YdCardTitle>生成结果</YdCardTitle>
+          </YdCardHeader>
+          <YdCardContent>
             <div class="grid grid-cols-4 gap-4 text-center">
               <div class="p-3 bg-gray-50 rounded">
                 <div class="text-2xl font-bold text-blue-500">
@@ -553,10 +553,10 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                 <div class="text-sm text-gray-500">失败</div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
+          </YdCardContent>
+        </YdCard>
+      </YdTabsContent>
+    </YdTabs>
 
     <!-- 代码预览对话框 -->
     <CodePreviewDialog
@@ -565,9 +565,9 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
       :preview-list="previewData"
     />
 
-    <!-- 历史记录侧栏 Sheet（Drawer） -->
-    <Sheet :open="historyDrawerVisible" @update:open="historyDrawerVisible = $event">
-      <SheetContent>
+    <!-- 历史记录侧栏 YdSheet（Drawer） -->
+    <YdSheet :open="historyDrawerVisible" @update:open="historyDrawerVisible = $event">
+      <YdSheetContent>
         <div v-loading="historyLoading">
           <!-- 历史列表 -->
           <div v-if="histories.length > 0" class="space-y-3">
@@ -581,9 +581,9 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                 <span class="font-medium text-sm">
                   #{{ record.id }} {{ record.moduleName ?? '生成任务' }}
                 </span>
-                <Badge :variant="getStatusBadgeVariant(record.status ?? '')">
+                <YdBadge :variant="getStatusBadgeVariant(record.status ?? '')">
                   {{ getStatusLabel(record.status ?? '') }}
-                </Badge>
+                </YdBadge>
               </div>
               <div class="text-xs text-gray-500 flex gap-3 flex-wrap">
                 <span v-if="record.triggeredBy">操作者: {{ record.triggeredBy }}</span>
@@ -617,12 +617,12 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
 
           <ElEmpty v-if="histories.length === 0 && !historyLoading" description="暂无历史记录" />
         </div>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
 
     <!-- Diff 预览对话框 -->
-    <Dialog :open="diffModalVisible" @update:open="diffModalVisible = $event">
-      <DialogContent style="max-width: 85%">
+    <YdDialog :open="diffModalVisible" @update:open="diffModalVisible = $event">
+      <YdDialogContent style="max-width: 85%">
         <div style="height: 65vh; overflow-y: auto">
           <CodeDiffViewer
             v-if="currentDiffOldCode"
@@ -638,8 +638,8 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
             :show-inline="false"
           />
         </div>
-      </DialogContent>
-    </Dialog>
+      </YdDialogContent>
+    </YdDialog>
   </div>
 </template>
 

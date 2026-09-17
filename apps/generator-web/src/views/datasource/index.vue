@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -59,8 +59,8 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
         default: ({ row }) => {
           const ds = row as GenDatasourceRespVO;
           return ds.defaultFlag
-            ? h(Badge, { variant: 'default' }, () => '是')
-            : h(Badge, { variant: 'secondary' }, () => '否');
+            ? h(YdBadge, { variant: 'default' }, () => '是')
+            : h(YdBadge, { variant: 'secondary' }, () => '否');
         },
       },
     },
@@ -81,7 +81,7 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
           const ds = row as GenDatasourceRespVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -91,12 +91,12 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
               () => '测试连接',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(ds) },
               () => t('common.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'destructive', onClick: () => handleDelete(ds) },
               () => t('common.delete'),
             ),
@@ -223,7 +223,7 @@ onMounted(() => {
   <Page auto-content-height>
     <Grid table-title="数据源管理">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
     </Grid>
     <DatasourceFormModal @submit="handleFormSubmit" @success="gridApi.query()" />

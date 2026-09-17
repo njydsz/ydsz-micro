@@ -18,7 +18,7 @@
  */
 import { onMounted, ref } from 'vue';
 
-import { Button, Badge, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdBadge, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
 import { ElEmpty } from 'element-plus';
 
@@ -199,7 +199,7 @@ onMounted(() => {
     <div class="w-64 flex-shrink-0">
       <div class="mb-3 flex items-center justify-between">
         <span class="font-medium">模板分组</span>
-        <Button size="sm" @click="handleAddGroup">新建</Button>
+        <YdButtonBase size="sm" @click="handleAddGroup">新建</YdButtonBase>
       </div>
       <div class="space-y-2">
         <div
@@ -215,34 +215,34 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <span class="font-medium">{{ group.name }}</span>
-          <Badge v-if="group.isActive" variant="default" class="ml-2">
+          <YdBadge v-if="group.isActive" variant="default" class="ml-2">
             使用中
-          </Badge>
-          <Badge v-if="group.isSystem" variant="secondary" class="ml-2">
+          </YdBadge>
+          <YdBadge v-if="group.isSystem" variant="secondary" class="ml-2">
             系统
-          </Badge>
+          </YdBadge>
             </div>
           </div>
           <div v-if="group.description" class="text-xs text-gray-500 mt-1">
             {{ group.description }}
           </div>
           <div class="mt-2 flex gap-1">
-            <Button
+            <YdButtonBase
               v-if="!group.isActive"
               size="sm"
               variant="link"
               @click.stop="handleActivateGroup(group)"
             >
               激活
-            </Button>
-            <Button
+            </YdButtonBase>
+            <YdButtonBase
               v-if="!group.isSystem"
               size="sm"
               variant="destructive"
               @click.stop="handleDeleteGroup(group)"
             >
               删除
-            </Button>
+            </YdButtonBase>
           </div>
         </div>
       </div>
@@ -252,14 +252,14 @@ onMounted(() => {
     <div class="flex-1 flex flex-col">
       <div class="mb-3 flex items-center gap-3">
         <span class="font-medium">「{{ selectedGroupName }}」分组模板</span>
-        <Input
+        <YdInput
           v-model="searchKeyword"
           placeholder="搜索文件名..."
           style="width: 200px"
           @clear="handleSearch"
           @keyup.enter="handleSearch"
         />
-        <Button variant="secondary" @click="handleSearch">搜索</Button>
+        <YdButtonBase variant="secondary" @click="handleSearch">搜索</YdButtonBase>
       </div>
 
       <div v-loading="templatesLoading" class="flex-1 overflow-auto">
@@ -275,7 +275,7 @@ onMounted(() => {
           >
             <div class="flex items-center justify-between">
               <span class="font-medium text-sm break-all">{{ tpl.fileName }}</span>
-              <Badge v-if="!tpl.isActive" variant="secondary">禁用</Badge>
+              <YdBadge v-if="!tpl.isActive" variant="secondary">禁用</YdBadge>
             </div>
             <div class="text-xs text-gray-500 mt-1">
               {{ tpl.description || '无描述' }}

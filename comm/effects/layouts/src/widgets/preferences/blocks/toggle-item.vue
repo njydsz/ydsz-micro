@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { SelectOption } from '@ydsz/types';
 
-import { ToggleGroup, ToggleGroupItem } from '@ydsz-core/shadcn-ui';
+import { YdToggleGroup, YdToggleGroupItem } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceToggleItem',
@@ -33,7 +33,7 @@ const modelValue = defineModel<string>();
     <span class="text-sm">
       <slot></slot>
     </span>
-    <ToggleGroup
+    <YdToggleGroup
       v-model="modelValue"
       class="gap-2"
       size="sm"
@@ -41,13 +41,13 @@ const modelValue = defineModel<string>();
       variant="outline"
     >
       <template v-for="item in items" :key="item.value">
-        <ToggleGroupItem
+        <YdToggleGroupItem
           :value="item.value"
           class="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground h-7 rounded-sm"
         >
           {{ item.label }}
-        </ToggleGroupItem>
+        </YdToggleGroupItem>
       </template>
-    </ToggleGroup>
+    </YdToggleGroup>
   </div>
 </template>

@@ -12,7 +12,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { Input, YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdInput, YdTooltip } from '@ydsz-core/shadcn-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',
@@ -54,6 +54,6 @@ const slots = useSlots();
         <slot name="tip"></slot>
       </YdTooltip>
     </span>
-    <Input v-model="inputValue" class="h-8 w-[165px]" />
+    <YdInput v-model="inputValue" class="h-8 w-[165px]" />
   </div>
 </template>

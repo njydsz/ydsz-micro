@@ -17,7 +17,7 @@
 */
 // TODO: ElForm/ElFormItem/ElInput/ElDatePicker/ElRadio/ElRadioGroup 表单套件+日期选择,保留 element-plus SKIP
 import { ElDatePicker, ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
-import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
 import { reactive, ref } from 'vue';
 
 defineOptions({ name: 'ConversationShare' });
@@ -101,11 +101,11 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <Dialog v-model:open="visible">
-    <DialogContent class="sm:max-w-[520px]">
-      <DialogHeader>
-        <DialogTitle>对话发布 / 分享</DialogTitle>
-      </DialogHeader>
+  <YdDialog v-model:open="visible">
+    <YdDialogContent class="sm:max-w-[520px]">
+      <YdDialogHeader>
+        <YdDialogTitle>对话发布 / 分享</YdDialogTitle>
+      </YdDialogHeader>
 
       <div v-if="!shareUrl" class="space-y-4">
         <p class="text-sm text-muted-foreground">将当前会话「{{ currentConversationId || '未命名会话' }}」发布为可访问的分享链接：</p>
@@ -139,16 +139,16 @@ defineExpose({ open, close });
         <p class="text-xs text-muted-foreground">标题：{{ shareConfig.title }}</p>
       </div>
 
-      <DialogFooter>
+      <YdDialogFooter>
         <template v-if="!shareUrl">
-          <Button variant="outline" @click="close">取消</Button>
-          <Button :disabled="publishing" @click="handlePublish">发布</Button>
+          <YdButtonBase variant="outline" @click="close">取消</YdButtonBase>
+          <YdButtonBase :disabled="publishing" @click="handlePublish">发布</YdButtonBase>
         </template>
         <template v-else>
-          <Button @click="copyShareUrl">复制链接</Button>
-          <Button variant="outline" @click="close">完成</Button>
+          <YdButtonBase @click="copyShareUrl">复制链接</YdButtonBase>
+          <YdButtonBase variant="outline" @click="close">完成</YdButtonBase>
         </template>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>

@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { Input, RadioGroup, RadioGroupItem } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdRadioGroup, YdRadioGroupItem } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -147,48 +147,48 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
       <ElFormItem label="规则名称" prop="ruleName">
-        <Input v-model="formData.ruleName" placeholder="请输入规则名称" />
+        <YdInput v-model="formData.ruleName" placeholder="请输入规则名称" />
       </ElFormItem>
       <ElFormItem label="任务标识" prop="jobKey">
-        <Input v-model="formData.jobKey" placeholder="请输入关联任务标识（jobKey）" />
+        <YdInput v-model="formData.jobKey" placeholder="请输入关联任务标识（jobKey）" />
       </ElFormItem>
       <ElFormItem label="任务ID" prop="jobId">
-        <Input v-model="formData.jobId" placeholder="请输入关联任务ID（jobId）" />
+        <YdInput v-model="formData.jobId" placeholder="请输入关联任务ID（jobId）" />
       </ElFormItem>
       <ElFormItem label="告警类型" prop="alertType">
-        <Input v-model="formData.alertType" placeholder="请输入告警类型" />
+        <YdInput v-model="formData.alertType" placeholder="请输入告警类型" />
       </ElFormItem>
       <ElFormItem :label="t('business.alertLevel')" prop="alertLevel">
-        <Input v-model="formData.alertLevel" placeholder="请输入告警级别" />
+        <YdInput v-model="formData.alertLevel" placeholder="请输入告警级别" />
       </ElFormItem>
       <ElFormItem label="阈值" prop="threshold">
-        <Input v-model="formData.threshold" type="number" :min="0" step="0.01" />
+        <YdInput v-model="formData.threshold" type="number" :min="0" step="0.01" />
       </ElFormItem>
       <ElFormItem label="时间窗口(分)" prop="timeWindowMinutes">
-        <Input v-model="formData.timeWindowMinutes" type="number" :min="1" />
+        <YdInput v-model="formData.timeWindowMinutes" type="number" :min="1" />
       </ElFormItem>
       <ElFormItem label="通知通道" prop="channels">
-        <Input v-model="formData.channels" placeholder="多个通道用逗号分隔，如 email,wecom,dingtalk" />
+        <YdInput v-model="formData.channels" placeholder="多个通道用逗号分隔，如 email,wecom,dingtalk" />
       </ElFormItem>
       <ElFormItem label="接收人" prop="receivers">
-        <Input v-model="formData.receivers" placeholder="请输入接收人，多个用逗号分隔" />
+        <YdInput v-model="formData.receivers" placeholder="请输入接收人，多个用逗号分隔" />
       </ElFormItem>
       <ElFormItem label="冷却时长(分)" prop="cooldownMinutes">
-        <Input v-model="formData.cooldownMinutes" type="number" :min="0" />
+        <YdInput v-model="formData.cooldownMinutes" type="number" :min="0" />
       </ElFormItem>
       <ElFormItem :label="t('common.status')">
-        <RadioGroup v-model="formData.enabled">
+        <YdRadioGroup v-model="formData.enabled">
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="enabled-1" value="1" />
+              <YdRadioGroupItem id="enabled-1" value="1" />
               <label for="enabled-1" class="cursor-pointer text-sm">启用</label>
             </div>
             <div class="flex items-center gap-2">
-              <RadioGroupItem id="enabled-0" value="0" />
+              <YdRadioGroupItem id="enabled-0" value="0" />
               <label for="enabled-0" class="cursor-pointer text-sm">停用</label>
             </div>
           </div>
-        </RadioGroup>
+        </YdRadioGroup>
       </ElFormItem>
     </ElForm>
   </Modal>

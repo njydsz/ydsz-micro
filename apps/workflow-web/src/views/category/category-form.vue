@@ -18,7 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElCascader / ElForm / ElFormItem / ElInputNumber 暂不迁移，保留 element-plus 导入
 import { ElCascader, ElForm, ElFormItem, ElInputNumber } from 'element-plus';
-import { Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, reactive, ref } from 'vue';
 import { create, tree, update } from '#/api/flowCategory';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from '#/api/models';
@@ -166,10 +166,10 @@ const title = computed(() => (isEdit.value ? t('category.edit.title') : t('categ
       label-position="right"
     >
       <ElFormItem :label="t('category.code.label')" prop="categoryCode">
-        <Input v-model="formData.categoryCode" :placeholder="t('category.code.placeholder')" :disabled="isEdit" />
+        <YdInput v-model="formData.categoryCode" :placeholder="t('category.code.placeholder')" :disabled="isEdit" />
       </ElFormItem>
       <ElFormItem :label="t('category.name.label')" prop="categoryName">
-        <Input v-model="formData.categoryName" :placeholder="t('category.name.placeholder')" />
+        <YdInput v-model="formData.categoryName" :placeholder="t('category.name.placeholder')" />
       </ElFormItem>
       <ElFormItem :label="t('category.parent.label')">
         <ElCascader
@@ -184,10 +184,10 @@ const title = computed(() => (isEdit.value ? t('category.edit.title') : t('categ
         <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />
       </ElFormItem>
       <ElFormItem :label="t('category.icon.label')">
-        <Input v-model="formData.icon" :placeholder="t('category.icon.placeholder')" />
+        <YdInput v-model="formData.icon" :placeholder="t('category.icon.placeholder')" />
       </ElFormItem>
       <ElFormItem :label="t('common.remark.label')">
-        <Textarea v-model="formData.remark" :placeholder="t('common.remark.placeholder')" />
+        <YdTextarea v-model="formData.remark" :placeholder="t('common.remark.placeholder')" />
       </ElFormItem>
     </ElForm>
   </Modal>

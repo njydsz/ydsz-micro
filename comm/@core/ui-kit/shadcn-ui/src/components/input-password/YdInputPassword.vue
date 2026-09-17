@@ -15,7 +15,7 @@ import { ref, useSlots } from 'vue';
 import { Eye, EyeOff } from '@ydsz-core/icons';
 import { cn } from '@ydsz-core/shared/utils';
 
-import { Input } from '../../ui';
+import { YdInput } from '../../ui';
 import PasswordStrength from './password-strength.vue';
 
 interface Props {
@@ -41,7 +41,7 @@ const show = ref(false);
 
 <template>
   <div class="relative w-full">
-    <Input
+    <YdInput
       v-bind="$attrs"
       v-model="modelValue"
       :class="cn(props.class)"

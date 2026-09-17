@@ -8,7 +8,7 @@
  * @since 3.0.0
  */
 
-import type { Breadcrumb } from './breadcrumb';
+import type { YdBreadcrumb } from './breadcrumb';
 import type { MonitorEndpoints } from './monitor-endpoints';
 
 /** 错误事件类型 */
@@ -39,7 +39,7 @@ export interface ErrorReport {
   /** v3.1: 发布版本（commit hash），用于 sourcemap 符号化 */
   release?: string;
   /** v3.4: 错误发生前的用户行为面包屑 */
-  breadcrumbs?: Breadcrumb[];
+  breadcrumbs?: YdBreadcrumb[];
   extra?: Record<string, unknown>;
 }
 

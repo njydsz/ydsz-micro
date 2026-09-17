@@ -1,0 +1,58 @@
+﻿<!--
+ * 选择器中的单个选项：内部固定渲染 YdSelectItemTextBase 与 SelectItemIndicator。
+ *
+ * 右侧预留 pr-8 给选中标记，避免长文本被图标压住；
+ * 禁用态用 data-[disabled] 而非 :disabled，因为 radix 在选项上写的是 data 属性，
+ * 用伪类选择器会完全不生效 —— 这是接入 radix 组件时最常见的坑。
+ *
+ * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectItemBase.vue
+ * @author ydsz-team
+ * @since 1.0.0
+-->
+<script setup lang="ts">
+import type { SelectItemProps } from 'radix-vue';
+
+import { computed } from 'vue';
+
+import { cn } from '@ydsz-core/shared/utils';
+
+import { Check } from 'lucide-vue-next';
+import {
+  YdSelectItemBase,
+  SelectItemIndicator,
+  YdSelectItemTextBase,
+  useForwardProps,
+} from 'radix-vue';
+
+const props = defineProps<SelectItemProps & { class?: any }>();
+
+const delegatedProps = computed(() => {
+  const { class: _, ...delegated } = props;
+
+  return delegated;
+});
+
+const forwardedProps = useForwardProps(delegatedProps);
+</script>
+
+<template>
+  <YdSelectItemBase
+    v-bind="forwardedProps"
+    :class="
+      cn(
+        'focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        props.class,
+      )
+    "
+  >
+    <span class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+      <SelectItemIndicator>
+        <Check class="h-4 w-4" />
+      </SelectItemIndicator>
+    </span>
+
+    <YdSelectItemTextBase>
+      <slot></slot>
+    </YdSelectItemTextBase>
+  </YdSelectItemBase>
+</template>

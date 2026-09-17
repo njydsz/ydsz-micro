@@ -22,7 +22,7 @@ import { $t } from '@ydsz/locales';
  *
  * @remarks
  * 需在应用启动时调用一次且早于任何表单渲染，否则表单拿不到组件映射与校验规则。
- * `modelPropNameMap` 用于纠正非标准 v-model 属性名（Upload 用 `fileList`、
+ * `modelPropNameMap` 用于纠正非标准 v-model 属性名（YdUpload 用 `fileList`、
  * CheckboxGroup 用 `model-value`），缺失会导致这两类组件双向绑定失效。
  * 校验文案统一走 {@link $t}，保证语言切换时错误提示同步刷新。
  */
@@ -30,7 +30,7 @@ async function initSetupYDSZForm() {
   setupYdForm<ComponentType>({
     config: {
       modelPropNameMap: {
-        Upload: 'fileList',
+        YdUpload: 'fileList',
         CheckboxGroup: 'model-value',
       },
     },

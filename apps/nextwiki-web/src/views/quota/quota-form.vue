@@ -15,7 +15,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
-import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { reactive, ref } from 'vue';
 import { setQuota } from '#/api/quota';
 
@@ -58,10 +58,10 @@ const [Modal, modalApi] = useYdModal({
   <Modal title="调整配额">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
       <ElFormItem label="存储范围类型" prop="scopeType">
-        <Input v-model="formData.scopeType" placeholder="如 USER / SPACE，留空表示全局（可选）" />
+        <YdInput v-model="formData.scopeType" placeholder="如 USER / SPACE，留空表示全局（可选）" />
       </ElFormItem>
       <ElFormItem label="存储范围ID" prop="scopeId">
-        <Input v-model="formData.scopeId" placeholder="存储范围ID（可选）" />
+        <YdInput v-model="formData.scopeId" placeholder="存储范围ID（可选）" />
       </ElFormItem>
       <ElFormItem label="配额上限(字节)" prop="quotaLimit">
         <ElInputNumber v-model="formData.quotaLimit" :min="0" :max="Number.MAX_SAFE_INTEGER" style="width: 100%" />

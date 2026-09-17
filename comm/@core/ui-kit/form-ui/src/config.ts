@@ -24,7 +24,7 @@ import { h } from 'vue';
 import {
   YdButton,
   YdCheckbox,
-  Input as YDSZInput,
+  YdInput as YDSZInput,
   YdInputPassword,
   YdPinInput,
   YdSelect,

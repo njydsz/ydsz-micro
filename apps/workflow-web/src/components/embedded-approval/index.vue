@@ -26,7 +26,7 @@
 // TODO: ElEmpty / ElSpace / ElTimeline / ElTimelineItem 待后续迁移
 // TODO: ElForm / ElFormItem 暂不迁移（表单组件单独批次）
 import { ElEmpty, ElForm, ElFormItem, ElSpace, ElTimeline, ElTimelineItem } from 'element-plus';
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';
@@ -143,14 +143,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <Card v-loading="loading" class="embedded-approval">
-    <CardHeader>
+  <YdCard v-loading="loading" class="embedded-approval">
+    <YdCardHeader>
       <div class="header flex items-center justify-between">
-        <CardTitle class="text-base font-semibold">审批信息</CardTitle>
-        <Badge v-if="panel.myRole" variant="default">{{ panel.myRole }}</Badge>
+        <YdCardTitle class="text-base font-semibold">审批信息</YdCardTitle>
+        <YdBadge v-if="panel.myRole" variant="default">{{ panel.myRole }}</YdBadge>
       </div>
-    </CardHeader>
-    <CardContent>
+    </YdCardHeader>
+    <YdCardContent>
     <ElEmpty v-if="!loading && !availableActions.length" description="暂无待处理任务" />
 
     <div v-else class="content">
@@ -168,51 +168,51 @@ onMounted(() => {
         <ElFormItem label="操作">
           <ElSpace wrap>
             <div class="flex flex-wrap gap-2">
-            <Button
+            <YdButtonBase
               v-if="availableActions.includes('pass')"
               size="sm"
               @click="form.action = 'pass'"
             >
               {{ $t('wf.approve') }}
-            </Button>
-            <Button
+            </YdButtonBase>
+            <YdButtonBase
               v-if="availableActions.includes('reject')"
               variant="destructive"
               size="sm"
               @click="form.action = 'reject'"
             >
               {{ $t('wf.reject') }}
-            </Button>
-            <Button
+            </YdButtonBase>
+            <YdButtonBase
               v-if="availableActions.includes('transfer')"
               variant="secondary"
               size="sm"
               @click="form.action = 'transfer'"
             >
               {{ $t('wf.transfer') }}
-            </Button>
-            <Button
+            </YdButtonBase>
+            <YdButtonBase
               v-if="availableActions.includes('delegate')"
               variant="secondary"
               size="sm"
               @click="form.action = 'delegate'"
             >
               {{ $t('wf.delegate') }}
-            </Button>
+            </YdButtonBase>
           </div>
         </ElFormItem>
         <ElFormItem label="意见">
-          <Input
+          <YdInput
             v-model="form.comment"
             type="textarea"
             :placeholder="$t('wf.commentPlaceholder')"
           />
         </ElFormItem>
         <ElFormItem>
-          <Button :loading="submitting" @click="handleAction"> 提交 </Button>
-          <Button v-if="canRecall" variant="secondary" :loading="submitting" @click="handleRecall">
+          <YdButtonBase :loading="submitting" @click="handleAction"> 提交 </YdButtonBase>
+          <YdButtonBase v-if="canRecall" variant="secondary" :loading="submitting" @click="handleRecall">
             {{ $t('wf.recall') }}
-          </Button>
+          </YdButtonBase>
         </ElFormItem>
       </ElForm>
 
@@ -235,8 +235,8 @@ onMounted(() => {
         </ElTimeline>
       </div>
     </div>
-    </CardContent>
-  </Card>
+    </YdCardContent>
+  </YdCard>
 </template>
 
 <style scoped>

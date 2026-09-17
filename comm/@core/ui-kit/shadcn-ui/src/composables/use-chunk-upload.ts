@@ -1,7 +1,7 @@
 /**
  * 分片上传 + 秒传 + 断点续传 + 并发控制 composable。
  *
- * <p>当前 Upload.vue 只支持整文件一次性 fetch（P0-3 遗留性能债）。
+ * <p>当前 YdUpload.vue 只支持整文件一次性 fetch（P0-3 遗留性能债）。
  * 本 composable 提供以下能力：
  * <ul>
  *   <li>**秒传**：文件 hash 命中服务端已存在资源时跳过上传</li>
@@ -10,9 +10,9 @@
  *   <li>**并发控制**：同时存在的活跃上传数受 {@link ChunkUploadOptions.maxConcurrency} 限制</li>
  * </ul>
  *
- * <p>本 composable 可作为 {@link Upload} 的 `httpRequest` prop 传入：
+ * <p>本 composable 可作为 {@link YdUpload} 的 `httpRequest` prop 传入：
  * ```vue
- * <Upload :httpRequest="chunkHttpRequest" :action="UPLOAD_URL" />
+ * <YdUpload :httpRequest="chunkHttpRequest" :action="UPLOAD_URL" />
  * ```
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\composables\use-chunk-upload.ts
@@ -68,7 +68,7 @@ export interface ChunkInfo {
 export interface ChunkUploadHandle {
   /** 是否启用分片（文件大于 chunkSize 时分片，否则整文件直传） */
   enabled: (file: File) => boolean;
-  /** 分片上传 httpRequest —— 传给 Upload 组件 */
+  /** 分片上传 httpRequest —— 传给 YdUpload 组件 */
   httpRequest: (options: ChunkHttpRequestOptions) => Promise<unknown>;
   /** 手动中止所有进行中的分片上传 */
   abort: () => void;
@@ -76,7 +76,7 @@ export interface ChunkUploadHandle {
   overallProgress: ReturnType<typeof ref<number>>;
 }
 
-/** 简化的 Upload httpRequest 入参 */
+/** 简化的 YdUpload httpRequest 入参 */
 export interface ChunkHttpRequestOptions {
   action: string;
   file: File;
@@ -90,7 +90,7 @@ export interface ChunkHttpRequestOptions {
 }
 
 /**
- * 分片上传 composable —— 返回合适的 httpRequest 函数供 Upload.vue 调用。
+ * 分片上传 composable —— 返回合适的 httpRequest 函数供 YdUpload.vue 调用。
  *
  * @param options - 分片配置
  * @return 分片上传句柄
@@ -124,7 +124,7 @@ export function useChunkUpload(
   const abortControllers: Set<AbortController> = new Set();
 
   function enabled(file: File): boolean {
-    // 文件 > chunkSize 时分片（小文件直接走 Upload 默认 fetch 更高效）
+    // 文件 > chunkSize 时分片（小文件直接走 YdUpload 默认 fetch 更高效）
     return file.size > chunkSize;
   }
 
@@ -228,7 +228,7 @@ export function useChunkUpload(
     await Promise.all(workers);
   }
 
-  /** 整个 httpRequest 入口 —— 与 Upload.vue 的 httpRequest 约定对齐 */
+  /** 整个 httpRequest 入口 —— 与 YdUpload.vue 的 httpRequest 约定对齐 */
   async function httpRequest(
     req?: ChunkHttpRequestOptions,
   ): Promise<unknown> {

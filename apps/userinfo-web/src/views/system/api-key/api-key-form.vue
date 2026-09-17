@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import type { FormInstance } from 'element-plus';
-import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { cn } from '@ydsz-core/shared/utils';
 import { ElAlert, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
@@ -99,14 +99,14 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <Dialog v-model:open="visible">
-    <DialogContent :class="cn('max-w-[500px]')">
-      <DialogHeader>
-        <DialogTitle>创建 API Key</DialogTitle>
-      </DialogHeader>
-      <DialogDescription v-if="createdApiKey">
+  <YdDialog v-model:open="visible">
+    <YdDialogContent :class="cn('max-w-[500px]')">
+      <YdDialogHeader>
+        <YdDialogTitle>创建 API Key</YdDialogTitle>
+      </YdDialogHeader>
+      <YdDialogDescription v-if="createdApiKey">
         <strong class="text-yellow-600 dark:text-yellow-400">请立即保存以下明文 API Key，关闭此弹窗后将无法再次获取！</strong>
-      </DialogDescription>
+      </YdDialogDescription>
 
       <div v-if="createdApiKey" class="mb-4 p-3 bg-muted rounded font-mono text-sm break-all">
         {{ createdApiKey }}
@@ -127,15 +127,15 @@ defineExpose({ open, close });
         </ElFormItem>
       </ElForm>
 
-      <DialogFooter class="gap-2">
-        <Button variant="outline" @click="close">{{ createdApiKey ? '关闭' : '取消' }}</Button>
-        <Button v-if="!createdApiKey" :disabled="loading" @click="handleSubmit">
+      <YdDialogFooter class="gap-2">
+        <YdButtonBase variant="outline" @click="close">{{ createdApiKey ? '关闭' : '取消' }}</YdButtonBase>
+        <YdButtonBase v-if="!createdApiKey" :disabled="loading" @click="handleSubmit">
           <Loader2 v-if="loading" class="mr-2 h-4 w-4 animate-spin" />
           创建
-        </Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+        </YdButtonBase>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>
 
 <style lang="scss" scoped>

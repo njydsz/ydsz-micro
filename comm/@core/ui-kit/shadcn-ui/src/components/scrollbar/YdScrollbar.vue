@@ -1,5 +1,5 @@
 ﻿<!--
- * 带滚动边界阴影的滚动容器：在 ScrollArea 之上叠加四边渐变阴影，
+ * 带滚动边界阴影的滚动容器：在 YdScrollArea 之上叠加四边渐变阴影，
  * 用视觉暗示「还有内容可滚」，避免用户误以为列表已经到底。
  *
  * 阴影显隐由 handleScroll 计算出的 isAtTop / isAtBottom 驱动，
@@ -18,7 +18,7 @@ import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { ScrollArea, ScrollBar } from '../../ui';
+import { YdScrollArea, YdScrollBarBase } from '../../ui';
 
 interface Props {
   class?: ClassType;
@@ -104,7 +104,7 @@ function handleScroll(event: Event) {
 </script>
 
 <template>
-  <ScrollArea
+  <YdScrollArea
     :class="[cn(props.class), computedShadowClasses]"
     :on-scroll="handleScroll"
     class="yd-scrollbar relative"
@@ -128,12 +128,12 @@ function handleScroll(event: Event) {
       }"
       class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>
-    <ScrollBar
+    <YdScrollBarBase
       v-if="horizontal"
       :class="scrollBarClass"
       orientation="horizontal"
     />
-  </ScrollArea>
+  </YdScrollArea>
 </template>
 
 <style scoped>

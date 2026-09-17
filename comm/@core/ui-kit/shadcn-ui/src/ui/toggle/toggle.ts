@@ -2,9 +2,9 @@
  * 切换按钮的 cva 样式变体：提供 variant（default / outline）与 size（sm / default / lg）两个维度。
  *
  * 按下态用 data-[state=on] 而不是 class 绑定：
- * radix 在 Toggle 上写的是 data 属性，用伪类选择器会完全不生效。
+ * radix 在 YdToggle 上写的是 data 属性，用伪类选择器会完全不生效。
  * outline 变体补了边框与阴影，用于在工具栏中与常规按钮区分；
- * 尺寸只改高度与横向内边距，保持与 Button 的视觉节奏一致。
+ * 尺寸只改高度与横向内边距，保持与 YdButtonBase 的视觉节奏一致。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\toggle\toggle.ts
  * @author ydsz-team
@@ -14,7 +14,7 @@ import type { VariantProps } from 'class-variance-authority';
 
 import { cva } from 'class-variance-authority';
 
-/** 切换按钮（Toggle）的 cva 样式变体（size 与 variant），返回类名生成函数 */
+/** 切换按钮（YdToggle）的 cva 样式变体（size 与 variant），返回类名生成函数 */
 export const toggleVariants = cva(
   'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground',
   {
@@ -38,13 +38,13 @@ export const toggleVariants = cva(
 );
 
 /**
- * 切换按钮（Toggle）的样式变体入参类型（`size` 与 `variant`）。
+ * 切换按钮（YdToggle）的样式变体入参类型（`size` 与 `variant`）。
  *
  * @remarks
  * 由 cva 从 `toggleVariants` 自动推导，两项均有默认值 `'default'`。
  *
  * 选中态样式通过 `data-[state=on]` 属性选择器驱动，而非依赖类名切换，
- * 因此该样式**要求宿主组件正确输出 `data-state` 属性**（radix-vue 的 Toggle 已内置）；
+ * 因此该样式**要求宿主组件正确输出 `data-state` 属性**（radix-vue 的 YdToggle 已内置）；
  * 若把这些 class 用在自定义元素上，需自行维护该属性，否则选中态不会有视觉变化。
  */
 export type ToggleVariants = VariantProps<typeof toggleVariants>;

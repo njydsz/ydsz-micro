@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { ElDialog, ElTable, ElTableColumn, ElTransfer } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -58,7 +58,7 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          row.builtIn ? h(Badge, { variant: 'secondary', class: 'text-xs' }, () => t('role.yesBuiltIn')) : h('span', null, t('role.noBuiltIn')),
+          row.builtIn ? h(YdBadge, { variant: 'secondary', class: 'text-xs' }, () => t('role.yesBuiltIn')) : h('span', null, t('role.noBuiltIn')),
       },
     },
     {
@@ -69,7 +69,7 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -86,27 +86,27 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleAssignPermissions(row) },
               () => t('role.assignPermissions'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'ghost', onClick: () => handleCopyRole(row) },
               () => t('role.copy'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleViewUsers(row) },
               () => t('role.viewUsers'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -132,19 +132,19 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   formOptions: {
     schema: [
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('page.roleName') },
         fieldName: 'roleName',
         label: t('page.roleName'),
       },
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: t('page.roleCode') },
         fieldName: 'roleCode',
         label: t('page.roleCode'),
       },
       {
-        component: 'Select',
+        component: 'YdSelectBase',
         componentProps: {
           placeholder: t('page.status'),
           options: [
@@ -316,7 +316,7 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
   <Page auto-content-height>
     <Grid :table-title="t('role.roleManagement')">
       <template #toolbar-tools>
-        <Button variant="default" @click="handleAdd">{{ t('role.createRole') }}</Button>
+        <YdButtonBase variant="default" @click="handleAdd">{{ t('role.createRole') }}</YdButtonBase>
       </template>
     </Grid>
     <RoleFormModal @success="gridApi.query()" />
@@ -334,8 +334,8 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         :filter-placeholder="t('role.searchPermission')"
       />
       <template #footer>
-        <Button variant="outline" @click="permDialogVisible = false">{{ t('page.cancel') }}</Button>
-        <Button variant="default" @click="confirmPermissionAssign">{{ t('page.confirm') }}</Button>
+        <YdButtonBase variant="outline" @click="permDialogVisible = false">{{ t('page.cancel') }}</YdButtonBase>
+        <YdButtonBase variant="default" @click="confirmPermissionAssign">{{ t('page.confirm') }}</YdButtonBase>
       </template>
     </ElDialog>
 
@@ -353,15 +353,15 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         <ElTableColumn prop="email" :label="t('page.email')" width="180" />
         <ElTableColumn prop="status" :label="t('page.status')" width="80">
           <template #default="{ row }">
-            <Badge :variant="row.status === 1 ? 'default' : 'destructive'" :class="row.status === 1 ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'">
+            <YdBadge :variant="row.status === 1 ? 'default' : 'destructive'" :class="row.status === 1 ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'">
               {{ row.status === 1 ? t('page.enabled') : t('page.disabled') }}
-            </Badge>
+            </YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
       </ElTable>
       <template #footer>
-        <Button variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</Button>
+        <YdButtonBase variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</YdButtonBase>
       </template>
     </ElDialog>
   </Page>

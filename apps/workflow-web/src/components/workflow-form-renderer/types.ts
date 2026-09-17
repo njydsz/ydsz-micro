@@ -14,7 +14,7 @@ export interface JsonSchemaProperty {
   title?: string;
   /** 字段描述（占位符/校验提示） */
   description?: string;
-  /** 枚举可选值（Select 组件） */
+  /** 枚举可选值（YdSelectBase 组件） */
   enum?: string[];
   /** 格式限定（date / date-time / textarea） */
   format?: string;

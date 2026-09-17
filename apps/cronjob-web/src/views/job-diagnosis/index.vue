@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElProgress/ElStatistic/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElProgress, ElStatistic, ElTimeline, ElTimelineItem } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -128,31 +128,31 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
 
 <template>
   <Page auto-content-height>
-    <Card class="mb-3">
-      <CardHeader>
-        <CardTitle>任务诊断</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard class="mb-3">
+      <YdCardHeader>
+        <YdCardTitle>任务诊断</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
         <div class="flex items-center gap-3">
-          <Input
+          <YdInput
             v-model="jobKey"
             placeholder="请输入 jobKey"
             class="!w-96"
             @keyup.enter="handleDiagnose"
           />
-          <Button :loading="loading" @click="handleDiagnose">诊断</Button>
+          <YdButtonBase :loading="loading" @click="handleDiagnose">诊断</YdButtonBase>
         </div>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <!-- 诊断结果区 -->
     <div v-if="diagnosisResult.score !== undefined" class="grid grid-cols-1 gap-3 md:grid-cols-3">
       <!-- 健康评分圆环 -->
-      <Card class="flex flex-col items-center justify-center">
-        <CardHeader>
-          <CardTitle>健康评分</CardTitle>
-        </CardHeader>
-        <CardContent class="flex flex-col items-center justify-center">
+      <YdCard class="flex flex-col items-center justify-center">
+        <YdCardHeader>
+          <YdCardTitle>健康评分</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent class="flex flex-col items-center justify-center">
           <ElProgress
             type="dashboard"
             :percentage="scorePercentage"
@@ -161,15 +161,15 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
             class="my-4"
           />
           <span class="text-2xl font-semibold" :style="{ color: scoreColor }">{{ scorePercentage }}</span>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 最近执行状态 -->
-      <Card>
-        <CardHeader>
-          <CardTitle>最近执行</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard>
+        <YdCardHeader>
+          <YdCardTitle>最近执行</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div class="flex flex-col gap-3">
           <ElStatistic title="状态" :value="diagnosisResult.lastExecStatus ?? '-'">
             <template #suffix>
@@ -191,15 +191,15 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
           <ElStatistic title="总执行" :value="`${diagnosisResult.totalRuns ?? 0} 次`" />
             <ElStatistic title="成功率" :value="diagnosisResult.successRate ?? '-'" />
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 失败原因 + 建议 -->
-      <Card>
-        <CardHeader>
-          <CardTitle>分析建议</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard>
+        <YdCardHeader>
+          <YdCardTitle>分析建议</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div v-if="diagnosisResult.failReason" class="mb-3">
           <div class="text-xs font-medium text-red-500">失败原因</div>
           <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.failReason }}</div>
@@ -213,18 +213,18 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
           <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.suggestion }}</div>
         </div>
           <ElEmpty v-else description="暂无建议" :image-size="60" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <ElEmpty v-else description="请输入 jobKey 后点击诊断" :image-size="100" class="mt-12" />
 
     <!-- 历史诊断 -->
-    <Card v-if="historyRecords.length" class="mt-3">
-      <CardHeader>
-        <CardTitle>诊断历史</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard v-if="historyRecords.length" class="mt-3">
+      <YdCardHeader>
+        <YdCardTitle>诊断历史</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
         <ElTimeline>
         <ElTimelineItem
           v-for="record in historyRecords"
@@ -242,7 +242,7 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
           </div>
         </ElTimelineItem>
         </ElTimeline>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
   </Page>
 </template>

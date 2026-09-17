@@ -330,7 +330,7 @@ export function useVxeGridLogic(
   // ---------- 空状态 ----------
 
   const showDefaultEmpty = computed(() => {
-    // 检查是否有原生的 VXE Table 空状态配置
+    // 检查是否有原生的 VXE YdTable 空状态配置
     const hasEmptyText = options.value.emptyText !== undefined;
     const hasEmptyRender = options.value.emptyRender !== undefined;
 
@@ -362,11 +362,11 @@ export function useVxeGridLogic(
 
     // form 由 YDSZ-form代替，所以不适配formConfig，这里给出警告
     const formConfig = gridOptions.value?.formConfig;
-    // 处理某个页面加载多个Table时，第2个之后的Table初始化报出警告
+    // 处理某个页面加载多个YdTable时，第2个之后的YdTable初始化报出警告
     // 因为第一次初始化之后会把defaultGridOptions和gridOptions合并后缓存进State
     if (formConfig && formConfig.enabled) {
       logger.warn(
-        '[YDSZ Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
+        '[YDSZ Vxe YdTable]: The formConfig in the grid is not supported, please use the `formOptions` props',
       );
     }
     props.api?.setState?.({ gridOptions: defaultGridOptions });

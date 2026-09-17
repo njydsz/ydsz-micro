@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -67,7 +67,7 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
         default: ({ row }) => {
           const isConfidential = row.clientType === 'CONFIDENTIAL';
           return h(
-            Badge,
+            YdBadge,
             { variant: isConfidential ? 'default' : 'secondary', class: 'text-xs' },
             () => (isConfidential ? '机密' : '公开'),
           );
@@ -108,7 +108,7 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -124,17 +124,17 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleResetSecret(row) },
               () => '重置密钥',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -165,13 +165,13 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   formOptions: {
     schema: [
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: '应用名称/Client ID' },
         fieldName: 'keyword',
         label: '关键词',
       },
       {
-        component: 'Select',
+        component: 'YdSelectBase',
         componentProps: {
           placeholder: t('page.status'),
           options: [
@@ -361,7 +361,7 @@ async function handleDelete(row: OAuth2Application) {
   <Page auto-content-height>
     <Grid table-title="OAuth2 应用管理">
       <template #toolbar-tools>
-        <Button variant="default" @click="handleAdd">创建应用</Button>
+        <YdButtonBase variant="default" @click="handleAdd">创建应用</YdButtonBase>
       </template>
     </Grid>
 

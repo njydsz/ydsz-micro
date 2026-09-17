@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button, Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
@@ -151,7 +151,7 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
         default: ({ row }) => {
           const item = row as JobTaskVO;
           return h(
-            Badge,
+            YdBadge,
             { size: 'sm', variant: isRoot(item) ? 'default' : 'secondary' },
             () => (isRoot(item) ? '根任务' : '子任务'),
           );
@@ -166,7 +166,7 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as JobTaskVO;
-          return h(Badge, { variant: taskStatusTagType(item), size: 'sm' }, () =>
+          return h(YdBadge, { variant: taskStatusTagType(item), size: 'sm' }, () =>
             translateTaskStatus(item.taskStatus),
           );
         },
@@ -184,7 +184,7 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
         default: ({ row }) => {
           const item = row as JobTaskVO;
           return h(
-            Button,
+            YdButtonBase,
             { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
             () => '详情',
           );
@@ -217,7 +217,7 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
       {
         field: 'logId',
         title: '日志 ID',
-        itemRender: { name: 'Input', props: { placeholder: '执行日志 ID' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '执行日志 ID' } },
       },
     ],
   },
@@ -269,25 +269,25 @@ onMounted(() => {
 
     <Grid table-title="任务分片管理" />
 
-    <!-- 详情 Sheet -->
-    <Sheet v-model:open="isDetailVisible">
-      <SheetContent side="right" class="w-[600px]">
-        <SheetHeader>
-          <SheetTitle>任务分片详情</SheetTitle>
-        </SheetHeader>
+    <!-- 详情 YdSheet -->
+    <YdSheet v-model:open="isDetailVisible">
+      <YdSheetContent side="right" class="w-[600px]">
+        <YdSheetHeader>
+          <YdSheetTitle>任务分片详情</YdSheetTitle>
+        </YdSheetHeader>
       <template v-if="detailRecord">
         <ElDescriptions :column="2" border size="small">
           <ElDescriptionsItem label="分片名称">{{ detailRecord.taskName ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="类型">
-            <Badge size="sm" :variant="isRoot(detailRecord) ? 'default' : 'secondary'">
+            <YdBadge size="sm" :variant="isRoot(detailRecord) ? 'default' : 'secondary'">
               {{ isRoot(detailRecord) ? '根任务' : '子任务' }}
-            </Badge>
+            </YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="状态">
-            <Badge size="sm" :variant="taskStatusTagType(detailRecord)">
+            <YdBadge size="sm" :variant="taskStatusTagType(detailRecord)">
               {{ translateTaskStatus(detailRecord.taskStatus) }}
-            </Badge>
+            </YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="执行节点">{{ detailRecord.execNodeId ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="重试次数">{{ detailRecord.retryCount ?? 0 }}</ElDescriptionsItem>
@@ -304,7 +304,7 @@ onMounted(() => {
           </ElDescriptionsItem>
         </ElDescriptions>
       </template>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

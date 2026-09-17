@@ -20,7 +20,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/shadcn-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { ElForm, ElFormItem, ElInput, ElSwitch, type FormInstance, type UploadRequestOptions } from 'element-plus';
 import { reactive, ref } from 'vue';
@@ -270,16 +270,16 @@ loadMfaStatus();
 
 <template>
   <Page auto-content-height>
-    <Card shadow="never" class="mx-4 my-3">
-      <CardContent class="pt-6">
-      <Tabs v-model="activeTab">
+    <YdCard shadow="never" class="mx-4 my-3">
+      <YdCardContent class="pt-6">
+      <YdTabs v-model="activeTab">
         <!-- 基本信息 -->
-        <TabsList class="grid w-full grid-cols-3">
-          <TabsTrigger value="profile">基本信息</TabsTrigger>
-          <TabsTrigger value="password">修改密码</TabsTrigger>
-          <TabsTrigger value="mfa">MFA设置</TabsTrigger>
-        </TabsList>
-        <TabsContent value="profile">
+        <YdTabsList class="grid w-full grid-cols-3">
+          <YdTabsTrigger value="profile">基本信息</YdTabsTrigger>
+          <YdTabsTrigger value="password">修改密码</YdTabsTrigger>
+          <YdTabsTrigger value="mfa">MFA设置</YdTabsTrigger>
+        </YdTabsList>
+        <YdTabsContent value="profile">
           <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
             <div class="md:col-span-4">
               <ElForm
@@ -302,10 +302,10 @@ loadMfaStatus();
                   <ElInput v-model="profileForm.avatar" placeholder="头像地址（上传后自动填充）" />
                 </ElFormItem>
                 <ElFormItem>
-                  <Button variant="default" :disabled="isProfileLoading" @click="handleUpdateProfile">
+                  <YdButtonBase variant="default" :disabled="isProfileLoading" @click="handleUpdateProfile">
                     <Loader2 v-if="isProfileLoading" class="mr-2 h-4 w-4 animate-spin" />
                     保存修改
-                  </Button>
+                  </YdButtonBase>
                 </ElFormItem>
               </ElForm>
             </div>
@@ -325,15 +325,15 @@ loadMfaStatus();
                 accept="image/png,image/jpeg,image/jpg,image/gif"
                 :http-request="handleAvatarUpload"
               >
-                <Button size="sm" variant="default">上传头像</Button>
+                <YdButtonBase size="sm" variant="default">上传头像</YdButtonBase>
               </ElUpload>
               <span class="text-xs text-muted-foreground">支持 PNG/JPG/GIF，建议 200x200</span>
             </div>
           </div>
-        </TabsContent>
+        </YdTabsContent>
 
         <!-- 修改密码 -->
-        <TabsContent value="password">
+        <YdTabsContent value="password">
           <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
             <div class="md:col-span-4">
               <ElForm
@@ -353,18 +353,18 @@ loadMfaStatus();
                   <ElInput v-model="passwordForm.confirmPassword" type="password" placeholder="请再次输入新密码" show-password />
                 </ElFormItem>
                 <ElFormItem>
-                  <Button variant="default" :disabled="isPasswordLoading" @click="handleChangePassword">
+                  <YdButtonBase variant="default" :disabled="isPasswordLoading" @click="handleChangePassword">
                     <Loader2 v-if="isPasswordLoading" class="mr-2 h-4 w-4 animate-spin" />
                     修改密码
-                  </Button>
+                  </YdButtonBase>
                 </ElFormItem>
               </ElForm>
             </div>
           </div>
-        </TabsContent>
+        </YdTabsContent>
 
         <!-- MFA设置 -->
-        <TabsContent value="mfa">
+        <YdTabsContent value="mfa">
           <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
             <div class="md:col-span-4">
               <div class="mb-4">
@@ -383,10 +383,10 @@ loadMfaStatus();
                   <p class="mb-4 text-sm text-gray-500">
                     双因素认证（MFA）为您的账号增加额外的安全保障。启用后，登录时需输入Authenticator应用生成的6位动态码。
                   </p>
-                  <Button variant="default" :disabled="isMfaLoading" @click="handleSetupMfa">
+                  <YdButtonBase variant="default" :disabled="isMfaLoading" @click="handleSetupMfa">
                     <Loader2 v-if="isMfaLoading" class="mr-2 h-4 w-4 animate-spin" />
                     启用MFA
-                  </Button>
+                  </YdButtonBase>
                 </template>
 
                 <!-- MFA 设置引导 -->
@@ -422,8 +422,8 @@ loadMfaStatus();
                       />
                     </ElFormItem>
                     <ElFormItem>
-                      <Button variant="default" @click="handleActivateMfa">验证并激活</Button>
-                      <Button variant="ghost" @click="handleCancelMfaSetup">取消</Button>
+                      <YdButtonBase variant="default" @click="handleActivateMfa">验证并激活</YdButtonBase>
+                      <YdButtonBase variant="ghost" @click="handleCancelMfaSetup">取消</YdButtonBase>
                     </ElFormItem>
                   </ElForm>
                 </template>
@@ -432,14 +432,14 @@ loadMfaStatus();
               <!-- 已开启 MFA -->
               <div v-else>
                 <p class="mb-4 text-sm text-gray-500">MFA双因素认证已开启。如不再需要，可点击下方按钮禁用（需二次确认）。</p>
-                <Button variant="destructive" @click="handleDisableMfa">禁用MFA</Button>
+                <YdButtonBase variant="destructive" @click="handleDisableMfa">禁用MFA</YdButtonBase>
               </div>
             </div>
           </div>
-        </TabsContent>
-      </Tabs>
-      </CardContent>
-    </Card>
+        </YdTabsContent>
+      </YdTabs>
+      </YdCardContent>
+    </YdCard>
   </Page>
 </template>
 

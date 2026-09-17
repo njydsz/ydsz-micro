@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, ref } from 'vue';
@@ -169,7 +169,7 @@ const gridOptions: VxeTableGridOptions<FireTimeRow> = {
             : isTodayUpcoming(item.fireTime)
               ? 'warning'
               : 'info';
-          return h(Badge, { size: 'sm', variant: itemType === 'info' ? 'secondary' : itemType }, () => item.label);
+          return h(YdBadge, { size: 'sm', variant: itemType === 'info' ? 'secondary' : itemType }, () => item.label);
         },
       },
     },
@@ -233,44 +233,44 @@ onMounted(() => {
 <template>
   <Page auto-content-height>
     <!-- 筛选栏 -->
-    <Card class="mb-3">
-      <CardContent>
+    <YdCard class="mb-3">
+      <YdCardContent>
         <div class="flex flex-wrap items-center gap-3">
         <div class="flex items-center gap-2">
           <label class="whitespace-nowrap text-sm text-gray-600">任务标识：</label>
-          <Input v-model="jobKey" placeholder="任务 Key" class="w-[180px]" />
+          <YdInput v-model="jobKey" placeholder="任务 Key" class="w-[180px]" />
         </div>
         <div class="flex items-center gap-2">
           <label class="whitespace-nowrap text-sm text-gray-600">时间范围：</label>
-          <Input v-model="hours" type="number" :min="1" :max="168" class="w-24" />
+          <YdInput v-model="hours" type="number" :min="1" :max="168" class="w-24" />
           <span class="text-sm text-gray-400">小时</span>
         </div>
         <div class="flex items-center gap-2">
           <label class="whitespace-nowrap text-sm text-gray-600">最大条数：</label>
-          <Input v-model="maxCount" type="number" :min="1" :max="500" class="w-24" />
+          <YdInput v-model="maxCount" type="number" :min="1" :max="500" class="w-24" />
         </div>
-          <Button :loading="isLoading" @click="handleSearch">查询</Button>
+          <YdButtonBase :loading="isLoading" @click="handleSearch">查询</YdButtonBase>
         </div>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <div class="grid grid-cols-1 gap-3 lg:grid-cols-5">
       <!-- 触发时间列表 -->
-      <Card class="lg:col-span-3">
-        <CardHeader>
-          <CardTitle>下次触发时间列表 ({{ fireTimes.length }})</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="lg:col-span-3">
+        <YdCardHeader>
+          <YdCardTitle>下次触发时间列表 ({{ fireTimes.length }})</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <Grid table-title="" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 时间线预览 -->
-      <Card class="lg:col-span-2">
-        <CardHeader>
-          <CardTitle>时间线预览</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="lg:col-span-2">
+        <YdCardHeader>
+          <YdCardTitle>时间线预览</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div v-if="timelineItems.length > 0" class="max-h-96 overflow-auto">
           <ElTimeline>
             <ElTimelineItem
@@ -281,15 +281,15 @@ onMounted(() => {
               placement="top"
             >
               <div class="flex items-center gap-2">
-                <Badge size="sm" :variant="item.tagType === 'info' ? 'secondary' : item.tagType">{{ item.label }}</Badge>
+                <YdBadge size="sm" :variant="item.tagType === 'info' ? 'secondary' : item.tagType">{{ item.label }}</YdBadge>
                 <span v-if="item.countdown" class="text-xs text-gray-500">{{ item.countdown }}</span>
               </div>
             </ElTimelineItem>
           </ElTimeline>
         </div>
           <ElEmpty v-else description="暂无触发时间数据" :image-size="60" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
   </Page>
 </template>

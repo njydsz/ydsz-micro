@@ -10,7 +10,7 @@ import type { TabOption } from '@ydsz/types';
 
 import { computed } from 'vue';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
+import { YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   tabs?: TabOption[];
@@ -31,17 +31,17 @@ const defaultValue = computed(() => {
 
 <template>
   <div class="card-box w-full px-4 pb-5 pt-3">
-    <Tabs :default-value="defaultValue">
-      <TabsList>
+    <YdTabs :default-value="defaultValue">
+      <YdTabsList>
         <template v-for="tab in tabs" :key="tab.label">
-          <TabsTrigger :value="tab.value"> {{ tab.label }} </TabsTrigger>
+          <YdTabsTrigger :value="tab.value"> {{ tab.label }} </YdTabsTrigger>
         </template>
-      </TabsList>
+      </YdTabsList>
       <template v-for="tab in tabs" :key="tab.label">
-        <TabsContent :value="tab.value" class="pt-4">
+        <YdTabsContent :value="tab.value" class="pt-4">
           <slot :name="tab.value"></slot>
-        </TabsContent>
+        </YdTabsContent>
       </template>
-    </Tabs>
+    </YdTabs>
   </div>
 </template>

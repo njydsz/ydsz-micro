@@ -19,7 +19,7 @@
  * @since 1.0.0
 */
 import { ElForm, ElFormItem, ElInput, ElTable, ElTableColumn } from 'element-plus';
-import { Badge, Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import type { SpaceTemplateDTO } from '#/api/models';
@@ -157,7 +157,7 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="mb-4 flex items-center justify-between">
       <h2 class="text-lg font-medium">空间模板管理</h2>
-      <Button @click="handleCreate">新建模板</Button>
+      <YdButtonBase @click="handleCreate">新建模板</YdButtonBase>
     </div>
 
     <ElTable :data="templateList" :loading="listLoading" border stripe>
@@ -165,21 +165,21 @@ onMounted(() => {
       <ElTableColumn prop="description" label="描述" min-width="200" show-overflow-tooltip />
       <ElTableColumn prop="category" label="分类" width="120">
         <template #default="{ row }">
-          <Badge v-if="row.category" variant="secondary">{{ row.category }}</Badge>
+          <YdBadge v-if="row.category" variant="secondary">{{ row.category }}</YdBadge>
           <span v-else class="text-muted-foreground">-</span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="isSystem" label="类型" width="100">
         <template #default="{ row }">
-          <Badge :variant="row.isSystem ? 'default' : 'outline'">
+          <YdBadge :variant="row.isSystem ? 'default' : 'outline'">
             {{ row.isSystem ? '系统' : '自定义' }}
-          </Badge>
+          </YdBadge>
         </template>
       </ElTableColumn>
       <ElTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
-          <Button variant="link" size="sm" @click="handleEdit(row)">编辑</Button>
-          <Button
+          <YdButtonBase variant="link" size="sm" @click="handleEdit(row)">编辑</YdButtonBase>
+          <YdButtonBase
             variant="link"
             size="sm"
             className="text-destructive"
@@ -187,17 +187,17 @@ onMounted(() => {
             @click="handleDelete(row)"
           >
             删除
-          </Button>
+          </YdButtonBase>
         </template>
       </ElTableColumn>
     </ElTable>
 
     <!-- 编辑弹窗 -->
-    <Dialog v-model:open="dialogVisible">
-      <DialogContent class="sm:max-w-[500px]">
-        <DialogHeader>
-          <DialogTitle>{{ editingId ? '编辑模板' : '新建模板' }}</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="dialogVisible">
+      <YdDialogContent class="sm:max-w-[500px]">
+        <YdDialogHeader>
+          <YdDialogTitle>{{ editingId ? '编辑模板' : '新建模板' }}</YdDialogTitle>
+        </YdDialogHeader>
         <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="80px">
           <ElFormItem label="名称" prop="name">
             <ElInput v-model="formData.name" placeholder="请输入模板名称" />
@@ -209,11 +209,11 @@ onMounted(() => {
             <ElInput v-model="formData.category" placeholder="如：项目管理、技术文档" />
           </ElFormItem>
         </ElForm>
-        <DialogFooter>
-          <Button variant="outline" @click="dialogVisible = false">取消</Button>
-          <Button :disabled="formLoading" @click="handleSubmit">确定</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="dialogVisible = false">取消</YdButtonBase>
+          <YdButtonBase :disabled="formLoading" @click="handleSubmit">确定</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </Page>
 </template>

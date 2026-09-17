@@ -19,7 +19,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, DatePicker, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdDatePicker, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/shadcn-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -58,7 +58,7 @@ function statusTagType(status: string): 'success' | 'danger' {
  * @returns VNode
  */
 function hElTag(text: string, type: 'success' | 'danger' | 'warning' | 'info') {
-  return h(Badge, { variant: type === 'success' ? 'default' : type === 'danger' ? 'destructive' : type === 'warning' ? 'outline' : 'secondary', class: type === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => text);
+  return h(YdBadge, { variant: type === 'success' ? 'default' : type === 'danger' ? 'destructive' : type === 'warning' ? 'outline' : 'secondary', class: type === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => text);
 }
 
 /**
@@ -174,25 +174,25 @@ onMounted(() => {
   <Page auto-content-height>
     <!-- 筛选区 -->
     <div class="mb-3 flex flex-wrap items-center gap-3 px-4 pt-3">
-      <Input
+      <YdInput
         v-model="searchKeyword"
         placeholder="搜索用户名/IP"
         class="w-[200px]"
         @change="applyFilter"
       />
-      <Select v-model="statusFilter" @update:model-value="applyFilter">
-        <SelectTrigger class="w-[120px]">
-          <SelectValue placeholder="状态" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">全部状态</SelectItem>
-          <SelectItem value="SUCCESS">成功</SelectItem>
-          <SelectItem value="FAILED">失败</SelectItem>
-        </SelectContent>
-      </Select>
-      <DatePicker v-model="startTime" placeholder="起始时间" class="w-[180px]" @update:model-value="applyFilter" />
-      <DatePicker v-model="endTime" placeholder="结束时间" class="w-[180px]" @update:model-value="applyFilter" />
-      <Button variant="ghost" @click="resetFilter">重置</Button>
+      <YdSelectBase v-model="statusFilter" @update:model-value="applyFilter">
+        <YdSelectTriggerBase class="w-[120px]">
+          <YdSelectValueBase placeholder="状态" />
+        </YdSelectTriggerBase>
+        <YdSelectContentBase>
+          <YdSelectItemBase value="all">全部状态</YdSelectItemBase>
+          <YdSelectItemBase value="SUCCESS">成功</YdSelectItemBase>
+          <YdSelectItemBase value="FAILED">失败</YdSelectItemBase>
+        </YdSelectContentBase>
+      </YdSelectBase>
+      <YdDatePicker v-model="startTime" placeholder="起始时间" class="w-[180px]" @update:model-value="applyFilter" />
+      <YdDatePicker v-model="endTime" placeholder="结束时间" class="w-[180px]" @update:model-value="applyFilter" />
+      <YdButtonBase variant="ghost" @click="resetFilter">重置</YdButtonBase>
       <div class="ml-auto text-sm text-gray-400">
         共 {{ totalCount }} 条记录
         <span v-if="isLoading" class="ml-2 text-blue-500">加载中...</span>

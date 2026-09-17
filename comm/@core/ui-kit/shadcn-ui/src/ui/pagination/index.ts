@@ -8,11 +8,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as PaginationEllipsis } from './PaginationEllipsis.vue';
-export { default as PaginationFirst } from './PaginationFirst.vue';
-export { default as PaginationLast } from './PaginationLast.vue';
-export { default as PaginationNext } from './PaginationNext.vue';
-export { default as PaginationPrev } from './PaginationPrev.vue';
+export { default as YdPaginationEllipsis } from './YdPaginationEllipsis.vue';
+export { default as YdPaginationFirst } from './YdPaginationFirst.vue';
+export { default as YdPaginationLast } from './YdPaginationLast.vue';
+export { default as YdPaginationNext } from './YdPaginationNext.vue';
+export { default as YdPaginationPrev } from './YdPaginationPrev.vue';
 export {
   PaginationRoot as Pagination,
   PaginationList,

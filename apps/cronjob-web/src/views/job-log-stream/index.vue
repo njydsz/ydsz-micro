@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElEmpty/ElForm/ElFormItem/ElSpace/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
@@ -142,8 +142,8 @@ function statusText(status: ConnectStatus): string {
   <Page auto-content-height>
     <div class="p-4 space-y-4">
       <!-- 连接控制面板 -->
-      <Card class="rounded-lg border border-gray-200">
-        <CardHeader>
+      <YdCard class="rounded-lg border border-gray-200">
+        <YdCardHeader>
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <!-- 连接状态圆点 -->
@@ -151,28 +151,28 @@ function statusText(status: ConnectStatus): string {
                 class="inline-block w-2.5 h-2.5 rounded-full"
                 :style="{ backgroundColor: statusColor(connectStatus) }"
               />
-              <Badge
+              <YdBadge
                 :variant="connectStatus === 'connected' ? 'default' : connectStatus === 'connecting' ? 'outline' : 'secondary'"
                 size="sm"
               >
                 {{ statusText(connectStatus) }}
-              </Badge>
+              </YdBadge>
               <ElText v-if="logId && connectStatus === 'connected'" size="small" type="info">
                 Log #{{ logId }}
               </ElText>
             </div>
             <ElSpace>
-              <Button size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</Button>
-              <Button size="sm" variant="destructive" :disabled="connectStatus === 'disconnected'" @click="handleDisconnect">断开</Button>
-              <Button size="sm" variant="ghost" @click="handleClear">清空</Button>
+              <YdButtonBase size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</YdButtonBase>
+              <YdButtonBase size="sm" variant="destructive" :disabled="connectStatus === 'disconnected'" @click="handleDisconnect">断开</YdButtonBase>
+              <YdButtonBase size="sm" variant="ghost" @click="handleClear">清空</YdButtonBase>
             </ElSpace>
           </div>
-        </CardHeader>
-        <CardContent>
+        </YdCardHeader>
+        <YdCardContent>
           <!-- LogId 输入 -->
           <ElForm inline @submit.prevent="handleConnect">
           <ElFormItem label="Log ID">
-            <Input
+            <YdInput
               v-model="logId"
               placeholder="请输入任务执行日志 ID"
               class="w-80"
@@ -180,18 +180,18 @@ function statusText(status: ConnectStatus): string {
             />
           </ElFormItem>
           <ElFormItem>
-            <Button size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</Button>
+            <YdButtonBase size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</YdButtonBase>
           </ElFormItem>
           </ElForm>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 日志输出区 -->
-      <Card class="rounded-lg border border-gray-200">
-        <CardHeader>
-          <CardTitle class="text-sm text-gray-700">日志输出</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="rounded-lg border border-gray-200">
+        <YdCardHeader>
+          <YdCardTitle class="text-sm text-gray-700">日志输出</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div
           ref="logContainerRef"
           class="h-96 overflow-auto rounded border border-gray-800 bg-gray-900 p-3 font-mono text-xs leading-5 text-green-300"
@@ -207,8 +207,8 @@ function statusText(status: ConnectStatus): string {
               class="mt-20"
             />
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
   </Page>
 </template>

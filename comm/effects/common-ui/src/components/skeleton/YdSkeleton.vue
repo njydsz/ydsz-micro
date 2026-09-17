@@ -134,7 +134,7 @@ const skeletonClasses = computed(() => {
       </div>
     </div>
 
-    <!-- Table 骨架屏 -->
+    <!-- YdTable 骨架屏 -->
     <div v-else-if="type === 'table'" class="skeleton-table">
       <div class="skeleton-table-header">
         <div v-for="i in 5" :key="i" class="skeleton-line skeleton-line-sm" />
@@ -349,7 +349,7 @@ const skeletonClasses = computed(() => {
   width: 80px;
 }
 
-/* Table */
+/* YdTable */
 .skeleton-table-header {
   display: flex;
   gap: var(--space-group);

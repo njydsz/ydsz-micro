@@ -21,7 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { Badge, Button, Card, CardContent, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElForm/ElFormItem/ElTabPane/ElTabs/ElTimeline/ElTimelineItem 不在 shadcn 映射表，保留 EP
 import { ElForm, ElFormItem, ElTabPane, ElTabs, ElTimeline, ElTimelineItem } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
@@ -274,55 +274,55 @@ onMounted(() => {
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <!-- 操作区 -->
         <div class="lg:col-span-2">
-          <Card>
-            <CardContent class="pt-4">
+          <YdCard>
+            <YdCardContent class="pt-4">
             <ElTabs v-model="activeTab">
               <!-- 通知召回 Tab -->
               <ElTabPane label="通知召回" name="notification">
                 <ElForm :model="notificationForm" label-width="100px" class="mt-4">
                   <ElFormItem label="用户ID">
-                    <Input
+                    <YdInput
                       v-model="notificationForm.userId"
                       placeholder="召回指定用户的通知（可选）"
                     />
                   </ElFormItem>
                   <ElFormItem label="通知ID" required>
-                    <Input
+                    <YdInput
                       v-model="notificationForm.id"
                       placeholder="站内通知ID"
                     />
                   </ElFormItem>
                   <ElFormItem label="业务类型">
-                    <Input
+                    <YdInput
                       v-model="notificationForm.bizType"
                       placeholder="业务类型（可选）"
                     />
                   </ElFormItem>
                   <ElFormItem label="业务ID">
-                    <Input
+                    <YdInput
                       v-model="notificationForm.bizId"
                       placeholder="业务单据ID（可选）"
                     />
                   </ElFormItem>
                   <ElFormItem label="召回范围">
-                    <Select v-model="notificationForm.recallScope">
-                      <SelectTrigger class="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="SINGLE">单条召回</SelectItem>
-                        <SelectItem value="BATCH">批次召回</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <YdSelectBase v-model="notificationForm.recallScope">
+                      <YdSelectTriggerBase class="w-full">
+                        <YdSelectValueBase />
+                      </YdSelectTriggerBase>
+                      <YdSelectContentBase>
+                        <YdSelectItemBase value="SINGLE">单条召回</YdSelectItemBase>
+                        <YdSelectItemBase value="BATCH">批次召回</YdSelectItemBase>
+                      </YdSelectContentBase>
+                    </YdSelectBase>
                   </ElFormItem>
                   <ElFormItem>
-                    <Button
+                    <YdButtonBase
                       v-loading="executing"
                       @click="handleRecallNotification"
                     >
                       执行召回
-                    </Button>
-                    <Button variant="outline" @click="handleReset">重置</Button>
+                    </YdButtonBase>
+                    <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
                   </ElFormItem>
                 </ElForm>
               </ElTabPane>
@@ -331,70 +331,70 @@ onMounted(() => {
               <ElTabPane label="消息召回" name="message">
                 <ElForm :model="messageForm" label-width="100px" class="mt-4">
                   <ElFormItem label="日志ID">
-                    <Input
+                    <YdInput
                       v-model="messageForm.logId"
                       placeholder="消息日志 logId（精准召回，与消息ID二选一）"
                     />
                   </ElFormItem>
                   <ElFormItem label="消息ID">
-                    <Input
+                    <YdInput
                       v-model="messageForm.msgId"
                       placeholder="消息 msgId（精准召回，与日志ID二选一）"
                     />
                   </ElFormItem>
                   <ElFormItem label="批量ID">
-                    <Input
+                    <YdInput
                       v-model="messageForm.id"
                       placeholder="业务ID（配合批次召回使用）"
                     />
                   </ElFormItem>
                   <ElFormItem label="业务类型">
-                    <Input
+                    <YdInput
                       v-model="messageForm.bizType"
                       placeholder="业务类型（可选）"
                     />
                   </ElFormItem>
                   <ElFormItem label="业务ID">
-                    <Input
+                    <YdInput
                       v-model="messageForm.bizId"
                       placeholder="业务单据ID（可选）"
                     />
                   </ElFormItem>
                   <ElFormItem>
                     <div class="flex gap-2">
-                      <Button
+                      <YdButtonBase
                         v-loading="executing"
                         @click="handleRecallByLogId"
                       >
                         按日志ID召回
-                      </Button>
-                      <Button
+                      </YdButtonBase>
+                      <YdButtonBase
                         v-loading="executing"
                         @click="handleRecallByMsgId"
                       >
                         按消息ID召回
-                      </Button>
-                      <Button
+                      </YdButtonBase>
+                      <YdButtonBase
                         v-loading="executing"
                         variant="destructive"
                         @click="handleRecallBatch"
                       >
                         批量召回
-                      </Button>
-                      <Button variant="outline" @click="handleReset">重置</Button>
+                      </YdButtonBase>
+                      <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
                     </div>
                   </ElFormItem>
                 </ElForm>
               </ElTabPane>
             </ElTabs>
-          </CardContent>
-          </Card>
+          </YdCardContent>
+          </YdCard>
         </div>
 
         <!-- 操作日志区 -->
         <div>
-          <Card>
-            <CardContent class="pt-4">
+          <YdCard>
+            <YdCardContent class="pt-4">
             <h3 class="mb-3 text-base font-medium">召回操作日志</h3>
             <ElTimeline v-if="recallLogs.length > 0">
               <ElTimelineItem
@@ -404,9 +404,9 @@ onMounted(() => {
                 :timestamp="log.time"
               >
                 <div class="text-sm">
-                      <Badge :variant="log.type === 'notification' ? 'default' : 'outline'">
+                      <YdBadge :variant="log.type === 'notification' ? 'default' : 'outline'">
                     {{ log.type === 'notification' ? '通知' : '消息' }}
-                  </Badge>
+                  </YdBadge>
                   <span class="ml-2 font-mono">{{ log.id }}</span>
                 </div>
                 <p class="mt-1 text-xs text-gray-500">{{ log.detail }}</p>
@@ -415,8 +415,8 @@ onMounted(() => {
             <div v-else class="py-8 text-center text-gray-400">
               暂无召回操作记录
             </div>
-          </CardContent>
-          </Card>
+          </YdCardContent>
+          </YdCard>
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { upsert } from '#/api/subscription';
 
 defineOptions({ name: 'SubscriptionForm' });
@@ -133,52 +133,52 @@ async function handleSubmit(): Promise<void> {
   <Modal :title="isEditMode ? '编辑订阅' : '新增订阅'" width="500px">
     <ElForm label-width="100px" class="mt-3">
       <ElFormItem label="用户ID" required>
-        <Input
+        <YdInput
           v-model="formData.userId"
           placeholder="请输入用户ID"
           :disabled="isEditMode"
         />
       </ElFormItem>
       <ElFormItem label="主题编码" required>
-        <Input
+        <YdInput
           v-model="formData.topicCode"
           placeholder="请输入主题编码"
           :disabled="isEditMode"
         />
       </ElFormItem>
       <ElFormItem label="主题名称" required>
-        <Input v-model="formData.topicName" placeholder="请输入主题名称" />
+        <YdInput v-model="formData.topicName" placeholder="请输入主题名称" />
       </ElFormItem>
       <ElFormItem label="通知通道" required>
-        <Select v-model="formData.channel">
-          <SelectTrigger>
-            <SelectValue placeholder="请选择通道" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem
+        <YdSelectBase v-model="formData.channel">
+          <YdSelectTriggerBase>
+            <YdSelectValueBase placeholder="请选择通道" />
+          </YdSelectTriggerBase>
+          <YdSelectContentBase>
+            <YdSelectItemBase
               v-for="opt in channelOptions"
               :key="opt.value"
               :value="opt.value"
             >
               {{ opt.label }}
-            </SelectItem>
-          </SelectContent>
-        </Select>
+            </YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem label="订阅状态">
-        <Switch
+        <YdSwitch
           :checked="formData.status === 'ACTIVE'"
           @update:checked="(val: boolean) => formData.status = val ? 'ACTIVE' : 'UNSUBSCRIBED'"
         />
       </ElFormItem>
       <ElFormItem label="备注">
-        <Textarea v-model="formData.remark" placeholder="请输入备注" />
+        <YdTextarea v-model="formData.remark" placeholder="请输入备注" />
       </ElFormItem>
     </ElForm>
 
     <template #footer>
-      <Button variant="outline" @click="modalApi.close()">{{ t('common.cancel') }}</Button>
-      <Button @click="handleSubmit">保存</Button>
+      <YdButtonBase variant="outline" @click="modalApi.close()">{{ t('common.cancel') }}</YdButtonBase>
+      <YdButtonBase @click="handleSubmit">保存</YdButtonBase>
     </template>
   </Modal>
 </template>

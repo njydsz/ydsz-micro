@@ -20,11 +20,11 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input, Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
 import { ElForm, ElFormItem } from 'element-plus';
 import { ElMessageBox } from '@ydsz/notification/compat';
-// NOTE: ElDialog/ElDrawer 已迁移为 Dialog/Sheet
+// NOTE: ElDialog/ElDrawer 已迁移为 YdDialog/YdSheet
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -42,7 +42,7 @@ defineOptions({ name: 'TemplateManagement' });
 
 const { t } = useI18n();
 
-/** Badge variant 映射（EP type → shadcn variant） */
+/** YdBadge variant 映射（EP type → shadcn variant） */
 function mapAuditVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
@@ -75,7 +75,7 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapAuditVariant(getAuditStatusType(row.auditStatus)) }, () => row.auditStatus ?? '-'),
+          h(YdBadge, { variant: mapAuditVariant(getAuditStatusType(row.auditStatus)) }, () => row.auditStatus ?? '-'),
       },
     },
     {
@@ -85,7 +85,7 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            Badge,
+            YdBadge,
             { variant: row.status === 'DISABLED' ? 'secondary' : 'default' },
             () => row.status ?? '-',
           ),
@@ -101,32 +101,32 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleVersion(row) },
               () => t('version'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handlePreview(row) },
               () => t('template.preview'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleTestSend(row) },
               () => t('template.test'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleAudit(row) },
               () => t('template.audit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => t('common.delete'),
             ),
@@ -151,17 +151,17 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       {
         field: 'templateCode',
         title: t('templateCode'),
-        itemRender: { name: 'Input', props: { placeholder: t('templateCode') } },
+        itemRender: { name: 'YdInput', props: { placeholder: t('templateCode') } },
       },
       {
         field: 'channel',
         title: '通道',
-        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '通道' } },
       },
       {
         field: 'auditStatus',
         title: '审核状态',
-        itemRender: { name: 'Input', props: { placeholder: '审核状态' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '审核状态' } },
       },
     ],
   },
@@ -327,17 +327,17 @@ async function executeTestSend(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="模板管理">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
     </Grid>
     <TemplateFormModal @success="gridApi.query()" />
     <!-- 版本管理抽屉 -->
-    <Sheet v-model:open="versionVisible">
-      <SheetContent class="w-[640px] sm:max-w-[640px]">
-        <SheetHeader>
-          <SheetTitle>版本管理</SheetTitle>
-          <SheetDescription>查看和回滚模板版本</SheetDescription>
-        </SheetHeader>
+    <YdSheet v-model:open="versionVisible">
+      <YdSheetContent class="w-[640px] sm:max-w-[640px]">
+        <YdSheetHeader>
+          <YdSheetTitle>版本管理</YdSheetTitle>
+          <YdSheetDescription>查看和回滚模板版本</YdSheetDescription>
+        </YdSheetHeader>
         <div v-loading="versionLoading" class="space-y-3">
           <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">
             暂无版本记录
@@ -354,48 +354,48 @@ async function executeTestSend(): Promise<void> {
                 {{ version.changeLog }}
               </p>
             </div>
-            <Button size="sm" variant="destructive" @click="handleRollback(version)">回滚</Button>
+            <YdButtonBase size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButtonBase>
           </div>
         </div>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
     <!-- 预览弹窗 -->
-    <Dialog v-model:open="previewVisible">
-      <DialogContent class="max-w-[600px]">
-        <DialogHeader>
-          <DialogTitle>模板预览</DialogTitle>
-          <DialogDescription>渲染后的模板内容预览</DialogDescription>
-        </DialogHeader>
+    <YdDialog v-model:open="previewVisible">
+      <YdDialogContent class="max-w-[600px]">
+        <YdDialogHeader>
+          <YdDialogTitle>模板预览</YdDialogTitle>
+          <YdDialogDescription>渲染后的模板内容预览</YdDialogDescription>
+        </YdDialogHeader>
         <div v-loading="previewLoading" class="min-h-32">
           <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-4 text-sm">{{
             previewContent
           }}</pre>
         </div>
-      </DialogContent>
-    </Dialog>
+      </YdDialogContent>
+    </YdDialog>
     <!-- 测试发送弹窗 -->
-    <Dialog v-model:open="testSendVisible">
-      <DialogContent class="max-w-[480px]">
-        <DialogHeader>
-          <DialogTitle>测试发送</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="testSendVisible">
+      <YdDialogContent class="max-w-[480px]">
+        <YdDialogHeader>
+          <YdDialogTitle>测试发送</YdDialogTitle>
+        </YdDialogHeader>
         <ElForm :model="testSendForm" label-width="80px">
           <ElFormItem label="接收人" required>
-            <Input v-model="testSendForm.receiver" placeholder="请输入接收人邮箱/手机号" />
+            <YdInput v-model="testSendForm.receiver" placeholder="请输入接收人邮箱/手机号" />
           </ElFormItem>
           <ElFormItem label="变量">
-            <Input
+            <YdInput
               v-model="testSendForm.variables"
               placeholder="请输入变量JSON（选填）"
               :rows="3"
             />
           </ElFormItem>
         </ElForm>
-        <DialogFooter>
-          <Button variant="outline" @click="testSendVisible = false">{{ t('common.cancel') }}</Button>
-          <Button @click="executeTestSend">发送</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="testSendVisible = false">{{ t('common.cancel') }}</YdButtonBase>
+          <YdButtonBase @click="executeTestSend">发送</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </Page>
 </template>

@@ -16,7 +16,7 @@ import type { BreadcrumbProps } from './types';
 import { useForwardPropsEmits } from 'radix-vue';
 
 import BreadcrumbBackground from './breadcrumb-background.vue';
-import Breadcrumb from './breadcrumb.vue';
+import YdBreadcrumb from './breadcrumb.vue';
 
 interface Props extends BreadcrumbProps {
   class?: any;
@@ -29,7 +29,7 @@ const emit = defineEmits<{ select: [string] }>();
 const forward = useForwardPropsEmits(props, emit);
 </script>
 <template>
-  <Breadcrumb
+  <YdBreadcrumb
     v-if="styleType === 'normal'"
     v-bind="forward"
     class="yd-breadcrumb"

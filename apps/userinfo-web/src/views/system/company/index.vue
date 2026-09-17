@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { ElTree } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -75,7 +75,7 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -91,12 +91,12 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
         default: ({ row }) => {
           return h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -177,7 +177,7 @@ async function handleDelete(row: CompanyVO) {
       <div class="w-60 shrink-0">
         <div class="mb-2 flex items-center justify-between">
           <span class="text-sm font-semibold">{{ t('company.orgStructure') }}</span>
-          <Button variant="link" size="sm" @click="handleTreeClear">{{ t('company.all') }}</Button>
+          <YdButtonBase variant="link" size="sm" @click="handleTreeClear">{{ t('company.all') }}</YdButtonBase>
         </div>
         <ElTree
           :data="companyTree"
@@ -191,7 +191,7 @@ async function handleDelete(row: CompanyVO) {
       <div class="min-w-0 flex-1">
         <Grid :table-title="t('company.companyManagement')">
           <template #toolbar-tools>
-            <Button variant="default" @click="handleAdd">{{ t('company.createCompany') }}</Button>
+            <YdButtonBase variant="default" @click="handleAdd">{{ t('company.createCompany') }}</YdButtonBase>
           </template>
         </Grid>
       </div>

@@ -11,50 +11,50 @@
  */
 
 // —— 异步状态容器（loading/error/empty/data 自动切换） ——
-export { default as YdAsyncState } from './async-state.vue';
+export { default as YdAsyncState } from './YdAsyncState.vue';
 
 // —— 统一空状态组件 ——
-export { default as YdEmptyState } from './empty-state.vue';
+export { default as YdEmptyState } from './YdCommonEmptyState.vue';
 
 // —— 统一错误状态组件 ——
-export { default as YdErrorState } from './error-state.vue';
+export { default as YdErrorState } from './YdErrorState.vue';
 
 // —— 状态徽章组件 — 统一的项目/任务/审批状态展示 ——
-export { default as YdStatusBadge } from './status-badge.vue';
+export { default as YdStatusBadge } from './YdBizStatusBadge.vue';
 
 // —— 用户头像组件 — 含在线状态、角色标签 ——
-export { default as UserAvatar } from './user-avatar.vue';
+export { default as YdUserAvatar } from './YdUserAvatar.vue';
 
 // —— 字典选择器组件 — 从全局字典缓存获取数据 ——
-export { default as YdDictSelect } from './dict-select.vue';
+export { default as YdDictSelect } from './YdDictSelect.vue';
 
 // —— 字典标签组件 — 字典值渲染为彩色标签（表格列常用） ——
-export { default as YdDictTag } from './dict-tag.vue';
+export { default as YdDictTag } from './YdDictTag.vue';
 
 // —— 文件类型图标组件 ——
-export { default as YdFileIcon } from './file-icon.vue';
+export { default as YdFileIcon } from './YdFileIcon.vue';
 
 // —— Excel 导出按钮组件 — 声明式导出 ——
-export { default as YdExcelExportButton } from './excel-export-button.vue';
+export { default as YdExcelExportButton } from './YdExcelExportButton.vue';
 
 // —— Excel 导入按钮组件 — 声明式导入 ——
-export { default as YdExcelImportButton } from './excel-import-button.vue';
+export { default as YdExcelImportButton } from './YdExcelImportButton.vue';
 
 // —— 键盘快捷键帮助面板 ——
-export { default as YdKeyboardHelp } from './keyboard-help.vue';
+export { default as YdKeyboardHelp } from './YdKeyboardHelp.vue';
 
 // —— 大数据量下拉选择器 ——
-export { default as YdVirtualSelect } from './virtual-select.vue';
+export { default as YdVirtualSelect } from './YdVirtualSelect.vue';
 
 // —— 通用虚拟列表 ——
-export { default as YdVirtualList } from './virtual-list.vue';
+export { default as YdVirtualList } from './YdVirtualList.vue';
 
 // —— 用户操作引导组件 ——
-export { default as YdAppTour } from './app-tour.vue';
+export { default as YdAppTour } from './YdAppTour.vue';
 
 // —— 审批历史时间轴组件 ——
-export { default as YdApprovalTimeline } from './approval-timeline.vue';
-export type { ApprovalRecord } from './approval-timeline.vue';
+export { default as YdApprovalTimeline } from './YdApprovalTimeline.vue';
+export type { ApprovalRecord } from './YdApprovalTimeline.vue';
 
 // —— 二次身份验证弹窗组件 — 程序化弹窗，安全约束完善 ——
-export { default as YdSecondaryAuthModal } from './secondary-auth-modal/index.vue';
+export { default as YdSecondaryAuthModal } from './secondary-auth-modal/YdSecondaryAuthModal.vue';

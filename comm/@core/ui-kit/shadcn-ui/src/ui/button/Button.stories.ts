@@ -1,19 +1,19 @@
 /**
- * Button 组件 Storybook Stories
+ * YdButtonBase 组件 Storybook Stories
  *
- * P1-2.3: 组件文档化 — Button 组件交互式文档
+ * P1-2.3: 组件文档化 — YdButtonBase 组件交互式文档
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/ui/button/Button.stories.ts
+ * @path comm/@core/ui-kit/shadcn-ui/src/ui/button/YdButtonBase.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import Button from './Button.vue';
+import YdButtonBase from './YdButtonBase.vue';
 
-const meta: Meta<typeof Button> = {
-  title: 'Core/Button',
-  component: Button,
+const meta: Meta<typeof YdButtonBase> = {
+  title: 'Core/YdButtonBase',
+  component: YdButtonBase,
   tags: ['autodocs'],
   argTypes: {
     variant: {
@@ -46,7 +46,7 @@ const meta: Meta<typeof Button> = {
 };
 
 /**
- * Button 组件示例集的 Storybook 元信息。
+ * YdButtonBase 组件示例集的 Storybook 元信息。
  *
  * 覆盖的状态：
  *  - 全部 6 个 `variant`：default / destructive / outline / secondary / ghost / link；
@@ -60,16 +60,16 @@ const meta: Meta<typeof Button> = {
  * 无需改代码即可验证 variant 与 size 的组合。
  */
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof YdButtonBase>;
 
 /** 默认按钮 */
 export const Default: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">默认按钮</Button>',
+    template: '<YdButtonBase v-bind="args">默认按钮</YdButtonBase>',
   }),
   args: {
     variant: 'default',
@@ -80,11 +80,11 @@ export const Default: Story = {
 /** 危险按钮（用于删除等危险操作） */
 export const Destructive: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">删除</Button>',
+    template: '<YdButtonBase v-bind="args">删除</YdButtonBase>',
   }),
   args: {
     variant: 'destructive',
@@ -95,11 +95,11 @@ export const Destructive: Story = {
 /** 轮廓按钮 */
 export const Outline: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">轮廓按钮</Button>',
+    template: '<YdButtonBase v-bind="args">轮廓按钮</YdButtonBase>',
   }),
   args: {
     variant: 'outline',
@@ -110,11 +110,11 @@ export const Outline: Story = {
 /** 次要按钮 */
 export const Secondary: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">次要按钮</Button>',
+    template: '<YdButtonBase v-bind="args">次要按钮</YdButtonBase>',
   }),
   args: {
     variant: 'secondary',
@@ -125,11 +125,11 @@ export const Secondary: Story = {
 /** 幽灵按钮（透明背景） */
 export const Ghost: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">幽灵按钮</Button>',
+    template: '<YdButtonBase v-bind="args">幽灵按钮</YdButtonBase>',
   }),
   args: {
     variant: 'ghost',
@@ -140,11 +140,11 @@ export const Ghost: Story = {
 /** 链接按钮 */
 export const Link: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">链接按钮</Button>',
+    template: '<YdButtonBase v-bind="args">链接按钮</YdButtonBase>',
   }),
   args: {
     variant: 'link',
@@ -155,11 +155,11 @@ export const Link: Story = {
 /** 小尺寸按钮 */
 export const Small: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">小按钮</Button>',
+    template: '<YdButtonBase v-bind="args">小按钮</YdButtonBase>',
   }),
   args: {
     variant: 'default',
@@ -170,11 +170,11 @@ export const Small: Story = {
 /** 大尺寸按钮 */
 export const Large: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">大按钮</Button>',
+    template: '<YdButtonBase v-bind="args">大按钮</YdButtonBase>',
   }),
   args: {
     variant: 'default',
@@ -185,11 +185,11 @@ export const Large: Story = {
 /** 图标按钮 */
 export const Icon: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">🔍</Button>',
+    template: '<YdButtonBase v-bind="args">🔍</YdButtonBase>',
   }),
   args: {
     variant: 'outline',
@@ -200,11 +200,11 @@ export const Icon: Story = {
 /** 禁用状态 */
 export const Disabled: Story = {
   render: (args) => ({
-    components: { Button },
+    components: { YdButtonBase },
     setup() {
       return { args };
     },
-    template: '<Button v-bind="args">禁用按钮</Button>',
+    template: '<YdButtonBase v-bind="args">禁用按钮</YdButtonBase>',
   }),
   args: {
     variant: 'default',
@@ -216,15 +216,15 @@ export const Disabled: Story = {
 /** 所有变体展示 */
 export const AllVariants: Story = {
   render: () => ({
-    components: { Button },
+    components: { YdButtonBase },
     template: `
       <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-        <Button variant="default">默认</Button>
-        <Button variant="destructive">危险</Button>
-        <Button variant="outline">轮廓</Button>
-        <Button variant="secondary">次要</Button>
-        <Button variant="ghost">幽灵</Button>
-        <Button variant="link">链接</Button>
+        <YdButtonBase variant="default">默认</YdButtonBase>
+        <YdButtonBase variant="destructive">危险</YdButtonBase>
+        <YdButtonBase variant="outline">轮廓</YdButtonBase>
+        <YdButtonBase variant="secondary">次要</YdButtonBase>
+        <YdButtonBase variant="ghost">幽灵</YdButtonBase>
+        <YdButtonBase variant="link">链接</YdButtonBase>
       </div>
     `,
   }),
@@ -233,13 +233,13 @@ export const AllVariants: Story = {
 /** 所有尺寸展示 */
 export const AllSizes: Story = {
   render: () => ({
-    components: { Button },
+    components: { YdButtonBase },
     template: `
       <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-        <Button size="sm">小</Button>
-        <Button size="default">默认</Button>
-        <Button size="lg">大</Button>
-        <Button size="icon">🔍</Button>
+        <YdButtonBase size="sm">小</YdButtonBase>
+        <YdButtonBase size="default">默认</YdButtonBase>
+        <YdButtonBase size="lg">大</YdButtonBase>
+        <YdButtonBase size="icon">🔍</YdButtonBase>
       </div>
     `,
   }),

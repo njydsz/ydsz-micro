@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as ToggleGroup } from './ToggleGroup.vue';
-export { default as ToggleGroupItem } from './ToggleGroupItem.vue';
+export { default as YdToggleGroup } from './YdToggleGroup.vue';
+export { default as YdToggleGroupItem } from './YdToggleGroupItem.vue';

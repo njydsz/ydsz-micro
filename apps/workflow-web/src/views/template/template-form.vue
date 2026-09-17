@@ -18,7 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
 import { ElForm, ElFormItem } from 'element-plus';
-import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { reactive, ref } from 'vue';
 import { importTemplate } from '#/api/flowTemplate';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -83,10 +83,10 @@ const [Modal, modalApi] = useYdModal({
       label-position="right"
     >
       <ElFormItem :label="t('template.templateCode.label')" prop="templateCode">
-        <Input v-model="formData.templateCode" :placeholder="t('template.templateCode.placeholder')" />
+        <YdInput v-model="formData.templateCode" :placeholder="t('template.templateCode.placeholder')" />
       </ElFormItem>
       <ElFormItem :label="t('template.flowName.label')">
-        <Input v-model="formData.flowName" :placeholder="t('template.flowName.placeholder')" />
+        <YdInput v-model="formData.flowName" :placeholder="t('template.flowName.placeholder')" />
       </ElFormItem>
       <ElFormItem :label="t('common.description.label')">
         <div class="text-xs leading-relaxed text-gray-400">

@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Popover } from './Popover.vue';
-export { default as PopoverContent } from './PopoverContent.vue';
-export { default as PopoverTrigger } from './PopoverTrigger.vue';
+export { default as YdPopoverBase } from './YdPopoverBase.vue';
+export { default as YdPopoverContentBase } from './YdPopoverContentBase.vue';
+export { default as YdPopoverTriggerBase } from './YdPopoverTriggerBase.vue';
 export { PopoverAnchor } from 'radix-vue';

@@ -22,7 +22,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { Badge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/shadcn-ui';
 import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -357,9 +357,9 @@ onMounted(() => {
             <ElTableColumn prop="description" :label="t('page.description')" min-width="150" />
             <ElTableColumn prop="riskLevel" :label="t('security.riskLevel')" width="80">
               <template #default="{ row }">
-                <Badge :variant="getRiskLevelTagType(row.riskLevel ?? '')" class="text-xs">
+                <YdBadge :variant="getRiskLevelTagType(row.riskLevel ?? '')" class="text-xs">
                   {{ row.riskLevel ?? '-' }}
-                </Badge>
+                </YdBadge>
               </template>
             </ElTableColumn>
           </ElTable>

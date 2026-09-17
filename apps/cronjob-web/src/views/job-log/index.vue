@@ -21,8 +21,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElEmpty } from 'element-plus';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
@@ -120,7 +120,7 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
         default: ({ row }) => {
           const log = row as JobLogVO;
           const isSuccess = log.status === 'SUCCESS' || log.status === '0';
-          return h(Badge, { variant: isSuccess ? 'default' : 'destructive' }, () => log.status ?? '-');
+          return h(YdBadge, { variant: isSuccess ? 'default' : 'destructive' }, () => log.status ?? '-');
         },
       },
     },
@@ -139,7 +139,7 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
         default: ({ row }) => {
           const log = row as JobLogVO;
           return h(
-            Button,
+            YdButtonBase,
             { size: 'sm', variant: 'link', onClick: () => handleViewDetail(log) },
             () => '详情',
           );
@@ -168,12 +168,12 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
       {
         field: 'jobKey',
         title: '任务标识',
-        itemRender: { name: 'Input', props: { placeholder: '任务标识', modelValue: presetJobKey } },
+        itemRender: { name: 'YdInput', props: { placeholder: '任务标识', modelValue: presetJobKey } },
       },
       {
         field: 'status',
         title: '状态',
-        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '状态' } },
       },
     ],
   },
@@ -186,18 +186,18 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
   <Page auto-content-height>
     <Grid table-title="执行日志" />
 
-    <Sheet v-model:open="detailVisible">
-      <SheetContent side="right" class="w-[720px]">
-        <SheetHeader>
-          <SheetTitle>执行日志详情</SheetTitle>
-        </SheetHeader>
+    <YdSheet v-model:open="detailVisible">
+      <YdSheetContent side="right" class="w-[720px]">
+        <YdSheetHeader>
+          <YdSheetTitle>执行日志详情</YdSheetTitle>
+        </YdSheetHeader>
         <template v-if="detailLog">
         <ElDescriptions :column="2" border size="small" class="mb-3">
           <ElDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="状态">
-            <Badge :variant="detailLog.status === 'SUCCESS' ? 'default' : 'destructive'">{{
+            <YdBadge :variant="detailLog.status === 'SUCCESS' ? 'default' : 'destructive'">{{
               detailLog.status ?? '-'
-            }}</Badge>
+            }}</YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="开始时间">{{ detailLog.startTime ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="结束时间">{{ detailLog.endTime ?? '-' }}</ElDescriptionsItem>
@@ -231,8 +231,8 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
         <div class="mb-1 flex items-center gap-2 text-xs text-gray-500">
           <span>实时日志</span>
-          <Badge v-if="sseConnected" variant="default" size="sm">已连接</Badge>
-          <Badge v-else variant="secondary" size="sm">已结束</Badge>
+          <YdBadge v-if="sseConnected" variant="default" size="sm">已连接</YdBadge>
+          <YdBadge v-else variant="secondary" size="sm">已结束</YdBadge>
         </div>
         <div
           ref="logBodyRef"
@@ -242,7 +242,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <ElEmpty v-else description="暂无日志内容" :image-size="60" />
         </div>
       </template>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

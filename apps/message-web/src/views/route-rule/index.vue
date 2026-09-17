@@ -22,7 +22,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -52,7 +52,7 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            Badge,
+            YdBadge,
             { variant: row.status === 'DISABLED' ? 'secondary' : 'default' },
             () => row.status ?? '-',
           ),
@@ -68,12 +68,12 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => t('common.delete'),
             ),
@@ -98,17 +98,17 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
       {
         field: 'ruleName',
         title: '规则名称',
-        itemRender: { name: 'Input', props: { placeholder: '规则名称' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '规则名称' } },
       },
       {
         field: 'ruleCode',
         title: '规则编码',
-        itemRender: { name: 'Input', props: { placeholder: '规则编码' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '规则编码' } },
       },
       {
         field: 'status',
         title: t('common.status'),
-        itemRender: { name: 'Input', props: { placeholder: t('common.status') } },
+        itemRender: { name: 'YdInput', props: { placeholder: t('common.status') } },
       },
     ],
   },
@@ -149,7 +149,7 @@ async function handleDelete(row: MsgRouteRuleVO) {
   <Page auto-content-height>
     <Grid table-title="路由规则">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
     </Grid>
     <RouteRuleFormModal @success="gridApi.query()" />

@@ -22,7 +22,7 @@ import { createLogger } from '@ydsz/utils';
 import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdLabel, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { openSseStream } from '#/utils/sse-client';
 import { healthCheck, publishEvent, type ReactiveEventVO, type ReactiveHealthVO, type ReactiveEventLevel } from '#/api/reactive';
 
@@ -187,85 +187,85 @@ onBeforeUnmount(() => {
   <Page auto-content-height>
     <div class="reactive-monitor-container p-4">
       <!-- 连接状态 -->
-      <Card class="mb-4">
-        <CardHeader>
-          <CardTitle>连接状态</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="mb-4">
+        <YdCardHeader>
+          <YdCardTitle>连接状态</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div class="flex items-center gap-4">
-            <Badge :variant="getConnectionVariant()">{{ getConnectionText() }}</Badge>
+            <YdBadge :variant="getConnectionVariant()">{{ getConnectionText() }}</YdBadge>
             <span class="text-sm">运行模式: {{ health.mode ?? '-' }}</span>
             <span class="text-sm">缓冲区: {{ health.bufferSize ?? '-' }}</span>
             <span class="text-sm">运行状态: {{ health.status ?? '-' }}</span>
             <div class="flex-1" />
-            <Button
+            <YdButtonBase
               v-if="connectionStatus === 'connected'"
               variant="destructive"
               @click="disconnectSse"
             >
               断开
-            </Button>
-            <Button
+            </YdButtonBase>
+            <YdButtonBase
               v-else
               @click="connectSse"
             >
               连接
-            </Button>
+            </YdButtonBase>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 发布事件 -->
-      <Card class="mb-4">
-        <CardHeader>
-          <CardTitle>发布事件（试点测试）</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="mb-4">
+        <YdCardHeader>
+          <YdCardTitle>发布事件（试点测试）</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div class="space-y-4">
             <div>
-              <Label>事件类型</Label>
-              <Input v-model="publishForm.eventType" placeholder="默认 notification" class="mt-1" />
+              <YdLabel>事件类型</YdLabel>
+              <YdInput v-model="publishForm.eventType" placeholder="默认 notification" class="mt-1" />
             </div>
             <div>
-              <Label>级别</Label>
-              <Select v-model="publishForm.level">
-                <SelectTrigger class="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
+              <YdLabel>级别</YdLabel>
+              <YdSelectBase v-model="publishForm.level">
+                <YdSelectTriggerBase class="mt-1">
+                  <YdSelectValueBase />
+                </YdSelectTriggerBase>
+                <YdSelectContentBase>
+                  <YdSelectItemBase
                     v-for="item in levelOptions"
                     :key="item.value"
                     :value="item.value"
                   >
                     {{ item.label }}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+                  </YdSelectItemBase>
+                </YdSelectContentBase>
+              </YdSelectBase>
             </div>
             <div>
-              <Label>目标用户</Label>
-              <Input v-model="publishForm.targetUserId" placeholder="留空则广播给所有订阅者" class="mt-1" />
+              <YdLabel>目标用户</YdLabel>
+              <YdInput v-model="publishForm.targetUserId" placeholder="留空则广播给所有订阅者" class="mt-1" />
             </div>
             <div>
-              <Label>标题</Label>
-              <Input v-model="publishForm.title" class="mt-1" />
+              <YdLabel>标题</YdLabel>
+              <YdInput v-model="publishForm.title" class="mt-1" />
             </div>
             <div>
-              <Label>正文</Label>
-              <Textarea v-model="publishForm.content" class="mt-1" />
+              <YdLabel>正文</YdLabel>
+              <YdTextarea v-model="publishForm.content" class="mt-1" />
             </div>
-            <Button @click="handlePublish">发布</Button>
+            <YdButtonBase @click="handlePublish">发布</YdButtonBase>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 最近事件 -->
-      <Card>
-        <CardHeader>
-          <CardTitle>最近事件（近 50 条）</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard>
+        <YdCardHeader>
+          <YdCardTitle>最近事件（近 50 条）</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <ElEmpty v-if="recentEvents.length === 0" description="暂无事件" />
           <ElTimeline v-else>
             <ElTimelineItem
@@ -275,15 +275,15 @@ onBeforeUnmount(() => {
               placement="top"
             >
               <div class="flex items-center gap-2">
-                <Badge :variant="getLevelVariant(event.level)">{{ event.level ?? 'INFO' }}</Badge>
+                <YdBadge :variant="getLevelVariant(event.level)">{{ event.level ?? 'INFO' }}</YdBadge>
                 <span>{{ event.title }}</span>
                 <span class="text-sm text-gray-500">{{ event.targetUserId ?? '广播' }}</span>
               </div>
               <p v-if="event.content" class="text-sm text-gray-600">{{ event.content }}</p>
             </ElTimelineItem>
           </ElTimeline>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
   </Page>
 </template>
@@ -293,6 +293,7 @@ onBeforeUnmount(() => {
   .mb-4 {
     margin-bottom: 16px;
   }
+
   .flex-1 {
     flex: 1;
   }

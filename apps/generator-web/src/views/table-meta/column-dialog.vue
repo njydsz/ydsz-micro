@@ -18,14 +18,14 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+  YdDialog,
+  YdDialogContent,
+  YdDialogHeader,
+  YdDialogTitle,
 } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 Table 组件）
+// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 YdTable 组件）
 import { ElTable, ElTableColumn } from 'element-plus';
 
 import { getColumns, refreshColumns } from '#/api/table-meta';
@@ -98,13 +98,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <Dialog :open="visible" @update:open="handleClose">
-    <DialogContent style="max-width: 900px">
-      <DialogHeader>
-        <DialogTitle>列元数据 - {{ tableName }}</DialogTitle>
-      </DialogHeader>
+  <YdDialog :open="visible" @update:open="handleClose">
+    <YdDialogContent style="max-width: 900px">
+      <YdDialogHeader>
+        <YdDialogTitle>列元数据 - {{ tableName }}</YdDialogTitle>
+      </YdDialogHeader>
       <div class="mb-3 flex justify-end">
-        <Button size="sm" @click="handleRefreshColumns">刷新列缓存</Button>
+        <YdButtonBase size="sm" @click="handleRefreshColumns">刷新列缓存</YdButtonBase>
       </div>
       <ElTable v-loading="loading" :data="columns" stripe max-height="400">
         <ElTableColumn prop="columnName" label="列名" width="150" />
@@ -112,21 +112,21 @@ onMounted(() => {
         <ElTableColumn prop="columnSize" label="长度" width="80" />
         <ElTableColumn label="主键" width="70">
           <template #default="{ row }">
-            <Badge v-if="row.pk" variant="destructive">PK</Badge>
+            <YdBadge v-if="row.pk" variant="destructive">PK</YdBadge>
             <span v-else>-</span>
           </template>
         </ElTableColumn>
         <ElTableColumn label="可空" width="70">
           <template #default="{ row }">
-            <Badge :variant="row.nullable ? 'secondary' : 'destructive'">
+            <YdBadge :variant="row.nullable ? 'secondary' : 'destructive'">
               {{ row.nullable ? '是' : '否' }}
-            </Badge>
+            </YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="comment" label="注释" min-width="150" />
         <ElTableColumn prop="overrideJavaType" label="Java类型" width="120" />
         <ElTableColumn prop="overrideFieldName" label="字段名" width="120" />
       </ElTable>
-    </DialogContent>
-  </Dialog>
+    </YdDialogContent>
+  </YdDialog>
 </template>

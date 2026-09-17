@@ -15,7 +15,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { CircleHelp } from 'lucide-vue-next';
 
-import Tooltip from './tooltip.vue';
+import YdTooltipBase from './tooltip.vue';
 
 defineOptions({
   inheritAttrs: false,
@@ -25,7 +25,7 @@ defineProps<{ triggerClass?: string }>();
 </script>
 
 <template>
-  <Tooltip :delay-duration="300" side="right">
+  <YdTooltipBase :delay-duration="300" side="right">
     <template #trigger>
       <slot name="trigger">
         <CircleHelp
@@ -39,5 +39,5 @@ defineProps<{ triggerClass?: string }>();
       </slot>
     </template>
     <slot></slot>
-  </Tooltip>
+  </YdTooltipBase>
 </template>

@@ -23,7 +23,7 @@ import { objectOmit } from '@vueuse/core';
 
 import { YdRenderContent } from '../render-content';
 import YdButtonGroup from './button-group.vue';
-import Button from './button.vue';
+import YdButtonBase from './button.vue';
 
 const props = withDefaults(defineProps<YdButtonGroupProps>(), {
   gap: 0,
@@ -121,7 +121,7 @@ async function onBtnClick(value: ValueType) {
     :gap="props.gap"
     class="yd-check-button-group"
   >
-    <Button
+    <YdButtonBase
       v-for="(btn, index) in props.options"
       :key="btn.value ?? `btn-${index}`"
       :class="cn('border', props.btnClass)"
@@ -152,7 +152,7 @@ async function onBtnClick(value: ValueType) {
       <slot name="option" :label="btn.label" :value="btn.value" :data="btn">
         <YdRenderContent :content="btn.label" />
       </slot>
-    </Button>
+    </YdButtonBase>
   </YdButtonGroup>
 </template>
 <style lang="scss" scoped>

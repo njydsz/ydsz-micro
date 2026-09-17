@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -44,7 +44,7 @@ const gridOptions: VxeTableGridOptions = {
       align: 'center',
       slots: {
         default: ({ row }) => h(
-          Badge,
+          YdBadge,
           { variant: (row as Record<string, unknown>)?.isMfaEnabled ? 'default' : 'secondary', class: (row as Record<string, unknown>)?.isMfaEnabled ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
           () => ((row as Record<string, unknown>)?.isMfaEnabled ? '已启用' : '未启用'),
         ),
@@ -57,7 +57,7 @@ const gridOptions: VxeTableGridOptions = {
       align: 'center',
       slots: {
         default: ({ row }) => h(
-          Badge,
+          YdBadge,
           { variant: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'default' : 'secondary', class: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
           () => ((row as Record<string, unknown>)?.isCaptchaEnabled ? '已启用' : '未启用'),
         ),
@@ -95,12 +95,12 @@ const gridOptions: VxeTableGridOptions = {
           const record = row as unknown as AuthPolicyVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(record) },
               () => '编辑',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(record) },
               () => '删除',
             ),
@@ -138,8 +138,8 @@ const gridOptions: VxeTableGridOptions = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'tenantId', title: '租户ID', itemRender: { name: 'Input', props: { placeholder: '租户ID' } } },
-      { field: 'name', title: '策略名称', itemRender: { name: 'Input', props: { placeholder: '策略名称' } } },
+      { field: 'tenantId', title: '租户ID', itemRender: { name: 'YdInput', props: { placeholder: '租户ID' } } },
+      { field: 'name', title: '策略名称', itemRender: { name: 'YdInput', props: { placeholder: '策略名称' } } },
     ],
   },
 };
@@ -195,7 +195,7 @@ async function handleDelete(row: AuthPolicyVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="认证策略管理">
-      <template #toolbar-tools><Button variant="default" @click="handleAdd">新增</Button></template>
+      <template #toolbar-tools><YdButtonBase variant="default" @click="handleAdd">新增</YdButtonBase></template>
     </Grid>
     <AuthPolicyFormModal @success="gridApi.query()" />
   </Page>

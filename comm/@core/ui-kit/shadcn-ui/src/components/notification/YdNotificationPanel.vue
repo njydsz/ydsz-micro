@@ -15,13 +15,13 @@
 import { computed, ref } from 'vue';
 
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogTitle,
-  Button,
+  YdAlertDialog,
+  YdAlertDialogAction,
+  YdAlertDialogCancel,
+  YdAlertDialogContent,
+  YdAlertDialogDescription,
+  YdAlertDialogTitle,
+  YdButtonBase,
 } from '../../ui';
 import { useNotificationStore } from '@YDSZ/shared-business/notification';
 import { NotificationType, type NotificationItem } from '@YDSZ/shared-business/notification';
@@ -109,7 +109,7 @@ function confirmMarkAllRead(): void {
       </button>
     </div>
 
-    <!-- Tabs -->
+    <!-- YdTabs -->
     <div class="notification-panel__tabs">
       <button
         v-for="tab in TABS"
@@ -169,20 +169,20 @@ function confirmMarkAllRead(): void {
     </div>
 
     <!-- 全部已读确认 -->
-    <AlertDialog :open="confirmOpen" @update:open="(val: boolean) => (confirmOpen = val)">
-      <AlertDialogContent :open="confirmOpen" class="w-[360px]">
-        <AlertDialogTitle>确认</AlertDialogTitle>
-        <AlertDialogDescription>是否将所有通知标记为已读？</AlertDialogDescription>
+    <YdAlertDialog :open="confirmOpen" @update:open="(val: boolean) => (confirmOpen = val)">
+      <YdAlertDialogContent :open="confirmOpen" class="w-[360px]">
+        <YdAlertDialogTitle>确认</YdAlertDialogTitle>
+        <YdAlertDialogDescription>是否将所有通知标记为已读？</YdAlertDialogDescription>
         <div class="mt-4 flex justify-end gap-2">
-          <AlertDialogCancel as-child>
-            <Button variant="outline" size="sm" @click="confirmOpen = false">取消</Button>
-          </AlertDialogCancel>
-          <AlertDialogAction as-child>
-            <Button size="sm" @click="confirmMarkAllRead">确定</Button>
-          </AlertDialogAction>
+          <YdAlertDialogCancel as-child>
+            <YdButtonBase variant="outline" size="sm" @click="confirmOpen = false">取消</YdButtonBase>
+          </YdAlertDialogCancel>
+          <YdAlertDialogAction as-child>
+            <YdButtonBase size="sm" @click="confirmMarkAllRead">确定</YdButtonBase>
+          </YdAlertDialogAction>
         </div>
-      </AlertDialogContent>
-    </AlertDialog>
+      </YdAlertDialogContent>
+    </YdAlertDialog>
   </div>
 </template>
 

@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { search } from '#/api/messageArchive';
@@ -31,7 +31,7 @@ import type { MsgLogVO } from '#/api/models';
 defineOptions({ name: 'MessageArchiveManagement' });
 
 /**
- * 状态列 Tag 类型映射（EP type → shadcn Badge variant）
+ * 状态列 Tag 类型映射（EP type → shadcn YdBadge variant）
  * <p>success→default（绿）, danger→destructive, warning→outline（黄）, info→secondary（灰）
  */
 function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
@@ -65,7 +65,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },
@@ -95,32 +95,32 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       {
         field: 'keyword',
         title: '关键词',
-        itemRender: { name: 'Input', props: { placeholder: '消息内容/模板编码' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '消息内容/模板编码' } },
       },
       {
         field: 'channel',
         title: '通道',
-        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '通道' } },
       },
       {
         field: 'status',
         title: '状态',
-        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '状态' } },
       },
       {
         field: 'bizType',
         title: '业务类型',
-        itemRender: { name: 'Input', props: { placeholder: '业务类型' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '业务类型' } },
       },
       {
         field: 'startTime',
         title: '开始时间',
-        itemRender: { name: 'Input', props: { placeholder: '开始时间' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '开始时间' } },
       },
       {
         field: 'endTime',
         title: '结束时间',
-        itemRender: { name: 'Input', props: { placeholder: '结束时间' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '结束时间' } },
       },
     ],
   },

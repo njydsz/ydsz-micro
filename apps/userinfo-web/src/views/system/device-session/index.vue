@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/shadcn-ui';
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -98,8 +98,8 @@ onMounted(() => {
   <Page v-loading="isLoading" auto-content-height>
     <!-- 统计概览 -->
     <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-      <Card class="shadow-sm hover:shadow-md transition-shadow">
-        <CardContent class="flex items-center justify-between pt-6">
+      <YdCard class="shadow-sm hover:shadow-md transition-shadow">
+        <YdCardContent class="flex items-center justify-between pt-6">
           <div>
             <p class="text-sm text-muted-foreground">设备总数</p>
             <p class="mt-1 text-2xl font-bold text-blue-600">{{ totalDevices }}</p>
@@ -107,10 +107,10 @@ onMounted(() => {
           <div class="rounded-full bg-blue-50 dark:bg-blue-950 p-3">
             <span class="text-2xl text-blue-500">📱</span>
           </div>
-        </CardContent>
-      </Card>
-      <Card class="shadow-sm hover:shadow-md transition-shadow">
-        <CardContent class="flex items-center justify-between pt-6">
+        </YdCardContent>
+      </YdCard>
+      <YdCard class="shadow-sm hover:shadow-md transition-shadow">
+        <YdCardContent class="flex items-center justify-between pt-6">
           <div>
             <p class="text-sm text-muted-foreground">当前会话</p>
             <p class="mt-1 truncate text-sm text-green-600">{{ currentSessionId ?? '-' }}</p>
@@ -118,10 +118,10 @@ onMounted(() => {
           <div class="rounded-full bg-green-50 dark:bg-green-950 p-3">
             <span class="text-2xl text-green-500">🟢</span>
           </div>
-        </CardContent>
-      </Card>
-      <Card class="shadow-sm hover:shadow-md transition-shadow">
-        <CardContent class="flex items-center justify-between pt-6">
+        </YdCardContent>
+      </YdCard>
+      <YdCard class="shadow-sm hover:shadow-md transition-shadow">
+        <YdCardContent class="flex items-center justify-between pt-6">
           <div>
             <p class="text-sm text-muted-foreground">设备类型</p>
             <p class="mt-1 text-2xl font-bold text-purple-600">{{ devices.filter((d) => d.deviceType).length }}</p>
@@ -129,25 +129,25 @@ onMounted(() => {
           <div class="rounded-full bg-purple-50 dark:bg-purple-950 p-3">
             <span class="text-2xl text-purple-500">💻</span>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <!-- 设备列表 -->
-    <Card>
-      <CardHeader class="flex flex-row items-center justify-between">
-        <CardTitle>我的设备</CardTitle>
-        <Button size="sm" variant="outline" @click="loadDevices">
+    <YdCard>
+      <YdCardHeader class="flex flex-row items-center justify-between">
+        <YdCardTitle>我的设备</YdCardTitle>
+        <YdButtonBase size="sm" variant="outline" @click="loadDevices">
           刷新
-        </Button>
-      </CardHeader>
+        </YdButtonBase>
+      </YdCardHeader>
       <ElTable :data="devices" border>
         <ElTableColumn prop="sessionId" label="会话ID" width="140" />
         <ElTableColumn label="设备类型" width="120">
           <template #default="{ row }">
-            <Badge :variant="getDeviceTypeTagType(row.deviceType)" class="text-xs">
+            <YdBadge :variant="getDeviceTypeTagType(row.deviceType)" class="text-xs">
               {{ row.deviceTypeDesc ?? row.deviceType ?? '-' }}
-            </Badge>
+            </YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="loginIp" label="登录IP" width="140" />
@@ -157,13 +157,13 @@ onMounted(() => {
         <ElTableColumn prop="lastActiveTime" label="最后活跃" width="170" />
         <ElTableColumn label="会话状态" width="100" align="center">
           <template #default="{ row }">
-            <Badge v-if="row.currentSession" class="bg-green-500 text-white hover:bg-green-600 text-xs">当前会话</Badge>
-            <Badge v-else variant="secondary" class="text-xs">活跃</Badge>
+            <YdBadge v-if="row.currentSession" class="bg-green-500 text-white hover:bg-green-600 text-xs">当前会话</YdBadge>
+            <YdBadge v-else variant="secondary" class="text-xs">活跃</YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
-            <Button
+            <YdButtonBase
               v-if="!row.currentSession"
               size="sm"
               variant="link"
@@ -171,7 +171,7 @@ onMounted(() => {
               @click="handleRevoke(row)"
             >
               吊销
-            </Button>
+            </YdButtonBase>
             <span v-else class="text-xs text-gray-400">-</span>
           </template>
         </ElTableColumn>

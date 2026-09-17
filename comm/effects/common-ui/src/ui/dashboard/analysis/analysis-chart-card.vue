@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/shadcn-ui';
 
 interface Props {
   title: string;
@@ -20,12 +20,12 @@ withDefaults(defineProps<Props>(), {});
 </script>
 
 <template>
-  <Card>
-    <CardHeader>
-      <CardTitle class="text-xl">{{ title }}</CardTitle>
-    </CardHeader>
-    <CardContent>
+  <YdCard>
+    <YdCardHeader>
+      <YdCardTitle class="text-xl">{{ title }}</YdCardTitle>
+    </YdCardHeader>
+    <YdCardContent>
       <slot></slot>
-    </CardContent>
-  </Card>
+    </YdCardContent>
+  </YdCard>
 </template>

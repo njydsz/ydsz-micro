@@ -280,7 +280,7 @@ export interface YdFormAdapterOptions<
     emptyStateValue?: null | undefined;
     /**
      * 按控件类型覆盖 v-model prop 名，用于处理个别不遵循通用约定的控件
-     * （如 Checkbox 用 `checked`、Upload 用 `fileList`）。
+     * （如 YdCheckboxBase 用 `checked`、YdUpload 用 `fileList`）。
      */
     modelPropNameMap?: Partial<Record<T, string>>;
   };

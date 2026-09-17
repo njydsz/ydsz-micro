@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: 表单套件+弹窗,保留 element-plus 中未迁移部分
 import { ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -101,7 +101,7 @@ const gridColumns: VxeTableGridOptions<TeamRun>['columns'] = [
     width: 100,
     slots: {
       default: ({ row }) =>
-        h(Badge, { variant: getStatusTagType(row.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary' }, () => row.status ?? '-'),
+        h(YdBadge, { variant: getStatusTagType(row.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary' }, () => row.status ?? '-'),
     },
   },
   {
@@ -121,13 +121,13 @@ const gridColumns: VxeTableGridOptions<TeamRun>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(Button, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(Button, { size: 'sm', variant: 'link', className: 'text-green-600', onClick: () => handleAddMember(row) }, () => '加成员'),
-          h(Button, {
+          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', className: 'text-green-600', onClick: () => handleAddMember(row) }, () => '加成员'),
+          h(YdButtonBase, {
             size: 'sm', variant: 'link', className: 'text-yellow-600',
             onClick: () => handleStart(row),
           }, () => '启动'),
-          h(Button, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleCancel(row) }, () => '取消'),
+          h(YdButtonBase, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleCancel(row) }, () => '取消'),
         ]),
     },
   },
@@ -147,8 +147,8 @@ const gridOptions: VxeTableGridOptions<TeamRun> = {
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
   formConfig: { enabled: true, items: [
-    { field: 'title', title: '名称', itemRender: { name: 'Input', props: { placeholder: 'TeamRun名称' } } },
-    { field: 'teamRunId', title: 'TeamRun ID', itemRender: { name: 'Input', props: { placeholder: 'TeamRun ID' } } },
+    { field: 'title', title: '名称', itemRender: { name: 'YdInput', props: { placeholder: 'TeamRun名称' } } },
+    { field: 'teamRunId', title: 'TeamRun ID', itemRender: { name: 'YdInput', props: { placeholder: 'TeamRun ID' } } },
   ] },
 };
 
@@ -259,24 +259,24 @@ async function handleCancel(row: TeamRun): Promise<void> {
   <Page auto-content-height>
     <div class="space-y-4 p-4">
       <!-- 列表 -->
-      <Card>
-        <CardContent class="pt-6">
+      <YdCard>
+        <YdCardContent class="pt-6">
           <Grid table-title="TeamRun 多Agent协作列表">
             <template #toolbar-tools>
-              <Button @click="handleCreate">创建 TeamRun</Button>
+              <YdButtonBase @click="handleCreate">创建 TeamRun</YdButtonBase>
             </template>
           </Grid>
           <ElEmpty v-if="teamRuns.length === 0" description="暂无 TeamRun 任务" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <!-- 创建 TeamRun 弹窗 -->
-    <Dialog v-model:open="createModalVisible">
-      <DialogContent class="sm:max-w-[500px]">
-        <DialogHeader>
-          <DialogTitle>创建 TeamRun</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="createModalVisible">
+      <YdDialogContent class="sm:max-w-[500px]">
+        <YdDialogHeader>
+          <YdDialogTitle>创建 TeamRun</YdDialogTitle>
+        </YdDialogHeader>
         <ElForm :model="createForm" label-width="100px">
           <ElFormItem label="名称" required>
             <ElInput v-model="createForm.title" placeholder="请输入 TeamRun 名称" />
@@ -293,19 +293,19 @@ async function handleCancel(row: TeamRun): Promise<void> {
             </ElSelect>
           </ElFormItem>
         </ElForm>
-        <DialogFooter>
-          <Button variant="outline" @click="createModalVisible = false">取消</Button>
-          <Button @click="submitCreate">确认创建</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="createModalVisible = false">取消</YdButtonBase>
+          <YdButtonBase @click="submitCreate">确认创建</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
 
     <!-- 添加成员弹窗 -->
-    <Dialog v-model:open="addMemberModalVisible">
-      <DialogContent class="sm:max-w-[500px]">
-        <DialogHeader>
-          <DialogTitle>添加成员</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="addMemberModalVisible">
+      <YdDialogContent class="sm:max-w-[500px]">
+        <YdDialogHeader>
+          <YdDialogTitle>添加成员</YdDialogTitle>
+        </YdDialogHeader>
         <ElForm :model="memberForm" label-width="100px">
           <ElFormItem label="Agent 编码" required>
             <ElInput v-model="memberForm.agentCode" placeholder="请输入 Agent 编码" />
@@ -320,26 +320,26 @@ async function handleCancel(row: TeamRun): Promise<void> {
             <ElInput v-model="memberForm.inputContext" type="textarea" :rows="3" placeholder="请输入输入上下文" />
           </ElFormItem>
         </ElForm>
-        <DialogFooter>
-          <Button variant="outline" @click="addMemberModalVisible = false">取消</Button>
-          <Button @click="submitAddMember">确认添加</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="addMemberModalVisible = false">取消</YdButtonBase>
+          <YdButtonBase @click="submitAddMember">确认添加</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
 
     <!-- TeamRun 详情弹窗 -->
-    <Dialog v-model:open="teamRunDetailVisible" @update:open="!$event && (selectedTeamRun = null)">
-      <DialogContent class="sm:max-w-[800px]">
-        <DialogHeader>
-          <DialogTitle>TeamRun 详情</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="teamRunDetailVisible" @update:open="!$event && (selectedTeamRun = null)">
+      <YdDialogContent class="sm:max-w-[800px]">
+        <YdDialogHeader>
+          <YdDialogTitle>TeamRun 详情</YdDialogTitle>
+        </YdDialogHeader>
         <div v-if="selectedTeamRun">
           <!-- 基本信息 -->
-          <Card class="mb-4">
-            <CardHeader>
-              <CardTitle class="text-base font-medium">基本信息</CardTitle>
-            </CardHeader>
-            <CardContent>
+          <YdCard class="mb-4">
+            <YdCardHeader>
+              <YdCardTitle class="text-base font-medium">基本信息</YdCardTitle>
+            </YdCardHeader>
+            <YdCardContent>
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <span class="text-sm text-muted-foreground">TeamRun ID:</span>
@@ -359,9 +359,9 @@ async function handleCancel(row: TeamRun): Promise<void> {
                 </div>
                 <div>
                   <span class="text-sm text-muted-foreground">状态:</span>
-                  <Badge :variant="getStatusTagType(selectedTeamRun.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary'">
+                  <YdBadge :variant="getStatusTagType(selectedTeamRun.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary'">
                     {{ selectedTeamRun.status }}
-                  </Badge>
+                  </YdBadge>
                 </div>
                 <div>
                   <span class="text-sm text-muted-foreground">发起人:</span>
@@ -384,15 +384,15 @@ async function handleCancel(row: TeamRun): Promise<void> {
                   <span class="text-sm font-medium">{{ selectedTeamRun.finalResult ?? '-' }}</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </YdCardContent>
+          </YdCard>
 
           <!-- 成员列表 -->
-          <Card>
-            <CardHeader>
-              <CardTitle class="text-base font-medium">成员列表({{ selectedTeamRun.members?.length ?? 0 }})</CardTitle>
-            </CardHeader>
-            <CardContent>
+          <YdCard>
+            <YdCardHeader>
+              <YdCardTitle class="text-base font-medium">成员列表({{ selectedTeamRun.members?.length ?? 0 }})</YdCardTitle>
+            </YdCardHeader>
+            <YdCardContent>
               <div v-if="selectedTeamRun.members && selectedTeamRun.members.length > 0">
                 <div
                   v-for="member in selectedTeamRun.members"
@@ -414,9 +414,9 @@ async function handleCancel(row: TeamRun): Promise<void> {
                     </div>
                     <div>
                       <span class="text-sm text-muted-foreground">状态:</span>
-                      <Badge :variant="getStatusTagType(member.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary'" class="text-xs">
+                      <YdBadge :variant="getStatusTagType(member.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary'" class="text-xs">
                         {{ member.status }}
-                      </Badge>
+                      </YdBadge>
                     </div>
                     <div>
                       <span class="text-sm text-muted-foreground">开始:</span>
@@ -433,13 +433,13 @@ async function handleCancel(row: TeamRun): Promise<void> {
                 </div>
               </div>
               <ElEmpty v-else description="暂无成员" />
-            </CardContent>
-          </Card>
+            </YdCardContent>
+          </YdCard>
         </div>
-        <DialogFooter>
-          <Button variant="outline" @click="teamRunDetailVisible = false">关闭</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="teamRunDetailVisible = false">关闭</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </Page>
 </template>

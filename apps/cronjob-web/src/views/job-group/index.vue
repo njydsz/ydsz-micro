@@ -20,7 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -57,10 +57,10 @@ const statsGridOptions: VxeGridProps<GroupStatsRow> = {
         default: ({ row }) => {
           const groupRow = row as GroupStatsRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handlePauseGroup(groupRow) }, () => '暂停该组'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleResumeGroup(groupRow) }, () => '恢复该组'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleTriggerGroup(groupRow) }, () => '触发该组'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleViewGroup(groupRow) }, () => '查看任务'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handlePauseGroup(groupRow) }, () => '暂停该组'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleResumeGroup(groupRow) }, () => '恢复该组'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleTriggerGroup(groupRow) }, () => '触发该组'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleViewGroup(groupRow) }, () => '查看任务'),
           ]);
         },
       },
@@ -181,13 +181,13 @@ function handleViewByInput() {
   <Page auto-content-height>
     <StatsGrid table-title="分组统计" />
     <div class="mt-4 flex items-center gap-2">
-      <Input
+      <YdInput
         v-model="viewGroup"
         class="w-64"
         placeholder="输入分组名称，查看该组任务"
         @keyup.enter="handleViewByInput"
       />
-      <Button @click="handleViewByInput">查询</Button>
+      <YdButtonBase @click="handleViewByInput">查询</YdButtonBase>
     </div>
     <TaskGrid class="mt-4" table-title="分组任务（pageByGroup）" />
   </Page>

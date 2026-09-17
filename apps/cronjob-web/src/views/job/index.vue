@@ -19,8 +19,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -76,7 +76,7 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
       slots: {
         default: ({ row }) => {
           const job = row as JobRow;
-          return h(Badge, { variant: isPaused(job) ? 'secondary' : 'default' }, () =>
+          return h(YdBadge, { variant: isPaused(job) ? 'secondary' : 'default' }, () =>
             isPaused(job) ? '已暂停' : '运行中',
           );
         },
@@ -106,43 +106,43 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
           const job = row as JobRow;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(job) },
               () => t('common.edit'),
             ),
             isPaused(job)
               ? h(
-                  Button,
+                  YdButtonBase,
                   { size: 'sm', variant: 'link', onClick: () => handleResume(job) },
                   () => '恢复',
                 )
               : h(
-                  Button,
+                  YdButtonBase,
                   { size: 'sm', variant: 'link', onClick: () => handlePause(job) },
                   () => '暂停',
                 ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleTrigger(job) },
               () => '触发',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleViewLog(job) },
               () => '日志',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleViewEvents(job) },
               () => '事件流',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleWebhookConfig(job) },
               () => 'WebHook',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(job) },
               () => t('common.delete'),
             ),
@@ -173,18 +173,18 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
       {
         field: 'keyword',
         title: '关键词',
-        itemRender: { name: 'Input', props: { placeholder: '任务名称/标识' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '任务名称/标识' } },
       },
       {
         field: 'group',
         title: '分组',
-        itemRender: { name: 'Input', props: { placeholder: '分组' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '分组' } },
       },
       {
         field: 'status',
         title: t('common.status'),
         itemRender: {
-          name: 'Select',
+          name: 'YdSelectBase',
           props: {
             clearable: true,
             options: [
@@ -384,32 +384,32 @@ async function handleBatchDelete() {
   <Page auto-content-height>
     <Grid :table-title="t('page.task')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
-        <Button variant="destructive" @click="handleBatchPause">批量暂停</Button>
-        <Button @click="handleBatchResume">批量恢复</Button>
-        <Button variant="destructive" @click="handleBatchDelete">批量删除</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButtonBase variant="destructive" @click="handleBatchPause">批量暂停</YdButtonBase>
+        <YdButtonBase @click="handleBatchResume">批量恢复</YdButtonBase>
+        <YdButtonBase variant="destructive" @click="handleBatchDelete">批量删除</YdButtonBase>
       </template>
     </Grid>
     <JobFormModal @success="gridApi.query()" />
 
     <!-- Webhook 配置抽屉 -->
-    <Sheet v-model:open="drawerVisible">
-      <SheetContent side="right" class="w-[600px]">
-        <SheetHeader>
-          <SheetTitle>任务 WebHook 配置</SheetTitle>
-        </SheetHeader>
+    <YdSheet v-model:open="drawerVisible">
+      <YdSheetContent side="right" class="w-[600px]">
+        <YdSheetHeader>
+          <YdSheetTitle>任务 WebHook 配置</YdSheetTitle>
+        </YdSheetHeader>
         <WebhookConfigPanel v-if="drawerVisible" :job-id="selectedJobId" />
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
 
     <!-- 事件流抽屉 -->
-    <Sheet v-model:open="eventDrawerVisible">
-      <SheetContent side="right" class="w-[500px]">
-        <SheetHeader>
-          <SheetTitle>任务事件流</SheetTitle>
-        </SheetHeader>
+    <YdSheet v-model:open="eventDrawerVisible">
+      <YdSheetContent side="right" class="w-[500px]">
+        <YdSheetHeader>
+          <YdSheetTitle>任务事件流</YdSheetTitle>
+        </YdSheetHeader>
         <div v-if="eventLoading" class="flex h-32 items-center justify-center">
-          <Badge>加载中...</Badge>
+          <YdBadge>加载中...</YdBadge>
         </div>
         <div v-else-if="eventStream.length === 0" class="flex h-32 items-center justify-center text-gray-400">
           暂无事件记录
@@ -420,7 +420,7 @@ async function handleBatchDelete() {
             <div class="text-xs text-gray-500">{{ event }}</div>
           </div>
         </div>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

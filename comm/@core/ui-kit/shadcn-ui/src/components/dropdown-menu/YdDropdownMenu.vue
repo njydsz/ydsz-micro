@@ -15,17 +15,17 @@ import type {
 } from './interface';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  YdDropdownMenuBase,
+  YdDropdownMenuContentBase,
+  YdDropdownMenuGroupBase,
+  YdDropdownMenuItemBase,
+  YdDropdownMenuSeparatorBase,
+  YdDropdownMenuTriggerBase,
 } from '../../ui';
 
 type Props = DropdownMenuProps;
 
-defineOptions({ name: 'DropdownMenu' });
+defineOptions({ name: 'YdDropdownMenuBase' });
 const props = withDefaults(defineProps<Props>(), {});
 
 function handleItemClick(menu: IDropdownMenuItem) {
@@ -36,14 +36,14 @@ function handleItemClick(menu: IDropdownMenuItem) {
 }
 </script>
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger class="flex h-full items-center gap-1" aria-haspopup="menu">
+  <YdDropdownMenuBase>
+    <YdDropdownMenuTriggerBase class="flex h-full items-center gap-1" aria-haspopup="menu">
       <slot></slot>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="start" role="menu">
-      <DropdownMenuGroup>
+    </YdDropdownMenuTriggerBase>
+    <YdDropdownMenuContentBase align="start" role="menu">
+      <YdDropdownMenuGroupBase>
         <template v-for="menu in menus" :key="menu.value">
-          <DropdownMenuItem
+          <YdDropdownMenuItemBase
             :disabled="menu.disabled"
             class="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground text-foreground/80 mb-1 cursor-pointer"
             role="menuitem"
@@ -52,11 +52,11 @@ function handleItemClick(menu: IDropdownMenuItem) {
           >
             <component :is="menu.icon" v-if="menu.icon" class="mr-2 size-4" aria-hidden="true" />
             {{ menu.label }}
-          </DropdownMenuItem>
-          <DropdownMenuSeparator v-if="menu.separator" class="bg-border" role="separator" />
+          </YdDropdownMenuItemBase>
+          <YdDropdownMenuSeparatorBase v-if="menu.separator" class="bg-border" role="separator" />
         </template>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
-  </DropdownMenu>
+      </YdDropdownMenuGroupBase>
+    </YdDropdownMenuContentBase>
+  </YdDropdownMenuBase>
 </template>
 

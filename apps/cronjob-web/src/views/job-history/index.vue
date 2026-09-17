@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
@@ -201,7 +201,7 @@ const gridOptions: VxeTableGridOptions<JobHistoryVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as JobHistoryVO;
-          return h(Badge, { variant: changeTypeTagType(item), size: 'sm' }, () =>
+          return h(YdBadge, { variant: changeTypeTagType(item), size: 'sm' }, () =>
             translateChangeType(item.changeType),
           );
         },
@@ -222,17 +222,17 @@ const gridOptions: VxeTableGridOptions<JobHistoryVO> = {
           const item = row as JobHistoryVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
               () => '详情',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => openCompareDialog(item.jobId ?? '') },
               () => '对比',
             ),
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -263,7 +263,7 @@ const gridOptions: VxeTableGridOptions<JobHistoryVO> = {
       {
         field: 'keyword',
         title: '任务标识',
-        itemRender: { name: 'Input', props: { placeholder: '任务 ID / Key' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '任务 ID / Key' } },
       },
     ],
   },
@@ -289,18 +289,18 @@ onMounted(() => {
   <Page auto-content-height>
     <Grid table-title="任务历史版本" />
 
-    <!-- 详情历史 Sheet -->
-    <Sheet v-model:open="isDetailVisible">
-      <SheetContent side="right" class="w-[600px]">
+    <!-- 详情历史 YdSheet -->
+    <YdSheet v-model:open="isDetailVisible">
+      <YdSheetContent side="right" class="w-[600px]">
       <template v-if="detailRecord">
         <ElDescriptions :column="2" border size="small">
           <ElDescriptionsItem label="任务名称">{{ detailRecord.jobName ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="版本号">v{{ detailRecord.version ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="变更类型">
-            <Badge :variant="changeTypeTagType(detailRecord)" size="sm">
+            <YdBadge :variant="changeTypeTagType(detailRecord)" size="sm">
               {{ translateChangeType(detailRecord.changeType) }}
-            </Badge>
+            </YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="变更说明" :span="2">
             {{ detailRecord.changeRemark ?? '-' }}
@@ -322,44 +322,44 @@ onMounted(() => {
           </ElDescriptionsItem>
         </ElDescriptions>
       </template>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
 
-    <!-- 版本对比 Sheet -->
-    <Sheet v-model:open="isCompareVisible">
-      <SheetContent side="right" class="w-[700px]">
+    <!-- 版本对比 YdSheet -->
+    <YdSheet v-model:open="isCompareVisible">
+      <YdSheetContent side="right" class="w-[700px]">
         <div class="mb-2 text-base font-semibold">版本对比</div>
       <ElForm label-width="80px" class="mb-3">
         <ElFormItem label="版本 A">
-          <Select v-model="compareV1">
-            <SelectTrigger class="w-[180px]" placeholder="选择版本" />
-            <SelectContent>
-              <SelectItem
+          <YdSelectBase v-model="compareV1">
+            <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
+            <YdSelectContentBase>
+              <YdSelectItemBase
                 v-for="opt in versionOptions"
                 :key="opt.value"
                 :value="String(opt.value)"
               >
                 {{ opt.label }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+              </YdSelectItemBase>
+            </YdSelectContentBase>
+          </YdSelectBase>
         </ElFormItem>
         <ElFormItem label="版本 B">
-          <Select v-model="compareV2">
-            <SelectTrigger class="w-[180px]" placeholder="选择版本" />
-            <SelectContent>
-              <SelectItem
+          <YdSelectBase v-model="compareV2">
+            <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
+            <YdSelectContentBase>
+              <YdSelectItemBase
                 v-for="opt in versionOptions"
                 :key="opt.value"
                 :value="String(opt.value)"
               >
                 {{ opt.label }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+              </YdSelectItemBase>
+            </YdSelectContentBase>
+          </YdSelectBase>
         </ElFormItem>
         <ElFormItem>
-          <Button @click="handleCompare">开始对比</Button>
+          <YdButtonBase @click="handleCompare">开始对比</YdButtonBase>
         </ElFormItem>
       </ElForm>
       <div v-if="compareResult.length > 0" class="space-y-2">
@@ -371,7 +371,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

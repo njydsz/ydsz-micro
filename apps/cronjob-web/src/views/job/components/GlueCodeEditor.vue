@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { Button, Select, SelectContent, SelectItem, SelectTrigger, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Loader2 } from 'lucide-vue-next';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
@@ -218,25 +218,25 @@ onMounted(() => {
 
 <template>
   <Modal title="GLUE 代码编辑器" width="900px">
-    <Tabs v-model="activeTab">
-      <TabsList class="mt-2">
-        <TabsTrigger value="editor">代码编辑</TabsTrigger>
-        <TabsTrigger value="versions">版本管理</TabsTrigger>
-        <TabsTrigger value="test">测试执行</TabsTrigger>
-      </TabsList>
+    <YdTabs v-model="activeTab">
+      <YdTabsList class="mt-2">
+        <YdTabsTrigger value="editor">代码编辑</YdTabsTrigger>
+        <YdTabsTrigger value="versions">版本管理</YdTabsTrigger>
+        <YdTabsTrigger value="test">测试执行</YdTabsTrigger>
+      </YdTabsList>
       <!-- 代码编辑 -->
-      <TabsContent value="editor">
+      <YdTabsContent value="editor">
         <div class="editor-container mt-3">
           <div class="mb-3 flex items-center gap-3">
-            <Select v-model="codeLanguage">
-              <SelectTrigger class="w-32" placeholder="语言" />
-              <SelectContent>
-                <SelectItem v-for="opt in languageOptions" :key="opt.value" :value="opt.value">
+            <YdSelectBase v-model="codeLanguage">
+              <YdSelectTriggerBase class="w-32" placeholder="语言" />
+              <YdSelectContentBase>
+                <YdSelectItemBase v-for="opt in languageOptions" :key="opt.value" :value="opt.value">
                   {{ opt.label }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            <Button size="sm" variant="outline" @click="loadTemplate">加载模板</Button>
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
+            <YdButtonBase size="sm" variant="outline" @click="loadTemplate">加载模板</YdButtonBase>
             <span v-if="currentVersion > 0" class="text-xs text-gray-500">当前版本：v{{ currentVersion }}</span>
           </div>
           <div class="code-editor-wrapper">
@@ -248,17 +248,17 @@ onMounted(() => {
             />
           </div>
           <div class="mt-3 flex justify-end gap-2">
-            <Button variant="outline" @click="modalApi.close()">取消</Button>
-            <Button :disabled="saving" @click="handleSave">
+            <YdButtonBase variant="outline" @click="modalApi.close()">取消</YdButtonBase>
+            <YdButtonBase :disabled="saving" @click="handleSave">
               <Loader2 v-if="saving" class="mr-2 h-4 w-4 animate-spin" />
               保存
-            </Button>
+            </YdButtonBase>
           </div>
         </div>
-      </TabsContent>
+      </YdTabsContent>
 
       <!-- 版本管理 -->
-      <TabsContent value="versions">
+      <YdTabsContent value="versions">
         <div class="mt-3">
           <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">暂无版本记录</div>
           <div
@@ -272,34 +272,34 @@ onMounted(() => {
               <p v-if="version.remark" class="mt-1 text-xs text-gray-600">{{ version.remark }}</p>
             </div>
             <div class="flex gap-2">
-              <Button size="sm" variant="outline" @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)">对比</Button>
-              <Button size="sm" variant="destructive" @click="handleRollback(version)">回滚</Button>
+              <YdButtonBase size="sm" variant="outline" @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)">对比</YdButtonBase>
+              <YdButtonBase size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButtonBase>
             </div>
           </div>
         </div>
-      </TabsContent>
+      </YdTabsContent>
 
       <!-- 测试执行 -->
-      <TabsContent value="test">
+      <YdTabsContent value="test">
         <div class="mt-3">
           <ElForm label-width="80px">
             <ElFormItem label="测试参数">
-              <Textarea v-model="testParams" placeholder="请输入测试参数（JSON格式，选填）" :rows="3" />
+              <YdTextarea v-model="testParams" placeholder="请输入测试参数（JSON格式，选填）" :rows="3" />
             </ElFormItem>
           </ElForm>
           <div class="mb-3 flex justify-end">
-            <Button :disabled="testing" @click="handleTest">
+            <YdButtonBase :disabled="testing" @click="handleTest">
               <Loader2 v-if="testing" class="mr-2 h-4 w-4 animate-spin" />
               执行测试
-            </Button>
+            </YdButtonBase>
           </div>
           <div v-if="testResult" class="rounded border bg-gray-50 p-3">
             <p class="mb-1 text-xs font-medium text-gray-600">测试结果：</p>
             <pre class="overflow-auto whitespace-pre-wrap text-sm">{{ testResult }}</pre>
           </div>
         </div>
-      </TabsContent>
-    </Tabs>
+      </YdTabsContent>
+    </YdTabs>
   </Modal>
 </template>
 

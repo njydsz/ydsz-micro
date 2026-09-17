@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, resend } from '#/api/deadLetter';
@@ -60,7 +60,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },
@@ -72,7 +72,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            Button,
+            YdButtonBase,
             { size: 'sm', variant: 'link', onClick: () => handleResend(row) },
             () => '重发',
           ),
@@ -96,17 +96,17 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       {
         field: 'channel',
         title: '通道',
-        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '通道' } },
       },
       {
         field: 'bizType',
         title: '业务类型',
-        itemRender: { name: 'Input', props: { placeholder: '业务类型' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '业务类型' } },
       },
       {
         field: 'keyword',
         title: '关键词',
-        itemRender: { name: 'Input', props: { placeholder: '消息ID/接收者' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '消息ID/接收者' } },
       },
     ],
   },

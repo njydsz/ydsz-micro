@@ -21,7 +21,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { pageLog } from '#/api/message';
@@ -61,7 +61,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'priority', title: '优先级', width: 90 },
@@ -85,22 +85,22 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       {
         field: 'channel',
         title: '通道',
-        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '通道' } },
       },
       {
         field: 'bizType',
         title: '业务类型',
-        itemRender: { name: 'Input', props: { placeholder: '业务类型' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '业务类型' } },
       },
       {
         field: 'status',
         title: '状态',
-        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '状态' } },
       },
       {
         field: 'keyword',
         title: '关键词',
-        itemRender: { name: 'Input', props: { placeholder: '关键词' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '关键词' } },
       },
     ],
   },
@@ -118,7 +118,7 @@ function handleSend() {
   <Page auto-content-height>
     <Grid table-title="消息发送日志">
       <template #toolbar-tools>
-        <Button @click="handleSend">发送消息</Button>
+        <YdButtonBase @click="handleSend">发送消息</YdButtonBase>
       </template>
     </Grid>
     <MessageFormModal @success="gridApi.query()" />

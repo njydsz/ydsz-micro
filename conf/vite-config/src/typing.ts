@@ -255,7 +255,7 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
    */
   pwaOptions?: Partial<PwaPluginOptions>;
   /**
-   * 是否开启 VXE Table 懒加载
+   * 是否开启 VXE YdTable 懒加载
    * @default false
    */
   vxeTableLazyImport?: boolean;

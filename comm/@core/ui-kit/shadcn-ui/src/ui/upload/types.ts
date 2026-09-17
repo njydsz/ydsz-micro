@@ -1,5 +1,5 @@
 /**
- * Upload 类型契约。
+ * YdUpload 类型契约。
  *
  * <p>与 ElUpload 的 UploadFile / UploadRequestOptions / UploadUserFile 类型对齐。
  *

@@ -1,5 +1,5 @@
 ﻿<!--
- * 提示弹窗的渲染实现：把配置映射为 AlertDialog 的结构，并处理确认/取消两条关闭路径。
+ * 提示弹窗的渲染实现：把配置映射为 YdAlertDialog 的结构，并处理确认/取消两条关闭路径。
  *
  * 内部用 isConfirm 标记记录本次关闭的来源，closed 事件把它一并抛出、随后立即复位；
  * Esc 关闭时显式置为 false，避免沿用上一次的残留值导致误判为用户确认。
@@ -26,12 +26,12 @@ import {
   X,
 } from '@ydsz-core/icons';
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogTitle,
+  YdAlertDialog,
+  YdAlertDialogAction,
+  YdAlertDialogCancel,
+  YdAlertDialogContent,
+  YdAlertDialogDescription,
+  YdAlertDialogTitle,
   YdButton,
   YdLoading,
   YdRenderContent,
@@ -147,8 +147,8 @@ async function handleOpenChange(val: boolean) {
 }
 </script>
 <template>
-  <AlertDialog :open="open" @update:open="handleOpenChange">
-    <AlertDialogContent
+  <YdAlertDialog :open="open" @update:open="handleOpenChange">
+    <YdAlertDialogContent
       :open="open"
       :centered="centered"
       :overlay-blur="overlayBlur"
@@ -167,11 +167,11 @@ async function handleOpenChange(val: boolean) {
       "
     >
       <div :class="cn('relative flex-1 overflow-y-auto p-3', contentClass)">
-        <AlertDialogTitle v-if="title">
+        <YdAlertDialogTitle v-if="title">
           <div class="flex items-center">
             <component :is="getIconRender" class="mr-2" />
             <span class="flex-auto">{{ $t(title) }}</span>
-            <AlertDialogCancel v-if="showCancel" as-child>
+            <YdAlertDialogCancel v-if="showCancel" as-child>
               <YdButton
                 variant="ghost"
                 size="icon"
@@ -181,21 +181,21 @@ async function handleOpenChange(val: boolean) {
               >
                 <X class="text-muted-foreground size-4" />
               </YdButton>
-            </AlertDialogCancel>
+            </YdAlertDialogCancel>
           </div>
-        </AlertDialogTitle>
-        <AlertDialogDescription>
+        </YdAlertDialogTitle>
+        <YdAlertDialogDescription>
           <div class="m-4 min-h-[30px]">
             <YdRenderContent :content="content" render-br />
           </div>
           <YdLoading v-if="loading && contentMasking" :spinning="loading" />
-        </AlertDialogDescription>
+        </YdAlertDialogDescription>
         <div
           class="flex items-center justify-end gap-x-2"
           :class="`justify-${buttonAlign}`"
         >
           <YdRenderContent :content="footer" />
-          <AlertDialogCancel v-if="showCancel" as-child>
+          <YdAlertDialogCancel v-if="showCancel" as-child>
             <component
               :is="components.DefaultButton || YdButton"
               :disabled="loading"
@@ -204,8 +204,8 @@ async function handleOpenChange(val: boolean) {
             >
               {{ cancelText || $t('cancel') }}
             </component>
-          </AlertDialogCancel>
-          <AlertDialogAction as-child>
+          </YdAlertDialogCancel>
+          <YdAlertDialogAction as-child>
             <component
               :is="components.PrimaryButton || YdButton"
               :loading="loading"
@@ -213,9 +213,9 @@ async function handleOpenChange(val: boolean) {
             >
               {{ confirmText || $t('confirm') }}
             </component>
-          </AlertDialogAction>
+          </YdAlertDialogAction>
         </div>
       </div>
-    </AlertDialogContent>
-  </AlertDialog>
+    </YdAlertDialogContent>
+  </YdAlertDialog>
 </template>

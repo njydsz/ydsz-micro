@@ -16,42 +16,42 @@ import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { axe } from 'vitest-axe';
 
-import { Button, type ButtonProps } from './button';
+import { YdButtonBase, type ButtonProps } from './button';
 import {
-  Card,
-  CardContent,
-  CardDescription as CardDesc,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  YdCard,
+  YdCardContent,
+  YdCardDescription as CardDesc,
+  YdCardFooter,
+  YdCardHeader,
+  YdCardTitle,
 } from './card';
-import { Checkbox } from './checkbox';
+import { YdCheckboxBase } from './checkbox';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
 } from './dialog';
 import {
   Form,
-  FormControl,
-  FormDescription,
+  YdFormControl,
+  YdFormDescription,
   FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  YdFormItem,
+  YdFormLabel,
+  YdFormMessage,
 } from './form';
-import { Input } from './input';
-import { Label } from './label';
+import { YdInput } from './input';
+import { YdLabel } from './label';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  YdTable,
+  YdTableBody,
+  YdTableCell,
+  YdTableHead,
+  YdTableHeader,
+  YdTableRow,
 } from './table';
 
 /** 扩展 vitest expect：添加 toBeAccessible matcher */
@@ -81,9 +81,9 @@ declare module 'vitest' {
 }
 
 describe('Accessibility Audit', () => {
-  describe('Button', () => {
+  describe('YdButtonBase', () => {
     it('icon button 应具有 aria-label', async () => {
-      const wrapper = mount(Button, {
+      const wrapper = mount(YdButtonBase, {
         attrs: { 'aria-label': 'close' },
         props: { size: 'icon' } as ButtonProps,
         slots: { default: 'X' },
@@ -97,7 +97,7 @@ describe('Accessibility Audit', () => {
     });
 
     it('正常按钮应通过 a11y 检测', async () => {
-      const wrapper = mount(Button, {
+      const wrapper = mount(YdButtonBase, {
         props: { variant: 'default' } as ButtonProps,
         slots: { default: 'Click me' },
       });
@@ -109,29 +109,29 @@ describe('Accessibility Audit', () => {
   });
 
   describe('Form', () => {
-    it('FormItem + FormLabel + FormControl 应链路完整', async () => {
+    it('YdFormItem + YdFormLabel + YdFormControl 应链路完整', async () => {
       const wrapper = mount(
         {
           components: {
             Form,
-            FormControl,
-            FormDescription,
+            YdFormControl,
+            YdFormDescription,
             FormField,
-            FormItem,
-            FormLabel,
-            FormMessage,
+            YdFormItem,
+            YdFormLabel,
+            YdFormMessage,
           },
           template: `
             <Form>
               <FormField name="email">
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
+                <YdFormItem>
+                  <YdFormLabel>Email</YdFormLabel>
+                  <YdFormControl>
                     <input type="email" placeholder="email@test.com" />
-                  </FormControl>
-                  <FormDescription>We'll never share your email</FormDescription>
-                  <FormMessage />
-                </FormItem>
+                  </YdFormControl>
+                  <YdFormDescription>We'll never share your email</YdFormDescription>
+                  <YdFormMessage />
+                </YdFormItem>
               </FormField>
             </Form>
           `,
@@ -143,33 +143,33 @@ describe('Accessibility Audit', () => {
     });
   });
 
-  describe('Table', () => {
+  describe('YdTable', () => {
     it('完整表格（含 thead / tbody / th scope）应通过 a11y', async () => {
       const wrapper = mount(
         {
           components: {
-            Table,
-            TableBody,
-            TableCell,
-            TableHead,
-            TableHeader,
-            TableRow,
+            YdTable,
+            YdTableBody,
+            YdTableCell,
+            YdTableHead,
+            YdTableHeader,
+            YdTableRow,
           },
           template: `
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead scope="col">Name</TableHead>
-                  <TableHead scope="col">Age</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Alice</TableCell>
-                  <TableCell>30</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <YdTable>
+              <YdTableHeader>
+                <YdTableRow>
+                  <YdTableHead scope="col">Name</YdTableHead>
+                  <YdTableHead scope="col">Age</YdTableHead>
+                </YdTableRow>
+              </YdTableHeader>
+              <YdTableBody>
+                <YdTableRow>
+                  <YdTableCell>Alice</YdTableCell>
+                  <YdTableCell>30</YdTableCell>
+                </YdTableRow>
+              </YdTableBody>
+            </YdTable>
           `,
         },
         { attachTo: document.body },
@@ -179,30 +179,30 @@ describe('Accessibility Audit', () => {
     });
   });
 
-  describe('Dialog', () => {
-    it('Dialog 容器应通过 a11y 检测', async () => {
+  describe('YdDialog', () => {
+    it('YdDialog 容器应通过 a11y 检测', async () => {
       const wrapper = mount(
         {
           components: {
-            Dialog,
-            DialogContent,
-            DialogDescription,
-            DialogFooter,
-            DialogHeader,
-            DialogTitle,
+            YdDialog,
+            YdDialogContent,
+            YdDialogDescription,
+            YdDialogFooter,
+            YdDialogHeader,
+            YdDialogTitle,
           },
           template: `
-            <Dialog>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Title</DialogTitle>
-                  <DialogDescription>Description</DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
+            <YdDialog>
+              <YdDialogContent>
+                <YdDialogHeader>
+                  <YdDialogTitle>Title</YdDialogTitle>
+                  <YdDialogDescription>Description</YdDialogDescription>
+                </YdDialogHeader>
+                <YdDialogFooter>
                   <button>OK</button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                </YdDialogFooter>
+              </YdDialogContent>
+            </YdDialog>
           `,
         },
         { attachTo: document.body },
@@ -212,15 +212,15 @@ describe('Accessibility Audit', () => {
     });
   });
 
-  describe('Input + Label', () => {
-    it('Input 配 Label 应通过 a11y', async () => {
+  describe('YdInput + YdLabel', () => {
+    it('YdInput 配 YdLabel 应通过 a11y', async () => {
       const wrapper = mount(
         {
-          components: { Input, Label },
+          components: { YdInput, YdLabel },
           template: `
             <div>
-              <Label for="name">Name</Label>
-              <Input id="name" placeholder="Enter name" />
+              <YdLabel for="name">Name</YdLabel>
+              <YdInput id="name" placeholder="Enter name" />
             </div>
           `,
         },
@@ -231,27 +231,27 @@ describe('Accessibility Audit', () => {
     });
   });
 
-  describe('Card', () => {
-    it('Card 应通过 a11y 检测', async () => {
+  describe('YdCard', () => {
+    it('YdCard 应通过 a11y 检测', async () => {
       const wrapper = mount(
         {
           components: {
-            Card,
-            CardContent,
+            YdCard,
+            YdCardContent,
             CardDesc,
-            CardFooter,
-            CardHeader,
-            CardTitle,
+            YdCardFooter,
+            YdCardHeader,
+            YdCardTitle,
           },
           template: `
-            <Card>
-              <CardHeader>
-                <CardTitle>Title</CardTitle>
+            <YdCard>
+              <YdCardHeader>
+                <YdCardTitle>Title</YdCardTitle>
                 <CardDesc>Description</CardDesc>
-              </CardHeader>
-              <CardContent>Content</CardContent>
-              <CardFooter>Footer</CardFooter>
-            </Card>
+              </YdCardHeader>
+              <YdCardContent>Content</YdCardContent>
+              <YdCardFooter>Footer</YdCardFooter>
+            </YdCard>
           `,
         },
         { attachTo: document.body },
@@ -261,15 +261,15 @@ describe('Accessibility Audit', () => {
     });
   });
 
-  describe('Checkbox', () => {
-    it('Checkbox 配 Label 应通过 a11y 检测', async () => {
+  describe('YdCheckboxBase', () => {
+    it('YdCheckboxBase 配 YdLabel 应通过 a11y 检测', async () => {
       const wrapper = mount(
         {
-          components: { Checkbox, Label },
+          components: { YdCheckboxBase, YdLabel },
           template: `
             <div class="flex items-center gap-2">
-              <Checkbox id="accept" aria-label="Accept terms" />
-              <Label for="accept">Accept terms</Label>
+              <YdCheckboxBase id="accept" aria-label="Accept terms" />
+              <YdLabel for="accept">Accept terms</YdLabel>
             </div>
           `,
         },

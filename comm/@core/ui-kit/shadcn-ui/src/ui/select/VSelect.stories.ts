@@ -1,5 +1,5 @@
 /**
- * VSelect 组件 Storybook Stories
+ * YdVSelect 组件 Storybook Stories
  *
  * P0-1: 带虚拟滚动的高性能选择器 — Storybook 交互式文档。
  *
@@ -8,7 +8,7 @@
  *  - `WithClearable`：带清除按钮；
  *  - `Disabled`：禁用态。
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/ui/select/VSelect.stories.ts
+ * @path comm/@core/ui-kit/shadcn-ui/src/ui/select/YdVSelect.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -18,10 +18,10 @@ import { ref } from 'vue';
 
 import type { VSelectProps } from './index';
 
-import { VSelect } from './index';
+import { YdVSelect } from './index';
 
 const meta: Meta = {
-  title: 'Core/VSelect',
+  title: 'Core/YdVSelect',
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -57,7 +57,7 @@ export const Default: Story = {
     const value = ref<string | number | undefined>(undefined);
     const items = generateItems(10_000);
     return {
-      components: { VSelect },
+      components: { YdVSelect },
       setup() {
         const selectProps: VSelectProps<{
           value: string;
@@ -78,7 +78,7 @@ export const Default: Story = {
       },
       template: `
         <div style="padding: 200px 0;">
-          <VSelect
+          <YdVSelect
             v-model="value"
             v-bind="selectProps"
             style="width: 320px;"
@@ -96,7 +96,7 @@ export const WithClearable: Story = {
     const value = ref<string | number | undefined>('item-50');
     const items = generateItems(500);
     return {
-      components: { VSelect },
+      components: { YdVSelect },
       setup() {
         const selectProps: VSelectProps<{
           value: string;
@@ -117,7 +117,7 @@ export const WithClearable: Story = {
       },
       template: `
         <div style="padding: 200px 0;">
-          <VSelect
+          <YdVSelect
             v-model="value"
             v-bind="selectProps"
             style="width: 280px;"
@@ -134,7 +134,7 @@ export const Disabled: Story = {
     const value = ref<string | number | undefined>(undefined);
     const items = generateItems(200);
     return {
-      components: { VSelect },
+      components: { YdVSelect },
       setup() {
         const selectProps: VSelectProps<{
           value: string;
@@ -156,7 +156,7 @@ export const Disabled: Story = {
       },
       template: `
         <div style="padding: 200px 0;">
-          <VSelect
+          <YdVSelect
             v-model="value"
             v-bind="selectProps"
             style="width: 280px;"
@@ -173,7 +173,7 @@ export const SmallDataset: Story = {
     const value = ref<string | number | undefined>(undefined);
     const items = generateItems(20);
     return {
-      components: { VSelect },
+      components: { YdVSelect },
       setup() {
         const selectProps: VSelectProps<{
           value: string;
@@ -194,7 +194,7 @@ export const SmallDataset: Story = {
       },
       template: `
         <div style="padding: 200px 0;">
-          <VSelect
+          <YdVSelect
             v-model="value"
             v-bind="selectProps"
             style="width: 280px;"

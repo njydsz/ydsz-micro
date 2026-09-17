@@ -1,11 +1,11 @@
 ﻿<!--
- * Tooltip 的组合封装：内部自带 TooltipProvider，因此调用方不必再手动包一层 Provider。
+ * YdTooltipBase 的组合封装：内部自带 YdTooltipProviderBase，因此调用方不必再手动包一层 Provider。
  *
  * 对外只暴露高频的四个入口：trigger 插槽承载触发元素、默认插槽承载浮层内容，
  * side 与 delayDuration 控制方位与延迟（默认 right / 0），
  * contentClass 与 contentStyle 用于在不改组件的前提下覆盖浮层外观。
  *
- * 注意 TooltipProvider 的 delayDuration 在 Provider 层生效，
+ * 注意 YdTooltipProviderBase 的 delayDuration 在 Provider 层生效，
  * 多个 tooltip 若需要不同延迟，应各自包一层本组件而非共享 Provider。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\components\tooltip\tooltip.vue
@@ -20,10 +20,10 @@ import type { StyleValue } from 'vue';
 import type { ClassType } from '@ydsz-core/typings';
 
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+  YdTooltipBase,
+  YdTooltipContentBase,
+  YdTooltipProviderBase,
+  YdTooltipTriggerBase,
 } from '../../ui';
 
 interface Props {
@@ -40,12 +40,12 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <TooltipProvider :delay-duration="delayDuration">
-    <Tooltip>
-      <TooltipTrigger as-child>
+  <YdTooltipProviderBase :delay-duration="delayDuration">
+    <YdTooltipBase>
+      <YdTooltipTriggerBase as-child>
         <slot name="trigger"></slot>
-      </TooltipTrigger>
-      <TooltipContent
+      </YdTooltipTriggerBase>
+      <YdTooltipContentBase
         :class="contentClass"
         :side="side"
         :style="contentStyle"
@@ -53,7 +53,7 @@ withDefaults(defineProps<Props>(), {
         role="tooltip"
       >
         <slot></slot>
-      </TooltipContent>
-    </Tooltip>
-  </TooltipProvider>
+      </YdTooltipContentBase>
+    </YdTooltipBase>
+  </YdTooltipProviderBase>
 </template>

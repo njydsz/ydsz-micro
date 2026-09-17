@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, Slider, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, Slider, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -217,33 +217,33 @@ function handleNodeNameChange(name: string): void {
     <div class="dag-designer">
       <ElForm :model="formData" label-width="100px" class="dag-form">
         <ElFormItem label="DAG名称" required>
-          <Input v-model="formData.dagName" placeholder="请输入DAG名称" />
+          <YdInput v-model="formData.dagName" placeholder="请输入DAG名称" />
         </ElFormItem>
         <ElFormItem label="DAG标识" required>
-          <Input v-model="formData.dagKey" placeholder="请输入DAG标识（唯一）" />
+          <YdInput v-model="formData.dagKey" placeholder="请输入DAG标识（唯一）" />
         </ElFormItem>
         <ElFormItem label="描述">
-          <Textarea v-model="formData.description" placeholder="请输入描述" :rows="2" />
+          <YdTextarea v-model="formData.description" placeholder="请输入描述" :rows="2" />
         </ElFormItem>
         <ElFormItem label="Cron表达式">
-          <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式（如：0 0 * * *）" />
+          <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式（如：0 0 * * *）" />
         </ElFormItem>
         <ElFormItem label="触发类型">
-          <Select v-model="formData.triggerType">
-            <SelectTrigger placeholder="选择触发类型" />
-            <SelectContent>
-              <SelectItem v-for="opt in triggerTypeOptions" :key="opt.value" :value="opt.value">
+          <YdSelectBase v-model="formData.triggerType">
+            <YdSelectTriggerBase placeholder="选择触发类型" />
+            <YdSelectContentBase>
+              <YdSelectItemBase v-for="opt in triggerTypeOptions" :key="opt.value" :value="opt.value">
                 {{ opt.label }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+              </YdSelectItemBase>
+            </YdSelectContentBase>
+          </YdSelectBase>
         </ElFormItem>
       </ElForm>
 
       <!-- 设计器工具 -->
       <div class="designer-toolbar mb-3 flex items-center gap-2">
         <span class="text-sm text-gray-600">添加节点：</span>
-        <Button
+        <YdButtonBase
           v-for="opt in nodeTypeOptions"
           :key="opt.value"
           size="sm"
@@ -251,7 +251,7 @@ function handleNodeNameChange(name: string): void {
           @click="handleAddNode(opt.value)"
         >
           {{ opt.label }}
-        </Button>
+        </YdButtonBase>
         <div class="mx-2 h-5 w-px bg-gray-300" />
         <span class="text-sm text-gray-600">缩放：</span>
         <Slider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
@@ -272,14 +272,14 @@ function handleNodeNameChange(name: string): void {
           >
             <div class="node-header">{{ node.name }}</div>
             <div class="node-type text-xs text-gray-500">{{ node.type }}</div>
-            <Button
+            <YdButtonBase
               class="node-delete"
               size="sm"
               variant="link"
               @click.stop="handleDeleteNode(node.id)"
             >
               ×
-            </Button>
+            </YdButtonBase>
           </div>
 
           <!-- 连线（简化显示） -->
@@ -309,10 +309,10 @@ function handleNodeNameChange(name: string): void {
         <h4 class="mb-2 text-sm font-medium">节点配置</h4>
         <ElForm label-width="80px">
           <ElFormItem label="节点名称">
-            <Input :model-value="selectedNode.name" @update:model-value="handleNodeNameChange" />
+            <YdInput :model-value="selectedNode.name" @update:model-value="handleNodeNameChange" />
           </ElFormItem>
           <ElFormItem label="任务ID">
-            <Input v-model="selectedNode.jobId" placeholder="关联任务ID" />
+            <YdInput v-model="selectedNode.jobId" placeholder="关联任务ID" />
           </ElFormItem>
         </ElForm>
       </div>
@@ -325,7 +325,7 @@ function handleNodeNameChange(name: string): void {
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.from)?.name }}</span>
             <span class="text-xs text-gray-400">→</span>
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.to)?.name }}</span>
-            <Button size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</Button>
+            <YdButtonBase size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</YdButtonBase>
           </div>
         </div>
       </div>

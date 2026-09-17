@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Tooltip } from './Tooltip.vue';
-export { default as TooltipContent } from './TooltipContent.vue';
-export { default as TooltipProvider } from './TooltipProvider.vue';
-export { default as TooltipTrigger } from './TooltipTrigger.vue';
+export { default as YdTooltipBase } from './YdTooltipBase.vue';
+export { default as YdTooltipContentBase } from './YdTooltipContentBase.vue';
+export { default as YdTooltipProviderBase } from './YdTooltipProviderBase.vue';
+export { default as YdTooltipTriggerBase } from './YdTooltipTriggerBase.vue';

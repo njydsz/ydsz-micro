@@ -45,7 +45,7 @@ import { useClipboard } from '@vueuse/core';
 import {
   Animation,
   Block,
-  Breadcrumb,
+  YdBreadcrumb,
   BuiltinTheme,
   ColorMode,
   Content,
@@ -354,7 +354,7 @@ async function handleReset() {
             </Block>
 
             <Block :title="$t('preferences.breadcrumb.title')">
-              <Breadcrumb
+              <YdBreadcrumb
                 v-model:breadcrumb-enable="breadcrumbEnable"
                 v-model:breadcrumb-hide-only-one="breadcrumbHideOnlyOne"
                 v-model:breadcrumb-show-home="breadcrumbShowHome"

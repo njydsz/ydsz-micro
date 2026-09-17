@@ -21,14 +21,14 @@ import { isWindowsOs } from '@ydsz/utils';
 
 import { useYdModal } from '@ydsz-core/popup-ui';
 import {
-  Badge,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
+  YdBadge,
+  YdDropdownMenuBase,
+  YdDropdownMenuContentBase,
+  YdDropdownMenuItemBase,
+  YdDropdownMenuLabelBase,
+  YdDropdownMenuSeparatorBase,
+  YdDropdownMenuShortcutBase,
+  YdDropdownMenuTriggerBase,
   YdAvatar,
   YdIcon,
 } from '@ydsz-core/shadcn-ui';
@@ -195,17 +195,17 @@ if (enableShortcutKey.value) {
     {{ $t('ui.widgets.logoutTip') }}
   </LogoutModal>
 
-  <DropdownMenu v-model:open="openPopover">
-    <DropdownMenuTrigger ref="refTrigger" :disabled="props.trigger === 'hover'">
+  <YdDropdownMenuBase v-model:open="openPopover">
+    <YdDropdownMenuTriggerBase ref="refTrigger" :disabled="props.trigger === 'hover'">
       <div class="hover:bg-accent ml-1 mr-2 cursor-pointer rounded-full p-1.5">
         <div class="hover:text-accent-foreground flex-center">
           <YdAvatar :alt="text" :src="avatar" class="size-8" dot />
         </div>
       </div>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent class="mr-2 min-w-[240px] p-0 pb-1">
+    </YdDropdownMenuTriggerBase>
+    <YdDropdownMenuContentBase class="mr-2 min-w-[240px] p-0 pb-1">
       <div ref="refContent">
-        <DropdownMenuLabel class="flex items-center p-3">
+        <YdDropdownMenuLabelBase class="flex items-center p-3">
           <YdAvatar
             :alt="text"
             :src="avatar"
@@ -220,18 +220,18 @@ if (enableShortcutKey.value) {
             >
               {{ text }}
               <slot name="tagText">
-                <Badge v-if="tagText" class="ml-2 text-green-400">
+                <YdBadge v-if="tagText" class="ml-2 text-green-400">
                   {{ tagText }}
-                </Badge>
+                </YdBadge>
               </slot>
             </div>
             <div class="text-muted-foreground text-xs font-normal">
               {{ description }}
             </div>
           </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator v-if="menus?.length" />
-        <DropdownMenuItem
+        </YdDropdownMenuLabelBase>
+        <YdDropdownMenuSeparatorBase v-if="menus?.length" />
+        <YdDropdownMenuItemBase
           v-for="menu in menus"
           :key="menu.text"
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
@@ -239,31 +239,31 @@ if (enableShortcutKey.value) {
         >
           <YdIcon :icon="menu.icon" class="mr-2 size-4" />
           {{ menu.text }}
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
+        </YdDropdownMenuItemBase>
+        <YdDropdownMenuSeparatorBase />
+        <YdDropdownMenuItemBase
           v-if="preferences.widget.lockScreen"
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
           @click="handleOpenLock"
         >
           <LockKeyhole class="mr-2 size-4" />
           {{ $t('ui.widgets.lockScreen.title') }}
-          <DropdownMenuShortcut v-if="enableLockScreenShortcutKey">
+          <YdDropdownMenuShortcutBase v-if="enableLockScreenShortcutKey">
             {{ altView }} L
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator v-if="preferences.widget.lockScreen" />
-        <DropdownMenuItem
+          </YdDropdownMenuShortcutBase>
+        </YdDropdownMenuItemBase>
+        <YdDropdownMenuSeparatorBase v-if="preferences.widget.lockScreen" />
+        <YdDropdownMenuItemBase
           class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
           @click="handleLogout"
         >
           <LogOut class="mr-2 size-4" />
           {{ $t('common.logout') }}
-          <DropdownMenuShortcut v-if="enableLogoutShortcutKey">
+          <YdDropdownMenuShortcutBase v-if="enableLogoutShortcutKey">
             {{ altView }} Q
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
+          </YdDropdownMenuShortcutBase>
+        </YdDropdownMenuItemBase>
       </div>
-    </DropdownMenuContent>
-  </DropdownMenu>
+    </YdDropdownMenuContentBase>
+  </YdDropdownMenuBase>
 </template>

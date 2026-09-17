@@ -17,7 +17,7 @@
 import type { AuditLogEntryVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { byAction, byOperator, byRuleCode, byTimeRange, recent } from '#/api/ruleAuditLog';
@@ -76,7 +76,7 @@ const gridOptions: VxeGridProps<AuditLogEntryVO> = {
       field: 'action',
       title: '动作',
       width: 120,
-      slots: { default: ({ row }) => h(Badge, { variant: 'default' }, () => row.action ?? '-') },
+      slots: { default: ({ row }) => h(YdBadge, { variant: 'default' }, () => row.action ?? '-') },
     },
     { field: 'operator', title: '操作人', width: 100 },
     { field: 'result', title: '结果', width: 90 },
@@ -110,8 +110,8 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
         value-format="YYYY-MM-DD HH:mm:ss"
         class="w-48"
       />
-      <Button @click="gridApi.query()">查询</Button>
-      <Button variant="secondary" @click="handleReset">重置</Button>
+      <YdButtonBase @click="gridApi.query()">查询</YdButtonBase>
+      <YdButtonBase variant="secondary" @click="handleReset">重置</YdButtonBase>
     </div>
     <Grid table-title="审计日志" />
   </Page>

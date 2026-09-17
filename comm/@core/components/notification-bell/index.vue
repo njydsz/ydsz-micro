@@ -10,7 +10,7 @@
  *   <li>支持「全部标记已读」和「查看更多」</li>
  * </ul>
  *
- * 使用自研 shadcn-scoped Popover/ScrollArea/Button + lucide 图标，零 element-plus 依赖。
+ * 使用自研 shadcn-scoped YdPopoverBase/YdScrollArea/YdButtonBase + lucide 图标，零 element-plus 依赖。
  *
  * @path comm\@core\components\notification-bell\index.vue
  * @author ydsz-team
@@ -26,15 +26,15 @@ import { useI18n } from 'vue-i18n';
 import { ArrowRight, Bell, CheckCheck, Settings } from 'lucide-vue-next';
 
 import {
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ScrollArea,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+  YdButtonBase,
+  YdPopoverBase,
+  YdPopoverContentBase,
+  YdPopoverTriggerBase,
+  YdScrollArea,
+  YdTooltipBase,
+  YdTooltipContentBase,
+  YdTooltipProviderBase,
+  YdTooltipTriggerBase,
 } from '@ydsz-core/shadcn-ui';
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -151,8 +151,8 @@ onMounted(() => {
 
 <template>
   <div class="notification-bell-wrapper">
-    <Popover v-model:open="popoverOpen">
-      <PopoverTrigger as-child>
+    <YdPopoverBase v-model:open="popoverOpen">
+      <YdPopoverTriggerBase as-child>
         <button
           type="button"
           class="bell-icon-wrapper"
@@ -170,9 +170,9 @@ onMounted(() => {
             <Bell :size="18" class="bell-svg" />
           </div>
         </button>
-      </PopoverTrigger>
+      </YdPopoverTriggerBase>
 
-      <PopoverContent
+      <YdPopoverContentBase
         align="end"
         side="bottom"
         :side-offset="8"
@@ -202,10 +202,10 @@ onMounted(() => {
               }}
             </span>
           </div>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger as-child>
-                <Button
+          <YdTooltipProviderBase>
+            <YdTooltipBase>
+              <YdTooltipTriggerBase as-child>
+                <YdButtonBase
                   :disabled="unreadCount <= 0"
                   size="sm"
                   variant="ghost"
@@ -213,17 +213,17 @@ onMounted(() => {
                   @click="handleMarkAllRead"
                 >
                   <CheckCheck :size="16" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="top">
+                </YdButtonBase>
+              </YdTooltipTriggerBase>
+              <YdTooltipContentBase side="top">
                 {{ t('notification.markAllAsRead') }}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+              </YdTooltipContentBase>
+            </YdTooltipBase>
+          </YdTooltipProviderBase>
         </div>
 
         <!-- 通知列表 -->
-        <ScrollArea :style="{ maxHeight: maxHeight + 'px' }">
+        <YdScrollArea :style="{ maxHeight: maxHeight + 'px' }">
           <div
             v-if="displayNotifications.length > 0"
             class="notification-list"
@@ -276,11 +276,11 @@ onMounted(() => {
             />
             <span class="empty-text">{{ t('notification.noData') }}</span>
           </div>
-        </ScrollArea>
+        </YdScrollArea>
 
         <!-- 底部操作栏 -->
         <div class="notification-footer">
-          <Button
+          <YdButtonBase
             size="sm"
             variant="ghost"
             class="footer-settings"
@@ -288,18 +288,18 @@ onMounted(() => {
           >
             <Settings :size="14" class="footer-settings-icon" />
             {{ t('notification.settings') }}
-          </Button>
-          <Button
+          </YdButtonBase>
+          <YdButtonBase
             size="sm"
             variant="default"
             @click="handleViewAll"
           >
             {{ t('notification.viewAll') }}
             <ArrowRight :size="14" class="footer-view-all-icon" />
-          </Button>
+          </YdButtonBase>
         </div>
-      </PopoverContent>
-    </Popover>
+      </YdPopoverContentBase>
+    </YdPopoverBase>
   </div>
 </template>
 

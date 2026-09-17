@@ -15,7 +15,7 @@ import { YdIcon } from '../icon';
 
 type Props = BreadcrumbProps;
 
-defineOptions({ name: 'Breadcrumb' });
+defineOptions({ name: 'YdBreadcrumb' });
 const { breadcrumbs, showIcon } = defineProps<Props>();
 
 const emit = defineEmits<{ select: [string] }>();

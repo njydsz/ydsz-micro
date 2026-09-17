@@ -10,4 +10,4 @@
  */
 export * from './badge';
 
-export { default as Badge } from './Badge.vue';
+export { default as YdBadge } from './YdBadge.vue';

@@ -22,7 +22,7 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDivider/ElForm/ElTimeline 暂无 shadcn 映射，保留 element-plus
 import { ElDescriptions, ElDescriptionsItem, ElDivider, ElForm, ElFormItem, ElInput, ElTimeline, ElTimelineItem } from 'element-plus';
 
@@ -232,11 +232,11 @@ defineExpose({ close, open });
 </script>
 
 <template>
-  <Dialog :open="visible" @update:open="if (!$event) close()">
-    <DialogContent style="max-width: 700px">
-      <DialogHeader>
-        <DialogTitle>{{ dialogTitle }}</DialogTitle>
-      </DialogHeader>
+  <YdDialog :open="visible" @update:open="if (!$event) close()">
+    <YdDialogContent style="max-width: 700px">
+      <YdDialogHeader>
+        <YdDialogTitle>{{ dialogTitle }}</YdDialogTitle>
+      </YdDialogHeader>
     <div v-if="record" class="approval-detail">
       <!-- 基本信息 -->
       <ElDescriptions :column="2" border>
@@ -333,27 +333,27 @@ defineExpose({ close, open });
       </div>
     </div>
 
-      <DialogFooter>
-        <Button @click="close">{{ t('common.close') }}</Button>
+      <YdDialogFooter>
+        <YdButtonBase @click="close">{{ t('common.close') }}</YdButtonBase>
         <template v-if="canOperate">
-          <Button :loading="submitting" @click="handleApprove">
+          <YdButtonBase :loading="submitting" @click="handleApprove">
             {{ t('common.approve') }}
-          </Button>
-          <Button variant="destructive" :loading="submitting" @click="handleReject">
+          </YdButtonBase>
+          <YdButtonBase variant="destructive" :loading="submitting" @click="handleReject">
             {{ t('common.reject') }}
-          </Button>
+          </YdButtonBase>
         </template>
-        <Button
+        <YdButtonBase
           v-if="canWithdraw"
           variant="destructive"
           :loading="submitting"
           @click="handleWithdraw"
         >
           {{ t('common.withdraw') }}
-        </Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+        </YdButtonBase>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>
 
 <style scoped>

@@ -17,7 +17,7 @@
 */
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSlider 可视化编辑器表单部分,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSlider } from 'element-plus';
-import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, Tabs, TabsContent, TabsList, TabsTrigger, Tooltip, TooltipContent, TooltipTrigger } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/shadcn-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { computed, nextTick, ref } from 'vue';
 
@@ -327,33 +327,33 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <Dialog v-model:open="visible">
-    <DialogContent class="sm:max-w-[1200px]">
-      <DialogHeader>
-        <DialogTitle>Agent 可视化工作流编排</DialogTitle>
-      </DialogHeader>
+  <YdDialog v-model:open="visible">
+    <YdDialogContent class="sm:max-w-[1200px]">
+      <YdDialogHeader>
+        <YdDialogTitle>Agent 可视化工作流编排</YdDialogTitle>
+      </YdDialogHeader>
 
       <div v-loading="loading" class="designer-container">
-        <Tabs v-model="activeTab">
-          <TabsList>
-            <TabsTrigger value="designer">设计器</TabsTrigger>
-            <TabsTrigger value="dsl">DSL 预览</TabsTrigger>
-          </TabsList>
+        <YdTabs v-model="activeTab">
+          <YdTabsList>
+            <YdTabsTrigger value="designer">设计器</YdTabsTrigger>
+            <YdTabsTrigger value="dsl">DSL 预览</YdTabsTrigger>
+          </YdTabsList>
 
           <!-- 设计器标签页 -->
-          <TabsContent value="designer">
+          <YdTabsContent value="designer">
             <!-- 工具栏 -->
             <div class="toolbar">
               <div class="toolbar-left">
-                <Button size="sm" :disabled="saving" @click="handleSave">
+                <YdButtonBase size="sm" :disabled="saving" @click="handleSave">
                   <Loader2 v-if="saving" class="mr-1 h-3 w-3 animate-spin" />
                   保存
-                </Button>
-                <Button size="sm" variant="outline" @click="handleExportDsl">导出DSL</Button>
+                </YdButtonBase>
+                <YdButtonBase size="sm" variant="outline" @click="handleExportDsl">导出DSL</YdButtonBase>
               </div>
               <div class="toolbar-center">
                 <span class="text-xs text-muted-foreground">添加节点：</span>
-                <Button
+                <YdButtonBase
                   v-for="opt in nodeTypeOptions"
                   :key="opt.value"
                   size="sm"
@@ -362,7 +362,7 @@ defineExpose({ open, close });
                   @click="addNode(opt.value)"
                 >
                   {{ opt.icon }} {{ opt.label }}
-                </Button>
+                </YdButtonBase>
               </div>
               <div class="toolbar-right">
                 <ElSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
@@ -428,26 +428,26 @@ defineExpose({ open, close });
                   </div>
                   <!-- 节点操作按钮 -->
                   <div class="node-actions">
-                    <Tooltip>
-                      <TooltipTrigger as-child>
-                        <Button size="icon" variant="ghost" class="h-6 w-6" @click.stop="startConnect(node.id)">
+                    <YdTooltipBase>
+                      <YdTooltipTriggerBase as-child>
+                        <YdButtonBase size="icon" variant="ghost" class="h-6 w-6" @click.stop="startConnect(node.id)">
                           <span class="text-xs">→</span>
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
+                        </YdButtonBase>
+                      </YdTooltipTriggerBase>
+                      <YdTooltipContentBase>
                         <p>连线</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger as-child>
-                        <Button size="icon" variant="destructive" class="h-6 w-6" @click.stop="deleteNode(node.id)">
+                      </YdTooltipContentBase>
+                    </YdTooltipBase>
+                    <YdTooltipBase>
+                      <YdTooltipTriggerBase as-child>
+                        <YdButtonBase size="icon" variant="destructive" class="h-6 w-6" @click.stop="deleteNode(node.id)">
                           <span class="text-xs">×</span>
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
+                        </YdButtonBase>
+                      </YdTooltipTriggerBase>
+                      <YdTooltipContentBase>
                         <p>删除</p>
-                      </TooltipContent>
-                    </Tooltip>
+                      </YdTooltipContentBase>
+                    </YdTooltipBase>
                   </div>
                 </div>
 
@@ -520,10 +520,10 @@ defineExpose({ open, close });
                 </div>
               </div>
             </div>
-          </TabsContent>
+          </YdTabsContent>
 
           <!-- DSL 预览标签页 -->
-          <TabsContent value="dsl">
+          <YdTabsContent value="dsl">
             <div class="mt-3">
               <ElForm label-width="80px" class="mb-4">
                 <ElFormItem label="工作流名称">
@@ -535,11 +535,11 @@ defineExpose({ open, close });
               </ElForm>
               <pre class="max-h-96 overflow-auto rounded border bg-muted p-4 text-xs">{{ generateDsl() }}</pre>
             </div>
-          </TabsContent>
-        </Tabs>
+          </YdTabsContent>
+        </YdTabs>
       </div>
-    </DialogContent>
-  </Dialog>
+    </YdDialogContent>
+  </YdDialog>
 </template>
 
 <style scoped>

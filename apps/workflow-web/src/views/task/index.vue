@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTabs / ElTabPane 暂不迁移，保留 element-plus 导入
 import { ElTabPane, ElTabs } from 'element-plus';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';
@@ -40,18 +40,18 @@ const activeTab = ref<'todo' | 'done'>('todo');
 function statusTag(taskStatus: string | undefined) {
   const status = (taskStatus ?? '').toUpperCase();
   if (status === 'DONE' || status === 'FINISHED' || status === 'COMPLETED' || status === '1') {
-    return h(Badge, { variant: 'default' }, () => $t('wf.statusDone'));
+    return h(YdBadge, { variant: 'default' }, () => $t('wf.statusDone'));
   }
   if (status === 'REJECTED') {
-    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusRejected'));
+    return h(YdBadge, { variant: 'destructive' }, () => $t('wf.statusRejected'));
   }
   if (status === 'DELEGATED' || status === 'TRANSFERRED') {
-    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusTransferred'));
+    return h(YdBadge, { variant: 'destructive' }, () => $t('wf.statusTransferred'));
   }
   if (status === 'SUSPENDED' || status === 'PAUSED') {
-    return h(Badge, { variant: 'destructive' }, () => $t('wf.statusPaused'));
+    return h(YdBadge, { variant: 'destructive' }, () => $t('wf.statusPaused'));
   }
-  return h(Badge, { variant: 'default' }, () => taskStatus ?? '-');
+  return h(YdBadge, { variant: 'default' }, () => taskStatus ?? '-');
 }
 
 const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
@@ -82,12 +82,12 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
           if (activeTab.value !== 'todo') return h('span', { class: 'text-gray-400 text-xs' }, '-');
           return h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleProcess(row) },
               () => $t('wf.process'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', onClick: () => handleOperation(row) },
               () => '更多',
             ),
@@ -120,12 +120,12 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
       {
         field: 'flowCode',
         title: $t('wf.flowCode'),
-        itemRender: { name: 'Input', props: { placeholder: $t('wf.flowCode') } },
+        itemRender: { name: 'YdInput', props: { placeholder: $t('wf.flowCode') } },
       },
       {
         field: 'businessType',
         title: $t('wf.businessType'),
-        itemRender: { name: 'Input', props: { placeholder: $t('wf.businessType') } },
+        itemRender: { name: 'YdInput', props: { placeholder: $t('wf.businessType') } },
       },
     ],
   },
@@ -315,18 +315,18 @@ async function handleBatchUrge() {
     <Grid :table-title="$t('wf.todoTasks')">
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">
-          <Button variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
+          <YdButtonBase variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
             $t('wf.batchPass')
-          }}</Button>
-          <Button variant="destructive" @click="handleBatchReject">{{
+          }}</YdButtonBase>
+          <YdButtonBase variant="destructive" @click="handleBatchReject">{{
             $t('wf.batchReject')
-          }}</Button>
-          <Button variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
+          }}</YdButtonBase>
+          <YdButtonBase variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
             $t('wf.batchTransfer')
-          }}</Button>
-          <Button variant="secondary" @click="handleBatchUrge">{{
+          }}</YdButtonBase>
+          <YdButtonBase variant="secondary" @click="handleBatchUrge">{{
             $t('wf.batchUrge')
-          }}</Button>
+          }}</YdButtonBase>
         </template>
       </template>
     </Grid>

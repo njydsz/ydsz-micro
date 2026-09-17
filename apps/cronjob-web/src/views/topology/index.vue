@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { Card, CardContent, CardHeader, CardTitle, Input, Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -185,15 +185,15 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <Tabs v-model="activeTab" class="topology-tabs" @update:model-value="handleTabChange">
-      <TabsList>
-        <TabsTrigger value="global">全局拓扑</TabsTrigger>
-        <TabsTrigger value="instance">DAG 实例拓扑</TabsTrigger>
-      </TabsList>
+    <YdTabs v-model="activeTab" class="topology-tabs" @update:model-value="handleTabChange">
+      <YdTabsList>
+        <YdTabsTrigger value="global">全局拓扑</YdTabsTrigger>
+        <YdTabsTrigger value="instance">DAG 实例拓扑</YdTabsTrigger>
+      </YdTabsList>
       <!-- ========== 全局拓扑 Tab ========== -->
-      <TabsContent value="global">
+      <YdTabsContent value="global">
         <div class="mb-4">
-          <Input
+          <YdInput
             v-model="searchKeyword"
             placeholder="按 dagId / dagKey 筛选"
             class="!w-80"
@@ -204,13 +204,13 @@ onMounted(() => {
         <div v-loading="globalLoading">
           <!-- 卡片网格 -->
           <div v-if="filteredGlobalCards.length" class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <Card
+            <YdCard
               v-for="card in filteredGlobalCards"
               :key="card.id"
               class="topology-card cursor-pointer transition-shadow hover:shadow-md"
               :style="{ borderTop: `4px solid ${statusColor(card.status)}` }"
             >
-              <CardContent class="pt-4">
+              <YdCardContent class="pt-4">
                 <div class="flex items-center justify-between">
                 <span class="text-sm font-medium text-gray-700">{{ card.dagName }}</span>
                 <span class="rounded-full px-2 py-0.5 text-xs font-medium" :class="statusLabelColor(card.status)">
@@ -220,18 +220,18 @@ onMounted(() => {
                 <div class="mt-2 truncate text-xs text-gray-400" :title="card.dagKey">
                   {{ card.dagKey }}
                 </div>
-              </CardContent>
-            </Card>
+              </YdCardContent>
+            </YdCard>
           </div>
 
           <ElEmpty v-else description="暂无拓扑数据" :image-size="80" />
         </div>
-      </TabsContent>
+      </YdTabsContent>
 
       <!-- ========== DAG 实例拓扑 Tab ========== -->
-      <TabsContent value="instance">
+      <YdTabsContent value="instance">
         <div class="mb-4 flex items-center gap-3">
-          <Input
+          <YdInput
             v-model="dagInstanceId"
             placeholder="输入 dagInstanceId"
             class="!w-80"
@@ -287,8 +287,8 @@ onMounted(() => {
             :image-size="80"
           />
         </div>
-      </TabsContent>
-    </Tabs>
+      </YdTabsContent>
+    </YdTabs>
   </Page>
 </template>
 

@@ -20,7 +20,7 @@ import type { YdAlertProps, BeforeCloseScope, YdPromptProps } from './alert';
 import { h, nextTick, ref, render } from 'vue';
 
 import { useSimpleLocale } from '@ydsz-core/composables';
-import { Input, YdRenderContent } from '@ydsz-core/shadcn-ui';
+import { YdInput, YdRenderContent } from '@ydsz-core/shadcn-ui';
 import { isFunction, isString } from '@ydsz-core/shared/utils';
 
 import YdAlert from './alert.vue';
@@ -244,7 +244,7 @@ export function ydszConfirm(
  * 弹出带输入控件的确认框，用于获取用户的一次性输入（如填写驳回原因）。
  *
  * @remarks
- * 默认使用内置 Input，也可通过 `component` 换成任意受控组件（下拉、日期选择等），
+ * 默认使用内置 YdInput，也可通过 `component` 换成任意受控组件（下拉、日期选择等），
  * 并用 `modelPropName` 指定其 v-model 的 prop 名（默认 `'modelValue'`）——
  * 该名字必须与目标组件一致，否则输入无法回写，最终恒返回默认值。
  *
@@ -305,7 +305,7 @@ export async function ydszPrompt<T = unknown>(
 
     // 创建输入组件
     inputComponentRef.value = h(
-      _component || Input,
+      _component || YdInput,
       currentProps,
       componentSlots,
     );

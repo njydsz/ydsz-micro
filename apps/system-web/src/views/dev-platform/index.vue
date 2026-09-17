@@ -23,8 +23,8 @@
  */
 import { computed, reactive, ref, watch } from 'vue';
 
-import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: 复杂文件，ElCard/ElEmpty/ElForm/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（Table）；部分迁移：Button、Input、Tag → shadcn
+import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: 复杂文件，ElCard/ElEmpty/ElForm/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、YdInput、Tag → shadcn
 import { ElCard, ElEmpty, ElForm, ElFormItem, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
 
 import { requestClient } from '#/api/request';
@@ -200,9 +200,9 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
       <template #header>
         <div class="flex items-center justify-between">
           <span class="font-medium">数据源 & 表选择</span>
-          <Badge v-if="selectedDatasourceId" variant="secondary">
+          <YdBadge v-if="selectedDatasourceId" variant="secondary">
             数据源 #{{ selectedDatasourceId }}
-          </Badge>
+          </YdBadge>
         </div>
       </template>
 
@@ -254,13 +254,13 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
         <ElTableColumn prop="columnType" label="类型" width="120" />
         <ElTableColumn label="主键" width="60">
           <template #default="{ row }">
-            <Badge v-if="row.pk" variant="destructive">PK</Badge>
+            <YdBadge v-if="row.pk" variant="destructive">PK</YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn label="可空" width="60">
           <template #default="{ row }">
-            <Badge v-if="row.nullable" variant="secondary">NULL</Badge>
-            <Badge v-else>NOT NULL</Badge>
+            <YdBadge v-if="row.nullable" variant="secondary">NULL</YdBadge>
+            <YdBadge v-else>NOT NULL</YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="columnComment" label="注释" min-width="160" />
@@ -274,10 +274,10 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
       </template>
       <ElForm label-width="100px">
         <ElFormItem label="输出目录">
-          <Input v-model="configForm.outputDir" placeholder="生成代码的目标目录绝对路径" />
+          <YdInput v-model="configForm.outputDir" placeholder="生成代码的目标目录绝对路径" />
         </ElFormItem>
         <ElFormItem label="作者">
-          <Input v-model="configForm.author" placeholder="Javadoc 作者" />
+          <YdInput v-model="configForm.author" placeholder="Javadoc 作者" />
         </ElFormItem>
         <ElFormItem label="冲突策略">
           <ElSelect v-model="configForm.conflictStrategy" style="width: 200px">
@@ -287,13 +287,13 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           </ElSelect>
         </ElFormItem>
         <ElFormItem>
-          <Button
+          <YdButtonBase
             :loading="generating"
             :disabled="!hasSelectedTable"
             @click="handleGenerate"
           >
             生成代码
-          </Button>
+          </YdButtonBase>
           <span v-if="!hasSelectedTable" class="ml-3 text-sm text-gray-400">
             请先选择数据源和表
           </span>
@@ -312,7 +312,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           :key="file ?? idx"
           class="flex items-center gap-2 text-sm py-1 border-b border-dashed last:border-b-0"
         >
-          <Badge variant="default" class="h-5 px-1 text-[10px]">✓</Badge>
+          <YdBadge variant="default" class="h-5 px-1 text-[10px]">✓</YdBadge>
           <code class="text-xs text-gray-600 break-all font-mono">{{ file }}</code>
         </div>
       </div>

@@ -17,7 +17,7 @@
 */
 import { useYdModal } from '@ydsz/common-ui';
 import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
-import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdBadge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
@@ -186,7 +186,7 @@ onMounted(() => {
         <ElTableColumn label="版本" width="80">
           <template #default="{ row }">
             <span class="font-medium">v{{ row.version }}</span>
-            <Badge v-if="row.isCurrent" variant="default" class="ml-1">当前</Badge>
+            <YdBadge v-if="row.isCurrent" variant="default" class="ml-1">当前</YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="size" label="大小" width="100">
@@ -197,16 +197,16 @@ onMounted(() => {
         <ElTableColumn prop="remark" label="备注" min-width="120" />
         <ElTableColumn label="操作" width="200" fixed="right">
           <template #default="{ row }">
-            <Button size="sm" variant="link" @click="handlePreview(row)">预览</Button>
-            <Button size="sm" variant="link" @click="handleDownloadVersion(row)">下载</Button>
-            <Button
+            <YdButtonBase size="sm" variant="link" @click="handlePreview(row)">预览</YdButtonBase>
+            <YdButtonBase size="sm" variant="link" @click="handleDownloadVersion(row)">下载</YdButtonBase>
+            <YdButtonBase
               v-if="!row.isCurrent"
               size="sm"
               variant="link"
               @click="handleRollback(row)"
             >
               回滚
-            </Button>
+            </YdButtonBase>
           </template>
         </ElTableColumn>
       </ElTable>
@@ -215,7 +215,7 @@ onMounted(() => {
       <ElDialog v-model="comparing" title="版本对比" width="700px">
         <pre class="max-h-96 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs">{{ diffContent }}</pre>
         <template #footer>
-          <Button variant="outline" @click="comparing = false">关闭</Button>
+          <YdButtonBase variant="outline" @click="comparing = false">关闭</YdButtonBase>
         </template>
       </ElDialog>
     </div>

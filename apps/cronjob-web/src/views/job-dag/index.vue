@@ -20,8 +20,8 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
@@ -66,7 +66,7 @@ const gridOptions: VxeGridProps<JobDagVO> = {
         default: ({ row }) => {
           const dag = row as JobDagVO;
           return h(
-            Badge,
+            YdBadge,
             { variant: isDagEnabled(dag) ? 'default' : 'secondary' },
             () => (isDagEnabled(dag) ? '启用' : '停用'),
           );
@@ -87,13 +87,13 @@ const gridOptions: VxeGridProps<JobDagVO> = {
         default: ({ row }) => {
           const dag = row as JobDagVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(dag) }, () => t('common.edit')),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(dag) }, () => t('common.edit')),
             isDagEnabled(dag)
-              ? h(Button, { size: 'sm', variant: 'link', onClick: () => handleDisable(dag) }, () => '停用')
-              : h(Button, { size: 'sm', variant: 'link', onClick: () => handleEnable(dag) }, () => '启用'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleTrigger(dag) }, () => '触发'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleVersions(dag) }, () => '版本'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(dag) }, () => t('common.delete')),
+              ? h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDisable(dag) }, () => '停用')
+              : h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEnable(dag) }, () => '启用'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleTrigger(dag) }, () => '触发'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleVersions(dag) }, () => '版本'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(dag) }, () => t('common.delete')),
           ]);
         },
       },
@@ -233,15 +233,15 @@ async function handleRollback(versionRow: JobDagVersionVO) {
   <Page auto-content-height>
     <Grid :table-title="t('page.dag')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
     </Grid>
     <JobDagFormModal @success="gridApi.query()" />
-    <Sheet v-model:open="versionsDrawerVisible">
-      <SheetContent side="right" class="w-[60%]">
-        <SheetHeader>
-          <SheetTitle>{{ t('page.dagList') }}</SheetTitle>
-        </SheetHeader>
+    <YdSheet v-model:open="versionsDrawerVisible">
+      <YdSheetContent side="right" class="w-[60%]">
+        <YdSheetHeader>
+          <YdSheetTitle>{{ t('page.dagList') }}</YdSheetTitle>
+        </YdSheetHeader>
         <ElTable :data="versions" border>
           <ElTableColumn prop="version" label="版本" width="80" />
           <ElTableColumn prop="dagName" :label="t('business.dagName')" width="160" />
@@ -252,14 +252,14 @@ async function handleRollback(versionRow: JobDagVersionVO) {
           <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
           <ElTableColumn :label="t('common.actions')" width="100" fixed="right">
             <template #default="{ row }">
-              <Button size="sm" variant="link" @click="handleRollback(row as JobDagVersionVO)">
+              <YdButtonBase size="sm" variant="link" @click="handleRollback(row as JobDagVersionVO)">
                 回滚
-              </Button>
+              </YdButtonBase>
             </template>
           </ElTableColumn>
         </ElTable>
         <ElEmpty v-if="versions.length === 0" :description="t('common.noData')" />
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

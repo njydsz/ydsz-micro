@@ -20,7 +20,7 @@ import { Page } from '@ydsz/common-ui';
 // TODO: ElEmpty/ElTable/ElTableColumn 表格+复杂布局+选择器,保留 element-plus SKIP
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 // TODO: ElAlert 无直接 shadcn 映射 SKIP
-import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
 
@@ -137,8 +137,8 @@ onMounted(() => {
     <div class="space-y-4 p-4">
       <!-- 概览卡片 -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card class="hover:shadow-md transition-shadow">
-          <CardContent class="flex items-center justify-between pt-6">
+        <YdCard class="hover:shadow-md transition-shadow">
+          <YdCardContent class="flex items-center justify-between pt-6">
             <div>
               <p class="text-sm text-muted-foreground">总请求数</p>
               <p class="mt-1 text-2xl font-bold text-primary">{{ (overviewData.totalRequests as number) ?? 0 }}</p>
@@ -146,11 +146,11 @@ onMounted(() => {
             <div class="rounded-full bg-primary/10 p-3">
               <span class="text-2xl text-primary">📊</span>
             </div>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
 
-        <Card class="hover:shadow-md transition-shadow">
-          <CardContent class="flex items-center justify-between pt-6">
+        <YdCard class="hover:shadow-md transition-shadow">
+          <YdCardContent class="flex items-center justify-between pt-6">
             <div>
               <p class="text-sm text-muted-foreground">成功率</p>
               <p class="mt-1 text-2xl font-bold text-green-600 dark:text-green-400">
@@ -160,11 +160,11 @@ onMounted(() => {
             <div class="rounded-full bg-green-500/10 p-3">
               <span class="text-2xl text-green-600 dark:text-green-400">✅</span>
             </div>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
 
-        <Card class="hover:shadow-md transition-shadow">
-          <CardContent class="flex items-center justify-between pt-6">
+        <YdCard class="hover:shadow-md transition-shadow">
+          <YdCardContent class="flex items-center justify-between pt-6">
             <div>
               <p class="text-sm text-muted-foreground">平均延迟</p>
               <p class="mt-1 text-2xl font-bold text-purple-600 dark:text-purple-400">
@@ -174,11 +174,11 @@ onMounted(() => {
             <div class="rounded-full bg-purple-500/10 p-3">
               <span class="text-2xl text-purple-600 dark:text-purple-400">⚡</span>
             </div>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
 
-        <Card class="hover:shadow-md transition-shadow">
-          <CardContent class="flex items-center justify-between pt-6">
+        <YdCard class="hover:shadow-md transition-shadow">
+          <YdCardContent class="flex items-center justify-between pt-6">
             <div>
               <p class="text-sm text-muted-foreground">Token 消耗</p>
               <p class="mt-1 text-2xl font-bold text-orange-600 dark:text-orange-400">
@@ -188,43 +188,43 @@ onMounted(() => {
             <div class="rounded-full bg-orange-500/10 p-3">
               <span class="text-2xl text-orange-600 dark:text-orange-400">🪙</span>
             </div>
-          </CardContent>
-        </Card>
+          </YdCardContent>
+        </YdCard>
       </div>
 
       <!-- 标签页 -->
-      <Card>
-        <CardContent class="pt-6">
+      <YdCard>
+        <YdCardContent class="pt-6">
           <div class="mb-4 flex gap-2">
-            <Button :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
+            <YdButtonBase :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
               Trace 追踪
-            </Button>
-            <Button :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
+            </YdButtonBase>
+            <YdButtonBase :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
               模型使用
-            </Button>
-            <Button :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
+            </YdButtonBase>
+            <YdButtonBase :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
               性能监控
-            </Button>
+            </YdButtonBase>
           </div>
 
           <!-- Trace 追踪 -->
           <div v-if="activeTab === 'trace'" class="space-y-4">
             <div class="flex items-center gap-4">
-              <Input
+              <YdInput
                 v-model="traceSearchQuery"
                 placeholder="搜索 Trace ID、Agent 名称或输入内容..."
                 class="max-w-md"
               />
-              <Select>
-                <SelectTrigger class="w-32">
-                  <SelectValue placeholder="状态筛选" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="SUCCESS">成功</SelectItem>
-                  <SelectItem value="FAILED">失败</SelectItem>
-                  <SelectItem value="RUNNING">运行中</SelectItem>
-                </SelectContent>
-              </Select>
+              <YdSelectBase>
+                <YdSelectTriggerBase class="w-32">
+                  <YdSelectValueBase placeholder="状态筛选" />
+                </YdSelectTriggerBase>
+                <YdSelectContentBase>
+                  <YdSelectItemBase value="SUCCESS">成功</YdSelectItemBase>
+                  <YdSelectItemBase value="FAILED">失败</YdSelectItemBase>
+                  <YdSelectItemBase value="RUNNING">运行中</YdSelectItemBase>
+                </YdSelectContentBase>
+              </YdSelectBase>
             </div>
 
             <ElTable :data="traceList" border max-height="400">
@@ -236,16 +236,16 @@ onMounted(() => {
               <ElTableColumn prop="tokens" label="Token" width="80" />
               <ElTableColumn label="状态" width="100">
                 <template #default="{ row }">
-                  <Badge :variant="getStatusTagType(row.status as string)">
+                  <YdBadge :variant="getStatusTagType(row.status as string)">
                     {{ row.status }}
-                  </Badge>
+                  </YdBadge>
                 </template>
               </ElTableColumn>
               <ElTableColumn label="操作" width="100" fixed="right">
                 <template #default="{ row }">
-                  <Button size="sm" variant="link" @click="viewTraceDetail(row)">
+                  <YdButtonBase size="sm" variant="link" @click="viewTraceDetail(row)">
                     详情
-                  </Button>
+                  </YdButtonBase>
                 </template>
               </ElTableColumn>
             </ElTable>
@@ -280,16 +280,16 @@ onMounted(() => {
               </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <!-- Trace 详情弹窗 -->
-    <Dialog :open="selectedTrace !== null" @update:open="selectedTrace = null">
-      <DialogContent class="sm:max-w-[700px]">
-        <DialogHeader>
-          <DialogTitle>Trace 详情</DialogTitle>
-        </DialogHeader>
+    <YdDialog :open="selectedTrace !== null" @update:open="selectedTrace = null">
+      <YdDialogContent class="sm:max-w-[700px]">
+        <YdDialogHeader>
+          <YdDialogTitle>Trace 详情</YdDialogTitle>
+        </YdDialogHeader>
         <div v-if="selectedTrace" class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
@@ -328,10 +328,10 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" @click="selectedTrace = null">关闭</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="selectedTrace = null">关闭</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </Page>
 </template>

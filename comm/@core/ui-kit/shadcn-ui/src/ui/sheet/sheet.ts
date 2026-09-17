@@ -14,7 +14,7 @@ import type { VariantProps } from 'class-variance-authority';
 
 import { cva } from 'class-variance-authority';
 
-/** 侧边面板（Sheet）的 cva 样式变体（side 滑出方位），返回类名生成函数 */
+/** 侧边面板（YdSheet）的 cva 样式变体（side 滑出方位），返回类名生成函数 */
 export const sheetVariants = cva(
   'bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 border-border',
   {
@@ -35,7 +35,7 @@ export const sheetVariants = cva(
 );
 
 /**
- * 侧边面板（Sheet）的样式变体入参类型，目前仅含 `side`（滑出方位）。
+ * 侧边面板（YdSheet）的样式变体入参类型，目前仅含 `side`（滑出方位）。
  *
  * @remarks
  * 由 cva 从 `sheetVariants` 自动推导。方位不只决定动画方向，也决定尺寸约束：

@@ -271,7 +271,7 @@ export function createSwitchToApp(
       );
     } catch (error) {
       if ((error instanceof DOMException || error instanceof Error) && error.name === "AbortError") {
-        logger.debug(`Switch to ${config.name} aborted by newer request`);
+        logger.debug(`YdSwitch to ${config.name} aborted by newer request`);
         return;
       }
 

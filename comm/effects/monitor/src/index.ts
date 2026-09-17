@@ -36,7 +36,7 @@ export {
   getBreadcrumbs,
   setupBreadcrumbAutoCapture,
 } from './breadcrumb';
-export type { Breadcrumb, BreadcrumbCategory, BreadcrumbLevel } from './breadcrumb';
+export type { YdBreadcrumb, BreadcrumbCategory, BreadcrumbLevel } from './breadcrumb';
 
 export {
   setupMonitor,

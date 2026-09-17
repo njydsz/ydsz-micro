@@ -9,12 +9,12 @@
  * @since 1.0.0
  */
 export * from './sheet';
-export { default as Sheet } from './Sheet.vue';
-export { default as SheetClose } from './SheetClose.vue';
-export { default as SheetContent } from './SheetContent.vue';
-export { default as SheetDescription } from './SheetDescription.vue';
-export { default as SheetFooter } from './SheetFooter.vue';
-export { default as SheetHeader } from './SheetHeader.vue';
-export { default as SheetTitle } from './SheetTitle.vue';
+export { default as YdSheet } from './YdSheet.vue';
+export { default as YdSheetClose } from './YdSheetClose.vue';
+export { default as YdSheetContent } from './YdSheetContent.vue';
+export { default as YdSheetDescription } from './YdSheetDescription.vue';
+export { default as YdSheetFooter } from './YdSheetFooter.vue';
+export { default as YdSheetHeader } from './YdSheetHeader.vue';
+export { default as YdSheetTitle } from './YdSheetTitle.vue';
 
-export { default as SheetTrigger } from './SheetTrigger.vue';
+export { default as YdSheetTrigger } from './YdSheetTrigger.vue';

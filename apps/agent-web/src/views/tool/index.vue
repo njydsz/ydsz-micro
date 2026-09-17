@@ -18,7 +18,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 
 const logger = createLogger('agent-tool');
@@ -126,7 +126,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: getToolTypeTagType(row.toolType) === 'primary' ? 'default' : getToolTypeTagType(row.toolType) as any }, () => getToolTypeLabel(row.toolType)),
+          h(YdBadge, { variant: getToolTypeTagType(row.toolType) === 'primary' ? 'default' : getToolTypeTagType(row.toolType) as any }, () => getToolTypeLabel(row.toolType)),
       },
     },
     { field: 'description', title: '描述', minWidth: 180 },
@@ -138,7 +138,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.enabled ? 'default' : 'outline' }, () =>
+          h(YdBadge, { variant: row.enabled ? 'default' : 'outline' }, () =>
             row.enabled ? t('common.enabled') : '停用',
           ),
       },
@@ -154,17 +154,17 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleTest(row) },
               () => '测试',
             ),
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -173,7 +173,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
               () => (row.enabled ? '停用' : t('common.enabled')),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => t('common.delete'),
             ),
@@ -197,12 +197,12 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       {
         field: 'toolName',
         title: '工具名称',
-        itemRender: { name: 'Input', props: { placeholder: '请输入工具名称' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入工具名称' } },
       },
       {
         field: 'toolCode',
         title: '工具编码',
-        itemRender: { name: 'Input', props: { placeholder: '请输入工具编码' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入工具编码' } },
       },
     ],
   },
@@ -255,7 +255,7 @@ async function handleDelete(row: ToolVO): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="工具管理">
       <template #toolbar-tools>
-        <Button @click="handleAdd">新增工具</Button>
+        <YdButtonBase @click="handleAdd">新增工具</YdButtonBase>
       </template>
     </Grid>
     <ToolFormModal @success="gridApi.query()" />

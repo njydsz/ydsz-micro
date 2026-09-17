@@ -9,10 +9,10 @@
 import type { WorkbenchProjectItem } from '../typing';
 
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
   YdIcon,
 } from '@ydsz-core/shadcn-ui';
 
@@ -33,11 +33,11 @@ defineEmits(['click']);
 </script>
 
 <template>
-  <Card>
-    <CardHeader class="py-4">
-      <CardTitle class="text-lg">{{ title }}</CardTitle>
-    </CardHeader>
-    <CardContent class="flex flex-wrap p-0">
+  <YdCard>
+    <YdCardHeader class="py-4">
+      <YdCardTitle class="text-lg">{{ title }}</YdCardTitle>
+    </YdCardHeader>
+    <YdCardContent class="flex flex-wrap p-0">
       <template v-for="(item, index) in items" :key="item.title">
         <div
           :class="{
@@ -67,6 +67,6 @@ defineEmits(['click']);
           </div>
         </div>
       </template>
-    </CardContent>
-  </Card>
+    </YdCardContent>
+  </YdCard>
 </template>

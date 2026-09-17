@@ -18,7 +18,7 @@ const logger = createLogger('Monitor:WebVitals');
 /** Web Vital 指标名称 */
 export type WebVitalName =
   | 'LCP'  // Largest Contentful Paint
-  | 'FID'  // First Input Delay
+  | 'FID'  // First YdInput Delay
   | 'CLS'  // Cumulative Layout Shift
   | 'INP'  // Interaction to Next Paint
   | 'FCP'  // First Contentful Paint

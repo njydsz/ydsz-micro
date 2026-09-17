@@ -23,7 +23,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElEmpty / ElSkeleton 待后续迁移（shadcn-ui 无直接对应，需替换为空态组件）
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
@@ -87,11 +87,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <Card v-if="bordered" class="flow-diagram">
-    <CardHeader>
-      <CardTitle class="text-sm font-semibold">流程进度</CardTitle>
-    </CardHeader>
-    <CardContent>
+  <YdCard v-if="bordered" class="flow-diagram">
+    <YdCardHeader>
+      <YdCardTitle class="text-sm font-semibold">流程进度</YdCardTitle>
+    </YdCardHeader>
+    <YdCardContent>
       <div class="diagram-container">
         <div v-if="loading" class="animate-pulse space-y-2">
           <div v-for="n in 6" :key="n" class="h-4 bg-gray-200 rounded" />
@@ -101,8 +101,8 @@ onMounted(() => {
         </div>
         <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
       </div>
-    </CardContent>
-  </Card>
+    </YdCardContent>
+  </YdCard>
   <div v-else class="flow-diagram flow-diagram--borderless">
     <div class="diagram-container">
       <div v-if="loading" class="animate-pulse space-y-2">

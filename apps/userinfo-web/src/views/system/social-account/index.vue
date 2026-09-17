@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/shadcn-ui';
 import { ElEmpty, ElImage, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -139,17 +139,17 @@ onMounted(() => {
 <template>
   <Page v-loading="isLoading" auto-content-height>
     <!-- 已绑定列表 -->
-    <Card class="mb-4">
-      <CardHeader>
-        <CardTitle class="font-medium text-base">已绑定社交账号</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard class="mb-4">
+      <YdCardHeader>
+        <YdCardTitle class="font-medium text-base">已绑定社交账号</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
       <ElTable :data="bindings" border>
         <ElTableColumn prop="platform" label="平台" width="140">
           <template #default="{ row }">
-            <Badge :variant="getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary'" :class="getPlatformTagType(row.platform) === 'warning' ? 'bg-yellow-500 text-white hover:bg-yellow-600' : 'text-xs'">
+            <YdBadge :variant="getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary'" :class="getPlatformTagType(row.platform) === 'warning' ? 'bg-yellow-500 text-white hover:bg-yellow-600' : 'text-xs'">
               {{ row.platform ?? '-' }}
-            </Badge>
+            </YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn label="头像" width="80">
@@ -169,27 +169,27 @@ onMounted(() => {
         <ElTableColumn prop="createdAt" label="绑定时间" width="170" />
         <ElTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
-            <Button
+            <YdButtonBase
               size="sm"
               variant="link"
               class="text-destructive"
               @click="handleUnbind(row)"
             >
               解绑
-            </Button>
+            </YdButtonBase>
           </template>
         </ElTableColumn>
       </ElTable>
       <ElEmpty v-if="bindings.length === 0" description="暂无绑定的社交账号" :image-size="60" />
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <!-- 可绑定平台引导 -->
-    <Card>
-      <CardHeader>
-        <CardTitle class="font-medium text-base">可绑定平台</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard>
+      <YdCardHeader>
+        <YdCardTitle class="font-medium text-base">可绑定平台</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
       <div
         v-if="unboundPlatforms.length > 0"
         class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
@@ -202,13 +202,13 @@ onMounted(() => {
           <div class="flex items-center gap-3">
             <span class="text-lg font-medium">{{ String(platform.name ?? platform.code ?? '-') }}</span>
           </div>
-          <Button size="sm" variant="outline" disabled>
+          <YdButtonBase size="sm" variant="outline" disabled>
             绑定
-          </Button>
+          </YdButtonBase>
         </div>
       </div>
       <ElEmpty v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
   </Page>
 </template>

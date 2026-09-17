@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { Badge, Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, Switch, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem/ElTable/ElTableColumn 表单与表格组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem, ElTable, ElTableColumn } from 'element-plus';
 import { nextTick, onMounted, ref, watch } from 'vue';
@@ -196,7 +196,7 @@ onMounted(loadList);
     <!-- 操作栏 -->
     <div class="mb-3 flex items-center justify-between">
       <span class="text-sm font-medium">WebHook 事件订阅</span>
-      <Button size="sm" @click="handleCreate">新增订阅</Button>
+      <YdButtonBase size="sm" @click="handleCreate">新增订阅</YdButtonBase>
     </div>
 
     <!-- 订阅列表 -->
@@ -204,86 +204,86 @@ onMounted(loadList);
       <ElTableColumn prop="name" label="订阅名称" min-width="140" />
       <ElTableColumn prop="eventType" label="事件类型" width="120">
         <template #default="{ row }">
-          <Badge variant="outline">{{ row.eventType }}</Badge>
+          <YdBadge variant="outline">{{ row.eventType }}</YdBadge>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="callbackUrl" label="回调 URL" min-width="200" show-overflow-tooltip />
       <ElTableColumn prop="httpMethod" label="方法" width="80" />
       <ElTableColumn prop="webhookStatus" label="状态" width="90">
         <template #default="{ row }">
-          <Badge :variant="formatStatus(row.webhookStatus).type === 'success' ? 'default' : 'secondary'" size="sm">
+          <YdBadge :variant="formatStatus(row.webhookStatus).type === 'success' ? 'default' : 'secondary'" size="sm">
             {{ formatStatus(row.webhookStatus).label }}
-          </Badge>
+          </YdBadge>
         </template>
       </ElTableColumn>
       <ElTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
-          <Button size="sm" variant="link" @click="handleTest(row)">测试</Button>
-          <Button size="sm" variant="link" @click="handleEdit(row)">编辑</Button>
-          <Button size="sm" variant="link" @click="handleDelete(row)">删除</Button>
+          <YdButtonBase size="sm" variant="link" @click="handleTest(row)">测试</YdButtonBase>
+          <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">编辑</YdButtonBase>
+          <YdButtonBase size="sm" variant="link" @click="handleDelete(row)">删除</YdButtonBase>
         </template>
       </ElTableColumn>
     </ElTable>
 
     <!-- 编辑弹窗 -->
-    <Dialog v-model:open="dialogVisible">
-      <DialogContent class="sm:max-w-[560px]">
-        <DialogHeader>
-          <DialogTitle>{{ editingId ? '编辑订阅' : '新增订阅' }}</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="dialogVisible">
+      <YdDialogContent class="sm:max-w-[560px]">
+        <YdDialogHeader>
+          <YdDialogTitle>{{ editingId ? '编辑订阅' : '新增订阅' }}</YdDialogTitle>
+        </YdDialogHeader>
         <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="100px">
           <ElFormItem label="订阅名称" prop="name">
-            <Input v-model="formData.name" placeholder="请输入订阅名称" />
+            <YdInput v-model="formData.name" placeholder="请输入订阅名称" />
           </ElFormItem>
           <ElFormItem label="事件类型" prop="eventType">
-            <Select v-model="formData.eventType">
-              <SelectTrigger placeholder="请选择事件类型" />
-              <SelectContent>
-                <SelectItem
+            <YdSelectBase v-model="formData.eventType">
+              <YdSelectTriggerBase placeholder="请选择事件类型" />
+              <YdSelectContentBase>
+                <YdSelectItemBase
                   v-for="item in eventTypeOptions"
                   :key="item.value"
                   :value="item.value"
                 >
                   {{ item.label }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
           </ElFormItem>
           <ElFormItem label="回调 URL" prop="callbackUrl">
-            <Input v-model="formData.callbackUrl" placeholder="https://example.com/webhook" />
+            <YdInput v-model="formData.callbackUrl" placeholder="https://example.com/webhook" />
           </ElFormItem>
           <ElFormItem label="请求方法" prop="httpMethod">
-            <RadioGroup v-model="formData.httpMethod">
+            <YdRadioGroup v-model="formData.httpMethod">
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
-                  <RadioGroupItem id="method-post" value="POST" />
+                  <YdRadioGroupItem id="method-post" value="POST" />
                   <label for="method-post" class="cursor-pointer text-sm">POST</label>
                 </div>
                 <div class="flex items-center gap-2">
-                  <RadioGroupItem id="method-put" value="PUT" />
+                  <YdRadioGroupItem id="method-put" value="PUT" />
                   <label for="method-put" class="cursor-pointer text-sm">PUT</label>
                 </div>
               </div>
-            </RadioGroup>
+            </YdRadioGroup>
           </ElFormItem>
           <ElFormItem label="请求头">
-            <Textarea v-model="formData.headers" placeholder="JSON 格式，可选" :rows="2" />
+            <YdTextarea v-model="formData.headers" placeholder="JSON 格式，可选" :rows="2" />
           </ElFormItem>
           <ElFormItem label="签名密钥">
-            <Input v-model="formData.secret" placeholder="用于签名验证，可选" type="password" />
+            <YdInput v-model="formData.secret" placeholder="用于签名验证，可选" type="password" />
           </ElFormItem>
           <ElFormItem label="状态" prop="webhookStatus">
-            <Switch
+            <YdSwitch
               :checked="formData.webhookStatus === 'ACTIVE'"
               @update:checked="formData.webhookStatus = $event ? 'ACTIVE' : 'INACTIVE'"
             />
           </ElFormItem>
         </ElForm>
-        <DialogFooter>
-          <Button variant="outline" @click="dialogVisible = false">取消</Button>
-          <Button @click="handleSubmit">确定</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="dialogVisible = false">取消</YdButtonBase>
+          <YdButtonBase @click="handleSubmit">确定</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </div>
 </template>

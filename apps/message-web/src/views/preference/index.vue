@@ -22,7 +22,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listByUser } from '#/api/preference';
@@ -47,7 +47,7 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.enabled === 1 ? 'default' : 'secondary' }, () =>
+          h(YdBadge, { variant: row.enabled === 1 ? 'default' : 'secondary' }, () =>
             row.enabled === 1 ? '启用' : '停用',
           ),
       },
@@ -58,7 +58,7 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.dndEnabled === 1 ? 'outline' : 'secondary' }, () =>
+          h(YdBadge, { variant: row.dndEnabled === 1 ? 'outline' : 'secondary' }, () =>
             row.dndEnabled === 1 ? '开启' : '关闭',
           ),
       },
@@ -74,7 +74,7 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            Badge,
+            YdBadge,
             { variant: row.status === 'DISABLED' ? 'secondary' : 'default' },
             () => row.status ?? '-',
           ),
@@ -90,12 +90,12 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -123,7 +123,7 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
       {
         field: 'channel',
         title: '通道',
-        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '通道' } },
       },
     ],
   },
@@ -170,7 +170,7 @@ async function handleDelete(row: MsgPreferenceVO) {
   <Page auto-content-height>
     <Grid table-title="消息偏好">
       <template #toolbar-tools>
-        <Button @click="handleAdd">新增</Button>
+        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
       </template>
     </Grid>
     <PreferenceFormModal @success="gridApi.query()" />

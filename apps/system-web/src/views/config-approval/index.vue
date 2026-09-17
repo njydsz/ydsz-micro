@@ -20,8 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElTabs/ElTabPane 暂无 shadcn 映射，待 shadcn Tabs 组件就绪后同步迁移
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElTabs/ElTabPane 暂无 shadcn 映射，待 shadcn YdTabs 组件就绪后同步迁移
 import { createLogger } from '@ydsz-core/shared/utils';
 import { ElTabPane, ElTabs } from 'element-plus';
 import { h, ref } from 'vue';
@@ -212,7 +212,7 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       slots: {
         default: ({ row }) => {
           const variant = statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary';
-          return h(Badge, { variant }, () => statusLabel(row.status));
+          return h(YdBadge, { variant }, () => statusLabel(row.status));
         },
       },
     },
@@ -229,18 +229,18 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
           // 查看详情按钮
-          h(Button, { size: 'sm', onClick: () => handleViewDetail(row) }, () => t('common.viewDetail')),
+          h(YdButtonBase, { size: 'sm', onClick: () => handleViewDetail(row) }, () => t('common.viewDetail')),
           // 待我审批 Tab：通过 / 拒绝
           ...(activeTab.value === 'pending'
             ? [
-                h(Button, { size: 'sm', onClick: () => handleApprove(row) }, () => t('common.approve')),
-                h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleReject(row) }, () => t('common.reject')),
+                h(YdButtonBase, { size: 'sm', onClick: () => handleApprove(row) }, () => t('common.approve')),
+                h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleReject(row) }, () => t('common.reject')),
               ]
             : []),
           // 我已发起 Tab：撤回（仅 PENDING 状态）
           ...(activeTab.value === 'submitted' && row.status === 'PENDING'
             ? [
-                h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleWithdraw(row) }, () => t('common.withdraw')),
+                h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleWithdraw(row) }, () => t('common.withdraw')),
               ]
             : []),
         ]),
@@ -268,7 +268,7 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       {
         field: 'title',
         title: t('configApproval.colTitle'),
-        itemRender: { name: 'Input', props: { placeholder: t('configApproval.colTitle') } },
+        itemRender: { name: 'YdInput', props: { placeholder: t('configApproval.colTitle') } },
       },
     ],
   },

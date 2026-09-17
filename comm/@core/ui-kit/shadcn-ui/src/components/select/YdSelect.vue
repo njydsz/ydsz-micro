@@ -1,6 +1,6 @@
 ﻿<!--
- * 开箱即用的下拉选择器：在 radix Select 之上补齐本项目最常用的三项能力 ——
- * options 数组直接渲染（省去逐条手写 SelectItem）、v-model 双向绑定、allowClear 一键清空。
+ * 开箱即用的下拉选择器：在 radix YdSelectBase 之上补齐本项目最常用的三项能力 ——
+ * options 数组直接渲染（省去逐条手写 YdSelectItemBase）、v-model 双向绑定、allowClear 一键清空。
  *
  * 清空把 modelValue 置为 undefined 而不是空字符串，
  * 便于表单校验区分「未选择」与「选中了空值」两种状态。
@@ -13,11 +13,11 @@
 import { CircleX } from '@ydsz-core/icons';
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
 } from '../../ui';
 
 interface Props {
@@ -38,9 +38,9 @@ function handleClear() {
 }
 </script>
 <template>
-  <Select v-model="modelValue">
-    <SelectTrigger :class="props.class" class="flex w-full items-center" aria-label="选择框">
-      <SelectValue class="flex-auto text-left" :placeholder="placeholder" />
+  <YdSelectBase v-model="modelValue">
+    <YdSelectTriggerBase :class="props.class" class="flex w-full items-center" aria-label="选择框">
+      <YdSelectValueBase class="flex-auto text-left" :placeholder="placeholder" />
       <CircleX
         @pointerdown.stop
         @click.stop.prevent="handleClear"
@@ -51,13 +51,13 @@ function handleClear() {
         role="button"
         tabindex="0"
       />
-    </SelectTrigger>
-    <SelectContent>
+    </YdSelectTriggerBase>
+    <YdSelectContentBase>
       <template v-for="item in options" :key="item.value">
-        <SelectItem :value="item.value"> {{ item.label }} </SelectItem>
+        <YdSelectItemBase :value="item.value"> {{ item.label }} </YdSelectItemBase>
       </template>
-    </SelectContent>
-  </Select>
+    </YdSelectContentBase>
+  </YdSelectBase>
 </template>
 
 <style lang="scss" scoped>

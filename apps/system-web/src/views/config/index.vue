@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -86,7 +86,7 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
       slots: {
         default: ({ row }) => {
           return h(
-            Badge,
+            YdBadge,
             { variant: isEnabled(row.status) ? undefined : 'secondary' },
             () => (isEnabled(row.status) ? t('enabled') : t('disabled')),
           );
@@ -104,15 +104,15 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
           const buttons = [];
           // 编辑按钮 — 需要 sys:config:edit 权限
           if (hasAccessByCodesAll(['sys:config:edit'])) {
-            buttons.push(h(Button, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')));
+            buttons.push(h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')));
           }
           // 版本历史按钮 — 需要 sys:config:edit 权限
           if (hasAccessByCodesAll(['sys:config:edit'])) {
-            buttons.push(h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')));
+            buttons.push(h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')));
           }
           // 删除按钮 — 需要 sys:config:delete 权限
           if (hasAccessByCodesAll(['sys:config:delete'])) {
-            buttons.push(h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')));
+            buttons.push(h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')));
           }
           return h('div', { class: 'flex gap-1' }, buttons);
         },
@@ -138,8 +138,8 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'configKey', title: t('configKey'), itemRender: { name: 'Input', props: { placeholder: t('configKey') } } },
-      { field: 'configGroup', title: t('configGroup'), itemRender: { name: 'Input', props: { placeholder: t('configGroup') } } },
+      { field: 'configKey', title: t('configKey'), itemRender: { name: 'YdInput', props: { placeholder: t('configKey') } } },
+      { field: 'configGroup', title: t('configGroup'), itemRender: { name: 'YdInput', props: { placeholder: t('configGroup') } } },
     ],
   },
 };
@@ -188,10 +188,10 @@ async function handleDelete(row: ConfigRow) {
   <Page auto-content-height>
     <Grid :table-title="t('config')">
       <template #toolbar-tools>
-        <Badge v-if="dataScopeLabel" variant="destructive" style="margin-right: 8px">
+        <YdBadge v-if="dataScopeLabel" variant="destructive" style="margin-right: 8px">
           {{ dataScopeLabel }}
-        </Badge>
-        <Button v-permission="'sys:config:add'" @click="handleAdd">{{ t('create') }}</Button>
+        </YdBadge>
+        <YdButtonBase v-permission="'sys:config:add'" @click="handleAdd">{{ t('create') }}</YdButtonBase>
       </template>
     </Grid>
     <ConfigFormModal @success="gridApi.query()" />

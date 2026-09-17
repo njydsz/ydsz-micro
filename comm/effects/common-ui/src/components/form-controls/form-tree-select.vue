@@ -1,5 +1,5 @@
 <!--
- * 表单树选择：Popover + YdTree 组合（ElTreeSelect 等价物）。
+ * 表单树选择：YdPopoverBase + YdTree 组合（ElTreeSelect 等价物）。
  *
  * YdTree 不假定数据结构（labelField/valueField/childrenField 可配），
  * 本组件在其上补齐「触发器 + 弹层 + 选中回显」的表单形态；
@@ -13,9 +13,9 @@
 import { computed, ref } from 'vue';
 
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+  YdPopoverBase,
+  YdPopoverContentBase,
+  YdPopoverTriggerBase,
   YdTree,
 } from '@ydsz-core/shadcn-ui';
 import { ChevronDown, CircleX } from 'lucide-vue-next';
@@ -110,8 +110,8 @@ function handleUpdate(value: string | number | Array<string | number>): void {
 </script>
 
 <template>
-  <Popover v-model:open="open">
-    <PopoverTrigger as-child>
+  <YdPopoverBase v-model:open="open">
+    <YdPopoverTriggerBase as-child>
       <button
         :aria-expanded="open"
         :aria-haspopup="'listbox'"
@@ -139,8 +139,8 @@ function handleUpdate(value: string | number | Array<string | number>): void {
           <ChevronDown aria-hidden="true" class="size-4 opacity-50" />
         </span>
       </button>
-    </PopoverTrigger>
-    <PopoverContent :align="'start'" class="w-[--radix-popover-trigger-width] p-2">
+    </YdPopoverTriggerBase>
+    <YdPopoverContentBase :align="'start'" class="w-[--radix-popover-trigger-width] p-2">
       <YdTree
         :children-field="props.childrenField"
         :label-field="props.labelField"
@@ -151,6 +151,6 @@ function handleUpdate(value: string | number | Array<string | number>): void {
         bordered
         @update:model-value="handleUpdate"
       />
-    </PopoverContent>
-  </Popover>
+    </YdPopoverContentBase>
+  </YdPopoverBase>
 </template>

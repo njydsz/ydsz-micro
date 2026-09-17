@@ -14,22 +14,22 @@ import type { BreadcrumbProps } from './types';
 import { ChevronDown } from '@ydsz-core/icons';
 
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+  YdBreadcrumb,
+  YdBreadcrumbItem,
+  YdBreadcrumbLink,
+  YdBreadcrumbList,
+  YdBreadcrumbPage,
+  YdBreadcrumbSeparator,
+  YdDropdownMenuBase,
+  YdDropdownMenuContentBase,
+  YdDropdownMenuItemBase,
+  YdDropdownMenuTriggerBase,
 } from '../../ui';
 import { YdIcon } from '../icon';
 
 type Props = BreadcrumbProps;
 
-defineOptions({ name: 'Breadcrumb' });
+defineOptions({ name: 'YdBreadcrumb' });
 withDefaults(defineProps<Props>(), {
   showIcon: false,
 });
@@ -44,34 +44,34 @@ function handleClick(path?: string) {
 }
 </script>
 <template>
-  <Breadcrumb aria-label="面包屑导航">
-    <BreadcrumbList>
+  <YdBreadcrumb aria-label="面包屑导航">
+    <YdBreadcrumbList>
       <TransitionGroup name="breadcrumb-transition">
         <template
           v-for="(item, index) in breadcrumbs"
           :key="`${item.path}-${item.title}-${index}`"
         >
-          <BreadcrumbItem>
+          <YdBreadcrumbItem>
             <div v-if="item.items?.length ?? 0 > 0">
-              <DropdownMenu>
-                <DropdownMenuTrigger class="flex items-center gap-1" aria-haspopup="menu">
+              <YdDropdownMenuBase>
+                <YdDropdownMenuTriggerBase class="flex items-center gap-1" aria-haspopup="menu">
                   <YdIcon v-if="showIcon" :icon="item.icon" class="size-5" aria-hidden="true" />
                   {{ item.title }}
                   <ChevronDown class="size-4" aria-hidden="true" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" role="menu">
+                </YdDropdownMenuTriggerBase>
+                <YdDropdownMenuContentBase align="start" role="menu">
                   <template
                     v-for="menuItem in item.items"
                     :key="`sub-${menuItem.path}`"
                   >
-                    <DropdownMenuItem role="menuitem" @click.stop="handleClick(menuItem.path)">
+                    <YdDropdownMenuItemBase role="menuitem" @click.stop="handleClick(menuItem.path)">
                       {{ menuItem.title }}
-                    </DropdownMenuItem>
+                    </YdDropdownMenuItemBase>
                   </template>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </YdDropdownMenuContentBase>
+              </YdDropdownMenuBase>
             </div>
-            <BreadcrumbLink
+            <YdBreadcrumbLink
               v-else-if="index !== breadcrumbs.length - 1"
               href="javascript:void 0"
               :aria-label="`导航到 ${item.title}`"
@@ -87,8 +87,8 @@ function handleClick(path?: string) {
                 />
                 {{ item.title }}
               </div>
-            </BreadcrumbLink>
-            <BreadcrumbPage v-else :aria-current="index === breadcrumbs.length - 1 ? 'page' : undefined">
+            </YdBreadcrumbLink>
+            <YdBreadcrumbPage v-else :aria-current="index === breadcrumbs.length - 1 ? 'page' : undefined">
               <div class="flex-center">
                 <YdIcon
                   v-if="showIcon"
@@ -99,15 +99,15 @@ function handleClick(path?: string) {
                 />
                 {{ item.title }}
               </div>
-            </BreadcrumbPage>
-            <BreadcrumbSeparator
+            </YdBreadcrumbPage>
+            <YdBreadcrumbSeparator
               v-if="index < breadcrumbs.length - 1 && !item.isHome"
               aria-hidden="true"
             />
-          </BreadcrumbItem>
+          </YdBreadcrumbItem>
         </template>
       </TransitionGroup>
-    </BreadcrumbList>
-  </Breadcrumb>
+    </YdBreadcrumbList>
+  </YdBreadcrumb>
 </template>
 

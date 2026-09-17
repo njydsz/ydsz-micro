@@ -23,7 +23,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { flushByGroup, flushDue, page } from '#/api/aggregate';
@@ -61,7 +61,7 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       width: 110,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapTagVariant(getStatusType(row.batchStatus)) }, () => row.batchStatus ?? '-'),
+          h(YdBadge, { variant: mapTagVariant(getStatusType(row.batchStatus)) }, () => row.batchStatus ?? '-'),
       },
     },
     {
@@ -70,7 +70,7 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'scheduledSendAt', title: '计划发送时间', width: 170 },
@@ -83,7 +83,7 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            Button,
+            YdButtonBase,
             { size: 'sm', variant: 'link', onClick: () => handleFlushByGroup(row) },
             () => '刷新批次',
           ),
@@ -107,17 +107,17 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       {
         field: 'status',
         title: '状态',
-        itemRender: { name: 'Input', props: { placeholder: '状态' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '状态' } },
       },
       {
         field: 'receiver',
         title: '接收人',
-        itemRender: { name: 'Input', props: { placeholder: '接收人' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '接收人' } },
       },
       {
         field: 'channel',
         title: '通道',
-        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '通道' } },
       },
     ],
   },
@@ -170,7 +170,7 @@ async function handleFlushDue() {
   <Page auto-content-height>
     <Grid table-title="聚合批次">
       <template #toolbar-tools>
-        <Button variant="destructive" @click="handleFlushDue">刷新所有到期批次</Button>
+        <YdButtonBase variant="destructive" @click="handleFlushDue">刷新所有到期批次</YdButtonBase>
       </template>
     </Grid>
   </Page>

@@ -17,7 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElEmpty } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
@@ -96,16 +96,16 @@ onMounted(loadHealth);
 <template>
   <Page auto-content-height>
     <!-- 整体健康状态 -->
-    <Card class="mb-3">
-      <CardHeader>
+    <YdCard class="mb-3">
+      <YdCardHeader>
         <div class="flex items-center justify-between">
-          <CardTitle>系统健康状态</CardTitle>
-          <Badge :variant="overallStatus.type" size="lg">
+          <YdCardTitle>系统健康状态</YdCardTitle>
+          <YdBadge :variant="overallStatus.type" size="lg">
             {{ isLoading ? '检查中...' : overallStatus.label }}
-          </Badge>
+          </YdBadge>
         </div>
-      </CardHeader>
-      <CardContent>
+      </YdCardHeader>
+      <YdCardContent>
         <div class="flex items-center gap-3">
         <span
           class="inline-block h-4 w-4 rounded-full"
@@ -117,33 +117,33 @@ onMounted(loadHealth);
            · <span class="text-red-600">{{ componentCards.filter((c) => !c.isOk).length }} 异常</span>
           </span>
         </div>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <!-- 子系统详情 -->
     <div v-loading="isLoading" class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-      <Card
+      <YdCard
         v-for="card in componentCards"
         :key="card.name"
         :style="{ borderTop: `4px solid ${card.isOk ? '#22c55e' : '#ef4444'}` }"
       >
-        <CardHeader>
+        <YdCardHeader>
           <div class="flex items-center justify-between">
-            <CardTitle class="text-sm text-gray-700">{{ card.name }}</CardTitle>
-            <Badge :variant="statusTagType(card.isOk) === 'success' ? 'default' : 'destructive'" size="sm">
+            <YdCardTitle class="text-sm text-gray-700">{{ card.name }}</YdCardTitle>
+            <YdBadge :variant="statusTagType(card.isOk) === 'success' ? 'default' : 'destructive'" size="sm">
               {{ card.status }}
-            </Badge>
+            </YdBadge>
           </div>
-        </CardHeader>
-        <CardContent>
+        </YdCardHeader>
+        <YdCardContent>
           <ElDescriptions v-if="Object.keys(card.details).length" :column="1" size="small">
             <ElDescriptionsItem v-for="(val, key) in card.details" :key="key" :label="key">
               {{ String(val) }}
             </ElDescriptionsItem>
           </ElDescriptions>
           <ElEmpty v-else description="暂无详情" :image-size="40" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <ElEmpty

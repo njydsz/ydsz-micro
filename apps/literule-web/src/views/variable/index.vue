@@ -17,7 +17,7 @@
 import type { VariableDefinitionVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -36,7 +36,7 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
       field: 'type',
       title: '类型',
       width: 110,
-      slots: { default: ({ row }) => h(Badge, { variant: 'default' }, () => row.type ?? '-') },
+      slots: { default: ({ row }) => h(YdBadge, { variant: 'default' }, () => row.type ?? '-') },
     },
     { field: 'category', title: '分类', width: 110 },
     {
@@ -58,12 +58,12 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -134,8 +134,8 @@ async function handleRefresh() {
   <Page auto-content-height>
     <Grid :table-title="t('variable')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">新增</Button>
-        <Button variant="secondary" @click="handleRefresh">刷新</Button>
+        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
+        <YdButtonBase variant="secondary" @click="handleRefresh">刷新</YdButtonBase>
       </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />

@@ -19,8 +19,8 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty/ElDrawer 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
@@ -53,7 +53,7 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
           return h(
-            Badge,
+            YdBadge,
             { variant: rule.enabled === 1 ? 'default' : 'secondary' },
             () => (rule.enabled === 1 ? '启用' : '停用'),
           );
@@ -70,10 +70,10 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(rule) }, () => t('common.edit')),
-            h(Button, { size: 'sm', variant: rule.enabled === 1 ? 'destructive' : 'link', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleLogs(rule) }, () => '日志'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(rule) }, () => t('common.delete')),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(rule) }, () => t('common.edit')),
+            h(YdButtonBase, { size: 'sm', variant: rule.enabled === 1 ? 'destructive' : 'link', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleLogs(rule) }, () => '日志'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(rule) }, () => t('common.delete')),
           ]);
         },
       },
@@ -157,15 +157,15 @@ async function handleLogs(row: JobAlertRuleVO) {
   <Page auto-content-height>
     <Grid :table-title="t('page.alert')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('common.create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
     </Grid>
     <AlertFormModal @success="gridApi.query()" />
-    <Sheet v-model:open="logsDrawerVisible">
-      <SheetContent side="right" class="w-[60%]">
-        <SheetHeader>
-          <SheetTitle>{{ t('page.alertRule') }}</SheetTitle>
-        </SheetHeader>
+    <YdSheet v-model:open="logsDrawerVisible">
+      <YdSheetContent side="right" class="w-[60%]">
+        <YdSheetHeader>
+          <YdSheetTitle>{{ t('page.alertRule') }}</YdSheetTitle>
+        </YdSheetHeader>
         <ElTable :data="alertLogs" border>
         <ElTableColumn prop="alertCode" label="告警编码" width="130" />
         <ElTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
@@ -178,7 +178,7 @@ async function handleLogs(row: JobAlertRuleVO) {
         <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
       </ElTable>
         <ElEmpty v-if="alertLogs.length === 0" :description="t('common.noData')" />
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

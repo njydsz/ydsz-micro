@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -55,7 +55,7 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
         default: ({ row }) => {
           const app = row as AppRow;
           return h(
-            Badge,
+            YdBadge,
             { variant: isEnabled(app.status) ? undefined : 'secondary' },
             () => (isEnabled(app.status) ? '启用' : '禁用'),
           );
@@ -72,8 +72,8 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
         default: ({ row }) => {
           const app = row as AppRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', onClick: () => handleEdit(app) }, () => '编辑'),
-            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => '删除'),
+            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(app) }, () => '编辑'),
+            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => '删除'),
           ]);
         },
       },
@@ -98,8 +98,8 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'appName', title: '应用名称', itemRender: { name: 'Input', props: { placeholder: '应用名称' } } },
-      { field: 'status', title: '状态', itemRender: { name: 'Input', props: { placeholder: '状态（1/0）' } } },
+      { field: 'appName', title: '应用名称', itemRender: { name: 'YdInput', props: { placeholder: '应用名称' } } },
+      { field: 'status', title: '状态', itemRender: { name: 'YdInput', props: { placeholder: '状态（1/0）' } } },
     ],
   },
 };
@@ -139,7 +139,7 @@ async function handleDelete(row: AppRow) {
   <Page auto-content-height>
     <Grid table-title="应用注册">
       <template #toolbar-tools>
-        <Button @click="handleAdd">新增</Button>
+        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
       </template>
     </Grid>
     <AppFormModal @success="gridApi.query()" />

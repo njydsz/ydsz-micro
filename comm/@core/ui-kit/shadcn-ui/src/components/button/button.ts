@@ -65,7 +65,7 @@ export type ValueType = boolean | number | string;
  * 按钮组的 props，用于以按钮形态实现单选/多选。
  *
  * @remarks
- * 相比原生 Radio/Checkbox，按钮组在筛选栏等场景下点击热区更大、视觉更紧凑。
+ * 相比原生 Radio/YdCheckboxBase，按钮组在筛选栏等场景下点击热区更大、视觉更紧凑。
  * 仅从 {@link YdButtonProps} 继承 `disabled`（作用于整组），
  * 其余按钮样式通过 `btnClass` 统一定制。
  */

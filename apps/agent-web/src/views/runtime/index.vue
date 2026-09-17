@@ -122,8 +122,8 @@ const activeGridOptions: VxeTableGridOptions<RuntimeSession> = {
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
   formConfig: { enabled: true, items: [
-    { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'Input', props: { placeholder: 'Agent编码' } } },
-    { field: 'executionId', title: '执行ID', itemRender: { name: 'Input', props: { placeholder: '执行ID' } } },
+    { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } } },
+    { field: 'executionId', title: '执行ID', itemRender: { name: 'YdInput', props: { placeholder: '执行ID' } } },
   ] },
 };
 

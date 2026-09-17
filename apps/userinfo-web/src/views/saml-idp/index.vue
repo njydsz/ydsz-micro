@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/shadcn-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -55,7 +55,7 @@ const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
         default: ({ row }) => {
           const enable = isEnabled(row.status);
           return h(
-            Badge,
+            YdBadge,
             { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
@@ -72,12 +72,12 @@ const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -87,7 +87,7 @@ const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
               () => (isEnabled(row.status) ? '禁用' : '启用'),
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -118,13 +118,13 @@ const [Grid, gridApi] = useYDSZVxeGrid({
   formOptions: {
     schema: [
       {
-        component: 'Input',
+        component: 'YdInput',
         componentProps: { placeholder: 'IdP 名称' },
         fieldName: 'name',
         label: '名称',
       },
       {
-        component: 'Select',
+        component: 'YdSelectBase',
         componentProps: {
           placeholder: t('page.status'),
           options: [
@@ -316,7 +316,7 @@ async function handleDelete(row: SamlIdpConfigVO) {
   <Page auto-content-height>
     <Grid table-title="SAML IdP 配置管理">
       <template #toolbar-tools>
-        <Button variant="default" @click="handleAdd">创建 IdP 配置</Button>
+        <YdButtonBase variant="default" @click="handleAdd">创建 IdP 配置</YdButtonBase>
       </template>
     </Grid>
 

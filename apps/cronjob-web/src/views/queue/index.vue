@@ -17,7 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElProgress } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
@@ -102,11 +102,11 @@ onMounted(loadQueue);
 <template>
   <Page auto-content-height>
     <!-- 队列统计卡片 -->
-    <Card class="mb-3">
-      <CardHeader>
-        <CardTitle>队列概览</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard class="mb-3">
+      <YdCardHeader>
+        <YdCardTitle>队列概览</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
         <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
         <div v-for="card in statCards" :key="card.label">
           <div class="text-sm text-gray-500">{{ card.label }}</div>
@@ -117,24 +117,24 @@ onMounted(loadQueue);
           <div class="mb-1 text-sm text-gray-600">队列使用率</div>
           <ElProgress :percentage="usagePercent" :stroke-width="14" />
         </div>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <!-- 各子系统队列详情 -->
     <div v-loading="isLoading" class="grid grid-cols-1 gap-3 lg:grid-cols-2">
-      <Card v-for="(details, name) in queueData" :key="name">
-        <CardHeader>
-          <CardTitle>{{ String(name) }}</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard v-for="(details, name) in queueData" :key="name">
+        <YdCardHeader>
+          <YdCardTitle>{{ String(name) }}</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <ElDescriptions v-if="Object.keys(details ?? {}).length" :column="2" size="small" border>
             <ElDescriptionsItem v-for="(val, key) in (details ?? {})" :key="key" :label="String(key)">
               {{ String(val) }}
             </ElDescriptionsItem>
           </ElDescriptions>
           <ElEmpty v-else description="暂无数据" :image-size="60" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
 
     <ElEmpty

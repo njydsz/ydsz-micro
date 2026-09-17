@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { ref, watch } from 'vue';
 import { searchUsers } from '#/api/flowUser';
 import type { FlowUserSearchResult } from '#/api/flowUser';
@@ -109,22 +109,22 @@ watch(
 </script>
 
 <template>
-  <Select
+  <YdSelectBase
     :model-value="modelValue"
     :disabled="disabled"
     @update:model-value="handleChange"
   >
-    <SelectTrigger class="w-full">
-      <SelectValue :placeholder="placeholder || $t('wf.targetUserPlaceholder')" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem
+    <YdSelectTriggerBase class="w-full">
+      <YdSelectValueBase :placeholder="placeholder || $t('wf.targetUserPlaceholder')" />
+    </YdSelectTriggerBase>
+    <YdSelectContentBase>
+      <YdSelectItemBase
         v-for="item in userList"
         :key="item.userId"
         :value="item.userId"
       >
         {{ item.userName }}
-      </SelectItem>
-    </SelectContent>
-  </Select>
+      </YdSelectItemBase>
+    </YdSelectContentBase>
+  </YdSelectBase>
 </template>

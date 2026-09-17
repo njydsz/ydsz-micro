@@ -17,19 +17,19 @@
 import { onMounted, reactive, ref } from 'vue';
 
 import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Switch,
+  YdButtonBase,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSwitch,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 import { ElForm, ElFormItem } from 'element-plus';
@@ -109,58 +109,58 @@ onMounted(() => {});
 </script>
 
 <template>
-  <Dialog :open="dialogVisible" @update:open="handleClose">
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>{{ dialogTitle }}</DialogTitle>
-      </DialogHeader>
+  <YdDialog :open="dialogVisible" @update:open="handleClose">
+    <YdDialogContent>
+      <YdDialogHeader>
+        <YdDialogTitle>{{ dialogTitle }}</YdDialogTitle>
+      </YdDialogHeader>
       <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
         <ElFormItem label="名称" prop="name">
-          <Input v-model="form.name" placeholder="如 ydsz-cloud-dev" />
+          <YdInput v-model="form.name" placeholder="如 ydsz-cloud-dev" />
         </ElFormItem>
         <ElFormItem label="JDBC URL" prop="jdbcUrl">
-          <Input
+          <YdInput
             v-model="form.jdbcUrl"
             placeholder="jdbc:mysql://localhost:3306/ydsz_cloud"
           />
         </ElFormItem>
         <ElFormItem label="用户名" prop="username">
-          <Input v-model="form.username" placeholder="数据库用户名" />
+          <YdInput v-model="form.username" placeholder="数据库用户名" />
         </ElFormItem>
         <ElFormItem label="密码" prop="password">
-          <Input
+          <YdInput
             v-model="form.password"
             type="password"
             placeholder="数据库密码"
           />
         </ElFormItem>
         <ElFormItem label="方言">
-          <Select v-model="form.dialect">
-            <SelectTrigger>
-              <SelectValue placeholder="请选择数据库方言" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem
+          <YdSelectBase v-model="form.dialect">
+            <YdSelectTriggerBase>
+              <YdSelectValueBase placeholder="请选择数据库方言" />
+            </YdSelectTriggerBase>
+            <YdSelectContentBase>
+              <YdSelectItemBase
                 v-for="opt in dialectOptions"
                 :key="opt.value"
                 :value="opt.value"
               >
                 {{ opt.label }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+              </YdSelectItemBase>
+            </YdSelectContentBase>
+          </YdSelectBase>
         </ElFormItem>
         <ElFormItem label="默认数据源">
-          <Switch :checked="form.defaultFlag" @update:checked="form.defaultFlag = $event" />
+          <YdSwitch :checked="form.defaultFlag" @update:checked="form.defaultFlag = $event" />
         </ElFormItem>
         <ElFormItem label="描述">
-          <Input v-model="form.description" placeholder="可选描述信息" />
+          <YdInput v-model="form.description" placeholder="可选描述信息" />
         </ElFormItem>
       </ElForm>
-      <DialogFooter>
-        <Button variant="secondary" @click="handleClose">取消</Button>
-        <Button @click="handleSubmit">确定</Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      <YdDialogFooter>
+        <YdButtonBase variant="secondary" @click="handleClose">取消</YdButtonBase>
+        <YdButtonBase @click="handleSubmit">确定</YdButtonBase>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>

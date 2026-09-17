@@ -6,11 +6,11 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { Switch } from '@ydsz-core/shadcn-ui';
+import { YdSwitch } from '@ydsz-core/shadcn-ui';
 
 const model = defineModel<boolean>();
 </script>
 
 <template>
-  <Switch v-model:checked="model" />
+  <YdSwitch v-model:checked="model" />
 </template>

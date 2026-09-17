@@ -114,7 +114,7 @@ export interface FormShape {
    *
    * @remarks
    * 表单初始化及 reset 后回填的值。未设置时字段初始为 `undefined`，
-   * 对于 Select 等受控组件可能触发「非受控转受控」告警，建议显式给出。
+   * 对于 YdSelectBase 等受控组件可能触发「非受控转受控」告警，建议显式给出。
    * 使用 unknown 类型以支持任意表单值类型。
    */
   default?: unknown;

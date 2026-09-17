@@ -21,19 +21,19 @@
 import { reactive, ref } from 'vue';
 
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Input,
-  RadioGroup,
-  RadioGroupItem,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  YdButtonBase,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 // TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
@@ -152,85 +152,85 @@ async function handleAnalyze() {
 
 <template>
   <div class="reverse-gen p-4">
-    <Card>
-      <CardHeader>
-        <CardTitle>反向生成配置</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard>
+      <YdCardHeader>
+        <YdCardTitle>反向生成配置</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
         <ElForm label-width="120px">
           <ElFormItem label="分析模式">
-            <RadioGroup v-model="mode">
+            <YdRadioGroup v-model="mode">
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
-                  <RadioGroupItem id="mode-single" value="single" />
+                  <YdRadioGroupItem id="mode-single" value="single" />
                   <label for="mode-single" class="cursor-pointer text-sm">单文件分析</label>
                 </div>
                 <div class="flex items-center gap-2">
-                  <RadioGroupItem id="mode-batch" value="batch" />
+                  <YdRadioGroupItem id="mode-batch" value="batch" />
                   <label for="mode-batch" class="cursor-pointer text-sm">批量目录分析</label>
                 </div>
               </div>
-            </RadioGroup>
+            </YdRadioGroup>
           </ElFormItem>
 
           <ElFormItem v-if="mode === 'single'" label="源文件路径">
-            <Input
+            <YdInput
               v-model="reverseForm.sourceFilePath"
               placeholder="Java 源文件绝对路径，如 D:/src/User.java"
             />
           </ElFormItem>
 
           <ElFormItem v-else label="源目录路径">
-            <Input
+            <YdInput
               v-model="reverseForm.sourceDirPath"
               placeholder="待分析目录绝对路径，如 D:/src/entity"
             />
           </ElFormItem>
 
           <ElFormItem label="模板分组">
-            <Select v-model="selectedGroupId">
-              <SelectTrigger>
-                <SelectValue placeholder="选择模板分组" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem
+            <YdSelectBase v-model="selectedGroupId">
+              <YdSelectTriggerBase>
+                <YdSelectValueBase placeholder="选择模板分组" />
+              </YdSelectTriggerBase>
+              <YdSelectContentBase>
+                <YdSelectItemBase
                   v-for="group in groupList"
                   :key="group.id"
                   :value="String(group.id)"
                 >
                   {{ group.name }}{{ group.isActive ? ' (当前激活)' : '' }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
           </ElFormItem>
 
           <ElFormItem label="输出目录">
-            <Input
+            <YdInput
               v-model="reverseForm.outputDir"
               placeholder="分析结果输出目录绝对路径"
             />
           </ElFormItem>
 
           <ElFormItem>
-            <Button
+            <YdButtonBase
               :loading="isAnalyzing"
               @click="handleAnalyze"
             >
               开始分析
-            </Button>
+            </YdButtonBase>
           </ElFormItem>
         </ElForm>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <!-- 分析结果 -->
-    <Card class="mt-4">
-      <CardHeader>
-        <CardTitle>分析结果</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard class="mt-4">
+      <YdCardHeader>
+        <YdCardTitle>分析结果</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
         <!-- 单文件结果 -->
-        <Input
+        <YdInput
           v-if="mode === 'single' && resultContent"
           v-model="resultContent"
           :rows="20"
@@ -241,23 +241,23 @@ async function handleAnalyze() {
 
         <!-- 批量结果列表 -->
         <div v-else-if="mode === 'batch' && batchResults.length > 0" class="space-y-4">
-          <Card
+          <YdCard
             v-for="(item, idx) in batchResults"
             :key="idx"
             class="batch-result-card"
           >
-            <CardHeader>
+            <YdCardHeader>
               <span class="text-sm font-medium">结果 #{{ idx + 1 }}</span>
-            </CardHeader>
-            <CardContent>
-              <Input
+            </YdCardHeader>
+            <YdCardContent>
+              <YdInput
                 :model-value="item"
                 :rows="10"
                 readonly
                 type="textarea"
               />
-            </CardContent>
-          </Card>
+            </YdCardContent>
+          </YdCard>
         </div>
 
         <!-- 空状态 -->
@@ -269,8 +269,8 @@ async function handleAnalyze() {
           "
           description="暂无分析结果"
         />
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
   </div>
 </template>
 

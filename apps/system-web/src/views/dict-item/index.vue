@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -64,7 +64,7 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       slots: {
         default: ({ row }) =>
           h(
-            Badge,
+            YdBadge,
             { variant: isEnabled(row.status) ? undefined : 'secondary' },
             () => (isEnabled(row.status) ? t('enabled') : t('disabled')),
           ),
@@ -79,8 +79,8 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(Button, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
           ]),
       },
     },
@@ -104,8 +104,8 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'typeCode', title: '字典类型', itemRender: { name: 'Input', props: { placeholder: '字典类型编码' } } },
-      { field: 'itemCode', title: '字典项编码', itemRender: { name: 'Input', props: { placeholder: '字典项编码' } } },
+      { field: 'typeCode', title: '字典类型', itemRender: { name: 'YdInput', props: { placeholder: '字典类型编码' } } },
+      { field: 'itemCode', title: '字典项编码', itemRender: { name: 'YdInput', props: { placeholder: '字典项编码' } } },
     ],
   },
 };
@@ -175,7 +175,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid :table-title="t('dictItem')">
       <template #toolbar-tools>
-        <Button @click="handleAdd">{{ t('create') }}</Button>
+        <YdButtonBase @click="handleAdd">{{ t('create') }}</YdButtonBase>
       </template>
     </Grid>
     <DictItemFormModal @success="gridApi.query()" />

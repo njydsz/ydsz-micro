@@ -1,19 +1,19 @@
 /**
- * Input 组件 Storybook Stories
+ * YdInput 组件 Storybook Stories
  *
- * P1-2.3: 组件文档化 — Input 组件交互式文档
+ * P1-2.3: 组件文档化 — YdInput 组件交互式文档
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/ui/input/Input.stories.ts
+ * @path comm/@core/ui-kit/shadcn-ui/src/ui/input/YdInput.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import Input from './Input.vue';
+import YdInput from './YdInput.vue';
 
-const meta: Meta<typeof Input> = {
-  title: 'Core/Input',
-  component: Input,
+const meta: Meta<typeof YdInput> = {
+  title: 'Core/YdInput',
+  component: YdInput,
   tags: ['autodocs'],
   argTypes: {
     type: {
@@ -44,7 +44,7 @@ const meta: Meta<typeof Input> = {
 };
 
 /**
- * Input 组件示例集的 Storybook 元信息。
+ * YdInput 组件示例集的 Storybook 元信息。
  *
  * 覆盖的状态：
  *  - 类型维度：`Default`(text) / `Password` / `Email` / `Number` / `Search`；
@@ -57,16 +57,16 @@ const meta: Meta<typeof Input> = {
  * 可在面板中直接组合验证，无需为每种组合各写一个 story。
  */
 export default meta;
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof YdInput>;
 
 /** 默认输入框 */
 export const Default: Story = {
   render: (args) => ({
-    components: { Input },
+    components: { YdInput },
     setup() {
       return { args };
     },
-    template: '<Input v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
   }),
   args: {
     type: 'text',
@@ -78,11 +78,11 @@ export const Default: Story = {
 /** 密码输入框 */
 export const Password: Story = {
   render: (args) => ({
-    components: { Input },
+    components: { YdInput },
     setup() {
       return { args };
     },
-    template: '<Input v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
   }),
   args: {
     type: 'password',
@@ -94,11 +94,11 @@ export const Password: Story = {
 /** 邮箱输入框 */
 export const Email: Story = {
   render: (args) => ({
-    components: { Input },
+    components: { YdInput },
     setup() {
       return { args };
     },
-    template: '<Input v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
   }),
   args: {
     type: 'email',
@@ -110,11 +110,11 @@ export const Email: Story = {
 /** 数字输入框 */
 export const Number: Story = {
   render: (args) => ({
-    components: { Input },
+    components: { YdInput },
     setup() {
       return { args };
     },
-    template: '<Input v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
   }),
   args: {
     type: 'number',
@@ -126,11 +126,11 @@ export const Number: Story = {
 /** 禁用状态 */
 export const Disabled: Story = {
   render: (args) => ({
-    components: { Input },
+    components: { YdInput },
     setup() {
       return { args };
     },
-    template: '<Input v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
   }),
   args: {
     type: 'text',
@@ -143,11 +143,11 @@ export const Disabled: Story = {
 /** 带默认值 */
 export const WithValue: Story = {
   render: (args) => ({
-    components: { Input },
+    components: { YdInput },
     setup() {
       return { args };
     },
-    template: '<Input v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
   }),
   args: {
     type: 'text',
@@ -159,11 +159,11 @@ export const WithValue: Story = {
 /** 搜索输入框 */
 export const Search: Story = {
   render: (args) => ({
-    components: { Input },
+    components: { YdInput },
     setup() {
       return { args };
     },
-    template: '<Input v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
   }),
   args: {
     type: 'search',
@@ -175,16 +175,16 @@ export const Search: Story = {
 /** 所有类型展示 */
 export const AllTypes: Story = {
   render: () => ({
-    components: { Input },
+    components: { YdInput },
     template: `
       <div style="display: flex; flex-direction: column; gap: 16px; width: 300px;">
-        <Input type="text" placeholder="文本输入" />
-        <Input type="password" placeholder="密码输入" />
-        <Input type="email" placeholder="邮箱输入" />
-        <Input type="number" placeholder="数字输入" />
-        <Input type="tel" placeholder="电话输入" />
-        <Input type="url" placeholder="URL 输入" />
-        <Input type="search" placeholder="搜索输入" />
+        <YdInput type="text" placeholder="文本输入" />
+        <YdInput type="password" placeholder="密码输入" />
+        <YdInput type="email" placeholder="邮箱输入" />
+        <YdInput type="number" placeholder="数字输入" />
+        <YdInput type="tel" placeholder="电话输入" />
+        <YdInput type="url" placeholder="URL 输入" />
+        <YdInput type="search" placeholder="搜索输入" />
       </div>
     `,
   }),

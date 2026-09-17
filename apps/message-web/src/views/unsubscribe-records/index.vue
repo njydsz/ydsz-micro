@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, resubscribe } from '#/api/unsubscribe';
@@ -58,7 +58,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       width: 110,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
       },
     },
     { field: 'roleScope', title: '角色范围', width: 120 },
@@ -72,7 +72,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            Button,
+            YdButtonBase,
             {
               size: 'sm',
               variant: 'link',
@@ -101,17 +101,17 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       {
         field: 'userId',
         title: '用户ID',
-        itemRender: { name: 'Input', props: { placeholder: '用户ID' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '用户ID' } },
       },
       {
         field: 'topicCode',
         title: '主题编码',
-        itemRender: { name: 'Input', props: { placeholder: '主题编码' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '主题编码' } },
       },
       {
         field: 'channel',
         title: '通道',
-        itemRender: { name: 'Input', props: { placeholder: '通道' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '通道' } },
       },
     ],
   },

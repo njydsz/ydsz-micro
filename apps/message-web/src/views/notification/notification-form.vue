@@ -23,7 +23,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 
-import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { send } from '#/api/notification';
 
 const emit = defineEmits<{ success: [] }>();
@@ -126,52 +126,52 @@ const [Modal, modalApi] = useYdModal({
       label-position="right"
     >
       <ElFormItem label="接收者" prop="receiverListText">
-        <Textarea
+        <YdTextarea
           v-model="formData.receiverListText"
           placeholder="每行一个接收者ID，支持逗号/分号/换行分隔"
         />
       </ElFormItem>
       <ElFormItem label="标题" prop="title">
-        <Input v-model="formData.title" placeholder="请输入标题" />
+        <YdInput v-model="formData.title" placeholder="请输入标题" />
       </ElFormItem>
       <ElFormItem label="内容" prop="content">
-        <Textarea v-model="formData.content" placeholder="请输入内容" />
+        <YdTextarea v-model="formData.content" placeholder="请输入内容" />
       </ElFormItem>
       <ElFormItem label="级别" prop="level">
-        <Select v-model="formData.level">
-          <SelectTrigger>
-            <SelectValue placeholder="请选择级别" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="INFO">提示</SelectItem>
-            <SelectItem value="WARN">警告</SelectItem>
-            <SelectItem value="ERROR">错误</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="formData.level">
+          <YdSelectTriggerBase>
+            <YdSelectValueBase placeholder="请选择级别" />
+          </YdSelectTriggerBase>
+          <YdSelectContentBase>
+            <YdSelectItemBase value="INFO">提示</YdSelectItemBase>
+            <YdSelectItemBase value="WARN">警告</YdSelectItemBase>
+            <YdSelectItemBase value="ERROR">错误</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem label="分类" prop="category">
-        <Input v-model="formData.category" placeholder="请输入分类（可为空）" />
+        <YdInput v-model="formData.category" placeholder="请输入分类（可为空）" />
       </ElFormItem>
       <ElFormItem label="优先级" prop="priority">
-        <Select v-model="formData.priority">
-          <SelectTrigger>
-            <SelectValue placeholder="请选择优先级（可为空）" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="HIGH">高</SelectItem>
-            <SelectItem value="MEDIUM">中</SelectItem>
-            <SelectItem value="LOW">低</SelectItem>
-          </SelectContent>
-        </Select>
+        <YdSelectBase v-model="formData.priority">
+          <YdSelectTriggerBase>
+            <YdSelectValueBase placeholder="请选择优先级（可为空）" />
+          </YdSelectTriggerBase>
+          <YdSelectContentBase>
+            <YdSelectItemBase value="HIGH">高</YdSelectItemBase>
+            <YdSelectItemBase value="MEDIUM">中</YdSelectItemBase>
+            <YdSelectItemBase value="LOW">低</YdSelectItemBase>
+          </YdSelectContentBase>
+        </YdSelectBase>
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="跳转链接" prop="actionUrl">
-        <Input v-model="formData.actionUrl" placeholder="请输入跳转链接（可为空）" />
+        <YdInput v-model="formData.actionUrl" placeholder="请输入跳转链接（可为空）" />
       </ElFormItem>
       <ElFormItem label="跳转文案" prop="actionText">
-        <Input v-model="formData.actionText" placeholder="请输入跳转文案（可为空）" />
+        <YdInput v-model="formData.actionText" placeholder="请输入跳转文案（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>

@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -159,11 +159,11 @@ function handleClose() {
 </script>
 
 <template>
-  <Dialog :open="visible" @update:open="emit('update:visible', $event)">
-    <DialogContent class="max-w-[85%]">
-      <DialogHeader>
-        <DialogTitle>{{ t('configVersion.diffTitle', { versionA, versionB }) }}</DialogTitle>
-      </DialogHeader>
+  <YdDialog :open="visible" @update:open="emit('update:visible', $event)">
+    <YdDialogContent class="max-w-[85%]">
+      <YdDialogHeader>
+        <YdDialogTitle>{{ t('configVersion.diffTitle', { versionA, versionB }) }}</YdDialogTitle>
+      </YdDialogHeader>
     <!-- 差异统计 -->
     <div class="mb-3 flex gap-4 text-sm">
       <span class="text-red-500">
@@ -179,9 +179,9 @@ function handleClose() {
       <!-- 左侧面板 -->
       <div class="diff-panel left">
         <div class="diff-panel-header">
-          <Button variant="ghost" size="sm">
+          <YdButtonBase variant="ghost" size="sm">
             {{ t('configVersion.leftVersion', [versionA]) }}
-          </Button>
+          </YdButtonBase>
         </div>
         <div class="diff-panel-body">
           <div
@@ -202,9 +202,9 @@ function handleClose() {
       <!-- 右侧面板 -->
       <div class="diff-panel right">
         <div class="diff-panel-header">
-          <Button variant="ghost" size="sm">
+          <YdButtonBase variant="ghost" size="sm">
             {{ t('configVersion.rightVersion', [versionB]) }}
-          </Button>
+          </YdButtonBase>
         </div>
         <div class="diff-panel-body">
           <div
@@ -223,11 +223,11 @@ function handleClose() {
       </div>
     </div>
 
-      <DialogFooter>
-        <Button @click="handleClose">{{ t('common.close') }}</Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      <YdDialogFooter>
+        <YdButtonBase @click="handleClose">{{ t('common.close') }}</YdButtonBase>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>
 
 <style scoped>

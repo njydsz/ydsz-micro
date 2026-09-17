@@ -1,5 +1,5 @@
 /**
- * Table 组件相关的公共类型定义。
+ * YdTable 组件相关的公共类型定义。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\table.types.ts
  * @author ydsz-team
@@ -28,7 +28,7 @@ export interface ColumnDef<T = unknown> {
   fixed?: 'left' | 'right';
 }
 
-/** TableEmpty 组件的 props：空数据占位展示 */
+/** YdTableEmpty 组件的 props：空数据占位展示 */
 export interface TableEmptyProps {
   /** 空数据提示文本，默认 '暂无数据' */
   description?: string;

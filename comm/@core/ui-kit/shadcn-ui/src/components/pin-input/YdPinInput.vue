@@ -16,11 +16,11 @@ import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { PinInput, PinInputGroup, PinInputInput } from '../../ui';
+import { YdPinInputBase, YdPinInputGroupBase, YdPinInputInputBase } from '../../ui';
 import { YdButton } from '../button';
 
 // 云顶规范 §14.5：统一日志模块，禁止裸 console
-const logger = createLogger('PinInput');
+const logger = createLogger('YdPinInputBase');
 
 defineOptions({
   inheritAttrs: false,
@@ -103,7 +103,7 @@ const id = useId();
 </script>
 
 <template>
-  <PinInput
+  <YdPinInputBase
     :id="id"
     v-model="inputValue"
     :disabled="disabled"
@@ -115,14 +115,14 @@ const id = useId();
     @complete="handleComplete"
   >
     <div class="relative flex w-full">
-      <PinInputGroup class="mr-2" aria-label="验证码数字输入框">
-        <PinInputInput
+      <YdPinInputGroupBase class="mr-2" aria-label="验证码数字输入框">
+        <YdPinInputInputBase
           v-for="(item, index) in codeLength"
           :key="item"
           :index="index"
           :aria-label="`第 ${index + 1} 位验证码`"
         />
-      </PinInputGroup>
+      </YdPinInputGroupBase>
       <YdButton
         :disabled="disabled"
         :loading="btnLoading"
@@ -135,6 +135,6 @@ const id = useId();
         {{ btnText }}
       </YdButton>
     </div>
-  </PinInput>
+  </YdPinInputBase>
 </template>
 

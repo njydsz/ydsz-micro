@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Button, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/shadcn-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, type FormInstance } from 'element-plus';
 import { reactive, ref } from 'vue';
@@ -161,18 +161,18 @@ loadPreferences();
 
 <template>
   <Page auto-content-height>
-    <Card shadow="never" class="mx-4 my-3">
-      <CardHeader class="flex flex-row items-center justify-between">
-        <CardTitle class="text-base">偏好设置</CardTitle>
+    <YdCard shadow="never" class="mx-4 my-3">
+      <YdCardHeader class="flex flex-row items-center justify-between">
+        <YdCardTitle class="text-base">偏好设置</YdCardTitle>
         <div class="flex gap-2">
-          <Button variant="ghost" @click="handleReset">重置默认</Button>
-          <Button variant="default" :disabled="isLoading" @click="handleSave">
+          <YdButtonBase variant="ghost" @click="handleReset">重置默认</YdButtonBase>
+          <YdButtonBase variant="default" :disabled="isLoading" @click="handleSave">
             <Loader2 v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
             保存设置
-          </Button>
+          </YdButtonBase>
         </div>
-      </CardHeader>
-      <CardContent>
+      </YdCardHeader>
+      <YdCardContent>
 
       <ElForm
         ref="formRef"
@@ -260,8 +260,8 @@ loadPreferences();
           </div>
         </div>
       </ElForm>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
   </Page>
 </template>
 

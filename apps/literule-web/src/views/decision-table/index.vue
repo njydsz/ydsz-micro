@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -55,7 +55,7 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.isEnabled ? 'default' : 'secondary' }, () =>
+          h(YdBadge, { variant: row.isEnabled ? 'default' : 'secondary' }, () =>
             row.isEnabled ? '启用' : '停用',
           ),
       },
@@ -72,22 +72,22 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDesign(row) },
               () => '设计',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleExport(row) },
               () => '导出',
             ),
             h(
-              Button,
+              YdButtonBase,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -112,12 +112,12 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
       {
         field: 'tableName',
         title: '名称',
-        itemRender: { name: 'Input', props: { placeholder: '请输入决策表名称' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入决策表名称' } },
       },
       {
         field: 'tableCode',
         title: '编码',
-        itemRender: { name: 'Input', props: { placeholder: '请输入决策表编码' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入决策表编码' } },
       },
     ],
   },
@@ -199,8 +199,8 @@ async function handleDownloadTemplate(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="决策表管理">
       <template #toolbar-tools>
-        <Button @click="handleAdd">新增</Button>
-        <Button variant="secondary" @click="handleDownloadTemplate">下载模板</Button>
+        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
+        <YdButtonBase variant="secondary" @click="handleDownloadTemplate">下载模板</YdButtonBase>
       </template>
     </Grid>
     <DecisionTableDesigner

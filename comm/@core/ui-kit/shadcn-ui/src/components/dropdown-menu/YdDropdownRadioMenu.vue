@@ -13,11 +13,11 @@
 import type { DropdownMenuProps } from './interface';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+  YdDropdownMenuBase,
+  YdDropdownMenuContentBase,
+  YdDropdownMenuGroupBase,
+  YdDropdownMenuItemBase,
+  YdDropdownMenuTriggerBase,
 } from '../../ui';
 
 type Props = DropdownMenuProps;
@@ -32,14 +32,14 @@ function handleItemClick(value: string) {
 }
 </script>
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger as-child class="flex items-center gap-1">
+  <YdDropdownMenuBase>
+    <YdDropdownMenuTriggerBase as-child class="flex items-center gap-1">
       <slot></slot>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="start">
-      <DropdownMenuGroup>
+    </YdDropdownMenuTriggerBase>
+    <YdDropdownMenuContentBase align="start">
+      <YdDropdownMenuGroupBase>
         <template v-for="menu in menus" :key="menu.key">
-          <DropdownMenuItem
+          <YdDropdownMenuItemBase
             :class="
               menu.value === modelValue
                 ? 'bg-accent text-accent-foreground'
@@ -55,10 +55,10 @@ function handleItemClick(value: string) {
               class="mr-2 size-1.5 rounded-full"
             ></span>
             {{ menu.label }}
-          </DropdownMenuItem>
+          </YdDropdownMenuItemBase>
         </template>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
-  </DropdownMenu>
+      </YdDropdownMenuGroupBase>
+    </YdDropdownMenuContentBase>
+  </YdDropdownMenuBase>
 </template>
 

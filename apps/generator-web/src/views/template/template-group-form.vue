@@ -17,13 +17,13 @@
 import { reactive, ref } from 'vue';
 
 import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  Input,
+  YdButtonBase,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
 } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
 import { ElForm, ElFormItem } from 'element-plus';
@@ -63,26 +63,26 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <Dialog :open="visible" @update:open="handleClose">
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>新建模板分组</DialogTitle>
-      </DialogHeader>
+  <YdDialog :open="visible" @update:open="handleClose">
+    <YdDialogContent>
+      <YdDialogHeader>
+        <YdDialogTitle>新建模板分组</YdDialogTitle>
+      </YdDialogHeader>
       <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
         <ElFormItem label="分组名称" prop="name">
-          <Input v-model="form.name" placeholder="如 mybatis-plus、mongodb" />
+          <YdInput v-model="form.name" placeholder="如 mybatis-plus、mongodb" />
         </ElFormItem>
         <ElFormItem label="描述">
-          <Input v-model="form.description" placeholder="分组用途说明" />
+          <YdInput v-model="form.description" placeholder="分组用途说明" />
         </ElFormItem>
         <ElFormItem label="排序">
-          <Input v-model="form.sortOrder" type="number" :min="0" />
+          <YdInput v-model="form.sortOrder" type="number" :min="0" />
         </ElFormItem>
       </ElForm>
-      <DialogFooter>
-        <Button variant="secondary" @click="handleClose">取消</Button>
-        <Button @click="handleSubmit">确定</Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      <YdDialogFooter>
+        <YdButtonBase variant="secondary" @click="handleClose">取消</YdButtonBase>
+        <YdButtonBase @click="handleSubmit">确定</YdButtonBase>
+      </YdDialogFooter>
+    </YdDialogContent>
+  </YdDialog>
 </template>

@@ -13,11 +13,11 @@ import { useSlots } from 'vue';
 import { CircleHelp } from '@ydsz/icons';
 
 import {
-  NumberField,
-  NumberFieldContent,
-  NumberFieldDecrement,
-  NumberFieldIncrement,
-  NumberFieldInput,
+  YdNumberField,
+  YdNumberFieldContent,
+  YdNumberFieldDecrement,
+  YdNumberFieldIncrement,
+  YdNumberFieldInput,
   YdTooltip,
 } from '@ydsz-core/shadcn-ui';
 
@@ -70,12 +70,12 @@ const slots = useSlots();
       </YdTooltip>
     </span>
 
-    <NumberField v-model="inputValue" v-bind="$attrs" class="w-[165px]">
-      <NumberFieldContent>
-        <NumberFieldDecrement />
-        <NumberFieldInput />
-        <NumberFieldIncrement />
-      </NumberFieldContent>
-    </NumberField>
+    <YdNumberField v-model="inputValue" v-bind="$attrs" class="w-[165px]">
+      <YdNumberFieldContent>
+        <YdNumberFieldDecrement />
+        <YdNumberFieldInput />
+        <YdNumberFieldIncrement />
+      </YdNumberFieldContent>
+    </YdNumberField>
   </div>
 </template>

@@ -21,7 +21,7 @@ import { h, ref } from 'vue';
 
 // TODO: ElDescriptions/ElDescriptionsItem/ElDrawer 描述+抽屉+输入,保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElDrawer } from 'element-plus';
-import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -49,7 +49,7 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     {
       field: 'action', title: '操作', width: 100, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(Button, { size: 'sm', variant: 'link', onClick: () => handleView(row) }, () => '查看'),
+        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleView(row) }, () => '查看'),
       ]) },
     },
   ],
@@ -64,8 +64,8 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
   formConfig: { enabled: true, items: [
-      { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'Input', props: { placeholder: 'Agent编码' } } },
-      { field: 'agentName', title: 'Agent名称', itemRender: { name: 'Input', props: { placeholder: 'Agent名称' } } },
+      { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } } },
+      { field: 'agentName', title: 'Agent名称', itemRender: { name: 'YdInput', props: { placeholder: 'Agent名称' } } },
   ] },
 };
 const [Grid] = useYDSZVxeGrid({ gridOptions });
@@ -93,8 +93,8 @@ async function handleView(row: AgentDefinitionVO) {
 <template>
   <Page auto-content-height>
     <div class="mb-3 flex items-center gap-2">
-      <Input v-model="queryCode" placeholder="按Agent编码查询" class="w-64" />
-      <Button @click="handleQueryByCode">查询</Button>
+      <YdInput v-model="queryCode" placeholder="按Agent编码查询" class="w-64" />
+      <YdButtonBase @click="handleQueryByCode">查询</YdButtonBase>
     </div>
     <ElDescriptions v-if="queryDetail" :column="3" border class="mb-3">
       <ElDescriptionsItem label="Agent编码">{{ queryDetail.agentCode }}</ElDescriptionsItem>

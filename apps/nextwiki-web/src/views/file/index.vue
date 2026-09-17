@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 shadcn-ui
 import { ElTabPane, ElTabs, ElUpload } from 'element-plus';
-import { Button, Input, Badge, Dialog, DialogContent, DialogFooter, DialogHeader, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdSheet, YdSheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -63,7 +63,7 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.nodeType === 'FOLDER' ? 'warning' : 'default' }, () => (row.nodeType === 'FOLDER' ? '目录' : '文件')),
+          h(YdBadge, { variant: row.nodeType === 'FOLDER' ? 'warning' : 'default' }, () => (row.nodeType === 'FOLDER' ? '目录' : '文件')),
       },
     },
     {
@@ -80,30 +80,30 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(Button, {
+            h(YdButtonBase, {
               size: 'sm', variant: 'link',
               onClick: () => handlePreview(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '预览'),
-            h(Button, {
+            h(YdButtonBase, {
               size: 'sm', variant: 'link',
               onClick: () => handleDownload(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '下载'),
-            h(Button, {
+            h(YdButtonBase, {
               size: 'sm', variant: 'link',
               onClick: () => handleOnlineEdit(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '编辑'),
-            h(Button, {
+            h(YdButtonBase, {
               size: 'sm', variant: 'link',
               onClick: () => handleVersionHistory(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '版本'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleRename(row) }, () => '重命名'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleMove(row) }, () => '移动'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleCopy(row) }, () => '复制'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleRename(row) }, () => '重命名'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleMove(row) }, () => '移动'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleCopy(row) }, () => '复制'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -122,7 +122,7 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'name', title: '名称', itemRender: { name: 'Input', props: { placeholder: '请输入名称' } } },
+      { field: 'name', title: '名称', itemRender: { name: 'YdInput', props: { placeholder: '请输入名称' } } },
     ],
   },
 };
@@ -281,59 +281,60 @@ async function executeZipImport(): Promise<void> {
     batchImportLoading.value = false;
   }
 }
+</script>
 <template>
   <Page auto-content-height>
     <Grid table-title="文件管理">
       <template #toolbar-tools>
-        <Button @click="handleUpload">上传文件</Button>
-        <Button variant="secondary" @click="handleBatchImport">批量导入</Button>
-        <Button @click="handleAdd">新建文件夹</Button>
+        <YdButtonBase @click="handleUpload">上传文件</YdButtonBase>
+        <YdButtonBase variant="secondary" @click="handleBatchImport">批量导入</YdButtonBase>
+        <YdButtonBase @click="handleAdd">新建文件夹</YdButtonBase>
       </template>
     </Grid>
     <FileFormModal @success="gridApi.query()" />
     <FileUploadModal @success="gridApi.query()" />
-    <Dialog v-model:open="renameVisible">
-      <DialogContent class="sm:max-w-[420px]">
-        <DialogHeader>
-          <DialogTitle>重命名</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="renameVisible">
+      <YdDialogContent class="sm:max-w-[420px]">
+        <YdDialogHeader>
+          <YdDialogTitle>重命名</YdDialogTitle>
+        </YdDialogHeader>
         <div class="py-4">
-          <Input v-model="renameForm.name" placeholder="请输入新名称" />
+          <YdInput v-model="renameForm.name" placeholder="请输入新名称" />
         </div>
-        <DialogFooter>
-          <Button variant="outline" @click="renameVisible = false">取消</Button>
-          <Button @click="confirmRename">确定</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-    <Dialog v-model:open="moveVisible">
-      <DialogContent class="sm:max-w-[420px]">
-        <DialogHeader>
-          <DialogTitle>移动文件</DialogTitle>
-        </DialogHeader>
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="renameVisible = false">取消</YdButtonBase>
+          <YdButtonBase @click="confirmRename">确定</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
+    <YdDialog v-model:open="moveVisible">
+      <YdDialogContent class="sm:max-w-[420px]">
+        <YdDialogHeader>
+          <YdDialogTitle>移动文件</YdDialogTitle>
+        </YdDialogHeader>
         <div class="py-4">
-          <Input v-model="moveForm.parentId" placeholder="请输入目标父目录ID（留空表示根目录）" />
+          <YdInput v-model="moveForm.parentId" placeholder="请输入目标父目录ID（留空表示根目录）" />
         </div>
-        <DialogFooter>
-          <Button variant="outline" @click="moveVisible = false">取消</Button>
-          <Button @click="confirmMove">确定</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-    <Sheet v-model:open="previewVisible">
-      <SheetContent side="right" class="w-[800px]">
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="moveVisible = false">取消</YdButtonBase>
+          <YdButtonBase @click="confirmMove">确定</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
+    <YdSheet v-model:open="previewVisible">
+      <YdSheetContent side="right" class="w-[800px]">
         <FilePreview :file-node="previewFileNode" @close="previewVisible = false" />
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
     <FileVersionHistory ref="fileVersionHistoryRef" :file-node="currentNode" />
     <WopiEditor ref="wopiEditorRef" :file-node="currentNode" />
 
     <!-- 批量导入弹窗 -->
-    <Dialog v-model:open="batchImportVisible">
-      <DialogContent class="sm:max-w-[560px]">
-        <DialogHeader>
-          <DialogTitle>批量导入</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="batchImportVisible">
+      <YdDialogContent class="sm:max-w-[560px]">
+        <YdDialogHeader>
+          <YdDialogTitle>批量导入</YdDialogTitle>
+        </YdDialogHeader>
         <div class="py-4">
           <!-- TODO: ElTabs / ElTabPane 尚未迁移到 shadcn-ui -->
           <ElTabs v-model="batchImportType">
@@ -367,16 +368,16 @@ async function executeZipImport(): Promise<void> {
             </ElTabPane>
           </ElTabs>
         </div>
-        <DialogFooter>
-          <Button variant="outline" @click="batchImportVisible = false">取消</Button>
-          <Button
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="batchImportVisible = false">取消</YdButtonBase>
+          <YdButtonBase
             :loading="batchImportLoading"
             @click="batchImportType === 'files' ? executeBatchUpload() : executeZipImport()"
           >
             确定导入
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
   </Page>
 </template>

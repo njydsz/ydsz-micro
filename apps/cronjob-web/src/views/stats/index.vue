@@ -17,7 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Card, CardContent, CardHeader, CardTitle, DatePicker, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDatePicker, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElEmpty/ElTable/ElTableColumn 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
@@ -107,23 +107,23 @@ onMounted(handleQuery);
 <template>
   <Page auto-content-height>
     <!-- 查询条件 -->
-    <Card class="mb-3">
-      <CardHeader>
-        <CardTitle>查询条件</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard class="mb-3">
+      <YdCardHeader>
+        <YdCardTitle>查询条件</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
         <div class="flex flex-wrap items-center gap-3">
-        <Input
+        <YdInput
           v-model="queryForm.jobId"
           placeholder="任务ID（可选）"
           class="!w-56"
         />
-        <DatePicker
+        <YdDatePicker
           v-model="queryForm.startDate"
           placeholder="开始日期"
           class="!w-40"
         />
-        <DatePicker
+        <YdDatePicker
           v-model="queryForm.endDate"
           placeholder="结束日期"
           class="!w-40"
@@ -135,31 +135,31 @@ onMounted(handleQuery);
             查询
           </button>
         </div>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <!-- 汇总统计卡片 -->
-    <Card class="mb-3">
-      <CardHeader>
-        <CardTitle>汇总统计</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <YdCard class="mb-3">
+      <YdCardHeader>
+        <YdCardTitle>汇总统计</YdCardTitle>
+      </YdCardHeader>
+      <YdCardContent>
         <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
         <div v-for="card in summaryCards" :key="card.label">
           <div class="text-sm text-gray-500">{{ card.label }}</div>
           <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
         </div>
         </div>
-      </CardContent>
-    </Card>
+      </YdCardContent>
+    </YdCard>
 
     <div class="grid grid-cols-1 gap-3 lg:grid-cols-5">
       <!-- 日报趋势图 -->
-      <Card class="lg:col-span-2">
-        <CardHeader>
-          <CardTitle>每日触发分布</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="lg:col-span-2">
+        <YdCardHeader>
+          <YdCardTitle>每日触发分布</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <div v-if="dailyList.length" class="flex h-64 items-end gap-1 px-1">
           <div
             v-for="item in dailyList"
@@ -176,15 +176,15 @@ onMounted(handleQuery);
           </div>
         </div>
           <ElEmpty v-else description="暂无日报数据" :image-size="60" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
 
       <!-- 日报明细表格 -->
-      <Card class="lg:col-span-3">
-        <CardHeader>
-          <CardTitle>日报明细</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <YdCard class="lg:col-span-3">
+        <YdCardHeader>
+          <YdCardTitle>日报明细</YdCardTitle>
+        </YdCardHeader>
+        <YdCardContent>
           <ElTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" v-loading="isLoading">
           <ElTableColumn prop="statsDate" label="日期" width="110" />
           <ElTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
@@ -196,8 +196,8 @@ onMounted(handleQuery);
           <ElTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
         </ElTable>
           <ElEmpty v-else description="暂无日报明细" :image-size="60" />
-        </CardContent>
-      </Card>
+        </YdCardContent>
+      </YdCard>
     </div>
   </Page>
 </template>

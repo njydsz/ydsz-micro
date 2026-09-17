@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as Switch } from './Switch.vue';
+export { default as YdSwitch } from './YdSwitch.vue';

@@ -11,9 +11,9 @@ import type { ColPageProps } from './types';
 import { computed, ref, useSlots } from 'vue';
 
 import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
+  YdResizableHandle,
+  YdResizablePanel,
+  YdResizablePanelGroup,
 } from '@ydsz-core/shadcn-ui';
 
 import Page from '../page/page.vue';
@@ -47,7 +47,7 @@ const delegatedSlots = computed(() => {
   return resultSlots;
 });
 
-const leftPanelRef = ref<InstanceType<typeof ResizablePanel>>();
+const leftPanelRef = ref<InstanceType<typeof YdResizablePanel>>();
 
 function expandLeft() {
   leftPanelRef.value?.expand();
@@ -73,8 +73,8 @@ defineExpose({
       <slot :name="slotName" v-bind="slotProps"></slot>
     </template>
 
-    <ResizablePanelGroup class="w-full" direction="horizontal">
-      <ResizablePanel
+    <YdResizablePanelGroup class="w-full" direction="horizontal">
+      <YdResizablePanel
         ref="leftPanelRef"
         :collapsed-size="leftCollapsedWidth"
         :collapsible="leftCollapsible"
@@ -92,13 +92,13 @@ defineExpose({
             }"
           ></slot>
         </template>
-      </ResizablePanel>
-      <ResizableHandle
+      </YdResizablePanel>
+      <YdResizableHandle
         v-if="resizable"
         :style="{ backgroundColor: splitLine ? undefined : 'transparent' }"
         :with-handle="splitHandle"
       />
-      <ResizablePanel
+      <YdResizablePanel
         :collapsed-size="rightCollapsedWidth"
         :collapsible="rightCollapsible"
         :default-size="rightWidth"
@@ -108,7 +108,7 @@ defineExpose({
         <template #default>
           <slot></slot>
         </template>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+      </YdResizablePanel>
+    </YdResizablePanelGroup>
   </Page>
 </template>

@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -115,7 +115,7 @@ const gridOptions: VxeTableGridOptions<GenTableMeta> = {
           const table = row as GenTableMeta;
           return h('div', { class: 'flex gap-1' }, [
               h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -124,7 +124,7 @@ const gridOptions: VxeTableGridOptions<GenTableMeta> = {
               () => '查看列',
             ),
             h(
-              Button,
+              YdButtonBase,
               {
                 size: 'sm',
                 variant: 'link',
@@ -172,21 +172,21 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="mb-4 flex items-center gap-4">
       <span class="text-sm text-gray-600">选择数据源：</span>
-      <Select v-model="selectedDatasourceId" @update:model-value="handleDatasourceChange">
-        <SelectTrigger>
-          <SelectValue placeholder="请选择数据源" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem
+      <YdSelectBase v-model="selectedDatasourceId" @update:model-value="handleDatasourceChange">
+        <YdSelectTriggerBase>
+          <YdSelectValueBase placeholder="请选择数据源" />
+        </YdSelectTriggerBase>
+        <YdSelectContentBase>
+          <YdSelectItemBase
             v-for="ds in datasourceList"
             :key="ds.id"
             :value="String(ds.id)"
           >
             {{ ds.name }} ({{ ds.jdbcUrl }})
-          </SelectItem>
-        </SelectContent>
-      </Select>
-      <Button @click="handleRefreshTables">刷新表缓存</Button>
+          </YdSelectItemBase>
+        </YdSelectContentBase>
+      </YdSelectBase>
+      <YdButtonBase @click="handleRefreshTables">刷新表缓存</YdButtonBase>
     </div>
     <Grid table-title="表元数据" />
     <ColumnDialog

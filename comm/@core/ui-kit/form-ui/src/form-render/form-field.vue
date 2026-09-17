@@ -21,11 +21,11 @@ import { computed, nextTick, onUnmounted, useTemplateRef, watch } from 'vue';
 
 import { CircleAlert } from '@ydsz-core/icons';
 import {
-  FormControl,
-  FormDescription,
+  YdFormControl,
+  YdFormDescription,
   FormField,
-  FormItem,
-  FormMessage,
+  YdFormItem,
+  YdFormMessage,
   YdRenderContent,
   YdTooltip,
 } from '@ydsz-core/shadcn-ui';
@@ -37,7 +37,7 @@ import { useFieldError, useFormValues } from 'vee-validate';
 import { injectComponentRefMap } from '../use-form-context';
 import { injectRenderFormProps, useFormContext } from './context';
 import useDependencies from './dependencies';
-import FormLabel from './form-label.vue';
+import YdFormLabel from './form-label.vue';
 import { isEventObjectLike } from './helper';
 
 type Props = FormSchema;
@@ -319,7 +319,7 @@ onUnmounted(() => {
     v-slot="slotProps"
     :name="fieldName"
   >
-    <FormItem
+    <YdFormItem
       v-show="isShow"
       :class="{
         'form-valid-error': isInValid,
@@ -332,7 +332,7 @@ onUnmounted(() => {
       class="relative flex"
       v-bind="$attrs"
     >
-      <FormLabel
+      <YdFormLabel
         v-if="!hideLabel"
         :class="
           cn(
@@ -353,10 +353,10 @@ onUnmounted(() => {
         <template v-if="label">
           <YdRenderContent :content="label" />
         </template>
-      </FormLabel>
+      </YdFormLabel>
       <div class="flex-auto overflow-hidden p-[1px]">
         <div :class="cn('relative flex w-full items-center', wrapperClass)">
-          <FormControl
+          <YdFormControl
             :aria-describedby="!compact && isInValid ? `${fieldName}-message` : undefined"
             :aria-invalid="isInValid || undefined"
             :class="cn(controlClass)"
@@ -407,24 +407,24 @@ onUnmounted(() => {
                     />
                   </slot>
                 </template>
-                <FormMessage />
+                <YdFormMessage />
               </YdTooltip>
             </slot>
-          </FormControl>
+          </YdFormControl>
           <!-- 自定义后缀 -->
           <div v-if="suffix" class="ml-1">
             <YdRenderContent :content="suffix" />
           </div>
-          <FormDescription v-if="description" class="ml-1">
+          <YdFormDescription v-if="description" class="ml-1">
             <YdRenderContent :content="description" />
-          </FormDescription>
+          </YdFormDescription>
         </div>
 
         <Transition name="slide-up" v-if="!compact">
-          <FormMessage :id="`${fieldName}-message`" class="absolute" />
+          <YdFormMessage :id="`${fieldName}-message`" class="absolute" />
         </Transition>
       </div>
-    </FormItem>
+    </YdFormItem>
   </FormField>
 </template>
 

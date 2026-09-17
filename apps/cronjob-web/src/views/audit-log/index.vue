@@ -19,8 +19,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdBadge, YdButtonBase } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElDrawer/ElTable 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { h, ref } from 'vue';
@@ -96,7 +96,7 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as AuditLogVO;
-          return h(Badge, { size: 'sm', variant: 'secondary' }, () => translateAuditType(item.auditType));
+          return h(YdBadge, { size: 'sm', variant: 'secondary' }, () => translateAuditType(item.auditType));
         },
       },
     },
@@ -107,7 +107,7 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as AuditLogVO;
-          return h(Badge, { size: 'sm' }, () => translateAction(item.action));
+          return h(YdBadge, { size: 'sm' }, () => translateAction(item.action));
         },
       },
     },
@@ -136,7 +136,7 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
         default: ({ row }) => {
           const item = row as AuditLogVO;
           return h(
-            Button,
+            YdButtonBase,
             { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
             () => '详情',
           );
@@ -176,7 +176,7 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
         field: 'action',
         title: '操作行为',
         itemRender: {
-          name: 'Select',
+          name: 'YdSelectBase',
           props: {
             clearable: true,
             options: [
@@ -193,13 +193,13 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
       {
         field: 'operatorName',
         title: '操作人',
-        itemRender: { name: 'Input', props: { placeholder: '操作人姓名' } },
+        itemRender: { name: 'YdInput', props: { placeholder: '操作人姓名' } },
       },
       {
         field: 'startTime',
         title: '时间范围',
         itemRender: {
-          name: 'DatePicker',
+          name: 'YdDatePicker',
           props: {
             type: 'daterange',
             startPlaceholder: '开始日期',
@@ -220,18 +220,18 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
     <Grid table-title="审计日志" />
 
     <!-- 详情抽屉 -->
-    <Sheet v-model:open="isDetailVisible">
-      <SheetContent side="right" class="w-[600px]">
-        <SheetHeader>
-          <SheetTitle>审计日志详情</SheetTitle>
-        </SheetHeader>
+    <YdSheet v-model:open="isDetailVisible">
+      <YdSheetContent side="right" class="w-[600px]">
+        <YdSheetHeader>
+          <YdSheetTitle>审计日志详情</YdSheetTitle>
+        </YdSheetHeader>
         <template v-if="detailRecord">
         <ElDescriptions :column="2" border size="small">
           <ElDescriptionsItem label="模块">
-            <Badge size="sm" variant="secondary">{{ translateAuditType(detailRecord.auditType) }}</Badge>
+            <YdBadge size="sm" variant="secondary">{{ translateAuditType(detailRecord.auditType) }}</YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="操作行为">
-            <Badge size="sm">{{ translateAction(detailRecord.action) }}</Badge>
+            <YdBadge size="sm">{{ translateAction(detailRecord.action) }}</YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="操作内容" :span="2">
             {{ detailRecord.content ?? '-' }}
@@ -246,7 +246,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <ElDescriptionsItem label="TraceId">{{ detailRecord.traceId ?? '-' }}</ElDescriptionsItem>
         </ElDescriptions>
       </template>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { Button, Input, Badge, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdSheet, YdSheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -65,7 +65,7 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.visibility === 'PUBLIC' ? 'success' : 'secondary' }, () => (row.visibility === 'PUBLIC' ? '公开' : '私有')),
+          h(YdBadge, { variant: row.visibility === 'PUBLIC' ? 'success' : 'secondary' }, () => (row.visibility === 'PUBLIC' ? '公开' : '私有')),
       },
     },
     {
@@ -74,7 +74,7 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(Badge, { variant: row.status === 'ACTIVE' ? 'success' : 'warning' }, () => (row.status === 'ACTIVE' ? '正常' : '已归档')),
+          h(YdBadge, { variant: row.status === 'ACTIVE' ? 'success' : 'warning' }, () => (row.status === 'ACTIVE' ? '正常' : '已归档')),
       },
     },
     { field: 'memberCount', title: '成员数', width: 80 },
@@ -91,14 +91,14 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleMembers(row) }, () => '成员'),
-            h(Button, {
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleMembers(row) }, () => '成员'),
+            h(YdButtonBase, {
               size: 'sm', variant: 'link',
               onClick: () => handleArchive(row),
               disabled: row.status === 'ARCHIVED',
             }, () => '归档'),
-            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -217,37 +217,37 @@ async function handleDelete(row: SpaceVO) {
   <Page auto-content-height>
     <Grid table-title="空间管理">
       <template #toolbar-tools>
-        <Button @click="handleAdd">新建空间</Button>
+        <YdButtonBase @click="handleAdd">新建空间</YdButtonBase>
       </template>
     </Grid>
     <SpaceFormModal @success="gridApi.query()" />
-    <Dialog v-model:open="editVisible">
-      <DialogContent class="sm:max-w-[480px]">
-        <DialogHeader>
-          <DialogTitle>{{ editForm.id ? '编辑空间' : '新建空间' }}</DialogTitle>
-        </DialogHeader>
+    <YdDialog v-model:open="editVisible">
+      <YdDialogContent class="sm:max-w-[480px]">
+        <YdDialogHeader>
+          <YdDialogTitle>{{ editForm.id ? '编辑空间' : '新建空间' }}</YdDialogTitle>
+        </YdDialogHeader>
         <div class="space-y-3 py-4">
-          <Input v-model="editForm.name" placeholder="请输入空间名称" />
-          <Input v-model="editForm.description" placeholder="请输入空间描述" />
+          <YdInput v-model="editForm.name" placeholder="请输入空间名称" />
+          <YdInput v-model="editForm.description" placeholder="请输入空间描述" />
           <div class="flex items-center gap-2">
             <span class="text-sm text-gray-600">可见性：</span>
-            <Badge :variant="editForm.visibility === 'PUBLIC' ? 'success' : 'secondary'">
+            <YdBadge :variant="editForm.visibility === 'PUBLIC' ? 'success' : 'secondary'">
               {{ editForm.visibility === 'PUBLIC' ? '公开' : '私有' }}
-            </Badge>
+            </YdBadge>
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" @click="editVisible = false">取消</Button>
-          <Button @click="confirmEdit">确定</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-    <Sheet v-model:open="membersVisible">
-      <SheetContent side="right" class="w-[640px]">
+        <YdDialogFooter>
+          <YdButtonBase variant="outline" @click="editVisible = false">取消</YdButtonBase>
+          <YdButtonBase @click="confirmEdit">确定</YdButtonBase>
+        </YdDialogFooter>
+      </YdDialogContent>
+    </YdDialog>
+    <YdSheet v-model:open="membersVisible">
+      <YdSheetContent side="right" class="w-[640px]">
         <div class="mb-4 flex items-center gap-2">
-          <Input v-model="addMemberForm.userId" placeholder="请输入用户ID" class="flex-1" />
-          <Input v-model="addMemberForm.role" placeholder="角色" class="w-24" />
-          <Button @click="handleAddMember">添加</Button>
+          <YdInput v-model="addMemberForm.userId" placeholder="请输入用户ID" class="flex-1" />
+          <YdInput v-model="addMemberForm.role" placeholder="角色" class="w-24" />
+          <YdButtonBase @click="handleAddMember">添加</YdButtonBase>
         </div>
         <div v-loading="membersLoading">
           <div v-if="members.length === 0" class="py-8 text-center text-gray-400">暂无成员</div>
@@ -256,10 +256,10 @@ async function handleDelete(row: SpaceVO) {
               <p class="text-sm font-medium">{{ member.userId }}</p>
               <p class="text-xs text-gray-500">角色：{{ member.role }} | 加入时间：{{ member.joinedAt }}</p>
             </div>
-            <Button size="sm" variant="link" @click="handleRemoveMember(member)">移除</Button>
+            <YdButtonBase size="sm" variant="link" @click="handleRemoveMember(member)">移除</YdButtonBase>
           </div>
         </div>
-      </SheetContent>
-    </Sheet>
+      </YdSheetContent>
+    </YdSheet>
   </Page>
 </template>

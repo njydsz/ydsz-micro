@@ -21,7 +21,7 @@ import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { Button, Input, RadioGroup, RadioGroupItem, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { submitBatch } from '#/api/batch';
 import type { BatchSendRequestDTO, MsgBatchVO } from '#/api/models';
 
@@ -115,31 +115,31 @@ const [Modal, modalApi] = useYdModal({
       label-position="right"
     >
       <ElFormItem label="批次名称" prop="batchName">
-        <Input v-model="formData.batchName" placeholder="请输入批次名称" />
+        <YdInput v-model="formData.batchName" placeholder="请输入批次名称" />
       </ElFormItem>
       <ElFormItem label="通道" prop="channel">
-        <Input v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
+        <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
       <ElFormItem :label="t('templateCode')" prop="templateCode">
-        <Input v-model="formData.templateCode" :placeholder="t('templateCode')" />
+        <YdInput v-model="formData.templateCode" :placeholder="t('templateCode')" />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="接收者列表" prop="receiverListText">
-        <Textarea
+        <YdTextarea
           v-model="formData.receiverListText"
           placeholder="每行一个接收者，支持逗号/分号/换行分隔"
         />
       </ElFormItem>
       <ElFormItem label="是否异步" prop="async">
-        <RadioGroup v-model="formData.async">
-          <RadioGroupItem :value="true">异步</RadioGroupItem>
-          <RadioGroupItem :value="false">同步</RadioGroupItem>
-        </RadioGroup>
+        <YdRadioGroup v-model="formData.async">
+          <YdRadioGroupItem :value="true">异步</YdRadioGroupItem>
+          <YdRadioGroupItem :value="false">同步</YdRadioGroupItem>
+        </YdRadioGroup>
       </ElFormItem>
       <ElFormItem label="发送人" prop="senderId">
-        <Input v-model="formData.senderId" placeholder="请输入发送人（可为空）" />
+        <YdInput v-model="formData.senderId" placeholder="请输入发送人（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>

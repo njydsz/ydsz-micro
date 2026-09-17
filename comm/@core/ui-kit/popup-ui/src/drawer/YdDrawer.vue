@@ -1,5 +1,5 @@
 ﻿<!--
- * 抽屉的渲染实现：把 DrawerProps 与命令式 API 的状态合并后映射为 Sheet 结构。
+ * 抽屉的渲染实现：把 DrawerProps 与命令式 API 的状态合并后映射为 YdSheet 结构。
  *
  * props 与 API 状态的合并走 usePriorityValues，API 优先 ——
  * 命令式调用（api.setState）需要能覆盖模板上写死的初始值，否则无法在运行中改配置。
@@ -33,14 +33,14 @@ import {
   YdHelpTooltip,
   YdIconButton,
   YdLoading,
-  Separator,
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
+  YdSeparator,
+  YdSheet,
+  YdSheetClose,
+  YdSheetContent,
+  YdSheetDescription,
+  YdSheetFooter,
+  YdSheetHeader,
+  YdSheetTitle,
   VisuallyHidden,
 } from '@ydsz-core/shadcn-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
@@ -187,12 +187,12 @@ const getForceMount = computed(() => {
 });
 </script>
 <template>
-  <Sheet
+  <YdSheet
     :modal="false"
     :open="state?.isOpen"
     @update:open="() => drawerApi?.close()"
   >
-    <SheetContent
+    <YdSheetContent
       :append-to="getAppendTo"
       :class="
         cn('flex w-[520px] flex-col', drawerClass, {
@@ -216,7 +216,7 @@ const getForceMount = computed(() => {
       @opened="() => drawerApi?.onOpened()"
       @pointer-down-outside="pointerDownOutside"
     >
-      <SheetHeader
+      <YdSheetHeader
         v-if="showHeader"
         :class="
           cn(
@@ -230,7 +230,7 @@ const getForceMount = computed(() => {
         "
       >
         <div class="flex items-center">
-          <SheetClose
+          <YdSheetClose
             v-if="closable && closeIconPlacement === 'left'"
             as-child
             :disabled="submitting"
@@ -241,14 +241,14 @@ const getForceMount = computed(() => {
                 <X class="size-4" />
               </YdIconButton>
             </slot>
-          </SheetClose>
-          <Separator
+          </YdSheetClose>
+          <YdSeparator
             v-if="closable && closeIconPlacement === 'left'"
             class="ml-1 mr-2 h-8"
             decorative
             orientation="vertical"
           />
-          <SheetTitle v-if="title" class="text-left">
+          <YdSheetTitle v-if="title" class="text-left">
             <slot name="title">
               {{ title }}
 
@@ -256,22 +256,22 @@ const getForceMount = computed(() => {
                 {{ titleTooltip }}
               </YdHelpTooltip>
             </slot>
-          </SheetTitle>
-          <SheetDescription v-if="description" class="mt-1 text-xs">
+          </YdSheetTitle>
+          <YdSheetDescription v-if="description" class="mt-1 text-xs">
             <slot name="description">
               {{ description }}
             </slot>
-          </SheetDescription>
+          </YdSheetDescription>
         </div>
 
         <VisuallyHidden v-if="!title || !description">
-          <SheetTitle v-if="!title" />
-          <SheetDescription v-if="!description" />
+          <YdSheetTitle v-if="!title" />
+          <YdSheetDescription v-if="!description" />
         </VisuallyHidden>
 
         <div class="flex-center">
           <slot name="extra"></slot>
-          <SheetClose
+          <YdSheetClose
             v-if="closable && closeIconPlacement === 'right'"
             as-child
             :disabled="submitting"
@@ -282,13 +282,13 @@ const getForceMount = computed(() => {
                 <X class="size-4" />
               </YdIconButton>
             </slot>
-          </SheetClose>
+          </YdSheetClose>
         </div>
-      </SheetHeader>
+      </YdSheetHeader>
       <template v-else>
         <VisuallyHidden>
-          <SheetTitle />
-          <SheetDescription />
+          <YdSheetTitle />
+          <YdSheetDescription />
         </VisuallyHidden>
       </template>
       <div
@@ -302,7 +302,7 @@ const getForceMount = computed(() => {
         <slot></slot>
       </div>
       <YdLoading v-if="showLoading || submitting" spinning />
-      <SheetFooter
+      <YdSheetFooter
         v-if="showFooter"
         :class="
           cn(
@@ -337,7 +337,7 @@ const getForceMount = computed(() => {
           </component>
         </slot>
         <slot name="append-footer"></slot>
-      </SheetFooter>
-    </SheetContent>
-  </Sheet>
+      </YdSheetFooter>
+    </YdSheetContent>
+  </YdSheet>
 </template>

@@ -8,7 +8,7 @@
  * @remarks
  * 基于 SheetJS(xlsx) 解析 .xlsx / .xls / .csv 文件，统一能力：
  * - `selectFile`：隐藏 input[type=file] 触发文件选择，返回 Promise<File>
- * - `parseWorkbook`：按列 schema 将 Sheet 行映射为结构化数据
+ * - `parseWorkbook`：按列 schema 将 YdSheet 行映射为结构化数据
  * - 行级校验（必填 / 自定义 validator）+ 行级错误收集
  * - 行数上限检查（maxRows）
  * - 响应式状态：importing / progress / result / error

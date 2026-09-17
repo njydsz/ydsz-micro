@@ -18,7 +18,7 @@
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
-import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { YdButtonBase, YdInput } from '@ydsz-core/ui-kit/shadcn-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { getQuota } from '#/api/quota';
@@ -65,10 +65,10 @@ function handleAdjust() { quotaFormApi.open(); }
 <template>
   <Page auto-content-height>
     <div class="mb-4 flex flex-wrap items-center gap-2">
-      <Input v-model="queryForm.scopeType" placeholder="存储范围类型（如 USER / SPACE，可选）" class="w-64" />
-      <Input v-model="queryForm.scopeId" placeholder="存储范围ID（可选）" class="w-64" @keyup.enter="handleQuery" />
-      <Button @click="handleQuery">查询配额</Button>
-      <Button @click="handleAdjust">调整配额</Button>
+      <YdInput v-model="queryForm.scopeType" placeholder="存储范围类型（如 USER / SPACE，可选）" class="w-64" />
+      <YdInput v-model="queryForm.scopeId" placeholder="存储范围ID（可选）" class="w-64" @keyup.enter="handleQuery" />
+      <YdButtonBase @click="handleQuery">查询配额</YdButtonBase>
+      <YdButtonBase @click="handleAdjust">调整配额</YdButtonBase>
     </div>
     <div class="mb-4">
       <div class="mb-1 text-sm text-gray-600">容量使用（{{ quotaInfo.quotaUsed ?? 0 }} / {{ quotaInfo.quotaLimit ?? 0 }} 字节）</div>
