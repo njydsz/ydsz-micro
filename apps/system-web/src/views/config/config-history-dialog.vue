@@ -113,7 +113,7 @@ function showSnapshot(row: EntityVersionVO) {
 async function confirmRollback(row: EntityVersionVO) {
   if (!row.version) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('configVersion.rollbackConfirm', {
         version: row.version,
         changeLog: row.changeLog || '-',

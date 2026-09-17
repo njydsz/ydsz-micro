@@ -237,7 +237,7 @@ function handleToggle(row: ToolVO): void {
 /** 删除工具 */
 async function handleDelete(row: ToolVO): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除工具「${row.toolName}」吗？`,
       '删除确认',
       { type: 'warning' },

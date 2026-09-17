@@ -37,4 +37,13 @@ export {
   type OpenApiValidationMeta,
   type ToRulesOptions,
 } from './validation/openapi-to-rules';
+// 表单校验全链路（P0-5）
+export {
+  useFormValidation,
+  type FieldBindHandle,
+  type FieldOptions,
+  type FormValidationHandle,
+  type UseFormValidationOptions,
+  type ValidationTrigger,
+} from './validation/use-form-validation';
 

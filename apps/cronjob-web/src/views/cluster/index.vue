@@ -141,7 +141,7 @@ async function handleMigrate(): Promise<void> {
   }
   const jobIds = selection.map((row) => row.id ?? '').filter(Boolean);
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定将选中的 ${jobIds.length} 个任务迁移到集群「${targetCluster.value}」？`,
       '集群迁移确认',
       { type: 'warning' },

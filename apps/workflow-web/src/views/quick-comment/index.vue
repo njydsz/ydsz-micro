@@ -122,7 +122,7 @@ async function handleDelete(row: FlowQuickCommentVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(t('quickComment.delete.confirm', { content: row.content }), t('common.delete.confirmTitle'), { type: 'warning' });
+    await YdConfirm(t('quickComment.delete.confirm', { content: row.content }), t('common.delete.confirmTitle'), { type: 'warning' });
   } catch (error) {
     logger.warn('用户取消删除快捷评语操作', error);
     return; // 用户主动取消删除操作

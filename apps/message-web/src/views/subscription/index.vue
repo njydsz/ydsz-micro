@@ -150,7 +150,7 @@ function handleEdit(row: MsgSubscriptionVO): void {
 async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('subscription.unsubscribeConfirm', { topic: row.topicName ?? row.topicCode, channel: row.channel ?? '' }),
       t('subscription.unsubscribeConfirmTitle'),
       { type: 'warning' },

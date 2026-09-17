@@ -129,7 +129,7 @@ async function handleTest(row: JobWebhookVO) {
 async function handleDelete(row: JobWebhookVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `${t('business.webhookConfirmDelete')}「${row.name}」？`,
       t('common.crud.deleteConfirmTitle'),
       { type: 'warning' },

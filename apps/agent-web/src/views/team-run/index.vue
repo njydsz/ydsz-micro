@@ -217,7 +217,7 @@ async function submitAddMember(): Promise<void> {
 /** 启动 TeamRun */
 async function handleStart(row: TeamRun): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定启动 TeamRun「${row.title ?? row.teamRunId ?? ''}」吗?`,
       '启动确认',
       { type: 'warning' },
@@ -236,7 +236,7 @@ async function handleStart(row: TeamRun): Promise<void> {
 /** 取消 TeamRun */
 async function handleCancel(row: TeamRun): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定取消 TeamRun「${row.title ?? row.teamRunId ?? ''}」吗?`,
       '取消确认',
       { type: 'warning' },

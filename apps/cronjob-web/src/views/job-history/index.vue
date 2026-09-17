@@ -67,7 +67,7 @@ async function handleViewDetail(row: JobHistoryVO): Promise<void> {
 async function handleRollback(row: JobHistoryVO): Promise<void> {
   if (!row.jobId || row.version === undefined) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定回滚「${row.jobName ?? row.jobKey}」到版本 v${row.version} 吗？`,
       '回滚确认',
       { type: 'warning' },

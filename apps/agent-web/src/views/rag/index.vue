@@ -106,7 +106,7 @@ async function handleDelete(row: Record<string, unknown>) {
   const documentId = typeof row?.documentId === 'string' ? row.documentId : '';
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     logger.debug('用户取消删除文档操作');
     return;

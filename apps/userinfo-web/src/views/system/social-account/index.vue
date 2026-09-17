@@ -113,7 +113,7 @@ async function handleUnbind(row: SocialAccountVO): Promise<void> {
   if (!row.platform) return;
   const platformName = row.nickname ?? row.platform;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认解绑社交账号「${platformName}」？解绑后将无法通过该平台快速登录。`,
       '确认解绑',
       { type: 'warning' },

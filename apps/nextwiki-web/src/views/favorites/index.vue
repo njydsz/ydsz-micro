@@ -126,7 +126,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 async function handleRemove(row: UserFavoriteVO) {
   if (!row.nodeId) return;
   try {
-    await ydszConfirm(t('favoritesRemoveConfirm'), { title: t('favoritesRemove'), type: 'warning' });
+    await YdConfirm(t('favoritesRemoveConfirm'), { title: t('favoritesRemove'), type: 'warning' });
     await removeFavorite({ nodeId: row.nodeId });
     showToast.success(t('favoritesRemoveSuccess'));
     gridApi.query();

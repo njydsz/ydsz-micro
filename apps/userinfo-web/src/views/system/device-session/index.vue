@@ -71,7 +71,7 @@ async function loadDevices(): Promise<void> {
 async function handleRevoke(row: DeviceSessionVO): Promise<void> {
   if (!row.sessionId) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认吊销设备「${row.deviceTypeDesc ?? row.deviceType ?? row.sessionId}」？该设备将被强制登出。`,
       '确认吊销',
       { type: 'warning' },

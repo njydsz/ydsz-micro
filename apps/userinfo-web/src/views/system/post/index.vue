@@ -142,7 +142,7 @@ function handleEdit(row: PostVO) {
 async function handleDelete(row: PostVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('post.deletePostConfirm', { postName: row.postName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },

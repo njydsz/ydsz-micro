@@ -20,7 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdAlertBanner, YdBadge, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelect, YdSelectItem, YdSwitch, YdTable, YdTableColumn, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
-import { ydszAlert } from '@ydsz-core/popup-ui';
+import { YdAlert } from '@ydsz-core/popup-ui';
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -121,7 +121,7 @@ async function loadCascadingPreview(ruleCode: string): Promise<void> {
 /** ========== 操作回调 ========== */
 async function handleSearch(): Promise<void> {
   if (!searchRuleCode.value.trim()) {
-    await ydszAlert({ content: '请输入规则编码', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({ content: '请输入规则编码', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   addForm.ruleCode = searchRuleCode.value.trim();
@@ -130,7 +130,7 @@ async function handleSearch(): Promise<void> {
 
 function showAddDialog(): void {
   if (!searchRuleCode.value.trim()) {
-    await ydszAlert({ content: '请先搜索目标规则后再添加依赖', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({ content: '请先搜索目标规则后再添加依赖', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   addForm.ruleCode = searchRuleCode.value.trim();
@@ -143,7 +143,7 @@ function showAddDialog(): void {
 
 async function handleAddDependency(): Promise<void> {
   if (!addForm.dependsOnRuleCode?.trim()) {
-    await ydszAlert({ content: '请选择被依赖规则', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({ content: '请选择被依赖规则', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   try {
@@ -168,7 +168,7 @@ async function handleRemoveDependency(row: RuleDependencyVO): Promise<void> {
   if (!row.ruleCode || !row.dependsOnRuleCode) return;
 
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认移除规则 ${row.ruleCode} 对 ${row.dependsOnRuleCode} 的依赖关系？`,
       '移除依赖确认',
       { type: 'warning' },

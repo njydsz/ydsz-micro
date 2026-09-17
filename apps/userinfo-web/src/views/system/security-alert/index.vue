@@ -180,7 +180,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
  */
 async function handleAcknowledge(row: AlertRow): Promise<void> {
   try {
-    await ydszConfirm('确认该安全告警？', { title: '确认告警', type: 'warning' });
+    await YdConfirm('确认该安全告警？', { title: '确认告警', type: 'warning' });
   } catch {
     return;
   }
@@ -201,7 +201,7 @@ async function handleAcknowledge(row: AlertRow): Promise<void> {
  */
 async function handleResolve(row: AlertRow): Promise<void> {
   try {
-    await ydszConfirm('将该安全告警标记为已解决？', { title: '解决告警', type: 'warning' });
+    await YdConfirm('将该安全告警标记为已解决？', { title: '解决告警', type: 'warning' });
   } catch {
     return;
   }
@@ -222,7 +222,7 @@ async function handleResolve(row: AlertRow): Promise<void> {
  */
 async function handleIgnore(row: AlertRow): Promise<void> {
   try {
-    await ydszConfirm('确定忽略该安全告警？', { title: '忽略告警', type: 'info' });
+    await YdConfirm('确定忽略该安全告警？', { title: '忽略告警', type: 'info' });
   } catch {
     return;
   }

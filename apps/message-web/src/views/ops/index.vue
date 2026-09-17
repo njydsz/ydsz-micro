@@ -92,7 +92,7 @@ async function handleEvictCache(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定清理模板「${evictForm.value.template}」的缓存吗？`,
       '清理确认',
       { type: 'warning' },
@@ -115,7 +115,7 @@ async function handleEvictCache(): Promise<void> {
 /** 确认全量清理缓存 */
 async function handleClearAllCache(): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       '确定全量清理模板缓存吗？清理后所有模板将被重新加载，操作不可恢复。',
       '全量清理确认',
       { type: 'warning', confirmButtonText: '确认清理', cancelButtonText: '取消' },

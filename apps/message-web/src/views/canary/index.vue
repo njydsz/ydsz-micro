@@ -185,7 +185,7 @@ async function handleAssignBucket(): Promise<void> {
 /** 停止实验 */
 async function handleStopExperiment(row: CanaryExperimentRow): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定停止实验「${row.name}」吗？停止后灰度流量将切回主版本。`,
       '停止确认',
       { type: 'warning' },

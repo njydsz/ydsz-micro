@@ -156,7 +156,7 @@ async function handleClearHistory(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm('确定清空该会话的全部历史记录吗？', { title: '清空会话', type: 'warning' });
+    await YdConfirm('确定清空该会话的全部历史记录吗？', { title: '清空会话', type: 'warning' });
     await clearHistory({ conversationId: conversationId.value });
     messages.value = [];
     showToast.success('会话历史已清空');

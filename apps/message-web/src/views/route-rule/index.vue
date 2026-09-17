@@ -131,7 +131,7 @@ async function handleDelete(row: MsgRouteRuleVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除路由规则「${row.ruleName}」吗？`, { title: t('deleteConfirmTitle'), type: 'warning', });
+    await YdConfirm(`确定删除路由规则「${row.ruleName}」吗？`, { title: t('deleteConfirmTitle'), type: 'warning', });
   } catch {
     return; // 用户主动取消删除操作
   }

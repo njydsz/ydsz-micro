@@ -111,7 +111,7 @@ async function handleDeleteGroup(group: GenTemplateGroup) {
     return;
   }
   try {
-    await ydszConfirm(`确定删除分组「${group.name}」吗？`, { title: '删除确认', type: 'warning', });
+    await YdConfirm(`确定删除分组「${group.name}」吗？`, { title: '删除确认', type: 'warning', });
   } catch {
     return;
   }

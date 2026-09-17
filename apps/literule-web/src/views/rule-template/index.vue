@@ -198,7 +198,7 @@ function handlePreview(row: RuleTemplateVO): void {
 async function handleImport(row: RuleTemplateVO): Promise<void> {
   if (!row.templateCode) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认导入模板 "${row.templateName}"？将基于模板创建新规则。`,
       '导入确认',
       { type: 'warning' },

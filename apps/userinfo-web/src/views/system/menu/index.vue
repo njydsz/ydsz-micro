@@ -88,7 +88,7 @@ async function handleDelete(row: MenuTreeVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('menu.deleteMenuConfirm', { menuName: row.menuName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },

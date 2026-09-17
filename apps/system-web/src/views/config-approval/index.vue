@@ -147,7 +147,7 @@ function handleViewDetail(row: ConfigApprovalRecord) {
 }
 
 function handleApprove(row: ConfigApprovalRecord) {
-  ydszConfirm(t('configApproval.approveConfirm'), { title: t('common.confirm'), type: 'warning', })
+  YdConfirm(t('configApproval.approveConfirm'), { title: t('common.confirm'), type: 'warning', })
     .then(async () => {
       // TODO: 对接真实 API —— approveApprovalApi(row.id)
       logger.info('[Mock] 通过审批单:', row.id);
@@ -165,7 +165,7 @@ function handleReject(row: ConfigApprovalRecord) {
 }
 
 function handleWithdraw(row: ConfigApprovalRecord) {
-  ydszConfirm(t('common.cancel') + '?', { title: t('common.withdraw'), type: 'warning', })
+  YdConfirm(t('common.cancel') + '?', { title: t('common.withdraw'), type: 'warning', })
     .then(async () => {
       // TODO: 对接真实 API —— withdrawApprovalApi(row.id)
       logger.info('[Mock] 撤回审批单:', row.id);

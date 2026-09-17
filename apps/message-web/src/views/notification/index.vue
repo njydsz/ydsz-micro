@@ -185,7 +185,7 @@ async function handleRecall(row: MsgNotificationVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定撤回通知「${row.title}」吗？`, { title: '撤回确认', type: 'warning' });
+    await YdConfirm(`确定撤回通知「${row.title}」吗？`, { title: '撤回确认', type: 'warning' });
   } catch {
     return; // 用户主动取消撤回操作
   }
@@ -203,7 +203,7 @@ async function handleRecall(row: MsgNotificationVO) {
 async function handleDelete(row: MsgNotificationVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除通知「${row.title}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除通知「${row.title}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     return; // 用户主动取消删除操作
   }

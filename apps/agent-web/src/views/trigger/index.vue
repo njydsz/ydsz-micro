@@ -234,7 +234,7 @@ async function handleToggleEnabled(row: AgentTrigger): Promise<void> {
 /** 删除触发器 */
 async function handleDelete(row: AgentTrigger): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除触发器「${row.name ?? row.triggerId ?? ''}」吗?该操作不可撤销。`,
       '删除确认',
       { type: 'warning' },

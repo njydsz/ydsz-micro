@@ -150,7 +150,7 @@ async function handleDelete(row: CompanyVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('company.deleteCompanyConfirm', { companyName: row.companyName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },

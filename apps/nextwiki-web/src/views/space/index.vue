@@ -183,7 +183,7 @@ async function handleAddMember(): Promise<void> {
 async function handleRemoveMember(row: SpaceMemberDTO): Promise<void> {
   if (!row.userId) return;
   try {
-    await ydszConfirm(t('removeMemberConfirm'), { title: t('removeMember'), type: 'warning' });
+    await YdConfirm(t('removeMemberConfirm'), { title: t('removeMember'), type: 'warning' });
     await removeMember({ spaceId: currentSpaceId.value, targetUserId: row.userId });
     showToast.success(t('removeSuccess'));
     await loadMembers();
@@ -194,7 +194,7 @@ async function handleRemoveMember(row: SpaceMemberDTO): Promise<void> {
 async function handleArchive(row: SpaceVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('archiveConfirm', [row.name]), t('archiveConf'), { type: 'warning' });
+    await YdConfirm(t('archiveConfirm', [row.name]), t('archiveConf'), { type: 'warning' });
     await archiveSpace({ spaceId: row.id });
     showToast.success(t('archiveSuccess'));
     gridApi.query();
@@ -205,7 +205,7 @@ async function handleArchive(row: SpaceVO) {
 async function handleDelete(row: SpaceVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('deleteSpaceConfirm', [row.name]), t('deleteConf'), { type: 'warning' });
+    await YdConfirm(t('deleteSpaceConfirm', [row.name]), t('deleteConf'), { type: 'warning' });
     await deleteSpace({ spaceId: row.id });
     showToast.success(t('deleteSuccess'));
     gridApi.query();

@@ -102,7 +102,7 @@ const [UserSessionsModalWrapper, userSessionsModalApi] = useYdModal({ connectedC
 async function handleForceLogout(row: UserSessionVO) {
   if (!row.accessToken || !row.username) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('session.forceLogoutConfirm', { username: row.username }),
       t('session.forceLogoutTitle'),
       { type: 'warning' },
@@ -120,7 +120,7 @@ async function handleForceLogout(row: UserSessionVO) {
 async function handleBanUser(row: UserSessionVO) {
   if (!row.username) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('session.banConfirm', { username: row.username }),
       t('session.banTitle'),
       { type: 'warning' },
@@ -151,7 +151,7 @@ function handleViewUserSessions(row: UserSessionVO) {
 async function handleUnbanUser(row: UserSessionVO) {
   if (!row.username) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('session.unbanConfirm', { username: row.username }),
       t('session.unbanTitle'),
       { type: 'warning' },

@@ -124,7 +124,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 async function handleRestore(row: TrashItemVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('trashRestoreConfirm'), { title: t('trashRestore'), type: 'warning' });
+    await YdConfirm(t('trashRestoreConfirm'), { title: t('trashRestore'), type: 'warning' });
     await restore({ trashItemId: row.id });
     showToast.success(t('trashRestoreSuccess'));
     gridApi.query();
@@ -137,7 +137,7 @@ async function handleRestore(row: TrashItemVO) {
 async function handlePurge(row: TrashItemVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('trashPurgeConfirm'), { title: t('trashPurge'), type: 'error' });
+    await YdConfirm(t('trashPurgeConfirm'), { title: t('trashPurge'), type: 'error' });
     await purge({ trashItemId: row.id });
     showToast.success(t('trashPurgeSuccess'));
     gridApi.query();
@@ -159,7 +159,7 @@ async function handleBatchRestore() {
     return;
   }
   try {
-    await ydszConfirm(t('trashBatchRestoreConfirm'), { title: t('trashBatchRestore'), type: 'warning' });
+    await YdConfirm(t('trashBatchRestoreConfirm'), { title: t('trashBatchRestore'), type: 'warning' });
     await batchRestore(ids);
     showToast.success(t('trashBatchRestoreSuccess'));
     gridApi.query();
@@ -171,7 +171,7 @@ async function handleBatchRestore() {
 
 async function handleEmptyTrash() {
   try {
-    await ydszConfirm(t('trashEmptyConfirm'), { title: t('trashEmpty'), type: 'error' });
+    await YdConfirm(t('trashEmptyConfirm'), { title: t('trashEmpty'), type: 'error' });
     await emptyTrash();
     showToast.success(t('trashEmptySuccess'));
     gridApi.query();

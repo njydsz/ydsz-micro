@@ -298,7 +298,7 @@ async function handleTrigger(row: JobRow) {
 async function handleDelete(row: JobRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除「${row.jobName}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除「${row.jobName}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     logger.warn('用户取消删除任务', row.id);
     return; // 用户主动取消删除操作
@@ -362,7 +362,7 @@ async function handleBatchDelete() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, { title: '批量删除确认', type: 'warning', });
+    await YdConfirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, { title: '批量删除确认', type: 'warning', });
   } catch {
     logger.warn('用户取消批量删除', ids);
     return; // 用户主动取消批量删除

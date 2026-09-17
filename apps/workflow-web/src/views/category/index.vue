@@ -105,7 +105,7 @@ async function handleDelete(row: FlowCategoryVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('category.delete.confirm', { name: row.categoryName ?? row.categoryCode }),
       t('common.delete.confirmTitle'),
       { type: 'warning' },

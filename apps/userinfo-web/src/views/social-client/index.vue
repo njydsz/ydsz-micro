@@ -320,7 +320,7 @@ async function handleToggleStatus(row: SocialClientVO) {
   if (!row.platform) return;
   const newStatus = isEnabled(row.status) ? 'DISABLED' : 'ENABLED';
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认${isEnabled(row.status) ? '禁用' : '启用'}平台 "${row.platformName ?? row.platform}"？`,
       '确认操作',
       { type: 'warning' },
@@ -350,7 +350,7 @@ async function handleToggleStatus(row: SocialClientVO) {
 async function handleDelete(row: SocialClientVO) {
   if (!row.platform) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认删除平台 "${row.platformName ?? row.platform}" 配置？此操作不可恢复。`,
       '确认删除',
       { type: 'warning' },

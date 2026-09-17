@@ -263,7 +263,7 @@ function handleCardAction(command: CardCommand, row: RuleDefinitionVO): void {
 async function handleToggle(row: RuleDefinitionVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('confirmToggleRule', [row.isEnabled ? t('disabled') : t('enabled'), row.ruleName]),
       t('confirm'),
       { type: 'warning' },
@@ -280,7 +280,7 @@ async function handleToggle(row: RuleDefinitionVO): Promise<void> {
 async function handleDelete(row: RuleDefinitionVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ydszConfirm(t('confirmDeleteRule', [row.ruleName]), t('deleteConf'), { type: 'warning' });
+    await YdConfirm(t('confirmDeleteRule', [row.ruleName]), t('deleteConf'), { type: 'warning' });
     await deleteRule({ ruleCode: row.ruleCode });
     showToast.success(t('deleteSuccess'));
     await handleRefresh();
@@ -330,7 +330,7 @@ async function handleRollback(versionItem: RuleVersionVO): Promise<void> {
   const rule = currentRule.value;
   if (!rule?.ruleCode || versionItem.version === undefined) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('confirmRollback', [rule.ruleName, versionItem.version]),
       t('rollbackConf'),
       { type: 'warning' },

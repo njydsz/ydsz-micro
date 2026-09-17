@@ -197,7 +197,7 @@ async function handleToggle(row: FlowDelegateAuthVO) {
   const next = isEnabled(row) ? 'DISABLED' : 'ENABLED';
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('delegate.toggle.confirm', { action: next === 'DISABLED' ? t('common.disable') : t('common.enable') }),
       t('common.confirmTitle'),
       { type: 'warning' },
@@ -222,7 +222,7 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revoke.confirmTitle'), {
+    await YdConfirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revoke.confirmTitle'), {
       type: 'warning',
     });
   } catch (error) {

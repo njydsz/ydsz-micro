@@ -116,7 +116,7 @@ async function handleToggle(row: JobAlertRuleVO) {
 async function handleDelete(row: JobAlertRuleVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除告警规则「${row.ruleName}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除告警规则「${row.ruleName}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     return; // 用户主动取消删除操作
   }

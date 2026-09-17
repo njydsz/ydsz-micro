@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButton, YdCard, YdCol, YdCountToAnimator, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdTabs, YdTabsContent, YdTooltipSmart } from '@ydsz-core/ydsz-ui';
-import { ydszAlert } from '@ydsz-core/popup-ui';
+import { YdAlert } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -328,7 +328,7 @@ async function handleInstall(row: RulePackVO): Promise<void> {
   if (!row.packCode) return;
   try {
     await installPack({ packCode: row.packCode }, { version: row.packVersion });
-await ydszAlert({
+await YdAlert({
   content: `规则包 ${row.packName} v${row.packVersion} 安装成功`,
   title: '安装结果',
   icon: 'success',
@@ -343,7 +343,7 @@ await ydszAlert({
 async function handleUninstall(row: RulePackVO): Promise<void> {
   if (!row.packCode) return;
   try {
-    await ydszConfirm(`确认卸载规则包 "${row.packName}"？`, { title: '卸载确认', type: 'warning', });
+    await YdConfirm(`确认卸载规则包 "${row.packName}"？`, { title: '卸载确认', type: 'warning', });
   } catch {
     logger.debug('用户取消卸载规则包');
     return;
@@ -367,14 +367,14 @@ async function handleViewVersions(row: RulePackVO): Promise<void> {
 async function handleRollback(version: string): Promise<void> {
   if (!currentPackCode.value) return;
   try {
-    await ydszConfirm(`确认回滚到版本 ${version}？`, { title: '回滚确认', type: 'warning', });
+    await YdConfirm(`确认回滚到版本 ${version}？`, { title: '回滚确认', type: 'warning', });
   } catch {
     logger.debug('用户取消回滚');
     return;
   }
   try {
     await rollbackPack({ packCode: currentPackCode.value }, { version });
-    await ydszAlert({
+    await YdAlert({
   content: `已回滚到版本 ${version}`,
   title: '回滚成功',
   icon: 'success',
@@ -428,7 +428,7 @@ function handleOpenPublishDialog(): void {
 
 async function handlePublish(): Promise<void> {
   if (!publishForm.value.packCode || !publishForm.value.packName) {
-    await ydszAlert({
+    await YdAlert({
   content: '请填写包编码和名称',
   title: '提示',
   icon: 'warning',
@@ -438,7 +438,7 @@ async function handlePublish(): Promise<void> {
   }
   try {
     await publishPack(publishForm.value);
-    await ydszAlert({
+    await YdAlert({
   content: '规则包发布成功',
   title: '发布结果',
   icon: 'success',
@@ -455,7 +455,7 @@ async function handleUpdateSingle(row: PackUpdateInfoVO): Promise<void> {
   if (!row.packCode) return;
   try {
     await installPack({ packCode: row.packCode }, { version: row.latestVersion });
-await ydszAlert({
+await YdAlert({
   content: `规则包 ${row.packName} 已更新到 v${row.latestVersion}`,
   title: '更新成功',
   icon: 'success',
@@ -470,7 +470,7 @@ await ydszAlert({
 async function handleBatchUpdate(): Promise<void> {
   const codes = updatablePacks.value.filter((p) => p.hasUpdate).map((p) => p.packCode ?? '');
   if (codes.length === 0) {
-    await ydszAlert({
+    await YdAlert({
   content: '当前没有可更新的规则包',
   title: '提示',
   icon: 'info',
@@ -480,7 +480,7 @@ async function handleBatchUpdate(): Promise<void> {
   }
   try {
     await batchUpdatePacks(codes);
-    await ydszAlert({
+    await YdAlert({
   content: `已成功更新 ${codes.length} 个规则包`,
   title: '批量更新成功',
   icon: 'success',
@@ -510,7 +510,7 @@ function handleOpenStressDialog(): void {
 
 async function handleStressTest(): Promise<void> {
   if (!stressPackCode.value.trim()) {
-    await ydszAlert({
+    await YdAlert({
   content: '请输入需要压测的包编码',
   title: '提示',
   icon: 'warning',

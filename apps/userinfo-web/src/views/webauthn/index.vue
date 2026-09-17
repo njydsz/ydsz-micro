@@ -97,7 +97,7 @@ function handleViewDetail(cred: WebAuthnCredentialVO) {
 async function handleDelete(cred: WebAuthnCredentialVO) {
   if (!cred.credentialId) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       '确认删除该 Passkey 凭证？删除后将无法使用该凭证登录。',
       '确认删除',
       { type: 'warning' },

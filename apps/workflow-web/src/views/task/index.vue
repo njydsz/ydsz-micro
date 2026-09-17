@@ -19,7 +19,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
-import { ydszPrompt } from '@ydsz-core/popup-ui';
+import { YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';
@@ -171,7 +171,7 @@ async function handleBatchPass() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       $t('wf.confirmBatchPass', { count: ids.length }),
       $t('wf.batchPassConfirm'),
       {
@@ -201,7 +201,7 @@ async function handleBatchReject() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       $t('wf.confirmBatchReject', { count: ids.length }),
       $t('wf.batchRejectConfirm'),
       {
@@ -236,7 +236,7 @@ async function handleBatchTransfer() {
   let targetUserId: string;
   let comment: string;
   try {
-    const inputUserId = await ydszPrompt<string>({
+    const inputUserId = await YdPrompt<string>({
       content: $t('wf.targetUser'),
       confirmText: $t('wf.confirm'),
       cancelText: $t('wf.cancel'),
@@ -253,7 +253,7 @@ async function handleBatchTransfer() {
       },
     });
     targetUserId = inputUserId ?? '';
-    const inputComment = await ydszPrompt<string>({
+    const inputComment = await YdPrompt<string>({
       content: $t('wf.commentPlaceholder'),
       confirmText: $t('wf.confirm'),
       cancelText: $t('wf.cancel'),
@@ -288,7 +288,7 @@ async function handleBatchUrge() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       $t('wf.confirmBatchUrge', { count: ids.length }),
       $t('wf.batchUrgeConfirm'),
       {

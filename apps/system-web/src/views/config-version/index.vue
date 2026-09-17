@@ -86,7 +86,7 @@ async function handleQuery(): Promise<void> {
 async function handleRollback(row: EntityVersionVO): Promise<void> {
   if (!resourceKey.value || !row.version) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定回滚到版本 ${row.version} 吗？回滚后当前配置将被覆盖。`,
       '回滚确认',
       { type: 'warning' },

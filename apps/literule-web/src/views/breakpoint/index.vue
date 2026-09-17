@@ -16,7 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { ydszConfirm, ydszPrompt } from '@ydsz-core/popup-ui';
+import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -84,7 +84,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 新增断点（规则编码） */
 async function handleAddBreakpoint() {
   try {
-    const value = await ydszPrompt<string>({
+    const value = await YdPrompt<string>({
       content: t('createBreakpointPrompt'),
       confirmText: t('confirmBtn'),
       cancelText: t('cancelBtn'),
@@ -118,7 +118,7 @@ async function handleRemoveBreakpoint(row: DebugRow) {
     return;
   }
   try {
-    await ydszConfirm(t('confirmDeleteBreakpoint'), t('deleteConf'), { icon: 'warning' });
+    await YdConfirm(t('confirmDeleteBreakpoint'), t('deleteConf'), { icon: 'warning' });
     await removeBreakpoint({ breakpointId });
     showToast.success(t('deleteSuccess'));
     gridApi.query();
@@ -143,7 +143,7 @@ async function loadSessions() {
 /** 创建调试会话 */
 async function handleCreateSession() {
   try {
-    const value = await ydszPrompt<string>({
+    const value = await YdPrompt<string>({
       content: t('createSessionPrompt'),
       confirmText: t('confirmBtn'),
       cancelText: t('cancelBtn'),
@@ -174,7 +174,7 @@ async function handleTerminateSession(row?: DebugRow) {
     return;
   }
   try {
-    await ydszConfirm(t('endSessionConfirm'), { title: t('endSession'), type: 'warning' });
+    await YdConfirm(t('endSessionConfirm'), { title: t('endSession'), type: 'warning' });
     await terminateSession({ sessionId });
     showToast.success(t('sessionEndSuccess'));
     if (!row) {

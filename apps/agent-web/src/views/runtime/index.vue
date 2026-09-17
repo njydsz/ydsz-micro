@@ -202,7 +202,7 @@ async function handleViewDetail(row: RuntimeSession): Promise<void> {
 /** 强制回收会话 */
 async function handleForceRecycle(row: RuntimeSession): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定强制回收会话「${row.executionId ?? ''}」吗?该操作不可撤销。`,
       '回收确认',
       { type: 'warning' },

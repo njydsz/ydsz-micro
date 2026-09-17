@@ -167,7 +167,7 @@ async function handleClearAll(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定清除对话「${queryConversationId.value.trim()}」的全部记忆吗？该操作不可撤销。`,
       '清除确认',
       { type: 'warning' },
@@ -192,7 +192,7 @@ async function handleConsolidate(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定对对话「${queryConversationId.value.trim()}」执行记忆整合吗？将提取有价值的事实并刷新用户画像。`,
       '整合确认',
       { type: 'warning' },
@@ -218,7 +218,7 @@ function handleViewDetail(row: MemoryVO): void {
 /** 删除单条记忆 */
 async function handleDelete(row: MemoryVO): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除消息「${row.id ?? ''}」吗？该操作不可撤销。`,
       '删除确认',
       { type: 'warning' },

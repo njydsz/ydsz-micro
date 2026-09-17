@@ -117,7 +117,7 @@ async function handleDelete(row: TenantVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除租户「${row.tenantName}」吗？删除后不可恢复。`, { title: t('tenantDeleteTitle'), type: 'warning' });
+    await YdConfirm(`确定删除租户「${row.tenantName}」吗？删除后不可恢复。`, { title: t('tenantDeleteTitle'), type: 'warning' });
   } catch (error) {
     logger.warn('用户取消删除租户', error);
     return; // 用户主动取消删除操作

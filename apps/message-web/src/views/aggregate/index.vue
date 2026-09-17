@@ -130,7 +130,7 @@ async function handleFlushByGroup(row: MsgAggregateVO) {
   if (!row.aggregateGroup) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定刷新聚合组「${row.aggregateGroup}」的批次吗？`,
       '刷新确认',
       { type: 'warning' },
@@ -152,7 +152,7 @@ async function handleFlushByGroup(row: MsgAggregateVO) {
 async function handleFlushDue() {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm('确定刷新所有到期的聚合批次吗？', { title: '刷新确认', type: 'warning', });
+    await YdConfirm('确定刷新所有到期的聚合批次吗？', { title: '刷新确认', type: 'warning', });
   } catch {
     return; // 用户主动取消操作
   }

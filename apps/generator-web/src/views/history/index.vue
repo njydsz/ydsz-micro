@@ -205,7 +205,7 @@ function handleViewFiles(row: GenHistory) {
 async function handleRollback(row: GenHistory) {
   if (!row.id) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定回滚任务 #${row.id} 吗？这将恢复或删除该任务生成的所有文件。`,
       '回滚确认',
       { type: 'warning' },
@@ -232,7 +232,7 @@ async function handleRollback(row: GenHistory) {
 async function handleDelete(row: GenHistory) {
   if (!row.id) return;
   try {
-    await ydszConfirm(`确定删除任务记录 #${row.id} 吗？`, { title: '删除确认', type: 'warning', });
+    await YdConfirm(`确定删除任务记录 #${row.id} 吗？`, { title: '删除确认', type: 'warning', });
   } catch {
     return;
   }

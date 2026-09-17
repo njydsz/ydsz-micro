@@ -167,7 +167,7 @@ function handleVersionHistory(row: ConfigRow) {
 async function handleDelete(row: ConfigRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(t('confirmDeleteName', [row.configKey ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+    await YdConfirm(t('confirmDeleteName', [row.configKey ?? '']), t('common.deleteConfirm'), { type: 'warning' });
   } catch (error) {
     logger.warn('用户取消删除系统配置', error);
     return; // 用户主动取消删除操作

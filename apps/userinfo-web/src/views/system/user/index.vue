@@ -31,7 +31,7 @@ import {
   YdSelectValueBase,
   YdTreeSelect,
 } from '@ydsz-core/ydsz-ui';
-import { ydszConfirm, ydszPrompt } from '@ydsz-core/popup-ui';
+import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { useI18n } from 'vue-i18n';
 import { h, onMounted, reactive, ref } from 'vue';
 
@@ -370,7 +370,7 @@ async function handleResetPassword(row: UserAccountVO) {
   let newPassword: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const value = await ydszPrompt<string>({
+    const value = await YdPrompt<string>({
       content: t('user.resetPasswordPrompt', { username: row.username ?? '' }),
       confirmText: t('page.confirm'),
       cancelText: t('page.cancel'),
@@ -406,7 +406,7 @@ async function handleDelete(row: UserAccountVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('user.deleteUserConfirm', { username: row.username ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },

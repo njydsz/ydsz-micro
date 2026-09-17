@@ -163,7 +163,7 @@ async function handleDelete(row: DecisionTableVO): Promise<void> {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('confirmDeleteTable', [row.tableName]),
       t('deleteConf'),
       { type: 'warning' },

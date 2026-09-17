@@ -213,7 +213,7 @@ async function handleToggleStatus(row: ApiPermissionRow) {
     : t('apiPermission.disableConfirm', [row.apiCode ?? '']);
 
   try {
-    await ydszConfirm(confirmMessage, { title: t('common.confirm'), type: 'warning' });
+    await YdConfirm(confirmMessage, { title: t('common.confirm'), type: 'warning' });
   } catch {
     return;
   }
@@ -238,7 +238,7 @@ async function handleToggleStatus(row: ApiPermissionRow) {
  */
 async function handleDelete(row: ApiPermissionRow) {
   try {
-    await ydszConfirm(t('apiPermission.deleteConfirm', [row.apiCode ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+    await YdConfirm(t('apiPermission.deleteConfirm', [row.apiCode ?? '']), t('common.deleteConfirm'), { type: 'warning' });
   } catch {
     return;
   }

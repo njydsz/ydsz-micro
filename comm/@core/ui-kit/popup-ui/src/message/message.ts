@@ -1,7 +1,7 @@
 /**
  * 轻量消息提示（toast）的命令式 API：类型契约 + 模块级实例注册表 + 弹出/关闭函数。
  *
- * 与 ydszAlert/ydszConfirm 的区别：toast 是非阻塞、可自动消失的临时反馈，
+ * 与 YdAlert/YdConfirm 的区别：toast 是非阻塞、可自动消失的临时反馈，
  * 不等待用户决策，故不返回 Promise；多条 toast 由唯一宿主席组件（YdMessageHost）
  * 按类型优先级堆叠在页面顶部渲染。
  *

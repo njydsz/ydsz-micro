@@ -75,7 +75,7 @@ async function handleRecallNotification(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定召回通知（ID: ${notificationForm.id}）吗？召回后接收人将无法查看该通知。`,
       '召回确认',
       { type: 'warning' },
@@ -117,7 +117,7 @@ async function handleRecallByLogId(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定召回消息（logId: ${messageForm.logId}）吗？`,
       '召回确认',
       { type: 'warning' },
@@ -151,7 +151,7 @@ async function handleRecallByMsgId(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定召回消息（msgId: ${messageForm.msgId}）吗？`,
       '召回确认',
       { type: 'warning' },
@@ -186,7 +186,7 @@ async function handleRecallBatch(): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       '确定执行批量召回吗？此操作将召回匹配范围内所有消息，不可撤销。',
       '批量召回确认',
       { type: 'warning', confirmButtonText: '确认召回', cancelButtonText: '取消' },

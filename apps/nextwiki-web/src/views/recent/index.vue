@@ -113,7 +113,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 async function handleRemove(row: UserRecentVO) {
   if (!row.nodeId) return;
   try {
-    await ydszConfirm(t('recentRemoveConfirm'), { title: t('recentRemove'), type: 'warning' });
+    await YdConfirm(t('recentRemoveConfirm'), { title: t('recentRemove'), type: 'warning' });
     await removeRecent({ nodeId: row.nodeId });
     showToast.success(t('recentRemoveSuccess'));
     gridApi.query();
@@ -125,7 +125,7 @@ async function handleRemove(row: UserRecentVO) {
 
 async function handleClearAll() {
   try {
-    await ydszConfirm(t('recentClearAllConfirm'), { title: t('recentClearAll'), type: 'error' });
+    await YdConfirm(t('recentClearAllConfirm'), { title: t('recentClearAll'), type: 'error' });
     await clearAll();
     showToast.success(t('recentClearAllSuccess'));
     gridApi.query();

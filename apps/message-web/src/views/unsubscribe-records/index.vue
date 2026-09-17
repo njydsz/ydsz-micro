@@ -124,7 +124,7 @@ async function handleResubscribe(row: MsgSubscriptionVO) {
   if (!row.userId || !row.topicCode || !row.channel) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定恢复用户「${row.userId}」对主题「${row.topicCode}」的订阅吗？`,
       '恢复订阅确认',
       { type: 'warning' },

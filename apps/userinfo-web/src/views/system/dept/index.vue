@@ -79,7 +79,7 @@ async function handleDelete(row: DepartmentTreeVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       t('dept.deleteDeptConfirm', { deptName: row.deptName ?? '' }),
       t('page.confirmDelete'),
       { type: 'warning' },

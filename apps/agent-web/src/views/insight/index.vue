@@ -109,7 +109,7 @@ async function handleDelete(row: InsightReportResultVO) {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除报告「${row.title ?? row.reportId}」吗？`,
       '删除确认',
       { type: 'warning' },

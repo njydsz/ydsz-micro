@@ -208,7 +208,7 @@ async function confirmMove() {
 async function handleCopy(row: FileNodeVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('confirmCopy', [row.name]), t('copy'), { type: 'warning' });
+    await YdConfirm(t('confirmCopy', [row.name]), t('copy'), { type: 'warning' });
     await copy({ nodeId: row.id }, {});
     showToast.success(t('copySuccess'));
     gridApi.query();
@@ -218,7 +218,7 @@ async function handleCopy(row: FileNodeVO) {
 async function handleDelete(row: FileNodeVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('confirmDeleteFile', [row.name]), t('deleteConf'), { type: 'warning' });
+    await YdConfirm(t('confirmDeleteFile', [row.name]), t('deleteConf'), { type: 'warning' });
     await deleteApi({ nodeId: row.id });
     showToast.success(t('deleteSuccess'));
     gridApi.query();

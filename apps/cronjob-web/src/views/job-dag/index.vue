@@ -149,7 +149,7 @@ async function handleTrigger(row: JobDagVO) {
   if (!row.dagKey) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定立即触发DAG「${row.dagName}」吗？`, { title: '触发确认', type: 'warning' });
+    await YdConfirm(`确定立即触发DAG「${row.dagName}」吗？`, { title: '触发确认', type: 'warning' });
   } catch {
     logger.warn('用户取消触发DAG', row.dagKey);
     return; // 用户主动取消触发操作
@@ -167,7 +167,7 @@ async function handleTrigger(row: JobDagVO) {
 async function handleDelete(row: JobDagVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除DAG「${row.dagName}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除DAG「${row.dagName}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     logger.warn('用户取消删除DAG', row.id);
     return; // 用户主动取消删除操作
@@ -204,7 +204,7 @@ async function handleVersions(row: JobDagVO) {
 async function handleRollback(versionRow: JobDagVersionVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定将DAG回滚到版本 v${versionRow.version ?? ''} 吗？`,
       '回滚确认',
       { type: 'warning' },

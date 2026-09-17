@@ -154,7 +154,7 @@ async function handleDelete(row: MsgUserChannelVO): Promise<void> {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除「${row.channelType} / ${row.channelUserId ?? '-'}」的渠道绑定吗？`,
       '删除确认',
       { type: 'warning' },

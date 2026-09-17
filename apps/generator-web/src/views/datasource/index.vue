@@ -189,7 +189,7 @@ async function handleTestConnection(row: GenDatasourceRespVO) {
 async function handleDelete(row: GenDatasourceRespVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(`确定删除数据源「${row.name}」吗？`, { title: '删除确认', type: 'warning', });
+    await YdConfirm(`确定删除数据源「${row.name}」吗？`, { title: '删除确认', type: 'warning', });
   } catch {
     return;
   }

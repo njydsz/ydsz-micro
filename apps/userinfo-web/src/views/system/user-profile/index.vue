@@ -241,7 +241,7 @@ async function handleActivateMfa(): Promise<void> {
  */
 async function handleDisableMfa(): Promise<void> {
   try {
-    await ydszConfirm('确定禁用MFA双因素认证吗？禁用后账号安全性将降低。', { title: '禁用MFA', type: 'warning' });
+    await YdConfirm('确定禁用MFA双因素认证吗？禁用后账号安全性将降低。', { title: '禁用MFA', type: 'warning' });
   } catch {
     return;
   }

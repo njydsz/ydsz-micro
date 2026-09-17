@@ -38,7 +38,7 @@ const { $t } = useSimpleLocale();
  * @param options - 完整弹窗配置，`content` 必填
  * @returns 用户点击确认后 resolve；取消或以其他方式关闭时 **reject**，详见实现签名说明
  */
-export function ydszAlert(options: YdAlertProps): Promise<void>;
+export function YdAlert(options: YdAlertProps): Promise<void>;
 /**
  * 以「一段提示文案」的形式弹出提示框，可附带少量配置覆盖。
  *
@@ -46,7 +46,7 @@ export function ydszAlert(options: YdAlertProps): Promise<void>;
  * @param options - 可选的配置覆盖项
  * @returns 用户点击确认后 resolve；取消时 reject
  */
-export function ydszAlert(
+export function YdAlert(
   message: string,
   options?: Partial<YdAlertProps>,
 ): Promise<void>;
@@ -58,7 +58,7 @@ export function ydszAlert(
  * @param options - 可选的配置覆盖项
  * @returns 用户点击确认后 resolve；取消时 reject
  */
-export function ydszAlert(
+export function YdAlert(
   message: string,
   title?: string,
   options?: Partial<YdAlertProps>,
@@ -70,7 +70,7 @@ export function ydszAlert(
  * @remarks
  * **重要：取消操作会导致 Promise reject**（错误信息为 `dialog cancelled`），而非 resolve 一个 false。
  * 因此调用方必须 `try/catch` 或 `.catch()`，否则用户点取消会产生未处理的 Promise rejection。
- * 这一设计使 `await ydszAlert(...)` 之后的代码天然只在确认路径执行。
+ * 这一设计使 `await YdAlert(...)` 之后的代码天然只在确认路径执行。
  *
  * 实现上脱离 Vue 组件树，采用「手动创建容器 + `render` 挂载」的方式：
  * - 会向 `document.body` 追加一个临时 div，关闭时自动 `render(null)` 并移除该节点，
@@ -90,13 +90,13 @@ export function ydszAlert(
  * @example
  * ```ts
  * try {
- *   await ydszAlert('保存成功', '提示');
+ *   await YdAlert('保存成功', '提示');
  * } catch {
  *   // 用户取消
  * }
  * ```
  */
-export function ydszAlert(
+export function YdAlert(
   arg0: YdAlertProps | string,
   arg1?: Partial<YdAlertProps> | string,
   arg2?: Partial<YdAlertProps>,
@@ -170,7 +170,7 @@ export function ydszAlert(
  * @param options - 完整弹窗配置；显式传入 `showCancel: false` 可退化为普通提示框
  * @returns 确认时 resolve；取消时 reject
  */
-export function ydszConfirm(options: YdAlertProps): Promise<void>;
+export function YdConfirm(options: YdAlertProps): Promise<void>;
 /**
  * 以「一段文案」的形式弹出确认框。
  *
@@ -178,7 +178,7 @@ export function ydszConfirm(options: YdAlertProps): Promise<void>;
  * @param options - 可选的配置覆盖项
  * @returns 确认时 resolve；取消时 reject
  */
-export function ydszConfirm(
+export function YdConfirm(
   message: string,
   options?: Partial<YdAlertProps>,
 ): Promise<void>;
@@ -190,7 +190,7 @@ export function ydszConfirm(
  * @param options - 可选的配置覆盖项
  * @returns 确认时 resolve；取消时 reject
  */
-export function ydszConfirm(
+export function YdConfirm(
   message: string,
   title?: string,
   options?: Partial<YdAlertProps>,
@@ -200,11 +200,11 @@ export function ydszConfirm(
  * 命令式弹出确认框，用于删除、提交等需要二次确认的操作。
  *
  * @remarks
- * 本函数是 {@link ydszAlert} 的**薄封装**，唯一差异是把 `showCancel` 默认置为 `true`，
+ * 本函数是 {@link YdAlert} 的**薄封装**，唯一差异是把 `showCancel` 默认置为 `true`，
  * 其余行为（包括「取消即 reject」的契约、脱离组件树的挂载方式）完全一致。
  *
  * 注意默认值的合并方式是 `{ ...defaultProps, ...用户配置 }`，
- * 因此用户显式传入 `showCancel: false` 会覆盖默认值，此时它与 `ydszAlert` 等价。
+ * 因此用户显式传入 `showCancel: false` 会覆盖默认值，此时它与 `YdAlert` 等价。
  *
  * @param arg0 - 完整配置对象，或确认提示正文
  * @param arg1 - 标题字符串或配置对象
@@ -213,11 +213,11 @@ export function ydszConfirm(
  *
  * @example
  * ```ts
- * await ydszConfirm('删除后不可恢复，确定删除？', '危险操作');
+ * await YdConfirm('删除后不可恢复，确定删除？', '危险操作');
  * await api.delete(id); // 仅在用户确认后执行
  * ```
  */
-export function ydszConfirm(
+export function YdConfirm(
   arg0: YdAlertProps | string,
   arg1?: Partial<YdAlertProps> | string,
   arg2?: Partial<YdAlertProps>,
@@ -227,14 +227,14 @@ export function ydszConfirm(
   };
   if (!arg1) {
     return isString(arg0)
-      ? ydszAlert(arg0, defaultProps)
-      : ydszAlert({ ...defaultProps, ...arg0 });
+      ? YdAlert(arg0, defaultProps)
+      : YdAlert({ ...defaultProps, ...arg0 });
   } else if (!arg2) {
     return isString(arg1)
-      ? ydszAlert(arg0 as string, arg1, defaultProps)
-      : ydszAlert(arg0 as string, { ...defaultProps, ...arg1 });
+      ? YdAlert(arg0 as string, arg1, defaultProps)
+      : YdAlert(arg0 as string, { ...defaultProps, ...arg1 });
   }
-  return ydszAlert(arg0 as string, arg1 as string, {
+  return YdAlert(arg0 as string, arg1 as string, {
     ...defaultProps,
     ...arg2,
   });
@@ -249,7 +249,7 @@ export function ydszConfirm(
  * 该名字必须与目标组件一致，否则输入无法回写，最终恒返回默认值。
  *
  * 行为要点：
- * - 内部复用 {@link ydszConfirm}，因此**用户取消时同样会抛出异常**而不是返回 `undefined`，
+ * - 内部复用 {@link YdConfirm}，因此**用户取消时同样会抛出异常**而不是返回 `undefined`，
  *   调用方必须捕获；返回 `undefined` 只表示「确认了但没输入内容」；
  * - 内容以函数形式传入，每次重渲染都会重新构建输入组件的 props，从而保证受控值同步；
  * - 打开后会尝试自动聚焦输入控件，聚焦策略按优先级降级：组件 `exposed.focus()`
@@ -263,13 +263,13 @@ export function ydszConfirm(
  *
  * @example
  * ```ts
- * const reason = await ydszPrompt<string>({
+ * const reason = await YdPrompt<string>({
  *   content: '请输入驳回原因',
  *   defaultValue: '',
  * });
  * ```
  */
-export async function ydszPrompt<T = unknown>(
+export async function YdPrompt<T = unknown>(
   options: YdPromptProps<T>,
 ): Promise<T | undefined> {
   const {
@@ -368,7 +368,7 @@ export async function ydszPrompt<T = unknown>(
     },
   };
 
-  await ydszConfirm(props);
+  await YdConfirm(props);
   return modelValue.value;
 }
 
@@ -381,7 +381,7 @@ export async function ydszPrompt<T = unknown>(
  *
  * **关键副作用：被清理弹窗对应的 Promise 既不会 resolve 也不会 reject**，
  * 而是永久挂起。因为清理逻辑直接卸载 DOM，绕过了组件的 `onClosed` 回调。
- * 若有 `await ydszConfirm(...)` 之后的逻辑，将永远不会执行（相关闭包也无法被回收）。
+ * 若有 `await YdConfirm(...)` 之后的逻辑，将永远不会执行（相关闭包也无法被回收）。
  * 因此仅应在确实要丢弃这些交互结果时调用，正常关闭请让用户操作或走弹窗自身的关闭流程。
  *
  * 同理，弹窗的 `beforeClose` 拦截也会被跳过，不存在「关不掉」的情况。

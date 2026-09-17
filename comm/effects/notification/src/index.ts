@@ -5,7 +5,7 @@
  * <ul>
  *   <li>{@link showToastCompat} — 常规操作反馈（基于 ydsz-ui ToastProvider，自动关闭）</li>
  *   <li>{@link showNotify} — 桌面通知卡片（长停留）</li>
- *   <li>{@link showAlert} — 阻断式弹窗（FATAL/严重错误，需用户确认，使用 ydszAlert）</li>
+ *   <li>{@link showAlert} — 阻断式弹窗（FATAL/严重错误，需用户确认，使用 YdAlert）</li>
  *   <li>{@link handleBusinessError} — 根据 {@link ExceptionSeverity} 自动选择展示方式</li>
  * </ul>
  *
@@ -17,7 +17,7 @@
  */
 
 import type { IconType } from '@ydsz-core/popup-ui';
-import { ydszAlert } from '@ydsz-core/popup-ui';
+import { YdAlert } from '@ydsz-core/popup-ui';
 import { useSimpleLocale } from '@ydsz-core/composables';
 
 import type { ExceptionSeverity } from '@ydsz/request';
@@ -83,7 +83,7 @@ export function showNotify(
 }
 
 /**
- * 阻断式弹窗（使用 ydszAlert 命令式提示框）。
+ * 阻断式弹窗（使用 YdAlert 命令式提示框）。
  *
  * <p>替代原 ElMessageBox.alert，FATAL / 严重错误场景必须用此函数。
  *
@@ -102,7 +102,7 @@ export async function showAlert(
   } = {},
 ): Promise<void> {
   const { $t } = useSimpleLocale();
-  await ydszAlert({
+  await YdAlert({
     title,
     content: message,
     confirmText: options.confirmButtonText ?? $t('common.confirm'),

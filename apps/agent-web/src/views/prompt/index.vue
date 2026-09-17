@@ -198,7 +198,7 @@ function handleToggle(row: PromptTemplateVO): void {
 /** 删除模板 */
 async function handleDelete(row: PromptTemplateVO): Promise<void> {
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除模板「${row.templateName}」吗？`,
       '删除确认',
       { type: 'warning' },

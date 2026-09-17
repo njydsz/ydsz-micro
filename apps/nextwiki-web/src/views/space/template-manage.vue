@@ -136,7 +136,7 @@ async function handleDelete(row: SpaceTemplateDTO): Promise<void> {
     return;
   }
   try {
-    await ydszConfirm(`确定删除模板「${row.name}」？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除模板「${row.name}」？`, { title: '删除确认', type: 'warning' });
     await deleteTemplate({ templateId: row.id });
     showToast.success('删除模板成功');
     loadTemplates();

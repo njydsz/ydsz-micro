@@ -125,7 +125,7 @@ async function handleMergePass(item: Record<string, Record<string, unknown>>) {
   const groupId = String(item?.mergeGroupId ?? item?.id ?? item?.groupId ?? '');
   if (!groupId) return;
   try {
-    await ydszConfirm(`确认通过合并审批组「${groupId}」？`, { title: '通过确认', type: 'warning', });
+    await YdConfirm(`确认通过合并审批组「${groupId}」？`, { title: '通过确认', type: 'warning', });
   } catch {
     logger.warn('用户取消合并通过操作');
     return;
@@ -145,7 +145,7 @@ async function handleMergeReject(item: Record<string, Record<string, unknown>>) 
   const groupId = String(item?.mergeGroupId ?? item?.id ?? item?.groupId ?? '');
   if (!groupId) return;
   try {
-    await ydszConfirm(`确认驳回合并审批组「${groupId}」？`, { title: '驳回确认', type: 'warning', });
+    await YdConfirm(`确认驳回合并审批组「${groupId}」？`, { title: '驳回确认', type: 'warning', });
   } catch {
     logger.warn('用户取消合并驳回操作');
     return;

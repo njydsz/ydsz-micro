@@ -18,7 +18,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
-import { ydszPrompt } from '@ydsz-core/popup-ui';
+import { YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
@@ -156,7 +156,7 @@ async function handleTerminate(row: FlowInstanceVO) {
   let reason: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const promptValue = await ydszPrompt<string>({
+    const promptValue = await YdPrompt<string>({
       content: $t('wf.inputTerminateReason'),
       confirmText: $t('wf.confirm'),
       cancelText: $t('wf.cancel'),
@@ -193,7 +193,7 @@ async function handleSuspend(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       $t('wf.confirmSuspend', { name: row.flowName }),
       $t('wf.suspendConfirm'),
       {
@@ -220,7 +220,7 @@ async function handleActivate(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       $t('wf.confirmActivate', { name: row.flowName }),
       $t('wf.activateConfirm'),
       {
@@ -247,7 +247,7 @@ async function handleRecall(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       $t('wf.confirmRecall', { name: row.flowName }),
       $t('wf.recallConfirm'),
       {
@@ -290,7 +290,7 @@ async function handleBatchUrge() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       $t('wf.confirmBatchUrge', { count: ids.length }),
       $t('wf.batchUrgeConfirm'),
       {

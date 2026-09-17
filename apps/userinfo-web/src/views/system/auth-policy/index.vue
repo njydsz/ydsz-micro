@@ -174,7 +174,7 @@ async function handleDelete(row: AuthPolicyVO) {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除认证策略「${row.name ?? row.tenantId ?? ''}」吗？此操作不可撤销。`,
       '删除确认',
       { type: 'warning' },

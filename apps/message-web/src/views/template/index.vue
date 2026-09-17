@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdForm, YdFormItem, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-import { ydszConfirm, ydszPrompt } from '@ydsz-core/popup-ui';
+import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -182,7 +182,7 @@ async function handleAudit(row: MsgTemplateVO) {
   let remark: string | undefined;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const value = await ydszPrompt<string>({
+    const value = await YdPrompt<string>({
       content: t('template.auditRemarkPrompt'),
       icon: 'warning',
       defaultValue: '',
@@ -210,7 +210,7 @@ async function handleDelete(row: MsgTemplateVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定删除模板「${row.templateCode}」吗？`, { title: t('deleteConfirmTitle'), type: 'warning', });
+    await YdConfirm(`确定删除模板「${row.templateCode}」吗？`, { title: t('deleteConfirmTitle'), type: 'warning', });
   } catch {
     logger.debug('用户取消删除操作');
     return;
@@ -253,7 +253,7 @@ async function handleRollback(version: MsgTemplateVersion) {
   if (!version.version) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定回滚到版本 ${version.version} 吗？`, { title: '回滚确认', type: 'warning', });
+    await YdConfirm(`确定回滚到版本 ${version.version} 吗？`, { title: '回滚确认', type: 'warning', });
   } catch {
     logger.debug('用户取消回滚操作');
     return;

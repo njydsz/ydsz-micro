@@ -10,12 +10,12 @@
  * 对标 Vben Admin useTable 的能力子集，让标准 CRUD 页面少于 200 行。
  * v4.0.1: 内置 i18n 支持，消除硬编码中文。
  *
- * 使用原生 showToast + ydszConfirm（ydsz-ui 通知系统），运行时零 element-plus 依赖。
+ * 使用原生 showToast + YdConfirm（ydsz-ui 通知系统），运行时零 element-plus 依赖。
  */
 import { computed, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
-import { ydszConfirm } from '@ydsz-core/popup-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -149,7 +149,7 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
     if (!deleteFetcher) return;
     const msg = deleteMessage?.(row) ?? t('crud.confirmDeleteDefault');
     try {
-      await ydszConfirm(msg, t('crud.deleteConfirmTitle'), {
+      await YdConfirm(msg, t('crud.deleteConfirmTitle'), {
         confirmText: t('crud.deleteButton'),
         cancelText: t('common.cancel'),
         icon: 'warning',
@@ -177,7 +177,7 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
   async function handleBatchDelete(): Promise<void> {
     if (!deleteFetcher || selectedRows.value.length === 0) return;
     try {
-      await ydszConfirm(
+      await YdConfirm(
         t('crud.batchDeleteConfirm', { count: selectedRows.value.length }),
         t('crud.batchDeleteTitle'),
         { icon: 'warning' },

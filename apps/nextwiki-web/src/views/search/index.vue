@@ -10,7 +10,7 @@
  * 全文搜索（列表页）
  * <p>消费后端契约 SearchController（apps/nextwiki-web/src/api/search.ts）：
  * search() 执行全文搜索，suggest() 搜索建议，didYouMean() 拼写纠错，
- * getSearchHistory() 搜索历史，clearSearchHistory() 清空历史（破坏性操作需 ydszConfirm），
+ * getSearchHistory() 搜索历史，clearSearchHistory() 清空历史（破坏性操作需 YdConfirm），
  * getHotSearches() 热门搜索，advancedSearch() 高级多条件搜索，rebuildIndices() 重建搜索索引（管理员工具）。
  * <p>高级搜索通过 advanced-search-form.vue 弹窗收集条件，管理员校验通过 useAccess 钩子控制重建索引按钮可见性。
  *
@@ -216,7 +216,7 @@ async function loadHotSearches(): Promise<void> {
 /** 清空搜索历史（破坏性操作需二次确认） */
 async function handleClearHistory(): Promise<void> {
   try {
-    await ydszConfirm(t('searchClearHistoryConfirm'), { title: t('clearHistory'), type: 'warning' });
+    await YdConfirm(t('searchClearHistoryConfirm'), { title: t('clearHistory'), type: 'warning' });
     await clearSearchHistory();
     searchHistory.value = [];
   } catch (error) {
@@ -255,7 +255,7 @@ function handleAdvancedSearchSuccess(result: SearchResultVO): void {
 /** 重建搜索索引（管理员工具，需二次确认） */
 async function handleRebuildIndices(): Promise<void> {
   try {
-    await ydszConfirm(t('searchRebuildIndicesConfirm'), { title: t('searchRebuildIndices'), type: 'error' });
+    await YdConfirm(t('searchRebuildIndicesConfirm'), { title: t('searchRebuildIndices'), type: 'error' });
     loading.value = true;
     await rebuildIndices();
   } catch (error) {

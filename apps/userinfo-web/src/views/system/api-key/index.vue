@@ -122,7 +122,7 @@ async function handleRevoke(row: ApiKeyVO) {
     return;
   }
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定撤销 API Key「${row.keyName ?? row.apiKeyPrefix ?? ''}」吗？此操作不可撤销。`,
       '撤销确认',
       { type: 'warning' },

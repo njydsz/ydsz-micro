@@ -150,7 +150,7 @@ async function handleViewDetail(row: AgentTraceListDTO): Promise<void> {
 
 async function handleReplay(row: AgentTraceListDTO): Promise<void> {
   const id = row.executionId ?? row.traceId ?? '';
-  ydszConfirm(`确认重放 Trace「${id}」？`, { title: '重放确认', type: 'warning' })
+  YdConfirm(`确认重放 Trace「${id}」？`, { title: '重放确认', type: 'warning' })
     .then(async () => {
       try {
         const newTraceId = await replayTrace({ executionId: id });
@@ -170,7 +170,7 @@ async function handleBatchReplay(): Promise<void> {
     showToast.warning('请至少选择一个 Trace');
     return;
   }
-  ydszConfirm(`确认批量重放选中的 ${selectedTraces.value.length} 条 Trace？`, { title: '批量重放', type: 'warning' })
+  YdConfirm(`确认批量重放选中的 ${selectedTraces.value.length} 条 Trace？`, { title: '批量重放', type: 'warning' })
     .then(async () => {
       for (const item of selectedTraces.value) {
         const id = item.executionId ?? item.traceId ?? '';

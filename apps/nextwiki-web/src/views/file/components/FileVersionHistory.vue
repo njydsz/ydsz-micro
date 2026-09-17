@@ -139,7 +139,7 @@ async function handleDownloadVersion(version: FileVersionVO): Promise<void> {
 async function handleRollback(version: FileVersionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定回滚到版本 v${version.version} 吗？当前版本将被覆盖。`,
       '回滚确认',
       { type: 'warning' },

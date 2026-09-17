@@ -318,7 +318,7 @@ function handleEdit(row: OAuth2Application) {
 async function handleResetSecret(row: OAuth2Application) {
   if (!row.clientId) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认重置应用 "${row.clientName ?? row.clientId}" 的密钥？旧密钥将立即失效。`,
       '重置密钥',
       { type: 'warning' },
@@ -338,7 +338,7 @@ async function handleResetSecret(row: OAuth2Application) {
 async function handleDelete(row: OAuth2Application) {
   if (!row.clientId) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确认删除应用 "${row.clientName ?? row.clientId}"？此操作不可恢复。`,
       '确认删除',
       { type: 'warning' },

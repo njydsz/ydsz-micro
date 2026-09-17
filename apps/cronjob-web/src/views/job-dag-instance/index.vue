@@ -178,7 +178,7 @@ async function handleCancel(row: JobDagInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, { title: '取消确认', type: 'warning', });
+    await YdConfirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, { title: '取消确认', type: 'warning', });
   } catch {
     logger.warn('用户取消DAG实例', row.id);
     return; // 用户主动取消操作

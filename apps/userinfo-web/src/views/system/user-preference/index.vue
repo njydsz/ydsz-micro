@@ -134,7 +134,7 @@ async function handleSave(): Promise<void> {
  */
 async function handleReset(): Promise<void> {
   try {
-    await ydszConfirm('确定重置为默认偏好设置吗？当前自定义设置将被清除。', { title: '重置偏好', type: 'warning' });
+    await YdConfirm('确定重置为默认偏好设置吗？当前自定义设置将被清除。', { title: '重置偏好', type: 'warning' });
   } catch {
     return;
   }

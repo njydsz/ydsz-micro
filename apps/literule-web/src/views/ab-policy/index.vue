@@ -211,7 +211,7 @@ function handleCreate() {
 async function handleDelete(row: RuleABPolicyVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除 AB 策略「${row.ruleCode}」吗？`,
       '删除确认',
       { type: 'warning' },
@@ -268,7 +268,7 @@ async function handleRollbackHistory(row: RuleABPolicyVO) {
 async function handleManualRollback(): Promise<void> {
   if (!currentABPolicyId.value) return;
   try {
-    await ydszConfirm('确定手动回滚该策略到 A 版本吗？', { title: '手动回滚', type: 'warning', });
+    await YdConfirm('确定手动回滚该策略到 A 版本吗？', { title: '手动回滚', type: 'warning', });
     await manualRollbackABPolicy({ id: currentABPolicyId.value }, { reason: '手动回滚' });
     showToast.success('回滚成功');
     rollbackHistoryLoading.value = true;

@@ -94,7 +94,7 @@ async function handleResolve(row: FileCommentVO) {
 async function handleDelete(row: FileCommentVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('commentDeleteConf'), { title: t('deleteConf'), type: 'warning' });
+    await YdConfirm(t('commentDeleteConf'), { title: t('deleteConf'), type: 'warning' });
     await deleteComment({ commentId: row.id });
     showToast.success(t('deleteSuccess'));
     gridApi.query();

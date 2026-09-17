@@ -205,7 +205,7 @@ async function handleRegister() {
 async function handleUnregister(row: CEPPatternVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(`确定注销模式「${row.name}」吗？`, { title: '注销确认', type: 'warning' });
+    await YdConfirm(`确定注销模式「${row.name}」吗？`, { title: '注销确认', type: 'warning' });
     await unregisterPattern({ patternId: row.id });
     showToast.success('注销成功');
     gridApi.query();

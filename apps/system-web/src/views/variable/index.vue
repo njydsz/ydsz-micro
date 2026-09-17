@@ -143,7 +143,7 @@ function handleEdit(row: VariableRow) {
 async function handleDelete(row: VariableRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(t('variable.deleteConfirm', { key: row.variableKey ?? '' }), t('crud.deleteConfirmTitle'), { type: 'warning' });
+    await YdConfirm(t('variable.deleteConfirm', { key: row.variableKey ?? '' }), t('crud.deleteConfirmTitle'), { type: 'warning' });
   } catch {
     return; // 用户主动取消删除操作
   }

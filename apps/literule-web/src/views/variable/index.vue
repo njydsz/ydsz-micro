@@ -95,7 +95,7 @@ async function handleDelete(row: VariableDefinitionVO) {
   if (!row.name) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(t('confirmDeleteVariable', [row.name]), t('deleteConf'), { type: 'warning' });
+    await YdConfirm(t('confirmDeleteVariable', [row.name]), t('deleteConf'), { type: 'warning' });
   } catch (error) {
     logger.debug('用户取消删除变量: {}', error);
     return; // 用户主动取消删除操作
@@ -114,7 +114,7 @@ async function handleDelete(row: VariableDefinitionVO) {
 async function handleRefresh() {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(t('confirmRefreshVariable'), { title: t('refreshConf'), type: 'warning' });
+    await YdConfirm(t('confirmRefreshVariable'), { title: t('refreshConf'), type: 'warning' });
   } catch (error) {
     logger.debug('用户取消刷新变量: {}', error);
     return; // 用户主动取消刷新操作

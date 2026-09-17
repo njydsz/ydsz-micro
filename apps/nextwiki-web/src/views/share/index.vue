@@ -154,7 +154,7 @@ async function loadRecipients() {
 async function handleRevoke(row: ShareLinkVO) {
   if (!row.id) return;
   try {
-    await ydszConfirm(t('revokeConfirm', [row.title || row.fileName]), t('revokeConf'), { type: 'warning' });
+    await YdConfirm(t('revokeConfirm', [row.title || row.fileName]), t('revokeConf'), { type: 'warning' });
     await revoke({ shareId: row.id });
     showToast.success(t('revokeSuccess'));
     gridApi.query();

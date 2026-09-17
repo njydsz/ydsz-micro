@@ -36,7 +36,7 @@ import {
   YdTable,
   YdTableColumn,
 } from '@ydsz-core/ydsz-ui';
-import { ydszAlert, ydszPrompt } from '@ydsz-core/popup-ui';
+import { YdAlert, YdPrompt } from '@ydsz-core/popup-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -189,7 +189,7 @@ async function handleImport(row: TemplateRow): Promise<void> {
   let flowName: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const promptValue = await ydszPrompt<string>({
+    const promptValue = await YdPrompt<string>({
       content: t('wf.importFlowNamePlaceholder'),
       confirmText: t('wf.confirm'),
       cancelText: t('wf.cancel'),
@@ -228,7 +228,7 @@ async function handleClone(row: TemplateRow): Promise<void> {
   let newTemplateName: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const promptValue = await ydszPrompt<string>({
+    const promptValue = await YdPrompt<string>({
       content: t('wf.confirmClone'),
       confirmText: t('wf.confirm'),
       cancelText: t('wf.cancel'),
@@ -267,7 +267,7 @@ async function handleNewVersion(row: TemplateRow): Promise<void> {
   let versionLabel: string | undefined;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const promptValue = await ydszPrompt<string>({
+    const promptValue = await YdPrompt<string>({
       content: t('wf.confirmNewVersion'),
       confirmText: t('wf.confirm'),
       cancelText: t('wf.cancel'),
@@ -329,7 +329,7 @@ async function handleVersionDetail(versionItem: TemplateRow): Promise<void> {
   }
   try {
     const detail = await getTemplateVersion({ templateCode: currentTemplateCode.value, version });
-    await ydszAlert({
+    await YdAlert({
       content: () => h('pre', { class: 'max-h-64 overflow-auto text-left text-xs' }, JSON.stringify(detail, null, 2)),
       title: `${t('wf.versionDetail')} ${version}`,
       icon: 'info',

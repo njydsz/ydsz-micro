@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButton, YdCard, YdCol, YdDialog, YdForm, YdFormItem, YdInput, YdRow, YdTabs, YdTabsContent, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-import { ydszAlert, ydszConfirm } from '@ydsz-core/popup-ui';
+import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -243,14 +243,14 @@ async function loadAll(): Promise<void> {
 async function handleApprove(row: ApprovalRecordVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ydszConfirm(`确认通过规则 "${row.ruleCode}" 的审批？`, '审批确认', { icon: 'warning' });
+    await YdConfirm(`确认通过规则 "${row.ruleCode}" 的审批？`, '审批确认', { icon: 'warning' });
   } catch {
     logger.debug('用户取消审批通过');
     return;
   }
   try {
     await approve({ ruleCode: row.ruleCode }, { comment: '' });
-    await ydszAlert({ content: '审批已通过', title: '审批结果', icon: 'success', confirmText: '确定' });
+    await YdAlert({ content: '审批已通过', title: '审批结果', icon: 'success', confirmText: '确定' });
     await loadPending();
   } catch (error) {
     logger.warn('审批通过失败: {}', error);
@@ -266,7 +266,7 @@ function openRejectDialog(row: ApprovalRecordVO): void {
 
 async function handleRejectSubmit(): Promise<void> {
   if (!rejectReason.value.trim()) {
-    await ydszAlert({ content: '请填写驳回原因', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({ content: '请填写驳回原因', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   try {
@@ -275,7 +275,7 @@ async function handleRejectSubmit(): Promise<void> {
       { reason: rejectReason.value },
     );
     rejectDialogVisible.value = false;
-    await ydszAlert({ content: '已驳回', title: '操作结果', icon: 'info', confirmText: '确定' });
+    await YdAlert({ content: '已驳回', title: '操作结果', icon: 'info', confirmText: '确定' });
     await loadPending();
   } catch (error) {
     logger.warn('驳回失败: {}', error);
@@ -304,14 +304,14 @@ async function handleViewStatus(row: ApprovalFlowVO | ApprovalRecordVO): Promise
 async function handleCancel(row: ApprovalRecordVO): Promise<void> {
   if (!row.ruleCode) return;
   try {
-    await ydszConfirm(`确认撤销规则 "${row.ruleCode}" 的审批申请？`, '撤销确认', { icon: 'warning' });
+    await YdConfirm(`确认撤销规则 "${row.ruleCode}" 的审批申请？`, '撤销确认', { icon: 'warning' });
   } catch {
     logger.debug('用户取消撤销审批');
     return;
   }
   try {
     await cancelReview({ ruleCode: row.ruleCode });
-    await ydszAlert({ content: '已撤销', title: '操作结果', icon: 'info', confirmText: '确定' });
+    await YdAlert({ content: '已撤销', title: '操作结果', icon: 'info', confirmText: '确定' });
     await loadPending();
   } catch (error) {
     logger.warn('撤销审批失败: {}', error);
@@ -322,7 +322,7 @@ async function handleFlowApprove(row: ApprovalFlowVO): Promise<void> {
   if (!row.flowCode) return;
   // 层级通过：需要指定 ruleCode，此处使用流程模板模式先行通过第一级
   try {
-    await ydszConfirm(`确认触发流程 "${row.name}" 的层级通过？`, '操作确认', { icon: 'warning' });
+    await YdConfirm(`确认触发流程 "${row.name}" 的层级通过？`, '操作确认', { icon: 'warning' });
   } catch {
     logger.debug('用户取消层级通过');
     return;
@@ -334,7 +334,7 @@ async function handleFlowApprove(row: ApprovalFlowVO): Promise<void> {
 async function handleFlowReject(row: ApprovalFlowVO): Promise<void> {
   if (!row.flowCode) return;
   try {
-    await ydszConfirm(`确认触发流程 "${row.name}" 的层级驳回？`, '操作确认', { icon: 'warning' });
+    await YdConfirm(`确认触发流程 "${row.name}" 的层级驳回？`, '操作确认', { icon: 'warning' });
   } catch {
     logger.debug('用户取消层级驳回');
     return;

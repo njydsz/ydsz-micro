@@ -21,6 +21,15 @@ export type { OpenApiValidationMeta, ToRulesOptions } from './openapi-to-rules';
 export { useValidationRules } from './use-validation-rules';
 export type { UseValidationRulesOptions } from './use-validation-rules';
 
+export { useFormValidation } from './use-form-validation';
+export type {
+  FieldBindHandle,
+  FieldOptions,
+  FormValidationHandle,
+  UseFormValidationOptions,
+  ValidationTrigger,
+} from './use-form-validation';
+
 export {
   assertValidSchema,
   validateFormSchema,

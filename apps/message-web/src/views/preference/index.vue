@@ -148,7 +148,7 @@ async function handleDelete(row: MsgPreferenceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await ydszConfirm(
+    await YdConfirm(
       `确定删除「${row.channel} / ${row.bizType ?? '-'}」的偏好设置吗？`,
       '删除确认',
       { type: 'warning' },
