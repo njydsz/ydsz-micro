@@ -7,9 +7,10 @@
  *   <li>useTheme —— 核心 composable：创建作用域限定的主题句柄</li>
  *   <li>useThemeContext —— 注入点读取：从 ThemeProvider 获取句柄或回退全局</li>
  *   <li>ThemeProvider —— Vue 组件包裹器：provide 注入 + 系统 prefers-color-scheme 监听</li>
+ *   <li>YdThemeScope —— 组件级暗色模式独立开关（P2-3）</li>
  * </ul>
  *
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\primitives\theme\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -30,3 +31,5 @@ export type {
 
 export { useThemeContext } from './use-theme-context';
 export { ThemeProvider, THEME_INJECTION_KEY } from './ThemeProvider.vue';
+export { default as YdThemeScope } from './YdThemeScope.vue';
+export type { ThemeMode } from './YdThemeScope.vue';

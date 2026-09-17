@@ -1,5 +1,5 @@
 /**
- * popup-ui 的包出口：提示弹窗、抽屉、弹窗三个子模块，以及通用弹窗基类的类型。
+ * popup-ui 的包出口：提示弹窗、抽屉、弹窗三个子模块，以及通用弹窗基类与嵌套管理器。
  *
  * @path comm\@core\ui-kit\popup-ui\src\index.ts
  * @author ydsz-team
@@ -9,4 +9,12 @@ export * from './alert';
 export * from './drawer';
 export * from './message';
 export * from './modal';
+export {
+  closeTopOverlay,
+  getOverlayDepth,
+  getTopOverlay,
+  nextOverlayId,
+  registerOverlay,
+} from './overlay-manager';
+export type { OverlayEntry } from './overlay-manager';
 export type { YdPopupApi, YdPopupApiCallbacks, YdPopupApiOptions } from './popup-api';

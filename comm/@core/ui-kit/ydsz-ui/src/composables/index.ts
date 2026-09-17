@@ -57,3 +57,6 @@ export type {
   UseComponentI18nOptions,
   ComponentI18nHandle,
 } from './use-component-i18n';
+
+export { useOverlayStack } from './use-overlay-stack';
+export type { OverlayStackHandle } from './use-overlay-stack';
