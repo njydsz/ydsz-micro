@@ -4,7 +4,7 @@
  * 为控制单文件行数，类型定义已按职责拆分为：
  * - types-core.ts：核心类型（FormLayout / FormSchema / FormItemDependencies 等）
  * - types-schema.ts：Schema 与字段配置（FormSchema / FormFieldProps / FormCommonConfig 等）
- * - types-components.ts：组件配置与渲染（FormRenderProps / YDSZFormProps / YDSZFormAdapterOptions 等）
+ * - types-components.ts：组件配置与渲染（FormRenderProps / YdFormProps / YdFormAdapterOptions 等）
  *
  * 本文件作为统一 barrel 导出，保持向后兼容。
  *
@@ -15,7 +15,7 @@
 
 // ===== 核心类型 =====
 export type {
-  BaseFormComponentType,
+  YdBaseFormComponentType,
   CustomRenderType,
   FormActions,
   FormFieldOptions,
@@ -44,7 +44,7 @@ export type {
 export type {
   ActionButtonOptions,
   FormRenderProps,
-  YDSZFormAdapterOptions,
-  YDSZFormProps,
+  YdFormAdapterOptions,
+  YdFormProps,
 } from './types-components';
 

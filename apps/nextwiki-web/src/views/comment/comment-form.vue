@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
@@ -65,7 +65,7 @@ const rules = {
   fileNodeId: [{ required: true, message: () => t('fileNodeIdInputPlaceholder'), trigger: 'blur' }],
   content: [{ required: true, message: () => t('commentContentPlaceholder'), trigger: 'blur' }],
 };
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     Object.assign(formData, { fileNodeId: '', content: '', mentionIds: [] });

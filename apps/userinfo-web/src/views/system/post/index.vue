@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
@@ -127,7 +127,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({
 });
 
 // ========== 表单弹窗 ==========
-const [PostFormModal, postFormApi] = useYDSZModal({ connectedComponent: PostForm });
+const [PostFormModal, postFormApi] = useYdModal({ connectedComponent: PostForm });
 
 function handleAdd() {
   postFormApi.open();

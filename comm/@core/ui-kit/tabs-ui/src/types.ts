@@ -29,7 +29,7 @@ export type TabsEmits = {
 };
 
 /**
- * 标签页视图组件（TabsView）的 props。
+ * 标签页视图组件（YdTabsView）的 props。
  *
  * @remarks
  * 同一组件通过 `styleType` 支持多种视觉风格，但其中 `gap` / `maxWidth` /

@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -113,7 +113,7 @@ const gridOptions: VxeGridProps<JobDagVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [JobDagFormModal, jobDagFormApi] = useYDSZModal({ connectedComponent: JobDagForm });
+const [JobDagFormModal, jobDagFormApi] = useYdModal({ connectedComponent: JobDagForm });
 
 function handleAdd() {
   jobDagFormApi.open();

@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -65,7 +65,7 @@ function parseReceiverList(): string[] {
     .filter((item) => item !== '');
 }
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     Object.assign(formData, {

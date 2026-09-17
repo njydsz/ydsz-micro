@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
 import { ElForm, ElFormItem } from 'element-plus';
 import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -56,7 +56,7 @@ const rules = {
 /** 草稿保存中状态 */
 const savingDraft = ref(false);
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     Object.assign(formData, {

@@ -12,7 +12,7 @@ import { computed, watch } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { useYdModal } from '@ydsz-core/popup-ui';
 import { YdAvatar, Slot } from '@ydsz-core/shadcn-ui';
 
 interface Props extends AuthenticationProps {
@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const open = defineModel<boolean>('open');
 
-const [Modal, modalApi] = useYDSZModal();
+const [Modal, modalApi] = useYdModal();
 
 watch(
   () => open.value,

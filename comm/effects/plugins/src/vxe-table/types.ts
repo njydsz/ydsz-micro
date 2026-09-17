@@ -17,9 +17,9 @@ import type {
 
 import type { ClassType, DeepPartial } from '@ydsz/types';
 
-import type { BaseFormComponentType, YDSZFormProps } from '@ydsz-core/form-ui';
+import type { YdBaseFormComponentType, YdFormProps } from '@ydsz-core/form-ui';
 
-import { type useYDSZForm } from '@ydsz-core/form-ui';
+import { type useYdForm } from '@ydsz-core/form-ui';
 
 /**
  * 表格分页信息，用于在自定义 `proxyConfig.ajax.query` 中接收分页参数。
@@ -80,7 +80,7 @@ export interface SeparatorOptions {
  */
 export interface VxeGridProps<
   T extends Record<string, unknown> = Record<string, unknown>,
-  D extends BaseFormComponentType = BaseFormComponentType,
+  D extends YdBaseFormComponentType = YdBaseFormComponentType,
 > {
   /** 表格标题 */
   tableTitle?: string;
@@ -95,7 +95,7 @@ export interface VxeGridProps<
   /** vxe-grid 事件监听器 */
   gridEvents?: DeepPartial<VxeGridListeners<T>>;
   /** 搜索表单配置 */
-  formOptions?: YDSZFormProps<D>;
+  formOptions?: YdFormProps<D>;
   /** 是否显示搜索表单，默认 true */
   showSearchForm?: boolean;
   /** 搜索表单与表格主体之间的分隔条（bool 控制显隐，对象可设背景色） */
@@ -113,5 +113,5 @@ export interface SetupVxeTable {
   /** 全局配置回调，在 vxe-table 完成安装后执行，可在此注册格式化器、图标、默认配置等 */
   configVxeTable: (ui: VxeUIExport) => void;
   /** 应用层选定的表单实现，供表格内置搜索表单使用 */
-  useYDSZForm: typeof useYDSZForm;
+  useYdForm: typeof useYdForm;
 }

@@ -17,7 +17,7 @@
  */
 import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { useI18n } from 'vue-i18n';
@@ -57,7 +57,7 @@ const gridOptions: VxeTableGridOptions<Record<string, unknown>> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [ApprovalFormModal, approvalFormApi] = useYDSZModal({ connectedComponent: ApprovalForm });
+const [ApprovalFormModal, approvalFormApi] = useYdModal({ connectedComponent: ApprovalForm });
 
 /** 打开审批处理弹窗，action 标记默认操作（通过/驳回） */
 function handleOpen(row: Record<string, unknown>, action: 'approve' | 'reject') {

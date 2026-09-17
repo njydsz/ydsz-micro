@@ -11,7 +11,7 @@ import { useRoute } from 'vue-router';
 import { RiDingding } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { alert, useYDSZModal } from '@ydsz-core/popup-ui';
+import { alert, useYdModal } from '@ydsz-core/popup-ui';
 import { YdIconButton } from '@ydsz-core/shadcn-ui';
 import { loadScript } from '@ydsz-core/shared/utils';
 
@@ -54,7 +54,7 @@ const props = defineProps<Props>();
 
 const route = useRoute();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   header: false,
   footer: false,
   fullscreenButton: false,

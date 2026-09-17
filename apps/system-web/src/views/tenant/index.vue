@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
@@ -82,7 +82,7 @@ const gridOptions: VxeGridProps<TenantVO> = {
   },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [TenantFormModal, tenantFormApi] = useYDSZModal({ connectedComponent: TenantForm });
+const [TenantFormModal, tenantFormApi] = useYdModal({ connectedComponent: TenantForm });
 
 /**
  * 新增租户。

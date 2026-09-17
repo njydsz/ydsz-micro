@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -58,7 +58,7 @@ const rules = {
   languageName: [{ required: true, message: t('language.languageNamePlaceholder'), trigger: 'blur' }],
 };
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: LanguageVO }>();

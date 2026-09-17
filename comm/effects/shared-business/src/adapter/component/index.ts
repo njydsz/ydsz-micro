@@ -22,7 +22,7 @@
 
 import type { Component } from 'vue';
 
-import type { BaseFormComponentType } from '@ydsz/common-ui';
+import type { YdBaseFormComponentType } from '@ydsz/common-ui';
 
 import { defineComponent, h, ref } from 'vue';
 
@@ -115,7 +115,7 @@ export type ComponentType =
   | 'TimePicker'
   | 'TreeSelect'
   | 'Upload'
-  | BaseFormComponentType;
+  | YdBaseFormComponentType;
 
 /**
  * 初始化组件适配器：将表单/表格所需的 shadcn-ui 组件注册到全局共享状态。

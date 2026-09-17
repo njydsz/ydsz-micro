@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input, Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
@@ -169,7 +169,7 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [TemplateFormModal, templateFormApi] = useYDSZModal({ connectedComponent: TemplateForm });
+const [TemplateFormModal, templateFormApi] = useYdModal({ connectedComponent: TemplateForm });
 
 function handleAdd() {
   templateFormApi.open();

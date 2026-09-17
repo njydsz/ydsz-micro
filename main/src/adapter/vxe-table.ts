@@ -13,7 +13,7 @@ import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useAccess } from '@ydsz/access';
 import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
 
-import { useYDSZForm } from './form';
+import { useYdForm } from './form';
 
 setupYDSZVxeTable({
   configVxeTable: (vxeUI) => {
@@ -101,7 +101,7 @@ setupYDSZVxeTable({
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add
   },
-  useYDSZForm,
+  useYdForm,
 });
 
 export { useYDSZVxeGrid };

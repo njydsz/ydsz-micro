@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElInputNumber/ElStatistic/ElTable/ElTableColumn 表单+表格+描述+数值输入+统计,保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElInputNumber, ElStatistic, ElTable, ElTableColumn } from 'element-plus';
 import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -40,7 +40,7 @@ const queryForm = ref<RagQueryDTO>({ query: '', topK: 10, minScore: 0 });
 const searchRows = ref<Record<string, unknown>[]>([]);
 const searchLoading = ref(false);
 
-const [RagFormModal, ragFormApi] = useYDSZModal({ connectedComponent: RagForm });
+const [RagFormModal, ragFormApi] = useYdModal({ connectedComponent: RagForm });
 
 /** 统计条目（v-for 渲染用） */
 const statsEntries = computed<[string, unknown][]>(() => Object.entries(statsData.value));

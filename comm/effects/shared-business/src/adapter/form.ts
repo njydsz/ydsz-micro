@@ -8,13 +8,13 @@
  * @since 1.1.0
  */
 import type {
-  YDSZFormSchema as FormSchema,
-  YDSZFormProps,
+  YdFormSchema as FormSchema,
+  YdFormProps,
 } from '@ydsz/common-ui';
 
 import type { ComponentType } from './component';
 
-import { setupYDSZForm, useYDSZForm as useForm, z } from '@ydsz/common-ui';
+import { setupYdForm, useYdForm as useForm, z } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 
 /**
@@ -27,7 +27,7 @@ import { $t } from '@ydsz/locales';
  * 校验文案统一走 {@link $t}，保证语言切换时错误提示同步刷新。
  */
 async function initSetupYDSZForm() {
-  setupYDSZForm<ComponentType>({
+  setupYdForm<ComponentType>({
     config: {
       modelPropNameMap: {
         Upload: 'fileList',
@@ -51,11 +51,11 @@ async function initSetupYDSZForm() {
   });
 }
 
-/** 绑定 ComponentType 的 useYDSZForm 组合式函数，供表单页面统一引入。 */
-const useYDSZForm = useForm<ComponentType>;
+/** 绑定 ComponentType 的 useYdForm 组合式函数，供表单页面统一引入。 */
+const useYdForm = useForm<ComponentType>;
 
-export { initSetupYDSZForm, useYDSZForm, z };
+export { initSetupYDSZForm, useYdForm, z };
 
 /** 基于公共组件类型约束的表单 Schema 类型别名。 */
-export type YDSZFormSchema = FormSchema<ComponentType>;
-export type { YDSZFormProps };
+export type YdFormSchema = FormSchema<ComponentType>;
+export type { YdFormProps };

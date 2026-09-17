@@ -19,7 +19,7 @@ import type {
 
 import type { Component, ComputedRef, Ref, SetupContext } from 'vue';
 
-import type { YDSZFormProps } from '@ydsz-core/form-ui';
+import type { YdFormProps } from '@ydsz-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from '../types';
 
@@ -105,7 +105,7 @@ export interface UseVxeGridLogicReturn {
   /** 需要委派给搜索表单的插槽名列表（form- 前缀） */
   delegatedFormSlots: ComputedRef<string[]>;
   /** 搜索表单配置 */
-  formOptions: ComputedRef<YDSZFormProps | undefined>;
+  formOptions: ComputedRef<YdFormProps | undefined>;
   /** 是否显示搜索表单 */
   showSearchForm: ComputedRef<boolean | undefined>;
   /** 是否为紧凑模式表单 */
@@ -383,7 +383,7 @@ export function useVxeGridLogic(
     formOptions,
     () => {
       formApi.setState((prev) => {
-        const finalFormOptions: YDSZFormProps = mergeWithArrayOverride(
+        const finalFormOptions: YdFormProps = mergeWithArrayOverride(
           {},
           formOptions.value,
           prev,

@@ -16,7 +16,7 @@
  */
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: EP → shadcn-ui 迁移暂缓（含 Form/Input/Select/Switch/InputNumber/Table 等复杂组件，需人工评估）
 import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
@@ -140,7 +140,7 @@ const formData = reactive<ABFormData>(defaultFormData());
 const formRef = ref();
 const isEdit = ref(false);
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (open: boolean) => {
     if (!open) return;
     const data = modalApi.getData<{ record?: RuleABPolicyVO }>();

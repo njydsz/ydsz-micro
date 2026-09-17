@@ -15,7 +15,7 @@ import type { Component, VNode } from 'vue';
 
 import type { Recordable } from '@ydsz-core/typings';
 
-import type { AlertProps, BeforeCloseScope, PromptProps } from './alert';
+import type { YdAlertProps, BeforeCloseScope, YdPromptProps } from './alert';
 
 import { h, nextTick, ref, render } from 'vue';
 
@@ -23,7 +23,7 @@ import { useSimpleLocale } from '@ydsz-core/composables';
 import { Input, YdRenderContent } from '@ydsz-core/shadcn-ui';
 import { isFunction, isString } from '@ydsz-core/shared/utils';
 
-import Alert from './alert.vue';
+import YdAlert from './alert.vue';
 
 const alerts = ref<Array<{ container: HTMLElement; instance: Component }>>([]);
 
@@ -38,7 +38,7 @@ const { $t } = useSimpleLocale();
  * @param options - 完整弹窗配置，`content` 必填
  * @returns 用户点击确认后 resolve；取消或以其他方式关闭时 **reject**，详见实现签名说明
  */
-export function ydszAlert(options: AlertProps): Promise<void>;
+export function ydszAlert(options: YdAlertProps): Promise<void>;
 /**
  * 以「一段提示文案」的形式弹出提示框，可附带少量配置覆盖。
  *
@@ -48,7 +48,7 @@ export function ydszAlert(options: AlertProps): Promise<void>;
  */
 export function ydszAlert(
   message: string,
-  options?: Partial<AlertProps>,
+  options?: Partial<YdAlertProps>,
 ): Promise<void>;
 /**
  * 以「文案 + 标题」的形式弹出提示框，可附带少量配置覆盖。
@@ -61,7 +61,7 @@ export function ydszAlert(
 export function ydszAlert(
   message: string,
   title?: string,
-  options?: Partial<AlertProps>,
+  options?: Partial<YdAlertProps>,
 ): Promise<void>;
 
 /**
@@ -97,12 +97,12 @@ export function ydszAlert(
  * ```
  */
 export function ydszAlert(
-  arg0: AlertProps | string,
-  arg1?: Partial<AlertProps> | string,
-  arg2?: Partial<AlertProps>,
+  arg0: YdAlertProps | string,
+  arg1?: Partial<YdAlertProps> | string,
+  arg2?: Partial<YdAlertProps>,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
-    const options: AlertProps = isString(arg0)
+    const options: YdAlertProps = isString(arg0)
       ? {
           content: arg0,
         }
@@ -126,7 +126,7 @@ export function ydszAlert(
     // 创建一个引用，用于在回调中访问实例
     const alertRef = { container, instance: null as unknown as Component | null };
 
-    const props: AlertProps & Recordable<unknown> = {
+    const props: YdAlertProps & Recordable<unknown> = {
       onClosed: (isConfirm: boolean) => {
         // 移除组件实例以及创建的所有dom（恢复页面到打开前的状态）
         // 从alerts数组中移除该实例
@@ -150,8 +150,8 @@ export function ydszAlert(
       title: options.title ?? $t.value('prompt'),
     };
 
-    // 创建Alert组件的VNode
-    const vnode = h(Alert, props);
+    // 创建YdAlert组件的VNode
+    const vnode = h(YdAlert, props);
 
     // 渲染组件到容器
     render(vnode, container);
@@ -170,7 +170,7 @@ export function ydszAlert(
  * @param options - 完整弹窗配置；显式传入 `showCancel: false` 可退化为普通提示框
  * @returns 确认时 resolve；取消时 reject
  */
-export function ydszConfirm(options: AlertProps): Promise<void>;
+export function ydszConfirm(options: YdAlertProps): Promise<void>;
 /**
  * 以「一段文案」的形式弹出确认框。
  *
@@ -180,7 +180,7 @@ export function ydszConfirm(options: AlertProps): Promise<void>;
  */
 export function ydszConfirm(
   message: string,
-  options?: Partial<AlertProps>,
+  options?: Partial<YdAlertProps>,
 ): Promise<void>;
 /**
  * 以「文案 + 标题」的形式弹出确认框。
@@ -193,7 +193,7 @@ export function ydszConfirm(
 export function ydszConfirm(
   message: string,
   title?: string,
-  options?: Partial<AlertProps>,
+  options?: Partial<YdAlertProps>,
 ): Promise<void>;
 
 /**
@@ -218,11 +218,11 @@ export function ydszConfirm(
  * ```
  */
 export function ydszConfirm(
-  arg0: AlertProps | string,
-  arg1?: Partial<AlertProps> | string,
-  arg2?: Partial<AlertProps>,
+  arg0: YdAlertProps | string,
+  arg1?: Partial<YdAlertProps> | string,
+  arg2?: Partial<YdAlertProps>,
 ): Promise<void> {
-  const defaultProps: Partial<AlertProps> = {
+  const defaultProps: Partial<YdAlertProps> = {
     showCancel: true,
   };
   if (!arg1) {
@@ -258,7 +258,7 @@ export function ydszConfirm(
  * - 强制开启 `contentMasking`，`beforeClose` 异步执行期间内容区显示 loading 遮罩，
  *   避免用户重复提交；外部传入的 `beforeClose` 会被包装，额外接收到当前输入值。
  *
- * @param options - 提示配置 + 输入组件配置，详见 `PromptProps`
+ * @param options - 提示配置 + 输入组件配置，详见 `YdPromptProps`
  * @returns 用户确认后的输入值；未输入过则为 `defaultValue`（可能是 `undefined`）
  *
  * @example
@@ -270,7 +270,7 @@ export function ydszConfirm(
  * ```
  */
 export async function ydszPrompt<T = unknown>(
-  options: PromptProps<T>,
+  options: YdPromptProps<T>,
 ): Promise<T | undefined> {
   const {
     component: _component,
@@ -318,7 +318,7 @@ export async function ydszPrompt<T = unknown>(
     );
   };
 
-  const props: AlertProps & Recordable<unknown> = {
+  const props: YdAlertProps & Recordable<unknown> = {
     ...delegated,
     async beforeClose(scope: BeforeCloseScope) {
       if (delegated.beforeClose) {

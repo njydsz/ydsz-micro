@@ -15,7 +15,7 @@ import type { MenuProps } from './types';
 
 import { useForwardProps } from '@ydsz-core/composables';
 
-import { Menu } from './components';
+import { YdMenu } from './components';
 import SubMenu from './sub-menu.vue';
 
 interface Props extends MenuProps {
@@ -34,9 +34,9 @@ const forward = useForwardProps(props);
 </script>
 
 <template>
-  <Menu v-bind="forward">
+  <YdMenu v-bind="forward">
     <template v-for="menu in menus" :key="menu.path">
       <SubMenu :menu="menu" />
     </template>
-  </Menu>
+  </YdMenu>
 </template>

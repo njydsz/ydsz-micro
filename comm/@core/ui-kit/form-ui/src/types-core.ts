@@ -4,7 +4,7 @@
  * 从 types.ts 提取，避免单文件超过 300 行。
  *
  * 包含：
- * - 基础类型：FormLayout / BaseFormComponentType / WrapperClassType / FormItemClassType
+ * - 基础类型：FormLayout / YdBaseFormComponentType / WrapperClassType / FormItemClassType
  * - 字段配置：FormFieldOptions / FormShape / MaybeComponentPropKey / MaybeComponentProps
  * - 表单操作与渲染：FormActions / CustomRenderType / FormSchemaRuleType
  * - 联动依赖：FormItemDependencies 及其辅助类型
@@ -38,7 +38,7 @@ export type FormLayout = 'horizontal' | 'vertical';
  * 因此适配器注册的自定义组件名可以直接传入而无需扩展本类型，
  * 代价是**拼写错误不会在编译期报错**，只会在运行时表现为控件渲染不出来。
  */
-export type BaseFormComponentType =
+export type YdBaseFormComponentType =
   | 'DefaultButton'
   | 'PrimaryButton'
   | 'YdCheckbox'
@@ -191,7 +191,7 @@ export type CustomRenderType = (() => Component | string) | string;
  * @remarks
  * 支持三种写法，按表达能力递增：
  * 1. 内置简写字符串 `'required'` / `'selectRequired'`——由适配器在
- *    {@link YDSZFormAdapterOptions.defineRules} 中注册具体实现，二者区别在于错误文案
+ *    {@link YdFormAdapterOptions.defineRules} 中注册具体实现，二者区别在于错误文案
  *    （「请输入」vs「请选择」）；
  * 2. 任意自定义规则名字符串——需适配器提前注册，未注册时该字段校验被静默跳过；
  * 3. zod schema——直接给出完整校验逻辑，表达能力最强。

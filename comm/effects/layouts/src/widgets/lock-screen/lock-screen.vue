@@ -13,7 +13,7 @@ import { $t, useI18n } from '@ydsz/locales';
 import { storeToRefs, useTokenStore } from '@ydsz/stores';
 
 import { useScrollLock } from '@ydsz-core/composables';
-import { useYDSZForm, z } from '@ydsz-core/form-ui';
+import { useYdForm, z } from '@ydsz-core/form-ui';
 import { YdAvatar, YdButton } from '@ydsz-core/shadcn-ui';
 
 import { useDateFormat, useNow } from '@vueuse/core';
@@ -44,7 +44,7 @@ const date = useDateFormat(now, 'YYYY-MM-DD dddd', { locales: locale.value });
 const showUnlockForm = ref(false);
 const { lockScreenPassword } = storeToRefs(tokenStore);
 
-const [Form, { form, validate }] = useYDSZForm(
+const [Form, { form, validate }] = useYdForm(
   reactive({
     commonConfig: {
       hideLabel: true,

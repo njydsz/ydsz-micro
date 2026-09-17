@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
@@ -70,7 +70,7 @@ function toConnectorConfig(): ConnectorConfigPostDTO {
   };
 }
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: Partial<ConnectorFormState> & { types?: string[] } }>();

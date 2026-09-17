@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 import type { VariableDefinitionVO } from '#/api/models';
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 ;
 import { computed, reactive, ref } from 'vue';
@@ -43,7 +43,7 @@ const formData = reactive<VariableFormData>({
 const rules = {
   name: [{ required: true, message: () => t('variableNamePlaceholder'), trigger: 'blur' }],
 };
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: VariableDefinitionVO }>();

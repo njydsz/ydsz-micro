@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { ElButton, ElDrawer, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -104,7 +104,7 @@ const receivedGridOptions: VxeGridProps<ShareRecipientVO> = {
 };
 const [ReceivedGrid] = useYDSZVxeGrid({ gridOptions: receivedGridOptions });
 
-const [ShareFormModal, shareFormApi] = useYDSZModal({ connectedComponent: ShareForm });
+const [ShareFormModal, shareFormApi] = useYdModal({ connectedComponent: ShareForm });
 
 function handleAdd() { shareFormApi.open(); }
 

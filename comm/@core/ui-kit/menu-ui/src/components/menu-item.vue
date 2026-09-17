@@ -18,7 +18,7 @@ import { computed, onBeforeUnmount, onMounted, reactive, useSlots } from 'vue';
 import { useNamespace } from '@ydsz-core/composables';
 import { YdIcon, YdTooltip } from '@ydsz-core/shadcn-ui';
 
-import MenuBadge from './menu-badge.vue';
+import YdMenuBadge from './menu-badge.vue';
 import { useMenu, useMenuContext, useSubMenuContext } from '../hooks';
 import { getPreloadAdapter } from '../preload-adapter';
 
@@ -45,7 +45,7 @@ const menuIcon = computed(() =>
 );
 
 const isTopLevelMenuItem = computed(
-  () => parentMenu.value?.type.name === 'Menu',
+  () => parentMenu.value?.type.name === 'YdMenu',
 );
 
 const collapseShowTitle = computed(
@@ -160,7 +160,7 @@ onBeforeUnmount(() => {
       <slot name="title"></slot>
     </YdTooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
-      <MenuBadge
+      <YdMenuBadge
         v-if="rootMenu.props.mode !== 'horizontal'"
         class="right-2"
         v-bind="props"

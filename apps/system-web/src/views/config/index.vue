@@ -16,7 +16,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -146,7 +146,7 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [ConfigFormModal, configFormApi] = useYDSZModal({ connectedComponent: ConfigForm });
+const [ConfigFormModal, configFormApi] = useYdModal({ connectedComponent: ConfigForm });
 
 /** 版本历史抽屉引用 */
 const historyDialogRef = ref<InstanceType<typeof ConfigHistoryDialog>>();

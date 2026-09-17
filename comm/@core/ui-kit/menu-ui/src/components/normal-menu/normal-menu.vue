@@ -1,7 +1,7 @@
 ﻿<!--
  * 普通菜单：只渲染一层，按 menus 数组平铺，不做递归子菜单。
  *
- * 与递归版 Menu 的取舍：递归版支持任意层级但每级都是组件实例，
+ * 与递归版 YdMenu 的取舍：递归版支持任意层级但每级都是组件实例，
  * 层级深时开销与调试成本都高；本组件用于层级固定为一层的场景（如顶部导航）。
  * 激活图标的切换逻辑与 MenuItem 保持一致，避免出现两套高亮规则。
  *
@@ -20,7 +20,7 @@ import { YdIcon } from '@ydsz-core/shadcn-ui';
 type Props = NormalMenuProps;
 
 defineOptions({
-  name: 'NormalMenu',
+  name: 'YdNormalMenu',
 });
 
 const props = withDefaults(defineProps<Props>(), {

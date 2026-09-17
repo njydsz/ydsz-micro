@@ -22,7 +22,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { ElTable, ElTableColumn } from 'element-plus';
 import {
@@ -136,7 +136,7 @@ const gridOptions: VxeGridProps<TemplateRow> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [TemplateFormModal, templateFormApi] = useYDSZModal({ connectedComponent: TemplateForm });
+const [TemplateFormModal, templateFormApi] = useYdModal({ connectedComponent: TemplateForm });
 
 /** 加载卡片视图数据 */
 async function loadCardData(): Promise<void> {

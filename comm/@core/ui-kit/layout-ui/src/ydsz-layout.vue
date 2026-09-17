@@ -10,10 +10,10 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YDSZLayoutProps } from './YDSZ-layout';
+import type { YdLayoutProps } from './YDSZ-layout';
 
 import { SCROLL_FIXED_CLASS } from '@ydsz-core/composables';
-import { Menu } from '@ydsz-core/icons';
+import { YdMenu } from '@ydsz-core/icons';
 import { YdIconButton } from '@ydsz-core/shadcn-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
 
@@ -26,7 +26,7 @@ import {
 } from './components';
 import { useLayoutState } from './composables/use-layout-state';
 
-type Props = YDSZLayoutProps;
+type Props = YdLayoutProps;
 
 defineOptions({
   name: 'YDSZLayout',
@@ -200,7 +200,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
               class="my-0 mr-1 rounded-md"
               @click="handleHeaderToggle"
             >
-              <Menu class="size-4" />
+              <YdMenu class="size-4" />
             </YdIconButton>
           </template>
           <slot name="header"></slot>

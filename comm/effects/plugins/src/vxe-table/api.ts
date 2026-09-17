@@ -10,7 +10,7 @@
  */
 import type { VxeGridInstance } from 'vxe-table';
 
-import type { ExtendedFormApi } from '@ydsz-core/form-ui';
+import type { YdExtendedFormApi } from '@ydsz-core/form-ui';
 
 import type { VxeGridProps } from './types';
 
@@ -68,7 +68,7 @@ export class VxeGridApi<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
   /** 搜索表单的操作句柄；挂载前为空对象占位 */
-  public formApi = {} as ExtendedFormApi;
+  public formApi = {} as YdExtendedFormApi;
 
   // private prevState: null | VxeGridProps = null;
   /** vxe-grid 组件实例；挂载前为空对象占位，直接调用其方法会抛错 */
@@ -113,7 +113,7 @@ export class VxeGridApi<
    * @param instance - vxe-grid 组件实例，为 null 时不做任何处理
    * @param formApi - 搜索表单的操作句柄
    */
-  mount(instance: null | VxeGridInstance, formApi: ExtendedFormApi) {
+  mount(instance: null | VxeGridInstance, formApi: YdExtendedFormApi) {
     if (!this.isMounted && instance) {
       this.grid = instance;
       this.formApi = formApi;

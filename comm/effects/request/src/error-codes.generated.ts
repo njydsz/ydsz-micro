@@ -578,7 +578,7 @@ export const GeneratedErrorCode = {
   JOB_VERSION_NOT_FOUND: 'B92202',
   /** Job log not found */
   JOB_LOG_NOT_FOUND: 'B92203',
-  /** Alert rule not found */
+  /** YdAlert rule not found */
   ALERT_RULE_NOT_FOUND: 'B92301',
   /** Webhook not found */
   WEBHOOK_NOT_FOUND: 'B92302',
@@ -1214,7 +1214,7 @@ export const GENERATED_ERROR_CODE_META: Record<string, GeneratedErrorCodeMeta> =
   JOB_HISTORY_NOT_FOUND: { code: 'B92201', message: 'Job history not found', i18nKey: 'cronjob.job.history.not.found', module: 'cronjob', enumName: 'JOB_HISTORY_NOT_FOUND', httpStatus: 404 },
   JOB_VERSION_NOT_FOUND: { code: 'B92202', message: 'Job version not found', i18nKey: 'cronjob.job.version.not.found', module: 'cronjob', enumName: 'JOB_VERSION_NOT_FOUND', httpStatus: 404 },
   JOB_LOG_NOT_FOUND: { code: 'B92203', message: 'Job log not found', module: 'cronjob', enumName: 'JOB_LOG_NOT_FOUND', httpStatus: 404 },
-  ALERT_RULE_NOT_FOUND: { code: 'B92301', message: 'Alert rule not found', i18nKey: 'cronjob.alert.rule.not.found', module: 'cronjob', enumName: 'ALERT_RULE_NOT_FOUND', httpStatus: 404 },
+  ALERT_RULE_NOT_FOUND: { code: 'B92301', message: 'YdAlert rule not found', i18nKey: 'cronjob.alert.rule.not.found', module: 'cronjob', enumName: 'ALERT_RULE_NOT_FOUND', httpStatus: 404 },
   WEBHOOK_NOT_FOUND: { code: 'B92302', message: 'Webhook not found', i18nKey: 'cronjob.webhook.not.found', module: 'cronjob', enumName: 'WEBHOOK_NOT_FOUND', httpStatus: 404 },
   CONNECTOR_NOT_FOUND: { code: 'B92303', message: 'Connector not found', i18nKey: 'cronjob.connector.not.found', module: 'cronjob', enumName: 'CONNECTOR_NOT_FOUND', httpStatus: 404 },
   WEBHOOK_SEND_FAILED: { code: 'B92304', message: 'Webhook send failed', i18nKey: 'cronjob.webhook.send.failed', module: 'cronjob', enumName: 'WEBHOOK_SEND_FAILED', httpStatus: 502 },

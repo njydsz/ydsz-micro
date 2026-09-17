@@ -373,11 +373,11 @@ export interface MenuDTO {
   menuName?: string;
   /** 菜单编码（全局唯一） */
   menuCode?: string;
-  /** 菜单类型（DIR=目录 / Menu=菜单 / BUTTON=按钮） */
+  /** 菜单类型（DIR=目录 / YdMenu=菜单 / BUTTON=按钮） */
   menuType?: string;
-  /** 前端路由路径（menuType=Menu 时必填） */
+  /** 前端路由路径（menuType=YdMenu 时必填） */
   path?: string;
-  /** 前端组件路径（menuType=Menu 时必填，如 `"system/user/index"`） */
+  /** 前端组件路径（menuType=YdMenu 时必填，如 `"system/user/index"`） */
   component?: string;
   /** 菜单图标（Iconify / Element Plus 图标名） */
   icon?: string;
@@ -1508,7 +1508,7 @@ export interface MenuVO {
   menuName?: string;
   /** 菜单编码，全局唯一 */
   menuCode?: string;
-  /** 菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮 */
+  /** 菜单类型：DIRECTORY-目录、YdMenu-菜单、BUTTON-按钮 */
   menuType?: string;
   /** 前端路由路径 */
   path?: string;
@@ -1540,7 +1540,7 @@ export interface MenuTreeVO {
   menuName?: string;
   /** 菜单编码 */
   menuCode?: string;
-  /** 菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮 */
+  /** 菜单类型：DIRECTORY-目录、YdMenu-菜单、BUTTON-按钮 */
   menuType?: string;
   /** 前端路由路径 */
   path?: string;

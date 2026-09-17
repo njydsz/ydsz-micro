@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 import type { RuleDefinitionVO } from '#/api/models';
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 ;
 import { computed, reactive, ref } from 'vue';
@@ -47,7 +47,7 @@ const formData = reactive<RuleFormData>({
 const rules = {
   name: [{ required: true, message: () => t('ruleNamePlaceholder'), trigger: 'blur' }],
 };
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: RuleDefinitionVO }>();

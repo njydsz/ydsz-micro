@@ -17,7 +17,7 @@
 
 import type { Component } from 'vue';
 
-import type { BaseFormComponentType } from '@ydsz/common-ui';
+import type { YdBaseFormComponentType } from '@ydsz/common-ui';
 
 import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
 
@@ -126,7 +126,7 @@ export type ComponentType =
   | 'TimePicker'
   | 'TreeSelect'
   | 'Upload'
-  | BaseFormComponentType;
+  | YdBaseFormComponentType;
 
 /**
  * 初始化组件适配器。

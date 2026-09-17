@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
 import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { onMounted, ref } from 'vue';
@@ -35,7 +35,7 @@ const emit = defineEmits<{
   close: [];
 }>();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (isOpen) {
       loadVersions();

@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/shadcn-ui';
 import { ElMessageBox } from '@ydsz/notification/compat';
@@ -270,10 +270,10 @@ const [Grid, gridApi] = useYDSZVxeGrid({
 });
 
 // ========== 导入弹窗 ==========
-const [UserImportModal, userImportApi] = useYDSZModal({ connectedComponent: UserImport });
+const [UserImportModal, userImportApi] = useYdModal({ connectedComponent: UserImport });
 
 // ========== 表单弹窗 ==========
-const [UserFormModal, userFormApi] = useYDSZModal({ connectedComponent: UserForm });
+const [UserFormModal, userFormApi] = useYdModal({ connectedComponent: UserForm });
 
 function handleAdd() {
   userFormApi.setData({
@@ -320,7 +320,7 @@ function handleEdit(row: UserAccountVO) {
 }
 
 // ========== 角色分配弹窗 ==========
-const [RoleAssignModal, roleAssignApi] = useYDSZModal({ connectedComponent: RoleAssign });
+const [RoleAssignModal, roleAssignApi] = useYdModal({ connectedComponent: RoleAssign });
 
 async function handleAssignRoles(row: UserAccountVO) {
   if (!row.id) return;

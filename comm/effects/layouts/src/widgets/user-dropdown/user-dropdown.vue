@@ -19,7 +19,7 @@ import { preferences, usePreferences } from '@ydsz/preferences';
 import { useTokenStore } from '@ydsz/stores';
 import { isWindowsOs } from '@ydsz/utils';
 
-import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { useYdModal } from '@ydsz-core/popup-ui';
 import {
   Badge,
   DropdownMenu,
@@ -94,10 +94,10 @@ const emit = defineEmits<{ logout: [] }>();
 const { globalLockScreenShortcutKey, globalLogoutShortcutKey } =
   usePreferences();
 const tokenStore = useTokenStore();
-const [LockModal, lockModalApi] = useYDSZModal({
+const [LockModal, lockModalApi] = useYdModal({
   connectedComponent: LockScreenModal,
 });
-const [LogoutModal, logoutModalApi] = useYDSZModal({
+const [LogoutModal, logoutModalApi] = useYdModal({
   onConfirm() {
     handleSubmitLogout();
   },

@@ -14,7 +14,7 @@
  */
 import { formatDate, isFunction } from '@ydsz-core/shared/utils';
 
-import type { YDSZFormProps } from './types';
+import type { YdFormProps } from './types';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('form-value-transformer');
@@ -23,9 +23,9 @@ const logger = createLogger('form-value-transformer');
  * @description 负责表单值的格式转换，包括范围时间值处理、数组与字符串互转等
  */
 export class FormValueTransformer {
-  private getState: () => null | YDSZFormProps;
+  private getState: () => null | YdFormProps;
 
-  constructor(getState: () => null | YDSZFormProps) {
+  constructor(getState: () => null | YdFormProps) {
     this.getState = getState;
   }
 

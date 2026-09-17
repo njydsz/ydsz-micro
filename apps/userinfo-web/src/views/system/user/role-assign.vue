@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 
 import { ElTransfer } from 'element-plus';
 import { ref, watch } from 'vue';
@@ -34,7 +34,7 @@ const username = ref('');
 const roleList = ref<RoleVO[]>([]);
 const selectedRoleIds = ref<string[]>([]);
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{

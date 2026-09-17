@@ -25,7 +25,7 @@ import {
 import { useStore } from '@ydsz-core/shared/store';
 
 import { ModalApi } from './modal-api';
-import YDSZModal from './modal.vue';
+import YdModal from './modal.vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-modal');
@@ -41,12 +41,12 @@ const DEFAULT_MODAL_PROPS: Partial<ModalProps> = {};
  *
  * 副作用与约束：
  * - 通过 `Object.assign` **原地修改模块级单例**，多次调用为累加覆盖，不会清空已有键；
- * - 优先级最低，会被 `useYDSZModal(options)` 中的同名项覆盖；
+ * - 优先级最低，会被 `useYdModal(options)` 中的同名项覆盖；
  * - **仅影响之后创建的弹窗**，已存在的实例不受影响。
  *
  * @param props - 要合并进全局默认值的弹窗配置
  */
-export function setDefaultModalProps(props: Partial<ModalProps>) {
+export function setDefaultYdModalProps(props: Partial<ModalProps>) {
   Object.assign(DEFAULT_MODAL_PROPS, props);
 }
 
@@ -54,7 +54,7 @@ export function setDefaultModalProps(props: Partial<ModalProps>) {
  * 创建一对「弹窗组件 + 命令式 API」，支持内联使用与独立组件两种模式。
  *
  * @remarks
- * 结构与 `useYDSZDrawer` 完全对称，依据是否传入 `connectedComponent` 分为两条分支：
+ * 结构与 `useYdDrawer` 完全对称，依据是否传入 `connectedComponent` 分为两条分支：
  *
  * **模式一：内联（不传 `connectedComponent`）**
  * 直接创建 ModalApi 与渲染组件，弹窗内容写在当前组件插槽内。
@@ -78,11 +78,11 @@ export function setDefaultModalProps(props: Partial<ModalProps>) {
  *
  * @example
  * ```ts
- * const [Modal, modalApi] = useYDSZModal({ connectedComponent: EditModal });
+ * const [Modal, modalApi] = useYdModal({ connectedComponent: EditModal });
  * modalApi.setData({ id }).open();
  * ```
  */
-export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
+export function useYdModal<TParentModalProps extends ModalProps = ModalProps>(
   options: ModalApiOptions = {},
 ) {
   // Modal一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
@@ -167,7 +167,7 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
     (props: ModalProps, { attrs, slots }) => {
       return () =>
         h(
-          YDSZModal,
+          YdModal,
           {
             ...props,
             ...attrs,
@@ -177,7 +177,7 @@ export function useYDSZModal<TParentModalProps extends ModalProps = ModalProps>(
         );
     },
     {
-      name: 'YDSZModal',
+      name: 'YdModal',
       inheritAttrs: false,
     },
   );
@@ -204,7 +204,7 @@ async function checkProps(api: ExtendedModalApi, attrs: Record<string, unknown>)
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
       // connectedComponent存在时，不要传入Modal的props，会造成复杂度提升，如果你需要修改Modal的props，请使用 useModal 或者api
       logger.warn(
-        `[YDSZ Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useYDSZModal or api.`,
+        `[YDSZ Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useYdModal or api.`,
       );
     }
   }

@@ -47,7 +47,7 @@ import Underline from '@tiptap/extension-underline';
  *
  * @returns TipTap 扩展数组
  */
-export function getDefaultExtensions(): Array<unknown> {
+export function getYdDefaultExtensions(): Array<unknown> {
   return [
     Document,
     Text,

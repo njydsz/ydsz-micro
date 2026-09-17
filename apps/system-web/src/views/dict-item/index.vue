@@ -16,7 +16,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -112,7 +112,7 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [DictItemFormModal, dictItemFormApi] = useYDSZModal({ connectedComponent: DictItemForm });
+const [DictItemFormModal, dictItemFormApi] = useYdModal({ connectedComponent: DictItemForm });
 
 /**
  * 新增字典项。

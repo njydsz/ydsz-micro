@@ -21,7 +21,7 @@ import type {
 
 import type { Recordable } from '@ydsz-core/typings';
 
-import type { FormActions, FormSchema, YDSZFormProps } from './types';
+import type { FormActions, FormSchema, YdFormProps } from './types';
 
 import { toRaw } from 'vue';
 
@@ -43,7 +43,7 @@ import { assertValidSchema } from './validation/validate-schema';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('form-api');
-function getDefaultState(): YDSZFormProps {
+function getDefaultState(): YdFormProps {
   return {
     actionWrapperClass: '',
     collapsed: false,
@@ -103,7 +103,7 @@ function getDefaultState(): YDSZFormProps {
  *
  * @example
  * ```ts
- * const [Form, formApi] = useYDSZForm({ schema });
+ * const [Form, formApi] = useYdForm({ schema });
  * const values = await formApi.getValues();
  * await formApi.validateAndSubmitForm();
  * ```
@@ -113,30 +113,30 @@ function getDefaultState(): YDSZFormProps {
  * 表单 API 实例。
  *
  * @remarks
- * 由 {@link useYDSZForm} 创建并随表单实例返回，提供命令式操作表单的能力：
+ * 由 {@link useYdForm} 创建并随表单实例返回，提供命令式操作表单的能力：
  * 获取/设置表单值、触发校验、提交、合并多表单等。
- * 所有方法均为异步 Promise 风格，校验失败不抛异常（详见 useYDSZForm 文档第 5 点）。
+ * 所有方法均为异步 Promise 风格，校验失败不抛异常（详见 useYdForm 文档第 5 点）。
  */
 export class FormApi {
   public form = {} as FormActions;
   isMounted = false;
 
-  public state: null | YDSZFormProps = null;
+  public state: null | YdFormProps = null;
   stateHandler: StateHandler;
 
-  public store: Store<YDSZFormProps>;
+  public store: Store<YdFormProps>;
 
   private componentRefMap: Map<string, unknown> = new Map();
 
   private latestSubmissionValues: null | Recordable<unknown> = null;
 
-  private prevState: null | YDSZFormProps = null;
+  private prevState: null | YdFormProps = null;
 
   private scrollHelper: FormScrollHelper;
 
   private valueTransformer: FormValueTransformer;
 
-  constructor(options: YDSZFormProps = {}) {
+  constructor(options: YdFormProps = {}) {
     const { ...storeState } = options;
 
     const defaultState = getDefaultState();
@@ -146,7 +146,7 @@ export class FormApi {
       assertValidSchema(options.schema);
     }
 
-    this.store = new Store<YDSZFormProps>(
+    this.store = new Store<YdFormProps>(
       {
         ...defaultState,
         ...storeState,
@@ -308,8 +308,8 @@ export class FormApi {
 
   setState(
     stateOrFn:
-      | ((prev: YDSZFormProps) => Partial<YDSZFormProps>)
-      | Partial<YDSZFormProps>,
+      | ((prev: YdFormProps) => Partial<YdFormProps>)
+      | Partial<YdFormProps>,
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState((prev) => {
@@ -453,7 +453,7 @@ export class FormApi {
       await this.stateHandler.waitForCondition();
     }
     if (!this.form?.meta) {
-      throw new Error('<YDSZForm /> is not mounted');
+      throw new Error('<YdForm /> is not mounted');
     }
     return this.form;
   }

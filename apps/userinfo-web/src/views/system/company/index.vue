@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { ElTree } from 'element-plus';
@@ -134,7 +134,7 @@ function handleTreeClear() {
 }
 
 // ========== 表单弹窗 ==========
-const [CompanyFormModal, companyFormApi] = useYDSZModal({ connectedComponent: CompanyForm });
+const [CompanyFormModal, companyFormApi] = useYdModal({ connectedComponent: CompanyForm });
 
 function handleAdd() {
   companyFormApi.setData({ treeData: companyTree.value });

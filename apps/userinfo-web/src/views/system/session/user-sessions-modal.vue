@@ -1,7 +1,7 @@
 <!--
  * 用户全部会话弹窗组件
  *
- * <p>显示某用户的全部会话列表（跨设备），由父页面通过 useYDSZModal connectedComponent 模式调用。
+ * <p>显示某用户的全部会话列表（跨设备），由父页面通过 useYdModal connectedComponent 模式调用。
  *
  * @path apps\userinfo-web\src\views\system\session\user-sessions-modal.vue
  * @author ydsz-team
@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -27,7 +27,7 @@ defineOptions({ name: 'UserSessionsModal' });
 
 const { t } = useI18n();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: async (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ userId: string }>();

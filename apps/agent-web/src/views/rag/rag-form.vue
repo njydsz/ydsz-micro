@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput 表单套件复杂+校验逻辑,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput } from 'element-plus';
 import { reactive, ref } from 'vue';
@@ -35,7 +35,7 @@ const formData = reactive<DocumentIngestDTO>({
 const rules = {
   content: [{ required: true, message: '请输入文档内容', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen) => {
     if (!isOpen) return;
     Object.assign(formData, { documentId: '', content: '', documentTitle: '', source: '' });

@@ -18,7 +18,7 @@ import type { VxeGridPropTypes, VxeToolbarPropTypes } from 'vxe-table';
 
 import type { ComputedRef, SetupContext } from 'vue';
 
-import type { YDSZFormProps } from '@ydsz-core/form-ui';
+import type { YdFormProps } from '@ydsz-core/form-ui';
 
 import type { VxeGridProps } from '../types';
 
@@ -46,7 +46,7 @@ export const TABLE_TITLE = 'table-title';
  */
 export interface VxeGridSlotDeps {
   /** 搜索表单配置 */
-  formOptions: ComputedRef<YDSZFormProps | undefined>;
+  formOptions: ComputedRef<YdFormProps | undefined>;
   /** vxe-grid 原始配置（含 toolbarConfig 等） */
   gridOptions: ComputedRef<VxeGridProps['gridOptions']>;
   /** 是否显示搜索表单 */

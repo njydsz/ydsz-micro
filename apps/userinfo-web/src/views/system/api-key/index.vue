@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Button, Switch } from '@ydsz-core/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { h } from 'vue';
@@ -103,7 +103,7 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [ApiKeyFormModal, apiKeyFormApi] = useYDSZModal({ connectedComponent: ApiKeyForm });
+const [ApiKeyFormModal, apiKeyFormApi] = useYdModal({ connectedComponent: ApiKeyForm });
 
 /**
  * 打开新增弹窗。

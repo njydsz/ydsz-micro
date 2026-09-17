@@ -24,7 +24,7 @@ import { useTabsViewScroll } from './use-tabs-view-scroll';
 type Props = TabsProps;
 
 defineOptions({
-  name: 'TabsView',
+  name: 'YdTabsView',
 });
 
 const props = withDefaults(defineProps<Props>(), {

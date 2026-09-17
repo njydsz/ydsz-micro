@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
@@ -93,7 +93,7 @@ const webhookGridOptions: VxeGridProps<JobWebhookVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions: webhookGridOptions });
 
-const [WebhookFormModal, webhookFormApi] = useYDSZModal({ connectedComponent: WebhookForm });
+const [WebhookFormModal, webhookFormApi] = useYdModal({ connectedComponent: WebhookForm });
 
 function handleAdd() {
   webhookFormApi.open();

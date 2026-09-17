@@ -43,7 +43,7 @@ export type BeforeCloseScope = {
  * 是 `ydszAlert` / `ydszConfirm` 共用的参数结构，二者差异仅在于默认是否显示取消按钮。
  * 除 `content` 外均为可选，未指定项使用组件默认值或全局默认配置。
  */
-export type AlertProps = {
+export type YdAlertProps = {
   /** 关闭前的回调，如果返回false，则终止关闭 */
   beforeClose?: (
     scope: BeforeCloseScope,
@@ -84,7 +84,7 @@ export type AlertProps = {
 };
 
 /** Prompt属性 */
-export type PromptProps<T = unknown> = {
+export type YdPromptProps<T = unknown> = {
   /** 关闭前的回调，如果返回false，则终止关闭 */
   beforeClose?: (scope: {
     isConfirm: boolean;
@@ -104,10 +104,10 @@ export type PromptProps<T = unknown> = {
   defaultValue?: T;
   /** 输入组件的值属性名 */
   modelPropName?: string;
-} & Omit<AlertProps, 'beforeClose'>;
+} & Omit<YdAlertProps, 'beforeClose'>;
 
 /**
- * Alert上下文
+ * YdAlert上下文
  */
 export type AlertContext = {
   /** 执行取消操作 */
@@ -120,7 +120,7 @@ export const [injectAlertContext, provideAlertContext] =
   createContext<AlertContext>('YDSZAlertContext');
 
 /**
- * 获取Alert上下文
+ * 获取YdAlert上下文
  * @returns AlertContext
  */
 export function useAlertContext() {

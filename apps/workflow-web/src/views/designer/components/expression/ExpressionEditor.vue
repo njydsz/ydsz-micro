@@ -19,7 +19,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 // TODO: EP → shadcn-ui 迁移待后续批次（表达式编辑器包含 ElTabs/ElTabPane/ElForm/ElFormItem 等复杂组合）
 import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, reactive, ref, watch } from 'vue';
@@ -58,7 +58,7 @@ const emit = defineEmits<{
   success: [expression: string];
 }>();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     expressionText.value = props.modelValue;

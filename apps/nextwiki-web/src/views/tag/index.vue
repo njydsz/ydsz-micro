@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
 import { Button, Input, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
@@ -71,7 +71,7 @@ const gridOptions: VxeGridProps<TagVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [TagFormModal, tagFormApi] = useYDSZModal({ connectedComponent: TagForm });
+const [TagFormModal, tagFormApi] = useYdModal({ connectedComponent: TagForm });
 
 function handleAdd() { tagFormApi.open(); }
 

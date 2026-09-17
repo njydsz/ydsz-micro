@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Badge, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElTabPane/ElTabs 不在 shadcn 映射表，保留 EP
 import { ElTabPane, ElTabs } from 'element-plus';
@@ -133,7 +133,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [SubscriptionFormModal, subscriptionFormApi] = useYDSZModal({
+const [SubscriptionFormModal, subscriptionFormApi] = useYdModal({
   connectedComponent: SubscriptionForm,
 });
 

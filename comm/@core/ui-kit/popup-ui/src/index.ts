@@ -8,4 +8,4 @@
 export * from './alert';
 export * from './drawer';
 export * from './modal';
-export type { PopupApi, PopupApiCallbacks, PopupApiOptions } from './popup-api';
+export type { YdPopupApi, YdPopupApiCallbacks, YdPopupApiOptions } from './popup-api';

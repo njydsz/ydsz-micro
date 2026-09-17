@@ -10,7 +10,7 @@
  */
 import type { DrawerApiOptions, DrawerState } from './drawer';
 
-import { PopupApi } from '../popup-api';
+import { YdPopupApi } from '../popup-api';
 
 const DEFAULT_DRAWER_STATE: DrawerState = {
   class: '',
@@ -35,9 +35,9 @@ const DEFAULT_DRAWER_STATE: DrawerState = {
 
 /**
  * 抽屉 API
- * @description 继承 PopupApi 基类，提供抽屉特有的状态管理
+ * @description 继承 YdPopupApi 基类，提供抽屉特有的状态管理
  */
-export class DrawerApi extends PopupApi<DrawerState> {
+export class DrawerApi extends YdPopupApi<DrawerState> {
   constructor(options: DrawerApiOptions = {}) {
     super(options, DEFAULT_DRAWER_STATE, 'connectedComponent');
   }

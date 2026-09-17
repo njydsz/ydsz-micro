@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -74,7 +74,7 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [CategoryFormModal, categoryFormApi] = useYDSZModal({ connectedComponent: CategoryForm });
+const [CategoryFormModal, categoryFormApi] = useYdModal({ connectedComponent: CategoryForm });
 /**
  * 新增流程分类。
  *

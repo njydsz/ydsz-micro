@@ -17,7 +17,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
@@ -156,7 +156,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({
 });
 
 // ========== 表单弹窗 ==========
-const [LanguageFormModal, languageFormApi] = useYDSZModal({ connectedComponent: LanguageForm });
+const [LanguageFormModal, languageFormApi] = useYdModal({ connectedComponent: LanguageForm });
 
 function handleAdd() {
   languageFormApi.open();

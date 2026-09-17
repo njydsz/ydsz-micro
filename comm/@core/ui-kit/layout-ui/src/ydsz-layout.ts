@@ -15,7 +15,7 @@ import type {
   ThemeModeType,
 } from '@ydsz-core/typings';
 
-interface YDSZLayoutProps {
+interface YdLayoutProps {
   /**
    * 内容区域定宽
    * @default 'wide'
@@ -182,4 +182,4 @@ interface YDSZLayoutProps {
    */
   zIndex?: number;
 }
-export type { YDSZLayoutProps };
+export type { YdLayoutProps };

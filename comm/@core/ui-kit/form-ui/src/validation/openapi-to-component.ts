@@ -1,11 +1,11 @@
 /**
- * OpenAPI Schema 属性 → YDSZForm 组件类型 自动映射器。
+ * OpenAPI Schema 属性 → YdForm 组件类型 自动映射器。
  *
  * <p>打通后端 JSR-380 → OpenAPI spec → 前端表单组件类型的最后一公里：
  * <ol>
  *   <li>后端 DTO 标注类型注解 → springdoc 输出 OpenAPI schema（type/format/enum）</li>
  *   <li>本模块根据 schema 自动推断应使用的表单组件类型</li>
- *   <li>结合 {@link openapi-to-rules} 的校验规则 → 完整 YDSZFormSchema</li>
+ *   <li>结合 {@link openapi-to-rules} 的校验规则 → 完整 YdFormSchema</li>
  * </ol>
  *
  * <p>映射规则：
@@ -28,7 +28,7 @@
  *   tenantName: { required: true, maxLength: 128 },
  *   status: { enum: ['ENABLED', 'DISABLED'] },
  * });
- * // → 可直接传给 YDSZForm :schema 渲染完整表单
+ * // → 可直接传给 YdForm :schema 渲染完整表单
  * }</pre>
  *
  * @path comm/@core/ui-kit/form-ui/src/validation/openapi-to-component.ts
@@ -142,10 +142,10 @@ function isDictFieldByConvention(field: string): boolean {
 }
 
 /**
- * 将一组 OpenAPI Schema 属性转换为 YDSZFormSchema 结构（仅结构描述，不含组件实现）。
+ * 将一组 OpenAPI Schema 属性转换为 YdFormSchema 结构（仅结构描述，不含组件实现）。
  *
- * <p>返回描述型对象，需配合 {@link initSetupYDSZForm} 注册组件后交给 YDSZForm 渲染。
- * 若已有具体的 YDSZFormSchema 类型约束，返回值可强转为该类型。
+ * <p>返回描述型对象，需配合 {@link initSetupYDSZForm} 注册组件后交给 YdForm 渲染。
+ * 若已有具体的 YdFormSchema 类型约束，返回值可强转为该类型。
  *
  * @param properties - 字段名 → 校验元信息 映射
  * @param options - 映射选项
@@ -180,7 +180,7 @@ export function openApiSchemaToFormFields(
   return fields;
 }
 
-/** 字段配置描述（可强转为 YDSZFormSchema[number]） */
+/** 字段配置描述（可强转为 YdFormSchema[number]） */
 export interface ComponentFieldConfig {
   /** 组件类型 */
   component: ComponentType;

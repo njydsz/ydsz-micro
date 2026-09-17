@@ -6,13 +6,13 @@
  * @since 1.0.0
  */
 import type {
-  YDSZFormSchema as FormSchema,
-  YDSZFormProps,
+  YdFormSchema as FormSchema,
+  YdFormProps,
 } from '@ydsz/common-ui';
 
 import type { ComponentType } from './component';
 
-import { setupYDSZForm, useYDSZForm as useForm, z } from '@ydsz/common-ui';
+import { setupYdForm, useYdForm as useForm, z } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 
 /**
@@ -21,7 +21,7 @@ import { $t } from '@ydsz/locales';
  * 注册组件类型映射与内置校验规则（required / selectRequired），需在应用启动时调用一次。
  */
 async function initSetupYDSZForm() {
-  setupYDSZForm<ComponentType>({
+  setupYdForm<ComponentType>({
     config: {
       modelPropNameMap: {
         Upload: 'fileList',
@@ -46,10 +46,10 @@ async function initSetupYDSZForm() {
 }
 
 /** 封装后的表单组合式函数，已绑定业务组件类型 {@link ComponentType}。 */
-const useYDSZForm = useForm<ComponentType>;
+const useYdForm = useForm<ComponentType>;
 
-export { initSetupYDSZForm, useYDSZForm, z };
+export { initSetupYDSZForm, useYdForm, z };
 
 /** 表单 Schema 类型，泛型参数已绑定业务组件类型 {@link ComponentType}。 */
-export type YDSZFormSchema = FormSchema<ComponentType>;
-export type { YDSZFormProps };
+export type YdFormSchema = FormSchema<ComponentType>;
+export type { YdFormProps };

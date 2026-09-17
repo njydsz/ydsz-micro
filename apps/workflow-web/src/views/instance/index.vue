@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTable / ElTableColumn 暂不迁移，保留 element-plus 导入
 import { ElTable, ElTableColumn } from 'element-plus';
 import { Badge, Button, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -140,7 +140,7 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [InstanceFormModal, instanceFormApi] = useYDSZModal({ connectedComponent: InstanceForm });
+const [InstanceFormModal, instanceFormApi] = useYdModal({ connectedComponent: InstanceForm });
 
 /**
  * 发起流程实例。

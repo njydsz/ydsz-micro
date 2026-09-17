@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { h } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -145,7 +145,7 @@ const gridOptions: VxeTableGridOptions = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [AuthPolicyFormModal, authPolicyFormApi] = useYDSZModal({ connectedComponent: AuthPolicyForm });
+const [AuthPolicyFormModal, authPolicyFormApi] = useYdModal({ connectedComponent: AuthPolicyForm });
 
 /**
  * 打开新增弹窗。

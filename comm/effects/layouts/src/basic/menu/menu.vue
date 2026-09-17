@@ -10,7 +10,7 @@ import type { MenuRecordRaw } from '@ydsz/types';
 
 import type { MenuProps } from '@ydsz-core/menu-ui';
 
-import { Menu } from '@ydsz-core/menu-ui';
+import { YdMenu } from '@ydsz-core/menu-ui';
 
 interface Props extends MenuProps {
   menus?: MenuRecordRaw[];
@@ -36,7 +36,7 @@ function handleMenuOpen(key: string, path: string[]) {
 </script>
 
 <template>
-  <Menu
+  <YdMenu
     :accordion="accordion"
     :collapse="collapse"
     :collapse-show-title="collapseShowTitle"

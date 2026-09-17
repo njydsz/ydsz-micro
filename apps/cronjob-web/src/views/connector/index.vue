@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem 暂无 shadcn 对应;保留 element-plus SKIP
@@ -100,7 +100,7 @@ const taskGridOptions: VxeGridProps<ConnectorTaskInfo> = {
 
 const [TaskGrid, taskGridApi] = useYDSZVxeGrid({ gridOptions: taskGridOptions });
 
-const [ConnectorFormModal, connectorFormApi] = useYDSZModal({ connectedComponent: ConnectorForm });
+const [ConnectorFormModal, connectorFormApi] = useYdModal({ connectedComponent: ConnectorForm });
 
 onMounted(async () => {
   try {

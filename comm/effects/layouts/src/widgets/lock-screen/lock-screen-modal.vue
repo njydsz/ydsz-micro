@@ -12,8 +12,8 @@ import { computed, reactive } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZForm, z } from '@ydsz-core/form-ui';
-import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { useYdForm, z } from '@ydsz-core/form-ui';
+import { useYdModal } from '@ydsz-core/popup-ui';
 import { YdAvatar, YdButton } from '@ydsz-core/shadcn-ui';
 
 interface Props {
@@ -34,7 +34,7 @@ const emit = defineEmits<{
   submit: [Recordable<unknown>];
 }>();
 
-const [Form, { resetForm, validate, getValues }] = useYDSZForm(
+const [Form, { resetForm, validate, getValues }] = useYdForm(
   reactive({
     commonConfig: {
       hideLabel: true,
@@ -58,7 +58,7 @@ const [Form, { resetForm, validate, getValues }] = useYDSZForm(
   }),
 );
 
-const [Modal] = useYDSZModal({
+const [Modal] = useYdModal({
   onConfirm() {
     handleSubmit();
   },

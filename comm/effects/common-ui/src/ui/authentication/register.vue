@@ -8,20 +8,20 @@
 <script setup lang="ts">
 import type { Recordable } from '@ydsz/types';
 
-import type { YDSZFormSchema } from '@ydsz-core/form-ui';
+import type { YdFormSchema } from '@ydsz-core/form-ui';
 
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZForm } from '@ydsz-core/form-ui';
+import { useYdForm } from '@ydsz-core/form-ui';
 import { YdButton } from '@ydsz-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 
 interface Props {
-  formSchema?: YDSZFormSchema[];
+  formSchema?: YdFormSchema[];
   /**
    * @zh_CN 是否处于加载处理状态
    */
@@ -61,7 +61,7 @@ const emit = defineEmits<{
   submit: [Recordable<unknown>];
 }>();
 
-const [Form, formApi] = useYDSZForm(
+const [Form, formApi] = useYdForm(
   reactive({
     commonConfig: {
       hideLabel: true,

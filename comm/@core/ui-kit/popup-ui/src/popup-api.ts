@@ -20,7 +20,7 @@ import { bindMethods, isFunction } from '@ydsz-core/shared/utils';
 /**
  * 弹窗通用回调接口
  */
-export interface PopupApiCallbacks {
+export interface YdPopupApiCallbacks {
   onBeforeClose?: () => MaybePromise<boolean | undefined>;
   onCancel?: () => void;
   onClosed?: () => void;
@@ -32,8 +32,8 @@ export interface PopupApiCallbacks {
 /**
  * 弹窗通用 API 选项接口
  */
-export interface PopupApiOptions<State extends Record<string, unknown>>
-  extends PopupApiCallbacks {
+export interface YdPopupApiOptions<State extends Record<string, unknown>>
+  extends YdPopupApiCallbacks {
   connectedComponent?: Component;
   /** 引用泛型 State，便于子接口扩展状态相关选项 */
   state?: Partial<State>;
@@ -45,18 +45,18 @@ export interface PopupApiOptions<State extends Record<string, unknown>>
  * @description 提供 Modal 和 Drawer 共享的通用方法实现，消除代码重复
  * @template State 弹窗状态类型
  */
-export class PopupApi<State extends Record<string, unknown>> {
+export class YdPopupApi<State extends Record<string, unknown>> {
   public sharedData: Record<'payload', unknown> = {
     payload: {},
   };
   public store: Store<State>;
 
-  protected api: PopupApiCallbacks;
+  protected api: YdPopupApiCallbacks;
 
   protected state!: State;
 
   constructor(
-    options: PopupApiOptions<State>,
+    options: YdPopupApiOptions<State>,
     defaultState: State,
     connectedComponentKey: string = 'connectedComponent',
   ) {

@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { YDSZFormSchema } from '@ydsz/common-ui';
+import type { YdFormSchema } from '@ydsz/common-ui';
 
 import { computed, ref } from 'vue';
 
@@ -17,7 +17,7 @@ defineOptions({ name: 'ForgetPassword' });
 
 const loading = ref(false);
 
-const formSchema = computed((): YDSZFormSchema[] => {
+const formSchema = computed((): YdFormSchema[] => {
   return [
     {
       component: 'YDSZInput',

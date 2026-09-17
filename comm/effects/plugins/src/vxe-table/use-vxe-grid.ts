@@ -12,7 +12,7 @@ import type { VxeGridSlots, VxeGridSlotTypes } from 'vxe-table';
 
 import type { SlotsType } from 'vue';
 
-import type { BaseFormComponentType } from '@ydsz-core/form-ui';
+import type { YdBaseFormComponentType } from '@ydsz-core/form-ui';
 
 import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
@@ -61,7 +61,7 @@ type FilteredSlots<T> = {
  */
 export function useYDSZVxeGrid<
   T extends Record<string, unknown> = Record<string, unknown>,
-  D extends BaseFormComponentType = BaseFormComponentType,
+  D extends YdBaseFormComponentType = YdBaseFormComponentType,
 >(options: VxeGridProps<T, D>) {
   // const IS_REACTIVE = isReactive(options);
   const api = new VxeGridApi(options);

@@ -1,7 +1,7 @@
 <!--
  * 工作流表单渲染器
  *
- * <p>将表单设计器生成的 JSON Schema 转为 YDSZForm Schema 并动态渲染。
+ * <p>将表单设计器生成的 JSON Schema 转为 YdForm Schema 并动态渲染。
  * 整合链路：form-designer 保存 schema → 节点绑定 schema → 任务运行时本组件渲染表单 → 提交时输出 form data。
  *
  * <p>符合云顶编码规范 §8、§14。
@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 /**
  * 工作流动态表单渲染器
- * <p>将后端 FlowDesignerController 返回的 formConfig（JSON Schema 格式）转换为 YDSZForm Schema 渲染。
+ * <p>将后端 FlowDesignerController 返回的 formConfig（JSON Schema 格式）转换为 YdForm Schema 渲染。
  * 支持的字段类型映射：
  * <ul>
  *   <li>string → Input / Textarea（根据 format 或 maxLength 判断）</li>
@@ -31,7 +31,7 @@ import { computed, ref, watch } from 'vue';
 // TODO: EP → shadcn-ui 迁移待后续批次（动态表单渲染器包含 ElInput/ElSelect/ElInputNumber/ElSwitch/ElEmpty 等动态绑定组件）
 import { ElEmpty, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch } from 'element-plus';
 
-import type { YDSZFormSchema } from '@ydsz/common-ui';
+import type { YdFormSchema } from '@ydsz/common-ui';
 
 import type { JsonSchema, JsonSchemaProperty } from './types';
 
@@ -81,14 +81,14 @@ watch(
 );
 
 /**
- * 将 JSON Schema 属性映射为 YDSZForm Schema 字段
+ * 将 JSON Schema 属性映射为 YdForm Schema 字段
  *
  * <p>根据属性的 type / format / enum 自动选择组件类型。
  */
-const formSchema = computed<YDSZFormSchema | undefined>(() => {
+const formSchema = computed<YdFormSchema | undefined>(() => {
   if (!props.schema?.properties) return undefined;
 
-  const fields: YDSZFormSchema = [];
+  const fields: YdFormSchema = [];
   for (const [fieldName, prop] of Object.entries(props.schema.properties)) {
     const isRequired = props.schema.required?.includes(fieldName) ?? false;
     const componentType = mapToComponentType(prop);
@@ -120,7 +120,7 @@ const formSchema = computed<YDSZFormSchema | undefined>(() => {
 });
 
 /**
- * JSON Schema 属性 → YDSZForm 组件类型映射
+ * JSON Schema 属性 → YdForm 组件类型映射
  */
 function mapToComponentType(prop: JsonSchemaProperty): string {
   if (prop.enum && prop.enum.length > 0) return 'Select';

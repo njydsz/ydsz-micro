@@ -17,7 +17,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup } from 'element-plus';
@@ -226,7 +226,7 @@ const rules = {
   redirectUrisText: [{ required: true, message: '请输入回调地址（每行一个）', trigger: 'blur' }],
 };
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: async (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: OAuth2Application }>();

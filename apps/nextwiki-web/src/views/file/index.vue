@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 shadcn-ui
 import { ElTabPane, ElTabs, ElUpload } from 'element-plus';
 import { Button, Input, Badge, Dialog, DialogContent, DialogFooter, DialogHeader, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -127,8 +127,8 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
   },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [FileFormModal, fileFormApi] = useYDSZModal({ connectedComponent: FileForm });
-const [FileUploadModal, fileUploadApi] = useYDSZModal({ connectedComponent: FileUpload });
+const [FileFormModal, fileFormApi] = useYdModal({ connectedComponent: FileForm });
+const [FileUploadModal, fileUploadApi] = useYdModal({ connectedComponent: FileUpload });
 
 /** 版本历史弹窗引用 */
 const fileVersionHistoryRef = ref<InstanceType<typeof FileVersionHistory> | null>(null);

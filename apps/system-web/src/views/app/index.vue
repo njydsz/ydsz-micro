@@ -16,7 +16,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
@@ -106,7 +106,7 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [AppFormModal, appFormApi] = useYDSZModal({ connectedComponent: AppForm });
+const [AppFormModal, appFormApi] = useYdModal({ connectedComponent: AppForm });
 
 function handleAdd() {
   appFormApi.open();

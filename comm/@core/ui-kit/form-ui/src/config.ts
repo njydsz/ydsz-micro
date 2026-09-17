@@ -4,7 +4,7 @@
  * COMPONENT_MAP 把 Schema 里声明的抽象组件类型映射到具体 Vue 组件，
  * COMPONENT_BIND_EVENT_MAP 声明各组件用哪个事件回写值（多数是 update:modelValue，
  * 第三方组件可能不同），因此接入新控件只需在此登记，渲染器无需改动。
- * setupYDSZForm 供应用启动时一次性注入全局配置与自定义校验规则，
+ * setupYdForm 供应用启动时一次性注入全局配置与自定义校验规则，
  * 避免每个表单重复声明同一套默认值。
  *
  * @path comm\@core\ui-kit\form-ui\src\config.ts
@@ -14,9 +14,9 @@
 import type { Component } from 'vue';
 
 import type {
-  BaseFormComponentType,
+  YdBaseFormComponentType,
   FormCommonConfig,
-  YDSZFormAdapterOptions,
+  YdFormAdapterOptions,
 } from './types';
 
 import { h } from 'vue';
@@ -35,11 +35,11 @@ import { defineRule } from 'vee-validate';
 
 const DEFAULT_MODEL_PROP_NAME = 'modelValue';
 
-/** 表单控件行为默认配置，由 setupYDSZForm 在启动时合并宿主传入的覆盖项 */
+/** 表单控件行为默认配置，由 setupYdForm 在启动时合并宿主传入的覆盖项 */
 export const DEFAULT_FORM_COMMON_CONFIG: FormCommonConfig = {};
 
 /** 基础表单控件类型到渲染组件的映射表，可由宿主通过 globalShareState 注册的组件按需覆盖 */
-export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
+export const COMPONENT_MAP: Record<YdBaseFormComponentType, Component> = {
   DefaultButton: h(YdButton, { size: 'sm', variant: 'outline' }),
   PrimaryButton: h(YdButton, { size: 'sm', variant: 'default' }),
   YdCheckbox,
@@ -51,7 +51,7 @@ export const COMPONENT_MAP: Record<BaseFormComponentType, Component> = {
 
 /** 各表单控件默认绑定的 v-model prop 名映射，如复选框使用 `checked` 而非 `modelValue` */
 export const COMPONENT_BIND_EVENT_MAP: Partial<
-  Record<BaseFormComponentType, string>
+  Record<YdBaseFormComponentType, string>
 > = {
   YdCheckbox: 'checked',
 };
@@ -78,11 +78,11 @@ export const COMPONENT_BIND_EVENT_MAP: Partial<
  * 即默认关闭 change/input 监听以避免与 v-model 重复触发校验；
  * `emptyStateValue` 缺省为 `undefined`，对接 naive-ui 等要求 `null` 的库时必须显式指定。
  *
- * @param options - 适配器配置，含控件行为配置与内置规则实现，详见 {@link YDSZFormAdapterOptions}
+ * @param options - 适配器配置，含控件行为配置与内置规则实现，详见 {@link YdFormAdapterOptions}
  */
-export function setupYDSZForm<
-  T extends BaseFormComponentType = BaseFormComponentType,
->(options: YDSZFormAdapterOptions<T>) {
+export function setupYdForm<
+  T extends YdBaseFormComponentType = YdBaseFormComponentType,
+>(options: YdFormAdapterOptions<T>) {
   const { config, defineRules } = options;
 
   const {
@@ -106,13 +106,13 @@ export function setupYDSZForm<
   const baseModelPropName =
     config?.baseModelPropName ?? DEFAULT_MODEL_PROP_NAME;
   const modelPropNameMap = config?.modelPropNameMap as
-    | Record<BaseFormComponentType, string>
+    | Record<YdBaseFormComponentType, string>
     | undefined;
 
   const components = globalShareState.getComponents();
 
   for (const component of Object.keys(components)) {
-    const key = component as BaseFormComponentType;
+    const key = component as YdBaseFormComponentType;
     COMPONENT_MAP[key] = components[component as never];
 
     if (baseModelPropName !== DEFAULT_MODEL_PROP_NAME) {

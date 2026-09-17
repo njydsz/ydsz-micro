@@ -9,8 +9,8 @@
  */
 export {
   initSetupYDSZForm,
-  useYDSZForm,
+  useYdForm,
   z,
-  type YDSZFormProps,
-  type YDSZFormSchema,
+  type YdFormProps,
+  type YdFormSchema,
 } from '@ydsz/shared-business';

@@ -12,7 +12,7 @@ import type { MenuProps } from '@ydsz-core/menu-ui';
 
 import { useRoute } from 'vue-router';
 
-import { Menu } from '@ydsz-core/menu-ui';
+import { YdMenu } from '@ydsz-core/menu-ui';
 
 import { useNavigation } from './use-navigation';
 
@@ -35,7 +35,7 @@ async function handleSelect(key: string) {
 </script>
 
 <template>
-  <Menu
+  <YdMenu
     :accordion="accordion"
     :collapse="collapse"
     :default-active="route.meta?.activePath || route.path"

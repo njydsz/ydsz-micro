@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem } from 'element-plus';
 import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { reactive, ref } from 'vue';
@@ -37,7 +37,7 @@ const formData = reactive<ShareFormData>({
 const rules = {
   fileNodeId: [{ required: true, message: '请输入文件节点ID', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     Object.assign(formData, { title: '', fileNodeId: '', shareType: 'LINK', expireTime: '' });

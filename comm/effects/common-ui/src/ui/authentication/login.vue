@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { Recordable } from '@ydsz/types';
 
-import type { YDSZFormSchema } from '@ydsz-core/form-ui';
+import type { YdFormSchema } from '@ydsz-core/form-ui';
 
 import type { AuthenticationProps } from './types';
 
@@ -17,14 +17,14 @@ import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZForm } from '@ydsz-core/form-ui';
+import { useYdForm } from '@ydsz-core/form-ui';
 import { YdButton, YdCheckbox } from '@ydsz-core/shadcn-ui';
 
 import Title from './auth-title.vue';
 import ThirdPartyLogin from './third-party-login.vue';
 
 interface Props extends AuthenticationProps {
-  formSchema?: YDSZFormSchema[];
+  formSchema?: YdFormSchema[];
 }
 
 defineOptions({
@@ -53,7 +53,7 @@ const emit = defineEmits<{
   submit: [Recordable<unknown>];
 }>();
 
-const [Form, formApi] = useYDSZForm(
+const [Form, formApi] = useYdForm(
   reactive({
     commonConfig: {
       hideLabel: true,

@@ -159,10 +159,10 @@ export {
 // ===== 统一适配器（消除 9 个子应用的重复代码） =====
 export {
   initSetupYDSZForm,
-  useYDSZForm,
+  useYdForm,
   z,
-  type YDSZFormProps,
-  type YDSZFormSchema,
+  type YdFormProps,
+  type YdFormSchema,
 } from './adapter/form';
 export {
   initComponentAdapter,

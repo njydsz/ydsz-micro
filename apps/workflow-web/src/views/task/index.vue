@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTabs / ElTabPane 暂不迁移，保留 element-plus 导入
 import { ElTabPane, ElTabs } from 'element-plus';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -132,8 +132,8 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [TaskFormModal, taskFormApi] = useYDSZModal({ connectedComponent: TaskForm });
-const [TaskOperationModal, taskOperationApi] = useYDSZModal({
+const [TaskFormModal, taskFormApi] = useYdModal({ connectedComponent: TaskForm });
+const [TaskOperationModal, taskOperationApi] = useYdModal({
   connectedComponent: TaskOperationDialog,
 });
 

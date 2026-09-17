@@ -2,7 +2,7 @@
  * 声明式表单组件：接收 Schema 与配置，在内部自行持有并管理表单状态。
  *
  * 适合 Schema 固定、无需在父组件里操作表单的场景；若需要在外部驱动
- * （弹窗提交、分步表单），请改用 useYDSZForm 组合式用法。
+ * （弹窗提交、分步表单），请改用 useYdForm 组合式用法。
  * 所有字段级插槽按字段名透出，默认插槽的插槽属性一并向下传递，
  * 业务可只覆盖个别字段而保留其余字段的默认渲染。
  *
@@ -11,7 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YDSZFormProps } from './types';
+import type { YdFormProps } from './types';
 
 import { ref, watchEffect } from 'vue';
 
@@ -27,7 +27,7 @@ import { Form } from './form-render';
 import { provideFormProps, useFormInitial } from './use-form-context';
 
 // 通过 extends 会导致热更新卡死
-type Props = YDSZFormProps;
+type Props = YdFormProps;
 const props = withDefaults(defineProps<Props>(), {
   actionWrapperClass: '',
   collapsed: false,

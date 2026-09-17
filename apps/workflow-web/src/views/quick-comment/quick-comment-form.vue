@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm / FormItem / ElInputNumber 暂不迁移，保留 element-plus 导入
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -51,7 +51,7 @@ const rules = {
   content: [{ required: true, message: t('quickComment.content.required'), trigger: 'blur' }],
 };
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: FlowQuickCommentVO }>();

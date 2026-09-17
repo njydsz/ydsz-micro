@@ -15,7 +15,7 @@ import { useRoute } from 'vue-router';
 
 import { findMenuByPath } from '@ydsz/utils';
 
-import { NormalMenu } from '@ydsz-core/menu-ui';
+import { YdNormalMenu } from '@ydsz-core/menu-ui';
 
 type Props = NormalMenuProps;
 
@@ -41,7 +41,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <NormalMenu
+  <YdNormalMenu
     :active-path="activePath"
     :collapse="collapse"
     :menus="menus"

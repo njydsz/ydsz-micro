@@ -11,9 +11,9 @@
  * @since 1.0.0
  */
 import type {
-  BaseFormComponentType,
-  ExtendedFormApi,
-  YDSZFormProps,
+  YdBaseFormComponentType,
+  YdExtendedFormApi,
+  YdFormProps,
 } from './types';
 
 import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
@@ -42,28 +42,28 @@ import YDSZUseForm from './YDSZ-use-form.vue';
  *   不会落到根 DOM 元素上；
  * - 每次调用都会新建一个独立的 FormApi 实例，**不要**在渲染函数或循环中调用。
  *
- * @param options - 表单配置，包含 schema、布局、提交回调等，详见 {@link YDSZFormProps}
+ * @param options - 表单配置，包含 schema、布局、提交回调等，详见 {@link YdFormProps}
  * @returns 长度为 2 的只读元组：`[Form, formApi]`——`Form` 用于模板渲染，
  *          `formApi` 为扩展后的命令式句柄（含 `useStore` 订阅能力）
  *
  * @example
  * ```ts
- * const [Form, formApi] = useYDSZForm({ schema, handleSubmit });
+ * const [Form, formApi] = useYdForm({ schema, handleSubmit });
  * await formApi.validate();
  * ```
  */
-export function useYDSZForm<
-  T extends BaseFormComponentType = BaseFormComponentType,
->(options: YDSZFormProps<T>) {
+export function useYdForm<
+  T extends YdBaseFormComponentType = YdBaseFormComponentType,
+>(options: YdFormProps<T>) {
   const IS_REACTIVE = isReactive(options);
   const api = new FormApi(options);
-  const extendedApi: ExtendedFormApi = api as never;
+  const extendedApi: YdExtendedFormApi = api as never;
   extendedApi.useStore = (selector) => {
     return useStore(api.store, selector);
   };
 
   const Form = defineComponent(
-    (props: YDSZFormProps, { attrs, slots }) => {
+    (props: YdFormProps, { attrs, slots }) => {
       onBeforeUnmount(() => {
         api.unmount();
       });

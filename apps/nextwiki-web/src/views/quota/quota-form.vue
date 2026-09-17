@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
 import { reactive, ref } from 'vue';
@@ -37,7 +37,7 @@ const formData = reactive<QuotaFormData>({
 const rules = {
   quotaLimit: [{ required: true, message: '请输入配额上限（字节）', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     Object.assign(formData, { scopeType: '', scopeId: '', quotaLimit: 0, fileCountLimit: 0 });

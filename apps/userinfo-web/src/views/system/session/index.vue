@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Button } from '@ydsz-core/shadcn-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -93,10 +93,10 @@ const gridOptions: VxeGridProps<UserSessionVO> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 /** 封禁信息弹窗 */
-const [BanInfoModalWrapper, banInfoModalApi] = useYDSZModal({ connectedComponent: BanInfoModal });
+const [BanInfoModalWrapper, banInfoModalApi] = useYdModal({ connectedComponent: BanInfoModal });
 
 /** 用户会话列表弹窗 */
-const [UserSessionsModalWrapper, userSessionsModalApi] = useYDSZModal({ connectedComponent: UserSessionsModal });
+const [UserSessionsModalWrapper, userSessionsModalApi] = useYdModal({ connectedComponent: UserSessionsModal });
 
 /** 强制下线 */
 async function handleForceLogout(row: UserSessionVO) {

@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { Button, Select, SelectContent, SelectItem, SelectTrigger, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Loader2 } from 'lucide-vue-next';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
@@ -37,7 +37,7 @@ const emit = defineEmits<{
   success: [];
 }>();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     activeTab.value = 'editor';

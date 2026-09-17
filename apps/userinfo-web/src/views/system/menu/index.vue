@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { ElTable, ElTableColumn } from 'element-plus';
@@ -71,7 +71,7 @@ async function loadData() {
 onMounted(loadData);
 
 // ========== 表单弹窗 ==========
-const [MenuFormModal, menuFormApi] = useYDSZModal({ connectedComponent: MenuForm });
+const [MenuFormModal, menuFormApi] = useYdModal({ connectedComponent: MenuForm });
 
 function handleAdd(parentId?: string) {
   menuFormApi.setData({ parentId, treeData: tableData.value });

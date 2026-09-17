@@ -9,13 +9,13 @@
  * @since 1.0.0
  */
 export type {
-  AlertProps,
+  YdAlertProps,
   BeforeCloseScope,
   IconType,
-  PromptProps,
+  YdPromptProps,
 } from './alert';
 export { useAlertContext } from './alert';
-export { default as Alert } from './alert.vue';
+export { default as YdAlert } from './alert.vue';
 export {
   ydszAlert as alert,
   clearAllAlerts,

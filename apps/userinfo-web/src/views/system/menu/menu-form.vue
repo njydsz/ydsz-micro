@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 
 import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElSelect, ElTreeSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -94,7 +94,7 @@ const rules = {
   menuType: [{ required: true, message: t('menu.menuTypePlaceholder'), trigger: 'change' }],
 };
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     const data = modalApi.getData<{

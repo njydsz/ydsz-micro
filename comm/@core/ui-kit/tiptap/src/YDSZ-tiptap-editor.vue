@@ -1,5 +1,5 @@
 <!--
- * YDSZTipTapEditor — TipTap 富文本编辑器核心组件
+ * YdTipTapEditor — TipTap 富文本编辑器核心组件
  *
  * <p>基于 @tiptap/vue-3 封装，提供：
  * <ul>
@@ -14,7 +14,7 @@
  *
  * <p><b>使用示例：</b>
  * <pre>{@code
- * <YDSZTipTapEditor v-model="html" placeholder="请输入内容..." :max-length="5000" />
+ * <YdTipTapEditor v-model="html" placeholder="请输入内容..." :max-length="5000" />
  * }</pre>
  *
  * @path comm/@core/ui-kit/tiptap/src/YDSZ-tiptap-editor.vue
@@ -28,8 +28,8 @@ import { EditorContent, useEditor } from '@tiptap/vue-3';
 import Placeholder from '@tiptap/extension-placeholder';
 import { showToast } from '@ydsz/notification';
 
-import { getDefaultExtensions } from './extensions';
-import { TipTapToolbar } from './toolbar';
+import { getYdDefaultExtensions } from './extensions';
+import { YdTipTapToolbar } from './toolbar';
 
 interface Props {
   /** HTML 内容（v-model） */
@@ -72,7 +72,7 @@ const editor = useEditor({
   editable: !props.disabled,
   extensions: [
     Placeholder.configure({ placeholder: props.placeholder }),
-    ...getDefaultExtensions(),
+    ...getYdDefaultExtensions(),
   ],
   onUpdate: ({ editor: ed }) => {
     const html = ed.getHTML();
@@ -133,7 +133,7 @@ defineExpose({
 
 <template>
   <div ref="editorContainerRef" class="tiptap-editor-wrapper flex flex-col rounded-md border">
-    <TipTapToolbar :editor="editor" :disabled="disabled" />
+    <YdTipTapToolbar :editor="editor" :disabled="disabled" />
     <EditorContent
       :editor="editor"
       class="tiptap-content flex-1 overflow-y-auto px-3 py-2"

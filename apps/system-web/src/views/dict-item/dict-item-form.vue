@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 // TODO: [shadcn-ui migration pending] ElForm/ElFormItem/ElRadio/ElRadioGroup/ElInputNumber 暂无 shadcn FormField 替代方案，待 UI Kit 表单方案统一后迁移
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -68,7 +68,7 @@ async function loadDictTypes() {
   }
 }
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
     loadDictTypes();

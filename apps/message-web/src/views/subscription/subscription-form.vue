@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, reactive } from 'vue';
@@ -53,7 +53,7 @@ const emit = defineEmits<{
   success: [];
 }>();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (isOpen && props.record) {
       Object.assign(formData, props.record);

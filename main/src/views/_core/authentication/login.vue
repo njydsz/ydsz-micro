@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { YDSZFormSchema } from '@ydsz/common-ui';
+import type { YdFormSchema } from '@ydsz/common-ui';
 import type { BasicOption } from '@ydsz/types';
 
 import { computed, markRaw } from 'vue';
@@ -35,7 +35,7 @@ const MOCK_TENANT_OPTIONS: BasicOption[] = [
   },
 ];
 
-const formSchema = computed((): YDSZFormSchema[] => {
+const formSchema = computed((): YdFormSchema[] => {
   return [
     {
       component: 'YdSelect',

@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/shadcn-ui';
 import { ElDialog, ElTable, ElTableColumn, ElTransfer } from 'element-plus';
@@ -166,7 +166,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({
 });
 
 // ========== 表单弹窗 ==========
-const [RoleFormModal, roleFormApi] = useYDSZModal({ connectedComponent: RoleForm });
+const [RoleFormModal, roleFormApi] = useYdModal({ connectedComponent: RoleForm });
 
 function handleAdd() {
   roleFormApi.open();

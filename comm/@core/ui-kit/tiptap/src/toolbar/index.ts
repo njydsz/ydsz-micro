@@ -1,5 +1,5 @@
 /**
- * TipTapToolbar 组件 — 富文本编辑器工具栏
+ * YdTipTapToolbar 组件 — 富文本编辑器工具栏
  *
  * <p>提供常用格式操作按钮：
  * 行内格式：加粗 / 斜体 / 下划线 / 删除行 / 行内代码
@@ -13,4 +13,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as TipTapToolbar } from './TipTap-toolbar.vue';
+export { default as YdTipTapToolbar } from './TipTap-toolbar.vue';

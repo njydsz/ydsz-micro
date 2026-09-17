@@ -1,7 +1,7 @@
 /**
  * 菜单项定位相关的两个组合式函数：向上查找父级链路与父组件、推导层级缩进变量。
  *
- * parentPaths 用 while 循环沿 instance.parent 上溯直到遇到 Menu，
+ * parentPaths 用 while 循环沿 instance.parent 上溯直到遇到 YdMenu，
  * 而不是维护一份外部注册表 —— 菜单项是递归嵌套的，
  * 注册表需要在展开/收起时同步增删，反而更容易出现脏数据。
  * useMenuStyle 把层级写成 CSS 变量 --menu-level，缩进交给样式层处理，
@@ -29,7 +29,7 @@ function useMenu() {
   const parentPaths = computed(() => {
     let parent = instance.parent;
     const paths: string[] = [instance.props.path as string];
-    while (parent?.type.name !== 'Menu') {
+    while (parent?.type.name !== 'YdMenu') {
       if (parent?.props.path) {
         paths.unshift(parent.props.path as string);
       }
@@ -40,7 +40,7 @@ function useMenu() {
   });
 
   const parentMenu = computed(() => {
-    return findComponentUpward(instance, ['Menu', 'SubMenu']);
+    return findComponentUpward(instance, ['YdMenu', 'SubMenu']);
   });
 
   return {

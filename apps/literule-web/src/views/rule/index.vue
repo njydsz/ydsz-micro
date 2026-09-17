@@ -22,7 +22,7 @@ import type { CategoryNodeVO, RuleDefinitionVO, RuleVersionVO } from '#/api/mode
 import type { DomainItem } from '@ydsz-core/shadcn-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: EP → shadcn-ui 迁移暂缓（含 Drawer/Dropdown/Table 等复杂组件，需人工评估）
 import { ElButton, ElDrawer, ElDropdown, ElDropdownItem, ElDropdownMenu, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, h, ref } from 'vue';
@@ -186,7 +186,7 @@ function resolveRuleStatus(row: RuleDefinitionVO): 'draft' | 'pending' | 'publis
 }
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [RuleFormModal, ruleFormApi] = useYDSZModal({ connectedComponent: RuleForm });
+const [RuleFormModal, ruleFormApi] = useYdModal({ connectedComponent: RuleForm });
 
 /** 卡片视图数据加载 */
 async function loadCardData(): Promise<void> {

@@ -6,8 +6,8 @@
  * 包含：
  * - FormRenderProps：表单渲染器 props
  * - ActionButtonOptions：操作按钮配置
- * - YDSZFormProps：业务侧表单组件 props
- * - YDSZFormAdapterOptions：适配器全局初始化选项
+ * - YdFormProps：业务侧表单组件 props
+ * - YdFormAdapterOptions：适配器全局初始化选项
  *
  * @path comm/@core/ui-kit/form-ui/src/types-components.ts
  * @author ydsz-team
@@ -22,7 +22,7 @@ import type { YdButtonProps } from '@ydsz-core/shadcn-ui';
 
 import type {
   ArrayToStringFields,
-  BaseFormComponentType,
+  YdBaseFormComponentType,
   FieldMappingTime,
   FormLayout,
   FormSchema,
@@ -44,12 +44,12 @@ import type { FormCommonConfig } from './types-schema';
  *
  * @remarks
  * 它是纯渲染层，**不持有表单实例**：`form` 由外部传入，因此同一份 schema 可被多个
- * 表单实例复用。与之相对，{@link YDSZFormProps} 是面向业务的上层封装，
+ * 表单实例复用。与之相对，{@link YdFormProps} 是面向业务的上层封装，
  * 会自行创建表单实例并屏蔽 `componentMap` 等底层细节。
  * 业务代码通常不直接使用本类型。
  */
 export interface FormRenderProps<
-  T extends BaseFormComponentType = BaseFormComponentType,
+  T extends YdBaseFormComponentType = YdBaseFormComponentType,
 > {
   /**
    * 表单字段数组映射字符串配置 默认使用","
@@ -80,11 +80,11 @@ export interface FormRenderProps<
   /**
    * 组件v-model事件绑定
    */
-  componentBindEventMap?: Partial<Record<BaseFormComponentType, string>>;
+  componentBindEventMap?: Partial<Record<YdBaseFormComponentType, string>>;
   /**
    * 组件集合
    */
-  componentMap: Record<BaseFormComponentType, Component>;
+  componentMap: Record<YdBaseFormComponentType, Component>;
   /**
    * 表单字段映射到时间格式
    */
@@ -147,13 +147,13 @@ export interface ActionButtonOptions extends YdButtonProps {
  *
  * @remarks
  * 相较 {@link FormRenderProps}，此处 `Omit` 掉了 `componentMap`、`componentBindEventMap`
- * 与 `form` 三项：前两者由适配器（见 {@link YDSZFormAdapterOptions}）在应用启动时全局注册，
+ * 与 `form` 三项：前两者由适配器（见 {@link YdFormAdapterOptions}）在应用启动时全局注册，
  * 后者由组件内部创建，业务无需也不应关心，从而让调用方只聚焦「字段长什么样、提交做什么」。
  *
  * 在此基础上补充了操作按钮布局与提交/重置/值变更回调等业务能力。
  */
-export interface YDSZFormProps<
-  T extends BaseFormComponentType = BaseFormComponentType,
+export interface YdFormProps<
+  T extends YdBaseFormComponentType = YdBaseFormComponentType,
 > extends Omit<
   FormRenderProps<T>,
   'componentBindEventMap' | 'componentMap' | 'form'
@@ -241,12 +241,12 @@ import type { HandleResetFn, HandleSubmitFn } from './types-schema';
  * 表单适配器的全局初始化选项，用于把 form-ui 对接到具体的 UI 组件库。
  *
  * @remarks
- * 由 `setupYDSZForm` 在应用启动阶段消费，**全局只应配置一次**。
+ * 由 `setupYdForm` 在应用启动阶段消费，**全局只应配置一次**。
  * 其存在意义是让 form-ui 与具体 UI 库解耦：不同组件库的 v-model prop 名、
  * 空值表示、必填判定方式各不相同，这些差异全部在此收敛。
  */
-export interface YDSZFormAdapterOptions<
-  T extends BaseFormComponentType = BaseFormComponentType,
+export interface YdFormAdapterOptions<
+  T extends YdBaseFormComponentType = YdBaseFormComponentType,
 > {
   /**
    * 控件行为的适配配置。

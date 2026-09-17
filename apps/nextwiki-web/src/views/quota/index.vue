@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
 import { Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
@@ -59,7 +59,7 @@ async function handleQuery() {
   } catch (error) { logger.warn('查询配额失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
-const [QuotaFormModal, quotaFormApi] = useYDSZModal({ connectedComponent: QuotaForm });
+const [QuotaFormModal, quotaFormApi] = useYdModal({ connectedComponent: QuotaForm });
 function handleAdjust() { quotaFormApi.open(); }
 </script>
 <template>

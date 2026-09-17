@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
@@ -131,7 +131,7 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [PreferenceFormModal, preferenceFormApi] = useYDSZModal({
+const [PreferenceFormModal, preferenceFormApi] = useYdModal({
   connectedComponent: PreferenceForm,
 });
 

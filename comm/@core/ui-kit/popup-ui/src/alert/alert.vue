@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import type { Component } from 'vue';
 
-import type { AlertProps } from './alert';
+import type { YdAlertProps } from './alert';
 
 import { computed, h, nextTick, ref } from 'vue';
 
@@ -41,7 +41,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { provideAlertContext } from './alert';
 
-const props = withDefaults(defineProps<AlertProps>(), {
+const props = withDefaults(defineProps<YdAlertProps>(), {
   bordered: true,
   buttonAlign: 'end',
   centered: true,

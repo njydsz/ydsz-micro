@@ -18,7 +18,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElSelect, ElSwitch } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import type { AuthPolicyDTO, AuthPolicyVO } from '#/api/models';
@@ -89,7 +89,7 @@ function splitProviders(providers?: string): string[] {
   return providers.split(',').map((item) => item.trim()).filter(Boolean);
 }
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) {
       return;

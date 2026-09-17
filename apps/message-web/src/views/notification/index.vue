@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h, onMounted, ref } from 'vue';
 
@@ -150,7 +150,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [NotificationFormModal, notificationFormApi] = useYDSZModal({
+const [NotificationFormModal, notificationFormApi] = useYdModal({
   connectedComponent: NotificationForm,
 });
 

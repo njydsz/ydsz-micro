@@ -13,12 +13,12 @@ import { $t, loadLocaleMessages } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 import { capitalizeFirstLetter } from '@ydsz/utils';
 
-import { useYDSZDrawer } from '@ydsz-core/popup-ui';
+import { useYdDrawer } from '@ydsz-core/popup-ui';
 import { YdButton } from '@ydsz-core/shadcn-ui';
 
 import PreferencesDrawer from './preferences-drawer.vue';
 
-const [Drawer, drawerApi] = useYDSZDrawer({
+const [Drawer, drawerApi] = useYdDrawer({
   connectedComponent: PreferencesDrawer,
 });
 

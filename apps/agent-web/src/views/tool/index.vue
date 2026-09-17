@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
@@ -209,7 +209,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [ToolFormModal, toolFormApi] = useYDSZModal({ connectedComponent: ToolForm });
+const [ToolFormModal, toolFormApi] = useYdModal({ connectedComponent: ToolForm });
 
 /** 新增工具 */
 function handleAdd(): void {

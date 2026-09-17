@@ -13,7 +13,7 @@ import { useContentMaximize, useTabs } from '@ydsz/hooks';
 import { preferences } from '@ydsz/preferences';
 import { useTabbarStore } from '@ydsz/stores';
 
-import { TabsToolMore, TabsToolScreen, TabsView } from '@ydsz-core/tabs-ui';
+import { TabsToolMore, TabsToolScreen, YdTabsView } from '@ydsz-core/tabs-ui';
 
 import { useTabbar } from './use-tabbar';
 
@@ -55,7 +55,7 @@ if (!preferences.tabbar.persist) {
 </script>
 
 <template>
-  <TabsView
+  <YdTabsView
     :active="currentActive"
     :class="theme"
     :context-menus="createContextMenus"

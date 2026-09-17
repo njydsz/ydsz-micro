@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Button, Input, Badge, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -115,7 +115,7 @@ const gridOptions: VxeGridProps<SpaceVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [SpaceFormModal, spaceFormApi] = useYDSZModal({ connectedComponent: SpaceForm });
+const [SpaceFormModal, spaceFormApi] = useYdModal({ connectedComponent: SpaceForm });
 
 /** 编辑弹窗状态 */
 const editVisible = ref(false);

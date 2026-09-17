@@ -20,7 +20,7 @@ import { onMounted, ref } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { Button, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { useI18n } from 'vue-i18n';
@@ -119,7 +119,7 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [DatasourceFormModal, datasourceFormApi] = useYDSZModal({
+const [DatasourceFormModal, datasourceFormApi] = useYdModal({
   connectedComponent: DatasourceForm,
 });
 

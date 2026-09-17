@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -94,7 +94,7 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [QuickCommentFormModal, quickCommentFormApi] = useYDSZModal({
+const [QuickCommentFormModal, quickCommentFormApi] = useYdModal({
   connectedComponent: QuickCommentForm,
 });
 function handleAdd() {

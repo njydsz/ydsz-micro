@@ -3063,11 +3063,11 @@ export type components = {
             menuName?: string;
             /** @description 菜单编码（全局唯一） */
             menuCode?: string;
-            /** @description 菜单类型（DIR=目录 / Menu=菜单 / BUTTON=按钮） */
+            /** @description 菜单类型（DIR=目录 / YdMenu=菜单 / BUTTON=按钮） */
             menuType?: string;
-            /** @description 前端路由路径（menuType=Menu 时必填） */
+            /** @description 前端路由路径（menuType=YdMenu 时必填） */
             path?: string;
-            /** @description 前端组件路径（menuType=Menu 时必填，如 `"system/user/index"`） */
+            /** @description 前端组件路径（menuType=YdMenu 时必填，如 `"system/user/index"`） */
             component?: string;
             /** @description 菜单图标（Iconify / Element Plus 图标名） */
             icon?: string;

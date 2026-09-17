@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSwitch 表单套件,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch } from 'element-plus';
 import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
@@ -55,7 +55,7 @@ const emit = defineEmits<{
   success: [];
 }>();
 
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (isOpen && props.record) {
       Object.assign(formData, props.record);

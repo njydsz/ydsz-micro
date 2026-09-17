@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Button, Input, Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -76,7 +76,7 @@ const gridOptions: VxeGridProps<FileCommentVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [CommentFormModal, commentFormApi] = useYDSZModal({ connectedComponent: CommentForm });
+const [CommentFormModal, commentFormApi] = useYdModal({ connectedComponent: CommentForm });
 
 function handleQuery() {
   if (!fileNodeId.value) { showToast.warning(t('fileNodeIdRequired')); return; }

@@ -13,7 +13,7 @@
  */
 import type { CSSProperties } from 'vue';
 
-import type { YDSZLayoutProps } from '../YDSZ-layout';
+import type { YdLayoutProps } from '../YDSZ-layout';
 
 import { computed, ref, watch } from 'vue';
 
@@ -31,7 +31,7 @@ import { useLayout } from '../hooks/use-layout';
  */
 interface UseLayoutStateOptions {
   /** 组件 props */
-  props: YDSZLayoutProps;
+  props: YdLayoutProps;
   /** 侧边栏折叠状态（双向绑定） */
   sidebarCollapse: { value: boolean };
   /** 侧边栏扩展区域可见性（双向绑定） */

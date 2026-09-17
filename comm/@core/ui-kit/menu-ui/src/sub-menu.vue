@@ -15,7 +15,7 @@ import type { MenuRecordRaw } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 
-import { MenuBadge, MenuItem, SubMenu as SubMenuComp } from './components';
+import { YdMenuBadge, MenuItem, SubMenu as SubMenuComp } from './components';
 import SubMenu from './sub-menu.vue';
 
 interface Props {
@@ -65,7 +65,7 @@ const hasChildren = computed(() => {
     :path="menu.path"
   >
     <template #content>
-      <MenuBadge
+      <YdMenuBadge
         :badge="menu.badge"
         :badge-type="menu.badgeType"
         :badge-variants="menu.badgeVariants"

@@ -10,7 +10,7 @@
  */
 import type { LayoutType } from '@ydsz-core/typings';
 
-import type { YDSZLayoutProps } from '../YDSZ-layout';
+import type { YdLayoutProps } from '../YDSZ-layout';
 
 import { computed } from 'vue';
 
@@ -34,7 +34,7 @@ import { computed } from 'vue';
  * @param props - 布局组件的 props，需包含 `layout` 与 `isMobile`
  * @returns `currentLayout` 为生效中的布局模式，其余为各模式的布尔判定
  */
-export function useLayout(props: YDSZLayoutProps) {
+export function useLayout(props: YdLayoutProps) {
   const currentLayout = computed(() =>
     props.isMobile ? 'sidebar-nav' : (props.layout as LayoutType),
   );

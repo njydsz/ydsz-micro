@@ -1,5 +1,5 @@
 ﻿<!--
- * 受控表单组件：表单状态由外部 useYDSZForm 提供，本组件只负责渲染与事件转发。
+ * 受控表单组件：表单状态由外部 useYdForm 提供，本组件只负责渲染与事件转发。
  *
  * 状态外置后，父组件可在任意时机触发校验、取值或重置，适用于需要在组件之外
  * 驱动表单的场景（弹窗提交、分步流转、跨组件联动）。
@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import type { Recordable } from '@ydsz-core/typings';
 
-import type { ExtendedFormApi, YDSZFormProps } from './types';
+import type { YdExtendedFormApi, YdFormProps } from './types';
 
 // import { toRaw, watch } from 'vue';
 import { nextTick, onMounted, watch } from 'vue';
@@ -37,8 +37,8 @@ import {
   useFormInitial,
 } from './use-form-context';
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
-interface Props extends YDSZFormProps {
-  formApi: ExtendedFormApi;
+interface Props extends YdFormProps {
+  formApi: YdExtendedFormApi;
 }
 
 const props = defineProps<Props>();

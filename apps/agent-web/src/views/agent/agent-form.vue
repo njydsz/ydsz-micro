@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { useYDSZModal } from '@ydsz/common-ui';
+import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber 表单套件复杂+校验逻辑,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
@@ -39,7 +39,7 @@ const rules = {
   agentCode: [{ required: true, message: '请输入Agent编码', trigger: 'blur' }],
   agentName: [{ required: true, message: '请输入Agent名称', trigger: 'blur' }],
 };
-const [Modal, modalApi] = useYDSZModal({
+const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen) => {
     if (!isOpen) return;
     const data = modalApi.getData<{ record?: AgentDefinitionVO }>();

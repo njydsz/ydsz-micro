@@ -16,7 +16,7 @@
  */
 import type { VariableDefinitionVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -83,7 +83,7 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [VariableFormModal, variableFormApi] = useYDSZModal({ connectedComponent: VariableForm });
+const [VariableFormModal, variableFormApi] = useYdModal({ connectedComponent: VariableForm });
 function handleAdd() {
   variableFormApi.open();
 }

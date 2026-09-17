@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -167,7 +167,7 @@ const gridOptions: VxeTableGridOptions<PromptTemplateVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [PromptFormModal, promptFormApi] = useYDSZModal({ connectedComponent: PromptForm });
+const [PromptFormModal, promptFormApi] = useYdModal({ connectedComponent: PromptForm });
 
 /** 测试弹窗引用 */
 const promptTestRef = ref<InstanceType<typeof PromptTest> | null>(null);

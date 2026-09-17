@@ -15,7 +15,7 @@ import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElImage 暂无 shadcn-ui 等效组件，保留 element-plus 导入
 import { ElImage } from 'element-plus';
 
-import { useYDSZForm } from './form';
+import { useYdForm } from './form';
 
 setupYDSZVxeTable({
   configVxeTable: (vxeUI) => {
@@ -62,7 +62,7 @@ setupYDSZVxeTable({
       },
     });
   },
-  useYDSZForm,
+  useYdForm,
 });
 
 export { useYDSZVxeGrid };

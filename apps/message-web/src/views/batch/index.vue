@@ -23,7 +23,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/shadcn-ui';
-import { Page, useYDSZModal } from '@ydsz/common-ui';
+import { Page, useYdModal } from '@ydsz/common-ui';
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
 // SKIP: ElDrawer/ElDescriptions/ElDescriptionsItem/ElProgress 不在 shadcn 映射表，保留 EP
 import {
@@ -134,7 +134,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
-const [BatchFormModal, batchFormApi] = useYDSZModal({ connectedComponent: BatchForm });
+const [BatchFormModal, batchFormApi] = useYdModal({ connectedComponent: BatchForm });
 
 /** 视图切换 */
 function handleViewModeChange(mode: ViewMode): void {

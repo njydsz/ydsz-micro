@@ -18,7 +18,7 @@
 import type { Component } from 'vue';
 
 import type {
-  BaseFormComponentType,
+  YdBaseFormComponentType,
   CustomRenderType,
   FormActions,
   FormFieldOptions,
@@ -212,7 +212,7 @@ export type ArrayToStringFields = Array<
  * 渲染顺序与数组顺序一致。
  */
 export interface FormSchema<
-  T extends BaseFormComponentType = BaseFormComponentType,
+  T extends YdBaseFormComponentType = YdBaseFormComponentType,
 > extends FormCommonConfig {
   /**
    * 组件

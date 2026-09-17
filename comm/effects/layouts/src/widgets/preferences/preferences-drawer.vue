@@ -32,7 +32,7 @@ import {
   usePreferences,
 } from '@ydsz/preferences';
 
-import { useYDSZDrawer } from '@ydsz-core/popup-ui';
+import { useYdDrawer } from '@ydsz-core/popup-ui';
 import {
   YdButton,
   YdIconButton,
@@ -184,7 +184,7 @@ const {
 } = usePreferences();
 const { copy } = useClipboard({ legacy: true });
 
-const [Drawer] = useYDSZDrawer();
+const [Drawer] = useYdDrawer();
 
 const activeTab = ref('appearance');
 

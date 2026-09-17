@@ -24,7 +24,7 @@ import {
 import { useAccessStore } from '@ydsz/stores';
 import { cloneDeep, mapTree } from '@ydsz/utils';
 
-import { YDSZAdminLayout } from '@ydsz-core/layout-ui';
+import { YdAdminLayout } from '@ydsz-core/layout-ui';
 import { YdLogo } from '@ydsz-core/shadcn-ui';
 
 import { Breadcrumb, CheckUpdates, Preferences } from '../widgets';
@@ -203,7 +203,7 @@ const headerSlots = computed(() => {
 </script>
 
 <template>
-  <YDSZAdminLayout
+  <YdAdminLayout
     v-model:sidebar-extra-visible="sidebarExtraVisible"
     :content-compact="preferences.app.contentCompact"
     :content-compact-width="preferences.app.contentCompactWidth"
@@ -407,5 +407,5 @@ const headerSlots = computed(() => {
       </template>
       <!-- <YdBackTop /> -->
     </template>
-  </YDSZAdminLayout>
+  </YdAdminLayout>
 </template>

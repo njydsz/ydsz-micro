@@ -12,7 +12,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import { useYDSZModal } from '@ydsz-core/popup-ui';
+import { useYdModal } from '@ydsz-core/popup-ui';
 
 interface Props {
   // 轮询时间，分钟
@@ -33,7 +33,7 @@ const currentVersionTag = ref('');
 const lastVersionTag = ref('');
 const timer = ref<ReturnType<typeof setInterval>>();
 
-const [UpdateNoticeModal, modalApi] = useYDSZModal({
+const [UpdateNoticeModal, modalApi] = useYdModal({
   closable: false,
   closeOnPressEscape: false,
   closeOnClickModal: false,
