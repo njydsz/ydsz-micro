@@ -16,13 +16,26 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { AlertCircle, CheckCircle2, YdFileIcon, Loader2, X } from 'lucide-vue-next';
 
+import { useComponentI18n } from '../../composables/use-component-i18n';
+
 const props = defineProps<{
   file: UploadFile;
+  locale?: string;
 }>();
 
 const emit = defineEmits<{
   (e: 'remove', file: UploadFile): void;
 }>();
+
+const uploadItemMessages = {
+  zh: { uploadItem: { removeAriaLabel: '移除文件' } },
+  en: { uploadItem: { removeAriaLabel: 'Remove file' } },
+};
+
+const { t } = useComponentI18n({
+  defaultLocale: props.locale ?? 'zh',
+  messages: uploadItemMessages,
+});
 
 /** 状态颜色映射 */
 const statusVariant = computed<'success' | 'error' | 'uploading' | 'default'>(() => {
@@ -93,7 +106,7 @@ const computedPercent = computed(() => Math.round(props.file.percentage ?? 0));
 
     <!-- 删除 -->
     <button
-      aria-label="移除文件"
+:aria-label="t('uploadItem.removeAriaLabel')"
       class="hover:bg-accent rounded p-0.5"
       type="button"
       @click="emit('remove', file)"
