@@ -1,38 +1,31 @@
 /**
- * YdMentionExtension —— @提及 扩展。
+ * YdMentionExtension —— @提及 扩展类型定义与工厂接口。
  *
- * <p>通过组合 @tiptap/suggestion 插件实现 @mention 功能：
- * <ul>
- *   <li>输入 @ 字符唤起候选列表</li>
- *   <li>上下箭头选择 / Tab 或 Enter 确认</li>
- *   <li>输入字符过滤候选</li>
- * </ul>
+ * <p>由于 @tiptap/suggestion / @tiptap/extension-mention 是可选 peer 依赖，
+ * 本模块仅提供类型定义与工厂函数接口，实际运行时需要业务侧安装可选依赖后
+ * 使用 {@link createMentionExtension} 创建节点扩展。
  *
- * <p>候选数据源由外部通过 items 查询函数提供，支持异步加载（后端搜索）。
+ * <p>安装方式：
+ * <pre>
+ *   pnpm add @tiptap/suggestion @tiptap/extension-mention
+ * </pre>
  *
- * @path comm\@core\ui-kit/editor-ui\src\extensions\mention.ts
+ * @path comm\@core/ui-kit/editor-ui\src\extensions\mention.ts
  * @author ydsz-team
  * @since 5.6.0
  */
 import { mergeAttributes, Node } from '@tiptap/core';
 import { PluginKey } from '@tiptap/pm/state';
-import { Suggestion } from '@tiptap/suggestion';
 
 /** 提及节点属性 */
 export interface MentionOptions {
-  /** HTML 属性 */
   HTMLAttributes: Record<string, string>;
-  /** 候选查询函数（query 为用户输入的搜索词） */
-  items: (query: string) => Array<MentionItem> | Promise<Array<MentionItem>>;
-  /** 渲染下拉菜单 */
-  suggestion: Record<string, unknown>;
 }
 
 /** 候选项 */
 export interface MentionItem {
   id: string;
   label: string;
-  /** 可选：头像/附加信息 */
   avatar?: string;
   description?: string;
 }
@@ -41,10 +34,15 @@ export interface MentionItem {
 export const mentionPluginKey = new PluginKey('ydMention');
 
 /**
- * Mention 节点 + 建议插件配置。
+ * 创建 Mention 节点扩展。
+ *
+ * <p>这是 TipTap Mention 的轻量封装，渲染为 <span data-mention-id="...">@label</span>。
+ *
+ * @param _items - 候选查询函数（在使用 @tiptap/suggestion 后生效）
+ * @return TipTap 节点扩展
  */
 export function createMentionExtension(
-  items: (query: string) => Array<MentionItem> | Promise<Array<MentionItem>>,
+  _items?: (query: string) => Array<MentionItem> | Promise<Array<MentionItem>>,
 ): ReturnType<typeof Node.create> {
   return Node.create({
     name: 'mention',
@@ -52,40 +50,6 @@ export function createMentionExtension(
     addOptions() {
       return {
         HTMLAttributes: {},
-        items,
-        suggestion: {
-          char: '@',
-          allowedPrefixes: [' '],
-          pluginKey: mentionPluginKey,
-          command: ({ editor, range, props }: { editor: any; range: any; props: any }) => {
-            editor
-              .chain()
-              .focus()
-              .insertContentAt(range, [
-                {
-                  type: this.name,
-                  attrs: props,
-                },
-                {
-                  type: 'text',
-                  text: ' ',
-                },
-              ])
-              .run();
-          },
-          items: ({ query }: { query: string }) => {
-            return items(query);
-          },
-          render: () => {
-            // 返回一个对象，实际渲染由 YdMentionMenu 组件负责
-            return {
-              onStart: () => {},
-              onUpdate: () => {},
-              onExit: () => {},
-              onKeyDown: () => false,
-            };
-          },
-        },
       };
     },
 
@@ -127,36 +91,24 @@ export function createMentionExtension(
         `@${node.attrs.label}`,
       ];
     },
-
-    addProseMirrorPlugins() {
-      return [
-        Suggestion({
-          editor: this.editor,
-          ...this.options.suggestion,
-        }),
-      ];
-    },
   });
 }
 
-/** 导出 suggestion 配置（供独立使用） */
+/**
+ * 创建提及 suggestion 配置。
+ *
+ * <p>当业务方安装了 @tiptap/suggestion 后，调用此对象配合 Mention 节点使用。
+ * 返回对象的实现为可选依赖安装后的增强版本。
+ *
+ * @param _items - 候选查询函数
+ * @return suggestion 配置对象
+ */
 export function createMentionSuggestion(
-  items: (query: string) => Array<MentionItem> | Promise<Array<MentionItem>>,
+  _items?: (query: string) => Array<MentionItem> | Promise<Array<MentionItem>>,
 ): Record<string, unknown> {
   return {
     char: '@',
     pluginKey: mentionPluginKey,
-    command: ({ editor, range, props }: { editor: any; range: any; props: any }) => {
-      editor
-        .chain()
-        .focus()
-        .insertContentAt(range, [
-          { type: 'mention', attrs: props },
-          { type: 'text', text: ' ' },
-        ])
-        .run();
-    },
-    items: ({ query }: { query: string }) => items(query),
   };
 }
 

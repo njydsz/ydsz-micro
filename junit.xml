@@ -1,17 +1,115 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="6" failures="0" errors="0" time="0.003454">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" timestamp="2026-09-17T16:20:50.236Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.003454">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应返回全部节点（空关键字）" time="0.0014325">
+<testsuites name="vitest tests" tests="5" failures="3" errors="0" time="0.9426094">
+    <testsuite name="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" timestamp="2026-09-17T16:21:49.225Z" hostname="DESKTOP-FIC0TQ3" tests="5" failures="3" errors="0" skipped="0" time="0.9426094">
+        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; 应导出 YdTipTapEditor" time="0.7046882">
+            <failure message="[@vue/compiler-sfc] Failed to resolve extends base type.
+If this previously worked in 3.2, you can instruct the compiler to ignore this extend by adding /* @vue-ignore */ before it, for example:
+
+interface Props extends /* @vue-ignore */ Base {}
+
+Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
+
+D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/components/avatar/YdAvatarSmart.vue
+24 |  import { YdAvatar, YdAvatarFallback, YdAvatarImage } from &apos;../../primitives&apos;;
+25 |  
+26 |  interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
+   |                          ^^^^^^^^^^^^^^^^^^^
+27 |    alt?: string;
+28 |    class?: ClassType;" type="Error">
+Error: [@vue/compiler-sfc] Failed to resolve extends base type.
+If this previously worked in 3.2, you can instruct the compiler to ignore this extend by adding /* @vue-ignore */ before it, for example:
+
+interface Props extends /* @vue-ignore */ Base {}
+
+Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
+
+D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/components/avatar/YdAvatarSmart.vue
+24 |  import { YdAvatar, YdAvatarFallback, YdAvatarImage } from &apos;../../primitives&apos;;
+25 |  
+26 |  interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
+   |                          ^^^^^^^^^^^^^^^^^^^
+27 |    alt?: string;
+28 |    class?: ClassType;
+  Plugin: vite:vue
+  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/components/avatar/YdAvatarSmart.vue
+ ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
+ ❯ resolveInterfaceMembers node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:23110:15
+ ❯ innerResolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22890:14
+ ❯ resolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22864:20
+ ❯ innerResolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22944:16
+ ❯ resolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22864:20
+ ❯ resolveRuntimePropsFromType node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:24720:20
+ ❯ extractRuntimeProps node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:24696:17
+ ❯ genRuntimeProps node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:24684:18
+ ❯ Object.compileScript node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:25780:21
+            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应过滤匹配节点" time="0.0006197">
+        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; 应导出 YdTipTapToolbar" time="0.1033807">
+            <failure message="[@vue/compiler-sfc] Failed to resolve extends base type.
+If this previously worked in 3.2, you can instruct the compiler to ignore this extend by adding /* @vue-ignore */ before it, for example:
+
+interface Props extends /* @vue-ignore */ Base {}
+
+Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
+
+D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/components/avatar/YdAvatarSmart.vue
+24 |  import { YdAvatar, YdAvatarFallback, YdAvatarImage } from &apos;../../primitives&apos;;
+25 |  
+26 |  interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
+   |                          ^^^^^^^^^^^^^^^^^^^
+27 |    alt?: string;
+28 |    class?: ClassType;" type="Error">
+Error: [@vue/compiler-sfc] Failed to resolve extends base type.
+If this previously worked in 3.2, you can instruct the compiler to ignore this extend by adding /* @vue-ignore */ before it, for example:
+
+interface Props extends /* @vue-ignore */ Base {}
+
+Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
+
+D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/components/avatar/YdAvatarSmart.vue
+24 |  import { YdAvatar, YdAvatarFallback, YdAvatarImage } from &apos;../../primitives&apos;;
+25 |  
+26 |  interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
+   |                          ^^^^^^^^^^^^^^^^^^^
+27 |    alt?: string;
+28 |    class?: ClassType;
+  Plugin: vite:vue
+  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/components/avatar/YdAvatarSmart.vue
+ ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
+ ❯ resolveInterfaceMembers node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:23110:15
+ ❯ innerResolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22890:14
+ ❯ resolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22864:20
+ ❯ innerResolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22944:16
+ ❯ resolveTypeElements node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:22864:20
+ ❯ resolveRuntimePropsFromType node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:24720:20
+ ❯ extractRuntimeProps node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:24696:17
+ ❯ genRuntimeProps node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:24684:18
+ ❯ Object.compileScript node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:25780:21
+            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应收集需要展开的祖先" time="0.0002004">
+        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; 应导出 getYdDefaultExtensions" time="0.1246135">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应支持大小写不敏感" time="0.0001419">
+        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; 应导出 mention 扩展" time="0.0079204">
+            <failure message="Failed to resolve import &quot;@tiptap/suggestion&quot; from &quot;comm/@core/ui-kit/editor-ui/src/extensions/mention.ts&quot;. Does the file exist?" type="Error">
+Error: Failed to resolve import &quot;@tiptap/suggestion&quot; from &quot;comm/@core/ui-kit/editor-ui/src/extensions/mention.ts&quot;. Does the file exist?
+  Plugin: vite:import-analysis
+  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/editor-ui/src/extensions/mention.ts:19:27
+  1  |  import { mergeAttributes, Node } from &quot;@tiptap/core&quot;;
+  2  |  import { PluginKey } from &quot;@tiptap/pm/state&quot;;
+  3  |  import { Suggestion } from &quot;@tiptap/suggestion&quot;;
+     |                              ^
+  4  |  export const mentionPluginKey = new PluginKey(&quot;ydMention&quot;);
+  5  |  export function createMentionExtension(items) {
+ ❯ TransformPluginContext._formatLog node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41
+ ❯ TransformPluginContext.error node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16
+ ❯ normalizeUrl node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23
+ ❯ node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40753:37
+ ❯ TransformPluginContext.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40680:7
+ ❯ EnvironmentPluginContainer.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42453:18
+ ❯ loadAndTransform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35845:27
+            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 同语言大小写不敏感应工作" time="0.0001954">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; clear 应重置搜索" time="0.0001972">
+        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; 应支持不同格式扩展注册" time="0.0006942">
         </testcase>
     </testsuite>
 </testsuites>
