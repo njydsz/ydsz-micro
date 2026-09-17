@@ -3,8 +3,9 @@
  *
  * 痛点：传统 Select 在 options > 500 时全量渲染 DOM，导致面板展开慢、滚动卡顿。
  * 与 SelectContent 的区别：
- *  - 接收 items 数组而非 slot 注入子项，借此在渲染前拿到总数做切片；
- *  - 仅渲染可视窗口内的 DOM 节点，配合 spacer 撑出总高度保持滚动条比例。
+ *  - 接收 items 数组而非 slot 注入 SelectItem 子项，借此在渲染前拿到总数做切片；
+ *  - 仅渲染可视窗口内的 DOM 节点，配合 spacer 撑出总高度保持滚动条比例；
+ *  - 点击选项后需要手动关闭浮层（缺少 SelectItem 的 rpc 与 Root 通信）。
  *
  * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\SelectVirtualContent.vue
  * @author ydsz-team
@@ -54,6 +55,8 @@ export interface SelectVirtualContentProps<T = Record<string, unknown>>
   getLabel: (item: T) => string;
   /** 从数据项提取值（用于 v-model 绑定） */
   getValue: (item: T) => string | number;
+  /** 当前已选值（用于高亮展示） */
+  modelValue?: (string | number)[] | string | number;
   /** 自定义类名 */
   class?: string;
 }
@@ -65,7 +68,12 @@ const props = withDefaults(defineProps<SelectVirtualContentProps<T>>(), {
   viewportHeight: 256,
 });
 
-const emits = defineEmits<SelectContentEmits>();
+const emits = defineEmits<
+  SelectContentEmits & {
+    /** 选项点击事件：通知父级更新 modelValue 并关闭下拉 */
+    itemClick: [value: string | number];
+  }
+>();
 
 const delegatedProps = computed(() => {
   const {
@@ -75,6 +83,7 @@ const delegatedProps = computed(() => {
     getValue,
     items,
     itemHeight,
+    modelValue: _,
     overscan,
     viewportHeight,
     ...delegated
@@ -88,7 +97,6 @@ const {
   containerProps,
   scrollTop,
   spacerProps,
-  totalHeight,
   visibleItems,
 } = useVirtualList(
   computed(() => props.items),
@@ -100,8 +108,17 @@ const {
   },
 );
 
-/** 当前已选值（从父级 SelectRoot v-model 透传） */
-const modelValue = defineModel<(string | number)[] | string | number>();
+/**
+ * 处理选项点击：通知父级 VSelect 更新选中并关闭。
+ *
+ * 不直接修改 modelValue，而是通过 emit 交由 @see VSelect 统一处理，
+ * 确保单选/多选逻辑一致。
+ *
+ * @param value - 被点击项的值
+ */
+function handleItemClick(value: string | number): void {
+  emits('itemClick', value);
+}
 
 /**
  * 处理选中项滚动：当选中项不在可视窗口内时滚动到其位置。
@@ -167,8 +184,10 @@ defineExpose({
               :class="
                 cn(
                   'relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none',
+                  'hover:bg-accent hover:text-accent-foreground',
                   'focus:bg-accent focus:text-accent-foreground',
                   'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+                  'data-[selected=true]:bg-accent/50 data-[selected=true]:font-medium',
                 )
               "
               :style="{ height: `${itemHeight}px` }"
@@ -177,8 +196,14 @@ defineExpose({
                   ? modelValue.includes(props.getValue(item.data))
                   : modelValue === props.getValue(item.data)
               "
-              @click="emits('select', { value: props.getValue(item.data) })"
-              @mousedown.prevent
+              role="option"
+              :aria-selected="
+                Array.isArray(modelValue)
+                  ? modelValue.includes(props.getValue(item.data))
+                  : modelValue === props.getValue(item.data)
+              "
+              tabindex="-1"
+              @click="handleItemClick(props.getValue(item.data))"
             >
               <span class="flex-1 truncate">{{ props.getLabel(item.data) }}</span>
             </div>

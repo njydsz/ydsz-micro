@@ -4,7 +4,7 @@
  * 设计目标：
  *  - 应对 500 ~ 10000+ 选项列表，通过虚拟滚动保持渲染节点恒定；
  *  - 对外暴露标准的 v-model 双向绑定 API，降低替换成本；
- *  - 内置显示文本计算、清除按钮、远程搜索等高频能力。
+ *  - 内置清除按钮与单选模式。
  *
  * 与原生 Select 的边界：
  *  - Select 适合数量少（< 100）且需要 rich slot 自定义项内容的场景；
@@ -23,7 +23,7 @@ import { computed, ref } from 'vue';
 
 import { useVModel } from '@vueuse/core';
 
-import { SelectRoot } from 'radix-vue';
+import { SelectRoot, useForwardPropsEmits } from 'radix-vue';
 
 import type { SelectRootEmits, SelectRootProps } from 'radix-vue';
 
@@ -40,7 +40,7 @@ defineOptions({
  * 扩展 radix SelectRootProps，增加虚拟滚动所需的 items / 字段映射 / 阈值配置。
  */
 export interface VSelectProps<T extends Record<string, unknown>>
-  extends SelectRootProps {
+  extends Omit<SelectRootProps, 'multiple'> {
   /** 选项数据数组 */
   items: T[];
   /** 预估每项高度（像素），默认 36 */
@@ -57,12 +57,10 @@ export interface VSelectProps<T extends Record<string, unknown>>
   labelField?: string | ((item: T) => string);
   /** 从 item 唯一 key 的字段名或函数，默认 'value' */
   keyField?: string | ((item: T) => string | number);
-  /** 是否允许清除 */
+  /** 是否允许清除，默认 true */
   allowClear?: boolean;
   /** placeholder 文本 */
   placeholder?: string;
-  /** 是否禁用 */
-  disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<VSelectProps<T>>(), {
@@ -123,24 +121,51 @@ const isVirtualEnabled = computed<boolean>(() => {
   return props.items.length >= props.virtualThreshold;
 });
 
+/** 转发 to SelectRoot props（不含 items/字段映射等自有属性） */
+const delegatedProps = computed(() => {
+  const {
+    allowClear,
+    itemHeight,
+    items,
+    keyField,
+    labelField,
+    overscan,
+    placeholder,
+    valueField,
+    virtualThreshold,
+    viewportHeight,
+    ...delegated
+  } = props;
+  return delegated;
+});
+
+const forwarded = useForwardPropsEmits(delegatedProps, emit);
+
 /** 处理清除事件 */
 function handleClear(): void {
   modelValue.value = undefined;
+}
+
+/**
+ * 处理虚拟面板中的选项点击：更新选中并关闭面板。
+ *
+ * @param value - 被选项的原始值
+ */
+function handleItemClick(value: string | number): void {
+  modelValue.value = value;
+  emit('update:open', false);
 }
 </script>
 
 <template>
   <SelectRoot
     v-model="modelValue"
-    :disabled="disabled"
-    :open="open"
-    @update:open="emit('update:open', $event)"
+    v-bind="forwarded"
   >
     <!-- 触发器：透传 hasValue 与 allowClear -->
     <VSelectTrigger
       :allow-clear="allowClear"
       :placeholder="placeholder"
-      :disabled="disabled"
       :has-value="!!modelValue"
       @clear="handleClear"
     >
@@ -158,7 +183,10 @@ function handleClear(): void {
       :item-height="itemHeight"
       :viewport-height="viewportHeight"
       :overscan="overscan"
+      :model-value="modelValue"
+      @item-click="handleItemClick"
     />
+    <!-- 小数据量回退：使用原生 SelectContent + SelectItem slot -->
     <slot v-else />
   </SelectRoot>
 </template>

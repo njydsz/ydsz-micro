@@ -1,26 +1,22 @@
 ﻿/**
  * 子应用 i18n 装配工厂 — 消除各子应用 locales/index.ts 中重复的样板代码。
  *
- * v3.5 (A6/B6): 将 dayjs / element-plus / app langs 的加载逻辑收敛至 shared-auth，
- *               子应用只需传入 `import.meta.glob` 产物即可获得完整 i18n 装配。
+ * v3.6 (EP-EXIT): Element Plus 退场 — 移除 EP locale 装配与 `elementLocale`，
+ *               仅保留 dayjs 第三方语言包加载；组件库文案由 shadcn-ui /
+ *               @ydsz/notification 自持，经 vue-i18n 统一管理。
  *
  * 设计要点：
  *   - `import.meta.glob` 必须在子应用源码中执行（路径相对子应用），
  *     因此 factory 接收 modules 作为入参，而非在内部 glob
- *   - dayjs locale 与 element-plus locale 通过动态 import 按需加载，
+ *   - dayjs locale 通过动态 import 按需加载，
  *     避免静态导入导致两个语种包同时进入主包
- *   - `elementLocale` 作为响应式 ref 暴露，供 `ElConfigProvider` 注入
  *
  * @path comm/effects/shared-auth/src/i18n-setup.ts
  * @author ydsz-team
  * @since 3.5.0
  */
-import type { Language } from 'element-plus/es/locale';
-
-import type { App, Ref } from 'vue';
+import type { App } from 'vue';
 import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
-
-import { ref } from 'vue';
 
 import {
   $t,
@@ -30,8 +26,6 @@ import {
 import { preferences } from '@ydsz/preferences';
 
 import dayjs from 'dayjs';
-import enLocale from 'element-plus/es/locale/lang/en';
-import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('i18n-setup');
@@ -62,8 +56,6 @@ export interface CreateSubAppI18nOptions {
 export interface SubAppI18nInstance {
   /** 翻译函数（绑定到全局 i18n） */
   $t: typeof $t;
-  /** Element Plus 当前语种，供 `ElConfigProvider :locale` 使用 */
-  elementLocale: Ref<Language>;
   /** 安装 i18n 到 Vue app（封装 coreSetup，注入默认 locale 与 missingWarn） */
   setupI18n: (app: App, options?: LocaleSetupOptions) => Promise<void>;
 }
@@ -72,13 +64,13 @@ export interface SubAppI18nInstance {
  * 创建子应用 i18n 实例。
  *
  * 子应用 `locales/index.ts` 只需两行：用 `import.meta.glob` 扫描 `./langs`
- * 目录下的 JSON，再传入本工厂即可获得 `{ $t, elementLocale, setupI18n }`。
+ * 目录下的 JSON，再传入本工厂即可获得 `{ $t, setupI18n }`。
  *
  * @example
  * ```ts
  * import { createSubAppI18n } from '@ydsz/shared-auth';
  * // modules = import.meta.glob 扫描 ./langs 下的所有 JSON
- * export const { $t, elementLocale, setupI18n } = createSubAppI18n({ modules });
+ * export const { $t, setupI18n } = createSubAppI18n({ modules });
  * ```
  */
 export function createSubAppI18n(
@@ -90,7 +82,6 @@ export function createSubAppI18n(
     setupOptions,
   } = options;
 
-  const elementLocale = ref<Language>(defaultLocale);
   const localesMap = loadLocalesMapFromDir(pattern, modules);
 
   /**
@@ -101,16 +92,9 @@ export function createSubAppI18n(
   async function loadMessages(lang: SupportedLanguagesType) {
     const [appLocaleMessages] = await Promise.all([
       localesMap[lang]?.(),
-      loadThirdPartyMessage(lang),
+      loadDayjsLocale(lang),
     ]);
     return appLocaleMessages?.default;
-  }
-
-  /**
-   * 加载第三方组件库（Element Plus / dayjs）的语言包。
-   */
-  async function loadThirdPartyMessage(lang: SupportedLanguagesType) {
-    await Promise.all([loadElementLocale(lang), loadDayjsLocale(lang)]);
   }
 
   /**
@@ -139,22 +123,6 @@ export function createSubAppI18n(
   }
 
   /**
-   * 加载 Element Plus 的语言包并写入响应式 ref，供组件 locale 注入使用。
-   */
-  async function loadElementLocale(lang: SupportedLanguagesType) {
-    switch (lang) {
-      case 'en-US': {
-        elementLocale.value = enLocale;
-        break;
-      }
-      case 'zh-CN': {
-        elementLocale.value = defaultLocale;
-        break;
-      }
-    }
-  }
-
-  /**
    * 初始化 i18n（封装 @ydsz/locales 的核心 setup）。
    */
   async function setupI18n(app: App, runtimeOptions: LocaleSetupOptions = {}) {
@@ -167,5 +135,5 @@ export function createSubAppI18n(
     });
   }
 
-  return { $t, elementLocale, setupI18n };
+  return { $t, setupI18n };
 }
