@@ -18,4 +18,4 @@ export {
   useForwardExpose,
   useForwardProps,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from '@ydsz-core/ydsz-vue';

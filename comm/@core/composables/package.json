@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "@ydsz-core/shared": "workspace:*",
+    "@ydsz-core/ydsz-vue": "workspace:*",
     "@vueuse/core": "catalog:",
-    "radix-vue": "catalog:",
     "sortablejs": "catalog:",
     "vue": "catalog:"
   },
