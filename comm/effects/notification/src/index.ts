@@ -1,7 +1,7 @@
 /**
  * @ydsz/notification —— 全局通知与实时通信能力
  *
- * <p>提供四级 severity 对齐的 toast 与通知工具，过渡期内保留对 ElMessage 风格的兼容式封装：
+ * <p>提供四级 severity 对齐的 toast 与通知工具，完全基于 ydsz-ui 通知系统：
  * <ul>
  *   <li>{@link showToastCompat} — 常规操作反馈（基于 ydsz-ui ToastProvider，自动关闭）</li>
  *   <li>{@link showNotify} — 桌面通知卡片（长停留）</li>
@@ -9,8 +9,7 @@
  *   <li>{@link handleBusinessError} — 根据 {@link ExceptionSeverity} 自动选择展示方式</li>
  * </ul>
  *
- * <p>迁移进度（YDIZ-EP-001）：ElMessage/ElNotification 已逐步替换为 showToast/showNotify。
- * 长期目标：移除 element-plus peer dependency，完全基于 ydsz-ui 通知系统。
+ * <p>迁移进度（YDIZ-EP-001）：Element Plus 已完全退出，所有通知能力基于 ydsz-ui。
  *
  * @path comm/effects/notification/src/index.ts
  * @author ydsz-team

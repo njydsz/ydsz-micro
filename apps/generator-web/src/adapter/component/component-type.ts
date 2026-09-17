@@ -5,6 +5,6 @@
  * @since 1.0.0
  */
 export interface ComponentType {
-  /** Element Plus 组件占位符（实际类型由 registerElementPlusComponents 内部定义） */
+  /** YDSZ 组件占位符（实际类型由 registerYdszComponents 内部定义） */
   [key: string]: unknown;
 }

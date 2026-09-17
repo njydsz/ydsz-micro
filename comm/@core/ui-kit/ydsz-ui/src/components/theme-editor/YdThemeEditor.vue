@@ -1,180 +1,116 @@
 /**
- * YdThemeEditor —— 可视化主题编辑器组件。
+ * YdThemeEditor —— 可视化主题编辑器。
  *
- * <p>允许用户实时调整主题 token（主色、背景、字体、圆角等），
- * 预览效果即时生效，主题配置可导出为 JSON 复制到配置系统。
- *
- * <p>核心特性：
- * <ul>
- *   <li>分区块编辑：color / size / radius</li>
- *   <li>实时预览：CSS 变量即时写入 :root</li>
- *   <li>重置按钮：恢复默认主题 token</li>
- *   <li>导出配置：payload JSON</li>
- * </ul>
+ * 实时预览并编辑 design token（主色 / 圆角 / 阴影 / 字号 / 动效），
+ * 一键导出为 CSS 自定义属性字符串或 JSON。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\theme-editor\YdThemeEditor.vue
  * @author ydsz-team
- * @since 26.09.17
+ * @since 1.0.0
  */
-import { computed, reactive } from 'vue';
+<script lang="ts" setup>
+import { ref, watch } from 'vue';
 
-import { cn } from '@ydsz-core/shared/utils';
+import { getTheme } from '../../primitives/theme/use-theme';
 
-import { YdButton } from '../../primitives/button';
+import type { TokenName } from '../../primitives/theme/theme-schema';
 
-interface TokenGroup {
-  key: string;
-  label: string;
-}
+import { themeTokens } from '../../primitives/theme/theme-schema';
 
-const TOKEN_GROUPS: TokenGroup[] = [
-  { key: 'color', label: '颜色' },
-  { key: 'radius', label: '圆角' },
-  { key: 'size', label: '尺寸' },
+/** 可编辑 token 分类 */
+const EDITABLE_TOKENS: Array<{ name: TokenName; label: string; category: string }> = [
+  { category: 'color', label: '主色', name: 'primary' },
+  { category: 'color', label: '危险色', name: 'destructive' },
+  { category: 'color', label: '成功色', name: 'success' },
+  { category: 'color', label: '背景色', name: 'background' },
+  { category: 'color', label: '文字色', name: 'foreground' },
+  { category: 'size', label: '基础圆角', name: 'radius' },
+  { category: 'typography', label: '正文字号', name: 'text-14' },
+  { category: 'shadow', label: '低阴影', name: 'shadow-raised-100' },
 ];
 
-const COLOR_TOKENS = [
-  { description: '主色', key: 'primary' },
-  { description: '背景色', key: 'background' },
-  { description: '前景色（文字）', key: 'foreground' },
-  { description: '危险操作色', key: 'destructive' },
-  { description: '卡片与弹窗背景', key: 'card' },
-  { description: '次级文字', key: 'muted-foreground' },
-  { description: '强调/悬浮色', key: 'accent' },
-  { description: '边框色', key: 'border' },
-];
+const theme = getTheme();
 
-const SIZE_TOKENS = [
-  { description: '基础圆角', key: 'radius' },
-];
+/** 本地覆盖值 */
+const overrides = ref<Partial<Record<TokenName, string>>>({});
 
-interface Props {
-  /** 自定义类名 */
-  class?: string;
-  /** 是否自动输出到 :root，默认 true */
-  apply?: boolean;
-}
+/** 导出格式 */
+const exportFormat = ref<'css' | 'json'>('css');
 
-const props = withDefaults(defineProps<Props>(), {
-  apply: true,
-});
-
-const emit = defineEmits<{
-  'update': [tokens: Record<string, string>];
-}>();
-
-/** 默认主题 token */
-const DEFAULT_TOKENS: Record<string, string> = {
-  accent: '240 5% 96%',
-  background: '0 0% 100%',
-  border: '240 6% 90%',
-  card: '0 0% 100%',
-  destructive: '0 84% 60%',
-  foreground: '240 10% 4%',
-  'muted-foreground': '240 4% 46%',
-  primary: '240 6% 10%',
-  radius: '0.5rem',
-};
-
-/** 当前 token（响应式） */
-const tokens = reactive<Record<string, string>>({ ...DEFAULT_TOKENS });
-
-// 初始化时写入 CSS 变量
-if (props.apply && typeof document !== 'undefined') {
-  const root = document.documentElement;
-  for (const [key, val] of Object.entries(tokens)) {
-    root.style.setProperty(`--${key}`, val);
-  }
+/**
+ * 应用 token 覆盖。
+ */
+function setToken(name: TokenName, value: string): void {
+  overrides.value[name] = value;
+  theme.set(name, value);
 }
 
 /**
- * 更新单个 token。
+ * 重置所有覆盖。
  */
-function updateToken(key: string, value: string): void {
-  tokens[key] = value;
-  if (props.apply && typeof document !== 'undefined') {
-    document.documentElement.style.setProperty(`--${key}`, value);
-  }
-  emit('update', { ...tokens });
+function resetAll(): void {
+  overrides.value = {};
+  theme.reset();
 }
 
 /**
- * 重置为默认 token。
+ * 生成导出字符串。
  */
-function resetTokens(): void {
-  for (const [key, val] of Object.entries(DEFAULT_TOKENS)) {
-    updateToken(key, val);
+function generateExport(): string {
+  if (exportFormat.value === 'json') {
+    return JSON.stringify(overrides.value, null, 2);
   }
+  // CSS 格式
+  const lines = Object.entries(overrides.value).map(([name, value]) => {
+    const def = themeTokens[name as TokenName]; // cast for Object.entries key widening
+    const cssVar = def?.cssVar ?? name;
+    return `  --${cssVar}: ${value};`;
+  });
+  return `:root {\n${lines.join('\n')}\n}`;
 }
 
-/** 序列化 token 为 JSON */
-const tokenJson = computed(() => JSON.stringify(tokens, null, 2));
+/** 当前导出内容 */
+const exportContent = ref('');
+
+watch([overrides, exportFormat], () => {
+  exportContent.value = generateExport();
+}, { deep: true, immediate: true });
 </script>
 
 <template>
-  <div :class="cn('flex flex-col gap-4 rounded-lg border p-5', class)">
-    <div class="flex items-center justify-between">
-      <h3 class="text-base font-semibold">主题编辑器</h3>
-      <YdButton size="sm" variant="outline" @click="resetTokens">
-        重置默认
-      </YdButton>
-    </div>
-
-    <!-- 颜色 tokens -->
-    <section v-for="group in TOKEN_GROUPS" :key="group.key" class="flex flex-col gap-2">
-      <h4 class="text-sm font-medium text-muted-foreground">{{ group.label }}</h4>
-
-      <div class="grid grid-cols-2 gap-3">
-        <template v-if="group.key === 'color'">
-          <div
-            v-for="token in COLOR_TOKENS"
-            :key="token.key"
-            class="flex flex-col gap-1"
-          >
-            <label class="text-xs text-muted-foreground" :for="`token-${token.key}`">
-              {{ token.description }}
-            </label>
-            <input
-              :id="`token-${token.key}`"
-              type="text"
-              :value="tokens[token.key]"
-              class="h-8 rounded border border-input bg-background px-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary"
-              @input="updateToken(token.key, ($event.target as HTMLInputElement).value)"
-            />
-          </div>
-        </template>
-
-        <template v-if="group.key === 'radius'">
-          <div
-            v-for="token in SIZE_TOKENS"
-            :key="token.key"
-            class="flex flex-col gap-1"
-          >
-            <label class="text-xs text-muted-foreground" :for="`token-${token.key}`">
-              {{ token.description }}
-            </label>
-            <input
-              :id="`token-${token.key}`"
-              type="text"
-              :value="tokens[token.key]"
-              class="h-8 rounded border border-input bg-background px-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary"
-              @input="updateToken(token.key, ($event.target as HTMLInputElement).value)"
-            />
-          </div>
-        </template>
-
-        <template v-if="group.key === 'size'">
-          <div class="col-span-2 text-xs text-muted-foreground">
-            尺寸 token 通过 theme schema 定义，未来可扩展为滑块控件。
-          </div>
-        </template>
+  <div class="space-y-4 p-4">
+    <h3 class="text-lg font-medium">主题编辑器</h3>
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+      <div
+        v-for="token in EDITABLE_TOKENS"
+        :key="token.name"
+        class="flex items-center justify-between gap-2"
+      >
+        <label class="text-sm text-muted-foreground">{{ token.label }}</label>
+        <input
+          :value="overrides[token.name] ?? themeTokens[token.name]?.defaultValue ?? ''"
+          class="h-8 w-32 rounded border px-2 text-sm"
+          type="text"
+          @input="setToken(token.name, ($event.target as HTMLInputElement).value)"
+        />
       </div>
-    </section>
-
-    <!-- 导出配置 -->
-    <details class="rounded border p-3">
-      <summary class="cursor-pointer text-sm font-medium">导出 Token JSON</summary>
-      <pre class="mt-2 overflow-auto rounded bg-muted p-3 text-xs"><code>{{ tokenJson }}</code></pre>
-    </details>
+    </div>
+    <div class="flex gap-2">
+      <button
+        class="rounded bg-destructive px-3 py-1.5 text-sm text-white"
+        type="button"
+        @click="resetAll"
+      >
+        重置
+      </button>
+      <select
+        v-model="exportFormat"
+        class="rounded border px-2 py-1 text-sm"
+      >
+        <option value="css">CSS</option>
+        <option value="json">JSON</option>
+      </select>
+    </div>
+    <pre class="max-h-40 overflow-auto rounded bg-muted/30 p-2 text-xs">{{ exportContent }}</pre>
   </div>
 </template>

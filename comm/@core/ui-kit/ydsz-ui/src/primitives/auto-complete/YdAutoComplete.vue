@@ -79,7 +79,7 @@ const open = ref(false);
 const isLoading = ref(false);
 
 /** 内部 options（异步模式下由 searchFn 填充） */
-const resolvedOptions = ref<AutoCompleteOption[]>([]) as { value: AutoCompleteOption[] };
+const resolvedOptions = ref<AutoCompleteOption[]>([]);
 
 /** 防抖计时器 */
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -210,7 +210,7 @@ watch(
       </div>
     </YdPopoverTrigger>
     <YdPopoverContent
-      :class="cn('max-h-60 w-[var(--radix-popover-trigger-width)] overflow-y-auto p-1', class)"
+      :class="cn('max-h-60 w-[var(--radix-popover-trigger-width)] overflow-y-auto p-1', props.class)"
       align="start"
       side="bottom"
       @open-auto-focus="(e: Event) => e.preventDefault()"

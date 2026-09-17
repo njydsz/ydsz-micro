@@ -7,7 +7,6 @@
   "module": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./compat": "./src/compat.ts",
     "./package.json": "./package.json"
   },
   "dependencies": {

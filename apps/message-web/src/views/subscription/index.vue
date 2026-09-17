@@ -20,7 +20,6 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
-// SKIP: ElTabPane/ElTabs 不在 shadcn 映射表，保留 EP
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

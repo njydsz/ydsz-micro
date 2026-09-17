@@ -13,7 +13,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TagVariants } from './tag';
+import { type TagVariants, tagVariants } from './tag';
 
 import { cn } from '@ydsz-core/shared/utils';
 

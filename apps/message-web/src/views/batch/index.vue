@@ -24,7 +24,6 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge, YdBadge, YdButtonBase, YdDrawer, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
-// SKIP: ElDrawer/ElDescriptions/ElDescriptionsItem/ElProgress 不在 shadcn 映射表，保留 EP
 import { h, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 

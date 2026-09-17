@@ -203,7 +203,7 @@ export function useNaiveDesignTokens() {
 }
 
 /**
- * 把项目 CSS 变量映射为 Element Plus 的 `--el-*` 变量，实现主题联动。
+ * 把项目 CSS 变量映射为 `--el-*` 兼容变量（历史命名），实现主题联动。
  *
  * @remarks
  * 入参：无。返回值：无——与 Antd / Naive 版本不同，本函数**不返回 token 对象**，
@@ -220,7 +220,7 @@ export function useNaiveDesignTokens() {
  * 因此这里按 `isDark` 分别映射到不同的色阶，保证暗色模式下对比度正确。
  * `--el-mask-color` 单独硬编码，用于修复 ElLoading 遮罩在暗色下过亮的问题。
  */
-export function useElementPlusDesignTokens() {
+export function useLegacyDesignTokens() {
   const { isDark } = usePreferences();
   const rootStyles = getComputedStyle(document.documentElement);
 

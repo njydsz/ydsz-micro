@@ -39,7 +39,7 @@ export async function setupApp(namespace: string) {
 
   const app = createApp(App);
 
-  // v-loading 指令：EP 退场后统一使用 YDSZ 自研 loading 指令
+  // v-loading 指令：使用 YDSZ 自研 loading 指令
   registerLoadingDirective(app, {
     loading: true, // 注册 YDSZ 提供的 v-loading 指令
     spinning: "spinning",

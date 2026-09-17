@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites name="vitest tests" tests="1" failures="1" errors="0" time="0">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/auto-complete/autoComplete.test.ts" timestamp="2026-09-17T09:58:19.029Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/auto-complete/autoComplete.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/auto-complete/autoComplete.test.ts" time="0">
-            <failure message="Error parsing JavaScript expression: Unexpected token, expected &quot;{&quot; (1:80)" type="SyntaxError">
-SyntaxError: Error parsing JavaScript expression: Unexpected token, expected &quot;{&quot; (1:80)
-211|      &lt;/YdPopoverTrigger&gt;
-212|      &lt;YdPopoverContent
-213|        :class=&quot;cn(&apos;max-h-60 w-[var(--radix-popover-trigger-width)] overflow-y-auto p-1&apos;, class)&quot;
-   |                 ^
-214|        align=&quot;start&quot;
-215|        side=&quot;bottom&quot;
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" timestamp="2026-09-17T10:12:38.792Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" time="0">
+            <failure message="Unexpected EOF in comment." type="SyntaxError">
+SyntaxError: Unexpected EOF in comment.
+ ❯ createCompilerError node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1378:17
+ ❯ emitError node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3035:5
+ ❯ Object.onend node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:2612:13
+ ❯ Tokenizer.finish node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1246:14
+ ❯ Tokenizer.parse node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1224:10
+ ❯ Object.baseParse node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3074:13
+ ❯ Object.parse node_modules/.pnpm/@vue+compiler-dom@3.5.40/node_modules/@vue/compiler-dom/dist/compiler-dom.cjs.js:910:23
+ ❯ Object.parse$1 [as parse] node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:1824:24
+ ❯ createDescriptor node_modules/.pnpm/@vitejs+plugin-vue@5.2.4_vi_d60b9ea0420fff51337d673152051185/node_modules/@vitejs/plugin-vue/dist/index.mjs:71:43
+ ❯ transformMain node_modules/.pnpm/@vitejs+plugin-vue@5.2.4_vi_d60b9ea0420fff51337d673152051185/node_modules/@vitejs/plugin-vue/dist/index.mjs:2421:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { id: &apos;D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/YdTooltipBase.vue&apos;, plugin: &apos;vite:vue&apos;, loc: { file: &apos;D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/YdTooltipBase.vue&apos;, line: 27, column: 1 }, pluginCode: &apos;&lt;!--\r\n * YdTooltipBase —— 文字提示基础容器（YdTooltip 别名）。\r\n *\r\n * 基于 radix-vue TooltipRoot 的包装层，功能与 YdTooltip 完全一致。\r\n * 提供「Base」命名导出保持 primitives 命名惯例统一。\r\n *\r\n * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tooltip\YdTooltipBase.vue\r\n * @author ydsz-team\r\n * @since 1.0.0\r\n */\r\n&lt;script setup lang=&quot;ts&quot;&gt;\r\nimport type { TooltipRootEmits, TooltipRootProps } from \&apos;radix-vue\&apos;;\r\n\r\nimport { TooltipRoot, useForwardPropsEmits } from \&apos;radix-vue\&apos;;\r\n\r\nconst props = defineProps&lt;TooltipRootProps&gt;();\r\nconst emits = defineEmits&lt;TooltipRootEmits&gt;();\r\n\r\nconst forwarded = useForwardPropsEmits(props, emits);\r\n&lt;/script&gt;\r\n\r\n&lt;template&gt;\r\n  &lt;TooltipRoot v-bind=&quot;forwarded&quot;&gt;\r\n    &lt;slot&gt;&lt;/slot&gt;\r\n  &lt;/TooltipRoot&gt;\r\n&lt;/template&gt;\r\n&apos;, frame: &apos;&apos; }
             </failure>
         </testcase>
     </testsuite>

@@ -15,10 +15,10 @@ import { describe, expect, it } from 'vitest';
 
 import { mount } from '@vue/test-utils';
 
-import YdTooltipBase from './YdTooltipBase.vue';
-import YdTooltipContentBase from './YdTooltipContentBase.vue';
-import YdTooltipProviderBase from './YdTooltipProviderBase.vue';
-import YdTooltipTriggerBase from './YdTooltipTriggerBase.vue';
+import YdTooltipBase from './YdTooltip.vue';
+import YdTooltipContentBase from './YdTooltipContent.vue';
+import YdTooltipProviderBase from './YdTooltipProvider.vue';
+import YdTooltipTriggerBase from './YdTooltipTrigger.vue';
 
 /**
  * 包裹器：为需要 YdTooltipProviderBase context 的组件提供注入环境。

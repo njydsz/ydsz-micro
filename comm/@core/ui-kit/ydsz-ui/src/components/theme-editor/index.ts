@@ -1,9 +1,8 @@
 /**
- * Theme Editor 主题编辑器组件入口。
+ * YdThemeEditor 可视化主题编辑器出口。
  *
- * @module components/theme-editor
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\theme-editor\index.ts
  * @author ydsz-team
- * @since 26.09.17
+ * @since 1.0.0
  */
-
 export { default as YdThemeEditor } from './YdThemeEditor.vue';

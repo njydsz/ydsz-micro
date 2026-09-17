@@ -43,5 +43,6 @@ export * from './settings-float';
 export * from './spine-text';
 export * from './spinner';
 export * from './status-badge';
+export * from './theme-editor';
 export * from './tooltip';
 export * from './virtual-table';

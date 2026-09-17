@@ -19,7 +19,6 @@
 import { onMounted, ref, watch } from 'vue';
 
 import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
-// FIXME-P3-EP-EXIT;
 
 import { getColumns, refreshColumns } from '#/api/table-meta';
 import type { GenColumnMeta } from '#/api/models';

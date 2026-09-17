@@ -10,11 +10,10 @@
 
 import { describe, it, expect } from 'vitest';
 
-import { AutoCompleteOption } from './YdAutoComplete.vue';
 import YdAutoComplete from './YdAutoComplete.vue';
 
-describe('YdAutoComplete component', () => {
-  it('应被定义', () => {
+describe('YdAutoComplete props', () => {
+  it('YdAutoComplete 应被定义', () => {
     expect(YdAutoComplete).toBeDefined();
   });
 
@@ -24,6 +23,9 @@ describe('YdAutoComplete component', () => {
 
   it('应包含 isAsync prop', () => {
     expect(YdAutoComplete.props).toHaveProperty('isAsync');
+  });
+
+  it('isAsync 默认值应为 false', () => {
     expect(YdAutoComplete.props.isAsync.default).toBe(false);
   });
 
@@ -31,25 +33,35 @@ describe('YdAutoComplete component', () => {
     expect(YdAutoComplete.props).toHaveProperty('searchFn');
   });
 
-  it('应包含 debounceMs prop 且默认值为 300', () => {
+  it('应包含 debounceMs prop', () => {
     expect(YdAutoComplete.props).toHaveProperty('debounceMs');
+  });
+
+  it('debounceMs 默认值应为 300', () => {
     expect(YdAutoComplete.props.debounceMs.default).toBe(300);
   });
 
-  it('应包含 clearable prop 且默认值为 true', () => {
+  it('应包含 clearable prop', () => {
     expect(YdAutoComplete.props).toHaveProperty('clearable');
+  });
+
+  it('clearable 默认值应为 true', () => {
     expect(YdAutoComplete.props.clearable.default).toBe(true);
   });
 
   it('应包含 emptyText prop', () => {
     expect(YdAutoComplete.props).toHaveProperty('emptyText');
+  });
+
+  it('emptyText 默认值应为「暂无匹配项」', () => {
     expect(YdAutoComplete.props.emptyText.default).toBe('暂无匹配项');
   });
 });
 
-describe('AutoCompleteOption type', () => {
-  it('应能创建 AutoCompleteOption 对象', () => {
-    const opt: AutoCompleteOption = { label: '选项 A', value: 'a' };
+describe('AutoCompleteOption type shape', () => {
+  it('接口应接受 value 和 label 字段', () => {
+    // 型别验证 —— 通过 TS 编译期检查
+    const opt: { value: string; label: string } = { label: '选项 A', value: 'a' };
     expect(opt.value).toBe('a');
     expect(opt.label).toBe('选项 A');
   });

@@ -22,7 +22,6 @@ import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdForm, YdFormItem, YdTabsContent, YdTabs, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
-// SKIP: ElForm/ElFormItem/ElTabPane/ElTabs/ElTimeline/ElTimelineItem 不在 shadcn 映射表，保留 EP
 import { onMounted, reactive, ref } from 'vue';
 
 import { recallBatch, recallByMsgId, recallMessage, recallNotification } from '#/api/recall';

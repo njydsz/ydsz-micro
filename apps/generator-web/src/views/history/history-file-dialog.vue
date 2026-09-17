@@ -19,7 +19,6 @@
 import { onMounted, ref, watch } from 'vue';
 
 import { YdBadge, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
-// FIXME-P3-EP-EXIT;
 
 import { listHistoryFiles } from '#/api/history';
 import type { GenHistoryFile } from '#/api/models';

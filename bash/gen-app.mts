@@ -3,7 +3,7 @@
  *
  * 一条命令从模板生成新的微应用，自动完成：
  *   - package.json（含 workspace 引用与 scripts，对齐现行子应用依赖）
- *   - vite.config.mts（ElementPlus + 端口配置）
+ *   - vite.config.mts（YDSZ + 端口配置）
  *   - tsconfig.json（继承 @ydsz/tsconfig）
  *   - src/main.ts / app.vue（标准生命周期导出，createSubApp 工厂模式）
  *   - src/preferences.ts / adapter / store / router / locales 骨架
@@ -90,7 +90,6 @@ const pkgJson = {
     '@ydsz/utils': 'workspace:*',
     '@vueuse/core': 'catalog:',
     dayjs: 'catalog:',
-    'element-plus': 'catalog:',
     pinia: 'catalog:',
     vue: 'catalog:',
     'vue-router': 'catalog:',
@@ -101,7 +100,6 @@ const pkgJson = {
     '@ydsz/tailwind-config': 'workspace:*',
     typescript: 'catalog:',
     vite: 'catalog:',
-    'unplugin-element-plus': 'catalog:',
   },
 };
 
@@ -113,14 +111,12 @@ fs.writeFileSync(
 // ==================== vite.config.mts ====================
 
 const viteConfig = `import { defineConfig } from '@ydsz/vite-config';
-import ElementPlus from 'unplugin-element-plus/vite';
 
 export default defineConfig(async () => {
   return {
     application: {},
     vite: {
       base: '/',
-      plugins: [ElementPlus({ format: 'esm' })],
       server: {
         port: ${port},
         cors: true,
@@ -273,20 +269,14 @@ fs.writeFileSync(path.join(appDir, 'src', 'main.ts'), mainTs);
 // ==================== src/app.vue ====================
 
 const appVue = `<script lang="ts" setup>
-import { useElementPlusDesignTokens } from '@ydsz/hooks';
-import { ElConfigProvider } from 'element-plus';
-
-import { elementLocale } from '#/locales';
+import { ToastProvider } from '@ydsz/notification';
 
 defineOptions({ name: 'App' });
-
-useElementPlusDesignTokens();
 </script>
 
 <template>
-  <ElConfigProvider :locale="elementLocale">
-    <RouterView />
-  </ElConfigProvider>
+  <ToastProvider />
+  <RouterView />
 </template>
 `;
 
@@ -324,21 +314,10 @@ fs.writeFileSync(path.join(appDir, 'src', 'preferences.ts'), preferencesTs);
 
 // ==================== src/adapter/component/index.ts ====================
 
-const adapterComponentTs = `import { registerElementPlusComponents } from '@ydsz/shared-auth';
-
-import type { ComponentType } from './component-type';
-
-/**
- * 初始化组件适配器：注册 Element Plus 组件到全局共享状态。
- *
- * @path apps/${name}/src/adapter/component/index.ts
- * @since 1.0.0
- */
-export async function initComponentAdapter(): Promise<void> {
-  await registerElementPlusComponents<ComponentType>();
-}
-
-export type { ComponentType };
+const adapterComponentTs = `export {
+  initComponentAdapter,
+  type ComponentType,
+} from '@ydsz/shared-business';
 `;
 
 fs.mkdirSync(path.join(appDir, 'src', 'adapter', 'component'), { recursive: true });

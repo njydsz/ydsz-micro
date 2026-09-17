@@ -19,7 +19,6 @@
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdStep, YdSteps } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-// SKIP: ElStep/ElSteps 不在 shadcn 映射表，保留 EP
 import { computed, ref } from 'vue';
 
 const logger = createLogger('message-trace');
