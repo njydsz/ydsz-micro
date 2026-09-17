@@ -7,7 +7,7 @@
  * 横向溢出在本项目中属于少数场景，默认不付这层渲染成本。
  * shadowBorder 决定是否在阴影边缘补一条 1px 边框，用于与卡片边界对齐。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\scrollbar\scrollbar.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\scrollbar\scrollbar.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -45,7 +45,7 @@ const EP_NAMED_IMPORT_RE =
   /import\s*\{([^}]*)\}\s*from\s*(['"])element-plus\2;?/g;
 
 /** 过期 TODO 注释行（kit 已有对应件的失效标记） */
-const STALE_TODO_RE = /^\s*\/\/.*\b(?:TODO|FIXME)\b.*(暂无\s*shadcn|shadcn-ui?\s*等效)/i;
+const STALE_TODO_RE = /^\s*\/\/.*\b(?:TODO|FIXME)\b.*(暂无\s*(?:shadcn|ydsz-ui?)\s*等效)/i;
 
 /**
  * 递归收集待处理文件。

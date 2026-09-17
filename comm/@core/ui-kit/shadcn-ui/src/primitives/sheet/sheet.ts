@@ -6,7 +6,7 @@
  * 左右两侧宽度取 3/4、上下两侧铺满横向，是移动端抽屉的常见配比；
  * 关闭动画比打开动画快（300ms vs 500ms），因为用户对「让它消失」的等待更不耐烦。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\sheet.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\sheet.ts
  * @author ydsz-team
  * @since 1.0.0
  */

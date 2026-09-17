@@ -4,7 +4,7 @@
  * 拆分粒度较细，是因为每一级的可点击性不同（链接或纯文本），
  * 只有拆开才能在保持 ol / li / aria-current 语义的同时自由组合。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

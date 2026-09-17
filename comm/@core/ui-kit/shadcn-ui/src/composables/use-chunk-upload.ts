@@ -15,7 +15,7 @@
  * <YdUpload :httpRequest="chunkHttpRequest" :action="UPLOAD_URL" />
  * ```
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\composables\use-chunk-upload.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\composables\use-chunk-upload.ts
  * @author ydsz-team
  * @since 26.09.17
  */

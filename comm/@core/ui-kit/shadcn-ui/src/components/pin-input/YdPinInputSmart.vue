@@ -5,7 +5,7 @@
  * 且能自动处理粘贴整串验证码的拆分。
  * 完成与变更分别以事件抛出，便于上层区分「填满」与「正在输入」两种时机。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\pin-input\input.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\pin-input\input.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -6,7 +6,7 @@
  * 刷新页面后按钮图标会与实际状态相反。
  * 全屏请求必须由用户手势触发，故本组件只能作为点击目标使用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\full-screen\full-screen.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\full-screen\full-screen.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

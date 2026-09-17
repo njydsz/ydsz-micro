@@ -4,7 +4,7 @@
  * 内容类型复用 YdDropdownMenuSubContent 的 props：两者的内容区配置完全一致，
  * 共用一份类型可避免两边各自漂移。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuSubContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuSubContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

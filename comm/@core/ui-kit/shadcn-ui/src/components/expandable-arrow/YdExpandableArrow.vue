@@ -6,7 +6,7 @@
  * 这里已一并实现，并用 aria-expanded 向辅助技术暴露当前状态。
  * 图标区留有 icon 插槽，默认插槽则透出 is-expanded 供文案联动。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\expandable-arrow\expandable-arrow.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\expandable-arrow\expandable-arrow.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

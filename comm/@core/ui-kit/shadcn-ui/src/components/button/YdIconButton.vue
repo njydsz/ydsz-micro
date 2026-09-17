@@ -4,7 +4,7 @@
  * 图标按钮没有可见文案，必须给出无障碍名称；因此提供了 tooltip 插槽，
  * 未传 tooltip 时调用方应自行补 aria-label，否则读屏只会读出一个空按钮。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\button\icon-button.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\button\icon-button.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

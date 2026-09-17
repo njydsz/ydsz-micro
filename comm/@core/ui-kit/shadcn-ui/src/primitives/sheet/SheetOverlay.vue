@@ -5,7 +5,7 @@
  * 供外部的「点击外部关闭」逻辑识别当前抽屉 —— 多层抽屉叠加时，
  * 只有带 id 的那一层才会响应关闭，避免一次点击关掉所有层。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\SheetOverlay.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\SheetOverlay.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

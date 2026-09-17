@@ -4,7 +4,7 @@
  * 内容由默认插槽承载，因此图标与文案的排布交给调用方，组件只保证内边距、
  * 尺寸与 disabled / loading 期间不可点击的行为一致。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\button\button.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

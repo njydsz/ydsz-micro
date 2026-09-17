@@ -1,5 +1,5 @@
 /**
- * shadcn-ui 纯逻辑层：Headless Composables
+ * ydsz-ui 纯逻辑层：Headless Composables
  *
  * 此目录下的 composable 只负责业务状态与交互逻辑——不持有任何 class、不渲染任何 DOM。
  * 上层 styled 组件（src/ui/*）消费这些 composable，注入样式 class 与模板骨架。
@@ -15,7 +15,7 @@
  * 何时不抽：
  *  - 逻辑与样式天生绑定（如 YdDialog 的焦点陷阱动画）——此时 radix-vue 本身就是 headless 层。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\headless\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\headless\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

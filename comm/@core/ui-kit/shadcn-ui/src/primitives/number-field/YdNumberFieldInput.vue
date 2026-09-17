@@ -4,7 +4,7 @@
  * 打上 data-slot="input" 供 YdNumberFieldContent 定位内边距；
  * 值的变化与步进逻辑全部由 radix NumberFieldRoot 托管，本组件不自行处理键盘输入。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\YdNumberFieldInput.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\number-field\YdNumberFieldInput.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

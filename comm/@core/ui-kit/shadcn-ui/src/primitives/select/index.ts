@@ -4,7 +4,7 @@
  * 拆分粒度对应 radix 的插槽结构，缺一不可 ——
  * 尤其是 YdSelectItemText 与 YdSelectValue，漏掉会分别导致触发器空白与选项无文本。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

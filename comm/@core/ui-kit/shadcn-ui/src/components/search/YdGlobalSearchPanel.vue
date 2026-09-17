@@ -11,7 +11,7 @@
   - GET /api/search/unified?keyword=xxx（跨模块聚合搜索）
   - GET /api/search/suggest?keyword=xxx（输入建议）
 
-@path comm/@core/ui-kit/shadcn-ui/src/components/search/global-search-panel.vue
+@path comm/@core/ui-kit/ydsz-ui/src/components/search/global-search-panel.vue
 @author ydsz-team
 @since 4.1.0 (P2-13)
 -->

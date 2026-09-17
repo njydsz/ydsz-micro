@@ -4,7 +4,7 @@
  * 与 breadcrumb.vue 共用同一份 BreadcrumbProps，只是呈现形态不同，
  * 由 breadcrumb-view.vue 依据样式配置在两者间切换，使用方无需感知差异。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\breadcrumb-background.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\breadcrumb\breadcrumb-background.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

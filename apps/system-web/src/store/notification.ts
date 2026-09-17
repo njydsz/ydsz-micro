@@ -11,7 +11,7 @@
 
 import { computed, ref } from 'vue';
 
-// TODO: [shadcn-ui migration pending] ElNotification 为全局通知工具，暂无 shadcn 替代，后续考虑用 sonner/toast 方案迁移
+// TODO: [ydsz-ui migration pending] ElNotification 为全局通知工具，暂无 shadcn 替代，后续考虑用 sonner/toast 方案迁移
 import { createLogger } from '@ydsz-core/shared/utils';
 import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';

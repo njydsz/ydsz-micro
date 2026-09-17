@@ -8,7 +8,7 @@
  * 以避免子元素（如按钮）的动画提前触发关闭回调；
  * centered 为空时走「从顶部滑入」的变体，用于内容较长的确认表单。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\YdAlertDialogContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialogContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

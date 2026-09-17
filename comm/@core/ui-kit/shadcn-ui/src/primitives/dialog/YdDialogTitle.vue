@@ -4,7 +4,7 @@
  * 会被 radix 用作 aria-labelledby 的目标，缺失会导致对话框对读屏「无标题」，
  * 因此建议始终渲染（需要隐藏可用 sr-only 类）。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\YdDialogTitle.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogTitle.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

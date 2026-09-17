@@ -4,7 +4,7 @@
  * <p>与后端 {@code com.njydsz.common.search.api.SearchResponse} / {@code SearchHit} / {@code SearchSuggestion}
  * 一一对应，通过 gen:api 或手工同步保持两端一致。
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/components/search/search-types.ts
+ * @path comm/@core/ui-kit/ydsz-ui/src/components/search/search-types.ts
  * @author ydsz-team
  * @since 4.1.0 (P2-13)
  */

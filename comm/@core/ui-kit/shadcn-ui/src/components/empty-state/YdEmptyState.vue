@@ -8,7 +8,7 @@
  *
  * 无障碍：图标装饰性，aria-hidden=true；按钮通过具名 slot 传入以保证语义正确。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\empty-state\YdEmptyState.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\empty-state\YdEmptyState.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

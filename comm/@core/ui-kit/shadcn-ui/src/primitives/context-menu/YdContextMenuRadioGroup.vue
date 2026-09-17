@@ -3,7 +3,7 @@
  *
  * 互斥语义由 radix 维护（含键盘导航与 aria 角色），包装层不介入取值逻辑。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuRadioGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuRadioGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

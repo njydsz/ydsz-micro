@@ -4,7 +4,7 @@
  * 半选态用于「父级勾选框」表达子项部分选中的状态，原生 checkbox 只能通过 JS
  * 设置且不同浏览器表现不一，这里统一为受控属性以便树形选择场景复用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\checkbox\checkbox.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\checkbox\checkbox.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

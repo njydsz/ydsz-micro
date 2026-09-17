@@ -3,7 +3,7 @@
  *
  * 纯装饰元素，对辅助技术不可见；语义分组请用 YdDropdownMenuGroup 表达。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSeparator.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuSeparator.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

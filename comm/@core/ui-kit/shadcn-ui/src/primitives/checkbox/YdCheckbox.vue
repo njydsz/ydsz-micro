@@ -6,7 +6,7 @@
  * props 中的 class 会被剥离后再转发给 radix：若原样透传，radix 会再套一份原始
  * class，与经 cn 合并后的结果重复，tailwind-merge 也就失去了消解冲突的机会。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\checkbox\YdCheckbox.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\checkbox\YdCheckbox.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

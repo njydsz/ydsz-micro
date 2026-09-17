@@ -4,7 +4,7 @@
  * 这里不做样式封装，按钮外观由调用方套用 YdButton 组件并指定 variant 决定，
  * 以免高危操作的「确认」按钮与普通按钮在视觉上失去区分度。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\YdAlertDialogAction.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialogAction.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

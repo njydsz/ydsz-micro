@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-// TODO: EP → shadcn-ui 迁移待后续批次（仿真页面包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElEmpty/ElStep/ElSteps 等复杂组合）
+// TODO: EP → ydsz-ui 迁移待后续批次（仿真页面包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElEmpty/ElStep/ElSteps 等复杂组合）
 import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { computed, ref } from 'vue';
 import { runSimulation } from '#/api/flowSimulation';

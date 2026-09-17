@@ -4,7 +4,7 @@
  * 用 grid gap-2 固定组内间距，使选项在表单中与其它字段的纵向节奏一致；
  * 键盘上下切换与 aria 关联由 radix 负责，本组件不自行管理选中项。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\radio-group\YdRadioGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\radio-group\YdRadioGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

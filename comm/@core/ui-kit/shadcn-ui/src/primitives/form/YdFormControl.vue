@@ -5,7 +5,7 @@
  * 这样读屏在校验失败时才会读出原因，平时不会重复播报。
  * 使用 Slot 而非额外 DOM 节点，避免破坏表单的布局结构。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\YdFormControl.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdFormControl.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

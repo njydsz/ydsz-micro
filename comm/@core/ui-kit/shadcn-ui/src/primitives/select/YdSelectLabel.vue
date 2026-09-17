@@ -4,7 +4,7 @@
  * 必须放在 YdSelectGroup 内部才能被 radix 正确关联；
  * 它不是可选项，也不能被键盘聚焦。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectLabel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectLabel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

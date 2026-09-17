@@ -16,7 +16,7 @@
  *  - Chip 按钮带 aria-label 说明移除含义；
  *  - 筛选工具栏整体使用 role="toolbar"。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\advanced-filter\YdAdvancedFilterBar.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\advanced-filter\YdAdvancedFilterBar.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

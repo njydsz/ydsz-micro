@@ -4,7 +4,7 @@
  * 相邻格子共享边框（border-y + border-r + first:border-l）而不是各自画一圈，
  * 否则中间线会是 2px；聚焦时提升 z-index 并补 ring，避免ring 被相邻格子盖住一半。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\pin-input\YdPinInputInput.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\pin-input\YdPinInputInput.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

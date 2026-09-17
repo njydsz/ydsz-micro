@@ -9,7 +9,7 @@
  * 所有分支都加了 aria-hidden：图标是纯装饰，语义应由相邻文本或 aria-label 承载，
  * 否则读屏会读出无意义的图标名。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\icon\icon.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\icon\icon.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

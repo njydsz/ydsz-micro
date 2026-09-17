@@ -4,7 +4,7 @@
  * 打上 data-slot="decrement" 是给 YdNumberFieldContent 的选择器用的 ——
  * 父级据此判断要不要给输入框让出左边距，因此更换图标时该属性必须保留。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\YdNumberFieldDecrement.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\number-field\YdNumberFieldDecrement.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

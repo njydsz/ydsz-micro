@@ -4,7 +4,7 @@
  * peer-disabled 相关类名让标签能跟随相邻控件的禁用态变灰 ——
  * 依赖 Tailwind 的 peer 机制，故标签与控件必须是同级相邻节点，中间不能再套层。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\YdFormLabel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdFormLabel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

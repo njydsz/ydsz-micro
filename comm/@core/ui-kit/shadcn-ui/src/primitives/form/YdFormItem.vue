@@ -5,7 +5,7 @@
  * 避免出现 hydration 不匹配；内部组件（YdLabel / Control / Message）都从这个 id 派生各自的 aria id，
  * 因此一个字段内不需要调用方手动指定任何 id。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\YdFormItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdFormItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

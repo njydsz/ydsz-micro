@@ -25,8 +25,8 @@ import {
   YdDialogHeader,
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
-// TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
-// TODO: ElIcon 为图标容器，暂无对应 shadcn-ui 组件，保留 element-plus 导入
+// TODO: ElEmpty 暂无 ydsz-ui 等效组件，保留 element-plus 导入
+// TODO: ElIcon 为图标容器，暂无对应 ydsz-ui 组件，保留 element-plus 导入
 import { ElEmpty, ElIcon } from 'element-plus';
 import { Warning } from '@element-plus/icons-vue';
 

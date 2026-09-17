@@ -4,7 +4,7 @@
  * 无障碍要点：radix 会把本组件的文本注册为对话框的 aria-describedby，
  * 因此即使视觉上可以省略，破坏性操作也应当提供说明，让读屏用户听懂后果。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\YdAlertDialogDescription.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialogDescription.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

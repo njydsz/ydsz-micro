@@ -9,7 +9,7 @@
  *  - items 阈值逻辑（小数据集不启用虚拟滚动、大数据集启用）；
  *  - 字段解析器 resolveAccessor 的静态导出行为。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdVSelect.test.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdVSelect.test.ts
  * @author ydsz-team
  * @since 1.0.0
  */

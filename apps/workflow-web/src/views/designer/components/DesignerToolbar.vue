@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// TODO: EP → shadcn-ui 迁移待后续批次（设计器工具栏包含 ElButton/ElIcon/ElSlider/ElSpace/ElTooltip 复杂交互）
+// TODO: EP → ydsz-ui 迁移待后续批次（设计器工具栏包含 ElButton/ElIcon/ElSlider/ElSpace/ElTooltip 复杂交互）
 import { ElButton, ElIcon, ElSlider, ElSpace, ElTooltip } from 'element-plus';
 import { computed, ref } from 'vue';
 

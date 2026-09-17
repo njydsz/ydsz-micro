@@ -4,7 +4,7 @@
  * 统一加 Yd 前缀是为了避免与业务侧、第三方库里的同名 YdAvatarSmart 在模板中冲突，
  * 批量引入时能一眼区分来源。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\avatar\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\avatar\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

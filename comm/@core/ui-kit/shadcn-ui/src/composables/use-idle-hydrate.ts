@@ -12,7 +12,7 @@
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-001：测试用例必须有明确断言。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\composables\use-idle-hydrate.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\composables\use-idle-hydrate.ts
  * @author ydsz-team
  * @since 26.09.17
  */

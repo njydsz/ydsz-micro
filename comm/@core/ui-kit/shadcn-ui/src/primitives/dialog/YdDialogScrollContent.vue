@@ -5,7 +5,7 @@
  * 固定值无法适配不同宿主应用的层级规划，故留出覆盖入口。
  * 与 YdDialogContent 的区别仅在于滚动策略，标题与关闭按钮内置于内容区内。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\YdDialogScrollContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogScrollContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

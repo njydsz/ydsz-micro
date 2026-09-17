@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-// TODO: EP → shadcn-ui 迁移待后续批次（任务处理弹窗包含 ElForm/ElFormItem/ElRadio/ElRadioGroup 等复杂表单组合）
+// TODO: EP → ydsz-ui 迁移待后续批次（任务处理弹窗包含 ElForm/ElFormItem/ElRadio/ElRadioGroup 等复杂表单组合）
 import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 import {

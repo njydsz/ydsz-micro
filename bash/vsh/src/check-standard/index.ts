@@ -49,7 +49,7 @@ const SKIP_SEGMENTS = new Set([
 ]);
 
 /** §3.1 豁免：第三方 CLI 生成件，其受控 any 透传不可控 */
-const ANY_EXEMPT_SEGMENTS = ['shadcn-ui', '__tests__', '.generated-archived'];
+const ANY_EXEMPT_SEGMENTS = ['ydsz-ui', '__tests__', '.generated-archived'];
 
 /** 测试 / 示例 / stories 文件：console 与 any 豁免，但行数仍受约束 */
 const EXEMPT_FILE_PATTERN = /(\.test\.|\.spec\.|__tests__|\.stories\.|coverage)/i;
@@ -727,7 +727,7 @@ function checkEpExit(
           rule: 'EP-EXIT',
           file: p,
           line: i + 1,
-          message: `EP 引用残留（应为 shadcn-ui/compat，见 ep-exit-refactor-plan v3）：${trimmed.slice(0, 90)}`,
+          message: `EP 引用残留（应为 ydsz-ui/compat，见 ep-exit-refactor-plan v3）：${trimmed.slice(0, 90)}`,
           severity: 'P1',
         });
         continue;
@@ -737,7 +737,7 @@ function checkEpExit(
           rule: 'EP-EXIT',
           file: p,
           line: i + 1,
-          message: `模板层 <el-*> 标签残留（应换 shadcn-ui 组件）：${trimmed.slice(0, 90)}`,
+          message: `模板层 <el-*> 标签残留（应换 ydsz-ui 组件）：${trimmed.slice(0, 90)}`,
           severity: 'P1',
         });
       }

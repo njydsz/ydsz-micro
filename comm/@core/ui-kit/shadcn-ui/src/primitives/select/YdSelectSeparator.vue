@@ -4,7 +4,7 @@
  * 左右各取 -mx-1 的负外边距，让分隔线铺满面板的内容宽度，
  * 而不是被 YdSelectContent 的内边距截断成一小段。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectSeparator.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectSeparator.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

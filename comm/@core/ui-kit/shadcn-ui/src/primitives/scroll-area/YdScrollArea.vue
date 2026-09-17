@@ -6,7 +6,7 @@
  * 要拿到 scrollTop 必须走 viewportProps，只监听根元素会什么都收不到。
  * onScroll 默认给一个空函数，避免调用方未传时 radix 收到 undefined 报错。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\scroll-area\YdScrollArea.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\scroll-area\YdScrollArea.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

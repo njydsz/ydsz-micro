@@ -5,7 +5,7 @@
  * 导致表单行高忽大忽小；单行截断后高度恒定，完整文本仍可在下拉面板里读到。
  * 箭头用 SelectIcon 包一层，由 radix 控制展开时的旋转状态。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

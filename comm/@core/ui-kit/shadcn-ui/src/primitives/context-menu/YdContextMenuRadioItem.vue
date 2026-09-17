@@ -4,7 +4,7 @@
  * 必须置于 YdContextMenuRadioGroup 内使用，否则拿不到互斥上下文，
  * 会退化为普通菜单项。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuRadioItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuRadioItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

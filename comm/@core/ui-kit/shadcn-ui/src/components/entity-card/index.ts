@@ -3,7 +3,7 @@
  *
  * YdEntityCard 与配套的状态标签 (YdStatusBadge)、空状态 (YdEmptyState) 配合使用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\entity-card\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\entity-card\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

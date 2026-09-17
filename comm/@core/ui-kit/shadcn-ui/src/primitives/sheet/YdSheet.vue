@@ -4,7 +4,7 @@
  * 复用而非另起一套，是因为抽屉本质上就是「从屏幕边缘出现的对话框」；
  * 差异只体现在内容区的方位动画（见 YdSheetContent）上。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\YdSheet.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\YdSheet.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

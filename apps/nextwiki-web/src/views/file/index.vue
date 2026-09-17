@@ -10,14 +10,14 @@
  * 文件节点（列表页）
  * <p>文件节点的浏览页，支持目录/文件两种类型，数据来自后端契约 API（apps/nextwiki-web/src/api/file.ts）。
  * <p>支持上传、下载、预览、重命名、移动、复制、删除，新建文件夹使用 file-form.vue 提交 createFolder。
- * <p>TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 shadcn-ui。
+ * <p>TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 ydsz-ui。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-// TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 shadcn-ui
+// TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 ydsz-ui
 import { ElTabPane, ElTabs, ElUpload } from 'element-plus';
 import { YdButtonBase, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
@@ -336,7 +336,7 @@ async function executeZipImport(): Promise<void> {
           <YdDialogTitle>批量导入</YdDialogTitle>
         </YdDialogHeader>
         <div class="py-4">
-          <!-- TODO: ElTabs / ElTabPane 尚未迁移到 shadcn-ui -->
+          <!-- TODO: ElTabs / ElTabPane 尚未迁移到 ydsz-ui -->
           <ElTabs v-model="batchImportType">
             <ElTabPane label="多文件上传" name="files">
               <ElUpload

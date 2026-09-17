@@ -4,7 +4,7 @@
  * IBreadcrumb 描述数据项（标题、路径、图标、子项），BreadcrumbProps 描述渲染配置，
  * 两者分离使同一份数据可在不同样式下复用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\types.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\breadcrumb\types.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -1,7 +1,7 @@
 /**
- * shadcn-ui 组合式函数出口。
+ * ydsz-ui 组合式函数出口。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\composables\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\composables\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

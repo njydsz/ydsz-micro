@@ -5,7 +5,7 @@
  * 混排时未开启 inset 的项会显得缩进不足。
  * props 中的 class 会先剥离再转发，交由 cn 统一合并，避免重复应用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

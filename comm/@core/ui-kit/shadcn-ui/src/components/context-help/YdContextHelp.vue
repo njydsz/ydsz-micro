@@ -11,7 +11,7 @@
  *  - 按钮带 aria-label；
  *  - 装饰性图标 aria-hidden。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\context-help\YdContextHelp.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\context-help\YdContextHelp.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

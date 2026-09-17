@@ -7,7 +7,7 @@
  * opened / closed 只在内容区自身的动画结束时派发，避免子元素动画提前触发回调。
  * 关闭 inheritAttrs 是为了让 attrs 落到真实的内容节点上，而不是多出来的根片段。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\YdSheetContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\YdSheetContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

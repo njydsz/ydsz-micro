@@ -7,7 +7,7 @@
  *
  * <p>扩展 expect matcher 后支持 <code>await expect(el).toBeAccessible()</code> 风格。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\accessibility.test.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\accessibility.test.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -5,7 +5,7 @@
  * 外部 class 一律经 cn 合并，避免调用方的圆角/内边距与默认样式同时生效、
  * 最后由 CSS 顺序决定胜负。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\YdCard.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\YdCard.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

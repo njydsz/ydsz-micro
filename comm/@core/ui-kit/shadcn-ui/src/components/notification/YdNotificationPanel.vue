@@ -7,7 +7,7 @@
   - 操作按钮（「查看」「标记已读」「批量全部已读」）
   - 空状态 + 加载骨架屏
 
-@path comm/@core/ui-kit/shadcn-ui/src/components/notification/notification-panel.vue
+@path comm/@core/ui-kit/ydsz-ui/src/components/notification/notification-panel.vue
 @author ydsz-team
 @since 4.1.0 (P2-15)
 -->

@@ -19,7 +19,7 @@
 
 import { Page } from '@ydsz/common-ui';
 
-// TODO: EP → shadcn-ui 迁移暂缓（含 YdAlert/Form/YdInput/YdSelectBase/YdSwitch/YdTabs/YdTable 等复杂组件，需人工评估）
+// TODO: EP → ydsz-ui 迁移暂缓（含 YdAlert/Form/YdInput/YdSelectBase/YdSwitch/YdTabs/YdTable 等复杂组件，需人工评估）
 import { ElAlert, ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { onMounted, reactive, ref, watch } from 'vue';
 

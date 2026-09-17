@@ -5,7 +5,7 @@
  * role=link 配合 aria-disabled 是刻意的组合 —— 保留「这里本可以点击」的语义，
  * 又明确告知辅助技术当前页不可跳转。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\YdBreadcrumbPage.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbPage.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

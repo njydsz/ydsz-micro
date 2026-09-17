@@ -6,7 +6,7 @@
  * 造成触发区与浮层样式互相污染。延迟固定为 300ms、方向固定为 right，
  * 让全站的帮助提示保持一致的手感。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\tooltip\help-tooltip.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\tooltip\help-tooltip.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

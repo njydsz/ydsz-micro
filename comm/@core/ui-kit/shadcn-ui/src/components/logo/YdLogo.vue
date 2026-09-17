@@ -4,7 +4,7 @@
  * 折叠态通过 collapsed 控制，只隐藏文字部分（text 插槽）而不缩放整个 Logo，
  * 避免窄侧栏里图形被压得无法辨认。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\logo\logo.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\logo\logo.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

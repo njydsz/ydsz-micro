@@ -14,7 +14,7 @@
  *  - items < virtualThreshold（默认 100）时直接走 YdSelectContent 分支，避免虚拟滚动开销；
  *  - items >= virtualThreshold 时启用虚拟滚动，仅渲染可见窗口 + overscan 项。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdVSelect.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdVSelect.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

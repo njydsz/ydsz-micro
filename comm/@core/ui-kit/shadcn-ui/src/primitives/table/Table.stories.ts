@@ -9,7 +9,7 @@
  *  - `Empty`：空数据占位；
  *  - `SelectableRows`：可选中行。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTable.stories.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */

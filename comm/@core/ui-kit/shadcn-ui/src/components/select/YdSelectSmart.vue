@@ -5,7 +5,7 @@
  * 清空把 modelValue 置为 undefined 而不是空字符串，
  * 便于表单校验区分「未选择」与「选中了空值」两种状态。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\select\select.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\select\select.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -6,7 +6,7 @@
  * 分段数量变化时无需改动任何样式；defaultValue 缺省时回退到第一个分段，
  * 保证组件始终有选中项，避免出现「无高亮」的中间态。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\segmented\segmented.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\segmented\segmented.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

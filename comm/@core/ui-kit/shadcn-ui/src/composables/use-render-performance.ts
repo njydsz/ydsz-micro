@@ -14,7 +14,7 @@
  * </script>
  * ```
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\composables\use-render-performance.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\composables\use-render-performance.ts
  * @author ydsz-team
  * @since 1.0.0
  */

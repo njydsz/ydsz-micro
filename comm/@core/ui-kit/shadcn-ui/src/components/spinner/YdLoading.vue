@@ -6,7 +6,7 @@
  * showSpinner 与 renderSpinner 分为两个状态：先挂载再淡入，
  * 并按 transitionend 才真正卸载，保证淡出动画能完整播放。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\spinner\loading.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\spinner\loading.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

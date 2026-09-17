@@ -4,7 +4,7 @@
  * 分隔线固定在条目底部（border-b）而非顶部，
  * 这样最后一个条目下方也有一条线，视觉上与紧随其后的内容分区。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\accordion\YdAccordionItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\accordion\YdAccordionItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

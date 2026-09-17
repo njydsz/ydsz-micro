@@ -5,7 +5,7 @@
  * 每项都可用 option 插槽自定义内容，选择结果以 btnClick 事件抛出，
  * 组件自身不持有选中状态，便于与外部的筛选条件保持单一数据源。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\button\check-button-group.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\button\check-button-group.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

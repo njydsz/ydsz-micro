@@ -5,7 +5,7 @@
  * 而不是由组件自己接一个 direction prop —— 面板尺寸状态归 radix 管，
  * 组件若再存一份就会与它不同步。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\resizable\YdResizablePanelGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\resizable\YdResizablePanelGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

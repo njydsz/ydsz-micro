@@ -3,7 +3,7 @@
  *
  * 不可聚焦、不参与键盘导航；需要可交互请改用 YdDropdownMenuItem。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuLabel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuLabel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

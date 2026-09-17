@@ -13,7 +13,7 @@
  *   <li>YdTableCaption —— 表格标题/摘要（无障碍 caption）</li>
  * </ul>
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

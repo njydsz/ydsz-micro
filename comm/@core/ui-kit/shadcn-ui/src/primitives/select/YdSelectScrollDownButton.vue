@@ -4,7 +4,7 @@
  * 显隐完全由 radix 判断溢出状态，调用方既不需要传参也不需要控制显示，
  * 因此不要试图用 v-if 自行控制它的出现时机。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectScrollDownButton.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectScrollDownButton.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

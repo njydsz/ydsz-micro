@@ -4,7 +4,7 @@
  * 用 flex 纵向布局加固定间距，让标题与描述的间距不依赖具体元素的 margin，
  * 缺任一项时也不会留下多余空白。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\YdCardHeader.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\YdCardHeader.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

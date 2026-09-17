@@ -8,7 +8,7 @@
  * 会中断挂载），而非降级为监听全局；且 target 只在挂载时读取一次，
  * 运行中修改不会重新绑定。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\use-backtop.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\back-top\use-backtop.ts
  * @author ydsz-team
  * @since 1.0.0
  */

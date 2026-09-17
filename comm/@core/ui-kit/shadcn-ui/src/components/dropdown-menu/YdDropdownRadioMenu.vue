@@ -5,7 +5,7 @@
  * checked 字段 —— 单选语义下需要额外的 role 与键盘行为，混在一起会让普通菜单
  * 背负不必要的无障碍负担。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\dropdown-menu\dropdown-radio-menu.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\dropdown-menu\dropdown-radio-menu.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

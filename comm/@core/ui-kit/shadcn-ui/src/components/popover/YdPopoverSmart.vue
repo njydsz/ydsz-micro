@@ -6,7 +6,7 @@
  * 先从 props 中摘出，其余属性原样透传给 PopoverRoot —— 既保留 radix 的全部原生能力，
  * 又避免调用方的 class 越过 cn() 直接落到浮层容器上、覆盖掉定位所需的原子类。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\popover\popover.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\popover\popover.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -3,7 +3,7 @@
  *
  * 展开与收起的延迟由 radix 处理，避免鼠标斜向移动时误收起子菜单。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuSubTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuSubTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

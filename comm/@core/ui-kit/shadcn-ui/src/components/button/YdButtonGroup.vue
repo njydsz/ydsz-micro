@@ -4,7 +4,7 @@
  * 相邻按钮共享边框（除首尾外去掉内侧圆角与重复边线），使一组操作在视觉上连成整体；
  * 具体按钮由默认插槽注入，容器不关心按钮类型。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button-group.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\button\button-group.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

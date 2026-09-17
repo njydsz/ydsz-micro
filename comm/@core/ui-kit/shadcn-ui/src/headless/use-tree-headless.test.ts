@@ -1,7 +1,7 @@
 /**
  * useTreeHeadless 测试 —— 验证树展开/选择状态、级联、扁平化
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\headless\use-tree-headless.test.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\headless\use-tree-headless.test.ts
  * @author ydsz-team
  * @since 1.0.0
  */

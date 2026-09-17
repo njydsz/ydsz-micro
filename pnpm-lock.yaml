@@ -568,12 +568,12 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -862,12 +862,12 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -953,12 +953,12 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1056,12 +1056,12 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1253,12 +1253,12 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1350,12 +1350,12 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/shadcn-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1696,15 +1696,15 @@ importers:
       '@ydsz-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
       '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
       vee-validate:
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.40(typescript@5.9.3))
@@ -1729,15 +1729,15 @@ importers:
       '@ydsz-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
       '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -1753,15 +1753,15 @@ importers:
       '@ydsz-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
       '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -1777,15 +1777,15 @@ importers:
       '@ydsz-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
       '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -1834,15 +1834,15 @@ importers:
       '@ydsz-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../base/shared
       '@ydsz-core/typings':
         specifier: workspace:*
         version: link:../../base/typings
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -1864,12 +1864,12 @@ importers:
       '@ydsz-core/popup-ui':
         specifier: workspace:*
         version: link:../popup-ui
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../shadcn-ui
       '@ydsz-core/tabs-ui':
         specifier: workspace:*
         version: link:../tabs-ui
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../shadcn-ui
 
   comm/constants:
     dependencies:
@@ -1916,12 +1916,12 @@ importers:
       '@ydsz-core/preferences':
         specifier: workspace:*
         version: link:../../@core/preferences
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -2019,15 +2019,15 @@ importers:
       '@ydsz-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
       '@ydsz-core/tabs-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/tabs-ui
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -2160,12 +2160,12 @@ importers:
       '@ydsz-core/form-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/form-ui
-      '@ydsz-core/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/shadcn-ui
       '@ydsz/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -2700,12 +2700,15 @@ importers:
       '@ydsz-core/menu-ui':
         specifier: workspace:*
         version: link:../comm/@core/ui-kit/menu-ui
-      '@ydsz-core/shadcn-ui':
+      '@ydsz-core/popup-ui':
         specifier: workspace:*
-        version: link:../comm/@core/ui-kit/shadcn-ui
+        version: link:../comm/@core/ui-kit/popup-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../comm/@core/base/shared
+      '@ydsz-core/ydsz-ui':
+        specifier: workspace:*
+        version: link:../comm/@core/ui-kit/shadcn-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../comm/effects/access

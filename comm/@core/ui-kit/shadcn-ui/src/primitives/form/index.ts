@@ -5,7 +5,7 @@
  * 供自定义输入组件接入同一套 id 与 aria 关联逻辑 ——
  * 这是把第三方控件包装成「表单友好」组件的唯一入口。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

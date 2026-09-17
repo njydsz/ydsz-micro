@@ -5,7 +5,7 @@
  * 禁用态用 data-[disabled] 而非 :disabled，因为 radix 在选项上写的是 data 属性，
  * 用伪类选择器会完全不生效 —— 这是接入 radix 组件时最常见的坑。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

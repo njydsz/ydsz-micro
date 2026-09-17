@@ -28,7 +28,7 @@ import {
   ElTabs,
   ElTabPane,
 } from 'element-plus';
-// TODO: EP → shadcn-ui 迁移待后续批次（属性面板包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElSelect/ElInputNumber/ElSwitch 等复杂表单组合）
+// TODO: EP → ydsz-ui 迁移待后续批次（属性面板包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElSelect/ElInputNumber/ElSwitch 等复杂表单组合）
 import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
 

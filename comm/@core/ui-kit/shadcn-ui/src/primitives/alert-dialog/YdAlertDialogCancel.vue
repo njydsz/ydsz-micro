@@ -4,7 +4,7 @@
  * 无障碍要点：radix 在对话框打开时会把焦点限制在内容区内，
  * 初始焦点默认落在本按钮上 —— 对破坏性操作而言，这是更安全的默认值。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\YdAlertDialogCancel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialogCancel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

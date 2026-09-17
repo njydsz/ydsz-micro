@@ -9,7 +9,7 @@
  * a11y 实现：使用原生 <table> 语义，不额外加 role="grid"；
  * 屏幕阅读器自动识别 thead / tbody / th scope 并朗读行列关系。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTable.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

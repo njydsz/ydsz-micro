@@ -3,7 +3,7 @@
  *
  * 必须置于 YdDropdownMenuRadioGroup 内，否则拿不到互斥上下文，会退化为普通项。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuRadioItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuRadioItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

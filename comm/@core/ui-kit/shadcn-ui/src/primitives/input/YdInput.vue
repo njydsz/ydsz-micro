@@ -1,7 +1,7 @@
 ﻿<!--
  * YdInput Vue 组件 - 现代化输入框样式
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\input\YdInput.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\input\YdInput.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

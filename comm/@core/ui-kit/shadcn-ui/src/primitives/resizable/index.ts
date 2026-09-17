@@ -5,7 +5,7 @@
  * 面板（Panel）、手柄（Handle）、组（PanelGroup），
  * 避免调用方在同一处代码里混用 splitter 与 resizable 两种命名。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\resizable\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\resizable\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

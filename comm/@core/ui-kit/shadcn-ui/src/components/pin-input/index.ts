@@ -4,7 +4,7 @@
  * 文件名沿用 input.vue 而非 pin-input.vue，导出时再统一命名，
  * 以保持本目录内组件的命名一致性。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\pin-input\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\pin-input\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -4,7 +4,7 @@
  * 会被 radix 用作 aria-describedby 的目标，建议始终提供；缺省时读屏只播报标题，
  * 用户不清楚该对话框要做什么。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\YdDialogDescription.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogDescription.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

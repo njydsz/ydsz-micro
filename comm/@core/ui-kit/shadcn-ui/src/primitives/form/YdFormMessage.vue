@@ -4,7 +4,7 @@
  * 错误文案按字段名（name）从校验上下文里取，而不是由父级传入 ——
  * 这样校验规则变化时提示文案自动跟随，不必在多处同步同一句话。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\YdFormMessage.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdFormMessage.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -4,7 +4,7 @@
  * 内边距用 has-[[data-slot=decrement]] / has-[[data-slot=increment]] 选择器判定，
  * 而不是由调用方传布尔值 —— 只放一个按钮时也能自动只留一侧边距，不会出现多余的空白。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\YdNumberFieldContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\number-field\YdNumberFieldContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

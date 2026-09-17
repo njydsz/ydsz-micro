@@ -12,7 +12,7 @@ import { h } from 'vue';
 import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
 
 import { YdButtonBase } from '@ydsz-core/ydsz-ui';
-// TODO: ElImage 暂无 shadcn-ui 等效组件，保留 element-plus 导入
+// TODO: ElImage 暂无 ydsz-ui 等效组件，保留 element-plus 导入
 import { ElImage } from 'element-plus';
 
 import { useYdForm } from './form';

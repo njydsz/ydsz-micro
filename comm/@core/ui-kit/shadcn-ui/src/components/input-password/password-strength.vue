@@ -4,7 +4,7 @@
  * 强度判定内置于组件内（长度、字符种类等启发式规则），仅用于即时反馈，
  * 不能替代服务端校验；等级与颜色的映射表集中在组件顶部，便于统一调整。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\input-password\password-strength.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\input-password\password-strength.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

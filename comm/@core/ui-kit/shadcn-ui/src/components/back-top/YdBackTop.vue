@@ -5,7 +5,7 @@
  * 便于在自定义容器（非 body 滚动）中复用同一套逻辑。
  * 定位由 bottom / right 控制；处于悬浮按钮组（isGroup）时改由外层容器统一排布。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\back-top.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\back-top\back-top.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

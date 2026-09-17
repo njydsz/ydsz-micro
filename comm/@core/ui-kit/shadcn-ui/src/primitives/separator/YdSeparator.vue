@@ -5,7 +5,7 @@
  * 而不是用 flex 三段式布局 —— 后者在竖排方向无法复用，会多出一倍的分支样式。
  * shrink-0 是必需的：放进 flex 容器时分隔线会被压缩成 0 而不可见。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\separator\YdSeparator.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\separator\YdSeparator.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

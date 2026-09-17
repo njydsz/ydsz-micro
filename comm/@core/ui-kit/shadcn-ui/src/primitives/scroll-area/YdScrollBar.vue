@@ -4,7 +4,7 @@
  * 加 touch-none 是移动端的关键 —— 否则浏览器会把滚动条上的触摸判定为页面滚动手势，
  * 在触屏上完全拖不动；内边距 p-px 让滑轨与滑块之间留出 1px 间隙，避免糊成一条。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\scroll-area\YdScrollBar.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\scroll-area\YdScrollBar.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

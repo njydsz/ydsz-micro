@@ -6,7 +6,7 @@
  * 缺任一都无法完整拼出 aria-describedby，故在脱离 FormField 时直接抛错而不是静默降级 ——
  * 静默降级只会产出一个看似正常、实则无无障碍关联的控件。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\useFormField.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\useFormField.ts
  * @author ydsz-team
  * @since 1.0.0
  */

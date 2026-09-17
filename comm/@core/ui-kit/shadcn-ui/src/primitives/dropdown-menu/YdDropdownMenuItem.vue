@@ -4,7 +4,7 @@
  * inset 用于与带图标或勾选标记的项保持左对齐；这些标记占用固定前置宽度，
  * 混排时未开启 inset 的项会显得缩进不足。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

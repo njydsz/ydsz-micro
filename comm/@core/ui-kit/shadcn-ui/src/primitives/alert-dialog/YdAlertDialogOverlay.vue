@@ -5,7 +5,7 @@
  * 若不锁定，滚轮会穿透到背景页面，关闭对话框后用户会发现视图已经滚到别处。
  * 半透明底色与模糊强度由父级 YdAlertDialogContent 以内联 style 传入，便于多层叠加时逐层加深。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\YdAlertDialogOverlay.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialogOverlay.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

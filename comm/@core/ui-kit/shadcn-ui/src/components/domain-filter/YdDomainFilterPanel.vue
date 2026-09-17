@@ -11,7 +11,7 @@
  *  - 全选项始终在顶部，选中后其他项取消；
  *  - 支持 v-model 双向绑定选中值（'top-code' 或各项 code）。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\domain-filter\YdDomainFilterPanel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\domain-filter\YdDomainFilterPanel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

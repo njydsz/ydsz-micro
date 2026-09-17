@@ -9,7 +9,7 @@
  * 这三个开关共同覆盖「二次鉴权 / 强制阅读」等需要强制用户完成操作的交互场景；
  * 关闭行为一律交由调用方通过 v-model:open 显式控制。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\YdDialogContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

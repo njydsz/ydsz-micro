@@ -6,7 +6,7 @@
  * 通过 useForwardPropsEmits 把 props 与 select 事件透传给具体变体，
  * 避免中间层逐个声明再转发的样板代码。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\breadcrumb\breadcrumb-view.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\breadcrumb\breadcrumb-view.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

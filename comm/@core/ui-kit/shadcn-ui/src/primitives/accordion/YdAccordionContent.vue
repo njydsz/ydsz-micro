@@ -5,7 +5,7 @@
  * 若把 padding 加在动画容器上，收起时会残留 padding 高度，出现「收不干净」的抖动。
  * class 先从 props 中剥离再合并，避免覆盖动画所需的原子类。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\accordion\YdAccordionContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\accordion\YdAccordionContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

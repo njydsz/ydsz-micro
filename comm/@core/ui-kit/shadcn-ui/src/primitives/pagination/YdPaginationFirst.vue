@@ -4,7 +4,7 @@
  * asChild 默认为 true 是这里的关键 —— 若渲染成 radix 自带的 button，
  * 就会同时套上两套按钮样式；本项目统一由 YdButton 提供外观，radix 只负责行为与禁用态。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\YdPaginationFirst.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\pagination\YdPaginationFirst.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

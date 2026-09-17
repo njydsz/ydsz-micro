@@ -5,7 +5,7 @@
  * 图标通过 data-state=open 做 180° 旋转（[&[data-state=open]>svg]:rotate-180），
  * 并留出 icon 插槽供调用方替换；未传插槽时回退到默认的 ChevronDown。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\accordion\YdAccordionTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\accordion\YdAccordionTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

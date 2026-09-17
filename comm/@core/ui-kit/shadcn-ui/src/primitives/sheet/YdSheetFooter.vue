@@ -5,7 +5,7 @@
  * 在窄屏下主要按钮落在下方（更靠近拇指），宽屏下则按视觉惯序排列，
  * 无需用 JS 判断断点重排。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\YdSheetFooter.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\YdSheetFooter.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

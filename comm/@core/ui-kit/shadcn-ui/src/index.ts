@@ -1,5 +1,5 @@
 /**
- * shadcn-ui 包的总出口：聚合 components（组合式封装）与 ui（原子组件）两个来源。
+ * ydsz-ui 包的总出口：聚合 components（组合式封装）与 ui（原子组件）两个来源。
  *
  * 额外直接透出 radix-vue 的 createContext / Slot / VisuallyHidden，
  * 是为了让上层业务不必为了写一个新的 shadcn 风格组件而再去依赖 radix-vue ——
@@ -10,7 +10,7 @@
  *  - useChunkUpload：分片上传 + 秒传 + 断点续传
  *  - useVirtualList：虚拟列表（基于 scroll 位置计算可见区间）
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\index.ts
  * @author ydsz-team
  * @since 26.09.17
  */

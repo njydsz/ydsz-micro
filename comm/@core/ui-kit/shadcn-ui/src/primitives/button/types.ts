@@ -4,7 +4,7 @@
  * 类型从 cva 配置反推而非手写，保证新增变体时类型自动跟随，
  * 不会出现「样式已支持但类型不认」的错配。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\button\types.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\button\types.ts
  * @author ydsz-team
  * @since 1.0.0
  */

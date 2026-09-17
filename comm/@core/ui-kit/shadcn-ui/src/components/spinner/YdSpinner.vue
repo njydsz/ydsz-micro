@@ -7,7 +7,7 @@
  *
  * 与 loading 的区别只在呈现层：本组件无文案、带 backdrop-blur，适合盖住整块内容。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\spinner\spinner.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\spinner\spinner.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

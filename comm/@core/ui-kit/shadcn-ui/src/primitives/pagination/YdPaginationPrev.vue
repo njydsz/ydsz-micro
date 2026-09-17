@@ -4,7 +4,7 @@
  * 处于首页时由 radix 自动置为 disabled，边界状态由组件内部托管，
  * 调用方只需关心当前页码。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\YdPaginationPrev.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\pagination\YdPaginationPrev.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

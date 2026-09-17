@@ -4,7 +4,7 @@
  * 同时提供 YdDialogContent 与 YdDialogScrollContent 两种内容区，按内容是否超高选用；
  * 两者共用其余部件。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

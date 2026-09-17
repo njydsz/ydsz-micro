@@ -4,7 +4,7 @@
  * 本层只做状态托管与无障碍关联，不渲染任何 DOM 之外的内容，
  * 因此可以用 v-model 直接接管选中值，也可以完全受控地自行处理 update:modelValue。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelect.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelect.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -5,7 +5,7 @@
  * 动态生成的内容，避免为此再拆一个组件。
  * 按钮组 props 通过 Pick 从按钮 props 上选取公共项，保证两者不会各自漂移。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\button\button.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\button\button.ts
  * @author ydsz-team
  * @since 1.0.0
  */

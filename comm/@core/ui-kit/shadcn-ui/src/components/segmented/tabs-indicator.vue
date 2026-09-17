@@ -6,7 +6,7 @@
  * class 先从 props 中剥离再转发，使 absolute / left-0 / translate 等定位原子类
  * 与调用方自定义样式经 cn() 合并，而不是被整体替换掉。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\segmented\tabs-indicator.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\segmented\tabs-indicator.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

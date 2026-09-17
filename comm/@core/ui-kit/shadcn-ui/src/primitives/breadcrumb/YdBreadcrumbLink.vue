@@ -4,7 +4,7 @@
  * 用 radix Primitive 而非硬编码 a 标签，是为了让面包屑能直接接入路由链接，
  * 同时保留 hover 过渡样式；只有当前页（YdBreadcrumbPage）才不使用本组件 —— 它没有跳转目标。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\YdBreadcrumbLink.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbLink.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

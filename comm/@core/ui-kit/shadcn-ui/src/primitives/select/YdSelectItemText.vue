@@ -4,7 +4,7 @@
  * 必须存在，否则触发器里不会出现任何文字 ——
  * 触发器读的是这里的文本，而不是调用方传给 YdSelectItem 的 value。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectItemText.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectItemText.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

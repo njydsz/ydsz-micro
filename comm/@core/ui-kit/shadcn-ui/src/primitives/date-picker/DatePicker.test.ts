@@ -8,7 +8,7 @@
  * - disabled 状态阻止交互
  * - readonly input 防止手动编辑
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\date-picker\YdDatePicker.test.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdDatePicker.test.ts
  * @author ydsz-team
  * @since 26.09.17
  */

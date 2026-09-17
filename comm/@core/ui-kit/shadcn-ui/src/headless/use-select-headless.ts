@@ -10,7 +10,7 @@
  *  - Headless 计算 "应该显示什么"、"当前选中是什么"、"虚拟滚动跳到哪"；
  *  - Styled 组件决定 "如何用 CSS 渲染" 与 "用户如何点击"。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\headless\use-select-headless.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\headless\use-select-headless.ts
  * @author ydsz-team
  * @since 1.0.0
  */

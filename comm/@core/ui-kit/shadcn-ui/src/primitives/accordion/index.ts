@@ -4,7 +4,7 @@
  * 四个组件必须成套使用：radix 通过上下文关联触发器与内容，
  * 只引入其中一部分会导致展开动画与 aria 关联失效。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\accordion\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\accordion\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

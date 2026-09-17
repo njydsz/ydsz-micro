@@ -8,7 +8,7 @@
  * 注意 YdTooltipProvider 的 delayDuration 在 Provider 层生效，
  * 多个 tooltip 若需要不同延迟，应各自包一层本组件而非共享 Provider。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\tooltip\tooltip.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\tooltip\tooltip.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

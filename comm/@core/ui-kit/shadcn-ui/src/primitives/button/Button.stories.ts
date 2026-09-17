@@ -3,7 +3,7 @@
  *
  * P1-2.3: 组件文档化 — YdButtonBase 组件交互式文档
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/ui/button/YdButtonBase.stories.ts
+ * @path comm/@core/ui-kit/ydsz-ui/src/ui/button/YdButtonBase.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */

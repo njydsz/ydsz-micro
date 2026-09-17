@@ -4,7 +4,7 @@
  * 只做展示，不绑定键盘事件 —— 实际快捷键需由调用方自行注册，
  * 否则会出现「显示了快捷键但按下去没反应」。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuShortcut.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuShortcut.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

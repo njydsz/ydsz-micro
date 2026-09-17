@@ -8,7 +8,7 @@
  * 在隔离测试中无法独立挂载 —— 这些子组件由 radix-vue 官方测试覆盖。
  * 本套件聚焦于验证本包装层的 props 透传与 slot 行为。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectBase.test.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectBase.test.ts
  * @author ydsz-team
  * @since 26.09.17
  */

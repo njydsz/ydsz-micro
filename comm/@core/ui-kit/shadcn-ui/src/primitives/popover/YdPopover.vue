@@ -4,7 +4,7 @@
  * 与 YdDialog 的取舍：YdPopover 不锁滚动、不强制焦点，适合筛选器、快捷菜单这类
  * 「打开后仍要与页面其它部分对照」的场景；需要用户必须做出选择时用 YdAlertDialog。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\popover\YdPopover.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\popover\YdPopover.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

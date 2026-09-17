@@ -7,7 +7,7 @@
  *  - 仅渲染可视窗口内的 DOM 节点，配合 spacer 撑出总高度保持滚动条比例；
  *  - 点击选项后需要手动关闭浮层（缺少 YdSelectItem 的 rpc 与 Root 通信）。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectVirtualContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectVirtualContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

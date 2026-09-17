@@ -5,7 +5,7 @@
  * 动画时长与循环次数以内联 style 下发而非写死在 CSS 里，
  * 让同一套样式可以按不同节奏复用；默认无限循环，纯装饰效果、不承载语义信息。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\spine-text\spine-text.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\spine-text\spine-text.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -4,7 +4,7 @@
  * 箭头写死在组件内而非交给插槽，是为了保证全站「有下级」的视觉提示一致；
  * 需要更换图标时应改这里，而不是在每个调用处各写一遍。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuSubTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuSubTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

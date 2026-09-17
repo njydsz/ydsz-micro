@@ -4,7 +4,7 @@
  * 上内边距置 0（p-6 pt-0）是因为它通常紧跟在 YdCardHeader 之后，
  * 由 Header 已有的下间距提供分隔，避免两处间距叠加。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\YdCardContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\YdCardContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -8,7 +8,7 @@
  *
  * 设计取舍：不做 YdTooltipSmart、不做坐标轴——仅当「一眼扫趋势」的信息密度足够。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\YdMiniChart.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdMiniChart.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

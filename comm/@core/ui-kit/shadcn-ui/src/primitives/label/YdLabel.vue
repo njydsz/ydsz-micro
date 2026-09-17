@@ -4,7 +4,7 @@
  * peer-disabled 类让标签能感知同级控件的禁用状态；
  * 这依赖 Tailwind 的 peer 机制，故标签必须与控件同级相邻，不可再包一层容器。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\label\YdLabel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\label\YdLabel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

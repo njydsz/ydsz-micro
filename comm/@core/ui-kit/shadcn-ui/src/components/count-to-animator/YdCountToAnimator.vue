@@ -5,7 +5,7 @@
  * 显得生硬；可通过 prefix / suffix / separator / decimals 控制展示格式。
  * autoplay 为 false 时需由外部触发，便于让多个指标同步起跳。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\count-to-animator\count-to-animator.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\count-to-animator\count-to-animator.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

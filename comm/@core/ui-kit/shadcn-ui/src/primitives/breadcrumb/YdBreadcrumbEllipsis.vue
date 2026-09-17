@@ -5,7 +5,7 @@
  * 同时用 sr-only 文本补一个「More」供读屏播报，避免路径在听觉上突然断掉。
  * 默认图标为 MoreHorizontal，可用默认插槽替换（例如改成「…共 5 级」）。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\YdBreadcrumbEllipsis.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbEllipsis.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

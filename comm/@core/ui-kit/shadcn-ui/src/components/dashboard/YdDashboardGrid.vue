@@ -6,7 +6,7 @@
  *  - 统一卡片间距，与表单区视觉一致；
  *  - 支持空态占位（如仪表盘配置为空时引导用户）。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\YdDashboardGrid.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdDashboardGrid.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

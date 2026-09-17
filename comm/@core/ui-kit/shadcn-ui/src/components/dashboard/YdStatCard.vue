@@ -9,7 +9,7 @@
  *
  * 使用场景：各子应用首页仪表盘网格中的指标卡。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\dashboard\YdStatCard.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdStatCard.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

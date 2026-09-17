@@ -5,7 +5,7 @@
  * radix 维护的才是唯一状态源，另存一份就会出现点击后颜色不同步的问题。
  * 带 peer 类是刻意的：让同级相邻的 YdLabel 能跟随禁用与选中态变化。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\switch\YdSwitch.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\switch\YdSwitch.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

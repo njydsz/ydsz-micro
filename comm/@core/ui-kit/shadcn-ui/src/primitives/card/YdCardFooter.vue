@@ -4,7 +4,7 @@
  * 与 YdCardContent 同样是 p-6 pt-0，让底部操作与正文保持同一水平内边距；
  * 容器只给排布，不对子元素样式做假设。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\YdCardFooter.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\YdCardFooter.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

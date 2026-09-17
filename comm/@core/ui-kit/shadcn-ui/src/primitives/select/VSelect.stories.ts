@@ -8,7 +8,7 @@
  *  - `WithClearable`：带清除按钮；
  *  - `Disabled`：禁用态。
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/ui/select/YdVSelect.stories.ts
+ * @path comm/@core/ui-kit/ydsz-ui/src/ui/select/YdVSelect.stories.ts
  * @author ydsz-team
  * @since 1.0.0
  */

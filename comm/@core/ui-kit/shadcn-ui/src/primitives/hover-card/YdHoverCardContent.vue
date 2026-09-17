@@ -5,7 +5,7 @@
  * 否则鼠标从触发器移向浮层时会经过一段「两者都不命中」的空隙导致提前关闭。
  * 固定宽度 w-64，让卡片在任意触发器宽度下都保持一致的阅读宽度。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\hover-card\YdHoverCardContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\hover-card\YdHoverCardContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

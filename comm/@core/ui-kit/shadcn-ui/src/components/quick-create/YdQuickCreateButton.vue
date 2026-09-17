@@ -15,7 +15,7 @@
  *  - 按钮带 aria-label / aria-expanded；
  *  - 菜单项通过 role="menuitem" 暴露语义。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\quick-create\YdQuickCreateButton.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\quick-create\YdQuickCreateButton.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

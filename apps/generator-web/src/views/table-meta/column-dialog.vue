@@ -25,7 +25,7 @@ import {
   YdDialogHeader,
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
-// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（shadcn-ui 无内置 YdTable 组件）
+// TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（ydsz-ui 无内置 YdTable 组件）
 import { ElTable, ElTableColumn } from 'element-plus';
 
 import { getColumns, refreshColumns } from '#/api/table-meta';

@@ -4,7 +4,7 @@
  * Portal 之所以一并导出：菜单内容默认挂在 body，
  * 但在被 overflow:hidden 的容器里需要指定挂载点时，调用方必须能自己包一层 Portal。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

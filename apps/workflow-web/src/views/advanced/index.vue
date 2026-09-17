@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-// TODO: EP → shadcn-ui 迁移待后续批次（高级审批包含 ElTabs/ElTabPane/ElDescriptions/ElForm/ElFormItem/ElStatistic/ElTable/ElEmpty/ElSpace 等复杂组合）
+// TODO: EP → ydsz-ui 迁移待后续批次（高级审批包含 ElTabs/ElTabPane/ElDescriptions/ElForm/ElFormItem/ElStatistic/ElTable/ElEmpty/ElSpace 等复杂组合）
 import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElForm, ElFormItem, ElInput, ElSpace, ElStatistic, ElTable, ElTableColumn, ElTabPane, ElTabs, ElTag } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import {

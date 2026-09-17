@@ -3,7 +3,7 @@
  *
  * 独立成文件以便业务在组装菜单数据时引用，无需连带引入组件实现。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\dropdown-menu\interface.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\dropdown-menu\interface.ts
  * @author ydsz-team
  * @since 1.0.0
  */

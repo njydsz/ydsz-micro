@@ -8,7 +8,7 @@
  *
  * 使用方式：直接包裹 <YdEntityCard>；通过 :min-card-width 可调节卡片最小宽度来微调列数。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\entity-card\YdCardGrid.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\entity-card\YdCardGrid.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

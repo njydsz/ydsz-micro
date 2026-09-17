@@ -3,7 +3,7 @@
  *
  * 与右键菜单的差别只在触发方式（点击 vs 右键），其余部件可对照使用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenu.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenu.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -4,7 +4,7 @@
  * 用 Symbol 而不是字符串作为 key，避免与其它库（vee-validate 的 FieldContextKey）
  * 或业务代码的注入键撞名；注入值为 string，即 YdFormItem 生成的唯一 id 前缀。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\form\injectionKeys.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\injectionKeys.ts
  * @author ydsz-team
  * @since 1.0.0
  */

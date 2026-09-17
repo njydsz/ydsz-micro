@@ -7,7 +7,7 @@
   - SSE 连线状态指示（小圆点：绿=已连，灰=断线）
   - 有新通知时短暂闪烁动画
 
-@path comm/@core/ui-kit/shadcn-ui/src/components/notification/notification-bell.vue
+@path comm/@core/ui-kit/ydsz-ui/src/components/notification/notification-bell.vue
 @author ydsz-team
 @since 4.1.0 (P2-15)
 -->

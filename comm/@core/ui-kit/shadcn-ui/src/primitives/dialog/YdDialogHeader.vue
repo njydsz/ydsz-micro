@@ -3,7 +3,7 @@
  *
  * 窄屏居中、宽屏左对齐：移动端标题居中更符合阅读习惯，宽屏左对齐与正文基线一致。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dialog\YdDialogHeader.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogHeader.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

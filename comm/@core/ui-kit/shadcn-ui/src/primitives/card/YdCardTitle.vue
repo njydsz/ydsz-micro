@@ -4,7 +4,7 @@
  * 固定为 h3 而非可配置层级：卡片通常嵌在已有 h2 的页面区块内，固定层级可避免
  * 标题层级被随意打乱；层级不适用的场景请自行渲染标题元素。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\YdCardTitle.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\YdCardTitle.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

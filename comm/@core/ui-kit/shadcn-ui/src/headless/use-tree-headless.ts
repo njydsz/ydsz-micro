@@ -10,7 +10,7 @@
  *  - Headless 决定 "哪些节点展开"、"哪些节点选中"、"ArrowDown 落点在哪"；
  *  - @see YdTree / @see YdVTreeSearch 决定 "如何用 DOM 渲染叶子节点" + "ARIA 属性怎么写"。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\headless\use-tree-headless.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\headless\use-tree-headless.ts
  * @author ydsz-team
  * @since 1.0.0
  */

@@ -4,7 +4,7 @@
  * 触发区域应只包含需要响应右键的元素：范围过大会屏蔽页面其它区域的右键菜单，
  * 影响用户复制、检查等原生操作。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

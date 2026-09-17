@@ -4,7 +4,7 @@
  * 与向下按钮成对提供，用于在有限高度的面板里提示「还有更多选项」；
  * 它的存在也是列表高度被约束的信号，长列表应考虑改用它而不是无限增高面板。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectScrollUpButton.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectScrollUpButton.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

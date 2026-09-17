@@ -5,7 +5,7 @@
  * 是为了让搜索结果之外的位置（如收藏、最近访问）复用同一套模块呈现；
  * 结果类型必须导出，否则调用方无法为自定义结果渲染器标注入参类型。
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/components/search/index.ts
+ * @path comm/@core/ui-kit/ydsz-ui/src/components/search/index.ts
  * @author ydsz-team
  * @since 4.1.0 (P2-13)
  */

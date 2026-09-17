@@ -4,7 +4,7 @@
  * 合在一个组件里是为了让调用方只传 src 与 alt：加载成功显示图片、失败或加载中
  * 自动回落到 fallback 内容，省去每个使用点都手写三件套。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\avatar\avatar.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\avatar\avatar.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

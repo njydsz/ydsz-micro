@@ -3,7 +3,7 @@
  *
  * 渲染指定月份的日历网格，高亮选中日期，支持点击选择。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\date-picker\CalendarPanel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\CalendarPanel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

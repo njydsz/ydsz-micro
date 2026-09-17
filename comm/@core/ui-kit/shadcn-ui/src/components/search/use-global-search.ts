@@ -11,7 +11,7 @@
  * } = useGlobalSearch();
  * </pre>
  *
- * @path comm/@core/ui-kit/shadcn-ui/src/components/search/use-global-search.ts
+ * @path comm/@core/ui-kit/ydsz-ui/src/components/search/use-global-search.ts
  * @author ydsz-team
  * @since 4.1.0 (P2-13)
  */

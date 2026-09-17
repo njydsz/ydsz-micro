@@ -15,7 +15,7 @@
  *
  * 样式全部使用 Tailwind 设计系统 Token，暗色模式由 CSS 变量驱动。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\date-picker\YdDatePicker.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdDatePicker.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

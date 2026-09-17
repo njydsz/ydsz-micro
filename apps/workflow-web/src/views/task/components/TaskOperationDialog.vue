@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-// TODO: EP → shadcn-ui 迁移待后续批次（任务操作弹窗包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElRadioButton 等复杂组合）
+// TODO: EP → ydsz-ui 迁移待后续批次（任务操作弹窗包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElRadioButton 等复杂组合）
 import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { communicate, freeJump, jump, saveDraft } from '#/api/flowTask';

@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// TODO: [shadcn-ui migration pending] 本文件含 ElTable（SKIP）、ElDrawer、ElEmpty、ElTooltip 等部分未映射组件，整体迁移需人工评估复杂度高
+// TODO: [ydsz-ui migration pending] 本文件含 ElTable（SKIP）、ElDrawer、ElEmpty、ElTooltip 等部分未映射组件，整体迁移需人工评估复杂度高
 import { ElButton, ElDialog, ElDrawer, ElEmpty, ElTable, ElTableColumn, ElTag, ElTooltip } from 'element-plus';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

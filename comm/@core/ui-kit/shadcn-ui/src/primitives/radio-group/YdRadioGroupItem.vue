@@ -5,7 +5,7 @@
  * 保证与 YdLabel 的基线对齐稳定；选中态由 radix 的 data-state 驱动，
  * 不通过 v-model 传递，因此多个选项之间不会出现「两个都选中」的中间态。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\radio-group\YdRadioGroupItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\radio-group\YdRadioGroupItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

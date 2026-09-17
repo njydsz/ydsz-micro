@@ -1,7 +1,7 @@
 /**
  * avatar 模块 - 现代化头像样式
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\avatar\avatar.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\avatar\avatar.ts
  * @author ydsz-team
  * @since 1.0.0
  */

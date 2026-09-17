@@ -4,7 +4,7 @@
  * 与首页按钮同理：外观交给 YdButton，radix 只提供行为与到达边界后的禁用态，
  * 避免两套按钮样式互相覆盖。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\YdPaginationLast.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\pagination\YdPaginationLast.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

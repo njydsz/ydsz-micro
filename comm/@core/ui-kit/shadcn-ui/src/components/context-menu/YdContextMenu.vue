@@ -5,7 +5,7 @@
  * 菜单项的分隔线、禁用与图标等状态都在数据里描述。
  * 默认插槽承载触发区域，菜单内容由组件按数据渲染。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\context-menu\context-menu.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\context-menu\context-menu.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

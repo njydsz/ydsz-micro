@@ -3,7 +3,7 @@
  *
  * 浮层以 Portal 形式挂到 body，避免被父级 overflow 裁剪或受祖先 z-index 影响。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

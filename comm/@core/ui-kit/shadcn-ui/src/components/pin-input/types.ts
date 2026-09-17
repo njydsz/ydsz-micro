@@ -3,7 +3,7 @@
  *
  * 独立成文件，供业务在封装自己的验证码表单时引用，无需引入组件实现。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\pin-input\types.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\pin-input\types.ts
  * @author ydsz-team
  * @since 1.0.0
  */

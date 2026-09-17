@@ -1,7 +1,7 @@
 /**
  * YdTable 组件相关的公共类型定义。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\table.types.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\table.types.ts
  * @author ydsz-team
  * @since 1.0.0
  */

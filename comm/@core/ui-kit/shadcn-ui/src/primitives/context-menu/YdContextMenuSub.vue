@@ -4,7 +4,7 @@
  * 与根容器分开是因为子菜单的展开方向、延迟与键盘进出规则都不同，
  * 复用根容器会让配置互相干扰。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuSub.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuSub.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

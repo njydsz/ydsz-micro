@@ -1,7 +1,7 @@
 /**
  * badge 模块 - 现代化徽标样式（含状态色语义）
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\badge\badge.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\badge\badge.ts
  * @author ydsz-team
  * @since 1.0.0
  */

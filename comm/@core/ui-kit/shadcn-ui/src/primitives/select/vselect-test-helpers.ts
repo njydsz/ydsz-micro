@@ -4,7 +4,7 @@
  * 在多个测试文件间复用数据生成逻辑；放在 helpers 文件而不是 __test__ 目录，
  * 是为了让 stories、benchmark 文件也能直接引用。
  *
- * @path comm\@core\ui-kit\shadcn-ui/src/ui/select/vselect-test-helpers.ts
+ * @path comm\@core\ui-kit\ydsz-ui/src/ui/select/vselect-test-helpers.ts
  * @author ydsz-team
  * @since 1.0.0
  */

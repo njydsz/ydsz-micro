@@ -4,7 +4,7 @@
  * 固定为 32px 见方（size-8），与相邻页码按钮保持等高，
  * 否则页码行会出现纵向跳动；默认图标 MoreHorizontal 可用插槽替换。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\pagination\YdPaginationEllipsis.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\pagination\YdPaginationEllipsis.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

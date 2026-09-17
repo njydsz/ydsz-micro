@@ -4,7 +4,7 @@
  * radix 会把分组与标签做 aria 关联，因此标签必须放在分组内部，
  * 放在外面则读屏用户听不到「这一组是什么」。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

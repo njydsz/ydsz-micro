@@ -8,7 +8,7 @@
  *
  * 注意：Trigger 本身不持有值模型，需由父级 @see YdVSelect 显式传入 hasValue 控制清除按钮显隐。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdVSelectTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdVSelectTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

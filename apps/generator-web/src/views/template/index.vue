@@ -19,7 +19,7 @@
 import { onMounted, ref } from 'vue';
 
 import { YdButtonBase, YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
-// TODO: ElEmpty 暂无 shadcn-ui 等效组件，保留 element-plus 导入
+// TODO: ElEmpty 暂无 ydsz-ui 等效组件，保留 element-plus 导入
 import { ElEmpty } from 'element-plus';
 
 import {

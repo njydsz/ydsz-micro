@@ -3,7 +3,7 @@
  *
  * 分组只传达语义、不绘制分隔线，需要视觉分隔请配合 YdSeparator 使用。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -6,7 +6,7 @@
  * 否则样式类会挂到一个没有布局作用的节点，看起来完全不生效。
  * sideOffset 默认 4px：贴得太近会让浮层与触发器在视觉上糊成一块。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\popover\YdPopoverContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\popover\YdPopoverContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

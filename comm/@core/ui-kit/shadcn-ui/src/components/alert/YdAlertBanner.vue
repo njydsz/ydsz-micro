@@ -4,7 +4,7 @@
  * 提供 warning / info / error / success 四种语义；默认样式为「警告」(amber)。
  * 图标基于 lucide；可通过 default slot 插入正文（校验提示、帮助说明等）。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\alert\AlertBanner.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\alert\AlertBanner.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

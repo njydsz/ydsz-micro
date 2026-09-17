@@ -6,7 +6,7 @@
  * withHandle 用于在竖排时显示一个可抓握的提示条，提示用户「这里能拖」。
  * orientation 由 radix 通过 data-orientation 注入，故样式必须写在该属性选择器下。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\resizable\YdResizableHandle.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\resizable\YdResizableHandle.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

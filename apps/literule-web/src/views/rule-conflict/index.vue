@@ -28,7 +28,7 @@ import {
   ElTable,
   ElTableColumn,
   ElTag,
-// TODO: EP → shadcn-ui 迁移暂缓（含 YdCard/Empty/Progress/YdTable 等复杂组件，需人工评估）
+// TODO: EP → ydsz-ui 迁移暂缓（含 YdCard/Empty/Progress/YdTable 等复杂组件，需人工评估）
 } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 

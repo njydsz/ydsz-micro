@@ -4,7 +4,7 @@
  * 注意分隔符（YdBreadcrumbSeparator）本身也是一个 li，
  * 因此不要把分隔符放进本组件内部，否则列表项数量会翻倍、读屏播报出多余的空项。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\YdBreadcrumbItem.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbItem.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

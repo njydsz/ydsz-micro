@@ -5,7 +5,7 @@
  * 一旦内置尺寸就在表格、卡片标题等不同语境里反复被覆盖，反而更麻烦。
  * 外部覆盖类名必须走 cn()：默认变体已带完整配色，直接拼字符串会被 tailwind-merge 判冲突而丢失其一。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\badge\YdBadge.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\badge\YdBadge.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

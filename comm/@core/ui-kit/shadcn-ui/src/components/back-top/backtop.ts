@@ -4,7 +4,7 @@
  * backtopProps 供 Vue 做运行时校验与默认值填充，BacktopProps 供 TS 与 hook 使用；
  * 二者需手动保持同步 —— 接口中多出的 isGroup 仅作为类型标记，不参与运行时校验。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\back-top\backtop.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\back-top\backtop.ts
  * @author ydsz-team
  * @since 1.0.0
  */

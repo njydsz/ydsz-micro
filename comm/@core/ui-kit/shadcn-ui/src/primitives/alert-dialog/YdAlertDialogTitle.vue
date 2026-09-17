@@ -5,7 +5,7 @@
  * 字号固定为 text-lg 并去掉行高（leading-none），
  * 以保证标题与下方说明文字之间的间距只由组件的布局类决定。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\alert-dialog\YdAlertDialogTitle.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialogTitle.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -4,7 +4,7 @@
  * 使用 p 标签而非 div：描述属于正文内容，需要正确的段落语义，
  * 读屏才会按文本而非容器节点播报。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\card\YdCardDescription.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\YdCardDescription.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

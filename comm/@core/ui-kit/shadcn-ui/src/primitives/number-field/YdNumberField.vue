@@ -4,7 +4,7 @@
  * 用 grid gap-1.5 统一内部间距，让「标签 + 输入区 + 提示」的纵向节奏与表单其它字段对齐；
  * 具体的增减按钮与输入框由子组件组合，本组件不限制内部排布。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\YdNumberField.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\number-field\YdNumberField.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -5,7 +5,7 @@
  * renderBr 服务于纯文本场景：把字符串中的换行符渲染成段落，
  * 使运营文案可以直接写多行文本而不必在内容里拼 HTML。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\render-content\render-content.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\render-content\render-content.vue
  * @author ydsz-team
  * @since 1.0.0
  * @remarks

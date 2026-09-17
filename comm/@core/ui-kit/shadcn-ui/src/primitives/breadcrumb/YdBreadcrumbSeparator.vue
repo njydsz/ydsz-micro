@@ -4,7 +4,7 @@
  * 对辅助技术隐藏是因为分隔符纯属视觉装饰，若参与播报，
  * 读屏会在每一级之间插入无意义的内容，让路径变得难以听懂。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\YdBreadcrumbSeparator.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbSeparator.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

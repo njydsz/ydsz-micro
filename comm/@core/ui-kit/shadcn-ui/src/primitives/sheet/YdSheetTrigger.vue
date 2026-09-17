@@ -4,7 +4,7 @@
  * 不带样式，触发区形态由调用方决定；
  * 打开状态由 YdSheet 统一管理，触发器自身不保存任何状态。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\YdSheetTrigger.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\YdSheetTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

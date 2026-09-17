@@ -3,7 +3,7 @@
  *
  * 互斥与键盘导航由 radix 维护，包装层不介入取值逻辑。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\dropdown-menu\YdDropdownMenuRadioGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuRadioGroup.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

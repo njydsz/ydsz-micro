@@ -6,7 +6,7 @@
  *  - 封装 toBeAccessible / toHaveNoViolations 等 matcher，兼容 vitest expect 扩展；
  *  - 提供针对常见组件场景（表单、表格、对话框）的预置检查函数。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\composables\use-a11y-assertions.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\composables\use-a11y-assertions.ts
  * @author ydsz-team
  * @since 1.0.0
  */

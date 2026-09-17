@@ -4,7 +4,7 @@
  * 纯展示元素、不可聚焦，因此不参与键盘导航序列；
  * 需要可点击的标题请改用 YdContextMenuItem。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\context-menu\YdContextMenuLabel.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\context-menu\YdContextMenuLabel.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

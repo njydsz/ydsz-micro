@@ -3,7 +3,7 @@
  *
  * 透出内容区类型是为了让业务在自定义卡片内容对齐方式时无需直接依赖 radix-vue。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\hover-card\index.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\hover-card\index.ts
  * @author ydsz-team
  * @since 1.0.0
  */

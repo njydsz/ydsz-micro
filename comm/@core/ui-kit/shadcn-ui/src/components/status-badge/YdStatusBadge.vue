@@ -8,7 +8,7 @@
  *
  * 使用场景：卡片右上角、表格状态列、详情页标题后缀等需要「状态+语义颜色」的位置。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\components\status-badge\YdStatusBadge.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\status-badge\YdStatusBadge.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

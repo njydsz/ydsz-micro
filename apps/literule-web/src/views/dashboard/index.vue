@@ -23,7 +23,7 @@ import { EchartsUI, useEcharts } from '@ydsz/plugins/echarts';
 
 import { Page } from '@ydsz/common-ui';
 
-// TODO: EP → shadcn-ui 迁移暂缓（ElCard/ElRow/ElCol/ElStatistic 等布局与统计组件，需人工评估）
+// TODO: EP → ydsz-ui 迁移暂缓（ElCard/ElRow/ElCol/ElStatistic 等布局与统计组件，需人工评估）
 import { ElCard, ElCol, ElRow, ElStatistic } from 'element-plus';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 

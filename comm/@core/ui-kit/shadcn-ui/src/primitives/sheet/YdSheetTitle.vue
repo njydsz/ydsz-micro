@@ -5,7 +5,7 @@
  * 用户无法判断自己打开了什么。字重取 medium 而非 semibold，
  * 因为抽屉标题通常与正文距离很近，过重会让层级显得脱节。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\sheet\YdSheetTitle.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\YdSheetTitle.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

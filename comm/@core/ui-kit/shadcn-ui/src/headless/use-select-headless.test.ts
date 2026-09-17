@@ -1,7 +1,7 @@
 /**
  * useSelectHeadless 测试 —— 验证纯逻辑层字段解析、选择模式、虚拟阈值
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\headless\use-select-headless.test.ts
+ * @path comm\@core\ui-kit\ydsz-ui\src\headless\use-select-headless.test.ts
  * @author ydsz-team
  * @since 1.0.0
  */

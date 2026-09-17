@@ -4,7 +4,7 @@
  * 与减小按钮成对出现是常态，但两者独立可用：
  * 只保留一个时另一侧的内边距会被 YdNumberFieldContent 自动收回。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\number-field\YdNumberFieldIncrement.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\number-field\YdNumberFieldIncrement.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

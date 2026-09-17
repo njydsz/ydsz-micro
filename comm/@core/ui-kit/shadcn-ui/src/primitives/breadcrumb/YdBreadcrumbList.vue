@@ -4,7 +4,7 @@
  * 允许换行（flex-wrap + break-words）是必要的 ——
  * 深层级路径在窄屏下会横向溢出，截断比换行更容易让用户丢失当前位置。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\breadcrumb\YdBreadcrumbList.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbList.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

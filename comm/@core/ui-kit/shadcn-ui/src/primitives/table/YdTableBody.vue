@@ -1,7 +1,7 @@
 <!--
  * 表体容器：语义分组 tbody，隔行剔除最后一行 border-b。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\table\YdTableBody.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableBody.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -5,7 +5,7 @@
  * 本层不加任何样式，只负责把 radix 的无障碍语义（键盘上下切换、aria-expanded）
  * 原样带到项目内，样式交由 YdAccordionItem / Trigger / Content 各自承担。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\accordion\YdAccordion.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\accordion\YdAccordion.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

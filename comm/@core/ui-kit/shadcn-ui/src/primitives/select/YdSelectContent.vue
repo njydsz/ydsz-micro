@@ -5,7 +5,7 @@
  * item-aligned 会把面板对齐到当前选中项，在长列表里会跳到让人找不到的位置。
  * 关闭 inheritAttrs 同理于 YdPopoverContent：让 attrs 落到真实的面板节点上。
  *
- * @path comm\@core\ui-kit\shadcn-ui\src\ui\select\YdSelectContent.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectContent.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
