@@ -324,7 +324,7 @@ onBeforeUnmount(async () => {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 60px);
-  background: var(--el-bg-color-page);
+  background: hsl(var(--bg-canvas));
 }
 
 .designer-body {

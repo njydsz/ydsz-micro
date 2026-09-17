@@ -109,7 +109,7 @@ function handleDragStart(event: DragEvent, item: PaletteItem) {
 .designer-palette {
   width: 160px;
   background: #fff;
-  border-right: 1px solid var(--el-border-color-lighter);
+  border-right: 1px solid hsl(var(--border-subtle));
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -120,7 +120,7 @@ function handleDragStart(event: DragEvent, item: PaletteItem) {
   font-weight: 600;
   font-size: 14px;
   color: #303133;
-  border-bottom: 1px solid var(--el-border-color-lighter);
+  border-bottom: 1px solid hsl(var(--border-subtle));
 }
 
 .palette-list {
@@ -142,7 +142,7 @@ function handleDragStart(event: DragEvent, item: PaletteItem) {
 }
 
 .palette-item:hover {
-  background: var(--el-color-primary-light-9);
+  background: hsl(var(--brand-50));
 }
 
 .palette-item:active {

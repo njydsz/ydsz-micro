@@ -207,7 +207,7 @@ function handleZoomReset(): void {
   height: 48px;
   padding: 0 16px;
   background: #fff;
-  border-bottom: 1px solid var(--el-border-color-lighter);
+  border-bottom: 1px solid hsl(var(--border-subtle));
 }
 
 .toolbar-left {
@@ -238,7 +238,7 @@ function handleZoomReset(): void {
 .toolbar-divider {
   width: 1px;
   height: 20px;
-  background: var(--el-border-color-lighter);
+  background: hsl(var(--border-subtle));
   margin: 0 4px;
 }
 

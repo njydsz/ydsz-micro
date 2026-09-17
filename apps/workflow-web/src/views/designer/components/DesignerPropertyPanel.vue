@@ -319,7 +319,7 @@ function handleFormChange() {
 .designer-property-panel {
   width: 300px;
   background: #fff;
-  border-left: 1px solid var(--el-border-color-lighter);
+  border-left: 1px solid hsl(var(--border-subtle));
   display: flex;
   flex-direction: column;
   overflow-y: auto;

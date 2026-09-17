@@ -260,7 +260,7 @@ onMounted(() => {
 
 .section {
   padding: 12px 0;
-  border-top: 1px solid var(--el-border-color-lighter);
+  border-top: 1px solid hsl(var(--border-subtle));
 }
 
 .section-title {

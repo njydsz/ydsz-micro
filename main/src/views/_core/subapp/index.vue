@@ -281,15 +281,15 @@ onUnmounted(() => {
   height: 100%;
   background: linear-gradient(
     90deg,
-    var(--el-color-primary-light-5, #409eff) 0%,
-    var(--el-color-primary, #409eff) 100%
+    hsl(var(--brand-200)) 0%,
+    hsl(var(--brand-500)) 100%
   );
   border-radius: 2px;
   transition: width 0.3s ease;
 }
 
 .loading-text {
-  color: var(--el-text-color-secondary, #909399);
+  color: hsl(var(--txt-tertiary));
   font-size: 14px;
   margin: 0;
   text-align: center;
@@ -302,21 +302,21 @@ onUnmounted(() => {
   align-items: center;
   gap: 8px;
   padding: 32px;
-  color: var(--el-text-color-secondary, #909399);
+  color: hsl(var(--txt-tertiary));
   text-align: center;
 }
 
 .error-app {
   font-size: 16px;
   font-weight: 600;
-  color: var(--el-text-color-primary, #303133);
+  color: hsl(var(--txt-primary));
   margin: 0;
 }
 
 .error-title {
   font-size: 15px;
   font-weight: 500;
-  color: var(--el-text-color-regular, #606266);
+  color: hsl(var(--txt-secondary));
   margin: 0;
 }
 
@@ -328,7 +328,7 @@ onUnmounted(() => {
 
 .error-hint {
   font-size: 12px;
-  color: var(--el-text-color-placeholder, #a8abb2);
+  color: hsl(var(--txt-disabled));
   margin: 0;
 }
 

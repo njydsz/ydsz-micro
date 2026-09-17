@@ -560,7 +560,7 @@ watch(
 }
 
 .condition-form {
-  border: 1px dashed var(--el-border-color);
+  border: 1px dashed hsl(var(--border-default));
   border-radius: 4px;
   padding: 12px;
 }
