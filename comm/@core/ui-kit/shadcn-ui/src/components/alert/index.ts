@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as AlertBanner } from './AlertBanner.vue';
+export { default as YdAlertBanner } from './YdAlertBanner.vue';

@@ -15,7 +15,7 @@ import { AlertCircle, AlertTriangle, CheckCircle2, Info } from 'lucide-vue-next'
 
 import { cn } from '@ydsz-core/shared/utils';
 
-defineOptions({ name: 'AlertBanner' });
+defineOptions({ name: 'YdAlertBanner' });
 
 interface Props {
   /** 标题 */

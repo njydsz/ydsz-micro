@@ -8,7 +8,7 @@
  * 关闭方式仅限「取消按钮」，遮罩点击与 ESC 已被禁止（closeOnOverlayClick=false / closeOnEsc=false），
  * 防止用户绕过密码输入直接关闭导致 Promise 永不结算。
  *
- * 使用自研 Dialog + InputPassword + AlertBanner + Button，零 element-plus 依赖。
+ * 使用自研 Dialog + InputPassword + YdAlertBanner + Button，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\secondary-auth-modal\index.vue
  * @author ydsz-team
@@ -26,7 +26,7 @@ import { onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import {
-  AlertBanner,
+  YdAlertBanner,
   Button,
   Dialog,
   DialogContent,
@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
       </DialogHeader>
 
       <!-- 顶部提示 -->
-      <AlertBanner
+      <YdAlertBanner
         v-if="props.hint"
         :closable="false"
         :show-icon="true"
