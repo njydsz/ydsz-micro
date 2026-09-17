@@ -2,7 +2,7 @@
   "name": "@ydsz/notification",
   "version": "2.0.0",
   "private": true,
-  "description": "全局通知能力：基于 shadcn-ui ToastProvider 的 toast / notify / alert 工具",
+  "description": "全局通知能力：基于 ydsz-ui ToastProvider 的 toast / notify / alert 工具",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "exports": {

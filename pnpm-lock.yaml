@@ -573,7 +573,7 @@ importers:
         version: link:../../comm/@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
+        version: link:../../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -867,7 +867,7 @@ importers:
         version: link:../../comm/@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
+        version: link:../../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -958,7 +958,7 @@ importers:
         version: link:../../comm/@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
+        version: link:../../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1061,7 +1061,7 @@ importers:
         version: link:../../comm/@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
+        version: link:../../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1258,7 +1258,7 @@ importers:
         version: link:../../comm/@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
+        version: link:../../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1355,7 +1355,7 @@ importers:
         version: link:../../comm/@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../comm/@core/ui-kit/shadcn-ui
+        version: link:../../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../../comm/effects/access
@@ -1704,7 +1704,7 @@ importers:
         version: link:../../base/typings
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../shadcn-ui
+        version: link:../ydsz-ui
       vee-validate:
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.40(typescript@5.9.3))
@@ -1737,7 +1737,7 @@ importers:
         version: link:../../base/typings
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../shadcn-ui
+        version: link:../ydsz-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -1761,7 +1761,7 @@ importers:
         version: link:../../base/typings
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../shadcn-ui
+        version: link:../ydsz-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -1785,12 +1785,12 @@ importers:
         version: link:../../base/typings
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../shadcn-ui
+        version: link:../ydsz-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
 
-  comm/@core/ui-kit/shadcn-ui:
+  comm/@core/ui-kit/ydsz-ui:
     dependencies:
       '@vueuse/core':
         specifier: 'catalog:'
@@ -1842,7 +1842,7 @@ importers:
         version: link:../../base/typings
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../shadcn-ui
+        version: link:../ydsz-ui
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
@@ -1869,7 +1869,7 @@ importers:
         version: link:../tabs-ui
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../shadcn-ui
+        version: link:../ydsz-ui
 
   comm/constants:
     dependencies:
@@ -1921,7 +1921,7 @@ importers:
         version: link:../../@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
+        version: link:../../@core/ui-kit/ydsz-ui
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -2027,7 +2027,7 @@ importers:
         version: link:../../@core/ui-kit/tabs-ui
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
+        version: link:../../@core/ui-kit/ydsz-ui
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
@@ -2165,7 +2165,7 @@ importers:
         version: link:../../@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../../@core/ui-kit/shadcn-ui
+        version: link:../../@core/ui-kit/ydsz-ui
       '@ydsz/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -2708,7 +2708,7 @@ importers:
         version: link:../comm/@core/base/shared
       '@ydsz-core/ydsz-ui':
         specifier: workspace:*
-        version: link:../comm/@core/ui-kit/shadcn-ui
+        version: link:../comm/@core/ui-kit/ydsz-ui
       '@ydsz/access':
         specifier: workspace:*
         version: link:../comm/effects/access

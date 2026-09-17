@@ -1,9 +1,9 @@
 ---
-'@ydsz-core/shadcn-ui': minor
+'@ydsz-core/ydsz-ui': minor
 '@ydsz-core/form-ui': minor
 ---
 
-### shadcn-ui 组件测试与基础设施
+### ydsz-ui 组件测试与基础设施
 
 - **P0-1 测试体系建立**：新增 Button / Dialog / FormItem 组件 Vitest + @vue/test-utils 测试用例共 32 个，全部通过
 - **P0-2 字段级订阅隔离**：新增 `use-field-subscription.ts` composable（`watchField` / `watchMultipleFields` / `useFieldValue` / `useDependentFieldValues`），解决 50+ 字段大型表单全量重渲染性能瓶颈
