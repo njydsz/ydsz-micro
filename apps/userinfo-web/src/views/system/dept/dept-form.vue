@@ -9,7 +9,7 @@
 /**
  * 部门（表单组件）
  * <p>部门的创建/编辑弹窗，字段对应契约 DepartmentDTO（src/api/department.ts，auto-generated）：
- * 部门编码、部门名称、上级部门（ElTreeSelect 级联选择）、描述、排序、状态。
+ * 部门编码、部门名称、上级部门（YdTreeSelect 级联选择）、描述、排序、状态。
  * 提交走 create/update，成功后 emit('success') 并关闭弹窗。
  *
  * @author ydsz-team
@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup, ElTreeSelect } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup, YdTreeSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -36,6 +36,24 @@ const isEdit = ref(false);
 
 /** 部门树（来自 department.tree()，由列表页传入，用于上级部门选择） */
 const treeData = ref<DepartmentTreeVO[]>([]);
+
+/** 将 DepartmentTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
+const treeOptions = computed(() => {
+  const mapped = treeData.value.map(node => ({
+    label: node.deptName ?? '',
+    value: node.id ?? '',
+    ...(node.children?.length && { children: mapDeptTreeToOptions(node.children) }),
+  }));
+  return [{ label: t('dept.topDept'), value: '', children: mapped }];
+});
+
+function mapDeptTreeToOptions(nodes: DepartmentTreeVO[]): { label: string; value: string; children?: { label: string; value: string }[] }[] {
+  return nodes.map(node => ({
+    label: node.deptName ?? '',
+    value: node.id ?? '',
+    ...(node.children?.length && { children: mapDeptTreeToOptions(node.children) }),
+  }));
+}
 
 /** 表单状态（字段对应 DepartmentDTO） */
 interface DeptFormState {
@@ -141,13 +159,9 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.deptBas
       label-position="right"
     >
       <YdFormItem :label="t('page.parentDept')" prop="parentId">
-        <ElTreeSelect
+        <YdTreeSelect
           v-model="formData.parentId"
-          :data="[{ id: '', label: t('dept.topDept'), children: treeData }]"
-          :props="{ label: 'label', children: 'children' }"
-          node-key="id"
-          check-strictly
-          clearable
+          :options="treeOptions"
           :placeholder="t('dept.parentDeptPlaceholder')"
           class="w-full"
         />

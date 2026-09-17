@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ydsz-ui 无障碍冒烟 Fixture</title>
+    <style>
+      /* 极简布局样式 — 仅用于保证组件在视口内可被 axe 扫描 */
+      body { margin: 0; padding: 1rem; font-family: system-ui, sans-serif; color: #1a1a1a; background: #fff; }
+      main { max-width: 960px; margin: 0 auto; }
+      section { margin-bottom: 2rem; border: 1px solid #eee; border-radius: 6px; padding: 1rem; }
+      h1, h2 { margin: 0 0 0.5rem; }
+      label { display: block; margin-bottom: 0.25rem; font-weight: 600; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+      .a11y-hint { margin: 0.25rem 0 0; font-size: 0.875rem; color: #666; }
+      .a11y-vhidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+      [data-a11y-fixture="ready"] { outline: none; }
+    </style>
+  </head>
+  <body>
+    <main id="a11y-fixture" data-a11y-fixture="ready">
+      <h1>ydsz-ui 无障碍冒烟 Fixture</h1>
+
+      <!-- Button 组件 -->
+      <section data-testid="fixture-button" aria-label="Button 组件示例">
+        <h2>Button</h2>
+        <button type="button" class="a11y-btn a11y-btn--primary">主要按钮</button>
+        <button type="button" class="a11y-btn">次要按钮</button>
+        <button type="button" class="a11y-btn a11y-btn--icon" aria-label="关闭">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </section>
+
+      <!-- Input 组件 -->
+      <section data-testid="fixture-input" aria-label="Input 组件示例">
+        <h2>Input</h2>
+        <div>
+          <label for="a11y-input-username">用户名</label>
+          <input id="a11y-input-username" type="text" placeholder="请输入用户名" />
+        </div>
+        <div>
+          <label for="a11y-input-email">邮箱</label>
+          <input id="a11y-input-email" type="email" placeholder="请输入邮箱" aria-describedby="a11y-email-hint" />
+          <p id="a11y-email-hint" class="a11y-hint">Example: user&#64;example.com</p>
+        </div>
+        <div>
+          <label for="a11y-input-password">密码</label>
+          <input id="a11y-input-password" type="password" />
+        </div>
+      </section>
+
+      <!-- Select 组件 -->
+      <section data-testid="fixture-select" aria-label="Select 组件示例">
+        <h2>Select</h2>
+        <div>
+          <label for="a11y-select-agent">选择 Agent 类型</label>
+          <select id="a11y-select-agent">
+            <option value="">请选择...</option>
+            <option value="chat">对话型</option>
+            <option value="task">任务型</option>
+            <option value="tool">工具型</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Table 组件 -->
+      <section data-testid="fixture-table" aria-label="Table 组件示例">
+        <h2>Table</h2>
+        <table aria-label="Agent 定义列表">
+          <caption class="a11y-vhidden">Agent 定义列表（3 行示例数据）</caption>
+          <thead>
+            <tr>
+              <th scope="col">Agent 编码</th>
+              <th scope="col">Agent 名称</th>
+              <th scope="col">类型</th>
+              <th scope="col">描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>agent-001</td>
+              <td>客服助手</td>
+              <td>对话型</td>
+              <td>处理常见问答</td>
+            </tr>
+            <tr>
+              <td>agent-002</td>
+              <td>工单分配</td>
+              <td>任务型</td>
+              <td>按规则路由工单</td>
+            </tr>
+            <tr>
+              <td>agent-003</td>
+              <td>知识检索</td>
+              <td>工具型</td>
+              <td>语义检索知识库</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Dialog 组件（触发器 + 隐藏的 dialog 内容） -->
+      <section data-testid="fixture-dialog" aria-label="Dialog 组件示例">
+        <h2>Dialog</h2>
+        <button type="button" data-testid="dialog-trigger" id="a11y-dialog-trigger" aria-haspopup="dialog">
+          打开 Dialog
+        </button>
+        <!-- 模拟 Dialog 结构（静态展示，axe 直接扫描已渲染的 DOM） -->
+        <dialog id="a11y-dialog" aria-labelledby="a11y-dialog-title" aria-modal="true">
+          <h2 id="a11y-dialog-title">创建 Agent 定义</h2>
+          <form>
+            <div>
+              <label for="a11y-dialog-name">Agent 名称</label>
+              <input id="a11y-dialog-name" type="text" />
+            </div>
+            <div>
+              <label for="a11y-dialog-code">Agent 编码</label>
+              <input id="a11y-dialog-code" type="text" />
+            </div>
+            <footer>
+              <button type="submit" class="a11y-btn a11y-btn--primary">保存</button>
+              <button type="button" class="a11y-btn" id="a11y-dialog-cancel">取消</button>
+            </footer>
+          </form>
+        </dialog>
+      </section>
+
+      <!-- Sheet 组件（侧边抽屉） -->
+      <section data-testid="fixture-sheet" aria-label="Sheet 组件示例">
+        <h2>Sheet</h2>
+        <button type="button" data-testid="sheet-trigger" id="a11y-sheet-trigger" aria-haspopup="dialog">
+          打开 Sheet
+        </button>
+        <!-- 模拟 Sheet 结构（静态展示） -->
+        <aside
+          id="a11y-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="a11y-sheet-title"
+        >
+          <h2 id="a11y-sheet-title">Agent 详情</h2>
+          <dl>
+            <dt>名称</dt>
+            <dd>客服助手</dd>
+            <dt>类型</dt>
+            <dd>对话型</dd>
+            <dt>描述</dt>
+            <dd>处理常见问答</dd>
+          </dl>
+          <button type="button" class="a11y-btn" id="a11y-sheet-close">关闭</button>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      // 简单交互：Dialog / Sheet 触发器打开对应面板（模拟组件行为）
+      (function () {
+        var dialogTrigger = document.getElementById('a11y-dialog-trigger');
+        var dialog = document.getElementById('a11y-dialog');
+        var dialogCancel = document.getElementById('a11y-dialog-cancel');
+        if (dialogTrigger && dialog) {
+          dialogTrigger.addEventListener('click', function () {
+            if (typeof dialog.showModal === 'function') {
+              dialog.showModal();
+            } else {
+              dialog.setAttribute('open', '');
+            }
+          });
+        }
+        if (dialogCancel && dialog) {
+          dialogCancel.addEventListener('click', function () {
+            if (typeof dialog.close === 'function') {
+              dialog.close();
+            } else {
+              dialog.removeAttribute('open');
+            }
+          });
+        }
+
+        var sheetTrigger = document.getElementById('a11y-sheet-trigger');
+        var sheet = document.getElementById('a11y-sheet');
+        var sheetClose = document.getElementById('a11y-sheet-close');
+        if (sheetTrigger && sheet) {
+          sheetTrigger.addEventListener('click', function () {
+            sheet.setAttribute('data-open', 'true');
+          });
+        }
+        if (sheetClose && sheet) {
+          sheetClose.addEventListener('click', function () {
+            sheet.removeAttribute('data-open');
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

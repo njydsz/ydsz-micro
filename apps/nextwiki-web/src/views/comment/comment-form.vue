@@ -46,7 +46,7 @@ function formatUserLabel(user: UserSearchHit): string {
   return user.title ?? user.id ?? '';
 }
 
-/** ElSelect remote 远程搜索用户 */
+/** YdSelect remote 远程搜索用户 */
 async function remoteSearchMention(keyword: string): Promise<void> {
   mentionLoading.value = true;
   try {

@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, ElTreeSelect } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, YdTreeSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -36,6 +36,17 @@ const isEdit = ref(false);
 
 /** 上级公司树数据（来自 company.tree()，由列表页传入） */
 const treeData = ref<CompanyTreeVO[]>([]);
+
+/** 将 CompanyTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
+const treeOptions = computed(() => mapCompanyTreeToOptions(treeData.value));
+
+function mapCompanyTreeToOptions(nodes: CompanyTreeVO[]): { label: string; value: string; children?: { label: string; value: string }[] }[] {
+  return nodes.map(node => ({
+    label: node.companyName ?? '',
+    value: node.id ?? '',
+    ...(node.children?.length && { children: mapCompanyTreeToOptions(node.children) }),
+  }));
+}
 
 interface CompanyFormState {
   id: string;
@@ -142,13 +153,9 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.company
       label-position="right"
     >
       <YdFormItem :label="t('company.parentCompany')">
-        <ElTreeSelect
+        <YdTreeSelect
           v-model="formData.parentId"
-          :data="treeData"
-          :props="{ label: 'companyName', children: 'children' }"
-          node-key="id"
-          check-strictly
-          clearable
+          :options="treeOptions"
           :placeholder="t('company.parentCompanyPlaceholder')"
           class="w-full"
         />

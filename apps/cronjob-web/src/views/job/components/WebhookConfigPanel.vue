@@ -49,7 +49,7 @@ const loading = ref(false);
 /** 弹窗可见性 */
 const dialogVisible = ref(false);
 const editingId = ref<string | undefined>(undefined);
-const formRef = ref<InstanceType<typeof ElForm> | null>(null);
+const formRef = ref<InstanceType<typeof YdForm> | null>(null);
 
 /** 表单数据 */
 const formData = ref<JobWebhookPostDTO & { id?: string }>({

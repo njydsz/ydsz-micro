@@ -9,7 +9,7 @@
 /**
  * 菜单（表单组件）
  * <p>菜单的创建/编辑弹窗，字段对应契约 MenuDTO（src/api/menu.ts，auto-generated）：
- * 上级菜单（ElTreeSelect 级联选择）、菜单名称、菜单编码、菜单类型（目录/菜单/按钮）、
+ * 上级菜单（YdTreeSelect 级联选择）、菜单名称、菜单编码、菜单类型（目录/菜单/按钮）、
  * 路由路径、组件路径、图标、权限标识、排序、可见、状态。
  * 提交走 create/update，成功后 emit('success') 并关闭弹窗。
  *
@@ -18,7 +18,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, ElTreeSelect } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdTreeSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -50,6 +50,20 @@ function handleIconSelect(icon: string): void {
 
 /** 菜单树（来自 menu.tree()，由列表页传入，用于上级菜单选择） */
 const treeData = ref<MenuTreeVO[]>([]);
+
+/** 将 MenuTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
+const treeOptions = computed(() => {
+  const mapped = treeData.value.map(node => mapMenuTreeToOption(node));
+  return [{ label: t('menu.topMenu'), value: '', children: mapped }];
+});
+
+function mapMenuTreeToOption(node: MenuTreeVO): { label: string; value: string; children?: { label: string; value: string }[] } {
+  return {
+    label: node.menuName ?? '',
+    value: node.id ?? '',
+    ...(node.children?.length && { children: node.children.map(mapMenuTreeToOption) }),
+  };
+}
 
 /** 菜单类型选项（契约 menuType 为字符串，兼容 'DIRECTORY'/'MENU'/'BUTTON' 与 '0'/'1'/'2'） */
 const MENU_TYPE_OPTIONS = [
@@ -188,13 +202,9 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
       label-position="right"
     >
       <YdFormItem :label="t('menu.parentMenu')" prop="parentId">
-        <ElTreeSelect
+        <YdTreeSelect
           v-model="formData.parentId"
-          :data="[{ id: '', label: t('menu.topMenu'), children: treeData }]"
-          :props="{ label: 'label', children: 'children' }"
-          node-key="id"
-          check-strictly
-          clearable
+          :options="treeOptions"
           :placeholder="t('menu.parentMenuPlaceholder')"
           class="w-full"
         />

@@ -27,8 +27,6 @@ import { initPreferences } from '@ydsz/preferences';
 import { initStores } from '@ydsz/stores';
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { ElLoading } from '@ydsz-core/ydsz-ui';
-
 import RootApp from './app.vue';
 import { initComponentAdapter } from './adapter/component';
 import { initSetupYDSZForm } from './adapter/form';
@@ -89,8 +87,7 @@ async function bootstrap(): Promise<void> {
     environment: 'standalone',
   });
 
-  // 安装指令
-  vueApp.directive('loading', ElLoading.directive);
+  // 安装指令（YDSZ 自研 v-loading 指令，替代 EP ElLoading.directive）
   registerLoadingDirective(vueApp, {
     loading: false,
     spinning: 'spinning',

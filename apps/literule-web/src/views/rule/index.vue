@@ -145,7 +145,7 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
   },
 };
 
-/** 状态 → ElTag 类型映射（DRAFT 待发布 / PUBLISHED 已发布 / 其余按生命周期着色） */
+/** 状态 → YdBadge variant 映射（DRAFT 待发布 / PUBLISHED 已发布 / 其余按生命周期着色） */
 function statusTagType(status?: string): 'success' | 'warning' | 'info' | 'danger' {
   switch ((status ?? '').toUpperCase()) {
     case 'PUBLISHED':

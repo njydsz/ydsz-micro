@@ -17,7 +17,7 @@ import { describe, expect, it } from 'vitest';
 
 import { mount } from '@vue/test-utils';
 
-import YdSelectBase from './YdSelectBase.vue';
+import YdSelectBase from './YdSelect.vue';
 
 describe('YdSelectBase', () => {
   it('应能挂载并渲染 slot 内容', () => {

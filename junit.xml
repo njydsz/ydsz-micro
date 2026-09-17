@@ -1,23 +1,297 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="1" failures="1" errors="0" time="0">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" timestamp="2026-09-17T10:12:38.792Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/Tooltip.test.ts" time="0">
-            <failure message="Unexpected EOF in comment." type="SyntaxError">
-SyntaxError: Unexpected EOF in comment.
- ❯ createCompilerError node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1378:17
- ❯ emitError node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3035:5
- ❯ Object.onend node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:2612:13
- ❯ Tokenizer.finish node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1246:14
- ❯ Tokenizer.parse node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1224:10
- ❯ Object.baseParse node_modules/.pnpm/@vue+compiler-core@3.5.40/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3074:13
- ❯ Object.parse node_modules/.pnpm/@vue+compiler-dom@3.5.40/node_modules/@vue/compiler-dom/dist/compiler-dom.cjs.js:910:23
- ❯ Object.parse$1 [as parse] node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:1824:24
- ❯ createDescriptor node_modules/.pnpm/@vitejs+plugin-vue@5.2.4_vi_d60b9ea0420fff51337d673152051185/node_modules/@vitejs/plugin-vue/dist/index.mjs:71:43
- ❯ transformMain node_modules/.pnpm/@vitejs+plugin-vue@5.2.4_vi_d60b9ea0420fff51337d673152051185/node_modules/@vitejs/plugin-vue/dist/index.mjs:2421:34
+<testsuites name="vitest tests" tests="39" failures="13" errors="0" time="0.0594866">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" timestamp="2026-09-17T14:29:43.925Z" hostname="DESKTOP-FIC0TQ3" tests="39" failures="13" errors="0" skipped="0" time="0.0594866">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenu 应被定义" time="0.0006292">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuContent 应被定义" time="0.0000852">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuItem 应被定义" time="0.0000678">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuTrigger 应被定义" time="0.0000742">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuLabel 应被定义" time="0.0000619">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSeparator 应被定义" time="0.0000659">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuGroup 应被定义" time="0.0000473">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioGroup 应被定义" time="0.0000451">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuRadioItem 应被定义" time="0.0000528">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuCheckboxItem 应被定义" time="0.0000637">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSub 应被定义" time="0.0000421">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubTrigger 应被定义" time="0.0000319">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuSubContent 应被定义" time="0.0000422">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuShortcut 应被定义" time="0.0000366">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu compound components &gt; YdContextMenuPortal 应被定义" time="0.000028">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 class prop" time="0.0001082">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuItem props &gt; 应包含 inset prop" time="0.0000331">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuContent props &gt; 应包含 class prop" time="0.000029">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuCheckboxItem props &gt; 应包含 checked prop" time="0.0000271">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuCheckboxItem props &gt; 应包含 class prop" time="0.0000241">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioItem props &gt; 应包含 value prop" time="0.0000255">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioItem props &gt; 应包含 class prop" time="0.0000391">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenuRadioGroup props &gt; 应包含 modelValue prop" time="0.0000274">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 右键点击 Trigger 应打开上下文菜单" time="0.022558">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuTrigger class=&quot;flex h-20 w-full items-center justify-center border&quot; data-testid=&quot;ctx-trigger&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
+  at &lt;YdContextMenu&gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
+  at &lt;YdContextMenu&gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-Serialized Error: { id: &apos;D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/YdTooltipBase.vue&apos;, plugin: &apos;vite:vue&apos;, loc: { file: &apos;D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/tooltip/YdTooltipBase.vue&apos;, line: 27, column: 1 }, pluginCode: &apos;&lt;!--\r\n * YdTooltipBase —— 文字提示基础容器（YdTooltip 别名）。\r\n *\r\n * 基于 radix-vue TooltipRoot 的包装层，功能与 YdTooltip 完全一致。\r\n * 提供「Base」命名导出保持 primitives 命名惯例统一。\r\n *\r\n * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tooltip\YdTooltipBase.vue\r\n * @author ydsz-team\r\n * @since 1.0.0\r\n */\r\n&lt;script setup lang=&quot;ts&quot;&gt;\r\nimport type { TooltipRootEmits, TooltipRootProps } from \&apos;radix-vue\&apos;;\r\n\r\nimport { TooltipRoot, useForwardPropsEmits } from \&apos;radix-vue\&apos;;\r\n\r\nconst props = defineProps&lt;TooltipRootProps&gt;();\r\nconst emits = defineEmits&lt;TooltipRootEmits&gt;();\r\n\r\nconst forwarded = useForwardPropsEmits(props, emits);\r\n&lt;/script&gt;\r\n\r\n&lt;template&gt;\r\n  &lt;TooltipRoot v-bind=&quot;forwarded&quot;&gt;\r\n    &lt;slot&gt;&lt;/slot&gt;\r\n  &lt;/TooltipRoot&gt;\r\n&lt;/template&gt;\r\n&apos;, frame: &apos;&apos; }
+            </system-err>
+            <failure message="Cannot call trigger on an empty DOMWrapper." type="Error">
+Error: Cannot call trigger on an empty DOMWrapper.
+ ❯ Object.get node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:1488:27
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:180:42
             </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 受控 open=true 时菜单直接渲染" time="0.0051858">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected &apos;&lt;div data-v-app=&quot;&quot;&gt;&lt;!--[object Object…&apos; to contain &apos;受控项&apos;" type="AssertionError">
+AssertionError: expected &apos;&lt;div data-v-app=&quot;&quot;&gt;&lt;!--[object Object…&apos; to contain &apos;受控项&apos;
+
+Expected: &quot;受控项&quot;
+Received: &quot;&lt;div data-v-app=&quot;&quot;&gt;&lt;!--[object Object]--&gt;&lt;/div&gt;&quot;
+
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:214:37
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; Escape 按键应关闭菜单" time="0.0021069">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuTrigger data-testid=&quot;esc-trigger&quot; &gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
+  at &lt;YdContextMenu&gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn &gt; 
+  at &lt;YdContextMenu&gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="Cannot call trigger on an empty DOMWrapper." type="Error">
+Error: Cannot call trigger on an empty DOMWrapper.
+ ❯ Object.get node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+_7f475b8bb31ec8a2fec9a477037a666c/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:1488:27
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:241:53
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu 右键触发与定位 &gt; 键盘 Arrow 上下导航应不报错" time="0.0025699">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu Submenu 延迟与展开 &gt; Sub + SubTrigger + SubContent 结构应正确挂载" time="0.0027177">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected null not to be null" type="AssertionError">
+AssertionError: expected null not to be null
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:340:11
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu Submenu 延迟与展开 &gt; Submenu 应该包含 ChevronRight 箭头图标" time="0.0018163">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected null not to be null" type="AssertionError">
+AssertionError: expected null not to be null
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:382:26
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu CheckboxItem isChecked 状态 &gt; isChecked=true 的 CheckboxItem 应正确渲染" time="0.0021245">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected null not to be null" type="AssertionError">
+AssertionError: expected null not to be null
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:432:11
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu CheckboxItem isChecked 状态 &gt; CheckboxItem 应包含 pl-8 样式用于对齐勾选标记" time="0.001566">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected null not to be null" type="AssertionError">
+AssertionError: expected null not to be null
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:465:20
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioGroup 内 RadioItem 应正确渲染且初始选中值为 modelValue" time="0.0017435">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected null not to be null" type="AssertionError">
+AssertionError: expected null not to be null
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:511:11
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioItem 应包含 pl-8 样式用于对齐圆点标记" time="0.001453">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected null not to be null" type="AssertionError">
+AssertionError: expected null not to be null
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:548:20
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu RadioItem 单选 &gt; RadioItem 包含 Circle 图标作为选中标记" time="0.0022114">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuContent&gt; 
+  at &lt;PopperRoot&gt; 
+  at &lt;MenuRoot open=false onUpdate:open=fn dir=&quot;ltr&quot;  ... &gt; 
+  at &lt;ContextMenuRoot modal=false onUpdate:open=fn open=true &gt; 
+  at &lt;YdContextMenu open=true &gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="expected null not to be null" type="AssertionError">
+AssertionError: expected null not to be null
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:581:20
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuItem inset=true 应包含 pl-8" time="0.0063297">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuItem inset=true ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string" type="AssertionError">
+AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:600:39
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuLabel inset=true 应包含 pl-8" time="0.0013789">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuLabel inset=true ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string" type="AssertionError">
+AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:609:39
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuShortcut 应包含 ml-auto" time="0.001963">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuSeparator 应包含 h-px" time="0.0009289">
+            <system-err>
+[Vue warn]: Invalid vnode type when creating vnode: undefined. 
+  at &lt;YdContextMenuSeparator&gt; 
+  at &lt;Anonymous ref=&quot;VTU_COMPONENT&quot; &gt; 
+  at &lt;VTUROOT&gt;
+
+            </system-err>
+            <failure message="the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string" type="AssertionError">
+AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts:629:39
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/contextMenu.test.ts" name="YdContextMenu sub-component class names &gt; YdContextMenuSubTrigger inset=true 应包含 pl-8" time="0.0000876">
         </testcase>
     </testsuite>
 </testsuites>

@@ -302,8 +302,21 @@ async function handleSave(): Promise<void> {
   }
   saving.value = true;
   try {
-    // TODO: 调用后端 API 保存工作流
-    showToast.success('保存成功');
+    const dsl = generateDsl();
+    const layoutJson = JSON.stringify({
+      nodes: nodes.value.map((n) => ({ id: n.id, x: n.x, y: n.y })),
+      zoom: zoom.value,
+    });
+    const result = await saveDagWorkflow({
+      workflowName: workflowName.value,
+      description: workflowDescription.value,
+      dslContent: dsl,
+      layoutJson,
+      category: 'default',
+    });
+    if (result) {
+      showToast.success('保存成功');
+    }
   } catch {
     // 错误提示由请求拦截器统一处理
   } finally {

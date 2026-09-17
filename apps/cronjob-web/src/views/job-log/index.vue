@@ -11,7 +11,7 @@
  * <p>消费后端契约 JobController.pageLog（src/api/job.ts，auto-generated），
  * 纯只读「执行日志」页：分页查询 + 按任务标识/状态筛选。
  *
- * <p>P1-日志体验：行「详情」打开抽屉 —— 基本信息（ElDescriptions）+ 实时日志
+ * <p>P1-日志体验：行「详情」打开抽屉 —— 基本信息（YdDescriptions）+ 实时日志
  * （SSE GET /api/cronjob/log/stream/{logId}，EventSource 拉取历史+实时内容，自动滚底）。
  *
  * @author ydsz-team

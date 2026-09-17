@@ -9,6 +9,7 @@ name: CI
 # 第一阶段：高复用组件 + 工具函数（覆盖率 ≥ 60%）—— Vitest 3.x + Vue Test Utils
 # 第二阶段：子应用核心业务组件（覆盖率 ≥ 50%）
 # 第三阶段：页面级集成测试（覆盖率 ≥ 30%）—— Playwright
+# 第四阶段：无障碍冒烟（axe WCAG 2.1 AA，critical/serious 阻断）—— @axe-core/playwright
 # 参考 catpaw-always.md YDIZ-TEST-FE-001: 测试用例必须有明确断言，禁止无断言渲染测试
 
 on:
@@ -82,6 +83,46 @@ jobs:
 
       - name: importmap 版本锁与 vendor 产物一致性校验
         run: pnpm sync:shared-deps:check
+
+  accessibility:
+    name: 无障碍冒烟（axe WCAG 2.1 AA）
+    runs-on: ubuntu-latest
+    # §16.10 第四阶段：基于 @axe-core/playwright 的关键组件无障碍扫描，
+    # 作为 PR 卡点（critical / serious 违规阻断）。
+    # 使用独立 fixture 页面，无需后端鉴权，PR 阶段即可快速卡控。
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      # antdv disable deps:esbuild 防污染（与主 verify job 行为一致）
+      - name: 安装 Playwright Chromium 浏览器
+        run: pnpm exec playwright install chromium
+
+      - name: 运行无障碍冒烟测试（ydsz-ui 关键组件 WCAG 2.1 AA 扫描）
+        run: pnpm test:a11y
+
+      # 归档 a11y 测试报告（JUnit XML + HTML）
+      - name: 归档无障碍测试报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-test-reports-${{ github.run_number }}
+          path: |
+            test-results/a11y-html/**
+            test-results/a11y-junit.xml
+          if-no-files-found: warn
+          retention-days: 30
 
   contract:
     name: API 契约漂移检查

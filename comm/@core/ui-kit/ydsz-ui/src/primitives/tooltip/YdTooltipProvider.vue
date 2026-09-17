@@ -12,13 +12,13 @@
 <script setup lang="ts">
 import type { TooltipProviderProps } from 'radix-vue';
 
-import { YdTooltipProvider } from 'radix-vue';
+import { TooltipProvider } from 'radix-vue';
 
 const props = defineProps<TooltipProviderProps>();
 </script>
 
 <template>
-  <YdTooltipProvider v-bind="props">
+  <TooltipProvider v-bind="props">
     <slot></slot>
-  </YdTooltipProvider>
+  </TooltipProvider>
 </template>

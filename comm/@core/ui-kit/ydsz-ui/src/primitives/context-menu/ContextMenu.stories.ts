@@ -133,7 +133,7 @@ export const WithRadio: Story = {
   }),
 };
 
-/** 带子菜单 */
+/** 带子菜单 / With Submenu */
 export const WithSubmenu: Story = {
   render: () => ({
     components: {
@@ -148,18 +148,91 @@ export const WithSubmenu: Story = {
     template: `
       <YdContextMenu>
         <YdContextMenuTrigger class="flex h-20 w-full items-center justify-center rounded border border-dashed text-sm">
-          右键
+          右键 / Right-click
         </YdContextMenuTrigger>
         <YdContextMenuContent>
-          <YdContextMenuItem>撤销</YdContextMenuItem>
+          <YdContextMenuItem>撤销 / Undo</YdContextMenuItem>
           <YdContextMenuSub>
-            <YdContextMenuSubTrigger>分享</YdContextMenuSubTrigger>
+            <YdContextMenuSubTrigger>分享 / Share</YdContextMenuSubTrigger>
             <YdContextMenuSubContent>
-              <YdContextMenuItem>微信</YdContextMenuItem>
-              <YdContextMenuItem>钉钉</YdContextMenuItem>
-              <YdContextMenuItem>邮件</YdContextMenuItem>
+              <YdContextMenuItem>微信 / WeChat</YdContextMenuItem>
+              <YdContextMenuItem>钉钉 / DingTalk</YdContextMenuItem>
+              <YdContextMenuItem>邮件 / Email</YdContextMenuItem>
             </YdContextMenuSubContent>
           </YdContextMenuSub>
+        </YdContextMenuContent>
+      </YdContextMenu>
+    `,
+  }),
+};
+
+/** 编辑器右键菜单 / Editor Context Menu */
+export const EditorMenu: Story = {
+  render: () => ({
+    components: {
+      YdContextMenu,
+      YdContextMenuTrigger,
+      YdContextMenuContent,
+      YdContextMenuItem,
+      YdContextMenuSeparator,
+      YdContextMenuShortcut,
+      YdContextMenuGroup,
+      YdContextMenuLabel,
+    },
+    template: `
+      <YdContextMenu>
+        <YdContextMenuTrigger class="flex h-32 w-full items-center justify-center rounded border border-dashed text-sm">
+          编辑器区域 / Editor Area
+        </YdContextMenuTrigger>
+        <YdContextMenuContent>
+          <YdContextMenuGroup>
+            <YdContextMenuLabel>编辑 / Edit</YdContextMenuLabel>
+            <YdContextMenuItem>
+              复制 / Copy
+              <YdContextMenuShortcut>⌘C</YdContextMenuShortcut>
+            </YdContextMenuItem>
+            <YdContextMenuItem>
+              粘贴 / Paste
+              <YdContextMenuShortcut>⌘V</YdContextMenuShortcut>
+            </YdContextMenuItem>
+            <YdContextMenuItem>
+              剪切 / Cut
+              <YdContextMenuShortcut>⌘X</YdContextMenuShortcut>
+            </YdContextMenuItem>
+          </YdContextMenuGroup>
+          <YdContextMenuSeparator />
+          <YdContextMenuItem>
+            全选 / Select All
+            <YdContextMenuShortcut>⌘A</YdContextMenuShortcut>
+          </YdContextMenuItem>
+        </YdContextMenuContent>
+      </YdContextMenu>
+    `,
+  }),
+};
+
+/** 带 disabled 项 / With Disabled Items */
+export const WithDisabledItems: Story = {
+  render: () => ({
+    components: {
+      YdContextMenu,
+      YdContextMenuTrigger,
+      YdContextMenuContent,
+      YdContextMenuItem,
+      YdContextMenuSeparator,
+    },
+    template: `
+      <YdContextMenu>
+        <YdContextMenuTrigger class="flex h-20 w-full items-center justify-center rounded border border-dashed text-sm">
+          右键 / Right-click
+        </YdContextMenuTrigger>
+        <YdContextMenuContent>
+          <YdContextMenuItem>撤消 / Undo</YdContextMenuItem>
+          <YdContextMenuItem :disabled="true">重做 / Redo</YdContextMenuItem>
+          <YdContextMenuSeparator />
+          <YdContextMenuItem :disabled="true">
+            删除 / Delete
+          </YdContextMenuItem>
         </YdContextMenuContent>
       </YdContextMenu>
     `,

@@ -12,7 +12,7 @@ import { computed } from "vue";
 
 import { cn } from "@ydsz-core/shared/utils";
 
-import { YdTooltipContent, TooltipPortal, useForwardPropsEmits } from "radix-vue";
+import { TooltipContent, TooltipPortal, useForwardPropsEmits } from "radix-vue";
 
 defineOptions({
   inheritAttrs: false,
@@ -42,7 +42,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <TooltipPortal>
-    <YdTooltipContent
+    <TooltipContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
@@ -57,6 +57,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdTooltipContent>
+    </TooltipContent>
   </TooltipPortal>
 </template>

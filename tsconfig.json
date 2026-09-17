@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@ydsz/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ydsz-core/ydsz-ui": ["comm/@core/ui-kit/ydsz-ui/src/index.ts"],
+      "@ydsz-core/ydsz-ui/*": ["comm/@core/ui-kit/ydsz-ui/src/*"],
+      "@ydsz-core/composables": ["comm/@core/composables/src/index.ts"],
+      "@ydsz-core/composables/*": ["comm/@core/composables/src/*"],
+      "@ydsz-core/shared": ["comm/@core/base/shared/src/index.ts"],
+      "@ydsz-core/shared/*": ["comm/@core/base/shared/src/*"],
+      "@ydsz-core/icons": ["comm/@core/base/icons/src/index.ts"],
+      "@ydsz-core/icons/*": ["comm/@core/base/icons/src/*"],
+      "@ydsz-core/typings": ["comm/@core/base/typings/src/index.ts"],
+      "@ydsz-core/typings/*": ["comm/@core/base/typings/src/*"],
+      "@ydsz/access": ["comm/effects/access/src/index.ts"],
+      "@ydsz/common-ui": ["comm/effects/common-ui/src/index.ts"],
+      "@ydsz/constants": ["comm/constants/src/index.ts"],
+      "@ydsz/hooks": ["comm/effects/hooks/src/index.ts"],
+      "@ydsz/icons": ["comm/icons/src/index.ts"],
+      "@ydsz/layouts": ["comm/effects/layouts/src/index.ts"],
+      "@ydsz/locales": ["comm/locales/src/index.ts"],
+      "@ydsz/monitor": ["comm/effects/monitor/src/index.ts"],
+      "@ydsz/notification": ["comm/effects/notification/src/index.ts"],
+      "@ydsz/plugins": ["comm/effects/plugins/src/index.ts"],
+      "@ydsz/preferences": ["comm/preferences/src/index.ts"],
+      "@ydsz/request": ["comm/effects/request/src/index.ts"],
+      "@ydsz/shared-auth": ["comm/effects/shared-auth/src/index.ts"],
+      "@ydsz/shared-business": ["comm/effects/shared-business/src/index.ts"],
+      "@ydsz/stores": ["comm/stores/src/index.ts"],
+      "@ydsz/styles": ["comm/styles/src/index.ts"],
+      "@ydsz/types": ["comm/types/src/index.ts"],
+      "@ydsz/utils": ["comm/utils/src/index.ts"]
+    },
+    "types": ["node", "vite/client"]
+  },
+  "include": [
+    "tests/**/*.ts",
+    "playwright.config.ts",
+    "vitest.config.ts",
+    "tests/a11y/vite.config.ts"
+  ]
+}

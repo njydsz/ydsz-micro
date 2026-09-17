@@ -29,6 +29,7 @@ import {
   YdSelectItemBase,
   YdSelectTriggerBase,
   YdSelectValueBase,
+  YdTreeSelect,
 } from '@ydsz-core/ydsz-ui';
 import { ydszConfirm, ydszPrompt } from '@ydsz-core/popup-ui';
 import { useI18n } from 'vue-i18n';
@@ -72,6 +73,22 @@ function isEnabled(status?: number): boolean {
 // ========== 下拉选项数据（公司/部门/岗位/角色） ==========
 const companyOptions = ref<CompanyVO[]>([]);
 const deptTreeData = ref<DepartmentTreeVO[]>([]);
+
+/** 将 DepartmentTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
+const deptTreeOptions = computed(() => deptTreeData.value.map(node => ({
+  label: node.deptName ?? '',
+  value: node.id ?? '',
+  ...(node.children?.length && { children: mapDeptChildren(node.children) }),
+})));
+
+function mapDeptChildren(nodes: DepartmentTreeVO[]): { label: string; value: string }[] {
+  return nodes.map(node => ({
+    label: node.deptName ?? '',
+    value: node.id ?? '',
+    ...(node.children?.length && { children: mapDeptChildren(node.children) }),
+  }));
+}
+
 const postOptions = ref<PostVO[]>([]);
 const roleOptions = ref<RoleVO[]>([]);
 
@@ -427,14 +444,10 @@ async function handleDelete(row: UserAccountVO) {
           </YdSelectItemBase>
         </YdSelectContentBase>
       </YdSelectBase>
-      <ElTreeSelect
+      <YdTreeSelect
         v-model="searchForm.deptId"
-        :data="deptTreeData"
-        :props="{ label: 'deptName', children: 'children' }"
-        node-key="id"
-        check-strictly
+        :options="deptTreeOptions"
         :placeholder="t('user.dept')"
-        clearable
         class="w-44"
       />
       <YdSelectBase v-model="searchForm.positionCode">

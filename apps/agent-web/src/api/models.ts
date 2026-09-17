@@ -372,6 +372,20 @@ export interface DagCheckpoint {
   snapshotTime?: string;
 }
 
+/** DAG 工作流持久化实体（可视化编辑器保存/加载）。 */
+export interface DagWorkflow {
+  id?: string;
+  workflowCode?: string;
+  workflowName?: string;
+  description?: string;
+  dslContent?: string;
+  layoutJson?: string;
+  category?: string;
+  isPublished?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 /**
  * Agent 执行轨迹列表 DTO
  *

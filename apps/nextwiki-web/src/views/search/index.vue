@@ -10,7 +10,7 @@
  * 全文搜索（列表页）
  * <p>消费后端契约 SearchController（apps/nextwiki-web/src/api/search.ts）：
  * search() 执行全文搜索，suggest() 搜索建议，didYouMean() 拼写纠错，
- * getSearchHistory() 搜索历史，clearSearchHistory() 清空历史（破坏性操作需 ElMessageBox.confirm），
+ * getSearchHistory() 搜索历史，clearSearchHistory() 清空历史（破坏性操作需 ydszConfirm），
  * getHotSearches() 热门搜索，advancedSearch() 高级多条件搜索，rebuildIndices() 重建搜索索引（管理员工具）。
  * <p>高级搜索通过 advanced-search-form.vue 弹窗收集条件，管理员校验通过 useAccess 钩子控制重建索引按钮可见性。
  *

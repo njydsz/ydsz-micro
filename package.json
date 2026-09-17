@@ -90,7 +90,9 @@
     "test:unit": "vitest run --config vitest.config.ts",
     "test:unit:watch": "vitest --config vitest.config.ts",
     "test:coverage": "vitest run --config vitest.config.ts --coverage",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:a11y": "playwright test --config=playwright.config.ts",
+    "test:a11y:install": "playwright install chromium"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
@@ -131,6 +133,8 @@
     "vite": "catalog:",
     "vitest": "catalog:",
     "vitest-axe": "^0.1.0",
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "catalog:",
     "vue": "catalog:",
     "vue-sfc-transformer": "catalog:",
     "vue-tsc": "catalog:"

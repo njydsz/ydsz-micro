@@ -51,13 +51,13 @@ function statusTagType(status: string): 'success' | 'danger' {
 }
 
 /**
- * 创建 ElTag VNode（用于列插槽）
+ * 创建 YdBadge VNode（用于列插槽）
  *
  * @param text - 标签文本
  * @param type - 标签类型
  * @returns VNode
  */
-function hElTag(text: string, type: 'success' | 'danger' | 'warning' | 'info') {
+function hYdBadge(text: string, type: 'success' | 'danger' | 'warning' | 'info') {
   return h(YdBadge, { variant: type === 'success' ? 'default' : type === 'danger' ? 'destructive' : type === 'warning' ? 'outline' : 'secondary', class: type === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => text);
 }
 
@@ -127,7 +127,7 @@ const gridOptions: VxeGridProps<LoginLogVO> = {
       width: 100,
       slots: {
         default: ({ row }: { row: LoginLogVO }) =>
-          hElTag(row.loginResult === 'SUCCESS' ? '成功' : '失败', statusTagType(row.loginResult)),
+          hYdBadge(row.loginResult === 'SUCCESS' ? '成功' : '失败', statusTagType(row.loginResult)),
       },
     },
     { field: 'loginIp', title: '登录IP', width: 140 },

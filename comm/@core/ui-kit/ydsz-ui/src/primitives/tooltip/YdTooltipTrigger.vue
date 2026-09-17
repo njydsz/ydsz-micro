@@ -11,13 +11,13 @@
 <script setup lang="ts">
 import type { TooltipTriggerProps } from 'radix-vue';
 
-import { YdTooltipTrigger } from 'radix-vue';
+import { TooltipTrigger } from 'radix-vue';
 
 const props = defineProps<TooltipTriggerProps>();
 </script>
 
 <template>
-  <YdTooltipTrigger v-bind="props">
+  <TooltipTrigger v-bind="props">
     <slot></slot>
-  </YdTooltipTrigger>
+  </TooltipTrigger>
 </template>

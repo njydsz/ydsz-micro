@@ -176,7 +176,7 @@ export const WithSubmenu: Story = {
   }),
 };
 
-/** 使用 Group 分组 */
+/** 使用 Group 分组 / With Groups */
 export const WithGroups: Story = {
   render: () => ({
     components: {
@@ -191,20 +191,96 @@ export const WithGroups: Story = {
     template: `
       <YdDropdownMenu>
         <YdDropdownMenuTrigger as-child>
-          <button class="yd-btn">分组</button>
+          <button class="yd-btn">分组 / Groups</button>
         </YdDropdownMenuTrigger>
         <YdDropdownMenuContent>
           <YdDropdownMenuGroup>
-            <YdDropdownMenuLabel>基础</YdDropdownMenuLabel>
-            <YdDropdownMenuItem>复制</YdDropdownMenuItem>
-            <YdDropdownMenuItem>粘贴</YdDropdownMenuItem>
+            <YdDropdownMenuLabel>基础 / Basic</YdDropdownMenuLabel>
+            <YdDropdownMenuItem>复制 / Copy</YdDropdownMenuItem>
+            <YdDropdownMenuItem>粘贴 / Paste</YdDropdownMenuItem>
           </YdDropdownMenuGroup>
           <YdDropdownMenuSeparator />
           <YdDropdownMenuGroup>
-            <YdDropdownMenuLabel>高级</YdDropdownMenuLabel>
-            <YdDropdownMenuItem>合并单元格</YdDropdownMenuItem>
-            <YdDropdownMenuItem>拆分表格</YdDropdownMenuItem>
+            <YdDropdownMenuLabel>高级 / Advanced</YdDropdownMenuLabel>
+            <YdDropdownMenuItem>合并单元格 / Merge</YdDropdownMenuItem>
+            <YdDropdownMenuItem>拆分表格 / Split</YdDropdownMenuItem>
           </YdDropdownMenuGroup>
+        </YdDropdownMenuContent>
+      </YdDropdownMenu>
+    `,
+  }),
+};
+
+/** 带 Disabled 项 / With Disabled Items */
+export const WithDisabledItems: Story = {
+  render: () => ({
+    components: {
+      YdDropdownMenu,
+      YdDropdownMenuTrigger,
+      YdDropdownMenuContent,
+      YdDropdownMenuItem,
+      YdDropdownMenuSeparator,
+      YdDropdownMenuShortcut,
+    },
+    template: `
+      <YdDropdownMenu>
+        <YdDropdownMenuTrigger as-child>
+          <button class="yd-btn">含禁用 / Disabled</button>
+        </YdDropdownMenuTrigger>
+        <YdDropdownMenuContent>
+          <YdDropdownMenuItem>
+            编辑 / Edit
+            <YdDropdownMenuShortcut>⌘E</YdDropdownMenuShortcut>
+          </YdDropdownMenuItem>
+          <YdDropdownMenuItem :disabled="true">
+            归档 / Archive
+          </YdDropdownMenuItem>
+          <YdDropdownMenuSeparator />
+          <YdDropdownMenuItem :disabled="true">
+            删除 / Delete
+            <YdDropdownMenuShortcut>⌘⌫</YdDropdownMenuShortcut>
+          </YdDropdownMenuItem>
+        </YdDropdownMenuContent>
+      </YdDropdownMenu>
+    `,
+  }),
+};
+
+/** 嵌套子菜单 / Nested Submenu */
+export const NestedSubmenu: Story = {
+  render: () => ({
+    components: {
+      YdDropdownMenu,
+      YdDropdownMenuTrigger,
+      YdDropdownMenuContent,
+      YdDropdownMenuItem,
+      YdDropdownMenuSub,
+      YdDropdownMenuSubTrigger,
+      YdDropdownMenuSubContent,
+      YdDropdownMenuSeparator,
+    },
+    template: `
+      <YdDropdownMenu>
+        <YdDropdownMenuTrigger as-child>
+          <button class="yd-btn">嵌套子菜单 / Nested</button>
+        </YdDropdownMenuTrigger>
+        <YdDropdownMenuContent>
+          <YdDropdownMenuItem>新建 / New</YdDropdownMenuItem>
+          <YdDropdownMenuSeparator />
+          <YdDropdownMenuSub>
+            <YdDropdownMenuSubTrigger>导入 / Import</YdDropdownMenuSubTrigger>
+            <YdDropdownMenuSubContent>
+              <YdDropdownMenuItem>CSV</YdDropdownMenuItem>
+              <YdDropdownMenuItem>JSON</YdDropdownMenuItem>
+              <YdDropdownMenuSub>
+                <YdDropdownMenuSubTrigger>Excel</YdDropdownMenuSubTrigger>
+                <YdDropdownMenuSubContent>
+                  <YdDropdownMenuItem>.xlsx</YdDropdownMenuItem>
+                  <YdDropdownMenuItem>.xls</YdDropdownMenuItem>
+                </YdDropdownMenuSubContent>
+              </YdDropdownMenuSub>
+            </YdDropdownMenuSubContent>
+          </YdDropdownMenuSub>
         </YdDropdownMenuContent>
       </YdDropdownMenu>
     `,

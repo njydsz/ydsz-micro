@@ -176,7 +176,7 @@ export const NoOverlay: Story = {
   }),
 };
 
-/** 自定义 z-index */
+/** 自定义 z-index / Custom z-index */
 export const CustomZIndex: Story = {
   render: () => ({
     components: {
@@ -192,9 +192,119 @@ export const CustomZIndex: Story = {
         </YdSheetTrigger>
         <YdSheetContent side="right" :z-index="9999">
           <YdSheetTitle>Z-Index 9999</YdSheetTitle>
-          <p class="py-4">自定义堆叠层级。</p>
+          <p class="py-4">自定义堆叠层级。/ Custom stacking level.</p>
         </YdSheetContent>
       </YdSheet>
+    `,
+  }),
+};
+
+/** 带表单的抽屉 / Sheet with form */
+export const WithForm: Story = {
+  render: () => ({
+    components: {
+      YdSheet,
+      YdSheetTrigger,
+      YdSheetContent,
+      YdSheetHeader,
+      YdSheetTitle,
+      YdSheetDescription,
+      YdSheetFooter,
+      YdSheetClose,
+    },
+    template: `
+      <YdSheet>
+        <YdSheetTrigger as-child>
+          <button class="yd-btn">新建用户 / Create User</button>
+        </YdSheetTrigger>
+        <YdSheetContent side="right" :overlay-blur="4">
+          <YdSheetHeader>
+            <YdSheetTitle>新建用户 / Create User</YdSheetTitle>
+            <YdSheetDescription>填写以下信息创建新用户。/ Fill in the info to create a new user.</YdSheetDescription>
+          </YdSheetHeader>
+          <div class="space-y-4 py-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium">用户名 / Username</label>
+              <input class="yd-input w-full" placeholder="请输入用户名" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium">邮箱 / Email</label>
+              <input class="yd-input w-full" placeholder="user@example.com" />
+            </div>
+          </div>
+          <YdSheetFooter>
+            <YdSheetClose as-child>
+              <button class="yd-btn yd-btn-secondary">取消 / Cancel</button>
+            </YdSheetClose>
+            <button class="yd-btn">保存 / Save</button>
+          </YdSheetFooter>
+        </YdSheetContent>
+      </YdSheet>
+    `,
+  }),
+};
+
+/** 无遮罩、ESC 关闭 / No overlay with ESC close */
+export const EscCloseNoOverlay: Story = {
+  render: () => ({
+    components: {
+      YdSheet,
+      YdSheetTrigger,
+      YdSheetContent,
+      YdSheetHeader,
+      YdSheetTitle,
+      YdSheetClose,
+    },
+    template: `
+      <YdSheet>
+        <YdSheetTrigger as-child>
+          <button class="yd-btn">ESC 关闭 / ESC Close</button>
+        </YdSheetTrigger>
+        <YdSheetContent side="right" :modal="false">
+          <YdSheetHeader>
+            <YdSheetTitle>无遮罩抽屉 / No Overlay</YdSheetTitle>
+          </YdSheetHeader>
+          <p class="py-4">按 Escape 关闭，无遮罩。/ Press Escape to close, no overlay.</p>
+          <YdSheetClose as-child>
+            <button class="yd-btn yd-btn-secondary">关闭 / Close</button>
+          </YdSheetClose>
+        </YdSheetContent>
+      </YdSheet>
+    `,
+  }),
+};
+
+/** 遮罩模糊 / Overlay blur variants */
+export const OverlayBlurVariants: Story = {
+  render: () => ({
+    components: {
+      YdSheet,
+      YdSheetTrigger,
+      YdSheetContent,
+      YdSheetHeader,
+      YdSheetTitle,
+    },
+    template: `
+      <div class="flex gap-2">
+        <YdSheet>
+          <YdSheetTrigger as-child>
+            <button class="yd-btn">Blur 2px</button>
+          </YdSheetTrigger>
+          <YdSheetContent side="right" :overlay-blur="2">
+            <YdSheetHeader><YdSheetTitle>轻模糊 / Light Blur</YdSheetHeader>
+            <p class="py-4">遮罩模糊 2px。/ Overlay blur 2px.</p>
+          </YdSheetContent>
+        </YdSheet>
+        <YdSheet>
+          <YdSheetTrigger as-child>
+            <button class="yd-btn">Blur 8px</button>
+          </YdSheetTrigger>
+          <YdSheetContent side="right" :overlay-blur="8">
+            <YdSheetHeader><YdSheetTitle>重模糊 / Heavy Blur</YdSheetHeader>
+            <p class="py-4">遮罩模糊 8px。/ Overlay blur 8px.</p>
+          </YdSheetContent>
+        </YdSheet>
+      </div>
     `,
   }),
 };

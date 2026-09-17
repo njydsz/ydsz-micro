@@ -22,7 +22,7 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, ElTreeSelect } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdTreeSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { create, update } from '#/api/userAccount';
@@ -46,6 +46,18 @@ const isEdit = ref(false);
 /** 下拉选项数据（由列表页在打开弹窗前传入） */
 const companyList = ref<CompanyVO[]>([]);
 const deptTreeData = ref<DepartmentTreeVO[]>([]);
+
+/** 将 DepartmentTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
+const deptTreeOptions = computed(() => deptTreeData.value.map(node => mapDeptNode(node)));
+
+function mapDeptNode(node: DepartmentTreeVO): { label: string; value: string; children?: { label: string; value: string }[] } {
+  return {
+    label: node.deptName ?? '',
+    value: node.id ?? '',
+    ...(node.children?.length && { children: node.children.map(mapDeptNode) }),
+  };
+}
+
 const postList = ref<PostVO[]>([]);
 const roleList = ref<RoleVO[]>([]);
 
@@ -218,13 +230,9 @@ const title = computed(() => (isEdit.value ? t('user.editUser') : t('user.create
         </YdSelect>
       </YdFormItem>
       <YdFormItem :label="t('user.dept')">
-        <ElTreeSelect
+        <YdTreeSelect
           v-model="formData.deptId"
-          :data="deptTreeData"
-          :props="{ label: 'deptName', children: 'children' }"
-          node-key="id"
-          check-strictly
-          clearable
+          :options="deptTreeOptions"
           :placeholder="t('user.deptPlaceholder')"
           class="w-full"
         />
