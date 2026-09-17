@@ -48,13 +48,13 @@ import YdUploadItem from './YdUploadItem.vue';
 const uploadMessages = {
   zh: {
     upload: {
-      dragTip: '将文件拖到此处，或{action}',
+      dragTipPrefix: '将文件拖到此处，或',
       clickToUpload: '点击上传',
     },
   },
   en: {
     upload: {
-      dragTip: 'Drag files here, or {action}',
+      dragTipPrefix: 'Drag files here, or ',
       clickToUpload: 'Click to upload',
     },
   },
@@ -360,7 +360,7 @@ defineExpose({
     >
       <CloudUpload class="text-muted-foreground h-10 w-10" />
       <span class="text-muted-foreground text-sm">
-        {{ t('upload.dragTip', { action: '' }) }}<SPAN class="text-primary cursor-pointer">{{ t('upload.clickToUpload') }}</SPAN>
+        {{ t('upload.dragTipPrefix') }}<SPAN class="text-primary cursor-pointer">{{ t('upload.clickToUpload') }}</SPAN>
       </span>
     </div>
 
