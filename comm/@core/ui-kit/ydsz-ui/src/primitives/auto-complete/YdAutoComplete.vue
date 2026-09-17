@@ -251,7 +251,7 @@ watch(
         class="flex items-center justify-center gap-2 px-2 py-3 text-sm text-muted-foreground"
       >
         <Loader2 class="size-3 animate-spin" aria-hidden="true" />
-        <span>搜索中...</span>
+        <span>{{ t('autoComplete.loadingText') }}</span>
       </div>
       <template v-else>
         <button
@@ -271,7 +271,7 @@ watch(
           v-if="resolvedOptions.length === 0"
           class="text-muted-foreground px-2 py-3 text-center text-sm"
         >
-          {{ emptyText }}
+          {{ resolvedEmptyText }}
         </p>
       </template>
     </YdPopoverContent>

@@ -40,22 +40,40 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { CloudUpload } from 'lucide-vue-next';
 
+import { useComponentI18n } from '../../composables/use-component-i18n';
+
 import YdUploadItem from './YdUploadItem.vue';
+
+/** Upload 组件 i18n 消息定义 */
+const uploadMessages = {
+  zh: {
+    upload: {
+      dragTip: '将文件拖到此处，或{action}',
+      clickToUpload: '点击上传',
+    },
+  },
+  en: {
+    upload: {
+      dragTip: 'Drag files here, or {action}',
+      clickToUpload: 'Click to upload',
+    },
+  },
+};
 
 const props = withDefaults(
   defineProps<{
     /** 必填 - 上传地址 */
     action?: string;
     /** 是否启用拖拽上传 */
-    drag?: boolean;
+    isDrag?: boolean;
     /** v-model:file-list */
     fileList?: UploadUserFile[];
     /** 是否禁用 */
-    disabled?: boolean;
+    isDisabled?: boolean;
     /** 限制文件类型，如 '.png,.jpg' 或 'image/*' */
     accept?: string;
     /** 是否多选 */
-    multiple?: boolean;
+    isMultiple?: boolean;
     /** 是否显示文件列表 */
     showFileList?: boolean;
     /** 随请求附带的额外字段 */
@@ -80,18 +98,26 @@ const props = withDefaults(
     onProgress?: (percent: number, file: UploadFile) => void;
     /** 文件移除钩子 */
     onRemove?: (file: UploadFile) => void;
+    /** 当前语言，默认 'zh' */
+    locale?: string;
   }>(),
   {
     autoUpload: true,
-    disabled: false,
-    drag: false,
+    isDisabled: false,
+    isDrag: false,
+    isMultiple: false,
     listType: 'text',
-    multiple: false,
+    locale: 'zh',
     name: 'file',
     showFileList: true,
     withCredentials: false,
   },
 );
+
+const { t } = useComponentI18n({
+  defaultLocale: props.locale,
+  messages: uploadMessages,
+});
 
 const emit = defineEmits<{
   (e: 'update:fileList', value: UploadUserFile[]): void;
@@ -128,13 +154,13 @@ const dropZoneClass = computed(() =>
   cn(
     'border-border bg-muted/20 hover:bg-muted/30 flex min-h-32 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed transition-colors',
     isOverDropZone.value && 'border-primary bg-primary/5',
-    props.disabled && 'pointer-events-none opacity-50',
+    props.isDisabled && 'pointer-events-none opacity-50',
   ),
 );
 
 /** 触发文件选择 */
 function openFilePicker(): void {
-  if (props.disabled || isLimitReached.value) {
+  if (props.isDisabled || isLimitReached.value) {
     return;
   }
   fileInput.value?.click();
@@ -324,7 +350,7 @@ defineExpose({
   <div class="upload-wrapper flex flex-col gap-3">
     <!-- 拖拽区域 或 普通按钮 -->
     <div
-      v-if="drag"
+      v-if="isDrag"
       ref="dropZoneRef"
       :class="dropZoneClass"
       role="button"
@@ -334,7 +360,7 @@ defineExpose({
     >
       <CloudUpload class="text-muted-foreground h-10 w-10" />
       <span class="text-muted-foreground text-sm">
-        将文件拖到此处，或<SPAN class="text-primary cursor-pointer">点击上传</SPAN>
+        {{ t('upload.dragTip', { action: '' }) }}<SPAN class="text-primary cursor-pointer">{{ t('upload.clickToUpload') }}</SPAN>
       </span>
     </div>
 
@@ -346,21 +372,21 @@ defineExpose({
         'focus-visible:outline-none focus-visible:ring-2',
         'disabled:pointer-events-none disabled:opacity-50',
       )"
-      :disabled="disabled || isLimitReached"
+      :disabled="isDisabled || isLimitReached"
       type="button"
       @click="openFilePicker"
     >
       <CloudUpload class="h-4 w-4" />
-      <span>点击上传</span>
+      <span>{{ t('upload.clickToUpload') }}</span>
     </button>
 
     <!-- 隐藏 input -->
     <input
       ref="fileInput"
       :accept="accept"
-      :disabled="disabled"
+      :disabled="isDisabled"
       class="hidden"
-      :multiple="multiple"
+      :multiple="isMultiple"
       type="file"
       @change="handleInputChange"
     />
