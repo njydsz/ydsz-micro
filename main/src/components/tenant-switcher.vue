@@ -28,7 +28,7 @@ import {
   YdTooltipContentBase,
   YdTooltipProviderBase,
   YdTooltipTriggerBase,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 /** 引入多租户 composable（提供租户列表加载、切换等能力） */
 const {

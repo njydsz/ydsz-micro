@@ -19,7 +19,7 @@ import {
   YdSelectItemBase,
   YdSelectTriggerBase,
   YdSelectValueBase,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import { onDictChange } from '../composables/use-dict-event';
 import { useDictStore } from '@ydsz/stores';

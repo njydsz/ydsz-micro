@@ -28,7 +28,7 @@ import {
 import { useStore } from '@ydsz-core/shared/store';
 
 import { DrawerApi } from './drawer-api';
-import YdDrawer from './drawer.vue';
+import YdDrawer from './YdDrawer.vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-drawer');

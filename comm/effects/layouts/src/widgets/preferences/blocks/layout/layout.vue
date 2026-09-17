@@ -15,7 +15,7 @@ import { computed } from 'vue';
 import { CircleHelp } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdTooltip } from '@ydsz-core/ydsz-ui';
 
 import {
   FullContent,

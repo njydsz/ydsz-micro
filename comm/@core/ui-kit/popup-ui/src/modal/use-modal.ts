@@ -25,7 +25,7 @@ import {
 import { useStore } from '@ydsz-core/shared/store';
 
 import { ModalApi } from './modal-api';
-import YdModal from './modal.vue';
+import YdModal from './YdModal.vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-modal');

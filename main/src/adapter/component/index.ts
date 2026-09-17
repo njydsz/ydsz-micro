@@ -42,7 +42,7 @@ import {
 } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 import { showToast } from '@ydsz/notification';
-import { YdDatePicker, YdSeparator, YDSZInput, YDSZSelect } from '@ydsz-core/shadcn-ui';
+import { YdDatePicker, YdSeparator, YDSZInput, YDSZSelect } from '@ydsz-core/ydsz-ui';
 
 /**
  * 为底层组件包裹默认 placeholder 并透传 expose 方法的高阶包装函数。

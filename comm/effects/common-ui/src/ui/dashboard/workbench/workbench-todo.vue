@@ -14,7 +14,7 @@ import {
   YdCardHeader,
   YdCardTitle,
   YdCheckbox,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 interface Props {
   items?: WorkbenchTodoItem[];

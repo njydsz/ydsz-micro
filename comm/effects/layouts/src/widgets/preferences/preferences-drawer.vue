@@ -19,7 +19,7 @@ import type {
   ThemeModeType,
 } from '@ydsz/types';
 
-import type { SegmentedItem } from '@ydsz-core/shadcn-ui';
+import type { SegmentedItem } from '@ydsz-core/ydsz-ui';
 
 import { computed, ref } from 'vue';
 
@@ -37,7 +37,7 @@ import {
   YdButton,
   YdIconButton,
   YdSegmented,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 import { globalShareState } from '@ydsz-core/shared/global-state';
 
 import { useClipboard } from '@vueuse/core';

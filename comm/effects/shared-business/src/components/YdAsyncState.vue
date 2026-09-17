@@ -23,7 +23,7 @@ import { computed } from 'vue';
 
 import { AlertCircle } from 'lucide-vue-next';
 
-import { YdButtonBase } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   /** 是否加载中 */

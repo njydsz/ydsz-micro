@@ -14,7 +14,7 @@ import { preferences, updatePreferences } from '@ydsz/preferences';
 import { capitalizeFirstLetter } from '@ydsz/utils';
 
 import { useYdDrawer } from '@ydsz-core/popup-ui';
-import { YdButton } from '@ydsz-core/shadcn-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 import PreferencesDrawer from './preferences-drawer.vue';
 

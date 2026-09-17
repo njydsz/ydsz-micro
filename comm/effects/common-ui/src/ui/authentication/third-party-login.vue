@@ -10,7 +10,7 @@ import { useAppConfig } from '@ydsz/hooks';
 import { MdiGithub, MdiGoogle, MdiQqchat, MdiWechat } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/ydsz-ui';
 
 import DingdingLogin from './dingding-login.vue';
 

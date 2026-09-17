@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { YdSpinner } from '@ydsz-core/shadcn-ui';
+import { YdSpinner } from '@ydsz-core/ydsz-ui';
 
 import { useContentSpinner } from './use-content-spinner';
 

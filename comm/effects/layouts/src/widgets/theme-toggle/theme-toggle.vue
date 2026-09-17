@@ -20,7 +20,7 @@ import {
   YdTooltip,
   YdToggleGroup,
   YdToggleGroupItem,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import ThemeButton from './theme-button.vue';
 

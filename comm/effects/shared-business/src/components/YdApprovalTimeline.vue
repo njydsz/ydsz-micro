@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { CheckCircle2, Clock, RefreshCw, Send, XCircle } from 'lucide-vue-next';
 
-import { YdBadge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ydsz-ui';
 
 /** 审批记录 */
 export interface ApprovalRecord {

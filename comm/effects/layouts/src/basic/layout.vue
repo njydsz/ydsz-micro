@@ -25,7 +25,7 @@ import { useAccessStore } from '@ydsz/stores';
 import { cloneDeep, mapTree } from '@ydsz/utils';
 
 import { YdAdminLayout } from '@ydsz-core/layout-ui';
-import { YdLogo } from '@ydsz-core/shadcn-ui';
+import { YdLogo } from '@ydsz-core/ydsz-ui';
 
 import { YdBreadcrumb, CheckUpdates, Preferences } from '../widgets';
 import { LayoutContent, LayoutContentSpinner } from './content';

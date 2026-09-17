@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { AuthPageLayoutType } from '@ydsz/types';
 
-import type { YdDropdownMenuItem } from '@ydsz-core/shadcn-ui';
+import type { YdDropdownMenuItem } from '@ydsz-core/ydsz-ui';
 
 import { computed } from 'vue';
 
@@ -20,7 +20,7 @@ import {
   usePreferences,
 } from '@ydsz/preferences';
 
-import { YdDropdownRadioMenu, YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdDropdownRadioMenu, YdIconButton } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'AuthenticationLayoutToggle',

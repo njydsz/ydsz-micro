@@ -10,7 +10,7 @@ import type { TabOption } from '@ydsz/types';
 
 import { computed } from 'vue';
 
-import { YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/shadcn-ui';
+import { YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   tabs?: TabOption[];

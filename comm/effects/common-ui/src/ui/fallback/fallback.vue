@@ -14,7 +14,7 @@ import { useRouter } from "vue-router";
 import { ArrowLeft, RotateCw } from "@ydsz/icons";
 import { $t } from "@ydsz/locales";
 
-import { YdButton } from "@ydsz-core/shadcn-ui";
+import { YdButton } from "@ydsz-core/ydsz-ui";
 
 type Props = FallbackProps;
 

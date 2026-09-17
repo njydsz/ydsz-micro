@@ -19,7 +19,7 @@ import {
   YdDialogContent,
   YdDialogHeader,
   YdDialogTitle,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import { bindGlobalShortcut, type ShortcutDescriptor } from '../composables/use-keyboard-shortcut';
 

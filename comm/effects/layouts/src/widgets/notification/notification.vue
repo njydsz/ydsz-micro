@@ -16,7 +16,7 @@ import {
   YdIconButton,
   YdPopover,
   YdScrollbar,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import { useToggle } from '@vueuse/core';
 

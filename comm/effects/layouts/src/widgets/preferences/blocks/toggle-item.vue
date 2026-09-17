@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { SelectOption } from '@ydsz/types';
 
-import { YdToggleGroup, YdToggleGroupItem } from '@ydsz-core/shadcn-ui';
+import { YdToggleGroup, YdToggleGroupItem } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'PreferenceToggleItem',

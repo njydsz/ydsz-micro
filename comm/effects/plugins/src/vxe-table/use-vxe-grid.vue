@@ -24,7 +24,7 @@ import type { ExtendedVxeGridApi, VxeGridProps } from './types';
 
 import { cn } from '@ydsz/utils';
 
-import { YdHelpTooltip, YdLoading } from '@ydsz-core/shadcn-ui';
+import { YdHelpTooltip, YdLoading } from '@ydsz-core/ydsz-ui';
 
 import { VxeButton } from 'vxe-pc-ui';
 import { VxeGrid } from 'vxe-table';

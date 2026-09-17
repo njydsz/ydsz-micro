@@ -18,7 +18,7 @@
  */
 import { computed } from 'vue';
 
-import { YdBadge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ydsz-ui';
 
 type EpColor =
   | 'info'

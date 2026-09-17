@@ -16,7 +16,7 @@
  */
 import { computed, onMounted, watch } from 'vue';
 
-import { YdBadge } from '@ydsz-core/shadcn-ui';
+import { YdBadge } from '@ydsz-core/ydsz-ui';
 
 import { useDictStore } from '@ydsz/stores';
 

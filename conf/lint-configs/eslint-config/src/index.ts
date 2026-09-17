@@ -58,7 +58,7 @@ const ydszRules: Linter.RulesRecord = {
  * - 静态 import 与字符串字面量动态 import 均可拦截；模板字符串动态 import
  *   （注册表 `import(\`element-plus/es/${x}\`)`）不受本规则覆盖，由
  *   `vsh check-standard` 的 EP-EXIT 计数器兜底，两者缺一不可。
- * - 替代目标：组件 → @ydsz-core/shadcn-ui（kit）；命令式 API →
+ * - 替代目标：组件 → @ydsz-core/ydsz-ui（kit）；命令式 API →
  *   @ydsz/notification（showToast / compat 桥）；表单 → @ydsz-core/form-ui；
  *   弹层 → @ydsz-core/popup-ui；图标 → lucide-vue-next。
  */
@@ -67,7 +67,7 @@ const EP_IMPORT_PATTERNS = {
     {
       group: ['element-plus', 'element-plus/*', 'element-plus/**'],
       message:
-        'Element Plus 已退场：组件用 @ydsz-core/shadcn-ui，命令式 API 用 @ydsz/notification，表单用 form-ui，弹层用 popup-ui（见 docs/ep-exit-refactor-plan-2026-09-17-v3.md）',
+        'Element Plus 已退场：组件用 @ydsz-core/ydsz-ui，命令式 API 用 @ydsz/notification，表单用 form-ui，弹层用 popup-ui（见 docs/ep-exit-refactor-plan-2026-09-17-v3.md）',
     },
     {
       group: ['@element-plus/*'],

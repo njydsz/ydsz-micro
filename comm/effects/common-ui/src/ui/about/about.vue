@@ -16,7 +16,7 @@ import {
   YDSZ_PREVIEW_URL,
 } from '@ydsz/constants';
 
-import { YdRenderContent } from '@ydsz-core/shadcn-ui';
+import { YdRenderContent } from '@ydsz-core/ydsz-ui';
 
 import { Page } from '../../components';
 

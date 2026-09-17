@@ -15,7 +15,7 @@ import { SearchX, X } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 import { mapTree, traverseTreeValues, uniqueByField } from '@ydsz/utils';
 
-import { YdIcon, YdScrollbar } from '@ydsz-core/shadcn-ui';
+import { YdIcon, YdScrollbar } from '@ydsz-core/ydsz-ui';
 import { isHttpUrl } from '@ydsz-core/shared/utils';
 
 import { onKeyStroke, useLocalStorage, useThrottleFn } from '@vueuse/core';

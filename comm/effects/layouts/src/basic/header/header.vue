@@ -13,7 +13,7 @@ import { RotateCw } from '@ydsz/icons';
 import { preferences, usePreferences } from '@ydsz/preferences';
 import { useAccessStore } from '@ydsz/stores';
 
-import { YdFullScreen, YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdFullScreen, YdIconButton } from '@ydsz-core/ydsz-ui';
 
 import {
   GlobalSearch,

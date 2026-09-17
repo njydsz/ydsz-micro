@@ -25,7 +25,7 @@ import { AlertCircle, CheckCircle2, Info, Loader2 } from 'lucide-vue-next';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdButtonBase } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'YdNetworkStatus' });
 

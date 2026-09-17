@@ -8,14 +8,14 @@
 <script lang="ts" setup>
 import type { BreadcrumbStyleType } from '@ydsz/types';
 
-import type { IBreadcrumb } from '@ydsz-core/shadcn-ui';
+import type { IBreadcrumb } from '@ydsz-core/ydsz-ui';
 
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { YdBreadcrumbView } from '@ydsz-core/shadcn-ui';
+import { YdBreadcrumbView } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   hideWhenOnlyOne?: boolean;

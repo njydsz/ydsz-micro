@@ -16,7 +16,7 @@ import {
   YdCardTitle,
   YdCountToAnimator,
   YdIcon,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 interface Props {
   items?: AnalysisOverviewItem[];

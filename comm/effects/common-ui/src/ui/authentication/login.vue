@@ -18,7 +18,7 @@ import { useRouter } from 'vue-router';
 import { $t } from '@ydsz/locales';
 
 import { useYdForm } from '@ydsz-core/form-ui';
-import { YdButton, YdCheckbox } from '@ydsz-core/shadcn-ui';
+import { YdButton, YdCheckbox } from '@ydsz-core/ydsz-ui';
 
 import Title from './auth-title.vue';
 import ThirdPartyLogin from './third-party-login.vue';

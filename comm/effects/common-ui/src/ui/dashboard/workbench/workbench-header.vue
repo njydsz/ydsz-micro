@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { YdAvatar } from '@ydsz-core/shadcn-ui';
+import { YdAvatar } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   avatar?: string;

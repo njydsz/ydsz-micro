@@ -10,7 +10,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { YdTooltip, YdSwitch } from '@ydsz-core/shadcn-ui';
+import { YdTooltip, YdSwitch } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'PreferenceSwitchItem',

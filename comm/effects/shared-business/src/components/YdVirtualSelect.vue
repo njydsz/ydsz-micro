@@ -22,7 +22,7 @@ import {
   YdSelectItemBase,
   YdSelectTriggerBase,
   YdSelectValueBase,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 interface Option {
   label: string;

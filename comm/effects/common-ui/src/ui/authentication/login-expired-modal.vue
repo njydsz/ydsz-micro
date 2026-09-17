@@ -13,7 +13,7 @@ import { computed, watch } from 'vue';
 import { $t } from '@ydsz/locales';
 
 import { useYdModal } from '@ydsz-core/popup-ui';
-import { YdAvatar, Slot } from '@ydsz-core/shadcn-ui';
+import { YdAvatar, Slot } from '@ydsz-core/ydsz-ui';
 
 interface Props extends AuthenticationProps {
   avatar?: string;

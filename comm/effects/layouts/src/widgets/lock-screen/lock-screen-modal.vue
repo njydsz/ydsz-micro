@@ -14,7 +14,7 @@ import { $t } from '@ydsz/locales';
 
 import { useYdForm, z } from '@ydsz-core/form-ui';
 import { useYdModal } from '@ydsz-core/popup-ui';
-import { YdAvatar, YdButton } from '@ydsz-core/shadcn-ui';
+import { YdAvatar, YdButton } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   avatar?: string;

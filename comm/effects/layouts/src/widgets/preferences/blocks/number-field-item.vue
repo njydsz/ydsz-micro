@@ -19,7 +19,7 @@ import {
   YdNumberFieldIncrement,
   YdNumberFieldInput,
   YdTooltip,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',

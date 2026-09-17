@@ -14,7 +14,7 @@ import { useRoute } from 'vue-router';
 import { preferences } from '@ydsz/preferences';
 import { useTabbarStore } from '@ydsz/stores';
 
-import { YdSpinner } from '@ydsz-core/shadcn-ui';
+import { YdSpinner } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'IFrameRouterView' });
 

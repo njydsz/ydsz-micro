@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/shadcn-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   title: string;

@@ -13,7 +13,7 @@
  */
 import { Download } from 'lucide-vue-next';
 
-import { YdButtonBase } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 
 import {
   useExcelExport,

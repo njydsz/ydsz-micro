@@ -17,7 +17,7 @@ import { ref } from 'vue';
 import { YdUpload } from 'lucide-vue-next';
 
 import { showToast } from '@ydsz/notification';
-import { YdButtonBase } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import {

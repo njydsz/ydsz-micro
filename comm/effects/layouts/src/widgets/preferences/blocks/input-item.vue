@@ -12,7 +12,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { YdInput, YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdInput, YdTooltip } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'PreferenceSelectItem',

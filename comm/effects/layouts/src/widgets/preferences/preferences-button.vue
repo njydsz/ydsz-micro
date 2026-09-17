@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { Settings } from '@ydsz/icons';
 
-import { YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/ydsz-ui';
 
 import Preferences from './preferences.vue';
 

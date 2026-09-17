@@ -31,7 +31,7 @@ import {
   YdDropdownMenuTriggerBase,
   YdAvatar,
   YdIcon,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import { useMagicKeys, whenever } from '@vueuse/core';
 

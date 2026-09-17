@@ -13,7 +13,7 @@ import { Languages } from '@ydsz/icons';
 import { loadLocaleMessages } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 
-import { YdDropdownRadioMenu, YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdDropdownRadioMenu, YdIconButton } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'LanguageToggle',

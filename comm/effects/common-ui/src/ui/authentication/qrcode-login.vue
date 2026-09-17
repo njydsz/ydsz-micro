@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router';
 
 import { $t } from '@ydsz/locales';
 
-import { YdButton } from '@ydsz-core/shadcn-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 import { useQRCode } from '@vueuse/integrations/useQRCode';
 

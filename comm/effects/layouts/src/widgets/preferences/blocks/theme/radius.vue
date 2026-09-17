@@ -6,7 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { YdToggleGroup, YdToggleGroupItem } from '@ydsz-core/shadcn-ui';
+import { YdToggleGroup, YdToggleGroupItem } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'PreferenceColorMode',

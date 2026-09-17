@@ -12,7 +12,7 @@ import { useSlots } from 'vue';
 
 import { CircleHelp } from '@ydsz/icons';
 
-import { YdCheckButtonGroup, YdTooltip } from '@ydsz-core/shadcn-ui';
+import { YdCheckButtonGroup, YdTooltip } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'PreferenceCheckboxItem',

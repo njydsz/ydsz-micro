@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
 
-import { YdButton } from '@ydsz-core/shadcn-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   /**

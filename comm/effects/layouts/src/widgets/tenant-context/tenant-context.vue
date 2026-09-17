@@ -24,7 +24,7 @@ import {
   YdDropdownMenuTriggerBase,
   YdIcon,
   YdBadge,
-} from '@ydsz-core/shadcn-ui';
+} from '@ydsz-core/ydsz-ui';
 
 import { useTenant, type TenantInfo } from '@ydsz/shared-business';
 

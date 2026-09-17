@@ -23,7 +23,7 @@ import { computed, onErrorCaptured, ref } from 'vue';
 
 import { AlertCircle, AlertTriangle, Info } from 'lucide-vue-next';
 
-import { YdButtonBase, YdEmptyState } from '@ydsz-core/shadcn-ui';
+import { YdButtonBase, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { reportError } from '@ydsz/monitor';
 
 import { createLogger } from '@ydsz-core/shared/utils';

@@ -15,7 +15,7 @@ import {
   updatePreferences,
 } from '@ydsz/preferences';
 
-import { YdIconButton } from '@ydsz-core/shadcn-ui';
+import { YdIconButton } from '@ydsz-core/ydsz-ui';
 
 defineOptions({
   name: 'AuthenticationColorToggle',

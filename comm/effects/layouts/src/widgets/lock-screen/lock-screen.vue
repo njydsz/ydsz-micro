@@ -14,7 +14,7 @@ import { storeToRefs, useTokenStore } from '@ydsz/stores';
 
 import { useScrollLock } from '@ydsz-core/composables';
 import { useYdForm, z } from '@ydsz-core/form-ui';
-import { YdAvatar, YdButton } from '@ydsz-core/shadcn-ui';
+import { YdAvatar, YdButton } from '@ydsz-core/ydsz-ui';
 
 import { useDateFormat, useNow } from '@vueuse/core';
 

@@ -22,7 +22,7 @@ import {
 } from "@ydsz/icons";
 import { isSentryInitialized } from "@ydsz/monitor/sentry";
 
-import { YdButton } from "@ydsz-core/shadcn-ui";
+import { YdButton } from "@ydsz-core/ydsz-ui";
 import {
   YdDialog,
   YdDialogContent,
@@ -31,8 +31,8 @@ import {
   YdDialogHeader,
   YdDialogTitle,
   YdDialogTrigger,
-} from "@ydsz-core/shadcn-ui/ui/dialog";
-import { YdTextarea } from "@ydsz-core/shadcn-ui/ui/textarea";
+} from "@ydsz-core/ydsz-ui/ui/dialog";
+import { YdTextarea } from "@ydsz-core/ydsz-ui/ui/textarea";
 
 /**
  * 组件属性
