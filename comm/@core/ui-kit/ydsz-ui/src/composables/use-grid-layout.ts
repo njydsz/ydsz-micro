@@ -128,25 +128,15 @@ export interface UseGridProviderOptions {
 export function useGridProvider(
   options: UseGridProviderOptions = {},
 ): GridContext {
-  const { columns = 12, rowGap = 16, columnGap = 16, breakpoints } = options;
-  const bp: GridBreakpoints = { ...DEFAULT_BREAKPOINTS, ...breakpoints };
+  const { columns = 12, rowGap = 16, columnGap = 16 } = options;
 
   const currentBreakpoint = ref<GridBreakpoint>('md');
 
-  /** 根据当前断点计算列数 */
-  const computedCols = ref(12);
-
-  // 解析列配置
-  function resolveCols(): void {
-    if (typeof columns === 'number') {
-      computedCols.value = columns;
-    } else if (columns && typeof columns === 'object') {
-      const cur = currentBreakpoint.value;
-      computedCols.value = columns[cur] ?? columns.md ?? 12;
-    } else {
-      computedCols.value = 12;
-    }
-  }
+  /** 根据列配置计算初始列数 */
+  const initialCols = typeof columns === 'number'
+    ? columns
+    : (columns?.md ?? 12);
+  const computedCols = ref(initialCols);
 
   // 处理间距为字符串或数字
   function resolveGap(value: number | string): string {
