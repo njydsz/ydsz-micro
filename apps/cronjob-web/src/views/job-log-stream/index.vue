@@ -163,23 +163,9 @@ function statusText(status: ConnectStatus): string {
               </ElText>
             </div>
             <ElSpace>
-              <ElButton
-                :disabled="!logId.trim()"
-                type="primary"
-                size="small"
-                @click="handleConnect"
-              >
-                连接
-              </ElButton>
-              <ElButton
-                :disabled="connectStatus === 'disconnected'"
-                type="danger"
-                size="small"
-                @click="handleDisconnect"
-              >
-                断开
-              </ElButton>
-              <ElButton size="small" @click="handleClear">清空</ElButton>
+              <Button size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</Button>
+              <Button size="sm" variant="destructive" :disabled="connectStatus === 'disconnected'" @click="handleDisconnect">断开</Button>
+              <Button size="sm" variant="ghost" @click="handleClear">清空</Button>
             </ElSpace>
           </div>
         </template>
@@ -196,9 +182,7 @@ function statusText(status: ConnectStatus): string {
             />
           </ElFormItem>
           <ElFormItem>
-            <ElButton type="primary" plain :disabled="!logId.trim()" @click="handleConnect">
-              连接
-            </ElButton>
+            <Button size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</Button>
           </ElFormItem>
         </ElForm>
       </ElCard>

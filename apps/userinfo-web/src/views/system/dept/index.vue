@@ -18,7 +18,8 @@
  */
 import { Page, useYDSZModal } from '@ydsz/common-ui';
 
-import { ElButton, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { Badge, Button } from '@ydsz-core/shadcn-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -104,8 +105,8 @@ async function handleDelete(row: DepartmentTreeVO) {
       <div class="mb-4 flex items-center justify-between">
         <h3 class="text-lg font-semibold">{{ t('dept.deptManagement') }}</h3>
         <div class="flex gap-2">
-          <ElButton @click="loadData">{{ t('page.refresh') }}</ElButton>
-          <ElButton type="primary" @click="handleAdd()">{{ t('dept.addTopDept') }}</ElButton>
+          <Button variant="ghost" @click="loadData">{{ t('page.refresh') }}</Button>
+          <Button variant="default" @click="handleAdd()">{{ t('dept.addTopDept') }}</Button>
         </div>
       </div>
       <ElTable
@@ -122,22 +123,22 @@ async function handleDelete(row: DepartmentTreeVO) {
         <ElTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
         <ElTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
-            <ElTag :type="isEnabled(row.status) ? 'success' : 'danger'" size="small">
+            <Badge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : ''" class="text-xs">
               {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
-            </ElTag>
+            </Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn :label="t('page.operation')" width="240" fixed="right">
           <template #default="{ row }">
-            <ElButton size="small" link type="primary" @click="handleAdd(row.id)">
+            <Button size="sm" variant="link" @click="handleAdd(row.id)">
               {{ t('dept.addSubDept') }}
-            </ElButton>
-            <ElButton size="small" link type="primary" @click="handleEdit(row)">
+            </Button>
+            <Button size="sm" variant="link" @click="handleEdit(row)">
               {{ t('page.edit') }}
-            </ElButton>
-            <ElButton size="small" link type="danger" @click="handleDelete(row)">
+            </Button>
+            <Button size="sm" variant="link" class="text-destructive" @click="handleDelete(row)">
               {{ t('page.delete') }}
-            </ElButton>
+            </Button>
           </template>
         </ElTableColumn>
       </ElTable>
