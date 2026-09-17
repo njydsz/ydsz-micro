@@ -13,15 +13,47 @@
  * @since 26.09.17
  */
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, afterEach } from 'vitest';
 
 import { nextTick } from 'vue';
 
 import { mount } from '@vue/test-utils';
 
+import { useSimpleLocale } from '@ydsz-core/composables';
+
 import YdDatePicker from './YdDatePicker.vue';
 
 describe('YdDatePicker', () => {
+  const { setSimpleLocale } = useSimpleLocale();
+
+  afterEach(() => {
+    // 复位语言，避免影响其他用例的中文断言
+    setSimpleLocale('zh-CN');
+  });
+
+  it('en-US 语言下默认 placeholder 应为英文词条', async () => {
+    setSimpleLocale('en-US');
+    await nextTick();
+    const wrapper = mount(YdDatePicker, {
+      attachTo: document.body,
+    });
+    const input = wrapper.find('input');
+    expect(input.attributes('placeholder')).toBe('Select date');
+    wrapper.unmount();
+  });
+
+  it('en-US 下 range 模式默认 placeholder 应为英文词条', async () => {
+    setSimpleLocale('en-US');
+    await nextTick();
+    const wrapper = mount(YdDatePicker, {
+      props: { type: 'range' },
+      attachTo: document.body,
+    });
+    const input = wrapper.find('input');
+    expect(input.attributes('placeholder')).toBe('Start date ~ End date');
+    wrapper.unmount();
+  });
+
   it('应能挂载并渲染 input 元素', () => {
     const wrapper = mount(YdDatePicker, {
       attachTo: document.body,

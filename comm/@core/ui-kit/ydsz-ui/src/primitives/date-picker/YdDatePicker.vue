@@ -25,6 +25,8 @@ import { computed, ref } from 'vue';
 
 import { onClickOutside, useElementBounding, useVModel } from '@vueuse/core';
 
+import { useSimpleLocale } from '@ydsz-core/composables';
+
 import { cn } from '@ydsz-core/shared/utils';
 
 import { Calendar as CalendarIcon } from 'lucide-vue-next';
@@ -41,7 +43,6 @@ const props = withDefaults(
   }>(),
   {
     disabled: false,
-    placeholder: '选择日期',
     type: 'date',
   },
 );
@@ -111,6 +112,31 @@ onClickOutside(
 /** 是否为 range 模式 */
 const isRange = computed(() => props.type === 'range');
 
+const { $t, currentLocale } = useSimpleLocale();
+
+/** 英文月份名（用于 en-US 下的月份标题） */
+const EN_MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+/**
+ * 实际生效的占位文案：优先用调用方传入的 placeholder，否则按类型回退到国际化词条。
+ */
+const effectivePlaceholder = computed(
+  () => props.placeholder ?? $t.value(isRange.value ? 'selectDateRange' : 'selectDate'),
+);
+
 /** 输入框展示值：单模式直接回显，range 模式拼成 `开始 ~ 结束` */
 const displayValue = computed(() => {
   if (!isRange.value) {
@@ -155,11 +181,14 @@ function resolveInitialMonth(value?: DatePickerValue): Date {
 /** 当前显示的月份（锚定该月 1 号） */
 const displayMonth = ref<Date>(resolveInitialMonth(props.modelValue));
 
-/** 月份标题 */
+/** 月份标题：中文 `X 年 Y 月`，英文 `MonthName YYYY` */
 const monthLabel = computed(() => {
   const year = displayMonth.value.getFullYear();
-  const month = displayMonth.value.getMonth() + 1;
-  return `${year} 年 ${month} 月`;
+  const month = displayMonth.value.getMonth();
+  if (currentLocale.value === 'en-US') {
+    return `${EN_MONTHS[month]} ${year}`;
+  }
+  return `${year} 年 ${month + 1} 月`;
 });
 
 /** 上一个月 */
@@ -276,13 +305,13 @@ function toggle(): void {
           )
         "
         :disabled="disabled"
-        :placeholder="isRange ? '开始日期 ~ 结束日期' : placeholder"
+        :placeholder="effectivePlaceholder"
         readonly
         type="text"
         @click="toggle"
       />
       <button
-        :aria-label="'打开日历'"
+        :aria-label="$t('openCalendar')"
         :disabled="disabled"
         class="text-muted-foreground hover:text-foreground absolute inset-y-0 right-0 flex items-center pr-3 disabled:opacity-50"
         type="button"
@@ -309,7 +338,7 @@ function toggle(): void {
           <!-- 月份导航 -->
           <div class="mb-2 flex items-center justify-between">
             <button
-              aria-label="上一个月"
+              :aria-label="$t('previousMonth')"
               class="hover:bg-accent hover:text-accent-foreground rounded-md p-1"
               type="button"
               @click="prevMonth"
@@ -326,7 +355,7 @@ function toggle(): void {
             </button>
             <span class="text-sm font-medium">{{ monthLabel }}</span>
             <button
-              aria-label="下一个月"
+              :aria-label="$t('nextMonth')"
               class="hover:bg-accent hover:text-accent-foreground rounded-md p-1"
               type="button"
               @click="nextMonth"

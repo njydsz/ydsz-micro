@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YDSZ Micro Kernel DevTools",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "YDSZ 运行时调试面板 — 监控子应用加载、keepAlive、状态、通信",
   "permissions": ["activeTab", "storage", "tabs", "scripting"],
   "host_permissions": [
@@ -9,9 +9,9 @@
     "http://127.0.0.1:*/*",
     "https://*.his.example.com/*"
   ],
-  "devtools_page": "devtools/devtools.html",
+  "devtools_page": "dist/devtools/devtools.html",
   "background": {
-    "service_worker": "background.js",
+    "service_worker": "dist/background.js",
     "type": "module"
   },
   "content_scripts": [
@@ -21,18 +21,18 @@
         "http://127.0.0.1:*/*",
         "https://*.his.example.com/*"
       ],
-      "js": ["content-script.js"],
+      "js": ["dist/content-script.js"],
       "run_at": "document_start",
       "all_frames": true
     }
   ],
   "action": {
-    "default_popup": "popup/popup.html",
+    "default_popup": "dist/popup/popup.html",
     "default_title": "YDSZ Micro Kernel"
   },
   "web_accessible_resources": [
     {
-      "resources": ["kernel-bridge.js"],
+      "resources": ["dist/kernel-bridge.js"],
       "matches": [
         "http://localhost:*/*",
         "http://127.0.0.1:*/*",

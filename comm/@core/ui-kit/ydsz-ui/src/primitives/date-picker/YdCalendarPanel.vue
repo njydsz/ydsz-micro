@@ -12,6 +12,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { useSimpleLocale } from '@ydsz-core/composables';
+
 import { cn } from '@ydsz-core/shared/utils';
 
 const props = defineProps<{
@@ -33,8 +35,14 @@ const emit = defineEmits<{
   (e: 'clearHover'): void;
 }>();
 
-/** 表头：周日~周六 */
-const WEEK_DAYS = ['日', '一', '二', '三', '四', '五', '六'];
+const { currentLocale } = useSimpleLocale();
+
+/** 星期表头：周日~周六，按语言切换（zh 全角单字，en 缩写） */
+const WEEK_DAYS = computed(() =>
+  currentLocale.value === 'en-US'
+    ? ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+    : ['日', '一', '二', '三', '四', '五', '六'],
+);
 
 /** 把日期规范化为 'YYYY-MM-DD' 键，供比较与高亮 */
 function toKey(date: Date): string {
