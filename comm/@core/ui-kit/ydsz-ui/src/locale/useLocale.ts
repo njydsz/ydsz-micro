@@ -102,6 +102,10 @@ export function useLocale(options: UseLocaleOptions = {}): {
           ...BUILTIN_MESSAGES['en-US'],
           ...(messages['en-US'] ?? {}),
         } as LocaleMessages,
+        'ja-JP': {
+          ...BUILTIN_MESSAGES['ja-JP'],
+          ...(messages['ja-JP'] ?? {}),
+        } as LocaleMessages,
         'zh-CN': {
           ...BUILTIN_MESSAGES['zh-CN'],
           ...(messages['zh-CN'] ?? {}),
