@@ -30,6 +30,25 @@ export type { ExceptionSeverity } from '@ydsz/request';
 export { showToast } from './use-toast';
 export { default as ToastProvider } from './ToastProvider.vue';
 
+/**
+ * EP 命令式 API 兼容对象。
+ *
+ * <p>业务侧将原 `from 'element-plus'` 替换为 `from '@ydsz/notification'`，
+ * 即可零改动迁移 ElMessage / ElMessageBox / ElNotification 三种调用形式。
+ * 底层实现已切换为 shadcn-ui + popup-ui + showToast，
+ * 待 EP 全量退出后由 P2-1 决策保留或替换为原生 showToast/confirm/ydszAlert。
+ */
+export { ElMessage, ElMessageBox, ElNotification } from './el-bridge';
+export type {
+  ConfirmOptions,
+  MessageArg,
+  MessageOptions,
+  MessageType,
+  MessageBoxReturnValue,
+  NotificationOptions,
+  PromptOptions,
+} from './el-bridge';
+
 /** Toast 时长常量（毫秒） */
 const DURATION = {
   /** INFO: 2s 自动关闭 */
