@@ -16,6 +16,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { ydszConfirm, ydszPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -83,18 +84,29 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 新增断点（规则编码） */
 async function handleAddBreakpoint() {
   try {
-    const { value } = await ElMessageBox.prompt(t('createBreakpointPrompt'), t('addBreakpoint'), {
-      confirmButtonText: t('confirmBtn'),
-      cancelButtonText: t('cancelBtn'),
-      inputPlaceholder: 'ruleCode',
-      inputPattern: /\S+/,
-      inputErrorMessage: t('ruleCodeEmptyError'),
+    const value = await ydszPrompt<string>({
+      content: t('createBreakpointPrompt'),
+      confirmText: t('confirmBtn'),
+      cancelText: t('cancelBtn'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: 'ruleCode',
+      },
+      beforeClose: ({ isConfirm, value: inputValue }) => {
+        if (!isConfirm) return;
+        if (!inputValue?.trim()) {
+          showToast.warning(t('ruleCodeEmptyError'));
+          return false;
+        }
+      },
     });
-    await addBreakpoint({ ruleCode: value.trim() });
+    await addBreakpoint({ ruleCode: value?.trim() });
     showToast.success(t('breakpointAddSuccess'));
     gridApi.query();
   } catch (error) {
-    logger.warn('新增断点失败: {}', error);
+    if (error !== undefined && error !== null) {
+      logger.warn('新增断点失败: {}', error);
+    }
     // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
@@ -106,7 +118,7 @@ async function handleRemoveBreakpoint(row: DebugRow) {
     return;
   }
   try {
-    await ydszConfirm(t('confirmDeleteBreakpoint'), { title: t('deleteConf'), type: 'warning' });
+    await ydszConfirm(t('confirmDeleteBreakpoint'), t('deleteConf'), { icon: 'warning' });
     await removeBreakpoint({ breakpointId });
     showToast.success(t('deleteSuccess'));
     gridApi.query();
@@ -131,20 +143,22 @@ async function loadSessions() {
 /** 创建调试会话 */
 async function handleCreateSession() {
   try {
-    const { value } = await ElMessageBox.prompt(
-      t('createSessionPrompt'),
-      t('createSession'),
-      {
-        confirmButtonText: t('confirmBtn'),
-        cancelButtonText: t('cancelBtn'),
-        inputPlaceholder: 'ruleCode',
+    const value = await ydszPrompt<string>({
+      content: t('createSessionPrompt'),
+      confirmText: t('confirmBtn'),
+      cancelText: t('cancelBtn'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: 'ruleCode',
       },
-    );
+    });
     await createSession(value?.trim() ? { ruleCode: value.trim() } : {});
     showToast.success(t('sessionCreateSuccess'));
     await loadSessions();
   } catch (error) {
-    logger.warn('创建调试会话失败: {}', error);
+    if (error !== undefined && error !== null) {
+      logger.warn('创建调试会话失败: {}', error);
+    }
     // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }

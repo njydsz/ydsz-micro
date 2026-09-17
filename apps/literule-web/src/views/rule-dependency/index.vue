@@ -19,7 +19,8 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdAlertBanner, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdTabsContent, YdTabs, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import { YdAlertBanner, YdBadge, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelect, YdSelectItem, YdSwitch, YdTable, YdTableColumn, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
+import { ydszAlert } from '@ydsz-core/popup-ui';
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -120,7 +121,7 @@ async function loadCascadingPreview(ruleCode: string): Promise<void> {
 /** ========== 操作回调 ========== */
 async function handleSearch(): Promise<void> {
   if (!searchRuleCode.value.trim()) {
-    ElMessageBox.alert('请输入规则编码', '提示', { type: 'warning' });
+    await ydszAlert({ content: '请输入规则编码', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   addForm.ruleCode = searchRuleCode.value.trim();
@@ -129,7 +130,7 @@ async function handleSearch(): Promise<void> {
 
 function showAddDialog(): void {
   if (!searchRuleCode.value.trim()) {
-    ElMessageBox.alert('请先搜索目标规则后再添加依赖', '提示', { type: 'warning' });
+    await ydszAlert({ content: '请先搜索目标规则后再添加依赖', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   addForm.ruleCode = searchRuleCode.value.trim();
@@ -142,7 +143,7 @@ function showAddDialog(): void {
 
 async function handleAddDependency(): Promise<void> {
   if (!addForm.dependsOnRuleCode?.trim()) {
-    ElMessageBox.alert('请选择被依赖规则', '提示', { type: 'warning' });
+    await ydszAlert({ content: '请选择被依赖规则', title: '提示', icon: 'warning', confirmText: '确定' });
     return;
   }
   try {
