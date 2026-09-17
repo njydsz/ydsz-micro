@@ -1,7 +1,7 @@
 <!--
- * 表单树选择：Popover + YDSZTree 组合（ElTreeSelect 等价物）。
+ * 表单树选择：Popover + YdTree 组合（ElTreeSelect 等价物）。
  *
- * YDSZTree 不假定数据结构（labelField/valueField/childrenField 可配），
+ * YdTree 不假定数据结构（labelField/valueField/childrenField 可配），
  * 本组件在其上补齐「触发器 + 弹层 + 选中回显」的表单形态；
  * 单选选中即收起，多选保持弹层以便连续勾选。
  *
@@ -16,7 +16,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  YDSZTree,
+  YdTree,
 } from '@ydsz-core/shadcn-ui';
 import { ChevronDown, CircleX } from 'lucide-vue-next';
 
@@ -99,7 +99,7 @@ function handleClear(): void {
 /**
  * 树节点更新回调：单选时收起弹层。
  *
- * @param value YDSZTree 回写的新值
+ * @param value YdTree 回写的新值
  */
 function handleUpdate(value: string | number | Array<string | number>): void {
   model.value = value;
@@ -141,7 +141,7 @@ function handleUpdate(value: string | number | Array<string | number>): void {
       </button>
     </PopoverTrigger>
     <PopoverContent :align="'start'" class="w-[--radix-popover-trigger-width] p-2">
-      <YDSZTree
+      <YdTree
         :children-field="props.childrenField"
         :label-field="props.labelField"
         :multiple="props.multiple"

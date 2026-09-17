@@ -47,7 +47,7 @@ export {
   YdPinInput,
   YdSelect,
   YdSpinner,
-  YDSZTree,
+  YdTree,
 } from '@ydsz-core/shadcn-ui';
 
 export type { FlattenedItem } from '@ydsz-core/shadcn-ui';

@@ -23,10 +23,10 @@
     "@ydsz-core/shared": "workspace:*",
     "@ydsz/common-ui": "workspace:*",
     "@ydsz/locales": "workspace:*",
+    "@ydsz/notification": "workspace:*",
     "@ydsz/plugins": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "@ydsz/types": "workspace:*",
-    "element-plus": "^2.7.0",
     "vue": "^3.4.0",
     "vue-i18n": "catalog:",
     "xlsx": "catalog:"

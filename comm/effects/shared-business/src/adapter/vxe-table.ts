@@ -4,7 +4,9 @@
  * 由各子应用 @ydsz/shared-business 统一复用，消除 9 份重复代码。
  * 子应用如需扩展自定义 renderer，可在此文件内补充，或复制为应用级 adapter。
  *
- * @path comm\effects\shared-business\src\adapter\vxe-table.ts
+ * 使用原生 img/button 标签替代 EP ElImage / ElButton，零 element-plus 依赖。
+ *
+ * @path comm/effects/shared-business/src/adapter/vxe-table.ts
  * @author ydsz-team
  * @since 1.1.0
  */
@@ -13,8 +15,6 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { h } from 'vue';
 
 import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
-
-import { ElButton, ElImage } from 'element-plus';
 
 import { useYDSZForm } from './form';
 
@@ -53,18 +53,50 @@ setupYDSZVxeTable({
       renderTableDefault(_renderOpts, params) {
         const { column, row } = params;
         const src = row[column.field];
-        return h(ElImage, { src, previewSrcList: [src] });
+        return h('img', {
+          src,
+          alt: '',
+          style: {
+            maxWidth: '60px',
+            maxHeight: '40px',
+            objectFit: 'cover',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          },
+          onClick: () => {
+            // 简易 preview：在新窗口打开
+            if (src) window.open(src, '_blank');
+          },
+        });
       },
     });
 
     // 表格配置项可以用 cellRender: { name: 'CellLink' },
+    // 使用原生 button（link 样式）替代 EP ElButton
     vxeUI.renderer.add('CellLink', {
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
         return h(
-          ElButton,
-          { size: 'small', link: true },
-          { default: () => props?.text },
+          'button',
+          {
+            type: 'button',
+            style: {
+              background: 'transparent',
+              border: 'none',
+              color: 'hsl(var(--brand-500, #3b82f6))',
+              cursor: 'pointer',
+              fontSize: 'inherit',
+              padding: 0,
+            },
+            onClick: () => {
+              if (props?.handler && typeof props.handler === 'function') {
+                props.handler(props?.row);
+              } else if (props?.url) {
+                window.open(props.url, '_blank');
+              }
+            },
+          },
+          props?.text ?? '',
         );
       },
     });

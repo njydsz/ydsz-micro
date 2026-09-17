@@ -1,7 +1,7 @@
 /**
  * use-excel-export 组合式函数 — 统一 Excel 导出
  *
- * @path comm\effects\shared-business\src\composables\use-excel-export.ts
+ * @path comm/effects/shared-business/src/composables/use-excel-export.ts
  * @author ydsz-team
  * @since 1.2.0
  *
@@ -9,15 +9,17 @@
  * 基于 SheetJS(xlsx) 实现的客户端 Excel 导出，特性：
  * - 统一的列 schema（key/label/width/formatter/dataType）
  * - 大数据量（> 5000 行）自动切分并使用 Web Worker 生成，避免阻塞主线程
- * - 导出进度通过 ElNotification 提示（大文件场景）
+ * - 导出进度通过 showToast 替代原 ElNotification 提示（大文件场景）
  * - 内置 i18n 错误码支持
  *
  * 超过 10 万行的大批量数据由调用方决定是否使用 Worker，后端导出是更优方案。
+ *
+ * 零 element-plus 依赖 —— 使用 @ydsz/notification 的 showToast。
  */
 
 import { ref } from 'vue';
 
-import { ElNotification } from 'element-plus';
+import { showToast } from '@ydsz/notification';
 import { useI18n } from 'vue-i18n';
 
 /** xlsx 库待安装时保留 import 路径，编译即运行时报错提醒 */
@@ -111,7 +113,8 @@ export interface ExcelExportOptions extends ExcelExportParams {
 
 // ============================================================
 // 常量
-// /** 默认列宽（字符数） */
+// ============================================================
+/** 默认列宽（字符数） */
 const DEFAULT_COL_WIDTH = 12;
 
 /** 启用 Worker 的行数阈值 */
@@ -124,7 +127,7 @@ const WORKER_THRESHOLD = 5000;
 /**
  * 统一 Excel 导出 composable
  *
- * 封装 SheetJS 生成、分片、Worker、进度事件与 ElNotification 提示。
+ * 封装 SheetJS 生成、分片、Worker、进度事件与 showToast 进度提示。
  *
  * @returns 导出工具方法与响应式状态
  * @returns exportExcel - 执行导出
@@ -160,8 +163,16 @@ export function useExcelExport() {
   /** 最近一次导出错误 */
   const error = ref<Error | null>(null);
 
-  /** ElNotification 实例引用，用于手动关闭 */
-  const notificationRef = ref<ReturnType<typeof ElNotification> | null>(null);
+  /**
+   * showToast 实例引用，用于手动更新与关闭。
+   *
+   * <p>showToast 返回的实例提供 `update` 与 `close` 方法，
+   * 与原 ElNotification 实例契约对齐。
+   */
+  const toastInstance = ref<{
+    update: (options: Record<string, unknown>) => void;
+    close: () => void;
+  } | null>(null);
 
   /**
    * 根据 dataType 转换单元格值
@@ -217,7 +228,7 @@ export function useExcelExport() {
 
     const worksheet = XLSX.utils.aoa_to_sheet(aoa);
     worksheet['!cols'] = columns.map((col) => ({
-      wch: (col.width ?? DEFAULT_COL_WIDTH),
+      wch: col.width ?? DEFAULT_COL_WIDTH,
     }));
 
     const workbook = XLSX.utils.book_new();
@@ -299,7 +310,7 @@ export function useExcelExport() {
    * - <= 5000 行：主线程同步导出
    * - > 5000 行：异步 Worker 导出（可通过 `useWorker` 参数覆盖）
    *
-   * 大文件导出期间会显示 ElNotification 进度提示，完成或失败时自动关闭。
+   * 大文件导出期间会显示 showToast 进度提示，完成或失败时自动关闭。
    *
    * @param options - 导出完整配置（schema + params + callbacks）
    *
@@ -321,14 +332,11 @@ export function useExcelExport() {
     const { useWorker, data } = options;
     const shouldUseWorker = useWorker ?? (data.length > WORKER_THRESHOLD);
 
-    // 大文件场景显示通知
+    // 大文件场景：通过 showToast 提示进度（替代原 ElNotification）
     if (shouldUseWorker) {
-      notificationRef.value = ElNotification({
-        title: t('excel.exporting'),
-        message: `${t('excel.preparing')}…`,
-        type: 'info',
+      toastInstance.value = showToast(t('excel.exporting'), {
+        description: `${t('excel.preparing')}…`,
         duration: 0,
-        position: 'bottom-right',
       });
     }
 
@@ -339,22 +347,22 @@ export function useExcelExport() {
           onProgress: (p) => {
             progress.value = p;
             options.onProgress?.(p);
-            notificationRef.value?.update({
-              message: `${t('excel.exporting')}… ${p}%`,
+            toastInstance.value?.update({
+              description: `${t('excel.exporting')}… ${p}%`,
             });
           },
           onComplete: () => {
             options.onComplete?.();
-            notificationRef.value?.close();
-            notificationRef.value = null;
+            toastInstance.value?.close();
+            toastInstance.value = null;
           },
           onError: (err) => {
             options.onError?.(err);
-            notificationRef.value?.close();
-            notificationRef.value = null;
-            ElNotification.error({
+            toastInstance.value?.close();
+            toastInstance.value = null;
+            showToast.error({
               title: t('excel.exportFailed'),
-              message: err.message,
+              description: err.message,
             });
           },
         });

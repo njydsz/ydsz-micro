@@ -1,5 +1,7 @@
 <!--
- * keyboard-help 通用组件 — 快捷键帮助面板
+ * 快捷键帮助面板 — 按 `?` 或配置键唤起，展示已注册快捷键
+ *
+ * 使用自研 shadcn Dialog + Badge，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\keyboard-help.vue
  * @author ydsz-team
@@ -11,9 +13,17 @@
  */
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
-import { ElDialog, ElTag } from 'element-plus';
+import {
+  Badge,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@ydsz-core/shadcn-ui';
 
 import { bindGlobalShortcut, type ShortcutDescriptor } from '../composables/use-keyboard-shortcut';
+
+defineOptions({ name: 'KeyboardHelp' });
 
 interface Props {
   /** 快捷键列表 */
@@ -30,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 const visible = ref(false);
 let unbindFn: (() => void) | null = null;
 
-/** 修饰键 → 展示文案 */
+/** 修饰键 -> 展示文案 */
 function formatShortcut(desc: ShortcutDescriptor): string {
   const parts: string[] = [];
   if (desc.modifiers?.includes('ctrl')) parts.push('Ctrl');
@@ -63,40 +73,58 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <el-dialog v-model="visible" title="键盘快捷键" width="480px" append-to-body>
-    <div class="keyboard-help">
+  <Dialog v-model:open="visible">
+    <DialogContent class="keyboard-help-modal sm:max-w-md">
+      <DialogHeader>
+        <DialogTitle>键盘快捷键</DialogTitle>
+      </DialogHeader>
+
       <div
-        v-for="item in formatted"
-        :key="`${item.display}-${item.label}`"
-        class="keyboard-help__row"
+        v-if="formatted.length > 0"
+        class="keyboard-help"
       >
-        <span class="keyboard-help__label">{{ item.label }}</span>
-        <el-tag size="small" effect="plain">{{ item.display }}</el-tag>
+        <div
+          v-for="item in formatted"
+          :key="`${item.display}-${item.label}`"
+          class="keyboard-help__row"
+        >
+          <span class="keyboard-help__label">{{ item.label }}</span>
+          <Badge variant="outline">
+            {{ item.display }}
+          </Badge>
+        </div>
       </div>
-      <div v-if="formatted.length === 0" class="keyboard-help__empty">
+      <div
+        v-else
+        class="keyboard-help__empty"
+      >
         暂无快捷键配置
       </div>
-    </div>
-  </el-dialog>
+    </DialogContent>
+  </Dialog>
 </template>
 
 <style scoped>
+.keyboard-help-modal {
+  max-width: 480px;
+}
+
 .keyboard-help__row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 8px 4px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid hsl(var(--border-subtle, #f0f0f0));
 }
 
 .keyboard-help__label {
   font-size: 14px;
-  color: #303133;
+  color: hsl(var(--txt-primary, #303133));
 }
 
 .keyboard-help__empty {
   text-align: center;
-  color: #909399;
+  color: hsl(var(--txt-tertiary, #909399));
   padding: 24px 0;
   font-size: 13px;
 }

@@ -10,7 +10,8 @@
  * 对标 Vben Admin useTable 的能力子集，让标准 CRUD 页面少于 200 行。
  * v4.0.1: 内置 i18n 支持，消除硬编码中文。
  *
- * 使用 @ydsz/notification 的 ElMessage / ElMessageBox EP 兼容层，零 element-plus 依赖。
+ * 使用 @ydsz/notification 的 ElMessage / ElMessageBox 兼容导出（el-bridge），
+ * 运行时零 element-plus 依赖；P2-1 全量退场评估后统一切换原生 showToast / confirm。
  */
 import { computed, ref } from 'vue';
 
