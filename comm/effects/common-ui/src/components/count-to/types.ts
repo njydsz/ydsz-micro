@@ -27,7 +27,7 @@ export const TransitionPresetsKeys = Object.keys(
 ) as TransitionPresets[];
 
 /**
- * 数字滚动动画组件 `CountTo` 的 Props。
+ * 数字滚动动画组件 `YdCountTo` 的 Props。
  *
  * @remarks
  * 组件把数值拆成「前缀 / 整数部分 / 小数点 / 小数部分 / 后缀」五段分别渲染，

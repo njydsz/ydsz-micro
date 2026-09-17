@@ -3,7 +3,7 @@
  *
  * <p>提供可视化的图标选择功能，支持搜索过滤、网格展示、点击选择。
  *
- * @path apps\userinfo-web\src\views\system\menu\components\IconPicker.vue
+ * @path apps\userinfo-web\src\views\system\menu\components\YdIconPicker.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -18,7 +18,7 @@
 import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/shadcn-ui';
 import { computed, ref } from 'vue';
 
-defineOptions({ name: 'IconPicker' });
+defineOptions({ name: 'YdIconPicker' });
 
 const emit = defineEmits<{
   select: [icon: string];

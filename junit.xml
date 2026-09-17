@@ -1,1 +1,337 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="149" failures="0" errors="0" time="0.4311609">
+    <testsuite name="comm/utils/src/retry.test.ts" timestamp="2026-09-17T04:52:08.764Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.005329">
+        <testcase classname="comm/utils/src/retry.test.ts" name="calculateRetryDelay &gt; 固定延迟模式下始终返回 baseDelay" time="0.0013481">
+        </testcase>
+        <testcase classname="comm/utils/src/retry.test.ts" name="calculateRetryDelay &gt; 固定延迟模式对任何 attempt 值都返回 baseDelay" time="0.0002315">
+        </testcase>
+        <testcase classname="comm/utils/src/retry.test.ts" name="calculateRetryDelay &gt; 指数退避：attempt=0 时延迟在 [baseDelay*(1-jitter), baseDelay*(1+jitter)] 范围内" time="0.0018752">
+        </testcase>
+        <testcase classname="comm/utils/src/retry.test.ts" name="calculateRetryDelay &gt; 指数退避：attempt 翻倍时延迟中位数近似翻倍" time="0.0001912">
+        </testcase>
+        <testcase classname="comm/utils/src/retry.test.ts" name="calculateRetryDelay &gt; 延迟值始终非负" time="0.0002219">
+        </testcase>
+        <testcase classname="comm/utils/src/retry.test.ts" name="calculateRetryDelay &gt; 返回值类型为整数" time="0.0001058">
+        </testcase>
+    </testsuite>
+    <testsuite name="apps/agent-web/src/components/agent-status-badge.test.ts" timestamp="2026-09-17T04:52:08.769Z" hostname="DESKTOP-FIC0TQ3" tests="8" failures="0" errors="0" skipped="0" time="0.0219121">
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; running 状态应显示「运行中」文字" time="0.0128188">
+        </testcase>
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; idle 状态应显示「空闲」" time="0.0013076">
+        </testcase>
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; running 状态应显示「运行中」" time="0.0008736">
+        </testcase>
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; paused 状态应显示「已暂停」" time="0.0007943">
+        </testcase>
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; error 状态应显示「异常」" time="0.0010707">
+        </testcase>
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; 应包含对应状态的 CSS 类名" time="0.0018776">
+        </testcase>
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; showLabel=false 时不显示文字但 DOM 保留" time="0.0012086">
+        </testcase>
+        <testcase classname="apps/agent-web/src/components/agent-status-badge.test.ts" name="AgentStatusBadge &gt; 应包含基础样式类名" time="0.0008752">
+        </testcase>
+    </testsuite>
+    <testsuite name="apps/agent-web/src/utils/agent-text-utils.test.ts" timestamp="2026-09-17T04:52:08.772Z" hostname="DESKTOP-FIC0TQ3" tests="13" failures="0" errors="0" skipped="0" time="0.0033176">
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="sanitizeText &gt; 应移除零宽空格（U+200B）" time="0.0010619">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="sanitizeText &gt; 应移除 U+FEFF BOM 字符" time="0.0001672">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="sanitizeText &gt; 空字符串应返回空字符串" time="0.0000966">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="sanitizeText &gt; 常规文本应原样保留" time="0.0000839">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="truncateText &gt; 文本未超长时应原样返回" time="0.0001145">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="truncateText &gt; 超长文本应截断并追加省略号" time="0.0001025">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="truncateText &gt; maxLength=0 返回空字符串" time="0.0000602">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="truncateText &gt; 应支持自定义后缀" time="0.0000606">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="stripCodeBlockLanguage &gt; 应移除 ```typescript 语言标签" time="0.0001278">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="stripCodeBlockLanguage &gt; 不带语言标签的代码块不应改变" time="0.000114">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="countPrintableChars &gt; 应正确统计中文字符数" time="0.0000817">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="countPrintableChars &gt; 应排除控制字符" time="0.0000492">
+        </testcase>
+        <testcase classname="apps/agent-web/src/utils/agent-text-utils.test.ts" name="countPrintableChars &gt; emoji 按单个码点计数" time="0.0000399">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/utils/src/helpers/merge-route-modules.test.ts" timestamp="2026-09-17T04:52:08.775Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0047544">
+        <testcase classname="comm/utils/src/helpers/merge-route-modules.test.ts" name="mergeRouteModules &gt; 应合并多个模块的路由为一个扁平数组" time="0.0027758">
+        </testcase>
+        <testcase classname="comm/utils/src/helpers/merge-route-modules.test.ts" name="mergeRouteModules &gt; 遇到模块 default 为空数组时应跳过（不添加元素）" time="0.0003216">
+        </testcase>
+        <testcase classname="comm/utils/src/helpers/merge-route-modules.test.ts" name="mergeRouteModules &gt; 传入空对象应返回空数组" time="0.0001388">
+        </testcase>
+        <testcase classname="comm/utils/src/helpers/merge-route-modules.test.ts" name="mergeRouteModules &gt; 一个模块包含多条路由时应全部合并" time="0.0002746">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" timestamp="2026-09-17T04:52:08.777Z" hostname="DESKTOP-FIC0TQ3" tests="12" failures="0" errors="0" skipped="0" time="0.0092189">
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="watchField &gt; 字段变化时应触发回调" time="0.0046792">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="watchField &gt; 其他字段变更不应触发回调" time="0.0004118">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="watchField &gt; 应支持嵌套路径" time="0.0008654">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="watchField &gt; 应返回 snapshot 与 stop 函数" time="0.0003051">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="watchField &gt; 调用 stop 后不再触发回调" time="0.0002826">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="watchMultipleFields &gt; 任一字段变化应触发回调" time="0.0003903">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="watchMultipleFields &gt; 未订阅字段变更不应触发回调" time="0.0002089">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="useFieldValue &gt; value computed 应反映字段当前值" time="0.0003907">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="useFieldValue &gt; 应使用 fallback 当值不存在" time="0.0001184">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="useFieldValue &gt; 应接受 ref 包装的 form" time="0.0002065">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="useDependentFieldValues &gt; 应返回 Map 且 key 为 dependsOn 字段" time="0.0001744">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/form-ui/src/use-field-subscription.test.ts" name="useDependentFieldValues &gt; 重复依赖字段只订阅一次" time="0.0000875">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/effects/shared-business/src/composables/use-dict-event.test.ts" timestamp="2026-09-17T04:52:08.781Z" hostname="DESKTOP-FIC0TQ3" tests="5" failures="0" errors="0" skipped="0" time="0.006487">
+        <testcase classname="comm/effects/shared-business/src/composables/use-dict-event.test.ts" name="use-dict-event &gt; onDictChange 注册的回调应在 emitDictChange 时被调用" time="0.0037165">
+        </testcase>
+        <testcase classname="comm/effects/shared-business/src/composables/use-dict-event.test.ts" name="use-dict-event &gt; emitDictChange 不带参数时 detail.typeCode 为 undefined" time="0.0004345">
+        </testcase>
+        <testcase classname="comm/effects/shared-business/src/composables/use-dict-event.test.ts" name="use-dict-event &gt; detail 应包含 timestamp 且为数字" time="0.0005211">
+        </testcase>
+        <testcase classname="comm/effects/shared-business/src/composables/use-dict-event.test.ts" name="use-dict-event &gt; 返回的取消订阅函数应移除监听，后续 emit 不再触发" time="0.000373">
+        </testcase>
+        <testcase classname="comm/effects/shared-business/src/composables/use-dict-event.test.ts" name="use-dict-event &gt; 多个订阅者应全部收到同一事件" time="0.0004617">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/composables/use-chunk-upload.test.ts" timestamp="2026-09-17T04:52:08.783Z" hostname="DESKTOP-FIC0TQ3" tests="5" failures="0" errors="0" skipped="0" time="0.0374338">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; enabled() 应在文件 &gt; chunkSize 时返回 true" time="0.0014729">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; 应导出默认 chunkSize 常量" time="0.0001283">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; httpRequest 应返回 Promise" time="0.0003116">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; abort 应无副作用地执行" time="0.0006259">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-chunk-upload.test.ts" name="useChunkUpload &gt; hash 计算应返回稳定的字符串" time="0.0337815">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" timestamp="2026-09-17T04:52:08.786Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0173803">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; immediate=true 时应立即挂载" time="0.0094226">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; 默认应等待 idle 回调后挂载" time="0.0013838">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; forceMount() 应跳过等待立即挂载" time="0.0009135">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; 应返回 containerRef 引用" time="0.0007686">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" name="useIdleHydrate &gt; isHydrated 变更应触发响应式更新" time="0.0008744">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" name="useSimpleIdleHydrate &gt; DEV 模式下立即挂载（import.meta.env.DEV=true）" time="0.0021994">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-idle-hydrate.test.ts" name="useSimpleIdleHydrate &gt; 手动 forceMount 后 isHydrated 为 true" time="0.0007701">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" timestamp="2026-09-17T04:52:08.787Z" hostname="DESKTOP-FIC0TQ3" tests="9" failures="0" errors="0" skipped="0" time="0.0056284">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; 应返回所有可见项（小列表不裁剪）" time="0.0020733">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; totalHeight 应等于 项数 × itemHeight" time="0.000224">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; 滚动后应更新可见项区间" time="0.0007394">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; offsetY 应表示首个可见项的顶部偏移" time="0.0001422">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; measuredHeights 应影响单项高度" time="0.0002946">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; getKey 应生成稳定的 key" time="0.0001936">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; visibleItems 应包含正确的 data 引用" time="0.0006283">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; scrollTop 应响应 onScroll 调用" time="0.000115">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/composables/use-virtual-list.test.ts" name="useVirtualList &gt; 空列表应安全返回空结果" time="0.0001523">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" timestamp="2026-09-17T04:52:08.790Z" hostname="DESKTOP-FIC0TQ3" tests="13" failures="0" errors="0" skipped="0" time="0.0395135">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; 默认渲染为 button 标签" time="0.0169199">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; 应包含默认变体基础类名" time="0.0028899">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; variant=&quot;destructive&quot; 应包含对应 bg 类名" time="0.0017601">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; variant=&quot;outline&quot; 应包含 border 类名" time="0.0015794">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; size=&quot;sm&quot; 应包含对应尺寸类名" time="0.0012473">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; size=&quot;lg&quot; 应包含对应大尺寸类名" time="0.0011472">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; as=&quot;a&quot; 时渲染为锚点元素" time="0.0015625">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; slot 内容应正确渲染" time="0.0087129">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="Button &gt; 自定义 class 应与变体类名合并" time="0.0013619">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="buttonVariants &gt; 默认调用应返回完整类名字符串" time="0.0002545">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="buttonVariants &gt; 指定 variant 与默认 variant 类名应不同" time="0.0005468">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="buttonVariants &gt; 指定 size 与默认 size 类名应不同" time="0.0001017">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/button/button.test.ts" name="buttonVariants &gt; 默认 size 应返回 h-9（default size）" time="0.0000629">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" timestamp="2026-09-17T04:52:08.793Z" hostname="DESKTOP-FIC0TQ3" tests="8" failures="0" errors="0" skipped="0" time="0.0947043">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 应能挂载并渲染 input 元素" time="0.0369709">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; input 应为 readonly" time="0.0070293">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 应显示 placeholder" time="0.0118806">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; v-model 应回显到 input" time="0.0103463">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; disabled 状态下 input 应禁用" time="0.0060554">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 自定义 class 应被合并到容器" time="0.0078047">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; 默认 placeholder 应为「选择日期」" time="0.007004">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/date-picker/DatePicker.test.ts" name="DatePicker &gt; type 默认为 date" time="0.006188">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" timestamp="2026-09-17T04:52:08.795Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0042206">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound components &gt; Dialog 应存在且为根容器" time="0.0007593">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound components &gt; DialogContent 应导出并接收 class 属性" time="0.000206">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound components &gt; DialogContent 应包含 showClose 默认 prop" time="0.0011912">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound components &gt; DialogContent default showClose=true" time="0.0002268">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound components &gt; DialogContent 应包含 animationType prop" time="0.000546">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound exports &gt; DialogTrigger 应有定义" time="0.0001337">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound exports &gt; DialogHeader 应有定义" time="0.0000722">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound exports &gt; DialogTitle 应有定义" time="0.0000636">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound exports &gt; DialogDescription 应有定义" time="0.0000698">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/dialog/dialog.test.ts" name="Dialog compound exports &gt; DialogFooter 应有定义" time="0.0000844">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" timestamp="2026-09-17T04:52:08.797Z" hostname="DESKTOP-FIC0TQ3" tests="9" failures="0" errors="0" skipped="0" time="0.0285236">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="FormItem &gt; 应包含 class prop" time="0.00101">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="FormItem &gt; 应注入 FORM_ITEM_INJECTION_KEY" time="0.0179788">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="FormItem &gt; 应渲染 slot 内容" time="0.0045237">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="FormItem &gt; 应接受自定义 class" time="0.0032036">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="Form related exports &gt; FormLabel 应导出" time="0.0002182">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="Form related exports &gt; FormControl 应导出" time="0.000132">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="Form related exports &gt; FormMessage 应导出" time="0.0001188">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="Form related exports &gt; FormDescription 应导出" time="0.0000764">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/form/form-item.test.ts" name="FORM_ITEM_INJECTION_KEY &gt; 应该是 Symbol 类型的 InjectionKey" time="0.0001552">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" timestamp="2026-09-17T04:52:08.799Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0570566">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; 应能挂载并渲染 slot 内容" time="0.0329184">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; 应转发 modelValue prop" time="0.0041812">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; disabled 状态下应传递 prop" time="0.003474">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; 应支持 open prop" time="0.0033476">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; 应支持 dir 属性（RTL 方向）" time="0.0032818">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; name 属性应可用于表单提交" time="0.0043489">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/Select.test.ts" name="Select &gt; required 属性应可用于必填校验" time="0.0039437">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/select/VSelect.test.ts" timestamp="2026-09-17T04:52:08.801Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0038977">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/VSelect.test.ts" name="VSelect &gt; 应能通过通用 helpers 正确生成测试数据" time="0.0020393">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/VSelect.test.ts" name="VSelect &gt; 小数据量（&lt; virtualThreshold）时应走原生分支" time="0.0003475">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/VSelect.test.ts" name="VSelect &gt; 大数据量（&gt;= virtualThreshold）时应走虚拟滚动分支" time="0.0002937">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/select/VSelect.test.ts" name="VSelect &gt; 处理空数组场景不抛出" time="0.0001743">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" timestamp="2026-09-17T04:52:08.802Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0092949">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="theme-schema &gt; 应包含全部核心语义色 token" time="0.0017355">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="theme-schema &gt; dark 模式下的 background 应有 darkValue" time="0.0007688">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="theme-schema &gt; tokensByCategory 应正确分组" time="0.0007992">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="useTheme &gt; set 应写入 CSS 变量到根元素" time="0.0019038">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="useTheme &gt; get 应返回已设置的值" time="0.0006053">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="useTheme &gt; 不存在的 token 不应写入并应打印警告" time="0.0005518">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="useTheme &gt; bulk 应批量写入所有 token 且仅对应次数的 DOM 操作" time="0.0003945">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="useTheme &gt; toggleDark 应切换根元素的 dark class" time="0.0005535">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="useTheme &gt; reset 应清除所有已覆盖的 token" time="0.0005568">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/theme/use-theme.test.ts" name="useTheme &gt; overrideCount 应返回已覆盖的数量" time="0.0003862">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" timestamp="2026-09-17T04:52:08.805Z" hostname="DESKTOP-FIC0TQ3" tests="13" failures="0" errors="0" skipped="0" time="0.0746688">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="Tooltip (TooltipRoot wrapper) &gt; 应能挂载并渲染默认 slot" time="0.0235104">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="Tooltip (TooltipRoot wrapper) &gt; open prop 应被接受并可用" time="0.0045944">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="Tooltip (TooltipRoot wrapper) &gt; defaultOpen 属性应可用" time="0.0026935">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipProvider &gt; 应能挂载并渲染 slot 内容" time="0.0036255">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipProvider &gt; delayDuration 应在合理范围内被接受" time="0.001734">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipProvider &gt; disableHoverableContent 属性应可用" time="0.0014416">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipTrigger &gt; 应渲染 slot 内容" time="0.0086084">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipTrigger &gt; asChild 属性应被接受" time="0.006037">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipContent &gt; 应能挂载（通过 Provider 包裹）" time="0.0048156">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipContent &gt; side 属性影响定位" time="0.0037133">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipContent &gt; align 属性应可用" time="0.0027262">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="TooltipContent &gt; 自定义 class 应被应用" time="0.0034584">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tooltip/Tooltip.test.ts" name="Tooltip integration &gt; Provider + Trigger + Content 三级结构可组装" time="0.0061568">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts" timestamp="2026-09-17T04:52:08.807Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0078194">
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 搜索空字符串应返回空结果" time="0.0030964">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 搜索 &quot;前端&quot; 应匹配多个节点" time="0.0012796">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 搜索的 label 区间应正确标注" time="0.0015236">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts" name="useTreeSearch &gt; clear 应清空关键字和结果" time="0.0002984">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 无匹配的搜索应返回空节点列表" time="0.0002246">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/shadcn-ui/src/ui/tree/use-tree-search.test.ts" name="useTreeSearch &gt; 无搜索关键字时 expandKeys 应为空" time="0.0001168">
+        </testcase>
+    </testsuite>
+</testsuites>

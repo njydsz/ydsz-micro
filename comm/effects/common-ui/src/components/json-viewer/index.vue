@@ -30,7 +30,7 @@ import { isBoolean } from '@ydsz-core/shared/utils';
 // @ts-ignore
 import JsonBigint from 'json-bigint';
 
-defineOptions({ name: 'JsonViewer' });
+defineOptions({ name: 'YdJsonViewer' });
 
 const props = withDefaults(defineProps<JsonViewerProps>(), {
   expandDepth: 1,

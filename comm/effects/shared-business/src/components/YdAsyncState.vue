@@ -13,10 +13,10 @@
  *
  * 用法：
  * ```vue
- * <AsyncState :loading="loading" :error="error" :empty="list.length === 0">
+ * <YdAsyncState :loading="loading" :error="error" :empty="list.length === 0">
  *   <!-- 数据就绪后的默认插槽 -->
  *   <vxe-grid :data="list" />
- * </AsyncState>
+ * </YdAsyncState>
  * ```
  */
 import { computed } from 'vue';
@@ -179,6 +179,7 @@ const skeletonRowArray = computed<number[]>(() =>
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }

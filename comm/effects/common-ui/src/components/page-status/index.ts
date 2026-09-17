@@ -7,4 +7,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as PageStatus } from './page-status.vue';
+export { default as PageStatus } from './YdPageStatus.vue';

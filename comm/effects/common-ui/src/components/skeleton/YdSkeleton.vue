@@ -6,10 +6,10 @@
 
   <p>使用方式:
   <pre>{@code
-    <Skeleton type="dashboard" />
-    <Skeleton type="list" :count="5" />
-    <Skeleton type="detail" />
-    <Skeleton type="form" />
+    <YdSkeleton type="dashboard" />
+    <YdSkeleton type="list" :count="5" />
+    <YdSkeleton type="detail" />
+    <YdSkeleton type="form" />
   }</pre>
 
   @path comm/effects/common-ui/src/components/skeleton/skeleton.vue

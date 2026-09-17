@@ -1,5 +1,5 @@
 /**
- * 左右双栏页面容器 `ColPage` 的布局配置类型。
+ * 左右双栏页面容器 `YdColPage` 的布局配置类型。
  *
  * 在 `PageProps` 之上只扩展「分栏」相关字段：宽度、拖拽范围、折叠行为。
  * 单独成文件是为了让分栏配置可以独立于组件被引用（例如偏好设置面板
@@ -15,7 +15,7 @@
 import type { PageProps } from '../page/types';
 
 /**
- * 左右双栏页面容器 `ColPage` 的 Props，在 {@link PageProps} 基础上扩展分栏布局配置。
+ * 左右双栏页面容器 `YdColPage` 的 Props，在 {@link PageProps} 基础上扩展分栏布局配置。
  *
  * @remarks
  * 底层基于 `ResizablePanelGroup` 实现，所有宽度类字段的单位均为**父容器宽度的百分比**（0~100），

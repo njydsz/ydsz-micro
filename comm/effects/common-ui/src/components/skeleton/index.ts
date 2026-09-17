@@ -8,6 +8,6 @@
  * @since 4.0.0
  */
 
-export { default as Skeleton } from './skeleton.vue';
-export type { SkeletonType } from './skeleton.vue';
+export { default as YdSkeleton } from './YdSkeleton.vue';
+export type { SkeletonType } from './YdSkeleton.vue';
 export { useRouteSkeleton } from './use-route-skeleton';

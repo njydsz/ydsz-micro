@@ -21,7 +21,7 @@ import { $t } from '@ydsz/locales';
 
 import { useTimeoutFn } from '@vueuse/core';
 
-import SliderCaptcha from '../slider-captcha/index.vue';
+import YdSliderCaptcha from '../slider-captcha/index.vue';
 
 const props = withDefaults(defineProps<SliderRotateCaptchaProps>(), {
   defaultTip: '',
@@ -205,7 +205,7 @@ defineExpose({
       </div>
     </div>
 
-    <SliderCaptcha
+    <YdSliderCaptcha
       ref="slideBarRef"
       v-model="modalValue"
       class="mt-5"
@@ -217,6 +217,6 @@ defineExpose({
       <template v-for="(_, key) in $slots" :key="key" #[key]="slotProps">
         <slot :name="key" v-bind="slotProps"></slot>
       </template>
-    </SliderCaptcha>
+    </YdSliderCaptcha>
   </div>
 </template>

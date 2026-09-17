@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { AlertCircle, CheckCircle2, FileIcon, Loader2, X } from 'lucide-vue-next';
+import { AlertCircle, CheckCircle2, YdFileIcon, Loader2, X } from 'lucide-vue-next';
 
 const props = defineProps<{
   file: UploadFile;
@@ -52,7 +52,7 @@ const computedPercent = computed(() => Math.round(props.file.percentage ?? 0));
     "
   >
     <!-- 文件图标 -->
-    <FileIcon class="text-muted-foreground h-4 w-4 shrink-0" />
+    <YdFileIcon class="text-muted-foreground h-4 w-4 shrink-0" />
 
     <!-- 名称 + 进度条 -->
     <div class="min-w-0 flex-1">

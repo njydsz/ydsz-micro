@@ -20,7 +20,7 @@ import {
   type ExcelExportColumn,
 } from '../composables/use-excel-export';
 
-defineOptions({ name: 'ExcelExportButton' });
+defineOptions({ name: 'YdExcelExportButton' });
 
 interface Props<T = unknown> {
   /** 导出列定义 */

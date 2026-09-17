@@ -112,7 +112,7 @@ const [Modal, modalApi] = useYdModal({
         await save(formData);
         showToast.success('创建成功');
       }
-      // 广播字典项变更事件，通知 DictSelect/DictTag 等组件自动刷新
+      // 广播字典项变更事件，通知 YdDictSelect/YdDictTag 等组件自动刷新
       if (formData.typeCode) {
         emitDictChange(formData.typeCode);
       }

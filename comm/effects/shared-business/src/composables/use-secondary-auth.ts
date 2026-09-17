@@ -1,5 +1,5 @@
 /**
- * 二次身份验证 Composable —— 提供 imperative API 驱动 SecondaryAuthModal。
+ * 二次身份验证 Composable —— 提供 imperative API 驱动 YdSecondaryAuthModal。
  *
  * <p>基于 createApp 实现真正的程序化弹窗：每次 open() 挂载一个独立 Vue 实例至 body，
  * Promise 结算后自动卸载，无全局状态泄漏。多位调用者依次 open() 时后者覆盖前者，
@@ -20,7 +20,7 @@ import type { Component } from 'vue';
 
 import { createApp, h, ref } from 'vue';
 
-import SecondaryAuthModal from '../components/secondary-auth-modal/index.vue';
+import YdSecondaryAuthModal from '../components/secondary-auth-modal/index.vue';
 
 /** 二次认证弹窗运行时状态 */
 const defaultState = () => ({
@@ -92,7 +92,7 @@ export function openSecondaryAuthModal(hintText?: string): Promise<string | null
 
         return () =>
           h(
-            SecondaryAuthModal as Component,
+            YdSecondaryAuthModal as Component,
             {
               visible: visible.value,
               hint: hint.value,

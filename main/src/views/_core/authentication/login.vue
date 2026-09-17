@@ -11,7 +11,7 @@ import type { BasicOption } from '@ydsz/types';
 
 import { computed, markRaw } from 'vue';
 
-import { AuthenticationLogin, SliderCaptcha, z } from '@ydsz/common-ui';
+import { AuthenticationLogin, YdSliderCaptcha, z } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 
 import { useAuthStore } from '#/store';
@@ -70,7 +70,7 @@ const formSchema = computed((): YdFormSchema[] => {
       rules: z.string().min(1, { message: '请输入密码' }),
     },
     {
-      component: markRaw(SliderCaptcha),
+      component: markRaw(YdSliderCaptcha),
       fieldName: 'captcha',
       rules: z.boolean().refine((value) => value, {
         message: $t('authentication.verifyRequiredTip'),

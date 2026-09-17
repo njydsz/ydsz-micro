@@ -51,7 +51,7 @@ export type NavigatorWithConnection = Navigator & {
  *
  * @since 4.0.0
  */
-export interface NetworkStatus {
+export interface YdNetworkStatus {
   /** 是否联网 */
   isOnline: boolean;
   /** 是否慢速网络（3g/2g/slow-2g） */
@@ -68,7 +68,7 @@ export interface NetworkStatus {
 
 const STATUS_KEY = '__MICRO_NETWORK_STATUS__';
 
-function readNavigatorConnection(): NetworkStatus {
+function readNavigatorConnection(): YdNetworkStatus {
   const nav = navigator as NavigatorWithConnection;
   const conn = nav.connection;
   const type = (conn?.effectiveType || '4g') as EffectiveType;
@@ -82,12 +82,12 @@ function readNavigatorConnection(): NetworkStatus {
 
 // 单例：多组件共享
 let stateInitialized = false;
-let refInstance: ReturnType<typeof ref<NetworkStatus>> | undefined;
+let refInstance: ReturnType<typeof ref<YdNetworkStatus>> | undefined;
 const listeners: Set<() => void> = new Set();
 
 function initState() {
   if (refInstance) return refInstance;
-  refInstance = ref<NetworkStatus>(readNavigatorConnection());
+  refInstance = ref<YdNetworkStatus>(readNavigatorConnection());
   const update = () => {
     if (!refInstance) return;
     refInstance.value = readNavigatorConnection();

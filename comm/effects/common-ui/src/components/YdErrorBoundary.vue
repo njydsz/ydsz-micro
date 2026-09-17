@@ -8,9 +8,9 @@
  *
  * @example
  * ```vue
- * <ErrorBoundary>
+ * <YdErrorBoundary>
  *   <CriticalComponent />
- * </ErrorBoundary>
+ * </YdErrorBoundary>
  * ```
  *
  * @author ydsz-team
@@ -28,7 +28,7 @@ import { reportError } from '@ydsz/monitor';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-defineOptions({ name: 'ErrorBoundary' });
+defineOptions({ name: 'YdErrorBoundary' });
 
 const logger = createLogger('error-boundary');
 
@@ -108,7 +108,7 @@ onErrorCaptured((err: Error, _instance, info: ErrorInfo) => {
 
   // 开发环境打印详细错误
   if (!import.meta.env.PROD) {
-    logger.error('[ErrorBoundary] Captured error:', err, info);
+    logger.error('[YdErrorBoundary] Captured error:', err, info);
   }
 
   // 返回 false 阻止错误继续传播

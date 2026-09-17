@@ -98,7 +98,7 @@ async function bootstrap(): Promise<void> {
   registerAccessDirective(vueApp);
   registerSafeHtmlDirective(vueApp);
 
-  // 安装 Tippy
+  // 安装 YdTippy
   try {
     const { initTippy } = await import('@ydsz/common-ui/es/tippy');
     initTippy(vueApp);

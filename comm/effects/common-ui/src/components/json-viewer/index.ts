@@ -5,6 +5,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as JsonViewer } from './index.vue';
+export { default as YdJsonViewer } from './YdPointSelectionCaptcha.vue';
 
 export * from './types';

@@ -20,9 +20,9 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { useTimeoutFn } from '@vueuse/core';
 
-import SliderCaptchaAction from './slider-captcha-action.vue';
+import SliderCaptchaAction from './YdSliderCaptchaAction.vue';
 import SliderCaptchaBar from './slider-captcha-bar.vue';
-import SliderCaptchaContent from './slider-captcha-content.vue';
+import SliderCaptchaContent from './YdSliderCaptchaContent.vue';
 
 const props = withDefaults(defineProps<SliderCaptchaProps>(), {
   actionStyle: () => ({}),

@@ -1,7 +1,7 @@
 ﻿/**
- * Tippy 文字提示组件封装与 v-tippy 指令注册入口
+ * YdTippy 文字提示组件封装与 v-tippy 指令注册入口
  *
- * 提供暗色主题自适应的 Tippy 组件、全局默认配置初始化与指令注册，
+ * 提供暗色主题自适应的 YdTippy 组件、全局默认配置初始化与指令注册，
  * 封装 tippy.js 实例管理以适配项目主题切换需求。
  *
  * @path comm\effects\common-ui\src\components\tippy\index.ts
@@ -13,7 +13,7 @@ import type { DefaultProps, Props } from 'tippy.js';
 import type { App, SetupContext } from 'vue';
 
 import { h, watchEffect } from 'vue';
-import { setDefaultProps, Tippy as TippyComponent } from 'vue-tippy';
+import { setDefaultProps, YdTippy as TippyComponent } from 'vue-tippy';
 
 import { usePreferences } from '@ydsz-core/preferences';
 
@@ -30,7 +30,7 @@ import 'tippy.js/animations/perspective.css';
 const { isDark } = usePreferences();
 
 /**
- * Tippy 提示组件 / 指令的配置项类型。
+ * YdTippy 提示组件 / 指令的配置项类型。
  *
  * @remarks
  * 在 tippy.js 原生 `Props` 的基础上做了两处收窄：
@@ -53,7 +53,7 @@ export type TippyProps = Partial<
 >;
 
 /**
- * 初始化 Tippy：设置全局默认配置并注册 `v-tippy` 指令。
+ * 初始化 YdTippy：设置全局默认配置并注册 `v-tippy` 指令。
  *
  * @remarks
  * 应在应用启动阶段调用一次；重复调用会覆盖此前的全局默认配置。
@@ -93,11 +93,11 @@ export function initTippy(app: App<Element>, options?: DefaultProps) {
  *
  * 这是一个无状态函数式组件，`attrs` 会覆盖同名 `props`，插槽全部透传。
  *
- * @param props - 透传给底层 Tippy 组件的配置，见 {@link TippyProps}
+ * @param props - 透传给底层 YdTippy 组件的配置，见 {@link TippyProps}
  * @param ctx - 组件上下文，其中 `attrs.theme` 参与主题解析，`slots` 原样透传
- * @returns 底层 Tippy 组件的 VNode
+ * @returns 底层 YdTippy 组件的 VNode
  */
-export const Tippy = (props: TippyProps, { attrs, slots }: SetupContext) => {
+export const YdTippy = (props: TippyProps, { attrs, slots }: SetupContext) => {
   let theme: string = (attrs.theme as string) ?? 'auto';
   if (theme === 'auto') {
     theme = isDark.value ? '' : 'light';

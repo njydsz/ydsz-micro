@@ -4,7 +4,7 @@
  * <p>提供跨组件的字典变更通知能力：
  * <ul>
  *   <li>字典管理页面 CRUD 成功后调用 {@link emitDictChange} 广播变更</li>
- *   <li>DictSelect / DictTag 等消费型组件监听变更并自动重新加载</li>
+ *   <li>YdDictSelect / YdDictTag 等消费型组件监听变更并自动重新加载</li>
  * </ul>
  *
  * <p>采用模块级 {@link EventTarget} 实现零依赖事件总线，所有监听器随组件 unmount 自动清理。

@@ -27,7 +27,7 @@ import type { YdBaseFormComponentType } from '@ydsz/common-ui';
 import { defineComponent, h, ref } from 'vue';
 
 import {
-  ApiComponent,
+  YdApiComponent,
   FormCheckbox,
   FormCheckboxGroup,
   FormInputNumber,
@@ -38,7 +38,7 @@ import {
   FormTreeSelect,
   FormUpload,
   globalShareState,
-  IconPicker,
+  YdIconPicker,
 } from '@ydsz/common-ui';
 import { $t } from '@ydsz/locales';
 import { showToast } from '@ydsz/notification';
@@ -105,7 +105,7 @@ export type ComponentType =
   | 'CheckboxGroup'
   | 'DatePicker'
   | 'Divider'
-  | 'IconPicker'
+  | 'YdIconPicker'
   | 'Input'
   | 'InputNumber'
   | 'RadioGroup'
@@ -129,7 +129,7 @@ async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {
     ApiSelect: withDefaultPlaceholder(
       {
-        ...ApiComponent,
+        ...YdApiComponent,
         name: 'ApiSelect',
       },
       'select',
@@ -140,7 +140,7 @@ async function initComponentAdapter() {
     ),
     ApiTreeSelect: withDefaultPlaceholder(
       {
-        ...ApiComponent,
+        ...YdApiComponent,
         name: 'ApiTreeSelect',
       },
       'select',
@@ -153,7 +153,7 @@ async function initComponentAdapter() {
     CheckboxGroup: FormCheckboxGroup,
     DatePicker,
     Divider: Separator,
-    IconPicker: withDefaultPlaceholder(IconPicker, 'select', {
+    YdIconPicker: withDefaultPlaceholder(YdIconPicker, 'select', {
       modelValueProp: 'model-value',
       inputComponent: YDSZInput,
     }),

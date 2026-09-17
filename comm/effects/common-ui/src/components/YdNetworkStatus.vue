@@ -11,8 +11,8 @@
  *
  * @example
  * ```vue
- * <NetworkStatus />
- * <NetworkStatus message="网络连接失败" show-retry @retry="reconnect" />
+ * <YdNetworkStatus />
+ * <YdNetworkStatus message="网络连接失败" show-retry @retry="reconnect" />
  * ```
  *
  * @author ydsz-team
@@ -27,7 +27,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Button } from '@ydsz-core/shadcn-ui';
 
-defineOptions({ name: 'NetworkStatus' });
+defineOptions({ name: 'YdNetworkStatus' });
 
 const props = withDefaults(
   defineProps<{

@@ -12,7 +12,7 @@ import { computed, onMounted, onUnmounted, watch } from "vue";
 
 import {
   AuthenticationLoginExpiredModal,
-  NetworkStatus,
+  YdNetworkStatus,
 } from "@ydsz/common-ui";
 import { useWatermark } from "@ydsz/hooks";
 import {
@@ -150,7 +150,7 @@ onUnmounted(() => {
   </BasicLayout>
 
   <!-- 全局网络状态监控 -->
-  <NetworkStatus />
+  <YdNetworkStatus />
   <!-- 全局设置悬浮按钮 -->
   <YdSettingsFloatButton variant="primary" />
 </template>

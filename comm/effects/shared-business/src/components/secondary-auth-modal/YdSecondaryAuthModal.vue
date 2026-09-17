@@ -36,7 +36,7 @@ import {
   InputPassword,
 } from '@ydsz-core/shadcn-ui';
 
-defineOptions({ name: 'SecondaryAuthModal' });
+defineOptions({ name: 'YdSecondaryAuthModal' });
 
 const props = withDefaults(
   defineProps<{

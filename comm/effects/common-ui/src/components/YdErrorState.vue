@@ -1,5 +1,5 @@
 <!--
-  ErrorState — 统一错误状态展示组件
+  YdErrorState — 统一错误状态展示组件
 
   用于 API 请求失败、网络异常等场景，提供友好提示 + 重试入口。
 
@@ -8,17 +8,17 @@
 -->
 <script setup lang="ts">
 /**
- * ErrorState — 统一错误状态展示组件
+ * YdErrorState — 统一错误状态展示组件
  *
  * 用于 API 请求失败、网络异常等场景，提供友好提示 + 重试入口。
  *
  * @example
  * ```vue
- * <ErrorState @retry="fetchData" />
- * <ErrorState message="项目数据加载失败" show-back />
+ * <YdErrorState @retry="fetchData" />
+ * <YdErrorState message="项目数据加载失败" show-back />
  * ```
  */
-defineOptions({ name: 'ErrorState' });
+defineOptions({ name: 'YdErrorState' });
 
 withDefaults(
   defineProps<{

@@ -85,7 +85,7 @@ interface Props {
     | false;
 }
 
-defineOptions({ name: 'ApiComponent', inheritAttrs: false });
+defineOptions({ name: 'YdApiComponent', inheritAttrs: false });
 
 const props = withDefaults(defineProps<Props>(), {
   labelField: 'label',

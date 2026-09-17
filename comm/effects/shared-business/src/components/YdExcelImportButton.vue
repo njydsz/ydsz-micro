@@ -26,7 +26,7 @@ import {
   type ExcelImportResult,
 } from '../composables/use-excel-import';
 
-defineOptions({ name: 'ExcelImportButton' });
+defineOptions({ name: 'YdExcelImportButton' });
 
 const logger = createLogger('excel-import-button');
 

@@ -19,7 +19,7 @@ import {
 import Page from '../page/page.vue';
 
 defineOptions({
-  name: 'ColPage',
+  name: 'YdColPage',
   inheritAttrs: false,
 });
 

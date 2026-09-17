@@ -23,7 +23,7 @@ import {
 
 import { bindGlobalShortcut, type ShortcutDescriptor } from '../composables/use-keyboard-shortcut';
 
-defineOptions({ name: 'KeyboardHelp' });
+defineOptions({ name: 'YdKeyboardHelp' });
 
 interface Props {
   /** 快捷键列表 */

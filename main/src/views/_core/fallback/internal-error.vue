@@ -10,13 +10,13 @@ import { computed, onMounted, ref } from 'vue';
 
 import { Fallback } from '@ydsz/common-ui';
 
-import { ErrorFeedback } from '@ydsz/common-ui';
+import { YdErrorFeedback } from '@ydsz/common-ui';
 
 import { getBreadcrumbs, isSentryInitialized } from '@ydsz/monitor';
 
 defineOptions({ name: 'InternalError' });
 
-const feedbackRef = ref<InstanceType<typeof ErrorFeedback> | null>(null);
+const feedbackRef = ref<InstanceType<typeof YdErrorFeedback> | null>(null);
 
 /** 错误上下文信息，将在反馈时附带 */
 const errorContext = computed(() => ({
@@ -58,7 +58,7 @@ onMounted(() => {
         </button>
 
         <!-- 错误反馈（仅在 Sentry 启用时显示） -->
-        <ErrorFeedback
+        <YdErrorFeedback
           v-if="isSentryInitialized()"
           ref="feedbackRef"
           :error-message="errorContext.message"

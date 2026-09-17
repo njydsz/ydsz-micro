@@ -99,7 +99,7 @@ export interface IdleHydrateHandle {
  * <template>
  *   <div ref="containerRef">
  *     <HeavyComponent v-if="isHydrated" />
- *     <Skeleton v-else />
+ *     <YdSkeleton v-else />
  *   </div>
  * </template>
  * ```

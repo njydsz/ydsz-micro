@@ -16,7 +16,7 @@ import { $t } from '@ydsz/locales';
 import { YdButton, YdIconButton } from '@ydsz-core/shadcn-ui';
 
 import { useCaptchaPoints } from '../hooks/useCaptchaPoints';
-import CaptchaCard from './point-selection-captcha-card.vue';
+import CaptchaCard from './YdPointSelectionCaptchaCard.vue';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaProps>(), {
   height: '220px',

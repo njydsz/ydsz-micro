@@ -139,7 +139,7 @@ async function submitFeedback(): Promise<void> {
   } catch (error) {
     submitStatus.value = "error";
     submitError.value = error instanceof Error ? error.message : String(error);
-    logger.error("[ErrorFeedback] Failed to submit:", error);
+    logger.error("[YdErrorFeedback] Failed to submit:", error);
 
     // 降级：即使 Sentry 发送失败，也记录用户反馈到本地
     try {
@@ -152,7 +152,7 @@ async function submitFeedback(): Promise<void> {
         userAgent: navigator.userAgent,
         url: window.location.href,
       };
-      logger.warn("[ErrorFeedback] Fallback log:", feedbackLog);
+      logger.warn("[YdErrorFeedback] Fallback log:", feedbackLog);
     } catch {
       // 静默
     }

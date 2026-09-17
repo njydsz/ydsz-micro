@@ -30,13 +30,13 @@ const logger = createLogger('userinfo-menu');
 import { create, update } from '#/api/menu';
 import type { MenuDTO, MenuTreeVO } from '#/api/models';
 
-import IconPicker from './components/IconPicker.vue';
+import YdIconPicker from './components/YdIconPicker.vue';
 
 const emit = defineEmits<{ success: [] }>();
 
 const formRef = ref();
 const isEdit = ref(false);
-const iconPickerRef = ref<InstanceType<typeof IconPicker> | null>(null);
+const iconPickerRef = ref<InstanceType<typeof YdIconPicker> | null>(null);
 
 /** 打开图标选择器 */
 function openIconPicker(): void {
@@ -246,6 +246,6 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
         </ElRadioGroup>
       </ElFormItem>
     </ElForm>
-    <IconPicker ref="iconPickerRef" @select="handleIconSelect" />
+    <YdIconPicker ref="iconPickerRef" @select="handleIconSelect" />
   </Modal>
 </template>

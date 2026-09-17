@@ -17,19 +17,19 @@ export { default as YdStatusBadge } from './components/status-badge.vue';
 export { default as UserAvatar } from './components/user-avatar.vue';
 
 // 字典选择器组件 — 从全局字典缓存获取数据
-export { default as DictSelect } from './components/dict-select.vue';
+export { default as YdDictSelect } from './components/dict-select.vue';
 
 // 字典标签组件 — 字典值渲染为彩色标签（表格列常用）
-export { default as DictTag } from './components/dict-tag.vue';
+export { default as YdDictTag } from './components/dict-tag.vue';
 
 // 文件类型图标组件
-export { default as FileIcon } from './components/file-icon.vue';
+export { default as YdFileIcon } from './components/file-icon.vue';
 
 // Excel 导出按钮组件 — 声明式导出
-export { default as ExcelExportButton } from './components/excel-export-button.vue';
+export { default as YdExcelExportButton } from './components/excel-export-button.vue';
 
 // Excel 导入按钮组件 — 声明式导入
-export { default as ExcelImportButton } from './components/excel-import-button.vue';
+export { default as YdExcelImportButton } from './components/excel-import-button.vue';
 
 // Excel 导入导出 composable
 export {
@@ -57,13 +57,13 @@ export type { ExcelColumn as ExcelImportColumn } from './composables/use-excel-i
 export { default as YdEmptyState } from './components/empty-state.vue';
 
 // 统一错误状态组件
-export { default as ErrorState } from './components/error-state.vue';
+export { default as YdErrorState } from './components/error-state.vue';
 
 // 异步状态容器组件（loading/error/empty/data 自动切换）
-export { default as AsyncState } from './components/async-state.vue';
+export { default as YdAsyncState } from './components/async-state.vue';
 
 // 键盘快捷键帮助面板
-export { default as KeyboardHelp } from './components/keyboard-help.vue';
+export { default as YdKeyboardHelp } from './components/keyboard-help.vue';
 
 // 键盘快捷键 composable
 export {
@@ -114,13 +114,13 @@ export {
 } from './composables/use-tenant';
 
 // 大数据量下拉选择器
-export { default as VirtualSelect } from './components/virtual-select.vue';
+export { default as YdVirtualSelect } from './components/virtual-select.vue';
 
 // 通用虚拟列表
-export { default as VirtualList } from './components/virtual-list.vue';
+export { default as YdVirtualList } from './components/virtual-list.vue';
 
 // 用户操作引导组件
-export { default as AppTour } from './components/app-tour.vue';
+export { default as YdAppTour } from './components/app-tour.vue';
 
 // 引导 composable
 export {
@@ -136,7 +136,7 @@ export {
 } from './composables/use-responsive';
 
 // 审批历史时间轴组件
-export { default as ApprovalTimeline } from './components/approval-timeline.vue';
+export { default as YdApprovalTimeline } from './components/approval-timeline.vue';
 export type { ApprovalRecord } from './components/approval-timeline.vue';
 
 // 工作流设计器辅助 composable
@@ -148,7 +148,7 @@ export {
 } from './composables/use-flow-designer';
 
 // 二次身份验证弹窗组件 — 程序化弹窗（createApp 挂载），安全约束完善（禁用 ESC/遮罩点击）
-export { default as SecondaryAuthModal } from './components/secondary-auth-modal/index.vue';
+export { default as YdSecondaryAuthModal } from './components/secondary-auth-modal/index.vue';
 
 // 二次身份验证 composable 与 imperative API
 export {

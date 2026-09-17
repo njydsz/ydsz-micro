@@ -25,7 +25,7 @@ import {
 
 import { $t } from '@ydsz/locales';
 
-import SliderCaptcha from '../slider-captcha/index.vue';
+import YdSliderCaptcha from '../slider-captcha/index.vue';
 
 const props = withDefaults(defineProps<SliderTranslateCaptchaProps>(), {
   defaultTip: '',
@@ -301,7 +301,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <SliderCaptcha
+    <YdSliderCaptcha
       ref="slideBarRef"
       v-model="modalValue"
       class="mt-5"
@@ -313,6 +313,6 @@ onMounted(() => {
       <template v-for="(_, key) in $slots" :key="key" #[key]="slotProps">
         <slot :name="key" v-bind="slotProps"></slot>
       </template>
-    </SliderCaptcha>
+    </YdSliderCaptcha>
   </div>
 </template>
