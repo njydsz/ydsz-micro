@@ -11,5 +11,5 @@
 export { default as enUS } from './en-US';
 export { default as zhCN } from './zh-CN';
 
-export { useLocale } from './useLocale';
-export type { LocaleMessages, UseLocaleOptions } from './useLocale';
+export { useLocale, LOCALE_LANG_KEY } from './useLocale';
+export type { LocaleMessages, LocaleLang, UseLocaleOptions } from './useLocale';

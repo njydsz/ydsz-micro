@@ -93,13 +93,89 @@ function persistConfig(config: UserPrefConfig): void {
 }
 
 /**
+ * Hex → HSL 三通道解析。
+ *
+ * @param hex - #RGB 或 #RRGGBB 格式颜色
+ * @returns [hue (0-360), saturation (0-100), lightness (0-100)]
+ */
+function hexToHsl(hex: string): [number, number, number] {
+  const cleaned = hex.replace('#', '');
+  const expanded = cleaned.length === 3
+    ? cleaned.split('').map((char) => char + char).join('')
+    : cleaned;
+  const r = parseInt(expanded.substring(0, 2), 16) / 255;
+  const g = parseInt(expanded.substring(2, 4), 16) / 255;
+  const b = parseInt(expanded.substring(4, 6), 16) / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+  const lightness = (max + min) / 2;
+
+  if (delta === 0) {
+    return [0, 0, Math.round(lightness * 100)];
+  }
+
+  const saturation = lightness > 0.5
+    ? delta / (2 - max - min)
+    : delta / (max + min);
+  let hue = 0;
+  if (max === r) {
+    hue = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
+  } else if (max === g) {
+    hue = ((b - r) / delta + 2) / 6;
+  } else {
+    hue = ((r - g) / delta + 4) / 6;
+  }
+
+  return [Math.round(hue * 360), Math.round(saturation * 100), Math.round(lightness * 100)];
+}
+
+/**
+ * 品牌色色阶 —— 各 shade 对应的目标 lightness（%）。
+ *
+ * <p>基准色（brand-500）取自用户自定义主题色 luminance，其余色阶由固定 lightness 派生，
+ * 确保不同 hue 的品牌色具有视觉协调的色阶分布。
+ */
+const BRAND_SHADE_LIGHTNESS: Record<number, number> = {
+  50: 95,
+  100: 90,
+  200: 78,
+  300: 65,
+  400: 52,
+  600: 38,
+  700: 30,
+};
+
+/**
+ * 将主题色写到 YDSZ 品牌色 CSS 变量（brand-50 到 brand-700）。
+ *
+ * <p>替代旧 Element Plus 运行时注入 --el-color-primary 桥接方案。
+ */
+function applyBrandColorToDOM(hex: string): void {
+  const root = document.documentElement;
+  const [hue, saturation, lightness] = hexToHsl(hex);
+
+  // brand-500 使用用户所选颜色精确值
+  root.style.setProperty('--brand-500', `${hue} ${saturation}% ${lightness}%`);
+
+  // 其余色阶按固定 lightness 派生，保留 hue/saturation
+  for (const [shade, targetLightness] of Object.entries(BRAND_SHADE_LIGHTNESS)) {
+    root.style.setProperty(`--brand-${shade}`, `${hue} ${saturation}% ${targetLightness}%`);
+  }
+}
+
+/**
  * 将偏好应用到 DOM（CSS 变量 / class）。
+ *
+ * <p>主题色直接写入 YDSZ 品牌色令牌（brand-50 ~ brand-700），
+ * 字体使用 --yd-font-size-base 写入。
  */
 function applyConfigToDOM(config: UserPrefConfig): void {
   const root = document.documentElement;
 
-  // 主题色
-  root.style.setProperty('--el-color-primary', config.themeColor);
+  // 品牌色（替代旧 Element Plus --el-color-primary 运行时写入）
+  applyBrandColorToDOM(config.themeColor);
 
   // 主题模式
   root.classList.remove('dark', 'light');
@@ -110,13 +186,13 @@ function applyConfigToDOM(config: UserPrefConfig): void {
     root.classList.add(config.theme);
   }
 
-  // 字体大小
+  // 字体大小（YDSZ 原生令牌，替代旧 --el-font-size-base）
   const fontSizeMap: Record<FontSize, string> = {
     large: '16px',
     medium: '14px',
     small: '13px',
   };
-  root.style.setProperty('--el-font-size-base', fontSizeMap[config.fontSize]);
+  root.style.setProperty('--yd-font-size-base', fontSizeMap[config.fontSize]);
 
   // 表格密度（绑定 CSS 变量，VxeTable adapter 读取）
   root.style.setProperty('--ydsz-table-size', TABLE_SIZE_MAP[config.tableSize]);

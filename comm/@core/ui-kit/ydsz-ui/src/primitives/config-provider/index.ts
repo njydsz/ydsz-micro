@@ -12,8 +12,15 @@
  * @since 1.0.0
  */
 
-export { CONFIG_INJECTION_KEY } from './YdConfigProvider.vue';
+export { CONFIG_INJECTION_KEY, LOCALE_LANG_KEY } from './YdConfigProvider.vue';
 export { default as YdConfigProvider } from './YdConfigProvider.vue';
-export type { ConfigContext, Density, ComponentSize, ThemeConfig, WaveConfig } from './types';
+export type {
+  ConfigContext,
+  Density,
+  ComponentSize,
+  LocaleConfig,
+  ThemeConfig,
+  WaveConfig,
+} from './types';
 
 export { useConfigProvider } from './useConfigProvider';

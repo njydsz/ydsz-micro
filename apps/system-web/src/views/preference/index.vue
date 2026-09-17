@@ -105,20 +105,60 @@ const fontSizeCSSValue: Record<string, string> = {
   large: '16px',
 };
 
+/**
+ * Hex → HSL 三通道解析。
+ *
+ * @param hex - #RGB 或 #RRGGBB 格式
+ * @returns [hue, saturation, lightness]
+ */
+function hexToHsl(hex: string): [number, number, number] {
+  const cleaned = hex.replace('#', '');
+  const expanded = cleaned.length === 3
+    ? cleaned.split('').map((char) => char + char).join('')
+    : cleaned;
+  const r = parseInt(expanded.substring(0, 2), 16) / 255;
+  const g = parseInt(expanded.substring(2, 4), 16) / 255;
+  const b = parseInt(expanded.substring(4, 6), 16) / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+  const lightness = (max + min) / 2;
+  if (delta === 0) {
+    return [0, 0, Math.round(lightness * 100)];
+  }
+  const saturation = lightness > 0.5
+    ? delta / (2 - max - min)
+    : delta / (max + min);
+  let hue = 0;
+  if (max === r) {
+    hue = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
+  } else if (max === g) {
+    hue = ((b - r) / delta + 2) / 6;
+  } else {
+    hue = ((r - g) / delta + 4) / 6;
+  }
+  return [Math.round(hue * 360), Math.round(saturation * 100), Math.round(lightness * 100)];
+}
+
+/** 品牌色色阶目标 lightness（%） */
+const BRAND_SHADE_LIGHTNESS: Record<number, number> = {
+  50: 95,
+  100: 90,
+  200: 78,
+  300: 65,
+  400: 52,
+  500: -1, // -1 = 使用原始颜色 luminance
+  600: 38,
+  700: 30,
+};
+
 /** 主题色 CSS 变量 */
 function applyThemeColor(color: string): void {
-  document.documentElement.style.setProperty('--el-color-primary', color);
-  // 派生色阶
-  const hex = color.replace('#', '');
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  for (let i = 1; i <= 9; i++) {
-    const factor = i <= 5 ? 0.9 + i * 0.05 : 1 + (i - 5) * 0.05;
-    document.documentElement.style.setProperty(
-      `--el-color-primary-light-${i}`,
-      `rgba(${r}, ${g}, ${b}, ${factor.toFixed(2)})`,
-    );
+  const root = document.documentElement;
+  const [hue, saturation, lightness] = hexToHsl(color);
+  for (const [shade, targetLightness] of Object.entries(BRAND_SHADE_LIGHTNESS)) {
+    const finalLightness = targetLightness === -1 ? lightness : targetLightness;
+    root.style.setProperty(`--brand-${shade}`, `${hue} ${saturation}% ${finalLightness}%`);
   }
 }
 
@@ -145,7 +185,7 @@ function applyTableSize(size: string): void {
 /** 应用字体大小 */
 function applyFontSize(size: string): void {
   document.documentElement.style.setProperty(
-    '--el-font-size-base',
+    '--yd-font-size-base',
     fontSizeCSSValue[size] || '14px',
   );
 }
@@ -575,7 +615,7 @@ onMounted(() => {
 
 .card-desc {
   font-size: 12px;
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-disabled));
 }
 
 .form-row {
@@ -590,7 +630,7 @@ onMounted(() => {
   width: 100px;
   font-size: 13px;
   font-weight: 500;
-  color: var(--el-text-color-regular);
+  color: hsl(var(--txt-secondary));
 }
 
 .color-swatches {
@@ -615,7 +655,7 @@ onMounted(() => {
   }
 
   &.is-active {
-    box-shadow: 0 0 0 2px var(--el-color-white), 0 0 0 4px var(--el-color-primary);
+    box-shadow: 0 0 0 2px hsl(var(--bg-surface-2)), 0 0 0 4px hsl(var(--brand-500));
   }
 }
 

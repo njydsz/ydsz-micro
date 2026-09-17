@@ -1,13 +1,12 @@
 /**
  * YdConfigProvider 配置上下文类型定义。
  *
- * 把 ConfigContext 从 Vue SFC 抽到独立模块，避免 YdConfigProvider.vue ↔ useConfigProvider.ts
- * 之间的循环导入，同时让 composables 可以不依赖 .vue 文件直接引用类型。
- *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\config-provider\types.ts
  * @author ydsz-team
  * @since 1.0.0
  */
+
+import type { LocaleLang } from '../../locale/useLocale';
 
 /** 组件密度档位 */
 export type Density = 'default' | 'compact' | 'loose';
@@ -29,6 +28,19 @@ export interface WaveConfig {
   isDisabled?: boolean;
 }
 
+/** 国际化配置 */
+export interface LocaleConfig {
+  /** 激活语种 */
+  lang?: LocaleLang;
+  /** 是否启用 RTL（右到左书写方向） */
+  isRTL?: boolean;
+  /**
+   * 自定义文案覆写（按语种分区）。
+   * 优先级最高：业务传入 > 内置双语包。
+   */
+  messages?: Partial<Record<LocaleLang, Record<string, string>>>;
+}
+
 /** 注入上下文类型 */
 export interface ConfigContext {
   /** 基础组件尺寸全局覆盖 */
@@ -37,8 +49,8 @@ export interface ConfigContext {
   density?: Density;
   /** CSS 前缀类名 */
   prefixCls?: string;
-  /** 国际化文案覆写 */
-  locale?: Record<string, string>;
+  /** 国际化配置 */
+  locale?: LocaleConfig;
   /** 空状态占位渲染器 */
   renderEmpty?: () => unknown;
   /** wave 动效开关 */
