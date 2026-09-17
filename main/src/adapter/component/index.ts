@@ -10,7 +10,7 @@
  * ESM，无需 EP 时代的 Promise.all 双 import 异步装配。
  *
  * 语义降级登记（P1-1 落地后回补）：
- * - YdSelectBase：YDSZSelect 为 options 驱动（value 为字符串），ElSelectV2 的
+ * - YdSelectBase：YDSZSelect 为 options 驱动（value 为字符串），
  *   大数据虚拟滚动暂以全量渲染承接；
  * - YdDatePicker：kit 仅支持 date/datetime，range 型 schema 暂以单值承接；
  * - TimePicker：由 FormTimePicker（datetime）过渡承接。

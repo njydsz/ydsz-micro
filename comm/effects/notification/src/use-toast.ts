@@ -1,7 +1,7 @@
 /**
- * useToast —— 命令式 Toast API，对齐原 ElMessage 行为。
+ * useToast —— 命令式 Toast API，提供非阻塞轻提示。
  *
- * <p>提供给业务代码的命令式轻提示（非阻塞）API，内部写入全局 toast 队列，
+ * <p>提供给业务代码的命令式轻提示 API，内部写入全局 toast 队列，
  * 由 ToastProvider 组件渲染，支持自动关闭、手动关闭、语义等级四套风格。
  *
  * <p>用法对齐 ElMessage：

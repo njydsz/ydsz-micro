@@ -1,7 +1,7 @@
 <!--
  * YdDatePicker Vue 组件 —— 基于 Popover 的日历命令式选择器。
  *
- * 提供与 ElDatePicker 对齐的核心 API：v-model 双向绑定、placeholder、disabled，
+ * 提供对齐业界 DatePicker 的核心 API：v-model 双向绑定、placeholder、disabled，
  * type 支持 date / datetime / range。range 模式下 v-model 为 `[开始, 结束]` 元组。
  *
  * 改进（YDIZ-POPUP-001）：

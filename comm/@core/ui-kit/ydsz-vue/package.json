@@ -1,0 +1,47 @@
+{
+  "name": "@ydsz-core/ydsz-vue",
+  "version": "1.0.0",
+  "description": "YDSZ Headless UI —— 基于 radix-vue@1.9.17 内化的无头组件层，独立演进",
+  "license": "MIT",
+  "author": "YDSZ Team (forked from radix-vue@1.9.17 by Radix Vue Contributors)",
+  "homepage": "https://github.com/ydsz/vue-ydsz-admin",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "default": "./src/index.ts"
+      }
+    }
+  },
+  "files": [
+    "src",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@floating-ui/dom": "^1.6.7",
+    "@floating-ui/vue": "^1.1.0",
+    "@internationalized/date": "^3.5.4",
+    "@internationalized/number": "^3.5.3",
+    "@tanstack/vue-virtual": "catalog:",
+    "@vueuse/core": "catalog:",
+    "@vueuse/shared": "catalog:",
+    "aria-hidden": "^1.2.4",
+    "defu": "catalog:",
+    "fast-deep-equal": "^3.1.3",
+    "nanoid": "^5.0.7"
+  },
+  "peerDependencies": {
+    "vue": "catalog:"
+  }
+}

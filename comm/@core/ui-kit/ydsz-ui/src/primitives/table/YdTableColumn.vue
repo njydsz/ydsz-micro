@@ -4,7 +4,7 @@
  * <p>作为 YdTable 的子组件使用：通过 provide/inject 向父级注册列定义，
  * 父级 YdTable 收集所有列后根据 data 自动渲染 thead/tbody。
  *
- * <p>接口对齐 ElTableColumn 常用属性，确保从 element-plus 迁移时模板
+ * <p>接口对齐 TableColumn 常用属性，确保从传统表格组件迁移时模板
  * 改动极小（只需标签重命名 + import 路径替换）。
  *
  * <p>示例：

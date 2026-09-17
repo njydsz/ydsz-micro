@@ -36,7 +36,7 @@ const CHECK_INTERVAL_MS = 30 * 1000;
  * 启动会话超时预警 composable
  *
  * <p>监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出确认框询问用户是否续期。
- * 使用 ydszConfirm（ydsz-ui）替代 ElMessageBox，showToast（ydsz-ui）替代 ElMessage。
+ * 使用 ydszConfirm（ydsz-ui）弹出确认框，showToast（ydsz-ui）展示消息。
  *
  * @remarks 必须在 Pinia 初始化后调用（bootstrap 中 initStores 之后）
  *

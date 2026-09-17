@@ -52,7 +52,7 @@ const LEVEL_TOAST_VARIANT: Record<ExceptionSeverity, 'info' | 'warning' | 'error
  * 常规操作反馈（使用全局 Toast 系统）。
  *
  * <p>自动关闭，非阻塞，适合常规操作成功/失败提示。
- * 内部使用基于 ydsz-ui ToastProvider 的 showToast，替代原 ElMessage。
+ * 内部使用基于 ydsz-ui ToastProvider 的 showToast 全局轻提示。
  *
  * @param message — 提示文案
  * @param level — 严重等级（默认 WARN）
@@ -66,7 +66,7 @@ export function showToastCompat(message: string, level: ExceptionSeverity = 'WAR
 /**
  * 桌面通知卡片（使用全局 Toast 系统的长停留模式）。
  *
- * <p>替代原 ElNotification，更醒目的长停留模式。
+ * <p>YdAlert 长停留式桌面通知卡片。
  *
  * @param title — 通知标题
  * @param message — 通知正文
@@ -85,7 +85,7 @@ export function showNotify(
 /**
  * 阻断式弹窗（使用 YdAlert 命令式提示框）。
  *
- * <p>替代原 ElMessageBox.alert，FATAL / 严重错误场景必须用此函数。
+ * <p>YdAlertDialog 阻断式弹窗，FATAL / 严重错误场景必须用此函数。
  *
  * @param title — 弹窗标题
  * @param message — 弹窗正文

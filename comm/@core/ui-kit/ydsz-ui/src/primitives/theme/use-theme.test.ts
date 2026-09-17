@@ -52,8 +52,8 @@ describe('theme-schema', () => {
   });
 
   it('dark 模式下的 background 应有 darkValue', () => {
-    expect(themeTokens.background.darkValue).toBeDefined();
-    expect(themeTokens.background.darkValue).not.toBe(themeTokens.background.defaultValue);
+    expect(themeTokens.background!.darkValue).toBeDefined();
+    expect(themeTokens.background!.darkValue).not.toBe(themeTokens.background!.defaultValue);
   });
 
   it('tokensByCategory 应正确分组', () => {
@@ -79,8 +79,7 @@ describe('useTheme', () => {
   it('不存在的 token 不应写入并应打印警告', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const handle = useTheme({ rootElement: mockElement });
-    // @ts-expect-error 测试未知 token 的容错
-    handle.set('non-existent-token', 'value');
+    handle.set('non-existent-token' as TokenName, 'value');
     expect(mockStyle.setProperty).not.toHaveBeenCalled();
     expect(warnSpy).toHaveBeenCalled();
     warnSpy.mockRestore();

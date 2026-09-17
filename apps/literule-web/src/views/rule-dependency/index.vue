@@ -198,7 +198,7 @@ async function handleCascadingPreview(row: RuleDependencyVO): Promise<void> {
 }
 
 function handleTabChange(): void {
-  // 切换 tab 时无需额外操作，ElTable 数据已缓存在 ref 中
+  // 切换 tab 时无需额外操作，YdTable 数据已缓存在 ref 中
 }
 
 /** 监听搜索框变化清空数据 */
