@@ -1,0 +1,61 @@
+{
+  "_description": "UI 组件统一 Yd 前缀映射表 — 所有包组件/function/type 名",
+  "form-ui": {
+    "YDSZFormProps": "YdFormProps",
+    "YDSZFormSchema": "YdFormSchema",
+    "setupYDSZForm": "setupYdForm",
+    "useYDSZForm": "useYdForm",
+    "BaseFormComponentType": "YdBaseFormComponentType",
+    "ExtendedFormApi": "YdExtendedFormApi",
+    "YDSZForm": "YdForm"
+  },
+  "popup-ui": {
+    "YDSZModal": "YdModal",
+    "YDSZDrawer": "YdDrawer",
+    "Alert": "YdAlert",
+    "AlertProps": "YdAlertProps",
+    "PromptProps": "YdPromptProps",
+    "useYDSZModal": "useYdModal",
+    "useYDSZDrawer": "useYdDrawer",
+    "setDefaultModalProps": "setDefaultYdModalProps",
+    "setDefaultDrawerProps": "setDefaultYdDrawerProps",
+    "PopupApi": "YdPopupApi",
+    "PopupApiCallbacks": "YdPopupApiCallbacks",
+    "PopupApiOptions": "YdPopupApiOptions"
+  },
+  "menu-ui": {
+    "Menu": "YdMenu",
+    "MenuBadge": "YdMenuBadge",
+    "NormalMenu": "YdNormalMenu",
+    "MenuBadgeDot": "YdMenuBadgeDot"
+  },
+  "tabs-ui": {
+    "TabsView": "YdTabsView"
+  },
+  "layout-ui": {
+    "YDSZAdminLayout": "YdAdminLayout",
+    "YDSZLayoutProps": "YdLayoutProps"
+  },
+  "tiptap": {
+    "YDSZTipTapEditor": "YdTipTapEditor",
+    "TipTapToolbar": "YdTipTapToolbar",
+    "getDefaultExtensions": "getYdDefaultExtensions"
+  },
+  "_files": {
+    "YDSZ-tiptap-editor.vue": "YdTipTapEditor.vue",
+    "YDSZ-use-form.vue": "YdUseForm.vue",
+    "modal.vue": "YdModal.vue",
+    "drawer.vue": "YdDrawer.vue",
+    "alert.vue": "YdAlert.vue",
+    "menu.vue": "YdMenu.vue",
+    "normal-menu.vue": "YdNormalMenu.vue",
+    "tabs-view.vue": "YdTabsView.vue",
+    "YDSZ-layout.vue": "YdAdminLayout.vue",
+    "YDSZ-layout.ts": "YdLayout.ts",
+    "YDSZ-modal.vue": "YdModal.vue",
+    "YDSZ-drawer.vue": "YdDrawer.vue",
+    "use-YDSZ-form.ts": "use-Yd-form.ts",
+    "use-modal.ts": "use-Yd-modal.ts",
+    "use-drawer.ts": "use-Yd-drawer.ts"
+  }
+}

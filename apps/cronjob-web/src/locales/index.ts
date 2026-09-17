@@ -9,4 +9,4 @@ import { createSubAppI18n } from '@ydsz/shared-auth';
 
 const modules = import.meta.glob('./langs/**/*.json');
 
-export const { $t, elementLocale, setupI18n } = createSubAppI18n({ modules });
+export const { $t, setupI18n } = createSubAppI18n({ modules });
