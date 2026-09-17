@@ -8,5 +8,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdBackTop } from './back-top.vue';
+export { default as YdBackTop } from './YdBackTop.vue';
 

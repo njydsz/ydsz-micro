@@ -8,6 +8,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdSegmented } from './segmented.vue';
+export { default as YdSegmented } from './YdSegmented.vue';
 
 export type * from './types';

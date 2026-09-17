@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdExpandableArrow } from './expandable-arrow.vue';
+export { default as YdExpandableArrow } from './YdExpandableArrow.vue';
 

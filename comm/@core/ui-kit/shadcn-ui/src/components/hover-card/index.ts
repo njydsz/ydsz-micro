@@ -7,6 +7,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdHoverCard } from './hover-card.vue';
+export { default as YdHoverCard } from './YdHoverCard.vue';
 export type { HoverCardContentProps } from 'radix-vue';
 

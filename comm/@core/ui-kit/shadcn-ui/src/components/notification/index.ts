@@ -9,5 +9,5 @@
  * @since 4.1.0 (P2-15)
  */
 
-export { default as YdNotificationBell } from './notification-bell.vue';
-export { default as YdNotificationPanel } from './notification-panel.vue';
+export { default as YdNotificationBell } from './YdNotificationBell.vue';
+export { default as YdNotificationPanel } from './YdNotificationPanel.vue';

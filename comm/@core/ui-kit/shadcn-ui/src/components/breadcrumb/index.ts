@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdBreadcrumbView } from './breadcrumb-view.vue';
+export { default as YdBreadcrumbView } from './YdBreadcrumbView.vue';
 
 export type * from './types';
 

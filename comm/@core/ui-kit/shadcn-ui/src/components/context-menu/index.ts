@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdContextMenu } from './context-menu.vue';
+export { default as YdContextMenu } from './YdContextMenu.vue';
 
 export type * from './interface';
 

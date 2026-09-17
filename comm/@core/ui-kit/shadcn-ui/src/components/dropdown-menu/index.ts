@@ -5,8 +5,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdDropdownMenu } from './dropdown-menu.vue';
-export { default as YdDropdownRadioMenu } from './dropdown-radio-menu.vue';
+export { default as YdDropdownMenu } from './YdDropdownMenu.vue';
+export { default as YdDropdownRadioMenu } from './YdDropdownRadioMenu.vue';
 
 export type * from './interface';
 

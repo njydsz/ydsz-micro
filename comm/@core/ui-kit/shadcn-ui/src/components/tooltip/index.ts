@@ -8,5 +8,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdHelpTooltip } from './help-tooltip.vue';
-export { default as YdTooltip } from './tooltip.vue';
+export { default as YdHelpTooltip } from './YdHelpTooltip.vue';
+export { default as YdTooltip } from './YdTooltip.vue';

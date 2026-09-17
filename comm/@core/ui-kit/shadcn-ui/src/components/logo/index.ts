@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdLogo } from './logo.vue';
+export { default as YdLogo } from './YdLogo.vue';
 

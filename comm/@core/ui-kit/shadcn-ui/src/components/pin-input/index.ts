@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdPinInput } from './input.vue';
+export { default as YdPinInput } from './YdPinInput.vue';
 
 export type * from './types';
 

@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdCheckbox } from './checkbox.vue';
+export { default as YdCheckbox } from './YdCheckbox.vue';
 

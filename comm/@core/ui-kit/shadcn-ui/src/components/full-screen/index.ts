@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdFullScreen } from './full-screen.vue';
+export { default as YdFullScreen } from './YdFullScreen.vue';
 

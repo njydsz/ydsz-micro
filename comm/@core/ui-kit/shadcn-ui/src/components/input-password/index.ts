@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdInputPassword } from './input-password.vue';
+export { default as YdInputPassword } from './YdInputPassword.vue';
 

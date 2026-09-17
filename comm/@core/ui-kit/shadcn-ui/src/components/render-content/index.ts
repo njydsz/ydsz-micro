@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdRenderContent } from './render-content.vue';
+export { default as YdRenderContent } from './YdRenderContent.vue';

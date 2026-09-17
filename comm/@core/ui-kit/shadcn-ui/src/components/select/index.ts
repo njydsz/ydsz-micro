@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdSelect } from './select.vue';
+export { default as YdSelect } from './YdSelect.vue';

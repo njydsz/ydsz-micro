@@ -5,5 +5,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdCountToAnimator } from './count-to-animator.vue';
+export { default as YdCountToAnimator } from './YdCountToAnimator.vue';
 

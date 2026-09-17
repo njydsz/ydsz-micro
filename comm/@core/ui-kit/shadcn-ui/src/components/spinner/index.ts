@@ -8,5 +8,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdLoading } from './loading.vue';
-export { default as YdSpinner } from './spinner.vue';
+export { default as YdLoading } from './YdLoading.vue';
+export { default as YdSpinner } from './YdSpinner.vue';
