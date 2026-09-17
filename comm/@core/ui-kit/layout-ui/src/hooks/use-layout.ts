@@ -10,7 +10,7 @@
  */
 import type { LayoutType } from '@ydsz-core/typings';
 
-import type { YdLayoutProps } from '../YDSZ-layout';
+import type { YdLayoutProps } from '../YdLayout';
 
 import { computed } from 'vue';
 

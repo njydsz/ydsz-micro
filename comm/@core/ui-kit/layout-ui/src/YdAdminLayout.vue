@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YdLayoutProps } from './YDSZ-layout';
+import type { YdLayoutProps } from './YdLayout';
 
 import { SCROLL_FIXED_CLASS } from '@ydsz-core/composables';
 import { YdMenu } from '@ydsz-core/icons';

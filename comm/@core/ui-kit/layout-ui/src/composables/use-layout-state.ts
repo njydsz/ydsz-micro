@@ -13,7 +13,7 @@
  */
 import type { CSSProperties } from 'vue';
 
-import type { YdLayoutProps } from '../YDSZ-layout';
+import type { YdLayoutProps } from '../YdLayout';
 
 import { computed, ref, watch } from 'vue';
 

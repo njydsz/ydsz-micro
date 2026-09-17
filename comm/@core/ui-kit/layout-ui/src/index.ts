@@ -9,4 +9,4 @@
  * @since 1.0.0
  */
 export type * from './YdLayout';
-export { default as YdAdminLayout } from './YdLayout.vue';
+export { default as YdAdminLayout } from './YdAdminLayout.vue';
