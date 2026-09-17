@@ -9,3 +9,4 @@
  * @since 1.0.0
  */
 export { default as YdInput } from './YdInput.vue';
+export type { InputSize } from './YdInput.vue';

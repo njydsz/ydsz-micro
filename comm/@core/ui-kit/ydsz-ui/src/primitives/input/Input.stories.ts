@@ -3,6 +3,8 @@
  *
  * P1-2.3: 组件文档化 — YdInput 组件交互式文档
  *
+ * <p>P1-6: 新增尺寸档位 Stories（xs / sm / default / lg）。
+ *
  * @path comm/@core/ui-kit/ydsz-ui/src/ui/input/YdInput.stories.ts
  * @author ydsz-team
  * @since 1.0.0
@@ -16,6 +18,11 @@ const meta: Meta<typeof YdInput> = {
   component: YdInput,
   tags: ['autodocs'],
   argTypes: {
+    size: {
+      control: 'select',
+      options: ['xs', 'sm', 'default', 'lg'],
+      description: '输入框尺寸档位',
+    },
     type: {
       control: 'select',
       options: ['text', 'password', 'email', 'number', 'tel', 'url', 'search'],
@@ -25,10 +32,6 @@ const meta: Meta<typeof YdInput> = {
       control: 'text',
       description: '占位文本',
     },
-    disabled: {
-      control: 'boolean',
-      description: '是否禁用',
-    },
     modelValue: {
       control: 'text',
       description: '绑定值',
@@ -37,7 +40,7 @@ const meta: Meta<typeof YdInput> = {
   parameters: {
     docs: {
       description: {
-        component: '输入框组件用于接收用户文本输入，支持多种类型和状态。',
+        component: '输入框组件用于接收用户文本输入，支持 4 档尺寸（xs/sm/default/lg）、多种类型和状态。',
       },
     },
   },
@@ -185,6 +188,21 @@ export const AllTypes: Story = {
         <YdInput type="tel" placeholder="电话输入" />
         <YdInput type="url" placeholder="URL 输入" />
         <YdInput type="search" placeholder="搜索输入" />
+      </div>
+    `,
+  }),
+};
+
+/** 尺寸档位展示 */
+export const AllSizes: Story = {
+  render: () => ({
+    components: { YdInput },
+    template: `
+      <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+        <YdInput size="xs" placeholder="xs" style="width: 120px;" />
+        <YdInput size="sm" placeholder="sm" style="width: 120px;" />
+        <YdInput size="default" placeholder="default" style="width: 140px;" />
+        <YdInput size="lg" placeholder="lg" style="width: 160px;" />
       </div>
     `,
   }),
