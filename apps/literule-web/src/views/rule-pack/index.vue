@@ -140,22 +140,22 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
+              YdButton,
               { size: 'small', link: true, type: 'success', onClick: () => handleInstall(row) },
               () => '安装',
             ),
             h(
-              ElButton,
+              YdButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleViewVersions(row) },
               () => '版本历史',
             ),
             h(
-              ElButton,
+              YdButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleDiff(row) },
               () => '版本对比',
             ),
             h(
-              ElButton,
+              YdButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleOpenScoreDialog(row) },
               () => '质量评分',
             ),
@@ -192,17 +192,17 @@ const installedGridOptions: VxeTableGridOptions<RulePackVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
+              YdButton,
               { size: 'small', link: true, type: 'primary', onClick: () => handleViewVersions(row) },
               () => '版本历史',
             ),
             h(
-              ElButton,
+              YdButton,
               { size: 'small', link: true, type: 'warning', onClick: () => handleDiff(row) },
               () => '版本对比',
             ),
             h(
-              ElButton,
+              YdButton,
               { size: 'small', link: true, type: 'danger', onClick: () => handleUninstall(row) },
               () => '卸载',
             ),
@@ -235,7 +235,7 @@ const updatableGridOptions: VxeTableGridOptions<PackUpdateInfoVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.hasUpdate ? 'warning' : 'info' }, () =>
+          h(YdBadge, { type: row.hasUpdate ? 'warning' : 'info' }, () =>
             row.hasUpdate ? '可更新' : '已最新',
           ),
       },
@@ -248,7 +248,7 @@ const updatableGridOptions: VxeTableGridOptions<PackUpdateInfoVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElButton,
+            YdButton,
             { size: 'small', link: true, type: 'success', onClick: () => handleUpdateSingle(row) },
             () => '一键更新',
           ),
@@ -583,7 +583,7 @@ const versionGridOptions: VxeTableGridOptions<RulePackVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElButton,
+            YdButton,
             { size: 'small', link: true, type: 'warning', onClick: () => handleRollback(row.packVersion ?? '') },
             () => '回滚',
           ),
