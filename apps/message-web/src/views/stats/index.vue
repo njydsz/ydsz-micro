@@ -17,9 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { SelectContent, SelectItem, SelectTrigger, SelectValue, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-// SKIP: ElCard/ElStatistic 不在 shadcn 映射表，保留 EP
-import { ElCard, ElStatistic } from 'element-plus';
+import { Button, Card, CardContent, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref, watch } from 'vue';
 
@@ -271,44 +269,69 @@ onMounted(() => {
 
     <!-- 概览卡片 -->
     <div class="mb-4 grid grid-cols-5 gap-4 px-4">
-      <ElCard shadow="hover">
-        <ElStatistic title="总发送量" :value="overviewData.totalSent ?? 0" />
-      </ElCard>
-      <ElCard shadow="hover">
-        <ElStatistic title="总送达量" :value="overviewData.totalDelivered ?? 0" />
-      </ElCard>
-      <ElCard shadow="hover">
-        <ElStatistic title="总已读量" :value="overviewData.totalRead ?? 0" />
-      </ElCard>
-      <ElCard shadow="hover">
-        <ElStatistic title="送达率" :value="deliveryRate" suffix="%" />
-      </ElCard>
-      <ElCard shadow="hover">
-        <ElStatistic title="已读率" :value="readRate" suffix="%" />
-      </ElCard>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent class="flex flex-col items-center pt-6">
+          <span class="text-sm text-gray-500">总发送量</span>
+          <span class="mt-1 text-2xl font-bold">{{ overviewData.totalSent ?? 0 }}</span>
+        </CardContent>
+      </Card>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent class="flex flex-col items-center pt-6">
+          <span class="text-sm text-gray-500">总送达量</span>
+          <span class="mt-1 text-2xl font-bold">{{ overviewData.totalDelivered ?? 0 }}</span>
+        </CardContent>
+      </Card>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent class="flex flex-col items-center pt-6">
+          <span class="text-sm text-gray-500">总已读量</span>
+          <span class="mt-1 text-2xl font-bold">{{ overviewData.totalRead ?? 0 }}</span>
+        </CardContent>
+      </Card>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent class="flex flex-col items-center pt-6">
+          <span class="text-sm text-gray-500">送达率</span>
+          <span class="mt-1 text-2xl font-bold text-green-600">{{ deliveryRate }}%</span>
+        </CardContent>
+      </Card>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent class="flex flex-col items-center pt-6">
+          <span class="text-sm text-gray-500">已读率</span>
+          <span class="mt-1 text-2xl font-bold text-blue-600">{{ readRate }}%</span>
+        </CardContent>
+      </Card>
     </div>
 
     <!-- 成本卡片 -->
     <div class="mb-4 grid grid-cols-2 gap-4 px-4">
-      <ElCard shadow="hover">
-        <ElStatistic title="总成本" :value="costData.totalCost" prefix="¥" :precision="2" />
-      </ElCard>
-      <ElCard shadow="hover">
-        <ElStatistic title="单条成本" :value="costData.costPerMsg" prefix="¥" :precision="4" />
-      </ElCard>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent class="flex flex-col items-center pt-6">
+          <span class="text-sm text-gray-500">总成本</span>
+          <span class="mt-1 text-2xl font-bold text-amber-600">{{ '¥' }}{{ costData.totalCost.toFixed(2) }}</span>
+        </CardContent>
+      </Card>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent class="flex flex-col items-center pt-6">
+          <span class="text-sm text-gray-500">单条成本</span>
+          <span class="mt-1 text-2xl font-bold text-purple-600">{{ '¥' }}{{ costData.costPerMsg.toFixed(4) }}</span>
+        </CardContent>
+      </Card>
     </div>
 
     <!-- 图表区域 -->
     <div class="grid grid-cols-2 gap-4 px-4 pb-4">
       <!-- 渠道分布 -->
-      <ElCard shadow="hover">
-        <div id="channelChart" class="h-80" />
-      </ElCard>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent>
+          <div id="channelChart" class="h-80" />
+        </CardContent>
+      </Card>
 
       <!-- 转化漏斗 -->
-      <ElCard shadow="hover">
-        <div id="funnelChart" class="h-80" />
-      </ElCard>
+      <Card class="hover:shadow-md transition-shadow">
+        <CardContent>
+          <div id="funnelChart" class="h-80" />
+        </CardContent>
+      </Card>
     </div>
   </Page>
 </template>

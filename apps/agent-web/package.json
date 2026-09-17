@@ -8,7 +8,8 @@
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:e2e": "playwright test"
   },
   "imports": {
     "#/*": "./src/*"
@@ -46,7 +47,8 @@
     "unplugin-element-plus": "catalog:",
     "@vue/test-utils": "catalog:",
     "vitest": "catalog:",
-    "happy-dom": "catalog:"
+    "happy-dom": "catalog:",
+    "@playwright/test": "catalog:"
   },
   "license": "MIT"
 }

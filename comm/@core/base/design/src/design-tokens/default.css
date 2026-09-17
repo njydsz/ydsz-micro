@@ -715,24 +715,22 @@
  * 加深边框与次要文本，提升可视性
  */
 @media (prefers-contrast: more) {
-  :root {
+  :root,
+  :root[data-theme],
+  .dark,
+  .dark[data-theme] {
     --border-default: var(--neutral-400);
     --border-strong: var(--neutral-500);
     --txt-secondary: var(--neutral-800);
   }
 
+  /* 暗色模式下进一步提升对比度 */
   .dark,
-  .dark[data-theme='custom'],
-  .dark[data-theme='default'] {
+  .dark[data-theme] {
     --border-default: var(--neutral-400);
     --border-strong: var(--neutral-300);
-    --txt-secondary: var(--neutral-800);
+    --txt-secondary: var(--neutral-100);
   }
-  /* YDIZ-a11y-003: theme-aware overrides for extended tokens */
-  --txt-primary: var(--foreground);
-  --txt-secondary: var(--muted-foreground);
-  --txt-disabled: var(--muted);
-
 }
 
 [data-theme='gray'] {

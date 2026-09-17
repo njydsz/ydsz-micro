@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件节点（列表页）
  *
  * @path apps\nextwiki-web\src\views\file\index.vue
@@ -10,13 +10,16 @@
  * 文件节点（列表页）
  * <p>文件节点的浏览页，支持目录/文件两种类型，数据来自后端契约 API（apps/nextwiki-web/src/api/file.ts）。
  * <p>支持上传、下载、预览、重命名、移动、复制、删除，新建文件夹使用 file-form.vue 提交 createFolder。
+ * <p>TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 shadcn-ui。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElDialog, ElDrawer, ElInput, ElTabPane, ElTabs, ElTag, ElUpload } from 'element-plus';
+// TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 shadcn-ui
+import { ElTabPane, ElTabs, ElUpload } from 'element-plus';
+import { Button, Input, Badge, Dialog, DialogContent, DialogFooter, DialogHeader, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -60,7 +63,7 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(ElTag, { type: row.nodeType === 'FOLDER' ? 'warning' : 'primary' }, () => (row.nodeType === 'FOLDER' ? '目录' : '文件')),
+          h(Badge, { variant: row.nodeType === 'FOLDER' ? 'warning' : 'default' }, () => (row.nodeType === 'FOLDER' ? '目录' : '文件')),
       },
     },
     {
@@ -77,30 +80,30 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(ElButton, {
-              size: 'small', link: true, type: 'success',
+            h(Button, {
+              size: 'sm', variant: 'link',
               onClick: () => handlePreview(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '预览'),
-            h(ElButton, {
-              size: 'small', link: true, type: 'primary',
+            h(Button, {
+              size: 'sm', variant: 'link',
               onClick: () => handleDownload(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '下载'),
-            h(ElButton, {
-              size: 'small', link: true, type: 'warning',
+            h(Button, {
+              size: 'sm', variant: 'link',
               onClick: () => handleOnlineEdit(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '编辑'),
-            h(ElButton, {
-              size: 'small', link: true, type: 'primary',
+            h(Button, {
+              size: 'sm', variant: 'link',
               onClick: () => handleVersionHistory(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '版本'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleRename(row) }, () => '重命名'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleMove(row) }, () => '移动'),
-            h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleCopy(row) }, () => '复制'),
-            h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) }, () => '删除'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleRename(row) }, () => '重命名'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleMove(row) }, () => '移动'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleCopy(row) }, () => '复制'),
+            h(Button, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -282,75 +285,98 @@ async function executeZipImport(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="文件管理">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleUpload">上传文件</ElButton>
-        <ElButton type="success" @click="handleBatchImport">批量导入</ElButton>
-        <ElButton type="primary" @click="handleAdd">新建文件夹</ElButton>
+        <Button @click="handleUpload">上传文件</Button>
+        <Button variant="secondary" @click="handleBatchImport">批量导入</Button>
+        <Button @click="handleAdd">新建文件夹</Button>
       </template>
     </Grid>
     <FileFormModal @success="gridApi.query()" />
     <FileUploadModal @success="gridApi.query()" />
-    <ElDialog v-model="renameVisible" title="重命名" width="420px">
-      <ElInput v-model="renameForm.name" placeholder="请输入新名称" />
-      <template #footer>
-        <ElButton @click="renameVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="confirmRename">确定</ElButton>
-      </template>
-    </ElDialog>
-    <ElDialog v-model="moveVisible" title="移动文件" width="420px">
-      <ElInput v-model="moveForm.parentId" placeholder="请输入目标父目录ID（留空表示根目录）" />
-      <template #footer>
-        <ElButton @click="moveVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="confirmMove">确定</ElButton>
-      </template>
-    </ElDialog>
-    <ElDrawer v-model="previewVisible" title="文件预览" :size="800" direction="rtl">
-      <FilePreview :file-node="previewFileNode" @close="previewVisible = false" />
-    </ElDrawer>
+    <Dialog v-model:open="renameVisible">
+      <DialogContent class="sm:max-w-[420px]">
+        <DialogHeader>
+          <DialogTitle>重命名</DialogTitle>
+        </DialogHeader>
+        <div class="py-4">
+          <Input v-model="renameForm.name" placeholder="请输入新名称" />
+        </div>
+        <DialogFooter>
+          <Button variant="outline" @click="renameVisible = false">取消</Button>
+          <Button @click="confirmRename">确定</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    <Dialog v-model:open="moveVisible">
+      <DialogContent class="sm:max-w-[420px]">
+        <DialogHeader>
+          <DialogTitle>移动文件</DialogTitle>
+        </DialogHeader>
+        <div class="py-4">
+          <Input v-model="moveForm.parentId" placeholder="请输入目标父目录ID（留空表示根目录）" />
+        </div>
+        <DialogFooter>
+          <Button variant="outline" @click="moveVisible = false">取消</Button>
+          <Button @click="confirmMove">确定</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    <Sheet v-model:open="previewVisible">
+      <SheetContent side="right" class="w-[800px]">
+        <FilePreview :file-node="previewFileNode" @close="previewVisible = false" />
+      </SheetContent>
+    </Sheet>
     <FileVersionHistory ref="fileVersionHistoryRef" :file-node="currentNode" />
     <WopiEditor ref="wopiEditorRef" :file-node="currentNode" />
 
     <!-- 批量导入弹窗 -->
-    <ElDialog v-model="batchImportVisible" title="批量导入" width="560px">
-      <ElTabs v-model="batchImportType">
-        <ElTabPane label="多文件上传" name="files">
-          <ElUpload
-            :auto-upload="false"
-            :file-list="batchFileList as any"
-            :on-change="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
-            :on-remove="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
-            multiple
-            drag
+    <Dialog v-model:open="batchImportVisible">
+      <DialogContent class="sm:max-w-[560px]">
+        <DialogHeader>
+          <DialogTitle>批量导入</DialogTitle>
+        </DialogHeader>
+        <div class="py-4">
+          <!-- TODO: ElTabs / ElTabPane 尚未迁移到 shadcn-ui -->
+          <ElTabs v-model="batchImportType">
+            <ElTabPane label="多文件上传" name="files">
+              <ElUpload
+                :auto-upload="false"
+                :file-list="batchFileList as any"
+                :on-change="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
+                :on-remove="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
+                multiple
+                drag
+              >
+                <div class="py-8 text-center text-sm text-gray-500">
+                  点击或拖拽多个文件到此处
+                </div>
+              </ElUpload>
+            </ElTabPane>
+            <ElTabPane label="ZIP 导入" name="zip">
+              <ElUpload
+                :auto-upload="false"
+                :limit="1"
+                :on-change="(file: any) => { zipFile.value = file.raw || null; }"
+                :on-remove="() => { zipFile.value = null; }"
+                accept=".zip"
+                drag
+              >
+                <div class="py-8 text-center text-sm text-gray-500">
+                  点击或拖拽 ZIP 压缩包到此处
+                </div>
+              </ElUpload>
+            </ElTabPane>
+          </ElTabs>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" @click="batchImportVisible = false">取消</Button>
+          <Button
+            :loading="batchImportLoading"
+            @click="batchImportType === 'files' ? executeBatchUpload() : executeZipImport()"
           >
-            <div class="py-8 text-center text-sm text-gray-500">
-              点击或拖拽多个文件到此处
-            </div>
-          </ElUpload>
-        </ElTabPane>
-        <ElTabPane label="ZIP 导入" name="zip">
-          <ElUpload
-            :auto-upload="false"
-            :limit="1"
-            :on-change="(file: any) => { zipFile.value = file.raw || null; }"
-            :on-remove="() => { zipFile.value = null; }"
-            accept=".zip"
-            drag
-          >
-            <div class="py-8 text-center text-sm text-gray-500">
-              点击或拖拽 ZIP 压缩包到此处
-            </div>
-          </ElUpload>
-        </ElTabPane>
-      </ElTabs>
-      <template #footer>
-        <ElButton @click="batchImportVisible = false">取消</ElButton>
-        <ElButton
-          type="primary"
-          :loading="batchImportLoading"
-          @click="batchImportType === 'files' ? executeBatchUpload() : executeZipImport()"
-        >
-          确定导入
-        </ElButton>
-      </template>
-    </ElDialog>
+            确定导入
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </Page>
 </template>
