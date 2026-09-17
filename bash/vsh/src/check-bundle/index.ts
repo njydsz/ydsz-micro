@@ -1,7 +1,7 @@
 /**
  * check-bundle — 产物共享依赖重复打包检测
  *
- * importmap 外部化的共享依赖（vue / element-plus / vxe-table 等）必须以
+ * importmap 外部化的共享依赖（vue / vxe-table 等）必须以
  * bare import 形式出现在构建产物中（运行时由浏览器按 importmap 解析为唯一实例）。
  * 若某应用产物中完全找不到对应 bare import，说明该依赖被误打包进 chunk，
  * 将导致主/子应用出现双实例（provide/inject 与全局状态割裂）。
@@ -37,7 +37,7 @@ export interface BundleViolation {
 
 /** 共享依赖清单镜像（与 conf/vite-config/src/micro-shared-deps.ts 保持一致，避免跨包 import） */
 const CORE_DEPS = ['vue', 'vue-router', 'pinia'];
-const UI_DEPS = ['element-plus', '@element-plus/icons-vue', 'vxe-table', 'vxe-pc-ui'];
+const UI_DEPS = ['vxe-table', 'vxe-pc-ui'];
 
 /** 策略 → 应外置依赖集（与 STRATEGY_MAP 对齐） */
 const STRATEGY_MAP: Record<string, string[]> = {

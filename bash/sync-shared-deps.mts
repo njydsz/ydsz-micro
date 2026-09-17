@@ -39,8 +39,6 @@ const ALL_SHARED_DEPS = [
   { name: 'vue', range: '^3.5.17' },
   { name: 'vue-router', range: '^4.5.1' },
   { name: 'pinia', range: '^3.0.3' },
-  { name: 'element-plus', range: '^2.10.2' },
-  { name: '@element-plus/icons-vue', range: '^2.3.2' },
   { name: 'vxe-table', range: '^4.14.4' },
   { name: 'vxe-pc-ui', range: '^4.7.12' },
   { name: 'axios', range: '^1.10.0' },

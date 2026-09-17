@@ -14,14 +14,6 @@
       "url": "https://esm.sh/*pinia@4.0.3/dist/pinia.js",
       "version": "4.0.3"
     },
-    "element-plus": {
-      "url": "https://esm.sh/*element-plus@2.14.5/es/index.mjs",
-      "version": "2.14.5"
-    },
-    "@element-plus/icons-vue": {
-      "url": "https://esm.sh/*@element-plus/icons-vue@2.3.2/dist/index.js",
-      "version": "2.3.2"
-    },
     "vxe-table": {
       "url": "https://esm.sh/*vxe-table@4.21.3/es/index.esm.js",
       "version": "4.21.3"
