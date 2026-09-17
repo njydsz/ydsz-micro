@@ -190,32 +190,28 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
         </YdNumberField>
 
         <!-- Boolean / YdSwitch -->
-        <el-switch
+        <YdSwitch
           v-else-if="field.component === 'YdSwitch'"
           v-model="formModel[field.fieldName] as boolean"
           :disabled="disabled"
-          @change="emit('update:formData', formModel)"
+          @update:modelValue="emit('update:formData', formModel)"
         />
 
         <!-- YdTextarea (长文本) -->
-        <el-input
+        <YdTextarea
           v-else-if="field.component === 'YdInput' && schema?.properties[field.fieldName]?.maxLength && (schema.properties[field.fieldName].maxLength ?? 0) > 256"
           v-model="formModel[field.fieldName] as string"
-          type="textarea"
-          :rows="3"
           :maxlength="schema.properties[field.fieldName].maxLength"
-          show-word-limit
           :disabled="disabled"
           :placeholder="`请输入${field.label}`"
           @blur="emit('update:formData', formModel)"
         />
 
         <!-- YdInput (默认) -->
-        <el-input
+        <YdInput
           v-else
           v-model="formModel[field.fieldName] as string"
           :maxlength="schema?.properties[field.fieldName]?.maxLength"
-          :show-word-limit="!!schema?.properties[field.fieldName]?.maxLength"
           :disabled="disabled"
           :placeholder="`请输入${field.label}`"
           @blur="emit('update:formData', formModel)"
@@ -225,10 +221,9 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
   </div>
 
   <!-- 空态 -->
-  <el-empty
+  <YdEmptyState
     v-else
     description="当前节点未配置表单"
-    :image-size="80"
   />
 </template>
 

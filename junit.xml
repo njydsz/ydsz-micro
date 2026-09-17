@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="10" failures="0" errors="0" time="0.0068111">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" timestamp="2026-09-17T09:53:50.055Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0068111">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; 初始状态应未在拖拽中" time="0.0022649">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; startDrag 应更新拖拽状态" time="0.0005214">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; startDrag 对 canDrag=false 的节点应无效" time="0.0002458">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; handleDragOver 应计算 before 位置" time="0.000506">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; handleDragOver 应计算 after 位置" time="0.0002552">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; handleDragOver 应计算 inside 位置（有子节点时）" time="0.000332">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; 落点不应在被拖拽节点自身上" time="0.0001715">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; endDrag 应在有有效落点时触发 onReorder" time="0.0007547">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; endDrag 应清理拖拽状态" time="0.0002641">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/headless/use-tree-drag.test.ts" name="useTreeDrag &gt; 无有效落点时 endDrag 不应触发 onReorder" time="0.0002732">
+<testsuites name="vitest tests" tests="1" failures="1" errors="0" time="0">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/auto-complete/autoComplete.test.ts" timestamp="2026-09-17T09:58:19.029Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/auto-complete/autoComplete.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/auto-complete/autoComplete.test.ts" time="0">
+            <failure message="Error parsing JavaScript expression: Unexpected token, expected &quot;{&quot; (1:80)" type="SyntaxError">
+SyntaxError: Error parsing JavaScript expression: Unexpected token, expected &quot;{&quot; (1:80)
+211|      &lt;/YdPopoverTrigger&gt;
+212|      &lt;YdPopoverContent
+213|        :class=&quot;cn(&apos;max-h-60 w-[var(--radix-popover-trigger-width)] overflow-y-auto p-1&apos;, class)&quot;
+   |                 ^
+214|        align=&quot;start&quot;
+215|        side=&quot;bottom&quot;
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>
