@@ -17,9 +17,11 @@ import type { InjectionKey, Ref } from 'vue';
 import { computed, inject, readonly, ref } from 'vue';
 
 import { enUS } from './en-US';
+import { jaJP } from './ja-JP';
 import { zhCN } from './zh-CN';
 
-export type LocaleLang = 'zh-CN' | 'en-US';
+/** 支持的语种类型 */
+export type LocaleLang = 'zh-CN' | 'en-US' | 'ja-JP';
 
 /** 文案表类型 */
 export type LocaleMessages = Record<string, string>;
@@ -45,6 +47,7 @@ const LOCALE_LANG_KEY: InjectionKey<Ref<LocaleLangState | undefined>>
 /** 内置默认语言包 */
 const BUILTIN_MESSAGES: LocaleRegistry = {
   'en-US': enUS,
+  'ja-JP': jaJP,
   'zh-CN': zhCN,
 };
 
@@ -80,7 +83,7 @@ export function useLocale(options: UseLocaleOptions = {}): {
   /** 当前激活语种 */
   const lang = computed<LocaleLang>(() => {
     const current = injectedState?.value?.lang;
-    if (current === 'en-US' || current === 'zh-CN') {
+    if (current === 'en-US' || current === 'zh-CN' || current === 'ja-JP') {
       return current;
     }
     return 'zh-CN';
